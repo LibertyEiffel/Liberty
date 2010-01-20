@@ -1375,10 +1375,62 @@ feature {}
 				restore(buffer, old_position)
 			elseif image.is_integer_64 then
 				create {TYPED_EIFFEL_IMAGE[INTEGER_64]}Result.make(image.twin, image.to_integer_64, last_blanks.twin, start_position)
+			elseif is_hex(image) then
+				create {TYPED_EIFFEL_IMAGE[INTEGER_64]}Result.make(image.twin, hex_to_integer_64(image), last_blanks.twin, start_position)
 			elseif image.is_real then
 				create {TYPED_EIFFEL_IMAGE[REAL]}Result.make(image.twin, image.to_real, last_blanks.twin, start_position)
 			else
 				create {UNTYPED_EIFFEL_IMAGE}Result.make(image.twin, last_blanks.twin, start_position)
+			end
+		end
+
+	is_hex (image: STRING): BOOLEAN is
+		local
+			i: INTEGER
+		do
+			from
+				Result := image.count.in_range(3, 18) and then image.has_prefix(once "0x")
+				i := 3
+			until
+				not Result or else i > image.count
+			loop
+				inspect
+					image.item(i)
+				when '0'..'9', 'a'..'f', 'A'..'F' then
+					check Result end
+				else
+					Result := False
+				end
+				i := i + 1
+			end
+		end
+
+	hex_to_integer_64 (image: STRING): INTEGER_64 is
+		require
+			is_hex(image)
+		local
+			i, n: INTEGER; c: CHARACTER
+		do
+			from
+				i := 3
+			until
+				i > image.count
+			loop
+				c := image.item(i)
+				inspect
+					c
+				when '0'..'9' then
+					n := c.code #- '0'.code
+				when 'a'..'f' then
+					n := c.code #- 'a'.code #+ 10
+				when 'A'..'F' then
+					n := c.code #- 'A'.code #+ 10
+				end
+				check
+					n.in_range(0, 15)
+				end
+				Result := (Result #* 16) #+ n
+				i := i + 1
 			end
 		end
 

@@ -73,6 +73,55 @@ feature {ANY}
 			Result := the_feature /= Void
 		end
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM) is
+		do
+			o.put_string(once "   feature ")
+			debug_clients(o, clients)
+			if is_creation then
+				o.put_string(once "create ")
+				debug_clients(o, creation_clients)
+			end
+			if is_frozen then
+				o.put_string(once " frozen")
+			end
+			if is_prefix then
+				o.put_string(once " prefix ")
+			elseif is_infix then
+				o.put_string(once " infix ")
+			else
+				o.put_character(' ')
+			end
+			o.put_string(name.out)
+			if the_feature = Void then
+				o.put_line(once " is not yet attached")
+			else
+				o.put_line(once " is")
+				the_feature.debug_display(o, 2)
+				o.put_line(once "      end")
+			end
+		end
+
+feature {}
+	debug_clients (o: OUTPUT_STREAM; c: like clients) is
+		local
+			i: INTEGER
+		do
+			o.put_character('{')
+			from
+				i := c.lower
+			until
+				i > c.upper
+			loop
+				o.put_string(c.item(i).full_name.out)
+				if i < c.upper then
+					o.put_string(once ", ")
+				end
+				i := i + 1
+			end
+			o.put_character('}')
+		end
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_name (a_name: like feature_name) is
 		require
@@ -118,14 +167,14 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			fd.has_precursor(a_type)
 		do
 			if not same_clients(fd.clients) then
-				--| *** WARNING: the inherited features don't have the same export clauses (the second set is
-				--| ignored)
+				--| *** TODO: warning: the inherited features don't have the same export clauses (the second set
+				--| is ignored)
 			end
 			if fd.the_feature /= Void then
 				if the_feature = Void then
 					the_feature := fd.the_feature
-				else
-					the_feature := the_feature.join(fd.the_feature)
+				elseif the_feature /= fd.the_feature then
+					the_feature := the_feature.join(fd.the_feature, Current, fd)
 				end
 			end
 			if not has_precursor(a_type) then
@@ -135,6 +184,57 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 					precursor_feature(a_type) = fd.precursor_feature(a_type)
 				end
 			end
+		end
+
+feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
+	fatal_join_error_redefined_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join redefined feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_deferred_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join deferred feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_redefined (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			with.fatal_join_error_redefined_concrete(Current)
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_deferred (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			with.fatal_join_error_deferred_concrete(Current)
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join concrete feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
@@ -217,6 +317,8 @@ feature {}
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
 
 	heart_beat: LIBERTY_HEART_BEAT
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	feature_name /= Void

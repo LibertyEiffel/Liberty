@@ -74,7 +74,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := builder.get_type_from_type_definition(parent_clause.type_definition)
+				parent := builder.get_type_from_type_definition(parent_clause.type_definition, Void)
 				if parent /= Void then
 					inject_parent_invariant(parent)
 					inject_parent_features(parent, parent_clause.parent_clause, conformant)
@@ -98,7 +98,7 @@ feature {}
 	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
-			pf: like parent_features
+			pf: like parent_features; rf_count: INTEGER; r: LIBERTY_FEATURE_REDEFINED
 		do
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
 			from
@@ -110,13 +110,20 @@ feature {}
 				parent_fd := parent.features.item(i)
 				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
 				fd.add_precursor(parent_fd.the_feature, parent)
+				fd.set_the_feature(parent_fd.the_feature)
 				pf.add(fd, name)
 				i := i + 1
 			end
-			rename_features(pf, clause.rename_clause)
-			export_features(pf, clause.export_clause)
-			undefine_features(pf, clause.undefine_clause, conformant)
-			redefine_features(pf, clause.redefine_clause, conformant)
+			if clause /= Void and then clause.has_clauses then
+				rename_features(pf, clause.rename_clause)
+				export_features(pf, clause.export_clause)
+				undefine_features(pf, clause.undefine_clause, conformant)
+				rf_count := redefine_features(pf, clause.redefine_clause, conformant)
+				if rf_count > 0 and then redefined_features.is_empty then
+					-- create a new collection because the default empty collection is shared
+					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(rf_count)
+				end
+			end
 			from
 				i := pf.lower
 			until
@@ -127,8 +134,20 @@ feature {}
 				actual_fd := parent_features.reference_at(name)
 				if actual_fd = Void then
 					parent_features.add(fd, name)
+					actual_fd := fd
 				else
 					actual_fd.join(fd, parent)
+					check
+						actual_fd.feature_name.is_equal(name)
+					end
+				end
+				--|*** TODO: below, that code is a dirty hack.
+				if actual_fd.the_feature.definition_type = type and then (r ?:= actual_fd.the_feature) and then not redefined_features.has(name) then
+					check
+						fd.the_feature = actual_fd.the_feature
+					end
+					r ::= actual_fd.the_feature
+					redefined_features.add(r, name)
 				end
 				i := i + 1
 			end
@@ -141,8 +160,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -173,8 +190,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -208,8 +223,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -223,7 +236,7 @@ feature {}
 					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
-					create deferred_feature.make
+					create deferred_feature.make(type)
 					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_context(inherited_feature.context)
@@ -236,21 +249,16 @@ feature {}
 			end
 		end
 
-	redefine_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN) is
+	redefine_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN): INTEGER is
 			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
 			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
-			if clause.list_count > 0 then
-				if redefined_features.is_empty then
-					-- create a new collection because the default empty collection is shared between all instances
-					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(clause.list_count)
-				end
+			Result := clause.list_count
+			if Result > 0 then
 				from
 					i := clause.list_lower
-				invariant
-					pf.item(i).feature_name.is_equal(pf.key(i))
 				until
 					i > clause.list_upper
 				loop
@@ -264,7 +272,7 @@ feature {}
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
 						inherited_feature := fd.the_feature
-						create redefined_feature.make
+						create redefined_feature.make(type)
 						redefined_feature.set_precondition(inherited_feature.precondition)
 						redefined_feature.set_postcondition(inherited_feature.postcondition)
 						redefined_feature.set_context(inherited_feature.context)
@@ -272,7 +280,6 @@ feature {}
 							inherited_feature.bind(redefined_feature, type)
 						end
 						fd.set_the_feature(redefined_feature)
-						redefined_features.add(redefined_feature, feature_name)
 					end
 					i := i + 1
 				end
@@ -282,18 +289,22 @@ feature {}
 	push_parent_features_in_type is
 		local
 			i: INTEGER
-			fn: LIBERTY_FEATURE_NAME
+			fn, k: LIBERTY_FEATURE_NAME
 			f: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := parent_features.lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i >  parent_features.upper
 			loop
 				f := parent_features.item(i)
 				fn := f.feature_name
+				debug
+					k := parent_features.key(i)
+					check
+						fn.is_equal(k)
+					end
+				end
 				if not type.has_feature(fn) then
 					heart_beat.beat
 					type.add_feature(f)

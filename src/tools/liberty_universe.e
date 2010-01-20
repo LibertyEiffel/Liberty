@@ -200,6 +200,8 @@ feature {}
 		end
 
 	check_heart_beat_and_swap_incubator (count: LIBERTY_HEART_BEAT_COUNT; incubator: like types_incubator): like types_incubator is
+		require
+			types_incubator.is_empty
 		do
 			if heart_beat.is_alive(count) then
 				Result := types_incubator
@@ -209,9 +211,9 @@ feature {}
 				end
 			else
 				debug
-					std_output.put_line("Incubator: " + incubator.out)
+					debug_types
 				end
-				errors.set(level_system_error, "Compiler staled.")
+				errors.set(level_system_error, "Compiler stalled.")
 				check
 					dead: False
 				end
@@ -219,6 +221,47 @@ feature {}
 		ensure
 			types_incubator = incubator
 			Result = old types_incubator
+		end
+
+feature {} -- debug
+	debug_types is
+		local
+			i: INTEGER
+			all_types: FAST_ARRAY[LIBERTY_TYPE]
+			c: COMPARATOR_COLLECTION_SORTER[LIBERTY_TYPE]
+		do
+			from
+				create all_types.with_capacity(types.count)
+				c.set_comparator(agent debug_compare_type_names)
+				i := types.lower
+			until
+				i > types.upper
+			loop
+				c.add(all_types, types.item(i))
+				i := i + 1
+			end
+			check
+				all_types.count = types.count
+			end
+			std_output.put_line(once "--8<--------")
+			from
+				i := all_types.lower
+			until
+				i > all_types.upper
+			loop
+				all_types.item(i).debug_display(std_output)
+				if i < types.upper then
+					std_output.put_new_line
+				end
+				i := i + 1
+			end
+			std_output.put_line(once "-------->8--")
+			sedb_breakpoint
+		end
+
+	debug_compare_type_names (t1, t2: LIBERTY_TYPE): BOOLEAN is
+		do
+			Result := t1.full_name < t2.full_name
 		end
 
 feature {}
@@ -268,7 +311,7 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
-	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
+	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
 		require
 			origin /= Void
 			type_definition /= Void
@@ -278,7 +321,7 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 		local
 			cluster: LIBERTY_CLUSTER
 			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_TYPE]
+			parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 		do
 			class_name := type_definition.type_name.image.image
 			inspect
@@ -314,9 +357,8 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 			when "BOOLEAN" then
 				Result := type_boolean
 			when "TUPLE" then
-				--|*** TODO: system error - should not be here
-				check False end
-				crash
+				parameters := get_tuple_parameters(origin, type_definition.type_parameters, local_context, effective_parameters)
+				Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
 			else
 				Result := effective_parameters.fast_reference_at(class_name.intern)
 				if Result = Void then
@@ -325,7 +367,7 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
 						errors.set(level_fatal_error, "Unknown class: " + class_name)
 					else
-						parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
+						parameters := get_parameters(origin, type_definition.type_parameters, local_context, effective_parameters)
 						Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
 					end
 				end
@@ -360,7 +402,7 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
+	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]): LIBERTY_TYPE is
 		require
 			position /= Void
 		local
@@ -425,7 +467,7 @@ feature {}
 					Result := get_type_from_descriptor(descriptor)
 				end
 			else
-				Result := get_type_from_type_definition(origin, a_type_definition, effective_parameters)
+				Result := get_type_from_type_definition(origin, a_type_definition, Void, effective_parameters)
 			end
 		ensure
 			type_found_or_fatal_error: Result /= Void
@@ -450,7 +492,7 @@ feature {} -- Type parameters fetching
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, effective_parameters))
+						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, Void, effective_parameters))
 					else
 						Result.add_last(type_any)
 					end
@@ -465,17 +507,17 @@ feature {} -- Type parameters fetching
 			end
 		end
 
-	get_parameters (origin: LIBERTY_TYPE; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_TYPE] is
+	get_parameters (origin: LIBERTY_TYPE; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_ENTITY_TYPE] is
 		local
 			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
 			type_definition: LIBERTY_AST_TYPE_DEFINITION
-			type: LIBERTY_TYPE
+			type: LIBERTY_ENTITY_TYPE
 			i: INTEGER
 		do
 			if type_parameters.list_is_empty then
 				Result := no_parameters
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -486,9 +528,55 @@ feature {} -- Type parameters fetching
 					if type_definition.is_class_type then
 						type := effective_parameters.reference_at(type_definition.type_name.image.image.intern)
 						if type = Void then
-							type := get_type_from_type_definition(origin, type_parameter.type_definition, effective_parameters)
+							if local_context = Void then
+								type := get_type_from_type_definition(origin, type_parameter.type_definition, Void, effective_parameters)
+							else
+								type := local_context.get_type(type_parameter.type_definition)
+							end
 						end
+					elseif local_context /= Void then
+						type := local_context.get_type(type_parameter.type_definition)
 					else
+						--|*** error: unexpected anchor out of a feature context
+						not_yet_implemented
+					end
+					Result.add_last(type)
+					i := i + 1
+				end
+			end
+		end
+
+	get_tuple_parameters (origin: LIBERTY_TYPE; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_ENTITY_TYPE] is
+		local
+			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
+			type_definition: LIBERTY_AST_TYPE_DEFINITION
+			type: LIBERTY_ENTITY_TYPE
+			i: INTEGER
+		do
+			if type_parameters.list_is_empty then
+				Result := no_parameters
+			else
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
+				from
+					i := type_parameters.list_lower
+				until
+					i > type_parameters.list_upper
+				loop
+					type_parameter := type_parameters.list_item(i)
+					type_definition := type_parameter.type_definition
+					if type_definition.is_class_type then
+						type := effective_parameters.reference_at(type_definition.type_name.image.image.intern)
+						if type = Void then
+							if local_context = Void then
+								type := get_type_from_type_definition(origin, type_parameter.type_definition, Void, effective_parameters)
+							else
+								type := local_context.get_type(type_parameter.type_definition)
+							end
+						end
+					elseif local_context /= Void
+						type := local_context.get_type(type_parameter.type_definition)
+					else
+						--|*** error: unexpected anchor out of a feature context
 						not_yet_implemented
 					end
 					Result.add_last(type)

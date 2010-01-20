@@ -11,9 +11,9 @@ feature {ANY} -- user data
 
 	is_valid: BOOLEAN
 
-feature {AUTOMATON} -- state memo
 	current_state: STATE[E_]
 
+feature {AUTOMATON} -- state memo
 	set_current_state (s: like current_state) is
 		require
 			s /= Void

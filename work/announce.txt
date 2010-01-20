@@ -4,18 +4,15 @@ We are happy to announce the birth Liberty Eiffel.
 
 Liberty Eiffel is born from a simple idea: the Open Source and Free
 Software community needs a free-as-in-freedom Eiffel compiler that
-tries to be follow the principles that made Eiffel so appealing
+tries to be follow the principles that made Eiffel so appealing.
 
 SmartEiffel is an academic project; as such it is a tool for its
 developers to test and prove ideas that made their way into papers;
 such a goal naturally requires the development model to follow the
 rules of the academia, for example keeping all the coding in-house.
 
-This applies also to software licensed under GPL and being part of GNU
-such as SmartEiffel.
-
-We are designing and developing an Eiffel compiler - compatible with
-SmartEiffel - with different goals:
+We are designing and developing an Eiffel compiler, compatible with
+SmartEiffel, but with different goals:
 
 - keep the language and the required run-time system as simple as
   possible;
@@ -23,13 +20,13 @@ SmartEiffel - with different goals:
 - stick to the same high quality requirements that make SmartEiffel
   such a good piece of Free Software;
 
-- "exiting the ivory tower", being a community-driven project without
-  the requirements of academic goals; being easily or automatically
+- "exit the ivory tower", being a community-driven project without the
+  requirements of academic goals; being easily or automatically
   interoperable with most mainstream languages (C, Java, .NET...) is
   an absolute need;
 
-- "standing on the shoulder of giants", using the Low Level Virtual
-  Machine Compier Infrastructure (http://www.llvm.org) for the
+- "stand on the shoulder of giants", using the Low Level Virtual
+  Machine compier infrastructure (http://www.llvm.org) for the
   backend;
 
 - "provide the batteries", without "reinveinting the wheel"; the best
@@ -37,7 +34,7 @@ SmartEiffel - with different goals:
   there is a huge set of free-as-in-freedom libraries that many
   programmers and developers would like to use in Eiffel;
 
-- give simple technical means to add more bindings wrappers;
+- give simple technical means to add more bindings and/or wrappers;
 
 - maintain a simple and understandable design, striving to write the
   most excellent Eiffel code;
@@ -55,4 +52,3 @@ Liberty is only beginning. We need you.
 Happy hacking,
 --
 Paolo Redaelli & Cyril Adrian
-

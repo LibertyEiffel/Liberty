@@ -56,6 +56,7 @@ feature {}
 			a_position /= Void
 		do
 			create {FAST_ARRAY[LIBERTY_INSPECT_CLAUSE]} clauses_list.with_capacity(8)
+			expression := a_expression
 			position := a_position
 		ensure
 			expression = a_expression

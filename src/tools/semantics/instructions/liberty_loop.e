@@ -32,7 +32,6 @@ feature {}
 		require
 			a_init /= Void
 			a_invariant_clause /= Void
-			a_variant_clause /= Void
 			a_expression /= Void
 			a_body /= Void
 			a_position /= Void
@@ -64,7 +63,6 @@ feature {ANY}
 invariant
 	init /= Void
 	invariant_clause /= Void
-	variant_clause /= Void
 	expression /= Void
 	body /= Void
 

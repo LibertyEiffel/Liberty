@@ -85,7 +85,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := builder.get_type_from_type_definition(parent_clause.type_definition)
+				parent := builder.get_type_from_type_definition(parent_clause.type_definition, Void)
 				debug
 					if conformant then
 						std_output.put_line("  " + type.full_name + " --> " + parent.full_name)

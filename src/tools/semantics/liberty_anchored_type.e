@@ -60,8 +60,10 @@ feature {LIBERTY_TYPE}
 			buffer.append(full_name)
 		end
 
-feature {}
-	make (a_anchor: like anchor) is
+feature {LIBERTY_TYPE_FEATURES_LOADER}
+	set_anchor (a_anchor: like anchor) is
+		require
+			a_anchor /= Void
 		do
 			anchor := a_anchor
 			full_name_memory := (once "like " + anchor.name).intern
@@ -69,10 +71,12 @@ feature {}
 			anchor = a_anchor
 		end
 
+feature {}
+	make is
+		do
+		end
+
 feature {LIBERTY_ANCHORED_TYPE}
 	full_name_memory: FIXED_STRING
-
-invariant
-	anchor /= Void
 
 end -- class LIBERTY_ANCHORED_TYPE

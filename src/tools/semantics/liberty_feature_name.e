@@ -41,8 +41,8 @@ feature {ANY}
 
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := type = other.type
-				and then name.is_equal(other.name)
+			Result := (other = Current)
+				or else (type = other.type and then name = other.name)
 		end
 
 	is_regular: BOOLEAN is
