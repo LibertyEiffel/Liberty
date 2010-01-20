@@ -263,9 +263,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			Result := effective_generic_parameters.fast_has(formal_parameter_name.intern)
 		end
 
-	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_TYPE is
 		do
-			Result := universe.get_type_from_type_definition(type, type_definition, effective_generic_parameters)
+			Result := universe.get_type_from_type_definition(type, type_definition, local_context, effective_generic_parameters)
 		end
 
 feature {LIBERTY_TYPE_INIT}

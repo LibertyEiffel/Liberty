@@ -22,31 +22,46 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	writable: LIBERTY_WRITABLE
-	type: LIBERTY_ENTITY_TYPE
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
+
+	type: LIBERTY_ENTITY_TYPE is
+		require
+			is_type_set
+		do
+			Result := explicit_type
+			if Result = Void and then writable.is_result_type_set then
+				Result := writable.result_type
+			end
+		end
+
+	is_type_set: BOOLEAN is
+		do
+			Result := explicit_type /= Void or else writable.is_result_type_set
+		end
 
 feature {}
 	make (a_writable: like writable; a_type: like type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is
 		require
 			a_writable /= Void
-			a_type /= Void
 			a_feature_entity /= Void
 			a_feature_arguments /= Void
 			a_position /= Void
 		do
 			writable := a_writable
-			type := a_type
+			explicit_type := a_type
 			feature_entity := a_feature_entity
 			feature_arguments := a_feature_arguments
 			position := a_position
 		ensure
 			writable = a_writable
-			type = a_type
+			a_type /= Void implies type = a_type
 			feature_entity = a_feature_entity
 			feature_arguments = a_feature_arguments
 			position = a_position
 		end
+
+	explicit_type: LIBERTY_ENTITY_TYPE
 
 feature {ANY}
 	accept (v: VISITOR) is
@@ -59,7 +74,6 @@ feature {ANY}
 
 invariant
 	writable /= Void
-	type /= Void
 	feature_entity /= Void
 	feature_arguments /= Void
 
