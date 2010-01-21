@@ -733,19 +733,11 @@ feature {ANY} -- Memory
 	require
 		-- TODO: a_pointer should point to what?
 		a_name/=Void
-	local wrapper_collection: WRAPPER_COLLECTION[LLVM_VALUE]; indices_ptr: POINTER; indices: FAST_ARRAY[POINTER]
+	local indices: FAST_ARRAY[POINTER]
 	do
-		wrapper_collection ?= some_indices
-		if wrapper_collection/=Void then
-			indices_ptr := wrapper_collection.handle
-		else
-			indices := collection_to_c_array(some_indices)
-			indices_ptr := indices.to_external
-		end
-		check 
-			indices_ptr.is_not_null
-		end
-		create Result.from_external_pointer(llvmbuild_gep(handle, a_pointer.handle, indices_ptr, some_indices.count.to_natural_32, a_name.to_external))
+		-- Intentionally avoiding WRAPPER_COLLECTION to avoid tricks with native arrays
+		indices := collection_to_c_array(some_indices)
+		create Result.from_external_pointer(llvmbuild_gep(handle, a_pointer.handle, indices.to_external, some_indices.count.to_natural_32, a_name.to_external))
 	ensure Result/=Void
 	end
 	
