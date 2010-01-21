@@ -30,7 +30,7 @@ inherit
 
 insert CORE_EXTERNALS
 
-feature 
+feature {ANY} -- Queries
 	type_kind: LLVMTYPE_KIND_ENUM is
 		-- The actual type of Current
 		do
@@ -69,6 +69,11 @@ feature
 		type_kind.is_ppc__fp_128type_kind
 	end
 		
+	is_vector: BOOLEAN is
+		-- Is Current a vector?
+	do
+		Result := type_kind.is_vector_type_kind
+	end
 
 	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.

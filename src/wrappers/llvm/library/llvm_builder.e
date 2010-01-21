@@ -195,8 +195,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 		do
 			create Result.from_external_pointer
@@ -212,8 +212,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer
@@ -232,7 +232,7 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
+		identical_type: a_left.type ~ a_right.type 
 		floating_points_or_vectors: a_left.is_constant_fp or a_left.is_constant_vector
 		vectors_are_of_floats: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_floating_point
 	do
@@ -248,9 +248,8 @@ feature {ANY} -- Arithmetic
 	require 
 		a_left/=Void
 		a_right/=Void
-		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_sub(handle,a_left.handle,a_right.handle,a_name.to_external))
@@ -281,8 +280,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer
@@ -298,7 +297,7 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
+		identical_type: a_left.type ~ a_right.type 
 		floating_points_or_vectors: a_left.is_constant_fp or a_left.is_constant_vector
 		vectors_are_of_floats: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_floating_point
 	do
@@ -319,8 +318,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_udiv(handle,a_left.handle,a_right.handle,a_name.to_external)) 
@@ -346,8 +345,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_udiv(handle,a_left.handle,a_right.handle,a_name.to_external)) 
@@ -366,8 +365,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors: a_left.is_constant_int or a_left.is_constant_vector
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors: a_left.type.is_integer or a_left.is_constant_vector
 		vectors_are_of_integers: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_exact_sdiv(handle,a_left.handle,a_right.handle,a_name.to_external))
@@ -382,7 +381,7 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
+		identical_type: a_left.type ~ a_right.type 
 		floating_points_or_vectors: a_left.is_constant_fp or a_left.is_constant_vector
 		vectors_are_of_floats: a_left.is_constant_vector implies a_left.as_constant_vector.type.element_type.is_floating_point
 	do
@@ -405,8 +404,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_urem(handle,a_left.handle,a_right.handle,a_name.to_external))
 	ensure
@@ -444,8 +443,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_srem(handle,a_left.handle,a_right.handle,a_name.to_external))
 	ensure
@@ -460,7 +459,7 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
+		identical_type: a_left.type ~ a_right.type 
 		floating_points_or_vectors_of_floats: a_left.is_constant_fp or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_floating_point
 	do
 		create Result.from_external_pointer(llvmbuild_frem(handle,a_left.handle,a_right.handle,a_name.to_external))
@@ -477,8 +476,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_shl(handle,a_left.handle,a_right.handle,a_name.to_external)) 
 	ensure
@@ -499,8 +498,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_lshr(handle,a_left.handle,a_right.handle,a_name.to_external)) 
 	ensure
@@ -516,8 +515,8 @@ feature {ANY} -- Arithmetic
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 	do
 		create Result.from_external_pointer(llvmbuild_ashr(handle,a_left.handle,a_right.handle,a_name.to_external)) 
 	ensure
@@ -532,8 +531,8 @@ feature -- Logical operators
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 		do
 			create Result.from_external_pointer(llvmbuild_and(handle,a_left.handle,a_right.handle,a_name.to_external))
 	ensure
@@ -547,8 +546,8 @@ feature -- Logical operators
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 		do
 			create Result.from_external_pointer(llvmbuild_or(handle,a_left.handle,a_right.handle,a_name.to_external))
 	ensure
@@ -562,8 +561,8 @@ feature -- Logical operators
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		identical_type: a_left ~ a_right 
-		integers_or_vectors_of_integers: a_left.is_constant_int or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
+		identical_type: a_left.type ~ a_right.type 
+		integers_or_vectors_of_integers: a_left.type.is_integer or else a_left.is_constant_vector and then a_left.as_constant_vector.type.element_type.is_integer
 		do
 			create Result.from_external_pointer(llvmbuild_xor(handle,a_left.handle,a_right.handle,a_name.to_external))
 	ensure
@@ -575,7 +574,7 @@ feature -- Logical operators
 		-- TODO: provide description, semating, preconditions and postconditions.
 	require a_value/=Void
  	do
-		create Result.from_external_pointer(llvmbuild_neg(handle,a_value.handle,null_or_string(a_name)))
+		create Result.from_external_pointer(llvmbuild_neg(handle,a_value.handle,a_name.to_external))
 	ensure Result/=Void
 	end
 	
@@ -583,7 +582,7 @@ feature -- Logical operators
 		-- TODO: provide description, semating, preconditions and postconditions.
 	require a_value/=Void
  	do
-		create Result.from_external_pointer(llvmbuild_not(handle,a_value.handle, null_or_string(a_name)))
+		create Result.from_external_pointer(llvmbuild_not(handle,a_value.handle, a_name.to_external))
 	ensure Result/=Void
 	end
 
@@ -637,7 +636,7 @@ feature {ANY} -- Memory
 		a_type/=Void
 		-- TODO: a_type.is_sized
 	do
-		create Result.from_external_pointer(llvmbuild_alloca(handle,a_type.handle,null_or_string(a_name)))
+		create Result.from_external_pointer(llvmbuild_alloca(handle,a_type.handle,a_name.to_external))
 	ensure	
 		Result/=Void
 	end
@@ -653,7 +652,7 @@ feature {ANY} -- Memory
 		a_number/=Void
 		a_number.type.is_integer
 	do
-		create Result.from_external_pointer(llvmbuild_array_alloca(handle,a_type.handle,a_number.handle,null_or_string(a_name)))
+		create Result.from_external_pointer(llvmbuild_array_alloca(handle,a_type.handle,a_number.handle,a_name.to_external))
 	ensure
 		Result/=Void
 	end
