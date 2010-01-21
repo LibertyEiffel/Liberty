@@ -74,7 +74,7 @@ feature {LIBERTY_TYPE_BUILDER}
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
 		local
-			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
 			f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
 		do
 			from
@@ -100,20 +100,36 @@ feature {}
 			end
 		end
 
-	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
+	anchor_builder (entity_anchor: LIBERTY_AST_ENTITY_NAME): LIBERTY_ANCHORED_TYPE is
+		local
+			feature_name: LIBERTY_FEATURE_NAME
+		do
+			create feature_name.make_regular(entity_anchor.image.image.intern, errors.semantics_position(entity_anchor.image.index, type.ast, type.file))
+			Result := anchors.reference_at(feature_name)
+			if Result = Void then
+				create Result.make
+				anchors.add(Result, feature_name)
+			end
+		end
+
+	add_feature (clients: COLLECTION[LIBERTY_ENTITY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
 		local
 			result_type: LIBERTY_ENTITY_TYPE
 			the_feature: LIBERTY_FEATURE
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+			type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
 			redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
 			fn: LIBERTY_AST_FEATURE_NAME
 		do
-			create local_context.make(type, agent anchor_builder, agent type_getter)
+			create local_context.make(type)
 			redefinitions := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
-				result_type := local_context.get_type(a_feature.signature.result_type)
+				result_type := type_lookup.resolver.type(a_feature.signature.result_type)
 				local_context.set_result_type(result_type)
 			end
+			create type_resolver.make(result_type, agent anchor_builder)
+			type_lookup.push(type_resolver)
+
 			if a_feature.has_routine_definition then
 				if a_feature.signature.has_parameters then
 					list_parameters(a_feature.signature.parameters, local_context, redefinitions)
@@ -145,25 +161,8 @@ feature {}
 				the_feature.set_context(local_context)
 				add_feature_definition(the_feature, a_feature.signature.feature_names, clients)
 			end
-		end
 
-	anchor_builder (entity_anchor: LIBERTY_AST_ENTITY_NAME): LIBERTY_ANCHORED_TYPE is
-		local
-			feature_name: LIBERTY_FEATURE_NAME
-		do
-			create feature_name.make_regular(entity_anchor.image.image.intern, errors.semantics_position(entity_anchor.image.index, type.ast, type.file))
-			Result := anchors.reference_at(feature_name)
-			if Result = Void then
-				create Result.make
-				anchors.add(Result, feature_name)
-			end
-		end
-
-	type_getter (type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY_TYPE is
-		require
-			not type_definition.is_anchor
-		do
-			Result := builder.get_type_from_type_definition(type_definition, local_context)
+			type_lookup.pop
 		end
 
 	routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_FEATURE is
@@ -348,7 +347,7 @@ feature {}
 			end
 		end
 
-	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
+	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_ENTITY_TYPE]) is
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
 			fd: LIBERTY_FEATURE_DEFINITION
@@ -409,7 +408,7 @@ feature {}
 feature {}
 	add_creations (creations: EIFFEL_LIST_NODE) is
 		local
-			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
 			c: LIBERTY_AST_CLASS_CREATION; fn: LIBERTY_AST_FEATURE_NAME
 		do
 			from
@@ -432,7 +431,7 @@ feature {}
 			end
 		end
 
-	add_creation (a_clients: COLLECTION[LIBERTY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
+	add_creation (a_clients: COLLECTION[LIBERTY_ENTITY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
 		local
 			the_feature: LIBERTY_FEATURE_DEFINITION
 			feature_name: LIBERTY_FEATURE_NAME
@@ -778,7 +777,7 @@ feature {} -- Instructions
 			creat ::= a_creation
 			w := writable(creat.writable, local_context, redefinitions)
 			if creat.has_type_definition then
-				creation_type := local_context.get_type(creat.type_definition)
+				creation_type := type_lookup.resolver.type(creat.type_definition)
 			end
 			if creat.has_creation_feature_call then
 				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern, errors.semantics_position(creat.creation_feature_name.image.index, type.ast, type.file)))
@@ -879,7 +878,7 @@ feature {} -- Entities and writables
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
-					precursor_type := universe.get_type_from_precursor(type, a_target.precursor_type_mark, effective_generic_parameters)
+					precursor_type ::= type_lookup.resolver.type(a_target.precursor_type_mark.type_definition)
 				end
 				f := find_precursor(redefinitions, precursor_type)
 				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(a_target.node_at(0)))
@@ -939,7 +938,7 @@ feature {} -- Entities and writables
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
-					precursor_type := universe.get_type_from_precursor(type, a_target.precursor_type_mark, effective_generic_parameters)
+					precursor_type ::= type_lookup.resolver.type(a_target.precursor_type_mark.type_definition)
 				end
 				f := find_precursor(redefinitions, precursor_type)
 				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(a_target.node_at(0)))
@@ -1244,7 +1243,7 @@ feature {} -- Expressions
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
-			entity_type := local_context.get_type(a_creation.type_definition)
+			entity_type := type_lookup.resolver.type(a_creation.type_definition)
 			if creation_type ?:= entity_type then
 				creation_type ::= entity_type
 				if a_creation.r10.is_empty then
@@ -1349,7 +1348,7 @@ feature {} -- Expressions
 			actual_type: LIBERTY_TYPE
 		do
 			if constant.is_assignment_test then
-				entity_type := local_context.get_type(constant.assignment_test_type)
+				entity_type := type_lookup.resolver.type(constant.assignment_test_type)
 				if actual_type ?:= entity_type then
 					actual_type ::= entity_type
 					create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(actual_type,
@@ -1361,7 +1360,7 @@ feature {} -- Expressions
 				end
 			elseif constant.is_typed_open_argument then
 				create openarg.make(semantics_position_at(constant.node_at(0)))
-				openarg.set_result_type(local_context.get_type(constant.open_argument_type))
+				openarg.set_result_type(type_lookup.resolver.type(constant.open_argument_type))
 				Result := openarg
 			elseif constant.is_number then
 				Result := number(constant.number.image)
@@ -1376,7 +1375,7 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
-				entity_type := local_context.get_type(constant.typed_manifest_type)
+				entity_type := type_lookup.resolver.type(constant.typed_manifest_type)
 				if actual_type ?:= entity_type then
 					actual_type ::= entity_type
 					Result := number_typed_manifest(actual_type,
@@ -1386,7 +1385,7 @@ feature {} -- Expressions
 					not_yet_implemented
 				end
 			elseif constant.is_string_typed_manifest then
-				entity_type := local_context.get_type(constant.typed_manifest_type)
+				entity_type := type_lookup.resolver.type(constant.typed_manifest_type)
 				if actual_type ?:= entity_type then
 					actual_type ::= entity_type
 					create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(actual_type,
@@ -1396,7 +1395,7 @@ feature {} -- Expressions
 					not_yet_implemented
 				end
 			elseif constant.is_array_typed_manifest then
-				entity_type := local_context.get_type(constant.typed_manifest_type)
+				entity_type := type_lookup.resolver.type(constant.typed_manifest_type)
 				if actual_type ?:= entity_type then
 					actual_type ::= entity_type
 					Result := array_typed_manifest(actual_type,
@@ -1525,7 +1524,7 @@ feature {}
 					i > parameters.upper
 				loop
 					declaration ::= parameters.item(i)
-					typedef := local_context.get_type(declaration.type_definition)
+					typedef := type_lookup.resolver.type(declaration.type_definition)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1555,7 +1554,7 @@ feature {}
 					i > locals.list_upper
 				loop
 					declaration := locals.list_item(i)
-					typedef := local_context.get_type(declaration.type_definition)
+					typedef := type_lookup.resolver.type(declaration.type_definition)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower

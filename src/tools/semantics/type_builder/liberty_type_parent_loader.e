@@ -69,7 +69,7 @@ feature {}
 			-- Returns True if at least a parent was added
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE
+			parent: LIBERTY_ENTITY_TYPE
 		do
 			debug
 				if conformant then
@@ -85,7 +85,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := builder.get_type_from_type_definition(parent_clause.type_definition, Void)
+				parent := type_lookup.resolver.type(parent_clause.type_definition)
 				debug
 					if conformant then
 						std_output.put_line("  " + type.full_name + " --> " + parent.full_name)
@@ -94,7 +94,7 @@ feature {}
 					end
 				end
 				if parent /= Void then
-					type.add_parent(parent, conformant)
+					type.add_parent(parent.type, conformant)
 					Result := True
 				end
 				i := i + 1
@@ -103,8 +103,7 @@ feature {}
 				debug
 					std_output.put_line(type.name + ": adding default parent ANY")
 				end
-				parent := universe.type_any
-				type.add_parent(parent, False)
+				type.add_parent(universe.type_any, False)
 				Result := True
 			end
 		end

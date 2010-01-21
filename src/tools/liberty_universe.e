@@ -16,7 +16,12 @@ class LIBERTY_UNIVERSE
 
 insert
 	LIBERTY_AST_HANDLER
+		undefine is_equal
+		end
 	LIBERTY_ERROR_LEVELS
+		undefine is_equal
+		end
+	SINGLETON
 
 create {ANY}
 	make
@@ -30,17 +35,6 @@ feature {ANY}
 		ensure
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
-		end
-
-	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
-		require
-			not errors.has_error
-		do
-			Result := do_get_type_from_descriptor(descriptor)
-		ensure
-			Result.cluster.is_equal(descriptor.cluster)
-			Result.name.is_equal(descriptor.name)
-			Result.parameters.is_equal(descriptor.parameters)
 		end
 
 	build_types is
@@ -59,6 +53,7 @@ feature {ANY}
 			end
 		end
 
+feature {ANY} -- Kernel types
 	type_any: LIBERTY_TYPE is
 		require
 			not errors.has_error
@@ -150,7 +145,7 @@ feature {ANY}
 			Result := kernel_type("BOOLEAN")
 		end
 
-	type_tuple (effective_generics: COLLECTION[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
 		require
 			effective_generics /= Void
 			not errors.has_error
@@ -310,16 +305,23 @@ feature {}
 			Result /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
-	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
+feature {LIBERTY_TYPE_RESOLVER}
+	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
 		require
-			origin /= Void
-			type_definition /= Void
-			effective_parameters /= Void
+			not errors.has_error
+		do
+			Result := do_get_type_from_descriptor(descriptor)
+		ensure
+			Result.cluster.is_equal(descriptor.cluster)
+			Result.name.is_equal(descriptor.name)
+			Result.parameters.is_equal(descriptor.parameters)
+		end
+
+	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; cluster: LIBERTY_CLUSTER): LIBERTY_TYPE is
+		require
 			not type_definition.is_anchor
 			not errors.has_error
 		local
-			cluster: LIBERTY_CLUSTER
 			class_name: STRING
 			parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 		do
@@ -357,48 +359,12 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 			when "BOOLEAN" then
 				Result := type_boolean
 			when "TUPLE" then
-				parameters := get_tuple_parameters(origin, type_definition.type_parameters, local_context, effective_parameters)
-				Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
+				parameters := get_parameters(type_definition.type_parameters)
+				Result := type_tuple(parameters, type_lookup.resolver.position(type_definition))
 			else
-				Result := effective_parameters.fast_reference_at(class_name.intern)
-				if Result = Void then
-					cluster := origin.cluster.find(class_name)
-					if cluster = Void then
-						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
-						errors.set(level_fatal_error, "Unknown class: " + class_name)
-					else
-						parameters := get_parameters(origin, type_definition.type_parameters, local_context, effective_parameters)
-						Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
-					end
-				end
+				parameters := get_parameters(type_definition.type_parameters)
+				Result := do_get_type(cluster, type_lookup.resolver.position(type_definition), class_name, parameters)
 			end
-		end
-
-	get_type_from_client (origin: LIBERTY_TYPE; client: LIBERTY_AST_CLIENT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
-		require
-			origin /= Void
-			client /= Void
-			effective_parameters /= Void
-			not client.type_definition.is_anchor
-			not errors.has_error
-		do
-			Result := type_from_legacy_class_name_or_full_liberty_type(origin, client.type_definition, effective_parameters)
-		ensure
-			type_found_or_fatal_error: Result /= Void
-		end
-
-	get_type_from_precursor (origin: LIBERTY_TYPE; precursor_type_mark: LIBERTY_AST_PRECURSOR_TYPE_MARK; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
-		require
-			origin /= Void
-			precursor_type_mark /= Void
-			effective_parameters /= Void
-			precursor_type_mark.count > 0
-			not precursor_type_mark.type_definition.is_anchor
-			not errors.has_error
-		do
-			Result := type_from_legacy_class_name_or_full_liberty_type(origin, precursor_type_mark.type_definition, effective_parameters)
-		ensure
-			type_found_or_fatal_error: Result /= Void
 		end
 
 feature {}
@@ -409,10 +375,14 @@ feature {}
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			c: like cluster
 		do
-			if c = Void then
+			if cluster = Void then
 				c := root.find(class_name)
 			else
 				c := cluster.find(class_name)
+			end
+			if c = Void then
+				errors.add_position(position)
+				errors.set(level_fatal_error, "Unknown class: " + class_name)
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := do_get_type_from_descriptor(descriptor)
@@ -439,75 +409,8 @@ feature {}
 			Result.parameters.is_equal(descriptor.parameters)
 		end
 
-feature {}
-	type_from_legacy_class_name_or_full_liberty_type (origin: LIBERTY_TYPE; a_type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
-			-- Special code to handle legacy Eiffel class marks (in exports and precursors) or full-fledged type
-			-- marks Liberty recommends
-		require
-			origin /= Void
-			effective_parameters /= Void
-			not a_type_definition.is_anchor
-			not errors.has_error
-		local
-			descriptor: LIBERTY_TYPE_DESCRIPTOR
-			cluster: LIBERTY_CLUSTER
-			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_TYPE]
-			pos: LIBERTY_POSITION
-		do
-			if a_type_definition.type_parameters.list_count = 0 then
-				class_name := a_type_definition.type_name.image.image
-				cluster := origin.cluster.find(class_name)
-				if cluster = Void then
-					errors.add_position(pos)
-					errors.set(level_fatal_error, "Unknown class: " + class_name)
-				else
-					parameters := get_parameter_constraints(origin, parse_class(cluster, class_name, pos), effective_parameters)
-					create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
-					Result := get_type_from_descriptor(descriptor)
-				end
-			else
-				Result := get_type_from_type_definition(origin, a_type_definition, Void, effective_parameters)
-			end
-		ensure
-			type_found_or_fatal_error: Result /= Void
-		end
-
 feature {} -- Type parameters fetching
-	get_parameter_constraints (origin: LIBERTY_TYPE; a_class: LIBERTY_AST_ONE_CLASS; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_TYPE] is
-		local
-			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
-			type_parameter: LIBERTY_AST_TYPE_PARAMETER
-			i: INTEGER
-		do
-			type_parameters := a_class.class_header.type_parameters
-			if type_parameters.is_empty or else type_parameters.list_is_empty then
-				Result := no_parameters
-			else
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
-				from
-					i := type_parameters.list_lower
-				until
-					i > type_parameters.list_upper
-				loop
-					type_parameter := type_parameters.list_item(i)
-					if type_parameter.has_constraint then
-						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, Void, effective_parameters))
-					else
-						Result.add_last(type_any)
-					end
-					i := i + 1
-				end
-				debug
-					std_output.put_line(" ***** inferred implicit parameters of " + a_class.class_header.class_name.image.image + ": " + Result.out)
-					check
-						Result.count = type_parameters.list_count
-					end
-				end
-			end
-		end
-
-	get_parameters (origin: LIBERTY_TYPE; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_ENTITY_TYPE] is
+	get_parameters (type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS): COLLECTION[LIBERTY_ENTITY_TYPE] is
 		local
 			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
 			type_definition: LIBERTY_AST_TYPE_DEFINITION
@@ -525,60 +428,7 @@ feature {} -- Type parameters fetching
 				loop
 					type_parameter := type_parameters.list_item(i)
 					type_definition := type_parameter.type_definition
-					if type_definition.is_class_type then
-						type := effective_parameters.reference_at(type_definition.type_name.image.image.intern)
-						if type = Void then
-							if local_context = Void then
-								type := get_type_from_type_definition(origin, type_parameter.type_definition, Void, effective_parameters)
-							else
-								type := local_context.get_type(type_parameter.type_definition)
-							end
-						end
-					elseif local_context /= Void then
-						type := local_context.get_type(type_parameter.type_definition)
-					else
-						--|*** error: unexpected anchor out of a feature context
-						not_yet_implemented
-					end
-					Result.add_last(type)
-					i := i + 1
-				end
-			end
-		end
-
-	get_tuple_parameters (origin: LIBERTY_TYPE; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_ENTITY_TYPE] is
-		local
-			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
-			type_definition: LIBERTY_AST_TYPE_DEFINITION
-			type: LIBERTY_ENTITY_TYPE
-			i: INTEGER
-		do
-			if type_parameters.list_is_empty then
-				Result := no_parameters
-			else
-				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
-				from
-					i := type_parameters.list_lower
-				until
-					i > type_parameters.list_upper
-				loop
-					type_parameter := type_parameters.list_item(i)
-					type_definition := type_parameter.type_definition
-					if type_definition.is_class_type then
-						type := effective_parameters.reference_at(type_definition.type_name.image.image.intern)
-						if type = Void then
-							if local_context = Void then
-								type := get_type_from_type_definition(origin, type_parameter.type_definition, Void, effective_parameters)
-							else
-								type := local_context.get_type(type_parameter.type_definition)
-							end
-						end
-					elseif local_context /= Void
-						type := local_context.get_type(type_parameter.type_definition)
-					else
-						--|*** error: unexpected anchor out of a feature context
-						not_yet_implemented
-					end
+					type := type_lookup.resolver.type(type_definition)
 					Result.add_last(type)
 					i := i + 1
 				end
@@ -590,34 +440,7 @@ feature {} -- Type parameters fetching
 			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
-feature {} -- AST building
-	read_file_in (descriptor: LIBERTY_CLASS_DESCRIPTOR; code: STRING) is
-		require
-			descriptor /= Void
-			code.is_empty
-		local
-			file: STRING
-		do
-			file := descriptor.file
-			parser_file.connect_to(file)
-			if not parser_file.is_connected then
-				std_error.put_string(" *** Could not read file " + file)
-				die_with_code(1)
-			end
-
-			from
-				parser_file.read_line
-			until
-				parser_file.end_of_input
-			loop
-				code.append(parser_file.last_string)
-				code.extend('%N')
-				parser_file.read_line
-			end
-			code.append(parser_file.last_string)
-			parser_file.disconnect
-		end
-
+feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
 		local
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
@@ -648,6 +471,34 @@ feature {} -- AST building
 			end
 		ensure
 			Result /= Void
+		end
+
+feature {} -- AST building
+	read_file_in (descriptor: LIBERTY_CLASS_DESCRIPTOR; code: STRING) is
+		require
+			descriptor /= Void
+			code.is_empty
+		local
+			file: STRING
+		do
+			file := descriptor.file
+			parser_file.connect_to(file)
+			if not parser_file.is_connected then
+				std_error.put_string(" *** Could not read file " + file)
+				die_with_code(1)
+			end
+
+			from
+				parser_file.read_line
+			until
+				parser_file.end_of_input
+			loop
+				code.append(parser_file.last_string)
+				code.extend('%N')
+				parser_file.read_line
+			end
+			code.append(parser_file.last_string)
+			parser_file.disconnect
 		end
 
 	parse_tuple_classes (pos: LIBERTY_POSITION): LIBERTY_AST_CLASSES is
@@ -737,11 +588,15 @@ feature {}
 	default_type_capacity: INTEGER is 4096
 
 	make (universe_path: STRING) is
+		local
+			tr: LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
 		do
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
 			create types_incubator.with_capacity(default_type_capacity)
+			create tr.make(Current)
+			type_lookup.push(tr)
 		end
 
 	root: LIBERTY_CLUSTER
@@ -752,8 +607,8 @@ feature {}
 	types_incubator: QUEUE[LIBERTY_TYPE]
 
 	errors: LIBERTY_ERRORS
-
 	heart_beat: LIBERTY_HEART_BEAT
+	type_lookup: LIBERTY_TYPE_LOOKUP
 
 invariant
 	types /= Void

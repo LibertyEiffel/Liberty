@@ -25,8 +25,8 @@ creation {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
-	creation_clients: TRAVERSABLE[LIBERTY_TYPE]
-	clients: TRAVERSABLE[LIBERTY_TYPE]
+	creation_clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+	clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
 

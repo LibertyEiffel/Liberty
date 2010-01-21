@@ -58,6 +58,16 @@ feature {LIBERTY_TYPE}
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
+	transition (to_state: STATE[LIBERTY_TYPE_BUILDER]; actual_transition: FUNCTION[TUPLE[LIBERTY_TYPE_BUILDER, STATE[LIBERTY_TYPE_BUILDER]], ABSTRACT_STRING]): ABSTRACT_STRING is
+		do
+			type_lookup.push(type_resolver)
+			Result := actual_transition.item([Current, to_state])
+			check
+				type_lookup.resolver = type_resolver
+			end
+			type_lookup.pop
+		end
+
 	init_header: STRING is
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
@@ -263,11 +273,6 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			Result := effective_generic_parameters.fast_has(formal_parameter_name.intern)
 		end
 
-	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_TYPE is
-		do
-			Result := universe.get_type_from_type_definition(type, type_definition, local_context, effective_generic_parameters)
-		end
-
 feature {LIBERTY_TYPE_INIT}
 	set_effective_generic_parameters (effective: like effective_generic_parameters) is
 		require
@@ -277,6 +282,7 @@ feature {LIBERTY_TYPE_INIT}
 				std_output.put_line(type.full_name + ": computed effective generic parameters: " + effective.out)
 			end
 			effective_generic_parameters := effective
+			type_resolver.set_effective_parameters(effective)
 		ensure
 			effective_generic_parameters = effective
 		end
@@ -339,46 +345,55 @@ feature {}
 			redefined_features := no_redefined_features
 			anchored_types := no_anchored_types
 			automaton_context := automaton.start(once "checking header", Current)
+			create type_resolver.make(a_universe, a_type, empty_effective_generic_parameters)
 		ensure
 			type = a_type
 			universe = a_universe
 		end
 
 	errors: LIBERTY_ERRORS
+	type_resolver: LIBERTY_TYPE_RESOLVER_IN_TYPE
+	type_lookup: LIBERTY_TYPE_LOOKUP
 
 feature {}
 	automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is
 		once
 			Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
-																		"checking header", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																		  agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.init_header;
-																																		  agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																		  >>};
-																		"loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																		  agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.load_parents;
-																																		  agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																		  >>};
-																		"loading parents features", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																					  agent {LIBERTY_TYPE_BUILDER}.can_load_parent_features, agent {LIBERTY_TYPE_BUILDER}.load_parent_features;
-																																					  agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.stay;
-																																					  agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																					  >>};
-																		"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																			agent {LIBERTY_TYPE_BUILDER}.can_load_features, agent {LIBERTY_TYPE_BUILDER}.load_features;
-																																			agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.stay;
-																																			agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																			>>};
-																		"reconciling anchors", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																				agent {LIBERTY_TYPE_BUILDER}.can_reconcile_anchors, agent {LIBERTY_TYPE_BUILDER}.reconcile_anchors;
-																																				agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.stay;
-																																				agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																				>>};
-																		"checking type", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																		agent {LIBERTY_TYPE_BUILDER}.can_check_type, agent {LIBERTY_TYPE_BUILDER}.check_type;
-																																		agent {LIBERTY_TYPE_BUILDER}.no_errors, agent {LIBERTY_TYPE_BUILDER}.stay;
-																																		agent {LIBERTY_TYPE_BUILDER}.otherwise, agent {LIBERTY_TYPE_BUILDER}.abort
-																																		>>}
-																		>>}
+
+				"checking header", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.init_header);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_parents);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"loading parents features", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.can_load_parent_features, agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_parent_features);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.can_load_features,        agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_features);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"reconciling anchors", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.can_reconcile_anchors,    agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.reconcile_anchors);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"checking type", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.can_check_type,           agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.check_type);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>}
+				>>}
 		end
 
 invariant

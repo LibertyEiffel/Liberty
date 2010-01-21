@@ -7,6 +7,7 @@ insert
 feature {}
 	errors: LIBERTY_ERRORS
 	heart_beat: LIBERTY_HEART_BEAT
+	type_lookup: LIBERTY_TYPE_LOOKUP
 
 	builder: LIBERTY_TYPE_BUILDER
 	type: LIBERTY_TYPE
@@ -35,7 +36,7 @@ feature {}
 		end
 
 feature {} -- Client list
-	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE] is
+	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_ENTITY_TYPE] is
 		local
 			i: INTEGER
 		do
@@ -51,20 +52,20 @@ feature {} -- Client list
 				until
 					errors.has_error or else i > clients.list_upper
 				loop
-					Result.add_last(universe.get_type_from_client(type, clients.list_item(i), effective_generic_parameters))
+					Result.add_last(type_lookup.resolver.export_type(clients.list_item(i).type_definition))
 					i := i + 1
 				end
 			end
 		end
 
-	empty_client_list: COLLECTION[LIBERTY_TYPE] is
+	empty_client_list: COLLECTION[LIBERTY_ENTITY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
 		end
 
-	any_client_list: COLLECTION[LIBERTY_TYPE] is
+	any_client_list: COLLECTION[LIBERTY_ENTITY_TYPE] is
 		once
-			Result := {FAST_ARRAY[LIBERTY_TYPE] << universe.type_any >> }
+			Result := {FAST_ARRAY[LIBERTY_ENTITY_TYPE] << universe.type_any >> }
 		end
 
 feature {}

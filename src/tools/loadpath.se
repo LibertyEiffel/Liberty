@@ -15,3 +15,4 @@ semantics/instructions/
 semantics/tags/
 semantics/type_builder/
 semantics/visitors/
+type_resolver/

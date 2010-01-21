@@ -64,7 +64,7 @@ feature {}
 	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE
+			parent: LIBERTY_ENTITY_TYPE
 			has_parent: BOOLEAN
 		do
 			from
@@ -74,18 +74,17 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := builder.get_type_from_type_definition(parent_clause.type_definition, Void)
+				parent := type_lookup.resolver.type(parent_clause.type_definition)
 				if parent /= Void then
-					inject_parent_invariant(parent)
-					inject_parent_features(parent, parent_clause.parent_clause, conformant)
+					inject_parent_invariant(parent.type)
+					inject_parent_features(parent.type, parent_clause.parent_clause, conformant)
 					has_parent := True
 				end
 				i := i + 1
 			end
 			if not has_parent and then not errors.has_error then
-				parent := universe.type_any
-				inject_parent_invariant(parent)
-				inject_parent_features(parent, Void, False)
+				inject_parent_invariant(universe.type_any)
+				inject_parent_features(universe.type_any, Void, False)
 			end
 			push_parent_features_in_type
 		end
@@ -185,7 +184,7 @@ feature {}
 	export_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
 			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
-			clients: COLLECTION[LIBERTY_TYPE]
+			clients: COLLECTION[LIBERTY_ENTITY_TYPE]
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from
