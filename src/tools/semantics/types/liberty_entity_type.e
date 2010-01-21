@@ -12,38 +12,38 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ENTITY
---
--- Anything with a name and a result type.
--- Most entities have a non-Void result type, except procedures.
---
--- See also LIBERTY_WRITABLE
---
+deferred class LIBERTY_ENTITY_TYPE
+	--
+	-- The type referenced in entity definitions
+	--
 
 inherit
-	LIBERTY_POSITIONABLE
+	HASHABLE
 		undefine out_in_tagged_out_memory
 		end
 
 feature {ANY}
-	name: FIXED_STRING is
+	type: LIBERTY_TYPE is
+		require
+			is_type_set
 		deferred
 		end
 
-	result_type: LIBERTY_ENTITY_TYPE is
-		require
-			is_result_type_set
+	is_type_set: BOOLEAN is
+		deferred
+		end
+
+	full_name: FIXED_STRING is
 		deferred
 		ensure
-			-- Result may be Void in the particular case of procedures
+			Result /= Void
 		end
 
-	is_result_type_set: BOOLEAN is
-			-- True if the `result_type' may be queried. False if the object is not yet fully reconciled.
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		require
+			buffer /= Void
 		deferred
 		end
-
-invariant
-	name /= Void
 
 end

@@ -27,6 +27,12 @@ feature {ANY}
 
 	is_result_type_set: BOOLEAN is True
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "parameter: ")
+			tagged_out_memory.append(name)
+		end
+
 feature {}
 	make (a_name: FIXED_STRING; a_result_type: like result_type; a_position: like position) is
 		require

@@ -16,9 +16,6 @@ class LIBERTY_TYPE
 
 inherit
 	LIBERTY_ENTITY_TYPE
-		redefine
-			out_in_tagged_out_memory
-		end
 
 insert
 	EIFFEL_NODE_HANDLER

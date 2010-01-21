@@ -63,7 +63,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			ast := type.ast
 			add_features(ast.features)
 			if not errors.has_error then
-				resolve_anchors
 				add_creations(ast.creations)
 				if not errors.has_error then
 					type.set_invariant(class_invariant(ast.invariant_clause))
@@ -77,6 +76,7 @@ feature {}
 			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
 			f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
 		do
+			type_lookup.resolver.set_anchor_factory(agent anchor_builder)
 			from
 				i := features.lower
 			until
@@ -96,8 +96,10 @@ feature {}
 				i := i + 1
 			end
 			if not errors.has_error then
+				resolve_anchors
 				check_that_all_redefined_features_were_redefined
 			end
+			type_lookup.resolver.unset_anchor_factory
 		end
 
 	anchor_builder (entity_anchor: LIBERTY_AST_ENTITY_NAME): LIBERTY_ANCHORED_TYPE is
@@ -127,7 +129,8 @@ feature {}
 				result_type := type_lookup.resolver.type(a_feature.signature.result_type)
 				local_context.set_result_type(result_type)
 			end
-			create type_resolver.make(result_type, agent anchor_builder)
+			fn ::= a_feature.signature.feature_names.last
+			create type_resolver.make(fn, result_type)
 			type_lookup.push(type_resolver)
 
 			if a_feature.has_routine_definition then
@@ -140,7 +143,6 @@ feature {}
 					errors.add_position(semantics_position_at(a_feature.signature.node_at(1)))
 					errors.set(level_error, once "Unexpected parameters")
 				elseif not a_feature.signature.has_result_type then
-					fn ::= a_feature.signature.feature_names.last
 					errors.add_position(semantics_position_after(fn.feature_name_or_alias.node_at(fn.feature_name_or_alias.upper)))
 					errors.set(level_error, once "Missing entity type")
 				else

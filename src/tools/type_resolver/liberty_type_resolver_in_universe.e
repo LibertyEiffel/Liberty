@@ -17,19 +17,28 @@ class LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
 inherit
 	LIBERTY_TYPE_RESOLVER
 
+insert
+	LIBERTY_ERROR_LEVELS
+		undefine out_in_tagged_out_memory
+		end
+
 creation {LIBERTY_UNIVERSE}
 	make
+
+feature {ANY}
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "resolver in universe")
+		end
 
 feature {}
 	universe: LIBERTY_UNIVERSE
 
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
 		do
-			if type_definition.is_anchor then
-				--|*** TODO: error: cannot have anchors outside any class building context
-				not_yet_implemented
+			if not type_definition.is_anchor then
+				Result := universe.get_type_from_type_definition(type_definition, Void)
 			end
-			Result := universe.get_type_from_type_definition(type_definition, Void)
 		end
 
 	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is

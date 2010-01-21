@@ -16,8 +16,7 @@ class LIBERTY_FEATURE_DEFINITION
 
 inherit
 	LIBERTY_ENTITY
-		redefine
-			copy
+		redefine copy
 		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -29,6 +28,12 @@ feature {ANY}
 	clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
+
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "feature definition: ")
+			feature_name.out_in_tagged_out_memory
+		end
 
 	name: FIXED_STRING is
 		do

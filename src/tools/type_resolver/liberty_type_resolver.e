@@ -15,20 +15,24 @@
 deferred class LIBERTY_TYPE_RESOLVER
 
 insert
-	LIBERTY_ERROR_LEVELS
 	LIBERTY_AST_HANDLER
+		undefine out_in_tagged_out_memory
+		end
 
 feature {ANY}
 	type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
 			-- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
 			-- or not.
 		do
-			Result := lookup_type(type_definition)
-			if Result = Void and then parent /= Void then
-				Result := parent.type(type_definition)
+			if type_definition.is_like_entity and then anchor_factory /= Void then
+				Result := anchor_factory.item([type_definition.entity_anchor])
 			end
-		ensure
-			Result /= Void
+			if Result = Void then
+				Result := lookup_type(type_definition)
+				if Result = Void and then parent /= Void then
+					Result := parent.type(type_definition)
+				end
+			end
 		end
 
 	export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
@@ -37,9 +41,14 @@ feature {ANY}
 		require
 			not type_definition.is_anchor
 		do
-			Result := lookup_export_type(type_definition)
-			if Result = Void and then parent /= Void then
-				Result := parent.export_type(type_definition)
+			if type_definition.is_like_entity and then anchor_factory /= Void then
+				Result := anchor_factory.item([type_definition.entity_anchor])
+			end
+			if Result = Void then
+				Result := lookup_export_type(type_definition)
+				if Result = Void and then parent /= Void then
+					Result := parent.export_type(type_definition)
+				end
 			end
 			if Result = Void then
 				create {LIBERTY_UNKNOWN_TYPE} Result.make(type_definition.type_name.image.image.intern)
@@ -60,6 +69,23 @@ feature {ANY}
 			end
 		ensure
 			Result /= Void
+		end
+
+feature {LIBERTY_TYPE_FEATURES_LOADER}
+	set_anchor_factory (a_anchor_factory: like anchor_factory) is
+		require
+			a_anchor_factory /= Void
+		do
+			anchor_factory := a_anchor_factory
+		ensure
+			anchor_factory = a_anchor_factory
+		end
+
+	unset_anchor_factory is
+		do
+			anchor_factory := Void
+		ensure
+			anchor_factory = Void
 		end
 
 feature {LIBERTY_TYPE_LOOKUP}
@@ -90,5 +116,6 @@ feature {}
 
 feature {}
 	errors: LIBERTY_ERRORS
+	anchor_factory: FUNCTION[TUPLE[LIBERTY_AST_ENTITY_NAME], LIBERTY_ANCHORED_TYPE]
 
 end -- class LIBERTY_TYPE_RESOLVER

@@ -26,6 +26,9 @@ feature {ANY}
 		do
 			r.set_parent(resolver)
 			resolver_memory.set_item(r)
+			debug
+				std_output.put_line(" >>> Type Lookup: pushed " + r.out)
+			end
 		ensure
 			resolver = r
 		end
@@ -33,8 +36,20 @@ feature {ANY}
 	pop is
 		require
 			resolver /= Void
+		local
+			r: like resolver
 		do
+			debug
+				r := resolver
+			end
 			resolver_memory.set_item(resolver.parent)
+			debug
+				if resolver /= Void then
+					std_output.put_line(" <<< Type Lookup: popped " + r.out + ", back to " + resolver.out)
+				else
+					std_output.put_line(" <<< Type Lookup: popped " + r.out)
+				end
+			end
 		end
 
 	resolver: LIBERTY_TYPE_RESOLVER is

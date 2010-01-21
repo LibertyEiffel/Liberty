@@ -12,36 +12,55 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ENTITY_TYPE
+class LIBERTY_UNKNOWN_TYPE
 	--
-	-- The type referenced in entity definitions
+	-- An unknown type. Should be used only for some unresolved export clients.
 	--
 
 inherit
-	HASHABLE
+	LIBERTY_ENTITY_TYPE
+
+insert
+	SINGLETON
+		redefine out_in_tagged_out_memory
+		end
+
+creation {LIBERTY_TYPE_RESOLVER}
+	make
 
 feature {ANY}
 	type: LIBERTY_TYPE is
-		require
-			is_type_set
-		deferred
+		do
 		end
 
-	is_type_set: BOOLEAN is
-		deferred
-		end
+	is_type_set: BOOLEAN is False
 
-	full_name: FIXED_STRING is
-		deferred
-		ensure
-			Result /= Void
+	full_name: FIXED_STRING
+
+	hash_code: INTEGER is 19741215
+
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "<unknown type>")
 		end
 
 feature {LIBERTY_TYPE}
 	full_name_in (buffer: STRING) is
-		require
-			buffer /= Void
-		deferred
+		do
+			buffer.append(full_name)
 		end
+
+feature {}
+	make (a_full_name: like full_name) is
+		require
+			a_full_name /= Void
+		do
+			full_name := a_full_name
+		ensure
+			full_name = a_full_name
+		end
+
+invariant
+	full_name /= Void
 
 end

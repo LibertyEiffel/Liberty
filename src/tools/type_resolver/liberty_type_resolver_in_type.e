@@ -20,6 +20,13 @@ inherit
 creation {LIBERTY_TYPE_BUILDER}
 	make
 
+feature {ANY}
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "resolver in type ")
+			current_type.out_in_tagged_out_memory
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_effective_parameters (effective: like effective_parameters) is
 		require
