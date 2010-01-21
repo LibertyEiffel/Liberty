@@ -1,7 +1,10 @@
 class LLVM_GEP_OPERATOR
-	-- Wrapper of llvm::GEPOperator (TODO: provide better description).
+	-- A GetElementPointer instruction.
 
 inherit LLVM_OPERATOR
+
+creation {LLVM_BUILDER} from_external_pointer
+
 end -- class LLVM_GEP_OPERATOR
 
 -- Copyright 2009 Paolo Redaelli

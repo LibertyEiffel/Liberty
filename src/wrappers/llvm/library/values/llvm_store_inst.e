@@ -3,6 +3,8 @@ class LLVM_STORE_INST
 
 inherit LLVM_INSTRUCTION
 
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+
 end -- class LLVM_STORE_INST
 
 -- Copyright 2009 Paolo Redaelli
