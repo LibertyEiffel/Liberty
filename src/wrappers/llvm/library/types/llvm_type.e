@@ -75,6 +75,12 @@ feature {ANY} -- Queries
 		Result := type_kind.is_vector_type_kind
 	end
 
+	is_pointer: BOOLEAN is
+		-- Is Current a pointer?
+	do
+		Result := type_kind.is_pointer_type_kind
+	end
+
 	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 	

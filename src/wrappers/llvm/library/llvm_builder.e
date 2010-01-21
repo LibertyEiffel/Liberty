@@ -658,15 +658,32 @@ feature {ANY} -- Memory
 	end
 
 	llvm_free (a_value: LLVM_VALUE): LLVM_FREE_INST is
-		require
-			a_value/=Void
-		do
-			create Result.from_external_pointer(llvmbuild_free(handle, a_value.handle))
-		ensure Result/=Void
-		end
+		-- A 'free' instruction returning memory back to the unused memory heap
+		-- to be reallocated in the future.
 
-	-- LLVMValueRef LLVMBuildFree(LLVMBuilderRef, LLVMValueRef PointerVal);
--- LLVMValueRef LLVMBuildLoad(LLVMBuilderRef, LLVMValueRef PointerVal,
+		-- Access to the memory pointed to by the pointer is no longer defined
+		-- after this instruction executes. If the pointer is null, the
+		-- operation is a noop.
+	require
+		a_value/=Void
+		a_value.type.is_pointer
+		-- TODO: a value was allocated with a 'malloc' instruction
+	do
+		create Result.from_external_pointer(llvmbuild_free(handle, a_value.handle))
+	ensure Result/=Void
+	end
+
+-- 	load (a_pointer: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_LOAD_INST is
+-- 		-- The 'load' instruction is used to read from memory.
+-- Arguments:
+-- 
+-- The argument to the 'load' instruction specifies the memory address from which to load. The pointer must point to a first class type. If the load is marked as volatile, then the optimizer is not allowed to modify the number or order of execution of this load with other volatile load and store instructions.
+-- 
+-- The optional constant "align" argument specifies the alignment of the operation (that is, the alignment of the memory address). A value of 0 or an omitted "align" argument means that the operation has the preferential alignment for the target. It is the responsibility of the code emitter to ensure that the alignment information is correct. Overestimating the alignment results in an undefined behavior. Underestimating the alignment may produce less efficient code. An alignment of 1 is always safe.
+-- Semantics:
+-- 
+-- The location of memory pointed to is loaded. If the value being loaded is of scalar type then the number of bytes read does not exceed the minimum number of bytes needed to hold all bits of the type. For example, loading an i24 reads at most three bytes. When loading a value of a type like i20 with a size that is not an integral number of bytes, the result is undefined if the value was not originally written using a store of the same type.
+-- -- LLVMValueRef LLVMBuildLoad(LLVMBuilderRef, LLVMValueRef PointerVal,
 --                            const char *Name);
 -- LLVMValueRef LLVMBuildStore(LLVMBuilderRef, LLVMValueRef Val, LLVMValueRef Ptr);
 -- LLVMValueRef LLVMBuildGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
