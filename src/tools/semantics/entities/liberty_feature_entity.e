@@ -31,6 +31,12 @@ feature {ANY}
 			Result := feature_name.name
 		end
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "feature: ")
+			feature_name.out_in_tagged_out_memory
+		end
+
 	feature_name: LIBERTY_FEATURE_NAME
 
 	result_type: LIBERTY_ENTITY_TYPE is

@@ -12,15 +12,19 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_CLASS_LIST
+expanded class LIBERTY_FLAME
+--
+-- LIBERTY_ENLIGHTENING_THE_WORLD state save ("Memo" design pattern)
+--
 
-inherit
-	LIBERTY_AST_LIST[LIBERTY_AST_ONE_CLASS]
+feature {LIBERTY_ENLIGHTENING_THE_WORLD}
+	light: INTEGER
 
-create {LIBERTY_NODE_FACTORY}
-	make
+	set (candela: like light) is
+		do
+			light := candela
+		ensure
+			light = candela
+		end
 
-feature {ANY}
-	name: STRING is "One_Class+"
-
-end
+end -- class LIBERTY_FLAME

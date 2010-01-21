@@ -54,6 +54,16 @@ feature {ANY}
 			Result := full_name_memory.is_equal(other.full_name_memory)
 		end
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "like ")
+			anchor.out_in_tagged_out_memory
+			if type /= Void then
+				tagged_out_memory.append(once " i.e. ")
+				type.out_in_tagged_out_memory
+			end
+		end
+
 feature {LIBERTY_TYPE}
 	full_name_in (buffer: STRING) is
 		do

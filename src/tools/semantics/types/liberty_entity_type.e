@@ -12,19 +12,38 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_HEART_BEAT_COUNT
---
--- LIBERTY_HEART_BEAT state save ("Memo" design pattern)
---
+deferred class LIBERTY_ENTITY_TYPE
+	--
+	-- The type referenced in entity definitions
+	--
 
-feature {LIBERTY_HEART_BEAT}
-	count: INTEGER
-
-	set (i: like count) is
-		do
-			count := i
-		ensure
-			count = i
+inherit
+	HASHABLE
+		undefine out_in_tagged_out_memory
 		end
 
-end -- class LIBERTY_HEART_BEAT_COUNT
+feature {ANY}
+	type: LIBERTY_TYPE is
+		require
+			is_type_set
+		deferred
+		end
+
+	is_type_set: BOOLEAN is
+		deferred
+		end
+
+	full_name: FIXED_STRING is
+		deferred
+		ensure
+			Result /= Void
+		end
+
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		require
+			buffer /= Void
+		deferred
+		end
+
+end

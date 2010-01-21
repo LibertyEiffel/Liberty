@@ -34,8 +34,6 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_CLASS} Result.make(name, names)
 			when "Classes" then
 				create {LIBERTY_AST_CLASSES} Result.make(name, names)
-			when "One_Class+" then
-				create {LIBERTY_AST_CLASS_LIST} Result.make(name, names)
 			when "One_Class" then
 				create {LIBERTY_AST_ONE_CLASS} Result.make(name, names)
 			when "Class_Header" then

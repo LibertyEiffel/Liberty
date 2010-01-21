@@ -26,6 +26,11 @@ feature {ANY}
 			create Result.make_from_string("Current")
 		end
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "Current")
+		end
+
 	result_type: LIBERTY_TYPE
 
 	is_result_type_set: BOOLEAN is True

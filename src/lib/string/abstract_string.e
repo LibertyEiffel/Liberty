@@ -1231,7 +1231,7 @@ feature {}
 			end
 
 			debug
-				debug_string := out.twin
+				debug_string := once "" + Current
 			end
 		end
 

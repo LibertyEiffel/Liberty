@@ -225,33 +225,52 @@ feature {ANY} -- Object Printing:
 			--
 		require
 			file.is_connected
+			not_locked: not tagged_out_locked
 		do
+			lock_tagged_out
 			tagged_out_memory.clear_count
 			out_in_tagged_out_memory
 			file.put_string(tagged_out_memory)
+			unlock_tagged_out
+		ensure
+			not_locked: not tagged_out_locked
 		end
 
 	frozen tagged_out: STRING is
 			-- New string containing printable representation of current
 			-- object, each field preceded by its attribute name, a
 			-- colon and a space.
+		require
+			not_locked: not tagged_out_locked
 		do
+			lock_tagged_out
 			tagged_out_memory.clear_count
 			fill_tagged_out_memory
 			Result := tagged_out_memory.twin
+			unlock_tagged_out
+		ensure
+			not_locked: not tagged_out_locked
 		end
 
 	out: STRING is
 			-- Create a new string containing terse printable
 			-- representation of current object.
+		require
+			not_locked: not tagged_out_locked
 		do
+			lock_tagged_out
 			tagged_out_memory.clear_count
 			out_in_tagged_out_memory
 			Result := tagged_out_memory.twin
+			unlock_tagged_out
+		ensure
+			not_locked: not tagged_out_locked
 		end
 
 	out_in_tagged_out_memory is
 			-- Append terse printable represention of current object in `tagged_out_memory'.
+		require
+			locked: tagged_out_locked
 		local
 			like_current: like Current
 		do
@@ -265,8 +284,50 @@ feature {ANY} -- Object Printing:
 			fill_tagged_out_memory
 			tagged_out_memory.extend(']')
 		ensure
+			still_locked: tagged_out_locked
 			not_cleared: tagged_out_memory.count >= old tagged_out_memory.count
 			append_only: (old tagged_out_memory.twin).is_equal(tagged_out_memory.substring(1, old tagged_out_memory.count))
+		end
+
+	fill_tagged_out_memory is
+			-- Append a viewable information in `tagged_out_memory' in
+			-- order to affect the behavior of `out', `tagged_out', etc.
+		require
+			locked: tagged_out_locked
+		do
+			-- Should be an external "built_in" to provide a default
+			-- view of Current contents (not yet implemented).
+		ensure
+			still_locked: tagged_out_locked
+		end
+
+	tagged_out_locked: BOOLEAN is
+		do
+			Result := tagged_out_lock.item
+		end
+
+feature {} -- Various useful tools:
+	tagged_out_lock: REFERENCE[BOOLEAN] is
+		once
+			create Result
+		end
+
+	lock_tagged_out is
+		require
+			not tagged_out_locked
+		do
+			tagged_out_lock.set_item(True)
+		ensure
+			tagged_out_locked
+		end
+
+	unlock_tagged_out is
+		require
+			tagged_out_locked
+		do
+			tagged_out_lock.set_item(False)
+		ensure
+			not tagged_out_locked
 		end
 
 	frozen tagged_out_memory: STRING is
@@ -274,15 +335,6 @@ feature {ANY} -- Object Printing:
 			create Result.make(1024)
 		end
 
-	fill_tagged_out_memory is
-			-- Append a viewable information in `tagged_out_memory' in
-			-- order to affect the behavior of `out', `tagged_out', etc.
-		do
-			-- Should be an external "built_in" to provide a default
-			-- view of Current contents (not yet implemented).
-		end
-
-feature {} -- Various useful tools:
 	frozen crash is
 			-- Print Run Time Stack and then exit with `exit_failure_code'.
 		do

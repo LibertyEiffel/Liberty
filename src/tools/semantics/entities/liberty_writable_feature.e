@@ -41,6 +41,12 @@ feature {ANY}
 			Result := entity.is_result_type_set
 		end
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "writable feature: ")
+			tagged_out_memory.append(name)
+		end
+
 feature {}
 	entity: LIBERTY_FEATURE_ENTITY
 

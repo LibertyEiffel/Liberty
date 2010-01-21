@@ -18,6 +18,18 @@ deferred class SINGLETON
 	--          or search "Singletonitis" or "singleton overuse".
 	--
 
+insert
+	ANY
+		redefine
+			is_equal
+		end
+
+feature {ANY}
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := other = Current
+		end
+
 feature {}
 	is_real_singleton: BOOLEAN is
 		do
@@ -45,7 +57,7 @@ feature {}
 		do
 			Result := like_current = Void
 		end
-	
+
 invariant
 	current_is_not_an_expanded_type
 	is_real_singleton
