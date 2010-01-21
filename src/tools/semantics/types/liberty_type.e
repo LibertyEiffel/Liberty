@@ -345,7 +345,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 
 	add_parent (a_parent: LIBERTY_TYPE; conformant: BOOLEAN) is
 		do
-			heart_beat.beat
+			torch.burn
 			if conformant then
 				if conformant_parents = no_parents then
 					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.with_capacity(2)
@@ -379,7 +379,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			not has_feature(a_feature.feature_name)
 		do
 			features.add(a_feature, a_feature.feature_name)
-			heart_beat.beat
+			torch.burn
 		ensure
 			features.at(a_feature.feature_name) = a_feature
 		end
@@ -462,7 +462,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER
 
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 	no_parents: COLLECTION[LIBERTY_TYPE] is
 		once

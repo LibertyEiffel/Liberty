@@ -442,7 +442,7 @@ feature {}
 			if type.has_feature(feature_name) then
 				the_feature := type.feature_definition(feature_name)
 				the_feature.set_creation_clients(a_clients)
-				heart_beat.beat
+				torch.burn
 			else
 				--|*** TODO: error: unknown feature
 				not_yet_implemented
@@ -961,7 +961,7 @@ feature {} -- Entities and writables
 			if Result = Void then
 				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, position)), position)
 				feature_writables.put(Result, name)
-				heart_beat.beat
+				torch.burn
 			end
 		ensure
 			Result.name = name
@@ -975,7 +975,7 @@ feature {} -- Entities and writables
 			if Result = Void then
 				create {LIBERTY_FEATURE_ENTITY} Result.make(name)
 				feature_entities.put(Result, name)
-				heart_beat.beat
+				torch.burn
 			end
 		ensure
 			Result.feature_name.is_equal(name)

@@ -232,7 +232,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
 			end
 			precursors.add(a_precursor_feature, a_precursor_type)
-			heart_beat.beat
+			torch.burn
 		ensure
 			precursor_feature(a_precursor_type) = a_precursor_feature
 		end
@@ -302,7 +302,7 @@ feature {}
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
 
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 	errors: LIBERTY_ERRORS
 

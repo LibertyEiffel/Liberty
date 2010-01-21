@@ -6,7 +6,7 @@ insert
 
 feature {}
 	errors: LIBERTY_ERRORS
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
 
 	builder: LIBERTY_TYPE_BUILDER

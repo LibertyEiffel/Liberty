@@ -54,7 +54,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 			end
 			if is_any then
-				heart_beat.beat
+				torch.burn
 			else
 				has_parents := add_parents(ast.inherit_clause, True, False)
 				has_parents := add_parents(ast.insert_clause, False, has_parents)

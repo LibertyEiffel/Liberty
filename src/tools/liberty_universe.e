@@ -39,7 +39,7 @@ feature {ANY}
 
 	build_types is
 		local
-			count: LIBERTY_HEART_BEAT_COUNT
+			flame: LIBERTY_FLAME
 			incubator: like types_incubator
 		do
 			create incubator.make
@@ -47,9 +47,9 @@ feature {ANY}
 			until
 				types_incubator.is_empty
 			loop
-				count := heart_beat.count
+				flame := torch.flame
 				build_to_incubator(incubator)
-				incubator := check_heart_beat_and_swap_incubator(count, incubator)
+				incubator := check_flame_and_swap_incubator(flame, incubator)
 			end
 		end
 
@@ -194,11 +194,11 @@ feature {}
 			end
 		end
 
-	check_heart_beat_and_swap_incubator (count: LIBERTY_HEART_BEAT_COUNT; incubator: like types_incubator): like types_incubator is
+	check_flame_and_swap_incubator (flame: LIBERTY_FLAME; incubator: like types_incubator): like types_incubator is
 		require
 			types_incubator.is_empty
 		do
-			if heart_beat.is_alive(count) then
+			if torch.still_burns(flame) then
 				Result := types_incubator
 				types_incubator := incubator
 				debug
@@ -269,7 +269,7 @@ feature {}
 			if not type.is_built then
 				types_incubator.add(type)
 			end
-			heart_beat.beat
+			torch.burn
 		end
 
 	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
@@ -609,7 +609,7 @@ feature {}
 	types_incubator: QUEUE[LIBERTY_TYPE]
 
 	errors: LIBERTY_ERRORS
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
 
 invariant

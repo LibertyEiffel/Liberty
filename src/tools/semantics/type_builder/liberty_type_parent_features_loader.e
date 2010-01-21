@@ -305,7 +305,7 @@ feature {}
 					end
 				end
 				if not type.has_feature(fn) then
-					heart_beat.beat
+					torch.burn
 					type.add_feature(f)
 				else
 					check

@@ -60,7 +60,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			loop
 				anchored_type := anchored_types.item(i)
 				if anchored_type.type /= Void then
-					heart_beat.beat
+					torch.burn
 					anchored_types.remove(i)
 				else
 					Result := False

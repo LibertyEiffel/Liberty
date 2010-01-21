@@ -112,13 +112,13 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			set_postcondition(a_feature.postcondition)
 			set_context(a_feature.context)
 			set_obsolete(a_feature.obsolete_message)
-			heart_beat.beat
+			torch.burn
 		ensure
 			redefined_feature = a_feature
 		end
 
 	redefined_feature: LIBERTY_FEATURE
 
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 end

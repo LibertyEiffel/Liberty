@@ -12,19 +12,19 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_HEART_BEAT_COUNT
+expanded class LIBERTY_FLAME
 --
--- LIBERTY_HEART_BEAT state save ("Memo" design pattern)
+-- LIBERTY_ENLIGHTENING_THE_WORLD state save ("Memo" design pattern)
 --
 
-feature {LIBERTY_HEART_BEAT}
-	count: INTEGER
+feature {LIBERTY_ENLIGHTENING_THE_WORLD}
+	light: INTEGER
 
-	set (i: like count) is
+	set (candela: like light) is
 		do
-			count := i
+			light := candela
 		ensure
-			count = i
+			light = candela
 		end
 
-end -- class LIBERTY_HEART_BEAT_COUNT
+end -- class LIBERTY_FLAME
