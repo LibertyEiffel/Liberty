@@ -1312,7 +1312,7 @@ feature {} -- Expressions
 
 	expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]; a_position: LIBERTY_POSITION): LIBERTY_TUPLE is
 		local
-			exp: LIBERTY_AST_EXPRESSION
+			exp: LIBERTY_AST_ACTUAL
 			expr: LIBERTY_EXPRESSION
 			expressions: COLLECTION[LIBERTY_EXPRESSION]
 			exp_types: COLLECTION[LIBERTY_ENTITY_TYPE]
@@ -1326,7 +1326,12 @@ feature {} -- Expressions
 				errors.has_error or else i > a_tuple.upper
 			loop
 				exp ::= a_tuple.item(i)
-				expr := expression(exp, local_context, redefinitions)
+				if exp.is_expression then
+					expr := expression(exp.expression, local_context, redefinitions)
+				else
+					--| "$entity" expressions
+					not_yet_implemented
+				end
 				if not errors.has_error then
 					expressions.add_last(expr)
 					exp_types.add_last(expr.result_type)

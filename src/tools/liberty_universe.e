@@ -160,13 +160,13 @@ feature {ANY} -- Kernel types
 			Result := types.reference_at(td)
 			if Result = Void then
 				tuple_ast := parse_tuple_classes(Void)
-				check tuple_ast.classes.list_lower = 0 end
-				if tuple_count > tuple_ast.classes.list_upper then
+				check tuple_ast.classes.lower = 0 end
+				if tuple_count > tuple_ast.classes.upper then
 					errors.add_position(position)
-					errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.classes.list_upper.out
-								  + " generic parameters.%NYou may want a named class with real typed attributes instead.")
+					errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.classes.upper.out
+								  + " generic parameters.%NYou might want a named class with named attributes instead.")
 				end
-				ast := tuple_ast.classes.list_item(tuple_count)
+				ast ::= tuple_ast.classes.item(tuple_count)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
 			end
@@ -506,6 +506,7 @@ feature {} -- AST building
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			tuple_cluster: LIBERTY_CLUSTER
 			i: INTEGER; file: FIXED_STRING
+			one_class: LIBERTY_AST_ONE_CLASS
 		once
 			debug
 				std_output.put_line("Parsing TUPLE")
@@ -528,12 +529,13 @@ feature {} -- AST building
 			Result ::= eiffel.root_node
 			file := class_descriptor.file.intern
 			from
-				i := Result.classes.list_lower
+				i := Result.classes.lower
 				check i = 0 end
 			until
-				i > Result.classes.list_upper
+				i > Result.classes.upper
 			loop
-				check_tuple_class(Result.classes.list_item(i), i, Result, file)
+				one_class ::= Result.classes.item(i)
+				check_tuple_class(one_class, i, Result, file)
 				i := i + 1
 			end
 		ensure
