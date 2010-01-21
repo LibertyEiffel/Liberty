@@ -49,7 +49,17 @@ feature {ANY} -- Status report:
 		end
 
 feature {ANY} -- Comparison:
-	infix "~", is_equal (other: like Current): BOOLEAN is
+	infix "~" (other: like Current): BOOLEAN is
+		-- Is `other' attached to an object considered equal to current object? Shorthand for `is_equal'
+		require
+			other /= Void
+		do 
+			Result := is_equal(other)
+		ensure
+			commutative: generating_type = other.generating_type implies Result = other.is_equal(Current)
+		end
+
+	is_equal (other: like Current): BOOLEAN is
 			-- Is `other' attached to an object considered equal to current object?
 		require
 			other /= Void

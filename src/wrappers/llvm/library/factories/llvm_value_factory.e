@@ -37,7 +37,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 			elseif type.is_function_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)
 			elseif type.is_struct_type_kind then not_yet_implemented
 			elseif type.is_array_type_kind then not_yet_implemented
-			elseif type.is_pointer_type_kind then not_yet_implemented
+			elseif type.is_pointer_type_kind then not_yet_implemented 
 			elseif type.is_opaque_type_kind then not_yet_implemented
 			elseif type.is_vector_type_kind then not_yet_implemented
 			elseif type.is_metadata_type_kind then not_yet_implemented
