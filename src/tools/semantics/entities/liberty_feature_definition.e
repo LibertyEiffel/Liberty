@@ -204,28 +204,9 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 			errors.has_error
 		end
 
-	fatal_join_error_deferred_concrete (with: LIBERTY_FEATURE_DEFINITION) is
-		do
-			debug
-				std_output.put_line("Cannot join deferred feature " + feature_name.name
-										  + " with concrete feature " + with.feature_name.name)
-				sedb_breakpoint
-			end
-			not_yet_implemented
-		ensure
-			errors.has_error
-		end
-
 	fatal_join_error_concrete_redefined (with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			with.fatal_join_error_redefined_concrete(Current)
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_concrete_deferred (with: LIBERTY_FEATURE_DEFINITION) is
-		do
-			with.fatal_join_error_deferred_concrete(Current)
 		ensure
 			errors.has_error
 		end

@@ -53,7 +53,7 @@ feature {LIBERTY_FEATURE}
 
 	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_concrete_deferred(other_fd)
+			Result := Current
 		end
 
 	joined_do (a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
