@@ -40,7 +40,7 @@ feature {ANY}
 			Result := other.location.is_equal(location)
 		end
 
-feature {LIBERTY_UNIVERSE}
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
 	find (a_class_name: STRING): LIBERTY_CLUSTER is
 		local
 			filename: STRING

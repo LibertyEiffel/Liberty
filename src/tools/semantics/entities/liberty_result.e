@@ -30,6 +30,11 @@ feature {ANY}
 
 	is_result_type_set: BOOLEAN is True
 
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "Result")
+		end
+
 feature {}
 	make (a_result_type: like result_type; a_position: like position) is
 		require

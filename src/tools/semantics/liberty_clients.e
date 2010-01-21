@@ -65,7 +65,7 @@ feature {ANY}
 feature {LIBERTY_AST_CLIENT}
 	visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is
 		do
-			clients.add_last(universe.get_type_from_client(origin.cluster, v))
+			clients.add_last(type_lookup.resolver.get_export_type(v.type_definition)
 		end
 
 feature {}

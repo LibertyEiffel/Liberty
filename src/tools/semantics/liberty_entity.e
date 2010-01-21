@@ -22,6 +22,8 @@ deferred class LIBERTY_ENTITY
 
 inherit
 	LIBERTY_POSITIONABLE
+		undefine out_in_tagged_out_memory
+		end
 
 feature {ANY}
 	name: FIXED_STRING is

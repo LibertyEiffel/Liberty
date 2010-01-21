@@ -12,40 +12,34 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_HEART_BEAT
+expanded class LIBERTY_ENLIGHTENING_THE_WORLD
 --
--- Allows that the compiler is still progressing. Useful to avoid staying stuck in an infinite loop.
+-- Allows to ensure that the compiler is still progressing. Useful to avoid staying stuck in an infinite loop.
 --
 
 feature {ANY}
-	beat is
+	burn is
 		do
-			heart_beat_count.increment
+			torch.increment
 			debug
-				std_output.put_line("--------  <3  -------- BEAT: " + heart_beat_count.value.out)
+				std_output.put_line("FLAME: " + torch.value.out)
 			end
 		end
 
-	count: LIBERTY_HEART_BEAT_COUNT is
+	flame: LIBERTY_FLAME is
 		do
-			Result.set(heart_beat_count.value)
-			debug
-				std_output.put_line("--------  <3  -------- MEMO: " + Result.count.out)
-			end
+			Result.set(torch.value)
 		end
 
-	is_alive (a_count: like count): BOOLEAN is
+	still_burns (a_flame: like flame): BOOLEAN is
 		do
-			Result := heart_beat_count.value > a_count.count
-			debug
-				std_output.put_line("--------  <3  -------- ALIVE: " + heart_beat_count.value.out + " vs. " + a_count.count.out + " => " + Result.out)
-			end
+			Result := torch.value > a_flame.light
 		end
 
 feature {}
-	heart_beat_count: COUNTER is
+	torch: COUNTER is
 		once
 			create Result
 		end
 
-end -- class LIBERTY_HEART_BEAT
+end -- class LIBERTY_ENLIGHTENING_THE_WORLD

@@ -16,8 +16,7 @@ class LIBERTY_FEATURE_DEFINITION
 
 inherit
 	LIBERTY_ENTITY
-		redefine
-			copy
+		redefine copy
 		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -25,10 +24,16 @@ creation {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
-	creation_clients: TRAVERSABLE[LIBERTY_TYPE]
-	clients: TRAVERSABLE[LIBERTY_TYPE]
+	creation_clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+	clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
+
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "feature definition: ")
+			feature_name.out_in_tagged_out_memory
+		end
 
 	name: FIXED_STRING is
 		do
@@ -199,28 +204,9 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 			errors.has_error
 		end
 
-	fatal_join_error_deferred_concrete (with: LIBERTY_FEATURE_DEFINITION) is
-		do
-			debug
-				std_output.put_line("Cannot join deferred feature " + feature_name.name
-										  + " with concrete feature " + with.feature_name.name)
-				sedb_breakpoint
-			end
-			not_yet_implemented
-		ensure
-			errors.has_error
-		end
-
 	fatal_join_error_concrete_redefined (with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			with.fatal_join_error_redefined_concrete(Current)
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_concrete_deferred (with: LIBERTY_FEATURE_DEFINITION) is
-		do
-			with.fatal_join_error_deferred_concrete(Current)
 		ensure
 			errors.has_error
 		end
@@ -246,7 +232,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
 			end
 			precursors.add(a_precursor_feature, a_precursor_type)
-			heart_beat.beat
+			torch.burn
 		ensure
 			precursor_feature(a_precursor_type) = a_precursor_feature
 		end
@@ -316,7 +302,7 @@ feature {}
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
 
-	heart_beat: LIBERTY_HEART_BEAT
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 	errors: LIBERTY_ERRORS
 

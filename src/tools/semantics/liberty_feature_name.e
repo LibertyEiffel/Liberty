@@ -16,15 +16,15 @@ class LIBERTY_FEATURE_NAME
 
 inherit
 	LIBERTY_POSITIONABLE
-		redefine
-			is_equal
+		redefine is_equal, out_in_tagged_out_memory
 		end
 
 insert
 	HASHABLE
+		redefine out_in_tagged_out_memory
+		end
 	LIBERTY_AST_HANDLER
-		redefine
-			is_equal
+		redefine is_equal, out_in_tagged_out_memory
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -38,6 +38,16 @@ create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_INFIX_CALL}
 
 feature {ANY}
 	name: FIXED_STRING
+
+	out_in_tagged_out_memory is
+		do
+			if is_prefix then
+				tagged_out_memory.append(once "prefix ")
+			elseif is_infix then
+				tagged_out_memory.append(once "infix ")
+			end
+			name.out_in_tagged_out_memory
+		end
 
 	is_equal (other: like Current): BOOLEAN is
 		do

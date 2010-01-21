@@ -119,47 +119,18 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			result_type = a_result_type
 		end
 
-feature {LIBERTY_TYPE_FEATURES_LOADER, LIBERTY_UNIVERSE}
-	get_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
-		local
-			feature_name: LIBERTY_FEATURE_NAME
-			anchored_type: LIBERTY_ANCHORED_TYPE
-		do
-			if type_definition.is_like_current then
-				Result := current_type
-			elseif type_definition.is_like_result then
-				Result := result_type
-				if Result = Void then
-					--|*** TODO: error: not a function
-					not_yet_implemented
-				end
-			elseif type_definition.is_like_entity then
-				Result := anchor_factory.item([type_definition.entity_anchor])
-			else
-				Result := type_factory.item([type_definition, Current])
-			end
-		ensure
-			Result /= Void
-		end
-
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
 	locals_map: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 	locals_list: COLLECTION[LIBERTY_LOCAL]
 	retries: COLLECTION[LIBERTY_RETRY]
-	anchor_factory: FUNCTION[TUPLE[LIBERTY_AST_ENTITY_NAME], LIBERTY_ANCHORED_TYPE]
-	type_factory: FUNCTION[TUPLE[LIBERTY_AST_TYPE_DEFINITION, LIBERTY_FEATURE_LOCAL_CONTEXT], LIBERTY_ENTITY_TYPE]
 
-	make (a_current_type: like current_type; a_anchor_factory: like anchor_factory; a_type_factory: like type_factory) is
+	make (a_current_type: like current_type) is
 		require
 			a_current_type /= Void
-			a_anchor_factory /= Void
-			a_type_factory /= Void
 		do
 			current_type := a_current_type
-			anchor_factory := a_anchor_factory
-			type_factory := a_type_factory
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
@@ -167,8 +138,6 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 		ensure
 			current_type = a_current_type
-			anchor_factory = a_anchor_factory
-			type_factory = a_type_factory
 		end
 
 	errors: LIBERTY_ERRORS
@@ -180,7 +149,5 @@ invariant
 	parameters_map /= Void
 	locals_map /= Void
 	retries /= Void
-	anchor_factory /= Void
-	type_factory /= Void
 
 end

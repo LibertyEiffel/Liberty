@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	classes: LIBERTY_AST_CLASS_LIST is
+	classes: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(0)
 		end

@@ -91,7 +91,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				end
 				builder.set_effective_generic_parameters(effective_generic_parameters)
 			end
-			heart_beat.beat
+			torch.burn
 		end
 
 end -- class LIBERTY_TYPE_INIT
