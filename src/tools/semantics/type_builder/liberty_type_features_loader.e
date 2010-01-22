@@ -676,6 +676,8 @@ feature {} -- Instructions
 		end
 
 	when_value (value: LIBERTY_AST_WHEN_VALUE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
 		do
 			if value.is_number then
 				Result := number(value.number.image)
@@ -684,7 +686,17 @@ feature {} -- Instructions
 			elseif value.is_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(value.string), True, semantics_position_at(value.node_at(0)))
 			elseif value.is_entity_name then
-				not_yet_implemented
+				entity_name := value.entity_name
+				name := entity_name.image.image.intern
+				-- may be a local or a parameter of a regular feature name
+				if local_context.is_local(name) then
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+				elseif local_context.is_parameter(name) then
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+				else
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, empty_actuals, errors.semantics_position(entity_name.image.index, type.ast, type.file))
+				end
 			else
 				check False end
 			end
