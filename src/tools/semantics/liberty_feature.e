@@ -168,8 +168,22 @@ feature {LIBERTY_FEATURE}
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is
+		local
+			repeated_child: LIBERTY_FEATURE
 		do
-			late_binding.add(child, type)
+			if late_binding.fast_reference_at(type) /= Void then
+				debug
+					repeated_child := late_binding.fast_at(type)
+				end
+				check
+					-- the same feature with multiple names.
+					same_feature: late_binding.fast_at(type) = child
+				end
+			else
+				late_binding.add(child, type)
+			end
+		ensure
+			late_binding.fast_at(type) = child
 		end
 
 	set_context (a_context: like context) is
