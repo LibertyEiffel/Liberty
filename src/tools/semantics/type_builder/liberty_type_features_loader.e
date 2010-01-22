@@ -97,6 +97,7 @@ feature {}
 			end
 			if not errors.has_error then
 				resolve_anchors
+				resolve_agents
 				check_that_all_redefined_features_were_redefined
 			end
 			type_lookup.resolver.unset_anchor_factory
@@ -1232,6 +1233,8 @@ feature {} -- Expressions
 		end
 
 	expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			exp: LIBERTY_EXPRESSION; agent_expression: LIBERTY_CALL_EXPRESSION; a: LIBERTY_AGENT
 		do
 			if e10.is_call then
 				Result := expression_call(e10.call, local_context)
@@ -1243,8 +1246,18 @@ feature {} -- Expressions
 				--|*** TODO
 				not_yet_implemented
 			elseif e10.is_agent_creation then
-				--|*** TODO
-				not_yet_implemented
+				exp := expression(e10.agent_creation_expression, local_context)
+				if not agent_expression ?:= exp then
+					--|*** TODO: error: not a call
+					not_yet_implemented
+				end
+				agent_expression ::= exp
+				create a.make(agent_expression, semantics_position_at(e10.node_at(0)))
+				if agents = Void then
+					create {FAST_ARRAY[LIBERTY_AGENT]} agents.make(0)
+				end
+				agents.add_last(a)
+				Result := a
 			elseif e10.is_creation_expression then
 				Result := expression_creation(e10.creation_expression, local_context)
 			elseif e10.is_void then
@@ -1621,10 +1634,27 @@ feature {}
 			end
 		end
 
+	resolve_agents is
+		local
+			i: INTEGER
+		do
+			if agents /= Void then
+				from
+					i := agents.lower
+				until
+					i > agents.upper
+				loop
+					agents.item(i).compute_result_type
+					i := i + 1
+				end
+			end
+		end
+
 feature {}
 	anchors: DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
+	agents: COLLECTION[LIBERTY_AGENT]
 
 invariant
 	feature_entities /= Void

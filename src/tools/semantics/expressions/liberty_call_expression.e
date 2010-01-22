@@ -16,6 +16,9 @@ class LIBERTY_CALL_EXPRESSION
 
 inherit
 	LIBERTY_EXPRESSION
+		redefine
+			is_agent_call
+		end
 
 insert
 	LIBERTY_CALL
@@ -27,6 +30,7 @@ feature {ANY}
 	target: LIBERTY_EXPRESSION
 	entity: LIBERTY_FEATURE_ENTITY
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
+	is_agent_call: BOOLEAN
 
 	result_type: LIBERTY_ENTITY_TYPE is
 		do
@@ -36,6 +40,41 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is
 		do
 			Result := entity.is_result_type_set
+		end
+
+feature {LIBERTY_AGENT}
+	set_agent_call is
+		do
+			is_agent_call := True
+		ensure
+			is_agent_call
+		end
+
+	agent_type: LIBERTY_ENTITY_TYPE is
+		local
+			arguments_types: COLLECTION[LIBERTY_TYPE]
+			i: INTEGER
+		do
+			if actuals = Void then
+				arguments_types := no_args
+			else
+				create {FAST_ARRAY[LIBERTY_TYPE]} arguments_types.with_capacity(actuals.count)
+				from
+					i := actuals.lower
+				until
+					i > actuals.upper
+				loop
+					arguments_types.add_last(actuals.item(i).result_type.type)
+					i := i + 1
+				end
+			end
+			if result_type = Void then
+				Result := lookup.universe.type_procedure(arguments_types, position)
+			elseif result_type = lookup.universe.type_boolean then
+				Result := lookup.universe.type_predicate(arguments_types, position)
+			else
+				Result := lookup.universe.type_function(arguments_types, result_type.type, position)
+			end
 		end
 
 feature {}
@@ -71,6 +110,13 @@ feature {}
 			entity = a_entity
 			actuals = a_actuals
 			position = a_position
+		end
+
+	lookup: LIBERTY_TYPE_LOOKUP
+
+	no_args: COLLECTION[LIBERTY_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
 feature {ANY}
