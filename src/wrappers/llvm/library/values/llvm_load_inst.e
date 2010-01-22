@@ -4,6 +4,8 @@ class LLVM_LOAD_INST
 
 inherit LLVM_UNARY_INST
 
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+
 end -- class LLVM_LOAD_INST
 
 -- Copyright 2009 Paolo Redaelli	

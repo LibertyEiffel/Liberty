@@ -658,25 +658,107 @@ feature {ANY} -- Memory
 	end
 
 	llvm_free (a_value: LLVM_VALUE): LLVM_FREE_INST is
-		require
-			a_value/=Void
-		do
-			create Result.from_external_pointer(llvmbuild_free(handle, a_value.handle))
-		ensure Result/=Void
-		end
+		-- A 'free' instruction returning memory back to the unused memory heap
+		-- to be reallocated in the future.
 
-	-- LLVMValueRef LLVMBuildFree(LLVMBuilderRef, LLVMValueRef PointerVal);
--- LLVMValueRef LLVMBuildLoad(LLVMBuilderRef, LLVMValueRef PointerVal,
---                            const char *Name);
--- LLVMValueRef LLVMBuildStore(LLVMBuilderRef, LLVMValueRef Val, LLVMValueRef Ptr);
--- LLVMValueRef LLVMBuildGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
---                           LLVMValueRef *Indices, unsigned NumIndices,
---                           const char *Name);
--- LLVMValueRef LLVMBuildInBoundsGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
---                                   LLVMValueRef *Indices, unsigned NumIndices,
---                                   const char *Name);
--- LLVMValueRef LLVMBuildStructGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
---                                 unsigned Idx, const char *Name);
+		-- Access to the memory pointed to by the pointer is no longer defined
+		-- after this instruction executes. If the pointer is null, the
+		-- operation is a noop.
+	require
+		a_value/=Void
+		a_value.type.is_pointer
+		-- TODO: a value was allocated with a 'malloc' instruction
+	do
+		create Result.from_external_pointer(llvmbuild_free(handle, a_value.handle))
+	ensure Result/=Void
+	end
+
+ 	load (a_location: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_LOAD_INST is
+		-- A 'load' instruction that will read from memory `a_location' that
+		-- specifies the memory address from which to load.
+	
+		-- TODO: LLVM allows to mark the load as volatile; this is currently
+		-- not supported. If the load is marked as volatile, then the optimizer
+		-- is not allowed to modify the number or order of execution of this
+		-- load with other volatile load and store instructions.
+ 
+		-- Semantics: The location of memory pointed to is loaded. If the value
+		-- being loaded is of scalar type then the number of bytes read does
+		-- not exceed the minimum number of bytes needed to hold all bits of
+		-- the type. For example, loading an i24 reads at most three bytes.
+		-- When loading a value of a type like i20 with a size that is not an
+		-- integral number of bytes, the result is undefined if the value was
+		-- not originally written using a store of the same type.
+	require 
+		a_location/=Void
+		-- TODO: a_location.is_pointer
+		-- TODO: The pointer must point to a first class type. 
+	do
+		create Result.from_external_pointer(llvmbuild_load(handle,a_location.handle,a_name.to_external))
+	ensure Result/=Void
+	end
+
+	store (a_value: LLVM_VALUE; a_pointer: LLVM_VALUE): LLVM_STORE_INST is
+		-- A 'store' instruction that will update memory at `an_address' to
+		-- contain `a_value'. 
+		
+		-- If `a_value' is of scalar type then the number of bytes written does
+		-- not exceed the minimum number of bytes needed to hold all bits of
+		-- the type. For example, storing an i24 writes at most three bytes.
+		-- When writing a value of a type like i20 with a size that is not an
+		-- integral number of bytes, it is unspecified what happens to the
+		-- extra bits that do not belong to the type, but they will typically
+		-- be overwritten. 
+
+		-- TODO: volatile store is currently not supported so the following
+		-- does not apply. If the store is marked as volatile, then the
+		-- optimizer is not allowed to modify the number or order of execution
+		-- of this store with other volatile load and store instructions.
+
+		-- TODO: LLVM support specific alignement but it is currently not provided. The following does not apply.The optional constant "align" argument specifies the alignment of the operation (that is, the alignment of the memory address). A value of 0 or an omitted "align" argument means that the operation has the preferential alignment for the target. It is the responsibility of the code emitter to ensure that the alignment information is correct. Overestimating the alignment results in an undefined behavior. Underestimating the alignment may produce less efficient code. An alignment of 1 is always safe.
+	require
+		a_value/=Void
+		a_pointer/=Void
+		-- TODO: a_pointer.is_pointer 
+		-- TODO: a_pointer must be a pointer to the same type of a_value which must be a first class type.
+	do
+		create Result.from_external_pointer(llvmbuild_store(handle,a_value.handle,a_pointer.handle))
+	ensure	
+		Result/=Void
+	end
+
+	get_element_pointer (a_pointer: LLVM_VALUE; some_indices: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR is 
+		-- A "get element pointer" intruction 
+
+	require
+		-- TODO: a_pointer should point to what?
+		a_name/=Void
+	local indices: FAST_ARRAY[POINTER]
+	do
+		-- Intentionally avoiding WRAPPER_COLLECTION to avoid tricks with native arrays
+		indices := collection_to_c_array(some_indices)
+		create Result.from_external_pointer(llvmbuild_gep(handle, a_pointer.handle, indices.to_external, some_indices.count.to_natural_32, a_name.to_external))
+	ensure Result/=Void
+	end
+	
+
+	-- TODO: wrap LLVMValueRef LLVMBuildInBoundsGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
+	--                                   LLVMValueRef *Indices, unsigned NumIndices,
+	--                                   const char *Name);
+
+	get_struct_element_pointer (a_pointer: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR is
+		-- "getelementpointer" of a structure field
+	require 
+		-- TODO: a_pointer should point to a struct
+		a_name/=Void
+	do
+		-- LLVMValueRef LLVMBuildStructGEP(LLVMBuilderRef B, LLVMValueRef Pointer,
+		--                                 unsigned Idx, const char *Name);
+		create Result.from_external_pointer(llvmbuild_struct_gep(handle,a_pointer.handle, an_index, a_name.to_external))
+	ensure 
+		Result/=Void
+	end
+
 -- LLVMValueRef LLVMBuildGlobalString(LLVMBuilderRef B, const char *Str,
 --                                    const char *Name);
 -- LLVMValueRef LLVMBuildGlobalStringPtr(LLVMBuilderRef B, const char *Str,
