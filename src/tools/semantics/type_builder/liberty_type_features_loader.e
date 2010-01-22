@@ -298,8 +298,10 @@ feature {}
 						else
 							tag := Void
 						end
-						exp := expression(assertion.expression.expression, local_context, redefinitions)
-						Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+						if assertion.expression.has_expression then
+							exp := expression(assertion.expression.expression, local_context, redefinitions)
+							Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+						end
 					end
 					i := i + 1
 				end
@@ -373,6 +375,8 @@ feature {}
 						-- Nothing, not a redefined feature
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
+					elseif redefined.redefined_feature = a_feature then
+						-- Nothing, just another name for the same feature
 					else
 						name_or_alias := name.feature_name_or_alias
 						errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
