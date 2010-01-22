@@ -758,12 +758,14 @@ feature {} -- Instructions
 			{LIBERTY_AST_DEBUG} ?:= a_debug
 		local
 			dbg: LIBERTY_AST_DEBUG
-			keys: FAST_ARRAY[STRING]; inst: like compound
+			keys: COLLECTION[STRING]; inst: like compound
 			i: INTEGER
 		do
 			dbg ::= a_debug
-			if dbg.debug_keys.list_count > 0 then
-				create keys.with_capacity(dbg.debug_keys.list_count)
+			if dbg.debug_keys.list_count = 0 then
+				keys := empty_debug_keys
+			else
+				create {FAST_ARRAY[STRING]} keys.with_capacity(dbg.debug_keys.list_count)
 				from
 					i := dbg.debug_keys.list_lower
 				until
@@ -777,6 +779,11 @@ feature {} -- Instructions
 			create Result.make(keys, inst, semantics_position_at(dbg.node_at(0)))
 		ensure
 			Result /= Void
+		end
+
+	empty_debug_keys: COLLECTION[STRING] is
+		once
+			create {FAST_ARRAY[STRING]} Result.with_capacity(0)
 		end
 
 	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION is
