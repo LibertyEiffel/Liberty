@@ -167,9 +167,18 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	bound (type: LIBERTY_TYPE): LIBERTY_FEATURE is
+		do
+			Result := late_binding.fast_reference_at(type)
+		end
+
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is
+		require
+			bound(type) = Void
 		do
 			late_binding.add(child, type)
+		ensure
+			late_binding.fast_at(type) = child
 		end
 
 	set_context (a_context: like context) is

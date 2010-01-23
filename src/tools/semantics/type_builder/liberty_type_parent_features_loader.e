@@ -252,7 +252,7 @@ feature {}
 			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
-			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
+			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE
 		do
 			Result := clause.list_count
 			if Result > 0 then
@@ -271,12 +271,17 @@ feature {}
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
 						inherited_feature := fd.the_feature
-						create redefined_feature.make(type)
-						redefined_feature.set_precondition(inherited_feature.precondition)
-						redefined_feature.set_postcondition(inherited_feature.postcondition)
-						redefined_feature.set_context(inherited_feature.context)
-						if conformant then
-							inherited_feature.bind(redefined_feature, type)
+						redefined_feature := inherited_feature.bound(type)
+						if redefined_feature = Void then
+							create {LIBERTY_FEATURE_REDEFINED} redefined_feature.make(type)
+							redefined_feature.set_precondition(inherited_feature.precondition)
+							redefined_feature.set_postcondition(inherited_feature.postcondition)
+							redefined_feature.set_context(inherited_feature.context)
+							if conformant then
+								inherited_feature.bind(redefined_feature, type)
+							end
+						else
+							--|*** TODO: ??? is it possible to have a non-related feature here???
 						end
 						fd.set_the_feature(redefined_feature)
 					end

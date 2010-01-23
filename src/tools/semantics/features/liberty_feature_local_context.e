@@ -119,6 +119,8 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			result_type = a_result_type
 		end
 
+	redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
+
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
@@ -126,11 +128,12 @@ feature {}
 	locals_list: COLLECTION[LIBERTY_LOCAL]
 	retries: COLLECTION[LIBERTY_RETRY]
 
-	make (a_current_type: like current_type) is
+	make (a_current_type: like current_type; a_redefinitions: like redefinitions) is
 		require
 			a_current_type /= Void
 		do
 			current_type := a_current_type
+			redefinitions := a_redefinitions
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
@@ -138,6 +141,7 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 		ensure
 			current_type = a_current_type
+			redefinitions = a_redefinitions
 		end
 
 	errors: LIBERTY_ERRORS

@@ -23,7 +23,7 @@ create {LIBERTY_NODE_FACTORY}
 feature {LIBERTY_AST_HANDLER}
 	has_expression: BOOLEAN is
 		do
-			Result := count > 0
+			Result := count > 0 and then nodes.first.name.is_equal(once "Expression")
 		end
 
 	expression: LIBERTY_AST_EXPRESSION is

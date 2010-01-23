@@ -174,6 +174,29 @@ feature {ANY} -- Kernel types
 			Result /= Void
 		end
 
+	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+		require
+			effective_generics /= Void
+		do
+			not_yet_implemented
+		end
+
+	type_function (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; result_type: LIBERTY_TYPE; position: LIBERTY_POSITION): LIBERTY_TYPE is
+		require
+			effective_generics /= Void
+			result_type /= Void
+			result_type /= type_boolean
+		do
+			not_yet_implemented
+		end
+
+	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+		require
+			effective_generics /= Void
+		do
+			not_yet_implemented
+		end
+
 feature {}
 	build_to_incubator (incubator: like types_incubator) is
 		require
@@ -280,6 +303,7 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
+feature {LIBERY_TYPE_RESOLVER_IN_UNIVERSE}
 	kernel_type (class_name: STRING): LIBERTY_TYPE is
 			-- Called only once per kernel type
 		require
@@ -593,6 +617,7 @@ feature {}
 		local
 			tr: LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
 		do
+			type_lookup.set_universe(Current)
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)

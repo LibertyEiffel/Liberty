@@ -57,8 +57,29 @@ feature {ANY}
 			Result := resolver_memory.item
 		end
 
+	universe: LIBERTY_UNIVERSE is
+		do
+			Result := universe_memory.item
+		end
+
+feature {LIBERTY_UNIVERSE}
+	set_universe (a_universe: LIBERTY_UNIVERSE) is
+		require
+			a_universe /= Void
+			universe = Void
+		do
+			universe_memory.set_item(a_universe)
+		ensure
+			universe = a_universe
+		end
+
 feature {}
 	resolver_memory: REFERENCE[LIBERTY_TYPE_RESOLVER] is
+		once
+			create Result
+		end
+
+	universe_memory: REFERENCE[LIBERTY_UNIVERSE] is
 		once
 			create Result
 		end
