@@ -236,7 +236,7 @@ feature {ANY} -- Implementation of deferred:
 
 	remove_head (n: INTEGER) is
 		do
-			storage.move(n - lower + 1, upper - lower, -n)
+			storage.move(n, upper - lower, -n)
 			lower := lower + n
 		ensure then
 			upper = old upper
