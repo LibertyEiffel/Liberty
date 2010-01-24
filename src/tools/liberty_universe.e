@@ -318,7 +318,7 @@ feature {LIBERY_TYPE_RESOLVER_IN_UNIVERSE}
 				errors.set(level_fatal_error, "Kernel class not found: " + class_name)
 			end
 			create cd.make(cluster, class_name.intern, Void)
-			create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
+			create td.make(cd, no_parameters)
 			Result := types.reference_at(td)
 			if Result = Void then
 				ast := parse_class(cluster, class_name, Void)
@@ -459,9 +459,9 @@ feature {} -- Type parameters fetching
 			end
 		end
 
-	no_parameters: COLLECTION[LIBERTY_TYPE] is
+	no_parameters: COLLECTION[LIBERTY_ENTITY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
 		end
 
 feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}

@@ -96,9 +96,9 @@ feature {}
 				i := i + 1
 			end
 			if not errors.has_error then
+				check_that_all_redefined_features_were_redefined
 				resolve_anchors
 				resolve_agents
-				check_that_all_redefined_features_were_redefined
 			end
 			type_lookup.resolver.unset_anchor_factory
 		end
@@ -129,7 +129,7 @@ feature {}
 				local_context.set_result_type(result_type)
 			end
 			fn ::= a_feature.signature.feature_names.last
-			create type_resolver.make(fn, result_type)
+			create type_resolver.make(fn, local_context)
 			type_lookup.push(type_resolver)
 
 			if a_feature.has_routine_definition then
@@ -1636,16 +1636,26 @@ feature {}
 
 	resolve_agents is
 		local
-			i: INTEGER
+			i: INTEGER; a: LIBERTY_AGENT
 		do
 			if agents /= Void then
 				from
-					i := agents.lower
 				until
-					i > agents.upper
+					agents.is_empty
 				loop
-					agents.item(i).compute_result_type
-					i := i + 1
+					from
+						i := agents.lower
+					until
+						i > agents.upper
+					loop
+						a := agents.item(i)
+						if a.can_compute_result_type then
+							a.compute_result_type
+							agents.remove(i)
+						else
+							i := i + 1
+						end
+					end
 				end
 			end
 		end

@@ -21,7 +21,7 @@ creation {LIBERTY_TYPE_FEATURES_LOADER}
 	make
 
 feature {}
-	result_type: LIBERTY_ENTITY_TYPE
+	local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 	feature_name: LIBERTY_AST_FEATURE_NAME
 
 feature {ANY}
@@ -45,13 +45,24 @@ feature {ANY}
 
 feature {}
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+		local
+			name: FIXED_STRING
 		do
 			if type_definition.is_like_result then
-				if result_type = Void then
+				if local_context.result_type = Void then
 					--|*** TODO: error: not a function
 					not_yet_implemented
 				end
-				Result := result_type
+				Result := local_context.result_type
+			elseif type_definition.is_like_entity then
+				-- If it's an anchor to a parameter or a local, resolve it immediately. (TODO: beware of cycles!)
+				-- Other cases will be caught by parent resolvers.
+				name := type_definition.entity_anchor.image.image.intern
+				if local_context.is_parameter(name) then
+					Result := local_context.parameter(name).result_type
+				elseif local_context.is_local(name) then
+					Result := local_context.local_var(name).result_type
+				end
 			end
 		end
 
@@ -65,18 +76,20 @@ feature {}
 			check Result = Void end
 		end
 
-	make (a_feature_name: like feature_name; a_result_type: like result_type) is
+	make (a_feature_name: like feature_name; a_local_context: like local_context) is
 		require
 			a_feature_name /= Void
+			a_local_context /= Void
 		do
 			feature_name := a_feature_name
-			result_type := a_result_type
+			local_context := a_local_context
 		ensure
 			feature_name = a_feature_name
-			result_type = a_result_type
+			local_context = a_local_context
 		end
 
 invariant
 	feature_name /= Void
+	local_context /= Void
 
 end -- class LIBERTY_TYPE_RESOLVER_IN_FEATURE

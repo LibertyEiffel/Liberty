@@ -24,14 +24,12 @@ feature {ANY}
 			-- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
 			-- or not.
 		do
-			if type_definition.is_like_entity and then anchor_factory /= Void then
-				Result := anchor_factory.item([type_definition.entity_anchor])
+			Result := lookup_type(type_definition)
+			if Result = Void and then parent /= Void then
+				Result := parent.type(type_definition)
 			end
-			if Result = Void then
-				Result := lookup_type(type_definition)
-				if Result = Void and then parent /= Void then
-					Result := parent.type(type_definition)
-				end
+			if Result = Void and then type_definition.is_like_entity and then anchor_factory /= Void then
+				Result := anchor_factory.item([type_definition.entity_anchor])
 			end
 		end
 

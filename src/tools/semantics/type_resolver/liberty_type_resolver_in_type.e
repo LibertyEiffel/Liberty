@@ -116,7 +116,7 @@ feature {}
 			if type_parameters.is_empty or else type_parameters.list_is_empty then
 				Result := no_parameters
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -139,9 +139,9 @@ feature {}
 			end
 		end
 
-	no_parameters: COLLECTION[LIBERTY_TYPE] is
+	no_parameters: COLLECTION[LIBERTY_ENTITY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
 		end
 
 invariant

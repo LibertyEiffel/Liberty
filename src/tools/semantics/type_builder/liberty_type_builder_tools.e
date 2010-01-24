@@ -46,7 +46,7 @@ feature {} -- Client list
 			elseif clients.list_is_empty then
 				Result := empty_client_list
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(clients.list_count)
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(clients.list_count)
 				from
 					i := clients.list_lower
 				until

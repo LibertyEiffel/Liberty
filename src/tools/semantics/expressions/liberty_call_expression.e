@@ -51,6 +51,8 @@ feature {LIBERTY_AGENT}
 		end
 
 	agent_type: LIBERTY_ENTITY_TYPE is
+		require
+			is_result_type_set
 		local
 			arguments_types: COLLECTION[LIBERTY_TYPE]
 			i: INTEGER
