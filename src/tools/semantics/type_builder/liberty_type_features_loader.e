@@ -1637,6 +1637,7 @@ feature {}
 	resolve_agents is
 		local
 			i: INTEGER; a: LIBERTY_AGENT
+			flame: LIBERTY_FLAME
 		do
 			if agents /= Void then
 				from
@@ -1644,6 +1645,7 @@ feature {}
 					agents.is_empty
 				loop
 					from
+						flame := torch.flame
 						i := agents.lower
 					until
 						i > agents.upper
@@ -1654,6 +1656,13 @@ feature {}
 							agents.remove(i)
 						else
 							i := i + 1
+						end
+					end
+					if not torch.still_burns(flame) then
+						errors.set(level_system_error, "Cannot resolve all anchors of "
+							+ type.full_name + ". Giving up.")
+						check
+							dead: False
 						end
 					end
 				end
