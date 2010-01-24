@@ -19,8 +19,6 @@ inherit
 		redefine
 			is_agent_call
 		end
-
-insert
 	LIBERTY_CALL
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}

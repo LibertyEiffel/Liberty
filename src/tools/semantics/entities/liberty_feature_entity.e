@@ -51,8 +51,6 @@ feature {ANY}
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_feature (a_feature: like the_feature) is
-		require
-			a_feature.result_type /= Void
 		do
 			the_feature := a_feature
 		ensure

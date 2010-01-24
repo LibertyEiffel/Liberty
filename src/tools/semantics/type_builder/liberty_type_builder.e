@@ -150,8 +150,6 @@ feature {LIBERTY_TYPE_BUILDER}
 	load_features: STRING is
 			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
-		local
-			loader: LIBERTY_TYPE_FEATURES_LOADER
 		do
 			check
 				anchored_types = no_anchored_types
@@ -159,11 +157,32 @@ feature {LIBERTY_TYPE_BUILDER}
 			debug
 				std_output.put_line(type.full_name + ": load features")
 			end
-			create loader.make(Current, type, universe, effective_generic_parameters, redefined_features, anchored_types)
-			loader.load
+			create features_loader.make(Current, type, universe, effective_generic_parameters, redefined_features, anchored_types)
+			features_loader.load
 			has_loaded_features := True
 			debug
 				std_output.put_line(type.full_name + ": features loaded")
+			end
+			Result := once "resolving type"
+		end
+
+	can_resolve_type: BOOLEAN is
+		do
+			Result := not errors.has_error and then features_loader.can_resolve
+		end
+
+	resolve_type: STRING is
+		do
+			check
+				features_loader /= Void
+			end
+			debug
+				std_output.put_line(type.full_name + ": resolve type")
+			end
+			features_loader.resolve
+			has_loaded_features := True
+			debug
+				std_output.put_line(type.full_name + ": resolve type")
 			end
 			Result := once "reconciling anchors"
 		end
@@ -233,6 +252,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
+	features_loader: LIBERTY_TYPE_FEATURES_LOADER
 	resolver: LIBERTY_TYPE_ANCHORS_RESOLVER
 
 feature {}
@@ -378,6 +398,12 @@ feature {}
 
 				"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
 					agent {LIBERTY_TYPE_BUILDER}.can_load_features,        agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_features);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
+					>>};
+
+				"resolving type", {STATE[LIBERTY_TYPE_BUILDER] <<
+					agent {LIBERTY_TYPE_BUILDER}.can_resolve_type,         agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.resolve_type);
 					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};

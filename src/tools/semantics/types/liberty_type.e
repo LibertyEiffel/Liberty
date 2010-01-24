@@ -410,7 +410,7 @@ feature {}
 			--| TODO
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
 

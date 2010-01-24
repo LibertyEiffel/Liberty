@@ -76,7 +76,7 @@ feature {LIBERTY_TYPE_FEATURES_LOADER}
 			a_anchor /= Void
 		do
 			anchor := a_anchor
-			full_name_memory := (once "like " + anchor.name).intern
+			full_name_memory := (once "like " + a_anchor.name).intern
 		ensure
 			anchor = a_anchor
 		end

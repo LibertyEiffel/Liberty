@@ -43,9 +43,9 @@ feature {}
 			redefined_features := a_redefined_features
 			anchored_types := a_anchored_types
 			create current_entity.make(a_type, errors.unknown_position)
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
 			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
 			create {HASHED_DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]} anchors.make
+			create {FAST_ARRAY[LIBERTY_CALL]} calls.make(0)
 		ensure
 			builder = a_builder
 			type = a_type
@@ -60,8 +60,11 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			ast: LIBERTY_AST_ONE_CLASS
 		do
+			type_lookup.resolver.set_anchor_factory(agent anchor_builder)
 			ast := type.ast
 			add_features(ast.features)
+			check_that_all_redefined_features_were_redefined
+			resolve_anchors
 			if not errors.has_error then
 				add_creations(ast.creations)
 				if not errors.has_error then
@@ -70,13 +73,38 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
+	can_resolve: BOOLEAN is
+		local
+			i: INTEGER; c: LIBERTY_CALL
+		do
+			from
+				Result := True
+				i := calls.lower
+			until
+				not Result or else i > calls.upper
+			loop
+				c := calls.item(i)
+				Result := c.is_implicit_current
+					or else (c.target.is_result_type_set
+								and then c.target.result_type.is_type_set
+								and then c.target.result_type.type.has_loaded_features)
+				i := i + 1
+			end
+		end
+
+	resolve is
+		do
+			resolve_calls
+			resolve_agents
+			type_lookup.resolver.unset_anchor_factory
+		end
+
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
 		local
 			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
 			f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
 		do
-			type_lookup.resolver.set_anchor_factory(agent anchor_builder)
 			from
 				i := features.lower
 			until
@@ -95,12 +123,6 @@ feature {}
 				end
 				i := i + 1
 			end
-			if not errors.has_error then
-				check_that_all_redefined_features_were_redefined
-				resolve_anchors
-				resolve_agents
-			end
-			type_lookup.resolver.unset_anchor_factory
 		end
 
 	anchor_builder (entity_anchor: LIBERTY_AST_ENTITY_NAME): LIBERTY_ANCHORED_TYPE is
@@ -574,9 +596,9 @@ feature {} -- Instructions
 					fa := actuals(r10.actuals, local_context)
 					r10 := r10.remainder
 					if r10.is_empty then
-						create {LIBERTY_CALL_INSTRUCTION} Result.make(tgt, fe, fa, tgt.position)
+						Result := create_instruction_call(tgt, fe, fa, tgt.position)
 					else
-						create {LIBERTY_CALL_EXPRESSION} tgt.make(tgt, fe, fa, tgt.position)
+						tgt := create_expression_call(tgt, fe, fa, tgt.position)
 					end
 				end
 			end
@@ -696,7 +718,7 @@ feature {} -- Instructions
 					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				else
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, empty_actuals, errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					Result := create_implicit_expression_call(e, empty_actuals, errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				end
 			else
 				check False end
@@ -898,7 +920,7 @@ feature {} -- Entities and writables
 					not_yet_implemented
 				else
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					Result := create_implicit_instruction_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
@@ -958,7 +980,7 @@ feature {} -- Entities and writables
 					--| TODO: check no actuals
 				else
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					Result := create_implicit_expression_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
@@ -993,18 +1015,12 @@ feature {} -- Entities and writables
 		require
 			name /= Void
 		do
-			Result := feature_entities.reference_at(name)
-			if Result = Void then
-				create {LIBERTY_FEATURE_ENTITY} Result.make(name)
-				feature_entities.put(Result, name)
-				torch.burn
-			end
+			create {LIBERTY_FEATURE_ENTITY} Result.make(name)
 		ensure
 			Result.feature_name.is_equal(name)
 		end
 
 	current_entity: LIBERTY_CURRENT
-	feature_entities: DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]
 	feature_writables: DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]
 
 feature {} -- Expressions
@@ -1336,7 +1352,7 @@ feature {} -- Expressions
 				else
 					fe ::= entity(a_remainder.feature_name, Void)
 					fa := actuals(a_remainder.actuals, local_context)
-					create {LIBERTY_CALL_EXPRESSION} tgt.make(a_target, fe, fa, a_target.position) --|*** or semantics_position_at(a_remainder.node_at(0)) ??
+					tgt := create_expression_call(a_target, fe, fa, a_target.position) --|*** or semantics_position_at(a_remainder.node_at(0)) ??
 					Result := expression_remainder(tgt, a_remainder.remainder, local_context)
 				end
 			end
@@ -1614,6 +1630,60 @@ feature {}
 		end
 
 feature {}
+	create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
+		do
+			create Result.make(a_target, a_entity, a_actuals, a_position)
+			calls.add_last(Result)
+		end
+
+	create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
+		do
+			create Result.implicit_current(a_entity, a_actuals, a_position)
+			calls.add_last(Result)
+		end
+
+	create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
+		do
+			create Result.make(a_target, a_entity, a_actuals, a_position)
+			calls.add_last(Result)
+		end
+
+	create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
+		do
+			create Result.implicit_current(a_entity, a_actuals, a_position)
+			calls.add_last(Result)
+		end
+
+feature {}
+	resolve_calls is
+		local
+			i: INTEGER; fn: LIBERTY_FEATURE_NAME; fe: LIBERTY_FEATURE_ENTITY
+			c: LIBERTY_CALL; t: LIBERTY_TYPE
+		do
+			from
+				i := calls.lower
+			until
+				i > calls.upper
+			loop
+				c := calls.item(i)
+				fe := c.entity
+				if not fe.is_result_type_set then
+					if c.is_implicit_current then
+						t := type
+					else
+						t := c.target.result_type.type
+					end
+					fn := fe.feature_name
+					if not t.has_feature(fn) then
+						--|*** TODO: error: unknown feature
+						not_yet_implemented
+					end
+					fe.set_feature(t.feature_definition(fn).the_feature)
+				end
+				i := i + 1
+			end
+		end
+
 	resolve_anchors is
 		local
 			i: INTEGER; anchor: LIBERTY_ANCHORED_TYPE
@@ -1674,12 +1744,13 @@ feature {}
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
 	agents: COLLECTION[LIBERTY_AGENT]
+	calls: COLLECTION[LIBERTY_CALL]
 
 invariant
-	feature_entities /= Void
 	feature_writables /= Void
 	anchors /= Void
 	redefined_features /= Void
 	anchored_types /= Void
+	calls /= Void
 
 end -- class LIBERTY_TYPE_FEATURES_LOADER
