@@ -1,0 +1,82 @@
+This small tutorial is to explain to newcomers how to setup their environment to
+play with LibertyEiffel, and, why not, even to contribute?
+
+================================================================================
+I - Install SmartEiffel
+================================================================================
+
+I-1) Download latest SVN copy of SmartEiffel
+
+This is quite simple, the only thing you have to do checkout the latest version
+from their SVN repository:
+
+  svn checkout svn://scm.gforge.inria.fr/svn/smarteiffel/trunk SmartEiffel
+
+This will create a SmartEiffel directory in your current directory that contains
+both sources and test suite.
+
+I-2) Build SmartEiffel
+
+Then, it's still very easy: go into the brand new and fresh "SmartEiffel"
+directory, and build the software with make:
+
+  cd SmartEiffel
+  make
+
+This will do two things:
+ * create a ".serc" directory in your HOME, that contains configuration files
+ for SmartEiffel
+ * build SmartEiffel compilation suite in "SmartEiffel/bin"
+
+================================================================================
+II - Patch SmartEiffel to use Liberty libraries
+================================================================================
+
+II-1) Download latest GIT copy of LibertyEiffel
+
+This is also quit simple. LibertyEiffel repository is hosted by Github. So, to
+get your own copy, type:
+
+  cd ..
+  git clone git://github.com/tybor/Liberty.git
+
+This will create a Liberty directory in your current directory that contains
+current state of the developments of LibertyEiffel
+
+II-2) Patching SmartEiffel
+
+Place the LibertyEiffel configuration file in the configuration directory of
+SmartEiffel:
+
+  cp Liberty/config/liberty.se ${HOME}/.serc
+
+Then edit the second line of this file so that the 'path_liberty' variable point
+to where you've just download LibertyEiffel.
+Suppose your home directory is '/home/mine' and that you've download Liberty in
+'Dev', then this line should look like this:
+
+path_liberty: /home/mine/Dev/Liberty
+
+Then, you also have to modify "vanilla.se" file in order to ignore
+SmartEiffel libraries in profit of Liberty ones. For this, comment out the 'lib'
+variable in 'Loadpath' section of vanilla.se, like this:
+
+...
+
+[Loadpath]
+--lib: ${path_lib}loadpath.se
+
+...
+
+================================================================================
+III - Build libertyc
+================================================================================
+
+Now the hard part (!) is over. Go into ${path_liberty}src/tools/main and type:
+
+  compile liberty.ace
+
+You're done!
+
+NB: For this command to work, 'compile' path shall be added in your PATH
+environment variable, which means the "SmartEiffel/bin" directory.
