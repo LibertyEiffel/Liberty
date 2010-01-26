@@ -57,7 +57,7 @@ Suppose your home directory is '/home/mine' and that you've download Liberty in
 
 path_liberty: /home/mine/Dev/Liberty/
 
-Be careful! Don't forget the remaining slash.
+Be careful! Don't forget the trailing slash.
 
 Then, you also have to modify "vanilla.se" file in order to ignore
 SmartEiffel libraries in profit of Liberty ones. For this, comment out the 'lib'
