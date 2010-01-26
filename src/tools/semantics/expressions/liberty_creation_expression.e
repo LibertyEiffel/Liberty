@@ -25,8 +25,6 @@ feature {ANY}
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 
-	is_result_type_set: BOOLEAN is True
-
 feature {}
 	make (a_type: like result_type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is
 		require

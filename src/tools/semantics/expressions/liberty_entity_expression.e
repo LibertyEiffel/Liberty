@@ -29,11 +29,6 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := entity.is_result_type_set
-		end
-
 feature {}
 	make (a_entity: like entity; a_position: like position) is
 		require

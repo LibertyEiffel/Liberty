@@ -62,7 +62,11 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE is
 		do
-			Result := the_feature.result_type
+			if the_feature /= Void then
+				Result := the_feature.result_type
+			else
+				not_yet_implemented
+			end
 		end
 
 	copy (other: like Current) is
@@ -71,11 +75,6 @@ feature {ANY}
 			clients := other.clients.twin
 			is_frozen := other.is_frozen
 			the_feature := other.the_feature
-		end
-
-	is_result_type_set: BOOLEAN is
-		do
-			Result := the_feature /= Void
 		end
 
 feature {ANY}
@@ -153,7 +152,6 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			the_feature := a_feature
 		ensure
 			the_feature = a_feature
-			is_result_type_set
 		end
 
 	set_creation_clients (a_creation_clients: like creation_clients) is

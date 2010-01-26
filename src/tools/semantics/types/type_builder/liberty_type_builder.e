@@ -151,13 +151,10 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
 		do
-			check
-				anchored_types = no_anchored_types
-			end
 			debug
 				std_output.put_line(type.full_name + ": load features")
 			end
-			create features_loader.make(Current, type, universe, effective_generic_parameters, redefined_features, anchored_types)
+			create features_loader.make(Current, type, universe, effective_generic_parameters, redefined_features)
 			features_loader.load
 			has_loaded_features := True
 			debug
@@ -167,8 +164,9 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 	can_resolve_type: BOOLEAN is
+			-- Currently always True if there were no errors
 		do
-			Result := not errors.has_error and then features_loader.can_resolve
+			Result := not errors.has_error
 		end
 
 	resolve_type: STRING is
@@ -184,30 +182,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			debug
 				std_output.put_line(type.full_name + ": resolve type")
 			end
-			Result := once "reconciling anchors"
-		end
-
-	can_reconcile_anchors: BOOLEAN is
-			-- Currently always True if there were no errors
-		do
-			Result := not errors.has_error
-		end
-
-	reconcile_anchors: STRING is
-			-- Try to reconcile anchors using other features' result types.
-			-- True if all the anchors were reconciled, False if some are left to do later.
-		do
-			debug
-				std_output.put_line(type.full_name + ": reconcile anchors")
-			end
-			if resolver = Void then
-				create resolver.make(Current, type, universe, effective_generic_parameters, anchored_types)
-			end
-			if not resolver.resolve_anchors then
-				Result := once "reconciling anchors"
-			else
-				Result := once "checking type"
-			end
+			Result := once "checking type"
 		end
 
 	can_check_type: BOOLEAN is
@@ -253,7 +228,6 @@ feature {LIBERTY_TYPE_BUILDER}
 
 feature {}
 	features_loader: LIBERTY_TYPE_FEATURES_LOADER
-	resolver: LIBERTY_TYPE_ANCHORS_RESOLVER
 
 feature {}
 	check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE]): BOOLEAN is
@@ -317,16 +291,6 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 			redefined_features = redefined
 		end
 
-feature {LIBERTY_TYPE_FEATURES_LOADER}
-	set_anchored_types (anchored: like anchored_types) is
-		require
-			useful: not anchored.is_empty
-		do
-			anchored_types := anchored
-		ensure
-			anchored_types = anchored
-		end
-
 feature {}
 	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 			-- key: generic parameter name (e.g. E_)
@@ -346,13 +310,6 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
 		end
 
-	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
-
-	no_anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE] is
-		once
-			create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} Result.with_capacity(0)
-		end
-
 feature {}
 	make (a_type: like type; a_universe: like universe) is
 		require
@@ -363,7 +320,6 @@ feature {}
 			universe := a_universe
 			effective_generic_parameters := empty_effective_generic_parameters
 			redefined_features := no_redefined_features
-			anchored_types := no_anchored_types
 			automaton_context := automaton.start(once "checking header", Current)
 			create type_resolver.make(a_universe, a_type, empty_effective_generic_parameters)
 		ensure
@@ -408,12 +364,6 @@ feature {}
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};
 
-				"reconciling anchors", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.can_reconcile_anchors,    agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.reconcile_anchors);
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
-					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
-					>>};
-
 				"checking type", {STATE[LIBERTY_TYPE_BUILDER] <<
 					agent {LIBERTY_TYPE_BUILDER}.can_check_type,           agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.check_type);
 					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
@@ -427,6 +377,5 @@ invariant
 	universe /= Void
 	effective_generic_parameters /= Void
 	redefined_features /= Void
-	anchored_types /= Void
 
 end -- class LIBERTY_TYPE_BUILDER

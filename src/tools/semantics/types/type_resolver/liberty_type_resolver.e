@@ -61,15 +61,12 @@ feature {ANY}
 			Result /= Void
 		end
 
-feature {LIBERTY_DELAYED_TYPE}
+feature {LIBERTY_DELAYED_TYPE_DEFINITION}
 	undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			Result := lookup_type(type_definition)
 			if Result = Void and then parent /= Void then
 				Result := parent.type(type_definition)
-			end
-			if Result = Void and then type_definition.is_like_entity and then anchor_factory /= Void then
-				Result := anchor_factory.item([type_definition.entity_anchor])
 			end
 		end
 
@@ -82,25 +79,8 @@ feature {LIBERTY_UNIVERSE}
 feature {}
 	delayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_DELAYED_TYPE is
 		do
-			create Result.make(type_definition, Current)
+			create Result.make(create {LIBERTY_DELAYED_TYPE_DEFINITION}.make(type_definition, Current))
 			delayed_types.add_last(Result)
-		end
-
-feature {LIBERTY_TYPE_FEATURES_LOADER}
-	set_anchor_factory (a_anchor_factory: like anchor_factory) is
-		require
-			a_anchor_factory /= Void
-		do
-			anchor_factory := a_anchor_factory
-		ensure
-			anchor_factory = a_anchor_factory
-		end
-
-	unset_anchor_factory is
-		do
-			anchor_factory := Void
-		ensure
-			anchor_factory = Void
 		end
 
 feature {LIBERTY_TYPE_LOOKUP}
@@ -135,7 +115,6 @@ feature {}
 
 feature {}
 	errors: LIBERTY_ERRORS
-	anchor_factory: FUNCTION[TUPLE[LIBERTY_AST_ENTITY_NAME], LIBERTY_ANCHORED_TYPE]
 
 invariant
 	delayed_types /= Void

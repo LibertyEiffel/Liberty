@@ -30,11 +30,6 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := entity.is_result_type_set
-		end
-
 feature {}
 	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
 		require

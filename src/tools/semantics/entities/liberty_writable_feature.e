@@ -36,11 +36,6 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := entity.is_result_type_set
-		end
-
 	out_in_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "writable feature: ")

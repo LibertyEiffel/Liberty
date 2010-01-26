@@ -41,12 +41,11 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE is
 		do
-			Result := the_feature.result_type
-		end
-
-	is_result_type_set: BOOLEAN is
-		do
-			Result := the_feature /= Void
+			if the_feature /= Void then
+				Result := the_feature.result_type
+			else
+				not_yet_implemented
+			end
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -55,7 +54,6 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			the_feature := a_feature
 		ensure
 			the_feature = a_feature
-			is_result_type_set
 		end
 
 feature {}

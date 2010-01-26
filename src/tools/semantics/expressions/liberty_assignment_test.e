@@ -22,7 +22,6 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	result_type: LIBERTY_TYPE
-	is_result_type_set: BOOLEAN is True
 
 feature {}
 	test_entity (a_entity: like entity; a_expression: like expression; a_result_type: like result_type; a_position: like position) is

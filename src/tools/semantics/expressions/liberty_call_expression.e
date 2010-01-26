@@ -35,11 +35,6 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := entity.is_result_type_set
-		end
-
 feature {LIBERTY_AGENT}
 	set_agent_call is
 		do
@@ -49,8 +44,6 @@ feature {LIBERTY_AGENT}
 		end
 
 	agent_type: LIBERTY_TYPE is
-		require
-			is_result_type_set
 		local
 			arguments_types: COLLECTION[LIBERTY_ACTUAL_TYPE]
 			i: INTEGER

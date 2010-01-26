@@ -23,24 +23,17 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := result_type /= Void
-		end
-
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	compute_result_type is
 		require
 			can_compute_result_type
 		do
 			result_type := call.agent_type
-		ensure
-			is_result_type_set
 		end
 
 	can_compute_result_type: BOOLEAN is
 		do
-			Result := call.is_result_type_set
+			--Result := call.is_result_type_set
 		end
 
 feature {}

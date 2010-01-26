@@ -21,20 +21,11 @@ insert
 
 feature {ANY}
 	result_type: LIBERTY_TYPE is
-		require
-			is_result_type_set
 		deferred
 		ensure
-			Result /= Void
-		end
-
-	is_result_type_set: BOOLEAN is
-		deferred
+			Result /= Void or else is_agent_call
 		end
 
 	is_agent_call: BOOLEAN is False
-
-invariant
-	is_result_type_set implies (result_type /= Void or else is_agent_call)
 
 end

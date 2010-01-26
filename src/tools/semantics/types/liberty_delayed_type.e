@@ -12,56 +12,44 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_ANCHORED_TYPE
+class LIBERTY_DELAYED_TYPE
+	--
+	-- A type to be resolved later.
+	--
 
 inherit
 	LIBERTY_TYPE
 
-creation {LIBERTY_TYPE_BUILDER_TOOLS}
+creation {LIBERTY_TYPE_RESOLVER}
 	make
 
 feature {ANY}
-	anchor: LIBERTY_ENTITY
+	type: LIBERTY_ACTUAL_TYPE
 
-	type: LIBERTY_ACTUAL_TYPE is
-		do
-			Result := anchor.result_type.type
-		ensure
-			Result = anchor.result_type.type
-		end
-
-	is_actual_type_set: BOOLEAN is
-		do
-			Result := anchor.is_result_type_set
-		end
+	is_actual_type_set: BOOLEAN
 
 	full_name: FIXED_STRING is
 		do
 			if is_actual_type_set then
 				Result := type.full_name
 			else
-				Result := full_name_memory
+				Result := out.intern
 			end
 		end
 
 	hash_code: INTEGER is
 		do
-			Result := full_name_memory.hash_code
+			Result := delayed_resolver.hash_code
 		end
 
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := full_name_memory.is_equal(other.full_name_memory)
+			Result := other = Current
 		end
 
 	out_in_tagged_out_memory is
 		do
-			tagged_out_memory.append(once "like ")
-			anchor.out_in_tagged_out_memory
-			if type /= Void then
-				tagged_out_memory.append(once " i.e. ")
-				type.out_in_tagged_out_memory
-			end
+			delayed_resolver.out_in_tagged_out_memory
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}
@@ -70,23 +58,39 @@ feature {LIBERTY_ACTUAL_TYPE}
 			buffer.append(full_name)
 		end
 
-feature {LIBERTY_TYPE_FEATURES_LOADER}
-	set_anchor (a_anchor: like anchor) is
+feature {LIBERTY_UNIVERSE}
+	can_resolve: BOOLEAN is
 		require
-			a_anchor /= Void
+			not is_actual_type_set
 		do
-			anchor := a_anchor
-			full_name_memory := (once "like " + a_anchor.name).intern
+			Result := delayed_resolver.can_resolve
+		end
+
+	resolve is
+		require
+			can_resolve
+		do
+			type := delayed_resolver.resolved
+			is_actual_type_set := True
+			torch.burn
 		ensure
-			anchor = a_anchor
+			is_actual_type_set
 		end
 
 feature {}
-	make is
+	make (a_delayed_resolver: like delayed_resolver) is
+		require
+			a_delayed_resolver /= Void
 		do
+			delayed_resolver := a_delayed_resolver
+		ensure
+			delayed_resolver = a_delayed_resolver
 		end
 
-feature {LIBERTY_ANCHORED_TYPE}
-	full_name_memory: FIXED_STRING
+	delayed_resolver: LIBERTY_DELAYED_RESOLVER
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
-end -- class LIBERTY_ANCHORED_TYPE
+invariant
+	delayed_resolver /= Void
+
+end -- class LIBERTY_DELAYED_TYPE

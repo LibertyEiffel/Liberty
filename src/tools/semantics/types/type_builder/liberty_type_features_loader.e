@@ -27,32 +27,26 @@ creation {LIBERTY_TYPE_BUILDER}
 
 feature {}
 	make (a_builder: like builder; a_type: like type; a_universe: like universe;
-		a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features;
-		a_anchored_types: like anchored_types) is
+		a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
 		require
 			a_builder /= Void
 			a_type /= Void
 			a_universe /= Void
 			a_redefined_features /= Void
-			a_anchored_types /= Void
 		do
 			builder := a_builder
 			type := a_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
-			anchored_types := a_anchored_types
 			create current_entity.make(a_type, errors.unknown_position)
 			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
-			create {HASHED_DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]} anchors.make
-			create {FAST_ARRAY[LIBERTY_CALL]} calls.make(0)
 		ensure
 			builder = a_builder
 			type = a_type
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
 			redefined_features = a_redefined_features
-			anchored_types = a_anchored_types
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -60,11 +54,9 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			ast: LIBERTY_AST_ONE_CLASS
 		do
-			type_lookup.resolver.set_anchor_factory(agent anchor_builder)
 			ast := type.ast
 			add_features(ast.features)
 			check_that_all_redefined_features_were_redefined
-			resolve_anchors
 			if not errors.has_error then
 				add_creations(ast.creations)
 				if not errors.has_error then
@@ -73,30 +65,9 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
-	can_resolve: BOOLEAN is
-		local
-			i: INTEGER; c: LIBERTY_CALL
-		do
-			from
-				Result := True
-				i := calls.lower
-			until
-				not Result or else i > calls.upper
-			loop
-				c := calls.item(i)
-				Result := c.is_implicit_current
-					or else (c.target.is_result_type_set
-								and then c.target.result_type.is_actual_type_set
-								and then c.target.result_type.type.has_loaded_features)
-				i := i + 1
-			end
-		end
-
 	resolve is
 		do
-			resolve_calls
 			resolve_agents
-			type_lookup.resolver.unset_anchor_factory
 		end
 
 feature {}
@@ -122,18 +93,6 @@ feature {}
 					j := j + 1
 				end
 				i := i + 1
-			end
-		end
-
-	anchor_builder (entity_anchor: LIBERTY_AST_ENTITY_NAME): LIBERTY_ANCHORED_TYPE is
-		local
-			feature_name: LIBERTY_FEATURE_NAME
-		do
-			create feature_name.make_regular(entity_anchor.image.image.intern, errors.semantics_position(entity_anchor.image.index, type.ast, type.file))
-			Result := anchors.reference_at(feature_name)
-			if Result = Void then
-				create Result.make
-				anchors.add(Result, feature_name)
 			end
 		end
 
@@ -1633,77 +1592,24 @@ feature {}
 	create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
 		do
 			create Result.make(a_target, a_entity, a_actuals, a_position)
-			calls.add_last(Result)
 		end
 
 	create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
 		do
 			create Result.implicit_current(a_entity, a_actuals, a_position)
-			calls.add_last(Result)
 		end
 
 	create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
 		do
 			create Result.make(a_target, a_entity, a_actuals, a_position)
-			calls.add_last(Result)
 		end
 
 	create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
 		do
 			create Result.implicit_current(a_entity, a_actuals, a_position)
-			calls.add_last(Result)
 		end
 
 feature {}
-	resolve_calls is
-		local
-			i: INTEGER; fn: LIBERTY_FEATURE_NAME; fe: LIBERTY_FEATURE_ENTITY
-			c: LIBERTY_CALL; t: LIBERTY_ACTUAL_TYPE
-		do
-			from
-				i := calls.lower
-			until
-				i > calls.upper
-			loop
-				c := calls.item(i)
-				fe := c.entity
-				if not fe.is_result_type_set then
-					if c.is_implicit_current then
-						t := type
-					else
-						t := c.target.result_type.type
-					end
-					fn := fe.feature_name
-					if not t.has_feature(fn) then
-						--|*** TODO: error: unknown feature
-						not_yet_implemented
-					end
-					fe.set_feature(t.feature_definition(fn).the_feature)
-				end
-				i := i + 1
-			end
-		end
-
-	resolve_anchors is
-		local
-			i: INTEGER; anchor: LIBERTY_ANCHORED_TYPE
-		do
-			if not anchors.is_empty then
-				create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} anchored_types.with_capacity(anchors.count)
-				from
-					i := anchors.lower
-				until
-					i > anchors.upper
-				loop
-					anchor := anchors.item(i)
-					anchor.set_anchor(type.feature_definition(anchors.key(i)))
-					anchored_types.add_last(anchor)
-					i := i + 1
-				end
-				builder.set_anchored_types(anchored_types)
-			end
-		end
-
 	resolve_agents is
 		local
 			i: INTEGER; a: LIBERTY_AGENT
@@ -1729,7 +1635,7 @@ feature {}
 						end
 					end
 					if not torch.still_burns(flame) then
-						errors.set(level_system_error, "Cannot resolve all anchors of "
+						errors.set(level_system_error, "Cannot resolve all agents of "
 							+ type.full_name + ". Giving up.")
 						check
 							dead: False
@@ -1740,17 +1646,11 @@ feature {}
 		end
 
 feature {}
-	anchors: DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
-	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
 	agents: COLLECTION[LIBERTY_AGENT]
-	calls: COLLECTION[LIBERTY_CALL]
 
 invariant
 	feature_writables /= Void
-	anchors /= Void
 	redefined_features /= Void
-	anchored_types /= Void
-	calls /= Void
 
 end -- class LIBERTY_TYPE_FEATURES_LOADER

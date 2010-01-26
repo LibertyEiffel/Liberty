@@ -25,8 +25,6 @@ feature {ANY}
 	entity: LIBERTY_ENTITY
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is True
-
 feature {}
 	make (type: like result_type; a_entity: like entity; a_position: like position) is
 		require

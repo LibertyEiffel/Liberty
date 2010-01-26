@@ -26,19 +26,15 @@ feature {ANY}
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 	type: LIBERTY_TYPE is
-		require
-			is_actual_type_set
 		do
-			Result := explicit_type
-			if Result = Void and then writable.is_result_type_set then
+			if explicit_type = Void then
 				Result := writable.result_type
+			else
+				Result := explicit_type
 			end
 		end
 
-	is_actual_type_set: BOOLEAN is
-		do
-			Result := explicit_type /= Void or else writable.is_result_type_set
-		end
+	is_actual_type_set: BOOLEAN is True
 
 feature {}
 	make (a_writable: like writable; a_type: like type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is

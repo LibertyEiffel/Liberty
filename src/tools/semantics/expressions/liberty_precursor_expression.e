@@ -29,8 +29,6 @@ feature {ANY}
 			Result := the_feature.result_type
 		end
 
-	is_result_type_set: BOOLEAN is True
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local

@@ -24,8 +24,6 @@ feature {ANY}
 	name: FIXED_STRING
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is True
-
 	out_in_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "local: ")

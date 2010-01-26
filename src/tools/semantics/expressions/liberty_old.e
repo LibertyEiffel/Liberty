@@ -28,11 +28,6 @@ feature {ANY}
 			Result := expression.result_type
 		end
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := expression.is_result_type_set
-		end
-
 feature {}
 	make (a_expression: like expression; a_position: like position) is
 		require
@@ -57,6 +52,5 @@ feature {ANY}
 
 invariant
 	expression /= Void
-	is_result_type_set implies (expression.is_result_type_set and then result_type = expression.result_type)
 
 end

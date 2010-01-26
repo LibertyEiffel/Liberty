@@ -23,11 +23,6 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is
-		do
-			Result := result_type /= Void
-		end
-
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_result_type (a_result_type: like result_type) is
 		require
@@ -35,7 +30,6 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		do
 			result_type := a_result_type
 		ensure
-			is_result_type_set
 			result_type = a_result_type
 		end
 

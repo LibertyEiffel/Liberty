@@ -22,8 +22,6 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is True
-
 feature {}
 	make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
 		require

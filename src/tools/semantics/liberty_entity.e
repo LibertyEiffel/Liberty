@@ -31,16 +31,9 @@ feature {ANY}
 		end
 
 	result_type: LIBERTY_TYPE is
-		require
-			is_result_type_set
 		deferred
 		ensure
 			-- Result may be Void in the particular case of procedures
-		end
-
-	is_result_type_set: BOOLEAN is
-			-- True if the `result_type' may be queried. False if the object is not yet fully reconciled.
-		deferred
 		end
 
 invariant

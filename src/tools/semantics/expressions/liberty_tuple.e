@@ -23,8 +23,6 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	result_type: LIBERTY_TYPE
 
-	is_result_type_set: BOOLEAN is True
-
 	count: INTEGER is
 		do
 			Result := elements.count

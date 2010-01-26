@@ -12,37 +12,27 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_COMPARISON
+deferred class LIBERTY_DELAYED_RESOLVER
+	--
+	-- Design pattern: Strategy. Used by LIBERTY_DELAYED_TYPE to resolve a type.
+	--
 
-inherit
-	LIBERTY_EXPRESSION
-
-feature {ANY}
-	left, right: LIBERTY_EXPRESSION
-
-	result_type: LIBERTY_TYPE
-
-feature {}
-	make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position) is
-		require
-			a_left /= Void
-			a_right /= Void
-			a_result_type /= Void
-			a_position /= Void
-		do
-			left := a_left
-			right := a_right
-			result_type := a_result_type
-			position := a_position
-		ensure
-			left = a_left
-			right = a_right
-			result_type = a_result_type
-			position = a_position
+insert
+	HASHABLE
+		undefine out_in_tagged_out_memory
 		end
 
-invariant
-	left /= Void
-	right /= Void
+feature {LIBERTY_DELAYED_TYPE}
+	can_resolve: BOOLEAN is
+		deferred
+		end
 
-end
+	resolved: LIBERTY_ACTUAL_TYPE is
+		require
+			can_resolve
+		deferred
+		ensure
+			Result /= Void
+		end
+
+end -- class LIBERTY_DELAYED_RESOLVER
