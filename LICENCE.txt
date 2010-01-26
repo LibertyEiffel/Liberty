@@ -10,7 +10,7 @@ Liberty Eiffel's licencing scheme is a bit complex.
   - Other "100% Eiffel" libraries are usually licenced under the
     MIT-X11 [2] licence.
 
-  - Wrapper libraries use the same licence as the underlyiong library
+  - Wrapper libraries use the same licence as the underlying library
 
 --------------------
 	[1] http://www.opensource.org/licenses/gpl-3.0.html
