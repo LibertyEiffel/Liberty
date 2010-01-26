@@ -18,7 +18,7 @@ insert
 	ANY
 
 feature {ANY}
-	definition_type: LIBERTY_TYPE
+	definition_type: LIBERTY_ACTUAL_TYPE
 			-- the type where the feature is written
 
 	result_type: LIBERTY_ENTITY_TYPE is
@@ -167,12 +167,12 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	bound (type: LIBERTY_TYPE): LIBERTY_FEATURE is
+	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		do
 			Result := late_binding.fast_reference_at(type)
 		end
 
-	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is
+	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
 		require
 			bound(type) = Void
 		do
@@ -218,12 +218,12 @@ feature {}
 			a_definition_type /= Void
 		do
 			definition_type := a_definition_type
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} late_binding.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.make
 		ensure
 			definition_type = a_definition_type
 		end
 
-	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
+	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
 

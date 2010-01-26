@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_TYPE
+class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_ENTITY_TYPE
@@ -31,7 +31,7 @@ create {LIBERTY_UNIVERSE}
 	make
 
 feature {ANY}
-	type: LIBERTY_TYPE is
+	type: LIBERTY_ACTUAL_TYPE is
 		do
 			Result := Current
 		end
@@ -161,7 +161,7 @@ feature {ANY}
 			o.put_line(full_name.out)
 		end
 
-feature {LIBERTY_TYPE}
+feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		local
 			i: INTEGER
@@ -185,7 +185,7 @@ feature {LIBERTY_TYPE}
 		end
 
 feature {ANY} -- Inheritance
-	is_conform_to (other: LIBERTY_TYPE): BOOLEAN is
+	is_conform_to (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -205,12 +205,12 @@ feature {ANY} -- Inheritance
 			Result implies is_child_of(other)
 		end
 
-	is_child_of (other: LIBERTY_TYPE): BOOLEAN is
+	is_child_of (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
 			Result := is_conform_to(other) or else is_non_conformant_child_of(other)
 		end
 
-	is_non_conformant_child_of (other: LIBERTY_TYPE): BOOLEAN is
+	is_non_conformant_child_of (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -242,7 +242,7 @@ feature {ANY} -- Inheritance
 			Result implies is_child_of(other)
 		end
 
-	common_conformant_parent_with (other: LIBERTY_TYPE): LIBERTY_TYPE is
+	common_conformant_parent_with (other: LIBERTY_ACTUAL_TYPE): LIBERTY_ACTUAL_TYPE is
 		do
 			if other = Current then
 				Result := Current
@@ -265,14 +265,14 @@ feature {ANY} -- Representation
 			full_name.out_in_tagged_out_memory
 		end
 
-feature {LIBERTY_TYPE}
-	common_parent (other: LIBERTY_TYPE): LIBERTY_TYPE is
+feature {LIBERTY_ACTUAL_TYPE}
+	common_parent (other: LIBERTY_ACTUAL_TYPE): LIBERTY_ACTUAL_TYPE is
 			-- To implement `common_conformant_parent_with'.
 			-- Conformant common parent lookup.
 		require
 			not_trivial: Current /= other and then not is_conform_to(other) and then not other.is_conform_to(Current)
 		local
-			i: INTEGER; t: LIBERTY_TYPE
+			i: INTEGER; t: LIBERTY_ACTUAL_TYPE
 		do
 			from
 				i := conformant_parents.lower
@@ -343,12 +343,12 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			is_reference
 		end
 
-	add_parent (a_parent: LIBERTY_TYPE; conformant: BOOLEAN) is
+	add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN) is
 		do
 			torch.burn
 			if conformant then
 				if conformant_parents = no_parents then
-					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.with_capacity(2)
+					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} conformant_parents.with_capacity(2)
 				end
 				conformant_parents.add_last(a_parent)
 				debug
@@ -356,7 +356,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				end
 			else
 				if non_conformant_parents = no_parents then
-					create {FAST_ARRAY[LIBERTY_TYPE]} non_conformant_parents.with_capacity(2)
+					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} non_conformant_parents.with_capacity(2)
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug
@@ -411,8 +411,8 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
-	conformant_parents: COLLECTION[LIBERTY_TYPE]
-	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
+	conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
+	non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 
 	has_loaded_features: BOOLEAN is
 		do
@@ -464,9 +464,9 @@ feature {}
 
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
-	no_parents: COLLECTION[LIBERTY_TYPE] is
+	no_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
 		end
 
 invariant

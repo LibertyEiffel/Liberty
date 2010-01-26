@@ -89,12 +89,12 @@ feature {}
 			push_parent_features_in_type
 		end
 
-	inject_parent_invariant (parent: LIBERTY_TYPE) is
+	inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE) is
 		do
 			--|*** TODO
 		end
 
-	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
+	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
 			pf: like parent_features; rf_count: INTEGER; r: LIBERTY_FEATURE_REDEFINED

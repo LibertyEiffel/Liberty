@@ -52,13 +52,13 @@ feature {LIBERTY_AGENT}
 		require
 			is_result_type_set
 		local
-			arguments_types: COLLECTION[LIBERTY_TYPE]
+			arguments_types: COLLECTION[LIBERTY_ACTUAL_TYPE]
 			i: INTEGER
 		do
 			if actuals = Void then
 				arguments_types := no_args
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]} arguments_types.with_capacity(actuals.count)
+				create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} arguments_types.with_capacity(actuals.count)
 				from
 					i := actuals.lower
 				until
@@ -114,9 +114,9 @@ feature {}
 
 	lookup: LIBERTY_TYPE_LOOKUP
 
-	no_args: COLLECTION[LIBERTY_TYPE] is
+	no_args: COLLECTION[LIBERTY_ACTUAL_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
 		end
 
 feature {ANY}

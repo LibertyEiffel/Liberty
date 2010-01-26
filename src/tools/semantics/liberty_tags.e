@@ -27,7 +27,7 @@ feature {ANY} -- Tags on expressions
 			create Result.make("has side effect".intern)
 		end
 
-	runtime_set: LIBERTY_TAG_REF[COLLECTION[LIBERTY_TYPE]] is
+	runtime_set: LIBERTY_TAG_REF[COLLECTION[LIBERTY_ACTUAL_TYPE]] is
 			-- This tag contains the complete set of actual types an expression may have at runtime.
 		once
 			create Result.make("runtime set".intern)

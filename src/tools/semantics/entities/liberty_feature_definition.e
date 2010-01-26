@@ -166,7 +166,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			creation_clients = a_creation_clients
 		end
 
-	join (fd: like Current; a_type: LIBERTY_TYPE) is
+	join (fd: like Current; a_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			fd /= Void
 			fd.has_precursor(a_type)
@@ -224,12 +224,12 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
-	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_TYPE) is
+	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not has_precursor(a_precursor_type)
 		do
 			if precursors = Void then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} precursors.make
 			end
 			precursors.add(a_precursor_feature, a_precursor_type)
 			torch.burn
@@ -237,14 +237,14 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 			precursor_feature(a_precursor_type) = a_precursor_feature
 		end
 
-	has_precursor (a_precursor_type: LIBERTY_TYPE): BOOLEAN is
+	has_precursor (a_precursor_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
 			if precursors /= Void then
 				Result := precursors.has(a_precursor_type)
 			end
 		end
 
-	precursor_feature (a_precursor_type: LIBERTY_TYPE): LIBERTY_FEATURE is
+	precursor_feature (a_precursor_type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		require
 			has_precursor(a_precursor_type)
 		do
@@ -300,7 +300,7 @@ feature {}
 			position = a_position
 		end
 
-	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
+	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 

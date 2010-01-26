@@ -39,8 +39,8 @@ feature {LIBERTY_TYPE_BUILDER}
 
 feature {}
 	universe: LIBERTY_UNIVERSE
-	current_type: LIBERTY_TYPE
-	effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
+	current_type: LIBERTY_ACTUAL_TYPE
+	effective_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
 		do
@@ -83,7 +83,7 @@ feature {}
 		end
 
 feature {}
-	type_from_legacy_class_name_or_full_liberty_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+	type_from_legacy_class_name_or_full_liberty_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ACTUAL_TYPE is
 			-- Special code to handle legacy Eiffel class marks (in exports and precursors) or full-fledged type
 			-- marks Liberty recommends
 		require

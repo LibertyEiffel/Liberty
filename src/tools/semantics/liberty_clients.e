@@ -16,7 +16,7 @@ class LIBERTY_CLIENTS
 
 inherit
 	LIBERTY_AST_CLIENT_VISITOR
-	TRAVERSABLE[LIBERTY_TYPE]
+	TRAVERSABLE[LIBERTY_ACTUAL_TYPE]
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -42,7 +42,7 @@ feature {ANY}
 			Result := clients.is_empty
 		end
 
-	item (i: INTEGER): LIBERTY_TYPE is
+	item (i: INTEGER): LIBERTY_ACTUAL_TYPE is
 		do
 			Result := clients.item(i)
 		end
@@ -57,7 +57,7 @@ feature {ANY}
 			Result := clients.last
 		end
 
-	new_iterator: ITERATOR[LIBERTY_TYPE] is
+	new_iterator: ITERATOR[LIBERTY_ACTUAL_TYPE] is
 		do
 			Result := clients.new_iterator
 		end
@@ -77,7 +77,7 @@ feature {}
 			i: INTEGER
 		do
 			universe := a_universe
-			create {FAST_ARRAY[LIBERTY_TYPE]} clients.with_capacity(clients.count)
+			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} clients.with_capacity(clients.count)
 			from
 				i := a_clients.lower
 			until
@@ -90,8 +90,8 @@ feature {}
 			clients.count = a_clients.count
 		end
 
-	origin: LIBERTY_TYPE
-	clients: COLLECTION[LIBERTY_TYPE]
+	origin: LIBERTY_ACTUAL_TYPE
+	clients: COLLECTION[LIBERTY_ACTUAL_TYPE]
 	universe: LIBERTY_UNIVERSE
 
 end

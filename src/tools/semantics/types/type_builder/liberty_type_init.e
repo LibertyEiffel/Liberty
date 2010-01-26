@@ -50,7 +50,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			name: FIXED_STRING
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
-			effective_type: LIBERTY_TYPE
+			effective_type: LIBERTY_ACTUAL_TYPE
 			i, n: INTEGER
 		do
 			ast := type.ast.class_header
@@ -78,7 +78,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} effective_generic_parameters.with_capacity(n)
+				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} effective_generic_parameters.with_capacity(n)
 				from
 					i := type_parameters.list_lower
 				until

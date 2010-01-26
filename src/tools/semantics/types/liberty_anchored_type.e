@@ -23,7 +23,7 @@ creation {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	anchor: LIBERTY_ENTITY
 
-	type: LIBERTY_TYPE is
+	type: LIBERTY_ACTUAL_TYPE is
 		do
 			Result := anchor.result_type.type
 		ensure
@@ -64,7 +64,7 @@ feature {ANY}
 			end
 		end
 
-feature {LIBERTY_TYPE}
+feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		do
 			buffer.append(full_name)

@@ -900,7 +900,7 @@ feature {} -- Entities and writables
 	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
-			f: LIBERTY_FEATURE; precursor_type: LIBERTY_TYPE
+			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE
 		do
 			if a_target.is_current then
 				--| TODO: error
@@ -938,7 +938,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	find_precursor (redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]; parent: LIBERTY_TYPE): LIBERTY_FEATURE is
+	find_precursor (redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]; parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		local
 			i: INTEGER; fd: LIBERTY_FEATURE_DEFINITION
 		do
@@ -960,7 +960,7 @@ feature {} -- Entities and writables
 	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
-			f: LIBERTY_FEATURE; precursor_type: LIBERTY_TYPE
+			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE
 		do
 			if a_target.is_current then
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
@@ -1290,7 +1290,7 @@ feature {} -- Expressions
 			a_creation /= Void
 		local
 			entity_type: LIBERTY_ENTITY_TYPE
-			creation_type: LIBERTY_TYPE
+			creation_type: LIBERTY_ACTUAL_TYPE
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
@@ -1402,7 +1402,7 @@ feature {} -- Expressions
 		local
 			openarg: LIBERTY_OPEN_ARGUMENT
 			entity_type: LIBERTY_ENTITY_TYPE
-			actual_type: LIBERTY_TYPE
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if constant.is_assignment_test then
 				entity_type := type_lookup.resolver.type(constant.assignment_test_type)
@@ -1515,7 +1515,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+	number_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
 		require
 			({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
 				or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
@@ -1537,7 +1537,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	array_typed_manifest (manifest_type: LIBERTY_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
+	array_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
 		local_context: LIBERTY_FEATURE_LOCAL_CONTEXT;
 		a_position: LIBERTY_POSITION): LIBERTY_ARRAY_MANIFEST is
 		require
@@ -1658,7 +1658,7 @@ feature {}
 	resolve_calls is
 		local
 			i: INTEGER; fn: LIBERTY_FEATURE_NAME; fe: LIBERTY_FEATURE_ENTITY
-			c: LIBERTY_CALL; t: LIBERTY_TYPE
+			c: LIBERTY_CALL; t: LIBERTY_ACTUAL_TYPE
 		do
 			from
 				i := calls.lower

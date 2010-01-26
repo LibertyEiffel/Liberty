@@ -27,7 +27,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
+	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ACTUAL_TYPE]): LIBERTY_ACTUAL_TYPE is
 		require
 			position /= Void
 		do
@@ -54,98 +54,98 @@ feature {ANY}
 		end
 
 feature {ANY} -- Kernel types
-	type_any: LIBERTY_TYPE is
+	type_any: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("ANY")
 		end
 
-	type_pointer: LIBERTY_TYPE is
+	type_pointer: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("POINTER")
 		end
 
-	type_integer_64: LIBERTY_TYPE is
+	type_integer_64: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_64")
 		end
 
-	type_integer, type_integer_32: LIBERTY_TYPE is
+	type_integer, type_integer_32: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_32")
 		end
 
-	type_integer_16: LIBERTY_TYPE is
+	type_integer_16: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_16")
 		end
 
-	type_integer_8: LIBERTY_TYPE is
+	type_integer_8: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_8")
 		end
 
-	type_real, type_real_64: LIBERTY_TYPE is
+	type_real, type_real_64: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_64")
 		end
 
-	type_real_32: LIBERTY_TYPE is
+	type_real_32: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_32")
 		end
 
-	type_real_80: LIBERTY_TYPE is
+	type_real_80: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_80")
 		end
 
-	type_real_128: LIBERTY_TYPE is
+	type_real_128: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_128")
 		end
 
-	type_character: LIBERTY_TYPE is
+	type_character: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("CHARACTER")
 		end
 
-	type_string: LIBERTY_TYPE is
+	type_string: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("STRING")
 		end
 
-	type_boolean: LIBERTY_TYPE is
+	type_boolean: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
 			Result := kernel_type("BOOLEAN")
 		end
 
-	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 			not errors.has_error
@@ -174,14 +174,14 @@ feature {ANY} -- Kernel types
 			Result /= Void
 		end
 
-	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
 			not_yet_implemented
 		end
 
-	type_function (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; result_type: LIBERTY_TYPE; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_function (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 			result_type /= Void
@@ -190,7 +190,7 @@ feature {ANY} -- Kernel types
 			not_yet_implemented
 		end
 
-	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
@@ -202,7 +202,7 @@ feature {}
 		require
 			not types_incubator.is_empty
 		local
-			type: LIBERTY_TYPE
+			type: LIBERTY_ACTUAL_TYPE
 		do
 			from
 			until
@@ -245,8 +245,8 @@ feature {} -- debug
 	debug_types is
 		local
 			i: INTEGER
-			all_types: FAST_ARRAY[LIBERTY_TYPE]
-			c: COMPARATOR_COLLECTION_SORTER[LIBERTY_TYPE]
+			all_types: FAST_ARRAY[LIBERTY_ACTUAL_TYPE]
+			c: COMPARATOR_COLLECTION_SORTER[LIBERTY_ACTUAL_TYPE]
 		do
 			from
 				create all_types.with_capacity(types.count)
@@ -277,13 +277,13 @@ feature {} -- debug
 			sedb_breakpoint
 		end
 
-	debug_compare_type_names (t1, t2: LIBERTY_TYPE): BOOLEAN is
+	debug_compare_type_names (t1, t2: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
 			Result := t1.full_name < t2.full_name
 		end
 
 feature {}
-	start_to_build_type (type: LIBERTY_TYPE) is
+	start_to_build_type (type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not types.has(type.descriptor)
 		do
@@ -304,7 +304,7 @@ feature {}
 		end
 
 feature {LIBERY_TYPE_RESOLVER_IN_UNIVERSE}
-	kernel_type (class_name: STRING): LIBERTY_TYPE is
+	kernel_type (class_name: STRING): LIBERTY_ACTUAL_TYPE is
 			-- Called only once per kernel type
 		require
 			not errors.has_error
@@ -330,7 +330,7 @@ feature {LIBERY_TYPE_RESOLVER_IN_UNIVERSE}
 		end
 
 feature {LIBERTY_TYPE_RESOLVER}
-	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
+	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		do
@@ -341,7 +341,7 @@ feature {LIBERTY_TYPE_RESOLVER}
 			Result.parameters.is_equal(descriptor.parameters)
 		end
 
-	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; cluster: LIBERTY_CLUSTER): LIBERTY_TYPE is
+	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; cluster: LIBERTY_CLUSTER): LIBERTY_ACTUAL_TYPE is
 		require
 			not type_definition.is_anchor
 			not errors.has_error
@@ -392,7 +392,7 @@ feature {LIBERTY_TYPE_RESOLVER}
 		end
 
 feature {}
-	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]): LIBERTY_TYPE is
+	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]): LIBERTY_ACTUAL_TYPE is
 		require
 			position /= Void
 		local
@@ -415,7 +415,7 @@ feature {}
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	do_get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
+	do_get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		local
@@ -620,7 +620,7 @@ feature {}
 			type_lookup.set_universe(Current)
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
-			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
+			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
 			create types_incubator.with_capacity(default_type_capacity)
 			create tr.make(Current)
 			type_lookup.push(tr)
@@ -629,9 +629,9 @@ feature {}
 	root: LIBERTY_CLUSTER
 
 	classes: DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]
-	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
+	types: DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 
-	types_incubator: QUEUE[LIBERTY_TYPE]
+	types_incubator: QUEUE[LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD

@@ -31,7 +31,7 @@ feature {ANY}
 			tagged_out_memory.append(once "Current")
 		end
 
-	result_type: LIBERTY_TYPE
+	result_type: LIBERTY_ACTUAL_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

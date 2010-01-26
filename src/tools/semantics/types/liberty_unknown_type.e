@@ -29,7 +29,7 @@ creation {LIBERTY_TYPE_RESOLVER}
 	make
 
 feature {ANY}
-	type: LIBERTY_TYPE is
+	type: LIBERTY_ACTUAL_TYPE is
 		do
 		end
 
@@ -44,7 +44,7 @@ feature {ANY}
 			tagged_out_memory.append(once "<unknown type>")
 		end
 
-feature {LIBERTY_TYPE}
+feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		do
 			buffer.append(full_name)

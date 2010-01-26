@@ -5,7 +5,5 @@
 ./features/
 ./instructions/
 ./tags/
-./type_builder/
-./types/
+./types/loadpath.se
 ./visitors/
-./type_resolver/

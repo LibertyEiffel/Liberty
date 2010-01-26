@@ -31,11 +31,11 @@ class LIBERTY_TYPE_BUILDER
 insert
 	LIBERTY_ERROR_LEVELS
 
-creation {LIBERTY_TYPE}
+creation {LIBERTY_ACTUAL_TYPE}
 	make
 
-feature {LIBERTY_TYPE}
-	type: LIBERTY_TYPE
+feature {LIBERTY_ACTUAL_TYPE}
+	type: LIBERTY_ACTUAL_TYPE
 	universe: LIBERTY_UNIVERSE
 	automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
 	has_loaded_features: BOOLEAN
@@ -256,7 +256,7 @@ feature {}
 	resolver: LIBERTY_TYPE_ANCHORS_RESOLVER
 
 feature {}
-	check_have_loaded_features (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is
+	check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE]): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -278,7 +278,7 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_TYPE is
+	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE is
 		require
 			formal_parameter_name /= Void
 			has_effective_generic_parameter(formal_parameter_name)
@@ -328,15 +328,15 @@ feature {LIBERTY_TYPE_FEATURES_LOADER}
 		end
 
 feature {}
-	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
+	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 			-- key: generic parameter name (e.g. E_)
 			-- value: effective parameter (e.g. STRING)
 
-	empty_effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING] is
+	empty_effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING] is
 		once
 			-- Special common case (no effective parameters) factored out, using the smallest possible structure
 			-- (an empty AVL tree)
-			create {AVL_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} Result.make
+			create {AVL_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} Result.make
 		end
 
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]

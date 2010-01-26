@@ -67,7 +67,7 @@ feature {}
 
 	entity: LIBERTY_ENTITY
 	expression: LIBERTY_EXPRESSION
-	type: LIBERTY_TYPE
+	type: LIBERTY_ACTUAL_TYPE
 
 feature {ANY}
 	accept (v: VISITOR) is

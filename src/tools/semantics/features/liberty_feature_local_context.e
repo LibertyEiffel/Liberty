@@ -21,7 +21,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	current_type: LIBERTY_TYPE
+	current_type: LIBERTY_ACTUAL_TYPE
 
 	result_type: LIBERTY_ENTITY_TYPE is
 		do

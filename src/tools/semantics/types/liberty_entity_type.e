@@ -23,7 +23,7 @@ inherit
 		end
 
 feature {ANY}
-	type: LIBERTY_TYPE is
+	type: LIBERTY_ACTUAL_TYPE is
 		require
 			is_type_set
 		deferred
@@ -39,7 +39,7 @@ feature {ANY}
 			Result /= Void
 		end
 
-feature {LIBERTY_TYPE}
+feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		require
 			buffer /= Void
