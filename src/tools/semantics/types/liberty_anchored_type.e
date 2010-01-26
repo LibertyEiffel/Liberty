@@ -30,14 +30,14 @@ feature {ANY}
 			Result = anchor.result_type.type
 		end
 
-	is_type_set: BOOLEAN is
+	is_actual_type_set: BOOLEAN is
 		do
 			Result := anchor.is_result_type_set
 		end
 
 	full_name: FIXED_STRING is
 		do
-			if is_type_set then
+			if is_actual_type_set then
 				Result := type.full_name
 			else
 				Result := full_name_memory

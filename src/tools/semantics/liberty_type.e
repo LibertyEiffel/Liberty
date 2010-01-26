@@ -25,11 +25,11 @@ inherit
 feature {ANY}
 	type: LIBERTY_ACTUAL_TYPE is
 		require
-			is_type_set
+			is_actual_type_set
 		deferred
 		end
 
-	is_type_set: BOOLEAN is
+	is_actual_type_set: BOOLEAN is
 		deferred
 		end
 

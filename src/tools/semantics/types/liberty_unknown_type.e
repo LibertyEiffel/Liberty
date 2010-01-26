@@ -33,7 +33,7 @@ feature {ANY}
 		do
 		end
 
-	is_type_set: BOOLEAN is False
+	is_actual_type_set: BOOLEAN is False
 
 	full_name: FIXED_STRING
 

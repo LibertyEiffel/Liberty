@@ -86,7 +86,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				c := calls.item(i)
 				Result := c.is_implicit_current
 					or else (c.target.is_result_type_set
-								and then c.target.result_type.is_type_set
+								and then c.target.result_type.is_actual_type_set
 								and then c.target.result_type.type.has_loaded_features)
 				i := i + 1
 			end

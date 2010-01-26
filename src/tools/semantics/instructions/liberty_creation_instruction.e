@@ -27,7 +27,7 @@ feature {ANY}
 
 	type: LIBERTY_TYPE is
 		require
-			is_type_set
+			is_actual_type_set
 		do
 			Result := explicit_type
 			if Result = Void and then writable.is_result_type_set then
@@ -35,7 +35,7 @@ feature {ANY}
 			end
 		end
 
-	is_type_set: BOOLEAN is
+	is_actual_type_set: BOOLEAN is
 		do
 			Result := explicit_type /= Void or else writable.is_result_type_set
 		end

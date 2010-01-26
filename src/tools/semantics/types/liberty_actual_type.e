@@ -36,7 +36,7 @@ feature {ANY}
 			Result := Current
 		end
 
-	is_type_set: BOOLEAN is True
+	is_actual_type_set: BOOLEAN is True
 
 	file: FIXED_STRING is
 		do
