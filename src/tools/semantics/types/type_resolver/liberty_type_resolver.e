@@ -24,12 +24,9 @@ feature {ANY}
 			-- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
 			-- or not.
 		do
-			Result := lookup_type(type_definition)
-			if Result = Void and then parent /= Void then
-				Result := parent.type(type_definition)
-			end
-			if Result = Void and then type_definition.is_like_entity and then anchor_factory /= Void then
-				Result := anchor_factory.item([type_definition.entity_anchor])
+			Result := undelayed_type(type_definition)
+			if Result = Void then
+				Result := delayed_type(type_definition)
 			end
 		end
 
@@ -39,14 +36,9 @@ feature {ANY}
 		require
 			not type_definition.is_anchor
 		do
-			if type_definition.is_like_entity and then anchor_factory /= Void then
-				Result := anchor_factory.item([type_definition.entity_anchor])
-			end
-			if Result = Void then
-				Result := lookup_export_type(type_definition)
-				if Result = Void and then parent /= Void then
-					Result := parent.export_type(type_definition)
-				end
+			Result := lookup_export_type(type_definition)
+			if Result = Void and then parent /= Void then
+				Result := parent.type(type_definition)
 			end
 			if Result = Void then
 				create {LIBERTY_UNKNOWN_TYPE} Result.make(type_definition.type_name.image.image.intern)
@@ -67,6 +59,31 @@ feature {ANY}
 			end
 		ensure
 			Result /= Void
+		end
+
+feature {LIBERTY_DELAYED_TYPE}
+	undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+		do
+			Result := lookup_type(type_definition)
+			if Result = Void and then parent /= Void then
+				Result := parent.type(type_definition)
+			end
+			if Result = Void and then type_definition.is_like_entity and then anchor_factory /= Void then
+				Result := anchor_factory.item([type_definition.entity_anchor])
+			end
+		end
+
+feature {LIBERTY_UNIVERSE}
+	delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE] is
+		once
+			create {RING_ARRAY[LIBERTY_DELAYED_TYPE]} Result.with_capacity(1024, 0)
+		end
+
+feature {}
+	delayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_DELAYED_TYPE is
+		do
+			create Result.make(type_definition, Current)
+			delayed_types.add_last(Result)
 		end
 
 feature {LIBERTY_TYPE_FEATURES_LOADER}
@@ -99,11 +116,15 @@ feature {LIBERTY_TYPE_LOOKUP}
 feature {}
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- May be Void if the type is not resolved.
+		require
+			type_definition /= Void
 		deferred
 		end
 
 	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- May be Void if the type is not resolved.
+		require
+			not type_definition.is_anchor
 		deferred
 		end
 
@@ -115,5 +136,8 @@ feature {}
 feature {}
 	errors: LIBERTY_ERRORS
 	anchor_factory: FUNCTION[TUPLE[LIBERTY_AST_ENTITY_NAME], LIBERTY_ANCHORED_TYPE]
+
+invariant
+	delayed_types /= Void
 
 end -- class LIBERTY_TYPE_RESOLVER

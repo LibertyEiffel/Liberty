@@ -48,6 +48,7 @@ feature {ANY}
 				types_incubator.is_empty
 			loop
 				flame := torch.flame
+				resolve_delayed_types
 				build_to_incubator(incubator)
 				incubator := check_flame_and_swap_incubator(flame, incubator)
 			end
@@ -198,6 +199,29 @@ feature {ANY} -- Kernel types
 		end
 
 feature {}
+	resolve_delayed_types is
+		local
+			delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE]
+			delayed_type: LIBERTY_DELAYED_TYPE
+			n: INTEGER
+		do
+			delayed_types := type_lookup.resolver.delayed_types
+			from
+				n := delayed_types.count
+			until
+				n = 0
+			loop
+				delayed_type := delayed_types.first
+				delayed_types.remove_first
+				if delayed_type.can_resolve then
+					delayed_type.resolve
+				else
+					delayed_types.add_last(delayed_type)
+				end
+				n := n - 1
+			end
+		end
+
 	build_to_incubator (incubator: like types_incubator) is
 		require
 			not types_incubator.is_empty
@@ -303,7 +327,6 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
-feature {LIBERY_TYPE_RESOLVER_IN_UNIVERSE}
 	kernel_type (class_name: STRING): LIBERTY_ACTUAL_TYPE is
 			-- Called only once per kernel type
 		require

@@ -76,6 +76,8 @@ feature {ANY} -- Errors
 			last_error_memory.set_item(err)
 			if level < level_error then
 				emit
+			elseif level = level_error then
+				sedb_breakpoint
 			end
 			cancel_positions
 		ensure

@@ -64,4 +64,4 @@ invariant
 	parent = Void
 	universe /= Void
 
-end -- class LIBERTY_TYPE_RESOLVER_IN_TYPE
+end -- class LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
