@@ -25,7 +25,7 @@ create {ANY}
 
 feature {ANY}
 	file: FIXED_STRING
-	parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+	parameters: TRAVERSABLE[LIBERTY_TYPE]
 
 	cluster: LIBERTY_CLUSTER is
 		do

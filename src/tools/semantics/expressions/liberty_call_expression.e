@@ -30,7 +30,7 @@ feature {ANY}
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 	is_agent_call: BOOLEAN
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		do
 			Result := entity.result_type
 		end
@@ -48,7 +48,7 @@ feature {LIBERTY_AGENT}
 			is_agent_call
 		end
 
-	agent_type: LIBERTY_ENTITY_TYPE is
+	agent_type: LIBERTY_TYPE is
 		require
 			is_result_type_set
 		local

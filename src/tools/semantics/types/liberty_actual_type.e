@@ -15,7 +15,7 @@
 class LIBERTY_ACTUAL_TYPE
 
 inherit
-	LIBERTY_ENTITY_TYPE
+	LIBERTY_TYPE
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -70,7 +70,7 @@ feature {ANY}
 			Result := descriptor.name
 		end
 
-	parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE] is
+	parameters: TRAVERSABLE[LIBERTY_TYPE] is
 		do
 			Result := descriptor.parameters
 		end

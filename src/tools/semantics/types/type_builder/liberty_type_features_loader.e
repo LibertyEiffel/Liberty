@@ -102,7 +102,7 @@ feature {LIBERTY_TYPE_BUILDER}
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
 		local
-			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
 			f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
 		do
 			from
@@ -137,9 +137,9 @@ feature {}
 			end
 		end
 
-	add_feature (clients: COLLECTION[LIBERTY_ENTITY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
+	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
 		local
-			result_type: LIBERTY_ENTITY_TYPE
+			result_type: LIBERTY_TYPE
 			the_feature: LIBERTY_FEATURE
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 			type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
@@ -372,7 +372,7 @@ feature {}
 			end
 		end
 
-	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_ENTITY_TYPE]) is
+	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
 			fd: LIBERTY_FEATURE_DEFINITION
@@ -435,7 +435,7 @@ feature {}
 feature {}
 	add_creations (creations: EIFFEL_LIST_NODE) is
 		local
-			i, j: INTEGER; clients: COLLECTION[LIBERTY_ENTITY_TYPE]
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
 			c: LIBERTY_AST_CLASS_CREATION; fn: LIBERTY_AST_FEATURE_NAME
 		do
 			from
@@ -458,7 +458,7 @@ feature {}
 			end
 		end
 
-	add_creation (a_clients: COLLECTION[LIBERTY_ENTITY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
+	add_creation (a_clients: COLLECTION[LIBERTY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
 		local
 			the_feature: LIBERTY_FEATURE_DEFINITION
 			feature_name: LIBERTY_FEATURE_NAME
@@ -816,7 +816,7 @@ feature {} -- Instructions
 		local
 			creat: LIBERTY_AST_CREATION
 			w: LIBERTY_WRITABLE
-			creation_type: LIBERTY_ENTITY_TYPE
+			creation_type: LIBERTY_TYPE
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
@@ -1079,7 +1079,7 @@ feature {} -- Expressions
 			local_context /= Void
 		local
 			i: INTEGER; content: COLLECTION[LIBERTY_EXPRESSION]
-			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_ENTITY_TYPE
+			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_TYPE
 		do
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} content.with_capacity(array.content.count)
 			from
@@ -1099,7 +1099,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_ENTITY_TYPE is
+	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
 		local
 			i: INTEGER
 		do
@@ -1289,7 +1289,7 @@ feature {} -- Expressions
 		require
 			a_creation /= Void
 		local
-			entity_type: LIBERTY_ENTITY_TYPE
+			entity_type: LIBERTY_TYPE
 			creation_type: LIBERTY_ACTUAL_TYPE
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
@@ -1365,12 +1365,12 @@ feature {} -- Expressions
 			exp: LIBERTY_AST_ACTUAL
 			expr: LIBERTY_EXPRESSION
 			expressions: COLLECTION[LIBERTY_EXPRESSION]
-			exp_types: COLLECTION[LIBERTY_ENTITY_TYPE]
+			exp_types: COLLECTION[LIBERTY_TYPE]
 			i: INTEGER
 		do
 			from
 				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
-				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} exp_types.with_capacity(a_tuple.count)
+				create {FAST_ARRAY[LIBERTY_TYPE]} exp_types.with_capacity(a_tuple.count)
 				i := a_tuple.lower
 			until
 				errors.has_error or else i > a_tuple.upper
@@ -1401,7 +1401,7 @@ feature {} -- Expressions
 			local_context /= Void
 		local
 			openarg: LIBERTY_OPEN_ARGUMENT
-			entity_type: LIBERTY_ENTITY_TYPE
+			entity_type: LIBERTY_TYPE
 			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if constant.is_assignment_test then
@@ -1572,7 +1572,7 @@ feature {}
 	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
-			typedef: LIBERTY_ENTITY_TYPE; parameter: LIBERTY_PARAMETER
+			typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
 		do
 			if not parameters.is_empty then
 				from
@@ -1602,7 +1602,7 @@ feature {}
 	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
-			typedef: LIBERTY_ENTITY_TYPE; localdef: LIBERTY_LOCAL
+			typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
 		do
 			if locals.list_count > 0 then
 				from

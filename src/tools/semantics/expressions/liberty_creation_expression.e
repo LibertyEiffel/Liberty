@@ -21,7 +21,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	result_type: LIBERTY_ENTITY_TYPE
+	result_type: LIBERTY_TYPE
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 

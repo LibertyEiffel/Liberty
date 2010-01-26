@@ -24,8 +24,8 @@ creation {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
-	creation_clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
-	clients: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+	creation_clients: TRAVERSABLE[LIBERTY_TYPE]
+	clients: TRAVERSABLE[LIBERTY_TYPE]
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
 
@@ -60,7 +60,7 @@ feature {ANY}
 			Result := creation_clients /= Void
 		end
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		do
 			Result := the_feature.result_type
 		end

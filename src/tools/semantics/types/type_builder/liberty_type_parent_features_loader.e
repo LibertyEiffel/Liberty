@@ -64,7 +64,7 @@ feature {}
 	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_ENTITY_TYPE
+			parent: LIBERTY_TYPE
 			has_parent: BOOLEAN
 		do
 			from
@@ -184,7 +184,7 @@ feature {}
 	export_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
 			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
-			clients: COLLECTION[LIBERTY_ENTITY_TYPE]
+			clients: COLLECTION[LIBERTY_TYPE]
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from

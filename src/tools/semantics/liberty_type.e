@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ENTITY_TYPE
+deferred class LIBERTY_TYPE
 	--
 	-- The type referenced in entity definitions
 	--

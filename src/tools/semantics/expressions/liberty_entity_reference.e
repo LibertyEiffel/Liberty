@@ -23,7 +23,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	entity: LIBERTY_ENTITY
-	result_type: LIBERTY_ENTITY_TYPE
+	result_type: LIBERTY_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

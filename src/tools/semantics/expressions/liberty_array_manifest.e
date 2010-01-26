@@ -31,7 +31,7 @@ feature {ANY}
 			Result := contents_list
 		end
 
-	result_type: LIBERTY_ENTITY_TYPE
+	result_type: LIBERTY_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

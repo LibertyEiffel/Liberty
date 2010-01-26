@@ -23,7 +23,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	current_type: LIBERTY_ACTUAL_TYPE
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		do
 			if result_entity /= Void then
 				Result := result_entity.result_type

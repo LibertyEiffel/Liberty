@@ -20,7 +20,7 @@ insert
 	VISITABLE
 
 feature {ANY}
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		require
 			is_result_type_set
 		deferred

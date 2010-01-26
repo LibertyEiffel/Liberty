@@ -21,7 +21,7 @@ feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
 			-- the type where the feature is written
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		require
 			has_context
 		do

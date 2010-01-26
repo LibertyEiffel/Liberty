@@ -31,7 +31,7 @@ feature {ANY}
 			Result := entity.name
 		end
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		do
 			Result := entity.result_type
 		end

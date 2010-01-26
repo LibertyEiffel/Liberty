@@ -69,7 +69,7 @@ feature {}
 			-- Returns True if at least a parent was added
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_ENTITY_TYPE
+			parent: LIBERTY_TYPE
 		do
 			debug
 				if conformant then

@@ -36,7 +36,7 @@ feature {}
 		end
 
 feature {} -- Client list
-	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_ENTITY_TYPE] is
+	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE] is
 		local
 			i: INTEGER
 		do
@@ -46,7 +46,7 @@ feature {} -- Client list
 			elseif clients.list_is_empty then
 				Result := empty_client_list
 			else
-				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(clients.list_count)
+				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(clients.list_count)
 				from
 					i := clients.list_lower
 				until
@@ -58,14 +58,14 @@ feature {} -- Client list
 			end
 		end
 
-	empty_client_list: COLLECTION[LIBERTY_ENTITY_TYPE] is
+	empty_client_list: COLLECTION[LIBERTY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
-	any_client_list: COLLECTION[LIBERTY_ENTITY_TYPE] is
+	any_client_list: COLLECTION[LIBERTY_TYPE] is
 		once
-			Result := {FAST_ARRAY[LIBERTY_ENTITY_TYPE] << universe.type_any >> }
+			Result := {FAST_ARRAY[LIBERTY_TYPE] << universe.type_any >> }
 		end
 
 feature {}

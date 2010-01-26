@@ -34,14 +34,14 @@ feature {ANY}
 feature {}
 	universe: LIBERTY_UNIVERSE
 
-	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			if not type_definition.is_anchor then
 				Result := universe.get_type_from_type_definition(type_definition, Void)
 			end
 		end
 
-	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			check Result = Void end
 		end

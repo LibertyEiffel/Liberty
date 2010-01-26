@@ -23,7 +23,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	result_type: LIBERTY_TYPE is
 		do
 			Result := expression.result_type
 		end

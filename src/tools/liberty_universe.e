@@ -145,7 +145,7 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("BOOLEAN")
 		end
 
-	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 			not errors.has_error
@@ -174,14 +174,14 @@ feature {ANY} -- Kernel types
 			Result /= Void
 		end
 
-	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
 			not_yet_implemented
 		end
 
-	type_function (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	type_function (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 			result_type /= Void
@@ -190,7 +190,7 @@ feature {ANY} -- Kernel types
 			not_yet_implemented
 		end
 
-	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
@@ -347,7 +347,7 @@ feature {LIBERTY_TYPE_RESOLVER}
 			not errors.has_error
 		local
 			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+			parameters: TRAVERSABLE[LIBERTY_TYPE]
 		do
 			class_name := type_definition.type_name.image.image
 			inspect
@@ -392,7 +392,7 @@ feature {LIBERTY_TYPE_RESOLVER}
 		end
 
 feature {}
-	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]): LIBERTY_ACTUAL_TYPE is
+	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_ACTUAL_TYPE is
 		require
 			position /= Void
 		local
@@ -434,17 +434,17 @@ feature {}
 		end
 
 feature {} -- Type parameters fetching
-	get_parameters (type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS): COLLECTION[LIBERTY_ENTITY_TYPE] is
+	get_parameters (type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS): COLLECTION[LIBERTY_TYPE] is
 		local
 			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
 			type_definition: LIBERTY_AST_TYPE_DEFINITION
-			type: LIBERTY_ENTITY_TYPE
+			type: LIBERTY_TYPE
 			i: INTEGER
 		do
 			if type_parameters.list_is_empty then
 				Result := no_parameters
 			else
-				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
+				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -459,9 +459,9 @@ feature {} -- Type parameters fetching
 			end
 		end
 
-	no_parameters: COLLECTION[LIBERTY_ENTITY_TYPE] is
+	no_parameters: COLLECTION[LIBERTY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
 feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}

@@ -20,7 +20,7 @@ insert
 		end
 
 feature {ANY}
-	type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
 			-- or not.
 		do
@@ -33,7 +33,7 @@ feature {ANY}
 			end
 		end
 
-	export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- More lenient version, reserved for exports. If the class is not found and is not used anywhere but
 			-- in export clauses then there will not be any error (a dummy object will be returned).
 		require
@@ -97,12 +97,12 @@ feature {LIBERTY_TYPE_LOOKUP}
 	parent: LIBERTY_TYPE_RESOLVER
 
 feature {}
-	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- May be Void if the type is not resolved.
 		deferred
 		end
 
-	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- May be Void if the type is not resolved.
 		deferred
 		end

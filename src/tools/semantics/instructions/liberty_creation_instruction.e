@@ -25,7 +25,7 @@ feature {ANY}
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 
-	type: LIBERTY_ENTITY_TYPE is
+	type: LIBERTY_TYPE is
 		require
 			is_type_set
 		do
@@ -61,7 +61,7 @@ feature {}
 			position = a_position
 		end
 
-	explicit_type: LIBERTY_ENTITY_TYPE
+	explicit_type: LIBERTY_TYPE
 
 feature {ANY}
 	accept (v: VISITOR) is

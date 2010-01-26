@@ -44,7 +44,7 @@ feature {ANY}
 		end
 
 feature {}
-	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		local
 			name: FIXED_STRING
 		do
@@ -66,7 +66,7 @@ feature {}
 			end
 		end
 
-	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			check Result = Void end
 		end

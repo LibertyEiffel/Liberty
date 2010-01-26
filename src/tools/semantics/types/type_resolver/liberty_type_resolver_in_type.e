@@ -42,7 +42,7 @@ feature {}
 	current_type: LIBERTY_ACTUAL_TYPE
 	effective_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
-	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			if type_definition.is_like_current then
 				Result := current_type
@@ -54,7 +54,7 @@ feature {}
 			end
 		end
 
-	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ENTITY_TYPE is
+	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			if type_definition.type_parameters.list_count = 0 then
 				Result := type_from_legacy_class_name_or_full_liberty_type(type_definition)
@@ -93,7 +93,7 @@ feature {}
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			cluster: LIBERTY_CLUSTER
 			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
+			parameters: TRAVERSABLE[LIBERTY_TYPE]
 			pos: LIBERTY_POSITION
 		do
 			pos := position(type_definition)
@@ -106,7 +106,7 @@ feature {}
 			end
 		end
 
-	get_parameter_constraints (a_class: LIBERTY_AST_ONE_CLASS): COLLECTION[LIBERTY_ENTITY_TYPE] is
+	get_parameter_constraints (a_class: LIBERTY_AST_ONE_CLASS): COLLECTION[LIBERTY_TYPE] is
 		local
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
@@ -116,7 +116,7 @@ feature {}
 			if type_parameters.is_empty or else type_parameters.list_is_empty then
 				Result := no_parameters
 			else
-				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(type_parameters.list_count)
+				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -139,9 +139,9 @@ feature {}
 			end
 		end
 
-	no_parameters: COLLECTION[LIBERTY_ENTITY_TYPE] is
+	no_parameters: COLLECTION[LIBERTY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
 invariant
