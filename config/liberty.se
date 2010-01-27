@@ -1,0 +1,6 @@
+[Environment]
+path_liberty: /home/liberty/Liberty/
+
+[Loadpath]
+liberty_classes: ${path_liberty}src/loadpath.se
+liberty_test: ${path_liberty}test/loadpath.se
