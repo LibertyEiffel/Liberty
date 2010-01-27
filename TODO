@@ -1,0 +1,6 @@
+ * Class renaming in ACE files (ot the future Liberty equivalent:
+   ASSET) => allows to simply inject factories while staying in a
+   close world assumption
+
+ * Some pretty front-end to display messages, maybe with one or more
+   implementations (SUI-like)
