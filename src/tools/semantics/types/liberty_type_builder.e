@@ -345,6 +345,7 @@ feature {}
 
 				"checking header", {STATE[LIBERTY_TYPE_BUILDER] <<
 					agent {LIBERTY_TYPE_BUILDER}.ready,                    agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.init_header);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};
 
