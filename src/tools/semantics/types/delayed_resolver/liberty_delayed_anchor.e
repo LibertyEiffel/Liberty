@@ -52,6 +52,11 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := anchor.result_type
 		end
 
+	full_name: FIXED_STRING is
+		do
+			Result := full_name_memory
+		end
+
 feature {}
 	make (a_anchor: like anchor) is
 		require

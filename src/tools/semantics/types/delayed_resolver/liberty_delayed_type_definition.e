@@ -75,6 +75,11 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := type_memory
 		end
 
+	full_name: FIXED_STRING is
+		do
+			Result := full_name_memory
+		end
+
 feature {}
 	make (a_type_definition: like type_definition; a_resolver: like resolver) is
 		require

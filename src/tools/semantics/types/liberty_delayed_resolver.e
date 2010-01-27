@@ -35,4 +35,8 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result /= Void
 		end
 
+	full_name: FIXED_STRING is
+		deferred
+		end
+
 end -- class LIBERTY_DELAYED_RESOLVER

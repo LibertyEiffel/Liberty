@@ -33,7 +33,7 @@ feature {ANY}
 			if is_actual_type_set then
 				Result := type.full_name
 			else
-				Result := out.intern
+				Result := delayed_resolver.full_name
 			end
 		end
 

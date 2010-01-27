@@ -52,6 +52,11 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := the_feature.result_type.type
 		end
 
+	full_name: FIXED_STRING is
+		do
+			Result := full_name_memory
+		end
+
 feature {LIBERTY_FEATURE_ENTITY}
 	is_ready: BOOLEAN is
 		do
