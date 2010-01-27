@@ -68,19 +68,26 @@ feature {LIBERTY_TYPE_BUILDER}
 			type_lookup.pop
 		end
 
+	ready: BOOLEAN is
+			-- Is the type ready to be initialized?
+		do
+			if init = Void then
+				check
+					effective_generic_parameters = empty_effective_generic_parameters
+				end
+				create init.make(Current, type, universe, empty_effective_generic_parameters)
+			end
+			Result := init.is_ready
+		end
+
 	init_header: STRING is
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
 		local
-			init: LIBERTY_TYPE_INIT
 		do
-			check
-				effective_generic_parameters = empty_effective_generic_parameters
-			end
 			debug
 				std_output.put_line(type.full_name + ": init header")
 			end
-			create init.make(Current, type, universe, empty_effective_generic_parameters)
 			init.init_type_header
 			Result := once "loading parents"
 		end
@@ -227,6 +234,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
+	init: LIBERTY_TYPE_INIT
 	features_loader: LIBERTY_TYPE_FEATURES_LOADER
 
 feature {}
@@ -337,7 +345,7 @@ feature {}
 			Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
 
 				"checking header", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.init_header);
+					agent {LIBERTY_TYPE_BUILDER}.ready,                    agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.init_header);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};
 

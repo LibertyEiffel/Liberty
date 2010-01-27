@@ -94,4 +94,19 @@ feature {LIBERTY_TYPE_BUILDER}
 			torch.burn
 		end
 
+	is_ready: BOOLEAN is
+		local
+			i: INTEGER
+		do
+			from
+				Result := True
+				i := type.parameters.lower
+			until
+				not Result or else i > type.parameters.upper
+			loop
+				Result := type.parameters.item(i).is_actual_type_set
+				i := i + 1
+			end
+		end
+
 end -- class LIBERTY_TYPE_INIT
