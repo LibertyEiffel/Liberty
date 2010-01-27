@@ -40,7 +40,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := (count = 4 or else count = 6)
 			check
-				Result = (count > 2) and then nodes.item(2).name.is_equal(once "Declaration+")
+				Result = (count > 2) and then nodes.item(2).name.is_equal(once "Declaration*")
 			end
 		end
 

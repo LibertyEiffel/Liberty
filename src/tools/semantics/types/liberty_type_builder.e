@@ -83,7 +83,6 @@ feature {LIBERTY_TYPE_BUILDER}
 	init_header: STRING is
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
-		local
 		do
 			debug
 				std_output.put_line(type.full_name + ": init header")

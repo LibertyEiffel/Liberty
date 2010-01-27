@@ -45,7 +45,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := count >= 4
 			check
-				Result implies nodes.item(2).name.is_equal(once "Declaration+")
+				Result implies nodes.item(2).name.is_equal(once "Declaration*")
 			end
 		end
 
