@@ -1,0 +1,24 @@
+system "libertyc_boost"
+
+root LIBERTYC: make
+
+default
+	assertion(boost)
+	debug(no)
+	collect(yes)
+	verbose(yes)
+	manifest_string_trace(no)
+	profile(no)
+	relax(yes)
+	trace(no)
+
+cluster
+	lib: "${path_liberty}/src/lib/loadpath.se"
+	tools: "${path_liberty}/src/tools/loadpath.se"
+
+generate
+	no_strip(no)
+	no_split(yes)
+	clean(no)
+
+end
