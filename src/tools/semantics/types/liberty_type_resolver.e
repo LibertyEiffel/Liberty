@@ -70,7 +70,7 @@ feature {LIBERTY_DELAYED_TYPE_DEFINITION}
 			end
 		end
 
-feature {LIBERTY_UNIVERSE}
+feature {LIBERTY_UNIVERSE, LIBERTY_DELAYED_TYPE}
 	delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE] is
 		once
 			create {RING_ARRAY[LIBERTY_DELAYED_TYPE]} Result.with_capacity(1024, 0)
@@ -80,7 +80,6 @@ feature {}
 	delayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_DELAYED_TYPE is
 		do
 			create Result.make(create {LIBERTY_DELAYED_TYPE_DEFINITION}.make(type_definition, Current))
-			delayed_types.add_last(Result)
 		end
 
 feature {LIBERTY_TYPE_LOOKUP}

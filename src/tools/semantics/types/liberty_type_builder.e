@@ -166,28 +166,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			debug
 				std_output.put_line(type.full_name + ": features loaded")
 			end
-			Result := once "resolving type"
-		end
-
-	can_resolve_type: BOOLEAN is
-			-- Currently always True if there were no errors
-		do
-			Result := not errors.has_error
-		end
-
-	resolve_type: STRING is
-		do
-			check
-				features_loader /= Void
-			end
-			debug
-				std_output.put_line(type.full_name + ": resolve type")
-			end
-			features_loader.resolve
-			has_loaded_features := True
-			debug
-				std_output.put_line(type.full_name + ": resolve type")
-			end
 			Result := once "checking type"
 		end
 
@@ -362,12 +340,6 @@ feature {}
 
 				"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
 					agent {LIBERTY_TYPE_BUILDER}.can_load_features,        agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_features);
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
-					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
-					>>};
-
-				"resolving type", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.can_resolve_type,         agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.resolve_type);
 					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};

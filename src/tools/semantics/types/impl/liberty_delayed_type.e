@@ -83,12 +83,14 @@ feature {}
 			a_delayed_resolver /= Void
 		do
 			delayed_resolver := a_delayed_resolver
+			lookup.resolver.delayed_types.add_last(Current)
 		ensure
 			delayed_resolver = a_delayed_resolver
 		end
 
 	delayed_resolver: LIBERTY_DELAYED_RESOLVER
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
+	lookup: LIBERTY_TYPE_LOOKUP
 
 invariant
 	delayed_resolver /= Void

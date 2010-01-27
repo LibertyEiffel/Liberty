@@ -65,11 +65,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
-	resolve is
-		do
-			resolve_agents
-		end
-
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
 		local
@@ -1209,7 +1204,7 @@ feature {} -- Expressions
 
 	expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		local
-			exp: LIBERTY_EXPRESSION; agent_expression: LIBERTY_CALL_EXPRESSION; a: LIBERTY_AGENT
+			exp: LIBERTY_EXPRESSION; agent_expression: LIBERTY_CALL_EXPRESSION
 		do
 			if e10.is_call then
 				Result := expression_call(e10.call, local_context)
@@ -1227,12 +1222,7 @@ feature {} -- Expressions
 					not_yet_implemented
 				end
 				agent_expression ::= exp
-				create a.make(agent_expression, semantics_position_at(e10.node_at(0)))
-				if agents = Void then
-					create {FAST_ARRAY[LIBERTY_AGENT]} agents.make(0)
-				end
-				agents.add_last(a)
-				Result := a
+				create {LIBERTY_AGENT} Result.make(agent_expression, semantics_position_at(e10.node_at(0)))
 			elseif e10.is_creation_expression then
 				Result := expression_creation(e10.creation_expression, local_context)
 			elseif e10.is_void then
@@ -1610,44 +1600,7 @@ feature {}
 		end
 
 feature {}
-	resolve_agents is
-		local
-			i: INTEGER; a: LIBERTY_AGENT
-			flame: LIBERTY_FLAME
-		do
-			if agents /= Void then
-				from
-				until
-					agents.is_empty
-				loop
-					from
-						flame := torch.flame
-						i := agents.lower
-					until
-						i > agents.upper
-					loop
-						a := agents.item(i)
-						if a.can_compute_result_type then
-							a.compute_result_type
-							agents.remove(i)
-						else
-							i := i + 1
-						end
-					end
-					if not torch.still_burns(flame) then
-						errors.set(level_system_error, "Cannot resolve all agents of "
-							+ type.full_name + ". Giving up.")
-						check
-							dead: False
-						end
-					end
-				end
-			end
-		end
-
-feature {}
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
-	agents: COLLECTION[LIBERTY_AGENT]
 
 invariant
 	feature_writables /= Void

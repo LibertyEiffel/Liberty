@@ -43,7 +43,28 @@ feature {LIBERTY_AGENT}
 			is_agent_call
 		end
 
-	agent_type: LIBERTY_TYPE is
+feature {LIBERTY_DELAYED_AGENT_CALL}
+	can_compute_agent_type: BOOLEAN is
+		local
+			i: INTEGER
+		do
+			Result := True
+			if actuals /= Void then
+				from
+					i := actuals.lower
+				until
+					not Result or else i > actuals.upper
+				loop
+					Result := actuals.item(i).result_type.is_actual_type_set
+					i := i + 1
+				end
+			end
+		end
+
+	agent_type: LIBERTY_ACTUAL_TYPE is
+		require
+			is_agent_call
+			can_compute_agent_type
 		local
 			arguments_types: COLLECTION[LIBERTY_ACTUAL_TYPE]
 			i: INTEGER
