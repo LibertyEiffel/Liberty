@@ -51,6 +51,21 @@ feature {ANY}
 			end
 		end
 
+feature {LIBERTY_CALL_EXPRESSION}
+	can_check_agent_signature: BOOLEAN is
+		do
+			Result := the_feature /= Void and then the_feature.can_check_agent_signature
+		ensure
+			can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_actual_type_set)
+		end
+
+	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_ACTUAL_TYPE]): COLLECTION[LIBERTY_ACTUAL_TYPE] is
+		require
+			can_check_agent_signature
+		do
+			Result := the_feature.check_agent_signature(a_agent_arguments)
+		end
+
 feature {}
 	the_feature: LIBERTY_FEATURE
 	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE

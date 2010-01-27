@@ -54,6 +54,54 @@ feature {ANY}
 			Result := context /= Void
 		end
 
+feature {LIBERTY_FEATURE_ENTITY}
+	can_check_agent_signature: BOOLEAN is
+		local
+			i: INTEGER
+		do
+			from
+				Result := result_type = Void or else result_type.is_actual_type_set
+				i := parameters.lower
+			until
+				not Result or else i > parameters.upper
+			loop
+				Result := parameters.item(i).result_type.is_actual_type_set
+				i := i + 1
+			end
+		ensure
+			can_also_check_result_type: Result implies (result_type = Void or else result_type.is_actual_type_set)
+		end
+
+	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_ACTUAL_TYPE]): COLLECTION[LIBERTY_ACTUAL_TYPE] is
+		require
+			can_check_agent_signature
+		local
+			i: INTEGER
+		do
+			if a_agent_arguments.is_empty then
+				-- zero args is the same thing as all open args
+				if parameters.is_empty then
+					Result := a_agent_arguments
+				else
+					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(parameters.count)
+					from
+						i := parameters.lower
+					until
+						i > parameters.upper
+					loop
+						Result.add_last(parameters.item(i).result_type.type)
+						i := i + 1
+					end
+				end
+			elseif a_agent_arguments.count /= parameters.count then
+				--|*** TODO: error: bad number of arguments
+				not_yet_implemented
+			else
+				--|*** TODO: is there anything to do about open arguments?
+				Result := a_agent_arguments
+			end
+		end
+
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
 		deferred

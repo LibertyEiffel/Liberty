@@ -48,7 +48,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 		local
 			i: INTEGER
 		do
-			Result := True
+			Result := entity.can_check_agent_signature
 			if actuals /= Void then
 				from
 					i := actuals.lower
@@ -82,6 +82,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 					i := i + 1
 				end
 			end
+			arguments_types := entity.check_agent_signature(arguments_types)
 			if result_type = Void then
 				Result := lookup.universe.type_procedure(arguments_types, position)
 			elseif result_type = lookup.universe.type_boolean then
