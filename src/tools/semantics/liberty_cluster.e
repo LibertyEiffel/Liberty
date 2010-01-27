@@ -112,7 +112,11 @@ feature {}
 				location_directory := a_location
 			else
 				dir.compute_parent_directory_of(location)
-				location_directory := dir.last_entry.twin
+				if dir.last_entry.is_empty then
+					location_directory := dir.current_working_directory.out
+				else
+					location_directory := dir.last_entry.twin
+				end
 			end
 			create_children
 		ensure
