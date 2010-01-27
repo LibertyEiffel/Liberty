@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_DELAYED_ANCHORED
+class LIBERTY_DELAYED_FEATURE_TYPE
 
 inherit
 	LIBERTY_DELAYED_RESOLVER
@@ -27,7 +27,7 @@ feature {ANY}
 				resolved.out_in_tagged_out_memory
 			else
 				tagged_out_memory.append(once "like ")
-				anchor.out_in_tagged_out_memory
+				name.out_in_tagged_out_memory
 			end
 		end
 
@@ -44,29 +44,48 @@ feature {ANY}
 feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is
 		do
-			Result := anchor /= Void
+			Result := is_ready and then the_feature.result_type.is_actual_type_set
 		end
 
 	resolved: LIBERTY_ACTUAL_TYPE is
 		do
-			Result := anchor.result_type
+			Result := the_feature.result_type.type
 		end
+
+feature {LIBERTY_FEATURE_ENTITY}
+	is_ready: BOOLEAN is
+		do
+			Result := type.has_feature(name) and then type.feature_definition(name).the_feature /= Void
+		end
+
+	the_feature: LIBERTY_FEATURE is
+		require
+			is_ready
+		do
+			Result := type.feature_definition(name).the_feature
+		end
+
+	name: LIBERTY_FEATURE_NAME
+	type: LIBERTY_ACTUAL_TYPE
 
 feature {}
-	make (a_anchor: like anchor) is
+	make (a_type: like type; a_name: like name) is
 		require
-			a_anchor /= Void
+			a_type /= Void
+			a_name /= Void
 		do
-			anchor := a_anchor
-			full_name_memory := (once "like " + a_anchor.name).intern
+			type := a_type
+			name := a_name
+			full_name_memory := (once "like " + a_name.out).intern
 		ensure
-			anchor = a_anchor
+			type = a_type
+			name = a_name
 		end
 
-	anchor: LIBERTY_ENTITY
 	full_name_memory: FIXED_STRING
 
 invariant
-	anchor /= Void
+	type /= Void
+	name /= Void
 
-end -- class LIBERTY_DELAYED_ANCHORED
+end -- class LIBERTY_DELAYED_FEATURE_TYPE

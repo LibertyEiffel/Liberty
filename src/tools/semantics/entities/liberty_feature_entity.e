@@ -43,31 +43,37 @@ feature {ANY}
 		do
 			if the_feature /= Void then
 				Result := the_feature.result_type
+			elseif delayed_feature_type.is_ready then
+				the_feature := delayed_feature_type.the_feature
+				Result := the_feature.result_type
 			else
-				not_yet_implemented
+				Result := result_type_memory
 			end
-		end
-
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	set_feature (a_feature: like the_feature) is
-		do
-			the_feature := a_feature
-		ensure
-			the_feature = a_feature
 		end
 
 feature {}
 	the_feature: LIBERTY_FEATURE
+	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
+	result_type_memory: LIBERTY_TYPE
 
-	make (a_name: like feature_name) is
+	make (a_name: like feature_name; a_delayed_feature_type: like delayed_feature_type) is
 		require
 			a_name /= Void
+			a_delayed_feature_type /= Void
+			a_delayed_feature_type.name = a_name
 		do
 			feature_name := a_name
+			delayed_feature_type := a_delayed_feature_type
+			create {LIBERTY_DELAYED_TYPE} result_type_memory.make(a_delayed_feature_type)
 			position := a_name.position
 		ensure
 			feature_name = a_name
+			delayed_feature_type = a_delayed_feature_type
 			position = a_name.position
 		end
+
+invariant
+	name /= Void
+	delayed_feature_type /= Void
 
 end

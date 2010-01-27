@@ -65,6 +65,7 @@ feature {ANY}
 			if the_feature /= Void then
 				Result := the_feature.result_type
 			else
+				-- should not happen??
 				not_yet_implemented
 			end
 		end

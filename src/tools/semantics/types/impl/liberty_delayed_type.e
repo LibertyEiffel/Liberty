@@ -20,7 +20,7 @@ class LIBERTY_DELAYED_TYPE
 inherit
 	LIBERTY_TYPE
 
-creation {LIBERTY_TYPE_RESOLVER}
+creation {ANY}
 	make
 
 feature {ANY}
