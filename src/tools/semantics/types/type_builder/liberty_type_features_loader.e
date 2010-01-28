@@ -1288,25 +1288,30 @@ feature {} -- Expressions
 			exp_types: COLLECTION[LIBERTY_TYPE]
 			i: INTEGER
 		do
-			from
-				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
-				create {FAST_ARRAY[LIBERTY_TYPE]} exp_types.with_capacity(a_tuple.count)
-				i := a_tuple.lower
-			until
-				errors.has_error or else i > a_tuple.upper
-			loop
-				exp ::= a_tuple.item(i)
-				if exp.is_expression then
-					expr := expression(exp.expression, local_context)
-				else
-					--| "$entity" expressions
-					not_yet_implemented
+			if a_tuple = Void then
+				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(0)
+				create {FAST_ARRAY[LIBERTY_TYPE]} exp_types.with_capacity(0)
+			else
+				from
+					create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
+					create {FAST_ARRAY[LIBERTY_TYPE]} exp_types.with_capacity(a_tuple.count)
+					i := a_tuple.lower
+				until
+					errors.has_error or else i > a_tuple.upper
+				loop
+					exp ::= a_tuple.item(i)
+					if exp.is_expression then
+						expr := expression(exp.expression, local_context)
+					else
+						--| "$entity" expressions
+						not_yet_implemented
+					end
+					if not errors.has_error then
+						expressions.add_last(expr)
+						exp_types.add_last(expr.result_type)
+					end
+					i := i + 1
 				end
-				if not errors.has_error then
-					expressions.add_last(expr)
-					exp_types.add_last(expr.result_type)
-				end
-				i := i + 1
 			end
 			if not errors.has_error then
 				create Result.make(universe.type_tuple(exp_types, a_position), expressions, a_position)
