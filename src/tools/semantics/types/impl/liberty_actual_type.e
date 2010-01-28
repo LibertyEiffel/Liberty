@@ -31,7 +31,7 @@ create {LIBERTY_UNIVERSE}
 	make
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE is
+	actual_type: LIBERTY_ACTUAL_TYPE is
 		do
 			Result := Current
 		end

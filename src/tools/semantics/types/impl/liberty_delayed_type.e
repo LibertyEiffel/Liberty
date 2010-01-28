@@ -24,14 +24,14 @@ creation {ANY}
 	make
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE
+	actual_type: LIBERTY_ACTUAL_TYPE
 
 	is_actual_type_set: BOOLEAN
 
 	full_name: FIXED_STRING is
 		do
 			if is_actual_type_set then
-				Result := type.full_name
+				Result := actual_type.full_name
 			else
 				Result := delayed_resolver.full_name
 			end
@@ -70,7 +70,7 @@ feature {LIBERTY_UNIVERSE}
 		require
 			can_resolve
 		do
-			type := delayed_resolver.resolved
+			actual_type := delayed_resolver.resolved
 			is_actual_type_set := True
 			torch.burn
 		ensure

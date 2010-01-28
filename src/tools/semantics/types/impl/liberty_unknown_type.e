@@ -29,7 +29,7 @@ creation {LIBERTY_TYPE_RESOLVER}
 	make
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE is
+	actual_type: LIBERTY_ACTUAL_TYPE is
 		do
 		end
 
