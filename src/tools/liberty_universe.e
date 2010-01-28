@@ -171,8 +171,8 @@ feature {ANY} -- Kernel types
 				ast ::= tuple_ast.classes.item(tuple_count)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
-				Result.unset_export_only
 			end
+			Result.unset_export_only
 		ensure
 			Result /= Void
 		end
@@ -392,8 +392,8 @@ feature {}
 				ast := parse_class(cluster, class_name, Void)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
-				Result.unset_export_only
 			end
+			Result.unset_export_only
 		ensure
 			Result /= Void
 		end
@@ -412,8 +412,8 @@ feature {}
 				ast := parse_class(td.cluster, td.name, position)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
-				Result.unset_export_only
 			end
+			Result.unset_export_only
 		end
 
 feature {LIBERTY_TYPE_RESOLVER}
