@@ -94,7 +94,7 @@ feature {}
 					end
 				end
 				if parent /= Void then
-					type.add_parent(parent.type, conformant)
+					type.add_parent(parent.actual_type, conformant)
 					Result := True
 				end
 				i := i + 1

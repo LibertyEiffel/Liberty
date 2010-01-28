@@ -23,7 +23,7 @@ inherit
 		end
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE is
+	actual_type: LIBERTY_ACTUAL_TYPE is
 		require
 			is_actual_type_set
 		deferred

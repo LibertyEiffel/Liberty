@@ -76,8 +76,8 @@ feature {}
 				parent_clause := parents.list_item(i)
 				parent := type_lookup.resolver.type(parent_clause.type_definition)
 				if parent /= Void then
-					inject_parent_invariant(parent.type)
-					inject_parent_features(parent.type, parent_clause.parent_clause, conformant)
+					inject_parent_invariant(parent.actual_type)
+					inject_parent_features(parent.actual_type, parent_clause.parent_clause, conformant)
 					has_parent := True
 				end
 				i := i + 1

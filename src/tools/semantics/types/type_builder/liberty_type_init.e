@@ -85,7 +85,7 @@ feature {LIBERTY_TYPE_BUILDER}
 					i > type_parameters.list_upper
 				loop
 					type_parameter := type_parameters.list_item(i)
-					effective_type := type.parameters.item(i).type
+					effective_type := type.parameters.item(i).actual_type
 					effective_generic_parameters.add(effective_type, type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end

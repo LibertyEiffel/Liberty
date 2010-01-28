@@ -78,7 +78,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 				until
 					i > actuals.upper
 				loop
-					arguments_types.add_last(actuals.item(i).result_type.type)
+					arguments_types.add_last(actuals.item(i).result_type.actual_type)
 					i := i + 1
 				end
 			end
@@ -88,7 +88,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 			elseif result_type = lookup.universe.type_boolean then
 				Result := lookup.universe.type_predicate(arguments_types, position)
 			else
-				Result := lookup.universe.type_function(arguments_types, result_type.type, position)
+				Result := lookup.universe.type_function(arguments_types, result_type.actual_type, position)
 			end
 		end
 

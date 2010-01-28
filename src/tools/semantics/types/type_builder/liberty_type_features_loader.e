@@ -1066,7 +1066,7 @@ feature {} -- Expressions
 				until
 					i > a_contents.upper
 				loop
-					Result := a_contents.item(i).result_type.type.common_conformant_parent_with(Result.type)
+					Result := a_contents.item(i).result_type.actual_type.common_conformant_parent_with(Result.actual_type)
 					if Result = Void then
 						--| *** TODO fatal error
 						not_yet_implemented

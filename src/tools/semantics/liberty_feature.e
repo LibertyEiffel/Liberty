@@ -89,7 +89,7 @@ feature {LIBERTY_FEATURE_ENTITY}
 					until
 						i > parameters.upper
 					loop
-						Result.add_last(parameters.item(i).result_type.type)
+						Result.add_last(parameters.item(i).result_type.actual_type)
 						i := i + 1
 					end
 				end

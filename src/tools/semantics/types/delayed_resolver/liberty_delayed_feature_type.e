@@ -49,7 +49,7 @@ feature {LIBERTY_DELAYED_TYPE}
 
 	resolved: LIBERTY_ACTUAL_TYPE is
 		do
-			Result := the_feature.result_type.type
+			Result := the_feature.result_type.actual_type
 		end
 
 	full_name: FIXED_STRING is
