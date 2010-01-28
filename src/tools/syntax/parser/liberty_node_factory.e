@@ -74,6 +74,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_RENAME} Result.make(name, names)
 			when "Export" then
 				create {LIBERTY_AST_EXPORT} Result.make(name, names)
+			when "Export_Features" then
+				create {LIBERTY_AST_EXPORT_FEATURES} Result.make(name, names)
 			when "Class_Creation" then
 				create {LIBERTY_AST_CLASS_CREATION} Result.make(name, names)
 			when "Creation_Expression" then

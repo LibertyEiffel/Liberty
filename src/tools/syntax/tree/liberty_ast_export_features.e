@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_EXPORT
+class LIBERTY_AST_EXPORT_FEATURES
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -21,25 +21,27 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	clients: LIBERTY_AST_CLIENTS is
+	is_all: BOOLEAN is
+		do
+			Result := nodes.item(0).name.is_equal(once "KW all")
+		end
+
+	feature_names: EIFFEL_LIST_NODE is
+		require
+			not is_all
 		do
 			Result ::= nodes.item(0)
 		end
 
-	features: LIBERTY_AST_EXPORT_FEATURES is
-		do
-			Result ::= nodes.item(1)
-		end
-
 feature {ANY}
-	count: INTEGER is 2
+	count: INTEGER is 1
 
-	name: STRING is "Export"
+	name: STRING is "Export_Features"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 2 >> }
+			Result := {AVL_SET[INTEGER] << 1 >> }
 		end
 
 end

@@ -183,7 +183,7 @@ feature {}
 
 	export_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
-			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
+			i, j: INTEGER; e: LIBERTY_AST_EXPORT; ef: LIBERTY_AST_EXPORT_FEATURES; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
 			clients: COLLECTION[LIBERTY_TYPE]
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
@@ -194,21 +194,34 @@ feature {}
 			loop
 				e := clause.list_item(i)
 				clients := list_clients(e.clients)
-				from
-					j := e.feature_names.lower
-				until
-					j > e.feature_names.upper
-				loop
-					fn ::= e.feature_names.item(j)
-					create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast, type.file)
-					fd := pf.reference_at(feature_name)
-					if fd = Void then
-						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Cannot change export of inexistent feature: " + feature_name.name)
-					else
-						fd.set_clients(clients)
+				ef := e.features
+				if ef.is_all then
+					from
+						j := pf.lower
+					until
+						j > pf.upper
+					loop
+						--|*** TODO: wrong! "all" should only change the clients of those not specifically changed.
+						pf.item(j).set_clients(clients)
+						j := j + 1
 					end
-					j := j + 1
+				else
+					from
+						j := ef.feature_names.lower
+					until
+						j > ef.feature_names.upper
+					loop
+						fn ::= ef.feature_names.item(j)
+						create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast, type.file)
+						fd := pf.reference_at(feature_name)
+						if fd = Void then
+							errors.add_position(feature_name.position)
+							errors.set(level_error, once "Cannot change export of inexistent feature: " + feature_name.name)
+						else
+							fd.set_clients(clients)
+						end
+						j := j + 1
+					end
 				end
 				i := i + 1
 			end

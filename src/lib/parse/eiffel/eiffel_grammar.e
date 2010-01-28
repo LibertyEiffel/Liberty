@@ -58,7 +58,9 @@ feature {}
 																									{FAST_ARRAY[STRING] << "KW export", "Export+", "KW ;;" >> }, Void >> };
 											  "Export+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Export" >> }, agent build_new_list("Export", "Export+");
 																							{FAST_ARRAY[STRING] << "Export", "KW ;;", "Export+" >> }, agent build_continue_list("Export", 1, "Export+") >> };
-											  "Export", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Clients", "Feature_Name+" >> }, Void >> };
+											  "Export", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Clients", "Export_Features" >> }, Void >> };
+											  "Export_Features", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
+																									  {FAST_ARRAY[STRING] << "KW all" >> }, Void >> };
 											  "Parent_Undefine", {PARSE_NON_TERMINAL << epsilon, Void;
 																									  {FAST_ARRAY[STRING] << "KW undefine", "Feature_Name+" >> }, Void >> };
 											  "Parent_Redefine", {PARSE_NON_TERMINAL << epsilon, Void;
@@ -299,6 +301,7 @@ feature {}
 																											 {FAST_ARRAY[STRING] << "Expression" >> }, Void >> };
 
 											  "KW as", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "as"), Void);
+											  "KW all", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "all"), Void);
 											  "KW creation", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "creation"), Void);
 											  "KW class", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "class"), Void);
 											  "KW insert", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "insert"), Void);
@@ -457,7 +460,7 @@ feature {}
 		do
 			inspect
 				id
-			when "agent", "feature", "class", "obsolete", "insert", "inherit", "separate", "creation", "redefine", "undefine", "rename", "as", "export", "create", "is", "end", "local", "deferred", "attribute", "do", "once", "retry", "rescue", "if", "then", "elseif", "else", "inspect", "when", "from", "until", "loop", "not", "and", "or", "xor", "implies", "old", "require", "ensure", "invariant", "variant", "check", "debug", "Precursor", "Current", "Result", "True", "False", "Void", "like", "unique", "frozen", "infix", "prefix", "alias", "external", "indexing" then
+			when "agent", "feature", "class", "obsolete", "insert", "inherit", "separate", "creation", "redefine", "undefine", "rename", "as", "export", "create", "is", "end", "local", "deferred", "attribute", "do", "once", "retry", "rescue", "if", "then", "elseif", "else", "inspect", "when", "from", "until", "loop", "not", "and", "or", "xor", "implies", "old", "require", "ensure", "invariant", "variant", "check", "debug", "Precursor", "Current", "Result", "True", "False", "Void", "like", "unique", "frozen", "infix", "prefix", "alias", "external", "indexing", "all" then
 				Result := True
 			else
 				check
