@@ -99,12 +99,13 @@ feature {}
 			type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
 			fn: LIBERTY_AST_FEATURE_NAME
 		do
-			create local_context.make(type, feature_redefinitions(a_feature.signature.feature_names))
+			create local_context.make(type)
 			if a_feature.signature.has_result_type then
 				result_type := type_lookup.resolver.type(a_feature.signature.result_type)
 				local_context.set_result_type(result_type)
 			end
-			fn ::= a_feature.signature.feature_names.last
+			local_context.set_feature_names(a_feature.signature.feature_names)
+			fn ::= a_feature.signature.feature_names.first
 			create type_resolver.make(fn, local_context)
 			type_lookup.push(type_resolver)
 
@@ -303,29 +304,6 @@ feature {}
 			end
 		end
 
-	feature_redefinitions (names: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_FEATURE_DEFINITION] is
-		local
-			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
-			fd: LIBERTY_FEATURE_DEFINITION
-		do
-			from
-				create {FAST_ARRAY[LIBERTY_FEATURE_DEFINITION]} Result.with_capacity(1) -- usual case
-				i := names.lower
-			until
-				Result /= Void or else i > names.upper
-			loop
-				name ::= names.item(i)
-				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
-				if type.has_feature(feature_name) then
-					fd := type.feature_definition(feature_name)
-					if not Result.fast_has(fd) then
-						Result.add_last(fd)
-					end
-				end
-				i := i + 1
-			end
-		end
-
 	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
@@ -379,7 +357,7 @@ feature {}
 					if redefined_features.item(i).redefined_feature = Void then
 						feature_name := redefined_features.key(i)
 						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Missing redefinition for " + feature_name.name)
+						errors.set(level_error, once "Missing redefinition for " + feature_name.name + " in " + type.out)
 					end
 					i := i + 1
 				end
@@ -855,6 +833,7 @@ feature {} -- Entities and writables
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
 			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE
+			tn: LIBERTY_AST_TERMINAL_NODE
 		do
 			if a_target.is_current then
 				--| TODO: error
@@ -880,32 +859,24 @@ feature {} -- Entities and writables
 				if a_target.precursor_type_mark.count /= 0 then
 					precursor_type ::= type_lookup.resolver.type(a_target.precursor_type_mark.type_definition)
 				end
-				f := find_precursor(local_context.redefinitions, precursor_type)
-				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context), semantics_position_at(a_target.node_at(0)))
+				f := local_context.find_precursor(precursor_type, redefined_features, type.ast, type.file)
+				if f = Void then
+					tn ::= a_target.node_at(0)
+					errors.add_position(errors.semantics_position(tn.image.index, type.ast, type.file))
+					if precursor_type /= Void then
+						errors.add_position(type_lookup.resolver.position(a_target.precursor_type_mark.type_definition))
+						errors.set(level_error, "Could not find any Precursor of " + local_context.written_feature_names + " in " + precursor_type.out)
+					else
+						errors.set(level_error, "Could not find any Precursor of " + local_context.written_feature_names + " in any parent of " + type.out)
+					end
+				else
+					create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context), semantics_position_at(a_target.node_at(0)))
+				end
 			elseif a_target.is_parenthesized_expression then
 				--| TODO: error
 				not_yet_implemented
 			else
 				check False end
-			end
-		ensure
-			not errors.has_error implies Result /= Void
-		end
-
-	find_precursor (redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]; parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
-		local
-			i: INTEGER; fd: LIBERTY_FEATURE_DEFINITION
-		do
-			from
-				i := redefinitions.lower
-			until
-				i > redefinitions.upper
-			loop
-				fd := redefinitions.item(i)
-				if fd.has_precursor(parent) then
-					Result := fd.precursor_feature(parent)
-				end
-				i := i + 1
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -940,7 +911,7 @@ feature {} -- Entities and writables
 				if a_target.precursor_type_mark.count /= 0 then
 					precursor_type ::= type_lookup.resolver.type(a_target.precursor_type_mark.type_definition)
 				end
-				f := find_precursor(local_context.redefinitions, precursor_type)
+				f := local_context.find_precursor(precursor_type, redefined_features, type.ast, type.file)
 				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context), semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_parenthesized_expression then
 				Result := expression(a_target.parenthesized_expression, local_context)

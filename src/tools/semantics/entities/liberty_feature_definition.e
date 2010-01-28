@@ -239,7 +239,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	has_precursor (a_precursor_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
 			if precursors /= Void then
-				Result := precursors.has(a_precursor_type)
+				if a_precursor_type /= Void then
+					Result := precursors.has(a_precursor_type)
+				else
+					Result := precursors.count = 1
+				end
 			end
 		end
 
@@ -247,7 +251,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 		require
 			has_precursor(a_precursor_type)
 		do
-			Result := precursors.at(a_precursor_type)
+			if a_precursor_type /= Void then
+				Result := precursors.at(a_precursor_type)
+			else
+				Result := precursors.first
+			end
 		end
 
 feature {}

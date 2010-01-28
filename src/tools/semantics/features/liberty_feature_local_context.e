@@ -119,7 +119,34 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			result_type = a_result_type
 		end
 
-	redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
+	set_feature_names (a_feature_names: like feature_names) is
+		require
+			a_feature_names /= Void
+		do
+			feature_names := a_feature_names
+			compute_written_feature_names
+		ensure
+			feature_names = a_feature_names
+			written_feature_names /= Void
+		end
+
+	written_feature_names: FIXED_STRING
+
+	find_precursor (parent: LIBERTY_ACTUAL_TYPE; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME];
+						 ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING): LIBERTY_FEATURE is
+		local
+			i: INTEGER; fn: LIBERTY_AST_FEATURE_NAME
+		do
+			from
+				i := feature_names.lower
+			until
+				Result /= Void or else i > feature_names.upper
+			loop
+				fn ::= feature_names.item(i)
+				Result := redefined_features.reference_at(create {LIBERTY_FEATURE_NAME}.make_from_ast(fn.feature_name_or_alias, ast, file))
+				i := i + 1
+			end
+		end
 
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
@@ -127,13 +154,13 @@ feature {}
 	locals_map: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 	locals_list: COLLECTION[LIBERTY_LOCAL]
 	retries: COLLECTION[LIBERTY_RETRY]
+	feature_names: EIFFEL_LIST_NODE
 
-	make (a_current_type: like current_type; a_redefinitions: like redefinitions) is
+	make (a_current_type: like current_type) is
 		require
 			a_current_type /= Void
 		do
 			current_type := a_current_type
-			redefinitions := a_redefinitions
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
@@ -141,7 +168,44 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 		ensure
 			current_type = a_current_type
-			redefinitions = a_redefinitions
+		end
+
+	compute_written_feature_names is
+		require
+			written_feature_names = Void
+		local
+			fn: LIBERTY_AST_FEATURE_NAME
+			i: INTEGER
+			fnoa: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
+			buffer: STRING
+		do
+			buffer := once ""
+			buffer.clear_count
+			from
+				i := feature_names.lower
+			until
+				i > feature_names.upper
+			loop
+				fn ::= feature_names.item(i)
+				fnoa := fn.feature_name_or_alias
+				if fnoa.is_regular then
+					buffer.append(fnoa.entity_name.image.image.intern)
+				elseif fnoa.is_prefix then
+					buffer.append(once "prefix ")
+					buffer.append(fnoa.free_operator_name.image.image.intern)
+				else
+					check fnoa.is_infix end
+					buffer.append(once "infix ")
+					buffer.append(fnoa.free_operator_name.image.image.intern)
+				end
+				if i < feature_names.upper then
+					buffer.append(once ", ")
+				end
+				i := i + 1
+			end
+			written_feature_names := buffer.intern
+		ensure
+			written_feature_names /= Void
 		end
 
 	errors: LIBERTY_ERRORS

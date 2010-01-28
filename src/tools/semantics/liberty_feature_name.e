@@ -27,8 +27,11 @@ insert
 		redefine is_equal, out_in_tagged_out_memory
 		end
 
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
+	make_from_ast
+
 create {LIBERTY_TYPE_BUILDER_TOOLS}
-	make_from_ast, make_regular
+	make_regular
 
 create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_PREFIX_CALL}
 	make_prefix
