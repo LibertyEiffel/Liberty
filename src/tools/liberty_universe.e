@@ -179,7 +179,7 @@ feature {ANY} -- Kernel types
 		require
 			effective_generics /= Void
 		do
-			not_yet_implemented
+			Result := agent_type(procedure_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position)
 		end
 
 	type_function (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
@@ -188,14 +188,14 @@ feature {ANY} -- Kernel types
 			result_type /= Void
 			result_type /= type_boolean
 		do
-			not_yet_implemented
+			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position),result_type >> }, position)
 		end
 
 	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
-			not_yet_implemented
+			Result := agent_type(predicate_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position)
 		end
 
 feature {}
@@ -327,6 +327,30 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
+	procedure_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("PROCEDURE")
+			create Result.make(cluster, "PROCEDURE".intern, Void)
+		end
+
+	function_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("FUNCTION")
+			create Result.make(cluster, "FUNCTION".intern, Void)
+		end
+
+	predicate_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("PREDICATE")
+			create Result.make(cluster, "PREDICATE".intern, Void)
+		end
+
 	kernel_type (class_name: STRING): LIBERTY_ACTUAL_TYPE is
 			-- Called only once per kernel type
 		require
@@ -350,6 +374,23 @@ feature {}
 			end
 		ensure
 			Result /= Void
+		end
+
+	agent_type (class_descriptor: LIBERTY_CLASS_DESCRIPTOR; agent_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+		require
+			class_descriptor /= Void
+			agent_generics /= Void
+		local
+			td: LIBERTY_TYPE_DESCRIPTOR
+			ast: LIBERTY_AST_ONE_CLASS
+		do
+			create td.make(class_descriptor, agent_generics)
+			Result := types.reference_at(td)
+			if Result = Void then
+				ast := parse_class(td.cluster, td.name, position)
+				create Result.make(td, ast)
+				start_to_build_type(Result)
+			end
 		end
 
 feature {LIBERTY_TYPE_RESOLVER}
@@ -488,7 +529,7 @@ feature {} -- Type parameters fetching
 		end
 
 feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
-	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
+	parse_class (cluster: LIBERTY_CLUSTER; class_name: ABSTRACT_STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
 		local
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
