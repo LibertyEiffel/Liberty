@@ -129,7 +129,7 @@ feature {LIBERTY_AST_HANDLER}
 
 	is_array_typed_manifest: BOOLEAN is
 		do
-			Result := count = 5 and then not nodes.item(3).name.is_equal(once "Array")
+			Result := count = 5 and then nodes.item(3).name.is_equal(once "Array")
 		ensure
 			Result implies is_typed_manifest
 		end
