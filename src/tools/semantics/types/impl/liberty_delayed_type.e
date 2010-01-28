@@ -63,7 +63,7 @@ feature {LIBERTY_UNIVERSE}
 		require
 			not is_actual_type_set
 		do
-			Result := delayed_resolver.can_resolve
+			Result := not export_only and then delayed_resolver.can_resolve
 		end
 
 	resolve is
@@ -84,8 +84,10 @@ feature {}
 		do
 			delayed_resolver := a_delayed_resolver
 			lookup.resolver.delayed_types.add_last(Current)
+			export_only := True
 		ensure
 			delayed_resolver = a_delayed_resolver
+			export_only
 		end
 
 	delayed_resolver: LIBERTY_DELAYED_RESOLVER

@@ -71,18 +71,24 @@ feature {LIBERTY_TYPE_BUILDER}
 	ready: BOOLEAN is
 			-- Is the type ready to be initialized?
 		do
-			if init = Void then
-				check
-					effective_generic_parameters = empty_effective_generic_parameters
+			if not type.export_only then
+				if init = Void then
+					check
+						effective_generic_parameters = empty_effective_generic_parameters
+					end
+					create init.make(Current, type, universe, empty_effective_generic_parameters)
 				end
-				create init.make(Current, type, universe, empty_effective_generic_parameters)
+				Result := init.is_ready
 			end
-			Result := init.is_ready
+		ensure
+			type.export_only implies not Result
 		end
 
 	init_header: STRING is
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
+		require
+			not type.export_only
 		do
 			debug
 				std_output.put_line(type.full_name + ": init header")

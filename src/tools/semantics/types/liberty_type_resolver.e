@@ -28,6 +28,7 @@ feature {ANY}
 			if Result = Void then
 				Result := delayed_type(type_definition)
 			end
+			Result.unset_export_only
 		end
 
 	export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
@@ -38,7 +39,7 @@ feature {ANY}
 		do
 			Result := lookup_export_type(type_definition)
 			if Result = Void and then parent /= Void then
-				Result := parent.type(type_definition)
+				Result := parent.export_type(type_definition)
 			end
 			if Result = Void then
 				create {LIBERTY_UNKNOWN_TYPE} Result.make(type_definition.type_name.image.image.intern)

@@ -32,6 +32,7 @@ feature {ANY}
 			position /= Void
 		do
 			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
+			Result.unset_export_only
 		ensure
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
@@ -42,7 +43,7 @@ feature {ANY}
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
 		do
-			create incubator.make
+			create incubator.with_capacity(1024, 0)
 			from
 			until
 				types_incubator.is_empty
@@ -170,6 +171,7 @@ feature {ANY} -- Kernel types
 				ast ::= tuple_ast.classes.item(tuple_count)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
+				Result.unset_export_only
 			end
 		ensure
 			Result /= Void
@@ -233,10 +235,10 @@ feature {}
 				types_incubator.is_empty
 			loop
 				type := types_incubator.first
-				types_incubator.remove
+				types_incubator.remove_first
 				type.build_more
 				if not type.is_built then
-					incubator.add(type)
+					incubator.add_last(type)
 				end
 			end
 		end
@@ -245,24 +247,43 @@ feature {}
 		require
 			types_incubator.is_empty
 		do
-			if torch.still_burns(flame) then
-				Result := types_incubator
-				types_incubator := incubator
-				debug
-					std_output.put_line("Swapped incubator")
+			if not torch.still_burns(flame) then
+				clean_export_only_types_from_incubator(incubator)
+				if not incubator.is_empty then
+					debug
+						debug_types
+					end
+					errors.set(level_system_error, "Compiler stalled.")
+					check
+						dead: False
+					end
 				end
-			else
-				debug
-					debug_types
-				end
-				errors.set(level_system_error, "Compiler stalled.")
-				check
-					dead: False
-				end
+			end
+			Result := types_incubator
+			types_incubator := incubator
+			debug
+				std_output.put_line("Swapped incubator")
 			end
 		ensure
 			types_incubator = incubator
 			Result = old types_incubator
+		end
+
+	clean_export_only_types_from_incubator (incubator: like types_incubator) is
+		local
+			i: INTEGER
+		do
+			from
+				i := incubator.lower
+			until
+				i > incubator.upper
+			loop
+				if incubator.item(i).export_only then
+					incubator.remove(i)
+				else
+					i := i + 1
+				end
+			end
 		end
 
 feature {} -- debug
@@ -314,7 +335,7 @@ feature {}
 			types.add(type, type.descriptor)
 			type.start_build(Current)
 			if not type.is_built then
-				types_incubator.add(type)
+				types_incubator.add_last(type)
 			end
 			torch.burn
 		end
@@ -371,6 +392,7 @@ feature {}
 				ast := parse_class(cluster, class_name, Void)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
+				Result.unset_export_only
 			end
 		ensure
 			Result /= Void
@@ -390,6 +412,7 @@ feature {}
 				ast := parse_class(td.cluster, td.name, position)
 				create Result.make(td, ast)
 				start_to_build_type(Result)
+				Result.unset_export_only
 			end
 		end
 
@@ -685,7 +708,7 @@ feature {}
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
 			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
-			create types_incubator.with_capacity(default_type_capacity)
+			create types_incubator.with_capacity(default_type_capacity, 0)
 			create tr.make(Current)
 			type_lookup.push(tr)
 		end
@@ -695,7 +718,7 @@ feature {}
 	classes: DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 
-	types_incubator: QUEUE[LIBERTY_ACTUAL_TYPE]
+	types_incubator: RING_ARRAY[LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD

@@ -137,12 +137,16 @@ feature {ANY}
 		local
 			i: INTEGER
 		do
-			if is_expanded then
-				o.put_string(once "expanded type ")
-			elseif is_separate then
-				o.put_string(once "separate type ")
-			elseif is_deferred then
-				o.put_string(once "deferred type ")
+			if mark_set then
+				if is_expanded then
+					o.put_string(once "expanded type ")
+				elseif is_separate then
+					o.put_string(once "separate type ")
+				elseif is_deferred then
+					o.put_string(once "deferred type ")
+				else
+					o.put_string(once "type ")
+				end
 			else
 				o.put_string(once "type ")
 			end
@@ -429,8 +433,10 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
 			conformant_parents := no_parents
 			non_conformant_parents := no_parents
+			export_only := True
 		ensure
 			descriptor = a_descriptor
+			export_only
 		end
 
 	mark: INTEGER_8

@@ -56,11 +56,13 @@ feature {}
 			a_full_name /= Void
 		do
 			full_name := a_full_name
+			export_only := True
 		ensure
 			full_name = a_full_name
 		end
 
 invariant
 	full_name /= Void
+	export_only
 
 end

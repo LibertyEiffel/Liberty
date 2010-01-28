@@ -39,6 +39,17 @@ feature {ANY}
 			Result /= Void
 		end
 
+	export_only: BOOLEAN
+			-- True if the type is only ever used as an export marker (in feature, creation, or export clauses)
+
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
+	unset_export_only is
+		do
+			export_only := False
+		ensure
+			not export_only
+		end
+
 feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		require
