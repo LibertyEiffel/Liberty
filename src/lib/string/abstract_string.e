@@ -972,8 +972,7 @@ feature {ANY} -- Testing and Conversion:
 
 feature {ANY} -- Concatenation
 	infix "+" (other: ABSTRACT_STRING): STRING is
-			-- Create a new STRING which is the concatenation of
-			-- `Current' and `other'.
+			-- Create a new STRING which is the concatenation of `Current' and `other'.
 			--
 			-- See also `append'.
 		require
@@ -987,27 +986,31 @@ feature {ANY} -- Concatenation
 		end
 
 	infix "|" (another: ABSTRACT_STRING): ROPE is
-		-- Current and `another' concatenated into a new ROPE, an
-		-- ABSTRACT_STRING that can be efficiently concatenated.
-	require another_exists: another/=Void
-	do
-		-- (once "Making ROPE: <<").print_on(std_output)
-		-- Current.print_on(std_output)
-		-- (once ">>|<<").print_on(std_output)
-		-- another. print_on(std_output)
-		-- (once ">>%N").print_on(std_output)
-		create Result.from_strings(Current,another)
-	end
+			-- Current and `another' concatenated into a new ROPE, an ABSTRACT_STRING that can be efficiently
+			-- concatenated.
+		require
+			another_exists: another/=Void
+		do
+			-- (once "Making ROPE: %"").print_on(std_output)
+			-- Current.print_on(std_output)
+			-- (once "%"|%"").print_on(std_output)
+			-- another. print_on(std_output)
+			-- (once "%"%N").print_on(std_output)
+			create Result.from_strings(Current,another)
+		ensure
+			Result.out.is_equal(Current + other)
+		end
 
 	infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
-		-- Current and `another' concatenating into a new object. The actual
-		-- effective type of Result is chosen by the implementation, possibly
-		-- based on heuristics.
-	require another_exists: another/=Void
-	deferred	
-	end
+			-- Current and `another' concatenating into a new object. The actual effective type of Result is
+			-- chosen by the implementation, possibly based on heuristics.
+		require
+			another_exists: another/=Void
+		deferred
+		ensure
+			Result.out.is_equal(Current + other)
+		end
 
-	
 feature -- Case convertion
 	as_lower: STRING is
 			-- New object with all letters in lower case.
