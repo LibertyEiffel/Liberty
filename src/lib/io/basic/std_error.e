@@ -15,7 +15,7 @@ inherit
 		redefine
 			dispose
 		end
-	
+
 insert
 	REDIRECTION_TOOLS
 		rename
