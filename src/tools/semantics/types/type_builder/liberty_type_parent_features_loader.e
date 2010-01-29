@@ -114,7 +114,7 @@ feature {}
 				i := i + 1
 			end
 			if clause /= Void and then clause.has_clauses then
-				rename_features(pf, clause.rename_clause)
+				rename_features(pf, clause.rename_clause, parent)
 				export_features(pf, clause.export_clause)
 				undefine_features(pf, clause.undefine_clause, conformant)
 				rf_count := redefine_features(pf, clause.redefine_clause, conformant)
@@ -152,10 +152,10 @@ feature {}
 			end
 		end
 
-	rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME) is
+	rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME; parent: LIBERTY_ACTUAL_TYPE) is
 		local
 			i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: LIBERTY_FEATURE_NAME
-			fd: LIBERTY_FEATURE_DEFINITION
+			fd, fd2: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := clause.list_lower
@@ -169,13 +169,21 @@ feature {}
 				if fd = Void then
 					errors.add_position(old_name.position)
 					errors.set(level_error, once "Cannot rename inexistent feature: " + old_name.name)
-				elseif pf.reference_at(new_name) /= Void then
-					errors.add_position(new_name.position)
-					errors.set(level_error, once "Cannot rename feature (another feature with the same name exists): " + new_name.name)
 				else
-					pf.remove(old_name)
-					fd.set_name(new_name)
-					pf.add(fd, new_name)
+					fd2 := pf.reference_at(new_name)
+					if fd2 = Void then
+						pf.remove(old_name)
+						fd.set_name(new_name)
+						pf.add(fd, new_name)
+					else
+						pf.remove(old_name)
+						fd2.join(fd, parent)
+						--|*** TODO: how to know that that particular join provoked an error?
+						--if errors.has_error then
+						--	errors.add_position(new_name.position)
+						--	errors.set(level_error, once "Cannot rename feature (another feature with the same name exists): " + new_name.name)
+						--end
+					end
 				end
 				i := i + 1
 			end
