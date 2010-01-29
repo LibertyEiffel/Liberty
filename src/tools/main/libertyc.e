@@ -36,7 +36,8 @@ feature {}
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 			universe.build_types
 
-			std_output.put_line("Done: root=" + root.hash_code.out)
+			root.debug_display(std_output)
+			std_output.put_line("Done.")
 		end
 
 end

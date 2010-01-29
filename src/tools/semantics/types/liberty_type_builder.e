@@ -182,13 +182,18 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 	check_type: STRING is
-			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....)
+			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....),
+			-- arguments of feature calls (type, count... including agents),
 			-- and so on
 		do
 			debug
 				std_output.put_line(type.full_name + ": check type")
 			end
 			--create {LIBERTY_TYPE_CHECKER}.check_type(type, universe)
+
+			--|*** meanwhile:
+			(create {LIBERTY_ENLIGHTENING_THE_WORLD}).burn
+
 			check
 				Result = Void
 			end

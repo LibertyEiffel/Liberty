@@ -153,14 +153,14 @@ feature {ANY}
 			o.put_line(full_name.out)
 			o.put_string(once "   building state: ")
 			o.put_line(builder.current_state.out)
-			from
-				i := features.lower
-			until
-				i > features.upper
-			loop
-				features.item(i).debug_display(o)
-				i := i + 1
-			end
+			--from
+			--	i := features.lower
+			--until
+			--	i > features.upper
+			--loop
+			--	features.item(i).debug_display(o)
+			--	i := i + 1
+			--end
 			o.put_string(once "end -- type ")
 			o.put_line(full_name.out)
 		end
@@ -178,7 +178,7 @@ feature {LIBERTY_ACTUAL_TYPE}
 				until
 					i > parameters.upper
 				loop
-					if i > parameters.upper then
+					if i > parameters.lower then
 						buffer.extend(',')
 					end
 					parameters.item(i).full_name_in(buffer)
