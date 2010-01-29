@@ -17,14 +17,14 @@ cluster
 		default
 			assertion(require)
 		option
-			debug(all): FIXED_STRING
+			debug(all): FIXED_STRING -- `debug_string' is very useful
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"
 		default
-			assertion(all)
+			assertion(ensure)
 		option
-			debug(all): LIBERTY_TYPE, LIBERTY_TYPE_PARENT_LOADER, LIBERTY_TYPE_PARENT_FEATURES_LOADER, LIBERTY_TYPE_FEATURES_LOADER, LIBERTY_TYPE_INIT, LIBERTY_TYPE_BUILDER, LIBERTY_UNIVERSE, LIBERTY_FEATURE_DEFINITION, LIBERTY_TYPE_LOOKUP, LIBERTY_FEATURE
+			debug(all): LIBERTY_TYPE, LIBERTY_TYPE_BUILDER, LIBERTY_UNIVERSE, LIBERTY_TYPE_LOOKUP, LIBERTY_FEATURE
 		end
 
 generate
