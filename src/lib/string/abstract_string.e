@@ -985,27 +985,27 @@ feature {ANY} -- Concatenation
 			result_count: Result.count = count + other.count
 		end
 
-	infix "|" (another: ABSTRACT_STRING): ROPE is
-			-- Current and `another' concatenated into a new ROPE, an ABSTRACT_STRING that can be efficiently
+	infix "|" (other: ABSTRACT_STRING): ROPE is
+			-- Current and `other' concatenated into a new ROPE, an ABSTRACT_STRING that can be efficiently
 			-- concatenated.
 		require
-			another_exists: another/=Void
+			other_exists: other /= Void
 		do
 			-- (once "Making ROPE: %"").print_on(std_output)
 			-- Current.print_on(std_output)
 			-- (once "%"|%"").print_on(std_output)
-			-- another. print_on(std_output)
+			-- other. print_on(std_output)
 			-- (once "%"%N").print_on(std_output)
-			create Result.from_strings(Current,another)
+			create Result.from_strings(Current,other)
 		ensure
 			Result.out.is_equal(Current + other)
 		end
 
-	infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
-			-- Current and `another' concatenating into a new object. The actual effective type of Result is
+	infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
+			-- Current and `other' concatenating into a new object. The actual effective type of Result is
 			-- chosen by the implementation, possibly based on heuristics.
 		require
-			another_exists: another/=Void
+			other_exists: other /= Void
 		deferred
 		ensure
 			Result.out.is_equal(Current + other)
