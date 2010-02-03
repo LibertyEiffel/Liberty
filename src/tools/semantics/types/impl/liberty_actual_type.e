@@ -134,8 +134,8 @@ feature {ANY}
 
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM) is
-		local
-			i: INTEGER
+		--local
+		--	i: INTEGER
 		do
 			if mark_set then
 				if is_expanded then

@@ -26,7 +26,7 @@ feature {ANY}
 			if can_resolve then
 				resolved.out_in_tagged_out_memory
 			else
-				tagged_out_memory.append(once "like ")
+				tagged_out_memory.append(once "(agent) like ")
 				call.out_in_tagged_out_memory
 			end
 		end

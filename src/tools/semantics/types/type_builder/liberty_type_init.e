@@ -105,6 +105,12 @@ feature {LIBERTY_TYPE_BUILDER}
 				not Result or else i > type.parameters.upper
 			loop
 				Result := type.parameters.item(i).is_actual_type_set
+				debug
+					if not Result then
+						std_output.put_line(type.full_name + ": not yet ready because the type parameter #" + i.out
+												  + ", " + type.parameters.item(i).full_name + " is not yet actually set")
+					end
+				end
 				i := i + 1
 			end
 		end

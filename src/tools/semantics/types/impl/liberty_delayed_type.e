@@ -49,7 +49,11 @@ feature {ANY}
 
 	out_in_tagged_out_memory is
 		do
+			tagged_out_memory.extend('{')
+			to_pointer.append_in(tagged_out_memory)
+			tagged_out_memory.extend('#')
 			delayed_resolver.out_in_tagged_out_memory
+			tagged_out_memory.extend('}')
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}

@@ -44,12 +44,12 @@ feature {ANY}
 feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is
 		do
-			Result := anchor /= Void
+			Result := anchor.result_type.is_actual_type_set
 		end
 
 	resolved: LIBERTY_ACTUAL_TYPE is
 		do
-			Result := anchor.result_type
+			Result := anchor.result_type.actual_type
 		end
 
 	full_name: FIXED_STRING is

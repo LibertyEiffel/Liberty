@@ -126,13 +126,13 @@ feature {LIBERTY_TYPE_BUILDER}
 					and then check_have_loaded_features(type.non_conformant_parents)
 				debug
 					if Result then
-						std_output.put_line(type.name + " can load its parent's features")
+						std_output.put_line(type.name + " can load its parent features")
 					end
 				end
 			end
 			debug
 				if not Result then
-					std_output.put_line(type.full_name + " cannot load parent features yet")
+					std_output.put_line(type.full_name + " cannot load its parent features yet")
 				end
 			end
 		end
@@ -153,12 +153,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			Result := once "loading features"
 		end
 
-	can_load_features: BOOLEAN is
-			-- Currently always True if there were no errors
-		do
-			Result := not errors.has_error
-		end
-
 	load_features: STRING is
 			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
@@ -173,12 +167,6 @@ feature {LIBERTY_TYPE_BUILDER}
 				std_output.put_line(type.full_name + ": features loaded")
 			end
 			Result := once "checking type"
-		end
-
-	can_check_type: BOOLEAN is
-			-- Currently always True if there were no errors
-		do
-			Result := not errors.has_error
 		end
 
 	check_type: STRING is
@@ -239,7 +227,7 @@ feature {}
 				Result := parents.item(i).has_loaded_features
 				debug
 					if not Result then
-						std_output.put_line(type.full_name + ": waiting for " + parents.item(i).full_name
+						std_output.put_line(type.full_name + ": waiting for its parent " + parents.item(i).full_name
 												  + " to having loaded its features")
 					end
 				end
@@ -350,14 +338,12 @@ feature {}
 					>>};
 
 				"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.can_load_features,        agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_features);
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_features);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};
 
 				"checking type", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.can_check_type,           agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.check_type);
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.check_type);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>}
 				>>}

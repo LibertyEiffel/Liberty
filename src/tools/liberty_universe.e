@@ -222,6 +222,9 @@ feature {}
 				end
 				n := n - 1
 			end
+			debug
+				std_output.put_line(delayed_types.count.out + " delayed types yet to be resolved.")
+			end
 		end
 
 	build_to_incubator (incubator: like types_incubator) is
@@ -251,7 +254,7 @@ feature {}
 				clean_export_only_types_from_incubator(incubator)
 				if not incubator.is_empty then
 					debug
-						debug_types
+						debug_types(incubator)
 					end
 					errors.set(level_system_error, "Compiler stalled.")
 					check
@@ -279,6 +282,10 @@ feature {}
 				i > incubator.upper
 			loop
 				if incubator.item(i).export_only then
+					debug
+						std_output.put_line("Removing " + incubator.item(i).full_name
+												  + ": only used in export clauses")
+					end
 					incubator.remove(i)
 				else
 					i := i + 1
@@ -287,7 +294,7 @@ feature {}
 		end
 
 feature {} -- debug
-	debug_types is
+	debug_types (incubator: like types_incubator) is
 		local
 			i: INTEGER
 			all_types: FAST_ARRAY[LIBERTY_ACTUAL_TYPE]
@@ -312,13 +319,27 @@ feature {} -- debug
 			until
 				i > all_types.upper
 			loop
+				std_output.put_string((i-all_types.lower+1).out + ": ")
 				all_types.item(i).debug_display(std_output)
-				if i < types.upper then
-					std_output.put_new_line
-				end
 				i := i + 1
 			end
 			std_output.put_line(once "-------->8--")
+			if incubator.is_empty then
+				std_output.put_line(all_types.count.out + " types (total), incubator is empty")
+			else
+				std_output.put_line(all_types.count.out + " types (total), including " + incubator.count.out + " types in incubator:")
+				std_output.put_line(once "--8<--------")
+				from
+					i := incubator.lower
+				until
+					i > incubator.upper
+				loop
+					std_output.put_string((i-incubator.lower+1).out + ": ")
+					incubator.item(i).debug_display(std_output)
+					i := i + 1
+				end
+				std_output.put_line(once "-------->8--")
+			end
 			sedb_breakpoint
 		end
 
