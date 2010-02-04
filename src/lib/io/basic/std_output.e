@@ -12,8 +12,7 @@ class STD_OUTPUT
 
 inherit
 	TERMINAL_OUTPUT_STREAM
-		redefine
-			put_line, dispose
+		redefine put_natively_stored_string, dispose
 		end
 
 insert
@@ -63,17 +62,12 @@ feature {FILTER_OUTPUT_STREAM}
 			io_flush(stdout)
 		end
 
-feature {ANY}
-	put_line (s: STRING) is
-		require
-			s /= Void
+feature {ABSTRACT_STRING}
+	put_natively_stored_string (s: NATIVELY_STORED_STRING) is
 		local
 			unused_result: INTEGER
 		do
-			write_buffer
-			s.add_last('%N')
 			unused_result := io_fwrite(s.storage, s.count, stdout)
-			s.remove_last
 		end
 
 feature {FILTER}

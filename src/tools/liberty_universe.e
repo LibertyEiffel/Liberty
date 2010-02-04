@@ -223,7 +223,12 @@ feature {}
 				n := n - 1
 			end
 			debug
-				std_output.put_line(delayed_types.count.out + " delayed types yet to be resolved.")
+				std_output.put_integer(delayed_types.count)
+				if delayed_types.count = 1 then
+					std_output.put_line(once " delayed type yet to be resolved.")
+				else
+					std_output.put_line(once " delayed types yet to be resolved.")
+				end
 			end
 		end
 
@@ -256,7 +261,7 @@ feature {}
 					debug
 						debug_types(incubator)
 					end
-					errors.set(level_system_error, "Compiler stalled.")
+					errors.set(level_system_error, once "Compiler stalled.")
 					check
 						dead: False
 					end
@@ -265,7 +270,7 @@ feature {}
 			Result := types_incubator
 			types_incubator := incubator
 			debug
-				std_output.put_line("Swapped incubator")
+				std_output.put_line(once "Swapped incubator")
 			end
 		ensure
 			types_incubator = incubator
@@ -283,8 +288,9 @@ feature {}
 			loop
 				if incubator.item(i).export_only then
 					debug
-						std_output.put_line("Removing " + incubator.item(i).full_name
-												  + ": only used in export clauses")
+						std_output.put_string(once "Removing ")
+						std_output.put_string(incubator.item(i).full_name)
+						std_output.put_line(once ": only used in export clauses")
 					end
 					incubator.remove(i)
 				else
@@ -319,22 +325,28 @@ feature {} -- debug
 			until
 				i > all_types.upper
 			loop
-				std_output.put_string((i-all_types.lower+1).out + ": ")
+				std_output.put_integer(i-all_types.lower+1)
+				std_output.put_string(once ": ")
 				all_types.item(i).debug_display(std_output)
 				i := i + 1
 			end
 			std_output.put_line(once "-------->8--")
 			if incubator.is_empty then
-				std_output.put_line(all_types.count.out + " types (total), incubator is empty")
+				std_output.put_integer(all_types.count)
+				std_output.put_line(once " types (total), incubator is empty")
 			else
-				std_output.put_line(all_types.count.out + " types (total), including " + incubator.count.out + " types in incubator:")
+				std_output.put_integer(all_types.count)
+				std_output.put_string(once " types (total), including ")
+				std_output.put_integer(incubator.count)
+				std_output.put_line(once " types in incubator:")
 				std_output.put_line(once "--8<--------")
 				from
 					i := incubator.lower
 				until
 					i > incubator.upper
 				loop
-					std_output.put_string((i-incubator.lower+1).out + ": ")
+					std_output.put_integer(i-incubator.lower+1)
+					std_output.put_string(once ": ")
 					incubator.item(i).debug_display(std_output)
 					i := i + 1
 				end
@@ -582,7 +594,8 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
 				debug
-					std_output.put_line("Parsing " + class_name)
+					std_output.put_string(once "Parsing ")
+					std_output.put_line(class_name)
 				end
 				code := once ""
 				code.clear_count
@@ -598,7 +611,8 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
 				debug
-					std_output.put_line(class_name + " parsed.")
+					std_output.put_string(class_name)
+					std_output.put_line(once " parsed.")
 				end
 			end
 		ensure
@@ -641,7 +655,7 @@ feature {} -- AST building
 			one_class: LIBERTY_AST_ONE_CLASS
 		once
 			debug
-				std_output.put_line("Parsing TUPLE")
+				std_output.put_line(once "Parsing TUPLE")
 			end
 			tuple_cluster := root.find("TUPLE")
 			if tuple_cluster = Void then

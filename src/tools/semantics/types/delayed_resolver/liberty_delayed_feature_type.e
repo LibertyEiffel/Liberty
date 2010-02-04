@@ -27,6 +27,8 @@ feature {ANY}
 				resolved.out_in_tagged_out_memory
 			else
 				tagged_out_memory.append(once "like ")
+				tagged_out_memory.append(type.full_name)
+				tagged_out_memory.extend('.')
 				name.out_in_tagged_out_memory
 			end
 		end
@@ -81,7 +83,12 @@ feature {}
 		do
 			type := a_type
 			name := a_name
-			full_name_memory := (once "like " + a_name.out).intern
+
+			lock_tagged_out
+			tagged_out_memory.copy(once "like ")
+			a_name.out_in_tagged_out_memory
+			full_name_memory := tagged_out_memory.intern
+			unlock_tagged_out
 		ensure
 			type = a_type
 			name = a_name

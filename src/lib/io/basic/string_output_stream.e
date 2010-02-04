@@ -8,8 +8,7 @@ class STRING_OUTPUT_STREAM
 
 inherit
 	TERMINAL_OUTPUT_STREAM
-		redefine
-			dispose
+		redefine put_abstract_string, dispose
 		end
 
 creation {ANY}
@@ -55,6 +54,12 @@ feature {FILTER_OUTPUT_STREAM}
 	filtered_flush is
 		do
 			-- nothing to do
+		end
+
+feature {ABSTRACT_STRING}
+	put_abstract_string (s: ABSTRACT_STRING) is
+		do
+			string.append(s)
 		end
 
 feature {FILTER}

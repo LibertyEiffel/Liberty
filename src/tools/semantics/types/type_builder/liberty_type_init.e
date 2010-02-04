@@ -66,7 +66,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 			name := ast.class_name.image.image.intern
 			if name /= type.name then
-				errors.set(level_fatal_error, "Expected type " + type.name + ", but got " + name)
+				errors.set(level_fatal_error, once "Expected type " + type.name + once ", but got " + name)
 			end
 			type_parameters := ast.type_parameters
 			n := type_parameters.list_count
@@ -107,8 +107,12 @@ feature {LIBERTY_TYPE_BUILDER}
 				Result := type.parameters.item(i).is_actual_type_set
 				debug
 					if not Result then
-						std_output.put_line(type.full_name + ": not yet ready because the type parameter #" + i.out
-												  + ", " + type.parameters.item(i).full_name + " is not yet actually set")
+						std_output.put_string(type.full_name)
+						std_output.put_string(once ": not yet ready because the type parameter #")
+						std_output.put_integer(i)
+						std_output.put_string(once ", ")
+						std_output.put_string(type.parameters.item(i).full_name)
+						std_output.put_line(once " is not yet actually set")
 					end
 				end
 				i := i + 1

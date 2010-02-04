@@ -9,31 +9,31 @@ deferred class ABSTRACT_STRING
 
 inherit
 	ANY
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 	HASHABLE
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory
 		end
 	COMPARABLE
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, compare, three_way_comparison,
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, compare, three_way_comparison,
 			infix ">", infix "<=", infix ">="
 		end
 	STORABLE
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 	TRAVERSABLE[CHARACTER]
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 
 insert
 	PLATFORM
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 	RECYCLABLE
-		undefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		undefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 	STRING_HANDLER
-		undefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		undefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 
 feature {ANY}
@@ -65,6 +65,11 @@ feature {ANY}
 		deferred
 		ensure then
 			count = other.count
+		end
+
+	print_on (file: OUTPUT_STREAM) is
+		do
+			file.put_abstract_string(Current)
 		end
 
 feature {ANY} -- Testing:

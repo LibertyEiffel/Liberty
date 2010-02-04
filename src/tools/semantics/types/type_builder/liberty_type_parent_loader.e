@@ -73,10 +73,11 @@ feature {}
 		do
 			debug
 				if conformant then
-					std_output.put_line("Adding conformant parents to " + type.full_name)
+					std_output.put_string(once "Adding conformant parents to ")
 				else
-					std_output.put_line("Adding non-conformant parents to " + type.full_name)
+					std_output.put_string(once "Adding non-conformant parents to ")
 				end
+				std_output.put_line(type.full_name)
 			end
 			from
 				Result := had_parents
@@ -87,11 +88,14 @@ feature {}
 				parent_clause := parents.list_item(i)
 				parent := type_lookup.resolver.type(parent_clause.type_definition)
 				debug
+					std_output.put_string(once "  ")
+					std_output.put_string(type.full_name)
 					if conformant then
-						std_output.put_line("  " + type.full_name + " --> " + parent.full_name)
+						std_output.put_string(once " --> ")
 					else
-						std_output.put_line("  " + type.full_name + " -+> " + parent.full_name)
+						std_output.put_string(once " -+> ")
 					end
+					std_output.put_line(parent.full_name)
 				end
 				if parent /= Void then
 					type.add_parent(parent.actual_type, conformant)
@@ -101,7 +105,8 @@ feature {}
 			end
 			if not conformant and then not Result and then not errors.has_error then
 				debug
-					std_output.put_line(type.name + ": adding default parent ANY")
+					std_output.put_string(type.name)
+					std_output.put_line(once ": adding default parent ANY")
 				end
 				type.add_parent(universe.type_any, False)
 				Result := True

@@ -63,7 +63,12 @@ feature {}
 			a_anchor /= Void
 		do
 			anchor := a_anchor
-			full_name_memory := (once "like " + a_anchor.name).intern
+
+			lock_tagged_out
+			tagged_out_memory.copy(once "like ")
+			a_anchor.out_in_tagged_out_memory
+			full_name_memory := tagged_out_memory.intern
+			unlock_tagged_out
 		ensure
 			anchor = a_anchor
 		end

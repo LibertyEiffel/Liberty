@@ -357,7 +357,7 @@ feature {}
 					if redefined_features.item(i).redefined_feature = Void then
 						feature_name := redefined_features.key(i)
 						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Missing redefinition for " + feature_name.name + " in " + type.out)
+						errors.set(level_error, once "Missing redefinition for " + feature_name.name + once " in " + type.out)
 					end
 					i := i + 1
 				end
@@ -865,9 +865,9 @@ feature {} -- Entities and writables
 					errors.add_position(errors.semantics_position(tn.image.index, type.ast, type.file))
 					if precursor_type /= Void then
 						errors.add_position(type_lookup.resolver.position(a_target.precursor_type_mark.type_definition))
-						errors.set(level_error, "Could not find any Precursor of " + local_context.written_feature_names + " in " + precursor_type.out)
+						errors.set(level_error, once "Could not find any Precursor of " + local_context.written_feature_names + once " in " + precursor_type.out)
 					else
-						errors.set(level_error, "Could not find any Precursor of " + local_context.written_feature_names + " in any parent of " + type.out)
+						errors.set(level_error, once "Could not find any Precursor of " + local_context.written_feature_names + once " in any parent of " + type.out)
 					end
 				else
 					create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context), semantics_position_at(a_target.node_at(0)))

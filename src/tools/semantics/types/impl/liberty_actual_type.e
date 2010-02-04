@@ -356,7 +356,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				end
 				conformant_parents.add_last(a_parent)
 				debug
-					std_output.put_line(name + ": adding conformant parent " + a_parent.name)
+					std_output.put_string(name)
+					std_output.put_string(once ": adding conformant parent ")
+					std_output.put_line(a_parent.name)
 				end
 			else
 				if non_conformant_parents = no_parents then
@@ -364,7 +366,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug
-					std_output.put_line(name + ": adding non-conformant parent " + a_parent.name)
+					std_output.put_string(name)
+					std_output.put_string(once ": adding non-conformant parent ")
+					std_output.put_line(a_parent.name)
 				end
 			end
 		end

@@ -106,7 +106,8 @@ feature {}
 		require
 			a_location /= Void
 		do
-			std_output.put_line("Cluster: " + a_location)
+			std_output.put_string("Cluster: ")
+			std_output.put_line(a_location)
 			location := a_location
 			if ft.is_directory(a_location) then
 				location_directory := a_location

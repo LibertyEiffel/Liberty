@@ -22,7 +22,9 @@ feature {ANY}
 		do
 			torch.increment
 			debug
-				std_output.put_line("FLAME: " + torch.value.out)
+				std_output.put_string(once "FLAME: ")
+				std_output.put_integer(torch.value)
+				std_output.put_new_line
 			end
 		end
 

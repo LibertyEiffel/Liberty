@@ -2,6 +2,9 @@
 -- See the full copyright at the end.
 --
 deferred class OUTPUT_STREAM_TOOLS
+	--
+	-- OUTPUT_STREAM implementation. Only OUTPUT_STREAM can inherit from this class.
+	--
 
 insert
 	STRING_HANDLER
@@ -34,12 +37,16 @@ feature {ANY}
 		deferred
 		end
 
-feature {ANY}
-	put_string (s: STRING) is
-			-- Output `s' to current output device.
+feature {ABSTRACT_STRING}
+	put_natively_stored_string (s: NATIVELY_STORED_STRING) is
 		require
-			is_connected
-			not is_filtered
+			s /= Void
+		do
+			put_abstract_string(s)
+		end
+
+	put_abstract_string (s: ABSTRACT_STRING) is
+		require
 			s /= Void
 		local
 			i, count: INTEGER
@@ -55,6 +62,17 @@ feature {ANY}
 			end
 		end
 
+feature {ANY}
+	put_string (s: ABSTRACT_STRING) is
+			-- Output `s' to current output device.
+		require
+			is_connected
+			not is_filtered
+			s /= Void
+		do
+			s.print_on(as_output_stream)
+		end
+
 	put_unicode_string (unicode_string: UNICODE_STRING) is
 			-- Output the UTF-8 encoding of the `unicode_string'.
 		require
@@ -67,7 +85,7 @@ feature {ANY}
 			put_string(tmp_string)
 		end
 
-	put_line (s: STRING) is
+	put_line (s: ABSTRACT_STRING) is
 			-- Output the string followed by a '%N'.
 		do
 			put_string(s)
@@ -306,6 +324,13 @@ feature {ANY} -- Other features:
 				tmp_file_read.read_character
 			end
 			tmp_file_read.disconnect
+		end
+
+feature {}
+	as_output_stream: OUTPUT_STREAM is
+		deferred
+		ensure
+			yes_indeed_it_is_the_same_object: Result.to_pointer = to_pointer
 		end
 
 feature {}

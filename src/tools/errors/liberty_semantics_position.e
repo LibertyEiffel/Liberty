@@ -37,7 +37,9 @@ feature {LIBERTY_ERROR}
 				Precursor(stream)
 			else
 				debug
-					stream.put_line(once "Invalid position " + index.out)
+					stream.put_string(once "Invalid position ")
+					stream.put_integer(index)
+					stream.put_new_line
 				end
 			end
 		end

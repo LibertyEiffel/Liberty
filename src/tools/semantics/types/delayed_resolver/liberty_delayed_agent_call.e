@@ -63,7 +63,12 @@ feature {}
 			a_call /= Void
 		do
 			call := a_call
-			full_name_memory := (once "like " + a_call.out).intern
+
+			lock_tagged_out
+			tagged_out_memory.copy(once "like ")
+			a_call.out_in_tagged_out_memory
+			full_name_memory := tagged_out_memory.intern
+			unlock_tagged_out
 		ensure
 			call = a_call
 		end

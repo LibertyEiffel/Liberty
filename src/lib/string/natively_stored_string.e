@@ -6,6 +6,8 @@ deferred class NATIVELY_STORED_STRING
 
 inherit 
 	ABSTRACT_STRING
+		redefine print_on
+		end
 
 feature {STRING_HANDLER}
 	storage: NATIVE_ARRAY[CHARACTER]
@@ -50,7 +52,6 @@ feature {ANY}
 				end
 			end
 		end
-
 
 	same_as (other: ABSTRACT_STRING): BOOLEAN is
 		local 
@@ -130,6 +131,7 @@ feature {ANY}
 		do
 			Result := storage.fast_occurrences(c, count - 1)
 		end
+
 feature {ANY} -- Concatenation 
 	infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
 		-- Current and `another' concatenating into a new object. The actual
@@ -151,7 +153,6 @@ feature {ANY} -- Access
 			Result := storage.item(count - 1)
 		end
 
-	
 	fill_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "count: ")
@@ -161,6 +162,11 @@ feature {ANY} -- Access
 			tagged_out_memory.append(once "storage: %"")
 			tagged_out_memory.append(Current)
 			tagged_out_memory.add_last('%"')
+		end
+
+	print_on (file: OUTPUT_STREAM) is
+		do
+			file.put_natively_stored_string(Current)
 		end
 
 invariant

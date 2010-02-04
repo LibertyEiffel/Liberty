@@ -81,6 +81,11 @@ feature {}
 			create Result.from_stream(Current, False, True)
 		end
 
+	as_output_stream: OUTPUT_STREAM is
+		do
+			Result := Current
+		end
+
 end -- class OUTPUT_STREAM
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

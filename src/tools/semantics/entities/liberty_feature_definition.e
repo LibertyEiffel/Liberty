@@ -194,8 +194,10 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 	fatal_join_error_redefined_concrete (with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug
-				std_output.put_line("Cannot join redefined feature " + feature_name.name
-										  + " with concrete feature " + with.feature_name.name)
+				std_output.put_string(once "Cannot join redefined feature ")
+				std_output.put_string(feature_name.name)
+				std_output.put_string(once " with concrete feature ")
+				std_output.put_line(with.feature_name.name)
 				sedb_breakpoint
 			end
 			not_yet_implemented
@@ -213,8 +215,10 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 	fatal_join_error_concrete_concrete (with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug
-				std_output.put_line("Cannot join concrete feature " + feature_name.name
-										  + " with concrete feature " + with.feature_name.name)
+				std_output.put_string(once "Cannot join concrete feature ")
+				std_output.put_string(feature_name.name)
+				std_output.put_string(once " with concrete feature ")
+				std_output.put_line(with.feature_name.name)
 				sedb_breakpoint
 			end
 			not_yet_implemented

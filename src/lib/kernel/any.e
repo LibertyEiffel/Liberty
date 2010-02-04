@@ -230,7 +230,7 @@ feature {ANY} -- Object Printing:
 			lock_tagged_out
 			tagged_out_memory.clear_count
 			out_in_tagged_out_memory
-			file.put_string(tagged_out_memory)
+			tagged_out_memory.print_on(file)
 			unlock_tagged_out
 		ensure
 			not_locked: not tagged_out_locked

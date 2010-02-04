@@ -27,7 +27,8 @@ feature {ANY}
 			r.set_parent(resolver)
 			resolver_memory.set_item(r)
 			debug
-				std_output.put_line(" >>> Type Lookup: pushed " + r.out)
+				std_output.put_string(once " >>> Type Lookup: pushed ")
+				std_output.put_line(r.out)
 			end
 		ensure
 			resolver = r
@@ -44,10 +45,13 @@ feature {ANY}
 			end
 			resolver_memory.set_item(resolver.parent)
 			debug
+				std_output.put_string(once " <<< Type Lookup: popped ")
+				std_output.put_string(r.out)
 				if resolver /= Void then
-					std_output.put_line(" <<< Type Lookup: popped " + r.out + ", back to " + resolver.out)
+					std_output.put_string(once ", back to ")
+					std_output.put_line(resolver.out)
 				else
-					std_output.put_line(" <<< Type Lookup: popped " + r.out)
+					std_output.put_new_line
 				end
 			end
 		end

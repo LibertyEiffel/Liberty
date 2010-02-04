@@ -91,7 +91,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			not type.export_only
 		do
 			debug
-				std_output.put_line(type.full_name + ": init header")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": init header")
 			end
 			init.init_type_header
 			Result := once "loading parents"
@@ -104,7 +105,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
 			debug
-				std_output.put_line(type.full_name + ": load parents")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": load parents")
 			end
 			create loader.make(Current, type, universe, effective_generic_parameters)
 			loader.load
@@ -126,13 +128,15 @@ feature {LIBERTY_TYPE_BUILDER}
 					and then check_have_loaded_features(type.non_conformant_parents)
 				debug
 					if Result then
-						std_output.put_line(type.name + " can load its parent features")
+						std_output.put_string(type.name)
+						std_output.put_line(once " can load its parent features")
 					end
 				end
 			end
 			debug
 				if not Result then
-					std_output.put_line(type.full_name + " cannot load its parent features yet")
+					std_output.put_string(type.full_name)
+					std_output.put_line(once " cannot load its parent features yet")
 				end
 			end
 		end
@@ -146,7 +150,8 @@ feature {LIBERTY_TYPE_BUILDER}
 				redefined_features = no_redefined_features
 			end
 			debug
-				std_output.put_line(type.full_name + ": load parent features")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": load parent features")
 			end
 			create loader.make(Current, type, universe, effective_generic_parameters, no_redefined_features)
 			loader.load
@@ -158,13 +163,15 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- The full semantics tree of each feature is built here.
 		do
 			debug
-				std_output.put_line(type.full_name + ": load features")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": load features")
 			end
 			create features_loader.make(Current, type, universe, effective_generic_parameters, redefined_features)
 			features_loader.load
 			has_loaded_features := True
 			debug
-				std_output.put_line(type.full_name + ": features loaded")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": features loaded")
 			end
 			Result := once "checking type"
 		end
@@ -175,7 +182,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- and so on
 		do
 			debug
-				std_output.put_line(type.full_name + ": check type")
+				std_output.put_string(type.full_name)
+				std_output.put_line(once ": check type")
 			end
 			--create {LIBERTY_TYPE_CHECKER}.check_type(type, universe)
 
@@ -257,7 +265,9 @@ feature {LIBERTY_TYPE_INIT}
 			useful: not effective.is_empty
 		do
 			debug
-				std_output.put_line(type.full_name + ": computed effective generic parameters: " + effective.out)
+				std_output.put_string(type.full_name)
+				std_output.put_string(once ": computed effective generic parameters: ")
+				std_output.put_line(effective.out)
 			end
 			effective_generic_parameters := effective
 			type_resolver.set_effective_parameters(effective)

@@ -12,8 +12,7 @@ class STD_ERROR
 
 inherit
 	TERMINAL_OUTPUT_STREAM
-		redefine
-			dispose
+		redefine put_natively_stored_string, dispose
 		end
 
 insert
@@ -45,6 +44,14 @@ feature {FILTER_OUTPUT_STREAM}
 		do
 			std_output.flush
 			io_flush(stderr)
+		end
+
+feature {ABSTRACT_STRING}
+	put_natively_stored_string (s: NATIVELY_STORED_STRING) is
+		local
+			unused_result: INTEGER
+		do
+			unused_result := io_fwrite(s.storage, s.count, stderr)
 		end
 
 feature {FILTER}
