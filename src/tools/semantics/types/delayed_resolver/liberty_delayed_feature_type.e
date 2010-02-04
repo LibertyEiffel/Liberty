@@ -86,6 +86,8 @@ feature {}
 
 			lock_tagged_out
 			tagged_out_memory.copy(once "like ")
+			a_type.full_name.out_in_tagged_out_memory
+			tagged_out_memory.extend('.')
 			a_name.out_in_tagged_out_memory
 			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out

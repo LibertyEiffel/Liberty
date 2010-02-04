@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_DELAYED_ANCHORED
+class LIBERTY_DELAYED_ANCHOR
 
 inherit
 	LIBERTY_DELAYED_RESOLVER
@@ -79,4 +79,4 @@ feature {}
 invariant
 	anchor /= Void
 
-end -- class LIBERTY_DELAYED_ANCHORED
+end -- class LIBERTY_DELAYED_ANCHOR
