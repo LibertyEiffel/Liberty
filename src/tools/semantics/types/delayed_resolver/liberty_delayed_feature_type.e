@@ -47,6 +47,11 @@ feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is
 		do
 			Result := is_ready and then the_feature.result_type /= Void and then the_feature.result_type.is_actual_type_set
+			debug
+				if full_name_memory.is_equal(once "like ITERABLE[CHARACTER].item") then
+					sedb_breakpoint
+				end
+			end
 		end
 
 	resolved: LIBERTY_ACTUAL_TYPE is

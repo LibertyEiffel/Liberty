@@ -16,6 +16,9 @@ class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_TYPE
+		redefine
+			unset_export_only
+		end
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -132,6 +135,22 @@ feature {ANY}
 			Result := features.at(a_feature_name)
 		end
 
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER, LIBERTY_TYPE}
+	unset_export_only is
+		local
+			i: INTEGER
+		do
+			Precursor
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				parameters.item(i).unset_export_only
+				i := i + 1
+			end
+		end
+
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM) is
 		--local
@@ -204,6 +223,9 @@ feature {ANY} -- Inheritance
 					Result := conformant_parents.item(i).is_conform_to(other)
 					i := i + 1
 				end
+				if Result then
+					Result := conformance_checker.inherits(other, Current)
+				end
 			end
 		ensure
 			Result implies is_child_of(other)
@@ -240,6 +262,9 @@ feature {ANY} -- Inheritance
 						Result := conformant_parents.item(i).is_non_conformant_child_of(other)
 						i := i + 1
 					end
+				end
+				if Result then
+					Result := conformance_checker.inserts(other, Current)
 				end
 			end
 		ensure
@@ -418,7 +443,7 @@ feature {}
 			--| TODO
 		end
 
-feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_GENERICS_CONFORMANCE_CHECKER}
 	conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 
@@ -426,29 +451,6 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 		do
 			Result := builder.has_loaded_features
 		end
-
-feature {}
-	make (a_descriptor: like descriptor; a_ast: like ast) is
-		require
-			a_descriptor /= Void
-		do
-			descriptor := a_descriptor
-			ast := a_ast
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
-			conformant_parents := no_parents
-			non_conformant_parents := no_parents
-			export_only := True
-		ensure
-			descriptor = a_descriptor
-			export_only
-		end
-
-	mark: INTEGER_8
-
-	deferred_mark: INTEGER_8 is 1
-	expanded_mark: INTEGER_8 is 2
-	separate_mark: INTEGER_8 is 4
-	reference_mark: INTEGER_8 is 8
 
 feature {LIBERTY_UNIVERSE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
@@ -469,6 +471,32 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
+	make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast) is
+		require
+			a_descriptor /= Void
+			a_conformance_checker /= Void
+		do
+			descriptor := a_descriptor
+			conformance_checker := a_conformance_checker
+			ast := a_ast
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
+			conformant_parents := no_parents
+			non_conformant_parents := no_parents
+			export_only := True
+		ensure
+			descriptor = a_descriptor
+			conformance_checker = a_conformance_checker
+			ast = a_ast
+			export_only
+		end
+
+	mark: INTEGER_8
+
+	deferred_mark: INTEGER_8 is 1
+	expanded_mark: INTEGER_8 is 2
+	separate_mark: INTEGER_8 is 4
+	reference_mark: INTEGER_8 is 8
+
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER
 
@@ -478,6 +506,8 @@ feature {}
 		once
 			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
 		end
+
+	conformance_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER
 
 invariant
 	descriptor /= Void

@@ -1,5 +1,6 @@
 ./
 impl/
+conformance_checker/
 delayed_resolver/
 type_builder/
 type_resolver/

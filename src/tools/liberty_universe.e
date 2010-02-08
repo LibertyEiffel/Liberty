@@ -169,7 +169,7 @@ feature {ANY} -- Kernel types
 								  + " generic parameters.%NYou might want a named class with named attributes instead.")
 				end
 				ast ::= tuple_ast.classes.item(tuple_count)
-				create Result.make(td, ast)
+				create Result.make(td, tuple_generics_checker, ast)
 				start_to_build_type(Result)
 			end
 			Result.unset_export_only
@@ -423,7 +423,7 @@ feature {}
 			Result := types.reference_at(td)
 			if Result = Void then
 				ast := parse_class(cluster, class_name, Void)
-				create Result.make(td, ast)
+				create Result.make(td, standard_generics_checker, ast)
 				start_to_build_type(Result)
 			end
 			Result.unset_export_only
@@ -443,7 +443,7 @@ feature {}
 			Result := types.reference_at(td)
 			if Result = Void then
 				ast := parse_class(td.cluster, td.name, position)
-				create Result.make(td, ast)
+				create Result.make(td, agent_generics_checker, ast)
 				start_to_build_type(Result)
 			end
 			Result.unset_export_only
@@ -544,7 +544,7 @@ feature {}
 			Result := types.reference_at(descriptor)
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
-				create Result.make(descriptor, ast)
+				create Result.make(descriptor, standard_generics_checker, ast)
 				start_to_build_type(Result)
 			end
 		ensure
@@ -758,6 +758,21 @@ feature {}
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
+
+	standard_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
+		do
+			create {LIBERTY_STANDARD_GENERICS_CONFORMANCE_CHECKER} Result.make
+		end
+
+	tuple_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
+		do
+			create {LIBERTY_TUPLE_CONFORMANCE_CHECKER} Result.make
+		end
+
+	agent_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
+		do
+			create {LIBERTY_AGENT_CONFORMANCE_CHECKER} Result.make
+		end
 
 invariant
 	types /= Void

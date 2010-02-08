@@ -78,6 +78,9 @@ feature {LIBERTY_UNIVERSE}
 			is_actual_type_set := True
 			fire_actual_type_set
 			torch.burn
+			if not export_only then
+				actual_type.unset_export_only
+			end
 		ensure
 			is_actual_type_set
 		end

@@ -42,7 +42,7 @@ feature {ANY}
 	export_only: BOOLEAN
 			-- True if the type is only ever used as an export marker (in feature, creation, or export clauses)
 
-feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER, LIBERTY_TYPE}
 	unset_export_only is
 		do
 			export_only := False
