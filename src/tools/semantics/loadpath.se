@@ -6,4 +6,5 @@
 ./instructions/
 ./tags/
 ./types/loadpath.se
+./utils/
 ./visitors/

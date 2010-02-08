@@ -57,8 +57,14 @@ feature {}
 		do
 			full_name := a_full_name
 			export_only := True
+			listeners := no_listeners
 		ensure
 			full_name = a_full_name
+		end
+
+	no_listeners: COLLECTION[LIBERTY_TYPE_LISTENER] is
+		once
+			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} Result.with_capacity(0)
 		end
 
 invariant

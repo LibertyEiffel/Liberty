@@ -14,6 +14,12 @@
 --
 class LIBERTY_TYPE_DESCRIPTOR
 
+inherit
+	LIBERTY_TYPE_LISTENER
+		redefine
+			copy, is_equal
+		end
+
 insert
 	HASHABLE
 		redefine
@@ -56,7 +62,11 @@ feature {ANY}
 				not Result or else i > parameters.upper
 			loop
 				o := i - parameters.lower + other.parameters.lower
-				Result := parameters.item(i).is_equal(other.parameters.item(o))
+				if parameters.item(i).is_actual_type_set and then other.parameters.item(o).is_actual_type_set then
+					Result := parameters.item(i).actual_type.is_equal(other.parameters.item(o).actual_type)
+				else
+					Result := False
+				end
 				i := i + 1
 			end
 		end
@@ -67,6 +77,35 @@ feature {ANY}
 			parameters := other.parameters
 		end
 
+feature {LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER}
+	add_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER) is
+		require
+			a_listener /= Void
+			not has_change_listener(a_listener)
+		do
+			change_listeners.add_last(a_listener)
+		ensure
+			has_change_listener(a_listener)
+		end
+
+	remove_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER) is
+		require
+			a_listener /= Void
+			has_change_listener(a_listener)
+		do
+			change_listeners.remove(change_listeners.fast_first_index_of(a_listener))
+		ensure
+			not has_change_listener(a_listener)
+		end
+
+	has_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER): BOOLEAN is
+		require
+			a_listener /= Void
+		do
+			Result := change_listeners.fast_has(a_listener)
+		end
+
+feature {}
 	make (a_class_descriptor: like class_descriptor; a_parameters: like parameters) is
 		require
 			a_class_descriptor /= Void
@@ -75,11 +114,15 @@ feature {ANY}
 			class_descriptor := a_class_descriptor
 			parameters := a_parameters
 			file := a_class_descriptor.file.intern
+			create {FAST_ARRAY[LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER]} change_listeners.with_capacity(2)
 			compute_hash_code
+			listen_to_parameters
 		ensure
 			class_descriptor = a_class_descriptor
 			parameters = a_parameters
 		end
+
+	change_listeners: COLLECTION[LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER]
 
 feature {}
 	compute_hash_code is
@@ -102,11 +145,61 @@ feature {}
 			end
 		end
 
+	listen_to_parameters is
+		local
+			i: INTEGER
+		do
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				if not parameters.item(i).is_actual_type_set then
+					parameters.item(i).add_listener(Current)
+				end
+				i := i + 1
+			end
+		end
+
+	fire_type_descriptor_changed is
+		local
+			i: INTEGER
+		do
+			from
+				i := change_listeners.lower
+			until
+				i > change_listeners.upper
+			loop
+				change_listeners.item(i).on_type_descriptor_changed(Current)
+				i := i + 1
+			end
+		end
+
+feature {LIBERTY_TYPE}
+	on_actual_type_set (t: LIBERTY_TYPE) is
+		local
+			i: INTEGER; all_set: BOOLEAN
+		do
+			from
+				i := parameters.lower
+				all_set := True
+			until
+				not all_set or else i > parameters.upper
+			loop
+				all_set := parameters.item(i).is_actual_type_set
+				i := i + 1
+			end
+			if all_set then
+				fire_type_descriptor_changed
+			end
+		end
+
 feature {LIBERTY_TYPE_DESCRIPTOR}
 	class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 
 invariant
 	file /= Void
 	parameters /= Void
+	change_listeners /= Void
 
 end

@@ -62,12 +62,12 @@ feature {ANY}
 			Result /= Void
 		end
 
-feature {LIBERTY_DELAYED_TYPE_DEFINITION}
+feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
 			Result := lookup_type(type_definition)
 			if Result = Void and then parent /= Void then
-				Result := parent.type(type_definition)
+				Result := parent.undelayed_type(type_definition)
 			end
 		end
 

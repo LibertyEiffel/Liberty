@@ -76,6 +76,7 @@ feature {LIBERTY_UNIVERSE}
 		do
 			actual_type := delayed_resolver.resolved
 			is_actual_type_set := True
+			fire_actual_type_set
 			torch.burn
 		ensure
 			is_actual_type_set
@@ -89,6 +90,7 @@ feature {}
 			delayed_resolver := a_delayed_resolver
 			lookup.resolver.delayed_types.add_last(Current)
 			export_only := True
+			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} listeners.with_capacity(2)
 		ensure
 			delayed_resolver = a_delayed_resolver
 			export_only
