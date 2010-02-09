@@ -31,7 +31,7 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
+	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_TYPE, LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
 		require
 			a_left /= Void
 			a_right /= Void
@@ -41,7 +41,7 @@ feature {}
 			create infix_name.make_infix(the_infix_name, a_position)
 			target := a_left
 			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
-			entity := a_entity_builder.item([infix_name])
+			entity := a_entity_builder.item([target.result_type, infix_name])
 			position := a_position
 		ensure
 			target = a_left

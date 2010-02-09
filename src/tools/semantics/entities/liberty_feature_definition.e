@@ -84,7 +84,7 @@ feature {ANY}
 			o.put_string(once "   feature ")
 			debug_clients(o, clients)
 			if is_creation then
-				o.put_string(once "create ")
+				o.put_string(once " create ")
 				debug_clients(o, creation_clients)
 			end
 			if is_frozen then

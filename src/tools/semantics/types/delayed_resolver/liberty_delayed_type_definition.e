@@ -58,7 +58,7 @@ feature {LIBERTY_DELAYED_TYPE}
 				Result := type_memory /= Void
 				debug
 					if Result then
-						std_output.put_string(once "Resolved " + type_memory.out)
+						std_output.put_string(once " >>> Resolved " + type_memory.out)
 					end
 				end
 			end

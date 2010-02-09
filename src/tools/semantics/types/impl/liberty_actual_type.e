@@ -152,9 +152,9 @@ feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER, LIBERTY_TYPE}
 		end
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM) is
-		--local
-		--	i: INTEGER
+	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
+		local
+			i: INTEGER
 		do
 			if mark_set then
 				if is_expanded then
@@ -172,14 +172,16 @@ feature {ANY}
 			o.put_line(full_name.out)
 			o.put_string(once "   building state: ")
 			o.put_line(builder.current_state.out)
-			--from
-			--	i := features.lower
-			--until
-			--	i > features.upper
-			--loop
-			--	features.item(i).debug_display(o)
-			--	i := i + 1
-			--end
+			if show_features then
+				from
+					i := features.lower
+				until
+					i > features.upper
+				loop
+					features.item(i).debug_display(o)
+					i := i + 1
+				end
+			end
 			o.put_string(once "end -- type ")
 			o.put_line(full_name.out)
 		end

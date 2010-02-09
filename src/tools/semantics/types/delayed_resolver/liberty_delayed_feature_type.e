@@ -16,6 +16,9 @@ class LIBERTY_DELAYED_FEATURE_TYPE
 
 inherit
 	LIBERTY_DELAYED_RESOLVER
+	LIBERTY_TYPE_LISTENER
+		undefine out_in_tagged_out_memory, is_equal
+		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -26,10 +29,11 @@ feature {ANY}
 			if can_resolve then
 				resolved.out_in_tagged_out_memory
 			else
-				tagged_out_memory.append(once "like ")
+				tagged_out_memory.append(once "like (")
 				tagged_out_memory.append(type.full_name)
 				tagged_out_memory.extend('.')
 				name.out_in_tagged_out_memory
+				tagged_out_memory.extend(')')
 			end
 		end
 
@@ -46,12 +50,9 @@ feature {ANY}
 feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is
 		do
-			Result := is_ready and then the_feature.result_type /= Void and then the_feature.result_type.is_actual_type_set
-			debug
-				if full_name_memory.is_equal(once "like ITERABLE[CHARACTER].item") then
-					sedb_breakpoint
-				end
-			end
+			Result := is_ready
+				and then the_feature.result_type /= Void
+				and then the_feature.result_type.is_actual_type_set
 		end
 
 	resolved: LIBERTY_ACTUAL_TYPE is
@@ -67,18 +68,20 @@ feature {LIBERTY_DELAYED_TYPE}
 feature {LIBERTY_FEATURE_ENTITY}
 	is_ready: BOOLEAN is
 		do
-			Result := type.has_feature(name) and then type.feature_definition(name).the_feature /= Void
+			Result := type.is_actual_type_set
+				and then type.actual_type.has_feature(name)
+				and then type.actual_type.feature_definition(name).the_feature /= Void
 		end
 
 	the_feature: LIBERTY_FEATURE is
 		require
 			is_ready
 		do
-			Result := type.feature_definition(name).the_feature
+			Result := type.actual_type.feature_definition(name).the_feature
 		end
 
 	name: LIBERTY_FEATURE_NAME
-	type: LIBERTY_ACTUAL_TYPE
+	type: LIBERTY_TYPE
 
 feature {}
 	make (a_type: like type; a_name: like name) is
@@ -89,19 +92,35 @@ feature {}
 			type := a_type
 			name := a_name
 
-			lock_tagged_out
-			tagged_out_memory.copy(once "like ")
-			a_type.full_name.out_in_tagged_out_memory
-			tagged_out_memory.extend('.')
-			a_name.out_in_tagged_out_memory
-			full_name_memory := tagged_out_memory.intern
-			unlock_tagged_out
+			compute_full_name
+			if not a_type.is_actual_type_set then
+				a_type.add_listener(Current)
+			end
 		ensure
 			type = a_type
 			name = a_name
 		end
 
+	compute_full_name is
+		do
+			lock_tagged_out
+			tagged_out_memory.copy(once "like (")
+			type.full_name.out_in_tagged_out_memory
+			tagged_out_memory.extend('.')
+			name.out_in_tagged_out_memory
+			tagged_out_memory.extend(')')
+			full_name_memory := tagged_out_memory.intern
+			unlock_tagged_out
+		end
+
 	full_name_memory: FIXED_STRING
+
+feature {LIBERTY_TYPE}
+	on_actual_type_set (a_type: LIBERTY_TYPE) is
+		do
+			check a_type = type end
+			compute_full_name
+		end
 
 invariant
 	type /= Void

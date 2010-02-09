@@ -94,6 +94,12 @@ feature {}
 			lookup.resolver.delayed_types.add_last(Current)
 			export_only := True
 			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} listeners.with_capacity(2)
+
+			debug
+				if full_name.is_equal(once "like ( like new_iterator.item)") then
+					sedb_breakpoint
+				end
+			end
 		ensure
 			delayed_resolver = a_delayed_resolver
 			export_only
@@ -105,5 +111,6 @@ feature {}
 
 invariant
 	delayed_resolver /= Void
+	is_actual_type_set /= lookup.resolver.delayed_types.fast_has(Current)
 
 end -- class LIBERTY_DELAYED_TYPE

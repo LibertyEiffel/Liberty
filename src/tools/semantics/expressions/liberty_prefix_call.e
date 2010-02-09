@@ -35,7 +35,7 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_target: like target; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
+	make (a_target: like target; a_entity_builder: FUNCTION[TUPLE[LIBERTY_TYPE, LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
 		require
 			a_target /= Void
 			a_entity_builder /= Void
@@ -43,7 +43,7 @@ feature {}
 		do
 			create prefix_name.make_prefix(the_prefix_name, a_position)
 			target := a_target
-			entity := a_entity_builder.item([prefix_name])
+			entity := a_entity_builder.item([a_target.result_type, prefix_name])
 			position := a_position
 		ensure
 			position = a_position
