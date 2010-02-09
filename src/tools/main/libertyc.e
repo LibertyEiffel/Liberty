@@ -36,7 +36,7 @@ feature {}
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 			universe.build_types
 
-			root.debug_display(std_output)
+			root.debug_display(std_output, True)
 			std_output.put_line("Done.")
 		end
 

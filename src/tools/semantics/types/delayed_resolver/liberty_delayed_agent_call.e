@@ -26,8 +26,9 @@ feature {ANY}
 			if can_resolve then
 				resolved.out_in_tagged_out_memory
 			else
-				tagged_out_memory.append(once "(agent) like ")
+				tagged_out_memory.append(once "agent like (")
 				call.out_in_tagged_out_memory
+				tagged_out_memory.extend(')')
 			end
 		end
 
@@ -65,8 +66,9 @@ feature {}
 			call := a_call
 
 			lock_tagged_out
-			tagged_out_memory.copy(once "like ")
+			tagged_out_memory.copy(once "agent like (")
 			a_call.out_in_tagged_out_memory
+			tagged_out_memory.extend(')')
 			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out
 		ensure

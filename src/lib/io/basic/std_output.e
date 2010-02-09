@@ -67,6 +67,7 @@ feature {ABSTRACT_STRING}
 		local
 			unused_result: INTEGER
 		do
+			write_buffer
 			unused_result := io_fwrite(s.storage, s.count, stdout)
 		end
 

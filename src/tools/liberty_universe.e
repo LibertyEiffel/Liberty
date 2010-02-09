@@ -205,24 +205,33 @@ feature {}
 		local
 			delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE]
 			delayed_type: LIBERTY_DELAYED_TYPE
-			n: INTEGER
+			n: INTEGER; more: BOOLEAN
 		do
 			delayed_types := type_lookup.resolver.delayed_types
 			from
-				n := delayed_types.count
+				more := True
 			until
-				n = 0
+				not more or else delayed_types.is_empty
 			loop
-				delayed_type := delayed_types.first
-				delayed_types.remove_first
-				if delayed_type.can_resolve then
-					delayed_type.resolve
-				else
-					delayed_types.add_last(delayed_type)
+				more := False
+				from
+					n := delayed_types.count
+				until
+					n = 0
+				loop
+					delayed_type := delayed_types.first
+					delayed_types.remove_first
+					if delayed_type.can_resolve then
+						delayed_type.resolve
+						more := True
+					else
+						delayed_types.add_last(delayed_type)
+					end
+					n := n - 1
 				end
-				n := n - 1
 			end
 			debug
+				std_output.put_string(once " === ")
 				std_output.put_integer(delayed_types.count)
 				if delayed_types.count = 1 then
 					std_output.put_line(once " delayed type yet to be resolved.")
@@ -325,9 +334,9 @@ feature {} -- debug
 			until
 				i > all_types.upper
 			loop
-				std_output.put_integer(i-all_types.lower+1)
+				std_output.put_integer(i - all_types.lower + 1)
 				std_output.put_string(once ": ")
-				all_types.item(i).debug_display(std_output)
+				all_types.item(i).debug_display(std_output, False)
 				i := i + 1
 			end
 			std_output.put_line(once "-------->8--")
@@ -345,9 +354,9 @@ feature {} -- debug
 				until
 					i > incubator.upper
 				loop
-					std_output.put_integer(i-incubator.lower+1)
+					std_output.put_integer(i - incubator.lower + 1)
 					std_output.put_string(once ": ")
-					incubator.item(i).debug_display(std_output)
+					incubator.item(i).debug_display(std_output, False)
 					i := i + 1
 				end
 				std_output.put_line(once "-------->8--")
@@ -760,17 +769,17 @@ feature {}
 	type_lookup: LIBERTY_TYPE_LOOKUP
 
 	standard_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
-		do
+		once
 			create {LIBERTY_STANDARD_GENERICS_CONFORMANCE_CHECKER} Result.make
 		end
 
 	tuple_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
-		do
+		once
 			create {LIBERTY_TUPLE_CONFORMANCE_CHECKER} Result.make
 		end
 
 	agent_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
-		do
+		once
 			create {LIBERTY_AGENT_CONFORMANCE_CHECKER} Result.make
 		end
 
