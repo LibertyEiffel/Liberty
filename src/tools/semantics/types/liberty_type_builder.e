@@ -170,6 +170,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			features_loader.load
 			has_loaded_features := True
 			debug
+				type.debug_display(std_output, True)
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": features loaded")
 			end
