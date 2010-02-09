@@ -117,7 +117,7 @@ feature -- Outputting descriptions
 		do
 			if a_description/=Void then
 				from 
-					iter:=a_description.get_new_iterator; iter.start; 
+					iter:=a_description.new_iterator; iter.start; 
 					a_formatter.append(comment); length:=0
 				until iter.is_off loop
 					word := iter.item

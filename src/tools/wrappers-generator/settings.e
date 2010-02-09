@@ -4,7 +4,8 @@ class SETTINGS
 inherit
 	SINGLETON
 insert 
-	FILE_TOOLS
+	FILE_TOOLS undefine is_equal, copy end
+
 creation {ANY}
 	default_create
 
