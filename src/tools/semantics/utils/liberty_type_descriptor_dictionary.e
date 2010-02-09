@@ -141,7 +141,7 @@ feature {LIBERTY_TYPE_DESCRIPTOR}
 			until
 				i > upper
 			loop
-				if key_safe_equal(td, dico.key(i)) then
+				if td.same_as(dico.key(i)) then
 					check
 						e.is_equal(dico.item(i))
 					end

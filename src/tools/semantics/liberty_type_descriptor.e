@@ -52,6 +52,13 @@ feature {ANY}
 	hash_code: INTEGER
 
 	is_equal (other: like Current): BOOLEAN is
+		do
+			if hash_code = other.hash_code then
+				Result := same_as(other)
+			end
+		end
+
+	same_as (other: like Current): BOOLEAN is
 		local
 			i, o: INTEGER
 		do
@@ -177,21 +184,8 @@ feature {}
 
 feature {LIBERTY_TYPE}
 	on_actual_type_set (t: LIBERTY_TYPE) is
-		local
-			i: INTEGER; all_set: BOOLEAN
 		do
-			from
-				i := parameters.lower
-				all_set := True
-			until
-				not all_set or else i > parameters.upper
-			loop
-				all_set := parameters.item(i).is_actual_type_set
-				i := i + 1
-			end
-			if all_set then
-				fire_type_descriptor_changed
-			end
+			fire_type_descriptor_changed
 		end
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
