@@ -43,10 +43,18 @@ feature {}
 	effective_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+		local
+			fn: LIBERTY_FEATURE_NAME
 		do
 			if type_definition.is_like_current then
 				Result := current_type
-			elseif not type_definition.is_anchor then
+			elseif type_definition.is_anchor then
+				-- like <feature>
+				create fn.make_from_ast_entity_name(type_definition.entity_anchor, current_type.ast, current_type.file)
+				if current_type.has_feature(fn) then
+					Result := current_type.feature_definition(fn).result_type
+				end
+			else
 				Result := effective_parameters.fast_reference_at(type_definition.type_name.image.image.intern)
 				if Result = Void then
 					Result := universe.get_type_from_type_definition(type_definition, current_type.cluster)

@@ -30,6 +30,9 @@ insert
 create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make_from_ast
 
+create {LIBERTY_TYPE_RESOLVER_IN_TYPE}
+	make_from_ast_entity_name
+
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make_regular
 
@@ -79,14 +82,22 @@ feature {LIBERTY_FEATURE_NAME}
 	type: INTEGER_8
 
 feature {}
+	make_from_ast_entity_name (ast: LIBERTY_AST_ENTITY_NAME; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING) is
+		require
+			ast /= Void
+			class_ast /= Void
+		do
+			make_regular(ast.image.image.intern, errors.semantics_position(ast.image.index, class_ast, file))
+			position := errors.semantics_position(ast.image.index, class_ast, file)
+		end
+
 	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING) is
 		require
 			ast /= Void
 			class_ast /= Void
 		do
 			if ast.is_regular then
-				make_regular(ast.entity_name.image.image.intern, errors.semantics_position(ast.entity_name.image.index, class_ast, file))
-				position := errors.semantics_position(ast.entity_name.image.index, class_ast, file)
+				make_from_ast_entity_name(ast.entity_name, class_ast, file)
 			elseif ast.is_prefix then
 				make_prefix(ast.free_operator_name.image.image.intern, errors.semantics_position(ast.free_operator_name.image.index, class_ast, file))
 				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast, file)

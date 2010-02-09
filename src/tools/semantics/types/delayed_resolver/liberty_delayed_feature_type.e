@@ -16,9 +16,6 @@ class LIBERTY_DELAYED_FEATURE_TYPE
 
 inherit
 	LIBERTY_DELAYED_RESOLVER
-	LIBERTY_TYPE_LISTENER
-		undefine out_in_tagged_out_memory, is_equal
-		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -92,17 +89,6 @@ feature {}
 			type := a_type
 			name := a_name
 
-			compute_full_name
-			if not a_type.is_actual_type_set then
-				a_type.add_listener(Current)
-			end
-		ensure
-			type = a_type
-			name = a_name
-		end
-
-	compute_full_name is
-		do
 			lock_tagged_out
 			tagged_out_memory.copy(once "like (")
 			type.full_name.out_in_tagged_out_memory
@@ -111,16 +97,12 @@ feature {}
 			tagged_out_memory.extend(')')
 			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out
+		ensure
+			type = a_type
+			name = a_name
 		end
 
 	full_name_memory: FIXED_STRING
-
-feature {LIBERTY_TYPE}
-	on_actual_type_set (a_type: LIBERTY_TYPE) is
-		do
-			check a_type = type end
-			compute_full_name
-		end
 
 invariant
 	type /= Void

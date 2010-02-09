@@ -111,6 +111,5 @@ feature {}
 
 invariant
 	delayed_resolver /= Void
-	is_actual_type_set /= lookup.resolver.delayed_types.fast_has(Current)
 
 end -- class LIBERTY_DELAYED_TYPE

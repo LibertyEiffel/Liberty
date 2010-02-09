@@ -220,13 +220,13 @@ feature {}
 					n = 0
 				loop
 					delayed_type := delayed_types.first
+					delayed_types.remove_first
 					if delayed_type.can_resolve then
 						delayed_type.resolve
 						more := True
 					else
 						delayed_types.add_last(delayed_type)
 					end
-					delayed_types.remove_first
 					n := n - 1
 				end
 			end
