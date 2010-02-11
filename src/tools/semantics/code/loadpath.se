@@ -3,3 +3,4 @@ entities/
 expressions/
 features/
 instructions/
+visitors/
