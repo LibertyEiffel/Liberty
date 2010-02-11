@@ -16,6 +16,7 @@ class LIBERTY_CONDITION
 
 insert
 	LIBERTY_POSITIONABLE
+	LIBERTY_REACHABLE_MARKER
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -24,6 +25,13 @@ feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
 	instruction: LIBERTY_INSTRUCTION
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			expression.mark_reachable_code(mark)
+			instruction.mark_reachable_code(mark)
+		end
 
 feature {}
 	make (a_expression: like expression; a_instruction: like instruction; a_position: like position) is

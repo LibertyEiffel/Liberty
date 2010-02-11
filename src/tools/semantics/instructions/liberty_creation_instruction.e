@@ -36,6 +36,15 @@ feature {ANY}
 
 	is_actual_type_set: BOOLEAN is True
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			type.mark_reachable_code(mark)
+			writable.mark_reachable_code(mark)
+			feature_entity.mark_reachable_code(mark)
+			expressions_marker.mark_reachable_code(mark, feature_arguments)
+		end
+
 feature {}
 	make (a_writable: like writable; a_type: like type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is
 		require

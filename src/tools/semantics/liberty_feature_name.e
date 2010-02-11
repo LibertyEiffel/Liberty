@@ -27,6 +27,9 @@ insert
 		redefine is_equal, out_in_tagged_out_memory
 		end
 
+create {ANY}
+	make
+
 create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make_from_ast
 
@@ -57,8 +60,7 @@ feature {ANY}
 
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := (other = Current)
-				or else (type = other.type and then name = other.name)
+			Result := type = other.type and then name = other.name
 		end
 
 	is_regular: BOOLEAN is
@@ -109,14 +111,22 @@ feature {}
 		end
 
 	make_regular (a_name: like name; a_position: like position) is
+		require
+			a_name = a_name.intern
 		do
 			name := a_name
 			type := type_regular
 			hash_code := name.hash_code
 			position := a_position
+		ensure
+			name = a_name
+			type = type_regular
+			position = a_position
 		end
 
 	make_prefix (a_name: like name; a_position: like position) is
+		require
+			a_name = a_name.intern
 		do
 			name := a_name
 			type := type_prefix
@@ -125,9 +135,15 @@ feature {}
 				hash_code := ~hash_code
 			end
 			position := a_position
+		ensure
+			name = a_name
+			type = type_prefix
+			position = a_position
 		end
 
 	make_infix (a_name: like name; a_position: like position) is
+		require
+			a_name = a_name.intern
 		do
 			name := a_name
 			type := type_infix
@@ -136,6 +152,19 @@ feature {}
 				hash_code := ~hash_code
 			end
 			position := a_position
+		ensure
+			name = a_name
+			type = type_infix
+			position = a_position
+		end
+
+	make (a_name: like name) is
+		require
+			a_name = a_name.intern
+		do
+			make_regular(a_name, errors.unknown_position)
+		ensure
+			name = a_name
 		end
 
 	type_regular: INTEGER_8 is 1

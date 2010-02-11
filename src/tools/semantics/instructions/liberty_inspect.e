@@ -49,6 +49,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			else_clause = a_else_clause
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			expression.mark_reachable_code(mark)
+			inspect_clauses_marker.mark_reachable_code(mark, clauses)
+			if else_clause /= Void then
+				else_clause.mark_reachable_code(mark)
+			end
+		end
+
 feature {}
 	make (a_expression: like expression; a_position: like position) is
 		require
@@ -64,6 +74,8 @@ feature {}
 		end
 
 	clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]
+
+	inspect_clauses_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_INSPECT_CLAUSE]
 
 feature {ANY}
 	accept (v: VISITOR) is

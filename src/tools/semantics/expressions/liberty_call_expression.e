@@ -35,6 +35,16 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			if target /= Void then
+				target.mark_reachable_code(mark)
+			end
+			entity.mark_reachable_code(mark)
+			expressions_marker.mark_reachable_code(mark, actuals)
+		end
+
 feature {LIBERTY_AGENT}
 	set_agent_call is
 		do

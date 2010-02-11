@@ -22,6 +22,12 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			-- nothing
+		end
+
 feature {}
 	make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
 		require

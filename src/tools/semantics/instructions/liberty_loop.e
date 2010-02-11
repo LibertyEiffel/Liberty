@@ -27,6 +27,18 @@ feature {ANY}
 	expression: LIBERTY_EXPRESSION
 	body: LIBERTY_INSTRUCTION
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			init.mark_reachable_code(mark)
+			invariant_clause.mark_reachable_code(mark)
+			if variant_clause /= Void then
+				variant_clause.mark_reachable_code(mark)
+			end
+			expression.mark_reachable_code(mark)
+			body.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body; a_position: like position) is
 		require

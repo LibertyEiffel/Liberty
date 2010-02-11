@@ -33,6 +33,13 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			expressions_marker.mark_reachable_code(mark, parameters_list)
+			expressions_marker.mark_reachable_code(mark, contents_list)
+		end
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_parameter (a_parameter: LIBERTY_EXPRESSION) is
 		do
@@ -91,5 +98,6 @@ feature {ANY}
 invariant
 	result_type /= Void
 	parameters_list /= Void
+	contents_list /= Void
 
 end

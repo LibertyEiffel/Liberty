@@ -34,6 +34,13 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			target.mark_reachable_code(mark)
+			entity.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_target: like target; a_entity_builder: FUNCTION[TUPLE[LIBERTY_TYPE, LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
 		require

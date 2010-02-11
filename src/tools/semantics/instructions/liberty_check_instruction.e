@@ -23,6 +23,12 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	checks: LIBERTY_CHECK
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			checks.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_checks: like checks; a_position: like position) is
 		require

@@ -25,6 +25,12 @@ feature {ANY}
 	entity: LIBERTY_ENTITY
 	result_type: LIBERTY_TYPE
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			-- nothing
+		end
+
 feature {}
 	make (type: like result_type; a_entity: like entity; a_position: like position) is
 		require

@@ -21,6 +21,13 @@ feature {ANY}
 	writable: LIBERTY_WRITABLE
 	expression: LIBERTY_EXPRESSION
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			writable.mark_reachable_code(mark)
+			expression.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_writable: like writable; a_expression: like expression; a_position: like position) is
 		require

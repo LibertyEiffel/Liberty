@@ -22,6 +22,11 @@ inherit
 		undefine out_in_tagged_out_memory
 		end
 
+insert
+	LIBERTY_REACHABLE
+		undefine out_in_tagged_out_memory, is_equal
+		end
+
 feature {ANY}
 	actual_type: LIBERTY_ACTUAL_TYPE is
 		require
@@ -39,15 +44,17 @@ feature {ANY}
 			Result /= Void
 		end
 
-	export_only: BOOLEAN
-			-- True if the type is only ever used as an export marker (in feature, creation, or export clauses)
-
-feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER, LIBERTY_TYPE}
-	unset_export_only is
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: like reachable_mark) is
 		do
-			export_only := False
-		ensure
-			not export_only
+			if not is_reachable then
+				torch.burn
+				debug
+					std_output.put_string(once "Marked reachable the type: ")
+					std_output.put_line(full_name)
+				end
+			end
+			reachable_mark := mark
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}
@@ -104,6 +111,8 @@ feature {}
 
 feature {}
 	listeners: COLLECTION[LIBERTY_TYPE_LISTENER]
+
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 invariant
 	not is_actual_type_set implies listeners /= Void

@@ -16,6 +16,8 @@ class LIBERTY_RESULT
 
 inherit
 	LIBERTY_WRITABLE
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make
@@ -23,14 +25,22 @@ create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 feature {ANY}
 	name: FIXED_STRING is
 		once
-			create Result.make_from_string("Result")
+			Result := "Result".intern
 		end
 
 	result_type: LIBERTY_TYPE
 
 	out_in_tagged_out_memory is
 		do
-			tagged_out_memory.append(once "Result")
+			tagged_out_memory.append(name)
+		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			if result_type.is_actual_type_set and then result_type.actual_type.is_runtime_category_set and then result_type.actual_type.is_expanded then
+				result_type.mark_reachable_code(mark)
+			end
 		end
 
 feature {}

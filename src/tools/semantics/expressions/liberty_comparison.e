@@ -22,6 +22,13 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			left.mark_reachable_code(mark)
+			right.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position) is
 		require

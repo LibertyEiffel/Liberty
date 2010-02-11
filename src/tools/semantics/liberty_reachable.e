@@ -12,34 +12,38 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ENTITY
---
--- Anything with a name and a result type.
--- Most entities have a non-Void result type, except procedures.
---
--- See also LIBERTY_WRITABLE
---
-
-inherit
-	LIBERTY_POSITIONABLE
-		undefine out_in_tagged_out_memory
-		end
+deferred class LIBERTY_REACHABLE
+	--
+	-- A reachable marker which keeps a "reachable" status
+	--
 
 insert
 	LIBERTY_REACHABLE_MARKER
 
-feature {ANY}
-	name: FIXED_STRING is
-		deferred
+feature {ANY} -- The "reachable" property
+	frozen is_reachable: BOOLEAN is
+		do
+			Result := reachable_mark > 0
+		ensure
+			once_set_always_set: reachable_memory implies Result
 		end
 
-	result_type: LIBERTY_TYPE is
+feature {LIBERTY_REACHABLE_MARKER}
+	mark_reachable_code (mark: like reachable_mark) is
 		deferred
 		ensure
-			-- Result may be Void in the particular case of procedures
+			reachable_mark = mark
+			is_reachable: ensure_is_reachable
 		end
 
-invariant
-	name /= Void
+feature {} -- Contract implementation: "once set, always set" behaviour
+	frozen ensure_is_reachable: BOOLEAN is
+		do
+			reachable_memory := True
+			Result := is_reachable
+		end
 
-end
+	reachable_memory: BOOLEAN
+	reachable_mark: INTEGER
+
+end -- class LIBERTY_REACHABLE

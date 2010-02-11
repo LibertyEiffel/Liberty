@@ -14,12 +14,21 @@
 --
 class LIBERTY_ASSERTION
 
+insert
+	LIBERTY_REACHABLE_MARKER
+
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
 	tag: FIXED_STRING
 	assertion: LIBERTY_EXPRESSION
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			assertion.mark_reachable_code(mark)
+		end
 
 feature {}
 	make (a_tag: like tag; a_assertion: like assertion) is

@@ -45,6 +45,12 @@ feature {ANY}
 			Result := elements.item(i - lower)
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			expressions_marker.mark_reachable_code(mark, elements)
+		end
+
 feature {}
 	make (a_result_type: like result_type; a_elements: like elements; a_position: like position) is
 		require

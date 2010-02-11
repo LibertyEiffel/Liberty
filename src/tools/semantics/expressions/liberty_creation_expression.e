@@ -25,6 +25,14 @@ feature {ANY}
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			result_type.mark_reachable_code(mark)
+			feature_entity.mark_reachable_code(mark)
+			expressions_marker.mark_reachable_code(mark, feature_arguments)
+		end
+
 feature {}
 	make (a_type: like result_type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is
 		require

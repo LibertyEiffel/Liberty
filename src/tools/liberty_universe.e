@@ -32,13 +32,12 @@ feature {ANY}
 			position /= Void
 		do
 			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
-			Result.unset_export_only
 		ensure
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	build_types is
+	build_types (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
 		local
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
@@ -49,9 +48,13 @@ feature {ANY}
 				types_incubator.is_empty
 			loop
 				flame := torch.flame
-				resolve_delayed_types
 				build_to_incubator(incubator)
+				mark_reachable_code(root_type, root_feature_name)
+				resolve_delayed_types
 				incubator := check_flame_and_swap_incubator(flame, incubator)
+			end
+			debug
+				debug_types(types_incubator)
 			end
 		end
 
@@ -172,7 +175,6 @@ feature {ANY} -- Kernel types
 				create Result.make(td, tuple_generics_checker, ast)
 				start_to_build_type(Result)
 			end
-			Result.unset_export_only
 		ensure
 			Result /= Void
 		end
@@ -201,6 +203,40 @@ feature {ANY} -- Kernel types
 		end
 
 feature {}
+	reachable_counter: COUNTER is
+		once
+			create Result
+		end
+
+	mark_reachable_code (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+		local
+			root_feature: LIBERTY_FEATURE_DEFINITION
+		do
+			reachable_counter.increment
+			root_type.set_reachable(reachable_counter.value)
+			if root_type.has_loaded_features then
+				if not root_type.has_feature(root_feature_name) then
+					std_error.put_string("No method '")
+					std_error.put_string(root_feature_name.name)
+					std_error.put_string("' feature in type ")
+					std_error.put_string(root_type.full_name)
+					std_error.put_line(". Giving up.")
+					die_with_code(1)
+				end
+				root_feature := root_type.feature_definition(root_feature_name)
+				reachable_counter.increment
+				debug
+					std_output.put_string(once " +++ Marking reachable code (")
+					std_output.put_integer(reachable_counter.value)
+					std_output.put_line(once ")...")
+				end
+				root_feature.set_reachable(reachable_counter.value)
+				debug
+					std_output.put_line(once "     Reachable code marked.")
+				end
+			end
+		end
+
 	resolve_delayed_types is
 		local
 			delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE]
@@ -265,7 +301,7 @@ feature {}
 			types_incubator.is_empty
 		do
 			if not torch.still_burns(flame) then
-				clean_export_only_types_from_incubator(incubator)
+				clean_unreachable_types_from_incubator(incubator)
 				if not incubator.is_empty then
 					debug
 						debug_types(incubator)
@@ -286,7 +322,7 @@ feature {}
 			Result = old types_incubator
 		end
 
-	clean_export_only_types_from_incubator (incubator: like types_incubator) is
+	clean_unreachable_types_from_incubator (incubator: like types_incubator) is
 		local
 			i: INTEGER
 		do
@@ -295,11 +331,11 @@ feature {}
 			until
 				i > incubator.upper
 			loop
-				if incubator.item(i).export_only then
+				if not incubator.item(i).is_reachable then
 					debug
 						std_output.put_string(once "Removing ")
 						std_output.put_string(incubator.item(i).full_name)
-						std_output.put_line(once ": only used in export clauses")
+						std_output.put_line(once ": not reachable")
 					end
 					incubator.remove(i)
 				else
@@ -435,7 +471,6 @@ feature {}
 				create Result.make(td, standard_generics_checker, ast)
 				start_to_build_type(Result)
 			end
-			Result.unset_export_only
 		ensure
 			Result /= Void
 		end
@@ -455,7 +490,6 @@ feature {}
 				create Result.make(td, agent_generics_checker, ast)
 				start_to_build_type(Result)
 			end
-			Result.unset_export_only
 		end
 
 feature {LIBERTY_TYPE_RESOLVER}

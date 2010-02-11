@@ -16,6 +16,8 @@ class LIBERTY_PARAMETER
 
 inherit
 	LIBERTY_ENTITY
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -29,6 +31,14 @@ feature {ANY}
 		do
 			tagged_out_memory.append(once "parameter: ")
 			tagged_out_memory.append(name)
+		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			if result_type.is_actual_type_set and then result_type.actual_type.is_runtime_category_set and then result_type.actual_type.is_expanded then
+				result_type.mark_reachable_code(mark)
+			end
 		end
 
 feature {}

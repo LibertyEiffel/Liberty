@@ -28,6 +28,12 @@ feature {ANY}
 			Result := expression.result_type
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			expression.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_expression: like expression; a_position: like position) is
 		require

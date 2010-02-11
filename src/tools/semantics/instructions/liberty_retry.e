@@ -33,6 +33,14 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 			the_feature = a_feature
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			check
+				the_feature /= Void implies the_feature.is_reachable
+			end
+		end
+
 feature {}
 	make (a_position: like position) is
 		require

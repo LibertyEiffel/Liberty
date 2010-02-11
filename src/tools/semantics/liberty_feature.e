@@ -15,7 +15,7 @@
 deferred class LIBERTY_FEATURE
 
 insert
-	ANY
+	LIBERTY_REACHABLE
 
 feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
@@ -52,6 +52,28 @@ feature {ANY}
 	has_context: BOOLEAN is
 		do
 			Result := context /= Void
+		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: like reachable_mark) is
+		do
+			if not is_reachable then
+				debug
+					std_output.put_string(once "Marked reachable the feature: ")
+					std_output.put_line(out)
+				end
+				torch.burn
+			end
+			if reachable_mark < mark then
+				reachable_mark := mark
+				definition_type.mark_reachable_code(mark)
+				if precondition /= Void then
+					precondition.mark_reachable_code(mark)
+				end
+				if postcondition /= Void then
+					postcondition.mark_reachable_code(mark)
+				end
+			end
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}
@@ -274,6 +296,7 @@ feature {}
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 invariant
 	late_binding /= Void

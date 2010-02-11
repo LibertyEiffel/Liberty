@@ -71,24 +71,18 @@ feature {LIBERTY_TYPE_BUILDER}
 	ready: BOOLEAN is
 			-- Is the type ready to be initialized?
 		do
-			if not type.export_only then
-				if init = Void then
-					check
-						effective_generic_parameters = empty_effective_generic_parameters
-					end
-					create init.make(Current, type, universe, empty_effective_generic_parameters)
+			if init = Void then
+				check
+					effective_generic_parameters = empty_effective_generic_parameters
 				end
-				Result := init.is_ready
+				create init.make(Current, type, universe, empty_effective_generic_parameters)
 			end
-		ensure
-			type.export_only implies not Result
+			Result := init.is_ready
 		end
 
 	init_header: STRING is
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
-		require
-			not type.export_only
 		do
 			debug
 				std_output.put_string(type.full_name)
@@ -98,9 +92,18 @@ feature {LIBERTY_TYPE_BUILDER}
 			Result := once "loading parents"
 		end
 
+	can_load_parents: BOOLEAN is
+		do
+			Result := not errors.has_error and then type.is_reachable
+		ensure
+			not type.is_reachable implies not Result
+		end
+
 	load_parents: STRING is
 			-- Just load the parent types, not trying to import anything yet, just to let the universe know that
 			-- those classes will be needed, and for us to be able to iterate through all the type's parents
+		require
+			type.is_reachable
 		local
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
@@ -122,6 +125,8 @@ feature {LIBERTY_TYPE_BUILDER}
 
 	can_load_parent_features: BOOLEAN is
 			-- True if all the parents have finished loading their features
+		require
+			type.is_reachable
 		do
 			if not errors.has_error then
 				Result := check_have_loaded_features(type.conformant_parents)
@@ -143,6 +148,8 @@ feature {LIBERTY_TYPE_BUILDER}
 
 	load_parent_features: STRING is
 			-- Load the parent features, considering renamings, redefinitions and so on
+		require
+			type.is_reachable
 		local
 			loader: LIBERTY_TYPE_PARENT_FEATURES_LOADER
 		do
@@ -161,6 +168,8 @@ feature {LIBERTY_TYPE_BUILDER}
 	load_features: STRING is
 			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
+		require
+			type.is_reachable
 		do
 			debug
 				std_output.put_string(type.full_name)
@@ -181,6 +190,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....),
 			-- arguments of feature calls (type, count... including agents),
 			-- and so on
+		require
+			type.is_reachable
 		do
 			debug
 				std_output.put_string(type.full_name)
@@ -213,7 +224,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			errors.has_error
 		do
 			errors.set(level_fatal_error, "Errors have to be fixed, see above.")
-			errors.emit
 		ensure
 			dead: False
 		end
@@ -338,7 +348,8 @@ feature {}
 					>>};
 
 				"loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
-					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_parents);
+					agent {LIBERTY_TYPE_BUILDER}.can_load_parents,         agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.load_parents);
+					agent {LIBERTY_TYPE_BUILDER}.no_errors,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.stay);
 					agent {LIBERTY_TYPE_BUILDER}.otherwise,                agent {LIBERTY_TYPE_BUILDER}.transition(?, agent {LIBERTY_TYPE_BUILDER}.abort)
 					>>};
 

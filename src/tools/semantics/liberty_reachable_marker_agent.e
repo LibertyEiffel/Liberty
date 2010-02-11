@@ -12,35 +12,23 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_COMPOSED_ASSERTIONS
+expanded class LIBERTY_REACHABLE_MARKER_AGENT[E_ -> LIBERTY_REACHABLE_MARKER]
 
-inherit
-	LIBERTY_ASSERTIONS
-
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			left.mark_reachable_code(mark)
-			right.mark_reachable_code(mark)
-		end
-
-feature {}
-	left, right: LIBERTY_ASSERTIONS
-
-	make (a_left: like left; a_right: like right) is
+feature {LIBERTY_REACHABLE_MARKER}
+	mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_]) is
 		require
-			a_left /= Void
-			a_right /= Void
+			elements /= Void
+		local
+			i: INTEGER
 		do
-			left := a_left
-			right := a_right
-		ensure
-			left = a_left
-			right = a_right
+			from
+				i := elements.lower
+			until
+				i > elements.upper
+			loop
+				elements.item(i).mark_reachable_code(mark)
+				i := i + 1
+			end
 		end
 
-invariant
-	left /= Void
-	right /= Void
-
-end
+end -- class LIBERTY_REACHABLE_MARKER_AGENT

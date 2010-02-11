@@ -19,6 +19,8 @@ class LIBERTY_DELAYED_TYPE
 
 inherit
 	LIBERTY_TYPE
+		redefine mark_reachable_code
+		end
 
 creation {ANY}
 	make
@@ -56,6 +58,18 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: like reachable_mark) is
+		local
+			old_mark: like reachable_mark
+		do
+			old_mark := reachable_mark
+			Precursor(mark)
+			if old_mark < mark and then actual_type /= Void then
+				actual_type.mark_reachable_code(mark)
+			end
+		end
+
 feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		do
@@ -67,7 +81,7 @@ feature {LIBERTY_UNIVERSE}
 		require
 			not is_actual_type_set
 		do
-			Result := not export_only and then delayed_resolver.can_resolve
+			Result := is_reachable and then delayed_resolver.can_resolve
 		end
 
 	resolve is
@@ -78,8 +92,8 @@ feature {LIBERTY_UNIVERSE}
 			is_actual_type_set := True
 			fire_actual_type_set
 			torch.burn
-			if not export_only then
-				actual_type.unset_export_only
+			check
+				by_definition: is_reachable
 			end
 		ensure
 			is_actual_type_set
@@ -92,7 +106,6 @@ feature {}
 		do
 			delayed_resolver := a_delayed_resolver
 			lookup.resolver.delayed_types.add_last(Current)
-			export_only := True
 			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} listeners.with_capacity(2)
 
 			debug
@@ -102,11 +115,10 @@ feature {}
 			end
 		ensure
 			delayed_resolver = a_delayed_resolver
-			export_only
+			not_yet_reachable: not is_reachable
 		end
 
 	delayed_resolver: LIBERTY_DELAYED_RESOLVER
-	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	lookup: LIBERTY_TYPE_LOOKUP
 
 invariant

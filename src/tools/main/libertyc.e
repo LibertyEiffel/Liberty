@@ -25,6 +25,7 @@ feature {}
 		local
 			universe: LIBERTY_UNIVERSE
 			root: LIBERTY_ACTUAL_TYPE
+			root_feature_name: LIBERTY_FEATURE_NAME
 			errors: LIBERTY_ERRORS
 		do
 			if argument_count /= 2 then
@@ -34,8 +35,12 @@ feature {}
 
 			create universe.make(argument(1))
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
-			universe.build_types
 
+			create root_feature_name.make("make".intern)
+			universe.build_types(root, root_feature_name)
+
+			std_output.put_new_line
+			std_output.put_line("Root type: ")
 			root.debug_display(std_output, True)
 			std_output.put_line("Done.")
 		end

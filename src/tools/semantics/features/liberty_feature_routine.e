@@ -18,6 +18,8 @@ inherit
 	LIBERTY_FEATURE
 		rename
 			make as make_late_binding
+		redefine
+			mark_reachable_code
 		end
 
 feature {ANY}
@@ -47,6 +49,21 @@ feature {}
 		ensure
 			definition_type = a_definition_type
 			block_instruction = a_instruction
+		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		local
+			old_mark: like reachable_mark
+		do
+			old_mark := reachable_mark
+			Precursor(mark)
+			if old_mark < mark then
+				block_instruction.mark_reachable_code(mark)
+				if rescue_instruction /= Void then
+					rescue_instruction.mark_reachable_code(mark)
+				end
+			end
 		end
 
 invariant

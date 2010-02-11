@@ -13,10 +13,9 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_TYPE_PARENT_LOADER
---
--- Loads the type's parents, but also initializes general type information such as obsolete, deferred and so
--- on
---
+	--
+	-- Loads the type's parents
+	--
 
 insert
 	LIBERTY_TYPE_BUILDER_TOOLS

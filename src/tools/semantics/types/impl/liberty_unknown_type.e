@@ -41,7 +41,9 @@ feature {ANY}
 
 	out_in_tagged_out_memory is
 		do
-			tagged_out_memory.append(once "<unknown type>")
+			tagged_out_memory.append(once "{unknown type ")
+			tagged_out_memory.append(full_name)
+			tagged_out_memory.extend('}')
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}
@@ -56,13 +58,12 @@ feature {}
 			a_full_name /= Void
 		do
 			full_name := a_full_name
-			export_only := True
 		ensure
 			full_name = a_full_name
 		end
 
 invariant
 	full_name /= Void
-	export_only
+	not is_reachable
 
 end

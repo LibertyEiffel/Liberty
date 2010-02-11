@@ -14,6 +14,9 @@
 --
 deferred class LIBERTY_ASSERTIONS
 
+insert
+	LIBERTY_REACHABLE_MARKER
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
 			-- Considering that `Current' is the parent, adds an "and then" assertions block. Used by "require
@@ -32,5 +35,8 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		ensure
 			Result /= Void
 		end
+
+feature {}
+	assertions_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_ASSERTION]
 
 end

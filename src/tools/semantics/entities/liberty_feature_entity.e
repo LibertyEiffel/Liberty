@@ -21,6 +21,13 @@ class LIBERTY_FEATURE_ENTITY
 
 inherit
 	LIBERTY_ENTITY
+		redefine out_in_tagged_out_memory
+		end
+
+insert
+	LIBERTY_REACHABLE
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -66,6 +73,38 @@ feature {LIBERTY_CALL_EXPRESSION}
 			Result := the_feature.check_agent_signature(a_agent_arguments)
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		local
+			rt: like result_type
+		do
+			if not is_reachable then
+				debug
+					std_output.put_string(once "Marked reachable the feature entity {")
+					std_output.put_string(delayed_feature_type.out)
+					std_output.put_string(once "}.")
+					std_output.put_string(feature_name.name)
+					if rt /= Void then
+						std_output.put_string(once ": ")
+						std_output.put_string(rt.full_name)
+					end
+					std_output.put_new_line
+				end
+				torch.burn
+			end
+			reachable_mark := mark
+
+			delayed_feature_type.mark_reachable_code(mark)
+			if the_feature /= Void then
+				the_feature.mark_reachable_code(mark)
+			end
+
+			rt := result_type
+			if rt /= Void and then rt.is_actual_type_set and then rt.actual_type.is_runtime_category_set and then rt.actual_type.is_expanded then
+				rt.mark_reachable_code(mark)
+			end
+		end
+
 feature {}
 	the_feature: LIBERTY_FEATURE
 	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
@@ -86,6 +125,8 @@ feature {}
 			delayed_feature_type = a_delayed_feature_type
 			position = a_name.position
 		end
+
+	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 invariant
 	name /= Void

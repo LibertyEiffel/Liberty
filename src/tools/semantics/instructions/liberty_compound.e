@@ -61,6 +61,12 @@ feature {ANY}
 			Result := instructions.new_iterator
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			instructions_marker.mark_reachable_code(mark, instructions)
+		end
+
 feature {}
 	make (a_instructions: like instructions; a_position: like position) is
 		require

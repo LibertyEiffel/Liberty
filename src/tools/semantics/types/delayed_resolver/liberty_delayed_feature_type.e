@@ -17,6 +17,11 @@ class LIBERTY_DELAYED_FEATURE_TYPE
 inherit
 	LIBERTY_DELAYED_RESOLVER
 
+insert
+	LIBERTY_REACHABLE_MARKER
+		redefine out_in_tagged_out_memory, is_equal
+		end
+
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
@@ -32,6 +37,11 @@ feature {ANY}
 				name.out_in_tagged_out_memory
 				tagged_out_memory.extend(')')
 			end
+		end
+
+	full_name: FIXED_STRING is
+		do
+			Result := full_name_memory
 		end
 
 	hash_code: INTEGER is
@@ -57,11 +67,6 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := the_feature.result_type.actual_type
 		end
 
-	full_name: FIXED_STRING is
-		do
-			Result := full_name_memory
-		end
-
 feature {LIBERTY_FEATURE_ENTITY}
 	is_ready: BOOLEAN is
 		do
@@ -79,6 +84,15 @@ feature {LIBERTY_FEATURE_ENTITY}
 
 	name: LIBERTY_FEATURE_NAME
 	type: LIBERTY_TYPE
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			type.mark_reachable_code(mark)
+			if is_ready then
+				the_feature.mark_reachable_code(mark)
+			end
+		end
 
 feature {}
 	make (a_type: like type; a_name: like name) is

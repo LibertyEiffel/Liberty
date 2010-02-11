@@ -16,12 +16,22 @@ class LIBERTY_INSPECT_SLICE
 
 insert
 	LIBERTY_POSITIONABLE
+	LIBERTY_REACHABLE_MARKER
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
 	lower, upper: LIBERTY_EXPRESSION
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			lower.mark_reachable_code(mark)
+			if upper /= lower then
+				upper.mark_reachable_code(mark)
+			end
+		end
 
 feature {}
 	make (a_lower: like lower; a_upper: like upper; a_position: like position) is

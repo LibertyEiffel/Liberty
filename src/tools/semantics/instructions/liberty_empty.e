@@ -20,6 +20,12 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			-- nothing
+		end
+
 feature {}
 	make is
 		local

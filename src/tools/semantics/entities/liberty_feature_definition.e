@@ -16,7 +16,13 @@ class LIBERTY_FEATURE_DEFINITION
 
 inherit
 	LIBERTY_ENTITY
-		redefine copy
+		redefine copy, out_in_tagged_out_memory
+		end
+
+insert
+	LIBERTY_REACHABLE
+		redefine
+			copy, out_in_tagged_out_memory
 		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -76,6 +82,31 @@ feature {ANY}
 			clients := other.clients.twin
 			is_frozen := other.is_frozen
 			the_feature := other.the_feature
+		end
+
+feature {LIBERTY_UNIVERSE}
+	set_reachable (mark: like reachable_mark) is
+		do
+			if not is_reachable then
+				debug
+					std_output.put_string(once "Marked reachable the feature definition: ")
+					std_output.put_line(feature_name.name)
+				end
+				torch.burn
+			end
+
+			if reachable_mark < mark then
+				reachable_mark := mark
+				if the_feature /= Void then
+					the_feature.mark_reachable_code(mark)
+				end
+			end
+		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			set_reachable(mark)
 		end
 
 feature {ANY}

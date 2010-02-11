@@ -16,6 +16,8 @@ class LIBERTY_FEATURE_REDEFINED
 
 inherit
 	LIBERTY_FEATURE
+		redefine mark_reachable_code
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -119,6 +121,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 
 	redefined_feature: LIBERTY_FEATURE
 
-	torch: LIBERTY_ENLIGHTENING_THE_WORLD
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		local
+			old_mark: like reachable_mark
+		do
+			old_mark := reachable_mark
+			Precursor(mark)
+			if old_mark < mark and then redefined_feature /= Void then
+				redefined_feature.mark_reachable_code(mark)
+			end
+		end
 
 end

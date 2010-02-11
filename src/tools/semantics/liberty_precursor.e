@@ -16,10 +16,18 @@ deferred class LIBERTY_PRECURSOR
 
 insert
 	LIBERTY_POSITIONABLE
+	LIBERTY_REACHABLE_MARKER
 
 feature {ANY}
 	the_feature: LIBERTY_FEATURE
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			the_feature.mark_reachable_code(mark)
+			expressions_marker.mark_reachable_code(mark, actuals)
+		end
 
 feature {}
 	make (a_feature: like the_feature; a_actuals: like actuals; a_position: like position) is

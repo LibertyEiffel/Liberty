@@ -14,11 +14,20 @@
 --
 class LIBERTY_VARIANT
 
+insert
+	LIBERTY_REACHABLE_MARKER
+
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code is
+		do
+			expression.mark_reachable_code
+		end
 
 feature {}
 	make (a_expression: like expression) is

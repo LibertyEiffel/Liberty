@@ -16,6 +16,8 @@ class LIBERTY_CURRENT
 
 inherit
 	LIBERTY_ENTITY
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -23,15 +25,21 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	name: FIXED_STRING is
 		once
-			create Result.make_from_string("Current")
+			Result := "Current".intern
 		end
 
 	out_in_tagged_out_memory is
 		do
-			tagged_out_memory.append(once "Current")
+			tagged_out_memory.append(name)
 		end
 
 	result_type: LIBERTY_ACTUAL_TYPE
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			-- nothing
+		end
 
 feature {}
 	make (type: like result_type; a_position: like position) is

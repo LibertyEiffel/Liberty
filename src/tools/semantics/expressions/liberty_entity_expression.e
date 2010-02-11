@@ -29,6 +29,12 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			-- nothing
+		end
+
 feature {}
 	make (a_entity: like entity; a_position: like position) is
 		require

@@ -15,6 +15,9 @@ default
 cluster
 	lib: "${path_liberty}/src/lib/loadpath.se"
 	tools: "${path_liberty}/src/tools/loadpath.se"
+		option
+			debug(all): LIBERTY_TYPE, LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_INIT, LIBERTY_TYPE_PARENT_LOADER, LIBERTY_TYPE_PARENT_FEATURES_LOADER, LIBERTY_TYPE_FEATURES_LOADER, LIBERTY_UNIVERSE, LIBERTY_DELAYED_FEATURE_TYPE, LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_DELAYED_TYPE
+		end
 
 generate
 	no_strip(no)

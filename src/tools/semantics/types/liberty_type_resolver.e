@@ -28,7 +28,6 @@ feature {ANY}
 			if Result = Void then
 				Result := delayed_type(type_definition)
 			end
-			Result.unset_export_only
 		end
 
 	export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is

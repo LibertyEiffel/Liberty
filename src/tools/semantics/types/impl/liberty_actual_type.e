@@ -16,8 +16,7 @@ class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_TYPE
-		redefine
-			unset_export_only
+		redefine mark_reachable_code
 		end
 
 insert
@@ -90,35 +89,35 @@ feature {ANY}
 
 	is_deferred: BOOLEAN is
 		require
-			mark_set
+			is_runtime_category_set
 		do
-			Result := mark = deferred_mark
+			Result := runtime_category = deferred_category
 		end
 
 	is_expanded: BOOLEAN is
 		require
-			mark_set
+			is_runtime_category_set
 		do
-			Result := mark = expanded_mark
+			Result := runtime_category = expanded_category
 		end
 
 	is_separate: BOOLEAN is
 		require
-			mark_set
+			is_runtime_category_set
 		do
-			Result := mark = separate_mark
+			Result := runtime_category = separate_category
 		end
 
 	is_reference: BOOLEAN is
 		require
-			mark_set
+			is_runtime_category_set
 		do
-			Result := mark = reference_mark
+			Result := runtime_category = reference_category
 		end
 
-	mark_set: BOOLEAN is
+	is_runtime_category_set: BOOLEAN is
 		do
-			Result := mark /= 0
+			Result := runtime_category /= 0
 		end
 
 	the_invariant: LIBERTY_INVARIANT
@@ -135,28 +134,12 @@ feature {ANY}
 			Result := features.at(a_feature_name)
 		end
 
-feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER, LIBERTY_TYPE}
-	unset_export_only is
-		local
-			i: INTEGER
-		do
-			Precursor
-			from
-				i := parameters.lower
-			until
-				i > parameters.upper
-			loop
-				parameters.item(i).unset_export_only
-				i := i + 1
-			end
-		end
-
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
 		local
 			i: INTEGER
 		do
-			if mark_set then
+			if is_runtime_category_set then
 				if is_expanded then
 					o.put_string(once "expanded type ")
 				elseif is_separate then
@@ -178,6 +161,9 @@ feature {ANY}
 				until
 					i > features.upper
 				loop
+					check
+						features.key(i) = features.item(i).feature_name
+					end
 					features.item(i).debug_display(o)
 					i := i + 1
 				end
@@ -336,41 +322,41 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 
 	set_deferred is
 		require
-			not mark_set
+			not is_runtime_category_set
 		do
-			mark := deferred_mark
+			runtime_category := deferred_category
 		ensure
-			mark_set
+			is_runtime_category_set
 			is_deferred
 		end
 
 	set_expanded is
 		require
-			not mark_set
+			not is_runtime_category_set
 		do
-			mark := expanded_mark
+			runtime_category := expanded_category
 		ensure
-			mark_set
+			is_runtime_category_set
 			is_expanded
 		end
 
 	set_separate is
 		require
-			not mark_set
+			not is_runtime_category_set
 		do
-			mark := separate_mark
+			runtime_category := separate_category
 		ensure
-			mark_set
+			is_runtime_category_set
 			is_separate
 		end
 
 	set_reference is
 		require
-			not mark_set
+			not is_runtime_category_set
 		do
-			mark := reference_mark
+			runtime_category := reference_category
 		ensure
-			mark_set
+			is_runtime_category_set
 			is_reference
 		end
 
@@ -416,7 +402,8 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			features.add(a_feature, a_feature.feature_name)
 			torch.burn
 		ensure
-			features.at(a_feature.feature_name) = a_feature
+			has_feature(a_feature.feature_name)
+			feature_definition(a_feature.feature_name) = a_feature
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantics building
@@ -445,14 +432,37 @@ feature {}
 			--| TODO
 		end
 
-feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_GENERICS_CONFORMANCE_CHECKER}
+feature {LIBERTY_TYPE_BUILDER}
 	conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
 	has_loaded_features: BOOLEAN is
 		do
 			Result := builder.has_loaded_features
 		end
+
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		local
+			old_mark: like reachable_mark
+		do
+			old_mark := reachable_mark
+			Precursor(mark)
+			if old_mark < mark then
+				types_marker.mark_reachable_code(mark, conformant_parents)
+				types_marker.mark_reachable_code(mark, non_conformant_parents)
+			end
+		end
+
+feature {LIBERTY_UNIVERSE}
+	set_reachable (mark: INTEGER) is
+		do
+			mark_reachable_code(mark)
+		end
+
+feature {}
+	types_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_ACTUAL_TYPE]
 
 feature {LIBERTY_UNIVERSE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
@@ -484,25 +494,22 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
 			conformant_parents := no_parents
 			non_conformant_parents := no_parents
-			export_only := True
 		ensure
 			descriptor = a_descriptor
 			conformance_checker = a_conformance_checker
 			ast = a_ast
-			export_only
+			not_yet_reachable: not is_reachable
 		end
 
-	mark: INTEGER_8
+	runtime_category: INTEGER_8
 
-	deferred_mark: INTEGER_8 is 1
-	expanded_mark: INTEGER_8 is 2
-	separate_mark: INTEGER_8 is 4
-	reference_mark: INTEGER_8 is 8
+	deferred_category: INTEGER_8 is 1
+	expanded_category: INTEGER_8 is 2
+	separate_category: INTEGER_8 is 4
+	reference_category: INTEGER_8 is 8
 
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER
-
-	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 	no_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
 		once

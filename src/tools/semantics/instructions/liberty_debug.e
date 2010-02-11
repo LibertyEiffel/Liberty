@@ -24,6 +24,12 @@ feature {ANY}
 	keys: TRAVERSABLE[STRING]
 	instruction: LIBERTY_INSTRUCTION
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			instruction.mark_reachable_code(mark)
+		end
+
 feature {}
 	make (a_keys: like keys; a_instruction: like instruction; a_position: like position) is
 		require

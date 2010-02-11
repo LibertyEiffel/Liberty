@@ -20,6 +20,12 @@ inherit
 feature {}
 	assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			assertions_marker.mark_reachable_code(mark, assertions)
+		end
+
 invariant
 	assertions /= Void
 

@@ -16,6 +16,7 @@ class LIBERTY_INSPECT_CLAUSE
 
 insert
 	LIBERTY_POSITIONABLE
+	LIBERTY_REACHABLE_MARKER
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -40,6 +41,13 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			values.last = a_value
 		end
 
+feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			instruction.mark_reachable_code(mark)
+			inspect_slices_marker.mark_reachable_code(mark, values)
+		end
+
 feature {}
 	make (a_instruction: like instruction; a_position: like position) is
 		require
@@ -55,6 +63,8 @@ feature {}
 		end
 
 	values_list: COLLECTION[LIBERTY_INSPECT_SLICE]
+
+	inspect_slices_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_INSPECT_SLICE]
 
 feature {ANY}
 	accept (v: VISITOR) is
