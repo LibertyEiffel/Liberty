@@ -1,11 +1,7 @@
 ./
-./contract/
-./entities/
-./expressions/
-./features/
-./instructions/
-./reachable/
-./tags/
-./types/loadpath.se
-./utils/
-./visitors/
+contract/
+code/loadpath.se
+reachable/
+tags/
+types/loadpath.se
+visitors/
