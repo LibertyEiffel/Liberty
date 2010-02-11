@@ -20,7 +20,7 @@ inherit
 		end
 
 insert
-	LIBERTY_REACHABLE
+	LIBERTY_REACHABLE_MARKED
 		redefine
 			copy, out_in_tagged_out_memory
 		end
@@ -103,7 +103,7 @@ feature {LIBERTY_UNIVERSE}
 			end
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			set_reachable(mark)

@@ -29,7 +29,7 @@ feature {ANY}
 			Result := entity.result_type
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			-- nothing

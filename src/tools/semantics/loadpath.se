@@ -4,6 +4,7 @@
 ./expressions/
 ./features/
 ./instructions/
+./reachable/
 ./tags/
 ./types/loadpath.se
 ./utils/

@@ -33,7 +33,7 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			expressions_marker.mark_reachable_code(mark, parameters_list)

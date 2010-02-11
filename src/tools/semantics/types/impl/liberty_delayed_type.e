@@ -58,7 +58,7 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
 		local
 			old_mark: like reachable_mark

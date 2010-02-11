@@ -36,7 +36,7 @@ feature {ANY}
 
 	is_actual_type_set: BOOLEAN is True
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			type.mark_reachable_code(mark)

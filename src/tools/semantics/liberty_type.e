@@ -23,7 +23,7 @@ inherit
 		end
 
 insert
-	LIBERTY_REACHABLE
+	LIBERTY_REACHABLE_MARKED
 		undefine out_in_tagged_out_memory, is_equal
 		end
 
@@ -44,7 +44,7 @@ feature {ANY}
 			Result /= Void
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
 		do
 			if not is_reachable then

@@ -61,7 +61,7 @@ feature {ANY}
 			Result := instructions.new_iterator
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			instructions_marker.mark_reachable_code(mark, instructions)

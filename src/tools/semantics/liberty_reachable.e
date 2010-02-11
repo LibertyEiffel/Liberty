@@ -13,37 +13,14 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 deferred class LIBERTY_REACHABLE
-	--
-	-- A reachable marker which keeps a "reachable" status
-	--
 
-insert
-	LIBERTY_REACHABLE_MARKER
-
-feature {ANY} -- The "reachable" property
-	frozen is_reachable: BOOLEAN is
-		do
-			Result := reachable_mark > 0
-		ensure
-			once_set_always_set: reachable_memory implies Result
-		end
-
-feature {LIBERTY_REACHABLE_MARKER}
-	mark_reachable_code (mark: like reachable_mark) is
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
+	mark_reachable_code (mark: INTEGER) is
 		deferred
-		ensure
-			reachable_mark = mark
-			is_reachable: ensure_is_reachable
 		end
 
-feature {} -- Contract implementation: "once set, always set" behaviour
-	frozen ensure_is_reachable: BOOLEAN is
-		do
-			reachable_memory := True
-			Result := is_reachable
-		end
-
-	reachable_memory: BOOLEAN
-	reachable_mark: INTEGER
+feature {}
+	expressions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_EXPRESSION]
+	instructions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSTRUCTION]
 
 end -- class LIBERTY_REACHABLE

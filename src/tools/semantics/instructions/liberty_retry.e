@@ -33,7 +33,7 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 			the_feature = a_feature
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			check

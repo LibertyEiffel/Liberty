@@ -25,7 +25,7 @@ inherit
 		end
 
 insert
-	LIBERTY_REACHABLE
+	LIBERTY_REACHABLE_MARKED
 		redefine out_in_tagged_out_memory
 		end
 
@@ -73,7 +73,7 @@ feature {LIBERTY_CALL_EXPRESSION}
 			Result := the_feature.check_agent_signature(a_agent_arguments)
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		local
 			rt: like result_type

@@ -12,9 +12,9 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_REACHABLE_MARKER_AGENT[E_ -> LIBERTY_REACHABLE_MARKER]
+expanded class LIBERTY_REACHABLE_COLLECTION_MARKER[E_ -> LIBERTY_REACHABLE]
 
-feature {LIBERTY_REACHABLE_MARKER}
+feature {LIBERTY_REACHABLE}
 	mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_]) is
 		require
 			elements /= Void
@@ -31,4 +31,4 @@ feature {LIBERTY_REACHABLE_MARKER}
 			end
 		end
 
-end -- class LIBERTY_REACHABLE_MARKER_AGENT
+end -- class LIBERTY_REACHABLE_COLLECTION_MARKER

@@ -442,7 +442,7 @@ feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
 			Result := builder.has_loaded_features
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		local
 			old_mark: like reachable_mark
@@ -462,7 +462,7 @@ feature {LIBERTY_UNIVERSE}
 		end
 
 feature {}
-	types_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_ACTUAL_TYPE]
+	types_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_ACTUAL_TYPE]
 
 feature {LIBERTY_UNIVERSE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR

@@ -15,7 +15,7 @@
 deferred class LIBERTY_CALL
 
 insert
-	LIBERTY_REACHABLE_MARKER
+	LIBERTY_REACHABLE
 
 feature {ANY}
 	target: LIBERTY_EXPRESSION is

@@ -15,7 +15,7 @@
 class LIBERTY_ASSERTION
 
 insert
-	LIBERTY_REACHABLE_MARKER
+	LIBERTY_REACHABLE
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -24,7 +24,7 @@ feature {ANY}
 	tag: FIXED_STRING
 	assertion: LIBERTY_EXPRESSION
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			assertion.mark_reachable_code(mark)

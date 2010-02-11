@@ -12,47 +12,38 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_DEFAULT
+deferred class LIBERTY_REACHABLE_MARKED
+	--
+	-- A reachable marker which keeps a "reachable" status
+	--
 
 insert
-	LIBERTY_POSITIONABLE
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
-	make
-
-feature {ANY}
-	instruction: LIBERTY_INSTRUCTION
-
-feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
+feature {ANY} -- The "reachable" property
+	frozen is_reachable: BOOLEAN is
 		do
-			instruction.mark_reachable_code(mark)
-		end
-
-feature {}
-	make (a_instruction: like instruction; a_position: like position) is
-		require
-			a_instruction /= Void
-			a_position /= Void
-		do
-			instruction := a_instruction
-			position := a_position
+			Result := reachable_mark > 0
 		ensure
-			instruction = a_instruction
-			position = a_position
+			once_set_always_set: reachable_memory implies Result
 		end
 
-feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_DEFAULT_VISITOR
+feature {LIBERTY_REACHABLE}
+	mark_reachable_code (mark: like reachable_mark) is
+		deferred
+		ensure
+			reachable_mark = mark
+			is_reachable: ensure_is_reachable
+		end
+
+feature {} -- Contract implementation: "once set, always set" behaviour
+	frozen ensure_is_reachable: BOOLEAN is
 		do
-			v0 ::= v
-			v0.visit_liberty_default(Current)
+			reachable_memory := True
+			Result := is_reachable
 		end
 
-invariant
-	instruction /= Void
+	reachable_memory: BOOLEAN
+	reachable_mark: INTEGER
 
-end
+end -- class LIBERTY_REACHABLE_MARKED

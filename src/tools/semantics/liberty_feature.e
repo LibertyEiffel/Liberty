@@ -15,7 +15,7 @@
 deferred class LIBERTY_FEATURE
 
 insert
-	LIBERTY_REACHABLE
+	LIBERTY_REACHABLE_MARKED
 
 feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
@@ -54,7 +54,7 @@ feature {ANY}
 			Result := context /= Void
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
 		do
 			if not is_reachable then

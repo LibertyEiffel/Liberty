@@ -44,7 +44,7 @@ feature {ANY}
 			tagged_out_memory.append(name)
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			if result_type.is_actual_type_set and then result_type.actual_type.is_runtime_category_set and then result_type.actual_type.is_expanded then

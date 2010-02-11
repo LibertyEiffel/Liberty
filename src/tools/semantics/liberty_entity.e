@@ -26,7 +26,7 @@ inherit
 		end
 
 insert
-	LIBERTY_REACHABLE_MARKER
+	LIBERTY_REACHABLE
 
 feature {ANY}
 	name: FIXED_STRING is

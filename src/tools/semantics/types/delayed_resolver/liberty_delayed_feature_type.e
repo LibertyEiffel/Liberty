@@ -18,7 +18,7 @@ inherit
 	LIBERTY_DELAYED_RESOLVER
 
 insert
-	LIBERTY_REACHABLE_MARKER
+	LIBERTY_REACHABLE
 		redefine out_in_tagged_out_memory, is_equal
 		end
 
@@ -85,7 +85,7 @@ feature {LIBERTY_FEATURE_ENTITY}
 	name: LIBERTY_FEATURE_NAME
 	type: LIBERTY_TYPE
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			type.mark_reachable_code(mark)

@@ -45,7 +45,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			else_clause = a_else_clause
 		end
 
-feature {LIBERTY_REACHABLE_MARKER, LIBERTY_REACHABLE_MARKER_AGENT}
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			conditions_marker.mark_reachable_code(mark, conditions)
@@ -67,7 +67,7 @@ feature {}
 
 	conditions_list: COLLECTION[LIBERTY_CONDITION]
 
-	conditions_marker: LIBERTY_REACHABLE_MARKER_AGENT[LIBERTY_CONDITION]
+	conditions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_CONDITION]
 
 feature {ANY}
 	accept (v: VISITOR) is
