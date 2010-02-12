@@ -13,6 +13,9 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTYC
+	--
+	-- The compiler.
+	--
 
 insert
 	ARGUMENTS

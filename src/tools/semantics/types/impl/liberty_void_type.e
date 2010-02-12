@@ -18,23 +18,27 @@ class LIBERTY_VOID_TYPE
 	--
 
 inherit
-	LIBERTY_TYPE
+	LIBERTY_ACTUAL_TYPE
+		rename
+			make as dont_make
+		undefine
+			is_equal
+		redefine
+			full_name, full_name_in,
+			has_feature, add_feature,
+			is_conform_to, is_non_conformant_child_of, common_parent, add_parent,
+			hash_code
+		end
 
 insert
 	SINGLETON
-		redefine out_in_tagged_out_memory
+		undefine out_in_tagged_out_memory
 		end
 
 creation {LIBERTY_VOID}
 	make
 
 feature {ANY}
-	actual_type: LIBERTY_ACTUAL_TYPE is
-		do
-		end
-
-	is_actual_type_set: BOOLEAN is False
-
 	full_name: FIXED_STRING is
 		once
 			Result := "{Void type}".intern
@@ -42,9 +46,19 @@ feature {ANY}
 
 	hash_code: INTEGER is 20050814
 
-	out_in_tagged_out_memory is
+	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
 		do
-			tagged_out_memory.append(full_name)
+			check not Result end
+		end
+
+	is_conform_to (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			Result := not other.is_expanded
+		end
+
+	is_non_conformant_child_of (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			check not Result end
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}
@@ -53,12 +67,32 @@ feature {LIBERTY_ACTUAL_TYPE}
 			buffer.append(full_name)
 		end
 
+	common_parent (other: LIBERTY_ACTUAL_TYPE): LIBERTY_ACTUAL_TYPE is
+		do
+			check False end
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN) is
+		do
+			check False end
+		end
+
+	add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
+		do
+			check False end
+		end
+
 feature {}
 	make is
 		do
+			reachable_mark := 1
+			runtime_category := reference_category
 		end
 
 invariant
-	not is_reachable
+	is_reachable
+	conformant_parents.is_empty
+	non_conformant_parents.is_empty
 
 end -- class LIBERTY_VOID_TYPE
