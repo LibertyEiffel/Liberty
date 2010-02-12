@@ -301,7 +301,7 @@ feature {}
 			types_incubator.is_empty
 		do
 			if not torch.still_burns(flame) then
-				clean_unreachable_types_from_incubator(incubator)
+				clean_unreachable_types(incubator)
 				if not incubator.is_empty then
 					debug
 						debug_types(incubator)
@@ -320,6 +320,24 @@ feature {}
 		ensure
 			types_incubator = incubator
 			Result = old types_incubator
+		end
+
+	clean_unreachable_types (incubator: like types_incubator) is
+		local
+			i: INTEGER
+		do
+			clean_unreachable_types_from_incubator(incubator)
+			from
+				i := types.lower
+			until
+				i > types.upper
+			loop
+				if not types.item(i).is_reachable then
+					types.fast_remove(types.key(i))
+				else
+					i := i + 1
+				end
+			end
 		end
 
 	clean_unreachable_types_from_incubator (incubator: like types_incubator) is
