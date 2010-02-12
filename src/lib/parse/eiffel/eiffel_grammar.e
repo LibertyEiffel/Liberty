@@ -287,9 +287,9 @@ feature {}
 											  "Check", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW check", "Assertion*", "KW ;;", "KW end" >> }, Void >> };
 											  "Debug", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW debug", "Debug_Keys", "Instruction*", "KW end" >> }, Void >> };
 											  "Debug_Keys", {PARSE_NON_TERMINAL << epsilon, Void;
-																								{FAST_ARRAY[STRING] << "KW (", "Debug_Key*", "KW )" >> }, Void >> };
-											  "Debug_Key*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Debug_Key*");
-																								{FAST_ARRAY[STRING] << "KW string", "KW ,", "Debug_Key*" >> }, agent build_continue_list("KW string", 1, "Debug_Key*") >> };
+																								{FAST_ARRAY[STRING] << "KW (", "Debug_Key+", "KW )" >> }, Void >> };
+											  "Debug_Key+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW string" >> }, agent build_new_list("Debug_Key", "Debug_Key+");
+																								{FAST_ARRAY[STRING] << "KW string", "KW ,", "Debug_Key*" >> }, agent build_continue_list("KW string", 1, "Debug_Key+") >> };
 											  "Variant", {PARSE_NON_TERMINAL << epsilon, Void;
 																							{FAST_ARRAY[STRING] << "KW variant", "Expression" >> }, Void >> };
 											  "Assertion*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Assertion*");

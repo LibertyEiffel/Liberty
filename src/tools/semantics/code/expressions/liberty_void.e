@@ -33,10 +33,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_result_type (a_result_type: like result_type) is
 		require
 			a_result_type /= Void
+			result_type = void_type
 		do
 			result_type := a_result_type
 		ensure
 			result_type = a_result_type
+		end
+
+	void_type: LIBERTY_VOID_TYPE is
+		once
+			create Result.make
 		end
 
 feature {}
@@ -45,8 +51,10 @@ feature {}
 			a_position /= Void
 		do
 			position := a_position
+			result_type := void_type
 		ensure
 			position = a_position
+			result_type = void_type
 		end
 
 feature {ANY}

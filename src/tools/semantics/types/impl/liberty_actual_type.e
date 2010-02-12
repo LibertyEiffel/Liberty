@@ -531,4 +531,4 @@ invariant
 
 	builder /= Void implies builder.type = Current
 
-end
+end -- class LIBERTY_ACTUAL_TYPE

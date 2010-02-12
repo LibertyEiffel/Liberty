@@ -12,9 +12,9 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_UNKNOWN_TYPE
+class LIBERTY_VOID_TYPE
 	--
-	-- An unknown type. Should be used only for some unresolved export clients.
+	-- The type of a 'Void' expression unless or before its precise type can be determined
 	--
 
 inherit
@@ -25,7 +25,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-creation {LIBERTY_TYPE_RESOLVER}
+creation {LIBERTY_VOID}
 	make
 
 feature {ANY}
@@ -35,15 +35,16 @@ feature {ANY}
 
 	is_actual_type_set: BOOLEAN is False
 
-	full_name: FIXED_STRING
+	full_name: FIXED_STRING is
+		once
+			Result := "{Void type}".intern
+		end
 
-	hash_code: INTEGER is 19741215
+	hash_code: INTEGER is 20050814
 
 	out_in_tagged_out_memory is
 		do
-			tagged_out_memory.append(once "{unknown type ")
 			tagged_out_memory.append(full_name)
-			tagged_out_memory.extend('}')
 		end
 
 feature {LIBERTY_ACTUAL_TYPE}
@@ -53,17 +54,11 @@ feature {LIBERTY_ACTUAL_TYPE}
 		end
 
 feature {}
-	make (a_full_name: like full_name) is
-		require
-			a_full_name /= Void
+	make is
 		do
-			full_name := a_full_name
-		ensure
-			full_name = a_full_name
 		end
 
 invariant
-	full_name /= Void
 	not is_reachable
 
-end -- class LIBERTY_UNKNOWN_TYPE
+end -- class LIBERTY_VOID_TYPE
