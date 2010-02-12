@@ -88,6 +88,8 @@ feature {}
 		do
 			reachable_mark := 1
 			runtime_category := reference_category
+		ensure
+			is_reachable
 		end
 
 invariant
