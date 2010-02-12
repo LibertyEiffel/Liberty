@@ -23,7 +23,7 @@ deferred class TRAVERSABLE[E_]
 inherit
 	ITERABLE[E_]
 		undefine
-			do_all, for_all, exists
+			do_all, for_all, exists, aggregate
 		end
 	INDEXABLE[E_]
 

@@ -85,7 +85,7 @@ feature {ANY} -- Agent-based features:
 	do_all (action: ROUTINE[TUPLE[E_]]) is
 			-- Apply `action' to every item of `Current'.
 			--
-			-- See also `for_all', `exists'.
+			-- See also `for_all', `exists', `aggregate'.
 		local
 			i: INTEGER
 		do
@@ -102,7 +102,7 @@ feature {ANY} -- Agent-based features:
 	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
 			-- Do all items satisfy `test'?
 			--
-			-- See also `do_all', `exists'.
+			-- See also `do_all', `exists', `aggregate'.
 		local
 			i: INTEGER
 		do
@@ -120,7 +120,7 @@ feature {ANY} -- Agent-based features:
 	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
 			-- Does at least one item satisfy `test'?
 			--
-			-- See also `do_all', `for_all'.
+			-- See also `do_all', `for_all', `aggregate'.
 		local
 			i: INTEGER
 		do
@@ -130,6 +130,24 @@ feature {ANY} -- Agent-based features:
 				Result or else i > upper
 			loop
 				Result := test.item([item(i)])
+				i := i + 1
+			end
+		end
+
+	aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+			-- Aggregate all the elements starting from the initial value.
+			--
+			-- See also `do_all', `for_all', `exists'.
+		local
+			i: INTEGER
+		do
+			from
+				Result := initial
+				i := lower
+			until
+				i > upper
+			loop
+				Result := action.item([Result, item(i)])
 				i := i + 1
 			end
 		end

@@ -27,7 +27,7 @@ feature {ANY} -- Agent-based features:
 	do_all (action: ROUTINE[TUPLE[E_]]) is
 			-- Apply `action' to every item of `Current'.
 			--
-			-- See also `for_all', `exists'.
+			-- See also `for_all', `exists', `aggregate'.
 		local
 			i: like new_iterator
 		do
@@ -45,7 +45,7 @@ feature {ANY} -- Agent-based features:
 	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
 			-- Do all items satisfy `test'?
 			--
-			-- See also `do_all', `exists'.
+			-- See also `do_all', `exists', `aggregate'.
 		local
 			i: like new_iterator
 		do
@@ -64,7 +64,7 @@ feature {ANY} -- Agent-based features:
 	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
 			-- Does at least one item satisfy `test'?
 			--
-			-- See also `do_all', `for_all'.
+			-- See also `do_all', `for_all', `aggregate'.
 		local
 			i: like new_iterator
 		do
@@ -75,6 +75,25 @@ feature {ANY} -- Agent-based features:
 				Result or else i.is_off
 			loop
 				Result := test.item([i.item])
+				i.next
+			end
+		end
+
+	aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+			-- Aggregate all the elements starting from the initial value.
+			--
+			-- See also `do_all', `for_all', `exists'.
+		local
+			i: like new_iterator
+		do
+			from
+				Result := initial
+				i := new_iterator
+				i.start
+			until
+				i.is_off
+			loop
+				Result := action.item([Result, i.item])
 				i.next
 			end
 		end
