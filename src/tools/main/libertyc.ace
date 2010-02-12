@@ -5,7 +5,7 @@ root LIBERTYC: make
 default
 	assertion(no)
 	debug(no)
-	collect(no)
+	collect(yes)
 	verbose(yes)
 	manifest_string_trace(no)
 	profile(no)

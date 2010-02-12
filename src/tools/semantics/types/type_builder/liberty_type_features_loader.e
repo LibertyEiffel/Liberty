@@ -944,7 +944,7 @@ feature {} -- Entities and writables
 		require
 			name /= Void
 		do
-			create {LIBERTY_FEATURE_ENTITY} Result.make(name, create {LIBERTY_DELAYED_FEATURE_TYPE}.make(target_type, name))
+			create {LIBERTY_FEATURE_ENTITY} Result.make(name, type, create {LIBERTY_DELAYED_FEATURE_TYPE}.make(target_type, name))
 		ensure
 			Result.feature_name.is_equal(name)
 		end

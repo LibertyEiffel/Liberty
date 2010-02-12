@@ -81,14 +81,9 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			if not is_reachable then
 				debug
 					std_output.put_string(once "Marked reachable the feature entity {")
-					std_output.put_string(delayed_feature_type.out)
+					std_output.put_string(definition_type.full_name)
 					std_output.put_string(once "}.")
-					std_output.put_string(feature_name.name)
-					if rt /= Void then
-						std_output.put_string(once ": ")
-						std_output.put_string(rt.full_name)
-					end
-					std_output.put_new_line
+					std_output.put_line(feature_name.name)
 				end
 				torch.burn
 			end
@@ -109,19 +104,23 @@ feature {}
 	the_feature: LIBERTY_FEATURE
 	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
 	result_type_memory: LIBERTY_TYPE
+	definition_type: LIBERTY_ACTUAL_TYPE
 
-	make (a_name: like feature_name; a_delayed_feature_type: like delayed_feature_type) is
+	make (a_name: like feature_name; a_definition_type: like definition_type; a_delayed_feature_type: like delayed_feature_type) is
 		require
 			a_name /= Void
+			a_definition_type /= Void
 			a_delayed_feature_type /= Void
 			a_delayed_feature_type.name = a_name
 		do
 			feature_name := a_name
+			definition_type := a_definition_type
 			delayed_feature_type := a_delayed_feature_type
 			create {LIBERTY_DELAYED_TYPE} result_type_memory.make(a_delayed_feature_type)
 			position := a_name.position
 		ensure
 			feature_name = a_name
+			definition_type = a_definition_type
 			delayed_feature_type = a_delayed_feature_type
 			position = a_name.position
 		end
