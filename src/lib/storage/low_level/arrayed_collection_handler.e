@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class COLLECTION_HANDLER
+deferred class ARRAYED_COLLECTION_HANDLER
 	-- Inherit this class if you need access to COLLECTION internal storage.
 
 insert
 	ANY
 
-end -- class COLLECTION_HANDLER
+end -- class ARRAYED_COLLECTION_HANDLER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
