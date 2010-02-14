@@ -37,6 +37,8 @@ feature {ANY} -- Constants:
 
 feature {ANY} -- Expressions:
 	to_boolean: BOOLEAN is
+		require
+			certain_state: not is_equal(maybe)
 		do
 			Result := value = yes_value
 		end
