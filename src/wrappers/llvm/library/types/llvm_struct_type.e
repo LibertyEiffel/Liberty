@@ -13,25 +13,26 @@ inherit
 	-- 	undefine is_equal -- use is_equal from LLVM_TYPE 
 	-- 	redefine copy
 	-- 	end 
+	ARRAYED_COLLECTION_HANDLER 
 
 creation make, in_context, from_external_pointer
 
 feature -- Creation
-	make (some_elements: C_ARRAY[LLVM_TYPE]; packed: BOOLEAN) is
+	make (some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN) is
 		require 
 			some_elements/=Void
 			not some_elements.is_empty
 		do
-			handle := llvmstruct_type(some_elements.storage.to_pointer, some_elements.count.to_natural_32, packed.to_integer)
+			handle := llvmstruct_type(collection_to_c_array(some_elements).storage.to_external, some_elements.count.to_natural_32, packed.to_integer)
 		end
 	
-	in_context (a_context: LLVM_CONTEXT; some_elements: C_ARRAY[LLVM_TYPE]; packed: BOOLEAN) is
+	in_context (a_context: LLVM_CONTEXT; some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN) is
 		require 
 			a_context/=Void
 			some_elements/=Void
 			not some_elements.is_empty
 		do
-			handle := llvmstruct_type_in_context(a_context.handle, some_elements.storage.to_pointer, some_elements.count.to_natural_32, packed.to_integer)
+			handle := llvmstruct_type_in_context(a_context.handle, collection_to_c_array(some_elements).storage.to_external, some_elements.count.to_natural_32, packed.to_integer)
 			-- Initialize `storage' with the field types of the structure
 			--storage := storage.calloc(llvmcount_struct_element_types(handle).to_integer_32)
 			--llvmget_struct_element_types(handle, storage.to_pointer)

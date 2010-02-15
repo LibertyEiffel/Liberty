@@ -52,7 +52,7 @@ insert LLVM_VALUE_FACTORY
 creation {ANY} make 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
-feature 
+feature {} -- Creation
 	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is
 	do
 		from_external_pointer
@@ -64,7 +64,7 @@ feature
 		))
 	end
 
-feature -- 
+feature {ANY} -- Calling convention
 	calling_convention: LLVMCALL_CONV_ENUM is
 		do
 			Result.change_value(llvmget_function_call_conv(handle).to_integer_32)
@@ -75,7 +75,7 @@ feature --
 	do
 		llvmset_function_call_conv(handle, a_calling_convention.value.to_natural_32)	
 	end	
-feature -- Iterating over blocks
+feature {ANY} -- Iterating over blocks
 
 	-- `first', `last' from LLVM_FUNCTION and `next', `previous' from
 	-- LLVM_BASIC_BLOCK allow to iterate over blocks. A proper ITERATOR shall

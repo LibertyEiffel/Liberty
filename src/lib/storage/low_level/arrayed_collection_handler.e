@@ -6,7 +6,9 @@ deferred class ARRAYED_COLLECTION_HANDLER
 
 insert
 	ANY
-
+		undefine 
+			copy, is_equal
+		end
 end -- class ARRAYED_COLLECTION_HANDLER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

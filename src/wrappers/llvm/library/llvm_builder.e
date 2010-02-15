@@ -1,9 +1,19 @@
 class LLVM_BUILDER
-	-- An instruction builder representing a point within an LLVM_BASIC_BLOCK; it allows to build instructions using the C interface.
+	-- An instruction builder represents point within an LLVM_BASIC_BLOCK where it builds instructions.
+	
+	-- TODO: many preconditions requires its arguments to be of a specific type
+	-- (most often integers, floating point numbers or vectors of integers or
+	-- floats). Replace them - if possible - with more specific types of
+	-- arguments.  
+	-- Note: Internally it uses the C interface so it doesn't has full-fledged
+	-- access to the entire C++ API.
 
-inherit C_STRUCT redefine default_create end 
+inherit 
+	C_STRUCT redefine default_create end 
+		ARRAYED_COLLECTION_HANDLER redefine default_create end
+
 insert CORE_EXTERNALS redefine default_create end 
-creation in_context, default_create
+creation {ANY} in_context, default_create, at_end_of
 feature -- Creation
 	in_context (a_context: LLVM_CONTEXT) is
 		-- Create an LLVM_BUILDER in `a_context'.
@@ -16,6 +26,16 @@ feature -- Creation
 		do
 			from_external_pointer(llvmcreate_builder)
 		end
+
+	at_end_of (a_block: LLVM_BASIC_BLOCK) is
+		-- Create a new builder positioned at the end of `a_block'; this
+		-- commodity creation feature is a shortcut for (equivalent to) "create
+		-- Result; Result.position_at_end_of(a_block)"
+	require a_block/=Void
+	do
+		default_create
+		position_at_end_of(a_block)
+	end
 
 feature -- Positioning
 	set_position (a_block: LLVM_BASIC_BLOCK; an_instruction: LLVM_VALUE) is
@@ -759,16 +779,56 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
--- LLVMValueRef LLVMBuildGlobalString(LLVMBuilderRef B, const char *Str,
---                                    const char *Name);
--- LLVMValueRef LLVMBuildGlobalStringPtr(LLVMBuilderRef B, const char *Str,
---                                       const char *Name);
--- 
+	global_string (a_string, a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+		-- A global string with the content of `a_string' referrable by `a_name'.
+	do
+		create Result.from_external_pointer(llvmbuild_global_string
+		(handle,a_string.to_external, a_name.to_external))
+	ensure
+		Result/=Void
+	end
+
+	-- TODO: discover the difference between LLVMBuildGlobalString and LLVMBuildGlobalStringPtr from Liberty point of view.
+
+	-- LLVMValueRef LLVMBuildGlobalStringPtr(LLVMBuilderRef B, const char *Str,
+	--                                       const char *Name);
+	-- 
 feature -- Casts
--- LLVMValueRef LLVMBuildTrunc(LLVMBuilderRef, LLVMValueRef Val,
---                             LLVMTypeRef DestTy, const char *Name);
--- LLVMValueRef LLVMBuildZExt(LLVMBuilderRef, LLVMValueRef Val,
---                            LLVMTypeRef DestTy, const char *Name);
+	trunc (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_TRUNC_INST is
+		-- A "trunc" instruction; `a_value' an integer type larger than
+		-- `a_destination_type' will be truncated to the size of
+		-- `a_destination_type'. Equal sized types are not allowed.
+
+		-- The "trunc" instruction truncates the high order bits in value and
+		-- converts the remaining bits to `a_destination_type'. Since the
+		-- source size must be larger than the destination size, "trunc" cannot
+		-- be a no-op cast. It will always truncate bits.
+		require 
+			a_value/=Void
+			value_is_integer: a_value.type.is_integer
+			-- TODO: value_width_larger_than_destination: a_value.type
+			a_destination_type/=Void
+			a_name/=Void
+		do
+			create Result.from_external_pointer(llvmbuild_trunc(handle,a_value.handle,a_destination_type.handle,a_name.to_external))
+		ensure 
+			Result/=Void
+			Result.type ~ a_destination_type
+		end
+
+	zext (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_ZEXT_INST is
+		-- A "zext" instruction; it will fill the high order bits of `a_value' until it reaches the size of `a_destination_type'. 
+		-- When zero extending from an "i1", the result will always be either 0 or 1.
+		require
+			a_value/=Void
+			a_destination_type/=Void
+			a_name/=Void
+		do
+			create Result.from_external_pointer(llvmbuild_zext(handle,a_value.handle,a_destination_type.handle,a_name.to_external))
+		ensure
+			Result/=Void
+		end
+
 -- LLVMValueRef LLVMBuildSExt(LLVMBuilderRef, LLVMValueRef Val,
 --                            LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildFPToUI(LLVMBuilderRef, LLVMValueRef Val,
@@ -803,18 +863,88 @@ feature -- Casts
 --                              LLVMTypeRef DestTy, const char *Name);
 -- 
 feature -- Comparisons
--- LLVMValueRef LLVMBuildICmp(LLVMBuilderRef, LLVMIntPredicate Op,
---                            LLVMValueRef LHS, LLVMValueRef RHS,
---                            const char *Name);
--- LLVMValueRef LLVMBuildFCmp(LLVMBuilderRef, LLVMRealPredicate Op,
---                            LLVMValueRef LHS, LLVMValueRef RHS,
---                            const char *Name);
--- 
+	icmp (a_predicate: LLVMINT_PREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST is
+		-- An 'icmp' instruction that will return a boolean value or a vector of boolean values based on comparison of its two integer, integer vector, or pointer operands. `a_predicate' is the condition code indicating the kind of comparison to perform. In LLVM assembler it is not a value, but a keyword. The possible condition code are:
+
+		--   1. eq: equal
+		--   2. ne: not equal
+		--   3. ugt: unsigned greater than
+		--   4. uge: unsigned greater or equal
+		--   5. ult: unsigned less than
+		--   6. ule: unsigned less or equal
+		--   7. sgt: signed greater than
+		--   8. sge: signed greater or equal
+		--   9. slt: signed less than
+		--  10. sle: signed less or equal
+		
+		--The remaining two arguments must be integer or pointer or integer vector typed. They must also be identical types.
+		--Semantics:
+		--
+		--The 'icmp' compares op1 and op2 according to the condition code given as cond. The comparison performed always yields either an i1 or vector of i1 result, as follows:
+		--
+		--   1. eq: yields true if the operands are equal, false otherwise. No sign interpretation is necessary or performed.
+		--   2. ne: yields true if the operands are unequal, false otherwise. No sign interpretation is necessary or performed.
+		--   3. ugt: interprets the operands as unsigned values and yields true if op1 is greater than op2.
+		--   4. uge: interprets the operands as unsigned values and yields true if op1 is greater than or equal to op2.
+		--   5. ult: interprets the operands as unsigned values and yields true if op1 is less than op2.
+		--   6. ule: interprets the operands as unsigned values and yields true if op1 is less than or equal to op2.
+		--   7. sgt: interprets the operands as signed values and yields true if op1 is greater than op2.
+		--   8. sge: interprets the operands as signed values and yields true if op1 is greater than or equal to op2.
+		--   9. slt: interprets the operands as signed values and yields true if op1 is less than op2.
+		--  10. sle: interprets the operands as signed values and yields true if op1 is less than or equal to op2.
+		--
+		--If the operands are pointer typed, the pointer values are compared as if they were integers.
+		--
+		--If the operands are integer vectors, then they are compared element by element. The result is an i1 vector with the same number of elements as the values being compared. Otherwise, the result is an i1.
+		--
+		require 
+			a_left/=Void
+			a_right=Void
+			same_type: a_left.type ~ a_right.type 
+			same_size_vectors: a_left.is_constant_vector implies a_left.as_constant_vector.type.size = a_right.as_constant_vector.type.size
+		do
+			create Result.from_external_pointer(llvmbuild_icmp(handle,a_predicate.value,
+			a_left.handle,a_right.handle,a_name.to_external))
+		ensure 
+			Result/=Void
+			-- TODO: result type is an i1 or a vector 
+			-- TODO: a_left.is_constant_vector implies the-result-of-the-instruction.is_constant_vector and then a_left.as_constant_vector.type.size = Result.as
+		end
+
+	fcmp (a_predicate: LLVMREAL_PREDICATE_ENUM; a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_FCMP_INST is
+		-- Floating point comparison. 
+
+		-- TODO: adapt main LLVM documentation
+	require
+		a_left/=Void
+		a_right/=Void
+		a_name/=Void
+		same_type: a_left.type ~ a_right.type
+		-- TODO: provide remaining preconditions
+	do
+		create Result.from_external_pointer
+		(llvmbuild_fcmp(handle, a_predicate.value, a_left.handle, a_right.handle, a_name.to_external))
+	ensure 
+		Result/=Void
+	end
 feature -- Miscellaneous instructions
 -- LLVMValueRef LLVMBuildPhi(LLVMBuilderRef, LLVMTypeRef Ty, const char *Name);
--- LLVMValueRef LLVMBuildCall(LLVMBuilderRef, LLVMValueRef Fn,
---                            LLVMValueRef *Args, unsigned NumArgs,
---                            const char *Name);
+	call (a_function: LLVM_FUNCTION; some_arguments: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_CALL_INST is
+		-- A "call" instruction that will invoke `a_function' with `some_arguments'
+
+		-- TODO: adapt main LLVM doc
+	require
+		a_function/=Void
+		some_arguments/=Void 
+		-- TODO: allow some_arguments=Void for argument-less functions.
+		a_name/=Void
+	do
+		create Result.from_external_pointer
+		(llvmbuild_call(handle, a_function.handle, collection_to_c_array(some_arguments).storage.to_external,some_arguments.count.to_natural_32,a_name.to_external))
+	ensure 
+		Result/=Void
+	end
+
 -- LLVMValueRef LLVMBuildSelect(LLVMBuilderRef, LLVMValueRef If,
 --                              LLVMValueRef Then, LLVMValueRef Else,
 --                              const char *Name);

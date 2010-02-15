@@ -6,6 +6,7 @@ class LLVM_ICMP_INST
 	-- operands must be identical types.
 
 inherit LLVM_CMP_INST
+creation {LLVM_BUILDER} from_external_pointer
 
 end -- class LLVM_ICMP_INST
 
