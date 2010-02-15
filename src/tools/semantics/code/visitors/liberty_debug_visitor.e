@@ -17,7 +17,7 @@ deferred class LIBERTY_DEBUG_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_DEBUG}
 	visit_liberty_debug (v: LIBERTY_DEBUG) is
 		deferred
 		end

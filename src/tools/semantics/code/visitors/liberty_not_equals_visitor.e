@@ -17,7 +17,7 @@ deferred class LIBERTY_NOT_EQUALS_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_NOT_EQUALS}
 	visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS) is
 		deferred
 		end

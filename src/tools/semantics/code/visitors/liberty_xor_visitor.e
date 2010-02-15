@@ -17,7 +17,7 @@ deferred class LIBERTY_XOR_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_XOR}
 	visit_liberty_xor (v: LIBERTY_XOR) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_REAL_TYPED_MANIFEST_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_REAL_TYPED_MANIFEST}
 	visit_liberty_real_typed_manifest (v: LIBERTY_REAL_TYPED_MANIFEST) is
 		deferred
 		end

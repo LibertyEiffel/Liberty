@@ -17,7 +17,7 @@ deferred class LIBERTY_NEGATIVE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_NEGATIVE}
 	visit_liberty_negative (v: LIBERTY_NEGATIVE) is
 		deferred
 		end

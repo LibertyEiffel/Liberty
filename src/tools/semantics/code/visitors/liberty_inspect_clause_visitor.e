@@ -17,7 +17,7 @@ deferred class LIBERTY_INSPECT_CLAUSE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INSPECT_CLAUSE}
 	visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_CREATION_EXPRESSION_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_ENTITY_REFERENCE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ENTITY_REFERENCE}
 	visit_liberty_entity_reference (v: LIBERTY_ENTITY_REFERENCE) is
 		deferred
 		end

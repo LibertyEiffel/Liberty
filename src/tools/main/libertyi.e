@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTYC
+class LIBERTYI
 	--
 	-- The interpreter.
 	--
@@ -30,6 +30,7 @@ feature {}
 			root: LIBERTY_ACTUAL_TYPE
 			root_feature_name: LIBERTY_FEATURE_NAME
 			errors: LIBERTY_ERRORS
+			interpreter: LIBERTY_INTERPRETER
 		do
 			if argument_count /= 3 then
 				std_error.put_line("Usage: " + command_name + " <loadpath> <root type> <root feature name>")
@@ -46,10 +47,8 @@ feature {}
 			create root_feature_name.make(argument(2).intern)
 			universe.build_types(root, root_feature_name)
 
-			std_output.put_new_line
-			std_output.put_line("Root type: ")
-			root.debug_display(std_output, True)
-			std_output.put_line("Done.")
+			create interpreter.make(root, root_feature_name)
+			interpreter.run
 		end
 
-end
+end -- class LIBERTYI

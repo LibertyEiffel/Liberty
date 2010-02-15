@@ -17,7 +17,7 @@ deferred class LIBERTY_CHECK_INSTRUCTION_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_CHECK_INSTRUCTION}
 	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
 		deferred
 		end

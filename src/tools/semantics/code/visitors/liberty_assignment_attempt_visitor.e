@@ -17,7 +17,7 @@ deferred class LIBERTY_ASSIGNMENT_ATTEMPT_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ASSIGNMENT_ATTEMPT}
 	visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT) is
 		deferred
 		end

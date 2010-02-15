@@ -23,6 +23,8 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
+	redefined_feature: LIBERTY_FEATURE
+
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
 		do
 			tabulate(o, tab)
@@ -33,6 +35,14 @@ feature {ANY}
 			else
 				redefined_feature.debug_display(o, tab + 1)
 			end
+		end
+
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_FEATURE_REDEFINED_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_feature_redefined(Current)
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
@@ -118,8 +128,6 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		ensure
 			redefined_feature = a_feature
 		end
-
-	redefined_feature: LIBERTY_FEATURE
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

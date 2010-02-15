@@ -17,7 +17,7 @@ deferred class LIBERTY_RETRY_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_RETRY}
 	visit_liberty_retry (v: LIBERTY_RETRY) is
 		deferred
 		end

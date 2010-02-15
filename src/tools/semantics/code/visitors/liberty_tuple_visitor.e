@@ -17,7 +17,7 @@ deferred class LIBERTY_TUPLE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_TUPLE}
 	visit_liberty_tuple (v: LIBERTY_TUPLE) is
 		deferred
 		end

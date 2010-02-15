@@ -17,7 +17,7 @@ deferred class LIBERTY_INTEGER_64_MANIFEST_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INTEGER_64_MANIFEST}
 	visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
 		deferred
 		end

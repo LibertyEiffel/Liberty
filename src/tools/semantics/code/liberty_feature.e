@@ -16,6 +16,8 @@ deferred class LIBERTY_FEATURE
 
 insert
 	LIBERTY_REACHABLE_MARKED
+	LIBERTY_TAGGED
+	VISITABLE
 
 feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE

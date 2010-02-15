@@ -17,7 +17,7 @@ deferred class LIBERTY_AGENT_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_AGENT}
 	visit_liberty_agent (v: LIBERTY_AGENT) is
 		deferred
 		end

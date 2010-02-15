@@ -27,6 +27,14 @@ feature {ANY}
 			o.put_line(once "do...")
 		end
 
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_FEATURE_DO_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_feature_do(Current)
+		end
+
 feature {LIBERTY_FEATURE_DEFINITION}
 	join (a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do

@@ -17,7 +17,7 @@ deferred class LIBERTY_OR_ELSE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_OR_ELSE}
 	visit_liberty_or_else (v: LIBERTY_OR_ELSE) is
 		deferred
 		end

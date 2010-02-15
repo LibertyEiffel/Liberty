@@ -17,7 +17,7 @@ deferred class LIBERTY_EMPTY_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_EMPTY}
 	visit_liberty_empty (v: LIBERTY_EMPTY) is
 		deferred
 		end

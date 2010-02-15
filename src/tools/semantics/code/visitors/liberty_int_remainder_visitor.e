@@ -17,7 +17,7 @@ deferred class LIBERTY_INT_REMAINDER_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INT_REMAINDER}
 	visit_liberty_int_remainder (v: LIBERTY_INT_REMAINDER) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_ASSIGNMENT_FORCED_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ASSIGNMENT_FORCED}
 	visit_liberty_assignment_forced (v: LIBERTY_ASSIGNMENT_FORCED) is
 		deferred
 		end

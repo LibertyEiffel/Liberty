@@ -17,7 +17,7 @@ deferred class LIBERTY_BOOLEAN_MANIFEST_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_BOOLEAN_MANIFEST}
 	visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_INT_DIVIDE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INT_DIVIDE}
 	visit_liberty_int_divide (v: LIBERTY_INT_DIVIDE) is
 		deferred
 		end

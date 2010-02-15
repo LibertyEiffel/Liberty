@@ -17,7 +17,7 @@ deferred class LIBERTY_CONDITIONAL_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_CONDITIONAL}
 	visit_liberty_conditional (v: LIBERTY_CONDITIONAL) is
 		deferred
 		end

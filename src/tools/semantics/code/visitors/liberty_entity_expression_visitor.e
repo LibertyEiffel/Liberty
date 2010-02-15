@@ -17,7 +17,7 @@ deferred class LIBERTY_ENTITY_EXPRESSION_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ENTITY_EXPRESSION}
 	visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION) is
 		deferred
 		end

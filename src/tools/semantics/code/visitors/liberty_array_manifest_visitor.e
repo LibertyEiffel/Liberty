@@ -17,7 +17,7 @@ deferred class LIBERTY_ARRAY_MANIFEST_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ARRAY_MANIFEST}
 	visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST) is
 		deferred
 		end

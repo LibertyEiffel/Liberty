@@ -1,0 +1,163 @@
+-- This file is part of Liberty Eiffel.
+--
+-- Liberty Eiffel is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+class LIBERTY_INTERPRETER_INSTRUCTIONS
+
+inherit
+	LIBERTY_INSTRUCTION_VISITOR
+
+creation {LIBERTY_INTERPRETER}
+	make
+
+feature {LIBERTY_ASSIGNMENT_ATTEMPT}
+	visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT) is
+		local
+			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
+			e: LIBERTY_INTERPRETER_OBJECT
+		do
+			v.expression.accept(interpreter.expressions)
+			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			w.accept(assignment)
+		end
+
+feature {LIBERTY_ASSIGNMENT_FORCED}
+	visit_liberty_assignment_forced (v: LIBERTY_ASSIGNMENT_FORCED) is
+		local
+			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
+			e: LIBERTY_INTERPRETER_OBJECT
+		do
+			v.expression.accept(interpreter.expressions)
+			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			w.accept(assignment)
+		end
+
+feature {LIBERTY_ASSIGNMENT_REGULAR}
+	visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
+		local
+			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
+			e: LIBERTY_INTERPRETER_OBJECT
+		do
+			v.expression.accept(interpreter.expressions)
+			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			w.accept(assignment)
+		end
+
+feature {LIBERTY_CALL_INSTRUCTION}
+	visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
+		local
+			target, actual: LIBERTY_INTERPRETER_OBJECT
+			params: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
+			i: INTEGER
+		do
+			v.target.accept(interpreter.expressions)
+			target := interpreter.expressions.last_eval
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]] params.with_capacity(v.actuals.count)
+			from
+				i := v.actuals.lower
+			until
+				i > v.actuals.upper
+			loop
+				v.actuals.item(i).accept(interpreter.expressions)
+				actual := interpreter.expressions.last_aval
+				params.add_last(actual)
+				i := i + 1
+			end
+		end
+
+feature {LIBERTY_CHECK_INSTRUCTION}
+	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
+		deferred
+		end
+
+feature {LIBERTY_COMPOUND}
+	visit_liberty_compound (v: LIBERTY_COMPOUND) is
+		deferred
+		end
+
+feature {LIBERTY_CONDITIONAL}
+	visit_liberty_conditional (v: LIBERTY_CONDITIONAL) is
+		deferred
+		end
+
+feature {LIBERTY_CONDITION}
+	visit_liberty_condition (v: LIBERTY_CONDITION) is
+		deferred
+		end
+
+feature {LIBERTY_CREATION_INSTRUCTION}
+	visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION) is
+		deferred
+		end
+
+feature {LIBERTY_DEBUG}
+	visit_liberty_debug (v: LIBERTY_DEBUG) is
+		deferred
+		end
+
+feature {LIBERTY_DEFAULT}
+	visit_liberty_default (v: LIBERTY_DEFAULT) is
+		deferred
+		end
+
+feature {LIBERTY_EMPTY}
+	visit_liberty_empty (v: LIBERTY_EMPTY) is
+		deferred
+		end
+
+feature {LIBERTY_INSPECT_CLAUSE}
+	visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE) is
+		deferred
+		end
+
+feature {LIBERTY_INSPECT}
+	visit_liberty_inspect (v: LIBERTY_INSPECT) is
+		deferred
+		end
+
+feature {LIBERTY_INSPECT_SLICE}
+	visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE) is
+		deferred
+		end
+
+feature {LIBERTY_LOOP}
+	visit_liberty_loop (v: LIBERTY_LOOP) is
+		deferred
+		end
+
+feature {LIBERTY_PRECURSOR_INSTRUCTION}
+	visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
+		deferred
+		end
+
+feature {LIBERTY_RETRY}
+	visit_liberty_retry (v: LIBERTY_RETRY) is
+		deferred
+		end
+
+feature {}
+	make (a_interpreter: like interpreter) is
+		require
+			a_interpreter /= Void
+		do
+			interpreter := a_interpreter
+		ensure
+			interpreter = a_interpreter
+		end
+
+	interpreter: LIBERTY_INTERPRETER
+
+invariant
+	interpreter /= Void
+
+end -- class LIBERTY_INTERPRETER_INSTRUCTIONS

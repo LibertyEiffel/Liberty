@@ -17,7 +17,7 @@ deferred class LIBERTY_LOOP_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_LOOP}
 	visit_liberty_loop (v: LIBERTY_LOOP) is
 		deferred
 		end

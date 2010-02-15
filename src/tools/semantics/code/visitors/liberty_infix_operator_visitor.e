@@ -17,7 +17,7 @@ deferred class LIBERTY_INFIX_OPERATOR_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INFIX_OPERATOR}
 	visit_liberty_infix_operator (v: LIBERTY_INFIX_OPERATOR) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_DEFAULT_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_DEFAULT}
 	visit_liberty_default (v: LIBERTY_DEFAULT) is
 		deferred
 		end

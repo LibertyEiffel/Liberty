@@ -21,6 +21,7 @@ deferred class LIBERTY_ENTITY
 --
 
 inherit
+	VISITABLE
 	LIBERTY_POSITIONABLE
 		undefine out_in_tagged_out_memory
 		end

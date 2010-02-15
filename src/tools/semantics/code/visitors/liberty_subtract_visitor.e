@@ -17,7 +17,7 @@ deferred class LIBERTY_SUBTRACT_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_SUBTRACT}
 	visit_liberty_subtract (v: LIBERTY_SUBTRACT) is
 		deferred
 		end

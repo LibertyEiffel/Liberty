@@ -17,7 +17,7 @@ deferred class LIBERTY_LESS_OR_EQUAL_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_LESS_OR_EQUAL}
 	visit_liberty_less_or_equal (v: LIBERTY_LESS_OR_EQUAL) is
 		deferred
 		end

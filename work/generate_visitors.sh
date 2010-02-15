@@ -22,11 +22,14 @@ cd $p/src/tools/semantics/code/visitors
 
 rm -f *.e *.bak
 
-for type in EXPRESSION INSTRUCTION; do
-    dir=$(echo $type | tr '[A-Z]' '[a-z]')
-    visitor=liberty_${dir}_visitor.e
+for type in EXPRESSION INSTRUCTION FEATURE ENTITY; do
+    what=$(echo $type | tr '[A-Z]' '[a-z]')
+    dir=${what}s
+    test $dir == "entitys" && dir=entities
 
-    echo Generating ${dir}s
+    visitor=liberty_${what}_visitor.e
+
+    echo Generating ${dir}
 
     cat > $visitor <<EOF
 -- This file is part of Liberty Eiffel.
@@ -46,8 +49,8 @@ for type in EXPRESSION INSTRUCTION; do
 deferred class LIBERTY_${type}_VISITOR
 inherit
 EOF
-    for f in ../${dir}s/*.e; do
-	if ! grep -q deferred $f; then
+    for f in ../${dir}/*.e; do
+	if ! grep -q 'deferred class' $f; then
 	    f=${f##*/}; f=${f%.e}
 	    c=$(echo $f | tr '[a-z]' '[A-Z]')
 	    g=${f}_visitor
@@ -69,7 +72,7 @@ EOF
 --
 deferred class $v
 inherit VISITOR
-feature {ANY}
+feature {$c}
    visit_$f (v: $c) is deferred end
 end
 EOF

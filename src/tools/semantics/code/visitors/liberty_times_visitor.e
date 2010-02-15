@@ -17,7 +17,7 @@ deferred class LIBERTY_TIMES_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_TIMES}
 	visit_liberty_times (v: LIBERTY_TIMES) is
 		deferred
 		end

@@ -17,7 +17,7 @@ deferred class LIBERTY_OPEN_ARGUMENT_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_OPEN_ARGUMENT}
 	visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT) is
 		deferred
 		end

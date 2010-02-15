@@ -17,7 +17,7 @@ deferred class LIBERTY_CHARACTER_MANIFEST_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		deferred
 		end

@@ -33,4 +33,12 @@ feature {ANY} -- Tags on expressions
 			create Result.make("runtime set".intern)
 		end
 
+feature {ANY} -- Tags on features (used by the interpreter)
+	once_flag: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT] is
+			-- This tag indicates that the once feature has already been called; it contains the feature's Result
+			-- if it exists.
+		once
+			create Result.make("once flag".intern)
+		end
+
 end

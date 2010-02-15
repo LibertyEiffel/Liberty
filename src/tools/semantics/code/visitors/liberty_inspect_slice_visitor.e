@@ -17,7 +17,7 @@ deferred class LIBERTY_INSPECT_SLICE_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_INSPECT_SLICE}
 	visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE) is
 		deferred
 		end
