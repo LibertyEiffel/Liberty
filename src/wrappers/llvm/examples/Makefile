@@ -9,17 +9,10 @@ example.s: example.bc
 example.bc: llvm_example
 	./llvm_example >example.bc
 
-llvm_example: *.o
-	g++ *.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
-
-*.o: *.c
-	gcc `llvm-config --cflags all` -c *.c
-
-debug: llvm_example.e
-	compile_to_c -debug llvm_example 
-
-*.c : llvm_example.e
-	compile_to_c -all-check llvm_example 
+llvm_example: llvm_example.e
+	compile_to_c -no-split -all-check llvm_example 
+	gcc `llvm-config --cflags all` -c llvm_example.c
+	g++ llvm_example.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
 
 clean:
 	rm *.c *.o llvm_example example example.bc example.s

@@ -6,7 +6,7 @@ class LLVM_FCMP_INST
 	-- vectors of floating point values. The operands must be identical types.
 
 inherit LLVM_CMP_INST
-
+creation {LLVM_BUILDER} from_external_pointer
 end -- class LLVM_FCMP_INST
 
 -- Copyright 2009 Paolo Redaelli

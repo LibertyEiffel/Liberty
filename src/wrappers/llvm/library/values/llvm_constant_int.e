@@ -2,11 +2,19 @@ class LLVM_CONSTANT_INT
 	-- An integer constant
 
 inherit LLVM_CONSTANT
-
-creation {ANY} from_integer, from_string
+creation {ANY} integer_32, from_integer, from_string
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature -- Creation
+	integer_32 (a_value: INTEGER_32) is
+		-- Creates a 32-bit integer constant with `a_value'. 
+
+		-- Note: sign-extend is assumed to be 1. See `from_integer'
+	require non_negative: a_value>=0
+	do
+		handle:=llvmconst_int(llvmint_32type,a_value.to_natural_64,1)
+	end
+
 	from_integer (a_type: LLVM_INTEGER_TYPE; a_value: NATURAL_64; a_sign_extend: INTEGER_32) is
 		-- Create an integer constant of `a_type' with `a_value'; TODO: what's `a_sign_extend'?
 	require a_type/=Void

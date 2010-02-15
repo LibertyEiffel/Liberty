@@ -4,7 +4,7 @@ We are happy to announce the birth Liberty Eiffel.
 
 Liberty Eiffel is born from a simple idea: the Open Source and Free
 Software community needs a free-as-in-freedom Eiffel compiler that
-tries to be follow the principles that made Eiffel so appealing.
+tries to follow the principles that made Eiffel so appealing.
 
 SmartEiffel is an academic project; as such it is a tool for its
 developers to test and prove ideas that made their way into papers;

@@ -9,7 +9,7 @@ deferred class ARRAYED_COLLECTION[E_]
 insert
 	COLLECTION[E_]
 
-feature {ARRAYED_COLLECTION}
+feature {ARRAYED_COLLECTION, ARRAYED_COLLECTION_HANDLER}
 	storage: NATIVE_ARRAY[E_]
 			-- Internal access to storage location.
 
