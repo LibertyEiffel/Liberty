@@ -57,7 +57,9 @@ feature {LIBERTY_ASSERTIONS_OR_ELSE}
 			if failed_tag /= Void then
 				tag_left := failed_tag
 				v.right.accept(Current)
-				failed_tag := tag_left
+				if failed_tag /= Void then
+					failed_tag := tag_left
+				end
 			end
 		end
 
