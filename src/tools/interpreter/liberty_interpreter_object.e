@@ -14,8 +14,19 @@
 --
 deferred class LIBERTY_INTERPRETER_OBJECT
 
+insert
+	ANY
+		undefine
+			is_equal
+		end
+
 feature {ANY}
 	type: LIBERTY_ACTUAL_TYPE
+
+feature {ANY}
+	is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		deferred
+		end
 
 feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is

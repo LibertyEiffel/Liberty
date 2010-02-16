@@ -55,6 +55,7 @@ feature {ANY}
 
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
+	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 
 	call_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
 		local
@@ -69,6 +70,12 @@ feature {ANY}
 		do
 			call := do_call(target, feature_to_call, parameters)
 			Result := call.returned_object
+		end
+
+	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
+		do
+			--|*** TODO
+			Result := True
 		end
 
 feature {}
@@ -124,6 +131,7 @@ feature {}
 
 			create instructions.make(Current)
 			create expressions.make(Current)
+			create assertions.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 		ensure

@@ -206,7 +206,6 @@ feature {}
 			target := a_target
 			feature_definition := a_feature_definition
 			parameters := a_parameters
-			create contract_checker.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
@@ -271,31 +270,28 @@ feature {}
 feature {}
 	check_invariant is
 		do
-			contract_checker.validate(target.type.the_invariant, once "Invariant")
+			interpreter.assertions.validate(target.type.the_invariant, once "Invariant")
 		end
 
 	check_precondition (bound_feature: LIBERTY_FEATURE) is
 		do
-			contract_checker.validate(bound_feature.precondition, once "Precondition")
+			interpreter.assertions.validate(bound_feature.precondition, once "Precondition")
 		end
 
 	prepare_postcondition (bound_feature: LIBERTY_FEATURE) is
 		do
-			contract_checker.gather_old(bound_feature.postcondition)
+			interpreter.assertions.gather_old(bound_feature.postcondition)
 		end
 
 	check_postcondition (bound_feature: LIBERTY_FEATURE) is
 		do
-			contract_checker.validate(bound_feature.postcondition, once "Postcondition")
+			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
 		end
-
-	contract_checker: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 
 invariant
 	interpreter /= Void
 	parameters /= Void
 	target /= Void
 	name /= Void
-	contract_checker /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL
