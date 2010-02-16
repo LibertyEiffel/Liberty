@@ -33,6 +33,11 @@ feature {ANY}
 			Result := entity.name
 		end
 
+	feature_name: LIBERTY_FEATURE_NAME is
+		do
+			Result := entity.feature_name
+		end
+
 	result_type: LIBERTY_TYPE is
 		do
 			Result := entity.result_type

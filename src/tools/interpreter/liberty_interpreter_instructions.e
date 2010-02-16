@@ -27,7 +27,7 @@ feature {LIBERTY_ASSIGNMENT_ATTEMPT}
 			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			create assignment.attempt(interpreter, interpreter.expressions.last_eval)
 			w.accept(assignment)
 		end
 
@@ -38,7 +38,7 @@ feature {LIBERTY_ASSIGNMENT_FORCED}
 			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			create assignment.forced(interpreter, interpreter.expressions.last_eval)
 			w.accept(assignment)
 		end
 
@@ -49,7 +49,7 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
 			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.make(interpreter, interpreter.expressions.last_eval)
+			create assignment.regular(interpreter, interpreter.expressions.last_eval)
 			w.accept(assignment)
 		end
 
@@ -73,26 +73,61 @@ feature {LIBERTY_CALL_INSTRUCTION}
 				params.add_last(actual)
 				i := i + 1
 			end
+			interpreter.call_feature(target, v.feature_definition, params)
 		end
 
 feature {LIBERTY_CHECK_INSTRUCTION}
 	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
-		deferred
+		do
+			--| TODO
 		end
 
 feature {LIBERTY_COMPOUND}
 	visit_liberty_compound (v: LIBERTY_COMPOUND) is
-		deferred
+		local
+			i: INTEGER
+		do
+			from
+				i := v.lower
+			until
+				i > v.upper
+			loop
+				v.item(i).accept(Current)
+				i := i + 1
+			end
 		end
 
 feature {LIBERTY_CONDITIONAL}
 	visit_liberty_conditional (v: LIBERTY_CONDITIONAL) is
-		deferred
+		local
+			i: INTEGER
+		do
+			condition_stack.add_last(False)
+			from
+				i := v.conditions.lower
+			until
+				condition_stack.last or else i > v.conditions.upper
+			loop
+				v.conditions.item(i).accept(Current)
+				i := i + 1
+			end
+			if not conditions_stack.last then
+				v.else_clause.accept(Current)
+			end
+			condition_stack.remove_last
 		end
 
 feature {LIBERTY_CONDITION}
 	visit_liberty_condition (v: LIBERTY_CONDITION) is
-		deferred
+		local
+			c: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
+		do
+			v.expression.accept(interpreter.expressions)
+			c ::= interpreter.expressions.last_val
+			if c.item then
+				condition_stack.put(True, condition_stack.upper)
+				v.instruction.accept(Current)
+			end
 		end
 
 feature {LIBERTY_CREATION_INSTRUCTION}
@@ -151,13 +186,17 @@ feature {}
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
+			create condition_stack.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 
+	condition_stack: FAST_ARRAY[BOOLEAN]
+
 invariant
 	interpreter /= Void
+	condition_stack /= Void
 
 end -- class LIBERTY_INTERPRETER_INSTRUCTIONS

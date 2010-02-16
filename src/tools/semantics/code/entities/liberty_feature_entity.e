@@ -58,6 +58,11 @@ feature {ANY}
 			end
 		end
 
+	feature_definition: LIBERTY_FEATURE_DEFINITION is
+		do
+			Result := target_type.actual_type.feature_definition(feature_name)
+		end
+
 feature {LIBERTY_CALL_EXPRESSION}
 	can_check_agent_signature: BOOLEAN is
 		do

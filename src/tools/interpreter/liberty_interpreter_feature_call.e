@@ -23,6 +23,16 @@ insert
 creation {LIBERTY_INTERPRETER}
 	make
 
+feature{LIBERTY_INTERPRETER}
+	call is
+		local
+			bound_feature: LIBERTY_FEATURE
+		do
+			bound_feature := feature_definition.the_feature.bound(target.type)
+			returned_static_type := result_type
+			bound_feature.accept(Current)
+		end
+
 feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS}
 	returned_object: LIBERTY_INTERPRETER_OBJECT
 
@@ -31,6 +41,40 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			returned_object := a_returned_object
 		ensure
 			returned_object = a_returned_object
+		end
+
+	local_static_type (local_name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
+		do
+			Result := local_types.reference_at(local_name)
+		end
+
+	set_local (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			local_map.put(value, local_name)
+		end
+
+	returned_static_type: LIBERTY_ACTUAL_TYPE
+
+	writable_feature_static_type (feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
+		do
+			Result := target.type.feature_definition(feature_name).result_type.actual_type
+		end
+
+	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+		do
+			struct ::= target
+			struct.put_attribute(name.name, value)
+		end
+
+	raised_exception: LIBERTY_INTERPRETER_EXCEPTION
+
+	raise (a_exception: like raised_exception) is
+		do
+			raised_exception := a_exception
+		ensure
+			raised_exception = a_exception
 		end
 
 feature {LIBERTY_INTERPRETER}
@@ -107,6 +151,7 @@ feature {LIBERTY_FEATURE_DEFERRED}
 feature {LIBERTY_FEATURE_DO}
 	visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
 		do
+			prepare_local_maps(v)
 			v.block_instruction.accept(interpreter.instructions)
 		end
 
@@ -126,6 +171,7 @@ feature {LIBERTY_FEATURE_ONCE}
 				once_value ::= once_value_ref.value(v)
 				returned_object := once_value.value
 			else
+				prepare_local_maps(v)
 				v.block_instruction.accept(interpreter.instructions)
 				once_value_ref.add(returned_object, v)
 			end
@@ -144,39 +190,82 @@ feature {LIBERTY_FEATURE_UNIQUE}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_target: like target; a_name: FIXED_STRING; a_parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+	make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: like feature_definition; a_parameters: like parameters) is
 		require
 			a_interpreter /= Void
 			a_target /= Void
-			a_name /= Void
+			a_feature_definition /= Void
 			a_parameters /= Void
 		do
 			interpreter := a_interpreter
 			target := a_target
-			name := a_name
-
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameters.with_capacity(a_parameters.count)
-			--|*** TODO: fill the parameters dictionary according to the called feature's signature
-
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} locals.with_capacity(2)
+			feature_definition := a_feature_definition
+			parameters := a_parameters
 		ensure
 			interpreter = a_interpreter
 			target = a_target
-			name = a_name
+			feature_definition = a_feature_definition
 			parameters = a_parameters
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 	target: LIBERTY_INTERPRETER_OBJECT
-	name: LIBERTY_FEATURE_NAME
-	parameters: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
-	locals: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+	feature_definition: LIBERTY_FEATURE_DEFINITION
+	parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+
+	parameter_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+	local_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+
+	parameter_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
+	local_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
+
+	prepare_local_maps (f: LIBERTY_FEATURE_ROUTINE) is
+		local
+			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
+		do
+			if f.parameters.count /= parameters.count then
+				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
+												+ " but got " + parameters.count)
+			end
+			check
+				f.parameters.lower = parameters.lower
+			end
+			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(parameters.count)
+			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(parameters.count)
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				p := f.parameters.item(i)
+				parameter_types.add(p.type, p.name)
+				parameter_map.add(Void, p.name)
+				i := i + 1
+			end
+
+			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} local_map.with_capacity(locals.count)
+			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} local_types.with_capacity(locals.count)
+			from
+				i := f.locals.lower
+			until
+				i > f.locals.upper
+			loop
+				l := f.locals.item(i)
+				local_types.add(l.type, l.name)
+				local_map.add(Void, l.name)
+				i := i + 1
+			end
+		ensure
+			parameter_types /= Void
+			parameter_map /= Void
+			local_types /= Void
+			local_map /= Void
+		end
 
 invariant
 	interpreter /= Void
+	parameters /= Void
 	target /= Void
 	name /= Void
-	parameters /= Void
-	locals /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL

@@ -242,6 +242,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		do
 			Result := late_binding.fast_reference_at(type)
+			if Result = Void then
+				Result := Current
+			end
+		ensure
+			Result /= Void
 		end
 
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is

@@ -18,7 +18,7 @@ inherit
 	LIBERTY_ENTITY_VISITOR
 
 creation {LIBERTY_INTERPRETER_INSTRUCTIONS}
-	make
+	attempt, forced, regular
 
 feature {LIBERTY_CURRENT}
 	visit_liberty_current (v: LIBERTY_CURRENT) is
@@ -41,7 +41,7 @@ feature {LIBERTY_FEATURE_ENTITY}
 feature {LIBERTY_LOCAL}
 	visit_liberty_local (v: LIBERTY_LOCAL) is
 		do
-			interpreter.set_local(v.name, value)
+			interpreter.set_local(v.name, checker.item([interpreter, interpreter.local_static_type(v.name), value]))
 		end
 
 feature {LIBERTY_PARAMETER}
@@ -53,13 +53,13 @@ feature {LIBERTY_PARAMETER}
 feature {LIBERTY_RESULT}
 	visit_liberty_result (v: LIBERTY_RESULT) is
 		do
-			interpreter.set_returned_object(value)
+			interpreter.set_returned_object(checker.item([interpreter, interpreter.returned_static_type, value]))
 		end
 
 feature {LIBERTY_WRITABLE_FEATURE}
 	visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE) is
 		do
-			interpreter.set_writable_feature(v.name, value)
+			interpreter.set_writable_feature(v.feature_name, checker.item([interpreter, interpreter.writable_feature_static_type(v.feature_name), value]))
 		end
 
 feature {}
@@ -74,10 +74,83 @@ feature {}
 			value = a_value
 		end
 
+	attempt (a_interpreter: like interpreter; a_value: like value) is
+		do
+			make(a_interpreter, a_value)
+			checker := attempt_assignment_checker
+		end
+
+	forced (a_interpreter: like interpreter; a_value: like value) is
+		do
+			make(a_interpreter, a_value)
+			checker := forced_assignment_checker
+		end
+
+	regular (a_interpreter: like interpreter; a_value: like value) is
+		do
+			make(a_interpreter, a_value)
+			checker := regular_assignment_checker
+		end
+
 	interpreter: LIBERTY_INTERPRETER_INTERPRETER
 	value: LIBERTY_INTERPRETER_OBJECT
+	checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT]
+
+	attempt_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+		once
+			Result := agent check_attempt_assignment
+		end
+
+	forced_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+		once
+			Result := agent check_forced_assignment
+		end
+
+	regular_assignment_checket: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+		once
+			Result := agent check_regular_assignment
+		end
+
+feature {} -- Assignment check implementation
+	check_attempt_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
+		do
+			if would_be_assigned_value.type.is_conform_to(expected_static_type) then
+				Result := would_be_assigned_value
+			end
+		ensure
+			Result = Void or else Result = would_be_assigned_value
+		end
+
+	check_forced_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+									 expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
+		do
+			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
+				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
+												  + "} is not conform to the entity's static type {"
+													 + expected_static_type + "}")
+			end
+			Result := would_be_assigned_value
+		ensure
+			Result = would_be_assigned_value
+		end
+
+	check_regular_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
+		do
+			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
+				-- ... but should never happen
+				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
+												  + "} is not conform to the entity's static type {"
+													 + expected_static_type + "}")
+			end
+			Result := would_be_assigned_value
+		ensure
+			Result = would_be_assigned_value
+		end
 
 invariant
 	interpreter /= Void
+	checker /= Void
 
 end -- class LIBERTY_INTERPRETER_ASSIGNMENT

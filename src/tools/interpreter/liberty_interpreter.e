@@ -56,37 +56,47 @@ feature {ANY}
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
 
-	call_feature (object: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+	call_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
 		local
-			call: LIBERTY_INTERPRETER_FEATURE_CALL
+			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			create call.make(Current, object, feature_to_call.feature_name, parameters)
-			call_stack.add_last(call)
-			feature_to_call.the_feature.accept(call)
-			check
-				call_stack.last = call
-			end
-			call_stack.remove_last
+			dummy := do_call(target, feature_to_call, parameters)
 		end
 
-	item_feature (object: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_OBJECT_INTERPRETER is
+	item_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_OBJECT_INTERPRETER is
 		local
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			create call.make(Current, object, feature_to_call.feature_name, parameters)
-			call_stack.add_last(call)
-			feature_to_call.the_feature.accept(call)
-			check
-				call_stack.last = call
-			end
+			call := do_call(target, feature_to_call, parameters)
 			Result := call.returned_object
+		end
+
+feature {}
+	do_call (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
+		do
+			create Result.make(Current, object, feature_to_call.feature_name, parameters)
+			call_stack.add_last(Result)
+			Result.call
+			check
+				call_stack.last = Result
+			end
 			call_stack.remove_last
 		end
 
 feature {LIBERTY_INTERPRETER_ASSIGNMENT}
+	local_static_type (name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
+		do
+			Result := call_stack.last.local_static_type(name)
+		end
+
 	set_local (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			call_stack.last.set_local(name, value)
+		end
+
+	returned_static_type: LIBERTY_ACTUAL_TYPE is
+		do
+			Result := call_stack.last.returned_static_type
 		end
 
 	set_returned_object (value: LIBERTY_INTERPRETER_OBJECT) is
@@ -94,12 +104,14 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 			call_stack.last.set_returned_object(value)
 		end
 
-	set_writable_feature (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
-		local
-			struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+	writable_feature_static_type (name: LIBERTY_FEATURE_NAME) is
 		do
-			struct ::= call_stack.last.target
-			struct.put_attribute(name, value)
+			Result := call_stack.last.writable_feature_name(name)
+		end
+
+	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			call_stack.last.set_writable_feature(name, value)
 		end
 
 feature {}

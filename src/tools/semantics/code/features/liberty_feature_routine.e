@@ -27,6 +27,15 @@ feature {ANY}
 
 	rescue_instruction: LIBERTY_INSTRUCTION
 
+	locals: TRAVERSABLE[LIBERTY_LOCAL] is
+		require
+			has_context
+		do
+			Result := context.locals
+		ensure
+			exists: Result /= Void
+		end
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_rescue (a_rescue: like rescue_instruction) is
 		require
