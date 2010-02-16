@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CHECK
+class LIBERTY_ENSURE
 
 inherit
 	LIBERTY_WRITTEN_ASSERTIONS
@@ -28,6 +28,15 @@ feature {}
 			assertions := a_assertions
 		ensure
 			assertions = a_assertions
+		end
+
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ENSURE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_ensure(Current)
 		end
 
 end

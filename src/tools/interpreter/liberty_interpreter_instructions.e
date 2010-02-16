@@ -69,7 +69,7 @@ feature {LIBERTY_CALL_INSTRUCTION}
 				i > v.actuals.upper
 			loop
 				v.actuals.item(i).accept(interpreter.expressions)
-				actual := interpreter.expressions.last_aval
+				actual := interpreter.expressions.last_eval
 				params.add_last(actual)
 				i := i + 1
 			end
@@ -78,8 +78,11 @@ feature {LIBERTY_CALL_INSTRUCTION}
 
 feature {LIBERTY_CHECK_INSTRUCTION}
 	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
+		local
+			checker: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 		do
-			--| TODO
+			create checker.make(interpreter)
+			checker.validate(v.checks, once "Check")
 		end
 
 feature {LIBERTY_COMPOUND}
@@ -123,7 +126,7 @@ feature {LIBERTY_CONDITION}
 			c: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 		do
 			v.expression.accept(interpreter.expressions)
-			c ::= interpreter.expressions.last_val
+			c ::= interpreter.expressions.last_eval
 			if c.item then
 				condition_stack.put(True, condition_stack.upper)
 				v.instruction.accept(Current)

@@ -22,7 +22,7 @@ cd $p/src/tools/semantics/code/visitors
 
 rm -f *.e *.bak
 
-for type in EXPRESSION INSTRUCTION FEATURE ENTITY; do
+for type in ASSERTION ENTITY EXPRESSION FEATURE INSTRUCTION; do
     what=$(echo $type | tr '[A-Z]' '[a-z]')
     dir=${what}s
     test $dir == "entitys" && dir=entities

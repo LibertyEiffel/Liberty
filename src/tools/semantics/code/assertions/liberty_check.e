@@ -12,21 +12,31 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_WRITTEN_ASSERTIONS
+class LIBERTY_CHECK
 
 inherit
-	LIBERTY_ASSERTIONS
+	LIBERTY_WRITTEN_ASSERTIONS
+
+create {LIBERTY_TYPE_BUILDER_TOOLS}
+	make
 
 feature {}
-	assertions: TRAVERSABLE[LIBERTY_ASSERTION]
-
-feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
+	make (a_assertions: like assertions) is
+		require
+			a_assertions /= Void
 		do
-			assertions_marker.mark_reachable_code(mark, assertions)
+			assertions := a_assertions
+		ensure
+			assertions = a_assertions
 		end
 
-invariant
-	assertions /= Void
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CHECK_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_check(Current)
+		end
 
 end

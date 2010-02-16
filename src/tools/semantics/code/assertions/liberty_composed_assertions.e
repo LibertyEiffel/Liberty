@@ -12,22 +12,36 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INVARIANT
+deferred class LIBERTY_COMPOSED_ASSERTIONS
 
 inherit
-	LIBERTY_WRITTEN_ASSERTIONS
+	LIBERTY_ASSERTIONS
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
-	make
+feature {ANY}
+	left, right: LIBERTY_ASSERTIONS
+
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			left.mark_reachable_code(mark)
+			right.mark_reachable_code(mark)
+		end
 
 feature {}
-	make (a_assertions: like assertions) is
+	make (a_left: like left; a_right: like right) is
 		require
-			a_assertions /= Void
+			a_left /= Void
+			a_right /= Void
 		do
-			assertions := a_assertions
+			left := a_left
+			right := a_right
 		ensure
-			assertions = a_assertions
+			left = a_left
+			right = a_right
 		end
+
+invariant
+	left /= Void
+	right /= Void
 
 end

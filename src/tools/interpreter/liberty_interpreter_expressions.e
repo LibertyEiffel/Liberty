@@ -175,7 +175,8 @@ feature {LIBERTY_NOT_EQUALS}
 
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
-		deferred
+		do
+			Result := interpreter.old_value(v.expression)
 		end
 
 feature {LIBERTY_OPEN_ARGUMENT}

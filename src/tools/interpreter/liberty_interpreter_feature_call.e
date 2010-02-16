@@ -30,7 +30,12 @@ feature{LIBERTY_INTERPRETER}
 		do
 			bound_feature := feature_definition.the_feature.bound(target.type)
 			returned_static_type := result_type
+			check_invariant
+			check_precondition(bound_feature)
+			prepare_postcondition(bound_feature)
 			bound_feature.accept(Current)
+			check_post_condition(bound_feature)
+			check_invariant
 		end
 
 feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS}
@@ -201,6 +206,7 @@ feature {}
 			target := a_target
 			feature_definition := a_feature_definition
 			parameters := a_parameters
+			create contract_checker.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
@@ -262,10 +268,34 @@ feature {}
 			local_map /= Void
 		end
 
+feature {}
+	check_invariant is
+		do
+			contract_checker.validate(target.type.the_invariant, once "Invariant")
+		end
+
+	check_precondition (bound_feature: LIBERTY_FEATURE) is
+		do
+			contract_checker.validate(bound_feature.precondition, once "Precondition")
+		end
+
+	prepare_postcondition (bound_feature: LIBERTY_FEATURE) is
+		do
+			contract_checker.gather_old(bound_feature.postcondition)
+		end
+
+	check_postcondition (bound_feature: LIBERTY_FEATURE) is
+		do
+			contract_checker.validate(bound_feature.postcondition, once "Postcondition")
+		end
+
+	contract_checker: LIBERTY_INTERPRETER_ASSERTION_CHECKER
+
 invariant
 	interpreter /= Void
 	parameters /= Void
 	target /= Void
 	name /= Void
+	contract_checker /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL

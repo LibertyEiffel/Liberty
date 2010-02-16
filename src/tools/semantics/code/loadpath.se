@@ -1,4 +1,5 @@
 ./
+assertions/
 entities/
 expressions/
 features/

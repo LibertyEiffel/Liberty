@@ -12,12 +12,21 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_REQUIRE_THEN
+class LIBERTY_ASSERTIONS_OR_ELSE
 
 inherit
-	LIBERTY_REQUIRE
+	LIBERTY_COMPOSED_ASSERTIONS
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_ASSERTIONS}
 	make
+
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ASSERTIONS_OR_ELSE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_assertions_or_else(Current)
+		end
 
 end

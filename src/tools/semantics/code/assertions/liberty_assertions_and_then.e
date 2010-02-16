@@ -20,4 +20,13 @@ inherit
 create {LIBERTY_ASSERTIONS}
 	make
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ASSERTIONS_AND_THEN_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_assertions_and_then(Current)
+		end
+
 end

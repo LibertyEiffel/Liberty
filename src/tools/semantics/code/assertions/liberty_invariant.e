@@ -12,12 +12,31 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_ENSURE_THEN
+class LIBERTY_INVARIANT
 
 inherit
-	LIBERTY_ENSURE
+	LIBERTY_WRITTEN_ASSERTIONS
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
+
+feature {}
+	make (a_assertions: like assertions) is
+		require
+			a_assertions /= Void
+		do
+			assertions := a_assertions
+		ensure
+			assertions = a_assertions
+		end
+
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INVARIANT_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_invariant(Current)
+		end
 
 end
