@@ -59,4 +59,4 @@ feature {ANY}
 			v0.visit_liberty_agent(Current)
 		end
 
-end -- class LIBETY_AGENT
+end -- class LIBERTY_AGENT
