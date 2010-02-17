@@ -132,6 +132,15 @@ feature {}
 
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_FEATURE_ENTITY_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_feature_entity(Current)
+		end
+
 invariant
 	name /= Void
 	delayed_feature_type /= Void

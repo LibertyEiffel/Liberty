@@ -72,6 +72,15 @@ feature {}
 			position = a_position
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_WRITABLE_FEATURE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_writable_feature(Current)
+		end
+
 invariant
 	entity /= Void
 

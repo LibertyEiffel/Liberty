@@ -54,6 +54,15 @@ feature {}
 			result_type = type
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CURRENT_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_current(Current)
+		end
+
 invariant
 	result_type /= Void
 

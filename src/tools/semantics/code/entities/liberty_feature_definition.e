@@ -343,10 +343,17 @@ feature {}
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
-
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
-
 	errors: LIBERTY_ERRORS
+
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_FEATURE_DEFINITION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_feature_definition(Current)
+		end
 
 invariant
 	feature_name /= Void

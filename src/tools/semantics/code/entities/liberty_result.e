@@ -56,6 +56,15 @@ feature {}
 			position = a_position
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_RESULT_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_result(Current)
+		end
+
 invariant
 	result_type /= Void
 
