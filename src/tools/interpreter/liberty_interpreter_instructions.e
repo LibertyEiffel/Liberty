@@ -57,23 +57,12 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
 feature {LIBERTY_CALL_INSTRUCTION}
 	visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
 		local
-			target, actual: LIBERTY_INTERPRETER_OBJECT
+			target: LIBERTY_INTERPRETER_OBJECT
 			params: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
-			i: INTEGER
 		do
 			v.target.accept(interpreter.expressions)
 			target := interpreter.expressions.last_eval
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]] params.with_capacity(v.actuals.count)
-			from
-				i := v.actuals.lower
-			until
-				i > v.actuals.upper
-			loop
-				v.actuals.item(i).accept(interpreter.expressions)
-				actual := interpreter.expressions.last_eval
-				params.add_last(actual)
-				i := i + 1
-			end
+			params := as_parameters(v.actuals)
 			interpreter.call_feature(target, v.feature_definition, params)
 		end
 
@@ -292,7 +281,8 @@ feature {LIBERTY_VARIANT}
 
 feature {LIBERTY_PRECURSOR_INSTRUCTION}
 	visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
-		deferred
+		do
+			interpreter.call_precursor(v.the_feature, as_parameters(v.actuals))
 		end
 
 feature {LIBERTY_RETRY}
@@ -319,6 +309,24 @@ feature {}
 	condition_stack: FAST_ARRAY[BOOLEAN]
 	inspect_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]]
+
+feature {}
+	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]: COLLECTION[LIBERTY_INTERPRETER_OBJECT is
+		local
+			i: INTEGER; actual: LIBERTY_INTERPRETER_OBJECT
+		do
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]] Result.with_capacity(actuals.count)
+			from
+				i := actuals.lower
+			until
+				i > actuals.upper
+			loop
+				actuals.item(i).accept(interpreter.expressions)
+				actual := interpreter.expressions.last_eval
+				params.add_last(actual)
+				i := i + 1
+			end
+		end
 
 invariant
 	interpreter /= Void

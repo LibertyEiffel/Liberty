@@ -72,6 +72,21 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
+	call_precursor (a_precursor: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+		local
+			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
+		do
+			dummy := do_precursor(a_precursor, parameters)
+		end
+
+	item_precursor (a_precursor: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+		local
+			call: LIBERTY_INTERPRETER_FEATURE_CALL
+		do
+			call := do_precursor(a_precursor, parameters)
+			Result :=call.returned_object
+		end
+
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
 		do
 			--|*** TODO
@@ -81,7 +96,18 @@ feature {ANY}
 feature {}
 	do_call (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
-			create Result.make(Current, object, feature_to_call.feature_name, parameters)
+			create Result.make(Current, target, feature_to_call, parameters)
+			call_stack.add_last(Result)
+			Result.call
+			check
+				call_stack.last = Result
+			end
+			call_stack.remove_last
+		end
+
+	do_precursor (a_feature: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
+		do
+			create Result.make_precursor(Current, call_stack.last.target, a_feature, parameters)
 			call_stack.add_last(Result)
 			Result.call
 			check

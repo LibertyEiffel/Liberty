@@ -21,15 +21,11 @@ insert
 	LIBERTY_TAGS
 
 creation {LIBERTY_INTERPRETER}
-	make
+	make, make_precursor
 
-feature{LIBERTY_INTERPRETER}
+feature {LIBERTY_INTERPRETER}
 	call is
-		local
-			bound_feature: LIBERTY_FEATURE
 		do
-			bound_feature := feature_definition.the_feature.bound(target.type)
-			returned_static_type := result_type
 			check_invariant
 			check_precondition(bound_feature)
 			prepare_postcondition(bound_feature)
@@ -195,7 +191,7 @@ feature {LIBERTY_FEATURE_UNIQUE}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: like feature_definition; a_parameters: like parameters) is
+	make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: LIBERTY_FEATURE_DEFINITION; a_parameters: like parameters) is
 		require
 			a_interpreter /= Void
 			a_target /= Void
@@ -204,19 +200,36 @@ feature {}
 		do
 			interpreter := a_interpreter
 			target := a_target
-			feature_definition := a_feature_definition
 			parameters := a_parameters
+			bound_feature := a_feature_definition.the_feature.bound(a_target.type)
+			returned_static_type := bound_feature.result_type
 		ensure
 			interpreter = a_interpreter
 			target = a_target
-			feature_definition = a_feature_definition
+			parameters = a_parameters
+		end
+
+	make_precursor (a_interpreter: like interpreter; a_target: like target; a_precursor: LIBERTY_FEATURE; a_parameters: like parameters) is
+		require
+			a_interpreter /= Void
+			a_target /= Void
+			a_parameters /= Void
+		do
+			interpreter := a_interpreter
+			target := a_target
+			parameters := a_parameters
+			bound_feature := a_precursor
+			returned_static_type := bound_feature.result_type
+		ensure
+			interpreter = a_interpreter
+			target = a_target
 			parameters = a_parameters
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 	target: LIBERTY_INTERPRETER_OBJECT
-	feature_definition: LIBERTY_FEATURE_DEFINITION
 	parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+	bound_feature: LIBERTY_FEATURE
 
 	parameter_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
 	local_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
