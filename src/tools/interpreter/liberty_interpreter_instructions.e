@@ -25,7 +25,6 @@ feature {LIBERTY_ASSIGNMENT_ATTEMPT}
 	visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT) is
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
-			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.attempt(interpreter, interpreter.expressions.last_eval)
@@ -36,7 +35,6 @@ feature {LIBERTY_ASSIGNMENT_FORCED}
 	visit_liberty_assignment_forced (v: LIBERTY_ASSIGNMENT_FORCED) is
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
-			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.forced(interpreter, interpreter.expressions.last_eval)
@@ -47,7 +45,6 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
 	visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
-			e: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.regular(interpreter, interpreter.expressions.last_eval)
@@ -127,7 +124,11 @@ feature {LIBERTY_CONDITION}
 
 feature {LIBERTY_CREATION_INSTRUCTION}
 	visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION) is
-		deferred
+		local
+			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
+		do
+			create assignment.regular(interpreter, interpreter.new_object(v.feature_entity.result_type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments)))
+			w.accept(assignment)
 		end
 
 feature {LIBERTY_DEBUG}

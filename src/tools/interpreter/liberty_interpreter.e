@@ -87,6 +87,12 @@ feature {ANY}
 			Result :=call.returned_object
 		end
 
+	new_object (object_type: LIBERTY_ACTUAL_TYPE; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := creator.new_object(object_type)
+			call_feature(Result, feature_to_call, parameters)
+		end
+
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
 		do
 			--|*** TODO
@@ -158,6 +164,7 @@ feature {}
 			create instructions.make(Current)
 			create expressions.make(Current)
 			create assertions.make(Current)
+			create creator.make
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 		ensure
@@ -182,9 +189,14 @@ feature {}
 
 	call_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
+	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
+
 invariant
+	universe /= Void
 	instructions /= Void
 	expressions /= Void
+	assertions /= Void
+	creator /= Void
 	call_stack /= Void
 
 end -- class LIBERTY_INTERPRETER

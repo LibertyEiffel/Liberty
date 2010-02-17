@@ -150,6 +150,24 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("BOOLEAN", visit_type_boolean)
 		end
 
+	type_native_array (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		local
+			td: LIBERTY_TYPE_DESCRIPTOR
+			ast: LIBERTY_AST_ONE_CLASS
+		do
+			create td.make(native_array_class_descriptor, effective_generics)
+			Result := types.reference_at(td)
+			if Result = Void then
+				ast := parse_class(cluster, class_name, Void)
+				create Result.make(td, standard_generics_checker, ast, visit_type_native_array)
+				start_to_build_type(Result)
+			end
+		ensure
+			Result /= Void
+		end
+
 	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
@@ -436,6 +454,14 @@ feature {}
 			torch.burn
 		end
 
+	native_array_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("NATIVE_ARRAY")
+			create Result.make(cluster, "NATIVE_ARRAY".intern, Void)
+		end
+
 	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
 		local
 			cluster: LIBERTY_CLUSTER
@@ -564,9 +590,33 @@ feature {LIBERTY_TYPE_RESOLVER}
 				Result := type_string
 			when "BOOLEAN" then
 				Result := type_boolean
+			when "NATIVE_ARRAY" then
+				parameters := get_parameters(type_definition.type_parameters)
+				Result := type_native_array(parameters, type_lookup.resolver.position(type_definition))
 			when "TUPLE" then
 				parameters := get_parameters(type_definition.type_parameters)
 				Result := type_tuple(parameters, type_lookup.resolver.position(type_definition))
+			when "PROCEDURE" then
+				parameters := get_parameters(type_definition.type_parameters)
+				check
+					parameters.count = 1
+					parameters.first.is_actual_type_set
+				end
+				Result := type_procedure(parameters.first.actual_type.parameters, type_lookup.resolver.position(type_definition))
+			when "PREDICATE" then
+				parameters := get_parameters(type_definition.type_parameters)
+				check
+					parameters.count = 1
+					parameters.first.is_actual_type_set
+				end
+				Result := type_predicate(parameters.first.actual_type.parameters, type_lookup.resolver.position(type_definition))
+			when "FUNCTION" then
+				parameters := get_parameters(type_definition.type_parameters)
+				check
+					parameters.count = 2
+					parameters.first.is_actual_type_set
+				end
+				Result := type_function(parameters.first.actual_type.parameters, parameters.last, type_lookup.resolver.position(type_definition))
 			else
 				parameters := get_parameters(type_definition.type_parameters)
 				Result := do_get_type(cluster, type_lookup.resolver.position(type_definition), class_name, parameters)
@@ -900,6 +950,11 @@ feature {}
 	visit_type_boolean: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_boolean
+		end
+
+	visit_type_native_array: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_native_array
 		end
 
 	visit_type_tuple: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is

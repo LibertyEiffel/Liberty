@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER}
+creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
 	make
 
 feature {ANY}
@@ -80,16 +80,13 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 feature {}
-	make (a_name: like name; a_type: like type) is
+	make (a_type: like type) is
 		require
-			a_name /= Void
 			a_type /= Void
 		do
-			name := a_name
 			type := a_type
 			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} attributes.with_capacity(2)
 		ensure
-			name = a_name
 			type = a_type
 		end
 

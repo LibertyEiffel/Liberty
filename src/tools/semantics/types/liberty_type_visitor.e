@@ -67,6 +67,10 @@ feature {LIBERTY_ACTUAL_TYPE}
 		deferred
 		end
 
+	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
+		deferred
+		end
+
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
 		deferred
 		end
