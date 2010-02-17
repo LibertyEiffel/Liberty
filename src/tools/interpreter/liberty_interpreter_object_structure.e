@@ -21,6 +21,11 @@ creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
 	make
 
 feature {ANY}
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := Current = other
+		end
+
 	put_attribute (a_attribute_name: FIXED_STRING; a_attribute: LIBERTY_INTERPRETER_OBJECT) is
 		require
 			a_attribute /= Void

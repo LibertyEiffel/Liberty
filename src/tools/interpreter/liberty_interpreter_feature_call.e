@@ -27,10 +27,10 @@ feature {LIBERTY_INTERPRETER}
 	call is
 		do
 			check_invariant
-			check_precondition(bound_feature)
-			prepare_postcondition(bound_feature)
+			check_precondition
+			prepare_postcondition
 			bound_feature.accept(Current)
-			check_post_condition(bound_feature)
+			check_postcondition
 			check_invariant
 		end
 
@@ -110,18 +110,18 @@ feature {LIBERTY_INTERPRETER}
 					i := i + 1
 				end
 			end
-			if not locals.is_empty then
+			if not local_map.is_empty then
 				o.put_new_line
 				o.put_line(once "Locals:")
 				from
-					i := locals.lower
+					i := local_map.lower
 				until
-					i > locals.upper
+					i > local_map.upper
 				loop
 					o.put_new_line
-					o.put_string(locals.key(i))
+					o.put_string(local_map.key(i))
 					o.put_string(once " = ")
-					locals.item(i).show_stack(o, 0)
+					local_map.item(i).show_stack(o, 0)
 					i := i + 1
 				end
 			end
@@ -261,8 +261,8 @@ feature {}
 				i := i + 1
 			end
 
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} local_map.with_capacity(locals.count)
-			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} local_types.with_capacity(locals.count)
+			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} local_map.with_capacity(f.locals.count)
+			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} local_types.with_capacity(f.locals.count)
 			from
 				i := f.locals.lower
 			until
@@ -286,17 +286,17 @@ feature {}
 			interpreter.assertions.validate(target.type.the_invariant, once "Invariant")
 		end
 
-	check_precondition (bound_feature: LIBERTY_FEATURE) is
+	check_precondition is
 		do
 			interpreter.assertions.validate(bound_feature.precondition, once "Precondition")
 		end
 
-	prepare_postcondition (bound_feature: LIBERTY_FEATURE) is
+	prepare_postcondition is
 		do
 			interpreter.assertions.gather_old(bound_feature.postcondition)
 		end
 
-	check_postcondition (bound_feature: LIBERTY_FEATURE) is
+	check_postcondition is
 		do
 			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
 		end

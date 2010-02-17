@@ -18,9 +18,14 @@ inherit
 	LIBERTY_INTERPRETER_OBJECT
 
 creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
-	make
+	make, set_item
 
 feature {ANY}
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := item = other.item
+		end
+
 	item: E_
 
 	set_item (a_item: like item) is

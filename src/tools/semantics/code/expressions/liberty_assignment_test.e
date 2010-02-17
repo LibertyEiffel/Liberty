@@ -23,6 +23,17 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	result_type: LIBERTY_TYPE
 
+	expression: LIBERTY_EXPRESSION
+
+	tested_type: LIBERTY_TYPE is
+		do
+			if type /= Void then
+				Result := type
+			else
+				Result := entity.result_type
+			end
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
@@ -71,7 +82,6 @@ feature {}
 		end
 
 	entity: LIBERTY_ENTITY
-	expression: LIBERTY_EXPRESSION
 	type: LIBERTY_ACTUAL_TYPE
 
 feature {ANY}

@@ -64,7 +64,7 @@ feature {ANY}
 			dummy := do_call(target, feature_to_call, parameters)
 		end
 
-	item_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_OBJECT_INTERPRETER is
+	item_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
 		local
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
@@ -84,7 +84,7 @@ feature {ANY}
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
 			call := do_precursor(a_precursor, parameters)
-			Result :=call.returned_object
+			Result := call.returned_object
 		end
 
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
@@ -143,7 +143,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 			call_stack.last.set_returned_object(value)
 		end
 
-	writable_feature_static_type (name: LIBERTY_FEATURE_NAME) is
+	writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
 			Result := call_stack.last.writable_feature_name(name)
 		end
@@ -192,7 +192,6 @@ feature {}
 	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
 
 invariant
-	universe /= Void
 	instructions /= Void
 	expressions /= Void
 	assertions /= Void

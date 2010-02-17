@@ -127,8 +127,8 @@ feature {LIBERTY_CREATION_INSTRUCTION}
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
-			create assignment.regular(interpreter, interpreter.new_object(v.feature_entity.result_type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments)))
-			w.accept(assignment)
+			create assignment.regular(interpreter, interpreter.new_object(v.type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments)))
+			v.writable.accept(assignment)
 		end
 
 feature {LIBERTY_DEBUG}
@@ -312,11 +312,11 @@ feature {}
 	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]]
 
 feature {}
-	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]: COLLECTION[LIBERTY_INTERPRETER_OBJECT is
+	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]): COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
 		local
 			i: INTEGER; actual: LIBERTY_INTERPRETER_OBJECT
 		do
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]] Result.with_capacity(actuals.count)
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(actuals.count)
 			from
 				i := actuals.lower
 			until
