@@ -134,6 +134,11 @@ feature {ANY}
 			Result := features.at(a_feature_name)
 		end
 
+	accept (visitor: LIBERTY_TYPE_VISITOR) is
+		do
+			visit.call([visitor, Current])
+		end
+
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
 		local
@@ -483,10 +488,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast) is
+	make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast; a_visit: like visit) is
 		require
 			a_descriptor /= Void
 			a_conformance_checker /= Void
+			a_visit /= Void
 		do
 			descriptor := a_descriptor
 			conformance_checker := a_conformance_checker
@@ -494,6 +500,7 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
 			conformant_parents := no_parents
 			non_conformant_parents := no_parents
+			visit := a_visit
 		ensure
 			descriptor = a_descriptor
 			conformance_checker = a_conformance_checker
@@ -510,6 +517,7 @@ feature {}
 
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER
+	visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]
 
 	no_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
 		once

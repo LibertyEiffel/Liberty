@@ -63,91 +63,91 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("ANY")
+			Result := kernel_type("ANY", visit_type_any)
 		end
 
 	type_pointer: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("POINTER")
+			Result := kernel_type("POINTER", visit_type_pointer)
 		end
 
 	type_integer_64: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_64")
+			Result := kernel_type("INTEGER_64", visit_type_integer_64)
 		end
 
 	type_integer, type_integer_32: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_32")
+			Result := kernel_type("INTEGER_32", visit_type_integer_32)
 		end
 
 	type_integer_16: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_16")
+			Result := kernel_type("INTEGER_16", visit_type_integer_16)
 		end
 
 	type_integer_8: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_8")
+			Result := kernel_type("INTEGER_8", visit_type_integer_8)
 		end
 
 	type_real, type_real_64: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_64")
+			Result := kernel_type("REAL_64", visit_type_real_64)
 		end
 
 	type_real_32: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_32")
+			Result := kernel_type("REAL_32", visit_type_real_32)
 		end
 
 	type_real_80: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_80")
+			Result := kernel_type("REAL_80", visit_type_real_80)
 		end
 
 	type_real_128: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_128")
+			Result := kernel_type("REAL_128", visit_type_real_128)
 		end
 
 	type_character: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("CHARACTER")
+			Result := kernel_type("CHARACTER", visit_type_character)
 		end
 
 	type_string: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("STRING")
+			Result := kernel_type("STRING", visit_type_string)
 		end
 
 	type_boolean: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("BOOLEAN")
+			Result := kernel_type("BOOLEAN", visit_type_boolean)
 		end
 
 	type_tuple (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
@@ -172,7 +172,7 @@ feature {ANY} -- Kernel types
 								  + " generic parameters.%NYou might want a named class with named attributes instead.")
 				end
 				ast ::= tuple_ast.classes.item(tuple_count)
-				create Result.make(td, tuple_generics_checker, ast)
+				create Result.make(td, tuple_generics_checker, ast, visit_type_tuple)
 				start_to_build_type(Result)
 			end
 		ensure
@@ -183,7 +183,7 @@ feature {ANY} -- Kernel types
 		require
 			effective_generics /= Void
 		do
-			Result := agent_type(procedure_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position)
+			Result := agent_type(procedure_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_procedure)
 		end
 
 	type_function (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
@@ -192,14 +192,14 @@ feature {ANY} -- Kernel types
 			result_type /= Void
 			result_type /= type_boolean
 		do
-			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position),result_type >> }, position)
+			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position),result_type >> }, position, visit_type_function)
 		end
 
 	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 		do
-			Result := agent_type(predicate_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position)
+			Result := agent_type(predicate_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_predicate)
 		end
 
 feature {}
@@ -468,7 +468,7 @@ feature {}
 			create Result.make(cluster, "PREDICATE".intern, Void)
 		end
 
-	kernel_type (class_name: STRING): LIBERTY_ACTUAL_TYPE is
+	kernel_type (class_name: STRING; visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]): LIBERTY_ACTUAL_TYPE is
 			-- Called only once per kernel type
 		require
 			not errors.has_error
@@ -486,14 +486,15 @@ feature {}
 			Result := types.reference_at(td)
 			if Result = Void then
 				ast := parse_class(cluster, class_name, Void)
-				create Result.make(td, standard_generics_checker, ast)
+				create Result.make(td, standard_generics_checker, ast, visit)
 				start_to_build_type(Result)
 			end
 		ensure
 			Result /= Void
 		end
 
-	agent_type (class_descriptor: LIBERTY_CLASS_DESCRIPTOR; agent_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	agent_type (class_descriptor: LIBERTY_CLASS_DESCRIPTOR; agent_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION;
+					visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]): LIBERTY_ACTUAL_TYPE is
 		require
 			class_descriptor /= Void
 			agent_generics /= Void
@@ -505,7 +506,7 @@ feature {}
 			Result := types.reference_at(td)
 			if Result = Void then
 				ast := parse_class(td.cluster, td.name, position)
-				create Result.make(td, agent_generics_checker, ast)
+				create Result.make(td, agent_generics_checker, ast, visit)
 				start_to_build_type(Result)
 			end
 		end
@@ -605,7 +606,7 @@ feature {}
 			Result := types.reference_at(descriptor)
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
-				create Result.make(descriptor, standard_generics_checker, ast)
+				create Result.make(descriptor, standard_generics_checker, ast, visit_user_type)
 				start_to_build_type(Result)
 			end
 		ensure
@@ -833,6 +834,97 @@ feature {}
 	agent_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
 		once
 			create {LIBERTY_AGENT_CONFORMANCE_CHECKER} Result.make
+		end
+
+feature {}
+	visit_type_any: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_any
+		end
+
+	visit_type_pointer: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_pointer
+		end
+
+	visit_type_integer_64: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_integer_64
+		end
+
+	visit_type_integer_32: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_integer_32
+		end
+
+	visit_type_integer_16: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_integer_16
+		end
+
+	visit_type_integer_8: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_integer_8
+		end
+
+	visit_type_real_64: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_real_64
+		end
+
+	visit_type_real_32: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_real_32
+		end
+
+	visit_type_real_80: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_real_80
+		end
+
+	visit_type_real_128: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_real_128
+		end
+
+	visit_type_character: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_character
+		end
+
+	visit_type_string: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_string
+		end
+
+	visit_type_boolean: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_boolean
+		end
+
+	visit_type_tuple: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_tuple
+		end
+
+	visit_type_procedure: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_procedure
+		end
+
+	visit_type_function: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_function
+		end
+
+	visit_type_predicate: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_predicate
+		end
+
+	visit_user_type: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_user_type
 		end
 
 invariant
