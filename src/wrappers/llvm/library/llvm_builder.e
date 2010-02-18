@@ -945,10 +945,25 @@ feature -- Miscellaneous instructions
 		Result/=Void
 	end
 
--- LLVMValueRef LLVMBuildSelect(LLVMBuilderRef, LLVMValueRef If,
---                              LLVMValueRef Then, LLVMValueRef Else,
---                              const char *Name);
--- LLVMValueRef LLVMBuildVAArg(LLVMBuilderRef, LLVMValueRef List, LLVMTypeRef Ty,
+	select_inst (an_if, a_then, an_else: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SELECT_INST is
+		-- A new 'select' instruction which choose one value based on a condition, without branching.
+
+		-- The 'select' instruction requires an 'i1' value or a vector of 'i1' values indicating the condition, and two values of the same first class type. If the val1/val2 are vectors and the condition is a scalar, then entire vectors are selected, not individual elements.
+
+		-- If the condition is an i1 and it evaluates to 1, the instruction returns the first value argument; otherwise, it returns the second value argument. If the condition is a vector of i2, then the value arguments must be vectors of the same size, and the selection is done element by element.
+	require 
+		an_if /= Void
+		a_then /= Void
+		an_else /= Void
+		a_name /= Void
+		an_if_is_boolean: {LLVM_INTEGER_TYPE} ?:= an_if.type
+	do
+		create Result.from_external_pointer(llvmbuild_select(handle,an_if.handle,a_then.handle,an_else.handle,a_name.to_external))
+	ensure
+		Result/=Void
+	end
+
+	-- LLVMValueRef LLVMBuildVAArg(LLVMBuilderRef, LLVMValueRef List, LLVMTypeRef Ty,
 --                             const char *Name);
 -- LLVMValueRef LLVMBuildExtractElement(LLVMBuilderRef, LLVMValueRef VecVal,
 --                                      LLVMValueRef Index, const char *Name);

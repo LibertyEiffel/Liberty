@@ -54,6 +54,12 @@ feature {ANY} -- Queries
 			not_yet_implemented -- or mostly unuseful
 		end
 
+	is_boolean: BOOLEAN is
+		-- Is Current a one-bit integer?
+	do
+		Result := is_integer -- and then as_constant_vector
+	end
+
 	is_integer: BOOLEAN is 
 		-- Is Current an integer type?
 	do
