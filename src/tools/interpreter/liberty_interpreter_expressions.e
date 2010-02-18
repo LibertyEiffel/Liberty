@@ -21,7 +21,12 @@ creation {LIBERTY_INTERPRETER}
 	make
 
 feature {ANY}
-	last_eval: LIBERTY_INTERPRETER_OBJECT
+	last_eval: LIBERTY_INTERPRETER_OBJECT is
+		do
+			if eval_memory /= Void then
+				Result := eval_memory.storage_twin
+			end
+		end
 
 feature {LIBERTY_ADD}
 	visit_liberty_add (v: LIBERTY_ADD) is
@@ -59,13 +64,13 @@ feature {LIBERTY_ASSIGNMENT_TEST}
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
 			v.expression.accept(Current)
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_eval.set_item(last_eval.type.is_conform_to(v.tested_type.actual_type))
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, last_eval.type.is_conform_to(v.tested_type.actual_type))
 		end
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
 	visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, v.manifest)
 		end
 
 feature {LIBERTY_CALL_EXPRESSION}
@@ -77,19 +82,19 @@ feature {LIBERTY_CALL_EXPRESSION}
 			v.target.accept(interpreter.expressions)
 			target := interpreter.expressions.last_eval
 			params := as_parameters(v.actuals)
-			last_eval := interpreter.item_feature(target, v.feature_definition, params)
+			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, params)
 		end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} eval_memory.with_item(interpreter, interpreter.universe.type_character, v.manifest)
 		end
 
 feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
 		do
-			last_eval := interpreter.new_object(v.result_type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
+			eval_memory := interpreter.new_object(v.result_type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
 		end
 
 feature {LIBERTY_DIVIDE}
@@ -113,7 +118,7 @@ feature {LIBERTY_ENTITY_REFERENCE}
 feature {LIBERTY_EQUALS}
 	visit_liberty_equals (v: LIBERTY_EQUALS) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_eval.set_item(visit_comparison(v))
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, visit_comparison(v))
 		end
 
 feature {LIBERTY_GREATER_OR_EQUAL}
@@ -149,25 +154,25 @@ feature {LIBERTY_INT_DIVIDE}
 feature {LIBERTY_INTEGER_16_MANIFEST}
 	visit_liberty_integer_16_manifest (v: LIBERTY_INTEGER_16_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_64, v.manifest)
 		end
 
 feature {LIBERTY_INTEGER_32_MANIFEST}
 	visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_32, v.manifest)
 		end
 
 feature {LIBERTY_INTEGER_64_MANIFEST}
 	visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_16, v.manifest)
 		end
 
 feature {LIBERTY_INTEGER_8_MANIFEST}
 	visit_liberty_integer_8_manifest (v: LIBERTY_INTEGER_8_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_8, v.manifest)
 		end
 
 feature {LIBERTY_INTEGER_TYPED_MANIFEST}
@@ -209,13 +214,13 @@ feature {LIBERTY_NOT}
 feature {LIBERTY_NOT_EQUALS}
 	visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_eval.set_item(not visit_comparison(v))
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, not visit_comparison(v))
 		end
 
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
 		do
-			last_eval := interpreter.old_value(v.expression)
+			eval_memory := interpreter.old_value(v.expression)
 		end
 
 feature {LIBERTY_OPEN_ARGUMENT}
@@ -251,7 +256,7 @@ feature {LIBERTY_POWER}
 feature {LIBERTY_PRECURSOR_EXPRESSION}
 	visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
 		do
-			last_eval := interpreter.item_precursor(v.the_feature, as_parameters(v.actuals))
+			eval_memory := interpreter.item_precursor(v.the_feature, as_parameters(v.actuals))
 		end
 
 feature {LIBERTY_PREFIX_OPERATOR}
@@ -263,7 +268,7 @@ feature {LIBERTY_PREFIX_OPERATOR}
 feature {LIBERTY_REAL_MANIFEST}
 	visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL]} eval_memory.with_item(interpreter, interpreter.universe.type_real, v.manifest)
 		end
 
 feature {LIBERTY_REAL_TYPED_MANIFEST}
@@ -275,7 +280,7 @@ feature {LIBERTY_REAL_TYPED_MANIFEST}
 feature {LIBERTY_STRING_MANIFEST}
 	visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[STRING]} last_eval.set_item(v.manifest)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[STRING]} eval_memory.with_item(interpreter, interpreter.universe.type_string, v.manifest)
 		end
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
@@ -305,7 +310,7 @@ feature {LIBERTY_TUPLE}
 feature {LIBERTY_VOID}
 	visit_liberty_void (v: LIBERTY_VOID) is
 		do
-			last_eval := Void
+			eval_memory := Void
 		end
 
 feature {LIBERTY_XOR}
@@ -325,6 +330,7 @@ feature {}
 		end
 
 	interpreter: LIBERTY_INTERPRETER
+	eval_memory: LIBERTY_INTERPRETER_OBJECT
 
 feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
@@ -335,7 +341,7 @@ feature {}
 			left := last_eval
 			v.actuals.first.accept(Current)
 			right := last_eval
-			last_eval := interpreter.item_feature(left, v.entity.feature_definition, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << right >> })
+			eval_memory := interpreter.item_feature(left, v.entity.feature_definition, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << right >> })
 		end
 
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
@@ -344,7 +350,7 @@ feature {}
 		do
 			v.target.accept(Current)
 			target := last_eval
-			last_eval := interpreter.item_feature(target, v.entity.feature_definition, no_parameters)
+			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, no_parameters)
 		end
 
 	visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is
@@ -352,9 +358,9 @@ feature {}
 			left, right: LIBERTY_INTERPRETER_OBJECT
 			bool: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 		do
-			v.target.accept(Current)
+			v.left.accept(Current)
 			left := last_eval
-			v.actuals.first.accept(Current)
+			v.right.accept(Current)
 			right := last_eval
 			if left = Void then
 				Result := right = Void
@@ -381,7 +387,7 @@ feature {}
 			loop
 				actuals.item(i).accept(interpreter.expressions)
 				actual := interpreter.expressions.last_eval
-				params.add_last(actual)
+				Result.add_last(actual)
 				i := i + 1
 			end
 		end

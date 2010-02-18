@@ -18,24 +18,24 @@ create {LIBERTY_TAGS}
 	make
 
 feature {ANY}
-	add (value: T_; tagged: LIBERTY_TAGGED) is
+	add (a_value: T_; tagged: LIBERTY_TAGGED) is
 		require
 			not is_set(tagged)
 		local
 			tag: LIBERTY_TYPED_TAG[T_]
 		do
-			create tag.make(Current, value)
+			create tag.make(Current, a_value)
 			tagged.add_tag(tag)
 		ensure
 			is_set(tagged)
 		end
 
-	set (value: T_; tagged: LIBERTY_TAGGED) is
+	set (a_value: T_; tagged: LIBERTY_TAGGED) is
 		local
 			tag: LIBERTY_TYPED_TAG[T_]
 		do
-			create tag.make(Current, value)
-			tagged.set_tag(tag, id)
+			create tag.make(Current, a_value)
+			tagged.set_tag(tag)
 		ensure
 			is_set(tagged)
 		end
@@ -57,6 +57,9 @@ feature {ANY}
 			Result := tag.value
 		end
 
+feature {LIBERTY_TAGGED, LIBERTY_TAG}
+	id: FIXED_STRING
+
 feature {}
 	make (a_id: like id) is
 		require
@@ -64,7 +67,5 @@ feature {}
 		do
 			id := a_id
 		end
-
-	id: FIXED_STRING
 
 end

@@ -14,7 +14,7 @@
 --
 deferred class LIBERTY_TYPE_VISITOR
 
-feature {LIBERTY_ACTUAL_TYPE}
+feature {LIBERTY_UNIVERSE}
 	visit_type_any (type: LIBERTY_ACTUAL_TYPE) is
 		deferred
 		end
@@ -63,7 +63,7 @@ feature {LIBERTY_ACTUAL_TYPE}
 		deferred
 		end
 
-	visit_type_boolean: LIBERTY_ACTUAL_TYPE is
+	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
 		deferred
 		end
 

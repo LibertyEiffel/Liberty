@@ -31,12 +31,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
 
 	gather_old (contract: LIBERTY_ASSERTIONS) is
 		do
-			browser.accept(Current)
-		end
-
-	old_value (expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
-		do
-			Result := browser.old_value(expression)
+			browser.gather_old(contract)
 		end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}

@@ -92,27 +92,27 @@ feature {}
 			checker := regular_assignment_checker
 		end
 
-	interpreter: LIBERTY_INTERPRETER_INTERPRETER
+	interpreter: LIBERTY_INTERPRETER
 	value: LIBERTY_INTERPRETER_OBJECT
-	checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT]
+	checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT]
 
-	attempt_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+	attempt_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
 		once
 			Result := agent check_attempt_assignment
 		end
 
-	forced_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+	forced_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
 		once
 			Result := agent check_forced_assignment
 		end
 
-	regular_assignment_checket: FUNCTION[TUPLE[LIBERTY_INTERPRETER_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
+	regular_assignment_checker: FUNCTION[TUPLE[LIBERTY_INTERPRETER, LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER_OBJECT], LIBERTY_INTERPRETER_OBJECT] is
 		once
 			Result := agent check_regular_assignment
 		end
 
 feature {} -- Assignment check implementation
-	check_attempt_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+	check_attempt_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if would_be_assigned_value.type.is_conform_to(expected_static_type) then
@@ -122,27 +122,27 @@ feature {} -- Assignment check implementation
 			Result = Void or else Result = would_be_assigned_value
 		end
 
-	check_forced_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+	check_forced_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									 expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
-													 + expected_static_type + "}")
+													 + expected_static_type.full_name + "}")
 			end
 			Result := would_be_assigned_value
 		ensure
 			Result = would_be_assigned_value
 		end
 
-	check_regular_assignment (a_interpreter: LIBERTY_INTERPRETER_INTERPRETER;
+	check_regular_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
 				-- ... but should never happen
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
-													 + expected_static_type + "}")
+													 + expected_static_type.full_name + "}")
 			end
 			Result := would_be_assigned_value
 		ensure

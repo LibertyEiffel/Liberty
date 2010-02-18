@@ -17,8 +17,8 @@ class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
-	make, set_item
+creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, LIBERTY_INTERPRETER_EXPRESSIONS}
+	make, with_item
 
 feature {ANY}
 	is_equal (other: like Current): BOOLEAN is
@@ -48,14 +48,34 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 feature {}
-	make (a_type: like type) is
+	make (a_interpreter: like interpreter; a_type: like type) is
 		require
+			a_interpreter /= Void
 			a_type /= Void
 		do
+			interpreter := a_interpreter
 			type := a_type
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} attributes.with_capacity(2)
 		ensure
+			interpreter = a_interpreter
 			type = a_type
+		end
+
+	with_item (a_interpreter: like interpreter; a_type: like type; a_item: like item) is
+		require
+			a_interpreter /= Void
+			a_type /= Void
+		do
+			make(a_interpreter, a_type)
+			item := a_item
+		ensure
+			interpreter = a_interpreter
+			type = a_type
+			item = a_item
+		end
+
+	expanded_twin: like Current is
+		do
+			create Result.with_item(interpreter, type, item)
 		end
 
 end -- class LIBERTY_INTERPRETER_OBJECT_NATIVE

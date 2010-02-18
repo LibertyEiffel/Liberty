@@ -24,9 +24,9 @@ feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code is
+	mark_reachable_code (mark: INTEGER) is
 		do
-			expression.mark_reachable_code
+			expression.mark_reachable_code(mark)
 		end
 
 feature {}

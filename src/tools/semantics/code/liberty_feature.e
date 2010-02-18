@@ -14,9 +14,11 @@
 --
 deferred class LIBERTY_FEATURE
 
+inherit
+	LIBERTY_TAGGED
+
 insert
 	LIBERTY_REACHABLE_MARKED
-	LIBERTY_TAGGED
 	VISITABLE
 
 feature {ANY}
@@ -238,7 +240,7 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {ANY}
 	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		do
 			Result := late_binding.fast_reference_at(type)
@@ -249,6 +251,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			Result /= Void
 		end
 
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
 		require
 			bound(type) = Void

@@ -17,13 +17,19 @@ class LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
+creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
 	make
 
 feature {ANY}
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := Current = other
+			if type = other.type then
+				if type.is_expanded then
+					Result := expanded_is_equal(other)
+				else
+					Result := Current = other
+				end
+			end
 		end
 
 	put_attribute (a_attribute_name: FIXED_STRING; a_attribute: LIBERTY_INTERPRETER_OBJECT) is
@@ -55,8 +61,6 @@ feature {ANY}
 			a_attribute_name /= Void
 		do
 			Result := attributes.fast_at(a_attribute_name)
-		ensure
-			Result.name = a_attribute_name
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
@@ -81,21 +85,62 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 				i := i + 1
 			end
 			put_indent(o, indent)
-			o.put_line(once "] }"
+			o.put_line(once "] }")
 		end
 
 feature {}
-	make (a_type: like type) is
+	make (a_interpreter: like interpreter; a_type: like type) is
 		require
+			a_interpreter /= Void
 			a_type /= Void
 		do
+			interpreter := a_interpreter
 			type := a_type
 			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} attributes.with_capacity(2)
 		ensure
+			interpreter = a_interpreter
 			type = a_type
 		end
 
+feature {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
 	attributes: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+
+feature {}
+	expanded_is_equal (other: like Current): BOOLEAN is
+		require
+			other.type = type
+			type.is_expanded
+		local
+			i: INTEGER; name: FIXED_STRING; attr: LIBERTY_INTERPRETER_OBJECT
+		do
+			if attributes.count = other.attributes.count then
+				from
+					Result := True
+					i := attributes.lower
+				until
+					not Result or else i > attributes.upper
+				loop
+					name := attributes.key(i)
+					Result := other.attributes.fast_has(name) and then attributes.item(i).is_equal(other.attributes.fast_at(name))
+					i := i + 1
+				end
+			end
+		end
+
+	expanded_twin: like Current is
+		local
+			i: INTEGER
+		do
+			create Result.make(interpreter, type)
+			from
+				i := attributes.lower
+			until
+				i > attributes.upper
+			loop
+				Result.put_attribute(attributes.key(i), attributes.item(i).storage_twin)
+				i := i + 1
+			end
+		end
 
 invariant
 	attributes /= Void

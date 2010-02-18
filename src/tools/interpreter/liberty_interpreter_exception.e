@@ -13,4 +13,7 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_INTERPRETER_EXCEPTION
+
+	--|*** TODO
+
 end -- LIBERTY_INTERPRETER_EXCEPTION

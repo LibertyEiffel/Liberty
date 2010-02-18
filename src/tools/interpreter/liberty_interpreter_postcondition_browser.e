@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER_POSTCONDITION_BROWSER
 inherit
 	LIBERTY_INTERPRETER_EXPRESSIONS
 		redefine
-			visit_liberty_old
+			make, visit_liberty_old
 		end
 	LIBERTY_ASSERTION_VISITOR
 
@@ -25,21 +25,16 @@ creation {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
 	make
 
 feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
-	gather_old (contract: LIBERTY_ASSERTIONS; error_message: ABSTRACT_STRING) is
+	gather_old (contract: LIBERTY_ASSERTIONS) is
 		do
 			contract.accept(Current)
-		end
-
-	old_value (expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
-		do
-			Result := old_values.fast_reference_at(expression)
 		end
 
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
 		do
 			v.expression.accept(Current)
-			old_values.add(last_eval, v.expression)
+			interpreter.add_old_value(v.expression, last_eval)
 		end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
@@ -110,7 +105,6 @@ feature {}
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 			i: INTEGER
 		do
-			failed_tag := Void
 			assertions := contract.assertions
 			from
 				i := assertions.lower
@@ -124,20 +118,11 @@ feature {}
 
 feature {}
 	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
-			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
-		ensure
-			interpreter = a_interpreter
 		end
-
-	interpreter: LIBERTY_INTERPRETER
-	old_values: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]
 
 invariant
 	interpreter /= Void
-	old_values /= Void
 
 end -- class LIBERTY_INTERPRETER_POSTCONDITION_BROWSER
