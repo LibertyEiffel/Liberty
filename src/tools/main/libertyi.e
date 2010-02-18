@@ -47,7 +47,7 @@ feature {}
 			create root_feature_name.make(argument(2).intern)
 			universe.build_types(root, root_feature_name)
 
-			create interpreter.make(root, root_feature_name)
+			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
 		end
 
