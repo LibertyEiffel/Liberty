@@ -111,7 +111,7 @@ feature {}
 			other.type = type
 			type.is_expanded
 		local
-			i: INTEGER; name: FIXED_STRING; attr: LIBERTY_INTERPRETER_OBJECT
+			i: INTEGER; name: FIXED_STRING
 		do
 			if attributes.count = other.attributes.count then
 				from

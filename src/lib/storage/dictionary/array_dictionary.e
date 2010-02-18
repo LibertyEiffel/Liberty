@@ -6,15 +6,6 @@ class ARRAY_DICTIONARY[V_, K_]
 	-- This dictionary is sorted in the order in which the keys are added.
 	-- Access time is not good at all: O(n)
 	--
-	-- Warning: this class which is still there in 2.3 may be removed in the next release. Avoid 
-	-- using it. Actually, if your K_ type is HASHABLE, you may consider to use 
-	-- HASHED_DICTIONARY or AVL_DICTIONARY if your class is COMPARABLE. 
-	-- Also note that any class can be made HASHABLE with just a little bit of imagination.
-	--
-
-obsolete "Since august 2007, this class is obsolete.%N%
-         %If your K_ type is HASHABLE, you may consider to use HASHED_DICTIONARY or AVL_DICTIONARY if your class%N%
-         %is COMPARABLE. Also note that any class can be made HASHABLE with just a little bit of imagination."
 
 inherit
 	DICTIONARY[V_, K_]

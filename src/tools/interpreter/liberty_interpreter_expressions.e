@@ -60,8 +60,6 @@ feature {LIBERTY_ARRAY_MANIFEST}
 
 feature {LIBERTY_ASSIGNMENT_TEST}
 	visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
-		local
-			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
 			v.expression.accept(Current)
 			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, last_eval.type.is_conform_to(v.tested_type.actual_type))
@@ -356,7 +354,6 @@ feature {}
 	visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is
 		local
 			left, right: LIBERTY_INTERPRETER_OBJECT
-			bool: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 		do
 			v.left.accept(Current)
 			left := last_eval
