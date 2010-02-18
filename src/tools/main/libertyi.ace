@@ -1,0 +1,40 @@
+system "libertyi"
+
+root LIBERTYI: make
+
+default
+	assertion(no)
+	debug(no)
+	collect(yes)
+	verbose(yes)
+	manifest_string_trace(no)
+	profile(no)
+	relax(yes)
+	trace(yes)
+
+cluster
+	lib: "${path_liberty}/src/lib/loadpath.se"
+		default
+			assertion(no)
+		option
+			debug(all): FIXED_STRING -- `debug_string' is very useful
+			assertion(require): HASHED_DICTIONARY, FAST_ARRAY
+		end
+
+	tools: "${path_liberty}/src/tools/loadpath.se"
+		default
+			assertion(ensure)
+		option
+			debug(all): LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER,
+			            LIBERTY_ACTUAL_TYPE, LIBERTY_DELAYED_TYPE,
+				    LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_ENTITY,
+				    LIBERTY_FEATURE_ATTRIBUTE, LIBERTY_FEATURE_CONSTANT, LIBERTY_FEATURE_DEFERRED, LIBERTY_FEATURE_DO, LIBERTY_FEATURE_EXTERNAL, LIBERTY_FEATURE_ONCE, LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_UNIQUE
+			assertion(all): LIBERTY_ACTUAL_TYPE, LIBERTY_DELAYED_TYPE
+		end
+
+generate
+	no_strip(yes)
+	no_split(no)
+	clean(no)
+
+end
