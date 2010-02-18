@@ -253,10 +253,8 @@ feature {ANY}
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
-		require
-			bound(type) = Void
 		do
-			late_binding.add(child, type)
+			late_binding.put(child, type)
 		ensure
 			late_binding.fast_at(type) = child
 		end
