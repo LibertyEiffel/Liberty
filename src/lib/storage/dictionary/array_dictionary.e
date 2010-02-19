@@ -169,7 +169,7 @@ feature {}
 
 	with_capacity (needed_capacity: like capacity) is
 		require
-			needed_capacity > 0
+			needed_capacity >= 0
 		do
 			create keys.with_capacity(needed_capacity)
 			create items.with_capacity(needed_capacity)
