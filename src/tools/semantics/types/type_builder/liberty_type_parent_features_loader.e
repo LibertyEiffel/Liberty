@@ -58,8 +58,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
-	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
-
 feature {}
 	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
 		local
@@ -261,9 +259,6 @@ feature {}
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_context(inherited_feature.context)
 					if conformant then
-						if inherited_feature.bound(type) /= Void then
-							--|*** TODO: some warning?
-						end
 						inherited_feature.bind(deferred_feature, type)
 					end
 					fd.set_the_feature(deferred_feature)
@@ -295,8 +290,7 @@ feature {}
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
 						inherited_feature := fd.the_feature
-						redefined_feature := inherited_feature.bound(type)
-						if redefined_feature = Void then
+						if not inherited_feature.is_bound(type) then
 							create {LIBERTY_FEATURE_REDEFINED} redefined_feature.make(type)
 							redefined_feature.set_precondition(inherited_feature.precondition)
 							redefined_feature.set_postcondition(inherited_feature.postcondition)
@@ -306,6 +300,7 @@ feature {}
 							end
 						else
 							--|*** TODO: ??? is it possible to have a non-related feature here???
+							redefined_feature := inherited_feature.bound(type)
 						end
 						fd.set_the_feature(redefined_feature)
 					end
@@ -347,6 +342,7 @@ feature {}
 
 feature {}
 	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
 invariant
 	parent_features /= Void

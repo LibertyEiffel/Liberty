@@ -241,6 +241,11 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {ANY}
+	is_bound (type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			Result := late_binding.fast_has(type)
+		end
+
 	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		do
 			Result := late_binding.fast_reference_at(type)
@@ -249,14 +254,17 @@ feature {ANY}
 			end
 		ensure
 			Result /= Void
+			not is_bound(type) implies Result = Current
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+		require
+			not is_bound(type)
 		do
 			late_binding.put(child, type)
 		ensure
-			late_binding.fast_at(type) = child
+			bound(type) = child
 		end
 
 	set_context (a_context: like context) is

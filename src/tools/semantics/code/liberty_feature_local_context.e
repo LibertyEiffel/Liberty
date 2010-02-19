@@ -146,6 +146,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				Result := redefined_features.reference_at(create {LIBERTY_FEATURE_NAME}.make_from_ast(fn.feature_name_or_alias, ast, file))
 				i := i + 1
 			end
+			if Result = Void then
+				sedb_breakpoint
+			end
 		end
 
 feature {}
