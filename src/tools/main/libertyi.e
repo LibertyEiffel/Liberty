@@ -44,10 +44,10 @@ feature {}
 			create universe.make(argument(1))
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 
-			create root_feature_name.make(argument(2).intern)
+			create root_feature_name.make(argument(3).intern)
 			universe.build_types(root, root_feature_name)
 
-			create interpreter.make(root, root_feature_name)
+			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
 		end
 

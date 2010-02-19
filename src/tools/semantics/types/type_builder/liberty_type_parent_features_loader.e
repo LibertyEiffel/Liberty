@@ -261,6 +261,9 @@ feature {}
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_context(inherited_feature.context)
 					if conformant then
+						if inherited_feature.bound(type) /= Void then
+							--|*** TODO: some warning?
+						end
 						inherited_feature.bind(deferred_feature, type)
 					end
 					fd.set_the_feature(deferred_feature)

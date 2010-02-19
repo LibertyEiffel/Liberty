@@ -160,7 +160,7 @@ feature {ANY} -- Kernel types
 			create td.make(native_array_class_descriptor, effective_generics)
 			Result := types.reference_at(td)
 			if Result = Void then
-				ast := parse_class(cluster, class_name, Void)
+				ast := parse_class(td.cluster, td.name, Void)
 				create Result.make(td, standard_generics_checker, ast, visit_type_native_array)
 				start_to_build_type(Result)
 			end
@@ -204,13 +204,13 @@ feature {ANY} -- Kernel types
 			Result := agent_type(procedure_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_procedure)
 		end
 
-	type_function (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; result_type: LIBERTY_ACTUAL_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+	type_function (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; result_type: LIBERTY_TYPE; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
 			result_type /= Void
 			result_type /= type_boolean
 		do
-			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position),result_type >> }, position, visit_type_function)
+			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position), result_type >> }, position, visit_type_function)
 		end
 
 	type_predicate (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is

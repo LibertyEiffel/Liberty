@@ -28,7 +28,7 @@ feature {LIBERTY_ASSIGNMENT_ATTEMPT}
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.attempt(interpreter, interpreter.expressions.last_eval)
-			w.accept(assignment)
+			v.writable.accept(assignment)
 		end
 
 feature {LIBERTY_ASSIGNMENT_FORCED}
@@ -38,7 +38,7 @@ feature {LIBERTY_ASSIGNMENT_FORCED}
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.forced(interpreter, interpreter.expressions.last_eval)
-			w.accept(assignment)
+			v.writable.accept(assignment)
 		end
 
 feature {LIBERTY_ASSIGNMENT_REGULAR}
@@ -48,7 +48,7 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
 		do
 			v.expression.accept(interpreter.expressions)
 			create assignment.regular(interpreter, interpreter.expressions.last_eval)
-			w.accept(assignment)
+			v.writable.accept(assignment)
 		end
 
 feature {LIBERTY_CALL_INSTRUCTION}
@@ -60,16 +60,13 @@ feature {LIBERTY_CALL_INSTRUCTION}
 			v.target.accept(interpreter.expressions)
 			target := interpreter.expressions.last_eval
 			params := as_parameters(v.actuals)
-			interpreter.call_feature(target, v.feature_definition, params)
+			interpreter.call_feature(target, v.entity.feature_definition, params)
 		end
 
 feature {LIBERTY_CHECK_INSTRUCTION}
 	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
-		local
-			checker: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 		do
-			create checker.make(interpreter)
-			checker.validate(v.checks, once "Check")
+			interpreter.assertions.validate(v.checks, once "Check")
 		end
 
 feature {LIBERTY_COMPOUND}
@@ -101,7 +98,7 @@ feature {LIBERTY_CONDITIONAL}
 				v.conditions.item(i).accept(Current)
 				i := i + 1
 			end
-			if not conditions_stack.last then
+			if not condition_stack.last then
 				v.else_clause.accept(Current)
 			end
 			condition_stack.remove_last
@@ -210,7 +207,7 @@ feature {LIBERTY_INSPECT_CLAUSE}
 				i := i + 1
 			end
 		ensure
-			inspect_stack.in_range(old inspect_stack.count - 1, old inspect_stack.count)
+			inspect_stack.count.in_range(old inspect_stack.count - 1, old inspect_stack.count)
 		end
 
 feature {LIBERTY_INSPECT_SLICE}
@@ -232,7 +229,7 @@ feature {LIBERTY_INSPECT_SLICE}
 				end
 			end
 		ensure
-			inspect_stack.in_range(old inspect_stack.count - 1, old inspect_stack.count)
+			inspect_stack.count.in_range(old inspect_stack.count - 1, old inspect_stack.count)
 		end
 
 feature {LIBERTY_LOOP}
@@ -251,7 +248,7 @@ feature {LIBERTY_LOOP}
 			loop
 				v.expression.accept(interpreter.expressions)
 				exp_until ::= interpreter.expressions.last_eval
-				if exp_until.value then
+				if exp_until.item then
 					done := True
 				else
 					v.invariant_clause.accept(interpreter.assertions)
@@ -274,7 +271,7 @@ feature {LIBERTY_VARIANT}
 			v.expression.accept(interpreter.expressions)
 			if loop_variant_stack.last = Void then
 				exp_variant ::= interpreter.expressions.last_eval
-			elseif exp_variant.value >= loop_variant_stack.last.value then
+			elseif exp_variant.item >= loop_variant_stack.last.item then
 				interpreter.fatal_error("Variant failed")
 			end
 			loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
@@ -324,7 +321,7 @@ feature {}
 			loop
 				actuals.item(i).accept(interpreter.expressions)
 				actual := interpreter.expressions.last_eval
-				params.add_last(actual)
+				Result.add_last(actual)
 				i := i + 1
 			end
 		end

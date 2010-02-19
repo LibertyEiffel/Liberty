@@ -12,23 +12,8 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
+class LIBERTY_INTERPRETER_AGENT
 
-inherit
-	LIBERTY_TAGGED
+	--|*** TODO
 
-insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
-	VISITABLE
-
-feature {ANY}
-	result_type: LIBERTY_TYPE is
-		deferred
-		ensure
-			Result /= Void or else is_agent_call
-		end
-
-	is_agent_call: BOOLEAN is False
-
-end
+end -- class LIBERTY_INTERPRETER_AGENT

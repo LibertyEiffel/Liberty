@@ -20,10 +20,9 @@ creation {LIBERTYI}
 feature {LIBERTYI}
 	run is
 		local
-			root_object: LIBERTY_INTERPRETER
+			root_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			create root_object.make(root_object_name, root_type)
-			call_feature(root_object, root_feature, root_feature_parameters)
+			root_object := new_object(root_type, root_feature, root_feature_parameters)
 		end
 
 feature {ANY}
@@ -56,6 +55,8 @@ feature {ANY}
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
+
+	universe: LIBERTY_UNIVERSE
 
 	call_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
 		local
@@ -97,6 +98,20 @@ feature {ANY}
 		do
 			--|*** TODO
 			Result := True
+		end
+
+	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			check
+				call_stack.last.has_old_value(a_expression)
+			end
+			Result := call_stack.last.old_value(a_expression)
+		end
+
+feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
+	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			call_stack.last.add_old_value(a_expression, a_value)
 		end
 
 feature {}
@@ -145,7 +160,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 
 	writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
-			Result := call_stack.last.writable_feature_name(name)
+			Result := call_stack.last.writable_feature_static_type(name)
 		end
 
 	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
@@ -154,31 +169,30 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 		end
 
 feature {}
-	make (a_root_type: like root_type; a_root_feature_name: LIBERTY_FEATURE_NAME) is
+	make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: LIBERTY_FEATURE_NAME) is
 		require
+			a_universe /= Void
 			a_root_type.has_feature(a_root_feature_name)
 		do
+			universe := a_universe
+
 			root_type := a_root_type
 			root_feature := a_root_type.feature_definition(a_root_feature_name)
 
 			create instructions.make(Current)
 			create expressions.make(Current)
 			create assertions.make(Current)
-			create creator.make
+			create creator.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 		ensure
+			universe = a_universe
 			root_type = a_root_type
 			root_feature = a_root_type.feature_definition(a_root_feature_name)
 		end
 
 	root_type: LIBERTY_ACTUAL_TYPE
 	root_feature: LIBERTY_FEATURE_DEFINITION
-
-	root_object_name: FIXED_STRING is
-		once
-			Result := "<root>".intern
-		end
 
 	root_feature_parameters: COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
 		once
@@ -188,7 +202,6 @@ feature {}
 		end
 
 	call_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
-
 	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
 
 invariant
@@ -197,5 +210,6 @@ invariant
 	assertions /= Void
 	creator /= Void
 	call_stack /= Void
+	universe /= Void
 
 end -- class LIBERTY_INTERPRETER

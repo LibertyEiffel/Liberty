@@ -28,7 +28,7 @@ insert
 		end
 
 create {ANY}
-	make
+	make, prefixed, infixed
 
 create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make_from_ast
@@ -47,6 +47,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_INFIX_CALL}
 
 feature {ANY}
 	name: FIXED_STRING
+	full_name: FIXED_STRING
 
 	out_in_tagged_out_memory is
 		do
@@ -115,6 +116,7 @@ feature {}
 			a_name = a_name.intern
 		do
 			name := a_name
+			full_name := a_name
 			type := type_regular
 			hash_code := name.hash_code
 			position := a_position
@@ -129,6 +131,7 @@ feature {}
 			a_name = a_name.intern
 		do
 			name := a_name
+			full_name := (once "prefix " + a_name).intern
 			type := type_prefix
 			hash_code := name.hash_code #* 17
 			if hash_code < 0 then
@@ -146,6 +149,7 @@ feature {}
 			a_name = a_name.intern
 		do
 			name := a_name
+			full_name := (once "infix " + a_name).intern
 			type := type_infix
 			hash_code := name.hash_code #*31
 			if hash_code < 0 then
@@ -167,6 +171,24 @@ feature {}
 			name = a_name
 		end
 
+	infixed (a_name: like name) is
+		require
+			a_name = a_name.intern
+		do
+			make_infix(a_name, errors.unknown_position)
+		ensure
+			name = a_name
+		end
+
+	prefixed (a_name: like name) is
+		require
+			a_name = a_name.intern
+		do
+			make_prefix(a_name, errors.unknown_position)
+		ensure
+			name = a_name
+		end
+
 	type_regular: INTEGER_8 is 1
 	type_prefix: INTEGER_8 is 2
 	type_infix: INTEGER_8 is 3
@@ -174,6 +196,8 @@ feature {}
 	errors: LIBERTY_ERRORS
 
 invariant
+	name /= Void
+	full_name /= Void
 	type /= 0
 
 end

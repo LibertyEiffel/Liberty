@@ -23,6 +23,11 @@ insert
 creation {LIBERTY_INTERPRETER}
 	make, make_precursor
 
+feature {ANY}
+	name: FIXED_STRING
+	target: LIBERTY_INTERPRETER_OBJECT
+	parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
@@ -61,12 +66,12 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			Result := target.type.feature_definition(feature_name).result_type.actual_type
 		end
 
-	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
+	set_writable_feature (a_name: LIBERTY_FEATURE_NAME; a_value: LIBERTY_INTERPRETER_OBJECT) is
 		local
 			struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 		do
 			struct ::= target
-			struct.put_attribute(name.name, value)
+			struct.put_attribute(a_name.name, a_value)
 		end
 
 	raised_exception: LIBERTY_INTERPRETER_EXCEPTION
@@ -86,7 +91,7 @@ feature {LIBERTY_INTERPRETER}
 			o.put_string(once "Feature {")
 			o.put_string(target.type.full_name)
 			o.put_string(once "}.")
-			o.put_line(name.name)
+			o.put_line(name)
 			o.put_new_line
 			o.put_string(once "Current = ")
 			target.show_stack(o, 0)
@@ -95,16 +100,16 @@ feature {LIBERTY_INTERPRETER}
 				o.put_string(once "Result = ")
 				returned_object.show_stack(o, 0)
 			end
-			if not parameters.is_empty then
+			if not parameter_map.is_empty then
 				o.put_new_line
 				o.put_line(once "Parameters:")
 				from
-					i := parameters.lower
+					i := parameter_map.lower
 				until
-					i > parameters.upper
+					i > parameter_map.upper
 				loop
 					o.put_new_line
-					o.put_string(parameters.key(i))
+					o.put_string(parameter_map.key(i))
 					o.put_string(once " = ")
 					parameters.item(i).show_stack(o, 0)
 					i := i + 1
@@ -129,11 +134,19 @@ feature {LIBERTY_INTERPRETER}
 
 feature {LIBERTY_FEATURE_ATTRIBUTE}
 	visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE) is
+		local
+			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 		do
-			if not target.has_attribute(name.name) then
-				interpreter.fatal_error("No such attribute: " + name.name)
+			if t ?:= target then
+				t ::= target
+				if not t.has_attribute(name) then
+					interpreter.fatal_error("No such attribute: " + name)
+				end
+				returned_object := t.attribute_object(name)
+			else
+				--|*** TODO: not good. Native objects may have attributes too (e.g. string)
+				interpreter.fatal_error("No such attribute: " + name)
 			end
-			returned_object := target.attribute_object(name.name)
 		end
 
 feature {LIBERTY_FEATURE_CONSTANT}
@@ -166,11 +179,9 @@ feature {LIBERTY_FEATURE_ONCE}
 	visit_liberty_feature_once (v: LIBERTY_FEATURE_ONCE) is
 		local
 			once_value_ref: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT]
-			once_value: LIBERTY_TYPED_TAG[LIBERTY_INTERPRETER_OBJECT]
 		do
 			if once_value_ref.is_set(v) then
-				once_value ::= once_value_ref.value(v)
-				returned_object := once_value.value
+				returned_object := once_value_ref.value(v)
 			else
 				prepare_local_maps(v)
 				v.block_instruction.accept(interpreter.instructions)
@@ -198,11 +209,14 @@ feature {}
 			a_feature_definition /= Void
 			a_parameters /= Void
 		do
+			name := a_feature_definition.feature_name.full_name
 			interpreter := a_interpreter
 			target := a_target
 			parameters := a_parameters
 			bound_feature := a_feature_definition.the_feature.bound(a_target.type)
-			returned_static_type := bound_feature.result_type
+			returned_static_type := bound_feature.result_type.actual_type
+
+			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
@@ -215,20 +229,26 @@ feature {}
 			a_target /= Void
 			a_parameters /= Void
 		do
+			name := name_precursor
 			interpreter := a_interpreter
 			target := a_target
 			parameters := a_parameters
 			bound_feature := a_precursor
-			returned_static_type := bound_feature.result_type
+			returned_static_type := bound_feature.result_type.actual_type
+
+			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
 			parameters = a_parameters
 		end
 
+	name_precursor: FIXED_STRING is
+		once
+			Result := "Precursor".intern
+		end
+
 	interpreter: LIBERTY_INTERPRETER
-	target: LIBERTY_INTERPRETER_OBJECT
-	parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 	bound_feature: LIBERTY_FEATURE
 
 	parameter_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
@@ -243,7 +263,7 @@ feature {}
 		do
 			if f.parameters.count /= parameters.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
-												+ " but got " + parameters.count)
+												+ " but got " + parameters.count.out)
 			end
 			check
 				f.parameters.lower = parameters.lower
@@ -256,7 +276,7 @@ feature {}
 				i > parameters.upper
 			loop
 				p := f.parameters.item(i)
-				parameter_types.add(p.type, p.name)
+				parameter_types.add(p.result_type.actual_type, p.name)
 				parameter_map.add(Void, p.name)
 				i := i + 1
 			end
@@ -269,7 +289,7 @@ feature {}
 				i > f.locals.upper
 			loop
 				l := f.locals.item(i)
-				local_types.add(l.type, l.name)
+				local_types.add(l.result_type.actual_type, l.name)
 				local_map.add(Void, l.name)
 				i := i + 1
 			end
@@ -278,6 +298,26 @@ feature {}
 			parameter_map /= Void
 			local_types /= Void
 			local_map /= Void
+		end
+
+feature {LIBERTY_INTERPRETER}
+	has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN is
+		do
+			Result := old_values.fast_has(a_expression)
+		end
+
+	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
+		require
+			has_old_value(a_expression)
+		do
+			Result := old_values.fast_at(a_expression)
+		end
+
+	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			old_values.add(a_value, a_expression)
+		ensure
+			old_value(a_expression) = a_value
 		end
 
 feature {}
@@ -300,6 +340,8 @@ feature {}
 		do
 			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
 		end
+
+	old_values: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]
 
 invariant
 	interpreter /= Void
