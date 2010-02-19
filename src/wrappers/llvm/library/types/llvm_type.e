@@ -57,7 +57,7 @@ feature {ANY} -- Queries
 	is_boolean: BOOLEAN is
 		-- Is Current a one-bit integer?
 	do
-		Result := is_integer -- and then as_constant_vector
+		Result := is_integer and then as_integer.width=1.to_natural_32
 	end
 
 	is_integer: BOOLEAN is 
@@ -90,6 +90,13 @@ feature {ANY} -- Queries
 	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 	
+feature 
+	as_integer: LLVM_INTEGER_TYPE is
+		-- Downcasting to integer type
+		do
+			Result ?= Current
+		ensure definition: is_integer implies Result/=Void
+		end
 end -- class LLVM_TYPE
 
 
