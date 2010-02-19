@@ -214,7 +214,9 @@ feature {}
 			target := a_target
 			parameters := a_parameters
 			bound_feature := a_feature_definition.the_feature.bound(a_target.type)
-			returned_static_type := bound_feature.result_type.actual_type
+			if bound_feature.result_type /= Void then
+				returned_static_type := bound_feature.result_type.actual_type
+			end
 
 			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
@@ -234,7 +236,9 @@ feature {}
 			target := a_target
 			parameters := a_parameters
 			bound_feature := a_precursor
-			returned_static_type := bound_feature.result_type.actual_type
+			if bound_feature.result_type /= Void then
+				returned_static_type := bound_feature.result_type.actual_type
+			end
 
 			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
