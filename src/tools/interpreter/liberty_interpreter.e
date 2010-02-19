@@ -22,6 +22,12 @@ feature {LIBERTYI}
 		local
 			root_object: LIBERTY_INTERPRETER_OBJECT
 		do
+			debug
+				std_output.put_string(once "Now running {")
+				std_output.put_string(root_type.full_name)
+				std_output.put_string(once "}.")
+				std_output.put_line(root_feature_name.full_name)
+			end
 			root_object := new_object(root_type, root_feature, root_feature_parameters)
 		end
 
@@ -90,6 +96,10 @@ feature {ANY}
 
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
 		do
+			debug
+				std_output.put_string(once "Creating new object of type ")
+				std_output.put_line(object_type.full_name)
+			end
 			Result := creator.new_object(object_type)
 			call_feature(Result, feature_to_call, parameters)
 		end
@@ -169,7 +179,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 		end
 
 feature {}
-	make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: LIBERTY_FEATURE_NAME) is
+	make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: like root_feature_name) is
 		require
 			a_universe /= Void
 			a_root_type.has_feature(a_root_feature_name)
@@ -177,6 +187,7 @@ feature {}
 			universe := a_universe
 
 			root_type := a_root_type
+			root_feature_name := a_root_feature_name
 			root_feature := a_root_type.feature_definition(a_root_feature_name)
 
 			create instructions.make(Current)
@@ -188,10 +199,12 @@ feature {}
 		ensure
 			universe = a_universe
 			root_type = a_root_type
+			root_feature_name = a_root_feature_name
 			root_feature = a_root_type.feature_definition(a_root_feature_name)
 		end
 
 	root_type: LIBERTY_ACTUAL_TYPE
+	root_feature_name: LIBERTY_FEATURE_NAME
 	root_feature: LIBERTY_FEATURE_DEFINITION
 
 	root_feature_parameters: COLLECTION[LIBERTY_INTERPRETER_OBJECT] is

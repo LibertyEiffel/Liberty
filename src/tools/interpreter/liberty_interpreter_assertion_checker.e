@@ -23,9 +23,11 @@ creation {LIBERTY_INTERPRETER}
 feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	validate (contract: LIBERTY_ASSERTIONS; error_message: ABSTRACT_STRING) is
 		do
-			contract.accept(Current)
-			if failed_tag /= Void then
-				interpreter.fatal_error(error_message + " failed: " + failed_tag)
+			if contract /= Void then
+				contract.accept(Current)
+				if failed_tag /= Void then
+					interpreter.fatal_error(error_message + " failed: " + failed_tag)
+				end
 			end
 		end
 

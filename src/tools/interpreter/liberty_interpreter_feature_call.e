@@ -255,11 +255,21 @@ feature {}
 	interpreter: LIBERTY_INTERPRETER
 	bound_feature: LIBERTY_FEATURE
 
+	parameter_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 	parameter_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+
+	local_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 	local_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
 
-	parameter_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
-	local_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
+	empty_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING] is
+		once
+			create {AVL_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} Result.make
+		end
+
+	empty_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING] is
+		once
+			create {AVL_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} Result.make
+		end
 
 	prepare_local_maps (f: LIBERTY_FEATURE_ROUTINE) is
 		local
@@ -269,33 +279,43 @@ feature {}
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
 												+ " but got " + parameters.count.out)
 			end
-			check
-				f.parameters.lower = parameters.lower
-			end
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(parameters.count)
-			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(parameters.count)
-			from
-				i := parameters.lower
-			until
-				i > parameters.upper
-			loop
-				p := f.parameters.item(i)
-				parameter_types.add(p.result_type.actual_type, p.name)
-				parameter_map.add(Void, p.name)
-				i := i + 1
+			if parameters.is_empty then
+				parameter_types := empty_types
+				parameter_map := empty_map
+			else
+				check
+					f.parameters.lower = parameters.lower
+				end
+				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(parameters.count)
+				create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(parameters.count)
+				from
+					i := parameters.lower
+				until
+					i > parameters.upper
+				loop
+					p := f.parameters.item(i)
+					parameter_types.add(p.result_type.actual_type, p.name)
+					parameter_map.add(parameters.item(i), p.name)
+					i := i + 1
+				end
 			end
 
-			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} local_map.with_capacity(f.locals.count)
-			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} local_types.with_capacity(f.locals.count)
-			from
-				i := f.locals.lower
-			until
-				i > f.locals.upper
-			loop
-				l := f.locals.item(i)
-				local_types.add(l.result_type.actual_type, l.name)
-				local_map.add(Void, l.name)
-				i := i + 1
+			if f.locals.is_empty then
+				local_types := empty_types
+				local_map := empty_map
+			else
+				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} local_types.with_capacity(f.locals.count)
+				create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} local_map.with_capacity(f.locals.count)
+				from
+					i := f.locals.lower
+				until
+					i > f.locals.upper
+				loop
+					l := f.locals.item(i)
+					local_types.add(l.result_type.actual_type, l.name)
+					local_map.add(Void, l.name)
+					i := i + 1
+				end
 			end
 		ensure
 			parameter_types /= Void

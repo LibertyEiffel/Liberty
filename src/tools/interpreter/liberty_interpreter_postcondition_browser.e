@@ -27,7 +27,9 @@ creation {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
 feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
 	gather_old (contract: LIBERTY_ASSERTIONS) is
 		do
-			contract.accept(Current)
+			if contract /= Void then
+				contract.accept(Current)
+			end
 		end
 
 feature {LIBERTY_OLD}
