@@ -75,6 +75,7 @@ feature {} -- Creation
 		end
 
 	make_main is
+		-- Emit the usual entry point function of a C program: "int main (int argc, char *argv[]);"
 		local tmp: LLVM_VALUE; arg_type, argv_type: LLVM_POINTER_TYPE
 		do
 			-- main will be the usual entry point of a C program: "int main (int argc, char *argv[]);"

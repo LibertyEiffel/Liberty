@@ -93,10 +93,21 @@ feature {ANY} -- Queries
 feature 
 	as_integer: LLVM_INTEGER_TYPE is
 		-- Downcasting to integer type
-		do
-			Result ?= Current
-		ensure definition: is_integer implies Result/=Void
-		end
+	require is_integer
+	do
+		-- Forced assignment is allowed because of the precondition.
+		Result ::= Current
+	ensure Result/=Void
+	end
+	
+	as_vector: LLVM_VECTOR_TYPE is
+		-- Downcasting to integer type
+	require is_vector
+	do
+		-- Forced assignment is safe because of the precondition.
+		Result::=Current
+	ensure Result/=Void
+	end
 end -- class LLVM_TYPE
 
 

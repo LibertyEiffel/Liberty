@@ -965,15 +965,79 @@ feature -- Miscellaneous instructions
 
 	-- LLVMValueRef LLVMBuildVAArg(LLVMBuilderRef, LLVMValueRef List, LLVMTypeRef Ty,
 --                             const char *Name);
--- LLVMValueRef LLVMBuildExtractElement(LLVMBuilderRef, LLVMValueRef VecVal,
---                                      LLVMValueRef Index, const char *Name);
--- LLVMValueRef LLVMBuildInsertElement(LLVMBuilderRef, LLVMValueRef VecVal,
---                                     LLVMValueRef EltVal, LLVMValueRef Index,
---                                     const char *Name);
--- LLVMValueRef LLVMBuildShuffleVector(LLVMBuilderRef, LLVMValueRef V1,
---                                     LLVMValueRef V2, LLVMValueRef Mask,
---                                     const char *Name);
--- LLVMValueRef LLVMBuildExtractValue(LLVMBuilderRef, LLVMValueRef AggVal,
+feature {ANY} -- Instructions on vectors
+	extract_element(a_vector: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST is
+		-- An "extract_element" instruction that will extract the element of `a_vector' referred by `an_index'.
+
+		-- TODO: C API requires an_index to be a LLVMValueRef; currently Liberty wrappers do not distinguish them.
+	require
+		a_vector/=Void
+		an_index/=Void
+		a_name/=Void
+	do
+		create Result.from_external_pointer(llvmbuild_extract_element
+		(handle,a_vector.handle,an_index.handle, a_name.to_external))
+	ensure Result/=Void
+	end
+
+	insert_element (a_vector: LLVM_VALUE; an_element: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_INSERT_ELEMENT_INST is 
+		-- An "insertelement" instruction that will insert `an_element' into
+		-- `a_vector' at `an_index'. The result of this instruction will be a
+		-- vector of the same type as `a_vector'; its element values will be
+		-- those of `a_vector' except at position `an_index', where it gets
+		-- `an_element'. If `an_index' exceeds the length of `a_vector', the
+		-- results are undefined (TODO: perhaps this shall be changed into a
+		-- precondition).
+
+	require 
+		a_vector/=Void
+		an_element/=Void
+		an_index/=Void
+		a_vector.type.is_vector
+		an_element_fits_into_a_vector: a_vector.type.as_vector.element_type.is_equal(an_element.type)
+	do
+		create Result.from_external_pointer(llvmbuild_insert_element
+		(handle, a_vector.handle, an_element.handle, an_index.handle, a_name.to_external))
+	ensure Result/=Void
+	end
+
+	shuffle_vector (a_vector, another_vector: LLVM_VALUE; a_mask: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SHUFFLE_VECTOR_INST is
+		-- A "shufflevector" instruction that will construct a permutation of
+		-- elements from `a_vector' and `another_vector', returning a vector
+		-- with the same element type as the input and length that is the same
+		-- as the shuffle mask.
+		
+		-- The third argument is a shuffle mask whose element type is always
+		-- 'i32'. The result of the instruction is a vector whose length is the
+		-- same as the shuffle mask and whose element type is the same as the
+		-- element type of the first two operands.
+		
+		-- The shuffle mask operand is required to be a constant vector with
+		-- either constant integer or undef values. (TODO: turn it into a precondition).
+		
+		-- The elements of the two input vectors are numbered from left to
+		-- right across both of the vectors. The shuffle mask operand
+		-- specifies, for each element of the result vector, which element of
+		-- the two input vectors the result element gets. The element selector
+		-- may be undef (meaning "don't care") and the second operand may be
+		-- undef if performing a shuffle from only one vector.
+	require
+		a_vector/=Void
+		another_vector/=Void
+		a_mask/=Void
+		a_name/=Void
+		vectors_fits: a_vector.type ~ another_vector.type
+		both_are_vectors: a_vector.type.is_vector and another_vector.type.is_vector
+		same_element_type: a_vector.type.as_vector.element_type ~ another_vector.type.as_vector.element_type
+		mask_is_a_vector_of_32bit_integers: a_mask.type.is_vector and then a_mask.type.as_vector.element_type.is_integer and then a_mask.type.as_vector.element_type.as_integer.width.to_integer_32 = 32
+	do
+		create Result.from_external_pointer(llvmbuild_shuffle_vector
+		(handle, a_vector.handle,another_vector.handle, a_mask.handle, a_name.to_external))
+	ensure Result/=Void
+	end
+
+feature {ANY} -- Instructions on aggregates (structures or arrays)
+	-- LLVMValueRef LLVMBuildExtractValue(LLVMBuilderRef, LLVMValueRef AggVal,
 --                                    unsigned Index, const char *Name);
 -- LLVMValueRef LLVMBuildInsertValue(LLVMBuilderRef, LLVMValueRef AggVal,
 --                                   LLVMValueRef EltVal, unsigned Index,
