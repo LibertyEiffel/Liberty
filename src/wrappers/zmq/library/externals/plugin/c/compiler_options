@@ -1,0 +1,4 @@
+[UNIX]
+zmq: "$(pkg-config --cflagsi libzmq)"
+
+
