@@ -1,4 +1,4 @@
 [UNIX]
-zmq: "$(pkg-config --cflagsi libzmq)"
+zmq: "$(pkg-config --cflags libzmq)"
 
 
