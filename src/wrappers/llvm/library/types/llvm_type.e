@@ -19,11 +19,13 @@ deferred class LLVM_TYPE
 	-- That is, given two Type* values, the types
 	-- are identical if the pointers are identical.
 
--- The representation of the base type of all datatypes in LLVM. Anchestor
+	-- The representation of the base type of all datatypes in LLVM. Anchestor
 	-- of all hierarchy of types. See
 	-- http://llvm.org/doxygen/classllvm_1_1Type.html for a clean graph of its
 	-- heirs.
 
+
+		-- TODO: when implementing `refine' remember to redefine it in LLVM_STRUCT_TYPE to take in count about cyclic type
 inherit 
 	C_STRUCT
 	C_OWNED
@@ -87,7 +89,19 @@ feature {ANY} -- Queries
 		Result := type_kind.is_pointer_type_kind
 	end
 
-	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
+	is_struct: BOOLEAN is
+		-- Is Current a struct type?
+	do
+		Result := type_kind.is_struct_type_kind
+	end
+
+	is_array: BOOLEAN is
+		-- Is Current an array type?
+	do
+		Result := type_kind.is_array_type_kind
+	end
+
+-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 	
 feature 
@@ -98,6 +112,14 @@ feature
 		-- Forced assignment is allowed because of the precondition.
 		Result ::= Current
 	ensure Result/=Void
+	end
+
+	as_struct: LLVM_STRUCT_TYPE is
+		-- Downcasting to struct type
+	require is_struct
+	do
+		-- Safe forced assignment because of the precondition
+		Result ::= Current
 	end
 	
 	as_vector: LLVM_VECTOR_TYPE is

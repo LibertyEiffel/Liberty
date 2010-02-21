@@ -927,8 +927,11 @@ feature -- Comparisons
 	ensure 
 		Result/=Void
 	end
+
 feature -- Miscellaneous instructions
--- LLVMValueRef LLVMBuildPhi(LLVMBuilderRef, LLVMTypeRef Ty, const char *Name);
+
+	-- LLVMValueRef LLVMBuildPhi(LLVMBuilderRef, LLVMTypeRef Ty, const char *Name);
+
 	call (a_function: LLVM_FUNCTION; some_arguments: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_CALL_INST is
 		-- A "call" instruction that will invoke `a_function' with `some_arguments'
 
@@ -1037,13 +1040,38 @@ feature {ANY} -- Instructions on vectors
 	end
 
 feature {ANY} -- Instructions on aggregates (structures or arrays)
-	-- LLVMValueRef LLVMBuildExtractValue(LLVMBuilderRef, LLVMValueRef AggVal,
---                                    unsigned Index, const char *Name);
--- LLVMValueRef LLVMBuildInsertValue(LLVMBuilderRef, LLVMValueRef AggVal,
---                                   LLVMValueRef EltVal, unsigned Index,
---                                   const char *Name);
--- 
--- LLVMValueRef LLVMBuildIsNull(LLVMBuilderRef, LLVMValueRef Val,
+	extract_value (an_aggregate: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST is
+		-- An "extractvalue" instruction that will extract the value of a struct field or array element from `an_aggregate' value.
+	require
+		an_aggregate/=Void
+		a_name/=Void
+		an_aggregate.type.is_struct or an_aggregate.type.is_array
+	do
+		create Result.from_external_pointer(llvmbuild_extract_value
+		(handle, an_aggregate.handle, an_index, a_name.to_external))
+	ensure	 Result/=Void
+	end
+		
+	insert_value (an_aggregate: LLVM_VALUE; an_element: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_INSERT_VALUE_INST is
+		-- An "insertvalue" instruction that will insert `an_element' at
+		-- `an_index' into a struct field or array element in `an_aggregate'.
+
+		-- The first operand of an 'insertvalue' instruction is a value of struct or array type. The second operand is a first-class value to insert. The following operands are constant indices indicating the position at which to insert the value in a similar manner as indices in a 'getelementptr' instruction. The value to insert must have the same type as the value identified by the indices.
+
+		-- The result is an aggregate of the same type as val. Its value is that of val except that the value at the position specified by the indices is that of elt.
+	require 
+		an_aggregate/=Void
+		an_element/=Void
+		a_name/=Void
+		an_aggregate.type.is_struct or an_aggregate.type.is_array
+		an_element_fits_at_an_index: an_element.type.is_equal(an_aggregate.type.as_struct.element(an_index.to_integer_32))
+	do
+		create Result.from_external_pointer(llvmbuild_insert_value
+		(handle,an_aggregate.handle,an_element.handle,an_index,a_name.to_external))
+	ensure Result/=Void
+	end
+
+	-- LLVMValueRef LLVMBuildIsNull(LLVMBuilderRef, LLVMValueRef Val,
 --                              const char *Name);
 -- LLVMValueRef LLVMBuildIsNotNull(LLVMBuilderRef, LLVMValueRef Val,
 --                                 const char *Name);
