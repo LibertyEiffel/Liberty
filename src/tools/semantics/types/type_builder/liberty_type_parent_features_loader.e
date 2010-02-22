@@ -50,23 +50,29 @@ feature {}
 
 feature {LIBERTY_TYPE_BUILDER}
 	load is
+		local
+			has_parents: BOOLEAN
 		do
-			inject_parents(type.ast.inherit_clause, True)
-			inject_parents(type.ast.insert_clause, False)
+			has_parents := inject_parents(type.ast.inherit_clause, False, True)
+			has_parents := inject_parents(type.ast.insert_clause, has_parents, False)
+			if not has_parents and then not errors.has_error then
+				inject_parent_invariant(universe.type_any)
+				inject_parent_features(universe.type_any, Void, False)
+			end
+			push_parent_features_in_type
 			if not redefined_features.is_empty then
 				builder.set_redefined_features(redefined_features)
 			end
 		end
 
 feature {}
-	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
+	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents, conformant: BOOLEAN): BOOLEAN is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
 			parent: LIBERTY_TYPE
-			has_parent: BOOLEAN
 		do
 			from
-				has_parent := False
+				Result := False
 				i := parents.list_lower
 			until
 				errors.has_error or else i > parents.list_upper
@@ -76,15 +82,10 @@ feature {}
 				if parent /= Void then
 					inject_parent_invariant(parent.actual_type)
 					inject_parent_features(parent.actual_type, parent_clause.parent_clause, conformant)
-					has_parent := True
+					Result := True
 				end
 				i := i + 1
 			end
-			if not has_parent and then not errors.has_error then
-				inject_parent_invariant(universe.type_any)
-				inject_parent_features(universe.type_any, Void, False)
-			end
-			push_parent_features_in_type
 		end
 
 	inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE) is
