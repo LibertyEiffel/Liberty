@@ -9,8 +9,8 @@ inherit ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	posix_fadvise (a_fd: INTEGER_32; an_offset: INTEGER_32; a_len: INTEGER_32; an_advise: INTEGER_32): INTEGER_32 is
- 		-- posix_fadvise (node at line 509)
+	posix_fadvise (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER_32): INTEGER_32 is
+ 		-- posix_fadvise (node at line 506)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	open (a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- open (variadic)  (node at line 528)
+ 		-- open (variadic)  (node at line 530)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	creat (a_file: POINTER; a_mode: NATURAL_32): INTEGER_32 is
- 		-- creat (node at line 817)
+ 		-- creat (node at line 828)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	open64 (a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- open64 (variadic)  (node at line 831)
+ 		-- open64 (variadic)  (node at line 842)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,8 +49,8 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fallocate (a_fd: INTEGER_32; an_offset: INTEGER_32; a_len: INTEGER_32): INTEGER_32 is
- 		-- posix_fallocate (node at line 943)
+	posix_fallocate (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
+ 		-- posix_fallocate (node at line 961)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +60,7 @@ feature {} -- External calls
 		end
 
 	posix_fadvise64 (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER_32): INTEGER_32 is
- 		-- posix_fadvise64 (node at line 979)
+ 		-- posix_fadvise64 (node at line 1003)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	posix_fallocate64 (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
- 		-- posix_fallocate64 (node at line 1013)
+ 		-- posix_fallocate64 (node at line 1037)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	openat (a_fd: INTEGER_32; a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- openat (variadic)  (node at line 1033)
+ 		-- openat (variadic)  (node at line 1057)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -89,8 +89,8 @@ feature {} -- External calls
 		}"
 		end
 
-	lockf (a_fd: INTEGER_32; a_cmd: INTEGER_32; a_len: INTEGER_32): INTEGER_32 is
- 		-- lockf (node at line 1132)
+	lockf (a_fd: INTEGER_32; a_cmd: INTEGER_32; a_len: INTEGER_64): INTEGER_32 is
+ 		-- lockf (node at line 1145)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	openat64 (a_fd: INTEGER_32; a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- openat64 (variadic)  (node at line 1142)
+ 		-- openat64 (variadic)  (node at line 1155)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,18 +109,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fcntl (a_fd: INTEGER_32; a_cmd: INTEGER_32): INTEGER_32 is
- 		-- fcntl (variadic)  (node at line 1329)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "fcntl"
-		}"
-		end
-
 	lockf64 (a_fd: INTEGER_32; a_cmd: INTEGER_32; a_len: INTEGER_64): INTEGER_32 is
- 		-- lockf64 (node at line 1400)
+ 		-- lockf64 (node at line 1394)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,12 +120,22 @@ feature {} -- External calls
 		end
 
 	creat64 (a_file: POINTER; a_mode: NATURAL_32): INTEGER_32 is
- 		-- creat64 (node at line 1405)
+ 		-- creat64 (node at line 1399)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "creat64"
+		}"
+		end
+
+	fcntl (a_fd: INTEGER_32; a_cmd: INTEGER_32): INTEGER_32 is
+ 		-- fcntl (variadic)  (node at line 1418)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "fcntl"
 		}"
 		end
 

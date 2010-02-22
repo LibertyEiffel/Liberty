@@ -79,18 +79,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ftello (a_stream: POINTER): INTEGER_32 is
- 		-- ftello (node at line 68)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "ftello"
-		}"
-		end
-
-	vsnprintf (a_s: POINTER; a_maxlen: NATURAL_32; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vsnprintf (node at line 72)
+	vsnprintf (a_s: POINTER; a_maxlen: NATURAL_64; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
+ 		-- vsnprintf (node at line 69)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +90,7 @@ feature {} -- External calls
 		end
 
 	setbuf (a_stream: POINTER; a_buf: POINTER) is
- 		-- setbuf (node at line 78)
+ 		-- setbuf (node at line 75)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,8 +99,18 @@ feature {} -- External calls
 		}"
 		end
 
+	rename_external (an_old: POINTER; a_new: POINTER): INTEGER_32 is
+ 		-- rename (node at line 91)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rename"
+		}"
+		end
+
 	obstack_vprintf (an_obstack: POINTER; a_format: POINTER; an_args: POINTER): INTEGER_32 is
- 		-- obstack_vprintf (node at line 94)
+ 		-- obstack_vprintf (node at line 95)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -120,7 +120,7 @@ feature {} -- External calls
 		end
 
 	fflush (a_stream: POINTER): INTEGER_32 is
- 		-- fflush (node at line 99)
+ 		-- fflush (node at line 100)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -129,8 +129,18 @@ feature {} -- External calls
 		}"
 		end
 
+	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER_32; a_n: NATURAL_64): INTEGER_32 is
+ 		-- setvbuf (node at line 103)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "setvbuf"
+		}"
+		end
+
 	putc_unlocked (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- putc_unlocked (node at line 116)
+ 		-- putc_unlocked (node at line 121)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -140,7 +150,7 @@ feature {} -- External calls
 		end
 
 	asprintf (a_ptr: POINTER; a_fmt: POINTER): INTEGER_32 is
- 		-- asprintf (variadic)  (node at line 123)
+ 		-- asprintf (variadic)  (node at line 128)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -150,7 +160,7 @@ feature {} -- External calls
 		end
 
 	vsscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vsscanf (node at line 188)
+ 		-- vsscanf (node at line 193)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -160,7 +170,7 @@ feature {} -- External calls
 		end
 
 	ftello64 (a_stream: POINTER): INTEGER_64 is
- 		-- ftello64 (node at line 196)
+ 		-- ftello64 (node at line 201)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -169,8 +179,18 @@ feature {} -- External calls
 		}"
 		end
 
+	setlinebuf (a_stream: POINTER) is
+ 		-- setlinebuf (node at line 219)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "setlinebuf"
+		}"
+		end
+
 	fcloseall: INTEGER_32 is
- 		-- fcloseall (node at line 242)
+ 		-- fcloseall (node at line 245)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -179,18 +199,8 @@ feature {} -- External calls
 		}"
 		end
 
-	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER_32; a_n: NATURAL_32): INTEGER_32 is
- 		-- setvbuf (node at line 243)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "setvbuf"
-		}"
-		end
-
 	fopen64 (a_filename: POINTER; a_modes: POINTER): POINTER is
- 		-- fopen64 (node at line 249)
+ 		-- fopen64 (node at line 251)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -200,7 +210,7 @@ feature {} -- External calls
 		end
 
 	sprintf (a_s: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- sprintf (variadic)  (node at line 253)
+ 		-- sprintf (variadic)  (node at line 255)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -209,18 +219,18 @@ feature {} -- External calls
 		}"
 		end
 
-	fmemopen (a_s: POINTER; a_len: NATURAL_32; a_modes: POINTER): POINTER is
- 		-- fmemopen (node at line 267)
+	fgetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
+ 		-- fgetpos64 (node at line 260)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "fmemopen"
+			feature_name: "fgetpos64"
 		}"
 		end
 
 	putchar (a_c: INTEGER_32): INTEGER_32 is
- 		-- putchar (node at line 272)
+ 		-- putchar (node at line 273)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -230,7 +240,7 @@ feature {} -- External calls
 		end
 
 	getc (a_stream: POINTER): INTEGER_32 is
- 		-- getc (node at line 290)
+ 		-- getc (node at line 291)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -240,7 +250,7 @@ feature {} -- External calls
 		end
 
 	gets (a_s: POINTER): POINTER is
- 		-- gets (node at line 293)
+ 		-- gets (node at line 294)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -250,7 +260,7 @@ feature {} -- External calls
 		end
 
 	getw (a_stream: POINTER): INTEGER_32 is
- 		-- getw (node at line 296)
+ 		-- getw (node at line 297)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -260,7 +270,7 @@ feature {} -- External calls
 		end
 
 	funlockfile (a_stream: POINTER) is
- 		-- funlockfile (node at line 306)
+ 		-- funlockfile (node at line 307)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -270,7 +280,7 @@ feature {} -- External calls
 		end
 
 	printf (a_format: POINTER): INTEGER_32 is
- 		-- printf (variadic)  (node at line 309)
+ 		-- printf (variadic)  (node at line 311)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -281,7 +291,7 @@ feature {} -- External calls
 
 	-- `hidden' function __asprintf skipped.
 	tmpfile64: POINTER is
- 		-- tmpfile64 (node at line 330)
+ 		-- tmpfile64 (node at line 332)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -290,8 +300,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fseek (a_stream: POINTER; an_off: INTEGER_32; a_whence: INTEGER_32): INTEGER_32 is
- 		-- fseek (node at line 334)
+	fseek (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER_32): INTEGER_32 is
+ 		-- fseek (node at line 336)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -301,7 +311,7 @@ feature {} -- External calls
 		end
 
 	getchar: INTEGER_32 is
- 		-- getchar (node at line 352)
+ 		-- getchar (node at line 349)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -310,8 +320,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fseeko (a_stream: POINTER; an_off: INTEGER_32; a_whence: INTEGER_32): INTEGER_32 is
- 		-- fseeko (node at line 353)
+	fseeko (a_stream: POINTER; an_off: INTEGER_64; a_whence: INTEGER_32): INTEGER_32 is
+ 		-- fseeko (node at line 350)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -321,7 +331,7 @@ feature {} -- External calls
 		end
 
 	clearerr (a_stream: POINTER) is
- 		-- clearerr (node at line 359)
+ 		-- clearerr (node at line 356)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -330,8 +340,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite_unlocked (a_ptr: POINTER; a_size: NATURAL_32; a_n: NATURAL_32; a_stream: POINTER): NATURAL_32 is
- 		-- fwrite_unlocked (node at line 368)
+	fwrite_unlocked (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_stream: POINTER): NATURAL_64 is
+ 		-- fwrite_unlocked (node at line 365)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -341,7 +351,7 @@ feature {} -- External calls
 		end
 
 	getchar_unlocked: INTEGER_32 is
- 		-- getchar_unlocked (node at line 374)
+ 		-- getchar_unlocked (node at line 371)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -351,7 +361,7 @@ feature {} -- External calls
 		end
 
 	vsprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vsprintf (node at line 415)
+ 		-- vsprintf (node at line 411)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -361,7 +371,7 @@ feature {} -- External calls
 		end
 
 	vasprintf (a_ptr: POINTER; a_f: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vasprintf (node at line 427)
+ 		-- vasprintf (node at line 423)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -371,7 +381,7 @@ feature {} -- External calls
 		end
 
 	fdopen (a_fd: INTEGER_32; a_modes: POINTER): POINTER is
- 		-- fdopen (node at line 471)
+ 		-- fdopen (node at line 467)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -381,7 +391,7 @@ feature {} -- External calls
 		end
 
 	freopen64 (a_filename: POINTER; a_modes: POINTER; a_stream: POINTER): POINTER is
- 		-- freopen64 (node at line 480)
+ 		-- freopen64 (node at line 476)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -391,7 +401,7 @@ feature {} -- External calls
 		end
 
 	ftrylockfile (a_stream: POINTER): INTEGER_32 is
- 		-- ftrylockfile (node at line 486)
+ 		-- ftrylockfile (node at line 482)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -401,7 +411,7 @@ feature {} -- External calls
 		end
 
 	fileno_unlocked (a_stream: POINTER): INTEGER_32 is
- 		-- fileno_unlocked (node at line 493)
+ 		-- fileno_unlocked (node at line 490)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -411,7 +421,7 @@ feature {} -- External calls
 		end
 
 	fgetpos (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
- 		-- fgetpos (node at line 496)
+ 		-- fgetpos (node at line 493)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -420,8 +430,8 @@ feature {} -- External calls
 		}"
 		end
 
-	snprintf (a_s: POINTER; a_maxlen: NATURAL_32; a_format: POINTER): INTEGER_32 is
- 		-- snprintf (variadic)  (node at line 519)
+	snprintf (a_s: POINTER; a_maxlen: NATURAL_64; a_format: POINTER): INTEGER_32 is
+ 		-- snprintf (variadic)  (node at line 520)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -431,7 +441,7 @@ feature {} -- External calls
 		end
 
 	putchar_unlocked (a_c: INTEGER_32): INTEGER_32 is
- 		-- putchar_unlocked (node at line 535)
+ 		-- putchar_unlocked (node at line 543)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -441,7 +451,7 @@ feature {} -- External calls
 		end
 
 	tmpnam (a_s: POINTER): POINTER is
- 		-- tmpnam (node at line 544)
+ 		-- tmpnam (node at line 552)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -451,7 +461,7 @@ feature {} -- External calls
 		end
 
 	cuserid (a_s: POINTER): POINTER is
- 		-- cuserid (node at line 547)
+ 		-- cuserid (node at line 555)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -461,7 +471,7 @@ feature {} -- External calls
 		end
 
 	tempnam (a_dir: POINTER; a_pfx: POINTER): POINTER is
- 		-- tempnam (node at line 573)
+ 		-- tempnam (node at line 586)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -470,8 +480,18 @@ feature {} -- External calls
 		}"
 		end
 
+	ftello (a_stream: POINTER): INTEGER_64 is
+ 		-- ftello (node at line 622)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ftello"
+		}"
+		end
+
 	fscanf (a_stream: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- fscanf (variadic)  (node at line 623)
+ 		-- fscanf (variadic)  (node at line 634)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -481,7 +501,7 @@ feature {} -- External calls
 		end
 
 	perror (a_s: POINTER) is
- 		-- perror (node at line 638)
+ 		-- perror (node at line 649)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -491,7 +511,7 @@ feature {} -- External calls
 		end
 
 	obstack_printf (an_obstack: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- obstack_printf (variadic)  (node at line 658)
+ 		-- obstack_printf (variadic)  (node at line 669)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -501,7 +521,7 @@ feature {} -- External calls
 		end
 
 	fileno (a_stream: POINTER): INTEGER_32 is
- 		-- fileno (node at line 668)
+ 		-- fileno (node at line 679)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -511,7 +531,7 @@ feature {} -- External calls
 		end
 
 	ferror (a_stream: POINTER): INTEGER_32 is
- 		-- ferror (node at line 671)
+ 		-- ferror (node at line 682)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -520,8 +540,18 @@ feature {} -- External calls
 		}"
 		end
 
+	rewind (a_stream: POINTER) is
+ 		-- rewind (node at line 685)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rewind"
+		}"
+		end
+
 	vfscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vfscanf (node at line 683)
+ 		-- vfscanf (node at line 696)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -531,7 +561,7 @@ feature {} -- External calls
 		end
 
 	scanf (a_format: POINTER): INTEGER_32 is
- 		-- scanf (variadic)  (node at line 709)
+ 		-- scanf (variadic)  (node at line 722)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -541,7 +571,7 @@ feature {} -- External calls
 		end
 
 	fsetpos (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
- 		-- fsetpos (node at line 730)
+ 		-- fsetpos (node at line 743)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -550,8 +580,8 @@ feature {} -- External calls
 		}"
 		end
 
-	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: NATURAL_32) is
- 		-- setbuffer (node at line 757)
+	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: NATURAL_64) is
+ 		-- setbuffer (node at line 770)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -560,18 +590,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rename_external (an_old: POINTER; a_new: POINTER): INTEGER_32 is
- 		-- rename (node at line 765)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rename"
-		}"
-		end
-
-	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- getdelim (node at line 769)
+	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER_32; a_stream: POINTER): INTEGER_64 is
+ 		-- getdelim (node at line 779)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -581,7 +601,7 @@ feature {} -- External calls
 		end
 
 	fsetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
- 		-- fsetpos64 (node at line 821)
+ 		-- fsetpos64 (node at line 832)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -591,7 +611,7 @@ feature {} -- External calls
 		end
 
 	clearerr_unlocked (a_stream: POINTER) is
- 		-- clearerr_unlocked (node at line 843)
+ 		-- clearerr_unlocked (node at line 854)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -601,7 +621,7 @@ feature {} -- External calls
 		end
 
 	ctermid (a_s: POINTER): POINTER is
- 		-- ctermid (node at line 846)
+ 		-- ctermid (node at line 857)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -611,7 +631,7 @@ feature {} -- External calls
 		end
 
 	fputc_unlocked (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- fputc_unlocked (node at line 849)
+ 		-- fputc_unlocked (node at line 860)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -621,7 +641,7 @@ feature {} -- External calls
 		end
 
 	freopen (a_filename: POINTER; a_modes: POINTER; a_stream: POINTER): POINTER is
- 		-- freopen (node at line 853)
+ 		-- freopen (node at line 864)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -631,7 +651,7 @@ feature {} -- External calls
 		end
 
 	fputc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- fputc (node at line 858)
+ 		-- fputc (node at line 869)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -641,7 +661,7 @@ feature {} -- External calls
 		end
 
 	fputs (a_s: POINTER; a_stream: POINTER): INTEGER_32 is
- 		-- fputs (node at line 866)
+ 		-- fputs (node at line 877)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -651,7 +671,7 @@ feature {} -- External calls
 		end
 
 	getc_unlocked (a_stream: POINTER): INTEGER_32 is
- 		-- getc_unlocked (node at line 881)
+ 		-- getc_unlocked (node at line 892)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -660,8 +680,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ftell (a_stream: POINTER): INTEGER_32 is
- 		-- ftell (node at line 887)
+	ftell (a_stream: POINTER): INTEGER_64 is
+ 		-- ftell (node at line 898)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -671,7 +691,7 @@ feature {} -- External calls
 		end
 
 	pclose (a_stream: POINTER): INTEGER_32 is
- 		-- pclose (node at line 928)
+ 		-- pclose (node at line 943)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -681,8 +701,18 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __getdelim skipped.
+	tmpnam_r (a_s: POINTER): POINTER is
+ 		-- tmpnam_r (node at line 955)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "tmpnam_r"
+		}"
+		end
+
 	fclose (a_stream: POINTER): INTEGER_32 is
- 		-- fclose (node at line 955)
+ 		-- fclose (node at line 974)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -691,8 +721,18 @@ feature {} -- External calls
 		}"
 		end
 
+	fmemopen (a_s: POINTER; a_len: NATURAL_64; a_modes: POINTER): POINTER is
+ 		-- fmemopen (node at line 977)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "fmemopen"
+		}"
+		end
+
 	sscanf (a_s: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- sscanf (variadic)  (node at line 969)
+ 		-- sscanf (variadic)  (node at line 993)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -701,8 +741,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fwrite (a_ptr: POINTER; a_size: NATURAL_32; a_n: NATURAL_32; a_s: POINTER): NATURAL_32 is
- 		-- fwrite (node at line 985)
+	fwrite (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_s: POINTER): NATURAL_64 is
+ 		-- fwrite (node at line 1009)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -712,7 +752,7 @@ feature {} -- External calls
 		end
 
 	ungetc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- ungetc (node at line 1008)
+ 		-- ungetc (node at line 1032)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -722,8 +762,8 @@ feature {} -- External calls
 		end
 
 		-- function fopencookie is not wrappable
-	getline (a_lineptr: POINTER; a_n: POINTER; a_stream: POINTER): INTEGER_32 is
- 		-- getline (node at line 1039)
+	getline (a_lineptr: POINTER; a_n: POINTER; a_stream: POINTER): INTEGER_64 is
+ 		-- getline (node at line 1063)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -732,18 +772,8 @@ feature {} -- External calls
 		}"
 		end
 
-	tmpnam_r (a_s: POINTER): POINTER is
- 		-- tmpnam_r (node at line 1044)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "tmpnam_r"
-		}"
-		end
-
 	putc (a_c: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- putc (node at line 1066)
+ 		-- putc (node at line 1077)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -753,7 +783,7 @@ feature {} -- External calls
 		end
 
 	puts (a_s: POINTER): INTEGER_32 is
- 		-- puts (node at line 1070)
+ 		-- puts (node at line 1081)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -763,7 +793,7 @@ feature {} -- External calls
 		end
 
 	putw (a_w: INTEGER_32; a_stream: POINTER): INTEGER_32 is
- 		-- putw (node at line 1073)
+ 		-- putw (node at line 1084)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -773,7 +803,7 @@ feature {} -- External calls
 		end
 
 	fopen (a_filename: POINTER; a_modes: POINTER): POINTER is
- 		-- fopen (node at line 1100)
+ 		-- fopen (node at line 1112)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -783,7 +813,7 @@ feature {} -- External calls
 		end
 
 	fprintf (a_stream: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- fprintf (variadic)  (node at line 1111)
+ 		-- fprintf (variadic)  (node at line 1128)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -792,18 +822,8 @@ feature {} -- External calls
 		}"
 		end
 
-	feof (a_stream: POINTER): INTEGER_32 is
- 		-- feof (node at line 1116)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "feof"
-		}"
-		end
-
 	dprintf (a_fd: INTEGER_32; a_fmt: POINTER): INTEGER_32 is
- 		-- dprintf (variadic)  (node at line 1137)
+ 		-- dprintf (variadic)  (node at line 1150)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -812,8 +832,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fread (a_ptr: POINTER; a_size: NATURAL_32; a_n: NATURAL_32; a_stream: POINTER): NATURAL_32 is
- 		-- fread (node at line 1153)
+	fread (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_stream: POINTER): NATURAL_64 is
+ 		-- fread (node at line 1166)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -823,7 +843,7 @@ feature {} -- External calls
 		end
 
 	fgets_unlocked (a_s: POINTER; a_n: INTEGER_32; a_stream: POINTER): POINTER is
- 		-- fgets_unlocked (node at line 1177)
+ 		-- fgets_unlocked (node at line 1190)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -833,7 +853,7 @@ feature {} -- External calls
 		end
 
 	ferror_unlocked (a_stream: POINTER): INTEGER_32 is
- 		-- ferror_unlocked (node at line 1201)
+ 		-- ferror_unlocked (node at line 1215)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -843,7 +863,7 @@ feature {} -- External calls
 		end
 
 	feof_unlocked (a_stream: POINTER): INTEGER_32 is
- 		-- feof_unlocked (node at line 1207)
+ 		-- feof_unlocked (node at line 1221)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -853,7 +873,7 @@ feature {} -- External calls
 		end
 
 	fputs_unlocked (a_s: POINTER; a_stream: POINTER): INTEGER_32 is
- 		-- fputs_unlocked (node at line 1210)
+ 		-- fputs_unlocked (node at line 1224)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -862,18 +882,8 @@ feature {} -- External calls
 		}"
 		end
 
-	setlinebuf (a_stream: POINTER) is
- 		-- setlinebuf (node at line 1234)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "setlinebuf"
-		}"
-		end
-
 	vfprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vfprintf (node at line 1237)
+ 		-- vfprintf (node at line 1247)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -883,7 +893,7 @@ feature {} -- External calls
 		end
 
 	vdprintf (a_fd: INTEGER_32; a_fmt: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vdprintf (node at line 1253)
+ 		-- vdprintf (node at line 1262)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -893,22 +903,12 @@ feature {} -- External calls
 		end
 
 	open_memstream (a_bufloc: POINTER; a_sizeloc: POINTER): POINTER is
- 		-- open_memstream (node at line 1258)
+ 		-- open_memstream (node at line 1267)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "open_memstream"
-		}"
-		end
-
-	rewind (a_stream: POINTER) is
- 		-- rewind (node at line 1307)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rewind"
 		}"
 		end
 
@@ -922,7 +922,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fread_unlocked (a_ptr: POINTER; a_size: NATURAL_32; a_n: NATURAL_32; a_stream: POINTER): NATURAL_32 is
+	fread_unlocked (a_ptr: POINTER; a_size: NATURAL_64; a_n: NATURAL_64; a_stream: POINTER): NATURAL_64 is
  		-- fread_unlocked (node at line 1323)
 		external "plug_in"
 		alias "{
@@ -933,7 +933,7 @@ feature {} -- External calls
 		end
 
 	flockfile (a_stream: POINTER) is
- 		-- flockfile (node at line 1351)
+ 		-- flockfile (node at line 1346)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -942,18 +942,8 @@ feature {} -- External calls
 		}"
 		end
 
-	fgetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER_32 is
- 		-- fgetpos64 (node at line 1354)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "fgetpos64"
-		}"
-		end
-
 	vscanf (a_format: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- vscanf (node at line 1370)
+ 		-- vscanf (node at line 1361)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -962,8 +952,18 @@ feature {} -- External calls
 		}"
 		end
 
+	feof (a_stream: POINTER): INTEGER_32 is
+ 		-- feof (node at line 1370)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "feof"
+		}"
+		end
+
 	fgetc (a_stream: POINTER): INTEGER_32 is
- 		-- fgetc (node at line 1380)
+ 		-- fgetc (node at line 1374)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -973,7 +973,7 @@ feature {} -- External calls
 		end
 
 	fgets (a_s: POINTER; a_n: INTEGER_32; a_stream: POINTER): POINTER is
- 		-- fgets (node at line 1383)
+ 		-- fgets (node at line 1377)
 		external "plug_in"
 		alias "{
 			location: "."

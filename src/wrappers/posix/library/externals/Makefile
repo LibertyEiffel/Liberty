@@ -6,8 +6,8 @@ wrappers: posix.gcc-xml
 	wrappers-generator --local --directory . posix.gcc-xml /usr/include/* /usr/include/sys/*
 	# Add those when available: --typedefs POSIX_TYPES   
 
-posix.gcc-xml: posix-includes.h
-	gccxml posix-includes.h -fxml=posix.gcc-xml
+posix.gcc-xml: plugin/c/liberty-posix.h
+	gccxml plugin/c/liberty-posix.h -fxml=posix.gcc-xml
 
 
 
