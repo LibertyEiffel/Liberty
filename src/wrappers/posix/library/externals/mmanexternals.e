@@ -9,8 +9,8 @@ inherit ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	munmap (an_addr: POINTER; a_len: NATURAL_32): INTEGER_32 is
- 		-- munmap (node at line 147)
+	munmap (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
+ 		-- munmap (node at line 153)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,8 +19,8 @@ feature {} -- External calls
 		}"
 		end
 
-	mremap (an_addr: POINTER; an_old_len: NATURAL_32; a_new_len: NATURAL_32; a_flags: INTEGER_32): POINTER is
- 		-- mremap (variadic)  (node at line 161)
+	mremap (an_addr: POINTER; an_old_len: NATURAL_64; a_new_len: NATURAL_64; a_flags: INTEGER_32): POINTER is
+ 		-- mremap (variadic)  (node at line 166)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	shm_open (a_name: POINTER; an_oflag: INTEGER_32; a_mode: NATURAL_32): INTEGER_32 is
- 		-- shm_open (node at line 214)
+ 		-- shm_open (node at line 246)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,18 +39,8 @@ feature {} -- External calls
 		}"
 		end
 
-	msync (an_addr: POINTER; a_len: NATURAL_32; a_flags: INTEGER_32): INTEGER_32 is
- 		-- msync (node at line 340)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "msync"
-		}"
-		end
-
-	mprotect (an_addr: POINTER; a_len: NATURAL_32; a_prot: INTEGER_32): INTEGER_32 is
- 		-- mprotect (node at line 385)
+	mprotect (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32): INTEGER_32 is
+ 		-- mprotect (node at line 381)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -59,8 +49,8 @@ feature {} -- External calls
 		}"
 		end
 
-	munlock (an_addr: POINTER; a_len: NATURAL_32): INTEGER_32 is
- 		-- munlock (node at line 450)
+	munlock (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
+ 		-- munlock (node at line 446)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,8 +59,18 @@ feature {} -- External calls
 		}"
 		end
 
-	mmap (an_addr: POINTER; a_len: NATURAL_32; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_32): POINTER is
- 		-- mmap (node at line 641)
+	msync (an_addr: POINTER; a_len: NATURAL_64; a_flags: INTEGER_32): INTEGER_32 is
+ 		-- msync (node at line 577)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "msync"
+		}"
+		end
+
+	mmap (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_64): POINTER is
+ 		-- mmap (node at line 652)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,8 +79,8 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_madvise (an_addr: POINTER; a_len: NATURAL_32; an_advice: INTEGER_32): INTEGER_32 is
- 		-- posix_madvise (node at line 674)
+	posix_madvise (an_addr: POINTER; a_len: NATURAL_64; an_advice: INTEGER_32): INTEGER_32 is
+ 		-- posix_madvise (node at line 688)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +90,7 @@ feature {} -- External calls
 		end
 
 	shm_unlink (a_name: POINTER): INTEGER_32 is
- 		-- shm_unlink (node at line 870)
+ 		-- shm_unlink (node at line 881)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	mlockall (a_flags: INTEGER_32): INTEGER_32 is
- 		-- mlockall (node at line 884)
+ 		-- mlockall (node at line 895)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,8 +109,8 @@ feature {} -- External calls
 		}"
 		end
 
-	mmap64 (an_addr: POINTER; a_len: NATURAL_32; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_64): POINTER is
- 		-- mmap64 (node at line 991)
+	mmap64 (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_64): POINTER is
+ 		-- mmap64 (node at line 1015)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -119,8 +119,8 @@ feature {} -- External calls
 		}"
 		end
 
-	remap_file_pages (a_start: POINTER; a_size: NATURAL_32; a_prot: INTEGER_32; a_pgoff: NATURAL_32; a_flags: INTEGER_32): INTEGER_32 is
- 		-- remap_file_pages (node at line 1077)
+	remap_file_pages (a_start: POINTER; a_size: NATURAL_64; a_prot: INTEGER_32; a_pgoff: NATURAL_64; a_flags: INTEGER_32): INTEGER_32 is
+ 		-- remap_file_pages (node at line 1088)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -129,8 +129,8 @@ feature {} -- External calls
 		}"
 		end
 
-	madvise (an_addr: POINTER; a_len: NATURAL_32; an_advice: INTEGER_32): INTEGER_32 is
- 		-- madvise (node at line 1127)
+	madvise (an_addr: POINTER; a_len: NATURAL_64; an_advice: INTEGER_32): INTEGER_32 is
+ 		-- madvise (node at line 1140)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -139,8 +139,8 @@ feature {} -- External calls
 		}"
 		end
 
-	mlock (an_addr: POINTER; a_len: NATURAL_32): INTEGER_32 is
- 		-- mlock (node at line 1280)
+	mlock (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
+ 		-- mlock (node at line 1289)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -159,8 +159,8 @@ feature {} -- External calls
 		}"
 		end
 
-	mincore (a_start: POINTER; a_len: NATURAL_32; a_vec: POINTER): INTEGER_32 is
- 		-- mincore (node at line 1358)
+	mincore (a_start: POINTER; a_len: NATURAL_64; a_vec: POINTER): INTEGER_32 is
+ 		-- mincore (node at line 1349)
 		external "plug_in"
 		alias "{
 			location: "."
