@@ -18,14 +18,14 @@ cluster
 			assertion(no)
 		option
 			debug(all): FIXED_STRING -- `debug_string' is very useful
-			assertion(require): HASHED_DICTIONARY, FAST_ARRAY, ARRAY_DICTIONARY, RING_ARRAY
+			assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, ARRAY_DICTIONARY, RING_ARRAY
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"
 		default
 			assertion(ensure)
 		option
-			debug(all): LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER
+			debug(all): LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_FEATURE_CALL
 		end
 
 generate

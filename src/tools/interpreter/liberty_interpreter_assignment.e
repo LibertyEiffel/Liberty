@@ -41,7 +41,7 @@ feature {LIBERTY_FEATURE_ENTITY}
 feature {LIBERTY_LOCAL}
 	visit_liberty_local (v: LIBERTY_LOCAL) is
 		do
-			interpreter.set_local(v.name, checker.item([interpreter, interpreter.local_static_type(v.name), value]))
+			interpreter.set_local_value(v.name, checker.item([interpreter, interpreter.local_static_type(v.name), value]))
 		end
 
 feature {LIBERTY_PARAMETER}

@@ -171,7 +171,7 @@ feature {}
 					fd2 := pf.reference_at(new_name)
 					if fd2 = Void then
 						pf.remove(old_name)
-						fd.set_name(new_name)
+						create fd.renamed(new_name, fd)
 						pf.add(fd, new_name)
 					else
 						pf.remove(old_name)

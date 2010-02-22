@@ -399,6 +399,7 @@ feature {}
 			left := last_eval
 			v.actuals.first.accept(Current)
 			right := last_eval
+			v.entity.debug_display
 			eval_memory := interpreter.item_feature(left, v.entity.feature_definition, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << right >> })
 		end
 

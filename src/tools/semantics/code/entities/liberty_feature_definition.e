@@ -26,7 +26,7 @@ insert
 		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
-	make
+	make, renamed
 
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
@@ -159,15 +159,6 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	set_name (a_name: like feature_name) is
-		require
-			a_name /= Void
-		do
-			feature_name := a_name
-		ensure
-			feature_name = a_name
-		end
-
 	set_clients (a_clients: like clients) is
 		require
 			a_clients /= Void
@@ -340,6 +331,20 @@ feature {}
 			clients = a_clients
 			is_frozen = a_frozen
 			position = a_position
+		end
+
+	renamed (a_name: like feature_name; a_feature_definition: like Current) is
+		require
+			a_name /= Void
+			a_feature_definition /= Void
+		do
+			feature_name := a_name
+			clients := a_feature_definition.clients
+			is_frozen := a_feature_definition.is_frozen
+			position := a_feature_definition.position
+			the_feature := a_feature_definition.the_feature
+		ensure
+			feature_name = a_name
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]

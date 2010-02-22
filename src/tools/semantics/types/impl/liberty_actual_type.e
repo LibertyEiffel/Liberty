@@ -142,7 +142,7 @@ feature {ANY}
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
 		local
-			i: INTEGER
+			i: INTEGER; fn: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
 		do
 			if is_runtime_category_set then
 				if is_expanded then
@@ -166,10 +166,12 @@ feature {ANY}
 				until
 					i > features.upper
 				loop
+					fn := features.key(i)
+					fd := features.item(i)
 					check
-						features.key(i) = features.item(i).feature_name
+						fn = fd.feature_name
 					end
-					features.item(i).debug_display(o)
+					fd.debug_display(o)
 					i := i + 1
 				end
 			end

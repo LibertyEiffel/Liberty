@@ -31,6 +31,10 @@ feature {ANY}
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
+			check not prepare end
+			prepare := True
+			bound_feature.accept(Current)
+			prepare := False
 			check_invariant
 			check_precondition
 			prepare_postcondition
@@ -155,23 +159,27 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 		local
 			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 		do
-			if t ?:= target then
-				t ::= target
-				if not t.has_attribute(name) then
+			if not prepare then
+				if t ?:= target then
+					t ::= target
+					if not t.has_attribute(name) then
+						interpreter.fatal_error("No such attribute: " + name)
+					end
+					returned_object := t.attribute_object(name)
+				else
+					--|*** TODO: not good. Native objects may have attributes too (e.g. string)
 					interpreter.fatal_error("No such attribute: " + name)
 				end
-				returned_object := t.attribute_object(name)
-			else
-				--|*** TODO: not good. Native objects may have attributes too (e.g. string)
-				interpreter.fatal_error("No such attribute: " + name)
 			end
 		end
 
 feature {LIBERTY_FEATURE_CONSTANT}
 	visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT) is
 		do
-			v.expression.accept(interpreter.expressions)
-			returned_object := interpreter.expressions.last_eval
+			if not prepare then
+				v.expression.accept(interpreter.expressions)
+				returned_object := interpreter.expressions.last_eval
+			end
 		end
 
 feature {LIBERTY_FEATURE_DEFERRED}
@@ -183,14 +191,19 @@ feature {LIBERTY_FEATURE_DEFERRED}
 feature {LIBERTY_FEATURE_DO}
 	visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
 		do
-			prepare_local_maps(v)
-			v.block_instruction.accept(interpreter.instructions)
+			if prepare then
+				prepare_local_maps(v)
+			else
+				v.block_instruction.accept(interpreter.instructions)
+			end
 		end
 
 feature {LIBERTY_FEATURE_EXTERNAL}
 	visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
 		do
-			not_yet_implemented
+			if not prepare then
+				not_yet_implemented
+			end
 		end
 
 feature {LIBERTY_FEATURE_ONCE}
@@ -198,12 +211,15 @@ feature {LIBERTY_FEATURE_ONCE}
 		local
 			once_value_ref: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT]
 		do
-			if once_value_ref.is_set(v) then
-				returned_object := once_value_ref.value(v)
-			else
+			if prepare then
 				prepare_local_maps(v)
-				v.block_instruction.accept(interpreter.instructions)
-				once_value_ref.add(returned_object, v)
+			else
+				if once_value_ref.is_set(v) then
+					returned_object := once_value_ref.value(v)
+				else
+					v.block_instruction.accept(interpreter.instructions)
+					once_value_ref.add(returned_object, v)
+				end
 			end
 		end
 
@@ -216,7 +232,9 @@ feature {LIBERTY_FEATURE_REDEFINED}
 feature {LIBERTY_FEATURE_UNIQUE}
 	visit_liberty_feature_unique (v: LIBERTY_FEATURE_UNIQUE) is
 		do
-			not_yet_implemented
+			if not prepare then
+				not_yet_implemented
+			end
 		end
 
 feature {}
@@ -293,6 +311,11 @@ feature {}
 		local
 			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
 		do
+			debug
+				std_output.put_string(once "Preparing local maps for ")
+				std_output.put_line(name)
+			end
+
 			if f.parameters.count /= parameters.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
 												+ " but got " + parameters.count.out)
@@ -384,6 +407,8 @@ feature {}
 		end
 
 	old_values: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]
+
+	prepare: BOOLEAN
 
 invariant
 	interpreter /= Void
