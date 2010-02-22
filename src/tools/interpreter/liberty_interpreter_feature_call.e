@@ -107,8 +107,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 
 feature {LIBERTY_INTERPRETER}
 	show_stack (o: OUTPUT_STREAM) is
-		local
-			i: INTEGER
 		do
 			o.put_string(once "Feature {")
 			o.put_string(target.type.full_name)
@@ -122,33 +120,37 @@ feature {LIBERTY_INTERPRETER}
 				o.put_string(once "Result = ")
 				returned_object.show_stack(o, 0)
 			end
-			if not parameter_map.is_empty then
+			show_map(parameter_map, once "Parameters", o)
+			show_map(local_map, once "Locals", o)
+		end
+
+feature {}
+	show_map (map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]; tag: STRING; o: OUTPUT_STREAM) is
+		local
+			i: INTEGER; obj: LIBERTY_INTERPRETER_OBJECT
+		do
+			if map = Void then
 				o.put_new_line
-				o.put_line(once "Parameters:")
+				o.put_string(tag)
+				o.put_line(once " map not yet computed")
+			elseif not map.is_empty then
+				o.put_new_line
+				o.put_string(tag)
+				o.put_line(once ":")
 				from
-					i := parameter_map.lower
+					i := map.lower
 				until
-					i > parameter_map.upper
+					i > map.upper
 				loop
 					o.put_new_line
-					o.put_string(parameter_map.key(i))
+					o.put_string(map.key(i))
 					o.put_string(once " = ")
-					parameters.item(i).show_stack(o, 0)
-					i := i + 1
-				end
-			end
-			if not local_map.is_empty then
-				o.put_new_line
-				o.put_line(once "Locals:")
-				from
-					i := local_map.lower
-				until
-					i > local_map.upper
-				loop
-					o.put_new_line
-					o.put_string(local_map.key(i))
-					o.put_string(once " = ")
-					local_map.item(i).show_stack(o, 0)
+					obj := map.item(i)
+					if obj = Void then
+						o.put_line(once "Void")
+					else
+						obj.show_stack(o, 0)
+					end
 					i := i + 1
 				end
 			end
