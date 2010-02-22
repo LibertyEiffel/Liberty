@@ -28,7 +28,8 @@ feature {LIBERTYI}
 				std_output.put_string(once "}.")
 				std_output.put_line(root_feature_name.full_name)
 			end
-			root_object := new_object(root_type, root_feature, root_feature_parameters)
+			root_object := new_object(root_type)
+			call_feature(root_object, root_feature, root_feature_parameters)
 		end
 
 feature {ANY}
@@ -61,21 +62,23 @@ feature {ANY}
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
+	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
+	array_creator: LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR
 
 	universe: LIBERTY_UNIVERSE
 
-	call_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+	call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
 		local
 			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			dummy := do_call(target, feature_to_call, parameters)
+			dummy := do_call(a_target, feature_to_call, parameters)
 		end
 
-	item_feature (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+	item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
 		local
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			call := do_call(target, feature_to_call, parameters)
+			call := do_call(a_target, feature_to_call, parameters)
 			Result := call.returned_object
 		end
 
@@ -94,14 +97,27 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
-	new_object (object_type: LIBERTY_ACTUAL_TYPE; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+	new_object (object_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
 		do
 			debug
 				std_output.put_string(once "Creating new object of type ")
 				std_output.put_line(object_type.full_name)
 			end
 			Result := creator.new_object(object_type)
-			call_feature(Result, feature_to_call, parameters)
+		end
+
+	new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+		do
+			check
+				type.parameters.count = 1
+			end
+			debug
+				std_output.put_string(once "Creating new array of ")
+				std_output.put_integer(capacity)
+				std_output.put_character(' ')
+				std_output.put_line(type.parameters.first.full_name)
+			end
+			Result := array_creator.new_array(type, capacity)
 		end
 
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
@@ -125,9 +141,9 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		end
 
 feature {}
-	do_call (target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
+	do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
-			create Result.make(Current, target, feature_to_call, parameters)
+			create Result.make(Current, a_target, feature_to_call, parameters)
 			call_stack.add_last(Result)
 			Result.call
 			check
@@ -147,15 +163,41 @@ feature {}
 			call_stack.remove_last
 		end
 
+feature {LIBERTY_INTERPRETER_EXPRESSIONS}
+	target: LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := call_stack.last.target
+		end
+
+	local_value (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := call_stack.last.local_value(name)
+		end
+
+	returned_object: LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := call_stack.last.returned_object
+		end
+
+	writable_feature (name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := call_stack.last.writable_feature(name)
+		end
+
+	parameter (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := call_stack.last.parameter(name)
+		end
+
 feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	local_static_type (name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
 		do
 			Result := call_stack.last.local_static_type(name)
 		end
 
-	set_local (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+	set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
-			call_stack.last.set_local(name, value)
+			call_stack.last.set_local_value(name, value)
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE is
@@ -194,6 +236,7 @@ feature {}
 			create expressions.make(Current)
 			create assertions.make(Current)
 			create creator.make(Current)
+			create array_creator.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 		ensure
@@ -215,7 +258,6 @@ feature {}
 		end
 
 	call_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
-	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
 
 invariant
 	instructions /= Void

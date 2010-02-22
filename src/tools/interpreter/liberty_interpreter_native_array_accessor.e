@@ -12,11 +12,6 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_AGENT
+deferred class LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR
 
-inherit
-	LIBERTY_INTERPRETER_OBJECT
-
-	--|*** TODO
-
-end -- class LIBERTY_INTERPRETER_AGENT
+end -- class LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR

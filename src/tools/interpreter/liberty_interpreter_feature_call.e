@@ -54,9 +54,19 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			Result := local_types.reference_at(local_name)
 		end
 
-	set_local (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+	set_local_value (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			local_map.put(value, local_name)
+		end
+
+	local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := local_map.fast_reference_at(local_name)
+		end
+
+	parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := parameter_map.fast_reference_at(parameter_name)
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
@@ -72,6 +82,14 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 		do
 			struct ::= target
 			struct.put_attribute(a_name.name, a_value)
+		end
+
+	writable_feature (a_name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
+		local
+			struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+		do
+			struct ::= target
+			Result := struct.attribute_object(a_name.name)
 		end
 
 	raised_exception: LIBERTY_INTERPRETER_EXCEPTION
