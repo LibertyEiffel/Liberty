@@ -218,7 +218,7 @@ feature {ANY} -- Inheritance
 					Result := conformant_parents.item(i).is_conform_to(other)
 					i := i + 1
 				end
-				if Result then
+				if Result and then name = other.name then
 					Result := conformance_checker.inherits(other, Current)
 				end
 			end
@@ -407,6 +407,18 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			not has_feature(a_feature.feature_name)
 		do
 			features.add(a_feature, a_feature.feature_name)
+			torch.burn
+		ensure
+			has_feature(a_feature.feature_name)
+			feature_definition(a_feature.feature_name) = a_feature
+		end
+
+	replace_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
+		require
+			has_feature(a_feature.feature_name)
+			feature_definition(a_feature.feature_name) /= a_feature
+		do
+			features.put(a_feature, a_feature.feature_name)
 			torch.burn
 		ensure
 			has_feature(a_feature.feature_name)

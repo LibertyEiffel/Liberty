@@ -40,21 +40,26 @@ feature {ANY}
 			check
 				call_stack.lower = 0
 			end
-			std_output.put_line(once "=========== [Bottom of stack] ===========")
+			std_error.put_new_line
+			std_error.put_line(once "*** Fatal error!")
+			std_error.put_new_line
+			std_error.put_line(once "=========== [Bottom of stack] ===========")
 			from
 				i := call_stack.lower
 			until
 				i > call_stack.upper
 			loop
 				if i > call_stack.lower then
-					std_output.put_line(once "-----------------------------------------")
+					std_error.put_line(once "-----------------------------------------")
 				end
-				std_output.put_integer(i + 1)
-				std_output.put_character('%T')
-				call_stack.item(i).show_stack(std_output)
+				std_error.put_integer(i + 1)
+				std_error.put_character('%T')
+				call_stack.item(i).show_stack(std_error)
 				i := i + 1
 			end
-			std_output.put_line(once "============ [Top of stack] =============")
+			std_error.put_line(once "============ [Top of stack] =============")
+			std_error.put_new_line
+			std_error.put_string(once "*** ")
 			std_error.put_line(reason)
 			sedb_breakpoint
 			die_with_code(1)

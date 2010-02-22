@@ -142,14 +142,14 @@ feature {}
 				until
 					i > map.upper
 				loop
-					o.put_new_line
+					o.put_string(once "   ")
 					o.put_string(map.key(i))
 					o.put_string(once " = ")
 					obj := map.item(i)
 					if obj = Void then
 						o.put_line(once "Void")
 					else
-						obj.show_stack(o, 0)
+						obj.show_stack(o, 1)
 					end
 					i := i + 1
 				end
