@@ -72,18 +72,20 @@ feature {}
 			parent: LIBERTY_TYPE
 		do
 			from
-				Result := False
+				Result := had_parents
 				i := parents.list_lower
 			until
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
 				parent := type_lookup.resolver.type(parent_clause.type_definition)
-				if parent /= Void then
-					inject_parent_invariant(parent.actual_type)
-					inject_parent_features(parent.actual_type, parent_clause.parent_clause, conformant)
-					Result := True
+				if parent = Void then
+					--|*** TODO: error, parent not found
+					not_yet_implemented
 				end
+				inject_parent_invariant(parent.actual_type)
+				inject_parent_features(parent.actual_type, parent_clause.parent_clause, conformant)
+				Result := True
 				i := i + 1
 			end
 		end
