@@ -476,8 +476,10 @@ feature {}
 			i: INTEGER
 		do
 			inspect op
-			when "<<", ">>", "=" then
-				Result := False
+			when "<<", ">>", "=", "/=", "<=", "<", ">=", ">", "+", "-", "*", "//", "\\", "/", "^", "->", ".." then
+				check
+					not Result
+				end
 			else
 				inspect
 					op.first
