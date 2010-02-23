@@ -1,5 +1,6 @@
 deferred class ZMQ_SOCKET_TYPES
 	-- ØMQ socket types
+insert ANY undefine copy, is_equal end
 feature {} -- Socket types
 	zmq_p2p: INTEGER_32 is
 		-- A socket type to  communicate with a single peer. Allows for only

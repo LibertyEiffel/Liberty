@@ -3,7 +3,7 @@
 export GCCXML_COMPILER = gcc-4.2
 
 wrappers: posix.gcc-xml
-	wrappers-generator --local --directory . posix.gcc-xml /usr/include/* /usr/include/sys/*
+	wrappers-generator --global --directory . posix.gcc-xml /usr/include/* /usr/include/sys/*
 	# Add those when available: --typedefs POSIX_TYPES   
 
 posix.gcc-xml: plugin/c/liberty-posix.h
