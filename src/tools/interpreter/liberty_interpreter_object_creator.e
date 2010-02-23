@@ -87,7 +87,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[STRING]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type)
 		end
 
 	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
@@ -97,7 +97,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]]} last_created.make(interpreter, type)
+			interpreter.fatal_error("Cannot create a native array without capacity")
 		end
 
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is

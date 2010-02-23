@@ -31,6 +31,10 @@ feature {ANY}
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
+			check not prepare end
+			prepare := True
+			bound_feature.accept(Current)
+			prepare := False
 			check_invariant
 			check_precondition
 			prepare_postcondition
@@ -54,9 +58,19 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			Result := local_types.reference_at(local_name)
 		end
 
-	set_local (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+	set_local_value (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			local_map.put(value, local_name)
+		end
+
+	local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := local_map.fast_reference_at(local_name)
+		end
+
+	parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := parameter_map.fast_reference_at(parameter_name)
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
@@ -74,6 +88,14 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			struct.put_attribute(a_name.name, a_value)
 		end
 
+	writable_feature (a_name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
+		local
+			struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+		do
+			struct ::= target
+			Result := struct.attribute_object(a_name.name)
+		end
+
 	raised_exception: LIBERTY_INTERPRETER_EXCEPTION
 
 	raise (a_exception: like raised_exception) is
@@ -85,8 +107,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 
 feature {LIBERTY_INTERPRETER}
 	show_stack (o: OUTPUT_STREAM) is
-		local
-			i: INTEGER
 		do
 			o.put_string(once "Feature {")
 			o.put_string(target.type.full_name)
@@ -100,33 +120,37 @@ feature {LIBERTY_INTERPRETER}
 				o.put_string(once "Result = ")
 				returned_object.show_stack(o, 0)
 			end
-			if not parameter_map.is_empty then
+			show_map(parameter_map, once "Parameters", o)
+			show_map(local_map, once "Locals", o)
+		end
+
+feature {}
+	show_map (map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]; tag: STRING; o: OUTPUT_STREAM) is
+		local
+			i: INTEGER; obj: LIBERTY_INTERPRETER_OBJECT
+		do
+			if map = Void then
 				o.put_new_line
-				o.put_line(once "Parameters:")
-				from
-					i := parameter_map.lower
-				until
-					i > parameter_map.upper
-				loop
-					o.put_new_line
-					o.put_string(parameter_map.key(i))
-					o.put_string(once " = ")
-					parameters.item(i).show_stack(o, 0)
-					i := i + 1
-				end
-			end
-			if not local_map.is_empty then
+				o.put_string(tag)
+				o.put_line(once " map not yet computed")
+			elseif not map.is_empty then
 				o.put_new_line
-				o.put_line(once "Locals:")
+				o.put_string(tag)
+				o.put_line(once ":")
 				from
-					i := local_map.lower
+					i := map.lower
 				until
-					i > local_map.upper
+					i > map.upper
 				loop
-					o.put_new_line
-					o.put_string(local_map.key(i))
+					o.put_string(once "   ")
+					o.put_string(map.key(i))
 					o.put_string(once " = ")
-					local_map.item(i).show_stack(o, 0)
+					obj := map.item(i)
+					if obj = Void then
+						o.put_line(once "Void")
+					else
+						obj.show_stack(o, 1)
+					end
 					i := i + 1
 				end
 			end
@@ -137,23 +161,27 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 		local
 			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 		do
-			if t ?:= target then
-				t ::= target
-				if not t.has_attribute(name) then
+			if not prepare then
+				if t ?:= target then
+					t ::= target
+					if not t.has_attribute(name) then
+						interpreter.fatal_error("No such attribute: " + name)
+					end
+					returned_object := t.attribute_object(name)
+				else
+					--|*** TODO: not good. Native objects may have attributes too (e.g. string)
 					interpreter.fatal_error("No such attribute: " + name)
 				end
-				returned_object := t.attribute_object(name)
-			else
-				--|*** TODO: not good. Native objects may have attributes too (e.g. string)
-				interpreter.fatal_error("No such attribute: " + name)
 			end
 		end
 
 feature {LIBERTY_FEATURE_CONSTANT}
 	visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT) is
 		do
-			v.expression.accept(interpreter.expressions)
-			returned_object := interpreter.expressions.last_eval
+			if not prepare then
+				v.expression.accept(interpreter.expressions)
+				returned_object := interpreter.expressions.last_eval
+			end
 		end
 
 feature {LIBERTY_FEATURE_DEFERRED}
@@ -165,14 +193,19 @@ feature {LIBERTY_FEATURE_DEFERRED}
 feature {LIBERTY_FEATURE_DO}
 	visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
 		do
-			prepare_local_maps(v)
-			v.block_instruction.accept(interpreter.instructions)
+			if prepare then
+				prepare_local_maps(v)
+			else
+				v.block_instruction.accept(interpreter.instructions)
+			end
 		end
 
 feature {LIBERTY_FEATURE_EXTERNAL}
 	visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
 		do
-			not_yet_implemented
+			if not prepare then
+				not_yet_implemented
+			end
 		end
 
 feature {LIBERTY_FEATURE_ONCE}
@@ -180,12 +213,15 @@ feature {LIBERTY_FEATURE_ONCE}
 		local
 			once_value_ref: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT]
 		do
-			if once_value_ref.is_set(v) then
-				returned_object := once_value_ref.value(v)
-			else
+			if prepare then
 				prepare_local_maps(v)
-				v.block_instruction.accept(interpreter.instructions)
-				once_value_ref.add(returned_object, v)
+			else
+				if once_value_ref.is_set(v) then
+					returned_object := once_value_ref.value(v)
+				else
+					v.block_instruction.accept(interpreter.instructions)
+					once_value_ref.add(returned_object, v)
+				end
 			end
 		end
 
@@ -198,7 +234,9 @@ feature {LIBERTY_FEATURE_REDEFINED}
 feature {LIBERTY_FEATURE_UNIQUE}
 	visit_liberty_feature_unique (v: LIBERTY_FEATURE_UNIQUE) is
 		do
-			not_yet_implemented
+			if not prepare then
+				not_yet_implemented
+			end
 		end
 
 feature {}
@@ -275,6 +313,11 @@ feature {}
 		local
 			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
 		do
+			debug
+				std_output.put_string(once "Preparing local maps for ")
+				std_output.put_line(name)
+			end
+
 			if f.parameters.count /= parameters.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
 												+ " but got " + parameters.count.out)
@@ -366,6 +409,8 @@ feature {}
 		end
 
 	old_values: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]
+
+	prepare: BOOLEAN
 
 invariant
 	interpreter /= Void

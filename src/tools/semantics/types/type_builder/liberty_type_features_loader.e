@@ -307,7 +307,7 @@ feature {}
 	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
-			fd: LIBERTY_FEATURE_DEFINITION
+			fd_parent, fd: LIBERTY_FEATURE_DEFINITION
 			name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
 			redefined: LIBERTY_FEATURE_REDEFINED
 		do
@@ -325,7 +325,19 @@ feature {}
 						redefined := redefined_features.reference_at(feature_name)
 					end
 					if redefined = Void then
-						-- Nothing, not a redefined feature
+						fd_parent := type.feature_definition(feature_name)
+						check
+							{LIBERTY_FEATURE_DEFERRED} ?:= fd_parent.the_feature
+						end
+						if fd_parent.the_feature.definition_type = type then
+							--|*** TODO: warning or error?? an undefined feature should not be defined
+						end
+						create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
+						fd.set_the_feature(a_feature)
+						if type.is_conform_to(fd_parent.the_feature.definition_type) then
+							fd_parent.the_feature.bind(a_feature, type)
+						end
+						type.replace_feature(fd)
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
 					elseif redefined.redefined_feature = a_feature then

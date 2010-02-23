@@ -123,8 +123,11 @@ feature {LIBERTY_CREATION_INSTRUCTION}
 	visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION) is
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
+			new_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			create assignment.regular(interpreter, interpreter.new_object(v.type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments)))
+			new_object := interpreter.new_object(v.type.actual_type)
+			interpreter.call_feature(new_object, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
+			create assignment.regular(interpreter, new_object)
 			v.writable.accept(assignment)
 		end
 

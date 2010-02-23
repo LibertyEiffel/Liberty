@@ -16,6 +16,7 @@ class LIBERTY_INTERPRETER_EXPRESSIONS
 
 inherit
 	LIBERTY_EXPRESSION_VISITOR
+	LIBERTY_ENTITY_VISITOR
 
 creation {LIBERTY_INTERPRETER}
 	make
@@ -92,7 +93,8 @@ feature {LIBERTY_CHARACTER_MANIFEST}
 feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
 		do
-			eval_memory := interpreter.new_object(v.result_type.actual_type, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
+			eval_memory := interpreter.new_object(v.result_type.actual_type)
+			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
 		end
 
 feature {LIBERTY_DIVIDE}
@@ -104,7 +106,7 @@ feature {LIBERTY_DIVIDE}
 feature {LIBERTY_ENTITY_EXPRESSION}
 	visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION) is
 		do
-			not_yet_implemented
+			v.entity.accept(Current)
 		end
 
 feature {LIBERTY_ENTITY_REFERENCE}
@@ -277,8 +279,20 @@ feature {LIBERTY_REAL_TYPED_MANIFEST}
 
 feature {LIBERTY_STRING_MANIFEST}
 	visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST) is
+		local
+			string_manifest: STRING
+			new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY[CHARACTER]
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[STRING]} eval_memory.with_item(interpreter, interpreter.universe.type_string, v.manifest)
+			string_manifest := v.manifest
+			create new_string_capacity.with_item(interpreter, interpreter.universe.type_integer, string_manifest.capacity)
+			create new_string_count.with_item(interpreter, interpreter.universe.type_integer, string_manifest.count)
+			create new_string_storage.with_storage(interpreter, native_array_of_character, interpreter.universe.type_character, string_manifest)
+			new_string ::= interpreter.new_object(interpreter.universe.type_string)
+			new_string.put_attribute(capacity_name, new_string_capacity)
+			new_string.put_attribute(count_name, new_string_count)
+			new_string.put_attribute(storage_name, new_string_storage)
 		end
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
@@ -317,18 +331,64 @@ feature {LIBERTY_XOR}
 			visit_infix(v)
 		end
 
+feature {LIBERTY_CURRENT}
+	visit_liberty_current (v: LIBERTY_CURRENT) is
+		do
+			eval_memory := interpreter.target
+		end
+
+feature {LIBERTY_FEATURE_DEFINITION}
+	visit_liberty_feature_definition (v: LIBERTY_FEATURE_DEFINITION) is
+		do
+			check False end
+		end
+
+feature {LIBERTY_FEATURE_ENTITY}
+	visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY) is
+		do
+			eval_memory := interpreter.item_feature(interpreter.target, v.feature_definition, no_parameters)
+		end
+
+feature {LIBERTY_LOCAL}
+	visit_liberty_local (v: LIBERTY_LOCAL) is
+		do
+			eval_memory := interpreter.local_value(v.name)
+		end
+
+feature {LIBERTY_PARAMETER}
+	visit_liberty_parameter (v: LIBERTY_PARAMETER) is
+		do
+			eval_memory := interpreter.parameter(v.name)
+		end
+
+feature {LIBERTY_RESULT}
+	visit_liberty_result (v: LIBERTY_RESULT) is
+		do
+			eval_memory := interpreter.returned_object
+		end
+
+feature {LIBERTY_WRITABLE_FEATURE}
+	visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE) is
+		do
+			check False end
+		end
+
 feature {}
 	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void
+		local
+			errors: LIBERTY_ERRORS
 		do
 			interpreter := a_interpreter
+			native_array_of_character := interpreter.universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << interpreter.universe.type_character >> }, errors.unknown_position)
 		ensure
 			interpreter = a_interpreter
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 	eval_memory: LIBERTY_INTERPRETER_OBJECT
+	native_array_of_character: LIBERTY_ACTUAL_TYPE
 
 feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
@@ -371,6 +431,21 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(0)
 		end
 
+	capacity_name: FIXED_STRING is
+		once
+			Result := "capacity".intern
+		end
+
+	count_name: FIXED_STRING is
+		once
+			Result := "count".intern
+		end
+
+	storage_name: FIXED_STRING is
+		once
+			Result := "storage".intern
+		end
+
 feature {}
 	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]): COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
 		local
@@ -391,5 +466,6 @@ feature {}
 
 invariant
 	interpreter /= Void
+	native_array_of_character /= Void
 
 end -- class LIBERTY_INTERPRETER_EXPRESSIONS

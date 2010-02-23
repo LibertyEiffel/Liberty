@@ -21,10 +21,15 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
+	redefined_feature: LIBERTY_FEATURE
+
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
 		do
 			tabulate(o, tab)
 			o.put_line(once "deferred")
+			if redefined_feature /= Void then
+				redefined_feature.debug_display(o, tab + 1)
+			end
 		end
 
 	accept (v: VISITOR) is
@@ -33,6 +38,22 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_deferred(Current)
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	set_redefined_feature (a_feature: like redefined_feature) is
+		require
+			only_once: redefined_feature = Void
+			useful: a_feature /= Void
+		do
+			redefined_feature := a_feature
+			set_precondition(a_feature.precondition)
+			set_postcondition(a_feature.postcondition)
+			set_context(a_feature.context)
+			set_obsolete(a_feature.obsolete_message)
+			torch.burn
+		ensure
+			redefined_feature = a_feature
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

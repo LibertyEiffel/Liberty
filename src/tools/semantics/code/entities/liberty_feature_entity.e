@@ -63,6 +63,11 @@ feature {ANY}
 			Result := target_type.actual_type.feature_definition(feature_name)
 		end
 
+	debug_display is
+		do
+			target_type.actual_type.debug_display(std_output, True)
+		end
+
 feature {LIBERTY_CALL_EXPRESSION}
 	can_check_agent_signature: BOOLEAN is
 		do
