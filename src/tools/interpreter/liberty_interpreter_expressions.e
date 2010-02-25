@@ -63,38 +63,33 @@ feature {LIBERTY_ASSIGNMENT_TEST}
 	visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
 		do
 			v.expression.accept(Current)
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, last_eval.type.is_conform_to(v.tested_type.actual_type))
+			eval_memory := interpreter.new_boolean(last_eval.type.is_conform_to(v.tested_type.actual_type), v.position)
 		end
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
 	visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, v.manifest)
+			eval_memory := interpreter.new_boolean(v.manifest, v.position)
 		end
 
 feature {LIBERTY_CALL_EXPRESSION}
 	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
-		local
-			target: LIBERTY_INTERPRETER_OBJECT
-			params: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
 		do
 			v.target.accept(interpreter.expressions)
-			target := interpreter.expressions.last_eval
-			params := as_parameters(v.actuals)
-			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, params)
+			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} eval_memory.with_item(interpreter, interpreter.universe.type_character, v.manifest)
+			eval_memory := interpreter.new_character(v.manifest, v.position)
 		end
 
 feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
 		do
-			eval_memory := interpreter.new_object(v.result_type.actual_type)
-			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
+			eval_memory := interpreter.new_object(v.result_type.actual_type, v.position)
+			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, v.feature_arguments, v.position)
 		end
 
 feature {LIBERTY_DIVIDE}
@@ -118,7 +113,7 @@ feature {LIBERTY_ENTITY_REFERENCE}
 feature {LIBERTY_EQUALS}
 	visit_liberty_equals (v: LIBERTY_EQUALS) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, visit_comparison(v))
+			eval_memory := interpreter.new_boolean(visit_comparison(v), v.position)
 		end
 
 feature {LIBERTY_GREATER_OR_EQUAL}
@@ -154,25 +149,25 @@ feature {LIBERTY_INT_DIVIDE}
 feature {LIBERTY_INTEGER_16_MANIFEST}
 	visit_liberty_integer_16_manifest (v: LIBERTY_INTEGER_16_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_64, v.manifest)
+			eval_memory := interpreter.new_integer_16(v.manifest, v.position)
 		end
 
 feature {LIBERTY_INTEGER_32_MANIFEST}
 	visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_32, v.manifest)
+			eval_memory := interpreter.new_integer_32(v.manifest, v.position)
 		end
 
 feature {LIBERTY_INTEGER_64_MANIFEST}
 	visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_16, v.manifest)
+			eval_memory := interpreter.new_integer_64(v.manifest, v.position)
 		end
 
 feature {LIBERTY_INTEGER_8_MANIFEST}
 	visit_liberty_integer_8_manifest (v: LIBERTY_INTEGER_8_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} eval_memory.with_item(interpreter, interpreter.universe.type_integer_8, v.manifest)
+			eval_memory := interpreter.new_integer_8(v.manifest, v.position)
 		end
 
 feature {LIBERTY_INTEGER_TYPED_MANIFEST}
@@ -214,7 +209,7 @@ feature {LIBERTY_NOT}
 feature {LIBERTY_NOT_EQUALS}
 	visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} eval_memory.with_item(interpreter, interpreter.universe.type_boolean, not visit_comparison(v))
+			eval_memory := interpreter.new_boolean(not visit_comparison(v), v.position)
 		end
 
 feature {LIBERTY_OLD}
@@ -256,7 +251,7 @@ feature {LIBERTY_POWER}
 feature {LIBERTY_PRECURSOR_EXPRESSION}
 	visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
 		do
-			eval_memory := interpreter.item_precursor(v.the_feature, as_parameters(v.actuals))
+			eval_memory := interpreter.item_precursor(v.the_feature, v.actuals, v.position)
 		end
 
 feature {LIBERTY_PREFIX_OPERATOR}
@@ -268,7 +263,7 @@ feature {LIBERTY_PREFIX_OPERATOR}
 feature {LIBERTY_REAL_MANIFEST}
 	visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL]} eval_memory.with_item(interpreter, interpreter.universe.type_real, v.manifest)
+			eval_memory := interpreter.new_real(v.manifest, v.position)
 		end
 
 feature {LIBERTY_REAL_TYPED_MANIFEST}
@@ -279,20 +274,8 @@ feature {LIBERTY_REAL_TYPED_MANIFEST}
 
 feature {LIBERTY_STRING_MANIFEST}
 	visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST) is
-		local
-			string_manifest: STRING
-			new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
-			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY[CHARACTER]
 		do
-			string_manifest := v.manifest
-			create new_string_capacity.with_item(interpreter, interpreter.universe.type_integer, string_manifest.capacity)
-			create new_string_count.with_item(interpreter, interpreter.universe.type_integer, string_manifest.count)
-			create new_string_storage.with_storage(interpreter, native_array_of_character, interpreter.universe.type_character, string_manifest)
-			new_string ::= interpreter.new_object(interpreter.universe.type_string)
-			new_string.put_attribute(capacity_name, new_string_capacity)
-			new_string.put_attribute(count_name, new_string_count)
-			new_string.put_attribute(storage_name, new_string_storage)
+			eval_memory := interpreter.new_string(v.manifest, v.position)
 		end
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
@@ -346,7 +329,7 @@ feature {LIBERTY_FEATURE_DEFINITION}
 feature {LIBERTY_FEATURE_ENTITY}
 	visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY) is
 		do
-			eval_memory := interpreter.item_feature(interpreter.target, v.feature_definition, no_parameters)
+			eval_memory := interpreter.item_feature(interpreter.target, v.feature_definition, no_actuals, v.position)
 		end
 
 feature {LIBERTY_LOCAL}
@@ -377,38 +360,26 @@ feature {}
 	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void
-		local
-			errors: LIBERTY_ERRORS
 		do
 			interpreter := a_interpreter
-			native_array_of_character := interpreter.universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << interpreter.universe.type_character >> }, errors.unknown_position)
 		ensure
 			interpreter = a_interpreter
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 	eval_memory: LIBERTY_INTERPRETER_OBJECT
-	native_array_of_character: LIBERTY_ACTUAL_TYPE
 
 feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
-		local
-			left, right: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.target.accept(Current)
-			left := last_eval
-			v.actuals.first.accept(Current)
-			right := last_eval
-			eval_memory := interpreter.item_feature(left, v.entity.feature_definition, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << right >> })
+			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
-		local
-			target: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.target.accept(Current)
-			target := last_eval
-			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, no_parameters)
+			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, no_actuals, v.position)
 		end
 
 	visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is
@@ -426,46 +397,12 @@ feature {}
 			end
 		end
 
-	no_parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT] is
+	no_actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
 		once
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(0)
-		end
-
-	capacity_name: FIXED_STRING is
-		once
-			Result := "capacity".intern
-		end
-
-	count_name: FIXED_STRING is
-		once
-			Result := "count".intern
-		end
-
-	storage_name: FIXED_STRING is
-		once
-			Result := "storage".intern
-		end
-
-feature {}
-	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]): COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
-		local
-			i: INTEGER; actual: LIBERTY_INTERPRETER_OBJECT
-		do
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(actuals.count)
-			from
-				i := actuals.lower
-			until
-				i > actuals.upper
-			loop
-				actuals.item(i).accept(interpreter.expressions)
-				actual := interpreter.expressions.last_eval
-				Result.add_last(actual)
-				i := i + 1
-			end
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
 		end
 
 invariant
 	interpreter /= Void
-	native_array_of_character /= Void
 
 end -- class LIBERTY_INTERPRETER_EXPRESSIONS

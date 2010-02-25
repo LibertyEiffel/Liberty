@@ -159,12 +159,14 @@ feature {}
 			if routine_execution.is_external then
 				if routine_execution.external_clause.alias_clause.has_alias then
 					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
-																				 decoded_string(routine_execution.external_clause.definition),
-																				 decoded_string(routine_execution.external_clause.alias_clause.definition))
+																				 decoded_string(routine_execution.external_clause.definition).intern,
+																				 decoded_string(routine_execution.external_clause.alias_clause.definition).intern,
+																				 local_context.best_accelerator)
 				else
 					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
-																				 decoded_string(routine_execution.external_clause.definition),
-																				 Void)
+																				 decoded_string(routine_execution.external_clause.definition).intern,
+																				 Void,
+																				 local_context.best_accelerator)
 				end
 			else
 				check routine_execution.is_regular end
@@ -178,10 +180,10 @@ feature {}
 					comp := compound(routine_execution.do_block.list, local_context)
 					if not errors.has_error then
 						if do_block.is_do then
-							create {LIBERTY_FEATURE_DO} routine.make(type, comp)
+							create {LIBERTY_FEATURE_DO} routine.make(type, comp, local_context.best_accelerator)
 						else
 							check do_block.is_once end
-							create {LIBERTY_FEATURE_ONCE} routine.make(type, comp)
+							create {LIBERTY_FEATURE_ONCE} routine.make(type, comp, local_context.best_accelerator)
 						end
 						if not routine_execution.rescue_block.is_empty then
 							routine.set_rescue(compound(routine_execution.rescue_block.list, local_context))

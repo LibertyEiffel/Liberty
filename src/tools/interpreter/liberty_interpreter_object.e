@@ -14,24 +14,30 @@
 --
 deferred class LIBERTY_INTERPRETER_OBJECT
 
-insert
-	ANY
+inherit
+	LIBERTY_EXPRESSION
 		undefine
 			is_equal
 		end
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE
+	result_type: LIBERTY_TYPE is
+		do
+			Result := type
+		end
 
-	is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	type: LIBERTY_ACTUAL_TYPE
+			-- the actual dynamic type of the object
+
+	is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			fd: LIBERTY_FEATURE_DEFINITION
 			cmp: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 		do
 			fd := type.feature_definition(le_feature_name)
-			cmp ::= interpreter.item_feature(lower, fd, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << Current >> })
+			cmp ::= interpreter.item_feature(lower, fd, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << Current >> }, a_position)
 			if cmp.item then
-				cmp ::= interpreter.item_feature(Current, fd, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << upper >> })
+				cmp ::= interpreter.item_feature(Current, fd, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << upper >> }, a_position)
 				Result := cmp.item
 			end
 		end
@@ -84,6 +90,18 @@ feature {}
 	le_feature_name: LIBERTY_FEATURE_NAME is
 		once
 			create Result.infixed("<=".intern)
+		end
+
+feature {ANY}
+	accept (visitor: VISITOR) is
+		do
+			check False end
+		end
+
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			check False end
 		end
 
 invariant

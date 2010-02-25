@@ -48,12 +48,13 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	make (a_definition_type: like definition_type; a_instruction: like block_instruction) is
+	make (a_definition_type: like definition_type; a_instruction: like block_instruction; a_accelerator: like accelerator) is
 		require
 			a_definition_type /= Void
 			a_instruction /= Void
+			a_accelerator /= Void
 		do
-			make_late_binding(a_definition_type)
+			make_late_binding(a_definition_type, a_accelerator)
 			block_instruction := a_instruction
 		ensure
 			definition_type = a_definition_type
@@ -77,5 +78,6 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 
 invariant
 	block_instruction /= Void
+	accelerator /= Void
 
 end

@@ -27,6 +27,35 @@ feature {ANY}
 	name: FIXED_STRING
 	target: LIBERTY_INTERPRETER_OBJECT
 	parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+	position: LIBERTY_POSITION
+
+	definition_type: LIBERTY_ACTUAL_TYPE is
+		do
+			Result := bound_feature.definition_type
+		end
+
+feature {LIBERTY_FEATURE_ACCELERATOR}
+	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+		do
+			bound_feature.accelerate_call(a)
+		end
+
+	evaluate_parameters is
+		local
+			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
+		do
+			from
+				create p.with_capacity(actuals.count)
+				i := actuals.lower
+			until
+				i > actuals.upper
+			loop
+				actuals.item(i).accept(interpreter.expressions)
+				p.add_last(interpreter.expressions.last_eval)
+				i := i + 1
+			end
+			parameters := p
+		end
 
 feature {LIBERTY_INTERPRETER}
 	call is
@@ -43,7 +72,7 @@ feature {LIBERTY_INTERPRETER}
 			check_invariant
 		end
 
-feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS}
+feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	returned_object: LIBERTY_INTERPRETER_OBJECT
 
 	set_returned_object (a_returned_object: like returned_object) is
@@ -112,6 +141,14 @@ feature {LIBERTY_INTERPRETER}
 			o.put_string(target.type.full_name)
 			o.put_string(once "}.")
 			o.put_line(name)
+			if position.line > 0 then
+				o.put_string(once "   at line ")
+				o.put_integer(position.line)
+				o.put_string(once ", column ")
+				o.put_integer(position.column)
+				o.put_string(once " in file ")
+				o.put_line(position.file)
+			end
 			o.put_new_line
 			o.put_string(once "Current = ")
 			target.show_stack(o, 0)
@@ -187,6 +224,7 @@ feature {LIBERTY_FEATURE_CONSTANT}
 feature {LIBERTY_FEATURE_DEFERRED}
 	visit_liberty_feature_deferred (v: LIBERTY_FEATURE_DEFERRED) is
 		do
+			evaluate_parameters
 			interpreter.fatal_error("Deferred feature called")
 		end
 
@@ -194,6 +232,7 @@ feature {LIBERTY_FEATURE_DO}
 	visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
 		do
 			if prepare then
+				evaluate_parameters
 				prepare_local_maps(v)
 			else
 				v.block_instruction.accept(interpreter.instructions)
@@ -204,7 +243,16 @@ feature {LIBERTY_FEATURE_EXTERNAL}
 	visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
 		do
 			if not prepare then
-				not_yet_implemented
+				inspect
+					v.external_def.out
+				when "built_in" then
+					interpreter.builtins.call(Current)
+				when "plug_in" then
+					evaluate_parameters
+					interpreter.plugins.call(Current, v.alias_def)
+				else
+					not_yet_implemented
+				end
 			end
 		end
 
@@ -214,6 +262,7 @@ feature {LIBERTY_FEATURE_ONCE}
 			once_value_ref: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT]
 		do
 			if prepare then
+				evaluate_parameters
 				prepare_local_maps(v)
 			else
 				if once_value_ref.is_set(v) then
@@ -240,17 +289,19 @@ feature {LIBERTY_FEATURE_UNIQUE}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: LIBERTY_FEATURE_DEFINITION; a_parameters: like parameters) is
+	make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: LIBERTY_FEATURE_DEFINITION; a_actuals: like actuals; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_target /= Void
 			a_feature_definition /= Void
-			a_parameters /= Void
+			a_actuals /= Void
+			a_position /= Void
 		do
 			name := a_feature_definition.feature_name.full_name
 			interpreter := a_interpreter
 			target := a_target
-			parameters := a_parameters
+			actuals := a_actuals
+			position := a_position
 			bound_feature := a_feature_definition.the_feature.bound(a_target.type)
 			if bound_feature.result_type /= Void then
 				returned_static_type := bound_feature.result_type.actual_type
@@ -260,19 +311,21 @@ feature {}
 		ensure
 			interpreter = a_interpreter
 			target = a_target
-			parameters = a_parameters
+			actuals = a_actuals
 		end
 
-	make_precursor (a_interpreter: like interpreter; a_target: like target; a_precursor: LIBERTY_FEATURE; a_parameters: like parameters) is
+	make_precursor (a_interpreter: like interpreter; a_target: like target; a_precursor: LIBERTY_FEATURE; a_actuals: like actuals; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_target /= Void
-			a_parameters /= Void
+			a_actuals /= Void
+			a_position /= Void
 		do
 			name := name_precursor
 			interpreter := a_interpreter
 			target := a_target
-			parameters := a_parameters
+			actuals := a_actuals
+			position := a_position
 			bound_feature := a_precursor
 			if bound_feature.result_type /= Void then
 				returned_static_type := bound_feature.result_type.actual_type
@@ -282,7 +335,7 @@ feature {}
 		ensure
 			interpreter = a_interpreter
 			target = a_target
-			parameters = a_parameters
+			actuals = a_actuals
 		end
 
 	name_precursor: FIXED_STRING is
@@ -292,6 +345,7 @@ feature {}
 
 	interpreter: LIBERTY_INTERPRETER
 	bound_feature: LIBERTY_FEATURE
+	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 	parameter_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 	parameter_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
@@ -318,27 +372,27 @@ feature {}
 				std_output.put_line(name)
 			end
 
-			if f.parameters.count /= parameters.count then
+			if f.parameters.count /= actuals.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
-												+ " but got " + parameters.count.out)
+												+ " but got " + actuals.count.out)
 			end
-			if parameters.is_empty then
+			if actuals.is_empty then
 				parameter_types := empty_types
 				parameter_map := empty_map
 			else
 				check
-					f.parameters.lower = parameters.lower
+					f.parameters.lower = actuals.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(parameters.count)
-				create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(parameters.count)
+				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(actuals.count)
+				create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(actuals.count)
 				from
-					i := parameters.lower
+					i := actuals.lower
 				until
-					i > parameters.upper
+					i > actuals.upper
 				loop
 					p := f.parameters.item(i)
 					parameter_types.add(p.result_type.actual_type, p.name)
-					parameter_map.add(parameters.item(i), p.name)
+					parameter_map.add(Void, p.name)
 					i := i + 1
 				end
 			end
@@ -414,7 +468,7 @@ feature {}
 
 invariant
 	interpreter /= Void
-	parameters /= Void
+	actuals /= Void
 	target /= Void
 	name /= Void
 

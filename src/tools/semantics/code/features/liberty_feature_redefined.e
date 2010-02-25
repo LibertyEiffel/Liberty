@@ -16,7 +16,10 @@ class LIBERTY_FEATURE_REDEFINED
 
 inherit
 	LIBERTY_FEATURE
-		redefine mark_reachable_code
+		rename
+			make as make_late_binding
+		redefine
+			mark_reachable_code
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -139,6 +142,12 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			if old_mark < mark and then redefined_feature /= Void then
 				redefined_feature.mark_reachable_code(mark)
 			end
+		end
+
+feature {}
+	make (a_definition_type: like definition_type) is
+		do
+			make_late_binding(a_definition_type, Void)
 		end
 
 end

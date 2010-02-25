@@ -24,8 +24,8 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	external_def: STRING
-	alias_def: STRING
+	external_def: FIXED_STRING
+	alias_def: FIXED_STRING
 
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
@@ -93,12 +93,13 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {}
-	make (a_definition_type: like definition_type; a_external, a_alias: STRING) is
+	make (a_definition_type: like definition_type; a_external, a_alias: FIXED_STRING; a_accelerator: like accelerator) is
 		require
 			a_definition_type /= Void
 			a_external /= Void
+			a_accelerator /= Void
 		do
-			make_late_binding(a_definition_type)
+			make_late_binding(a_definition_type, a_accelerator)
 			external_def := a_external
 			alias_def := a_alias
 		ensure
