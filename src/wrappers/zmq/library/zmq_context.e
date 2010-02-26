@@ -17,8 +17,8 @@ inherit
 	EIFFEL_OWNED redefine default_create, dispose end 
 
 insert 
-	ZMQEXTERNALS
-	ZMQ_SOCKET_TYPES
+	ZMQEXTERNALS undefine default_create end
+	ZMQ_SOCKET_TYPES undefine default_create end
 
 creation {ANY} default_create
 feature {} -- Creation
@@ -61,21 +61,28 @@ feature {ANY} -- Socket creations
     --          Compatible peer sockets: ZMQ_PUB.
 
 
-    --   ZMQ_REQ
-    --          Socket to send requests and  receive  replies.  Requests  are
-    --          load-balanced  among  all  the peers. This socket type allows
-    --          only an alternated sequence of send's and recv's.
+	new_req_socket: ZMQ_SOCKET is
+		-- A new socket to send requests and receive replies. Requests are
+		-- load-balanced  among  all  the peers. This socket type allows
+		-- only an alternated sequence of send's and recv's.
 
-    --          Compatible peer sockets: ZMQ_REP, ZMQ_XREP.
+		--          Compatible peer sockets: ZMQ_REP, ZMQ_XREP.
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_req))
+	ensure Result/=Void
+	end
 
 
-    --   ZMQ_REP
-    --          Socket to receive requests and send replies. This socket type
-    --          allows only an alternated sequence of recv's and send's. Each
-    --          send is routed to the peer  that  issued  the  last  received
-    --          request.
+	new_rep_socket: ZMQ_SOCKET is
+		-- A new socket to receive requests and send replies. This socket type
+		-- allows only an alternated sequence of recv's and send's. Each send
+		-- is routed to the peer  that  issued  the  last  received request.
 
-    --          Compatible peer sockets: ZMQ_REQ, ZMQ_XREQ.
+		-- Compatible peer sockets: ZMQ_REQ, ZMQ_XREQ.
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_rep))
+	ensure Result/=Void
+	end
 
 
     --   ZMQ_XREQ
@@ -126,6 +133,12 @@ feature {ANY} -- Socket creations
 --       EMTHREAD
 --              the number of application threads allowed to own 0MQ  sockets
 --              was exceeded. See app_threads parameter to zmq_init function.
+
+feature {} -- Implementation
+	struct_size: INTEGER is
+		do
+			raise("ØMQ design hides the size of its structures")
+		end
 
 end -- class ZMQ_CONTEXT
 

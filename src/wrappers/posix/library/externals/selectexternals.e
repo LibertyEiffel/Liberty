@@ -10,7 +10,7 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	pselect (a_nfds: INTEGER_32; a_readfds: POINTER; a_writefds: POINTER; an_exceptfds: POINTER; a_timeout: POINTER; a_sigmask: POINTER): INTEGER_32 is
- 		-- pselect (node at line 713)
+ 		-- pselect (node at line 937)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	select_external (a_nfds: INTEGER_32; a_readfds: POINTER; a_writefds: POINTER; an_exceptfds: POINTER; a_timeout: POINTER): INTEGER_32 is
- 		-- select (node at line 1354)
+ 		-- select (node at line 1804)
 		external "plug_in"
 		alias "{
 			location: "."

@@ -32,7 +32,8 @@ inherit
 
 	WRAPPER
       undefine
-         fill_tagged_out_memory
+	  	fill_tagged_out_memory,
+		out_in_tagged_out_memory
       end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation

@@ -9,133 +9,73 @@ inherit ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	posix_fadvise (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER_32): INTEGER_32 is
- 		-- posix_fadvise (node at line 506)
+	splice (a_fdin: INTEGER_32; an_offin: POINTER; a_fdout: INTEGER_32; an_offout: POINTER; a_len: NATURAL_64; a_flags: NATURAL_32): INTEGER_64 is
+ 		-- splice (node at line 540)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "posix_fadvise"
+			feature_name: "splice"
 		}"
 		end
 
-	open (a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- open (variadic)  (node at line 530)
+	vmsplice (a_fdout: INTEGER_32; an_iov: POINTER; a_count: NATURAL_64; a_flags: NATURAL_32): INTEGER_64 is
+ 		-- vmsplice (node at line 752)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "open"
+			feature_name: "vmsplice"
 		}"
 		end
 
-	creat (a_file: POINTER; a_mode: NATURAL_32): INTEGER_32 is
- 		-- creat (node at line 828)
+	sync_file_range (a_fd: INTEGER_32; a_from_external: INTEGER_64; a_to: INTEGER_64; a_flags: NATURAL_32): INTEGER_32 is
+ 		-- sync_file_range (node at line 801)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "creat"
+			feature_name: "sync_file_range"
 		}"
 		end
 
-	open64 (a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- open64 (variadic)  (node at line 842)
+	readahead (a_fd: INTEGER_32; an_offset: INTEGER_64; a_count: NATURAL_64): INTEGER_64 is
+ 		-- readahead (node at line 929)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "open64"
+			feature_name: "readahead"
 		}"
 		end
 
-	posix_fallocate (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
- 		-- posix_fallocate (node at line 961)
+	fallocate (a_fd: INTEGER_32; a_mode: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
+ 		-- fallocate (node at line 1177)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "posix_fallocate"
+			feature_name: "fallocate"
 		}"
 		end
 
-	posix_fadvise64 (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER_32): INTEGER_32 is
- 		-- posix_fadvise64 (node at line 1003)
+	tee (a_fdin: INTEGER_32; a_fdout: INTEGER_32; a_len: NATURAL_64; a_flags: NATURAL_32): INTEGER_64 is
+ 		-- tee (node at line 1486)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "posix_fadvise64"
+			feature_name: "tee"
 		}"
 		end
 
-	posix_fallocate64 (a_fd: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
- 		-- posix_fallocate64 (node at line 1037)
+	fallocate64 (a_fd: INTEGER_32; a_mode: INTEGER_32; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER_32 is
+ 		-- fallocate64 (node at line 1637)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "posix_fallocate64"
-		}"
-		end
-
-	openat (a_fd: INTEGER_32; a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- openat (variadic)  (node at line 1057)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "openat"
-		}"
-		end
-
-	lockf (a_fd: INTEGER_32; a_cmd: INTEGER_32; a_len: INTEGER_64): INTEGER_32 is
- 		-- lockf (node at line 1145)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "lockf"
-		}"
-		end
-
-	openat64 (a_fd: INTEGER_32; a_file: POINTER; an_oflag: INTEGER_32): INTEGER_32 is
- 		-- openat64 (variadic)  (node at line 1155)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "openat64"
-		}"
-		end
-
-	lockf64 (a_fd: INTEGER_32; a_cmd: INTEGER_32; a_len: INTEGER_64): INTEGER_32 is
- 		-- lockf64 (node at line 1394)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "lockf64"
-		}"
-		end
-
-	creat64 (a_file: POINTER; a_mode: NATURAL_32): INTEGER_32 is
- 		-- creat64 (node at line 1399)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "creat64"
-		}"
-		end
-
-	fcntl (a_fd: INTEGER_32; a_cmd: INTEGER_32): INTEGER_32 is
- 		-- fcntl (variadic)  (node at line 1418)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "fcntl"
+			feature_name: "fallocate64"
 		}"
 		end
 

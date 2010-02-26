@@ -100,7 +100,7 @@ feature {} -- Wrapper related exceptions
 
 feature {} -- External calls
 
-	calloc (a_number, a_size: INTEGER): POINTER is
+	se_calloc (a_number, a_size: INTEGER): POINTER is
 			-- void *calloc(size_t nmemb, size_t size);
 			--
 			-- calloc() allocates memory for an array of nmemb elements

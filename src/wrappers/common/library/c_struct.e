@@ -43,7 +43,7 @@ feature {} -- Initialization
 	allocate is
 			-- Allocate an initialized structure
 		do
-			handle := calloc (1, struct_size)
+			handle := se_calloc (1, struct_size)
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
