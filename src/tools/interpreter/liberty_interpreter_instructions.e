@@ -56,10 +56,14 @@ feature {LIBERTY_CALL_INSTRUCTION}
 		local
 			target: LIBERTY_INTERPRETER_OBJECT
 		do
-			v.target.accept(interpreter.expressions)
-			target := interpreter.expressions.last_eval
-			if target = Void then
-				interpreter.fatal_error("Call on Void target")
+			if v.is_implicit_current then
+				target := interpreter.target
+			else
+				v.target.accept(interpreter.expressions)
+				target := interpreter.expressions.last_eval
+				if target = Void then
+					interpreter.fatal_error("Call on Void target")
+				end
 			end
 			interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end

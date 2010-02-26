@@ -199,14 +199,23 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 	visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE) is
 		local
 			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+			fn: LIBERTY_FEATURE_NAME
 		do
 			if not prepare then
 				if t ?:= target then
 					t ::= target
-					if not t.has_attribute(name) then
-						interpreter.fatal_error("No such attribute: " + name)
+					if t.has_attribute(name) then
+						returned_object := t.attribute_object(name)
+					else
+						create fn.make(name)
+						if t.type.has_feature(fn) then
+							-- at creation time
+							returned_object := interpreter.new_object(t.type.feature_definition(fn).result_type.actual_type, t.position)
+							t.put_attribute(name, returned_object)
+						else
+							interpreter.fatal_error("No such attribute: " + name)
+						end
 					end
-					returned_object := t.attribute_object(name)
 				else
 					--|*** TODO: not good. Native objects may have attributes too (e.g. string)
 					interpreter.fatal_error("No such attribute: " + name)

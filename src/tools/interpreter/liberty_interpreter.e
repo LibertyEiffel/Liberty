@@ -248,7 +248,7 @@ feature {}
 			call_stack.remove_last
 		end
 
-feature {LIBERTY_INTERPRETER_EXPRESSIONS}
+feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	target: LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := call_stack.last.target

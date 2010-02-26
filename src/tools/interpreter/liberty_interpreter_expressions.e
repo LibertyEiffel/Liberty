@@ -74,12 +74,19 @@ feature {LIBERTY_BOOLEAN_MANIFEST}
 
 feature {LIBERTY_CALL_EXPRESSION}
 	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
+		local
+			target: LIBERTY_INTERPRETER_OBJECT
 		do
-			v.target.accept(interpreter.expressions)
-			if eval_memory = Void then
-				interpreter.fatal_error("Call on Void target")
+			if v.is_implicit_current then
+				target := interpreter.target
+			else
+				v.target.accept(interpreter.expressions)
+				if eval_memory = Void then
+					interpreter.fatal_error("Call on Void target")
+				end
+				target := last_eval
 			end
-			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
+			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
