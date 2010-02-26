@@ -10,3 +10,8 @@ From http://www.zeromq.org/ :
 ØMQ runs on AIX, FreeBSD, HP-UX, Linux, Mac OS X, OpenBSD, OpenVMS, QNX Neutrino, Solaris and Windows.
 ØMQ supports i386, x86-64, Sparc, Itanium, Alpha and ARM microarchitectures.
 ØMQ is fully distributed: no central servers to crash, millions of WAN and LAN nodes.
+
+Implementation notes for Liberty wrappers:
+One of the key design choices that makes ØMQ fast is its simplicity and its zero-copy
+infrastructure: data is never copied by ØMQ.  
+I tried to maintain both properties in the wrappers.

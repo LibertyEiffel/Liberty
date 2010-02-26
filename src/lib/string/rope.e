@@ -82,13 +82,16 @@ feature {ANY}
 		-- O(min(count,other.count))
 		local ci,oi: ITERATOR[CHARACTER]
 		do
-			from 
-				ci:=new_iterator; ci.start
-				oi:=other.new_iterator; oi.start
-			until (ci.is_off or oi.is_off) or else ci.item/=oi.item 
-			loop ci.next; oi.next
+			if count=other.count then
+				from 
+					Result := True
+					ci:=new_iterator; ci.start
+					oi:=other.new_iterator; oi.start
+				until ci.is_off or else ci.item/=oi.item 
+				loop ci.next; oi.next
+				end
+			else Result:=False
 			end
-			Result := ci.is_off and oi.is_off
 		end
 
 	hash_code: INTEGER is
