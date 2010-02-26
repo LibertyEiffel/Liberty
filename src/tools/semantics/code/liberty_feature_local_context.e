@@ -245,45 +245,45 @@ feature {}
 				end
 				inspect
 					full_feature_name
-				when "infix implies" then
+				when "infix %"implies%"" then
 					best_accelerator := accelerator_implies
-				when "infix or else" then
+				when "infix %"or else%"" then
 					best_accelerator := accelerator_or_else
-				when "infix or" then
+				when "infix %"or%"" then
 					best_accelerator := accelerator_or
-				when "infix xor" then
+				when "infix %"xor%"" then
 					best_accelerator := accelerator_xor
-				when "infix and then" then
+				when "infix %"and then%"" then
 					best_accelerator := accelerator_and_then
-				when "infix and" then
+				when "infix %"and%"" then
 					best_accelerator := accelerator_and
-				when "infix <=" then
+				when "infix %"<=%"" then
 					best_accelerator := accelerator_less_or_equal
-				when "infix <" then
+				when "infix %"<%"" then
 					best_accelerator := accelerator_less_than
-				when "infix >=" then
+				when "infix %">=%"" then
 					best_accelerator := accelerator_greater_or_equal
-				when "infix >" then
+				when "infix %">%"" then
 					best_accelerator := accelerator_greater_than
-				when "infix +" then
+				when "infix %"+%"" then
 					best_accelerator := accelerator_add
-				when "infix -" then
+				when "infix %"-%"" then
 					best_accelerator := accelerator_subtract
-				when "infix *" then
+				when "infix %"*%"" then
 					best_accelerator := accelerator_times
-				when "infix /" then
+				when "infix %"/%"" then
 					best_accelerator := accelerator_divide
-				when "infix //" then
+				when "infix %"//%"" then
 					best_accelerator := accelerator_int_divide
-				when "infix \\" then
+				when "infix %"\\%"" then
 					best_accelerator := accelerator_int_remainder
-				when "infix ^" then
+				when "infix %"^%"" then
 					best_accelerator := accelerator_power
-				when "prefix +" then
+				when "prefix %"+%"" then
 					best_accelerator := accelerator_positive
-				when "prefix -" then
+				when "prefix %"-%"" then
 					best_accelerator := accelerator_negative
-				when "prefix not" then
+				when "prefix %"not%"" then
 					best_accelerator := accelerator_not
 				else
 					if second_best_accelerator /= Void then
