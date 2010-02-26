@@ -16,6 +16,8 @@ deferred class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REALS_BUILTINS[E_ -> FLOAT]
 
 inherit
 	LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS[E_]
+		undefine
+			target, left, right
 		redefine
 			call_add, call_subtract, call_times, call_divide, call_power,
 			call_less_or_equal, call_less_than, call_greater_or_equal, call_greater_than,
@@ -24,18 +26,18 @@ inherit
 		end
 
 feature {}
-	new_real (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[E_] is
+	new_real (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		deferred
 		end
 
 	right_as_integer: INTEGER is
 		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			-- the code may not seem straightforward but it manages correct semi-evaluation
 			builtin_call.evaluate_parameters
 			obj ::= builtin_call.parameters.first
-			Result := obj.item
+			Result := obj.item.to_integer_32
 		end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}

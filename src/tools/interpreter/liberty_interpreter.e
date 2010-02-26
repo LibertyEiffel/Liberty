@@ -131,7 +131,7 @@ feature {ANY}
 	new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			the_new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
 		do
 			create new_string_capacity.with_item(Current, universe.type_integer, manifest.capacity, a_position)
@@ -155,27 +155,27 @@ feature {ANY}
 			create Result.with_item(Current, universe.type_integer_64, manifest, a_position)
 		end
 
-	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
+	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_32, manifest, a_position)
 		end
 
-	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
+	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer, manifest, a_position)
 		end
 
-	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16] is
+	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_16, manifest, a_position)
 		end
 
-	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8] is
+	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
 		end
 
-	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL] is
+	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real, manifest, a_position)
 		end
@@ -185,17 +185,17 @@ feature {ANY}
 			create Result.with_item(Current, universe.type_real_128, manifest, a_position)
 		end
 
-	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80] is
+	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_80, manifest, a_position)
 		end
 
-	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64] is
+	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_64, manifest, a_position)
 		end
 
-	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32] is
+	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_32, manifest, a_position)
 		end

@@ -23,11 +23,11 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 feature {}
 	integer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): INTEGER is
 		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			builtin_call.evaluate_parameters
 			obj ::= builtin_call.parameters.first
-			Result := obj.item
+			Result := obj.item.to_integer_32
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
@@ -60,7 +60,7 @@ feature {}
 		local
 			target: LIBERTY_INTERPRETER_NATIVE_ARRAY
 			element: LIBERTY_INTERPRETER_OBJECT
-			index: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			index: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			target ::= builtin_call.target
 			builtin_call.evaluate_parameters
@@ -69,13 +69,13 @@ feature {}
 			end
 			element := builtin_call.parameters.item(0)
 			index ::= builtin_call.parameters.item(1)
-			target.builtin_put(element.storage_twin, index.item)
+			target.builtin_put(element.storage_twin, index.item.to_integer_32)
 		end
 
 	slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is
 		local
 			target: LIBERTY_INTERPRETER_NATIVE_ARRAY
-			at, src_min, src_max: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			at, src_min, src_max: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 			src: LIBERTY_INTERPRETER_NATIVE_ARRAY
 		do
 			target ::= builtin_call.target
@@ -87,7 +87,7 @@ feature {}
 			src ::= builtin_call.parameters.item(1)
 			src_min ::= builtin_call.parameters.item(2)
 			src_max ::= builtin_call.parameters.item(3)
-			target.builtin_slice_copy(at.item, src, src_min.item, src_max.item)
+			target.builtin_slice_copy(at.item.to_integer_32, src, src_min.item.to_integer_32, src_max.item.to_integer_32)
 		end
 
 feature {}

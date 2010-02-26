@@ -26,4 +26,22 @@ feature {}
 			Result := interpreter.new_integer_64(value, builtin_call.position)
 		end
 
+	left, target: INTEGER_64 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			obj ::= builtin_call.target
+			Result := obj.item
+		end
+
+	right: INTEGER_64 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			-- the code may not seem straightforward but it manages correct semi-evaluation
+			builtin_call.evaluate_parameters
+			obj ::= builtin_call.parameters.first
+			Result := obj.item
+		end
+
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_64_BUILTINS

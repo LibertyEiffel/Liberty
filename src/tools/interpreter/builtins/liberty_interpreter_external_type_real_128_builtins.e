@@ -26,4 +26,22 @@ feature {}
 			Result := interpreter.new_real_128(value, builtin_call.position)
 		end
 
+	left, target: REAL_128 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+		do
+			obj ::= builtin_call.target
+			Result := obj.item
+		end
+
+	right: REAL_128 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+		do
+			-- the code may not seem straightforward but it manages correct semi-evaluation
+			builtin_call.evaluate_parameters
+			obj ::= builtin_call.parameters.first
+			Result := obj.item
+		end
+
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_128_BUILTINS

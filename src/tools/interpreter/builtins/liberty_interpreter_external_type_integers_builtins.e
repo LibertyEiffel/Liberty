@@ -16,6 +16,8 @@ deferred class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[E_ -> INTEGRA
 
 inherit
 	LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS[E_]
+		undefine
+			target, left, right
 		redefine
 			call_add, call_subtract, call_times, call_divide,
 			call_less_or_equal, call_less_than, call_greater_or_equal, call_greater_than,
@@ -24,18 +26,18 @@ inherit
 		end
 
 feature {}
-	new_integer (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[E_] is
+	new_integer (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		deferred
 		end
 
 	right_as_integer_8: INTEGER_8 is
 		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			-- the code may not seem straightforward but it manages correct semi-evaluation
 			builtin_call.evaluate_parameters
 			obj ::= builtin_call.parameters.first
-			Result := obj.item
+			Result := obj.item.to_integer_8
 		end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}

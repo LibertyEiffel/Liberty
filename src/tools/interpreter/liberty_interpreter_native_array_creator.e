@@ -53,32 +53,32 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_32]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_64]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_16]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_64]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_8]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[INTEGER_64]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_64]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_128]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_32]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_128]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_80]} last_created.make(interpreter, array_type, type, capacity, position)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[REAL_128]} last_created.make(interpreter, array_type, type, capacity, position)
 		end
 
 	visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is

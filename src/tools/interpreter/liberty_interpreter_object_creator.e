@@ -48,32 +48,32 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80]} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is

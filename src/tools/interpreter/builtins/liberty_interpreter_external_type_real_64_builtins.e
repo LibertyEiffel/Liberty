@@ -21,9 +21,27 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
 
 feature {}
-	new_real (value: REAL_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64] is
+	new_real (value: REAL_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
 			Result := interpreter.new_real_64(value, builtin_call.position)
+		end
+
+	left, target: REAL_64 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+		do
+			obj ::= builtin_call.target
+			Result := obj.item.force_to_real_64
+		end
+
+	right: REAL_64 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+		do
+			-- the code may not seem straightforward but it manages correct semi-evaluation
+			builtin_call.evaluate_parameters
+			obj ::= builtin_call.parameters.first
+			Result := obj.item.force_to_real_64
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_64_BUILTINS

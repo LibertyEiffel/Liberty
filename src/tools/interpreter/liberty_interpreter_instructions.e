@@ -274,7 +274,7 @@ feature {LIBERTY_LOOP}
 feature {LIBERTY_VARIANT}
 	visit_liberty_variant (v: LIBERTY_VARIANT) is
 		local
-			exp_variant: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			exp_variant: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			v.expression.accept(interpreter.expressions)
 			if loop_variant_stack.last = Void then
@@ -314,7 +314,7 @@ feature {}
 
 	condition_stack: FAST_ARRAY[BOOLEAN]
 	inspect_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
-	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]]
+	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]]
 
 invariant
 	interpreter /= Void

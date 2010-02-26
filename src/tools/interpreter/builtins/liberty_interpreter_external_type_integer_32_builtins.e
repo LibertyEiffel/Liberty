@@ -21,9 +21,27 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
 
 feature {}
-	new_integer (value: INTEGER_32): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
+	new_integer (value: INTEGER_32): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
 			Result := interpreter.new_integer_32(value, builtin_call.position)
+		end
+
+	left, target: INTEGER_32 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			obj ::= builtin_call.target
+			Result := obj.item.to_integer_32
+		end
+
+	right: INTEGER_32 is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			-- the code may not seem straightforward but it manages correct semi-evaluation
+			builtin_call.evaluate_parameters
+			obj ::= builtin_call.parameters.first
+			Result := obj.item.to_integer_32
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_32_BUILTINS
