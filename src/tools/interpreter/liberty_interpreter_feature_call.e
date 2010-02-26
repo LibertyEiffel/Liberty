@@ -55,6 +55,8 @@ feature {LIBERTY_FEATURE_ACCELERATOR}
 				i := i + 1
 			end
 			parameters := p
+
+			prepare_parameter_map(bound_feature)
 		end
 
 feature {LIBERTY_INTERPRETER}
@@ -233,7 +235,7 @@ feature {LIBERTY_FEATURE_DO}
 		do
 			if prepare then
 				evaluate_parameters
-				prepare_local_maps(v)
+				prepare_local_map(v)
 			else
 				v.block_instruction.accept(interpreter.instructions)
 			end
@@ -263,7 +265,7 @@ feature {LIBERTY_FEATURE_ONCE}
 		do
 			if prepare then
 				evaluate_parameters
-				prepare_local_maps(v)
+				prepare_local_map(v)
 			else
 				if once_value_ref.is_set(v) then
 					returned_object := once_value_ref.value(v)
@@ -363,12 +365,14 @@ feature {}
 			create {AVL_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} Result.make
 		end
 
-	prepare_local_maps (f: LIBERTY_FEATURE_ROUTINE) is
+	prepare_parameter_map (f: LIBERTY_FEATURE) is
+		require
+			parameters /= Void
 		local
-			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
+			i: INTEGER; p: LIBERTY_PARAMETER
 		do
 			debug
-				std_output.put_string(once "Preparing local maps for ")
+				std_output.put_string(once "Preparing parameter map for ")
 				std_output.put_line(name)
 			end
 
@@ -382,6 +386,7 @@ feature {}
 			else
 				check
 					f.parameters.lower = actuals.lower
+					parameters.lower = actuals.lower
 				end
 				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} parameter_types.with_capacity(actuals.count)
 				create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} parameter_map.with_capacity(actuals.count)
@@ -392,9 +397,22 @@ feature {}
 				loop
 					p := f.parameters.item(i)
 					parameter_types.add(p.result_type.actual_type, p.name)
-					parameter_map.add(Void, p.name)
+					parameter_map.add(parameters.item(i), p.name)
 					i := i + 1
 				end
+			end
+		ensure
+			parameter_types /= Void
+			parameter_map /= Void
+		end
+
+	prepare_local_map (f: LIBERTY_FEATURE_ROUTINE) is
+		local
+			i: INTEGER; l: LIBERTY_LOCAL
+		do
+			debug
+				std_output.put_string(once "Preparing local map for ")
+				std_output.put_line(name)
 			end
 
 			if f.locals.is_empty then
@@ -415,8 +433,6 @@ feature {}
 				end
 			end
 		ensure
-			parameter_types /= Void
-			parameter_map /= Void
 			local_types /= Void
 			local_map /= Void
 		end

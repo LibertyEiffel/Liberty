@@ -24,7 +24,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is
 		do
 			builtin_call := a_builtin_call
-			builtin_call.definition_type.accept(Current)
+			builtin_call.target.type.accept(Current)
 		end
 
 feature {}

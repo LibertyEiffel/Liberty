@@ -58,6 +58,9 @@ feature {LIBERTY_CALL_INSTRUCTION}
 		do
 			v.target.accept(interpreter.expressions)
 			target := interpreter.expressions.last_eval
+			if target = Void then
+				interpreter.fatal_error("Call on Void target")
+			end
 			interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end
 

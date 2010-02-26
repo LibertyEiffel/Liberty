@@ -152,57 +152,57 @@ feature {ANY}
 
 	new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_integer_64, manifest, a_position)
 		end
 
 	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_integer_32, manifest, a_position)
 		end
 
 	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_integer, manifest, a_position)
 		end
 
 	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_integer_16, manifest, a_position)
 		end
 
 	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
 		end
 
 	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_real, manifest, a_position)
 		end
 
 	new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_real_128, manifest, a_position)
 		end
 
 	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_real_80, manifest, a_position)
 		end
 
 	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_real_64, manifest, a_position)
 		end
 
 	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_real_32, manifest, a_position)
 		end
 
 	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER] is
 		do
-			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+			create Result.with_item(Current, universe.type_character, manifest, a_position)
 		end
 
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is

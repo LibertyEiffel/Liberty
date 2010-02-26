@@ -76,6 +76,9 @@ feature {LIBERTY_CALL_EXPRESSION}
 	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
 		do
 			v.target.accept(interpreter.expressions)
+			if eval_memory = Void then
+				interpreter.fatal_error("Call on Void target")
+			end
 			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 		end
 
@@ -373,12 +376,18 @@ feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
 		do
 			v.target.accept(Current)
+			if eval_memory = Void then
+				interpreter.fatal_error("Call on Void target")
+			end
 			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
 		do
 			v.target.accept(Current)
+			if eval_memory = Void then
+				interpreter.fatal_error("Call on Void target")
+			end
 			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, no_actuals, v.position)
 		end
 
