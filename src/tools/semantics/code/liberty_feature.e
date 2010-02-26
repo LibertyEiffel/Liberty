@@ -272,6 +272,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			bound(type) = child
 		end
 
+	rebind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+		require
+			is_bound(type)
+			bound(type) /= child
+		do
+			late_binding.put(child, type)
+		ensure
+			bound(type) = child
+		end
+
 	set_context (a_context: like context) is
 		require
 			a_context /= Void

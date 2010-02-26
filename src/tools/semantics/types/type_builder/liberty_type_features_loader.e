@@ -337,7 +337,13 @@ feature {}
 						create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
 						if type.is_conform_to(fd_parent.the_feature.definition_type) then
-							fd_parent.the_feature.bind(a_feature, type)
+							if i = names.lower then
+								fd_parent.the_feature.bind(a_feature, type)
+							else
+								check
+									fd_parent.the_feature.bound(type) = a_feature
+								end
+							end
 						end
 						type.replace_feature(fd)
 					elseif redefined.redefined_feature = Void then
