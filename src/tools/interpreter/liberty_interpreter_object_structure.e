@@ -89,17 +89,20 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_type: like type) is
+	make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_type /= Void
+			a_position /= Void
 		do
 			interpreter := a_interpreter
 			type := a_type
+			position := a_position
 			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} attributes.with_capacity(2)
 		ensure
 			interpreter = a_interpreter
 			type = a_type
+			position = a_position
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
@@ -131,7 +134,7 @@ feature {}
 		local
 			i: INTEGER
 		do
-			create Result.make(interpreter, type)
+			create Result.make(interpreter, type, position)
 			from
 				i := attributes.lower
 			until

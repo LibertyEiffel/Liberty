@@ -25,13 +25,13 @@ insert
 		redefine
 			is_equal, fill_tagged_out_memory, out_in_tagged_out_memory
 		end
-	
+
 feature {ANY}
 	infix "+" (other: like Current): like Current is
 			-- Sum with `other' (commutative).
 		external "built_in"
 		end
-	
+
 	infix "-" (other: like Current): like Current is
 			-- Result of substracting `other'.
 		external "built_in"
@@ -66,19 +66,19 @@ feature {ANY}
 	infix "<" (other: like Current): BOOLEAN is
 		external "built_in"
 		end
-	
+
 	infix "<=" (other: like Current): BOOLEAN is
 		external "built_in"
 		end
-	
+
 	infix ">" (other: like Current): BOOLEAN is
 		external "built_in"
 		end
-	
+
 	infix ">=" (other: like Current): BOOLEAN is
 		external "built_in"
 		end
-	
+
 	is_odd: BOOLEAN is
 			-- Is odd?
 		deferred
@@ -88,12 +88,12 @@ feature {ANY}
 			-- Is even?
 		deferred
 		end
-	
+
 	is_equal (other: like Current): BOOLEAN is
 		do
 			Result := Current = other
 		end
-	
+
 feature {ANY} -- Conversions:
 	to_string: STRING is
 			-- The decimal view of `Current' into a new allocated STRING.
@@ -119,7 +119,7 @@ feature {ANY} -- Conversions:
 
 	append_in_format (buffer: STRING; s: INTEGER) is
 			-- Append in the `buffer' the equivalent of `to_string_format'.
-			-- If you look for performances, you should always prefer `append_in_format' which allow you 
+			-- If you look for performances, you should always prefer `append_in_format' which allow you
 			-- to recycle a unique common `buffer' (each call of `to_string_format' allocate a new object!).
 			--
 			-- See also `append_in', `append_in_unicode', `append_in_unicode_format'.
@@ -145,8 +145,8 @@ feature {ANY} -- Conversions:
 
 	append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
 			-- Append in the `buffer' the equivalent of `to_unicode_string_format'.
-			-- If you look for performances, you should always prefer `append_in_unicode_format' which allow 
-			-- you to recycle a unique common `buffer' (each call of `to_unicode_string_format' allocate a 
+			-- If you look for performances, you should always prefer `append_in_unicode_format' which allow
+			-- you to recycle a unique common `buffer' (each call of `to_unicode_string_format' allocate a
 			-- new object!).
 			--
 			-- See also `append_in_format', `append_in', `append_in_format'.
@@ -194,7 +194,7 @@ feature {ANY} -- Conversions:
 			-- See also `to_boolean', `to_number', `to_string'.
 		deferred
 		end
-	
+
 	to_number: NUMBER is
 			-- Convert `Current' into a new allocated NUMBER.
 			--
@@ -301,12 +301,12 @@ feature {}
 	bit_count: INTEGER_8 is
 			-- Well, it is 8 for NATURAL_8, 16 for NATURAL_16 and so on.
 			-- Note that this feature is not exported because this information is part of the type.
-			-- This is actually used only for assertion here, in NATURAL_GENERAL. 
+			-- This is actually used only for assertion here, in NATURAL_GENERAL.
 		deferred
 		ensure
 			Result = (object_size * 8)
 		end
-	
+
 	string_buffer: STRING is
 		once
 			create Result.make(128)

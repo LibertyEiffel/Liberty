@@ -39,7 +39,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_8 = Current
 		end
-	
+
 	to_natural_16: NATURAL_16 is
 			-- Explicit conversion to NATURAL_16.
 		require
@@ -48,7 +48,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_8 = Current
 		end
-	
+
 	to_natural_32: NATURAL_32 is
 			-- Explicit conversion to NATURAL_32.
 		require
@@ -57,7 +57,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_8 = Current
 		end
-	
+
 	to_natural_64: NATURAL_64 is
 			-- Explicit conversion to NATURAL_64.
 		require
@@ -66,7 +66,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_8 = Current
 		end
-	
+
 	to_real_32: REAL_32 is
 			-- Explicit conversion to REAL_32.
 		do
@@ -130,7 +130,7 @@ feature {ANY}
 
 feature {}
 	bit_count: INTEGER_8 is 8
-	
+
 end -- class INTEGER_8
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

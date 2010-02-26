@@ -14,14 +14,15 @@
 --
 deferred class LIBERTY_POSITION
 
+feature {ANY}
+	line, column: INTEGER
+	file: FIXED_STRING
+
 feature {}
 	index: INTEGER
 	source: STRING is
 		deferred
 		end
-
-	line, column: INTEGER
-	file: FIXED_STRING
 
 	set_error_position is
 		require

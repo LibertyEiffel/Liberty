@@ -28,8 +28,8 @@ feature {LIBERTYI}
 				std_output.put_string(once "}.")
 				std_output.put_line(root_feature_name.full_name)
 			end
-			root_object := new_object(root_type)
-			call_feature(root_object, root_feature, root_feature_parameters)
+			root_object := new_object(root_type, errors.unknown_position)
+			call_feature(root_object, root_feature, root_feature_actuals, errors.unknown_position)
 		end
 
 feature {ANY}
@@ -70,49 +70,51 @@ feature {ANY}
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
 	array_creator: LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR
+	builtins: LIBERTY_INTERPRETER_EXTERNAL_BUILTINS
+	plugins: LIBERTY_INTERPRETER_EXTERNAL_PLUGINS
 
 	universe: LIBERTY_UNIVERSE
 
-	call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+	call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
 		local
 			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			dummy := do_call(a_target, feature_to_call, parameters)
+			dummy := do_call(a_target, feature_to_call, actuals, a_position)
 		end
 
-	item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+	item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			call := do_call(a_target, feature_to_call, parameters)
+			call := do_call(a_target, feature_to_call, actuals, a_position)
 			Result := call.returned_object
 		end
 
-	call_precursor (a_precursor: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]) is
+	call_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
 		local
 			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			dummy := do_precursor(a_precursor, parameters)
+			dummy := do_precursor(a_precursor, actuals, a_position)
 		end
 
-	item_precursor (a_precursor: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_OBJECT is
+	item_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			call := do_precursor(a_precursor, parameters)
+			call := do_precursor(a_precursor, actuals, a_position)
 			Result := call.returned_object
 		end
 
-	new_object (object_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			debug
 				std_output.put_string(once "Creating new object of type ")
 				std_output.put_line(object_type.full_name)
 			end
-			Result := creator.new_object(object_type)
+			Result := creator.new_object(object_type, a_position)
 		end
 
-	new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+	new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			check
 				type.parameters.count = 1
@@ -123,7 +125,84 @@ feature {ANY}
 				std_output.put_character(' ')
 				std_output.put_line(type.parameters.first.full_name)
 			end
-			Result := array_creator.new_array(type, capacity)
+			Result := array_creator.new_array(type, capacity, a_position)
+		end
+
+	new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			the_new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
+			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]
+			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
+		do
+			create new_string_capacity.with_item(Current, universe.type_integer, manifest.capacity, a_position)
+			create new_string_count.with_item(Current, universe.type_integer, manifest.count, a_position)
+			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, a_position)
+			the_new_string ::= new_object(universe.type_string, a_position)
+			the_new_string.put_attribute(capacity_name, new_string_capacity)
+			the_new_string.put_attribute(count_name, new_string_count)
+			the_new_string.put_attribute(storage_name, new_string_storage)
+
+			Result := the_new_string
+		end
+
+	new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
+		end
+
+	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER] is
+		do
+			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
 		end
 
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
@@ -147,9 +226,9 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		end
 
 feature {}
-	do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
+	do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
-			create Result.make(Current, a_target, feature_to_call, parameters)
+			create Result.make(Current, a_target, feature_to_call, actuals, a_position)
 			call_stack.add_last(Result)
 			Result.call
 			check
@@ -158,9 +237,9 @@ feature {}
 			call_stack.remove_last
 		end
 
-	do_precursor (a_feature: LIBERTY_FEATURE; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): LIBERTY_INTERPRETER_FEATURE_CALL is
+	do_precursor (a_feature: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
-			create Result.make_precursor(Current, call_stack.last.target, a_feature, parameters)
+			create Result.make_precursor(Current, call_stack.last.target, a_feature, actuals, a_position)
 			call_stack.add_last(Result)
 			Result.call
 			check
@@ -243,8 +322,11 @@ feature {}
 			create assertions.make(Current)
 			create creator.make(Current)
 			create array_creator.make(Current)
+			create builtins.make(Current)
+			create plugins.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
+			native_array_of_character := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)
 		ensure
 			universe = a_universe
 			root_type = a_root_type
@@ -255,15 +337,33 @@ feature {}
 	root_type: LIBERTY_ACTUAL_TYPE
 	root_feature_name: LIBERTY_FEATURE_NAME
 	root_feature: LIBERTY_FEATURE_DEFINITION
+	native_array_of_character: LIBERTY_ACTUAL_TYPE
 
-	root_feature_parameters: COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
+	root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
 		once
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
 		ensure
 			Result.is_empty
 		end
 
 	call_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
+
+	capacity_name: FIXED_STRING is
+		once
+			Result := "capacity".intern
+		end
+
+	count_name: FIXED_STRING is
+		once
+			Result := "count".intern
+		end
+
+	storage_name: FIXED_STRING is
+		once
+			Result := "storage".intern
+		end
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	instructions /= Void
@@ -272,5 +372,6 @@ invariant
 	creator /= Void
 	call_stack /= Void
 	universe /= Void
+	native_array_of_character /= Void
 
 end -- class LIBERTY_INTERPRETER

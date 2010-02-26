@@ -97,7 +97,7 @@ feature {}
 			a_definition_type /= Void
 			a_expression /= Void
 		do
-			make_late_binding(a_definition_type)
+			make_late_binding(a_definition_type, Void)
 			expression := a_expression
 		ensure
 			definition_type = a_definition_type

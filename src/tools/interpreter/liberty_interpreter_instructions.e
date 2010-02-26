@@ -55,12 +55,10 @@ feature {LIBERTY_CALL_INSTRUCTION}
 	visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
 		local
 			target: LIBERTY_INTERPRETER_OBJECT
-			params: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
 		do
 			v.target.accept(interpreter.expressions)
 			target := interpreter.expressions.last_eval
-			params := as_parameters(v.actuals)
-			interpreter.call_feature(target, v.entity.feature_definition, params)
+			interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 feature {LIBERTY_CHECK_INSTRUCTION}
@@ -125,8 +123,8 @@ feature {LIBERTY_CREATION_INSTRUCTION}
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 			new_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			new_object := interpreter.new_object(v.type.actual_type)
-			interpreter.call_feature(new_object, v.feature_entity.feature_definition, as_parameters(v.feature_arguments))
+			new_object := interpreter.new_object(v.type.actual_type, v.position)
+			interpreter.call_feature(new_object, v.feature_entity.feature_definition, v.feature_arguments, v.position)
 			create assignment.regular(interpreter, new_object)
 			v.writable.accept(assignment)
 		end
@@ -227,7 +225,7 @@ feature {LIBERTY_INSPECT_SLICE}
 			else
 				v.upper.accept(interpreter.expressions)
 				upper := interpreter.expressions.last_eval
-				if inspect_stack.last.is_between(lower, upper) then
+				if inspect_stack.last.is_between(lower, upper, v.position) then
 					inspect_stack.remove_last
 				end
 			end
@@ -283,7 +281,7 @@ feature {LIBERTY_VARIANT}
 feature {LIBERTY_PRECURSOR_INSTRUCTION}
 	visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
 		do
-			interpreter.call_precursor(v.the_feature, as_parameters(v.actuals))
+			interpreter.call_precursor(v.the_feature, v.actuals, v.position)
 		end
 
 feature {LIBERTY_RETRY}
@@ -310,24 +308,6 @@ feature {}
 	condition_stack: FAST_ARRAY[BOOLEAN]
 	inspect_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER]]
-
-feature {}
-	as_parameters (actuals: TRAVERSABLE[LIBERTY_EXPRESSION]): COLLECTION[LIBERTY_INTERPRETER_OBJECT] is
-		local
-			i: INTEGER; actual: LIBERTY_INTERPRETER_OBJECT
-		do
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} Result.with_capacity(actuals.count)
-			from
-				i := actuals.lower
-			until
-				i > actuals.upper
-			loop
-				actuals.item(i).accept(interpreter.expressions)
-				actual := interpreter.expressions.last_eval
-				Result.add_last(actual)
-				i := i + 1
-			end
-		end
 
 invariant
 	interpreter /= Void

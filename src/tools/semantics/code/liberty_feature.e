@@ -58,6 +58,11 @@ feature {ANY}
 			Result := context /= Void
 		end
 
+	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+		do
+			accelerator.call([a, Current])
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
 		do
@@ -299,17 +304,20 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	make (a_definition_type: like definition_type) is
+	make (a_definition_type: like definition_type; a_accelerator: like accelerator) is
 		require
 			a_definition_type /= Void
 		do
 			definition_type := a_definition_type
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.make
+			accelerator := a_accelerator
 		ensure
 			definition_type = a_definition_type
+			accelerator = a_accelerator
 		end
 
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
+	accelerator: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
 
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
@@ -318,4 +326,4 @@ invariant
 	late_binding /= Void
 	definition_type /= Void
 
-end
+end -- class LIBERTY_FEATURE

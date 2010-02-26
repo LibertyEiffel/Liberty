@@ -21,8 +21,9 @@ creation {LIBERTY_INTERPRETER}
 	make
 
 feature {LIBERTY_INTERPRETER}
-	new_object (type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+	new_object (type: LIBERTY_ACTUAL_TYPE; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
+			position := a_position
 			type.accept(Current)
 			Result := last_created
 		ensure
@@ -37,62 +38,62 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_32]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_16]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_8]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_64]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_32]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_80]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_character (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
@@ -102,27 +103,27 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[TUPLE]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[TUPLE]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_function (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_predicate (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, type, position)
 		end
 
 	visit_user_type (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type)
+			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type, position)
 		end
 
 feature {}
@@ -135,6 +136,7 @@ feature {}
 			interpreter = a_interpreter
 		end
 
+	position: LIBERTY_POSITION
 	last_created: LIBERTY_INTERPRETER_OBJECT
 	interpreter: LIBERTY_INTERPRETER
 

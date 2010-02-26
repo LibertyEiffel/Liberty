@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY}
+creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY, LIBERTY_INTERPRETER}
 	make, with_item
 
 feature {ANY}
@@ -48,34 +48,39 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_type: like type) is
+	make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_type /= Void
+			a_position /= Void
 		do
 			interpreter := a_interpreter
 			type := a_type
+			position := a_position
 		ensure
 			interpreter = a_interpreter
 			type = a_type
+			position = a_position
 		end
 
-	with_item (a_interpreter: like interpreter; a_type: like type; a_item: like item) is
+	with_item (a_interpreter: like interpreter; a_type: like type; a_item: like item; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_type /= Void
+			a_position /= Void
 		do
-			make(a_interpreter, a_type)
+			make(a_interpreter, a_type, a_position)
 			item := a_item
 		ensure
 			interpreter = a_interpreter
 			type = a_type
 			item = a_item
+			position = a_position
 		end
 
 	expanded_twin: like Current is
 		do
-			create Result.with_item(interpreter, type, item)
+			create Result.with_item(interpreter, type, item, position)
 		end
 
 end -- class LIBERTY_INTERPRETER_OBJECT_NATIVE

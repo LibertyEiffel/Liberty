@@ -1,7 +1,7 @@
 ./
 configuration/
 errors/
-interpreter/
+interpreter/loadpath.se
 main/
 statue/
 syntax/loadpath.se

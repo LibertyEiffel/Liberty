@@ -16,6 +16,9 @@ class LIBERTY_FEATURE_DEFERRED
 
 inherit
 	LIBERTY_FEATURE
+		rename
+			make as make_late_binding
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -104,6 +107,12 @@ feature {LIBERTY_FEATURE}
 	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
 			Result := a_feature
+		end
+
+feature {}
+	make (a_definition_type: like definition_type) is
+		do
+			make_late_binding(a_definition_type, Void)
 		end
 
 end
