@@ -68,7 +68,6 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 		local
 			i: INTEGER
 		do
-			put_indent(o, indent)
 			o.put_character('{')
 			o.put_string(type.full_name)
 			o.put_string(once " [")

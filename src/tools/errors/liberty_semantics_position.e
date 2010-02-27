@@ -17,7 +17,7 @@ class LIBERTY_SEMANTICS_POSITION
 inherit
 	LIBERTY_POSITION
 		redefine
-			emit
+			show
 		end
 
 insert
@@ -26,11 +26,10 @@ insert
 create {LIBERTY_ERRORS}
 	make
 
-feature {}
-	ast: LIBERTY_AST_NON_TERMINAL_NODE
+feature {ANY}
+	is_unknown: BOOLEAN is False
 
-feature {LIBERTY_ERROR}
-	emit (stream: OUTPUT_STREAM) is
+	show (stream: OUTPUT_STREAM) is
 		do
 			generate_source
 			if index <= source.upper then
@@ -43,6 +42,9 @@ feature {LIBERTY_ERROR}
 				end
 			end
 		end
+
+feature {}
+	ast: LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {}
 	make (a_index: like index; a_ast: like ast; a_file: like file) is

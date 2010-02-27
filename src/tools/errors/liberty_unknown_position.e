@@ -26,6 +26,9 @@ insert
 create {LIBERTY_ERRORS}
 	make
 
+feature {ANY}
+	is_unknown: BOOLEAN is True
+
 feature {LIBERTY_ERROR}
 	emit (stream: OUTPUT_STREAM) is
 		do

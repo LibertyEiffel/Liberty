@@ -23,6 +23,9 @@ create {LIBERTY_ERRORS}
 feature {ANY}
 	source: STRING
 
+feature {ANY}
+	is_unknown: BOOLEAN is False
+
 feature {}
 	make (a_index: like index; a_source: like source; a_file: like file) is
 		require

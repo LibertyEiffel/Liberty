@@ -38,7 +38,6 @@ feature {ANY}
 feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		do
-			put_indent(o, indent)
 			if item = Void then
 				o.put_string(once "Void")
 			else

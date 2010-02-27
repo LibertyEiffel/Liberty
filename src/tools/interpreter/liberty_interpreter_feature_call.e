@@ -57,6 +57,7 @@ feature {LIBERTY_FEATURE_ACCELERATOR}
 			parameters := p
 
 			prepare_parameter_map(bound_feature)
+			prepare_postcondition
 		end
 
 feature {LIBERTY_INTERPRETER}
@@ -68,7 +69,6 @@ feature {LIBERTY_INTERPRETER}
 			prepare := False
 			check_invariant
 			check_precondition
-			prepare_postcondition
 			bound_feature.accept(Current)
 			check_postcondition
 			check_invariant
@@ -96,12 +96,38 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 
 	local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
+			if local_map = Void then
+				interpreter.fatal_error("Locals map not ready!")
+			end
 			Result := local_map.fast_reference_at(local_name)
+			debug
+				std_output.put_string(once "  [L] ")
+				std_output.put_string(local_name)
+				std_output.put_string(once " = ")
+				if Result = Void then
+					std_output.put_line(once "Void")
+				else
+					std_output.put_line(Result.out)
+				end
+			end
 		end
 
 	parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
+			if parameter_map = Void then
+				interpreter.fatal_error("Parameters map not ready!")
+			end
 			Result := parameter_map.fast_reference_at(parameter_name)
+			debug
+				std_output.put_string(once "  [P] ")
+				std_output.put_string(parameter_name)
+				std_output.put_string(once " = ")
+				if Result = Void then
+					std_output.put_line(once "Void")
+				else
+					std_output.put_line(Result.out)
+				end
+			end
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
@@ -142,14 +168,12 @@ feature {LIBERTY_INTERPRETER}
 			o.put_string(once "Feature {")
 			o.put_string(target.type.full_name)
 			o.put_string(once "}.")
-			o.put_line(name)
-			if position.line > 0 then
-				o.put_string(once "   at line ")
-				o.put_integer(position.line)
-				o.put_string(once ", column ")
-				o.put_integer(position.column)
-				o.put_string(once " in file ")
-				o.put_line(position.file)
+			o.put_string(name)
+			o.put_string(once " @")
+			o.put_line(to_pointer.out)
+			if not position.is_unknown then
+				o.put_character('%T')
+				position.show(o)
 			end
 			o.put_new_line
 			o.put_string(once "Current = ")
