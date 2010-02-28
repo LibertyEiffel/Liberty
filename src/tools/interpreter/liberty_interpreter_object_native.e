@@ -35,14 +35,10 @@ feature {ANY}
 			item = a_item
 		end
 
-feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
+feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		do
-			if item = Void then
-				o.put_string(once "Void")
-			else
-				item.print_on(o)
-			end
+			item.print_on(o)
 			o.put_new_line
 		end
 
@@ -81,5 +77,8 @@ feature {}
 		do
 			create Result.with_item(interpreter, type, item, position)
 		end
+
+invariant
+	item_is_expanded: item /= Void
 
 end -- class LIBERTY_INTERPRETER_OBJECT_NATIVE

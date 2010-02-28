@@ -72,6 +72,7 @@ feature {ANY}
 	array_creator: LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR
 	builtins: LIBERTY_INTERPRETER_EXTERNAL_BUILTINS
 	plugins: LIBERTY_INTERPRETER_EXTERNAL_PLUGINS
+	object_printer: LIBERTY_INTERPRETER_OBJECT_PRINTER
 
 	universe: LIBERTY_UNIVERSE
 
@@ -324,6 +325,7 @@ feature {}
 			create array_creator.make(Current)
 			create builtins.make(Current)
 			create plugins.make(Current)
+			create object_printer.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 			native_array_of_character := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)

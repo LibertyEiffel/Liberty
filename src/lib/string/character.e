@@ -27,7 +27,7 @@ feature {ANY}
 		ensure
 			Result.in_range(Minimum_character_code, Maximum_character_code)
 		end
-	
+
 	to_integer_8: INTEGER_8 is
 			-- Sign-extended conversion.
 			--

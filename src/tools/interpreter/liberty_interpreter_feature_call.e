@@ -177,11 +177,11 @@ feature {LIBERTY_INTERPRETER}
 			end
 			o.put_new_line
 			o.put_string(once "Current = ")
-			target.show_stack(o, 0)
+			interpreter.object_printer.show_stack(o, target, 0)
 			if returned_object /= Void then
 				o.put_new_line
 				o.put_string(once "Result = ")
-				returned_object.show_stack(o, 0)
+				interpreter.object_printer.show_stack(o, returned_object, 0)
 			end
 			show_map(parameter_map, once "Parameters", o)
 			show_map(local_map, once "Locals", o)
@@ -209,11 +209,7 @@ feature {}
 					o.put_string(map.key(i))
 					o.put_string(once " = ")
 					obj := map.item(i)
-					if obj = Void then
-						o.put_line(once "Void")
-					else
-						obj.show_stack(o, 1)
-					end
+					interpreter.object_printer.show_stack(o, obj, 1)
 					i := i + 1
 				end
 			end

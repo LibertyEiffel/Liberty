@@ -56,7 +56,7 @@ feature {ANY}
 			is_equal(Result)
 		end
 
-feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
+feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		deferred
 		end
@@ -68,21 +68,6 @@ feature {}
 		deferred
 		ensure
 			is_equal(Result)
-		end
-
-	put_indent (o: OUTPUT_STREAM; indent: INTEGER) is
-			-- `show_stack' helper.
-		local
-			i: INTEGER
-		do
-			from
-				i := 1
-			until
-				i > indent
-			loop
-				o.put_string(once "   ")
-				i := i + 1
-			end
 		end
 
 	interpreter: LIBERTY_INTERPRETER

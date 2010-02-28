@@ -113,29 +113,24 @@ feature {ANY}
 			tagged_out_memory.append(once "]}")
 		end
 
-feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
+feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		local
 			e: E_; i: INTEGER
 		do
-			put_indent(o, indent)
 			o.put_character('[')
+			o.put_new_line
 			from
 				i := lower
 			until
 				i > upper
 			loop
 				e := elements.item(i)
-				if i > lower then
-					o.put_string(once ", ")
-				end
-				if e = Void then
-					o.put_string(once "Void")
-				else
-					e.print_on(o)
-				end
+				interpreter.object_printer.put_indent(o, indent + 1)
+				interpreter.object_printer.show_stack(o, accessor.retrieve(e), indent + 1)
 				i := i + 1
 			end
+			interpreter.object_printer.put_indent(o, indent)
 			o.put_character(']')
 			o.put_new_line
 		end
@@ -230,6 +225,8 @@ feature {}
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED}
 	accessor: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
+
+feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER_OBJECT_PRINTER}
 	elements: FAST_ARRAY[E_]
 
 invariant

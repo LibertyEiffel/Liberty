@@ -63,7 +63,7 @@ feature {ANY}
 			Result := attributes.fast_at(a_attribute_name)
 		end
 
-feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
+feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		local
 			i: INTEGER
@@ -77,13 +77,13 @@ feature {LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_FEATURE_CALL}
 			until
 				i > attributes.upper
 			loop
-				put_indent(o, indent + 1)
+				interpreter.object_printer.put_indent(o, indent + 1)
 				o.put_string(attributes.key(i))
 				o.put_string(once " = ")
-				attributes.item(i).show_stack(o, indent + 1)
+				interpreter.object_printer.show_stack(o, attributes.item(i), indent + 1)
 				i := i + 1
 			end
-			put_indent(o, indent)
+			interpreter.object_printer.put_indent(o, indent)
 			o.put_line(once "] }")
 		end
 
