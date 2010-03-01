@@ -65,6 +65,9 @@ feature {LIBERTY_FEATURE_ACCELERATOR}
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
+			if bound_feature.result_type /= Void and then bound_feature.result_type.actual_type.is_expanded then
+				returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
+			end
 			check not prepare end
 			prepare := True
 			bound_feature.accept(Current)
@@ -75,9 +78,11 @@ feature {LIBERTY_INTERPRETER}
 			check_postcondition
 			check_invariant
 			debug
-				std_output.put_string(name)
-				std_output.put_string(once " returned ")
-				interpreter.object_printer.print_object(std_output, returned_object, 0)
+				if bound_feature.result_type /= Void then
+					std_output.put_string(name)
+					std_output.put_string(once " returned ")
+					interpreter.object_printer.print_object(std_output, returned_object, 0)
+				end
 			end
 		end
 
