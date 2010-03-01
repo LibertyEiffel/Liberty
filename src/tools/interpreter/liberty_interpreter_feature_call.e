@@ -441,7 +441,7 @@ feature {}
 
 	prepare_local_map (f: LIBERTY_FEATURE_ROUTINE) is
 		local
-			i: INTEGER; l: LIBERTY_LOCAL
+			i: INTEGER; l: LIBERTY_LOCAL; def: LIBERTY_INTERPRETER_OBJECT
 		do
 			debug
 				std_output.put_string(once "Preparing local map for ")
@@ -461,7 +461,12 @@ feature {}
 				loop
 					l := f.locals.item(i)
 					local_types.add(l.result_type.actual_type, l.name)
-					local_map.add(Void, l.name)
+					if l.result_type.actual_type.is_expanded then
+						def := interpreter.new_object(l.result_type.actual_type, l.position)
+					else
+						def := Void
+					end
+					local_map.add(def, l.name)
 					i := i + 1
 				end
 			end
