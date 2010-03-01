@@ -29,11 +29,6 @@ inherit
 feature {ANY}
 	item_type: LIBERTY_ACTUAL_TYPE
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other = Current
-		end
-
 	put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
 		require
 			valid_index(index)

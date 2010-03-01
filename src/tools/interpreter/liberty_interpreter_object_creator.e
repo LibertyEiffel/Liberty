@@ -98,7 +98,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("Cannot create a native array without capacity")
+			last_created := interpreter.new_array(type, 0, position)
 		end
 
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is

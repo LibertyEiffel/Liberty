@@ -252,33 +252,40 @@ feature {}
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	set_evaluating_parameters (cf: like current_feature) is
 		require
-			not is_evaluating_parameters
+			cf /= Void
+			not is_evaluating_parameters(cf)
 		do
 			check cf = call_stack.last end
-			feature_evaluating_parameters := cf
+			feature_evaluating_parameters.add_last(cf)
 			call_stack.remove_last
 		ensure
-			is_evaluating_parameters
+			is_evaluating_parameters(cf)
 		end
 
 	unset_evaluating_parameters (cf: like current_feature) is
 		require
-			is_evaluating_parameters
+			cf /= Void
+			is_evaluating_parameters(cf)
 		do
-			check cf = feature_evaluating_parameters end
+			check cf = feature_evaluating_parameters.last end
 			call_stack.add_last(cf)
-			feature_evaluating_parameters := Void
+			feature_evaluating_parameters.remove_last
 		ensure
-			not is_evaluating_parameters
+			not is_evaluating_parameters(cf)
 		end
 
-	is_evaluating_parameters: BOOLEAN is
+	is_evaluating_parameters (cf: like current_feature): BOOLEAN is
+		require
+			cf /= Void
 		do
-			Result := feature_evaluating_parameters /= Void
+			Result := not feature_evaluating_parameters.is_empty and then feature_evaluating_parameters.last = cf
+			check
+				Result = feature_evaluating_parameters.fast_has(cf)
+			end
 		end
 
 feature {}
-	feature_evaluating_parameters: like current_feature
+	feature_evaluating_parameters: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
 	current_feature: LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
@@ -319,8 +326,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 
 	set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
-			check not is_evaluating_parameters end
-			call_stack.last.set_local_value(name, value)
+			current_feature.set_local_value(name, value)
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE is
@@ -330,8 +336,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 
 	set_returned_object (value: LIBERTY_INTERPRETER_OBJECT) is
 		do
-			check not is_evaluating_parameters end
-			call_stack.last.set_returned_object(value)
+			current_feature.set_returned_object(value)
 		end
 
 	writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
@@ -341,8 +346,7 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 
 	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
-			check not is_evaluating_parameters end
-			call_stack.last.set_writable_feature(name, value)
+			current_feature.set_writable_feature(name, value)
 		end
 
 feature {}
@@ -367,6 +371,7 @@ feature {}
 			create object_printer.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} feature_evaluating_parameters.with_capacity(16)
 			native_array_of_character := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)
 		ensure
 			universe = a_universe
@@ -414,5 +419,6 @@ invariant
 	call_stack /= Void
 	universe /= Void
 	native_array_of_character /= Void
+	feature_evaluating_parameters /= Void
 
 end -- class LIBERTY_INTERPRETER

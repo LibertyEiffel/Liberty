@@ -22,25 +22,17 @@ creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR, LIBERTY_INTERPRETER_NATIVE_A
 
 feature {ANY}
 	copy (other: like Current) is
-		local
-			i: INTEGER
 		do
 			interpreter := other.interpreter
 			accessor := other.accessor
 			type := other.type
 			item_type := other.item_type
-			create elements.make(other.count)
-			check
-				elements.lower = other.elements.lower
-			end
-			from
-				i := other.elements.lower
-			until
-				i > other.elements.upper
-			loop
-				elements.put(other.elements.item(i), i)
-				i := i + 1
-			end
+			elements := other.elements
+		end
+
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := elements = other.elements
 		end
 
 	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
@@ -173,10 +165,10 @@ feature {}
 		do
 			interpreter := a_interpreter
 			type := a_type
-			item_type := item_type
+			item_type := a_item_type
 			position := a_position
 			create elements.make(a_capacity)
-			accessor ::= accessor_factory.accessor(a_interpreter, item_type, a_position)
+			accessor ::= accessor_factory.accessor(a_interpreter, a_item_type, a_position)
 		ensure
 			interpreter = a_interpreter
 			type = a_type
