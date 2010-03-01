@@ -103,7 +103,7 @@ feature {LIBERTY_CONDITIONAL}
 				v.conditions.item(i).accept(Current)
 				i := i + 1
 			end
-			if not condition_stack.last then
+			if not condition_stack.last and then v.else_clause /= Void then
 				v.else_clause.accept(Current)
 			end
 			condition_stack.remove_last

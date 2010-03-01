@@ -115,7 +115,7 @@ feature {} -- Assignment check implementation
 	check_attempt_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
-			if would_be_assigned_value.type.is_conform_to(expected_static_type) then
+			if would_be_assigned_value /= Void and then would_be_assigned_value.type.is_conform_to(expected_static_type) then
 				Result := would_be_assigned_value
 			end
 		ensure
@@ -125,7 +125,7 @@ feature {} -- Assignment check implementation
 	check_forced_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									 expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
-			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
+			if would_be_assigned_value /= Void and then not would_be_assigned_value.type.is_conform_to(expected_static_type) then
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
 													 + expected_static_type.full_name + "}")
@@ -138,7 +138,7 @@ feature {} -- Assignment check implementation
 	check_regular_assignment (a_interpreter: LIBERTY_INTERPRETER;
 									  expected_static_type: LIBERTY_ACTUAL_TYPE; would_be_assigned_value: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
-			if not would_be_assigned_value.type.is_conform_to(expected_static_type) then
+			if would_be_assigned_value /= Void and then not would_be_assigned_value.type.is_conform_to(expected_static_type) then
 				-- ... but should never happen
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
