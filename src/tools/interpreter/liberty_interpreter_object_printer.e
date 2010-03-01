@@ -21,7 +21,7 @@ creation {LIBERTY_INTERPRETER}
 	make
 
 feature {ANY}
-	show_stack (o: like stream; obj: like object; i: like indent) is
+	print_object (o: like stream; obj: like object; i: like indent) is
 		do
 			if obj = Void then
 				o.put_line(once "Void")

@@ -85,6 +85,7 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_32", visit_type_integer_32)
+			Result.add_converter(type_integer_64, convert_integer_32_64)
 		end
 
 	type_integer_16: LIBERTY_ACTUAL_TYPE is
@@ -92,6 +93,8 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_16", visit_type_integer_16)
+			Result.add_converter(type_integer_32, convert_integer_16_32)
+			Result.add_converter(type_integer_64, convert_integer_16_64)
 		end
 
 	type_integer_8: LIBERTY_ACTUAL_TYPE is
@@ -99,27 +102,9 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_8", visit_type_integer_8)
-		end
-
-	type_real, type_real_64: LIBERTY_ACTUAL_TYPE is
-		require
-			not errors.has_error
-		once
-			Result := kernel_type("REAL_64", visit_type_real_64)
-		end
-
-	type_real_32: LIBERTY_ACTUAL_TYPE is
-		require
-			not errors.has_error
-		once
-			Result := kernel_type("REAL_32", visit_type_real_32)
-		end
-
-	type_real_80: LIBERTY_ACTUAL_TYPE is
-		require
-			not errors.has_error
-		once
-			Result := kernel_type("REAL_80", visit_type_real_80)
+			Result.add_converter(type_integer_16, convert_integer_8_16)
+			Result.add_converter(type_integer_32, convert_integer_8_32)
+			Result.add_converter(type_integer_64, convert_integer_8_64)
 		end
 
 	type_real_128: LIBERTY_ACTUAL_TYPE is
@@ -127,6 +112,33 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_128", visit_type_real_128)
+		end
+
+	type_real_80: LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_80", visit_type_real_80)
+			Result.add_converter(type_real_128, convert_real_80_128)
+		end
+
+	type_real, type_real_64: LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_64", visit_type_real_64)
+			Result.add_converter(type_real_80, convert_real_64_80)
+			Result.add_converter(type_real_128, convert_real_64_128)
+		end
+
+	type_real_32: LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_32", visit_type_real_32)
+			Result.add_converter(type_real_64, convert_real_32_64)
+			Result.add_converter(type_real_80, convert_real_32_80)
+			Result.add_converter(type_real_128, convert_real_32_128)
 		end
 
 	type_character: LIBERTY_ACTUAL_TYPE is
@@ -980,6 +992,67 @@ feature {}
 	visit_user_type: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_user_type
+		end
+
+feature {}
+	convert_integer_8_16: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_16
+		end
+
+	convert_integer_8_32: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_32
+		end
+
+	convert_integer_8_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_64
+		end
+
+	convert_integer_16_32: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_32
+		end
+
+	convert_integer_16_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_64
+		end
+
+	convert_integer_32_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_32_64
+		end
+
+	convert_real_32_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_32_64
+		end
+
+	convert_real_32_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_32_80
+		end
+
+	convert_real_32_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_32_128
+		end
+
+	convert_real_64_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_64_80
+		end
+
+	convert_real_64_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_64_128
+		end
+
+	convert_real_80_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_80_128
 		end
 
 invariant

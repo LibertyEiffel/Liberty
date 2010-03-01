@@ -73,6 +73,7 @@ feature {ANY}
 	builtins: LIBERTY_INTERPRETER_EXTERNAL_BUILTINS
 	plugins: LIBERTY_INTERPRETER_EXTERNAL_PLUGINS
 	object_printer: LIBERTY_INTERPRETER_OBJECT_PRINTER
+	object_converter: LIBERTY_INTERPRETER_OBJECT_CONVERTER
 
 	universe: LIBERTY_UNIVERSE
 
@@ -369,6 +370,7 @@ feature {}
 			create builtins.make(Current)
 			create plugins.make(Current)
 			create object_printer.make(Current)
+			create object_converter.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} feature_evaluating_parameters.with_capacity(16)

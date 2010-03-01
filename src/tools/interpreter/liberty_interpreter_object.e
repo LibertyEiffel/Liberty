@@ -56,6 +56,14 @@ feature {ANY}
 			is_equal(Result)
 		end
 
+	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+		require
+			type.converts_to(target_type)
+		deferred
+		ensure
+			Result.type = target_type
+		end
+
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		deferred

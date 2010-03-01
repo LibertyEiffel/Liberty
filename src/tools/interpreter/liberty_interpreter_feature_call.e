@@ -74,6 +74,11 @@ feature {LIBERTY_INTERPRETER}
 			bound_feature.accept(Current)
 			check_postcondition
 			check_invariant
+			debug
+				std_output.put_string(name)
+				std_output.put_string(once " returned ")
+				interpreter.object_printer.print_object(std_output, returned_object, 0)
+			end
 		end
 
 feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
@@ -106,11 +111,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 				std_output.put_string(once "  [L] ")
 				std_output.put_string(local_name)
 				std_output.put_string(once " = ")
-				if Result = Void then
-					std_output.put_line(once "Void")
-				else
-					std_output.put_line(Result.out)
-				end
+				interpreter.object_printer.print_object(std_output, Result, 2)
 			end
 		end
 
@@ -124,11 +125,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 				std_output.put_string(once "  [P] ")
 				std_output.put_string(parameter_name)
 				std_output.put_string(once " = ")
-				if Result = Void then
-					std_output.put_line(once "Void")
-				else
-					std_output.put_line(Result.out)
-				end
+				interpreter.object_printer.print_object(std_output, Result, 2)
 			end
 		end
 
@@ -179,11 +176,11 @@ feature {LIBERTY_INTERPRETER}
 			end
 			o.put_new_line
 			o.put_string(once "Current = ")
-			interpreter.object_printer.show_stack(o, target, 0)
+			interpreter.object_printer.print_object(o, target, 0)
 			if returned_object /= Void then
 				o.put_new_line
 				o.put_string(once "Result = ")
-				interpreter.object_printer.show_stack(o, returned_object, 0)
+				interpreter.object_printer.print_object(o, returned_object, 0)
 			end
 			show_map(parameter_map, once "Parameters", o)
 			show_map(local_map, once "Locals", o)
@@ -211,7 +208,7 @@ feature {}
 					o.put_string(map.key(i))
 					o.put_string(once " = ")
 					obj := map.item(i)
-					interpreter.object_printer.show_stack(o, obj, 1)
+					interpreter.object_printer.print_object(o, obj, 1)
 					i := i + 1
 				end
 			end

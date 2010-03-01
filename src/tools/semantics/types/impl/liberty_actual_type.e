@@ -283,6 +283,19 @@ feature {ANY} -- Inheritance
 			end
 		end
 
+	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			Result := has_converter(target_type)
+		end
+
+	do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER) is
+		require
+			converts_to(target_type)
+			a_converter /= Void
+		do
+			converter(target_type).call([a_converter])
+		end
+
 feature {ANY} -- Representation
 	out_in_tagged_out_memory is
 		do
@@ -445,6 +458,30 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 			Result := builder.is_built
 		end
 
+	add_converter (target_type: LIBERTY_ACTUAL_TYPE; a_converter: like converter) is
+		require
+			not has_converter(target_type)
+		do
+			if converters = Void then
+				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]} converters.make
+			end
+			converters.add(a_converter, target_type)
+		ensure
+			converter(target_type) = a_converter
+		end
+
+	has_converter (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			Result := converters /= Void and then converters.fast_has(target_type)
+		end
+
+	converter (target_type: LIBERTY_ACTUAL_TYPE): PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		require
+			has_converter(target_type)
+		do
+			Result := converters.fast_at(target_type)
+		end
+
 feature {}
 	check_validity is
 		do
@@ -539,6 +576,8 @@ feature {}
 		end
 
 	conformance_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER
+
+	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]
 
 invariant
 	descriptor /= Void

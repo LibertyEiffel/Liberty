@@ -80,7 +80,7 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 				interpreter.object_printer.put_indent(o, indent + 1)
 				o.put_string(attributes.key(i))
 				o.put_string(once " = ")
-				interpreter.object_printer.show_stack(o, attributes.item(i), indent + 1)
+				interpreter.object_printer.print_object(o, attributes.item(i), indent + 1)
 				i := i + 1
 			end
 			interpreter.object_printer.put_indent(o, indent)

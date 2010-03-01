@@ -119,7 +119,7 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 			loop
 				e := elements.item(i)
 				interpreter.object_printer.put_indent(o, indent + 1)
-				interpreter.object_printer.show_stack(o, accessor.retrieve(e), indent + 1)
+				interpreter.object_printer.print_object(o, accessor.retrieve(e), indent + 1)
 				i := i + 1
 			end
 			interpreter.object_printer.put_indent(o, indent)
