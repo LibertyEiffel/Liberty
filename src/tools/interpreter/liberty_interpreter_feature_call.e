@@ -44,6 +44,7 @@ feature {LIBERTY_FEATURE_ACCELERATOR}
 		local
 			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 		do
+			interpreter.set_evaluating_parameters(Current)
 			from
 				create p.with_capacity(actuals.count)
 				i := actuals.lower
@@ -55,6 +56,7 @@ feature {LIBERTY_FEATURE_ACCELERATOR}
 				i := i + 1
 			end
 			parameters := p
+			interpreter.unset_evaluating_parameters(Current)
 
 			prepare_parameter_map(bound_feature)
 			prepare_postcondition

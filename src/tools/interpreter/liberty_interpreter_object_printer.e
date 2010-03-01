@@ -147,7 +147,7 @@ feature {LIBERTY_UNIVERSE}
 				storage ::= string.attribute_object(storage_attribute)
 				multiline := storage.elements.fast_has('%N')
 				if multiline then
-					stream.put_line(once "%"%"%"[")
+					stream.put_line(once "%"[")
 				else
 					stream.put_character('"')
 				end
@@ -185,7 +185,7 @@ feature {LIBERTY_UNIVERSE}
 				if multiline then
 					stream.put_new_line
 					put_indent(stream, indent)
-					stream.put_line(once "%"%"%"]")
+					stream.put_line(once "%"]")
 				else
 					stream.put_character('"')
 					stream.put_new_line

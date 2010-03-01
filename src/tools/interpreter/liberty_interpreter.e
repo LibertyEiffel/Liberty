@@ -249,60 +249,99 @@ feature {}
 			call_stack.remove_last
 		end
 
+feature {LIBERTY_INTERPRETER_FEATURE_CALL}
+	set_evaluating_parameters (cf: like current_feature) is
+		require
+			not is_evaluating_parameters
+		do
+			check cf = call_stack.last end
+			feature_evaluating_parameters := cf
+			call_stack.remove_last
+		ensure
+			is_evaluating_parameters
+		end
+
+	unset_evaluating_parameters (cf: like current_feature) is
+		require
+			is_evaluating_parameters
+		do
+			check cf = feature_evaluating_parameters end
+			call_stack.add_last(cf)
+			feature_evaluating_parameters := Void
+		ensure
+			not is_evaluating_parameters
+		end
+
+	is_evaluating_parameters: BOOLEAN is
+		do
+			Result := feature_evaluating_parameters /= Void
+		end
+
+feature {}
+	feature_evaluating_parameters: like current_feature
+
+	current_feature: LIBERTY_INTERPRETER_FEATURE_CALL is
+		do
+			Result := call_stack.last
+		end
+
 feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	target: LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := call_stack.last.target
+			Result := current_feature.target
 		end
 
 	local_value (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := call_stack.last.local_value(name)
+			Result := current_feature.local_value(name)
 		end
 
 	returned_object: LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := call_stack.last.returned_object
+			Result := current_feature.returned_object
 		end
 
 	writable_feature (name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := call_stack.last.writable_feature(name)
+			Result := current_feature.writable_feature(name)
 		end
 
 	parameter (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := call_stack.last.parameter(name)
+			Result := current_feature.parameter(name)
 		end
 
 feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	local_static_type (name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
 		do
-			Result := call_stack.last.local_static_type(name)
+			Result := current_feature.local_static_type(name)
 		end
 
 	set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
+			check not is_evaluating_parameters end
 			call_stack.last.set_local_value(name, value)
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE is
 		do
-			Result := call_stack.last.returned_static_type
+			Result := current_feature.returned_static_type
 		end
 
 	set_returned_object (value: LIBERTY_INTERPRETER_OBJECT) is
 		do
+			check not is_evaluating_parameters end
 			call_stack.last.set_returned_object(value)
 		end
 
 	writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
-			Result := call_stack.last.writable_feature_static_type(name)
+			Result := current_feature.writable_feature_static_type(name)
 		end
 
 	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
+			check not is_evaluating_parameters end
 			call_stack.last.set_writable_feature(name, value)
 		end
 
