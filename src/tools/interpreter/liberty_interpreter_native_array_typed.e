@@ -110,7 +110,8 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 		local
 			e: E_; i: INTEGER
 		do
-			o.put_character('[')
+			o.put_character('<')
+			o.put_character('<')
 			o.put_new_line
 			from
 				i := lower
@@ -123,7 +124,8 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 				i := i + 1
 			end
 			interpreter.object_printer.put_indent(o, indent)
-			o.put_character(']')
+			o.put_character('>')
+			o.put_character('>')
 			o.put_new_line
 		end
 

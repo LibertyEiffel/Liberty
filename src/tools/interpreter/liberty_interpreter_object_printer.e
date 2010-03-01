@@ -137,24 +137,30 @@ feature {LIBERTY_UNIVERSE}
 	visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
 		local
 			string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			i: INTEGER; storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
+			i, n: INTEGER; storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
+			count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 			c: CHARACTER; multiline: BOOLEAN
 		do
 			string ::= object
-			if not string.has_attribute(storage_attribute) then
+			if not string.has_attribute(storage_attribute) or else not string.has_attribute(count_attribute) then
 				string.show_stack(stream, indent)
 			else
 				storage ::= string.attribute_object(storage_attribute)
+				count ::= string.attribute_object(count_attribute)
+				n := count.item.to_integer_32 - 1
 				multiline := storage.elements.fast_has('%N')
 				if multiline then
 					stream.put_line(once "%"[")
 				else
 					stream.put_character('"')
 				end
+				check
+					storage.elements.lower = 0
+				end
 				from
-					i := storage.elements.lower
+					i := 0
 				until
-					i > storage.elements.upper
+					i > n
 				loop
 					c := storage.elements.item(i)
 					inspect
@@ -247,6 +253,11 @@ feature {}
 	storage_attribute: FIXED_STRING is
 		once
 			Result := "storage".intern
+		end
+
+	count_attribute: FIXED_STRING is
+		once
+			Result := "count".intern
 		end
 
 invariant
