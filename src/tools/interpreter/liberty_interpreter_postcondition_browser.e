@@ -28,13 +28,16 @@ feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
 	gather_old (contract: LIBERTY_ASSERTIONS) is
 		do
 			if contract /= Void then
+				interpreter.start_gathering_old_values
 				contract.accept(Current)
+				interpreter.finished_gathering_old_values
 			end
 		end
 
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
 		do
+			interpreter.start_evaluating_old_value
 			v.expression.accept(Current)
 			interpreter.add_old_value(v.expression, last_eval)
 		end

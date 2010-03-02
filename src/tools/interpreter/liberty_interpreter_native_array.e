@@ -46,12 +46,20 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
 
 	builtin_item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := item(index)
+			if not valid_index(index) then
+				interpreter.fatal_error("Invalid index: " + index.out)
+			else
+				Result := item(index)
+			end
 		end
 
 	builtin_put (element: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
 		do
-			put(element, index)
+			if not valid_index(index) then
+				interpreter.fatal_error("Invalid index: " + index.out)
+			else
+				put(element, index)
+			end
 		end
 
 	builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER) is

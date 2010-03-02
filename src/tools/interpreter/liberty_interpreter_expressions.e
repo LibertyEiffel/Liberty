@@ -74,11 +74,9 @@ feature {LIBERTY_BOOLEAN_MANIFEST}
 
 feature {LIBERTY_CALL_EXPRESSION}
 	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
-		local
-			target: LIBERTY_INTERPRETER_OBJECT
 		do
 			if v.is_implicit_current then
-				target := interpreter.target
+				eval_memory := interpreter.item_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else
 				debug
 					if interpreter.expressions /= Current then
@@ -88,10 +86,10 @@ feature {LIBERTY_CALL_EXPRESSION}
 				v.target.accept(Current)
 				if eval_memory = Void then
 					interpreter.fatal_error("Call on Void target")
+				else
+					eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 				end
-				target := last_eval
 			end
-			eval_memory := interpreter.item_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
@@ -416,8 +414,9 @@ feature {}
 			v.target.accept(Current)
 			if eval_memory = Void then
 				interpreter.fatal_error("Call on Void target")
+			else
+				eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 			end
-			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
@@ -425,8 +424,9 @@ feature {}
 			v.target.accept(Current)
 			if eval_memory = Void then
 				interpreter.fatal_error("Call on Void target")
+			else
+				eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, no_actuals, v.position)
 			end
-			eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, no_actuals, v.position)
 		end
 
 	visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is

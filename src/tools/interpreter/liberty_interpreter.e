@@ -59,18 +59,24 @@ feature {ANY}
 
 	fatal_error (reason: ABSTRACT_STRING) is
 		do
-			std_error.put_new_line
-			std_error.put_line(once "*** Fatal error!")
-			std_error.put_new_line
+			if not gathering_old_values then
+				std_error.put_new_line
+				std_error.put_line(once "*** Fatal error!")
+				std_error.put_new_line
 
-			show_stack(std_error)
+				show_stack(std_error)
 
-			std_error.put_new_line
-			std_error.put_string(once "*** ")
-			std_error.put_line(reason)
+				std_error.put_new_line
+				std_error.put_string(once "*** ")
+				std_error.put_line(reason)
 
-			sedb_breakpoint
-			die_with_code(1)
+				sedb_breakpoint
+				die_with_code(1)
+			elseif not evaluating_old_value_stack.is_empty then
+				if old_fatal_error = Void then
+					old_fatal_error := reason.intern
+				end
+			end
 		end
 
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
@@ -230,10 +236,66 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
-	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+	start_gathering_old_values is
 		do
-			call_stack.last.add_old_value(a_expression, a_value)
+			gathering_old_values_counter := gathering_old_values_counter + 1
+		ensure
+			gathering_old_values
+			gathering_old_values_counter = old gathering_old_values_counter + 1
 		end
+
+	finished_gathering_old_values is
+		require
+			gathering_old_values
+		do
+			gathering_old_values_counter := gathering_old_values_counter - 1
+		ensure
+			gathering_old_values_counter = old gathering_old_values_counter - 1
+		end
+
+	start_evaluating_old_value is
+		require
+			gathering_old_values
+		do
+			evaluating_old_value_stack.add_last(call_stack.last)
+		ensure
+			gathering_old_values_counter = old gathering_old_values_counter
+			evaluating_old_value
+		end
+
+	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+		require
+			gathering_old_values
+			evaluating_old_value
+		do
+			check
+				evaluating_old_value_stack.last = call_stack.last
+			end
+			call_stack.last.add_old_value(a_expression, a_value, old_fatal_error)
+			evaluating_old_value_stack.remove_last
+			if evaluating_old_value_stack.is_empty then
+				old_fatal_error := Void
+			end
+		ensure
+			gathering_old_values
+			evaluating_old_value
+		end
+
+	gathering_old_values: BOOLEAN is
+		do
+			Result := gathering_old_values_counter > 0
+		end
+
+	evaluating_old_value: BOOLEAN is
+		do
+			Result := not evaluating_old_value_stack.is_empty
+		end
+
+feature {}
+	old_fatal_error: FIXED_STRING
+
+	gathering_old_values_counter: INTEGER
+	evaluating_old_value_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
 feature {}
 	do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
@@ -426,6 +488,7 @@ feature {}
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} feature_evaluating_parameters.with_capacity(16)
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} evaluating_old_value_stack.with_capacity(2)
 			native_array_of_character := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)
 		ensure
 			universe = a_universe
@@ -474,5 +537,6 @@ invariant
 	universe /= Void
 	native_array_of_character /= Void
 	feature_evaluating_parameters /= Void
+	evaluating_old_value_stack /= Void
 
 end -- class LIBERTY_INTERPRETER

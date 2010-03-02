@@ -57,15 +57,16 @@ feature {LIBERTY_CALL_INSTRUCTION}
 			target: LIBERTY_INTERPRETER_OBJECT
 		do
 			if v.is_implicit_current then
-				target := interpreter.target
+				interpreter.call_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else
 				v.target.accept(interpreter.expressions)
 				target := interpreter.expressions.last_eval
 				if target = Void then
 					interpreter.fatal_error("Call on Void target")
+				else
+					interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 				end
 			end
-			interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 		end
 
 feature {LIBERTY_CHECK_INSTRUCTION}
@@ -279,10 +280,13 @@ feature {LIBERTY_VARIANT}
 			v.expression.accept(interpreter.expressions)
 			if loop_variant_stack.last = Void then
 				exp_variant ::= interpreter.expressions.last_eval
+				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			elseif exp_variant.item >= loop_variant_stack.last.item then
 				interpreter.fatal_error("Variant failed")
+			else
+				exp_variant ::= interpreter.expressions.last_eval
+				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			end
-			loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 		end
 
 feature {LIBERTY_PRECURSOR_INSTRUCTION}

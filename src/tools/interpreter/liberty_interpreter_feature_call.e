@@ -339,7 +339,7 @@ feature {}
 				returned_static_type := bound_feature.result_type.actual_type
 			end
 
-			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
 			debug
 				std_output.put_string(once "Creating call frame on feature ")
@@ -370,7 +370,7 @@ feature {}
 				returned_static_type := bound_feature.result_type.actual_type
 			end
 
-			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
@@ -488,15 +488,23 @@ feature {LIBERTY_INTERPRETER}
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		require
 			has_old_value(a_expression)
+		local
+			t: TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
 		do
-			Result := old_values.fast_at(a_expression)
+			t := old_values.fast_at(a_expression)
+			if t.second /= Void then
+				interpreter.fatal_error(t.second)
+			end
+			Result := t.first
 		end
 
-	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING) is
 		do
-			old_values.add(a_value, a_expression)
+			old_values.add([a_value, a_fatal_error], a_expression)
 		ensure
-			old_value(a_expression) = a_value
+			old_values.fast_at(a_expression).first = a_value
+			old_values.fast_at(a_expression).second = a_fatal_error
+			a_fatal_error = Void implies old_value(a_expression) = a_value
 		end
 
 feature {}
@@ -520,7 +528,7 @@ feature {}
 			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
 		end
 
-	old_values: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]
+	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]
 
 	prepare: BOOLEAN
 
