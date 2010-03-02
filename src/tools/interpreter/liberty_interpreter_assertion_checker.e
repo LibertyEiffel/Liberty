@@ -116,6 +116,8 @@ feature {}
 			assertion_value: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 			i: INTEGER
 		do
+			interpreter.evaluate_feature_parameters
+
 			failed_tag := Void
 			assertions := contract.assertions
 			from

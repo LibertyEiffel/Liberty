@@ -33,34 +33,42 @@ feature {LIBERTYI}
 		end
 
 feature {ANY}
-	fatal_error (reason: ABSTRACT_STRING) is
+	show_stack (o: OUTPUT_STREAM) is
 		local
 			i: INTEGER
 		do
 			check
 				call_stack.lower = 0
 			end
-			std_error.put_new_line
-			std_error.put_line(once "*** Fatal error!")
-			std_error.put_new_line
-			std_error.put_line(once "=========== [Bottom of stack] ===========")
+			o.put_line(once "=========== [Bottom of stack] ===========")
 			from
 				i := call_stack.lower
 			until
 				i > call_stack.upper
 			loop
 				if i > call_stack.lower then
-					std_error.put_line(once "-----------------------------------------")
+					o.put_line(once "-----------------------------------------")
 				end
-				std_error.put_integer(i + 1)
-				std_error.put_character('%T')
-				call_stack.item(i).show_stack(std_error)
+				o.put_integer(i + 1)
+				o.put_character('%T')
+				call_stack.item(i).show_stack(o)
 				i := i + 1
 			end
-			std_error.put_line(once "============ [Top of stack] =============")
+			o.put_line(once "============ [Top of stack] =============")
+		end
+
+	fatal_error (reason: ABSTRACT_STRING) is
+		do
+			std_error.put_new_line
+			std_error.put_line(once "*** Fatal error!")
+			std_error.put_new_line
+
+			show_stack(std_error)
+
 			std_error.put_new_line
 			std_error.put_string(once "*** ")
 			std_error.put_line(reason)
+
 			sedb_breakpoint
 			die_with_code(1)
 		end
@@ -259,6 +267,10 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			check cf = call_stack.last end
 			feature_evaluating_parameters.add_last(cf)
 			call_stack.remove_last
+			debug
+				std_output.put_string(once " {{{ opening parameters evaluation of ")
+				std_output.put_line(cf.name)
+			end
 		ensure
 			is_evaluating_parameters(cf)
 		end
@@ -271,6 +283,10 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			check cf = feature_evaluating_parameters.last end
 			call_stack.add_last(cf)
 			feature_evaluating_parameters.remove_last
+			debug
+				std_output.put_string(once " }}} closing parameters evaluation of ")
+				std_output.put_line(cf.name)
+			end
 		ensure
 			not is_evaluating_parameters(cf)
 		end
@@ -291,32 +307,62 @@ feature {}
 	current_feature: LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
 			Result := call_stack.last
+			debug
+				std_output.put_string(once " -> current feature is ")
+				std_output.put_line(Result.name)
+			end
 		end
 
 feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	target: LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.target
+			debug
+				std_output.put_string(once "      Current is ")
+				object_printer.print_object(std_output, Result, 2)
+			end
 		end
 
 	local_value (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.local_value(name)
+			debug
+				std_output.put_string(once "      Local ")
+				std_output.put_string(name)
+				std_output.put_string(once " is ")
+				object_printer.print_object(std_output, Result, 2)
+			end
 		end
 
 	returned_object: LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.returned_object
+			debug
+				std_output.put_string(once "      Result is ")
+				object_printer.print_object(std_output, Result, 2)
+			end
 		end
 
 	writable_feature (name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.writable_feature(name)
+			debug
+				std_output.put_string(once "      Writable feature ")
+				std_output.put_string(name.full_name)
+				std_output.put_string(once " is ")
+				object_printer.print_object(std_output, Result, 2)
+			end
 		end
 
 	parameter (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.parameter(name)
+			debug
+				std_output.put_string(once "      Parameter ")
+				std_output.put_string(name)
+				std_output.put_string(once " is ")
+				object_printer.print_object(std_output, Result, 2)
+			end
 		end
 
 feature {LIBERTY_INTERPRETER_ASSIGNMENT}
@@ -348,6 +394,12 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			current_feature.set_writable_feature(name, value)
+		end
+
+feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
+	evaluate_feature_parameters is
+		do
+			call_stack.last.evaluate_parameters
 		end
 
 feature {}

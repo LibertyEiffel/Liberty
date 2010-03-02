@@ -80,7 +80,12 @@ feature {LIBERTY_CALL_EXPRESSION}
 			if v.is_implicit_current then
 				target := interpreter.target
 			else
-				v.target.accept(interpreter.expressions)
+				debug
+					if interpreter.expressions /= Current then
+						sedb_breakpoint
+					end
+				end
+				v.target.accept(Current)
 				if eval_memory = Void then
 					interpreter.fatal_error("Call on Void target")
 				end
@@ -328,6 +333,10 @@ feature {LIBERTY_CURRENT}
 	visit_liberty_current (v: LIBERTY_CURRENT) is
 		do
 			eval_memory := interpreter.target
+			debug
+				std_output.put_string(once " => Current = ")
+				interpreter.object_printer.print_object(std_output, eval_memory, 2)
+			end
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
@@ -340,24 +349,46 @@ feature {LIBERTY_FEATURE_ENTITY}
 	visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY) is
 		do
 			eval_memory := interpreter.item_feature(interpreter.target, v.feature_definition, no_actuals, v.position)
+			debug
+				std_output.put_string(once " => Attribute ")
+				std_output.put_string(v.name)
+				std_output.put_string(once " = ")
+				interpreter.object_printer.print_object(std_output, eval_memory, 2)
+			end
 		end
 
 feature {LIBERTY_LOCAL}
 	visit_liberty_local (v: LIBERTY_LOCAL) is
 		do
 			eval_memory := interpreter.local_value(v.name)
+			debug
+				std_output.put_string(once " => Local ")
+				std_output.put_string(v.name)
+				std_output.put_string(once " = ")
+				interpreter.object_printer.print_object(std_output, eval_memory, 2)
+			end
 		end
 
 feature {LIBERTY_PARAMETER}
 	visit_liberty_parameter (v: LIBERTY_PARAMETER) is
 		do
 			eval_memory := interpreter.parameter(v.name)
+			debug
+				std_output.put_string(once " => Parameter ")
+				std_output.put_string(v.name)
+				std_output.put_string(once " = ")
+				interpreter.object_printer.print_object(std_output, eval_memory, 2)
+			end
 		end
 
 feature {LIBERTY_RESULT}
 	visit_liberty_result (v: LIBERTY_RESULT) is
 		do
 			eval_memory := interpreter.returned_object
+			debug
+				std_output.put_string(once " => Result = ")
+				interpreter.object_printer.print_object(std_output, eval_memory, 2)
+			end
 		end
 
 feature {LIBERTY_WRITABLE_FEATURE}

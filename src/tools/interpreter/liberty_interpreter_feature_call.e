@@ -34,37 +34,15 @@ feature {ANY}
 			Result := bound_feature.definition_type
 		end
 
-feature {LIBERTY_FEATURE_ACCELERATOR}
-	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
-		do
-			bound_feature.accelerate_call(a)
-		end
-
-	evaluate_parameters is
-		local
-			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
-		do
-			interpreter.set_evaluating_parameters(Current)
-			from
-				create p.with_capacity(actuals.count)
-				i := actuals.lower
-			until
-				i > actuals.upper
-			loop
-				actuals.item(i).accept(interpreter.expressions)
-				p.add_last(interpreter.expressions.last_eval)
-				i := i + 1
-			end
-			parameters := p
-			interpreter.unset_evaluating_parameters(Current)
-
-			prepare_parameter_map(bound_feature)
-			prepare_postcondition
-		end
-
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
+			debug
+				std_output.put_string(once "Calling ")
+				std_output.put_string(name)
+				std_output.put_string(once " on target ")
+				interpreter.object_printer.print_object(std_output, target, 0)
+			end
 			if bound_feature.result_type /= Void and then bound_feature.result_type.actual_type.is_expanded then
 				returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
 			end
@@ -83,6 +61,37 @@ feature {LIBERTY_INTERPRETER}
 					std_output.put_string(once " returned ")
 					interpreter.object_printer.print_object(std_output, returned_object, 0)
 				end
+			end
+		end
+
+feature {LIBERTY_FEATURE_ACCELERATOR}
+	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+		do
+			bound_feature.accelerate_call(a)
+		end
+
+feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS}
+	evaluate_parameters is
+		local
+			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
+		do
+			if parameters = Void then
+				interpreter.set_evaluating_parameters(Current)
+				from
+					create p.with_capacity(actuals.count)
+					i := actuals.lower
+				until
+					i > actuals.upper
+				loop
+					actuals.item(i).accept(interpreter.expressions)
+					p.add_last(interpreter.expressions.last_eval)
+					i := i + 1
+				end
+				parameters := p
+				interpreter.unset_evaluating_parameters(Current)
+
+				prepare_parameter_map(bound_feature)
+				prepare_postcondition
 			end
 		end
 
@@ -112,12 +121,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 				interpreter.fatal_error("Locals map not ready!")
 			end
 			Result := local_map.fast_reference_at(local_name)
-			debug
-				std_output.put_string(once "  [L] ")
-				std_output.put_string(local_name)
-				std_output.put_string(once " = ")
-				interpreter.object_printer.print_object(std_output, Result, 2)
-			end
 		end
 
 	parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
@@ -126,12 +129,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 				interpreter.fatal_error("Parameters map not ready!")
 			end
 			Result := parameter_map.fast_reference_at(parameter_name)
-			debug
-				std_output.put_string(once "  [P] ")
-				std_output.put_string(parameter_name)
-				std_output.put_string(once " = ")
-				interpreter.object_printer.print_object(std_output, Result, 2)
-			end
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
@@ -182,7 +179,7 @@ feature {LIBERTY_INTERPRETER}
 			o.put_new_line
 			o.put_string(once "Current = ")
 			interpreter.object_printer.print_object(o, target, 0)
-			if returned_object /= Void then
+			if bound_feature.result_type /= Void then
 				o.put_new_line
 				o.put_string(once "Result = ")
 				interpreter.object_printer.print_object(o, returned_object, 0)
@@ -343,6 +340,13 @@ feature {}
 			end
 
 			create {ARRAY_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+
+			debug
+				std_output.put_string(once "Creating call frame on feature ")
+				std_output.put_string(name)
+				std_output.put_string(once " with target ")
+				interpreter.object_printer.print_object(std_output, target, 0)
+			end
 		ensure
 			interpreter = a_interpreter
 			target = a_target

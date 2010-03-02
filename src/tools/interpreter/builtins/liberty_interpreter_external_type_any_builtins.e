@@ -20,6 +20,7 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
 		do
+			builtin_call.evaluate_parameters
 			inspect
 				builtin_call.name.out
 			when "generating_type" then
@@ -65,7 +66,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 				-- se specific
 				not_yet_implemented
 			when "print_run_time_stack" then
-				not_yet_implemented
+				interpreter.show_stack(std_output)
 			when "to_internals" then
 				not_yet_implemented
 			else
