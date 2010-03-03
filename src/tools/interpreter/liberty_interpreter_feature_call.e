@@ -342,7 +342,9 @@ feature {}
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
 			debug
-				std_output.put_string(once "Creating call frame on feature ")
+				std_output.put_string(once "Creating call frame on feature {")
+				std_output.put_string(bound_feature.definition_type.full_name)
+				std_output.put_string(once "}.")
 				std_output.put_string(name)
 				std_output.put_string(once " with target ")
 				interpreter.object_printer.print_object(std_output, target, 0)

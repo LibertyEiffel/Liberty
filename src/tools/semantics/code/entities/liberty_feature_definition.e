@@ -191,16 +191,19 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		require
 			fd /= Void
 			fd.has_precursor(a_type)
+		local
+			old_feature: like the_feature
 		do
 			if not same_clients(fd.clients) then
 				--| *** TODO: warning: the inherited features don't have the same export clauses (the second set
 				--| is ignored)
 			end
+			old_feature := the_feature
 			if fd.the_feature /= Void then
-				if the_feature = Void then
+				if old_feature = Void then
 					the_feature := fd.the_feature
-				elseif the_feature /= fd.the_feature then
-					the_feature := the_feature.join(fd.the_feature, Current, fd)
+				elseif old_feature /= fd.the_feature then
+					the_feature := old_feature.join(fd.the_feature, Current, fd)
 				end
 			end
 			if not has_precursor(a_type) then

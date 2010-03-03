@@ -28,12 +28,6 @@ feature {ANY}
 	alias_def: FIXED_STRING
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		do
-			tabulate(o, tab)
-			o.put_line(once "external...")
-		end
-
 	accept (v: VISITOR) is
 		local
 			v0: LIBERTY_FEATURE_EXTERNAL_VISITOR

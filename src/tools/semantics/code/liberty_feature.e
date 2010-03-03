@@ -135,7 +135,21 @@ feature {LIBERTY_FEATURE_ENTITY}
 
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		deferred
+		local
+			t: STRING
+		do
+			tabulate(o, tab)
+			o.put_character('{')
+			o.put_string(definition_type.full_name)
+			o.put_character('}')
+			o.put_character(' ')
+			t := generating_type
+			t := t.substring(17, t.upper)
+			t.to_lower
+			o.put_string(t)
+			o.put_character(' ')
+			o.put_character('@')
+			o.put_line(to_pointer.out)
 		end
 
 feature {}
@@ -262,22 +276,89 @@ feature {ANY}
 			not is_bound(type) implies Result = Current
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
-		require
-			not is_bound(type)
+feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
+	add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
 		do
-			late_binding.put(child, type)
-		ensure
-			bound(type) = child
+			-- nothing
 		end
 
-	rebind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
-		require
-			is_bound(type)
-			bound(type) /= child
+feature {LIBERTY_FEATURE}
+	has_precursor (a_precursor: LIBERTY_FEATURE): BOOLEAN is
+		local
+			i: INTEGER
 		do
+			Result := a_precursor = Current
+			from
+				i := precursors.lower
+			until
+				Result or else i > precursors.upper
+			loop
+				Result := precursors.item(i).has_precursor(a_precursor)
+				i := i + 1
+			end
+		end
+
+	add_precursor (a_precursor: LIBERTY_FEATURE) is
+		require
+			a_precursor /= Void
+			a_precursor /= Current
+		do
+			if not has_precursor(a_precursor) then
+				precursors.add_last(a_precursor)
+			else
+				sedb_breakpoint
+			end
+		end
+
+	clean_binding_flag is
+		local
+			i: INTEGER
+		do
+			if is_binding then
+				is_binding := False
+				from
+					i := precursors.lower
+				until
+					i > precursors.upper
+				loop
+					precursors.item(i).clean_binding_flag
+					i := i + 1
+				end
+			end
+		end
+
+	precursor_bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE; indent: INTEGER) is
+		require
+			not is_binding
+		local
+			i: INTEGER
+		do
+			debug
+				debug_display(std_output, indent + 2)
+			end
 			late_binding.put(child, type)
+			is_binding := True
+			from
+				i := precursors.lower
+			until
+				i > precursors.upper
+			loop
+				precursors.item(i).precursor_bind(child, type, indent + 1)
+				i := i + 1
+			end
+			is_binding := False
+		end
+
+	is_binding: BOOLEAN
+			-- Anti-recursion security
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
+	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+		do
+			precursor_bind(child, type, 0)
+			if child /= Current then
+				child.add_precursor(Current)
+			end
 		ensure
 			bound(type) = child
 		end
@@ -318,6 +399,7 @@ feature {}
 		require
 			a_definition_type /= Void
 		do
+			create {FAST_ARRAY[LIBERTY_FEATURE]} precursors.with_capacity(0)
 			definition_type := a_definition_type
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.make
 			accelerator := a_accelerator
@@ -325,6 +407,9 @@ feature {}
 			definition_type = a_definition_type
 			accelerator = a_accelerator
 		end
+
+	precursors: COLLECTION[LIBERTY_FEATURE]
+			-- Conformant precursors only. Used for correct `bind' implementation.
 
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 	accelerator: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
@@ -335,5 +420,7 @@ feature {}
 invariant
 	late_binding /= Void
 	definition_type /= Void
+	precursors /= Void
+	not precursors.fast_has(Current)
 
 end -- class LIBERTY_FEATURE

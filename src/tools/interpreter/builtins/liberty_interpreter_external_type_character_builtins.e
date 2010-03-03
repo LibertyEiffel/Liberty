@@ -14,6 +14,9 @@
 --
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_CHARACTER_BUILTINS
 
+insert
+	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
 
@@ -22,6 +25,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 		local
 			target: LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]
 		do
+			last_call_failed := False
 			target ::= builtin_call.target
 			inspect
 				builtin_call.name.out
@@ -30,20 +34,8 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "to_integer_8" then
 				Result := interpreter.new_integer_8(target.item.to_integer_8, builtin_call.position)
 			else
-				interpreter.fatal_error("Unknown built-in in CHARACTER: " + builtin_call.name)
+				last_call_failed := True
 			end
 		end
-
-feature {}
-	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-		ensure
-			interpreter = a_interpreter
-		end
-
-	interpreter: LIBERTY_INTERPRETER
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_CHARACTER_BUILTINS

@@ -14,25 +14,16 @@
 --
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_STRING_BUILTINS
 
+insert
+	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
 		do
-			not_yet_implemented
+			last_call_failed := True
 		end
-
-feature {}
-	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-		ensure
-			interpreter = a_interpreter
-		end
-
-	interpreter: LIBERTY_INTERPRETER
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_STRING_BUILTINS

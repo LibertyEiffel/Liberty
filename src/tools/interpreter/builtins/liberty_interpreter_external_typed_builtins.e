@@ -17,9 +17,13 @@ deferred class LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS[E_]
 inherit
 	LIBERTY_FEATURE_ACCELERATOR
 
+insert
+	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT is
 		do
+			last_call_failed := False
 			builtin_call := a_builtin_call
 			a_builtin_call.accelerate_call(Current)
 			Result := returned
@@ -46,17 +50,5 @@ feature {}
 			obj ::= builtin_call.parameters.first
 			Result := obj.item
 		end
-
-feature {}
-	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-		ensure
-			interpreter = a_interpreter
-		end
-
-	interpreter: LIBERTY_INTERPRETER
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS

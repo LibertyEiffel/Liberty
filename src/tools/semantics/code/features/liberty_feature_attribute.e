@@ -24,12 +24,6 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		do
-			tabulate(o, tab)
-			o.put_line(once "attribute")
-		end
-
 	accept (v: VISITOR) is
 		local
 			v0: LIBERTY_FEATURE_ATTRIBUTE_VISITOR

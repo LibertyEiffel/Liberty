@@ -12,18 +12,27 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_EXTERNAL_TYPE_TUPLE_BUILTINS
-
-insert
-	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
-
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
-	make
+deferred class LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
-	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
-		do
-			last_call_failed := True
+	call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+		deferred
+		ensure
+			Result /= Void implies not last_call_failed
 		end
 
-end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_TUPLE_BUILTINS
+	last_call_failed: BOOLEAN
+
+feature {}
+	make (a_interpreter: like interpreter) is
+		require
+			a_interpreter /= Void
+		do
+			interpreter := a_interpreter
+		ensure
+			interpreter = a_interpreter
+		end
+
+	interpreter: LIBERTY_INTERPRETER
+
+end -- class LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER

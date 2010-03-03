@@ -17,6 +17,9 @@ class LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS
 inherit
 	LIBERTY_FEATURE_ACCELERATOR
 
+insert
+	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
 
@@ -35,6 +38,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 		local
 			target: LIBERTY_INTERPRETER_NATIVE_ARRAY
 		do
+			last_call_failed := False
 			target ::= builtin_call.target
 			inspect
 				builtin_call.name.out
@@ -51,7 +55,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "from_pointer" then
 				not_yet_implemented
 			else
-				interpreter.fatal_error("Unknown built-in in NATIVE_ARRAY: " + builtin_call.name)
+				last_call_failed := True
 			end
 		end
 
@@ -89,17 +93,5 @@ feature {}
 			src_max ::= builtin_call.parameters.item(3)
 			target.builtin_slice_copy(at.item.to_integer_32, src, src_min.item.to_integer_32, src_max.item.to_integer_32)
 		end
-
-feature {}
-	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-		ensure
-			interpreter = a_interpreter
-		end
-
-	interpreter: LIBERTY_INTERPRETER
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS

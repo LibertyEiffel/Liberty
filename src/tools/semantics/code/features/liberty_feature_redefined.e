@@ -19,7 +19,7 @@ inherit
 		rename
 			make as make_late_binding
 		redefine
-			mark_reachable_code
+			mark_reachable_code, add_if_redefined, debug_display
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -30,8 +30,7 @@ feature {ANY}
 
 	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
 		do
-			tabulate(o, tab)
-			o.put_line(once "redefine")
+			Precursor(o, tab)
 			if redefined_feature = Void then
 				tabulate(o, tab + 1)
 				o.put_line(once "(unknown or unattached redefined feature)")
@@ -46,6 +45,20 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_redefined(Current)
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
+		do
+			if definition_type = type then
+				if not redefined_features.has(name) then
+					redefined_features.add(Current, name)
+				else
+					check
+						redefined_features.at(name) = Current
+					end
+				end
+			end
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

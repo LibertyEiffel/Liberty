@@ -27,12 +27,6 @@ feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		do
-			tabulate(o, tab)
-			o.put_line(once "constant")
-		end
-
 	accept (v: VISITOR) is
 		local
 			v0: LIBERTY_FEATURE_CONSTANT_VISITOR
