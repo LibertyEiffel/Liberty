@@ -24,11 +24,18 @@ creation {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
 	with_attributes
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			is_equal_feature: LIBERTY_FEATURE_DEFINITION
+			expanded_equal: LIBERTY_INTERPRETER_OBJECT_BOOLEAN
 		do
-			if type = other.type then
+			if other.is_void then
+				interpreter.fatal_error("Unexpected Void argument")
+			elseif type = other.type then
 				if type.is_expanded then
-					Result := expanded_is_equal(other)
+					is_equal_feature := type.feature_definition(is_equal_feature_name)
+					expanded_equal ::= interpreter.item_feature(Current, is_equal_feature, {FAST_ARRAY[LIBERTY_EXPRESSION] << other >> }, position)
+					Result := expanded_equal.item
 				else
 					Result := Current = other
 				end
@@ -70,7 +77,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		local
 			source: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
+			i: INTEGER
 		do
 			if other.type /= type then
 				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
@@ -296,6 +303,11 @@ feature {}
 	standard_copy_feature_name: LIBERTY_FEATURE_NAME is
 		once
 			create Result.make("standard_copy".intern)
+		end
+
+	is_equal_feature_name: LIBERTY_FEATURE_NAME is
+		once
+			create Result.make("is_equal".intern)
 		end
 
 invariant

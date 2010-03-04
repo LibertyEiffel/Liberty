@@ -147,57 +147,57 @@ feature {} -- The retrievers
 
 	retrieve_pointer (item: POINTER; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]} Result.with_item(interpreter, interpreter.universe.type_pointer, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER]} Result.with_item(interpreter, interpreter.universe.type_pointer, item, a_position)
 		end
 
 	retrieve_integer_64 (item: INTEGER_64; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_64, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_64, item, a_position)
 		end
 
 	retrieve_integer_32 (item: INTEGER_64; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_32, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_32, item, a_position)
 		end
 
 	retrieve_integer_16 (item: INTEGER_64; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_16, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_16, item, a_position)
 		end
 
 	retrieve_integer_8 (item: INTEGER_64; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_8, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]} Result.with_item(interpreter, interpreter.universe.type_integer_8, item, a_position)
 		end
 
 	retrieve_real_64 (item: REAL_128; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_64, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_64, item, a_position)
 		end
 
 	retrieve_real_32 (item: REAL_128; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_32, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_32, item, a_position)
 		end
 
 	retrieve_real_80 (item: REAL_128; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_80, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_80, item, a_position)
 		end
 
 	retrieve_real_128 (item: REAL_128; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_128, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]} Result.with_item(interpreter, interpreter.universe.type_real_128, item, a_position)
 		end
 
 	retrieve_character (item: CHARACTER; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]} Result.with_item(interpreter, interpreter.universe.type_character, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER]} Result.with_item(interpreter, interpreter.universe.type_character, item, a_position)
 		end
 
 	retrieve_boolean (item: BOOLEAN; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]} Result.with_item(interpreter, interpreter.universe.type_boolean, item, a_position)
+			create {LIBERTY_INTERPRETER_OBJECT_BOOLEAN} Result.with_item(interpreter, interpreter.universe.type_boolean, item, a_position)
 		end
 
 	retrieve_tuple (item: LIBERTY_INTERPRETER_OBJECT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
@@ -233,7 +233,7 @@ feature {} -- The storers
 
 	store_pointer (item: LIBERTY_INTERPRETER_OBJECT): POINTER is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER]
 		do
 			o ::= item
 			Result := o.item
@@ -241,7 +241,7 @@ feature {} -- The storers
 
 	store_integer_64 (item: LIBERTY_INTERPRETER_OBJECT): INTEGER_64 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
 		do
 			o ::= item
 			Result := o.item
@@ -249,7 +249,7 @@ feature {} -- The storers
 
 	store_integer_32 (item: LIBERTY_INTERPRETER_OBJECT): INTEGER_64 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
 		do
 			o ::= item
 			Result := o.item
@@ -257,7 +257,7 @@ feature {} -- The storers
 
 	store_integer_16 (item: LIBERTY_INTERPRETER_OBJECT): INTEGER_64 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
 		do
 			o ::= item
 			Result := o.item
@@ -265,7 +265,7 @@ feature {} -- The storers
 
 	store_integer_8 (item: LIBERTY_INTERPRETER_OBJECT): INTEGER_64 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
 		do
 			o ::= item
 			Result := o.item
@@ -273,7 +273,7 @@ feature {} -- The storers
 
 	store_real_64 (item: LIBERTY_INTERPRETER_OBJECT): REAL_128 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
 		do
 			o ::= item
 			Result := o.item
@@ -281,7 +281,7 @@ feature {} -- The storers
 
 	store_real_32 (item: LIBERTY_INTERPRETER_OBJECT): REAL_128 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
 		do
 			o ::= item
 			Result := o.item
@@ -289,7 +289,7 @@ feature {} -- The storers
 
 	store_real_80 (item: LIBERTY_INTERPRETER_OBJECT): REAL_128 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
 		do
 			o ::= item
 			Result := o.item
@@ -297,7 +297,7 @@ feature {} -- The storers
 
 	store_real_128 (item: LIBERTY_INTERPRETER_OBJECT): REAL_128 is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
 		do
 			o ::= item
 			Result := o.item
@@ -305,7 +305,7 @@ feature {} -- The storers
 
 	store_character (item: LIBERTY_INTERPRETER_OBJECT): CHARACTER is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]
+			o: LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER]
 		do
 			o ::= item
 			Result := o.item
@@ -313,7 +313,7 @@ feature {} -- The storers
 
 	store_boolean (item: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		local
-			o: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
+			o: LIBERTY_INTERPRETER_OBJECT_BOOLEAN
 		do
 			o ::= item
 			Result := o.item

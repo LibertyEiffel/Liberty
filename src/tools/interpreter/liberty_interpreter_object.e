@@ -16,13 +16,17 @@ deferred class LIBERTY_INTERPRETER_OBJECT
 
 inherit
 	LIBERTY_EXPRESSION
-		undefine
+		redefine
 			is_equal
 		end
 	HASHABLE
 
 feature {ANY}
 	is_void: BOOLEAN is False
+
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		deferred
+		end
 
 	hash_code: INTEGER is
 		do

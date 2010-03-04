@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER_VOID
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 		redefine
-			as_target, is_void, builtin_deep_twin
+			as_target, is_void, builtin_deep_twin, hash_code
 		end
 
 creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
@@ -25,6 +25,13 @@ creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
 
 feature {ANY}
 	is_void: BOOLEAN is True
+
+	hash_code: INTEGER is 31
+
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		do
+			Result := other.is_void
+		end
 
 	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
 		require else

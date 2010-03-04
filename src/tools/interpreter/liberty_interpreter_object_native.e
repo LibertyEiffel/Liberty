@@ -12,18 +12,22 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
+deferred class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
 
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY, LIBERTY_INTERPRETER}
-	make, with_item
-
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
 		do
-			Result := item = other.item
+			if other.is_void then
+				interpreter.fatal_error("Unexpected Void argument")
+			else
+				o ::= other
+				Result := item = o.item
+			end
 		end
 
 	item: E_
@@ -148,11 +152,6 @@ feature {}
 			type = a_type
 			item = a_item
 			position = a_position
-		end
-
-	expanded_twin: like Current is
-		do
-			create Result.with_item(interpreter, type, item, position)
 		end
 
 invariant

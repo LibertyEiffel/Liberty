@@ -30,9 +30,16 @@ feature {ANY}
 			elements := other.elements
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
 		do
-			Result := elements = other.elements
+			if other.is_void then
+				interpreter.fatal_error("Unexpected Void parameter")
+			else
+				o ::= other
+				Result := elements = o.elements
+			end
 		end
 
 	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
@@ -75,11 +82,6 @@ feature {ANY}
 			Result := elements.is_empty
 		end
 
-	new_iterator: ITERATOR[LIBERTY_INTERPRETER_OBJECT] is
-		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR[E_]} Result.make(elements.new_iterator, accessor)
-		end
-
 	out_in_tagged_out_memory is
 		local
 			i: INTEGER
@@ -95,11 +97,7 @@ feature {ANY}
 				if i > elements.lower then
 					tagged_out_memory.append(once ", ")
 				end
-				if elements.item(i) = Void then
-					tagged_out_memory.append(once "Void")
-				else
-					elements.item(i).out_in_tagged_out_memory
-				end
+				elements.item(i).out_in_tagged_out_memory
 				i := i + 1
 			end
 			tagged_out_memory.append(once "]}")
