@@ -43,13 +43,6 @@ feature {LIBERTY_INTERPRETER}
 				std_output.put_string(once " on target ")
 				interpreter.object_printer.print_object(std_output, target, 0)
 			end
-			if bound_feature.result_type /= Void then
-				if bound_feature.result_type.actual_type.is_expanded then
-					returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
-				else
-					returned_object := interpreter.void_object(bound_feature.result_type.actual_type, position)
-				end
-			end
 			check not prepare end
 			prepare := True
 			bound_feature.accept(Current)
@@ -345,6 +338,14 @@ feature {}
 
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
+			if bound_feature.result_type /= Void then
+				if bound_feature.result_type.actual_type.is_expanded then
+					returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
+				else
+					returned_object := interpreter.void_object(bound_feature.result_type.actual_type, position)
+				end
+			end
+
 			debug
 				std_output.put_string(once "Creating call frame on feature {")
 				std_output.put_string(bound_feature.definition_type.full_name)
@@ -543,5 +544,7 @@ invariant
 	actuals /= Void
 	target /= Void
 	name /= Void
+
+	bound_feature.result_type /= Void implies returned_object /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL
