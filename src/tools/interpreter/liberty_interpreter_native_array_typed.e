@@ -30,9 +30,16 @@ feature {ANY}
 			elements := other.elements
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
 		do
-			Result := elements = other.elements
+			if other.is_void then
+				interpreter.fatal_error("Unexpected Void parameter")
+			else
+				o ::= other
+				Result := elements = o.elements
+			end
 		end
 
 	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
@@ -75,11 +82,6 @@ feature {ANY}
 			Result := elements.is_empty
 		end
 
-	new_iterator: ITERATOR[LIBERTY_INTERPRETER_OBJECT] is
-		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR[E_]} Result.make(elements.new_iterator, accessor)
-		end
-
 	out_in_tagged_out_memory is
 		local
 			i: INTEGER
@@ -95,14 +97,113 @@ feature {ANY}
 				if i > elements.lower then
 					tagged_out_memory.append(once ", ")
 				end
-				if elements.item(i) = Void then
-					tagged_out_memory.append(once "Void")
-				else
-					elements.item(i).out_in_tagged_out_memory
-				end
+				elements.item(i).out_in_tagged_out_memory
 				i := i + 1
 			end
 			tagged_out_memory.append(once "]}")
+		end
+
+feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			i: INTEGER
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				from
+					Result := count = o.count
+					i := lower
+				until
+					i > upper or else not Result
+				loop
+					Result := elements.item(i).is_equal(o.elements.item(i))
+					i := i + 1
+				end
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		do
+			Result := builtin_is_equal(other)
+		end
+
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				elements := o.elements
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			create Result.with_storage(interpreter, type, item_type, elements.twin, a_position)
+		end
+
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			builtin_copy(other)
+		end
+
+	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			create Result.with_storage(interpreter, type, item_type, elements.twin, a_position)
+		end
+
+feature {LIBERTY_INTERPRETER_OBJECT}
+	do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			i: INTEGER; elements_twin: like elements
+		do
+			Result := deep_twin_memory.reference_at(Current)
+			if Result = Void then
+				create elements_twin.make(elements.capacity)
+				from
+					i := elements.lower
+				until
+					i > elements.upper
+				loop
+					put(item(i).do_deep_twin(deep_twin_memory, a_position), i)
+					i := i + 1
+				end
+				create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[E_]} Result.with_storage(interpreter, type, item_type, elements_twin, a_position)
+				deep_twin_memory.put(Result, Current)
+			end
+		end
+
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+		local
+			i: INTEGER
+			na: LIBERTY_INTERPRETER_NATIVE_ARRAY
+		do
+			if deep_equal_memory.fast_has(Current) then
+				Result := True
+			elseif object.type /= type then
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + object.type.full_name)
+			elseif na ?:= object then -- may be Void!
+				na ::= object
+				if na.item_type /= item_type then
+					interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + object.type.full_name)
+				else
+					Result := count = na.count
+					from
+						i := lower
+					until
+						not Result or else i > upper
+					loop
+						Result := item(i).do_deep_equal(na.item(i), deep_equal_memory)
+						i := i + 1
+					end
+				end
+			end
+			deep_equal_memory.fast_add(Current)
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}

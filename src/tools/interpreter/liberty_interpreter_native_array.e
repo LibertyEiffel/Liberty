@@ -21,10 +21,6 @@ inherit
 		undefine
 			out_in_tagged_out_memory, copy
 		end
-	TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
-		undefine
-			out_in_tagged_out_memory, copy, is_equal
-		end
 
 feature {ANY}
 	item_type: LIBERTY_ACTUAL_TYPE
@@ -32,6 +28,41 @@ feature {ANY}
 	put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
 		require
 			valid_index(index)
+		deferred
+		end
+
+	valid_index (index: INTEGER): BOOLEAN is
+		do
+			Result := index.in_range(lower, upper)
+		end
+
+	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+		require
+			valid_index(index)
+		deferred
+		end
+
+	first: LIBERTY_INTERPRETER_OBJECT is
+		deferred
+		end
+
+	last: LIBERTY_INTERPRETER_OBJECT is
+		deferred
+		end
+
+	lower: INTEGER is
+		deferred
+		end
+
+	upper: INTEGER is
+		deferred
+		end
+
+	count: INTEGER is
+		deferred
+		end
+
+	is_empty: BOOLEAN is
 		deferred
 		end
 

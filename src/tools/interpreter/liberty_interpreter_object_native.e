@@ -12,18 +12,22 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
+deferred class LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
 
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 
-creation {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY, LIBERTY_INTERPRETER}
-	make, with_item
-
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
 		do
-			Result := item = other.item
+			if other.is_void then
+				interpreter.fatal_error("Unexpected Void argument")
+			else
+				o ::= other
+				Result := item = o.item
+			end
 		end
 
 	item: E_
@@ -33,6 +37,83 @@ feature {ANY}
 			item := a_item
 		ensure
 			item = a_item
+		end
+
+feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				item := o.item
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			Result := storage_twin
+		end
+
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				item := o.item
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			Result := storage_twin
+		end
+
+feature {LIBERTY_INTERPRETER_OBJECT}
+	do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := storage_twin
+		end
+
+	do_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
@@ -71,11 +152,6 @@ feature {}
 			type = a_type
 			item = a_item
 			position = a_position
-		end
-
-	expanded_twin: like Current is
-		do
-			create Result.with_item(interpreter, type, item, position)
 		end
 
 invariant

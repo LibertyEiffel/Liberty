@@ -16,11 +16,23 @@ deferred class LIBERTY_INTERPRETER_OBJECT
 
 inherit
 	LIBERTY_EXPRESSION
-		undefine
+		redefine
 			is_equal
 		end
+	HASHABLE
 
 feature {ANY}
+	is_void: BOOLEAN is False
+
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		deferred
+		end
+
+	hash_code: INTEGER is
+		do
+			Result := to_pointer.hash_code
+		end
+
 	result_type: LIBERTY_TYPE is
 		do
 			Result := type
@@ -40,6 +52,14 @@ feature {ANY}
 				cmp ::= interpreter.item_feature(Current, fd, {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT] << upper >> }, a_position)
 				Result := cmp.item
 			end
+		end
+
+	as_target: like Current is
+			-- Current when used as a target
+		do
+			Result := Current
+		ensure
+			Result /= Void implies is_equal(Result)
 		end
 
 	storage_twin: like Current is
@@ -62,6 +82,71 @@ feature {ANY}
 		deferred
 		ensure
 			Result.type = target_type
+		end
+
+feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		require
+			not other.is_void
+		deferred
+		end
+
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		require
+			not other.is_void
+		deferred
+		end
+
+	builtin_is_deep_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		require
+			not other.is_void
+		local
+			deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]
+		do
+			create {HASHED_SET[LIBERTY_INTERPRETER_OBJECT]} deep_equal_memory.make
+			Result := do_deep_equal(other, deep_equal_memory)
+		end
+
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		require
+			not other.is_void
+		deferred
+		end
+
+	builtin_twin (a_position: LIBERTY_POSITION): like Current is
+		deferred
+		end
+
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		require
+			not other.is_void
+		deferred
+		end
+
+	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+		deferred
+		end
+
+	builtin_deep_twin (a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]
+		do
+			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]} deep_twin_memory.make
+			Result := do_deep_twin(deep_twin_memory, a_position)
+		end
+
+feature {LIBERTY_INTERPRETER_OBJECT}
+	do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		require
+			deep_twin_memory /= Void
+		deferred
+		end
+
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+		require
+			object /= Void
+			deep_equal_memory /= Void
+		deferred
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}

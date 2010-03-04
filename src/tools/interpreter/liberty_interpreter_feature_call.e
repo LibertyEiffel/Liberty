@@ -43,9 +43,6 @@ feature {LIBERTY_INTERPRETER}
 				std_output.put_string(once " on target ")
 				interpreter.object_printer.print_object(std_output, target, 0)
 			end
-			if bound_feature.result_type /= Void and then bound_feature.result_type.actual_type.is_expanded then
-				returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
-			end
 			check not prepare end
 			prepare := True
 			bound_feature.accept(Current)
@@ -84,7 +81,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 					i > actuals.upper
 				loop
 					actuals.item(i).accept(interpreter.expressions)
-					p.add_last(interpreter.expressions.last_eval)
+					p.add_last(interpreter.expressions.eval_as_argument)
 					i := i + 1
 				end
 				parameters := p
@@ -249,7 +246,7 @@ feature {LIBERTY_FEATURE_CONSTANT}
 		do
 			if not prepare then
 				v.expression.accept(interpreter.expressions)
-				returned_object := interpreter.expressions.last_eval
+				returned_object := interpreter.expressions.eval_as_argument
 			end
 		end
 
@@ -340,6 +337,14 @@ feature {}
 			end
 
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+
+			if bound_feature.result_type /= Void then
+				if bound_feature.result_type.actual_type.is_expanded then
+					returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
+				else
+					returned_object := interpreter.void_object(bound_feature.result_type.actual_type, position)
+				end
+			end
 
 			debug
 				std_output.put_string(once "Creating call frame on feature {")
@@ -470,7 +475,7 @@ feature {}
 					if l.result_type.actual_type.is_expanded then
 						def := interpreter.new_object(l.result_type.actual_type, l.position)
 					else
-						def := Void
+						def := interpreter.void_object(l.result_type.actual_type, l.position)
 					end
 					local_map.add(def, l.name)
 					i := i + 1
@@ -539,5 +544,7 @@ invariant
 	actuals /= Void
 	target /= Void
 	name /= Void
+
+	bound_feature.result_type /= Void implies returned_object /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL

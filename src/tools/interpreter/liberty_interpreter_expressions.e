@@ -22,10 +22,19 @@ creation {LIBERTY_INTERPRETER}
 	make
 
 feature {ANY}
-	last_eval: LIBERTY_INTERPRETER_OBJECT is
+	eval_memory: LIBERTY_INTERPRETER_OBJECT
+
+	eval_as_argument: LIBERTY_INTERPRETER_OBJECT is
 		do
 			if eval_memory /= Void then
 				Result := eval_memory.storage_twin
+			end
+		end
+
+	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
+		do
+			if eval_memory /= Void then
+				Result := eval_memory.as_target
 			end
 		end
 
@@ -63,7 +72,7 @@ feature {LIBERTY_ASSIGNMENT_TEST}
 	visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
 		do
 			v.expression.accept(Current)
-			eval_memory := interpreter.new_boolean(last_eval.type.is_conform_to(v.tested_type.actual_type), v.position)
+			eval_memory := interpreter.new_boolean(eval_memory.type.is_conform_to(v.tested_type.actual_type), v.position)
 		end
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
@@ -87,7 +96,7 @@ feature {LIBERTY_CALL_EXPRESSION}
 				if eval_memory = Void then
 					interpreter.fatal_error("Call on Void target")
 				else
-					eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
+					eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
 				end
 			end
 		end
@@ -406,7 +415,6 @@ feature {}
 		end
 
 	interpreter: LIBERTY_INTERPRETER
-	eval_memory: LIBERTY_INTERPRETER_OBJECT
 
 feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
@@ -415,7 +423,7 @@ feature {}
 			if eval_memory = Void then
 				interpreter.fatal_error("Call on Void target")
 			else
-				eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, v.actuals, v.position)
+				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
 			end
 		end
 
@@ -425,7 +433,7 @@ feature {}
 			if eval_memory = Void then
 				interpreter.fatal_error("Call on Void target")
 			else
-				eval_memory := interpreter.item_feature(last_eval, v.entity.feature_definition, no_actuals, v.position)
+				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, no_actuals, v.position)
 			end
 		end
 
@@ -434,9 +442,9 @@ feature {}
 			left, right: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.left.accept(Current)
-			left := last_eval
+			left := eval_as_target
 			v.right.accept(Current)
-			right := last_eval
+			right := eval_as_argument
 			if left = Void then
 				Result := right = Void
 			else

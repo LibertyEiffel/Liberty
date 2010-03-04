@@ -27,7 +27,7 @@ feature {LIBERTY_ASSIGNMENT_ATTEMPT}
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.attempt(interpreter, interpreter.expressions.last_eval)
+			create assignment.attempt(interpreter, interpreter.expressions.eval_as_argument)
 			v.writable.accept(assignment)
 		end
 
@@ -37,7 +37,7 @@ feature {LIBERTY_ASSIGNMENT_FORCED}
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.forced(interpreter, interpreter.expressions.last_eval)
+			create assignment.forced(interpreter, interpreter.expressions.eval_as_argument)
 			v.writable.accept(assignment)
 		end
 
@@ -47,7 +47,7 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 		do
 			v.expression.accept(interpreter.expressions)
-			create assignment.regular(interpreter, interpreter.expressions.last_eval)
+			create assignment.regular(interpreter, interpreter.expressions.eval_as_argument)
 			v.writable.accept(assignment)
 		end
 
@@ -60,7 +60,7 @@ feature {LIBERTY_CALL_INSTRUCTION}
 				interpreter.call_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else
 				v.target.accept(interpreter.expressions)
-				target := interpreter.expressions.last_eval
+				target := interpreter.expressions.eval_as_target
 				if target = Void then
 					interpreter.fatal_error("Call on Void target")
 				else
@@ -118,7 +118,7 @@ feature {LIBERTY_CONDITION}
 			c: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 		do
 			v.expression.accept(interpreter.expressions)
-			c ::= interpreter.expressions.last_eval
+			c ::= interpreter.expressions.eval_memory
 			if c.item then
 				condition_stack.put(True, condition_stack.upper)
 				v.instruction.accept(Current)
@@ -164,7 +164,7 @@ feature {LIBERTY_INSPECT}
 			i, n: INTEGER
 		do
 			v.expression.accept(interpreter.expressions)
-			exp := interpreter.expressions.last_eval
+			exp := interpreter.expressions.eval_as_argument
 			inspect_stack.add_last(exp)
 			n := inspect_stack.count
 			from
@@ -225,14 +225,14 @@ feature {LIBERTY_INSPECT_SLICE}
 			lower, upper: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.lower.accept(interpreter.expressions)
-			lower := interpreter.expressions.last_eval
+			lower := interpreter.expressions.eval_as_argument
 			if v.lower = v.upper then
 				if inspect_stack.last.is_equal(lower) then
 					inspect_stack.remove_last
 				end
 			else
 				v.upper.accept(interpreter.expressions)
-				upper := interpreter.expressions.last_eval
+				upper := interpreter.expressions.eval_as_argument
 				if inspect_stack.last.is_between(lower, upper, v.position) then
 					inspect_stack.remove_last
 				end
@@ -256,7 +256,7 @@ feature {LIBERTY_LOOP}
 				done
 			loop
 				v.expression.accept(interpreter.expressions)
-				exp_until ::= interpreter.expressions.last_eval
+				exp_until ::= interpreter.expressions.eval_as_argument
 				if exp_until.item then
 					done := True
 				else
@@ -279,12 +279,12 @@ feature {LIBERTY_VARIANT}
 		do
 			v.expression.accept(interpreter.expressions)
 			if loop_variant_stack.last = Void then
-				exp_variant ::= interpreter.expressions.last_eval
+				exp_variant ::= interpreter.expressions.eval_as_argument
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			elseif exp_variant.item >= loop_variant_stack.last.item then
 				interpreter.fatal_error("Variant failed")
 			else
-				exp_variant ::= interpreter.expressions.last_eval
+				exp_variant ::= interpreter.expressions.eval_as_argument
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			end
 		end

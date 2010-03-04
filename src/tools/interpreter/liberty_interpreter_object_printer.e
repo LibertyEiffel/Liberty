@@ -23,7 +23,7 @@ creation {LIBERTY_INTERPRETER}
 feature {ANY}
 	print_object (o: like stream; obj: like object; i: like indent) is
 		do
-			if obj = Void then
+			if obj.is_void then
 				o.put_line(once "Void")
 			else
 				stream := o

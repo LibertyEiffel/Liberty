@@ -121,6 +121,11 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
+	void_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
+		end
+
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			debug
@@ -147,12 +152,13 @@ feature {ANY}
 	new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			the_new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT
 			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
 		do
-			create new_string_capacity.with_item(Current, universe.type_integer, manifest.capacity, a_position)
-			create new_string_count.with_item(Current, universe.type_integer, manifest.count, a_position)
+			new_string_capacity := new_integer(manifest.capacity, a_position)
+			new_string_count := new_integer(manifest.count, a_position)
 			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, a_position)
+
 			the_new_string ::= new_object(universe.type_string, a_position)
 			the_new_string.put_attribute(capacity_name, new_string_capacity)
 			the_new_string.put_attribute(count_name, new_string_count)
@@ -161,64 +167,69 @@ feature {ANY}
 			Result := the_new_string
 		end
 
-	new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN] is
+	new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_BOOLEAN is
 		do
 			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
 		end
 
-	new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+	new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_64, manifest, a_position)
 		end
 
-	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_32, manifest, a_position)
 		end
 
-	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer, manifest, a_position)
 		end
 
-	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_16, manifest, a_position)
 		end
 
-	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
 			create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
 		end
 
-	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real, manifest, a_position)
 		end
 
-	new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+	new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_128, manifest, a_position)
 		end
 
-	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_80, manifest, a_position)
 		end
 
-	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_64, manifest, a_position)
 		end
 
-	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			create Result.with_item(Current, universe.type_real_32, manifest, a_position)
 		end
 
-	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER] is
+	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER] is
 		do
 			create Result.with_item(Current, universe.type_character, manifest, a_position)
+		end
+
+	new_pointer (manifest: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER] is
+		do
+			create Result.with_item(Current, universe.type_pointer, manifest, a_position)
 		end
 
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
