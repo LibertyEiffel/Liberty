@@ -34,35 +34,33 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "same_dynamic_type" then
 				Result := interpreter.new_boolean(builtin_call.target.type = builtin_call.parameters.first.type, builtin_call.position)
 			when "is_equal" then
-				not_yet_implemented
+				Result := interpreter.new_boolean(builtin_call.target.builtin_is_equal(builtin_call.parameters.first), builtin_call.position)
 			when "standard_is_equal" then
-				not_yet_implemented
+				Result := interpreter.new_boolean(builtin_call.target.builtin_standard_is_equal(builtin_call.parameters.first), builtin_call.position)
 			when "is_deep_equal" then
-				not_yet_implemented
+				Result := interpreter.new_boolean(builtin_call.target.builtin_is_deep_equal(builtin_call.parameters.first), builtin_call.position)
 			when "twin" then
-				not_yet_implemented
+				Result := builtin_call.target.builtin_twin(builtin_call.position)
 			when "copy" then
-				not_yet_implemented
+				builtin_call.target.builtin_copy(builtin_call.parameters.first)
 			when "standard_twin" then
-				not_yet_implemented
+				Result := builtin_call.target.builtin_standard_twin(builtin_call.position)
 			when "standard_copy" then
-				not_yet_implemented
+				builtin_call.target.builtin_standard_copy(builtin_call.parameters.first)
 			when "deep_twin" then
-				not_yet_implemented
+				Result := builtin_call.target.builtin_deep_twin(builtin_call.position)
 			when "trace_switch" then
-				-- se specific
-				not_yet_implemented
+				-- se specific, does nothing
 			when "sedb_breakpoint" then
-				-- se specific
-				not_yet_implemented
+				-- se specific, does nothing
 			when "die_with_code" then
-				not_yet_implemented
+				do_die_with_code(builtin_call.parameters.first)
 			when "to_pointer" then
-				not_yet_implemented
+				Result := interpreter.new_pointer(builtin_call.target.to_pointer, builtin_call.position)
 			when "is_basic_expanded_type" then
 				not_yet_implemented
 			when "object_size" then
-				not_yet_implemented
+				Result := interpreter.new_integer(builtin_call.target.object_size, builtin_call.position)
 			when "c_inline_h" then
 				-- se specific
 				not_yet_implemented
@@ -76,6 +74,15 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			else
 				last_call_failed := True
 			end
+		end
+
+feature {}
+	do_die_with_code (status: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			sts: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			sts ::= status
+			die_with_code(sts.item.to_integer_32)
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS

@@ -121,6 +121,11 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
+	void_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
+		end
+
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			debug
@@ -219,6 +224,11 @@ feature {ANY}
 	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER] is
 		do
 			create Result.with_item(Current, universe.type_character, manifest, a_position)
+		end
+
+	new_pointer (manifest: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER] is
+		do
+			create Result.with_item(Current, universe.type_pointer, manifest, a_position)
 		end
 
 	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is

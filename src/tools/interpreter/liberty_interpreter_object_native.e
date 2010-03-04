@@ -35,6 +35,83 @@ feature {ANY}
 			item = a_item
 		end
 
+feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				item := o.item
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			Result := storage_twin
+		end
+
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				item := o.item
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
+	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+		do
+			Result := storage_twin
+		end
+
+feature {LIBERTY_INTERPRETER_OBJECT}
+	do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := storage_twin
+		end
+
+	do_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+		local
+			o: like Current
+		do
+			if type = other.type then
+				o ::= other
+				Result := item.is_equal(o.item)
+			else
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+			end
+		end
+
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		do

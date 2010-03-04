@@ -127,7 +127,7 @@ feature {}
 			loop
 				assertion := assertions.item(i)
 				assertion.assertion.accept(interpreter.expressions)
-				assertion_value ::= interpreter.expressions.last_eval
+				assertion_value ::= interpreter.expressions.eval_memory
 				if not assertion_value.item then
 					failed_tag := assertion.tag
 				end

@@ -39,7 +39,7 @@ feature {LIBERTY_OLD}
 		do
 			interpreter.start_evaluating_old_value
 			v.expression.accept(Current)
-			interpreter.add_old_value(v.expression, last_eval)
+			interpreter.add_old_value(v.expression, eval_as_argument)
 		end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
