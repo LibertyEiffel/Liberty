@@ -1002,9 +1002,16 @@ feature {ANY} -- Concatenation
 			-- other. print_on(std_output)
 			-- (once "%"%N").print_on(std_output)
 			create Result.from_strings(Current,other)
-		ensure
+	ensure
 			Result.out.is_equal(Current + other)
+	rescue
+		debug 
+			-- This rescue clause doens't actually rescue
+			-- anything at all. I put it here for debugging.
+			-- Paolo 2010-02-27
+			print("'"+Current+"' | '"+other+"' /= '"+Result+"'%N")--.print_on(std_error)
 		end
+	end
 
 	infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
 			-- Current and `other' concatenating into a new object. The actual effective type of Result is

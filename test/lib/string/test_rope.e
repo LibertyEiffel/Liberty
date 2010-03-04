@@ -28,6 +28,8 @@ feature
 				("Test"|"-equality").is_equal("Test-equ"|"ality")
 				not ("Failing-"|"equality").is_equal("equality")
 				("Foo is "|foo.count.out|" characters long.").is_equal("Foo is 3 characters long.")
+				("Ropes are "|("beutiful".intern)).is_equal("Ropes are beutiful")
+				("Ropes are "|("beutiful".intern)).is_equal("Ropes are beutiful".intern)
 			end
 		end
 	r,s: ROPE

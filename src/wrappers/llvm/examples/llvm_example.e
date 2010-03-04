@@ -76,7 +76,7 @@ feature {} -- Creation
 
 	make_main is
 		-- Emit the usual entry point function of a C program: "int main (int argc, char *argv[]);"
-		local tmp: LLVM_VALUE; arg_type, argv_type: LLVM_POINTER_TYPE
+		local tmp: LLVM_VALUE; arg_type, argv_type: LLVM_POINTER_TYPE; tmp: LLVM_VALUE
 		do
 			-- main will be the usual entry point of a C program: "int main (int argc, char *argv[]);"
 			create arg_type.make(int_8) -- An argument is a pointer to 8 bit numbers, aka char
@@ -87,7 +87,7 @@ feature {} -- Creation
 			main.set_calling_convention(calling_convention)
 			create block.appended_in_context(global_context,main,"main-first-block")
 			create builder.at_end_of(block)
-
+			tmp := builder.call(putc,<<hello_string>>)
 			-- Always return 1
 			tmp := builder.return (create {LLVM_CONSTANT_INT}.integer_32(1))
 		end
