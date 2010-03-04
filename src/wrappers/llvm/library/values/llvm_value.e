@@ -65,7 +65,8 @@ inherit
 	C_STRUCT
 	C_OWNED
 	LLVM_TYPE_FACTORY
-
+insert
+	CORE_EXTERNALS
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature 
 	type: LLVM_TYPE is

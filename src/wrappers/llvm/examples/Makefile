@@ -1,7 +1,9 @@
 ## A crude Makefile to compile Smart/Liberty Eiffel programs using LLVM , because it requires C++ linkage even if Eiffel is usually lowered/compiled to C.
 
 example: example.s
-	as example.s -o example
+	gcc -o example example.s
+	## "as example.s -o example" produces a relocatable; currently llvm tools - even experimantal - do not provide an assembler that produces executables.
+
 
 example.s: example.bc
 	llc example.bc
