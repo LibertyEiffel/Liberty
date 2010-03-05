@@ -67,7 +67,7 @@ feature {ANY} -- Binding
 feature {ANY} -- Receiving messages
 	receive (a_message: ZMQ_MESSAGE) is
 		-- Receive `a_message' from Current socket; any previous content of
-		-- `a_message' will be properly deallocated. Program is blocked until a
+		-- `a_message' will be properly deallocated. Program blocks until a
 		-- message is received; see also `receive_now'.
 	local rc: INTEGER_32
 	do

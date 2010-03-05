@@ -3,8 +3,7 @@ class ZMQ_EXAMPLE_SERVER
 creation {} make
 feature
 	make is
-		local rc: INTEGER_32; ctx: ZMQ_CONTEXT; s: ZMQ_SOCKET; query, answer: ZMQ_MESSAGE
-			content: STRING
+		local ctx: ZMQ_CONTEXT; s: ZMQ_SOCKET; query, answer: ZMQ_STRING_MESSAGE
 		do
 			create ctx
 			s := ctx.new_rep_socket
@@ -14,8 +13,7 @@ feature
 			from until False loop -- i.e. "forever do"
 				create query
 				s.receive(query) -- Receive a message, blocks until one is available
-				create content.from_external(query.data) -- Process the query 
-				("Received query: '"+content+"' (Note: DbC says that concatenating into ropes with '|' triggers some bugs; Paolo solve them!).%N").print_on(std_output)
+				("Received query: '"+query.to_string+"' (Note: DbC says that concatenating into ropes with '|' triggers some bugs; Paolo solve them!).%N").print_on(std_output)
 				query.close -- message closing may be automatically done by the garbage collector.
 
 				create answer.with_string(answer_body.intern)
