@@ -21,7 +21,7 @@ feature {ANY}
 
 	item (i: INTEGER): CHARACTER is
 		do
-			Result := storage.item(i - 1)
+			Result := storage.item(i - lower)
 		end
 
 	is_equal (other: ABSTRACT_STRING): BOOLEAN is
@@ -66,14 +66,14 @@ feature {ANY}
 						Result := True
 					else
 						from
-							i := i - 1
+							i := i - lower
 							s1 := storage
 							s2 := nss.storage
 							Result := True
 						until i < 0
 						loop
 							if s1.item(i).same_as(s2.item(i)) then
-								i := i - 1
+								i := i - lower
 							else
 								i := -1
 								Result := False
@@ -101,11 +101,11 @@ feature {ANY}
 	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
 		do
 			if start_index <= count then
-				Result := storage.fast_index_of(c, start_index - 1, count - 1)
+				Result := storage.fast_index_of(c, start_index - lower, count - lower)
 				if Result = count then
 					Result := 0
 				else
-					Result := Result + 1
+					Result := Result + lower
 				end
 			end
 		end
@@ -118,18 +118,18 @@ feature {ANY}
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		do
 			if count > 0 then
-				Result := storage.fast_reverse_index_of(c, start_index - 1) + 1
+				Result := storage.fast_reverse_index_of(c, start_index - lower) + lower
 			end
 		end
 
 	has (c: CHARACTER): BOOLEAN is
 		do
-			Result := storage.fast_has(c, count - 1)
+			Result := storage.fast_has(c, count - lower)
 		end
 
 	occurrences (c: CHARACTER): INTEGER is
 		do
-			Result := storage.fast_occurrences(c, count - 1)
+			Result := storage.fast_occurrences(c, count - lower)
 		end
 
 feature {ANY} -- Concatenation 
@@ -150,7 +150,7 @@ feature {ANY} -- Access
 
 	last: CHARACTER is
 		do
-			Result := storage.item(count - 1)
+			Result := storage.item(count - lower)
 		end
 
 	fill_tagged_out_memory is
