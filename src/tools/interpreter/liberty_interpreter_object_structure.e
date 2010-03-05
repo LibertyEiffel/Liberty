@@ -30,7 +30,7 @@ feature {ANY}
 			expanded_equal: LIBERTY_INTERPRETER_OBJECT_BOOLEAN
 		do
 			if other.is_void then
-				interpreter.fatal_error("Unexpected Void argument")
+				-- Obviously this object is not Void.
 			elseif type = other.type then
 				if type.is_expanded then
 					is_equal_feature := type.feature_definition(is_equal_feature_name)

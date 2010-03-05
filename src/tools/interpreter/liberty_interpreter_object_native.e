@@ -23,7 +23,7 @@ feature {ANY}
 			o: like Current
 		do
 			if other.is_void then
-				interpreter.fatal_error("Unexpected Void argument")
+				-- Obviously this object is not Void.
 			else
 				o ::= other
 				Result := item = o.item

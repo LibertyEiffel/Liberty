@@ -16,6 +16,9 @@ class LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[E_]
 
 inherit
 	LIBERTY_INTERPRETER_NATIVE_ARRAY
+		redefine
+			hash_code
+		end
 
 creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR, LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER}
 	make, with_storage
@@ -40,6 +43,11 @@ feature {ANY}
 				o ::= other
 				Result := elements = o.elements
 			end
+		end
+
+	hash_code: INTEGER is
+		do
+			Result := elements.to_pointer.hash_code
 		end
 
 	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
