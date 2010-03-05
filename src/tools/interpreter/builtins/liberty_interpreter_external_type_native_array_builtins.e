@@ -44,10 +44,19 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 				builtin_call.name.out
 			when "element_sizeof" then
 				Result := interpreter.new_integer(target.builtin_element_sizeof, builtin_call.position)
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "calloc" then
 				Result := target.builtin_calloc(integer(builtin_call), builtin_call.position)
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "item" then
 				Result := target.builtin_item(integer(builtin_call))
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "put" then
 				put(builtin_call)
 			when "slice_copy" then

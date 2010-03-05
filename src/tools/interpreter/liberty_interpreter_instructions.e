@@ -61,11 +61,7 @@ feature {LIBERTY_CALL_INSTRUCTION}
 			else
 				v.target.accept(interpreter.expressions)
 				target := interpreter.expressions.eval_as_target
-				if target = Void then
-					interpreter.fatal_error("Call on Void target")
-				else
-					interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
-				end
+				interpreter.call_feature(target, v.entity.feature_definition, v.actuals, v.position)
 			end
 		end
 

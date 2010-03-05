@@ -34,6 +34,8 @@ feature {ANY}
 			Result := bound_feature.definition_type
 		end
 
+	returned_static_type: LIBERTY_ACTUAL_TYPE
+
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
@@ -53,7 +55,7 @@ feature {LIBERTY_INTERPRETER}
 			check_postcondition
 			check_invariant
 			debug
-				if bound_feature.result_type /= Void then
+				if returned_static_type /= Void then
 					std_output.put_string(name)
 					std_output.put_string(once " returned ")
 					interpreter.object_printer.print_object(std_output, returned_object, 0)
@@ -128,8 +130,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRE
 			Result := parameter_map.fast_reference_at(parameter_name)
 		end
 
-	returned_static_type: LIBERTY_ACTUAL_TYPE
-
 	writable_feature_static_type (feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
 			Result := target.type.feature_definition(feature_name).result_type.actual_type
@@ -176,7 +176,7 @@ feature {LIBERTY_INTERPRETER}
 			o.put_new_line
 			o.put_string(once "Current = ")
 			interpreter.object_printer.print_object(o, target, 0)
-			if bound_feature.result_type /= Void then
+			if returned_static_type /= Void then
 				o.put_new_line
 				o.put_string(once "Result = ")
 				interpreter.object_printer.print_object(o, returned_object, 0)
@@ -338,11 +338,11 @@ feature {}
 
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
-			if bound_feature.result_type /= Void then
-				if bound_feature.result_type.actual_type.is_expanded then
-					returned_object := interpreter.new_object(bound_feature.result_type.actual_type, position)
+			if returned_static_type /= Void then
+				if returned_static_type.is_expanded then
+					returned_object := interpreter.new_object(returned_static_type, position)
 				else
-					returned_object := interpreter.void_object(bound_feature.result_type.actual_type, position)
+					returned_object := interpreter.void_object(returned_static_type, position)
 				end
 			end
 
@@ -545,6 +545,6 @@ invariant
 	target /= Void
 	name /= Void
 
-	bound_feature.result_type /= Void implies returned_object /= Void
+	returned_static_type /= Void implies returned_object /= Void
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL
