@@ -149,7 +149,8 @@ feature {}
 		local
 			obsolete_message: STRING
 			routine_execution: LIBERTY_AST_ROUTINE_EXECUTION
-			do_block: LIBERTY_AST_DO_BLOCK; routine: LIBERTY_FEATURE_ROUTINE
+			do_block: LIBERTY_AST_DO_BLOCK
+			routine: LIBERTY_FEATURE_ROUTINE; ext: LIBERTY_FEATURE_EXTERNAL
 			comp: LIBERTY_INSTRUCTION
 		do
 			if routine_def.obsolete_clause.count > 0 then
@@ -158,16 +159,20 @@ feature {}
 			routine_execution := routine_def.execution
 			if routine_execution.is_external then
 				if routine_execution.external_clause.alias_clause.has_alias then
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
-																				 decoded_string(routine_execution.external_clause.definition).intern,
-																				 decoded_string(routine_execution.external_clause.alias_clause.definition).intern,
-																				 local_context.best_accelerator)
+					create ext.make(type,
+										 decoded_string(routine_execution.external_clause.definition).intern,
+										 decoded_string(routine_execution.external_clause.alias_clause.definition).intern,
+										 local_context.best_accelerator)
 				else
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
-																				 decoded_string(routine_execution.external_clause.definition).intern,
-																				 Void,
-																				 local_context.best_accelerator)
+					create ext.make(type,
+										 decoded_string(routine_execution.external_clause.definition).intern,
+										 Void,
+										 local_context.best_accelerator)
 				end
+				if not routine_def.rescue_block.is_empty then
+					ext.set_rescue(compound(routine_def.rescue_block.list, local_context))
+				end
+				Result := ext
 			else
 				check routine_execution.is_regular end
 				do_block := routine_execution.do_block
@@ -185,8 +190,8 @@ feature {}
 							check do_block.is_once end
 							create {LIBERTY_FEATURE_ONCE} routine.make(type, comp, local_context.best_accelerator)
 						end
-						if not routine_execution.rescue_block.is_empty then
-							routine.set_rescue(compound(routine_execution.rescue_block.list, local_context))
+						if not routine_def.rescue_block.is_empty then
+							routine.set_rescue(compound(routine_def.rescue_block.list, local_context))
 						end
 						Result := routine
 					end

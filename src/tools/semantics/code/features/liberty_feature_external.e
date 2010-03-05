@@ -27,6 +27,8 @@ feature {ANY}
 	external_def: FIXED_STRING
 	alias_def: FIXED_STRING
 
+	rescue_instruction: LIBERTY_INSTRUCTION
+
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -34,6 +36,17 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_external(Current)
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	set_rescue (a_rescue: like rescue_instruction) is
+		require
+			rescue_instruction = Void
+			a_rescue /= Void
+		do
+			rescue_instruction := a_rescue
+		ensure
+			rescue_instruction = a_rescue
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

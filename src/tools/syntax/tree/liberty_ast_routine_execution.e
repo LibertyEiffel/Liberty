@@ -30,7 +30,7 @@ feature {LIBERTY_AST_HANDLER}
 
 	is_regular: BOOLEAN is
 		do
-			Result := count = 3
+			Result := count = 2
 		ensure
 			Result = not is_external
 		end
@@ -47,13 +47,6 @@ feature {LIBERTY_AST_HANDLER}
 			is_regular
 		do
 			Result ::= nodes.item(1)
-		end
-
-	rescue_block: LIBERTY_AST_RESCUE_BLOCK is
-		require
-			is_regular
-		do
-			Result ::= nodes.item(2)
 		end
 
 	external_clause: LIBERTY_AST_EXTERNAL is
@@ -74,7 +67,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 1, 3 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2 >> }
 		end
 
 end
