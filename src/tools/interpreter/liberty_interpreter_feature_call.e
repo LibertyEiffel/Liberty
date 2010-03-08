@@ -73,7 +73,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 					i > actuals.upper
 				loop
 					actuals.item(i).accept(interpreter.expressions)
-					p.add_last(interpreter.expressions.eval_as_argument)
+					p.add_last(interpreter.expressions.eval_as_right_value)
 					i := i + 1
 				end
 				parameters := p
@@ -263,7 +263,7 @@ feature {LIBERTY_FEATURE_CONSTANT}
 		do
 			if not prepare then
 				v.expression.accept(interpreter.expressions)
-				set_returned_object(interpreter.expressions.eval_as_argument)
+				set_returned_object(interpreter.expressions.eval_as_right_value)
 			end
 		end
 

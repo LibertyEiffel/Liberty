@@ -118,7 +118,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				until
 					i > source.attributes.upper
 				loop
-					o := source.attributes.item(i).storage_twin
+					o := source.attributes.item(i).as_right_value
 					attributes.put(o, source.attributes.key(i))
 					i := i + 1
 				end
@@ -290,7 +290,7 @@ feature {}
 			until
 				i > attributes.upper
 			loop
-				Result.put_attribute(attributes.key(i), attributes.item(i).storage_twin)
+				Result.put_attribute(attributes.key(i), attributes.item(i).as_right_value)
 				i := i + 1
 			end
 		end

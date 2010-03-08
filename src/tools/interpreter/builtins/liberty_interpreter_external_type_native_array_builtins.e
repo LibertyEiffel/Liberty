@@ -82,7 +82,7 @@ feature {}
 			end
 			element := builtin_call.parameters.item(0)
 			index ::= builtin_call.parameters.item(1)
-			target.builtin_put(element.storage_twin, index.item.to_integer_32)
+			target.builtin_put(element.as_right_value, index.item.to_integer_32)
 		end
 
 	slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is

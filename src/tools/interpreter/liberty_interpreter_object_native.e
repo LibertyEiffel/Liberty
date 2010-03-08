@@ -78,7 +78,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 
 	builtin_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			Result := storage_twin
+			Result := as_right_value
 		end
 
 	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
@@ -95,13 +95,13 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 
 	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			Result := storage_twin
+			Result := as_right_value
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
 	do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
-			Result := storage_twin
+			Result := as_right_value
 		end
 
 	do_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is

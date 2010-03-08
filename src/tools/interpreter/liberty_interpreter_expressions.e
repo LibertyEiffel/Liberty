@@ -24,10 +24,10 @@ creation {LIBERTY_INTERPRETER}
 feature {ANY}
 	eval_memory: LIBERTY_INTERPRETER_OBJECT
 
-	eval_as_argument: LIBERTY_INTERPRETER_OBJECT is
+	eval_as_right_value: LIBERTY_INTERPRETER_OBJECT is
 			-- When `eval_memory' is to be assigned to an entity
 		do
-			Result := eval_memory.storage_twin
+			Result := eval_memory.as_right_value
 		end
 
 	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
@@ -474,9 +474,9 @@ feature {}
 			left, right: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.left.accept(Current)
-			left := eval_as_argument
+			left := eval_as_right_value
 			v.right.accept(Current)
-			right := eval_as_argument
+			right := eval_as_right_value
 			Result := left.is_equal(right)
 		end
 
