@@ -299,13 +299,13 @@ feature {}
 			type := a_type
 			item_type := a_item_type
 			position := a_position
-			create elements.make(a_elements.upper - a_elements.lower + 1)
+			create elements.make(a_elements.count)
 			from
 				i := a_elements.lower
 			until
 				i > a_elements.upper
 			loop
-				elements.put(a_elements.item(i), i)
+				elements.put(a_elements.item(i), i + elements.lower - a_elements.lower)
 				i := i + 1
 			end
 			accessor ::= accessor_factory.accessor(a_interpreter, item_type, a_position)

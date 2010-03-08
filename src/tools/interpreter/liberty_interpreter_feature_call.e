@@ -39,28 +39,18 @@ feature {ANY}
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
-			debug
-				std_output.put_string(once "Calling ")
-				std_output.put_string(name)
-				std_output.put_string(once " on target ")
-				interpreter.object_printer.print_object(std_output, target, 0)
-			end
 			check not prepare end
 			prepare := True
 			bound_feature.accept(Current)
 			prepare := False
 			check_invariant
 			check_precondition
+			debug
+				debug_step(once"Calling the feature")
+			end
 			bound_feature.accept(Current)
 			check_postcondition
 			check_invariant
-			debug
-				if returned_static_type /= Void then
-					std_output.put_string(name)
-					std_output.put_string(once " returned ")
-					interpreter.object_printer.print_object(std_output, returned_object, 0)
-				end
-			end
 		end
 
 feature {LIBERTY_FEATURE_ACCELERATOR}
@@ -90,16 +80,32 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 				interpreter.unset_evaluating_parameters(Current)
 
 				prepare_parameter_map(bound_feature)
+				debug
+					show_parameter_map(std_output)
+					std_output.put_new_line
+				end
 				prepare_postcondition
 			end
 		end
 
-feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
+feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	returned_object: LIBERTY_INTERPRETER_OBJECT
 
 	set_returned_object (a_returned_object: like returned_object) is
 		do
-			returned_object := a_returned_object
+			if returned_static_type = Void then
+				check a_returned_object = Void end
+			else
+				returned_object := a_returned_object
+				debug
+					std_output.put_string(once " >>> Feature ")
+					std_output.put_string(name)
+					std_output.put_string(once " @")
+					std_output.put_string(to_pointer.out)
+					std_output.put_string(once ": setting Result to ")
+					interpreter.object_printer.print_object(std_output, returned_object, 2)
+				end
+			end
 		ensure
 			returned_object = a_returned_object
 		end
@@ -181,11 +187,22 @@ feature {LIBERTY_INTERPRETER}
 				o.put_string(once "Result = ")
 				interpreter.object_printer.print_object(o, returned_object, 0)
 			end
-			show_map(parameter_map, once "Parameters", o)
-			show_map(local_map, once "Locals", o)
+
+			show_parameter_map(o)
+			show_local_map(o)
 		end
 
 feature {}
+	show_parameter_map (o: OUTPUT_STREAM) is
+		do
+			show_map(parameter_map, once "Parameters", o)
+		end
+
+	show_local_map (o: OUTPUT_STREAM) is
+		do
+			show_map(local_map, once "Locals", o)
+		end
+
 	show_map (map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]; tag: STRING; o: OUTPUT_STREAM) is
 		local
 			i: INTEGER; obj: LIBERTY_INTERPRETER_OBJECT
@@ -223,12 +240,12 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 				if t ?:= target then
 					t ::= target
 					if t.has_attribute(name) then
-						returned_object := t.attribute_object(name)
+						set_returned_object(t.attribute_object(name))
 					else
 						create fn.make(name)
 						if t.type.has_feature(fn) then
 							-- at creation time
-							returned_object := interpreter.new_object(t.type.feature_definition(fn).result_type.actual_type, t.position)
+							set_returned_object(interpreter.new_object(t.type.feature_definition(fn).result_type.actual_type, t.position))
 							t.put_attribute(name, returned_object)
 						else
 							interpreter.fatal_error("No such attribute: " + name)
@@ -246,7 +263,7 @@ feature {LIBERTY_FEATURE_CONSTANT}
 		do
 			if not prepare then
 				v.expression.accept(interpreter.expressions)
-				returned_object := interpreter.expressions.eval_as_argument
+				set_returned_object(interpreter.expressions.eval_as_argument)
 			end
 		end
 
@@ -271,13 +288,22 @@ feature {LIBERTY_FEATURE_DO}
 feature {LIBERTY_FEATURE_EXTERNAL}
 	visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
 		do
-			if not prepare then
+			if prepare then
+				inspect
+					v.external_def.out
+				when "built_in" then
+					-- nothing
+				when "plug_in" then
+					evaluate_parameters
+				else
+					not_yet_implemented
+				end
+			else
 				inspect
 					v.external_def.out
 				when "built_in" then
 					interpreter.builtins.call(Current)
 				when "plug_in" then
-					evaluate_parameters
 					interpreter.plugins.call(Current, v.alias_def)
 				else
 					not_yet_implemented
@@ -295,7 +321,7 @@ feature {LIBERTY_FEATURE_ONCE}
 				prepare_local_map(v)
 			else
 				if once_value_ref.is_set(v) then
-					returned_object := once_value_ref.value(v)
+					set_returned_object(once_value_ref.value(v))
 				else
 					v.block_instruction.accept(interpreter.instructions)
 					once_value_ref.add(returned_object, v)
@@ -344,15 +370,6 @@ feature {}
 				else
 					returned_object := interpreter.void_object(returned_static_type, position)
 				end
-			end
-
-			debug
-				std_output.put_string(once "Creating call frame on feature {")
-				std_output.put_string(bound_feature.definition_type.full_name)
-				std_output.put_string(once "}.")
-				std_output.put_string(name)
-				std_output.put_string(once " with target ")
-				interpreter.object_printer.print_object(std_output, target, 0)
 			end
 		ensure
 			interpreter = a_interpreter
@@ -415,11 +432,6 @@ feature {}
 		local
 			i: INTEGER; p: LIBERTY_PARAMETER
 		do
-			debug
-				std_output.put_string(once "Preparing parameter map for ")
-				std_output.put_line(name)
-			end
-
 			if f.parameters.count /= actuals.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
 												+ " but got " + actuals.count.out)
@@ -454,11 +466,6 @@ feature {}
 		local
 			i: INTEGER; l: LIBERTY_LOCAL; def: LIBERTY_INTERPRETER_OBJECT
 		do
-			debug
-				std_output.put_string(once "Preparing local map for ")
-				std_output.put_line(name)
-			end
-
 			if f.locals.is_empty then
 				local_types := empty_types
 				local_map := empty_map
@@ -517,27 +524,62 @@ feature {LIBERTY_INTERPRETER}
 feature {}
 	check_invariant is
 		do
+			debug
+				debug_step(once "Checking invariant")
+			end
 			interpreter.assertions.validate(target.type.the_invariant, once "Invariant")
+			debug
+				debug_step(once "Done checking invariant")
+			end
 		end
 
 	check_precondition is
 		do
+			debug
+				debug_step(once "Checking precondition")
+			end
 			interpreter.assertions.validate(bound_feature.precondition, once "Precondition")
+			debug
+				debug_step(once "Done checking precondition")
+			end
 		end
 
 	prepare_postcondition is
 		do
+			debug
+				debug_step(once "Preparing postcondition (gathering old values)")
+			end
 			interpreter.assertions.gather_old(bound_feature.postcondition)
+			debug
+				debug_step(once "Done preparing postcondition (gathering old values)")
+			end
 		end
 
 	check_postcondition is
 		do
+			debug
+				debug_step(once "Checking postcondition")
+			end
 			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
+			debug
+				debug_step(once "Done checking postcondition")
+			end
 		end
 
 	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]
 
 	prepare: BOOLEAN
+
+	debug_step (step: STRING) is
+		do
+			std_output.put_new_line
+			std_output.put_string(once " >>> ")
+			std_output.put_string(name)
+			std_output.put_string(once " @")
+			std_output.put_string(to_pointer.out)
+			std_output.put_string(once ": ")
+			std_output.put_line(step)
+		end
 
 invariant
 	interpreter /= Void
@@ -545,6 +587,6 @@ invariant
 	target /= Void
 	name /= Void
 
-	returned_static_type /= Void implies returned_object /= Void
+	(returned_static_type = Void) = (returned_object = Void)
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL

@@ -26,17 +26,35 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	call_implies (f: LIBERTY_FEATURE) is
 		do
-			returned := interpreter.new_boolean(left implies right, builtin_call.position)
+			if not left then
+				returned := interpreter.new_boolean(True, builtin_call.position)
+			elseif right then
+				returned := interpreter.new_boolean(True, builtin_call.position)
+			else
+				returned := interpreter.new_boolean(False, builtin_call.position)
+			end
 		end
 
 	call_or_else (f: LIBERTY_FEATURE) is
 		do
-			returned := interpreter.new_boolean(left or else right, builtin_call.position)
+			if left then
+				returned := interpreter.new_boolean(True, builtin_call.position)
+			elseif right then
+				returned := interpreter.new_boolean(True, builtin_call.position)
+			else
+				returned := interpreter.new_boolean(False, builtin_call.position)
+			end
 		end
 
 	call_and_then (f: LIBERTY_FEATURE) is
 		do
-			returned := interpreter.new_boolean(left and then right, builtin_call.position)
+			if not left then
+				returned := interpreter.new_boolean(False, builtin_call.position)
+			elseif right then
+				returned := interpreter.new_boolean(True, builtin_call.position)
+			else
+				returned := interpreter.new_boolean(False, builtin_call.position)
+			end
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_BOOLEAN_BUILTINS

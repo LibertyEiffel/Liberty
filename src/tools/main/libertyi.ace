@@ -5,7 +5,7 @@ root LIBERTYI: make
 default
 	assertion(no)
 	debug(no)
-	collect(yes)
+	collect(no)
 	verbose(yes)
 	manifest_string_trace(no)
 	profile(no)

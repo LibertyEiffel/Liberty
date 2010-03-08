@@ -93,9 +93,12 @@ feature {ANY}
 
 	call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
 		local
-			dummy: LIBERTY_INTERPRETER_FEATURE_CALL
+			call: LIBERTY_INTERPRETER_FEATURE_CALL
 		do
-			dummy := do_call(a_target, feature_to_call, actuals, a_position)
+			call := do_call(a_target, feature_to_call, actuals, a_position)
+			check
+				call.returned_object = Void
+			end
 		end
 
 	item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
@@ -241,9 +244,9 @@ feature {ANY}
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			check
-				call_stack.last.has_old_value(a_expression)
+				current_feature.has_old_value(a_expression)
 			end
-			Result := call_stack.last.old_value(a_expression)
+			Result := current_feature.old_value(a_expression)
 		end
 
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
@@ -268,7 +271,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		require
 			gathering_old_values
 		do
-			evaluating_old_value_stack.add_last(call_stack.last)
+			evaluating_old_value_stack.add_last(current_feature)
 		ensure
 			gathering_old_values_counter = old gathering_old_values_counter
 			evaluating_old_value
@@ -280,9 +283,9 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 			evaluating_old_value
 		do
 			check
-				evaluating_old_value_stack.last = call_stack.last
+				evaluating_old_value_stack.last = current_feature
 			end
-			call_stack.last.add_old_value(a_expression, a_value, old_fatal_error)
+			current_feature.add_old_value(a_expression, a_value, old_fatal_error)
 			evaluating_old_value_stack.remove_last
 			if evaluating_old_value_stack.is_empty then
 				old_fatal_error := Void
@@ -312,23 +315,55 @@ feature {}
 	do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
 			create Result.make(Current, a_target, feature_to_call, actuals, a_position)
+			debug
+				std_output.put_new_line
+				std_output.put_line(once "----------------------------------------------------------------------")
+				std_output.put_integer(call_stack.count)
+				std_output.put_string(once " - Calling ")
+				Result.show_stack(std_output)
+			end
 			call_stack.add_last(Result)
 			Result.call
 			check
-				call_stack.last = Result
+				current_feature = Result
 			end
 			call_stack.remove_last
+			debug
+				std_output.put_integer(call_stack.count)
+				std_output.put_string(once " - Returning from ")
+				Result.show_stack(std_output)
+				std_output.put_line(once "----------------------------------------------------------------------")
+				std_output.put_new_line
+			end
 		end
 
 	do_precursor (a_feature: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
-			create Result.make_precursor(Current, call_stack.last.target, a_feature, actuals, a_position)
+			create Result.make_precursor(Current, current_feature.target, a_feature, actuals, a_position)
+			debug
+				std_output.put_new_line
+				std_output.put_line(once "----------------------------------------------------------------------")
+				std_output.put_integer(call_stack.count)
+				std_output.put_string(once " - Calling precursor feature ")
+				std_output.put_line(Result.name)
+			end
 			call_stack.add_last(Result)
 			Result.call
 			check
-				call_stack.last = Result
+				current_feature = Result
 			end
 			call_stack.remove_last
+			debug
+				std_output.put_integer(call_stack.count)
+				std_output.put_string(once " - Returning from precursor feature ")
+				std_output.put_line(Result.name)
+				if Result.returned_static_type /= Void then
+					std_output.put_string(once "Result = ")
+					object_printer.print_object(std_output, Result.returned_object, 0)
+				end
+				std_output.put_line(once "----------------------------------------------------------------------")
+				std_output.put_new_line
+			end
 		end
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
@@ -337,7 +372,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			cf /= Void
 			not is_evaluating_parameters(cf)
 		do
-			check cf = call_stack.last end
+			check cf = current_feature end
 			feature_evaluating_parameters.add_last(cf)
 			call_stack.remove_last
 			debug
@@ -380,10 +415,19 @@ feature {}
 	current_feature: LIBERTY_INTERPRETER_FEATURE_CALL is
 		do
 			Result := call_stack.last
-			debug
-				std_output.put_string(once " -> current feature is ")
-				std_output.put_line(Result.name)
-			end
+		end
+
+	debug_value (tag, name, op: ABSTRACT_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			std_output.put_string(" **** {")
+			std_output.put_string(current_feature.definition_type.full_name)
+			std_output.put_string(once "}.")
+			std_output.put_string(current_feature.name)
+			std_output.put_string(once ": ")
+			std_output.put_string(tag)
+			std_output.put_string(name)
+			std_output.put_string(op)
+			object_printer.print_object(std_output, value, 2)
 		end
 
 feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
@@ -391,8 +435,7 @@ feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 		do
 			Result := current_feature.target
 			debug
-				std_output.put_string(once "      Current is ")
-				object_printer.print_object(std_output, Result, 2)
+				debug_value(once "Current", once "", once " is ", Result)
 			end
 		end
 
@@ -400,10 +443,7 @@ feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 		do
 			Result := current_feature.local_value(name)
 			debug
-				std_output.put_string(once "      Local ")
-				std_output.put_string(name)
-				std_output.put_string(once " is ")
-				object_printer.print_object(std_output, Result, 2)
+				debug_value(once "Local ", name, once " is ", Result)
 			end
 		end
 
@@ -411,8 +451,7 @@ feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 		do
 			Result := current_feature.returned_object
 			debug
-				std_output.put_string(once "      Result is ")
-				object_printer.print_object(std_output, Result, 2)
+				debug_value(once "Result", once "", once " is ", Result)
 			end
 		end
 
@@ -420,10 +459,7 @@ feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 		do
 			Result := current_feature.writable_feature(name)
 			debug
-				std_output.put_string(once "      Writable feature ")
-				std_output.put_string(name.full_name)
-				std_output.put_string(once " is ")
-				object_printer.print_object(std_output, Result, 2)
+				debug_value(once "Writable feature ", name.full_name, once " is ", Result)
 			end
 		end
 
@@ -431,10 +467,7 @@ feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 		do
 			Result := current_feature.parameter(name)
 			debug
-				std_output.put_string(once "      Parameter ")
-				std_output.put_string(name)
-				std_output.put_string(once " is ")
-				object_printer.print_object(std_output, Result, 2)
+				debug_value(once "Parameter ", name, once " is ", Result)
 			end
 		end
 
@@ -447,6 +480,9 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			current_feature.set_local_value(name, value)
+			debug
+				debug_value(once "Local ", name, once " := ", value)
+			end
 		end
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE is
@@ -457,6 +493,9 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	set_returned_object (value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			current_feature.set_returned_object(value)
+			debug
+				debug_value(once "Result", once "", once " := ", value)
+			end
 		end
 
 	writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
@@ -467,12 +506,15 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
 	set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
 		do
 			current_feature.set_writable_feature(name, value)
+			debug
+				debug_value(once "Writable feature ", name.full_name, once " := ", value)
+			end
 		end
 
 feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
 	evaluate_feature_parameters is
 		do
-			call_stack.last.evaluate_parameters
+			current_feature.evaluate_parameters
 		end
 
 feature {}
