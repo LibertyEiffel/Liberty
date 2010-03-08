@@ -25,11 +25,13 @@ feature {ANY}
 	eval_memory: LIBERTY_INTERPRETER_OBJECT
 
 	eval_as_argument: LIBERTY_INTERPRETER_OBJECT is
+			-- When `eval_memory' is to be assigned to an entity
 		do
 			Result := eval_memory.storage_twin
 		end
 
 	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
+			-- When `eval_memory' is to be used as a target of a call
 		do
 			Result := eval_memory.as_target
 		end

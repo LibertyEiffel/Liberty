@@ -43,6 +43,7 @@ feature {ANY}
 	as_target: like Current is
 		do
 			interpreter.fatal_error("Call on Void target")
+			Result := Current
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings

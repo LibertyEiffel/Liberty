@@ -59,7 +59,7 @@ feature {ANY}
 		do
 			Result := Current
 		ensure
-			Result /= Void implies is_equal(Result)
+			Result = Current
 		end
 
 	storage_twin: like Current is
