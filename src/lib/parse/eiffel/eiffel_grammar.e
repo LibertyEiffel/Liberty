@@ -69,8 +69,8 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "Class_Creation", "Class_Creation*" >> }, agent build_continue_list("Class_Creation", 0, "Class_Creation*") >> };
 											  "Class_Creation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW creation", "Clients", "Feature_Name+" >> }, Void;
 																									 {FAST_ARRAY[STRING] << "KW create", "Clients", "Feature_Name+" >> }, Void >> };
-											  "Routine_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Obsolete", "Require", "Routine_Execution", "Ensure", "KW end" >> }, Void >> };
-											  "Routine_Execution", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Local_Block", "Do_Block", "Rescue_Block" >> }, Void;
+											  "Routine_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Obsolete", "Require", "Routine_Execution", "Ensure", "Rescue_Block", "KW end" >> }, Void >> };
+											  "Routine_Execution", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Local_Block", "Do_Block" >> }, Void;
 																										 {FAST_ARRAY[STRING] << "External" >> }, Void >> };
 											  "Local_Block", {PARSE_NON_TERMINAL << epsilon, Void;
 																								 {FAST_ARRAY[STRING] << "KW local", "Declaration*", "KW ;;" >> }, Void >> };

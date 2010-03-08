@@ -33,11 +33,15 @@ feature {}
 	right_as_integer_8: INTEGER_8 is
 		local
 			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			bc: like builtin_call
 		do
 			-- the code may not seem straightforward but it manages correct semi-evaluation
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
+			-- and re-entrance
+			bc := builtin_call
+			bc.evaluate_parameters
+			obj ::= bc.parameters.first
 			Result := obj.item.to_integer_8
+			builtin_call := bc
 		end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
@@ -92,33 +96,35 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 				builtin_call.name.out
 			when "to_character" then
 				returned := interpreter.new_character(target.to_character, builtin_call.position)
-			when "|>>", "bit_shift_right" then
+			when "infix |>>", "bit_shift_right" then
 				returned := new_integer(left |>> right_as_integer_8)
-			when "|>>>", "bit_shift_right_unsigned" then
+			when "infix |>>>", "bit_shift_right_unsigned" then
 				returned := new_integer(left |>>> right_as_integer_8)
-			when "|<<", "bit_shift_left" then
+			when "infix |<<", "bit_shift_left" then
 				returned := new_integer(left |<< right_as_integer_8)
-			when "#>>", "bit_rotate_right" then
+			when "infix #>>", "bit_rotate_right" then
 				returned := new_integer(left #>> right_as_integer_8)
-			when "#<<", "bit_rotate_left" then
+			when "infix #<<", "bit_rotate_left" then
 				returned := new_integer(left #<< right_as_integer_8)
 			when "bit_rotate" then
 				returned := new_integer(left.bit_rotate(right_as_integer_8))
-			when "~", "bit_not" then
+			when "prefix ~", "bit_not" then
 				returned := new_integer(~left)
-			when "&", "bit_and" then
+			when "infix &", "bit_and" then
 				returned := new_integer(left & right)
-			when "|", "bit_or" then
+			when "infix |", "bit_or" then
 				returned := new_integer(left | right)
 			when "bit_xor" then
 				returned := new_integer(left.bit_xor(right))
-			when "#+" then
+			when "infix #+" then
 				returned := new_integer(left #+ right)
-			when "#-" then
+			when "infix #-" then
 				returned := new_integer(left #- right)
-			when "#//" then
+			when "infix #*" then
+				returned := new_integer(left #* right)
+			when "infix #//" then
 				returned := new_integer(left #// right)
-			when "#\\" then
+			when "infix #\\" then
 				returned := new_integer(left #\\ right)
 			end
 		end

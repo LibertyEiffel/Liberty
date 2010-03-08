@@ -142,9 +142,7 @@ feature {LIBERTY_UNIVERSE}
 			c: CHARACTER; multiline: BOOLEAN
 		do
 			string ::= object
-			if not string.has_attribute(storage_attribute) or else not string.has_attribute(count_attribute) then
-				string.show_stack(stream, indent)
-			else
+			if string.has_attribute(storage_attribute) and then string.has_attribute(count_attribute) then
 				storage ::= string.attribute_object(storage_attribute)
 				count ::= string.attribute_object(count_attribute)
 				n := count.item.to_integer_32 - 1
@@ -191,12 +189,12 @@ feature {LIBERTY_UNIVERSE}
 				if multiline then
 					stream.put_new_line
 					put_indent(stream, indent)
-					stream.put_line(once "%"]")
+					stream.put_string(once "%"]")
 				else
 					stream.put_character('"')
-					stream.put_new_line
 				end
 			end
+			string.show_stack(stream, indent)
 		end
 
 	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is

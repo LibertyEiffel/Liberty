@@ -59,10 +59,10 @@ feature {ANY}
 		do
 			Result := Current
 		ensure
-			Result /= Void implies is_equal(Result)
+			Result = Current
 		end
 
-	storage_twin: like Current is
+	as_right_value: like Current is
 			-- either Current or a twin depending on the storage class (expanded, reference, separate)
 		do
 			if type.is_expanded then

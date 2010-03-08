@@ -16,6 +16,9 @@ class LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[E_]
 
 inherit
 	LIBERTY_INTERPRETER_NATIVE_ARRAY
+		redefine
+			hash_code
+		end
 
 creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR, LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER}
 	make, with_storage
@@ -40,6 +43,11 @@ feature {ANY}
 				o ::= other
 				Result := elements = o.elements
 			end
+		end
+
+	hash_code: INTEGER is
+		do
+			Result := elements.to_pointer.hash_code
 		end
 
 	item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
@@ -291,13 +299,13 @@ feature {}
 			type := a_type
 			item_type := a_item_type
 			position := a_position
-			create elements.make(a_elements.upper - a_elements.lower + 1)
+			create elements.make(a_elements.count)
 			from
 				i := a_elements.lower
 			until
 				i > a_elements.upper
 			loop
-				elements.put(a_elements.item(i), i)
+				elements.put(a_elements.item(i), i + elements.lower - a_elements.lower)
 				i := i + 1
 			end
 			accessor ::= accessor_factory.accessor(a_interpreter, item_type, a_position)

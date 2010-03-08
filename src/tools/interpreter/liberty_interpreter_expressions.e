@@ -24,18 +24,16 @@ creation {LIBERTY_INTERPRETER}
 feature {ANY}
 	eval_memory: LIBERTY_INTERPRETER_OBJECT
 
-	eval_as_argument: LIBERTY_INTERPRETER_OBJECT is
+	eval_as_right_value: LIBERTY_INTERPRETER_OBJECT is
+			-- When `eval_memory' is to be assigned to an entity
 		do
-			if eval_memory /= Void then
-				Result := eval_memory.storage_twin
-			end
+			Result := eval_memory.as_right_value
 		end
 
 	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
+			-- When `eval_memory' is to be used as a target of a call
 		do
-			if eval_memory /= Void then
-				Result := eval_memory.as_target
-			end
+			Result := eval_memory.as_target
 		end
 
 feature {LIBERTY_ADD}
@@ -73,12 +71,16 @@ feature {LIBERTY_ASSIGNMENT_TEST}
 		do
 			v.expression.accept(Current)
 			eval_memory := interpreter.new_boolean(eval_memory.type.is_conform_to(v.tested_type.actual_type), v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
 	visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
 		do
 			eval_memory := interpreter.new_boolean(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_CALL_EXPRESSION}
@@ -93,18 +95,18 @@ feature {LIBERTY_CALL_EXPRESSION}
 					end
 				end
 				v.target.accept(Current)
-				if eval_memory = Void then
-					interpreter.fatal_error("Call on Void target")
-				else
-					eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
-				end
+				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		do
 			eval_memory := interpreter.new_character(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_CREATION_EXPRESSION}
@@ -112,6 +114,8 @@ feature {LIBERTY_CREATION_EXPRESSION}
 		do
 			eval_memory := interpreter.new_object(v.result_type.actual_type, v.position)
 			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, v.feature_arguments, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_DIVIDE}
@@ -136,6 +140,8 @@ feature {LIBERTY_EQUALS}
 	visit_liberty_equals (v: LIBERTY_EQUALS) is
 		do
 			eval_memory := interpreter.new_boolean(visit_comparison(v), v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_GREATER_OR_EQUAL}
@@ -172,24 +178,32 @@ feature {LIBERTY_INTEGER_16_MANIFEST}
 	visit_liberty_integer_16_manifest (v: LIBERTY_INTEGER_16_MANIFEST) is
 		do
 			eval_memory := interpreter.new_integer_16(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_INTEGER_32_MANIFEST}
 	visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
 		do
 			eval_memory := interpreter.new_integer_32(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_INTEGER_64_MANIFEST}
 	visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
 		do
 			eval_memory := interpreter.new_integer_64(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_INTEGER_8_MANIFEST}
 	visit_liberty_integer_8_manifest (v: LIBERTY_INTEGER_8_MANIFEST) is
 		do
 			eval_memory := interpreter.new_integer_8(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_INTEGER_TYPED_MANIFEST}
@@ -232,12 +246,16 @@ feature {LIBERTY_NOT_EQUALS}
 	visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS) is
 		do
 			eval_memory := interpreter.new_boolean(not visit_comparison(v), v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
 		do
 			eval_memory := interpreter.old_value(v.expression)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_OPEN_ARGUMENT}
@@ -274,6 +292,8 @@ feature {LIBERTY_PRECURSOR_EXPRESSION}
 	visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
 		do
 			eval_memory := interpreter.item_precursor(v.the_feature, v.actuals, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_PREFIX_OPERATOR}
@@ -286,6 +306,8 @@ feature {LIBERTY_REAL_MANIFEST}
 	visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
 		do
 			eval_memory := interpreter.new_real(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_REAL_TYPED_MANIFEST}
@@ -298,6 +320,8 @@ feature {LIBERTY_STRING_MANIFEST}
 	visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST) is
 		do
 			eval_memory := interpreter.new_string(v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
@@ -327,7 +351,9 @@ feature {LIBERTY_TUPLE}
 feature {LIBERTY_VOID}
 	visit_liberty_void (v: LIBERTY_VOID) is
 		do
-			eval_memory := Void
+			eval_memory := interpreter.void_object(v.result_type.actual_type, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_XOR}
@@ -344,6 +370,8 @@ feature {LIBERTY_CURRENT}
 				std_output.put_string(once " => Current = ")
 				interpreter.object_printer.print_object(std_output, eval_memory, 2)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
@@ -362,6 +390,8 @@ feature {LIBERTY_FEATURE_ENTITY}
 				std_output.put_string(once " = ")
 				interpreter.object_printer.print_object(std_output, eval_memory, 2)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_LOCAL}
@@ -374,6 +404,8 @@ feature {LIBERTY_LOCAL}
 				std_output.put_string(once " = ")
 				interpreter.object_printer.print_object(std_output, eval_memory, 2)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_PARAMETER}
@@ -386,6 +418,8 @@ feature {LIBERTY_PARAMETER}
 				std_output.put_string(once " = ")
 				interpreter.object_printer.print_object(std_output, eval_memory, 2)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_RESULT}
@@ -396,6 +430,8 @@ feature {LIBERTY_RESULT}
 				std_output.put_string(once " => Result = ")
 				interpreter.object_printer.print_object(std_output, eval_memory, 2)
 			end
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_WRITABLE_FEATURE}
@@ -420,21 +456,17 @@ feature {}
 	visit_infix (v: LIBERTY_INFIX_CALL) is
 		do
 			v.target.accept(Current)
-			if eval_memory = Void then
-				interpreter.fatal_error("Call on Void target")
-			else
-				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
-			end
+			eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
 		do
 			v.target.accept(Current)
-			if eval_memory = Void then
-				interpreter.fatal_error("Call on Void target")
-			else
-				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, no_actuals, v.position)
-			end
+			eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, no_actuals, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 	visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is
@@ -442,14 +474,10 @@ feature {}
 			left, right: LIBERTY_INTERPRETER_OBJECT
 		do
 			v.left.accept(Current)
-			left := eval_as_target
+			left := eval_as_right_value
 			v.right.accept(Current)
-			right := eval_as_argument
-			if left = Void then
-				Result := right = Void
-			else
-				Result := right /= Void and then left.is_equal(right)
-			end
+			right := eval_as_right_value
+			Result := left.is_equal(right)
 		end
 
 	no_actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is

@@ -44,10 +44,19 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 				builtin_call.name.out
 			when "element_sizeof" then
 				Result := interpreter.new_integer(target.builtin_element_sizeof, builtin_call.position)
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "calloc" then
 				Result := target.builtin_calloc(integer(builtin_call), builtin_call.position)
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "item" then
 				Result := target.builtin_item(integer(builtin_call))
+				if Result = Void then
+					last_call_failed := True
+				end
 			when "put" then
 				put(builtin_call)
 			when "slice_copy" then
@@ -73,7 +82,7 @@ feature {}
 			end
 			element := builtin_call.parameters.item(0)
 			index ::= builtin_call.parameters.item(1)
-			target.builtin_put(element.storage_twin, index.item.to_integer_32)
+			target.builtin_put(element.as_right_value, index.item.to_integer_32)
 		end
 
 	slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is

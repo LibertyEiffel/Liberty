@@ -30,7 +30,7 @@ feature {ANY}
 			expanded_equal: LIBERTY_INTERPRETER_OBJECT_BOOLEAN
 		do
 			if other.is_void then
-				interpreter.fatal_error("Unexpected Void argument")
+				-- Obviously this object is not Void.
 			elseif type = other.type then
 				if type.is_expanded then
 					is_equal_feature := type.feature_definition(is_equal_feature_name)
@@ -118,7 +118,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				until
 					i > source.attributes.upper
 				loop
-					o := source.attributes.item(i).storage_twin
+					o := source.attributes.item(i).as_right_value
 					attributes.put(o, source.attributes.key(i))
 					i := i + 1
 				end
@@ -290,7 +290,7 @@ feature {}
 			until
 				i > attributes.upper
 			loop
-				Result.put_attribute(attributes.key(i), attributes.item(i).storage_twin)
+				Result.put_attribute(attributes.key(i), attributes.item(i).as_right_value)
 				i := i + 1
 			end
 		end

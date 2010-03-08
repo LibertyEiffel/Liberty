@@ -23,6 +23,7 @@ creation {LIBERTY_INTERPRETER}
 feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	validate (contract: LIBERTY_ASSERTIONS; error_message: ABSTRACT_STRING) is
 		do
+			failed_tag := Void
 			if contract /= Void then
 				contract.accept(Current)
 				if failed_tag /= Void then
@@ -116,22 +117,23 @@ feature {}
 			assertion_value: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
 			i: INTEGER
 		do
-			interpreter.evaluate_feature_parameters
-
 			failed_tag := Void
 			assertions := contract.assertions
-			from
-				i := assertions.lower
-			until
-				failed_tag /= Void or else i > assertions.upper
-			loop
-				assertion := assertions.item(i)
-				assertion.assertion.accept(interpreter.expressions)
-				assertion_value ::= interpreter.expressions.eval_memory
-				if not assertion_value.item then
-					failed_tag := assertion.tag
+			if not assertions.is_empty then
+				interpreter.evaluate_feature_parameters
+				from
+					i := assertions.lower
+				until
+					failed_tag /= Void or else i > assertions.upper
+				loop
+					assertion := assertions.item(i)
+					assertion.assertion.accept(interpreter.expressions)
+					assertion_value ::= interpreter.expressions.eval_memory
+					if not assertion_value.item then
+						failed_tag := assertion.tag
+					end
+					i := i + 1
 				end
-				i := i + 1
 			end
 		end
 

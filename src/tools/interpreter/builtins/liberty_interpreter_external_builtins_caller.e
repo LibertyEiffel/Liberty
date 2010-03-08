@@ -18,6 +18,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
 		deferred
 		ensure
+			a_builtin_call.returned_static_type /= Void implies (Result /= Void or last_call_failed)
 			Result /= Void implies not last_call_failed
 		end
 

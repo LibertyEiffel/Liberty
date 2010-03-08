@@ -33,11 +33,15 @@ feature {}
 	right_as_integer: INTEGER is
 		local
 			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+			bc: like builtin_call
 		do
 			-- the code may not seem straightforward but it manages correct semi-evaluation
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
+			-- and re-entrance
+			bc := builtin_call
+			bc.evaluate_parameters
+			obj ::= bc.parameters.first
 			Result := obj.item.to_integer_32
+			builtin_call := bc
 		end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}

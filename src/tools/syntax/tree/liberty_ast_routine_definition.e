@@ -41,15 +41,20 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(3)
 		end
 
+	rescue_block: LIBERTY_AST_RESCUE_BLOCK is
+		do
+			Result ::= nodes.item(4)
+		end
+
 feature {ANY}
-	count: INTEGER is 5
+	count: INTEGER is 6
 
 	name: STRING is "Routine_Definition"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 5 >> }
+			Result := {AVL_SET[INTEGER] << 6 >> }
 		end
 
 end
