@@ -365,11 +365,7 @@ feature {}
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
 			if returned_static_type /= Void then
-				if returned_static_type.is_expanded then
-					returned_object := interpreter.new_object(returned_static_type, position)
-				else
-					returned_object := interpreter.void_object(returned_static_type, position)
-				end
+				returned_object := interpreter.default_object(returned_static_type, position)
 			end
 		ensure
 			interpreter = a_interpreter
@@ -479,11 +475,7 @@ feature {}
 				loop
 					l := f.locals.item(i)
 					local_types.add(l.result_type.actual_type, l.name)
-					if l.result_type.actual_type.is_expanded then
-						def := interpreter.new_object(l.result_type.actual_type, l.position)
-					else
-						def := interpreter.void_object(l.result_type.actual_type, l.position)
-					end
+					def := interpreter.default_object(l.result_type.actual_type, l.position)
 					local_map.add(def, l.name)
 					i := i + 1
 				end
@@ -515,6 +507,14 @@ feature {LIBERTY_INTERPRETER}
 	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING) is
 		do
 			old_values.add([a_value, a_fatal_error], a_expression)
+			debug
+				std_output.put_string(once " >>> Feature ")
+				std_output.put_string(name)
+				std_output.put_string(once " @")
+				std_output.put_string(to_pointer.out)
+				std_output.put_string(once ": adding old value: ")
+				interpreter.object_printer.print_object(std_output, a_value, 2)
+			end
 		ensure
 			old_values.fast_at(a_expression).first = a_value
 			old_values.fast_at(a_expression).second = a_fatal_error

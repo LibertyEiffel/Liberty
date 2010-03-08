@@ -124,6 +124,17 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
+	default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		do
+			if type.is_expanded then
+				Result := new_object(type, a_position)
+			elseif type.is_separate then
+				not_yet_implemented
+			else
+				Result := void_object(type, a_position)
+			end
+		end
+
 	void_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
@@ -243,10 +254,16 @@ feature {ANY}
 
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		do
-			check
-				current_feature.has_old_value(a_expression)
+			if current_feature.has_old_value(a_expression) then
+				Result := current_feature.old_value(a_expression)
+			elseif gathering_old_values then
+				Result := default_object(a_expression.result_type.actual_type, a_expression.position)
+			else
+				debug
+					fatal_error("Missing old value!!!")
+				end
+				check False end
 			end
-			Result := current_feature.old_value(a_expression)
 		end
 
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
@@ -272,6 +289,13 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 			gathering_old_values
 		do
 			evaluating_old_value_stack.add_last(current_feature)
+			debug
+				std_output.put_string(once " ### ")
+				std_output.put_string(current_feature.name)
+				std_output.put_string(once " @")
+				std_output.put_string(current_feature.to_pointer.out)
+				std_output.put_line(once ": evaluating an old value")
+			end
 		ensure
 			gathering_old_values_counter = old gathering_old_values_counter
 			evaluating_old_value
@@ -284,6 +308,14 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		do
 			check
 				evaluating_old_value_stack.last = current_feature
+			end
+			debug
+				std_output.put_string(once " ### ")
+				std_output.put_string(current_feature.name)
+				std_output.put_string(once " @")
+				std_output.put_string(current_feature.to_pointer.out)
+				std_output.put_string(once ": done evaluating an old value => ")
+				object_printer.print_object(std_output, a_value, 2)
 			end
 			current_feature.add_old_value(a_expression, a_value, old_fatal_error)
 			evaluating_old_value_stack.remove_last
