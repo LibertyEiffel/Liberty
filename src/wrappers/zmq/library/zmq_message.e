@@ -7,6 +7,7 @@ inherit
 	EIFFEL_OWNED redefine default_create, dispose end 
 insert
 	ZMQEXTERNALS redefine default_create end
+	STDLIBEXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
 
@@ -17,7 +18,7 @@ feature {} -- Creation
 		-- Initialize an empty ØMQ message
 		local res: INTEGER_32
 		do
-			allocate
+			handle := malloc(struct_size)
 			res:=zmq_msg_init(handle)
 		end
 
@@ -66,6 +67,7 @@ feature {ANY} -- Disposing
 			--any_data := Void
 			rc:=zmq_msg_close(handle)
 			check rc=0 end
+			free(handle)
 		end
 	
 	close is
@@ -113,3 +115,22 @@ feature {} -- Implementation
 		end
 
 end -- ZMQ_MESSAGE
+
+-- Zero MQ Liberty Wrappers
+
+-- Copyright (C) 2010 Paolo Redaelli 
+
+-- This library is free software; you can redistribute it and/or
+-- modify it under the terms of the GNU Lesser General Public
+-- License as published by the Free Software Foundation; either
+-- version 3 of the License, or (at your option) any later version.
+-- 
+-- This library is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- Lesser General Public License for more details.
+-- 
+-- You should have received a copy of the GNU Lesser General Public
+-- License along with this library; if not, write to the Free Software
+-- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+

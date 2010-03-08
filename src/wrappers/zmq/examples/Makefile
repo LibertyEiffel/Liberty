@@ -7,3 +7,7 @@ client: zmq_example_client.e
 
 server: zmq_example_server.e
 	compile zmq_example_server -o server
+
+clear:
+	rm client server
+
