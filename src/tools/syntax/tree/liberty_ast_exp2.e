@@ -12,26 +12,37 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_R5
+class LIBERTY_AST_EXP2
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E5]
+	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E2]
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	is_plus: BOOLEAN is
+	is_or_else: BOOLEAN is
 		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW +")
+			Result := count = 4
+			check
+				Result implies nodes.item(1).name.is_equal(once "KW or")
+				Result implies nodes.item(2).name.is_equal(once "KW else")
+			end
+		ensure
+			Result implies not is_empty
 		end
 
-	is_minus: BOOLEAN is
+	is_or: BOOLEAN is
 		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW -")
+			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW or")
+		end
+
+	is_xor: BOOLEAN is
+		do
+			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW xor")
 		end
 
 feature {ANY}
-	name: STRING is "r5"
+	name: STRING is "e2-exp"
 
 end

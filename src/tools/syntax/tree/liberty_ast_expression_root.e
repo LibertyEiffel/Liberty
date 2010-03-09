@@ -12,46 +12,50 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_R2
+deferred class LIBERTY_AST_EXPRESSION_ROOT[S_ -> LIBERTY_AST_NON_TERMINAL_NODE, B_ -> LIBERTY_AST_EXPRESSION_BINARY[S_]]
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E2]
-		redefine
-			possible_counts
-		end
-
-create {LIBERTY_NODE_FACTORY}
-	make
+	LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-	is_or_else: BOOLEAN is
+	simple_expression: S_ is
+		require
+			is_simple_expression
 		do
-			Result := count = 4
-			check
-				Result implies nodes.item(0).name.is_equal(once "KW or")
-				Result implies nodes.item(1).name.is_equal(once "KW else")
-			end
+			Result ::= nodes.first
 		ensure
-			Result implies not is_empty
+			Result /= Void
 		end
 
-	is_or: BOOLEAN is
+	binary_expression: B_ is
+		require
+			is_binary_expression
 		do
-			Result := count = 3 and then nodes.item(0).name.is_equal(once "KW or")
+			Result ::= nodes.first
+		ensure
+			Result /= Void
 		end
 
-	is_xor: BOOLEAN is
+	is_simple_expression: BOOLEAN is
 		do
-			Result := count = 3 and then nodes.item(0).name.is_equal(once "KW xor")
+			Result := not is_binary_expression
+		end
+
+	is_binary_expression: BOOLEAN is
+		do
+			Result := nodes.first.name.has_suffix(once "-exp")
 		end
 
 feature {ANY}
-	name: STRING is "r2"
+	count: INTEGER is 1
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 0, 3, 4 >> }
+			Result := {AVL_SET[INTEGER] << 1 >> }
 		end
+
+invariant
+	is_simple_expression xor is_binary_expression
 
 end

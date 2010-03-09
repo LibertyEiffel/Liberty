@@ -1089,81 +1089,213 @@ feature {} -- Expressions
 			exp /= Void
 			local_context /= Void
 		do
-			Result := expression_1(exp.e1, exp.r1, local_context)
+			if exp.is_binary_expression then
+				Result := binary_expression_1(exp.binary_expression, local_context)
+			else
+				Result := expression_1(exp.simple_expression, local_context)
+			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_1 (e1: LIBERTY_AST_E1; r1: LIBERTY_AST_R1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	binary_expression_1 (exp1: LIBERTY_AST_EXP1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
 		do
-			Result := expression_2(e1.e2, e1.r2, local_context)
-			if r1.is_implies then
-				create {LIBERTY_IMPLIES} Result.make(Result, expression_1(r1.expression, r1.remainder, local_context), agent feature_entity, Result.position)
+			if exp1.is_binary then
+				left := binary_expression_1(exp1.left_binary, local_context)
+			else
+				left := expression_1(exp1.left_expression, local_context)
+			end
+			right := expression_1(exp1.right_expression, local_context)
+
+			if exp1.is_implies then
+				create {LIBERTY_IMPLIES} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp1.operator1))
 			end
 		end
 
-	expression_2 (e2: LIBERTY_AST_E2; r2: LIBERTY_AST_R2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_1 (exp: LIBERTY_AST_E1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
 		do
-			Result := expression_3(e2.e3, e2.r3, local_context)
-			if r2.is_or_else then
-				create {LIBERTY_OR_ELSE} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context), agent feature_entity, Result.position)
-			elseif r2.is_or then
-				create {LIBERTY_OR} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context), agent feature_entity, Result.position)
-			elseif r2.is_xor then
-				create {LIBERTY_XOR} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context), agent feature_entity, Result.position)
+			if exp.is_binary_expression then
+				Result := binary_expression_2(exp.binary_expression, local_context)
+			else
+				Result := expression_2(exp.simple_expression, local_context)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	binary_expression_2 (exp2: LIBERTY_AST_EXP2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
+		do
+			if exp2.is_binary then
+				left := binary_expression_2(exp2.left_binary, local_context)
+			else
+				left := expression_2(exp2.left_expression, local_context)
+			end
+			right := expression_2(exp2.right_expression, local_context)
+
+			if exp2.is_or_else then
+				create {LIBERTY_OR_ELSE} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp2.operator1))
+			elseif exp2.is_or then
+				create {LIBERTY_OR} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp2.operator1))
+			elseif exp2.is_xor then
+				create {LIBERTY_XOR} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp2.operator1))
 			end
 		end
 
-	expression_3 (e3: LIBERTY_AST_E3; r3: LIBERTY_AST_R3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_2 (exp: LIBERTY_AST_E2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
 		do
-			Result := expression_4(e3.e4, e3.r4, local_context)
-			if r3.is_and_then then
-				create {LIBERTY_AND_THEN} Result.make(Result, expression_3(r3.expression, r3.remainder, local_context), agent feature_entity, Result.position)
-			elseif r3.is_and then
-				create {LIBERTY_AND} Result.make(Result, expression_3(r3.expression, r3.remainder, local_context), agent feature_entity, Result.position)
+			if exp.is_binary_expression then
+				Result := binary_expression_3(exp.binary_expression, local_context)
+			else
+				Result := expression_3(exp.simple_expression, local_context)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	binary_expression_3 (exp3: LIBERTY_AST_EXP3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
+		do
+			if exp3.is_binary then
+				left := binary_expression_3(exp3.left_binary, local_context)
+			else
+				left := expression_3(exp3.left_expression, local_context)
+			end
+			right := expression_3(exp3.right_expression, local_context)
+
+			if exp3.is_and_then then
+				create {LIBERTY_AND_THEN} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp3.operator1))
+			elseif exp3.is_and then
+				create {LIBERTY_AND} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp3.operator1))
 			end
 		end
 
-	expression_4 (e4: LIBERTY_AST_E4; r4: LIBERTY_AST_R4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_3 (exp: LIBERTY_AST_E3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
 		do
-			Result := expression_5(e4.e5, e4.r5, local_context)
-			if r4.is_eq then
-				create {LIBERTY_EQUALS} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), universe.type_boolean, Result.position)
-			elseif r4.is_ne then
-				create {LIBERTY_NOT_EQUALS} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), universe.type_boolean, Result.position)
-			elseif r4.is_le then
-				create {LIBERTY_LESS_OR_EQUAL} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), agent feature_entity, Result.position)
-			elseif r4.is_lt then
-				create {LIBERTY_LESS_THAN} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), agent feature_entity, Result.position)
-			elseif r4.is_ge then
-				create {LIBERTY_GREATER_OR_EQUAL} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), agent feature_entity, Result.position)
-			elseif r4.is_gt then
-				create {LIBERTY_GREATER_THAN} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context), agent feature_entity, Result.position)
+			if exp.is_binary_expression then
+				Result := binary_expression_4(exp.binary_expression, local_context)
+			else
+				Result := expression_4(exp.simple_expression, local_context)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	binary_expression_4 (exp4: LIBERTY_AST_EXP4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
+		do
+			if exp4.is_binary then
+				left := binary_expression_4(exp4.left_binary, local_context)
+			else
+				left := expression_4(exp4.left_expression, local_context)
+			end
+			right := expression_4(exp4.right_expression, local_context)
+
+			if exp4.is_eq then
+				create {LIBERTY_EQUALS} Result.make(left, right, universe.type_boolean, image_semantics_position_at(exp4.operator1))
+			elseif exp4.is_ne then
+				create {LIBERTY_NOT_EQUALS} Result.make(left, right, universe.type_boolean, image_semantics_position_at(exp4.operator1))
+			elseif exp4.is_le then
+				create {LIBERTY_LESS_OR_EQUAL} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp4.operator1))
+			elseif exp4.is_lt then
+				create {LIBERTY_LESS_THAN} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp4.operator1))
+			elseif exp4.is_ge then
+				create {LIBERTY_GREATER_OR_EQUAL} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp4.operator1))
+			elseif exp4.is_gt then
+				create {LIBERTY_GREATER_THAN} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp4.operator1))
 			end
 		end
 
-	expression_5 (e5: LIBERTY_AST_E5; r5: LIBERTY_AST_R5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_4 (exp: LIBERTY_AST_E4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
 		do
-			Result := expression_6(e5.e6, e5.r6, local_context)
-			if r5.is_plus then
-				create {LIBERTY_ADD} Result.make(Result, expression_5(r5.expression, r5.remainder, local_context), agent feature_entity, Result.position)
-			elseif r5.is_minus then
-				create {LIBERTY_SUBTRACT} Result.make(Result, expression_5(r5.expression, r5.remainder, local_context), agent feature_entity, Result.position)
+			if exp.is_binary_expression then
+				Result := binary_expression_5(exp.binary_expression, local_context)
+			else
+				Result := expression_5(exp.simple_expression, local_context)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	binary_expression_5 (exp5: LIBERTY_AST_EXP5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
+		do
+			if exp5.is_binary then
+				left := binary_expression_5(exp5.left_binary, local_context)
+			else
+				left := expression_5(exp5.left_expression, local_context)
+			end
+			right := expression_5(exp5.right_expression, local_context)
+
+			if exp5.is_plus then
+				create {LIBERTY_ADD} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp5.operator1))
+			elseif exp5.is_minus then
+				create {LIBERTY_SUBTRACT} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp5.operator1))
 			end
 		end
 
-	expression_6 (e6: LIBERTY_AST_E6; r6: LIBERTY_AST_R6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_5 (exp: LIBERTY_AST_E5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
 		do
-			Result := expression_7(e6.e7, e6.r7, local_context)
-			if r6.is_times then
-				create {LIBERTY_TIMES} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context), agent feature_entity, Result.position)
-			elseif r6.is_divide then
-				create {LIBERTY_DIVIDE} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context), agent feature_entity, Result.position)
-			elseif r6.is_int_divide then
-				create {LIBERTY_INT_DIVIDE} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context), agent feature_entity, Result.position)
-			elseif r6.is_int_remainder then
-				create {LIBERTY_INT_REMAINDER} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context), agent feature_entity, Result.position)
+			if exp.is_binary_expression then
+				Result := binary_expression_6(exp.binary_expression, local_context)
+			else
+				Result := expression_6(exp.simple_expression, local_context)
 			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	binary_expression_6 (exp6: LIBERTY_AST_EXP6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			left, right: LIBERTY_EXPRESSION
+		do
+			if exp6.is_binary then
+				left := binary_expression_6(exp6.left_binary, local_context)
+			else
+				left := expression_6(exp6.left_expression, local_context)
+			end
+			right := expression_6(exp6.right_expression, local_context)
+
+			if exp6.is_times then
+				create {LIBERTY_TIMES} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp6.operator1))
+			elseif exp6.is_divide then
+				create {LIBERTY_DIVIDE} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp6.operator1))
+			elseif exp6.is_int_divide then
+				create {LIBERTY_INT_DIVIDE} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp6.operator1))
+			elseif exp6.is_int_remainder then
+				create {LIBERTY_INT_REMAINDER} Result.make(left, right, agent feature_entity, image_semantics_position_at(exp6.operator1))
+			end
+		end
+
+	expression_6 (exp: LIBERTY_AST_E6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		require
+			exp /= Void
+			local_context /= Void
+		do
+			Result := expression_7(exp.e7, exp.r7, local_context)
+		ensure
+			not errors.has_error implies Result /= Void
 		end
 
 	expression_7 (e7: LIBERTY_AST_E7; r7: LIBERTY_AST_R7; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is

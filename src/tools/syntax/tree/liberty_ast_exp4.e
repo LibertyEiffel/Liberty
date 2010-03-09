@@ -12,27 +12,46 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_R1
+class LIBERTY_AST_EXP4
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E1]
+	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E4]
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	is_implies: BOOLEAN is
+	is_eq: BOOLEAN is
 		do
-			Result := not is_empty
-			check
-				Result implies nodes.first.name.is_equal(once "KW implies")
-				not is_empty implies Result
-			end
-		ensure
-			Result implies not is_empty
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW =")
+		end
+
+	is_ne: BOOLEAN is
+		do
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW /=")
+		end
+
+	is_le: BOOLEAN is
+		do
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW <=")
+		end
+
+	is_lt: BOOLEAN is
+		do
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW <")
+		end
+
+	is_ge: BOOLEAN is
+		do
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW >=")
+		end
+
+	is_gt: BOOLEAN is
+		do
+			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW >")
 		end
 
 feature {ANY}
-	name: STRING is "r1"
+	name: STRING is "e4-exp"
 
 end

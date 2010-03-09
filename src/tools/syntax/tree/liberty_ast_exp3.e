@@ -12,15 +12,35 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_E5
+class LIBERTY_AST_EXP3
 
 inherit
-	LIBERTY_AST_EXPRESSION_ROOT[LIBERTY_AST_E6, LIBERTY_AST_EXP6]
+	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E3]
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
+feature {LIBERTY_AST_HANDLER}
+	is_and_then: BOOLEAN is
+		do
+			Result := count = 4
+			check
+				Result implies nodes.item(1).name.is_equal(once "KW and")
+				Result implies nodes.item(2).name.is_equal(once "KW then")
+			end
+		ensure
+			Result implies not is_empty
+		end
+
+	is_and: BOOLEAN is
+		do
+			Result := count = 3
+			check
+				Result implies nodes.item(1).name.is_equal(once "KW and")
+			end
+		end
+
 feature {ANY}
-	name: STRING is "e5"
+	name: STRING is "e3-exp"
 
 end

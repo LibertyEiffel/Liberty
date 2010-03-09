@@ -12,36 +12,18 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_R6
+class LIBERTY_AST_EXP1
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E6]
+	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E1]
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	is_times: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW *")
-		end
-
-	is_divide: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW /")
-		end
-
-	is_int_divide: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW //")
-		end
-
-	is_int_remainder: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW \\")
-		end
+	is_implies: BOOLEAN is True
 
 feature {ANY}
-	name: STRING is "r6"
+	name: STRING is "e1-exp"
 
 end

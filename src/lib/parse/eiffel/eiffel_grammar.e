@@ -20,7 +20,15 @@ feature {ANY}
 
 feature {}
 	the_table: PARSE_TABLE is
+		local
+			e1, e2, e3, e4, e5, e6: STRING
 		once
+			e1 := "e1"
+			e2 := "e2"
+			e3 := "e3"
+			e4 := "e4"
+			e5 := "e5"
+			e6 := "e6"
 			Result := {PARSE_TABLE << "Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class", "KW end of file" >> }, agent build_root >> };
 											  "Classes", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class+", "KW end of file" >> }, agent build_root >> };
 											  "One_Class+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class" >> }, agent build_new_list("One_Class", "One_Class+");
@@ -151,12 +159,12 @@ feature {}
 																						  {FAST_ARRAY[STRING] << "KW $", "KW entity name" >>}, Void >>};
 											  "Expression", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Array" >> }, Void;
 																								{FAST_ARRAY[STRING] << "Expression_No_Array" >> }, Void >> };
-											  "Expression_No_Array", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e1", "r1" >> }, Void >> };
-											  "e1", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e2", "r2" >> }, Void >> };
-											  "e2", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e3", "r3" >> }, Void >> };
-											  "e3", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e4", "r4" >> }, Void >> };
-											  "e4", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e5", "r5" >> }, Void >> };
-											  "e5", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e6", "r6" >> }, Void >> };
+											  "Expression_No_Array", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e1", "r1" >> }, agent build_expression_no_array(e1, ?) >> };
+											  "e1", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e2", "r2" >> }, agent build_expression(e2) >> };
+											  "e2", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e3", "r3" >> }, agent build_expression(e3) >> };
+											  "e3", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e4", "r4" >> }, agent build_expression(e4) >> };
+											  "e4", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e5", "r5" >> }, agent build_expression(e5) >> };
+											  "e5", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e6", "r6" >> }, agent build_expression(e6) >> };
 											  "e6", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e7", "r7" >> }, Void >> };
 											  "e7", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "e8", "r8" >> }, Void >> };
 											  "e8", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW not", "e8" >> }, Void;
@@ -193,30 +201,30 @@ feature {}
 											  "Manifest_Parameters", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Manifest_Parameters");
 																											{FAST_ARRAY[STRING] << "Expression_No_Array" >> }, agent build_new_list("Expression_No_Array", "Manifest_Parameters");
 																											{FAST_ARRAY[STRING] << "Expression_No_Array", "KW ,", "Manifest_Parameters" >> }, agent build_continue_list("Expression_No_Array", 1, "Manifest_Parameters") >> };
-											  "r1", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW implies", "e1", "r1" >> }, Void >> };
-											  "r2", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW or", "KW else", "e2", "r2" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW or", "e2", "r2" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW xor", "e2", "r2" >> }, Void >> };
-											  "r3", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW and", "KW then", "e3", "r3" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW and", "e3", "r3" >> }, Void >> };
-											  "r4", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW =", "e4", "r4" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW /=", "e4", "r4" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW <=", "e4", "r4" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW <", "e4", "r4" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW >=", "e4", "r4" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW >", "e4", "r4" >> }, Void >> };
-											  "r5", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW +", "e5", "r5" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW -", "e5", "r5" >> }, Void >> };
-											  "r6", {PARSE_NON_TERMINAL << epsilon, Void;
-																					 {FAST_ARRAY[STRING] << "KW *", "e6", "r6" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW /", "e6", "r6" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW //", "e6", "r6" >> }, Void;
-																					 {FAST_ARRAY[STRING] << "KW \\", "e6", "r6" >> }, Void >> };
+											  "r1", {PARSE_NON_TERMINAL << epsilon, agent build_expression_epsilon(e1);
+																					 {FAST_ARRAY[STRING] << "KW implies", "e1", "r1" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW implies" >> }, e1) >> };
+											  "r2", {PARSE_NON_TERMINAL << epsilon, agent build_expression_epsilon(e2);
+																					 {FAST_ARRAY[STRING] << "KW or", "KW else", "e2", "r2" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW or", "KW else" >> }, e2);
+																					 {FAST_ARRAY[STRING] << "KW or", "e2", "r2" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW or" >> }, e2);
+																					 {FAST_ARRAY[STRING] << "KW xor", "e2", "r2" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW xor" >> }, e2) >> };
+											  "r3", {PARSE_NON_TERMINAL << epsilon, agent build_expression_epsilon(e3);
+																					 {FAST_ARRAY[STRING] << "KW and", "KW then", "e3", "r3" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW and", "KW then" >> }, e3);
+																					 {FAST_ARRAY[STRING] << "KW and", "e3", "r3" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW and" >> }, e3) >> };
+											  "r4", {PARSE_NON_TERMINAL << epsilon, agent build_expression_epsilon(e4);
+																					 {FAST_ARRAY[STRING] << "KW =", "e4", "r4" >> },  agent build_expression_remainder({FAST_ARRAY[STRING] << "KW ="  >> }, e4 );
+																					 {FAST_ARRAY[STRING] << "KW /=", "e4", "r4" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW /=" >> }, e4 );
+																					 {FAST_ARRAY[STRING] << "KW <=", "e4", "r4" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW <=" >> }, e4 );
+																					 {FAST_ARRAY[STRING] << "KW <", "e4", "r4" >> },  agent build_expression_remainder({FAST_ARRAY[STRING] << "KW <"  >> }, e4 );
+																					 {FAST_ARRAY[STRING] << "KW >=", "e4", "r4" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW >=" >> }, e4 );
+																					 {FAST_ARRAY[STRING] << "KW >", "e4", "r4" >> },  agent build_expression_remainder({FAST_ARRAY[STRING] << "KW >"  >> }, e4 ) >> };
+											  "r5", {PARSE_NON_TERMINAL << epsilon, agent build_expression_epsilon(e5);
+																					 {FAST_ARRAY[STRING] << "KW +", "e5", "r5" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW +" >> }, e5 );
+																					 {FAST_ARRAY[STRING] << "KW -", "e5", "r5" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW -" >> }, e5 ) >> };
+											  "r6", {PARSE_NON_TERMINAL << epsilon, agent build_expression_e6;
+																					 {FAST_ARRAY[STRING] << "KW *", "e6", "r6" >> },  agent build_expression_remainder({FAST_ARRAY[STRING] << "KW *"  >> }, e6 );
+																					 {FAST_ARRAY[STRING] << "KW /", "e6", "r6" >> },  agent build_expression_remainder({FAST_ARRAY[STRING] << "KW /"  >> }, e6 );
+																					 {FAST_ARRAY[STRING] << "KW //", "e6", "r6" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW //" >> }, e6 );
+																					 {FAST_ARRAY[STRING] << "KW \\", "e6", "r6" >> }, agent build_expression_remainder({FAST_ARRAY[STRING] << "KW \\" >> }, e6 ) >> };
 											  "r7", {PARSE_NON_TERMINAL << epsilon, Void;
 																					 {FAST_ARRAY[STRING] << "KW ^", "e7", "r7" >> }, Void >> };
 											  "r8", {PARSE_NON_TERMINAL << epsilon, Void;
@@ -1608,6 +1616,7 @@ feature {}
 
 feature {}
 	stack: FAST_ARRAY[EIFFEL_NODE]
+	left_assoc_stack: FAST_ARRAY[EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION]
 
 	show_stack is
 		local
@@ -1713,6 +1722,193 @@ feature {}
 		ensure
 			stack.count = old stack.count + 1
 			stack.last.name.is_equal(node_name)
+		end
+
+	ensure_expression (expression: EIFFEL_NODE; expression_name: STRING): EIFFEL_NON_TERMINAL_NODE is
+		local
+			expname: STRING
+		do
+			if expression.name.is_equal(expression_name) then
+				Result ::= expression
+			else
+				expname := once "..-exp"
+				expname.copy(expression_name)
+				expname.append(once "-exp")
+				if expression.name.is_equal(expname) then
+					Result ::= expression
+				else
+					left_assoc_names.clear_count
+					left_assoc_names.add_last(expression.name)
+					Result := factory.non_terminal(expression_name, left_assoc_names)
+					Result.set(0, expression)
+				end
+			end
+		end
+
+	build_expression_remainder (operator_names: FAST_ARRAY[STRING]; expression_name: STRING) is
+		local
+			tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
+			exp: EIFFEL_NODE; operator_nodes: COLLECTION[EIFFEL_NODE]
+			i: INTEGER
+		do
+			debug ("parse/eiffel/build")
+				std_error.put_string(once "Building left-associative expression ")
+				std_error.put_string(expression_name)
+				std_error.put_string(once " using operator ")
+				std_error.put_line(operator_names.out)
+			end
+
+			exp := ensure_expression(stack.last, expression_name)
+			stack.remove_last
+			debug ("parse/eiffel/build")
+				std_error.put_string(once "  => setting aside: ")
+				std_error.put_line(exp.name)
+			end
+			create {FAST_ARRAY[EIFFEL_NODE]} operator_nodes.with_capacity(operator_names.count)
+			from
+				i := operator_names.lower
+			until
+				i > operator_names.upper
+			loop
+				operator_nodes.add_last(stack.last)
+				stack.remove_last
+				i := i + 1
+			end
+			tail.set(expression_name, operator_names, exp, operator_nodes)
+			left_assoc_stack.add_last(tail)
+
+			debug ("parse/eiffel/build")
+				show_stack
+			end
+		end
+
+	build_expression (expression_name: STRING) is
+		local
+			tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
+			left, right: EIFFEL_NODE; nt: EIFFEL_NON_TERMINAL_NODE
+			i: INTEGER; name: STRING
+		do
+			debug ("parse/eiffel/build")
+				std_error.put_string(once "Building simple expression ")
+				std_error.put_line(expression_name)
+			end
+
+			name := once "..-exp"
+			name.copy(expression_name)
+			name.append(once "-exp")
+
+			from
+				left := ensure_expression(stack.last, expression_name)
+				stack.remove_last
+			invariant
+				left_assoc_stack.last.expression_name = expression_name
+			until
+				left_assoc_stack.is_empty
+			loop
+				debug ("parse/eiffel/build")
+					std_error.put_string(once "  left: ")
+					std_error.put_line(left.name)
+				end
+
+				tail := left_assoc_stack.last
+				left_assoc_stack.remove_last
+
+				right := ensure_expression(tail.right_node, expression_name)
+				debug ("parse/eiffel/build")
+					std_error.put_string(once "  op: ")
+					std_error.put_line(tail.operator_names.out)
+					std_error.put_string(once "  right: ")
+					std_error.put_line(right.name)
+				end
+
+				left_assoc_names.clear_count
+				left_assoc_names.add_last(left.name)
+				left_assoc_names.append_collection(tail.operator_names)
+				left_assoc_names.add_last(expression_name)
+
+				nt := factory.non_terminal(name, left_assoc_names)
+				nt.set(nt.lower, left)
+				nt.set(nt.upper, right)
+				debug ("parse/eiffel/build")
+					std_error.put_string(once "  => nt: ")
+					std_error.put_line(nt.name)
+				end
+				check
+					tail.operator_nodes.lower = 0
+				end
+				from
+					i := tail.operator_nodes.lower
+				until
+					i > tail.operator_nodes.upper
+				loop
+					nt.set(nt.lower + i + 1, tail.operator_nodes.item(i))
+					i := i + 1
+				end
+
+				left := nt
+			end
+
+			stack.add_last(left)
+			debug ("parse/eiffel/build")
+				show_stack
+			end
+		end
+
+	build_expression_epsilon (expression_name: STRING) is
+		do
+			debug ("parse/eiffel/build")
+				std_error.put_string(once "Building epsilon expression ")
+				std_error.put_line(expression_name)
+			end
+
+			stack.put(ensure_expression(stack.last, expression_name), stack.upper)
+
+			debug ("parse/eiffel/build")
+				show_stack
+			end
+		end
+
+	build_expression_e6 is
+		do
+			debug ("parse/eiffel/build")
+				std_error.put_line(once "Building epsilon expression e6")
+			end
+
+			-- nothing
+
+			debug ("parse/eiffel/build")
+				show_stack
+			end
+		end
+
+	build_expression_no_array (expression_name, node_name: STRING) is
+		local
+			exp, nt: EIFFEL_NON_TERMINAL_NODE
+		do
+			build_expression(expression_name)
+
+			debug ("parse/eiffel/build")
+				std_error.put_line(once "Building expression no-array")
+			end
+
+			exp ::= stack.last
+			stack.remove_last
+
+			left_assoc_names.clear_count
+			left_assoc_names.add_last(exp.name)
+
+			nt := factory.non_terminal(node_name, left_assoc_names)
+			nt.set(nt.lower, exp)
+
+			stack.add_last(nt)
+			debug ("parse/eiffel/build")
+				show_stack
+			end
+		end
+
+	left_assoc_names: FAST_ARRAY[STRING] is
+		once
+			create Result.with_capacity(4)
 		end
 
 	build_empty_list (list_name: STRING) is
@@ -1838,6 +2034,7 @@ feature {}
 		do
 			factory := a_factory
 			create stack.make(0)
+			create left_assoc_stack.make(0)
 		ensure
 			factory = a_factory
 			stack.is_empty
@@ -1849,6 +2046,10 @@ feature {}
 		end
 
 	factory: EIFFEL_NODE_FACTORY
+
+invariant
+	stack /= Void
+	left_assoc_stack /= Void
 
 end -- class EIFFEL_GRAMMAR
 --

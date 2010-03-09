@@ -128,18 +128,18 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_WRITABLE} Result.make(name, names)
 			when "Expression" then
 				create {LIBERTY_AST_EXPRESSION} Result.make(name, names)
-			when "r1" then
-				create {LIBERTY_AST_R1} Result.make(name, names)
-			when "r2" then
-				create {LIBERTY_AST_R2} Result.make(name, names)
-			when "r3" then
-				create {LIBERTY_AST_R3} Result.make(name, names)
-			when "r4" then
-				create {LIBERTY_AST_R4} Result.make(name, names)
-			when "r5" then
-				create {LIBERTY_AST_R5} Result.make(name, names)
-			when "r6" then
-				create {LIBERTY_AST_R6} Result.make(name, names)
+			when "e1-exp" then
+				create {LIBERTY_AST_EXP1} Result.make(name, names)
+			when "e2-exp" then
+				create {LIBERTY_AST_EXP2} Result.make(name, names)
+			when "e3-exp" then
+				create {LIBERTY_AST_EXP3} Result.make(name, names)
+			when "e4-exp" then
+				create {LIBERTY_AST_EXP4} Result.make(name, names)
+			when "e5-exp" then
+				create {LIBERTY_AST_EXP5} Result.make(name, names)
+			when "e6-exp" then
+				create {LIBERTY_AST_EXP6} Result.make(name, names)
 			when "r7" then
 				create {LIBERTY_AST_R7} Result.make(name, names)
 			when "r8" then
