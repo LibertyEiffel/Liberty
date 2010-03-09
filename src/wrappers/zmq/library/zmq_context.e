@@ -137,7 +137,7 @@ feature {ANY} -- Socket creations
 feature {} -- Implementation
 	struct_size: INTEGER is
 		do
-			raise("ØMQ design hides the size of its structures")
+			raise("ØMQ design hides the size of a context")
 		end
 
 end -- class ZMQ_CONTEXT

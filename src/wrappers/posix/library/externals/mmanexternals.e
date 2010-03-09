@@ -10,7 +10,7 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	munmap (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- munmap (node at line 181)
+ 		-- munmap (node at line 82)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	mremap (an_addr: POINTER; an_old_len: NATURAL_64; a_new_len: NATURAL_64; a_flags: INTEGER_32): POINTER is
- 		-- mremap (variadic)  (node at line 199)
+ 		-- mremap (variadic)  (node at line 95)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	shm_open (a_name: POINTER; an_oflag: INTEGER_32; a_mode: NATURAL_32): INTEGER_32 is
- 		-- shm_open (node at line 301)
+ 		-- shm_open (node at line 138)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	mprotect (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32): INTEGER_32 is
- 		-- mprotect (node at line 485)
+ 		-- mprotect (node at line 220)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -50,7 +50,7 @@ feature {} -- External calls
 		end
 
 	munlock (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- munlock (node at line 574)
+ 		-- munlock (node at line 272)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +60,7 @@ feature {} -- External calls
 		end
 
 	msync (an_addr: POINTER; a_len: NATURAL_64; a_flags: INTEGER_32): INTEGER_32 is
- 		-- msync (node at line 736)
+ 		-- msync (node at line 363)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	mmap (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_64): POINTER is
- 		-- mmap (node at line 845)
+ 		-- mmap (node at line 417)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	posix_madvise (an_addr: POINTER; a_len: NATURAL_64; an_advice: INTEGER_32): INTEGER_32 is
- 		-- posix_madvise (node at line 898)
+ 		-- posix_madvise (node at line 438)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +90,7 @@ feature {} -- External calls
 		end
 
 	shm_unlink (a_name: POINTER): INTEGER_32 is
- 		-- shm_unlink (node at line 1144)
+ 		-- shm_unlink (node at line 549)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	mlockall (a_flags: INTEGER_32): INTEGER_32 is
- 		-- mlockall (node at line 1161)
+ 		-- mlockall (node at line 556)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -110,7 +110,7 @@ feature {} -- External calls
 		end
 
 	mmap64 (an_addr: POINTER; a_len: NATURAL_64; a_prot: INTEGER_32; a_flags: INTEGER_32; a_fd: INTEGER_32; an_offset: INTEGER_64): POINTER is
- 		-- mmap64 (node at line 1337)
+ 		-- mmap64 (node at line 628)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -120,7 +120,7 @@ feature {} -- External calls
 		end
 
 	remap_file_pages (a_start: POINTER; a_size: NATURAL_64; a_prot: INTEGER_32; a_pgoff: NATURAL_64; a_flags: INTEGER_32): INTEGER_32 is
- 		-- remap_file_pages (node at line 1449)
+ 		-- remap_file_pages (node at line 668)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,7 +130,7 @@ feature {} -- External calls
 		end
 
 	madvise (an_addr: POINTER; a_len: NATURAL_64; an_advice: INTEGER_32): INTEGER_32 is
- 		-- madvise (node at line 1509)
+ 		-- madvise (node at line 704)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -140,7 +140,7 @@ feature {} -- External calls
 		end
 
 	mlock (an_addr: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- mlock (node at line 1723)
+ 		-- mlock (node at line 792)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -150,7 +150,7 @@ feature {} -- External calls
 		end
 
 	munlockall: INTEGER_32 is
- 		-- munlockall (node at line 1750)
+ 		-- munlockall (node at line 812)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -160,7 +160,7 @@ feature {} -- External calls
 		end
 
 	mincore (a_start: POINTER; a_len: NATURAL_64; a_vec: POINTER): INTEGER_32 is
- 		-- mincore (node at line 1799)
+ 		-- mincore (node at line 833)
 		external "plug_in"
 		alias "{
 			location: "."

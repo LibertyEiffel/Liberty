@@ -10,7 +10,7 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	drand48: REAL_64 is
- 		-- drand48 (node at line 24)
+ 		-- drand48 (node at line 38)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	wctomb (a_s: POINTER; a_wchar: CHARACTER): INTEGER_32 is
- 		-- wctomb (node at line 33)
+ 		-- wctomb (node at line 54)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	strtold_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_128 is
- 		-- strtold_l (node at line 43)
+ 		-- strtold_l (node at line 72)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	realpath (a_name: POINTER; a_resolved: POINTER): POINTER is
- 		-- realpath (node at line 57)
+ 		-- realpath (node at line 94)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,18 +49,8 @@ feature {} -- External calls
 		}"
 		end
 
-	mbstowcs (a_pwcs: POINTER; a_s: POINTER; a_n: NATURAL_64): NATURAL_64 is
- 		-- mbstowcs (node at line 98)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "mbstowcs"
-		}"
-		end
-
 	realloc (a_ptr: POINTER; a_size: NATURAL_64): POINTER is
- 		-- realloc (node at line 130)
+ 		-- realloc (node at line 227)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +60,7 @@ feature {} -- External calls
 		end
 
 	mkstemp (a_template: POINTER): INTEGER_32 is
- 		-- mkstemp (node at line 174)
+ 		-- mkstemp (node at line 335)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +70,7 @@ feature {} -- External calls
 		end
 
 	strtoq (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): INTEGER_64 is
- 		-- strtoq (node at line 189)
+ 		-- strtoq (node at line 381)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +80,7 @@ feature {} -- External calls
 		end
 
 	mblen (a_s: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- mblen (node at line 226)
+ 		-- mblen (node at line 418)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +90,7 @@ feature {} -- External calls
 		end
 
 	atof (a_nptr: POINTER): REAL_64 is
- 		-- atof (node at line 230)
+ 		-- atof (node at line 422)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -110,7 +100,7 @@ feature {} -- External calls
 		end
 
 	atoi (a_nptr: POINTER): INTEGER_32 is
- 		-- atoi (node at line 233)
+ 		-- atoi (node at line 425)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -120,7 +110,7 @@ feature {} -- External calls
 		end
 
 	atol (a_nptr: POINTER): INTEGER_64 is
- 		-- atol (node at line 236)
+ 		-- atol (node at line 428)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,7 +120,7 @@ feature {} -- External calls
 		end
 
 	grantpt (a_fd: INTEGER_32): INTEGER_32 is
- 		-- grantpt (node at line 253)
+ 		-- grantpt (node at line 456)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -140,7 +130,7 @@ feature {} -- External calls
 		end
 
 	at_quick_exit (a_func: POINTER): INTEGER_32 is
- 		-- at_quick_exit (node at line 288)
+ 		-- at_quick_exit (node at line 499)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -150,7 +140,7 @@ feature {} -- External calls
 		end
 
 	llabs (a_x: INTEGER_64): INTEGER_64 is
- 		-- llabs (node at line 298)
+ 		-- llabs (node at line 537)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -161,7 +151,7 @@ feature {} -- External calls
 
 	-- `hidden' function _Exit skipped.
 	strtod (a_nptr: POINTER; an_endptr: POINTER): REAL_64 is
- 		-- strtod (node at line 331)
+ 		-- strtod (node at line 585)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -171,7 +161,7 @@ feature {} -- External calls
 		end
 
 	strtof (a_nptr: POINTER; an_endptr: POINTER): REAL_32 is
- 		-- strtof (node at line 335)
+ 		-- strtof (node at line 589)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -181,7 +171,7 @@ feature {} -- External calls
 		end
 
 	strtol (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): INTEGER_64 is
- 		-- strtol (node at line 339)
+ 		-- strtol (node at line 593)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -191,7 +181,7 @@ feature {} -- External calls
 		end
 
 	wcstombs (a_s: POINTER; a_pwcs: POINTER; a_n: NATURAL_64): NATURAL_64 is
- 		-- wcstombs (node at line 347)
+ 		-- wcstombs (node at line 606)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -201,7 +191,7 @@ feature {} -- External calls
 		end
 
 	jrand48 (a_xsubi: POINTER): INTEGER_64 is
- 		-- jrand48 (node at line 387)
+ 		-- jrand48 (node at line 664)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -211,7 +201,7 @@ feature {} -- External calls
 		end
 
 	qsort (a_base: POINTER; a_nmemb: NATURAL_64; a_size: NATURAL_64; a_compar: POINTER) is
- 		-- qsort (node at line 405)
+ 		-- qsort (node at line 695)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -221,7 +211,7 @@ feature {} -- External calls
 		end
 
 	mkdtemp (a_template: POINTER): POINTER is
- 		-- mkdtemp (node at line 418)
+ 		-- mkdtemp (node at line 719)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -231,7 +221,7 @@ feature {} -- External calls
 		end
 
 	strtof_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_32 is
- 		-- strtof_l (node at line 421)
+ 		-- strtof_l (node at line 726)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -241,7 +231,7 @@ feature {} -- External calls
 		end
 
 	ptsname (a_fd: INTEGER_32): POINTER is
- 		-- ptsname (node at line 434)
+ 		-- ptsname (node at line 749)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -250,18 +240,8 @@ feature {} -- External calls
 		}"
 		end
 
-	qecvt (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER): POINTER is
- 		-- qecvt (node at line 456)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "qecvt"
-		}"
-		end
-
 	clearenv: INTEGER_32 is
- 		-- clearenv (node at line 481)
+ 		-- clearenv (node at line 834)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -271,7 +251,7 @@ feature {} -- External calls
 		end
 
 	bsearch (a_key: POINTER; a_base: POINTER; a_nmemb: NATURAL_64; a_size: NATURAL_64; a_compar: POINTER): POINTER is
- 		-- bsearch (node at line 515)
+ 		-- bsearch (node at line 908)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -280,8 +260,18 @@ feature {} -- External calls
 		}"
 		end
 
+	mbstowcs (a_pwcs: POINTER; a_s: POINTER; a_n: NATURAL_64): NATURAL_64 is
+ 		-- mbstowcs (node at line 933)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "mbstowcs"
+		}"
+		end
+
 	erand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- erand48_r (node at line 548)
+ 		-- erand48_r (node at line 942)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -291,7 +281,7 @@ feature {} -- External calls
 		end
 
 	fcvt (a_value: REAL_64; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER): POINTER is
- 		-- fcvt (node at line 562)
+ 		-- fcvt (node at line 994)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -301,7 +291,7 @@ feature {} -- External calls
 		end
 
 	qfcvt (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER): POINTER is
- 		-- qfcvt (node at line 568)
+ 		-- qfcvt (node at line 1000)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -311,7 +301,7 @@ feature {} -- External calls
 		end
 
 	mbtowc (a_pwc: POINTER; a_s: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- mbtowc (node at line 578)
+ 		-- mbtowc (node at line 1006)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -321,7 +311,7 @@ feature {} -- External calls
 		end
 
 	getpt: INTEGER_32 is
- 		-- getpt (node at line 587)
+ 		-- getpt (node at line 1040)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -330,18 +320,8 @@ feature {} -- External calls
 		}"
 		end
 
-	strtouq (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): NATURAL_64 is
- 		-- strtouq (node at line 588)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "strtouq"
-		}"
-		end
-
 	abort is
- 		-- abort (node at line 596)
+ 		-- abort (node at line 1049)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -351,7 +331,7 @@ feature {} -- External calls
 		end
 
 	random: INTEGER_64 is
- 		-- random (node at line 606)
+ 		-- random (node at line 1069)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -361,7 +341,7 @@ feature {} -- External calls
 		end
 
 	lcong48 (a_param: POINTER) is
- 		-- lcong48 (node at line 607)
+ 		-- lcong48 (node at line 1070)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -372,7 +352,7 @@ feature {} -- External calls
 
 	-- `hidden' function __ctype_get_mb_cur_max skipped.
 	free (a_ptr: POINTER) is
- 		-- free (node at line 630)
+ 		-- free (node at line 1145)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -382,7 +362,7 @@ feature {} -- External calls
 		end
 
 	initstate_r (a_seed: NATURAL_32; a_statebuf: POINTER; a_statelen: NATURAL_64; a_buf: POINTER): INTEGER_32 is
- 		-- initstate_r (node at line 641)
+ 		-- initstate_r (node at line 1163)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -392,7 +372,7 @@ feature {} -- External calls
 		end
 
 	cfree (a_ptr: POINTER) is
- 		-- cfree (node at line 673)
+ 		-- cfree (node at line 1191)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -402,7 +382,7 @@ feature {} -- External calls
 		end
 
 	canonicalize_file_name (a_name: POINTER): POINTER is
- 		-- canonicalize_file_name (node at line 741)
+ 		-- canonicalize_file_name (node at line 1291)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -412,7 +392,7 @@ feature {} -- External calls
 		end
 
 	srand48 (a_seedval: INTEGER_64) is
- 		-- srand48 (node at line 763)
+ 		-- srand48 (node at line 1319)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -421,18 +401,8 @@ feature {} -- External calls
 		}"
 		end
 
-	strtod_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_64 is
- 		-- strtod_l (node at line 772)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "strtod_l"
-		}"
-		end
-
 	putenv (a_string: POINTER): INTEGER_32 is
- 		-- putenv (node at line 796)
+ 		-- putenv (node at line 1361)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -442,7 +412,7 @@ feature {} -- External calls
 		end
 
 	ecvt_r (a_value: REAL_64; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- ecvt_r (node at line 813)
+ 		-- ecvt_r (node at line 1415)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -452,7 +422,7 @@ feature {} -- External calls
 		end
 
 	qecvt_r (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- qecvt_r (node at line 821)
+ 		-- qecvt_r (node at line 1423)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -462,7 +432,7 @@ feature {} -- External calls
 		end
 
 	div (a_numer: INTEGER_32; a_denom: INTEGER_32): DIV_T_STRUCT is
- 		-- div (node at line 841)
+ 		-- div (node at line 1462)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -472,7 +442,7 @@ feature {} -- External calls
 		end
 
 	mrand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- mrand48_r (node at line 860)
+ 		-- mrand48_r (node at line 1475)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -482,7 +452,7 @@ feature {} -- External calls
 		end
 
 	mrand48: INTEGER_64 is
- 		-- mrand48 (node at line 866)
+ 		-- mrand48 (node at line 1488)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -492,7 +462,7 @@ feature {} -- External calls
 		end
 
 	getloadavg (a_loadavg: POINTER; a_nelem: INTEGER_32): INTEGER_32 is
- 		-- getloadavg (node at line 879)
+ 		-- getloadavg (node at line 1504)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -502,7 +472,7 @@ feature {} -- External calls
 		end
 
 	srandom_r (a_seed: NATURAL_32; a_buf: POINTER): INTEGER_32 is
- 		-- srandom_r (node at line 884)
+ 		-- srandom_r (node at line 1519)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -512,7 +482,7 @@ feature {} -- External calls
 		end
 
 	lrand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- lrand48_r (node at line 911)
+ 		-- lrand48_r (node at line 1577)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -522,7 +492,7 @@ feature {} -- External calls
 		end
 
 	qsort_r (a_base: POINTER; a_nmemb: NATURAL_64; a_size: NATURAL_64; a_compar: POINTER; an_arg: POINTER) is
- 		-- qsort_r (node at line 915)
+ 		-- qsort_r (node at line 1581)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -532,7 +502,7 @@ feature {} -- External calls
 		end
 
 	setkey (a_key: POINTER) is
- 		-- setkey (node at line 934)
+ 		-- setkey (node at line 1596)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -542,7 +512,7 @@ feature {} -- External calls
 		end
 
 	valloc (a_size: NATURAL_64): POINTER is
- 		-- valloc (node at line 984)
+ 		-- valloc (node at line 1737)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -552,7 +522,7 @@ feature {} -- External calls
 		end
 
 	drand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- drand48_r (node at line 987)
+ 		-- drand48_r (node at line 1740)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -562,7 +532,7 @@ feature {} -- External calls
 		end
 
 	fcvt_r (a_value: REAL_64; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- fcvt_r (node at line 1002)
+ 		-- fcvt_r (node at line 1759)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -571,8 +541,18 @@ feature {} -- External calls
 		}"
 		end
 
+	qfcvt_r (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: NATURAL_64): INTEGER_32 is
+ 		-- qfcvt_r (node at line 1767)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "qfcvt_r"
+		}"
+		end
+
 	erand48 (a_xsubi: POINTER): REAL_64 is
- 		-- erand48 (node at line 1019)
+ 		-- erand48 (node at line 1809)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -582,7 +562,7 @@ feature {} -- External calls
 		end
 
 	random_r (a_buf: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- random_r (node at line 1071)
+ 		-- random_r (node at line 1903)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -592,7 +572,7 @@ feature {} -- External calls
 		end
 
 	initstate (a_seed: NATURAL_32; a_statebuf: POINTER; a_statelen: NATURAL_64): POINTER is
- 		-- initstate (node at line 1079)
+ 		-- initstate (node at line 1910)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -602,7 +582,7 @@ feature {} -- External calls
 		end
 
 	strtoull_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32; a_loc: POINTER): NATURAL_64 is
- 		-- strtoull_l (node at line 1094)
+ 		-- strtoull_l (node at line 1933)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -612,7 +592,7 @@ feature {} -- External calls
 		end
 
 	getsubopt (an_optionp: POINTER; a_tokens: POINTER; a_valuep: POINTER): INTEGER_32 is
- 		-- getsubopt (node at line 1115)
+ 		-- getsubopt (node at line 1973)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -622,7 +602,7 @@ feature {} -- External calls
 		end
 
 	rand_r (a_seed: POINTER): INTEGER_32 is
- 		-- rand_r (node at line 1147)
+ 		-- rand_r (node at line 2064)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -632,7 +612,7 @@ feature {} -- External calls
 		end
 
 	strtold (a_nptr: POINTER; an_endptr: POINTER): REAL_128 is
- 		-- strtold (node at line 1202)
+ 		-- strtold (node at line 2188)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -642,7 +622,7 @@ feature {} -- External calls
 		end
 
 	exit (a_status: INTEGER_32) is
- 		-- exit (node at line 1210)
+ 		-- exit (node at line 2206)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -652,7 +632,7 @@ feature {} -- External calls
 		end
 
 	setstate (a_statebuf: POINTER): POINTER is
- 		-- setstate (node at line 1213)
+ 		-- setstate (node at line 2209)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -662,7 +642,7 @@ feature {} -- External calls
 		end
 
 	gcvt (a_value: REAL_64; a_ndigit: INTEGER_32; a_buf: POINTER): POINTER is
- 		-- gcvt (node at line 1236)
+ 		-- gcvt (node at line 2276)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -672,7 +652,7 @@ feature {} -- External calls
 		end
 
 	qgcvt (a_value: REAL_128; a_ndigit: INTEGER_32; a_buf: POINTER): POINTER is
- 		-- qgcvt (node at line 1241)
+ 		-- qgcvt (node at line 2281)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -682,7 +662,7 @@ feature {} -- External calls
 		end
 
 	malloc (a_size: NATURAL_64): POINTER is
- 		-- malloc (node at line 1249)
+ 		-- malloc (node at line 2294)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -692,7 +672,7 @@ feature {} -- External calls
 		end
 
 	ldiv (a_numer: INTEGER_64; a_denom: INTEGER_64): LDIV_T_STRUCT is
- 		-- ldiv (node at line 1252)
+ 		-- ldiv (node at line 2300)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -701,8 +681,18 @@ feature {} -- External calls
 		}"
 		end
 
+	strtod_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_64 is
+ 		-- strtod_l (node at line 2352)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "strtod_l"
+		}"
+		end
+
 	strtoll_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32; a_loc: POINTER): INTEGER_64 is
- 		-- strtoll_l (node at line 1278)
+ 		-- strtoll_l (node at line 2371)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -712,7 +702,7 @@ feature {} -- External calls
 		end
 
 	unsetenv (a_name: POINTER): INTEGER_32 is
- 		-- unsetenv (node at line 1288)
+ 		-- unsetenv (node at line 2377)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -722,7 +712,7 @@ feature {} -- External calls
 		end
 
 	on_exit (a_func: POINTER; an_arg: POINTER): INTEGER_32 is
- 		-- on_exit (node at line 1292)
+ 		-- on_exit (node at line 2398)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -732,7 +722,7 @@ feature {} -- External calls
 		end
 
 	calloc (a_nmemb: NATURAL_64; a_size: NATURAL_64): POINTER is
- 		-- calloc (node at line 1297)
+ 		-- calloc (node at line 2423)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -742,7 +732,7 @@ feature {} -- External calls
 		end
 
 	srand48_r (a_seedval: INTEGER_64; a_buffer: POINTER): INTEGER_32 is
- 		-- srand48_r (node at line 1310)
+ 		-- srand48_r (node at line 2439)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -752,7 +742,7 @@ feature {} -- External calls
 		end
 
 	mkostemp64 (a_template: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- mkostemp64 (node at line 1315)
+ 		-- mkostemp64 (node at line 2444)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -762,7 +752,7 @@ feature {} -- External calls
 		end
 
 	atoll (a_nptr: POINTER): INTEGER_64 is
- 		-- atoll (node at line 1348)
+ 		-- atoll (node at line 2488)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -772,7 +762,7 @@ feature {} -- External calls
 		end
 
 	posix_openpt (an_oflag: INTEGER_32): INTEGER_32 is
- 		-- posix_openpt (node at line 1351)
+ 		-- posix_openpt (node at line 2494)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -782,7 +772,7 @@ feature {} -- External calls
 		end
 
 	posix_memalign (a_memptr: POINTER; an_alignment: NATURAL_64; a_size: NATURAL_64): INTEGER_32 is
- 		-- posix_memalign (node at line 1365)
+ 		-- posix_memalign (node at line 2521)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -792,7 +782,7 @@ feature {} -- External calls
 		end
 
 	getenv (a_name: POINTER): POINTER is
- 		-- getenv (node at line 1370)
+ 		-- getenv (node at line 2536)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -801,18 +791,8 @@ feature {} -- External calls
 		}"
 		end
 
-	seed48_r (a_seed16v: POINTER; a_buffer: POINTER): INTEGER_32 is
- 		-- seed48_r (node at line 1379)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "seed48_r"
-		}"
-		end
-
 	strtoll (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): INTEGER_64 is
- 		-- strtoll (node at line 1383)
+ 		-- strtoll (node at line 2579)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -822,7 +802,7 @@ feature {} -- External calls
 		end
 
 	mkostemp (a_template: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- mkostemp (node at line 1394)
+ 		-- mkostemp (node at line 2624)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -832,7 +812,7 @@ feature {} -- External calls
 		end
 
 	system (a_command: POINTER): INTEGER_32 is
- 		-- system (node at line 1400)
+ 		-- system (node at line 2658)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -842,7 +822,7 @@ feature {} -- External calls
 		end
 
 	rpmatch (a_response: POINTER): INTEGER_32 is
- 		-- rpmatch (node at line 1426)
+ 		-- rpmatch (node at line 2697)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -852,7 +832,7 @@ feature {} -- External calls
 		end
 
 	strtoul (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): NATURAL_64 is
- 		-- strtoul (node at line 1429)
+ 		-- strtoul (node at line 2700)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -862,7 +842,7 @@ feature {} -- External calls
 		end
 
 	labs (a_x: INTEGER_64): INTEGER_64 is
- 		-- labs (node at line 1477)
+ 		-- labs (node at line 2795)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -872,7 +852,7 @@ feature {} -- External calls
 		end
 
 	ptsname_r (a_fd: INTEGER_32; a_buf: POINTER; a_buflen: NATURAL_64): INTEGER_32 is
- 		-- ptsname_r (node at line 1497)
+ 		-- ptsname_r (node at line 2826)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -881,8 +861,18 @@ feature {} -- External calls
 		}"
 		end
 
+	qecvt (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER): POINTER is
+ 		-- qecvt (node at line 2851)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "qecvt"
+		}"
+		end
+
 	l64a (a_n: INTEGER_64): POINTER is
- 		-- l64a (node at line 1531)
+ 		-- l64a (node at line 2900)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -892,7 +882,7 @@ feature {} -- External calls
 		end
 
 	mkstemp64 (a_template: POINTER): INTEGER_32 is
- 		-- mkstemp64 (node at line 1534)
+ 		-- mkstemp64 (node at line 2903)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -901,8 +891,18 @@ feature {} -- External calls
 		}"
 		end
 
+	strtouq (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): NATURAL_64 is
+ 		-- strtouq (node at line 2916)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "strtouq"
+		}"
+		end
+
 	unlockpt (a_fd: INTEGER_32): INTEGER_32 is
- 		-- unlockpt (node at line 1561)
+ 		-- unlockpt (node at line 2950)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -912,7 +912,7 @@ feature {} -- External calls
 		end
 
 	srand (a_seed: NATURAL_32) is
- 		-- srand (node at line 1564)
+ 		-- srand (node at line 2953)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -922,7 +922,7 @@ feature {} -- External calls
 		end
 
 	mktemp (a_template: POINTER): POINTER is
- 		-- mktemp (node at line 1572)
+ 		-- mktemp (node at line 2979)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -932,7 +932,7 @@ feature {} -- External calls
 		end
 
 	strtol_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32; a_loc: POINTER): INTEGER_64 is
- 		-- strtol_l (node at line 1575)
+ 		-- strtol_l (node at line 2985)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -942,7 +942,7 @@ feature {} -- External calls
 		end
 
 	lcong48_r (a_param: POINTER; a_buffer: POINTER): INTEGER_32 is
- 		-- lcong48_r (node at line 1587)
+ 		-- lcong48_r (node at line 3005)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -952,7 +952,7 @@ feature {} -- External calls
 		end
 
 	atexit (a_func: POINTER): INTEGER_32 is
- 		-- atexit (node at line 1592)
+ 		-- atexit (node at line 3013)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -962,7 +962,7 @@ feature {} -- External calls
 		end
 
 	setstate_r (a_statebuf: POINTER; a_buf: POINTER): INTEGER_32 is
- 		-- setstate_r (node at line 1626)
+ 		-- setstate_r (node at line 3049)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -972,7 +972,7 @@ feature {} -- External calls
 		end
 
 	setenv (a_name: POINTER; a_value: POINTER; a_replace: INTEGER_32): INTEGER_32 is
- 		-- setenv (node at line 1631)
+ 		-- setenv (node at line 3054)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -982,7 +982,7 @@ feature {} -- External calls
 		end
 
 	strtoul_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32; a_loc: POINTER): NATURAL_64 is
- 		-- strtoul_l (node at line 1643)
+ 		-- strtoul_l (node at line 3089)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -992,7 +992,7 @@ feature {} -- External calls
 		end
 
 	a64l (a_s: POINTER): INTEGER_64 is
- 		-- a64l (node at line 1667)
+ 		-- a64l (node at line 3167)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1002,18 +1002,8 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __secure_getenv skipped.
-	qfcvt_r (a_value: REAL_128; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: NATURAL_64): INTEGER_32 is
- 		-- qfcvt_r (node at line 1691)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "qfcvt_r"
-		}"
-		end
-
 	ecvt (a_value: REAL_64; a_ndigit: INTEGER_32; a_decpt: POINTER; a_sign: POINTER): POINTER is
- 		-- ecvt (node at line 1710)
+ 		-- ecvt (node at line 3265)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1022,8 +1012,18 @@ feature {} -- External calls
 		}"
 		end
 
+	seed48_r (a_seed16v: POINTER; a_buffer: POINTER): INTEGER_32 is
+ 		-- seed48_r (node at line 3278)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "seed48_r"
+		}"
+		end
+
 	srandom (a_seed: NATURAL_32) is
- 		-- srandom (node at line 1742)
+ 		-- srandom (node at line 3339)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1033,7 +1033,7 @@ feature {} -- External calls
 		end
 
 	nrand48 (a_xsubi: POINTER): INTEGER_64 is
- 		-- nrand48 (node at line 1745)
+ 		-- nrand48 (node at line 3349)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1043,7 +1043,7 @@ feature {} -- External calls
 		end
 
 	quick_exit (a_status: INTEGER_32) is
- 		-- quick_exit (node at line 1763)
+ 		-- quick_exit (node at line 3379)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1053,7 +1053,7 @@ feature {} -- External calls
 		end
 
 	lrand48: INTEGER_64 is
- 		-- lrand48 (node at line 1792)
+ 		-- lrand48 (node at line 3421)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1063,7 +1063,7 @@ feature {} -- External calls
 		end
 
 	nrand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- nrand48_r (node at line 1793)
+ 		-- nrand48_r (node at line 3422)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1073,7 +1073,7 @@ feature {} -- External calls
 		end
 
 	jrand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
- 		-- jrand48_r (node at line 1825)
+ 		-- jrand48_r (node at line 3491)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1083,7 +1083,7 @@ feature {} -- External calls
 		end
 
 	rand: INTEGER_32 is
- 		-- rand (node at line 1838)
+ 		-- rand (node at line 3514)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1093,7 +1093,7 @@ feature {} -- External calls
 		end
 
 	seed48 (a_seed16v: POINTER): POINTER is
- 		-- seed48 (node at line 1840)
+ 		-- seed48 (node at line 3566)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1103,7 +1103,7 @@ feature {} -- External calls
 		end
 
 	strtoull (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER_32): NATURAL_64 is
- 		-- strtoull (node at line 1863)
+ 		-- strtoull (node at line 3606)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1113,7 +1113,7 @@ feature {} -- External calls
 		end
 
 	lldiv (a_numer: INTEGER_64; a_denom: INTEGER_64): LLDIV_T_STRUCT is
- 		-- lldiv (node at line 1872)
+ 		-- lldiv (node at line 3615)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1123,7 +1123,7 @@ feature {} -- External calls
 		end
 
 	abs (a_x: INTEGER_32): INTEGER_32 is
- 		-- abs (node at line 1886)
+ 		-- abs (node at line 3648)
 		external "plug_in"
 		alias "{
 			location: "."

@@ -10,7 +10,7 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gnu_dev_minor (a_dev: NATURAL_64): NATURAL_32 is
- 		-- gnu_dev_minor (node at line 491)
+ 		-- gnu_dev_minor (node at line 864)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gnu_dev_major (a_dev: NATURAL_64): NATURAL_32 is
- 		-- gnu_dev_major (node at line 583)
+ 		-- gnu_dev_major (node at line 1036)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	gnu_dev_makedev (a_major: NATURAL_32; a_minor: NATURAL_32): NATURAL_64 is
- 		-- gnu_dev_makedev (node at line 1422)
+ 		-- gnu_dev_makedev (node at line 2685)
 		external "plug_in"
 		alias "{
 			location: "."

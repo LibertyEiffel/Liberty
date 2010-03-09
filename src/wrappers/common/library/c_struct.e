@@ -26,7 +26,9 @@ deferred class C_STRUCT
 
 inherit
 	WRAPPER
-
+insert
+	STDLIBEXTERNALS
+	STRINGEXTERNALS
 feature {} -- Initialization
 
 	from_external_copy (other: POINTER) is
@@ -34,7 +36,7 @@ feature {} -- Initialization
 			--dispose
 			if other.is_not_null then
 				allocate
-				handle := memcpy (handle, other, struct_size)
+				handle := memcpy (handle, other, struct_size.to_natural_64)
 			else
 				handle := default_pointer
 			end
@@ -43,7 +45,7 @@ feature {} -- Initialization
 	allocate is
 			-- Allocate an initialized structure
 		do
-			handle := se_calloc (1, struct_size)
+			handle := calloc (1.to_natural_64, struct_size.to_natural_64)
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
@@ -55,7 +57,7 @@ feature {ANY} -- Copying
 			dispose
 			if other.handle.is_not_null then
 				allocate
-				handle := memcpy (handle, other.handle, struct_size)
+				handle := memcpy (handle, other.handle, struct_size.to_natural_64)
 			else
 				handle := default_pointer
 			end

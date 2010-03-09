@@ -64,7 +64,6 @@ feature {ANY} -- Disposing
 	dispose is
 		local rc: INTEGER_32
 		do
-			--any_data := Void
 			rc:=zmq_msg_close(handle)
 			check rc=0 end
 			free(handle)

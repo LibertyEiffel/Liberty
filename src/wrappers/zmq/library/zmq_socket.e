@@ -101,7 +101,7 @@ feature {ANY} -- Sending
 feature {} -- Implementation
 	struct_size: INTEGER is
 		do
-			raise("ØMQ design hides the size of its structures")
+			raise("ØMQ design hides the size of its sockets")
 		end
 
 feature {} -- Constants
