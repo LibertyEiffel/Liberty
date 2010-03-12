@@ -7,7 +7,7 @@ wrappers: zmq.gcc-xml
 
 zmq.gcc-xml: 
 	pkg-config --exists libzmq
-	gccxml `pkg-config --cflags libzmq` liberty-zmq.h -fxml=zmq.gcc-xml
+	gccxml `pkg-config --cflags libzmq` plugin/c/zmq_liberty.h -fxml=zmq.gcc-xml
 
 
 
