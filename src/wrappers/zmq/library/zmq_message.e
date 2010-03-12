@@ -18,7 +18,7 @@ feature {} -- Creation
 		-- Initialize an empty ØMQ message
 		local res: INTEGER_32
 		do
-			handle := malloc(struct_size)
+			handle := malloc(struct_size.to_natural_64)
 			res:=zmq_msg_init(handle)
 		end
 
