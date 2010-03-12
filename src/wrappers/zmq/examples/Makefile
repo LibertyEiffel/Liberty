@@ -10,4 +10,6 @@ server: zmq_example_server.e
 
 clear:
 	rm client server
+	clean zmq_example_client
+	clean zmq_example_server
 

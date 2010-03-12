@@ -7,6 +7,7 @@ inherit
 	EIFFEL_OWNED redefine default_create, dispose end 
 insert
 	ZMQEXTERNALS redefine default_create end
+	-- To workaround a SmartEiffel bug this must be avoided ZMQ_MSG_T_EXTERNALS (Poalo 2010-03-11)
 	STDLIBEXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
@@ -109,7 +110,7 @@ feature {} -- Implementation
 	-- end
 
 	struct_size: INTEGER is
-		external "C inline"
+		external "C inline use <zmq.h>"
 		alias "sizeof(zmq_msg_t)"
 		end
 
