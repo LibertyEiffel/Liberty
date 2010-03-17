@@ -1,0 +1,8 @@
+Libffi, a portable foreign-function interface library.
+
+Manual page says: "The foreign function interface provides a mechanism by which
+a function can generate a call to another function at runtime without requiring
+knowledge of the called function's interface at compile time."
+
+This library allow the Liberty interpreter to invoke arbitrary functions at
+runtime, i.e. plugins given in input. 

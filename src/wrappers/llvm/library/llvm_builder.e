@@ -607,7 +607,7 @@ feature -- Logical operators
 	end
 
 feature {ANY} -- Memory
-	malloc (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST is
+	malloc_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST is
 		-- A 'malloc' instruction allocating memory for `a_type' on the system heap and returning a pointer to it. The object is always allocated in the generic address space (address space zero). Memory is allocated using the system "malloc" function, and a pointer is returned. The result of a zero byte allocation is undefined. The result is null if there is insufficient memory available.
 
 		-- TODO: LLVM assembly language allows to specify the alignment of the allocation but I coudln't figure how to implement if using the C bindings we are relying on. 
@@ -638,7 +638,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	alloca (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST is
+	alloca_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST is
 		-- An "alloca" instruction allocating memory for an instance of
 		-- `a_type' on the stack frame of the currently executing function, to
 		-- be automatically released when this function returns to its caller.
