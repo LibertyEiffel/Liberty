@@ -37,6 +37,15 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			Result /= Void
 		end
 
+feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 feature {}
 	assertions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_ASSERTION]
 

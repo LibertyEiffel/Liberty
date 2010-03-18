@@ -27,6 +27,28 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			right.mark_reachable_code(mark)
 		end
 
+feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			l, r: LIBERTY_ASSERTIONS
+		do
+			l := left.specialized_in(a_type)
+			r := right.specialized_in(a_type)
+			if l = left and then r = Void then
+				Result := Current
+			else
+				Result := twin
+				Result.set_specialized_in(l, r)
+			end
+		end
+
+feature {LIBERTY_COMPOSED_ASSERTIONS}
+	set_specialized_in (l: like left; r: like right) is
+		do
+			left := l
+			right := r
+		end
+
 feature {}
 	make (a_left: like left; a_right: like right) is
 		require

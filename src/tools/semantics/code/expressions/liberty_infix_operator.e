@@ -23,6 +23,9 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_INFIX_OPERATOR}
+	new
+
 feature {}
 	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity; a_position: like position) is
 		require
@@ -32,7 +35,7 @@ feature {}
 			a_position /= Void
 		do
 			target := a_left
-			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
+			actuals_list := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity
 			position := a_position
 		ensure
@@ -44,6 +47,11 @@ feature {}
 	the_infix_name: FIXED_STRING is
 		do
 			check False end
+		end
+
+	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+		do
+			create Result.new(a_target, a_entity, a_actuals, a_position)
 		end
 
 feature {ANY}

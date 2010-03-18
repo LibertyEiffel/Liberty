@@ -38,6 +38,8 @@ feature {ANY}
 			Result := Current
 		end
 
+	current_entity: LIBERTY_CURRENT
+
 	is_actual_type_set: BOOLEAN is True
 
 	file: FIXED_STRING is
@@ -133,6 +135,13 @@ feature {ANY}
 		do
 			Result := features.at(a_feature_name)
 		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := Current
+		end
+
+	type_resolver: LIBERTY_TYPE_RESOLVER_IN_TYPE
 
 	accept (visitor: LIBERTY_TYPE_VISITOR) is
 		do
@@ -438,6 +447,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			feature_definition(a_feature.feature_name) = a_feature
 		end
 
+	descriptor_position: LIBERTY_POSITION is
+		do
+			Result := descriptor.position
+		end
+
 feature {LIBERTY_UNIVERSE} -- Semantics building
 	start_build (universe: LIBERTY_UNIVERSE) is
 		require
@@ -463,7 +477,7 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 			not has_converter(target_type)
 		do
 			if converters = Void then
-				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]} converters.make
+				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]} converters.with_capacity(3)
 			end
 			converters.add(a_converter, target_type)
 		ensure
@@ -491,6 +505,21 @@ feature {}
 feature {LIBERTY_TYPE_BUILDER}
 	conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
+
+	has_no_parents: BOOLEAN is
+		do
+			Result := conformant_parents = no_parents and then non_conformant_parents = no_parents
+		end
+
+	set_type_resolver (a_type_resolver: like type_resolver) is
+		require
+			a_type_resolver.current_type = Current
+			type_resolver = Void
+		do
+			type_resolver := a_type_resolver
+		ensure
+			type_resolver = a_type_resolver
+		end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
 	has_loaded_features: BOOLEAN is
@@ -526,18 +555,6 @@ feature {LIBERTY_UNIVERSE}
 feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_ONE_CLASS
 
-feature {LIBERTY_TYPE_BUILDER}
-	has_no_parents: BOOLEAN is
-		do
-			Result := conformant_parents = no_parents and then non_conformant_parents = no_parents
-		end
-
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	descriptor_position: LIBERTY_POSITION is
-		do
-			Result := descriptor.position
-		end
-
 feature {}
 	make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast; a_visit: like visit) is
 		require
@@ -548,10 +565,12 @@ feature {}
 			descriptor := a_descriptor
 			conformance_checker := a_conformance_checker
 			ast := a_ast
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.with_capacity(50) -- ANY contains 50 features
 			conformant_parents := no_parents
 			non_conformant_parents := no_parents
 			visit := a_visit
+			create current_entity.make(Current, errors.unknown_position)
+			create result_entity.make(Current, errors.unknown_position)
 		ensure
 			descriptor = a_descriptor
 			conformance_checker = a_conformance_checker
@@ -591,5 +610,8 @@ invariant
 	non_conformant_parents /= Void
 
 	builder /= Void implies builder.type = Current
+
+	current_entity /= Void
+	result_entity /= Void
 
 end -- class LIBERTY_ACTUAL_TYPE

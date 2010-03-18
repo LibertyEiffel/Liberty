@@ -23,6 +23,9 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_PREFIX_OPERATOR}
+	new
+
 feature {}
 	make (a_target: like target; a_entity: like entity; a_position: like position) is
 		require
@@ -40,6 +43,11 @@ feature {}
 	the_prefix_name: FIXED_STRING is
 		do
 			check False end
+		end
+
+	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+		do
+			create Result.new(a_target, a_entity, a_actuals, a_position)
 		end
 
 feature {ANY}

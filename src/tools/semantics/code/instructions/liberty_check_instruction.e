@@ -17,11 +17,23 @@ class LIBERTY_CHECK_INSTRUCTION
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CHECK_INSTRUCTION}
 	make
 
 feature {ANY}
 	checks: LIBERTY_CHECK
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			c: like checks
+		do
+			c := checks.specialized_in(a_type)
+			if c = checks then
+				Result := Current
+			else
+				create Result.make(c, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

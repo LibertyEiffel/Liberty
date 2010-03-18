@@ -21,13 +21,12 @@ inherit
 		end
 	LIBERTY_CALL
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CALL_EXPRESSION}
 	make, implicit_current
 
 feature {ANY}
 	target: LIBERTY_EXPRESSION
 	entity: LIBERTY_FEATURE_ENTITY
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 	is_agent_call: BOOLEAN
 
 	result_type: LIBERTY_TYPE is
@@ -103,7 +102,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 		end
 
 feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals; a_position: like position) is
+	make (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
 		require
 			a_target /= Void
 			a_entity /= Void
@@ -112,36 +111,46 @@ feature {}
 		do
 			target := a_target
 			entity := a_entity
-			actuals := a_actuals
+			actuals_list := a_actuals
 			position := a_position
 		ensure
 			target = a_target
 			entity = a_entity
-			actuals = a_actuals
+			actuals_list = a_actuals
 			position = a_position
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals; a_position: like position) is
+	implicit_current (a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
 		require
 			a_entity /= Void
 			a_actuals /= Void
 			a_position /= Void
 		do
 			entity := a_entity
-			actuals := a_actuals
+			actuals_list := a_actuals
 			position := a_position
 		ensure
 			is_implicit_current
 			entity = a_entity
-			actuals = a_actuals
+			actuals_list = a_actuals
 			position = a_position
 		end
 
 	lookup: LIBERTY_TYPE_LOOKUP
+	actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
 	no_args: COLLECTION[LIBERTY_ACTUAL_TYPE] is
 		once
 			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
+		end
+
+	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+		do
+			if a_target = Void then
+				create Result.implicit_current(a_entity, a_actuals, a_position)
+			else
+				create Result.make(a_target, a_entity, a_actuals, a_position)
+			end
 		end
 
 feature {ANY}

@@ -16,6 +16,7 @@ deferred class LIBERTY_CALL
 
 insert
 	LIBERTY_REACHABLE
+	LIBERTY_POSITIONABLE
 
 feature {ANY}
 	target: LIBERTY_EXPRESSION is
@@ -27,7 +28,8 @@ feature {ANY}
 		end
 
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
-		deferred
+		do
+			Result := actuals_list
 		end
 
 	is_implicit_current: BOOLEAN is
@@ -35,8 +37,58 @@ feature {ANY}
 			Result := target = Void
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			t: like target
+			e: like entity
+			a: like actuals_list
+			x: LIBERTY_EXPRESSION
+			i: INTEGER
+		do
+			if target /= Void then
+				t := target.specialized_in(a_type)
+			end
+			e := entity.specialized_in(a_type)
+			from
+				a := actuals_list
+				i := a.lower
+			until
+				i > a.upper
+			loop
+				x := a.item(i).specialized_in(a_type)
+				if x /= a.item(i) then
+					if a = actuals_list then
+						a := a.twin
+					end
+					a.put(x, i)
+				end
+				i := i + 1
+			end
+			if t = target and then e = entity and then a = actuals_list then
+				Result := Current
+			else
+				Result := make_new(t, e, a, position)
+			end
+		end
+
+feature {}
+	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+		require
+			a_entity /= Void
+			a_actuals /= Void
+		deferred
+		ensure
+			Result.target = a_target
+			Result.entity = a_entity
+			Result.actuals = a_actuals
+		end
+
+	actuals_list: COLLECTION[LIBERTY_EXPRESSION] is
+		deferred
+		end
+
 invariant
 	entity /= Void
-	actuals /= Void
+	actuals_list /= Void
 
 end

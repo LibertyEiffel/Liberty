@@ -22,7 +22,7 @@ insert
 		redefine out_in_tagged_out_memory, is_equal
 		end
 
-creation {LIBERTY_TYPE_BUILDER_TOOLS}
+creation {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_DELAYED_FEATURE_TYPE}
 	make
 
 feature {ANY}
@@ -65,6 +65,20 @@ feature {LIBERTY_DELAYED_TYPE}
 	resolved: LIBERTY_ACTUAL_TYPE is
 		do
 			Result := the_feature.result_type.actual_type
+		end
+
+feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			t: like type
+		do
+			t := type.specialized_in(a_type)
+			if t = type then
+				Result := Current
+			else
+				create Result.make(t, name) -- ?????
+				sedb_breakpoint
+			end
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}

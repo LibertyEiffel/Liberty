@@ -18,13 +18,28 @@ insert
 	LIBERTY_POSITIONABLE
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CONDITION}
 	make
 
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
 	instruction: LIBERTY_INSTRUCTION
+
+feature {LIBERTY_CONDITIONAL}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like expression
+			i: like instruction
+		do
+			e := expression.specialized_in(a_type)
+			i := instruction.specialized_in(a_type)
+			if e = expression and then i = instruction then
+				Result := Current
+			else
+				create Result.make(e, i, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

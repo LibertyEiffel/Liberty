@@ -28,10 +28,14 @@ insert
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make, renamed
 
+creation {LIBERTY_FEATURE_DEFINITION}
+	specialized
+
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
-	creation_clients: TRAVERSABLE[LIBERTY_TYPE]
-	clients: TRAVERSABLE[LIBERTY_TYPE]
+	creation_clients: COLLECTION[LIBERTY_TYPE]
+	clients: COLLECTION[LIBERTY_TYPE]
+
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
 
@@ -82,6 +86,48 @@ feature {ANY}
 			clients := other.clients.twin
 			is_frozen := other.is_frozen
 			the_feature := other.the_feature
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			cl, ccl: COLLECTION[LIBERTY_TYPE]
+			f: like the_feature
+		do
+			cl := specialized_clients(clients, a_type)
+			ccl := specialized_clients(creation_clients, a_type)
+			if the_feature /= Void then
+				f := the_feature.specialized_in(a_type)
+			end
+			if cl = clients and then ccl = creation_clients and then f = the_feature then
+				Result := Current
+			else
+				create Result.specialized(feature_name, ccl, cl, is_frozen, position)
+			end
+		end
+
+feature {}
+	specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE): like clients is
+		require
+			a_type /= Void
+		local
+			t: LIBERTY_TYPE
+			i: INTEGER
+		do
+			from
+				Result := a_clients
+				i := Result.lower
+			until
+				i > Result.upper
+			loop
+				t := Result.item(i).specialized_in(a_type)
+				if t /= Result.item(i) then
+					if Result = a_clients then
+						Result := Result.twin
+					end
+					Result.put(t, i)
+				end
+				i := i + 1
+			end
 		end
 
 feature {LIBERTY_UNIVERSE}
@@ -202,7 +248,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			if fd.the_feature /= Void then
 				if old_feature = Void then
 					the_feature := fd.the_feature
-				elseif old_feature /= fd.the_feature then
+				elseif old_feature.definition_type /= fd.the_feature.definition_type then
 					the_feature := old_feature.join(fd.the_feature, Current, fd)
 				end
 			end
@@ -257,7 +303,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 			not has_precursor(a_precursor_type)
 		do
 			if precursors = Void then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} precursors.make
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} precursors.with_capacity(3)
 			end
 			precursors.add(a_precursor_feature, a_precursor_type)
 			torch.burn
@@ -348,6 +394,12 @@ feature {}
 			the_feature := a_feature_definition.the_feature
 		ensure
 			feature_name = a_name
+		end
+
+	specialized (a_name: like feature_name; a_creation_clients: like creation_clients; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
+		do
+			make(a_name, a_clients, a_frozen, a_position)
+			set_creation_clients(a_creation_clients)
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]

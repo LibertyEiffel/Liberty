@@ -17,7 +17,7 @@ class LIBERTY_OLD
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_OLD}
 	make
 
 feature {ANY}
@@ -26,6 +26,18 @@ feature {ANY}
 	result_type: LIBERTY_TYPE is
 		do
 			Result := expression.result_type
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like expression
+		do
+			e := expression.specialized_in(a_type)
+			if e = expression then
+				Result := Current
+			else
+				create Result.make(e, position)
+			end
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}

@@ -18,12 +18,25 @@ class LIBERTY_ENTITY_REFERENCE
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_ENTITY_REFERENCE}
 	make
 
 feature {ANY}
 	entity: LIBERTY_ENTITY
 	result_type: LIBERTY_TYPE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like entity
+		do
+			check result_type.specialized_in(a_type) = result_type end
+			e := entity.specialized_in(a_type)
+			if e = entity then
+				Result := Current
+			else
+				create Result.make(result_type, e, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

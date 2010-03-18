@@ -18,7 +18,7 @@ inherit
 	LIBERTY_INSTRUCTION
 	TRAVERSABLE[LIBERTY_INSTRUCTION]
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_COMPOUND}
 	make
 
 feature {ANY}
@@ -61,6 +61,34 @@ feature {ANY}
 			Result := instructions.new_iterator
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			i: INTEGER
+			ins: like instructions
+			inst: LIBERTY_INSTRUCTION
+		do
+			from
+				ins := instructions
+				i := ins.lower
+			until
+				i > ins.upper
+			loop
+				inst := ins.item(i).specialized_in(a_type)
+				if inst /= ins.item(i) then
+					if ins = instructions then
+						ins := instructions.twin
+					end
+					ins.put(inst, i)
+				end
+				i := i + 1
+			end
+			if ins = instructions then
+				Result := Current
+			else
+				create Result.make(ins, position)
+			end
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
@@ -80,7 +108,7 @@ feature {}
 			position = a_position
 		end
 
-	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	instructions: COLLECTION[LIBERTY_INSTRUCTION]
 
 feature {ANY}
 	accept (v: VISITOR) is

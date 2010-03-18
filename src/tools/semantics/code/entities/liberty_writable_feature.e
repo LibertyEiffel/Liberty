@@ -24,7 +24,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_WRITABLE_FEATURE}
 	make
 
 feature {ANY}
@@ -47,6 +47,18 @@ feature {ANY}
 		do
 			tagged_out_memory.append(once "writable feature: ")
 			tagged_out_memory.append(name)
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like entity
+		do
+			e := entity.specialized_in(a_type)
+			if e = entity then
+				Result := Current
+			else
+				create Result.make(e, position)
+			end
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}

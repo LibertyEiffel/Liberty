@@ -17,7 +17,7 @@ class LIBERTY_EQUALS
 inherit
 	LIBERTY_COMPARISON
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_EQUALS}
 	make
 
 feature {ANY}
@@ -27,6 +27,12 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_equals(Current)
+		end
+
+feature {}
+	make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
+		do
+			create Result.make(a_left, a_right, a_result_type, a_position)
 		end
 
 end

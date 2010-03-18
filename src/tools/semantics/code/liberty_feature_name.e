@@ -23,6 +23,9 @@ insert
 	HASHABLE
 		redefine out_in_tagged_out_memory
 		end
+	COMPARABLE
+		redefine is_equal, out_in_tagged_out_memory
+		end
 	LIBERTY_AST_HANDLER
 		redefine is_equal, out_in_tagged_out_memory
 		end
@@ -85,6 +88,11 @@ feature {ANY}
 	hash_code: INTEGER is
 		do
 			Result := full_name.hash_code
+		end
+
+	infix "<" (other: like Current): BOOLEAN is
+		do
+			Result := full_name < other.full_name
 		end
 
 feature {LIBERTY_FEATURE_NAME}

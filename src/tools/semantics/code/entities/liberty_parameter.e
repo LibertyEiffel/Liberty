@@ -19,7 +19,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_PARAMETER}
 	make
 
 feature {ANY}
@@ -31,6 +31,18 @@ feature {ANY}
 		do
 			tagged_out_memory.append(once "parameter: ")
 			tagged_out_memory.append(name)
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			r: like result_type
+		do
+			r := result_type.specialized_in(a_type)
+			if r = result_type then
+				Result := Current
+			else
+				create Result.make(name, r, position)
+			end
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}

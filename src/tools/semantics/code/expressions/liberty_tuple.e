@@ -17,7 +17,7 @@ class LIBERTY_TUPLE
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_TUPLE}
 	make
 
 feature {ANY}
@@ -45,6 +45,36 @@ feature {ANY}
 			Result := elements.item(i - lower)
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			r: like result_type
+			e: like elements
+			x: LIBERTY_EXPRESSION
+			i: INTEGER
+		do
+			r := result_type.specialized_in(a_type)
+			from
+				e := elements
+				i := e.lower
+			until
+				i > e.upper
+			loop
+				x := e.item(i).specialized_in(a_type)
+				if x /= e.item(i) then
+					if e = elements then
+						e := e.twin
+					end
+					e.put(x, i)
+				end
+				i := i + 1
+			end
+			if r = result_type and then e = elements then
+				Result := Current
+			else
+				create Result.make(r, e, position)
+			end
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
@@ -68,7 +98,7 @@ feature {}
 			position = a_position
 		end
 
-	elements: TRAVERSABLE[LIBERTY_EXPRESSION]
+	elements: COLLECTION[LIBERTY_EXPRESSION]
 
 feature {ANY}
 	accept (v: VISITOR) is

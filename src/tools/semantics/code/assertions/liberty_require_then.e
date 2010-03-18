@@ -17,10 +17,10 @@ class LIBERTY_REQUIRE_THEN
 inherit
 	LIBERTY_REQUIRE
 		redefine
-			accept
+			accept, specialized
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_REQUIRE_THEN}
 	make
 
 feature {ANY}
@@ -30,6 +30,12 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_require_then(Current)
+		end
+
+feature {}
+	specialized (a_assertions: like assertions_list): like Current is
+		do
+			create Result.make(a_assertions)
 		end
 
 end

@@ -160,7 +160,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": load parent features")
 			end
-			create loader.make(Current, type, universe, effective_generic_parameters, no_redefined_features)
+			create loader.make(Current, current_entity, universe, effective_generic_parameters, no_redefined_features)
 			loader.load
 			Result := once "loading features"
 		end
@@ -175,7 +175,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": load features")
 			end
-			create features_loader.make(Current, type, universe, effective_generic_parameters, redefined_features)
+			create features_loader.make(Current, current_entity, universe, effective_generic_parameters, redefined_features)
 			features_loader.load
 			has_loaded_features := True
 			debug
@@ -312,7 +312,7 @@ feature {}
 
 	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME] is
 		once
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
+			create {AVL_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
 		end
 
 feature {}
@@ -327,6 +327,8 @@ feature {}
 			redefined_features := no_redefined_features
 			automaton_context := automaton.start(once "checking header", Current)
 			create type_resolver.make(a_universe, a_type, empty_effective_generic_parameters)
+			a_type.set_type_resolver(type_resolver)
+			current_entity := a_type.current_entity
 		ensure
 			type = a_type
 			universe = a_universe
@@ -335,6 +337,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	type_resolver: LIBERTY_TYPE_RESOLVER_IN_TYPE
 	type_lookup: LIBERTY_TYPE_LOOKUP
+	current_entity: LIBERTY_CURRENT
 
 feature {}
 	automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is

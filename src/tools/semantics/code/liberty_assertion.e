@@ -17,7 +17,7 @@ class LIBERTY_ASSERTION
 insert
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_ASSERTION}
 	make
 
 feature {ANY}
@@ -28,6 +28,21 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			assertion.mark_reachable_code(mark)
+		end
+
+feature {LIBERTY_ASSERTIONS}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		local
+			a: like assertion
+		do
+			a := assertion.specialized_in(a_type)
+			if a = assertion then
+				Result := Current
+			else
+				create Result.make(tag, a)
+			end
 		end
 
 feature {}

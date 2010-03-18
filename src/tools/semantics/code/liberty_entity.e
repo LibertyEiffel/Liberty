@@ -40,6 +40,14 @@ feature {ANY}
 			-- Result may be Void in the particular case of procedures
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 invariant
 	name /= Void
 

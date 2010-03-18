@@ -17,17 +17,22 @@ class LIBERTY_REQUIRE
 inherit
 	LIBERTY_WRITTEN_ASSERTIONS
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_REQUIRE}
 	make
 
 feature {}
-	make (a_assertions: like assertions) is
+	make (a_assertions: like assertions_list) is
 		require
 			a_assertions /= Void
 		do
-			assertions := a_assertions
+			assertions_list := a_assertions
 		ensure
-			assertions = a_assertions
+			assertions_list = a_assertions
+		end
+
+	specialized (a_assertions: like assertions_list): like Current is
+		do
+			create Result.make(a_assertions)
 		end
 
 feature {ANY}

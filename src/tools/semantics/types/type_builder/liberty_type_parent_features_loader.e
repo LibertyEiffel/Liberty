@@ -26,23 +26,24 @@ creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
+	make (a_builder: like builder; a_current_entity: like current_entity; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
 		require
 			a_builder /= Void
-			a_type /= Void
+			a_current_entity /= Void
 			a_universe /= Void
 			a_effective_generic_parameters /= Void
 			a_redefined_features /= Void
 		do
 			builder := a_builder
-			type := a_type
+			current_entity := a_current_entity
+			type := a_current_entity.result_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.with_capacity(50) -- ANY contains 50 features
 			redefined_features := a_redefined_features
 		ensure
 			builder = a_builder
-			type = a_type
+			current_entity = a_current_entity
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
 			redefined_features = a_redefined_features
@@ -53,11 +54,11 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			has_parents: BOOLEAN
 		do
-			has_parents := inject_parents(type.ast.inherit_clause, False, True)
-			has_parents := inject_parents(type.ast.insert_clause, has_parents, False)
+			has_parents := inject_parents(type.ast.inherit_clause, False)
+			has_parents := inject_parents(type.ast.insert_clause, has_parents)
 			if not has_parents and then not errors.has_error then
 				inject_parent_invariant(universe.type_any)
-				inject_parent_features(universe.type_any, Void, False)
+				inject_parent_features(universe.type_any, Void)
 			end
 			push_parent_features_in_type
 			if not redefined_features.is_empty then
@@ -66,7 +67,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents, conformant: BOOLEAN): BOOLEAN is
+	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents: BOOLEAN): BOOLEAN is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
 			parent: LIBERTY_TYPE
@@ -84,7 +85,7 @@ feature {}
 					not_yet_implemented
 				end
 				inject_parent_invariant(parent.actual_type)
-				inject_parent_features(parent.actual_type, parent_clause.parent_clause, conformant)
+				inject_parent_features(parent.actual_type, parent_clause.parent_clause)
 				Result := True
 				i := i + 1
 			end
@@ -95,7 +96,7 @@ feature {}
 			--|*** TODO
 		end
 
-	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
+	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE) is
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
 			pf: like parent_features; rf_count: INTEGER
@@ -110,15 +111,15 @@ feature {}
 				parent_fd := parent.features.item(i)
 				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
 				fd.add_precursor(parent_fd.the_feature, parent)
-				fd.set_the_feature(parent_fd.the_feature)
+				fd.set_the_feature(parent_fd.the_feature.specialized_in(type))
 				pf.add(fd, name)
 				i := i + 1
 			end
 			if clause /= Void and then clause.has_clauses then
 				rename_features(pf, clause.rename_clause, parent)
 				export_features(pf, clause.export_clause)
-				undefine_features(parent, pf, clause.undefine_clause, conformant)
-				rf_count := redefine_features(parent, pf, clause.redefine_clause, conformant)
+				undefine_features(parent, pf, clause.undefine_clause)
+				rf_count := redefine_features(parent, pf, clause.redefine_clause)
 				if rf_count > 0 and then redefined_features.is_empty then
 					-- create a new collection because the default empty collection is shared
 					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(rf_count)
@@ -135,7 +136,7 @@ feature {}
 				if actual_fd = Void then
 					parent_features.add(fd, name)
 					actual_fd := fd
-					if conformant and then not fd.the_feature.is_bound(type) then
+					if not fd.the_feature.is_bound(type) then
 						debug
 							std_output.put_string(once " <=> ")
 							std_output.put_string(parent.full_name)
@@ -147,17 +148,6 @@ feature {}
 						fd.the_feature.bind(fd.the_feature, type)
 					end
 				else
-					debug
-						if conformant then
-							std_output.put_string(once " <=> ")
-							std_output.put_string(parent.full_name)
-							std_output.put_string(once ": late binding down to ")
-							std_output.put_string(type.full_name)
-							std_output.put_string(once " of joined feature ")
-							std_output.put_line(name.full_name)
-							fd.the_feature.debug_display(std_output, 2)
-						end
-					end
 					actual_fd.join(fd, parent)
 					check
 						actual_fd.feature_name.is_equal(name)
@@ -251,7 +241,7 @@ feature {}
 			end
 		end
 
-	undefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE; conformant: BOOLEAN) is
+	undefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE) is
 			-- replace the feature by a LIBERTY_FEATURE_DEFERRED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
@@ -275,25 +265,23 @@ feature {}
 					create deferred_feature.make(type)
 					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
-					deferred_feature.set_context(inherited_feature.context)
-					if conformant then
-						debug
-							std_output.put_string(once " <=> ")
-							std_output.put_string(parent.full_name)
-							std_output.put_string(once ": late binding down to ")
-							std_output.put_string(type.full_name)
-							std_output.put_string(once " of undefined feature ")
-							std_output.put_line(feature_name.full_name)
-						end
-						inherited_feature.bind(deferred_feature, type)
+					deferred_feature.set_context(inherited_feature.context.specialized_in(type))
+					debug
+						std_output.put_string(once " <=> ")
+						std_output.put_string(parent.full_name)
+						std_output.put_string(once ": late binding down to ")
+						std_output.put_string(type.full_name)
+						std_output.put_string(once " of undefined feature ")
+						std_output.put_line(feature_name.full_name)
 					end
+					inherited_feature.bind(deferred_feature, type)
 					fd.set_the_feature(deferred_feature)
 				end
 				i := i + 1
 			end
 		end
 
-	redefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN): INTEGER is
+	redefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE): INTEGER is
 			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
@@ -320,18 +308,16 @@ feature {}
 							create {LIBERTY_FEATURE_REDEFINED} redefined_feature.make(type)
 							redefined_feature.set_precondition(inherited_feature.precondition)
 							redefined_feature.set_postcondition(inherited_feature.postcondition)
-							redefined_feature.set_context(inherited_feature.context)
-							if conformant then
-								debug
-									std_output.put_string(once " <=> ")
-									std_output.put_string(parent.full_name)
-									std_output.put_string(once ": late binding down to ")
-									std_output.put_string(type.full_name)
-									std_output.put_string(once " of redefined feature ")
-									std_output.put_line(feature_name.full_name)
-								end
-								inherited_feature.bind(redefined_feature, type)
+							redefined_feature.set_context(inherited_feature.context.specialized_in(type))
+							debug
+								std_output.put_string(once " <=> ")
+								std_output.put_string(parent.full_name)
+								std_output.put_string(once ": late binding down to ")
+								std_output.put_string(type.full_name)
+								std_output.put_string(once " of redefined feature ")
+								std_output.put_line(feature_name.full_name)
 							end
+							inherited_feature.bind(redefined_feature, type)
 						else
 							--|*** TODO: ??? is it possible to have a non-related feature here???
 							redefined_feature := inherited_feature.bound(type)
@@ -377,6 +363,7 @@ feature {}
 feature {}
 	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+	current_entity: LIBERTY_CURRENT
 
 invariant
 	parent_features /= Void

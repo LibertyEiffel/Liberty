@@ -17,7 +17,7 @@ class LIBERTY_ASSIGNMENT_ATTEMPT
 inherit
 	LIBERTY_ASSIGNMENT
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_ASSIGNMENT_ATTEMPT}
 	make
 
 feature {ANY}
@@ -27,6 +27,20 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_assignment_attempt(Current)
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			w: like writable
+			e: like expression
+		do
+			w := writable.specialized_in(a_type)
+			e := expression.specialized_in(a_type)
+			if w = writable and then e = expression then
+				Result := Current
+			else
+				create Result.make(w, e, position)
+			end
 		end
 
 end

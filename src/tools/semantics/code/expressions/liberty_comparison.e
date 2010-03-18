@@ -19,8 +19,21 @@ inherit
 
 feature {ANY}
 	left, right: LIBERTY_EXPRESSION
-
 	result_type: LIBERTY_TYPE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			l, r: LIBERTY_EXPRESSION
+		do
+			check result_type.specialized_in(a_type) = result_type end
+			l := left.specialized_in(a_type)
+			r := right.specialized_in(a_type)
+			if l = left and then r = right then
+				Result := Current
+			else
+				Result := make_new(l, r, result_type, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
@@ -30,11 +43,27 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {}
+	make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
+		require
+			a_left /= Void
+			a_right /= Void
+			a_result_type /= Void
+			-- a_result_type is BOOLEAN
+			a_position /= Void
+		deferred
+		ensure
+			Result.left = a_left
+			Result.right = a_right
+			Result.result_type = a_result_type
+			Result.position = a_position
+		end
+
 	make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position) is
 		require
 			a_left /= Void
 			a_right /= Void
 			a_result_type /= Void
+			-- a_result_type is BOOLEAN
 			a_position /= Void
 		do
 			left := a_left

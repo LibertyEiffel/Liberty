@@ -46,6 +46,11 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := Current
+		end
+
 feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		do

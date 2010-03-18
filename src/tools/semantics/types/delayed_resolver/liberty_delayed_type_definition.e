@@ -22,7 +22,7 @@ insert
 		redefine out_in_tagged_out_memory, is_equal
 		end
 
-creation {LIBERTY_TYPE_RESOLVER}
+creation {LIBERTY_TYPE_RESOLVER, LIBERTY_DELAYED_TYPE_DEFINITION}
 	make
 
 feature {ANY}
@@ -84,6 +84,21 @@ feature {LIBERTY_DELAYED_TYPE}
 	full_name: FIXED_STRING is
 		do
 			Result := full_name_memory
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			r: like resolver
+		do
+			r := resolver.specialized_in(a_type)
+			if r = resolver then
+				Result := Current
+			else
+				--|*** TODO: ??? Not sure about that. Maybe we should keep track of the original type to find the
+				--| good entity (esp. in case of renamings).
+				--| Then again, maybe the resolver should do that.
+				create Result.make(type_definition, r)
+			end
 		end
 
 feature {}

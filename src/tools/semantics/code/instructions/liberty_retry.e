@@ -14,6 +14,8 @@
 --
 class LIBERTY_RETRY
 
+	-- NOTE: retries are not yet implemented. At all.
+
 inherit
 	LIBERTY_INSTRUCTION
 
@@ -22,6 +24,11 @@ create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 
 feature {ANY}
 	the_feature: LIBERTY_FEATURE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := Current
+		end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	set_feature (a_feature: like the_feature) is

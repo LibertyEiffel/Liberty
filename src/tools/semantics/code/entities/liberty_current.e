@@ -19,7 +19,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_ACTUAL_TYPE}
 	make
 
 feature {ANY}
@@ -34,6 +34,11 @@ feature {ANY}
 		end
 
 	result_type: LIBERTY_ACTUAL_TYPE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := a_type.current_entity
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

@@ -88,6 +88,7 @@ feature {}
 		do
 			reachable_mark := 1
 			runtime_category := reference_category
+			create result_entity.make(Current, errors.unknown_position)
 		ensure
 			is_reachable
 		end
@@ -96,5 +97,6 @@ invariant
 	is_reachable
 	conformant_parents.is_empty
 	non_conformant_parents.is_empty
+	result_entity /= Void
 
 end -- class LIBERTY_VOID_TYPE

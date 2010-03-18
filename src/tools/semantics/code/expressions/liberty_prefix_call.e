@@ -24,11 +24,6 @@ feature {ANY}
 	target: LIBERTY_EXPRESSION
 	entity: LIBERTY_FEATURE_ENTITY
 
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
-		once
-			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.make(0)
-		end
-
 	result_type: LIBERTY_TYPE is
 		do
 			Result := entity.result_type
@@ -56,6 +51,13 @@ feature {}
 			position = a_position
 		end
 
+	new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+		do
+			check a_actuals = actuals_list end
+			target := a_target
+			entity := a_entity
+		end
+
 	prefix_name: LIBERTY_FEATURE_NAME is
 		attribute
 		ensure
@@ -66,6 +68,11 @@ feature {}
 		deferred
 		ensure
 			Result /= Void
+		end
+
+	actuals_list: COLLECTION[LIBERTY_EXPRESSION] is
+		once
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
 		end
 
 invariant

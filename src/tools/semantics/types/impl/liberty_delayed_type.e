@@ -58,6 +58,18 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			dr: like delayed_resolver
+		do
+			dr := delayed_resolver.specialized_in(a_type)
+			if dr = delayed_resolver then
+				Result := Current
+			else
+				create Result.make(dr)
+			end
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
 		local
@@ -107,12 +119,7 @@ feature {}
 			delayed_resolver := a_delayed_resolver
 			lookup.resolver.delayed_types.add_last(Current)
 			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} listeners.with_capacity(2)
-
-			debug
-				if full_name.is_equal(once "like ( like new_iterator.item)") then
-					sedb_breakpoint
-				end
-			end
+			create result_entity.make(Current, errors.unknown_position)
 		ensure
 			delayed_resolver = a_delayed_resolver
 			not_yet_reachable: not is_reachable
@@ -120,8 +127,10 @@ feature {}
 
 	delayed_resolver: LIBERTY_DELAYED_RESOLVER
 	lookup: LIBERTY_TYPE_LOOKUP
+	errors: LIBERTY_ERRORS
 
 invariant
 	delayed_resolver /= Void
+	result_entity /= Void
 
 end -- class LIBERTY_DELAYED_TYPE

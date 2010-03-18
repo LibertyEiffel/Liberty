@@ -27,6 +27,14 @@ feature {ANY}
 			current_type.out_in_tagged_out_memory
 		end
 
+	current_type: LIBERTY_ACTUAL_TYPE
+
+feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := a_type.type_resolver
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_effective_parameters (effective: like effective_parameters) is
 		require
@@ -39,7 +47,6 @@ feature {LIBERTY_TYPE_BUILDER}
 
 feature {}
 	universe: LIBERTY_UNIVERSE
-	current_type: LIBERTY_ACTUAL_TYPE
 	effective_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is

@@ -26,24 +26,24 @@ creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe;
+	make (a_builder: like builder; a_current_entity: like current_entity; a_universe: like universe;
 		a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
 		require
 			a_builder /= Void
-			a_type /= Void
+			a_current_entity /= Void
 			a_universe /= Void
 			a_redefined_features /= Void
 		do
 			builder := a_builder
-			type := a_type
+			current_entity := a_current_entity
+			type := a_current_entity.result_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
-			create current_entity.make(a_type, errors.unknown_position)
-			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
+			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.with_capacity(3)
 		ensure
 			builder = a_builder
-			type = a_type
+			current_entity = a_current_entity
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
 			redefined_features = a_redefined_features
@@ -140,6 +140,8 @@ feature {}
 				add_feature_definition(the_feature, a_feature.signature.feature_names, clients)
 			end
 
+			the_feature.set_type_resolver(type_resolver)
+
 			type_lookup.pop
 		end
 
@@ -213,7 +215,7 @@ feature {}
 			precondition /= Void
 			local_context /= Void
 		local
-			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
+			assertions: COLLECTION[LIBERTY_ASSERTION]
 		do
 			assertions := feature_assertions(precondition, local_context)
 			if not errors.has_error then
@@ -236,7 +238,7 @@ feature {}
 			postcondition /= Void
 			local_context /= Void
 		local
-			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
+			assertions: COLLECTION[LIBERTY_ASSERTION]
 		do
 			assertions := feature_assertions(postcondition, local_context)
 			if not errors.has_error then
@@ -341,21 +343,21 @@ feature {}
 						end
 						create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
-						if type.is_conform_to(fd_parent.the_feature.definition_type) then
-							if i = names.lower then
-								debug
-									std_output.put_string(once " <=>  late binding down to ")
-									std_output.put_string(type.full_name)
-									std_output.put_string(once " of defined feature ")
-									std_output.put_line(feature_name.full_name)
-								end
-								fd_parent.the_feature.bind(a_feature, type)
-							else
-								check
-									fd_parent.the_feature.bound(type) = a_feature
-								end
+
+						if i = names.lower then
+							debug
+								std_output.put_string(once " <=>  late binding down to ")
+								std_output.put_string(type.full_name)
+								std_output.put_string(once " of defined feature ")
+								std_output.put_line(feature_name.full_name)
+							end
+							fd_parent.the_feature.bind(a_feature, type)
+						else
+							check
+								fd_parent.the_feature.bound(type) = a_feature
 							end
 						end
+
 						type.replace_feature(fd)
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
@@ -543,7 +545,7 @@ feature {} -- Instructions
 		local
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
-			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			fa: COLLECTION[LIBERTY_EXPRESSION]
 			r10: LIBERTY_AST_R10
 		do
 			r10 := a_call.r10
@@ -716,7 +718,7 @@ feature {} -- Instructions
 			invariant_clause /= Void
 			local_context /= Void
 		local
-			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
+			assertions: COLLECTION[LIBERTY_ASSERTION]
 		do
 			assertions := feature_assertions(invariant_clause, local_context)
 			if not errors.has_error then
@@ -744,20 +746,20 @@ feature {} -- Instructions
 			{LIBERTY_AST_DEBUG} ?:= a_debug
 		local
 			dbg: LIBERTY_AST_DEBUG
-			keys: COLLECTION[STRING]; inst: like compound
+			keys: COLLECTION[FIXED_STRING]; inst: like compound
 			i: INTEGER
 		do
 			dbg ::= a_debug
 			if dbg.debug_keys.list_count = 0 then
 				keys := empty_debug_keys
 			else
-				create {FAST_ARRAY[STRING]} keys.with_capacity(dbg.debug_keys.list_count)
+				create {FAST_ARRAY[FIXED_STRING]} keys.with_capacity(dbg.debug_keys.list_count)
 				from
 					i := dbg.debug_keys.list_lower
 				until
 					i > dbg.debug_keys.list_upper
 				loop
-					keys.add_last(decoded_string(dbg.debug_keys.list_item(i)))
+					keys.add_last(decoded_string(dbg.debug_keys.list_item(i)).intern)
 					i := i + 1
 				end
 			end
@@ -767,9 +769,9 @@ feature {} -- Instructions
 			Result /= Void
 		end
 
-	empty_debug_keys: COLLECTION[STRING] is
+	empty_debug_keys: COLLECTION[FIXED_STRING] is
 		once
-			create {FAST_ARRAY[STRING]} Result.with_capacity(0)
+			create {FAST_ARRAY[FIXED_STRING]} Result.with_capacity(0)
 		end
 
 	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION is
@@ -781,7 +783,7 @@ feature {} -- Instructions
 			w: LIBERTY_WRITABLE
 			creation_type: LIBERTY_TYPE
 			fe: LIBERTY_FEATURE_ENTITY
-			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			fa: COLLECTION[LIBERTY_EXPRESSION]
 		do
 			creat ::= a_creation
 			w := writable(creat.writable, local_context)
@@ -1059,7 +1061,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
+	common_conformant_type (a_contents: COLLECTION[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
 		local
 			i: INTEGER
 		do
@@ -1381,7 +1383,7 @@ feature {} -- Expressions
 			creation_type: LIBERTY_ACTUAL_TYPE
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
-			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			fa: COLLECTION[LIBERTY_EXPRESSION]
 		do
 			entity_type := type_lookup.resolver.type(a_creation.type_definition)
 			if creation_type ?:= entity_type then
@@ -1430,7 +1432,7 @@ feature {} -- Expressions
 		local
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
-			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			fa: COLLECTION[LIBERTY_EXPRESSION]
 		do
 			-- We may derecursivate this thing (algorithm similar to `instruction_call')
 			-- but I guess modern compilers are smart enough to do that anyway :-)
@@ -1723,22 +1725,22 @@ feature {}
 		end
 
 feature {}
-	create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
+	create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
 		do
 			create Result.make(a_target, a_entity, a_actuals, a_position)
 		end
 
-	create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
+	create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
 		do
 			create Result.implicit_current(a_entity, a_actuals, a_position)
 		end
 
-	create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
+	create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
 		do
 			create Result.make(a_target, a_entity, a_actuals, a_position)
 		end
 
-	create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
+	create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
 		do
 			create Result.implicit_current(a_entity, a_actuals, a_position)
 		end

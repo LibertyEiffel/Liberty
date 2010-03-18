@@ -16,18 +16,26 @@ class LIBERTY_CHECK
 
 inherit
 	LIBERTY_WRITTEN_ASSERTIONS
+		export {LIBERTY_FEATURE, LIBERTY_ASSERTIONS, LIBERTY_CHECK_INSTRUCTION}
+			specialized_in
+		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CHECK}
 	make
 
 feature {}
-	make (a_assertions: like assertions) is
+	make (a_assertions: like assertions_list) is
 		require
 			a_assertions /= Void
 		do
-			assertions := a_assertions
+			assertions_list := a_assertions
 		ensure
-			assertions = a_assertions
+			assertions_list = a_assertions
+		end
+
+	specialized (a_assertions: like assertions_list): like Current is
+		do
+			create Result.make(a_assertions)
 		end
 
 feature {ANY}

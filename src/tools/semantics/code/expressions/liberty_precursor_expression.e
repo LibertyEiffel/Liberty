@@ -20,7 +20,7 @@ inherit
 insert
 	LIBERTY_PRECURSOR
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_PRECURSOR_EXPRESSION}
 	make
 
 feature {ANY}
@@ -36,6 +36,12 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_precursor_expression(Current)
+		end
+
+feature {}
+	make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current is
+		do
+			create Result.make(a_feature, a_actuals, a_position)
 		end
 
 end

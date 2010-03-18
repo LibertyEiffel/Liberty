@@ -20,11 +20,26 @@ inherit
 creation {LIBERTY_TYPE_FEATURES_LOADER}
 	make
 
-feature {}
-	local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+creation {LIBERTY_FEATURE}
+	make_specialized
+
+feature {LIBERTY_FEATURE}
+	set_the_feature (a_feature: like the_feature) is
+		require
+			a_feature.context = local_context
+			the_feature = Void
+		do
+			the_feature := a_feature
+		ensure
+			the_feature = a_feature
+		end
+
 	feature_name: LIBERTY_AST_FEATURE_NAME
 
 feature {ANY}
+	local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+	the_feature: LIBERTY_FEATURE
+
 	out_in_tagged_out_memory is
 		local
 			fnoa: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
@@ -41,6 +56,12 @@ feature {ANY}
 				tagged_out_memory.append(once "infix ")
 				tagged_out_memory.append(fnoa.free_operator_name.image.image.intern)
 			end
+		end
+
+feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := the_feature.specialized_in(a_type).type_resolver
 		end
 
 feature {}
@@ -86,6 +107,20 @@ feature {}
 		ensure
 			feature_name = a_feature_name
 			local_context = a_local_context
+		end
+
+	make_specialized (a_feature_name: like feature_name; a_feature: like the_feature) is
+		require
+			a_feature_name /= Void
+			a_feature /= Void
+		do
+			feature_name := a_feature_name
+			the_feature := a_feature
+			local_context := a_feature.context
+		ensure
+			feature_name = a_feature_name
+			the_feature = a_feature
+			local_context = a_feature.context
 		end
 
 invariant

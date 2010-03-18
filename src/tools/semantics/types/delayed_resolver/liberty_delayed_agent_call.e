@@ -17,7 +17,7 @@ class LIBERTY_DELAYED_AGENT_CALL
 inherit
 	LIBERTY_DELAYED_RESOLVER
 
-creation {LIBERTY_AGENT}
+creation {LIBERTY_AGENT, LIBERTY_DELAYED_AGENT_CALL}
 	make
 
 feature {ANY}
@@ -56,6 +56,21 @@ feature {LIBERTY_DELAYED_TYPE}
 	full_name: FIXED_STRING is
 		do
 			Result := full_name_memory
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			c: like call
+		do
+			--|*** TODO: check coherence (shouldn't `call' handle the
+			--|specialization instead?)
+
+			c := call.specialized_in(a_type)
+			if c = call then
+				Result := Current
+			else
+				create Result.make(c)
+			end
 		end
 
 feature {}

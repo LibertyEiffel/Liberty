@@ -32,6 +32,9 @@ insert
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_FEATURE_ENTITY}
+	specialized
+
 feature {ANY}
 	name: FIXED_STRING is
 		do
@@ -68,6 +71,36 @@ feature {ANY}
 			target_type.actual_type.debug_display(std_output, True)
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			f: like the_feature
+			dft: like delayed_feature_type
+			tt: like target_type
+		do
+			tt := target_type.specialized_in(a_type)
+			if delayed_feature_type = Void or else delayed_feature_type.is_ready then
+				if the_feature = Void then
+					check
+						delayed_feature_type /= Void
+					end
+					the_feature := delayed_feature_type.the_feature
+				end
+				f := the_feature.specialized_in(a_type)
+				if f = the_feature and then tt = target_type then
+					Result := Current
+				else
+					create Result.specialized(feature_name, tt, f, Void)
+				end
+			else
+				dft := delayed_feature_type.specialized_in(a_type)
+				if dft = delayed_feature_type and then tt = target_type then
+					Result := Current
+				else
+					create Result.specialized(feature_name, tt, Void, dft)
+				end
+			end
+		end
+
 feature {LIBERTY_CALL_EXPRESSION}
 	can_check_agent_signature: BOOLEAN is
 		do
@@ -99,9 +132,10 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			end
 			reachable_mark := mark
 
-			delayed_feature_type.mark_reachable_code(mark)
 			if the_feature /= Void then
 				the_feature.mark_reachable_code(mark)
+			elseif delayed_feature_type /= Void then
+				delayed_feature_type.mark_reachable_code(mark)
 			end
 
 			rt := result_type
@@ -135,6 +169,25 @@ feature {}
 			position = a_name.position
 		end
 
+	specialized (a_name: like feature_name; a_target_type: like target_type; a_feature: like the_feature; a_delayed_feature_type: like delayed_feature_type) is
+		require
+			a_name /= Void
+			a_target_type /= Void
+			a_feature /= Void xor a_delayed_feature_type /= Void
+		do
+			feature_name := a_name
+			target_type := a_target_type
+			the_feature := a_feature
+			delayed_feature_type := a_delayed_feature_type
+			position := a_name.position
+		ensure
+			feature_name = a_name
+			target_type = a_target_type
+			the_feature = a_feature
+			delayed_feature_type = a_delayed_feature_type
+			position = a_name.position
+		end
+
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 feature {ANY}
@@ -148,6 +201,7 @@ feature {ANY}
 
 invariant
 	name /= Void
-	delayed_feature_type /= Void
+	the_feature = Void implies delayed_feature_type /= Void
+	target_type /= Void
 
 end

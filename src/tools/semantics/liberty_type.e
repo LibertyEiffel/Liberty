@@ -34,11 +34,21 @@ feature {ANY}
 		deferred
 		end
 
+	result_entity: LIBERTY_RESULT
+
 	is_actual_type_set: BOOLEAN is
 		deferred
 		end
 
 	full_name: FIXED_STRING is
+		deferred
+		ensure
+			Result /= Void
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
 		deferred
 		ensure
 			Result /= Void

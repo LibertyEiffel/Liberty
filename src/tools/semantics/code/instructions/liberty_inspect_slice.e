@@ -18,11 +18,33 @@ insert
 	LIBERTY_POSITIONABLE
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_INSPECT_SLICE}
 	make
 
 feature {ANY}
 	lower, upper: LIBERTY_EXPRESSION
+
+feature {LIBERTY_INSPECT_CLAUSE}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			l, u: LIBERTY_EXPRESSION
+		do
+			l := lower.specialized_in(a_type)
+			if lower = upper then
+				if l = lower then
+					Result := Current
+				else
+					create Result.make(l, l, position)
+				end
+			else
+				u := upper.specialized_in(a_type)
+				if l = lower and then u = upper then
+					Result := Current
+				else
+					create Result.make(l, u, position)
+				end
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

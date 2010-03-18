@@ -20,10 +20,18 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_AND_THEN}
+	new
+
 feature {}
 	the_infix_name: FIXED_STRING is
 		once
 			Result := "and then".intern
+		end
+
+	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+		do
+			create Result.new(a_target, a_entity, a_actuals, a_position)
 		end
 
 feature {ANY}

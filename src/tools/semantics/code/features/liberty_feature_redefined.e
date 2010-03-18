@@ -19,7 +19,7 @@ inherit
 		rename
 			make as make_late_binding
 		redefine
-			mark_reachable_code, add_if_redefined, debug_display
+			mark_reachable_code, add_if_redefined, debug_display, set_specialized_in
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -45,6 +45,15 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_redefined(Current)
+		end
+
+feature {LIBERTY_FEATURE}
+	set_specialized_in (a_context: like context) is
+		do
+			Precursor(a_context)
+			if redefined_feature /= Void then
+				redefined_feature := redefined_feature.specialized_in(a_context.current_type)
+			end
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}

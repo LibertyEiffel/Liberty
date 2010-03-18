@@ -20,6 +20,9 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_CONDITIONAL}
+	make_specialized
+
 feature {ANY}
 	conditions: TRAVERSABLE[LIBERTY_CONDITION] is
 		do
@@ -29,6 +32,38 @@ feature {ANY}
 		end
 
 	else_clause: LIBERTY_DEFAULT
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			i: INTEGER
+			c: like conditions_list
+			cond: LIBERTY_CONDITION
+			e: like else_clause
+		do
+			from
+				c := conditions_list
+				i := c.lower
+			until
+				i > c.upper
+			loop
+				cond := c.item(i).specialized_in(a_type)
+				if cond /= c.item(i) then
+					if c = conditions_list then
+						c := c.twin
+					end
+					c.put(cond, i)
+				end
+				i := i + 1
+			end
+			if else_clause /= Void then
+				e := else_clause.specialized_in(a_type)
+			end
+			if c = conditions_list and then e = else_clause then
+				Result := Current
+			else
+				create Result.make_specialized(c, e, position)
+			end
+		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_condition (a_condition: LIBERTY_CONDITION) is
@@ -62,6 +97,20 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_CONDITION]} conditions_list.with_capacity(4)
 			position := a_position
 		ensure
+			position = a_position
+		end
+
+	make_specialized (a_conditions: like conditions_list; a_else: like else_clause; a_position: like position) is
+		require
+			a_conditions /= Void
+			a_position /= Void
+		do
+			conditions_list := a_conditions
+			else_clause := a_else
+			position := a_position
+		ensure
+			conditions_list = a_conditions
+			else_clause = a_else
 			position = a_position
 		end
 

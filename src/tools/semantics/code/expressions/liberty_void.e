@@ -23,6 +23,11 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	result_type: LIBERTY_TYPE
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := Current
+		end
+
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do

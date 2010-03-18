@@ -18,6 +18,8 @@ inherit
 	LIBERTY_FEATURE
 		rename
 			make as make_late_binding
+		redefine
+			set_specialized_in
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -36,6 +38,15 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_external(Current)
+		end
+
+feature {LIBERTY_FEATURE}
+	set_specialized_in (a_context: like context) is
+		do
+			Precursor(a_context)
+			if rescue_instruction /= Void then
+				rescue_instruction := rescue_instruction.specialized_in(a_context.current_type)
+			end
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}

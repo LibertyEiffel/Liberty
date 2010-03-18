@@ -39,4 +39,12 @@ feature {LIBERTY_DELAYED_TYPE}
 		deferred
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 end -- class LIBERTY_DELAYED_RESOLVER

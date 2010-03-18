@@ -17,7 +17,7 @@ class LIBERTY_LOOP
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_LOOP}
 	make
 
 feature {ANY}
@@ -26,6 +26,28 @@ feature {ANY}
 	variant_clause: LIBERTY_EXPRESSION
 	expression: LIBERTY_EXPRESSION
 	body: LIBERTY_INSTRUCTION
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			i: like init
+			iv: like invariant_clause
+			v: like variant_clause
+			e: like expression
+			b: like body
+		do
+			i := init.specialized_in(a_type)
+			iv := invariant_clause.specialized_in(a_type)
+			if variant_clause /= Void then
+				v := variant_clause.specialized_in(a_type)
+			end
+			e := expression.specialized_in(a_type)
+			b := body.specialized_in(a_type)
+			if i = init and then iv = invariant_clause and then v = variant_clause and then e = expression and then b = body then
+				Result := Current
+			else
+				create Result.make(i, iv, v, e, b, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

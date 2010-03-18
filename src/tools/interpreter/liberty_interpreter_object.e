@@ -84,6 +84,12 @@ feature {ANY}
 			Result.type = target_type
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			check False end
+			crash
+		end
+
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		require

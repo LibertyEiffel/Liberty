@@ -31,4 +31,12 @@ feature {ANY}
 
 	is_agent_call: BOOLEAN is False
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 end

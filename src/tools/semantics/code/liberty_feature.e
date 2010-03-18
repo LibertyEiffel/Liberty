@@ -16,10 +16,20 @@ deferred class LIBERTY_FEATURE
 
 inherit
 	LIBERTY_TAGGED
+		redefine
+			is_equal
+		end
 
 insert
 	LIBERTY_REACHABLE_MARKED
+		redefine
+			is_equal
+		end
+	HASHABLE
 	VISITABLE
+		redefine
+			is_equal
+		end
 
 feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
@@ -32,7 +42,18 @@ feature {ANY}
 			Result := context.result_type
 		end
 
+	hash_code: INTEGER is
+		do
+			Result := id
+		end
+
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := id = other.id
+		end
+
 	context: LIBERTY_FEATURE_LOCAL_CONTEXT
+	type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
 
 	precondition: LIBERTY_REQUIRE
 	postcondition: LIBERTY_ENSURE
@@ -276,10 +297,59 @@ feature {ANY}
 			not is_bound(type) implies Result = Current
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			if a_type = context.current_type then
+				Result := Current
+			else
+				Result ::= specialized.fast_reference_at(a_type)
+				if Result = Void then
+					Result := twin
+					specialized.add(Result, a_type)
+					Result.set_specialized_in(context.specialized_in(a_type))
+				end
+			end
+		end
+
 feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 	add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
 		do
 			-- nothing
+		end
+
+feature {LIBERTY_FEATURE}
+	set_specialized_in (a_context: like context) is
+		local
+			i: INTEGER
+			p: like precursors
+			f: LIBERTY_FEATURE
+		do
+			context := a_context
+			if type_resolver /= Void then
+				create type_resolver.make_specialized(type_resolver.feature_name, Current)
+			end
+			if precondition /= Void then
+				precondition := precondition.specialized_in(a_context.current_type)
+			end
+			if postcondition /= Void then
+				postcondition := postcondition.specialized_in(a_context.current_type)
+			end
+			from
+				p := precursors
+				i := p.lower
+			until
+				i > p.upper
+			loop
+				f := p.item(i).specialized_in(a_context.current_type)
+				if f /= p.item(i) then
+					if p = precursors then
+						p := precursors.twin
+					end
+					precursors.put(f, i)
+				end
+				i := i + 1
+			end
+			precursors := p
 		end
 
 feature {LIBERTY_FEATURE}
@@ -352,7 +422,22 @@ feature {LIBERTY_FEATURE}
 	is_binding: BOOLEAN
 			-- Anti-recursion security
 
+feature {LIBERTY_FEATURE}
+	id: INTEGER
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
+	set_type_resolver (a_type_resolver: like type_resolver) is
+		require
+			a_type_resolver.local_context = context
+			a_type_resolver.the_feature = Void
+			type_resolver = Void
+		do
+			a_type_resolver.set_the_feature(Current)
+			type_resolver := a_type_resolver
+		ensure
+			type_resolver = a_type_resolver
+		end
+
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
 		do
 			precursor_bind(child, type, 0)
@@ -401,8 +486,12 @@ feature {}
 		do
 			create {FAST_ARRAY[LIBERTY_FEATURE]} precursors.with_capacity(0)
 			definition_type := a_definition_type
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.with_capacity(3)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} specialized.with_capacity(3)
 			accelerator := a_accelerator
+
+			ids_provider.increment
+			id := ids_provider.value
 		ensure
 			definition_type = a_definition_type
 			accelerator = a_accelerator
@@ -413,12 +502,19 @@ feature {}
 
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 	accelerator: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
+	specialized: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
+	ids_provider: COUNTER is
+		once
+			create Result
+		end
+
 invariant
 	late_binding /= Void
+	specialized /= Void
 	definition_type /= Void
 	precursors /= Void
 	not precursors.fast_has(Current)

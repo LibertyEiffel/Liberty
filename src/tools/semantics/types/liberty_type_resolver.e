@@ -70,6 +70,14 @@ feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 			end
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 feature {LIBERTY_UNIVERSE, LIBERTY_DELAYED_TYPE}
 	delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE] is
 		once

@@ -52,7 +52,7 @@ feature {}
 		do
 			Result := tags_memory
 			if Result = Void then
-				create {HASHED_DICTIONARY[LIBERTY_TAG, FIXED_STRING]} Result.make
+				create {HASHED_DICTIONARY[LIBERTY_TAG, FIXED_STRING]} Result.with_capacity(3)
 				tags_memory := Result
 			end
 		end

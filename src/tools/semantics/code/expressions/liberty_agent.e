@@ -20,8 +20,25 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_AGENT}
+	specialized
+
 feature {ANY}
 	result_type: LIBERTY_TYPE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			r: like result_type
+			c: like call
+		do
+			r := result_type.specialized_in(a_type)
+			c := call.specialized_in(a_type)
+			if r = result_type and then c = call then
+				Result := Current
+			else
+				create Result.specialized(c, r, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER)is
@@ -47,6 +64,21 @@ feature {}
 		ensure
 			call = a_call
 			call.is_agent_call
+			position = a_position
+		end
+
+	specialized (a_call: like call; a_result_type: like result_type; a_position: like position) is
+		require
+			a_call.is_agent_call
+			a_result_type /= Void
+			a_position /= Void
+		do
+			call := a_call
+			result_type := a_result_type
+			position := a_position
+		ensure
+			call = a_call
+			result_type = a_result_type
 			position = a_position
 		end
 

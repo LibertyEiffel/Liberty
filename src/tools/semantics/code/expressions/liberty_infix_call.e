@@ -23,7 +23,6 @@ insert
 feature {ANY}
 	target: LIBERTY_EXPRESSION
 	entity: LIBERTY_FEATURE_ENTITY
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 	result_type: LIBERTY_TYPE is
 		do
@@ -48,13 +47,20 @@ feature {}
 		do
 			create infix_name.make_infix(the_infix_name, a_position)
 			target := a_left
-			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
+			actuals_list := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity_builder.item([target.result_type, infix_name])
 			position := a_position
 		ensure
 			target = a_left
 			actuals.first = a_right
 			position = a_position
+		end
+
+	new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+		do
+			target := a_target
+			entity := a_entity
+			actuals_list := a_actuals
 		end
 
 	infix_name: LIBERTY_FEATURE_NAME is
@@ -68,6 +74,8 @@ feature {}
 		ensure
 			Result /= Void
 		end
+
+	actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
 invariant
 	actuals.count = 1

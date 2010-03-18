@@ -20,6 +20,9 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_INSPECT}
+	specialized
+
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
@@ -31,6 +34,40 @@ feature {ANY}
 		end
 
 	else_clause: LIBERTY_DEFAULT
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like expression
+			c: like clauses_list
+			clause: LIBERTY_INSPECT_CLAUSE
+			d: like else_clause
+			i: INTEGER
+		do
+			e := expression.specialized_in(a_type)
+			from
+				c := clauses_list
+				i := c.lower
+			until
+				i > c.upper
+			loop
+				clause := c.item(i).specialized_in(a_type)
+				if clause /= c.item(i) then
+					if c = clauses_list then
+						c := c.twin
+					end
+					c.put(clause, i)
+				end
+				i := i + 1
+			end
+			if else_clause /= Void then
+				d := else_clause.specialized_in(a_type)
+			end
+			if e = expression and then c = clauses_list and then d = else_clause then
+				Result := Current
+			else
+				create Result.specialized(e, c, d, position)
+			end
+		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
@@ -70,6 +107,23 @@ feature {}
 			position := a_position
 		ensure
 			expression = a_expression
+			position = a_position
+		end
+
+	specialized (a_expression: like expression; a_clauses_list: like clauses_list; a_else_clause: like else_clause; a_position: like position) is
+		require
+			a_expression /= Void
+			a_clauses_list /= Void
+			a_position /= Void
+		do
+			expression := a_expression
+			clauses_list := a_clauses_list
+			else_clause := a_else_clause
+			position := a_position
+		ensure
+			expression = a_expression
+			clauses_list = a_clauses_list
+			else_clause = a_else_clause
 			position = a_position
 		end
 

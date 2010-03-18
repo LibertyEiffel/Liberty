@@ -17,7 +17,7 @@ class LIBERTY_ASSIGNMENT_TEST
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_ASSIGNMENT_TEST}
 	test_entity, test_type
 
 feature {ANY}
@@ -31,6 +31,30 @@ feature {ANY}
 				Result := type
 			else
 				Result := entity.result_type
+			end
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			e: like expression
+			n: like entity
+			t: like type
+		do
+			check
+				result_type.specialized_in(a_type) = result_type
+			end
+			e := expression.specialized_in(a_type)
+			if entity /= Void then
+				n := entity.specialized_in(a_type)
+			else
+				t := type.specialized_in(a_type)
+			end
+			if e = expression and then n = entity and then t = type then
+				Result := Current
+			elseif n /= Void then
+				create Result.test_entity(n, e, result_type, position)
+			else
+				create Result.test_type(t, e, result_type, position)
 			end
 		end
 
@@ -82,7 +106,7 @@ feature {}
 		end
 
 	entity: LIBERTY_ENTITY
-	type: LIBERTY_ACTUAL_TYPE
+	type: LIBERTY_ACTUAL_TYPE --|*** TODO: ??? we cannot check generics assignment???
 
 feature {ANY}
 	accept (v: VISITOR) is

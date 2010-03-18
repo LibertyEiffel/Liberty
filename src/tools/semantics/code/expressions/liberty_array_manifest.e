@@ -20,6 +20,9 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make, make_array
 
+create {LIBERTY_ARRAY_MANIFEST}
+	specialized
+
 feature {ANY}
 	parameters: TRAVERSABLE[LIBERTY_EXPRESSION] is
 		do
@@ -32,6 +35,45 @@ feature {ANY}
 		end
 
 	result_type: LIBERTY_TYPE
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			r: like result_type
+			p: like parameters_list
+			c: like contents_list
+		do
+			r := result_type.specialized_in(a_type)
+			p := specialized_expressions(parameters_list, a_type)
+			c := specialized_expressions(contents_list, a_type)
+			if r = result_type and then p = parameters and then c = contents then
+				Result := Current
+			else
+				create Result.specialized(r, p, c, position)
+			end
+		end
+
+feature {}
+	specialized_expressions (a_expressions: COLLECTION[LIBERTY_EXPRESSION]; a_type: LIBERTY_ACTUAL_TYPE): COLLECTION[LIBERTY_EXPRESSION] is
+		local
+			e: LIBERTY_EXPRESSION
+			i: INTEGER
+		do
+			from
+				Result := a_expressions
+				i := Result.lower
+			until
+				i > Result.upper
+			loop
+				e := Result.item(i).specialized_in(a_type)
+				if e /= Result.item(i) then
+					if Result = a_expressions then
+						Result := Result.twin
+					end
+					Result.put(e, i)
+				end
+				i := i + 1
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
@@ -79,6 +121,25 @@ feature {}
 			position := a_position
 		ensure
 			result_type = a_type
+			contents = a_contents
+			position = a_position
+		end
+
+	specialized (a_type: like result_type; a_parameters: like parameters_list; a_contents: like contents_list; a_position: like position) is
+		require
+			a_type /= Void
+			a_position /= Void
+			a_contents /= Void
+			-- all a_contents items conform to a_type
+			a_position /= Void
+		do
+			result_type := a_type
+			parameters_list := a_parameters
+			contents_list := a_contents
+			position := a_position
+		ensure
+			result_type = a_type
+			parameters_list = a_parameters
 			contents = a_contents
 			position = a_position
 		end

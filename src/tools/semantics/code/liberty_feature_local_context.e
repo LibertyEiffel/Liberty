@@ -17,11 +17,14 @@ class LIBERTY_FEATURE_LOCAL_CONTEXT
 insert
 	LIBERTY_AST_HANDLER
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make
 
 feature {ANY}
-	current_type: LIBERTY_ACTUAL_TYPE
+	current_type: LIBERTY_ACTUAL_TYPE is
+		do
+			Result := current_entity.result_type
+		end
 
 	result_type: LIBERTY_TYPE is
 		do
@@ -80,6 +83,7 @@ feature {ANY}
 			Result /= Void
 		end
 
+	current_entity: LIBERTY_CURRENT
 	result_entity: LIBERTY_RESULT
 
 	retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
@@ -88,7 +92,7 @@ feature {ANY}
 			retries.add_last(Result)
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 	add_parameter (a_parameter: LIBERTY_PARAMETER) is
 		require
 			a_parameter /= Void
@@ -114,7 +118,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		require
 			a_result_type /= Void
 		do
-				create result_entity.make(a_result_type, errors.unknown_position)
+			result_entity := a_result_type.result_entity
 		ensure
 			result_type = a_result_type
 		end
@@ -155,6 +159,49 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			end
 		end
 
+feature {LIBERTY_FEATURE, LIBERTY_TYPE_PARENT_FEATURES_LOADER}
+	specialized_in (a_type: like current_type): like Current is
+		do
+			Result := twin
+			Result.set_specialized_in(a_type)
+		end
+
+feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
+	set_specialized_in (a_type: like current_type) is
+		local
+			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
+		do
+			current_entity := a_type.current_entity
+
+			if result_entity /= Void then
+				set_result_type(result_type.specialized_in(a_type))
+			end
+
+			from
+				i := parameters_list.lower
+			until
+				i > parameters_list.upper
+			loop
+				p := parameters_list.item(i).specialized_in(a_type)
+				parameters_list.put(p, i)
+				parameters_map.put(p, p.name)
+				i := i + 1
+			end
+
+			from
+				i := locals_list.lower
+			until
+				i > locals_list.upper
+			loop
+				l := locals_list.item(i).specialized_in(a_type)
+				locals_list.put(l, i)
+				locals_map.put(l, l.name)
+				i := i + 1
+			end
+
+			--|*** TODO: retries
+		end
+
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
@@ -167,11 +214,11 @@ feature {}
 		require
 			a_current_type /= Void
 		do
-			current_type := a_current_type
+			current_entity := a_current_type.current_entity
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
-			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
+			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.with_capacity(3)
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
-			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
+			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.with_capacity(3)
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 		ensure
 			current_type = a_current_type

@@ -17,12 +17,24 @@ class LIBERTY_DEBUG
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_DEBUG}
 	make
 
 feature {ANY}
-	keys: TRAVERSABLE[STRING]
+	keys: TRAVERSABLE[FIXED_STRING]
 	instruction: LIBERTY_INSTRUCTION
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			i: like instruction
+		do
+			i := instruction.specialized_in(a_type)
+			if i = instruction then
+				Result := Current
+			else
+				create Result.make(keys, i, position)
+			end
+		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is

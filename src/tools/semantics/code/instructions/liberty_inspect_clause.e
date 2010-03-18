@@ -21,6 +21,9 @@ insert
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+create {LIBERTY_INSPECT_CLAUSE}
+	make_specialized
+
 feature {ANY}
 	instruction: LIBERTY_INSTRUCTION
 
@@ -29,6 +32,37 @@ feature {ANY}
 			Result := values_list
 		ensure
 			Result = values_list
+		end
+
+feature {LIBERTY_INSPECT}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		local
+			ins: like instruction
+			v: like values_list
+			slice: LIBERTY_INSPECT_SLICE
+			i: INTEGER
+		do
+			ins := instruction.specialized_in(a_type)
+			from
+				v := values_list
+				i := v.lower
+			until
+				i > v.upper
+			loop
+				slice := v.item(i).specialized_in(a_type)
+				if slice /= v.item(i) then
+					if v = values_list then
+						v := v.twin
+					end
+					v.put(slice, i)
+				end
+				i := i + 1
+			end
+			if ins = instruction and then v = values_list then
+				Result := Current
+			else
+				create Result.make_specialized(ins, v, position)
+			end
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -59,6 +93,21 @@ feature {}
 			position := a_position
 		ensure
 			instruction = a_instruction
+			position = a_position
+		end
+
+	make_specialized (a_instruction: like instruction; a_values_list: like values_list; a_position: like position) is
+		require
+			a_instruction /= Void
+			a_values_list /= Void
+			a_position /= Void
+		do
+			instruction := a_instruction
+			values_list := a_values_list
+			position := a_position
+		ensure
+			instruction = a_instruction
+			values_list = a_values_list
 			position = a_position
 		end
 

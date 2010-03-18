@@ -19,7 +19,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_FEATURE_LOCAL_CONTEXT}
+create {LIBERTY_TYPE}
 	make
 
 feature {ANY}
@@ -33,6 +33,11 @@ feature {ANY}
 	out_in_tagged_out_memory is
 		do
 			tagged_out_memory.append(name)
+		end
+
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		do
+			Result := a_type.result_entity
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
