@@ -1,0 +1,4 @@
+[UNIX]
+ffi: "$(pkg-config --cflags libffi)"
+
+

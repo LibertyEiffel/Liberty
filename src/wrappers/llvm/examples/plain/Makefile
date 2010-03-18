@@ -18,4 +18,5 @@ llvm_example: llvm_example.e
 
 clean:
 	rm *.c *.o llvm_example example example.bc example.s
+	clean llvm_example
 

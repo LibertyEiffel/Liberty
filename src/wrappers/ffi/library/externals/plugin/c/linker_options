@@ -1,0 +1,2 @@
+[UNIX]
+ffi: "$(pkg-config --libs libffi)"

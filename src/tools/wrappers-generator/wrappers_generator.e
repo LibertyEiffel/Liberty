@@ -19,7 +19,6 @@ feature {ANY}
 			process_arguments
 			log(once "@(1) bytes allocated%NLoading XML file: ",<<allocated_bytes.out>>)
 			create tree.make(input.url)
-			-- visit(tree.root)
 			log(once "done. @(1) bytes allocated%N",<<allocated_bytes.out>>)
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
