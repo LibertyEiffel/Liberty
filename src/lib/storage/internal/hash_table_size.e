@@ -22,7 +22,11 @@ feature {}
 				if integer <= 769 then
 					if integer <= 53 then
 						if integer <= 11 then
-							Result := 11
+							if integer <= 3 then
+								Result := 3
+							else
+								Result := 11
+							end
 						elseif integer <= 23 then
 							Result := 23
 						else
