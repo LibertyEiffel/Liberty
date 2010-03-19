@@ -52,10 +52,20 @@ feature {}
 		end
 
 	new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+		require
+			a_target /= Void
+			a_actuals.is_empty
+			a_position /= Void
 		do
 			check a_actuals = actuals_list end
 			target := a_target
 			entity := a_entity
+			position := a_position
+		ensure
+			target = a_target
+			entity = a_entity
+			actuals_list = a_actuals
+			position = a_position
 		end
 
 	prefix_name: LIBERTY_FEATURE_NAME is
