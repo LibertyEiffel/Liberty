@@ -357,4 +357,10 @@ feature {LIBERTY_UNIVERSE}
 			end
 		end
 
+feature {LIBERTY_VOID_TYPE}
+	visit_void (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check False end
+		end
+
 end -- class LIBERTY_INTERPRETER_EXTERNAL_BUILTINS

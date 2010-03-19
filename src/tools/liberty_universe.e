@@ -749,7 +749,7 @@ feature {} -- AST building
 			descriptor /= Void
 			code.is_empty
 		local
-			file: STRING
+			file: FIXED_STRING
 		do
 			file := descriptor.file
 			parser_file.connect_to(file)

@@ -232,6 +232,13 @@ feature {LIBERTY_UNIVERSE}
 			object.show_stack(stream, indent)
 		end
 
+feature {LIBERTY_VOID_TYPE}
+	visit_void (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check object.is_void end
+			object.show_stack(stream, indent)
+		end
+
 feature {}
 	make (a_interpreter: like interpreter) is
 		require

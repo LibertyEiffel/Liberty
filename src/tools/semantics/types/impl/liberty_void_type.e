@@ -89,8 +89,45 @@ feature {}
 			reachable_mark := 1
 			runtime_category := reference_category
 			create result_entity.make(Current, errors.unknown_position)
+			conformant_parents := empty_conformant_parents
+			non_conformant_parents := empty_non_conformant_parents
+			descriptor := void_descriptor
+			create current_entity.make(Current, errors.unknown_position)
+			create result_entity.make(Current, errors.unknown_position)
+			visit := void_visit
+			features := empty_features
 		ensure
 			is_reachable
+		end
+
+	empty_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
+		end
+
+	empty_non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
+		once
+			Result := empty_conformant_parents
+		end
+
+	empty_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME] is
+		once
+			create {AVL_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} Result.make
+		end
+
+	void_descriptor: LIBERTY_TYPE_DESCRIPTOR is
+		local
+			cd: LIBERTY_CLASS_DESCRIPTOR
+			params: FAST_ARRAY[LIBERTY_TYPE]
+		once
+			create cd.make_void(errors.unknown_position)
+			create params.with_capacity(0)
+			create Result.make(cd, params)
+		end
+
+	void_visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_void
 		end
 
 invariant
@@ -98,5 +135,6 @@ invariant
 	conformant_parents.is_empty
 	non_conformant_parents.is_empty
 	result_entity /= Void
+	features.is_empty
 
 end -- class LIBERTY_VOID_TYPE

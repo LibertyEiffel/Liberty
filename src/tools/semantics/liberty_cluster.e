@@ -23,6 +23,9 @@ create {LIBERTY_UNIVERSE}
 create {LIBERTY_CLUSTER}
 	make_subcluster
 
+create {LIBERTY_CLASS_DESCRIPTOR}
+	make_void
+
 feature {ANY}
 	location: STRING
 
@@ -102,6 +105,11 @@ feature {} -- find
 		end
 
 feature {}
+	make_void is
+		do
+			location := "<Void>"
+		end
+
 	make (a_location: like location) is
 		require
 			a_location /= Void

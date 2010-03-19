@@ -126,6 +126,12 @@ feature {LIBERTY_UNIVERSE}
 			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type, position)
 		end
 
+feature {LIBERTY_VOID_TYPE}
+	visit_void (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			last_created := interpreter.void_object(type, position)
+		end
+
 feature {}
 	make (a_interpreter: like interpreter) is
 		require

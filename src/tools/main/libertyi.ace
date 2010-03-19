@@ -23,7 +23,7 @@ cluster
 
 	tools: "${path_liberty}/src/tools/loadpath.se"
 		default
-			assertion(ensure)
+			assertion(invariant)
 		option
 			debug(all): LIBERTY_ACTUAL_TYPE, LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_FEATURE_CALL
 			assertion(all): LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_FEATURE_ENTITY

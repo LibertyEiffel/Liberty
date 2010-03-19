@@ -130,6 +130,12 @@ feature {LIBERTY_UNIVERSE}
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, position), agent store_user_type)
 		end
 
+feature {LIBERTY_VOID_TYPE}
+	visit_void (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check False end
+		end
+
 feature {}
 	make is
 		do

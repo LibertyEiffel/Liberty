@@ -27,7 +27,7 @@ insert
 		end
 
 create {ANY}
-	make, default_create
+	make
 
 feature {ANY}
 	file: FIXED_STRING
@@ -120,7 +120,7 @@ feature {}
 		do
 			class_descriptor := a_class_descriptor
 			parameters := a_parameters
-			file := a_class_descriptor.file.intern
+			file := a_class_descriptor.file
 			create {FAST_ARRAY[LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER]} change_listeners.with_capacity(2)
 			compute_hash_code
 			listen_to_parameters

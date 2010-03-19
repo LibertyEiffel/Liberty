@@ -600,11 +600,11 @@ feature {}
 
 invariant
 	descriptor /= Void
-	ast /= Void
 	file /= Void
 	features /= Void
 	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.feature_name.is_equal(fn) end)
 	parameters /= Void
+	visit /= Void
 
 	conformant_parents /= Void
 	non_conformant_parents /= Void

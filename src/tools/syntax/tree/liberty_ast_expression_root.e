@@ -55,7 +55,4 @@ feature {}
 			Result := {AVL_SET[INTEGER] << 1 >> }
 		end
 
-invariant
-	is_simple_expression xor is_binary_expression
-
 end

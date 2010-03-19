@@ -91,4 +91,11 @@ feature {LIBERTY_UNIVERSE}
 		deferred
 		end
 
+feature {LIBERTY_VOID_TYPE}
+	visit_void (type: LIBERTY_ACTUAL_TYPE) is
+		require
+			 {LIBERTY_VOID_TYPE} ?:= type
+		deferred
+		end
+
 end -- class LIBERTY_TYPE_VISITOR
