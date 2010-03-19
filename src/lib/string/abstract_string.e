@@ -1207,7 +1207,7 @@ feature {ANY} -- Interfacing with C string:
 			-- part of the Eiffel STRING.
 
 			-- TODO: clarify the meaning of this feature for non-natively stored heirs of ABSTRACT_STRING.
-			deferred
+		deferred
 		ensure
 			-- TODO: generalize this postcondition 
 			-- (is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')

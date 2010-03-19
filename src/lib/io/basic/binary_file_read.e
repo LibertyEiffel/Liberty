@@ -18,7 +18,7 @@ creation {ANY}
 	make, with_buffer_size, connect_to
 
 feature {ANY}
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			-- Open binary file for reading.
 			-- The stream is positioned at the beginning of the file.
 			--

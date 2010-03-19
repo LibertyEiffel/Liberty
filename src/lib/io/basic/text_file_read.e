@@ -25,7 +25,7 @@ creation {ANY}
 	make, connect_to
 
 feature {ANY}
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			--  Open text file for reading. The stream is positioned at the
 			--  beginning of the file.
 		local
@@ -35,11 +35,7 @@ feature {ANY}
 			input_stream := text_file_read_open(p)
 			if input_stream.is_not_null then
 				end_of_input := False
-				if path = Void then
-					path := new_path.twin
-				else
-					path.copy(new_path)
-				end
+				set_path(new_path)
 				if capacity = 0 then
 					buffer := buffer.calloc(4096)
 					capacity := 4096

@@ -32,7 +32,7 @@ feature {ANY}
 			Result := flushed_character_count + buffer_position
 		end
 
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			-- Truncate file to zero length or create text file for writing.
 			-- The stream is positioned at the beginning of the file.
 		local
@@ -41,7 +41,7 @@ feature {ANY}
 			p := new_path.to_external
 			output_stream := text_file_write_open(p)
 			if output_stream.is_not_null then
-				path := new_path
+				set_path(new_path)
 				if capacity = 0 then
 					buffer := buffer.calloc(4096)
 					capacity := 4096
@@ -51,7 +51,7 @@ feature {ANY}
 			is_connected implies character_count = 0
 		end
 
-	connect_for_appending_to (new_path: STRING) is
+	connect_for_appending_to (new_path: ABSTRACT_STRING) is
 			-- Open for writing. The file is created if it does not exist.
 			-- The stream is positioned at the end of the file.
 		require
@@ -63,7 +63,7 @@ feature {ANY}
 			p := new_path.to_external
 			output_stream := text_file_write_append(p)
 			if output_stream.is_not_null then
-				path := new_path
+				set_path(new_path)
 				if capacity = 0 then
 					buffer := buffer.calloc(4096)
 					capacity := 4096

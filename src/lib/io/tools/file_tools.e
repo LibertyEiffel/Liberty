@@ -14,7 +14,7 @@ insert
 	ANY
 
 feature {ANY}
-	same_files (path1, path2: STRING): BOOLEAN is
+	same_files (path1, path2: ABSTRACT_STRING): BOOLEAN is
 			-- True if the `path1' file exists and has the very same content as file `path2'.
 		require
 			path1 /= Void
@@ -35,7 +35,7 @@ feature {ANY}
 			end
 		end
 
-	same_physical_file (path1, path2: STRING): BOOLEAN is
+	same_physical_file (path1, path2: ABSTRACT_STRING): BOOLEAN is
 			-- True if `path1' and `path2' physically refer to the same file (e.g. symlinks to a same file will
 			-- return True here)
 		require
@@ -45,14 +45,14 @@ feature {ANY}
 			Result  := io_same_physical_file(path1.to_external, path2.to_external)
 		end
 
-	file_exists (path: STRING): BOOLEAN is
+	file_exists (path: ABSTRACT_STRING): BOOLEAN is
 		require
 			path.count > 0
 		do
 			Result := io_file_exists(path.to_external)
 		end
 
-	is_readable (path: STRING): BOOLEAN is
+	is_readable (path: ABSTRACT_STRING): BOOLEAN is
 			-- True if `path' file exists and is either a readable file or an accessible directory.
 		require
 			path /= Void
@@ -74,7 +74,7 @@ feature {ANY}
 			end
 		end
 
-	is_empty (path: STRING): BOOLEAN is
+	is_empty (path: ABSTRACT_STRING): BOOLEAN is
 			-- True if `path' file exists, is readable and is an empty file.
 		do
 			tfr1.connect_to(path)
@@ -85,7 +85,7 @@ feature {ANY}
 			end
 		end
 
-	rename_to (old_path, new_path: STRING) is
+	rename_to (old_path, new_path: ABSTRACT_STRING) is
 			-- Try to change the name or the location of a file.
 		require
 			old_path /= Void
@@ -101,7 +101,7 @@ feature {ANY}
 			io_rename(p1, p2)
 		end
 
-	copy_to (source_path, target_path: STRING) is
+	copy_to (source_path, target_path: ABSTRACT_STRING) is
 			-- Try to copy the source into the target.
 		require
 			source_path /= Void
@@ -114,7 +114,7 @@ feature {ANY}
 			io_copy(src, tgt)
 		end
 
-	delete (path: STRING) is
+	delete (path: ABSTRACT_STRING) is
 			-- Try to delete the given `path' file.
 		require
 			path /= Void
@@ -125,7 +125,7 @@ feature {ANY}
 			io_remove(p)
 		end
 
-	size_of (path: STRING): INTEGER is
+	size_of (path: ABSTRACT_STRING): INTEGER is
 			-- Total size of file `path' in number of bytes.
 			-- When the corresponding file does not exists, the Result is negative.
 		require
@@ -137,7 +137,7 @@ feature {ANY}
 			Result := fstat_st_size(p)
 		end
 
-	last_change_of (path: STRING): TIME is
+	last_change_of (path: ABSTRACT_STRING): TIME is
 			-- Of the last modification of `path'.
 		require
 			path.count > 0
@@ -149,7 +149,7 @@ feature {ANY}
 			Result.set_time_memory(time_memory)
 		end
 
-	is_file (path: STRING): BOOLEAN is
+	is_file (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is `path' a regular file?
 		require
 			path.count > 0
@@ -157,7 +157,7 @@ feature {ANY}
 			Result := fstat_st_is_file(path.to_external)
 		end
 
-	is_directory (path: STRING): BOOLEAN is
+	is_directory (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is `path' a direcory?
 		require
 			path.count > 0

@@ -14,7 +14,7 @@ creation {ANY}
 	make, connect_to, connect_for_appending_to
 
 feature {ANY}
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			-- Truncate file to zero length or create binary file for writing.
 			-- The stream is positioned at the beginning of the file.
 		local

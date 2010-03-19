@@ -21,7 +21,7 @@ creation {ANY}
 	make, connect_to, connect_for_appending_to
 
 feature {ANY}
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			-- Open for reading and writing. The stream is positioned at the
 			-- beginning of the file.
 		local
@@ -37,11 +37,11 @@ feature {ANY}
 			s := text_file_read_write_open(new_path.to_external)
 			if s.is_not_null then
 				stream := s
-				path := new_path
+				set_path(new_path)
 			end
 		end
 
-	connect_for_appending_to (new_path: STRING) is
+	connect_for_appending_to (new_path: ABSTRACT_STRING) is
 			-- Open for reading and writing. The file is created if it does not
 			-- exist. The stream is positioned at the end of the file.
 		local
@@ -57,7 +57,7 @@ feature {ANY}
 			s := text_file_read_write_append(new_path.to_external)
 			if s.is_not_null then
 				stream := s
-				path := new_path
+				set_path(new_path)
 			end
 		end
 

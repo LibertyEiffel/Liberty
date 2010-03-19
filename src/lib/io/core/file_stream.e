@@ -22,14 +22,14 @@ feature {ANY}
 			definition: Result = (path /= Void)
 		end
 
-	connect_to (new_path: STRING) is
+	connect_to (new_path: ABSTRACT_STRING) is
 			-- Try to connect to an existing file of the operating system.
 		require
 			not is_connected
 			not_malformed_path: not new_path.is_empty
 		deferred
 		ensure
-			is_connected implies path.same_as(new_path)
+			is_connected implies path.same_as(new_path.out)
 		end
 
 	disconnect is
@@ -39,6 +39,22 @@ feature {ANY}
 		deferred
 		ensure
 			not is_connected
+		end
+
+feature {}
+	set_path (new_path: ABSTRACT_STRING) is
+		do
+			if path = Void then
+				path := new_path.out
+			else
+				lock_tagged_out
+				tagged_out_memory.clear_count
+				new_path.out_in_tagged_out_memory
+				path.copy(tagged_out_memory)
+				unlock_tagged_out
+			end
+		ensure
+			path.same_as(new_path.out)
 		end
 
 end -- class FILE_STREAM
