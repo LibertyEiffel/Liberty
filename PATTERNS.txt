@@ -1,0 +1,45 @@
+Some patterns I find useful when developing in Eiffel.
+
+Those patterns nicely complement the standard GoF patterns.
+
+------------------------------------------------------------------------------
+Typed derivation
+================
+
+Pattern:
+--------
+class TYPED[E_] inherit NON_TYPED
+
+Usage:
+------
+When you need to keep mixed up data whose type is not known in advance
+or whose type changes from instance to instance, use that pattern.
+
+The non_typed version is to move the data around, the typed version is
+to access the data itself.
+
+See also:
+---------
+A companion pattern is the agent-based visitor (see below).
+
+------------------------------------------------------------------------------
+Agent-based visitor
+===================
+
+(aka Generics visitor)
+
+Pattern:
+--------
+class TYPED[E_] feature {ANY} visitor: PROCEDURE[TUPLE[E_]]
+
+Usage:
+------
+That kind of visitor helps getting access to the data of a typed
+derivation. The agent is registered at the creation of TYPED[E_] and
+depends on E_ itself.
+
+See also:
+---------
+Factory, to create typed objects and give them a once agent.
+
+------------------------------------------------------------------------------
