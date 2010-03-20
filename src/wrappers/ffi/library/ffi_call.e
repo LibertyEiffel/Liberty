@@ -17,7 +17,6 @@ inherit
 insert 
 	FFI_TYPES
 	FFIEXTERNALS
-	ARRAYED_COLLECTION_HANDLER
 	
 creation {ANY} prepare
 
@@ -52,7 +51,7 @@ feature {ANY} -- Preparation of a call
 		handle:=malloc(struct_size.to_natural_64) -- Also allocate works
 		function := a_function
 		argument_types:=some_argument_types
-		status.change_value(ffi_prep_cif(handle,default_abi,argument_types.count.to_natural_32,a_return_type,argument_types.storage.to_external))
+		status.change_value(ffi_prep_cif(handle,default_abi,argument_types.count.to_natural_32,a_return_type,argument_types.to_external))
 		check not status.is_bad__abi end
 	ensure
 		function_set: function = a_function
@@ -87,7 +86,7 @@ feature {ANY} -- Preparation of a call
 		f:=function
 		r:=a_result
 		if some_values/=Void then 
-			v:= some_values.storage.to_external
+			v:= some_values.to_external
 		end
 		ffi_call(h,f,r,v)
 	end
