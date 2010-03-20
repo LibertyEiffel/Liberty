@@ -1,4 +1,5 @@
 ./lib/loadpath.se
 ./wrappers/llvm/loadpath.se
+./wrappers/ffi/loadpath.se
 ./tools/loadpath.se
 ./bootstrap/loadpath.se

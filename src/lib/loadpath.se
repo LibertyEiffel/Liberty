@@ -3,6 +3,7 @@
 ./backtracking/loadpath.se
 ./design_patterns/
 ./exec/loadpath.se
+./foreign_interface/
 ./io/loadpath.se
 ./iterator/loadpath.se
 ./kernel/loadpath.se
