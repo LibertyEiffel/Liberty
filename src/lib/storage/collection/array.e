@@ -16,9 +16,8 @@ class ARRAY[E_]
 
 inherit
 	COLLECTION[E_]
-
+	ARRAYED_COLLECTION[E_] 
 insert
-	ARRAYED_COLLECTION[E_]
 	NATIVE_ARRAY_COLLECTOR[E_]
 		undefine
 			out_in_tagged_out_memory

@@ -6,7 +6,7 @@ deferred class ARRAYED_COLLECTION[E_]
 	-- Common root for ARRAY, FAST_ARRAY and RING_ARRAY.
 	--
 
-insert
+inherit
 	COLLECTION[E_]
 
 feature {ARRAYED_COLLECTION, ARRAYED_COLLECTION_HANDLER}
