@@ -1,16 +1,23 @@
 class FFI_CALL
 	-- A Foreign Function Interface call.
 
-	 -- Libffi' assumes that you have a pointer to the function you wish to call and that you know the number and types of arguments to pass it, as well as the return type of the function.
+	 -- Libffi' assumes that you have a pointer to the function you wish to
+	 -- call and that you know the number and types of arguments to pass it, as
+	 -- well as the return type of the function.
 
-	 -- The first thing you must do is create an ffi_cif object that matches the signature of the function you wish to call. This is a separate step because it is common to make multiple
- --   calls using a single ffi_cif. The cif in ffi_cif stands for Call InterFace. To prepare a
- --   call interface object, use the function ffi_prep_cif.
+	 -- The first thing you must do is create an ffi_cif object that matches
+	 -- the signature of the function you wish to call. This is a separate step
+	 -- because it is common to make multiple calls using a single ffi_cif. The
+	 -- cif in ffi_cif stands for Call InterFace. To prepare a call interface
+	 -- object, use the function ffi_prep_cif.
 
-inherit C_STRUCT
+inherit 
+	C_STRUCT
+	EIFFEL_OWNED
 insert 
-	FFY_TYPES
+	FFI_TYPES
 	FFIEXTERNALS
+	ARRAYED_COLLECTION_HANDLER
 	
 creation {ANY} prepare
 
@@ -33,22 +40,30 @@ feature {ANY} -- Preparation of a call
 	-- value should belong to FFI_STATUSENUM but currently it is not found in
 	-- the code.
 	require 
-		is_valid_type(a_return_type)
-		some_argument_types=Void or else 
-		some_argument_types.for_all(agent is_valid_type)	
-	local ffi_abi: FFI_ABI; args_ptr: POINTER; args_n: NATURAL_32
+		a_function.is_not_null
+		a_return_type.is_not_null
+		some_argument_types/=Void
+		not some_argument_types.is_empty
+	-- TODO: reactivate the following preconditions when they will not make the compiler produce wrong code anymore. Paolo 2010-03-19
+	-- 	is_valid_type(a_return_type)
+	-- 	some_argument_types=Void or else 
+	-- 	some_argument_types.for_all(agent is_valid_type)	
 	do
-		a
-		if some_argument_types/=Void then
-			args_n := some_argument_types.count.to_natural_32
-			args_ptr := some_argument_types.storage.to_pointer
-		end
-		status.change_value(ffi_prep_cif(handle,ffi_abi.default__abi_low_level,args_n,args_ptr))
-		check not statis.is_bad__abi end
+		handle:=malloc(struct_size.to_natural_64) -- Also allocate works
+		function := a_function
+		argument_types:=some_argument_types
+		status.change_value(ffi_prep_cif(handle,default_abi,argument_types.count.to_natural_32,a_return_type,argument_types.storage.to_external))
+		check not status.is_bad__abi end
+	ensure
+		function_set: function = a_function
+		-- Note: someone may want to turn this into invariant Actually they
+		-- are right, it is an invariant. But since we do not offer a feature
+		-- to change function value we only need to check that this creation
+		-- feature correctly set it.
 	end
 
-	call (a_function: POINTER; a_result: POINTER; some_values: POINTER) is		
- 		-- Calls `a_function' according to the description of Current.
+	invoke (a_result: POINTER; some_values: ARRAYED_COLLECTION[POINTER]) is		
+ 		-- Calls `function' according to the description of Current.
 		
 		-- `a_result' shall point to a chunk of memory that will hold the
 		-- result of the function call.  This must be large enough to hold the
@@ -61,12 +76,54 @@ feature {ANY} -- Preparation of a call
 		-- point to the memory locations holding the argument values for a
 		-- call. If Current declares that the function has no arguments (i.e.,
 		-- nargs was 0), then avalues is ignored. 
+	
+	-- TODO: reactivate the following preconditions when they will not make the compiler produce wrong code anymore. Paolo 2010-03-19
+	-- require
+	--	parameterless_shall_be_called_without_parameters: some_values=Void implies argument_types=Void
+	--	correct_number_of_paramenters: some_values/=Void implies argument_types.count = some_values.count
+	local h,f,r,v: POINTER
 	do
-		ffi_call(handle,a_function,a_result,some_values)
+		h:=handle
+		f:=function
+		r:=a_result
+		if some_values/=Void then 
+			v:= some_values.storage.to_external
+		end
+		ffi_call(h,f,r,v)
 	end
 feature {ANY} -- Status
 	status: FFI_STATUSENUM is
 		-- The status of Current call.
 		attribute
 	end
+	
+	function: POINTER is
+		-- The address of the function that will be called
+		attribute
+	end
+
+	argument_types: ARRAYED_COLLECTION[POINTER] is
+		-- Pointers to the structures describing the function that will be called
+		attribute
+	end
+
+feature {} -- Implementation
+	default_abi: INTEGER_32 is	
+		-- The enumeration value representing the default ABI. To be removed whenever support for different ABIs will be provided.
+		external "plug_in"
+		alias "{
+			location: "externals"
+		module_name: "plugin"
+		feature_name: "FFI_DEFAULT_ABI"
+	}"
+	end
+	
+	struct_size: INTEGER is
+		external "plug_in"
+		alias "{
+			location: "externals"
+			module_name: "plugin"
+			feature_name: "sizeof(ffi_cif)"
+			}"
+		end
 end -- class FFI_CALL

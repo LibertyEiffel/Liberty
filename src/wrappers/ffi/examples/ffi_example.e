@@ -3,44 +3,31 @@ class FFI_EXAMPLE
 
 	-- Invoking "puts" C function a couple of time with two different Eiffel strings.
 
-insert FFI_TYPES
-
+insert 
+	FFI_TYPES
+	ANY -- To reobtain copy, default_create and is_equal.
 creation make
 
-feature
+feature -- Creating
 	make is
-		do
-			create call(<<ffi_type_pointer>>)
-nclude <stdio.h>
-      #include <ffi.h>
+		local msg: STRING; ptr: POINTER
+	do
+			create call.prepare(my_function, ffi_type_sint32, <<ffi_type_pointer>>)
+			print("Invoking 'puts'%N")
+			msg := "Hello Liberty!"
+			ptr := msg.to_external
+			call.invoke($call_result, <<$ptr>>)
+			print("Result of last call is "+call_result.out+"%N")
 
-      int main()
-      {
-        ffi_cif cif;
-        ffi_type *args[1];
-        void *values[1];
-        char *s;
-        int rc;
+			--call.invoke(resp,<<"Hello again!".to_external>>)
+			-- print("Result of last call is "+res.out+"%N")
+		end
 
-        /* Initialize the argument info vectors */
-        args[0] = &ffi_type_pointer;
-        values[0] = &s;
-
-        /* Initialize the cif */
-        if (ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 1,
-                        &ffi_type_uint, args) == FFI_OK)
-          {
-            s = "Hello World!";
-            ffi_call(&cif, puts, &rc, values);
-            /* rc now holds the result of the call to puts */
-
-            /* values holds a pointer to the function's arg, so to
-               call puts() again all we need to do is change the
-               value of s */
-	      s = "This is cool!";
-            ffi_call(&cif, puts, &rc, values);
-          }
-
-        return 0;
-      }
-
+feature {ANY} 
+	call_result: INTEGER_64;
+	call: FFI_CALL
+	my_function: POINTER is
+		external "C inline"
+		alias "puts"
+		end
+end

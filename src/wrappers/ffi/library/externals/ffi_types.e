@@ -43,7 +43,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_void"
+		feature_name: "eiffel_ffi_type_void"
 	}"
 	end
 
@@ -53,7 +53,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uint8"
+		feature_name: "eiffel_ffi_type_uint8"
 	}"
 	end
 
@@ -63,7 +63,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sint8"
+		feature_name: "eiffel_ffi_type_sint8"
 	}"
 	end
 
@@ -73,7 +73,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uint16"
+		feature_name: "eiffel_ffi_type_uint16"
 	}"
 	end
 
@@ -83,7 +83,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sint16"
+		feature_name: "eiffel_ffi_type_sint16"
 	}"
 	end
 
@@ -93,7 +93,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uint32"
+		feature_name: "eiffel_ffi_type_uint32"
 	}"
 	end
 
@@ -103,7 +103,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sint32"
+		feature_name: "eiffel_ffi_type_sint32"
 	}"
 	end
 
@@ -113,7 +113,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uint64"
+		feature_name: "eiffel_ffi_type_uint64"
 	}"
 	end
 
@@ -123,7 +123,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sint64"
+		feature_name: "eiffel_ffi_type_sint64"
 	}"
 	end
 
@@ -133,7 +133,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_float"
+		feature_name: "eiffel_ffi_type_float"
 	}"
 	end
 
@@ -143,7 +143,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_double"
+		feature_name: "eiffel_ffi_type_double"
 	}"
 	end
 
@@ -153,7 +153,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uchar"
+		feature_name: "eiffel_ffi_type_uchar"
 	}"
 	end
 
@@ -162,7 +162,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_schar"
+		feature_name: "eiffel_ffi_type_schar"
 	}"
 	end
 
@@ -172,7 +172,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_ushort"
+		feature_name: "eiffel_ffi_type_ushort"
 	}"
 	end
 
@@ -182,7 +182,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sshort"
+		feature_name: "eiffel_ffi_type_sshort"
 	}"
 	end
 
@@ -192,7 +192,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_uint"
+		feature_name: "eiffel_ffi_type_uint"
 	}"
 	end
 
@@ -202,7 +202,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_sint"
+		feature_name: "eiffel_ffi_type_sint"
 	}"
 	end
 
@@ -212,7 +212,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_ulong"
+		feature_name: "eiffel_ffi_type_ulong"
 	}"
 	end
 
@@ -222,7 +222,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_slong"
+		feature_name: "eiffel_ffi_type_slong"
 	}"
 	end
 
@@ -232,7 +232,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_longdouble"
+		feature_name: "eiffel_ffi_type_longdouble"
 	}"
 	end
 
@@ -242,7 +242,7 @@ feature {ANY} -- Primitive types
 	alias "{
 		location: "."
 		module_name: "plugin"
-		feature_name: "ffi_type_pointer"
+		feature_name: "eiffel_ffi_type_pointer"
 	}"
 	end
 
