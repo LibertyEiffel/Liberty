@@ -1,45 +1,183 @@
-Some patterns I find useful when developing in Eiffel.
+------------------------------------------------------------------------------
+
+Some patterns I find useful when developing in Liberty Eiffel.
 
 Those patterns nicely complement the standard GoF patterns.
 
 ------------------------------------------------------------------------------
-Typed derivation
+Typed Derivation
 ================
 
 Pattern:
 --------
-class TYPED[E_] inherit NON_TYPED
+
+deferred class NON_TYPED
+...
+end
+
+class TYPED[E_]
+inherit
+   NON_TYPED
+...
+end
 
 Usage:
 ------
-When you need to keep mixed up data whose type is not known in advance
-or whose type changes from instance to instance, use that pattern.
 
-The non_typed version is to move the data around, the typed version is
-to access the data itself.
+When you need to keep mixed up data whose type is not known in advance.
+
+The non_typed base class is used to present a common non-typed
+interface and move the data around, the typed class is used to access
+the data itself.
+
+This pattern is really useful to enforce strong typing.
 
 See also:
 ---------
-A companion pattern is the agent-based visitor (see below).
+
+A companion pattern is the Agent-based Generics Visitor (see below).
+
+Examples:
+---------
+
+ * SmartEiffel's INTERNALS
+
+ * Liberty's interpreter: objects, builtins
 
 ------------------------------------------------------------------------------
-Agent-based visitor
+Agent-based Visitor
 ===================
 
-(aka Generics visitor)
+(the non-generics one)
 
 Pattern:
 --------
-class TYPED[E_] feature {ANY} visitor: PROCEDURE[TUPLE[E_]]
+
+class ITEM
+feature {ANY}
+   accept (v: VISITOR) is do visitor.call([v, Current]) end
+feature {}
+   visitor: PROCEDURE[TUPLE[VISITOR, ITEM]]
+...
+end
+
+class FACTORY
+feature {ANY}
+   new_item_1: SOMETHING is
+      do
+         create Result.make(agent {VISITOR}.visit_1)
+      end
+   new_item_2: SOMETHING is
+      do
+         create Result.make(agent {VISITOR}.visit_2)
+      end
+...
+end
+
+deferred class VISITOR
+feature {ANY}
+   visit_1 (i: ITEM) is deferred end
+   visit_2 (i: ITEM) is deferred end
+...
+end
 
 Usage:
 ------
-That kind of visitor helps getting access to the data of a typed
-derivation. The agent is registered at the creation of TYPED[E_] and
-depends on E_ itself.
+
+Some objects share a common base type, but we need to distinguish some
+instances with a special role. For some reason we want the objects to
+share the same runtime type.
+
+That kind of visitor helps differenciating instances. The agent is
+registered at the creation of ITEM and depends on the object itself.
+
+Those objects should be immutable (at least conceptually; their
+creation cycle may be complex).
+
+Note: usually the "agent {VISITOR}.visit_xx" is encapsulated in a once
+feature, to avoid the creation of too many objects. That's one reason
+why the visitor itself is given as target of the call. The other
+reason is of course to allow visitor polymorphism.
+
+The deferred visitor is defined as usual.
 
 See also:
 ---------
-Factory, to create typed objects and give them a once agent.
+
+Factory, to create the objects and give them an agent.
+
+Examples:
+---------
+
+ * Liberty's actual type visitor, an agent is given at creation time
+   that depends on the actual instance of LIBERTY_ACTUAL_TYPE.
+
+ * Liberty's "feature accelerator" is also the same pattern.
+
+ * In fact the whole Liberty interpreter is built as an application of
+   this pattern.
+
+------------------------------------------------------------------------------
+Agent-based Generics Visitor
+============================
+
+Pattern:
+--------
+
+deferred class ITEM
+feature {ANY}
+   accept (v: VISITOR) is deferred end
+end
+
+class TYPED_ITEM[E_]
+inherit
+   ITEM
+feature {ANY}
+   item: E_
+   accept (v: VISITOR) is do visitor.call([v, Current]) end
+feature {}
+   visitor: PROCEDURE[TUPLE[VISITOR, E_]]
+...
+end
+
+class FACTORY
+feature {ANY}
+   new_item_a (a: A): ITEM is
+      do
+         create {TYPED_ITEM[A]} Result.make(a, agent {VISITOR}.visit_a)
+      end
+   new_item_b (b: B): ITEM is
+      do
+         create {TYPED_ITEM[B]} Result.make(b, agent {VISITOR}.visit_b)
+      end
+...
+end
+
+deferred class VISITOR
+feature {ANY}
+   visit_a (i: TYPED_ITEM[A]) is deferred end
+   visit_b (i: TYPED_ITEM[B]) is deferred end
+...
+end
+
+Usage:
+------
+
+A simple application of the Agent-based Visitor to Typed Derivation.
+
+That kind of visitor helps getting access to the data of a Typed
+Derivation. The agent is registered at the creation of TYPED_ITEM[E_]
+and depends on E_ itself.
+
+See also:
+---------
+
+Factory, to create typed objects and give them an agent.
+
+------------------------------------------------------------------------------
+Acyclic Visitor
+===============
+
+http://www.objectmentor.com/resources/articles/acv.pdf
 
 ------------------------------------------------------------------------------
