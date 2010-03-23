@@ -32,6 +32,9 @@ insert
 		end
 
 feature {ANY}
+	id: INTEGER
+			-- the feature's unique id (does not change through specialization)
+
 	definition_type: LIBERTY_ACTUAL_TYPE
 			-- the type where the feature is written
 
@@ -162,6 +165,8 @@ feature {ANY}
 			tabulate(o, tab)
 			o.put_character('{')
 			o.put_string(definition_type.full_name)
+			o.put_string(once "<-")
+			o.put_string(context.current_type.full_name)
 			o.put_character('}')
 			o.put_character(' ')
 			t := generating_type
@@ -189,8 +194,9 @@ feature {}
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
-	join (a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -200,8 +206,9 @@ feature {LIBERTY_FEATURE_DEFINITION}
 		end
 
 feature {LIBERTY_FEATURE}
-	joined_attribute (a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -210,8 +217,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_constant (a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -220,8 +228,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -230,8 +239,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_do (a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -240,8 +250,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_external (a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -250,8 +261,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_once (a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -260,8 +272,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -270,8 +283,9 @@ feature {LIBERTY_FEATURE}
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+	joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
+			a_type /= Void
 			a_feature /= Void
 			current_fd.the_feature = Current
 			other_fd.the_feature = a_feature
@@ -307,8 +321,14 @@ feature {ANY}
 					Result := twin
 					specialized.add(Result, a_type)
 					Result.set_specialized_in(context.specialized_in(a_type))
+					debug
+						std_output.put_line(once "   Binding specialized feature")
+					end
+					bind(Result, a_type)
 				end
 			end
+		ensure
+			Result.id = id
 		end
 
 feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
@@ -319,14 +339,10 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 
 feature {LIBERTY_FEATURE}
 	set_specialized_in (a_context: like context) is
-		local
-			i: INTEGER
-			p: like precursors
-			f: LIBERTY_FEATURE
 		do
 			context := a_context
 			if type_resolver /= Void then
-				create type_resolver.make_specialized(type_resolver.feature_name, Current)
+				create type_resolver.specialized(type_resolver.feature_name, Current)
 			end
 			if precondition /= Void then
 				precondition := precondition.specialized_in(a_context.current_type)
@@ -334,22 +350,7 @@ feature {LIBERTY_FEATURE}
 			if postcondition /= Void then
 				postcondition := postcondition.specialized_in(a_context.current_type)
 			end
-			from
-				p := precursors
-				i := p.lower
-			until
-				i > p.upper
-			loop
-				f := p.item(i).specialized_in(a_context.current_type)
-				if f /= p.item(i) then
-					if p = precursors then
-						p := precursors.twin
-					end
-					precursors.put(f, i)
-				end
-				i := i + 1
-			end
-			precursors := p
+			create {FAST_ARRAY[LIBERTY_FEATURE]} precursors.with_capacity(0)
 		end
 
 feature {LIBERTY_FEATURE}
@@ -375,8 +376,6 @@ feature {LIBERTY_FEATURE}
 		do
 			if not has_precursor(a_precursor) then
 				precursors.add_last(a_precursor)
-			else
-				sedb_breakpoint
 			end
 		end
 
@@ -422,9 +421,6 @@ feature {LIBERTY_FEATURE}
 	is_binding: BOOLEAN
 			-- Anti-recursion security
 
-feature {LIBERTY_FEATURE}
-	id: INTEGER
-
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	set_type_resolver (a_type_resolver: like type_resolver) is
 		require
@@ -445,7 +441,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 				child.add_precursor(Current)
 			end
 		ensure
-			bound(type) = child
+			is_bound(type) and then bound(type) = child
 		end
 
 	set_context (a_context: like context) is

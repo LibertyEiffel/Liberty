@@ -112,6 +112,10 @@ feature {}
 				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
 				fd.add_precursor(parent_fd.the_feature, parent)
 				fd.set_the_feature(parent_fd.the_feature.specialized_in(type))
+				debug
+					std_output.put_string(once "Specialized")
+					fd.debug_display(std_output)
+				end
 				pf.add(fd, name)
 				i := i + 1
 			end
@@ -148,7 +152,7 @@ feature {}
 						fd.the_feature.bind(fd.the_feature, type)
 					end
 				else
-					actual_fd.join(fd, parent)
+					actual_fd.join(fd, parent, type)
 					check
 						actual_fd.feature_name.is_equal(name)
 					end
@@ -183,7 +187,7 @@ feature {}
 						pf.add(fd, new_name)
 					else
 						pf.remove(old_name)
-						fd2.join(fd, parent)
+						fd2.join(fd, parent, type)
 						--|*** TODO: how to know that that particular join provoked an error?
 						--if errors.has_error then
 						--	errors.add_position(new_name.position)
@@ -304,7 +308,7 @@ feature {}
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
 						inherited_feature := fd.the_feature
-						if not inherited_feature.is_bound(type) then
+						if not inherited_feature.is_bound(type) or else inherited_feature.bound(type).id = inherited_feature.id then
 							create {LIBERTY_FEATURE_REDEFINED} redefined_feature.make(type)
 							redefined_feature.set_precondition(inherited_feature.precondition)
 							redefined_feature.set_postcondition(inherited_feature.postcondition)

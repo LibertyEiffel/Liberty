@@ -587,6 +587,6 @@ invariant
 	target /= Void
 	name /= Void
 
-	(returned_static_type = Void) = (returned_object = Void)
+	not interpreter.gathering_old_values implies ((returned_static_type = Void) = (returned_object = Void))
 
 end -- class LIBERTY_INTERPRETER_FEATURE_CALL

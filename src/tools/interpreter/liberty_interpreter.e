@@ -79,6 +79,11 @@ feature {ANY}
 			end
 		end
 
+	gathering_old_values: BOOLEAN is
+		do
+			Result := gathering_old_values_counter > 0
+		end
+
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
@@ -136,11 +141,15 @@ feature {ANY}
 		end
 
 	void_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		require
+			not type.is_expanded
 		do
 			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
 		end
 
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		require
+			not object_type.is_deferred
 		do
 			debug
 				std_output.put_string(once "Creating new object of type ")
@@ -325,11 +334,6 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		ensure
 			gathering_old_values
 			evaluating_old_value
-		end
-
-	gathering_old_values: BOOLEAN is
-		do
-			Result := gathering_old_values_counter > 0
 		end
 
 	evaluating_old_value: BOOLEAN is

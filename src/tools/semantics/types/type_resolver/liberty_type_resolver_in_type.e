@@ -33,6 +33,8 @@ feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := a_type.type_resolver
+		ensure then
+			Result.current_type = a_type
 		end
 
 feature {LIBERTY_TYPE_BUILDER}

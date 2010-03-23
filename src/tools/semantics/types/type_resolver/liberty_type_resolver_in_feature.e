@@ -21,7 +21,7 @@ creation {LIBERTY_TYPE_FEATURES_LOADER}
 	make
 
 creation {LIBERTY_FEATURE}
-	make_specialized
+	specialized
 
 feature {LIBERTY_FEATURE}
 	set_the_feature (a_feature: like the_feature) is
@@ -75,6 +75,8 @@ feature {}
 					not_yet_implemented
 				end
 				Result := local_context.result_type
+			elseif type_definition.is_like_current then
+				Result := local_context.current_type
 			elseif type_definition.is_like_entity then
 				-- If it's an anchor to a parameter or a local, resolve it immediately. (TODO: beware of cycles!)
 				-- Other cases will be caught by parent resolvers.
@@ -109,14 +111,14 @@ feature {}
 			local_context = a_local_context
 		end
 
-	make_specialized (a_feature_name: like feature_name; a_feature: like the_feature) is
+	specialized (a_feature_name: like feature_name; a_feature: like the_feature) is
 		require
 			a_feature_name /= Void
 			a_feature /= Void
 		do
 			feature_name := a_feature_name
-			the_feature := a_feature
 			local_context := a_feature.context
+			the_feature := a_feature
 		ensure
 			feature_name = a_feature_name
 			the_feature = a_feature

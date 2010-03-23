@@ -93,6 +93,10 @@ feature {ANY}
 			cl, ccl: COLLECTION[LIBERTY_TYPE]
 			f: like the_feature
 		do
+			debug
+				std_output.put_string(once "Specializing")
+				debug_display(std_output)
+			end
 			cl := specialized_clients(clients, a_type)
 			ccl := specialized_clients(creation_clients, a_type)
 			if the_feature /= Void then
@@ -233,10 +237,10 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			creation_clients = a_creation_clients
 		end
 
-	join (fd: like Current; a_type: LIBERTY_ACTUAL_TYPE) is
+	join (fd: like Current; a_parent_type, a_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			fd /= Void
-			fd.has_precursor(a_type)
+			fd.has_precursor(a_parent_type)
 		local
 			old_feature: like the_feature
 		do
@@ -248,27 +252,33 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			if fd.the_feature /= Void then
 				if old_feature = Void then
 					the_feature := fd.the_feature
-				elseif old_feature.definition_type /= fd.the_feature.definition_type then
-					the_feature := old_feature.join(fd.the_feature, Current, fd)
+				elseif old_feature.id /= fd.the_feature.id then
+					the_feature := old_feature.join(a_type, fd.the_feature, Current, fd)
 				end
 			end
-			if not has_precursor(a_type) then
-				add_precursor(fd.precursor_feature(a_type), a_type)
+			if not has_precursor(a_parent_type) then
+				add_precursor(fd.precursor_feature(a_parent_type), a_parent_type)
 			else
 				check
-					precursor_feature(a_type) = fd.precursor_feature(a_type)
+					precursor_feature(a_parent_type) = fd.precursor_feature(a_parent_type)
 				end
 			end
 		end
 
 feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
-	fatal_join_error_redefined_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+	fatal_join_error_redefined_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug
 				std_output.put_string(once "Cannot join redefined feature ")
 				std_output.put_string(feature_name.name)
+				std_output.put_string(once " from ")
+				std_output.put_string(the_feature.definition_type.full_name)
 				std_output.put_string(once " with concrete feature ")
-				std_output.put_line(with.feature_name.name)
+				std_output.put_string(with.feature_name.name)
+				std_output.put_string(once " from ")
+				std_output.put_string(with.the_feature.definition_type.full_name)
+				std_output.put_string(once " in type ")
+				std_output.put_line(type.full_name)
 				sedb_breakpoint
 			end
 			not_yet_implemented
@@ -276,20 +286,26 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 			errors.has_error
 		end
 
-	fatal_join_error_concrete_redefined (with: LIBERTY_FEATURE_DEFINITION) is
+	fatal_join_error_concrete_redefined (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
-			with.fatal_join_error_redefined_concrete(Current)
+			with.fatal_join_error_redefined_concrete(type, Current)
 		ensure
 			errors.has_error
 		end
 
-	fatal_join_error_concrete_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+	fatal_join_error_concrete_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug
 				std_output.put_string(once "Cannot join concrete feature ")
 				std_output.put_string(feature_name.name)
+				std_output.put_string(once " from ")
+				std_output.put_string(the_feature.definition_type.full_name)
 				std_output.put_string(once " with concrete feature ")
-				std_output.put_line(with.feature_name.name)
+				std_output.put_string(with.feature_name.name)
+				std_output.put_string(once " from ")
+				std_output.put_string(with.the_feature.definition_type.full_name)
+				std_output.put_string(once " in type ")
+				std_output.put_line(type.full_name)
 				sedb_breakpoint
 			end
 			not_yet_implemented
