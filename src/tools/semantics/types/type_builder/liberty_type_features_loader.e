@@ -345,19 +345,13 @@ feature {}
 						create fd.make(feature_name, type, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
 
-						-- if i = names.lower then
-							debug
-								std_output.put_string(once " <=>  late binding down to ")
-								std_output.put_string(type.full_name)
-								std_output.put_string(once " of defined feature ")
-								std_output.put_line(feature_name.full_name)
-							end
-							fd_parent.the_feature.bind(a_feature, type)
-						-- else
-						-- 	check
-						-- 		fd_parent.the_feature.bound(type) = a_feature
-						-- 	end
-						-- end
+						debug
+							std_output.put_string(once " <=>  late binding down to ")
+							std_output.put_string(type.full_name)
+							std_output.put_string(once " of defined feature ")
+							std_output.put_line(feature_name.full_name)
+						end
+						fd_parent.the_feature.bind(a_feature, type)
 
 						type.replace_feature(fd)
 					elseif redefined.redefined_feature = Void then
