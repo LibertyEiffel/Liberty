@@ -26,7 +26,7 @@ insert
 		end
 
 creation {LIBERTY_TYPE_BUILDER_TOOLS}
-	make, renamed
+	make
 
 creation {LIBERTY_FEATURE_DEFINITION}
 	specialized
@@ -38,6 +38,8 @@ feature {ANY}
 
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
+
+	current_type: LIBERTY_ACTUAL_TYPE
 
 	out_in_tagged_out_memory is
 		do
@@ -83,6 +85,7 @@ feature {ANY}
 	copy (other: like Current) is
 		do
 			feature_name := other.feature_name
+			current_type := other.current_type
 			clients := other.clients.twin
 			is_frozen := other.is_frozen
 			the_feature := other.the_feature
@@ -94,18 +97,27 @@ feature {ANY}
 			f: like the_feature
 		do
 			debug
-				std_output.put_string(once "Specializing")
-				debug_display(std_output)
+				std_output.put_string(once "Specializing in ")
+				std_output.put_string(a_type.full_name)
+				debug_display(std_output, False)
 			end
 			cl := specialized_clients(clients, a_type)
-			ccl := specialized_clients(creation_clients, a_type)
+			if creation_clients /= Void then
+				ccl := specialized_clients(creation_clients, a_type)
+			end
 			if the_feature /= Void then
 				f := the_feature.specialized_in(a_type)
+				the_feature.bind(f, a_type)
 			end
-			if cl = clients and then ccl = creation_clients and then f = the_feature then
+			if a_type = current_type and then cl = clients and then ccl = creation_clients and then f = the_feature then
 				Result := Current
 			else
-				create Result.specialized(feature_name, ccl, cl, is_frozen, position)
+				create Result.specialized(feature_name, a_type, ccl, cl, is_frozen, f, position)
+			end
+			debug
+				std_output.put_string(once "Specialized in ")
+				std_output.put_string(a_type.full_name)
+				debug_display(std_output, True)
 			end
 		end
 
@@ -113,6 +125,7 @@ feature {}
 	specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE): like clients is
 		require
 			a_type /= Void
+			a_clients /= Void
 		local
 			t: LIBERTY_TYPE
 			i: INTEGER
@@ -160,7 +173,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM) is
+	debug_display (o: OUTPUT_STREAM; show_details: BOOLEAN) is
 		do
 			o.put_string(once "   feature ")
 			debug_clients(o, clients)
@@ -179,12 +192,16 @@ feature {ANY}
 				o.put_character(' ')
 			end
 			o.put_string(name.out)
-			if the_feature = Void then
-				o.put_line(once " is not yet attached")
+			if show_details then
+				if the_feature = Void then
+					o.put_line(once " is not yet attached")
+				else
+					o.put_line(once " is")
+					the_feature.debug_display(o, 2)
+					o.put_line(once "      end")
+				end
 			else
-				o.put_line(once " is")
-				the_feature.debug_display(o, 2)
-				o.put_line(once "      end")
+				o.put_new_line
 			end
 		end
 
@@ -220,7 +237,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 
 	set_the_feature (a_feature: like the_feature) is
 		require
-			a_feature /= Void
+			a_feature.current_type = current_type
 		do
 			the_feature := a_feature
 		ensure
@@ -237,9 +254,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			creation_clients = a_creation_clients
 		end
 
-	join (fd: like Current; a_parent_type, a_type: LIBERTY_ACTUAL_TYPE) is
+	join (fd: like Current; a_parent_type: LIBERTY_ACTUAL_TYPE) is
 		require
-			fd /= Void
+			fd.current_type = current_type
 			fd.has_precursor(a_parent_type)
 		local
 			old_feature: like the_feature
@@ -253,7 +270,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				if old_feature = Void then
 					the_feature := fd.the_feature
 				elseif old_feature.id /= fd.the_feature.id then
-					the_feature := old_feature.join(a_type, fd.the_feature, Current, fd)
+					the_feature := old_feature.join(current_type, fd.the_feature, Current, fd)
 				end
 			end
 			if not has_precursor(a_parent_type) then
@@ -263,6 +280,17 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 					precursor_feature(a_parent_type) = fd.precursor_feature(a_parent_type)
 				end
 			end
+		ensure
+			has_precursor(a_parent_type)
+		end
+
+	re_name (a_name: like feature_name) is
+		require
+			a_name /= Void
+		do
+			feature_name := a_name
+		ensure
+			feature_name = a_name
 		end
 
 feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
@@ -331,7 +359,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 		do
 			if precursors /= Void then
 				if a_precursor_type /= Void then
-					Result := precursors.has(a_precursor_type)
+					Result := precursors.fast_has(a_precursor_type)
 				else
 					Result := precursors.count = 1
 				end
@@ -343,7 +371,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 			has_precursor(a_precursor_type)
 		do
 			if a_precursor_type /= Void then
-				Result := precursors.at(a_precursor_type)
+				Result := precursors.fast_at(a_precursor_type)
 			else
 				Result := precursors.first
 			end
@@ -381,46 +409,48 @@ feature {}
 		end
 
 feature {}
-	make (a_name: like feature_name; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
+	make (a_name: like feature_name; a_type: like current_type; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
 		require
 			a_name /= Void
+			a_type /= Void
 			a_clients /= Void
 			a_position /= Void
 		do
 			feature_name := a_name
+			current_type := a_type
 			clients := a_clients
 			is_frozen := a_frozen
 			position := a_position
+
+			debug
+				debug_full_name := a_name.full_name.out
+			end
 		ensure
 			feature_name = a_name
+			current_type = a_type
 			clients = a_clients
 			is_frozen = a_frozen
 			position = a_position
 		end
 
-	renamed (a_name: like feature_name; a_feature_definition: like Current) is
-		require
-			a_name /= Void
-			a_feature_definition /= Void
+	specialized (a_name: like feature_name; a_type: like current_type; a_creation_clients: like creation_clients; a_clients: like clients; a_frozen: like is_frozen; a_feature: like the_feature; a_position: like position) is
 		do
-			feature_name := a_name
-			clients := a_feature_definition.clients
-			is_frozen := a_feature_definition.is_frozen
-			position := a_feature_definition.position
-			the_feature := a_feature_definition.the_feature
-		ensure
-			feature_name = a_name
-		end
+			make(a_name, a_type, a_clients, a_frozen, a_position)
+			the_feature := a_feature
+			if a_creation_clients /= Void then
+				set_creation_clients(a_creation_clients)
+			end
 
-	specialized (a_name: like feature_name; a_creation_clients: like creation_clients; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
-		do
-			make(a_name, a_clients, a_frozen, a_position)
-			set_creation_clients(a_creation_clients)
+			debug
+				debug_full_name := a_name.full_name.out
+			end
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	errors: LIBERTY_ERRORS
+
+	debug_full_name: STRING
 
 feature {ANY}
 	accept (v: VISITOR) is
@@ -434,5 +464,6 @@ feature {ANY}
 invariant
 	feature_name /= Void
 	clients /= Void
+	the_feature /= Void implies the_feature.current_type = current_type
 
 end

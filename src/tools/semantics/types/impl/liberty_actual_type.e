@@ -180,7 +180,7 @@ feature {ANY}
 					check
 						fn = fd.feature_name
 					end
-					fd.debug_display(o)
+					fd.debug_display(o, True)
 					i := i + 1
 				end
 			end
@@ -571,6 +571,9 @@ feature {}
 			visit := a_visit
 			create current_entity.make(Current, errors.unknown_position)
 			create result_entity.make(Current, errors.unknown_position)
+			debug
+				debug_full_name := full_name.out
+			end
 		ensure
 			descriptor = a_descriptor
 			conformance_checker = a_conformance_checker
@@ -598,11 +601,18 @@ feature {}
 
 	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]
 
+	debug_full_name: STRING
+
 invariant
 	descriptor /= Void
 	file /= Void
 	features /= Void
-	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.feature_name.is_equal(fn) end)
+	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is
+		do
+			Result := fd.feature_name.is_equal(fn)
+				and then fd.current_type = Current
+		end
+	)
 	parameters /= Void
 	visit /= Void
 

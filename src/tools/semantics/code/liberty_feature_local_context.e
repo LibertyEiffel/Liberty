@@ -166,6 +166,33 @@ feature {LIBERTY_FEATURE, LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 			Result.set_specialized_in(a_type)
 		end
 
+	debug_display_signature (o: OUTPUT_STREAM) is
+		local
+			i: INTEGER
+		do
+			if not parameters_list.is_empty then
+				o.put_character('(')
+				from
+					i := parameters_list.lower
+				until
+					i > parameters_list.upper
+				loop
+					if i > parameters_list.lower then
+						o.put_string(once "; ")
+					end
+					o.put_string(parameters_list.item(i).name)
+					o.put_string(once ": ")
+					o.put_string(parameters_list.item(i).result_type.full_name)
+					i := i + 1
+				end
+				o.put_character(')')
+			end
+			if result_type /= Void then
+				o.put_string(once ": ")
+				o.put_string(result_type.full_name)
+			end
+		end
+
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	set_specialized_in (a_type: like current_type) is
 		local

@@ -336,15 +336,16 @@ feature {}
 					if redefined = Void then
 						fd_parent := type.feature_definition(feature_name)
 						check
-							{LIBERTY_FEATURE_DEFERRED} ?:= fd_parent.the_feature
+							({LIBERTY_FEATURE_DEFERRED} ?:= fd_parent.the_feature)
+								or else ({LIBERTY_FEATURE_REDEFINED} ?:= fd_parent.the_feature)
 						end
 						if fd_parent.the_feature.definition_type = type then
 							--|*** TODO: warning or error?? an undefined feature should not be defined
 						end
-						create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
+						create fd.make(feature_name, type, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
 
-						if i = names.lower then
+						-- if i = names.lower then
 							debug
 								std_output.put_string(once " <=>  late binding down to ")
 								std_output.put_string(type.full_name)
@@ -352,11 +353,11 @@ feature {}
 								std_output.put_line(feature_name.full_name)
 							end
 							fd_parent.the_feature.bind(a_feature, type)
-						else
-							check
-								fd_parent.the_feature.bound(type) = a_feature
-							end
-						end
+						-- else
+						-- 	check
+						-- 		fd_parent.the_feature.bound(type) = a_feature
+						-- 	end
+						-- end
 
 						type.replace_feature(fd)
 					elseif redefined.redefined_feature = Void then
@@ -369,7 +370,7 @@ feature {}
 						errors.set(level_error, once "Duplicate feature: " + feature_name.name)
 					end
 				else
-					create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
+					create fd.make(feature_name, type, clients, name.is_frozen, feature_name.position)
 					fd.set_the_feature(a_feature)
 					type.add_feature(fd)
 				end

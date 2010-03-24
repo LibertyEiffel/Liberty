@@ -109,12 +109,15 @@ feature {}
 			loop
 				name := parent.features.key(i)
 				parent_fd := parent.features.item(i)
-				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
-				fd.add_precursor(parent_fd.the_feature, parent)
-				fd.set_the_feature(parent_fd.the_feature.specialized_in(type))
-				debug
-					std_output.put_string(once "Specialized")
-					fd.debug_display(std_output)
+				check
+					parent_fd.current_type = parent
+				end
+				fd := parent_fd.specialized_in(type)
+				check
+					fd /= parent_fd
+				end
+				if not fd.has_precursor(parent) then
+					fd.add_precursor(parent_fd.the_feature, parent)
 				end
 				pf.add(fd, name)
 				i := i + 1
@@ -139,25 +142,26 @@ feature {}
 				actual_fd := parent_features.reference_at(name)
 				if actual_fd = Void then
 					parent_features.add(fd, name)
-					actual_fd := fd
-					if not fd.the_feature.is_bound(type) then
-						debug
-							std_output.put_string(once " <=> ")
-							std_output.put_string(parent.full_name)
-							std_output.put_string(once ": late binding down to ")
-							std_output.put_string(type.full_name)
-							std_output.put_string(once " of feature ")
-							std_output.put_line(name.full_name)
-						end
-						fd.the_feature.bind(fd.the_feature, type)
+					debug
+						std_output.put_string(once " <=> ")
+						std_output.put_string(parent.full_name)
+						std_output.put_string(once ": late binding down to ")
+						std_output.put_string(type.full_name)
+						std_output.put_string(once " of feature ")
+						std_output.put_line(name.full_name)
 					end
+					fd.the_feature.bind(fd.the_feature, type)
+					actual_fd := fd
 				else
-					actual_fd.join(fd, parent, type)
+					actual_fd.join(fd, parent)
 					check
 						actual_fd.feature_name.is_equal(name)
 					end
 				end
 				actual_fd.the_feature.add_if_redefined(type, name, redefined_features)
+				check
+					actual_fd.has_precursor(parent)
+				end
 				i := i + 1
 			end
 		end
@@ -183,11 +187,11 @@ feature {}
 					fd2 := pf.reference_at(new_name)
 					if fd2 = Void then
 						pf.remove(old_name)
-						create fd.renamed(new_name, fd)
+						fd.re_name(new_name)
 						pf.add(fd, new_name)
 					else
 						pf.remove(old_name)
-						fd2.join(fd, parent, type)
+						fd2.join(fd, parent)
 						--|*** TODO: how to know that that particular join provoked an error?
 						--if errors.has_error then
 						--	errors.add_position(new_name.position)

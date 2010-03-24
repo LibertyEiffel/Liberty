@@ -38,6 +38,11 @@ feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
 			-- the type where the feature is written
 
+	current_type: LIBERTY_ACTUAL_TYPE is
+		do
+			Result := context.current_type
+		end
+
 	result_type: LIBERTY_TYPE is
 		require
 			has_context
@@ -173,6 +178,7 @@ feature {ANY}
 			t := t.substring(17, t.upper)
 			t.to_lower
 			o.put_string(t)
+			context.debug_display_signature(o)
 			o.put_character(' ')
 			o.put_character('@')
 			o.put_line(to_pointer.out)
