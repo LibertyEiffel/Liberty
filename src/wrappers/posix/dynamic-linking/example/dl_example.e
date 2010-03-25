@@ -1,15 +1,20 @@
 class DL_EXAMPLE
+	-- Example of dynamical linker loader interface. It should work out-of-the-box, but I found an nice SmartEiffel bug producing a wrong gcc command.
+
+	-- Compile it using the provided Makefile
 
 insert DYNAMIC_LINKING_LOADER; DL_FLAGS
 
 creation {ANY} make
 
-feature {} 
+feature {ANY}
+	lib: STRING is "libglib-2.0.so" 
+
 	make is
 		local dl: DL_LOADER
 		do
-			l := new_dynamic_shared_object("libglib-2.0.so", rtld_now)
-			l2 := dl.new_dynamic_shared_object("libglib-2.0.so", rtld_now)
+			l := new_dynamic_shared_object(lib, rtld_now)
+			l2 := dl.new_dynamic_shared_object(lib, rtld_now)
 
 			check
 				l ~ l2

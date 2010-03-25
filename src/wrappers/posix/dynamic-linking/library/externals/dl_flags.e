@@ -3,11 +3,13 @@ deferred class DL_FLAGS
 feature {ANY} -- Validity
 	are_valid_dlflags (a_value: INTEGER): BOOLEAN is
 		-- Are `a_value' valid flags to be used when creation a DYNAMIC_SHARED_OBJECT? 
+		local optionals: INTEGER
 		do
-			Result := -- Either lazy or now are required 
-			((a_value & rtld_lazy).to_boolean or (a_value & rtld_now).to_boolean) and
-			-- Any other of the know values is allowed
-			(a_value & (rtld_global|rtld_local| rtld_nodelete |rtld_noload |rtld_deepbind)).to_boolean
+			-- Any optional known value is allowed
+			optionals := rtld_global|rtld_local| rtld_nodelete |rtld_noload |rtld_deepbind
+			Result := (-- Either lazy or now are required 
+				(a_value & (rtld_lazy|optionals)).to_boolean or 
+				(a_value & (rtld_now |optionals)).to_boolean)
 		end
 
 feature {ANY} -- Required flags, either one must be specified

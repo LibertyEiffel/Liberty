@@ -9,8 +9,8 @@ insert
 	DLFCNEXTERNALS
 
 feature {ANY} -- Queries
-	library_exists (a_library: ABSTRACT_STRING): BOOLEAN is
-		-- Does `a_library' exists?
+	alreadey_loaded (a_library: ABSTRACT_STRING): BOOLEAN is
+		-- Has `a_library' already been loaded?
 
 		-- Note: this features require Glibc and is not POSIX
 	do
@@ -91,7 +91,6 @@ feature {ANY} -- Queries
 
 		require
 			a_filename/=Void
-			library_exists(a_filename)
 			are_valid_dlflags(some_flags)
 		local p: POINTER
 		do
