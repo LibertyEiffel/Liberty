@@ -1,10 +1,7 @@
-/* POSIX includes to be wrapped for Liberty Eiffel */
+/* POSIX include files to be wrapped for Liberty Eiffel */
 
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-// Here is a list of POSIX includes found in Wikipedia at http://en.wikipedia.org/wiki/C_POSIX_library
-// to be included later
+// This list was taken from Wikipedia (at http://en.wikipedia.org/wiki/C_POSIX_library )
+
 // #include <aio.h>
 // #include <arpa/inet.h>
 // #include <assert.h>
@@ -12,9 +9,10 @@
 // #include <cpio.h>
 // Also in standard C lib: #include <ctype.h>
 // #include <dirent.h>
+// Access to dynamic linking loader (provided by dlfcn.h) is provided by dynamic-linking (sub)cluster
 // #include <dlfcn.h>
 // Also in standard C lib: ##include <errno.h>
-// #include <fcntl.h>
+#include <fcntl.h>
 // #include <fenv.h>
 // Also in standard C lib: ##include <float.h>
 // #include <fmtmsg.h>
@@ -58,14 +56,14 @@
 // #include <strings.h>
 // #include <stropts.h>
 // #include <sys/ipc.h>
-// #include <sys/mman.h>
+#include <sys/mman.h>
 // #include <sys/msg.h>
 // #include <sys/resource.h>
 // #include <sys/select.h>
 // #include <sys/sem.h>
 // #include <sys/shm.h>
 // #include <sys/socket.h>
-// #include <sys/stat.h>
+#include <sys/stat.h>
 // #include <sys/statvfs.h>
 // #include <sys/time.h>
 // #include <sys/times.h>
