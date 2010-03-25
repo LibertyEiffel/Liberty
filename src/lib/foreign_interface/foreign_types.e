@@ -81,7 +81,7 @@ feature {ANY} -- Types
 			Result.set_ffi_type(ffi_type_schar, agent new_schar)
 		end
 
-   pointer: FOREIGN_TYPE is
+   c_string, pointer: FOREIGN_TYPE is
 		once
 			Result.set_ffi_type(ffi_type_pointer, agent new_pointer)
 		end
@@ -140,6 +140,12 @@ feature {ANY} -- Objects factory
    create_schar (data: CHARACTER): FOREIGN_OBJECT is
 		do
 			create {FOREIGN_TYPED_OBJECT[CHARACTER]} Result.make(schar, data)
+		end
+
+	create_string (a_string: ABSTRACT_STRING): FOREIGN_OBJECT is
+		-- A newly allocated FOREIGN_OBJECT referring to the interned buffer of `a_string'
+		do
+			create {FOREIGN_TYPED_OBJECT[POINTER]} Result.make(pointer, a_string.intern.to_external)
 		end
 
    create_pointer (data: POINTER): FOREIGN_OBJECT is
@@ -227,6 +233,14 @@ feature {} -- Objects conversion back from the external call
 
    new_pointer: FOREIGN_OBJECT is
 		local
+			data: POINTER
+		do
+			create {FOREIGN_TYPED_OBJECT[POINTER]} Result.make(pointer, data)
+		end
+
+	new_c_string: FOREIGN_OBJECT is
+		-- A 
+		local 
 			data: POINTER
 		do
 			create {FOREIGN_TYPED_OBJECT[POINTER]} Result.make(pointer, data)

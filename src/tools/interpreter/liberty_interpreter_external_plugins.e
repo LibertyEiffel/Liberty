@@ -20,6 +20,8 @@ create {LIBERTY_INTERPRETER}
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING) is
 		do
+			print("LIBERTY_INTERPRETER_EXTERNAL_PLUINGS.call("+plugin_call.out+","+plugin_spec+")%N")
+			print("Parameters: "+plugin_call.parameters.out+"; return type:"+plugin_call.returned_static_type.out+".%N")
 		end
 
 feature {}
