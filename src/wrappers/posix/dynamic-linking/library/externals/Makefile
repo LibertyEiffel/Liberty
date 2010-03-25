@@ -7,6 +7,6 @@ wrappers: dl.gcc-xml
 	wrappers-generator --local --directory . dl.gcc-xml /usr/include/dlfcn.h
 	# Add those when available: --typedefs POSIX_TYPES   
 
-dl.gcc-xml: plugin/c/liberty-dl.h
+dl.gcc-xml: plugin/c/liberty-dynamic-loader.h
 	gccxml plugin/c/liberty-dynamic-loader.h -fxml=dl.gcc-xml
 

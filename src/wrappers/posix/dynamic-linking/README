@@ -1,0 +1,5 @@
+Dynamical Linking loader, interface to dl library
+
+Currently I wrapped Glibc version using some of its specific features,
+specifically rtld_noload to implement the "library_exists" query that is used
+in precconditions.
