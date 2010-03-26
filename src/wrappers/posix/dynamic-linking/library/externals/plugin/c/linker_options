@@ -1,2 +1,2 @@
 [UNIX]
-dynload: -ldl
+dynload: "-ldl"
