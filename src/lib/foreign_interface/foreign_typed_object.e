@@ -12,15 +12,15 @@ creation {FOREIGN_TYPES}
 feature {ANY}
 	item: E_
 
-	set_item (a_item: like item) is
+	set_item (an_item: like item) is
 			-- Sets an item to this FOREIGN_TYPED_OBJECT.
 			-- If `an_item' exists then `an_item' must match the `type'.
 		require
-			a_type_matches_an_item: an_item /= Void implies match_type(type_of(an_item), type)
+			a_type_matches_an_item: an_item /= Void implies match_type(type_of(an_item))
 		do
-			item := a_item
+			item := an_item
 		ensure
-			item = a_item
+			item = an_item
 		end
 
 feature {FOREIGN_PARAMETERS, FOREIGN_AGENT}
@@ -34,7 +34,7 @@ feature {}
 			-- Create a FOREIGN_TYPED_OBJECT of `a_type' from `an_item'.
 			-- If `an_item' exists then `a_type' and `an_item' must match.
 		require
-			a_type_matches_an_item: an_item /= Void implies match_type(a_type, type_of(an_item))
+			a_type_matches_an_item: an_item /= Void implies a_type = type_of(an_item)
 		do
 			type := a_type
 			set_item(an_item)
@@ -53,7 +53,7 @@ feature {}
 		type := type_of(an_item)
 		set_item(an_item)
 	ensure
-		match_type(type, type_of(an_item))
+		match_type(type_of(an_item))
 		item = an_item
 	end
 
