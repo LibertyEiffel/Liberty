@@ -1,5 +1,7 @@
 ./lib/loadpath.se
-./wrappers/llvm/loadpath.se
-./wrappers/ffi/loadpath.se
+./wrappers/common/library/loadpath.se
+./wrappers/llvm/library/loadpath.se
+./wrappers/ffi/library/loadpath.se
+./wrappers/posix/dynamic-linking/library/loadpath.se
 ./tools/loadpath.se
 ./bootstrap/loadpath.se
