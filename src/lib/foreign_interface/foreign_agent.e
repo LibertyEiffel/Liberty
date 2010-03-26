@@ -21,6 +21,7 @@ feature {ANY}
 		do
 			Result := result_type.new
 			ffi_call.invoke(Result.as_pointer, parameters.as_arrayed_collection)
+			sedb_breakpoint
 		ensure
 			Result.match_type(result_type)
 		end

@@ -1,32 +1,9 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class FOREIGN_DLL_FUNCTION
+deferred class FOREIGN_DLL_HANDLER
 
-inherit
-	FOREIGN_AGENT
-		export {FOREIGN_DLL_HANDLER}
-			ffi_call, types
-		end
-
-creation {FOREIGN_DLL}
-	make
-
-feature {}
-	make (external_function: POINTER; a_parameter_types: like parameter_types; a_result_type: like result_type) is
-		require
-			external_function.is_not_null
-			a_parameter_types /= Void
-		do
-			parameter_types := a_parameter_types
-			result_type := a_result_type
-			prepare(external_function)
-		ensure
-			parameter_types = a_parameter_types
-			result_type = a_result_type
-		end
-
-end -- class FOREIGN_DLL_FUNCTION
+end -- class FOREIGN_DLL_HANDLER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

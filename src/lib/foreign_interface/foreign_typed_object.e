@@ -7,7 +7,10 @@ inherit
 	FOREIGN_OBJECT
 
 creation {FOREIGN_TYPES}
-	make, with
+	make
+
+create {ANY}
+	with
 
 feature {ANY}
 	item: E_
@@ -44,9 +47,12 @@ feature {}
 		end
 
 	with (an_item: like item) is
-		-- Creates a FOREIGN_TYPED_OBJECT from `an_item'. The actual type of `an_item' is discovered (computed)
-		-- at runtime. This requires CPU run-time; this cost may be avoided providing the correct type to `make'
-		-- creation feature which requires - as a precondition - it to be the correct type.
+			-- Creates a FOREIGN_TYPED_OBJECT from `an_item'. The actual type of `an_item' is discovered (computed)
+			-- at runtime. This requires CPU run-time; this cost may be avoided providing the correct type to `make'
+			-- creation feature which requires - as a precondition - it to be the correct type.
+			--
+			-- NOTE: this is not the preferred method. You should know the type of the objects you create and
+			-- use the "create" functions of FOREIGN_TYPES.
 	require
 		an_item /= Void
 	do

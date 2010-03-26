@@ -1,32 +1,43 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class FOREIGN_DLL_FUNCTION
+expanded class FOREIGN_DLL_LOADER
 
-inherit
-	FOREIGN_AGENT
-		export {FOREIGN_DLL_HANDLER}
-			ffi_call, types
-		end
+insert
+	DYNAMIC_LINKING_LOADER
 
-creation {FOREIGN_DLL}
-	make
-
-feature {}
-	make (external_function: POINTER; a_parameter_types: like parameter_types; a_result_type: like result_type) is
+feature {ANY}
+	library (filename: ABSTRACT_STRING): FOREIGN_DLL is
+			-- The Result may be Void if the library is not found.
 		require
-			external_function.is_not_null
-			a_parameter_types /= Void
+			filename /= Void
+		local
+			dllname: FIXED_STRING
+			dso: DYNAMIC_SHARED_OBJECT
 		do
-			parameter_types := a_parameter_types
-			result_type := a_result_type
-			prepare(external_function)
+			dllname := filename.intern
+			Result := loaded_dll.fast_reference_at(dllname)
+			if Result = Void then
+				dso := new_dynamic_shared_object(dllname, rtld_lazy | rtld_global | rtld_deepbind)
+				if dso /= Void then
+					check
+						dso.name = dllname
+					end
+					create Result.make(dso)
+					loaded_dll.put(Result, dllname)
+				end
+			end
 		ensure
-			parameter_types = a_parameter_types
-			result_type = a_result_type
+			Result /= Void implies Result.filename.is_equal(filename)
 		end
 
-end -- class FOREIGN_DLL_FUNCTION
+feature {FOREIGN_DLL_HANDLER}
+	loaded_dll: DICTIONARY[FOREIGN_DLL, FIXED_STRING] is
+		once
+			create {HASHED_DICTIONARY[FOREIGN_DLL, FIXED_STRING]} Result.with_capacity(2)
+		end
+
+end -- class FOREIGN_DLL_LOADER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
