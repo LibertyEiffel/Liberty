@@ -77,7 +77,6 @@ feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
 				Result := Current
 			else
 				create Result.make(t, name) -- ?????
-				sedb_breakpoint
 			end
 		end
 

@@ -29,7 +29,6 @@ feature {ANY}
 
 	current_type: LIBERTY_ACTUAL_TYPE
 
-feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := a_type.type_resolver
@@ -56,13 +55,11 @@ feature {}
 			fn: LIBERTY_FEATURE_NAME
 		do
 			if type_definition.is_like_current then
-				Result := current_type
+				create {LIBERTY_DELAYED_TYPE} Result.make(create {LIBERTY_DELAYED_RESOLVER_IN_TYPE}.like_current(current_type))
 			elseif type_definition.is_anchor then
 				-- like <feature>
 				create fn.make_from_ast_entity_name(type_definition.entity_anchor, current_type.ast, current_type.file)
-				if current_type.has_feature(fn) then
-					Result := current_type.feature_definition(fn).result_type
-				end
+				create {LIBERTY_DELAYED_TYPE} Result.make(create {LIBERTY_DELAYED_RESOLVER_IN_TYPE}.like_feature(current_type, fn))
 			else
 				Result := effective_parameters.fast_reference_at(type_definition.type_name.image.image.intern)
 				if Result = Void then

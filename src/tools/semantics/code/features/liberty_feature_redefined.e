@@ -140,11 +140,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			only_once: redefined_feature = Void
 			useful: a_feature /= Void
 		do
+			check
+				a_feature.type_resolver /= Void
+			end
+			type_resolver := a_feature.type_resolver
 			redefined_feature := a_feature
 			set_precondition(a_feature.precondition)
 			set_postcondition(a_feature.postcondition)
 			set_context(a_feature.context)
 			set_obsolete(a_feature.obsolete_message)
+			type_resolver.set_the_feature(Current, True)
 			torch.burn
 		ensure
 			redefined_feature = a_feature

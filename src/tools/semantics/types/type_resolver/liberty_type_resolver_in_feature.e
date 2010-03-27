@@ -24,10 +24,10 @@ creation {LIBERTY_FEATURE}
 	specialized
 
 feature {LIBERTY_FEATURE}
-	set_the_feature (a_feature: like the_feature) is
+	set_the_feature (a_feature: like the_feature; replace: BOOLEAN) is
 		require
 			a_feature.context = local_context
-			the_feature = Void
+			the_feature /= Void implies replace
 		do
 			the_feature := a_feature
 		ensure
@@ -58,7 +58,6 @@ feature {ANY}
 			end
 		end
 
-feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := the_feature.specialized_in(a_type).type_resolver
@@ -75,8 +74,6 @@ feature {}
 					not_yet_implemented
 				end
 				Result := local_context.result_type
-			elseif type_definition.is_like_current then
-				Result := local_context.current_type
 			elseif type_definition.is_like_entity then
 				-- If it's an anchor to a parameter or a local, resolve it immediately. (TODO: beware of cycles!)
 				-- Other cases will be caught by parent resolvers.
@@ -99,6 +96,7 @@ feature {}
 			check Result = Void end
 		end
 
+feature {}
 	make (a_feature_name: like feature_name; a_local_context: like local_context) is
 		require
 			a_feature_name /= Void
@@ -111,18 +109,21 @@ feature {}
 			local_context = a_local_context
 		end
 
-	specialized (a_feature_name: like feature_name; a_feature: like the_feature) is
+	specialized (a_feature_name: like feature_name; a_feature: like the_feature; a_parent: like parent) is
 		require
 			a_feature_name /= Void
 			a_feature /= Void
+			a_parent /= Void
 		do
 			feature_name := a_feature_name
 			local_context := a_feature.context
 			the_feature := a_feature
+			parent := a_parent
 		ensure
 			feature_name = a_feature_name
 			the_feature = a_feature
 			local_context = a_feature.context
+			parent = a_parent
 		end
 
 invariant

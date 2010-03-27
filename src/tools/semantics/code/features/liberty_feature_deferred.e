@@ -18,58 +18,18 @@ inherit
 	LIBERTY_FEATURE
 		rename
 			make as make_late_binding
-		redefine
-			debug_display, set_specialized_in
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	redefined_feature: LIBERTY_FEATURE
-
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		do
-			Precursor(o, tab)
-			if redefined_feature = Void then
-				tabulate(o, tab + 1)
-				o.put_line(once "(unknown or unattached redefined feature)")
-			else
-				redefined_feature.debug_display(o, tab + 1)
-			end
-		end
-
 	accept (v: VISITOR) is
 		local
 			v0: LIBERTY_FEATURE_DEFERRED_VISITOR
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_deferred(Current)
-		end
-
-feature {LIBERTY_FEATURE}
-	set_specialized_in (a_context: like context) is
-		do
-			Precursor(a_context)
-			if redefined_feature /= Void then
-				redefined_feature := redefined_feature.specialized_in(a_context.current_type)
-			end
-		end
-
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	set_redefined_feature (a_feature: like redefined_feature) is
-		require
-			only_once: redefined_feature = Void
-			useful: a_feature /= Void
-		do
-			redefined_feature := a_feature
-			set_precondition(a_feature.precondition)
-			set_postcondition(a_feature.postcondition)
-			set_context(a_feature.context)
-			set_obsolete(a_feature.obsolete_message)
-			torch.burn
-		ensure
-			redefined_feature = a_feature
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

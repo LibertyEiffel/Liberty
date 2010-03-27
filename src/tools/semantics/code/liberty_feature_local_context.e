@@ -197,6 +197,8 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	set_specialized_in (a_type: like current_type) is
 		local
 			i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
+			pl: like parameters_list; pm: like parameters_map
+			ll: like locals_list; lm: like locals_map
 		do
 			current_entity := a_type.current_entity
 
@@ -205,25 +207,49 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 			end
 
 			from
-				i := parameters_list.lower
+				pl := parameters_list
+				pm := parameters_map
+				i := pl.lower
 			until
-				i > parameters_list.upper
+				i > pl.upper
 			loop
-				p := parameters_list.item(i).specialized_in(a_type)
-				parameters_list.put(p, i)
-				parameters_map.put(p, p.name)
+				p := pl.item(i).specialized_in(a_type)
+				if p /= pl.item(i) then
+					if pl = parameters_list then
+						pl := pl.twin
+						pm := pm.twin
+					end
+					pl.put(p, i)
+					pm.put(p, p.name)
+				end
 				i := i + 1
+			end
+			if pl /= parameters_list then
+				parameters_list := pl
+				parameters_map := pm
 			end
 
 			from
-				i := locals_list.lower
+				ll := locals_list
+				lm := locals_map
+				i := ll.lower
 			until
-				i > locals_list.upper
+				i > ll.upper
 			loop
-				l := locals_list.item(i).specialized_in(a_type)
-				locals_list.put(l, i)
-				locals_map.put(l, l.name)
+				l := ll.item(i).specialized_in(a_type)
+				if l /= ll.item(i) then
+					if ll = locals_list then
+						ll := ll.twin
+						lm := lm.twin
+					end
+					ll.put(l, i)
+					lm.put(l, l.name)
+				end
 				i := i + 1
+			end
+			if ll /= locals_list then
+				locals_list := ll
+				locals_map := lm
 			end
 
 			--|*** TODO: retries

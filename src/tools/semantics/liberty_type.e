@@ -47,8 +47,6 @@ feature {ANY}
 		end
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
 		deferred
 		ensure
 			Result /= Void

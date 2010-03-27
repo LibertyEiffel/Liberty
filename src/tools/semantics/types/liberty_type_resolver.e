@@ -20,6 +20,8 @@ insert
 		end
 
 feature {ANY}
+	parent: LIBERTY_TYPE_RESOLVER
+
 	type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 			-- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
 			-- or not.
@@ -61,6 +63,14 @@ feature {ANY}
 			Result /= Void
 		end
 
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		deferred
+		ensure
+			Result /= Void
+		end
+
 feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		do
@@ -68,14 +78,6 @@ feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 			if Result = Void and then parent /= Void then
 				Result := parent.undelayed_type(type_definition)
 			end
-		end
-
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		deferred
-		ensure
-			Result /= Void
 		end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_DELAYED_TYPE}
@@ -92,13 +94,13 @@ feature {}
 
 feature {LIBERTY_TYPE_LOOKUP}
 	set_parent (a_parent: like parent) is
+		require
+			dont_change_parent: parent = Void or else parent = a_parent
 		do
 			parent := a_parent
 		ensure
 			parent = a_parent
 		end
-
-	parent: LIBERTY_TYPE_RESOLVER
 
 feature {}
 	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is

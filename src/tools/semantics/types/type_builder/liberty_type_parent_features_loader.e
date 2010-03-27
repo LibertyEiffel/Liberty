@@ -269,11 +269,12 @@ feature {}
 					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
-					inherited_feature := fd.the_feature
+					inherited_feature := fd.the_feature.specialized_in(type)
 					create deferred_feature.make(type)
 					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
-					deferred_feature.set_context(inherited_feature.context.specialized_in(type))
+					deferred_feature.set_context(inherited_feature.context)
+					deferred_feature.set_type_resolver(inherited_feature.type_resolver, True)
 					debug
 						std_output.put_string(once " <=> ")
 						std_output.put_string(parent.full_name)
@@ -311,12 +312,13 @@ feature {}
 						errors.add_position(feature_name.position)
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
-						inherited_feature := fd.the_feature
-						if not inherited_feature.is_bound(type) or else inherited_feature.bound(type).id = inherited_feature.id then
+						inherited_feature := fd.the_feature.specialized_in(type)
+						if inherited_feature.bound(type).id = inherited_feature.id then
 							create {LIBERTY_FEATURE_REDEFINED} redefined_feature.make(type)
 							redefined_feature.set_precondition(inherited_feature.precondition)
 							redefined_feature.set_postcondition(inherited_feature.postcondition)
-							redefined_feature.set_context(inherited_feature.context.specialized_in(type))
+							redefined_feature.set_context(inherited_feature.context)
+							redefined_feature.set_type_resolver(inherited_feature.type_resolver, True)
 							debug
 								std_output.put_string(once " <=> ")
 								std_output.put_string(parent.full_name)

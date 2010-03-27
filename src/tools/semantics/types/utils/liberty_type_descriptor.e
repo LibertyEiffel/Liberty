@@ -69,11 +69,7 @@ feature {ANY}
 				not Result or else i > parameters.upper
 			loop
 				o := i - parameters.lower + other.parameters.lower
-				if parameters.item(i).is_actual_type_set and then other.parameters.item(o).is_actual_type_set then
-					Result := parameters.item(i).actual_type.is_equal(other.parameters.item(o).actual_type)
-				else
-					Result := False
-				end
+				Result := parameters.item(i) = other.parameters.item(o)
 				i := i + 1
 			end
 		end

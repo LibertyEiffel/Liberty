@@ -31,7 +31,6 @@ feature {ANY}
 			tagged_out_memory.append(once "resolver in universe")
 		end
 
-feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := Current

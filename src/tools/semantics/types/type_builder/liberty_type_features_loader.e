@@ -127,20 +127,16 @@ feature {}
 					elseif a_feature.is_unique then
 						create {LIBERTY_FEATURE_UNIQUE} the_feature.make(type)
 					else
-						if a_feature.signature.has_parameters then
-							--|*** TODO: error: an attribute cannot have parameters!
-							not_yet_implemented
-						end
 						create {LIBERTY_FEATURE_ATTRIBUTE} the_feature.make(type)
 					end
 				end
 			end
+
 			if not errors.has_error then
 				the_feature.set_context(local_context)
+				the_feature.set_type_resolver(type_resolver, False)
 				add_feature_definition(the_feature, a_feature.signature.feature_names, clients)
 			end
-
-			the_feature.set_type_resolver(type_resolver)
 
 			type_lookup.pop
 		end
@@ -337,7 +333,7 @@ feature {}
 						fd_parent := type.feature_definition(feature_name)
 						check
 							({LIBERTY_FEATURE_DEFERRED} ?:= fd_parent.the_feature)
-								or else ({LIBERTY_FEATURE_REDEFINED} ?:= fd_parent.the_feature)
+								or else ({LIBERTY_FEATURE_REDEFINED} ?:= fd_parent.the_feature) -- in that case the redefined_feature is a DEFERRED
 						end
 						if fd_parent.the_feature.definition_type = type then
 							--|*** TODO: warning or error?? an undefined feature should not be defined

@@ -94,22 +94,33 @@ feature {ANY}
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
+		local
+			i: INTEGER
 		do
-			if not is_reachable then
-				debug
-					std_output.put_string(once "Marked reachable the feature: ")
-					std_output.put_line(out)
+			if current_type.is_reachable then
+				if not is_reachable then
+					debug
+						std_output.put_string(once "Marked reachable the feature: ")
+						std_output.put_line(out)
+					end
+					torch.burn
 				end
-				torch.burn
-			end
-			if reachable_mark < mark then
-				reachable_mark := mark
-				definition_type.mark_reachable_code(mark)
-				if precondition /= Void then
-					precondition.mark_reachable_code(mark)
-				end
-				if postcondition /= Void then
-					postcondition.mark_reachable_code(mark)
+				if reachable_mark < mark then
+					reachable_mark := mark
+					if precondition /= Void then
+						precondition.mark_reachable_code(mark)
+					end
+					if postcondition /= Void then
+						postcondition.mark_reachable_code(mark)
+					end
+					from
+						i := late_binding.lower
+					until
+						i > late_binding.upper
+					loop
+						late_binding.item(i).mark_reachable_code(mark)
+						i := i + 1
+					end
 				end
 			end
 		end
@@ -319,7 +330,7 @@ feature {ANY}
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
-			if a_type = context.current_type then
+			if a_type = current_type or else not a_type.is_child_of(current_type) then
 				Result := Current
 			else
 				Result ::= specialized.fast_reference_at(a_type)
@@ -347,9 +358,8 @@ feature {LIBERTY_FEATURE}
 	set_specialized_in (a_context: like context) is
 		do
 			context := a_context
-			if type_resolver /= Void then
-				create type_resolver.specialized(type_resolver.feature_name, Current)
-			end
+			check type_resolver /= Void end
+			create type_resolver.specialized(type_resolver.feature_name, Current, type_resolver.parent.specialized_in(a_context.current_type))
 			if precondition /= Void then
 				precondition := precondition.specialized_in(a_context.current_type)
 			end
@@ -428,16 +438,19 @@ feature {LIBERTY_FEATURE}
 			-- Anti-recursion security
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
-	set_type_resolver (a_type_resolver: like type_resolver) is
+	set_type_resolver (a_type_resolver: like type_resolver; replace: BOOLEAN) is
 		require
 			a_type_resolver.local_context = context
-			a_type_resolver.the_feature = Void
+			a_type_resolver.the_feature /= Void implies replace
 			type_resolver = Void
 		do
-			a_type_resolver.set_the_feature(Current)
+			if replace or else a_type_resolver.the_feature = Void then
+				a_type_resolver.set_the_feature(Current, replace)
+			end
 			type_resolver := a_type_resolver
 		ensure
 			type_resolver = a_type_resolver
+			replace implies type_resolver.the_feature = Current
 		end
 
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is

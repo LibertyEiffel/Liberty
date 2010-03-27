@@ -77,7 +77,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			old_mark := reachable_mark
 			Precursor(mark)
-			if old_mark < mark and then actual_type /= Void then
+			if old_mark < mark and then is_actual_type_set then
 				actual_type.mark_reachable_code(mark)
 			end
 		end
@@ -93,7 +93,7 @@ feature {LIBERTY_UNIVERSE}
 		require
 			not is_actual_type_set
 		do
-			Result := is_reachable and then delayed_resolver.can_resolve
+			Result := delayed_resolver.can_resolve
 		end
 
 	resolve is

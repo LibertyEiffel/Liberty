@@ -289,6 +289,10 @@ feature {}
 					delayed_types.remove_first
 					if delayed_type.can_resolve then
 						delayed_type.resolve
+						debug
+							std_output.put_string(once " ===> resolved ")
+							std_output.put_line(delayed_type.out)
+						end
 						more := True
 					else
 						delayed_types.add_last(delayed_type)
@@ -866,7 +870,7 @@ feature {}
 			type_lookup.set_universe(Current)
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
-			create {LIBERTY_TYPE_DESCRIPTOR_DICTIONARY[LIBERTY_ACTUAL_TYPE]} types.with_capacity(default_type_capacity)
+			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
 			create types_incubator.with_capacity(default_type_capacity, 0)
 			create tr.make(Current)
 			type_lookup.push(tr)

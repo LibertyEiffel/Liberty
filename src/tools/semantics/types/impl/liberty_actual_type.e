@@ -267,7 +267,7 @@ feature {ANY} -- Inheritance
 						i := i + 1
 					end
 				end
-				if Result then
+				if Result and then name = other.name then
 					Result := conformance_checker.inserts(other, Current)
 				end
 			end
