@@ -271,7 +271,7 @@ feature {}
 		local
 			delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE]
 			delayed_type: LIBERTY_DELAYED_TYPE
-			n: INTEGER; more: BOOLEAN
+			i, n: INTEGER; more: BOOLEAN
 		do
 			delayed_types := type_lookup.resolver.delayed_types
 			from
@@ -301,6 +301,15 @@ feature {}
 				end
 			end
 			debug
+				std_output.put_line(once "======================================================================")
+				from
+					i := delayed_types.lower
+				until
+					i > delayed_types.upper
+				loop
+					std_output.put_line(delayed_types.item(i).out)
+					i := i + 1
+				end
 				std_output.put_string(once " === ")
 				std_output.put_integer(delayed_types.count)
 				if delayed_types.count = 1 then

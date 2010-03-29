@@ -32,6 +32,10 @@ feature {ANY}
 	out_in_tagged_out_memory is
 		do
 			current_type.out_in_tagged_out_memory
+			if feature_name /= Void then
+				tagged_out_memory.append(once ".")
+				feature_name.out_in_tagged_out_memory
+			end
 		end
 
 	hash_code: INTEGER is
@@ -48,13 +52,20 @@ feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is
 		local
 			fd: LIBERTY_FEATURE_DEFINITION
+			bound_feature: LIBERTY_FEATURE
 		do
 			if feature_name = Void then
 				Result := True
 			elseif current_type.has_feature(feature_name) then
 				fd := definition_type.feature_definition(feature_name)
-				Result := fd.the_feature.is_bound(current_type)
-					and then fd.the_feature.bound(current_type).result_type.is_actual_type_set
+				if definition_type = current_type then
+					bound_feature := fd.the_feature
+				elseif fd.the_feature.is_bound(current_type) then
+					bound_feature := fd.the_feature.bound(current_type)
+				end
+				if bound_feature /= Void then
+					Result := bound_feature.result_type.is_actual_type_set
+				end
 			end
 		end
 
