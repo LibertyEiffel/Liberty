@@ -690,14 +690,16 @@ feature {} -- Instructions
 		local
 			l00p: LIBERTY_AST_LOOP
 			init, body: like compound
-			exp, variant_clause: LIBERTY_EXPRESSION
+			exp, var: LIBERTY_EXPRESSION
+			variant_clause: LIBERTY_VARIANT
 			invariant_clause: LIBERTY_INVARIANT
 		do
 			l00p ::= a_loop
 			init := compound(l00p.from_clause.instructions, local_context)
 			invariant_clause := loop_invariant(l00p.invariant_clause, local_context)
 			if l00p.variant_clause.has_expression then
-				variant_clause := expression(l00p.variant_clause.expression, local_context)
+				var := expression(l00p.variant_clause.expression, local_context)
+				create variant_clause.make(var)
 			end
 			exp := expression(l00p.expression, local_context)
 			body := compound(l00p.instructions, local_context)

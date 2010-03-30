@@ -32,11 +32,6 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
 			end
 		end
 
-	gather_old (contract: LIBERTY_ASSERTIONS) is
-		do
-			browser.gather_old(contract)
-		end
-
 feature {LIBERTY_ASSERTIONS_AND_THEN}
 	visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN) is
 		do
@@ -143,17 +138,14 @@ feature {}
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
-			create browser.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 	failed_tag: FIXED_STRING
-	browser: LIBERTY_INTERPRETER_POSTCONDITION_BROWSER
 
 invariant
 	interpreter /= Void
-	browser /= Void
 
 end -- class LIBERTY_INTERPRETER_ASSERTION_CHECKER

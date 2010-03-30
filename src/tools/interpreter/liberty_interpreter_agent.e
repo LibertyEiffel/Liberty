@@ -21,7 +21,7 @@ creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
 	make
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		do
 			Result := other = Current
 		end

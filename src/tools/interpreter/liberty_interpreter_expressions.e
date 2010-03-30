@@ -89,11 +89,6 @@ feature {LIBERTY_CALL_EXPRESSION}
 			if v.is_implicit_current then
 				eval_memory := interpreter.item_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else
-				debug
-					if interpreter.expressions /= Current then
-						sedb_breakpoint
-					end
-				end
 				v.target.accept(Current)
 				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
 			end

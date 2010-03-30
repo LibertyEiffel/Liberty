@@ -21,10 +21,10 @@ inherit
 		end
 	LIBERTY_ASSERTION_VISITOR
 
-creation {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
+creation {LIBERTY_INTERPRETER}
 	make
 
-feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
+feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	gather_old (contract: LIBERTY_ASSERTIONS) is
 		do
 			if contract /= Void then

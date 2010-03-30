@@ -85,7 +85,7 @@ feature {ANY}
 		end
 
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
-	expressions: LIBERTY_INTERPRETER_EXPRESSIONS
+	expressions_memory: LIBERTY_INTERPRETER_EXPRESSIONS
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
 	creator: LIBERTY_INTERPRETER_OBJECT_CREATOR
 	array_creator: LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR
@@ -93,8 +93,20 @@ feature {ANY}
 	plugins: LIBERTY_INTERPRETER_EXTERNAL_PLUGINS
 	object_printer: LIBERTY_INTERPRETER_OBJECT_PRINTER
 	object_converter: LIBERTY_INTERPRETER_OBJECT_CONVERTER
+	postcondition_browser: LIBERTY_INTERPRETER_POSTCONDITION_BROWSER
 
 	universe: LIBERTY_UNIVERSE
+
+	expressions: LIBERTY_INTERPRETER_EXPRESSIONS is
+		do
+			if gathering_old_values then
+				Result := postcondition_browser
+			else
+				Result := expressions_memory
+			end
+		ensure
+			Result /= Void
+		end
 
 	call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
 		local
@@ -333,7 +345,6 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 			end
 		ensure
 			gathering_old_values
-			evaluating_old_value
 		end
 
 	evaluating_old_value: BOOLEAN is
@@ -566,7 +577,8 @@ feature {}
 			root_feature := a_root_type.feature_definition(a_root_feature_name)
 
 			create instructions.make(Current)
-			create expressions.make(Current)
+			create expressions_memory.make(Current)
+			create postcondition_browser.make(Current)
 			create assertions.make(Current)
 			create creator.make(Current)
 			create array_creator.make(Current)
@@ -619,7 +631,7 @@ feature {}
 
 invariant
 	instructions /= Void
-	expressions /= Void
+	expressions_memory /= Void
 	assertions /= Void
 	creator /= Void
 	call_stack /= Void
@@ -627,5 +639,6 @@ invariant
 	native_array_of_character /= Void
 	feature_evaluating_parameters /= Void
 	evaluating_old_value_stack /= Void
+	postcondition_browser /= Void
 
 end -- class LIBERTY_INTERPRETER

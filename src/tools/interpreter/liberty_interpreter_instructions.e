@@ -274,13 +274,12 @@ feature {LIBERTY_VARIANT}
 			exp_variant: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
 			v.expression.accept(interpreter.expressions)
+			exp_variant ::= interpreter.expressions.eval_as_right_value
 			if loop_variant_stack.last = Void then
-				exp_variant ::= interpreter.expressions.eval_as_right_value
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			elseif exp_variant.item >= loop_variant_stack.last.item then
 				interpreter.fatal_error("Variant failed")
 			else
-				exp_variant ::= interpreter.expressions.eval_as_right_value
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			end
 		end

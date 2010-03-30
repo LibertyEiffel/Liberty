@@ -49,6 +49,11 @@ feature {LIBERTY_INTERPRETER}
 				debug_step(once"Calling the feature")
 			end
 			bound_feature.accept(Current)
+			if parameters = Void then
+				-- Can happen only when semi-evaluated built-in externals are used
+				-- In that case the postcondition must not depend on the arguments...
+				prepare_postcondition
+			end
 			check_postcondition
 			check_invariant
 		end
@@ -236,7 +241,9 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 			fn: LIBERTY_FEATURE_NAME
 		do
-			if not prepare then
+			if prepare then
+				evaluate_parameters
+			else
 				if t ?:= target then
 					t ::= target
 					if t.has_attribute(name) then
@@ -261,7 +268,9 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 feature {LIBERTY_FEATURE_CONSTANT}
 	visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT) is
 		do
-			if not prepare then
+			if prepare then
+				evaluate_parameters
+			else
 				v.expression.accept(interpreter.expressions)
 				set_returned_object(interpreter.expressions.eval_as_right_value)
 			end
@@ -338,7 +347,9 @@ feature {LIBERTY_FEATURE_REDEFINED}
 feature {LIBERTY_FEATURE_UNIQUE}
 	visit_liberty_feature_unique (v: LIBERTY_FEATURE_UNIQUE) is
 		do
-			if not prepare then
+			if prepare then
+				evaluate_parameters
+			else
 				not_yet_implemented
 			end
 		end
@@ -549,7 +560,7 @@ feature {}
 			debug
 				debug_step(once "Preparing postcondition (gathering old values)")
 			end
-			interpreter.assertions.gather_old(bound_feature.postcondition)
+			interpreter.postcondition_browser.gather_old(bound_feature.postcondition)
 			debug
 				debug_step(once "Done preparing postcondition (gathering old values)")
 			end

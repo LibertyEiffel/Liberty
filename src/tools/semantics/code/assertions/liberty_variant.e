@@ -17,7 +17,7 @@ class LIBERTY_VARIANT
 insert
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_VARIANT}
 	make
 
 feature {ANY}
@@ -27,6 +27,23 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
 			expression.mark_reachable_code(mark)
+		end
+
+feature {LIBERTY_LOOP}
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+		require
+			a_type /= Void
+		local
+			e: like expression
+		do
+			e := expression.specialized_in(a_type)
+			if e = expression then
+				Result := Current
+			else
+				create Result.make(expression)
+			end
+		ensure
+			Result /= Void
 		end
 
 feature {}
