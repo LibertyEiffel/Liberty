@@ -19,6 +19,10 @@ feature {LIBERTY_UNIVERSE}
 		deferred
 		end
 
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+		deferred
+		end
+
 	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		deferred
 		end

@@ -36,6 +36,11 @@ feature {LIBERTY_UNIVERSE}
 			check False end
 		end
 
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check False end
+		end
+
 	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER]} last_created.make(interpreter, type, position)

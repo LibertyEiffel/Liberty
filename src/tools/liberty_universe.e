@@ -66,6 +66,13 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("ANY", visit_type_any)
 		end
 
+	type_platform: LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("PLATFORM", visit_type_platform)
+		end
+
 	type_pointer: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
@@ -597,6 +604,8 @@ feature {LIBERTY_TYPE_RESOLVER}
 				Result := type_integer_8
 			when "ANY" then
 				Result := type_any
+			when "PLATFORM" then
+				Result := type_platform
 			when "REAL" then
 				Result := type_real
 			when "REAL_32" then
@@ -915,6 +924,11 @@ feature {}
 	visit_type_any: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_any
+		end
+
+	visit_type_platform: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_platform
 		end
 
 	visit_type_pointer: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is

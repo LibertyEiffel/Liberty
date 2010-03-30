@@ -40,6 +40,11 @@ feature {LIBERTY_UNIVERSE}
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_any(?, position), agent store_any)
 		end
 
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check False end
+		end
+
 	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[POINTER]} last_accessor.make(agent retrieve_pointer(?, position), agent store_pointer)

@@ -41,6 +41,11 @@ feature {LIBERTY_UNIVERSE}
 			check False end
 		end
 
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			check False end
+		end
+
 	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[POINTER]} last_created.make(interpreter, array_type, type, capacity, position)

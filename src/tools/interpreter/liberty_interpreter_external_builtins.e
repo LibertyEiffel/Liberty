@@ -42,6 +42,7 @@ feature {}
 		do
 			interpreter := a_interpreter
 			create type_any_builtins.make(a_interpreter)
+			create type_platform_builtins.make(a_interpreter)
 			create type_pointer_builtins.make(a_interpreter)
 			create type_integer_64_builtins.make(a_interpreter)
 			create type_integer_32_builtins.make(a_interpreter)
@@ -69,6 +70,7 @@ feature {}
 	last_call_failed: BOOLEAN
 
 	type_any_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS
+	type_platform_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_PLATFORM_BUILTINS
 	type_pointer_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_POINTER_BUILTINS
 	type_integer_64_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_64_BUILTINS
 	type_integer_32_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_32_BUILTINS
@@ -99,6 +101,20 @@ feature {LIBERTY_UNIVERSE}
 			bc := builtin_call
 			ret := type_any_builtins.call(bc)
 			if type_any_builtins.last_call_failed then
+				last_call_failed := True
+			else
+				bc.set_returned_object(ret)
+			end
+		end
+
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+		local
+			ret: LIBERTY_INTERPRETER_OBJECT
+			bc: like builtin_call
+		do
+			bc := builtin_call
+			ret := type_platform_builtins.call(bc)
+			if type_platform_builtins.last_call_failed then
 				last_call_failed := True
 			else
 				bc.set_returned_object(ret)
