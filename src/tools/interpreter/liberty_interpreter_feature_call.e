@@ -323,17 +323,17 @@ feature {LIBERTY_FEATURE_EXTERNAL}
 feature {LIBERTY_FEATURE_ONCE}
 	visit_liberty_feature_once (v: LIBERTY_FEATURE_ONCE) is
 		local
-			once_value_ref: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT]
+			tags: LIBERTY_TAGS
 		do
 			if prepare then
 				evaluate_parameters
 				prepare_local_map(v)
 			else
-				if once_value_ref.is_set(v) then
-					set_returned_object(once_value_ref.value(v))
+				if tags.once_flag.is_set(v) then
+					set_returned_object(tags.once_flag.value(v))
 				else
 					v.block_instruction.accept(interpreter.instructions)
-					once_value_ref.add(returned_object, v)
+					tags.once_flag.add(returned_object, v)
 				end
 			end
 		end
