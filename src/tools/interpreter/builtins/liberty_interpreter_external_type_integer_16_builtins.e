@@ -27,11 +27,8 @@ feature {}
 		end
 
 	left, target: INTEGER_16 is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
 		do
-			obj ::= builtin_call.target
-			Result := obj.item.to_integer_16
+			Result := int64_target.to_integer_16
 		end
 
 	right: INTEGER_16 is
