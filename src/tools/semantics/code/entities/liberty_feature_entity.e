@@ -122,7 +122,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			rt: like result_type
 		do
 			if not is_reachable then
-				debug
+				debug ("mark.reachable")
 					std_output.put_string(once "Marked reachable the feature entity {")
 					std_output.put_string(target_type.full_name)
 					std_output.put_string(once "}.")

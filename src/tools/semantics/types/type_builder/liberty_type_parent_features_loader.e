@@ -142,7 +142,7 @@ feature {}
 				actual_fd := parent_features.reference_at(name)
 				if actual_fd = Void then
 					parent_features.add(fd, name)
-					debug
+					debug ("type.building.internals")
 						std_output.put_string(once " <=> ")
 						std_output.put_string(parent.full_name)
 						std_output.put_string(once ": late binding down to ")
@@ -275,7 +275,7 @@ feature {}
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_context(inherited_feature.context)
 					deferred_feature.set_type_resolver(inherited_feature.type_resolver, True)
-					debug
+					debug ("type.building.internals")
 						std_output.put_string(once " <=> ")
 						std_output.put_string(parent.full_name)
 						std_output.put_string(once ": late binding down to ")
@@ -319,7 +319,7 @@ feature {}
 							redefined_feature.set_postcondition(inherited_feature.postcondition)
 							redefined_feature.set_context(inherited_feature.context)
 							redefined_feature.set_type_resolver(inherited_feature.type_resolver, True)
-							debug
+							debug ("type.building.internals")
 								std_output.put_string(once " <=> ")
 								std_output.put_string(parent.full_name)
 								std_output.put_string(once ": late binding down to ")

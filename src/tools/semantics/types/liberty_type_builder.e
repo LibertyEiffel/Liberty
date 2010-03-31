@@ -84,7 +84,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- Initialize the type using its header: check the name and compare the formal type parameters to the
 			-- given effective parameters.
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": init header")
 			end
@@ -107,7 +107,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": load parents")
 			end
@@ -131,14 +131,14 @@ feature {LIBERTY_TYPE_BUILDER}
 			if not errors.has_error then
 				Result := check_have_loaded_features(type.conformant_parents)
 					and then check_have_loaded_features(type.non_conformant_parents)
-				debug
+				debug ("type.building")
 					if Result then
 						std_output.put_string(type.name)
 						std_output.put_line(once " can load its parent features")
 					end
 				end
 			end
-			debug
+			debug ("type.building")
 				if not Result then
 					std_output.put_string(type.full_name)
 					std_output.put_line(once " cannot load its parent features yet")
@@ -156,7 +156,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			check
 				redefined_features = no_redefined_features
 			end
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": load parent features")
 			end
@@ -171,14 +171,14 @@ feature {LIBERTY_TYPE_BUILDER}
 		require
 			type.is_reachable
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": load features")
 			end
 			create features_loader.make(Current, current_entity, universe, effective_generic_parameters, redefined_features)
 			features_loader.load
 			has_loaded_features := True
-			debug
+			debug ("type.building")
 				type.debug_display(std_output, True)
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": features loaded")
@@ -193,7 +193,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		require
 			type.is_reachable
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": check type")
 			end
@@ -244,7 +244,7 @@ feature {}
 				not Result or else i > parents.upper
 			loop
 				Result := parents.item(i).has_loaded_features
-				debug
+				debug ("type.building")
 					if not Result then
 						std_output.put_line(type.full_name + ": waiting for its parent " + parents.item(i).full_name
 												  + " to having loaded its features")
@@ -275,7 +275,7 @@ feature {LIBERTY_TYPE_INIT}
 		require
 			useful: not effective.is_empty
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(type.full_name)
 				std_output.put_string(once ": computed effective generic parameters: ")
 				std_output.put_line(effective.out)

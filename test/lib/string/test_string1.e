@@ -159,6 +159,7 @@ feature {ANY}
 				std_output.put_string("TEST_STRING1: ERROR Test # ")
 				std_output.put_integer(cpt)
 				std_output.put_string("%N")
+				sedb_breakpoint
 			end
 		end
 

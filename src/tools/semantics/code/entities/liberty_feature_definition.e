@@ -96,7 +96,7 @@ feature {ANY}
 			cl, ccl: COLLECTION[LIBERTY_TYPE]
 			f: like the_feature
 		do
-			debug
+			debug ("feature.specialization")
 				std_output.put_string(once "Specializing in ")
 				std_output.put_string(a_type.full_name)
 				debug_display(std_output, False)
@@ -114,7 +114,7 @@ feature {ANY}
 			else
 				create Result.specialized(feature_name, a_type, ccl, cl, is_frozen, f, position)
 			end
-			debug
+			debug ("feature.specialization")
 				std_output.put_string(once "Specialized in ")
 				std_output.put_string(a_type.full_name)
 				debug_display(std_output, True)
@@ -151,7 +151,7 @@ feature {LIBERTY_UNIVERSE}
 	set_reachable (mark: like reachable_mark) is
 		do
 			if not is_reachable then
-				debug
+				debug ("mark.reachable")
 					std_output.put_string(once "Marked reachable the feature definition: ")
 					std_output.put_line(feature_name.name)
 				end
@@ -296,7 +296,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 	fatal_join_error_redefined_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(once "Cannot join redefined feature ")
 				std_output.put_string(feature_name.name)
 				std_output.put_string(once " from ")
@@ -323,7 +323,7 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 
 	fatal_join_error_concrete_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
-			debug
+			debug ("type.building")
 				std_output.put_string(once "Cannot join concrete feature ")
 				std_output.put_string(feature_name.name)
 				std_output.put_string(once " from ")
@@ -422,7 +422,7 @@ feature {}
 			is_frozen := a_frozen
 			position := a_position
 
-			debug
+			debug ("full_name")
 				debug_full_name := a_name.full_name.out
 			end
 		ensure
@@ -441,7 +441,7 @@ feature {}
 				set_creation_clients(a_creation_clients)
 			end
 
-			debug
+			debug ("full_name")
 				debug_full_name := a_name.full_name.out
 			end
 		end

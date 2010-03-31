@@ -45,7 +45,7 @@ feature {LIBERTY_INTERPRETER}
 			prepare := False
 			check_invariant
 			check_precondition
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once"Calling the feature")
 			end
 			bound_feature.accept(Current)
@@ -85,7 +85,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 				interpreter.unset_evaluating_parameters(Current)
 
 				prepare_parameter_map(bound_feature)
-				debug
+				debug ("interpreter.call.internals")
 					show_parameter_map(std_output)
 					std_output.put_new_line
 				end
@@ -102,7 +102,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 				check a_returned_object = Void end
 			else
 				returned_object := a_returned_object
-				debug
+				debug ("interpreter.call.internals")
 					std_output.put_string(once " >>> Feature ")
 					std_output.put_string(name)
 					std_output.put_string(once " @")
@@ -518,7 +518,7 @@ feature {LIBERTY_INTERPRETER}
 	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING) is
 		do
 			old_values.add([a_value, a_fatal_error], a_expression)
-			debug
+			debug ("interpreter.call.internals")
 				std_output.put_string(once " >>> Feature ")
 				std_output.put_string(name)
 				std_output.put_string(once " @")
@@ -535,44 +535,44 @@ feature {LIBERTY_INTERPRETER}
 feature {}
 	check_invariant is
 		do
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Checking invariant")
 			end
 			interpreter.assertions.validate(target.type.the_invariant, once "Invariant")
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Done checking invariant")
 			end
 		end
 
 	check_precondition is
 		do
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Checking precondition")
 			end
 			interpreter.assertions.validate(bound_feature.precondition, once "Precondition")
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Done checking precondition")
 			end
 		end
 
 	prepare_postcondition is
 		do
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Preparing postcondition (gathering old values)")
 			end
 			interpreter.postcondition_browser.gather_old(bound_feature.postcondition)
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Done preparing postcondition (gathering old values)")
 			end
 		end
 
 	check_postcondition is
 		do
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Checking postcondition")
 			end
 			interpreter.assertions.validate(bound_feature.postcondition, once "Postcondition")
-			debug
+			debug ("interpreter.call.steps")
 				debug_step(once "Done checking postcondition")
 			end
 		end

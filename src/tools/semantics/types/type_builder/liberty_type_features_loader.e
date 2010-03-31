@@ -341,7 +341,7 @@ feature {}
 						create fd.make(feature_name, type, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
 
-						debug
+						debug ("type.building.internals")
 							std_output.put_string(once " <=>  late binding down to ")
 							std_output.put_string(type.full_name)
 							std_output.put_string(once " of defined feature ")

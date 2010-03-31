@@ -125,7 +125,7 @@ feature {}
 			a_definition_type /= Void
 			a_type.is_child_of(a_definition_type)
 		do
-			debug
+			debug ("feature.specialization")
 				std_output.put_string(once "Creating specialized type resolver from ")
 				std_output.put_string(a_definition_type.full_name)
 				std_output.put_string(once " to ")

@@ -397,7 +397,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} conformant_parents.with_capacity(2)
 				end
 				conformant_parents.add_last(a_parent)
-				debug
+				debug ("type.building")
 					std_output.put_string(name)
 					std_output.put_string(once ": adding conformant parent ")
 					std_output.put_line(a_parent.name)
@@ -407,7 +407,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} non_conformant_parents.with_capacity(2)
 				end
 				non_conformant_parents.add_last(a_parent)
-				debug
+				debug ("type.building")
 					std_output.put_string(name)
 					std_output.put_string(once ": adding non-conformant parent ")
 					std_output.put_line(a_parent.name)
@@ -571,7 +571,7 @@ feature {}
 			visit := a_visit
 			create current_entity.make(Current, errors.unknown_position)
 			create result_entity.make(Current, errors.unknown_position)
-			debug
+			debug ("full_name")
 				debug_full_name := full_name.out
 			end
 		ensure

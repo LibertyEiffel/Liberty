@@ -99,7 +99,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if current_type.is_reachable then
 				if not is_reachable then
-					debug
+					debug ("mark.reachable")
 						std_output.put_string(once "Marked reachable the feature: ")
 						std_output.put_line(out)
 					end
@@ -338,7 +338,7 @@ feature {ANY}
 					Result := twin
 					specialized.add(Result, a_type)
 					Result.set_specialized_in(context.specialized_in(a_type))
-					debug
+					debug ("feature.specialization")
 						std_output.put_line(once "   Binding specialized feature")
 					end
 					bind(Result, a_type)
@@ -418,7 +418,7 @@ feature {LIBERTY_FEATURE}
 		local
 			i: INTEGER
 		do
-			debug
+			debug ("type.building")
 				debug_display(std_output, indent + 2)
 			end
 			late_binding.put(child, type)
