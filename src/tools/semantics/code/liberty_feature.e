@@ -33,10 +33,13 @@ insert
 
 feature {ANY}
 	id: INTEGER
-			-- the feature's unique id (does not change through specialization)
+			-- The feature's unique id (does not change through specialization)
 
 	definition_type: LIBERTY_ACTUAL_TYPE
-			-- the type where the feature is written
+			-- The type where the feature is written
+
+	is_redefined: BOOLEAN
+			-- True if this feature is proxied by a LIBERTY_REDEFINED_FEATURE and should not be used by itself.
 
 	current_type: LIBERTY_ACTUAL_TYPE is
 		do
@@ -114,11 +117,11 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 						postcondition.mark_reachable_code(mark)
 					end
 					from
-						i := late_binding.lower
+						i := child_bindings_memory.lower
 					until
-						i > late_binding.upper
+						i > child_bindings_memory.upper
 					loop
-						late_binding.item(i).mark_reachable_code(mark)
+						child_bindings_memory.item(i).mark_reachable_code(mark)
 						i := i + 1
 					end
 				end
@@ -174,11 +177,17 @@ feature {LIBERTY_FEATURE_ENTITY}
 		end
 
 feature {ANY}
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+	frozen debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			tabulate(o, tab)
+			do_debug_display(o, tab)
+		end
+
+feature {LIBERTY_FEATURE}
+	do_debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
 		local
 			t: STRING
 		do
-			tabulate(o, tab)
 			o.put_character('{')
 			o.put_string(definition_type.full_name)
 			o.put_string(once "<-")
@@ -195,7 +204,6 @@ feature {ANY}
 			o.put_line(to_pointer.out)
 		end
 
-feature {}
 	tabulate (o: OUTPUT_STREAM; tab: INTEGER) is
 		local
 			i: INTEGER
@@ -212,6 +220,22 @@ feature {}
 
 feature {LIBERTY_FEATURE_DEFINITION}
 	join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+		require
+			a_type /= Void
+			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
+			not is_redefined
+		do
+			Result := do_join(a_type, a_feature, current_fd, other_fd)
+			bind_or_replace(Result, a_type, Result = Current)
+			a_feature.bind_or_replace(Result, a_type, Result = a_feature)
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+feature {}
+	do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_type /= Void
 			a_feature /= Void
@@ -314,12 +338,12 @@ feature {LIBERTY_FEATURE}
 feature {ANY}
 	is_bound (type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
-			Result := late_binding.fast_has(type)
+			Result := child_bindings_memory.fast_has(type)
 		end
 
 	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
 		do
-			Result := late_binding.fast_reference_at(type)
+			Result := child_bindings_memory.fast_reference_at(type)
 			if Result = Void then
 				Result := Current
 			end
@@ -335,13 +359,17 @@ feature {ANY}
 			else
 				Result ::= specialized.fast_reference_at(a_type)
 				if Result = Void then
+					is_specializing := True
 					Result := twin
+					is_specializing := False
 					specialized.add(Result, a_type)
 					Result.set_specialized_in(context.specialized_in(a_type))
-					debug ("feature.specialization")
-						std_output.put_line(once "   Binding specialized feature")
+					if not is_redefined then
+						debug ("feature.specialization")
+							std_output.put_line(once "   Binding specialized feature")
+						end
+						bind_or_replace(Result, a_type, True)
 					end
-					bind(Result, a_type)
 				end
 			end
 		ensure
@@ -356,6 +384,8 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 
 feature {LIBERTY_FEATURE}
 	set_specialized_in (a_context: like context) is
+		require
+			is_specializing
 		do
 			context := a_context
 			check type_resolver /= Void end
@@ -366,101 +396,250 @@ feature {LIBERTY_FEATURE}
 			if postcondition /= Void then
 				postcondition := postcondition.specialized_in(a_context.current_type)
 			end
-			create {FAST_ARRAY[LIBERTY_FEATURE]} precursors.with_capacity(0)
+
+			-- Current is a twin of another feature, be sure to correctly create again the bindings
+			-- (avoid shared collections)
+			create {FAST_ARRAY[LIBERTY_FEATURE]} parent_bindings_memory.with_capacity(1)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} child_bindings_memory.with_capacity(3)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} specialized.with_capacity(3)
+
+			is_specializing := False
 		end
 
 feature {LIBERTY_FEATURE}
-	has_precursor (a_precursor: LIBERTY_FEATURE): BOOLEAN is
-		local
-			i: INTEGER
+	has_parent_binding (a_parent: LIBERTY_FEATURE): BOOLEAN is
 		do
-			Result := a_precursor = Current
-			from
-				i := precursors.lower
-			until
-				Result or else i > precursors.upper
-			loop
-				Result := precursors.item(i).has_precursor(a_precursor)
-				i := i + 1
-			end
+			Result := Current = a_parent or else parent_bindings_memory.fast_has(a_parent)
 		end
 
-	add_precursor (a_precursor: LIBERTY_FEATURE) is
+	add_parent_binding (a_parent: LIBERTY_FEATURE) is
 		require
-			a_precursor /= Void
-			a_precursor /= Current
+			a_parent /= Void
+			a_parent /= Current
+			not is_redefined
 		do
-			if not has_precursor(a_precursor) then
-				precursors.add_last(a_precursor)
-			end
-		end
-
-	clean_binding_flag is
-		local
-			i: INTEGER
-		do
-			if is_binding then
-				is_binding := False
-				from
-					i := precursors.lower
-				until
-					i > precursors.upper
-				loop
-					precursors.item(i).clean_binding_flag
-					i := i + 1
+			if has_parent_binding(a_parent) then
+				debug ("feature.binding")
+					std_output.put_line(once "         => parent already added")
+				end
+			else
+				parent_bindings_memory.add_last(a_parent)
+				debug ("feature.binding")
+					std_output.put_line(once "         => added parent to child")
 				end
 			end
 		end
 
-	precursor_bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE; indent: INTEGER) is
+	remove_parent_binding (a_parent: LIBERTY_FEATURE) is
 		require
-			not is_binding
+			a_parent /= Current
+			has_parent_binding(a_parent)
 		local
 			i: INTEGER
 		do
-			debug ("type.building")
-				debug_display(std_output, indent + 2)
-			end
-			late_binding.put(child, type)
-			is_binding := True
-			from
-				i := precursors.lower
-			until
-				i > precursors.upper
-			loop
-				precursors.item(i).precursor_bind(child, type, indent + 1)
-				i := i + 1
-			end
-			is_binding := False
+			i := parent_bindings_memory.fast_first_index_of(a_parent)
+			parent_bindings_memory.remove(i)
 		end
 
-	is_binding: BOOLEAN
-			-- Anti-recursion security
+	bind_or_replace (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE; bind_current: BOOLEAN) is
+		require
+			not is_redefined
+			bind_current implies type = child.current_type
+			no_cycles: child /= Current implies not has_parent_binding(child)
+		local
+			i, j: INTEGER; removed: LIBERTY_FEATURE
+		do
+			check
+				child /= Current implies parent_bindings /= child.parent_bindings
+			end
+
+			if child /= Current and then child.has_parent_binding(Current) then
+				sedb_breakpoint
+			end
+
+			debug ("feature.binding")
+				std_output.put_string(once "      Binding child: ")
+				child.do_debug_display(std_output, 2)
+				if bind_current then
+					std_output.put_string(once "      to Current: ")
+				else
+					std_output.put_string(once "      replacing Current: ")
+				end
+				do_debug_display(std_output, 2)
+			end
+
+			from
+				i := parent_bindings_memory.lower
+			until
+				i > parent_bindings_memory.upper
+			loop
+				debug ("feature.binding")
+					std_output.put_string(once "       * Will bind parent #")
+					std_output.put_integer(i)
+					std_output.put_character('/')
+					std_output.put_integer(parent_bindings_memory.upper)
+					std_output.put_string(once ": ")
+					parent_bindings_memory.item(i).do_debug_display(std_output, 3)
+				end
+				removed := parent_bindings_memory.item(i).do_bind(child, Current, type)
+				if removed = Void then
+					i := i + 1
+				else
+					debug ("feature.binding")
+						std_output.put_line(once "         -> adding removed child's parents")
+					end
+					from
+						j := removed.parent_bindings.lower
+					until
+						j > removed.parent_bindings.upper
+					loop
+						if removed.parent_bindings.item(j) /= Current then
+							add_parent_binding(removed.parent_bindings.item(j))
+						end
+						j := j + 1
+					end
+				end
+			end
+
+			if bind_current then
+				debug ("feature.binding")
+					std_output.put_string(once "       * Will bind Current: ")
+					do_debug_display(std_output, 3)
+				end
+				removed := do_bind(child, Current, type)
+				check
+					removed /= Void implies removed.parent_bindings.is_empty -- i.e. removing a just-created feature, no precious data to be kept
+				end
+			end
+
+			debug ("feature.binding")
+				std_output.put_string(once "   Final parent bindings of ")
+				child.do_debug_display(std_output, 1)
+				from
+					i := child.parent_bindings.lower
+				until
+					i > child.parent_bindings.upper
+				loop
+					std_output.put_string(once "    * ")
+					std_output.put_integer(i)
+					std_output.put_character('/')
+					std_output.put_integer(child.parent_bindings.upper)
+					std_output.put_string(once ": ")
+					child.parent_bindings.item(i).do_debug_display(std_output, 2)
+					i := i + 1
+				end
+			end
+		ensure
+			parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE): BOOLEAN is
+				do
+					debug ("feature.binding")
+						std_output.put_string(once "   Checking ")
+						p.do_debug_display(std_output, 1)
+					end
+					Result := c.has_parent_binding(p)
+					if not Result then
+						sedb_breakpoint
+					end
+				end (child, ?)
+			)
+			parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE; t: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+				do
+					Result := p.is_bound(t) and then bound(t) = c
+					if not Result then
+						sedb_breakpoint
+					end
+				end (child, ?, type)
+			)
+		end
+
+	do_bind (child, target: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+			-- Returns the replaced child if it exists
+		require
+			child /= Current implies not has_parent_binding(child)
+			not is_redefined
+		do
+			Result := child_bindings_memory.fast_reference_at(type)
+			if Result = child then
+				check
+					Result.has_parent_binding(Current)
+				end
+				debug ("feature.binding")
+					std_output.put_line(once "         -> already bound.")
+				end
+				Result := Void
+			else
+				if Result /= Void then
+					debug ("feature.binding")
+						std_output.put_string(once "         -> remove old child: ")
+						Result.do_debug_display(std_output, 4)
+					end
+					child_bindings_memory.fast_remove(type)
+					Result.remove_parent_binding(Current)
+				else
+					check
+						not child_bindings_memory.fast_has(type)
+					end
+				end
+				debug ("feature.binding")
+					std_output.put_line(once "         -> adding new child")
+				end
+				child_bindings_memory.add(child, type)
+				if child /= Current then
+					child.add_parent_binding(Current)
+				end
+			end
+		end
+
+	parent_bindings: TRAVERSABLE[LIBERTY_FEATURE] is
+			-- Flat structure: all parents of the feature are here.
+		do
+			Result := parent_bindings_memory
+		end
+
+	child_bindings: MAP[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE] is
+			-- Flat structure: all heirs of the feature are here.
+		do
+			Result := child_bindings_memory
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+		require
+			not is_redefined
+			truly_bind: child /= Current implies child.current_type /= current_type
+			no_cycles: child /= Current implies not has_parent_binding(child)
+		do
+			bind_or_replace(child, type, True)
+		ensure
+			parent_bindings_memory.is_equal(old parent_bindings_memory.twin)
+			child.has_parent_binding(Current)
+			is_bound(type) and then bound(type) = child
+		end
+
+	replace (new: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+		require
+			not new.is_redefined
+			truly_replace: new /= Current and then new.current_type = current_type
+			no_cycles: not new.has_parent_binding(Current)
+		do
+			is_specializing := True -- well, not exactly- but Current is dead, baby.
+			new.bind_or_replace(Current, type, False)
+		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
-	set_type_resolver (a_type_resolver: like type_resolver; replace: BOOLEAN) is
+	set_type_resolver (a_type_resolver: like type_resolver; a_replace: BOOLEAN) is
 		require
 			a_type_resolver.local_context = context
-			a_type_resolver.the_feature /= Void implies replace
+			a_type_resolver.the_feature /= Void implies a_replace
 			type_resolver = Void
 		do
-			if replace or else a_type_resolver.the_feature = Void then
-				a_type_resolver.set_the_feature(Current, replace)
+			if a_replace or else a_type_resolver.the_feature = Void then
+				a_type_resolver.set_the_feature(Current, a_replace)
 			end
 			type_resolver := a_type_resolver
 		ensure
 			type_resolver = a_type_resolver
-			replace implies type_resolver.the_feature = Current
-		end
-
-	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
-		do
-			precursor_bind(child, type, 0)
-			if child /= Current then
-				child.add_precursor(Current)
-			end
-		ensure
-			is_bound(type) and then bound(type) = child
+			a_replace implies type_resolver.the_feature = Current
 		end
 
 	set_context (a_context: like context) is
@@ -494,14 +673,20 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 			obsolete_message = a_obsolete
 		end
 
+feature {LIBERTY_FEATURE_REDEFINED}
+	set_is_redefined is
+		do
+			is_redefined := True
+		end
+
 feature {}
 	make (a_definition_type: like definition_type; a_accelerator: like accelerator) is
 		require
 			a_definition_type /= Void
 		do
-			create {FAST_ARRAY[LIBERTY_FEATURE]} precursors.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_FEATURE]} parent_bindings_memory.with_capacity(1)
 			definition_type := a_definition_type
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} late_binding.with_capacity(3)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} child_bindings_memory.with_capacity(3)
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} specialized.with_capacity(3)
 			accelerator := a_accelerator
 
@@ -512,15 +697,16 @@ feature {}
 			accelerator = a_accelerator
 		end
 
-	precursors: COLLECTION[LIBERTY_FEATURE]
-			-- Conformant precursors only. Used for correct `bind' implementation.
+	parent_bindings_memory: COLLECTION[LIBERTY_FEATURE]
+	child_bindings_memory: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
-	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 	accelerator: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
 	specialized: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
+
+	is_specializing: BOOLEAN
 
 	ids_provider: COUNTER is
 		once
@@ -528,10 +714,38 @@ feature {}
 		end
 
 invariant
-	late_binding /= Void
+	child_bindings_memory /= Void
 	specialized /= Void
 	definition_type /= Void
-	precursors /= Void
-	not precursors.fast_has(Current)
+	parent_bindings_memory /= Void
+
+	context = Void implies parent_bindings_memory.is_empty
+	is_redefined implies (parent_bindings_memory.is_empty and child_bindings_memory.is_empty)
+
+	not is_specializing implies child_bindings_memory.for_all(agent (c: LIBERTY_FEATURE): BOOLEAN is
+		do
+			Result := c.has_parent_binding(Current)
+			if not Result then
+				sedb_breakpoint
+			end
+		end
+	)
+
+	not parent_bindings_memory.fast_has(Current)
+	not is_specializing implies parent_bindings_memory.for_all(agent (p: LIBERTY_FEATURE): BOOLEAN is
+		local
+			c: LIBERTY_FEATURE
+		do
+			if p.is_bound(current_type) then
+				c := p.bound(current_type)
+				Result := c = Current -- should be "c = Current" but for the `specialized_in' twin
+				if not Result then
+					sedb_breakpoint
+				end
+			else
+				Result := True
+			end
+		end
+	)
 
 end -- class LIBERTY_FEATURE

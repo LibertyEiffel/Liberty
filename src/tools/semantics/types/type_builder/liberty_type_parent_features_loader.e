@@ -98,7 +98,7 @@ feature {}
 
 	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE) is
 		local
-			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
+			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; feature_name: LIBERTY_FEATURE_NAME
 			pf: like parent_features; rf_count: INTEGER
 		do
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
@@ -107,7 +107,7 @@ feature {}
 			until
 				i > parent.features.upper
 			loop
-				name := parent.features.key(i)
+				feature_name := parent.features.key(i)
 				parent_fd := parent.features.item(i)
 				check
 					parent_fd.current_type = parent
@@ -116,10 +116,12 @@ feature {}
 				check
 					fd /= parent_fd
 				end
-				if not fd.has_precursor(parent) then
-					fd.add_precursor(parent_fd.the_feature, parent)
+				if fd.has_precursor(parent) then
+					sedb_breakpoint
+				else
+					fd.add_precursor(fd.the_feature, parent)
 				end
-				pf.add(fd, name)
+				pf.add(fd, feature_name)
 				i := i + 1
 			end
 			if clause /= Void and then clause.has_clauses then
@@ -137,31 +139,49 @@ feature {}
 			until
 				i > pf.upper
 			loop
-				name := pf.key(i)
+				feature_name := pf.key(i)
 				fd := pf.item(i)
-				actual_fd := parent_features.reference_at(name)
+				actual_fd := parent_features.reference_at(feature_name)
 				if actual_fd = Void then
-					parent_features.add(fd, name)
+					parent_features.add(fd, feature_name)
 					debug ("type.building.internals")
 						std_output.put_string(once " <=> ")
 						std_output.put_string(parent.full_name)
 						std_output.put_string(once ": late binding down to ")
 						std_output.put_string(type.full_name)
 						std_output.put_string(once " of feature ")
-						std_output.put_line(name.full_name)
+						std_output.put_line(feature_name.full_name)
 					end
 					fd.the_feature.bind(fd.the_feature, type)
+					if not fd.has_precursor(parent) then
+						fd.add_precursor(fd.the_feature, parent)
+					end
 					actual_fd := fd
 				else
+					debug ("type.building.internals")
+						std_output.put_string(once " <=> ")
+						std_output.put_string(parent.full_name)
+						std_output.put_string(once ": joining in ")
+						std_output.put_string(type.full_name)
+						std_output.put_string(once " of feature ")
+						std_output.put_line(feature_name.full_name)
+					end
 					actual_fd.join(fd, parent)
 					check
-						actual_fd.feature_name.is_equal(name)
+						actual_fd.feature_name.is_equal(feature_name)
 					end
+					actual_fd.the_feature.bind(actual_fd.the_feature, type)
 				end
-				actual_fd.the_feature.add_if_redefined(type, name, redefined_features)
+				actual_fd.the_feature.add_if_redefined(type, feature_name, redefined_features)
 				check
 					actual_fd.has_precursor(parent)
+					actual_fd.the_feature.bound(type) = actual_fd.the_feature
 				end
+
+				--if feature_name.full_name.out.is_equal(once "is_connected") then
+				--	sedb_breakpoint
+				--end
+
 				i := i + 1
 			end
 		end
@@ -283,8 +303,12 @@ feature {}
 						std_output.put_string(once " of undefined feature ")
 						std_output.put_line(feature_name.full_name)
 					end
-					inherited_feature.bind(deferred_feature, type)
+					deferred_feature.replace(inherited_feature, type)
 					fd.set_the_feature(deferred_feature)
+
+					--if feature_name.full_name.out.is_equal(once "is_connected") then
+					--	sedb_breakpoint
+					--end
 				end
 				i := i + 1
 			end
@@ -327,13 +351,18 @@ feature {}
 								std_output.put_string(once " of redefined feature ")
 								std_output.put_line(feature_name.full_name)
 							end
-							inherited_feature.bind(redefined_feature, type)
+							redefined_feature.replace(inherited_feature, type)
 						else
 							--|*** TODO: ??? is it possible to have a non-related feature here???
 							redefined_feature := inherited_feature.bound(type)
 						end
 						fd.set_the_feature(redefined_feature)
 					end
+
+					--if feature_name.full_name.out.is_equal(once "is_connected") then
+					--	sedb_breakpoint
+					--end
+
 					i := i + 1
 				end
 			end

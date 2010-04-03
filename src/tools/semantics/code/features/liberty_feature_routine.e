@@ -35,6 +35,7 @@ feature {ANY}
 		ensure
 			exists: Result /= Void
 		end
+
 feature {LIBERTY_FEATURE}
 	set_specialized_in (a_context: like context) is
 		do

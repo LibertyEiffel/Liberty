@@ -323,6 +323,7 @@ feature {}
 			loop
 				name ::= names.item(i)
 				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
+
 				if type.has_feature(feature_name) then
 					if redefined_features = Void then
 						redefined := Void
@@ -338,18 +339,19 @@ feature {}
 						if fd_parent.the_feature.definition_type = type then
 							--|*** TODO: warning or error?? an undefined feature should not be defined
 						end
+
 						create fd.make(feature_name, type, clients, name.is_frozen, feature_name.position)
 						fd.set_the_feature(a_feature)
 
 						debug ("type.building.internals")
-							std_output.put_string(once " <=>  late binding down to ")
+							std_output.put_string(once " <=> late binding down to ")
 							std_output.put_string(type.full_name)
 							std_output.put_string(once " of defined feature ")
 							std_output.put_line(feature_name.full_name)
 						end
-						fd_parent.the_feature.bind(a_feature, type)
 
 						type.replace_feature(fd)
+						a_feature.replace(fd_parent.the_feature, type)
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
 					elseif redefined.redefined_feature = a_feature then
@@ -364,6 +366,10 @@ feature {}
 					fd.set_the_feature(a_feature)
 					type.add_feature(fd)
 				end
+
+				--if feature_name.full_name.out.is_equal(once "is_connected") then
+				--	sedb_breakpoint
+				--end
 				i := i + 1
 			end
 		end

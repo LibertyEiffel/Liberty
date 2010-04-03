@@ -94,7 +94,9 @@ feature {ANY}
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			cl, ccl: COLLECTION[LIBERTY_TYPE]
-			f: like the_feature
+			f, pf: like the_feature
+			p: like precursors
+			i: INTEGER
 		do
 			debug ("feature.specialization")
 				std_output.put_string(once "Specializing in ")
@@ -107,18 +109,39 @@ feature {ANY}
 			end
 			if the_feature /= Void then
 				f := the_feature.specialized_in(a_type)
-				the_feature.bind(f, a_type)
 			end
-			if a_type = current_type and then cl = clients and then ccl = creation_clients and then f = the_feature then
+			p := precursors
+			if p /= Void then
+				from
+					i := p.lower
+				until
+					i > p.upper
+				loop
+					pf := p.item(i).specialized_in(a_type)
+					if pf /= p.item(i) then
+						if p = precursors then
+							p := p.twin
+						end
+						p.fast_put(pf, p.key(i))
+					end
+					i := i + 1
+				end
+			end
+			if a_type = current_type and then cl = clients and then ccl = creation_clients and then f = the_feature and then p = precursors then
 				Result := Current
 			else
-				create Result.specialized(feature_name, a_type, ccl, cl, is_frozen, f, position)
+				create Result.specialized(feature_name, a_type, ccl, cl, is_frozen, f, p, position)
 			end
 			debug ("feature.specialization")
 				std_output.put_string(once "Specialized in ")
 				std_output.put_string(a_type.full_name)
-				debug_display(std_output, True)
+				std_output.put_string(once ": ")
+				Result.debug_display(std_output, True)
 			end
+
+			--if feature_name.full_name.out.is_equal(once "is_connected") then
+			--	sedb_breakpoint
+			--end
 		end
 
 feature {}
@@ -345,6 +368,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not has_precursor(a_precursor_type)
+			a_precursor_feature.current_type = current_type
 		do
 			if precursors = Void then
 				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} precursors.with_capacity(3)
@@ -374,6 +398,34 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 				Result := precursors.fast_at(a_precursor_type)
 			else
 				Result := precursors.first
+			end
+		end
+
+feature {LIBERTY_ACTUAL_TYPE}
+	copy_precursors (other: like Current) is
+		local
+			f: LIBERTY_FEATURE; t: LIBERTY_ACTUAL_TYPE
+			i: INTEGER
+		do
+			if other.precursors /= Void then
+				if precursors = Void then
+					precursors := other.precursors
+				else
+					from
+						i := precursors.lower
+					until
+						i > precursors.upper
+					loop
+						t := precursors.key(i)
+						f := precursors.item(i)
+						if precursors.fast_has(t) then
+							sedb_breakpoint
+						else
+							precursors.add(f, t)
+						end
+						i := i + 1
+					end
+				end
 			end
 		end
 
@@ -433,10 +485,12 @@ feature {}
 			position = a_position
 		end
 
-	specialized (a_name: like feature_name; a_type: like current_type; a_creation_clients: like creation_clients; a_clients: like clients; a_frozen: like is_frozen; a_feature: like the_feature; a_position: like position) is
+	specialized (a_name: like feature_name; a_type: like current_type; a_creation_clients: like creation_clients; a_clients: like clients;
+					 a_frozen: like is_frozen; a_feature: like the_feature; a_precursors: like precursors; a_position: like position) is
 		do
 			make(a_name, a_type, a_clients, a_frozen, a_position)
 			the_feature := a_feature
+			precursors := a_precursors
 			if a_creation_clients /= Void then
 				set_creation_clients(a_creation_clients)
 			end
@@ -446,11 +500,14 @@ feature {}
 			end
 		end
 
-	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	errors: LIBERTY_ERRORS
 
 	debug_full_name: STRING
+
+feature {LIBERTY_FEATURE_DEFINITION}
+	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
+			-- For correct "Precursor" management. All the features have the same `current_type'.
 
 feature {ANY}
 	accept (v: VISITOR) is

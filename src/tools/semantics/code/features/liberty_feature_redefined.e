@@ -19,7 +19,7 @@ inherit
 		rename
 			make as make_late_binding
 		redefine
-			mark_reachable_code, add_if_redefined, debug_display, set_specialized_in
+			mark_reachable_code, add_if_redefined, do_debug_display, set_specialized_in
 		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -27,17 +27,6 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	redefined_feature: LIBERTY_FEATURE
-
-	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
-		do
-			Precursor(o, tab)
-			if redefined_feature = Void then
-				tabulate(o, tab + 1)
-				o.put_line(once "(unknown or unattached redefined feature)")
-			else
-				redefined_feature.debug_display(o, tab + 1)
-			end
-		end
 
 	accept (v: VISITOR) is
 		local
@@ -56,6 +45,17 @@ feature {LIBERTY_FEATURE}
 			end
 		end
 
+	do_debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			Precursor(o, tab)
+			tabulate(o, tab + 1)
+			if redefined_feature = Void then
+				o.put_line(once "(unknown or unattached redefined feature)")
+			else
+				redefined_feature.do_debug_display(o, tab + 1)
+			end
+		end
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
 		do
@@ -66,8 +66,8 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			end
 		end
 
-feature {LIBERTY_FEATURE_DEFINITION}
-	join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+feature {}
+	do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
 			Result := a_feature.joined_redefined(a_type, Current, other_fd, current_fd)
 		end
@@ -149,6 +149,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			set_postcondition(a_feature.postcondition)
 			set_context(a_feature.context)
 			set_obsolete(a_feature.obsolete_message)
+			a_feature.set_is_redefined
 			type_resolver.set_the_feature(Current, True)
 			torch.burn
 		ensure
@@ -172,5 +173,9 @@ feature {}
 		do
 			make_late_binding(a_definition_type, Void)
 		end
+
+invariant
+	not is_redefined
+	redefined_feature /= Void implies redefined_feature.is_redefined
 
 end

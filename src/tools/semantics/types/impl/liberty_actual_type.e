@@ -439,7 +439,11 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		require
 			has_feature(a_feature.feature_name)
 			feature_definition(a_feature.feature_name) /= a_feature
+		local
+			replaced_feature: LIBERTY_FEATURE_DEFINITION
 		do
+			replaced_feature := feature_definition(a_feature.feature_name)
+			a_feature.copy_precursors(replaced_feature)
 			features.put(a_feature, a_feature.feature_name)
 			torch.burn
 		ensure

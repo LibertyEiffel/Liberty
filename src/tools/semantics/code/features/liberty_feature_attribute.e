@@ -32,8 +32,8 @@ feature {ANY}
 			v0.visit_liberty_feature_attribute(Current)
 		end
 
-feature {LIBERTY_FEATURE_DEFINITION}
-	join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+feature {}
+	do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
 			Result := a_feature.joined_attribute(a_type, Current, other_fd, current_fd)
 		end
