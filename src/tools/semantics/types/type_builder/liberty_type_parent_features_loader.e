@@ -178,9 +178,10 @@ feature {}
 					actual_fd.the_feature.bound(type) = actual_fd.the_feature
 				end
 
-				--if feature_name.full_name.out.is_equal(once "is_connected") then
-				--	sedb_breakpoint
-				--end
+				-- if feature_name.full_name.out.is_equal(once "is_connected") then
+				-- 	std_output.flush
+				-- 	sedb_breakpoint
+				-- end
 
 				i := i + 1
 			end
@@ -306,9 +307,10 @@ feature {}
 					deferred_feature.replace(inherited_feature, type)
 					fd.set_the_feature(deferred_feature)
 
-					--if feature_name.full_name.out.is_equal(once "is_connected") then
-					--	sedb_breakpoint
-					--end
+					-- if feature_name.full_name.out.is_equal(once "is_connected") then
+					-- 	std_output.flush
+					-- 	sedb_breakpoint
+					-- end
 				end
 				i := i + 1
 			end
@@ -359,9 +361,10 @@ feature {}
 						fd.set_the_feature(redefined_feature)
 					end
 
-					--if feature_name.full_name.out.is_equal(once "is_connected") then
-					--	sedb_breakpoint
-					--end
+					-- if feature_name.full_name.out.is_equal(once "is_connected") then
+					-- 	std_output.flush
+					-- 	sedb_breakpoint
+					-- end
 
 					i := i + 1
 				end

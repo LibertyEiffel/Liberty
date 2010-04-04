@@ -181,6 +181,7 @@ feature {ANY}
 		do
 			tabulate(o, tab)
 			do_debug_display(o, tab)
+			debug_display_bindings(o, tab)
 		end
 
 feature {LIBERTY_FEATURE}
@@ -189,9 +190,9 @@ feature {LIBERTY_FEATURE}
 			t: STRING
 		do
 			o.put_character('{')
-			o.put_string(definition_type.full_name)
-			o.put_string(once "<-")
 			o.put_string(context.current_type.full_name)
+			o.put_string(once "->")
+			o.put_string(definition_type.full_name)
 			o.put_character('}')
 			o.put_character(' ')
 			t := generating_type
@@ -202,6 +203,63 @@ feature {LIBERTY_FEATURE}
 			o.put_character(' ')
 			o.put_character('@')
 			o.put_line(to_pointer.out)
+		end
+
+	debug_display_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			debug_display_parent_bindings(o, tab)
+			debug_display_child_bindings(o, tab)
+		end
+
+	debug_display_parent_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+		local
+			i: INTEGER
+		do
+			tabulate(o, tab)
+			o.put_line(once "Parent bindings:")
+			from
+				i := parent_bindings_memory.lower
+			until
+				i > parent_bindings_memory.upper
+			loop
+				tabulate(o, tab)
+				o.put_string(once " * ")
+				o.put_integer(i+1)
+				o.put_character('/')
+				o.put_integer(parent_bindings_memory.count)
+				o.put_string(once ": ")
+				parent_bindings_memory.item(i).do_debug_display(o, tab + 1)
+				--|*** TODO: looks like there is a parent cycle in NUMERIC.is_equal <-> COMPARABLE.is_equal
+				-- parent_bindings_memory.item(i).debug_display_parent_bindings(o, tab + 1)
+				i := i + 1
+			end
+		end
+
+	debug_display_child_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+		local
+			i: INTEGER
+		do
+			tabulate(o, tab)
+			o.put_line(once "Child bindings:")
+			from
+				i := child_bindings_memory.lower
+			until
+				i > child_bindings_memory.upper
+			loop
+				tabulate(o, tab)
+				o.put_string(once " * ")
+				o.put_integer(i+1)
+				o.put_character('/')
+				o.put_integer(child_bindings_memory.count)
+				o.put_string(once ": ")
+				o.put_string(child_bindings_memory.key(i).full_name)
+				o.put_string(once " => ")
+				child_bindings_memory.item(i).do_debug_display(o, tab + 1)
+				-- if child_bindings_memory.item(i) /= Current then
+				-- 	child_bindings_memory.item(i).debug_display_child_bindings(o, tab + 1)
+				-- end
+				i := i + 1
+			end
 		end
 
 	tabulate (o: OUTPUT_STREAM; tab: INTEGER) is
@@ -401,7 +459,6 @@ feature {LIBERTY_FEATURE}
 			-- (avoid shared collections)
 			create {FAST_ARRAY[LIBERTY_FEATURE]} parent_bindings_memory.with_capacity(1)
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} child_bindings_memory.with_capacity(3)
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} specialized.with_capacity(3)
 
 			is_specializing := False
 		end
@@ -475,9 +532,9 @@ feature {LIBERTY_FEATURE}
 			loop
 				debug ("feature.binding")
 					std_output.put_string(once "       * Will bind parent #")
-					std_output.put_integer(i)
+					std_output.put_integer(i+1)
 					std_output.put_character('/')
-					std_output.put_integer(parent_bindings_memory.upper)
+					std_output.put_integer(parent_bindings_memory.count)
 					std_output.put_string(once ": ")
 					parent_bindings_memory.item(i).do_debug_display(std_output, 3)
 				end
@@ -521,9 +578,9 @@ feature {LIBERTY_FEATURE}
 					i > child.parent_bindings.upper
 				loop
 					std_output.put_string(once "    * ")
-					std_output.put_integer(i)
+					std_output.put_integer(i+1)
 					std_output.put_character('/')
-					std_output.put_integer(child.parent_bindings.upper)
+					std_output.put_integer(child.parent_bindings.count)
 					std_output.put_string(once ": ")
 					child.parent_bindings.item(i).do_debug_display(std_output, 2)
 					i := i + 1

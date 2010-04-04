@@ -139,9 +139,10 @@ feature {ANY}
 				Result.debug_display(std_output, True)
 			end
 
-			--if feature_name.full_name.out.is_equal(once "is_connected") then
-			--	sedb_breakpoint
-			--end
+			-- if feature_name.full_name.out.is_equal(once "is_connected") then
+			-- 	std_output.flush
+			-- 	sedb_breakpoint
+			-- end
 		end
 
 feature {}

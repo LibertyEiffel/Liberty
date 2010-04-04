@@ -324,6 +324,11 @@ feature {}
 				name ::= names.item(i)
 				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
 
+				-- if feature_name.full_name.out.is_equal(once "is_connected") then
+				-- 	std_output.flush
+				-- 	sedb_breakpoint
+				-- end
+
 				if type.has_feature(feature_name) then
 					if redefined_features = Void then
 						redefined := Void
@@ -352,6 +357,11 @@ feature {}
 
 						type.replace_feature(fd)
 						a_feature.replace(fd_parent.the_feature, type)
+
+						-- if feature_name.full_name.out.is_equal(once "is_connected") then
+						-- 	std_output.flush
+						-- 	sedb_breakpoint
+						-- end
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
 					elseif redefined.redefined_feature = a_feature then
@@ -367,9 +377,6 @@ feature {}
 					type.add_feature(fd)
 				end
 
-				--if feature_name.full_name.out.is_equal(once "is_connected") then
-				--	sedb_breakpoint
-				--end
 				i := i + 1
 			end
 		end

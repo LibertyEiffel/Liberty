@@ -183,6 +183,10 @@ feature {LIBERTY_TYPE_BUILDER}
 				std_output.put_string(type.full_name)
 				std_output.put_line(once ": features loaded")
 			end
+			-- if type.full_name.out.is_equal(once "STD_OUTPUT") then
+			-- 	std_output.flush
+			-- 	sedb_breakpoint
+			-- end
 			Result := once "checking type"
 		end
 
