@@ -171,7 +171,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			raised_exception = a_exception
 		end
 
-feature {LIBERTY_INTERPRETER}
+feature {ANY}
 	show_stack (o: OUTPUT_STREAM) is
 		do
 			o.put_string(once "Feature {")
@@ -252,7 +252,7 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 						create fn.make(name)
 						if t.type.has_feature(fn) then
 							-- at creation time
-							set_returned_object(interpreter.new_object(t.type.feature_definition(fn).result_type.actual_type, t.position))
+							set_returned_object(interpreter.default_object(t.type.feature_definition(fn).result_type.actual_type, t.position))
 							t.put_attribute(name, returned_object)
 						else
 							interpreter.fatal_error("No such attribute: " + name)
