@@ -899,6 +899,8 @@ feature {}
 										i := 0
 									end
 								end
+							else
+								parsed.extend('"')
 							end
 							t := end_tag.lower
 						else
@@ -906,10 +908,10 @@ feature {}
 								t := t + 1
 							else
 								if t > end_tag.lower then
-									parsed.append(end_tag.substring(1, t))
+									parsed.append(end_tag.substring(end_tag.lower, t - 1))
+									t := end_tag.lower
 								end
 								parsed.extend(c)
-								t := end_tag.lower
 							end
 							image.extend(c)
 						end
