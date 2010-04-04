@@ -248,7 +248,7 @@ feature {LIBERTY_FEATURE}
 			loop
 				tabulate(o, tab)
 				o.put_string(once " * ")
-				o.put_integer(i+1)
+				o.put_integer(i)
 				o.put_character('/')
 				o.put_integer(child_bindings_memory.count)
 				o.put_string(once ": ")

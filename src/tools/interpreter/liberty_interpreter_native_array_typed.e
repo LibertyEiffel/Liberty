@@ -225,12 +225,16 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 			from
 				i := lower
 			until
-				i > upper
+				i > 16 or else i > upper
 			loop
 				e := elements.item(i)
 				interpreter.object_printer.put_indent(o, indent + 1)
 				interpreter.object_printer.print_object(o, accessor.retrieve(e), indent + 1)
 				i := i + 1
+			end
+			if upper > 16 then
+				interpreter.object_printer.put_indent(o, indent + 1)
+				o.put_line(once ". . .")
 			end
 			interpreter.object_printer.put_indent(o, indent)
 			o.put_character('>')

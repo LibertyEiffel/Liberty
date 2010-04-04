@@ -42,6 +42,7 @@ cluster
 
 			--debug("interpreter.creation"): LIBERTY_INTERPRETER
 			--debug("interpreter.call"): LIBERTY_INTERPRETER
+			debug("interpreter.plugin"): LIBERTY_INTERPRETER_EXTERNAL_PLUGINS
 		end
 
 generate
