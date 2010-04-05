@@ -7,17 +7,17 @@ creation {LOGGING}
 	make
 
 feature {ANY}
-	set_output (a_output: like output) is
+	set_output (a_output: OUTPUT_STREAM) is
 		require
 			a_output /= Void
 		do
-			output := a_output
+			output.set_output(a_output)
 		ensure
 			output = a_output
 		end
 
 feature {LOGGING}
-	stream (a_level: like Current): like output is
+	stream (a_level: like Current): OUTPUT_STREAM is
 		require
 			a_level /= Void
 		do
@@ -39,17 +39,22 @@ feature {LOGGING}
 
 feature {LOG_LEVEL}
 	level: INTEGER
+	tag: STRING
 
 feature {}
-	make (a_level: like level) is
+	make (a_level: like level; a_tag: like tag) is
+		require
+			a_tag /= Void
 		do
 			level := a_level
-			output := std_output
+			tag := a_tag
+			create output.make(std_output, a_tag)
 		ensure
 			level = a_level
+			tag = a_tag
 		end
 
-	output: OUTPUT_STREAM
+	output: LOG_OUTPUT
 
 	sink: NULL_OUTPUT_STREAM is
 		once
@@ -58,6 +63,7 @@ feature {}
 
 invariant
 	output /= Void
+	tag /= Void
 
 end -- class LOG_LEVEL
 --

@@ -41,6 +41,8 @@ feature {}
 				die_with_code(1)
 			end
 
+			logging.set_level(logging.level_trace)
+
 			create universe.make(argument(1))
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 
@@ -50,5 +52,7 @@ feature {}
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
 		end
+
+	logging: LOGGING
 
 end -- class LIBERTYI

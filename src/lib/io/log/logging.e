@@ -72,22 +72,22 @@ feature {ANY}
 
 	level_trace: LOG_LEVEL is
 		once
-			create Result.make(2)
+			create Result.make(2, "TRACE")
 		end
 
 	level_info: LOG_LEVEL is
 		once
-			create Result.make(1)
+			create Result.make(1, "INFO")
 		end
 
 	level_warning: LOG_LEVEL is
 		once
-			create Result.make(0)
+			create Result.make(0, "WARNING")
 		end
 
 	level_error: LOG_LEVEL is
 		once
-			create Result.make(-1)
+			create Result.make(-1, "ERROR")
 		end
 
 feature {}
