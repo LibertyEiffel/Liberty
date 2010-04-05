@@ -22,10 +22,10 @@ feature {LIBERTYI}
 		local
 			root_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			std_output.put_string(once "Now running {")
-			std_output.put_string(root_type.full_name)
-			std_output.put_string(once "}.")
-			std_output.put_line(root_feature_name.full_name)
+			logging.info.put_string(once "Now running {")
+			logging.info.put_string(root_type.full_name)
+			logging.info.put_string(once "}.")
+			logging.info.put_line(root_feature_name.full_name)
 
 			root_object := new_object(root_type, errors.unknown_position)
 			call_feature(root_object, root_feature, root_feature_actuals, errors.unknown_position)
@@ -609,6 +609,7 @@ feature {}
 		end
 
 	errors: LIBERTY_ERRORS
+	logging: LOGGING
 
 invariant
 	instructions /= Void

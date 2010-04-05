@@ -175,10 +175,8 @@ feature {LIBERTY_UNIVERSE}
 	set_reachable (mark: like reachable_mark) is
 		do
 			if not is_reachable then
-				debug ("mark.reachable")
-					std_output.put_string(once "Marked reachable the feature definition: ")
-					std_output.put_line(feature_name.name)
-				end
+				logging.trace.put_string(once "Marked reachable the feature definition: ")
+				logging.trace.put_line(feature_name.name)
 				torch.burn
 			end
 
@@ -503,6 +501,7 @@ feature {}
 
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	errors: LIBERTY_ERRORS
+	logging: LOGGING
 
 	debug_full_name: STRING
 

@@ -114,8 +114,8 @@ feature {}
 		require
 			a_location /= Void
 		do
-			std_output.put_string("Cluster: ")
-			std_output.put_line(a_location)
+			logging.info.put_string("Cluster: ")
+			logging.info.put_line(a_location)
 			location := a_location
 			if ft.is_directory(a_location) then
 				location_directory := a_location
@@ -305,6 +305,8 @@ feature {}
 		once
 			create Result
 		end
+
+	logging: LOGGING
 
 invariant
 	ft.is_directory(location) implies location_directory = location

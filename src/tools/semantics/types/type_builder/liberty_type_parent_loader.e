@@ -70,14 +70,13 @@ feature {}
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
 			parent: LIBERTY_TYPE
 		do
-			debug
-				if conformant then
-					std_output.put_string(once "Adding conformant parents to ")
-				else
-					std_output.put_string(once "Adding non-conformant parents to ")
-				end
-				std_output.put_line(type.full_name)
+			if conformant then
+				logging.trace.put_string(once "Adding conformant parents to ")
+			else
+				logging.trace.put_string(once "Adding non-conformant parents to ")
 			end
+			logging.trace.put_line(type.full_name)
+
 			from
 				Result := had_parents
 				i := parents.list_lower

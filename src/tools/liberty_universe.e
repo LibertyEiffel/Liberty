@@ -739,10 +739,9 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 			create class_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
-				debug ("parsing")
-					std_output.put_string(once "Parsing ")
-					std_output.put_line(class_name)
-				end
+				logging.info.put_string(once "Parsing ")
+				logging.info.put_line(class_name)
+
 				code := once ""
 				code.clear_count
 				read_file_in(class_descriptor, code)
@@ -756,10 +755,9 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				ast ::= eiffel.root_node
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
-				debug ("parsing")
-					std_output.put_string(class_name)
-					std_output.put_line(once " parsed.")
-				end
+
+				logging.trace.put_string(class_name)
+				logging.trace.put_line(once " parsed.")
 			end
 		ensure
 			Result /= Void
@@ -800,9 +798,8 @@ feature {} -- AST building
 			i: INTEGER; file: FIXED_STRING
 			one_class: LIBERTY_AST_ONE_CLASS
 		once
-			debug ("parsing")
-				std_output.put_line(once "Parsing TUPLE")
-			end
+			logging.info.put_line(once "Parsing TUPLE")
+
 			tuple_cluster := root.find("TUPLE")
 			if tuple_cluster = Void then
 				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
@@ -830,9 +827,8 @@ feature {} -- AST building
 				check_tuple_class(one_class, i, Result, file)
 				i := i + 1
 			end
-			debug ("parsing")
-				std_output.put_line(once "TUPLE parsed.")
-			end
+
+			logging.trace.put_line(once "TUPLE parsed.")
 		ensure
 			Result /= Void
 		end
@@ -907,6 +903,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
+	logging: LOGGING
 
 	standard_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
 		once

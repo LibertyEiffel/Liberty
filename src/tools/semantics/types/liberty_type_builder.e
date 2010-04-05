@@ -250,8 +250,10 @@ feature {}
 				Result := parents.item(i).has_loaded_features
 				debug ("type.building")
 					if not Result then
-						std_output.put_line(type.full_name + ": waiting for its parent " + parents.item(i).full_name
-												  + " to having loaded its features")
+						std_output.put_string(type.full_name)
+						std_output.put_string(once ": waiting for its parent ")
+						std_output.put_string(parents.item(i).full_name)
+						std_output.put_line(once " to having loaded its features")
 					end
 				end
 				i := i + 1

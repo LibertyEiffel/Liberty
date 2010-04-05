@@ -42,10 +42,12 @@ feature {}
 			create root_feature_name.make("make".intern)
 			universe.build_types(root, root_feature_name)
 
-			std_output.put_new_line
-			std_output.put_line("Root type: ")
-			root.debug_display(std_output, True)
-			std_output.put_line("Done.")
+			logging.info.put_new_line
+			logging.info.put_line("Root type: ")
+			root.debug_display(logging.info, True)
+			logging.info.put_line("Done.")
 		end
+
+	logging: LOGGING
 
 end

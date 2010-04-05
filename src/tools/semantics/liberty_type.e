@@ -57,10 +57,8 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if not is_reachable then
 				torch.burn
-				debug
-					std_output.put_string(once "Marked reachable the type: ")
-					std_output.put_line(full_name)
-				end
+				logging.trace.put_string(once "Marked reachable the type: ")
+				logging.trace.put_line(full_name)
 			end
 			reachable_mark := mark
 		end
@@ -119,8 +117,8 @@ feature {}
 
 feature {}
 	listeners: COLLECTION[LIBERTY_TYPE_LISTENER]
-
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
+	logging: LOGGING
 
 invariant
 	not is_actual_type_set implies listeners /= Void

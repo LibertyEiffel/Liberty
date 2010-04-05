@@ -104,7 +104,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				not Result or else i > type.parameters.upper
 			loop
 				Result := type.parameters.item(i).is_actual_type_set
-				debug
+				debug ("type.building.internals")
 					if not Result then
 						std_output.put_string(type.full_name)
 						std_output.put_string(once ": not yet ready because the type parameter #")

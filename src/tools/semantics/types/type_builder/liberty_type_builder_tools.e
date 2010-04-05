@@ -8,6 +8,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
+	logging: LOGGING
 
 	builder: LIBERTY_TYPE_BUILDER
 	type: LIBERTY_ACTUAL_TYPE
