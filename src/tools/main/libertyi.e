@@ -32,7 +32,7 @@ feature {}
 			errors: LIBERTY_ERRORS
 			interpreter: LIBERTY_INTERPRETER
 			i, eq: INTEGER
-			sys: SYSTEM
+			env: LIBERTY_ENVIRONMENT
 		do
 			if argument_count < 3 then
 				usage
@@ -54,7 +54,7 @@ feature {}
 				if argument(i).has_prefix(once "-v") then
 					eq := argument(i).first_index_of('=')
 					if argument(i).valid_index(eq) then
-						sys.set_environment_variable(argument(i).substring(3, eq-1), argument(i).substring(eq+1, argument(i).count))
+						env.set(argument(i).substring(3, eq-1), argument(i).substring(eq+1, argument(i).count))
 					else
 						usage
 					end
