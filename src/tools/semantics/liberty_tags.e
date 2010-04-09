@@ -41,4 +41,9 @@ feature {ANY} -- Tags on features (used by the interpreter)
 			create Result.make("once flag".intern)
 		end
 
+	plugin_spec: LIBERTY_TAG_REF[DICTIONARY[STRING, FIXED_STRING]] is
+		once
+			create Result.make("plugin spec".intern)
+		end
+
 end

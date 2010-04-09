@@ -36,6 +36,11 @@ feature {ANY}
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
 
+	tagged: LIBERTY_TAGGED is
+		do
+			Result := bound_feature
+		end
+
 feature {LIBERTY_INTERPRETER}
 	call is
 		do
