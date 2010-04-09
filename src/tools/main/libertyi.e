@@ -31,14 +31,11 @@ feature {}
 			root_feature_name: LIBERTY_FEATURE_NAME
 			errors: LIBERTY_ERRORS
 			interpreter: LIBERTY_INTERPRETER
+			i, eq: INTEGER
+			sys: SYSTEM
 		do
-			if argument_count /= 3 then
-				std_error.put_line("Usage: " + command_name + " <loadpath> <root type> <root feature name>")
-				std_error.put_line("  <loadpath>           the path to the root loadpath.se")
-				std_error.put_line("  <root type>          the name of the root type")
-				std_error.put_line("  <root feature name>  the name of the creation feature in the root type")
-
-				die_with_code(1)
+			if argument_count < 3 then
+				usage
 			end
 
 			logging.set_level(logging.level_trace)
@@ -49,8 +46,39 @@ feature {}
 			create root_feature_name.make(argument(3).intern)
 			universe.build_types(root, root_feature_name)
 
+			from
+				i := 4
+			until
+				i > argument_count
+			loop
+				if argument(i).has_prefix(once "-v") then
+					eq := argument(i).first_index_of('=')
+					if argument(i).valid_index(eq) then
+						sys.set_environment_variable(argument(i).substring(3, eq-1), argument(i).substring(eq+1, argument(i).count))
+					else
+						usage
+					end
+				else
+					usage
+				end
+				i := i + 1
+			end
+
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
+		end
+
+	usage is
+		do
+			std_error.put_line("Usage: " + command_name + " <loadpath> <root type> <root feature name> <-vvar=value>...")
+			std_error.put_line("  <loadpath>           The path to the root loadpath.se")
+			std_error.put_line("  <root type>          The name of the root type")
+			std_error.put_line("  <root feature name>  The name of the creation feature in the root type")
+			std_error.put_line("  <-vvar=value>        The variable 'var' is set to 'value'.")
+			std_error.put_line("                         Useful for plugin paths. For example:")
+			std_error.put_line("                         -vsys=`se -environment | grep '^SE_SYS=' | cut -c8-`")
+
+			die_with_code(1)
 		end
 
 	logging: LOGGING
