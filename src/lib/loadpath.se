@@ -4,13 +4,14 @@
 ./design_patterns/
 ./exec/loadpath.se
 ./foreign_interface/
+./i18n/
 ./io/loadpath.se
 ./iterator/loadpath.se
 ./kernel/loadpath.se
-./misc/
 ./message_formatter/
-./net/loadpath.se
+./misc/
 ./ncurses/loadpath.se
+./net/loadpath.se
 ./numeric/loadpath.se
 ./parse/loadpath.se
 ./random/
