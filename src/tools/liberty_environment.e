@@ -31,7 +31,7 @@ feature {ANY}
 			value: STRING
 			n, v: POINTER
 		do
-			name := name.intern
+			name := a_name.intern
 			value := environment.fast_reference_at(name)
 			if value /= Void then
 				Result := once ""
@@ -39,7 +39,7 @@ feature {ANY}
 			else
 				n := name.to_external
 				v := basic_getenv(n)
-				if n.is_not_null then
+				if v.is_not_null then
 					Result := once ""
 					Result.from_external_copy(v)
 				end
@@ -85,9 +85,10 @@ feature {ANY}
 				done
 			loop
 				from
-					i := 1
+					state := 0
+					i := line.lower
 				until
-					i > line.count
+					i > line.upper
 				loop
 					c := line.item(i)
 					inspect
@@ -111,6 +112,7 @@ feature {ANY}
 						if c = '}' then
 							state := 3
 							offset_end := i
+							i := line.upper
 						else
 							variable.extend(c)
 						end
