@@ -41,9 +41,10 @@ feature {ANY} -- Tags on features (used by the interpreter)
 			create Result.make("once flag".intern)
 		end
 
-	plugin_spec: LIBERTY_TAG_REF[DICTIONARY[STRING, FIXED_STRING]] is
+	plugin_agent: LIBERTY_TAG_REF[FOREIGN_AGENT] is
+			-- The low-level foreign function to call
 		once
-			create Result.make("plugin spec".intern)
+			create Result.make("plugin agent".intern)
 		end
 
 end

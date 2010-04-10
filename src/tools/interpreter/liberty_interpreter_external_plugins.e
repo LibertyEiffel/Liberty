@@ -21,7 +21,8 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING) is
 		local
 			tags: LIBERTY_TAGS
-			parsed_spec: DICTIONARY[STRING, FIXED_STRING]
+			plugin_agent: FOREIGN_AGENT
+			the_feature: LIBERTY_FEATURE
 		do
 			debug ("interpreter.plugin")
 				std_output.put_line(once "Plugin call:")
@@ -32,11 +33,12 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 				sedb_breakpoint
 			end
 
-			if tags.plugin_spec.is_set(plugin_call.tagged) then
-				parsed_spec := tags.plugin_spec.value(plugin_call.tagged)
+			the_feature := plugin_call.bound_feature
+			if tags.plugin_agent.is_set(the_feature) then
+				plugin_agent := tags.plugin_agent.value(the_feature)
 			else
-				parsed_spec := parse_plugin_spec(plugin_spec)
-				tags.plugin_spec.add(parsed_spec, plugin_call.tagged)
+				plugin_agent := parse_plugin_spec(the_feature, plugin_spec)
+				tags.plugin_agent.add(plugin_agent, the_feature)
 			end
 
 			debug ("interpreter.plugin")
@@ -50,19 +52,19 @@ feature {}
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
+			create foreign_types.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 		end
 
 	interpreter: LIBERTY_INTERPRETER
 
-	parse_plugin_spec (plugin_spec: FIXED_STRING):  DICTIONARY[STRING, FIXED_STRING] is
+	parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING): FOREIGN_AGENT is
 		local
 			i, key_start, key_end, value_start, value_end, state: INTEGER
-			key: FIXED_STRING; value: STRING
+			key: FIXED_STRING; value, description, module_name, feature_name: STRING
 			env: LIBERTY_ENVIRONMENT
 		do
-			create {HASHED_DICTIONARY[STRING, FIXED_STRING]} Result.with_capacity(3)
 			from
 				i := plugin_spec.lower
 			until
@@ -107,7 +109,28 @@ feature {}
 							std_output.put_string(once ": ")
 							std_output.put_line(value)
 						end
-						Result.add(value, key)
+
+						inspect
+							key.out --| TODO: remove the '.out' when inspect on FIXED_STRING is implemented
+						when "description" then
+							if description /= Void then
+								interpreter.fatal_error("Duplicate %"description%" key")
+							end
+							description := value
+						when "module_name" then
+							if module_name /= Void then
+								interpreter.fatal_error("Duplicate %"module_name%" key")
+							end
+							module_name := value
+						when "feature_name" then
+							if feature_name /= Void then
+								interpreter.fatal_error("Duplicate %"feature_name%" key")
+							end
+							feature_name := value
+						else
+							interpreter.fatal_error("Unknown key: %"" + key + "%" key")
+						end
+
 						state := 0
 					else
 					end
@@ -116,6 +139,72 @@ feature {}
 				end
 				i := i + 1
 			end
+
+			if description = Void then
+				interpreter.fatal_error("Missing %"description%" key")
+			elseif module_name = Void then
+				interpreter.fatal_error("Missing %"module_name%" key")
+			elseif feature_name = Void then
+				interpreter.fatal_error("Missing %"feature_name%" key")
+			end
+
+			Result := foreign_agent(the_feature, description, module_name, feature_name)
 		end
+
+	foreign_agent (the_feature: LIBERTY_FEATURE; description, module_name, feature_name: STRING): FOREIGN_AGENT is
+		require
+			description /= Void
+			module_name /= Void
+			feature_name /= Void
+		local
+			loader: FOREIGN_DLL_LOADER
+			dll: FOREIGN_DLL
+			plugin: STRING
+		do
+			plugin := once ""
+			plugin.copy(description)
+			plugin.extend('/')
+			plugin.append(module_name)
+			plugin.append(once ".so")
+			dll := loader.library(plugin)
+			if dll = Void then
+				interpreter.fatal_error("Unknown plugin " + plugin)
+			end
+			Result := dll.function(feature_name, foreign_parameters_types(the_feature), foreign_result_type(the_feature))
+			if Result = Void then
+				interpreter.fatal_error("Unknown feature " + feature_name + " in plugin " + plugin)
+			end
+		end
+
+	foreign_parameters_types (the_feature: LIBERTY_FEATURE): COLLECTION[FOREIGN_TYPE] is
+		local
+			i: INTEGER
+		do
+			create {FAST_ARRAY[FOREIGN_TYPE]} Result.with_capacity(the_feature.parameters.count)
+			from
+				i := the_feature.parameters.lower
+			until
+				i > the_feature.parameters.upper
+			loop
+				Result.add_last(foreign_types.type(the_feature.parameters.item(i).result_type.actual_type))
+				i := i + 1
+			end
+		end
+
+	foreign_result_type (the_feature: LIBERTY_FEATURE): FOREIGN_TYPE is
+		local
+			types: FOREIGN_TYPES
+		do
+			if the_feature.result_type /= Void then
+				Result := foreign_types.type(the_feature.result_type.actual_type)
+			else
+				Result := types.nothing
+			end
+		end
+
+	foreign_types: LIBERTY_INTERPRETER_FOREIGN_TYPES
+
+invariant
+	foreign_types /= Void
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_PLUGINS

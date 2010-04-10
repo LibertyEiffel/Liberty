@@ -36,10 +36,8 @@ feature {ANY}
 
 	returned_static_type: LIBERTY_ACTUAL_TYPE
 
-	tagged: LIBERTY_TAGGED is
-		do
-			Result := bound_feature
-		end
+feature {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
+	bound_feature: LIBERTY_FEATURE
 
 feature {LIBERTY_INTERPRETER}
 	call is
@@ -419,7 +417,6 @@ feature {}
 		end
 
 	interpreter: LIBERTY_INTERPRETER
-	bound_feature: LIBERTY_FEATURE
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 	parameter_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
