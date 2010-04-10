@@ -38,14 +38,16 @@ feature {FOREIGN_AGENT}
 		local
 			i: INTEGER
 		do
-			create {FAST_ARRAY[POINTER]} Result.with_capacity(parameters.count)
-			from
-				i := parameters.lower
-			until
-				i > parameters.upper
-			loop
-				Result.add_last(parameters.item(i).as_pointer)
-				i := i + 1
+			if not parameters.is_empty then
+				create {FAST_ARRAY[POINTER]} Result.with_capacity(parameters.count)
+				from
+					i := parameters.lower
+				until
+					i > parameters.upper
+				loop
+					Result.add_last(parameters.item(i).as_pointer)
+					i := i + 1
+				end
 			end
 		end
 

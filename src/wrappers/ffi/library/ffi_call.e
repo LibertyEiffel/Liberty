@@ -41,17 +41,27 @@ feature {ANY} -- Preparation of a call
 	require 
 		a_function.is_not_null
 		a_return_type.is_not_null
-		some_argument_types/=Void
-		not some_argument_types.is_empty
+		some_argument_types/=Void implies not some_argument_types.is_empty
 	-- TODO: reactivate the following preconditions when they will not make the compiler produce wrong code anymore. Paolo 2010-03-19
 	-- 	is_valid_type(a_return_type)
 	-- 	some_argument_types=Void or else 
 	-- 	some_argument_types.for_all(agent is_valid_type)	
+		local
+			args: POINTER; count: NATURAL_32
 	do
 		handle:=malloc(struct_size.to_natural_64) -- Also allocate works
 		function := a_function
 		argument_types:=some_argument_types
-		status.change_value(ffi_prep_cif(handle,default_abi,argument_types.count.to_natural_32,a_return_type,argument_types.to_external))
+		if argument_types /= Void then
+			args := argument_types.to_external
+			count := argument_types.count.to_natural_32
+		else
+			check
+				args.is_null
+				count = 0.to_natural_32
+			end
+		end
+		status.change_value(ffi_prep_cif(handle, default_abi, count, a_return_type, args))
 		check not status.is_bad__abi end
 	ensure
 		function_set: function = a_function

@@ -41,14 +41,16 @@ feature {}
 			p: FAST_ARRAY[POINTER]
 			i: INTEGER
 		do
-			create p.with_capacity(parameter_types.count)
-			from
-				i := parameter_types.lower
-			until
-				i > parameter_types.upper
-			loop
-				p.add_last(parameter_types.item(i).ffi_type)
-				i := i + 1
+			if not parameter_types.is_empty then
+				create p.with_capacity(parameter_types.count)
+				from
+					i := parameter_types.lower
+				until
+					i > parameter_types.upper
+				loop
+					p.add_last(parameter_types.item(i).ffi_type)
+					i := i + 1
+				end
 			end
 			create ffi_call.prepare(a_function, result_type.ffi_type, p)
 		ensure

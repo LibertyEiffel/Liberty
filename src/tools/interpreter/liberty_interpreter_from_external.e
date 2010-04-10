@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_FOREIGN_TYPES
+class LIBERTY_INTERPRETER_FROM_EXTERNAL
 
 inherit
 	LIBERTY_TYPE_VISITOR
@@ -21,13 +21,20 @@ create {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
 	make
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
-	type (a_type: LIBERTY_ACTUAL_TYPE): FOREIGN_TYPE is
+	item (a_type: LIBERTY_ACTUAL_TYPE; a_external: FOREIGN_OBJECT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		require
 			a_type /= Void
 		do
+			position := a_position
+			external_object := a_external
 			a_type.accept(Current)
-			Result := foreign_type
+			Result := liberty_object
 		end
+
+feature {}
+	position: LIBERTY_POSITION
+	external_object: FOREIGN_OBJECT
+	liberty_object: LIBERTY_INTERPRETER_OBJECT
 
 feature {LIBERTY_UNIVERSE}
 	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -41,38 +48,59 @@ feature {LIBERTY_UNIVERSE}
 		end
 
 	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[POINTER]
 		do
-			foreign_type := types.pointer
+			p ::= external_object
+			liberty_object := interpreter.new_pointer(p.item, position)
 		end
 
 	visit_type_integer_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[INTEGER_64]
 		do
-			foreign_type := types.sint64
+			p ::= external_object
+			liberty_object := interpreter.new_integer_64(p.item, position)
 		end
 
 	visit_type_integer_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[INTEGER_32]
 		do
-			foreign_type := types.sint32
+			p ::= external_object
+			liberty_object := interpreter.new_integer_32(p.item, position)
 		end
 
 	visit_type_integer_16 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[INTEGER_16]
 		do
-			foreign_type := types.sint16
+			p ::= external_object
+			liberty_object := interpreter.new_integer_16(p.item, position)
 		end
 
 	visit_type_integer_8 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[INTEGER_8]
 		do
-			foreign_type := types.sint8
+			p ::= external_object
+			liberty_object := interpreter.new_integer_8(p.item, position)
 		end
 
 	visit_type_real_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[REAL_64]
 		do
-			foreign_type := types.double
+			p ::= external_object
+			liberty_object := interpreter.new_real_64(p.item, position)
 		end
 
 	visit_type_real_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[REAL_32]
 		do
-			foreign_type := types.float
+			p ::= external_object
+			liberty_object := interpreter.new_real_32(p.item, position)
 		end
 
 	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -86,18 +114,29 @@ feature {LIBERTY_UNIVERSE}
 		end
 
 	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[CHARACTER]
 		do
-			foreign_type := types.schar
+			p ::= external_object
+			liberty_object := interpreter.new_character(p.item, position)
 		end
 
 	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[POINTER]
+			str: STRING
 		do
-			foreign_type := types.c_string
+			p ::= external_object
+			create str.from_external_copy(p.item)
+			liberty_object := interpreter.new_string(str, position)
 		end
 
 	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: FOREIGN_TYPED_OBJECT[INTEGER]
 		do
-			foreign_type := types.sint32
+			p ::= external_object
+			liberty_object := interpreter.new_boolean(p.item /= 0, position)
 		end
 
 	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -145,9 +184,6 @@ feature {}
 		ensure
 			interpreter = a_interpreter
 		end
-
-	foreign_type: FOREIGN_TYPE
-	types: FOREIGN_TYPES
 
 	interpreter: LIBERTY_INTERPRETER
 

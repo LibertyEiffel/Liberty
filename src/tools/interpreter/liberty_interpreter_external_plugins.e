@@ -23,6 +23,8 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			tags: LIBERTY_TAGS
 			plugin_agent: FOREIGN_AGENT
 			the_feature: LIBERTY_FEATURE
+			parameters: FOREIGN_PARAMETERS
+			returned: FOREIGN_OBJECT
 		do
 			debug ("interpreter.plugin")
 				std_output.put_line(once "Plugin call:")
@@ -39,6 +41,14 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			else
 				plugin_agent := parse_plugin_spec(the_feature, plugin_spec)
 				tags.plugin_agent.add(plugin_agent, the_feature)
+			end
+
+			parameters.set(parameters_to_external(plugin_call.parameters))
+			if the_feature.result_type = Void then
+				plugin_agent.call(parameters)
+			else
+				returned := plugin_agent.item(parameters)
+				plugin_call.set_returned_object(from_external.item(the_feature.result_type.actual_type, returned, plugin_call.position))
 			end
 
 			debug ("interpreter.plugin")
@@ -62,7 +72,7 @@ feature {}
 	parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING): FOREIGN_AGENT is
 		local
 			i, key_start, key_end, value_start, value_end, state: INTEGER
-			key: FIXED_STRING; value, description, module_name, feature_name: STRING
+			key: FIXED_STRING; value, location, module_name, feature_name: STRING
 			env: LIBERTY_ENVIRONMENT
 		do
 			from
@@ -112,11 +122,11 @@ feature {}
 
 						inspect
 							key.out --| TODO: remove the '.out' when inspect on FIXED_STRING is implemented
-						when "description" then
-							if description /= Void then
-								interpreter.fatal_error("Duplicate %"description%" key")
+						when "location" then
+							if location /= Void then
+								interpreter.fatal_error("Duplicate %"location%" key")
 							end
-							description := value
+							location := value
 						when "module_name" then
 							if module_name /= Void then
 								interpreter.fatal_error("Duplicate %"module_name%" key")
@@ -140,20 +150,20 @@ feature {}
 				i := i + 1
 			end
 
-			if description = Void then
-				interpreter.fatal_error("Missing %"description%" key")
+			if location = Void then
+				interpreter.fatal_error("Missing %"location%" key")
 			elseif module_name = Void then
 				interpreter.fatal_error("Missing %"module_name%" key")
 			elseif feature_name = Void then
 				interpreter.fatal_error("Missing %"feature_name%" key")
 			end
 
-			Result := foreign_agent(the_feature, description, module_name, feature_name)
+			Result := foreign_agent(the_feature, location, module_name, feature_name)
 		end
 
-	foreign_agent (the_feature: LIBERTY_FEATURE; description, module_name, feature_name: STRING): FOREIGN_AGENT is
+	foreign_agent (the_feature: LIBERTY_FEATURE; location, module_name, feature_name: STRING): FOREIGN_AGENT is
 		require
-			description /= Void
+			location /= Void
 			module_name /= Void
 			feature_name /= Void
 		local
@@ -162,7 +172,7 @@ feature {}
 			plugin: STRING
 		do
 			plugin := once ""
-			plugin.copy(description)
+			plugin.copy(location)
 			plugin.extend('/')
 			plugin.append(module_name)
 			plugin.append(once ".so")
@@ -202,7 +212,24 @@ feature {}
 			end
 		end
 
+	parameters_to_external (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): COLLECTION[FOREIGN_OBJECT] is
+		local
+			i: INTEGER
+		do
+			create {FAST_ARRAY[FOREIGN_OBJECT]} Result.with_capacity(parameters.count)
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				Result.add_last(to_external.item(parameters.item(i)))
+				i := i + 1
+			end
+		end
+
 	foreign_types: LIBERTY_INTERPRETER_FOREIGN_TYPES
+	from_external: LIBERTY_INTERPRETER_FROM_EXTERNAL
+	to_external: LIBERTY_INTERPRETER_TO_EXTERNAL
 
 invariant
 	foreign_types /= Void
