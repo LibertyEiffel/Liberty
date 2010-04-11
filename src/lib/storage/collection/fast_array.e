@@ -26,7 +26,7 @@ insert
 		end
 
 creation {ANY}
-	make, with_capacity, from_collection, manifest_creation
+	make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}
 	lower: INTEGER is 0
@@ -351,7 +351,7 @@ feature {ANY} -- Implementation of deferred:
 		do
 			create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
 		end
-	
+
 feature {} -- Garbage collector tuning (very low-level):
 	mark_native_arrays is
 			-- For performance reasons, the unused area of `storage' is always left as it is when

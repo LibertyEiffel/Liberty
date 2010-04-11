@@ -120,13 +120,8 @@ feature {LIBERTY_UNIVERSE}
 		end
 
 	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
-		local
-			p: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
-			storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
 		do
-			p ::= liberty_object
-			storage ::= p.attribute_object(storage_attribute)
-			external_object := foreign_types.create_pointer(storage.elements.to_external)
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
 	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -138,8 +133,11 @@ feature {LIBERTY_UNIVERSE}
 		end
 
 	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
+		local
+			p: LIBERTY_INTERPRETER_NATIVE_ARRAY
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
+			p ::= liberty_object
+			external_object := foreign_types.create_pointer(p.to_external)
 		end
 
 	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE) is

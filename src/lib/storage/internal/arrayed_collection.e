@@ -13,6 +13,17 @@ feature {ARRAYED_COLLECTION, ARRAYED_COLLECTION_HANDLER}
 	storage: NATIVE_ARRAY[E_]
 			-- Internal access to storage location.
 
+	from_external (a_storage: POINTER; a_capacity: like capacity) is
+		require
+			a_capacity > 0 implies a_storage.is_not_null
+		do
+			storage := storage.from_pointer(a_storage)
+			capacity := a_capacity
+		ensure
+			storage.to_external = a_storage
+			capacity = a_capacity
+		end
+
 feature {ANY}
 	capacity: INTEGER
 			-- Internal storage capacity in number of item.

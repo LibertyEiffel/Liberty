@@ -19,6 +19,7 @@ inherit
 
 insert
 	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+	ARRAYED_COLLECTION_HANDLER
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	make
@@ -31,6 +32,15 @@ feature {}
 			builtin_call.evaluate_parameters
 			obj ::= builtin_call.parameters.first
 			Result := obj.item.to_integer_32
+		end
+
+	pointer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): POINTER is
+		local
+			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]
+		do
+			builtin_call.evaluate_parameters
+			obj ::= builtin_call.parameters.first
+			Result := obj.item
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
@@ -62,7 +72,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "slice_copy" then
 				slice_copy(builtin_call)
 			when "from_pointer" then
-				not_yet_implemented
+				Result := interpreter.array_from_external(target.result_type.actual_type, 0, pointer(builtin_call), builtin_call.position)
 			else
 				last_call_failed := True
 			end

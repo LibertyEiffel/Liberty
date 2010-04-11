@@ -66,6 +66,16 @@ feature {ANY}
 		deferred
 		end
 
+feature {LIBERTY_INTERPRETER_TO_EXTERNAL}
+	to_external: POINTER is
+		deferred
+		end
+
+feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR}
+	from_external (a_external: POINTER; a_capacity: INTEGER) is
+		deferred
+		end
+
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
 	builtin_element_sizeof: INTEGER is
 		deferred

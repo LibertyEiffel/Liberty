@@ -63,6 +63,8 @@ feature {}
 		do
 			interpreter := a_interpreter
 			create foreign_types.make(a_interpreter)
+			create from_external.make(a_interpreter)
+			create to_external.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 		end
@@ -136,7 +138,13 @@ feature {}
 							if feature_name /= Void then
 								interpreter.fatal_error("Duplicate %"feature_name%" key")
 							end
-							feature_name := value
+							if the_feature.parameters.is_empty and then value.has_suffix(once "()") then
+								value.remove_suffix(once "()")
+							end
+							feature_name := "liberty_plugin__"
+							feature_name.append(the_feature.definition_type.full_name)
+							feature_name.append(once "__")
+							feature_name.append(value)
 						else
 							interpreter.fatal_error("Unknown key: %"" + key + "%" key")
 						end

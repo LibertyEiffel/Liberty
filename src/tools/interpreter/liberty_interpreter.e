@@ -183,6 +183,19 @@ feature {ANY}
 			Result := array_creator.new_array(type, capacity, a_position)
 		end
 
+	array_from_external (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+		do
+			check
+				type.parameters.count = 1
+			end
+			debug ("interpreter.creation")
+				std_output.put_string(once "Creating new array of ")
+				std_output.put_string(type.parameters.first.full_name)
+				std_output.put_line(once " from external")
+			end
+			Result := array_creator.from_external(type, capacity, elements, a_position)
+		end
+
 	new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			the_new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE

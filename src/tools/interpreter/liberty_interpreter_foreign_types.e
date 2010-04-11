@@ -92,7 +92,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			foreign_type := types.c_string
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
 	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -102,7 +102,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
+			foreign_type := types.pointer
 		end
 
 	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE) is

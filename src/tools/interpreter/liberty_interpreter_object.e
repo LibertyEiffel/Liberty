@@ -21,6 +21,9 @@ inherit
 		end
 	HASHABLE
 
+insert
+	ARRAYED_COLLECTION_HANDLER
+
 feature {ANY}
 	is_void: BOOLEAN is False
 

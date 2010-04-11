@@ -250,7 +250,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
 
 	builtin_calloc (capacity: INTEGER; a_position: LIBERTY_POSITION): like Current is
 		do
-			create Result.make(interpreter, type, item_type, capacity, a_position)
+			create Result.make(interpreter, type, item_type, default_pointer, capacity, a_position)
 		end
 
 	builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER) is
@@ -270,19 +270,24 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
 		end
 
 feature {}
-	make (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_capacity: INTEGER; a_position: like position) is
+	make (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_storage: POINTER; a_capacity: INTEGER; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_type /= Void
 			a_item_type /= Void
 			a_capacity >= 0
 			a_position /= Void
+			a_storage.is_not_null implies a_capacity > 0
 		do
 			interpreter := a_interpreter
 			type := a_type
 			item_type := a_item_type
 			position := a_position
-			create elements.make(a_capacity)
+			if a_storage.is_null then
+				create elements.make(a_capacity)
+			else
+				create elements.from_external(a_storage, a_capacity)
+			end
 			accessor ::= accessor_factory.accessor(a_interpreter, a_item_type, a_position)
 		ensure
 			interpreter = a_interpreter
@@ -333,8 +338,20 @@ feature {}
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED}
 	accessor: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
 
-feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_TO_EXTERNAL}
+feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER_OBJECT_PRINTER}
 	elements: FAST_ARRAY[E_]
+
+feature {LIBERTY_INTERPRETER_TO_EXTERNAL}
+	to_external: POINTER is
+		do
+			Result := elements.to_external
+		end
+
+feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR}
+	from_external (a_external: POINTER; a_capacity: INTEGER) is
+		do
+			elements.from_external(a_external, a_capacity)
+		end
 
 invariant
 	elements /= Void
