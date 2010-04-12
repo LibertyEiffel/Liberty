@@ -1,0 +1,27 @@
+system "libertyi_boost"
+
+root LIBERTYI: make
+
+default
+	assertion(boost)
+	debug(no)
+	collect(yes)
+	verbose(yes)
+	manifest_string_trace(no)
+	profile(no)
+	relax(yes)
+	trace(no)
+
+cluster
+	lib: "${path_liberty}/src/lib/loadpath.se"
+	tools: "${path_liberty}/src/tools/loadpath.se"
+	wrappers_common: "${path_liberty}/src/wrappers/common/library/loadpath.se"
+	wrappers_ffi: "${path_liberty}/src/wrappers/ffi/library/loadpath.se"
+	wrappers_dll: "${path_liberty}/src/wrappers/posix/dynamic-linking/library/loadpath.se"
+
+generate
+	no_strip(no)
+	no_split(yes)
+	clean(no)
+
+end
