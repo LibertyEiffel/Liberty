@@ -9,28 +9,28 @@ expanded class LOGGING
 feature {ANY}
 	trace: OUTPUT_STREAM is
 		do
-			Result := level.stream(level_trace)
+			Result := level_trace.stream(level)
 		ensure
 			Result /= Void
 		end
 
 	info: OUTPUT_STREAM is
 		do
-			Result := level.stream(level_info)
+			Result := level_info.stream(level)
 		ensure
 			Result /= Void
 		end
 
 	warning: OUTPUT_STREAM is
 		do
-			Result := level.stream(level_warning)
+			Result := level_warning.stream(level)
 		ensure
 			Result /= Void
 		end
 
 	error: OUTPUT_STREAM is
 		do
-			Result := level.stream(level_error)
+			Result := level_error.stream(level)
 		ensure
 			Result /= Void
 		end
@@ -77,12 +77,12 @@ feature {ANY}
 
 	level_info: LOG_LEVEL is
 		once
-			create Result.make(1, "INFO")
+			create Result.make(1, "INFO ")
 		end
 
 	level_warning: LOG_LEVEL is
 		once
-			create Result.make(0, "WARNING")
+			create Result.make(0, "WARN ")
 		end
 
 	level_error: LOG_LEVEL is

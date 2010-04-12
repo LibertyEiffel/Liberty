@@ -34,7 +34,7 @@ feature {LOGGING}
 		require
 			a_level /= Void
 		do
-			Result := a_level.level <= level
+			Result := a_level.level >= level
 		end
 
 feature {LOG_LEVEL}
