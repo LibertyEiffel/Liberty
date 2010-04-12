@@ -114,8 +114,8 @@ feature {}
 		require
 			a_location /= Void
 		do
-			logging.info.put_string("Cluster: ")
-			logging.info.put_line(a_location)
+			logging.trace.put_string("Cluster: ")
+			logging.trace.put_line(a_location)
 			location := a_location
 			if ft.is_directory(a_location) then
 				location_directory := a_location
