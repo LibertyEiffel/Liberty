@@ -58,7 +58,7 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			dr: like delayed_resolver
 		do

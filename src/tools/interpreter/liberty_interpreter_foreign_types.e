@@ -30,108 +30,108 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
 		end
 
 feature {LIBERTY_UNIVERSE}
-	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.pointer
 		end
 
-	visit_type_integer_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_64 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.sint64
 		end
 
-	visit_type_integer_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_32 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.sint32
 		end
 
-	visit_type_integer_16 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_16 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.sint16
 		end
 
-	visit_type_integer_8 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_8 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.sint8
 		end
 
-	visit_type_real_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_64 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.double
 		end
 
-	visit_type_real_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_32 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.float
 		end
 
-	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_real_128 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_128 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.schar
 		end
 
-	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.sint32
 		end
 
-	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			foreign_type := types.pointer
 		end
 
-	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_function (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_function (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_type_predicate (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_predicate (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
-	visit_user_type (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_user_type (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end
 
 feature {LIBERTY_VOID_TYPE}
-	visit_void (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_void (a_type: LIBERTY_VOID_TYPE) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin")
 		end

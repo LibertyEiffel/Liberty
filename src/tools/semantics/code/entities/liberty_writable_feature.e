@@ -49,7 +49,7 @@ feature {ANY}
 			tagged_out_memory.append(name)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			e: like entity
 		do

@@ -25,7 +25,7 @@ feature {ANY}
 	lower, upper: LIBERTY_EXPRESSION
 
 feature {LIBERTY_INSPECT_CLAUSE}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			l, u: LIBERTY_EXPRESSION
 		do

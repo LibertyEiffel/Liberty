@@ -36,7 +36,7 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			r: like result_type
 			p: like parameters_list
@@ -53,7 +53,7 @@ feature {ANY}
 		end
 
 feature {}
-	specialized_expressions (a_expressions: COLLECTION[LIBERTY_EXPRESSION]; a_type: LIBERTY_ACTUAL_TYPE): COLLECTION[LIBERTY_EXPRESSION] is
+	specialized_expressions (a_expressions: COLLECTION[LIBERTY_EXPRESSION]; a_type: LIBERTY_ACTUAL_TYPE_IMPL): COLLECTION[LIBERTY_EXPRESSION] is
 		local
 			e: LIBERTY_EXPRESSION
 			i: INTEGER

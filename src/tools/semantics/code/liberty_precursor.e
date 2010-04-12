@@ -25,7 +25,7 @@ feature {ANY}
 			Result := actuals_list
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			f: like the_feature
 			a: like actuals_list

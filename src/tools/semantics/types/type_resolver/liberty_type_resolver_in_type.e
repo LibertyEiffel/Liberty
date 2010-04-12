@@ -27,9 +27,9 @@ feature {ANY}
 			current_type.out_in_tagged_out_memory
 		end
 
-	current_type: LIBERTY_ACTUAL_TYPE
+	current_type: LIBERTY_ACTUAL_TYPE_IMPL
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		do
 			Result := a_type.type_resolver
 		ensure then

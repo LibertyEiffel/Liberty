@@ -21,7 +21,7 @@ feature {ANY}
 	manifest: E_
 	result_type: LIBERTY_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		do
 			Result := Current
 		end

@@ -71,7 +71,7 @@ feature {ANY}
 			target_type.actual_type.debug_display(std_output, True)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			f: like the_feature
 			dft: like delayed_feature_type

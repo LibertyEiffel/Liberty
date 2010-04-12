@@ -39,7 +39,7 @@ feature {ANY}
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
 
-	current_type: LIBERTY_ACTUAL_TYPE
+	current_type: LIBERTY_ACTUAL_TYPE_IMPL
 
 	out_in_tagged_out_memory is
 		do
@@ -91,7 +91,7 @@ feature {ANY}
 			the_feature := other.the_feature
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			cl, ccl: COLLECTION[LIBERTY_TYPE]
 			f, pf: like the_feature
@@ -146,7 +146,7 @@ feature {ANY}
 		end
 
 feature {}
-	specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE): like clients is
+	specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE_IMPL): like clients is
 		require
 			a_type /= Void
 			a_clients /= Void

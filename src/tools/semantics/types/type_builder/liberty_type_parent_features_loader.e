@@ -36,7 +36,7 @@ feature {}
 		do
 			builder := a_builder
 			current_entity := a_current_entity
-			type := a_current_entity.result_type
+			type ::= a_current_entity.result_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.with_capacity(50) -- ANY contains 50 features
@@ -70,7 +70,7 @@ feature {}
 	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents: BOOLEAN): BOOLEAN is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE
+			parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE_IMPL
 		do
 			from
 				Result := had_parents
@@ -84,19 +84,20 @@ feature {}
 					--|*** TODO: error, parent not found
 					not_yet_implemented
 				end
-				inject_parent_invariant(parent.actual_type)
-				inject_parent_features(parent.actual_type, parent_clause.parent_clause)
+				actual_parent ::= parent.actual_type
+				inject_parent_invariant(actual_parent)
+				inject_parent_features(actual_parent, parent_clause.parent_clause)
 				Result := True
 				i := i + 1
 			end
 		end
 
-	inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE) is
+	inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			--|*** TODO
 		end
 
-	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE) is
+	inject_parent_features (parent: LIBERTY_ACTUAL_TYPE_IMPL; clause: LIBERTY_AST_PARENT_CLAUSE) is
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; feature_name: LIBERTY_FEATURE_NAME
 			pf: like parent_features; rf_count: INTEGER
@@ -187,7 +188,7 @@ feature {}
 			end
 		end
 
-	rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME; parent: LIBERTY_ACTUAL_TYPE) is
+	rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME; parent: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: LIBERTY_FEATURE_NAME
 			fd, fd2: LIBERTY_FEATURE_DEFINITION
@@ -270,7 +271,7 @@ feature {}
 			end
 		end
 
-	undefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE) is
+	undefine_features (parent: LIBERTY_ACTUAL_TYPE_IMPL; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE) is
 			-- replace the feature by a LIBERTY_FEATURE_DEFERRED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
@@ -316,7 +317,7 @@ feature {}
 			end
 		end
 
-	redefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE): INTEGER is
+	redefine_features (parent: LIBERTY_ACTUAL_TYPE_IMPL; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE): INTEGER is
 			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION

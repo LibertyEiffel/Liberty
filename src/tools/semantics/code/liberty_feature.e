@@ -410,7 +410,7 @@ feature {ANY}
 			not is_bound(type) implies Result = Current
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		do
 			if a_type = current_type or else not a_type.is_child_of(current_type) then
 				Result := Current

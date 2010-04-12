@@ -27,7 +27,7 @@ feature {ANY}
 	expression: LIBERTY_EXPRESSION
 	body: LIBERTY_INSTRUCTION
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			i: like init
 			iv: like invariant_clause

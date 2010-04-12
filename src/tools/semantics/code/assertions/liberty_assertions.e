@@ -38,7 +38,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		require
 			a_type /= Void
 		deferred

@@ -24,7 +24,7 @@ feature {ANY}
 		end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			al: like assertions_list
 			a: LIBERTY_ASSERTION

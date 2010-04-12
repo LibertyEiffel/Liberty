@@ -23,7 +23,7 @@ inherit
 		end
 
 feature {ANY}
-	item_type: LIBERTY_ACTUAL_TYPE
+	item_type: LIBERTY_ACTUAL_TYPE_IMPL
 
 	put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
 		require

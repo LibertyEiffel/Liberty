@@ -23,7 +23,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CHECK_INSTRUCTION}
 feature {ANY}
 	checks: LIBERTY_CHECK
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			c: like checks
 		do

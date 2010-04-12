@@ -29,6 +29,8 @@ feature {LIBERTYI}
 
 			root_object := new_object(root_type, errors.unknown_position)
 			call_feature(root_object, root_feature, root_feature_actuals, errors.unknown_position)
+
+			logging.info.put_line(once "Finished.")
 		end
 
 feature {ANY}

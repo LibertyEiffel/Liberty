@@ -61,7 +61,7 @@ feature {ANY}
 			Result := instructions.new_iterator
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			i: INTEGER
 			ins: like instructions

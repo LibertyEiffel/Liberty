@@ -37,17 +37,17 @@ feature {}
 	liberty_object: LIBERTY_INTERPRETER_OBJECT
 
 feature {LIBERTY_UNIVERSE}
-	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[POINTER]
 		do
@@ -55,7 +55,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_pointer(p.item, position)
 		end
 
-	visit_type_integer_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_64 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[INTEGER_64]
 		do
@@ -63,7 +63,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_integer_64(p.item, position)
 		end
 
-	visit_type_integer_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_32 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[INTEGER_32]
 		do
@@ -71,7 +71,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_integer_32(p.item, position)
 		end
 
-	visit_type_integer_16 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_16 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[INTEGER_16]
 		do
@@ -79,7 +79,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_integer_16(p.item, position)
 		end
 
-	visit_type_integer_8 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_integer_8 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[INTEGER_8]
 		do
@@ -87,7 +87,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_integer_8(p.item, position)
 		end
 
-	visit_type_real_64 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_64 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[REAL_64]
 		do
@@ -95,7 +95,7 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_real_64(p.item, position)
 		end
 
-	visit_type_real_32 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_32 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[REAL_32]
 		do
@@ -103,17 +103,17 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_real_32(p.item, position)
 		end
 
-	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_real_128 (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_real_128 (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[CHARACTER]
 		do
@@ -121,12 +121,12 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_character(p.item, position)
 		end
 
-	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		local
 			p: FOREIGN_TYPED_OBJECT[INTEGER]
 		do
@@ -134,38 +134,38 @@ feature {LIBERTY_UNIVERSE}
 			liberty_object := interpreter.new_boolean(p.item /= 0, position)
 		end
 
-	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_function (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_function (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_type_predicate (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_type_predicate (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
-	visit_user_type (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_user_type (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end
 
 feature {LIBERTY_VOID_TYPE}
-	visit_void (a_type: LIBERTY_ACTUAL_TYPE) is
+	visit_void (a_type: LIBERTY_VOID_TYPE) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
 		end

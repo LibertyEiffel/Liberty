@@ -83,7 +83,7 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := current_type.full_name
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		do
 			if a_type.is_child_of(definition_type) then
 				create Result.specialized(a_type, definition_type, feature_name)

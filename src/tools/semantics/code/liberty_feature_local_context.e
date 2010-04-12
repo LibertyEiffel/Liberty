@@ -21,9 +21,9 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	current_type: LIBERTY_ACTUAL_TYPE is
+	current_type: LIBERTY_ACTUAL_TYPE_IMPL is
 		do
-			Result := current_entity.result_type
+			Result ::= current_entity.result_type
 		end
 
 	result_type: LIBERTY_TYPE is
@@ -140,7 +140,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 
 	written_feature_names: FIXED_STRING
 
-	find_precursor (parent: LIBERTY_ACTUAL_TYPE; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME];
+	find_precursor (parent: LIBERTY_ACTUAL_TYPE_IMPL; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME];
 						 ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING): LIBERTY_FEATURE is
 		local
 			i: INTEGER; fn: LIBERTY_AST_FEATURE_NAME

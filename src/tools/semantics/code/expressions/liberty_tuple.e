@@ -45,7 +45,7 @@ feature {ANY}
 			Result := elements.item(i - lower)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			r: like result_type
 			e: like elements

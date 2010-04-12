@@ -40,7 +40,7 @@ feature {ANY}
 			-- Result may be Void in the particular case of procedures
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		require
 			a_type /= Void
 		deferred

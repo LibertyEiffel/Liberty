@@ -35,7 +35,7 @@ feature {ANY}
 
 	else_clause: LIBERTY_DEFAULT
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			e: like expression
 			c: like clauses_list

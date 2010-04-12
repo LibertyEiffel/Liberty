@@ -19,16 +19,6 @@ class LIBERTY_VOID_TYPE
 
 inherit
 	LIBERTY_ACTUAL_TYPE
-		rename
-			make as dont_make
-		undefine
-			is_equal
-		redefine
-			full_name, full_name_in,
-			has_feature, add_feature,
-			is_conform_to, is_non_conformant_child_of, common_parent, add_parent,
-			hash_code
-		end
 
 insert
 	SINGLETON
@@ -39,16 +29,43 @@ creation {LIBERTY_VOID}
 	make
 
 feature {ANY}
-	full_name: FIXED_STRING is
+	current_entity: LIBERTY_CURRENT is
+		do
+			check Result = Void end
+		end
+
+	file: FIXED_STRING is
+		once
+			Result := "<Void>".intern
+		end
+
+	name: FIXED_STRING is
 		once
 			Result := "{Void type}".intern
 		end
 
 	hash_code: INTEGER is 20050814
 
+	is_obsolete: BOOLEAN is False
+
+	cluster: LIBERTY_CLUSTER is
+		do
+			check Result = Void end
+		end
+
+	the_invariant: LIBERTY_INVARIANT is
+		do
+			check Result = Void end
+		end
+
 	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
 		do
 			check not Result end
+		end
+
+	feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION is
+		do
+			check False end
 		end
 
 	is_conform_to (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
@@ -61,80 +78,88 @@ feature {ANY}
 			check not Result end
 		end
 
+	parameters: TRAVERSABLE[LIBERTY_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+		end
+
+	is_deferred: BOOLEAN is False
+	is_expanded: BOOLEAN is False
+	is_separate: BOOLEAN is False
+	is_reference: BOOLEAN is False
+	is_runtime_category_set: BOOLEAN is True
+
+	accept (visitor: LIBERTY_TYPE_VISITOR) is
+		do
+			visitor.visit_void(Current)
+		end
+
 feature {LIBERTY_ACTUAL_TYPE}
 	full_name_in (buffer: STRING) is
 		do
-			buffer.append(full_name)
+			buffer.append(once "<Void>")
 		end
 
+feature {LIBERTY_UNIVERSE} -- Semantics building
+	start_build (universe: LIBERTY_UNIVERSE) is
+		do
+		end
+
+	build_more is
+		do
+			check False end
+		end
+
+	is_built: BOOLEAN is True
+
+	has_converter (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			check not Result end
+		end
+
+	converter (target_type: LIBERTY_ACTUAL_TYPE): PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		do
+			check False end
+		end
+
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
+		do
+			o.put_line(full_name)
+		end
+
+feature {LIBERTY_ACTUAL_TYPE}
 	common_parent (other: LIBERTY_ACTUAL_TYPE): LIBERTY_ACTUAL_TYPE is
 		do
 			check False end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN) is
-		do
-			check False end
-		end
+feature {LIBERTY_TYPE_BUILDER}
+	has_no_parents: BOOLEAN is True
 
-	add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
+	has_loaded_features: BOOLEAN is True
+
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
+	mark_reachable_code (mark: like reachable_mark) is
 		do
-			check False end
+			if reachable_mark < mark then
+				reachable_mark := mark
+			end
 		end
 
 feature {}
 	make is
 		do
 			reachable_mark := 1
-			runtime_category := reference_category
 			create result_entity.make(Current, errors.unknown_position)
-			conformant_parents := empty_conformant_parents
-			non_conformant_parents := empty_non_conformant_parents
-			descriptor := void_descriptor
-			create current_entity.make(Current, errors.unknown_position)
-			create result_entity.make(Current, errors.unknown_position)
-			visit := void_visit
-			features := empty_features
 		ensure
 			is_reachable
 		end
 
-	empty_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
-		once
-			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
-		end
-
-	empty_non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
-		once
-			Result := empty_conformant_parents
-		end
-
-	empty_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME] is
-		once
-			create {AVL_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} Result.make
-		end
-
-	void_descriptor: LIBERTY_TYPE_DESCRIPTOR is
-		local
-			cd: LIBERTY_CLASS_DESCRIPTOR
-			params: FAST_ARRAY[LIBERTY_TYPE]
-		once
-			create cd.make_void(errors.unknown_position)
-			create params.with_capacity(0)
-			create Result.make(cd, params)
-		end
-
-	void_visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
-		once
-			Result := agent {LIBERTY_TYPE_VISITOR}.visit_void
-		end
+	errors: LIBERTY_ERRORS
 
 invariant
 	is_reachable
-	conformant_parents.is_empty
-	non_conformant_parents.is_empty
-	result_entity /= Void
-	features.is_empty
 
 end -- class LIBERTY_VOID_TYPE

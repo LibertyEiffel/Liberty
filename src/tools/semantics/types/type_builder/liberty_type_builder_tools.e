@@ -11,9 +11,9 @@ feature {}
 	logging: LOGGING
 
 	builder: LIBERTY_TYPE_BUILDER
-	type: LIBERTY_ACTUAL_TYPE
+	type: LIBERTY_ACTUAL_TYPE_IMPL
 	universe: LIBERTY_UNIVERSE
-	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
+	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE_IMPL, FIXED_STRING]
 
 	is_any: BOOLEAN is
 		do

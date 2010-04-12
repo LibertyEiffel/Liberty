@@ -27,7 +27,7 @@ feature {ANY}
 	instruction: LIBERTY_INSTRUCTION
 
 feature {LIBERTY_CONDITIONAL}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
 		local
 			e: like expression
 			i: like instruction

@@ -26,7 +26,6 @@ feature {ANY}
 		require
 			a_name /= Void
 		local
-			sys: SYSTEM
 			name: FIXED_STRING
 			value: STRING
 			n, v: POINTER
