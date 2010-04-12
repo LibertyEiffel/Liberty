@@ -51,7 +51,9 @@ feature {ANY}
 				build_to_incubator(incubator)
 				mark_reachable_code(root_type, root_feature_name)
 				resolve_delayed_types
-				incubator := check_flame_and_swap_incubator(flame, incubator)
+				if types_incubator.is_empty then
+					incubator := check_flame_and_swap_incubator(flame, incubator)
+				end
 			end
 			debug ("type.building")
 				debug_types(types_incubator)

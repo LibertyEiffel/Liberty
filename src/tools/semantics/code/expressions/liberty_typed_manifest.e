@@ -29,7 +29,7 @@ feature {ANY}
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
-			-- nothing
+			result_type.mark_reachable_code(mark)
 		end
 
 feature {}

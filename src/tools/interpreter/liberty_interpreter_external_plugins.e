@@ -32,7 +32,6 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 				std_output.put_new_line
 				std_output.put_line(once "Plugin spec:")
 				std_output.put_line(plugin_spec)
-				sedb_breakpoint
 			end
 
 			the_feature := plugin_call.bound_feature
@@ -49,10 +48,6 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			else
 				returned := plugin_agent.item(parameters)
 				plugin_call.set_returned_object(from_external.item(the_feature.result_type.actual_type, returned, plugin_call.position))
-			end
-
-			debug ("interpreter.plugin")
-				sedb_breakpoint
 			end
 		end
 
