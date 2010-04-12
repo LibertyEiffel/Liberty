@@ -122,7 +122,9 @@ feature {ANY}
 				if state = 3 then
 					-- One variable found:
 					value := item(variable)
-					if value /= Void then
+					if value = Void then
+						done := True
+					else
 						variable.copy(line)
 						line.keep_head(offset_start - 1)
 						line.append(value)
