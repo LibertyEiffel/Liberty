@@ -33,28 +33,39 @@ feature {}
 			interpreter: LIBERTY_INTERPRETER
 			i, eq: INTEGER
 			env: LIBERTY_ENVIRONMENT
+			arg: STRING
 		do
 			if argument_count < 3 then
 				usage
 			end
 
-			logging.set_level(logging.level_trace)
-
-			create universe.make(argument(1))
-			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
-
-			create root_feature_name.make(argument(3).intern)
-			universe.build_types(root, root_feature_name)
-
 			from
+				arg := once ""
 				i := 4
 			until
 				i > argument_count
 			loop
-				if argument(i).has_prefix(once "-v") then
-					eq := argument(i).first_index_of('=')
-					if argument(i).valid_index(eq) then
-						env.set(argument(i).substring(3, eq-1), argument(i).substring(eq+1, argument(i).count))
+				arg.copy(argument(i))
+				if arg.has_prefix(once "-v") then
+					eq := arg.first_index_of('=')
+					if arg.valid_index(eq) then
+						env.set(arg.substring(3, eq-1), arg.substring(eq+1, arg.count))
+					else
+						usage
+					end
+				elseif arg.has_prefix(once "-log=") then
+					arg.remove_prefix(once "-log=")
+					arg.to_lower
+					inspect
+						arg
+					when "t", "trace", "debug" then
+						logging.set_level(logging.level_trace)
+					when "i", "info" then
+						logging.set_level(logging.level_info)
+					when "w", "warn", "warning" then
+						logging.set_level(logging.level_warning)
+					when "e", "error" then
+						logging.set_level(logging.level_error)
 					else
 						usage
 					end
@@ -63,6 +74,12 @@ feature {}
 				end
 				i := i + 1
 			end
+
+			create universe.make(argument(1))
+			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
+
+			create root_feature_name.make(argument(3).intern)
+			universe.build_types(root, root_feature_name)
 
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
@@ -77,6 +94,7 @@ feature {}
 			std_error.put_line("  <-vvar=value>        The variable 'var' is set to 'value'.")
 			std_error.put_line("                         Useful for plugin paths. For example:")
 			std_error.put_line("                         -vsys=`se -environment | grep '^SE_SYS=' | cut -c8-`")
+			std_error.put_line("  <-log=level>         The logging level: trace, info, warning, error")
 
 			die_with_code(1)
 		end
