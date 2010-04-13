@@ -27,7 +27,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ACTUAL_TYPE]): LIBERTY_ACTUAL_TYPE is
+	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ACTUAL_TYPE_IMPL]): LIBERTY_ACTUAL_TYPE_IMPL is
 		require
 			position /= Void
 		do
@@ -37,7 +37,7 @@ feature {ANY}
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	build_types (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+	build_types (root_type: LIBERTY_ACTUAL_TYPE_IMPL; root_feature_name: LIBERTY_FEATURE_NAME) is
 		local
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
@@ -247,7 +247,7 @@ feature {}
 			create Result
 		end
 
-	mark_reachable_code (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+	mark_reachable_code (root_type: LIBERTY_ACTUAL_TYPE_IMPL; root_feature_name: LIBERTY_FEATURE_NAME) is
 		local
 			root_feature: LIBERTY_FEATURE_DEFINITION
 		do
