@@ -92,7 +92,7 @@ feature {}
 
 	format_and_print_message is
 		local
-			i: INTEGER
+			i: INTEGER; i18n: I18N
 		do
 			time.update
 			from
@@ -110,17 +110,7 @@ feature {}
 						when 'T' then
 							output.put_string(tag)
 						when 't' then
-							output.put_integer(time.year)
-							output.put_character('.')
-							put_two_figure_integer(time.month)
-							output.put_character('.')
-							put_two_figure_integer(time.day)
-							output.put_character(' ')
-							put_two_figure_integer(time.hour)
-							output.put_character(':')
-							put_two_figure_integer(time.minute)
-							output.put_character(':')
-							put_two_figure_integer(time.second)
+							output.put_string(i18n.locale.localized_time_and_date(time))
 						when 'm' then
 							output.put_string(message)
 						else
