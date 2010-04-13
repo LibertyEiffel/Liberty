@@ -281,12 +281,6 @@ feature {ANY}
 			create Result.with_item(Current, universe.type_pointer, manifest, a_position)
 		end
 
-	is_in_debug_mode (keys: TRAVERSABLE[ABSTRACT_STRING]): BOOLEAN is
-		do
-			--|*** TODO
-			Result := True
-		end
-
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if current_feature.has_old_value(a_expression) then

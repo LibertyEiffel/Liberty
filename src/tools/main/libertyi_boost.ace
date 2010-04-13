@@ -21,7 +21,7 @@ cluster
 
 generate
 	no_strip(no)
-	no_split(yes)
+	no_split(no)
 	clean(no)
 
 end

@@ -34,6 +34,7 @@ feature {}
 			i, eq: INTEGER
 			env: LIBERTY_ENVIRONMENT
 			arg: STRING
+			options: LIBERTY_INTERPRETER_OPTIONS
 		do
 			if argument_count < 3 then
 				usage
@@ -69,6 +70,26 @@ feature {}
 					else
 						usage
 					end
+				elseif arg.has_prefix(once "-check=") then
+					arg.remove_prefix(once "-check=")
+					arg.to_lower
+					inspect
+						arg
+					when "all", "yes" then
+						options.check_all
+					when "invariant" then
+						options.check_invariant
+					when "ensure" then
+						options.check_ensure
+					when "require" then
+						options.check_require
+					when "none", "no" then
+						options.check_none
+					else
+						usage
+					end
+				elseif arg.has_prefix(once "-debug") then
+					options.enable_debug
 				else
 					usage
 				end
@@ -95,6 +116,9 @@ feature {}
 			std_error.put_line("                         Useful for plugin paths. For example:")
 			std_error.put_line("                         -vsys=`se -environment | grep '^SE_SYS=' | cut -c8-`")
 			std_error.put_line("  <-log=level>         The logging level: trace, info, warning, error")
+			std_error.put_line("  <-check=level>       The contract checking level: all, invariant, ensure,")
+			std_error.put_line("                                                    require, none")
+			std_error.put_line("  <-debug>             Enables debug sections")
 
 			die_with_code(1)
 		end

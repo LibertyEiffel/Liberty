@@ -46,19 +46,27 @@ feature {LIBERTY_INTERPRETER}
 			prepare := True
 			bound_feature.accept(Current)
 			prepare := False
-			check_invariant
-			check_precondition
+			if options.is_invariant_checked then
+				check_invariant
+			end
+			if options.is_require_checked then
+				check_precondition
+			end
 			debug ("interpreter.call.steps")
 				debug_step(once"Calling the feature")
 			end
 			bound_feature.accept(Current)
-			if parameters = Void then
+			if parameters = Void and then options.is_ensure_checked then
 				-- Can happen only when semi-evaluated built-in externals are used
 				-- In that case the postcondition must not depend on the arguments...
 				prepare_postcondition
 			end
-			check_postcondition
-			check_invariant
+			if options.is_ensure_checked then
+				check_postcondition
+			end
+			if options.is_invariant_checked then
+				check_invariant
+			end
 		end
 
 feature {LIBERTY_FEATURE_ACCELERATOR}
@@ -92,7 +100,9 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 					show_parameter_map(std_output)
 					std_output.put_new_line
 				end
-				prepare_postcondition
+				if options.is_ensure_checked then
+					prepare_postcondition
+				end
 			end
 		end
 
@@ -536,6 +546,8 @@ feature {LIBERTY_INTERPRETER}
 
 feature {}
 	check_invariant is
+		require
+			options.is_invariant_checked
 		do
 			debug ("interpreter.call.steps")
 				debug_step(once "Checking invariant")
@@ -547,6 +559,8 @@ feature {}
 		end
 
 	check_precondition is
+		require
+			options.is_require_checked
 		do
 			debug ("interpreter.call.steps")
 				debug_step(once "Checking precondition")
@@ -558,6 +572,8 @@ feature {}
 		end
 
 	prepare_postcondition is
+		require
+			options.is_ensure_checked
 		do
 			debug ("interpreter.call.steps")
 				debug_step(once "Preparing postcondition (gathering old values)")
@@ -569,6 +585,8 @@ feature {}
 		end
 
 	check_postcondition is
+		require
+			options.is_ensure_checked
 		do
 			debug ("interpreter.call.steps")
 				debug_step(once "Checking postcondition")
@@ -579,8 +597,9 @@ feature {}
 			end
 		end
 
-	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]
+	options: LIBERTY_INTERPRETER_OPTIONS
 
+	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]
 	prepare: BOOLEAN
 
 	debug_step (step: STRING) is

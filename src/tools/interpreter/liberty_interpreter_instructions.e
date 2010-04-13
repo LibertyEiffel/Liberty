@@ -136,7 +136,7 @@ feature {LIBERTY_CREATION_INSTRUCTION}
 feature {LIBERTY_DEBUG}
 	visit_liberty_debug (v: LIBERTY_DEBUG) is
 		do
-			if interpreter.is_in_debug_mode(v.keys) then
+			if options.debug_enabled then --| TODO: use v.keys
 				v.instruction.accept(Current)
 			end
 		end
@@ -245,7 +245,7 @@ feature {LIBERTY_LOOP}
 		do
 			from
 				v.init.accept(Current)
-				if v.variant_clause /= Void then
+				if v.variant_clause /= Void and then options.is_all_checked then
 					loop_variant_stack.add_last(Void)
 				end
 			until
@@ -256,14 +256,16 @@ feature {LIBERTY_LOOP}
 				if exp_until.item then
 					done := True
 				else
-					v.invariant_clause.accept(interpreter.assertions)
-					if v.variant_clause /= Void then
-						v.variant_clause.accept(Current)
+					if options.is_all_checked then
+						v.invariant_clause.accept(interpreter.assertions)
+						if v.variant_clause /= Void then
+							v.variant_clause.accept(Current)
+						end
 					end
 					v.body.accept(Current)
 				end
 			end
-			if v.variant_clause /= Void then
+			if v.variant_clause /= Void and then options.is_all_checked then
 				loop_variant_stack.remove_last
 			end
 		end
@@ -304,7 +306,9 @@ feature {}
 			interpreter := a_interpreter
 			create condition_stack.with_capacity(0)
 			create inspect_stack.with_capacity(0)
-			create loop_variant_stack.with_capacity(0)
+			if options.is_all_checked then
+				create loop_variant_stack.with_capacity(0)
+			end
 		ensure
 			interpreter = a_interpreter
 		end
@@ -315,8 +319,11 @@ feature {}
 	inspect_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 	loop_variant_stack: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]]
 
+	options: LIBERTY_INTERPRETER_OPTIONS
+
 invariant
 	interpreter /= Void
 	condition_stack /= Void
+	options.is_all_checked implies loop_variant_stack /= Void
 
 end -- class LIBERTY_INTERPRETER_INSTRUCTIONS
