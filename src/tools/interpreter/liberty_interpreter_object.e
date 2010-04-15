@@ -41,8 +41,10 @@ feature {ANY}
 			Result := type
 		end
 
-	type: LIBERTY_ACTUAL_TYPE
+	type: LIBERTY_ACTUAL_TYPE is
 			-- the actual dynamic type of the object
+		deferred
+		end
 
 	is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local

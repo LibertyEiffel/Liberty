@@ -21,7 +21,7 @@ creation {LIBERTY_INTERPRETER}
 	make
 
 feature {LIBERTY_INTERPRETER}
-	new_array (type: LIBERTY_ACTUAL_TYPE; a_capacity: INTEGER; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	new_array (type: like array_type; a_capacity: INTEGER; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			array_type := type
 			capacity := a_capacity
@@ -36,7 +36,7 @@ feature {LIBERTY_INTERPRETER}
 			Result.type = type
 		end
 
-	from_external (type: LIBERTY_ACTUAL_TYPE; a_capacity: INTEGER; a_elements: POINTER; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	from_external (type: like array_type; a_capacity: INTEGER; a_elements: POINTER; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			array_type := type
 			capacity := a_capacity
@@ -170,7 +170,7 @@ feature {}
 	interpreter: LIBERTY_INTERPRETER
 
 	position: LIBERTY_POSITION
-	array_type: LIBERTY_ACTUAL_TYPE
+	array_type: LIBERTY_ACTUAL_TYPE_IMPL
 	capacity: INTEGER
 	elements: POINTER
 

@@ -106,8 +106,11 @@ feature {LIBERTY_CHARACTER_MANIFEST}
 
 feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
+		local
+			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
 		do
-			eval_memory := interpreter.new_object(v.result_type.actual_type, v.position)
+			actual_type ::= v.result_type.actual_type
+			eval_memory := interpreter.new_object(actual_type, v.position)
 			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, v.feature_arguments, v.position)
 		ensure
 			eval_memory /= Void

@@ -142,7 +142,7 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
-	default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+	default_object (type: LIBERTY_ACTUAL_TYPE_IMPL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if type.is_expanded then
 				Result := new_object(type, a_position)
@@ -160,10 +160,11 @@ feature {ANY}
 			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
 		end
 
-	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+	new_object (object_type: LIBERTY_ACTUAL_TYPE_IMPL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		require
 			not object_type.is_deferred
 		do
+			ensure_built(object_type)
 			debug ("interpreter.creation")
 				std_output.put_string(once "Creating new object of type ")
 				std_output.put_line(object_type.full_name)
@@ -171,11 +172,12 @@ feature {ANY}
 			Result := creator.new_object(object_type, a_position)
 		end
 
-	new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	new_array (type: LIBERTY_ACTUAL_TYPE_IMPL; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			check
 				type.parameters.count = 1
 			end
+			ensure_built(type)
 			debug ("interpreter.creation")
 				std_output.put_string(once "Creating new array of ")
 				std_output.put_integer(capacity)
@@ -185,11 +187,12 @@ feature {ANY}
 			Result := array_creator.new_array(type, capacity, a_position)
 		end
 
-	array_from_external (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	array_from_external (type: LIBERTY_ACTUAL_TYPE_IMPL; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			check
 				type.parameters.count = 1
 			end
+			ensure_built(type)
 			debug ("interpreter.creation")
 				std_output.put_string(once "Creating new array of ")
 				std_output.put_string(type.parameters.first.full_name)
@@ -218,75 +221,91 @@ feature {ANY}
 
 	new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_BOOLEAN is
 		do
+			ensure_built(universe.type_boolean)
 			create Result.with_item(Current, universe.type_boolean, manifest, a_position)
 		end
 
 	new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
+			ensure_built(universe.type_integer_64)
 			create Result.with_item(Current, universe.type_integer_64, manifest, a_position)
 		end
 
 	new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
+			ensure_built(universe.type_integer_32)
 			create Result.with_item(Current, universe.type_integer_32, manifest, a_position)
 		end
 
 	new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
+			ensure_built(universe.type_integer)
 			create Result.with_item(Current, universe.type_integer, manifest, a_position)
 		end
 
 	new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
+			ensure_built(universe.type_integer_16)
 			create Result.with_item(Current, universe.type_integer_16, manifest, a_position)
 		end
 
 	new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
 		do
+			ensure_built(universe.type_integer_8)
 			create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
 		end
 
 	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
+			ensure_built(universe.type_real)
 			create Result.with_item(Current, universe.type_real, manifest, a_position)
 		end
 
 	new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
+			ensure_built(universe.type_real_128)
 			create Result.with_item(Current, universe.type_real_128, manifest, a_position)
 		end
 
 	new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
+			ensure_built(universe.type_real_80)
 			create Result.with_item(Current, universe.type_real_80, manifest, a_position)
 		end
 
 	new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
+			ensure_built(universe.type_real_64)
 			create Result.with_item(Current, universe.type_real_64, manifest, a_position)
 		end
 
 	new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
+			ensure_built(universe.type_real_32)
 			create Result.with_item(Current, universe.type_real_32, manifest, a_position)
 		end
 
 	new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER] is
 		do
+			ensure_built(universe.type_character)
 			create Result.with_item(Current, universe.type_character, manifest, a_position)
 		end
 
 	new_pointer (manifest: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER] is
 		do
+			ensure_built(universe.type_pointer)
 			create Result.with_item(Current, universe.type_pointer, manifest, a_position)
 		end
 
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
 		do
 			if current_feature.has_old_value(a_expression) then
 				Result := current_feature.old_value(a_expression)
 			elseif gathering_old_values then
-				Result := default_object(a_expression.result_type.actual_type, a_expression.position)
+				actual_type ::= a_expression.result_type.actual_type -- I dare anyone to write "old Void"
+				Result := default_object(actual_type, a_expression.position)
 			else
 				fatal_error("Missing old value!!!")
 			end
@@ -558,12 +577,20 @@ feature {}
 	make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: like root_feature_name) is
 		require
 			a_universe /= Void
-			a_root_type.has_feature(a_root_feature_name)
 		do
 			universe := a_universe
 
 			root_type := a_root_type
 			root_feature_name := a_root_feature_name
+
+			ensure_built(a_root_type)
+			if not a_root_type.has_feature(a_root_feature_name) then
+				std_error.put_string("Unknown feature ")
+				std_error.put_string(a_root_feature_name.full_name)
+				std_error.put_string(" in type ")
+				std_error.put_line(a_root_type.full_name)
+				die_with_code(1)
+			end
 			root_feature := a_root_type.feature_definition(a_root_feature_name)
 
 			create instructions.make(Current)
@@ -588,10 +615,10 @@ feature {}
 			root_feature = a_root_type.feature_definition(a_root_feature_name)
 		end
 
-	root_type: LIBERTY_ACTUAL_TYPE
+	root_type: LIBERTY_ACTUAL_TYPE_IMPL
 	root_feature_name: LIBERTY_FEATURE_NAME
 	root_feature: LIBERTY_FEATURE_DEFINITION
-	native_array_of_character: LIBERTY_ACTUAL_TYPE
+	native_array_of_character: LIBERTY_ACTUAL_TYPE_IMPL
 
 	root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
 		once
@@ -619,6 +646,11 @@ feature {}
 
 	errors: LIBERTY_ERRORS
 	logging: LOGGING
+
+	ensure_built (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
+		do
+			universe.build_types(root_type, root_feature_name, a_type)
+		end
 
 invariant
 	instructions /= Void

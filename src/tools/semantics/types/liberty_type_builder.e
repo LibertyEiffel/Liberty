@@ -48,8 +48,17 @@ feature {LIBERTY_ACTUAL_TYPE_IMPL}
 	build_more is
 		require
 			not is_built
+		local
+			state: like current_state; staled: BOOLEAN
 		do
-			automaton.next(automaton_context)
+			from
+			until
+				is_built or else staled
+			loop
+				state := current_state
+				automaton.next(automaton_context)
+				staled := current_state = state
+			end
 		end
 
 	is_built: BOOLEAN is

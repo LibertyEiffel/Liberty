@@ -37,7 +37,9 @@ feature {ANY}
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	build_types (root_type: LIBERTY_ACTUAL_TYPE_IMPL; root_feature_name: LIBERTY_FEATURE_NAME) is
+	build_types (root_type: LIBERTY_ACTUAL_TYPE_IMPL; root_feature_name: LIBERTY_FEATURE_NAME; target_type: LIBERTY_ACTUAL_TYPE_IMPL) is
+		require
+			target_type /= Void
 		local
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
@@ -45,10 +47,10 @@ feature {ANY}
 			create incubator.with_capacity(1024, 0)
 			from
 			until
-				types_incubator.is_empty
+				types_incubator.is_empty or else target_type.is_built
 			loop
 				flame := torch.flame
-				build_to_incubator(incubator)
+				build_to_incubator(incubator, target_type)
 				mark_reachable_code(root_type, root_feature_name)
 				resolve_delayed_types
 				if types_incubator.is_empty then
@@ -329,21 +331,25 @@ feature {}
 			end
 		end
 
-	build_to_incubator (incubator: like types_incubator) is
+	build_to_incubator (incubator: like types_incubator; target_type: LIBERTY_ACTUAL_TYPE_IMPL) is
 		require
 			not types_incubator.is_empty
+			target_type /= Void
 		local
 			type: LIBERTY_ACTUAL_TYPE_IMPL
 		do
 			from
+				target_type.build_more
 			until
-				types_incubator.is_empty
+				types_incubator.is_empty or else target_type.is_built
 			loop
 				type := types_incubator.first
 				types_incubator.remove_first
-				type.build_more
 				if not type.is_built then
-					incubator.add_last(type)
+					type.build_more
+					if not type.is_built then
+						incubator.add_last(type)
+					end
 				end
 			end
 		end

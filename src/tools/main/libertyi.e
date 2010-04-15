@@ -100,7 +100,6 @@ feature {}
 			create root_feature_name.make(argument(3).intern)
 
 			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE_IMPL]}.with_capacity(0))
-			universe.build_types(root, root_feature_name)
 
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run

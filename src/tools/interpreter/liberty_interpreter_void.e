@@ -24,6 +24,8 @@ creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
 	make
 
 feature {ANY}
+	type: LIBERTY_ACTUAL_TYPE
+
 	is_void: BOOLEAN is True
 
 	hash_code: INTEGER is 31
