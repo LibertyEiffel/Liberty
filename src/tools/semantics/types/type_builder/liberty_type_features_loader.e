@@ -1585,11 +1585,11 @@ feature {} -- Expressions
 				i ::= number_image
 				i64 := i.decoded
 				if i64.fit_integer_8 then
-					create {LIBERTY_INTEGER_8_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_8, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_8_MANIFEST} Result.make(universe.type_integer_8, i64.to_integer_8, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_16 then
-					create {LIBERTY_INTEGER_16_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_16, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_16_MANIFEST} Result.make(universe.type_integer_16, i64.to_integer_16, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_32 then
-					create {LIBERTY_INTEGER_32_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_32, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_32_MANIFEST} Result.make(universe.type_integer_32, i64.to_integer_32, image_semantics_position_at(number_image))
 				else
 					create {LIBERTY_INTEGER_64_MANIFEST} Result.make(universe.type_integer_64, i64, image_semantics_position_at(number_image))
 				end
