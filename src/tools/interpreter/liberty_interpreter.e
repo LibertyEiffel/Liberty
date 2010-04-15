@@ -144,6 +144,7 @@ feature {ANY}
 
 	default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
+			ensure_built(type)
 			if type.is_expanded then
 				Result := new_object(type, a_position)
 			elseif type.is_separate then
@@ -207,11 +208,19 @@ feature {ANY}
 			new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT
 			new_string_storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
 		do
+			ensure_built(native_array_of_character)
+			ensure_built(universe.type_string)
+
+			debug ("interpreter.creation")
+				std_output.put_string(once "Creating manifest string: ")
+				std_output.put_line(manifest)
+			end
+
 			new_string_capacity := new_integer(manifest.capacity, a_position)
 			new_string_count := new_integer(manifest.count, a_position)
 			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, a_position)
 
-			the_new_string ::= new_object(universe.type_string, a_position)
+			the_new_string ::= creator.new_object(universe.type_string, a_position)
 			the_new_string.put_attribute(capacity_name, new_string_capacity)
 			the_new_string.put_attribute(count_name, new_string_count)
 			the_new_string.put_attribute(storage_name, new_string_storage)

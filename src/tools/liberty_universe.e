@@ -44,7 +44,7 @@ feature {ANY}
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
 		do
-			create incubator.with_capacity(1024, 0)
+			create incubator.with_capacity(1024, 0) --|TODO optim: replace by an attribute
 			from
 			until
 				types_incubator.is_empty or else target_type.is_built
@@ -57,9 +57,15 @@ feature {ANY}
 					incubator := check_flame_and_swap_incubator(flame, incubator)
 				end
 			end
+			if not incubator.is_empty then
+				-- don't lose work
+				types_incubator.append_collection(incubator)
+			end
 			debug ("type.building")
 				debug_types(types_incubator)
 			end
+		ensure
+			target_type.is_built
 		end
 
 feature {ANY} -- Kernel types
@@ -339,10 +345,10 @@ feature {}
 			type: LIBERTY_ACTUAL_TYPE
 		do
 			from
-				target_type.build_more
 			until
 				types_incubator.is_empty or else target_type.is_built
 			loop
+				target_type.build_more
 				type := types_incubator.first
 				types_incubator.remove_first
 				if not type.is_built then

@@ -201,8 +201,7 @@ feature {LIBERTY_TYPE_BUILDER}
 
 	check_type: STRING is
 			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....),
-			-- arguments of feature calls (type, count... including agents),
-			-- and so on
+			-- arguments of feature calls (type, count... including agents), and so on
 		require
 			type.is_reachable
 		do
