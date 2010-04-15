@@ -37,7 +37,7 @@ feature {}
 			end
 
 			create universe.make(argument(1))
-			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
+			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]}.with_capacity(0))
 
 			create root_feature_name.make("make".intern)
 			universe.build_types(root, root_feature_name)

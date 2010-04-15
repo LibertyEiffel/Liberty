@@ -157,7 +157,7 @@ feature {}
 			until
 				i > parameters.upper
 			loop
-				if not parameters.item(i).is_actual_type_set then
+				if not parameters.item(i).is_known then
 					parameters.item(i).add_listener(Current)
 				end
 				i := i + 1
@@ -179,7 +179,7 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE}
-	on_actual_type_set (t: LIBERTY_TYPE) is
+	on_known_type_set (t: LIBERTY_TYPE) is
 		do
 			fire_type_descriptor_changed
 		end

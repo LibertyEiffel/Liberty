@@ -24,7 +24,7 @@ creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}
 	make
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE
+	type: LIBERTY_KNOWN_TYPE
 
 	is_void: BOOLEAN is True
 

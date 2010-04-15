@@ -59,16 +59,16 @@ feature {LIBERTY_DELAYED_TYPE}
 		do
 			Result := is_ready
 				and then the_feature.result_type /= Void
-				and then the_feature.result_type.is_actual_type_set
+				and then the_feature.result_type.is_known
 		end
 
 	resolved: LIBERTY_ACTUAL_TYPE is
 		do
-			Result := the_feature.result_type.actual_type
+			Result ::= the_feature.result_type.known_type
 		end
 
 feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			t: like type
 		do
@@ -83,16 +83,16 @@ feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
 feature {LIBERTY_FEATURE_ENTITY}
 	is_ready: BOOLEAN is
 		do
-			Result := type.is_actual_type_set
-				and then type.actual_type.has_feature(name)
-				and then type.actual_type.feature_definition(name).the_feature /= Void
+			Result := type.is_known
+				and then type.known_type.has_feature(name)
+				and then type.known_type.feature_definition(name).the_feature /= Void
 		end
 
 	the_feature: LIBERTY_FEATURE is
 		require
 			is_ready
 		do
-			Result := type.actual_type.feature_definition(name).the_feature
+			Result := type.known_type.feature_definition(name).the_feature
 		end
 
 	name: LIBERTY_FEATURE_NAME

@@ -26,14 +26,14 @@ creation {ANY}
 	make
 
 feature {ANY}
-	actual_type: LIBERTY_ACTUAL_TYPE
+	known_type: LIBERTY_ACTUAL_TYPE
 
-	is_actual_type_set: BOOLEAN
+	is_known: BOOLEAN
 
 	full_name: FIXED_STRING is
 		do
-			if is_actual_type_set then
-				Result := actual_type.full_name
+			if is_known then
+				Result := known_type.full_name
 			else
 				Result := delayed_resolver.full_name
 			end
@@ -58,7 +58,7 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			dr: like delayed_resolver
 		do
@@ -77,12 +77,12 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			old_mark := reachable_mark
 			Precursor(mark)
-			if old_mark < mark and then is_actual_type_set then
-				actual_type.mark_reachable_code(mark)
+			if old_mark < mark and then is_known then
+				known_type.mark_reachable_code(mark)
 			end
 		end
 
-feature {LIBERTY_ACTUAL_TYPE}
+feature {LIBERTY_KNOWN_TYPE}
 	full_name_in (buffer: STRING) is
 		do
 			buffer.append(full_name)
@@ -91,7 +91,7 @@ feature {LIBERTY_ACTUAL_TYPE}
 feature {LIBERTY_UNIVERSE}
 	can_resolve: BOOLEAN is
 		require
-			not is_actual_type_set
+			not is_known
 		do
 			Result := delayed_resolver.can_resolve
 		end
@@ -100,15 +100,15 @@ feature {LIBERTY_UNIVERSE}
 		require
 			can_resolve
 		do
-			actual_type := delayed_resolver.resolved
-			is_actual_type_set := True
-			fire_actual_type_set
+			known_type := delayed_resolver.resolved
+			is_known := True
+			fire_known_type_set
 			torch.burn
 			check
 				by_definition: is_reachable
 			end
 		ensure
-			is_actual_type_set
+			is_known
 		end
 
 feature {}

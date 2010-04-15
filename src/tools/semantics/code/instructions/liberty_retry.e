@@ -25,7 +25,7 @@ create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 feature {ANY}
 	the_feature: LIBERTY_FEATURE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := Current
 		end

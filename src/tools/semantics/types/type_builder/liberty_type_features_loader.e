@@ -36,7 +36,7 @@ feature {}
 		do
 			builder := a_builder
 			current_entity := a_current_entity
-			type ::= a_current_entity.result_type
+			type := a_current_entity.result_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
@@ -875,7 +875,7 @@ feature {} -- Entities and writables
 	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
-			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE_IMPL
+			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE
 			tn: LIBERTY_AST_TERMINAL_NODE
 		do
 			if a_target.is_current then
@@ -928,7 +928,7 @@ feature {} -- Entities and writables
 	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
-			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE_IMPL
+			f: LIBERTY_FEATURE; precursor_type: LIBERTY_ACTUAL_TYPE
 		do
 			if a_target.is_current then
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
@@ -1080,7 +1080,7 @@ feature {} -- Expressions
 				until
 					i > a_contents.upper
 				loop
-					Result := a_contents.item(i).result_type.actual_type.common_conformant_parent_with(Result.actual_type)
+					Result := a_contents.item(i).result_type.known_type.common_conformant_parent_with(Result.known_type)
 					if Result = Void then
 						--| *** TODO fatal error
 						not_yet_implemented
@@ -1386,7 +1386,7 @@ feature {} -- Expressions
 			a_creation /= Void
 		local
 			entity_type: LIBERTY_TYPE
-			creation_type: LIBERTY_ACTUAL_TYPE_IMPL
+			creation_type: LIBERTY_ACTUAL_TYPE
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: COLLECTION[LIBERTY_EXPRESSION]
@@ -1503,7 +1503,7 @@ feature {} -- Expressions
 		local
 			openarg: LIBERTY_OPEN_ARGUMENT
 			entity_type: LIBERTY_TYPE
-			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if constant.is_assignment_test then
 				entity_type := type_lookup.resolver.type(constant.assignment_test_type)
@@ -1616,7 +1616,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	number_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE_IMPL; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+	number_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
 		require
 			({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
 				or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
@@ -1638,7 +1638,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	array_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE_IMPL; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
+	array_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
 		local_context: LIBERTY_FEATURE_LOCAL_CONTEXT;
 		a_position: LIBERTY_POSITION): LIBERTY_ARRAY_MANIFEST is
 		require

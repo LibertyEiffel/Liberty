@@ -126,9 +126,9 @@ feature {LIBERTY_CREATION_INSTRUCTION}
 		local
 			assignment: LIBERTY_INTERPRETER_ASSIGNMENT
 			new_object: LIBERTY_INTERPRETER_OBJECT
-			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
-			actual_type ::= v.type.actual_type
+			actual_type ::= v.type.known_type
 			new_object := interpreter.new_object(actual_type, v.position)
 			interpreter.call_feature(new_object, v.feature_entity.feature_definition, v.feature_arguments, v.position)
 			create assignment.regular(interpreter, new_object)

@@ -27,18 +27,18 @@ creation {LIBERTY_UNIVERSE}
 	make
 
 feature {LIBERTY_ACTUAL_TYPE}
-	inherits (parent, child: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := check_inheritance(parent, child, True)
 		end
 
-	inserts (parent, child: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := check_inheritance(parent, child, False)
 		end
 
 feature {}
-	check_inheritance (parent, child: LIBERTY_ACTUAL_TYPE; conformance: BOOLEAN): BOOLEAN is
+	check_inheritance (parent, child: LIBERTY_KNOWN_TYPE; conformance: BOOLEAN): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -53,13 +53,13 @@ feature {}
 					not Result or else i > parent.parameters.upper
 				loop
 					check
-						parent.parameters.item(i).is_actual_type_set
-						child.parameters.item(i).is_actual_type_set
+						parent.parameters.item(i).is_known
+						child.parameters.item(i).is_known
 					end
 					if conformance then
-						Result := child.parameters.item(i).actual_type.is_conform_to(parent.parameters.item(i).actual_type)
+						Result := child.parameters.item(i).known_type.is_conform_to(parent.parameters.item(i).known_type)
 					else
-						Result := child.parameters.item(i).actual_type.is_non_conformant_child_of(parent.parameters.item(i).actual_type)
+						Result := child.parameters.item(i).known_type.is_non_conformant_child_of(parent.parameters.item(i).known_type)
 					end
 					i := i + 1
 				end

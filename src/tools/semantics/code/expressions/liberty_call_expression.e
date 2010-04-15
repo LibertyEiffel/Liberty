@@ -64,7 +64,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 				until
 					not Result or else i > actuals.upper
 				loop
-					Result := actuals.item(i).result_type.is_actual_type_set
+					Result := actuals.item(i).result_type.is_known
 					i := i + 1
 				end
 			end
@@ -75,19 +75,19 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 			is_agent_call
 			can_compute_agent_type
 		local
-			arguments_types: COLLECTION[LIBERTY_ACTUAL_TYPE]
+			arguments_types: COLLECTION[LIBERTY_KNOWN_TYPE]
 			i: INTEGER
 		do
 			if actuals = Void then
 				arguments_types := no_args
 			else
-				create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} arguments_types.with_capacity(actuals.count)
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} arguments_types.with_capacity(actuals.count)
 				from
 					i := actuals.lower
 				until
 					i > actuals.upper
 				loop
-					arguments_types.add_last(actuals.item(i).result_type.actual_type)
+					arguments_types.add_last(actuals.item(i).result_type.known_type)
 					i := i + 1
 				end
 			end
@@ -97,7 +97,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 			elseif result_type = lookup.universe.type_boolean then
 				Result := lookup.universe.type_predicate(arguments_types, position)
 			else
-				Result := lookup.universe.type_function(arguments_types, result_type.actual_type, position)
+				Result := lookup.universe.type_function(arguments_types, result_type.known_type, position)
 			end
 		end
 
@@ -139,9 +139,9 @@ feature {}
 	lookup: LIBERTY_TYPE_LOOKUP
 	actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
-	no_args: COLLECTION[LIBERTY_ACTUAL_TYPE] is
+	no_args: COLLECTION[LIBERTY_KNOWN_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(0)
 		end
 
 	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is

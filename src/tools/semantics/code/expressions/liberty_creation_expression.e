@@ -29,7 +29,7 @@ feature {ANY}
 			Result := feature_arguments_list
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			r: like result_type
 			fe: like feature_entity

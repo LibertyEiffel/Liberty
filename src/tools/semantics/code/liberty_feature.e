@@ -134,19 +134,19 @@ feature {LIBERTY_FEATURE_ENTITY}
 			i: INTEGER
 		do
 			from
-				Result := result_type = Void or else result_type.is_actual_type_set
+				Result := result_type = Void or else result_type.is_known
 				i := parameters.lower
 			until
 				not Result or else i > parameters.upper
 			loop
-				Result := parameters.item(i).result_type.is_actual_type_set
+				Result := parameters.item(i).result_type.is_known
 				i := i + 1
 			end
 		ensure
-			can_also_check_result_type: Result implies (result_type = Void or else result_type.is_actual_type_set)
+			can_also_check_result_type: Result implies (result_type = Void or else result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_ACTUAL_TYPE]): COLLECTION[LIBERTY_ACTUAL_TYPE] is
+	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
 			can_check_agent_signature
 		local
@@ -157,13 +157,13 @@ feature {LIBERTY_FEATURE_ENTITY}
 				if parameters.is_empty then
 					Result := a_agent_arguments
 				else
-					create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(parameters.count)
+					create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count)
 					from
 						i := parameters.lower
 					until
 						i > parameters.upper
 					loop
-						Result.add_last(parameters.item(i).result_type.actual_type)
+						Result.add_last(parameters.item(i).result_type.known_type)
 						i := i + 1
 					end
 				end
@@ -394,14 +394,24 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {ANY}
-	is_bound (type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	is_bound (type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+		local
+			known: LIBERTY_ACTUAL_TYPE
 		do
-			Result := child_bindings_memory.fast_has(type)
+			if known ?:= type then
+				known ::= type
+				Result := child_bindings_memory.fast_has(known)
+			end
 		end
 
-	bound (type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+	bound (type: LIBERTY_KNOWN_TYPE): LIBERTY_FEATURE is
+		local
+			known: LIBERTY_ACTUAL_TYPE
 		do
-			Result := child_bindings_memory.fast_reference_at(type)
+			if known ?:= type then
+				known ::= type
+				Result := child_bindings_memory.fast_reference_at(known)
+			end
 			if Result = Void then
 				Result := Current
 			end
@@ -410,7 +420,7 @@ feature {ANY}
 			not is_bound(type) implies Result = Current
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			if a_type = current_type or else not a_type.is_child_of(current_type) then
 				Result := Current

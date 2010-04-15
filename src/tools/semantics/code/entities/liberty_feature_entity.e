@@ -63,15 +63,15 @@ feature {ANY}
 
 	feature_definition: LIBERTY_FEATURE_DEFINITION is
 		do
-			Result := target_type.actual_type.feature_definition(feature_name)
+			Result := target_type.known_type.feature_definition(feature_name)
 		end
 
 	debug_display is
 		do
-			target_type.actual_type.debug_display(std_output, True)
+			target_type.known_type.debug_display(std_output, True)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			f: like the_feature
 			dft: like delayed_feature_type
@@ -106,10 +106,10 @@ feature {LIBERTY_CALL_EXPRESSION}
 		do
 			Result := the_feature /= Void and then the_feature.can_check_agent_signature
 		ensure
-			can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_actual_type_set)
+			can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_ACTUAL_TYPE]): COLLECTION[LIBERTY_ACTUAL_TYPE] is
+	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
 			can_check_agent_signature
 		do
@@ -139,7 +139,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			end
 
 			rt := result_type
-			if rt /= Void and then rt.is_actual_type_set and then rt.actual_type.is_runtime_category_set and then rt.actual_type.is_expanded then
+			if rt /= Void and then rt.is_known and then rt.known_type.is_runtime_category_set and then rt.known_type.is_expanded then
 				rt.mark_reachable_code(mark)
 			end
 		end

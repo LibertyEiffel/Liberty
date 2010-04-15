@@ -49,7 +49,7 @@ feature {ANY}
 			tagged_out_memory.append(name)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			e: like entity
 		do
@@ -64,7 +64,7 @@ feature {ANY}
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
-			if result_type.is_actual_type_set and then result_type.actual_type.is_runtime_category_set and then result_type.actual_type.is_expanded then
+			if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
 				result_type.mark_reachable_code(mark)
 			end
 		end

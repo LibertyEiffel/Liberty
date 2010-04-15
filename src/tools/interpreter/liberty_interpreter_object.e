@@ -41,7 +41,7 @@ feature {ANY}
 			Result := type
 		end
 
-	type: LIBERTY_ACTUAL_TYPE is
+	type: LIBERTY_KNOWN_TYPE is
 			-- the actual dynamic type of the object
 		deferred
 		end
@@ -89,7 +89,7 @@ feature {ANY}
 			Result.type = target_type
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			check False end
 			crash

@@ -142,7 +142,7 @@ feature {ANY}
 			Result := call.returned_object
 		end
 
-	default_object (type: LIBERTY_ACTUAL_TYPE_IMPL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+	default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if type.is_expanded then
 				Result := new_object(type, a_position)
@@ -153,14 +153,14 @@ feature {ANY}
 			end
 		end
 
-	void_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+	void_object (type: LIBERTY_KNOWN_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		require
 			not type.is_expanded
 		do
 			create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
 		end
 
-	new_object (object_type: LIBERTY_ACTUAL_TYPE_IMPL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		require
 			not object_type.is_deferred
 		do
@@ -172,7 +172,7 @@ feature {ANY}
 			Result := creator.new_object(object_type, a_position)
 		end
 
-	new_array (type: LIBERTY_ACTUAL_TYPE_IMPL; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			check
 				type.parameters.count = 1
@@ -187,7 +187,7 @@ feature {ANY}
 			Result := array_creator.new_array(type, capacity, a_position)
 		end
 
-	array_from_external (type: LIBERTY_ACTUAL_TYPE_IMPL; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+	array_from_external (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
 		do
 			check
 				type.parameters.count = 1
@@ -299,12 +299,12 @@ feature {ANY}
 
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		local
-			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if current_feature.has_old_value(a_expression) then
 				Result := current_feature.old_value(a_expression)
 			elseif gathering_old_values then
-				actual_type ::= a_expression.result_type.actual_type -- I dare anyone to write "old Void"
+				actual_type ::= a_expression.result_type.known_type -- I dare anyone to write "old Void"
 				Result := default_object(actual_type, a_expression.position)
 			else
 				fatal_error("Missing old value!!!")
@@ -615,10 +615,10 @@ feature {}
 			root_feature = a_root_type.feature_definition(a_root_feature_name)
 		end
 
-	root_type: LIBERTY_ACTUAL_TYPE_IMPL
+	root_type: LIBERTY_ACTUAL_TYPE
 	root_feature_name: LIBERTY_FEATURE_NAME
 	root_feature: LIBERTY_FEATURE_DEFINITION
-	native_array_of_character: LIBERTY_ACTUAL_TYPE_IMPL
+	native_array_of_character: LIBERTY_ACTUAL_TYPE
 
 	root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
 		once
@@ -647,7 +647,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	logging: LOGGING
 
-	ensure_built (a_type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	ensure_built (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
 			universe.build_types(root_type, root_feature_name, a_type)
 		end

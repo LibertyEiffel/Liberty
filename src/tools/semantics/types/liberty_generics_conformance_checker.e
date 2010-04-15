@@ -19,13 +19,13 @@ deferred class LIBERTY_GENERICS_CONFORMANCE_CHECKER
 	--
 
 feature {LIBERTY_ACTUAL_TYPE}
-	inherits (parent, child: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		require
 			parent.name = child.name
 		deferred
 		end
 
-	inserts (parent, child: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		require
 			parent.name = child.name
 		deferred

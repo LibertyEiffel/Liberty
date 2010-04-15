@@ -27,7 +27,7 @@ feature {}
 	make is
 		local
 			universe: LIBERTY_UNIVERSE
-			root: LIBERTY_ACTUAL_TYPE_IMPL
+			root: LIBERTY_ACTUAL_TYPE
 			root_feature_name: LIBERTY_FEATURE_NAME
 			errors: LIBERTY_ERRORS
 			interpreter: LIBERTY_INTERPRETER
@@ -99,7 +99,7 @@ feature {}
 			create universe.make(argument(1))
 			create root_feature_name.make(argument(3).intern)
 
-			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE_IMPL]}.with_capacity(0))
+			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run

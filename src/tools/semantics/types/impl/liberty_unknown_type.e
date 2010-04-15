@@ -14,7 +14,10 @@
 --
 class LIBERTY_UNKNOWN_TYPE
 	--
-	-- An unknown type. Should be used only for some unresolved export clients.
+	-- An unknown type, i.e. we know nothing about it except its name (happens when the corresponding source
+	-- cannot be found).
+	--
+	-- Should be used only for some unresolved export clients.
 	--
 
 inherit
@@ -29,11 +32,12 @@ creation {LIBERTY_TYPE_RESOLVER}
 	make
 
 feature {ANY}
-	actual_type: LIBERTY_ACTUAL_TYPE is
+	known_type: LIBERTY_KNOWN_TYPE is
 		do
+			check Result = Void end
 		end
 
-	is_actual_type_set: BOOLEAN is False
+	is_known: BOOLEAN is False
 
 	full_name: FIXED_STRING
 
@@ -46,12 +50,12 @@ feature {ANY}
 			tagged_out_memory.extend('}')
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := Current
 		end
 
-feature {LIBERTY_ACTUAL_TYPE}
+feature {LIBERTY_KNOWN_TYPE}
 	full_name_in (buffer: STRING) is
 		do
 			buffer.append(full_name)

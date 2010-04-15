@@ -70,7 +70,7 @@ feature {LIBERTY_ASSIGNMENT_TEST}
 	visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
 		do
 			v.expression.accept(Current)
-			eval_memory := interpreter.new_boolean(eval_memory.type.is_conform_to(v.tested_type.actual_type), v.position)
+			eval_memory := interpreter.new_boolean(eval_memory.type.is_conform_to(v.tested_type.known_type), v.position)
 		ensure
 			eval_memory /= Void
 		end
@@ -107,9 +107,9 @@ feature {LIBERTY_CHARACTER_MANIFEST}
 feature {LIBERTY_CREATION_EXPRESSION}
 	visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
 		local
-			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
-			actual_type ::= v.result_type.actual_type
+			actual_type ::= v.result_type.known_type
 			eval_memory := interpreter.new_object(actual_type, v.position)
 			interpreter.call_feature(eval_memory, v.feature_entity.feature_definition, v.feature_arguments, v.position)
 		ensure
@@ -349,7 +349,7 @@ feature {LIBERTY_TUPLE}
 feature {LIBERTY_VOID}
 	visit_liberty_void (v: LIBERTY_VOID) is
 		do
-			eval_memory := interpreter.void_object(v.result_type.actual_type, v.position)
+			eval_memory := interpreter.void_object(v.result_type.known_type, v.position)
 		ensure
 			eval_memory /= Void
 		end

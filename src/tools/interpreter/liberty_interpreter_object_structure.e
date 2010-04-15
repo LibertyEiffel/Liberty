@@ -24,7 +24,7 @@ creation {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
 	with_attributes
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE_IMPL
+	type: LIBERTY_ACTUAL_TYPE
 
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		local

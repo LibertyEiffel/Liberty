@@ -21,7 +21,7 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			Result := Current
 		end

@@ -47,7 +47,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
 		local
 			target: LIBERTY_INTERPRETER_NATIVE_ARRAY
-			actual_type: LIBERTY_ACTUAL_TYPE_IMPL
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			last_call_failed := False
 			target ::= builtin_call.target
@@ -73,7 +73,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "slice_copy" then
 				slice_copy(builtin_call)
 			when "from_pointer" then
-				actual_type ::= target.result_type.actual_type
+				actual_type ::= target.result_type.known_type
 				Result := interpreter.array_from_external(actual_type, 0, pointer(builtin_call), builtin_call.position)
 			else
 				last_call_failed := True

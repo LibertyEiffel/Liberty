@@ -47,7 +47,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 				plugin_agent.call(parameters)
 			else
 				returned := plugin_agent.item(parameters)
-				plugin_call.set_returned_object(from_external.item(the_feature.result_type.actual_type, returned, plugin_call.position))
+				plugin_call.set_returned_object(from_external.item(the_feature.result_type.known_type, returned, plugin_call.position))
 			end
 		end
 
@@ -199,7 +199,7 @@ feature {}
 			until
 				i > the_feature.parameters.upper
 			loop
-				Result.add_last(foreign_types.type(the_feature.parameters.item(i).result_type.actual_type))
+				Result.add_last(foreign_types.type(the_feature.parameters.item(i).result_type.known_type))
 				i := i + 1
 			end
 		end
@@ -209,7 +209,7 @@ feature {}
 			types: FOREIGN_TYPES
 		do
 			if the_feature.result_type /= Void then
-				Result := foreign_types.type(the_feature.result_type.actual_type)
+				Result := foreign_types.type(the_feature.result_type.known_type)
 			else
 				Result := types.nothing
 			end
