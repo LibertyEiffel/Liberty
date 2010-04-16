@@ -20,14 +20,19 @@ feature {BACKTRACKING_REGULAR_EXPRESSION}
 	root: BACKTRACKING_NODE
 			-- The root item.
 
+	substrings_names: DICTIONARY[INTEGER, FIXED_STRING]
+
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER}
-	make (top: like root; grpcnt: INTEGER) is
+	make (top: like root; grpcnt: INTEGER; subnames: like substrings_names) is
 			-- Initializing
 		require
 			top_not_void: top /= Void
+			valid_group_count: grpcnt >= 0
+			valid_subnames: subnames.for_all(agent (c, i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := i.in_range(0, c) and then s /= Void end (grpcnt, ?, ?))
 		do
 			root := top
 			group_count := grpcnt
+			substrings_names := subnames
 		ensure
 			definition: root = top and group_count = grpcnt
 			valid: is_valid

@@ -178,10 +178,11 @@ feature {ANY} -- parsing
 			pattern: BACKTRACKING_REGULAR_EXPRESSION_PATTERN
 		do
 			last_group_count := 0
+			last_substrings_names.clear_count
 			clear_error
 			internal_parse
 			if not has_error then
-				pattern.make(stack.first, last_group_count)
+				pattern.make(stack.first, last_group_count, last_substrings_names)
 			end
 			stack.clear_count
 			group_stack.clear_count
@@ -227,6 +228,12 @@ feature {} -- build
 
 	last_group_count: INTEGER
 			-- The count of groups currently found.
+
+	last_substrings_names: HASHED_DICTIONARY[INTEGER, FIXED_STRING] is
+			-- The names of the named subgroups
+		once
+			create Result.with_capacity(10)
+		end
 
 	Repeat_infiny: INTEGER is -1
 			-- Constant that means "infinite repitition".
