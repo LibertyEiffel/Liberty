@@ -33,14 +33,155 @@ deferred class LLVM_GLOBAL_VALUE
 	-- Manual.
 
 inherit LLVM_CONSTANT
-feature
--- bool hasInternalLinkage() const
--- bool hasExternalLinkage() const
--- void setInternalLinkage(bool HasInternalLinkage)
--- These methods manipulate the linkage characteristics of the GlobalValue.
--- 
--- Module *getParent()
--- This returns the Module that the GlobalValue is currently embedded into.
+feature {ANY}
+	parent: LLVM_MODULE is
+		do
+			-- LVMModuleRef LLVMGetGlobalParent(LLVMValueRef Global);
+			not_yet_implemented
+		ensure Result/=Void
+		end
+	
+	is_declaration: BOOLEAN is
+		do
+			Result:=llvmis_declaration(handle).to_boolean
+		end
+
+	section: FIXED_STRING is
+		-- TODO: should be a CONST_STRING instead!
+		do
+			create Result.from_external_copy(llvmget_section(handle))
+		ensure Result/=Void
+		end
+
+	set_section (a_section: ABSTRACT_STRING) is
+		--
+	require 
+		non_void: a_section/=Void 
+		non_empty: not a_section.is_empty
+	do
+		llvmset_section(handle,a_section.to_external)
+	ensure set: a_section.is_equal(section)
+	end
+
+	visibility: LLVMVISIBILITY_ENUM is
+		do
+			Result.change_value(llvmget_visibility(handle))
+		end
+	
+	set_visibility (a_visibility: LLVMVISIBILITY_ENUM) is
+		do
+			llvmset_visibility(handle,a_visibility.value)
+		ensure set: visibility=a_visibility
+		end
+
+	alignment: NATURAL_32 is
+		do
+			Result:=llvmget_alignment(handle)
+		end
+
+	set_alignment (a_number_of_bytes: NATURAL_32) is
+	do
+		llvmset_alignment(handle, a_number_of_bytes)
+	end
+
+feature {ANY} -- Linkage
+	linkage: LLVMLINKAGE_ENUM is
+		do
+			Result.change_value
+			(llvmget_linkage(handle))
+		end
+
+	set_linkage (a_value: LLVMLINKAGE_ENUM) is
+	--
+	do
+		llvmset_linkage(handle,a_value.value)
+	ensure set: linkage=a_value
+	end
+
+	set_external_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.external_linkage_low_level)
+		end
+
+	set_link_once_any_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.link_once_any_linkage_low_level)
+		end
+
+	set_link_once_odrlinkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.link_once_odrlinkage_low_level)
+		end
+
+	set_weak_any_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.weak_any_linkage_low_level)
+		end
+
+	set_weak_odrlinkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.weak_odrlinkage_low_level)
+		end
+
+	set_appending_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.appending_linkage_low_level)
+		end
+
+	set_internal_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.internal_linkage_low_level)
+		end
+
+	set_private_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.private_linkage_low_level)
+		end
+
+	set_dllimport_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.dllimport_linkage_low_level)
+		end
+
+	set_dllexport_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.dllexport_linkage_low_level)
+		end
+
+	set_external_weak_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.external_weak_linkage_low_level)
+		end
+
+	set_ghost_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.ghost_linkage_low_level)
+		end
+
+	set_common_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.common_linkage_low_level)
+		end
+
+	set_linker_private_linkage is
+		local l: like linkage
+		do
+			llvmset_linkage(handle,l.linker_private_linkage_low_level)
+		end
+
 end -- class LLVM_GLOBAL_VALUE
 
 -- Copyright 2009 Paolo Redaelli

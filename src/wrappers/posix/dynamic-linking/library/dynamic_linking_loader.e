@@ -78,8 +78,7 @@ feature {ANY} -- Queries
 		-- already been loaded. This flag is not specified in POSIX.1-2001.
 		
 		-- External references in the library are resolved using the libraries in that  library's  dependency  list  and  any
-		-- other  libraries  previously  opened with the RTLD_GLOBAL flag.  If the executable was linked with the flag "-rdy‐
-		-- namic" (or, synonymously, "--export-dynamic"), then the global symbols in the executable  will  also  be  used  to
+		-- other  libraries  previously  opened with the RTLD_GLOBAL flag.  If the executable was linked with the flag "-rdynamic" (or, synonymously, "--export-dynamic"), then the global symbols in the executable  will  also  be  used  to
 		-- resolve references in a dynamically loaded library.
 		 
 		-- If  the  same  library  is loaded again with dlopen(), the same file handle is returned.  The dl library maintains

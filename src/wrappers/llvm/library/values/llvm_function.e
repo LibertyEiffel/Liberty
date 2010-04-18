@@ -47,7 +47,7 @@ inherit
 			exists as exists_parameter
 		undefine is_equal, copy, fill_tagged_out_memory
 		end
-insert LLVM_VALUE_FACTORY 
+insert LLVM_VALUE_WRAPPER_FACTORY 
 
 creation {ANY} make 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer

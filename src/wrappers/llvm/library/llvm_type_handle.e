@@ -19,7 +19,7 @@ feature
 	type: LLVM_TYPE is
 		-- Current resolved into an effective type. 
 	do
-		Result:=wrapper(llvmresolve_type_handle(handle))
+		Result:=type_wrapper(llvmresolve_type_handle(handle))
 	end
 
 	-- TODO: provide refining support:  void LLVMRefineType(LLVMTypeRef AbstractTy, LLVMTypeRef ConcreteTy);

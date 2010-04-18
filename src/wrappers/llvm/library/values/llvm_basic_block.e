@@ -21,7 +21,7 @@ class LLVM_BASIC_BLOCK
 	-- modifying a program. However, the verifier will ensure
 	-- that basic blocks are "well formed".
 inherit LLVM_VALUE
-insert 	LLVM_VALUE_FACTORY 
+insert 	LLVM_VALUE_WRAPPER_FACTORY 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 creation {ANY} appended_in_context, inserted_in_context, appended_to, inserted_before
 feature {} -- Creation

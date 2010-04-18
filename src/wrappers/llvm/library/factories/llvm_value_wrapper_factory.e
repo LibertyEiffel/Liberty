@@ -1,4 +1,4 @@
-deferred class LLVM_VALUE_FACTORY
+deferred class LLVM_VALUE_WRAPPER_FACTORY
 	-- A factory of values
 
 inherit 
@@ -121,6 +121,6 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		-- elseif llvmis_asext_inst(p).to_boolean then create {IS_ASEXT_INST} Result.from_external_pointer(p)
 		-- elseif llvmis_ashuffle_vector_inst(p).to_boolean then create {IS_ASHUFFLE_VECTOR_INST} Result.from_external_pointer(p)
 		-- end
-	end -- class LLVM_VALUE_FACTORY
+end -- class LLVM_VALUE_WRAPPER_FACTORY
 
 	-- Copyright 2009 Paolo Redaelli

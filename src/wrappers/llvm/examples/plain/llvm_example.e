@@ -6,9 +6,14 @@ class LLVM_EXAMPLE
 	-- is more easily approached using make. See
 	-- http://npcontemplation.blogspot.com/2008/06/secret-of-llvm-c-bindings.html 
 
+
+	-- TODO: once working, make this example more "Libertish", i.e. removing
+	-- make_make and turning main into an once feature
+
 insert 
 	SHARED_LLVM
-	LLVM_INTEGER_TYPES
+	LLVM_C_TYPES
+	LLVM_VALUES_FACTORY
 	CORE_EXTERNALS
 creation make
 
@@ -19,6 +24,7 @@ feature {} -- Creation
 			create module.with_name("llvm-example")				
 			use_plugin
 			make_muladd
+			make_puts
 			make_main
 
 			module.write_bitcode_to(std_output)
@@ -47,9 +53,10 @@ feature {} -- Creation
 			param_iter.start; x:=param_iter.item; x.set_name("x")
 			param_iter.next;  y:=param_iter.item; y.set_name("y")
 			param_iter.next;  z:=param_iter.item; z.set_name("z")
-			print("[
+			std_error.put_string("[
 			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_error))
 			violates the not_locked precondition in ANY.print_on
+
 			]")
 
 			check 
@@ -68,6 +75,15 @@ feature {} -- Creation
 			ret := builder.return(tmp2)
 	end
 
+	make_puts is
+		-- The external function "int puts(const char *s);"
+	do
+		create puts_type.make(int_32,<<pointer(int_8)>>,False)
+		puts := module.new_function("puts",puts_type )
+		puts.set_external_linkage
+	ensure puts/=Void
+	end
+		
 	make_struct is
 		do
 			-- struct will contain an int, a bool and a 8bit integer.
@@ -87,7 +103,9 @@ feature {} -- Creation
 			main.set_calling_convention(calling_convention)
 			create block.appended_in_context(global_context,main,"main-first-block")
 			create builder.at_end_of(block)
-			tmp := builder.call(putc,<<hello_string>>,"invoking-putc")
+			std_error.put_string(once "Invoking puts%N")
+			tmp := builder.call(puts,<<module.local_string("Hello Liberty!")>>,"invoking-puts")
+			std_error.put_string(once "Puts invoked%N")
 			-- Always return 1
 			tmp := builder.return (create {LLVM_CONSTANT_INT}.integer_32(1))
 		end
@@ -124,13 +142,12 @@ feature {} -- Functions
 		-- A function computes Result=x*y+z.
 	main: LLVM_FUNCTION
 		-- The famous main function of C language
-		putc: LLVM_FUNCTION
+	puts: LLVM_FUNCTION
+
 feature {} -- Types
-	main_type: LLVM_FUNCTION_TYPE 
+	main_type, puts_type: LLVM_FUNCTION_TYPE 
 	struct_type: LLVM_STRUCT_TYPE 
 	muladd_type: LLVM_FUNCTION_TYPE 
-feature {ANY} -- Constants
-	hello_string: STRING is "Hello Liberty!\n"
 
 end -- class LLVM_EXAMPLE
 
