@@ -26,7 +26,7 @@ creation {LIBERTY_INTERPRETER_NATIVE_ARRAY}
 	make
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY}
-	accessor (a_interpreter: like interpreter; a_type: LIBERTY_ACTUAL_TYPE_IMPL; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR is
+	accessor (a_interpreter: like interpreter; a_type: LIBERTY_ACTUAL_TYPE; a_position: like position): LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR is
 		do
 			interpreter := a_interpreter
 			position := a_position
@@ -35,102 +35,102 @@ feature {LIBERTY_INTERPRETER_NATIVE_ARRAY}
 		end
 
 feature {LIBERTY_UNIVERSE}
-	visit_type_any (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_any (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_any(?, position), agent store_any)
 		end
 
-	visit_type_platform (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			check False end
 		end
 
-	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[POINTER]} last_accessor.make(agent retrieve_pointer(?, position), agent store_pointer)
 		end
 
-	visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[INTEGER_64]} last_accessor.make(agent retrieve_integer_64(?, position), agent store_integer_64)
 		end
 
-	visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[INTEGER_64]} last_accessor.make(agent retrieve_integer_32(?, position), agent store_integer_32)
 		end
 
-	visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[INTEGER_64]} last_accessor.make(agent retrieve_integer_16(?, position), agent store_integer_16)
 		end
 
-	visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[INTEGER_64]} last_accessor.make(agent retrieve_integer_8(?, position), agent store_integer_8)
 		end
 
-	visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[REAL_128]} last_accessor.make(agent retrieve_real_64(?, position), agent store_real_64)
 		end
 
-	visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[REAL_128]} last_accessor.make(agent retrieve_real_32(?, position), agent store_real_32)
 		end
 
-	visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[REAL_128]} last_accessor.make(agent retrieve_real_80(?, position), agent store_real_80)
 		end
 
-	visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[REAL_128]} last_accessor.make(agent retrieve_real_128(?, position), agent store_real_128)
 		end
 
-	visit_type_character (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_character (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[CHARACTER]} last_accessor.make(agent retrieve_character(?, position), agent store_character)
 		end
 
-	visit_type_string (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, position), agent store_user_type)
 		end
 
-	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[BOOLEAN]} last_accessor.make(agent retrieve_boolean(?, position), agent store_boolean)
 		end
 
-	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			check False end
 		end
 
-	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_tuple(?, position), agent store_tuple)
 		end
 
-	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_procedure(?, position), agent store_procedure)
 		end
 
-	visit_type_function (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_function (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_function(?, position), agent store_function)
 		end
 
-	visit_type_predicate (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_type_predicate (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_predicate(?, position), agent store_predicate)
 		end
 
-	visit_user_type (type: LIBERTY_ACTUAL_TYPE_IMPL) is
+	visit_user_type (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, position), agent store_user_type)
 		end

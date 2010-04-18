@@ -3,7 +3,7 @@
 --
 class BACKTRACKING_REGULAR_EXPRESSION
 	--
-	-- matcher for regular expressions
+	-- Matcher for regular expressions
 	--
 
 inherit
@@ -101,6 +101,7 @@ feature {ANY} -- creation
 			create context.with_capacity(30)
 			create substrings_first_indexes.with_capacity(10, 0)
 			create substrings_last_indexes.with_capacity(10, 0)
+			create {HASHED_DICTIONARY[INTEGER, FIXED_STRING]} substrings_names.with_capacity(10)
 			direction := 1
 		end
 
@@ -113,6 +114,7 @@ feature {ANY} -- creation
 			group_count := pattern.group_count
 			substrings_first_indexes.resize(substrings_first_indexes.lower, group_count)
 			substrings_last_indexes.resize(substrings_last_indexes.lower, group_count)
+			substrings_names.copy(pattern.substrings_names)
 			invalidate_last_match
 		ensure
 			value_set: root_node = pattern.root

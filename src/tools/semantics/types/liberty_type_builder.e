@@ -31,11 +31,11 @@ class LIBERTY_TYPE_BUILDER
 insert
 	LIBERTY_ERROR_LEVELS
 
-creation {LIBERTY_ACTUAL_TYPE_IMPL}
+creation {LIBERTY_ACTUAL_TYPE}
 	make
 
-feature {LIBERTY_ACTUAL_TYPE_IMPL}
-	type: LIBERTY_ACTUAL_TYPE_IMPL
+feature {LIBERTY_ACTUAL_TYPE}
+	type: LIBERTY_ACTUAL_TYPE
 	universe: LIBERTY_UNIVERSE
 	automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
 	has_loaded_features: BOOLEAN
@@ -48,8 +48,17 @@ feature {LIBERTY_ACTUAL_TYPE_IMPL}
 	build_more is
 		require
 			not is_built
+		local
+			state: like current_state; staled: BOOLEAN
 		do
-			automaton.next(automaton_context)
+			from
+			until
+				is_built or else staled
+			loop
+				state := current_state
+				automaton.next(automaton_context)
+				staled := current_state = state
+			end
 		end
 
 	is_built: BOOLEAN is
@@ -192,8 +201,7 @@ feature {LIBERTY_TYPE_BUILDER}
 
 	check_type: STRING is
 			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....),
-			-- arguments of feature calls (type, count... including agents),
-			-- and so on
+			-- arguments of feature calls (type, count... including agents), and so on
 		require
 			type.is_reachable
 		do
@@ -237,7 +245,7 @@ feature {}
 	features_loader: LIBERTY_TYPE_FEATURES_LOADER
 
 feature {}
-	check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE_IMPL]): BOOLEAN is
+	check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE]): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -261,7 +269,7 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
-	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE_IMPL is
+	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE is
 		require
 			formal_parameter_name /= Void
 			has_effective_generic_parameter(formal_parameter_name)
@@ -303,15 +311,15 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 		end
 
 feature {}
-	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE_IMPL, FIXED_STRING]
+	effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 			-- key: generic parameter name (e.g. E_)
 			-- value: effective parameter (e.g. STRING)
 
-	empty_effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE_IMPL, FIXED_STRING] is
+	empty_effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING] is
 		once
 			-- Special common case (no effective parameters) factored out, using the smallest possible structure
 			-- (an empty AVL tree)
-			create {AVL_DICTIONARY[LIBERTY_ACTUAL_TYPE_IMPL, FIXED_STRING]} Result.make
+			create {AVL_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} Result.make
 		end
 
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]

@@ -14,11 +14,13 @@
 --
 class LIBERTY_VOID_TYPE
 	--
-	-- The type of a 'Void' expression unless or before its precise type can be determined
+	-- The type of a 'Void' expression unless or before its precise type can be determined.
+	--
+	-- In other words: good old NONE.
 	--
 
 inherit
-	LIBERTY_ACTUAL_TYPE
+	LIBERTY_KNOWN_TYPE
 
 insert
 	SINGLETON
@@ -32,6 +34,11 @@ feature {ANY}
 	current_entity: LIBERTY_CURRENT is
 		do
 			check Result = Void end
+		end
+
+	known_type: LIBERTY_VOID_TYPE is
+		do
+			Result := Current
 		end
 
 	file: FIXED_STRING is
@@ -68,12 +75,12 @@ feature {ANY}
 			check False end
 		end
 
-	is_conform_to (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := not other.is_expanded
 		end
 
-	is_non_conformant_child_of (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			check not Result end
 		end
@@ -94,32 +101,20 @@ feature {ANY}
 			visitor.visit_void(Current)
 		end
 
-feature {LIBERTY_ACTUAL_TYPE}
-	full_name_in (buffer: STRING) is
-		do
-			buffer.append(once "<Void>")
-		end
-
-feature {LIBERTY_UNIVERSE} -- Semantics building
-	start_build (universe: LIBERTY_UNIVERSE) is
-		do
-		end
-
-	build_more is
-		do
-			check False end
-		end
-
-	is_built: BOOLEAN is True
-
-	has_converter (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
 		do
 			check not Result end
 		end
 
-	converter (target_type: LIBERTY_ACTUAL_TYPE): PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+	do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER) is
 		do
 			check False end
+		end
+
+feature {LIBERTY_KNOWN_TYPE}
+	full_name_in (buffer: STRING) is
+		do
+			buffer.append(once "NONE")
 		end
 
 feature {ANY}
@@ -128,8 +123,8 @@ feature {ANY}
 			o.put_line(full_name)
 		end
 
-feature {LIBERTY_ACTUAL_TYPE}
-	common_parent (other: LIBERTY_ACTUAL_TYPE): LIBERTY_ACTUAL_TYPE is
+feature {LIBERTY_KNOWN_TYPE}
+	common_parent (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE is
 		do
 			check False end
 		end

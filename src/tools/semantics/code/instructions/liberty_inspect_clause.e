@@ -35,7 +35,7 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INSPECT}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			ins: like instruction
 			v: like values_list

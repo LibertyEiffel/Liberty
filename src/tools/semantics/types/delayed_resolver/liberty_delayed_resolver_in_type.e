@@ -64,7 +64,7 @@ feature {LIBERTY_DELAYED_TYPE}
 					bound_feature := fd.the_feature.bound(current_type)
 				end
 				if bound_feature /= Void then
-					Result := bound_feature.result_type.is_actual_type_set
+					Result := bound_feature.result_type.is_known
 				end
 			end
 		end
@@ -74,7 +74,7 @@ feature {LIBERTY_DELAYED_TYPE}
 			if feature_name = Void then
 				Result := current_type
 			else
-				Result := definition_type.feature_definition(feature_name).the_feature.bound(current_type).result_type.actual_type
+				Result ::= definition_type.feature_definition(feature_name).the_feature.bound(current_type).result_type.known_type
 			end
 		end
 
@@ -83,7 +83,7 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := current_type.full_name
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
 			if a_type.is_child_of(definition_type) then
 				create Result.specialized(a_type, definition_type, feature_name)

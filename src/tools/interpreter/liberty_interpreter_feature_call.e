@@ -156,7 +156,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS, LIBERTY_INT
 
 	writable_feature_static_type (feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
-			Result := target.type.feature_definition(feature_name).result_type.actual_type
+			Result ::= target.type.feature_definition(feature_name).result_type.known_type
 		end
 
 	set_writable_feature (a_name: LIBERTY_FEATURE_NAME; a_value: LIBERTY_INTERPRETER_OBJECT) is
@@ -253,6 +253,7 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 		local
 			t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 			fn: LIBERTY_FEATURE_NAME
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if prepare then
 				evaluate_parameters
@@ -265,7 +266,8 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 						create fn.make(name)
 						if t.type.has_feature(fn) then
 							-- at creation time
-							set_returned_object(interpreter.default_object(t.type.feature_definition(fn).result_type.actual_type, t.position))
+							actual_type ::= t.type.feature_definition(fn).result_type.known_type
+							set_returned_object(interpreter.default_object(actual_type, t.position))
 							t.put_attribute(name, returned_object)
 						else
 							interpreter.fatal_error("No such attribute: " + name)
@@ -383,7 +385,7 @@ feature {}
 			position := a_position
 			bound_feature := a_feature_definition.the_feature.bound(a_target.type)
 			if bound_feature.result_type /= Void then
-				returned_static_type := bound_feature.result_type.actual_type
+				returned_static_type ::= bound_feature.result_type.known_type
 			end
 
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
@@ -411,7 +413,7 @@ feature {}
 			position := a_position
 			bound_feature := a_precursor
 			if bound_feature.result_type /= Void then
-				returned_static_type := bound_feature.result_type.actual_type
+				returned_static_type ::= bound_feature.result_type.known_type
 			end
 
 			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
@@ -450,6 +452,7 @@ feature {}
 			parameters /= Void
 		local
 			i: INTEGER; p: LIBERTY_PARAMETER
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if f.parameters.count /= actuals.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
@@ -471,7 +474,8 @@ feature {}
 					i > actuals.upper
 				loop
 					p := f.parameters.item(i)
-					parameter_types.add(p.result_type.actual_type, p.name)
+					actual_type ::= p.result_type.known_type
+					parameter_types.add(actual_type, p.name)
 					parameter_map.add(parameters.item(i), p.name)
 					i := i + 1
 				end
@@ -484,6 +488,7 @@ feature {}
 	prepare_local_map (f: LIBERTY_FEATURE_ROUTINE) is
 		local
 			i: INTEGER; l: LIBERTY_LOCAL; def: LIBERTY_INTERPRETER_OBJECT
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if f.locals.is_empty then
 				local_types := empty_types
@@ -497,8 +502,9 @@ feature {}
 					i > f.locals.upper
 				loop
 					l := f.locals.item(i)
-					local_types.add(l.result_type.actual_type, l.name)
-					def := interpreter.default_object(l.result_type.actual_type, l.position)
+					actual_type ::= l.result_type.known_type
+					local_types.add(actual_type, l.name)
+					def := interpreter.default_object(actual_type, l.position)
 					local_map.add(def, l.name)
 					i := i + 1
 				end

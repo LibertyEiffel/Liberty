@@ -21,7 +21,7 @@ feature {ANY}
 	left, right: LIBERTY_EXPRESSION
 	result_type: LIBERTY_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			l, r: LIBERTY_EXPRESSION
 		do

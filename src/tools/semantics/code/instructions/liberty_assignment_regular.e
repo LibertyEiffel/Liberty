@@ -29,7 +29,7 @@ feature {ANY}
 			v0.visit_liberty_assignment_regular(Current)
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			w: like writable
 			e: like expression

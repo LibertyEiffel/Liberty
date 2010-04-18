@@ -28,7 +28,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
 			l, r: LIBERTY_ASSERTIONS
 		do

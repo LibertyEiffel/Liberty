@@ -28,15 +28,15 @@ insert
 		end
 
 feature {ANY}
-	actual_type: LIBERTY_ACTUAL_TYPE is
+	known_type: LIBERTY_KNOWN_TYPE is
 		require
-			is_actual_type_set
+			is_known
 		deferred
 		end
 
 	result_entity: LIBERTY_RESULT
 
-	is_actual_type_set: BOOLEAN is
+	is_known: BOOLEAN is
 		deferred
 		end
 
@@ -46,7 +46,7 @@ feature {ANY}
 			Result /= Void
 		end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE_IMPL): like Current is
+	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		deferred
 		ensure
 			Result /= Void
@@ -63,7 +63,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			reachable_mark := mark
 		end
 
-feature {LIBERTY_ACTUAL_TYPE}
+feature {LIBERTY_KNOWN_TYPE}
 	full_name_in (buffer: STRING) is
 		require
 			buffer /= Void
@@ -75,7 +75,7 @@ feature {LIBERTY_TYPE_LISTENER}
 		require
 			a_listener /= Void
 			not has_listener(a_listener)
-			not is_actual_type_set
+			not is_known
 		do
 			listeners.add_last(a_listener)
 		ensure
@@ -100,7 +100,7 @@ feature {LIBERTY_TYPE_LISTENER}
 		end
 
 feature {}
-	fire_actual_type_set is
+	fire_known_type_set is
 		local
 			i: INTEGER
 		do
@@ -109,7 +109,7 @@ feature {}
 			until
 				i > listeners.upper
 			loop
-				listeners.item(i).on_actual_type_set(Current)
+				listeners.item(i).on_known_type_set(Current)
 				i := i + 1
 			end
 			listeners := Void
@@ -121,6 +121,6 @@ feature {}
 	logging: LOGGING
 
 invariant
-	not is_actual_type_set implies listeners /= Void
+	not is_known implies listeners /= Void
 
 end

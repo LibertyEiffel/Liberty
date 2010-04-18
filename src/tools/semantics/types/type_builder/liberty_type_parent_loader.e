@@ -68,7 +68,7 @@ feature {}
 			-- Returns True if at least a parent was added
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE_IMPL
+			parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE
 		do
 			if conformant then
 				logging.trace.put_string(once "Adding conformant parents to ")
@@ -96,7 +96,7 @@ feature {}
 					std_output.put_line(parent.full_name)
 				end
 				if parent /= Void then
-					actual_parent ::= parent.actual_type
+					actual_parent ::= parent.known_type
 					type.add_parent(actual_parent, conformant)
 					Result := True
 				end

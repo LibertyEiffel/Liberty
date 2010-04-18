@@ -110,13 +110,37 @@ feature {ANY} -- matching capabilities
 	group_count: INTEGER is
 			-- Number of groups in `Current' regular expression.
 			--
-			-- See also `ith_group_first_index'.
+			-- See also `ith_group_matched', `ith_group_first_index'.
 		do
 			Result := substrings_first_indexes.upper
 		end
 
+	group_names: TRAVERSABLE[FIXED_STRING] is
+			-- The names of the matched named group.
+			--
+			-- See also `named_group_matched', `named_group_first_index'.
+		do
+			set_group_names_memory
+			Result := group_names_memory
+		ensure
+			Result /= Void
+			Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := s /= Void end)
+			Result.count = substrings_names.count
+			Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := substrings_names.fast_has(s) end)
+			Result.for_all(agent (s: FIXED_STRING): BOOLEAN is do Result := has_group_name(s) end)
+		end
+
+	has_group_name (name: ABSTRACT_STRING): BOOLEAN is
+			-- Is there a group names `name'?
+		require
+			name /= Void
+		do
+			set_group_names_memory
+			Result := group_names_memory.fast_has(name.intern)
+		end
+
 	ith_group_matched (i: INTEGER): BOOLEAN is
-			-- Did the `i'th group matched during last match?
+			-- Did the `i'th group match during last match?
 			--
 			-- See also `group_count', `ith_group_first_index'.
 		require
@@ -126,8 +150,19 @@ feature {ANY} -- matching capabilities
 			Result := substrings_first_indexes.item(i) > 0
 		end
 
+	named_group_matched (name: ABSTRACT_STRING): BOOLEAN is
+			-- Did the group named `name' match durign the last match?
+			--
+			-- See also `group_names', `named_group_first_index'.
+		require
+			name /= Void
+			has_group_name(name)
+		do
+			Result := ith_group_matched(substrings_names.fast_at(name.intern))
+		end
+
 	ith_group_first_index (i: INTEGER): INTEGER is
-			-- First index in the last matching text of the `i'th group of `Current'.
+			-- First index in the last matching text of the `i'th group.
 			--
 			-- See also `group_count'.
 		require
@@ -140,8 +175,21 @@ feature {ANY} -- matching capabilities
 			Result.in_range(0, last_match_text.upper + 1)
 		end
 
+	named_group_first_index (name: ABSTRACT_STRING): INTEGER is
+			-- First index in the last matching text of the group named `name'.
+			--
+			-- See also `group_names'.
+		require
+			name /= Void
+			has_group_name(name)
+			last_match_succeeded
+			named_group_matched(name)
+		do
+			Result := ith_group_first_index(substrings_names.fast_at(name.intern))
+		end
+
 	ith_group_last_index (i: INTEGER): INTEGER is
-			-- Last index in the last matching text of the `i'th group of `Current'.
+			-- Last index in the last matching text of the `i'th group.
 			--
 			-- See also `ith_group_first_index', `group_count'.
 		require
@@ -152,6 +200,19 @@ feature {ANY} -- matching capabilities
 			Result := substrings_last_indexes.item(i)
 		ensure
 			Result.in_range(ith_group_first_index(i) - 1, last_match_text.upper)
+		end
+
+	named_group_last_index (name: ABSTRACT_STRING): INTEGER is
+			-- Last index in the last matching text of the group named `name'.
+			--
+			-- See also `named_group_first_index', `group_names'.
+		require
+			name /= Void
+			has_group_name(name)
+			last_match_succeeded
+			named_group_matched(name)
+		do
+			Result := ith_group_last_index(substrings_names.fast_at(name.intern))
 		end
 
 	ith_group_count (i: INTEGER): INTEGER is
@@ -167,6 +228,25 @@ feature {ANY} -- matching capabilities
 		ensure
 			Result >= 0
 			Result = ith_group_last_index(i) - ith_group_first_index(i) + 1
+		end
+
+	named_group_count (name: ABSTRACT_STRING): INTEGER is
+			-- Length of the group named `name' in the last matching.
+			--
+			-- See also `named_group_first_index', `append_named_group', `group_names'.
+		require
+			name /= Void
+			has_group_name(name)
+			last_match_succeeded
+			named_group_matched(name)
+		local
+			i: INTEGER
+		do
+			i := substrings_names.fast_at(name.intern)
+			Result := substrings_last_indexes.item(i) - substrings_first_indexes.item(i) + 1
+		ensure
+			Result >= 0
+			Result = named_group_last_index(name) - named_group_first_index(name) + 1
 		end
 
 	append_heading_text (text, buffer: STRING) is
@@ -233,6 +313,28 @@ feature {ANY} -- matching capabilities
 			buffer.append_substring(text, substrings_first_indexes.item(i), substrings_last_indexes.item(i))
 		ensure
 			buffer.count = old buffer.count + ith_group_count(i)
+		end
+
+	append_named_group (text, buffer: STRING; name: ABSTRACT_STRING) is
+			-- Append in `buffer' the text of the group named `name'.
+			-- `text' is the same as used in last matching.
+			--
+			-- See also `append_pattern_text', `group_name'.
+		require
+			text /= Void
+			buffer /= Void
+			last_match_succeeded
+			text.is_equal(last_match_text)
+			name /= Void
+			has_group_name(name)
+			named_group_matched(name)
+		local
+			i: INTEGER
+		do
+			i := substrings_names.fast_at(name.intern)
+			buffer.append_substring(text, substrings_first_indexes.item(i), substrings_last_indexes.item(i))
+		ensure
+			buffer.count = old buffer.count + named_group_count(name)
 		end
 
 feature {ANY} -- substitution capabilities
@@ -521,7 +623,7 @@ feature {}
 
 	substitute_all_without_tail (text: STRING): INTEGER is
 			-- Substitute all matching parts from `text'. The resulting text is
-			-- in `last_substitution', excepted the end. The part of `text' from
+			-- in `last_substitution', except the end. The part of `text' from
 			-- `Result' up to the end is not copied.
 		require
 			substitution_pattern_ready
@@ -573,6 +675,12 @@ feature {}
 			-- The ending position of the string starting at position
 			-- found in `matching_position' at the same index.
 
+	substrings_names: DICTIONARY[INTEGER, FIXED_STRING]
+			-- The names of the groups, if those names exist
+
+	group_names_memory: COLLECTION[FIXED_STRING]
+			-- Cache for `group_names'
+
 	substitution_pattern: STRING is
 		once
 			create Result.make_empty
@@ -598,11 +706,22 @@ feature {}
 			end
 		end
 
+	set_group_names_memory is
+		do
+			if group_names_memory = Void then
+				create {FAST_ARRAY[FIXED_STRING]} group_names_memory.with_capacity(substrings_names.count)
+				group_names_memory.clear_count
+				substrings_names.key_map_in(group_names_memory)
+			end
+		end
+
 	last_match_text_memory: STRING -- For assertion only.
 
 invariant
 	substrings_first_indexes.lower = substrings_last_indexes.lower
 	substrings_first_indexes.upper = substrings_last_indexes.upper
+	substrings_names.is_empty or else (substrings_names.count <= substrings_first_indexes.count
+												  and then substrings_names.for_all(agent (i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := s /= Void and then substrings_first_indexes.fast_has(i) end))
 
 end -- class REGULAR_EXPRESSION
 --

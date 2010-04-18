@@ -18,6 +18,8 @@ inherit
 	LIBERTY_INTERPRETER_OBJECT
 
 feature {ANY}
+	type: LIBERTY_ACTUAL_TYPE
+
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		local
 			o: like Current

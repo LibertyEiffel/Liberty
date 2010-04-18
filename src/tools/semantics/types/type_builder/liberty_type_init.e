@@ -49,7 +49,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			name: FIXED_STRING
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
-			effective_type: LIBERTY_ACTUAL_TYPE_IMPL
+			effective_type: LIBERTY_ACTUAL_TYPE
 			i, n: INTEGER
 		do
 			ast := type.ast.class_header
@@ -77,14 +77,14 @@ feature {LIBERTY_TYPE_BUILDER}
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE_IMPL, FIXED_STRING]} effective_generic_parameters.with_capacity(n)
+				create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} effective_generic_parameters.with_capacity(n)
 				from
 					i := type_parameters.list_lower
 				until
 					i > type_parameters.list_upper
 				loop
 					type_parameter := type_parameters.list_item(i)
-					effective_type ::= type.parameters.item(i).actual_type
+					effective_type ::= type.parameters.item(i).known_type
 					effective_generic_parameters.add(effective_type, type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end
@@ -103,7 +103,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			until
 				not Result or else i > type.parameters.upper
 			loop
-				Result := type.parameters.item(i).is_actual_type_set
+				Result := type.parameters.item(i).is_known
 				debug ("type.building.internals")
 					if not Result then
 						std_output.put_string(type.full_name)

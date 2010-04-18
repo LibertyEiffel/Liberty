@@ -15,10 +15,10 @@
 deferred class LIBERTY_TYPE_LISTENER
 
 feature {LIBERTY_TYPE}
-	on_actual_type_set (type: LIBERTY_TYPE) is
+	on_known_type_set (type: LIBERTY_TYPE) is
 		require
 			type /= Void
-			type.is_actual_type_set
+			type.is_known
 		deferred
 		end
 
