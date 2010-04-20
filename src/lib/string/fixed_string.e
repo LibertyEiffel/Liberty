@@ -15,7 +15,7 @@ inherit
 		end
 
 creation {ANY}
-	make_from_string, copy, from_external_copy, from_external_sized_copy
+	make_from_string, copy, from_external_copy, from_external_sized_copy, from_external
 
 creation {FIXED_STRING}
 	make_from_fixed_string
@@ -155,6 +155,24 @@ feature {ANY} -- Interfacing with C string:
 		end
 
 feature {} -- Creation from C string:
+	from_external (p: POINTER) is
+			-- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
+			-- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
+			-- FIXED_STRING.
+			-- Also consider `from_external' to choose the most appropriate.
+		require 
+			p.is_not_null
+		local i: INTEGER
+		do
+			from storage := storage.from_pointer(p)
+			until storage.item(i) = '%U'
+			loop i := i+1
+			end
+			count := i
+			capacity := i+1
+			hash_code := computed_hash_code
+		end
+
 	from_external_copy (p: POINTER) is
 			-- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
 			-- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
