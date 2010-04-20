@@ -78,7 +78,7 @@ feature {} -- Creation
 	make_puts is
 		-- The external function "int puts(const char *s);"
 	do
-		create puts_type.make(int_32,<<pointer(int_8)>>,False)
+		create puts_type.make(int_32,<<string>>,False)
 		puts := module.new_function("puts",puts_type )
 		puts.set_external_linkage
 	ensure puts/=Void
@@ -92,19 +92,20 @@ feature {} -- Creation
 
 	make_main is
 		-- Emit the usual entry point function of a C program: "int main (int argc, char *argv[]);"
-		local tmp: LLVM_VALUE; arg_type, argv_type: LLVM_POINTER_TYPE;
+		local msg,puts_arg, tmp: LLVM_VALUE; argv_type: LLVM_POINTER_TYPE; 
 		do
 			-- main will be the usual entry point of a C program: "int main (int argc, char *argv[]);"
-			create arg_type.make(int_8) -- An argument is a pointer to 8 bit numbers, aka char
-			create argv_type.make(arg_type) -- argv is a "pointer to/an array of" arguments
+			create argv_type.make(string_type) -- argv is a "pointer to/an array of" arguments
 			create main_type.make(int_32,<<int_32, argv_type>>, False)
 			main := module.new_function("main",main_type)
 			calling_convention.set_ccall_conv
 			main.set_calling_convention(calling_convention)
 			create block.appended_in_context(global_context,main,"main-first-block")
 			create builder.at_end_of(block)
+			msg := module.local_string("Hello Liberty!")
+			puts_arg := builder.bit_cast(msg,pointer(int_8),"cast from (n x i8)* to i8*")
 			std_error.put_string(once "Invoking puts%N")
-			tmp := builder.call(puts,<<module.local_string("Hello Liberty!")>>,"invoking-puts")
+			tmp := builder.call(puts,<<puts_arg>>,"invoking-puts")
 			std_error.put_string(once "Puts invoked%N")
 			-- Always return 1
 			tmp := builder.return (create {LLVM_CONSTANT_INT}.integer_32(1))

@@ -170,14 +170,14 @@ feature {ANY} -- Outputting
 
 feature {ANY} -- Local strings
 	local_string (a_text: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
-		-- A C string containing `a_text'. 
+		-- A constant C string containing `a_text'. 
 		
 		-- More properly, a new global variable whose type is a pointer to a character, referring to the memory area containing `a_text'. 
 		do
 			-- Converted from Leooolas code snippet found at 
 			-- http://stackoverflow.com/questions/1061753/how-can-i-implement-a-string-data-type-in-llvm
 			create Result.from_external_pointer
-			(llvmadd_global(handle,llvmarray_type(llvmint_8type,a_text.count.to_natural_32),(once "string").to_external))
+			(llvmadd_global(handle, llvmarray_type(llvmint_8type,(a_text.count).to_natural_32),(once "string").to_external))
 			Result.set_internal_linkage
 			Result.set_global_constant(True)
 			Result.set_initializer(create {LLVM_CONST_STRING}.from_string(a_text))

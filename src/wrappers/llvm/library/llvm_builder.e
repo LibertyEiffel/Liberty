@@ -829,8 +829,28 @@ feature -- Casts
 			Result/=Void
 		end
 
--- LLVMValueRef LLVMBuildSExt(LLVMBuilderRef, LLVMValueRef Val,
---                            LLVMTypeRef DestTy, const char *Name);
+	sext (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_SEXT_INST is
+		-- A new "sext" instruction, that will sign extend `a_value' to until fits `a_destination_type'.
+
+		-- `a_value' must be of an integer type; also `a_destination_type' shall be of integer type.
+		-- The bit size of the value must be smaller than the bit size of the destination type, ty2.
+
+		-- A "sext" instruction performs a sign extension by copying the sign
+		-- bit (highest order bit) of the value until it reaches the bit size
+		-- of the type ty2.
+
+		-- When sign extending from i1, the extension always results in -1 or 0.
+		require
+			a_value/=Void
+			a_destination_type/=Void
+			a_label/=Void
+			--TODO a_value is an integer
+			-- TODO: a_destination_type shall be an integer type
+		do
+			create Result.from_external_pointer
+			(llvmbuild_sext(handle,a_value.handle,a_destination_type.handle,a_label.to_external))
+		ensure Result/=Void
+		end
 -- LLVMValueRef LLVMBuildFPToUI(LLVMBuilderRef, LLVMValueRef Val,
 --                              LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildFPToSI(LLVMBuilderRef, LLVMValueRef Val,
@@ -847,8 +867,17 @@ feature -- Casts
 --                                LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildIntToPtr(LLVMBuilderRef, LLVMValueRef Val,
 --                                LLVMTypeRef DestTy, const char *Name);
--- LLVMValueRef LLVMBuildBitCast(LLVMBuilderRef, LLVMValueRef Val,
---                               LLVMTypeRef DestTy, const char *Name);
+	bit_cast (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_BITCAST_INST is
+		-- An instruction casting `a_value' into `a_destination_type'.
+	require
+		a_value/=Void
+		a_destination_type/=Void
+		a_name/=Void
+	do
+		create Result.from_external_pointer(llvmbuild_bit_cast(handle,a_value.handle,a_destination_type.handle,a_name.to_external))
+	ensure Result/=Void
+	end
+
 -- LLVMValueRef LLVMBuildZExtOrBitCast(LLVMBuilderRef, LLVMValueRef Val,
 --                                     LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildSExtOrBitCast(LLVMBuilderRef, LLVMValueRef Val,
