@@ -15,7 +15,7 @@ feature {} -- Creation
 		-- A new NULL-terminated constant string containing `a_text'. 
 	require text_non_void: a_text /= Void
 	do
-		from_external_pointer(llvmconst_string(a_text.to_external, (a_text.count).to_natural_32, 1))
+		from_external_pointer(llvmconst_string(a_text.to_external, (a_text.count+1).to_natural_32, 1))
 		-- Note: the meaning of the underlying argument dontnullterminate - here set to 1 - seems to be the opposite of what I understood.	
 	end
 
@@ -24,7 +24,7 @@ feature {} -- Creation
 		-- A new non NULL-terminated constant string containing `a_text'.  
 	require text_non_void: a_text /= Void
 	do
-		from_external_pointer(llvmconst_string(a_text.to_external, (a_text.count).to_natural_32, 0))
+		from_external_pointer(llvmconst_string(a_text.to_external, (a_text.count+1).to_natural_32, 0))
 		-- Note: the meaning of the underlying argument dontnullterminate - here set to 0 - seems to be the opposite of what I understood.	
 	end
 
@@ -37,6 +37,6 @@ feature {} -- Creation
 		text_non_void: a_text/=Void
 	do
 		from_external_pointer(llvmconst_string_in_context
-		(a_context.handle, a_text.to_external, (a_text.count).to_natural_32, do_not_null_terminate.to_integer))
+		(a_context.handle, a_text.to_external, (a_text.count+1).to_natural_32, do_not_null_terminate.to_integer))
 	end
 end -- class LLVM_CONST_STRING
