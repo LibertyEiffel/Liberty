@@ -120,8 +120,9 @@ feature {ANY} -- Other features:
 feature {}
 	make_from_fixed_string (fixed: FIXED_STRING; start_index, end_index: INTEGER) is
 		require
-			valid_start_index: 1 <= start_index
-			valid_end_index: end_index <= fixed.count
+			fixed /= Void
+			valid_start_index: fixed.valid_index(start_index)
+			valid_end_index: fixed.valid_index(end_index) -- end_index <= fixed.count
 			meaningful_interval: start_index <= end_index + 1
 		local
 			c: INTEGER

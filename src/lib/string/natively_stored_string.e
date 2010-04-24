@@ -4,6 +4,8 @@
 deferred class NATIVELY_STORED_STRING
 	-- An ABSTRACT_STRING of CHARACTERs stored into with a NATIVE_ARRAY.
 
+	-- Implementation notes: it is NOT guaranteed that the memory buffer will contain a binary 0 to mark its end, while widespread implementations like STRING and FIXED_STRING will be zero terminated.
+
 inherit 
 	ABSTRACT_STRING
 		redefine print_on
