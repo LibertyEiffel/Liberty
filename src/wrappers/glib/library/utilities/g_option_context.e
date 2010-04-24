@@ -144,11 +144,11 @@ feature
 			g_option_context_set_summary(handle,sp)
 		end
 
-	summary: STRING is
+	summary: FIXED_STRING is
 		local sp: POINTER
 		do
 			sp:=g_option_context_get_summary(handle)
-			if sp.is_not_null then create {CONST_STRING} Result.from_external(sp) end
+			if sp.is_not_null then create Result.from_external(sp) end
 		end
 	
 	--  void        g_option_context_set_description

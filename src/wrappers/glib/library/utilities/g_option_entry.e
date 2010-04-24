@@ -61,14 +61,14 @@ feature {} -- Creation
 		end
 
 feature -- Queries
-	long_name: STRING is
+	long_name: FIXED_STRING is
 			-- The long name of an option can be used to specify it in a
 			-- commandline as --long_name. Every option must have a long
 			-- name. To resolve conflicts if multiple option groups
 			-- contain the same long name, it is also possible to specify
 			-- the option as "--groupname-long_name".
 		do
-			create {CONST_STRING} Result.from_external
+			create Result.from_external
 			(goptionentry_struct_get_long_name(handle))
 		end
 
@@ -108,12 +108,12 @@ feature -- Queries
 	-- G_OPTION_ARG_FILENAME_ARRAY gchar**
 	-- G_OPTION_ARG_DOUBLE         gdouble
 	
-	description: STRING is
+	description: FIXED_STRING is
 		-- the description for the option in "--help" output.  The description
 		-- is translated using the translate_func of the group, see
 		-- G_OPTION_GROUP.set_translation_domain.
 	do
-		create {CONST_STRING} Result.from_external(goptionentry_struct_get_description(handle))
+		create Result.from_external(goptionentry_struct_get_description(handle))
 	end
 
 	-- gchar *arg_description; The placeholder to use for the extra
