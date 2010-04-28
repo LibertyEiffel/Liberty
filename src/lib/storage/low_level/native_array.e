@@ -354,6 +354,25 @@ feature {ANY} -- Searching:
 			end
 		end
 
+	slice_has (element: like item; lower, upper: INTEGER): BOOLEAN is
+			-- Look for `element' using `is_equal' for comparison.
+			-- Also consider `slice_fast_has' to choose the most appropriate.
+		require
+			lower >= 0
+			upper >= lower - 1
+		local
+			i: INTEGER
+		do
+			from
+				i := lower
+			until
+				Result or else i > upper
+			loop
+				Result := safe_equal(element, item(i))
+				i := i + 1
+			end
+		end
+
 	fast_has (element: like item; upper: INTEGER): BOOLEAN is
 			-- Look for `element' using basic `=' for comparison.
 			-- Also consider `has' to choose the most appropriate.
@@ -370,6 +389,25 @@ feature {ANY} -- Searching:
 				i := i - 1
 			end
 			Result := i >= 0
+		end
+
+	slice_fast_has (element: like item; lower, upper: INTEGER): BOOLEAN is
+			-- Look for `element' using `is_equal' for comparison.
+			-- Also consider `slice_fast_has' to choose the most appropriate.
+		require
+			lower >= 0
+			upper >= lower - 1
+		local
+			i: INTEGER
+		do
+			from
+				i := lower
+			until
+				Result or else i > upper
+			loop
+				Result := element = item(i)
+				i := i + 1
+			end
 		end
 
 feature {ANY} -- Removing:

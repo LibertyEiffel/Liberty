@@ -196,7 +196,7 @@ feature {ANY} -- Testing:
 			--
 			-- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
 		require
-			valid_start_index: start_index >= 1 and start_index <= count + 1
+			valid_start_index: start_index >= lower and start_index <= upper + 1
 		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
@@ -209,7 +209,7 @@ feature {ANY} -- Testing:
 			--
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		require
-			valid_start_index: start_index >= 0 and start_index <= count
+			valid_start_index: start_index >= lower - 1 and start_index <= upper
 		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
@@ -1229,17 +1229,15 @@ feature {}
 
 	computed_hash_code: INTEGER is
 		local
-			i, j: INTEGER
+			i: INTEGER
 		do
 			from
-				j := count
-				i := 1
+				i := lower
 			until
-				j <= 0
+				i > upper
 			loop
 				Result := {INTEGER 5} #* Result #+ item(i).code
 				i := i + 1
-				j := j - 1
 			end
 			if Result < 0 then
 				Result := ~Result

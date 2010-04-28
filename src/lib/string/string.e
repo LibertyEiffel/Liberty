@@ -1030,6 +1030,7 @@ invariant
 	0 <= count
 	count <= capacity
 	capacity > 0 implies storage.is_not_null
+	storage_lower = 0
 
 end -- class STRING
 --
