@@ -9,7 +9,8 @@ deferred class NATIVELY_STORED_STRING
 
 inherit
 	ABSTRACT_STRING
-		redefine print_on
+		redefine
+			print_on, copy_slice_to_native
 		end
 
 feature {STRING_HANDLER}
@@ -160,6 +161,12 @@ feature {ANY} -- Access
 	print_on (file: OUTPUT_STREAM) is
 		do
 			file.put_natively_stored_string(Current)
+		end
+
+feature {STRING}
+	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+		do
+			target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
 		end
 
 invariant

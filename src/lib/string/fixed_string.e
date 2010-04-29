@@ -42,10 +42,10 @@ feature {ANY} -- Creation:
 			end
 			capacity := ca
 			count := c
-			hash_code := computed_hash_code
 			immutable := True
 			original := Void
 			holders := new_holders
+			hash_code := computed_hash_code
 		ensure
 			count = model.count
 			immutable
@@ -134,10 +134,10 @@ feature {}
 			storage_lower := start_index - other.lower + other.storage_lower
 			count := end_index - start_index + 1
 			capacity := other.capacity
-			hash_code := computed_hash_code
 			immutable := True
 			original := Void
 			share_with(other)
+			hash_code := computed_hash_code
 		ensure
 			immutable
 			is_shared
@@ -175,13 +175,12 @@ feature {} -- Creation from C string:
 
 			count := i
 			capacity := i + 1
-			s := storage
+			storage := s
 
-			hash_code := computed_hash_code
 			immutable := True
 			original := Void
-
 			holders := new_holders
+			hash_code := computed_hash_code
 		ensure
 			immutable
 		end
@@ -209,11 +208,10 @@ feature {} -- Creation from C string:
 			storage := storage.calloc(capacity)
 			storage.copy_from(s, count)
 
-			hash_code := computed_hash_code
 			immutable := True
 			original := Void
-
 			holders := new_holders
+			hash_code := computed_hash_code
 		ensure
 			immutable
 		end
@@ -242,11 +240,10 @@ feature {} -- Creation from C string:
 			storage.copy_from(s, count - 1)
 			storage.put('%U', count)
 
-			hash_code := computed_hash_code
 			immutable := True
 			original := Void
-
 			holders := new_holders
+			hash_code := computed_hash_code
 		ensure
 			immutable
 			count <= size

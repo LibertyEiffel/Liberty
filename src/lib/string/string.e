@@ -55,15 +55,12 @@ feature {ANY} -- Creation / Modification:
 		require
 			model /= Void
 		local
-			c: INTEGER; nss: NATIVELY_STORED_STRING
+			c: INTEGER
 		do
 			c := model.count
 			ensure_capacity(c)
 			count := c
-			nss ?= model
-			if nss/=Void then storage.copy_from(nss.storage, c - 1)
-			else append(model)
-			end
+			slice_copy(0, model, model.lower, model.upper)
 		ensure
 			count = model.count
 		end
@@ -190,28 +187,13 @@ feature {ANY} -- Modification:
 			s_not_void: s /= Void
 		local
 			needed_capacity: INTEGER
-			nss: NATIVELY_STORED_STRING
-			i: like new_iterator
 		do
 			-- Note: pre-computing needed capacity may be costly for ROPEs. Consider moving it into the NATIVELY_STORED_STRING-specific part of the feature.
 			needed_capacity := count + s.count
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			nss ?= s
-			if nss/=Void then
-				storage.copy_at(count, nss.storage, nss.count)
-			else
-				from
-					i := s.new_iterator
-					i.start
-				until
-					not i.is_off
-				loop
-					Current.append_character(i.item)
-					i.next
-				end
-			end
+			slice_copy(count, s, s.lower, s.upper)
 			count := needed_capacity
 		end
 
@@ -225,16 +207,12 @@ feature {ANY} -- Modification:
 			meaningful_interval: start_index <= end_index + 1
 		local
 			needed_capacity: INTEGER
-			nss: NATIVELY_STORED_STRING
 		do
 			needed_capacity := count + end_index - start_index + 1
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			nss ?= s
-			if nss/=Void then storage.slice_copy(count, nss.storage, start_index - 1, end_index - 1)
-			else not_yet_implemented 
-			end
+			slice_copy(count, s, start_index, end_index)
 			count := needed_capacity
 		end
 
@@ -245,7 +223,7 @@ feature {ANY} -- Modification:
 		require
 			other /= Void
 		local
-			i, j: INTEGER; nss: NATIVELY_STORED_STRING
+			i, j: INTEGER
 		do
 			i := count
 			j := other.count
@@ -253,10 +231,7 @@ feature {ANY} -- Modification:
 			if i > 0 and then j > 0 then
 				storage.move(0, i - 1, j)
 			end
-			nss ?= other
-			if nss/=Void then storage.copy_from(nss.storage, j - 1)
-			else not_yet_implemented
-			end
+			slice_copy(0, other, other.lower, other.upper)
 		ensure
 			(old other.twin + old Current.twin).is_equal(Current)
 		end
@@ -268,7 +243,7 @@ feature {ANY} -- Modification:
 			string_not_void: s /= Void
 			valid_insertion_index: 1 <= i and i <= count + 1
 		local
-			j, k: INTEGER; nss: NATIVELY_STORED_STRING
+			j, k: INTEGER
 		do
 			j := count
 			k := s.count
@@ -276,10 +251,7 @@ feature {ANY} -- Modification:
 			if i <= j then
 				storage.move(i - 1, j - 1, k)
 			end
-			nss ?= s
-			if nss /= Void then storage.copy_at(i - 1, nss.storage, k)
-			else not_yet_implemented
-			end
+			slice_copy(i - lower, s, s.lower, s.upper)
 		end
 
 	replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -292,7 +264,6 @@ feature {ANY} -- Modification:
 			meaningful_interval: start_index <= end_index + 1
 		local
 			remove_len, insert_len, difference, old_count: INTEGER
-			nss: NATIVELY_STORED_STRING
 			i: INTEGER; iter: ITERATOR[CHARACTER]
 		do
 			old_count := count
@@ -312,17 +283,7 @@ feature {ANY} -- Modification:
 				end
 				resize(old_count + difference)
 			end
-			nss ?= s
-			if nss/=Void then storage.copy_at(start_index - 1, nss.storage, s.count)
-			else
-				from i:=start_index; iter:=s.new_iterator; iter.start
-				until not iter.is_off
-				loop
-					put(iter.item,i)
-					i:=i+1
-					iter.next
-				end
-			end
+			slice_copy(start_index - lower, s, s.lower, s.upper)
 		end
 
 	put (c: CHARACTER; i: INTEGER) is
@@ -673,7 +634,7 @@ feature {ANY} -- Other features:
 			create Result.make(c)
 			if c > 0 then
 				Result.set_count(c)
-				Result.storage.slice_copy(0, storage, start_index - 1, end_index - 1)
+				Result.storage.slice_copy(0, storage, start_index - lower, end_index - lower)
 			end
 		end
 
@@ -1024,6 +985,12 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL}
 	recycle is
 		do
 			clear_count
+		end
+
+feature {}
+	slice_copy (at: INTEGER; source: ABSTRACT_STRING; start_index, end_index: INTEGER) is
+		do
+			source.copy_slice_to_native(start_index, end_index, storage, at)
 		end
 
 invariant

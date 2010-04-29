@@ -7,7 +7,6 @@ insert
 	ANY
 	PLATFORM
 	EIFFELTEST_TOOLS
-	
 
 creation {ANY}
 	make

@@ -1255,6 +1255,23 @@ feature {}
 			create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
 		end
 
+feature {STRING}
+	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+		local
+			i, j: INTEGER
+		do
+			from
+				i := start_index
+				j := 0
+			until
+				i > end_index
+			loop
+				target.put(item(i), target_offset + j)
+				i := i + 1
+				j := j + 1
+			end
+		end
+
 feature {}
 	debug_string: STRING
 			-- only used to display the content of the FIXED_STRING in the trace stack
