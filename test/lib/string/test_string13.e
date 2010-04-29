@@ -3,6 +3,9 @@
 --
 class TEST_STRING13
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -19,19 +22,6 @@ feature {ANY}
 			assert(("-1").is_real)
 			assert(("1.5E6").is_real)
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING13: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING13
 --

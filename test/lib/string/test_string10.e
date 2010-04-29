@@ -3,6 +3,9 @@
 --
 class TEST_STRING10
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -18,21 +21,6 @@ feature {ANY}
 			s.append(s)
 			assert(s.is_equal("studip?studip?"))
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING10: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING10
 --

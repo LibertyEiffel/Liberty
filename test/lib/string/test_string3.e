@@ -3,6 +3,9 @@
 --
 class TEST_STRING3
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -21,20 +24,6 @@ feature {ANY}
 			assert(("").is_equal(s))
 			assert(("AbCdeFZ+").same_as("abcdefz+"))
 		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING3
 --

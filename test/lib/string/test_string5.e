@@ -3,6 +3,9 @@
 --
 class TEST_STRING5
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -28,21 +31,6 @@ feature {ANY}
 			s.right_adjust
 			assert(s.is_equal("bar"))
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING5
 --

@@ -1072,8 +1072,8 @@ feature {ANY} -- Other features:
 			--
 			-- See also `substring_index' and `copy_substring' to save memory.
 		require
-			valid_start_index: valid_index(start_index) -- was 1 <= start_index
-			valid_end_index: valid_index(end_index) -- was end_index <= count
+			valid_start_index: lower <= start_index
+			valid_end_index: end_index <= upper
 			meaningful_interval: start_index <= end_index + 1
 		deferred
 		ensure
@@ -1086,7 +1086,7 @@ feature {ANY} -- Other features:
 			-- See also `substring', `first_substring_index'.
 		require
 			other_not_void: other /= Void
-			valid_start_index: start_index >= 1 and start_index <= count + 1
+			valid_start_index: start_index >= lower and start_index <= upper + 1
 		local
 			i, s: INTEGER
 		do

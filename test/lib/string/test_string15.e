@@ -3,6 +3,9 @@
 --
 class TEST_STRING15
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -46,21 +49,6 @@ feature {}
 			assert(not ("-100000000000000000000").is_integer_64)
 			assert(not ("100000000000000000000").is_integer_64)
 		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING15: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING15
 --

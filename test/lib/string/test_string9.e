@@ -3,6 +3,9 @@
 --
 class TEST_STRING9
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -96,21 +99,6 @@ feature {ANY}
 			str.prepend("bar")
 			assert(("barfoo").is_equal(str))
 		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING9: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING9
 --

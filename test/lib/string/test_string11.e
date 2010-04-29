@@ -3,6 +3,9 @@
 --
 class TEST_STRING11
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -43,22 +46,6 @@ feature {ANY}
 			create s2.make(0)
 			s1.append(s2)
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING11: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING11
 --
