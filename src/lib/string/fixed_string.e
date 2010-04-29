@@ -389,7 +389,7 @@ invariant
 	holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN is do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
 	is_interned = interned.fast_has(hash_code)
 	is_interned implies immutable
-	is_storage_unchanged
+	--is_storage_unchanged
 
 end -- class FIXED_STRING
 --
