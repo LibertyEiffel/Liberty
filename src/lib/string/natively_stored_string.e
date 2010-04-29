@@ -110,7 +110,7 @@ feature {ANY}
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		do
 			if count > 0 then
-				Result := storage.fast_reverse_index_of(c, start_index + storage_lower) - storage_lower + lower
+				Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
 				if Result <= 0 then
 					Result := 0
 				end
