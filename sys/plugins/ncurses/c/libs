@@ -1,0 +1,6 @@
+[UNIX]
+ncurses: ncurses
+[Cygwin]
+ncurses: ncurses
+[Windows]
+pdcurses: pdcurses
