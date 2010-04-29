@@ -63,6 +63,58 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
 		deferred
 		end
 
+	convert_integer_64_real_128 is
+		deferred
+		end
+
+	convert_integer_64_real_80 is
+		deferred
+		end
+
+	convert_integer_32_real_128 is
+		deferred
+		end
+
+	convert_integer_32_real_80 is
+		deferred
+		end
+
+	convert_integer_32_real_64 is
+		deferred
+		end
+
+	convert_integer_16_real_128 is
+		deferred
+		end
+
+	convert_integer_16_real_80 is
+		deferred
+		end
+
+	convert_integer_16_real_64 is
+		deferred
+		end
+
+	convert_integer_16_real_32 is
+		deferred
+		end
+
+	convert_integer_8_real_128 is
+		deferred
+		end
+
+	convert_integer_8_real_80 is
+		deferred
+		end
+
+	convert_integer_8_real_64 is
+		deferred
+		end
+
+	convert_integer_8_real_32 is
+		deferred
+		end
+
 feature {LIBERTY_ACTUAL_TYPE}
 	convert_with_feature (a_convert_feature: LIBERTY_FEATURE) is
 			-- ECMA-inspired explicit convert mechanism.
