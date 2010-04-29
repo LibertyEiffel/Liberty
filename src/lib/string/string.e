@@ -990,7 +990,9 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL}
 feature {}
 	slice_copy (at: INTEGER; source: ABSTRACT_STRING; start_index, end_index: INTEGER) is
 		do
-			source.copy_slice_to_native(start_index, end_index, storage, at)
+			if end_index >= start_index then
+				source.copy_slice_to_native(start_index, end_index, storage, at)
+			end
 		end
 
 invariant
