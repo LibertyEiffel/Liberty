@@ -55,7 +55,10 @@ feature {LIBERTY_CALL_INSTRUCTION}
 	visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
 		local
 			target: LIBERTY_INTERPRETER_OBJECT
+			target_type: LIBERTY_ACTUAL_TYPE
 		do
+			target_type ::= v.entity.target_type.known_type
+			interpreter.ensure_built(target_type)
 			if v.is_implicit_current then
 				interpreter.call_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else

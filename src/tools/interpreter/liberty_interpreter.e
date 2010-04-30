@@ -85,6 +85,11 @@ feature {ANY}
 			Result := gathering_old_values_counter > 0
 		end
 
+	ensure_built (a_type: LIBERTY_ACTUAL_TYPE) is
+		do
+			universe.build_types(root_type, root_feature_name, a_type)
+		end
+
 	instructions: LIBERTY_INTERPRETER_INSTRUCTIONS
 	expressions_memory: LIBERTY_INTERPRETER_EXPRESSIONS
 	assertions: LIBERTY_INTERPRETER_ASSERTION_CHECKER
@@ -655,11 +660,6 @@ feature {}
 
 	errors: LIBERTY_ERRORS
 	logging: LOGGING
-
-	ensure_built (a_type: LIBERTY_ACTUAL_TYPE) is
-		do
-			universe.build_types(root_type, root_feature_name, a_type)
-		end
 
 invariant
 	instructions /= Void

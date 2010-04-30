@@ -36,6 +36,8 @@ create {LIBERTY_FEATURE_ENTITY}
 	specialized
 
 feature {ANY}
+	target_type: LIBERTY_TYPE
+
 	name: FIXED_STRING is
 		do
 			Result := feature_name.name
@@ -148,7 +150,6 @@ feature {}
 	the_feature: LIBERTY_FEATURE
 	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
 	result_type_memory: LIBERTY_TYPE
-	target_type: LIBERTY_TYPE
 
 	make (a_name: like feature_name; a_target_type: like target_type; a_delayed_feature_type: like delayed_feature_type) is
 		require

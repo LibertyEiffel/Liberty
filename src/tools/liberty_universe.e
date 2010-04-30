@@ -44,25 +44,30 @@ feature {ANY}
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
 		do
-			create incubator.with_capacity(1024, 0) --|TODO optim: replace by an attribute
-			from
-			until
-				types_incubator.is_empty or else target_type.is_built
-			loop
-				flame := torch.flame
-				build_to_incubator(incubator, target_type)
-				mark_reachable_code(root_type, root_feature_name)
-				resolve_delayed_types
-				if types_incubator.is_empty then
-					incubator := check_flame_and_swap_incubator(flame, incubator)
+			if not target_type.is_built then
+				create incubator.with_capacity(1024, 0) --|TODO optim: replace by an attribute
+				from
+				until
+					types_incubator.is_empty or else target_type.is_built
+				loop
+					flame := torch.flame
+					build_to_incubator(incubator, target_type)
+					mark_reachable_code(root_type, root_feature_name)
+					resolve_delayed_types
+					if types_incubator.is_empty then
+						incubator := check_flame_and_swap_incubator(flame, incubator)
+					end
 				end
-			end
-			if not incubator.is_empty then
-				-- don't lose work
-				types_incubator.append_collection(incubator)
-			end
-			debug ("type.building")
-				debug_types(types_incubator)
+				if not incubator.is_empty then
+					-- don't lose work
+					types_incubator.append_collection(incubator)
+				end
+				debug ("type.building")
+					debug_types(types_incubator)
+					std_output.put_string(once "Type is ready: ")
+					std_output.put_line(target_type.full_name)
+					sedb_breakpoint
+				end
 			end
 		ensure
 			target_type.is_built
@@ -492,7 +497,6 @@ feature {} -- debug
 				end
 				std_output.put_line(once "-------->8--")
 			end
-			sedb_breakpoint
 		end
 
 	debug_compare_type_names (t1, t2: LIBERTY_ACTUAL_TYPE): BOOLEAN is
