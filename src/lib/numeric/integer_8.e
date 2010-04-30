@@ -103,6 +103,13 @@ feature {ANY} -- Conversions:
 			end
 		end
 
+	infix "|..|" (other: INTEGER): INTEGER_RANGE is
+		require
+			Current <= other
+		do
+			create Result.make(to_integer_32, other)
+		end
+
 feature {ANY}
 	one: INTEGER_8 is 1
 
