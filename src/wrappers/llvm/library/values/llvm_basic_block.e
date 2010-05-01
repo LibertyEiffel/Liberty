@@ -72,7 +72,9 @@ feature {} -- Creation
 	end
 
 feature	{ANY} -- queries
-	-- TODO: "as_value: LLVM_VALUE is -- Current basic block as a value do LLVMValueRef LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
+	-- TODO: the following feature may not be necessary "as_value: LLVM_VALUE
+	-- is -- Current basic block as a value do LLVMValueRef
+	-- LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
 
 	parent: LLVM_VALUE is
 		--- The value that contains Current block
@@ -104,6 +106,14 @@ feature	{ANY} -- queries
 		-- Delete current block.
 	do
 		llvmdelete_basic_block(handle)
+		handle := default_pointer
+	ensure is_deleted
+	end
+
+	is_deleted: BOOLEAN is
+		-- Has Current been deleted?
+	do
+		Result:=handle.is_null
 	end
 
 -- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
@@ -116,3 +126,18 @@ feature {ANY} -- Iterating over instructions
 end -- class LLVM_BASIC_BLOCK
 
 -- Copyright 2009 Paolo Redaelli, partially derived from LLVM documentation
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+

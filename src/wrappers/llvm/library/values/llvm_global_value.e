@@ -33,11 +33,10 @@ deferred class LLVM_GLOBAL_VALUE
 	-- Manual.
 
 inherit LLVM_CONSTANT
-feature {ANY}
+feature {ANY} -- Queries
 	parent: LLVM_MODULE is
 		do
-			-- LVMModuleRef LLVMGetGlobalParent(LLVMValueRef Global);
-			not_yet_implemented
+			create Result.from_external_pointer(llvmget_global_parent(handle))
 		ensure Result/=Void
 		end
 	
@@ -47,12 +46,31 @@ feature {ANY}
 		end
 
 	section: FIXED_STRING is
-		-- TODO: should be a CONST_STRING instead!
+		-- TODO: should be created with from_external
 		do
 			create Result.from_external_copy(llvmget_section(handle))
 		ensure Result/=Void
 		end
 
+
+	visibility: LLVMVISIBILITY_ENUM is
+		do
+			Result.change_value(llvmget_visibility(handle))
+		end
+	
+
+	alignment: NATURAL_32 is
+		do
+			Result:=llvmget_alignment(handle)
+		end
+
+	linkage: LLVMLINKAGE_ENUM is
+		do
+			Result.change_value
+			(llvmget_linkage(handle))
+		end
+
+feature {ANY} -- Commands
 	set_section (a_section: ABSTRACT_STRING) is
 		--
 	require 
@@ -62,11 +80,6 @@ feature {ANY}
 		llvmset_section(handle,a_section.to_external)
 	ensure set: a_section.is_equal(section)
 	end
-
-	visibility: LLVMVISIBILITY_ENUM is
-		do
-			Result.change_value(llvmget_visibility(handle))
-		end
 	
 	set_visibility (a_visibility: LLVMVISIBILITY_ENUM) is
 		do
@@ -74,23 +87,12 @@ feature {ANY}
 		ensure set: visibility=a_visibility
 		end
 
-	alignment: NATURAL_32 is
-		do
-			Result:=llvmget_alignment(handle)
-		end
-
 	set_alignment (a_number_of_bytes: NATURAL_32) is
 	do
 		llvmset_alignment(handle, a_number_of_bytes)
 	end
 
-feature {ANY} -- Linkage
-	linkage: LLVMLINKAGE_ENUM is
-		do
-			Result.change_value
-			(llvmget_linkage(handle))
-		end
-
+feature {ANY} -- Linkage commands
 	set_linkage (a_value: LLVMLINKAGE_ENUM) is
 	--
 	do
@@ -185,4 +187,19 @@ feature {ANY} -- Linkage
 end -- class LLVM_GLOBAL_VALUE
 
 -- Copyright 2009 Paolo Redaelli
+
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
 

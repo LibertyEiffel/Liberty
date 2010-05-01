@@ -36,7 +36,9 @@ insert
 	STDIOEXTERNALS -- to use low-level fileno function
 	EXCEPTIONS undefine copy, is_equal end
 
-creation with_name, with_name_in_context
+creation {ANY} with_name, with_name_in_context
+
+creation {WRAPPER} from_external_pointer
 
 feature {ANY}
 	with_name (a_name: STRING) is
@@ -61,17 +63,24 @@ feature {ANY} -- Queries
 		ensure Result/=Void
 		end
 	
-	set_data_layout (a_triple: STRING) is
-		require -- TODO: correct layout
-		do
-			llvmset_data_layout(handle,a_triple.to_external)
-		end
-
 	target: FIXED_STRING is
 		do
 			create Result.from_external_copy(llvmget_target(handle))
 		ensure Result/=Void
 		end
+feature {ANY} -- Commands
+	set_data_layout (a_triple: FIXED_STRING) is
+		require a_triple/=Void -- TODO: correct layout
+		do
+			llvmset_data_layout(handle,a_triple.to_external)
+		end
+
+	set_target (a_target: FIXED_STRING) is
+		require a_target/=Void-- TODO: correct layout
+		do
+			llvmset_target(handle,a_target.to_external)
+		end
+
 
 feature {ANY} -- Types
 	add_type (a_name: STRING; a_type: LLVM_TYPE) is
@@ -102,6 +111,19 @@ feature {ANY} -- Types
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
 	end
+feature {ANY} -- Aliases
+	new_alias (a_type: LLVM_TYPE; an_aliasee: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_ALIAS is
+		-- TODO: does LLVMAddAlias actually return a LLVM_GLOBAL_ALIAS?
+	require
+		a_type/=Void
+		an_aliasee/=Void
+		a_name/=Void
+		do
+
+			create Result.from_external_pointer
+			(llvmadd_alias(handle, a_type.handle, an_aliasee.handle, a_name.to_external))
+		ensure not_void: Result/=Void
+		end
 
 feature {ANY} -- Operation on functions
 	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
@@ -139,6 +161,32 @@ feature {ANY} -- Operation on functions
 			Result:=function_wrapper_or_void (llvmget_last_function(handle))
 		end
 
+feature {ANY} -- Global variables
+	add_global (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+		require 
+			a_type/=Void
+			a_name/=Void
+		do
+			create Result.from_external_pointer
+			(llvmadd_global (handle, a_type.handle, a_name.to_external))
+		ensure Result/=Void
+		end
+
+	global_with_name (a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+		require a_name/=Void
+		local a_gv: POINTER
+		do
+			a_gv := llvmget_named_global(handle,a_name.to_external)
+			if a_gv.is_not_null then
+				create Result.from_external_pointer(a_gv)
+			end
+		end
+	
+	new_iterator_over_global_variables: ITERATOR_OVER_GLOBAL_VARIABLES is
+		do
+			create Result.from_module(Current)
+		ensure Result/=Void
+		end
 feature {ANY} -- Outputting
 
 	write_bitcode_to_file (a_path: STRING) is
@@ -414,6 +462,30 @@ feature {} -- Documentation from doxygen documentation of LLVM's Module
 	-- void 	dump () const
 	--  	Dump the module to stderr (for debugging). 
 	-- void 	dropAllReferences ()
+feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
+	
+	owner: LLVM_MODULE_PROVIDER
+	-- The eventual provider owning Current module
+
+	set_owner (a_provider: LLVM_MODULE_PROVIDER) is
+		-- Makes `a_provider' the owner of Current module
+	require
+		a_provider/=Void
+		not is_owned
+	do
+		owner:=a_provider
+	ensure 
+		set: a_provider=owner
+		is_owned
+	end
+
+	is_owned: BOOLEAN is
+		-- Is Current module owned by a provider?
+	do
+		Result := (owner/=Void)
+	ensure Result implies owner/=Void -- Note: this shall be more properly an invariant.
+	end
+	
 feature 
 	struct_size: INTEGER is
 		do
@@ -428,3 +500,18 @@ end -- class LLVM_MODULE
 
 
 -- Copyright 2009 Paolo Redaelli
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+

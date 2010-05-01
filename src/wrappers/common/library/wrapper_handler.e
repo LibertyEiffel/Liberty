@@ -77,6 +77,8 @@ feature {} -- Utility features
 	
 	collection_to_c_array (a_collection: COLLECTION[WRAPPER]): FAST_ARRAY[POINTER] is
 		-- An array containing the pointers to the objects wrapped by `a_collection' wrappers. 
+
+		-- TODO: avoid creating a new array whenever possible.
 	require 
 		a_collection/=Void
 		not a_collection.is_empty

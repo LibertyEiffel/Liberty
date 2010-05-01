@@ -1,44 +1,45 @@
+
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_OVER_MODULE_FUNCTIONS
+class ITERATOR_OVER_GLOBAL_VARIABLES
 
 inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_FUNCTION]
-	LLVM_FUNCTION_FACTORY
+	BIDIRECTIONAL_ITERATOR[LLVM_GLOBAL_VARIABLE]
+	WRAPPER_FACTORY[LLVM_GLOBAL_VARIABLE]
 
 insert CORE_EXTERNALS
 
-creation from_module
+creation {LLVM_MODULE} from_module
 
-feature {LLVM_MODULE}
-	from_module (a_module: LLVM_MODULE) is
+feature {LLVM_VALUE}
+	from_module (a_module: like module) is
 		require a_module/=Void
 		do
 			module:=a_module
 		end
 
-feature 
+feature {ANY}
 	module: LLVM_MODULE
 
 	start is
 		do
-			item := function_wrapper_or_void(llvmget_first_function(module.handle))
+			item := wrapper_or_void(llvmget_first_global(module.handle))
 		end
 	
 	finish is
 		do
-			item := function_wrapper_or_void(llvmget_last_function(module.handle))
+			item := wrapper_or_void(llvmget_last_global(module.handle))
 		end
 
 	next is
 		do
-			item := function_wrapper_or_void(llvmget_next_function(module.handle))
+			item := wrapper_or_void(llvmget_next_global(item.handle))
 		end
 		
 	previous is
 		do
-			item := function_wrapper_or_void(llvmget_previous_function(module.handle))
+			item := wrapper_or_void(llvmget_previous_global(item.handle))
 		end
 
 	is_off: BOOLEAN is
@@ -46,11 +47,15 @@ feature
 			Result:=(item=Void)
 		end
 
-	item: LLVM_FUNCTION is attribute end
-
+	item: LLVM_GLOBAL_VARIABLE is attribute end
+feature 
+	wrapper (p: POINTER): LLVM_GLOBAL_VARIABLE is
+		do
+			create Result.from_external_pointer(p)
+		end
 invariant module/=Void
 
-end -- class ITERATOR_OVER_MODULE_FUNCTIONS
+end -- class ITERATOR_OVER_GLOBAL_VARIABLES 
 
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

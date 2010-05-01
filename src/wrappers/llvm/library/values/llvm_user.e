@@ -24,3 +24,18 @@ feature -- TODO:Important Public Members of the User class
 -- op_iterator op_end() - Get an iterator to the end of the operand list.
 -- Together, these methods make up the iterator based interface to the operands of a User.
 end -- class LLVM_USER
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+
