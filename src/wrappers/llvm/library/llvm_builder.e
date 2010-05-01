@@ -816,7 +816,7 @@ feature -- Casts
 			Result.type ~ a_destination_type
 		end
 
-	zext (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_ZEXT_INST is
+	zero_extend, zext (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_ZEXT_INST is
 		-- A "zext" instruction; it will fill the high order bits of `a_value' until it reaches the size of `a_destination_type'. 
 		-- When zero extending from an "i1", the result will always be either 0 or 1.
 		require
@@ -829,7 +829,7 @@ feature -- Casts
 			Result/=Void
 		end
 
-	sext (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_SEXT_INST is
+	sign_extend, sext (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_SEXT_INST is
 		-- A new "sext" instruction, that will sign extend `a_value' to until fits `a_destination_type'.
 
 		-- `a_value' must be of an integer type; also `a_destination_type' shall be of integer type.
@@ -851,8 +851,24 @@ feature -- Casts
 			(llvmbuild_sext(handle,a_value.handle,a_destination_type.handle,a_label.to_external))
 		ensure Result/=Void
 		end
--- LLVMValueRef LLVMBuildFPToUI(LLVMBuilderRef, LLVMValueRef Val,
---                              LLVMTypeRef DestTy, const char *Name);
+
+	floating_point_to_unsigned_integer, fptoui (a_value: LLVM_VALUE; a_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_FPTOUI_INST is
+		-- A new "fptoui" instruction that converts the floating point `a_value' to its unsigned integer equivalent of `a_type'.
+
+		-- `a_value' must be a scalar or vector floating point value, and `a_type' must be an integer type. If ty is a vector floating point type, ty2 must be a vector integer type with the same number of elements as ty
+
+		-- The 'fptoui' instruction converts its floating point operand into the nearest (rounding towards zero) unsigned integer value. If the value cannot fit in ty2, the results are undefined.
+	require 
+		a_value/=Void
+		a_type/=Void
+		a_label/=Void
+		float_or_float_vector: a_value.type.is_floating_point or a_value.type.is_vector and then a_value.type.as_vector.element_type.is_floating_point
+		when_vector_destination_is_vector: a_value.type.is_vector implies a_type.is_vector and then a_value.type.as_vector.size = a_type.as_vector.size
+	do
+		create Result.from_external_pointer(llvmbuild_fpto_ui(handle,a_value.handle,a_type.handle,a_label.to_external))
+	ensure Result/=Void
+	end
+
 -- LLVMValueRef LLVMBuildFPToSI(LLVMBuilderRef, LLVMValueRef Val,
 --                              LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildUIToFP(LLVMBuilderRef, LLVMValueRef Val,
@@ -1120,3 +1136,18 @@ feature {}
 		end
 
 end -- class LLVM_BUILDER	
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+

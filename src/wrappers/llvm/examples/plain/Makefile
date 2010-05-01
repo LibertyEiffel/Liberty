@@ -1,18 +1,24 @@
 ## A crude Makefile to compile Smart/Liberty Eiffel programs using LLVM , because it requires C++ linkage even if Eiffel is usually lowered/compiled to C.
 
+
 example: example.s
+	@echo "Assembling to executable; 'as example.s -o example' produces a relocatable; currently llvm tools - even experimantal - do not provide an assembler that produces executables."
 	gcc -o example example.s
-	## "as example.s -o example" produces a relocatable; currently llvm tools - even experimantal - do not provide an assembler that produces executables.
+	@echo Running the generated executable.
+	./example
 
 example.s: example.bc
+	@echo Compiling bytecode into assembly
 	llc example.bc
 
 example.bc: llvm_example
+	@echo Running Liberty application, outputting bytecode
 	./llvm_example >example.bc
 
 llvm_example: llvm_example.e
-	compile_to_c -debug -no-split -all-check llvm_example 
-	gcc `llvm-config --cflags all` -c llvm_example.c
+	@echo "Building the Liberty application (the warning suppression flag '-w' is used because SmartEiffel or my low level code does not interact well with const)"
+	compile_to_c -no-split -all-check llvm_example 
+	gcc -w `llvm-config --cflags all` -c llvm_example.c
 	g++ llvm_example.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
 
 clean:

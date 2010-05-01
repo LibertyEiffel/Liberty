@@ -75,11 +75,9 @@ feature
 		end
 	
 	name: FIXED_STRING is
-		-- The name of the value. TODO: currently the content is copied from a
-		-- "const char*" into Result; turn Result into a CONST_STRING.
+		-- The name of the value.
 	do
-	
-		create Result.from_external_copy(llvmget_value_name(handle))
+		create Result.from_external(llvmget_value_name(handle))
 	end
 
 	set_name (a_name: ABSTRACT_STRING) is
@@ -93,20 +91,6 @@ feature
 			llvmdump_value(handle)
 		end
 
-feature 
-	basic_blocks_count: NATURAL_32 is
-		do
-			Result := llvmcount_basic_blocks(handle)
-		end
-
-	-- TODO: basic_blocks: COLLECTION[LLVM_BASIC_BLOCK] may be not efficiently implemented, so
-	-- "void LLVMGetBasicBlocks(LLVMValueRef Fn, LLVMBasicBlockRef *BasicBlocks);" is not wrapped.
-
-	basic_block_iterator: BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK] is
-		do
-			create {ITERATOR_OVER_BASIC_BLOCKS} Result.from_value(Current)
-		ensure Result/=Void
-		end
 feature {ANY} -- Type-related queries
 	is_alloca_inst: BOOLEAN is do Result:=llvmis_aalloca_inst(handle).is_not_null end
 	is_allocation_inst: BOOLEAN is do Result:=llvmis_aallocation_inst(handle).is_not_null end
@@ -187,6 +171,8 @@ feature -- Convertions into specific values.
 	require is_basic_block
 	do
 		create Result.from_external_pointer(llvmis_abasic_block(handle))
+		-- Also implementable with
+		-- create Result.from_external_pointer(llvmvalue_as_basic_block(handle))
 		ensure Result/=Void
 	end
 
@@ -726,4 +712,19 @@ feature {WRAPPER, WRAPPER_HANDLER}
 	end -- class LLVM_VALUE
 
 -- Copyright 2009 Paolo Redaelli
+
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
 

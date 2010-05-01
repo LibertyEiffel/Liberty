@@ -47,6 +47,7 @@ inherit
 			exists as exists_parameter
 		undefine is_equal, copy, fill_tagged_out_memory
 		end
+
 insert LLVM_VALUE_WRAPPER_FACTORY 
 
 creation {ANY} make 
@@ -54,6 +55,7 @@ creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is
+    local some_wrappers: WRAPPER_COLLECTION[LLVM_TYPE]
 	do
 		from_external_pointer
 		(llvmfunction_type
@@ -106,19 +108,25 @@ feature {ANY} -- Iterating over blocks
 			create Result.from_external_pointer(p)
 		end
 	end
+	
+	basic_blocks_count: NATURAL_32 is
+		do
+			Result := llvmcount_basic_blocks(handle)
+		end
 
-	new_block_iterator: BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK] is
+	-- TODO: basic_blocks: COLLECTION[LLVM_BASIC_BLOCK] may be not efficiently
+	-- implemented, so "void LLVMGetBasicBlocks(LLVMValueRef Fn,
+	-- LLVMBasicBlockRef *BasicBlocks);" is not wrapped. It would require that
+	-- the given array is stable, while it is mutable since instructions may be
+	-- added anytime. To implement this feature we shall directly access C++
+	-- API.
+
+	new_block_iterator: ITERATOR_OVER_BASIC_BLOCKS is
 		-- A new iterator over blocks composing the function.
 	do
-		create {ITERATOR_OVER_BASIC_BLOCKS} Result.from_value(Current)
+		create Result.from_function(Current)
 	ensure Result/=Void
 	end
--- unsigned LLVMCountBasicBlocks(LLVMValueRef Fn);
--- void LLVMGetBasicBlocks(LLVMValueRef Fn, LLVMBasicBlockRef *BasicBlocks);
--- LLVMBasicBlockRef LLVMGetFirstBasicBlock(LLVMValueRef Fn);
--- LLVMBasicBlockRef LLVMGetLastBasicBlock(LLVMValueRef Fn);
--- LLVMBasicBlockRef LLVMGetNextBasicBlock(LLVMBasicBlockRef BB);
--- LLVMBasicBlockRef LLVMGetPreviousBasicBlock(LLVMBasicBlockRef BB);
 	
 	entry_basic_block: LLVM_BASIC_BLOCK is
 		-- Entry block of function
@@ -142,7 +150,7 @@ feature -- Parameters
 	-- Note: "void LLVMGetParams(LLVMValueRef Fn,
 	-- LLVMValueRef *Params);" will not be wrapped because
 	-- the C interface doe not allow an efficient
-	-- implementation.
+	-- implementation see the note about basic blocks.
 
 	is_valid_parameter_index (an_index: INTEGER): BOOLEAN is
 		do
@@ -163,11 +171,10 @@ feature -- Parameters
 		ensure Result/=Void
 		end
 	
-	new_parameter_iterator: BIDIRECTIONAL_ITERATOR[LLVM_VALUE] is
+	new_parameter_iterator: ITERATOR_OVER_FUNCTION_PARAMETERS is
 		-- A newly allocated iterator over Current function's parameters.
 		do
-			create {ITERATOR_OVER_FUNCTION_PARAMETERS}
-			Result.from_function(Current)
+			create Result.from_function(Current)
 		end
 
 -- LLVMValueRef LLVMGetFirstParam(LLVMValueRef Fn);
@@ -177,39 +184,66 @@ feature -- Parameters
 -- void LLVMAddAttribute(LLVMValueRef Arg, LLVMAttribute PA);
 -- void LLVMRemoveAttribute(LLVMValueRef Arg, LLVMAttribute PA);
 -- void LLVMSetParamAlignment(LLVMValueRef Arg, unsigned align);
+feature {ANY} -- Deleting
+	delete is
+		-- Delete Current function. 
+	do
+		llvmdelete_function(handle)
+		handle := default_pointer
+	ensure
+		unusable: is_deleted
+	end
 
-feature -- TODO: Important Public Members of the Function class
--- Function(const FunctionType *Ty, LinkageTypes Linkage, const std::string &N = "", Module* Parent = 0)
--- Constructor used when you need to create new Functions to add the the program. The constructor must specify the type of the function to create and what type of linkage the function should have. The FunctionType argument specifies the formal arguments and return value for the function. The same FunctionType value can be used to create multiple functions. The Parent argument specifies the Module in which the function is defined. If this argument is provided, the function will automatically be inserted into that module's list of functions.
--- 
--- bool isDeclaration()
--- Return whether or not the Function has a body defined. If the function is "external", it does not have a body, and thus must be resolved by linking with a function defined in a different translation unit.
--- 
--- Function::iterator - Typedef for basic block list iterator
--- Function::const_iterator - Typedef for const_iterator.
--- begin(), end() size(), empty()
--- These are forwarding methods that make it easy to access the contents of a Function object's BasicBlock list.
--- 
--- Function::BasicBlockListType &getBasicBlockList()
--- Returns the list of BasicBlocks. This is necessary to use when you need to update the list or perform a complex action that doesn't have a forwarding method.
--- 
--- Function::arg_iterator - Typedef for the argument list iterator
--- Function::const_arg_iterator - Typedef for const_iterator.
--- arg_begin(), arg_end() arg_size(), arg_empty()
--- These are forwarding methods that make it easy to access the contents of a Function object's Argument list.
--- 
--- Function::ArgumentListType &getArgumentList()
--- Returns the list of Arguments. This is necessary to use when you need to update the list or perform a complex action that doesn't have a forwarding method.
--- 
--- BasicBlock &getEntryBlock()
--- Returns the entry BasicBlock for the function. Because the entry block for the function is always the first block, this returns the first block of the Function.
--- 
--- Type *getReturnType()
--- FunctionType *getFunctionType()
--- This traverses the Type of the Function and returns the return type of the function, or the FunctionType of the actual function.
--- 
--- SymbolTable *getSymbolTable()
--- Return a pointer to the SymbolTable for this Function.
+	is_deleted: BOOLEAN is
+		-- Has Current function already been deleted?
+	do
+		Result:=handle.is_null
+	end
+feature {ANY} -- Miscellaneous
+	intrinsic_id: NATURAL_32 is
+		do
+			Result:=llvmget_intrinsic_id(handle)
+		end
+
+	gc: FIXED_STRING is
+		-- wraps LLVMGetGC. TODO: provide a better name and description
+		do
+			create Result.from_external(llvmget_gc(handle))
+		ensure Result/=Void
+		end
+
+	set_gc (a_name: ABSTRACT_STRING) is
+		-- wraps LLVMSetGC. TODO: provide better name and description
+	do
+		llvmset_gc(handle,a_name.to_external)
+	ensure set: a_name.is_equal(gc)
+	end
+
+	add_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	do
+		llvmadd_function_attr(handle,an_attribute.value)
+	end
+
+	remove_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	do
+		llvmremove_function_attr(handle,an_attribute.value)
+	end
+
 end -- class LLVM_FUNCTION
 
 -- Copyright 2009 Paolo Redaelli
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
+

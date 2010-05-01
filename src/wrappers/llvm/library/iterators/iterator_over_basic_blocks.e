@@ -9,26 +9,26 @@ inherit
 	WRAPPER_FACTORY[LLVM_BASIC_BLOCK]
 insert CORE_EXTERNALS
 
-creation from_value
+creation {LLVM_FUNCTION} from_function
 
 feature {LLVM_VALUE}
-	from_value (a_value: LLVM_VALUE) is
-		require a_value/=Void
+	from_function (a_function: LLVM_VALUE) is
+		require a_function/=Void
 		do
-			value:=a_value
+			function:=a_function
 		end
 
 feature {ANY}
-	value: LLVM_VALUE
+	function: LLVM_VALUE
 
 	start is
 		do
-			item := wrapper_or_void(llvmget_first_basic_block(value.handle))
+			item := wrapper_or_void(llvmget_first_basic_block(function.handle))
 		end
 	
 	finish is
 		do
-			item := wrapper_or_void(llvmget_last_basic_block(value.handle))
+			item := wrapper_or_void(llvmget_last_basic_block(function.handle))
 		end
 
 	next is
@@ -52,7 +52,7 @@ feature
 		do
 			create Result.from_external_pointer(p)
 		end
-invariant value/=Void
+invariant function/=Void
 
 end -- class ITERATOR_OVER_BASIC_BLOCKS 
 
@@ -77,4 +77,19 @@ end -- class ITERATOR_OVER_BASIC_BLOCKS
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
 
+
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--
 
