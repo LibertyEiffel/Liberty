@@ -264,7 +264,6 @@ feature {ANY} -- Modification:
 			meaningful_interval: start_index <= end_index + 1
 		local
 			remove_len, insert_len, difference, old_count: INTEGER
-			i: INTEGER; iter: ITERATOR[CHARACTER]
 		do
 			old_count := count
 			remove_len := end_index - start_index + 1
