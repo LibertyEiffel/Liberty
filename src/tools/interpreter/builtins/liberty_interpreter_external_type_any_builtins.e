@@ -34,19 +34,19 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "same_dynamic_type" then
 				Result := interpreter.new_boolean(builtin_call.target.type = builtin_call.parameters.first.type, builtin_call.position)
 			when "is_equal" then
-				Result := interpreter.new_boolean(builtin_call.target.builtin_is_equal(builtin_call.parameters.first), builtin_call.position)
+				Result := interpreter.new_boolean(builtin_call.target.builtin_is_equal(builtin_call.parameters.first, builtin_call.position), builtin_call.position)
 			when "standard_is_equal" then
-				Result := interpreter.new_boolean(builtin_call.target.builtin_standard_is_equal(builtin_call.parameters.first), builtin_call.position)
+				Result := interpreter.new_boolean(builtin_call.target.builtin_standard_is_equal(builtin_call.parameters.first, builtin_call.position), builtin_call.position)
 			when "is_deep_equal" then
-				Result := interpreter.new_boolean(builtin_call.target.builtin_is_deep_equal(builtin_call.parameters.first), builtin_call.position)
+				Result := interpreter.new_boolean(builtin_call.target.builtin_is_deep_equal(builtin_call.parameters.first, builtin_call.position), builtin_call.position)
 			when "twin" then
 				Result := builtin_call.target.builtin_twin(builtin_call.position)
 			when "copy" then
-				builtin_call.target.builtin_copy(builtin_call.parameters.first)
+				builtin_call.target.builtin_copy(builtin_call.parameters.first, builtin_call.position)
 			when "standard_twin" then
 				Result := builtin_call.target.builtin_standard_twin(builtin_call.position)
 			when "standard_copy" then
-				builtin_call.target.builtin_standard_copy(builtin_call.parameters.first)
+				builtin_call.target.builtin_standard_copy(builtin_call.parameters.first, builtin_call.position)
 			when "deep_twin" then
 				Result := builtin_call.target.builtin_deep_twin(builtin_call.position)
 			when "trace_switch" then

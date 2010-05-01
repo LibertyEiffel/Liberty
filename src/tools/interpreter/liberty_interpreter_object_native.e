@@ -42,7 +42,7 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			o: like Current
 		do
@@ -50,11 +50,11 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				o ::= other
 				Result := item.is_equal(o.item)
 			else
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			end
 		end
 
-	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			o: like Current
 		do
@@ -62,11 +62,11 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				o ::= other
 				Result := item.is_equal(o.item)
 			else
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			end
 		end
 
-	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		local
 			o: like Current
 		do
@@ -74,7 +74,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				o ::= other
 				item := o.item
 			else
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			end
 		end
 
@@ -83,7 +83,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 			Result := as_right_value
 		end
 
-	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		local
 			o: like Current
 		do
@@ -91,7 +91,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 				o ::= other
 				item := o.item
 			else
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			end
 		end
 
@@ -106,7 +106,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 			Result := as_right_value
 		end
 
-	do_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+	do_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			o: like Current
 		do
@@ -114,7 +114,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 				o ::= other
 				Result := item.is_equal(o.item)
 			else
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			end
 		end
 

@@ -64,7 +64,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 					last_call_failed := True
 				end
 			when "item" then
-				Result := target.builtin_item(integer(builtin_call))
+				Result := target.builtin_item(integer(builtin_call), builtin_call.position)
 				if Result = Void then
 					last_call_failed := True
 				end
@@ -94,7 +94,7 @@ feature {}
 			end
 			element := builtin_call.parameters.item(0)
 			index ::= builtin_call.parameters.item(1)
-			target.builtin_put(element.as_right_value, index.item.to_integer_32)
+			target.builtin_put(element.as_right_value, index.item.to_integer_32, builtin_call.position)
 		end
 
 	slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is

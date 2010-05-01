@@ -18,7 +18,7 @@ create {LIBERTY_INTERPRETER}
 	make
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-	call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING) is
+	call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION) is
 		local
 			tags: LIBERTY_TAGS
 			plugin_agent: FOREIGN_AGENT
@@ -38,7 +38,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			if tags.plugin_agent.is_set(the_feature) then
 				plugin_agent := tags.plugin_agent.value(the_feature)
 			else
-				plugin_agent := parse_plugin_spec(the_feature, plugin_spec)
+				plugin_agent := parse_plugin_spec(the_feature, plugin_spec, position)
 				tags.plugin_agent.add(plugin_agent, the_feature)
 			end
 
@@ -66,7 +66,7 @@ feature {}
 
 	interpreter: LIBERTY_INTERPRETER
 
-	parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING): FOREIGN_AGENT is
+	parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION): FOREIGN_AGENT is
 		local
 			i, key_start, key_end, value_start, value_end, state: INTEGER
 			key: FIXED_STRING; value, location, module_name, feature_name: STRING
@@ -121,17 +121,17 @@ feature {}
 							key.out --| TODO: remove the '.out' when inspect on FIXED_STRING is implemented
 						when "location" then
 							if location /= Void then
-								interpreter.fatal_error("Duplicate %"location%" key")
+								interpreter.fatal_error("Duplicate %"location%" key", position)
 							end
 							location := value
 						when "module_name" then
 							if module_name /= Void then
-								interpreter.fatal_error("Duplicate %"module_name%" key")
+								interpreter.fatal_error("Duplicate %"module_name%" key", position)
 							end
 							module_name := value
 						when "feature_name" then
 							if feature_name /= Void then
-								interpreter.fatal_error("Duplicate %"feature_name%" key")
+								interpreter.fatal_error("Duplicate %"feature_name%" key", position)
 							end
 							if the_feature.parameters.is_empty and then value.has_suffix(once "()") then
 								value.remove_suffix(once "()")
@@ -141,7 +141,7 @@ feature {}
 							feature_name.append(once "__")
 							feature_name.append(value)
 						else
-							interpreter.fatal_error("Unknown key: %"" + key + "%" key")
+							interpreter.fatal_error("Unknown key: %"" + key + "%" key", position)
 						end
 
 						state := 0
@@ -154,17 +154,17 @@ feature {}
 			end
 
 			if location = Void then
-				interpreter.fatal_error("Missing %"location%" key")
+				interpreter.fatal_error("Missing %"location%" key", position)
 			elseif module_name = Void then
-				interpreter.fatal_error("Missing %"module_name%" key")
+				interpreter.fatal_error("Missing %"module_name%" key", position)
 			elseif feature_name = Void then
-				interpreter.fatal_error("Missing %"feature_name%" key")
+				interpreter.fatal_error("Missing %"feature_name%" key", position)
 			end
 
-			Result := foreign_agent(the_feature, location, module_name, feature_name)
+			Result := foreign_agent(the_feature, location, module_name, feature_name, position)
 		end
 
-	foreign_agent (the_feature: LIBERTY_FEATURE; location, module_name, feature_name: STRING): FOREIGN_AGENT is
+	foreign_agent (the_feature: LIBERTY_FEATURE; location, module_name, feature_name: STRING; position: LIBERTY_POSITION): FOREIGN_AGENT is
 		require
 			location /= Void
 			module_name /= Void
@@ -181,11 +181,11 @@ feature {}
 			plugin.append(once ".so")
 			dll := loader.library(plugin)
 			if dll = Void then
-				interpreter.fatal_error("Unknown plugin " + plugin)
+				interpreter.fatal_error("Unknown plugin " + plugin, position)
 			end
 			Result := dll.function(feature_name, foreign_parameters_types(the_feature), foreign_result_type(the_feature))
 			if Result = Void then
-				interpreter.fatal_error("Unknown feature " + feature_name + " in plugin " + plugin)
+				interpreter.fatal_error("Unknown feature " + feature_name + " in plugin " + plugin, position)
 			end
 		end
 

@@ -122,7 +122,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("Don't try to make NATIVE_ARRAY[NATIVE_ARRAY]!!!")
+			interpreter.fatal_error("Don't try to make NATIVE_ARRAY[NATIVE_ARRAY]!!!", position)
 		end
 
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is

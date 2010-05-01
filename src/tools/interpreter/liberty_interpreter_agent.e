@@ -34,17 +34,17 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			not_yet_implemented
 		end
 
-	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			not_yet_implemented
 		end
 
-	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		do
 			not_yet_implemented
 		end
@@ -54,7 +54,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 			not_yet_implemented
 		end
 
-	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		do
 			not_yet_implemented
 		end
@@ -70,7 +70,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 			not_yet_implemented
 		end
 
-	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			not_yet_implemented
 		end

@@ -33,7 +33,7 @@ feature {ANY}
 	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
 			-- When `eval_memory' is to be used as a target of a call
 		do
-			Result := eval_memory.as_target
+			Result := eval_memory.as_target(eval_memory.position)
 		end
 
 feature {LIBERTY_ADD}

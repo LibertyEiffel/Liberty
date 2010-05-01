@@ -59,7 +59,7 @@ feature {ANY}
 			end
 		end
 
-	as_target: like Current is
+	as_target (a_position: LIBERTY_POSITION): like Current is
 			-- Current when used as a target
 		do
 			Result := Current
@@ -96,29 +96,29 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		require
 			not other.is_void
 		deferred
 		end
 
-	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		require
 			not other.is_void
 		deferred
 		end
 
-	builtin_is_deep_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		require
 			not other.is_void
 		local
 			deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]
 		do
 			create {HASHED_SET[LIBERTY_INTERPRETER_OBJECT]} deep_equal_memory.make
-			Result := do_deep_equal(other, deep_equal_memory)
+			Result := do_deep_equal(other, deep_equal_memory, a_position)
 		end
 
-	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		require
 			not other.is_void
 		deferred
@@ -128,7 +128,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 		deferred
 		end
 
-	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		require
 			not other.is_void
 		deferred
@@ -153,7 +153,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 		deferred
 		end
 
-	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
 		require
 			object /= Void
 			deep_equal_memory /= Void

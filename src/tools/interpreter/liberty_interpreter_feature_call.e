@@ -98,7 +98,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 					elseif val.type.converts_to(val_type) then
 						p.add_last(interpreter.object_converter.convert_object(val, val_type))
 					else
-						interpreter.fatal_error("Bad object type: " + val.type.full_name + " does not conform or convert to " + val_type.full_name)
+						interpreter.fatal_error("Bad object type: " + val.type.full_name + " does not conform or convert to " + val_type.full_name, actuals.item(i).position)
 						p.add_last(val)
 					end
 					i := i + 1
@@ -152,7 +152,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS, LIBERTY_INT
 	local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if local_map = Void then
-				interpreter.fatal_error("Locals map not ready!")
+				interpreter.fatal_error("Locals map not ready!", position)
 			end
 			Result := local_map.fast_reference_at(local_name)
 		end
@@ -160,7 +160,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS, LIBERTY_INT
 	parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if parameter_map = Void then
-				interpreter.fatal_error("Parameters map not ready!")
+				interpreter.fatal_error("Parameters map not ready!", position)
 			end
 			Result := parameter_map.fast_reference_at(parameter_name)
 		end
@@ -281,12 +281,12 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
 							set_returned_object(interpreter.default_object(actual_type, t.position))
 							t.put_attribute(name, returned_object)
 						else
-							interpreter.fatal_error("No such attribute: " + name)
+							interpreter.fatal_error("No such attribute: " + name, position)
 						end
 					end
 				else
 					--|*** TODO: not good. Native objects may have attributes too (e.g. string)
-					interpreter.fatal_error("No such attribute: " + name)
+					interpreter.fatal_error("No such attribute: " + name, position)
 				end
 			end
 		end
@@ -306,7 +306,7 @@ feature {LIBERTY_FEATURE_DEFERRED}
 	visit_liberty_feature_deferred (v: LIBERTY_FEATURE_DEFERRED) is
 		do
 			evaluate_parameters
-			interpreter.fatal_error("Deferred feature called")
+			interpreter.fatal_error("Deferred feature called", position)
 		end
 
 feature {LIBERTY_FEATURE_DO}
@@ -339,7 +339,7 @@ feature {LIBERTY_FEATURE_EXTERNAL}
 				when "built_in" then
 					interpreter.builtins.call(Current)
 				when "plug_in" then
-					interpreter.plugins.call(Current, v.alias_def)
+					interpreter.plugins.call(Current, v.alias_def, position)
 				else
 					not_yet_implemented
 				end
@@ -399,7 +399,7 @@ feature {}
 				returned_static_type ::= bound_feature.result_type.known_type
 			end
 
-			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING, LIBERTY_POSITION], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 
 			if returned_static_type /= Void then
 				returned_object := interpreter.default_object(returned_static_type, position)
@@ -427,7 +427,7 @@ feature {}
 				returned_static_type ::= bound_feature.result_type.known_type
 			end
 
-			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
+			create {ARRAY_DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING, LIBERTY_POSITION], LIBERTY_EXPRESSION]} old_values.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 			target = a_target
@@ -467,7 +467,7 @@ feature {}
 		do
 			if f.parameters.count /= actuals.count then
 				interpreter.fatal_error("Bad number of arguments: expected " + f.parameters.count.out
-												+ " but got " + actuals.count.out)
+												+ " but got " + actuals.count.out, position)
 			end
 			if actuals.is_empty then
 				parameter_types := empty_types
@@ -535,18 +535,18 @@ feature {LIBERTY_INTERPRETER}
 		require
 			has_old_value(a_expression)
 		local
-			t: TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
+			t: TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING, LIBERTY_POSITION]
 		do
 			t := old_values.fast_at(a_expression)
 			if t.second /= Void then
-				interpreter.fatal_error(t.second)
+				interpreter.fatal_error(t.second, t.third)
 			end
 			Result := t.first
 		end
 
-	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING) is
+	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING; a_fatal_position: LIBERTY_POSITION) is
 		do
-			old_values.add([a_value, a_fatal_error], a_expression)
+			old_values.add([a_value, a_fatal_error, a_fatal_position], a_expression)
 			debug ("interpreter.call.internals")
 				std_output.put_string(once " >>> Feature ")
 				std_output.put_string(name)
@@ -558,6 +558,7 @@ feature {LIBERTY_INTERPRETER}
 		ensure
 			old_values.fast_at(a_expression).first = a_value
 			old_values.fast_at(a_expression).second = a_fatal_error
+			old_values.fast_at(a_expression).third = a_fatal_position
 			a_fatal_error = Void implies old_value(a_expression) = a_value
 		end
 
@@ -616,7 +617,7 @@ feature {}
 
 	options: LIBERTY_INTERPRETER_OPTIONS
 
-	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING], LIBERTY_EXPRESSION]
+	old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING, LIBERTY_POSITION], LIBERTY_EXPRESSION]
 	prepare: BOOLEAN
 
 	debug_step (step: STRING) is

@@ -58,7 +58,7 @@ feature {ANY}
 			o.put_line(once "============ [Top of stack] =============")
 		end
 
-	fatal_error (reason: ABSTRACT_STRING) is
+	fatal_error (reason: ABSTRACT_STRING; position: LIBERTY_POSITION) is
 		do
 			if not gathering_old_values then
 				std_error.put_new_line
@@ -71,11 +71,17 @@ feature {ANY}
 				std_error.put_string(once "*** ")
 				std_error.put_line(reason)
 
+				if not position.is_unknown then
+					std_error.put_string(once "    ")
+					position.show(std_error)
+				end
+
 				sedb_breakpoint
 				die_with_code(1)
 			elseif not evaluating_old_value_stack.is_empty then
 				if old_fatal_error = Void then
 					old_fatal_error := reason.intern
+					old_fatal_position := position
 				end
 			end
 		end
@@ -321,7 +327,7 @@ feature {ANY}
 				actual_type ::= a_expression.result_type.known_type -- I dare anyone to write "old Void"
 				Result := default_object(actual_type, a_expression.position)
 			else
-				fatal_error("Missing old value!!!")
+				fatal_error("Missing old value!!!", a_expression.position)
 			end
 		end
 
@@ -361,7 +367,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 			check
 				evaluating_old_value_stack.last = current_feature
 			end
-			current_feature.add_old_value(a_expression, a_value, old_fatal_error)
+			current_feature.add_old_value(a_expression, a_value, old_fatal_error, old_fatal_position)
 			evaluating_old_value_stack.remove_last
 			if evaluating_old_value_stack.is_empty then
 				old_fatal_error := Void
@@ -377,6 +383,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 
 feature {}
 	old_fatal_error: FIXED_STRING
+	old_fatal_position: LIBERTY_POSITION
 
 	gathering_old_values_counter: INTEGER
 	evaluating_old_value_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]

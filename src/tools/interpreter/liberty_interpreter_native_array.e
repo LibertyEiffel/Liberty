@@ -86,19 +86,19 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
 		deferred
 		end
 
-	builtin_item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+	builtin_item (index: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		do
 			if not valid_index(index) then
-				interpreter.fatal_error("Invalid index: " + index.out)
+				interpreter.fatal_error("Invalid index: " + index.out, a_position)
 			else
 				Result := item(index)
 			end
 		end
 
-	builtin_put (element: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
+	builtin_put (element: LIBERTY_INTERPRETER_OBJECT; index: INTEGER; a_position: LIBERTY_POSITION) is
 		do
 			if not valid_index(index) then
-				interpreter.fatal_error("Invalid index: " + index.out)
+				interpreter.fatal_error("Invalid index: " + index.out, a_position)
 			else
 				put(element, index)
 			end

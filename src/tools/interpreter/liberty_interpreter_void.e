@@ -42,46 +42,46 @@ feature {ANY}
 			create {LIBERTY_INTERPRETER_VOID} Result.make(interpreter, target_type, position)
 		end
 
-	as_target: like Current is
+	as_target (a_position: LIBERTY_POSITION): like Current is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 			Result := Current
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			Result := other.is_void
 		end
 
-	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			Result := other.is_void
 		end
 
-	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 		end
 
 	builtin_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 		end
 
-	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 		end
 
 	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 		end
 
 	builtin_deep_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			interpreter.fatal_error("Call on Void target")
+			interpreter.fatal_error("Call on Void target", a_position)
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
@@ -96,7 +96,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 			Result := Current
 		end
 
-	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
 			Result := object.is_void
 		end
