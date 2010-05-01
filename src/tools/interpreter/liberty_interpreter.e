@@ -41,21 +41,21 @@ feature {ANY}
 			check
 				call_stack.lower = 0
 			end
-			o.put_line(once "=========== [Bottom of stack] ===========")
+			o.put_line(once "===================== [Bottom of stack] =====================")
 			from
 				i := call_stack.lower
 			until
 				i > call_stack.upper
 			loop
 				if i > call_stack.lower then
-					o.put_line(once "-----------------------------------------")
+					o.put_line(once "-------------------------------------------------------------")
 				end
 				o.put_integer(i + 1)
 				o.put_character('%T')
 				call_stack.item(i).show_stack(o)
 				i := i + 1
 			end
-			o.put_line(once "============ [Top of stack] =============")
+			o.put_line(once "====================== [Top of stack] =======================")
 		end
 
 	fatal_error (reason: ABSTRACT_STRING; position: LIBERTY_POSITION) is

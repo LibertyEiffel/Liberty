@@ -43,6 +43,20 @@ feature {LIBERTY_INTERPRETER}
 	call is
 		do
 			check not prepare end
+
+			if logging.is_trace then
+				logging.trace.put_string(once "Calling feature {")
+				logging.trace.put_string(bound_feature.current_type.full_name)
+				logging.trace.put_string(once "}.")
+				logging.trace.put_string(name)
+				if position.is_unknown then
+					logging.trace.put_new_line
+				else
+					logging.trace.put_character(' ')
+					position.show(logging.trace)
+				end
+			end
+
 			prepare := True
 			bound_feature.accept(Current)
 			prepare := False
@@ -630,6 +644,8 @@ feature {}
 			std_output.put_string(once ": ")
 			std_output.put_line(step)
 		end
+
+	logging: LOGGING
 
 invariant
 	interpreter /= Void
