@@ -1,0 +1,14 @@
+[Windows.cl]
+wsock: WS2_32.Lib
+
+[Windows]
+wsock: wsock32.lib
+
+[Cygwin.gcc]
+wsock: wsock32
+
+[Cygwin.gpp]
+wsock: wsock32
+
+[Cygwin]
+wsock: wsock32.lib

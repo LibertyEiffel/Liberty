@@ -30,7 +30,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 				last_call_failed := False
 				builtin_call.target.type.accept(Current)
 				if last_call_failed then
-					interpreter.fatal_error("Unknown built-in feature in class " + builtin_call.target.type.full_name)
+					interpreter.fatal_error("Unknown built-in feature in class " + builtin_call.target.type.full_name, a_builtin_call.position)
 				end
 			end
 		end

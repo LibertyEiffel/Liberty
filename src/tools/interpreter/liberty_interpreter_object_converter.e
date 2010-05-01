@@ -20,9 +20,18 @@ inherit
 creation {LIBERTY_INTERPRETER}
 	make
 
-feature {LIBERTY_INTERPRETER_ASSIGNMENT}
+feature {LIBERTY_INTERPRETER_ASSIGNMENT, LIBERTY_INTERPRETER_FEATURE_CALL}
 	convert_object (a_source: like source; a_target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+		require
+			a_source.type.converts_to(a_target_type)
 		do
+			debug ("interpreter.convert")
+				std_output.put_string(once "Converting from ")
+				std_output.put_string(a_source.result_type.known_type.full_name)
+				std_output.put_string(once " to ")
+				std_output.put_line(a_target_type.full_name)
+			end
+			interpreter.ensure_built(a_target_type)
 			source := a_source
 			a_source.type.do_convert(a_target_type, Current)
 			Result := converted
@@ -130,6 +139,110 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
 		do
 			flt ::= source
 			converted := interpreter.new_real_128(flt.item, flt.position)
+		end
+
+	convert_integer_64_real_128 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_128(flt.item, flt.position)
+		end
+
+	convert_integer_64_real_80 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_80(flt.item, flt.position)
+		end
+
+	convert_integer_32_real_128 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_128(flt.item.to_integer_32, flt.position)
+		end
+
+	convert_integer_32_real_80 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_80(flt.item.to_integer_32, flt.position)
+		end
+
+	convert_integer_32_real_64 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_64(flt.item.to_integer_32, flt.position)
+		end
+
+	convert_integer_16_real_128 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_128(flt.item.to_integer_16, flt.position)
+		end
+
+	convert_integer_16_real_80 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_80(flt.item.to_integer_16, flt.position)
+		end
+
+	convert_integer_16_real_64 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_64(flt.item.to_integer_16, flt.position)
+		end
+
+	convert_integer_16_real_32 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_32(flt.item.to_integer_16, flt.position)
+		end
+
+	convert_integer_8_real_128 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_128(flt.item.to_integer_8, flt.position)
+		end
+
+	convert_integer_8_real_80 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_80(flt.item.to_integer_8, flt.position)
+		end
+
+	convert_integer_8_real_64 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_64(flt.item.to_integer_8, flt.position)
+		end
+
+	convert_integer_8_real_32 is
+		local
+			flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+		do
+			flt ::= source
+			converted := interpreter.new_real_32(flt.item.to_integer_8, flt.position)
 		end
 
 feature {}

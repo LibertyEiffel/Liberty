@@ -71,7 +71,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_16 = Current
 		end
-	
+
 	fit_natural_16: BOOLEAN is
 			-- Does `Current' fit in NATURAL_16?
 		do
@@ -90,7 +90,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_32 = Current
 		end
-	
+
 	to_natural_32: NATURAL_32 is
 			-- Explicit conversion to NATURAL_32.
 		require
@@ -99,7 +99,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_32 = Current
 		end
-	
+
 	to_natural_64: NATURAL_64 is
 			-- Explicit conversion to NATURAL_64.
 		require
@@ -108,7 +108,7 @@ feature {ANY} -- Conversions:
 		ensure
 			Result.to_integer_32 = Current
 		end
-	
+
 	force_to_real_32: REAL_32 is
 			-- Forced conversion to REAL_32 (possible loss of precision).
 			-- (See also `fit_real_32' and `to_real_32'.)
@@ -162,6 +162,13 @@ feature {ANY} -- Conversions:
 			end
 		end
 
+	infix "|..|" (other: INTEGER): INTEGER_RANGE is
+		require
+			Current <= other
+		do
+			create Result.make(Current, other)
+		end
+
 feature {ANY}
 	low_16: INTEGER_16 is
 			-- The 16 low bits of `Current' (i.e. the right-most part).
@@ -209,7 +216,7 @@ feature {}
 		end
 
 	bit_count: INTEGER_8 is 32
-	
+
 end -- class INTEGER_32
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

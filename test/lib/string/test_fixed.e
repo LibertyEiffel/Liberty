@@ -3,10 +3,14 @@ class TEST_FIXED
 insert
 	MEMORY
 	EXCEPTIONS
-creation make
+	EIFFELTEST_TOOLS
+create {}
+	make
+
 feature
 	make is
-		local i: INTEGER; mem_usage: INTEGER
+		local
+			mem_usage: INTEGER
 		do
 			mem_usage := allocated_bytes
 			n.times(agent  is do
@@ -15,14 +19,19 @@ feature
 					end)
 				full_collect
 			end)
-			print ("Memory usage for "+(n*n).out+" allocation: "+(allocated_bytes-mem_usage).out+" bytes.%N") 
+			print ("Memory usage for "+(n*n).out+" allocations: "+(allocated_bytes-mem_usage).out+" bytes.%N") 
+			assert(foo.is_equal("my-const-string"))
 		end
-	n: INTEGER_32 is 8000
+
+	n: INTEGER_32 is 512
+
 	foo: FIXED_STRING
+
 	foo_ptr: POINTER is
 		external "C inline"
 		alias "[
 			"my-const-string"
 			]"
 		end
+
 end -- class TEST_FIXED 

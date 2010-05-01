@@ -3,6 +3,9 @@
 --
 class TEST_CHARACTER4
 
+insert
+	EIFFEL_TOOLS
+
 creation {ANY}
 	make
 
@@ -46,19 +49,6 @@ feature {ANY}
 			assert('A'.is_alpha)
 			assert('Z'.is_alpha)
 		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CHARACTER4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_CHARACTER4
 --

@@ -23,19 +23,19 @@ creation {LIBERTY_INTERPRETER_INSTRUCTIONS}
 feature {LIBERTY_CURRENT}
 	visit_liberty_current (v: LIBERTY_CURRENT) is
 		do
-			interpreter.fatal_error("Cannot assign Current")
+			interpreter.fatal_error("Cannot assign Current", value.position)
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
 	visit_liberty_feature_definition (v: LIBERTY_FEATURE_DEFINITION) is
 		do
-			interpreter.fatal_error("Cannot assign a feature definition")
+			interpreter.fatal_error("Cannot assign a feature definition", value.position)
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}
 	visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY) is
 		do
-			interpreter.fatal_error("Cannot assign a feature entity")
+			interpreter.fatal_error("Cannot assign a feature entity", value.position)
 		end
 
 feature {LIBERTY_LOCAL}
@@ -47,7 +47,7 @@ feature {LIBERTY_LOCAL}
 feature {LIBERTY_PARAMETER}
 	visit_liberty_parameter (v: LIBERTY_PARAMETER) is
 		do
-			interpreter.fatal_error("Cannot assign a parameter")
+			interpreter.fatal_error("Cannot assign a parameter", value.position)
 		end
 
 feature {LIBERTY_RESULT}
@@ -132,7 +132,7 @@ feature {} -- Assignment check implementation
 			else
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
-												  + expected_static_type.full_name + "}")
+												  + expected_static_type.full_name + "}", would_be_assigned_value.position)
 			end
 		end
 
@@ -146,7 +146,7 @@ feature {} -- Assignment check implementation
 			else
 				a_interpreter.fatal_error("The actual value type {" + would_be_assigned_value.type.full_name
 												  + "} is not conform to the entity's static type {"
-												  + expected_static_type.full_name + "}")
+												  + expected_static_type.full_name + "}", would_be_assigned_value.position)
 			end
 		end
 

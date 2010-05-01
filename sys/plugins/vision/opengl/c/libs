@@ -1,0 +1,6 @@
+[UNIX]
+gl: GL
+threads: pthread
+
+[Windows]
+gl: opengl32.lib

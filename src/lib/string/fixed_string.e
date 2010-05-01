@@ -5,8 +5,6 @@ class FIXED_STRING
 	--
 	-- Immutable character STRINGs indexed from `1' to `count'.
 	--
-	-- TODO: share storage among substrings (needs offset/length management -- beware of to_external)
-	--
 
 inherit
 	NATIVELY_STORED_STRING
@@ -44,8 +42,10 @@ feature {ANY} -- Creation:
 			end
 			capacity := ca
 			count := c
-			hash_code := computed_hash_code
 			immutable := True
+			original := Void
+			holders := new_holders
+			hash_code := computed_hash_code
 		ensure
 			count = model.count
 			immutable
@@ -86,13 +86,18 @@ feature {ANY}
 				not immutable
 			end
 			storage := other.storage
+			storage_lower := other.storage_lower
 			hash_code := other.hash_code
 			count := other.count
 			capacity := other.capacity
 			immutable := True
+			original := Void
+			share_with(other)
 		ensure then
 			count = other.count
 			immutable
+			is_shared
+			other.is_shared
 		end
 
 	immutable: BOOLEAN
@@ -118,39 +123,34 @@ feature {ANY} -- Other features:
 		end
 
 feature {}
-	make_from_fixed_string (fixed: FIXED_STRING; start_index, end_index: INTEGER) is
+	make_from_fixed_string (other: FIXED_STRING; start_index, end_index: INTEGER) is
 		require
-			valid_start_index: 1 <= start_index
-			valid_end_index: end_index <= fixed.count
+			other /= Void
+			valid_start_index: other.valid_index(start_index)
+			valid_end_index: other.valid_index(end_index) -- end_index <= other.count
 			meaningful_interval: start_index <= end_index + 1
-		local
-			c: INTEGER
 		do
-			c := end_index - start_index + 1
-			if c > 0 then
-				count := c
-				if fixed.storage.item(c - 1) = '%U' then
-					capacity := c
-					storage := storage.calloc(c)
-				else
-					capacity := c + 1
-					storage := storage.calloc(c + 1)
-					storage.put('%U', c)
-				end
-				storage.slice_copy(0, fixed.storage, start_index - 1, end_index - 1)
-			else
-				storage := storage.calloc(1)
-				storage.put('%U', 0)
-			end
-			hash_code := computed_hash_code
+			storage := other.storage
+			storage_lower := start_index - other.lower + other.storage_lower
+			count := end_index - start_index + 1
+			capacity := other.capacity
 			immutable := True
+			original := Void
+			share_with(other)
+			hash_code := computed_hash_code
 		ensure
+			immutable
+			is_shared
+			other.is_shared
 			substring_count: count = end_index - start_index + 1
 		end
 
 feature {ANY} -- Interfacing with C string:
 	to_external: POINTER is
 		do
+			if is_shared then
+				unshare
+			end
 			Result := storage.to_pointer
 		end
 
@@ -160,17 +160,29 @@ feature {} -- Creation from C string:
 			-- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
 			-- FIXED_STRING.
 			-- Also consider `from_external' to choose the most appropriate.
-		require 
+		require
 			p.is_not_null
-		local i: INTEGER
+		local
+			s: like storage; i: INTEGER
 		do
-			from storage := storage.from_pointer(p)
-			until storage.item(i) = '%U'
-			loop i := i+1
+			from
+				s := s.from_pointer(p)
+			until
+				s.item(i) = '%U'
+			loop
+				i := i + 1
 			end
+
 			count := i
-			capacity := i+1
+			capacity := i + 1
+			storage := s
+
+			immutable := True
+			original := Void
+			holders := new_holders
 			hash_code := computed_hash_code
+		ensure
+			immutable
 		end
 
 	from_external_copy (p: POINTER) is
@@ -196,7 +208,12 @@ feature {} -- Creation from C string:
 			storage := storage.calloc(capacity)
 			storage.copy_from(s, count)
 
+			immutable := True
+			original := Void
+			holders := new_holders
 			hash_code := computed_hash_code
+		ensure
+			immutable
 		end
 
 	from_external_sized_copy (p: POINTER; size: INTEGER) is
@@ -223,8 +240,12 @@ feature {} -- Creation from C string:
 			storage.copy_from(s, count - 1)
 			storage.put('%U', count)
 
+			immutable := True
+			original := Void
+			holders := new_holders
 			hash_code := computed_hash_code
 		ensure
+			immutable
 			count <= size
 		end
 
@@ -239,15 +260,136 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
 			count := 0
 		end
 
+feature {STRING_HANDLER} -- Copy On Write:
+	is_shared: BOOLEAN is
+		do
+			Result := holders.count > 1
+		end
+
+	holders: FAST_ARRAY[FIXED_STRING]
+
+	share_with (other: like Current) is
+		do
+			if holders = Void then
+				-- when called by twin
+			elseif holders.count = 1 then
+				check
+					holders.first = Current
+				end
+				holders.remove_first
+				free_holders(holders)
+			else
+				holders.remove(holders.fast_first_index_of(Current))
+			end
+			holders := other.holders
+			holders.add_last(Current)
+		end
+
+	unshare is
+		require
+			is_shared
+		local
+			s: like storage
+		do
+			capacity := count + 1
+			s := s.calloc(capacity)
+			s.slice_copy(0, storage, storage_lower, storage_lower + count - 1)
+			s.put('%U', count)
+			storage := s
+			storage_lower := 0
+			holders.remove(holders.fast_first_index_of(Current))
+			check
+				not holders.is_empty
+			end
+			holders := new_holders
+		ensure
+			not is_shared
+		end
+
+feature {} -- Holders management:
+	new_holders: like holders is
+		local
+			wr: WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]
+		do
+			from
+			until
+				Result /= Void or else holders_memory.is_empty
+			loop
+				wr := holders_memory.last
+				holders_memory.remove_last
+				Result := wr.item
+				if Result /= Void then
+					wr.set_item(Void)
+				end
+				weakrefs.add_last(wr)
+			end
+			if Result = Void then
+				create {FAST_ARRAY[FIXED_STRING]} Result.with_capacity(1)
+			end
+			check
+				Result.is_empty
+			end
+			Result.add_last(Current)
+		ensure
+			Result.count = 1
+			Result.first = Current
+		end
+
+	free_holders (a_holders: like holders) is
+		require
+			a_holders.is_empty
+		local
+			wr: WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]
+		do
+			if weakrefs.is_empty then
+				create wr.set_item(a_holders)
+			else
+				wr := weakrefs.last
+				weakrefs.remove_last
+				check
+					wr.item = Void
+				end
+				wr.set_item(a_holders)
+			end
+			holders_memory.add_last(wr)
+		end
+
+	holders_memory: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]] is
+		once
+			create Result.with_capacity(1024)
+		end
+
+	weakrefs: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]] is
+		once
+			create Result.with_capacity(1024)
+		end
+
+feature {} -- Invariant checking:
+	is_storage_unchanged: BOOLEAN is
+		do
+			if original = Void then
+				original := twin
+				Result := True
+			else
+				Result := is_equal(original)
+			end
+		end
+
+	original: like Current
+
 invariant
 	0 <= count
-	capacity.in_range(count, count + 1)
+	capacity >= count
 	immutable implies storage.is_not_null
-	immutable implies (count = 0 implies storage.item(0) = '%U')
-	immutable implies (count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U'))
-	immutable implies (storage.item(count) = '%U' implies capacity = count + 1)
+	;(immutable and not is_shared) implies capacity.in_range(count, count + 1)
+	;(immutable and not is_shared) implies (count = 0 implies storage.item(0) = '%U')
+	;(immutable and not is_shared) implies (count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U'))
+	;(immutable and not is_shared) implies (storage.item(count) = '%U' implies capacity = count + 1)
+	holders.fast_has(Current)
+	holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN is do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
 	is_interned = interned.fast_has(hash_code)
 	is_interned implies immutable
+	--is_storage_unchanged
 
 end -- class FIXED_STRING
 --

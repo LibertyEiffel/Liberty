@@ -76,13 +76,13 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			source: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 			i: INTEGER
 		do
 			if other.type /= type then
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			else
 				source ::= other
 				Result := attributes.count = source.attributes.count
@@ -100,18 +100,18 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 			end
 		end
 
-	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
-			Result := builtin_is_equal(other)
+			Result := builtin_is_equal(other, a_position)
 		end
 
-	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		local
 			source: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
 			i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
 		do
 			if other.type /= type then
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + other.type.full_name, a_position)
 			else
 				source ::= other
 				attributes.clear_count
@@ -136,9 +136,9 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 			interpreter.call_feature(Result, copy_feature, {FAST_ARRAY[LIBERTY_EXPRESSION] << Current >> }, a_position)
 		end
 
-	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT) is
+	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
 		do
-			builtin_copy(other)
+			builtin_copy(other, a_position)
 		end
 
 	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
@@ -173,7 +173,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 			end
 		end
 
-	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]): BOOLEAN is
+	do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
 			compared: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
@@ -181,7 +181,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 			if deep_equal_memory.fast_has(Current) then
 				Result := True
 			elseif object.type /= type then
-				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + object.type.full_name)
+				interpreter.fatal_error("Type mismatch: expected " + type.full_name + ", but got " + object.type.full_name, a_position)
 			elseif compared ?:= object then -- may be Void!
 				compared ::= object
 				Result := attributes.count = compared.attributes.count
@@ -191,7 +191,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 					not Result or else i > attributes.upper
 				loop
 					o := compared.attributes.reference_at(attributes.key(i))
-					Result := o /= Void and then attributes.item(i).do_deep_equal(o, deep_equal_memory)
+					Result := o /= Void and then attributes.item(i).do_deep_equal(o, deep_equal_memory, a_position)
 					i := i + 1
 				end
 			end

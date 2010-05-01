@@ -181,3 +181,23 @@ Acyclic Visitor
 http://www.objectmentor.com/resources/articles/acv.pdf
 
 ------------------------------------------------------------------------------
+Root class creation
+===================
+
+The pattern I usually use is a creation procedure that is not exported
+either by 'feature' or by 'create':
+
+class ROOT
+
+create {}
+   make
+
+feature {}
+   make is
+      do
+         -- The program starts here...
+      end
+
+end
+
+------------------------------------------------------------------------------

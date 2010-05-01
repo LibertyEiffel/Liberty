@@ -3,6 +3,9 @@
 --
 class TEST_STRING12
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -24,20 +27,6 @@ feature {ANY}
 			s1.make_from_string("f")
 			assert(("f").is_equal(s1))
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING12: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING12
 --

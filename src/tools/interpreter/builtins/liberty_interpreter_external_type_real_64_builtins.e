@@ -44,4 +44,15 @@ feature {}
 			Result := obj.item.force_to_real_64
 		end
 
+	call_specific (f: LIBERTY_FEATURE) is
+		do
+			inspect
+				builtin_call.name.out
+			when "force_to_real_32" then
+				returned := interpreter.new_real_32(target.force_to_real_32, builtin_call.position)
+			else
+				interpreter.fatal_error("Unknown builtin: " + builtin_call.name, builtin_call.position)
+			end
+		end
+
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_64_BUILTINS

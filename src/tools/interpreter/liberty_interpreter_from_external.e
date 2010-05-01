@@ -39,12 +39,12 @@ feature {}
 feature {LIBERTY_UNIVERSE}
 	visit_type_any (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_pointer (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -105,12 +105,12 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_real_80 (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_real_128 (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_character (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -123,7 +123,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_string (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_boolean (a_type: LIBERTY_ACTUAL_TYPE) is
@@ -136,38 +136,38 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_native_array (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_tuple (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_function (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_type_predicate (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 	visit_user_type (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 feature {LIBERTY_VOID_TYPE}
 	visit_void (a_type: LIBERTY_VOID_TYPE) is
 		do
-			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin")
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
 feature {}

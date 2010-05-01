@@ -196,7 +196,7 @@ feature {ANY} -- Testing:
 			--
 			-- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
 		require
-			valid_start_index: start_index >= 1 and start_index <= count + 1
+			valid_start_index: start_index >= lower and start_index <= upper + 1
 		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
@@ -209,7 +209,7 @@ feature {ANY} -- Testing:
 			--
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		require
-			valid_start_index: start_index >= 0 and start_index <= count
+			valid_start_index: start_index >= lower - 1 and start_index <= upper
 		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
@@ -1072,8 +1072,8 @@ feature {ANY} -- Other features:
 			--
 			-- See also `substring_index' and `copy_substring' to save memory.
 		require
-			valid_start_index: 1 <= start_index
-			valid_end_index: end_index <= count
+			valid_start_index: lower <= start_index
+			valid_end_index: end_index <= upper
 			meaningful_interval: start_index <= end_index + 1
 		deferred
 		ensure
@@ -1086,7 +1086,7 @@ feature {ANY} -- Other features:
 			-- See also `substring', `first_substring_index'.
 		require
 			other_not_void: other /= Void
-			valid_start_index: start_index >= 1 and start_index <= count + 1
+			valid_start_index: start_index >= lower and start_index <= upper + 1
 		local
 			i, s: INTEGER
 		do
@@ -1229,17 +1229,15 @@ feature {}
 
 	computed_hash_code: INTEGER is
 		local
-			i, j: INTEGER
+			i: INTEGER
 		do
 			from
-				j := count
-				i := 1
+				i := lower
 			until
-				j <= 0
+				i > upper
 			loop
 				Result := {INTEGER 5} #* Result #+ item(i).code
 				i := i + 1
-				j := j - 1
 			end
 			if Result < 0 then
 				Result := ~Result
@@ -1255,6 +1253,23 @@ feature {}
 			-- Item: interned string
 		once
 			create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
+		end
+
+feature {STRING}
+	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+		local
+			i, j: INTEGER
+		do
+			from
+				i := start_index
+				j := 0
+			until
+				i > end_index
+			loop
+				target.put(item(i), target_offset + j)
+				i := i + 1
+				j := j + 1
+			end
 		end
 
 feature {}

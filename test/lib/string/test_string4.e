@@ -3,6 +3,9 @@
 --
 class TEST_STRING4
 
+insert
+	EIFFELTEST_TOOLS
+
 creation {ANY}
 	make
 
@@ -20,21 +23,6 @@ feature {ANY}
 			assert((" foo ").has_substring("foo"))
 			assert(not (" f oo ").has_substring("foo"))
 		end
-
-feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_STRING4
 --

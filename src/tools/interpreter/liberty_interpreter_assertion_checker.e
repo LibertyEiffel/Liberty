@@ -27,7 +27,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
 			if contract /= Void then
 				contract.accept(Current)
 				if failed_tag /= Void then
-					interpreter.fatal_error(error_message + " failed: " + failed_tag)
+					interpreter.fatal_error(error_message + " failed: " + failed_tag, failed_position)
 				end
 			end
 		end
@@ -126,6 +126,7 @@ feature {}
 					assertion_value ::= interpreter.expressions.eval_memory
 					if not assertion_value.item then
 						failed_tag := assertion.tag
+						failed_position := assertion.assertion.position
 					end
 					i := i + 1
 				end
@@ -144,6 +145,7 @@ feature {}
 
 	interpreter: LIBERTY_INTERPRETER
 	failed_tag: FIXED_STRING
+	failed_position: LIBERTY_POSITION
 
 invariant
 	interpreter /= Void

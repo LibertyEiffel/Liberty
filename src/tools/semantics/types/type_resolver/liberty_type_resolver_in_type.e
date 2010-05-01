@@ -56,6 +56,8 @@ feature {}
 		do
 			if type_definition.is_like_current then
 				create {LIBERTY_DELAYED_TYPE} Result.make(create {LIBERTY_DELAYED_RESOLVER_IN_TYPE}.like_current(current_type))
+			elseif type_definition.is_like_result then
+				sedb_breakpoint
 			elseif type_definition.is_anchor then
 				-- like <feature>
 				create fn.make_from_ast_entity_name(type_definition.entity_anchor, current_type.ast, current_type.file)

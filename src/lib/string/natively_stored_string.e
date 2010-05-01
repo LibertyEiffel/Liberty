@@ -4,96 +4,91 @@
 deferred class NATIVELY_STORED_STRING
 	-- An ABSTRACT_STRING of CHARACTERs stored into with a NATIVE_ARRAY.
 
-inherit 
+	-- Implementation notes: it is NOT guaranteed that the memory buffer will contain a binary 0 to mark its
+	-- end, except when using `to_external'
+
+inherit
 	ABSTRACT_STRING
-		redefine print_on
+		redefine
+			print_on, copy_slice_to_native
 		end
 
 feature {STRING_HANDLER}
 	storage: NATIVE_ARRAY[CHARACTER]
 			-- The place where characters are stored.
 
+	storage_lower: INTEGER is
+			-- The index of the first character of `storage' effectively used.
+		attribute
+		end
+
 feature {ANY}
-	count: INTEGER is attribute end
+	count: INTEGER is
+		attribute
+		end
 
 	capacity: INTEGER
 			-- Capacity of the `storage' area.
 
 	item (i: INTEGER): CHARACTER is
 		do
-			Result := storage.item(i - lower)
+			Result := storage.item(i - lower + storage_lower)
 		end
 
 	is_equal (other: ABSTRACT_STRING): BOOLEAN is
-		-- It `other' does not conform to NATIVELY_STORED_STRING this query is
-		-- an O(count.max(other.count)) operation, requiring iterating over
-		-- both strings.
-		local 
-			nss: NATIVELY_STORED_STRING; ci,oi: ITERATOR[CHARACTER]
+			-- It `other' does not conform to NATIVELY_STORED_STRING this query is an O(count.max(other.count))
+			-- operation, requiring iterating over both strings.
+		local
+			nss: NATIVELY_STORED_STRING; i, j: INTEGER
 		do
-			nss ?= other -- Try to assign other to nss
-			if nss/=Void then -- direct comparison of memory areas is possible
-				if count = nss.count then
-					Result := storage.fast_memcmp(nss.storage, count)
-				end
-			else -- Compare character-by-character
-				from 
-					Result := True 
-					ci := new_iterator;	oi := other.new_iterator
-					ci.start; oi.start
-				until Result=False or else ci.is_off or oi.is_off
+			if nss ?:= other then -- direct comparison of memory areas is possible
+				nss ::= other
+				Result := count = nss.count
+					and then (storage = nss.storage
+								 or else storage.slice_fast_memcmp(storage_lower, nss.storage, nss.storage_lower, nss.storage_lower + count - 1))
+			else -- compare character by character
+				from
+					Result := count = other.count
+					i := lower
+					j := other.lower
+				until
+					not Result or else i > upper
 				loop
-					Result := (ci.item = oi.item)
-					ci.next; oi.next
+					Result := item(i) = other.item(j)
+					i := i + 1
+					j := j + 1
 				end
-				if Result=True then	-- reached the end of a string without founding differences; both iterators shall be off for the strings to be equal.
-					check either_current_or_other_are_off: ci.is_off or oi.is_off end
-					Result := (ci.is_off = oi.is_off)
+				check
+					Result implies j > other.upper
 				end
 			end
 		end
 
 	same_as (other: ABSTRACT_STRING): BOOLEAN is
-		local 
-			nss: NATIVELY_STORED_STRING; ci,oi: ITERATOR[CHARACTER]
-			s1, s2: like storage; i: INTEGER
+		local
+			nss: NATIVELY_STORED_STRING
+			i, j: INTEGER
 		do
-			nss ?= other -- Try to assign other to nss
-			if nss/=Void then -- direct comparison of memory areas is possible
-				i := count
-				if i = nss.count then
-					if storage.fast_memcmp(nss.storage, i) then
-						Result := True
-					else
-						from
-							i := i - lower
-							s1 := storage
-							s2 := nss.storage
-							Result := True
-						until i < 0
-						loop
-							if s1.item(i).same_as(s2.item(i)) then
-								i := i - lower
-							else
-								i := -1
-								Result := False
-							end
-						end
-					end
-				end
-			else -- other is not a NATIVELY_STORED_STRING
-				from 
-					Result := True 
-					ci := new_iterator;	oi := other.new_iterator
-					ci.start; oi.start
-				until Result=False or else ci.is_off or oi.is_off
+			if nss ?:= other then -- direct comparison of memory areas is possible, try that first
+				nss ::= other
+				Result := count = nss.count
+					and then (storage = nss.storage
+								 or else storage.slice_fast_memcmp(storage_lower, nss.storage, nss.storage_lower, nss.storage_lower + count - 1))
+			end
+			if not Result then
+				from
+					Result := count = other.count
+					i := lower
+					j := other.lower
+				until
+					not Result or else i > upper
 				loop
-					Result := (ci.item.same_as(oi.item))
-					ci.next; oi.next
+					Result := item(i).same_as(other.item(j))
+					i := i + 1
+					j := j + 1
 				end
-				if Result=True then	-- reached the end of a string without founding differences; both iterators shall be off for the strings to be equal.
-					check either_current_or_other_are_off: ci.is_off or oi.is_off end
-					Result := (ci.item.same_as(oi.item))
+				check
+					Result implies j > other.upper
 				end
 			end
 		end
@@ -101,56 +96,55 @@ feature {ANY}
 	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
 		do
 			if start_index <= count then
-				Result := storage.fast_index_of(c, start_index - lower, count - lower)
-				if Result = count then
+				Result := lower + storage.fast_index_of(c, start_index + storage_lower, storage_lower + count - 1) - storage_lower
+				if Result > count then
 					Result := 0
-				else
-					Result := Result + lower
 				end
 			end
 		end
 
 	reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-			-- Index of first occurrence of `c' at or before `start_index', 0 if none.
-			-- The search is done in reverse direction, which means from the `start_index' down
-			-- to the first character.
+			-- Index of first occurrence of `c' at or before `start_index', 0 if none.  The search is done in
+			-- reverse direction, which means from the `start_index' down to the first character.
 			--
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		do
 			if count > 0 then
-				Result := storage.fast_reverse_index_of(c, start_index - lower) + lower
+				Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
+				if Result <= 0 then
+					Result := 0
+				end
 			end
 		end
 
 	has (c: CHARACTER): BOOLEAN is
 		do
-			Result := storage.fast_has(c, count - lower)
+			Result := storage.slice_fast_has(c, storage_lower, storage_lower + count - 1)
 		end
 
 	occurrences (c: CHARACTER): INTEGER is
 		do
-			Result := storage.fast_occurrences(c, count - lower)
+			Result := storage.slice_fast_occurrences(c, storage_lower, storage_lower + count - 1)
 		end
 
-feature {ANY} -- Concatenation 
+feature {ANY} -- Concatenation
 	infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
-		-- Current and `another' concatenating into a new object. The actual
-		-- effective type of Result is chosen by the implementation, possibly
-		-- based on heuristics.
+			-- Current and `another' concatenating into a new object. The actual effective type of Result is
+			-- chosen by the implementation, possibly based on heuristics.
 		do
 			-- Currently returning a ROPE.
-			Result := Current|another
+			Result := Current | another
 		end
 
 feature {ANY} -- Access
 	first: CHARACTER is
 		do
-			Result := storage.item(0)
+			Result := storage.item(storage_lower)
 		end
 
 	last: CHARACTER is
 		do
-			Result := storage.item(count - lower)
+			Result := storage.item(storage_lower + count - 1)
 		end
 
 	fill_tagged_out_memory is
@@ -169,9 +163,16 @@ feature {ANY} -- Access
 			file.put_natively_stored_string(Current)
 		end
 
+feature {STRING}
+	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+		do
+			target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
+		end
+
 invariant
 	capacity > 0 implies storage.is_not_null
 	count <= capacity
+	storage_lower >= 0
 
 end -- class NATIVELY_STORED_STRING
 

@@ -3,6 +3,9 @@
 --
 class TEST_CHARACTER1
 
+insert
+	EIFFEL_TOOLS
+
 creation {ANY}
 	make
 
@@ -49,20 +52,6 @@ feature {ANY}
 			assert('%/254/'.code = 254)
 			assert('%/255/'.code = 255)
 		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CHARACTER1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
-
-	cpt: INTEGER
 
 end -- class TEST_CHARACTER1
 --

@@ -66,8 +66,16 @@ feature {ABSTRACT_STRING}
 	put_natively_stored_string (s: NATIVELY_STORED_STRING) is
 		local
 			unused_result: INTEGER
+			fs: FIXED_STRING
 		do
 			write_buffer
+			if fs ?:= s then
+				fs ::= s
+				--|*** TODO: replace by an io_fwrite_slice
+				if fs.is_shared then
+					fs.unshare
+				end
+			end
 			unused_result := io_fwrite(s.storage, s.count, stdout)
 		end
 

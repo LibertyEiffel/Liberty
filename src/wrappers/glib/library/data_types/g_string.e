@@ -179,7 +179,7 @@ feature -- Conversion to STRING
 			create Result.from_external_copy (c_string)
 		end
 
-	as_string: CONST_STRING is
+	as_string: FIXED_STRING is
 			-- A string holding the very same content of Current
 			-- (i.e. using the same memory area.)
 		do

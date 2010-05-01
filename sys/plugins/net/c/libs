@@ -1,0 +1,6 @@
+[Windows]
+winsock: winsock.dll
+
+[UNIX.Solaris]
+socket: socket
+nsl: nsl

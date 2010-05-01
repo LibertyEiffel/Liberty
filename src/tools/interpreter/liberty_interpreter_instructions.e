@@ -55,7 +55,10 @@ feature {LIBERTY_CALL_INSTRUCTION}
 	visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
 		local
 			target: LIBERTY_INTERPRETER_OBJECT
+			target_type: LIBERTY_ACTUAL_TYPE
 		do
+			target_type ::= v.entity.target_type.known_type
+			interpreter.ensure_built(target_type)
 			if v.is_implicit_current then
 				interpreter.call_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
 			else
@@ -175,7 +178,7 @@ feature {LIBERTY_INSPECT}
 			end
 			if inspect_stack.count = n then
 				if v.else_clause = Void then
-					interpreter.fatal_error("Inspect: nothing selected")
+					interpreter.fatal_error("Inspect: nothing selected", v.position)
 				else
 					v.else_clause.accept(Current)
 					check
@@ -282,7 +285,8 @@ feature {LIBERTY_VARIANT}
 			if loop_variant_stack.last = Void then
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			elseif exp_variant.item >= loop_variant_stack.last.item then
-				interpreter.fatal_error("Variant failed")
+				interpreter.fatal_error("Variant failed: was " + loop_variant_stack.last.item.out
+												+ ", now " + exp_variant.item.out, v.expression.position)
 			else
 				loop_variant_stack.put(exp_variant, loop_variant_stack.upper)
 			end

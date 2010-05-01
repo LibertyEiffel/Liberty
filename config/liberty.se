@@ -1,3 +1,6 @@
+[General]
+sys: /home/liberty/Liberty/sys/
+
 [Environment]
 path_liberty: /home/liberty/Liberty/
 

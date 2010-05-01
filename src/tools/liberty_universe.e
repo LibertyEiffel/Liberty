@@ -44,25 +44,30 @@ feature {ANY}
 			flame: LIBERTY_FLAME
 			incubator: like types_incubator
 		do
-			create incubator.with_capacity(1024, 0) --|TODO optim: replace by an attribute
-			from
-			until
-				types_incubator.is_empty or else target_type.is_built
-			loop
-				flame := torch.flame
-				build_to_incubator(incubator, target_type)
-				mark_reachable_code(root_type, root_feature_name)
-				resolve_delayed_types
-				if types_incubator.is_empty then
-					incubator := check_flame_and_swap_incubator(flame, incubator)
+			if not target_type.is_built then
+				create incubator.with_capacity(1024, 0) --|TODO optim: replace by an attribute
+				from
+				until
+					types_incubator.is_empty or else target_type.is_built
+				loop
+					flame := torch.flame
+					build_to_incubator(incubator, target_type)
+					mark_reachable_code(root_type, root_feature_name)
+					resolve_delayed_types
+					if types_incubator.is_empty then
+						incubator := check_flame_and_swap_incubator(flame, incubator)
+					end
 				end
-			end
-			if not incubator.is_empty then
-				-- don't lose work
-				types_incubator.append_collection(incubator)
-			end
-			debug ("type.building")
-				debug_types(types_incubator)
+				if not incubator.is_empty then
+					-- don't lose work
+					types_incubator.append_collection(incubator)
+				end
+				debug ("type.building")
+					debug_types(types_incubator)
+					std_output.put_string(once "Type is ready: ")
+					std_output.put_line(target_type.full_name)
+					sedb_breakpoint
+				end
 			end
 		ensure
 			target_type.is_built
@@ -95,6 +100,8 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("INTEGER_64", visit_type_integer_64)
+			Result.add_converter(type_real_128, convert_integer_64_real_128)
+			Result.add_converter(type_real_80, convert_integer_64_real_80)
 		end
 
 	type_integer, type_integer_32: LIBERTY_ACTUAL_TYPE is
@@ -103,6 +110,9 @@ feature {ANY} -- Kernel types
 		once
 			Result := kernel_type("INTEGER_32", visit_type_integer_32)
 			Result.add_converter(type_integer_64, convert_integer_32_64)
+			Result.add_converter(type_real_128, convert_integer_32_real_128)
+			Result.add_converter(type_real_80, convert_integer_32_real_80)
+			Result.add_converter(type_real_64, convert_integer_32_real_64)
 		end
 
 	type_integer_16: LIBERTY_ACTUAL_TYPE is
@@ -112,6 +122,10 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("INTEGER_16", visit_type_integer_16)
 			Result.add_converter(type_integer_32, convert_integer_16_32)
 			Result.add_converter(type_integer_64, convert_integer_16_64)
+			Result.add_converter(type_real_128, convert_integer_16_real_128)
+			Result.add_converter(type_real_80, convert_integer_16_real_80)
+			Result.add_converter(type_real_64, convert_integer_16_real_64)
+			Result.add_converter(type_real_32, convert_integer_16_real_32)
 		end
 
 	type_integer_8: LIBERTY_ACTUAL_TYPE is
@@ -122,6 +136,10 @@ feature {ANY} -- Kernel types
 			Result.add_converter(type_integer_16, convert_integer_8_16)
 			Result.add_converter(type_integer_32, convert_integer_8_32)
 			Result.add_converter(type_integer_64, convert_integer_8_64)
+			Result.add_converter(type_real_128, convert_integer_8_real_128)
+			Result.add_converter(type_real_80, convert_integer_8_real_80)
+			Result.add_converter(type_real_64, convert_integer_8_real_64)
+			Result.add_converter(type_real_32, convert_integer_8_real_32)
 		end
 
 	type_real_128: LIBERTY_ACTUAL_TYPE is
@@ -479,7 +497,6 @@ feature {} -- debug
 				end
 				std_output.put_line(once "-------->8--")
 			end
-			sedb_breakpoint
 		end
 
 	debug_compare_type_names (t1, t2: LIBERTY_ACTUAL_TYPE): BOOLEAN is
@@ -1094,6 +1111,71 @@ feature {}
 	convert_real_80_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
 		once
 			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_real_80_128
+		end
+
+	convert_integer_64_real_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_64_real_128
+		end
+
+	convert_integer_64_real_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_64_real_80
+		end
+
+	convert_integer_32_real_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_32_real_128
+		end
+
+	convert_integer_32_real_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_32_real_80
+		end
+
+	convert_integer_32_real_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_32_real_64
+		end
+
+	convert_integer_16_real_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_real_128
+		end
+
+	convert_integer_16_real_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_real_80
+		end
+
+	convert_integer_16_real_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_real_64
+		end
+
+	convert_integer_16_real_32: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_16_real_32
+		end
+
+	convert_integer_8_real_128: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_real_128
+		end
+
+	convert_integer_8_real_80: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_real_80
+		end
+
+	convert_integer_8_real_64: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_real_64
+		end
+
+	convert_integer_8_real_32: PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+		once
+			Result := agent {LIBERTY_TYPE_CONVERTER}.convert_integer_8_real_32
 		end
 
 invariant

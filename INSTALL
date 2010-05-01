@@ -45,19 +45,21 @@ current state of the developments of LibertyEiffel
 
 II-2) Patching SmartEiffel
 
-Place the LibertyEiffel configuration file in the configuration directory of
+Place the Liberty configuration file in the configuration directory of
 SmartEiffel:
 
   cp Liberty/config/liberty.se ${HOME}/.serc
 
-Then edit the second line of this file so that the 'path_liberty' variable point
-to where you've just download LibertyEiffel.
+Then edit this file so that the 'sys' and 'path_liberty' variables point
+to where you've just download Liberty.
 Suppose your home directory is '/home/mine' and that you've download Liberty in
 'Dev', then this line should look like this:
 
+sys: /home/mine/Dev/Liberty/sys/
+
 path_liberty: /home/mine/Dev/Liberty/
 
-Be careful! Don't forget the trailing slash.
+Be careful! Don't forget the trailing slash or the '/sys/' suffix.
 
 Then, you also have to modify "vanilla.se" file in order to ignore
 SmartEiffel libraries in profit of Liberty ones. For this, comment out the 'lib'
@@ -67,6 +69,15 @@ variable in 'Loadpath' section of vanilla.se, like this:
 
 [Loadpath]
 --lib: ${path_lib}loadpath.se
+
+...
+
+Now, also comment out the 'sys' key in the 'General' section of
+vanilla.se, to ignore SmartEiffel low-level plugins to replace them by
+Liberty's -- like this (for example):
+
+[General]
+--sys: /home/cadrian/Desktop/Workspace/Dev/SmartEiffel/se/trunk/sys/
 
 ...
 

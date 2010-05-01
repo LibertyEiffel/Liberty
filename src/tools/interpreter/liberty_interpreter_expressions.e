@@ -33,7 +33,7 @@ feature {ANY}
 	eval_as_target: LIBERTY_INTERPRETER_OBJECT is
 			-- When `eval_memory' is to be used as a target of a call
 		do
-			Result := eval_memory.as_target
+			Result := eval_memory.as_target(eval_memory.position)
 		end
 
 feature {LIBERTY_ADD}
@@ -87,10 +87,10 @@ feature {LIBERTY_CALL_EXPRESSION}
 	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
 		do
 			if v.is_implicit_current then
-				eval_memory := interpreter.item_feature(interpreter.target, v.entity.feature_definition, v.actuals, v.position)
+				eval_memory := item_feature(interpreter.target, v.entity, v.actuals, v.position)
 			else
 				v.target.accept(Current)
-				eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
+				eval_memory := item_feature(eval_as_target, v.entity, v.actuals, v.position)
 			end
 		ensure
 			eval_memory /= Void
@@ -451,10 +451,19 @@ feature {}
 	interpreter: LIBERTY_INTERPRETER
 
 feature {}
+	item_feature (target: LIBERTY_INTERPRETER_OBJECT; entity: LIBERTY_FEATURE_ENTITY; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			target_type: LIBERTY_ACTUAL_TYPE
+		do
+			target_type ::= entity.target_type.known_type
+			interpreter.ensure_built(target_type)
+			Result := interpreter.item_feature(target, entity.feature_definition, actuals, position)
+		end
+
 	visit_infix (v: LIBERTY_INFIX_CALL) is
 		do
 			v.target.accept(Current)
-			eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, v.actuals, v.position)
+			eval_memory := item_feature(eval_as_target, v.entity, v.actuals, v.position)
 		ensure
 			eval_memory /= Void
 		end
@@ -462,7 +471,7 @@ feature {}
 	visit_prefix (v: LIBERTY_PREFIX_CALL) is
 		do
 			v.target.accept(Current)
-			eval_memory := interpreter.item_feature(eval_as_target, v.entity.feature_definition, no_actuals, v.position)
+			eval_memory := item_feature(eval_as_target, v.entity, no_actuals, v.position)
 		ensure
 			eval_memory /= Void
 		end
