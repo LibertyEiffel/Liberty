@@ -85,10 +85,17 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 		local
 			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 			val: LIBERTY_INTERPRETER_OBJECT
-			val_type: LIBERTY_ACTUAL_TYPE
+			formal_type: LIBERTY_ACTUAL_TYPE
 		do
 			if parameters = Void then
 				interpreter.set_evaluating_parameters(Current)
+				if bound_feature.parameters.count /= actuals.count then
+					interpreter.fatal_error("Bad parameters count: expected " + bound_feature.parameters.count.out
+													+ " but got " + actuals.count.out, position)
+				end
+				check
+					bound_feature.parameters.lower = actuals.lower
+				end
 				from
 					create p.with_capacity(actuals.count)
 					i := actuals.lower
@@ -97,13 +104,13 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 				loop
 					actuals.item(i).accept(interpreter.expressions)
 					val := interpreter.expressions.eval_as_right_value
-					val_type ::= actuals.item(i).result_type.known_type
-					if val.is_void or else val.type.is_conform_to(val_type) then
+					formal_type ::= bound_feature.parameters.item(i).result_type.known_type
+					if val.type.is_conform_to(formal_type) then
 						p.add_last(val)
-					elseif val.type.converts_to(val_type) then
-						p.add_last(interpreter.object_converter.convert_object(val, val_type))
+					elseif val.type.converts_to(formal_type) then
+						p.add_last(interpreter.object_converter.convert_object(val, formal_type))
 					else
-						interpreter.fatal_error("Bad object type: " + val.type.full_name + " does not conform or convert to " + val_type.full_name, actuals.item(i).position)
+						interpreter.fatal_error("Bad object type: " + val.type.full_name + " does not conform or convert to " + formal_type.full_name, actuals.item(i).position)
 						p.add_last(val)
 					end
 					i := i + 1
@@ -643,24 +650,26 @@ feature {}
 			logging.is_trace
 		local
 			i: INTEGER; log: OUTPUT_STREAM
+			formals: TRAVERSABLE[LIBERTY_PARAMETER]
 		do
 			log := logging.trace
 			log.put_string(once "Calling feature {")
 			log.put_string(bound_feature.current_type.full_name)
 			log.put_string(once "}.")
 			log.put_string(name)
-			if not actuals.is_empty then
+			formals := bound_feature.parameters
+			if not formals.is_empty then
 				log.put_character(' ')
 				log.put_character('(')
 				from
-					i := actuals.lower
+					i := formals.lower
 				until
-					i > actuals.upper
+					i > formals.upper
 				loop
-					if i > actuals.lower then
+					if i > formals.lower then
 						log.put_string(once ", ")
 					end
-					log.put_string(actuals.item(i).result_type.full_name)
+					log.put_string(formals.item(i).result_type.full_name)
 					i := i + 1
 				end
 				log.put_character(')')
