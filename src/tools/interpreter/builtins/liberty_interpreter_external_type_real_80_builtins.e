@@ -44,4 +44,9 @@ feature {}
 			Result := obj.item
 		end
 
+	call_specific (f: LIBERTY_FEATURE) is
+		do
+			interpreter.fatal_error("Unknown builtin: " + builtin_call.name, builtin_call.position)
+		end
+
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_80_BUILTINS

@@ -44,6 +44,10 @@ feature {}
 			builtin_call := bc
 		end
 
+	call_specific (f: LIBERTY_FEATURE) is
+		deferred
+		end
+
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	call_add (f: LIBERTY_FEATURE) is
 		do
@@ -143,6 +147,8 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 				returned := new_real(target.log10)
 			when "pow" then
 				returned := new_real(target.pow(right))
+			else
+				call_specific(f)
 			end
 		end
 
