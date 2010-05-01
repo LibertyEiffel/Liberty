@@ -45,16 +45,7 @@ feature {LIBERTY_INTERPRETER}
 			check not prepare end
 
 			if logging.is_trace then
-				logging.trace.put_string(once "Calling feature {")
-				logging.trace.put_string(bound_feature.current_type.full_name)
-				logging.trace.put_string(once "}.")
-				logging.trace.put_string(name)
-				if position.is_unknown then
-					logging.trace.put_new_line
-				else
-					logging.trace.put_character(' ')
-					position.show(logging.trace)
-				end
+				log_call
 			end
 
 			prepare := True
@@ -646,6 +637,45 @@ feature {}
 		end
 
 	logging: LOGGING
+
+	log_call is
+		require
+			logging.is_trace
+		local
+			i: INTEGER; log: OUTPUT_STREAM
+		do
+			log := logging.trace
+			log.put_string(once "Calling feature {")
+			log.put_string(bound_feature.current_type.full_name)
+			log.put_string(once "}.")
+			log.put_string(name)
+			if not actuals.is_empty then
+				log.put_character(' ')
+				log.put_character('(')
+				from
+					i := actuals.lower
+				until
+					i > actuals.upper
+				loop
+					if i > actuals.lower then
+						log.put_string(once ", ")
+					end
+					log.put_string(actuals.item(i).result_type.known_type.full_name)
+					i := i + 1
+				end
+				log.put_character(')')
+			end
+			if returned_static_type /= Void then
+				log.put_string(once ": ")
+				log.put_string(returned_static_type.full_name)
+			end
+			if position.is_unknown then
+				log.put_new_line
+			else
+				log.put_character(' ')
+				position.show(log)
+			end
+		end
 
 invariant
 	interpreter /= Void
