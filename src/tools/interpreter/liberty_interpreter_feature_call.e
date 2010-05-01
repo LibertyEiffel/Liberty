@@ -660,7 +660,7 @@ feature {}
 					if i > actuals.lower then
 						log.put_string(once ", ")
 					end
-					log.put_string(actuals.item(i).result_type.known_type.full_name)
+					log.put_string(actuals.item(i).result_type.full_name)
 					i := i + 1
 				end
 				log.put_character(')')
