@@ -24,7 +24,7 @@ feature {ANY}
 			not is_unknown
 		do
 			set_error_position
-			stream.put_string(once "In file ")
+			stream.put_string(once "in file ")
 			stream.put_string(file.out)
 			stream.put_string(once " at line ")
 			stream.put_integer(line)
