@@ -1,5 +1,5 @@
 class TEST_FIXED
-	-- Stress fixed strings obtained from C
+	-- Stress fixed strings obtained from C, to discover eventual memory leaks or double freeing of memory.
 insert
 	MEMORY
 	EXCEPTIONS
