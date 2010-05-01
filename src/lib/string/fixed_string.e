@@ -159,9 +159,6 @@ feature {} -- Creation from C string:
 			-- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
 			-- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
 			-- FIXED_STRING.
-
-			-- Use it to wrap "const" C strings, strings whose type is "const char*" with no further memory overhead.
-
 			-- Also consider `from_external' to choose the most appropriate.
 		require 
 			p.is_not_null
