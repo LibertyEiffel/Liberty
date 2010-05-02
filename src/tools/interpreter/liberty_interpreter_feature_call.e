@@ -85,7 +85,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 		local
 			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 			val: LIBERTY_INTERPRETER_OBJECT
-			formal_type: LIBERTY_ACTUAL_TYPE
+			formal_type, actual_type: LIBERTY_ACTUAL_TYPE
 		do
 			if parameters = Void then
 				interpreter.set_evaluating_parameters(Current)
@@ -105,12 +105,24 @@ feature {LIBERTY_INTERPRETER, LIBERTY_FEATURE_ACCELERATOR, LIBERTY_INTERPRETER_E
 					actuals.item(i).accept(interpreter.expressions)
 					val := interpreter.expressions.eval_as_right_value
 					formal_type ::= bound_feature.parameters.item(i).result_type.known_type
-					if val.type.is_conform_to(formal_type) then
+					actual_type ::= val.type.known_type
+					if actual_type.is_conform_to(formal_type) then
 						p.add_last(val)
-					elseif val.type.converts_to(formal_type) then
+					elseif actual_type.converts_to(formal_type) then
 						p.add_last(interpreter.object_converter.convert_object(val, formal_type))
+					elseif formal_type = bound_feature.current_type and then formal_type.may_promote_current and then formal_type.converts_to(actual_type) then
+						-- Special Current promotion for kernel numeric types
+						check
+							not_a_precursor: feature_name /= Void
+						end
+						make(interpreter, interpreter.object_converter.convert_object(target, actual_type),
+							  actual_type.feature_definition(feature_name), actuals, position)
+						check
+							bound_feature.parameters.count = actuals.count
+						end
+						i := actuals.lower - 1 -- try again
 					else
-						interpreter.fatal_error("Bad object type: " + val.type.full_name + " does not conform or convert to " + formal_type.full_name, actuals.item(i).position)
+						interpreter.fatal_error("Bad object type: " + actual_type.full_name + " does not conform or convert to " + formal_type.full_name, actuals.item(i).position)
 						p.add_last(val)
 					end
 					i := i + 1
@@ -177,9 +189,9 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS, LIBERTY_INT
 			Result := parameter_map.fast_reference_at(parameter_name)
 		end
 
-	writable_feature_static_type (feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
+	writable_feature_static_type (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
 		do
-			Result ::= target.type.feature_definition(feature_name).result_type.known_type
+			Result ::= target.type.feature_definition(a_feature_name).result_type.known_type
 		end
 
 	set_writable_feature (a_name: LIBERTY_FEATURE_NAME; a_value: LIBERTY_INTERPRETER_OBJECT) is
@@ -401,7 +413,8 @@ feature {}
 			a_actuals /= Void
 			a_position /= Void
 		do
-			name := a_feature_definition.feature_name.full_name
+			feature_name := a_feature_definition.feature_name
+			name := feature_name.full_name
 			interpreter := a_interpreter
 			target := a_target
 			actuals := a_actuals
@@ -445,6 +458,8 @@ feature {}
 			target = a_target
 			actuals = a_actuals
 		end
+
+	feature_name: LIBERTY_FEATURE_NAME
 
 	name_precursor: FIXED_STRING is
 		once

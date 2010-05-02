@@ -102,6 +102,7 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("INTEGER_64", visit_type_integer_64)
 			Result.add_converter(type_real_128, convert_integer_64_real_128)
 			Result.add_converter(type_real_80, convert_integer_64_real_80)
+			Result.set_may_promote_current
 		end
 
 	type_integer, type_integer_32: LIBERTY_ACTUAL_TYPE is
@@ -113,6 +114,7 @@ feature {ANY} -- Kernel types
 			Result.add_converter(type_real_128, convert_integer_32_real_128)
 			Result.add_converter(type_real_80, convert_integer_32_real_80)
 			Result.add_converter(type_real_64, convert_integer_32_real_64)
+			Result.set_may_promote_current
 		end
 
 	type_integer_16: LIBERTY_ACTUAL_TYPE is
@@ -126,6 +128,7 @@ feature {ANY} -- Kernel types
 			Result.add_converter(type_real_80, convert_integer_16_real_80)
 			Result.add_converter(type_real_64, convert_integer_16_real_64)
 			Result.add_converter(type_real_32, convert_integer_16_real_32)
+			Result.set_may_promote_current
 		end
 
 	type_integer_8: LIBERTY_ACTUAL_TYPE is
@@ -140,6 +143,7 @@ feature {ANY} -- Kernel types
 			Result.add_converter(type_real_80, convert_integer_8_real_80)
 			Result.add_converter(type_real_64, convert_integer_8_real_64)
 			Result.add_converter(type_real_32, convert_integer_8_real_32)
+			Result.set_may_promote_current
 		end
 
 	type_real_128: LIBERTY_ACTUAL_TYPE is
@@ -147,6 +151,7 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("REAL_128", visit_type_real_128)
+			Result.set_may_promote_current
 		end
 
 	type_real_80: LIBERTY_ACTUAL_TYPE is
@@ -155,6 +160,7 @@ feature {ANY} -- Kernel types
 		once
 			Result := kernel_type("REAL_80", visit_type_real_80)
 			Result.add_converter(type_real_128, convert_real_80_128)
+			Result.set_may_promote_current
 		end
 
 	type_real, type_real_64: LIBERTY_ACTUAL_TYPE is
@@ -164,6 +170,7 @@ feature {ANY} -- Kernel types
 			Result := kernel_type("REAL_64", visit_type_real_64)
 			Result.add_converter(type_real_80, convert_real_64_80)
 			Result.add_converter(type_real_128, convert_real_64_128)
+			Result.set_may_promote_current
 		end
 
 	type_real_32: LIBERTY_ACTUAL_TYPE is
@@ -174,6 +181,7 @@ feature {ANY} -- Kernel types
 			Result.add_converter(type_real_64, convert_real_32_64)
 			Result.add_converter(type_real_80, convert_real_32_80)
 			Result.add_converter(type_real_128, convert_real_32_128)
+			Result.set_may_promote_current
 		end
 
 	type_character: LIBERTY_ACTUAL_TYPE is

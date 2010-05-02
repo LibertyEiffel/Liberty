@@ -136,6 +136,10 @@ feature {ANY}
 			converter(target_type).call([a_converter])
 		end
 
+	may_promote_current: BOOLEAN
+			-- True if Current's type may be promoted in order to fix arithmetic operations (available only on a
+			-- very few select kernel types such as integers, naturals and reals)
+
 feature {LIBERTY_KNOWN_TYPE}
 	full_name_in (buffer: STRING) is
 		local
@@ -413,6 +417,13 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 	is_built: BOOLEAN is
 		do
 			Result := builder.is_built
+		end
+
+	set_may_promote_current is
+		do
+			may_promote_current:= True
+		ensure
+			may_promote_current
 		end
 
 	add_converter (target_type: LIBERTY_ACTUAL_TYPE; a_converter: like converter) is
