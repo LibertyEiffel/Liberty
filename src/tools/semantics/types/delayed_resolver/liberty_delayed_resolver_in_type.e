@@ -148,4 +148,4 @@ invariant
 	current_type /= Void
 	definition_type /= Void
 
-end -- class LIBERTY_DELAYED_RESOLVER_IN_FEATURE
+end -- class LIBERTY_DELAYED_RESOLVER_IN_TYPE

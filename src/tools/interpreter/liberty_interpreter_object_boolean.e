@@ -31,6 +31,11 @@ feature {ANY}
 			end
 		end
 
+	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+		do
+			not_yet_implemented
+		end
+
 feature {}
 	expanded_twin: like Current is
 		do

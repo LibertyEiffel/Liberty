@@ -108,7 +108,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type, position)
+			create {LIBERTY_INTERPRETER_TUPLE} last_created.make(interpreter, type, position)
 		end
 
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is

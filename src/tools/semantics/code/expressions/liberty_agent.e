@@ -25,6 +25,12 @@ create {LIBERTY_AGENT}
 
 feature {ANY}
 	result_type: LIBERTY_TYPE
+			-- The agent type
+
+	call: LIBERTY_CALL_EXPRESSION
+			-- Even if the called feature is a procedure, we use an expression. At building time we do not know
+			-- if the agent calls a procedure or a function.
+			-- Only, when set, will the `result_type' give us that information.
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
@@ -47,11 +53,6 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {}
-	call: LIBERTY_CALL_EXPRESSION
-			-- Even if the called feature is a procedure, we use an expression. At building time we do not know
-			-- if the agent calls a procedure or a function.
-			-- Only, when set, will the `result_type' give us that information.
-
 	make (a_call: like call; a_position: like position) is
 		require
 			a_call /= Void

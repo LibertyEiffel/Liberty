@@ -12,72 +12,62 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_AGENT
+class LIBERTY_INTERPRETER_TUPLE
 
 inherit
 	LIBERTY_INTERPRETER_OBJECT
+	TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 
 creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
 	make
 
 feature {ANY}
-	type: LIBERTY_ACTUAL_TYPE
-	call: LIBERTY_CALL_EXPRESSION
-
-	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+	lower: INTEGER is
 		do
-			Result := other = Current
+			Result := tuple.lower
 		end
+
+	upper: INTEGER is
+		do
+			Result := tuple.upper
+		end
+
+	count: INTEGER is
+		do
+			Result := tuple.count
+		end
+
+	is_empty: BOOLEAN is
+		do
+			Result := tuple.is_empty
+		end
+
+	first: LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := tuple.first
+		end
+
+	last: LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := tuple.last
+		end
+
+	item (i: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := tuple.item(i)
+		end
+
+	new_iterator: ITERATOR[LIBERTY_INTERPRETER_OBJECT] is
+		do
+			Result := tuple.new_iterator
+		end
+
+feature {ANY}
+	type: LIBERTY_ACTUAL_TYPE
 
 	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
 		do
 			not_yet_implemented
-		end
-
-feature {LIBERTY_INTERPRETER}
-	set_call (a_call: like call) is
-		require
-			a_call /= Void
-			call = Void
-			a_call.is_agent_call
-		do
-			call := a_call
-		ensure
-			call = a_call
-		end
-
-feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS}
-	item_agent (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
-		local
-			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
-		do
-			args := unpack_tuple_and_closed(parameters, call_position)
-			if args /= Void then
-				not_yet_implemented
-			end
-		end
-
-feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS}
-	call_agent (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION) is
-		local
-			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
-		do
-			args := unpack_tuple_and_closed(parameters, call_position)
-			if args /= Void then
-				not_yet_implemented
-			end
-		end
-
-feature {}
-	unpack_tuple_and_closed (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION): TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT] is
-		local
-			tuple: LIBERTY_INTERPRETER_OBJECT
-		do
-			if parameters.count /= 1 then
-				interpreter.fatal_error("Bad number of arguments", call_position)
-			else
-				tuple := parameters.first
-			end
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
@@ -125,10 +115,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 	show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
 		do
-			o.put_string(once "agent {")
-			o.put_string(call.entity.target_type.known_type.full_name)
-			o.put_string(once "}.")
-			o.put_line(call.entity.feature_name.full_name)
+			not_yet_implemented
 		end
 
 feature {}
@@ -147,13 +134,16 @@ feature {}
 			interpreter := a_interpreter
 			type := a_type
 			position := a_position
+			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} tuple.with_capacity(4)
 		ensure
 			interpreter = a_interpreter
 			type = a_type
 			position = a_position
 		end
 
-invariant
-	call /= Void implies call.is_agent_call
+	tuple: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
 
-end -- class LIBERTY_INTERPRETER_AGENT
+invariant
+	tuple /= Void
+
+end -- class LIBERTY_INTERPRETER_TUPLE

@@ -45,7 +45,7 @@ feature {LIBERTY_ADD}
 feature {LIBERTY_AGENT}
 	visit_liberty_agent (v: LIBERTY_AGENT) is
 		do
-			not_yet_implemented
+			eval_memory := interpreter.new_agent(v)
 		end
 
 feature {LIBERTY_AND}

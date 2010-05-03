@@ -317,6 +317,16 @@ feature {ANY}
 			create Result.with_item(Current, universe.type_pointer, manifest, a_position)
 		end
 
+	new_agent (a_agent: LIBERTY_AGENT): LIBERTY_INTERPRETER_AGENT is
+		local
+			agent_type: LIBERTY_ACTUAL_TYPE
+		do
+			agent_type ::= a_agent.result_type.known_type
+			ensure_built(agent_type)
+			Result ::= new_object(agent_type, a_agent.position)
+			Result.set_call(a_agent.call)
+		end
+
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			actual_type: LIBERTY_ACTUAL_TYPE

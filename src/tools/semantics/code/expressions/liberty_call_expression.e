@@ -44,7 +44,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			expressions_marker.mark_reachable_code(mark, actuals)
 		end
 
-feature {LIBERTY_AGENT}
+feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
 	set_agent_call is
 		do
 			is_agent_call := True
@@ -150,6 +150,9 @@ feature {}
 				create Result.implicit_current(a_entity, a_actuals, a_position)
 			else
 				create Result.make(a_target, a_entity, a_actuals, a_position)
+			end
+			if is_agent_call then
+				Result.set_agent_call
 			end
 		end
 

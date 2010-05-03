@@ -67,6 +67,11 @@ feature {ANY}
 		deferred
 		end
 
+	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+		do
+			not_yet_implemented
+		end
+
 feature {LIBERTY_INTERPRETER_TO_EXTERNAL}
 	to_external: POINTER is
 		deferred

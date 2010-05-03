@@ -22,8 +22,18 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+		local
+			target: LIBERTY_INTERPRETER_AGENT
 		do
-			last_call_failed := True
+			builtin_call.evaluate_parameters
+			inspect
+				builtin_call.name.out
+			when "call" then
+				target ::= builtin_call.target
+				target.call_agent(builtin_call.parameters, builtin_call.position)
+			else
+				last_call_failed := True
+			end
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS

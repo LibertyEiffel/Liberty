@@ -44,6 +44,11 @@ feature {ANY}
 			end
 		end
 
+	converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+		do
+			not_yet_implemented
+		end
+
 	put_attribute (a_attribute_name: FIXED_STRING; a_attribute: LIBERTY_INTERPRETER_OBJECT) is
 		require
 			a_attribute /= Void
