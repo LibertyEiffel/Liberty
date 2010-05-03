@@ -51,7 +51,7 @@ feature {}
 			when "force_to_real_32" then
 				returned := interpreter.new_real_32(target.force_to_real_32, builtin_call.position)
 			else
-				interpreter.fatal_error("Unknown builtin: " + builtin_call.name, builtin_call.position)
+				last_call_failed := True
 			end
 		end
 
