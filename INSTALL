@@ -82,12 +82,13 @@ Liberty's -- like this (for example):
 ...
 
 ================================================================================
-III - Build libertyc
+III - Build liberty compiler and interpreter
 ================================================================================
 
 Now the hard part (!) is over. Go into ${path_liberty}src/tools/main and type:
 
-  compile liberty.ace
+  compile libertyc.ace
+  compile libertyi.ace
 
 You're done!
 
