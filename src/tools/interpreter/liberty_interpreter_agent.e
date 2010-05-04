@@ -24,6 +24,7 @@ feature {ANY}
 	type: LIBERTY_ACTUAL_TYPE
 	call: LIBERTY_CALL_EXPRESSION
 	arguments: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+	creation_target: LIBERTY_INTERPRETER_OBJECT
 
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		do
@@ -36,12 +37,18 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER}
-	set_call (a_call: like call; args: like arguments) is
+	set_call (a_target: like creation_target; a_call: like call; args: like arguments) is
 		require
 			call = Void
 			a_call.is_agent_call
 			args.count = a_call.actuals.count
 		do
+			if a_call.target = Void then
+				creation_target := a_target
+			else
+				a_call.target.accept(interpreter.expressions)
+				creation_target := interpreter.expressions.eval_as_target
+			end
 			call := a_call
 			arguments := args
 		ensure
@@ -56,7 +63,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS}
 			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 		do
 			if call.target = Void then
-				real_target := interpreter.target
+				real_target := creation_target
 				args := unpack_tuple_and_closed(parameters, call_position, False)
 			else
 				call.target.accept(interpreter.expressions)
@@ -74,7 +81,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS}
 			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 		do
 			if call.target = Void then
-				real_target := interpreter.target
+				real_target := creation_target
 				args := unpack_tuple_and_closed(parameters, call_position, False)
 			else
 				call.target.accept(interpreter.expressions)
@@ -222,5 +229,6 @@ feature {}
 invariant
 	call /= Void implies call.is_agent_call
 	call /= Void implies arguments /= Void
+	call /= Void implies creation_target /= Void
 
 end -- class LIBERTY_INTERPRETER_AGENT

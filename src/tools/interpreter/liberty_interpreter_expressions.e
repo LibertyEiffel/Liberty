@@ -17,6 +17,7 @@ class LIBERTY_INTERPRETER_EXPRESSIONS
 inherit
 	LIBERTY_EXPRESSION_VISITOR
 	LIBERTY_ENTITY_VISITOR
+	LIBERTY_INTERPRETER_OBJECT_VISITOR
 
 creation {LIBERTY_INTERPRETER}
 	make
@@ -455,6 +456,12 @@ feature {LIBERTY_WRITABLE_FEATURE}
 	visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE) is
 		do
 			check False end
+		end
+
+feature {LIBERTY_INTERPRETER_OBJECT}
+	visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			eval_memory := a_object
 		end
 
 feature {}

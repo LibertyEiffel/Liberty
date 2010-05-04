@@ -185,8 +185,11 @@ feature {}
 
 feature {ANY}
 	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_INTERPRETER_OBJECT_VISITOR
 		do
-			check False end
+			v ::= visitor
+			v.visit_liberty_object(Current)
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}

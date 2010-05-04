@@ -338,7 +338,7 @@ feature {ANY}
 			agent_type ::= a_agent.result_type.known_type
 			ensure_built(agent_type)
 			Result ::= new_object(agent_type, a_agent.position)
-			Result.set_call(a_agent.call, arguments)
+			Result.set_call(target, a_agent.call, arguments)
 		end
 
 	new_tuple (a_tuple: LIBERTY_TUPLE): LIBERTY_INTERPRETER_TUPLE is
@@ -540,7 +540,7 @@ feature {}
 			object_printer.print_object(std_output, value, 2)
 		end
 
-feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS, LIBERTY_INTERPRETER_AGENT}
+feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	target: LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.target
