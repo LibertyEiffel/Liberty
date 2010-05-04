@@ -104,9 +104,6 @@ feature {LIBERTY_UNIVERSE}
 			is_known := True
 			fire_known_type_set
 			torch.burn
-			check
-				by_definition: is_reachable
-			end
 		ensure
 			is_known
 		end
