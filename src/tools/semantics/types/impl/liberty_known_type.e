@@ -124,6 +124,12 @@ feature {LIBERTY_KNOWN_TYPE}
 		deferred
 		end
 
+	same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		require
+			other /= Void
+		deferred
+		end
+
 feature {ANY} -- Inheritance
 	is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		deferred

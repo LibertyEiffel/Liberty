@@ -258,8 +258,13 @@ feature {LIBERTY_OLD}
 
 feature {LIBERTY_OPEN_ARGUMENT}
 	visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT) is
+		local
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
-			not_yet_implemented
+			actual_type ::= v.result_type.known_type
+			create {LIBERTY_INTERPRETER_OPEN_ARGUMENT} eval_memory.make(interpreter, actual_type)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_OR}

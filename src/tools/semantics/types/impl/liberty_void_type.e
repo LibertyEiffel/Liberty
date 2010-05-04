@@ -117,6 +117,11 @@ feature {LIBERTY_KNOWN_TYPE}
 			buffer.append(once "NONE")
 		end
 
+	same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			check not Result end
+		end
+
 feature {ANY}
 	debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
 		do

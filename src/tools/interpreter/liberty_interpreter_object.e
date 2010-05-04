@@ -46,6 +46,8 @@ feature {ANY}
 		deferred
 		end
 
+	is_open: BOOLEAN is False
+
 	is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		local
 			fd: LIBERTY_FEATURE_DEFINITION

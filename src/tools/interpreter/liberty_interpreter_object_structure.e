@@ -210,8 +210,7 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 		do
 			o.put_character('{')
 			o.put_string(type.full_name)
-			o.put_string(once " [")
-			o.put_new_line
+			o.put_line(once " [")
 			from
 				i := attributes.lower
 			until

@@ -219,7 +219,7 @@ feature {ANY} -- Inheritance
 					Result := conformant_parents.item(i).is_conform_to(other)
 					i := i + 1
 				end
-				if Result and then name = other.name then
+				if not Result and then other.same_base_class_as(Current) then
 					Result := conformance_checker.inherits(other, Current)
 				end
 			end
@@ -252,7 +252,7 @@ feature {ANY} -- Inheritance
 						i := i + 1
 					end
 				end
-				if Result and then name = other.name then
+				if not Result and then other.same_base_class_as(Current) then
 					Result := conformance_checker.inserts(other, Current)
 				end
 			end
@@ -281,6 +281,11 @@ feature {LIBERTY_KNOWN_TYPE}
 				end
 				i := i + 1
 			end
+		end
+
+	same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+		do
+			Result := name = other.name and then descriptor.cluster = other.descriptor.cluster
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
@@ -510,7 +515,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 feature {}
 	types_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_ACTUAL_TYPE]
 
-feature {LIBERTY_UNIVERSE}
+feature {LIBERTY_UNIVERSE, LIBERTY_ACTUAL_TYPE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
 
 feature {LIBERTY_AST_HANDLER}

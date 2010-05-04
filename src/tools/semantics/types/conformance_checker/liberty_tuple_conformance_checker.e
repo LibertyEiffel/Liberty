@@ -42,27 +42,25 @@ feature {}
 		local
 			i: INTEGER
 		do
-			if parent.parameters.count <= child.parameters.count then
+			check
+				parent.parameters.lower = child.parameters.lower
+			end
+			from
+				Result := parent.parameters.count <= child.parameters.count
+				i := parent.parameters.lower
+			until
+				not Result or else i > parent.parameters.upper
+			loop
 				check
-					parent.parameters.lower = child.parameters.lower
+					parent.parameters.item(i).is_known
+					child.parameters.item(i).is_known
 				end
-				from
-					Result := True
-					i := parent.parameters.lower
-				until
-					not Result or else i > parent.parameters.upper
-				loop
-					check
-						parent.parameters.item(i).is_known
-						child.parameters.item(i).is_known
-					end
-					if conformance then
-						Result := child.parameters.item(i).known_type.is_conform_to(parent.parameters.item(i).known_type)
-					else
-						Result := child.parameters.item(i).known_type.is_non_conformant_child_of(parent.parameters.item(i).known_type)
-					end
-					i := i + 1
+				if conformance then
+					Result := child.parameters.item(i).known_type.is_conform_to(parent.parameters.item(i).known_type)
+				else
+					Result := child.parameters.item(i).known_type.is_non_conformant_child_of(parent.parameters.item(i).known_type)
 				end
+				i := i + 1
 			end
 		end
 

@@ -32,7 +32,7 @@ feature {ANY}
 				resolved.out_in_tagged_out_memory
 			else
 				tagged_out_memory.extend('"')
-				tagged_out_memory.append(full_name_memory)
+				full_name_memory.out_in_tagged_out_memory
 				tagged_out_memory.append(once "%" using ")
 				resolver.out_in_tagged_out_memory
 			end

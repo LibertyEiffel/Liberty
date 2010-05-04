@@ -32,7 +32,7 @@ feature {ANY}
 				resolved.out_in_tagged_out_memory
 			else
 				tagged_out_memory.append(once "like (")
-				tagged_out_memory.append(type.full_name)
+				type.full_name.out_in_tagged_out_memory
 				tagged_out_memory.extend('.')
 				name.out_in_tagged_out_memory
 				tagged_out_memory.extend(')')

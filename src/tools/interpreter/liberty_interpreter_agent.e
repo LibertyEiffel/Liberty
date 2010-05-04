@@ -23,6 +23,7 @@ creation {LIBERTY_INTERPRETER_OBJECT_CREATOR}
 feature {ANY}
 	type: LIBERTY_ACTUAL_TYPE
 	call: LIBERTY_CALL_EXPRESSION
+	arguments: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		do
@@ -35,48 +36,113 @@ feature {ANY}
 		end
 
 feature {LIBERTY_INTERPRETER}
-	set_call (a_call: like call) is
+	set_call (a_call: like call; args: like arguments) is
 		require
-			a_call /= Void
 			call = Void
 			a_call.is_agent_call
+			args.count = a_call.actuals.count
 		do
 			call := a_call
+			arguments := args
 		ensure
 			call = a_call
+			arguments = args
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS}
 	item_agent (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
+			target, real_target: LIBERTY_INTERPRETER_OBJECT
 			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 		do
-			args := unpack_tuple_and_closed(parameters, call_position)
-			if args /= Void then
-				not_yet_implemented
+			if call.target = Void then
+				real_target := interpreter.target
+				args := unpack_tuple_and_closed(parameters, call_position, False)
+			else
+				call.target.accept(interpreter.expressions)
+				target := interpreter.expressions.eval_as_target
+				real_target := unpack_target(target, parameters, call_position)
+				args := unpack_tuple_and_closed(parameters, call_position, target.is_open)
 			end
+			Result := interpreter.item_feature(real_target, call.entity.feature_definition, args, call_position)
 		end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS}
 	call_agent (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION) is
 		local
+			target, real_target: LIBERTY_INTERPRETER_OBJECT
 			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 		do
-			args := unpack_tuple_and_closed(parameters, call_position)
-			if args /= Void then
-				not_yet_implemented
+			if call.target = Void then
+				real_target := interpreter.target
+				args := unpack_tuple_and_closed(parameters, call_position, False)
+			else
+				call.target.accept(interpreter.expressions)
+				target := interpreter.expressions.eval_as_target
+				real_target := unpack_target(target, parameters, call_position)
+				args := unpack_tuple_and_closed(parameters, call_position, target.is_open)
 			end
+			interpreter.call_feature(real_target, call.entity.feature_definition, args, call_position)
 		end
 
 feature {}
-	unpack_tuple_and_closed (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION): TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT] is
+	unpack_target (target: LIBERTY_INTERPRETER_OBJECT; parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
 		local
-			tuple: LIBERTY_INTERPRETER_OBJECT
+			tuple: LIBERTY_INTERPRETER_TUPLE
 		do
-			if parameters.count /= 1 then
-				interpreter.fatal_error("Bad number of arguments", call_position)
+			check
+				parameters.count = 1
+				tuple ?:= parameters.first
+			end
+			if target.is_open then
+				tuple ::= parameters.first
+				Result := tuple.first
 			else
-				tuple := parameters.first
+				Result := target
+			end
+		end
+
+	unpack_tuple_and_closed (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION; target_is_open: BOOLEAN): TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT] is
+		local
+			tuple: LIBERTY_INTERPRETER_TUPLE
+			tuple_index: INTEGER
+			arg: LIBERTY_INTERPRETER_OBJECT
+			i: INTEGER
+			args: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
+		do
+			check
+				parameters.count = 1
+				tuple ?:= parameters.first
+			end
+			tuple ::= parameters.first
+			tuple_index := tuple.lower
+			if target_is_open then
+				tuple_index := tuple_index + 1
+			end
+			if arguments.count = 0 then
+				Result := tuple
+			else
+				create args.with_capacity(arguments.count)
+				Result := args
+				from
+					i := arguments.lower
+				until
+					i > arguments.upper
+				loop
+					arg := arguments.item(i)
+					if arg.is_open then
+						arg := tuple.item(tuple_index)
+						check
+							arg.type.is_conform_to(arguments.item(i).type)
+						end
+						tuple_index := tuple_index + 1
+					end
+					check
+						not arg.is_open
+					end
+					args.add_last(arg)
+					i := i + 1
+				end
 			end
 		end
 
@@ -155,5 +221,6 @@ feature {}
 
 invariant
 	call /= Void implies call.is_agent_call
+	call /= Void implies arguments /= Void
 
 end -- class LIBERTY_INTERPRETER_AGENT
