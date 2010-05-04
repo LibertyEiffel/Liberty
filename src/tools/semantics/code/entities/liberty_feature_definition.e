@@ -130,7 +130,7 @@ feature {ANY}
 			if a_type = current_type and then cl = clients and then ccl = creation_clients and then f = the_feature and then p = precursors then
 				Result := Current
 			else
-				create Result.specialized(feature_name, a_type, ccl, cl, is_frozen, f, p, position)
+				create Result.specialized(feature_name, f.current_type, ccl, cl, is_frozen, f, p, position)
 			end
 			debug ("feature.specialization")
 				std_output.put_string(once "Specialized in ")

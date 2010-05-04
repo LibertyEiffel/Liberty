@@ -481,6 +481,8 @@ feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
+		local
+			i: INTEGER; param: LIBERTY_TYPE
 		do
 			if not is_reachable then
 				torch.burn
@@ -491,6 +493,17 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 				reachable_mark := mark
 				types_marker.mark_reachable_code(mark, conformant_parents)
 				types_marker.mark_reachable_code(mark, non_conformant_parents)
+				from
+					i := parameters.lower
+				until
+					i > parameters.upper
+				loop
+					param := parameters.item(i)
+					if param.is_known and then param.known_type.is_runtime_category_set and then param.known_type.is_expanded then
+						param.mark_reachable_code(mark)
+					end
+					i := i + 1
+				end
 			end
 		end
 

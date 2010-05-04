@@ -124,6 +124,19 @@ feature {}
 			check False end
 		end
 
+feature {LIBERTY_INTERPRETER_EXPRESSIONS}
+	ensure_capacity (capacity: INTEGER) is
+		do
+			tuple.with_capacity(capacity)
+		ensure
+			tuple.capacity >= capacity
+		end
+
+	add_last (a_object: LIBERTY_INTERPRETER_OBJECT) is
+		do
+			tuple.add_last(a_object)
+		end
+
 feature {}
 	make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
 		require
@@ -134,14 +147,14 @@ feature {}
 			interpreter := a_interpreter
 			type := a_type
 			position := a_position
-			create {FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]} tuple.with_capacity(4)
+			create tuple.with_capacity(0)
 		ensure
 			interpreter = a_interpreter
 			type = a_type
 			position = a_position
 		end
 
-	tuple: COLLECTION[LIBERTY_INTERPRETER_OBJECT]
+	tuple: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 
 invariant
 	tuple /= Void

@@ -64,7 +64,11 @@ feature {ANY}
 				end
 				debug ("type.building")
 					debug_types(types_incubator)
-					std_output.put_string(once "Type is ready: ")
+					if target_type.is_built then
+						std_output.put_string(once "Type is ready: ")
+					else
+						std_output.put_string(once "Type is NOT READY: ")
+					end
 					std_output.put_line(target_type.full_name)
 					sedb_breakpoint
 				end

@@ -327,6 +327,15 @@ feature {ANY}
 			Result.set_call(a_agent.call)
 		end
 
+	new_tuple (a_tuple: LIBERTY_TUPLE): LIBERTY_INTERPRETER_TUPLE is
+		local
+			tuple_type: LIBERTY_ACTUAL_TYPE
+		do
+			tuple_type ::= a_tuple.result_type.known_type
+			ensure_built(tuple_type)
+			Result ::= new_object(tuple_type, a_tuple.position)
+		end
+
 	old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
 		local
 			actual_type: LIBERTY_ACTUAL_TYPE

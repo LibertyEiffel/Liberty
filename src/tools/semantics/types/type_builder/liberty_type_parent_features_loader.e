@@ -85,6 +85,9 @@ feature {}
 					not_yet_implemented
 				end
 				actual_parent ::= parent.known_type
+				check
+					type.is_child_of(actual_parent)
+				end
 				inject_parent_invariant(actual_parent)
 				inject_parent_features(actual_parent, parent_clause.parent_clause)
 				Result := True
@@ -101,6 +104,7 @@ feature {}
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; feature_name: LIBERTY_FEATURE_NAME
 			pf: like parent_features; rf_count: INTEGER
+			precursor_feature: LIBERTY_FEATURE
 		do
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
 			from
@@ -120,7 +124,8 @@ feature {}
 				if fd.has_precursor(parent) then
 					sedb_breakpoint
 				else
-					fd.add_precursor(fd.the_feature, parent)
+					precursor_feature := fd.the_feature.specialized_in(type)
+					fd.add_precursor(precursor_feature, parent)
 				end
 				pf.add(fd, feature_name)
 				i := i + 1
@@ -153,9 +158,13 @@ feature {}
 						std_output.put_string(once " of feature ")
 						std_output.put_line(feature_name.full_name)
 					end
-					fd.the_feature.bind(fd.the_feature, type)
+					precursor_feature := fd.the_feature.specialized_in(type)
+					check
+						precursor_feature.current_type = type
+					end
+					fd.the_feature.bind(precursor_feature, type)
 					if not fd.has_precursor(parent) then
-						fd.add_precursor(fd.the_feature, parent)
+						fd.add_precursor(precursor_feature, parent)
 					end
 					actual_fd := fd
 				else

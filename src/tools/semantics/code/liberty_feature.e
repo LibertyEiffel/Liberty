@@ -426,6 +426,9 @@ feature {ANY}
 				Result := Current
 			else
 				Result ::= specialized.fast_reference_at(a_type)
+				check
+					Result /= Current
+				end
 				if Result = Void then
 					is_specializing := True
 					Result := twin
@@ -442,6 +445,8 @@ feature {ANY}
 			end
 		ensure
 			Result.id = id
+			;(current_type = a_type or not a_type.is_child_of(current_type)) implies Result = Current
+			;(current_type /= a_type and a_type.is_child_of(current_type)) implies (Result /= Current and then Result.current_type = a_type)
 		end
 
 feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
@@ -675,6 +680,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			not is_redefined
 			truly_bind: child /= Current implies child.current_type /= current_type
 			no_cycles: child /= Current implies not has_parent_binding(child)
+			bind_current: type = child.current_type
 		do
 			bind_or_replace(child, type, True)
 		ensure

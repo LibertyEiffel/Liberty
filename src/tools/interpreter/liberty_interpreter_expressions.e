@@ -342,8 +342,22 @@ feature {LIBERTY_TIMES}
 
 feature {LIBERTY_TUPLE}
 	visit_liberty_tuple (v: LIBERTY_TUPLE) is
+		local
+			tuple: LIBERTY_INTERPRETER_TUPLE
+			i: INTEGER
 		do
-			not_yet_implemented
+			tuple := interpreter.new_tuple(v)
+			tuple.ensure_capacity(v.count)
+			from
+				i := v.lower
+			until
+				i > v.upper
+			loop
+				v.item(i).accept(Current)
+				tuple.add_last(eval_as_right_value)
+				i := i + 1
+			end
+			eval_memory := tuple
 		end
 
 feature {LIBERTY_VOID}

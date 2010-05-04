@@ -30,11 +30,13 @@ feature {LIBERTY_ACTUAL_TYPE}
 	inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			--|*** TODO
+			not_yet_implemented
 		end
 
 	inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			--|*** TODO
+			not_yet_implemented
 		end
 
 feature {}
