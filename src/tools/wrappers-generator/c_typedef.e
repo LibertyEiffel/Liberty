@@ -20,9 +20,7 @@ feature
 		end
 
 	wrapper_type: STRING is
-		local referree: TYPED_NODE
 		do
-			referree := types.at(type)
 			if referree.has_wrapper 
 				then Result := referree.wrapper_type
 			else not_yet_implemented
@@ -45,48 +43,34 @@ feature
 		-- If Current ultimately refers to a fundamental type then put an empty query on `a_stream', otherwise nothing is done.
 	local query_name: STRING
 	do
-		if is_public and then is_in_main_namespace and then is_fundamental then 
+		if is_public and then is_in_main_namespace then
 			-- Note: here I used "and then" with progressively more complicated
 			-- queries; `is_public' is fast, `is_in_main_namespace' quite fast
 			-- and `is_fundamental' quite slow; using "and then" allows the
 			-- program not to compute the costly `is_fundamental' is either one
 			-- of the first two are False.
-			inspect wrapper_type
-			when "void" then buffer.put_message (once "%T-- @(1) typedef to void%N", <<c_string_name>>)
-			when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
+			if is_fundamental then
+				inspect wrapper_type
+				when "void" then buffer.put_message (once "%T-- @(1) typedef to void%N", <<c_string_name>>)
+				when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
+				else
+					query_name := eiffel_feature(c_string_name)
+					log(once "@(1)->@(2), ",<<c_string_name,query_name>>)
+					buffer.put_message (once 
+					"	@(1): @(2) is%N%
+					%		-- typedef @(3)%N%
+					%		-- Empty by design, used for anchored declarations.%N%
+					%	do%N%
+					%	ensure Result.is_default%N%
+					%	end%N%
+					%%N", <<query_name, wrapper_type, c_string_name>>)
+				end
+				buffer.print_on(a_stream)
 			else
-				query_name := eiffel_feature(c_string_name)
-				log(once "@(1)->@(2), ",<<c_string_name,query_name>>)
-				buffer.put_message (once 
-				"	@(1): @(2) is%N%
-				%		-- typedef @(3)%N%
-				%		-- Empty by design, used for anchored declarations.%N%
-				%	do%N%
-				%	ensure Result.is_default%N%
-				%	end%N%
-				%%N", <<query_name, wrapper_type, c_string_name>>)
+				-- It refers to something else; let's assign it a name
+				referree.set_name(eiffel_feature(c_string_name))
 			end
-			buffer.print_on(a_stream)
 		end
-		-- Old code: 
-		-- c_string_name := c_name.to_utf8
-		-- inspect wrapper_type
-		-- when "void" then buffer.put_message (once "%T-- @(1) typedef to void%N", <<c_string_name>>)
-		-- when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
-		-- else
-		-- 	query_name := eiffel_feature(c_string_name)
-		-- 	log(once "@(1)->@(2), ",<<c_string_name,query_name>>)
-		-- 	buffer.put_message (once 
-		-- 	"	@(1): @(2) is%N%
-		-- 	%		-- typedef @(3)%N%
-		-- 	%		-- Empty by design, used for anchored declarations.%N%
-		-- 	%	do%N%
-		-- 	%	ensure Result.is_default%N%
-		-- 	%	end%N%
-		-- 	%%N", <<query_name, wrapper_type, c_string_name>>)
-		-- end
-		-- buffer.print_on(a_stream)
-		-- buffer.reset
 	end
 
 -- invariant name.is_equal(once U"Typedef")

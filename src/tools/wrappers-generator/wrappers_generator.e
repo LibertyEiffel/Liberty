@@ -23,7 +23,7 @@ feature {ANY}
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
 			end
-			log_string(once "Making typedefs.%N")
+			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
 			tree.typedefs.emit_wrappers
 			log_string(once "Making enumerations classes.%N")
 			tree.enumerations.do_all(agent {C_ENUM}.emit_wrapper)	
@@ -31,8 +31,9 @@ feature {ANY}
 			log_string(once "Making external functions classes.%N")
 			tree.files.do_all (agent {C_FILE}.emit_wrapper)
 			-- log_string(once "Making structure accessing classes.%N")
-			-- structures.do_all(agent examine_structure)
+			-- tree.structures.do_all(agent {C_STRUCT}.emit_wrapper)
 			-- log_string(once "Making union accessing classes.%N")
+			-- tree.unions.do_all(agent {C_UNION}.emit_wrapper)
 		end
 
 	tree: GCCXML_TREE

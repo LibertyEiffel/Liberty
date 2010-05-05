@@ -65,7 +65,7 @@ feature
 			if storable/=Void then storable.store end
 		end
 
-feature 
+feature {ANY}
 	read_flags_from (a_file_name: STRING) is
 		-- Read the list of enumeration that shall be wrapped as flags from the
 		-- file named `a_file_name'.

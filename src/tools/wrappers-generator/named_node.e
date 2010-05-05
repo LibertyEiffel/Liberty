@@ -27,8 +27,6 @@ feature
 		Result := c_name.first.to_character.is_letter
 	end
 
-
-
 feature {} -- Implementation
 	cached_c_name: UNICODE_STRING
 	cached_c_string_name: STRING
