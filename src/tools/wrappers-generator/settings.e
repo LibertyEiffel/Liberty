@@ -1,5 +1,5 @@
 class SETTINGS
-	-- The setting of eiffel-gcc-xml.
+	-- The setting of wrappers-generator.
 
 inherit
 	SINGLETON
@@ -17,7 +17,9 @@ feature {ANY} -- Queries
 	directory: STRING
 
 	typedefs: STRING
-		-- Name of the class that will contains queries to typedefs.
+	-- The name of the class containing typedef queries, empty queries
+	-- named like typedefs, useful for anchored declarations (i.e.
+	-- "gsize: INTEGER_32 is do end")
 
 	are_naturals_used: BOOLEAN
 

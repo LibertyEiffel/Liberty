@@ -303,7 +303,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 	do
 		if a_description/=Void then
 			from 
-				iter:=a_description.get_new_iterator; iter.start; 
+				iter:=a_description.new_iterator; iter.start; 
 				buffer.append(comment); length:=0
 			until iter.is_off loop
 				word := iter.item
@@ -509,6 +509,78 @@ feature {ANY} -- Typedefs
 
 	typedefs_file: TERMINAL_OUTPUT_STREAM
 
+	setup_typedefs_file is
+		-- Start a class named as in `typedefs_class_name' in `typedefs_file'
+		-- containing dummy queries used for anchored declarations.
+		
+		-- Each query is named like a C typedef and its Result type is the
+		-- Eiffel equivalent of the fundamental type the typedef refers to.
+
+		-- For example:
+
+		-- gsize: INTEGER_64 is
+		--    -- typedef unsigned long int gsize;
+		-- do
+		-- end
+
+		-- Those queries shall never be invoked but rather used in other
+		-- features as anchors like: do_stuff (a_size: like gsize)
+	local path: POSIX_PATH_NAME; pathname: STRING
+	do
+		create path.make_from_string(directory)
+		path.add_last(typedefs_class_name.as_lower+once ".e")
+		pathname := path.to_string
+		log(once "Outputting anchor queries (for typedefs) into @(1) on `@(2)'.%N",
+		<<typedefs_class_name, pathname>>)
+		create {TEXT_FILE_WRITE} typedefs_file.connect_to(pathname)
+		typedef_queries.reset
+		typedef_queries.append(automatically_generated_header)
+		typedef_queries.append(deferred_class)
+		typedef_queries.append(typedefs_class_name) 
+		typedef_queries.append_new_line
+		typedef_queries.append(struct_inherits) --line
+		typedef_queries.append(typedefs_features_header)
+	ensure 
+		typedefs_file /= Void
+		typedefs_file.is_connected
+	end
+
+	emit_typedef (a_typedef: XML_COMPOSITE_NODE; a_name: STRING) is
+		-- Emit the `a_name' query on `typedefs_file' with the type of
+		-- `a_typedef' as an anchored declaration , i.e.: "gchar: CHARACTER is
+		-- do end" 
+	require
+		a_typedef /= Void
+		a_typedef.name.is_equal(U"FundamentalType")
+	local type, query_name: STRING
+	do
+		type := type_of(a_typedef,resolved_typedefs)
+		inspect type
+		when "void" then typedef_queries.put_message (once "%T-- @(1) typedef to void%N", <<a_name>>)
+		when "" then typedef_queries.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<a_name>>)
+		else
+			query_name := eiffel_feature(a_name)
+			log(once "@(1)->@(2), ",<<a_name,query_name>>)
+			typedef_queries.put_message (once 
+			"	@(1): @(2) is%N%
+			%		-- typedef @(3)%N%
+			%		-- Empty by design, used for anchored declarations.%N%
+			%	do%N%
+			%	ensure Result.is_default%N%
+			%	end%N%
+			%%N", <<query_name, type, a_name>>)
+		end
+	end
+
+	finalize_typedefs_file is
+		-- Append footer to `typedefs_file' ann close it
+	do
+		typedef_queries.append(footer)
+		typedef_queries.print_on(typedefs_file)
+		typedefs_file.disconnect
+		log_string(once " done.%N")
+	end
+
 feature {ANY} -- Low-level structure class creator
 	examine_structure (a_structure: XML_COMPOSITE_NODE) is
 		require
@@ -607,7 +679,7 @@ feature {ANY} -- Low-level structure class creator
 			if members /= Void then
 				setters.append(setters_header)
 				queries.append(queries_header)
-				members_iter := members.split.get_new_iterator
+				members_iter := members.split.new_iterator
 				from members_iter.start until members_iter.is_off
 				loop
 					id := members_iter.item
@@ -1129,7 +1201,7 @@ feature {ANY} -- Auxiliary features
 			-- but we shall take in count the space taken by "--" 
 			from
 				Result.append(once "%T--"); 
-				iter:=a_description.get_new_iterator; iter.start; 
+				iter:=a_description.new_iterator; iter.start; 
 				length:=0
 			until iter.is_off loop
 				word := iter.item

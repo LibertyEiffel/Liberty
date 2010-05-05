@@ -5,7 +5,6 @@ inherit
 	C_FUNCTION_ARGUMENT
 	NAMED_NODE
 	TYPED_NODE
-	LIBERTY_TYPED
 
 insert
 	NAME_CONVERTER
@@ -14,6 +13,21 @@ creation make
 
 feature 
 	is_ellipsis: BOOLEAN is False
+
+	is_fundamental: BOOLEAN is
+		do
+			Result:=types.at(dequalify(type)).is_fundamental
+		end
+
+	is_void: BOOLEAN is
+		do
+			Result:=types.at(dequalify(type)).is_void
+		end
+
+	has_wrapper: BOOLEAN is
+		do
+			Result:=types.at(dequalify(type)).has_wrapper
+		end
 
 	wrapper_type: STRING is
 		do
@@ -36,6 +50,7 @@ feature
 	end
 
 	put_on (a_buffer: FORMATTER) is
+	require else has_wrapper
 	local a_placeholder, a_wrapper_type: STRING
 	do
 		-- Cache results of `placeholder' and `wrapper_type' queries

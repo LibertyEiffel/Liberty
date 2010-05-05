@@ -13,6 +13,10 @@ feature
 		deferred
 		end
 
+	has_wrapper: BOOLEAN is
+		deferred
+		end
+
 	put_on (a_buffer: FORMATTER) is
 		-- Put an Eiffel representation on Current argument on `a_buffer'.
 	require a_buffer/=Void

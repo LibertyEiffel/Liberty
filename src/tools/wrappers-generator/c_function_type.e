@@ -5,7 +5,7 @@ class C_FUNCTION_TYPE
 inherit 
 	GCCXML_NODE
 	IDENTIFIED_NODE
-	LIBERTY_TYPED
+	TYPED_NODE
 	STORABLE_NODE
 
 creation make
@@ -17,6 +17,12 @@ feature
 		end
 
 	wrapper_type: STRING is "POINTER"
+
+	is_fundamental: BOOLEAN is False
+
+	is_void: BOOLEAN is False
+
+	has_wrapper: BOOLEAN is True
 
 -- invariant name.is_equal(once U"FunctionType")
 end -- class C_FUNCTION_TYPE

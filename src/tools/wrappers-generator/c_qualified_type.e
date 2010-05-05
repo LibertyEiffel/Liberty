@@ -8,7 +8,6 @@ inherit
 	IDENTIFIED_NODE
 	TYPED_NODE
 	STORABLE_NODE
-	LIBERTY_TYPED
 
 creation make
 
@@ -18,9 +17,25 @@ feature
 			types.fast_put(Current,id)	
 		end
 
+
+	is_fundamental: BOOLEAN is
+		do
+			Result:=types.at(type).is_fundamental
+		end
+
+	is_void: BOOLEAN is
+		do
+			Result:=types.at(type).is_void
+		end
+
+	has_wrapper: BOOLEAN is
+		do
+			Result:=types.at(type).has_wrapper
+		end
+		
 	wrapper_type: STRING is
 		do
 			Result:= types.at(type).wrapper_type
 		end
--- invariant name.is_equal(once U"CvQualifiedType")
+	-- invariant name.is_equal(once U"CvQualifiedType")
 end -- class C_QUALIFIED_TYPE

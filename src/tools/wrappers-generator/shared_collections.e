@@ -11,16 +11,12 @@ feature
 	fundamentals: HASHED_DICTIONARY[C_FUNDAMENTAL_TYPE, UNICODE_STRING] is once create Result.make end
 	namespaces: HASHED_DICTIONARY[C_NAMESPACE, UNICODE_STRING] is once create Result.make end
 	structures: HASHED_DICTIONARY[C_STRUCT, UNICODE_STRING] is once create Result.make end
-	typedefs: HASHED_DICTIONARY[C_TYPEDEF, UNICODE_STRING] is once create Result.make end
-	types: HASHED_DICTIONARY[LIBERTY_TYPED, UNICODE_STRING] is once create Result.make end
+	typedefs: TYPEDEFS is once create Result.make end
+	types: HASHED_DICTIONARY[TYPED_NODE, UNICODE_STRING] is once create Result.make end
 	unions: HASHED_DICTIONARY[C_UNION, UNICODE_STRING] is once create Result.make end
 	fields: HASHED_DICTIONARY[C_FIELD, UNICODE_STRING] is once create Result.make end
 
 feature
-	typedefs_class_name: STRING
-		-- The name of the class containing empty queries named like typedefs,
-		-- useful for anchored declarations (i.e. "gsize: INTEGER_32 is do end")
-
 	flags: WORDS is
 		-- Enumerations that will be forcefully wrapped as a flag.
 	do

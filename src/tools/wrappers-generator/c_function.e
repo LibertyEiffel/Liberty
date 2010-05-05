@@ -5,7 +5,9 @@ inherit
 	GCCXML_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
-		rename c_name as function_name
+		rename 
+			c_name as function_name
+			c_string_name as function_string_name
 		end
 	FILED_NODE
 	STORABLE_NODE
@@ -27,6 +29,11 @@ feature {ANY}
 			Result := attribute_at(once U"returns")
 		end
 
+	return_type: TYPED_NODE is
+		do
+			Result := types.at(returns)
+		end
+
 	eiffel_name: STRING is
 		-- The Eiffel version of Current's function name.
 		-- NOTE: this way of assigning feature names is not entirely
@@ -41,32 +48,55 @@ feature {ANY}
 			Result := stored_eiffel_name
 		end
 	
-	variadic: BOOLEAN 
+	has_arguments: BOOLEAN is
+		-- Does Current function have arguments?
+	do
+		Result := children_count>0
+	end
+
+	is_variadic: BOOLEAN is
 		-- Does current function accept a variable number of arguments?
+	do
+		if has_arguments 
+			then Result := argument(children_count).is_ellipsis
+		else Result:=False
+		end
+	end
+
+	is_wrappable: BOOLEAN is
+		-- Are all arguments wrappable and is return type either void or wrappable?
+	local i: INTEGER_32
+	do
+		Result := (return_type.is_void or return_type.has_wrapper)
+	    if Result then
+			from i:=children_count until not Result or i<1 loop
+				Result := argument(i).has_wrapper
+				i := i-1
+			end
+		end
+	end
 
 	wrap_on (a_stream: OUTPUT_STREAM) is 
-		local unwrappable: BOOLEAN
 		do
-			-- Note: unwrappable is set in the rescue clause if an exception is
-			-- raised. Is it understandable enought? 
-			if unwrappable then
-				log("... `@(1)' is not wrappable%N", <<function_name.to_utf8>>) 
+			if not is_wrappable then
+				log("... `@(1)' is not wrappable%N", <<function_string_name>>) 
 				buffer.reset
-				buffer.put_message(once "		-- function @(1) is not wrappable%N",<<function_name.to_utf8>>)
+				buffer.put_message(once "	-- function @(1) (at line @(2) in file @(3) is not wrappable%N",
+				<<function_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
-			elseif not is_public(function_name) then
-				log(once "Skipping 'hidden' function `@(1)'%N", <<function_name.to_utf8>>)
-				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<function_name.to_utf8>>)
+			elseif not is_public then
+				log(once "Skipping 'hidden' function `@(1)'%N", <<function_string_name>>)
+				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<function_string_name>>)
 			elseif not is_in_main_namespace then
 				log(once "Skipping function `@(1)' belonging to namespace @(2)%N",
-				<<function_name.to_utf8, namespace.c_name.as_utf8>>)
+				<<function_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
-				<<function_name.to_utf8, namespace.c_name.as_utf8>>)
+				<<function_string_name, namespace.c_string_name>>)
 			else
-				log(once "Function @(1)",<<function_name.to_utf8>>)
+				log(once "Function @(1)",<<function_string_name>>)
 				buffer.put_message(once "%T@(1)", <<eiffel_name>>)
-			 	append_arguments 
+				if has_arguments then append_arguments end
 				append_return_type
 				append_description 
 				append_body
@@ -74,8 +104,8 @@ feature {ANY}
 			end
 			buffer.print_on(a_stream)
 		rescue
-			unwrappable := True
-			retry
+			--unwrappable := True
+			--retry
 		end
 
 	append_description is
@@ -115,42 +145,37 @@ feature {ANY}
 			-- C requires at least one argument before the eventual ellipsis;
 			-- C++ allows ellipsis to be the only argument. (source
 			-- http://publib.boulder.ibm.com/infocenter/iadthelp/v7r0/index.jsp?topic=/com.ibm.etools.iseries.langref.doc/as400clr155.htm)  
+		require has_arguments
 		local i, last: INTEGER
 		do
-			if children_count>0 then 
-				buffer.append(once " (")
-				-- Omit the eventual ellipsis
-				if argument(children_count).is_ellipsis then
-					last:=children_count-1
-					variadic := True
-				else last:= children_count
-				end
-				log(once "(@(1) args: ",<<children_count.out>>)
-				from i:=1 until i>last-1 loop
-					argument(i).put_on(buffer)
-					buffer.append(once "; ") 
-					i := i + 1
-				end
-				argument(last).put_on(buffer)
-				log_string(once ")")
-				buffer.append(once ")")
+			buffer.append(once " (")
+			-- Omit the eventual ellipsis
+			if is_variadic then -- Skip the last argument
+				last:=children_count-1
+			else last:= children_count
 			end
+			log(once "(@(1) args: ",<<children_count.out>>);
+			from i:=1 until i>last-1 loop
+				argument(i).put_on(buffer)
+				buffer.append(once "; ") 
+				i := i + 1
+			end
+			argument(last).put_on(buffer)
+			log_string(once ")")
+			buffer.append(once ")")
 		end
 
 	append_return_type is
 			-- Append the Eiffel equivalent type of the return type of
-			-- `a_node' to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
+			-- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
 			-- POINTER is". When result of `a_node' is "void" only " is" is appended.
-		local
-			eiffel_type: STRING
 		do
-			eiffel_type := types.at(returns).wrapper_type
-			if eiffel_type.is_empty then 
+			if return_type.is_void then 
 				-- don't print anything; the correct "return type" of a C
 				-- function returning void (i.e. a command) is an empty string.
 			else
 				buffer.append(once ": ")
-				buffer.append(eiffel_type)
+				buffer.append(return_type.wrapper_type)
 			end
 			buffer.append(once " is%N")
 		rescue
@@ -162,16 +187,16 @@ feature {ANY}
 		local
 			actual_c_symbol,description,dir: STRING
 		do
-			description := function_name.to_utf8
-			if variadic then
+			description := function_string_name
+			if is_variadic then
 				description.append(once " (variadic) ")
 			end
 			-- Deal with argument-less functions like "fork". An
 			-- argument-less function returning an integer shall be marked with
 			-- "()", the empty argument list, otherwise the C compiler will
 			-- interpret it as the address of the call casted to an integer.
-			if children_count=0 then actual_c_symbol := function_name.as_utf8+(once "()")
-			else actual_c_symbol := function_name.to_utf8
+			if not has_arguments then actual_c_symbol := function_string_name+(once "()")
+			else actual_c_symbol := function_string_name
 			end
 			-- Temporary code to handle output to standard output.
 			if directory=Void then dir:=once "the almighty standard output"

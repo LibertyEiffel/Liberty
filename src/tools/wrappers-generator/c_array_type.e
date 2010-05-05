@@ -11,7 +11,6 @@ inherit
 	IDENTIFIED_NODE
 	TYPED_NODE
 	STORABLE_NODE
-	LIBERTY_TYPED
 
 creation make 
 feature
@@ -21,4 +20,8 @@ feature
 		end
 	
 	wrapper_type: STRING is "POINTER"
+
+	is_fundamental: BOOLEAN is False
+	is_void: BOOLEAN is False
+	has_wrapper: BOOLEAN is True
 end
