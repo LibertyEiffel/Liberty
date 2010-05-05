@@ -205,23 +205,31 @@ feature {}
 				dir.ensure_system_notation
 				dir.system_notation.from_notation(loadpath_notation, loadpath_line)
 
-				dir.compute_subdirectory_with(location_directory, loadpath_line)
-				if dir.last_entry.is_empty then
-					--| *** TODO error: the loadpath line does not contain a valid path
-					not_yet_implemented
+				if dir.system_notation.is_absolute_path(loadpath_line) then
+					sublocation.copy(loadpath_line)
+				else
+					dir.compute_subdirectory_with(location_directory, loadpath_line)
+					if dir.last_entry.is_empty then
+						--| *** TODO error: the loadpath line does not contain a valid path
+						not_yet_implemented
+					end
+					sublocation.copy(dir.last_entry)
 				end
-				sublocation.copy(dir.last_entry)
 				if not ft.is_directory(sublocation) then
 					loadpath_entry.make_from_string(loadpath_line)
 					loadpath_last := loadpath_entry.last
 
 					dir.compute_parent_directory_of(loadpath_line)
 					loadpath_line.copy(dir.last_entry)
-					dir.compute_subdirectory_with(location_directory, loadpath_line)
-					check
-						not dir.last_entry.is_empty
+					if dir.system_notation.is_absolute_path(loadpath_line) then
+						sublocation.copy(loadpath_line)
+					else
+						dir.compute_subdirectory_with(location_directory, loadpath_line)
+						check
+							not dir.last_entry.is_empty
+						end
+						sublocation.copy(dir.last_entry)
 					end
-					sublocation.copy(dir.last_entry)
 					dir.compute_file_path_with(sublocation, loadpath_last)
 					check
 						not dir.last_entry.is_empty
