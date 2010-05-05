@@ -12,5 +12,5 @@ mv loadpath.se~ loadpath.se
 
 eval `se -environment | grep -v '^#'`
 
-echo $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=error -check=all
-exec $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=error -check=all
+echo $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=${LOG:-error} -check=${CHECK:-all}
+exec $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=${LOG:-error} -check=${CHECK:-all}
