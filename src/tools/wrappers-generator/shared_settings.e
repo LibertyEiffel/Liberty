@@ -1,7 +1,12 @@
 deferred class SHARED_SETTINGS
 	-- Access to the `settings' singleton and commodity features like "proxy"
 	-- setters, queries and logging facilities.
-
+insert ANY 
+	undefine 
+		copy, 
+		is_equal,
+		out_in_tagged_out_memory
+	end
 feature {ANY}
 	settings: SETTINGS is
 			-- The singleton to access all the shared settings
@@ -83,9 +88,9 @@ feature {} -- Type mangling
 		Result := an_id.substring(an_id.lower, an_id.upper - 1)
 		else Result := an_id
 		end
-		-- debug 
+		--debug 
 		-- 	log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
-		-- end
+		--end
 	end
 
 

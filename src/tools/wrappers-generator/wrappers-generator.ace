@@ -13,7 +13,7 @@ default -- section of the system
    collect (yes);
    no_style_warning (no);
    no_warning (no);
-   verbose (yes);
+   verbose (no);
    manifest_string_trace (no); -- yes);
    high_memory_compiler (yes);	
    profile (no);

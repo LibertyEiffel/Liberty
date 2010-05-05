@@ -79,22 +79,10 @@ feature {} -- Auxiliary features
 			Result := a_name.first.is_letter
 		end
 	
-	is_public (a_name: UNICODE_STRING): BOOLEAN is
-			-- Does `a_name' start with an alphabetical character? Names
-			-- starting with underscores or other strange characters are
-			-- usually considered private in C/C++ languages.
-		require
-			not_void: a_name /= Void
-			meaningful_length: a_name.count > 1
-		do
-			Result := a_name.first.to_character.is_letter
-		end
-
-
 	is_valid_class_name (a_name: STRING): BOOLEAN is
-			-- Is `a_name' valid as an Eiffel class name? i.e. does it
-			-- start with an upper-case letter and contain only
-			-- upper-case letters, underscores and numbers?
+			-- Does `a_name' represents a valid Eiffel class name? i.e. does it
+			-- start with an upper-case letter and contain only upper-case
+			-- letters, underscores and numbers?
 		require
 			a_name /= Void
 		local

@@ -15,7 +15,7 @@ inherit
 	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
-	LIBERTY_TYPED
+	TYPED_NODE
 	WRAPPED_BY_A_CLASS
 
 creation make
@@ -27,13 +27,19 @@ feature
 			types.put(Current,id)
 		end
 
+	has_wrapper: BOOLEAN is True
 	wrapper_type: STRING is "INTEGER"
+
+	is_fundamental: BOOLEAN is False
+
+	is_void: BOOLEAN is False
+	
 
 	emit_wrapper is
 		local 
 			filename: STRING; path: POSIX_PATH_NAME
 		do
-			if is_public(c_name) then
+			if is_public then
 				if on_standard_output then 
 					log(once "Outputting enum @(1) as @(2) on standard output.%N",
 					<<c_name.to_utf8, class_name>>)
@@ -97,7 +103,7 @@ feature
 			buffer.print_on(output)
 		end
 	
-	suffix: STRING is "ENUM"
+	suffix: STRING is "_ENUM"
 	
 	prefix_length: INTEGER 
 		-- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
