@@ -3,7 +3,7 @@
 test=$(basename $1)
 cd $(dirname $1)
 
-{
+test -e loadpath.se || {
 	echo './'
 	echo "$LIBERTY_HOME/src/loadpath.se"
 } > loadpath.se
