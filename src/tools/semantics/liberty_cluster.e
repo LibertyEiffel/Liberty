@@ -184,9 +184,11 @@ feature {}
 				until
 					tfr.end_of_input
 				loop
+					env.substitute(tfr.last_string)
 					process_loadpath(Result, tfr.last_string)
 					tfr.read_line
 				end
+				env.substitute(tfr.last_string)
 				process_loadpath(Result, tfr.last_string)
 				tfr.disconnect
 			end
@@ -315,6 +317,7 @@ feature {}
 		end
 
 	logging: LOGGING
+	env: LIBERTY_ENVIRONMENT
 
 invariant
 	ft.is_directory(location) implies location_directory = location
