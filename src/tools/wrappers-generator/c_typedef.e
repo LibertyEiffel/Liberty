@@ -1,13 +1,14 @@
 class C_TYPEDEF
 
 inherit 
+	CONTEXTED_NODE
+	FILED_NODE
 	GCCXML_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
-	FILED_NODE
+	STORABLE_NODE
 	TYPED_NODE
 	WRAPPABLE_NODE
-	STORABLE_NODE
 
 creation make
 
@@ -44,7 +45,12 @@ feature
 		-- If Current ultimately refers to a fundamental type then put an empty query on `a_stream', otherwise nothing is done.
 	local query_name: STRING
 	do
-		if is_fundamental then 
+		if is_public and then is_in_main_namespace and then is_fundamental then 
+			-- Note: here I used "and then" with progressively more complicated
+			-- queries; `is_public' is fast, `is_in_main_namespace' quite fast
+			-- and `is_fundamental' quite slow; using "and then" allows the
+			-- program not to compute the costly `is_fundamental' is either one
+			-- of the first two are False.
 			inspect wrapper_type
 			when "void" then buffer.put_message (once "%T-- @(1) typedef to void%N", <<c_string_name>>)
 			when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
