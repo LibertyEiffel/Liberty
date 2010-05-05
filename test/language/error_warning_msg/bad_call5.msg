@@ -1,0 +1,12 @@
+****** Fatal Error: The feature called has 1 formal argument while
+the actual argument list has 2 arguments.
+
+The source lines involved by the message are the following:
+
+Line 12 column 7 in BAD_CALL5 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_call5.e):
+    bar(1, 2)
+        ^    
+Line 15 column 9 in BAD_CALL5 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_call5.e):
+   bar (x: INTEGER) is
+        ^             
+------

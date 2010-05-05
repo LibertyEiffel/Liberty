@@ -1,0 +1,14 @@
+system
+	"test_003.exe" -- (mandatory for "se test" because of the "test_003.e" file name)
+
+root
+	TEST_003: make
+
+cluster
+	"."
+	"${path_lib}/loadpath.se"
+
+external
+	cecil ("test_003.se")
+
+end

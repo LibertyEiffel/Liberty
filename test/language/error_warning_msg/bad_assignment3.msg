@@ -1,0 +1,10 @@
+****** Fatal Error:  Bad assignment. Cannot assign `["foo", "bar"]'
+which is of type TUPLE[STRING,STRING] into `any' which is of type
+TUPLE[STRING,STRING,ANY].
+
+The source lines involved by the message are the following:
+
+Line 12 columns 3, 10 in BAD_ASSIGNMENT3 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_assignment3.e):
+    any := ["foo", "bar"]
+    ^      ^             
+------

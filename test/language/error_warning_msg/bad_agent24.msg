@@ -1,0 +1,9 @@
+****** Fatal Error: Incompatible actual argument for agent call.
+Cannot pass `Void' into formal argument of type CHARACTER because
+CHARACTER is expanded. (The whole type of the agent your are trying
+to launch is PROCEDURE[TUPLE[CHARACTER]].)
+
+Line 12 column 26 in BAD_AGENT24 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_agent24.e):
+         (agent proc(?)).call([Void])
+                               ^     
+------

@@ -1,0 +1,10 @@
+****** Fatal Error:  Bad assignment. Cannot assign `actual_expanded'
+which is of type AUX_ASSIGNMENT18B into `non_expanded' which is
+of type AUX_ASSIGNMENT18A.
+
+The source lines involved by the message are the following:
+
+Line 15 columns 4, 20 in BAD_ASSIGNMENT18 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_assignment18.e):
+         non_expanded := actual_expanded
+         ^               ^              
+------
