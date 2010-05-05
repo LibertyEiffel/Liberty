@@ -1,4 +1,4 @@
--- This file have been created by eiffel-gcc-xml.
+-- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
 deferred class GSHELL_EXTERNALS
@@ -6,46 +6,48 @@ deferred class GSHELL_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
+		-- TODO: insert typedefs class
 feature {} -- External calls
 
 	g_shell_unquote (a_quoted_string: POINTER; an_error: POINTER): POINTER is
- 		-- g_shell_unquote
+ 		-- g_shell_unquote (node at line 4255)
 		external "plug_in"
 		alias "{
-			location: "../../../plugins"
-			module_name: "glib"
+			location: "."
+			module_name: "plugin"
 			feature_name: "g_shell_unquote"
 		}"
 		end
 
 	g_shell_error_quark: NATURAL_32 is
- 		-- g_shell_error_quark
+ 		-- g_shell_error_quark (node at line 5019)
 		external "plug_in"
 		alias "{
-			location: "../../../plugins"
-			module_name: "glib"
-			feature_name: "g_shell_error_quark"
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_shell_error_quark()"
 		}"
 		end
 
 	g_shell_quote (an_unquoted_string: POINTER): POINTER is
- 		-- g_shell_quote
+ 		-- g_shell_quote (node at line 6524)
 		external "plug_in"
 		alias "{
-			location: "../../../plugins"
-			module_name: "glib"
+			location: "."
+			module_name: "plugin"
 			feature_name: "g_shell_quote"
 		}"
 		end
 
 	g_shell_parse_argv (a_command_line: POINTER; an_argcp: POINTER; an_argvp: POINTER; an_error: POINTER): INTEGER_32 is
- 		-- g_shell_parse_argv
+ 		-- g_shell_parse_argv (node at line 6757)
 		external "plug_in"
 		alias "{
-			location: "../../../plugins"
-			module_name: "glib"
+			location: "."
+			module_name: "plugin"
 			feature_name: "g_shell_parse_argv"
 		}"
 		end
 
-end
+
+end -- class GSHELL_EXTERNALS
