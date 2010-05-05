@@ -1,0 +1,12 @@
+****** Fatal Error: Wrong number of generic arguments (compare
+usage and definition below).
+
+The source lines involved by the message are the following:
+
+Line 12 column 7 in BAD_GENERIC9 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/bad_generic9.e):
+         a: AUX_GENERIC9[INTEGER]
+            ^                    
+Line 4 column 19 in AUX_GENERIC9 (/home/colnet/SmartEiffel/test_suite/language/error_warning_msg/aux_generic9.e):
+class AUX_GENERIC9[E1->INTEGER, E2->INTEGER]
+                  ^                         
+------

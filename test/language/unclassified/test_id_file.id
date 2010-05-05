@@ -1,0 +1,695 @@
+|lib:net/loadpath.se:low_level/
+870 "SOCKET" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/socket.e"
+class-name: SOCKET
+assertion-level: boost
+parent-count: 5 insert: 810 866 865 807 871 
+#
+864 "SOCKET_SERVER" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/socket_server.e"
+class-name: SOCKET_SERVER
+assertion-level: boost
+parent-count: 2 insert: 866 865 
+#
+866 "SOCKET_HANDLER" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/socket_handler.e"
+class-name: SOCKET_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+865 "SOCKET_PLUG_IN" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/socket_plug_in.e"
+class-name: SOCKET_PLUG_IN
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+880 "CLIENT_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/client_socket_input_output_stream.e"
+class-name: CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 874
+#
+873 "SERVER_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/net/low_level/server_socket_input_output_stream.e"
+class-name: SERVER_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 874
+#
+|lib:unicode/
+884 "UNICODE_STRING_HANDLER" l
+class-path: "/home/colnet/SmartEiffel/lib/unicode/unicode_string_handler.e"
+class-name: UNICODE_STRING_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:sequencer/loadpath.se:events/
+872 "NETWORK_CONNECTION_OCCURRED" l
+class-path: "/home/colnet/SmartEiffel/lib/sequencer/events/network_connection_occurred.e"
+class-name: NETWORK_CONNECTION_OCCURRED
+assertion-level: boost
+parent-count: 1 inherit: 837
+#
+850 "CAN_READ_DATA_FROM_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/sequencer/events/can_read_data_from_stream.e"
+class-name: CAN_READ_DATA_FROM_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 837
+#
+838 "CAN_WRITE_DATA_TO_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/sequencer/events/can_write_data_to_stream.e"
+class-name: CAN_WRITE_DATA_TO_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 837
+#
+|lib:string/loadpath.se:low_level/
+810 "STRING_HANDLER" l
+class-path: "/home/colnet/SmartEiffel/lib/string/low_level/string_handler.e"
+class-name: STRING_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:io/loadpath.se:terminal/
+834 "TEXT_FILE_READ" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/text_file_read.e"
+class-name: TEXT_FILE_READ
+assertion-level: boost
+parent-count: 3 inherit: 835 822 insert: 810 
+#
+803 "STD_ERROR" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/std_error.e"
+class-name: STD_ERROR
+assertion-level: boost
+parent-count: 2 inherit: 804 insert: 811 
+#
+817 "STD_OUTPUT" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/std_output.e"
+class-name: STD_OUTPUT
+assertion-level: boost
+parent-count: 2 inherit: 804 insert: 811 
+#
+835 "FILE" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/file.e"
+class-name: FILE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+825 "STD_INPUT" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/std_input.e"
+class-name: STD_INPUT
+assertion-level: boost
+parent-count: 3 inherit: 822 insert: 810 811 
+#
+820 "STD_INPUT_OUTPUT" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal/std_input_output.e"
+class-name: STD_INPUT_OUTPUT
+assertion-level: boost
+parent-count: 1 inherit: 821
+#
+|lib:abilities/
+813 "STORABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/storable.e"
+class-name: STORABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+807 "RECYCLABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/recyclable.e"
+class-name: RECYCLABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+815 "HASHABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/hashable.e"
+class-name: HASHABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+812 "TRAVERSABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/traversable.e"
+class-name: TRAVERSABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+871 "DISPOSABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/disposable.e"
+class-name: DISPOSABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+814 "COMPARABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/abilities/comparable.e"
+class-name: COMPARABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:numeric/loadpath.se:internal/
+852 "INTEGER_GENERAL_NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/internal/integer_general_number.e"
+class-name: INTEGER_GENERAL_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 831
+#
+851 "INTEGER_64_NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/internal/integer_64_number.e"
+class-name: INTEGER_64_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 852
+#
+854 "FRACTION_WITH_BIG_INTEGER_NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/internal/fraction_with_big_integer_number.e"
+class-name: FRACTION_WITH_BIG_INTEGER_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 855
+#
+855 "FRACTION_GENERAL_NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/internal/fraction_general_number.e"
+class-name: FRACTION_GENERAL_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 831
+#
+856 "BIG_INTEGER_NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/internal/big_integer_number.e"
+class-name: BIG_INTEGER_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 852
+#
+|lib:storage/loadpath.se:collection/
+857 "FAST_ARRAY" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/collection/fast_array.e"
+class-name: FAST_ARRAY
+assertion-level: boost
+parent-count: 3 inherit: 840 insert: 845 844 
+#
+879 "RING_ARRAY" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/collection/ring_array.e"
+class-name: RING_ARRAY
+assertion-level: boost
+parent-count: 3 inherit: 840 insert: 845 844 
+#
+843 "ARRAY" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/collection/array.e"
+class-name: ARRAY
+assertion-level: boost
+parent-count: 3 inherit: 840 insert: 845 844 
+#
+|lib:kernel/
+791 "TUPLE" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE
+assertion-level: boost
+parent-count: 1 inherit: 790
+#
+816 "PLATFORM" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/platform.e"
+class-name: PLATFORM
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+842 "ROUTINE" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/routine.e"
+class-name: ROUTINE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+841 "FUNCTION" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/function.e"
+class-name: FUNCTION
+assertion-level: boost
+parent-count: 1 inherit: 842
+#
+6 "BOOLEAN" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/boolean.e"
+class-name: BOOLEAN
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+878 "WEAK_REFERENCE" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/weak_reference.e"
+class-name: WEAK_REFERENCE
+assertion-level: boost
+parent-count: 1 inherit: 790
+#
+8 "POINTER" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/pointer.e"
+class-name: POINTER
+assertion-level: boost
+parent-count: 2 insert: 815 810 
+#
+792 "TUPLE 1" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 1
+assertion-level: boost
+parent-count: 1 inherit: 791
+#
+793 "TUPLE 2" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 2
+assertion-level: boost
+parent-count: 1 inherit: 792
+#
+794 "TUPLE 3" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 3
+assertion-level: boost
+parent-count: 1 inherit: 793
+#
+790 "ANY" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/any.e"
+class-name: ANY
+assertion-level: boost
+parent-count: 0
+#
+795 "TUPLE 4" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 4
+assertion-level: boost
+parent-count: 1 inherit: 794
+#
+796 "TUPLE 5" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 5
+assertion-level: boost
+parent-count: 1 inherit: 795
+#
+797 "TUPLE 6" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 6
+assertion-level: boost
+parent-count: 1 inherit: 796
+#
+798 "TUPLE 7" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 7
+assertion-level: boost
+parent-count: 1 inherit: 797
+#
+799 "TUPLE 8" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 8
+assertion-level: boost
+parent-count: 1 inherit: 798
+#
+800 "TUPLE 9" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 9
+assertion-level: boost
+parent-count: 1 inherit: 799
+#
+876 "REFERENCE" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/reference.e"
+class-name: REFERENCE
+assertion-level: boost
+parent-count: 1 inherit: 790
+#
+830 "SAFE_EQUAL" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/safe_equal.e"
+class-name: SAFE_EQUAL
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+877 "PROCEDURE" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/procedure.e"
+class-name: PROCEDURE
+assertion-level: boost
+parent-count: 1 inherit: 842
+#
+801 "TUPLE 10" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 10
+assertion-level: boost
+parent-count: 1 inherit: 800
+#
+869 "MEMORY" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/memory.e"
+class-name: MEMORY
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:net/loadpath.se:
+875 "ACCESS" l
+class-path: "/home/colnet/SmartEiffel/lib/net/access.e"
+class-name: ACCESS
+assertion-level: boost
+parent-count: 1 insert: 866 
+#
+874 "SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/net/socket_input_output_stream.e"
+class-name: SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 821 insert: 866 810 
+#
+|lib:numeric/loadpath.se:
+846 "NUMBER_TOOLS" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/number_tools.e"
+class-name: NUMBER_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+4 "REAL_32" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/real_32.e"
+class-name: REAL_32
+assertion-level: boost
+parent-count: 1 insert: 832 
+#
+11 "INTEGER_64" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/integer_64.e"
+class-name: INTEGER_64
+assertion-level: boost
+parent-count: 1 insert: 826 
+#
+831 "NUMBER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/number.e"
+class-name: NUMBER
+assertion-level: boost
+parent-count: 4 inherit: 815 814 827 insert: 816 
+#
+5 "REAL_64" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/real_64.e"
+class-name: REAL_64
+assertion-level: boost
+parent-count: 1 insert: 832 
+#
+826 "INTEGER_GENERAL" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/integer_general.e"
+class-name: INTEGER_GENERAL
+assertion-level: boost
+parent-count: 3 inherit: 814 insert: 827 816 
+#
+827 "NUMERIC" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/numeric.e"
+class-name: NUMERIC
+assertion-level: boost
+parent-count: 1 inherit: 815
+#
+1 "INTEGER_8" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/integer_8.e"
+class-name: INTEGER_8
+assertion-level: boost
+parent-count: 1 insert: 826 
+#
+5 "REAL" l
+#
+2 "INTEGER" l
+#
+12 "REAL_EXTENDED" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/real_extended.e"
+class-name: REAL_EXTENDED
+assertion-level: boost
+parent-count: 1 insert: 832 
+#
+832 "REAL_GENERAL" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/real_general.e"
+class-name: REAL_GENERAL
+assertion-level: boost
+parent-count: 2 inherit: 827 814
+#
+10 "INTEGER_16" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/integer_16.e"
+class-name: INTEGER_16
+assertion-level: boost
+parent-count: 1 insert: 826 
+#
+853 "MUTABLE_BIG_INTEGER" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/mutable_big_integer.e"
+class-name: MUTABLE_BIG_INTEGER
+assertion-level: boost
+parent-count: 3 inherit: 815 814 insert: 816 
+#
+2 "INTEGER_32" l
+class-path: "/home/colnet/SmartEiffel/lib/numeric/integer_32.e"
+class-name: INTEGER_32
+assertion-level: boost
+parent-count: 1 insert: 826 
+#
+|lib:iterator/loadpath.se:
+839 "ITERATOR" l
+class-path: "/home/colnet/SmartEiffel/lib/iterator/iterator.e"
+class-name: ITERATOR
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:io/loadpath.se:low_level/
+882 "BASIC_DIRECTORY" l
+#
+811 "REDIRECTION_TOOLS" l
+class-path: "/home/colnet/SmartEiffel/lib/io/low_level/redirection_tools.e"
+class-name: REDIRECTION_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+809 "OUTPUT_STREAM_TOOLS" l
+class-path: "/home/colnet/SmartEiffel/lib/io/low_level/output_stream_tools.e"
+class-name: OUTPUT_STREAM_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 810 
+#
+824 "INPUT_STREAM_TOOLS" l
+class-path: "/home/colnet/SmartEiffel/lib/io/low_level/input_stream_tools.e"
+class-name: INPUT_STREAM_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:misc/
+861 "MINI_PARSER_BUFFER" l
+class-path: "/home/colnet/SmartEiffel/lib/misc/mini_parser_buffer.e"
+class-name: MINI_PARSER_BUFFER
+assertion-level: boost
+parent-count: 1 insert: 810 
+#
+|lib:io/loadpath.se:path_name/
+892 "POSIX_PATH_NAME" l
+#
+895 "WINDOWS_DIRECTORY_NOTATION" l
+#
+888 "UNIX_DIRECTORY_NOTATION" l
+#
+897 "CYGWIN_DIRECTORY_NOTATION" l
+#
+887 "OPENVMS_DIRECTORY_NOTATION" l
+#
+889 "PATH_NAME_NOTATION" l
+#
+898 "MACINTOSH_DIRECTORY_NOTATION" l
+#
+896 "MICROSOFT_PATH_NAME" l
+#
+886 "AMIGA_DIRECTORY_NOTATION" l
+#
+|lib:storage/loadpath.se:internal/
+845 "ARRAYED_COLLECTION" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/internal/arrayed_collection.e"
+class-name: ARRAYED_COLLECTION
+assertion-level: boost
+parent-count: 1 insert: 840 
+#
+|lib:sequencer/loadpath.se:
+837 "EVENT_DESCRIPTOR" l
+class-path: "/home/colnet/SmartEiffel/lib/sequencer/event_descriptor.e"
+class-name: EVENT_DESCRIPTOR
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+859 "EVENTS_SET" l
+class-path: "/home/colnet/SmartEiffel/lib/sequencer/events_set.e"
+class-name: EVENTS_SET
+assertion-level: boost
+parent-count: 2 insert: 790 816 
+#
+|lib:time/loadpath.se:
+885 "TIME_FORMATTER" l
+class-path: "/home/colnet/SmartEiffel/lib/time/time_formatter.e"
+class-name: TIME_FORMATTER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+867 "TIME" l
+class-path: "/home/colnet/SmartEiffel/lib/time/time.e"
+class-name: TIME
+assertion-level: boost
+parent-count: 2 insert: 815 814 
+#
+863 "MICROSECOND_TIME" l
+class-path: "/home/colnet/SmartEiffel/lib/time/microsecond_time.e"
+class-name: MICROSECOND_TIME
+assertion-level: boost
+parent-count: 2 insert: 815 814 
+#
+|lib:string/loadpath.se:
+3 "CHARACTER" l
+class-path: "/home/colnet/SmartEiffel/lib/string/character.e"
+class-name: CHARACTER
+assertion-level: boost
+parent-count: 3 insert: 815 814 816 
+#
+7 "STRING" l
+class-path: "/home/colnet/SmartEiffel/lib/string/string.e"
+class-name: STRING
+assertion-level: boost
+parent-count: 7 inherit: 790 815 814 813 812 insert: 816 807 
+#
+833 "UNICODE_STRING" l
+class-path: "/home/colnet/SmartEiffel/lib/string/unicode_string.e"
+class-name: UNICODE_STRING
+assertion-level: boost
+parent-count: 3 inherit: 815 814 812
+#
+|lib:kernel/internal/
+862 "NATIVE_ARRAY_INTERNALS" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/internal/native_array_internals.e"
+class-name: NATIVE_ARRAY_INTERNALS
+assertion-level: boost
+parent-count: 1 inherit: 818
+#
+844 "NATIVE_ARRAY_COLLECTOR" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/internal/native_array_collector.e"
+class-name: NATIVE_ARRAY_COLLECTOR
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+848 "INTERNALS_HANDLER" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/internal/internals_handler.e"
+class-name: INTERNALS_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+818 "TYPED_INTERNALS" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/internal/typed_internals.e"
+class-name: TYPED_INTERNALS
+assertion-level: boost
+parent-count: 1 inherit: 819
+#
+819 "INTERNALS" l
+class-path: "/home/colnet/SmartEiffel/lib/kernel/internal/internals.e"
+class-name: INTERNALS
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+|lib:exec/loadpath.se:
+894 "SYSTEM" l
+#
+|lib:io/loadpath.se:
+822 "TERMINAL_INPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal_input_stream.e"
+class-name: TERMINAL_INPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 823
+#
+891 "PATH_NAME" l
+#
+821 "TERMINAL_INPUT_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal_input_output_stream.e"
+class-name: TERMINAL_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 822 804 808
+#
+836 "FILTER_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/filter_output_stream.e"
+class-name: FILTER_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 2 inherit: 805 insert: 828 
+#
+828 "FILTER" l
+class-path: "/home/colnet/SmartEiffel/lib/io/filter.e"
+class-name: FILTER
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+804 "TERMINAL_OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/terminal_output_stream.e"
+class-name: TERMINAL_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 805
+#
+849 "FILTER_INPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/filter_input_stream.e"
+class-name: FILTER_INPUT_STREAM
+assertion-level: boost
+parent-count: 2 inherit: 823 insert: 828 
+#
+805 "OUTPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/output_stream.e"
+class-name: OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 806 insert: 809 808 
+#
+883 "DIRECTORY_NOTATION" l
+#
+806 "STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/stream.e"
+class-name: STREAM
+assertion-level: boost
+parent-count: 1 insert: 807 
+#
+881 "FILE_TOOLS" l
+#
+823 "INPUT_STREAM" l
+class-path: "/home/colnet/SmartEiffel/lib/io/input_stream.e"
+class-name: INPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 806 insert: 824 808 
+#
+|lib:iterator/loadpath.se:internal/
+858 "ITERATOR_ON_UNICODE_STRING" l
+class-path: "/home/colnet/SmartEiffel/lib/iterator/internal/iterator_on_unicode_string.e"
+class-name: ITERATOR_ON_UNICODE_STRING
+assertion-level: boost
+parent-count: 1 inherit: 839
+#
+847 "ITERATOR_ON_STRING" l
+class-path: "/home/colnet/SmartEiffel/lib/iterator/internal/iterator_on_string.e"
+class-name: ITERATOR_ON_STRING
+assertion-level: boost
+parent-count: 1 inherit: 839
+#
+860 "ITERATOR_ON_TRAVERSABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/iterator/internal/iterator_on_traversable.e"
+class-name: ITERATOR_ON_TRAVERSABLE
+assertion-level: boost
+parent-count: 1 inherit: 839
+#
+|lib:io/loadpath.se:internal/
+893 "UNIXISH_PATH_NAME" l
+#
+808 "FILTERABLE" l
+class-path: "/home/colnet/SmartEiffel/lib/io/internal/filterable.e"
+class-name: FILTERABLE
+assertion-level: boost
+parent-count: 1 insert: 790 
+#
+890 "PATH_JOINER" l
+#
+|lib:storage/loadpath.se:
+840 "COLLECTION" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/collection.e"
+class-name: COLLECTION
+assertion-level: boost
+parent-count: 3 inherit: 790 813 812
+#
+|Local Cluster
+802 "TEST_ID_FILE" l
+class-path: "/home/colnet/SmartEiffel/test_suite/language/unclassified/test_id_file.e"
+class-name: TEST_ID_FILE
+assertion-level: boost
+parent-count: 1 insert: 790 
+c-type: T802 reference: yes
+ref-status: live id-field: no 
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	TEST_ID_FILE (802)
+#
+|lib:storage/loadpath.se:low_level/
+829 "NATIVE_ARRAY" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/low_level/native_array.e"
+class-name: NATIVE_ARRAY
+assertion-level: boost
+parent-count: 1 insert: 830 
+#
+868 "RECYCLING_POOL" l
+class-path: "/home/colnet/SmartEiffel/lib/storage/low_level/recycling_pool.e"
+class-name: RECYCLING_POOL
+assertion-level: boost
+parent-count: 1 insert: 869 
+#
+9 "NATIVE_ARRAY[CHARACTER]" l
+#

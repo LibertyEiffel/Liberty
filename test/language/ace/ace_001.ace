@@ -1,0 +1,16 @@
+system
+    "test_001.exe" -- (mandatory for "se test" because of the "test_001.e" file name)
+
+root
+    TEST_001: main
+
+cluster
+	-- In this simple example, a cluster is a simple directory path. 
+        -- The compiler will only search Eiffel source code in the following
+        -- clusters. The order is important, because the first one is the good 
+        -- one. Also note that one may only use the / character as the
+	-- directory separator:
+	"."
+	"${path_tutorial}"
+        "${path_lib}/loadpath.se"
+end
