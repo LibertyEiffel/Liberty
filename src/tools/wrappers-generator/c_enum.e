@@ -17,6 +17,9 @@ inherit
 	STORABLE_NODE
 	TYPED_NODE
 	WRAPPED_BY_A_CLASS
+		redefine 
+			class_name
+		end
 
 creation make
 
@@ -34,6 +37,14 @@ feature
 
 	is_void: BOOLEAN is False
 	
+	class_name: STRING is
+		do
+			if assigned_name=Void then 
+				Result:=Precursor
+			else
+				Result:=assigned_name
+			end
+		end
 
 	emit_wrapper is
 		local 
