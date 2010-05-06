@@ -180,7 +180,7 @@ feature {} -- Logging
 		end
 	end
 
-	log (a_message: TRAVERSABLE[CHARACTER]; some_arguments: TRAVERSABLE[ANY]) is
+	log (a_message: TRAVERSABLE[CHARACTER]; some_arguments: TRAVERSABLE[ABSTRACT_STRING]) is
 			-- Utility feature to replace "if verbose then logger.put_message(foo,bar) end" with "log(foo,bar)"
 		require
 			a_message /= Void

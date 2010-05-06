@@ -8,9 +8,6 @@ deferred class ABSTRACT_STRING
 	-- See also FIXED_STRING and STRING
 
 inherit
-	ANY
-		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
-		end
 	HASHABLE
 		redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory
 		end

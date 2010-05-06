@@ -90,7 +90,7 @@ feature {ANY}
 		end
 
 feature {} -- Implementation
-	put_item (item: ANY) is
+	put_item (item: ABSTRACT_STRING) is
 		do
 			buffer.append(item.out)
 		end

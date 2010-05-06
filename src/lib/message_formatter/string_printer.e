@@ -25,7 +25,7 @@ feature {}
 			output.put_character(c)
 		end
 
-	put_item (item: ANY) is
+	put_item (item: ABSTRACT_STRING) is
 		do
 			item.print_on(output)
 		end

@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MESSAGE_FORMATTER[E_]
+deferred class MESSAGE_FORMATTER[E_, F_->TRAVERSABLE[E_]]
 
 feature {ANY}
-	put_message (message: TRAVERSABLE[E_]; arguments: TRAVERSABLE[ANY]) is
+	put_message (message: TRAVERSABLE[E_]; arguments: TRAVERSABLE[F_]) is
 		local
 			i, backtrack_i: INTEGER
 			index: INTEGER
@@ -72,7 +72,7 @@ feature {}
 		deferred
 		end
 
-	put_item (item: ANY) is
+	put_item (item: F_) is
 		deferred
 		end
 
