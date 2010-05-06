@@ -251,7 +251,7 @@ void* i18n_localized_post_meridiem (void) {
 }
 
 void* i18n_localized_text (void* text_id) {
-  return text; /* not yet implemented */
+  return text_id; /* not yet implemented */
 }
 
 #endif
