@@ -62,9 +62,9 @@ feature {LIBERTY_DELAYED_TYPE}
 				and then the_feature.result_type.is_known
 		end
 
-	resolved: LIBERTY_ACTUAL_TYPE is
+	resolved: LIBERTY_KNOWN_TYPE is
 		do
-			Result ::= the_feature.result_type.known_type
+			Result := the_feature.result_type.known_type
 		end
 
 feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}

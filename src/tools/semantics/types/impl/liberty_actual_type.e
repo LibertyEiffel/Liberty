@@ -19,6 +19,9 @@ class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_KNOWN_TYPE
+		redefine
+			add_listener
+		end
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -139,6 +142,38 @@ feature {ANY}
 	may_promote_current: BOOLEAN
 			-- True if Current's type may be promoted in order to fix arithmetic operations (available only on a
 			-- very few select kernel types such as integers, naturals and reals)
+
+	is_built: BOOLEAN is
+		do
+			Result := builder.is_built
+		end
+
+feature {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
+	add_listener (a_listener: LIBERTY_TYPE_LISTENER) is
+		do
+			a_listener.on_type_known(Current)
+			if is_built then
+				a_listener.on_type_built(Current)
+			else
+				listeners.add_last(a_listener)
+			end
+		end
+
+feature {}
+	fire_type_built is
+		local
+			i: INTEGER
+		do
+			from
+				i := listeners.lower
+			until
+				i > listeners.upper
+			loop
+				listeners.item(i).on_type_built(Current)
+				i := i + 1
+			end
+			listeners := Void
+		end
 
 feature {LIBERTY_KNOWN_TYPE}
 	full_name_in (buffer: STRING) is
@@ -417,11 +452,9 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 	build_more is
 		do
 			builder.build_more
-		end
-
-	is_built: BOOLEAN is
-		do
-			Result := builder.is_built
+			if builder.is_built then
+				fire_type_built
+			end
 		end
 
 	set_may_promote_current is
@@ -537,6 +570,7 @@ feature {}
 			visit := a_visit
 			create current_entity.make(Current, errors.unknown_position)
 			create result_entity.make(Current, errors.unknown_position)
+			create {FAST_ARRAY[LIBERTY_TYPE_LISTENER]} listeners.with_capacity(2)
 			debug ("full_name")
 				debug_full_name := full_name.out
 			end

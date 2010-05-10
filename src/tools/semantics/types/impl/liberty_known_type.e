@@ -19,7 +19,10 @@ deferred class LIBERTY_KNOWN_TYPE
 
 inherit
 	LIBERTY_TYPE
-		undefine mark_reachable_code
+		export {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
+			add_listener, has_listener
+		undefine
+			mark_reachable_code
 		end
 
 feature {ANY}

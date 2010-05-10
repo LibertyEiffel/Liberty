@@ -52,6 +52,29 @@ feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
 			is_agent_call
 		end
 
+	set_target (new_target: LIBERTY_OPEN_ARGUMENT) is
+		require
+			is_agent_call
+			{LIBERTY_OPEN_ARGUMENT} ?:= target
+			new_target /= Void
+		do
+			target := new_target
+		ensure
+			target = new_target
+		end
+
+	set_actual (new_actual: LIBERTY_OPEN_ARGUMENT; index: INTEGER) is
+		require
+			is_agent_call
+			actuals.valid_index(index)
+			{LIBERTY_OPEN_ARGUMENT} ?:= actuals.item(index)
+			new_actual /= Void
+		do
+			actuals_list.put(new_actual, index)
+		ensure
+			actuals.item(index) = new_actual
+		end
+
 feature {LIBERTY_DELAYED_AGENT_CALL}
 	can_compute_agent_type: BOOLEAN is
 		local
@@ -98,6 +121,28 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 				Result := lookup.universe.type_predicate(arguments_types, position)
 			else
 				Result := lookup.universe.type_function(arguments_types, result_type.known_type, position)
+			end
+		end
+
+feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
+	can_compute_open_argument_type (index: INTEGER): BOOLEAN is
+		do
+			if index = -1 then
+				Result := entity.can_check_agent_signature and then target.result_type.is_known
+			elseif actuals /= Void then
+				check
+					actuals.valid_index(index)
+				end
+				Result := entity.can_check_agent_signature and then actuals.item(index).result_type.is_known
+			end
+		end
+
+	open_argument_type (index: INTEGER): LIBERTY_KNOWN_TYPE is
+		do
+			if index = -1 then
+				Result := target.result_type.known_type
+			elseif actuals /= Void then
+				Result := actuals.item(index).result_type.known_type
 			end
 		end
 

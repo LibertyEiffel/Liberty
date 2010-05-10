@@ -179,9 +179,14 @@ feature {}
 		end
 
 feature {LIBERTY_TYPE}
-	on_known_type_set (t: LIBERTY_TYPE) is
+	on_type_known (t: LIBERTY_TYPE) is
 		do
 			fire_type_descriptor_changed
+		end
+
+	on_type_built (t: LIBERTY_ACTUAL_TYPE) is
+		do
+			-- ignored
 		end
 
 feature {LIBERTY_TYPE_DESCRIPTOR}

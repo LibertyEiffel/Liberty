@@ -26,7 +26,12 @@ feature {ANY}
 	result_type: LIBERTY_TYPE is
 		deferred
 		ensure
-			Result /= Void or else is_agent_call
+			Result /= Void or else result_type_may_be_void
+		end
+
+	result_type_may_be_void: BOOLEAN is
+		do
+			Result := is_agent_call
 		end
 
 	is_agent_call: BOOLEAN is False

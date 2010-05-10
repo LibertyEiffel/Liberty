@@ -75,9 +75,12 @@ feature {LIBERTY_TYPE_LISTENER}
 		require
 			a_listener /= Void
 			not has_listener(a_listener)
-			not is_known
 		do
-			listeners.add_last(a_listener)
+			if is_known then
+				known_type.add_listener(a_listener)
+			else
+				listeners.add_last(a_listener)
+			end
 		ensure
 			has_listener(a_listener)
 		end
@@ -100,16 +103,21 @@ feature {LIBERTY_TYPE_LISTENER}
 		end
 
 feature {}
-	fire_known_type_set is
+	fire_type_known is
 		local
 			i: INTEGER
+			listener: LIBERTY_TYPE_LISTENER
 		do
 			from
 				i := listeners.lower
 			until
 				i > listeners.upper
 			loop
-				listeners.item(i).on_known_type_set(Current)
+				listener := listeners.item(i)
+				listener.on_type_known(Current)
+				if not known_type.has_listener(listener) then
+					known_type.add_listener(listener)
+				end
 				i := i + 1
 			end
 			listeners := Void

@@ -27,7 +27,7 @@ feature {LIBERTY_DELAYED_TYPE}
 		deferred
 		end
 
-	resolved: LIBERTY_ACTUAL_TYPE is
+	resolved: LIBERTY_KNOWN_TYPE is
 		require
 			can_resolve
 		deferred

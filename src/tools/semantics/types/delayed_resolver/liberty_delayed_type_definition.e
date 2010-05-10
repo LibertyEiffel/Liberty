@@ -69,7 +69,7 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result implies type_memory /= Void
 		end
 
-	resolved: LIBERTY_ACTUAL_TYPE is
+	resolved: LIBERTY_KNOWN_TYPE is
 		local
 			ok: BOOLEAN
 		do

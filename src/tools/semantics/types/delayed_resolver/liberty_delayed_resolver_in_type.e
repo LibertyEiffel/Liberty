@@ -69,12 +69,12 @@ feature {LIBERTY_DELAYED_TYPE}
 			end
 		end
 
-	resolved: LIBERTY_ACTUAL_TYPE is
+	resolved: LIBERTY_KNOWN_TYPE is
 		do
 			if feature_name = Void then
 				Result := current_type
 			else
-				Result ::= definition_type.feature_definition(feature_name).the_feature.bound(current_type).result_type.known_type
+				Result := definition_type.feature_definition(feature_name).the_feature.bound(current_type).result_type.known_type
 			end
 		end
 

@@ -48,7 +48,7 @@ feature {LIBERTY_DELAYED_TYPE}
 			Result := call.can_compute_agent_type
 		end
 
-	resolved: LIBERTY_ACTUAL_TYPE is
+	resolved: LIBERTY_KNOWN_TYPE is
 		do
 			Result := call.agent_type
 		end

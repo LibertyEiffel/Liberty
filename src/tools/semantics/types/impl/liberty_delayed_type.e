@@ -26,7 +26,7 @@ creation {ANY}
 	make
 
 feature {ANY}
-	known_type: LIBERTY_ACTUAL_TYPE
+	known_type: LIBERTY_KNOWN_TYPE
 
 	is_known: BOOLEAN
 
@@ -98,7 +98,7 @@ feature {LIBERTY_UNIVERSE}
 		do
 			known_type := delayed_resolver.resolved
 			is_known := True
-			fire_known_type_set
+			fire_type_known
 			torch.burn
 		ensure
 			is_known

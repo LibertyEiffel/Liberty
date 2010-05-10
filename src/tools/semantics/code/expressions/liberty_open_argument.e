@@ -16,6 +16,9 @@ class LIBERTY_OPEN_ARGUMENT
 
 inherit
 	LIBERTY_EXPRESSION
+		redefine
+			result_type_may_be_void
+		end
 
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
@@ -25,6 +28,8 @@ create {LIBERTY_OPEN_ARGUMENT}
 
 feature {ANY}
 	result_type: LIBERTY_TYPE
+
+	result_type_may_be_void: BOOLEAN is True
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local
@@ -40,7 +45,7 @@ feature {ANY}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_AGENT}
 	set_result_type (a_result_type: like result_type) is
 		require
 			a_result_type /= Void
