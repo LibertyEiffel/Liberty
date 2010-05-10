@@ -20,6 +20,7 @@ feature {}
 
 	print_item (c: CHARACTER; item: STRING) is
 		do
+			assert(c = '#')
 			number := number + 1
 			inspect
 				number
