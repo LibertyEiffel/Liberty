@@ -157,6 +157,8 @@ feature {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
 			else
 				listeners.add_last(a_listener)
 			end
+		ensure then
+			is_built /= has_listener(a_listener)
 		end
 
 feature {}

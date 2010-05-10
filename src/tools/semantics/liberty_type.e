@@ -82,7 +82,7 @@ feature {LIBERTY_TYPE_LISTENER}
 				listeners.add_last(a_listener)
 			end
 		ensure
-			has_listener(a_listener)
+			not is_known implies has_listener(a_listener)
 		end
 
 	remove_listener (a_listener: LIBERTY_TYPE_LISTENER) is
