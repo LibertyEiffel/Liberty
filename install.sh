@@ -185,12 +185,14 @@ EOF
 	echo " - $tool"
 	./compile -boost $tool -o $tool || exit 1
     done
+
+    echo "Compiling plugins..."
+    cd $LIBERTY_HOME/work
+    ./compile_plugins.sh
 }
 
 function compile_all()
 {
-    cd $LIBERTY_HOME/work
-    ./compile_plugins.sh
     for f in $LIBERTY_HOME/src/tools/main/*.ace; do
 	ace=${f##*/} && ace=${ace%.ace}
 	cd $LIBERTY_HOME/target/bin/$ace
