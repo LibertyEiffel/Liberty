@@ -1,5 +1,0 @@
-[UNIX]
-glu: GLU
-
-[Windows]
-glu: glu32.lib

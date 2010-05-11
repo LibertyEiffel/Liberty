@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-eval `se -environment | grep -v '^#'`
+cd ${0%/*}/..
+export LIBERTY_HOME=$(pwd)
+cd target
 
+eval `se -environment | grep -v '^#'`
 SE_SYS=${SE_SYS%/}
 
 find $SE_SYS/plugins -name c -type d | while read plugin; do
@@ -40,7 +43,7 @@ EOF
 	    xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
 	    sed 's/"\([^"]*\)"/\1/g' | sort -u | \
 	    while read file symbol; do
-	    	cat $file | grep -C5 'feature_name: "'$symbol'"' | ${0%/*}/find_feature.py header $symbol ${file##*/}
+	    	cat $file | grep -C5 'feature_name: "'$symbol'"' | $LIBERTY_HOME/work/find_feature.py header $symbol ${file##*/}
 	done | sort -u
 
 	echo '#endif'
@@ -66,7 +69,7 @@ EOF
 	    xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
 	    sed 's/"\([^"]*\)"/\1/g' | sort -u | \
 	    while read file symbol; do
-	    	cat $file | grep -C5 'feature_name: "'$symbol'"' | ${0%/*}/find_feature.py code $symbol ${file##*/}
+	    	cat $file | grep -C5 'feature_name: "'$symbol'"' | $LIBERTY_HOME/work/find_feature.py code $symbol ${file##*/}
 	done | sort -u
     } > $plugin_c
 

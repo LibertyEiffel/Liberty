@@ -1,7 +1,9 @@
 This small tutorial is to explain to newcomers how to setup their environment
 to play with Liberty and, why not, even to contribute?
 
-Liberty currently comes with a patched version of SmartEiffel for bootstrap.
+Liberty currently comes with a patched version of SmartEiffel (using Liberty's
+libraries) for bootstrap.
+
 Note that this is a temporary setup, as SmartEiffel will be removed as soon as
 Liberty can bootstrap from itself.
 

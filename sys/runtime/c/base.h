@@ -472,6 +472,7 @@ typedef T4 real32_t;
 */
 typedef double T5;
 typedef T5 real64_t;
+#define EIF_REAL T5
 #define EIF_REAL_64 T5
 #define M5 (0.0)
 #define EIF_MINIMUM_REAL_64 (-(DBL_MAX))

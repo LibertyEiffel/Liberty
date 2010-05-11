@@ -145,40 +145,45 @@ EOF
     cd ../../../bin
 
     echo " - compile_to_c T1"
-    ./compile_to_c -boost compile_to_c || exit 1
-    grep ^gcc compile_to_c.make | while read cmd; do
-	echo "$cmd"
-	eval "$cmd" || exit 1
-    done
+    ./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+	grep ^gcc compile_to_c.make | while read cmd; do
+	    echo "   $cmd"
+	    eval "$cmd" || exit 1
+	done
 
-    echo " - compile_to_c T2"
-    ./compile_to_c -boost compile_to_c || exit 1
-    grep ^gcc compile_to_c.make | while read cmd; do
-	echo "$cmd"
-	eval "$cmd" || exit 1
-    done
+	echo " - compile_to_c T2"
+	./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+	if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+	    grep ^gcc compile_to_c.make | while read cmd; do
+		echo "   $cmd"
+		eval "$cmd" || exit 1
+	    done
 
-    echo " - compile_to_c T3"
-    ./compile_to_c -boost compile_to_c || exit 1
-    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 1 ]; then
-	cat compile_to_c.make
-	exit 1
+	    echo " - compile_to_c T3"
+	    ./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+	    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+		cat compile_to_c.make
+		echo "The compiler is NOT stable."
+		exit 1
+	    fi
+	fi
     fi
+    echo "   The compiler is stable."
 
     echo " - compile"
-    ./compile_to_c -boost -no_split compile || exit 1
-    gcc -o compile -pipe -Os compile.c || exit 1
-
-    echo " - se"
-    ./compile -boost -no_split -o se se || exit 1
-
-    for tool in clean finder test; do
-	echo " - $tool"
-	./compile -boost -no_split -o $tool $tool || exit 1
+    ./compile_to_c -boost -no_split compile -o compile || exit 1
+    grep ^gcc compile.make | while read cmd; do
+	eval "$cmd" || exit 1
     done
-    for tool in pretty short class_check; do
+
+    for tool in se clean; do
 	echo " - $tool"
-	./compile -boost -o $tool $tool || exit 1
+	./compile -boost -no_split $tool -o $tool || exit 1
+    done
+    for tool in pretty short class_check finder; do
+	echo " - $tool"
+	./compile -boost $tool -o $tool || exit 1
     done
 }
 
@@ -186,9 +191,10 @@ function compile_all()
 {
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
-    cd $LIBERTY_HOME/target/bin
-    for ace in *.ace; do
-	se c $ace
+    for f in $LIBERTY_HOME/src/tools/main/*.ace; do
+	ace=${f##*/} && ace=${ace%.ace}
+	cd $LIBERTY_HOME/target/bin/$ace
+	se c ${ace}.ace
     done
 }
 
