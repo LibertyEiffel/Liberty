@@ -1,5 +1,5 @@
 This small tutorial is to explain to newcomers how to setup their environment
-to play with LibertyEiffel, and, why not, even to contribute?
+to play with Liberty and, why not, even to contribute?
 
 Liberty currently comes with a patched version of SmartEiffel for bootstrap.
 Note that this is a temporary setup, as SmartEiffel will be removed as soon as
@@ -8,5 +8,7 @@ Liberty can bootstrap from itself.
 The installation procedure is as follows: go to the Liberty directory and type
 
     ./install.sh
+
+Don't forget to add the Liberty/target/bin directory to your PATH...
 
 and you're done :-)
