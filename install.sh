@@ -138,17 +138,25 @@ EOF
     echo "Bootstrapping SmartEiffel tools..."
     cd SmartEiffel/work/germ
 
-    echo " - germ"
-    gcc compile_to_c.c -pipe -o ../../../bin/compile_to_c || exit 1
+    if [ ! -e ../../../bin/compile_to_c ]; then
+	echo " - germ"
+	gcc compile_to_c.c -pipe -o ../../../bin/compile_to_c || exit 1
+    fi
     cd ../../../bin
 
     echo " - compile_to_c T1"
     ./compile_to_c -boost compile_to_c || exit 1
-    gcc -o compile_to_c -pipe compile_to_c[0-9]*.c || exit 1
+    grep ^gcc compile_to_c.make | while read cmd; do
+	echo "$cmd"
+	eval "$cmd" || exit 1
+    done
 
     echo " - compile_to_c T2"
     ./compile_to_c -boost compile_to_c || exit 1
-    gcc -o compile_to_c -pipe -Os compile_to_c[0-9]*.c || exit 1
+    grep ^gcc compile_to_c.make | while read cmd; do
+	echo "$cmd"
+	eval "$cmd" || exit 1
+    done
 
     echo " - compile_to_c T3"
     ./compile_to_c -boost compile_to_c || exit 1
@@ -184,5 +192,5 @@ function compile_all()
     done
 }
 
-test -d $LIBERTY_HOME/target -o x"$1" == x"-bootstrap" || bootstrap
+test -d $LIBERTY_HOME/target -a x"$1" != x"-bootstrap" || bootstrap
 compile_all
