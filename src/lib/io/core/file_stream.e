@@ -7,9 +7,6 @@ deferred class FILE_STREAM
 	-- connection interface to the "real" files of the operating system.
 	--
 
-insert
-	ANY
-
 feature {ANY}
 	path: STRING
 			-- Not Void when connected to the corresponding file on the disk.

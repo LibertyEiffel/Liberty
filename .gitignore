@@ -10,4 +10,5 @@
 ## Ignore tags
 tags
 TAGS
-
+## Ignore install files
+target

@@ -163,9 +163,50 @@ feature {ANY} -- Access
 			file.put_natively_stored_string(Current)
 		end
 
+feature {STRING_HANDLER}
+	set_count (new_count: like count) is
+		require
+			new_count <= capacity
+		do
+			count := new_count
+		ensure
+			count = new_count
+		end
+
+	ensure_capacity (needed_capacity: like capacity) is
+		require
+			needed_capacity >= 0
+		local
+			new_capacity: like capacity
+		do
+			if storage.is_null then -- implies capacity = 0 (see invariant)
+				new_capacity := needed_capacity.max(32)
+				storage := storage.calloc(new_capacity)
+				capacity := new_capacity
+			elseif capacity < needed_capacity then
+				new_capacity := needed_capacity.max(capacity #* 2)
+				storage := storage.realloc(capacity, new_capacity)
+				capacity := new_capacity
+			end
+		ensure
+			capacity >= needed_capacity
+		end
+
+	set_storage (new_storage: like storage; new_capacity: like capacity) is
+		require
+			count <= new_capacity
+		do
+			storage := new_storage
+			capacity := new_capacity
+		ensure
+			storage = new_storage
+			capacity = new_capacity
+		end
+
 feature {STRING}
 	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
 		do
+			ensure_capacity(end_index - start_index + 1)
 			target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
 		end
 

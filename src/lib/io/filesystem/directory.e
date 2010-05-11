@@ -276,8 +276,7 @@ feature {}
 
 invariant
 	path /= Void
-	name_list /= Void
-	collection_sorter.is_sorted(name_list)
+	exists implies name_list /= Void and then collection_sorter.is_sorted(name_list)
 	not exists implies is_empty
 
 end -- class DIRECTORY

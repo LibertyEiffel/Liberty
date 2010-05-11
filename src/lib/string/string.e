@@ -19,6 +19,7 @@ feature {ANY} -- Creation / Modification:
 		require
 			non_negative_size: needed_capacity >= 0
 		do
+			storage_lower := 0
 			if needed_capacity > 0 then
 				if capacity < needed_capacity then
 					storage := storage.calloc(needed_capacity)
@@ -57,6 +58,7 @@ feature {ANY} -- Creation / Modification:
 		local
 			c: INTEGER
 		do
+			storage_lower := 0
 			c := model.count
 			ensure_capacity(c)
 			count := c
@@ -128,6 +130,7 @@ feature {ANY} -- Modification:
 		local
 			c: INTEGER
 		do
+			storage_lower := 0
 			c := other.count
 			if c > 0 then
 				if capacity < c then
@@ -857,6 +860,7 @@ feature {ANY} -- Interfacing with C string:
 		require
 			p.is_not_null
 		do
+			storage_lower := 0
 			from
 				storage := storage.from_pointer(p)
 				count := 0
@@ -882,6 +886,7 @@ feature {ANY} -- Interfacing with C string:
 		local
 			s: like storage; i: INTEGER
 		do
+			storage_lower := 0
 			from
 				s := s.from_pointer(p)
 				count := 0
@@ -903,6 +908,7 @@ feature {ANY} -- Interfacing with C string:
 			p.is_not_null
 			size >= 0
 		do
+			storage_lower := 0
 			storage := storage.from_pointer(p)
 			count := size
 			capacity := size
@@ -923,6 +929,7 @@ feature {ANY} -- Interfacing with C string:
 		local
 			s: like storage
 		do
+			storage_lower := 0
 			from
 				if capacity < size then
 					capacity := size
@@ -938,46 +945,6 @@ feature {ANY} -- Interfacing with C string:
 			end
 		ensure
 			count = size
-		end
-
-feature {STRING_HANDLER}
-	set_count (new_count: like count) is
-		require
-			new_count <= capacity
-		do
-			count := new_count
-		ensure
-			count = new_count
-		end
-
-	ensure_capacity (needed_capacity: like capacity) is
-		require
-			needed_capacity >= 0
-		local
-			new_capacity: like capacity
-		do
-			if storage.is_null then -- implies capacity = 0 (see invariant)
-				new_capacity := needed_capacity.max(32)
-				storage := storage.calloc(new_capacity)
-				capacity := new_capacity
-			elseif capacity < needed_capacity then
-				new_capacity := needed_capacity.max(capacity #* 2)
-				storage := storage.realloc(capacity, new_capacity)
-				capacity := new_capacity
-			end
-		ensure
-			capacity >= needed_capacity
-		end
-
-	set_storage (new_storage: like storage; new_capacity: like capacity) is
-		require
-			count <= new_capacity
-		do
-			storage := new_storage
-			capacity := new_capacity
-		ensure
-			storage = new_storage
-			capacity = new_capacity
 		end
 
 feature {RECYCLING_POOL, STRING_RECYCLING_POOL}
