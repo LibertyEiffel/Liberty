@@ -172,7 +172,7 @@ EOF
     echo " - se"
     ./compile -boost -no_split -o se se || exit 1
 
-    for tool in clean find test; do
+    for tool in clean finder test; do
 	echo " - $tool"
 	./compile -boost -no_split -o $tool $tool || exit 1
     done
