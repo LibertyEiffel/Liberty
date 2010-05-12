@@ -4,11 +4,17 @@ cd ${0%/*}/..
 export LIBERTY_HOME=$(pwd)
 cd target
 
+export LOG=${LOG:-$LIBERTY_HOME/work/compile_plugins.log}
+
+. $LIBERTY_HOME/work/tools.sh
+
 eval `se -environment | grep -v '^#'`
 SE_SYS=${SE_SYS%/}
 
-find $SE_SYS/plugins -name c -type d | while read plugin; do
+n=$(find $SE_SYS/plugins -name c -type d | wc -l)
+i=0
 
+find $SE_SYS/plugins -name c -type d | while read plugin; do
     plugin_dir=${plugin#$SE_SYS/}
     plugin_dir=${plugin_dir%/c}
     plugin_name=${plugin_dir##*/}
@@ -19,7 +25,7 @@ find $SE_SYS/plugins -name c -type d | while read plugin; do
 
     test -d $plugin_dir || mkdir -p $plugin_dir
 
-    echo Generating header file for $plugin_so
+    progress 30 $((i*3)) $((n*3)) "Generating header file for $plugin_so"
 
     {
 	cat <<EOF
@@ -49,7 +55,7 @@ EOF
 	echo '#endif'
     } > $plugin_h
 
-    echo Generating code file for $plugin_so
+    progress 30 $((i*3+1)) $((n*3)) "Generating code file for $plugin_so"
 
     {
 	cat <<EOF
@@ -73,8 +79,10 @@ EOF
 	done | sort -u
     } > $plugin_c
 
-    echo Building $plugin_so
+    progress 30 $((i*3+2)) $((n*3)) "Building $plugin_so"
 
-    gcc -iquote $plugin -iquote $SE_SYS/runtime/c -iquote $plugin_dir -shared -fpic -fvisibility=hidden -o $plugin_so $plugin_c
+    run gcc -iquote $plugin -iquote $SE_SYS/runtime/c -iquote $plugin_dir -shared -fpic -fvisibility=hidden -o $plugin_so $plugin_c
 
 done
+
+progress 30 $n $n "done."

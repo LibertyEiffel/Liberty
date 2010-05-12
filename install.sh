@@ -3,6 +3,10 @@
 cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
+export plain=FALSE
+export LOG=$LIBERTY_HOME/install$(date +'-%Y%m%d-%H%M%S').log
+
+. $LIBERTY_HOME/work/tools.sh
 
 function bootstrap()
 {
@@ -10,25 +14,24 @@ function bootstrap()
     test -d target || mkdir target
     cd target
 
-    if [ ! -d SmartEiffel ]; then
-	echo "Unpacking SmartEiffel..."
-	tar xfj $LIBERTY_HOME/work/SmartEiffel.tar.bz2
-    fi
+    title "Unpacking SmartEiffel"
+    test -d SmartEiffel && rm -rf SmartEiffel
+    run tar xvfj $LIBERTY_HOME/work/SmartEiffel.tar.bz2
 
     if [ ! -d bin ]; then
-	echo "Preparing target..."
+	title "Preparing target"
 	mkdir bin
 	cd bin
 	for f in $LIBERTY_HOME/src/tools/main/*.ace; do
 	    ace=${f##*/} && ace=${ace%.ace}
-	    mkdir $LIBERTY_HOME/target/bin/$ace
-	    ln -s $f $LIBERTY_HOME/target/bin/$ace/
+	    mkdir $LIBERTY_HOME/target/bin/${ace}.d
+	    ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
 	done
 	cd ..
     fi
 
     if [ ! -d serc ]; then
-	echo "Preparing SmartEiffel environment..."
+	title "Preparing SmartEiffel environment"
 	mkdir serc
 	cd serc
 	cat > liberty.se <<EOF
@@ -135,69 +138,96 @@ EOF
     fi
     ln -s $LIBERTY_HOME/target/serc $HOME/.serc
 
-    echo "Bootstrapping SmartEiffel tools..."
+    title "Bootstrapping SmartEiffel tools"
     cd SmartEiffel/work/germ
 
-    if [ ! -e ../../../bin/compile_to_c ]; then
-	echo " - germ"
-	gcc compile_to_c.c -pipe -o ../../../bin/compile_to_c || exit 1
+    if [ ! -d ../../../bin/compile_to_c.d ]; then
+	progress 30 0 11 "germ"
+	test -d ../../../bin/compile_to_c.d || mkdir ../../../bin/compile_to_c.d
+	run gcc compile_to_c.c -pipe -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
     fi
-    cd ../../../bin
+    cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
-    echo " - compile_to_c T1"
-    ./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+    progress 30 1 11 "compile_to_c T1"
+    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
     if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
 	grep ^gcc compile_to_c.make | while read cmd; do
-	    echo "   $cmd"
-	    eval "$cmd" || exit 1
+	    progress 30 1 11 "$cmd"
+	    run $cmd || exit 1
 	done
 
-	echo " - compile_to_c T2"
-	./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+	progress 30 2 11 "compile_to_c T2"
+	run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
 	if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
 	    grep ^gcc compile_to_c.make | while read cmd; do
-		echo "   $cmd"
-		eval "$cmd" || exit 1
+		progress 30 2 11 "$cmd"
+		run $cmd || exit 1
 	    done
 
-	    echo " - compile_to_c T3"
-	    ./compile_to_c -boost compile_to_c -o compile_to_c || exit 1
+	    progress 30 3 11 "compile_to_c T3"
+	    ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
 	    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
-		cat compile_to_c.make
-		echo "The compiler is NOT stable."
+		cat compile_to_c.make >> $LOG
+		error "The compiler is not stable."
 		exit 1
 	    fi
 	fi
     fi
-    echo "   The compiler is stable."
+    cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
-    echo " - compile"
-    ./compile_to_c -boost -no_split compile -o compile || exit 1
+    progress 30 4 11 "compile"
+    test -d compile.d || mkdir compile.d
+    cd compile.d
+    run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
     grep ^gcc compile.make | while read cmd; do
-	eval "$cmd" || exit 1
+	run $cmd || exit 1
     done
+    cd .. && test -e compile || ln -s compile.d/compile .
 
-    for tool in se clean; do
-	echo " - $tool"
-	./compile -boost -no_split $tool -o $tool || exit 1
+    {
+	echo 5 se
+	echo 6 clean
+    } | while read i tool; do
+	progress 30 $i 11 "$tool"
+	test -d ${tool}.d || mkdir ${tool}.d
+	cd ${tool}.d
+	run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
+	cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
-    for tool in pretty short class_check finder; do
-	echo " - $tool"
-	./compile -boost $tool -o $tool || exit 1
+    {
+	echo 7 pretty
+	echo 8 short
+	echo 9 class_check
+	echo 10 finder
+    } | while read i tool; do
+	progress 30 $i 11 "$tool"
+	test -d ${tool}.d || mkdir ${tool}.d
+	cd ${tool}.d
+	run ../compile -verbose -boost $tool -o $tool || exit 1
+	cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
+    progress 30 11 11 "done."
+    echo
 
-    echo "Compiling plugins..."
+    title "Compiling plugins"
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
 }
 
 function compile_all()
 {
+    n=$(ls $LIBERTY_HOME/src/tools/main/*.ace | wc -l)
+    i=0
     for f in $LIBERTY_HOME/src/tools/main/*.ace; do
 	ace=${f##*/} && ace=${ace%.ace}
-	cd $LIBERTY_HOME/target/bin/$ace
-	se c ${ace}.ace
+	progress 30 $i $n $ace
+	cd $LIBERTY_HOME/target/bin/${ace}.d
+	run se c -verbose ${ace}.ace
+	cd .. && test -e $ace || ln -s ${ace}.d/$ace .
+	i=$((i+1))
     done
+    progress 30 $n $n "done."
+    echo
 }
 
 test -d $LIBERTY_HOME/target -a x"$1" != x"-bootstrap" || bootstrap
