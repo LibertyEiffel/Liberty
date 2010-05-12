@@ -47,7 +47,7 @@ jobs: 4
 [Environment]
 path_liberty: $LIBERTY_HOME/
 path_se_tools: $LIBERTY_HOME/target/SmartEiffel/tools/
-path_se_tutorial: $LIBERTY_HOME/SmartEiffel/tutorial/
+path_se_tutorial: $LIBERTY_HOME/target/SmartEiffel/tutorial/
 
 [Loadpath]
 liberty: \${path_liberty}src/loadpath.se

@@ -15,8 +15,9 @@ mkdir -p $SEDIR
 svn diff tools > $SEDIR/tools.patch
 
 cd $SEDIR
-cp -R $SMARTEIFFEL_HOME/tools ./
 cp -R $SMARTEIFFEL_HOME/short ./
+cp -R $SMARTEIFFEL_HOME/tools ./
+cp -R $SMARTEIFFEL_HOME/tutorial ./
 mkdir -p work/germ
 
 find . -name .svn -prune -exec rm -rf {} \;

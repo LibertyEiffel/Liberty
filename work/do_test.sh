@@ -2,15 +2,21 @@
 
 test=$(basename $1)
 cd $(dirname $1)
+shift
 
-{
-	test -e loadpath.se && cat loadpath.se | grep -v '^'"$LIBERTY_HOME/src/loadpath.se"
-	test -e loadpath.se || echo './'
-	echo "$LIBERTY_HOME/src/loadpath.se"
-} > loadpath.se~
-mv loadpath.se~ loadpath.se
+SRC_LOADPATH=$LIBERTY_HOME/src/loadpath.se
+
+if [ -e loadpath.se ]; then
+    mv loadpath.se loadpath.se~
+    cat loadpath.se~ | grep -v ^$SRC_LOADPATH > loadpath.se
+    echo $SRC_LOADPATH >> loadpath.se
+else
+    echo './' > loadpath.se
+    echo $SRC_LOADPATH >> loadpath.se
+fi
 
 eval `se -environment | grep -v '^#'`
 
-echo $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=${LOG:-error} -check=${CHECK:-all}
-exec $LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_lib%/lib/}/tutorial/ -log=${LOG:-error} -check=${CHECK:-all}
+$LIBERTY_INTERPRETER ./loadpath.se $(echo ${test%.e} | tr '[a-z]' '[A-Z]') make -vsys=$LIBERTY_HOME/work/ -vpath_tutorial=${path_se_tutorial} "$@"
+
+test -e loadpath.se~ && mv -f loadpath.se~ loadpath.se
