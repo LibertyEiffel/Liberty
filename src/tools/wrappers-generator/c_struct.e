@@ -3,6 +3,7 @@ class C_STRUCT
 inherit 
 	GCCXML_NODE 
 	CONTEXTED_NODE
+	COMPOSED_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
 	FILED_NODE
@@ -17,11 +18,10 @@ creation make
 feature 
 	store is
 		do
+			create {LINKED_LIST[C_FIELD]} fields.make
 			types.put(Current,id)
-			-- if c_name/=Void and then is_public(c_name) then 
-			-- if is_public then
+			composed_types.put(Current,id)
 			structures.fast_put(Current,id)
-			--end
 		end
 	
 	is_fundamental: BOOLEAN is False
@@ -40,6 +40,27 @@ feature
 			not_yet_implemented -- Result := class_name
 		end
 
+	class_name: STRING is
+	do
+		if stored_class_name=Void then 
+			if assigned_name/=Void then stored_class_name:=assigned_name.twin
+			else stored_class_name:=c_string_name.twin
+			end
+			-- Turn CamelCase into CAMEL_CASE
+			eiffellizer.substitute_all_in(stored_class_name)
+
+			check 
+				is_public: stored_class_name.first/='_'
+			end
+			if stored_class_name.last/='_' then stored_class_name.append_character('_') end
+				-- little workaround to cope with assigned and generated names
+			stored_class_name.append(suffix)
+			stored_class_name.to_upper
+		end
+		Result := stored_class_name
+	end
+	
+	
 	emit_wrapper is
 		-- Emit a reference wrapper for Current C structure.
 
@@ -47,7 +68,7 @@ feature
 		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
 	local path: POSIX_PATH_NAME
 	do
-		if is_public and then is_in_main_namespace then
+		if is_public and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
 			--if unwrappable then
 			--	buffer.put_message(once "%T-- @(1) is not wrappable",
 			--	<<a_structure_name>>)
@@ -61,113 +82,82 @@ feature
 		 	else
 		 		create path.make_from_string(directory)
 		 		path.add_last(class_name.as_lower+once ".e")
-
+				log(once "Struct @(1) to @(2) in @(3)%N",
+				<<c_string_name, class_name, path.to_string>>)
+				create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 			end
-			--		filename := a_structure_name + once "_struct"
-			--		class_name := eiffel_class_name(filename)
-			--		if directory = Void then
-			--			-- Output to standard output
-			--			output := std_output
-			--			log(once "Struct @(1) on @(2) to standard output%N",
-			--			<<a_structure_name, class_name>>)
-			--		else
-			--			create path.make_from_string(directory)
-			--			path.add_last(eiffel_class_file_name(filename))
-			--			filename := path.to_string
-			--			if path.is_file then
-			--				log(once "Copying existing file @(1) onto @(1).orig.%N",<<filename>>)
-			--				copy_to(filename, filename+once ".orig")
-			--			end
-	
-			--			log(once "Struct @(1) to @(2) in @(3)%N",
-			--			<<a_structure_name, class_name, filename>>)
-			--			create {TEXT_FILE_WRITE} output.connect_to(filename)
-			--		end
-			--		append_structure_header(a_structure_name)
-			--		buffer.print_on(output)
-			--		append_structure_members(a_node, a_structure_name)
-			--		append_structure_size(a_node,a_structure_name)
-			--		output.put_string(once "end%N")
-			--		output.flush
-			--		output.disconnect
-			--	else
-			--		log(once "Struct @(1) skipped%N", <<a_structure_name>>)
-			--	end
+			-- if members.for_all(agent {}.has_wrapper) then -- it is surely wrappable
+			emit_header
+			emit_members
+			emit_size
+			emit_footer
+			output.flush
+			output.disconnect
+		else
+			log(once "Struct @(1) skipped%N", <<c_string_name>>)
+			
 		end
 	end
 
-	append_structure_header (a_structure_name: STRING) is
-			-- Append the header of a structure named `a_structure_name' to buffer.
-		require
-			a_structure_name /= Void
-		--local structure_class_name: STRING
-		do
-	--		structure_class_name:=eiffel_class_name(a_structure_name)
-	--		structure_class_name.append(once "_STRUCT")
-	--		buffer.append(automatically_generated_header)
-	--		buffer.append(deferred_class)
-	--		buffer.append(structure_class_name)
-	--		emit_description(class_descriptions.reference_at(class_name))
-	--		buffer.append(struct_inherits)
-	--		buffer.put_message(once "insert @(1)%N",<<typedefs_class_name>>)
-		ensure
-			buffer_grew: buffer.count > old buffer.count
-		end
+	emit_header is
+		-- Append the header of Current structure to `buffer'.
+	do
+		buffer.append(automatically_generated_header)
+		buffer.append(deferred_class)
+		buffer.append(class_name)
+		-- TODO: emit_description(class_descriptions.reference_at(class_name))
+		buffer.append(struct_inherits)
+		buffer.put_message(once "insert @(1)%N",<<settings.typedefs>>)
+		buffer.print_on(output)
+	end
 
-	append_structure_members (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
-		require
-			node_not_void: a_node /= Void
-			name_not_void: a_structure_name /= Void
+	emit_members is
 		-- local
-		--	id, members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
+		--	members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
 		do
-	--		-- setters.reset; queries.reset
-	--		members := a_node.attribute_at(once U"members")
-	--		if members /= Void then
-	--			setters.append(setters_header)
-	--			queries.append(queries_header)
-	--			members_iter := members.split.get_new_iterator
-	--			from members_iter.start until members_iter.is_off
-	--			loop
-	--				id := members_iter.item
-	--				field := fields.reference_at(id)
-	--				if field /= Void then emit_structure_field(field, a_structure_name)
-	--				else
-	--					log(once "@(1) in @(2) is not a field but probably a C++ constructor.%N",
-	--					<<id.as_utf8, a_structure_name>>)
-	--				end
-	--				members_iter.next
-	--			end
-	--			setters.print_on(output)
-	--			queries.print_on(output)
-	--		else
-	--			output.put_string(once "%T-- Fieldless structure%N")
-	--			log(once "Structure @(1) have no fields%N", <<a_structure_name>>)
-	--		end
+			if fields/=Void and then not fields.is_empty then
+				setters.reset; queries.reset
+				setters.append(setters_header)
+				queries.append(queries_header)
+				fields.do_all(agent {C_FIELD}.append_getter_and_setter(class_name))
+				setters.print_on(output)
+				queries.print_on(output)
+			else
+				output.put_string(once "%T-- Fieldless structure%N")
+				log(once "Structure @(1) have no fields%N", <<c_string_name>>)
+			end
 		end
 
-	emit_structure_field (a_field: XML_COMPOSITE_NODE; a_structure_name: STRING) is
-		-- Append a query for `a_field' of a structure named
-		-- `a_structure_name' (defined in `an_header') to `queries'
-		-- and a setter to `setters'.
-	require
-		a_field /= Void
-		a_structure_name /= Void
-		is_field_node: a_field.name.is_equal(once U"Field")
-	do
+	emit_size is
+		-- Append to `output' the `struct_size' query for Current.
+	do 
+		-- buffer.reset
+		buffer.put_message(once 
+		"feature -- Structure size%N%
+		%	struct_size: INTEGER is%N%
+		%		external %"plug_in%"%N%
+		%		alias %"{%N%
+		%			location: %".%"%N%
+		%			module_name: %"plugin%"%N%
+		%			feature_name: %"sizeof_@(1)%"%N%
+		%		}%"%N%
+		%		end%N%N",
+		<<c_string_name>>)
+		-- buffer.print_on(output)
+		-- include.put_message(once
+		-- "#define sizeof@(1) sizeof(@(1))%N", <<a_structure_name>>)
 	end
 
-	append_structure_size (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
-		-- Append to `output' the `struct_size' query for `a_structure_name'
-	require
-		node_not_void: a_node /= Void
-		is_structure_node: a_node.name.is_equal(once U"Struct")
-		name_not_void: a_structure_name /= Void
-	do
-		-- deferred
-	end
+	emit_footer is
+		do
+			buffer.append(once "end%N")
+			buffer.append(automatically_generated_header)
+			buffer.print_on(output)
+		end
 
-	suffix: STRING is "_STRUCT"
+	suffix: STRING is "STRUCT"
+	-- The way struct class name is build require suffix not to have a trailing underscore.
+
 -- invariant name.is_equal(once U"Struct")
 end
 

@@ -17,9 +17,6 @@ inherit
 	STORABLE_NODE
 	TYPED_NODE
 	WRAPPED_BY_A_CLASS
-		redefine 
-			class_name
-		end
 
 creation make
 
@@ -37,15 +34,6 @@ feature
 
 	is_void: BOOLEAN is False
 	
-	class_name: STRING is
-		do
-			if assigned_name=Void then 
-				Result:=Precursor
-			else
-				Result:=assigned_name
-			end
-		end
-
 	emit_wrapper is
 		local 
 			filename: STRING; path: POSIX_PATH_NAME
@@ -113,8 +101,28 @@ feature
 			buffer.put_message("%Nend -- class @(1)%N",<<class_name>>)
 			buffer.print_on(output)
 		end
+		
+	class_name: STRING is
+	do
+		if stored_class_name=Void then 
+			if assigned_name/=Void then stored_class_name:=assigned_name.twin
+			else stored_class_name:=c_string_name.twin
+			end
+			-- Turn CamelCase into CAMEL_CASE
+			eiffellizer.substitute_all_in(stored_class_name)
+			stored_class_name.append(suffix)
+			stored_class_name.to_upper
+			check 
+				is_public: stored_class_name.first/='_'
+				not class_name.has_substring("__")	
+			end
+		end
+		Result := stored_class_name
+	end
+
 	
-	suffix: STRING is "_ENUM"
+	suffix: STRING is "ENUM"
+	-- In C_ENUM case the suffix does not start with an underscore
 	
 	prefix_length: INTEGER 
 		-- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
@@ -310,5 +318,6 @@ feature {C_ENUM_VALUE} -- Implementation
 feature {} -- Implementation
 	hidden_values: like values
 	--invariant name.is_equal(once U"Enumeration")
+	
 end
 

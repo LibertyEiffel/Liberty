@@ -2,6 +2,8 @@ class C_UNION
 
 inherit 
 	GCCXML_NODE
+	CONTEXTED_NODE
+	COMPOSED_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
 	FILED_NODE
@@ -13,8 +15,10 @@ creation make
 feature 
 	store is
 		do
+			create {LINKED_LIST[C_FIELD]} fields.make
 			unions.fast_put(Current,id)
 			types.fast_put(Current,id)
+			composed_types.fast_put(Current,id)
 		end
 	
 	is_fundamental: BOOLEAN is False

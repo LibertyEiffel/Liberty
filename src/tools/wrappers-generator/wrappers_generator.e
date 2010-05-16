@@ -30,8 +30,8 @@ feature {ANY}
 
 			log_string(once "Making external functions classes.%N")
 			tree.files.do_all (agent {C_FILE}.emit_wrapper)
-			-- log_string(once "Making structure accessing classes.%N")
-			-- tree.structures.do_all(agent {C_STRUCT}.emit_wrapper)
+			log_string(once "Making structure accessing classes.%N")
+			tree.structures.do_all(agent {C_STRUCT}.emit_wrapper)
 			-- log_string(once "Making union accessing classes.%N")
 			-- tree.unions.do_all(agent {C_UNION}.emit_wrapper)
 		end

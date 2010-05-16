@@ -64,13 +64,14 @@ feature {ANY}
 	end
 
 	is_wrappable: BOOLEAN is
-		-- Are all arguments wrappable and is return type either void or wrappable?
+		-- Are all arguments wrappable and is return type either void or wrappable? The variadic part of the function, the ellipsis ("...") is ignored. 
 	local i: INTEGER_32
 	do
 		Result := (return_type.is_void or return_type.has_wrapper)
 	    if Result then
+			-- Check for 
 			from i:=children_count until not Result or i<1 loop
-				Result := argument(i).has_wrapper
+				Result := argument(i).has_wrapper or else argument(i).is_ellipsis
 				i := i-1
 			end
 		end
@@ -103,9 +104,6 @@ feature {ANY}
 				log_string(once "%N")
 			end
 			buffer.print_on(a_stream)
-		rescue
-			--unwrappable := True
-			--retry
 		end
 
 	append_description is
