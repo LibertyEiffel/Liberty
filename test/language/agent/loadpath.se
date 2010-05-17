@@ -1,2 +1,3 @@
 ./
 ${path_tutorial}/agent
+${path_liberty}/src/loadpath.se
