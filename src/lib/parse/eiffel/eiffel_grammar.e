@@ -845,6 +845,8 @@ feature {}
 							image.extend('"')
 							state := -1
 						else
+							parsed.extend('[')
+							parsed.extend(c)
 							image.extend(c)
 							state := 0
 						end
@@ -868,6 +870,8 @@ feature {}
 							image.extend('"')
 							state := -1
 						else
+							parsed.extend('{')
+							parsed.extend(c)
 							image.extend(c)
 							state := 0
 						end
