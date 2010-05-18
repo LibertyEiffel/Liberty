@@ -8,9 +8,18 @@ class PARSE_TERMINAL
 
 inherit
 	PARSE_ATOM
+		redefine
+			out_in_tagged_out_memory
+		end
 
 creation {ANY}
 	make
+
+feature {ANY}
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "TERMINAL")
+		end
 
 feature {PARSE_TABLE}
 	is_coherent: BOOLEAN is True

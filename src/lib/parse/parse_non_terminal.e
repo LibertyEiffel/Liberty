@@ -23,11 +23,19 @@ class PARSE_NON_TERMINAL
 inherit
 	PARSE_ATOM
 		redefine
-			copy, is_equal
+			copy, is_equal, out_in_tagged_out_memory
 		end
 
 creation {ANY}
 	manifest_creation
+
+feature {ANY}
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.extend('{')
+			parser_tree.out_in_tagged_out_memory
+			tagged_out_memory.extend('}')
+		end
 
 feature {PARSE_TABLE}
 	is_coherent: BOOLEAN is

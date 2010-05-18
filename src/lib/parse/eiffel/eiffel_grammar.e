@@ -420,11 +420,17 @@ feature {}
 											  "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void) >> }
 		end
 
+	table_memory: PARSE_TABLE
+
 feature {ANY}
 	table: PARSE_TABLE is
-		once
-			Result := the_table
-			Result.set_default_tree_builders(agent build_non_terminal, agent build_terminal)
+		do
+			Result := table_memory
+			if Result = Void then
+				Result := the_table
+				Result.set_default_tree_builders(agent build_non_terminal, agent build_terminal)
+				table_memory := Result
+			end
 		end
 
 	display (output: OUTPUT_STREAM) is

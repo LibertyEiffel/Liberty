@@ -107,6 +107,27 @@ feature {ANY}
 			has(atom_name)
 		do
 			Result := atoms.reference_at(atom_name)
+			debug
+				if Result = Void then
+					std_output.put_string(once "Unknown atom: ")
+					std_output.put_line(atom_name)
+					std_output.put_line(once "Known atoms:")
+					std_output.put_line(once "--8<--------")
+					atoms.do_all(agent print_atom)
+					std_output.put_line(once "-------->8--")
+					sedb_breakpoint
+				end
+			end
+		end
+
+feature {}
+	print_atom (v: PARSE_ATOM; k: STRING) is
+		do
+			std_output.put_character('"')
+			std_output.put_string(k)
+			std_output.put_character('"')
+			std_output.put_string(once " => ")
+			std_output.put_line(v.out)
 		end
 
 feature {PARSE_TABLE}

@@ -9,7 +9,7 @@ class PARSE_NT_NODE
 insert
 	ANY
 		redefine
-			copy, is_equal
+			copy, is_equal, out_in_tagged_out_memory
 		end
 
 creation {PARSE_NON_TERMINAL}
@@ -17,6 +17,36 @@ creation {PARSE_NON_TERMINAL}
 
 creation {PARSE_NT_NODE}
 	make
+
+feature {ANY}
+	out_in_tagged_out_memory is
+		local
+			i: INTEGER
+		do
+			if prefix_name /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(prefix_name)
+				tagged_out_memory.extend('"')
+			end
+			if suffices /= Void then
+				tagged_out_memory.extend('(')
+				from
+					i := suffices.lower
+				until
+					i > suffices.upper
+				loop
+					if i > suffices.lower then
+						tagged_out_memory.extend('|')
+					end
+					suffices.item(i).out_in_tagged_out_memory
+					i := i + 1
+				end
+				tagged_out_memory.extend(')')
+			end
+			if end_of_rule then
+				tagged_out_memory.extend('$')
+			end
+		end
 
 feature {PARSE_NON_TERMINAL}
 	add (rule: TRAVERSABLE[STRING]; a_action: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]) is
