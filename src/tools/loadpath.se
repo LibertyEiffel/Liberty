@@ -1,5 +1,6 @@
 ./
 configuration/
+configuration/etc/
 errors/
 interpreter/loadpath.se
 main/

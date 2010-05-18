@@ -12,12 +12,10 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CONFIGURATION_GRAMMAR
---
--- ASSET: ASSembly of Eiffel Types
---
--- An asset describes a system (similar to good ol' ACE files)
---
+class LIBERTY_ETC_GRAMMAR
+	--
+	-- Grammar for the etc files (i.e. master configuration, in /etc for UNIX)
+	--
 
 insert
 	EIFFEL_GRAMMAR
@@ -25,32 +23,27 @@ insert
 			the_table
 		end
 
+create {LIBERTY_ETC}
+	make
+
 feature {}
 	the_table: PARSE_TABLE is
 		once
 			Result := {PARSE_TABLE <<
-											 "Asset", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW asset", "KW entity name", "Default", "Root", "Needs", "KW end", "KW end of file" >> }, agent build_root >> };
-											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster", "KW entity name", "Version", "Includes", "Needs", "Concurrency", "KW end", "KW end of file" >> }, agent build_root >> };
-											 "Configuration", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW configuration", "KW entity name", "Overrides", "Clusters", "KW end", "KW end of file" >> }, agent build_root >> };
-
-											 "Root", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW root", "KW class name", "Root_Procedure" >> }, Void >> };
-											 "Root_Procedure", {PARSE_NON_TERMINAL << epsilon, Void;
-																									{FAST_ARRAY[STRING] << "KW .", "KW entity name" >> }, Void >> };
-											 "Default", {PARSE_NON_TERMINAL << epsilon, Void;
-																						  {FAST_ARRAY[STRING] << "KW default", "Assertion", "Debug" >> }, Void >> };
-											 "Assertion", {PARSE_NON_TERMINAL << epsilon, Void;
-																							 {FAST_ARRAY[STRING] << "KW assertion", "Assertion_Level" >> }, Void >> };
-											 "Assertion_Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW none" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW require" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW ensure" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW loop" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW check" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW all" >> }, Void >> };
+											 "Master", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW master", "KW entity name", "Environment", "Cluster*", "KW end", "KW end of file" >> }, agent build_root >> };
+											 "Environment", {PARSE_NON_TERMINAL << epsilon, Void;
+																								{FAST_ARRAY[STRING] << "KW environment", "Environment_Variable*" >> }, Void >> };
+											 "Environment_Variable*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Environment_Variable*");
+																											 {FAST_ARRAY[STRING] << "Environment_Variable", "Environment_Variable*" >> }, agent build_continue_list("Environment_Variable", 0, "Environment_Variable*") >> };
+											 "Environment_Variable", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW string" >> }, Void >> };
+											 "Cluster*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster*");
+																							{FAST_ARRAY[STRING] << "Cluster", "Cluster*" >> }, agent build_continue_list("Cluster", 0, "Cluster*") >> };
+											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster", "KW entity name", "Location", "Version", "Includes", "Needs", "KW end", "KW end of file" >> }, agent build_root >> };
 											 "Needs", {PARSE_NON_TERMINAL << epsilon, Void;
 																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*" >>}, Void >> };
 											 "Cluster_Configuration*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster_Configuration*");
-																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
-																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
+																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
+																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
 											 "Cluster_Configuration", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster name", "Cluster_Constraints", "Cluster_Details" >> }, Void >> };
 											 "Cluster_Constraints", {PARSE_NON_TERMINAL << epsilon, Void;
 																										  {FAST_ARRAY[STRING] << "KW (", "Cluster_Version_Constraint", "KW )" >> }, Void >> };
@@ -63,19 +56,28 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "KW >" >> }, Void >> };
 											 "Cluster_Details", {PARSE_NON_TERMINAL << epsilon, Void;
 																									 {FAST_ARRAY[STRING] << "Concurrency", "Assertion", "Debug", "KW end" >> }, Void >> };
+											 "Assertion", {PARSE_NON_TERMINAL << epsilon, Void;
+																							 {FAST_ARRAY[STRING] << "KW assertion", "Assertion_Level" >> }, Void >> };
+											 "Assertion_Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW none" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW require" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW ensure" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW loop" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW check" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW all" >> }, Void >> };
 											 "Debug", {PARSE_NON_TERMINAL << epsilon, Void;
-																						{FAST_ARRAY[STRING] << "KW debug", "Debug_Configuration+" >> }, Void >> };
-											 "Debug_Configuration+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Debug_Configuration" >> }, agent build_new_list("Debug_Configuration", "Debug_Configuration+");
-																											{FAST_ARRAY[STRING] << "Debug_Configuration", "Debug_Configuration+" >> }, agent build_continue_list("Debug_Configuration", 0, "Debug_Configuration+");
-																											{FAST_ARRAY[STRING] << "Debug_Configuration", "KW ;", "Debug_Configuration+" >> }, agent build_continue_list("Debug_Configuration", 1, "Debug_Configuration+") >> };
+																						{FAST_ARRAY[STRING] << "KW debug", "Debug_Configuration*" >> }, Void >> };
+											 "Debug_Configuration*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Debug_Configuration*");
+																											{FAST_ARRAY[STRING] << "Debug_Configuration", "Debug_Configuration*" >> }, agent build_continue_list("Debug_Configuration", 0, "Debug_Configuration+");
+																											{FAST_ARRAY[STRING] << "Debug_Configuration", "KW ;", "Debug_Configuration*" >> }, agent build_continue_list("Debug_Configuration", 1, "Debug_Configuration*") >> };
 											 "Debug_Configuration", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW default", "KW :", "Debug_Key+" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "KW class name", "KW :", "Debug_Key+" >> }, Void >> };
 											 "Debug_Key+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Debug_Key" >> }, agent build_new_list("Debug_Key", "Debug_Key+");
 																							  {FAST_ARRAY[STRING] << "Debug_Key", "KW ,", "Debug_Key+" >> }, agent build_continue_list("Debug_Key", 1, "Debug_Key+") >> };
+											 "Debug_Key", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW string" >> }, Void >> };
+											 "Concurrency", {PARSE_NON_TERMINAL << epsilon, Void >> };
 
-											 "KW asset", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "asset"), Void);
-											 "KW root", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "root"), Void);
-											 "KW default", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "default"), Void);
+											 "KW master", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "master"), Void);
+											 "KW environment", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "environment"), Void);
 											 "KW assertion", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "assertion"), Void);
 											 "KW none", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "none"), Void);
 											 "KW require", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "require"), Void);
@@ -91,7 +93,7 @@ feature {}
 											 "KW >=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ">="), Void);
 											 "KW =", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "="), Void);
 											 "KW /=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "/="), Void);
-											 "KW concurrency", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "concurrence"), Void);
+											 "KW concurrency", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "concurrency"), Void);
 											 "KW debug", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "debug"), Void);
 											 "KW :", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ":"), Void);
 											 "KW .", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "."), Void);

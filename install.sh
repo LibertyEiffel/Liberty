@@ -30,6 +30,26 @@ function bootstrap()
 	cd ..
     fi
 
+    if [ ! -d libertyrc ]; then
+	title "Preparing Liberty environment"
+	mkdir libertyrc
+	cd libertyrc
+	cat > libertyi.rc <<EOF
+master libertyi
+environment
+	path_liberty is "$LIBERTY_HOME/"
+end
+EOF
+	cd ..
+    fi
+
+    if [ -L $HOME/.liberty ]; then
+	rm $HOME/.liberty
+    elif [ -e $HOME/.liberty ]; then
+	mv $HOME/.liberty $HOME/.liberty~
+    fi
+    ln -s $LIBERTY_HOME/target/libertyrc $HOME/.liberty
+
     if [ ! -d serc ]; then
 	title "Preparing SmartEiffel environment"
 	mkdir serc

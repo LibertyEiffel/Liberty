@@ -1,2 +1,2 @@
 ./
-../../../src/loadpath.se
+${path_liberty}/src/loadpath.se

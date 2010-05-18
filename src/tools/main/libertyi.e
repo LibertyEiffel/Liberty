@@ -35,10 +35,13 @@ feature {}
 			env: LIBERTY_ENVIRONMENT
 			arg: STRING
 			options: LIBERTY_INTERPRETER_OPTIONS
+			etc: LIBERTY_ETC
 		do
 			if argument_count < 3 then
 				usage
 			end
+
+			etc.configure_for(create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
 
 			from
 				arg := once ""
