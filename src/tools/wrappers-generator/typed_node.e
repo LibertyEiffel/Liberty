@@ -39,7 +39,7 @@ feature
 	deferred
 	end
 
-	assigned_name: STRING 
+	assigned_name: STRING
 		-- The name under which Current will be forcefully wrapped to.
 
 	set_name (a_name: STRING) is

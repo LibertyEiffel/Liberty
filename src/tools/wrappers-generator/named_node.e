@@ -12,19 +12,20 @@ feature
 
 	c_string_name: STRING is
 		do
-			if cached_c_string_name=Void then
-				cached_c_string_name:=c_name.to_utf8
+			if c_name/=Void then
+				if cached_c_string_name=Void then
+					cached_c_string_name:=c_name.to_utf8
+				end
+				Result:=cached_c_string_name
 			end
-			Result:=cached_c_string_name
 		end
 
 	is_public: BOOLEAN is
 		-- Does `c_name' start with an alphabetical character? Names
 		-- starting with underscores or other strange characters are
 		-- usually considered private in C/C++ languages.
-	require c_name/=Void
 	do
-		Result := c_name.first.to_character.is_letter
+		Result := c_name/=Void and then c_name.first.to_character.is_letter
 	end
 
 feature {} -- Implementation
