@@ -99,6 +99,8 @@ feature {}
 				i := i + 1
 			end
 
+			etc.log
+
 			create universe.make(argument(1))
 			create root_feature_name.make(argument(3).intern)
 

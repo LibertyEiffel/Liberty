@@ -36,8 +36,13 @@ function bootstrap()
 	cd libertyrc
 	cat > libertyi.rc <<EOF
 master libertyi
+
 environment
-	path_liberty is "$LIBERTY_HOME/"
+	path_liberty is "$LIBERTY_HOME"
+
+cluster
+	liberty: "\${path_liberty}/src/loadpath.se" version "1.0"
+
 end
 EOF
 	cd ..

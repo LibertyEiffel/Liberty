@@ -17,8 +17,12 @@ deferred class LIBERTY_ETC_VISITOR
 inherit
 	VISITOR
 
-feature {ANY}
+feature {LIBERTY_ETC}
 	tool_name: FIXED_STRING is
+		deferred
+		end
+
+	clusters: MAP[LIBERTY_ETC_CLUSTER, STRING] is
 		deferred
 		end
 
@@ -72,7 +76,25 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		deferred
 		end
 
+	visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
 	visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
+	visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
+	visit_version (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
 			nt /= Void
 		deferred
@@ -149,5 +171,8 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			nt /= Void
 		deferred
 		end
+
+invariant
+	clusters /= Void
 
 end -- class LIBERTY_ETC_VISITOR

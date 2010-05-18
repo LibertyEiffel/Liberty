@@ -30,17 +30,21 @@ feature {}
 	the_table: PARSE_TABLE is
 		once
 			Result := {PARSE_TABLE <<
-											 "Master", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW master", "KW entity name", "Environment", "Cluster*", "KW end", "KW end of file" >> }, agent build_root >> };
+											 "Master", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW master", "KW entity name", "Environment", "Clusters", "KW end", "KW end of file" >> }, agent build_root >> };
 											 "Environment", {PARSE_NON_TERMINAL << epsilon, Void;
 																								{FAST_ARRAY[STRING] << "KW environment", "Environment_Variable*" >> }, Void >> };
 											 "Environment_Variable*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Environment_Variable*");
 																											 {FAST_ARRAY[STRING] << "Environment_Variable", "Environment_Variable*" >> }, agent build_continue_list("Environment_Variable", 0, "Environment_Variable*") >> };
 											 "Environment_Variable", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW string" >> }, Void >> };
+											 "Clusters", {PARSE_NON_TERMINAL << epsilon, Void;
+																							{FAST_ARRAY[STRING] << "KW cluster", "Cluster*" >> }, Void >> };
 											 "Cluster*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster*");
 																							{FAST_ARRAY[STRING] << "Cluster", "Cluster*" >> }, agent build_continue_list("Cluster", 0, "Cluster*") >> };
-											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster", "KW entity name", "Location", "Version", "Includes", "Needs", "KW end", "KW end of file" >> }, agent build_root >> };
+											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "Location", "Version", "Needs" >> }, agent build_root >> };
+											 "Location", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW :", "KW string" >> }, Void >> };
+											 "Version", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW version", "KW string" >> }, Void >> };
 											 "Needs", {PARSE_NON_TERMINAL << epsilon, Void;
-																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*" >>}, Void >> };
+																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*", "KW end" >>}, Void >> };
 											 "Cluster_Configuration*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster_Configuration*");
 																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
 																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
@@ -119,7 +123,6 @@ feature {}
 											 "KW mmap", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "mmap"), Void);
 											 "KW message", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "message"), Void);
 											 "KW cluster", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "cluster"), Void);
-											 "KW includes", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "includes"), Void);
 											 "KW not", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "not"), Void);
 											 "KW configuration", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "configuration"), Void);
 											 "KW overrides", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "overrides"), Void);

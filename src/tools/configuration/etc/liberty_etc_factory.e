@@ -53,8 +53,14 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_environment
 			when "Environment_Variable" then
 				visitor := agent_environment_variable
+			when "Clusters" then
+				visitor := agent_clusters
 			when "Cluster" then
 				visitor := agent_cluster
+			when "Location" then
+				visitor := agent_location
+			when "Version" then
+				visitor := agent_version
 			when "Needs" then
 				visitor := agent_needs
 			when "Cluster_Configuration" then
@@ -134,9 +140,24 @@ feature {} -- visitor agents
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_environment_variable
 		end
 
+	agent_clusters: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_clusters
+		end
+
 	agent_cluster: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_cluster
+		end
+
+	agent_location: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_location
+		end
+
+	agent_version: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_version
 		end
 
 	agent_needs: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is

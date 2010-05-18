@@ -20,8 +20,13 @@ inherit
 create {ANY}
 	make
 
-feature {ANY}
+feature {LIBERTY_ETC}
 	tool_name: FIXED_STRING
+
+	clusters: MAP[LIBERTY_ETC_CLUSTER, STRING] is
+		do
+			Result := all_clusters
+		end
 
 feature {LIBERTY_ETC_FACTORY} -- Lists
 	visit_environment_variable_list (list: LIBERTY_ETC_LIST) is
@@ -58,7 +63,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 				nt.lower = 0
 				nt.name_at(1).is_equal(once "KW entity name")
 				nt.name_at(2).is_equal(once "Environment")
-				nt.name_at(3).is_equal(once "Cluster*")
+				nt.name_at(3).is_equal(once "Clusters")
 			end
 			t ::= nt.node_at(1)
 			if not t.image.image.is_equal(tool_name) then
@@ -95,16 +100,64 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			env.set(entity_name.image.image, entity_value_image.decoded)
 		end
 
+	visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL) is
+		do
+			if not nt.is_empty then
+				check
+					nt.lower = 0
+					nt.name_at(1).is_equal(once "Cluster*")
+				end
+				nt.node_at(1).accept(Current)
+			end
+		end
+
 	visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
+		local
+			cluster_name: EIFFEL_TERMINAL_NODE
 		do
 			check
 				nt.lower = 0
-				nt.name_at(1).is_equal(once "KW entity name")
-				nt.name_at(2).is_equal(once "Location")
-				nt.name_at(3).is_equal(once "Version")
-				nt.name_at(4).is_equal(once "Includes")
-				nt.name_at(5).is_equal(once "Needs")
+				nt.name_at(0).is_equal(once "KW entity name")
+				nt.name_at(1).is_equal(once "Location")
+				nt.name_at(2).is_equal(once "Version")
+				nt.name_at(3).is_equal(once "Needs")
 			end
+			cluster_name ::= nt.node_at(0)
+			create current_cluster.make(cluster_name.image.image)
+			--|*** TODO: check if the cluster already exists
+			all_clusters.add(current_cluster, cluster_name.image.image)
+			nt.node_at(1).accept(Current)
+			nt.node_at(2).accept(Current)
+			nt.node_at(3).accept(Current)
+			current_cluster := Void
+		end
+
+	visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
+		local
+			location: EIFFEL_TERMINAL_NODE
+			location_image: TYPED_EIFFEL_IMAGE[STRING]
+		do
+			check
+				nt.lower = 0
+				nt.name_at(1).is_equal(once "KW string")
+			end
+			location ::= nt.node_at(1)
+			location_image ::= location.image
+			current_cluster.set_location(location_image.decoded)
+		end
+
+	visit_version (nt: LIBERTY_ETC_NON_TERMINAL) is
+		local
+			version: EIFFEL_TERMINAL_NODE
+			version_image: TYPED_EIFFEL_IMAGE[STRING]
+		do
+			check
+				nt.lower = 0
+				nt.name_at(1).is_equal(once "KW string")
+			end
+			version ::= nt.node_at(1)
+			version_image ::= version.image
+			current_cluster.set_version(version_image.decoded)
 		end
 
 	visit_needs (nt: LIBERTY_ETC_NON_TERMINAL) is
@@ -161,14 +214,18 @@ feature {}
 			a_tool_name /= Void
 		do
 			tool_name := a_tool_name.intern
+			create all_clusters.make
 		ensure
 			tool_name = a_tool_name.intern
 		end
 
 	errors: LIBERTY_ERRORS
 	env: LIBERTY_ENVIRONMENT
+	all_clusters: HASHED_DICTIONARY[LIBERTY_ETC_CLUSTER, STRING]
+	current_cluster: LIBERTY_ETC_CLUSTER
 
 invariant
+	all_clusters /= Void
 	tool_name /= Void
 
 end -- class LIBERTY_ETC_VISITOR_IMPL

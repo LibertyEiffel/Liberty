@@ -21,7 +21,7 @@ create {LIBERTY_UNIVERSE}
 	make
 
 create {LIBERTY_CLUSTER}
-	make_subcluster
+	make_subcluster, make_from_etc
 
 create {LIBERTY_CLASS_DESCRIPTOR}
 	make_void
@@ -113,11 +113,46 @@ feature {}
 	make (a_location: like location) is
 		require
 			a_location /= Void
+		local
+			c: FAST_ARRAY[LIBERTY_CLUSTER]
+			i: INTEGER
+			etc: LIBERTY_ETC
 		do
-			logging.trace.put_string("Cluster: ")
-			logging.trace.put_line(a_location)
+			location := "<Root>"
+			create c.with_capacity(1 + etc.clusters.count)
+			children := c
+			c.add_last(create {LIBERTY_CLUSTER}.make_subcluster(a_location, Current))
+			from
+				i := etc.clusters.lower
+			until
+				i > etc.clusters.upper
+			loop
+				c.add_last(create {LIBERTY_CLUSTER}.make_from_etc(etc.clusters.item(i), Current))
+				i := i + 1
+			end
+		end
+
+	make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_parent: like parent) is
+		require
+			a_etc /= Void
+			a_parent /= Void
+		local
+			loc: like location
+		do
+			loc := a_etc.location.twin
+			env.substitute(loc)
+			make_subcluster(loc, a_parent)
+		end
+
+	make_subcluster (a_location: like location; a_parent: like parent) is
+		require
+			a_location /= Void
+			a_parent /= Void
+		do
 			location := a_location
 			if ft.is_directory(a_location) then
+				logging.trace.put_string("Cluster: ")
+				logging.trace.put_line(a_location)
 				location_directory := a_location
 			else
 				dir.compute_parent_directory_of(location)
@@ -128,16 +163,7 @@ feature {}
 				end
 			end
 			create_children
-		ensure
-			location = a_location
-		end
 
-	make_subcluster (a_location: like location; a_parent: like parent) is
-		require
-			a_location /= Void
-			a_parent /= Void
-		do
-			make(a_location)
 			parent := a_parent
 		ensure
 			location = a_location
