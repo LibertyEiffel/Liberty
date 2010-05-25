@@ -18,7 +18,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	configure_for (a_visitor: like visitor) is
+	configure_for (a_program_cluster: STRING; a_visitor: like visitor) is
 		require
 			not is_configured
 			a_visitor /= Void
@@ -44,6 +44,7 @@ feature {ANY}
 				end
 				i := i + 1
 			end
+			configure_program_cluster(a_program_cluster)
 		ensure
 			is_configured
 			visitor = a_visitor
@@ -59,7 +60,7 @@ feature {ANY}
 			Result := visitor /= Void
 		end
 
-	clusters: MAP[LIBERTY_ETC_CLUSTER, STRING] is
+	clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING] is
 		require
 			is_configured
 		do
@@ -79,9 +80,7 @@ feature {}
 			create Result
 		end
 
-	show_cluster (a_cluster: LIBERTY_ETC_CLUSTER; its_name: STRING) is
-		require
-			a_cluster.name.is_equal(its_name)
+	show_cluster (a_cluster: LIBERTY_ETC_CLUSTER) is
 		do
 			if logging.is_trace then
 				logging.trace.put_line(a_cluster.out)
@@ -118,6 +117,71 @@ feature {}
 					grammar.root_node.accept(visitor)
 					Result := True
 				end
+			end
+		end
+
+	configure_program_cluster (a_program_cluster: STRING) is
+		do
+			dir.compute_short_name_of(a_program_cluster)
+			inspect
+				dir.last_entry
+			when "cluster.rc" then
+				configure_program_cluster_rc(a_program_cluster)
+			when "loadpath.se" then
+				configure_program_loadpath(a_program_cluster)
+			else
+				std_error.put_line("Unknown program cluster format: " + a_program_cluster)
+				die_with_code(1)
+			end
+		end
+
+	configure_program_cluster_rc (a_program_cluster_rc: STRING) is
+		local
+			conf: STRING
+		do
+			parser_file.connect_to(a_program_cluster_rc)
+			if parser_file.is_connected then
+				conf := once ""
+				conf.clear_count
+				from
+					parser_file.read_line
+				until
+					parser_file.end_of_input
+				loop
+					conf.append(parser_file.last_string)
+					conf.extend('%N')
+					parser_file.read_line
+				end
+				conf.append(parser_file.last_string)
+				parser_file.disconnect
+				parser_buffer.initialize_with(conf)
+
+				grammar.reset
+				parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+				if parser.error /= Void then
+					errors.emit_syntax_error(parser.error, conf, a_program_cluster_rc.intern)
+				else
+					grammar.root_node.accept(visitor)
+				end
+			end
+		end
+
+	configure_program_loadpath (a_program_loadpath: STRING) is
+		local
+			conf: STRING
+		do
+			conf := once ""
+			conf.copy(once "cluster PROGRAM_LOADPATH: %"")
+			conf.append(a_program_loadpath)
+			conf.append(once "%" version %"0.0%" end")
+			parser_buffer.initialize_with(conf)
+
+			grammar.reset
+			parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+			if parser.error /= Void then
+				errors.emit_syntax_error(parser.error, conf, "Generated cluster definition".intern)
+			else
+				grammar.root_node.accept(visitor)
 			end
 		end
 

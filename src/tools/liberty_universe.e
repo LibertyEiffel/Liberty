@@ -27,7 +27,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ACTUAL_TYPE]): LIBERTY_ACTUAL_TYPE is
+	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: FIXED_STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_ACTUAL_TYPE]): LIBERTY_ACTUAL_TYPE is
 		require
 			position /= Void
 		do
@@ -82,28 +82,28 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("ANY", visit_type_any)
+			Result := kernel_type("ANY".intern, visit_type_any)
 		end
 
 	type_platform: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("PLATFORM", visit_type_platform)
+			Result := kernel_type("PLATFORM".intern, visit_type_platform)
 		end
 
 	type_pointer: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("POINTER", visit_type_pointer)
+			Result := kernel_type("POINTER".intern, visit_type_pointer)
 		end
 
 	type_integer_64: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_64", visit_type_integer_64)
+			Result := kernel_type("INTEGER_64".intern, visit_type_integer_64)
 			Result.add_converter(type_real_128, convert_integer_64_real_128)
 			Result.add_converter(type_real_80, convert_integer_64_real_80)
 			Result.set_may_promote_current
@@ -113,7 +113,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_32", visit_type_integer_32)
+			Result := kernel_type("INTEGER_32".intern, visit_type_integer_32)
 			Result.add_converter(type_integer_64, convert_integer_32_64)
 			Result.add_converter(type_real_128, convert_integer_32_real_128)
 			Result.add_converter(type_real_80, convert_integer_32_real_80)
@@ -125,7 +125,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_16", visit_type_integer_16)
+			Result := kernel_type("INTEGER_16".intern, visit_type_integer_16)
 			Result.add_converter(type_integer_32, convert_integer_16_32)
 			Result.add_converter(type_integer_64, convert_integer_16_64)
 			Result.add_converter(type_real_128, convert_integer_16_real_128)
@@ -139,7 +139,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_8", visit_type_integer_8)
+			Result := kernel_type("INTEGER_8".intern, visit_type_integer_8)
 			Result.add_converter(type_integer_16, convert_integer_8_16)
 			Result.add_converter(type_integer_32, convert_integer_8_32)
 			Result.add_converter(type_integer_64, convert_integer_8_64)
@@ -154,7 +154,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_128", visit_type_real_128)
+			Result := kernel_type("REAL_128".intern, visit_type_real_128)
 			Result.set_may_promote_current
 		end
 
@@ -162,7 +162,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_80", visit_type_real_80)
+			Result := kernel_type("REAL_80".intern, visit_type_real_80)
 			Result.add_converter(type_real_128, convert_real_80_128)
 			Result.set_may_promote_current
 		end
@@ -171,7 +171,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_64", visit_type_real_64)
+			Result := kernel_type("REAL_64".intern, visit_type_real_64)
 			Result.add_converter(type_real_80, convert_real_64_80)
 			Result.add_converter(type_real_128, convert_real_64_128)
 			Result.set_may_promote_current
@@ -181,7 +181,7 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL_32", visit_type_real_32)
+			Result := kernel_type("REAL_32".intern, visit_type_real_32)
 			Result.add_converter(type_real_64, convert_real_32_64)
 			Result.add_converter(type_real_80, convert_real_32_80)
 			Result.add_converter(type_real_128, convert_real_32_128)
@@ -192,21 +192,21 @@ feature {ANY} -- Kernel types
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("CHARACTER", visit_type_character)
+			Result := kernel_type("CHARACTER".intern, visit_type_character)
 		end
 
 	type_string: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("STRING", visit_type_string)
+			Result := kernel_type("STRING".intern, visit_type_string)
 		end
 
 	type_boolean: LIBERTY_ACTUAL_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("BOOLEAN", visit_type_boolean)
+			Result := kernel_type("BOOLEAN".intern, visit_type_boolean)
 		end
 
 	type_native_array (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
@@ -533,7 +533,7 @@ feature {}
 		local
 			cluster: LIBERTY_CLUSTER
 		once
-			cluster := root.find("NATIVE_ARRAY")
+			cluster := root.find("NATIVE_ARRAY".intern)
 			create Result.make(cluster, "NATIVE_ARRAY".intern, Void)
 		end
 
@@ -541,7 +541,7 @@ feature {}
 		local
 			cluster: LIBERTY_CLUSTER
 		once
-			cluster := root.find("TUPLE")
+			cluster := root.find("TUPLE".intern)
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
@@ -549,7 +549,7 @@ feature {}
 		local
 			cluster: LIBERTY_CLUSTER
 		once
-			cluster := root.find("PROCEDURE")
+			cluster := root.find("PROCEDURE".intern)
 			create Result.make(cluster, "PROCEDURE".intern, Void)
 		end
 
@@ -557,7 +557,7 @@ feature {}
 		local
 			cluster: LIBERTY_CLUSTER
 		once
-			cluster := root.find("FUNCTION")
+			cluster := root.find("FUNCTION".intern)
 			create Result.make(cluster, "FUNCTION".intern, Void)
 		end
 
@@ -565,11 +565,11 @@ feature {}
 		local
 			cluster: LIBERTY_CLUSTER
 		once
-			cluster := root.find("PREDICATE")
+			cluster := root.find("PREDICATE".intern)
 			create Result.make(cluster, "PREDICATE".intern, Void)
 		end
 
-	kernel_type (class_name: STRING; visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]): LIBERTY_ACTUAL_TYPE is
+	kernel_type (class_name: FIXED_STRING; visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]): LIBERTY_ACTUAL_TYPE is
 			-- Called only once per kernel type
 		require
 			not errors.has_error
@@ -696,12 +696,12 @@ feature {LIBERTY_TYPE_RESOLVER}
 				Result := type_function(parameters.first.known_type.parameters, parameters.last, type_lookup.resolver.position(type_definition))
 			else
 				parameters := get_parameters(type_definition.type_parameters)
-				Result := do_get_type(cluster, type_lookup.resolver.position(type_definition), class_name, parameters)
+				Result := do_get_type(cluster, type_lookup.resolver.position(type_definition), class_name.intern, parameters)
 			end
 		end
 
 feature {}
-	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_ACTUAL_TYPE is
+	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: FIXED_STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_ACTUAL_TYPE is
 		require
 			position /= Void
 		local
@@ -732,7 +732,7 @@ feature {}
 		do
 			Result := types.reference_at(descriptor)
 			if Result = Void then
-				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
+				ast := parse_class(descriptor.cluster, descriptor.name, descriptor.position)
 				create Result.make(descriptor, standard_generics_checker, ast, visit_user_type)
 				start_to_build_type(Result)
 			end
@@ -774,7 +774,7 @@ feature {} -- Type parameters fetching
 		end
 
 feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
-	parse_class (cluster: LIBERTY_CLUSTER; class_name: ABSTRACT_STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
+	parse_class (cluster: LIBERTY_CLUSTER; class_name: FIXED_STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
 		local
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
@@ -843,7 +843,7 @@ feature {} -- AST building
 		once
 			logging.info.put_line(once "Parsing TUPLE")
 
-			tuple_cluster := root.find("TUPLE")
+			tuple_cluster := root.find("TUPLE".intern)
 			if tuple_cluster = Void then
 				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
 			end
@@ -923,12 +923,12 @@ feature {} -- AST building
 feature {}
 	default_type_capacity: INTEGER is 4096
 
-	make (universe_path: STRING) is
+	make is
 		local
 			tr: LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
 		do
 			type_lookup.set_universe(Current)
-			create root.make(universe_path)
+			create root.make_root
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
 			create {HASHED_DICTIONARY[LIBERTY_ACTUAL_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
 			create types_incubator.with_capacity(default_type_capacity, 0)

@@ -41,7 +41,7 @@ feature {}
 				usage
 			end
 
-			etc.configure_for(create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
+			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
 
 			from
 				arg := once ""
@@ -101,10 +101,10 @@ feature {}
 
 			etc.log
 
-			create universe.make(argument(1))
+			create universe.make
 			create root_feature_name.make(argument(3).intern)
 
-			root := universe.get_type(Void, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
+			root := universe.get_type(Void, errors.unknown_position, argument(2).intern, create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run

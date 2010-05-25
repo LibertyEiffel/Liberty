@@ -18,67 +18,88 @@ insert
 	HASHABLE
 
 create {LIBERTY_UNIVERSE}
-	make
+	make_root
 
 create {LIBERTY_CLUSTER}
-	make_subcluster, make_from_etc
+	make_from_loadpath, make_from_etc
 
 create {LIBERTY_CLASS_DESCRIPTOR}
 	make_void
 
 feature {ANY}
-	location: STRING
-
-feature {}
-	location_directory: STRING
+	name: FIXED_STRING
+	locations: TRAVERSABLE[FIXED_STRING]
 
 feature {ANY}
-	hash_code: INTEGER is
-		do
-			Result := location.hash_code
-		end
+	hash_code: INTEGER
 
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := other.location.is_equal(location)
+			Result := other.locations.is_equal(locations)
+		end
+
+	location_of (a_class_name: FIXED_STRING): FIXED_STRING is
+		do
+			Result := class_names.fast_reference_at(a_class_name)
+			if Result = Void then
+				Result := find(a_class_name).location_of(a_class_name)
+			end
 		end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
-	find (a_class_name: STRING): LIBERTY_CLUSTER is
+	find (a_class_name: FIXED_STRING): LIBERTY_CLUSTER is
 		local
 			filename: STRING
 		do
 			filename := once ""
-			filename.copy(a_class_name)
+			filename.make_from_string(a_class_name)
 			filename.to_lower
 			filename.append(once ".e")
-			Result := find_file(filename, Void, True)
+			Result := find_cluster(a_class_name, filename, Void)
+			if Result = Void and then root /= Current then
+				Result := root.find_cluster(a_class_name, filename, Current)
+			end
+		ensure
+			Result.location_of(a_class_name) /= Void
 		end
 
 feature {LIBERTY_CLUSTER}
-	find_file (a_file_name: STRING; clip_child: LIBERTY_CLUSTER; try_up: BOOLEAN): LIBERTY_CLUSTER is
+	find_cluster (a_class_name: FIXED_STRING; a_file_name: STRING; clip_child: LIBERTY_CLUSTER): LIBERTY_CLUSTER is
+		local
+			i: INTEGER
 		do
-			Result := find_here(a_file_name)
-			if Result = Void then
-				Result := find_child(a_file_name, clip_child)
+			from
+				i := locations.lower
+			until
+				Result /= Void or else i > locations.upper
+			loop
+				if find_here(locations.item(i), a_file_name) then
+					class_names.put(locations.item(i), a_class_name)
+					Result := Current
+				end
+				i := i + 1
 			end
-			if Result = Void and then try_up and then parent /= Void then
-				Result := parent.find_file(a_file_name, Current, try_up)
+			if Result = Void then
+				Result := find_child(a_class_name, a_file_name, clip_child)
 			end
 		end
 
 feature {} -- find
-	find_here (a_file_name: STRING): LIBERTY_CLUSTER is
+	find_here (a_location: FIXED_STRING; a_file_name: STRING): BOOLEAN is
+		local
+			here: STRING
 		do
-			dir.connect_to(location)
+			here := once ""
+			here.make_from_string(a_location)
+			dir.connect_to(here)
 			if dir.is_connected then
 				from
 					dir.read_entry
 				until
-					Result /= Void or else dir.end_of_input
+					Result or else dir.end_of_input
 				loop
 					if dir.last_entry.is_equal(a_file_name) then
-						Result := Current
+						Result := True
 					end
 					dir.read_entry
 				end
@@ -86,7 +107,7 @@ feature {} -- find
 			end
 		end
 
-	find_child (a_file_name: STRING; clip_child: LIBERTY_CLUSTER): LIBERTY_CLUSTER is
+	find_child (a_class_name: FIXED_STRING; a_file_name: STRING; clip_child: LIBERTY_CLUSTER): LIBERTY_CLUSTER is
 		local
 			child: LIBERTY_CLUSTER
 			i: INTEGER
@@ -98,7 +119,7 @@ feature {} -- find
 			loop
 				child := children.item(i)
 				if child /= clip_child then
-					Result := child.find_file(a_file_name, Void, False)
+					Result := child.find_cluster(a_class_name, a_file_name, clip_child)
 				end
 				i := i + 1
 			end
@@ -107,103 +128,101 @@ feature {} -- find
 feature {}
 	make_void is
 		do
-			location := "<Void>"
+			name := "<Void>".intern
+			create class_names.with_capacity(0)
+			create {FAST_ARRAY[FIXED_STRING]} locations.with_capacity(0)
 		end
 
-	make (a_location: like location) is
-		require
-			a_location /= Void
+	make_root is
 		local
 			c: FAST_ARRAY[LIBERTY_CLUSTER]
-			i: INTEGER
 			etc: LIBERTY_ETC
 		do
-			location := "<Root>"
-			create c.with_capacity(1 + etc.clusters.count)
+			name := "<Root>".intern
+			create {FAST_ARRAY[FIXED_STRING]} locations.with_capacity(0)
+			create class_names.with_capacity(7)
+			root := Current
+			create c.with_capacity(etc.clusters.count)
 			children := c
-			c.add_last(create {LIBERTY_CLUSTER}.make_subcluster(a_location, Current))
-			from
-				i := etc.clusters.lower
-			until
-				i > etc.clusters.upper
-			loop
-				c.add_last(create {LIBERTY_CLUSTER}.make_from_etc(etc.clusters.item(i), Current))
-				i := i + 1
+			etc.clusters.do_all(agent add_if_root({LIBERTY_ETC_CLUSTER}, c))
+		end
+
+	add_if_root (a_etc: LIBERTY_ETC_CLUSTER; a_children: FAST_ARRAY[LIBERTY_CLUSTER]) is
+		require
+			root = Current
+		do
+			if a_etc.depth = 0 then
+				check
+					a_etc.cluster = Void
+				end
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc, Current))
 			end
 		end
 
-	make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_parent: like parent) is
+	make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_root: like root) is
 		require
 			a_etc /= Void
-			a_parent /= Void
+			a_root /= Void
+			a_etc.cluster = Void
 		local
-			loc: like location
+			c: FAST_ARRAY[LIBERTY_CLUSTER]
 		do
-			loc := a_etc.location.twin
-			env.substitute(loc)
-			make_subcluster(loc, a_parent)
+			a_etc.set_cluster(Current)
+			name := a_etc.name
+			locations := a_etc.locations
+			create class_names.with_capacity(16)
+			root := a_root
+			create c.with_capacity(a_etc.needs.count)
+			children := c
+			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c))
 		end
 
-	make_subcluster (a_location: like location; a_parent: like parent) is
-		require
-			a_location /= Void
-			a_parent /= Void
+	add_needs (a_etc: LIBERTY_ETC_NEEDS; a_children: FAST_ARRAY[LIBERTY_CLUSTER]) is
 		do
-			location := a_location
-			if ft.is_directory(a_location) then
-				logging.trace.put_string("Cluster: ")
-				logging.trace.put_line(a_location)
-				location_directory := a_location
+			if a_etc.cluster.cluster /= Void then
+				a_children.add_last(a_etc.cluster.cluster)
 			else
-				dir.compute_parent_directory_of(location)
-				if dir.last_entry.is_empty then
-					location_directory := dir.current_working_directory.out
-				else
-					location_directory := dir.last_entry.twin
-				end
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster, Current))
 			end
-			create_children
-
-			parent := a_parent
-		ensure
-			location = a_location
-			parent = a_parent
 		end
 
-	create_children is
+	make_from_loadpath (a_loadpath: STRING; a_root: like root) is
+		require
+			a_loadpath /= Void
+			a_root /= Void
 		local
-			subdirs: like subdirectories
+			location_directory: STRING
 		do
-			subdirs := subdirectories
-			-- only now can we create subclusters
-			-- (otherwise there would be a clash while using the shared `dir' and `tfr' instances)
-			children := subclusters(subdirs)
-		end
-
-	subdirectories: TRAVERSABLE[STRING] is
-		do
-			if location = location_directory then
-				check
-					ft.is_directory(location)
-				end
-				Result := scan_subdirectories
-			else
-				check
-					ft.is_file(location)
-					-- location's basename is "loadpath.se"
-				end
-				Result := read_loadpath
+			if ft.is_directory(a_loadpath) then
+				std_error.put_line("*** Error: not a loadpath: " + a_loadpath)
+				die_with_code(1)
 			end
+
+			root := a_root
+			name := a_loadpath.intern
+			dir.compute_parent_directory_of(a_loadpath)
+			if dir.last_entry.is_empty then
+				location_directory := dir.current_working_directory.out
+			else
+				location_directory := dir.last_entry.twin
+			end
+			read_loadpath(a_loadpath, location_directory)
+			create class_names.with_capacity(16)
 		ensure
-			Result /= Void
+			root = a_root
 		end
 
-	read_loadpath: COLLECTION[STRING] is
+	read_loadpath (a_loadpath, a_location_directory: STRING) is
 		require
-			ft.is_file(location)
+			root /= Void
+			ft.is_file(a_loadpath)
+		local
+			loc: FAST_ARRAY[FIXED_STRING]
+			c: FAST_ARRAY[LIBERTY_CLUSTER]
 		do
-			create {FAST_ARRAY[STRING]} Result.with_capacity(4)
-			tfr.connect_to(location)
+			create loc.with_capacity(4)
+			create c.with_capacity(2)
+			tfr.connect_to(a_loadpath)
 			if tfr.is_connected then
 				from
 					tfr.read_line
@@ -211,22 +230,25 @@ feature {}
 					tfr.end_of_input
 				loop
 					env.substitute(tfr.last_string)
-					process_loadpath(Result, tfr.last_string)
+					process_loadpath(loc, c, a_location_directory, tfr.last_string)
 					tfr.read_line
 				end
 				env.substitute(tfr.last_string)
-				process_loadpath(Result, tfr.last_string)
+				process_loadpath(loc, c, a_location_directory, tfr.last_string)
 				tfr.disconnect
 			end
+			locations := loc
+			children := c
 		end
 
-	process_loadpath (subdirs: like read_loadpath; loadpath_line: STRING) is
+	process_loadpath (a_locations: FAST_ARRAY[FIXED_STRING]; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_location_directory, loadpath_line: STRING) is
 		require
-			ft.is_file(location)
-			subdirs /= Void
+			a_locations /= Void
+			a_children /= Void
 			loadpath_line /= Void
+			root /= Void
 		local
-			sublocation, loadpath_last: STRING
+			sublocation: STRING
 		do
 			if not loadpath_line.is_empty and then not loadpath_line.has_prefix(once "--") then
 				sublocation := ""
@@ -236,87 +258,20 @@ feature {}
 				if dir.system_notation.is_absolute_path(loadpath_line) then
 					sublocation.copy(loadpath_line)
 				else
-					dir.compute_subdirectory_with(location_directory, loadpath_line)
+					dir.compute_subdirectory_with(a_location_directory, loadpath_line)
 					if dir.last_entry.is_empty then
 						--| *** TODO error: the loadpath line does not contain a valid path
 						not_yet_implemented
 					end
 					sublocation.copy(dir.last_entry)
 				end
-				if not ft.is_directory(sublocation) then
-					loadpath_entry.make_from_string(loadpath_line)
-					loadpath_last := loadpath_entry.last
-
-					dir.compute_parent_directory_of(loadpath_line)
-					loadpath_line.copy(dir.last_entry)
-					if dir.system_notation.is_absolute_path(loadpath_line) then
-						sublocation.copy(loadpath_line)
-					else
-						dir.compute_subdirectory_with(location_directory, loadpath_line)
-						check
-							not dir.last_entry.is_empty
-						end
-						sublocation.copy(dir.last_entry)
-					end
-					dir.compute_file_path_with(sublocation, loadpath_last)
-					check
-						not dir.last_entry.is_empty
-					end
-					sublocation.copy(dir.last_entry)
+				if ft.is_directory(sublocation) then
+					a_locations.add_last(sublocation.intern)
+				elseif ft.is_file(sublocation) then
+					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(sublocation, root));
+				else
+					std_error.put_line(once "*** Warning: ignored location: " + sublocation)
 				end
-				subdirs.add_last(sublocation)
-			end
-		end
-
-	scan_subdirectories: COLLECTION[STRING] is
-		require
-			ft.is_directory(location)
-			in_other_words: location = location_directory
-		local
-			sublocation, entry: STRING
-		do
-			create {FAST_ARRAY[STRING]} Result.make(0)
-			dir.connect_to(location)
-			if dir.is_connected then
-				entry := once ""
-				from
-					dir.read_entry
-				until
-					dir.end_of_input
-				loop
-					inspect
-						dir.last_entry
-					when ".", ".." then
-						-- forget those
-					else
-						sublocation := location_directory.twin
-						entry.copy(dir.last_entry)
-						dir.compute_subdirectory_with(sublocation, entry)
-						sublocation.copy(dir.last_entry)
-						if not sublocation.is_empty and then ft.is_directory(sublocation) then
-							Result.add_last(sublocation)
-						end
-					end
-					dir.read_entry
-				end
-				dir.disconnect
-			end
-		end
-
-	subclusters (subdirs: like subdirectories): COLLECTION[LIBERTY_CLUSTER] is
-		require
-			subdirs /= Void
-		local
-			i: INTEGER
-		do
-			create {FAST_ARRAY[LIBERTY_CLUSTER]} Result.with_capacity(subdirs.count)
-			from
-				i := subdirs.lower
-			until
-				i > subdirs.upper
-			loop
-				Result.add_last(create {LIBERTY_CLUSTER}.make_subcluster(subdirs.item(i), Current))
-				i := i + 1
 			end
 		end
 
@@ -330,7 +285,8 @@ feature {}
 	ft: FILE_TOOLS
 
 	children: TRAVERSABLE[LIBERTY_CLUSTER]
-	parent: LIBERTY_CLUSTER
+	class_names: HASHED_DICTIONARY[FIXED_STRING, FIXED_STRING]
+	root: LIBERTY_CLUSTER
 
 	loadpath_entry: POSIX_PATH_NAME is
 		once
@@ -346,6 +302,8 @@ feature {}
 	env: LIBERTY_ENVIRONMENT
 
 invariant
-	ft.is_directory(location) implies location_directory = location
+	not name.is_empty
+	class_names /= Void
+	locations.for_all(agent ft.is_directory)
 
 end

@@ -41,7 +41,12 @@ environment
 	path_liberty is "$LIBERTY_HOME"
 
 cluster
-	liberty: "\${path_liberty}/src/loadpath.se" version "1.0"
+	LIBERTY_LIBRARY: "\${path_liberty}/src/lib" version "1.0"
+
+	LIBERTY_TOOLS: "\${path_liberty}/src/tools" version "1.0"
+		needs
+			LIBERTY_LIBRARY (version >= "1.0")
+		end
 
 end
 EOF

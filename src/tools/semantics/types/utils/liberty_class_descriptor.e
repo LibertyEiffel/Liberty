@@ -17,7 +17,7 @@ class LIBERTY_CLASS_DESCRIPTOR
 insert
 	HASHABLE
 
-create {ANY}
+create {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER_IN_TYPE}
 	make
 
 create {LIBERTY_VOID_TYPE}
@@ -71,14 +71,14 @@ feature {ANY}
 			n.to_lower
 			n.append(once ".e")
 			f := once ""
-			f.copy(cluster.location)
+			f.make_from_string(cluster.location_of(name))
 			dir.compute_file_path_with(f, n)
 			f.copy(dir.last_entry)
 			if f.is_empty or else not file_tools.is_file(f) then
 				std_error.put_string(" *** Unknown class: ")
 				std_error.put_string(name)
 				std_error.put_string(" in cluster ")
-				std_error.put_line(cluster.location)
+				std_error.put_line(cluster.name)
 				sedb_breakpoint
 				die_with_code(1)
 			end

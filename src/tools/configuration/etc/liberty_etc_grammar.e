@@ -31,6 +31,7 @@ feature {}
 		once
 			Result := {PARSE_TABLE <<
 											 "Master", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW master", "KW entity name", "Environment", "Clusters", "KW end", "KW end of file" >> }, agent build_root >> };
+											 "Cluster_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster", "Cluster", "KW end", "KW end of file" >> }, agent build_root >> };
 											 "Environment", {PARSE_NON_TERMINAL << epsilon, Void;
 																								{FAST_ARRAY[STRING] << "KW environment", "Environment_Variable*" >> }, Void >> };
 											 "Environment_Variable*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Environment_Variable*");
@@ -40,15 +41,17 @@ feature {}
 																							{FAST_ARRAY[STRING] << "KW cluster", "Cluster*" >> }, Void >> };
 											 "Cluster*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster*");
 																							{FAST_ARRAY[STRING] << "Cluster", "Cluster*" >> }, agent build_continue_list("Cluster", 0, "Cluster*") >> };
-											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "Location", "Version", "Needs" >> }, agent build_root >> };
+											 "Cluster", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster name", "Location", "Version", "Cluster_Details" >> }, agent build_root >> };
 											 "Location", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW :", "KW string" >> }, Void >> };
 											 "Version", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW version", "KW string" >> }, Void >> };
+											 "Cluster_Details", {PARSE_NON_TERMINAL << epsilon, Void;
+																									 {FAST_ARRAY[STRING] << "Needs", "Concurrency", "Assertion", "Debug", "KW end of cluster details" >> }, Void >> };
 											 "Needs", {PARSE_NON_TERMINAL << epsilon, Void;
-																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*", "KW end" >>}, Void >> };
+																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*" >>}, Void >> };
 											 "Cluster_Configuration*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster_Configuration*");
 																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
 																											  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
-											 "Cluster_Configuration", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster name", "Cluster_Constraints", "Cluster_Details" >> }, Void >> };
+											 "Cluster_Configuration", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster name", "Cluster_Constraints" >> }, Void >> };
 											 "Cluster_Constraints", {PARSE_NON_TERMINAL << epsilon, Void;
 																										  {FAST_ARRAY[STRING] << "KW (", "Cluster_Version_Constraint", "KW )" >> }, Void >> };
 											 "Cluster_Version_Constraint", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW version", "Version_Operator", "KW string" >> }, Void >> };
@@ -58,8 +61,6 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "KW /=" >> }, Void;
 																									  {FAST_ARRAY[STRING] << "KW <" >> }, Void;
 																									  {FAST_ARRAY[STRING] << "KW >" >> }, Void >> };
-											 "Cluster_Details", {PARSE_NON_TERMINAL << epsilon, Void;
-																									 {FAST_ARRAY[STRING] << "Concurrency", "Assertion", "Debug", "KW end" >> }, Void >> };
 											 "Assertion", {PARSE_NON_TERMINAL << epsilon, Void;
 																							 {FAST_ARRAY[STRING] << "KW assertion", "Assertion_Level" >> }, Void >> };
 											 "Assertion_Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW none" >> }, Void;
@@ -82,30 +83,31 @@ feature {}
 
 											 "KW master", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "master"), Void);
 											 "KW environment", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "environment"), Void);
-											 "KW assertion", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "assertion"), Void);
+											 "KW assertion", create {PARSE_TERMINAL}.make(agent parse_cluster_details(?, "assertion"), Void);
 											 "KW none", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "none"), Void);
 											 "KW require", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "require"), Void);
 											 "KW ensure", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "ensure"), Void);
 											 "KW loop", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "loop"), Void);
 											 "KW check", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "check"), Void);
 											 "KW all", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "all"), Void);
-											 "KW needs", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "needs"), Void);
+											 "KW needs", create {PARSE_TERMINAL}.make(agent parse_cluster_details(?, "needs"), Void);
 											 "KW version", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "version"), Void);
-											 "KW <", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "<"), Void);
-											 "KW >", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ">"), Void);
-											 "KW <=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "<="), Void);
-											 "KW >=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ">="), Void);
-											 "KW =", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "="), Void);
-											 "KW /=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "/="), Void);
-											 "KW concurrency", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "concurrency"), Void);
-											 "KW debug", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "debug"), Void);
-											 "KW :", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ":"), Void);
-											 "KW .", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "."), Void);
-											 "KW ;", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ";"), Void);
-											 "KW ,", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ","), Void);
-											 "KW (", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "("), Void);
-											 "KW )", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")"), Void);
+											 "KW <", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "<", "<="), Void);
+											 "KW >", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ">", ">="), Void);
+											 "KW <=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "<=", ""), Void);
+											 "KW >=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ">=", ""), Void);
+											 "KW =", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "=", ""), Void);
+											 "KW /=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "/=", ""), Void);
+											 "KW concurrency", create {PARSE_TERMINAL}.make(agent parse_cluster_details(?, "concurrency"), Void);
+											 "KW debug", create {PARSE_TERMINAL}.make(agent parse_cluster_details(?, "debug"), Void);
+											 "KW :", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ":", ":="), Void);
+											 "KW .", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ".", "."), Void);
+											 "KW ;", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ";", ";"), Void);
+											 "KW ,", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ",", ""), Void);
+											 "KW (", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "(", ""), Void);
+											 "KW )", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ")", ""), Void);
 											 "KW end", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "end"), Void);
+											 "KW end of cluster details", create {PARSE_TERMINAL}.make(agent parse_end_of_cluster_details, Void);
 											 "KW thread", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "thread"), Void);
 											 "KW process", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "process"), Void);
 											 "KW server", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "server"), Void);
@@ -128,14 +130,32 @@ feature {}
 											 "KW overrides", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "overrides"), Void);
 											 "KW clusters", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "clusters"), Void);
 											 "KW string", create {PARSE_TERMINAL}.make(agent parse_string, Void);
-											 "KW cluster name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name, Void);
-											 "KW class name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name, Void);
+											 "KW cluster name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name(False, ?), Void);
+											 "KW class name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name(True, ?), Void);
 											 "KW entity name", create {PARSE_TERMINAL}.make(agent parse_entity_name, Void);
 											 "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void)
 											 >> };
 		end
 
-	parse_class_or_cluster_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+	is_in_cluster_details: BOOLEAN
+
+	parse_cluster_details (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE is
+		do
+			Result := parse_keyword(buffer, keyword)
+			if Result /= Void then
+				is_in_cluster_details := True
+			end
+		end
+
+	parse_end_of_cluster_details (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+		do
+			if is_in_cluster_details then
+				Result := parse_keyword(buffer, once "end")
+				is_in_cluster_details := False
+			end
+		end
+
+	parse_class_or_cluster_name (allow_dots: BOOLEAN; buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position, dot_position: like position; image: STRING; c: CHARACTER; s: INTEGER
 		do
@@ -166,18 +186,23 @@ feature {}
 					when 1 then
 						-- at least a letter read
 						inspect c
-						when 'A'..'Z' then
+						when 'A'..'Z', '_' then
 							image.extend(c)
 							next_character(buffer)
 						when '.' then
-							dot_position := position
-							next_character(buffer)
-							s := 2
+							if allow_dots then
+								dot_position := position
+								next_character(buffer)
+								s := 2
+							else
+								s := -1
+							end
 						else
 							s := -1
 						end
 					when 2 then
 						-- after a dot
+						check allow_dots end
 						inspect c
 						when 'A'..'Z' then
 							image.extend('.')
@@ -194,7 +219,7 @@ feature {}
 			if image.is_empty then
 				restore(buffer, old_position)
 			else
-				create Result.make(image, last_blanks.twin, start_position)
+				create Result.make(image.twin, last_blanks.twin, start_position)
 			end
 		end
 

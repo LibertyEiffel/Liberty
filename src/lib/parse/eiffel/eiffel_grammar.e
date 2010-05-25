@@ -376,45 +376,45 @@ feature {}
 											  "KW False", create {PARSE_TERMINAL}.make(agent parse_boolean(?, "False"), Void);
 											  "KW Void", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "Void"), Void);
 											  "KW like", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "like"), Void);
-											  "KW !", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "!"), Void);
-											  "KW ?", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "?"), Void);
-											  "KW :", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ":"), Void);
-											  "KW :=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ":="), Void);
-											  "KW ::=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "::="), Void);
-											  "KW ?:=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "?:="), Void);
-											  "KW ?=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "?="), Void);
-											  "KW |", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "|"), Void);
-											  "KW ;", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ";"), Void);
+											  "KW !", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "!", ""), Void);
+											  "KW ?", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "?", ":="), Void);
+											  "KW :", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ":", ":="), Void);
+											  "KW :=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ":=", ""), Void);
+											  "KW ::=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "::=", ""), Void);
+											  "KW ?:=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "?:=", ""), Void);
+											  "KW ?=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "?=", ""), Void);
+											  "KW |", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "|", ""), Void);
+											  "KW ;", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ";", ";"), Void);
 											  "KW ;;", create {PARSE_TERMINAL}.make(agent parse_semi_colons, Void);
-											  "KW (", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "("), Void);
-											  "KW )", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")"), Void);
-											  "KW )*", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")*"), Void);
-											  "KW )+", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")+"), Void);
-											  "KW )?", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")?"), Void);
-											  "KW [", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "["), Void);
-											  "KW ]", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "]"), Void);
-											  "KW {", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "{"), Void);
-											  "KW }", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "}"), Void);
-											  "KW .", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "."), Void);
-											  "KW ,", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ","), Void);
-											  "KW =", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "="), Void);
-											  "KW /=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "/="), Void);
-											  "KW <=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "<="), Void);
-											  "KW <", create {PARSE_TERMINAL}.make(agent parse_lt, Void);
-											  "KW >=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ">="), Void);
-											  "KW >", create {PARSE_TERMINAL}.make(agent parse_gt, Void);
-											  "KW +", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "+"), Void);
-											  "KW -", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "-"), Void);
-											  "KW *", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "*"), Void);
-											  "KW //", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "//"), Void);
-											  "KW \\", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "\\"), Void);
-											  "KW /", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "/"), Void);
-											  "KW ^", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "^"), Void);
-											  "KW <<", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "<<"), Void);
-											  "KW >>", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ">>"), Void);
-											  "KW ->", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "->"), Void);
-											  "KW ..", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ".."), Void);
-											  "KW $", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "$"), Void);
+											  "KW (", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "(", ""), Void);
+											  "KW )", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ")", ""), Void);
+											  --"KW )*", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ")*", ""), Void);
+											  --"KW )+", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ")+", ""), Void);
+											  --"KW )?", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ")?", ""), Void);
+											  "KW [", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "[", ""), Void);
+											  "KW ]", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "]", ""), Void);
+											  "KW {", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "{", ""), Void);
+											  "KW }", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "}", ""), Void);
+											  "KW .", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ".", "."), Void);
+											  "KW ,", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ",", ""), Void);
+											  "KW =", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "=", ""), Void);
+											  "KW /=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "/=", ""), Void);
+											  "KW <=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "<=", ""), Void);
+											  "KW <", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "<", "<="), Void);
+											  "KW >=", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ">=", ""), Void);
+											  "KW >", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ">", ">="), Void);
+											  "KW +", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "+", ""), Void);
+											  "KW -", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "-", ""), Void);
+											  "KW *", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "*", ""), Void);
+											  "KW //", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "//", ""), Void);
+											  "KW \\", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "\\", ""), Void);
+											  "KW /", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "/", "/="), Void);
+											  "KW ^", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "^", ""), Void);
+											  "KW <<", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "<<", ""), Void);
+											  "KW >>", create {PARSE_TERMINAL}.make(agent parse_symbol(?, ">>", ""), Void);
+											  "KW ->", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "->", ""), Void);
+											  "KW ..", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "..", ""), Void);
+											  "KW $", create {PARSE_TERMINAL}.make(agent parse_symbol(?, "$", ""), Void);
 											  "KW free operator", create {PARSE_TERMINAL}.make(agent parse_freeop, Void);
 											  "KW assertion comment", create {PARSE_TERMINAL}.make(agent parse_assertion_comment, Void);
 											  "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void) >> }
@@ -1053,7 +1053,7 @@ feature {}
 			end
 		end
 
-	keyword_image (buffer: MINI_PARSER_BUFFER; keyword: STRING): STRING is
+	keyword_image (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): STRING is
 		local
 			old_position, start_position: like position; i: INTEGER; c: CHARACTER
 		do
@@ -1079,13 +1079,14 @@ feature {}
 			else
 				-- be sure that the keyword is not just the prefix of another word
 				c := buffer.current_character
-				if not c.is_separator then
-					if keyword.first.is_letter_or_digit then
-						if c.is_letter_or_digit or else c = '_' then
-							Result := Void
-							restore(buffer, old_position)
-						end
+				if not_successors = Void then
+					if not c.is_separator and then keyword.first.is_letter_or_digit and then (c.is_letter_or_digit or else c = '_') then
+						Result := Void
+						restore(buffer, old_position)
 					end
+				elseif not_successors.has(c) then
+					Result := Void
+					restore(buffer, old_position)
 				end
 			end
 		end
@@ -1097,7 +1098,23 @@ feature {}
 			old_position := position
 			skip_blanks(buffer)
 			start_position := position
-			image := keyword_image(buffer, keyword)
+			image := keyword_image(buffer, keyword, Void)
+			if image /= Void then
+				-- `image' may be shared here
+				create Result.make(image, last_blanks.twin, start_position)
+			else
+				restore(buffer, old_position)
+			end
+		end
+
+	parse_symbol (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): UNTYPED_EIFFEL_IMAGE is
+		local
+			old_position, start_position: like position; image: STRING
+		do
+			old_position := position
+			skip_blanks(buffer)
+			start_position := position
+			image := keyword_image(buffer, keyword, not_successors)
 			if image /= Void then
 				-- `image' may be shared here
 				create Result.make(image, last_blanks.twin, start_position)
@@ -1143,48 +1160,6 @@ feature {}
 			not in_parent_clause
 		end
 
-	parse_lt (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
-		local
-			old_position, start_position: like position; image: STRING
-		do
-			old_position := position
-			skip_blanks(buffer)
-			start_position := position
-			if buffer.current_character = '<' then
-				next_character(buffer)
-				if buffer.current_character /= '<' then
-					image := once "<"
-				else
-					restore(buffer, old_position)
-				end
-			end
-			if image /= Void then
-				-- `image' may be shared here
-				create Result.make(image, last_blanks.twin, start_position)
-			end
-		end
-
-	parse_gt (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
-		local
-			old_position, start_position: like position; image: STRING
-		do
-			old_position := position
-			skip_blanks(buffer)
-			start_position := position
-			if buffer.current_character = '>' then
-				next_character(buffer)
-				if buffer.current_character /= '>' then
-					image := once ">"
-				else
-					restore(buffer, old_position)
-				end
-			end
-			if image /= Void then
-				-- `image' may be shared here
-				create Result.make(image, last_blanks.twin, start_position)
-			end
-		end
-
 	parse_freeop (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
@@ -1221,7 +1196,7 @@ feature {}
 			old_position := position
 			skip_blanks(buffer)
 			start_position := position
-			image := keyword_image(buffer, expected)
+			image := keyword_image(buffer, expected, Void)
 			if image /= Void then
 				-- `image' may be shared here
 				create Result.make(image, image.to_boolean, last_blanks.twin, start_position)

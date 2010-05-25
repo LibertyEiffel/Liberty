@@ -108,16 +108,16 @@ feature {}
 		local
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			cluster: LIBERTY_CLUSTER
-			class_name: STRING
+			class_name: FIXED_STRING
 			parameters: TRAVERSABLE[LIBERTY_TYPE]
 			pos: LIBERTY_POSITION
 		do
 			pos := position(type_definition)
-			class_name := type_definition.type_name.image.image
+			class_name := type_definition.type_name.image.image.intern
 			cluster := current_type.cluster.find(class_name)
 			if cluster /= Void then
 				parameters := get_parameter_constraints(universe.parse_class(cluster, class_name, pos))
-				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
+				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name, pos), parameters)
 				Result := universe.get_type_from_descriptor(descriptor)
 			end
 		end

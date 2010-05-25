@@ -22,7 +22,7 @@ feature {LIBERTY_ETC}
 		deferred
 		end
 
-	clusters: MAP[LIBERTY_ETC_CLUSTER, STRING] is
+	clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING] is
 		deferred
 		end
 
@@ -59,6 +59,12 @@ feature {LIBERTY_ETC_FACTORY} -- Lists
 
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
+	visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
 			nt /= Void
 		deferred

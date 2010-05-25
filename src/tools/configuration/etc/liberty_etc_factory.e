@@ -49,6 +49,8 @@ feature {EIFFEL_GRAMMAR}
 				name
 			when "Master" then
 				visitor := agent_master
+			when "Cluster_Definition" then
+				visitor := agent_cluster_definition
 			when "Environment" then
 				visitor := agent_environment
 			when "Environment_Variable" then
@@ -128,6 +130,11 @@ feature {} -- visitor agents
 	agent_master: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_master
+		end
+
+	agent_cluster_definition: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_cluster_definition
 		end
 
 	agent_environment: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
