@@ -187,7 +187,7 @@ feature {ANY}
 		do
 			description := function_string_name
 			if is_variadic then
-				description.append(once " (variadic) ")
+				description := description+variadic_function_note
 			end
 			-- Deal with argument-less functions like "fork". An
 			-- argument-less function returning an integer shall be marked with
@@ -234,3 +234,18 @@ feature {} -- Implementation
 
 -- invariant name.is_equal(once U"Function")
 end -- class C_FUNCTION
+
+-- Copyright 2008,2009,2010 Paolo Redaelli
+
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- wrappers-generator is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

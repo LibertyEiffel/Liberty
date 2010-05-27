@@ -20,6 +20,7 @@ feature {ANY}
 			log(once "@(1) bytes allocated%NLoading XML file: ",<<allocated_bytes.out>>)
 			create tree.make(input.url)
 			log(once "done. @(1) bytes allocated%N",<<allocated_bytes.out>>)
+			open_plugin_files
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
 			end
@@ -163,6 +164,46 @@ feature {ANY}
 			end
 		end
 
+	open_plugin_files is
+		local cwd,plugin: DIRECTORY; file: FILE; bd: BASIC_DIRECTORY;
+		do	
+			create cwd.scan_current_working_directory
+			if not cwd.has_file(once "plugin") then 
+				if not bd.create_new_directory(once "plugin") then
+					log_string("Couldn't create plugin directory")
+					die_with_code(exit_failure_code)
+				end
+			end
+			file := cwd.file("plugin")
+			if not file.is_directory then
+				log_string("%'plugin' is not a directory")
+				die_with_code(exit_failure_code)
+			end
+			
+			plugin := file.as_directory
+			if not plugin.has_file(once "c") then 
+				if not bd.create_new_directory(once "plugin/c") then
+					log_string("Couldn't create plugin/c directory")
+					die_with_code(exit_failure_code)
+				end
+			end
+			file := plugin.file(once "c")
+			if not file.is_directory then
+				log_string("%'plugin/c' is not a directory")
+				die_with_code(exit_failure_code)
+			end
+			-- TODO: check that both pdirectory exists.
+			include.connect_to("plugin/c/plugin.h")
+			include.put_string(automatically_generated_c_file)
+			source.connect_to("plugin/c/plugin.c")
+			source.put_string(automatically_generated_c_file)
+			source.put_string("#include %"plugin.h%"")
+		ensure 
+			include.is_connected
+			source.is_connected
+		end
+
+
 	print_usage is
 		do
 			std_error.put_line
@@ -234,7 +275,7 @@ feature {ANY}
 
 end -- class WRAPPER_GENERATOR
 
--- Copyright 2008,2009 Paolo Redaelli
+-- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the Free

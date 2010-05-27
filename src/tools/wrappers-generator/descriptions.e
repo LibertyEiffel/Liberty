@@ -32,7 +32,7 @@ feature -- Descriptions reading
 				line.left_adjust; line.right_adjust
 				if line.has_prefix(once "--") then 
 					debug
-						log_string(once ".") --log3([once "Comment %"",line,"%".%N"])
+						log_string(once ".") 
 					end
 				else 
 					create words.make
@@ -100,9 +100,10 @@ feature -- Descriptions reading
 						feature_descriptions.put(subdictionary,described_class)
 					end
 					subdictionary.put(a_description,described_feature)
-				else log3([once "Comment file: empty class or feature name %"",a_described,once "%".%N"])
+				else log_string((once "Comment file: empty class or feature name %"")|a_described|(once "%".%N"))
+					
 				end
-			else log3([once "Comment file: feature name %"",a_described,once "%" has too many dots.%N"])
+			else log_string((once "Comment file: feature name %"")|a_described|(once "%" has too many dots.%N"))
 			end -- inspect
 		end -- if has "--" prefix
 	end
@@ -174,3 +175,17 @@ feature -- Descriptions
 
 end
 
+-- Copyright 2008,2009,2010 Paolo Redaelli
+
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- wrappers-generator is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

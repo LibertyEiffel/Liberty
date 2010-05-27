@@ -13,11 +13,11 @@ creation make
 
 feature 
 	store is
-		local container: COMPOSED_NODE
+		local a_container: COMPOSED_NODE
 		do
-			container := composed_types.reference_at(context)
-			if container/=Void then
-				container.fields.add_last(Current)
+			a_container := composed_types.reference_at(context)
+			if a_container/=Void then
+				a_container.fields.add_last(Current)
 			end
 		end
 	
@@ -38,6 +38,16 @@ feature
 			Result:=types.at(dequalify(type)).wrapper_type
 		end
 
+	container: COMPOSED_NODE is
+		-- The node representing the C entity that contains Current field
+	do
+		if stored_parent=Void then
+			stored_parent := composed_types.at(context)
+		end
+		Result:=stored_parent
+	ensure Result/=Void
+	end
+	
 	append_getter_and_setter (a_structure_name: STRING) is
 		require a_structure_name/=Void
 		local setter, getter, eiffel_field, getter_description, setter_description: STRING
@@ -88,20 +98,32 @@ feature
 				-- log_string(once "command, ")
 				-- -- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- -- be less type-strict-paranoid here and use some type-casts.
-				-- include.put_message(once "#define @(1)(a_structure) (((@(2)*) a_structure).@(3))%N%N",
-				-- <<getter, a_structure_name, c_field>>)
-				-- include.put_message(once "#define @(1)(a_structure,a_value) ((@(2)*) a_structure)->@(3) = a_value;%N%N",
-				-- <<setter, a_structure_name, c_field>>)
-				-- include.print_on(include_file)
-				-- log_string(once "macros made).%N")
-				-- else
-				-- 	log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
-				-- 	<<c_field, a_structure_name, last_error>>)
-				-- 	queries.put_message(once "%T-- Unwrappable field @(1): @(2)%N",
-				-- 	<<c_field, last_error>>)
-				-- 	last_error := Void -- Error handled, resetting it.
+
+				-- TODO: the next print_on commands cause compiler crash if they operate on a ROPE, made using the "|" operator instead of +.
+				("#define "+getter+"(a_structure) ((("+container.c_string_name+"*) a_structure)."+c_string_name+")%N%N").print_on(include)
+				("#define "+setter+"(a_structure,a_value) (("+container.c_string_name+")->"+c_string_name+" = a_value;%N%N").print_on(include)
+			else
+				log(once "Field @(1) in structure @(2) is not wrappable.", <<c_string_name, a_structure_name>>)
+				queries.put_message(once "%T-- Unwrappable field @(1).%N", <<c_string_name>>)
 			end
 		end
+
+feature {} -- Implementation
+	stored_parent: COMPOSED_NODE 
 -- invariant name.is_equal(once U"Field")
 end
 
+-- Copyright 2008,2009,2010 Paolo Redaelli
+
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- wrappers-generator is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

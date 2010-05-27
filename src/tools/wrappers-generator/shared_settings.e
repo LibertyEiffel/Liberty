@@ -26,6 +26,16 @@ feature {ANY}
    ensure
 	   void_gets_false: global or (a_file_name=Void implies Result=False)
 	end
+feature -- Plugin
+	include: TEXT_FILE_WRITE is
+		once
+			create Result.make
+		end
+	source:  TEXT_FILE_WRITE is
+		once 
+			create Result.make
+		end
+
 
 feature -- Syntactic sugar
 	verbose: BOOLEAN is
@@ -111,7 +121,7 @@ feature {} -- Auxiliary features
 feature {} -- Constants
 	comment: STRING is "%N%T%T-- "
 
-	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
+	variadic_function_note: STRING is " (variadic call) "
 
 	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
 
@@ -142,6 +152,14 @@ feature {} -- Constants
 
 		]"
 
+	automatically_generated_c_file: STRING is "[
+		/*
+		** This file have been created by wrapper-generator.
+		** Any change will be lost by the next execution of the tool.
+		*/
+
+		]"
+
 	automatically_patched_header: STRING is 
 		-- Label 
 		"[
@@ -161,7 +179,7 @@ feature {} -- Logging
 	ensure Result/=Void
 	end
 
-	log_string (a_string: STRING) is
+	log_string (a_string: ABSTRACT_STRING) is
 		-- If verbose print `a_string' to logger's output
 	require a_string/=Void
 	do
@@ -190,98 +208,6 @@ feature {} -- Logging
 				logger.put_message(a_message, some_arguments)
 			end
 		end
-
-	log2 (a_tuple: TUPLE[STRING,STRING]) is
-		-- If verbose log the strings contained in `a_tuple' to std_error.
-	require a_tuple/=Void
-	do
-		if verbose then
-			std_error.put_string(a_tuple.item_1)
-			std_error.put_string(a_tuple.item_2)
-		end
-	end
-
-	log3 (a_tuple: TUPLE[STRING,STRING,STRING]) is
-		-- If verbose log the strings contained in `a_tuple' to std_error.
-	require a_tuple/=Void
-	do
-		if verbose then
-			std_error.put_string(a_tuple.item_1)
-			std_error.put_string(a_tuple.item_2)
-			std_error.put_string(a_tuple.item_3)
-		end
-	end
-
-
-	log4 (a_tuple: TUPLE[STRING,STRING,STRING,STRING]) is
-		-- If verbose log the strings contained in `a_tuple' to std_error.
-	require a_tuple/=Void
-	do
-		if verbose then
-			std_error.put_string(a_tuple.item_1)
-			std_error.put_string(a_tuple.item_2)
-			std_error.put_string(a_tuple.item_3)
-			std_error.put_string(a_tuple.item_4)
-		end
-	end
-
-	log5 (a_tuple: TUPLE[STRING,STRING,STRING,STRING,STRING]) is
-		-- If verbose log the strings contained in `a_tuple' to std_error.
-	require a_tuple/=Void
-	do
-		if verbose then
-			std_error.put_string(a_tuple.item_1)
-			std_error.put_string(a_tuple.item_2)
-			std_error.put_string(a_tuple.item_3)
-			std_error.put_string(a_tuple.item_4)
-			std_error.put_string(a_tuple.item_5)
-		end
-	end
-
-	log6 (a_tuple: TUPLE[STRING,STRING,STRING,STRING,STRING,STRING]) is
-		-- If verbose log the strings contained in `a_tuple' to std_error.
-	require a_tuple/=Void
-	do
-		if verbose then
-			std_error.put_string(a_tuple.item_1)
-			std_error.put_string(a_tuple.item_2)
-			std_error.put_string(a_tuple.item_3)
-			std_error.put_string(a_tuple.item_4)
-			std_error.put_string(a_tuple.item_5)
-			std_error.put_string(a_tuple.item_6)
-		end
-	end
-
-	log_tuple (a_tuple: TUPLE) is
-		-- Log the strings contained in `a_tuple' to std_error up to 5 fields.
-	obsolete "Use log2, log3 ... instead"
-	require a_tuple/=Void
-	local
-		t1: TUPLE[STRING]
-		t2: TUPLE[STRING,STRING]
-		t3: TUPLE[STRING,STRING,STRING]
-		t4: TUPLE[STRING,STRING,STRING,STRING]
-		t5: TUPLE[STRING,STRING,STRING,STRING,STRING]
-	do
-		inspect a_tuple.count
-		when 1 then
-			t1::=a_tuple
-			std_error.put_string(t1.item_1)
-		when 2 then
-			t2::=a_tuple
-			std_error.put_string(t2.item_1) std_error.put_string(t2.item_2)
-		when 3 then
-			t3::=a_tuple
-			std_error.put_string(t3.item_1) std_error.put_string(t3.item_2) std_error.put_string(t3.item_3)
-		when 4 then
-			t4::=a_tuple
-			std_error.put_string(t4.item_1) std_error.put_string(t4.item_2) std_error.put_string(t4.item_3) std_error.put_string(t4.item_4)
-		when 5 then
-			t5::=a_tuple
-			std_error.put_string(t5.item_1) std_error.put_string(t5.item_2) std_error.put_string(t5.item_3) std_error.put_string(t5.item_4) std_error.put_string(t5.item_5)
-		else std_error.put_string(once "log unsupported tuple") -- nothing
-		end
-	end
 end -- class SHARED_SETTINGS
 
 -- Copyright 2008,2009 Paolo Redaelli

@@ -5,6 +5,7 @@ inherit
 	SINGLETON
 insert 
 	FILE_TOOLS undefine is_equal, copy end
+	BASIC_DIRECTORY undefine is_equal, copy end
 
 creation {ANY}
 	default_create
