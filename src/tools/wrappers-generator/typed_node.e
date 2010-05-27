@@ -46,9 +46,14 @@ feature
 		-- Set `assigned_name' to `a_name'.
 	require a_name/=Void
 	do
-		assigned_name:=a_name
-	ensure definition: assigned_name=a_name
+		assigned_name:=a_name.twin
+	ensure definition: assigned_name.is_equal(a_name)
 	end
+
+	has_assigned_name: BOOLEAN is
+		do
+			Result:= assigned_name/=Void
+		end
 end
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

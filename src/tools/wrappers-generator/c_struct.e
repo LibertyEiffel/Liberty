@@ -68,14 +68,7 @@ feature
 		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
 	local path: POSIX_PATH_NAME
 	do
-		if is_public and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
-			--if unwrappable then
-			--	buffer.put_message(once "%T-- @(1) is not wrappable",
-			--	<<a_structure_name>>)
-			--	buffer.print_on(output)
-			--	output.flush
-			--	output.disconnect
-			--else
+		if (is_public or has_assigned_name) and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
 			if on_standard_output then
 					log(once "Outputting wrapper for struct @(1) on standard output.%N", <<c_string_name>>)
 		 		output := std_output
@@ -94,7 +87,9 @@ feature
 			output.flush
 			output.disconnect
 		else
-			log(once "Struct @(1) skipped%N", <<c_string_name>>)
+			if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
+			else log(once "Struct @(1) skipped%N", <<c_string_name>>)
+			end
 			
 		end
 	end
