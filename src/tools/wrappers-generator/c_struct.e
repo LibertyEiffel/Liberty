@@ -145,7 +145,9 @@ feature
 
 	emit_footer is
 		do
-			buffer.append(once "end%N")
+			buffer.append(once "end -- class ")
+			buffer.append(class_name)
+			buffer.append_new_line
 			buffer.append(automatically_generated_header)
 			buffer.print_on(output)
 		end
