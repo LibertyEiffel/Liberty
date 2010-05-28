@@ -382,6 +382,11 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 			gathering_old_values_counter = old gathering_old_values_counter - 1
 		end
 
+	has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN is
+		do
+			Result := current_feature.has_old_value(a_expression)
+		end
+
 	start_evaluating_old_value is
 		require
 			gathering_old_values
@@ -396,6 +401,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 		require
 			gathering_old_values
 			evaluating_old_value
+			not has_old_value(a_expression)
 		do
 			check
 				evaluating_old_value_stack.last = current_feature

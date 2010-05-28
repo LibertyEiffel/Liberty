@@ -572,6 +572,8 @@ feature {LIBERTY_INTERPRETER}
 		end
 
 	add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING; a_fatal_position: LIBERTY_POSITION) is
+		require
+			not has_old_value(a_expression)
 		do
 			old_values.add([a_value, a_fatal_error, a_fatal_position], a_expression)
 			debug ("interpreter.call.internals")

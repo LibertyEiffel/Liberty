@@ -37,9 +37,11 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 feature {LIBERTY_OLD}
 	visit_liberty_old (v: LIBERTY_OLD) is
 		do
-			interpreter.start_evaluating_old_value
-			v.expression.accept(Current)
-			interpreter.add_old_value(v.expression, eval_as_right_value)
+			if not interpreter.has_old_value(v.expression) then
+				interpreter.start_evaluating_old_value
+				v.expression.accept(Current)
+				interpreter.add_old_value(v.expression, eval_as_right_value)
+			end
 		end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
