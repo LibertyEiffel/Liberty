@@ -21,28 +21,45 @@ feature {ANY}
 	cluster: LIBERTY_ETC_CLUSTER
 
 feature {LIBERTY_ETC_CLUSTER}
-	consolidate (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
+	check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
 		require
 			all_clusters /= Void
 		do
-			cluster := all_clusters.reference_at(cluster_name)
 			if cluster = Void then
-				std_error.put_line("*** Unknown cluster: " + cluster_name)
-				die_with_code(1)
+				cluster := all_clusters.fast_reference_at(cluster_name)
+				if cluster = Void then
+					std_error.put_string("Unknown cluster: " + cluster_name)
+					die_with_code(1)
+				end
+			else
+				check
+					cluster = all_clusters.fast_at(cluster_name)
+				end
 			end
 			constraints.do_all(agent {LIBERTY_ETC_CONSTRAINT}.check_validity(cluster))
 		end
 
+	in_cycle: BOOLEAN
+
+	set_in_cycle is
+		do
+			in_cycle := True
+		ensure
+			in_cycle
+		end
+
 feature {}
-	make (a_cluster_name: like cluster_name; a_constraints: like constraints) is
+	make (a_cluster_name: like cluster_name; a_cluster: like cluster; a_constraints: like constraints) is
 		require
 			a_cluster_name /= Void
 			a_constraints /= Void
 		do
 			cluster_name := a_cluster_name
+			cluster := a_cluster
 			constraints := a_constraints
 		ensure
 			cluster_name = a_cluster_name
+			cluster = a_cluster
 			constraints = a_constraints
 		end
 

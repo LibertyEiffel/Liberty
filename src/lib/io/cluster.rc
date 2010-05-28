@@ -1,0 +1,8 @@
+cluster IO
+
+version "1.0"
+
+needs
+	KERNEL
+
+end

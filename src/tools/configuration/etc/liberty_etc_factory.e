@@ -51,6 +51,8 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_master
 			when "Cluster_Definition" then
 				visitor := agent_cluster_definition
+			when "Configure" then
+				visitor := agent_configure
 			when "Environment" then
 				visitor := agent_environment
 			when "Environment_Variable" then
@@ -73,8 +75,6 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_cluster_version_constraint
 			when "Version_Operator" then
 				visitor := agent_version_operator
-			when "Cluster_Details" then
-				visitor := agent_cluster_details
 			when "Assertion" then
 				visitor := agent_assertion
 			when "Assertion_Level" then
@@ -137,6 +137,11 @@ feature {} -- visitor agents
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_cluster_definition
 		end
 
+	agent_configure: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_configure
+		end
+
 	agent_environment: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_environment
@@ -190,11 +195,6 @@ feature {} -- visitor agents
 	agent_version_operator: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_version_operator
-		end
-
-	agent_cluster_details: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
-		once
-			Result := agent {LIBERTY_ETC_VISITOR}.visit_cluster_details
 		end
 
 	agent_assertion: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is

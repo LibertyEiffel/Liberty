@@ -34,7 +34,7 @@ cluster
 
 generate
 	no_strip(yes)
-	no_split(no)
+	split("by_type")
 	clean(no)
 
 end

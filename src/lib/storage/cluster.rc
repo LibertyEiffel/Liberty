@@ -1,0 +1,10 @@
+cluster STORAGE
+
+version "1.0"
+
+needs
+	KERNEL
+	ABILITIES
+	ITERATOR
+
+end

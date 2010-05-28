@@ -26,6 +26,10 @@ feature {LIBERTY_ETC}
 		deferred
 		end
 
+	check_validity is
+		deferred
+		end
+
 feature {LIBERTY_ETC_FACTORY} -- Lists
 	visit_environment_variable_list (list: LIBERTY_ETC_LIST) is
 		require
@@ -118,6 +122,12 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		deferred
 		end
 
+	visit_configure (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
 	visit_cluster_constraints (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
 			nt /= Void
@@ -131,12 +141,6 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		end
 
 	visit_version_operator (nt: LIBERTY_ETC_NON_TERMINAL) is
-		require
-			nt /= Void
-		deferred
-		end
-
-	visit_cluster_details (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
 			nt /= Void
 		deferred

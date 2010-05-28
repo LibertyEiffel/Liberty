@@ -1,0 +1,12 @@
+cluster FOREIGN_INTERFACE
+
+version "1.0"
+
+needs
+	ABILITIES
+	KERNEL
+	STORAGE
+	WRAPPER_FFI
+	WRAPPER_POSIX_DLL
+
+end

@@ -1,0 +1,8 @@
+cluster LIBERTY_TOOLS
+
+version "1.0"
+
+needs
+	LIBERTY_LIBRARY (version >= "1.0")
+
+end
