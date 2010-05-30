@@ -32,7 +32,7 @@ inherit
 
 insert 
 	GSTRING_EXTERNALS
-	G_STRING_CHUNK_STRUCT
+	GSTRING_CHUNK_STRUCT
 	
 creation make, from_external_pointer
 	

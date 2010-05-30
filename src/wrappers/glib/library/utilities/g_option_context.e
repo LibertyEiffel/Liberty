@@ -96,13 +96,13 @@ inherit
 insert
 	SHARED_G_ERROR
 	ARGUMENTS  undefine is_equal, copy end
-	G_OPTION_CONTEXT_STRUCT
+	GOPTION_CONTEXT_STRUCT
 	GOPTION_EXTERNALS
 
 creation with,make, from_external_pointer
 
 feature {} -- Creation
-	with, make (a_parameter: STRING) is
+	with, make (a_parameter: ABSTRACT_STRING) is
 			-- Creates a new option context.
 
 			-- The parameter_string can serve multiple purposes. It can be used to
@@ -130,7 +130,7 @@ feature {} -- Creation
 		end
 
 feature
-	set_summary (a_summary: STRING) is
+	set_summary (a_summary: ABSTRACT_STRING) is
 			-- Adds a string to be displayed in --help output before the list of
 			-- options. This is typically a summary of the program functionality.
 		
@@ -151,37 +151,29 @@ feature
 			if sp.is_not_null then create Result.from_external(sp) end
 		end
 	
-	--  void        g_option_context_set_description
-	--                                              (GOptionContext *context,
-	--                                               const gchar *description);
+	set_description (a_description: ABSTRACT_STRING) is
+		-- Adds `a_description' string to be displayed in --help output after
+		-- the list of options. This text often includes a bug reporting
+		-- address.
 
-	--    Adds a string to be displayed in --help output after the list of options. This
-	--    text often includes a bug reporting address.
+		-- Note that the summary is translated (see set_translator).
 
-	--    Note that the summary is translated (see g_option_context_set_translate_func()).
+		-- `a_description' may be Void to unset.
+		do
+			g_option_context_set_description(handle,null_or_string(a_description))
+		ensure set: description.is_equal(a_description)
+		end
 
-	--    context :     a GOptionContext
-	--    description : a string to be shown in --help output after the list of options, or
-	--                  NULL
-
-	--    Since 2.12
-
-	--    ---------------------------------------------------------------------------------
-
-	--   g_option_context_get_description ()
-
-	--  const gchar* g_option_context_get_description
-	--                                              (GOptionContext *context);
-
-	--    Returns the description. See g_option_context_set_description().
-
-	--    context : a GOptionContext
-	--    Returns : the description
-
-	--    Since 2.12
-
-	--    ---------------------------------------------------------------------------------
-
+	description: FIXED_STRING is
+		-- The description set with `set_description'. May be Void
+	local p: POINTER
+	do
+		p:=g_option_context_get_description(handle)
+		if p.is_not_null
+			then create Result.from_external(p) 
+		end
+	end
+	
 	--   GTranslateFunc ()
 
 	--  const gchar* (*GTranslateFunc)              (const gchar *str,
@@ -198,6 +190,7 @@ feature
 
 	--    ---------------------------------------------------------------------------------
 
+	-- TODO: set_translator wrapping
 	--   g_option_context_set_translate_func ()
 
 	--  void        g_option_context_set_translate_func

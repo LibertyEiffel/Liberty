@@ -19,14 +19,15 @@ inherit
 
 	C_STRUCT
 		undefine 
-			fill_tagged_out_memory
+			fill_tagged_out_memory,
+			out_in_tagged_out_memory
 		redefine
 			copy, from_external_pointer
 		end
 
 insert
-	GSLIST_EXTERNALS undefine fill_tagged_out_memory end
-	G_SLIST_STRUCT undefine fill_tagged_out_memory end
+	GSLIST_EXTERNALS undefine fill_tagged_out_memory, out_in_tagged_out_memory end
+	GSLIST_STRUCT undefine fill_tagged_out_memo, out_in_tagged_out_memory end
 
 creation make, from_external_pointer
 
@@ -102,9 +103,9 @@ feature
 			handle := g_slist_append (handle, a_string.to_external)	
 		end
 
-	add (a_string: like first; index: INTEGER) is
+	add (a_string: like first; an_index: INTEGER) is
 		do
-			handle := g_slist_insert (handle, a_string.to_external, index-1)
+			handle := g_slist_insert (handle, a_string.to_external, an_index-1)
 		end
 
 	
@@ -115,16 +116,16 @@ feature
 
 		end
 
-	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
+	force (a_string: like first; an_index: INTEGER) is do not_yet_implemented end
 
 	lower: INTEGER is 0
 
 	remove_head (n: INTEGER) is do not_yet_implemented end
 	remove_tail (n: INTEGER) is do not_yet_implemented end
 
-	manifest_put (index: INTEGER; element: like item) is
+	manifest_put (an_index: INTEGER; element: like item) is
 		do
-			put(element,index)
+			put(element,an_index)
 		end
 			
 
@@ -133,10 +134,10 @@ feature
 			handle:=g_slist_delete_link (handle, handle)
 		end
 
-	remove (index: INTEGER) is
+	remove (an_index: INTEGER) is
 		do
 			handle:=g_slist_delete_link (handle,
-												  g_slist_nth_data (handle, index-1))
+												  g_slist_nth_data (handle, an_index-1))
 		end
 
 	remove_last is
@@ -293,7 +294,7 @@ feature
 	
 	from_collection (model: COLLECTION[STRING]) is do not_yet_implemented end
 	
-	get_new_iterator: ITERATOR[STRING] is 
+	new_iterator: ITERATOR[STRING] is 
 		do
 			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
 		end

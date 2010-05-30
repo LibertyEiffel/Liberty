@@ -19,7 +19,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_markup_printf_escaped (at line 136 in file /usr/include/glib-2.0/glib/gmarkup.h is not wrappable
+	g_markup_printf_escaped (a_format: POINTER): POINTER is
+ 		-- g_markup_printf_escaped (variadic call)  (node at line 444)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_markup_printf_escaped"
+		}"
+		end
+
 	g_markup_parse_context_get_element (a_context: POINTER): POINTER is
  		-- g_markup_parse_context_get_element (node at line 1221)
 		external "plug_in"
@@ -80,7 +89,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_markup_collect_attributes (at line 159 in file /usr/include/glib-2.0/glib/gmarkup.h is not wrappable
+	g_markup_collect_attributes (an_element_name: POINTER; an_attribute_names: POINTER; an_attribute_values: POINTER; an_error: POINTER; a_first_type: INTEGER; a_first_attr: POINTER): INTEGER_32 is
+ 		-- g_markup_collect_attributes (variadic call)  (node at line 4603)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_markup_collect_attributes"
+		}"
+		end
+
 	g_markup_error_quark: NATURAL_32 is
  		-- g_markup_error_quark (node at line 4877)
 		external "plug_in"

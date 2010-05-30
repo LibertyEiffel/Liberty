@@ -140,7 +140,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_snprintf (at line 211 in file /usr/include/glib-2.0/glib/gutils.h is not wrappable
+	g_snprintf (a_string: POINTER; a_n: NATURAL_32; a_format: POINTER): INTEGER_32 is
+ 		-- g_snprintf (variadic call)  (node at line 2160)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_snprintf"
+		}"
+		end
+
 	g_vsnprintf (a_string: POINTER; a_n: NATURAL_32; a_format: POINTER; an_args: POINTER): INTEGER_32 is
  		-- g_vsnprintf (node at line 2250)
 		external "plug_in"

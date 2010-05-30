@@ -39,8 +39,26 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_build_filename (at line 120 in file /usr/include/glib-2.0/glib/gfileutils.h is not wrappable
-	-- function g_build_path (at line 115 in file /usr/include/glib-2.0/glib/gfileutils.h is not wrappable
+	g_build_filename (a_first_element: POINTER): POINTER is
+ 		-- g_build_filename (variadic call)  (node at line 738)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_build_filename"
+		}"
+		end
+
+	g_build_path (a_separator: POINTER; a_first_element: POINTER): POINTER is
+ 		-- g_build_path (variadic call)  (node at line 1166)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_build_path"
+		}"
+		end
+
 	g_file_error_from_errno (an_err_no: INTEGER_32): INTEGER is
  		-- g_file_error_from_errno (node at line 2941)
 		external "plug_in"

@@ -16,7 +16,7 @@ insert
 	WRAPPER_HANDLER
 	
 feature
-	log (a_domain, a_message: STRING; a_log_level: G_LOG_LEVEL_FLAGS) is
+	log (a_domain, a_message: STRING; a_log_level: GLOG_LEVEL_FLAGS_ENUM) is
 		-- Logs an error or debugging message. If `a_log_level' has been set as
 		-- fatal, the `abort' function is called to terminate the program.
 	
@@ -32,7 +32,7 @@ feature
 	message (a_message: STRING) is
 		-- log a_message with  message.
 	require message_not_void: a_message /= Void
-	local f: G_LOG_LEVEL_FLAGS
+	local f: GLOG_LEVEL_FLAGS_ENUM
 	do
 		g_log(default_pointer,f.g_log_level_message, a_message.to_external)
 	end
@@ -40,7 +40,7 @@ feature
 	warning (a_message: STRING) is
 		-- Log a_message as a warning.
 	require message_not_void: a_message/=Void
-	local f: G_LOG_LEVEL_FLAGS
+	local f: GLOG_LEVEL_FLAGS_ENUM
 	do 
 		g_log(default_pointer,f.g_log_level_warning, a_message.to_external)
 	end
@@ -65,7 +65,7 @@ feature
 	-- function indicates a bug in your program, i.e. an assertion
 	-- failure.
 	require error_not_void: an_error /= Void
-	local f: G_LOG_LEVEL_FLAGS
+	local f: GLOG_LEVEL_FLAGS_ENUM
 	do
 		g_log(default_pointer,f.g_log_level_error,an_error.to_external)
 

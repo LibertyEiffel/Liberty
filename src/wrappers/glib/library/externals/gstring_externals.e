@@ -9,7 +9,16 @@ inherit ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	-- function g_string_append_printf (at line 135 in file /usr/include/glib-2.0/glib/gstring.h is not wrappable
+	g_string_append_printf (a_string: POINTER; a_format: POINTER) is
+ 		-- g_string_append_printf (variadic call)  (node at line 32)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_string_append_printf"
+		}"
+		end
+
 	g_string_ascii_up (a_string: POINTER): POINTER is
  		-- g_string_ascii_up (node at line 506)
 		external "plug_in"
@@ -40,7 +49,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_string_printf (at line 129 in file /usr/include/glib-2.0/glib/gstring.h is not wrappable
+	g_string_printf (a_string: POINTER; a_format: POINTER) is
+ 		-- g_string_printf (variadic call)  (node at line 709)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_string_printf"
+		}"
+		end
+
 	g_string_append_uri_escaped (a_string: POINTER; an_unescaped: POINTER; a_reserved_chars_allowed: POINTER; an_allow_utf8: INTEGER_32): POINTER is
  		-- g_string_append_uri_escaped (node at line 884)
 		external "plug_in"

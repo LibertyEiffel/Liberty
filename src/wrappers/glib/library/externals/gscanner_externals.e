@@ -89,7 +89,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_scanner_warn (at line 254 in file /usr/include/glib-2.0/glib/gscanner.h is not wrappable
+	g_scanner_warn (a_scanner: POINTER; a_format: POINTER) is
+ 		-- g_scanner_warn (variadic call)  (node at line 1803)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_scanner_warn"
+		}"
+		end
+
 	g_scanner_get_next_token (a_scanner: POINTER): INTEGER is
  		-- g_scanner_get_next_token (node at line 2061)
 		external "plug_in"
@@ -161,7 +170,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_scanner_error (at line 251 in file /usr/include/glib-2.0/glib/gscanner.h is not wrappable
+	g_scanner_error (a_scanner: POINTER; a_format: POINTER) is
+ 		-- g_scanner_error (variadic call)  (node at line 6309)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_scanner_error"
+		}"
+		end
+
 	g_scanner_unexp_token (a_scanner: POINTER; an_expected_token: INTEGER; an_identifier_spec: POINTER; a_symbol_spec: POINTER; a_symbol_name: POINTER; a_message: POINTER; an_is_error: INTEGER_32) is
  		-- g_scanner_unexp_token (node at line 6539)
 		external "plug_in"

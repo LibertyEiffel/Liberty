@@ -140,7 +140,16 @@ feature {} -- External calls
 		end
 
 	-- function g_assertion_message_cmpnum (at line 209 in file /usr/include/glib-2.0/glib/gtestutils.h is not wrappable
-	-- function g_test_message (at line 121 in file /usr/include/glib-2.0/glib/gtestutils.h is not wrappable
+	g_test_message (a_format: POINTER) is
+ 		-- g_test_message (variadic call)  (node at line 2687)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_test_message"
+		}"
+		end
+
 	g_test_run: INTEGER_32 is
  		-- g_test_run (node at line 2694)
 		external "plug_in"
@@ -181,7 +190,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_test_maximized_result (at line 85 in file /usr/include/glib-2.0/glib/gtestutils.h is not wrappable
+	g_test_maximized_result (a_maximized_quantity: REAL_64; a_format: POINTER) is
+ 		-- g_test_maximized_result (variadic call)  (node at line 3378)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_test_maximized_result"
+		}"
+		end
+
 	g_test_suite_add (a_suite: POINTER; a_test_case: POINTER) is
  		-- g_test_suite_add (node at line 3708)
 		external "plug_in"
@@ -202,7 +220,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_test_init (at line 90 in file /usr/include/glib-2.0/glib/gtestutils.h is not wrappable
+	g_test_init (an_argc: POINTER; an_argv: POINTER) is
+ 		-- g_test_init (variadic call)  (node at line 4064)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_test_init"
+		}"
+		end
+
 	g_assertion_message_error (a_domain: POINTER; a_file: POINTER; a_line: INTEGER_32; a_func: POINTER; an_expr: POINTER; an_error: POINTER; an_error_domain: NATURAL_32; an_error_code: INTEGER_32) is
  		-- g_assertion_message_error (node at line 4191)
 		external "plug_in"
@@ -253,7 +280,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_test_minimized_result (at line 82 in file /usr/include/glib-2.0/glib/gtestutils.h is not wrappable
+	g_test_minimized_result (a_minimized_quantity: REAL_64; a_format: POINTER) is
+ 		-- g_test_minimized_result (variadic call)  (node at line 5185)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_test_minimized_result"
+		}"
+		end
+
 	g_test_create_suite (a_suite_name: POINTER): POINTER is
  		-- g_test_create_suite (node at line 5527)
 		external "plug_in"

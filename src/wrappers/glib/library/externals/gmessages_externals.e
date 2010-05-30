@@ -69,7 +69,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_print (at line 231 in file /usr/include/glib-2.0/glib/gmessages.h is not wrappable
+	g_print (a_format: POINTER) is
+ 		-- g_print (variadic call)  (node at line 4074)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_print"
+		}"
+		end
+
 	g_log_remove_handler (a_log_domain: POINTER; a_handler_id: NATURAL_32) is
  		-- g_log_remove_handler (node at line 4117)
 		external "plug_in"
@@ -121,8 +130,26 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function _g_log_fallback_handler skipped.
-	-- function g_printerr (at line 234 in file /usr/include/glib-2.0/glib/gmessages.h is not wrappable
-	-- function g_log (at line 100 in file /usr/include/glib-2.0/glib/gmessages.h is not wrappable
+	g_printerr (a_format: POINTER) is
+ 		-- g_printerr (variadic call)  (node at line 6226)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_printerr"
+		}"
+		end
+
+	g_log (a_log_domain: POINTER; a_log_level: INTEGER; a_format: POINTER) is
+ 		-- g_log (variadic call)  (node at line 6441)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_log"
+		}"
+		end
+
 	g_logv (a_log_domain: POINTER; a_log_level: INTEGER; a_format: POINTER; an_args: POINTER) is
  		-- g_logv (node at line 6775)
 		external "plug_in"

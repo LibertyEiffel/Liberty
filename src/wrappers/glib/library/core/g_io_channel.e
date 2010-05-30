@@ -15,7 +15,7 @@ insert
 	GLIB_TYPES
 	SHARED_G_ERROR
 	GIOCHANNEL_EXTERNALS
-	G_IOCHANNEL_STRUCT
+	GIOCHANNEL_STRUCT
 
 create
 	from_unix_fd, from_win32_fd, from_win32_socket
