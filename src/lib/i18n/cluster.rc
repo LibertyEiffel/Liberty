@@ -1,0 +1,9 @@
+cluster I18N
+
+version "1.0"
+
+needs
+	KERNEL
+	TIME
+
+end

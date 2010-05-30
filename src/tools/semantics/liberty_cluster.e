@@ -13,6 +13,21 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_CLUSTER
+	--
+	-- Clustering rules:
+	-- A given directory is a cluster if:
+	--
+	-- 1. It contains a cluster.rc file.
+	-- In that case, that file describes the cluster, giving it a name, a version number, dependencies and
+	-- default options (assertion level, debug...)
+	-- If the directory also contains a loadpath.se file then that file is used to describe which directories
+	-- are part of the cluster itself (see below).
+	--
+	-- 2. It contains a loadpath.se file.
+	-- Each line of the loadpath is a path to either a cluster.rc file, a loadpath.se file, or a directory. In
+	-- the latter case, the clustering rules apply. If the given directory contains neither a cluster.rc nor a
+	-- loadpath.se file, the directory is considered to belong to the cluster.
+	--
 
 insert
 	HASHABLE
@@ -29,6 +44,7 @@ create {LIBERTY_CLASS_DESCRIPTOR}
 feature {ANY}
 	name: FIXED_STRING
 	locations: TRAVERSABLE[FIXED_STRING]
+	depth: INTEGER
 
 feature {ANY}
 	hash_code: INTEGER
@@ -50,37 +66,43 @@ feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
 	find (a_class_name: FIXED_STRING): LIBERTY_CLUSTER is
 		local
 			filename: STRING
+			new_mark: like find_mark
 		do
 			filename := once ""
 			filename.make_from_string(a_class_name)
 			filename.to_lower
 			filename.append(once ".e")
-			Result := find_cluster(a_class_name, filename, Void)
+			find_mark_counter.increment
+			new_mark := find_mark_counter.value
+			Result := find_cluster(a_class_name, filename, new_mark)
 			if Result = Void and then root /= Current then
-				Result := root.find_cluster(a_class_name, filename, Current)
+				Result := root.find_cluster(a_class_name, filename, new_mark)
 			end
 		ensure
-			Result.location_of(a_class_name) /= Void
+			Result /= Void implies Result.location_of(a_class_name) /= Void
 		end
 
 feature {LIBERTY_CLUSTER}
-	find_cluster (a_class_name: FIXED_STRING; a_file_name: STRING; clip_child: LIBERTY_CLUSTER): LIBERTY_CLUSTER is
+	find_cluster (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER is
 		local
 			i: INTEGER
 		do
-			from
-				i := locations.lower
-			until
-				Result /= Void or else i > locations.upper
-			loop
-				if find_here(locations.item(i), a_file_name) then
-					class_names.put(locations.item(i), a_class_name)
-					Result := Current
+			if find_mark < new_mark then
+				find_mark := new_mark
+				from
+					i := locations.lower
+				until
+					Result /= Void or else i > locations.upper
+				loop
+					if find_here(locations.item(i), a_file_name) then
+						class_names.put(locations.item(i), a_class_name)
+						Result := Current
+					end
+					i := i + 1
 				end
-				i := i + 1
-			end
-			if Result = Void then
-				Result := find_child(a_class_name, a_file_name, clip_child)
+				if Result = Void then
+					Result := find_child(a_class_name, a_file_name, new_mark)
+				end
 			end
 		end
 
@@ -107,7 +129,7 @@ feature {} -- find
 			end
 		end
 
-	find_child (a_class_name: FIXED_STRING; a_file_name: STRING; clip_child: LIBERTY_CLUSTER): LIBERTY_CLUSTER is
+	find_child (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER is
 		local
 			child: LIBERTY_CLUSTER
 			i: INTEGER
@@ -118,8 +140,8 @@ feature {} -- find
 				Result /= Void or else i > children.upper
 			loop
 				child := children.item(i)
-				if child /= clip_child then
-					Result := child.find_cluster(a_class_name, a_file_name, clip_child)
+				if child.depth >= depth then
+					Result := child.find_cluster(a_class_name, a_file_name, new_mark)
 				end
 				i := i + 1
 			end
@@ -131,6 +153,7 @@ feature {}
 			name := "<Void>".intern
 			create class_names.with_capacity(0)
 			create {FAST_ARRAY[FIXED_STRING]} locations.with_capacity(0)
+			depth := -1
 		end
 
 	make_root is
@@ -145,59 +168,83 @@ feature {}
 			create c.with_capacity(etc.clusters.count)
 			children := c
 			etc.clusters.do_all(agent add_if_root({LIBERTY_ETC_CLUSTER}, c))
+		ensure
+			depth = 0
 		end
 
 	add_if_root (a_etc: LIBERTY_ETC_CLUSTER; a_children: FAST_ARRAY[LIBERTY_CLUSTER]) is
 		require
-			root = Current
+			is_root: root = Current
+			in_other_words: depth = 0
 		do
-			if a_etc.depth = 0 then
-				check
-					a_etc.cluster = Void
-				end
-				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc, Current))
+			if a_etc.depth = 0 and then a_etc.cluster = Void then
+				logging.trace.put_string(name)
+				logging.trace.put_string(once ": adding root cluster from etc ")
+				logging.trace.put_line(a_etc.name)
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(1, a_etc, Current))
 			end
 		end
 
-	make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_root: like root) is
+	make_from_etc (a_depth: like depth; a_etc: LIBERTY_ETC_CLUSTER; a_root: like root) is
 		require
 			a_etc /= Void
 			a_root /= Void
 			a_etc.cluster = Void
+			a_root.depth = 0
+			a_depth > 0
 		local
 			c: FAST_ARRAY[LIBERTY_CLUSTER]
 		do
-			a_etc.set_cluster(Current)
+			depth := a_depth
 			name := a_etc.name
+			root := a_root
 			locations := a_etc.locations
 			create class_names.with_capacity(16)
-			root := a_root
 			create c.with_capacity(a_etc.needs.count)
 			children := c
-			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c))
+			logging.info.put_string(once "Cluster (")
+			logging.info.put_integer(depth)
+			logging.info.put_string(once ") ")
+			logging.info.put_line(name)
+			a_etc.set_cluster(Current)
+			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c, a_root))
+		ensure
+			root = a_root
+			depth = a_depth
+			locations = a_etc.locations
 		end
 
-	add_needs (a_etc: LIBERTY_ETC_NEEDS; a_children: FAST_ARRAY[LIBERTY_CLUSTER]) is
+	add_needs (a_etc: LIBERTY_ETC_NEEDS; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_root: like root) is
+		require
+			a_root.depth = 0
 		do
 			if a_etc.cluster.cluster /= Void then
-				a_children.add_last(a_etc.cluster.cluster)
+				if a_etc.cluster.cluster /= Current then
+					a_children.add_last(a_etc.cluster.cluster)
+				end
 			else
-				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster, Current))
+				logging.trace.put_string(name)
+				logging.trace.put_string(once ": adding child cluster from etc ")
+				logging.trace.put_line(a_etc.cluster.name)
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster.depth + 1, a_etc.cluster, root))
 			end
 		end
 
-	make_from_loadpath (a_loadpath: STRING; a_root: like root) is
+	make_from_loadpath (a_depth: like depth; a_loadpath: STRING; a_root: like root) is
 		require
 			a_loadpath /= Void
-			a_root /= Void
+			a_root.depth = 0
 		local
 			location_directory: STRING
 		do
-			if ft.is_directory(a_loadpath) then
+			logging.warning.put_line(once "Effective clusters should not be created directly from classpath.se anymore! (only master clusters should)")
+
+			if not ft.is_file(a_loadpath) then
 				std_error.put_line("*** Error: not a loadpath: " + a_loadpath)
 				die_with_code(1)
 			end
 
+			depth := a_depth
 			root := a_root
 			name := a_loadpath.intern
 			dir.compute_parent_directory_of(a_loadpath)
@@ -206,10 +253,15 @@ feature {}
 			else
 				location_directory := dir.last_entry.twin
 			end
-			read_loadpath(a_loadpath, location_directory)
 			create class_names.with_capacity(16)
+			logging.info.put_string(once "Cluster (")
+			logging.info.put_integer(depth)
+			logging.info.put_string(once ") ")
+			logging.info.put_line(name)
+			read_loadpath(a_loadpath, location_directory)
 		ensure
 			root = a_root
+			depth = a_depth
 		end
 
 	read_loadpath (a_loadpath, a_location_directory: STRING) is
@@ -268,7 +320,10 @@ feature {}
 				if ft.is_directory(sublocation) then
 					a_locations.add_last(sublocation.intern)
 				elseif ft.is_file(sublocation) then
-					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(sublocation, root));
+					logging.trace.put_string(name)
+					logging.trace.put_string(once ": adding child cluster from loadpath ")
+					logging.trace.put_line(sublocation)
+					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(depth + 1, sublocation, root));
 				else
 					std_error.put_line(once "*** Warning: ignored location: " + sublocation)
 				end
@@ -300,10 +355,18 @@ feature {}
 
 	logging: LOGGING
 	env: LIBERTY_ENVIRONMENT
+	find_mark: INTEGER
+
+	find_mark_counter: COUNTER is
+		once
+			create Result
+		end
 
 invariant
 	not name.is_empty
 	class_names /= Void
 	locations.for_all(agent ft.is_directory)
+	root.depth = 0
+	depth = 0 implies root = Current
 
 end

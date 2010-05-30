@@ -37,22 +37,22 @@ feature {ANY}
 
 	is_trace: BOOLEAN is
 		do
-			Result := level.does_log(level_trace)
+			Result := level_trace.does_log(level)
 		end
 
 	is_info: BOOLEAN is
 		do
-			Result := level.does_log(level_info)
+			Result := level_info.does_log(level)
 		end
 
 	is_warning: BOOLEAN is
 		do
-			Result := level.does_log(level_warning)
+			Result := level_warning.does_log(level)
 		end
 
 	is_error: BOOLEAN is
 		do
-			Result := level.does_log(level_error)
+			Result := level_error.does_log(level)
 		end
 
 feature {ANY}

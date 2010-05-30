@@ -28,6 +28,26 @@ feature {LIBERTY_ETC}
 			Result := all_clusters
 		end
 
+	check_validity is
+		local
+			fix_point: BOOLEAN; mark: INTEGER
+		do
+			from
+				all_clusters.do_all(agent {LIBERTY_ETC_CLUSTER}.check_validity(clusters))
+				all_clusters.do_all(agent {LIBERTY_ETC_CLUSTER}.check_cycles)
+				check not fix_point end
+			until
+				fix_point
+			loop
+				mark := mark + 1
+				if mark > 1024 then
+					std_error.put_line("No fix point after 1024 iterations, clusters graph too complex?")
+					die_with_code(1)
+				end
+				fix_point := not all_clusters.exists(agent {LIBERTY_ETC_CLUSTER}.fix_depth(mark))
+			end
+		end
+
 feature {LIBERTY_ETC_FACTORY} -- Lists
 	visit_environment_variable_list (list: LIBERTY_ETC_LIST) is
 		do
@@ -57,7 +77,7 @@ feature {LIBERTY_ETC_FACTORY} -- Lists
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
 		local
-			t: EIFFEL_TERMINAL_NODE; fix_point: BOOLEAN
+			t: EIFFEL_TERMINAL_NODE
 		do
 			check
 				nt.lower = 0
@@ -75,24 +95,59 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			end
 			nt.node_at(2).accept(Current)
 			nt.node_at(3).accept(Current)
-
-			from
-				all_clusters.do_all(agent consolidate)
-				check not fix_point end
-			until
-				fix_point
-			loop
-				fix_point := not all_clusters.exists(agent {LIBERTY_ETC_CLUSTER}.set_depth)
-			end
 		end
 
 	visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL) is
+		local
+			cluster_name: EIFFEL_TERMINAL_NODE
+			cluster_definition_name: FIXED_STRING
 		do
 			check
 				nt.lower = 0
-				nt.name_at(1).is_equal(once "Cluster")
+				nt.name_at(1).is_equal(once "KW cluster name")
+				nt.name_at(2).is_equal(once "Version")
+				nt.name_at(3).is_equal(once "Needs")
+				nt.name_at(4).is_equal(once "Concurrency")
+				nt.name_at(5).is_equal(once "Assertion")
+				nt.name_at(6).is_equal(once "Debug")
+				nt.name_at(7).is_equal(once "Environment")
+				nt.name_at(8).is_equal(once "Clusters")
 			end
-			nt.node_at(1).accept(Current)
+
+			check
+				current_cluster = Void
+			end
+			cluster_name ::= nt.node_at(1)
+			cluster_definition_name := cluster_name.image.image.intern
+			if current_cluster_name = Void then
+				current_cluster_name := cluster_definition_name
+			elseif current_cluster_name /= cluster_definition_name then
+				errors.set(errors.level_fatal_error, "Invalid file content: bad cluster name " + cluster_definition_name
+							  + " (expected " + current_cluster_name + ")")
+				check
+					dead: False
+				end
+			end
+			if all_clusters.fast_has(cluster_definition_name) then
+				errors.set(errors.level_fatal_error, "Invalid file content: duplicate cluster name " + cluster_definition_name)
+				check
+					dead: False
+				end
+			end
+
+			set_current_cluster_from_definition
+
+			nt.node_at(7).accept(Current)
+			nt.node_at(8).accept(Current)
+			nt.node_at(2).accept(Current)
+			nt.node_at(3).accept(Current)
+			nt.node_at(4).accept(Current)
+			nt.node_at(5).accept(Current)
+			nt.node_at(6).accept(Current)
+
+			check
+				current_cluster /= Void
+			end
 		end
 
 	visit_environment (nt: LIBERTY_ETC_NON_TERMINAL) is
@@ -132,42 +187,40 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
 		local
 			cluster_name: EIFFEL_TERMINAL_NODE
+			previous_cluster: like current_cluster
+			previous_cluster_name: like current_cluster_name
 		do
 			check
 				nt.lower = 0
 				nt.name_at(0).is_equal(once "KW cluster name")
 				nt.name_at(1).is_equal(once "Location")
-				nt.name_at(2).is_equal(once "Version")
-				nt.name_at(3).is_equal(once "Cluster_Details")
+				nt.name_at(2).is_equal(once "Configure")
 			end
 			cluster_name ::= nt.node_at(0)
-			if current_cluster_name /= Void then
-				-- Parsing a cluster file
-				if not current_cluster_name.is_equal(cluster_name.image.image) then
-					errors.set(errors.level_fatal_error, "Invalid file content: bad cluster name " + cluster_name.image.image
-								  + " (expected " + current_cluster_name + ")")
-					check
-						dead: False
-					end
-				end
-				nt.node_at(1).accept(Current)
-				nt.node_at(2).accept(Current)
-				nt.node_at(3).accept(Current)
-			else
-				-- Parsing the master file
-				current_cluster_name := cluster_name.image.image.intern
+			previous_cluster_name := current_cluster_name
+			previous_cluster := current_cluster
+			current_cluster_name := cluster_name.image.image.intern
+			current_cluster := Void
+			nt.node_at(1).accept(Current)
+			if current_cluster.name /= current_cluster_name then
+				-- an aliased cluster, usually for the PROGRAM_LOADPATH / PROGRAM_LOADPATH_ pair
+
 				if all_clusters.fast_has(current_cluster_name) then
 					errors.set(errors.level_fatal_error, "Invalid file content: duplicate cluster name " + current_cluster_name)
 					check
 						dead: False
 					end
 				end
-				nt.node_at(1).accept(Current)
-				nt.node_at(2).accept(Current)
-				nt.node_at(3).accept(Current)
-				current_cluster := Void
-				current_cluster_name := Void
+
+				all_clusters.add(current_cluster, current_cluster_name)
 			end
+			nt.node_at(2).accept(Current)
+			current_cluster := previous_cluster
+			current_cluster_name := previous_cluster_name
+		end
+
+	visit_configure (nt: LIBERTY_ETC_NON_TERMINAL) is
+		do
 		end
 
 	visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
@@ -184,37 +237,67 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			location_image ::= location.image
 			descriptor := location_image.decoded
 			env.substitute(descriptor)
+			set_current_cluster_from_location(canonical_location(descriptor))
+		end
 
-			if files.is_directory(descriptor) then
-				dir.compute_file_path_with(descriptor, once "cluster.rc")
+	set_current_cluster_from_definition is
+		require
+			current_cluster = Void
+			current_directory /= Void
+		do
+			dir.compute_file_path_with(current_directory, once "loadpath.se")
+			if not dir.last_entry.is_empty and then files.file_exists(dir.last_entry) and then files.is_file(dir.last_entry) then
+				set_current_cluster_from_loadpath_se(dir.last_entry.intern)
+			else
+				set_current_cluster_from_directory(current_directory)
+			end
+		ensure
+			current_cluster /= Void
+		end
+
+	set_current_cluster_from_location (location: ABSTRACT_STRING) is
+		require
+			current_cluster = Void
+			location /= Void
+			dir.system_notation.is_absolute_path(location.out)
+		local
+			descriptor: STRING
+		do
+			if files.is_directory(location) then
+				dir.compute_file_path_with(location, once "cluster.rc")
 				if not dir.last_entry.is_empty and then files.file_exists(dir.last_entry) and then files.is_file(dir.last_entry) then
-					descriptor.copy(dir.last_entry)
-					set_current_cluster_from_cluster_rc(descriptor)
+					set_current_cluster_from_cluster_rc(dir.last_entry.intern)
 				else
-					dir.compute_file_path_with(descriptor, once "loadpath.se")
+					dir.compute_file_path_with(location, once "loadpath.se")
 					if not dir.last_entry.is_empty and then files.file_exists(dir.last_entry) and then files.is_file(dir.last_entry) then
-						descriptor.copy(dir.last_entry)
-						set_current_cluster_from_loadpath_se(descriptor)
+						set_current_cluster_from_loadpath_se(dir.last_entry.intern)
 					else
-						set_current_cluster_from_directory(descriptor)
+						descriptor := once ""
+						descriptor.make_from_string(location)
+						dir.system_notation.to_directory_path(descriptor)
+						set_current_cluster_from_directory(descriptor.intern)
 					end
 				end
-			elseif files.is_file(descriptor) then
-				dir.compute_short_name_of(descriptor)
+			elseif files.is_file(location) then
+				dir.compute_short_name_of(location)
 				inspect
 					dir.last_entry
 				when "cluster.rc" then
-					set_current_cluster_from_cluster_rc(descriptor)
+					set_current_cluster_from_cluster_rc(location.intern)
 				when "loadpath.se" then
-					set_current_cluster_from_loadpath_se(descriptor)
+					set_current_cluster_from_loadpath_se(location.intern)
 				else
-					std_error.put_line("Unknown file format: " + descriptor)
+					std_error.put_line("Unknown file format: " + location)
 					die_with_code(1)
 				end
 			else
-				std_error.put_line("Strange file (neither a file nor a directory): " + descriptor)
+				std_error.put_line("Strange file: " + location
+										 + " is neither a directory nor a regular file - cannot create the cluster")
+				sedb_breakpoint
 				die_with_code(1)
 			end
+		ensure
+			current_cluster /= Void
 		end
 
 	visit_version (nt: LIBERTY_ETC_NON_TERMINAL) is
@@ -245,6 +328,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_cluster_configuration (nt: LIBERTY_ETC_NON_TERMINAL) is
 		local
 			needed_cluster: EIFFEL_TERMINAL_NODE
+			needed_cluster_name: FIXED_STRING
 		do
 			check
 				nt.lower = 0
@@ -254,7 +338,8 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			needed_cluster ::= nt.node_at(0)
 			create {FAST_ARRAY[LIBERTY_ETC_CONSTRAINT]} last_cluster_constraints.with_capacity(1)
 			nt.node_at(1).accept(Current)
-			current_cluster.add_needs(create {LIBERTY_ETC_NEEDS}.make(needed_cluster.image.image.intern, last_cluster_constraints))
+			needed_cluster_name := needed_cluster.image.image.intern
+			current_cluster.add_needs(create {LIBERTY_ETC_NEEDS}.make(needed_cluster_name, all_clusters.fast_reference_at(needed_cluster_name), last_cluster_constraints))
 			last_cluster_constraints := Void
 		end
 
@@ -306,23 +391,6 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			end
 		end
 
-	visit_cluster_details (nt: LIBERTY_ETC_NON_TERMINAL) is
-		do
-			if not nt.is_empty then
-				check
-					nt.lower = 0
-					nt.name_at(0).is_equal(once "Needs")
-					nt.name_at(1).is_equal(once "Concurrency")
-					nt.name_at(2).is_equal(once "Assertion")
-					nt.name_at(3).is_equal(once "Debug")
-				end
-				nt.node_at(0).accept(Current)
-				nt.node_at(1).accept(Current)
-				nt.node_at(2).accept(Current)
-				nt.node_at(3).accept(Current)
-			end
-		end
-
 	visit_assertion (nt: LIBERTY_ETC_NON_TERMINAL) is
 		do
 		end
@@ -348,45 +416,88 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		end
 
 feature {}
-	set_current_cluster_from_cluster_rc (cluster_rc: STRING) is
+	cluster_per_location: DICTIONARY[LIBERTY_ETC_CLUSTER, FIXED_STRING]
+
+	set_current_cluster_from_cluster_rc (cluster_rc: FIXED_STRING) is
+		require
+			dir.system_notation.is_absolute_path(cluster_rc.out)
+			current_cluster = Void
+		local
+			etc: LIBERTY_ETC
+			previous_directory: like current_directory
 		do
-			not_yet_implemented
+			current_cluster := cluster_per_location.fast_reference_at(cluster_rc)
+			if current_cluster = Void then
+				check
+					etc.visitor = Current
+				end
+				previous_directory := current_directory
+				dir.compute_parent_directory_of(cluster_rc)
+				current_directory := dir.last_entry.intern
+
+				etc.configure_cluster_rc(cluster_rc)
+				cluster_per_location.add(current_cluster, cluster_rc)
+
+				current_directory := previous_directory
+			end
+		ensure
+			current_cluster /= Void
+			current_cluster = cluster_per_location.fast_reference_at(cluster_rc)
 		end
 
-	set_current_cluster_from_loadpath_se (loadpath_se: STRING) is
+	set_current_cluster_from_loadpath_se (loadpath_se: FIXED_STRING) is
+		require
+			dir.system_notation.is_absolute_path(loadpath_se.out)
+			current_cluster = Void
 		local
 			locations: FAST_ARRAY[FIXED_STRING]
 			i, n: INTEGER
 		do
-			locations := {FAST_ARRAY[FIXED_STRING] << loadpath_se.intern >> }
-			from
-			until
-				n = locations.count
-			loop
-				i := i + 1
-				if i > 500 then
-					std_error.put_line("loadpath nesting too deep starting from " + loadpath_se)
-					die_with_code(1)
+			current_cluster := cluster_per_location.fast_reference_at(loadpath_se)
+			if current_cluster = Void then
+				if all_clusters.fast_has(current_cluster_name) then
+					errors.set(errors.level_fatal_error, "Invalid file content: duplicate cluster name " + current_cluster_name)
+					check
+						dead: False
+					end
 				end
-				n := locations.count
-				scan_loadpath(locations)
+
+				locations := {FAST_ARRAY[FIXED_STRING] << loadpath_se >> }
+				from
+				until
+					n = locations.count
+				loop
+					i := i + 1
+					if i > 500 then
+						std_error.put_line("loadpath nesting too deep starting from " + loadpath_se)
+						die_with_code(1)
+					end
+					n := locations.count
+					scan_loadpath(locations)
+				end
+				create current_cluster.make(current_cluster_name, locations)
+				all_clusters.add(current_cluster, current_cluster_name)
+				cluster_per_location.add(current_cluster, loadpath_se)
 			end
-			create current_cluster.make(current_cluster_name, locations)
-			all_clusters.add(current_cluster, current_cluster_name)
+		ensure
+			current_cluster /= Void
+			current_cluster = cluster_per_location.fast_reference_at(loadpath_se)
 		end
 
 	scan_loadpath (locations: FAST_ARRAY[FIXED_STRING]) is
 		require
 			not locations.is_empty
 		local
-			i: INTEGER; file: FIXED_STRING
+			i: INTEGER; location: STRING; file: FIXED_STRING
 		do
+			location := once ""
 			from
 				i := locations.lower
 			until
 				i > locations.upper
 			loop
-				file := locations.item(i)
+				location.make_from_string(locations.item(i))
+				file := canonical_location(location)
 				if files.is_directory(file) then
 					i := i + 1
 				elseif files.is_file(file) then
@@ -395,14 +506,17 @@ feature {}
 				else
 					std_error.put_line("Strange file: " + locations.item(i)
 											 + " is neither a directory nor a regular file - ignored")
+					sedb_breakpoint
 					locations.remove(i)
 				end
 			end
 		end
 
 	import_loadpath (locations: FAST_ARRAY[FIXED_STRING]; loadpath: FIXED_STRING) is
+		require
+			dir.system_notation.is_absolute_path(loadpath.out)
 		local
-			dirname, basename: STRING
+			directory: FIXED_STRING
 		do
 			tfr.connect_to(loadpath)
 			if not tfr.is_connected then
@@ -411,35 +525,33 @@ feature {}
 			end
 
 			dir.compute_parent_directory_of(loadpath)
-			dirname := once ""
-			dirname.copy(dir.last_entry)
-			dir.compute_short_name_of(loadpath)
-			basename := once ""
-			basename.copy(dir.last_entry)
+			directory := dir.last_entry.intern
 
 			from
 				tfr.read_line
 			until
 				tfr.end_of_input
 			loop
-				import_loadpath_line(locations, dirname, tfr.last_string)
+				import_loadpath_line(locations, directory, tfr.last_string)
 				tfr.read_line
 			end
-			import_loadpath_line(locations, dirname, tfr.last_string)
+			import_loadpath_line(locations, directory, tfr.last_string)
 			tfr.disconnect
 		end
 
-	import_loadpath_line (locations: FAST_ARRAY[FIXED_STRING]; dirname, loadpath_line: STRING) is
+	import_loadpath_line (locations: FAST_ARRAY[FIXED_STRING]; directory: FIXED_STRING; loadpath_line: STRING) is
+		require
+			dir.system_notation.is_absolute_path(directory.out)
 		do
 			if not should_ignore(loadpath_line) then
 				if dir.system_notation.is_absolute_path(loadpath_line) then
 					locations.add_last(loadpath_line.intern)
 				else
-					dir.compute_file_path_with(dirname, loadpath_line)
+					dir.compute_file_path_with(directory, loadpath_line)
 					if files.file_exists(dir.last_entry) then
 						locations.add_last(dir.last_entry.intern)
 					else
-						dir.compute_subdirectory_with(dirname, loadpath_line)
+						dir.compute_subdirectory_with(directory, loadpath_line)
 						locations.add_last(dir.last_entry.intern)
 					end
 				end
@@ -472,10 +584,30 @@ feature {}
 			end
 		end
 
-	set_current_cluster_from_directory (directory: STRING) is
+	set_current_cluster_from_directory (directory: FIXED_STRING) is
+		require
+			dir.system_notation.is_absolute_path(directory.out)
+			current_cluster = Void
 		do
-			create current_cluster.make(current_cluster_name, {FAST_ARRAY[FIXED_STRING] << directory.intern >> })
-			all_clusters.add(current_cluster, current_cluster_name)
+			current_cluster := cluster_per_location.fast_reference_at(directory)
+			if current_cluster = Void then
+				create current_cluster.make(current_cluster_name, {FAST_ARRAY[FIXED_STRING] << directory >> })
+				all_clusters.add(current_cluster, current_cluster_name)
+				cluster_per_location.add(current_cluster, directory)
+			end
+		ensure
+			current_cluster /= Void
+			current_cluster = cluster_per_location.fast_reference_at(directory)
+		end
+
+	canonical_location (descriptor: STRING): FIXED_STRING is
+		local
+			buffer: STRING
+		do
+			buffer := once ""
+			buffer.make_from_string(current_directory)
+			dir.system_notation.to_absolute_path_in(buffer, descriptor)
+			Result := buffer.intern
 		end
 
 feature {}
@@ -606,11 +738,6 @@ feature {}
 			end
 		end
 
-	consolidate (cluster: LIBERTY_ETC_CLUSTER; cluster_name: FIXED_STRING) is
-		do
-			cluster.consolidate(all_clusters)
-		end
-
 feature {}
 	make (a_tool_name: ABSTRACT_STRING) is
 		require
@@ -618,6 +745,8 @@ feature {}
 		do
 			tool_name := a_tool_name.intern
 			create all_clusters.make
+			create {HASHED_DICTIONARY[LIBERTY_ETC_CLUSTER, FIXED_STRING]} cluster_per_location.make
+			current_directory := dir.current_working_directory
 		ensure
 			tool_name = a_tool_name.intern
 		end
@@ -625,6 +754,7 @@ feature {}
 	errors: LIBERTY_ERRORS
 	env: LIBERTY_ENVIRONMENT
 	all_clusters: HASHED_DICTIONARY[LIBERTY_ETC_CLUSTER, FIXED_STRING]
+	current_directory: FIXED_STRING
 	current_cluster_name: FIXED_STRING
 	current_cluster: LIBERTY_ETC_CLUSTER
 
@@ -633,6 +763,7 @@ feature {}
 
 	dir: BASIC_DIRECTORY
 	files: FILE_TOOLS
+	logging: LOGGING
 
 	tfr: TEXT_FILE_READ is
 		once

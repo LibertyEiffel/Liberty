@@ -1,0 +1,9 @@
+cluster DESIGN_PATTERNS
+
+version "1.0"
+
+needs
+	KERNEL
+	STORAGE
+
+end

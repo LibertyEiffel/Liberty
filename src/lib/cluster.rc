@@ -1,0 +1,59 @@
+cluster LIBERTY_LIBRARY
+
+version "1.0"
+
+needs
+	ABILITIES
+	AUTOMATON
+	BACKTRACKING
+	DESIGN_PATTERNS
+	EXEC
+	FOREIGN_INTERFACE
+	I18N
+	IO
+	ITERATOR
+	KERNEL
+	MESSAGE_FORMATTER
+	MISC
+	NCURSES
+	NET
+	NUMERIC
+	PARSE
+	RANDOM
+	REGULAR_EXPRESSION
+	SEQUENCER
+	SIGNAL
+	SORTING
+	STORAGE
+	STRING
+	TIME
+	UNICODE
+
+cluster
+	ABILITIES: "./abilities"
+	AUTOMATON: "./automaton"
+	BACKTRACKING: "./backtracking"
+	DESIGN_PATTERNS: "./design_patterns"
+	EXEC: "./exec"
+	FOREIGN_INTERFACE: "./foreign_interface"
+	I18N: "./i18n"
+	IO: "./io"
+	ITERATOR: "./iterator"
+	KERNEL: "./kernel"
+	MESSAGE_FORMATTER: "./message_formatter"
+	MISC: "./misc"
+	NCURSES: "./ncurses"
+	NET: "./net"
+	NUMERIC: "./numeric"
+	PARSE: "./parse"
+	RANDOM: "./random"
+	REGULAR_EXPRESSION: "./regular_expression"
+	SEQUENCER: "./sequencer"
+	SIGNAL: "./signal"
+	SORTING: "./sorting"
+	STORAGE: "./storage"
+	STRING: "./string"
+	TIME: "./time"
+	UNICODE: "./unicode"
+
+end

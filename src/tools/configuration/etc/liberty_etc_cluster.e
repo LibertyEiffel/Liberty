@@ -94,34 +94,120 @@ feature {LIBERTY_ETC_VISITOR_IMPL}
 			needs_memory.fast_has(a_needs)
 		end
 
-	consolidate (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
+	check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
 		require
 			all_clusters /= Void
 		do
-			needs_memory.do_all(agent {LIBERTY_ETC_NEEDS}.consolidate(all_clusters))
+			needs_memory.do_all(agent {LIBERTY_ETC_NEEDS}.check_validity(all_clusters))
 		end
 
-	set_depth: BOOLEAN is
+	check_cycles is
 		local
-			d: like depth
-			i: INTEGER
-			need: LIBERTY_ETC_NEEDS
+			i: INTEGER; cycle: COLLECTION[LIBERTY_ETC_CLUSTER]
 		do
 			from
 				i := needs_memory.lower
 			until
 				i > needs_memory.upper
 			loop
-				need := needs_memory.item(i)
-				if need.cluster.depth >= d then
-					d := need.cluster.depth + 1
+				create {FAST_ARRAY[LIBERTY_ETC_CLUSTER]} cycle.with_capacity(1)
+				if needs_memory.item(i).cluster.find_cycle(Current, cycle) then
+					check
+						not cycle.is_empty
+					end
+					cycles.add_last(cycle)
 				end
 				i := i + 1
 			end
-			if depth < d then
-				depth := d
+		end
+
+feature {LIBERTY_ETC_CLUSTER}
+	find_cycle (start: LIBERTY_ETC_CLUSTER; cycle: COLLECTION[LIBERTY_ETC_CLUSTER]): BOOLEAN is
+		do
+			if mark = 1 then
 				Result := True
+				cycle.add_last(Current)
+			else
+				mark := 1
+				Result := needs_memory.exists(agent find_needs_cycle(?, start, cycle))
+				if Result then
+					cycle.add_last(Current)
+				end
 			end
+			mark := 0
+		end
+
+feature {}
+	find_needs_cycle (a_needs: LIBERTY_ETC_NEEDS; start: LIBERTY_ETC_CLUSTER; cycle: COLLECTION[LIBERTY_ETC_CLUSTER]): BOOLEAN is
+		do
+			Result := a_needs.cluster.find_cycle(start, cycle)
+			if Result then
+				a_needs.set_in_cycle
+			end
+		end
+
+feature {LIBERTY_ETC_VISITOR_IMPL, LIBERTY_ETC_CLUSTER}
+	fix_depth (a_mark: like mark): BOOLEAN is
+		require
+			a_mark >= mark
+		local
+			i: INTEGER
+			need: LIBERTY_ETC_NEEDS
+		do
+			if mark < a_mark then
+				mark := a_mark
+				from
+					i := needs_memory.lower
+				until
+					i > needs_memory.upper
+				loop
+					need := needs_memory.item(i)
+					if need.in_cycle then
+						--need.cluster.set_depth(depth)
+						--Result := need.cluster.fix_depth(a_mark)
+					elseif need.cluster.depth <= depth then
+						need.cluster.set_depth(depth + 1)
+						Result := True
+					else
+						Result := need.cluster.fix_depth(a_mark)
+					end
+					i := i + 1
+				end
+			end
+		ensure
+			mark = a_mark
+		end
+
+	mark: INTEGER
+
+feature {LIBERTY_ETC_CLUSTER}
+	set_depth (a_depth: like depth) is
+		require
+			a_depth > depth
+		local
+			i, j: INTEGER; cycle: COLLECTION[LIBERTY_ETC_CLUSTER]
+		do
+			depth := a_depth
+			from
+				i := cycles.lower
+			until
+				i > cycles.upper
+			loop
+				cycle := cycles.item(i)
+				from
+					j := cycle.lower
+				until
+					j > cycle.upper
+				loop
+					if cycle.item(j).depth < a_depth then
+						cycle.item(j).set_depth(a_depth)
+					end
+					j := j + 1
+				end
+				i := i + 1
+			end
+		ensure
+			depth = a_depth
 		end
 
 feature {LIBERTY_CLUSTER}
@@ -144,6 +230,7 @@ feature {}
 			name := a_name
 			locations := a_locations
 			create needs_memory.with_capacity(2)
+			create {FAST_ARRAY[COLLECTION[LIBERTY_ETC_CLUSTER]]} cycles.with_capacity(0)
 			if logging.is_trace then
 				logging.trace.put_string(once "Master cluster definition: ")
 				logging.trace.put_string(name)
@@ -157,6 +244,7 @@ feature {}
 
 	needs_memory: FAST_ARRAY[LIBERTY_ETC_NEEDS]
 	logging: LOGGING
+	cycles: COLLECTION[COLLECTION[LIBERTY_ETC_CLUSTER]]
 
 invariant
 	name /= Void

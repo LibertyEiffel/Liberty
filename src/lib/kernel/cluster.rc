@@ -1,0 +1,9 @@
+cluster KERNEL
+
+version "1.0"
+
+needs
+	STRING
+	NUMERIC
+
+end

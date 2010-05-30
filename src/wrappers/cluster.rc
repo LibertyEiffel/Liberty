@@ -1,0 +1,17 @@
+cluster LIBERTY_WRAPPERS
+
+version "1.0"
+
+needs
+	WRAPPER_COMMON
+	WRAPPER_LLVM
+	WRAPPER_FFI
+	WRAPPER_POSIX_DLL
+
+cluster
+	WRAPPER_COMMON: "./common/library"
+	WRAPPER_LLVM: "./llvm/library"
+	WRAPPER_FFI: "./ffi/library"
+	WRAPPER_POSIX_DLL: "./posix/dynamic-linking/library"
+
+end
