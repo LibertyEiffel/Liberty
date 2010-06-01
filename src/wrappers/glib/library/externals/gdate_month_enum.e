@@ -11,7 +11,7 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = bad__month_low_level)  or else
+			Result := ((a_value = bad_month_low_level)  or else
 				(a_value = february_low_level)  or else
 				(a_value = march_low_level)  or else
 				(a_value = april_low_level)  or else
@@ -27,9 +27,9 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_bad__month is
+	set_bad_month is
 		do
-			value := bad__month_low_level
+			value := bad_month_low_level
 		end
 
 	set_february is
@@ -88,9 +88,9 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_bad__month: BOOLEAN is
+	is_bad_month: BOOLEAN is
 		do
-			Result := (value=bad__month_low_level)
+			Result := (value=bad_month_low_level)
 		end
 
 	is_february: BOOLEAN is
@@ -149,7 +149,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad__month_low_level: INTEGER is
+	bad_month_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,19 +11,19 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = bad__utf_8_low_level)  or else
+			Result := ((a_value = bad_utf_8_low_level)  or else
 				(a_value = parse_low_level)  or else
-				(a_value = unknown__element_low_level)  or else
-				(a_value = unknown__attribute_low_level)  or else
-				(a_value = invalid__content_low_level)  or else
-				(a_value = missing__attribute_low_level) )
+				(a_value = unknown_element_low_level)  or else
+				(a_value = unknown_attribute_low_level)  or else
+				(a_value = invalid_content_low_level)  or else
+				(a_value = missing_attribute_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_bad__utf_8 is
+	set_bad_utf_8 is
 		do
-			value := bad__utf_8_low_level
+			value := bad_utf_8_low_level
 		end
 
 	set_parse is
@@ -31,30 +31,30 @@ feature -- Setters
 			value := parse_low_level
 		end
 
-	set_unknown__element is
+	set_unknown_element is
 		do
-			value := unknown__element_low_level
+			value := unknown_element_low_level
 		end
 
-	set_unknown__attribute is
+	set_unknown_attribute is
 		do
-			value := unknown__attribute_low_level
+			value := unknown_attribute_low_level
 		end
 
-	set_invalid__content is
+	set_invalid_content is
 		do
-			value := invalid__content_low_level
+			value := invalid_content_low_level
 		end
 
-	set_missing__attribute is
+	set_missing_attribute is
 		do
-			value := missing__attribute_low_level
+			value := missing_attribute_low_level
 		end
 
 feature -- Queries
-	is_bad__utf_8: BOOLEAN is
+	is_bad_utf_8: BOOLEAN is
 		do
-			Result := (value=bad__utf_8_low_level)
+			Result := (value=bad_utf_8_low_level)
 		end
 
 	is_parse: BOOLEAN is
@@ -62,28 +62,28 @@ feature -- Queries
 			Result := (value=parse_low_level)
 		end
 
-	is_unknown__element: BOOLEAN is
+	is_unknown_element: BOOLEAN is
 		do
-			Result := (value=unknown__element_low_level)
+			Result := (value=unknown_element_low_level)
 		end
 
-	is_unknown__attribute: BOOLEAN is
+	is_unknown_attribute: BOOLEAN is
 		do
-			Result := (value=unknown__attribute_low_level)
+			Result := (value=unknown_attribute_low_level)
 		end
 
-	is_invalid__content: BOOLEAN is
+	is_invalid_content: BOOLEAN is
 		do
-			Result := (value=invalid__content_low_level)
+			Result := (value=invalid_content_low_level)
 		end
 
-	is_missing__attribute: BOOLEAN is
+	is_missing_attribute: BOOLEAN is
 		do
-			Result := (value=missing__attribute_low_level)
+			Result := (value=missing_attribute_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad__utf_8_low_level: INTEGER is
+	bad_utf_8_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -101,7 +101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown__element_low_level: INTEGER is
+	unknown_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -110,7 +110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown__attribute_low_level: INTEGER is
+	unknown_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -119,7 +119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid__content_low_level: INTEGER is
+	invalid_content_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -128,7 +128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	missing__attribute_low_level: INTEGER is
+	missing_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

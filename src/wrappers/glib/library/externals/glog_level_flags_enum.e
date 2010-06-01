@@ -11,101 +11,101 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = flag__recursion_low_level)  or else
-				(a_value = level__error_low_level)  or else
-				(a_value = level__critical_low_level)  or else
-				(a_value = level__warning_low_level)  or else
-				(a_value = level__message_low_level)  or else
-				(a_value = level__info_low_level)  or else
-				(a_value = level__debug_low_level)  or else
-				(a_value = level__mask_low_level) )
+			Result := ((a_value = flag_recursion_low_level)  or else
+				(a_value = level_error_low_level)  or else
+				(a_value = level_critical_low_level)  or else
+				(a_value = level_warning_low_level)  or else
+				(a_value = level_message_low_level)  or else
+				(a_value = level_info_low_level)  or else
+				(a_value = level_debug_low_level)  or else
+				(a_value = level_mask_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_flag__recursion is
+	set_flag_recursion is
 		do
-			value := flag__recursion_low_level
+			value := flag_recursion_low_level
 		end
 
-	set_level__error is
+	set_level_error is
 		do
-			value := level__error_low_level
+			value := level_error_low_level
 		end
 
-	set_level__critical is
+	set_level_critical is
 		do
-			value := level__critical_low_level
+			value := level_critical_low_level
 		end
 
-	set_level__warning is
+	set_level_warning is
 		do
-			value := level__warning_low_level
+			value := level_warning_low_level
 		end
 
-	set_level__message is
+	set_level_message is
 		do
-			value := level__message_low_level
+			value := level_message_low_level
 		end
 
-	set_level__info is
+	set_level_info is
 		do
-			value := level__info_low_level
+			value := level_info_low_level
 		end
 
-	set_level__debug is
+	set_level_debug is
 		do
-			value := level__debug_low_level
+			value := level_debug_low_level
 		end
 
-	set_level__mask is
+	set_level_mask is
 		do
-			value := level__mask_low_level
+			value := level_mask_low_level
 		end
 
 feature -- Queries
-	is_flag__recursion: BOOLEAN is
+	is_flag_recursion: BOOLEAN is
 		do
-			Result := (value=flag__recursion_low_level)
+			Result := (value=flag_recursion_low_level)
 		end
 
-	is_level__error: BOOLEAN is
+	is_level_error: BOOLEAN is
 		do
-			Result := (value=level__error_low_level)
+			Result := (value=level_error_low_level)
 		end
 
-	is_level__critical: BOOLEAN is
+	is_level_critical: BOOLEAN is
 		do
-			Result := (value=level__critical_low_level)
+			Result := (value=level_critical_low_level)
 		end
 
-	is_level__warning: BOOLEAN is
+	is_level_warning: BOOLEAN is
 		do
-			Result := (value=level__warning_low_level)
+			Result := (value=level_warning_low_level)
 		end
 
-	is_level__message: BOOLEAN is
+	is_level_message: BOOLEAN is
 		do
-			Result := (value=level__message_low_level)
+			Result := (value=level_message_low_level)
 		end
 
-	is_level__info: BOOLEAN is
+	is_level_info: BOOLEAN is
 		do
-			Result := (value=level__info_low_level)
+			Result := (value=level_info_low_level)
 		end
 
-	is_level__debug: BOOLEAN is
+	is_level_debug: BOOLEAN is
 		do
-			Result := (value=level__debug_low_level)
+			Result := (value=level_debug_low_level)
 		end
 
-	is_level__mask: BOOLEAN is
+	is_level_mask: BOOLEAN is
 		do
-			Result := (value=level__mask_low_level)
+			Result := (value=level_mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	flag__recursion_low_level: INTEGER is
+	flag_recursion_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -114,7 +114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__error_low_level: INTEGER is
+	level_error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__critical_low_level: INTEGER is
+	level_critical_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__warning_low_level: INTEGER is
+	level_warning_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__message_low_level: INTEGER is
+	level_message_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__info_low_level: INTEGER is
+	level_info_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__debug_low_level: INTEGER is
+	level_debug_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__mask_low_level: INTEGER is
+	level_mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

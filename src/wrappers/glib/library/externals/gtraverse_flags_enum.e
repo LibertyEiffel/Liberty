@@ -15,7 +15,7 @@ feature -- Validity
 				(a_value = all_low_level)  or else
 				(a_value = mask_low_level)  or else
 				(a_value = leafs_low_level)  or else
-				(a_value = non__leafs_low_level) )
+				(a_value = non_leafs_low_level) )
 		end
 
 feature -- Setters
@@ -40,9 +40,9 @@ feature -- Setters
 			value := leafs_low_level
 		end
 
-	set_non__leafs is
+	set_non_leafs is
 		do
-			value := non__leafs_low_level
+			value := non_leafs_low_level
 		end
 
 feature -- Queries
@@ -66,9 +66,9 @@ feature -- Queries
 			Result := (value=leafs_low_level)
 		end
 
-	is_non__leafs: BOOLEAN is
+	is_non_leafs: BOOLEAN is
 		do
-			Result := (value=non__leafs_low_level)
+			Result := (value=non_leafs_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non__leafs_low_level: INTEGER is
+	non_leafs_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

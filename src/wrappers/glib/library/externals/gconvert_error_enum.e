@@ -11,18 +11,18 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = no__conversion_low_level)  or else
+			Result := ((a_value = no_conversion_low_level)  or else
 				(a_value = failed_low_level)  or else
-				(a_value = partial__input_low_level)  or else
-				(a_value = bad__uri_low_level)  or else
-				(a_value = not__absolute__path_low_level) )
+				(a_value = partial_input_low_level)  or else
+				(a_value = bad_uri_low_level)  or else
+				(a_value = not_absolute_path_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_no__conversion is
+	set_no_conversion is
 		do
-			value := no__conversion_low_level
+			value := no_conversion_low_level
 		end
 
 	set_failed is
@@ -30,25 +30,25 @@ feature -- Setters
 			value := failed_low_level
 		end
 
-	set_partial__input is
+	set_partial_input is
 		do
-			value := partial__input_low_level
+			value := partial_input_low_level
 		end
 
-	set_bad__uri is
+	set_bad_uri is
 		do
-			value := bad__uri_low_level
+			value := bad_uri_low_level
 		end
 
-	set_not__absolute__path is
+	set_not_absolute_path is
 		do
-			value := not__absolute__path_low_level
+			value := not_absolute_path_low_level
 		end
 
 feature -- Queries
-	is_no__conversion: BOOLEAN is
+	is_no_conversion: BOOLEAN is
 		do
-			Result := (value=no__conversion_low_level)
+			Result := (value=no_conversion_low_level)
 		end
 
 	is_failed: BOOLEAN is
@@ -56,23 +56,23 @@ feature -- Queries
 			Result := (value=failed_low_level)
 		end
 
-	is_partial__input: BOOLEAN is
+	is_partial_input: BOOLEAN is
 		do
-			Result := (value=partial__input_low_level)
+			Result := (value=partial_input_low_level)
 		end
 
-	is_bad__uri: BOOLEAN is
+	is_bad_uri: BOOLEAN is
 		do
-			Result := (value=bad__uri_low_level)
+			Result := (value=bad_uri_low_level)
 		end
 
-	is_not__absolute__path: BOOLEAN is
+	is_not_absolute_path: BOOLEAN is
 		do
-			Result := (value=not__absolute__path_low_level)
+			Result := (value=not_absolute_path_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	no__conversion_low_level: INTEGER is
+	no_conversion_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	partial__input_low_level: INTEGER is
+	partial_input_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bad__uri_low_level: INTEGER is
+	bad_uri_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	not__absolute__path_low_level: INTEGER is
+	not_absolute_path_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

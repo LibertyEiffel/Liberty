@@ -21,13 +21,13 @@ feature -- Validity
 				(a_value = handle_low_level)  or else
 				(a_value = double_low_level)  or else
 				(a_value = string_low_level)  or else
-				(a_value = object__path_low_level)  or else
+				(a_value = object_path_low_level)  or else
 				(a_value = signature_low_level)  or else
 				(a_value = variant_external_low_level)  or else
 				(a_value = maybe_low_level)  or else
 				(a_value = array_low_level)  or else
 				(a_value = tuple_low_level)  or else
-				(a_value = dict__entry_low_level) )
+				(a_value = dict_entry_low_level) )
 		end
 
 feature -- Setters
@@ -82,9 +82,9 @@ feature -- Setters
 			value := string_low_level
 		end
 
-	set_object__path is
+	set_object_path is
 		do
-			value := object__path_low_level
+			value := object_path_low_level
 		end
 
 	set_signature is
@@ -112,9 +112,9 @@ feature -- Setters
 			value := tuple_low_level
 		end
 
-	set_dict__entry is
+	set_dict_entry is
 		do
-			value := dict__entry_low_level
+			value := dict_entry_low_level
 		end
 
 feature -- Queries
@@ -168,9 +168,9 @@ feature -- Queries
 			Result := (value=string_low_level)
 		end
 
-	is_object__path: BOOLEAN is
+	is_object_path: BOOLEAN is
 		do
-			Result := (value=object__path_low_level)
+			Result := (value=object_path_low_level)
 		end
 
 	is_signature: BOOLEAN is
@@ -198,9 +198,9 @@ feature -- Queries
 			Result := (value=tuple_low_level)
 		end
 
-	is_dict__entry: BOOLEAN is
+	is_dict_entry: BOOLEAN is
 		do
-			Result := (value=dict__entry_low_level)
+			Result := (value=dict_entry_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	object__path_low_level: INTEGER is
+	object_path_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dict__entry_low_level: INTEGER is
+	dict_entry_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

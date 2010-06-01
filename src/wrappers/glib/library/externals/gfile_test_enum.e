@@ -11,42 +11,42 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := (a_value & (is__regular_low_level | 
-				is__dir_low_level | 
-				is__executable_low_level | 
+			Result := (a_value & (is_regular_low_level | 
+				is_dir_low_level | 
+				is_executable_low_level | 
 				exists_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_is__regular is
+	set_is_regular is
 		do
-			value := value.bit_or(is__regular_low_level)
+			value := value.bit_or(is_regular_low_level)
 		end
 
-	unset_is__regular is
+	unset_is_regular is
 		do
-			value := value.bit_xor(is__regular_low_level)
+			value := value.bit_xor(is_regular_low_level)
 		end
 
-	set_is__dir is
+	set_is_dir is
 		do
-			value := value.bit_or(is__dir_low_level)
+			value := value.bit_or(is_dir_low_level)
 		end
 
-	unset_is__dir is
+	unset_is_dir is
 		do
-			value := value.bit_xor(is__dir_low_level)
+			value := value.bit_xor(is_dir_low_level)
 		end
 
-	set_is__executable is
+	set_is_executable is
 		do
-			value := value.bit_or(is__executable_low_level)
+			value := value.bit_or(is_executable_low_level)
 		end
 
-	unset_is__executable is
+	unset_is_executable is
 		do
-			value := value.bit_xor(is__executable_low_level)
+			value := value.bit_xor(is_executable_low_level)
 		end
 
 	set_exists is
@@ -60,19 +60,19 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_is__regular: BOOLEAN is
+	is_is_regular: BOOLEAN is
 		do
-			Result := (value=is__regular_low_level)
+			Result := (value=is_regular_low_level)
 		end
 
-	is_is__dir: BOOLEAN is
+	is_is_dir: BOOLEAN is
 		do
-			Result := (value=is__dir_low_level)
+			Result := (value=is_dir_low_level)
 		end
 
-	is_is__executable: BOOLEAN is
+	is_is_executable: BOOLEAN is
 		do
-			Result := (value=is__executable_low_level)
+			Result := (value=is_executable_low_level)
 		end
 
 	is_exists: BOOLEAN is
@@ -81,7 +81,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	is__regular_low_level: INTEGER is
+	is_regular_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is__dir_low_level: INTEGER is
+	is_dir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is__executable_low_level: INTEGER is
+	is_executable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

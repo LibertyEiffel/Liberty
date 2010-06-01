@@ -11,7 +11,7 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = bad__weekday_low_level)  or else
+			Result := ((a_value = bad_weekday_low_level)  or else
 				(a_value = tuesday_low_level)  or else
 				(a_value = wednesday_low_level)  or else
 				(a_value = thursday_low_level)  or else
@@ -22,9 +22,9 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_bad__weekday is
+	set_bad_weekday is
 		do
-			value := bad__weekday_low_level
+			value := bad_weekday_low_level
 		end
 
 	set_tuesday is
@@ -58,9 +58,9 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_bad__weekday: BOOLEAN is
+	is_bad_weekday: BOOLEAN is
 		do
-			Result := (value=bad__weekday_low_level)
+			Result := (value=bad_weekday_low_level)
 		end
 
 	is_tuesday: BOOLEAN is
@@ -94,7 +94,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad__weekday_low_level: INTEGER is
+	bad_weekday_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

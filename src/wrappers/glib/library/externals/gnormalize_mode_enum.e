@@ -12,11 +12,11 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = default_external_low_level)  or else
-				(a_value = default__compose_low_level)  or else
+				(a_value = default_compose_low_level)  or else
 				(a_value = nfc_low_level)  or else
 				(a_value = all_low_level)  or else
 				(a_value = nfkd_low_level)  or else
-				(a_value = all__compose_low_level)  or else
+				(a_value = all_compose_low_level)  or else
 				(a_value = nfkc_low_level) )
 		end
 
@@ -27,9 +27,9 @@ feature -- Setters
 			value := default_external_low_level
 		end
 
-	set_default__compose is
+	set_default_compose is
 		do
-			value := default__compose_low_level
+			value := default_compose_low_level
 		end
 
 	set_nfc is
@@ -47,9 +47,9 @@ feature -- Setters
 			value := nfkd_low_level
 		end
 
-	set_all__compose is
+	set_all_compose is
 		do
-			value := all__compose_low_level
+			value := all_compose_low_level
 		end
 
 	set_nfkc is
@@ -63,9 +63,9 @@ feature -- Queries
 			Result := (value=default_external_low_level)
 		end
 
-	is_default__compose: BOOLEAN is
+	is_default_compose: BOOLEAN is
 		do
-			Result := (value=default__compose_low_level)
+			Result := (value=default_compose_low_level)
 		end
 
 	is_nfc: BOOLEAN is
@@ -83,9 +83,9 @@ feature -- Queries
 			Result := (value=nfkd_low_level)
 		end
 
-	is_all__compose: BOOLEAN is
+	is_all_compose: BOOLEAN is
 		do
-			Result := (value=all__compose_low_level)
+			Result := (value=all_compose_low_level)
 		end
 
 	is_nfkc: BOOLEAN is
@@ -103,7 +103,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	default__compose_low_level: INTEGER is
+	default_compose_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	all__compose_low_level: INTEGER is
+	all_compose_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

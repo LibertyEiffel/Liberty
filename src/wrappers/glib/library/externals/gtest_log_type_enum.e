@@ -12,13 +12,13 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = none_low_level)  or else
-				(a_value = start__binary_low_level)  or else
-				(a_value = list__case_low_level)  or else
-				(a_value = skip__case_low_level)  or else
-				(a_value = start__case_low_level)  or else
-				(a_value = stop__case_low_level)  or else
-				(a_value = min__result_low_level)  or else
-				(a_value = max__result_low_level)  or else
+				(a_value = start_binary_low_level)  or else
+				(a_value = list_case_low_level)  or else
+				(a_value = skip_case_low_level)  or else
+				(a_value = start_case_low_level)  or else
+				(a_value = stop_case_low_level)  or else
+				(a_value = min_result_low_level)  or else
+				(a_value = max_result_low_level)  or else
 				(a_value = message_low_level) )
 		end
 
@@ -29,39 +29,39 @@ feature -- Setters
 			value := none_low_level
 		end
 
-	set_start__binary is
+	set_start_binary is
 		do
-			value := start__binary_low_level
+			value := start_binary_low_level
 		end
 
-	set_list__case is
+	set_list_case is
 		do
-			value := list__case_low_level
+			value := list_case_low_level
 		end
 
-	set_skip__case is
+	set_skip_case is
 		do
-			value := skip__case_low_level
+			value := skip_case_low_level
 		end
 
-	set_start__case is
+	set_start_case is
 		do
-			value := start__case_low_level
+			value := start_case_low_level
 		end
 
-	set_stop__case is
+	set_stop_case is
 		do
-			value := stop__case_low_level
+			value := stop_case_low_level
 		end
 
-	set_min__result is
+	set_min_result is
 		do
-			value := min__result_low_level
+			value := min_result_low_level
 		end
 
-	set_max__result is
+	set_max_result is
 		do
-			value := max__result_low_level
+			value := max_result_low_level
 		end
 
 	set_message is
@@ -75,39 +75,39 @@ feature -- Queries
 			Result := (value=none_low_level)
 		end
 
-	is_start__binary: BOOLEAN is
+	is_start_binary: BOOLEAN is
 		do
-			Result := (value=start__binary_low_level)
+			Result := (value=start_binary_low_level)
 		end
 
-	is_list__case: BOOLEAN is
+	is_list_case: BOOLEAN is
 		do
-			Result := (value=list__case_low_level)
+			Result := (value=list_case_low_level)
 		end
 
-	is_skip__case: BOOLEAN is
+	is_skip_case: BOOLEAN is
 		do
-			Result := (value=skip__case_low_level)
+			Result := (value=skip_case_low_level)
 		end
 
-	is_start__case: BOOLEAN is
+	is_start_case: BOOLEAN is
 		do
-			Result := (value=start__case_low_level)
+			Result := (value=start_case_low_level)
 		end
 
-	is_stop__case: BOOLEAN is
+	is_stop_case: BOOLEAN is
 		do
-			Result := (value=stop__case_low_level)
+			Result := (value=stop_case_low_level)
 		end
 
-	is_min__result: BOOLEAN is
+	is_min_result: BOOLEAN is
 		do
-			Result := (value=min__result_low_level)
+			Result := (value=min_result_low_level)
 		end
 
-	is_max__result: BOOLEAN is
+	is_max_result: BOOLEAN is
 		do
-			Result := (value=max__result_low_level)
+			Result := (value=max_result_low_level)
 		end
 
 	is_message: BOOLEAN is
@@ -125,7 +125,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	start__binary_low_level: INTEGER is
+	start_binary_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	list__case_low_level: INTEGER is
+	list_case_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	skip__case_low_level: INTEGER is
+	skip_case_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	start__case_low_level: INTEGER is
+	start_case_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stop__case_low_level: INTEGER is
+	stop_case_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	min__result_low_level: INTEGER is
+	min_result_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	max__result_low_level: INTEGER is
+	max_result_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
