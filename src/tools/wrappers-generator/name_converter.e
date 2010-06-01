@@ -20,11 +20,8 @@ feature {} -- Auxiliary features
 	do
 		create Result.copy(a_name)
 		-- Remove header underscores.
-		from
-		until
-			Result.first /= '_'
-		loop
-			Result.remove_first
+		from until Result.first /= '_'
+		loop Result.remove_first
 		end
 		-- If first character is a number prepend an `a_'
 		if Result.first.is_digit then
@@ -33,6 +30,7 @@ feature {} -- Auxiliary features
 		eiffellizer.substitute_all_in(Result)
 		-- Remove spurious underscores and the end
 		from until Result.last/='_' loop Result.remove_last end
+		multiple_underscores_remover.substitute_all_in(Result)
 		Result.to_lower
 		Result := adapt(Result)
 	end
@@ -64,8 +62,17 @@ feature {} -- Auxiliary features
 		once
 			-- Result := builder.convert_perl_pattern("\B([A-Z]+)")
 			-- Result.prepare_substitution("_\1")
-			Result := builder.convert_perl_pattern("([A-Z]+[a-z]*)")
+			Result := builder.convert_perl_pattern("(\B[A-Z]+[a-z]*)")
 			Result.prepare_substitution("\1_")
+		end
+
+	multiple_underscores_remover: REGULAR_EXPRESSION is
+			-- Replace all multiple occurences of underscore "_" with a single one
+		local
+			builder: REGULAR_EXPRESSION_BUILDER
+		once
+			Result := builder.convert_perl_pattern("(\_\_+)")
+			Result.prepare_substitution("_")
 		end
 
 	is_public_name (a_name: STRING): BOOLEAN is

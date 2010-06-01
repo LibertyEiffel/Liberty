@@ -15,13 +15,11 @@ feature
 			Result:=attribute_at(once U"init").to_utf8
 		end
 
-	c_value: STRING is do Result:=c_name.to_utf8 end
-
 	eiffel_name: STRING is 
 		local enum: C_ENUM
 		do 
 			if stored_eiffel_name=Void then
-				create stored_eiffel_name.copy(c_name.as_utf8)
+				stored_eiffel_name := c_name.to_utf8
 				enum ?= parent
 				if enum/=Void and then enum.prefix_length > 0 then
 					stored_eiffel_name.remove_head(enum.prefix_length)
@@ -31,6 +29,7 @@ feature
 					end
 				end
 				stored_eiffel_name:=eiffel_feature(stored_eiffel_name)
+
 			end
 			Result:=stored_eiffel_name
 		end
@@ -44,7 +43,7 @@ feature -- Plain enumeration
 		-- enumeration value with `a_name' with a low level value
 		-- `a_value'.
 	do
- 		log(once "enum item @(1) wrapped as @(2)%N",<<c_value,eiffel_name>>)
+ 		log(once "enum item @(1) wrapped as @(2)%N",<<c_string_name,eiffel_name>>)
 		-- Append to `validity_query' the part of the comparison dealing with
 		-- Current value, i.e. "(a_value = FooBarOne)"....
 		validity_query.put_message(once "(a_value = @(1)_low_level) ",<<eiffel_name>>)
@@ -76,7 +75,7 @@ feature -- Plain enumeration
 		% 			feature_name: %"@(2)%"%N%
 		% 			}%"%N%
 		% 		end%N%N",
-		<<eiffel_name, c_value>>)
+		<<eiffel_name, c_string_name>>)
 	end
 
 feature -- "Flag" enumeration
@@ -86,7 +85,7 @@ feature -- "Flag" enumeration
 		--and a low level value
 		-- `a_value'.
 	do
- 		log(once "flag item @(1) wrapped as @(2)%N",<<c_value,eiffel_name>>)
+ 		log(once "flag item @(1) wrapped as @(2)%N",<<c_string_name,eiffel_name>>)
 		-- Append to `validity_query' the part of the comparison dealing with
 		-- Current value, i.e. "(a_value = FooBarOne)"....
 		validity_query.put_message(once "@(1)_low_level",<<eiffel_name>>)
@@ -125,13 +124,15 @@ feature -- "Flag" enumeration
 		% 			feature_name: %"@(2)%"%N%
 		% 			}%"%N%
 		% 		end%N%N",
-		<<eiffel_name, c_value>>)
+		<<eiffel_name, c_string_name>>)
 		-- TODO: add description
 	end
 
 feature {} -- Implementation
 	stored_eiffel_name: STRING
 		-- Buffered result of `eiffel_name' query
+
+
 -- invariant name.is_equal(once U"EnumValue")
 end
 
