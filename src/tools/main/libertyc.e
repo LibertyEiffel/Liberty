@@ -30,13 +30,17 @@ feature {}
 			root: LIBERTY_ACTUAL_TYPE
 			root_feature_name: LIBERTY_FEATURE_NAME
 			errors: LIBERTY_ERRORS
+			etc: LIBERTY_ETC
 		do
 			if argument_count /= 2 then
 				std_error.put_line("This is a bootstrap version of the compiler; it only accepts two arguments - the path to loadpath.se and the name of the root class which must have a %"make%" creation procedure.")
 				die_with_code(1)
 			end
 
-			create universe.make(argument(1))
+			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
+			etc.log
+
+			create universe.make
 			root := universe.get_type(Void, errors.unknown_position, argument(2).intern, create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
 
 			create root_feature_name.make("make".intern)
