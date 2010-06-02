@@ -7,7 +7,7 @@ inherit
 	EIFFEL_NODE
 
 feature {ANY}
-	name_at (index: INTEGER): STRING is
+	name_at (index: INTEGER): FIXED_STRING is
 		require
 			valid_index(index)
 		deferred

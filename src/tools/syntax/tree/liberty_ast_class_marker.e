@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	first_keyword: STRING is
+	first_keyword: FIXED_STRING is
 		local
 			keyword: EIFFEL_TERMINAL_NODE
 		do

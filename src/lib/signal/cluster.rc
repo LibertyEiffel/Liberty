@@ -1,0 +1,11 @@
+cluster SIGNAL
+
+version "1.0"
+
+locations
+	"."
+
+needs
+	KERNEL
+
+end

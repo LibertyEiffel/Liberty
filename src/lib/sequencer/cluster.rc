@@ -1,0 +1,12 @@
+cluster SEQUENCER
+
+version "1.0"
+
+locations
+	"."
+	"events"
+
+needs
+	KERNEL
+
+end

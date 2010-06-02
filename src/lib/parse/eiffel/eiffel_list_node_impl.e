@@ -13,7 +13,7 @@ create {EIFFEL_NODE_FACTORY}
 	make
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 
 	accept (visitor: VISITOR) is
 		local

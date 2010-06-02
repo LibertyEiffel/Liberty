@@ -7,17 +7,17 @@ deferred class PARSE_ATOM
 	--
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 
 	table: PARSE_TABLE
 
 feature {PARSE_TABLE}
-	set (a_name: like name; a_table: like table) is
+	set (a_name: ABSTRACT_STRING; a_table: like table) is
 		require
 			not a_name.is_empty
 			a_table /= Void
 		do
-			name := a_name
+			name := a_name.intern
 			table := a_table
 		ensure
 			name = a_name
@@ -39,8 +39,7 @@ feature {PARSE_TABLE}
 			must_be_coherent: Result
 		end
 
-	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]
-		terminal_builder: PROCEDURE[TUPLE[STRING, PARSER_IMAGE]]) is
+	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
 		require
 			is_coherent
 		deferred

@@ -2,6 +2,11 @@ cluster STRING
 
 version "1.0"
 
+locations
+	"."
+	"internal"
+	"low_level"
+
 needs
 	KERNEL
 

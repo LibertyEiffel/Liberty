@@ -21,15 +21,15 @@ create {ANY}
 	make
 
 feature {EIFFEL_GRAMMAR}
-	list (name: STRING): EIFFEL_LIST_NODE is
+	list (name: FIXED_STRING): EIFFEL_LIST_NODE is
 		do
 			create {EIFFEL_LIST_NODE_IMPL} Result.make(name)
 		end
 
-	non_terminal (name: STRING; names: TRAVERSABLE[STRING]): EIFFEL_NON_TERMINAL_NODE is
+	non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE is
 		do
 			inspect
-				name
+				name.out
 			when "Class" then
 				create {LIBERTY_AST_CLASS} Result.make(name, names)
 			when "Classes" then
@@ -231,10 +231,10 @@ feature {EIFFEL_GRAMMAR}
 			end
 		end
 
-	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+	terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
 		do
 			inspect
-				name
+				name.out
 			when "KW class name" then
 				create {LIBERTY_AST_CLASS_NAME} Result.make(name, image)
 			when "KW entity name" then

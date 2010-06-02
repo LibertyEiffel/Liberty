@@ -1,0 +1,13 @@
+cluster TIME
+
+version "1.0"
+
+locations
+	"."
+	"formatter"
+	"low_level"
+
+needs
+	KERNEL
+
+end

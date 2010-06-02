@@ -1,0 +1,18 @@
+cluster LIBERTY_SEMANTICS
+
+version "1.0"
+
+locations
+	"."
+	"tags"
+	"reachable"
+
+needs
+	LIBERTY_TYPES
+	LIBERTY_CODE
+
+cluster
+	LIBERTY_CODE: "code"
+	LIBERTY_TYPES: "types"
+
+end

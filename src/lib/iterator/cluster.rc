@@ -2,6 +2,10 @@ cluster ITERATOR
 
 version "1.0"
 
+locations
+	"."
+	"internal"
+
 needs
 	KERNEL
 	STORAGE

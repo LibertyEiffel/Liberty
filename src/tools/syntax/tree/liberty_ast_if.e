@@ -43,9 +43,9 @@ feature {ANY}
 	name: STRING
 
 feature {}
-	make (a_name: like name; a_names: TRAVERSABLE[STRING]) is
+	make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING]) is
 		do
-			name := a_name
+			name := a_name.out
 			Precursor(a_name, a_names)
 		end
 
@@ -54,10 +54,10 @@ feature {}
 			Result := {AVL_SET[INTEGER] << 4 >> }
 		end
 
-	valid_name (a_name: like name): BOOLEAN is
+	valid_name (a_name: like eiffel_name): BOOLEAN is
 		do
 			inspect
-				a_name
+				a_name.out
 			when "If", "ElseIf" then
 				Result := True
 			else

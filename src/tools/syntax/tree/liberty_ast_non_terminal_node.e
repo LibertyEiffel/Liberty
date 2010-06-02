@@ -16,9 +16,21 @@ deferred class LIBERTY_AST_NON_TERMINAL_NODE
 
 inherit
 	EIFFEL_NON_TERMINAL_NODE
+		rename
+			name as eiffel_name
+		end
 
 feature {ANY}
-	name_at (index: INTEGER): STRING is
+	eiffel_name: FIXED_STRING is
+		do
+			Result := name.intern
+		end
+
+	name: STRING is
+		deferred
+		end
+
+	name_at (index: INTEGER): FIXED_STRING is
 		do
 			Result := nodes.item(index).name
 		end
@@ -101,7 +113,7 @@ feature {}
 
 	nodes: FAST_ARRAY[EIFFEL_NODE]
 
-	make (a_name: like name; a_names: TRAVERSABLE[STRING]) is
+	make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING]) is
 		require
 			valid_name(a_name)
 			possible_counts.has(a_names.count)
@@ -111,9 +123,9 @@ feature {}
 			nodes.count = a_names.count
 		end
 
-	valid_name (a_name: like name): BOOLEAN is
+	valid_name (a_name: like eiffel_name): BOOLEAN is
 		do
-			Result := a_name.is_equal(name)
+			Result := a_name = eiffel_name
 		end
 
 invariant

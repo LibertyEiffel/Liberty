@@ -21,14 +21,14 @@ feature {ANY}
 feature {}
 	the_table: PARSE_TABLE is
 		local
-			e1, e2, e3, e4, e5, e6: STRING
+			e1, e2, e3, e4, e5, e6: FIXED_STRING
 		once
-			e1 := "e1"
-			e2 := "e2"
-			e3 := "e3"
-			e4 := "e4"
-			e5 := "e5"
-			e6 := "e6"
+			e1 := "e1".intern
+			e2 := "e2".intern
+			e3 := "e3".intern
+			e4 := "e4".intern
+			e5 := "e5".intern
+			e6 := "e6".intern
 			Result := {PARSE_TABLE << "Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class", "KW end of file" >> }, agent build_root >> };
 											  "Classes", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class+", "KW end of file" >> }, agent build_root >> };
 											  "One_Class+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class" >> }, agent build_new_list("One_Class", "One_Class+");
@@ -1623,7 +1623,7 @@ feature {}
 			std_error.put_line(once "-------->8-- <end stack>")
 		end
 
-	stack_matches (node_content: TRAVERSABLE[STRING]): BOOLEAN is
+	stack_matches (node_content: TRAVERSABLE[FIXED_STRING]): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -1633,7 +1633,7 @@ feature {}
 			until
 				not Result or else i >= node_content.count
 			loop
-				Result := node_content.item(i + node_content.lower).is_equal(stack.item(stack.upper - node_content.count + 1 + i).name)
+				Result := node_content.item(i + node_content.lower) = stack.item(stack.upper - node_content.count + 1 + i).name
 				if not Result then
 					sedb_breakpoint
 				end
@@ -1643,7 +1643,7 @@ feature {}
 			used_only_in_assertions: Result
 		end
 
-	build_root (root_name: STRING; root_content: TRAVERSABLE[STRING]) is
+	build_root (root_name: FIXED_STRING; root_content: TRAVERSABLE[FIXED_STRING]) is
 		do
 			build_non_terminal(root_name, root_content)
 			debug ("parse/eiffel/ast")
@@ -1652,7 +1652,7 @@ feature {}
 			end
 		end
 
-	build_non_terminal (node_name: STRING; node_content: TRAVERSABLE[STRING]) is
+	build_non_terminal (node_name: FIXED_STRING; node_content: TRAVERSABLE[FIXED_STRING]) is
 		require
 			stack_matches(node_content)
 		local
@@ -1690,7 +1690,7 @@ feature {}
 			stack.last.name.is_equal(node_name)
 		end
 
-	build_terminal (node_name: STRING; node_image: PARSER_IMAGE) is
+	build_terminal (node_name: FIXED_STRING; node_image: PARSER_IMAGE) is
 		local
 			eiffel_image: EIFFEL_IMAGE
 		do
@@ -1711,7 +1711,7 @@ feature {}
 			stack.last.name.is_equal(node_name)
 		end
 
-	ensure_expression (expression: EIFFEL_NODE; expression_name: STRING): EIFFEL_NON_TERMINAL_NODE is
+	ensure_expression (expression: EIFFEL_NODE; expression_name: FIXED_STRING): EIFFEL_NON_TERMINAL_NODE is
 		local
 			expname: STRING
 		do
@@ -1719,7 +1719,7 @@ feature {}
 				Result ::= expression
 			else
 				expname := once "..-exp"
-				expname.copy(expression_name)
+				expname.make_from_string(expression_name)
 				expname.append(once "-exp")
 				if expression.name.is_equal(expname) then
 					Result ::= expression
@@ -1732,7 +1732,7 @@ feature {}
 			end
 		end
 
-	build_expression_remainder (operator_names: FAST_ARRAY[STRING]; expression_name: STRING) is
+	build_expression_remainder (operator_names: FAST_ARRAY[ABSTRACT_STRING]; expression_name: FIXED_STRING) is
 		local
 			tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
 			exp: EIFFEL_NODE; operator_nodes: COLLECTION[EIFFEL_NODE]
@@ -1769,7 +1769,7 @@ feature {}
 			end
 		end
 
-	build_expression (expression_name: STRING) is
+	build_expression (expression_name: FIXED_STRING) is
 		local
 			tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
 			left, right: EIFFEL_NODE; nt: EIFFEL_NON_TERMINAL_NODE
@@ -1781,7 +1781,7 @@ feature {}
 			end
 
 			name := once "..-exp"
-			name.copy(expression_name)
+			name.make_from_string(expression_name)
 			name.append(once "-exp")
 
 			from
@@ -1803,17 +1803,17 @@ feature {}
 				right := ensure_expression(tail.right_node, expression_name)
 				debug ("parse/eiffel/build")
 					std_error.put_string(once "  op: ")
-					std_error.put_line(tail.operator_names.out)
+					std_error.put_line(tail.operator_names_out)
 					std_error.put_string(once "  right: ")
 					std_error.put_line(right.name)
 				end
 
 				left_assoc_names.clear_count
 				left_assoc_names.add_last(left.name)
-				left_assoc_names.append_collection(tail.operator_names)
+				tail.append_operators_in(left_assoc_names)
 				left_assoc_names.add_last(expression_name)
 
-				nt := factory.non_terminal(name, left_assoc_names)
+				nt := factory.non_terminal(name.intern, left_assoc_names)
 				nt.set(nt.lower, left)
 				nt.set(nt.upper, right)
 				debug ("parse/eiffel/build")
@@ -1841,7 +1841,7 @@ feature {}
 			end
 		end
 
-	build_expression_epsilon (expression_name: STRING) is
+	build_expression_epsilon (expression_name: FIXED_STRING) is
 		do
 			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building epsilon expression ")
@@ -1868,7 +1868,7 @@ feature {}
 			end
 		end
 
-	build_expression_no_array (expression_name, node_name: STRING) is
+	build_expression_no_array (expression_name, node_name: FIXED_STRING) is
 		local
 			exp, nt: EIFFEL_NON_TERMINAL_NODE
 		do
@@ -1893,12 +1893,12 @@ feature {}
 			end
 		end
 
-	left_assoc_names: FAST_ARRAY[STRING] is
+	left_assoc_names: FAST_ARRAY[FIXED_STRING] is
 		once
 			create Result.with_capacity(4)
 		end
 
-	build_empty_list (list_name: STRING) is
+	build_empty_list (list_name: ABSTRACT_STRING) is
 		local
 			list: EIFFEL_LIST_NODE
 		do
@@ -1908,17 +1908,17 @@ feature {}
 				std_error.put_character('"')
 				std_error.put_character('%N')
 			end
-			list := factory.list(list_name)
+			list := factory.list(list_name.intern)
 			stack.add_last(list)
 			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure
 			stack.count = old stack.count + 1
-			stack.last.name.is_equal(list_name)
+			stack.last.name = list_name.intern
 		end
 
-	build_new_list (atom_name, list_name: STRING) is
+	build_new_list (atom_name, list_name: ABSTRACT_STRING) is
 		require
 			not stack.is_empty
 			stack.last.name.is_equal(atom_name)
@@ -1937,7 +1937,7 @@ feature {}
 				std_error.put_string(once "   Found atom: ")
 				std_error.put_line(atom.name)
 			end
-			list := factory.list(list_name)
+			list := factory.list(list_name.intern)
 			list.add(atom)
 			stack.add_last(list)
 			debug ("parse/eiffel/build")
@@ -1945,10 +1945,10 @@ feature {}
 			end
 		ensure
 			stack.count = old stack.count
-			stack.last.name.is_equal(list_name)
+			stack.last.name = list_name.intern
 		end
 
-	build_continue_list (atom_name: STRING; forget: INTEGER; list_name: STRING) is
+	build_continue_list (atom_name: ABSTRACT_STRING; forget: INTEGER; list_name: ABSTRACT_STRING) is
 		require
 			stack.count >= forget + 2
 			stack.item(stack.upper).name.is_equal(list_name)
@@ -1959,7 +1959,7 @@ feature {}
 			atom := stack.last
 			stack.remove_last
 			check
-				atom.name.is_equal(list_name)
+				atom.name = list_name.intern
 			end
 			list ::= atom
 			if forget > 0 then
@@ -1978,7 +1978,7 @@ feature {}
 			stack.remove_last
 			atom.set_forgotten(forgotten_nodes)
 			check
-				atom.name.is_equal(atom_name)
+				atom.name = atom_name.intern
 			end
 			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building list %"")

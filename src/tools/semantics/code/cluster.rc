@@ -1,0 +1,19 @@
+cluster LIBERTY_CODE
+
+version "1.0"
+
+locations
+	"."
+	"assertions"
+	"entities"
+	"expressions"
+	"features"
+	"instructions"
+	"visitors"
+
+needs
+	KERNEL
+	LIBERTY_SYNTAX
+	LIBERTY_TYPES
+
+end

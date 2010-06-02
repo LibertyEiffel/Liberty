@@ -61,6 +61,12 @@ feature {LIBERTY_ETC_FACTORY} -- Lists
 		deferred
 		end
 
+	visit_location_list (list: LIBERTY_ETC_LIST) is
+		require
+			list /= Void
+		deferred
+		end
+
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
@@ -93,6 +99,12 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		end
 
 	visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
+		require
+			nt /= Void
+		deferred
+		end
+
+	visit_locations (nt: LIBERTY_ETC_NON_TERMINAL) is
 		require
 			nt /= Void
 		deferred

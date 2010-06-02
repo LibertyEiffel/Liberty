@@ -2,6 +2,9 @@ cluster I18N
 
 version "1.0"
 
+locations
+	"."
+
 needs
 	KERNEL
 	TIME

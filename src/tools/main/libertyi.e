@@ -41,8 +41,6 @@ feature {}
 				usage
 			end
 
-			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
-
 			from
 				arg := once ""
 				i := 4
@@ -99,6 +97,7 @@ feature {}
 				i := i + 1
 			end
 
+			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
 			etc.log
 
 			create universe.make

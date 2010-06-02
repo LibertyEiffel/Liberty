@@ -2,6 +2,9 @@ cluster FOREIGN_INTERFACE
 
 version "1.0"
 
+locations
+	"."
+
 needs
 	ABILITIES
 	KERNEL

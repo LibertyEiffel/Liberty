@@ -21,12 +21,12 @@ create {LIBERTY_ETC}
 	make
 
 feature {EIFFEL_GRAMMAR}
-	list (name: STRING): EIFFEL_LIST_NODE is
+	list (name: FIXED_STRING): EIFFEL_LIST_NODE is
 		local
 			visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_LIST]]
 		do
 			inspect
-				name
+				name.out
 			when "Environment_Variable*" then
 				visitor := agent_environment_variable_list
 			when "Cluster*" then
@@ -37,16 +37,18 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_debug_configuration_list
 			when "Debug_Key+" then
 				visitor := agent_debug_key_list
+			when "Location+" then
+				visitor := agent_location_list
 			end
 			create {LIBERTY_ETC_LIST} Result.make(name, visitor)
 		end
 
-	non_terminal (name: STRING; names: TRAVERSABLE[STRING]): EIFFEL_NON_TERMINAL_NODE is
+	non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE is
 		local
 			visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]]
 		do
 			inspect
-				name
+				name.out
 			when "Master" then
 				visitor := agent_master
 			when "Cluster_Definition" then
@@ -61,8 +63,6 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_clusters
 			when "Cluster" then
 				visitor := agent_cluster
-			when "Location" then
-				visitor := agent_location
 			when "Version" then
 				visitor := agent_version
 			when "Needs" then
@@ -87,11 +87,15 @@ feature {EIFFEL_GRAMMAR}
 				visitor := agent_debug_key
 			when "Concurrency" then
 				visitor := agent_concurrency
+			when "Locations" then
+				visitor := agent_locations
+			when "Location" then
+				visitor := agent_location
 			end
 			create {LIBERTY_ETC_NON_TERMINAL} Result.make(name, names, visitor)
 		end
 
-	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+	terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
 		do
 			create {EIFFEL_TERMINAL_NODE_IMPL} Result.make(name, image)
 		end
@@ -127,6 +131,11 @@ feature {} -- visitor agents
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_debug_key_list
 		end
 
+	agent_location_list: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_LIST]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_location_list
+		end
+
 	agent_master: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_master
@@ -160,6 +169,11 @@ feature {} -- visitor agents
 	agent_cluster: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
 		once
 			Result := agent {LIBERTY_ETC_VISITOR}.visit_cluster
+		end
+
+	agent_locations: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is
+		once
+			Result := agent {LIBERTY_ETC_VISITOR}.visit_locations
 		end
 
 	agent_location: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]] is

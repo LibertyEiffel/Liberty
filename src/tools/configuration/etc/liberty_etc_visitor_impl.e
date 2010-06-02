@@ -74,6 +74,12 @@ feature {LIBERTY_ETC_FACTORY} -- Lists
 			list.do_all(agent {EIFFEL_NODE}.accept(Current))
 		end
 
+	visit_location_list (list: LIBERTY_ETC_LIST) is
+		do
+			create last_locations.with_capacity(2)
+			list.do_all(agent {EIFFEL_NODE}.accept(Current))
+		end
+
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 	visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
 		local
@@ -106,12 +112,13 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 				nt.lower = 0
 				nt.name_at(1).is_equal(once "KW cluster name")
 				nt.name_at(2).is_equal(once "Version")
-				nt.name_at(3).is_equal(once "Needs")
-				nt.name_at(4).is_equal(once "Concurrency")
-				nt.name_at(5).is_equal(once "Assertion")
-				nt.name_at(6).is_equal(once "Debug")
-				nt.name_at(7).is_equal(once "Environment")
-				nt.name_at(8).is_equal(once "Clusters")
+				nt.name_at(3).is_equal(once "Locations")
+				nt.name_at(4).is_equal(once "Needs")
+				nt.name_at(5).is_equal(once "Concurrency")
+				nt.name_at(6).is_equal(once "Assertion")
+				nt.name_at(7).is_equal(once "Debug")
+				nt.name_at(8).is_equal(once "Environment")
+				nt.name_at(9).is_equal(once "Clusters")
 			end
 
 			check
@@ -135,15 +142,17 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 				end
 			end
 
-			set_current_cluster_from_definition
-
-			nt.node_at(7).accept(Current)
 			nt.node_at(8).accept(Current)
-			nt.node_at(2).accept(Current)
+			nt.node_at(9).accept(Current)
 			nt.node_at(3).accept(Current)
+
+			set_current_cluster_from_last_locations
+
+			nt.node_at(2).accept(Current)
 			nt.node_at(4).accept(Current)
 			nt.node_at(5).accept(Current)
 			nt.node_at(6).accept(Current)
+			nt.node_at(7).accept(Current)
 
 			check
 				current_cluster /= Void
@@ -189,19 +198,27 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			cluster_name: EIFFEL_TERMINAL_NODE
 			previous_cluster: like current_cluster
 			previous_cluster_name: like current_cluster_name
+			location: EIFFEL_TERMINAL_NODE
+			location_image: TYPED_EIFFEL_IMAGE[STRING]
+			descriptor: STRING
 		do
 			check
 				nt.lower = 0
 				nt.name_at(0).is_equal(once "KW cluster name")
-				nt.name_at(1).is_equal(once "Location")
-				nt.name_at(2).is_equal(once "Configure")
+				nt.name_at(2).is_equal(once "KW string")
+				nt.name_at(3).is_equal(once "Configure")
 			end
 			cluster_name ::= nt.node_at(0)
 			previous_cluster_name := current_cluster_name
 			previous_cluster := current_cluster
 			current_cluster_name := cluster_name.image.image.intern
 			current_cluster := Void
-			nt.node_at(1).accept(Current)
+
+			location ::= nt.node_at(2)
+			location_image ::= location.image
+			descriptor := location_image.decoded
+			env.substitute(descriptor)
+			set_current_cluster_from_location(canonical_location(descriptor))
 			if current_cluster.name /= current_cluster_name then
 				-- an aliased cluster, usually for the PROGRAM_LOADPATH / PROGRAM_LOADPATH_ pair
 
@@ -214,13 +231,22 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 
 				all_clusters.add(current_cluster, current_cluster_name)
 			end
-			nt.node_at(2).accept(Current)
+			nt.node_at(3).accept(Current)
 			current_cluster := previous_cluster
 			current_cluster_name := previous_cluster_name
 		end
 
 	visit_configure (nt: LIBERTY_ETC_NON_TERMINAL) is
 		do
+		end
+
+	visit_locations (nt: LIBERTY_ETC_NON_TERMINAL) is
+		do
+			check
+				nt.lower = 0
+				nt.name_at(1).is_equal(once "Location+")
+			end
+			nt.node_at(1).accept(Current)
 		end
 
 	visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
@@ -231,28 +257,59 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 		do
 			check
 				nt.lower = 0
-				nt.name_at(1).is_equal(once "KW string")
+				nt.name_at(0).is_equal(once "KW string")
 			end
-			location ::= nt.node_at(1)
+			location ::= nt.node_at(0)
 			location_image ::= location.image
-			descriptor := location_image.decoded
+			descriptor := once ""
+			descriptor.copy(location_image.decoded)
 			env.substitute(descriptor)
-			set_current_cluster_from_location(canonical_location(descriptor))
+			last_locations.add_last(canonical_location(descriptor))
 		end
 
-	set_current_cluster_from_definition is
+	set_current_cluster_from_last_locations is
 		require
 			current_cluster = Void
-			current_directory /= Void
+			not last_locations.is_empty
+		local
+			i: INTEGER; must_scan_loadpath: BOOLEAN
 		do
-			dir.compute_file_path_with(current_directory, once "loadpath.se")
-			if not dir.last_entry.is_empty and then files.file_exists(dir.last_entry) and then files.is_file(dir.last_entry) then
-				set_current_cluster_from_loadpath_se(dir.last_entry.intern)
-			else
-				set_current_cluster_from_directory(current_directory)
+			from
+				i := last_locations.lower
+			until
+				i > last_locations.upper
+			loop
+				if not files.is_directory(last_locations.item(i)) then
+					dir.compute_short_name_of(last_locations.item(i))
+					inspect
+						dir.last_entry
+					when "loadpath.se" then
+						must_scan_loadpath := True
+					else
+						std_error.put_line(last_locations.item(i) + " is not a directory")
+						die_with_code(1)
+					end
+				end
+				i := i + 1
 			end
+			if must_scan_loadpath then
+				scan_loadpath(last_locations)
+			end
+
+			create current_cluster.make(current_cluster_name, last_locations)
+			all_clusters.add(current_cluster, current_cluster_name)
+			from
+				i := last_locations.lower
+			until
+				i > last_locations.upper
+			loop
+				cluster_per_location.add(current_cluster, last_locations.item(i))
+				i := i + 1
+			end
+			last_locations := Void
 		ensure
 			current_cluster /= Void
+			last_locations = Void
 		end
 
 	set_current_cluster_from_location (location: ABSTRACT_STRING) is
@@ -375,7 +432,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 				nt.lower = 0
 			end
 			inspect
-				nt.name_at(0)
+				nt.name_at(0).out
 			when "KW =" then
 				last_version_operator := agent_version_eq
 			when "KW <=" then
@@ -453,6 +510,10 @@ feature {}
 			locations: FAST_ARRAY[FIXED_STRING]
 			i, n: INTEGER
 		do
+			std_error.put_line(once "loadpath.se support is limited and will be removed.")
+			std_error.put_line(loadpath_se)
+			std_error.put_line(once "Consider using a cluster.rc file instead.")
+
 			current_cluster := cluster_per_location.fast_reference_at(loadpath_se)
 			if current_cluster = Void then
 				if all_clusters.fast_has(current_cluster_name) then
@@ -758,6 +819,7 @@ feature {}
 	current_cluster_name: FIXED_STRING
 	current_cluster: LIBERTY_ETC_CLUSTER
 
+	last_locations: FAST_ARRAY[FIXED_STRING]
 	last_cluster_constraints: COLLECTION[LIBERTY_ETC_CONSTRAINT]
 	last_version_operator: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
 

@@ -10,7 +10,7 @@ creation {EIFFEL_NODE_FACTORY}
 	make
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 
 	accept (visitor: VISITOR) is
 		local
@@ -20,7 +20,7 @@ feature {ANY}
 			v.visit_eiffel_non_terminal_node_impl(Current)
 		end
 
-	name_at (index: INTEGER): STRING is
+	name_at (index: INTEGER): FIXED_STRING is
 		do
 			Result := names.item(index - lower + names.lower)
 		end
@@ -97,7 +97,7 @@ feature {EIFFEL_NODE_HANDLER}
 		end
 
 feature {}
-	make (a_name: like name; a_names: TRAVERSABLE[STRING]) is
+	make (a_name: FIXED_STRING; a_names: TRAVERSABLE[FIXED_STRING]) is
 		do
 			name := a_name
 			names := a_names
@@ -107,7 +107,7 @@ feature {}
 			names = a_names
 		end
 
-	names: TRAVERSABLE[STRING]
+	names: TRAVERSABLE[FIXED_STRING]
 
 	nodes: FAST_ARRAY[EIFFEL_NODE]
 

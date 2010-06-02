@@ -1,0 +1,12 @@
+cluster WRAPPER_COMMON
+
+version "1.0"
+
+locations
+	"."
+	"externals"
+
+needs
+	KERNEL
+
+end

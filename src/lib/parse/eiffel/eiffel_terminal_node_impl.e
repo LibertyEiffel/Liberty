@@ -10,7 +10,7 @@ creation {EIFFEL_NODE_FACTORY}
 	make
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 
 	image: EIFFEL_IMAGE
 

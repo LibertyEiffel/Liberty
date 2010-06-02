@@ -1,0 +1,14 @@
+cluster LIBERTY_SYNTAX
+
+version "1.0"
+
+locations
+	"."
+	"parser"
+	"tree"
+
+needs
+	KERNEL
+	PARSE
+
+end

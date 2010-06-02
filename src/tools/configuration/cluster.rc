@@ -1,0 +1,13 @@
+cluster LIBERTY_CONFIGURATION
+
+version "1.0"
+
+locations
+	"."
+	"etc"
+
+needs
+	KERNEL
+	PARSE
+
+end

@@ -45,7 +45,7 @@ feature {LIBERTY_AST_HANDLER}
 		require
 			not is_empty
 		do
-			Result := nodes.first.name = name
+			Result := nodes.first.name = eiffel_name
 		end
 
 	is_double_operator: BOOLEAN is

@@ -13,6 +13,8 @@ fi
 
 if [ x$plain == x ]; then
     plain=FALSE
+elif [ x"$(tty)" == "not a tty" ]; then
+    plain=FALSE
 fi
 if [ $plain != TRUE ]; then
     eval `tset -s`

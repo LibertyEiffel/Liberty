@@ -28,7 +28,7 @@ feature {LIBERTY_ETC_CLUSTER}
 			if cluster = Void then
 				cluster := all_clusters.fast_reference_at(cluster_name)
 				if cluster = Void then
-					std_error.put_string("Unknown cluster: " + cluster_name)
+					std_error.put_line("Unknown cluster: " + cluster_name)
 					die_with_code(1)
 				end
 			else

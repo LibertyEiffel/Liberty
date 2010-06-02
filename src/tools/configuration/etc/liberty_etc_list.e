@@ -40,7 +40,7 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_name: STRING; a_visitor: like visitor) is
+	make (a_name: FIXED_STRING; a_visitor: like visitor) is
 		require
 			a_name /= Void
 			a_visitor /= Void

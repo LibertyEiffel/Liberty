@@ -1,0 +1,18 @@
+cluster NET
+
+version "1.0"
+
+locations
+	"."
+	"access"
+	"address"
+	"low_level"
+	"protocols"
+	"resource_locators"
+	"servers"
+	"servers/http"
+
+needs
+	KERNEL
+
+end

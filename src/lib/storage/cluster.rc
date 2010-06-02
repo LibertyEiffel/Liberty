@@ -2,6 +2,18 @@ cluster STORAGE
 
 version "1.0"
 
+locations
+	"."
+	"bijective_dictionary"
+	"collection"
+	"collection2"
+	"collection3"
+	"dictionary"
+	"internal"
+	"low_level"
+	"repository"
+	"set"
+
 needs
 	KERNEL
 	ABILITIES

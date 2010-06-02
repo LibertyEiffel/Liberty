@@ -1,0 +1,18 @@
+cluster LIBERTY_TYPES
+
+version "1.0"
+
+locations
+	"."
+	"conformance_checker"
+	"delayed_resolver"
+	"impl"
+	"type_builder"
+	"type_resolver"
+	"utils"
+
+needs
+	KERNEL
+	LIBERTY_CODE
+
+end

@@ -49,9 +49,9 @@ feature {ANY}
 		end
 
 feature {PARSE_NON_TERMINAL}
-	add (rule: TRAVERSABLE[STRING]; a_action: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]) is
+	add (rule: TRAVERSABLE[FIXED_STRING]; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
 		local
-			node: PARSE_NT_NODE; name: STRING
+			node: PARSE_NT_NODE; name: FIXED_STRING
 		do
 			check
 				is_root: prefix_name = Void
@@ -63,8 +63,8 @@ feature {PARSE_NON_TERMINAL}
 				end
 				end_of_rule := True
 			else
-				name := rule.first
-				node := suffices.reference_at(name)
+				name := rule.first.intern
+				node := suffices.fast_reference_at(name)
 				if node = Void then
 					create node.make(name, nt)
 					suffices.add(node, name)
@@ -119,8 +119,7 @@ feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
 			must_be_coherent: Result
 		end
 
-	set_default_tree_builder (non_terminal_builder: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]
-		path: COLLECTION[STRING]) is
+	set_default_tree_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: COLLECTION[FIXED_STRING]) is
 		require
 			non_terminal_builder /= Void
 		local
@@ -218,19 +217,19 @@ feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
 		end
 
 feature {PARSE_NT_NODE}
-	do_add (a_action: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]; rule: TRAVERSABLE[STRING]; i: INTEGER) is
+	do_add (a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; rule: TRAVERSABLE[FIXED_STRING]; i: INTEGER) is
 		require
 			rule.valid_index(i)
-			rule.item(i).is_equal(prefix_name)
+			rule.item(i) = prefix_name
 		local
-			name: STRING; node: PARSE_NT_NODE
+			name: FIXED_STRING; node: PARSE_NT_NODE
 		do
 			if i < rule.upper then
-				name := rule.item(i + 1)
+				name := rule.item(i + 1).intern
 				if suffices = Void then
 					create suffices.make
 				end
-				node := suffices.reference_at(name)
+				node := suffices.fast_reference_at(name)
 				if node = Void then
 					create node.make(name, nt)
 					suffices.add(node, name)
@@ -352,8 +351,7 @@ feature {}
 		end
 
 feature {}
-	call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]
-		path: TRAVERSABLE[STRING]) is
+	call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: TRAVERSABLE[FIXED_STRING]) is
 		do
 			non_terminal_builder.call([nt.name, path])
 		end
@@ -409,8 +407,9 @@ feature {ANY}
 		local
 			i: INTEGER
 		do
-			Result := (prefix_name = other.prefix_name or else (prefix_name /= Void and then prefix_name.is_equal(other.prefix_name)))
-				and then action = other.action and then end_of_rule = other.end_of_rule
+			Result := prefix_name = other.prefix_name
+				and then action = other.action
+				and then end_of_rule = other.end_of_rule
 			if Result and then other.suffices /= Void then
 				Result := suffices /= Void and then suffices.count = other.suffices.count
 				from
@@ -418,16 +417,16 @@ feature {ANY}
 				until
 					not Result or else i > suffices.upper
 				loop
-					Result := suffices.reference_at(other.suffices.key(i)).is_equal(other.suffices.item(i))
+					Result := suffices.fast_reference_at(other.suffices.key(i)).is_equal(other.suffices.item(i))
 					i := i + 1
 				end
 			end
 		end
 
 feature {PARSE_NT_NODE}
-	prefix_name: STRING
+	prefix_name: FIXED_STRING
 
-	suffices: HASHED_DICTIONARY[PARSE_NT_NODE, STRING]
+	suffices: HASHED_DICTIONARY[PARSE_NT_NODE, FIXED_STRING]
 
 	nt: PARSE_NON_TERMINAL
 

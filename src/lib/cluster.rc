@@ -1,6 +1,12 @@
 cluster LIBERTY_LIBRARY
+--
+-- The whole Liberty standard library.
+--
 
 version "1.0"
+
+locations
+	"."
 
 needs
 	ABILITIES

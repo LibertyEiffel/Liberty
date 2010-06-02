@@ -57,9 +57,9 @@ feature {ANY}
 	location_of (a_class_name: FIXED_STRING): FIXED_STRING is
 		do
 			Result := class_names.fast_reference_at(a_class_name)
-			if Result = Void then
-				Result := find(a_class_name).location_of(a_class_name)
-			end
+			-- if Result = Void then
+			-- 	Result := find(a_class_name).location_of(a_class_name)
+			-- end
 		end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
@@ -205,7 +205,9 @@ feature {}
 			logging.info.put_string(once "Cluster (")
 			logging.info.put_integer(depth)
 			logging.info.put_string(once ") ")
-			logging.info.put_line(name)
+			logging.info.put_string(name)
+			logging.info.put_string(once ": ")
+			logging.info.put_line(locations.out)
 			a_etc.set_cluster(Current)
 			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c, a_root))
 		ensure
@@ -257,7 +259,9 @@ feature {}
 			logging.info.put_string(once "Cluster (")
 			logging.info.put_integer(depth)
 			logging.info.put_string(once ") ")
-			logging.info.put_line(name)
+			logging.info.put_string(name)
+			logging.info.put_string(once ": ")
+			logging.info.put_line(locations.out)
 			read_loadpath(a_loadpath, location_directory)
 		ensure
 			root = a_root

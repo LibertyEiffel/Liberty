@@ -24,8 +24,7 @@ feature {ANY}
 feature {PARSE_TABLE}
 	is_coherent: BOOLEAN is True
 
-	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]
-		terminal_builder: PROCEDURE[TUPLE[STRING, PARSER_IMAGE]]) is
+	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
 		do
 			if action = Void and then terminal_builder /= Void then
 				action := agent call_terminal_builder(terminal_builder, ?)
@@ -97,7 +96,7 @@ feature {}
 			action.call([image])
 		end
 
-	call_terminal_builder (terminal_builder: PROCEDURE[TUPLE[STRING, PARSER_IMAGE]]; image: PARSER_IMAGE) is
+	call_terminal_builder (terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]; image: PARSER_IMAGE) is
 		do
 			terminal_builder.call([name, image])
 		end

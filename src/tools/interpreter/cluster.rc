@@ -1,0 +1,13 @@
+cluster LIBERTY_INTERPRETER
+
+version "1.0"
+
+locations
+	"."
+	"builtins"
+
+needs
+	KERNEL
+	LIBERTY_SEMANTICS
+
+end

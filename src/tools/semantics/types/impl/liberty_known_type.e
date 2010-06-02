@@ -182,7 +182,7 @@ feature {ANY} -- Inheritance
 feature {ANY} -- Representation
 	out_in_tagged_out_memory is
 		do
-			full_name.out_in_tagged_out_memory
+			full_name_in(tagged_out_memory)
 		end
 
 feature {LIBERTY_KNOWN_TYPE}
@@ -214,5 +214,6 @@ invariant
 	file /= Void
 	parameters /= Void
 	result_entity /= Void
+	cluster /= Void
 
 end -- class LIBERTY_KNOWN_TYPE

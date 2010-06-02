@@ -18,7 +18,7 @@ inherit
 	EIFFEL_TERMINAL_NODE
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 
 	image: EIFFEL_IMAGE
 
@@ -45,11 +45,11 @@ feature {EIFFEL_NODE_HANDLER}
 		end
 
 feature {}
-	make (a_name: like name; a_image: like image) is
+	make (a_name: ABSTRACT_STRING; a_image: like image) is
 		require
 			a_name.has_prefix(once "KW ")
 		do
-			name := a_name
+			name := a_name.intern
 			image := a_image
 		ensure
 			name = a_name

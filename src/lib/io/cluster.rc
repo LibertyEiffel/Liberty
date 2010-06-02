@@ -2,6 +2,19 @@ cluster IO
 
 version "1.0"
 
+locations
+	"."
+	"basic"
+	"core"
+	"filesystem"
+	"filesystem/path_name"
+	"filter"
+	"internal"
+	"log"
+	"low_level"
+	"network"
+	"tools"
+
 needs
 	KERNEL
 

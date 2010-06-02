@@ -1320,7 +1320,7 @@ feature {} -- Expressions
 		do
 			if e8.has_prefix_operator then
 				inspect
-					e8.prefix_operator.name
+					e8.prefix_operator.name.out
 				when "KW +" then
 					create {LIBERTY_POSITIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				when "KW -" then

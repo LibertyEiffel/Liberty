@@ -24,7 +24,7 @@ feature {ANY}
 	forgotten: FAST_ARRAY[EIFFEL_NODE]
 			-- used when this node is in a EIFFEL_LIST_NODE and nodes are between this node and the next one
 
-	name: STRING is
+	name: FIXED_STRING is
 			-- the name of the node in the grammar
 		deferred
 		ensure

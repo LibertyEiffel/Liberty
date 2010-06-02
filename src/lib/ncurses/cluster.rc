@@ -1,0 +1,12 @@
+cluster NCURSES
+
+version "1.0"
+
+locations
+	"."
+	"internal"
+
+needs
+	KERNEL
+
+end

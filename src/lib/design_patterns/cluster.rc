@@ -2,6 +2,9 @@ cluster DESIGN_PATTERNS
 
 version "1.0"
 
+locations
+	"."
+
 needs
 	KERNEL
 	STORAGE

@@ -43,8 +43,7 @@ feature {PARSE_TABLE}
 			Result := parser_tree.is_coherent
 		end
 
-	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]
-		terminal_builder: PROCEDURE[TUPLE[STRING, PARSER_IMAGE]]) is
+	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
 		do
 			if non_terminal_builder /= Void then
 				parser_tree.set_default_tree_builder(non_terminal_builder, default_tree_builder_path)
@@ -90,7 +89,7 @@ feature {ANY}
 			Result := name.is_equal(other.name) and then parser_tree.is_equal(other.parser_tree)
 		end
 
-	add (rule: TRAVERSABLE[STRING]; action: PROCEDURE[TUPLE]) is
+	add (rule: TRAVERSABLE[FIXED_STRING]; action: PROCEDURE[TUPLE]) is
 		require
 			rule /= Void
 		do
@@ -101,7 +100,7 @@ feature {PARSE_NON_TERMINAL}
 	parser_tree: PARSE_NT_NODE
 
 feature {}
-	default_tree_builder_path: FAST_ARRAY[STRING] is
+	default_tree_builder_path: FAST_ARRAY[FIXED_STRING] is
 		once
 			create Result.make(0)
 		end
@@ -112,11 +111,23 @@ feature {}
 			create parser_tree.root(Current)
 		end
 
-	manifest_put (index: INTEGER; rule: TRAVERSABLE[STRING]; action: PROCEDURE[TUPLE[STRING, TRAVERSABLE[STRING]]]) is
+	manifest_put (index: INTEGER; rule: TRAVERSABLE[ABSTRACT_STRING]; action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
 		require
 			rule /= Void
+		local
+			fixed_rule: FAST_ARRAY[FIXED_STRING]
+			i: INTEGER
 		do
-			parser_tree.add(rule, action)
+			create fixed_rule.with_capacity(rule.count)
+			from
+				i := rule.lower
+			until
+				i > rule.upper
+			loop
+				fixed_rule.add_last(rule.item(i).intern)
+				i := i + 1
+			end
+			parser_tree.add(fixed_rule, action)
 		end
 
 	manifest_semicolon_check: INTEGER is 2

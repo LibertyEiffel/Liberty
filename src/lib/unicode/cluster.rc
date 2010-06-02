@@ -1,0 +1,11 @@
+cluster UNICODE
+
+version "1.0"
+
+locations
+	"."
+
+needs
+	KERNEL
+
+end

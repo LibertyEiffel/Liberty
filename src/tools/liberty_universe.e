@@ -775,14 +775,26 @@ feature {} -- Type parameters fetching
 
 feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: FIXED_STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
+		require
+			cluster /= Void
+			class_name /= Void
 		local
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
-			ast: LIBERTY_AST_CLASS
+			ast: LIBERTY_AST_CLASS; actual_cluster: LIBERTY_CLUSTER
 		do
-			create class_descriptor.make(cluster, class_name.intern, pos)
+			actual_cluster := cluster.find(class_name)
+			if actual_cluster = Void then
+				errors.set(level_fatal_error, "Class not found: " + class_name)
+				check
+					dead: False
+				end
+			end
+			create class_descriptor.make(actual_cluster, class_name, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
 				logging.info.put_string(once "Parsing ")
+				logging.info.put_string(cluster.name)
+				logging.info.put_character('.')
 				logging.info.put_line(class_name)
 
 				code := once ""

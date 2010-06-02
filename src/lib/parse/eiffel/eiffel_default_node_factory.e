@@ -10,17 +10,17 @@ create {ANY}
 	make
 
 feature {EIFFEL_GRAMMAR}
-	list (name: STRING): EIFFEL_LIST_NODE is
+	list (name: FIXED_STRING): EIFFEL_LIST_NODE is
 		do
 			create {EIFFEL_LIST_NODE_IMPL}Result.make(name)
 		end
 
-	non_terminal (name: STRING; names: TRAVERSABLE[STRING]): EIFFEL_NON_TERMINAL_NODE is
+	non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE is
 		do
 			create {EIFFEL_NON_TERMINAL_NODE_IMPL}Result.make(name, names)
 		end
 
-	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+	terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
 		do
 			create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)
 		end

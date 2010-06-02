@@ -137,7 +137,7 @@ feature {}
 								value.remove_suffix(once "()")
 							end
 							feature_name := "liberty_plugin__"
-							feature_name.append(the_feature.definition_type.full_name)
+							feature_name.append(the_feature.definition_type.name)
 							feature_name.append(once "__")
 							feature_name.append(value)
 						else

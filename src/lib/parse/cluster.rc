@@ -1,0 +1,12 @@
+cluster PARSE
+
+version "1.0"
+
+locations
+	"."
+	"eiffel"
+
+needs
+	KERNEL
+
+end

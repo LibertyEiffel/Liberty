@@ -182,6 +182,8 @@ feature {LIBERTY_KNOWN_TYPE}
 		local
 			i: INTEGER
 		do
+			buffer.append(cluster.name)
+			buffer.extend('.')
 			buffer.append(name)
 			if not parameters.is_empty then
 				buffer.extend('[')

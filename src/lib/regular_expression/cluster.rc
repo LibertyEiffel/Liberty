@@ -1,0 +1,14 @@
+cluster REGULAR_EXPRESSION
+
+version "1.0"
+
+locations
+	"."
+	"internal"
+	"internal/regular_expression_items"
+	"low_level"
+
+needs
+	KERNEL
+
+end

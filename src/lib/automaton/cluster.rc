@@ -2,6 +2,9 @@ cluster AUTOMATON
 
 version "1.0"
 
+locations
+	"."
+
 needs
 	KERNEL
 

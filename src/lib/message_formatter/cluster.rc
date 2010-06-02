@@ -1,0 +1,11 @@
+cluster MESSAGE_FORMATTER
+
+version "1.0"
+
+locations
+	"."
+
+needs
+	KERNEL
+
+end

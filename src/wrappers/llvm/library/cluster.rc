@@ -1,0 +1,17 @@
+cluster WRAPPER_LLVM
+
+version "1.0"
+
+locations
+	"."
+	"externals"
+	"factories"
+	"iterators"
+	"support"
+	"types"
+	"values"
+
+needs
+	KERNEL
+
+end

@@ -173,7 +173,7 @@ feature {}
 			conf: STRING
 		do
 			conf := once ""
-			conf.copy(once "cluster PROGRAM_LOADPATH version %"0%" needs PROGRAM_LOADPATH_ cluster PROGRAM_LOADPATH_: %"")
+			conf.copy(once "cluster PROGRAM_LOADPATH version %"0%" locations %"")
 			conf.append(a_program_loadpath)
 			conf.append(once "%" end")
 			parser_buffer.initialize_with(conf)

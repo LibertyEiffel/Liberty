@@ -2,6 +2,9 @@ cluster LIBERTY_WRAPPERS
 
 version "1.0"
 
+locations
+	"."
+
 needs
 	WRAPPER_COMMON
 	WRAPPER_LLVM
