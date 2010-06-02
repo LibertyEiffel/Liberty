@@ -6,6 +6,7 @@ export PATH=$LIBERTY_HOME/target/bin:$PATH
 export plain=FALSE
 export LOG=$LIBERTY_HOME/install$(date +'-%Y%m%d-%H%M%S').log
 
+unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
 function bootstrap()
@@ -39,10 +40,12 @@ master libertyi
 
 environment
 	path_liberty is "$LIBERTY_HOME"
+	sys is "$LIBERTY_HOME/target"
 
 cluster
 	LIBERTY_LIBRARY: "\${path_liberty}/src/lib"
 	LIBERTY_TOOLS: "\${path_liberty}/src/tools"
+	LIBERTY_WRAPPERS: "\${path_liberty}/src/wrappers"
 
 end
 EOF
