@@ -83,6 +83,7 @@ EOF
 
     run gcc -iquote $plugin -iquote $SE_SYS/runtime/c -iquote $plugin_dir -shared -fpic -fvisibility=hidden -o $plugin_so $plugin_c
 
+    i=$((i+1))
 done
 
 progress 30 $n $n "done."
