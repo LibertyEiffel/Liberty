@@ -29,7 +29,7 @@ inherit
 	MIXED_MEMORY_HANDLING redefine fill_tagged_out_memory end
 
 insert 
-	G_OPTION_ENTRY_STRUCT undefine fill_tagged_out_memory end
+	GOPTION_ENTRY_STRUCT undefine fill_tagged_out_memory end
 	-- G_OPTION_ARG_ENUM undefine fill_tagged_out_memory end
 
 feature {} -- Creation
@@ -39,9 +39,9 @@ feature {} -- Creation
 			description_not_void: a_description /= Void
 		do
 			allocate
-			goptionentry_struct_set_long_name (handle, a_long_name.to_external)
-			goptionentry_struct_set_short_name (handle,a_short_name)
-			goptionentry_struct_set_description (handle, a_description.to_external)
+			goption_entry_struct_set_long_name (handle, a_long_name.to_external)
+			goption_entry_struct_set_short_name (handle,a_short_name)
+			goption_entry_struct_set_description (handle, a_description.to_external)
 			
 			-- GOptionArg arg; The type of the option, as a GOptionArg.	
 			
@@ -69,7 +69,7 @@ feature -- Queries
 			-- the option as "--groupname-long_name".
 		do
 			create Result.from_external
-			(goptionentry_struct_get_long_name(handle))
+			(goption_entry_struct_get_long_name(handle))
 		end
 
 	short_name: CHARACTER is
@@ -78,20 +78,20 @@ feature -- Queries
 			-- printable ASCII character different from '-', or zero if
 			-- the option has no short name.
 		do
-			Result:=goptionentry_struct_get_short_name(handle)
+			Result:=goption_entry_struct_get_short_name(handle)
 		end
 
-	flags: G_OPTION_FLAGS is
+	flags: GOPTION_FLAGS_ENUM is
 		-- Flags from GOptionFlags.
 	do
-		Result.set_value(goptionentry_struct_get_flags(handle))
+		Result.set_value(goption_entry_struct_get_flags(handle))
 	end
 
 	
-	argument_type: G_OPTION_ARG is
+	argument_type: GOPTION_ARG_ENUM is
 		--The type of the option, as a GOptionArg.
 	do
-		Result.set_value(goptionentry_struct_get_arg(handle))
+		Result.set_value(goption_entry_struct_get_arg(handle))
 	end
 
 	-- TODO: gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
@@ -113,7 +113,7 @@ feature -- Queries
 		-- is translated using the translate_func of the group, see
 		-- G_OPTION_GROUP.set_translation_domain.
 	do
-		create Result.from_external(goptionentry_struct_get_description(handle))
+		create Result.from_external(goption_entry_struct_get_description(handle))
 	end
 
 	-- gchar *arg_description; The placeholder to use for the extra

@@ -25,7 +25,7 @@ inherit
 	WRAPPER_HANDLER
 insert
 	GSLIST_EXTERNALS
-	G_SLIST_STRUCT
+	GSLIST_STRUCT
 
 creation make
 	

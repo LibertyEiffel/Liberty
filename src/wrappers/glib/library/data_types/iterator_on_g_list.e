@@ -12,7 +12,7 @@ inherit
 
 insert
    GLIST_EXTERNALS
-   G_LIST_STRUCT
+   GLIST_STRUCT
    GLOBAL_CACHE
 	
 creation make

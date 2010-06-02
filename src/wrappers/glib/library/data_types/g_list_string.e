@@ -20,7 +20,7 @@ inherit
 
 insert
 	GLIST_EXTERNALS undefine fill_tagged_out_memory end
-	G_LIST_STRUCT
+	GLIST_STRUCT
 
 creation  make, from_external_pointer
 
@@ -60,7 +60,7 @@ feature
 			ith := g_list_nth_data (handle,i)
 			jth := g_list_nth_data (handle,j)
 
-			tmp := g_list_get_data(ith)
+			tmp := glist_struct_get_data(ith)
 			glist_struct_set_data (ith, glist_struct_get_data(jth))
 			glist_struct_set_data (jth, tmp)
 		end
@@ -100,10 +100,10 @@ feature
 			handle := g_list_append (handle, a_string.to_external)	
 		end
 
-	add (a_string: like first; index: INTEGER) is
+	add (a_string: like first; an_index: INTEGER) is
 		require thawed: not is_freezed
 		do
-			handle := g_list_insert (handle, a_string.to_external, index-1)
+			handle := g_list_insert (handle, a_string.to_external, an_index-1)
 		end
 
 	
@@ -115,7 +115,7 @@ feature
 
 		end
 
-	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
+	force (a_string: like first; an_index: INTEGER) is do not_yet_implemented end
 
 	remove_first is
 		require thawed: not is_freezed
@@ -123,11 +123,11 @@ feature
 			handle:=g_list_delete_link (handle, handle)
 		end
 
-	remove (index: INTEGER) is
+	remove (an_index: INTEGER) is
 		require  thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle,
-												  g_list_nth_data (handle, index-1))
+												  g_list_nth_data (handle, an_index-1))
 		end
 
 	remove_last is
@@ -291,7 +291,7 @@ feature
 	
 	from_collection (model: COLLECTION[STRING]) is do not_yet_implemented end
 	
-	get_new_iterator: ITERATOR[STRING] is 
+	new_iterator: ITERATOR[STRING] is 
 		do
 			create {ITERATOR_ON_G_LIST_STRING} Result.make (Current) 
 		ensure valid: Result/=Void

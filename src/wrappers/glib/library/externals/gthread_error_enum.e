@@ -11,24 +11,24 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = g__thread__error__again_low_level) )
+			Result := ((a_value = g_thread_error_again_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_g__thread__error__again is
+	set_g_thread_error_again is
 		do
-			value := g__thread__error__again_low_level
+			value := g_thread_error_again_low_level
 		end
 
 feature -- Queries
-	is_g__thread__error__again: BOOLEAN is
+	is_g_thread_error_again: BOOLEAN is
 		do
-			Result := (value=g__thread__error__again_low_level)
+			Result := (value=g_thread_error_again_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g__thread__error__again_low_level: INTEGER is
+	g_thread_error_again_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

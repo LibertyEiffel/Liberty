@@ -15,10 +15,10 @@ feature -- Validity
 				(a_value = noteol_low_level)  or else
 				(a_value = notempty_low_level)  or else
 				(a_value = partial_low_level)  or else
-				(a_value = newline__cr_low_level)  or else
-				(a_value = newline__lf_low_level)  or else
-				(a_value = newline__crlf_low_level)  or else
-				(a_value = newline__any_low_level) )
+				(a_value = newline_cr_low_level)  or else
+				(a_value = newline_lf_low_level)  or else
+				(a_value = newline_crlf_low_level)  or else
+				(a_value = newline_any_low_level) )
 		end
 
 feature -- Setters
@@ -43,24 +43,24 @@ feature -- Setters
 			value := partial_low_level
 		end
 
-	set_newline__cr is
+	set_newline_cr is
 		do
-			value := newline__cr_low_level
+			value := newline_cr_low_level
 		end
 
-	set_newline__lf is
+	set_newline_lf is
 		do
-			value := newline__lf_low_level
+			value := newline_lf_low_level
 		end
 
-	set_newline__crlf is
+	set_newline_crlf is
 		do
-			value := newline__crlf_low_level
+			value := newline_crlf_low_level
 		end
 
-	set_newline__any is
+	set_newline_any is
 		do
-			value := newline__any_low_level
+			value := newline_any_low_level
 		end
 
 feature -- Queries
@@ -84,24 +84,24 @@ feature -- Queries
 			Result := (value=partial_low_level)
 		end
 
-	is_newline__cr: BOOLEAN is
+	is_newline_cr: BOOLEAN is
 		do
-			Result := (value=newline__cr_low_level)
+			Result := (value=newline_cr_low_level)
 		end
 
-	is_newline__lf: BOOLEAN is
+	is_newline_lf: BOOLEAN is
 		do
-			Result := (value=newline__lf_low_level)
+			Result := (value=newline_lf_low_level)
 		end
 
-	is_newline__crlf: BOOLEAN is
+	is_newline_crlf: BOOLEAN is
 		do
-			Result := (value=newline__crlf_low_level)
+			Result := (value=newline_crlf_low_level)
 		end
 
-	is_newline__any: BOOLEAN is
+	is_newline_any: BOOLEAN is
 		do
-			Result := (value=newline__any_low_level)
+			Result := (value=newline_any_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline__cr_low_level: INTEGER is
+	newline_cr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline__lf_low_level: INTEGER is
+	newline_lf_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline__crlf_low_level: INTEGER is
+	newline_crlf_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline__any_low_level: INTEGER is
+	newline_any_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

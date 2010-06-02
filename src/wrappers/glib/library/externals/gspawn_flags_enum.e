@@ -11,109 +11,109 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := (a_value & (leave__descriptors__open_low_level | 
-				search__path_low_level | 
-				stdout__to__dev__null_low_level | 
-				stderr__to__dev__null_low_level | 
-				child__inherits__stdin_low_level | 
-				file__and__argv__zero_low_level)).to_boolean
+			Result := (a_value & (leave_descriptors_open_low_level | 
+				search_path_low_level | 
+				stdout_to_dev_null_low_level | 
+				stderr_to_dev_null_low_level | 
+				child_inherits_stdin_low_level | 
+				file_and_argv_zero_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_leave__descriptors__open is
+	set_leave_descriptors_open is
 		do
-			value := value.bit_or(leave__descriptors__open_low_level)
+			value := value.bit_or(leave_descriptors_open_low_level)
 		end
 
-	unset_leave__descriptors__open is
+	unset_leave_descriptors_open is
 		do
-			value := value.bit_xor(leave__descriptors__open_low_level)
+			value := value.bit_xor(leave_descriptors_open_low_level)
 		end
 
-	set_search__path is
+	set_search_path is
 		do
-			value := value.bit_or(search__path_low_level)
+			value := value.bit_or(search_path_low_level)
 		end
 
-	unset_search__path is
+	unset_search_path is
 		do
-			value := value.bit_xor(search__path_low_level)
+			value := value.bit_xor(search_path_low_level)
 		end
 
-	set_stdout__to__dev__null is
+	set_stdout_to_dev_null is
 		do
-			value := value.bit_or(stdout__to__dev__null_low_level)
+			value := value.bit_or(stdout_to_dev_null_low_level)
 		end
 
-	unset_stdout__to__dev__null is
+	unset_stdout_to_dev_null is
 		do
-			value := value.bit_xor(stdout__to__dev__null_low_level)
+			value := value.bit_xor(stdout_to_dev_null_low_level)
 		end
 
-	set_stderr__to__dev__null is
+	set_stderr_to_dev_null is
 		do
-			value := value.bit_or(stderr__to__dev__null_low_level)
+			value := value.bit_or(stderr_to_dev_null_low_level)
 		end
 
-	unset_stderr__to__dev__null is
+	unset_stderr_to_dev_null is
 		do
-			value := value.bit_xor(stderr__to__dev__null_low_level)
+			value := value.bit_xor(stderr_to_dev_null_low_level)
 		end
 
-	set_child__inherits__stdin is
+	set_child_inherits_stdin is
 		do
-			value := value.bit_or(child__inherits__stdin_low_level)
+			value := value.bit_or(child_inherits_stdin_low_level)
 		end
 
-	unset_child__inherits__stdin is
+	unset_child_inherits_stdin is
 		do
-			value := value.bit_xor(child__inherits__stdin_low_level)
+			value := value.bit_xor(child_inherits_stdin_low_level)
 		end
 
-	set_file__and__argv__zero is
+	set_file_and_argv_zero is
 		do
-			value := value.bit_or(file__and__argv__zero_low_level)
+			value := value.bit_or(file_and_argv_zero_low_level)
 		end
 
-	unset_file__and__argv__zero is
+	unset_file_and_argv_zero is
 		do
-			value := value.bit_xor(file__and__argv__zero_low_level)
+			value := value.bit_xor(file_and_argv_zero_low_level)
 		end
 
 feature -- Queries
-	is_leave__descriptors__open: BOOLEAN is
+	is_leave_descriptors_open: BOOLEAN is
 		do
-			Result := (value=leave__descriptors__open_low_level)
+			Result := (value=leave_descriptors_open_low_level)
 		end
 
-	is_search__path: BOOLEAN is
+	is_search_path: BOOLEAN is
 		do
-			Result := (value=search__path_low_level)
+			Result := (value=search_path_low_level)
 		end
 
-	is_stdout__to__dev__null: BOOLEAN is
+	is_stdout_to_dev_null: BOOLEAN is
 		do
-			Result := (value=stdout__to__dev__null_low_level)
+			Result := (value=stdout_to_dev_null_low_level)
 		end
 
-	is_stderr__to__dev__null: BOOLEAN is
+	is_stderr_to_dev_null: BOOLEAN is
 		do
-			Result := (value=stderr__to__dev__null_low_level)
+			Result := (value=stderr_to_dev_null_low_level)
 		end
 
-	is_child__inherits__stdin: BOOLEAN is
+	is_child_inherits_stdin: BOOLEAN is
 		do
-			Result := (value=child__inherits__stdin_low_level)
+			Result := (value=child_inherits_stdin_low_level)
 		end
 
-	is_file__and__argv__zero: BOOLEAN is
+	is_file_and_argv_zero: BOOLEAN is
 		do
-			Result := (value=file__and__argv__zero_low_level)
+			Result := (value=file_and_argv_zero_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	leave__descriptors__open_low_level: INTEGER is
+	leave_descriptors_open_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -122,7 +122,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	search__path_low_level: INTEGER is
+	search_path_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -131,7 +131,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stdout__to__dev__null_low_level: INTEGER is
+	stdout_to_dev_null_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -140,7 +140,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stderr__to__dev__null_low_level: INTEGER is
+	stderr_to_dev_null_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -149,7 +149,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	child__inherits__stdin_low_level: INTEGER is
+	child_inherits_stdin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -158,7 +158,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	file__and__argv__zero_low_level: INTEGER is
+	file_and_argv_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

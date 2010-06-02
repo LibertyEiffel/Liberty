@@ -12,12 +12,12 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unknown_low_level)  or else
-				(a_value = unexp__eof__in__string_low_level)  or else
-				(a_value = unexp__eof__in__comment_low_level)  or else
-				(a_value = non__digit__in__const_low_level)  or else
-				(a_value = digit__radix_low_level)  or else
-				(a_value = float__radix_low_level)  or else
-				(a_value = float__malformed_low_level) )
+				(a_value = unexp_eof_in_string_low_level)  or else
+				(a_value = unexp_eof_in_comment_low_level)  or else
+				(a_value = non_digit_in_const_low_level)  or else
+				(a_value = digit_radix_low_level)  or else
+				(a_value = float_radix_low_level)  or else
+				(a_value = float_malformed_low_level) )
 		end
 
 feature -- Setters
@@ -27,34 +27,34 @@ feature -- Setters
 			value := unknown_low_level
 		end
 
-	set_unexp__eof__in__string is
+	set_unexp_eof_in_string is
 		do
-			value := unexp__eof__in__string_low_level
+			value := unexp_eof_in_string_low_level
 		end
 
-	set_unexp__eof__in__comment is
+	set_unexp_eof_in_comment is
 		do
-			value := unexp__eof__in__comment_low_level
+			value := unexp_eof_in_comment_low_level
 		end
 
-	set_non__digit__in__const is
+	set_non_digit_in_const is
 		do
-			value := non__digit__in__const_low_level
+			value := non_digit_in_const_low_level
 		end
 
-	set_digit__radix is
+	set_digit_radix is
 		do
-			value := digit__radix_low_level
+			value := digit_radix_low_level
 		end
 
-	set_float__radix is
+	set_float_radix is
 		do
-			value := float__radix_low_level
+			value := float_radix_low_level
 		end
 
-	set_float__malformed is
+	set_float_malformed is
 		do
-			value := float__malformed_low_level
+			value := float_malformed_low_level
 		end
 
 feature -- Queries
@@ -63,34 +63,34 @@ feature -- Queries
 			Result := (value=unknown_low_level)
 		end
 
-	is_unexp__eof__in__string: BOOLEAN is
+	is_unexp_eof_in_string: BOOLEAN is
 		do
-			Result := (value=unexp__eof__in__string_low_level)
+			Result := (value=unexp_eof_in_string_low_level)
 		end
 
-	is_unexp__eof__in__comment: BOOLEAN is
+	is_unexp_eof_in_comment: BOOLEAN is
 		do
-			Result := (value=unexp__eof__in__comment_low_level)
+			Result := (value=unexp_eof_in_comment_low_level)
 		end
 
-	is_non__digit__in__const: BOOLEAN is
+	is_non_digit_in_const: BOOLEAN is
 		do
-			Result := (value=non__digit__in__const_low_level)
+			Result := (value=non_digit_in_const_low_level)
 		end
 
-	is_digit__radix: BOOLEAN is
+	is_digit_radix: BOOLEAN is
 		do
-			Result := (value=digit__radix_low_level)
+			Result := (value=digit_radix_low_level)
 		end
 
-	is_float__radix: BOOLEAN is
+	is_float_radix: BOOLEAN is
 		do
-			Result := (value=float__radix_low_level)
+			Result := (value=float_radix_low_level)
 		end
 
-	is_float__malformed: BOOLEAN is
+	is_float_malformed: BOOLEAN is
 		do
-			Result := (value=float__malformed_low_level)
+			Result := (value=float_malformed_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -103,7 +103,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unexp__eof__in__string_low_level: INTEGER is
+	unexp_eof_in_string_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unexp__eof__in__comment_low_level: INTEGER is
+	unexp_eof_in_comment_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non__digit__in__const_low_level: INTEGER is
+	non_digit_in_const_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -130,7 +130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	digit__radix_low_level: INTEGER is
+	digit_radix_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	float__radix_low_level: INTEGER is
+	float_radix_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	float__malformed_low_level: INTEGER is
+	float_malformed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

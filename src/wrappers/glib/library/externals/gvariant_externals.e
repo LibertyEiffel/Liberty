@@ -149,7 +149,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_new_parsed (at line 218 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_new_parsed (a_format: POINTER): POINTER is
+ 		-- g_variant_new_parsed (variadic call)  (node at line 829)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_new_parsed"
+		}"
+		end
+
 	g_variant_parse (a_type: POINTER; a_text: POINTER; a_limit: POINTER; an_endptr: POINTER; an_error: POINTER): POINTER is
  		-- g_variant_parse (node at line 840)
 		external "plug_in"
@@ -220,7 +229,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_iter_loop (at line 170 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_iter_loop (an_iter: POINTER; a_format_string: POINTER): INTEGER_32 is
+ 		-- g_variant_iter_loop (variadic call)  (node at line 1978)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_iter_loop"
+		}"
+		end
+
 	g_variant_is_object_path (a_string: POINTER): INTEGER_32 is
  		-- g_variant_is_object_path (node at line 2069)
 		external "plug_in"
@@ -241,7 +259,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_iter_next (at line 167 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_iter_next (an_iter: POINTER; a_format_string: POINTER): INTEGER_32 is
+ 		-- g_variant_iter_next (variadic call)  (node at line 2344)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_iter_next"
+		}"
+		end
+
 	g_variant_hash (a_value: POINTER): NATURAL_32 is
  		-- g_variant_hash (node at line 2351)
 		external "plug_in"
@@ -362,7 +389,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_builder_add (at line 196 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_builder_add (a_builder: POINTER; a_format_string: POINTER) is
+ 		-- g_variant_builder_add (variadic call)  (node at line 2948)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_builder_add"
+		}"
+		end
+
 	g_variant_get_handle (a_value: POINTER): INTEGER_32 is
  		-- g_variant_get_handle (node at line 3013)
 		external "plug_in"
@@ -443,7 +479,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_new (at line 199 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_new (a_format_string: POINTER): POINTER is
+ 		-- g_variant_new (variadic call)  (node at line 3704)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_new"
+		}"
+		end
+
 	g_variant_new_object_path (an_object_path: POINTER): POINTER is
  		-- g_variant_new_object_path (node at line 3841)
 		external "plug_in"
@@ -524,7 +569,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_get (at line 202 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_get (a_value: POINTER; a_format_string: POINTER) is
+ 		-- g_variant_get (variadic call)  (node at line 4265)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_get"
+		}"
+		end
+
 	g_variant_iter_free (an_iter: POINTER) is
  		-- g_variant_iter_free (node at line 4292)
 		external "plug_in"
@@ -755,7 +809,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_variant_get_child (at line 120 in file /usr/include/glib-2.0/glib/gvariant.h is not wrappable
+	g_variant_get_child (a_value: POINTER; an_index: NATURAL_32; a_format_string: POINTER) is
+ 		-- g_variant_get_child (variadic call)  (node at line 6623)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_variant_get_child"
+		}"
+		end
+
 	g_variant_print_string (a_value: POINTER; a_string: POINTER; a_type_annotate: INTEGER_32): POINTER is
  		-- g_variant_print_string (node at line 6629)
 		external "plug_in"

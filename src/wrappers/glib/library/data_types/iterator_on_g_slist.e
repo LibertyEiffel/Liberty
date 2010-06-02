@@ -26,7 +26,7 @@ inherit
 
 insert
 	GSLIST_EXTERNALS
-	G_SLIST_STRUCT
+	GSLIST_STRUCT
 	GLOBAL_CACHE
 
 creation make

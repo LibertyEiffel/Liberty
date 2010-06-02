@@ -47,7 +47,7 @@ inherit
 
 insert 
 		GCOMPLETION_EXTERNALS redefine default_create end 
-		G_COMPLETION_STRUCT redefine default_create end
+		GCOMPLETION_STRUCT redefine default_create end
 
 creation  from_external_pointer
 

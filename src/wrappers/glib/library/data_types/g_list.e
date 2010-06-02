@@ -13,19 +13,19 @@ deferred class G_LIST [ITEM->WRAPPER]
    
 inherit
 	G_LIST_TRAVERSABLE[ITEM]
-      undefine
-         fill_tagged_out_memory
-      end
-   
-   COLLECTION[ITEM]
-      undefine
-         swap,
-         has,
-         fast_has,
-         clear_all,
-         append_collection
-      end
-   
+		undefine
+			out_in_tagged_out_memory,
+			fill_tagged_out_memory
+		end
+	COLLECTION[ITEM]
+		undefine
+			swap,
+			has,
+			fast_has,
+			clear_all,
+			append_collection
+	  end
+
 invariant
    mutable_by_eiffel_code: is_mutable
    

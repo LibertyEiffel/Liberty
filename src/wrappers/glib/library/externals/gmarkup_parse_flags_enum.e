@@ -11,45 +11,45 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := (a_value & (do__not__use__this__unsupported__flag_low_level | 
-				prefix__error__position_low_level)).to_boolean
+			Result := (a_value & (use_this_unsupported_flag_low_level | 
+				error_position_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_do__not__use__this__unsupported__flag is
+	set_use_this_unsupported_flag is
 		do
-			value := value.bit_or(do__not__use__this__unsupported__flag_low_level)
+			value := value.bit_or(use_this_unsupported_flag_low_level)
 		end
 
-	unset_do__not__use__this__unsupported__flag is
+	unset_use_this_unsupported_flag is
 		do
-			value := value.bit_xor(do__not__use__this__unsupported__flag_low_level)
+			value := value.bit_xor(use_this_unsupported_flag_low_level)
 		end
 
-	set_prefix__error__position is
+	set_error_position is
 		do
-			value := value.bit_or(prefix__error__position_low_level)
+			value := value.bit_or(error_position_low_level)
 		end
 
-	unset_prefix__error__position is
+	unset_error_position is
 		do
-			value := value.bit_xor(prefix__error__position_low_level)
+			value := value.bit_xor(error_position_low_level)
 		end
 
 feature -- Queries
-	is_do__not__use__this__unsupported__flag: BOOLEAN is
+	is_use_this_unsupported_flag: BOOLEAN is
 		do
-			Result := (value=do__not__use__this__unsupported__flag_low_level)
+			Result := (value=use_this_unsupported_flag_low_level)
 		end
 
-	is_prefix__error__position: BOOLEAN is
+	is_error_position: BOOLEAN is
 		do
-			Result := (value=prefix__error__position_low_level)
+			Result := (value=error_position_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	do__not__use__this__unsupported__flag_low_level: INTEGER is
+	use_this_unsupported_flag_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -58,7 +58,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	prefix__error__position_low_level: INTEGER is
+	error_position_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

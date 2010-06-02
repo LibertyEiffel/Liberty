@@ -257,14 +257,12 @@ class G_ERROR
 
 inherit
 	C_STRUCT
-		export
-			{ANY} is_null, is_not_null 			
 		redefine free_handle
 		end
 
 insert
 	GERROR_EXTERNALS
-	G_ERROR_STRUCT
+	GERROR_STRUCT
 
 creation
 	make, empty, from_external_pointer
@@ -275,7 +273,7 @@ feature {} -- Creation
 			-- Creates a new G_ERROR
 		do
 			from_external_pointer (g_error_new_literal (a_domain.quark, a_code, a_message.to_external))
-		ensure not_null: is_not_null
+		ensure not_null: handle.is_not_null
 		end
 
 	empty is
@@ -287,10 +285,15 @@ feature {} -- Creation
 		end
 	
 feature -- Access
+	is_set: BOOLEAN is
+		-- Has Current been set? Usually it is set by a call to a C library
+	do
+		Result := handle.is_not_null
+	end
 
 	domain: G_QUARK is
 		-- The module whewre the error-reporting feature is located in. 
-		require not_null: is_not_null
+		require is_set
 		do
 			Result.set_quark (gerror_struct_get_domain (handle))
 		end 
@@ -298,14 +301,14 @@ feature -- Access
 	code: INTEGER is
 		-- The specific error that occurred encoded as a programmer-defined
 		-- constant.
-		require not_null: is_not_null
+		require is_set
 		do
 			Result := gerror_struct_get_code (handle)
 		end
 
 	message: STRING is
 		-- a user-readable error message with as many details as possible. 
-		require not_null: is_not_null
+		require is_set
 		local
 			ptr: POINTER
 		do
@@ -319,7 +322,7 @@ feature -- Comparison
 
 	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN is
 			-- Does Current G_ERROR matches 'a_domain' and 'a_code'?
-		require not_null: is_not_null
+		require is_set
 		do
 			Result := g_error_matches (handle, a_domain.quark, a_code).to_boolean
 		end
@@ -329,14 +332,13 @@ feature -- Disposing
 	dispose is
 			-- Frees a G_ERROR and associated resources.
 		do
-			if handle.is_not_null then
+			if is_set then
 				free_handle
 			end
 		end
 
 	free_handle is
-		require
-			handle.is_not_null
+		require is_set
 		do
 			g_error_free (handle)
 			handle := default_pointer

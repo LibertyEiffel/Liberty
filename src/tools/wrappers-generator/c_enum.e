@@ -254,46 +254,37 @@ feature -- Emitting "flag" enumeration
 
 	
 feature {C_ENUM_VALUE} -- Implementation  
+	shortest_length: INTEGER_32 is 
+		-- The length of the shortest enumeration value
+	local i: INTEGER
+	do
+		from i:=values.upper; Result:=Maximum_integer 
+		until i<values.lower loop
+			Result:=Result.min(values.item(i).c_name.count)
+			i:=i-1
+		end
+	end
+
 	longest_prefix: INTEGER is
 		-- The length of longest prefix common to all values of Current enumeration
 		-- Useful to remove the common prefix of many enumeration values.
 	require has_values: values.count > 1 
-	local char_idx, value_idx ,upper: INTEGER; c: INTEGER_32; found: BOOLEAN
+	
 	do
-		-- Find the shortest name
-		from value_idx:=values.lower; upper:=Maximum_integer
-		until value_idx>values.upper loop
-			upper := upper.min(values.item(value_idx).c_name.count)
-			value_idx:=value_idx+1
+		-- Find the last index that has the same character.
+		from Result:=shortest_length
+		until same_character_at_index(Result) or else Result<values.first.c_name.lower
+		loop Result:=Result-1
 		end
-		-- Find the first index that have different character.
-		from char_idx:=1
-		until found or else char_idx>upper
-		loop
-			from 
-				c:=values.first.c_name.item(char_idx)
-				value_idx:=values.lower+1 
-			until found or else value_idx>values.upper loop
-				if c/=values.item(value_idx).c_name.item(char_idx) then 
-					found:=True
-					Result:=char_idx-1
-				else value_idx:=value_idx+1
-				end
-			end
-			char_idx := char_idx+1
-		end
-		-- debug -- Used during development of this feature. Disabled because it's too verbose
+		-- local i: INTEGER debug -- Used during development of this feature. Disabled because it's too verbose
 		-- 	if verbose then
-		-- 		print(once "Longest common prefix of ") 
-		-- 		from print(values.first.c_value.out); value_idx=2 until value_idx>=values.count loop
-		-- 			print(once ", ") print(values.item(value_idx).c_value.out)
-		-- 			value_idx:=value_idx+1
+		-- 		print(once "'") print(values.first.c_name.as_utf8.substring(1,Result))
+		-- 		print(once "'(") print(Result.to_string) print(once " characters) is longest common prefix of ") 
+		-- 		from i:=values.lower until i>=values.upper-1 loop
+		-- 			print(values.item(i).c_value.out) print(once ", ")
+		-- 			i:=i+1
 		-- 		end
-		-- 		-- Could bevalues.do_all(agent (x:C_ENUM_VALUE) do x.out.print_on(std_output) end) 
-		-- 		print(once "is ") print(Result.to_string) 
-		-- 		print(once " characters long `")
-		-- 		print(values.first.c_name.as_utf8.substring(1,Result))
-		-- 		print(once "'.%N")
+		-- 		print(values.last.c_value.out) print(once ".%N")
 		-- 	end
 		-- end
 	end
@@ -317,6 +308,25 @@ feature {C_ENUM_VALUE} -- Implementation
 
 feature {} -- Implementation
 	hidden_values: like values
+
+	same_character_at_index (an_index: INTEGER): BOOLEAN is 
+		-- Do all values have the same characters at `an_index' in their name?
+	require 
+		has_values: values.count>1
+		an_index <= shortest_length
+	local c: INTEGER_32; i: INTEGER
+	do
+		c := values.first.c_name.item(an_index) 
+		-- print(" (sc@"+an_index.out+": ")
+		from i:=2; Result:=True
+		until not Result or else i>values.upper 
+		loop
+			Result := values.item(i).c_name.item(an_index) = c
+			-- print(values.item(i).c_name.item(an_index).to_character.out+",")
+			i:=i+1
+		end
+		-- print(")="+Result.out+" ")
+	end
 	--invariant name.is_equal(once U"Enumeration")
 	
 end

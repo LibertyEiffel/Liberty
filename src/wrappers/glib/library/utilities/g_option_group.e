@@ -37,7 +37,7 @@ inherit
 insert
 	SHARED_G_ERROR 
 	GOPTION_EXTERNALS
-	G_OPTION_GROUP_STRUCT
+	GOPTION_GROUP_STRUCT
 
 creation make, from_external_pointer
 

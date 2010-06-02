@@ -13,33 +13,33 @@ feature -- Validity
 		do
 			Result := ((a_value = control_low_level)  or else
 				(a_value = unassigned_low_level)  or else
-				(a_value = private__use_low_level)  or else
+				(a_value = private_use_low_level)  or else
 				(a_value = surrogate_low_level)  or else
-				(a_value = lowercase__letter_low_level)  or else
-				(a_value = modifier__letter_low_level)  or else
-				(a_value = other__letter_low_level)  or else
-				(a_value = titlecase__letter_low_level)  or else
-				(a_value = uppercase__letter_low_level)  or else
-				(a_value = combining__mark_low_level)  or else
-				(a_value = enclosing__mark_low_level)  or else
-				(a_value = non__spacing__mark_low_level)  or else
-				(a_value = decimal__number_low_level)  or else
-				(a_value = letter__number_low_level)  or else
-				(a_value = other__number_low_level)  or else
-				(a_value = connect__punctuation_low_level)  or else
-				(a_value = dash__punctuation_low_level)  or else
-				(a_value = close__punctuation_low_level)  or else
-				(a_value = final__punctuation_low_level)  or else
-				(a_value = initial__punctuation_low_level)  or else
-				(a_value = other__punctuation_low_level)  or else
-				(a_value = open__punctuation_low_level)  or else
-				(a_value = currency__symbol_low_level)  or else
-				(a_value = modifier__symbol_low_level)  or else
-				(a_value = math__symbol_low_level)  or else
-				(a_value = other__symbol_low_level)  or else
-				(a_value = line__separator_low_level)  or else
-				(a_value = paragraph__separator_low_level)  or else
-				(a_value = space__separator_low_level) )
+				(a_value = lowercase_letter_low_level)  or else
+				(a_value = modifier_letter_low_level)  or else
+				(a_value = other_letter_low_level)  or else
+				(a_value = titlecase_letter_low_level)  or else
+				(a_value = uppercase_letter_low_level)  or else
+				(a_value = combining_mark_low_level)  or else
+				(a_value = enclosing_mark_low_level)  or else
+				(a_value = non_spacing_mark_low_level)  or else
+				(a_value = decimal_number_low_level)  or else
+				(a_value = letter_number_low_level)  or else
+				(a_value = other_number_low_level)  or else
+				(a_value = connect_punctuation_low_level)  or else
+				(a_value = dash_punctuation_low_level)  or else
+				(a_value = close_punctuation_low_level)  or else
+				(a_value = final_punctuation_low_level)  or else
+				(a_value = initial_punctuation_low_level)  or else
+				(a_value = other_punctuation_low_level)  or else
+				(a_value = open_punctuation_low_level)  or else
+				(a_value = currency_symbol_low_level)  or else
+				(a_value = modifier_symbol_low_level)  or else
+				(a_value = math_symbol_low_level)  or else
+				(a_value = other_symbol_low_level)  or else
+				(a_value = line_separator_low_level)  or else
+				(a_value = paragraph_separator_low_level)  or else
+				(a_value = space_separator_low_level) )
 		end
 
 feature -- Setters
@@ -54,9 +54,9 @@ feature -- Setters
 			value := unassigned_low_level
 		end
 
-	set_private__use is
+	set_private_use is
 		do
-			value := private__use_low_level
+			value := private_use_low_level
 		end
 
 	set_surrogate is
@@ -64,129 +64,129 @@ feature -- Setters
 			value := surrogate_low_level
 		end
 
-	set_lowercase__letter is
+	set_lowercase_letter is
 		do
-			value := lowercase__letter_low_level
+			value := lowercase_letter_low_level
 		end
 
-	set_modifier__letter is
+	set_modifier_letter is
 		do
-			value := modifier__letter_low_level
+			value := modifier_letter_low_level
 		end
 
-	set_other__letter is
+	set_other_letter is
 		do
-			value := other__letter_low_level
+			value := other_letter_low_level
 		end
 
-	set_titlecase__letter is
+	set_titlecase_letter is
 		do
-			value := titlecase__letter_low_level
+			value := titlecase_letter_low_level
 		end
 
-	set_uppercase__letter is
+	set_uppercase_letter is
 		do
-			value := uppercase__letter_low_level
+			value := uppercase_letter_low_level
 		end
 
-	set_combining__mark is
+	set_combining_mark is
 		do
-			value := combining__mark_low_level
+			value := combining_mark_low_level
 		end
 
-	set_enclosing__mark is
+	set_enclosing_mark is
 		do
-			value := enclosing__mark_low_level
+			value := enclosing_mark_low_level
 		end
 
-	set_non__spacing__mark is
+	set_non_spacing_mark is
 		do
-			value := non__spacing__mark_low_level
+			value := non_spacing_mark_low_level
 		end
 
-	set_decimal__number is
+	set_decimal_number is
 		do
-			value := decimal__number_low_level
+			value := decimal_number_low_level
 		end
 
-	set_letter__number is
+	set_letter_number is
 		do
-			value := letter__number_low_level
+			value := letter_number_low_level
 		end
 
-	set_other__number is
+	set_other_number is
 		do
-			value := other__number_low_level
+			value := other_number_low_level
 		end
 
-	set_connect__punctuation is
+	set_connect_punctuation is
 		do
-			value := connect__punctuation_low_level
+			value := connect_punctuation_low_level
 		end
 
-	set_dash__punctuation is
+	set_dash_punctuation is
 		do
-			value := dash__punctuation_low_level
+			value := dash_punctuation_low_level
 		end
 
-	set_close__punctuation is
+	set_close_punctuation is
 		do
-			value := close__punctuation_low_level
+			value := close_punctuation_low_level
 		end
 
-	set_final__punctuation is
+	set_final_punctuation is
 		do
-			value := final__punctuation_low_level
+			value := final_punctuation_low_level
 		end
 
-	set_initial__punctuation is
+	set_initial_punctuation is
 		do
-			value := initial__punctuation_low_level
+			value := initial_punctuation_low_level
 		end
 
-	set_other__punctuation is
+	set_other_punctuation is
 		do
-			value := other__punctuation_low_level
+			value := other_punctuation_low_level
 		end
 
-	set_open__punctuation is
+	set_open_punctuation is
 		do
-			value := open__punctuation_low_level
+			value := open_punctuation_low_level
 		end
 
-	set_currency__symbol is
+	set_currency_symbol is
 		do
-			value := currency__symbol_low_level
+			value := currency_symbol_low_level
 		end
 
-	set_modifier__symbol is
+	set_modifier_symbol is
 		do
-			value := modifier__symbol_low_level
+			value := modifier_symbol_low_level
 		end
 
-	set_math__symbol is
+	set_math_symbol is
 		do
-			value := math__symbol_low_level
+			value := math_symbol_low_level
 		end
 
-	set_other__symbol is
+	set_other_symbol is
 		do
-			value := other__symbol_low_level
+			value := other_symbol_low_level
 		end
 
-	set_line__separator is
+	set_line_separator is
 		do
-			value := line__separator_low_level
+			value := line_separator_low_level
 		end
 
-	set_paragraph__separator is
+	set_paragraph_separator is
 		do
-			value := paragraph__separator_low_level
+			value := paragraph_separator_low_level
 		end
 
-	set_space__separator is
+	set_space_separator is
 		do
-			value := space__separator_low_level
+			value := space_separator_low_level
 		end
 
 feature -- Queries
@@ -200,9 +200,9 @@ feature -- Queries
 			Result := (value=unassigned_low_level)
 		end
 
-	is_private__use: BOOLEAN is
+	is_private_use: BOOLEAN is
 		do
-			Result := (value=private__use_low_level)
+			Result := (value=private_use_low_level)
 		end
 
 	is_surrogate: BOOLEAN is
@@ -210,129 +210,129 @@ feature -- Queries
 			Result := (value=surrogate_low_level)
 		end
 
-	is_lowercase__letter: BOOLEAN is
+	is_lowercase_letter: BOOLEAN is
 		do
-			Result := (value=lowercase__letter_low_level)
+			Result := (value=lowercase_letter_low_level)
 		end
 
-	is_modifier__letter: BOOLEAN is
+	is_modifier_letter: BOOLEAN is
 		do
-			Result := (value=modifier__letter_low_level)
+			Result := (value=modifier_letter_low_level)
 		end
 
-	is_other__letter: BOOLEAN is
+	is_other_letter: BOOLEAN is
 		do
-			Result := (value=other__letter_low_level)
+			Result := (value=other_letter_low_level)
 		end
 
-	is_titlecase__letter: BOOLEAN is
+	is_titlecase_letter: BOOLEAN is
 		do
-			Result := (value=titlecase__letter_low_level)
+			Result := (value=titlecase_letter_low_level)
 		end
 
-	is_uppercase__letter: BOOLEAN is
+	is_uppercase_letter: BOOLEAN is
 		do
-			Result := (value=uppercase__letter_low_level)
+			Result := (value=uppercase_letter_low_level)
 		end
 
-	is_combining__mark: BOOLEAN is
+	is_combining_mark: BOOLEAN is
 		do
-			Result := (value=combining__mark_low_level)
+			Result := (value=combining_mark_low_level)
 		end
 
-	is_enclosing__mark: BOOLEAN is
+	is_enclosing_mark: BOOLEAN is
 		do
-			Result := (value=enclosing__mark_low_level)
+			Result := (value=enclosing_mark_low_level)
 		end
 
-	is_non__spacing__mark: BOOLEAN is
+	is_non_spacing_mark: BOOLEAN is
 		do
-			Result := (value=non__spacing__mark_low_level)
+			Result := (value=non_spacing_mark_low_level)
 		end
 
-	is_decimal__number: BOOLEAN is
+	is_decimal_number: BOOLEAN is
 		do
-			Result := (value=decimal__number_low_level)
+			Result := (value=decimal_number_low_level)
 		end
 
-	is_letter__number: BOOLEAN is
+	is_letter_number: BOOLEAN is
 		do
-			Result := (value=letter__number_low_level)
+			Result := (value=letter_number_low_level)
 		end
 
-	is_other__number: BOOLEAN is
+	is_other_number: BOOLEAN is
 		do
-			Result := (value=other__number_low_level)
+			Result := (value=other_number_low_level)
 		end
 
-	is_connect__punctuation: BOOLEAN is
+	is_connect_punctuation: BOOLEAN is
 		do
-			Result := (value=connect__punctuation_low_level)
+			Result := (value=connect_punctuation_low_level)
 		end
 
-	is_dash__punctuation: BOOLEAN is
+	is_dash_punctuation: BOOLEAN is
 		do
-			Result := (value=dash__punctuation_low_level)
+			Result := (value=dash_punctuation_low_level)
 		end
 
-	is_close__punctuation: BOOLEAN is
+	is_close_punctuation: BOOLEAN is
 		do
-			Result := (value=close__punctuation_low_level)
+			Result := (value=close_punctuation_low_level)
 		end
 
-	is_final__punctuation: BOOLEAN is
+	is_final_punctuation: BOOLEAN is
 		do
-			Result := (value=final__punctuation_low_level)
+			Result := (value=final_punctuation_low_level)
 		end
 
-	is_initial__punctuation: BOOLEAN is
+	is_initial_punctuation: BOOLEAN is
 		do
-			Result := (value=initial__punctuation_low_level)
+			Result := (value=initial_punctuation_low_level)
 		end
 
-	is_other__punctuation: BOOLEAN is
+	is_other_punctuation: BOOLEAN is
 		do
-			Result := (value=other__punctuation_low_level)
+			Result := (value=other_punctuation_low_level)
 		end
 
-	is_open__punctuation: BOOLEAN is
+	is_open_punctuation: BOOLEAN is
 		do
-			Result := (value=open__punctuation_low_level)
+			Result := (value=open_punctuation_low_level)
 		end
 
-	is_currency__symbol: BOOLEAN is
+	is_currency_symbol: BOOLEAN is
 		do
-			Result := (value=currency__symbol_low_level)
+			Result := (value=currency_symbol_low_level)
 		end
 
-	is_modifier__symbol: BOOLEAN is
+	is_modifier_symbol: BOOLEAN is
 		do
-			Result := (value=modifier__symbol_low_level)
+			Result := (value=modifier_symbol_low_level)
 		end
 
-	is_math__symbol: BOOLEAN is
+	is_math_symbol: BOOLEAN is
 		do
-			Result := (value=math__symbol_low_level)
+			Result := (value=math_symbol_low_level)
 		end
 
-	is_other__symbol: BOOLEAN is
+	is_other_symbol: BOOLEAN is
 		do
-			Result := (value=other__symbol_low_level)
+			Result := (value=other_symbol_low_level)
 		end
 
-	is_line__separator: BOOLEAN is
+	is_line_separator: BOOLEAN is
 		do
-			Result := (value=line__separator_low_level)
+			Result := (value=line_separator_low_level)
 		end
 
-	is_paragraph__separator: BOOLEAN is
+	is_paragraph_separator: BOOLEAN is
 		do
-			Result := (value=paragraph__separator_low_level)
+			Result := (value=paragraph_separator_low_level)
 		end
 
-	is_space__separator: BOOLEAN is
+	is_space_separator: BOOLEAN is
 		do
-			Result := (value=space__separator_low_level)
+			Result := (value=space_separator_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -354,7 +354,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	private__use_low_level: INTEGER is
+	private_use_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -372,7 +372,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	lowercase__letter_low_level: INTEGER is
+	lowercase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -381,7 +381,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	modifier__letter_low_level: INTEGER is
+	modifier_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -390,7 +390,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	other__letter_low_level: INTEGER is
+	other_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -399,7 +399,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	titlecase__letter_low_level: INTEGER is
+	titlecase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -408,7 +408,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uppercase__letter_low_level: INTEGER is
+	uppercase_letter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -417,7 +417,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	combining__mark_low_level: INTEGER is
+	combining_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -426,7 +426,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	enclosing__mark_low_level: INTEGER is
+	enclosing_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -435,7 +435,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non__spacing__mark_low_level: INTEGER is
+	non_spacing_mark_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -444,7 +444,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	decimal__number_low_level: INTEGER is
+	decimal_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -453,7 +453,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	letter__number_low_level: INTEGER is
+	letter_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -462,7 +462,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	other__number_low_level: INTEGER is
+	other_number_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -471,7 +471,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	connect__punctuation_low_level: INTEGER is
+	connect_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -480,7 +480,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dash__punctuation_low_level: INTEGER is
+	dash_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -489,7 +489,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	close__punctuation_low_level: INTEGER is
+	close_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -498,7 +498,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	final__punctuation_low_level: INTEGER is
+	final_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -507,7 +507,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	initial__punctuation_low_level: INTEGER is
+	initial_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -516,7 +516,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	other__punctuation_low_level: INTEGER is
+	other_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -525,7 +525,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	open__punctuation_low_level: INTEGER is
+	open_punctuation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -534,7 +534,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	currency__symbol_low_level: INTEGER is
+	currency_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -543,7 +543,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	modifier__symbol_low_level: INTEGER is
+	modifier_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -552,7 +552,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	math__symbol_low_level: INTEGER is
+	math_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -561,7 +561,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	other__symbol_low_level: INTEGER is
+	other_symbol_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -570,7 +570,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	line__separator_low_level: INTEGER is
+	line_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -579,7 +579,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	paragraph__separator_low_level: INTEGER is
+	paragraph_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -588,7 +588,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	space__separator_low_level: INTEGER is
+	space_separator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -222,14 +222,14 @@ feature -- Convertions
 		not is_hexadecimal_digit implies Result = -1 
 	end
 
-	type: G_UNICODE_TYPE is
+	type: GUNICODE_TYPE_ENUM is
 		-- the type of the character. See
 		-- http://www.unicode.org/Public/UNIDATA/UnicodeData.html.
 	do
 		Result.set_value(g_unichar_type(code))
 	end
 
-	break_type: G_UNICODE_BREAK_TYPE is
+	break_type: GUNICODE_BREAK_TYPE_ENUM is
 		-- The break type of Current character. The break type is used to find
 		-- word and line breaks ("text boundaries"), Pango implements the
 		-- Unicode boundary resolution algorithms and normally you would use a

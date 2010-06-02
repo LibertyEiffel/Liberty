@@ -60,26 +60,17 @@ class G_DATE
 	
 inherit
 	COMPARABLE_C_STRUCT
-      undefine
-         from_external_pointer
-      redefine
-         compare, free
-      end
-	GLOBALLY_CACHED
-      redefine
-         free
-      end
-	
+	undefine from_external_pointer
+	redefine compare, free
+	end
+	EIFFEL_OWNED
+
+insert GDATE_STRUCT	
+
 creation make_dmy, from_tuple, make
    
 creation {WRAPPER} from_external_pointer
    
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <glib.h>"
-		alias "sizeof(GDate)"
-		end
-
 feature {} -- Creation
 	make is
 			-- Create a GDate and initializes it to a sane state. The new
@@ -269,7 +260,7 @@ feature -- Getters
 -- -------------------------------------------------------------------
 
 feature -- Date arithmetics
-	add_days (some_days: INTEGER) is
+	infix "+", add_days (some_days: INTEGER) is
 			-- Increments a date some number of days. To move forward by
 			-- weeks, add weeks*7 days. The date must be valid.
 		
@@ -338,7 +329,7 @@ feature -- Date arithmetics
 			g_date_subtract_years (handle, some_years)
 		end
 
-	days_between (another: like Current): INTEGER is
+	infix "-", days_between (another: like Current): INTEGER is
 			-- Computes the number of days between two dates. If date2 is
 			-- prior to date1, the returned value is negative. Both dates
 			-- must be valid.

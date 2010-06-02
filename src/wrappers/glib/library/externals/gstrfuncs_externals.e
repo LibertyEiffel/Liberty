@@ -159,7 +159,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_strjoin (at line 202 in file /usr/include/glib-2.0/glib/gstrfuncs.h is not wrappable
+	g_strjoin (a_separator: POINTER): POINTER is
+ 		-- g_strjoin (variadic call)  (node at line 2106)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_strjoin"
+		}"
+		end
+
 	g_dpgettext (a_domain: POINTER; a_msgctxtid: POINTER; a_msgidoffset: NATURAL_32): POINTER is
  		-- g_dpgettext (node at line 2202)
 		external "plug_in"
@@ -230,7 +239,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_strdup_printf (at line 192 in file /usr/include/glib-2.0/glib/gstrfuncs.h is not wrappable
+	g_strdup_printf (a_format: POINTER): POINTER is
+ 		-- g_strdup_printf (variadic call)  (node at line 2854)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_strdup_printf"
+		}"
+		end
+
 	g_str_has_suffix (a_str: POINTER; a_suffix: POINTER): INTEGER_32 is
  		-- g_str_has_suffix (node at line 2869)
 		external "plug_in"
@@ -261,7 +279,16 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_strconcat (at line 200 in file /usr/include/glib-2.0/glib/gstrfuncs.h is not wrappable
+	g_strconcat (a_string1: POINTER): POINTER is
+ 		-- g_strconcat (variadic call)  (node at line 3210)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_strconcat"
+		}"
+		end
+
 	g_strdupv (a_str_array: POINTER): POINTER is
  		-- g_strdupv (node at line 3414)
 		external "plug_in"

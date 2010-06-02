@@ -11,15 +11,15 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = unknown__option_low_level)  or else
+			Result := ((a_value = unknown_option_low_level)  or else
 				(a_value = failed_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_unknown__option is
+	set_unknown_option is
 		do
-			value := unknown__option_low_level
+			value := unknown_option_low_level
 		end
 
 	set_failed is
@@ -28,9 +28,9 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_unknown__option: BOOLEAN is
+	is_unknown_option: BOOLEAN is
 		do
-			Result := (value=unknown__option_low_level)
+			Result := (value=unknown_option_low_level)
 		end
 
 	is_failed: BOOLEAN is
@@ -39,7 +39,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	unknown__option_low_level: INTEGER is
+	unknown_option_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,35 +11,35 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = bad__quoting_low_level)  or else
-				(a_value = failed_low_level) )
+			Result := ((a_value = d_quoting_low_level)  or else
+				(a_value = iled_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_bad__quoting is
+	set_d_quoting is
 		do
-			value := bad__quoting_low_level
+			value := d_quoting_low_level
 		end
 
-	set_failed is
+	set_iled is
 		do
-			value := failed_low_level
+			value := iled_low_level
 		end
 
 feature -- Queries
-	is_bad__quoting: BOOLEAN is
+	is_d_quoting: BOOLEAN is
 		do
-			Result := (value=bad__quoting_low_level)
+			Result := (value=d_quoting_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_iled: BOOLEAN is
 		do
-			Result := (value=failed_low_level)
+			Result := (value=iled_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad__quoting_low_level: INTEGER is
+	d_quoting_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -48,7 +48,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	iled_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

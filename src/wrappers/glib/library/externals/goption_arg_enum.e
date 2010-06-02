@@ -15,8 +15,8 @@ feature -- Validity
 				(a_value = int_low_level)  or else
 				(a_value = callback_low_level)  or else
 				(a_value = filename_low_level)  or else
-				(a_value = string__array_low_level)  or else
-				(a_value = filename__array_low_level)  or else
+				(a_value = string_array_low_level)  or else
+				(a_value = filename_array_low_level)  or else
 				(a_value = double_low_level)  or else
 				(a_value = int_64_low_level) )
 		end
@@ -43,14 +43,14 @@ feature -- Setters
 			value := filename_low_level
 		end
 
-	set_string__array is
+	set_string_array is
 		do
-			value := string__array_low_level
+			value := string_array_low_level
 		end
 
-	set_filename__array is
+	set_filename_array is
 		do
-			value := filename__array_low_level
+			value := filename_array_low_level
 		end
 
 	set_double is
@@ -84,14 +84,14 @@ feature -- Queries
 			Result := (value=filename_low_level)
 		end
 
-	is_string__array: BOOLEAN is
+	is_string_array: BOOLEAN is
 		do
-			Result := (value=string__array_low_level)
+			Result := (value=string_array_low_level)
 		end
 
-	is_filename__array: BOOLEAN is
+	is_filename_array: BOOLEAN is
 		do
-			Result := (value=filename__array_low_level)
+			Result := (value=filename_array_low_level)
 		end
 
 	is_double: BOOLEAN is
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string__array_low_level: INTEGER is
+	string_array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	filename__array_low_level: INTEGER is
+	filename_array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

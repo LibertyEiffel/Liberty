@@ -25,7 +25,7 @@ inherit
 	WRAPPER_HANDLER
 insert
 	GLIST_EXTERNALS
-	G_LIST_STRUCT
+	GLIST_STRUCT
 
 creation make
 	

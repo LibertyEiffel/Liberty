@@ -12,12 +12,12 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = eof_low_level)  or else
-				(a_value = right__paren_low_level)  or else
-				(a_value = left__curly_low_level)  or else
-				(a_value = right__curly_low_level)  or else
-				(a_value = left__brace_low_level)  or else
-				(a_value = right__brace_low_level)  or else
-				(a_value = equal__sign_low_level)  or else
+				(a_value = right_paren_low_level)  or else
+				(a_value = left_curly_low_level)  or else
+				(a_value = right_curly_low_level)  or else
+				(a_value = left_brace_low_level)  or else
+				(a_value = right_brace_low_level)  or else
+				(a_value = equal_sign_low_level)  or else
 				(a_value = comma_low_level)  or else
 				(a_value = none_low_level)  or else
 				(a_value = error_low_level)  or else
@@ -30,9 +30,9 @@ feature -- Validity
 				(a_value = string_low_level)  or else
 				(a_value = symbol_low_level)  or else
 				(a_value = identifier_low_level)  or else
-				(a_value = identifier__null_low_level)  or else
-				(a_value = comment__single_low_level)  or else
-				(a_value = comment__multi_low_level)  or else
+				(a_value = identifier_null_low_level)  or else
+				(a_value = comment_single_low_level)  or else
+				(a_value = comment_multi_low_level)  or else
 				(a_value = last_low_level) )
 		end
 
@@ -43,34 +43,34 @@ feature -- Setters
 			value := eof_low_level
 		end
 
-	set_right__paren is
+	set_right_paren is
 		do
-			value := right__paren_low_level
+			value := right_paren_low_level
 		end
 
-	set_left__curly is
+	set_left_curly is
 		do
-			value := left__curly_low_level
+			value := left_curly_low_level
 		end
 
-	set_right__curly is
+	set_right_curly is
 		do
-			value := right__curly_low_level
+			value := right_curly_low_level
 		end
 
-	set_left__brace is
+	set_left_brace is
 		do
-			value := left__brace_low_level
+			value := left_brace_low_level
 		end
 
-	set_right__brace is
+	set_right_brace is
 		do
-			value := right__brace_low_level
+			value := right_brace_low_level
 		end
 
-	set_equal__sign is
+	set_equal_sign is
 		do
-			value := equal__sign_low_level
+			value := equal_sign_low_level
 		end
 
 	set_comma is
@@ -133,19 +133,19 @@ feature -- Setters
 			value := identifier_low_level
 		end
 
-	set_identifier__null is
+	set_identifier_null is
 		do
-			value := identifier__null_low_level
+			value := identifier_null_low_level
 		end
 
-	set_comment__single is
+	set_comment_single is
 		do
-			value := comment__single_low_level
+			value := comment_single_low_level
 		end
 
-	set_comment__multi is
+	set_comment_multi is
 		do
-			value := comment__multi_low_level
+			value := comment_multi_low_level
 		end
 
 	set_last is
@@ -159,34 +159,34 @@ feature -- Queries
 			Result := (value=eof_low_level)
 		end
 
-	is_right__paren: BOOLEAN is
+	is_right_paren: BOOLEAN is
 		do
-			Result := (value=right__paren_low_level)
+			Result := (value=right_paren_low_level)
 		end
 
-	is_left__curly: BOOLEAN is
+	is_left_curly: BOOLEAN is
 		do
-			Result := (value=left__curly_low_level)
+			Result := (value=left_curly_low_level)
 		end
 
-	is_right__curly: BOOLEAN is
+	is_right_curly: BOOLEAN is
 		do
-			Result := (value=right__curly_low_level)
+			Result := (value=right_curly_low_level)
 		end
 
-	is_left__brace: BOOLEAN is
+	is_left_brace: BOOLEAN is
 		do
-			Result := (value=left__brace_low_level)
+			Result := (value=left_brace_low_level)
 		end
 
-	is_right__brace: BOOLEAN is
+	is_right_brace: BOOLEAN is
 		do
-			Result := (value=right__brace_low_level)
+			Result := (value=right_brace_low_level)
 		end
 
-	is_equal__sign: BOOLEAN is
+	is_equal_sign: BOOLEAN is
 		do
-			Result := (value=equal__sign_low_level)
+			Result := (value=equal_sign_low_level)
 		end
 
 	is_comma: BOOLEAN is
@@ -249,19 +249,19 @@ feature -- Queries
 			Result := (value=identifier_low_level)
 		end
 
-	is_identifier__null: BOOLEAN is
+	is_identifier_null: BOOLEAN is
 		do
-			Result := (value=identifier__null_low_level)
+			Result := (value=identifier_null_low_level)
 		end
 
-	is_comment__single: BOOLEAN is
+	is_comment_single: BOOLEAN is
 		do
-			Result := (value=comment__single_low_level)
+			Result := (value=comment_single_low_level)
 		end
 
-	is_comment__multi: BOOLEAN is
+	is_comment_multi: BOOLEAN is
 		do
-			Result := (value=comment__multi_low_level)
+			Result := (value=comment_multi_low_level)
 		end
 
 	is_last: BOOLEAN is
@@ -279,7 +279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right__paren_low_level: INTEGER is
+	right_paren_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	left__curly_low_level: INTEGER is
+	left_curly_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -297,7 +297,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right__curly_low_level: INTEGER is
+	right_curly_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -306,7 +306,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	left__brace_low_level: INTEGER is
+	left_brace_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -315,7 +315,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right__brace_low_level: INTEGER is
+	right_brace_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -324,7 +324,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	equal__sign_low_level: INTEGER is
+	equal_sign_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -441,7 +441,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	identifier__null_low_level: INTEGER is
+	identifier_null_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -450,7 +450,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comment__single_low_level: INTEGER is
+	comment_single_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -459,7 +459,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comment__multi_low_level: INTEGER is
+	comment_multi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

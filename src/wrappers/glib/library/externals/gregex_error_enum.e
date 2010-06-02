@@ -15,43 +15,43 @@ feature -- Validity
 				(a_value = replace_low_level)  or else
 				(a_value = match_low_level)  or else
 				(a_value = internal_low_level)  or else
-				(a_value = stray__backslash_low_level)  or else
-				(a_value = missing__control__char_low_level)  or else
-				(a_value = unrecognized__escape_low_level)  or else
-				(a_value = quantifiers__out__of__order_low_level)  or else
-				(a_value = quantifier__too__big_low_level)  or else
-				(a_value = unterminated__character__class_low_level)  or else
-				(a_value = invalid__escape__in__character__class_low_level)  or else
-				(a_value = range__out__of__order_low_level)  or else
-				(a_value = nothing__to__repeat_low_level)  or else
-				(a_value = unrecognized__character_low_level)  or else
-				(a_value = posix__named__class__outside__class_low_level)  or else
-				(a_value = unmatched__parenthesis_low_level)  or else
-				(a_value = inexistent__subpattern__reference_low_level)  or else
-				(a_value = unterminated__comment_low_level)  or else
-				(a_value = expression__too__large_low_level)  or else
-				(a_value = memory__error_low_level)  or else
-				(a_value = variable__length__lookbehind_low_level)  or else
-				(a_value = malformed__condition_low_level)  or else
-				(a_value = too__many__conditional__branches_low_level)  or else
-				(a_value = assertion__expected_low_level)  or else
-				(a_value = unknown__posix__class__name_low_level)  or else
-				(a_value = posix__collating__elements__not__supported_low_level)  or else
-				(a_value = hex__code__too__large_low_level)  or else
-				(a_value = invalid__condition_low_level)  or else
-				(a_value = single__byte__match__in__lookbehind_low_level)  or else
-				(a_value = infinite__loop_low_level)  or else
-				(a_value = missing__subpattern__name__terminator_low_level)  or else
-				(a_value = duplicate__subpattern__name_low_level)  or else
-				(a_value = malformed__property_low_level)  or else
-				(a_value = unknown__property_low_level)  or else
-				(a_value = subpattern__name__too__long_low_level)  or else
-				(a_value = too__many__subpatterns_low_level)  or else
-				(a_value = invalid__octal__value_low_level)  or else
-				(a_value = too__many__branches__in__define_low_level)  or else
-				(a_value = define__repetion_low_level)  or else
-				(a_value = inconsistent__newline__options_low_level)  or else
-				(a_value = missing__back__reference_low_level) )
+				(a_value = stray_backslash_low_level)  or else
+				(a_value = missing_control_char_low_level)  or else
+				(a_value = unrecognized_escape_low_level)  or else
+				(a_value = quantifiers_out_of_order_low_level)  or else
+				(a_value = quantifier_too_big_low_level)  or else
+				(a_value = unterminated_character_class_low_level)  or else
+				(a_value = invalid_escape_in_character_class_low_level)  or else
+				(a_value = range_out_of_order_low_level)  or else
+				(a_value = nothing_to_repeat_low_level)  or else
+				(a_value = unrecognized_character_low_level)  or else
+				(a_value = posix_named_class_outside_class_low_level)  or else
+				(a_value = unmatched_parenthesis_low_level)  or else
+				(a_value = inexistent_subpattern_reference_low_level)  or else
+				(a_value = unterminated_comment_low_level)  or else
+				(a_value = expression_too_large_low_level)  or else
+				(a_value = memory_error_low_level)  or else
+				(a_value = variable_length_lookbehind_low_level)  or else
+				(a_value = malformed_condition_low_level)  or else
+				(a_value = too_many_conditional_branches_low_level)  or else
+				(a_value = assertion_expected_low_level)  or else
+				(a_value = unknown_posix_class_name_low_level)  or else
+				(a_value = posix_collating_elements_not_supported_low_level)  or else
+				(a_value = hex_code_too_large_low_level)  or else
+				(a_value = invalid_condition_low_level)  or else
+				(a_value = single_byte_match_in_lookbehind_low_level)  or else
+				(a_value = infinite_loop_low_level)  or else
+				(a_value = missing_subpattern_name_terminator_low_level)  or else
+				(a_value = duplicate_subpattern_name_low_level)  or else
+				(a_value = malformed_property_low_level)  or else
+				(a_value = unknown_property_low_level)  or else
+				(a_value = subpattern_name_too_long_low_level)  or else
+				(a_value = too_many_subpatterns_low_level)  or else
+				(a_value = invalid_octal_value_low_level)  or else
+				(a_value = too_many_branches_in_define_low_level)  or else
+				(a_value = define_repetion_low_level)  or else
+				(a_value = inconsistent_newline_options_low_level)  or else
+				(a_value = missing_back_reference_low_level) )
 		end
 
 feature -- Setters
@@ -76,189 +76,189 @@ feature -- Setters
 			value := internal_low_level
 		end
 
-	set_stray__backslash is
+	set_stray_backslash is
 		do
-			value := stray__backslash_low_level
+			value := stray_backslash_low_level
 		end
 
-	set_missing__control__char is
+	set_missing_control_char is
 		do
-			value := missing__control__char_low_level
+			value := missing_control_char_low_level
 		end
 
-	set_unrecognized__escape is
+	set_unrecognized_escape is
 		do
-			value := unrecognized__escape_low_level
+			value := unrecognized_escape_low_level
 		end
 
-	set_quantifiers__out__of__order is
+	set_quantifiers_out_of_order is
 		do
-			value := quantifiers__out__of__order_low_level
+			value := quantifiers_out_of_order_low_level
 		end
 
-	set_quantifier__too__big is
+	set_quantifier_too_big is
 		do
-			value := quantifier__too__big_low_level
+			value := quantifier_too_big_low_level
 		end
 
-	set_unterminated__character__class is
+	set_unterminated_character_class is
 		do
-			value := unterminated__character__class_low_level
+			value := unterminated_character_class_low_level
 		end
 
-	set_invalid__escape__in__character__class is
+	set_invalid_escape_in_character_class is
 		do
-			value := invalid__escape__in__character__class_low_level
+			value := invalid_escape_in_character_class_low_level
 		end
 
-	set_range__out__of__order is
+	set_range_out_of_order is
 		do
-			value := range__out__of__order_low_level
+			value := range_out_of_order_low_level
 		end
 
-	set_nothing__to__repeat is
+	set_nothing_to_repeat is
 		do
-			value := nothing__to__repeat_low_level
+			value := nothing_to_repeat_low_level
 		end
 
-	set_unrecognized__character is
+	set_unrecognized_character is
 		do
-			value := unrecognized__character_low_level
+			value := unrecognized_character_low_level
 		end
 
-	set_posix__named__class__outside__class is
+	set_posix_named_class_outside_class is
 		do
-			value := posix__named__class__outside__class_low_level
+			value := posix_named_class_outside_class_low_level
 		end
 
-	set_unmatched__parenthesis is
+	set_unmatched_parenthesis is
 		do
-			value := unmatched__parenthesis_low_level
+			value := unmatched_parenthesis_low_level
 		end
 
-	set_inexistent__subpattern__reference is
+	set_inexistent_subpattern_reference is
 		do
-			value := inexistent__subpattern__reference_low_level
+			value := inexistent_subpattern_reference_low_level
 		end
 
-	set_unterminated__comment is
+	set_unterminated_comment is
 		do
-			value := unterminated__comment_low_level
+			value := unterminated_comment_low_level
 		end
 
-	set_expression__too__large is
+	set_expression_too_large is
 		do
-			value := expression__too__large_low_level
+			value := expression_too_large_low_level
 		end
 
-	set_memory__error is
+	set_memory_error is
 		do
-			value := memory__error_low_level
+			value := memory_error_low_level
 		end
 
-	set_variable__length__lookbehind is
+	set_variable_length_lookbehind is
 		do
-			value := variable__length__lookbehind_low_level
+			value := variable_length_lookbehind_low_level
 		end
 
-	set_malformed__condition is
+	set_malformed_condition is
 		do
-			value := malformed__condition_low_level
+			value := malformed_condition_low_level
 		end
 
-	set_too__many__conditional__branches is
+	set_too_many_conditional_branches is
 		do
-			value := too__many__conditional__branches_low_level
+			value := too_many_conditional_branches_low_level
 		end
 
-	set_assertion__expected is
+	set_assertion_expected is
 		do
-			value := assertion__expected_low_level
+			value := assertion_expected_low_level
 		end
 
-	set_unknown__posix__class__name is
+	set_unknown_posix_class_name is
 		do
-			value := unknown__posix__class__name_low_level
+			value := unknown_posix_class_name_low_level
 		end
 
-	set_posix__collating__elements__not__supported is
+	set_posix_collating_elements_not_supported is
 		do
-			value := posix__collating__elements__not__supported_low_level
+			value := posix_collating_elements_not_supported_low_level
 		end
 
-	set_hex__code__too__large is
+	set_hex_code_too_large is
 		do
-			value := hex__code__too__large_low_level
+			value := hex_code_too_large_low_level
 		end
 
-	set_invalid__condition is
+	set_invalid_condition is
 		do
-			value := invalid__condition_low_level
+			value := invalid_condition_low_level
 		end
 
-	set_single__byte__match__in__lookbehind is
+	set_single_byte_match_in_lookbehind is
 		do
-			value := single__byte__match__in__lookbehind_low_level
+			value := single_byte_match_in_lookbehind_low_level
 		end
 
-	set_infinite__loop is
+	set_infinite_loop is
 		do
-			value := infinite__loop_low_level
+			value := infinite_loop_low_level
 		end
 
-	set_missing__subpattern__name__terminator is
+	set_missing_subpattern_name_terminator is
 		do
-			value := missing__subpattern__name__terminator_low_level
+			value := missing_subpattern_name_terminator_low_level
 		end
 
-	set_duplicate__subpattern__name is
+	set_duplicate_subpattern_name is
 		do
-			value := duplicate__subpattern__name_low_level
+			value := duplicate_subpattern_name_low_level
 		end
 
-	set_malformed__property is
+	set_malformed_property is
 		do
-			value := malformed__property_low_level
+			value := malformed_property_low_level
 		end
 
-	set_unknown__property is
+	set_unknown_property is
 		do
-			value := unknown__property_low_level
+			value := unknown_property_low_level
 		end
 
-	set_subpattern__name__too__long is
+	set_subpattern_name_too_long is
 		do
-			value := subpattern__name__too__long_low_level
+			value := subpattern_name_too_long_low_level
 		end
 
-	set_too__many__subpatterns is
+	set_too_many_subpatterns is
 		do
-			value := too__many__subpatterns_low_level
+			value := too_many_subpatterns_low_level
 		end
 
-	set_invalid__octal__value is
+	set_invalid_octal_value is
 		do
-			value := invalid__octal__value_low_level
+			value := invalid_octal_value_low_level
 		end
 
-	set_too__many__branches__in__define is
+	set_too_many_branches_in_define is
 		do
-			value := too__many__branches__in__define_low_level
+			value := too_many_branches_in_define_low_level
 		end
 
-	set_define__repetion is
+	set_define_repetion is
 		do
-			value := define__repetion_low_level
+			value := define_repetion_low_level
 		end
 
-	set_inconsistent__newline__options is
+	set_inconsistent_newline_options is
 		do
-			value := inconsistent__newline__options_low_level
+			value := inconsistent_newline_options_low_level
 		end
 
-	set_missing__back__reference is
+	set_missing_back_reference is
 		do
-			value := missing__back__reference_low_level
+			value := missing_back_reference_low_level
 		end
 
 feature -- Queries
@@ -282,189 +282,189 @@ feature -- Queries
 			Result := (value=internal_low_level)
 		end
 
-	is_stray__backslash: BOOLEAN is
+	is_stray_backslash: BOOLEAN is
 		do
-			Result := (value=stray__backslash_low_level)
+			Result := (value=stray_backslash_low_level)
 		end
 
-	is_missing__control__char: BOOLEAN is
+	is_missing_control_char: BOOLEAN is
 		do
-			Result := (value=missing__control__char_low_level)
+			Result := (value=missing_control_char_low_level)
 		end
 
-	is_unrecognized__escape: BOOLEAN is
+	is_unrecognized_escape: BOOLEAN is
 		do
-			Result := (value=unrecognized__escape_low_level)
+			Result := (value=unrecognized_escape_low_level)
 		end
 
-	is_quantifiers__out__of__order: BOOLEAN is
+	is_quantifiers_out_of_order: BOOLEAN is
 		do
-			Result := (value=quantifiers__out__of__order_low_level)
+			Result := (value=quantifiers_out_of_order_low_level)
 		end
 
-	is_quantifier__too__big: BOOLEAN is
+	is_quantifier_too_big: BOOLEAN is
 		do
-			Result := (value=quantifier__too__big_low_level)
+			Result := (value=quantifier_too_big_low_level)
 		end
 
-	is_unterminated__character__class: BOOLEAN is
+	is_unterminated_character_class: BOOLEAN is
 		do
-			Result := (value=unterminated__character__class_low_level)
+			Result := (value=unterminated_character_class_low_level)
 		end
 
-	is_invalid__escape__in__character__class: BOOLEAN is
+	is_invalid_escape_in_character_class: BOOLEAN is
 		do
-			Result := (value=invalid__escape__in__character__class_low_level)
+			Result := (value=invalid_escape_in_character_class_low_level)
 		end
 
-	is_range__out__of__order: BOOLEAN is
+	is_range_out_of_order: BOOLEAN is
 		do
-			Result := (value=range__out__of__order_low_level)
+			Result := (value=range_out_of_order_low_level)
 		end
 
-	is_nothing__to__repeat: BOOLEAN is
+	is_nothing_to_repeat: BOOLEAN is
 		do
-			Result := (value=nothing__to__repeat_low_level)
+			Result := (value=nothing_to_repeat_low_level)
 		end
 
-	is_unrecognized__character: BOOLEAN is
+	is_unrecognized_character: BOOLEAN is
 		do
-			Result := (value=unrecognized__character_low_level)
+			Result := (value=unrecognized_character_low_level)
 		end
 
-	is_posix__named__class__outside__class: BOOLEAN is
+	is_posix_named_class_outside_class: BOOLEAN is
 		do
-			Result := (value=posix__named__class__outside__class_low_level)
+			Result := (value=posix_named_class_outside_class_low_level)
 		end
 
-	is_unmatched__parenthesis: BOOLEAN is
+	is_unmatched_parenthesis: BOOLEAN is
 		do
-			Result := (value=unmatched__parenthesis_low_level)
+			Result := (value=unmatched_parenthesis_low_level)
 		end
 
-	is_inexistent__subpattern__reference: BOOLEAN is
+	is_inexistent_subpattern_reference: BOOLEAN is
 		do
-			Result := (value=inexistent__subpattern__reference_low_level)
+			Result := (value=inexistent_subpattern_reference_low_level)
 		end
 
-	is_unterminated__comment: BOOLEAN is
+	is_unterminated_comment: BOOLEAN is
 		do
-			Result := (value=unterminated__comment_low_level)
+			Result := (value=unterminated_comment_low_level)
 		end
 
-	is_expression__too__large: BOOLEAN is
+	is_expression_too_large: BOOLEAN is
 		do
-			Result := (value=expression__too__large_low_level)
+			Result := (value=expression_too_large_low_level)
 		end
 
-	is_memory__error: BOOLEAN is
+	is_memory_error: BOOLEAN is
 		do
-			Result := (value=memory__error_low_level)
+			Result := (value=memory_error_low_level)
 		end
 
-	is_variable__length__lookbehind: BOOLEAN is
+	is_variable_length_lookbehind: BOOLEAN is
 		do
-			Result := (value=variable__length__lookbehind_low_level)
+			Result := (value=variable_length_lookbehind_low_level)
 		end
 
-	is_malformed__condition: BOOLEAN is
+	is_malformed_condition: BOOLEAN is
 		do
-			Result := (value=malformed__condition_low_level)
+			Result := (value=malformed_condition_low_level)
 		end
 
-	is_too__many__conditional__branches: BOOLEAN is
+	is_too_many_conditional_branches: BOOLEAN is
 		do
-			Result := (value=too__many__conditional__branches_low_level)
+			Result := (value=too_many_conditional_branches_low_level)
 		end
 
-	is_assertion__expected: BOOLEAN is
+	is_assertion_expected: BOOLEAN is
 		do
-			Result := (value=assertion__expected_low_level)
+			Result := (value=assertion_expected_low_level)
 		end
 
-	is_unknown__posix__class__name: BOOLEAN is
+	is_unknown_posix_class_name: BOOLEAN is
 		do
-			Result := (value=unknown__posix__class__name_low_level)
+			Result := (value=unknown_posix_class_name_low_level)
 		end
 
-	is_posix__collating__elements__not__supported: BOOLEAN is
+	is_posix_collating_elements_not_supported: BOOLEAN is
 		do
-			Result := (value=posix__collating__elements__not__supported_low_level)
+			Result := (value=posix_collating_elements_not_supported_low_level)
 		end
 
-	is_hex__code__too__large: BOOLEAN is
+	is_hex_code_too_large: BOOLEAN is
 		do
-			Result := (value=hex__code__too__large_low_level)
+			Result := (value=hex_code_too_large_low_level)
 		end
 
-	is_invalid__condition: BOOLEAN is
+	is_invalid_condition: BOOLEAN is
 		do
-			Result := (value=invalid__condition_low_level)
+			Result := (value=invalid_condition_low_level)
 		end
 
-	is_single__byte__match__in__lookbehind: BOOLEAN is
+	is_single_byte_match_in_lookbehind: BOOLEAN is
 		do
-			Result := (value=single__byte__match__in__lookbehind_low_level)
+			Result := (value=single_byte_match_in_lookbehind_low_level)
 		end
 
-	is_infinite__loop: BOOLEAN is
+	is_infinite_loop: BOOLEAN is
 		do
-			Result := (value=infinite__loop_low_level)
+			Result := (value=infinite_loop_low_level)
 		end
 
-	is_missing__subpattern__name__terminator: BOOLEAN is
+	is_missing_subpattern_name_terminator: BOOLEAN is
 		do
-			Result := (value=missing__subpattern__name__terminator_low_level)
+			Result := (value=missing_subpattern_name_terminator_low_level)
 		end
 
-	is_duplicate__subpattern__name: BOOLEAN is
+	is_duplicate_subpattern_name: BOOLEAN is
 		do
-			Result := (value=duplicate__subpattern__name_low_level)
+			Result := (value=duplicate_subpattern_name_low_level)
 		end
 
-	is_malformed__property: BOOLEAN is
+	is_malformed_property: BOOLEAN is
 		do
-			Result := (value=malformed__property_low_level)
+			Result := (value=malformed_property_low_level)
 		end
 
-	is_unknown__property: BOOLEAN is
+	is_unknown_property: BOOLEAN is
 		do
-			Result := (value=unknown__property_low_level)
+			Result := (value=unknown_property_low_level)
 		end
 
-	is_subpattern__name__too__long: BOOLEAN is
+	is_subpattern_name_too_long: BOOLEAN is
 		do
-			Result := (value=subpattern__name__too__long_low_level)
+			Result := (value=subpattern_name_too_long_low_level)
 		end
 
-	is_too__many__subpatterns: BOOLEAN is
+	is_too_many_subpatterns: BOOLEAN is
 		do
-			Result := (value=too__many__subpatterns_low_level)
+			Result := (value=too_many_subpatterns_low_level)
 		end
 
-	is_invalid__octal__value: BOOLEAN is
+	is_invalid_octal_value: BOOLEAN is
 		do
-			Result := (value=invalid__octal__value_low_level)
+			Result := (value=invalid_octal_value_low_level)
 		end
 
-	is_too__many__branches__in__define: BOOLEAN is
+	is_too_many_branches_in_define: BOOLEAN is
 		do
-			Result := (value=too__many__branches__in__define_low_level)
+			Result := (value=too_many_branches_in_define_low_level)
 		end
 
-	is_define__repetion: BOOLEAN is
+	is_define_repetion: BOOLEAN is
 		do
-			Result := (value=define__repetion_low_level)
+			Result := (value=define_repetion_low_level)
 		end
 
-	is_inconsistent__newline__options: BOOLEAN is
+	is_inconsistent_newline_options: BOOLEAN is
 		do
-			Result := (value=inconsistent__newline__options_low_level)
+			Result := (value=inconsistent_newline_options_low_level)
 		end
 
-	is_missing__back__reference: BOOLEAN is
+	is_missing_back_reference: BOOLEAN is
 		do
-			Result := (value=missing__back__reference_low_level)
+			Result := (value=missing_back_reference_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -504,7 +504,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stray__backslash_low_level: INTEGER is
+	stray_backslash_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -513,7 +513,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	missing__control__char_low_level: INTEGER is
+	missing_control_char_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -522,7 +522,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unrecognized__escape_low_level: INTEGER is
+	unrecognized_escape_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -531,7 +531,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	quantifiers__out__of__order_low_level: INTEGER is
+	quantifiers_out_of_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -540,7 +540,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	quantifier__too__big_low_level: INTEGER is
+	quantifier_too_big_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -549,7 +549,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unterminated__character__class_low_level: INTEGER is
+	unterminated_character_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -558,7 +558,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid__escape__in__character__class_low_level: INTEGER is
+	invalid_escape_in_character_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -567,7 +567,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	range__out__of__order_low_level: INTEGER is
+	range_out_of_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -576,7 +576,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nothing__to__repeat_low_level: INTEGER is
+	nothing_to_repeat_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -585,7 +585,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unrecognized__character_low_level: INTEGER is
+	unrecognized_character_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -594,7 +594,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	posix__named__class__outside__class_low_level: INTEGER is
+	posix_named_class_outside_class_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -603,7 +603,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unmatched__parenthesis_low_level: INTEGER is
+	unmatched_parenthesis_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -612,7 +612,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inexistent__subpattern__reference_low_level: INTEGER is
+	inexistent_subpattern_reference_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -621,7 +621,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unterminated__comment_low_level: INTEGER is
+	unterminated_comment_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -630,7 +630,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	expression__too__large_low_level: INTEGER is
+	expression_too_large_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -639,7 +639,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	memory__error_low_level: INTEGER is
+	memory_error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -648,7 +648,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	variable__length__lookbehind_low_level: INTEGER is
+	variable_length_lookbehind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -657,7 +657,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	malformed__condition_low_level: INTEGER is
+	malformed_condition_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -666,7 +666,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	too__many__conditional__branches_low_level: INTEGER is
+	too_many_conditional_branches_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -675,7 +675,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	assertion__expected_low_level: INTEGER is
+	assertion_expected_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -684,7 +684,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown__posix__class__name_low_level: INTEGER is
+	unknown_posix_class_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -693,7 +693,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	posix__collating__elements__not__supported_low_level: INTEGER is
+	posix_collating_elements_not_supported_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -702,7 +702,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hex__code__too__large_low_level: INTEGER is
+	hex_code_too_large_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -711,7 +711,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid__condition_low_level: INTEGER is
+	invalid_condition_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -720,7 +720,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	single__byte__match__in__lookbehind_low_level: INTEGER is
+	single_byte_match_in_lookbehind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -729,7 +729,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	infinite__loop_low_level: INTEGER is
+	infinite_loop_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -738,7 +738,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	missing__subpattern__name__terminator_low_level: INTEGER is
+	missing_subpattern_name_terminator_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -747,7 +747,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	duplicate__subpattern__name_low_level: INTEGER is
+	duplicate_subpattern_name_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -756,7 +756,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	malformed__property_low_level: INTEGER is
+	malformed_property_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -765,7 +765,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown__property_low_level: INTEGER is
+	unknown_property_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -774,7 +774,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	subpattern__name__too__long_low_level: INTEGER is
+	subpattern_name_too_long_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -783,7 +783,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	too__many__subpatterns_low_level: INTEGER is
+	too_many_subpatterns_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -792,7 +792,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid__octal__value_low_level: INTEGER is
+	invalid_octal_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -801,7 +801,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	too__many__branches__in__define_low_level: INTEGER is
+	too_many_branches_in_define_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -810,7 +810,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	define__repetion_low_level: INTEGER is
+	define_repetion_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -819,7 +819,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inconsistent__newline__options_low_level: INTEGER is
+	inconsistent_newline_options_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -828,7 +828,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	missing__back__reference_low_level: INTEGER is
+	missing_back_reference_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

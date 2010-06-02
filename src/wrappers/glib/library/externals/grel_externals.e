@@ -59,8 +59,26 @@ feature {} -- External calls
 		}"
 		end
 
-	-- function g_relation_insert (at line 76 in file /usr/include/glib-2.0/glib/grel.h is not wrappable
-	-- function g_relation_exists (at line 87 in file /usr/include/glib-2.0/glib/grel.h is not wrappable
+	g_relation_insert (a_relation: POINTER) is
+ 		-- g_relation_insert (variadic call)  (node at line 4307)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_relation_insert"
+		}"
+		end
+
+	g_relation_exists (a_relation: POINTER): INTEGER_32 is
+ 		-- g_relation_exists (variadic call)  (node at line 4732)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_relation_exists"
+		}"
+		end
+
 	g_relation_destroy (a_relation: POINTER) is
  		-- g_relation_destroy (node at line 5150)
 		external "plug_in"

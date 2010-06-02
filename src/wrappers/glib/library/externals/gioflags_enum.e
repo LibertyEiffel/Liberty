@@ -12,12 +12,12 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = append_low_level)  or else
-				(a_value = is__readable_low_level)  or else
-				(a_value = is__writeable_low_level)  or else
-				(a_value = is__seekable_low_level)  or else
+				(a_value = is_readable_low_level)  or else
+				(a_value = is_writeable_low_level)  or else
+				(a_value = is_seekable_low_level)  or else
 				(a_value = mask_low_level)  or else
-				(a_value = get__mask_low_level)  or else
-				(a_value = set__mask_low_level) )
+				(a_value = get_mask_low_level)  or else
+				(a_value = set_mask_low_level) )
 		end
 
 feature -- Setters
@@ -27,19 +27,19 @@ feature -- Setters
 			value := append_low_level
 		end
 
-	set_is__readable is
+	set_is_readable is
 		do
-			value := is__readable_low_level
+			value := is_readable_low_level
 		end
 
-	set_is__writeable is
+	set_is_writeable is
 		do
-			value := is__writeable_low_level
+			value := is_writeable_low_level
 		end
 
-	set_is__seekable is
+	set_is_seekable is
 		do
-			value := is__seekable_low_level
+			value := is_seekable_low_level
 		end
 
 	set_mask is
@@ -47,14 +47,14 @@ feature -- Setters
 			value := mask_low_level
 		end
 
-	set_get__mask is
+	set_get_mask is
 		do
-			value := get__mask_low_level
+			value := get_mask_low_level
 		end
 
-	set_set__mask is
+	set_set_mask is
 		do
-			value := set__mask_low_level
+			value := set_mask_low_level
 		end
 
 feature -- Queries
@@ -63,19 +63,19 @@ feature -- Queries
 			Result := (value=append_low_level)
 		end
 
-	is_is__readable: BOOLEAN is
+	is_is_readable: BOOLEAN is
 		do
-			Result := (value=is__readable_low_level)
+			Result := (value=is_readable_low_level)
 		end
 
-	is_is__writeable: BOOLEAN is
+	is_is_writeable: BOOLEAN is
 		do
-			Result := (value=is__writeable_low_level)
+			Result := (value=is_writeable_low_level)
 		end
 
-	is_is__seekable: BOOLEAN is
+	is_is_seekable: BOOLEAN is
 		do
-			Result := (value=is__seekable_low_level)
+			Result := (value=is_seekable_low_level)
 		end
 
 	is_mask: BOOLEAN is
@@ -83,14 +83,14 @@ feature -- Queries
 			Result := (value=mask_low_level)
 		end
 
-	is_get__mask: BOOLEAN is
+	is_get_mask: BOOLEAN is
 		do
-			Result := (value=get__mask_low_level)
+			Result := (value=get_mask_low_level)
 		end
 
-	is_set__mask: BOOLEAN is
+	is_set_mask: BOOLEAN is
 		do
-			Result := (value=set__mask_low_level)
+			Result := (value=set_mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -103,7 +103,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is__readable_low_level: INTEGER is
+	is_readable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is__writeable_low_level: INTEGER is
+	is_writeable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is__seekable_low_level: INTEGER is
+	is_seekable_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	get__mask_low_level: INTEGER is
+	get_mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	set__mask_low_level: INTEGER is
+	set_mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

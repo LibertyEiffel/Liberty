@@ -37,7 +37,7 @@ insert
 		undefine
 			fill_tagged_out_memory
 		end
-	G_LIST_STRUCT
+	GLIST_STRUCT
 
 feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 	make is
@@ -79,7 +79,7 @@ feature {ANY} -- data access
 	item (i: INTEGER): like first is
 		local p: POINTER -- Item Pointer
 		do
-			p := g_list_nth_data (handle, i - 1)
+			p := g_list_nth_data (handle, i.to_natural_32)
 			if p.is_not_null then 
 				Result := wrapper(p) 
 			end
@@ -90,7 +90,7 @@ feature {ANY} -- data access
       require
          is_mutable
       do
-         glist_struct_set_data (g_list_nth(handle,i), an_item.handle)
+         glist_struct_set_data (g_list_nth(handle,i.to_natural_32), an_item.handle)
       end
    
 	swap (i,j: INTEGER) is
@@ -99,9 +99,11 @@ feature {ANY} -- data access
          is_mutable
       local
          ith,jth,tmp: POINTER
+		 in,jn: NATURAL_32
       do
-         ith := g_list_nth_data (handle,i)
-         jth := g_list_nth_data (handle,j)
+		 in := i.to_natural_32; jn := j.to_natural_32
+         ith := g_list_nth_data (handle,in)
+         jth := g_list_nth_data (handle,jn)
 
          tmp := glist_struct_get_data(ith)
          glist_struct_set_data (ith, glist_struct_get_data(jth))
@@ -145,9 +147,9 @@ feature {ANY} -- data access
          handle := g_list_append (handle, element.handle)
 		end
 
-	add (element: like first; index: INTEGER) is
+	add (element: like first; an_index: INTEGER) is
 		do
-			handle := g_list_insert (handle, element.handle, index-1)
+			handle := g_list_insert (handle, element.handle, an_index.to_natural_32)
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is
@@ -155,42 +157,47 @@ feature {ANY} -- data access
 			other.do_all(agent add_last)
 		end
 
-	force (element: like first; index: INTEGER) is
-      -- NOT YET IMPLEMENTED
+	force (element: like first; an_index: INTEGER) is
       do
          not_yet_implemented
          -- TODO
       end
 
 	remove_first is
+		require not is_empty
 		do
 			handle:=g_list_delete_link (handle, handle)
 		end
 
-	remove (index: INTEGER) is
+	remove (an_index: INTEGER) is
+		require 
+			not is_empty
+			valid_index(an_index)
 		do
-			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
+			handle:=g_list_delete_link (handle, g_list_nth_data (handle, an_index.to_natural_32))
 		end
 
 	remove_head (n: INTEGER) is
-		local i: INTEGER
+		require 
+			not is_empty
+			valid_index(an_index)	
 		do
-			from i:=n until i>0 loop
-				handle:=g_list_delete_link(handle,handle)
-				i:=i-1
-			end
+			-- Ohh, how long I longed to write it *THIS* way! Thanks Adrian! Paolo 2010-05-30
+			n.times(agent remove_first)
 		end
 
 	remove_tail (n: INTEGER) is
-		local i: INTEGER
+		require 
+			not is_empty
+			valid_index(an_index)	
 		do
-			from i:=n until i=0 loop 
-				remove_last
-				i:=i-1
-			end
+			n.times(agent remove_last)
 		end
 
 	remove_last is
+		require 
+			not is_empty
+			valid_index(an_index)	
 		do
 			handle:=g_list_delete_link (handle,g_list_last (handle))
 		end
@@ -209,7 +216,7 @@ feature {ANY} -- data access
 		local i: ITERATOR[ITEM]; p: POINTER
 		do
 			if x/=Void then
-				from i:=get_new_iterator; i.start until Result=True or else i.is_off
+				from i:=new_iterator; i.start until Result=True or else i.is_off
 				loop 
 					Result := x.is_equal(i.item)
 					i.next
@@ -277,22 +284,24 @@ feature {ANY} -- data access
 	is_equal (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
       local
+		  ci, oi: ITERATOR[ITEM]
          i, j: INTEGER
 		do
-			if count = other.count then
-				from
-               Result := lower = other.lower
-					i := lower
-					j := other.lower
-				until
-					not Result or else i > upper
+			if count = other.count and then
+				lower = other.lower then
+				check
+					upper = other.upper 
+					-- shall be implied by the previous two checks
+				end
+				from 
+					ci:=new_iterator; ci.start
+					oi:=new_iterator; oi.start
+				until not Result or else ci.is_off 
 				loop
-					Result := item(i) = other.item(j)
-					i := i + 1
-					j := j + 1
+					Result := (ci.item = oi.item)
+					ci.next; oi.next
 				end
 			end
-
 		end
 
 	all_default: BOOLEAN is
@@ -304,13 +313,13 @@ feature {ANY} -- data access
 		end
 
 	copy (other: like Current) is
-         --  make `Current' a "shallow" copy of `other'
-		do
-         if is_not_null then
-            g_list_free (handle)
-         end
-         from_external_pointer (g_list_copy (other.handle))
+		--  make `Current' a "shallow" copy of `other'
+	do
+		if handle.is_not_null then
+			g_list_free (handle)
 		end
+		from_external_pointer (g_list_copy (other.handle))
+	end
 
 	occurrences (element: like first): INTEGER is
 			-- Number of occurrences of element using is_equal for comparison.
@@ -346,7 +355,7 @@ feature {ANY} -- data access
 			handle:=g_list_reverse (old_handle)
 		end
 
-	lower: INTEGER is 1
+	lower: INTEGER is 0
 
 	upper: INTEGER is
 		do
@@ -355,7 +364,7 @@ feature {ANY} -- data access
 	
 	count: INTEGER is
 		do
-			Result := g_list_length(handle)
+			Result := g_list_length(handle).to_integer_32
 		end
 
 	is_empty: BOOLEAN is
@@ -365,7 +374,7 @@ feature {ANY} -- data access
 
 	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
 
-	get_new_iterator: ITERATOR[ITEM] is
+	new_iterator: ITERATOR[ITEM] is
 		do
 			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
 		end
@@ -619,9 +628,9 @@ feature {ANY} -- data access
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
 
-	manifest_put (index: INTEGER; element: like item) is
+	manifest_put (an_index: INTEGER; element: like item) is
 		do
-			put (element,index)
+			put (element,an_index)
 		end
 
 

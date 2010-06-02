@@ -13,9 +13,9 @@ feature -- Validity
 		do
 			Result := (a_value & (hidden_low_level | 
 				reverse_low_level | 
-				no__arg_low_level | 
+				no_arg_low_level | 
 				filename_low_level | 
-				optional__arg_low_level | 
+				optional_arg_low_level | 
 				noalias_low_level)).to_boolean
 		end
 
@@ -41,14 +41,14 @@ feature -- Setters
 			value := value.bit_xor(reverse_low_level)
 		end
 
-	set_no__arg is
+	set_no_arg is
 		do
-			value := value.bit_or(no__arg_low_level)
+			value := value.bit_or(no_arg_low_level)
 		end
 
-	unset_no__arg is
+	unset_no_arg is
 		do
-			value := value.bit_xor(no__arg_low_level)
+			value := value.bit_xor(no_arg_low_level)
 		end
 
 	set_filename is
@@ -61,14 +61,14 @@ feature -- Setters
 			value := value.bit_xor(filename_low_level)
 		end
 
-	set_optional__arg is
+	set_optional_arg is
 		do
-			value := value.bit_or(optional__arg_low_level)
+			value := value.bit_or(optional_arg_low_level)
 		end
 
-	unset_optional__arg is
+	unset_optional_arg is
 		do
-			value := value.bit_xor(optional__arg_low_level)
+			value := value.bit_xor(optional_arg_low_level)
 		end
 
 	set_noalias is
@@ -92,9 +92,9 @@ feature -- Queries
 			Result := (value=reverse_low_level)
 		end
 
-	is_no__arg: BOOLEAN is
+	is_no_arg: BOOLEAN is
 		do
-			Result := (value=no__arg_low_level)
+			Result := (value=no_arg_low_level)
 		end
 
 	is_filename: BOOLEAN is
@@ -102,9 +102,9 @@ feature -- Queries
 			Result := (value=filename_low_level)
 		end
 
-	is_optional__arg: BOOLEAN is
+	is_optional_arg: BOOLEAN is
 		do
-			Result := (value=optional__arg_low_level)
+			Result := (value=optional_arg_low_level)
 		end
 
 	is_noalias: BOOLEAN is
@@ -131,7 +131,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no__arg_low_level: INTEGER is
+	no_arg_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -149,7 +149,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	optional__arg_low_level: INTEGER is
+	optional_arg_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,46 +11,46 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = in__order_low_level)  or else
-				(a_value = post__order_low_level)  or else
-				(a_value = level__order_low_level) )
+			Result := ((a_value = in_order_low_level)  or else
+				(a_value = post_order_low_level)  or else
+				(a_value = level_order_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_in__order is
+	set_in_order is
 		do
-			value := in__order_low_level
+			value := in_order_low_level
 		end
 
-	set_post__order is
+	set_post_order is
 		do
-			value := post__order_low_level
+			value := post_order_low_level
 		end
 
-	set_level__order is
+	set_level_order is
 		do
-			value := level__order_low_level
+			value := level_order_low_level
 		end
 
 feature -- Queries
-	is_in__order: BOOLEAN is
+	is_in_order: BOOLEAN is
 		do
-			Result := (value=in__order_low_level)
+			Result := (value=in_order_low_level)
 		end
 
-	is_post__order: BOOLEAN is
+	is_post_order: BOOLEAN is
 		do
-			Result := (value=post__order_low_level)
+			Result := (value=post_order_low_level)
 		end
 
-	is_level__order: BOOLEAN is
+	is_level_order: BOOLEAN is
 		do
-			Result := (value=level__order_low_level)
+			Result := (value=level_order_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	in__order_low_level: INTEGER is
+	in_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +59,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	post__order_low_level: INTEGER is
+	post_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level__order_low_level: INTEGER is
+	level_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -89,7 +89,7 @@ inherit
 insert
 	SHARED_G_ERROR
 	GKEYFILE_EXTERNALS
-	G_KEY_FILE_STRUCT
+	GKEY_FILE_STRUCT
 
 creation make, load_from_file, from_external_pointer
 

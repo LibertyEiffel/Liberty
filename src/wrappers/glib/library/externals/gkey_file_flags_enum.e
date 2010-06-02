@@ -12,7 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = none_low_level)  or else
-				(a_value = keep__translations_low_level) )
+				(a_value = keep_translations_low_level) )
 		end
 
 feature -- Setters
@@ -22,9 +22,9 @@ feature -- Setters
 			value := none_low_level
 		end
 
-	set_keep__translations is
+	set_keep_translations is
 		do
-			value := keep__translations_low_level
+			value := keep_translations_low_level
 		end
 
 feature -- Queries
@@ -33,9 +33,9 @@ feature -- Queries
 			Result := (value=none_low_level)
 		end
 
-	is_keep__translations: BOOLEAN is
+	is_keep_translations: BOOLEAN is
 		do
-			Result := (value=keep__translations_low_level)
+			Result := (value=keep_translations_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -48,7 +48,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	keep__translations_low_level: INTEGER is
+	keep_translations_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

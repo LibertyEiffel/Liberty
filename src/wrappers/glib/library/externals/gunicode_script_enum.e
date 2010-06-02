@@ -11,7 +11,7 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = invalid__code_low_level)  or else
+			Result := ((a_value = invalid_code_low_level)  or else
 				(a_value = inherited_low_level)  or else
 				(a_value = arabic_low_level)  or else
 				(a_value = armenian_low_level)  or else
@@ -41,7 +41,7 @@ feature -- Validity
 				(a_value = mongolian_low_level)  or else
 				(a_value = myanmar_low_level)  or else
 				(a_value = ogham_low_level)  or else
-				(a_value = old__italic_low_level)  or else
+				(a_value = old_italic_low_level)  or else
 				(a_value = oriya_low_level)  or else
 				(a_value = runic_low_level)  or else
 				(a_value = sinhala_low_level)  or else
@@ -51,7 +51,7 @@ feature -- Validity
 				(a_value = thaana_low_level)  or else
 				(a_value = thai_low_level)  or else
 				(a_value = tibetan_low_level)  or else
-				(a_value = canadian__aboriginal_low_level)  or else
+				(a_value = canadian_aboriginal_low_level)  or else
 				(a_value = yi_low_level)  or else
 				(a_value = tagalog_low_level)  or else
 				(a_value = hanunoo_low_level)  or else
@@ -62,29 +62,29 @@ feature -- Validity
 				(a_value = limbu_low_level)  or else
 				(a_value = osmanya_low_level)  or else
 				(a_value = shavian_low_level)  or else
-				(a_value = linear__b_low_level)  or else
-				(a_value = tai__le_low_level)  or else
+				(a_value = linear_b_low_level)  or else
+				(a_value = tai_le_low_level)  or else
 				(a_value = ugaritic_low_level)  or else
-				(a_value = new__tai__lue_low_level)  or else
+				(a_value = new_tai_lue_low_level)  or else
 				(a_value = buginese_low_level)  or else
 				(a_value = glagolitic_low_level)  or else
 				(a_value = tifinagh_low_level)  or else
-				(a_value = syloti__nagri_low_level)  or else
-				(a_value = old__persian_low_level)  or else
+				(a_value = syloti_nagri_low_level)  or else
+				(a_value = old_persian_low_level)  or else
 				(a_value = kharoshthi_low_level)  or else
 				(a_value = unknown_low_level)  or else
 				(a_value = balinese_low_level)  or else
 				(a_value = cuneiform_low_level)  or else
 				(a_value = phoenician_low_level)  or else
-				(a_value = phags__pa_low_level)  or else
+				(a_value = phags_pa_low_level)  or else
 				(a_value = nko_low_level)  or else
-				(a_value = kayah__li_low_level)  or else
+				(a_value = kayah_li_low_level)  or else
 				(a_value = lepcha_low_level)  or else
 				(a_value = rejang_low_level)  or else
 				(a_value = sundanese_low_level)  or else
 				(a_value = saurashtra_low_level)  or else
 				(a_value = cham_low_level)  or else
-				(a_value = ol__chiki_low_level)  or else
+				(a_value = ol_chiki_low_level)  or else
 				(a_value = vai_low_level)  or else
 				(a_value = carian_low_level)  or else
 				(a_value = lycian_low_level)  or else
@@ -93,9 +93,9 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_invalid__code is
+	set_invalid_code is
 		do
-			value := invalid__code_low_level
+			value := invalid_code_low_level
 		end
 
 	set_inherited is
@@ -243,9 +243,9 @@ feature -- Setters
 			value := ogham_low_level
 		end
 
-	set_old__italic is
+	set_old_italic is
 		do
-			value := old__italic_low_level
+			value := old_italic_low_level
 		end
 
 	set_oriya is
@@ -293,9 +293,9 @@ feature -- Setters
 			value := tibetan_low_level
 		end
 
-	set_canadian__aboriginal is
+	set_canadian_aboriginal is
 		do
-			value := canadian__aboriginal_low_level
+			value := canadian_aboriginal_low_level
 		end
 
 	set_yi is
@@ -348,14 +348,14 @@ feature -- Setters
 			value := shavian_low_level
 		end
 
-	set_linear__b is
+	set_linear_b is
 		do
-			value := linear__b_low_level
+			value := linear_b_low_level
 		end
 
-	set_tai__le is
+	set_tai_le is
 		do
-			value := tai__le_low_level
+			value := tai_le_low_level
 		end
 
 	set_ugaritic is
@@ -363,9 +363,9 @@ feature -- Setters
 			value := ugaritic_low_level
 		end
 
-	set_new__tai__lue is
+	set_new_tai_lue is
 		do
-			value := new__tai__lue_low_level
+			value := new_tai_lue_low_level
 		end
 
 	set_buginese is
@@ -383,14 +383,14 @@ feature -- Setters
 			value := tifinagh_low_level
 		end
 
-	set_syloti__nagri is
+	set_syloti_nagri is
 		do
-			value := syloti__nagri_low_level
+			value := syloti_nagri_low_level
 		end
 
-	set_old__persian is
+	set_old_persian is
 		do
-			value := old__persian_low_level
+			value := old_persian_low_level
 		end
 
 	set_kharoshthi is
@@ -418,9 +418,9 @@ feature -- Setters
 			value := phoenician_low_level
 		end
 
-	set_phags__pa is
+	set_phags_pa is
 		do
-			value := phags__pa_low_level
+			value := phags_pa_low_level
 		end
 
 	set_nko is
@@ -428,9 +428,9 @@ feature -- Setters
 			value := nko_low_level
 		end
 
-	set_kayah__li is
+	set_kayah_li is
 		do
-			value := kayah__li_low_level
+			value := kayah_li_low_level
 		end
 
 	set_lepcha is
@@ -458,9 +458,9 @@ feature -- Setters
 			value := cham_low_level
 		end
 
-	set_ol__chiki is
+	set_ol_chiki is
 		do
-			value := ol__chiki_low_level
+			value := ol_chiki_low_level
 		end
 
 	set_vai is
@@ -484,9 +484,9 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_invalid__code: BOOLEAN is
+	is_invalid_code: BOOLEAN is
 		do
-			Result := (value=invalid__code_low_level)
+			Result := (value=invalid_code_low_level)
 		end
 
 	is_inherited: BOOLEAN is
@@ -634,9 +634,9 @@ feature -- Queries
 			Result := (value=ogham_low_level)
 		end
 
-	is_old__italic: BOOLEAN is
+	is_old_italic: BOOLEAN is
 		do
-			Result := (value=old__italic_low_level)
+			Result := (value=old_italic_low_level)
 		end
 
 	is_oriya: BOOLEAN is
@@ -684,9 +684,9 @@ feature -- Queries
 			Result := (value=tibetan_low_level)
 		end
 
-	is_canadian__aboriginal: BOOLEAN is
+	is_canadian_aboriginal: BOOLEAN is
 		do
-			Result := (value=canadian__aboriginal_low_level)
+			Result := (value=canadian_aboriginal_low_level)
 		end
 
 	is_yi: BOOLEAN is
@@ -739,14 +739,14 @@ feature -- Queries
 			Result := (value=shavian_low_level)
 		end
 
-	is_linear__b: BOOLEAN is
+	is_linear_b: BOOLEAN is
 		do
-			Result := (value=linear__b_low_level)
+			Result := (value=linear_b_low_level)
 		end
 
-	is_tai__le: BOOLEAN is
+	is_tai_le: BOOLEAN is
 		do
-			Result := (value=tai__le_low_level)
+			Result := (value=tai_le_low_level)
 		end
 
 	is_ugaritic: BOOLEAN is
@@ -754,9 +754,9 @@ feature -- Queries
 			Result := (value=ugaritic_low_level)
 		end
 
-	is_new__tai__lue: BOOLEAN is
+	is_new_tai_lue: BOOLEAN is
 		do
-			Result := (value=new__tai__lue_low_level)
+			Result := (value=new_tai_lue_low_level)
 		end
 
 	is_buginese: BOOLEAN is
@@ -774,14 +774,14 @@ feature -- Queries
 			Result := (value=tifinagh_low_level)
 		end
 
-	is_syloti__nagri: BOOLEAN is
+	is_syloti_nagri: BOOLEAN is
 		do
-			Result := (value=syloti__nagri_low_level)
+			Result := (value=syloti_nagri_low_level)
 		end
 
-	is_old__persian: BOOLEAN is
+	is_old_persian: BOOLEAN is
 		do
-			Result := (value=old__persian_low_level)
+			Result := (value=old_persian_low_level)
 		end
 
 	is_kharoshthi: BOOLEAN is
@@ -809,9 +809,9 @@ feature -- Queries
 			Result := (value=phoenician_low_level)
 		end
 
-	is_phags__pa: BOOLEAN is
+	is_phags_pa: BOOLEAN is
 		do
-			Result := (value=phags__pa_low_level)
+			Result := (value=phags_pa_low_level)
 		end
 
 	is_nko: BOOLEAN is
@@ -819,9 +819,9 @@ feature -- Queries
 			Result := (value=nko_low_level)
 		end
 
-	is_kayah__li: BOOLEAN is
+	is_kayah_li: BOOLEAN is
 		do
-			Result := (value=kayah__li_low_level)
+			Result := (value=kayah_li_low_level)
 		end
 
 	is_lepcha: BOOLEAN is
@@ -849,9 +849,9 @@ feature -- Queries
 			Result := (value=cham_low_level)
 		end
 
-	is_ol__chiki: BOOLEAN is
+	is_ol_chiki: BOOLEAN is
 		do
-			Result := (value=ol__chiki_low_level)
+			Result := (value=ol_chiki_low_level)
 		end
 
 	is_vai: BOOLEAN is
@@ -875,7 +875,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	invalid__code_low_level: INTEGER is
+	invalid_code_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1145,7 +1145,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	old__italic_low_level: INTEGER is
+	old_italic_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1235,7 +1235,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	canadian__aboriginal_low_level: INTEGER is
+	canadian_aboriginal_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1334,7 +1334,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	linear__b_low_level: INTEGER is
+	linear_b_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1343,7 +1343,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tai__le_low_level: INTEGER is
+	tai_le_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1361,7 +1361,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	new__tai__lue_low_level: INTEGER is
+	new_tai_lue_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1397,7 +1397,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	syloti__nagri_low_level: INTEGER is
+	syloti_nagri_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1406,7 +1406,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	old__persian_low_level: INTEGER is
+	old_persian_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1460,7 +1460,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	phags__pa_low_level: INTEGER is
+	phags_pa_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1478,7 +1478,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	kayah__li_low_level: INTEGER is
+	kayah_li_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1532,7 +1532,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ol__chiki_low_level: INTEGER is
+	ol_chiki_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
