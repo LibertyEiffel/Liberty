@@ -33,6 +33,11 @@ feature {ANY}
 	depth: INTEGER
 	cluster: LIBERTY_CLUSTER
 
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := Current = other
+		end
+
 	needs: TRAVERSABLE[LIBERTY_ETC_NEEDS] is
 		do
 			Result := needs_memory
