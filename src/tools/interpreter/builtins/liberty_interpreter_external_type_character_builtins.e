@@ -28,7 +28,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			last_call_failed := False
 			target ::= builtin_call.target
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "code" then
 				Result := interpreter.new_integer_16(target.item.code, builtin_call.position)
 			when "to_integer_8" then

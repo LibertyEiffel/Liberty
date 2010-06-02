@@ -29,7 +29,7 @@ feature {EIFFEL_GRAMMAR}
 	non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE is
 		do
 			inspect
-				name.out
+				name
 			when "Class" then
 				create {LIBERTY_AST_CLASS} Result.make(name, names)
 			when "Classes" then
@@ -234,7 +234,7 @@ feature {EIFFEL_GRAMMAR}
 	terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
 		do
 			inspect
-				name.out
+				name
 			when "KW class name" then
 				create {LIBERTY_AST_CLASS_NAME} Result.make(name, image)
 			when "KW entity name" then

@@ -118,7 +118,7 @@ feature {}
 						end
 
 						inspect
-							key.out --| TODO: remove the '.out' when inspect on FIXED_STRING is implemented
+							key
 						when "location" then
 							if location /= Void then
 								interpreter.fatal_error("Duplicate %"location%" key", position)

@@ -26,7 +26,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 		do
 			last_call_failed := False
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "Minimum_character_code" then
 				Result := interpreter.new_integer_16(Minimum_character_code, builtin_call.position)
 			when "Maximum_character_code" then

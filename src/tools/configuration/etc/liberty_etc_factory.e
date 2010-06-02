@@ -26,7 +26,7 @@ feature {EIFFEL_GRAMMAR}
 			visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_LIST]]
 		do
 			inspect
-				name.out
+				name
 			when "Environment_Variable*" then
 				visitor := agent_environment_variable_list
 			when "Cluster*" then
@@ -48,7 +48,7 @@ feature {EIFFEL_GRAMMAR}
 			visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]]
 		do
 			inspect
-				name.out
+				name
 			when "Master" then
 				visitor := agent_master
 			when "Cluster_Definition" then

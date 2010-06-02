@@ -27,7 +27,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 		do
 			builtin_call.evaluate_parameters
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "call" then
 				target ::= builtin_call.target
 				target.call_agent(builtin_call.parameters, builtin_call.position)

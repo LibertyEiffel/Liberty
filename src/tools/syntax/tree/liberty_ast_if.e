@@ -57,7 +57,7 @@ feature {}
 	valid_name (a_name: like eiffel_name): BOOLEAN is
 		do
 			inspect
-				a_name.out
+				a_name
 			when "If", "ElseIf" then
 				Result := True
 			else

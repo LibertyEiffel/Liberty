@@ -26,7 +26,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			last_call_failed := False
 			builtin_call.evaluate_parameters
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "generating_type" then
 				Result := interpreter.new_string(builtin_call.target.type.full_name.out, builtin_call.position)
 			when "generator" then

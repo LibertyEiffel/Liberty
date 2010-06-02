@@ -101,7 +101,7 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	call_other (f: LIBERTY_FEATURE) is
 		do
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "to_character" then
 				returned := interpreter.new_character(target.to_character, builtin_call.position)
 			when "to_integer_8" then

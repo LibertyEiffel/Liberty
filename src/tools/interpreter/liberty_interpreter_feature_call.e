@@ -349,7 +349,7 @@ feature {LIBERTY_FEATURE_EXTERNAL}
 		do
 			if prepare then
 				inspect
-					v.external_def.out
+					v.external_def
 				when "built_in" then
 					-- nothing
 				when "plug_in" then
@@ -359,7 +359,7 @@ feature {LIBERTY_FEATURE_EXTERNAL}
 				end
 			else
 				inspect
-					v.external_def.out
+					v.external_def
 				when "built_in" then
 					interpreter.builtins.call(Current)
 				when "plug_in" then

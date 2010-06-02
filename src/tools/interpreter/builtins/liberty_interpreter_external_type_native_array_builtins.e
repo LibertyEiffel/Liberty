@@ -52,7 +52,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			last_call_failed := False
 			target ::= builtin_call.target
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "element_sizeof" then
 				Result := interpreter.new_integer(target.builtin_element_sizeof, builtin_call.position)
 				if Result = Void then

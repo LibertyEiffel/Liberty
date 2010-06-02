@@ -432,7 +432,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 				nt.lower = 0
 			end
 			inspect
-				nt.name_at(0).out
+				nt.name_at(0)
 			when "KW =" then
 				last_version_operator := agent_version_eq
 			when "KW <=" then

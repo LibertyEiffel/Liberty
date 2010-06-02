@@ -27,7 +27,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 		do
 			last_call_failed := False
 			inspect
-				builtin_call.name.out
+				builtin_call.name
 			when "is_not_null" then
 				target ::= builtin_call.target
 				Result := interpreter.new_boolean(target /= Void and then target.item.is_not_null, builtin_call.position)
