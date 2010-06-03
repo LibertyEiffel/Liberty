@@ -36,7 +36,7 @@ feature {ANY}
 				atom := atoms.item(i)
 				Result := atom.is_coherent
 				if not Result then
-					sedb_breakpoint
+					breakpoint
 				end
 				i := i + 1
 			end
@@ -114,7 +114,7 @@ feature {ANY}
 					std_output.put_line(once "--8<--------")
 					atoms.do_all(agent print_atom)
 					std_output.put_line(once "-------->8--")
-					sedb_breakpoint
+					breakpoint
 				end
 			end
 		end

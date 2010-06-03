@@ -1635,7 +1635,7 @@ feature {}
 			loop
 				Result := node_content.item(i + node_content.lower) = stack.item(stack.upper - node_content.count + 1 + i).name
 				if not Result then
-					sedb_breakpoint
+					breakpoint
 				end
 				i := i + 1
 			end

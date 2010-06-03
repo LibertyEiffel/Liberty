@@ -194,7 +194,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 			-- if type.full_name.out.is_equal(once "STD_OUTPUT") then
 			-- 	std_output.flush
-			-- 	sedb_breakpoint
+			-- 	breakpoint
 			-- end
 			Result := once "checking type"
 		end

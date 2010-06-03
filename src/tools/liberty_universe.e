@@ -70,7 +70,7 @@ feature {ANY}
 						std_output.put_string(once "Type is NOT READY: ")
 					end
 					std_output.put_line(target_type.full_name)
-					sedb_breakpoint
+					breakpoint
 				end
 			end
 		ensure

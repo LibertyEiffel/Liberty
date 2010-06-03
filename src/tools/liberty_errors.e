@@ -77,7 +77,7 @@ feature {ANY} -- Errors
 			if level < level_error then
 				emit
 			elseif level = level_error then
-				sedb_breakpoint
+				breakpoint
 			end
 			cancel_positions
 		ensure

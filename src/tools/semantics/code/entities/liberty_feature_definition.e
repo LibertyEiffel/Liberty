@@ -141,7 +141,7 @@ feature {ANY}
 
 			-- if feature_name.full_name.out.is_equal(once "is_connected") then
 			-- 	std_output.flush
-			-- 	sedb_breakpoint
+			-- 	breakpoint
 			-- end
 		end
 
@@ -329,7 +329,7 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 				std_output.put_string(with.the_feature.definition_type.full_name)
 				std_output.put_string(once " in type ")
 				std_output.put_line(type.full_name)
-				sedb_breakpoint
+				breakpoint
 			end
 			not_yet_implemented
 		ensure
@@ -356,7 +356,7 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 				std_output.put_string(with.the_feature.definition_type.full_name)
 				std_output.put_string(once " in type ")
 				std_output.put_line(type.full_name)
-				sedb_breakpoint
+				breakpoint
 			end
 			not_yet_implemented
 		ensure
@@ -418,7 +418,7 @@ feature {LIBERTY_ACTUAL_TYPE}
 						t := precursors.key(i)
 						f := precursors.item(i)
 						if precursors.fast_has(t) then
-							sedb_breakpoint
+							breakpoint
 						else
 							precursors.add(f, t)
 						end

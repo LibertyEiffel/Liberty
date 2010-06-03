@@ -127,7 +127,7 @@ feature {ANY}
 						if n < 0x00000080 then
 							backlog.add_last(n)
 						else
-							sedb_breakpoint
+							breakpoint
 							input.read_character
 							if not input.end_of_input then
 								if n & 0x000000e0 = 0x000000c0 then

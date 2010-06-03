@@ -526,7 +526,7 @@ feature {LIBERTY_FEATURE}
 			end
 
 			if child /= Current and then child.has_parent_binding(Current) then
-				sedb_breakpoint
+				breakpoint
 			end
 
 			debug ("feature.binding")
@@ -610,7 +610,7 @@ feature {LIBERTY_FEATURE}
 					end
 					Result := c.has_parent_binding(p)
 					if not Result then
-						sedb_breakpoint
+						breakpoint
 					end
 				end (child, ?)
 			)
@@ -618,7 +618,7 @@ feature {LIBERTY_FEATURE}
 				do
 					Result := p.is_bound(t) and then bound(t) = c
 					if not Result then
-						sedb_breakpoint
+						breakpoint
 					end
 				end (child, ?, type)
 			)
@@ -799,7 +799,7 @@ invariant
 		do
 			Result := c.has_parent_binding(Current)
 			if not Result then
-				sedb_breakpoint
+				breakpoint
 			end
 		end
 	)
@@ -813,7 +813,7 @@ invariant
 				c := p.bound(current_type)
 				Result := c = Current -- should be "c = Current" but for the `specialized_in' twin
 				if not Result then
-					sedb_breakpoint
+					breakpoint
 				end
 			else
 				Result := True

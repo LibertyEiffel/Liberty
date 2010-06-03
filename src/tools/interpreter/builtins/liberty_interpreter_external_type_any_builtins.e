@@ -52,7 +52,8 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 			when "trace_switch" then
 				-- se specific, does nothing
 			when "sedb_breakpoint" then
-				-- se specific, does nothing
+				-- se specific, should do nothing
+				interpreter.show_stack(std_output)
 			when "die_with_code" then
 				do_die_with_code(builtin_call.parameters.first)
 			when "to_pointer" then

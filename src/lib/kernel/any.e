@@ -339,7 +339,7 @@ feature {} -- Various useful tools:
 			-- Print Run Time Stack and then exit with `exit_failure_code'.
 		do
 			print_run_time_stack
-			sedb_breakpoint
+			breakpoint
 			die_with_code(exit_failure_code)
 		end
 
@@ -353,6 +353,11 @@ feature {} -- Various useful tools:
 			-- May be used in combination with option "-sedb" of command
 			-- `compile_to_c' to set a breakpoint for sedb, the SmartEiffel debugger.
 		external "built_in"
+		end
+
+	frozen breakpoint is
+		do
+			sedb_breakpoint
 		end
 
 	frozen die_with_code (code: INTEGER) is
@@ -369,7 +374,7 @@ feature {} -- Various useful tools:
 
 	not_yet_implemented is
 		do
-			sedb_breakpoint
+			breakpoint
 			std_error.put_string("[
 										 Some feature is not yet implemented (i.e. feature `not_yet_implemented' of
 										 class ANY has been called somewhere). Just run this code under the debugger

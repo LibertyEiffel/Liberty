@@ -542,7 +542,7 @@ feature {}
 				parse_element_child_list(validator)
 				skip_blanks
 				if not skip(')') then
-					sedb_breakpoint
+					breakpoint
 					set_error(once "Expected ')'")
 				else
 					skip_blanks
@@ -1080,7 +1080,7 @@ feature {}
 			line.append_in(error)
 			error.append(once ", column ")
 			column.append_in(error)
-			sedb_breakpoint
+			breakpoint
 		end
 
 	string_pool: RECYCLING_POOL[UNICODE_STRING] is

@@ -122,7 +122,7 @@ feature {}
 					fd /= parent_fd
 				end
 				if fd.has_precursor(parent) then
-					sedb_breakpoint
+					breakpoint
 				else
 					precursor_feature := fd.the_feature.specialized_in(type)
 					fd.add_precursor(precursor_feature, parent)
@@ -190,7 +190,7 @@ feature {}
 
 				-- if feature_name.full_name.out.is_equal(once "is_connected") then
 				-- 	std_output.flush
-				-- 	sedb_breakpoint
+				-- 	breakpoint
 				-- end
 
 				i := i + 1
@@ -319,7 +319,7 @@ feature {}
 
 					-- if feature_name.full_name.out.is_equal(once "is_connected") then
 					-- 	std_output.flush
-					-- 	sedb_breakpoint
+					-- 	breakpoint
 					-- end
 				end
 				i := i + 1
@@ -373,7 +373,7 @@ feature {}
 
 					-- if feature_name.full_name.out.is_equal(once "is_connected") then
 					-- 	std_output.flush
-					-- 	sedb_breakpoint
+					-- 	breakpoint
 					-- end
 
 					i := i + 1

@@ -54,7 +54,7 @@ feature {LIBERTY_ERRORS}
 		do
 			do_emit(stream, threshold)
 			if is_fatal then
-				sedb_breakpoint
+				breakpoint
 				die_with_code(1)
 			end
 		ensure

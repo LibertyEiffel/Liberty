@@ -79,7 +79,7 @@ feature {ANY}
 				std_error.put_string(name)
 				std_error.put_string(" in cluster ")
 				std_error.put_line(cluster.name)
-				sedb_breakpoint
+				breakpoint
 				die_with_code(1)
 			end
 			file := f.intern

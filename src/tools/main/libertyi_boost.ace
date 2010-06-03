@@ -3,7 +3,7 @@ system "libertyi_boost"
 root LIBERTYI: make
 
 default
-	assertion(boost)
+	assertion(no)
 	debug(no)
 	collect(yes)
 	verbose(yes)

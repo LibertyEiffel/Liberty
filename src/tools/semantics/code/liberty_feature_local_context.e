@@ -155,7 +155,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 				i := i + 1
 			end
 			if Result = Void then
-				sedb_breakpoint
+				breakpoint
 			end
 		end
 

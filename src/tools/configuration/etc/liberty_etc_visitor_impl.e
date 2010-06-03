@@ -350,7 +350,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
 			else
 				std_error.put_line("Strange file: " + location
 										 + " is neither a directory nor a regular file - cannot create the cluster")
-				sedb_breakpoint
+				breakpoint
 				die_with_code(1)
 			end
 		ensure
@@ -567,7 +567,7 @@ feature {}
 				else
 					std_error.put_line("Strange file: " + locations.item(i)
 											 + " is neither a directory nor a regular file - ignored")
-					sedb_breakpoint
+					breakpoint
 					locations.remove(i)
 				end
 			end

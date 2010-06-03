@@ -47,7 +47,7 @@ feature {}
 		local
 			i: INTEGER
 		do
-			sedb_breakpoint
+			breakpoint
 			from
 				i := update_error_handlers.lower
 			until

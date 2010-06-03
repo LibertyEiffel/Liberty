@@ -106,7 +106,6 @@ feature {}
 				kind
 			when "layout" then
 				Result := internals_from_generating_type(type)
-				sedb_breakpoint
 			when "reference" then
 				if not ref.is_equal(once "Void") then
 					if transient.has_object(ref) then

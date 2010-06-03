@@ -121,7 +121,7 @@ feature {}
 		do
 			-- Call is_finished to get a last opportunity to clean up
 			if not (is_connected implies is_finished) then
-				sedb_breakpoint
+				breakpoint
 			end
 			basic_exec_free_data(data)
 		end

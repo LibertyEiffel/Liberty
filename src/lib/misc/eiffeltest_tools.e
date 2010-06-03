@@ -24,7 +24,7 @@ feature {}
 	assert (test: BOOLEAN) is
 			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
 			-- `assert_counter' is incremented by one. When `test' is False, an error message is printed
-			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- on `std_output'; a `breakpoint' allow you to find out what is going wrong
 			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
@@ -35,7 +35,7 @@ feature {}
 	label_assert (label: STRING; test: BOOLEAN) is
 			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
 			-- `assert_counter' is incremented by one. When `test' is False, the label is printed
-			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- on `std_output'; a `breakpoint' allow you to find out what is going wrong
 			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
@@ -48,7 +48,7 @@ feature {}
 	message_assert (message_generator: FUNCTION[TUPLE, STRING]; test: BOOLEAN) is
 			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
 			-- `assert_counter' is incremented by one. When `test' is False, the generated message is printed
-			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- on `std_output'; a `breakpoint' allow you to find out what is going wrong
 			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
@@ -164,7 +164,7 @@ feature {}
 			std_output.put_string(ass_flag)
 			std_output.put_character('.')
 			std_output.put_new_line
-			sedb_breakpoint
+			breakpoint
 			die_with_code(1)
 		end
 

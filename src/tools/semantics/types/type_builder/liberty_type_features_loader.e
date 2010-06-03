@@ -326,7 +326,7 @@ feature {}
 
 				-- if feature_name.full_name.out.is_equal(once "is_connected") then
 				-- 	std_output.flush
-				-- 	sedb_breakpoint
+				-- 	breakpoint
 				-- end
 
 				if type.has_feature(feature_name) then
@@ -360,7 +360,7 @@ feature {}
 
 						-- if feature_name.full_name.out.is_equal(once "is_connected") then
 						-- 	std_output.flush
-						-- 	sedb_breakpoint
+						-- 	breakpoint
 						-- end
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
