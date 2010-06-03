@@ -53,7 +53,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 				-- se specific, does nothing
 			when "sedb_breakpoint" then
 				-- se specific, should do nothing
-				interpreter.show_stack(std_output)
+				interpreter.break
 			when "die_with_code" then
 				do_die_with_code(builtin_call.parameters.first)
 			when "to_pointer" then

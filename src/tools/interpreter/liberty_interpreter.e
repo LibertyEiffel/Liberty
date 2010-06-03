@@ -34,6 +34,23 @@ feature {LIBERTYI}
 		end
 
 feature {ANY}
+	break is
+		local
+			done: BOOLEAN
+		do
+			from
+			until
+				done
+			loop
+				std_output.put_string(once "debug> ")
+				std_input.read_line
+				done := debugger.break(std_input.last_string)
+				if std_input.end_of_input then
+					die_with_code(0)
+				end
+			end
+		end
+
 	show_stack (o: OUTPUT_STREAM) is
 		local
 			i: INTEGER
@@ -106,6 +123,7 @@ feature {ANY}
 	object_printer: LIBERTY_INTERPRETER_OBJECT_PRINTER
 	object_converter: LIBERTY_INTERPRETER_OBJECT_CONVERTER
 	postcondition_browser: LIBERTY_INTERPRETER_POSTCONDITION_BROWSER
+	debugger: LIBERTY_INTERPRETER_DEBUGGER
 
 	universe: LIBERTY_UNIVERSE
 
@@ -663,6 +681,7 @@ feature {}
 			create plugins.make(Current)
 			create object_printer.make(Current)
 			create object_converter.make(Current)
+			create debugger.make(Current)
 
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} call_stack.with_capacity(1024)
 			create {FAST_ARRAY[LIBERTY_INTERPRETER_FEATURE_CALL]} feature_evaluating_parameters.with_capacity(16)
@@ -718,5 +737,6 @@ invariant
 	feature_evaluating_parameters /= Void
 	evaluating_old_value_stack /= Void
 	postcondition_browser /= Void
+	debugger /= Void
 
 end -- class LIBERTY_INTERPRETER
