@@ -18,7 +18,7 @@ feature
 			Result:=attribute_at(once U"members")
 		end
 
-end
+end -- class COMPOSED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

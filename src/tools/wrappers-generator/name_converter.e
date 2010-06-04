@@ -17,6 +17,8 @@ feature {} -- Auxiliary features
 		-- language names and names of features of class ANY are escaped.
 	require 
 		name_not_void: a_name /= Void
+		name_not_empty: not a_name.is_empty
+
 	do
 		create Result.copy(a_name)
 		-- Remove header underscores.
@@ -27,7 +29,7 @@ feature {} -- Auxiliary features
 		if Result.first.is_digit then
 			Result.prepend(once "a_")
 		end
-		eiffellizer.substitute_all_in(Result)
+		insert_underscores(Result)
 		-- Remove spurious underscores and the end
 		from until Result.last/='_' loop Result.remove_last end
 		multiple_underscores_remover.substitute_all_in(Result)
@@ -55,17 +57,27 @@ feature {} -- Auxiliary features
 			-- Result := adapt(Result)
 		end
 
-	eiffellizer: REGULAR_EXPRESSION is
-			-- Translate CamelCase into Camel_Case
-		local
-			builder: REGULAR_EXPRESSION_BUILDER
-		once
-			-- Result := builder.convert_perl_pattern("\B([A-Z]+)")
-			-- Result.prepare_substitution("_\1")
-			Result := builder.convert_perl_pattern("(\B[A-Z]+[a-z]*)")
-			Result.prepare_substitution("\1_")
+	insert_underscores (a_string: STRING) is
+		-- Insert an underscore ('_') at each case switch of `a_string' except
+		-- at first and second character (from lower to upper and from upper to
+		-- lower )
+	require
+		a_string/=Void
+		not a_string.is_empty
+	local up, new_up: BOOLEAN; i: INTEGER
+	do
+		from i:=a_string.lower+1 
+		until i>a_string.upper loop
+			new_up := a_string.item(i).is_upper
+			if up /= new_up then
+				up := new_up
+				a_string.insert_character('_',i)
+				i:=i+2
+			else i:=i+1
+			end
 		end
-
+	end
+	
 	multiple_underscores_remover: REGULAR_EXPRESSION is
 			-- Replace all multiple occurences of underscore "_" with a single one
 		local

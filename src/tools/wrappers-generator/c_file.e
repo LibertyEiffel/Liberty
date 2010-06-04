@@ -20,14 +20,14 @@ feature
 		end
 
 	emit_wrapper is
-		-- Emit all the function contained into Current file into a deferred class.
+		-- Emits into a deferred class named like the file itself the wrappers
+		-- for all the function and the variable contained into Current file.
 	local 
-		my_functions: LINKED_LIST[C_FUNCTION]
+		file_functions: LINKED_LIST[C_FUNCTION]
 		header: STRING; path: POSIX_PATH_NAME
 	do
 		header := c_name.to_utf8
-		my_functions := functions.reference_at(id)
-		if my_functions/=Void and then is_to_be_emitted(header) then
+		if is_to_be_emitted(header) then
 			if on_standard_output then
 		 		log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
 		 		<<header>>)
@@ -44,7 +44,13 @@ feature
 		 		create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 		 	end
 		 	emit_header_on(output)
-			my_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
+
+			file_functions := functions.reference_at(id)
+			if file_functions/=Void then
+				file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
+			end
+
+
 			emit_footer_on(output)
 			output.disconnect
 		end
@@ -87,7 +93,7 @@ feature
 			create path.make_from_string(c_string_name)
 			stored_class_name := path.last
 			stored_class_name.remove_tail(path.extension.count)
-			eiffellizer.substitute_all_in(stored_class_name)
+			insert_underscores(stored_class_name)
 			-- Remove trailing underscores
 			from until stored_class_name.first/='_' loop stored_class_name.remove_first end
 			-- Remove spurious underscores at the end
@@ -100,7 +106,7 @@ feature
 	end
 
 -- invariant name.is_equal(once U"File")
-end
+end -- class C_FILE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

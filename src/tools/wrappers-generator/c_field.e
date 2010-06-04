@@ -110,8 +110,7 @@ feature
 
 feature {} -- Implementation
 	stored_parent: COMPOSED_NODE 
--- invariant name.is_equal(once U"Field")
-end
+end -- class C_FIELD
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

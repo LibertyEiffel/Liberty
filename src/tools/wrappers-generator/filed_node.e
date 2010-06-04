@@ -22,7 +22,7 @@ feature
 			Result:=files.reference_at(file_id)
 		end
 
-end
+end -- class FILED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

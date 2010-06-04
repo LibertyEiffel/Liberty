@@ -197,7 +197,7 @@ feature {ANY}
 			include.put_string(automatically_generated_c_file)
 			source.connect_to("plugin/c/plugin.c")
 			source.put_string(automatically_generated_c_file)
-			source.put_string("#include %"plugin.h%"")
+			--source.put_string("#include %"plugin.h%"")
 		ensure 
 			include.is_connected
 			source.is_connected

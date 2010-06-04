@@ -108,8 +108,7 @@ feature
 			if assigned_name/=Void then stored_class_name:=assigned_name.twin
 			else stored_class_name:=c_string_name.twin
 			end
-			-- Turn CamelCase into CAMEL_CASE
-			eiffellizer.substitute_all_in(stored_class_name)
+			insert_underscores(stored_class_name)
 			stored_class_name.append(suffix)
 			stored_class_name.to_upper
 			check 
@@ -329,7 +328,7 @@ feature {} -- Implementation
 	end
 	--invariant name.is_equal(once U"Enumeration")
 	
-end
+end -- class C_ENUM
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

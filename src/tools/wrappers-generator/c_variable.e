@@ -1,9 +1,16 @@
 class C_VARIABLE
 inherit 
 	GCCXML_NODE
+	STORABLE_NODE
+
 creation make
+feature 
+	store is
+		do
+			variables.store(Current)
+		end
 -- invariant name.is_equal(once U"Variable")
-end
+end -- class C_VARIABLE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

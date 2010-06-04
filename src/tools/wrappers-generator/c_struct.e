@@ -46,8 +46,7 @@ feature
 			if assigned_name/=Void then stored_class_name:=assigned_name.twin
 			else stored_class_name:=c_string_name.twin
 			end
-			-- Turn CamelCase into CAMEL_CASE
-			eiffellizer.substitute_all_in(stored_class_name)
+			insert_underscores(stored_class_name)
 
 			check 
 				is_public: stored_class_name.first/='_'
@@ -156,7 +155,7 @@ feature
 	-- The way struct class name is build require suffix not to have a trailing underscore.
 
 -- invariant name.is_equal(once U"Struct")
-end
+end -- class C_STRUCT
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

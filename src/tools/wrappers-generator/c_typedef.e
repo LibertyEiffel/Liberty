@@ -74,7 +74,7 @@ feature
 	end
 
 -- invariant name.is_equal(once U"Typedef")
-end
+end -- class C_TYPEDEF
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

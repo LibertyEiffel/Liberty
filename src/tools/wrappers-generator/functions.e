@@ -1,5 +1,6 @@
 class FUNCTIONS
 	-- Some GCC-XML nodes describing functions grouped by the id of the file they are defined into.
+obsolete "Use GROUPED_NODES"
 
 inherit HASHED_DICTIONARY[LINKED_LIST[C_FUNCTION], UNICODE_STRING]
 
@@ -20,7 +21,7 @@ feature
 			list.add_last(a_function)
 		end
 
-end	
+end	-- class FUNCTIONS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

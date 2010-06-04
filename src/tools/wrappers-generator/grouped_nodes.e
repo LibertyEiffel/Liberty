@@ -1,26 +1,26 @@
-deferred class CONTEXTED_NODE
-	-- A Gccxml node with "context" attribute
-inherit GCCXML_NODE
-insert SHARED_COLLECTIONS
+class GROUPED_NODES [NODE -> STORABLE_NODE]
+	-- Some GCC-XML nodes - usually describing nodes or functions - grouped by the id of the file they are defined into.
+
+inherit HASHED_DICTIONARY[LINKED_LIST[NODE], UNICODE_STRING]
+
+creation make
+
 feature 
-
-	context: UNICODE_STRING is 
-		do 
-			Result:=attribute_at(once U"context") 
-		ensure Result/=Void
-		end
-
-	namespace: C_NAMESPACE is
+	store (a_node: NODE) is
+		-- Store `a_node' into Current, creating the container list if necessary.
+		require a_node/=Void
+		local list: LINKED_LIST[NODE]; an_id: UNICODE_STRING
 		do
-			Result:=namespaces.reference_at(context)
+			an_id := a_node.file_id 
+			list := reference_at (an_id)
+			if list=Void then 
+				create list.make
+				add(list, an_id)
+			end
+			list.add_last(a_node)
 		end
 
-	is_in_main_namespace: BOOLEAN is
-		-- Does Current belong to the main ("::") namespace?
-	do
-		Result := namespace.c_name.is_equal(once U"::")
-	end
-end -- class CONTEXTED_NODE
+end	-- class GROUPED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

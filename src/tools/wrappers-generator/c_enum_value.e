@@ -132,9 +132,7 @@ feature {} -- Implementation
 	stored_eiffel_name: STRING
 		-- Buffered result of `eiffel_name' query
 
-
--- invariant name.is_equal(once U"EnumValue")
-end
+end -- class C_ENUM_VALUE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

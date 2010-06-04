@@ -8,7 +8,7 @@ feature
 		Result:=attribute_at(once U"id") 
 	ensure Result/=Void
 	end
-end
+end -- class IDENTIFIED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
