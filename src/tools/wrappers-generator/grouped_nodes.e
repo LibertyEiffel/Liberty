@@ -20,7 +20,7 @@ feature
 			list.add_last(a_node)
 		end
 
-end	-- class GROUPED_NODE
+end	-- class GROUPED_NODES
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

@@ -24,6 +24,7 @@ feature
 		-- for all the function and the variable contained into Current file.
 	local 
 		file_functions: LINKED_LIST[C_FUNCTION]
+		file_variables: LINKED_LIST[C_VARIABLE]
 		header: STRING; path: POSIX_PATH_NAME
 	do
 		header := c_name.to_utf8
@@ -50,6 +51,11 @@ feature
 				file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
 			end
 
+			file_variables := variables.reference_at(id)
+			if file_variables/=Void then
+				output.put_string(once "feature {} -- Variables%N")
+				file_variables.do_all(agent {C_VARIABLE}.wrap_on(output))
+			end
 
 			emit_footer_on(output)
 			output.disconnect

@@ -64,7 +64,9 @@ feature {ANY}
 	end
 
 	is_wrappable: BOOLEAN is
-		-- Are all arguments wrappable and is return type either void or wrappable? The variadic part of the function, the ellipsis ("...") is ignored. 
+		-- Are all arguments wrappable and its return type either void or
+		-- wrappable? The variadic part of the function, the ellipsis ("...")
+		-- is ignored. 
 	local i: INTEGER_32
 	do
 		Result := (return_type.is_void or return_type.has_wrapper)
