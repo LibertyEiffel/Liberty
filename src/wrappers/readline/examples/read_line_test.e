@@ -20,7 +20,16 @@ feature
 				end
 				read_line
 			end
-			print(history.first.out) --do_all (agent {HISTORY_ENTRY}
+			print("History entries:")
+			history.do_all (agent print_entry)
+		end
+
+
+	print_entry (x: HISTORY_ENTRY) is 
+	do
+		if x/=Void then 
+			print("'"+x.line+"'%N")
 		end
 	end 
+end 
 

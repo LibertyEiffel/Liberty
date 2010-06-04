@@ -1,4 +1,7 @@
 class READ_LINE_HISTORY
+	-- The history of read lines.
+
+	-- Note: items may be Void.
 
 inherit 
 	TRAVERSABLE[HISTORY_ENTRY] undefine is_equal end 
@@ -11,7 +14,7 @@ insert
 
 creation using_history
 
-feature -- State managing
+feature -- TODO: State managing
 	--  -- Function: HISTORY_STATE * history_get_history_state (void)
 --      Return a structure describing the current state of the input
 --      history.
@@ -127,7 +130,7 @@ feature -- 2.3.3 Information About the History List
 feature -- Moving Around the History List
 	new_iterator: ITERATOR[HISTORY_ENTRY] is
 	do
-		not_yet_implemented
+		create {HISTORY_ITERATOR} Result.make(Current)
 	end
 	-- These functions allow the current index into the history list to be set
 -- or changed.
