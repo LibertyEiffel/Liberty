@@ -27,6 +27,8 @@ feature
 
 	has_wrapper: BOOLEAN is False
 
+	c_type: STRING is "union" 
+
 	wrapper_type: STRING is
 		do
 			not_yet_implemented

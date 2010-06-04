@@ -29,6 +29,8 @@ feature
 	is_void: BOOLEAN is False
 
 	has_wrapper: BOOLEAN is False
+
+	c_type: STRING is "struct"
 	
 	wrapper_type: STRING is 
 		do

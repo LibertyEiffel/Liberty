@@ -11,6 +11,11 @@ feature
 		ensure fields/=Void
 		end
 
+	c_type: STRING is
+		-- The actual type - i.e struct, union - to be put into low level getter and setters code
+		deferred
+		end
+
 	fields: COLLECTION[C_FIELD]
 
 	members: UNICODE_STRING is
