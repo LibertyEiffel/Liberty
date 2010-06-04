@@ -64,13 +64,11 @@ feature {} -- Auxiliary features
 	require
 		a_string/=Void
 		not a_string.is_empty
-	local up, new_up: BOOLEAN; i: INTEGER
+	local i: INTEGER
 	do
-		from i:=a_string.lower+1 
+		from i:=a_string.lower+2
 		until i>a_string.upper loop
-			new_up := a_string.item(i).is_upper
-			if up /= new_up then
-				up := new_up
+			if 	a_string.item(i-1).is_upper /= a_string.item(i).is_upper then
 				a_string.insert_character('_',i)
 				i:=i+2
 			else i:=i+1
