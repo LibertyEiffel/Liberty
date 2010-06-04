@@ -2,33 +2,33 @@
 ** This file have been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
-#define k_eymap_entry_struct_get_type(a_structure) (((_keymap_entry*) a_structure).type)
+#define keymap_entry_struct_get_type(a_structure) (((_keymap_entry*) a_structure).type)
 
-#define k_eymap_entry_struct_set_type(a_structure,a_value) ((_keymap_entry)->type = a_value;
+#define keymap_entry_struct_set_type(a_structure,a_value) ((_keymap_entry)->type = a_value;
 
-#define k_eymap_entry_struct_get_function(a_structure) (((_keymap_entry*) a_structure).function)
+#define keymap_entry_struct_get_function(a_structure) (((_keymap_entry*) a_structure).function)
 
-#define k_eymap_entry_struct_set_function(a_structure,a_value) ((_keymap_entry)->function = a_value;
+#define keymap_entry_struct_set_function(a_structure,a_value) ((_keymap_entry)->function = a_value;
 
-#define f_unmap_struct_get_name(a_structure) (((_funmap*) a_structure).name)
+#define funmap_struct_get_name(a_structure) (((_funmap*) a_structure).name)
 
-#define f_unmap_struct_set_name(a_structure,a_value) ((_funmap)->name = a_value;
+#define funmap_struct_set_name(a_structure,a_value) ((_funmap)->name = a_value;
 
-#define f_unmap_struct_get_function(a_structure) (((_funmap*) a_structure).function)
+#define funmap_struct_get_function(a_structure) (((_funmap*) a_structure).function)
 
-#define f_unmap_struct_set_function(a_structure,a_value) ((_funmap)->function = a_value;
+#define funmap_struct_set_function(a_structure,a_value) ((_funmap)->function = a_value;
 
-#define h_ist_entry_struct_get_line(a_structure) (((_hist_entry*) a_structure).line)
+#define hist_entry_struct_get_line(a_structure) (((_hist_entry*) a_structure).line)
 
-#define h_ist_entry_struct_set_line(a_structure,a_value) ((_hist_entry)->line = a_value;
+#define hist_entry_struct_set_line(a_structure,a_value) ((_hist_entry)->line = a_value;
 
-#define h_ist_entry_struct_get_timestamp(a_structure) (((_hist_entry*) a_structure).timestamp)
+#define hist_entry_struct_get_timestamp(a_structure) (((_hist_entry*) a_structure).timestamp)
 
-#define h_ist_entry_struct_set_timestamp(a_structure,a_value) ((_hist_entry)->timestamp = a_value;
+#define hist_entry_struct_set_timestamp(a_structure,a_value) ((_hist_entry)->timestamp = a_value;
 
-#define h_ist_entry_struct_get_data(a_structure) (((_hist_entry*) a_structure).data)
+#define hist_entry_struct_get_data(a_structure) (((struct _hist_entry*) a_structure)->data)
 
-#define h_ist_entry_struct_set_data(a_structure,a_value) ((_hist_entry)->data = a_value;
+#define hist_entry_struct_set_data(a_structure,a_value) (((struct _hist_entry*)(a_structure))->data = (a_value));
 
 #define readline_state_struct_get_point(a_structure) (((readline_state*) a_structure).point)
 
@@ -114,43 +114,43 @@
 
 #define readline_state_struct_set_reserved(a_structure,a_value) ((readline_state)->reserved = a_value;
 
-#define u_ndo_list_struct_get_next(a_structure) (((undo_list*) a_structure).next)
+#define undo_list_struct_get_next(a_structure) (((undo_list*) a_structure).next)
 
-#define u_ndo_list_struct_set_next(a_structure,a_value) ((undo_list)->next = a_value;
+#define undo_list_struct_set_next(a_structure,a_value) ((undo_list)->next = a_value;
 
-#define u_ndo_list_struct_get_start(a_structure) (((undo_list*) a_structure).start)
+#define undo_list_struct_get_start(a_structure) (((undo_list*) a_structure).start)
 
-#define u_ndo_list_struct_set_start(a_structure,a_value) ((undo_list)->start = a_value;
+#define undo_list_struct_set_start(a_structure,a_value) ((undo_list)->start = a_value;
 
-#define u_ndo_list_struct_get_end_external(a_structure) (((undo_list*) a_structure).end)
+#define undo_list_struct_get_end_external(a_structure) (((undo_list*) a_structure).end)
 
-#define u_ndo_list_struct_set_end_external(a_structure,a_value) ((undo_list)->end = a_value;
+#define undo_list_struct_set_end_external(a_structure,a_value) ((undo_list)->end = a_value;
 
-#define u_ndo_list_struct_get_text(a_structure) (((undo_list*) a_structure).text)
+#define undo_list_struct_get_text(a_structure) (((undo_list*) a_structure).text)
 
-#define u_ndo_list_struct_set_text(a_structure,a_value) ((undo_list)->text = a_value;
+#define undo_list_struct_set_text(a_structure,a_value) ((undo_list)->text = a_value;
 
-#define u_ndo_list_struct_get_what(a_structure) (((undo_list*) a_structure).what)
+#define undo_list_struct_get_what(a_structure) (((undo_list*) a_structure).what)
 
-#define u_ndo_list_struct_set_what(a_structure,a_value) ((undo_list)->what = a_value;
+#define undo_list_struct_set_what(a_structure,a_value) ((undo_list)->what = a_value;
 
-#define h_istory_state_struct_get_entries(a_structure) (((_hist_state*) a_structure).entries)
+#define history_state_struct_get_entries(a_structure) (((_hist_state*) a_structure).entries)
 
-#define h_istory_state_struct_set_entries(a_structure,a_value) ((_hist_state)->entries = a_value;
+#define history_state_struct_set_entries(a_structure,a_value) ((_hist_state)->entries = a_value;
 
-#define h_istory_state_struct_get_offset(a_structure) (((_hist_state*) a_structure).offset)
+#define history_state_struct_get_offset(a_structure) (((_hist_state*) a_structure).offset)
 
-#define h_istory_state_struct_set_offset(a_structure,a_value) ((_hist_state)->offset = a_value;
+#define history_state_struct_set_offset(a_structure,a_value) ((_hist_state)->offset = a_value;
 
-#define h_istory_state_struct_get_length(a_structure) (((_hist_state*) a_structure).length)
+#define history_state_struct_get_length(a_structure) (((_hist_state*) a_structure).length)
 
-#define h_istory_state_struct_set_length(a_structure,a_value) ((_hist_state)->length = a_value;
+#define history_state_struct_set_length(a_structure,a_value) ((_hist_state)->length = a_value;
 
-#define h_istory_state_struct_get_size(a_structure) (((_hist_state*) a_structure).size)
+#define history_state_struct_get_size(a_structure) (((_hist_state*) a_structure).size)
 
-#define h_istory_state_struct_set_size(a_structure,a_value) ((_hist_state)->size = a_value;
+#define history_state_struct_set_size(a_structure,a_value) ((_hist_state)->size = a_value;
 
-#define h_istory_state_struct_get_flags(a_structure) (((_hist_state*) a_structure).flags)
+#define history_state_struct_get_flags(a_structure) (((_hist_state*) a_structure).flags)
 
-#define h_istory_state_struct_set_flags(a_structure,a_value) ((_hist_state)->flags = a_value;
+#define history_state_struct_set_flags(a_structure,a_value) ((_hist_state)->flags = a_value;
 

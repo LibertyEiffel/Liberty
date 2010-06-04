@@ -6,9 +6,6 @@ deferred class READ_LINE
 insert
 	WRAPPER_HANDLER
 	READLINE_EXTERNALS
-	HISTORY_EXTERNALS
-		export {ANY} using_history
-		end
 
 feature -- Read line
 	prompt: ABSTRACT_STRING 
@@ -25,6 +22,8 @@ feature -- Read line
 		create last_line.from_external(p)
 	ensure last_line/=Void
 	end
+
+	history: READ_LINE_HISTORY is once create Result.using_history end
 
 feature -- TODO: History
 end

@@ -11,10 +11,16 @@ feature
 			prompt := "Liberty> "
 			from read_line until last_line.is_empty loop
 				if last_line/=Void then 
-					print("I got `") print(last_line) print("'%N")
+					if last_line.count>3 then 
+						print("Adding `") print(last_line) print("' to history.%N")
+						history.add(last_line)
+					else
+						print("Got `") print(last_line) print("'.%N")
+					end
 				end
 				read_line
 			end
+			print(history.first.out) --do_all (agent {HISTORY_ENTRY}
 		end
 	end 
 

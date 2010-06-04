@@ -11,46 +11,46 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = d_elete_low_level)  or else
-				(a_value = b_egin_low_level)  or else
-				(a_value = e_nd_low_level) )
+			Result := ((a_value = delete_low_level)  or else
+				(a_value = begin_low_level)  or else
+				(a_value = end_external_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_d_elete is
+	set_delete is
 		do
-			value := d_elete_low_level
+			value := delete_low_level
 		end
 
-	set_b_egin is
+	set_begin is
 		do
-			value := b_egin_low_level
+			value := begin_low_level
 		end
 
-	set_e_nd is
+	set_end_external is
 		do
-			value := e_nd_low_level
+			value := end_external_low_level
 		end
 
 feature -- Queries
-	is_d_elete: BOOLEAN is
+	is_delete: BOOLEAN is
 		do
-			Result := (value=d_elete_low_level)
+			Result := (value=delete_low_level)
 		end
 
-	is_b_egin: BOOLEAN is
+	is_begin: BOOLEAN is
 		do
-			Result := (value=b_egin_low_level)
+			Result := (value=begin_low_level)
 		end
 
-	is_e_nd: BOOLEAN is
+	is_end_external: BOOLEAN is
 		do
-			Result := (value=e_nd_low_level)
+			Result := (value=end_external_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	d_elete_low_level: INTEGER is
+	delete_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +59,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	b_egin_low_level: INTEGER is
+	begin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	e_nd_low_level: INTEGER is
+	end_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

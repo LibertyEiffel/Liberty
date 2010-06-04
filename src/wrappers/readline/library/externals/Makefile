@@ -3,7 +3,7 @@
 GCCXML_COMPILER = gcc-4.2
 
 wrappers: readline.gcc-xml
-	wrappers-generator --typedefs READLINE_TYPES --local --directory . readline.gcc-xml /usr/include/readline/*.h  
+	wrappers-generator --verbose --typedefs READLINE_TYPES --local --directory . readline.gcc-xml /usr/include/readline/*.h  
 
 readline.gcc-xml:/usr/include/readline/
 	gccxml -fxml=readline.gcc-xml readline.h

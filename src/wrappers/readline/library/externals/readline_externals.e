@@ -2499,5 +2499,736 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	rl_completer_word_break_characters: POINTER is
+ 		-- rl_completer_word_break_characters (node at line 642)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completer_word_break_characters"
+		}"
+		end
+
+	rl_completion_mark_symlink_dirs: INTEGER_32 is
+ 		-- rl_completion_mark_symlink_dirs (node at line 783)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_mark_symlink_dirs"
+		}"
+		end
+
+	rl_event_hook: POINTER is
+ 		-- rl_event_hook (node at line 562)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_event_hook"
+		}"
+		end
+
+	rl_completion_invoking_key: INTEGER_32 is
+ 		-- rl_completion_invoking_key (node at line 743)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_invoking_key"
+		}"
+		end
+
+	rl_filename_quoting_function: POINTER is
+ 		-- rl_filename_quoting_function (node at line 721)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_quoting_function"
+		}"
+		end
+
+	rl_completion_query_items: INTEGER_32 is
+ 		-- rl_completion_query_items (node at line 748)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_query_items"
+		}"
+		end
+
+	rl_done: INTEGER_32 is
+ 		-- rl_done (node at line 519)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_done"
+		}"
+		end
+
+	rl_completion_entry_function: POINTER is
+ 		-- rl_completion_entry_function (node at line 611)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_entry_function"
+		}"
+		end
+
+	rl_numeric_arg: INTEGER_32 is
+ 		-- rl_numeric_arg (node at line 534)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_numeric_arg"
+		}"
+		end
+
+	rl_directory_rewrite_hook: POINTER is
+ 		-- rl_directory_rewrite_hook (node at line 680)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_directory_rewrite_hook"
+		}"
+		end
+
+	rl_basic_quote_characters: POINTER is
+ 		-- rl_basic_quote_characters (node at line 656)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_basic_quote_characters"
+		}"
+		end
+
+	rl_dispatching: INTEGER_32 is
+ 		-- rl_dispatching (node at line 527)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_dispatching"
+		}"
+		end
+
+	rl_ignore_some_completions_function: POINTER is
+ 		-- rl_ignore_some_completions_function (node at line 623)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_ignore_some_completions_function"
+		}"
+		end
+
+	rl_erase_empty_line: INTEGER_32 is
+ 		-- rl_erase_empty_line (node at line 581)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_erase_empty_line"
+		}"
+		end
+
+	rl_binding_keymap: POINTER is
+ 		-- rl_binding_keymap (node at line 575)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_binding_keymap"
+		}"
+		end
+
+	rl_prep_term_function: POINTER is
+ 		-- rl_prep_term_function (node at line 570)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_prep_term_function"
+		}"
+		end
+
+	rl_prefer_env_winsize: INTEGER_32 is
+ 		-- rl_prefer_env_winsize (node at line 549)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_prefer_env_winsize"
+		}"
+		end
+
+	rl_filename_dequoting_function: POINTER is
+ 		-- rl_filename_dequoting_function (node at line 726)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_dequoting_function"
+		}"
+		end
+
+	rl_completer_quote_characters: POINTER is
+ 		-- rl_completer_quote_characters (node at line 653)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completer_quote_characters"
+		}"
+		end
+
+	rl_mark: INTEGER_32 is
+ 		-- rl_mark (node at line 515)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_mark"
+		}"
+		end
+
+	rl_readline_state: INTEGER_32 is
+ 		-- rl_readline_state (node at line 485)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_state"
+		}"
+		end
+
+	rl_terminal_name: POINTER is
+ 		-- rl_terminal_name (node at line 540)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_terminal_name"
+		}"
+		end
+
+	rl_completion_type: INTEGER_32 is
+ 		-- rl_completion_type (node at line 740)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_type"
+		}"
+		end
+
+	rl_inhibit_completion: INTEGER_32 is
+ 		-- rl_inhibit_completion (node at line 790)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_inhibit_completion"
+		}"
+		end
+
+	rl_filename_quote_characters: POINTER is
+ 		-- rl_filename_quote_characters (node at line 659)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_quote_characters"
+		}"
+		end
+
+	rl_catch_sigwinch: INTEGER_32 is
+ 		-- rl_catch_sigwinch (node at line 605)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_catch_sigwinch"
+		}"
+		end
+
+	rl_completion_word_break_hook: POINTER is
+ 		-- rl_completion_word_break_hook (node at line 647)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_word_break_hook"
+		}"
+		end
+
+	rl_completion_quote_character: INTEGER_32 is
+ 		-- rl_completion_quote_character (node at line 760)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_quote_character"
+		}"
+		end
+
+	rl_special_prefixes: POINTER is
+ 		-- rl_special_prefixes (node at line 664)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_special_prefixes"
+		}"
+		end
+
+	funmap: POINTER is
+ 		-- funmap (node at line 74)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "funmap"
+		}"
+		end
+
+	rl_completion_display_matches_hook: POINTER is
+ 		-- rl_completion_display_matches_hook (node at line 703)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_display_matches_hook"
+		}"
+		end
+
+	rl_outstream: POINTER is
+ 		-- rl_outstream (node at line 544)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_outstream"
+		}"
+		end
+
+	rl_filename_quoting_desired: INTEGER_32 is
+ 		-- rl_filename_quoting_desired (node at line 715)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_quoting_desired"
+		}"
+		end
+
+	rl_library_version: POINTER is
+ 		-- rl_library_version (node at line 478)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_library_version"
+		}"
+		end
+
+	rl_filename_completion_desired: INTEGER_32 is
+ 		-- rl_filename_completion_desired (node at line 708)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_completion_desired"
+		}"
+		end
+
+	rl_executing_keymap: POINTER is
+ 		-- rl_executing_keymap (node at line 574)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_executing_keymap"
+		}"
+		end
+
+	rl_menu_completion_entry_function: POINTER is
+ 		-- rl_menu_completion_entry_function (node at line 615)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_menu_completion_entry_function"
+		}"
+		end
+
+	rl_readline_version: INTEGER_32 is
+ 		-- rl_readline_version (node at line 479)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_version"
+		}"
+		end
+
+	rl_undo_list: POINTER is
+ 		-- rl_undo_list (node at line 66)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_undo_list"
+		}"
+		end
+
+	rl_filename_rewrite_hook: POINTER is
+ 		-- rl_filename_rewrite_hook (node at line 691)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_rewrite_hook"
+		}"
+		end
+
+	rl_pending_input: INTEGER_32 is
+ 		-- rl_pending_input (node at line 522)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_pending_input"
+		}"
+		end
+
+	rl_deprep_term_function: POINTER is
+ 		-- rl_deprep_term_function (node at line 571)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_deprep_term_function"
+		}"
+		end
+
+	rl_num_chars_to_read: INTEGER_32 is
+ 		-- rl_num_chars_to_read (node at line 590)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_num_chars_to_read"
+		}"
+		end
+
+	rl_attempted_completion_over: INTEGER_32 is
+ 		-- rl_attempted_completion_over (node at line 735)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_attempted_completion_over"
+		}"
+		end
+
+	rl_completion_suppress_quote: INTEGER_32 is
+ 		-- rl_completion_suppress_quote (node at line 769)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_suppress_quote"
+		}"
+		end
+
+	rl_line_buffer: POINTER is
+ 		-- rl_line_buffer (node at line 508)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_line_buffer"
+		}"
+		end
+
+	rl_pre_input_hook: POINTER is
+ 		-- rl_pre_input_hook (node at line 558)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_pre_input_hook"
+		}"
+		end
+
+	rl_insert_mode: INTEGER_32 is
+ 		-- rl_insert_mode (node at line 493)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_insert_mode"
+		}"
+		end
+
+	rl_completion_suppress_append: INTEGER_32 is
+ 		-- rl_completion_suppress_append (node at line 756)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_suppress_append"
+		}"
+		end
+
+	rl_redisplay_function: POINTER is
+ 		-- rl_redisplay_function (node at line 568)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_redisplay_function"
+		}"
+		end
+
+	rl_readline_name: POINTER is
+ 		-- rl_readline_name (node at line 497)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_name"
+		}"
+		end
+
+	rl_explicit_arg: INTEGER_32 is
+ 		-- rl_explicit_arg (node at line 531)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_explicit_arg"
+		}"
+		end
+
+	rl_editing_mode: INTEGER_32 is
+ 		-- rl_editing_mode (node at line 489)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_editing_mode"
+		}"
+		end
+
+	rl_end: INTEGER_32 is
+ 		-- rl_end (node at line 512)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_end"
+		}"
+		end
+
+	rl_directory_completion_hook: POINTER is
+ 		-- rl_directory_completion_hook (node at line 671)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_directory_completion_hook"
+		}"
+		end
+
+	rl_point: INTEGER_32 is
+ 		-- rl_point (node at line 511)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_point"
+		}"
+		end
+
+	rl_executing_macro: POINTER is
+ 		-- rl_executing_macro (node at line 593)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_executing_macro"
+		}"
+		end
+
+	rl_catch_signals: INTEGER_32 is
+ 		-- rl_catch_signals (node at line 598)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_catch_signals"
+		}"
+		end
+
+	rl_char_is_quoted_p: POINTER is
+ 		-- rl_char_is_quoted_p (node at line 731)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_char_is_quoted_p"
+		}"
+		end
+
+	rl_getc_function: POINTER is
+ 		-- rl_getc_function (node at line 566)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_getc_function"
+		}"
+		end
+
+	rl_sort_completion_matches: INTEGER_32 is
+ 		-- rl_sort_completion_matches (node at line 772)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_sort_completion_matches"
+		}"
+		end
+
+	rl_display_prompt: POINTER is
+ 		-- rl_display_prompt (node at line 505)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_display_prompt"
+		}"
+		end
+
+	rl_prompt: POINTER is
+ 		-- rl_prompt (node at line 501)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_prompt"
+		}"
+		end
+
+	rl_last_func: POINTER is
+ 		-- rl_last_func (node at line 537)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_last_func"
+		}"
+		end
+
+	rl_gnu_readline_p: INTEGER_32 is
+ 		-- rl_gnu_readline_p (node at line 482)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_gnu_readline_p"
+		}"
+		end
+
+	rl_already_prompted: INTEGER_32 is
+ 		-- rl_already_prompted (node at line 586)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_already_prompted"
+		}"
+		end
+
+	rl_completion_found_quote: INTEGER_32 is
+ 		-- rl_completion_found_quote (node at line 764)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_found_quote"
+		}"
+		end
+
+	rl_attempted_completion_function: POINTER is
+ 		-- rl_attempted_completion_function (node at line 632)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_attempted_completion_function"
+		}"
+		end
+
+	rl_ignore_completion_duplicates: INTEGER_32 is
+ 		-- rl_ignore_completion_duplicates (node at line 786)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_ignore_completion_duplicates"
+		}"
+		end
+
+	rl_basic_word_break_characters: POINTER is
+ 		-- rl_basic_word_break_characters (node at line 637)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_basic_word_break_characters"
+		}"
+		end
+
+	rl_startup_hook: POINTER is
+ 		-- rl_startup_hook (node at line 553)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_startup_hook"
+		}"
+		end
+
+	rl_completion_append_character: INTEGER_32 is
+ 		-- rl_completion_append_character (node at line 752)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_append_character"
+		}"
+		end
+
+	rl_instream: POINTER is
+ 		-- rl_instream (node at line 543)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_instream"
+		}"
+		end
+
 
 end -- class READLINE_EXTERNALS

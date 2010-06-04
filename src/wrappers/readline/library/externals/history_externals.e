@@ -339,5 +339,136 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	history_word_delimiters: POINTER is
+ 		-- history_word_delimiters (node at line 247)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_word_delimiters"
+		}"
+		end
+
+	history_search_delimiter_chars: POINTER is
+ 		-- history_search_delimiter_chars (node at line 250)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_search_delimiter_chars"
+		}"
+		end
+
+	max_input_history: INTEGER_32 is
+ 		-- max_input_history (node at line 256)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "max_input_history"
+		}"
+		end
+
+	history_base: INTEGER_32 is
+ 		-- history_base (node at line 242)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_base"
+		}"
+		end
+
+	history_subst_char: CHARACTER is
+ 		-- history_subst_char (node at line 246)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_subst_char"
+		}"
+		end
+
+	history_max_entries: INTEGER_32 is
+ 		-- history_max_entries (node at line 244)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_max_entries"
+		}"
+		end
+
+	history_inhibit_expansion_function: POINTER is
+ 		-- history_inhibit_expansion_function (node at line 261)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_inhibit_expansion_function"
+		}"
+		end
+
+	history_length: INTEGER_32 is
+ 		-- history_length (node at line 243)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_length"
+		}"
+		end
+
+	history_expansion_char: CHARACTER is
+ 		-- history_expansion_char (node at line 245)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_expansion_char"
+		}"
+		end
+
+	history_no_expand_chars: POINTER is
+ 		-- history_no_expand_chars (node at line 249)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_no_expand_chars"
+		}"
+		end
+
+	history_write_timestamps: INTEGER_32 is
+ 		-- history_write_timestamps (node at line 253)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_write_timestamps"
+		}"
+		end
+
+	history_comment_char: CHARACTER is
+ 		-- history_comment_char (node at line 248)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_comment_char"
+		}"
+		end
+
+	history_quotes_inhibit_expansion: INTEGER_32 is
+ 		-- history_quotes_inhibit_expansion (node at line 251)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "history_quotes_inhibit_expansion"
+		}"
+		end
+
 
 end -- class HISTORY_EXTERNALS
