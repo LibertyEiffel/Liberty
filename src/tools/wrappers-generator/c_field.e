@@ -99,9 +99,11 @@ feature
 				-- -- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- -- be less type-strict-paranoid here and use some type-casts.
 
-				-- TODO: the next print_on commands cause compiler crash if they operate on a ROPE, made using the "|" operator instead of +.
-				("#define "+getter+"(a_structure) ((("+container.c_string_name+"*) a_structure)."+c_string_name+")%N%N").print_on(include)
-				("#define "+setter+"(a_structure,a_value) (("+container.c_string_name+")->"+c_string_name+" = a_value;%N%N").print_on(include)
+				-- TODO: the next print_on commands cause compiler crash if
+				-- they operate on a ROPE, made using the "|" operator instead
+				-- of +.
+				("#define "+getter+"(a_structure) ((("+container.c_type+" "+container.c_string_name+"*) (a_structure))->"+c_string_name+")%N%N").print_on(include)
+				("#define "+setter+"(a_structure,a_value) ((("+container.c_type+" "+container.c_string_name+"*)(a_structur)e)))->"+c_string_name+" = a_value;%N%N").print_on(include)
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable.", <<c_string_name, a_structure_name>>)
 				queries.put_message(once "%T-- Unwrappable field @(1).%N", <<c_string_name>>)
@@ -110,8 +112,7 @@ feature
 
 feature {} -- Implementation
 	stored_parent: COMPOSED_NODE 
--- invariant name.is_equal(once U"Field")
-end
+end -- class C_FIELD
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

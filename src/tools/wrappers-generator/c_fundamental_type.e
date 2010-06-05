@@ -87,7 +87,7 @@ feature {} -- Implementation
 		ensure is_wrapper_computed=True
 		end
 -- invariant name.is_equal(once U"FundamentalType")
-end
+end -- class C_FUNDAMENTAL_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

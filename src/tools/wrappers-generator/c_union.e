@@ -27,12 +27,14 @@ feature
 
 	has_wrapper: BOOLEAN is False
 
+	c_type: STRING is "union" 
+
 	wrapper_type: STRING is
 		do
 			not_yet_implemented
 		end
 -- invariant name.is_equal(once U"Union")
-end
+end -- class C_UNION
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

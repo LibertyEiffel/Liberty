@@ -1,26 +1,27 @@
-class FUNCTIONS
-	-- Some GCC-XML nodes describing functions grouped by the id of the file they are defined into.
+class GROUPED_NODES [NODE -> STORABLE_NODE]
+	-- Some GCC-XML nodes - usually describing nodes or functions - grouped by the id of the file they are defined into.
 
-inherit HASHED_DICTIONARY[LINKED_LIST[C_FUNCTION], UNICODE_STRING]
+inherit HASHED_DICTIONARY[LINKED_LIST[NODE], UNICODE_STRING]
 
 creation make
 
 feature 
-	store (a_function: C_FUNCTION) is
-		-- Store `a_function' into Current, creating the container list if necessary.
-		require a_function/=Void
-		local list: LINKED_LIST[C_FUNCTION]; an_id: UNICODE_STRING
+	store (a_node: NODE) is
+		-- Store `a_node' into Current, creating the container list if necessary.
+		require a_node/=Void
+		local list: LINKED_LIST[NODE]; an_id: UNICODE_STRING
 		do
-			an_id := a_function.file_id 
+			an_id := a_node.file_id 
 			list := reference_at (an_id)
 			if list=Void then 
 				create list.make
 				add(list, an_id)
 			end
-			list.add_last(a_function)
+			list.add_last(a_node)
 		end
 
-end	
+end	-- class GROUPED_NODES
+
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

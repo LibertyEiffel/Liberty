@@ -1,0 +1,1 @@
+Ctrl-D triggers a non-null check and makes the application fail.

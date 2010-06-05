@@ -1,9 +1,74 @@
 class C_VARIABLE
 inherit 
 	GCCXML_NODE
+	CONTEXTED_NODE
+	IDENTIFIED_NODE
+	FILED_NODE
+	NAMED_NODE
+	STORABLE_NODE
+	TYPED_NODE
+	WRAPPABLE_NODE
+
 creation make
--- invariant name.is_equal(once U"Variable")
-end
+feature 
+	store is
+		do
+			variables.store(Current)
+		end
+
+	wrap_on (a_stream: OUTPUT_STREAM) is 
+        do
+			if not has_wrapper then
+				log("Variable `@(1)' does not have a wrapper type%N", <<c_string_name>>) 
+				buffer.reset
+				buffer.put_message(once "	-- Variable @(1) (at line @(2) in file @(3) is does not have a wrapper type%N",
+				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
+				-- TODO: provide the reason; using developer_exception_name
+				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
+			elseif not is_public then
+				log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
+				buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)
+			elseif not is_in_main_namespace then
+				log(once "Skipping variable `@(1)' belonging to namespace @(2)%N",
+				<<c_string_name, namespace.c_string_name>>)
+				buffer.put_message(once "%T-- variable @(1) in namespace @(2) skipped.%N",
+				<<c_string_name, namespace.c_string_name>>)
+			else
+				log(once "Variable @(1)%N",<<c_string_name>>)
+				buffer.put_message(once "%T@(1): @(2) is%N%
+				% 		-- @(1) (node at line @(3))%N%
+				%		external %"plug_in%"%N%
+				%		alias %"{%N%
+				%			location: %".%"%N%
+				%			module_name: %"plugin%"%N%
+				%			feature_name: %"@(4)%"%N%
+				%		}%"%N%
+				%		end%N%N",
+				<<eiffel_feature(c_string_name), wrapper_type, 
+				line_row.to_utf8, c_string_name>>)
+				-- TODO append description 
+			end
+			buffer.print_on(a_stream)
+		end
+
+	is_void: BOOLEAN is False
+	
+ 	wrapper_type: STRING is
+		do
+			Result:=types.at(dequalify(type)).wrapper_type
+		end
+
+
+	has_wrapper: BOOLEAN is
+		do
+			Result:=types.at(dequalify(type)).has_wrapper
+		end
+
+	is_fundamental: BOOLEAN is
+		do
+			Result:=types.at(dequalify(type)).is_fundamental
+		end
+end -- class C_VARIABLE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

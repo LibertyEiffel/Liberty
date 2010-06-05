@@ -18,7 +18,7 @@ feature
 				i:=i+1
 			end
 		end
-end
+end -- class GCCXML_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

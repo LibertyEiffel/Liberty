@@ -54,7 +54,8 @@ feature
 		do
 			Result:= assigned_name/=Void
 		end
-end
+end -- class TYPED_NODE
+
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

@@ -1,0 +1,7 @@
+Liberty interface to the GNU readline library.
+
+These wrappers starts being deliberately minimalist and will evolve alongside
+with examples provieded with the C library that I will translate from C to
+Liberty.
+
+

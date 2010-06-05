@@ -172,8 +172,7 @@ feature -- Descriptions
 		create Result.make
 	end
 
-
-end
+end -- class DESCRIPTIONS
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

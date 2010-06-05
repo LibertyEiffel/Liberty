@@ -22,7 +22,7 @@ feature
 	require a_buffer/=Void
 	deferred
 	end
-end
+end -- class C_FUNCTION_ARGUMENT
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

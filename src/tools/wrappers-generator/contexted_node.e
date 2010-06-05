@@ -20,7 +20,7 @@ feature
 	do
 		Result := namespace.c_name.is_equal(once U"::")
 	end
-end
+end -- class CONTEXTED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

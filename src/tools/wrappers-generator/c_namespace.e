@@ -14,7 +14,7 @@ feature
 		end
 
 -- invariant name.is_equal(once "Namespace")
-end
+end -- class C_NAMESPACE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
