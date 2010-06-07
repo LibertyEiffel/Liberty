@@ -24,4 +24,8 @@ feature
 				create Result.from_external(p)
 			end
 		end
+
+	--  -- Function: time_t history_get_time (HIST_ENTRY *entry)
+--      Return the time stamp associated with the history entry ENTRY.
+	
 end

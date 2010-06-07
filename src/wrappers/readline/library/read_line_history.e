@@ -38,11 +38,19 @@ feature -- 	 History List Management
 		add_history_time (a_stamp.to_external)
 	end
 
-	remove (an_offset: INTEGER) is
-		-- Remove history entry at `an_offset' WHICH from the history. TODO: model in Eiffel this "The removed element is returned so you can free the line, data, and containing structure."
+	remove (an_offset: INTEGER): HISTORY_ENTRY is
+		-- The history entry at `an_offset' removed from the history. 
+		-- Note: the C library returns the removed element in order to free the
+		-- line, data, and containing structure. This may be useful for an
+		-- higher level interface to the library. Result will be different from
+		-- item(an_offset) because the library will mostly copy it elsewhere
+		-- before returning it. 
 	local p: POINTER
 	do
-		p:=remove_history (an_offset)
+		create Result.from_external_pointer(remove_history (an_offset))
+	ensure 
+		removed: count = old count -1 
+		different_object: Result /= old item(an_offset)
 	end
 
 	--  -- Function: histdata_t free_history_entry (HIST_ENTRY *histent)
@@ -81,11 +89,9 @@ feature -- 	 History List Management
 		end
 
 feature -- 2.3.3 Information About the History List
--- ----------------------------------------
--- 
 -- These functions return information about the entire history list or
 -- individual list entries.
--- 
+ 
 --  -- Function: HIST_ENTRY ** history_list (void)
 --      Return a `NULL' terminated array of `HIST_ENTRY *' which is the
 --      current input history.  Element 0 of this list is the beginning of
@@ -119,27 +125,37 @@ feature -- 2.3.3 Information About the History List
 		do
 			Result:=item(upper)
 		end
-	--  -- Function: time_t history_get_time (HIST_ENTRY *entry)
---      Return the time stamp associated with the history entry ENTRY.
--- 
---  -- Function: int history_total_bytes (void)
---      Return the number of bytes that the primary history entries are
---      using.  This function returns the sum of the lengths of all the
---      lines in the history.
--- 
+
+	total_bytes: INTEGER is
+		-- the number of bytes that the primary history entries are using
+		-- computed as the sum of the lengths of all the lines in the history.
+	do
+		Result := history_total_bytes
+	end
+
 feature -- Moving Around the History List
 	new_iterator: ITERATOR[HISTORY_ENTRY] is
 	do
 		create {HISTORY_ITERATOR} Result.make(Current)
 	end
-	-- These functions allow the current index into the history list to be set
--- or changed.
--- 
---  -- Function: int history_set_pos (int pos)
---      Set the current history offset to POS, an absolute index into the
---      list.  Returns 1 on success, 0 if POS is less than zero or greater
---      than the number of history entries.
--- 
+
+	set_position (a_position: INTEGER) is
+	-- Set the current history offset to `a_position', an absolute index
+	-- into the list.
+	require
+		valid_index(a_position)
+	local res: INTEGER
+	do
+		res:=history_set_pos (a_position)
+		check
+			res=1
+			-- history_set_pos returns 1 on success, 0 if POS is less than zero
+			-- or greater than the number of history entries. We should always
+			-- receive 1 because of the precondition.
+		end
+	end
+
+	-- 
 --  -- Function: HIST_ENTRY * previous_history (void)
 --      Back up the current history offset to the previous history entry,
 --      and return a pointer to that entry.  If there is no previous
@@ -153,98 +169,133 @@ feature -- Moving Around the History List
 -- 
 -- 
 feature -- Searching
--- These functions allow searching of the history list for entries
--- containing a specific string.  Searching may be performed both forward
--- and backward from the current history position.  The search may be
--- "anchored", meaning that the string must match at the beginning of the
--- history entry.  
--- 
---  -- Function: int history_search (const char *string, int direction)
---      Search the history for STRING, starting at the current history
---      offset.  If DIRECTION is less than 0, then the search is through
---      previous entries, otherwise through subsequent entries.  If STRING
---      is found, then the current history index is set to that history
---      entry, and the value returned is the offset in the line of the
---      entry where STRING was found.  Otherwise, nothing is changed, and
---      a -1 is returned.
--- 
---  -- Function: int history_search_prefix (const char *string, int
---           direction)
---      Search the history for STRING, starting at the current history
---      offset.  The search is anchored: matching lines must begin with
---      STRING.  If DIRECTION is less than 0, then the search is through
---      previous entries, otherwise through subsequent entries.  If STRING
---      is found, then the current history index is set to that entry, and
---      the return value is 0.  Otherwise, nothing is changed, and a -1 is
---      returned.
--- 
---  -- Function: int history_search_pos (const char *string, int
---           direction, int pos)
---      Search for STRING in the history list, starting at POS, an
---      absolute index into the list.  If DIRECTION is negative, the search
---      proceeds backward from POS, otherwise forward.  Returns the
---      absolute index of the history element where STRING was found, or
---      -1 otherwise.
--- 
+	-- These functions allow searching of the history list for entries
+	-- containing a specific string.  Searching may be performed both forward
+	-- and backward from the current history position.  The search may be
+	-- "anchored", meaning that the string must match at the beginning of the
+	-- history entry.  
+
+	search (a_string: ABSTRACT_STRING; forward: BOOLEAN): INTEGER is
+		-- Search the history for `a_string', starting at the current history
+		-- offset.  If `forward' is true then the search is through previous
+		-- entries, otherwise through subsequent entries.  If `a_string' is
+		-- found, then the current history index is set to that history entry,
+		-- and Result is the offset in the line of the entry where STRING was
+		-- found.  Otherwise, nothing is changed, and a -1 is returned.
+	do
+		Result := history_search (a_string.to_external, forward.to_integer-1)
+	end
+
+	search_prefix (a_string: ABSTRACT_STRING; forward: BOOLEAN) is
+		-- Search the history for `a_string', starting at the current history
+		-- offset.  The search is anchored: matching lines must begin with
+		-- `a_string'.  If `forward' ir False then the search is through
+		-- previous entries, otherwise through subsequent entries.  If
+		-- `a_string' is found, then the current history index is set to that
+		-- entry, and `is_successful' set to True.  Otherwise, nothing is
+		-- changed, and `is_successful' set to False.
+	require
+		a_string/=Void
+	do
+		is_successful := not history_search_prefix (a_string.to_external, forward.to_integer-1).to_boolean
+	end
+
+	search_from_position (a_string: ABSTRACT_STRING; forward: BOOLEAN; a_position: INTEGER): INTEGER is
+		-- The index of the first occurrence of `a_string' in the history list,
+		-- starting at `a_position'.  If `forward' is False the search proceeds
+		-- backward from `a_position', otherwise forward.  Result will be -1 if
+		-- `a_string' is not found.
+	require
+		a_string/=Void
+		valid_index(a_position)
+	do
+		Result:=history_search_pos (a_string.to_external, forward.to_integer-1, a_position)
+	end
+
 feature -- History File Management
--- -------------------------------
+	from_file (a_file_name: ABSTRACT_STRING) is
+		-- Add the contents of `a_file_name' to the history list, a line at a
+		-- time.  If `a_file_name' is Void, then read from `~/.history'.
+		-- Updates `is_successful' (and C errno)
+	do
+		is_successful := not read_history(null_or_string(a_file_name)).to_boolean
+	end
+
+	from_file_range (a_file_name: ABSTRACT_STRING; a_lower, an_upper: INTEGER) is
+		-- Read a range of lines from `a_file_name', adding them to the history
+		-- list.  Start reading at line `a_lower' end at `an_upper'.  If
+		-- `a_lower' is zero, start at the beginning.  If `an_upper' is less
+		-- than `a_lower', then read until the end of the file.  If
+		-- `a_file_name' is Void, then read from `~/.history'.  `is_successful'
+		-- and `errno' are updated..
+	do
+		is_successful := not read_history_range(null_or_string(a_file_name),a_lower,an_upper).to_boolean
+	end
+
+	write (a_file_name: ABSTRACT_STRING) is
+		-- Write the current history to `a_file_name', overwriting it if
+		-- necessary.  If `a_file_name' is Void, then write the history list to
+		-- `~/.history'. `is_successful' and `errno' are updated.
+	do
+		is_successful := not write_history(null_or_string(a_file_name)).to_boolean
+	end
+	
+	append_to_file (elements: INTEGER; a_file_name: ABSTRACT_STRING) is
+		-- Append the last `elements' of the history list to `a_file_name'.  If
+		-- FILENAME is `NULL', then append to `~/.history'.  `is_successful' and `errno' are updater.
+	do
+		is_successful := not append_history(elements, null_or_string(a_file_name)).to_boolean
+	end
+ 
+	truncate_file (a_file_name: ABSTRACT_STRING; a_number_of_lines: INTEGER) is
+		-- Truncate the history file `a_file_name', leaving only the last `a_number_of_lines'
+		-- lines.  If i`a_file_name' is Void, then `~/.history' is truncated.
+		-- `is_successful' and `errno' are updated. 
+	require a_number_of_lines>=0
+	do
+		is_successful := not history_truncate_file (null_or_string(a_file_name), a_number_of_lines).to_boolean
+	end
+
+feature -- History expansion
+	expand (a_string: ABSTRACT_STRING): STRING is
+		-- `a_string' expanded using the current content of the history. See
+		-- `hasnt_been_expanded', `has_been_expanded', `error_in_expansion'.
+
+		-- If an error ocurred in expansion, then Result contains a descriptive
+		-- error message.
+
+		local p: POINTER
+		do
+			last_expansion_result := history_expand (a_string.to_external, $p)
+			check 
+				p.is_not_null -- we assume a string is always returned.
+			end
+			create Result.from_external(p)
+		end
+
+	hasnt_been_expanded: BOOLEAN is 
+		-- If no expansions took place (or, if the only change in the
+		-- text was the removal of escape characters preceding the history
+		-- expansion character);
+	do
+		Result := last_expansion_result = 0
+	end
+
+	has_been_expanded: BOOLEAN is
+		-- Has last call to `expand' actually produced an expansion of the argument?
+	do
+		Result := last_expansion_result = 1
+	end
+
+	error_in_expansion: BOOLEAN is
+		-- Was there an error in the expansion?
+		do
+			Result := last_expansion_result = -1
+		end
+
+	-- TODO: see `2' result of expand: if the returned line should be displayed, but not executed,
+	--           as with the `:p' modifier (*note Modifiers::).
 -- 
--- The History library can read the history from and write it to a file.
--- This section documents the functions for managing a history file.
--- 
---  -- Function: int read_history (const char *filename)
---      Add the contents of FILENAME to the history list, a line at a time.
---      If FILENAME is `NULL', then read from `~/.history'.  Returns 0 if
---      successful, or `errno' if not.
--- 
---  -- Function: int read_history_range (const char *filename, int from,
---           int to)
---      Read a range of lines from FILENAME, adding them to the history
---      list.  Start reading at line FROM and end at TO.  If FROM is zero,
---      start at the beginning.  If TO is less than FROM, then read until
---      the end of the file.  If FILENAME is `NULL', then read from
---      `~/.history'.  Returns 0 if successful, or `errno' if not.
--- 
---  -- Function: int write_history (const char *filename)
---      Write the current history to FILENAME, overwriting FILENAME if
---      necessary.  If FILENAME is `NULL', then write the history list to
---      `~/.history'.  Returns 0 on success, or `errno' on a read or write
---      error.
--- 
---  -- Function: int append_history (int nelements, const char *filename)
---      Append the last NELEMENTS of the history list to FILENAME.  If
---      FILENAME is `NULL', then append to `~/.history'.  Returns 0 on
---      success, or `errno' on a read or write error.
--- 
---  -- Function: int history_truncate_file (const char *filename, int
---           nlines)
---      Truncate the history file FILENAME, leaving only the last NLINES
---      lines.  If FILENAME is `NULL', then `~/.history' is truncated.
---      Returns 0 on success, or `errno' on failure.
--- 
-feature -- Expansion
--- These functions implement history expansion.
--- 
---  -- Function: int history_expand (char *string, char **output)
---      Expand STRING, placing the result into OUTPUT, a pointer to a
---      string (*note History Interaction::).  Returns:
---     `0'
---           If no expansions took place (or, if the only change in the
---           text was the removal of escape characters preceding the
---           history expansion character);
--- 
---     `1'
---           if expansions did take place;
--- 
---     `-1'
---           if there was an error in expansion;
--- 
---     `2'
---           if the returned line should be displayed, but not executed,
---           as with the `:p' modifier (*note Modifiers::).
--- 
---      If an error ocurred in expansion, then OUTPUT contains a
---      descriptive error message.
 -- 
 --  -- Function: char * get_history_event (const char *string, int
 --           *cindex, int qchar)
@@ -340,8 +391,13 @@ feature
 --      like Bash that use the history expansion character for additional
 --      purposes.  By default, this variable is set to `NULL'.
 
+feature 
+	is_successful: BOOLEAN
+	-- Was last command successful?
 feature {} -- Implementation
 	wrappers: HASHED_DICTIONARY[HISTORY_ENTRY, POINTER] is once create Result.make end
+	
+	last_expansion_result: INTEGER
 
 	wrapper (p: POINTER): HISTORY_ENTRY is
 		do
