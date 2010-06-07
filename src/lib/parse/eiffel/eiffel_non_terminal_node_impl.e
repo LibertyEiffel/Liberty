@@ -97,7 +97,7 @@ feature {EIFFEL_NODE_HANDLER}
 		end
 
 feature {}
-	make (a_name: FIXED_STRING; a_names: TRAVERSABLE[FIXED_STRING]) is
+	make (a_name: like name; a_names: like names) is
 		do
 			name := a_name
 			names := a_names
