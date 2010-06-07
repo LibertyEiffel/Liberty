@@ -599,15 +599,24 @@ feature {ANY} -- Other:
 			-- Assume `upper' is a valid index both in Current and `model'.
 		require
 			upper >= -1
+		do
+			copy_slice_from(model, 0, upper)
+		end
+
+	copy_slice_from (model: like Current; lower, upper: INTEGER) is
+			-- Assume `upper' is a valid index both in Current and `model'.
+		require
+			lower >= 0
+			upper >= lower - 1
 		local
 			i: INTEGER
 		do
 			from
 				i := upper
 			until
-				i < 0
+				i < lower
 			loop
-				put(model.item(i), i)
+				put(model.item(i), i - lower)
 				i := i - 1
 			end
 		end

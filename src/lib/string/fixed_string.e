@@ -25,23 +25,23 @@ feature {ANY} -- Creation:
 			not immutable
 			model /= Void
 		local
-			c, ca: INTEGER
+			new_count, new_capacity: INTEGER
 		do
-			c := model.count
-			if c > 0 and then model.last = '%U' then
-				ca := c
-				if ca > 0 then
-					storage := storage.calloc(ca)
-					storage.copy_from(model.storage, c - 1)
+			new_count := model.count
+			if new_count > 0 and then model.last = '%U' then
+				new_capacity := new_count
+				if new_capacity > 0 then
+					storage := storage.calloc(new_capacity)
+					storage.copy_slice_from(model.storage, model.storage_lower, model.storage_lower + new_count - 1)
 				end
 			else
-				ca := c + 1
-				storage := storage.calloc(ca)
-				storage.copy_from(model.storage, c - 1)
-				storage.put('%U', c)
+				new_capacity := new_count + 1
+				storage := storage.calloc(new_capacity)
+				storage.copy_slice_from(model.storage, model.storage_lower, model.storage_lower + new_count - 1)
+				storage.put('%U', new_count)
 			end
-			capacity := ca
-			count := c
+			capacity := new_capacity
+			count := new_count
 			immutable := True
 			original := Void
 			holders := new_holders

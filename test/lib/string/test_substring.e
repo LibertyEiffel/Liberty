@@ -43,6 +43,26 @@ feature {ANY}
 			s1 := ""
 			s2 := s1.substring(1, 0)
 			assert(("").is_equal(s2))
+
+			s1 := "1234"
+			s1.insert_string("XY", 3)
+			assert(("12XY34").is_equal(s1))
+			s1 := "1234567"
+			s1.remove_first
+			s1.insert_string("X", 4)
+			assert(("234X567").is_equal(s1))
+			s1 := "1234567"
+			s1.remove_first
+			s1.remove_first
+			s1.remove_first
+			s1.remove_first
+			s1.insert_string("X", 2)
+			assert(("5X67").is_equal(s1))
+			s1 := "1234567"
+			s1.remove_first
+			s1.remove_first
+			s1.insert_string("XYZ", 3)
+			assert(("34XYZ567").is_equal(s1))
 		end
 
 feature {}
