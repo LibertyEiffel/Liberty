@@ -8,7 +8,6 @@ insert
 	FILE_TOOLS
 	SHARED_SETTINGS
 	NAME_CONVERTER
-	MEMORY
 
 creation {ANY}
 	make
@@ -17,9 +16,9 @@ feature {ANY}
 	make is
 		do
 			process_arguments
-			log(once "@(1) bytes allocated%NLoading XML file: ",<<allocated_bytes.out>>)
+			log_string(once "Loading XML file: ")
 			create tree.make(input.url)
-			log(once "done. @(1) bytes allocated%N",<<allocated_bytes.out>>)
+			log_string(once "done.%N")
 			open_plugin_files
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
@@ -44,7 +43,7 @@ feature {ANY}
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, avoided, descriptions, flags, typedefs: STRING;
+			arg, avoided, descriptions, flags, typedefs, assigned_names: STRING;
 			i: INTEGER
 		do
 			check
@@ -67,8 +66,6 @@ feature {ANY}
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
 					elseif arg.is_equal(once "--global") then settings.set_global(True)
-					elseif arg.is_equal(once "--use-naturals") then settings.use_naturals
-					elseif arg.is_equal(once "--use-integers") then settings.use_integers
 					elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
 					elseif arg.is_equal(once "--descriptions") then
 						i := i + 1
@@ -218,14 +215,6 @@ feature {ANY}
 			%	--global emits wrappers for every features found in the XML%N%
 			%		file. For usual wrappers it is normally not needed.%N%
 			%		Only the last global and local flag will be considered.%N%
-			%%N%
-			%  --use-naturals%N%
-			%		Wrap unsigned integers with NATURAL classes. This is the%N%
-			%		default behaviour.%N%
-			%%N%
-			%	--use-integers%N%
-			%		Wrap unsigned integers with INTEGER classes. Note that%N%
-			%		this leads to silent overflows and trimming.%N%
 			%%N%
 			%  --directory dir%N%
 			%		Put the generated classes in `dir'. Otherwise everything is%N%

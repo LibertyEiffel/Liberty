@@ -81,7 +81,6 @@ feature
 				<<getter, wrapper_type, 
 				c_string_name, a_structure_name,
 				getter_description>>)
-				log_string(once "query, ")
 				setters.put_message(once "	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
 				%			-- Setter for @(3) field of @(4) structure.%N%
 				%			@(5)%N%

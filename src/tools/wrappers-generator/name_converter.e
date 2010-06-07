@@ -58,17 +58,16 @@ feature {} -- Auxiliary features
 		end
 
 	insert_underscores (a_string: STRING) is
-		-- Insert an underscore ('_') at each case switch of `a_string' except
-		-- at first and second character (from lower to upper and from upper to
-		-- lower )
+		-- Insert an underscore ('_') before each uppercase letter following a lowercase one.
+
 	require
 		a_string/=Void
 		not a_string.is_empty
 	local i: INTEGER
 	do
-		from i:=a_string.lower+2
+		from i:=a_string.lower+1
 		until i>a_string.upper loop
-			if 	a_string.item(i-1).is_upper /= a_string.item(i).is_upper then
+			if 	a_string.item(i-1).is_lower and a_string.item(i).is_upper then
 				a_string.insert_character('_',i)
 				i:=i+2
 			else i:=i+1

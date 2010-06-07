@@ -5,7 +5,24 @@ inherit XML_COMPOSITE_NODE
 insert 
 	SHARED_SETTINGS
 	DESCRIPTIONS
-feature 
+feature -- Assigned name
+	assigned_name: STRING
+		-- The name under which Current will be forcefully wrapped to.
+
+	set_name (a_name: STRING) is
+		-- Set `assigned_name' to `a_name'.
+	require a_name/=Void
+	do
+		assigned_name:=a_name.twin
+	ensure definition: assigned_name.is_equal(a_name)
+	end
+
+	has_assigned_name: BOOLEAN is
+		do
+			Result:= assigned_name/=Void
+		end
+
+feature -- Collection-like command
 	do_all (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]]) is
 			-- Apply 'a_procedure' to all heir nodes of known type.
 		local i: INTEGER; node: GCCXML_NODE
@@ -18,6 +35,7 @@ feature
 				i:=i+1
 			end
 		end
+
 end -- class GCCXML_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

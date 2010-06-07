@@ -42,24 +42,24 @@ feature
 			not_yet_implemented -- Result := class_name
 		end
 
-	class_name: STRING is
-	do
-		if stored_class_name=Void then 
-			if assigned_name/=Void then stored_class_name:=assigned_name.twin
-			else stored_class_name:=c_string_name.twin
-			end
-			insert_underscores(stored_class_name)
+	-- class_name: STRING is
+	-- do
+	-- 	if stored_class_name=Void then 
+	-- 		if assigned_name/=Void then stored_class_name:=assigned_name.twin
+	-- 		else stored_class_name:=c_string_name.twin
+	-- 		end
+	-- 		insert_underscores(stored_class_name)
 
-			check 
-				is_public: stored_class_name.first/='_'
-			end
-			if stored_class_name.last/='_' then stored_class_name.append_character('_') end
-				-- little workaround to cope with assigned and generated names
-			stored_class_name.append(suffix)
-			stored_class_name.to_upper
-		end
-		Result := stored_class_name
-	end
+	-- 		check 
+	-- 			is_public: stored_class_name.first/='_'
+	-- 		end
+	-- 		if stored_class_name.last/='_' then stored_class_name.append_character('_') end
+	-- 			-- little workaround to cope with assigned and generated names
+	-- 		stored_class_name.append(suffix)
+	-- 		stored_class_name.to_upper
+	-- 	end
+	-- 	Result := stored_class_name
+	-- end
 	
 	
 	emit_wrapper is
@@ -120,7 +120,7 @@ feature
 				queries.print_on(output)
 			else
 				output.put_string(once "%T-- Fieldless structure%N")
-				log(once "Structure @(1) have no fields%N", <<c_string_name>>)
+				log(once "Struct @(1) have no fields%N", <<c_string_name>>)
 			end
 		end
 
@@ -140,8 +140,7 @@ feature
 		%		end%N%N",
 		<<c_string_name>>)
 		-- buffer.print_on(output)
-		-- include.put_message(once
-		-- "#define sizeof@(1) sizeof(@(1))%N", <<a_structure_name>>)
+		("inline size_t sizeof_"+c_string_name+"() { return sizeof("+c_string_name+");};%N").print_on(source)
 	end
 
 	emit_footer is
@@ -153,8 +152,7 @@ feature
 			buffer.print_on(output)
 		end
 
-	suffix: STRING is "STRUCT"
-	-- The way struct class name is build require suffix not to have a trailing underscore.
+	suffix: STRING is "_STRUCT"
 
 -- invariant name.is_equal(once U"Struct")
 end -- class C_STRUCT

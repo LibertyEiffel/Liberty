@@ -22,8 +22,6 @@ feature {ANY} -- Queries
 	-- named like typedefs, useful for anchored declarations (i.e.
 	-- "gsize: INTEGER_32 is do end")
 
-	are_naturals_used: BOOLEAN
-
 	patches_are_appliable: BOOLEAN
 
 	last_error: STRING
@@ -45,16 +43,6 @@ feature {ANY} -- Setters
 		end
 	
 	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
-
-	use_naturals is
-		do
-			are_naturals_used := True
-		end
-
-	use_integers is
-		do
-			are_naturals_used := False
-		end
 
 	apply_patches is
 		do

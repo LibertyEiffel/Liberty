@@ -82,7 +82,7 @@ feature {ANY}
 	wrap_on (a_stream: OUTPUT_STREAM) is 
 		do
 			if not is_wrappable then
-				log("... `@(1)' is not wrappable%N", <<function_string_name>>) 
+				log("Function `@(1)' is not wrappable%N", <<function_string_name>>) 
 				buffer.reset
 				buffer.put_message(once "	-- function @(1) (at line @(2) in file @(3) is not wrappable%N",
 				<<function_string_name, line_row.to_utf8, c_file.c_string_name>>)

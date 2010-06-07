@@ -55,7 +55,7 @@ feature
 				when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
 				else
 					query_name := eiffel_feature(c_string_name)
-					log(once "@(1)->@(2), ",<<c_string_name,query_name>>)
+					log(once "Anchored query @(2) for typedef @(1)%N",<<c_string_name,query_name>>)
 					buffer.put_message (once 
 					"	@(1): @(2) is%N%
 					%		-- typedef @(3)%N%
