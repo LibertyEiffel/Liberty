@@ -24,8 +24,10 @@ feature {ANY}
 			not is_unknown
 		do
 			set_error_position
-			stream.put_string(once "in file ")
-			stream.put_string(file.out)
+			if file /= Void then
+				stream.put_string(once "in file ")
+				stream.put_string(file.out)
+			end
 			stream.put_string(once " at line ")
 			stream.put_integer(line)
 			stream.put_string(once ", column ")
@@ -131,8 +133,5 @@ feature {LIBERTY_ERROR}
 				stream.put_new_line
 			end
 		end
-
-invariant
-	file /= Void
 
 end

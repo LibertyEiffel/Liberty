@@ -12,36 +12,28 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_SYNTAX_POSITION
+deferred class LIBERTY_INTERPRETER_DEBUGGER_VISITOR
 
 inherit
-	LIBERTY_POSITION
+	VISITOR
 
-create {LIBERTY_ERRORS}
-	make
-
-feature {ANY}
-	source: STRING
-
-feature {ANY}
-	is_unknown: BOOLEAN is False
-
-feature {}
-	make (a_index: like index; a_source: like source; a_file: like file) is
+feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
+	visit_entry (a_entry: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
 		require
-			a_source /= Void
-			a_index.in_range(a_source.lower, a_source.upper)
-		do
-			index := a_index
-			source := a_source
-			file := a_file
-		ensure
-			index = a_index
-			source = a_source
-			file = a_file
+			a_entry /= Void
+		deferred
 		end
 
-invariant
-	source /= Void
+	visit_show (a_show: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		require
+			a_show /= Void
+		deferred
+		end
 
-end
+	visit_step (a_step: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		require
+			a_step /= Void
+		deferred
+		end
+
+end -- class LIBERTY_INTERPRETER_DEBUGGER_VISITOR

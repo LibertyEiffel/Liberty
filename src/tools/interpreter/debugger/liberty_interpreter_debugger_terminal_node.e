@@ -12,36 +12,42 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_SYNTAX_POSITION
+class LIBERTY_INTERPRETER_DEBUGGER_TERMINAL_NODE
 
 inherit
-	LIBERTY_POSITION
+	EIFFEL_TERMINAL_NODE_IMPL
+		rename
+			make as make_impl
+		redefine
+			accept
+		end
 
-create {LIBERTY_ERRORS}
+create {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
 	make
 
 feature {ANY}
-	source: STRING
-
-feature {ANY}
-	is_unknown: BOOLEAN is False
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_INTERPRETER_DEBUGGER_VISITOR
+		do
+			v ::= visitor
+			action.call([v, Current])
+		end
 
 feature {}
-	make (a_index: like index; a_source: like source; a_file: like file) is
+	make (a_action: like action; a_name: like name; a_image: like image) is
 		require
-			a_source /= Void
-			a_index.in_range(a_source.lower, a_source.upper)
+			a_action /= Void
 		do
-			index := a_index
-			source := a_source
-			file := a_file
+			make_impl(a_name, a_image)
+			action := a_action
 		ensure
-			index = a_index
-			source = a_source
-			file = a_file
+			name = a_name
+			names = a_image
+			action = a_action
 		end
 
 invariant
-	source /= Void
+	action /= Void
 
-end
+end -- class LIBERTY_INTERPRETER_DEBUGGER_TERMINAL_NODE
