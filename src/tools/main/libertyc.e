@@ -37,7 +37,7 @@ feature {}
 				die_with_code(1)
 			end
 
-			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
+			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyc"))
 			etc.log
 
 			create universe.make
