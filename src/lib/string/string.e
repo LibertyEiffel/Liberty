@@ -141,7 +141,7 @@ feature {ANY} -- Modification:
 					storage := storage.calloc(c)
 					capacity := c
 				end
-				storage.copy_from(other.storage, c - 1)
+				storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
 			end
 			count := c
 		ensure then
@@ -236,7 +236,8 @@ feature {ANY} -- Modification:
 			i := count
 			j := other.count
 			d := j - storage_lower
-			resize(i + j - d)
+			ensure_capacity(i + j - d)
+			count := i + j
 			if i > 0 and then j > 0 then
 				storage.move(storage_lower, storage_lower + i - 1, d)
 			end
@@ -257,18 +258,19 @@ feature {ANY} -- Modification:
 		do
 			j := count
 			k := s.count
-			resize(j + k)
-			dk := storage_lower - k
-			if dk >= 0 then
+			count := j + k
+			dk := k - storage_lower
+			ensure_capacity(j + dk)
+			if dk <= 0 then
 				storage.move(storage_lower, i - lower + storage_lower, -k)
-				storage_lower := dk
+				storage_lower := -dk
 				slice_copy(i - lower, s, s.lower, s.upper)
 			else
 				if storage_lower > 0 then
 					storage.move(storage_lower, i + storage_lower - lower, -storage_lower)
 				end
 				if i <= j then
-					storage.move(i + storage_lower - lower, j + storage_lower - lower, -dk)
+					storage.move(i + storage_lower - lower, j + storage_lower - lower, dk)
 				end
 				storage_lower := 0
 				slice_copy(i - lower, s, s.lower, s.upper)
@@ -295,7 +297,7 @@ feature {ANY} -- Modification:
 					storage_lower := storage_lower - difference
 				else
 					old_upper := upper
-					resize(count + difference)
+					ensure_capacity(count + difference)
 					if end_index < old_upper then
 						-- something to move?
 						storage.move(storage_lower + end_index + 1 - lower, storage_lower + old_upper - lower, difference)
@@ -306,8 +308,8 @@ feature {ANY} -- Modification:
 					-- something to move?
 					storage.move(storage_lower + end_index + 1 - lower, storage_lower + upper - lower, difference)
 				end
-				resize(count + difference)
 			end
+			count := count + difference
 			slice_copy(start_index - lower, s, s.lower, s.upper)
 		end
 
