@@ -12,7 +12,6 @@ locations
 	"internal"
 	"log"
 	"low_level"
-	"network"
 	"tools"
 
 needs
