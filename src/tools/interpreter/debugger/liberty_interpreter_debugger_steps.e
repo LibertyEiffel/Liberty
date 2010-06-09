@@ -14,19 +14,34 @@
 --
 class LIBERTY_INTERPRETER_DEBUGGER_STEPS
 
-create {LIBERTY_INTERPRETER}
-	after, at_call_entry, at_call_exit
-
-feature {ANY}
-	is_active: BOOLEAN is
-		do
-			Result := count /= 0
-		end
+create {LIBERTY_INTERPRETER_DEBUGGER}
+	make
 
 feature {LIBERTY_INTERPRETER}
-	step is
+	after (a_count: like count) is
 		require
-			is_active
+			a_count > 0
+		do
+			count := a_count
+		ensure
+			count = a_count
+		end
+
+	at_call_entry is
+		do
+			count := entry_count
+		ensure
+			count = entry_count
+		end
+
+	at_call_exit is
+		do
+			count := exit_count
+		ensure
+			count = exit_count
+		end
+
+	step is
 		do
 			if count > 0 then
 				count := count - 1
@@ -38,8 +53,6 @@ feature {LIBERTY_INTERPRETER}
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 	enter_call is
-		require
-			is_active
 		do
 			if count = entry_count then
 				interpreter.break
@@ -47,8 +60,6 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 	exit_call is
-		require
-			is_active
 		do
 			if count = exit_count then
 				interpreter.break
@@ -56,41 +67,13 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 		end
 
 feature {}
-	after (a_interpreter: like interpreter; a_count: like count) is
-		require
-			a_interpreter /= Void
-			a_count > 0
-		do
-			interpreter := a_interpreter
-			count := a_count
-		ensure
-			is_active
-			interpreter = a_interpreter
-			count = a_count
-		end
-
-	at_call_entry (a_interpreter: like interpreter) is
+	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
-			count := entry_count
 		ensure
-			is_active
 			interpreter = a_interpreter
-			count = entry_count
-		end
-
-	at_call_exit (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-			count := exit_count
-		ensure
-			is_active
-			interpreter = a_interpreter
-			count = exit_count
 		end
 
 	interpreter: LIBERTY_INTERPRETER

@@ -163,7 +163,8 @@ feature {}
 			when "loadpath.se" then
 				configure_program_loadpath(a_program_cluster)
 			else
-				std_error.put_line("Unknown program cluster format: " + a_program_cluster)
+				std_error.put_line("Unknown program cluster format: " + a_program_cluster + " (" + dir.last_entry + ")")
+				breakpoint
 				die_with_code(1)
 			end
 		end

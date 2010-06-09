@@ -39,7 +39,6 @@ feature {ANY}
 			done: BOOLEAN
 		do
 			from
-				debug_steps := Void
 			until
 				done
 			loop
@@ -388,17 +387,17 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL}
 		require
 			number_of_steps > 0
 		do
-			create debug_steps.after(Current, number_of_steps)
+			debugger.steps.after(number_of_steps)
 		end
 
 	debug_step_in is
 		do
-			create debug_steps.at_call_entry(Current)
+			debugger.steps.at_call_entry
 		end
 
 	debug_step_out is
 		do
-			create debug_steps.at_call_exit(Current)
+			debugger.steps.at_call_exit
 		end
 
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
@@ -475,9 +474,9 @@ feature {}
 				std_output.put_string(once " - Calling ")
 				Result.show_stack(std_output)
 			end
-			debug_steps.step
+			debugger.steps.step
 			call_stack.add_last(Result)
-			Result.call(debug_steps)
+			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
@@ -501,9 +500,9 @@ feature {}
 				std_output.put_string(once " - Calling precursor feature ")
 				std_output.put_line(Result.name)
 			end
-			debug_steps.step
+			debugger.steps.step
 			call_stack.add_last(Result)
-			Result.call(debug_steps)
+			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
@@ -719,7 +718,6 @@ feature {}
 	root_feature_name: LIBERTY_FEATURE_NAME
 	root_feature: LIBERTY_FEATURE_DEFINITION
 	native_array_of_character: LIBERTY_ACTUAL_TYPE
-	debug_steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS
 
 	root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
 		once

@@ -21,6 +21,8 @@ create {LIBERTY_INTERPRETER}
 	make
 
 feature {LIBERTY_INTERPRETER}
+	steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS
+
 	break (entry: STRING): BOOLEAN is
 		require
 			entry /= Void
@@ -66,6 +68,7 @@ feature {}
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
+			create steps.make(a_interpreter)
 			create debug_visitor.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
