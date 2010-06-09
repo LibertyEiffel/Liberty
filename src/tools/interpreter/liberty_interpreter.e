@@ -86,6 +86,9 @@ feature {ANY}
 				if i > call_stack.lower then
 					o.put_line(once "-------------------------------------------------------------")
 				end
+				if i = current_frame then
+					o.put_line(once "Current frame")
+				end
 				o.put_integer(i + 1)
 				o.put_character('%T')
 				call_stack.item(i).show_stack(o)
