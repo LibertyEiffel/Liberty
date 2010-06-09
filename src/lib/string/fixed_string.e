@@ -9,7 +9,8 @@ class FIXED_STRING
 inherit
 	NATIVELY_STORED_STRING
 		redefine
-			immutable, out_in_tagged_out_memory, fill_tagged_out_memory
+			immutable, out_in_tagged_out_memory, fill_tagged_out_memory,
+			check_can_have_storage_signature
 		end
 
 creation {ANY}
@@ -377,9 +378,15 @@ feature {} -- Invariant checking:
 
 	original: like Current
 
+	check_can_have_storage_signature: BOOLEAN is
+		do
+			Result := True
+		end
+
 invariant
 	0 <= count
 	capacity >= count
+	not has_storage_signature
 	immutable implies storage.is_not_null
 	;(immutable and not is_shared) implies capacity.in_range(count, count + 1)
 	;(immutable and not is_shared) implies (count = 0 implies storage.item(0) = '%U')

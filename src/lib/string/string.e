@@ -21,10 +21,7 @@ feature {ANY} -- Creation / Modification:
 		do
 			storage_lower := 0
 			if needed_capacity > 0 then
-				if capacity < needed_capacity then
-					storage := storage.calloc(needed_capacity)
-					capacity := needed_capacity
-				end
+				ensure_capacity(needed_capacity)
 			end
 			count := 0
 		ensure
@@ -137,10 +134,7 @@ feature {ANY} -- Modification:
 			storage_lower := 0
 			c := other.count
 			if c > 0 then
-				if capacity < c then
-					storage := storage.calloc(c)
-					capacity := c
-				end
+				ensure_capacity(c)
 				storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
 			end
 			count := c
@@ -201,7 +195,7 @@ feature {ANY} -- Modification:
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			slice_copy(count, s, s.lower, s.upper)
+			slice_copy(upper, s, s.lower, s.upper)
 			count := needed_capacity
 		end
 
@@ -220,7 +214,7 @@ feature {ANY} -- Modification:
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			slice_copy(count, s, start_index, end_index)
+			slice_copy(upper, s, start_index, end_index)
 			count := needed_capacity
 		end
 
@@ -236,7 +230,9 @@ feature {ANY} -- Modification:
 			i := count
 			j := other.count
 			d := j - storage_lower
-			ensure_capacity(i + j - d)
+			if d > 0 then
+				ensure_capacity(i + d)
+			end
 			count := i + j
 			if i > 0 and then j > 0 then
 				storage.move(storage_lower, storage_lower + i - 1, d)
@@ -260,7 +256,9 @@ feature {ANY} -- Modification:
 			k := s.count
 			count := j + k
 			dk := k - storage_lower
-			ensure_capacity(j + dk)
+			if dk > 0 then
+				ensure_capacity(j + dk)
+			end
 			if dk <= 0 then
 				storage.move(storage_lower, i - lower + storage_lower, -k)
 				storage_lower := -dk
@@ -354,14 +352,14 @@ feature {ANY} -- Modification:
 					storage.move(storage_lower, storage_lower + i - lower, -1)
 				end
 				storage_lower := storage_lower - 1
-				count := count + 1
 			else
-				resize(count + 1)
+				ensure_capacity(count + 1)
 				if i <= upper then
-					storage.move(storage_lower + i - lower, storage_lower + upper - lower + 1, 1)
+					storage.move(storage_lower - lower + i, storage_lower - lower + upper, 1)
 				end
 			end
 			storage.put(c, storage_lower + i - lower)
+			count := count + 1
 		ensure
 			item(i) = c
 			count = old count + 1
@@ -882,6 +880,9 @@ feature {ANY} -- Interfacing with C string:
 				count := count + 1
 			end
 			capacity := count + 1
+			if storage_signature_count > 0 then
+				has_storage_signature := False
+			end
 		ensure
 			capacity = count + 1
 			p = to_external
@@ -924,6 +925,9 @@ feature {ANY} -- Interfacing with C string:
 			storage := storage.from_pointer(p)
 			count := size
 			capacity := size
+			if storage_signature_count > 0 then
+				has_storage_signature := False
+			end
 		ensure
 			count = size
 			capacity = size
@@ -943,10 +947,7 @@ feature {ANY} -- Interfacing with C string:
 		do
 			storage_lower := 0
 			from
-				if capacity < size then
-					capacity := size
-					storage := storage.calloc(size)
-				end
+				ensure_capacity(size)
 				s := s.from_pointer(p)
 				count := 0
 			until
