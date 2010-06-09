@@ -152,7 +152,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 
 	builtin_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			create Result.with_storage(interpreter, type, item_type, elements.twin, a_position)
+			create Result.with_storage(interpreter, type, item_type, elements, elements.capacity, a_position)
 		end
 
 	builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
@@ -162,7 +162,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 
 	builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
 		do
-			create Result.with_storage(interpreter, type, item_type, elements.twin, a_position)
+			create Result.with_storage(interpreter, type, item_type, elements, elements.capacity, a_position)
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
@@ -181,7 +181,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 					put(item(i).do_deep_twin(deep_twin_memory, a_position), i)
 					i := i + 1
 				end
-				create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[E_]} Result.with_storage(interpreter, type, item_type, elements_twin, a_position)
+				create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[E_]} Result.with_storage(interpreter, type, item_type, elements_twin, elements.capacity, a_position)
 				deep_twin_memory.put(Result, Current)
 			end
 		end
@@ -219,6 +219,8 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 		local
 			e: E_; i: INTEGER
 		do
+			o.put_character('{')
+			o.put_string(type.full_name)
 			o.put_character('<')
 			o.put_character('<')
 			o.put_new_line
@@ -234,11 +236,15 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 			end
 			if upper > 16 then
 				interpreter.object_printer.put_indent(o, indent + 1)
-				o.put_line(once ". . .")
+				o.put_string(once "... (capacity=")
+				o.put_integer(elements.capacity)
+				o.put_character(')')
+				o.put_new_line
 			end
 			interpreter.object_printer.put_indent(o, indent)
 			o.put_character('>')
 			o.put_character('>')
+			o.put_character('}')
 			o.put_new_line
 		end
 
@@ -296,11 +302,12 @@ feature {}
 			position = a_position
 		end
 
-	with_storage (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_elements: TRAVERSABLE[E_]; a_position: like position) is
+	with_storage (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_elements: TRAVERSABLE[E_]; a_capacity: INTEGER; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_elements /= Void
 			a_position /= Void
+			a_capacity >= a_elements.count
 		local
 			i: INTEGER
 		do
@@ -308,7 +315,7 @@ feature {}
 			type := a_type
 			item_type := a_item_type
 			position := a_position
-			create elements.make(a_elements.count)
+			create elements.make(a_capacity)
 			from
 				i := a_elements.lower
 			until

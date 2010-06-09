@@ -247,7 +247,7 @@ feature {ANY}
 
 			new_string_capacity := new_integer(manifest.capacity, a_position)
 			new_string_count := new_integer(manifest.count, a_position)
-			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, a_position)
+			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, manifest.capacity, a_position)
 
 			the_new_string ::= creator.new_object(universe.type_string, a_position)
 			the_new_string.put_attribute(capacity_name, new_string_capacity)
