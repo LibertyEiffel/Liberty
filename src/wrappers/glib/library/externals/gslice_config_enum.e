@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = always_malloc_low_level)  or else
+				(a_value = bypass_magazines_low_level)  or else
 				(a_value = working_set_msecs_low_level)  or else
 				(a_value = color_increment_low_level)  or else
 				(a_value = chunk_sizes_low_level)  or else
@@ -23,6 +24,11 @@ feature -- Setters
 	set_always_malloc is
 		do
 			value := always_malloc_low_level
+		end
+
+	set_bypass_magazines is
+		do
+			value := bypass_magazines_low_level
 		end
 
 	set_working_set_msecs is
@@ -49,6 +55,11 @@ feature -- Queries
 	is_always_malloc: BOOLEAN is
 		do
 			Result := (value=always_malloc_low_level)
+		end
+
+	is_bypass_magazines: BOOLEAN is
+		do
+			Result := (value=bypass_magazines_low_level)
 		end
 
 	is_working_set_msecs: BOOLEAN is
@@ -78,6 +89,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_SLICE_CONFIG_ALWAYS_MALLOC"
+ 			}"
+ 		end
+
+	bypass_magazines_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SLICE_CONFIG_BYPASS_MAGAZINES"
  			}"
  		end
 

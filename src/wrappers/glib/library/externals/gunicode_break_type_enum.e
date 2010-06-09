@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = mandatory_low_level)  or else
+				(a_value = carriage_return_low_level)  or else
 				(a_value = line_feed_low_level)  or else
 				(a_value = combining_mark_low_level)  or else
 				(a_value = surrogate_low_level)  or else
@@ -53,6 +54,11 @@ feature -- Setters
 	set_mandatory is
 		do
 			value := mandatory_low_level
+		end
+
+	set_carriage_return is
+		do
+			value := carriage_return_low_level
 		end
 
 	set_line_feed is
@@ -229,6 +235,11 @@ feature -- Queries
 	is_mandatory: BOOLEAN is
 		do
 			Result := (value=mandatory_low_level)
+		end
+
+	is_carriage_return: BOOLEAN is
+		do
+			Result := (value=carriage_return_low_level)
 		end
 
 	is_line_feed: BOOLEAN is
@@ -408,6 +419,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_UNICODE_BREAK_MANDATORY"
+ 			}"
+ 		end
+
+	carriage_return_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_UNICODE_BREAK_CARRIAGE_RETURN"
  			}"
  		end
 

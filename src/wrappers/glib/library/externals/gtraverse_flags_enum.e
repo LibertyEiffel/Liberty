@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = leaves_low_level)  or else
+				(a_value = non_leaves_low_level)  or else
 				(a_value = all_low_level)  or else
 				(a_value = mask_low_level)  or else
 				(a_value = leafs_low_level)  or else
@@ -23,6 +24,11 @@ feature -- Setters
 	set_leaves is
 		do
 			value := leaves_low_level
+		end
+
+	set_non_leaves is
+		do
+			value := non_leaves_low_level
 		end
 
 	set_all is
@@ -49,6 +55,11 @@ feature -- Queries
 	is_leaves: BOOLEAN is
 		do
 			Result := (value=leaves_low_level)
+		end
+
+	is_non_leaves: BOOLEAN is
+		do
+			Result := (value=non_leaves_low_level)
 		end
 
 	is_all: BOOLEAN is
@@ -78,6 +89,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TRAVERSE_LEAVES"
+ 			}"
+ 		end
+
+	non_leaves_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TRAVERSE_NON_LEAVES"
  			}"
  		end
 

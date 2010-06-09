@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = day_low_level)  or else
+				(a_value = month_low_level)  or else
 				(a_value = year_low_level) )
 		end
 
@@ -20,6 +21,11 @@ feature -- Setters
 	set_day is
 		do
 			value := day_low_level
+		end
+
+	set_month is
+		do
+			value := month_low_level
 		end
 
 	set_year is
@@ -31,6 +37,11 @@ feature -- Queries
 	is_day: BOOLEAN is
 		do
 			Result := (value=day_low_level)
+		end
+
+	is_month: BOOLEAN is
+		do
+			Result := (value=month_low_level)
 		end
 
 	is_year: BOOLEAN is
@@ -45,6 +56,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_DATE_DAY"
+ 			}"
+ 		end
+
+	month_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_MONTH"
  			}"
  		end
 

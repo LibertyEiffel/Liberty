@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = control_low_level)  or else
+				(a_value = format_low_level)  or else
 				(a_value = unassigned_low_level)  or else
 				(a_value = private_use_low_level)  or else
 				(a_value = surrogate_low_level)  or else
@@ -47,6 +48,11 @@ feature -- Setters
 	set_control is
 		do
 			value := control_low_level
+		end
+
+	set_format is
+		do
+			value := format_low_level
 		end
 
 	set_unassigned is
@@ -193,6 +199,11 @@ feature -- Queries
 	is_control: BOOLEAN is
 		do
 			Result := (value=control_low_level)
+		end
+
+	is_format: BOOLEAN is
+		do
+			Result := (value=format_low_level)
 		end
 
 	is_unassigned: BOOLEAN is
@@ -342,6 +353,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_UNICODE_CONTROL"
+ 			}"
+ 		end
+
+	format_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_UNICODE_FORMAT"
  			}"
  		end
 

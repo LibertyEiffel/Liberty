@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = anchored_low_level)  or else
+				(a_value = notbol_low_level)  or else
 				(a_value = noteol_low_level)  or else
 				(a_value = notempty_low_level)  or else
 				(a_value = partial_low_level)  or else
@@ -26,6 +27,11 @@ feature -- Setters
 	set_anchored is
 		do
 			value := anchored_low_level
+		end
+
+	set_notbol is
+		do
+			value := notbol_low_level
 		end
 
 	set_noteol is
@@ -67,6 +73,11 @@ feature -- Queries
 	is_anchored: BOOLEAN is
 		do
 			Result := (value=anchored_low_level)
+		end
+
+	is_notbol: BOOLEAN is
+		do
+			Result := (value=notbol_low_level)
 		end
 
 	is_noteol: BOOLEAN is
@@ -111,6 +122,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_REGEX_MATCH_ANCHORED"
+ 			}"
+ 		end
+
+	notbol_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_MATCH_NOTBOL"
  			}"
  		end
 

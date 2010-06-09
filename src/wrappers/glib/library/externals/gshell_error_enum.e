@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = d_quoting_low_level)  or else
+				(a_value = pty_string_low_level)  or else
 				(a_value = iled_low_level) )
 		end
 
@@ -20,6 +21,11 @@ feature -- Setters
 	set_d_quoting is
 		do
 			value := d_quoting_low_level
+		end
+
+	set_pty_string is
+		do
+			value := pty_string_low_level
 		end
 
 	set_iled is
@@ -31,6 +37,11 @@ feature -- Queries
 	is_d_quoting: BOOLEAN is
 		do
 			Result := (value=d_quoting_low_level)
+		end
+
+	is_pty_string: BOOLEAN is
+		do
+			Result := (value=pty_string_low_level)
 		end
 
 	is_iled: BOOLEAN is
@@ -45,6 +56,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_SHELL_ERROR_BAD_QUOTING"
+ 			}"
+ 		end
+
+	pty_string_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SHELL_ERROR_EMPTY_STRING"
  			}"
  		end
 

@@ -54,6 +54,7 @@ feature {ANY}
 			descriptions := once "descriptions"
 			avoided := once "avoided"
 			typedefs := once "TYPES"
+			assigned_names := once "assigned-names"
 			if argument_count = 0 then
 				print_usage
 				die_with_code(exit_success_code)

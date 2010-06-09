@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = exist_low_level)  or else
+				(a_value = isdir_low_level)  or else
 				(a_value = acces_low_level)  or else
 				(a_value = nametoolong_low_level)  or else
 				(a_value = noent_low_level)  or else
@@ -42,6 +43,11 @@ feature -- Setters
 	set_exist is
 		do
 			value := exist_low_level
+		end
+
+	set_isdir is
+		do
+			value := isdir_low_level
 		end
 
 	set_acces is
@@ -163,6 +169,11 @@ feature -- Queries
 	is_exist: BOOLEAN is
 		do
 			Result := (value=exist_low_level)
+		end
+
+	is_isdir: BOOLEAN is
+		do
+			Result := (value=isdir_low_level)
 		end
 
 	is_acces: BOOLEAN is
@@ -287,6 +298,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_FILE_ERROR_EXIST"
+ 			}"
+ 		end
+
+	isdir_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_FILE_ERROR_ISDIR"
  			}"
  		end
 

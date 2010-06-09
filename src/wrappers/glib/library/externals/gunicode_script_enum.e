@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = invalid_code_low_level)  or else
+				(a_value = common_low_level)  or else
 				(a_value = inherited_low_level)  or else
 				(a_value = arabic_low_level)  or else
 				(a_value = armenian_low_level)  or else
@@ -96,6 +97,11 @@ feature -- Setters
 	set_invalid_code is
 		do
 			value := invalid_code_low_level
+		end
+
+	set_common is
+		do
+			value := common_low_level
 		end
 
 	set_inherited is
@@ -487,6 +493,11 @@ feature -- Queries
 	is_invalid_code: BOOLEAN is
 		do
 			Result := (value=invalid_code_low_level)
+		end
+
+	is_common: BOOLEAN is
+		do
+			Result := (value=common_low_level)
 		end
 
 	is_inherited: BOOLEAN is
@@ -881,6 +892,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_UNICODE_SCRIPT_INVALID_CODE"
+ 			}"
+ 		end
+
+	common_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_UNICODE_SCRIPT_COMMON"
  			}"
  		end
 

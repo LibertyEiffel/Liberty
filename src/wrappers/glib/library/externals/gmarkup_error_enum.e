@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bad_utf8_low_level)  or else
+				(a_value = empty_low_level)  or else
 				(a_value = parse_low_level)  or else
 				(a_value = unknown_element_low_level)  or else
 				(a_value = unknown_attribute_low_level)  or else
@@ -24,6 +25,11 @@ feature -- Setters
 	set_bad_utf8 is
 		do
 			value := bad_utf8_low_level
+		end
+
+	set_empty is
+		do
+			value := empty_low_level
 		end
 
 	set_parse is
@@ -55,6 +61,11 @@ feature -- Queries
 	is_bad_utf8: BOOLEAN is
 		do
 			Result := (value=bad_utf8_low_level)
+		end
+
+	is_empty: BOOLEAN is
+		do
+			Result := (value=empty_low_level)
 		end
 
 	is_parse: BOOLEAN is
@@ -89,6 +100,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_MARKUP_ERROR_BAD_UTF8"
+ 			}"
+ 		end
+
+	empty_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_MARKUP_ERROR_EMPTY"
  			}"
  		end
 

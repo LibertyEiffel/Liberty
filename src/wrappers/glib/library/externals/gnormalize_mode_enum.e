@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = default_external_low_level)  or else
+				(a_value = nfd_low_level)  or else
 				(a_value = default_compose_low_level)  or else
 				(a_value = nfc_low_level)  or else
 				(a_value = all_low_level)  or else
@@ -25,6 +26,11 @@ feature -- Setters
 	set_default_external is
 		do
 			value := default_external_low_level
+		end
+
+	set_nfd is
+		do
+			value := nfd_low_level
 		end
 
 	set_default_compose is
@@ -61,6 +67,11 @@ feature -- Queries
 	is_default_external: BOOLEAN is
 		do
 			Result := (value=default_external_low_level)
+		end
+
+	is_nfd: BOOLEAN is
+		do
+			Result := (value=nfd_low_level)
 		end
 
 	is_default_compose: BOOLEAN is
@@ -100,6 +111,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_NORMALIZE_DEFAULT"
+ 			}"
+ 		end
+
+	nfd_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_NORMALIZE_NFD"
  			}"
  		end
 

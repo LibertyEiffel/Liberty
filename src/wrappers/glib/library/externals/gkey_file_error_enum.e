@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unknown_encoding_low_level)  or else
+				(a_value = parse_low_level)  or else
 				(a_value = not_found_low_level)  or else
 				(a_value = key_not_found_low_level)  or else
 				(a_value = group_not_found_low_level)  or else
@@ -23,6 +24,11 @@ feature -- Setters
 	set_unknown_encoding is
 		do
 			value := unknown_encoding_low_level
+		end
+
+	set_parse is
+		do
+			value := parse_low_level
 		end
 
 	set_not_found is
@@ -49,6 +55,11 @@ feature -- Queries
 	is_unknown_encoding: BOOLEAN is
 		do
 			Result := (value=unknown_encoding_low_level)
+		end
+
+	is_parse: BOOLEAN is
+		do
+			Result := (value=parse_low_level)
 		end
 
 	is_not_found: BOOLEAN is
@@ -78,6 +89,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_KEY_FILE_ERROR_UNKNOWN_ENCODING"
+ 			}"
+ 		end
+
+	parse_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_KEY_FILE_ERROR_PARSE"
  			}"
  		end
 

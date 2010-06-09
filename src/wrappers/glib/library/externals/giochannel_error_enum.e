@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = fbig_low_level)  or else
+				(a_value = inval_low_level)  or else
 				(a_value = io_low_level)  or else
 				(a_value = isdir_low_level)  or else
 				(a_value = nospc_low_level)  or else
@@ -26,6 +27,11 @@ feature -- Setters
 	set_fbig is
 		do
 			value := fbig_low_level
+		end
+
+	set_inval is
+		do
+			value := inval_low_level
 		end
 
 	set_io is
@@ -67,6 +73,11 @@ feature -- Queries
 	is_fbig: BOOLEAN is
 		do
 			Result := (value=fbig_low_level)
+		end
+
+	is_inval: BOOLEAN is
+		do
+			Result := (value=inval_low_level)
 		end
 
 	is_io: BOOLEAN is
@@ -111,6 +122,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_IO_CHANNEL_ERROR_FBIG"
+ 			}"
+ 		end
+
+	inval_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_CHANNEL_ERROR_INVAL"
  			}"
  		end
 

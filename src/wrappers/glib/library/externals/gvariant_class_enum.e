@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = boolean_low_level)  or else
+				(a_value = byte_low_level)  or else
 				(a_value = int16_low_level)  or else
 				(a_value = uint16_low_level)  or else
 				(a_value = int32_low_level)  or else
@@ -35,6 +36,11 @@ feature -- Setters
 	set_boolean is
 		do
 			value := boolean_low_level
+		end
+
+	set_byte is
+		do
+			value := byte_low_level
 		end
 
 	set_int16 is
@@ -121,6 +127,11 @@ feature -- Queries
 	is_boolean: BOOLEAN is
 		do
 			Result := (value=boolean_low_level)
+		end
+
+	is_byte: BOOLEAN is
+		do
+			Result := (value=byte_low_level)
 		end
 
 	is_int16: BOOLEAN is
@@ -210,6 +221,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_VARIANT_CLASS_BOOLEAN"
+ 			}"
+ 		end
+
+	byte_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_VARIANT_CLASS_BYTE"
  			}"
  		end
 

@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = directory_desktop_low_level)  or else
+				(a_value = directory_documents_low_level)  or else
 				(a_value = directory_download_low_level)  or else
 				(a_value = directory_music_low_level)  or else
 				(a_value = directory_pictures_low_level)  or else
@@ -26,6 +27,11 @@ feature -- Setters
 	set_directory_desktop is
 		do
 			value := directory_desktop_low_level
+		end
+
+	set_directory_documents is
+		do
+			value := directory_documents_low_level
 		end
 
 	set_directory_download is
@@ -67,6 +73,11 @@ feature -- Queries
 	is_directory_desktop: BOOLEAN is
 		do
 			Result := (value=directory_desktop_low_level)
+		end
+
+	is_directory_documents: BOOLEAN is
+		do
+			Result := (value=directory_documents_low_level)
 		end
 
 	is_directory_download: BOOLEAN is
@@ -111,6 +122,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_USER_DIRECTORY_DESKTOP"
+ 			}"
+ 		end
+
+	directory_documents_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_USER_DIRECTORY_DOCUMENTS"
  			}"
  		end
 

@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = caseless_low_level)  or else
+				(a_value = multiline_low_level)  or else
 				(a_value = dotall_low_level)  or else
 				(a_value = extended_low_level)  or else
 				(a_value = anchored_low_level)  or else
@@ -31,6 +32,11 @@ feature -- Setters
 	set_caseless is
 		do
 			value := caseless_low_level
+		end
+
+	set_multiline is
+		do
+			value := multiline_low_level
 		end
 
 	set_dotall is
@@ -97,6 +103,11 @@ feature -- Queries
 	is_caseless: BOOLEAN is
 		do
 			Result := (value=caseless_low_level)
+		end
+
+	is_multiline: BOOLEAN is
+		do
+			Result := (value=multiline_low_level)
 		end
 
 	is_dotall: BOOLEAN is
@@ -166,6 +177,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_REGEX_CASELESS"
+ 			}"
+ 		end
+
+	multiline_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_MULTILINE"
  			}"
  		end
 

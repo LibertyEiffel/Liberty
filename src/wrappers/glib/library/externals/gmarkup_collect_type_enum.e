@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = invalid_low_level)  or else
+				(a_value = string_low_level)  or else
 				(a_value = strdup_low_level)  or else
 				(a_value = boolean_low_level)  or else
 				(a_value = tristate_low_level)  or else
@@ -23,6 +24,11 @@ feature -- Setters
 	set_invalid is
 		do
 			value := invalid_low_level
+		end
+
+	set_string is
+		do
+			value := string_low_level
 		end
 
 	set_strdup is
@@ -49,6 +55,11 @@ feature -- Queries
 	is_invalid: BOOLEAN is
 		do
 			Result := (value=invalid_low_level)
+		end
+
+	is_string: BOOLEAN is
+		do
+			Result := (value=string_low_level)
 		end
 
 	is_strdup: BOOLEAN is
@@ -78,6 +89,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_MARKUP_COLLECT_INVALID"
+ 			}"
+ 		end
+
+	string_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_MARKUP_COLLECT_STRING"
  			}"
  		end
 
