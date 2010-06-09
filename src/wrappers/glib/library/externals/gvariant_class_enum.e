@@ -12,12 +12,12 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = boolean_low_level)  or else
-				(a_value = int_16_low_level)  or else
-				(a_value = uint_16_low_level)  or else
-				(a_value = int_32_low_level)  or else
-				(a_value = uint_32_low_level)  or else
-				(a_value = int_64_low_level)  or else
-				(a_value = uint_64_low_level)  or else
+				(a_value = int16_low_level)  or else
+				(a_value = uint16_low_level)  or else
+				(a_value = int32_low_level)  or else
+				(a_value = uint32_low_level)  or else
+				(a_value = int64_low_level)  or else
+				(a_value = uint64_low_level)  or else
 				(a_value = handle_low_level)  or else
 				(a_value = double_low_level)  or else
 				(a_value = string_low_level)  or else
@@ -37,34 +37,34 @@ feature -- Setters
 			value := boolean_low_level
 		end
 
-	set_int_16 is
+	set_int16 is
 		do
-			value := int_16_low_level
+			value := int16_low_level
 		end
 
-	set_uint_16 is
+	set_uint16 is
 		do
-			value := uint_16_low_level
+			value := uint16_low_level
 		end
 
-	set_int_32 is
+	set_int32 is
 		do
-			value := int_32_low_level
+			value := int32_low_level
 		end
 
-	set_uint_32 is
+	set_uint32 is
 		do
-			value := uint_32_low_level
+			value := uint32_low_level
 		end
 
-	set_int_64 is
+	set_int64 is
 		do
-			value := int_64_low_level
+			value := int64_low_level
 		end
 
-	set_uint_64 is
+	set_uint64 is
 		do
-			value := uint_64_low_level
+			value := uint64_low_level
 		end
 
 	set_handle is
@@ -123,34 +123,34 @@ feature -- Queries
 			Result := (value=boolean_low_level)
 		end
 
-	is_int_16: BOOLEAN is
+	is_int16: BOOLEAN is
 		do
-			Result := (value=int_16_low_level)
+			Result := (value=int16_low_level)
 		end
 
-	is_uint_16: BOOLEAN is
+	is_uint16: BOOLEAN is
 		do
-			Result := (value=uint_16_low_level)
+			Result := (value=uint16_low_level)
 		end
 
-	is_int_32: BOOLEAN is
+	is_int32: BOOLEAN is
 		do
-			Result := (value=int_32_low_level)
+			Result := (value=int32_low_level)
 		end
 
-	is_uint_32: BOOLEAN is
+	is_uint32: BOOLEAN is
 		do
-			Result := (value=uint_32_low_level)
+			Result := (value=uint32_low_level)
 		end
 
-	is_int_64: BOOLEAN is
+	is_int64: BOOLEAN is
 		do
-			Result := (value=int_64_low_level)
+			Result := (value=int64_low_level)
 		end
 
-	is_uint_64: BOOLEAN is
+	is_uint64: BOOLEAN is
 		do
-			Result := (value=uint_64_low_level)
+			Result := (value=uint64_low_level)
 		end
 
 	is_handle: BOOLEAN is
@@ -213,7 +213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_16_low_level: INTEGER is
+	int16_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint_16_low_level: INTEGER is
+	uint16_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_32_low_level: INTEGER is
+	int32_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint_32_low_level: INTEGER is
+	uint32_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_64_low_level: INTEGER is
+	int64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint_64_low_level: INTEGER is
+	uint64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

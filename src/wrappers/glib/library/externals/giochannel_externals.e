@@ -389,5 +389,7 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	-- Variable g_io_watch_funcs (at line 303 in file /usr/include/glib-2.0/glib/giochannel.h is does not have a wrapper type
 
 end -- class GIOCHANNEL_EXTERNALS

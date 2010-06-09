@@ -420,5 +420,56 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	glib_major_version: NATURAL_32 is
+ 		-- glib_major_version (node at line 423)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_major_version"
+		}"
+		end
+
+	glib_interface_age: NATURAL_32 is
+ 		-- glib_interface_age (node at line 426)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_interface_age"
+		}"
+		end
+
+	glib_micro_version: NATURAL_32 is
+ 		-- glib_micro_version (node at line 425)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_micro_version"
+		}"
+		end
+
+	glib_binary_age: NATURAL_32 is
+ 		-- glib_binary_age (node at line 427)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_binary_age"
+		}"
+		end
+
+	glib_minor_version: NATURAL_32 is
+ 		-- glib_minor_version (node at line 424)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_minor_version"
+		}"
+		end
+
 
 end -- class GUTILS_EXTERNALS

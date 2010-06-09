@@ -18,7 +18,7 @@ feature -- Validity
 				(a_value = string_array_low_level)  or else
 				(a_value = filename_array_low_level)  or else
 				(a_value = double_low_level)  or else
-				(a_value = int_64_low_level) )
+				(a_value = int64_low_level) )
 		end
 
 feature -- Setters
@@ -58,9 +58,9 @@ feature -- Setters
 			value := double_low_level
 		end
 
-	set_int_64 is
+	set_int64 is
 		do
-			value := int_64_low_level
+			value := int64_low_level
 		end
 
 feature -- Queries
@@ -99,9 +99,9 @@ feature -- Queries
 			Result := (value=double_low_level)
 		end
 
-	is_int_64: BOOLEAN is
+	is_int64: BOOLEAN is
 		do
-			Result := (value=int_64_low_level)
+			Result := (value=int64_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_64_low_level: INTEGER is
+	int64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

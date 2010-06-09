@@ -11,7 +11,7 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = bad_utf_8_low_level)  or else
+			Result := ((a_value = bad_utf8_low_level)  or else
 				(a_value = parse_low_level)  or else
 				(a_value = unknown_element_low_level)  or else
 				(a_value = unknown_attribute_low_level)  or else
@@ -21,9 +21,9 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_bad_utf_8 is
+	set_bad_utf8 is
 		do
-			value := bad_utf_8_low_level
+			value := bad_utf8_low_level
 		end
 
 	set_parse is
@@ -52,9 +52,9 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_bad_utf_8: BOOLEAN is
+	is_bad_utf8: BOOLEAN is
 		do
-			Result := (value=bad_utf_8_low_level)
+			Result := (value=bad_utf8_low_level)
 		end
 
 	is_parse: BOOLEAN is
@@ -83,7 +83,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_utf_8_low_level: INTEGER is
+	bad_utf8_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -420,5 +420,16 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	g_test_config_vars: POINTER is
+ 		-- g_test_config_vars (node at line 231)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_test_config_vars"
+		}"
+		end
+
 
 end -- class GTESTUTILS_EXTERNALS

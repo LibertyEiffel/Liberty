@@ -289,5 +289,26 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	g_mem_gc_friendly: INTEGER_32 is
+ 		-- g_mem_gc_friendly (node at line 150)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_mem_gc_friendly"
+		}"
+		end
+
+	glib_mem_profiler_table: POINTER is
+ 		-- glib_mem_profiler_table (node at line 154)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "glib_mem_profiler_table"
+		}"
+		end
+
 
 end -- class GMEM_EXTERNALS
