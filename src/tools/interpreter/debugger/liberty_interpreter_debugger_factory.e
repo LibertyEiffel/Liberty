@@ -38,6 +38,10 @@ feature {EIFFEL_GRAMMAR}
 				action := action_show
 			when "Step" then
 				action := action_step
+			when "Up" then
+				action := action_up
+			when "Down" then
+				action := action_down
 			end
 			create {LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE} Result.make(action, name, names)
 		end
@@ -61,6 +65,16 @@ feature {}
 	action_step: PROCEDURE[TUPLE[LIBERTY_INTERPRETER_DEBUGGER_VISITOR, LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE]] is
 		once
 			Result := agent {LIBERTY_INTERPRETER_DEBUGGER_VISITOR}.visit_step
+		end
+
+	action_up: PROCEDURE[TUPLE[LIBERTY_INTERPRETER_DEBUGGER_VISITOR, LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE]] is
+		once
+			Result := agent {LIBERTY_INTERPRETER_DEBUGGER_VISITOR}.visit_up
+		end
+
+	action_down: PROCEDURE[TUPLE[LIBERTY_INTERPRETER_DEBUGGER_VISITOR, LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE]] is
+		once
+			Result := agent {LIBERTY_INTERPRETER_DEBUGGER_VISITOR}.visit_down
 		end
 
 feature {}

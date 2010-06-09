@@ -36,4 +36,16 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
 		deferred
 		end
 
+	visit_up (a_up: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		require
+			a_up /= Void
+		deferred
+		end
+
+	visit_down (a_down: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		require
+			a_down /= Void
+		deferred
+		end
+
 end -- class LIBERTY_INTERPRETER_DEBUGGER_VISITOR

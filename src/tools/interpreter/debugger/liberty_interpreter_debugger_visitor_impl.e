@@ -39,6 +39,16 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
 					a_entry.name_at(1).is_equal(once "Show")
 				end
 				a_entry.node_at(1).accept(Current)
+			when "KW up" then
+				check
+					a_entry.name_at(1).is_equal(once "Up")
+				end
+				a_entry.node_at(1).accept(Current)
+			when "KW down" then
+				check
+					a_entry.name_at(1).is_equal(once "Down")
+				end
+				a_entry.node_at(1).accept(Current)
 			when "KW continue" then
 				should_continue := True
 			when "KW step" then
@@ -56,15 +66,20 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
 		do
 			check
 				a_show.lower = 0
-				a_show.name_at(0).is_equal(once "KW stack")
 			end
-			interpreter.show_stack(std_output)
+			inspect
+				a_show.name_at(0)
+			when "KW stack" then
+				interpreter.show_stack(std_output)
+			when "KW frame" then
+				interpreter.show_current_frame(std_output)
+			end
 		end
 
 	visit_step (a_step: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
 		local
 			step_count_node: EIFFEL_TERMINAL_NODE_IMPL
-			step_count: TYPED_EIFFEL_IMAGE[INTEGER]
+			step_count: TYPED_EIFFEL_IMAGE[INTEGER_64]
 		do
 			if a_step.is_empty then
 				interpreter.debug_step(1)
@@ -84,13 +99,64 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
 					if step_count.decoded <= 0 then
 						std_error.put_line(once "Cannot step zero or less times :-)")
 					else
-						interpreter.debug_step(step_count.decoded)
+						interpreter.debug_step(step_count.decoded.to_integer_32)
 					end
 				end
 			end
 		end
 
+	visit_up (a_up: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		local
+			up_node: EIFFEL_TERMINAL_NODE_IMPL
+			up: TYPED_EIFFEL_IMAGE[INTEGER_64]
+		do
+			if a_up.is_empty then
+				set_frame(1)
+			else
+				check
+					a_up.lower = 0
+					a_up.name_at(0).is_equal(once "KW number")
+				end
+				up_node ::= a_up.node_at(0)
+				up ::= up_node.image
+				set_frame(up.decoded)
+			end
+		end
+
+	visit_down (a_down: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+		local
+			down_node: EIFFEL_TERMINAL_NODE_IMPL
+			down: TYPED_EIFFEL_IMAGE[INTEGER_64]
+		do
+			if a_down.is_empty then
+				set_frame(-1)
+			else
+				check
+					a_down.lower = 0
+					a_down.name_at(0).is_equal(once "KW number")
+				end
+				down_node ::= a_down.node_at(0)
+				down ::= down_node.image
+				set_frame(-(down.decoded))
+			end
+		end
+
 feature {}
+	set_frame (delta: INTEGER_64) is
+		local
+			new_frame: INTEGER
+		do
+			new_frame := interpreter.current_frame + delta.to_integer_32
+			if new_frame <= interpreter.frame_lower then
+				std_error.put_line(once "Bottom reached.")
+				new_frame := interpreter.frame_lower
+			elseif new_frame >= interpreter.frame_upper then
+				std_error.put_line(once "Top reached.")
+				new_frame := interpreter.frame_upper
+			end
+			interpreter.set_current_frame(new_frame)
+		end
+
 	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void

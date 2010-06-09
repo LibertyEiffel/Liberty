@@ -34,6 +34,18 @@ feature {LIBERTYI}
 		end
 
 feature {ANY}
+	frame_lower: INTEGER is
+		do
+			Result := call_stack.lower
+		end
+
+	frame_upper: INTEGER is
+		do
+			Result := call_stack.upper
+		end
+
+	current_frame: INTEGER
+
 	break is
 		local
 			done: BOOLEAN
@@ -49,6 +61,13 @@ feature {ANY}
 					die_with_code(0)
 				end
 			end
+		end
+
+	show_current_frame (o: OUTPUT_STREAM) is
+		do
+			o.put_integer(current_frame + 1)
+			o.put_character('%T')
+			call_stack.item(current_frame).show_stack(o)
 		end
 
 	show_stack (o: OUTPUT_STREAM) is
@@ -400,6 +419,15 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL}
 			debugger.steps.at_call_exit
 		end
 
+	set_current_frame (f: like current_frame) is
+		require
+			f.in_range(frame_lower, frame_upper)
+		do
+			current_frame := f
+		ensure
+			current_frame = f
+		end
+
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 	start_gathering_old_values is
 		do
@@ -476,11 +504,13 @@ feature {}
 			end
 			debugger.steps.step
 			call_stack.add_last(Result)
+			current_frame := frame_upper
 			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.call")
 				std_output.put_integer(call_stack.count)
 				std_output.put_string(once " - Returning from ")
@@ -502,11 +532,13 @@ feature {}
 			end
 			debugger.steps.step
 			call_stack.add_last(Result)
+			current_frame := frame_upper
 			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.call")
 				std_output.put_integer(call_stack.count)
 				std_output.put_string(once " - Returning from precursor feature ")
@@ -529,6 +561,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			check cf = current_feature end
 			feature_evaluating_parameters.add_last(cf)
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.internals")
 				std_output.put_string(once " {{{ opening parameters evaluation of ")
 				std_output.put_line(cf.name)
@@ -544,6 +577,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 		do
 			check cf = feature_evaluating_parameters.last end
 			call_stack.add_last(cf)
+			current_frame := frame_upper
 			feature_evaluating_parameters.remove_last
 			debug ("interpreter.internals")
 				std_output.put_string(once " }}} closing parameters evaluation of ")
