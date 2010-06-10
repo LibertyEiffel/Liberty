@@ -10,6 +10,7 @@
 
 #define keymap_entry_struct_set_function(a_structure,a_value) (((struct _keymap_entry*)(a_structur)e)))->function = a_value;
 
+size_t sizeof__keymap_entry();
 #define funmap_struct_get_name(a_structure) (((struct _funmap*) (a_structure))->name)
 
 #define funmap_struct_set_name(a_structure,a_value) (((struct _funmap*)(a_structur)e)))->name = a_value;
@@ -18,6 +19,7 @@
 
 #define funmap_struct_set_function(a_structure,a_value) (((struct _funmap*)(a_structur)e)))->function = a_value;
 
+size_t sizeof__funmap();
 #define hist_entry_struct_get_line(a_structure) (((struct _hist_entry*) (a_structure))->line)
 
 #define hist_entry_struct_set_line(a_structure,a_value) (((struct _hist_entry*)(a_structur)e)))->line = a_value;
@@ -30,6 +32,7 @@
 
 #define hist_entry_struct_set_data(a_structure,a_value) (((struct _hist_entry*)(a_structur)e)))->data = a_value;
 
+size_t sizeof__hist_entry();
 #define readline_state_struct_get_point(a_structure) (((struct readline_state*) (a_structure))->point)
 
 #define readline_state_struct_set_point(a_structure,a_value) (((struct readline_state*)(a_structur)e)))->point = a_value;
@@ -114,6 +117,7 @@
 
 #define readline_state_struct_set_reserved(a_structure,a_value) (((struct readline_state*)(a_structur)e)))->reserved = a_value;
 
+size_t sizeof_readline_state();
 #define undo_list_struct_get_next(a_structure) (((struct undo_list*) (a_structure))->next)
 
 #define undo_list_struct_set_next(a_structure,a_value) (((struct undo_list*)(a_structur)e)))->next = a_value;
@@ -134,6 +138,7 @@
 
 #define undo_list_struct_set_what(a_structure,a_value) (((struct undo_list*)(a_structur)e)))->what = a_value;
 
+size_t sizeof_undo_list();
 #define history_state_struct_get_entries(a_structure) (((struct _hist_state*) (a_structure))->entries)
 
 #define history_state_struct_set_entries(a_structure,a_value) (((struct _hist_state*)(a_structur)e)))->entries = a_value;
@@ -154,3 +159,4 @@
 
 #define history_state_struct_set_flags(a_structure,a_value) (((struct _hist_state*)(a_structur)e)))->flags = a_value;
 
+size_t sizeof__hist_state();

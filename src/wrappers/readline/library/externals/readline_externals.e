@@ -1239,7 +1239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_f_w_ord (an_argument_l1295_c7: INTEGER_32; an_argument_l1296_c7: INTEGER_32): INTEGER_32 is
+	rl_vi_f_word (an_argument_l1295_c7: INTEGER_32; an_argument_l1296_c7: INTEGER_32): INTEGER_32 is
  		-- rl_vi_fWord (node at line 1294)
 		external "plug_in"
 		alias "{
@@ -1439,7 +1439,7 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_e_w_ord (an_argument_l1488_c7: INTEGER_32; an_argument_l1489_c7: INTEGER_32): INTEGER_32 is
+	rl_vi_e_word (an_argument_l1488_c7: INTEGER_32; an_argument_l1489_c7: INTEGER_32): INTEGER_32 is
  		-- rl_vi_eWord (node at line 1487)
 		external "plug_in"
 		alias "{
@@ -1959,7 +1959,7 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_b_w_ord (an_argument_l2148_c7: INTEGER_32; an_argument_l2149_c7: INTEGER_32): INTEGER_32 is
+	rl_vi_b_word (an_argument_l2148_c7: INTEGER_32; an_argument_l2149_c7: INTEGER_32): INTEGER_32 is
  		-- rl_vi_bWord (node at line 2147)
 		external "plug_in"
 		alias "{
