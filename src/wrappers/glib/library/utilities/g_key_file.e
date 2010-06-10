@@ -103,7 +103,7 @@ feature {} -- Creation
 		end
 
 
-	load_from_file (a_file: STRING; some_flags: G_KEY_FILE_FLAGS) is
+	load_from_file (a_file: STRING; some_flags: GKEY_FILE_FLAGS_ENUM) is
 			-- Loads a key file into an empty GKeyFile structure. If
 			-- `a_file' has been completely and correctly read
 			-- `is_successful' is set to True, otherwise, i.e. if
@@ -137,7 +137,7 @@ feature {} -- Creation
 	-- error :    return location for a GError, or NULL
 	-- Returns :  TRUE if a key file could be loaded, FALSE othewise
 
-	load_from_data_dirs (a_file: STRING; some_flags: G_KEY_FILE_FLAGS) is
+	load_from_data_dirs (a_file: STRING; some_flags: GKEY_FILE_FLAGS_ENUM) is
 			-- Looks for `a_key_file' in the paths returned from
 			-- `g_get_user_data_dir' and `g_get_system_data_dirs' (TODO:
 			-- these two are the names of the C functions; provide the
@@ -279,9 +279,9 @@ feature -- Queries
 			-- Note: further feature calls can change this value, 
 			-- becuase it is computed from the value of the common, 
 			-- shared error object.
-		local f: G_KEY_FILE_ERROR
+		local f: GKEY_FILE_ERROR_ENUM
 		do
-			Result := error.code/=f.g_key_file_error_invalid_value
+			Result := error.code /= f.invalid_value_low_level
 		end
 
 	value (a_group, a_key: STRING): STRING is
@@ -421,14 +421,16 @@ feature -- Queries
 			has_key: has_key(a_group, a_key)
 		local value_ptr: POINTER; 
 		do
+			not_yet_implemented
 			value_ptr:=(g_key_file_get_string_list
 							(handle, a_group.to_external, a_key.to_external,
 							 default_pointer, -- gsize *length,
 							 error.reference))
-			if value_ptr.is_not_null then
-				create {NULL_TERMINATED_STRING_ARRAY}
-				Result.from_external(value_ptr)
-			end
+			-- if value_ptr.is_not_null then
+			-- 	create {NULL_TERMINATED_STRING_ARRAY}
+			-- 	Result.from_external(value_ptr)
+			-- end
+
 			-- g_key_file_get_string_list returns the values associated with key
 			-- under group_name.
 			
@@ -475,10 +477,12 @@ feature -- Queries
 			-- g_key_file_get_locale_string_list returns a newly allocated
 			-- NULL-terminated string array or NULL if the key isn't found. The
 			-- string array should be freed with g_strfreev().
-			if value_ptr.is_not_null then
-				create {NULL_TERMINATED_STRING_ARRAY}
-				Result.from_external(value_ptr)
-			end
+			
+			not_yet_implemented
+			-- if value_ptr.is_not_null then
+			-- 	create {NULL_TERMINATED_STRING_ARRAY}
+			-- 	Result.from_external(value_ptr)
+			-- end
 		end
 
 	boolean_list (a_group, a_key: STRING): COLLECTION[BOOLEAN] is
@@ -674,7 +678,7 @@ feature -- Setting commands
 		do
 			native:=native.calloc(some_strings.count)
 			from
-				i:=0; si:=some_strings.get_new_iterator; si.start
+				i:=0; si:=some_strings.new_iterator; si.start
 			until si.is_off loop
 				native.put(null_or_string(si.item),i)
 				i:=i+1
@@ -682,7 +686,7 @@ feature -- Setting commands
 			end
 			g_key_file_set_string_list
 			(handle, a_group.to_external, a_key.to_external,
-			 native.to_external, some_strings.count)
+			 native.to_external, some_strings.count.to_natural_32)
 		end
 
 	set_localized_strings (a_group, a_key, a_locale: STRING; some_strings: COLLECTION[STRING]) is
@@ -698,7 +702,7 @@ feature -- Setting commands
 		do
 			native:=native.calloc(some_strings.count)
 			from
-				i:=0; si:=some_strings.get_new_iterator; si.start
+				i:=0; si:=some_strings.new_iterator; si.start
 			until si.is_off loop
 				native.put(null_or_string(si.item),i)
 				i:=i+1
@@ -706,7 +710,8 @@ feature -- Setting commands
 			end
 			g_key_file_set_locale_string_list
 			(handle, a_group.to_external, a_key.to_external,
-			 a_locale.to_external, native.to_external, some_strings.count)
+			 a_locale.to_external, native.to_external, some_strings.count.to_natural_32
+			 )
 		end
 
 	set_booleans (a_group, a_key: STRING; some_booleans: COLLECTION[BOOLEAN]) is
@@ -722,7 +727,7 @@ feature -- Setting commands
 		do
 			native:=native.calloc(some_booleans.count)
 			from
-				i:=0; si:=some_booleans.get_new_iterator; si.start
+				i:=0; si:=some_booleans.new_iterator; si.start
 			until si.is_off loop
 				native.put(si.item.to_integer,i)
 				i:=i+1
@@ -730,7 +735,7 @@ feature -- Setting commands
 			end
 			g_key_file_set_boolean_list (handle, null_or_string(a_group),
 												  a_key.to_external,
-												  native.to_external, some_booleans.count)
+												  native.to_external, some_booleans.count.to_natural_32)
 		end
 
 	set_integers (a_group, a_key: STRING; some_integers: COLLECTION[INTEGER]) is
@@ -804,8 +809,9 @@ feature -- Removing
 	remove_group (a_group: STRING) is
 			-- Removes `a_group' from the key file. `error' is updated.
 		require group_not_void: a_group/=Void
+		local res: INTEGER
 		do
-			g_key_file_remove_group(handle,a_group.to_external,error.reference)
+			res:=g_key_file_remove_group(handle,a_group.to_external,error.reference)
 		end
 
 	remove_key (a_group, a_key: STRING) is
@@ -813,8 +819,9 @@ feature -- Removing
 		require
 			group_not_void: a_group/=Void
 			key_not_void: a_key/=Void
+		local res: INTEGER
 		do
-			g_key_file_remove_key (handle, a_group.to_external, a_key.to_external, error.reference)
+			res:=g_key_file_remove_key (handle, a_group.to_external, a_key.to_external, error.reference)
 		end
 	
 	remove_comment (a_group, a_key: STRING) is
@@ -823,8 +830,9 @@ feature -- Removing
 			-- both `a_key' and `a_group' are Void, then comment will be
 			-- written above the first group in the file. `error' is
 			-- updated.
+		local res: INTEGER
 		do
-			g_key_file_remove_comment(handle,null_or_string(a_group),
+			res:=g_key_file_remove_comment(handle,null_or_string(a_group),
 											  null_or_string(a_key), error.reference)
 		end
 end -- class G_KEY_FILE

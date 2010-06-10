@@ -23,9 +23,13 @@ class G_OPTION_INTEGER_ENTRY
 	-- A boolean GOptionEntry.
 
 inherit 
-	G_OPTION_ENTRY redefine make, fill_tagged_out_memory end 
-
-	-- REFERENCE[INTEGER]
+	G_OPTION_ENTRY 
+		redefine make, fill_tagged_out_memory 
+		end 
+	-- TODO: REFERENCE[INTEGER] 
+	-- 	undefine copy, is_equal
+	-- 	redefine fill_tagged_out_memory
+	-- 	end
 
 creation make
 
@@ -34,17 +38,15 @@ feature
 		local t: like argument_type
 		do
 			Precursor (a_long_name,a_short_name, a_description)
-			goptionentry_struct_set_arg(handle, t.g_option_arg_int)
-			goptionentry_struct_set_arg_data(handle, $item) 
+			t.set_int
+			goption_entry_struct_set_arg(handle, t.value)
+			goption_entry_struct_set_arg_data(handle, $item) 
 		end
 
 feature -- Queries
 	item: INTEGER
 
-	set_item (a_value: like item) is
-		do
-			item:=a_value
-		end
+	set_item (an_item: INTEGER) is do item:=an_item end
 
 	fill_tagged_out_memory is
 		do

@@ -226,7 +226,7 @@ feature -- Convertions
 		-- the type of the character. See
 		-- http://www.unicode.org/Public/UNIDATA/UnicodeData.html.
 	do
-		Result.set_value(g_unichar_type(code))
+		Result.change_value(g_unichar_type(code))
 	end
 
 	break_type: GUNICODE_BREAK_TYPE_ENUM is
@@ -236,7 +236,7 @@ feature -- Convertions
 		-- function such as pango_break() instead of caring about break types
 		-- yourself.
 	do
-		Result.set_value(g_unichar_break_type(code))
+		Result.change_value(g_unichar_break_type(code))
 	end
 
 
@@ -261,11 +261,12 @@ feature -- Convertions
 		-- character that typically has a glyph that is the mirror image of
 		-- Current's glyph then Result will be not Void.
 
-	local res: INTEGER_32; mirrored: like code
+	local res: INTEGER_32; mirrored: like code; mirror_unichar: like Current
 	do
 		res := g_unichar_get_mirror_char(code, $mirrored)
 		if res/=0 then
-			create Result.set_item(mirrored)
+			mirror_unichar.set(mirrored)
+			create Result.set_item(mirror_unichar)
 		end
 	end
 

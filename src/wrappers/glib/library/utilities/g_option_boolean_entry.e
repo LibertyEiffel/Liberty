@@ -23,15 +23,13 @@ class G_OPTION_BOOLEAN_ENTRY
 	-- A boolean GOptionEntry.
 
 inherit 
-	G_OPTION_ENTRY 
-		redefine
-			make, fill_tagged_out_memory 
-		end
+	G_OPTION_ENTRY redefine make, fill_tagged_out_memory end
 
 	-- TODO: this should be a REFERENCE[BOOLEAN], but it is not easily
 	-- implementable because REFERENCE's item is an effective attribute
-	-- while the option entry at C level in an integer. rename item as
-	-- hidden_boolean export {} hidden_boolean redefine set_item end
+	-- while the option entry at C level in an integer. The following
+	-- inheriting clauses may be needed: undefine copy redefine is_equal,
+	-- item, set_item, fill_tagged_out_memory end
 
 creation make
 	
@@ -40,11 +38,17 @@ feature
 		local t: like argument_type
 		do
 			Precursor (a_long_name,a_short_name, a_description)
-			goptionentry_struct_set_arg(handle, t.g_option_arg_none)
-			goptionentry_struct_set_arg_data(handle, $hidden_value)
+			t.set_none
+			goption_entry_struct_set_arg(handle, t.value)
+			goption_entry_struct_set_arg_data(handle, $hidden_value)
 		end
 
 feature
+	-- is_equal (another: like Current): BOOLEAN is
+	-- 	do
+	-- 		Result := item=another.item
+	-- 	end
+
 	item: BOOLEAN is 
 		do 
 			Result:=hidden_value.to_boolean 

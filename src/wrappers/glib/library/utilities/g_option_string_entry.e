@@ -25,7 +25,7 @@ class G_OPTION_STRING_ENTRY
 inherit 
 	G_OPTION_ENTRY redefine make, fill_tagged_out_memory end 
 
-	-- REFERENCE[INTEGER]
+	-- TODO: REFERENCE[STRING]
 
 creation make
 
@@ -33,10 +33,11 @@ feature
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		local t: like argument_type
 		do
+			not_yet_implemented
 			Precursor (a_long_name,a_short_name, a_description)
-			goptionentry_struct_set_arg(handle, t.g_option_arg_string)
+			-- TODO: string arg type seems to be missing in the enum wrapper! goption_entry_struct_set_arg(handle, t.g_option_arg_string)
 			create item.make_empty
-			goptionentry_struct_set_arg_data(handle, item.to_external)
+			goption_entry_struct_set_arg_data(handle, item.to_external)
 		end
 
 feature -- Queries
