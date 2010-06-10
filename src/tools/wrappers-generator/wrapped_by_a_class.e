@@ -17,7 +17,20 @@ feature
 
 	class_name: STRING is
 		-- the name of the Eiffel class that wraps Current. CamelCase is converted into CAMEL_CASE, `suffix' is added at the end, eventual trailing underscores are removed.
-	deferred 
+	do
+		if stored_class_name=Void then 
+			if assigned_name/=Void then stored_class_name:=assigned_name.twin
+			else stored_class_name:=c_string_name.twin
+			end
+			insert_underscores(stored_class_name)
+			stored_class_name.append(suffix)
+			stored_class_name.to_upper
+			check 
+				is_public: stored_class_name.first/='_'
+				not class_name.has_substring("__")	
+			end
+		end
+		Result := stored_class_name
 	ensure 
 		non_void: Result/=Void
 		is_valid_class_name(Result)

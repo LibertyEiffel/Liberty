@@ -48,6 +48,8 @@ inherit
 insert 
 		GCOMPLETION_EXTERNALS redefine default_create end 
 		GCOMPLETION_STRUCT redefine default_create end
+		GLIST_EXTERNALS undefine default_create end -- used in matching
+		GLIST_STRUCT undefine default_create end -- used in matching
 
 creation  from_external_pointer
 
@@ -61,18 +63,22 @@ feature
 			-- the GCompletion items.
 		end
 
-	add_strings (some_strings: G_LIST_STRING) is
+	add_strings (some_strings: COLLECTION[ABSTRACT_STRING]) is
 			-- Adds `some_strings' to Current GCompletion.
+
+			-- Note: TODO when some_strings is a G_LIST_STRING this call is more efficient
 		require some_strings/=Void
 		do
-			g_completion_add_items(handle,some_strings.handle)
+			not_yet_implemented
+			-- g_completion_add_items(handle,some_strings.handle)
 		end
 
-	remove (some_strings: G_LIST_STRING) is
+	remove (some_strings: COLLECTION[ABSTRACT_STRING]) is
 			-- Removes `some_strings' from Current GCompletion.
 		require some_strings/=Void
 		do
-			g_completion_remove_items(handle,some_strings.handle)
+			not_yet_implemented
+			-- g_completion_remove_items(handle,some_strings.handle)
 		end
 
 	clear is
@@ -99,13 +105,20 @@ feature
 			if a_new_prefix.is_not_null then
 				create longest_common_prefix.from_external_copy(a_new_prefix)
 			end
-
-			create matching.from_external_pointer(g_list)
 			-- g_completion_complete returns the list of items whose
-			-- strings begin with prefix. This should not be changed.
+			-- strings begin with prefix. This should not be changed. So we copy it.
+
+			if g_list.is_not_null then 
+				from create {FAST_ARRAY[STRING]} matching.with_capacity(g_list_length(g_list).to_integer_32)
+				until g_list.is_not_null loop
+					matching.add_last(create {STRING}.from_external_copy(glist_struct_get_data(g_list)))
+					g_list:=glist_struct_get_next(g_list)
+				end
+			else matching:=Void
+			end
 		end
 
-	matching: G_LIST_STRING
+	matching: COLLECTION[STRING]
 			-- the list of items whose strings begin with `a_prefix'
 	
 	longest_common_prefix: STRING 

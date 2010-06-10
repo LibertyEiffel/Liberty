@@ -549,5 +549,16 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	g_ascii_table: POINTER is
+ 		-- g_ascii_table (node at line 55)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_ascii_table"
+		}"
+		end
+
 
 end -- class GSTRFUNCS_EXTERNALS

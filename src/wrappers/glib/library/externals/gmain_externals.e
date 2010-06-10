@@ -699,5 +699,9 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	-- Variable g_child_watch_funcs (at line 299 in file /usr/include/glib-2.0/glib/gmain.h is does not have a wrapper type
+	-- Variable g_idle_funcs (at line 300 in file /usr/include/glib-2.0/glib/gmain.h is does not have a wrapper type
+	-- Variable g_timeout_funcs (at line 298 in file /usr/include/glib-2.0/glib/gmain.h is does not have a wrapper type
 
 end -- class GMAIN_EXTERNALS

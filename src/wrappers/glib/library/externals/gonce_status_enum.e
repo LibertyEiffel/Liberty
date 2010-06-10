@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = notcalled_low_level)  or else
+				(a_value = progress_low_level)  or else
 				(a_value = ready_low_level) )
 		end
 
@@ -20,6 +21,11 @@ feature -- Setters
 	set_notcalled is
 		do
 			value := notcalled_low_level
+		end
+
+	set_progress is
+		do
+			value := progress_low_level
 		end
 
 	set_ready is
@@ -31,6 +37,11 @@ feature -- Queries
 	is_notcalled: BOOLEAN is
 		do
 			Result := (value=notcalled_low_level)
+		end
+
+	is_progress: BOOLEAN is
+		do
+			Result := (value=progress_low_level)
 		end
 
 	is_ready: BOOLEAN is
@@ -45,6 +56,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_ONCE_STATUS_NOTCALLED"
+ 			}"
+ 		end
+
+	progress_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_ONCE_STATUS_PROGRESS"
  			}"
  		end
 

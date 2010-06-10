@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = invalid_uri_low_level)  or else
+				(a_value = invalid_value_low_level)  or else
 				(a_value = app_not_registered_low_level)  or else
 				(a_value = uri_not_found_low_level)  or else
 				(a_value = read_low_level)  or else
@@ -25,6 +26,11 @@ feature -- Setters
 	set_invalid_uri is
 		do
 			value := invalid_uri_low_level
+		end
+
+	set_invalid_value is
+		do
+			value := invalid_value_low_level
 		end
 
 	set_app_not_registered is
@@ -61,6 +67,11 @@ feature -- Queries
 	is_invalid_uri: BOOLEAN is
 		do
 			Result := (value=invalid_uri_low_level)
+		end
+
+	is_invalid_value: BOOLEAN is
+		do
+			Result := (value=invalid_value_low_level)
 		end
 
 	is_app_not_registered: BOOLEAN is
@@ -100,6 +111,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_BOOKMARK_FILE_ERROR_INVALID_URI"
+ 			}"
+ 		end
+
+	invalid_value_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_BOOKMARK_FILE_ERROR_INVALID_VALUE"
  			}"
  		end
 

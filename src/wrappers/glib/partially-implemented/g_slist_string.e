@@ -27,7 +27,7 @@ inherit
 
 insert
 	GSLIST_EXTERNALS undefine fill_tagged_out_memory, out_in_tagged_out_memory end
-	GSLIST_STRUCT undefine fill_tagged_out_memo, out_in_tagged_out_memory end
+	GSLIST_STRUCT undefine fill_tagged_out_memory, out_in_tagged_out_memory end
 
 creation make, from_external_pointer
 
@@ -54,7 +54,7 @@ feature
 
 	item (i: INTEGER): like first is
 		do
-			create Result.from_external_copy (g_slist_nth_data (handle, i))
+			create Result.from_external_copy (g_slist_nth_data (handle, i.to_natural_32))
 		end
 
 	put (a_string: like first; i: INTEGER) is
@@ -120,8 +120,8 @@ feature
 
 	lower: INTEGER is 0
 
-	remove_head (n: INTEGER) is do not_yet_implemented end
-	remove_tail (n: INTEGER) is do not_yet_implemented end
+	remove_head (n: INTEGER) is do n.times(agent remove_first) end
+	remove_tail (n: INTEGER) is do n.times(agent remove_last) end
 
 	manifest_put (an_index: INTEGER; element: like item) is
 		do
@@ -137,7 +137,7 @@ feature
 	remove (an_index: INTEGER) is
 		do
 			handle:=g_slist_delete_link (handle,
-												  g_slist_nth_data (handle, an_index-1))
+			g_slist_nth_data (handle, (an_index-lower).to_natural_32))
 		end
 
 	remove_last is
@@ -283,7 +283,7 @@ feature
 
 	upper,count: INTEGER is 
 		do
-			Result:=g_slist_length(handle)
+			Result:=g_slist_length(handle).to_integer_32
 			-- ensure then	positive: Result >= 0 
 		end
 

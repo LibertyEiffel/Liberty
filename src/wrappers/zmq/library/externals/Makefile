@@ -3,7 +3,7 @@
 export GCCXML_COMPILER = gcc-4.2
 
 wrappers: zmq.gcc-xml
-	wrappers-generator --local --directory . zmq.gcc-xml /usr/local/include/zmq.h
+	wrappers-generator --local --typedefs ZMQ_TYPEDEFS --directory . zmq.gcc-xml /usr/local/include/zmq.h
 
 zmq.gcc-xml: 
 	pkg-config --exists libzmq

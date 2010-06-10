@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = none_low_level)  or else
+				(a_value = error_low_level)  or else
 				(a_value = start_binary_low_level)  or else
 				(a_value = list_case_low_level)  or else
 				(a_value = skip_case_low_level)  or else
@@ -27,6 +28,11 @@ feature -- Setters
 	set_none is
 		do
 			value := none_low_level
+		end
+
+	set_error is
+		do
+			value := error_low_level
 		end
 
 	set_start_binary is
@@ -73,6 +79,11 @@ feature -- Queries
 	is_none: BOOLEAN is
 		do
 			Result := (value=none_low_level)
+		end
+
+	is_error: BOOLEAN is
+		do
+			Result := (value=error_low_level)
 		end
 
 	is_start_binary: BOOLEAN is
@@ -122,6 +133,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TEST_LOG_NONE"
+ 			}"
+ 		end
+
+	error_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TEST_LOG_ERROR"
  			}"
  		end
 

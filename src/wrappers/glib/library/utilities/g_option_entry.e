@@ -84,14 +84,14 @@ feature -- Queries
 	flags: GOPTION_FLAGS_ENUM is
 		-- Flags from GOptionFlags.
 	do
-		Result.set_value(goption_entry_struct_get_flags(handle))
+		Result.change_value(goption_entry_struct_get_flags(handle))
 	end
 
 	
 	argument_type: GOPTION_ARG_ENUM is
 		--The type of the option, as a GOptionArg.
 	do
-		Result.set_value(goption_entry_struct_get_arg(handle))
+		Result.change_value(goption_entry_struct_get_arg(handle))
 	end
 
 	-- TODO: gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then

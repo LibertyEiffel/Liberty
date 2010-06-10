@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = eof_low_level)  or else
+				(a_value = left_paren_low_level)  or else
 				(a_value = right_paren_low_level)  or else
 				(a_value = left_curly_low_level)  or else
 				(a_value = right_curly_low_level)  or else
@@ -41,6 +42,11 @@ feature -- Setters
 	set_eof is
 		do
 			value := eof_low_level
+		end
+
+	set_left_paren is
+		do
+			value := left_paren_low_level
 		end
 
 	set_right_paren is
@@ -157,6 +163,11 @@ feature -- Queries
 	is_eof: BOOLEAN is
 		do
 			Result := (value=eof_low_level)
+		end
+
+	is_left_paren: BOOLEAN is
+		do
+			Result := (value=left_paren_low_level)
 		end
 
 	is_right_paren: BOOLEAN is
@@ -276,6 +287,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_TOKEN_EOF"
+ 			}"
+ 		end
+
+	left_paren_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_TOKEN_LEFT_PAREN"
  			}"
  		end
 

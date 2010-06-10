@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = append_low_level)  or else
+				(a_value = nonblock_low_level)  or else
 				(a_value = is_readable_low_level)  or else
 				(a_value = is_writeable_low_level)  or else
 				(a_value = is_seekable_low_level)  or else
@@ -25,6 +26,11 @@ feature -- Setters
 	set_append is
 		do
 			value := append_low_level
+		end
+
+	set_nonblock is
+		do
+			value := nonblock_low_level
 		end
 
 	set_is_readable is
@@ -61,6 +67,11 @@ feature -- Queries
 	is_append: BOOLEAN is
 		do
 			Result := (value=append_low_level)
+		end
+
+	is_nonblock: BOOLEAN is
+		do
+			Result := (value=nonblock_low_level)
 		end
 
 	is_is_readable: BOOLEAN is
@@ -100,6 +111,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_IO_FLAG_APPEND"
+ 			}"
+ 		end
+
+	nonblock_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_NONBLOCK"
  			}"
  		end
 

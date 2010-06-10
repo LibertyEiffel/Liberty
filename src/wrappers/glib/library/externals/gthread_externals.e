@@ -379,5 +379,37 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	g_threads_got_initialized: INTEGER_32 is
+ 		-- g_threads_got_initialized (node at line 118)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_threads_got_initialized"
+		}"
+		end
+
+	g_thread_gettime: POINTER is
+ 		-- g_thread_gettime (node at line 120)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_thread_gettime"
+		}"
+		end
+
+	g_thread_use_default_impl: INTEGER_32 is
+ 		-- g_thread_use_default_impl (node at line 117)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_thread_use_default_impl"
+		}"
+		end
+
+	-- Variable g_thread_functions_for_glib_use (at line 116 in file /usr/include/glib-2.0/glib/gthread.h is does not have a wrapper type
 
 end -- class GTHREAD_EXTERNALS

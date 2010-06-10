@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bad_month_low_level)  or else
+				(a_value = january_low_level)  or else
 				(a_value = february_low_level)  or else
 				(a_value = march_low_level)  or else
 				(a_value = april_low_level)  or else
@@ -30,6 +31,11 @@ feature -- Setters
 	set_bad_month is
 		do
 			value := bad_month_low_level
+		end
+
+	set_january is
+		do
+			value := january_low_level
 		end
 
 	set_february is
@@ -91,6 +97,11 @@ feature -- Queries
 	is_bad_month: BOOLEAN is
 		do
 			Result := (value=bad_month_low_level)
+		end
+
+	is_january: BOOLEAN is
+		do
+			Result := (value=january_low_level)
 		end
 
 	is_february: BOOLEAN is
@@ -155,6 +166,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_DATE_BAD_MONTH"
+ 			}"
+ 		end
+
+	january_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_JANUARY"
  			}"
  		end
 

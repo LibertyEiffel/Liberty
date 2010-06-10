@@ -107,10 +107,10 @@ feature -- Access
 			end
 		end
 
-	flags: G_IOFLAGS is
+	flags: GIOFLAGS_ENUM is
 		-- Flags for Current channel.
 	do
-		Result.set_value(g_io_channel_get_flags(handle))
+		Result.change_value(g_io_channel_get_flags(handle))
 	end
 
 	is_buffered: BOOLEAN is
@@ -122,7 +122,7 @@ feature -- Access
 	last_event_source: NATURAL_32
 		-- glib id of last g_io_add_watch
 
-	last_status: G_IOSTATUS
+	last_status: GIOSTATUS_ENUM
 		-- Status code of last operation
 
 	last_failed: BOOLEAN is
@@ -136,7 +136,7 @@ feature -- Access
 
 feature -- Operations
 
-	add_watch (condition: G_IOCONDITION; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
+	add_watch (condition: GIOCONDITION_ENUM; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
 			-- Adds into the main event loop with the default priority.
 		require
 			action /= Void
@@ -152,15 +152,9 @@ feature -- Operations
 		end
 
 	set_blocking (block: BOOLEAN) is
-		local f: like flags
 		do
-			f:=flags
-			if block then f.set_nonblock
-			else f.unset_nonblock
-			end
-
-			last_status.set_value
-			(g_io_channel_set_flags(handle, f.value, default_pointer))
+			last_status.change_value
+			(g_io_channel_set_flags(handle, flags.value, default_pointer))
 		end
 
 	set_buffered (buffered: BOOLEAN) is
@@ -354,7 +348,7 @@ feature -- Queries
 -- g_io_channel_write_chars ()
 
 
-	write_chars (chars: STRING) is
+	write_chars (chars: ABSTRACT_STRING) is
 			-- Replacement for g_io_channel_write() with the new API.
 			-- On seekable channels with encodings other than NULL or
 			-- UTF-8, generic mixing of reading and writing is not
@@ -365,11 +359,11 @@ feature -- Queries
 		do
 				debug
 					print (once "Flags ") print(g_io_channel_get_flags (handle).to_string) print("%N")
-					if chars.count <= 512 then print (chars) print(once "%N")
-					else print (once "Writing ") print(chars.count.to_string) print(once "...%N")
+					if chars.count <= 512 then chars.print_on(std_output) print(once "%N")
+					else print (once "Writing ") print(chars.count.to_string) print(once " chars...%N")
 					end
 				end
-			last_status.set_value
+			last_status.change_value
 			(g_io_channel_write_chars (handle, chars.to_external,
 			chars.count, $last_written, default_pointer))
 			debug 
@@ -409,7 +403,7 @@ feature -- Queries
 	flush is
 			-- Flushes the write buffer for the GIOChannel.
 		do
-			last_status.set_value(g_io_channel_flush (handle, default_pointer))
+			last_status.change_value(g_io_channel_flush (handle, default_pointer))
 			--TODO: error handling
 		end
 
@@ -446,10 +440,10 @@ feature -- Queries
 		-- flushed if flush is TRUE. The channel will not be freed until the
 		-- last reference is dropped using g_io_channel_unref().
 		do
-			last_status.set_value(g_io_channel_shutdown(handle, after_flush, default_pointer))
+			last_status.change_value(g_io_channel_shutdown(handle, after_flush.to_integer, default_pointer))
 		end
 
-	set_encoding (new_encoding: STRING) is
+	set_encoding (new_encoding: ABSTRACT_STRING) is
 			-- Sets the encoding for the input/output of the channel.
 			-- The internal encoding is always "UTF-8". The default encoding
 			-- for the external file is "UTF-8". encoding=Void sets binary
@@ -487,7 +481,7 @@ feature -- Queries
 			if new_encoding /= Void then
 				p_encoding := new_encoding.to_external
 			end
-			last_status.set_value(g_io_channel_set_encoding 
+			last_status.change_value(g_io_channel_set_encoding 
 			(handle, p_encoding, default_pointer))
 			-- TODO: GError Handling
 		end

@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = flag_recursion_low_level)  or else
+				(a_value = flag_fatal_low_level)  or else
 				(a_value = level_error_low_level)  or else
 				(a_value = level_critical_low_level)  or else
 				(a_value = level_warning_low_level)  or else
@@ -26,6 +27,11 @@ feature -- Setters
 	set_flag_recursion is
 		do
 			value := flag_recursion_low_level
+		end
+
+	set_flag_fatal is
+		do
+			value := flag_fatal_low_level
 		end
 
 	set_level_error is
@@ -67,6 +73,11 @@ feature -- Queries
 	is_flag_recursion: BOOLEAN is
 		do
 			Result := (value=flag_recursion_low_level)
+		end
+
+	is_flag_fatal: BOOLEAN is
+		do
+			Result := (value=flag_fatal_low_level)
 		end
 
 	is_level_error: BOOLEAN is
@@ -111,6 +122,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_LOG_FLAG_RECURSION"
+ 			}"
+ 		end
+
+	flag_fatal_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_LOG_FLAG_FATAL"
  			}"
  		end
 

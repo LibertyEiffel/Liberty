@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = in_order_low_level)  or else
+				(a_value = pre_order_low_level)  or else
 				(a_value = post_order_low_level)  or else
 				(a_value = level_order_low_level) )
 		end
@@ -21,6 +22,11 @@ feature -- Setters
 	set_in_order is
 		do
 			value := in_order_low_level
+		end
+
+	set_pre_order is
+		do
+			value := pre_order_low_level
 		end
 
 	set_post_order is
@@ -37,6 +43,11 @@ feature -- Queries
 	is_in_order: BOOLEAN is
 		do
 			Result := (value=in_order_low_level)
+		end
+
+	is_pre_order: BOOLEAN is
+		do
+			Result := (value=pre_order_low_level)
 		end
 
 	is_post_order: BOOLEAN is
@@ -56,6 +67,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_IN_ORDER"
+ 			}"
+ 		end
+
+	pre_order_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_PRE_ORDER"
  			}"
  		end
 

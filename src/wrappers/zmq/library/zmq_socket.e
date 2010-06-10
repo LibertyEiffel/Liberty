@@ -9,7 +9,7 @@ inherit
 		end
 
 insert
-	ZMQEXTERNALS
+	ZMQ_EXTERNALS
 	ERRNO
 	EXCEPTIONS undefine copy, is_equal end
 
@@ -36,7 +36,12 @@ feature {ANY} -- Binding
 	end
 
 	connect (an_address: ABSTRACT_STRING) is
-		-- Connect Current socket to the peer identified by `an_address'.  Actual semantics of the  command depend on the underlying transport mechanism, how‐ ever, in cases where peers connect in an asymetric manner, zmq_bind should be called first, zmq_connect afterwards. Formats of the addr  parameter are defined by individual transports. For a list of supported transports have a look at zmq(7) manual page.
+		-- Connect Current socket to the peer identified by `an_address'.  Actual
+		-- semantics of the  command depend on the underlying transport mechanism,
+		-- however, in cases where peers connect in an asymetric manner, `bind'
+		-- should be called first, `connect' afterwards. Formats of `an_address' is
+		-- defined by individual transports. For a list of supported transports
+		-- have a look at zmq(7) manual page.
 
 		-- Note that single socket can be connected (and bound) to arbitrary number of peers using different transport mechanisms.
 	require an_address/=Void

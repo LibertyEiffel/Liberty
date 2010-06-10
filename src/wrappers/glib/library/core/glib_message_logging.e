@@ -34,7 +34,7 @@ feature
 	require message_not_void: a_message /= Void
 	local f: GLOG_LEVEL_FLAGS_ENUM
 	do
-		g_log(default_pointer,f.g_log_level_message, a_message.to_external)
+		g_log(default_pointer,f.level_message_low_level, a_message.to_external)
 	end
 
 	warning (a_message: STRING) is
@@ -42,7 +42,7 @@ feature
 	require message_not_void: a_message/=Void
 	local f: GLOG_LEVEL_FLAGS_ENUM
 	do 
-		g_log(default_pointer,f.g_log_level_warning, a_message.to_external)
+		g_log(default_pointer,f.level_warning_low_level, a_message.to_external)
 	end
 
 
@@ -67,7 +67,7 @@ feature
 	require error_not_void: an_error /= Void
 	local f: GLOG_LEVEL_FLAGS_ENUM
 	do
-		g_log(default_pointer,f.g_log_level_error,an_error.to_external)
+		g_log(default_pointer,f.level_error_low_level,an_error.to_external)
 
 	end
 	
@@ -161,4 +161,3 @@ feature
 -- Since 2.6
 
 end
-

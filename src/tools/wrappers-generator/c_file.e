@@ -5,7 +5,10 @@ inherit
 	IDENTIFIED_NODE
 	NAMED_NODE
 	STORABLE_NODE
-	WRAPPED_BY_A_CLASS
+	WRAPPED_BY_A_CLASS 
+		redefine
+			class_name
+		end
 
 insert 
 	NAME_CONVERTER 

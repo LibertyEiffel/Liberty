@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = unknown_low_level)  or else
+				(a_value = unexp_eof_low_level)  or else
 				(a_value = unexp_eof_in_string_low_level)  or else
 				(a_value = unexp_eof_in_comment_low_level)  or else
 				(a_value = non_digit_in_const_low_level)  or else
@@ -25,6 +26,11 @@ feature -- Setters
 	set_unknown is
 		do
 			value := unknown_low_level
+		end
+
+	set_unexp_eof is
+		do
+			value := unexp_eof_low_level
 		end
 
 	set_unexp_eof_in_string is
@@ -61,6 +67,11 @@ feature -- Queries
 	is_unknown: BOOLEAN is
 		do
 			Result := (value=unknown_low_level)
+		end
+
+	is_unexp_eof: BOOLEAN is
+		do
+			Result := (value=unexp_eof_low_level)
 		end
 
 	is_unexp_eof_in_string: BOOLEAN is
@@ -100,6 +111,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_ERR_UNKNOWN"
+ 			}"
+ 		end
+
+	unexp_eof_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_ERR_UNEXP_EOF"
  			}"
  		end
 

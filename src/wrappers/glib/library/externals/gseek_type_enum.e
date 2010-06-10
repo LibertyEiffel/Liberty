@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = cur_low_level)  or else
+				(a_value = set_low_level)  or else
 				(a_value = end_external_low_level) )
 		end
 
@@ -20,6 +21,11 @@ feature -- Setters
 	set_cur is
 		do
 			value := cur_low_level
+		end
+
+	set_set is
+		do
+			value := set_low_level
 		end
 
 	set_end_external is
@@ -31,6 +37,11 @@ feature -- Queries
 	is_cur: BOOLEAN is
 		do
 			Result := (value=cur_low_level)
+		end
+
+	is_set: BOOLEAN is
+		do
+			Result := (value=set_low_level)
 		end
 
 	is_end_external: BOOLEAN is
@@ -45,6 +56,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_SEEK_CUR"
+ 			}"
+ 		end
+
+	set_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SEEK_SET"
  			}"
  		end
 

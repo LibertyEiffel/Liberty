@@ -102,26 +102,7 @@ feature
 			buffer.print_on(output)
 		end
 		
-	class_name: STRING is
-	do
-		if stored_class_name=Void then 
-			if assigned_name/=Void then stored_class_name:=assigned_name.twin
-			else stored_class_name:=c_string_name.twin
-			end
-			insert_underscores(stored_class_name)
-			stored_class_name.append(suffix)
-			stored_class_name.to_upper
-			check 
-				is_public: stored_class_name.first/='_'
-				not class_name.has_substring("__")	
-			end
-		end
-		Result := stored_class_name
-	end
-
-	
-	suffix: STRING is "ENUM"
-	-- In C_ENUM case the suffix does not start with an underscore
+	suffix: STRING is "_ENUM"
 	
 	prefix_length: INTEGER 
 		-- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
@@ -160,13 +141,12 @@ feature -- Emitting "normal" enumeration
 			if values.count > 1 then prefix_length := longest_prefix
 			else prefix_length := 0
 			end
-			-- This is not useful filename := c_file.c_name.to_utf8
 			initialize_validity_query
 			setters.reset_with(once "%Tdefault_create,%N")
 			values.first.append_to_buffers
 			if values.count>1 then
-				from i := 2
-				until i >= values.count
+				from i := values.lower+1
+				until i > values.upper
 				loop
 					append_separators 
 					values.item(i).append_to_buffers
@@ -215,7 +195,7 @@ feature -- Emitting "flag" enumeration
 			values.first.append_as_flag_to_buffers
 			if values.count>1 then
 				from i := 2
-				until i >= values.count
+				until i > values.upper
 				loop
 					append_flag_separators 
 					values.item(i).append_as_flag_to_buffers

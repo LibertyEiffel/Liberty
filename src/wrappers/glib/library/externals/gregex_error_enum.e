@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = compile_low_level)  or else
+				(a_value = optimize_low_level)  or else
 				(a_value = replace_low_level)  or else
 				(a_value = match_low_level)  or else
 				(a_value = internal_low_level)  or else
@@ -59,6 +60,11 @@ feature -- Setters
 	set_compile is
 		do
 			value := compile_low_level
+		end
+
+	set_optimize is
+		do
+			value := optimize_low_level
 		end
 
 	set_replace is
@@ -265,6 +271,11 @@ feature -- Queries
 	is_compile: BOOLEAN is
 		do
 			Result := (value=compile_low_level)
+		end
+
+	is_optimize: BOOLEAN is
+		do
+			Result := (value=optimize_low_level)
 		end
 
 	is_replace: BOOLEAN is
@@ -474,6 +485,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_REGEX_ERROR_COMPILE"
+ 			}"
+ 		end
+
+	optimize_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_REGEX_ERROR_OPTIMIZE"
  			}"
  		end
 

@@ -39,22 +39,7 @@ feature
 	deferred
 	end
 
-	assigned_name: STRING
-		-- The name under which Current will be forcefully wrapped to.
-
-	set_name (a_name: STRING) is
-		-- Set `assigned_name' to `a_name'.
-	require a_name/=Void
-	do
-		assigned_name:=a_name.twin
-	ensure definition: assigned_name.is_equal(a_name)
-	end
-
-	has_assigned_name: BOOLEAN is
-		do
-			Result:= assigned_name/=Void
-		end
-end -- class TYPED_NODE
+	end -- class TYPED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

@@ -3,10 +3,10 @@ example: server client
 	./client
 
 client: zmq_example_client.e
-	compile zmq_example_client -o client
+	compile zmq_example_client -o client -split by_type
 
 server: zmq_example_server.e
-	compile zmq_example_server -o server
+	compile zmq_example_server -o server -split by_type
 
 clear:
 	rm client server

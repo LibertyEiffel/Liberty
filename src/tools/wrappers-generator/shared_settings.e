@@ -60,21 +60,6 @@ feature -- Syntactic sugar
 			Result := settings.directory
 		end
 
-	use_naturals is
-		do
-			settings.use_naturals
-		end
-
-	use_integers is
-		do
-			settings.use_integers
-		end
-
-	are_naturals_used: BOOLEAN is
-		do
-			Result := settings.are_naturals_used
-		end
-
 feature {} -- Type mangling
 	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
 		-- `an_id' without the type qualifier used by GccXml to mark the

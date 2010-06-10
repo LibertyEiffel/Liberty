@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = bad_weekday_low_level)  or else
+				(a_value = monday_low_level)  or else
 				(a_value = tuesday_low_level)  or else
 				(a_value = wednesday_low_level)  or else
 				(a_value = thursday_low_level)  or else
@@ -25,6 +26,11 @@ feature -- Setters
 	set_bad_weekday is
 		do
 			value := bad_weekday_low_level
+		end
+
+	set_monday is
+		do
+			value := monday_low_level
 		end
 
 	set_tuesday is
@@ -61,6 +67,11 @@ feature -- Queries
 	is_bad_weekday: BOOLEAN is
 		do
 			Result := (value=bad_weekday_low_level)
+		end
+
+	is_monday: BOOLEAN is
+		do
+			Result := (value=monday_low_level)
 		end
 
 	is_tuesday: BOOLEAN is
@@ -100,6 +111,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_DATE_BAD_WEEKDAY"
+ 			}"
+ 		end
+
+	monday_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_DATE_MONDAY"
  			}"
  		end
 

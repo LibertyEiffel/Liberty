@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = fork_low_level)  or else
+				(a_value = read_low_level)  or else
 				(a_value = chdir_low_level)  or else
 				(a_value = acces_low_level)  or else
 				(a_value = perm_low_level)  or else
@@ -37,6 +38,11 @@ feature -- Setters
 	set_fork is
 		do
 			value := fork_low_level
+		end
+
+	set_read is
+		do
+			value := read_low_level
 		end
 
 	set_chdir is
@@ -133,6 +139,11 @@ feature -- Queries
 	is_fork: BOOLEAN is
 		do
 			Result := (value=fork_low_level)
+		end
+
+	is_read: BOOLEAN is
+		do
+			Result := (value=read_low_level)
 		end
 
 	is_chdir: BOOLEAN is
@@ -232,6 +243,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_SPAWN_ERROR_FORK"
+ 			}"
+ 		end
+
+	read_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_SPAWN_ERROR_READ"
  			}"
  		end
 

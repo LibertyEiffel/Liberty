@@ -12,6 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = no_conversion_low_level)  or else
+				(a_value = illegal_sequence_low_level)  or else
 				(a_value = failed_low_level)  or else
 				(a_value = partial_input_low_level)  or else
 				(a_value = bad_uri_low_level)  or else
@@ -23,6 +24,11 @@ feature -- Setters
 	set_no_conversion is
 		do
 			value := no_conversion_low_level
+		end
+
+	set_illegal_sequence is
+		do
+			value := illegal_sequence_low_level
 		end
 
 	set_failed is
@@ -49,6 +55,11 @@ feature -- Queries
 	is_no_conversion: BOOLEAN is
 		do
 			Result := (value=no_conversion_low_level)
+		end
+
+	is_illegal_sequence: BOOLEAN is
+		do
+			Result := (value=illegal_sequence_low_level)
 		end
 
 	is_failed: BOOLEAN is
@@ -78,6 +89,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			location: "."
  			module_name: "plugin"
  			feature_name: "G_CONVERT_ERROR_NO_CONVERSION"
+ 			}"
+ 		end
+
+	illegal_sequence_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_CONVERT_ERROR_ILLEGAL_SEQUENCE"
  			}"
  		end
 

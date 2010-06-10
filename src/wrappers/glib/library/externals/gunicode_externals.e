@@ -600,5 +600,16 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	g_utf8_skip: POINTER is
+ 		-- g_utf8_skip (node at line 274)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_utf8_skip"
+		}"
+		end
+
 
 end -- class GUNICODE_EXTERNALS
