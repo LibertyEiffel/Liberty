@@ -17,7 +17,7 @@ inherit
 	EIFFEL_OWNED redefine default_create, dispose end 
 
 insert 
-	ZMQEXTERNALS undefine default_create end
+		ZMQ_EXTERNALS undefine default_create end
 	ZMQ_SOCKET_TYPES undefine default_create end
 
 creation {ANY} default_create
