@@ -17,7 +17,7 @@ class LIBERTY_VOID
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -34,7 +34,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			-- nothing
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	set_result_type (a_result_type: like result_type) is
 		require
 			a_result_type /= Void

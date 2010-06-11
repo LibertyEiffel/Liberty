@@ -18,7 +18,7 @@ insert
 	LIBERTY_REACHABLE
 	VISITABLE
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
 			-- Considering that `Current' is the parent, adds an "and then" assertions block. Used by "require
 			-- then", "ensure then", and "invariant".

@@ -1,4 +1,4 @@
-expanded class LIBERTY_TYPE_BUILDER_TOOLS
+expanded class LIBERTY_BUILDER_TOOLS
 
 insert
 	LIBERTY_AST_HANDLER
@@ -106,4 +106,4 @@ invariant
 	universe /= Void
 	effective_generic_parameters /= Void
 
-end -- class LIBERTY_TYPE_BUILDER_TOOLS
+end -- class LIBERTY_BUILDER_TOOLS

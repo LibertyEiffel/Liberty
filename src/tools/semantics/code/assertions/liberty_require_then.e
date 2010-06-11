@@ -20,7 +20,7 @@ inherit
 			accept, specialized
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_REQUIRE_THEN}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_REQUIRE_THEN}
 	make
 
 feature {ANY}

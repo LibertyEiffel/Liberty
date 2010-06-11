@@ -24,7 +24,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_WRITABLE_FEATURE}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_WRITABLE_FEATURE}
 	make
 
 feature {ANY}

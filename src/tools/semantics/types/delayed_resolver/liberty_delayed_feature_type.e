@@ -22,7 +22,7 @@ insert
 		redefine out_in_tagged_out_memory, is_equal
 		end
 
-creation {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_DELAYED_FEATURE_TYPE}
+creation {LIBERTY_BUILDER_TOOLS, LIBERTY_DELAYED_FEATURE_TYPE}
 	make
 
 feature {ANY}

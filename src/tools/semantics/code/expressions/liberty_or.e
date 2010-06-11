@@ -17,7 +17,7 @@ class LIBERTY_OR
 inherit
 	LIBERTY_INFIX_CALL
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 create {LIBERTY_OR}

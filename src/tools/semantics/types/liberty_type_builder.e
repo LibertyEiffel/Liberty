@@ -268,7 +268,7 @@ feature {}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE is
 		require
 			formal_parameter_name /= Void

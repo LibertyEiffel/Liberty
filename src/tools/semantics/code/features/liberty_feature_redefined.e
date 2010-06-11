@@ -22,7 +22,7 @@ inherit
 			mark_reachable_code, add_if_redefined, do_debug_display, set_specialized_in
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -56,7 +56,7 @@ feature {LIBERTY_FEATURE}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
 		do
 			if definition_type = type then
@@ -134,7 +134,7 @@ feature {LIBERTY_FEATURE}
 			Result := Current
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	set_redefined_feature (a_feature: like redefined_feature) is
 		require
 			only_once: redefined_feature = Void

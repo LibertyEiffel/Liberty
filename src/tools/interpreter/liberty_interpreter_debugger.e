@@ -59,10 +59,23 @@ feature {}
 		end
 
 	execute (entry: STRING) is
+		local
+			exp: LIBERTY_EXPRESSION
 		do
+			exp := interpreter.universe.parse_expression(entry, agent print_error)
+			if exp /= Void then
+				not_yet_implemented
+			end
 		end
 
 feature {}
+	print_error (a_error: PARSE_ERROR) is
+		require
+			a_error /= Void
+		do
+			std_error.put_line(a_error.message)
+		end
+
 	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void

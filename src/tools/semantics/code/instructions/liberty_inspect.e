@@ -17,7 +17,7 @@ class LIBERTY_INSPECT
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 create {LIBERTY_INSPECT}
@@ -69,7 +69,7 @@ feature {ANY}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
 		require
 			a_clause /= Void

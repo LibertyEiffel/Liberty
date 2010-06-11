@@ -5,6 +5,7 @@ version "1.0"
 locations
 	"."
 	"assertions"
+	"builders"
 	"entities"
 	"expressions"
 	"features"

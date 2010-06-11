@@ -37,6 +37,22 @@ feature {ANY}
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
+	parse_expression (a_expression: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_EXPRESSION is
+		require
+			a_expression /= Void
+			when_error /= Void
+		local
+			ast: LIBERTY_AST_EXPRESSION
+		do
+			parser_buffer.initialize_with(a_expression)
+			eiffel.reset
+			parser.eval(parser_buffer, eiffel.table, once "Expression")
+			if parser.error /= Void then
+				when_error.call([parser.error])
+			end
+			ast ::= eiffel.root_node
+		end
+
 	build_types (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME; target_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			target_type /= Void

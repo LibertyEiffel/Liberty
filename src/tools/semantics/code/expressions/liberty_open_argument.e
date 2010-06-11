@@ -20,7 +20,7 @@ inherit
 			result_type_may_be_void
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 create {LIBERTY_OPEN_ARGUMENT}
@@ -45,7 +45,7 @@ feature {ANY}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_AGENT}
+feature {LIBERTY_BUILDER_TOOLS, LIBERTY_AGENT}
 	set_result_type (a_result_type: like result_type) is
 		require
 			a_result_type /= Void
