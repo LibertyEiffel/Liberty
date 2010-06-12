@@ -31,7 +31,7 @@ feature
 		header: STRING; path: POSIX_PATH_NAME
 	do
 		header := c_name.to_utf8
-		if is_to_be_emitted(header) then
+		if is_to_be_emitted(header) and then file_exists(header) then
 			if on_standard_output then
 		 		log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
 		 		<<header>>)
