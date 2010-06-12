@@ -50,7 +50,7 @@ feature {} -- Implementation
 	local c_type: STRING
 	do
 		c_type := c_name.to_utf8
-		if c_type.is_equal(once "void") then stored_wrapper_type := once ""
+		if c_type.is_equal(once "void") then stored_wrapper_type := Void
 			elseif c_type.has_substring(once "char") then stored_wrapper_type := once "CHARACTER"
 				elseif c_type.has_substring(once "int") then
 					if c_type.has_substring(once "unsigned") then

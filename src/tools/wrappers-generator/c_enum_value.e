@@ -4,7 +4,9 @@ inherit
 	GCCXML_NODE
 	NAMED_NODE
 
-insert SHARED_COLLECTIONS
+insert 
+	SHARED_COLLECTIONS
+	EXCEPTIONS
 
 creation make
 
@@ -19,14 +21,18 @@ feature
 		local enum: C_ENUM
 		do 
 			if stored_eiffel_name=Void then
+				--print("Enum value: ")
 				stored_eiffel_name := c_name.to_utf8
+				-- print(stored_eiffel_name)
 				enum ?= parent
-				if enum/=Void and then enum.prefix_length > 0 then
-					stored_eiffel_name.remove_head(enum.prefix_length)
-				else
-					debug
-						log_string("A C_ENUM_VALUE has a parent that is not a C_ENUM%N")
+				if enum/=Void then
+					if enum.prefix_length > 0 and enum.prefix_length < c_string_name.count then
+						stored_eiffel_name.remove_head(enum.prefix_length)
+					else 
+						log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems",
+						<<c_string_name,line.out>>)
 					end
+				else print("The parent of C_ENUM_VALUE at line "+line.out+" is not a C_ENUM!%N")
 				end
 				stored_eiffel_name:=eiffel_feature(stored_eiffel_name)
 
@@ -36,12 +42,11 @@ feature
 
 feature -- Plain enumeration
 	append_to_buffers is
-		-- Append in `setters' the text of a command to set the enumeration currently being emitted to the value of Current C_ENUM_VALUE for an
-		-- enumeration value with `a_name' with a low level value
-		-- `a_value'.
-		-- Append in `queries' the text of a query for an
-		-- enumeration value with `a_name' with a low level value
-		-- `a_value'.
+		-- Append in `setters' the text of a command to set the enumeration
+		-- currently being emitted to the value of Current C_ENUM_VALUE for an
+		-- enumeration value with `a_name' with a low level value `a_value'.
+		-- Append in `queries' the text of a query for an enumeration value
+		-- with `a_name' with a low level value `a_value'.
 	do
  		log(once "enum item @(1) wrapped as @(2)%N",<<c_string_name,eiffel_name>>)
 		-- Append to `validity_query' the part of the comparison dealing with

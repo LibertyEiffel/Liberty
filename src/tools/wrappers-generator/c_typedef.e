@@ -50,10 +50,7 @@ feature
 			-- program not to compute the costly `is_fundamental' is either one
 			-- of the first two are False.
 			if is_fundamental then
-				inspect wrapper_type
-				when "void" then buffer.put_message (once "%T-- @(1) typedef to void%N", <<c_string_name>>)
-				when "" then buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
-				else
+				if has_wrapper then
 					query_name := eiffel_feature(c_string_name)
 					log(once "Anchored query @(2) for typedef @(1)%N",<<c_string_name,query_name>>)
 					buffer.put_message (once 
@@ -64,6 +61,9 @@ feature
 					%	ensure Result.is_default%N%
 					%	end%N%
 					%%N", <<query_name, wrapper_type, c_string_name>>)
+				else 
+					buffer.put_message (once "%T-- @(1) unwrappable: no wrapper type.%N", <<c_string_name>>)
+					-- TODO: add the case of typedef to void
 				end
 				buffer.print_on(a_stream)
 			else

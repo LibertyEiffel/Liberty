@@ -237,7 +237,7 @@ feature {C_ENUM_VALUE} -- Implementation
 		-- The length of the shortest enumeration value
 	local i: INTEGER
 	do
-		from i:=values.upper; Result:=Maximum_integer 
+		from i:=values.upper-1; Result:=values.last.c_name.count
 		until i<values.lower loop
 			Result:=Result.min(values.item(i).c_name.count)
 			i:=i-1
@@ -248,24 +248,26 @@ feature {C_ENUM_VALUE} -- Implementation
 		-- The length of longest prefix common to all values of Current enumeration
 		-- Useful to remove the common prefix of many enumeration values.
 	require has_values: values.count > 1 
-	
+	local i, upper: INTEGER
 	do
-		-- Find the last index that has the same character.
-		from Result:=shortest_length
-		until same_character_at_index(Result) or else Result<values.first.c_name.lower
-		loop Result:=Result-1
+		from Result:=values.first.c_name.lower; upper:=shortest_length
+		until Result>=upper or else not same_character_at_index(Result)
+		loop Result:=Result+1
 		end
-		-- local i: INTEGER debug -- Used during development of this feature. Disabled because it's too verbose
-		-- 	if verbose then
-		-- 		print(once "'") print(values.first.c_name.as_utf8.substring(1,Result))
-		-- 		print(once "'(") print(Result.to_string) print(once " characters) is longest common prefix of ") 
-		-- 		from i:=values.lower until i>=values.upper-1 loop
-		-- 			print(values.item(i).c_value.out) print(once ", ")
-		-- 			i:=i+1
-		-- 		end
-		-- 		print(values.last.c_value.out) print(once ".%N")
-		-- 	end
-		-- end
+		Result:=Result-1
+		-- Used during development of this feature. Disabled because it's too verbose
+		debug
+			if verbose then
+				print(once "'") print(values.first.c_name.as_utf8.substring(1,Result))
+				print(once "'(") print(Result.to_string) print(once " characters) is longest common prefix of ") 
+				from i:=values.lower until i>values.upper-1 loop
+					print(values.item(i).c_name.out) print(once ", ")
+					i:=i+1
+				end
+				print(values.last.c_string_name) print(once ".%N")
+			end
+		end
+	ensure shorter_than_shortest_item: Result < shortest_length -- otherwise the shortest item will get an empty label  
 	end
 
 	values: FAST_ARRAY[C_ENUM_VALUE] is
@@ -296,15 +298,15 @@ feature {} -- Implementation
 	local c: INTEGER_32; i: INTEGER
 	do
 		c := values.first.c_name.item(an_index) 
-		-- print(" (sc@"+an_index.out+": ")
-		from i:=2; Result:=True
+		--print(" (sc@"+an_index.out+": ")
+		from i:=values.lower; Result:=True
 		until not Result or else i>values.upper 
 		loop
 			Result := values.item(i).c_name.item(an_index) = c
-			-- print(values.item(i).c_name.item(an_index).to_character.out+",")
+			--print(values.item(i).c_name.item(an_index).to_character.out+",")
 			i:=i+1
 		end
-		-- print(")="+Result.out+" ")
+		--print(")="+Result.out+" ")
 	end
 	--invariant name.is_equal(once U"Enumeration")
 	

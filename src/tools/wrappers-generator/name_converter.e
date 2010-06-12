@@ -18,7 +18,6 @@ feature {} -- Auxiliary features
 	require 
 		name_not_void: a_name /= Void
 		name_not_empty: not a_name.is_empty
-
 	do
 		create Result.copy(a_name)
 		-- Remove header underscores.
@@ -94,6 +93,28 @@ feature {} -- Auxiliary features
 		do
 			Result := a_name.first.is_letter
 		end
+		
+	eiffel_class_name (a_string, a_suffix: ABSTRACT_STRING): STRING is
+		-- An Eiffel class name derived from `a_string'. Trailing and tail
+		-- underscores are removed, dashes are turned into underscores,
+		-- `a_suffix' is added at the end if not void, all is made uppercase.
+	require a_string/=Void
+	do
+		create Result.make_from_string(a_string)
+		-- Remove trailing underscores
+		from until Result.first/='_' loop Result.remove_first end
+		-- Remove spurious underscores at the end
+		from until Result.last/='_' loop Result.remove_last end
+		if a_suffix/=Void then
+			Result.append(a_suffix)
+		end
+		Result.replace_all('-','_')
+		Result.to_upper
+	ensure 
+		Result/=Void
+		is_valid_class_name(Result)
+		no_side_effects: a_string ~ old a_string and a_suffix ~ old a_suffix
+	end
 	
 	is_valid_class_name (a_name: STRING): BOOLEAN is
 			-- Does `a_name' represents a valid Eiffel class name? i.e. does it
@@ -111,7 +132,7 @@ feature {} -- Auxiliary features
 				Result = False or else i <= a_name.upper
 			loop
 				c := a_name @ i
-				Result := c.is_upper or else c.is_digit or else c = '_'
+				Result := c.is_upper or else (c.is_digit and c/='.') or else c = '_' 
 				i := i + 1
 			end
 		end

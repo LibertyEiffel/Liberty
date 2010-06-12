@@ -52,7 +52,7 @@ feature
 		require a_structure_name/=Void
 		local setter, getter, eiffel_field, getter_description, setter_description: STRING
 		do
-			if has_wrapper then
+			if is_public and then has_wrapper then
 				eiffel_field := adapt(c_string_name)
 				setter := a_structure_name + once "_set_" + eiffel_field
 				getter := a_structure_name + once "_get_" + eiffel_field
