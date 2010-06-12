@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class STDLIBEXTERNALS
+deferred class STDLIB_EXTERNALS
 
 
 inherit ANY undefine is_equal, copy end
@@ -431,16 +431,7 @@ feature {} -- External calls
 		}"
 		end
 
-	div (a_numer: INTEGER_32; a_denom: INTEGER_32): DIV_T_STRUCT is
- 		-- div (node at line 1462)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "div"
-		}"
-		end
-
+	-- function div (at line 735 in file /usr/include/stdlib.h is not wrappable
 	mrand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER_32 is
  		-- mrand48_r (node at line 1475)
 		external "plug_in"
@@ -671,16 +662,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ldiv (a_numer: INTEGER_64; a_denom: INTEGER_64): LDIV_T_STRUCT is
- 		-- ldiv (node at line 2300)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "ldiv"
-		}"
-		end
-
+	-- function ldiv (at line 737 in file /usr/include/stdlib.h is not wrappable
 	strtod_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_64 is
  		-- strtod_l (node at line 2352)
 		external "plug_in"
@@ -1112,16 +1094,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lldiv (a_numer: INTEGER_64; a_denom: INTEGER_64): LLDIV_T_STRUCT is
- 		-- lldiv (node at line 3615)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "lldiv"
-		}"
-		end
-
+	-- function lldiv (at line 744 in file /usr/include/stdlib.h is not wrappable
 	abs (a_x: INTEGER_32): INTEGER_32 is
  		-- abs (node at line 3648)
 		external "plug_in"
@@ -1133,4 +1106,4 @@ feature {} -- External calls
 		end
 
 
-end -- class STDLIBEXTERNALS
+end -- class STDLIB_EXTERNALS
