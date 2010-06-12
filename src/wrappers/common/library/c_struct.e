@@ -27,8 +27,8 @@ deferred class C_STRUCT
 inherit
 	WRAPPER
 insert
-	STDLIBEXTERNALS
-	STRINGEXTERNALS
+	STDLIB_EXTERNALS
+	STRING_EXTERNALS
 feature {} -- Initialization
 
 	from_external_copy (other: POINTER) is

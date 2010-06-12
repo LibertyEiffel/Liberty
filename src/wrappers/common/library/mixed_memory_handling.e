@@ -33,7 +33,7 @@ insert
       undefine
          from_external_pointer
       end
-	STDLIBEXTERNALS   
+	STDLIB_EXTERNALS   
 feature 
 	dispose is
 			-- Action to be executed just before garbage collection
