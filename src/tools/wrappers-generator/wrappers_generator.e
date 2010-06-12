@@ -34,16 +34,22 @@ feature {ANY}
 			tree.structures.do_all(agent {C_STRUCT}.emit_wrapper)
 			-- log_string(once "Making union accessing classes.%N")
 			-- tree.unions.do_all(agent {C_UNION}.emit_wrapper)
+			close_plugin_files
 		end
 
 	tree: GCCXML_TREE
 
 	input: INPUT_STREAM
 
+	path: POSIX_PATH_NAME
+	-- PAth of the input XML file (made by gccxml).
+
+	preprocessor_label: STRING
+
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, avoided, descriptions, flags, typedefs, assigned_names: STRING;
+			arg, avoided, descriptions, flags, assigned_names, gccxml_prefix: STRING;
 			i: INTEGER
 		do
 			check
@@ -53,7 +59,6 @@ feature {ANY}
 			flags := once "flags"
 			descriptions := once "descriptions"
 			avoided := once "avoided"
-			typedefs := once "TYPES"
 			assigned_names := once "assigned-names"
 			if argument_count = 0 then
 				print_usage
@@ -89,14 +94,6 @@ feature {ANY}
 							std_error.put_line(once "No avoided file given")
 							print_usage
 						end
-					elseif arg.is_equal(once "--typedefs") then
-						i := i+1
-						if i <= argument_count then
-							typedefs:=argument(i)
-						else
-							std_error.put_line(once "No typedefs file given")
-							print_usage
-						end
 					elseif arg.is_equal(once "--verbose") or else 
 						arg.is_equal(once "-v") then
 						settings.set_verbose(True)
@@ -112,6 +109,7 @@ feature {ANY}
 						if file_exists(arg) then
 							-- Current arg should be the XML file. The following
 							-- are headers to process.
+							create path.make_from_string(arg)
 							create {TEXT_FILE_READ} input.connect_to(arg)
 							from i := i + 1
 							until i > argument_count
@@ -127,14 +125,16 @@ feature {ANY}
 				end
 
 				if input = Void then
-					log_string(once "Using standard input.")
+					log_string(once "Using standard input. Prefix will be the basename of the current directory.")
+					create path.make_current
 					input := std_input
 				end
-				if is_valid_class_name(typedefs) then settings.set_typedefs(typedefs)
-				else 
-					std_error.put_line(typedefs+once " is not a valid class name.")
-					print_usage
-				end 
+				
+				gccxml_prefix := path.last.twin
+				gccxml_prefix.remove_tail(path.extension.count)
+				settings.set_typedefs (eiffel_class_name(gccxml_prefix,"_TYPES"))
+				preprocessor_label := eiffel_class_name(gccxml_prefix,"_LIBERTY_PLUGIN")
+
 				if verbose then
 					if global then
 						std_error.put_line(once "Generation wrappers for all the C features found.")
@@ -190,17 +190,26 @@ feature {ANY}
 				log_string("%'plugin/c' is not a directory")
 				die_with_code(exit_failure_code)
 			end
+
 			-- TODO: check that both pdirectory exists.
-			include.connect_to("plugin/c/plugin.h")
+			include.connect_to(once "plugin/c/plugin.h")
 			include.put_string(automatically_generated_c_file)
-			source.connect_to("plugin/c/plugin.c")
+			source.connect_to(once "plugin/c/plugin.c")
 			source.put_string(automatically_generated_c_file)
 			--source.put_string("#include %"plugin.h%"")
+			source.put_line("#ifndef "+preprocessor_label+"%N%
+			%#	define "+preprocessor_label)
 		ensure 
 			include.is_connected
 			source.is_connected
 		end
 
+	close_plugin_files is
+		do
+			source.put_line("endif")
+			source.disconnect
+			include.disconnect
+		end
 
 	print_usage is
 		do
@@ -252,7 +261,9 @@ feature {ANY}
 			%%N%
 			%	-v --verbose%N%
 			%		Turn on verbose output, printing information about the%N%
-			%		ongoing operations.%N")
+			%		ongoing operations.%N%
+			%%N%
+			% The basename of the provided XML file made by gccxml will be used as prefix for the wrappers: typedef class, proprocessor symbols and so on.%N")
 			die_with_code(exit_success_code)
 		end
 
