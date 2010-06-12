@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class SELECTEXTERNALS
+deferred class SELECT_EXTERNALS
 
 
 inherit ANY undefine is_equal, copy end
@@ -30,4 +30,4 @@ feature {} -- External calls
 		end
 
 
-end -- class SELECTEXTERNALS
+end -- class SELECT_EXTERNALS

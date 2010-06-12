@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class STDIOEXTERNALS
+deferred class STDIO_EXTERNALS
 
 
 inherit ANY undefine is_equal, copy end
@@ -130,7 +130,7 @@ feature {} -- External calls
 		end
 
 	asprintf (a_ptr: POINTER; a_fmt: POINTER): INTEGER_32 is
- 		-- asprintf (variadic)  (node at line 275)
+ 		-- asprintf (variadic call)  (node at line 275)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -180,7 +180,7 @@ feature {} -- External calls
 		end
 
 	sprintf (a_s: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- sprintf (variadic)  (node at line 565)
+ 		-- sprintf (variadic call)  (node at line 565)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -250,7 +250,7 @@ feature {} -- External calls
 		end
 
 	printf (a_format: POINTER): INTEGER_32 is
- 		-- printf (variadic)  (node at line 667)
+ 		-- printf (variadic call)  (node at line 667)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -401,7 +401,7 @@ feature {} -- External calls
 		end
 
 	snprintf (a_s: POINTER; a_maxlen: NATURAL_64; a_format: POINTER): INTEGER_32 is
- 		-- snprintf (variadic)  (node at line 1209)
+ 		-- snprintf (variadic call)  (node at line 1209)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -471,7 +471,7 @@ feature {} -- External calls
 		end
 
 	fscanf (a_stream: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- fscanf (variadic)  (node at line 1389)
+ 		-- fscanf (variadic call)  (node at line 1389)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -501,7 +501,7 @@ feature {} -- External calls
 		end
 
 	obstack_printf (an_obstack: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- obstack_printf (variadic)  (node at line 1492)
+ 		-- obstack_printf (variadic call)  (node at line 1492)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -551,7 +551,7 @@ feature {} -- External calls
 		end
 
 	scanf (a_format: POINTER): INTEGER_32 is
- 		-- scanf (variadic)  (node at line 1616)
+ 		-- scanf (variadic call)  (node at line 1616)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -702,7 +702,7 @@ feature {} -- External calls
 		end
 
 	sscanf (a_s: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- sscanf (variadic)  (node at line 2431)
+ 		-- sscanf (variadic call)  (node at line 2431)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -741,7 +741,7 @@ feature {} -- External calls
 		}"
 		end
 
-		-- function fopencookie is not wrappable
+	-- function fopencookie (at line 291 in file /usr/include/stdio.h is not wrappable
 	getline (a_lineptr: POINTER; a_n: POINTER; a_stream: POINTER): INTEGER_64 is
  		-- getline (node at line 2677)
 		external "plug_in"
@@ -803,7 +803,7 @@ feature {} -- External calls
 		end
 
 	fprintf (a_stream: POINTER; a_format: POINTER): INTEGER_32 is
- 		-- fprintf (variadic)  (node at line 2808)
+ 		-- fprintf (variadic call)  (node at line 2808)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -823,7 +823,7 @@ feature {} -- External calls
 		end
 
 	dprintf (a_fd: INTEGER_32; a_fmt: POINTER): INTEGER_32 is
- 		-- dprintf (variadic)  (node at line 2876)
+ 		-- dprintf (variadic call)  (node at line 2876)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -982,5 +982,36 @@ feature {} -- External calls
 		}"
 		end
 
+feature {} -- Variables
+	stderr: POINTER is
+ 		-- stderr (node at line 147)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "stderr"
+		}"
+		end
 
-end -- class STDIOEXTERNALS
+	stdin: POINTER is
+ 		-- stdin (node at line 145)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "stdin"
+		}"
+		end
+
+	stdout: POINTER is
+ 		-- stdout (node at line 146)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "stdout"
+		}"
+		end
+
+
+end -- class STDIO_EXTERNALS

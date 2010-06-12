@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class STRINGEXTERNALS
+deferred class STRING_EXTERNALS
 
 
 inherit ANY undefine is_equal, copy end
@@ -585,4 +585,4 @@ feature {} -- External calls
 		end
 
 
-end -- class STRINGEXTERNALS
+end -- class STRING_EXTERNALS

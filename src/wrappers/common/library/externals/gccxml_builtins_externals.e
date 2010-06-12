@@ -1,7 +1,7 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 
-deferred class GCCXML_BUILTINSEXTERNALS
+deferred class GCCXML_BUILTINS_EXTERNALS
 
 
 inherit ANY undefine is_equal, copy end
@@ -15,9 +15,9 @@ feature {} -- External calls
 	-- `hidden' function __builtin_log10 skipped.
 	-- `hidden' function __builtin_popcountll skipped.
 	-- `hidden' function __builtin_clogf skipped.
-	-- `hidden' function __builtin_clogl skipped.
+	-- function __builtin_clogl (at line 113 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_cexpf skipped.
-	-- `hidden' function __builtin_cexpl skipped.
+	-- function __builtin_cexpl (at line 110 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_asinf skipped.
 	-- `hidden' function __builtin_asinl skipped.
 	-- `hidden' function __builtin_popcount skipped.
@@ -27,7 +27,7 @@ feature {} -- External calls
 	-- `hidden' function __builtin_floorl skipped.
 	-- `hidden' function __builtin_ctanf skipped.
 	-- `hidden' function __builtin_ctanh skipped.
-	-- `hidden' function __builtin_ctanl skipped.
+	-- function __builtin_ctanl (at line 125 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_carg skipped.
 	-- `hidden' function __builtin_clog skipped.
 	-- `hidden' function __builtin_logf skipped.
@@ -76,7 +76,7 @@ feature {} -- External calls
 	-- `hidden' function __builtin_atan2f skipped.
 	-- `hidden' function __builtin_atan2l skipped.
 	-- `hidden' function __builtin_ccoshf skipped.
-	-- `hidden' function __builtin_ccoshl skipped.
+	-- function __builtin_ccoshl (at line 107 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_atan skipped.
 	-- `hidden' function __builtin_sinhf skipped.
 	-- `hidden' function __builtin_sinhl skipped.
@@ -85,11 +85,11 @@ feature {} -- External calls
 	-- `hidden' function __builtin_frexpf skipped.
 	-- `hidden' function __builtin_frexpl skipped.
 	-- `hidden' function __builtin_cpowf skipped.
-	-- `hidden' function __builtin_cpowl skipped.
+	-- function __builtin_cpowl (at line 131 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_tanhf skipped.
 	-- `hidden' function __builtin_tanhl skipped.
 	-- `hidden' function __builtin_cabsf skipped.
-	-- `hidden' function __builtin_cabsl skipped.
+	-- function __builtin_cabsl (at line 92 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_powf skipped.
 	-- `hidden' function __builtin_powi skipped.
 	-- `hidden' function __builtin_powl skipped.
@@ -102,25 +102,25 @@ feature {} -- External calls
 	-- `hidden' function __builtin_ctz skipped.
 	-- `hidden' function __builtin_return_address skipped.
 	-- `hidden' function __builtin_csinhf skipped.
-	-- `hidden' function __builtin_csinhl skipped.
+	-- function __builtin_csinhl (at line 119 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_csqrtf skipped.
-	-- `hidden' function __builtin_csqrtl skipped.
+	-- function __builtin_csqrtl (at line 122 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_floor skipped.
 	-- `hidden' function __builtin_ldexp skipped.
 	-- `hidden' function __builtin_ccosf skipped.
 	-- `hidden' function __builtin_ccosh skipped.
-	-- `hidden' function __builtin_ccosl skipped.
+	-- function __builtin_ccosl (at line 104 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_ctanhf skipped.
-	-- `hidden' function __builtin_ctanhl skipped.
+	-- function __builtin_ctanhl (at line 128 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_ceilf skipped.
 	-- `hidden' function __builtin_ceill skipped.
 	-- `hidden' function __builtin_csinf skipped.
 	-- `hidden' function __builtin_csinh skipped.
-	-- `hidden' function __builtin_csinl skipped.
+	-- function __builtin_csinl (at line 116 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_acos skipped.
 	-- `hidden' function __builtin_ctzll skipped.
 	-- `hidden' function __builtin_cargf skipped.
-	-- `hidden' function __builtin_cargl skipped.
+	-- function __builtin_cargl (at line 95 in file /usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h is not wrappable
 	-- `hidden' function __builtin_cosf skipped.
 	-- `hidden' function __builtin_cosh skipped.
 	-- `hidden' function __builtin_cosl skipped.
@@ -129,4 +129,4 @@ feature {} -- External calls
 	-- `hidden' function __builtin_sinl skipped.
 	-- `hidden' function __builtin_csin skipped.
 
-end -- class GCCXML_BUILTINSEXTERNALS
+end -- class GCCXML_BUILTINS_EXTERNALS

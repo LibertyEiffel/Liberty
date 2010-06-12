@@ -6,7 +6,7 @@ feature {}
 		-- number of last error
 				external "plug_in"
 		alias "{
-			location: "."
+			location: "externals"
 			module_name: "plugin"
 			feature_name: "errno"
 		}"

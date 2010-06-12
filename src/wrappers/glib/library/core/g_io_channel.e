@@ -18,7 +18,7 @@ insert
 	GIOCHANNEL_STRUCT
 
 create
-	from_unix_fd, from_win32_fd, from_win32_socket
+	from_unix_fd --, from_win32_fd, from_win32_socket
 
 feature {} -- Creation
 	-- TODO: provide OS-specfic heirs for Unix and Win32.

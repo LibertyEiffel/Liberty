@@ -19,20 +19,10 @@ default -- section of the system
    profile (no);
 
 cluster -- section
-
-   -- The cluster section is an ordered list of clusters. Roughly speaking,
-   -- a cluster can be considered as a directory where Eiffel source files
-   -- are to be searched for. Thus, the order of this list of clusters is
-   -- important because clusters are considered sequentially while
-   -- searching for an Eiffel source file. Each cluster is described
-   -- as follows:
-
    wrappers_generator: "./loadpath.se"
 	default
 		assertion (all)
-	end -- Eiffel-gcc-xml cluster 
-   -- Pull in SmartEiffel's standard library. Always put this last so 
-   -- that you can override options for parts of the library.
+	end 
 
    lib: "${path_liberty}/src/lib/loadpath.se"
 		default
@@ -46,6 +36,6 @@ external -- section for elements written in another language
 generate -- section
 
    no_strip(no);
-   no_split(no);
+   split("by_type");
    clean(no);
 end
