@@ -16,5 +16,6 @@ cluster
 	WRAPPER_LLVM: "./llvm/library"
 	WRAPPER_FFI: "./ffi/library"
 	WRAPPER_POSIX_DLL: "./posix/dynamic-linking/library"
+	WRAPPER_READLINE: "./readline/library"
 
 end

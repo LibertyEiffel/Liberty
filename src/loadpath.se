@@ -3,5 +3,6 @@
 ./wrappers/llvm/library/loadpath.se
 ./wrappers/ffi/library/loadpath.se
 ./wrappers/posix/dynamic-linking/library/loadpath.se
+./wrappers/readline/library/loadpath.se
 ./tools/loadpath.se
 ./bootstrap/loadpath.se

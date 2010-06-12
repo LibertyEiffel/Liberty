@@ -54,10 +54,10 @@ feature {ANY}
 			until
 				done
 			loop
-				std_output.put_string(once "debug> ")
-				std_input.read_line
-				done := debugger.break(std_input.last_string)
-				if std_input.end_of_input then
+				readline.set_prompt(once "debug> ")
+				readline.read_line
+				done := debugger.break(readline.last_string)
+				if readline.end_of_input then
 					die_with_code(0)
 				end
 			end
@@ -778,6 +778,11 @@ feature {}
 	storage_name: FIXED_STRING is
 		once
 			Result := "storage".intern
+		end
+
+	readline: READLINE_INPUT_STREAM is
+		once
+			create Result.make
 		end
 
 	errors: LIBERTY_ERRORS

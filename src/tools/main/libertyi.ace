@@ -53,6 +53,7 @@ cluster
 	wrappers_common: "${path_liberty}/src/wrappers/common/library/loadpath.se"
 	wrappers_ffi: "${path_liberty}/src/wrappers/ffi/library/loadpath.se"
 	wrappers_dll: "${path_liberty}/src/wrappers/posix/dynamic-linking/library/loadpath.se"
+	wrappers_readline: "${path_liberty}/src/wrappers/readline/library/loadpath.se"
 
 generate
 	no_strip(yes)
