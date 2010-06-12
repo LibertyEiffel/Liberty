@@ -20,7 +20,7 @@ inherit
 			make as make_late_binding
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 feature {ANY}

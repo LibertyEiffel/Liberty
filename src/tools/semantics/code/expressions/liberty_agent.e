@@ -20,7 +20,7 @@ inherit
 		redefine visit_liberty_open_argument
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 create {LIBERTY_AGENT}

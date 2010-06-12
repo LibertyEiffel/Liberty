@@ -19,6 +19,7 @@ cluster
 		option
 			debug(all): FIXED_STRING -- `debug_string' is very useful
 			assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, ARRAY_DICTIONARY, RING_ARRAY
+			--assertion(all): NATIVE_ARRAY, STRING, FIXED_STRING
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"

@@ -20,7 +20,7 @@ inherit
 			make as typed_make
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 feature {ANY}

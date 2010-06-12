@@ -34,6 +34,18 @@ feature {LIBERTYI}
 		end
 
 feature {ANY}
+	frame_lower: INTEGER is
+		do
+			Result := call_stack.lower
+		end
+
+	frame_upper: INTEGER is
+		do
+			Result := call_stack.upper
+		end
+
+	current_frame: INTEGER
+
 	break is
 		local
 			done: BOOLEAN
@@ -51,6 +63,13 @@ feature {ANY}
 			end
 		end
 
+	show_current_frame (o: OUTPUT_STREAM) is
+		do
+			o.put_integer(current_frame + 1)
+			o.put_character('%T')
+			call_stack.item(current_frame).show_stack(o)
+		end
+
 	show_stack (o: OUTPUT_STREAM) is
 		local
 			i: INTEGER
@@ -66,6 +85,9 @@ feature {ANY}
 			loop
 				if i > call_stack.lower then
 					o.put_line(once "-------------------------------------------------------------")
+				end
+				if i = current_frame then
+					o.put_line(once "Current frame")
 				end
 				o.put_integer(i + 1)
 				o.put_character('%T')
@@ -247,7 +269,7 @@ feature {ANY}
 
 			new_string_capacity := new_integer(manifest.capacity, a_position)
 			new_string_count := new_integer(manifest.count, a_position)
-			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, a_position)
+			create new_string_storage.with_storage(Current, native_array_of_character, universe.type_character, manifest, manifest.capacity, a_position)
 
 			the_new_string ::= creator.new_object(universe.type_string, a_position)
 			the_new_string.put_attribute(capacity_name, new_string_capacity)
@@ -382,6 +404,33 @@ feature {ANY}
 			end
 		end
 
+feature {LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL}
+	debug_step (number_of_steps: INTEGER) is
+		require
+			number_of_steps > 0
+		do
+			debugger.steps.after(number_of_steps)
+		end
+
+	debug_step_in is
+		do
+			debugger.steps.at_call_entry
+		end
+
+	debug_step_out is
+		do
+			debugger.steps.at_call_exit
+		end
+
+	set_current_frame (f: like current_frame) is
+		require
+			f.in_range(frame_lower, frame_upper)
+		do
+			current_frame := f
+		ensure
+			current_frame = f
+		end
+
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
 	start_gathering_old_values is
 		do
@@ -456,12 +505,15 @@ feature {}
 				std_output.put_string(once " - Calling ")
 				Result.show_stack(std_output)
 			end
+			debugger.steps.step
 			call_stack.add_last(Result)
-			Result.call
+			current_frame := frame_upper
+			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.call")
 				std_output.put_integer(call_stack.count)
 				std_output.put_string(once " - Returning from ")
@@ -481,12 +533,15 @@ feature {}
 				std_output.put_string(once " - Calling precursor feature ")
 				std_output.put_line(Result.name)
 			end
+			debugger.steps.step
 			call_stack.add_last(Result)
-			Result.call
+			current_frame := frame_upper
+			Result.call(debugger.steps)
 			check
 				current_feature = Result
 			end
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.call")
 				std_output.put_integer(call_stack.count)
 				std_output.put_string(once " - Returning from precursor feature ")
@@ -509,6 +564,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 			check cf = current_feature end
 			feature_evaluating_parameters.add_last(cf)
 			call_stack.remove_last
+			current_frame := frame_upper
 			debug ("interpreter.internals")
 				std_output.put_string(once " {{{ opening parameters evaluation of ")
 				std_output.put_line(cf.name)
@@ -524,6 +580,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 		do
 			check cf = feature_evaluating_parameters.last end
 			call_stack.add_last(cf)
+			current_frame := frame_upper
 			feature_evaluating_parameters.remove_last
 			debug ("interpreter.internals")
 				std_output.put_string(once " }}} closing parameters evaluation of ")

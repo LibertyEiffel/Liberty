@@ -40,7 +40,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
 	bound_feature: LIBERTY_FEATURE
 
 feature {LIBERTY_INTERPRETER}
-	call is
+	call (debug_steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS) is
 		do
 			check not prepare end
 
@@ -51,6 +51,9 @@ feature {LIBERTY_INTERPRETER}
 			prepare := True
 			bound_feature.accept(Current)
 			prepare := False
+
+			debug_steps.enter_call
+
 			if options.is_invariant_checked then
 				check_invariant
 			end
@@ -72,6 +75,7 @@ feature {LIBERTY_INTERPRETER}
 			if options.is_invariant_checked then
 				check_invariant
 			end
+			debug_steps.exit_call
 		end
 
 feature {LIBERTY_FEATURE_ACCELERATOR}

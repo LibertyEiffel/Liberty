@@ -327,7 +327,7 @@ feature {LIBERTY_KNOWN_TYPE}
 			Result := name = other.name and then descriptor.cluster = other.descriptor.cluster
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	set_obsolete (message: like obsolete_message) is
 		require
 			message /= Void

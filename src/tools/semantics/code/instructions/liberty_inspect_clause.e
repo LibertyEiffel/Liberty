@@ -18,7 +18,7 @@ insert
 	LIBERTY_POSITIONABLE
 	LIBERTY_REACHABLE
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make
 
 create {LIBERTY_INSPECT_CLAUSE}
@@ -65,7 +65,7 @@ feature {LIBERTY_INSPECT}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	add_value (a_value: LIBERTY_INSPECT_SLICE) is
 		require
 			a_value /= Void

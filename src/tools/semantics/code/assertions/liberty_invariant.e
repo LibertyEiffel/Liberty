@@ -20,7 +20,7 @@ inherit
 			specialized_in
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_INVARIANT}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_INVARIANT}
 	make
 
 feature {}

@@ -31,7 +31,6 @@ feature {}
 		require
 			a_source /= Void
 			a_index.in_range(a_source.lower, a_source.upper)
-			a_file /= Void
 		do
 			index := a_index
 			source := a_source

@@ -179,14 +179,33 @@ feature {STRING_HANDLER}
 		local
 			new_capacity: like capacity
 		do
+			check
+				check_can_have_storage_signature
+			end
 			if storage.is_null then -- implies capacity = 0 (see invariant)
+				check
+					not has_storage_signature
+				end
 				new_capacity := needed_capacity.max(32)
-				storage := storage.calloc(new_capacity)
+				storage := storage.calloc(new_capacity + storage_signature_count)
 				capacity := new_capacity
+				if storage_signature_count > 0 then
+					set_storage_signature
+				end
 			elseif capacity < needed_capacity then
+				check
+					has_storage_signature implies check_storage_signature
+				end
 				new_capacity := needed_capacity.max(capacity #* 2)
-				storage := storage.realloc(capacity, new_capacity)
+				storage := storage.realloc(capacity, new_capacity + storage_signature_count)
 				capacity := new_capacity
+				if storage_signature_count > 0 then
+					set_storage_signature
+				end
+			else
+				check
+					has_storage_signature implies check_storage_signature
+				end
 			end
 		ensure
 			capacity >= needed_capacity
@@ -206,14 +225,52 @@ feature {STRING_HANDLER}
 feature {STRING}
 	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
 		do
-			ensure_capacity(end_index - start_index + 1)
+			ensure_capacity(storage_lower + end_index - start_index + 1)
 			target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
 		end
+
+feature {}
+	set_storage_signature is
+		require
+			storage.is_not_null
+			storage_signature_count > 0
+		do
+			storage.put('%/0/' , capacity  )
+			storage.put('%/3/' , capacity+1)
+			storage.put('%/9/' , capacity+2)
+			storage.put('%/27/', capacity+3)
+			has_storage_signature := True
+		ensure
+			has_storage_signature
+		end
+
+	check_storage_signature: BOOLEAN is
+		require
+			has_storage_signature
+		do
+			Result :=   storage.item(capacity  ) = '%/0/'
+				and then storage.item(capacity+1) = '%/3/'
+				and then storage.item(capacity+2) = '%/9/'
+				and then storage.item(capacity+3) = '%/27/'
+			if not Result then
+				sedb_breakpoint
+			end
+		end
+
+	check_can_have_storage_signature: BOOLEAN is
+		do
+			storage_signature_count := 4
+			Result := True
+		end
+
+	storage_signature_count: INTEGER
+	has_storage_signature: BOOLEAN
 
 invariant
 	capacity > 0 implies storage.is_not_null
 	count <= capacity
 	storage_lower >= 0
+	has_storage_signature implies check_storage_signature
 
 end -- class NATIVELY_STORED_STRING
 

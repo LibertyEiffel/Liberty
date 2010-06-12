@@ -674,7 +674,7 @@ feature {LIBERTY_FEATURE}
 			Result := child_bindings_memory
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not is_redefined
@@ -699,7 +699,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			new.bind_or_replace(Current, type, False)
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
+feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	set_type_resolver (a_type_resolver: like type_resolver; a_replace: BOOLEAN) is
 		require
 			a_type_resolver.local_context = context

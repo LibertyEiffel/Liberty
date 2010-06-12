@@ -19,7 +19,7 @@ inherit
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_LOCAL}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_LOCAL}
 	make
 
 feature {ANY}

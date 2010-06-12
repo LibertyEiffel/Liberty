@@ -25,7 +25,7 @@ insert
 			copy, out_in_tagged_out_memory
 		end
 
-creation {LIBERTY_TYPE_BUILDER_TOOLS}
+creation {LIBERTY_BUILDER_TOOLS}
 	make
 
 creation {LIBERTY_FEATURE_DEFINITION}
@@ -247,7 +247,7 @@ feature {}
 			o.put_character('}')
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	set_clients (a_clients: like clients) is
 		require
 			a_clients /= Void
@@ -363,7 +363,7 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 			errors.has_error
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
+feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not has_precursor(a_precursor_type)

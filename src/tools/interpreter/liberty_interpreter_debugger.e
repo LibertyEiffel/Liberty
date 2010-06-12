@@ -14,38 +14,97 @@
 --
 class LIBERTY_INTERPRETER_DEBUGGER
 
+inherit
+	LIBERTY_INTERPRETER_DEBUGGER_VISITOR
+
 create {LIBERTY_INTERPRETER}
 	make
 
 feature {LIBERTY_INTERPRETER}
+	steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS
+
 	break (entry: STRING): BOOLEAN is
 		require
 			entry /= Void
 		do
-			inspect
-				entry
-			when "S" then
-				interpreter.show_stack(std_output)
-			when "c" then
-				Result := True
-			when "Q" then
-				die_with_code(0)
-			else
-				std_error.put_line(once "Unknown command.")
+			if not entry.is_empty then
+				if entry.first = ':' then
+					Result := debug_entry(entry)
+				else
+					execute(entry)
+					check
+						not Result
+					end
+				end
 			end
 		end
 
 feature {}
+	debug_entry (entry: STRING): BOOLEAN is
+		require
+			entry.first = ':'
+		do
+			entry.remove_first
+			if not entry.is_empty then
+				parser_buffer.initialize_with(entry)
+				debug_grammar.reset
+				parser.eval(parser_buffer, debug_grammar.table, once "Entry")
+				if parser.error /= Void then
+					errors.emit_syntax_error(parser.error, entry, Void)
+				else
+					debug_grammar.root_node.accept(debug_visitor)
+					Result := debug_visitor.should_continue
+				end
+			end
+		end
+
+	execute (entry: STRING) is
+		local
+			exp: LIBERTY_EXPRESSION
+		do
+			exp := interpreter.universe.parse_expression(entry, agent print_error)
+			if exp /= Void then
+				not_yet_implemented
+			end
+		end
+
+feature {}
+	print_error (a_error: PARSE_ERROR) is
+		require
+			a_error /= Void
+		do
+			std_error.put_line(a_error.message)
+		end
+
 	make (a_interpreter: like interpreter) is
 		require
 			a_interpreter /= Void
 		do
 			interpreter := a_interpreter
+			create steps.make(a_interpreter)
+			create debug_visitor.make(a_interpreter)
 		ensure
 			interpreter = a_interpreter
 		end
 
+	errors: LIBERTY_ERRORS
+	debug_visitor: LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL
 	interpreter: LIBERTY_INTERPRETER
+
+	debug_grammar: LIBERTY_INTERPRETER_DEBUGGER_GRAMMAR is
+		once
+			create Result.make(create {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}.make)
+		end
+
+	parser_buffer: MINI_PARSER_BUFFER is
+		once
+			create Result
+		end
+
+	parser: DESCENDING_PARSER is
+		once
+			create Result.make
+		end
 
 invariant
 	interpreter /= Void

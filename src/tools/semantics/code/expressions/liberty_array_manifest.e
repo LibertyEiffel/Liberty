@@ -17,7 +17,7 @@ class LIBERTY_ARRAY_MANIFEST
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
 	make, make_array
 
 create {LIBERTY_ARRAY_MANIFEST}
@@ -82,7 +82,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			expressions_marker.mark_reachable_code(mark, contents_list)
 		end
 
-feature {LIBERTY_TYPE_BUILDER_TOOLS}
+feature {LIBERTY_BUILDER_TOOLS}
 	add_parameter (a_parameter: LIBERTY_EXPRESSION) is
 		do
 			parameters_list.add_last(a_parameter)

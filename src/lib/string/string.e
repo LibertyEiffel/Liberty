@@ -21,10 +21,7 @@ feature {ANY} -- Creation / Modification:
 		do
 			storage_lower := 0
 			if needed_capacity > 0 then
-				if capacity < needed_capacity then
-					storage := storage.calloc(needed_capacity)
-					capacity := needed_capacity
-				end
+				ensure_capacity(needed_capacity)
 			end
 			count := 0
 		ensure
@@ -82,10 +79,10 @@ feature {ANY} -- Modification:
 			new_count >= 0
 		do
 			if new_count <= count then
-			elseif capacity < new_count then
-				ensure_capacity(new_count)
+			elseif capacity < new_count + storage_lower then
+				ensure_capacity(new_count + storage_lower)
 			else
-				storage.clear(count, new_count - 1)
+				storage.clear(count + storage_lower, new_count + storage_lower - 1)
 			end
 			count := new_count
 		ensure
@@ -101,9 +98,11 @@ feature {ANY} -- Modification:
 			-- See also `clear_count_and_capacity'.
 		do
 			count := 0
+			storage_lower := 0
 		ensure
 			is_empty: count = 0
 			capacity = old capacity
+			storage_lower = 0
 		end
 
 	clear_count_and_capacity is
@@ -116,10 +115,12 @@ feature {ANY} -- Modification:
 		do
 			count := 0
 			capacity := 0
+			storage_lower := 0
 			storage := null_storage
 		ensure
 			is_empty: count = 0
 			capacity = 0
+			storage_lower = 0
 			storage.is_null
 		end
 
@@ -133,11 +134,8 @@ feature {ANY} -- Modification:
 			storage_lower := 0
 			c := other.count
 			if c > 0 then
-				if capacity < c then
-					storage := storage.calloc(c)
-					capacity := c
-				end
-				storage.copy_from(other.storage, c - 1)
+				ensure_capacity(c)
+				storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
 			end
 			count := c
 		ensure then
@@ -161,13 +159,14 @@ feature {ANY} -- Modification:
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			storage.slice_copy(0, s.storage, start_index - 1, end_index - 1)
+			slice_copy(0, s, start_index, end_index)
 			count := needed_capacity
 		end
 
 	fill_with (c: CHARACTER) is
 			-- Replace every character with `c'.
 		do
+			storage_lower := 0
 			storage.set_all_with(c, count - 1)
 		ensure
 			occurrences(c) = count
@@ -176,7 +175,7 @@ feature {ANY} -- Modification:
 	replace_all (old_character, new_character: like item) is
 			-- Replace all occurrences of the element `old_character' by `new_character'.
 		do
-			storage.fast_replace_all(old_character, new_character, count - 1)
+			storage.fast_replace_all(old_character, new_character, count + storage_lower - 1)
 		ensure
 			count = old count
 			old_character /= new_character implies occurrences(old_character) = 0
@@ -192,11 +191,11 @@ feature {ANY} -- Modification:
 			needed_capacity: INTEGER
 		do
 			-- Note: pre-computing needed capacity may be costly for ROPEs. Consider moving it into the NATIVELY_STORED_STRING-specific part of the feature.
-			needed_capacity := count + s.count
+			needed_capacity := count + s.count + storage_lower
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			slice_copy(count, s, s.lower, s.upper)
+			slice_copy(upper, s, s.lower, s.upper)
 			count := needed_capacity
 		end
 
@@ -211,11 +210,11 @@ feature {ANY} -- Modification:
 		local
 			needed_capacity: INTEGER
 		do
-			needed_capacity := count + end_index - start_index + 1
+			needed_capacity := count + storage_lower + end_index - start_index + 1
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			slice_copy(count, s, start_index, end_index)
+			slice_copy(upper, s, start_index, end_index)
 			count := needed_capacity
 		end
 
@@ -226,14 +225,19 @@ feature {ANY} -- Modification:
 		require
 			other /= Void
 		local
-			i, j: INTEGER
+			d, i, j: INTEGER
 		do
 			i := count
 			j := other.count
-			resize(i + j)
-			if i > 0 and then j > 0 then
-				storage.move(0, i - 1, j)
+			d := j - storage_lower
+			if d > 0 then
+				ensure_capacity(i + d)
 			end
+			count := i + j
+			if i > 0 and then j > 0 then
+				storage.move(storage_lower, storage_lower + i - 1, d)
+			end
+			storage_lower := 0
 			slice_copy(0, other, other.lower, other.upper)
 		ensure
 			(old other.twin + old Current.twin).is_equal(Current)
@@ -244,17 +248,31 @@ feature {ANY} -- Modification:
 			-- to `count' rightwards.
 		require
 			string_not_void: s /= Void
-			valid_insertion_index: 1 <= i and i <= count + 1
+			valid_insertion_index: lower <= i and i <= upper + 1
 		local
-			j, k: INTEGER
+			j, k, dk: INTEGER
 		do
 			j := count
 			k := s.count
-			resize(j + k)
-			if i <= j then
-				storage.move(i - 1, j - 1, k)
+			count := j + k
+			dk := k - storage_lower
+			if dk > 0 then
+				ensure_capacity(j + dk)
 			end
-			slice_copy(i - lower, s, s.lower, s.upper)
+			if dk <= 0 then
+				storage.move(storage_lower, i - lower + storage_lower, -k)
+				storage_lower := -dk
+				slice_copy(i - lower, s, s.lower, s.upper)
+			else
+				if storage_lower > 0 then
+					storage.move(storage_lower, i + storage_lower - lower, -storage_lower)
+				end
+				if i <= j then
+					storage.move(i + storage_lower - lower, j + storage_lower - lower, dk)
+				end
+				storage_lower := 0
+				slice_copy(i - lower, s, s.lower, s.upper)
+			end
 		end
 
 	replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -262,29 +280,34 @@ feature {ANY} -- Modification:
 			-- inclusive, with `s'.
 		require
 			string_not_void: s /= Void
-			valid_start_index: 1 <= start_index
-			valid_end_index: end_index <= count
+			valid_start_index: lower <= start_index
+			valid_end_index: end_index <= upper
 			meaningful_interval: start_index <= end_index + 1
 		local
-			remove_len, insert_len, difference, old_count: INTEGER
+			remove_len, insert_len, difference, old_upper: INTEGER
 		do
-			old_count := count
 			remove_len := end_index - start_index + 1
 			insert_len := s.count
 			difference := insert_len - remove_len
 			if difference > 0 then
-				resize(old_count + difference)
-				if end_index < old_count then
-					-- something to move?
-					storage.move(end_index + 1 - 1, old_count - 1, difference)
+				if storage_lower >= difference then
+					storage.move(storage_lower, start_index, -difference)
+					storage_lower := storage_lower - difference
+				else
+					old_upper := upper
+					ensure_capacity(count + difference)
+					if end_index < old_upper then
+						-- something to move?
+						storage.move(storage_lower + end_index + 1 - lower, storage_lower + old_upper - lower, difference)
+					end
 				end
 			elseif difference < 0 then
-				if end_index < count then
+				if end_index < upper then
 					-- something to move?
-					storage.move(end_index + 1 - 1, old_count - 1, difference)
+					storage.move(storage_lower + end_index + 1 - lower, storage_lower + upper - lower, difference)
 				end
-				resize(old_count + difference)
 			end
+			count := count + difference
 			slice_copy(start_index - lower, s, s.lower, s.upper)
 		end
 
@@ -295,7 +318,7 @@ feature {ANY} -- Modification:
 		require
 			valid_index: valid_index(i)
 		do
-			storage.put(c, i - 1)
+			storage.put(c, storage_lower + i - lower)
 		ensure
 			item(i) = c
 		end
@@ -322,22 +345,24 @@ feature {ANY} -- Modification:
 			-- Inserts `c' at index `i', shifting characters from
 			-- position 'i' to `count' rightwards.
 		require
-			valid_insertion_index: 1 <= i and i <= count + 1
-		local
-			j: INTEGER
+			valid_insertion_index: 1 <= i and i <= upper + 1
 		do
-			from
-				j := count
-				add_last(' ')
-			until
-				j = i - 1
-			loop
-				put(item(j), j + 1)
-				j := j - 1
+			if storage_lower > 0 and then i <= upper then
+				if i > lower then
+					storage.move(storage_lower, storage_lower + i - lower, -1)
+				end
+				storage_lower := storage_lower - 1
+			else
+				ensure_capacity(count + 1)
+				if i <= upper then
+					storage.move(storage_lower - lower + i, storage_lower - lower + upper, 1)
+				end
 			end
-			put(c, i)
+			storage.put(c, storage_lower + i - lower)
+			count := count + 1
 		ensure
 			item(i) = c
+			count = old count + 1
 		end
 
 	shrink (min_index, max_index: INTEGER) is
@@ -353,7 +378,7 @@ feature {ANY} -- Modification:
 			elseif min_index = 1 then
 				count := max_index
 			else
-				storage.slice_copy(0, storage, min_index - 1, max_index - 1)
+				storage_lower := storage_lower + min_index - lower
 				count := max_index - min_index + 1
 			end
 		ensure
@@ -376,22 +401,11 @@ feature {ANY} -- Modification:
 			-- Add `c' at first position.
 			--
 			-- See also `add_last'.
-		local
-			i: INTEGER
 		do
-			from
-				add_last(' ')
-				i := count
-			until
-				i = 1
-			loop
-				put(item(i - 1), i)
-				i := i - 1
-			end
-			put(c, 1)
+			insert_character(c, lower)
 		ensure
 			count = 1 + old count
-			item(1) = c
+			item(lower) = c
 		end
 
 	add_last, append_character, extend (c: CHARACTER) is
@@ -399,14 +413,10 @@ feature {ANY} -- Modification:
 			--
 			-- See also `add_first'.
 		do
-			if count = capacity then
-				ensure_capacity(count + 1)
-			end
-			storage.put(c, count)
-			count := count + 1
+			insert_character(c, upper + 1)
 		ensure
 			count = 1 + old count
-			item(count) = c
+			item(upper) = c
 		end
 
 	to_lower is
@@ -480,16 +490,10 @@ feature {ANY} -- Modification:
 		require
 			not is_empty
 		do
-			storage.remove_first(count - 1)
+			storage_lower := storage_lower + 1
 			count := count - 1
 		ensure
 			count = old count - 1
-		end
-
-	remove_the_first is
-		obsolete "Now use `remove_first' instead (feb 2006)."
-		do
-			remove_first
 		end
 
 	remove_head (n: INTEGER) is
@@ -499,12 +503,12 @@ feature {ANY} -- Modification:
 		require
 			n_non_negative: n >= 0
 		do
-			if n > count then
+			if n >= count then
+				storage_lower := 0
 				count := 0
 			else
-				if n > 0 then
-					remove_between(1, n)
-				end
+				storage_lower := storage_lower + n
+				count := count - n
 			end
 		ensure
 			count = (old count - n).max(0)
@@ -522,12 +526,6 @@ feature {ANY} -- Modification:
 			count = old count - 1
 		end
 
-	remove_the_last is
-		obsolete "Now use `remove_last' instead (feb 2006)."
-		do
-			remove_last
-		end
-
 	remove_tail (n: INTEGER) is
 			-- Remove `n' last characters. If `n' >= `count', remove all.
 			--
@@ -535,7 +533,8 @@ feature {ANY} -- Modification:
 		require
 			n_non_negative: n >= 0
 		do
-			if n > count then
+			if n >= count then
+				storage_lower := 0
 				count := 0
 			else
 				count := count - n
@@ -636,7 +635,7 @@ feature {ANY} -- Other features:
 			create Result.make(c)
 			if c > 0 then
 				Result.set_count(c)
-				Result.storage.slice_copy(0, storage, start_index - lower, end_index - lower)
+				Result.storage.slice_copy(0, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
 			end
 		end
 
@@ -664,16 +663,26 @@ feature {ANY} -- Other features:
 		require
 			n >= 0
 		local
-			old_count: INTEGER
+			old_upper, i, new_storage_lower: INTEGER
 		do
 			if n > 0 then
-				old_count := count
-				if old_count = 0 then
+				old_upper := upper
+				if old_upper < lower then
+					check count = 0 end
+					storage_lower := 0
 					extend_multiple(c, n)
 				else
-					extend_multiple('%U', n)
-					storage.move(0, old_count - 1, n)
-					storage.set_all_with(c, n - 1)
+					if n > storage_lower then
+						new_storage_lower := 0
+						count := count + storage_lower
+						extend_multiple('%U', n - storage_lower)
+					else
+						new_storage_lower := storage_lower - n
+						count := count + n
+					end
+					storage.move(storage_lower, storage_lower + old_upper - lower, n)
+					storage.set_slice_with(c, new_storage_lower, new_storage_lower + n - 1)
+					storage_lower:= new_storage_lower
 				end
 			end
 		ensure
@@ -687,15 +696,15 @@ feature {ANY} -- Other features:
 		require
 			needed_count >= 0
 		local
-			offset: INTEGER
+			needed: INTEGER
 		do
 			from
-				offset := needed_count - count
+				needed := needed_count - count
 			until
-				offset <= 0
+				needed <= 0
 			loop
 				add_last(c)
-				offset := offset - 1
+				needed := needed - 1
 			end
 		ensure
 			count >= needed_count
@@ -708,14 +717,15 @@ feature {ANY} -- Other features:
 		require
 			needed_count >= 0
 		local
-			offset, old_count: INTEGER
+			needed: INTEGER
 		do
-			old_count := count
-			offset := needed_count - old_count
-			if offset > 0 then
-				extend_to_count('%U', needed_count)
-				storage.move(0, old_count - 1, offset)
-				storage.set_all_with(c, offset - 1)
+			from
+				needed := needed_count - count
+			until
+				needed <= 0
+			loop
+				add_first(c)
+				needed := needed - 1
 			end
 		ensure
 			count >= needed_count
@@ -847,7 +857,7 @@ feature {ANY} -- Interfacing with C string:
 				add_last('%U')
 			end
 			count := count - 1
-			Result := storage.to_pointer
+			Result := storage.to_pointer + storage_lower
 		end
 
 	from_external (p: POINTER) is
@@ -870,6 +880,9 @@ feature {ANY} -- Interfacing with C string:
 				count := count + 1
 			end
 			capacity := count + 1
+			if storage_signature_count > 0 then
+				has_storage_signature := False
+			end
 		ensure
 			capacity = count + 1
 			p = to_external
@@ -912,6 +925,9 @@ feature {ANY} -- Interfacing with C string:
 			storage := storage.from_pointer(p)
 			count := size
 			capacity := size
+			if storage_signature_count > 0 then
+				has_storage_signature := False
+			end
 		ensure
 			count = size
 			capacity = size
@@ -931,10 +947,7 @@ feature {ANY} -- Interfacing with C string:
 		do
 			storage_lower := 0
 			from
-				if capacity < size then
-					capacity := size
-					storage := storage.calloc(size)
-				end
+				ensure_capacity(size)
 				s := s.from_pointer(p)
 				count := 0
 			until
@@ -957,7 +970,7 @@ feature {}
 	slice_copy (at: INTEGER; source: ABSTRACT_STRING; start_index, end_index: INTEGER) is
 		do
 			if end_index >= start_index then
-				source.copy_slice_to_native(start_index, end_index, storage, at)
+				source.copy_slice_to_native(start_index, end_index, storage, at + storage_lower)
 			end
 		end
 
@@ -965,7 +978,7 @@ invariant
 	0 <= count
 	count <= capacity
 	capacity > 0 implies storage.is_not_null
-	storage_lower = 0
+	storage_lower >= 0
 
 end -- class STRING
 --

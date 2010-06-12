@@ -21,7 +21,7 @@ inherit
 		end
 	LIBERTY_CALL
 
-create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_CALL_EXPRESSION}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL_EXPRESSION}
 	make, implicit_current
 
 feature {ANY}
