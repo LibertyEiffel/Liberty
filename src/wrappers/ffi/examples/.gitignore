@@ -1,0 +1,6 @@
+# Ignore compiled files
+*.[coh]
+# Ignore tests
+prova
+*.log
+*.gcc-xml
