@@ -139,11 +139,8 @@ feature
 		%		}%"%N%
 		%		end%N%N",
 		<<c_string_name>>)
-		-- buffer.print_on(output)
-		-- Sizeof function prototype
-		("size_t sizeof_"+c_string_name+"();%N").print_on(include)
-		-- sizeof function body
-		("inline size_t sizeof_"+c_string_name+"() { return sizeof("+c_string_name+");};%N").print_on(source)
+		buffer.print_on(output)
+		("#define sizeof_"+c_string_name+" (sizeof(struct "+c_string_name+"))%N").print_on(include)
 	end
 
 	emit_footer is
