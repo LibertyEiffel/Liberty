@@ -3,10 +3,13 @@
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
 ##export GCCXML_COMPILER = gcc-4.2
 
-wrappers: dl.gcc-xml
-	wrappers-generator --local --directory . dl.gcc-xml /usr/include/dlfcn.h
-	# Add those when available: --typedefs POSIX_TYPES   
+XML=dl.gcc-xml
+HEADER=plugin/c/liberty-dynamic-loader.h
+HEADERS=/usr/include/dlfcn.h
 
-dl.gcc-xml: plugin/c/liberty-dynamic-loader.h
-	gccxml plugin/c/liberty-dynamic-loader.h -fxml=dl.gcc-xml
+wrappers: $(XML)
+	wrappers-generator --local --directory . $(XML) $(HEADERS)
+
+$(XML): $(HEADER)
+	gccxml $(HEADER) -fxml=$(XML)
 

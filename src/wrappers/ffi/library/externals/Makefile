@@ -2,14 +2,18 @@
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
 ##export GCCXML_COMPILER = gcc-4.4
 
-wrappers: ffi.gcc-xml
+XML=ffi.gcc-xml
+HEADER=plugin/c/ffi_liberty.h
+HEADERS=`dpkg -L libffi-dev | grep "\.h$$"`
+
+wrappers: $(XML)
 	@echo "Using dpkg to locate include files; please provide a portable way to locate them."
-	wrappers-generator --local --directory . ffi.gcc-xml plugin/c/ffi_liberty.h `dpkg -L libffi-dev | grep "\.h$$"`
+	wrappers-generator --local --directory . $(XML) $(HEADERS) 
 
 ## Sorry for the Debianism
 
-ffi.gcc-xml: 
+$(XML):
 	pkg-config --exists libffi
-	gccxml `pkg-config --cflags libffi` plugin/c/ffi_liberty.h -fxml=ffi.gcc-xml
+	gccxml `pkg-config --cflags libffi` $(HEADER) -fxml=$(XML)
 
 

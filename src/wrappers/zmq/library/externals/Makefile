@@ -1,13 +1,15 @@
-## To avoid an Ubuntu Intrepid Ibex bug.
-## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
-export GCCXML_COMPILER = gcc-4.2
+XML=zmq.gcc-xml
+HEADER=plugin/c/zmq_liberty.h
 
-wrappers: zmq.gcc-xml
-	wrappers-generator --local --typedefs ZMQ_TYPEDEFS --directory . zmq.gcc-xml /usr/local/include/zmq.h
+wrappers: $(XML)
+	wrappers-generator --local --directory . $(XML) `pkg-config --cflags-only-I libzmq| cut -c 3- |tr --delete  '[:space:]' `/zmq.h 
+	## Pick the included directories from the compilation flags, hoping
+	## that only one is given, cut from the third character, skipping the '-I'
+	## remove all space characters then add /zmq.h 
 
-zmq.gcc-xml: 
+$(XML): 
 	pkg-config --exists libzmq
-	gccxml `pkg-config --cflags libzmq` plugin/c/zmq_liberty.h -fxml=zmq.gcc-xml
+	gccxml `pkg-config --cflags libzmq` $(HEADER) -fxml=$(XML)
 
 
 
