@@ -20,7 +20,7 @@ class LIBERTY_TYPE_PARENT_FEATURES_LOADER
 	--
 
 insert
-	LIBERTY_BUILDER_TOOLS
+	LIBERTY_TYPE_BUILDER_TOOLS
 
 creation {LIBERTY_TYPE_BUILDER}
 	make
@@ -48,6 +48,8 @@ feature {}
 			effective_generic_parameters = a_effective_generic_parameters
 			redefined_features = a_redefined_features
 		end
+
+	universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
 	load is

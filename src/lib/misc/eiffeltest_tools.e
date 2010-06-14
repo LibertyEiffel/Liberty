@@ -7,9 +7,6 @@ deferred class EIFFELTEST_TOOLS
 	-- See also command `eiffeltest'.
 	--
 
-insert
-	ANY
-
 feature {ANY}
 	when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, STRING, STRING, STRING]]) is
 		require

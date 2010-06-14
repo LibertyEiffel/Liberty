@@ -18,7 +18,7 @@ class LIBERTY_TYPE_PARENT_LOADER
 	--
 
 insert
-	LIBERTY_BUILDER_TOOLS
+	LIBERTY_TYPE_BUILDER_TOOLS
 
 creation {LIBERTY_TYPE_BUILDER}
 	make
@@ -41,22 +41,24 @@ feature {}
 			effective_generic_parameters = default_effective_generic_parameters
 		end
 
+	universe: LIBERTY_UNIVERSE
+
 feature {LIBERTY_TYPE_BUILDER}
 	load is
 		local
-			ast: LIBERTY_AST_ONE_CLASS
+			ast_class: LIBERTY_AST_ONE_CLASS
 			has_parents: BOOLEAN
 		do
-			ast := type.ast
-			if ast.obsolete_clause.count > 0 then
-				errors.add_position(semantics_position_at(ast.obsolete_clause.string))
-				errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
+			ast_class := type.ast
+			if ast_class.obsolete_clause.count > 0 then
+				errors.add_position(semantics_position_at(ast_class.obsolete_clause.string))
+				errors.set(level_warning, decoded_string(ast_class.obsolete_clause.string))
 			end
 			if is_any then
 				torch.burn
 			else
-				has_parents := add_parents(ast.inherit_clause, True, False)
-				has_parents := add_parents(ast.insert_clause, False, has_parents)
+				has_parents := add_parents(ast_class.inherit_clause, True, False)
+				has_parents := add_parents(ast_class.insert_clause, False, has_parents)
 				check
 					has_parents
 				end

@@ -19,6 +19,7 @@ feature {ANY}
 		local
 			atom: PARSE_ATOM
 		do
+			error := Void
 			atom := grammar.item(start)
 			if not atom.parse(buffer, a_actions) then
 				error := buffer.last_error

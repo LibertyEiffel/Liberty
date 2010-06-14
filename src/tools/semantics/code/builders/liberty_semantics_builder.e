@@ -265,12 +265,12 @@ feature {} -- Instructions
 				name := entity_name.image.image.intern
 				-- may be a local or a parameter of a regular feature name
 				if local_context.is_local(name) then
-					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, ast, file))
 				elseif local_context.is_parameter(name) then
-					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, ast, file))
 				else
-					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					Result := create_implicit_expression_call(e, empty_actuals, errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, ast, file)))
+					Result := create_implicit_expression_call(e, empty_actuals, errors.semantics_position(entity_name.image.index, ast, file))
 				end
 			else
 				check False end
@@ -382,7 +382,7 @@ feature {} -- Instructions
 				creation_type := w.result_type
 			end
 			if creat.has_creation_feature_call then
-				fe := feature_entity(creation_type, create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern, errors.semantics_position(creat.creation_feature_name.image.index, type.ast, type.file)))
+				fe := feature_entity(creation_type, create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern, errors.semantics_position(creat.creation_feature_name.image.index, ast, file)))
 				fa := actuals(creat.creation_feature_actuals, local_context)
 			else
 				fe := feature_entity(creation_type, default_create_name)
@@ -422,7 +422,7 @@ feature {} -- Entities and writables
 					--|*** TODO: error! (not writable)
 					not_yet_implemented
 				else
-					Result := feature_writable(name, errors.semantics_position(a_writable.entity_name.image.index, type.ast, type.file))
+					Result := feature_writable(name, errors.semantics_position(a_writable.entity_name.image.index, ast, file))
 				end
 			end
 		ensure
@@ -437,7 +437,7 @@ feature {} -- Entities and writables
 		do
 			name := a_entity.image.image.intern
 			if local_context = Void then
-				Result := feature_entity(target_type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, type.ast, type.file)))
+				Result := feature_entity(target_type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, ast, file)))
 			else
 				if name.is_equal(once "Current") then
 					Result := current_entity
@@ -448,7 +448,7 @@ feature {} -- Entities and writables
 				elseif local_context.is_parameter(name) then
 					Result := local_context.parameter(name)
 				else
-					Result := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, type.ast, type.file)))
+					Result := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, ast, file)))
 				end
 			end
 		ensure
@@ -476,8 +476,8 @@ feature {} -- Entities and writables
 					--| TODO: error
 					not_yet_implemented
 				else
-					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					Result := create_implicit_instruction_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, ast, file)))
+					Result := create_implicit_instruction_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, ast, file))
 				end
 			elseif a_target.is_precursor then
 				Result := instruction_call_on_precursor(a_target, local_context)
@@ -512,14 +512,14 @@ feature {} -- Entities and writables
 				name := entity_name.image.image.intern
 				-- may be a local or a parameter of a regular feature name
 				if local_context.is_local(name) then
-					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, ast, file))
 					--| TODO: check no actuals
 				elseif local_context.is_parameter(name) then
-					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, ast, file))
 					--| TODO: check no actuals
 				else
-					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
-					Result := create_implicit_expression_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					e := feature_entity(type, create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, ast, file)))
+					Result := create_implicit_expression_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, ast, file))
 				end
 			elseif a_target.is_precursor then
 				Result := expression_call_on_precursor(a_target, local_context)
@@ -561,7 +561,12 @@ feature {} -- Entities and writables
 			Result.feature_name.is_equal(name)
 		end
 
-	current_entity: LIBERTY_CURRENT
+	current_entity: LIBERTY_CURRENT is
+		deferred
+		ensure
+			Result /= Void
+		end
+
 	feature_writables: DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]
 
 feature {} -- Expressions
@@ -887,7 +892,7 @@ feature {} -- Expressions
 				when "KW not" then
 					create {LIBERTY_NOT} Result.make(expression_8(e8.prefixed_expression, r8, local_context), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				else
-					create fn.make_prefix(e8.prefix_operator.image.image.intern, errors.semantics_position(e8.prefix_operator.image.index, type.ast, type.file))
+					create fn.make_prefix(e8.prefix_operator.image.image.intern, errors.semantics_position(e8.prefix_operator.image.index, ast, file))
 					Result := expression_8(e8.prefixed_expression, r8, local_context)
 					create {LIBERTY_PREFIX_OPERATOR} Result.make(Result, feature_entity(Result.result_type, fn), semantics_position_at(e8.prefix_operator))
 				end
@@ -895,7 +900,7 @@ feature {} -- Expressions
 				Result := expression_9(e8.e9, local_context)
 			end
 			if r8.is_free_operator then
-				create fn.make_infix(r8.free_operator.image.image.intern, errors.semantics_position(r8.free_operator.image.index, type.ast, type.file))
+				create fn.make_infix(r8.free_operator.image.image.intern, errors.semantics_position(r8.free_operator.image.index, ast, file))
 				create {LIBERTY_INFIX_OPERATOR} Result.make(Result, expression_8(r8.expression, r8.remainder, local_context), feature_entity(Result.result_type, fn), Result.position)
 			end
 		end
@@ -958,7 +963,7 @@ feature {} -- Expressions
 					fa := empty_actuals
 					create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
 				else
-					fe := feature_entity(creation_type, create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern, errors.semantics_position(a_creation.r10.feature_name.image.index, type.ast, type.file)))
+					fe := feature_entity(creation_type, create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern, errors.semantics_position(a_creation.r10.feature_name.image.index, ast, file)))
 					fa := actuals(a_creation.r10.actuals, local_context)
 					create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
 					Result := expression_remainder(tgt, a_creation.r10.remainder, local_context)
@@ -1249,7 +1254,7 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create parameter.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, type.ast, type.file))
+							create parameter.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, ast, file))
 							local_context.add_parameter(parameter)
 							j := j + 1
 						end
@@ -1279,7 +1284,7 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create localdef.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, type.ast, type.file))
+							create localdef.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, ast, file))
 							local_context.add_local(localdef)
 							j := j + 1
 						end
@@ -1348,6 +1353,13 @@ feature {} -- Assertions
 					i := i + 1
 				end
 			end
+		end
+
+feature {}
+	type: LIBERTY_ACTUAL_TYPE is
+		deferred
+		ensure
+			Result /= Void
 		end
 
 end -- class LIBERTY_SEMANTICS_BUILDER
