@@ -26,7 +26,7 @@ feature -- Read line
 	history: READ_LINE_HISTORY is once create Result.using_history end
 
 feature -- TODO: History
-end
+end -- class READ_LINE
 
 -- Copyright (C) 2010, Paolo Redaelli
 

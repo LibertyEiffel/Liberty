@@ -16,5 +16,6 @@ locations
 
 needs
 	KERNEL
+	WRAPPER_READLINE
 
 end
