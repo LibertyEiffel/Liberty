@@ -1,5 +1,5 @@
 /* 
- * Include file for Liberty Zero-MQ wrappers  CICCIO!
+ * Include file for Liberty Zero-MQ wrappers
  */
 
 #include <zmq.h>

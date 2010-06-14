@@ -70,44 +70,64 @@ feature {ANY} -- Binding
 		end
 	end
 feature {ANY} -- Receiving messages
-	receive (a_message: ZMQ_MESSAGE) is
-		-- Receive `a_message' from Current socket; any previous content of
-		-- `a_message' will be properly deallocated. Program blocks until a
-		-- message is received; see also `receive_now'.
-	local rc: INTEGER_32
-	do
-		rc:=zmq_recv(handle,a_message.handle,0)
-		if rc/=0 then 
-			raise("ZMQ_SOCKET.receive error not handled") 
+	last_message: ZMQ_MESSAGE is
+		-- Last received message
+		attribute
 		end
+
+	receive (a_message: ZMQ_MESSAGE) is
+		-- Receive a message from Current socket; it will be available as
+		-- `last_message'. Program blocks until a message is received; see also
+		-- `receive_now'. `is_successful' and `errno' (from ERRNO) are updated.
+	do
+		is_successful:= zmq_recv(handle,last_message.handle,0).to_boolean
 	end
 
 	receive_now (a_message: ZMQ_MESSAGE) is
 		-- Receive `a_message' from Current socket; any previous content of
-		-- `a_message' will be properly deallocated. If it cannot be processed immediately, errno is set to EAGAIN.
+		-- `a_message' will be properly deallocated. If it cannot be processed
+		-- immediately, `is_successful' will be False and `errno' is set to
+		-- eagain (TODO: provide access to Posix errors).
 
 		-- TODO: perhaps non_blocking_receive is a better name?
-	local rc: INTEGER_32
 	do
-		rc:=zmq_recv(handle,a_message.handle,zmq_noblock)
-		if rc/=0 then 
-			raise("ZMQ_SOCKET.receive error not handled") 
-		end
+		is_successful:=zmq_recv(handle,a_message.handle,zmq_noblock).to_boolean
 	end
+
 feature {ANY} -- Sending
 	send (a_message: ZMQ_MESSAGE) is
-		-- Send `a_message'. Blocking call
+		-- Queue `a_message' to be sent to the Current socket. See also
+		-- `send_now', a non-blocking version of this command.
+
+		-- `is_successful' and `errno' are updated.
+		
+		-- Note: A successful invocation of does not indicate that the message
+		-- has been transmitted to the network, only that it has been queued on
+		-- the message queue associated with the socket and 0MQ has assumed
+		-- responsibility for the message.
+	
+		-- When the socket does not support send `errno' will be set to `enotsup'.
+
+		-- When the socket cannot send the message because it is not in the
+		-- appropriate state `errno' will be set to `efsm.' This error may
+		-- occur with socket types that switch between several states, such as
+		-- ZMQ_REP.  See the messaging patterns section of ZMQ_SOCKET_TYPES for
+		-- more information.
+
 	require a_message/=Void
-	local rc: INTEGER_32
 	do
-		rc:=zmq_send(handle,a_message.handle,0)
-		check rc=0 end
+		is_successful:=zmq_send(handle,a_message.handle,0).to_boolean
 	end
+
 feature {} -- Implementation
 	struct_size: INTEGER is
 		do
 			raise("ØMQ design hides the size of its sockets")
 		end
+
+feature -- Status
+	is_successful: BOOLEAN 
+	-- Was last command successful?
 
 feature {} -- Constants
 	zmq_noblock: INTEGER_32 is 

@@ -7,7 +7,7 @@ inherit
 	EIFFEL_OWNED redefine default_create, dispose end 
 insert
 	ZMQ_EXTERNALS redefine default_create end
-	-- To workaround a SmartEiffel bug this must be avoided ZMQ_MSG_T_EXTERNALS (Poalo 2010-03-11)
+	ZMQ_MSG_T_STRUCT
 	STDLIBEXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
@@ -102,16 +102,6 @@ feature {} -- Implementation
 	data: POINTER is
 		do
 			Result:=zmq_msg_data(handle)
-		end
-
-	-- any_data: ANY is
-	-- 	-- Reference to the data feed at creation time using `with_data'
-	-- 	attribute
-	-- end
-
-	struct_size: INTEGER is
-		external "C inline use <zmq.h>"
-		alias "sizeof(zmq_msg_t)"
 		end
 
 end -- ZMQ_MESSAGE
