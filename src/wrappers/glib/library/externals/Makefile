@@ -2,7 +2,7 @@ XML=glib.gccxml
 HEADER=/usr/include/glib-2.0/glib.h 
 HEADERS=/usr/include/glib-2.0/glib/*.h  
 
-wrappers: glib.gcc-xml
+wrappers: $(XML)
 	wrappers-generator --local --directory . $(XML) $(HEADERS)
 
 $(XML): $(HEADER) $(HEADERS)
