@@ -32,13 +32,13 @@ feature {PARSE_TABLE}
 		end
 
 feature {DESCENDING_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
 		local
 			old_index: INTEGER; image: PARSER_IMAGE
 			parse_action: PARSE_ACTION; error_message: STRING
 		do
 			old_index := buffer.current_index
-			image := parser.item([buffer])
+			image := parser.item([buffer]) -- should clear the mark when necessary
 			if image /= Void then
 				create parse_action.make(agent call_action(image))
 				debug ("parse")
@@ -52,8 +52,15 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
 					parse_action.set_name(once "Shift %"" + name + once "%": " + image.out)
 				end
 				actions.add_last(parse_action)
-				Result := True
+				Result := yes
 			else
+				if buffer.marked then
+					-- The buffer end was reached while reading the image, a good sign that maybe the text could
+					-- have continued (note that the mark is cleared by the keyword `parser' when judicious)
+					Result := maybe
+				else
+					Result := no
+				end
 				error_message := "*** %""
 				error_message.append(name)
 				error_message.append(once "%" expected")

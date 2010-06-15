@@ -121,8 +121,21 @@ feature {ANY} -- Queries
 			-- Is the end of the buffer reached?
 		do
 			Result := current_index > upper
+			if Result then
+				marked := True
+			end
 		ensure
 			Result = (current_index > upper)
+			Result implies marked
+		end
+
+	marked: BOOLEAN
+
+	clear_mark is
+		do
+			marked := False
+		ensure
+			not marked
 		end
 
 feature {}

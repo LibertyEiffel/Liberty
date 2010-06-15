@@ -51,10 +51,10 @@ feature {PARSE_TABLE}
 		end
 
 feature {DESCENDING_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
 		do
 			Result := parser_tree.parse(buffer, actions)
-			if Result then
+			if Result = yes then
 				buffer.set_last_error(Void)
 				debug ("parse")
 					std_error.put_string(once "%T-->%Tnon-terminal ")

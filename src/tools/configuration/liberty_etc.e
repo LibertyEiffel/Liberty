@@ -14,6 +14,9 @@
 --
 expanded class LIBERTY_ETC
 
+insert
+	LIBERTY_ERROR_LEVELS
+
 create {ANY}
 	make
 
@@ -73,7 +76,7 @@ feature {ANY}
 feature {LIBERTY_ETC_VISITOR}
 	configure_cluster_rc (a_cluster_rc: ABSTRACT_STRING) is
 		local
-			conf: STRING
+			conf: STRING; evaled: BOOLEAN
 		do
 			parser_file.connect_to(a_cluster_rc)
 			if parser_file.is_connected then
@@ -93,7 +96,15 @@ feature {LIBERTY_ETC_VISITOR}
 				parser_buffer.initialize_with(conf)
 
 				grammar.reset
-				parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+				evaled := parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+				if not evaled then
+					errors.add_position(errors.syntax_position(conf.upper, conf, a_cluster_rc.intern))
+					errors.set(level_fatal_error, "Incomplete cluster definition text")
+					errors.emit
+					check
+						dead: False
+					end
+				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, conf, a_cluster_rc.intern)
 				else
@@ -123,7 +134,7 @@ feature {}
 	set_configuration_from (file: STRING): BOOLEAN is
 			-- True if the configuration file was successfully read
 		local
-			conf: STRING
+			conf: STRING; evaled: BOOLEAN
 		do
 			parser_file.connect_to(file)
 			if parser_file.is_connected then
@@ -143,7 +154,15 @@ feature {}
 				parser_buffer.initialize_with(conf)
 
 				grammar.reset
-				parser.eval(parser_buffer, grammar.table, once "Master")
+				evaled := parser.eval(parser_buffer, grammar.table, once "Master")
+				if not evaled then
+					errors.add_position(errors.syntax_position(conf.upper, conf, file.intern))
+					errors.set(level_fatal_error, "Incomplete master definition text")
+					errors.emit
+					check
+						dead: False
+					end
+				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, conf, file.intern)
 				else
@@ -171,7 +190,7 @@ feature {}
 
 	configure_program_loadpath (a_program_loadpath: STRING) is
 		local
-			conf: STRING
+			conf: STRING; evaled: BOOLEAN
 		do
 			conf := once ""
 			conf.copy(once "cluster PROGRAM_LOADPATH version %"0%" locations %"")
@@ -180,7 +199,15 @@ feature {}
 			parser_buffer.initialize_with(conf)
 
 			grammar.reset
-			parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+			evaled := parser.eval(parser_buffer, grammar.table, once "Cluster_Definition")
+			if not evaled then
+				errors.add_position(errors.syntax_position(conf.upper, conf, "Generated cluster definition".intern))
+				errors.set(level_system_error, "Incomplete generated cluster definition text!!")
+				errors.emit
+				check
+					dead: False
+				end
+			end
 			if parser.error /= Void then
 				errors.emit_syntax_error(parser.error, conf, "Generated cluster definition".intern)
 			else
