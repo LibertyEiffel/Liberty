@@ -118,7 +118,7 @@ feature {} -- Constants
 
 	-- enum: STRING is "_ENUM"
 
-	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
+	struct_inherits: STRING is "%N%Ninsert ANY undefine is_equal, copy end%N%N"
 
 	queries_header: STRING is "feature {} -- Low-level queries%N%N"
 
