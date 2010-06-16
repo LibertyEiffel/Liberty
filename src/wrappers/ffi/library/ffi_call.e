@@ -16,7 +16,7 @@ inherit
 	EIFFEL_OWNED
 insert 
 	FFI_TYPES
-	FFIEXTERNALS
+	FFI_EXTERNALS
 	
 creation {ANY} prepare
 
@@ -62,7 +62,7 @@ feature {ANY} -- Preparation of a call
 			end
 		end
 		status.change_value(ffi_prep_cif(handle, default_abi, count, a_return_type, args))
-		check not status.is_bad__abi end
+		check not status.is_bad_abi end
 	ensure
 		function_set: function = a_function
 		-- Note: someone may want to turn this into invariant Actually they
@@ -101,7 +101,7 @@ feature {ANY} -- Preparation of a call
 		ffi_call(h,f,r,v)
 	end
 feature {ANY} -- Status
-	status: FFI_STATUSENUM is
+	status: FFI_STATUS_ENUM is
 		-- The status of Current call.
 		attribute
 	end
