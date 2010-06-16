@@ -23,6 +23,11 @@ feature {ANY}
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
 			end
+			if file_exists(avoided) and then is_file(avoided) then
+				log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
+				tree.read_avoided_from(avoided)
+				tree.avoided.print_all
+			end
 			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
 			tree.typedefs.emit_wrappers
 			log_string(once "Making enumerations classes.%N")
@@ -46,10 +51,13 @@ feature {ANY}
 
 	preprocessor_label: STRING
 
+	avoided: STRING 
+	-- The file containing the symbols that will not be wrapped.
+
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, avoided, descriptions, flags, assigned_names, gccxml_prefix: STRING;
+			arg, descriptions, flags, assigned_names, gccxml_prefix: STRING;
 			i: INTEGER
 		do
 			check
@@ -60,6 +68,7 @@ feature {ANY}
 			descriptions := once "descriptions"
 			avoided := once "avoided"
 			assigned_names := once "assigned-names"
+			settings.set_directory(once ".") -- Defaults on current directory
 			if argument_count = 0 then
 				print_usage
 				die_with_code(exit_success_code)
@@ -105,6 +114,8 @@ feature {ANY}
 							std_error.put_line(once "No directory given")
 							print_usage
 						end
+					elseif arg.is_equal(once "--on-standard-output") then
+						settings.set_directory(Void)
 					else
 						if file_exists(arg) then
 							-- Current arg should be the XML file. The following
@@ -153,10 +164,6 @@ feature {ANY}
  				if file_exists(descriptions) then
 					log(once "TODO: Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
 					-- maker.read_descriptions_from(descriptions)
-				end
- 				if file_exists(avoided) then
-					log(once "TODO: Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
-					-- maker.read_avoided_from(avoided)
 				end
 
 			end
@@ -226,9 +233,12 @@ feature {ANY}
 			%		file. For usual wrappers it is normally not needed.%N%
 			%		Only the last global and local flag will be considered.%N%
 			%%N%
+			%	--on-standard-output%N%
+			%		Ouputs everything on standard output.%N%
+			%%N%
 			%  --directory dir%N%
-			%		Put the generated classes in `dir'. Otherwise everything is%N%
-			%		outputted to standard output%N%
+			%		Put the generated classes in `dir'. Default is to output on %N%
+			%		current directory.%N%
 			%%N%
 			%  --flags flag-file%N%
 			%		Read a list of enumeration that will be forcefully wrapped as %N%
@@ -252,18 +262,12 @@ feature {ANY}
 			%		Do not wrap the symbols found in `a_file_name'. If this option is not %N%
 			%		given the program will look into file %"avoided%".%N%
 			%%N%
-			%	--typedefs CLASS_NAME %N%
-			%		Wrap typedefs to fundamental types into class CLASS_NAME as%N%
-			%		empty queries named with the typedef name and whose type's%N%
-			%		the actual type referred by the typedef. These queries will%N%
-			%		not be actually used but are useful as anchored types. If%N%
-			%		this option is not given the class name will be TYPES.%N%
-			%%N%
 			%	-v --verbose%N%
 			%		Turn on verbose output, printing information about the%N%
 			%		ongoing operations.%N%
 			%%N%
-			% The basename of the provided XML file made by gccxml will be used as prefix for the wrappers: typedef class, proprocessor symbols and so on.%N")
+			% The basename of the provided XML file made by gccxml will be used %N%
+			% as prefix for the typedef class and proprocessor symbol.%N")
 			die_with_code(exit_success_code)
 		end
 

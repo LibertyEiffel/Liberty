@@ -18,13 +18,13 @@ feature
 feature
 	flags: WORDS is
 		-- Enumerations that will be forcefully wrapped as a flag.
-	do
+	once
 		create Result.make
 	end
 
 	avoided: WORDS is
 		-- Symbols that will not be wrapped.
-	do
+	once
 		create Result.make
 	end
 
