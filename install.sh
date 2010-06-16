@@ -28,6 +28,8 @@ function bootstrap()
 	    mkdir $LIBERTY_HOME/target/bin/${ace}.d
 	    ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
 	done
+	mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
+	ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
 	cd ..
     fi
 
@@ -237,10 +239,35 @@ EOF
     done
     progress 30 11 11 "done."
     echo
+}
 
+function compile_plugins()
+{
     title "Compiling plugins"
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
+}
+
+function generate_wrappers()
+{
+    title "Generating wrappers"
+    cd $LIBERTY_HOME/target/bin
+    cd wrappers-generator.d
+    n=$(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile | wc -l)
+    n=$((n+1))
+    progress 30 0 $n "Building the wrappers generator"
+    run se c -verbose wrappers-generator.ace
+    i=1
+    for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
+	cd ${f%/Makefile}
+	t=${f%/library/externals/Makefile}
+	t=${t#$LIBERTY_HOME/src/wrappers/}
+	progress 30 $i $n $t
+	run make
+	i=$((i+1))
+    done
+    progress 30 $n $n "done."
+    echo
 }
 
 function compile_all()
@@ -259,5 +286,54 @@ function compile_all()
     echo
 }
 
-test -d $LIBERTY_HOME/target -a x"$1" != x"-bootstrap" || bootstrap
-compile_all
+function do_all()
+{
+    bootstrap
+    compile_plugins
+    generate_wrappers
+    compile_all
+}
+
+if [ $# = 0 ]; then
+    if [ -d $LIBERTY_HOME/target ]; then
+	compile_all
+    else
+	do_all
+    fi
+else
+    while [ $# > 0 ]; do
+	case x"$1" in
+	    x-plugins)
+		compile_plugins
+		;;
+	    x-wrappers)
+		generate_wrappers
+		;;
+	    x-bootstrap)
+		do_all
+		;;
+	    *)
+		echo "Unknown argument: $1"
+		cat >&2 <<EOF
+
+Usage: $0 {-bootstrap|-plugins|-wrappers}
+
+  -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
+               Liberty configuration files, up to the plugins, wrappers,
+               and Liberty tools installation
+
+  -plugins     Compiles the plugins used by the Liberty interpreter
+
+  -wrappers    Generates the library wrappers; some are used by the
+               Liberty tools themselves (ffi, readline, llvm, ...)
+
+  If no argument is provided, then only the Liberty tools are rebuilt
+  or the installation is bootstrapped if not already done.
+
+EOF
+		exit 1
+		;;
+	esac
+	shift
+    done
+fi
