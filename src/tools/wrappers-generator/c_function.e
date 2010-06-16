@@ -96,6 +96,9 @@ feature {ANY}
 				<<function_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
 				<<function_string_name, namespace.c_string_name>>)
+			elseif avoided.has(function_string_name) then
+				log(once "Skipping function `@(1)' as requested.%N", <<function_string_name>>)
+				buffer.put_message(once "%T-- function @(1) @(2) skipped as requested.%N", <<function_string_name>>) 
 			else
 				log(once "Function @(1)",<<function_string_name>>)
 				buffer.put_message(once "%T@(1)", <<eiffel_name>>)

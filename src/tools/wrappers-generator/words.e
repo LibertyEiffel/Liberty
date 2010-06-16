@@ -2,7 +2,6 @@ class WORDS
 	-- An hashed set of words, usually read from a file
 
 inherit HASHED_SET[STRING]
-
 creation make
 
 feature 
@@ -12,58 +11,23 @@ feature
 	require
 		a_file_name/=Void
 	local 
-		words: ARRAY[STRING]; word,line: STRING; file: TEXT_FILE_READ
+		words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
 		file_tools: FILE_TOOLS
 	do
 		create file.connect_to(a_file_name)
-		if file.is_connected then
-			check 
-				file_tools.file_exists(a_file_name)
-				file_tools.is_file(a_file_name) 
-			end
-			if use_suboptiomal_implementation then
-				debug print_notice end
-				from file.read_line
-				until file.end_of_input
-				loop
-					line := file.last_string
-					if line/=Void then 
-						words := line.split
-						if words/=Void then
-							words.do_all(agent add)
-						end
-					end
-					file.read_line
-				end
-			else 
-				-- "correct" implementation
-				from file.read_word 
-				until file.end_of_input 
-				loop
-					word:=file.last_string 
-					if word/=Void then 
-						add(word.twin)
-						file.read_word 
-					end
+		from file.read_line until file.end_of_input
+		loop
+			line := file.last_string
+			if line/=Void then 
+				words := line.split
+				if words/=Void then
+					words.do_all(agent add)
 				end
 			end
+			file.read_line
 		end
 	end
-feature {} -- Constants and notes
-	use_suboptiomal_implementation: BOOLEAN is True
-		-- Is suboptimal implementation used? Such an implementation
-		-- cirmumvents a bug - found in March 2009, - deeply rooted in the io
-		-- cluster. A more direct implementation triggers a precondition
-		-- violation in io cluster.
 
-	print_notice is 
-		-- Notify the user of suboptimal implementation
-	once
-		print(once 
-		"WORDS.add_from_file uses a suboptimal implementation that cirmumvent a bug - found in %
-		%March 2009 - deeply rooted in the io cluster. A more direct implementation triggers a %
-		%precondition violation in io cluster.")
-	end
 end -- class WORDS
 
 -- Copyright 2008,2009 Paolo Redaelli
