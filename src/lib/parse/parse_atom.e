@@ -6,6 +6,9 @@ deferred class PARSE_ATOM
 	-- A part of the PARSE_TABLE.
 	--
 
+insert
+	TRISTATE_VALUES
+
 feature {ANY}
 	name: FIXED_STRING
 
@@ -46,14 +49,15 @@ feature {PARSE_TABLE}
 		end
 
 feature {DESCENDING_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
-			-- The Result is True if the parsing succeeded, False otherwise.
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+			-- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
+			-- parse could complete with some more text.
 		require
 			actions /= Void
 		deferred
 		ensure
 			actions.count >= old actions.count
-			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}

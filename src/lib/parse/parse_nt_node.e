@@ -7,7 +7,7 @@ class PARSE_NT_NODE
 	--
 
 insert
-	ANY
+	TRISTATE_VALUES
 		redefine
 			copy, is_equal, out_in_tagged_out_memory
 		end
@@ -73,7 +73,7 @@ feature {PARSE_NON_TERMINAL}
 			end
 		end
 
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
 		local
 			parse_action: PARSE_ACTION
 		do
@@ -81,9 +81,9 @@ feature {PARSE_NON_TERMINAL}
 				is_root: prefix_name = Void
 			end
 			Result := parse_suffices(buffer, actions)
-			if not Result and then end_of_rule then
+			if Result /= yes and then end_of_rule then
 				-- Epsilon
-				Result := True
+				Result := yes
 				create parse_action.make(action)
 				debug ("parse")
 					parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
@@ -92,7 +92,7 @@ feature {PARSE_NON_TERMINAL}
 			end
 		ensure
 			actions.count >= old actions.count
-			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
@@ -246,7 +246,7 @@ feature {PARSE_NT_NODE}
 			end
 		end
 
-	do_parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+	do_parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
 		require
 			not_root: prefix_name /= Void
 		local
@@ -263,7 +263,7 @@ feature {PARSE_NT_NODE}
 			check
 				suffices = Void implies end_of_rule
 			end
-			if Result then
+			if Result = yes then
 				if suffices = Void then
 					create parse_action.make(action)
 					debug ("parse")
@@ -272,35 +272,33 @@ feature {PARSE_NT_NODE}
 					actions.add_last(parse_action)
 				else
 					Result := parse_suffices(buffer, actions)
-					if end_of_rule then
-						if not Result then
-							-- that's fine: we can end here
-							Result := True
-							create parse_action.make(action)
-							debug ("parse")
-								parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
-							end
-							actions.add_last(parse_action)
+					if Result /= yes and then end_of_rule then
+						-- that's fine: we can end here
+						Result := yes
+						create parse_action.make(action)
+						debug ("parse")
+							parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
 						end
+						actions.add_last(parse_action)
 					end
 				end
 			end
-			if not Result then
+			if Result /= yes then
 				buffer.set_current_index(old_index)
 				if actions.count > old_count then
 					actions.remove_tail(actions.count - old_count)
 				end
 			end
 		ensure
-			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}
-	parse_suffices (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+	parse_suffices (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
 		require
 			suffices /= Void
 		local
-			old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: BOOLEAN
+			old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
 		do
 			debug ("parse")
 				std_error.put_string(once "Scanning non-terminal %"")
@@ -317,15 +315,18 @@ feature {}
 			old_count := actions.count
 			from
 				i := suffices.lower
-				Result := False
+				Result := no
 			until
-				Result or else i > suffices.upper
+				Result = yes or else i > suffices.upper
 			loop
 				node := suffices.item(i)
 				parsenode := node.do_parse(buffer, actions)
-				if parsenode then
-					Result := True
+				if parsenode = yes then
+					Result := yes
 				else
+					if parsenode = maybe then
+						perhaps := True
+					end
 					buffer.set_current_index(old_index)
 					if actions.count > old_count then
 						actions.remove_tail(actions.count - old_count)
@@ -346,8 +347,11 @@ feature {}
 					i := i + 1
 				end
 			end
+			if Result = no and then perhaps then
+				Result := maybe
+			end
 		ensure
-			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}

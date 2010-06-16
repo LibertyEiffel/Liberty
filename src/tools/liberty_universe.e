@@ -15,6 +15,9 @@
 class LIBERTY_UNIVERSE
 
 insert
+	LIBERTY_ERROR_LEVELS
+		undefine is_equal
+		end
 	LIBERTY_AST_HANDLER
 		undefine is_equal
 		end
@@ -37,20 +40,20 @@ feature {ANY}
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	parse_expression (a_expression: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_EXPRESSION is
+	parse_expression (a_expression: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_AST_EXPRESSION is
 		require
 			a_expression /= Void
 			when_error /= Void
-		local
-			ast: LIBERTY_AST_EXPRESSION
 		do
-			parser_buffer.initialize_with(a_expression)
-			eiffel.reset
-			parser.eval(parser_buffer, eiffel.table, once "Expression")
-			if parser.error /= Void then
-				when_error.call([parser.error])
-			end
-			ast ::= eiffel.root_node
+			Result ::= partial_parse(a_expression, once "Expression", when_error)
+		end
+
+	parse_instruction (a_instruction: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_AST_INSTRUCTION is
+		require
+			a_instruction /= Void
+			when_error /= Void
+		do
+			Result ::= partial_parse(a_instruction, once "Instruction", when_error)
 		end
 
 	build_types (root_type: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME; target_type: LIBERTY_ACTUAL_TYPE) is
@@ -293,6 +296,26 @@ feature {ANY} -- Kernel types
 			effective_generics /= Void
 		do
 			Result := agent_type(predicate_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_predicate)
+		end
+
+feature {} -- Partial parsing of command-line buffer (for the debugger and REPL)
+	partial_parse (a_entry, a_root_atom_name: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_AST_NON_TERMINAL_NODE is
+		require
+			a_entry /= Void
+			when_error /= Void
+		local
+			evaled: BOOLEAN
+		do
+			parser_buffer.initialize_with(a_entry)
+			eiffel.reset
+			evaled := parser.eval(parser_buffer, eiffel.table, a_root_atom_name)
+			if evaled then
+				if parser.error /= Void then
+					when_error.call([parser.error])
+				else
+					Result ::= eiffel.root_node
+				end
+			end
 		end
 
 feature {}
@@ -797,6 +820,7 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 		local
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS; actual_cluster: LIBERTY_CLUSTER
+			evaled: BOOLEAN
 		do
 			actual_cluster := cluster.find(class_name)
 			if actual_cluster = Void then
@@ -819,7 +843,15 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				parser_buffer.initialize_with(code)
 
 				eiffel.reset
-				parser.eval(parser_buffer, eiffel.table, once "Class")
+				evaled := parser.eval(parser_buffer, eiffel.table, once "Class")
+				if not evaled then
+					errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
+					errors.set(level_fatal_error, "Incomplete class text")
+					errors.emit
+					check
+						dead: False
+					end
+				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
 				end
@@ -868,6 +900,7 @@ feature {} -- AST building
 			tuple_cluster: LIBERTY_CLUSTER
 			i: INTEGER; file: FIXED_STRING
 			one_class: LIBERTY_AST_ONE_CLASS
+			evaled: BOOLEAN
 		once
 			logging.info.put_line(once "Parsing TUPLE")
 
@@ -882,7 +915,15 @@ feature {} -- AST building
 			parser_buffer.initialize_with(code)
 
 			eiffel.reset
-			parser.eval(parser_buffer, eiffel.table, once "Classes")
+			evaled := parser.eval(parser_buffer, eiffel.table, once "Classes")
+			if not evaled then
+				errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
+				errors.set(level_fatal_error, "Incomplete class text")
+				errors.emit
+				check
+					dead: False
+				end
+			end
 			if parser.error /= Void then
 				errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
 			end

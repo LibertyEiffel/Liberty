@@ -9,30 +9,9 @@ expanded class TRISTATE
 --| TODO: make it native to have a real semi-evaluation of `and then' and `or else'
 
 insert
-	ANY
+	TRISTATE_VALUES
 		redefine
 			is_equal
-		end
-
-feature {ANY} -- Constants:
-	yes: TRISTATE is
-		do
-			Result := with_value(yes_value)
-		end
-
-	no: TRISTATE is
-		do
-			Result := with_value(no_value)
-		end
-
-	maybe: TRISTATE is
-		do
-			Result := with_value(maybe_value)
-		end
-
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other.value = value
 		end
 
 feature {ANY} -- Expressions:
@@ -50,6 +29,11 @@ feature {ANY} -- Expressions:
 			else
 				Result := with_value(no_value)
 			end
+		end
+
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := other.value = value
 		end
 
 	prefix "not": TRISTATE is
@@ -93,6 +77,11 @@ feature {ANY} -- Expressions:
 			end
 		end
 
+	infix "implies" (other: TRISTATE): TRISTATE is
+		do
+			Result := (not Current) or else other
+		end
+
 	infix "xor" (other: TRISTATE): TRISTATE is
 		do
 			if value = maybe_value or else other.value = maybe_value then
@@ -102,7 +91,7 @@ feature {ANY} -- Expressions:
 			end
 		end
 
-feature {TRISTATE}
+feature {TRISTATE, TRISTATE_VALUES}
 	with_value (a_value: like value): TRISTATE is
 		do
 			value := a_value

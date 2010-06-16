@@ -7,36 +7,53 @@ class DESCENDING_PARSER
 	-- PARSE_ATOM classes.
 	--
 
+insert
+	TRISTATE_VALUES
+
 creation {ANY}
 	make
 
 feature {ANY}
-	parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]) is
+	parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+			-- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
+			-- could make it succeed.
 		require
 			a_actions /= Void
 			grammar.is_coherent
 			grammar.has(start)
 		local
 			atom: PARSE_ATOM
+			parsed: TRISTATE
 		do
+			error := Void
 			atom := grammar.item(start)
-			if not atom.parse(buffer, a_actions) then
+			parsed := atom.parse(buffer, a_actions)
+			if parsed = yes then
+				Result := True
+			elseif parsed = no then
 				error := buffer.last_error
 				if error = Void then
 					create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
+				end
+				Result := True
+			else
+				check
+					should_add_more: not Result
 				end
 			end
 		ensure
 			a_actions.count >= old a_actions.count
 		end
 
-	eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING) is
+	eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
+			-- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
+			-- could make it succeed.
 		local
 			i: INTEGER
 		do
 			actions.clear_count
-			parse(buffer, grammar, start, actions)
-			if error = Void then
+			Result := parse(buffer, grammar, start, actions)
+			if Result and then error = Void then
 				debug ("parse")
 					std_error.put_line(once "Actions:")
 					std_error.put_line(once "--8<-------- <start actions>")

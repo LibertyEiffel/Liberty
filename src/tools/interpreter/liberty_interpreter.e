@@ -621,7 +621,7 @@ feature {}
 			object_printer.print_object(std_output, value, 2)
 		end
 
-feature {LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
+feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
 	target: LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := current_feature.target

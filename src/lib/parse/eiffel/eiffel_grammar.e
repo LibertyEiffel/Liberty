@@ -585,8 +585,10 @@ feature {}
 				not skip_blank(buffer, False)
 			loop
 			end
+			buffer.clear_mark
 		ensure
 			buffer.current_index = last_blanks.count + old buffer.current_index
+			not buffer.marked
 		end
 
 	skip_blanks_and_semi_colons (buffer: MINI_PARSER_BUFFER) is
@@ -598,8 +600,10 @@ feature {}
 				not skip_blank(buffer, True)
 			loop
 			end
+			buffer.clear_mark
 		ensure
 			buffer.current_index = last_blanks.count + old buffer.current_index
+			not buffer.marked
 		end
 
 	parse_assertion_comment (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is

@@ -21,6 +21,7 @@ class LIBERTY_TYPE_FEATURES_LOADER
 
 insert
 	LIBERTY_SEMANTICS_BUILDER
+	LIBERTY_TYPE_BUILDER_TOOLS
 
 creation {LIBERTY_TYPE_BUILDER}
 	make
@@ -49,18 +50,21 @@ feature {}
 			redefined_features = a_redefined_features
 		end
 
+	current_entity: LIBERTY_CURRENT
+	universe: LIBERTY_UNIVERSE
+
 feature {LIBERTY_TYPE_BUILDER}
 	load is
 		local
-			ast: LIBERTY_AST_ONE_CLASS
+			ast_class: LIBERTY_AST_ONE_CLASS
 		do
-			ast := type.ast
-			add_features(ast.features)
+			ast_class := type.ast
+			add_features(ast_class.features)
 			check_that_all_redefined_features_were_redefined
 			if not errors.has_error then
-				add_creations(ast.creations)
+				add_creations(ast_class.creations)
 				if not errors.has_error then
-					type.set_invariant(class_invariant(ast.invariant_clause))
+					type.set_invariant(class_invariant(ast_class.invariant_clause))
 				end
 			end
 		end

@@ -18,7 +18,7 @@ class LIBERTY_TYPE_INIT
 	--
 
 insert
-	LIBERTY_BUILDER_TOOLS
+	LIBERTY_TYPE_BUILDER_TOOLS
 
 creation {LIBERTY_TYPE_BUILDER}
 	make
@@ -41,10 +41,12 @@ feature {}
 			effective_generic_parameters = default_effective_generic_parameters
 		end
 
+	universe: LIBERTY_UNIVERSE
+
 feature {LIBERTY_TYPE_BUILDER}
 	init_type_header is
 		local
-			ast: LIBERTY_AST_CLASS_HEADER
+			class_header: LIBERTY_AST_CLASS_HEADER
 			marker: LIBERTY_AST_CLASS_MARKER
 			name: FIXED_STRING
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
@@ -52,8 +54,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			effective_type: LIBERTY_ACTUAL_TYPE
 			i, n: INTEGER
 		do
-			ast := type.ast.class_header
-			marker := ast.class_marker
+			class_header := type.ast.class_header
+			marker := class_header.class_marker
 			if marker.is_deferred then
 				type.set_deferred
 			elseif marker.is_expanded then
@@ -63,14 +65,14 @@ feature {LIBERTY_TYPE_BUILDER}
 			else
 				type.set_reference
 			end
-			name := ast.class_name.image.image.intern
+			name := class_header.class_name.image.image.intern
 			if name /= type.name then
 				errors.set(level_fatal_error, once "Expected type " + type.name + once ", but got " + name)
 			end
-			type_parameters := ast.type_parameters
+			type_parameters := class_header.type_parameters
 			n := type_parameters.list_count
 			if n /= type.parameters.count then
-				errors.add_position(semantics_position_at(ast.class_name))
+				errors.add_position(semantics_position_at(class_header.class_name))
 				errors.add_position(type.descriptor_position)
 				errors.set(level_error, once "Bad number of generic parameters")
 			elseif n > 0 then
