@@ -26,8 +26,16 @@ feature {ANY}
 			if file_exists(avoided) and then is_file(avoided) then
 				log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
 				tree.read_avoided_from(avoided)
-				tree.avoided.print_all
 			end
+			if file_exists(renamed) and then is_file(renamed) then
+				log(once "Reading symbols to be renamed from '@(1)'.%N",<<renamed>>)
+				tree.read_renamed_from(renamed)
+			end
+			if file_exists(moved) and then is_file(moved) then
+				log(once "Reading symbols to be moved from '@(1)'.%N",<<moved>>)
+				tree.read_moved_from(moved)
+			end
+	
 			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
 			tree.typedefs.emit_wrappers
 			log_string(once "Making enumerations classes.%N")
@@ -52,23 +60,32 @@ feature {ANY}
 	preprocessor_label: STRING
 
 	avoided: STRING 
-	-- The file containing the symbols that will not be wrapped.
+		-- The name of the file containing the symbols that will not be wrapped.
+
+	renamed: STRING
+		-- The name of the file containing symbols that will be renamed and their final name.
+
+	moved: STRING 
+		-- The name of the file containing symbols that will be wrapped in classes different from the default and the class name where they will belong.
 
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			arg, descriptions, flags, assigned_names, gccxml_prefix: STRING;
+			arg, descriptions, flags, gccxml_prefix: STRING;
 			i: INTEGER
 		do
 			check
 				global = False
 				verbose = False
 			end
+			-- Setting defaults
 			flags := once "flags"
 			descriptions := once "descriptions"
 			avoided := once "avoided"
-			assigned_names := once "assigned-names"
+			renamed := once "renamed"
+			moved := once "moved"
 			settings.set_directory(once ".") -- Defaults on current directory
+
 			if argument_count = 0 then
 				print_usage
 				die_with_code(exit_success_code)
@@ -104,15 +121,14 @@ feature {ANY}
 					elseif arg.is_equal(once "--moved") then
 						not_yet_implemented
 						i := i + 1
-						if i <= argument_count then avoided:=argument(i)
+						if i <= argument_count then moved:=argument(i)
 						else
 							std_error.put_line(once "No moved functions file given")
 							print_usage
 						end
-					elseif arg.is_equal(once "--renames") then
-						not_yet_implemented
+					elseif arg.is_equal(once "--renamed") then
 						i := i + 1
-						if i <= argument_count then avoided:=argument(i)
+						if i <= argument_count then renamed:=argument(i)
 						else
 							std_error.put_line(once "No renamed symbols file given")
 							print_usage
@@ -260,14 +276,14 @@ feature {ANY}
 			%		an enumeration is used as-it-is or to contain flags. If this%N%
 			%	    option is not used the program will look for the %"flags%" file.%N%
 			%%N%
-			%	--renames renames-file%N%
+			%	--renamed renames-file%N%
 			%		Read from `renames-file' a list of symbols with the name they will be%N%
 			%		assigned under Liberty.%N%
 			%%N%
 			%	--moved moved-file%N%
 			%		Read from `moved-file' a list of functions with the Liberty class they%N%
 			%		wrapped in; sometimes actual function declaration is not made in a public%N%
-			%		header but in hidden places, i.e. memcpy.
+			%		header but in hidden places, i.e. memcpy.%N%
 			%%N%
 			%	--descriptions descriptions-file%N%
 			%		Apply the descriptions found in the description-file. Each line contains%N%

@@ -2,7 +2,7 @@ class GCCXML_TREE
 	-- A partially validated representation of an XML file made by gccxml
 
 	-- Effective heirs will emit wrappers using the plugin machanism.
-inherit XML_TREE redefine new_node, open_node end
+inherit XML_TREE redefine make, new_node, open_node end
 
 insert 
 	SHARED_COLLECTIONS
@@ -12,6 +12,13 @@ insert
 creation make
 
 feature 
+	make (url: URL) is
+		do
+			create renamed.make
+			create moved.make
+			Precursor(url)
+		end
+
 	new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
 		do
 			inspect node_name.as_utf8
@@ -60,7 +67,6 @@ feature
 		local storable: STORABLE_NODE 
 		do
 			Precursor (node_name, line, column)
-			-- debug print_node ("Opening: ",open_nodes.top) end
 			storable ?= open_nodes.top 
 			if storable/=Void then storable.store end
 		end
@@ -88,19 +94,65 @@ feature {ANY}
 		avoided.add_from_file(a_file_name)
 	end
 
+	renamed: HASHED_DICTIONARY[STRING,STRING]
+		-- Names of symbols and the actual Liberty name they will get. The original name is the key, the value is the renamed name.
 
-feature {} -- Auxiliary call
-	print_node (a_label: STRING; a_node: XML_COMPOSITE_NODE) is
-		local i: INTEGER
-		do
-			print(a_label+a_node.name.as_utf8+": "+a_node.out+"[")
-			from i:=1 until i>a_node.attributes_count loop
-				print(a_node.attribute_value(i).as_utf8)
-				print(once ", ")
-				i:=i+1
+	moved: HASHED_DICTIONARY[STRING,STRING]
+		-- Key is a C function, value is the Liberty class they will be wrapped in.
+
+		read_renamed_from (a_name: STRING) is
+		-- Read the file with `a_name' and fills `a_dictionary'. For each line the
+		-- first word will be used as key, the second as value. The rest of the
+		-- line is ignored and may be considered comment.
+		-- Used to read the list of renamed symbols and moved functions.
+	require
+		a_name/=Void
+		file_exists(a_name)
+		is_file(a_name) 
+	do
+		read(renamed,a_name)
+	end
+
+	read_moved_from (a_name: STRING) is
+	require
+		a_name/=Void
+		file_exists(a_name)
+		is_file(a_name) 
+	do
+		read(moved,a_name)
+	end
+	
+feature {} -- Implementation
+	read (a_dictionary: HASHED_DICTIONARY[STRING,STRING]; a_name: STRING) is
+		-- Read the file with `a_name' and fills `a_dictionary'. For each line the
+		-- first word will be used as key, the second as value. The rest of the
+		-- line is ignored and may be considered comment.
+		-- Used to read the list of renamed symbols and moved functions.
+	require
+		a_dictionary/=Void
+		a_name/=Void
+		file_exists(a_name)
+		is_file(a_name) 
+	local file: TEXT_FILE_READ; original_name, new_name: STRING; words: ARRAY[STRING]
+	do
+		create file.connect_to(a_name)
+		check file.is_connected end
+		from file.read_line until file.end_of_input loop
+			words := file.last_string.split
+			-- This is a most inefficient way to obtain the first two words!
+			if words/=Void and then words.count>=2 then
+				original_name := words.first
+				new_name := words.item(words.lower+1)
+				a_dictionary.put(new_name, original_name)
 			end
-			print(once "].%N")
+			file.read_line
 		end
+	end
+
+
+invariant
+	renamed /= Void
+	moved /= Void
 end -- class GCCXML_TREE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

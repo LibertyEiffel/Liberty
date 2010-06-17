@@ -12,19 +12,20 @@ feature
 		a_file_name/=Void
 	local 
 		words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
-		file_tools: FILE_TOOLS
 	do
 		create file.connect_to(a_file_name)
-		from file.read_line until file.end_of_input
-		loop
-			line := file.last_string
-			if line/=Void then 
-				words := line.split
-				if words/=Void then
-					words.do_all(agent add)
+		if file.is_connected then
+			from file.read_line until file.end_of_input
+			loop
+				line := file.last_string
+				if line/=Void then 
+					words := line.split
+					if words/=Void then
+						words.do_all(agent add)
+					end
 				end
+				file.read_line
 			end
-			file.read_line
 		end
 	end
 
