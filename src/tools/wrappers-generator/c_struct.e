@@ -103,7 +103,7 @@ feature
 		buffer.append(class_name)
 		-- TODO: emit_description(class_descriptions.reference_at(class_name))
 		buffer.append(struct_inherits)
-		buffer.put_message(once "insert @(1)%N",<<settings.typedefs>>)
+		buffer.put_message(once "%T@(1)%N",<<settings.typedefs>>)
 		buffer.print_on(output)
 	end
 

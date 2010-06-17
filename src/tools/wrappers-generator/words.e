@@ -26,7 +26,12 @@ feature
 			end
 			file.read_line
 		end
-	end
+		end
+
+	print_all is
+		do
+			do_all(agent std_output.put_line)
+		end
 
 end -- class WORDS
 
