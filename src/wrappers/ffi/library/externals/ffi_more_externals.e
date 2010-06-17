@@ -8,7 +8,7 @@ feature {}
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "&feature_name"
+			feature_name: "&ffi_type_void"
 		}"
 		end
 
