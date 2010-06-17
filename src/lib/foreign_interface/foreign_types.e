@@ -4,8 +4,7 @@
 expanded class FOREIGN_TYPES
 
 insert
-	FFI_TYPES
-	FFI_EXTERNALS
+	FFI_MORE_EXTERNALS
 
 feature {ANY}
 	copy (other: like Current) is
