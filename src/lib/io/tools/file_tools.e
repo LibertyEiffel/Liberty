@@ -47,6 +47,7 @@ feature {ANY}
 
 	file_exists (path: ABSTRACT_STRING): BOOLEAN is
 		require
+			path /= Void
 			path.count > 0
 		do
 			Result := io_file_exists(path.to_external)
@@ -76,6 +77,9 @@ feature {ANY}
 
 	is_empty (path: ABSTRACT_STRING): BOOLEAN is
 			-- True if `path' file exists, is readable and is an empty file.
+		require 
+			path/=Void
+			not path.is_empty
 		do
 			tfr1.connect_to(path)
 			if tfr1.is_connected then
@@ -129,6 +133,7 @@ feature {ANY}
 			-- Total size of file `path' in number of bytes.
 			-- When the corresponding file does not exists, the Result is negative.
 		require
+			path /= Void
 			path.count > 0
 		local
 			p: POINTER
@@ -140,6 +145,7 @@ feature {ANY}
 	last_change_of (path: ABSTRACT_STRING): TIME is
 			-- Of the last modification of `path'.
 		require
+			path /= Void
 			path.count > 0
 		local
 			p: POINTER; time_memory: INTEGER_64
@@ -152,6 +158,7 @@ feature {ANY}
 	is_file (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is `path' a regular file?
 		require
+			path /= Void
 			path.count > 0
 		do
 			Result := fstat_st_is_file(path.to_external)
@@ -160,6 +167,7 @@ feature {ANY}
 	is_directory (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is `path' a direcory?
 		require
+			path /= Void
 			path.count > 0
 		do
 			Result := fstat_st_is_dir(path.to_external)
