@@ -5,13 +5,10 @@ expanded class FOREIGN_TYPES
 
 insert
 	FFI_TYPES
+	FFI_EXTERNALS
 
 feature {ANY}
 	copy (other: like Current) is
-		do
-		end
-
-	default_create is
 		do
 		end
 
@@ -78,7 +75,7 @@ feature {ANY} -- Types
 
    schar: FOREIGN_TYPE is
 		once
-			Result.set_ffi_type(ffi_type_schar, agent new_schar)
+			Result.set_ffi_type(ffi_type_sint8, agent new_schar)
 		end
 
    c_string, pointer: FOREIGN_TYPE is

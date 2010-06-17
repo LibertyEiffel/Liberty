@@ -124,7 +124,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 						check
 							bound_feature.parameters.count = actuals.count
 						end
-						i := actuals.lower - 1 -- try again
+						i := actuals.lower - 1 -- try again -- TODO: BAD!! side-effect functions may be called more than once!!!
 					else
 						interpreter.fatal_error("Bad object type: " + actual_type.full_name + " does not conform or convert to " + formal_type.full_name, actuals.item(i).position)
 						p.add_last(val)

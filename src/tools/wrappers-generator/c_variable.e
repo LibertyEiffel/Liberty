@@ -21,7 +21,7 @@ feature
 			if not has_wrapper then
 				log("Variable `@(1)' does not have a wrapper type%N", <<c_string_name>>) 
 				buffer.reset
-				buffer.put_message(once "	-- Variable @(1) (at line @(2) in file @(3) is does not have a wrapper type%N",
+				buffer.put_message(once "	-- Variable @(1) (at line @(2) in file @(3) does not have a wrapper type%N",
 				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02

@@ -34,6 +34,7 @@ needs
 	STRING
 	TIME
 	UNICODE
+	LIBERTY_WRAPPERS
 
 cluster
 	ABILITIES: "./abilities"
@@ -61,5 +62,6 @@ cluster
 	STRING: "./string"
 	TIME: "./time"
 	UNICODE: "./unicode"
+	LIBERTY_WRAPPERS: "../wrappers"
 
 end

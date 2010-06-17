@@ -227,7 +227,7 @@ feature {ANY}
 
 	close_plugin_files is
 		do
-			source.put_line("endif")
+			source.put_line("#endif")
 			source.disconnect
 			include.disconnect
 		end
