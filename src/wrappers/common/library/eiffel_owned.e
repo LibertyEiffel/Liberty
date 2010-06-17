@@ -27,7 +27,7 @@ inherit
       undefine
          from_external_pointer
       end
-insert STDLIB_EXTERNALS
+insert STDLIB_MORE_EXTERNALS
 feature  {} -- Disposing 
 	dispose is
 		do
