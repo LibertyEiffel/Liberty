@@ -73,10 +73,8 @@ feature {ANY}
 				print_usage
 				die_with_code(exit_success_code)
 			else
-				from
-					i := 1
-				until
-					i > argument_count
+				from i := 1
+				until i > argument_count
 				loop
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
@@ -101,6 +99,22 @@ feature {ANY}
 						if i <= argument_count then avoided:=argument(i)
 						else
 							std_error.put_line(once "No avoided file given")
+							print_usage
+						end
+					elseif arg.is_equal(once "--moved") then
+						not_yet_implemented
+						i := i + 1
+						if i <= argument_count then avoided:=argument(i)
+						else
+							std_error.put_line(once "No moved functions file given")
+							print_usage
+						end
+					elseif arg.is_equal(once "--renames") then
+						not_yet_implemented
+						i := i + 1
+						if i <= argument_count then avoided:=argument(i)
+						else
+							std_error.put_line(once "No renamed symbols file given")
 							print_usage
 						end
 					elseif arg.is_equal(once "--verbose") or else 
@@ -236,19 +250,24 @@ feature {ANY}
 			%	--on-standard-output%N%
 			%		Ouputs everything on standard output.%N%
 			%%N%
-			%  --directory dir%N%
+			%	--directory dir%N%
 			%		Put the generated classes in `dir'. Default is to output on %N%
 			%		current directory.%N%
 			%%N%
-			%  --flags flag-file%N%
+			%	--flags flag-file%N%
 			%		Read a list of enumeration that will be forcefully wrapped as %N%
 			%		a flag. In fact sometimes there is no way to distinguish when%N%
 			%		an enumeration is used as-it-is or to contain flags. If this%N%
 			%	    option is not used the program will look for the %"flags%" file.%N%
 			%%N%
-			%	--apply-patches (not yet implemented)%N%
-			%		Apply the patches found in the output directory to the newly%N%
-			%		generated classes, i.e. foo.e will be patched by foo.diff%N%
+			%	--renames renames-file%N%
+			%		Read from `renames-file' a list of symbols with the name they will be%N%
+			%		assigned under Liberty.%N%
+			%%N%
+			%	--moved moved-file%N%
+			%		Read from `moved-file' a list of functions with the Liberty class they%N%
+			%		wrapped in; sometimes actual function declaration is not made in a public%N%
+			%		header but in hidden places, i.e. memcpy.
 			%%N%
 			%	--descriptions descriptions-file%N%
 			%		Apply the descriptions found in the description-file. Each line contains%N%
