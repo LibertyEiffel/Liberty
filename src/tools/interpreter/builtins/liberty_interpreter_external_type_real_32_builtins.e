@@ -38,7 +38,6 @@ feature {}
 		local
 			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
 		do
-			-- the code may not seem straightforward but it manages correct semi-evaluation
 			builtin_call.evaluate_parameters
 			obj ::= builtin_call.parameters.first
 			Result := obj.item.force_to_real_32

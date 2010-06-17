@@ -45,7 +45,7 @@ feature {LIBERTY_INTERPRETER}
 			check not prepare end
 
 			if logging.is_trace then
-				log_call
+				log_call(once "Calling")
 			end
 
 			prepare := True
@@ -76,6 +76,10 @@ feature {LIBERTY_INTERPRETER}
 				check_invariant
 			end
 			debug_steps.exit_call
+
+			if logging.is_trace then
+				log_call(once "Returning from")
+			end
 		end
 
 feature {LIBERTY_FEATURE_ACCELERATOR}
@@ -666,15 +670,17 @@ feature {}
 
 	logging: LOGGING
 
-	log_call is
+	log_call (tag: STRING) is
 		require
 			logging.is_trace
 		local
 			i: INTEGER; log: OUTPUT_STREAM
 			formals: TRAVERSABLE[LIBERTY_PARAMETER]
+			p: LIBERTY_PARAMETER
 		do
 			log := logging.trace
-			log.put_string(once "Calling feature {")
+			log.put_string(tag)
+			log.put_string(once " feature {")
 			log.put_string(bound_feature.current_type.full_name)
 			log.put_string(once "}.")
 			log.put_string(name)
@@ -704,6 +710,22 @@ feature {}
 			else
 				log.put_character(' ')
 				position.show(log)
+			end
+			log.put_string(once " - Current=")
+			interpreter.object_printer.print_object(log, target, 1)
+			if parameter_map /= Void then
+				from
+					i := formals.lower
+				until
+					i > formals.upper
+				loop
+					p := formals.item(i)
+					log.put_string(once " - ")
+					log.put_string(p.name)
+					log.put_character('=')
+					interpreter.object_printer.print_object(log, parameter_map.fast_at(p.name), 1)
+					i := i + 1
+				end
 			end
 		end
 
