@@ -29,7 +29,7 @@ function bootstrap()
 	    ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
 	done
 	mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
-	ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
+	ln -s $LIBERTY_HOME/src/tools/wrappers-generator.d/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
 	cd ..
     fi
 
@@ -301,7 +301,7 @@ if [ $# = 0 ]; then
 	do_all
     fi
 else
-    while [ $# > 0 ]; do
+    while [ $# -gt 0 ]; do
 	case x"$1" in
 	    x-plugins)
 		compile_plugins
