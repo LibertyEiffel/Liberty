@@ -36,7 +36,6 @@ obsolete "Shall be adapted for Liberty Eiffel"
 
 inherit 
 	ABSTRACT_STRING
-		undefine is_equal
 		redefine 
 			resize, clear_count, wipe_out,
 			clear_count_and_capacity,
