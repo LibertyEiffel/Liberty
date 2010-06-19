@@ -75,7 +75,7 @@ feature
 			 a_stream.put_string(deferred_class)
 			 a_stream.put_line(class_name) 
 			 -- emit_description_on(class_descriptions.reference_at(class_name),a_stream)
-			 a_stream.put_string(struct_inherits) --line
+			 a_stream.put_string(inherits_string)
 			 a_stream.put_line(once "		-- TODO: insert typedefs class")
 			 -- a_stream.put_message(once "%T@(1)%N",<<typedefs_class_name>>)
 			 a_stream.put_string(externals_header) --line

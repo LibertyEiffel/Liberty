@@ -35,7 +35,7 @@ feature {ANY}
 			file.put_string(deferred_class)
 			file.put_string(settings.typedefs) 
 			file.put_new_line
-			file.put_string(struct_inherits) --line
+			file.put_string(inherits_string)
 			file.put_string(typedefs_features_header)
 			do_all(agent {C_TYPEDEF}.wrap_on(file))
 			file.put_string(footer)

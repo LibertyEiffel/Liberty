@@ -42,26 +42,6 @@ feature
 			not_yet_implemented -- Result := class_name
 		end
 
-	-- class_name: STRING is
-	-- do
-	-- 	if stored_class_name=Void then 
-	-- 		if assigned_name/=Void then stored_class_name:=assigned_name.twin
-	-- 		else stored_class_name:=c_string_name.twin
-	-- 		end
-	-- 		insert_underscores(stored_class_name)
-
-	-- 		check 
-	-- 			is_public: stored_class_name.first/='_'
-	-- 		end
-	-- 		if stored_class_name.last/='_' then stored_class_name.append_character('_') end
-	-- 			-- little workaround to cope with assigned and generated names
-	-- 		stored_class_name.append(suffix)
-	-- 		stored_class_name.to_upper
-	-- 	end
-	-- 	Result := stored_class_name
-	-- end
-	
-	
 	emit_wrapper is
 		-- Emit a reference wrapper for Current C structure.
 
@@ -130,7 +110,7 @@ feature
 		-- buffer.reset
 		buffer.put_message(once 
 		"feature -- Structure size%N%
-		%	struct_size: INTEGER is%N%
+		%	struct_size: like size_t is%N%
 		%		external %"plug_in%"%N%
 		%		alias %"{%N%
 		%			location: %".%"%N%
@@ -153,7 +133,10 @@ feature
 		end
 
 	suffix: STRING is "_STRUCT"
+	
+	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%Ninsert STANDARD_C_LIBRARY_TYPES%N"
 
+	-- Note: the above reference to STANDARD_C_LIBRARY_TYPES creates requires to wrap standard C library using a file called "standard-c-library.gcc-xml" 
 -- invariant name.is_equal(once U"Struct")
 end -- class C_STRUCT
 

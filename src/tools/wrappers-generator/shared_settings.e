@@ -114,11 +114,7 @@ feature {} -- Constants
 
 	deferred_class: STRING is "deferred class "
 
-	-- struct: STRING is "_STRUCT"
-
-	-- enum: STRING is "_ENUM"
-
-	struct_inherits: STRING is "%N%Ninsert ANY undefine is_equal, copy end%N%N"
+	inherits_string: STRING is "%N%Ninsert ANY undefine is_equal, copy end%N%N"
 
 	queries_header: STRING is "feature {} -- Low-level queries%N%N"
 
