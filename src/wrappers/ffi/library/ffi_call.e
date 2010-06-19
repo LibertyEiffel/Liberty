@@ -16,6 +16,7 @@ inherit
 	EIFFEL_OWNED
 insert 
 	FFI_TYPES
+	FFI_CIF_STRUCT
 	FFI_EXTERNALS
 	
 creation {ANY} prepare
@@ -127,12 +128,4 @@ feature {} -- Implementation
 	}"
 	end
 	
-	struct_size: INTEGER is
-		external "plug_in"
-		alias "{
-			location: "externals"
-			module_name: "plugin"
-			feature_name: "sizeof(ffi_cif)"
-			}"
-		end
 end -- class FFI_CALL
