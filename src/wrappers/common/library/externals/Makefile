@@ -5,9 +5,18 @@
 
 XML=standard-c-library.gcc-xml
 HEADER=plugin/c/standard-c-lib.h
+HEADERS= /usr/include/assert.h \
+	 /usr/include/ctype.h \
+	 /usr/include/errno.h \
+	 /usr/include/float.h \
+	 /usr/include/math.h \
+	 /usr/include/stdio.h \
+	 /usr/include/stdlib.h \
+	 /usr/include/string.h \
+	 /usr/include/time.h
 
 wrappers: $(XML)
-	wrappers-generator --global --directory . $(XML)
+	wrappers-generator --verbose --local $(XML) $(HEADERS)
 
 $(XML): 
 	gccxml $(HEADER) -fxml=$(XML)

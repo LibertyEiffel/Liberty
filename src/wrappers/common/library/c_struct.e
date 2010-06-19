@@ -27,8 +27,10 @@ deferred class C_STRUCT
 inherit
 	WRAPPER
 insert
+	STDLIB_EXTERNALS
 	STDLIB_MORE_EXTERNALS
 	STRING_EXTERNALS
+	STANDARD_C_LIBRARY_TYPES
 
 feature {} -- Initialization
 
@@ -36,7 +38,7 @@ feature {} -- Initialization
 		do
 			--dispose
 			if other.is_not_null then
-				allocate
+				handle := malloc (struct_size)
 				handle := memcpy (handle, other, struct_size)
 			else
 				handle := default_pointer
@@ -45,8 +47,16 @@ feature {} -- Initialization
 
 	allocate is
 			-- Allocate an initialized structure
+		obsolete "Structure is allocated but memory is not set to zero. This may not be what you want. See implementation"
 		do
-			handle := calloc (1, struct_size)
+			handle := malloc(struct_size) 
+			-- This feature used to invoke calloc to set the allocated memory to zero.
+			-- calloc actually has different signatures on 32 and 64 bits machines.
+			-- so we cannot write correct code as long as we rely on SmartEiffel or as long as we do not have (automatic) convertions in classes.
+			
+			-- Please note that initializing struct memory to zero may not what
+			-- we want, for example I don't know if binary 0 also means zero
+			-- when representing a floating point number. Paolo 2010-06-19
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
@@ -57,7 +67,7 @@ feature {ANY} -- Copying
 		do
 			dispose
 			if other.handle.is_not_null then
-				allocate
+				handle := malloc (struct_size)	
 				handle := memcpy (handle, other.handle, struct_size)
 			else
 				handle := default_pointer
@@ -73,12 +83,10 @@ feature {} -- Access to C features
 
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying
-	struct_size: INTEGER is
-			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
+	struct_size: like size_t is
 		deferred
-		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless
 		end
-
+    
 feature {WRAPPER_HANDLER} -- Destroying
 	free_handle is
 			-- release the external memory
