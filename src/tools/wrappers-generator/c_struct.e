@@ -23,15 +23,22 @@ feature
 			composed_types.put(Current,id)
 			structures.fast_put(Current,id)
 		end
-	
+
 	is_fundamental: BOOLEAN is False
 
 	is_void: BOOLEAN is False
 
 	has_wrapper: BOOLEAN is False
 
-	c_type: STRING is "struct"
-	
+	c_type: STRING is
+		do
+			if is_artificial then
+				Result := once "struct"
+			else
+				Result := once ""
+			end
+		end
+
 	wrapper_type: STRING is 
 		do
 			debug 
@@ -120,8 +127,8 @@ feature
 		%		end%N%N",
 		<<c_string_name>>)
 		buffer.print_on(output)
-		("#define sizeof_"+c_string_name+" (sizeof(struct "+c_string_name+"))%N").print_on(include)
-	end
+		("#define sizeof_"+c_string_name+" (sizeof("+c_type+" "+c_string_name+"))%N").print_on(include)
+		end
 
 	emit_footer is
 		do
@@ -132,9 +139,14 @@ feature
 			buffer.print_on(output)
 		end
 
+	is_artificial: BOOLEAN is
+		do
+			Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
+		end
+
 	suffix: STRING is "_STRUCT"
 	
-	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%Ninsert STANDARD_C_LIBRARY_TYPES%N"
+	struct_inherits: STRING is "%N%Ninsert ANY undefine is_equal, copy end%N%TSTANDARD_C_LIBRARY_TYPES%N"
 
 	-- Note: the above reference to STANDARD_C_LIBRARY_TYPES creates requires to wrap standard C library using a file called "standard-c-library.gcc-xml" 
 -- invariant name.is_equal(once U"Struct")
