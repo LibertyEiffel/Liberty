@@ -102,7 +102,7 @@ feature
 				-- they operate on a ROPE, made using the "|" operator instead
 				-- of +.
 				("#define "+getter+"(a_structure) ((("+container.c_type+" "+container.c_string_name+"*) (a_structure))->"+c_string_name+")%N%N").print_on(include)
-				("#define "+setter+"(a_structure,a_value) ((("+container.c_type+" "+container.c_string_name+"*)(a_structure))))->"+c_string_name+" = a_value;%N%N").print_on(include)
+				("#define "+setter+"(a_structure,a_value) do {((("+container.c_type+" "+container.c_string_name+"*)(a_structure)))->"+c_string_name+" = (a_value);}while(0)%N%N").print_on(include)
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable.", <<c_string_name, a_structure_name>>)
 				queries.put_message(once "%T-- Unwrappable field @(1).%N", <<c_string_name>>)
