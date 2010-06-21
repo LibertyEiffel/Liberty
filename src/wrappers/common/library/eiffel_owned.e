@@ -29,7 +29,7 @@ inherit
       end
 insert 
 	STDLIB_EXTERNALS
-	STDLIB_MORE_EXTERNALS
+
 feature  {} -- Disposing 
 	dispose is
 		do
