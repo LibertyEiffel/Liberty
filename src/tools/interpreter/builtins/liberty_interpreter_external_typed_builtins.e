@@ -20,7 +20,7 @@ inherit
 insert
 	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
-feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
+feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 	call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT is
 		do
 			last_call_failed := False

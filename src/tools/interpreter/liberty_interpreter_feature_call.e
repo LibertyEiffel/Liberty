@@ -149,7 +149,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 			end
 		end
 
-feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS, LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
+feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
 	returned_object: LIBERTY_INTERPRETER_OBJECT
 
 	set_returned_object (a_returned_object: like returned_object) is
@@ -726,6 +726,10 @@ feature {}
 					interpreter.object_printer.print_object(log, parameter_map.fast_at(p.name), 1)
 					i := i + 1
 				end
+			end
+			if returned_object /= Void then
+				log.put_string(once " - Result=")
+				interpreter.object_printer.print_object(log, returned_object, 1)
 			end
 		end
 
