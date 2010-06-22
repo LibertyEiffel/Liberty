@@ -134,7 +134,7 @@ feature
 
 	suffix: STRING is "_STRUCT"
 	
-	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%Ninsert STANDARD_C_LIBRARY_TYPES%N"
+	struct_inherits: STRING is "%N%Ninsert STANDARD_C_LIBRARY_TYPES%N%N"
 
 	-- Note: the above reference to STANDARD_C_LIBRARY_TYPES creates requires to wrap standard C library using a file called "standard-c-library.gcc-xml" 
 -- invariant name.is_equal(once U"Struct")

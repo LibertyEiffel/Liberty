@@ -98,22 +98,17 @@ feature {ANY}
 		-- Names of symbols and the actual Liberty name they will get. The original name is the key, the value is the renamed name.
 
 	moved: HASHED_DICTIONARY[STRING,STRING]
-		-- Key is a C function, value is the Liberty class they will be wrapped in.
+	-- The symbols that will wrapped anyway regarderless of the provided
+	-- headers files, together with the Liberty class they will actually be
+	-- wrapped in. When a symbol is wrapped with in a class of its own, i.e. an
+	-- enumeration, a struct, a union and so on, the value will not be taken in
+	-- count.
 
-		read_renamed_from (a_name: STRING) is
+	read_moved_from (a_name: STRING) is
 		-- Read the file with `a_name' and fills `a_dictionary'. For each line the
 		-- first word will be used as key, the second as value. The rest of the
 		-- line is ignored and may be considered comment.
 		-- Used to read the list of renamed symbols and moved functions.
-	require
-		a_name/=Void
-		file_exists(a_name)
-		is_file(a_name) 
-	do
-		read(renamed,a_name)
-	end
-
-	read_moved_from (a_name: STRING) is
 	require
 		a_name/=Void
 		file_exists(a_name)
@@ -133,18 +128,28 @@ feature {} -- Implementation
 		a_name/=Void
 		file_exists(a_name)
 		is_file(a_name) 
-	local file: TEXT_FILE_READ; original_name, new_name: STRING; words: ARRAY[STRING]
+	local file: TEXT_FILE_READ; symbol, value: STRING; words: STRING_INPUT_STREAM 
 	do
 		create file.connect_to(a_name)
 		check file.is_connected end
-		from file.read_line until file.end_of_input loop
-			words := file.last_string.split
-			-- This is a most inefficient way to obtain the first two words!
-			if words/=Void and then words.count>=2 then
-				original_name := words.first
-				new_name := words.item(words.lower+1)
-				a_dictionary.put(new_name, original_name)
+		from file.read_line 
+		until file.end_of_input loop
+			create words.from_string(file.last_string)
+			words.read_word
+			if not words.last_string.is_empty then
+				symbol := words.last_string.twin
+				words.read_word
+				if not words.last_string.is_empty then
+					value := words.last_string.twin
+				end
+				-- Issueing words.skip_remainder_of_line is useless
 			end
+			-- -- This is a most inefficient way to obtain the first two words!
+			-- if words/=Void and then words.count>=2 then
+			-- 	original_name := words.first
+			-- 	new_name := words.item(words.lower+1)
+			-- 	a_dictionary.put(new_name, original_name)
+			-- end
 			file.read_line
 		end
 	end
