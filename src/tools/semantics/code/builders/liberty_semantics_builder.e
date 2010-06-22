@@ -259,7 +259,7 @@ feature {} -- Instructions
 			elseif value.is_character then
 				Result := character(value.character.image)
 			elseif value.is_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(value.string), True, semantics_position_at(value.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, native_array_of_character, decoded_string(value.string), True, semantics_position_at(value.node_at(0)))
 			elseif value.is_entity_name then
 				entity_name := value.entity_name
 				name := entity_name.image.image.intern
@@ -1093,9 +1093,9 @@ feature {} -- Expressions
 			elseif constant.is_character then
 				Result := character(constant.character.image)
 			elseif constant.is_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), False, semantics_position_at(constant.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, native_array_of_character, decoded_string(constant.string), False, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_once_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, native_array_of_character, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
 				entity_type := type_lookup.resolver.type(constant.typed_manifest_type)
 				if actual_type ?:= entity_type then
@@ -1360,6 +1360,11 @@ feature {}
 		deferred
 		ensure
 			Result /= Void
+		end
+
+	native_array_of_character: LIBERTY_ACTUAL_TYPE is
+		once
+			Result := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)
 		end
 
 end -- class LIBERTY_SEMANTICS_BUILDER

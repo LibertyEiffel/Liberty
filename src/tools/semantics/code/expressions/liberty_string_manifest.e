@@ -18,6 +18,8 @@ inherit
 	LIBERTY_TYPED_MANIFEST[STRING]
 		rename
 			make as typed_make
+		redefine
+			mark_reachable_code
 		end
 
 create {LIBERTY_BUILDER_TOOLS}
@@ -26,21 +28,34 @@ create {LIBERTY_BUILDER_TOOLS}
 feature {ANY}
 	is_once: BOOLEAN
 
+feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
+	mark_reachable_code (mark: INTEGER) is
+		do
+			Precursor(mark)
+			storage_type.mark_reachable_code(mark)
+		end
+
 feature {}
-	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once; a_position: like position) is
+	make (a_type: like result_type; a_storage_type: like storage_type; a_manifest: like manifest; a_once: like is_once; a_position: like position) is
 		require
 			a_type /= Void
 			-- a_type is STRING
+			a_storage_type /= Void
+			-- a_storage_type is NATIVE_ARRAY[CHARACTER]
 			a_position /= Void
 		do
 			typed_make(a_type, a_manifest, a_position)
+			storage_type := a_storage_type
 			is_once := a_once
 		ensure
 			result_type = a_type
+			storage_type = a_storage_type
 			manifest = a_manifest
 			is_once = a_once
 			position = a_position
 		end
+
+	storage_type: LIBERTY_ACTUAL_TYPE
 
 feature {ANY}
 	accept (v: VISITOR) is
@@ -53,6 +68,8 @@ feature {ANY}
 
 invariant
 	result_type /= Void
-	-- result_type is STRING
+		-- result_type is STRING
+	storage_type /= Void
+		-- storage_type is NATIVE_ARRAY[CHARACTER]
 
 end
