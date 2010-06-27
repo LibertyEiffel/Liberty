@@ -17,6 +17,9 @@ feature
 			create {LINKED_LIST[C_FIELD]} fields.make
 			unions.fast_put(Current,id)
 			types.fast_put(Current,id)
+			if is_named then
+				symbols.put(Current,c_string_name)
+			end
 			composed_types.fast_put(Current,id)
 		end
 	

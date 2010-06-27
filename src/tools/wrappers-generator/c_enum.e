@@ -14,7 +14,7 @@ inherit
 	FILED_NODE
 	STORABLE_NODE
 	TYPED_NODE
-	WRAPPED_BY_A_CLASS
+	WRAPPER_CLASS
 
 creation make
 
@@ -22,6 +22,9 @@ feature
 	store is
 		do
 			enumerations.put(Current,id)
+			if is_named then
+				symbols.put(Current,c_string_name)
+			end
 			types.put(Current,id)
 		end
 
@@ -31,6 +34,8 @@ feature
 	is_fundamental: BOOLEAN is False
 
 	is_void: BOOLEAN is False
+
+	is_to_be_emitted: BOOLEAN is True
 	
 	emit_wrapper is
 		local 

@@ -64,12 +64,12 @@ feature
 		end
 
 	open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
-		local storable: STORABLE_NODE 
-		do
-			Precursor (node_name, line, column)
-			storable ?= open_nodes.top 
-			if storable/=Void then storable.store end
-		end
+	local storable: STORABLE_NODE 
+	do
+		Precursor (node_name, line, column)
+		storable ?= open_nodes.top 
+		if storable/=Void then storable.store end
+	end
 
 feature {ANY}
 	read_flags_from (a_file_name: STRING) is
@@ -126,6 +126,7 @@ feature {ANY}
 					words.read_word
 					if not words.last_string.is_empty then
 						value := words.last_string.twin
+						log(once "Symbol @(1) moved to @(2)%N",<<symbol,value>>)
 						moved.put(value,symbol)
 					end
 				end
@@ -140,18 +141,19 @@ feature {ANY}
 			moved.do_all(agent move_symbol)
 		end
 
-	move_symbol (a_symbol, a_file_name: STRING) is
+	move_symbol (a_file_name, a_symbol: STRING) is
 		-- Makes `a_symbol' as if it was part of file with `a_file_name'.
 	local f: C_FILE; symbol: MOVABLE_NODE
 	do
 		f := files_by_name.reference_at(a_file_name)
-		if f=Void then log(once "Symbol `@(1)' can't be considered part of file @(2): file not referenced by in input file",
+		if f=Void then log(once "Symbol `@(1)' can't be considered part of file @(2): file not referenced by in input file%N",
 			<<a_symbol,a_file_name>>)
 		else
-			-- TODO: this design assumes that all named nodes are also filed. Check this assumption.
 			symbol ?= symbols.reference_at(a_symbol)
 			if symbol/=Void then
+				log(once "Considering @(1) as declared into file @(2)%N",<<a_symbol,a_file_name>>)
 				symbol.set_file(f)
+			else log(once "Cannot find symbol @(1) (that would be considered part of @(2))%N",<<a_symbol,a_file_name>>)
 			end
 		end
 	end

@@ -2,24 +2,20 @@ class C_FUNCTION
 	-- A "Function" node of an XML file made by gccxml. 
 
 inherit
+	CONTEXTED_NODE
 	IDENTIFIED_NODE
-	FILED_NODE
+	MOVABLE_NODE
 	STORABLE_NODE
 	WRAPPER_FEATURE
-		rename 
-			c_name as function_name
-			c_string_name as function_string_name
-		end
-	CONTEXTED_NODE
-
-insert 
-	EXCEPTIONS
 
 creation make
+
 feature {ANY}
 	store is
 		do
 			functions.store(Current)
+			check is_named end
+			symbols.put(Current,c_string_name)
 		end
 
 	returns: UNICODE_STRING is
@@ -41,7 +37,7 @@ feature {ANY}
 		-- of a wrapper library with case-by-case inspection.
 		do
 			if stored_eiffel_name=Void then 
-				stored_eiffel_name := eiffel_feature(function_name.as_utf8)	
+				stored_eiffel_name := eiffel_feature(c_string_name)	
 			end
 			Result := stored_eiffel_name
 		end
@@ -85,25 +81,25 @@ feature {ANY}
 	wrap_on (a_stream: OUTPUT_STREAM) is 
 		do
 			if not is_wrappable then
-				log("Function `@(1)' is not wrappable%N", <<function_string_name>>) 
+				log("Function `@(1)' is not wrappable%N", <<c_string_name>>) 
 				buffer.reset
 				buffer.put_message(once "	-- function @(1) (at line @(2) in file @(3) is not wrappable%N",
-				<<function_string_name, line_row.to_utf8, c_file.c_string_name>>)
+				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
 			elseif not is_public then
-				log(once "Skipping 'hidden' function `@(1)'%N", <<function_string_name>>)
-				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<function_string_name>>)
+				log(once "Skipping 'hidden' function `@(1)'%N", <<c_string_name>>)
+				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<c_string_name>>)
 			elseif not is_in_main_namespace then
 				log(once "Skipping function `@(1)' belonging to namespace @(2)%N",
-				<<function_string_name, namespace.c_string_name>>)
+				<<c_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
-				<<function_string_name, namespace.c_string_name>>)
-			elseif avoided.has(function_string_name) then
-				log(once "Skipping function `@(1)' as requested.%N", <<function_string_name>>)
-				buffer.put_message(once "%T-- function @(1) @(2) skipped as requested.%N", <<function_string_name>>) 
+				<<c_string_name, namespace.c_string_name>>)
+			elseif avoided.has(c_string_name) then
+				log(once "Skipping function `@(1)' as requested.%N", <<c_string_name>>)
+				buffer.put_message(once "%T-- function @(1) @(2) skipped as requested.%N", <<c_string_name>>) 
 			else
-				log(once "Function @(1)",<<function_string_name>>)
+				log(once "Function @(1)",<<c_string_name>>)
 				buffer.put_message(once "%T@(1)", <<eiffel_name>>)
 				if has_arguments then append_arguments end
 				append_return_type
@@ -193,7 +189,7 @@ feature {ANY}
 		local
 			actual_c_symbol,description,dir: STRING
 		do
-			description := function_string_name
+			description := c_string_name
 			if is_variadic then
 				description := description+variadic_function_note
 			end
@@ -201,8 +197,8 @@ feature {ANY}
 			-- argument-less function returning an integer shall be marked with
 			-- "()", the empty argument list, otherwise the C compiler will
 			-- interpret it as the address of the call casted to an integer.
-			if not has_arguments then actual_c_symbol := function_string_name+(once "()")
-			else actual_c_symbol := function_string_name
+			if not has_arguments then actual_c_symbol := c_string_name+(once "()")
+			else actual_c_symbol := c_string_name
 			end
 			-- Temporary code to handle output to standard output.
 			if directory=Void then dir:=once "the almighty standard output"

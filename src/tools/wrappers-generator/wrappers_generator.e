@@ -18,6 +18,7 @@ feature {ANY}
 			process_arguments
 			log_string(once "Loading XML file: ")
 			create tree.make(input.url)
+			log_string(once "done.%N Connecting nodes ")
 			log_string(once "done.%N")
 			open_plugin_files
 			if directory = Void then
@@ -31,6 +32,7 @@ feature {ANY}
 			log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
 				tree.read_moved_from(moved)
 			end
+			tree.moved.do_all(agent tree.move_symbol)
 	
 			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
 			tree.typedefs.emit_wrappers

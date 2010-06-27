@@ -19,6 +19,10 @@ feature
 	store is
 		do
 			files.put(Current,id)
+			check
+				is_named
+			end
+			symbols.put(Current,c_string_name)
 			files_by_name.put(Current,c_string_name)
 		end
 	
