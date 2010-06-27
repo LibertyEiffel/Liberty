@@ -6,6 +6,7 @@ inherit XML_TREE redefine make, new_node, open_node end
 
 insert 
 	SHARED_COLLECTIONS
+	SHARED_SETTINGS
 	EXCEPTIONS
 	FILE_TOOLS
 
@@ -14,7 +15,6 @@ creation make
 feature 
 	make (url: URL) is
 		do
-			create renamed.make
 			create moved.make
 			Precursor(url)
 		end
@@ -94,37 +94,19 @@ feature {ANY}
 		avoided.add_from_file(a_file_name)
 	end
 
-	renamed: HASHED_DICTIONARY[STRING,STRING]
-		-- Names of symbols and the actual Liberty name they will get. The original name is the key, the value is the renamed name.
-
 	moved: HASHED_DICTIONARY[STRING,STRING]
 	-- The symbols that will wrapped anyway regarderless of the provided
-	-- headers files, together with the Liberty class they will actually be
+	-- headers files, cou they will actually be
 	-- wrapped in. When a symbol is wrapped with in a class of its own, i.e. an
 	-- enumeration, a struct, a union and so on, the value will not be taken in
 	-- count.
 
 	read_moved_from (a_name: STRING) is
-		-- Read the file with `a_name' and fills `a_dictionary'. For each line the
+		-- Read the file with `a_name' and fills `moved' dictionary. For each line the
 		-- first word will be used as key, the second as value. The rest of the
 		-- line is ignored and may be considered comment.
 		-- Used to read the list of renamed symbols and moved functions.
 	require
-		a_name/=Void
-		file_exists(a_name)
-		is_file(a_name) 
-	do
-		read(moved,a_name)
-	end
-	
-feature {} -- Implementation
-	read (a_dictionary: HASHED_DICTIONARY[STRING,STRING]; a_name: STRING) is
-		-- Read the file with `a_name' and fills `a_dictionary'. For each line the
-		-- first word will be used as key, the second as value. The rest of the
-		-- line is ignored and may be considered comment.
-		-- Used to read the list of renamed symbols and moved functions.
-	require
-		a_dictionary/=Void
 		a_name/=Void
 		file_exists(a_name)
 		is_file(a_name) 
@@ -134,29 +116,48 @@ feature {} -- Implementation
 		check file.is_connected end
 		from file.read_line 
 		until file.end_of_input loop
-			create words.from_string(file.last_string)
-			words.read_word
-			if not words.last_string.is_empty then
-				symbol := words.last_string.twin
+			if file.last_string.has_prefix(once "--") then
+				-- skip the comment 
+			else 
+				create words.from_string(file.last_string)
 				words.read_word
 				if not words.last_string.is_empty then
-					value := words.last_string.twin
+					symbol := words.last_string.twin
+					words.read_word
+					if not words.last_string.is_empty then
+						value := words.last_string.twin
+						moved.put(value,symbol)
+					end
 				end
 				-- Issueing words.skip_remainder_of_line is useless
 			end
-			-- -- This is a most inefficient way to obtain the first two words!
-			-- if words/=Void and then words.count>=2 then
-			-- 	original_name := words.first
-			-- 	new_name := words.item(words.lower+1)
-			-- 	a_dictionary.put(new_name, original_name)
-			-- end
 			file.read_line
 		end
 	end
 
+	move_symbols is
+		do
+			moved.do_all(agent move_symbol)
+		end
 
+	move_symbol (a_symbol, a_file_name: STRING) is
+		-- Makes `a_symbol' as if it was part of file with `a_file_name'.
+	local f: C_FILE; symbol: MOVABLE_NODE
+	do
+		f := files_by_name.reference_at(a_file_name)
+		if f=Void then log(once "Symbol `@(1)' can't be considered part of file @(2): file not referenced by in input file",
+			<<a_symbol,a_file_name>>)
+		else
+			-- TODO: this design assumes that all named nodes are also filed. Check this assumption.
+			symbol ?= symbols.reference_at(a_symbol)
+			if symbol/=Void then
+				symbol.set_file(f)
+			end
+		end
+	end
+
+	 
 invariant
-	renamed /= Void
 	moved /= Void
 end -- class GCCXML_TREE
 

@@ -6,10 +6,6 @@ insert
 	SHARED_SETTINGS
 	--DESCRIPTIONS
 feature 
-	register_into (a_tree: GCCXML_TREE) is
-	do -- Nothing   
-	end
-
 	do_all (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]]) is
 		local i: INTEGER; node: GCCXML_NODE
 		do

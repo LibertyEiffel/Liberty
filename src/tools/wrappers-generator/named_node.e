@@ -9,7 +9,7 @@ feature
 	end
 
 	is_named: BOOLEAN is
-		-- Does Current not actually have a name?
+		-- Does Current actually have a name?
 	do
 		Result := attributes.has(once U"name")
 	end

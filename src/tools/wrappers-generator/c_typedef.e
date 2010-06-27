@@ -3,7 +3,6 @@ class C_TYPEDEF
 inherit 
 	CONTEXTED_NODE
 	FILED_NODE
-	GCCXML_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
 	STORABLE_NODE
@@ -39,16 +38,17 @@ feature
 			Result := types.at(type).has_wrapper
 		end
 
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result := is_public and then is_in_main_namespace and then 
+			(global or else headers.has(c_file.c_string_name))
+		end
+
 	wrap_on (a_stream: OUTPUT_STREAM) is
 		-- If Current ultimately refers to a fundamental type then put an empty query on `a_stream', otherwise nothing is done.
 	local query_name: STRING
 	do
-		if is_public and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
-			-- Note: here I used "and then" with progressively more complicated
-			-- queries; `is_public' is fast, `is_in_main_namespace' quite fast
-			-- and `is_fundamental' quite slow; using "and then" allows the
-			-- program not to compute the costly `is_fundamental' is either one
-			-- of the first two are False.
+		if is_to_be_emitted then
 			if is_fundamental then
 				if has_wrapper then
 					query_name := eiffel_feature(c_string_name)

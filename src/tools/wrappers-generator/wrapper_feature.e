@@ -1,11 +1,16 @@
-deferred class HAVING_EIFFEL_TYPE
-inherit GCCXML_NODE
+deferred class WRAPPER_FEATURE
+	-- A node of an XML file produced by gccxml that will be wrapped by a Liberty feature, part of wider wrapper :class. 
+inherit WRAPPABLE_NODE
 feature 
-	eiffel_type: STRING is
-		-- The Liberty/Eiffel type corrispondent to Current node
-		deferred
-		end
+	wrap_on (a_stream: OUTPUT_STREAM) is
+		-- Put the wrapper on `a_stream'
+	require 
+		a_stream /= Void
+	deferred 
+	ensure buffer.is_empty
 	end
+
+end -- class WRAPPER_FEATURE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

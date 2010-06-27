@@ -1,15 +1,13 @@
 class C_STRUCT
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
-	GCCXML_NODE 
 	CONTEXTED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
 	TYPED_NODE
-	WRAPPED_BY_A_CLASS
+	WRAPPER_CLASS
 
 insert NAME_CONVERTER
 
@@ -49,6 +47,11 @@ feature
 			not_yet_implemented -- Result := class_name
 		end
 
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result:= is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			(global or else headers.has(c_file.c_string_name))
+		end
 	emit_wrapper is
 		-- Emit a reference wrapper for Current C structure.
 
@@ -56,7 +59,7 @@ feature
 		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
 	local path: POSIX_PATH_NAME
 	do
-		if is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
+		if is_to_be_emitted then
 			if on_standard_output then
 					log(once "Outputting wrapper for struct @(1) on standard output.%N", <<c_string_name>>)
 		 		output := std_output

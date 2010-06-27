@@ -22,6 +22,15 @@ feature
 			Result:=files.reference_at(file_id)
 		end
 
+	set_file (a_file: C_FILE) is
+		-- Make Current node as if it was defined into `a_file'
+		-- Consider Current as if it wes defined in `a_file_name'.
+	require a_file/=Void
+	do
+		attributes.put(a_file.id,once U"file") 
+	ensure set: c_file = a_file
+	end
+
 end -- class FILED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

@@ -2,16 +2,14 @@ class C_FUNCTION
 	-- A "Function" node of an XML file made by gccxml. 
 
 inherit
-	GCCXML_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
+	FILED_NODE
+	STORABLE_NODE
+	WRAPPER_FEATURE
 		rename 
 			c_name as function_name
 			c_string_name as function_string_name
 		end
-	FILED_NODE
-	STORABLE_NODE
-	WRAPPABLE_NODE
 	CONTEXTED_NODE
 
 insert 
@@ -78,6 +76,11 @@ feature {ANY}
 			end
 		end
 	end
+
+	is_to_be_emitted: BOOLEAN is
+		do
+			not_yet_implemented
+		end
 
 	wrap_on (a_stream: OUTPUT_STREAM) is 
 		do

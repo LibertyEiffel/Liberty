@@ -1,13 +1,12 @@
 class C_UNION
 
 inherit 
-	GCCXML_NODE
 	CONTEXTED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
+	WRAPPER_CLASS
 	TYPED_NODE
 
 creation make
@@ -33,6 +32,19 @@ feature
 		do
 			not_yet_implemented
 		end
+	
+	is_to_be_emitted: BOOLEAN is
+		do
+			not_yet_implemented
+		end
+
+	emit_wrapper is 
+		do
+			not_yet_implemented
+		end
+		
+	suffix: STRING is "_UNION"
+
 -- invariant name.is_equal(once U"Union")
 end -- class C_UNION
 

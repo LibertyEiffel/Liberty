@@ -1,11 +1,10 @@
 class C_FILE
+	-- An header file that will be wrapped as a wrapper class containing all the functions and variables defined in that file.
 
 inherit  
-	GCCXML_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	STORABLE_NODE
-	WRAPPED_BY_A_CLASS 
+	WRAPPER_CLASS
 		redefine
 			class_name
 		end
@@ -20,6 +19,12 @@ feature
 	store is
 		do
 			files.put(Current,id)
+			files_by_name.put(Current,c_string_name)
+		end
+	
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result := file_exists(c_string_name) and global or else headers.has(c_string_name)
 		end
 
 	emit_wrapper is
@@ -28,13 +33,12 @@ feature
 	local 
 		file_functions: LINKED_LIST[C_FUNCTION]
 		file_variables: LINKED_LIST[C_VARIABLE]
-		header: STRING; path: POSIX_PATH_NAME
+		path: POSIX_PATH_NAME
 	do
-		header := c_name.to_utf8
-		if is_to_be_emitted(header) and then file_exists(header) then
+		if is_to_be_emitted then
 			if on_standard_output then
 		 		log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
-		 		<<header>>)
+		 		<<c_string_name>>)
 		 		output := std_output
 		 	else
 		 		create path.make_from_string(directory)

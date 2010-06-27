@@ -1,4 +1,5 @@
 class  C_FUNDAMENTAL_TYPE
+	-- A node of an XML file made by gccxml representing a fundamental type of the C language.
 
 inherit 
 	GCCXML_NODE

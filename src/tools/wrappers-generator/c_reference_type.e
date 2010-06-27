@@ -1,7 +1,7 @@
 class C_REFERENCE_TYPE
 	-- A GccXml node representing a (C++?) reference. 
 
-	-- Currently we crudely wrap it as a pointer.
+	-- Currently crudely wrapped as a POINTER.
 inherit 
 	GCCXML_NODE
 	IDENTIFIED_NODE
