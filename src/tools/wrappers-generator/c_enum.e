@@ -21,7 +21,6 @@ creation make
 feature 
 	store is
 		do
-			enumerations.put(Current,id)
 			if is_named then
 				symbols.put(Current,c_string_name)
 			end

@@ -57,16 +57,16 @@ feature
 		 	end
 		 	emit_header_on(output)
 
-			file_functions := functions.reference_at(id)
-			if file_functions/=Void then
-				file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
-			end
+			-- file_functions := functions.reference_at(id)
+			-- if file_functions/=Void then
+			-- 	file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
+			-- end
 
-			file_variables := variables.reference_at(id)
-			if file_variables/=Void then
-				output.put_string(once "feature {} -- Variables%N")
-				file_variables.do_all(agent {C_VARIABLE}.wrap_on(output))
-			end
+			-- file_variables := variables.reference_at(id)
+			-- if file_variables/=Void then
+			-- 	output.put_string(once "feature {} -- Variables%N")
+			-- 	file_variables.do_all(agent {C_VARIABLE}.wrap_on(output))
+			-- end
 
 			emit_footer_on(output)
 			output.disconnect
@@ -121,6 +121,11 @@ feature
 		end
 		Result := stored_class_name
 	end
+feature -- Content
+	-- functions: HASHED_SET[C_FUNCTION]
+	-- the functions defined in Current file.
+	-- variables: HASHED_SET[C_VARIABLE]
+	-- the variables defined in Current file.
 
 -- invariant name.is_equal(once U"File")
 end -- class C_FILE

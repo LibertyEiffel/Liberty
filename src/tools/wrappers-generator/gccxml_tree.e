@@ -71,6 +71,15 @@ feature
 		if storable/=Void then storable.store end
 	end
 
+feature {ANY} -- Wrappers emittions
+	emit_wrappers is
+		local node: GCCXML_NODE
+		do
+			-- Give its fields to each composed node
+			-- Give each function and variable to the file they belong to.
+			node ::= root
+			node.emit_wrappers	
+		end
 feature {ANY}
 	read_flags_from (a_file_name: STRING) is
 		-- Read the list of enumeration that shall be wrapped as flags from the

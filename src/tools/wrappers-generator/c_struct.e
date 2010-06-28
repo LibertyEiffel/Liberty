@@ -22,7 +22,6 @@ feature
 				symbols.put(Current,c_string_name)
 			end
 			composed_types.put(Current,id)
-			structures.fast_put(Current,id)
 		end
 
 	is_fundamental: BOOLEAN is False

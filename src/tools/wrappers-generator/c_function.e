@@ -13,8 +13,6 @@ creation make
 feature {ANY}
 	store is
 		do
-			functions.store(Current)
-			check is_named end
 			symbols.put(Current,c_string_name)
 		end
 

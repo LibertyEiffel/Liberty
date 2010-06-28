@@ -14,7 +14,7 @@ creation make
 feature 
 	store is
 		do
-			typedefs.fast_put(Current,id)
+			typedefs.add_first(Current)
 			types.fast_put(Current,id)
 		end
 

@@ -1,6 +1,8 @@
 deferred class WRAPPER_FEATURE
 	-- A node of an XML file produced by gccxml that will be wrapped by a Liberty feature, part of wider wrapper :class. 
-inherit WRAPPABLE_NODE
+inherit 
+	WRAPPABLE_NODE
+	FILED_NODE
 feature 
 	wrap_on (a_stream: OUTPUT_STREAM) is
 		-- Put the wrapper on `a_stream'

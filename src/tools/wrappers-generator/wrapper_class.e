@@ -1,7 +1,7 @@
 deferred class WRAPPER_CLASS
-	-- A node of an XML file made by gccxml which is wrappable with a class.
-	-- This class will contain the wrapping of this class and wrapped features
-	-- of many child and/or related nodes.
+	-- A node of an Gcc-Xml file reprenting an entity wrappable by a
+	-- Liberty class also containing the wrapper features of child
+	-- and/or related nodes.
 
 inherit WRAPPABLE_NODE
 	

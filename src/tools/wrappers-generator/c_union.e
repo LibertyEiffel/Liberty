@@ -15,7 +15,6 @@ feature
 	store is
 		do
 			create {LINKED_LIST[C_FIELD]} fields.make
-			unions.fast_put(Current,id)
 			types.fast_put(Current,id)
 			if is_named then
 				symbols.put(Current,c_string_name)
@@ -43,7 +42,7 @@ feature
 
 	emit_wrapper is 
 		do
-			not_yet_implemented
+			log_string(once "C_UNION.emit_wrapper not yet implemented.%N")
 		end
 		
 	suffix: STRING is "_UNION"
