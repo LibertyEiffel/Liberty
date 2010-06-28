@@ -40,7 +40,6 @@ feature -- Collection-like command
 		-- Recursively descend the tree invoking emit_wrapper on WRAPPER_CLASS nodes.
 	local i: INTEGER; node: GCCXML_NODE; wrapper: WRAPPER_CLASS
 	do
-		print(name.as_utf8+".emit_wrappers%N")
 		from i:=1 until i>children_count loop
 			node ?= child(i)
 			wrapper ?= node

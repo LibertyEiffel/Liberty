@@ -2,9 +2,8 @@ class C_TYPEDEF
 
 inherit 
 	CONTEXTED_NODE
-	FILED_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
+	MOVABLE_NODE
 	STORABLE_NODE
 	TYPED_NODE
 	WRAPPABLE_NODE
@@ -16,6 +15,8 @@ feature
 		do
 			typedefs.add_first(Current)
 			types.fast_put(Current,id)
+			check is_named end
+			symbols.put(Current,c_string_name)
 		end
 
 	wrapper_type: STRING is

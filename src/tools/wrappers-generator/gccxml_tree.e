@@ -76,11 +76,17 @@ feature {ANY} -- Wrappers emittions
 		local 
 			node: GCCXML_NODE; 
 		do
+			log_string(once "Moving symbols.%N")
+			moved.do_all(agent move_symbol)
+			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
+			typedefs.emit_wrappers
+
 			-- Assign each field to the composed node it belongs to
 			-- Assign each function and variable to the file they belong to.
 			functions.do_all(agent move_feature)
 			-- Assign each variable to the file they belong to.
 			--variables.do_all(agent move_feature)
+
 			node ::= root
 			node.emit_wrappers	
 		end
@@ -164,11 +170,6 @@ feature {ANY}
 			file.read_line
 		end
 	end
-
-	move_symbols is
-		do
-			moved.do_all(agent move_symbol)
-		end
 
 	move_symbol (a_file_name, a_symbol: STRING) is
 		-- Makes `a_symbol' as if it was part of file with `a_file_name'.

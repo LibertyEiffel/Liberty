@@ -32,10 +32,6 @@ feature {ANY}
 			log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
 				tree.read_moved_from(moved)
 			end
-			tree.moved.do_all(agent tree.move_symbol)
-	
-			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
-			tree.typedefs.emit_wrappers
 			log_string(once "Making wrappers.%N")
 			tree.emit_wrappers
 			close_plugin_files
