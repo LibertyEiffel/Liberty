@@ -50,7 +50,7 @@ feature {ANY} -- Preparation of a call
 		local
 			args: POINTER; count: NATURAL_32
 	do
-		handle:=malloc(struct_size.to_natural_32) -- Also allocate works
+		handle:=malloc(struct_size) -- Also allocate works
 		function := a_function
 		argument_types:=some_argument_types
 		if argument_types /= Void then

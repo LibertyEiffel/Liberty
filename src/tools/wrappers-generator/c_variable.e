@@ -11,7 +11,6 @@ creation make
 feature 
 	store is
 		do
-			check is_named end
 			symbols.put(Current,c_string_name)
 			variables.add_first(Current)
 		end
