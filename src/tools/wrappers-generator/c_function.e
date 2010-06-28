@@ -14,6 +14,7 @@ feature {ANY}
 	store is
 		do
 			symbols.put(Current,c_string_name)
+			functions.add_first(Current)
 		end
 
 	returns: UNICODE_STRING is

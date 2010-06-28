@@ -24,6 +24,7 @@ feature
 			end
 			symbols.put(Current,c_string_name)
 			files_by_name.put(Current,c_string_name)
+			create features.make
 		end
 	
 	is_to_be_emitted: BOOLEAN is
@@ -34,10 +35,7 @@ feature
 	emit_wrapper is
 		-- Emits into a deferred class named like the file itself the wrappers
 		-- for all the function and the variable contained into Current file.
-	local 
-		file_functions: LINKED_LIST[C_FUNCTION]
-		file_variables: LINKED_LIST[C_VARIABLE]
-		path: POSIX_PATH_NAME
+	local path: POSIX_PATH_NAME
 	do
 		if is_to_be_emitted then
 			if on_standard_output then
@@ -56,18 +54,7 @@ feature
 		 		create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 		 	end
 		 	emit_header_on(output)
-
-			-- file_functions := functions.reference_at(id)
-			-- if file_functions/=Void then
-			-- 	file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
-			-- end
-
-			-- file_variables := variables.reference_at(id)
-			-- if file_variables/=Void then
-			-- 	output.put_string(once "feature {} -- Variables%N")
-			-- 	file_variables.do_all(agent {C_VARIABLE}.wrap_on(output))
-			-- end
-
+			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)
 			output.disconnect
 		end
@@ -122,10 +109,8 @@ feature
 		Result := stored_class_name
 	end
 feature -- Content
-	-- functions: HASHED_SET[C_FUNCTION]
-	-- the functions defined in Current file.
-	-- variables: HASHED_SET[C_VARIABLE]
-	-- the variables defined in Current file.
+	features: LINKED_LIST[WRAPPER_FEATURE]
+	-- the functions and variables defined in Current file.
 
 -- invariant name.is_equal(once U"File")
 end -- class C_FILE

@@ -2,7 +2,7 @@ class C_VARIABLE
 inherit 
 	CONTEXTED_NODE
 	IDENTIFIED_NODE
-	FILED_NODE
+	MOVABLE_NODE
 	STORABLE_NODE
 	TYPED_NODE
 	WRAPPER_FEATURE
@@ -13,6 +13,7 @@ feature
 		do
 			check is_named end
 			symbols.put(Current,c_string_name)
+			variables.add_first(Current)
 		end
 
 	is_to_be_emitted: BOOLEAN is

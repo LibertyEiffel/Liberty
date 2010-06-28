@@ -73,13 +73,33 @@ feature
 
 feature {ANY} -- Wrappers emittions
 	emit_wrappers is
-		local node: GCCXML_NODE
+		local 
+			node: GCCXML_NODE; 
 		do
-			-- Give its fields to each composed node
-			-- Give each function and variable to the file they belong to.
+			-- Assign each field to the composed node it belongs to
+			-- Assign each function and variable to the file they belong to.
+			functions.do_all(agent move_feature)
+			-- Assign each variable to the file they belong to.
+			--variables.do_all(agent move_feature)
 			node ::= root
 			node.emit_wrappers	
 		end
+
+	move_feature (a_feature: WRAPPER_FEATURE) is
+	require a_feature/=Void
+	local destination: STRING; file: C_FILE
+	do
+		destination := moved.reference_at(a_feature.c_string_name)
+		if destination/=Void then -- user required move
+			file := files_by_name.reference_at(destination)
+		else -- a_feature belong to the file as declared in the gcc-xml file 
+			file := files.reference_at(a_feature.c_file.id)
+		end
+		check file/=Void end
+		log(once "Moving @(1) into @(2).%N", <<a_feature.c_string_name,file.c_string_name>>)
+		file.features.add_first(a_feature)
+	end
+
 feature {ANY}
 	read_flags_from (a_file_name: STRING) is
 		-- Read the list of enumeration that shall be wrapped as flags from the

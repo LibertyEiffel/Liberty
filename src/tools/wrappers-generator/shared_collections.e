@@ -4,10 +4,12 @@ deferred class SHARED_COLLECTIONS
 feature
 	files: HASHED_DICTIONARY[C_FILE, UNICODE_STRING] is once create Result.make end
 	files_by_name: HASHED_DICTIONARY[C_FILE, STRING] is once create Result.make end
+	functions: LINKED_LIST[C_FUNCTION] is once create Result.make end
 	namespaces: HASHED_DICTIONARY[C_NAMESPACE, UNICODE_STRING] is once create Result.make end
 	symbols: HASHED_DICTIONARY[NAMED_NODE, STRING] is once create Result.make end
 	typedefs: TYPEDEFS is once create Result.make end
 	types: HASHED_DICTIONARY[TYPED_NODE, UNICODE_STRING] is once create Result.make end
+	variables: LINKED_LIST[C_VARIABLE] is once create Result.make end
 	composed_types: HASHED_DICTIONARY[COMPOSED_NODE, UNICODE_STRING] is once create Result.make end
 
 feature

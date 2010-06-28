@@ -12,12 +12,12 @@ creation make
 
 feature 
 	store is
-		local a_container: COMPOSED_NODE
-		do
-			a_container := composed_types.reference_at(context)
-			if a_container/=Void then
-				a_container.fields.add_last(Current)
+		do 
+			check 
+				container_exists: composed_types.has(context) 
 			end
+			-- Add Current to its container
+			composed_types.at(context).fields.add_last(Current)
 		end
 	
 	is_fundamental: BOOLEAN is
