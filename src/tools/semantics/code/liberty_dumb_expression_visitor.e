@@ -57,6 +57,11 @@ feature {LIBERTY_CALL_EXPRESSION}
 		do
 		end
 
+feature {LIBERTY_CAST_EXPRESSION}
+	visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
+		do
+		end
+
 feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		do

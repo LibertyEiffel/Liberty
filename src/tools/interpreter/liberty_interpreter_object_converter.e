@@ -20,7 +20,7 @@ inherit
 creation {LIBERTY_INTERPRETER}
 	make
 
-feature {LIBERTY_INTERPRETER_ASSIGNMENT, LIBERTY_INTERPRETER_FEATURE_CALL}
+feature {ANY}
 	convert_object (a_source: like source; a_target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
 		require
 			a_source.type.converts_to(a_target_type)

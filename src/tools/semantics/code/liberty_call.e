@@ -41,6 +41,7 @@ feature {ANY}
 		local
 			t: like target
 			e: like entity
+			p: TUPLE[like target, like entity]
 			a: like actuals_list
 			x: LIBERTY_EXPRESSION
 			i: INTEGER
@@ -64,7 +65,10 @@ feature {ANY}
 				end
 				i := i + 1
 			end
-			if t = target and then e = entity and then a = actuals_list then
+			p := promoted(t, e, a)
+			if p /= Void then
+				Result := make_new(p.first, p.second, a, position)
+			elseif t = target and then e = entity and then a = actuals_list then
 				Result := Current
 			else
 				Result := make_new(t, e, a, position)
@@ -72,6 +76,34 @@ feature {ANY}
 		end
 
 feature {}
+	promoted (a_target: like target; a_entity: like entity; a_actuals: like actuals): TUPLE[like target, like entity] is
+		require
+			a_entity /= Void
+			a_actuals /= Void
+		local
+			actual_target_type, actual_arg_type: LIBERTY_ACTUAL_TYPE
+		do
+			if a_target /= Void
+				and then a_target.result_type.is_known
+				and then a_actuals.count = 1
+				and then a_actuals.first.result_type.is_known
+			then
+				actual_target_type ::= a_target.result_type.known_type
+				if actual_target_type.may_promote_current
+					and then actual_arg_type ?:= a_actuals.first.result_type.known_type
+				then
+					actual_arg_type ::= a_actuals.first.result_type.known_type
+					if not actual_arg_type.is_conform_to(actual_target_type)
+						and then not actual_arg_type.converts_to(actual_target_type)
+						and then actual_target_type.converts_to(actual_arg_type)
+					then
+						Result := [create {LIBERTY_CAST_EXPRESSION}.make(a_target, actual_arg_type),
+									  create {LIBERTY_FEATURE_ENTITY}.make(a_entity.feature_name, actual_arg_type)]
+					end
+				end
+			end
+		end
+
 	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
 		require
 			a_entity /= Void

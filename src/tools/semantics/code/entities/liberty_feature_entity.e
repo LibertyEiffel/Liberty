@@ -29,7 +29,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL}
 	make
 
 create {LIBERTY_FEATURE_ENTITY}
@@ -151,22 +151,19 @@ feature {}
 	delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
 	result_type_memory: LIBERTY_TYPE
 
-	make (a_name: like feature_name; a_target_type: like target_type; a_delayed_feature_type: like delayed_feature_type) is
+	make (a_name: like feature_name; a_target_type: like target_type) is
 		require
 			a_name /= Void
 			a_target_type /= Void
-			a_delayed_feature_type /= Void
-			a_delayed_feature_type.name = a_name
 		do
 			feature_name := a_name
 			target_type := a_target_type
-			delayed_feature_type := a_delayed_feature_type
-			create {LIBERTY_DELAYED_TYPE} result_type_memory.make(a_delayed_feature_type)
+			create delayed_feature_type.make(a_target_type, a_name)
+			create {LIBERTY_DELAYED_TYPE} result_type_memory.make(delayed_feature_type)
 			position := a_name.position
 		ensure
 			feature_name = a_name
 			target_type = a_target_type
-			delayed_feature_type = a_delayed_feature_type
 			position = a_name.position
 		end
 
@@ -180,6 +177,9 @@ feature {}
 			target_type := a_target_type
 			the_feature := a_feature
 			delayed_feature_type := a_delayed_feature_type
+			if a_delayed_feature_type /= Void then
+				create {LIBERTY_DELAYED_TYPE} result_type_memory.make(a_delayed_feature_type)
+			end
 			position := a_name.position
 		ensure
 			feature_name = a_name

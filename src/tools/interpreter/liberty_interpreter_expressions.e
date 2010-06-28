@@ -97,6 +97,24 @@ feature {LIBERTY_CALL_EXPRESSION}
 			eval_memory /= Void
 		end
 
+feature {LIBERTY_CAST_EXPRESSION}
+	visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
+		local
+			actual_type: LIBERTY_ACTUAL_TYPE
+		do
+			v.expression.accept(Current)
+			actual_type ::= v.result_type.known_type
+			if eval_memory.result_type.known_type.is_conform_to(actual_type) then
+				-- nothing to do
+			elseif eval_memory.result_type.known_type.converts_to(actual_type) then
+				eval_memory := interpreter.object_converter.convert_object(eval_memory, actual_type)
+			else
+				-- fatal error!! should not happen
+				check False end
+				crash
+			end
+		end
+
 feature {LIBERTY_CHARACTER_MANIFEST}
 	visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
 		do

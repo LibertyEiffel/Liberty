@@ -37,7 +37,7 @@ feature {ANY}
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
-			Result := a_type.result_entity
+			Result := result_type.specialized_in(a_type).result_entity
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
