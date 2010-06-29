@@ -19,9 +19,6 @@ class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_KNOWN_TYPE
-		redefine
-			add_listener
-		end
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -619,6 +616,7 @@ invariant
 	)
 	parameters /= Void
 	visit /= Void
+	cluster /= Void
 
 	conformant_parents /= Void
 	non_conformant_parents /= Void
