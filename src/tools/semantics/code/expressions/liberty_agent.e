@@ -123,7 +123,7 @@ feature {LIBERTY_OPEN_ARGUMENT}
 				check
 					v = call.target
 				end
-				call.set_target(openarg)
+				call.set_open_target(openarg)
 			else
 				check
 					v = call.actuals.item(open_argument_index)

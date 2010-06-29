@@ -29,7 +29,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL}
+create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL, LIBERTY_CALL_PROMOTION}
 	make
 
 create {LIBERTY_FEATURE_ENTITY}

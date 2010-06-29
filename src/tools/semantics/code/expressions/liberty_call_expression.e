@@ -52,15 +52,15 @@ feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
 			is_agent_call
 		end
 
-	set_target (new_target: LIBERTY_OPEN_ARGUMENT) is
+	set_open_target (open_target: LIBERTY_OPEN_ARGUMENT) is
 		require
 			is_agent_call
 			{LIBERTY_OPEN_ARGUMENT} ?:= target
-			new_target /= Void
+			open_target /= Void
 		do
-			target := new_target
+			target := open_target
 		ensure
-			target = new_target
+			target = open_target
 		end
 
 	set_actual (new_actual: LIBERTY_OPEN_ARGUMENT; index: INTEGER) is
@@ -158,8 +158,9 @@ feature {}
 			entity := a_entity
 			actuals_list := a_actuals
 			position := a_position
+			register_for_promotion
 		ensure
-			target = a_target
+			target = a_target or else {LIBERTY_CAST_EXPRESSION} ?:= target
 			entity = a_entity
 			actuals_list = a_actuals
 			position = a_position
@@ -199,6 +200,17 @@ feature {}
 			if is_agent_call then
 				Result.set_agent_call
 			end
+		end
+
+feature {LIBERTY_CALL_PROMOTION}
+	set_entity (a_entity: like entity) is
+		do
+			entity := a_entity
+		end
+
+	set_target (a_target: like target) is
+		do
+			target := a_target
 		end
 
 feature {ANY}

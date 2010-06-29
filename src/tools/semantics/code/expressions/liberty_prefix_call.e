@@ -47,6 +47,7 @@ feature {}
 			target := a_target
 			entity := a_entity_builder.item([a_target.result_type, prefix_name])
 			position := a_position
+			register_for_promotion
 		ensure
 			position = a_position
 		end
@@ -62,7 +63,7 @@ feature {}
 			entity := a_entity
 			position := a_position
 		ensure
-			target = a_target
+			target = a_target or else {LIBERTY_CAST_EXPRESSION} ?:= target
 			entity = a_entity
 			actuals_list = a_actuals
 			position = a_position
@@ -83,6 +84,17 @@ feature {}
 	actuals_list: COLLECTION[LIBERTY_EXPRESSION] is
 		once
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
+		end
+
+feature {LIBERTY_CALL_PROMOTION}
+	set_entity (a_entity: like entity) is
+		do
+			entity := a_entity
+		end
+
+	set_target (a_target: like target) is
+		do
+			target := a_target
 		end
 
 invariant

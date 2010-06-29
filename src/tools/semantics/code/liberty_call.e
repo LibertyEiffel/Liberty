@@ -41,7 +41,6 @@ feature {ANY}
 		local
 			t: like target
 			e: like entity
-			p: TUPLE[like target, like entity]
 			a: like actuals_list
 			x: LIBERTY_EXPRESSION
 			i: INTEGER
@@ -65,10 +64,7 @@ feature {ANY}
 				end
 				i := i + 1
 			end
-			p := promoted(t, e, a)
-			if p /= Void then
-				Result := make_new(p.first, p.second, a, position)
-			elseif t = target and then e = entity and then a = actuals_list then
+			if  t = target and then e = entity and then a = actuals_list then
 				Result := Current
 			else
 				Result := make_new(t, e, a, position)
@@ -76,33 +72,16 @@ feature {ANY}
 		end
 
 feature {}
-	promoted (a_target: like target; a_entity: like entity; a_actuals: like actuals): TUPLE[like target, like entity] is
+	register_for_promotion is
 		require
-			a_entity /= Void
-			a_actuals /= Void
-		local
-			actual_target_type, actual_arg_type: LIBERTY_ACTUAL_TYPE
+			explicit_current: target /= Void
 		do
-			if a_target /= Void
-				and then a_target.result_type.is_known
-				and then a_actuals.count = 1
-				and then a_actuals.first.result_type.is_known
-			then
-				actual_target_type ::= a_target.result_type.known_type
-				if actual_target_type.may_promote_current
-					and then actual_arg_type ?:= a_actuals.first.result_type.known_type
-				then
-					actual_arg_type ::= a_actuals.first.result_type.known_type
-					if not actual_arg_type.is_conform_to(actual_target_type)
-						and then not actual_arg_type.converts_to(actual_target_type)
-						and then actual_target_type.converts_to(actual_arg_type)
-					then
-						Result := [create {LIBERTY_CAST_EXPRESSION}.make(a_target, actual_arg_type),
-									  create {LIBERTY_FEATURE_ENTITY}.make(a_entity.feature_name, actual_arg_type)]
-					end
-				end
+			if actuals.count = 1 then
+				create promotion.make(Current, target.result_type, actuals.first.result_type)
 			end
 		end
+
+	promotion: LIBERTY_CALL_PROMOTION[like Current]
 
 	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
 		require
@@ -119,8 +98,26 @@ feature {}
 		deferred
 		end
 
+feature {LIBERTY_CALL_PROMOTION}
+	set_entity (a_entity: like entity) is
+		require
+			a_entity /= Void
+		deferred
+		ensure
+			entity = a_entity
+		end
+
+	set_target (a_target: like target) is
+		require
+			explicit_current: target /= Void
+			still_explicit: a_target /= Void
+		deferred
+		ensure
+			target = a_target
+		end
+
 invariant
 	entity /= Void
 	actuals_list /= Void
 
-end
+end -- class LIBERTY_CALL
