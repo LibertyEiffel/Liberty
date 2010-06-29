@@ -19,7 +19,8 @@ inherit
 		rename
 			make as make_late_binding
 		redefine
-			mark_reachable_code, add_if_redefined, do_debug_display, set_specialized_in
+			mark_reachable_code, add_if_redefined, do_debug_display, set_specialized_in,
+			has_accelerator, accelerate_call
 		end
 
 create {LIBERTY_BUILDER_TOOLS}
@@ -34,6 +35,16 @@ feature {ANY}
 		do
 			v0 ::= v
 			v0.visit_liberty_feature_redefined(Current)
+		end
+
+	has_accelerator: BOOLEAN is
+		do
+			Result := redefined_feature /= Void and then redefined_feature.has_accelerator
+		end
+
+	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+		do
+			redefined_feature.accelerate_call(a)
 		end
 
 feature {LIBERTY_FEATURE}
@@ -177,5 +188,6 @@ feature {}
 invariant
 	not is_redefined
 	redefined_feature /= Void implies redefined_feature.is_redefined
+	accelerator = Void
 
 end

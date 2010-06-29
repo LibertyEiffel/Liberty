@@ -90,7 +90,14 @@ feature {ANY}
 			Result := context /= Void
 		end
 
+	has_accelerator: BOOLEAN is
+		do
+			Result := accelerator /= Void
+		end
+
 	accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+		require
+			has_accelerator
 		do
 			accelerator.call([a, Current])
 		end
