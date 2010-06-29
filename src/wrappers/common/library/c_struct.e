@@ -29,7 +29,6 @@ inherit
 insert
 	STDLIB_EXTERNALS
 	STRING_EXTERNALS
-	STRING3_EXTERNALS
 	STANDARD_C_LIBRARY_TYPES
 
 feature {} -- Initialization
@@ -38,8 +37,8 @@ feature {} -- Initialization
 		do
 			--dispose
 			if other.is_not_null then
-				handle := malloc (struct_size.to_natural_32)
-				handle := memcpy (handle, other, struct_size.to_natural_32)
+				handle := malloc (struct_size)
+				handle := memcpy (handle, other, struct_size)
 			else
 				handle := default_pointer
 			end
@@ -49,7 +48,7 @@ feature {} -- Initialization
 			-- Allocate an initialized structure
 		obsolete "Structure is allocated but memory is not set to zero. This may not be what you want. See implementation"
 		do
-			handle := malloc(struct_size.to_natural_32) 
+			handle := malloc(struct_size) 
 			-- This feature used to invoke calloc to set the allocated memory to zero.
 			-- calloc actually has different signatures on 32 and 64 bits machines.
 			-- so we cannot write correct code as long as we rely on SmartEiffel or as long as we do not have (automatic) convertions in classes.
@@ -67,8 +66,8 @@ feature {ANY} -- Copying
 		do
 			dispose
 			if other.handle.is_not_null then
-				handle := malloc (struct_size.to_natural_32)
-				handle := memcpy (handle, other.handle, struct_size.to_natural_32)
+				handle := malloc (struct_size)
+				handle := memcpy (handle, other.handle, struct_size)
 			else
 				handle := default_pointer
 			end

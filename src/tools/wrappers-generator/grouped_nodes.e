@@ -1,5 +1,5 @@
-class GROUPED_NODES [NODE -> STORABLE_NODE]
-	-- Some GCC-XML nodes - usually describing nodes or functions - grouped by the id of the file they are defined into.
+class GROUPED_NODES [NODE -> WRAPPER_FEATURE]
+	-- Some GCC-XML nodes - usually describing nodes or functions - grouped by the name of the file they are defined into.
 
 inherit HASHED_DICTIONARY[LINKED_LIST[NODE], UNICODE_STRING]
 
@@ -9,15 +9,16 @@ feature
 	store (a_node: NODE) is
 		-- Store `a_node' into Current, creating the container list if necessary.
 		require a_node/=Void
-		local list: LINKED_LIST[NODE]; an_id: UNICODE_STRING
+		local list: LINKED_LIST[NODE]; a_file: UNICODE_STRING
 		do
-			an_id := a_node.file_id 
-			list := reference_at (an_id)
-			if list=Void then 
-				create list.make
-				add(list, an_id)
-			end
-			list.add_last(a_node)
+			not_yet_implemented
+			--a_file := a_node.file_id 
+			--list := reference_at (an_id)
+			--if list=Void then 
+			--	create list.make
+			--	add(list, an_id)
+			--end
+			--list.add_last(a_node)
 		end
 
 end	-- class GROUPED_NODES

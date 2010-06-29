@@ -36,6 +36,18 @@ feature -- Collection-like command
 			end
 		end
 
+	emit_wrappers is
+		-- Recursively descend the tree invoking emit_wrapper on WRAPPER_CLASS nodes.
+	local i: INTEGER; node: GCCXML_NODE; wrapper: WRAPPER_CLASS
+	do
+		from i:=1 until i>children_count loop
+			node ?= child(i)
+			wrapper ?= node
+			if wrapper/=Void then wrapper.emit_wrapper end
+			if node/=Void then node.emit_wrappers end
+			i:=i+1
+		end
+	end
 end -- class GCCXML_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

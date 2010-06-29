@@ -1,15 +1,13 @@
 class C_STRUCT
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
-	GCCXML_NODE 
 	CONTEXTED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
 	TYPED_NODE
-	WRAPPED_BY_A_CLASS
+	WRAPPER_CLASS
 
 insert NAME_CONVERTER
 
@@ -20,8 +18,10 @@ feature
 		do
 			create {LINKED_LIST[C_FIELD]} fields.make
 			types.put(Current,id)
+			if is_named then
+				symbols.put(Current,c_string_name)
+			end
 			composed_types.put(Current,id)
-			structures.fast_put(Current,id)
 		end
 
 	is_fundamental: BOOLEAN is False
@@ -49,6 +49,11 @@ feature
 			not_yet_implemented -- Result := class_name
 		end
 
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result:= is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			(global or else headers.has(c_file.c_string_name))
+		end
 	emit_wrapper is
 		-- Emit a reference wrapper for Current C structure.
 
@@ -56,7 +61,7 @@ feature
 		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
 	local path: POSIX_PATH_NAME
 	do
-		if is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then is_to_be_emitted (c_file.c_string_name) then
+		if is_to_be_emitted then
 			if on_standard_output then
 					log(once "Outputting wrapper for struct @(1) on standard output.%N", <<c_string_name>>)
 		 		output := std_output
@@ -146,10 +151,10 @@ feature
 
 	suffix: STRING is "_STRUCT"
 	
-	struct_inherits: STRING is "%N%Ninsert ANY undefine is_equal, copy end%N%TSTANDARD_C_LIBRARY_TYPES%N"
-
-	-- Note: the above reference to STANDARD_C_LIBRARY_TYPES creates requires to wrap standard C library using a file called "standard-c-library.gcc-xml" 
--- invariant name.is_equal(once U"Struct")
+	struct_inherits: STRING is "%N%Ninsert STANDARD_C_LIBRARY_TYPES%N%N"
+	-- TODO: the above reference to STANDARD_C_LIBRARY_TYPES creates requires
+	-- to wrap standard C library using a file called
+	-- "standard-c-library.gcc-xml"; allow the user to specify its name,
 end -- class C_STRUCT
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

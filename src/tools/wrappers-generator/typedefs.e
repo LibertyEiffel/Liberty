@@ -15,7 +15,7 @@ class TYPEDEFS
 	-- Those queries shall never be invoked but rather used in other
 	-- features as anchors like: do_stuff (a_size: like gsize)
 
-inherit HASHED_DICTIONARY[C_TYPEDEF, UNICODE_STRING]
+inherit LINKED_LIST[C_TYPEDEF] 
 
 insert SHARED_SETTINGS
 

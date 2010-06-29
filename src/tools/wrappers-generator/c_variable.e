@@ -1,19 +1,24 @@
 class C_VARIABLE
 inherit 
-	GCCXML_NODE
 	CONTEXTED_NODE
 	IDENTIFIED_NODE
-	FILED_NODE
-	NAMED_NODE
+	MOVABLE_NODE
 	STORABLE_NODE
 	TYPED_NODE
-	WRAPPABLE_NODE
+	WRAPPER_FEATURE
 
 creation make
 feature 
 	store is
 		do
-			variables.store(Current)
+			symbols.put(Current,c_string_name)
+			variables.add_first(Current)
+		end
+
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result:= (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			(global or else headers.has(c_file.c_string_name))
 		end
 
 	wrap_on (a_stream: OUTPUT_STREAM) is 

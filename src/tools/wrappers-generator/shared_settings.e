@@ -16,16 +16,6 @@ feature {ANY}
 
 	headers: WORDS is once create Result.make end
 
-	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
-		-- Shall the declaration in file named `a_file_name' be
-		-- wrapped? The content of a file will be emitted when global
-		-- is True or if `a_file_name' is in `headers' hashed set.
-	do
-		Result := (global or else 
-		           (a_file_name/=Void and then headers.has(a_file_name)))
-   ensure
-	   void_gets_false: global or (a_file_name=Void implies Result=False)
-	end
 feature -- Plugin
 	include: TEXT_FILE_WRITE is
 		once

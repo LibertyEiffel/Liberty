@@ -18,6 +18,7 @@ feature {ANY}
 			process_arguments
 			log_string(once "Loading XML file: ")
 			create tree.make(input.url)
+			log_string(once "done.%N Connecting nodes ")
 			log_string(once "done.%N")
 			open_plugin_files
 			if directory = Void then
@@ -27,26 +28,12 @@ feature {ANY}
 				log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
 				tree.read_avoided_from(avoided)
 			end
-			if file_exists(renamed) and then is_file(renamed) then
-				log(once "Reading symbols to be renamed from '@(1)'.%N",<<renamed>>)
-				tree.read_renamed_from(renamed)
-			end
 			if file_exists(moved) and then is_file(moved) then
-				log(once "Reading symbols to be moved from '@(1)'.%N",<<moved>>)
+			log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
 				tree.read_moved_from(moved)
 			end
-	
-			log_string(once "Making typedefs and assigning names to typedeffed types.%N")
-			tree.typedefs.emit_wrappers
-			log_string(once "Making enumerations classes.%N")
-			tree.enumerations.do_all(agent {C_ENUM}.emit_wrapper)	
-
-			log_string(once "Making external functions classes.%N")
-			tree.files.do_all (agent {C_FILE}.emit_wrapper)
-			log_string(once "Making structure accessing classes.%N")
-			tree.structures.do_all(agent {C_STRUCT}.emit_wrapper)
-			-- log_string(once "Making union accessing classes.%N")
-			-- tree.unions.do_all(agent {C_UNION}.emit_wrapper)
+			log_string(once "Making wrappers.%N")
+			tree.emit_wrappers
 			close_plugin_files
 		end
 
@@ -66,7 +53,9 @@ feature {ANY}
 		-- The name of the file containing symbols that will be renamed and their final name.
 
 	moved: STRING 
-		-- The name of the file containing symbols that will be wrapped in classes different from the default and the class name where they will belong.
+		-- The name of the file containing symbols that will be moved -
+		-- possibly while being renamed - into a different class from the
+		-- default one; each symbol is coupled with its final place and name.
 
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
@@ -124,13 +113,6 @@ feature {ANY}
 						if i <= argument_count then moved:=argument(i)
 						else
 							std_error.put_line(once "No moved functions file given")
-							print_usage
-						end
-					elseif arg.is_equal(once "--renamed") then
-						i := i + 1
-						if i <= argument_count then renamed:=argument(i)
-						else
-							std_error.put_line(once "No renamed symbols file given")
 							print_usage
 						end
 					elseif arg.is_equal(once "--verbose") or else 
@@ -276,14 +258,11 @@ feature {ANY}
 			%		an enumeration is used as-it-is or to contain flags. If this%N%
 			%	    option is not used the program will look for the %"flags%" file.%N%
 			%%N%
-			%	--renamed renames-file%N%
-			%		Read from `renames-file' a list of symbols with the name they will be%N%
-			%		assigned under Liberty.%N%
-			%%N%
 			%	--moved moved-file%N%
 			%		Read from `moved-file' a list of functions with the Liberty class they%N%
 			%		wrapped in; sometimes actual function declaration is not made in a public%N%
-			%		header but in hidden places, i.e. memcpy.%N%
+			%		header but in hidden places, i.e. memcpy. If this option is not given the%N%
+			%		program will look into file %"moved%".%N%
 			%%N%
 			%	--descriptions descriptions-file%N%
 			%		Apply the descriptions found in the description-file. Each line contains%N%

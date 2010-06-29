@@ -1,13 +1,12 @@
 class C_UNION
 
 inherit 
-	GCCXML_NODE
 	CONTEXTED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
+	WRAPPER_CLASS
 	TYPED_NODE
 
 creation make
@@ -16,8 +15,10 @@ feature
 	store is
 		do
 			create {LINKED_LIST[C_FIELD]} fields.make
-			unions.fast_put(Current,id)
 			types.fast_put(Current,id)
+			if is_named then
+				symbols.put(Current,c_string_name)
+			end
 			composed_types.fast_put(Current,id)
 		end
 	
@@ -33,6 +34,19 @@ feature
 		do
 			not_yet_implemented
 		end
+	
+	is_to_be_emitted: BOOLEAN is
+		do
+			not_yet_implemented
+		end
+
+	emit_wrapper is 
+		do
+			log_string(once "C_UNION.emit_wrapper not yet implemented.%N")
+		end
+		
+	suffix: STRING is "_UNION"
+
 -- invariant name.is_equal(once U"Union")
 end -- class C_UNION
 

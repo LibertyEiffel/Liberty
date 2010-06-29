@@ -10,20 +10,20 @@ class C_ENUM
 
 	-- As far as I know this condition shall apply on all architectures.
 inherit 
-	GCCXML_NODE -- redefine do_all end
 	IDENTIFIED_NODE
-	NAMED_NODE
 	FILED_NODE
 	STORABLE_NODE
 	TYPED_NODE
-	WRAPPED_BY_A_CLASS
+	WRAPPER_CLASS
 
 creation make
 
 feature 
 	store is
 		do
-			enumerations.put(Current,id)
+			if is_named then
+				symbols.put(Current,c_string_name)
+			end
 			types.put(Current,id)
 		end
 
@@ -33,6 +33,8 @@ feature
 	is_fundamental: BOOLEAN is False
 
 	is_void: BOOLEAN is False
+
+	is_to_be_emitted: BOOLEAN is True
 	
 	emit_wrapper is
 		local 
@@ -113,13 +115,12 @@ feature
 		-- each a different bit, and there is no zero value.
 	require has_children: children_count>0
 	local
-		i: COUNT; flags_so_far, value: INTEGER; enum_value: C_ENUM_VALUE
+		i, flags_so_far, value: INTEGER; enum_value: C_ENUM_VALUE
 	do
-		from i.set(1) Result := True
-		variant children_count - i.value
+		from i := 1; Result := True
 		until Result = False or else i > children_count
 		loop
-			enum_value ?= child(i.value)
+			enum_value ?= child(i)
 			if enum_value/= Void then
 				value := enum_value.value.to_integer
 				if value > 0 and then value.is_a_power_of_2 and flags_so_far & value = 0 then
@@ -129,7 +130,7 @@ feature
 				end
 			else log(once "Warning: Enum node (line @(1)) has at least a value that is not an EnumValue!", <<line.out>>)
 			end
-			i.increment
+			i := i+1
 		end
 	end
 

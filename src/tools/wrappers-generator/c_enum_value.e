@@ -6,7 +6,6 @@ inherit
 
 insert 
 	SHARED_COLLECTIONS
-	EXCEPTIONS
 
 creation make
 

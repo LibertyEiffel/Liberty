@@ -24,7 +24,7 @@ indexing
 deferred class ENUM
 	-- A wrapper for an enumeration
 
-inherit
+insert
    ANY
       undefine
          default_create

@@ -1,5 +1,5 @@
 deferred class NAMED_NODE
-	-- A GCC_XML node that may have a "name" attribute
+	-- A GCC_XML node that may have a "name" attribute.
 inherit GCCXML_NODE
 feature
 	is_anonymous: BOOLEAN is
@@ -9,7 +9,7 @@ feature
 	end
 
 	is_named: BOOLEAN is
-		-- Does Current not actually have a name?
+		-- Does Current actually have a name?
 	do
 		Result := attributes.has(once U"name")
 	end
@@ -45,6 +45,7 @@ feature {} -- Implementation
 	cached_c_name: UNICODE_STRING
 	cached_c_string_name: STRING
 end -- class NAMED_NODE
+
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

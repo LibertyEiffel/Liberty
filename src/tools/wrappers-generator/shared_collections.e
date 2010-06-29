@@ -2,18 +2,15 @@ deferred class SHARED_COLLECTIONS
 	-- Shared collections of various kinds of XML nodes
 
 feature
-	enum_values: HASHED_DICTIONARY[C_ENUM_VALUE, UNICODE_STRING] is once create Result.make end
-	enumerations: HASHED_DICTIONARY[C_ENUM, UNICODE_STRING] is once create Result.make end
 	files: HASHED_DICTIONARY[C_FILE, UNICODE_STRING] is once create Result.make end
-	functions: GROUPED_NODES[C_FUNCTION] is once create Result.make end
-	fundamentals: HASHED_DICTIONARY[C_FUNDAMENTAL_TYPE, UNICODE_STRING] is once create Result.make end
+	files_by_name: HASHED_DICTIONARY[C_FILE, STRING] is once create Result.make end
+	functions: LINKED_LIST[C_FUNCTION] is once create Result.make end
 	namespaces: HASHED_DICTIONARY[C_NAMESPACE, UNICODE_STRING] is once create Result.make end
-	structures: HASHED_DICTIONARY[C_STRUCT, UNICODE_STRING] is once create Result.make end
+	symbols: HASHED_DICTIONARY[NAMED_NODE, STRING] is once create Result.make end
 	typedefs: TYPEDEFS is once create Result.make end
 	types: HASHED_DICTIONARY[TYPED_NODE, UNICODE_STRING] is once create Result.make end
-	variables: GROUPED_NODES[C_VARIABLE] is once create Result.make end
+	variables: LINKED_LIST[C_VARIABLE] is once create Result.make end
 	composed_types: HASHED_DICTIONARY[COMPOSED_NODE, UNICODE_STRING] is once create Result.make end
-	unions: HASHED_DICTIONARY[C_UNION, UNICODE_STRING] is once create Result.make end
 
 feature
 	flags: WORDS is

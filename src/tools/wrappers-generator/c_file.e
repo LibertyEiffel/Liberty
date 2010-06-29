@@ -1,11 +1,10 @@
 class C_FILE
+	-- An header file that will be wrapped as a wrapper class containing all the functions and variables defined in that file.
 
 inherit  
-	GCCXML_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	STORABLE_NODE
-	WRAPPED_BY_A_CLASS 
+	WRAPPER_CLASS
 		redefine
 			class_name
 		end
@@ -20,21 +19,28 @@ feature
 	store is
 		do
 			files.put(Current,id)
+			check
+				is_named
+			end
+			symbols.put(Current,c_string_name)
+			files_by_name.put(Current,c_string_name)
+			create features.make
+		end
+	
+	is_to_be_emitted: BOOLEAN is
+		do
+			Result := file_exists(c_string_name) and global or else headers.has(c_string_name)
 		end
 
 	emit_wrapper is
 		-- Emits into a deferred class named like the file itself the wrappers
 		-- for all the function and the variable contained into Current file.
-	local 
-		file_functions: LINKED_LIST[C_FUNCTION]
-		file_variables: LINKED_LIST[C_VARIABLE]
-		header: STRING; path: POSIX_PATH_NAME
+	local path: POSIX_PATH_NAME
 	do
-		header := c_name.to_utf8
-		if is_to_be_emitted(header) and then file_exists(header) then
+		if is_to_be_emitted then
 			if on_standard_output then
 		 		log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
-		 		<<header>>)
+		 		<<c_string_name>>)
 		 		output := std_output
 		 	else
 		 		create path.make_from_string(directory)
@@ -48,18 +54,7 @@ feature
 		 		create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 		 	end
 		 	emit_header_on(output)
-
-			file_functions := functions.reference_at(id)
-			if file_functions/=Void then
-				file_functions.do_all(agent {C_FUNCTION}.wrap_on(output))
-			end
-
-			file_variables := variables.reference_at(id)
-			if file_variables/=Void then
-				output.put_string(once "feature {} -- Variables%N")
-				file_variables.do_all(agent {C_VARIABLE}.wrap_on(output))
-			end
-
+			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)
 			output.disconnect
 		end
@@ -113,6 +108,9 @@ feature
 		end
 		Result := stored_class_name
 	end
+feature -- Content
+	features: LINKED_LIST[WRAPPER_FEATURE]
+	-- the functions and variables defined in Current file.
 
 -- invariant name.is_equal(once U"File")
 end -- class C_FILE

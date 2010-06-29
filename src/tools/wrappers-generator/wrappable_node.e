@@ -1,17 +1,12 @@
 deferred class WRAPPABLE_NODE
-	-- A node of an XML file produced by gccxml that is wrappable for Liberty
-	-- as part of a wider class. 
-inherit GCCXML_NODE
-feature 
-	wrap_on (a_stream: OUTPUT_STREAM) is
-		-- Put the wrapper on `a_stream'
-	require 
-		a_stream /= Void
-		-- buffer.is_empty
-	deferred 
-	ensure buffer.is_empty
-	end
-
+	-- A node of an XML file made by GccXml representing an entity that may be wrapped in Liberty either as a feature or as a class.
+inherit NAMED_NODE
+insert NAME_CONVERTER
+feature -- Emittability
+	is_to_be_emitted: BOOLEAN is
+		-- Shall Current node be wrapped?
+		deferred
+		end
 end -- class WRAPPABLE_NODE
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

@@ -1,24 +1,23 @@
 class C_FIELD
 
 inherit 
-	GCCXML_NODE
 	IDENTIFIED_NODE
-	NAMED_NODE
 	CONTEXTED_NODE
 	FILED_NODE
 	TYPED_NODE
 	STORABLE_NODE
+	WRAPPER_FEATURE
 
 creation make
 
 feature 
 	store is
-		local a_container: COMPOSED_NODE
-		do
-			a_container := composed_types.reference_at(context)
-			if a_container/=Void then
-				a_container.fields.add_last(Current)
+		do 
+			check 
+				container_exists: composed_types.has(context) 
 			end
+			-- Add Current to its container
+			composed_types.at(context).fields.add_last(Current)
 		end
 	
 	is_fundamental: BOOLEAN is
@@ -47,6 +46,13 @@ feature
 		Result:=stored_parent
 	ensure Result/=Void
 	end
+
+	is_to_be_emitted: BOOLEAN is True -- all fields of a composed node will be emitted (if possible)
+
+	wrap_on (a_stream: OUTPUT_STREAM) is
+		do
+			not_yet_implemented
+		end
 	
 	append_getter_and_setter (a_structure_name: STRING) is
 		require a_structure_name/=Void

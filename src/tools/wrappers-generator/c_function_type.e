@@ -1,5 +1,5 @@
 class C_FUNCTION_TYPE
-	-- A "FunctionType" node in an XML file made by gccxml.
+	-- A "FunctionType" node in an XML file made by gccxml which represents a function type wrapped as a POINTER
 
 	-- This node usually has a "returns" attribute, currently unused.
 inherit 

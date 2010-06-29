@@ -1,15 +1,10 @@
-deferred class WRAPPED_BY_A_CLASS
-	-- A node of an XML file made by gccxml which is wrappable with a class.
-	-- This class will contain the wrapping of this class and wrapped features
-	-- of many child and/or related nodes.
+deferred class WRAPPER_CLASS
+	-- A node of an Gcc-Xml file reprenting an entity wrappable by a
+	-- Liberty class also containing the wrapper features of child
+	-- and/or related nodes.
 
-inherit
-	GCCXML_NODE
-	NAMED_NODE
+inherit WRAPPABLE_NODE
 	
-
-insert NAME_CONVERTER
-
 feature
 	emit_wrapper is
 		deferred
@@ -45,7 +40,7 @@ feature {}
 		-- The suffix that will be added to class_name, i.e. "_EXTERNALS", "_ENUM", "_STRUCT"
 		deferred
 		end
-end -- class WRAPPED_BY_A_CLASS
+end -- class WRAPPER_CLASS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
