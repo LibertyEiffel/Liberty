@@ -103,7 +103,6 @@ feature {ANY} -- Wrappers emittions
 			file := files.reference_at(a_feature.c_file.id)
 		end
 		check file/=Void end
-			-- This is
 		file.features.add_first(a_feature)
 	end
 
