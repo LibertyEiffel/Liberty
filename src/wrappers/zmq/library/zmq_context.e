@@ -134,12 +134,6 @@ feature {ANY} -- Socket creations
 --              the number of application threads allowed to own 0MQ  sockets
 --              was exceeded. See app_threads parameter to zmq_init function.
 
-feature {} -- Implementation
-	struct_size: INTEGER is
-		do
-			raise("ØMQ design hides the size of a context")
-		end
-
 end -- class ZMQ_CONTEXT
 
 -- Zero MQ Liberty Wrappers

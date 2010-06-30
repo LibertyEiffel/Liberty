@@ -119,12 +119,6 @@ feature {ANY} -- Sending
 		is_successful:=zmq_send(handle,a_message.handle,0).to_boolean
 	end
 
-feature {} -- Implementation
-	struct_size: INTEGER is
-		do
-			raise("ØMQ design hides the size of its sockets")
-		end
-
 feature -- Status
 	is_successful: BOOLEAN 
 	-- Was last command successful?
@@ -138,7 +132,6 @@ feature {} -- Constants
 			feature_name: "ZMQ_NOBLOCK"
 		}"
 		end
-
 
 end -- class ZMQ_SOCKET
 
