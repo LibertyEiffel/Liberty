@@ -7,9 +7,9 @@ HEADER=plugin/c/llvm-liberty.h
 HEADERS=/usr/include/llvm-c/*
 
 wrappers: $(XML)
-	wrappers-generator --local --directory . $(XML) $(HEADERS)
+	wrappers-generator --verbose --local $(XML) $(HEADERS)
 $(XML): 
-	gccxml `llvm-config --cflags` $(HEADER) -fxml=$(XML)
+	gccxml `llvm-config --cflags all` $(HEADER) -fxml=$(XML)
 
 
 

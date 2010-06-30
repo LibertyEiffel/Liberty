@@ -2,9 +2,13 @@
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
 GCCXML_COMPILER = gcc-4.2
 
-wrappers: readline.gcc-xml
-	wrappers-generator --local --directory . readline.gcc-xml /usr/include/readline/*.h  
+XML=readline.gcc-xml
+HEADER=readline.h
+HEADERS=/usr/include/readline/*.h
 
-readline.gcc-xml:/usr/include/readline/
-	gccxml -fxml=readline.gcc-xml readline.h
+wrappers: $(XML)
+	wrappers-generator --verbose --local $(XML) $(HEADERS)  
+
+readline.gcc-xml: $(HEADERS)
+	gccxml -fxml=$(XML) $(HEADER) 
 
