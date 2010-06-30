@@ -29,7 +29,7 @@ feature
 	
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result := file_exists(c_string_name) and global or else headers.has(c_string_name)
+			Result := file_exists(c_string_name) and (global or else headers.has(c_string_name))
 		end
 
 	emit_wrapper is
