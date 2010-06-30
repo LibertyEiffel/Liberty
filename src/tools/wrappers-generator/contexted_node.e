@@ -17,8 +17,16 @@ feature
 
 	is_in_main_namespace: BOOLEAN is
 		-- Does Current belong to the main ("::") namespace?
+	local ns: C_NAMESPACE
 	do
-		Result := namespace.c_name.is_equal(once U"::")
+		ns := namespace
+		if ns/=Void then Result := ns.c_name.is_equal(once U"::")
+		else 
+			log("Context of @(1) (line @(2)) is not a namespace", <<name.as_utf8, line.out>>)
+			check
+				Result=False
+			end
+		end
 	end
 end -- class CONTEXTED_NODE
 
