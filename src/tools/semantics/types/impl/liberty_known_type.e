@@ -22,7 +22,7 @@ inherit
 		export {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
 			add_listener, has_listener
 		undefine
-			mark_reachable_code
+			mark_reachable_code, add_listener
 		end
 
 feature {ANY}
@@ -214,6 +214,6 @@ invariant
 	file /= Void
 	parameters /= Void
 	result_entity /= Void
-	cluster /= Void
+	is_known
 
 end -- class LIBERTY_KNOWN_TYPE

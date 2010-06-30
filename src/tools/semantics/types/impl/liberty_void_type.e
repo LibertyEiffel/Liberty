@@ -148,6 +148,12 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			end
 		end
 
+feature {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
+	add_listener (a_listener: LIBERTY_TYPE_LISTENER) is
+		do
+			a_listener.on_type_known(Current)
+		end
+
 feature {}
 	make is
 		do

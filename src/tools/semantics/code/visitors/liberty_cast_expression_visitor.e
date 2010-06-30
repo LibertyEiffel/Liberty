@@ -12,39 +12,14 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
+deferred class LIBERTY_CAST_EXPRESSION_VISITOR
 
 inherit
-	LIBERTY_TAGGED
+	VISITOR
 
-insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
-	VISITABLE
-
-feature {ANY}
-	result_type: LIBERTY_TYPE is
+feature {LIBERTY_CAST_EXPRESSION}
+	visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
 		deferred
-		ensure
-			Result /= Void or else result_type_may_be_void
 		end
 
-	result_type_may_be_void: BOOLEAN is
-		do
-			Result := is_agent_call
-		end
-
-	is_agent_call: BOOLEAN is False
-
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		deferred
-		ensure
-			Result /= Void
-		end
-
-invariant
-	(not result_type_may_be_void) implies result_type /= Void
-
-end
+end -- class LIBERTY_CAST_EXPRESSION_VISITOR

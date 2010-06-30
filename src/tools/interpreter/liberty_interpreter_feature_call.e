@@ -118,17 +118,6 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 						p.add_last(val)
 					elseif actual_type.converts_to(formal_type) then
 						p.add_last(interpreter.object_converter.convert_object(val, formal_type))
-					elseif formal_type = bound_feature.current_type and then formal_type.may_promote_current and then formal_type.converts_to(actual_type) then
-						-- Special Current promotion for kernel numeric types
-						check
-							not_a_precursor: feature_name /= Void
-						end
-						make(interpreter, interpreter.object_converter.convert_object(target, actual_type),
-							  actual_type.feature_definition(feature_name), actuals, position)
-						check
-							bound_feature.parameters.count = actuals.count
-						end
-						i := actuals.lower - 1 -- try again -- TODO: BAD!! side-effect functions may be called more than once!!!
 					else
 						interpreter.fatal_error("Bad object type: " + actual_type.full_name + " does not conform or convert to " + formal_type.full_name, actuals.item(i).position)
 						p.add_last(val)

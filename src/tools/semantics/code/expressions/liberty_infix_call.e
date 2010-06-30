@@ -50,8 +50,9 @@ feature {}
 			actuals_list := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity_builder.item([target.result_type, infix_name])
 			position := a_position
+			register_for_promotion
 		ensure
-			target = a_left
+			target = a_left or else {LIBERTY_CAST_EXPRESSION} ?:= target
 			actuals.first = a_right
 			position = a_position
 		end
@@ -86,6 +87,17 @@ feature {}
 		end
 
 	actuals_list: COLLECTION[LIBERTY_EXPRESSION]
+
+feature {LIBERTY_CALL_PROMOTION}
+	set_entity (a_entity: like entity) is
+		do
+			entity := a_entity
+		end
+
+	set_target (a_target: like target) is
+		do
+			target := a_target
+		end
 
 invariant
 	actuals.count = 1

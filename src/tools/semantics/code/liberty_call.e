@@ -64,7 +64,7 @@ feature {ANY}
 				end
 				i := i + 1
 			end
-			if t = target and then e = entity and then a = actuals_list then
+			if  t = target and then e = entity and then a = actuals_list then
 				Result := Current
 			else
 				Result := make_new(t, e, a, position)
@@ -72,6 +72,17 @@ feature {ANY}
 		end
 
 feature {}
+	register_for_promotion is
+		require
+			explicit_current: target /= Void
+		do
+			if actuals.count = 1 then
+				create promotion.make(Current, target.result_type, actuals.first.result_type)
+			end
+		end
+
+	promotion: LIBERTY_CALL_PROMOTION[like Current]
+
 	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
 		require
 			a_entity /= Void
@@ -87,8 +98,26 @@ feature {}
 		deferred
 		end
 
+feature {LIBERTY_CALL_PROMOTION}
+	set_entity (a_entity: like entity) is
+		require
+			a_entity /= Void
+		deferred
+		ensure
+			entity = a_entity
+		end
+
+	set_target (a_target: like target) is
+		require
+			explicit_current: target /= Void
+			still_explicit: a_target /= Void
+		deferred
+		ensure
+			target = a_target
+		end
+
 invariant
 	entity /= Void
 	actuals_list /= Void
 
-end
+end -- class LIBERTY_CALL
