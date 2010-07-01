@@ -1,2 +1,8 @@
-memcpy /usr/include/string.h
-size_t /usr/include/stdlib.h
+-- Comments are like normal Liberty code
+
+-- Functions
+memcpy	/usr/include/stdlib.h  memcpy is declared in stdlib.h. Note how everything after the second word is nicely ignored.
+calloc	/usr/include/stdlib.h also calloc is declared in stdlib.h Both are often actually defined in more obscure headers
+
+-- Typedefs to fundamental types
+size_t	/usr/include/stdlib.h  size_t typedef will be wrapped into

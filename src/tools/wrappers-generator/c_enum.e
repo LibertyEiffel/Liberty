@@ -34,7 +34,14 @@ feature
 
 	is_void: BOOLEAN is False
 
-	is_to_be_emitted: BOOLEAN is True
+	is_to_be_emitted: BOOLEAN is
+		local fn: STRING
+		do
+			fn := c_file.c_string_name
+			Result := file_exists(fn) and (global or else headers.has(fn))
+		end
+
+
 	
 	emit_wrapper is
 		local 

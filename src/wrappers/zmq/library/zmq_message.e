@@ -8,7 +8,7 @@ inherit
 insert
 	ZMQ_EXTERNALS redefine default_create end
 	ZMQ_MSG_T_STRUCT
-	STDLIBEXTERNALS redefine default_create end
+	STDLIB_EXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
 
@@ -19,7 +19,7 @@ feature {} -- Creation
 		-- Initialize an empty ØMQ message
 		local res: INTEGER_32
 		do
-			handle := malloc(struct_size.to_natural_64)
+			handle := malloc(struct_size)
 			res:=zmq_msg_init(handle)
 		end
 
@@ -31,7 +31,7 @@ feature {} -- Creation
 		-- TODO: a_size: like size_t
 	local res: INTEGER_32
 	do
-		allocate
+		handle := malloc(struct_size)
 		res:=zmq_msg_init_size(handle,a_size)
 	end
 

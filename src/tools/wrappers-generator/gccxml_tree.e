@@ -25,7 +25,7 @@ feature
 			when "Argument" then create {C_ARGUMENT} Result.make(node_name,line,column)
 			when "ArrayType" then create {C_ARRAY_TYPE} Result.make(node_name,line,column)
 			when "Base" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
-			when "Class" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+			when "Class" then create {C_PLUS_PLUS_CLASS} Result.make(node_name, line, column)
 			when "Constructor" then create {C_CONSTRUCTOR} Result.make(node_name,line,column)
 			when "Converter" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
 
@@ -103,7 +103,7 @@ feature {ANY} -- Wrappers emittions
 			file := files.reference_at(a_feature.c_file.id)
 		end
 		check file/=Void end
-			-- This is
+		log(once "Moving @(1) into @(2).%N", <<a_feature.c_string_name,file.c_string_name>>)	
 		file.features.add_first(a_feature)
 	end
 
