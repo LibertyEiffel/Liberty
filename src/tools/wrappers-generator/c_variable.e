@@ -24,12 +24,23 @@ feature
 	wrap_on (a_stream: OUTPUT_STREAM) is 
         do
 			if not has_wrapper then
-				log("Variable `@(1)' does not have a wrapper type%N", <<c_string_name>>) 
+				log("Variable `@(1)' does not have a wrapper type (address of query emitted anyway)%N", <<c_string_name>>) 
 				buffer.reset
 				buffer.put_message(once "	-- Variable @(1) (at line @(2) in file @(3) does not have a wrapper type%N",
 				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
+				buffer.put_message(once "%Taddress_of_@(1): POINTER is%N%
+				% 		-- Address of @(1) (node at line @(2))%N%
+				%		external %"plug_in%"%N%
+				%		alias %"{%N%
+				%			location: %".%"%N%
+				%			module_name: %"plugin%"%N%
+				%			feature_name: %"&@(3)%"%N%
+				%		}%"%N%
+				%		end%N%N",
+				<<eiffel_feature(c_string_name), line_row.to_utf8, c_string_name>>)
+
 			elseif not is_public then
 				log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)
@@ -47,6 +58,16 @@ feature
 				%			location: %".%"%N%
 				%			module_name: %"plugin%"%N%
 				%			feature_name: %"@(4)%"%N%
+				%		}%"%N%
+				%		end%N%
+				%%N%
+				%	address_of_@(1): POINTER is%N%
+				% 		-- Address of @(1) (node at line @(3))%N%
+				%		external %"plug_in%"%N%
+				%		alias %"{%N%
+				%			location: %".%"%N%
+				%			module_name: %"plugin%"%N%
+				%			feature_name: %"&@(4)%"%N%
 				%		}%"%N%
 				%		end%N%N",
 				<<eiffel_feature(c_string_name), wrapper_type, 
