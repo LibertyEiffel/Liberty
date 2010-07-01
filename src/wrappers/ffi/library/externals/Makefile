@@ -7,8 +7,8 @@ HEADER=plugin/c/ffi_liberty.h
 HEADERS=`dpkg -L libffi-dev | grep "\.h$$"`
 
 wrappers: $(XML)
-	@echo "Using dpkg to locate include files; please provide a portable way to locate them."
-	wrappers-generator --local --directory . $(XML) $(HEADERS) 
+	@echo "Using dpkg to locate include files; please provide a portable way to locate them." $(HEADERS)
+	wrappers-generator --verbose --local $(XML) $(HEADERS) 
 
 ## Sorry for the Debianism
 
