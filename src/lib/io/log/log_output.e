@@ -6,6 +6,9 @@ class LOG_OUTPUT
 inherit
 	OUTPUT_STREAM
 
+insert
+	STRING_FORMATTER
+
 create {LOG_LEVEL}
 	make
 
@@ -70,6 +73,17 @@ feature {LOG_LEVEL}
 			output := a_output
 		ensure
 			output = a_output
+		end
+
+feature {}
+	put (c: CHARACTER) is
+		do
+			put_character(c)
+		end
+
+	put_item (item: ABSTRACT_STRING) is
+		do
+			item.print_on(Current)
 		end
 
 feature {}
