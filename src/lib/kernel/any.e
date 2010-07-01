@@ -10,11 +10,6 @@ deferred class ANY
 	--
 
 feature {}
-	size_t: INTEGER_32 is
-		do
-			-- ugly hack until wrappers-generator generates size_t
-		end
-
 	default_create is
 			-- Default creation method. It is used when no creation
 			-- method is specified if allowed. Note it may be renamed.

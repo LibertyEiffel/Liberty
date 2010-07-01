@@ -97,8 +97,8 @@ feature {ANY} -- Wrappers emittions
 	do
 		destination := moved.reference_at(a_feature.c_string_name)
 		if destination/=Void then -- user required move
-			log(once "Moving @(1) into @(2).%N", <<a_feature.c_string_name,file.c_string_name>>)
 			file := files_by_name.reference_at(destination)
+			log(once "Moving @(1) into @(2).%N", <<a_feature.c_string_name,file.c_string_name>>)
 		else -- a_feature belong to the file as declared in the gcc-xml file 
 			file := files.reference_at(a_feature.c_file.id)
 		end

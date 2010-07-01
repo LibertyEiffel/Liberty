@@ -1,0 +1,2 @@
+memcpy /usr/include/string.h
+size_t /usr/include/stdlib.h
