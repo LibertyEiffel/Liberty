@@ -29,7 +29,7 @@ function bootstrap()
 	    ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
 	done
 	mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
-	ln -s $LIBERTY_HOME/src/tools/wrappers-generator.d/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
+	ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
 	cd ..
     fi
 
@@ -257,6 +257,7 @@ function generate_wrappers()
     n=$((n+1))
     progress 30 0 $n "Building the wrappers generator"
     run se c -verbose wrappers-generator.ace
+    cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
     i=1
     for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
 	cd ${f%/Makefile}
