@@ -57,6 +57,7 @@ feature
 			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)
 			output.disconnect
+		else log(once "Skipping file '@(1)'.%N",<<c_string_name>>)
 		end
 	end
 	
