@@ -6,4 +6,3 @@ calloc	/usr/include/stdlib.h also calloc is declared in stdlib.h Both are often 
 
 -- Typedefs to fundamental types
 size_t	/usr/include/stdlib.h  size_t typedef will be wrapped into
-
