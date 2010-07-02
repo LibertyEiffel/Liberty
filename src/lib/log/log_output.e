@@ -9,7 +9,7 @@ inherit
 insert
 	STRING_FORMATTER
 
-create {LOG_LEVEL}
+create {LOGGER}
 	make
 
 feature {ANY}
@@ -29,8 +29,6 @@ feature {ANY}
 		do
 			Result := output.can_put_character(c)
 		end
-
-	format: STRING
 
 feature {FILTER_OUTPUT_STREAM}
 	filtered_put_character (c: CHARACTER) is
@@ -63,7 +61,7 @@ feature {FILTER}
 
 	filtered_has_stream_pointer: BOOLEAN is False
 
-feature {LOG_LEVEL}
+feature {LOGGER}
 	output: OUTPUT_STREAM
 
 	set_output (a_output: like output) is
@@ -75,15 +73,28 @@ feature {LOG_LEVEL}
 			output = a_output
 		end
 
+	tag: FIXED_STRING
+
+	format: FIXED_STRING
+
+	set_format (a_format: ABSTRACT_STRING) is
+		require
+			a_format /= Void
+		do
+			format := a_format.intern
+		ensure
+			format.is_equal(a_format)
+		end
+
 feature {}
 	put (c: CHARACTER) is
 		do
-			put_character(c)
+			message.extend(c)
 		end
 
 	put_item (item: ABSTRACT_STRING) is
 		do
-			item.print_on(Current)
+			message.append(Current)
 		end
 
 feature {}
@@ -94,7 +105,7 @@ feature {}
 		do
 			set_output(a_output)
 			tag := a_tag
-			format := "@T [@t] - @m%N"
+			format := default_format
 			message := ""
 		ensure
 			output = a_output
@@ -102,7 +113,11 @@ feature {}
 		end
 
 	message: STRING
-	tag: STRING
+
+	default_format: FIXED_STRING is
+		once
+			Result := ("@T [@t] - @m%N").intern
+		end
 
 	format_and_print_message is
 		local
@@ -157,6 +172,7 @@ invariant
 	output /= Void
 	format /= Void
 	message /= Void
+	tag /= Void
 
 end -- class LOG_OUTPUT
 --

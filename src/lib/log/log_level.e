@@ -6,25 +6,15 @@ class LOG_LEVEL
 creation {LOGGING}
 	make
 
-feature {ANY}
-	set_output (a_output: OUTPUT_STREAM) is
-		require
-			a_output /= Void
-		do
-			output.set_output(a_output)
-		ensure
-			output = a_output
-		end
-
-feature {LOGGING}
-	stream (a_level: like Current): OUTPUT_STREAM is
+feature {LOGGER}
+	stream (a_level: like Current; a_log_output: LOG_OUTPUT): OUTPUT_STREAM is
 		require
 			a_level /= Void
 		do
 			if does_log(a_level) then
-				Result := output
+				Result := a_log_output
 			else
-				Result := sink
+				Result := bottomless_pit
 			end
 		ensure
 			Result /= Void
@@ -48,15 +38,12 @@ feature {}
 		do
 			level := a_level
 			tag := a_tag
-			create output.make(std_output, a_tag)
 		ensure
 			level = a_level
 			tag = a_tag
 		end
 
-	output: LOG_OUTPUT
-
-	sink: NULL_OUTPUT_STREAM is
+	bottomless_pit: NULL_OUTPUT_STREAM is
 		once
 			create Result
 		end

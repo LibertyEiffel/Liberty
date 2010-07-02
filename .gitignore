@@ -6,7 +6,7 @@
 ## Ignore object files
 *.[oa]
 ## Ignore logs of any kind
-*log
+*.log
 ## Ignore tags
 tags
 TAGS
