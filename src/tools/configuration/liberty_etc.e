@@ -16,6 +16,7 @@ expanded class LIBERTY_ETC
 
 insert
 	LIBERTY_ERROR_LEVELS
+	LOGGING
 
 create {ANY}
 	make
@@ -54,7 +55,7 @@ feature {ANY}
 			visitor = a_visitor
 		end
 
-	log is
+	log_clusters is
 		do
 			clusters.do_all(agent show_cluster)
 		end
@@ -126,8 +127,8 @@ feature {}
 
 	show_cluster (a_cluster: LIBERTY_ETC_CLUSTER) is
 		do
-			if logging.is_trace then
-				logging.trace.put_line(a_cluster.out)
+			if log.is_trace then
+				log.trace.put_line(a_cluster.out)
 			end
 		end
 
@@ -254,7 +255,6 @@ feature {}
 	env: LIBERTY_ENVIRONMENT
 	dir: BASIC_DIRECTORY
 	files: FILE_TOOLS
-	logging: LOGGING
 
 invariant
 	not roots.is_empty

@@ -825,7 +825,6 @@ feature {}
 
 	dir: BASIC_DIRECTORY
 	files: FILE_TOOLS
-	logging: LOGGING
 
 	tfr: TEXT_FILE_READ is
 		once

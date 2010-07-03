@@ -1,0 +1,44 @@
+cluster LOG
+--
+-- Logging framework.
+--
+-- Looks for a default configuration file named "log.rc" in the process's working directory.
+--
+-- Example of log.rc file:
+--
+-- --8<--------
+--
+-- log configuration
+--
+-- root MY_APP -- note that the names of the loggers are the names of the classes that use them.
+--
+-- output
+--    out_debug is file "/var/log/myapp-trace.log"
+--    out_events is file "/var/log/myapp-events.log"
+--
+-- logger
+--    MY_APP is
+--       output out_events
+--       level error
+--    end
+--
+--    MY_TRACED_CLASS is
+--       like MY_APP
+--       output out_debug
+--       level trace
+--    end
+--
+-- -------->8--
+--
+
+version "1.0"
+
+locations
+	"."
+	"conf"
+
+needs
+	KERNEL
+	PARSE
+
+end

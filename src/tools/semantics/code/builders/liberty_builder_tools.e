@@ -7,7 +7,6 @@ insert
 feature {}
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
-	logging: LOGGING
 	type_lookup: LIBERTY_TYPE_LOOKUP
 
 	universe: LIBERTY_UNIVERSE is

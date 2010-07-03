@@ -24,6 +24,10 @@ insert
 		redefine
 			copy, out_in_tagged_out_memory
 		end
+	LOGGING
+		redefine
+			copy, out_in_tagged_out_memory
+		end
 
 creation {LIBERTY_BUILDER_TOOLS}
 	make
@@ -175,8 +179,8 @@ feature {LIBERTY_UNIVERSE}
 	set_reachable (mark: like reachable_mark) is
 		do
 			if not is_reachable then
-				logging.trace.put_string(once "Marked reachable the feature definition: ")
-				logging.trace.put_line(feature_name.name)
+				log.trace.put_string(once "Marked reachable the feature definition: ")
+				log.trace.put_line(feature_name.name)
 				torch.burn
 			end
 
@@ -501,7 +505,6 @@ feature {}
 
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	errors: LIBERTY_ERRORS
-	logging: LOGGING
 
 	debug_full_name: STRING
 

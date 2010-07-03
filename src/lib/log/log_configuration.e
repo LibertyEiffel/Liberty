@@ -7,19 +7,19 @@ expanded class LOG_CONFIGURATION
 --
 
 feature {ANY}
-	load (a_stream: INPUT_STREAM) is
+	load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]) is
 		require
 			a_stream.is_connected
 		do
-			internal.load(a_stream)
+			internal.load(a_stream, when_error)
 		end
 
 feature {LOGGING}
-	logger (a_tag: FIXED_STRING) is
+	logger (a_tag: FIXED_STRING): LOGGER is
 		require
 			a_tag /= Void
 		do
-			Result := internal.logger(a_tag)
+			Result := internal.conf_logger(a_tag)
 		ensure
 			Result /= Void
 		end

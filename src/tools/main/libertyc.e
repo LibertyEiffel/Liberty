@@ -19,6 +19,7 @@ class LIBERTYC
 
 insert
 	ARGUMENTS
+	LOGGING
 
 create {}
 	make
@@ -46,12 +47,10 @@ feature {}
 			create root_feature_name.make("make".intern)
 			universe.build_types(root, root_feature_name, root)
 
-			logging.info.put_new_line
-			logging.info.put_line("Root type: ")
-			root.debug_display(logging.info, True)
-			logging.info.put_line("Done.")
+			log.info.put_new_line
+			log.info.put_line("Root type: ")
+			root.debug_display(log.info, True)
+			log.info.put_line("Done.")
 		end
-
-	logging: LOGGING
 
 end

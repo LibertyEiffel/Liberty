@@ -26,30 +26,32 @@ feature {}
 											 "Output*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Output*");
 																						  {FAST_ARRAY[STRING] << "Output", "Output*" >> }, agent build_continue_list("Output", 0, "Output*");
 																						  {FAST_ARRAY[STRING] << "Output", "KW ;", "Output*" >> }, agent build_continue_list("Output", 1, "Output*") >> };
-											 "Output", {PARSE_NON_TERMINAL << --{FAST_ARRAY[STRING] << "KW entity name", "KW on ", "KW url", "KW string" >> }, Void;
-																						 {FAST_ARRAY[STRING] << "KW entity name", "KW on ", "KW file", "KW string" >> }, Void >> };
+											 "Output", {PARSE_NON_TERMINAL << --{FAST_ARRAY[STRING] << "KW entity name", "KW is ", "KW url", "KW string" >> }, Void;
+																						 {FAST_ARRAY[STRING] << "KW entity name", "KW is ", "KW file", "KW string" >> }, Void >> };
 											 "Loggers", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW logger", "Logger*" >> }, Void >> };
 											 "Logger*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Logger*");
 																						  {FAST_ARRAY[STRING] << "Logger", "Logger*" >> }, agent build_continue_list("Logger", 0, "Logger*");
 																						  {FAST_ARRAY[STRING] << "Logger", "KW ;", "Logger*" >> }, agent build_continue_list("Logger", 1, "Logger*") >> };
-											 "Logger", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW class name", "KW is", "Parent",
-																														"KW level", "Level", "Logger_Output", "KW end" >> }, Void >> };
+											 "Logger", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW class name", "KW is", "Parent", "Logger_Output",
+																														"Level", "KW end" >> }, Void >> };
 											 "Parent", {PARSE_NON_TERMINAL << epsilon, Void;
 																						 {FAST_ARRAY[STRING] << "KW like", "KW class name", "KW with" >> }, Void >> };
-											 "Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW trace" >> }, Void;
-																						{FAST_ARRAY[STRING] << "KW info" >> }, Void;
-																						{FAST_ARRAY[STRING] << "KW warn" >> }, Void;
-																						{FAST_ARRAY[STRING] << "KW error" >> }, Void; >> };
+											 "Level", {PARSE_NON_TERMINAL << epsilon, Void;
+																						{FAST_ARRAY[STRING] << "KW level", "KW trace" >> }, Void;
+																						{FAST_ARRAY[STRING] << "KW level", "KW info" >> }, Void;
+																						{FAST_ARRAY[STRING] << "KW level", "KW warning" >> }, Void;
+																						{FAST_ARRAY[STRING] << "KW level", "KW error" >> }, Void; >> };
 											 "Logger_Output", {PARSE_NON_TERMINAL << epsilon, Void;
-																								  {FAST_ARRAY[STRING] << "KW on", "KW entity name" >> }, Void >> };
+																								  {FAST_ARRAY[STRING] << "KW output", "KW entity name" >> }, Void >> };
 
 											 -- Symbols
 
-											 "KW ;",             create {PARSE_TERMINAL}.make(agent parse_symbol(?, ";", ";"),  Void);
+											 "KW ;",             create {PARSE_TERMINAL}.make(agent parse_symbol(?, ";", Void),  Void);
+											 "KW ,",             create {PARSE_TERMINAL}.make(agent parse_symbol(?, ",", Void),  Void);
 
 											 -- Identifiers
 
-											 "KW class name",    create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name(True, ?), Void);
+											 "KW class name",    create {PARSE_TERMINAL}.make(agent parse_class_name, Void);
 											 "KW entity name",   create {PARSE_TERMINAL}.make(agent parse_entity_name, Void);
 											 "KW string",        create {PARSE_TERMINAL}.make(agent parse_string, Void);
 
@@ -65,12 +67,11 @@ feature {}
 											 "KW like",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "like"), Void);
 											 "KW log",           create {PARSE_TERMINAL}.make(agent parse_keyword(?, "log"), Void);
 											 "KW logger",        create {PARSE_TERMINAL}.make(agent parse_keyword(?, "logger"), Void);
-											 "KW on",            create {PARSE_TERMINAL}.make(agent parse_keyword(?, "on"), Void);
 											 "KW output",        create {PARSE_TERMINAL}.make(agent parse_keyword(?, "output"), Void);
 											 "KW root",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "root"), Void);
 											 "KW trace",         create {PARSE_TERMINAL}.make(agent parse_keyword(?, "trace"), Void);
 											 "KW url",           create {PARSE_TERMINAL}.make(agent parse_keyword(?, "url"), Void); -- reserved but not yet used
-											 "KW warn",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "warn"), Void);
+											 "KW warning",       create {PARSE_TERMINAL}.make(agent parse_keyword(?, "warning"), Void);
 											 "KW with",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "with"), Void);
 											 >> }
 		end

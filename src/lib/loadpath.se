@@ -8,6 +8,7 @@
 ./io/loadpath.se
 ./iterator/loadpath.se
 ./kernel/loadpath.se
+./log/loadpath.se
 ./message_formatter/
 ./misc/
 ./ncurses/loadpath.se

@@ -15,6 +15,7 @@
 expanded class LIBERTY_ENVIRONMENT
 
 insert
+	LOGGING
 	SYSTEM
 		export
 			{ANY} copy, is_equal, standard_is_equal, generating_type;
@@ -62,9 +63,9 @@ feature {ANY}
 				environment.add(a_value.out, name)
 			end
 
-			logging.trace.put_string(a_name)
-			logging.trace.put_string(once " = ")
-			logging.trace.put_line(a_value)
+			log.trace.put_string(a_name)
+			log.trace.put_string(once " = ")
+			log.trace.put_line(a_value)
 		ensure
 			item(a_name).is_equal(a_value.out)
 		end
@@ -142,7 +143,5 @@ feature {}
 		once
 			create {HASHED_DICTIONARY[STRING, FIXED_STRING]} Result.make
 		end
-
-	logging: LOGGING
 
 end

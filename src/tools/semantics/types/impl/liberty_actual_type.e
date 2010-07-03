@@ -19,6 +19,9 @@ class LIBERTY_ACTUAL_TYPE
 
 inherit
 	LIBERTY_KNOWN_TYPE
+		redefine
+			is_equal
+		end
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -525,8 +528,8 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if not is_reachable then
 				torch.burn
-				logging.trace.put_string(once "Marked reachable the type: ")
-				logging.trace.put_line(full_name)
+				log.trace.put_string(once "Marked reachable the type: ")
+				log.trace.put_line(full_name)
 			end
 			if reachable_mark < mark then
 				reachable_mark := mark

@@ -19,6 +19,7 @@ needs
 	IO
 	ITERATOR
 	KERNEL
+	LOG
 	MESSAGE_FORMATTER
 	MISC
 	NCURSES
@@ -47,6 +48,7 @@ cluster
 	IO: "./io"
 	ITERATOR: "./iterator"
 	KERNEL: "./kernel"
+	LOG: "./log"
 	MESSAGE_FORMATTER: "./message_formatter"
 	MISC: "./misc"
 	NCURSES: "./ncurses"

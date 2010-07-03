@@ -7,5 +7,3 @@
 ./internal/
 ./filter/
 ./tools/
-./log/
-./log/conf/

@@ -19,6 +19,7 @@ inherit
 
 insert
 	LIBERTY_TAGS
+	LOGGING
 
 creation {LIBERTY_INTERPRETER}
 	make, make_precursor
@@ -44,7 +45,7 @@ feature {LIBERTY_INTERPRETER}
 		do
 			check not prepare end
 
-			if logging.is_trace then
+			if log.is_trace then
 				log_call(once "Calling")
 			end
 
@@ -77,7 +78,7 @@ feature {LIBERTY_INTERPRETER}
 			end
 			debug_steps.exit_call
 
-			if logging.is_trace then
+			if log.is_trace then
 				log_call(once "Returning from")
 			end
 		end
@@ -657,51 +658,49 @@ feature {}
 			std_output.put_line(step)
 		end
 
-	logging: LOGGING
-
 	log_call (tag: STRING) is
 		require
-			logging.is_trace
+			log.is_trace
 		local
-			i: INTEGER; log: OUTPUT_STREAM
+			i: INTEGER; log_out: OUTPUT_STREAM
 			formals: TRAVERSABLE[LIBERTY_PARAMETER]
 			p: LIBERTY_PARAMETER
 		do
-			log := logging.trace
-			log.put_string(tag)
-			log.put_string(once " feature {")
-			log.put_string(bound_feature.current_type.full_name)
-			log.put_string(once "}.")
-			log.put_string(name)
+			log_out := log.trace
+			log_out.put_string(tag)
+			log_out.put_string(once " feature {")
+			log_out.put_string(bound_feature.current_type.full_name)
+			log_out.put_string(once "}.")
+			log_out.put_string(name)
 			formals := bound_feature.parameters
 			if not formals.is_empty then
-				log.put_character(' ')
-				log.put_character('(')
+				log_out.put_character(' ')
+				log_out.put_character('(')
 				from
 					i := formals.lower
 				until
 					i > formals.upper
 				loop
 					if i > formals.lower then
-						log.put_string(once ", ")
+						log_out.put_string(once ", ")
 					end
-					log.put_string(formals.item(i).result_type.full_name)
+					log_out.put_string(formals.item(i).result_type.full_name)
 					i := i + 1
 				end
-				log.put_character(')')
+				log_out.put_character(')')
 			end
 			if returned_static_type /= Void then
-				log.put_string(once ": ")
-				log.put_string(returned_static_type.full_name)
+				log_out.put_string(once ": ")
+				log_out.put_string(returned_static_type.full_name)
 			end
 			if position.is_unknown then
-				log.put_new_line
+				log_out.put_new_line
 			else
-				log.put_character(' ')
-				position.show(log)
+				log_out.put_character(' ')
+				position.show(log_out)
 			end
-			log.put_string(once " - Current=")
-			interpreter.object_printer.print_object(log, target, 1)
+			log_out.put_string(once " - Current=")
+			interpreter.object_printer.print_object(log_out, target, 1)
 			if parameter_map /= Void then
 				from
 					i := formals.lower
@@ -709,16 +708,16 @@ feature {}
 					i > formals.upper
 				loop
 					p := formals.item(i)
-					log.put_string(once " - ")
-					log.put_string(p.name)
-					log.put_character('=')
-					interpreter.object_printer.print_object(log, parameter_map.fast_at(p.name), 1)
+					log_out.put_string(once " - ")
+					log_out.put_string(p.name)
+					log_out.put_character('=')
+					interpreter.object_printer.print_object(log_out, parameter_map.fast_at(p.name), 1)
 					i := i + 1
 				end
 			end
 			if returned_object /= Void then
-				log.put_string(once " - Result=")
-				interpreter.object_printer.print_object(log, returned_object, 1)
+				log_out.put_string(once " - Result=")
+				interpreter.object_printer.print_object(log_out, returned_object, 1)
 			end
 		end
 

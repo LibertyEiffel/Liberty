@@ -23,6 +23,12 @@ inherit
 			out_in_tagged_out_memory
 		end
 
+insert
+	LOGGING
+		redefine
+			out_in_tagged_out_memory, is_equal
+		end
+
 create {LIBERTY_ETC_VISITOR_IMPL}
 	make
 
@@ -117,7 +123,7 @@ feature {LIBERTY_ETC_CLUSTER}
 			a_needs.cluster = Current
 		do
 			if find_needs_cycle(a_needs, a_origin, Current) then
-				logging.trace.put_new_line
+				log.trace.put_new_line
 			end
 			clear_cycle_mark
 		end
@@ -127,20 +133,20 @@ feature {LIBERTY_ETC_CLUSTER}
 			if mark = 1 then
 				Result := start = Current
 				if Result then
-					if logging.is_trace then
-						logging.trace.put_string(once "Cycle in ")
-						logging.trace.put_string(origin.name)
-						logging.trace.put_string(once ": ")
-						logging.trace.put_string(name)
+					if log.is_trace then
+						log.trace.put_string(once "Cycle in ")
+						log.trace.put_string(origin.name)
+						log.trace.put_string(once ": ")
+						log.trace.put_string(name)
 					end
 				end
 			else
 				mark := 1
 				Result := needs_memory.exists(agent find_needs_cycle(?, origin, start))
 				if Result then
-					if logging.is_trace then
-						logging.trace.put_string(once " -> ")
-						logging.trace.put_string(name)
+					if log.is_trace then
+						log.trace.put_string(once " -> ")
+						log.trace.put_string(name)
 					end
 				end
 			end
@@ -231,15 +237,15 @@ feature {LIBERTY_ETC_CLUSTER}
 		require
 			a_depth > depth
 		do
-			if logging.is_trace then
-				logging.trace.put_string(name)
-				logging.trace.put_string(once " (mark=")
-				logging.trace.put_integer(mark)
-				logging.trace.put_string(once "): depth from ")
-				logging.trace.put_integer(depth)
-				logging.trace.put_string(once " to ")
-				logging.trace.put_integer(a_depth)
-				logging.trace.put_new_line
+			if log.is_trace then
+				log.trace.put_string(name)
+				log.trace.put_string(once " (mark=")
+				log.trace.put_integer(mark)
+				log.trace.put_string(once "): depth from ")
+				log.trace.put_integer(depth)
+				log.trace.put_string(once " to ")
+				log.trace.put_integer(a_depth)
+				log.trace.put_new_line
 			end
 			depth := a_depth
 		ensure
@@ -266,11 +272,11 @@ feature {}
 			name := a_name
 			locations := a_locations
 			create needs_memory.with_capacity(2)
-			if logging.is_trace then
-				logging.trace.put_string(once "Master cluster definition: ")
-				logging.trace.put_string(name)
-				logging.trace.put_string(once " -> ")
-				logging.trace.put_line(a_locations.out)
+			if log.is_trace then
+				log.trace.put_string(once "Master cluster definition: ")
+				log.trace.put_string(name)
+				log.trace.put_string(once " -> ")
+				log.trace.put_line(a_locations.out)
 			end
 		ensure
 			name = a_name
@@ -278,7 +284,6 @@ feature {}
 		end
 
 	needs_memory: FAST_ARRAY[LIBERTY_ETC_NEEDS]
-	logging: LOGGING
 
 invariant
 	name /= Void

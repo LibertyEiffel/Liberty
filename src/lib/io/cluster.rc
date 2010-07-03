@@ -10,14 +10,11 @@ locations
 	"filesystem/path_name"
 	"filter"
 	"internal"
-	"log"
-	"log/conf"
 	"low_level"
 	"tools"
 
 needs
 	KERNEL
 	WRAPPER_READLINE
-	PARSE
 
 end

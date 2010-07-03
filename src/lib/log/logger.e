@@ -83,27 +83,26 @@ feature {LOG_INTERNAL_CONF} -- Parent logger
 		do
 			parent := a_parent
 			set_level(a_parent.level)
-			output.set_parent(a_parent.output)
 		ensure
 			parent = a_parent
 		end
 
+	output: LOG_OUTPUT
+
 feature {}
-	make (a_output: OUTPUT_STREAM; a_tag: like tag) is
+	make (a_output: LOG_OUTPUT; a_tag: like tag) is
 		require
 			a_output /= Void
 		do
-			create output.make(a_output, a_tag)
+			output := a_output
 			tag := a_tag
-			level := levels.warn
+			set_level(levels.trace)
 		ensure
+			output = a_output
 			tag = a_tag
 		end
 
 	levels: LOG_LEVELS
-
-feature {LOGGER}
-	output: LOG_OUTPUT
 
 invariant
 	tag /= Void

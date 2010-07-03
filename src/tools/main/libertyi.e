@@ -19,6 +19,7 @@ class LIBERTYI
 
 insert
 	ARGUMENTS
+	LOGGING
 
 create {}
 	make
@@ -61,13 +62,13 @@ feature {}
 					inspect
 						arg
 					when "t", "trace", "debug" then
-						logging.set_level(logging.level_trace)
+						log.set_level(levels.trace)
 					when "i", "info" then
-						logging.set_level(logging.level_info)
+						log.set_level(levels.info)
 					when "w", "warn", "warning" then
-						logging.set_level(logging.level_warning)
+						log.set_level(levels.warning)
 					when "e", "error" then
-						logging.set_level(logging.level_error)
+						log.set_level(levels.error)
 					else
 						usage
 					end
@@ -98,7 +99,7 @@ feature {}
 			end
 
 			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
-			etc.log
+			etc.log_clusters
 
 			create universe.make
 			create root_feature_name.make(argument(3).intern)
@@ -118,7 +119,7 @@ feature {}
 			std_error.put_line("  <-vvar=value>        The variable 'var' is set to 'value'.")
 			std_error.put_line("                         Useful for plugin paths. For example:")
 			std_error.put_line("                         -vsys=`se -environment | grep '^SE_SYS=' | cut -c8-`")
-			std_error.put_line("  <-log=level>         The logging level: trace, info, warning, error")
+			std_error.put_line("  <-log=level>         The log level: trace, info, warning, error")
 			std_error.put_line("  <-check=level>       The contract checking level: all, invariant, ensure,")
 			std_error.put_line("                                                    require, none")
 			std_error.put_line("  <-debug>             Enables debug sections")
@@ -126,6 +127,6 @@ feature {}
 			die_with_code(1)
 		end
 
-	logging: LOGGING
+	levels: LOG_LEVELS
 
 end -- class LIBERTYI

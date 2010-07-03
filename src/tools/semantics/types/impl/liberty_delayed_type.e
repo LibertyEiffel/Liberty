@@ -19,7 +19,7 @@ class LIBERTY_DELAYED_TYPE
 
 inherit
 	LIBERTY_TYPE
-		redefine mark_reachable_code
+		redefine mark_reachable_code, is_equal
 		end
 
 creation {ANY}

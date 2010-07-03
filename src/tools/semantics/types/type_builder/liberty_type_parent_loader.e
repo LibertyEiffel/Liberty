@@ -19,6 +19,7 @@ class LIBERTY_TYPE_PARENT_LOADER
 
 insert
 	LIBERTY_TYPE_BUILDER_TOOLS
+	LOGGING
 
 creation {LIBERTY_TYPE_BUILDER}
 	make
@@ -73,11 +74,11 @@ feature {}
 			parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE
 		do
 			if conformant then
-				logging.trace.put_string(once "Adding conformant parents to ")
+				log.trace.put_string(once "Adding conformant parents to ")
 			else
-				logging.trace.put_string(once "Adding non-conformant parents to ")
+				log.trace.put_string(once "Adding non-conformant parents to ")
 			end
-			logging.trace.put_line(type.full_name)
+			log.trace.put_line(type.full_name)
 
 			from
 				Result := had_parents

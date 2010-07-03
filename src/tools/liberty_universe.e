@@ -25,6 +25,9 @@ insert
 		undefine is_equal
 		end
 	SINGLETON
+	LOGGING
+		undefine is_equal
+		end
 
 create {ANY}
 	make
@@ -832,10 +835,10 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 			create class_descriptor.make(actual_cluster, class_name, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
-				logging.info.put_string(once "Parsing ")
-				logging.info.put_string(cluster.name)
-				logging.info.put_character('.')
-				logging.info.put_line(class_name)
+				log.info.put_string(once "Parsing ")
+				log.info.put_string(cluster.name)
+				log.info.put_character('.')
+				log.info.put_line(class_name)
 
 				code := once ""
 				code.clear_count
@@ -859,8 +862,8 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
 
-				logging.trace.put_string(class_name)
-				logging.trace.put_line(once " parsed.")
+				log.trace.put_string(class_name)
+				log.trace.put_line(once " parsed.")
 			end
 		ensure
 			Result /= Void
@@ -902,7 +905,7 @@ feature {} -- AST building
 			one_class: LIBERTY_AST_ONE_CLASS
 			evaled: BOOLEAN
 		once
-			logging.info.put_line(once "Parsing TUPLE")
+			log.info.put_line(once "Parsing TUPLE")
 
 			tuple_cluster := root.find("TUPLE".intern)
 			if tuple_cluster = Void then
@@ -940,7 +943,7 @@ feature {} -- AST building
 				i := i + 1
 			end
 
-			logging.trace.put_line(once "TUPLE parsed.")
+			log.trace.put_line(once "TUPLE parsed.")
 		ensure
 			Result /= Void
 		end
@@ -1015,7 +1018,6 @@ feature {}
 	errors: LIBERTY_ERRORS
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
 	type_lookup: LIBERTY_TYPE_LOOKUP
-	logging: LOGGING
 
 	standard_generics_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER is
 		once

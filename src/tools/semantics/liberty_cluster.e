@@ -31,6 +31,10 @@ class LIBERTY_CLUSTER
 
 insert
 	HASHABLE
+	LOGGING
+		undefine
+			is_equal
+		end
 
 create {LIBERTY_UNIVERSE}
 	make_root
@@ -178,9 +182,9 @@ feature {}
 			in_other_words: depth = 0
 		do
 			if a_etc.depth = 0 and then a_etc.cluster = Void then
-				logging.trace.put_string(name)
-				logging.trace.put_string(once ": adding root cluster from etc ")
-				logging.trace.put_line(a_etc.name)
+				log.trace.put_string(name)
+				log.trace.put_string(once ": adding root cluster from etc ")
+				log.trace.put_line(a_etc.name)
 				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(1, a_etc, Current))
 			end
 		end
@@ -202,12 +206,12 @@ feature {}
 			create class_names.with_capacity(16)
 			create c.with_capacity(a_etc.needs.count)
 			children := c
-			logging.info.put_string(once "Cluster (")
-			logging.info.put_integer(depth)
-			logging.info.put_string(once ") ")
-			logging.info.put_string(name)
-			logging.info.put_string(once ": ")
-			logging.info.put_line(locations.out)
+			log.info.put_string(once "Cluster (")
+			log.info.put_integer(depth)
+			log.info.put_string(once ") ")
+			log.info.put_string(name)
+			log.info.put_string(once ": ")
+			log.info.put_line(locations.out)
 			a_etc.set_cluster(Current)
 			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c, a_root))
 		ensure
@@ -225,9 +229,9 @@ feature {}
 					a_children.add_last(a_etc.cluster.cluster)
 				end
 			else
-				logging.trace.put_string(name)
-				logging.trace.put_string(once ": adding child cluster from etc ")
-				logging.trace.put_line(a_etc.cluster.name)
+				log.trace.put_string(name)
+				log.trace.put_string(once ": adding child cluster from etc ")
+				log.trace.put_line(a_etc.cluster.name)
 				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster.depth + 1, a_etc.cluster, root))
 			end
 		end
@@ -239,7 +243,7 @@ feature {}
 		local
 			location_directory: STRING
 		do
-			logging.warning.put_line(once "Effective clusters should not be created directly from classpath.se anymore! (only master clusters should)")
+			log.warning.put_line(once "Effective clusters should not be created directly from classpath.se anymore! (only master clusters should)")
 
 			if not ft.is_file(a_loadpath) then
 				std_error.put_line("*** Error: not a loadpath: " + a_loadpath)
@@ -256,12 +260,12 @@ feature {}
 				location_directory := dir.last_entry.twin
 			end
 			create class_names.with_capacity(16)
-			logging.info.put_string(once "Cluster (")
-			logging.info.put_integer(depth)
-			logging.info.put_string(once ") ")
-			logging.info.put_string(name)
-			logging.info.put_string(once ": ")
-			logging.info.put_line(locations.out)
+			log.info.put_string(once "Cluster (")
+			log.info.put_integer(depth)
+			log.info.put_string(once ") ")
+			log.info.put_string(name)
+			log.info.put_string(once ": ")
+			log.info.put_line(locations.out)
 			read_loadpath(a_loadpath, location_directory)
 		ensure
 			root = a_root
@@ -324,9 +328,9 @@ feature {}
 				if ft.is_directory(sublocation) then
 					a_locations.add_last(sublocation.intern)
 				elseif ft.is_file(sublocation) then
-					logging.trace.put_string(name)
-					logging.trace.put_string(once ": adding child cluster from loadpath ")
-					logging.trace.put_line(sublocation)
+					log.trace.put_string(name)
+					log.trace.put_string(once ": adding child cluster from loadpath ")
+					log.trace.put_line(sublocation)
 					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(depth + 1, sublocation, root));
 				else
 					std_error.put_line(once "*** Warning: ignored location: " + sublocation)
@@ -357,7 +361,6 @@ feature {}
 			create Result
 		end
 
-	logging: LOGGING
 	env: LIBERTY_ENVIRONMENT
 	find_mark: INTEGER
 

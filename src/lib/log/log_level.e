@@ -3,7 +3,7 @@
 --
 class LOG_LEVEL
 
-creation {LOGGING}
+creation {LOG_LEVELS}
 	make
 
 feature {LOGGER}
@@ -49,7 +49,7 @@ feature {}
 		end
 
 invariant
-	output /= Void
+	level /= Void
 	tag /= Void
 
 end -- class LOG_LEVEL

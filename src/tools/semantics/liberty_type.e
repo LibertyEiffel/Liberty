@@ -21,6 +21,9 @@ inherit
 	HASHABLE
 		undefine out_in_tagged_out_memory
 		end
+	LOGGING
+		undefine out_in_tagged_out_memory
+		end
 
 insert
 	LIBERTY_REACHABLE_MARKED
@@ -57,8 +60,8 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if not is_reachable then
 				torch.burn
-				logging.trace.put_string(once "Marked reachable the type: ")
-				logging.trace.put_line(full_name)
+				log.trace.put_string(once "Marked reachable the type: ")
+				log.trace.put_line(full_name)
 			end
 			reachable_mark := mark
 		end
@@ -126,7 +129,6 @@ feature {}
 feature {}
 	listeners: COLLECTION[LIBERTY_TYPE_LISTENER]
 	torch: LIBERTY_ENLIGHTENING_THE_WORLD
-	logging: LOGGING
 
 invariant
 	not is_known implies listeners /= Void

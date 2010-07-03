@@ -14,6 +14,9 @@
 --
 class LIBERTY_INTERPRETER
 
+insert
+	LOGGING
+
 creation {LIBERTYI}
 	make
 
@@ -22,15 +25,15 @@ feature {LIBERTYI}
 		local
 			root_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			logging.info.put_string(once "Now running {")
-			logging.info.put_string(root_type.full_name)
-			logging.info.put_string(once "}.")
-			logging.info.put_line(root_feature_name.full_name)
+			log.info.put_string(once "Now running {")
+			log.info.put_string(root_type.full_name)
+			log.info.put_string(once "}.")
+			log.info.put_line(root_feature_name.full_name)
 
 			root_object := new_object(root_type, errors.unknown_position)
 			call_feature(root_object, root_feature, root_feature_actuals, errors.unknown_position)
 
-			logging.info.put_line(once "Finished.")
+			log.info.put_line(once "Finished.")
 		end
 
 feature {ANY}
@@ -786,7 +789,6 @@ feature {}
 		end
 
 	errors: LIBERTY_ERRORS
-	logging: LOGGING
 
 invariant
 	instructions /= Void

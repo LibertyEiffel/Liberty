@@ -12,3 +12,5 @@ tags
 TAGS
 ## Ignore install files
 target
+## Ignore GCC-XML wrapper-generator files
+*.gcc-xml

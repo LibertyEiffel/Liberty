@@ -9,7 +9,7 @@ inherit
 insert
 	STRING_FORMATTER
 
-create {LOGGER}
+create {LOG_INTERNAL_CONF}
 	make
 
 feature {ANY}
@@ -94,7 +94,7 @@ feature {}
 
 	put_item (item: ABSTRACT_STRING) is
 		do
-			message.append(Current)
+			message.append(item)
 		end
 
 feature {}

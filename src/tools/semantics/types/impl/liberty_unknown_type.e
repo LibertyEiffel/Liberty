@@ -22,6 +22,8 @@ class LIBERTY_UNKNOWN_TYPE
 
 inherit
 	LIBERTY_TYPE
+		undefine is_equal
+		end
 
 insert
 	SINGLETON
