@@ -15,28 +15,28 @@ feature {ANY}
 feature {ANY} -- Logging streams
 	trace: OUTPUT_STREAM is
 		do
-			Result := levels.trace.stream(level, output)
+			Result := levels.trace.stream(level, output, tag)
 		ensure
 			Result /= Void
 		end
 
 	info: OUTPUT_STREAM is
 		do
-			Result := levels.info.stream(level, output)
+			Result := levels.info.stream(level, output, tag)
 		ensure
 			Result /= Void
 		end
 
 	warning: OUTPUT_STREAM is
 		do
-			Result := levels.warning.stream(level, output)
+			Result := levels.warning.stream(level, output, tag)
 		ensure
 			Result /= Void
 		end
 
 	error: OUTPUT_STREAM is
 		do
-			Result := levels.error.stream(level, output)
+			Result := levels.error.stream(level, output, tag)
 		ensure
 			Result /= Void
 		end

@@ -7,11 +7,13 @@ creation {LOG_LEVELS}
 	make
 
 feature {LOGGER}
-	stream (a_level: like Current; a_log_output: LOG_OUTPUT): OUTPUT_STREAM is
+	stream (a_level: like Current; a_log_output: LOG_OUTPUT; a_logger_tag: FIXED_STRING): OUTPUT_STREAM is
 		require
 			a_level /= Void
+			a_logger_tag /= Void
 		do
 			if does_log(a_level) then
+				a_log_output.set(tag, a_logger_tag)
 				Result := a_log_output
 			else
 				Result := bottomless_pit
@@ -29,7 +31,7 @@ feature {LOGGER}
 
 feature {LOG_LEVEL}
 	level: INTEGER
-	tag: STRING
+	tag: FIXED_STRING
 
 feature {}
 	make (a_level: like level; a_tag: like tag) is

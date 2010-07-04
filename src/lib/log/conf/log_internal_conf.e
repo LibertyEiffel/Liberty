@@ -106,7 +106,7 @@ feature {}
 		require
 			on_error /= Void
 		local
-			root_name, logger_name: FIXED_STRING; logger, parent: LOGGER
+			logger_name: FIXED_STRING; logger, parent: LOGGER
 		do
 			inspect
 				node.name
@@ -197,7 +197,7 @@ feature {EIFFEL_LIST_NODE_IMPL}
 feature {LOG_CONFIGURATION}
 	load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]) is
 		local
-			conf: STRING; evaled: BOOLEAN
+			conf: STRING
 			on_error: like when_error
 		do
 			if when_error = Void then

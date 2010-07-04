@@ -61,6 +61,19 @@ feature {FILTER}
 
 	filtered_has_stream_pointer: BOOLEAN is False
 
+feature {LOG_LEVEL}
+	level_tag: FIXED_STRING
+	logger_tag: FIXED_STRING
+
+	set (a_level_tag, a_logger_tag: FIXED_STRING) is
+		do
+			level_tag := a_level_tag
+			logger_tag := a_logger_tag
+		ensure
+			level_tag = a_level_tag
+			logger_tag = a_logger_tag
+		end
+
 feature {LOGGER}
 	output: OUTPUT_STREAM
 
@@ -116,7 +129,7 @@ feature {}
 
 	default_format: FIXED_STRING is
 		once
-			Result := ("@T [@t] - @m%N").intern
+			Result := ("@C [@t] - @m%N").intern
 		end
 
 	format_and_print_message is
@@ -136,12 +149,18 @@ feature {}
 						output.put_character('@')
 					else
 						inspect format.item(i + 1)
+						when 'C' then
+							output.put_string(level_tag)
+						when 'L' then
+							output.put_string(logger_tag)
 						when 'T' then
 							output.put_string(tag)
 						when 't' then
 							output.put_string(i18n.locale.localized_time_and_date(time))
 						when 'm' then
 							output.put_string(message)
+						when '@' then
+							output.put_character('@')
 						else
 							output.put_character('@')
 							output.put_character(format.item(i + 1))
