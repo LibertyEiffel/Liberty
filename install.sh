@@ -14,7 +14,7 @@ function bootstrap()
     cd $LIBERTY_HOME
     test -d target || mkdir target
     cd target
-    mkdir log
+    test -d log || mkdir log
 
     title "Unpacking SmartEiffel"
     test -d SmartEiffel && rm -rf SmartEiffel
@@ -313,6 +313,9 @@ else
 		;;
 	    x-bootstrap)
 		do_all
+		;;
+	    x-bootstrap-se)
+		bootstrap
 		;;
 	    *)
 		echo "Unknown argument: $1"
