@@ -305,22 +305,6 @@ feature {LOG_CONFIGURATION}
 			Result /= Void
 		end
 
-feature {LOGGER}
-	add_logger (a_logger: LOGGER) is
-		require
-			a_logger /= Void
-			not has_logger(a_logger)
-		do
-			known_loggers.add_last(a_logger)
-		end
-
-	has_logger (a_logger: LOGGER): BOOLEAN is
-		require
-			a_logger /= Void
-		do
-			Result := known_loggers.fast_has(a_logger)
-		end
-
 feature {}
 	make is
 		do
@@ -353,11 +337,10 @@ feature {}
 			else
 				create o.make(std_output, "root".intern)
 				create root.make(o, "root".intern)
-				root.set_level(levels.trace)
+				root.set_level(levels.info)
 			end
 		end
 
-	known_loggers: COLLECTION[LOGGER]
 	last_class_name: STRING
 	last_entity_name: STRING
 	last_string: STRING
