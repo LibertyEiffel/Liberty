@@ -33,11 +33,12 @@ feature {}
 			errors: LIBERTY_ERRORS
 			interpreter: LIBERTY_INTERPRETER
 			i, eq: INTEGER
-			env: LIBERTY_ENVIRONMENT
 			arg: STRING
 			options: LIBERTY_INTERPRETER_OPTIONS
 			etc: LIBERTY_ETC
+			log_location: like default_log_location
 		do
+			log_location := default_log_location
 			if argument_count < 3 then
 				usage
 			end
@@ -58,20 +59,7 @@ feature {}
 					end
 				elseif arg.has_prefix(once "-log=") then
 					arg.remove_prefix(once "-log=")
-					arg.to_lower
-					inspect
-						arg
-					when "t", "trace", "debug" then
-						log.set_level(levels.trace)
-					when "i", "info" then
-						log.set_level(levels.info)
-					when "w", "warn", "warning" then
-						log.set_level(levels.warning)
-					when "e", "error" then
-						log.set_level(levels.error)
-					else
-						usage
-					end
+					log_location := arg
 				elseif arg.has_prefix(once "-check=") then
 					arg.remove_prefix(once "-check=")
 					arg.to_lower
@@ -99,6 +87,8 @@ feature {}
 			end
 
 			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyi"))
+
+			set_log(log_location)
 			etc.log_clusters
 
 			create universe.make
@@ -127,6 +117,37 @@ feature {}
 			die_with_code(1)
 		end
 
+	set_log (logpath: STRING) is
+		local
+			log_conf: LOG_CONFIGURATION
+			tfr: TEXT_FILE_READ
+		do
+			env.substitute(logpath)
+			create tfr.connect_to(logpath)
+			if not tfr.is_connected then
+				std_error.put_line("Unknown log configuration file: " + logpath)
+				die_with_code(1)
+			end
+			log_conf.load(tfr, agent on_error, agent resolve_path)
+			tfr.disconnect
+		end
+
+	on_error (message: STRING) is
+		do
+			std_error.put_line(message)
+			die_with_code(1)
+		end
+
 	levels: LOG_LEVELS
+	env: LIBERTY_ENVIRONMENT
+
+	default_log_location: STRING is "${path_liberty}/resources/log/libertyi-log.rc"
+
+	resolve_path (a_path: STRING): STRING is
+		do
+			Result := once ""
+			Result.copy(a_path)
+			env.substitute(Result)
+		end
 
 end -- class LIBERTYI

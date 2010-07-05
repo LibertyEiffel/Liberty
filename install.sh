@@ -4,7 +4,7 @@ cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
 export plain=FALSE
-export LOG=$LIBERTY_HOME/install$(date +'-%Y%m%d-%H%M%S').log
+export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
@@ -14,6 +14,7 @@ function bootstrap()
     cd $LIBERTY_HOME
     test -d target || mkdir target
     cd target
+    mkdir log
 
     title "Unpacking SmartEiffel"
     test -d SmartEiffel && rm -rf SmartEiffel

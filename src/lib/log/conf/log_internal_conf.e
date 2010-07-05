@@ -38,7 +38,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
 		end
 
 feature {}
-	do_pass_1 (on_error: PROCEDURE[TUPLE[STRING]]; node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+	do_pass_1 (on_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
 			-- Create outputs and loggers
 		require
 			on_error /= Void
@@ -61,12 +61,12 @@ feature {}
 			when "Outputs" then
 				node.node_at(1).accept(Current)
 			when "Output" then
-				node.node_at(1).accept(Current)
+				node.node_at(0).accept(Current)
 				output_name := last_entity_name.intern
 				output := outputs.fast_reference_at(output_name)
 				if output = Void then
 					node.node_at(3).accept(Current)
-					create {TEXT_FILE_WRITE} stream.connect_to(last_string)
+					create {TEXT_FILE_WRITE} stream.connect_for_appending_to(path_resolver.item([last_string]))
 					if stream.is_connected then
 						create output.make(stream, output_name)
 						outputs.put(output, output_name)
@@ -125,6 +125,10 @@ feature {}
 				node.node_at(4).accept(Current)
 				current_logger.set_level(last_level)
 				current_logger := Void
+			when "Level" then
+				if not node.is_empty then
+					node.node_at(1).accept(Current)
+				end
 			when "Parent" then
 				check
 					current_logger /= Void
@@ -179,6 +183,22 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
 			end
 		end
 
+	fatal_error (message: STRING) is
+		do
+			std_error.put_line(message)
+			die_with_code(1)
+		end
+
+	default_path_resolver: FUNCTION[TUPLE[STRING], STRING] is
+		once
+			Result := agent resolve_path
+		end
+
+	resolve_path (a_path: STRING): STRING is
+		do
+			Result := a_path
+		end
+
 feature {EIFFEL_LIST_NODE_IMPL}
 	visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL) is
 		local
@@ -195,15 +215,22 @@ feature {EIFFEL_LIST_NODE_IMPL}
 		end
 
 feature {LOG_CONFIGURATION}
-	load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]) is
+	load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]) is
 		local
 			conf: STRING
 			on_error: like when_error
+			path_resolver: FUNCTION[TUPLE[STRING], STRING]
 		do
 			if when_error = Void then
 				on_error := agent fatal_error
 			else
 				on_error := when_error
+			end
+
+			if a_path_resolver = Void then
+				path_resolver := default_path_resolver
+			else
+				path_resolver := a_path_resolver
 			end
 
 			loggers.clear_count
@@ -228,7 +255,7 @@ feature {LOG_CONFIGURATION}
 				if parser.error /= Void then
 					on_error.call([parser.error.message])
 				else
-					pass := agent do_pass_1(on_error, ?)
+					pass := agent do_pass_1(on_error, path_resolver, ?)
 					grammar.root_node.accept(Current)
 					pass := agent do_pass_2(on_error, ?)
 					grammar.root_node.accept(Current)
@@ -278,12 +305,6 @@ feature {LOG_CONFIGURATION}
 			Result /= Void
 		end
 
-	fatal_error (message: STRING) is
-		do
-			std_error.put_line(message)
-			die_with_code(1)
-		end
-
 feature {LOGGER}
 	add_logger (a_logger: LOGGER) is
 		require
@@ -322,7 +343,7 @@ feature {}
 			if ft.file_exists("log.rc") then
 				create in.connect_to("log.rc")
 				if in.is_connected then
-					load(in, Void)
+					load(in, Void, Void)
 					in.disconnect
 				end
 				if root = Void then

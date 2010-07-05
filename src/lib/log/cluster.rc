@@ -28,6 +28,8 @@ cluster LOG
 --       level trace
 --    end
 --
+-- end
+--
 -- -------->8--
 --
 
