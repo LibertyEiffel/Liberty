@@ -1,0 +1,14 @@
+log configuration
+
+root LIBERTYI
+
+output
+	out is file "${path_liberty}/target/log/libertyi.log"
+
+logger
+	LIBERTYI is
+		output out
+		level info
+	end
+
+end
