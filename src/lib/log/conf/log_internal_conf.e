@@ -90,10 +90,12 @@ feature {}
 						on_error.call(["Unknown output: " + output_name])
 					end
 				end
-				create logger.make(output, logger_name)
+				create logger.make(output, logger_name, generation_id)
 				loggers.put(logger, logger_name)
 			when "Logger_Output" then
-				node.node_at(1).accept(Current)
+				if not node.is_empty then
+					node.node_at(1).accept(Current)
+				end
 			when "Level" then
 				if not node.is_empty then
 					node.node_at(1).accept(Current)
@@ -221,6 +223,8 @@ feature {LOG_CONFIGURATION}
 			on_error: like when_error
 			path_resolver: FUNCTION[TUPLE[STRING], STRING]
 		do
+			generations.increment
+
 			if when_error = Void then
 				on_error := agent fatal_error
 			else
@@ -287,7 +291,7 @@ feature {LOG_CONFIGURATION}
 					parent_tag := a_tag.substring(a_tag.lower, i - 1).intern
 					parent := loggers.fast_reference_at(parent_tag)
 					if parent = Void then
-						create parent.make(root.output, parent_tag)
+						create parent.make(root.output, parent_tag, generation_id)
 						parent.set_parent(root)
 						loggers.put(parent, parent_tag)
 					end
@@ -297,7 +301,7 @@ feature {LOG_CONFIGURATION}
 				check
 					parent /= Void
 				end
-				create Result.make(parent.output, a_tag)
+				create Result.make(parent.output, a_tag, generation_id)
 				Result.set_parent(parent)
 				loggers.put(Result, a_tag)
 			end
@@ -305,9 +309,15 @@ feature {LOG_CONFIGURATION}
 			Result /= Void
 		end
 
+	generation_id: INTEGER is
+		do
+			Result := generations.value
+		end
+
 feature {}
 	make is
 		do
+			create generations
 		end
 
 	load_default is
@@ -335,8 +345,9 @@ feature {}
 					die_with_code(1)
 				end
 			else
+				generations.increment
 				create o.make(std_output, "root".intern)
-				create root.make(o, "root".intern)
+				create root.make(o, "root".intern, generation_id)
 				root.set_level(levels.info)
 			end
 		end
@@ -369,5 +380,7 @@ feature {}
 		once
 			create Result.make(std_output, "default".intern)
 		end
+
+	generations: COUNTER
 
 end -- class LOG_INTERNAL_CONF

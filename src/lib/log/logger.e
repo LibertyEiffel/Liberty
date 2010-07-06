@@ -89,20 +89,32 @@ feature {LOG_INTERNAL_CONF} -- Parent logger
 
 	output: LOG_OUTPUT
 
+feature {LOGGING}
+	is_valid: BOOLEAN is
+		local
+			conf: LOG_CONFIGURATION
+		do
+			Result := generation_id = conf.generation_id
+		end
+
 feature {}
-	make (a_output: LOG_OUTPUT; a_tag: like tag) is
+	make (a_output: LOG_OUTPUT; a_tag: like tag; a_id: like generation_id) is
 		require
 			a_output /= Void
 		do
 			output := a_output
 			tag := a_tag
+			generation_id := a_id
 			set_level(levels.trace)
 		ensure
 			output = a_output
 			tag = a_tag
+			generation_id = a_id
+			is_valid
 		end
 
 	levels: LOG_LEVELS
+	generation_id: INTEGER
 
 invariant
 	tag /= Void

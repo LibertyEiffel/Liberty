@@ -25,6 +25,12 @@ feature {LOGGING}
 		end
 
 feature {LOGGER}
+	generation_id: INTEGER is
+		do
+			Result := internal.generation_id
+		end
+
+feature {}
 	internal: LOG_INTERNAL_CONF is
 		once
 			create Result.make

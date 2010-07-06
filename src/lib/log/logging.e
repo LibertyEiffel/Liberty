@@ -8,13 +8,20 @@ deferred class LOGGING
 
 feature {}
 	log: LOGGER is
-			-- There is one logger per concrete type.
+			-- There is one logger per concrete type; for performance reasons it is cached in each instance.
 		local
 			conf: LOG_CONFIGURATION
 		do
-			Result := conf.logger(generating_type.intern)
+			Result := log_memory
+			if Result = Void or else not Result.is_valid then
+				Result := conf.logger(generating_type.intern)
+				log_memory := Result
+			end
 		ensure
 			Result /= Void
 		end
+
+	log_memory: LOGGER
+			-- The cached logger. Don't use directly.
 
 end -- class LOGGING
