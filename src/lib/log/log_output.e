@@ -172,6 +172,7 @@ feature {}
 					i := i + 1
 				end
 			end
+			output.flush
 			message.clear_count
 		end
 
