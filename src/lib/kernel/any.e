@@ -6,8 +6,6 @@ deferred class ANY
 	-- Project-wide universal properties. This class is an ancestor to all developer-written classes.
 	-- By default all classes insert ANY.
 	--
-	-- Note: it is better to use a non modified ANY class.
-	--
 
 feature {}
 	default_create is
