@@ -82,7 +82,7 @@ feature {ANY}
 				end
 				if not incubator.is_empty then
 					-- don't lose work
-					types_incubator.append_collection(incubator)
+					types_incubator.append_traversable(incubator)
 				end
 				debug ("type.building")
 					debug_types(types_incubator)

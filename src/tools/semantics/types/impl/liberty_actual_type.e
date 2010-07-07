@@ -36,6 +36,12 @@ insert
 		redefine
 			is_equal
 		end
+	LIBERTY_ARRAY_MANIFEST_CONSTANTS
+		undefine
+			out_in_tagged_out_memory
+		redefine
+			is_equal
+		end
 
 create {LIBERTY_UNIVERSE}
 	make
@@ -546,6 +552,60 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 					end
 					i := i + 1
 				end
+				if has_manifest_array then
+					mark_manifest_array_features(mark)
+				end
+			end
+		end
+
+feature {LIBERTY_SEMANTICS_BUILDER}
+	set_has_manifest_array is
+		do
+			has_manifest_array := True
+			if reachable_mark > 0 then
+				mark_manifest_array_features(reachable_mark)
+			end
+		ensure
+			has_manifest_array
+		end
+
+feature {}
+	mark_manifest_array_features (mark: like reachable_mark) is
+		local
+			fd_put, fd_make, fd_creation: like feature_definition
+		do
+			if is_built then
+				-- TODO: should do those lookups in ANY (because of possible renames)
+
+				fd_creation := feature_definition(manifest_creation_feature_name) -- always exists (in ANY)
+				if fd_creation.creation_clients = Void then
+					-- TODO: error, "manifest_creation" feature should belong to the creation clause
+					not_yet_implemented
+				end
+
+				if not has_feature(manifest_put_feature_name) then
+					-- TODO: error, using manifest expressions but missing "manifest_put" feature
+					not_yet_implemented
+				else
+					fd_put := feature_definition(manifest_put_feature_name)
+					if fd_put.result_type /= Void then
+						-- TODO: error, "manifest_put" feature should be a procedure
+						not_yet_implemented
+					end
+					fd_put.mark_reachable_code(mark)
+				end
+
+				if not has_feature(manifest_make_feature_name) then
+					-- TODO: error, using manifest expressions but missing "manifest_make" feature
+					not_yet_implemented
+				else
+					fd_make := feature_definition(manifest_make_feature_name)
+					if fd_make.result_type /= Void then
+						-- TODO: error, "manifest_make" feature should be a procedure
+						not_yet_implemented
+					end
+					fd_make.mark_reachable_code(mark)
+				end
 			end
 		end
 
@@ -604,6 +664,9 @@ feature {}
 	conformance_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER
 
 	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]
+
+	has_manifest_array: BOOLEAN
+			-- True if some manifest array expression builds an object of this type
 
 	debug_full_name: STRING
 

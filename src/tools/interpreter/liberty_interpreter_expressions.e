@@ -19,6 +19,9 @@ inherit
 	LIBERTY_ENTITY_VISITOR
 	LIBERTY_INTERPRETER_OBJECT_VISITOR
 
+insert
+	LIBERTY_ARRAY_MANIFEST_CONSTANTS
+
 creation {LIBERTY_INTERPRETER}
 	make
 
@@ -63,8 +66,142 @@ feature {LIBERTY_AND_THEN}
 
 feature {LIBERTY_ARRAY_MANIFEST}
 	visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST) is
+			-- manifest_make
+			-- manifest_put
+			-- manifest_semicolon_check: BOOLEAN or INTEGER
+		local
+			semicolons: INTEGER
 		do
-			not_yet_implemented
+			semicolons := semicolon_pattern(v.separators)
+			if semicolons < 0 then
+				eval_memory := Void
+			else
+				new_array_manifest(semicolons, v)
+			end
+		end
+
+feature {}
+	new_array_manifest (semicolons: INTEGER; v: LIBERTY_ARRAY_MANIFEST) is
+		require
+			semicolons = semicolon_pattern(v.separators)
+		local
+			array_type: LIBERTY_ACTUAL_TYPE
+			fd: LIBERTY_FEATURE_DEFINITION
+			new_array: like eval_memory
+			i, j, index, capacity, n_args: INTEGER
+			args: FAST_ARRAY[LIBERTY_EXPRESSION]
+			f: LIBERTY_FEATURE
+		do
+			-- NOTE!!
+			--
+			-- Liberty does not make use of SmartEiffel's "manifest_semicolon_check" feature.
+			--
+			-- Instead, the number of arguments of "manifest_put" is taken into account to determine if
+			-- semi-colons are needed. In a nutshell, they are if manifest_put needs more than one extra argument
+			-- (i.e. besides the 'index' first argument).
+			--
+
+			array_type ::= v.result_type.known_type
+
+			fd := array_type.feature_definition(manifest_make_feature_name)
+			new_array := interpreter.new_object(array_type, v.position)
+			capacity := v.contents.count
+			create args.with_capacity(1 + v.parameters.count)
+			args.add_last(interpreter.new_integer_32(capacity, v.position))
+			args.append_traversable(v.parameters)
+			interpreter.call_feature(new_array, fd, args, v.position)
+
+			fd := array_type.feature_definition(manifest_put_feature_name)
+			f := fd.the_feature.bound(array_type)
+			if f.parameters.count < 2 then
+				-- TODO: error: not enough parameters
+				not_yet_implemented
+			elseif semicolons = 0 and then f.parameters.count = 2 then
+				-- ok, using only commas is allowed if there is only one extra argument
+				n_args := 1
+			elseif f.parameters.count = semicolons + 1 then
+				-- ok, using semi-colon-separated slices; note that semi-colons are also allowed between each
+				-- argument
+				n_args := semicolons
+			elseif f.parameters.count = v.contents.count + 1 then
+				-- ok, special case if there is only one slice that must be given at once to manifest_put
+				n_args := v.contents.count
+			else
+				-- TODO: error: the semicolons pattern does not match the number of arguments of manifest_put + 1
+				not_yet_implemented
+			end
+
+			check
+				n_args.in_range(1, v.contents.count)
+				v.contents.count \\ n_args = 0
+			end
+			from
+				args.with_capacity(n_args + 1)
+				index := 0
+				i := v.contents.lower
+			until
+				i > v.contents.upper
+			loop
+				args.clear_count
+				args.add_last(interpreter.new_integer_32(index, v.position))
+				from
+					j := 0
+				until
+					j = n_args
+				loop
+					v.contents.item(i+j).accept(Current)
+					args.add_last(eval_as_right_value)
+					j := j + 1
+				end
+				interpreter.call_feature(new_array, fd, args, v.position)
+				index := index + 1
+				i := i + n_args
+			end
+
+			eval_memory := new_array
+		end
+
+	semicolon_pattern (separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR]): INTEGER is
+		local
+			n, i: INTEGER
+		do
+			from
+				i := separators.lower
+				n := 1
+			until
+				Result < 0 or else i > separators.upper
+			loop
+				if separators.item(i) = separator_comma then
+					check
+						not_last: i < separators.upper
+					end
+					n := n + 1
+				elseif separators.item(i) = separator_semi_colon then
+					check
+						not_last: i < separators.upper
+					end
+					if Result = 0 then
+						Result := n
+					elseif Result /= n then
+						-- TODO: error, non regular semi-colon pattern
+						not_yet_implemented
+					end
+					n := 1
+				else
+					check
+						is_none: separators.item(i) = separator_none
+						is_last: i = separators.upper
+					end
+					if Result /= 0 and then Result /= n then
+						-- TODO: error, non regular semi-colon pattern
+						not_yet_implemented
+					end
+				end
+				i := i + 1
+			end
+		ensure
+			Result >= 0
+			Result > 0 implies separators.count \\ Result = 0
 		end
 
 feature {LIBERTY_ASSIGNMENT_TEST}

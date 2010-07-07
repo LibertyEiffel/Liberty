@@ -17,6 +17,9 @@ class LIBERTY_ARRAY_MANIFEST
 inherit
 	LIBERTY_EXPRESSION
 
+insert
+	LIBERTY_ARRAY_MANIFEST_CONSTANTS
+
 create {LIBERTY_BUILDER_TOOLS}
 	make, make_array
 
@@ -27,11 +30,22 @@ feature {ANY}
 	parameters: TRAVERSABLE[LIBERTY_EXPRESSION] is
 		do
 			Result := parameters_list
+		ensure
+			Result = parameters_list
 		end
 
 	contents: TRAVERSABLE[LIBERTY_EXPRESSION] is
 		do
 			Result := contents_list
+		ensure
+			Result = contents_list
+		end
+
+	separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR] is
+		do
+			Result := separators_list
+		ensure
+			Result = separators_list
 		end
 
 	result_type: LIBERTY_TYPE
@@ -48,7 +62,7 @@ feature {ANY}
 			if r = result_type and then p = parameters and then c = contents then
 				Result := Current
 			else
-				create Result.specialized(r, p, c, position)
+				create Result.specialized(r, p, c, separators_list, position)
 			end
 		end
 
@@ -88,9 +102,10 @@ feature {LIBERTY_BUILDER_TOOLS}
 			parameters_list.add_last(a_parameter)
 		end
 
-	add_content (a_content: LIBERTY_EXPRESSION) is
+	add_content (a_content: LIBERTY_EXPRESSION; a_separator: LIBERTY_ARRAY_MANIFEST_SEPARATOR) is
 		do
 			contents_list.add_last(a_content)
+			separators_list.add_last(a_separator)
 		end
 
 feature {}
@@ -102,50 +117,58 @@ feature {}
 			result_type := a_type
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} contents_list.make(0)
+			create {FAST_ARRAY[LIBERTY_ARRAY_MANIFEST_SEPARATOR]} separators_list.make(0)
 			position := a_position
 		ensure
 			result_type = a_type
 			position = a_position
 		end
 
-	make_array (a_type: like result_type; a_contents: like contents_list; a_position: like position) is
+	make_array (a_type: like result_type; a_contents: like contents_list; a_separators: like separators_list; a_position: like position) is
 		require
 			a_type /= Void
 			a_contents /= Void
 			-- all a_contents items conform to a_type
+			a_separators /= Void
 			a_position /= Void
 		do
 			result_type := a_type
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
 			contents_list := a_contents
+			separators_list := a_separators
 			position := a_position
 		ensure
 			result_type = a_type
 			contents = a_contents
+			separators = a_separators
 			position = a_position
 		end
 
-	specialized (a_type: like result_type; a_parameters: like parameters_list; a_contents: like contents_list; a_position: like position) is
+	specialized (a_type: like result_type; a_parameters: like parameters_list; a_contents: like contents_list; a_separators: like separators_list; a_position: like position) is
 		require
 			a_type /= Void
 			a_position /= Void
 			a_contents /= Void
 			-- all a_contents items conform to a_type
+			a_separators /= Void
 			a_position /= Void
 		do
 			result_type := a_type
 			parameters_list := a_parameters
 			contents_list := a_contents
+			separators_list := a_separators
 			position := a_position
 		ensure
 			result_type = a_type
 			parameters_list = a_parameters
 			contents = a_contents
+			separators = a_separators
 			position = a_position
 		end
 
 	parameters_list: COLLECTION[LIBERTY_EXPRESSION]
 	contents_list: COLLECTION[LIBERTY_EXPRESSION]
+	separators_list: COLLECTION[LIBERTY_ARRAY_MANIFEST_SEPARATOR]
 
 feature {ANY}
 	accept (v: VISITOR) is
@@ -160,5 +183,8 @@ invariant
 	result_type /= Void
 	parameters_list /= Void
 	contents_list /= Void
+	separators_list /= Void
+	contents_list.count = separators_list.count
+	contents_list.lower = separators_list.lower
 
 end

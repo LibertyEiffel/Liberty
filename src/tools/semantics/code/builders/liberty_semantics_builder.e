@@ -16,6 +16,7 @@ deferred class LIBERTY_SEMANTICS_BUILDER
 
 insert
 	LIBERTY_BUILDER_TOOLS
+	LIBERTY_ARRAY_MANIFEST_CONSTANTS
 
 feature {ANY}
 	instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
@@ -608,22 +609,32 @@ feature {} -- Expressions
 			array /= Void
 			local_context /= Void
 		local
-			i: INTEGER; content: COLLECTION[LIBERTY_EXPRESSION]
+			i: INTEGER; content: COLLECTION[LIBERTY_EXPRESSION]; separators: COLLECTION[LIBERTY_ARRAY_MANIFEST_SEPARATOR]
 			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_TYPE
+			expr: LIBERTY_EXPRESSION
 		do
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} content.with_capacity(array.content.count)
+			create {FAST_ARRAY[LIBERTY_ARRAY_MANIFEST_SEPARATOR]} separators.with_capacity(array.content.count)
 			from
 				i := array.content.lower
+			invariant
+				content.count = separators.count
+			variant
+				array.content.count - content.count
 			until
 				i > array.content.upper or else errors.has_error
 			loop
 				exp ::= array.content.item(i)
-				content.add_last(expression(exp, local_context))
+				expr := expression(exp, local_context)
+				if not errors.has_error then
+					content.add_last(expr)
+					separators.add_last(expression_separator(exp))
+				end
 				i := i + 1
 			end
 			if not errors.has_error then
 				t := common_conformant_type(content)
-				create Result.make_array(t, content, semantics_position_at(array.node_at(0)))
+				create Result.make_array(t, content, separators, semantics_position_at(array.node_at(0)))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1208,6 +1219,7 @@ feature {} -- Expressions
 		local
 			i: INTEGER; ena: LIBERTY_AST_EXPRESSION_NO_ARRAY; exp: LIBERTY_AST_EXPRESSION
 		do
+			manifest_type.set_has_manifest_array
 			create Result.make(manifest_type, a_position)
 			from
 				i := array_parameters.lower
@@ -1224,7 +1236,7 @@ feature {} -- Expressions
 				i > array.content.upper
 			loop
 				exp ::= array.content.item(i)
-				Result.add_content(expression(exp, local_context))
+				Result.add_content(expression(exp, local_context), expression_separator(exp))
 				i := i + 1
 			end
 		ensure
