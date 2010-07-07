@@ -164,6 +164,19 @@ feature {ANY} -- Adding:
 			-- Append `other' to Current.
 			--
 			-- See also `add_last', `add_first', `add'.
+		obsolete "use append_traversable instead"
+		require
+			other /= Void
+		do
+			append_traversable(other)
+		ensure
+			count = other.count + old count
+		end
+
+	append_traversable (other: TRAVERSABLE[E_]) is
+			-- Append `other' to Current.
+			--
+			-- See also `add_last', `add_first', `add'.
 		require
 			other /= Void
 		local
