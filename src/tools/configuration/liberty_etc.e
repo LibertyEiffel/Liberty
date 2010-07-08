@@ -108,6 +108,7 @@ feature {LIBERTY_ETC_VISITOR}
 				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, conf, a_cluster_rc.intern)
+					die_with_code(1)
 				else
 					grammar.root_node.accept(visitor)
 				end
@@ -166,6 +167,7 @@ feature {}
 				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, conf, file.intern)
+					die_with_code(1)
 				else
 					grammar.root_node.accept(visitor)
 					Result := True
@@ -211,6 +213,7 @@ feature {}
 			end
 			if parser.error /= Void then
 				errors.emit_syntax_error(parser.error, conf, "Generated cluster definition".intern)
+				die_with_code(1)
 			else
 				grammar.root_node.accept(visitor)
 			end

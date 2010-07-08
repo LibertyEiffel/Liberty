@@ -113,9 +113,6 @@ feature {ANY} -- Errors
 				e := e.next
 			end
 			emit
-			die_with_code(1)
-		ensure
-			syntax_error_is_death: False
 		end
 
 feature {ANY} -- Positions
@@ -127,7 +124,6 @@ feature {ANY} -- Positions
 	syntax_position (a_index: INTEGER; a_source: STRING; a_file: FIXED_STRING): LIBERTY_SYNTAX_POSITION is
 		require
 			a_index.in_range(a_source.lower, a_source.upper)
-			a_file /= Void
 		do
 			create Result.make(a_index, a_source, a_file)
 		ensure
