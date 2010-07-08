@@ -33,12 +33,12 @@ feature {ANY} -- Creation:
 				new_capacity := new_count
 				if new_capacity > 0 then
 					storage := storage.calloc(new_capacity)
-					storage.copy_slice_from(model.storage, model.storage_lower, model.storage_lower + new_count - 1)
+					model.copy_slice_to_native(model.lower, model.upper, storage, 0)
 				end
 			else
 				new_capacity := new_count + 1
 				storage := storage.calloc(new_capacity)
-				storage.copy_slice_from(model.storage, model.storage_lower, model.storage_lower + new_count - 1)
+				model.copy_slice_to_native(model.lower, model.upper, storage, 0)
 				storage.put('%U', new_count)
 			end
 			capacity := new_capacity
