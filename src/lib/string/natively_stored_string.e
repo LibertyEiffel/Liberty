@@ -222,7 +222,7 @@ feature {STRING_HANDLER}
 			capacity = new_capacity
 		end
 
-feature {STRING}
+feature {STRING_HANDLER}
 	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
 		do
 			ensure_capacity(storage_lower + end_index - start_index + 1)

@@ -1252,7 +1252,7 @@ feature {}
 			create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
 		end
 
-feature {STRING}
+feature {STRING_HANDLER}
 	copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
 		local
 			i, j: INTEGER
