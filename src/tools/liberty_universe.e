@@ -857,11 +857,14 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				end
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
+					die_with_code(1)
 				end
 				ast ::= eiffel.root_node
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
 
+				log.trace.put_string(cluster.name)
+				log.trace.put_character('.')
 				log.trace.put_string(class_name)
 				log.trace.put_line(once " parsed.")
 			end
@@ -929,6 +932,7 @@ feature {} -- AST building
 			end
 			if parser.error /= Void then
 				errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
+				die_with_code(1)
 			end
 			Result ::= eiffel.root_node
 			file := class_descriptor.file.intern
