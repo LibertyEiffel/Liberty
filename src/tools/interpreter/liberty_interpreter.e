@@ -118,7 +118,7 @@ feature {ANY}
 					position.show(std_error)
 				end
 
-				breakpoint
+				break
 				die_with_code(1)
 			elseif not evaluating_old_value_stack.is_empty then
 				if old_fatal_error = Void then
