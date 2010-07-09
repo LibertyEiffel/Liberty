@@ -358,6 +358,19 @@ feature {} -- Various useful tools:
 			sedb_breakpoint
 		end
 
+	frozen defer_breakpoint is
+		do
+			deferred_breakpoint_memory.set_item(True)
+		end
+
+	frozen break_if_deferred is
+		do
+			if deferred_breakpoint_memory.item then
+				sedb_breakpoint
+				deferred_breakpoint_memory.set_item(False)
+			end
+		end
+
 	frozen die_with_code (code: INTEGER) is
 			-- Terminate execution with exit status code `code'.
 			-- Do not print any message.
@@ -455,6 +468,12 @@ feature {TYPED_INTERNALS}
 			-- Note that the invariant must hold at feature entry.
 			-- By default, does nothing.
 		do
+		end
+
+feature {}
+	frozen deferred_breakpoint_memory: REFERENCE[BOOLEAN] is
+		once
+			create Result
 		end
 
 end -- class ANY
