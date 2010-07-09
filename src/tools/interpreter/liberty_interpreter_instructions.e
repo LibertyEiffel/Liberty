@@ -103,6 +103,7 @@ feature {LIBERTY_CONDITIONAL}
 				v.conditions.item(i).accept(Current)
 				i := i + 1
 			end
+
 			if not condition_stack.last and then v.else_clause /= Void then
 				v.else_clause.accept(Current)
 			end
@@ -119,9 +120,11 @@ feature {LIBERTY_CONDITION}
 			v.expression.accept(interpreter.expressions)
 			c ::= interpreter.expressions.eval_memory
 			if c.item then
-				condition_stack.put(True, condition_stack.upper)
 				v.instruction.accept(Current)
+				condition_stack.put(True, condition_stack.upper)
 			end
+		ensure
+			condition_stack.count = old condition_stack.count
 		end
 
 feature {LIBERTY_CREATION_INSTRUCTION}

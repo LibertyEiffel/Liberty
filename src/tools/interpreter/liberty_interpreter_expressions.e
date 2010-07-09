@@ -666,28 +666,24 @@ feature {}
 			left := eval_as_right_value
 			v.right.accept(Current)
 			right := eval_as_right_value
-			if left_type ?:= left.type then
+			if left.is_void then
+				Result := right.is_void
+			elseif right.is_void then
+				check not Result end
+			else
 				left_type ::= left.type
-				if right_type ?:= right.type then
-					right_type ::= right.type
-					if left_type.is_conform_to(right_type) then
-						Result := left.is_equal(right)
-					elseif right_type.is_conform_to(left_type) then
-						Result := right.is_equal(left)
-					elseif left_type.converts_to(right_type) then
-						Result := interpreter.object_converter.convert_object(left, right_type).is_equal(right)
-					elseif right_type.converts_to(left_type) then
-						Result := interpreter.object_converter.convert_object(right, left_type).is_equal(left)
-					else
-						check not Result end
-					end
+				right_type ::= right.type
+				if left_type.is_conform_to(right_type) then
+					Result := left.is_equal(right)
+				elseif right_type.is_conform_to(left_type) then
+					Result := right.is_equal(left)
+				elseif left_type.converts_to(right_type) then
+					Result := interpreter.object_converter.convert_object(left, right_type).is_equal(right)
+				elseif right_type.converts_to(left_type) then
+					Result := interpreter.object_converter.convert_object(right, left_type).is_equal(left)
 				else
 					check not Result end
 				end
-			elseif right_type ?:= right.type then
-				check not Result end
-			else
-				Result := True -- Void = Void
 			end
 		end
 
