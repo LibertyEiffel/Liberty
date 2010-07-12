@@ -486,6 +486,7 @@ typedef T5 real64_t;
 typedef long double T12;
 typedef T12 real_extended_t;
 #define EIF_REAL_EXTENDED T12
+#define EIF_REAL_128 T12
 #define M12 (0.0)
 #define EIF_MINIMUM_REAL_EXTENDED (-(DBL_MAX))
 #define EIF_MAXIMUM_REAL_EXTENDED (DBL_MAX)
@@ -519,6 +520,7 @@ typedef void* T8;
 #define EIF_REFERENCE T0*
 #define EIF_OBJ T0*
 #define EIF_OBJECT EIF_OBJ
+#define EIF_ANY EIF_OBJ
 
 /*
    Wrappers for `malloc' and `calloc':
