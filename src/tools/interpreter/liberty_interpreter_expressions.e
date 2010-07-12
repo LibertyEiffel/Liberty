@@ -638,7 +638,11 @@ feature {}
 		do
 			target_type ::= entity.target_type.known_type
 			interpreter.ensure_built(target_type)
-			Result := interpreter.item_feature(target, entity.feature_definition, actuals, position)
+			if entity.has_feature then
+				Result := interpreter.item_feature(target, entity.feature_definition, actuals, position)
+			else
+				interpreter.fatal_error("Unknown feature " + entity.name + " in type " + target.type.full_name, position)
+			end
 		end
 
 	visit_infix (v: LIBERTY_INFIX_CALL) is

@@ -63,7 +63,14 @@ feature {ANY}
 			end
 		end
 
+	has_feature: BOOLEAN is
+		do
+			Result := target_type.known_type.has_feature(feature_name)
+		end
+
 	feature_definition: LIBERTY_FEATURE_DEFINITION is
+		require
+			has_feature
 		do
 			Result := target_type.known_type.feature_definition(feature_name)
 		end
