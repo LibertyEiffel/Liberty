@@ -819,9 +819,9 @@ feature {}
 							image.extend(c)
 						when '/' then
 							if unicode then
-								parsed.extend(code.to_character)
-							else
 								-- parsed.extend(code.to_unicode_character) -- *** TODO unicode
+							else
+								parsed.extend(code.to_character)
 							end
 							image.extend('/')
 							state := 0
