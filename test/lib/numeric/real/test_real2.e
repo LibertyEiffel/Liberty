@@ -27,6 +27,10 @@ feature {ANY}
 			assert(i2 = 3)
 			assert(r3 = -3.0)
 			assert(r4 = 3.0)
+
+			assert(0.0 ~= 0.0)
+			assert(0.1 ~= 0.1)
+			assert(0.2 ~= 0.2000000000000001)
 		end
 
 feature {}
