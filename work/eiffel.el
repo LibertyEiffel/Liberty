@@ -2530,7 +2530,7 @@ Sort by position if sort-method is 0. Sort by name if sort-method is 1."
 	    "\nfeature {ANY}\n\n"
 	    "\nfeature {}\n"
 	    "\n\ninvariant\n\n"
-	    "end -- " (upcase cname) "\n"))
+	    "end -- class " (upcase cname) "\n"))
   (re-search-backward "creation" nil t)
   (forward-line 1)
   (eif-indent-line)
