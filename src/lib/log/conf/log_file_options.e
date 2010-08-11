@@ -1,42 +1,69 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class LOG_CONFIGURATION
---
--- To configure the logging framework.
---
+class LOG_FILE_OPTIONS
 
-feature {ANY}
-	load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]) is
-		require
-			a_stream.is_connected
+creation {LOG_INTERNAL_CONF}
+	make
+
+feature {LOG_INTERNAL_CONF}
+	retriever: FUNCTION[TUPLE, OUTPUT_STREAM] is
 		do
-			internal.load(a_stream, when_error, path_resolver)
+			Result := agent retrieve
 		end
 
-feature {LOGGING}
-	logger (a_tag: FIXED_STRING): LOGGER is
+	rotated (condition: PREDICATE[TUPLE[FILE_STREAM]]; retention: INTEGER_64) is
 		require
-			a_tag /= Void
+			condition /= Void
 		do
-			Result := internal.conf_logger(a_tag)
-		ensure
-			Result /= Void
+			create {LOG_FILE_ROTATED} option.make(option, condition, retention)
 		end
 
-feature {LOGGER}
-	generation_id: INTEGER is
+	zipped (command: FIXED_STRING) is
+		require
+			command /= Void
 		do
-			Result := internal.generation_id
+			create {LOG_FILE_ZIPPED} option.make(option, command)
+		end
+
+	is_connected: BOOLEAN is
+		do
+			Result := stream.is_connected
 		end
 
 feature {}
-	internal: LOG_INTERNAL_CONF is
-		once
-			create Result.make
+	make (a_file_path: like file_path) is
+		require
+			a_file_path /= Void
+		do
+			file_path := a_file_path
+			create {TEXT_FILE_WRITE} stream.connect_for_appending_to(a_file_path)
+			create {LOG_FILE_PASS_THROUGH} option.make
+		ensure
+			stream.is_connected implies stream.path = a_file_path
 		end
 
-end -- class LOG_CONFIGURATION
+	retrieve: OUTPUT_STREAM is
+		local
+			s: STREAM
+		do
+			-- because FILE_STREAM and OUTPUT_STREAM are in parallel hierarchies
+			-- (they don't inherit from each other)
+			-- ... but we know the stream is always an output one, don't we :-)
+			s := option.retrieve(stream)
+			stream ::= s
+			Result ::= s
+		end
+
+	option: LOG_FILE_OPTION
+	stream: FILE_STREAM
+	file_path: STRING
+
+invariant
+	stream /= Void
+	option /= Void
+
+end -- class LOG_FILE_OPTIONS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

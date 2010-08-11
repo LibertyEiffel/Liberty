@@ -75,15 +75,9 @@ feature {LOG_LEVEL}
 		end
 
 feature {LOGGER}
-	output: OUTPUT_STREAM
-
-	set_output (a_output: like output) is
-		require
-			a_output /= Void
+	output: OUTPUT_STREAM is
 		do
-			output := a_output
-		ensure
-			output = a_output
+			Result := output_retriever.item([])
 		end
 
 	tag: FIXED_STRING
@@ -111,20 +105,21 @@ feature {}
 		end
 
 feature {}
-	make (a_output: like output; a_tag: like tag) is
+	make (a_output_retriever: like output_retriever; a_tag: like tag) is
 		require
-			a_output /= Void
+			a_output_retriever /= Void
 			a_tag /= Void
 		do
-			set_output(a_output)
+			output_retriever := a_output_retriever
 			tag := a_tag
 			format := default_format
 			message := ""
 		ensure
-			output = a_output
+			output_retriever = a_output_retriever
 			tag = a_tag
 		end
 
+	output_retriever: FUNCTION[TUPLE, OUTPUT_STREAM]
 	message: STRING
 
 	default_format: FIXED_STRING is

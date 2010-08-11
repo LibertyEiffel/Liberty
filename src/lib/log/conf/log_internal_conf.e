@@ -43,8 +43,12 @@ feature {}
 		require
 			on_error /= Void
 		local
-			output_name: FIXED_STRING; output: LOG_OUTPUT; stream: OUTPUT_STREAM
+			output_name: FIXED_STRING; output: LOG_OUTPUT
 			logger_name: FIXED_STRING; logger: LOGGER
+			term: EIFFEL_TERMINAL_NODE
+			num: TYPED_EIFFEL_IMAGE[INTEGER_64]; rotation: INTEGER_64
+			rotation_condition: PREDICATE[TUPLE[FILE_STREAM]]
+			file_path: STRING
 		do
 			inspect
 				node.name
@@ -66,13 +70,86 @@ feature {}
 				output := outputs.fast_reference_at(output_name)
 				if output = Void then
 					node.node_at(3).accept(Current)
-					create {TEXT_FILE_WRITE} stream.connect_for_appending_to(path_resolver.item([last_string]))
-					if stream.is_connected then
-						create output.make(stream, output_name)
+					-- TODO: to check when the "url" construct is implemented
+					file_path := path_resolver.item([last_string])
+					create file_options.make(file_path)
+					if file_options.is_connected then
+						node.node_at(4).accept(Current)
+						create output.make(file_options.retriever, output_name)
 						outputs.put(output, output_name)
+					else
+						on_error.call([output_name + ": could not connect to " + file_path])
 					end
 				else
 					on_error.call(["Duplicate output name: " + output_name])
+				end
+			when "File_Option" then
+				inspect
+					node.name_at(0)
+				when "KW rotated" then
+					node.node_at(3).accept(Current)
+					node.node_at(2).accept(Current)
+				when "KW zipped" then
+					node.node_at(2).accept(Current)
+					file_options.zipped(last_string.intern)
+				end
+			when "Rotation" then
+				if node.count = 1 then
+					rotation := 1
+				else
+					term ::= node.node_at(1)
+					if num ?:= term.image then
+						num ::= term.image
+						rotation := num.decoded
+						if rotation < 1 then
+							on_error.call(["Bad retention value: " + term.image.image])
+							rotation := 1
+						end
+					else
+						on_error.call(["Bad retention value: " + term.image.image])
+						rotation := 1
+					end
+				end
+				inspect
+					node.name_at(node.upper)
+				when "KW day",      "KW days"      then
+					rotation_condition := agent each_days(?, rotation)
+				when "KW week",     "KW weeks"     then
+					rotation_condition := agent each_weeks(?, rotation, 0)
+				when "KW year",     "KW years"     then
+					rotation_condition := agent each_years(?, rotation)
+				when "KW month",    "KW months"    then
+					rotation_condition := agent each_months(?, rotation)
+				when "KW hour",     "KW hours"     then
+					rotation_condition := agent each_hours(?, rotation)
+				when "KW minute",   "KW minutes"   then
+					rotation_condition := agent each_minutes(?, rotation)
+				when "KW byte",     "KW bytes"     then
+					rotation_condition := agent each_bytes(?, rotation)
+				when "KW kilobyte", "KW kilobytes" then
+					rotation_condition := agent each_bytes(?, rotation * 1024)
+				when "KW megabyte", "KW megabytes" then
+					rotation_condition := agent each_bytes(?, rotation * 1024 * 1024)
+				when "KW gigabyte", "KW gigabytes" then
+					rotation_condition := agent each_bytes(?, rotation * 1024 * 1024 * 1024)
+				end
+				file_options.rotated(rotation_condition, last_retention)
+			when "Retention" then
+				if node.is_empty then
+					last_retention := -1
+				else
+					term ::= node.node_at(2)
+					if num ?:= term.image then
+						num ::= term.image
+						last_retention := num.decoded
+						if last_retention < 0 then
+							on_error.call(["Bad retention value: " + term.image.image])
+							last_retention := -1
+						end
+					else
+						on_error.call(["Bad retention value: " + term.image.image])
+						last_retention := -1
+					end
 				end
 			when "Loggers" then
 				node.node_at(1).accept(Current)
@@ -158,6 +235,117 @@ feature {}
 			end
 		end
 
+	file_options: LOG_FILE_OPTIONS
+
+	each_days (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		local
+			now, last_change: TIME; elapsed: REAL
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day then
+				elapsed := last_change.elapsed_seconds(now)
+				Result := elapsed >= (number * 86400).force_to_real_64
+			end
+		end
+
+	each_weeks (stream: FILE_STREAM; number: INTEGER_64; week_day: INTEGER): BOOLEAN is
+		require
+			number > 0
+			week_day.in_range(0, 6)
+		local
+			now, last_change: TIME; elapsed: REAL
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day then
+				-- TODO: not sure of that algorithm (thought power exhausted)
+				elapsed := last_change.elapsed_seconds(now)
+				if last_change.week_day = week_day then
+					Result := elapsed >= ((number - 1) * 86400 * 7).force_to_real_64
+				else
+					Result := elapsed >= (number * 86400 * 7).force_to_real_64
+				end
+			end
+		end
+
+	each_months (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		local
+			now, last_change: TIME
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			else
+				Result := (now.year - last_change.year) * 12 + (now.month - last_change.month) >= number
+			end
+		end
+
+	each_years (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		local
+			now, last_change: TIME
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			else
+				Result := (now.year - last_change.year) >= number
+			end
+		end
+
+	each_hours (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		local
+			now, last_change: TIME; elapsed: REAL
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day or else now.hour /= last_change.hour then
+				elapsed := last_change.elapsed_seconds(now)
+				Result := elapsed >= (number * 3600).force_to_real_64
+			end
+		end
+
+	each_minutes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		local
+			now, last_change: TIME; elapsed: REAL
+		do
+			now.update
+			last_change := ft.last_change_of(stream.path)
+			if now < last_change then
+				Result := True
+			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day or else now.hour /= last_change.hour or else now.minute /= last_change.minute then
+				elapsed := last_change.elapsed_seconds(now)
+				Result := elapsed >= (number * 60).force_to_real_64
+			end
+		end
+
+	each_bytes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+		require
+			number > 0
+		do
+			Result := ft.size_of(stream.path) >= number
+		end
+
+	ft: FILE_TOOLS
+
 feature {EIFFEL_TERMINAL_NODE_IMPL}
 	visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL) is
 		local
@@ -172,6 +360,8 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
 			when "KW string" then
 				string ::= node.image
 				last_string := string.decoded
+			when "KW number" then
+				last_number := node.image
 			when "KW error" then
 				last_level := levels.error
 			when "KW warning" then
@@ -322,7 +512,6 @@ feature {}
 
 	load_default is
 		local
-			ft: FILE_TOOLS
 			in: TEXT_FILE_READ
 			o: LOG_OUTPUT
 		do
@@ -346,7 +535,7 @@ feature {}
 				end
 			else
 				generations.increment
-				create o.make(std_output, "root".intern)
+				create o.make(agent pass_through(std_output), "root".intern)
 				create root.make(o, "root".intern, generation_id)
 				root.set_level(levels.info)
 			end
@@ -355,7 +544,9 @@ feature {}
 	last_class_name: STRING
 	last_entity_name: STRING
 	last_string: STRING
+	last_number: EIFFEL_IMAGE
 	last_level: LOG_LEVEL
+	last_retention: INTEGER_64
 	current_logger: LOGGER
 	pass: PROCEDURE[TUPLE[EIFFEL_NON_TERMINAL_NODE_IMPL]]
 
@@ -378,9 +569,34 @@ feature {}
 
 	default_output: LOG_OUTPUT is
 		once
-			create Result.make(std_output, "default".intern)
+			create Result.make(agent pass_through(std_output), "default".intern)
 		end
 
 	generations: COUNTER
 
+	pass_through (a_output: OUTPUT_STREAM): OUTPUT_STREAM is
+		do
+			Result := a_output
+		end
+
 end -- class LOG_INTERNAL_CONF
+--
+-- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

@@ -1114,9 +1114,9 @@ feature {ANY} -- Other features:
 		require
 			other_not_void: other /= Void
 		do
-			Result := substring_index(other, 1)
+			Result := substring_index(other, lower)
 		ensure
-			definition: Result = substring_index(other, 1)
+			definition: Result = substring_index(other, lower)
 		end
 
 feature {ANY} -- Splitting a STRING:

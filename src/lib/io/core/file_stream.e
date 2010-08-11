@@ -7,6 +7,9 @@ deferred class FILE_STREAM
 	-- connection interface to the "real" files of the operating system.
 	--
 
+inherit
+	STREAM
+
 feature {ANY}
 	path: STRING
 			-- Not Void when connected to the corresponding file on the disk.
@@ -29,15 +32,6 @@ feature {ANY}
 			is_connected implies path.same_as(new_path.out)
 		end
 
-	disconnect is
-			-- Disconnect from any file.
-		require
-			is_connected
-		deferred
-		ensure
-			not is_connected
-		end
-
 feature {}
 	set_path (new_path: ABSTRACT_STRING) is
 		do
@@ -53,6 +47,9 @@ feature {}
 		ensure
 			path.same_as(new_path.out)
 		end
+
+invariant
+	is_connected implies path /= Void
 
 end -- class FILE_STREAM
 --

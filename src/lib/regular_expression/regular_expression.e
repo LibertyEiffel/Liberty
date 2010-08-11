@@ -18,7 +18,7 @@ feature {ANY} -- matching capabilities
 			text /= Void
 			save_matching_text(text)
 		do
-			Result := match_from(text, 1)
+			Result := match_from(text, text.lower)
 		ensure
 			Result = last_match_succeeded
 			Result implies valid_substrings(text)
@@ -32,7 +32,7 @@ feature {ANY} -- matching capabilities
 			-- See also `match', `last_match_succeeded', `last_match_first_index'.
 		require
 			text /= Void
-			first_index.in_range(1, text.count + 1)
+			first_index.in_range(text.lower, text.upper + 1)
 			save_matching_text(text)
 		deferred
 		ensure
