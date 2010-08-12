@@ -20,7 +20,7 @@ cluster
 			debug(all): FIXED_STRING -- `debug_string' is very useful
 			assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, ARRAY_DICTIONARY, RING_ARRAY
 			--assertion(all): NATIVE_ARRAY, STRING, FIXED_STRING
-			assertion(all): FILE_STREAM, TEXT_FILE_WRITE
+			--assertion(all): FILE_STREAM, TEXT_FILE_WRITE
 			assertion(all): LOG_GRAMMAR, EIFFEL_GRAMMAR, DESCENDING_PARSER, PARSE_TABLE
 		end
 
