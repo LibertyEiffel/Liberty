@@ -78,6 +78,8 @@ feature {LOGGER}
 	output: OUTPUT_STREAM is
 		do
 			Result := output_retriever.item([])
+		ensure
+			Result /= Void
 		end
 
 	tag: FIXED_STRING
@@ -184,7 +186,7 @@ feature {}
 	time: TIME
 
 invariant
-	output /= Void
+	output_retriever /= Void
 	format /= Void
 	message /= Void
 	tag /= Void
