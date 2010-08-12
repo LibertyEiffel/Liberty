@@ -569,12 +569,14 @@ feature {LIBERTY_SEMANTICS_BUILDER}
 			has_manifest_array
 		end
 
-feature {}
+feature {LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER}
 	mark_manifest_array_features (mark: like reachable_mark) is
 		local
 			fd_put, fd_make, fd_creation: like feature_definition
 		do
-			if is_built then
+			if not is_built then
+				add_listener(create {LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER}.make(mark))
+			else
 				-- TODO: should do those lookups in ANY (because of possible renames)
 
 				fd_creation := feature_definition(manifest_creation_feature_name) -- always exists (in ANY)
