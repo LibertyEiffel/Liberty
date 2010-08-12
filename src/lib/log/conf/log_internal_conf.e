@@ -253,7 +253,7 @@ feature {}
 				Result := True
 			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day then
 				elapsed := last_change.elapsed_seconds(now)
-				Result := elapsed >= ((number - 1) * 86400).force_to_real_64
+				Result := elapsed > ((number - 1) * 86400).force_to_real_64
 			end
 		end
 
@@ -272,9 +272,9 @@ feature {}
 				-- TODO: not sure of that algorithm (thought power exhausted)
 				elapsed := last_change.elapsed_seconds(now)
 				if last_change.week_day = week_day then
-					Result := elapsed >= ((number - 1) * 86400 * 7).force_to_real_64
+					Result := elapsed > ((number - 1) * 86400 * 7).force_to_real_64
 				else
-					Result := elapsed >= (number * 86400 * 7).force_to_real_64
+					Result := elapsed > (number * 86400 * 7).force_to_real_64
 				end
 			end
 		end
@@ -321,7 +321,7 @@ feature {}
 				Result := True
 			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day or else now.hour /= last_change.hour then
 				elapsed := last_change.elapsed_seconds(now)
-				Result := elapsed >= (number * 3600).force_to_real_64
+				Result := elapsed > ((number - 1) * 3600).force_to_real_64
 			end
 		end
 
@@ -337,7 +337,7 @@ feature {}
 				Result := True
 			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day or else now.hour /= last_change.hour or else now.minute /= last_change.minute then
 				elapsed := last_change.elapsed_seconds(now)
-				Result := elapsed >= (number * 60).force_to_real_64
+				Result := elapsed > ((number - 1) * 60).force_to_real_64
 			end
 		end
 
