@@ -7,6 +7,7 @@ output
 		file "${path_liberty}/target/log/libertyi.log"
 		rotated each day
 		zipped using "gzip"
+	end
 
 logger
 	LIBERTYI is

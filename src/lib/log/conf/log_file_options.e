@@ -12,18 +12,30 @@ feature {LOG_INTERNAL_CONF}
 			Result := agent retrieve
 		end
 
-	rotated (condition: PREDICATE[TUPLE[FILE_STREAM]]; retention: INTEGER_64) is
+	rotated (condition: PREDICATE[TUPLE[FILE_STREAM]]; retention: INTEGER_64; on_error: PROCEDURE[TUPLE[STRING]]) is
 		require
 			condition /= Void
 		do
-			create {LOG_FILE_ROTATED} option.make(option, condition, retention)
+			if option_rotated then
+				on_error.call([output_name + ": only one 'rotated' statement allowed"])
+			else
+				create {LOG_FILE_ROTATED} option.make(option, condition, retention)
+				option_rotated := True
+			end
 		end
 
-	zipped (command: FIXED_STRING) is
+	zipped (command: FIXED_STRING; on_error: PROCEDURE[TUPLE[STRING]]) is
 		require
 			command /= Void
 		do
-			create {LOG_FILE_ZIPPED} option.make(option, command)
+			if option_zipped then
+				on_error.call([output_name + ": only one 'zipped' statement allowed"])
+			elseif not option_rotated then
+				on_error.call([output_name + ": the 'zipped' statement must follow a 'rotated' statement"])
+			else
+				create {LOG_FILE_ZIPPED} option.make(option, command)
+				option_zipped := True
+			end
 		end
 
 	is_connected: BOOLEAN is
@@ -32,14 +44,18 @@ feature {LOG_INTERNAL_CONF}
 		end
 
 feature {}
-	make (a_file_path: like file_path) is
+	make (a_output_name: like output_name; a_file_path: like file_path) is
 		require
+			a_output_name /= Void
 			a_file_path /= Void
 		do
+			output_name := a_output_name
 			file_path := a_file_path
 			create {TEXT_FILE_WRITE} stream.connect_for_appending_to(a_file_path)
 			create {LOG_FILE_PASS_THROUGH} option.make
 		ensure
+			output_name = a_output_name
+			file_path = a_file_path
 			stream.is_connected implies stream.path = a_file_path
 		end
 
@@ -55,13 +71,21 @@ feature {}
 			Result ::= s
 		end
 
+	option_rotated: BOOLEAN
+	option_zipped: BOOLEAN
+
 	option: LOG_FILE_OPTION
 	stream: FILE_STREAM
+
+	output_name: FIXED_STRING
 	file_path: STRING
 
 invariant
 	stream /= Void
 	option /= Void
+
+	output_name /= Void
+	file_path /= Void
 
 end -- class LOG_FILE_OPTIONS
 --

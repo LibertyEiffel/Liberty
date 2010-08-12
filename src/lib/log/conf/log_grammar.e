@@ -27,11 +27,13 @@ feature {}
 																						  {FAST_ARRAY[STRING] << "Output", "Output*" >> }, agent build_continue_list("Output", 0, "Output*");
 																						  {FAST_ARRAY[STRING] << "Output", "KW ;", "Output*" >> }, agent build_continue_list("Output", 1, "Output*") >> };
 											 "Output", {PARSE_NON_TERMINAL << --{FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW url", "KW string" >> }, Void;
-																						 {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW file", "KW string", "File_Option*" >> }, Void >> };
-											 "File_Option*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("File_Option*");
-																								 {FAST_ARRAY[STRING] << "File_Option", "File_Option*" >> }, agent build_continue_list("File_Option", 0, "File_Option*");
-																								 {FAST_ARRAY[STRING] << "File_Option", "KW ,", "File_Option*" >> }, agent build_continue_list("File_Option", 1, "File_Option*");
-																								 {FAST_ARRAY[STRING] << "File_Option", "KW ;", "File_Option*" >> }, agent build_continue_list("File_Option", 1, "File_Option*"); >> };
+																						 {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW file", "KW string", "File_Options" >> }, Void >> };
+											 "File_Options", {PARSE_NON_TERMINAL << epsilon, Void;
+																								 {FAST_ARRAY[STRING] << "File_Option+", "KW end" >> }, Void >> };
+											 "File_Option+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "File_Option" >> }, agent build_new_list("File_Option", "File_Option+");
+																								 {FAST_ARRAY[STRING] << "File_Option", "File_Option+" >> }, agent build_continue_list("File_Option", 0, "File_Option+");
+																								 {FAST_ARRAY[STRING] << "File_Option", "KW ,", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+");
+																								 {FAST_ARRAY[STRING] << "File_Option", "KW ;", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+"); >> };
 											 "File_Option", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW rotated", "KW each", "Rotation", "Retention" >> }, Void;
 																								{FAST_ARRAY[STRING] << "KW zipped", "KW using", "KW string" >> }, Void >> };
 											 "Rotation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW day" >> }, Void;

@@ -72,7 +72,7 @@ feature {}
 					node.node_at(3).accept(Current)
 					-- TODO: to check when the "url" construct is implemented
 					file_path := path_resolver.item([last_string])
-					create file_options.make(file_path)
+					create file_options.make(output_name, file_path)
 					if file_options.is_connected then
 						node.node_at(4).accept(Current)
 						create output.make(file_options.retriever, output_name)
@@ -83,6 +83,10 @@ feature {}
 				else
 					on_error.call(["Duplicate output name: " + output_name])
 				end
+			when "File_Options" then
+				if not node.is_empty then
+					node.node_at(0).accept(Current)
+				end
 			when "File_Option" then
 				inspect
 					node.name_at(0)
@@ -91,7 +95,7 @@ feature {}
 					node.node_at(2).accept(Current)
 				when "KW zipped" then
 					node.node_at(2).accept(Current)
-					file_options.zipped(last_string.intern)
+					file_options.zipped(last_string.intern, on_error)
 				end
 			when "Rotation" then
 				if node.count = 1 then
@@ -133,7 +137,7 @@ feature {}
 				when "KW gigabyte", "KW gigabytes" then
 					rotation_condition := agent each_bytes(?, rotation * 1024 * 1024 * 1024)
 				end
-				file_options.rotated(rotation_condition, last_retention)
+				file_options.rotated(rotation_condition, last_retention, on_error)
 			when "Retention" then
 				if node.is_empty then
 					last_retention := -1
@@ -249,7 +253,7 @@ feature {}
 				Result := True
 			elseif now.year /= last_change.year or else now.year_day /= last_change.year_day then
 				elapsed := last_change.elapsed_seconds(now)
-				Result := elapsed >= (number * 86400).force_to_real_64
+				Result := elapsed >= ((number - 1) * 86400).force_to_real_64
 			end
 		end
 
