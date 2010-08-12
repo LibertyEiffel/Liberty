@@ -289,7 +289,6 @@ feature {ANY} -- Kernel types
 		require
 			effective_generics /= Void
 			result_type /= Void
-			result_type /= type_boolean
 		do
 			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position), result_type >> }, position, visit_type_function)
 		end
@@ -335,11 +334,9 @@ feature {}
 			root_type.set_reachable(reachable_counter.value)
 			if root_type.has_loaded_features then
 				if not root_type.has_feature(root_feature_name) then
-					std_error.put_string("No method '")
-					std_error.put_string(root_feature_name.name)
-					std_error.put_string("' feature in type ")
-					std_error.put_string(root_type.full_name)
-					std_error.put_line(". Giving up.")
+					errors.set(level_fatal_error,
+								  "Am I blind or what? I cannot find any method '" + root_feature_name.name
+								  + "' feature in the type " + root_type.full_name + "!")
 					die_with_code(1)
 				end
 				root_feature := root_type.feature_definition(root_feature_name)
@@ -442,7 +439,7 @@ feature {}
 					debug ("error")
 						debug_types(incubator)
 					end
-					errors.set(level_system_error, once "Compiler stalled.")
+					errors.set(level_system_error, once "It looks like I miss some data but the hell if I know what.")
 					check
 						dead: False
 					end
@@ -622,7 +619,7 @@ feature {}
 		do
 			cluster := root.find(class_name)
 			if cluster = Void then
-				errors.set(level_fatal_error, "Kernel class not found: " + class_name)
+				errors.set(level_fatal_error, "What's that installation of yours? I cannot even find the kernel class " + class_name + "!")
 			end
 			create cd.make(cluster, class_name.intern, Void)
 			create td.make(cd, no_parameters)
@@ -757,7 +754,7 @@ feature {}
 			end
 			if c = Void then
 				errors.add_position(position)
-				errors.set(level_fatal_error, "Unknown class: " + class_name)
+				errors.set(level_fatal_error, "Looks like some configuration is missing, or you mistyped something. Anyway I cannot find the class named " + class_name + ".")
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := do_get_type_from_descriptor(descriptor)
@@ -827,7 +824,8 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 		do
 			actual_cluster := cluster.find(class_name)
 			if actual_cluster = Void then
-				errors.set(level_fatal_error, "Class not found: " + class_name)
+				errors.set(level_fatal_error,
+							  "Looks like some configuration is missing, or you mistyped something. Anyway I cannot find the class named " + class_name + ".")
 				check
 					dead: False
 				end
@@ -849,8 +847,10 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				evaled := parser.eval(parser_buffer, eiffel.table, once "Class")
 				if not evaled then
 					errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
-					errors.set(level_fatal_error, "Incomplete class text")
-					errors.emit
+					errors.set(level_fatal_error,
+								  "I'm afraid you need to use a bit more those fingers of yours. The code of the class " + class_name
+								  +" is incomplete.")
+ 					errors.emit
 					check
 						dead: False
 					end
@@ -912,7 +912,7 @@ feature {} -- AST building
 
 			tuple_cluster := root.find("TUPLE".intern)
 			if tuple_cluster = Void then
-				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
+				errors.set(level_fatal_error, "What's that installation of yours? I cannot even find the kernel class TUPLE!")
 			end
 			create class_descriptor.make(tuple_cluster, "TUPLE".intern, pos)
 			code := once ""
@@ -924,8 +924,9 @@ feature {} -- AST building
 			evaled := parser.eval(parser_buffer, eiffel.table, once "Classes")
 			if not evaled then
 				errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
-				errors.set(level_fatal_error, "Incomplete class text")
-				errors.emit
+				errors.set(level_fatal_error,
+							  "The code of the class TUPLE is incomplete. Maybe you could try installing Liberty again?")
+ 				errors.emit
 				check
 					dead: False
 				end
@@ -961,15 +962,19 @@ feature {} -- AST building
 			classname := a_tuple_class.class_header.class_name.image.image
 			if not classname.is_equal(once "TUPLE") then
 				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
-				errors.set(level_fatal_error, "Invalid TUPLE class: does not contain TUPLE")
+				errors.set(level_fatal_error, "Invalid TUPLE class text: strangely enough it does not contain TUPLE. Maybe you could try installing Liberty again?")
 			end
 			gencount := a_tuple_class.class_header.type_parameters.list_count
 			if gencount /= generics_count then
 				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
 				if generics_count = 1 then
-					errors.set(level_fatal_error, "Invalid TUPLE class: expected 1 generic parameter")
+					errors.set(level_fatal_error,
+								  "Invalid TUPLE class text: expected 1 generic parameter but got " + gencount.out
+								  + ". Maybe you could try installing Liberty again?")
 				else
-					errors.set(level_fatal_error, "Invalid TUPLE class: expected " + generics_count.out + " generic parameters")
+					errors.set(level_fatal_error,
+								  "Invalid TUPLE class text: expected " + generics_count.out + " generic parameters but got " + gencount.out
+								  + ". Maybe you could try installing Liberty again)?")
 				end
 			end
 		ensure
