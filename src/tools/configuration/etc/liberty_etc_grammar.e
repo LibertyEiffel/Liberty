@@ -126,6 +126,7 @@ feature {}
 											 "KW creation",      create {PARSE_TERMINAL}.make(agent parse_keyword(?, "creation"), Void);
 											 "KW daemon",        create {PARSE_TERMINAL}.make(agent parse_keyword(?, "daemon"), Void);
 											 "KW debug",         create {PARSE_TERMINAL}.make(agent parse_keyword(?, "debug"), Void);
+											 "KW default",       create {PARSE_TERMINAL}.make(agent parse_keyword(?, "default"), Void);
 											 "KW end",           create {PARSE_TERMINAL}.make(agent parse_keyword(?, "end"), Void);
 											 "KW end of file",   create {PARSE_TERMINAL}.make(agent parse_end, Void);
 											 "KW ensure",        create {PARSE_TERMINAL}.make(agent parse_keyword(?, "ensure"), Void);
