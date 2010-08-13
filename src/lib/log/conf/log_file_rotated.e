@@ -89,6 +89,7 @@ feature {}
 			file_name.copy(bd.last_entry)
 
 			if retention /= 0 then
+				last_index := 0
 				file_name_pattern := file_pattern(file_name)
 				from
 					map(dir_name, file_name_pattern, agent set_last_index)
@@ -120,23 +121,25 @@ feature {}
 			file_name_pattern /= Void
 			action /= Void
 		local
-			buf: STRING
+			buf, file_name: STRING
 		do
 			buf := once ""
 			bd.connect_to(dir_name)
 			if bd.is_connected then
 				from
+					file_name := once ""
 					bd.read_entry
 				until
 					bd.end_of_input
 				loop
-					if file_name_pattern.match(bd.last_entry) then
+					file_name.copy(bd.last_entry)
+					if file_name_pattern.match(file_name) then
 						buf.clear_count
-						file_name_pattern.append_ith_group(bd.last_entry, buf, 1)
+						file_name_pattern.append_ith_group(file_name, buf, 1)
 						check
 							buf.is_integer
 						end
-						action.call([buf.to_integer, bd.last_entry])
+						action.call([buf.to_integer, file_name])
 					end
 					bd.read_entry
 				end
@@ -159,7 +162,7 @@ feature {}
 		local
 			path, new_file_name, new_index: STRING
 		do
-			if index >= retention then
+			if retention /= -1 and then index >= retention then
 				bd.compute_file_path_with(dir_name, file_name)
 				ft.delete(bd.last_entry)
 			elseif index = at_index then
@@ -171,9 +174,13 @@ feature {}
 				;(index + 1).append_in(new_index)
 				new_file_name := once ""
 				new_file_name.copy(file_name)
-				new_file_name.replace_substring(new_index, file_name_pattern.ith_group_first_index(1), file_name_pattern.ith_group_last_index(1))
-				bd.compute_file_path_with(dir_name, new_file_name)
-				ft.rename_to(path, bd.last_entry)
+				if file_name_pattern.match(new_file_name) then
+					new_file_name.replace_substring(new_index, file_name_pattern.ith_group_first_index(1), file_name_pattern.ith_group_last_index(1))
+					bd.compute_file_path_with(dir_name, new_file_name)
+					ft.rename_to(path, bd.last_entry)
+				else
+					check False end
+				end
 			end
 		end
 
