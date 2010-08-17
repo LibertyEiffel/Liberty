@@ -87,12 +87,13 @@ feature {ANY}
 				debug ("type.building")
 					debug_types(types_incubator)
 					if target_type.is_built then
-						std_output.put_string(once "Type is ready: ")
+						log.trace.put_string(once "Type is ready: ")
+						log.trace.put_line(target_type.full_name)
 					else
-						std_output.put_string(once "Type is NOT READY: ")
+						log.trace.put_string(once "Type is NOT READY: ")
+						log.trace.put_line(target_type.full_name)
+						breakpoint
 					end
-					std_output.put_line(target_type.full_name)
-					breakpoint
 				end
 			end
 		ensure
@@ -342,13 +343,13 @@ feature {}
 				root_feature := root_type.feature_definition(root_feature_name)
 				reachable_counter.increment
 				debug ("mark.reachable")
-					std_output.put_string(once " +++ Marking reachable code (")
-					std_output.put_integer(reachable_counter.value)
-					std_output.put_line(once ")...")
+					log.trace.put_string(once " +++ Marking reachable code (")
+					log.trace.put_integer(reachable_counter.value)
+					log.trace.put_line(once ")...")
 				end
 				root_feature.set_reachable(reachable_counter.value)
 				debug ("mark.reachable")
-					std_output.put_line(once "     Reachable code marked.")
+					log.trace.put_line(once "     Reachable code marked.")
 				end
 			end
 		end
@@ -376,8 +377,8 @@ feature {}
 					if delayed_type.can_resolve then
 						delayed_type.resolve
 						debug ("type.resolution")
-							std_output.put_string(once " ===> resolved ")
-							std_output.put_line(delayed_type.out)
+							log.trace.put_string(once " ===> resolved ")
+							log.trace.put_line(delayed_type.out)
 						end
 						more := True
 					else
@@ -387,21 +388,21 @@ feature {}
 				end
 			end
 			debug ("type.resolution")
-				std_output.put_line(once "======================================================================")
+				log.trace.put_line(once "======================================================================")
 				from
 					i := delayed_types.lower
 				until
 					i > delayed_types.upper
 				loop
-					std_output.put_line(delayed_types.item(i).out)
+					log.trace.put_line(delayed_types.item(i).out)
 					i := i + 1
 				end
-				std_output.put_string(once " === ")
-				std_output.put_integer(delayed_types.count)
+				log.trace.put_string(once " === ")
+				log.trace.put_integer(delayed_types.count)
 				if delayed_types.count = 1 then
-					std_output.put_line(once " delayed type yet to be resolved.")
+					log.trace.put_line(once " delayed type yet to be resolved.")
 				else
-					std_output.put_line(once " delayed types yet to be resolved.")
+					log.trace.put_line(once " delayed types yet to be resolved.")
 				end
 			end
 		end
@@ -409,7 +410,7 @@ feature {}
 	build_to_incubator (incubator: like types_incubator; target_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not types_incubator.is_empty
-			target_type /= Void
+			not target_type.is_built
 		local
 			type: LIBERTY_ACTUAL_TYPE
 		do
@@ -448,7 +449,7 @@ feature {}
 			Result := types_incubator
 			types_incubator := incubator
 			debug
-				std_output.put_line(once "Swapped incubator")
+				log.trace.put_line(once "Swapped incubator")
 			end
 		ensure
 			types_incubator = incubator
@@ -484,9 +485,9 @@ feature {}
 			loop
 				if not incubator.item(i).is_reachable then
 					debug
-						std_output.put_string(once "Removing ")
-						std_output.put_string(incubator.item(i).full_name)
-						std_output.put_line(once ": not reachable")
+						log.trace.put_string(once "Removing ")
+						log.trace.put_string(incubator.item(i).full_name)
+						log.trace.put_line(once ": not reachable")
 					end
 					incubator.remove(i)
 				else
@@ -515,38 +516,38 @@ feature {} -- debug
 			check
 				all_types.count = types.count
 			end
-			std_output.put_line(once "--8<--------")
+			log.trace.put_line(once "--8<--------")
 			from
 				i := all_types.lower
 			until
 				i > all_types.upper
 			loop
-				std_output.put_integer(i - all_types.lower + 1)
-				std_output.put_string(once ": ")
-				all_types.item(i).debug_display(std_output, False)
+				log.trace.put_integer(i - all_types.lower + 1)
+				log.trace.put_string(once ": ")
+				all_types.item(i).debug_display(log.trace, False)
 				i := i + 1
 			end
-			std_output.put_line(once "-------->8--")
+			log.trace.put_line(once "-------->8--")
 			if incubator.is_empty then
-				std_output.put_integer(all_types.count)
-				std_output.put_line(once " types (total), incubator is empty")
+				log.trace.put_integer(all_types.count)
+				log.trace.put_line(once " types (total), incubator is empty")
 			else
-				std_output.put_integer(all_types.count)
-				std_output.put_string(once " types (total), including ")
-				std_output.put_integer(incubator.count)
-				std_output.put_line(once " types in incubator:")
-				std_output.put_line(once "--8<--------")
+				log.trace.put_integer(all_types.count)
+				log.trace.put_string(once " types (total), including ")
+				log.trace.put_integer(incubator.count)
+				log.trace.put_line(once " types in incubator:")
+				log.trace.put_line(once "--8<--------")
 				from
 					i := incubator.lower
 				until
 					i > incubator.upper
 				loop
-					std_output.put_integer(i - incubator.lower + 1)
-					std_output.put_string(once ": ")
-					incubator.item(i).debug_display(std_output, False)
+					log.trace.put_integer(i - incubator.lower + 1)
+					log.trace.put_string(once ": ")
+					incubator.item(i).debug_display(log.trace, False)
 					i := i + 1
 				end
-				std_output.put_line(once "-------->8--")
+				log.trace.put_line(once "-------->8--")
 			end
 		end
 
