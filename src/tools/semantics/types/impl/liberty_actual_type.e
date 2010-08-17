@@ -393,9 +393,9 @@ feature {LIBERTY_BUILDER_TOOLS}
 				end
 				conformant_parents.add_last(a_parent)
 				debug ("type.building")
-					std_output.put_string(name)
-					std_output.put_string(once ": adding conformant parent ")
-					std_output.put_line(a_parent.name)
+					log.trace.put_string(name)
+					log.trace.put_string(once ": adding conformant parent ")
+					log.trace.put_line(a_parent.name)
 				end
 			else
 				if non_conformant_parents = no_parents then
@@ -403,9 +403,9 @@ feature {LIBERTY_BUILDER_TOOLS}
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug ("type.building")
-					std_output.put_string(name)
-					std_output.put_string(once ": adding non-conformant parent ")
-					std_output.put_line(a_parent.name)
+					log.trace.put_string(name)
+					log.trace.put_string(once ": adding non-conformant parent ")
+					log.trace.put_line(a_parent.name)
 				end
 			end
 		end
@@ -460,6 +460,8 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 		end
 
 	build_more is
+		require
+			not is_built
 		do
 			builder.build_more
 			if builder.is_built then

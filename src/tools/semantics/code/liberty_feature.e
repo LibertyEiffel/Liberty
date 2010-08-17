@@ -30,6 +30,10 @@ insert
 		redefine
 			is_equal
 		end
+	LOGGING
+		redefine
+			is_equal
+		end
 
 feature {ANY}
 	id: INTEGER
@@ -110,8 +114,8 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			if current_type.is_reachable then
 				if not is_reachable then
 					debug ("mark.reachable")
-						std_output.put_string(once "Marked reachable the feature: ")
-						std_output.put_line(out)
+						log.trace.put_string(once "Marked reachable the feature: ")
+						log.trace.put_line(out)
 					end
 					torch.burn
 				end
@@ -444,7 +448,7 @@ feature {ANY}
 					Result.set_specialized_in(context.specialized_in(a_type))
 					if not is_redefined then
 						debug ("feature.specialization")
-							std_output.put_line(once "   Binding specialized feature")
+							log.trace.put_line(once "   Binding specialized feature")
 						end
 						bind_or_replace(Result, a_type, True)
 					end
@@ -499,12 +503,12 @@ feature {LIBERTY_FEATURE}
 		do
 			if has_parent_binding(a_parent) then
 				debug ("feature.binding")
-					std_output.put_line(once "         => parent already added")
+					log.trace.put_line(once "         => parent already added")
 				end
 			else
 				parent_bindings_memory.add_last(a_parent)
 				debug ("feature.binding")
-					std_output.put_line(once "         => added parent to child")
+					log.trace.put_line(once "         => added parent to child")
 				end
 			end
 		end
@@ -537,14 +541,14 @@ feature {LIBERTY_FEATURE}
 			end
 
 			debug ("feature.binding")
-				std_output.put_string(once "      Binding child: ")
-				child.do_debug_display(std_output, 2)
+				log.trace.put_string(once "      Binding child: ")
+				child.do_debug_display(log.trace, 2)
 				if bind_current then
-					std_output.put_string(once "      to Current: ")
+					log.trace.put_string(once "      to Current: ")
 				else
-					std_output.put_string(once "      replacing Current: ")
+					log.trace.put_string(once "      replacing Current: ")
 				end
-				do_debug_display(std_output, 2)
+				do_debug_display(log.trace, 2)
 			end
 
 			from
@@ -553,19 +557,19 @@ feature {LIBERTY_FEATURE}
 				i > parent_bindings_memory.upper
 			loop
 				debug ("feature.binding")
-					std_output.put_string(once "       * Will bind parent #")
-					std_output.put_integer(i+1)
-					std_output.put_character('/')
-					std_output.put_integer(parent_bindings_memory.count)
-					std_output.put_string(once ": ")
-					parent_bindings_memory.item(i).do_debug_display(std_output, 3)
+					log.trace.put_string(once "       * Will bind parent #")
+					log.trace.put_integer(i+1)
+					log.trace.put_character('/')
+					log.trace.put_integer(parent_bindings_memory.count)
+					log.trace.put_string(once ": ")
+					parent_bindings_memory.item(i).do_debug_display(log.trace, 3)
 				end
 				removed := parent_bindings_memory.item(i).do_bind(child, Current, type)
 				if removed = Void then
 					i := i + 1
 				else
 					debug ("feature.binding")
-						std_output.put_line(once "         -> adding removed child's parents")
+						log.trace.put_line(once "         -> adding removed child's parents")
 					end
 					from
 						j := removed.parent_bindings.lower
@@ -582,8 +586,8 @@ feature {LIBERTY_FEATURE}
 
 			if bind_current then
 				debug ("feature.binding")
-					std_output.put_string(once "       * Will bind Current: ")
-					do_debug_display(std_output, 3)
+					log.trace.put_string(once "       * Will bind Current: ")
+					do_debug_display(log.trace, 3)
 				end
 				removed := do_bind(child, Current, type)
 				check
@@ -592,19 +596,19 @@ feature {LIBERTY_FEATURE}
 			end
 
 			debug ("feature.binding")
-				std_output.put_string(once "   Final parent bindings of ")
-				child.do_debug_display(std_output, 1)
+				log.trace.put_string(once "   Final parent bindings of ")
+				child.do_debug_display(log.trace, 1)
 				from
 					i := child.parent_bindings.lower
 				until
 					i > child.parent_bindings.upper
 				loop
-					std_output.put_string(once "    * ")
-					std_output.put_integer(i+1)
-					std_output.put_character('/')
-					std_output.put_integer(child.parent_bindings.count)
-					std_output.put_string(once ": ")
-					child.parent_bindings.item(i).do_debug_display(std_output, 2)
+					log.trace.put_string(once "    * ")
+					log.trace.put_integer(i+1)
+					log.trace.put_character('/')
+					log.trace.put_integer(child.parent_bindings.count)
+					log.trace.put_string(once ": ")
+					child.parent_bindings.item(i).do_debug_display(log.trace, 2)
 					i := i + 1
 				end
 			end
@@ -612,8 +616,8 @@ feature {LIBERTY_FEATURE}
 			parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE): BOOLEAN is
 				do
 					debug ("feature.binding")
-						std_output.put_string(once "   Checking ")
-						p.do_debug_display(std_output, 1)
+						log.trace.put_string(once "   Checking ")
+						p.do_debug_display(log.trace, 1)
 					end
 					Result := c.has_parent_binding(p)
 					if not Result then
@@ -643,14 +647,14 @@ feature {LIBERTY_FEATURE}
 					Result.has_parent_binding(Current)
 				end
 				debug ("feature.binding")
-					std_output.put_line(once "         -> already bound.")
+					log.trace.put_line(once "         -> already bound.")
 				end
 				Result := Void
 			else
 				if Result /= Void then
 					debug ("feature.binding")
-						std_output.put_string(once "         -> remove old child: ")
-						Result.do_debug_display(std_output, 4)
+						log.trace.put_string(once "         -> remove old child: ")
+						Result.do_debug_display(log.trace, 4)
 					end
 					child_bindings_memory.fast_remove(type)
 					Result.remove_parent_binding(Current)
@@ -660,7 +664,7 @@ feature {LIBERTY_FEATURE}
 					end
 				end
 				debug ("feature.binding")
-					std_output.put_line(once "         -> adding new child")
+					log.trace.put_line(once "         -> adding new child")
 				end
 				child_bindings_memory.add(child, type)
 				if child /= Current then

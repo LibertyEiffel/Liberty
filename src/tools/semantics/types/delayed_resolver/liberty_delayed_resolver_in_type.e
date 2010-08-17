@@ -126,10 +126,10 @@ feature {}
 			a_type.is_child_of(a_definition_type)
 		do
 			debug ("feature.specialization")
-				std_output.put_string(once "Creating specialized type resolver from ")
-				std_output.put_string(a_definition_type.full_name)
-				std_output.put_string(once " to ")
-				std_output.put_line(a_type.full_name)
+				log.trace.put_string(once "Creating specialized type resolver from ")
+				log.trace.put_string(a_definition_type.full_name)
+				log.trace.put_string(once " to ")
+				log.trace.put_line(a_type.full_name)
 			end
 			current_type := a_type
 			definition_type := a_definition_type

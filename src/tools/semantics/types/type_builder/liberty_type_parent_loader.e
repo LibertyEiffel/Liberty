@@ -89,14 +89,14 @@ feature {}
 				parent_clause := parents.list_item(i)
 				parent := type_lookup.resolver.type(parent_clause.type_definition)
 				debug
-					std_output.put_string(once "  ")
-					std_output.put_string(type.full_name)
+					log.trace.put_string(once "  ")
+					log.trace.put_string(type.full_name)
 					if conformant then
-						std_output.put_string(once " --> ")
+						log.trace.put_string(once " --> ")
 					else
-						std_output.put_string(once " -+> ")
+						log.trace.put_string(once " -+> ")
 					end
-					std_output.put_line(parent.full_name)
+					log.trace.put_line(parent.full_name)
 				end
 				if parent /= Void then
 					actual_parent ::= parent.known_type
@@ -107,8 +107,8 @@ feature {}
 			end
 			if not conformant and then not Result and then not errors.has_error then
 				debug
-					std_output.put_string(type.name)
-					std_output.put_line(once ": adding default parent ANY")
+					log.trace.put_string(type.name)
+					log.trace.put_line(once ": adding default parent ANY")
 				end
 				type.add_parent(universe.type_any, False)
 				Result := True

@@ -12,7 +12,7 @@ output
 logger
 	LIBERTYI is
 		output out
-		level info
+		level trace
 	end
 
 end

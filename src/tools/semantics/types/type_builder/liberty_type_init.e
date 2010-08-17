@@ -108,12 +108,12 @@ feature {LIBERTY_TYPE_BUILDER}
 				Result := type.parameters.item(i).is_known
 				debug ("type.building.internals")
 					if not Result then
-						std_output.put_string(type.full_name)
-						std_output.put_string(once ": not yet ready because the type parameter #")
-						std_output.put_integer(i)
-						std_output.put_string(once ", ")
-						std_output.put_string(type.parameters.item(i).full_name)
-						std_output.put_line(once " is not yet actually set")
+						log.trace.put_string(type.full_name)
+						log.trace.put_string(once ": not yet ready because the type parameter #")
+						log.trace.put_integer(i)
+						log.trace.put_string(once ", ")
+						log.trace.put_string(type.parameters.item(i).full_name)
+						log.trace.put_line(once " is not yet actually set")
 					end
 				end
 				i := i + 1

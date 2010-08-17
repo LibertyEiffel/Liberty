@@ -18,6 +18,9 @@ insert
 	LIBERTY_AST_HANDLER
 		undefine out_in_tagged_out_memory
 		end
+	LOGGING
+		undefine out_in_tagged_out_memory
+		end
 
 feature {ANY}
 	parent: LIBERTY_TYPE_RESOLVER
