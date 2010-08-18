@@ -140,50 +140,86 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}
-	can_check_agent_signature: BOOLEAN is
+	can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+		require
+			a_agent_call /= Void
 		local
 			i: INTEGER
 		do
-			from
-				Result := result_type = Void or else result_type.is_known
-				i := parameters.lower
-			until
-				not Result or else i > parameters.upper
-			loop
-				Result := parameters.item(i).result_type.is_known
-				i := i + 1
+			if result_type = Void or else result_type.is_known then
+				from
+					Result := a_agent_call.target = Void or else a_agent_call.target.is_open_argument
+					i := parameters.lower
+				until
+					not Result or else i > parameters.upper
+				loop
+					Result := parameters.item(i).result_type.is_known
+					i := i + 1
+				end
 			end
 		ensure
 			can_also_check_result_type: Result implies (result_type = Void or else result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
+	agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
-			can_check_agent_signature
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
 		local
 			i: INTEGER
 		do
-			if a_agent_arguments.is_empty then
-				-- zero args is the same thing as all open args
-				if parameters.is_empty then
-					Result := a_agent_arguments
-				else
-					create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count)
-					from
-						i := parameters.lower
-					until
-						i > parameters.upper
-					loop
-						Result.add_last(parameters.item(i).result_type.known_type)
-						i := i + 1
-					end
-				end
-			elseif a_agent_arguments.count /= parameters.count then
-				--|*** TODO: error: bad number of arguments
-				not_yet_implemented
+			if a_agent_call.target = Void or else not a_agent_call.target.is_open_argument then
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count)
 			else
-				--|*** TODO: is there anything to do about open arguments?
-				Result := a_agent_arguments
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count + 1)
+				Result.add_last(current_type)
+			end
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				Result.add_last(parameters.item(i).result_type.known_type)
+				i := i + 1
+			end
+		end
+
+	check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+		require
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
+		local
+			i, j: INTEGER
+		do
+			if a_agent_call.target = Void or else not a_agent_call.is_open_argument then
+				i := 0
+			else
+				if parameters.is_empty then
+					crash --| TODO: error, bad number of arguments
+				end
+				if not a_agent_call.target.result_type.known_type.is_conform_to(parameters.first.result_type.known_type)
+					and then not a_agent_call.target.result_type.known_type.converts_to(parameters.first.result_type.known_type) then
+					crash --| TODO: error, bad argument type
+				end
+				i := 1
+			end
+			if a_agent_call.actuals.count /= 0 then
+				if a_agent_call.actuals.count /= parameters.count + i then
+					crash --| TODO: error, bad number of arguments
+				end
+				from
+					i := parameters.lower + i
+					j := a_agent_call.actuals.lower
+				until
+					i > parameters.upper
+				loop
+					if not parameters.item(i).result_type.known_type.is_conform_to(a_agent_call.actuals.item(j).result_type.known_type)
+						and then not parameters.item(i).result_type.known_type.converts_to(a_agent_call.actuals.item(j).result_type.known_type) then
+						crash --| TODO: error, bad argument type
+					end
+					i := i + 1
+					j := j + 1
+				end
 			end
 		end
 

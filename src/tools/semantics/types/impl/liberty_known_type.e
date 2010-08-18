@@ -168,7 +168,7 @@ feature {ANY} -- Inheritance
 			end
 		end
 
-	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		deferred
 		end
 

@@ -135,7 +135,7 @@ feature {ANY}
 			visit.call([visitor, Current])
 		end
 
-	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := has_converter(target_type)
 		end
@@ -481,14 +481,14 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 			not has_converter(target_type)
 		do
 			if converters = Void then
-				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]} converters.with_capacity(3)
+				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_KNOWN_TYPE]} converters.with_capacity(3)
 			end
 			converters.add(a_converter, target_type)
 		ensure
 			converter(target_type) = a_converter
 		end
 
-	has_converter (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	has_converter (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := converters /= Void and then converters.fast_has(target_type)
 		end
@@ -667,7 +667,9 @@ feature {}
 
 	conformance_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER
 
-	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]
+	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_KNOWN_TYPE]
+			-- actually contains only LIBERTY_ACTUAL_TYPE objects but it helps to be able to check against
+			-- LIBERTY_VOID_TYPE
 
 	has_manifest_array: BOOLEAN
 			-- True if some manifest array expression builds an object of this type

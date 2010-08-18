@@ -114,18 +114,29 @@ feature {ANY}
 		end
 
 feature {LIBERTY_CALL_EXPRESSION}
-	can_check_agent_signature: BOOLEAN is
+	can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+		require
+			a_agent_call /= Void
 		do
-			Result := the_feature /= Void and then the_feature.can_check_agent_signature
+			Result := the_feature /= Void and then the_feature.can_check_agent_signature(a_agent_call)
 		ensure
 			can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
+	agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
-			can_check_agent_signature
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
 		do
-			Result := the_feature.check_agent_signature(a_agent_arguments)
+			Result := the_feature.agent_signature(a_agent_call)
+		end
+
+	check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+		require
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
+		do
+			the_feature.check_agent_signature(a_agent_call)
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}

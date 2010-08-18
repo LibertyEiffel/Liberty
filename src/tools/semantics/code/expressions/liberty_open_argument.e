@@ -17,7 +17,7 @@ class LIBERTY_OPEN_ARGUMENT
 inherit
 	LIBERTY_EXPRESSION
 		redefine
-			result_type_may_be_void
+			result_type_may_be_void, is_open_argument
 		end
 
 create {LIBERTY_BUILDER_TOOLS}
@@ -30,6 +30,7 @@ feature {ANY}
 	result_type: LIBERTY_TYPE
 
 	result_type_may_be_void: BOOLEAN is True
+	is_open_argument: BOOLEAN is True
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		local

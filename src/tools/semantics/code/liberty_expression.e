@@ -35,6 +35,7 @@ feature {ANY}
 		end
 
 	is_agent_call: BOOLEAN is False
+	is_open_argument: BOOLEAN is False
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		require

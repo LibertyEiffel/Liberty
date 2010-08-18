@@ -374,6 +374,9 @@ feature {}
 				loop
 					delayed_type := delayed_types.first
 					delayed_types.remove_first
+					check
+						not delayed_type.is_known
+					end
 					if delayed_type.can_resolve then
 						delayed_type.resolve
 						debug ("type.resolution")
