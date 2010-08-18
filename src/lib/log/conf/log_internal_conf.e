@@ -142,7 +142,7 @@ feature {}
 				if node.is_empty then
 					last_retention := -1
 				else
-					term ::= node.node_at(2)
+					term ::= node.node_at(1)
 					if num ?:= term.image then
 						num ::= term.image
 						last_retention := num.decoded

@@ -162,7 +162,7 @@ feature {}
 		local
 			path, new_file_name, new_index: STRING
 		do
-			if retention /= -1 and then index >= retention then
+			if retention /= -1 and then index > retention then
 				bd.compute_file_path_with(dir_name, file_name)
 				ft.delete(bd.last_entry)
 			elseif index = at_index then
