@@ -144,6 +144,11 @@ feature {LIBERTY_UNIVERSE}
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
 		end
 
+	visit_type_routine (a_type: LIBERTY_ACTUAL_TYPE) is
+		do
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)
+		end
+
 	visit_type_procedure (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted from a plugin", position)

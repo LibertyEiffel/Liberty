@@ -130,6 +130,11 @@ feature {LIBERTY_UNIVERSE}
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[TUPLE]} last_created.make(interpreter, array_type, type, elements, capacity, position)
 		end
 
+	visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, array_type, type, elements, capacity, position)
+		end
+
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[LIBERTY_INTERPRETER_AGENT]} last_created.make(interpreter, array_type, type, elements, capacity, position)

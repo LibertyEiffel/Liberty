@@ -63,10 +63,10 @@ feature {}
 				i := i + 1
 			end
 		end
-	
+
 feature {}
 	make is
 		do
 		end
-	
+
 end -- class LIBERTY_STANDARD_GENERICS_CONFORMANCE_CHECKER

@@ -115,6 +115,11 @@ feature {LIBERTY_UNIVERSE}
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_tuple(?, position), agent store_tuple)
 		end
 
+	visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_routine(?, position), agent store_routine)
+		end
+
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_procedure(?, position), agent store_procedure)
@@ -212,6 +217,11 @@ feature {} -- The retrievers
 		end
 
 	retrieve_tuple (item: LIBERTY_INTERPRETER_OBJECT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := item
+		end
+
+	retrieve_routine (item: LIBERTY_INTERPRETER_AGENT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := item
 		end
@@ -333,6 +343,11 @@ feature {} -- The storers
 	store_tuple (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := item
+		end
+
+	store_routine (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_AGENT is
+		do
+			Result ::= item
 		end
 
 	store_procedure (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_AGENT is

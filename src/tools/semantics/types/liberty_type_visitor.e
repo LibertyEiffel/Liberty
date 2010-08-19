@@ -79,6 +79,10 @@ feature {LIBERTY_UNIVERSE}
 		deferred
 		end
 
+	visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+		deferred
+		end
+
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		deferred
 		end

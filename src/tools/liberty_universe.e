@@ -279,6 +279,13 @@ feature {ANY} -- Kernel types
 			Result /= Void
 		end
 
+	type_routine (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+		require
+			effective_generics /= Void
+		do
+			Result := agent_type(routine_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_routine)
+		end
+
 	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
@@ -588,6 +595,14 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
+	routine_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("ROUTINE".intern)
+			create Result.make(cluster, "ROUTINE".intern, Void)
+		end
+
 	procedure_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
 		local
 			cluster: LIBERTY_CLUSTER
@@ -716,6 +731,13 @@ feature {LIBERTY_TYPE_RESOLVER}
 			when "TUPLE" then
 				parameters := get_parameters(type_definition.type_parameters)
 				Result := type_tuple(parameters, type_lookup.resolver.position(type_definition))
+			when "ROUTINE" then
+				parameters := get_parameters(type_definition.type_parameters)
+				check
+					parameters.count = 1
+					parameters.first.is_known
+				end
+				Result := type_routine(parameters.first.known_type.parameters, type_lookup.resolver.position(type_definition))
 			when "PROCEDURE" then
 				parameters := get_parameters(type_definition.type_parameters)
 				check
@@ -1126,6 +1148,11 @@ feature {}
 	visit_type_tuple: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_tuple
+		end
+
+	visit_type_routine: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_routine
 		end
 
 	visit_type_procedure: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
