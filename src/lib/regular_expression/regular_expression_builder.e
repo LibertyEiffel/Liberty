@@ -15,7 +15,7 @@ feature {ANY} -- Building REGULAR_EXPRESSION
 	convert_posix_pattern (p: STRING): REGULAR_EXPRESSION is
 			-- Create some REGULAR_EXPRESSION from the pattern `p' according to Posix syntax.
 			-- If `p' is not a valid regular expression according to Posix syntax, then `Result' is Void
-			-- and `last_error_message' and `last_error_message' are set.
+			-- and `last_error_message' and `last_error_position' are set.
 		require
 			p /= Void
 		do
@@ -29,7 +29,7 @@ feature {ANY} -- Building REGULAR_EXPRESSION
 	convert_perl_pattern (p: STRING): REGULAR_EXPRESSION is
 			-- Create some REGULAR_EXPRESSION from the pattern `p' according to Perl syntax.
 			-- If `p' is not a valid regular expression according to Perl syntax, then `Result' is Void
-			-- and `last_error_message' and `last_error_message' are set.
+			-- and `last_error_message' and `last_error_position' are set.
 		require
 			p /= Void
 		do
@@ -39,6 +39,25 @@ feature {ANY} -- Building REGULAR_EXPRESSION
 				perl5_builder.set_no_extended_ligibility
 			end
 			Result := convert_backtracking_pattern(p, perl5_builder)
+		ensure
+			Result /= Void xor last_error_message /= Void
+			initialized: Result /= Void implies not Result.last_match_succeeded
+			substitution_cleared: Result /= Void implies not Result.substitution_pattern_ready
+		end
+
+	convert_python_pattern (p: STRING): REGULAR_EXPRESSION is
+			-- Create some REGULAR_EXPRESSION from the pattern `p' according to Python syntax.
+			-- If `p' is not a valid regular expression according to Python syntax, then `Result' is Void
+			-- and `last_error_message' and `last_error_position' are set.
+		require
+			p /= Void
+		do
+			if has_extended_ligibility then
+				python_builder.set_extended_ligibility
+			else
+				python_builder.set_no_extended_ligibility
+			end
+			Result := convert_backtracking_pattern(p, python_builder)
 		ensure
 			Result /= Void xor last_error_message /= Void
 			initialized: Result /= Void implies not Result.last_match_succeeded
@@ -174,7 +193,13 @@ feature {} -- Internal
 		end
 
 	perl5_builder: PERL5_REGULAR_EXPRESSION_BUILDER is
-			-- The builder for the POSIX syntax
+			-- The builder for the PERL5 syntax
+		once
+			create Result.make
+		end
+
+	python_builder: PYTHON_REGULAR_EXPRESSION_BUILDER is
+			-- The builder for the Python syntax
 		once
 			create Result.make
 		end
