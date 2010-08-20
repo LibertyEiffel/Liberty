@@ -49,7 +49,7 @@ feature {ANY} -- Queries
 			create Result.from_external_pointer(llvmget_type_context(handle))
 		end
 
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		-- LLVM_TYPE actually wraps a polymorphic C++ class; temporarly this query always fails.
 	require implemented: False
 		do
