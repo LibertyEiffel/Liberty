@@ -249,6 +249,36 @@ feature {ANY} -- matching capabilities
 			Result = named_group_last_index(name) - named_group_first_index(name) + 1
 		end
 
+	for_all_matched_named_groups (text: STRING; action: PROCEDURE[TUPLE[FIXED_STRING, STRING]]) is
+			-- Call the `action' for each group that matched during the last match.
+			-- The first action argument is the name of the group; the second is its content.
+			-- The order of the action calls is the ascending order of the group definitions in the pattern.
+			--
+			-- Note: the same STRING objects may be reused, so be sure to copy them if you want to keep them.
+		require
+			text /= Void
+			action /= Void
+			last_match_succeeded
+			text.has_prefix(last_match_text)
+		local
+			i: INTEGER; group_name: FIXED_STRING; group_data: STRING
+		do
+			from
+				group_data := once ""
+				i := 1
+			until
+				i > group_count
+			loop
+				if ith_group_matched(i) and then substrings_names.fast_has_value(i) then
+					group_name := substrings_names.fast_key_at(i)
+					group_data.clear_count
+					append_ith_group(text, group_data, i)
+					action.call([group_name, group_data])
+				end
+				i := i + 1
+			end
+		end
+
 	append_heading_text (text, buffer: STRING) is
 			-- Append in `buffer' the text before the matching area.
 			-- `text' is the same as used in last matching.
@@ -675,7 +705,7 @@ feature {}
 			-- The ending position of the string starting at position
 			-- found in `matching_position' at the same index.
 
-	substrings_names: DICTIONARY[INTEGER, FIXED_STRING]
+	substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
 			-- The names of the groups, if those names exist
 
 	group_names_memory: COLLECTION[FIXED_STRING]

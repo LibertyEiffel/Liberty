@@ -229,7 +229,7 @@ feature {} -- build
 	last_group_count: INTEGER
 			-- The count of groups currently found.
 
-	last_substrings_names: HASHED_DICTIONARY[INTEGER, FIXED_STRING] is
+	last_substrings_names: HASHED_BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING] is
 			-- The names of the named subgroups
 		once
 			create Result.with_capacity(10)

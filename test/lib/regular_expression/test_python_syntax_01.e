@@ -75,6 +75,13 @@ feature {}
 			data := ""
 			pattern.append_named_group(text, data, "foo")
 			assert(data.is_equal("aaab"))
+			pattern.for_all_matched_named_groups(text, agent compare_group_text("foo", ?, "aaab", ?))
+		end
+
+	compare_group_text (expected_group: STRING; actual_group: FIXED_STRING; expected_data: STRING; actual_data: STRING) is
+		do
+			assert(expected_group.is_equal(actual_group))
+			assert(expected_data.is_equal(actual_data))
 		end
 
 	re: REGULAR_EXPRESSION_BUILDER
