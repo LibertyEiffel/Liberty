@@ -15,87 +15,16 @@ deferred class BIJECTIVE_DICTIONARY[V_, K_]
 	-- move from one to the other.
 	--
 
-inherit
-	TRAVERSABLE[V_]
-		rename
-			new_iterator as new_iterator_on_items,
-			do_all as do_all_xitems,
-			for_all as for_all_items,
-			exists as exists_item
-		redefine is_equal, copy
-		end
 
-feature {ANY} -- Counting:
-	is_empty: BOOLEAN is
-			-- Is it empty ?
-		do
-			Result := count = 0
+inherit
+	MAP[V_, K_]
+		undefine
+			key_at, fast_key_at
+		redefine
+			occurrences, fast_occurrences
 		end
 
 feature {ANY} -- Basic access:
-	has (k: K_): BOOLEAN is
-			-- Is there a value currently associated with key `k'?
-		require
-			k /= Void
-		deferred
-		ensure
-			Result implies has_value(at(k))
-		end
-
-	at (k: K_): V_ is
-			-- Return the value associated to key `k'.
-			-- (See also `reference_at' if V_ is a reference type.)
-		require
-			has(k)
-		deferred
-		ensure
-			k.is_equal(key_at(Result))
-		end
-
-	reference_at (k: K_): V_ is
-			-- Return Void or the value associated with key `k'. Actually, this feature is only useful 
-			-- when the type of values (the type V_) is a reference type, to avoid using `has' just 
-			-- followed by `at' to get the corresponding value.
-		require
-			k /= Void
-			values_are_expanded: Result = Void
-		deferred
-		ensure
-			has(k) implies Result = at(k)
-		end
-
-	fast_has (k: K_): BOOLEAN is
-			-- Is there a value currently associated with key `k'?
-		require
-			k /= Void
-		deferred
-		ensure
-			Result implies fast_has_value(fast_at(k))
-		end
-
-	fast_at (k: K_): V_ is
-			-- Return the value associated to key `k'.
-			-- (See also `reference_at' if V_ is a reference type.)
-		require
-			fast_has(k)
-		deferred
-		ensure
-			Result = at(k)
-			fast_key_at(Result) = k
-		end
-
-	fast_reference_at (k: K_): V_ is
-			-- Return Void or the value associated with key `k'. Actually, this feature is useful only 
-			-- when the type of values (the type V_) is a reference type, to avoid using `has' just 
-			-- followed by `at' to get the corresponding value.
-		require
-			k /= Void
-			values_are_not_expanded: Result = Void
-		deferred
-		ensure
-			fast_has(k) implies Result = fast_at(k)
-		end
-
 	has_value (v: V_): BOOLEAN is
 			-- Is there a value `v'?
 		require
@@ -103,15 +32,7 @@ feature {ANY} -- Basic access:
 		deferred
 		ensure
 			Result implies has(key_at(v))
-		end
-
-	key_at (v: V_): K_ is
-			-- Retrieve the key used for value `v' using `is_equal' for comparison.
-		require
-			has_value(v)
-		deferred
-		ensure
-			v.is_equal(at(Result))
+			Result = (occurrences(v) = 1)
 		end
 
 	fast_has_value (v: V_): BOOLEAN is
@@ -121,16 +42,22 @@ feature {ANY} -- Basic access:
 		deferred
 		ensure
 			Result implies fast_has(fast_key_at(v))
+			Result = (fast_occurrences(v) = 1)
 		end
 
-	fast_key_at (v: V_): K_ is
-			-- Retrieve the key used for value `v' using `=' for comparison.
-		require
-			fast_has_value(v)
-		deferred
-		ensure
-			Result = key_at(v)
-			fast_at(Result) = v
+feature {ANY} -- Looking and searching some value:
+	occurrences (v: V_): INTEGER is
+		do
+			Result := Precursor(v)
+		ensure then
+			Result.in_range(0, 1)
+		end
+
+	fast_occurrences (v: V_): INTEGER is
+		do
+			Result := Precursor(v)
+		ensure then
+			Result.in_range(0, 1)
 		end
 
 feature {ANY}
@@ -197,164 +124,27 @@ feature {ANY} -- Removing:
 		end
 
 feature {ANY} -- To provide iterating facilities:
-	lower: INTEGER is 1
-
-	upper: INTEGER is
-		do
-			Result := count
-		ensure
-			Result = count
-		end
-
-	item (index: INTEGER): V_ is
-		deferred
-		ensure
-			Result = at(key(index))
-		end
-
-	key (index: INTEGER): K_ is
-		require
-			valid_index(index)
-		deferred
-		ensure
-			Result = key_at(item(index))
-		end
-
-	first: V_ is
-		do
-			Result := item(lower)
-		end
-	
-	last: V_ is
-		do
-			Result := item(upper)
-		end
-	
 	new_iterator_on_items: ITERATOR[V_] is
 		do
 			create {ITERATOR_ON_BIJECTIVE_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
-		ensure then
-			Result /= Void
 		end
 
 	new_iterator_on_keys: ITERATOR[K_] is
 		do
 			create {ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
-		ensure
-			Result /= Void
-		end
-
-feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-			-- Do both dictionaries have the same set of associations?
-			-- Both keys and values are compared with `is_equal'.
-		local
-			i: INTEGER; k: K_
-		do
-			if Current = other then
-				Result := True
-			elseif count = other.count then
-				from
-					Result := True
-					i := 1
-				until
-					not Result or else i > count
-				loop
-					k := key(i)
-					if other.has(k) then
-						if other.at(k).is_equal(item(i)) then
-							i := i + 1
-						else
-							Result := False
-						end
-					else
-						Result := False
-					end
-				end
-			end
-		ensure then
-			Result implies count = other.count
-		end
-
-	copy (other: like Current) is
-			-- Reinitialize by copying all associations of `other'.
-		deferred
-		end
-
-feature {ANY} -- Agents based features:
-	do_all (action: ROUTINE[TUPLE[V_, K_]]) is
-			-- Apply `action' to every [V_, K_] associations of `Current'.
-			--
-			-- See also `for_all', `exists'.
-		local
-			i: INTEGER; v: V_; k: K_
-		do
-			from
-				i := lower
-			until
-				i > upper
-			loop
-				v := item(i)
-				k := key(i)
-				action.call([v, k])
-				i := i + 1
-			end
-		end
-
-	for_all (test: PREDICATE[TUPLE[V_, K_]]): BOOLEAN is
-			-- Do all [V_, K_] associations satisfy `test'?
-			--
-			-- See also `do_all', `exists'.
-		local
-			i: INTEGER; v: V_; k: K_
-		do
-			from
-				Result := True
-				i := lower
-			until
-				not Result or else i > upper
-			loop
-				v := item(i)
-				k := key(i)
-				Result := test.item([v, k])
-				i := i + 1
-			end
-		end
-
-	exists (test: PREDICATE[TUPLE[V_, K_]]): BOOLEAN is
-			-- Does at least one [V_, K_] association satisfy `test'?
-			--
-			-- See also `do_all', `for_all'.
-		local
-			i: INTEGER; v: V_; k: K_
-		do
-			from
-				i := lower
-			until
-				Result or else i > upper
-			loop
-				v := item(i)
-				k := key(i)
-				Result := test.item([v, k])
-				i := i + 1
-			end
 		end
 
 feature {ANY} -- Other features:
 	internal_key (k: K_): K_ is
 			-- Retrieve the internal key object which correspond to the existing
 			-- entry `k' (the one memorized into the `Current' dictionary).
-		require
-			has(k)
 		deferred
-		ensure
-			Result.is_equal(k)
+		ensure then
 			internal_key(Result) = Result
 			at(k) = fast_at(Result)
 		end
 
 feature {}
-
 	frozen key_safe_equal (k1, k2: K_): BOOLEAN is
 			-- Because keys are never Void, we do not rely on the SAFE_EQUAL class.
 		require
