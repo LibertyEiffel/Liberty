@@ -81,6 +81,7 @@ feature {} -- Instructions
 		local
 			i, n: INTEGER; inst: LIBERTY_AST_INSTRUCTION
 			instructions: COLLECTION[LIBERTY_INSTRUCTION]
+			pos: LIBERTY_POSITION
 		do
 			n := insts.count
 			inspect
@@ -101,7 +102,8 @@ feature {} -- Instructions
 					instructions.add_last(instruction(inst, local_context))
 					i := i + 1
 				end
-				create {LIBERTY_COMPOUND} Result.make(instructions, instructions.first.position)
+				pos := instructions.first.position
+				create {LIBERTY_COMPOUND} Result.make(instructions, pos)
 			end
 		ensure
 			not errors.has_error implies Result /= Void

@@ -12,39 +12,31 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_ENLIGHTENING_THE_WORLD
---
--- Allows to ensure that the compiler is still progressing. Useful to avoid staying stuck in an infinite loop.
---
+class LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER
 
-insert
-	LOGGING
+inherit
+	LIBERTY_TYPE_LISTENER
 
-feature {ANY}
-	burn is
+creation {ANY}
+	make
+
+feature {LIBERTY_TYPE}
+	on_type_known (type: LIBERTY_TYPE) is
 		do
-			torch.increment
-			debug
-				log.trace.put_string(once "FLAME: ")
-				log.trace.put_integer(torch.value)
-				log.trace.put_new_line
-			end
+			-- nothing
 		end
 
-	flame: LIBERTY_FLAME is
+	on_type_built (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			Result.set(torch.value)
-		end
-
-	still_burns (a_flame: like flame): BOOLEAN is
-		do
-			Result := torch.value > a_flame.light
+			type.mark_manifest_array_features(mark)
 		end
 
 feature {}
-	torch: COUNTER is
-		once
-			create Result
+	make (a_mark: like mark) is
+		do
+			mark := a_mark
 		end
 
-end -- class LIBERTY_ENLIGHTENING_THE_WORLD
+	mark: INTEGER
+
+end -- LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER

@@ -146,7 +146,7 @@ feature {}
 			atoms.add(atom, name.intern)
 			atom.set(name, Current)
 		ensure
-			atom.name = name
+			atom.name = name.intern
 		end
 
 	manifest_semicolon_check: INTEGER is 2

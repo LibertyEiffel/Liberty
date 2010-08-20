@@ -17,6 +17,9 @@ class LIBERTY_INTERPRETER_OBJECT_CONVERTER
 inherit
 	LIBERTY_TYPE_CONVERTER
 
+insert
+	LOGGING
+
 creation {LIBERTY_INTERPRETER}
 	make
 
@@ -26,10 +29,10 @@ feature {ANY}
 			a_source.type.converts_to(a_target_type)
 		do
 			debug ("interpreter.convert")
-				std_output.put_string(once "Converting from ")
-				std_output.put_string(a_source.result_type.known_type.full_name)
-				std_output.put_string(once " to ")
-				std_output.put_line(a_target_type.full_name)
+				log.trace.put_string(once "Converting from ")
+				log.trace.put_string(a_source.result_type.known_type.full_name)
+				log.trace.put_string(once " to ")
+				log.trace.put_line(a_target_type.full_name)
 			end
 			interpreter.ensure_built(a_target_type)
 			source := a_source

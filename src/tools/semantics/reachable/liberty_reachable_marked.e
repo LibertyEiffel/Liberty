@@ -25,18 +25,20 @@ feature {ANY} -- The "reachable" property
 		do
 			Result := reachable_mark > 0
 		ensure
-			once_set_always_set: reachable_memory implies Result
+			once_reachable_always_reachable: reachable_memory implies Result
 		end
 
 feature {LIBERTY_REACHABLE}
 	mark_reachable_code (mark: like reachable_mark) is
+		require
+			mark > 0
 		deferred
 		ensure
-			reachable_mark = mark
+			reachable_mark >= mark
 			is_reachable: ensure_is_reachable
 		end
 
-feature {} -- Contract implementation: "once set, always set" behaviour
+feature {} -- Contract implementation: check the "once reachable, always reachable" behaviour
 	frozen ensure_is_reachable: BOOLEAN is
 		do
 			reachable_memory := True

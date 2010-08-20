@@ -94,7 +94,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 		local
 			i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
 			val: LIBERTY_INTERPRETER_OBJECT
-			formal_type, actual_type: LIBERTY_ACTUAL_TYPE
+			formal_type: LIBERTY_ACTUAL_TYPE; actual_type: LIBERTY_KNOWN_TYPE
 		do
 			if parameters = Void then
 				interpreter.set_evaluating_parameters(Current)
@@ -114,7 +114,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 					actuals.item(i).accept(interpreter.expressions)
 					val := interpreter.expressions.eval_as_right_value
 					formal_type ::= bound_feature.parameters.item(i).result_type.known_type
-					actual_type ::= val.type.known_type
+					actual_type := val.type.known_type
 					if actual_type.is_conform_to(formal_type) then
 						p.add_last(val)
 					elseif actual_type.converts_to(formal_type) then

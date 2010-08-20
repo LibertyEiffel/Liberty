@@ -1,33 +1,26 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class LOG_LEVELS
---
--- The logging levels
---
+class LOG_FILE_PASS_THROUGH
 
-feature {ANY}
-	trace: LOG_LEVEL is
-		once
-			create Result.make(2, "TRACE".intern)
+inherit
+	LOG_FILE_OPTION
+
+creation {LOG_FILE_OPTIONS}
+	make
+
+feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
+	retrieve (stream: FILE_STREAM): FILE_STREAM is
+		do
+			Result := stream
 		end
 
-	info: LOG_LEVEL is
-		once
-			create Result.make(1, "INFO ".intern)
+feature {}
+	make is
+		do
 		end
 
-	warning: LOG_LEVEL is
-		once
-			create Result.make(0, "WARN ".intern)
-		end
-
-	error: LOG_LEVEL is
-		once
-			create Result.make(-1, "ERROR".intern)
-		end
-
-end -- class LOG_LEVELS
+end -- class LOG_FILE_PASS_THROUGH
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -30,6 +30,7 @@ class LIBERTY_TYPE_BUILDER
 
 insert
 	LIBERTY_ERROR_LEVELS
+	LOGGING
 
 creation {LIBERTY_ACTUAL_TYPE}
 	make
@@ -49,15 +50,15 @@ feature {LIBERTY_ACTUAL_TYPE}
 		require
 			not is_built
 		local
-			state: like current_state; staled: BOOLEAN
+			state: like current_state; stalled: BOOLEAN
 		do
 			from
 			until
-				is_built or else staled
+				is_built or else stalled
 			loop
 				state := current_state
 				automaton.next(automaton_context)
-				staled := current_state = state
+				stalled := current_state = state
 			end
 		end
 
@@ -94,8 +95,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- given effective parameters.
 		do
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": init header")
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": init header")
 			end
 			init.init_type_header
 			Result := once "loading parents"
@@ -117,8 +118,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": load parents")
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": load parents")
 			end
 			create loader.make(Current, type, universe, effective_generic_parameters)
 			loader.load
@@ -142,15 +143,15 @@ feature {LIBERTY_TYPE_BUILDER}
 					and then check_have_loaded_features(type.non_conformant_parents)
 				debug ("type.building")
 					if Result then
-						std_output.put_string(type.name)
-						std_output.put_line(once " can load its parent features")
+						log.trace.put_string(type.name)
+						log.trace.put_line(once " can load its parent features")
 					end
 				end
 			end
 			debug ("type.building")
 				if not Result then
-					std_output.put_string(type.full_name)
-					std_output.put_line(once " cannot load its parent features yet")
+					log.trace.put_string(type.full_name)
+					log.trace.put_line(once " cannot load its parent features yet")
 				end
 			end
 		end
@@ -166,8 +167,8 @@ feature {LIBERTY_TYPE_BUILDER}
 				redefined_features = no_redefined_features
 			end
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": load parent features")
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": load parent features")
 			end
 			create loader.make(Current, current_entity, universe, effective_generic_parameters, no_redefined_features)
 			loader.load
@@ -181,21 +182,17 @@ feature {LIBERTY_TYPE_BUILDER}
 			type.is_reachable
 		do
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": load features")
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": load features")
 			end
 			create features_loader.make(Current, current_entity, universe, effective_generic_parameters, redefined_features)
 			features_loader.load
 			has_loaded_features := True
 			debug ("type.building")
-				type.debug_display(std_output, True)
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": features loaded")
+				type.debug_display(log.trace, True)
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": features loaded")
 			end
-			-- if type.full_name.out.is_equal(once "STD_OUTPUT") then
-			-- 	std_output.flush
-			-- 	breakpoint
-			-- end
 			Result := once "checking type"
 		end
 
@@ -206,8 +203,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			type.is_reachable
 		do
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_line(once ": check type")
+				log.trace.put_string(type.full_name)
+				log.trace.put_line(once ": check type")
 			end
 			--create {LIBERTY_TYPE_CHECKER}.check_type(type, universe)
 
@@ -258,10 +255,10 @@ feature {}
 				Result := parents.item(i).has_loaded_features
 				debug ("type.building")
 					if not Result then
-						std_output.put_string(type.full_name)
-						std_output.put_string(once ": waiting for its parent ")
-						std_output.put_string(parents.item(i).full_name)
-						std_output.put_line(once " to having loaded its features")
+						log.trace.put_string(type.full_name)
+						log.trace.put_string(once ": waiting for its parent ")
+						log.trace.put_string(parents.item(i).full_name)
+						log.trace.put_line(once " to having loaded its features")
 					end
 				end
 				i := i + 1
@@ -290,9 +287,9 @@ feature {LIBERTY_TYPE_INIT}
 			useful: not effective.is_empty
 		do
 			debug ("type.building")
-				std_output.put_string(type.full_name)
-				std_output.put_string(once ": computed effective generic parameters: ")
-				std_output.put_line(effective.out)
+				log.trace.put_string(type.full_name)
+				log.trace.put_string(once ": computed effective generic parameters: ")
+				log.trace.put_line(effective.out)
 			end
 			effective_generic_parameters := effective
 			type_resolver.set_effective_parameters(effective)

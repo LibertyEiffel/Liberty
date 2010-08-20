@@ -289,11 +289,6 @@ feature {}
 				name ::= names.item(i)
 				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
 
-				-- if feature_name.full_name.out.is_equal(once "is_connected") then
-				-- 	std_output.flush
-				-- 	breakpoint
-				-- end
-
 				if type.has_feature(feature_name) then
 					if redefined_features = Void then
 						redefined := Void
@@ -314,19 +309,14 @@ feature {}
 						fd.set_the_feature(a_feature)
 
 						debug ("type.building.internals")
-							std_output.put_string(once " <=> late binding down to ")
-							std_output.put_string(type.full_name)
-							std_output.put_string(once " of defined feature ")
-							std_output.put_line(feature_name.full_name)
+							log.trace.put_string(once " <=> late binding down to ")
+							log.trace.put_string(type.full_name)
+							log.trace.put_string(once " of defined feature ")
+							log.trace.put_line(feature_name.full_name)
 						end
 
 						type.replace_feature(fd)
 						a_feature.replace(fd_parent.the_feature, type)
-
-						-- if feature_name.full_name.out.is_equal(once "is_connected") then
-						-- 	std_output.flush
-						-- 	breakpoint
-						-- end
 					elseif redefined.redefined_feature = Void then
 						redefined.set_redefined_feature(a_feature)
 					elseif redefined.redefined_feature = a_feature then

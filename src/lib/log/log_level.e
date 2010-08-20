@@ -45,9 +45,9 @@ feature {}
 			tag = a_tag
 		end
 
-	bottomless_pit: NULL_OUTPUT_STREAM is
+	bottomless_pit: OUTPUT_STREAM is
 		once
-			create Result
+			create {NULL_OUTPUT_STREAM} Result
 		end
 
 invariant

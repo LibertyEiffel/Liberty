@@ -28,6 +28,9 @@ insert
 	LIBERTY_REACHABLE_MARKED
 		redefine out_in_tagged_out_memory
 		end
+	LOGGING
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL, LIBERTY_CALL_PROMOTION}
 	make
@@ -77,7 +80,7 @@ feature {ANY}
 
 	debug_display is
 		do
-			target_type.known_type.debug_display(std_output, True)
+			target_type.known_type.debug_display(log.trace, True)
 		end
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
@@ -132,10 +135,10 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if not is_reachable then
 				debug ("mark.reachable")
-					std_output.put_string(once "Marked reachable the feature entity {")
-					std_output.put_string(target_type.full_name)
-					std_output.put_string(once "}.")
-					std_output.put_line(feature_name.name)
+					log.trace.put_string(once "Marked reachable the feature entity {")
+					log.trace.put_string(target_type.full_name)
+					log.trace.put_string(once "}.")
+					log.trace.put_line(feature_name.name)
 				end
 				torch.burn
 			end

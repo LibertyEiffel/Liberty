@@ -558,6 +558,7 @@ feature {}
 				i > locations.upper
 			loop
 				location.make_from_string(locations.item(i))
+				env.substitute(location)
 				file := canonical_location(location)
 				if files.is_directory(file) then
 					i := i + 1
@@ -603,23 +604,28 @@ feature {}
 	import_loadpath_line (locations: FAST_ARRAY[FIXED_STRING]; directory: FIXED_STRING; loadpath_line: STRING) is
 		require
 			dir.system_notation.is_absolute_path(directory.out)
+		local
+			loadpath_entry: STRING
 		do
-			if not should_ignore(loadpath_line) then
-				if dir.system_notation.is_absolute_path(loadpath_line) then
-					locations.add_last(loadpath_line.intern)
+			if not is_comment(loadpath_line) then
+				loadpath_entry := once ""
+				loadpath_entry.make_from_string(loadpath_line)
+				env.substitute(loadpath_entry)
+				if dir.system_notation.is_absolute_path(loadpath_entry) then
+					locations.add_last(loadpath_entry.intern)
 				else
-					dir.compute_file_path_with(directory, loadpath_line)
+					dir.compute_file_path_with(directory, loadpath_entry)
 					if files.file_exists(dir.last_entry) then
 						locations.add_last(dir.last_entry.intern)
 					else
-						dir.compute_subdirectory_with(directory, loadpath_line)
+						dir.compute_subdirectory_with(directory, loadpath_entry)
 						locations.add_last(dir.last_entry.intern)
 					end
 				end
 			end
 		end
 
-	should_ignore (loadpath_line: STRING): BOOLEAN is
+	is_comment (loadpath_line: STRING): BOOLEAN is
 		local
 			i: INTEGER; found: BOOLEAN
 		do
@@ -634,9 +640,8 @@ feature {}
 				when ' ', '%T' then
 					check Result end
 				when '-' then
-					if i < loadpath_line.upper and then loadpath_line.item(i+1) = '-' then
-						found := True
-					end
+					Result := i < loadpath_line.upper and then loadpath_line.item(i+1) = '-'
+					found := True
 				else
 					Result := False
 					found := True
