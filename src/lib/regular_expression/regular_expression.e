@@ -710,9 +710,10 @@ feature {}
 		do
 			if group_names_memory = Void then
 				create {FAST_ARRAY[FIXED_STRING]} group_names_memory.with_capacity(substrings_names.count)
+			else
 				group_names_memory.clear_count
-				substrings_names.key_map_in(group_names_memory)
 			end
+			substrings_names.key_map_in(group_names_memory)
 		end
 
 	last_match_text_memory: STRING -- For assertion only.
@@ -721,7 +722,11 @@ invariant
 	substrings_first_indexes.lower = substrings_last_indexes.lower
 	substrings_first_indexes.upper = substrings_last_indexes.upper
 	substrings_names.is_empty or else (substrings_names.count <= substrings_first_indexes.count
-												  and then substrings_names.for_all(agent (i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := s /= Void and then substrings_first_indexes.fast_has(i) end))
+												  and then substrings_names.for_all(agent (i: INTEGER; s: FIXED_STRING): BOOLEAN is
+																									do
+																										Result := s /= Void
+																											and then substrings_first_indexes.valid_index(i)
+																									end))
 
 end -- class REGULAR_EXPRESSION
 --

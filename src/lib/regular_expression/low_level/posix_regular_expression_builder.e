@@ -526,7 +526,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
 
 	emit_recorded is
 			-- Emits the last union_factor's recorded character or item,
-			-- depending of its kind.
+			-- depending on its kind.
 		do
 			if recorded_item = Void then
 				emit_match_single(recorded_character)

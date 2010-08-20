@@ -3,10 +3,10 @@
 --
 deferred class ABSTRACT_BACKTRACKING
 	--
-	-- This class is intended to explore structures that matches the and/or
+	-- This class is intended to explore structures that match the and/or
 	-- pattern. The and/or pattern is found for example in the evaluation of
 	-- the regular expressions, in the evaluation of prolog queries, in
-	-- solving some generic problem of artificial intelligency.
+	-- solving some generic problem of artificial intelligence.
 	--
 	-- The instances of the class inheriting ABSTRACT_BACKTRACKING are
 	-- typically used through code like the following one that enumerate
@@ -22,17 +22,17 @@ deferred class ABSTRACT_BACKTRACKING
 	--            explorer.search_next
 	--         end
 	--
-	-- The exploration is the enumeration of all the path in an abstract
+	-- The exploration is the enumeration of all the paths in an abstract
 	-- structure made of alternatives or sequences of goals to satisfy.
 	--
 	-- The class ABSTRACT_BACKTRACKING does not make any assumption on
 	-- what is explored. That is its strength because it can be used in
-	-- many situations. In such case, nothing is said of what
-	-- is a solution and what is a context. The implementations often
-	-- have to supply it.
+	-- many situations. In such a case, nothing is said about what
+	-- is a solution and what is a context. The implementations usually
+	-- have to provide it.
 	--
-	-- A good understanding of how works that class is required if you
-	-- intend to use it. See also the more easy to use class BACKTRACKING.
+	-- A good understanding of how that class works is required if you
+	-- intend to use it. See also the more easy-to-use class BACKTRACKING.
 	--
 	-- See tutorial/backtracking for examples.
 	--
@@ -42,8 +42,8 @@ deferred class ABSTRACT_BACKTRACKING
 	-- When the feature 'evaluate_current_state' is called,
 	-- the implementor must perform actions to process the exploration.
 	-- Here are some of the common things that can be done (note that
-	-- one or more of this action can be done):
-	--   + actions enougth by themselves
+	-- one or more of these actions can be done):
+	--   + stand-alone actions
 	--     - replace the current state by an other state.
 	--     - call 'backtrack': cancel the exploration of the current
 	--       alternative and explore the next alternative.
@@ -110,7 +110,7 @@ feature {ANY} -- Common client features
 		end
 
 	search_is_success: BOOLEAN
-			-- True when search is successfull
+			-- True when search is successful
 
 	is_off: BOOLEAN is
 			-- True when search is finished
@@ -153,7 +153,7 @@ feature {ANY} -- Common client features
 
 feature {ANY} -- Control of the exploration
 	push_sequence (sequence: like top_sequence) is
-			-- Pushs the 'sequence' in front of the continuation path.
+			-- Pushes the `sequence' in front of the continuation path.
 		require
 			sequence_not_void: sequence /= Void
 		do
@@ -169,7 +169,7 @@ feature {ANY} -- Control of the exploration
 		end
 
 	push_alternative (alternative: like top_alternative) is
-			-- Pushs the 'alternative' before the continuation path.
+			-- Pushes the `alternative' before the continuation path.
 		require
 			alternative_not_void: alternative /= Void
 		do
@@ -222,7 +222,7 @@ feature {ANY} -- Control of the exploration
 	push_cut_point is
 			-- Inserts a cut point into the continuation path.
 			-- The inserted cut point records the current
-			-- to of the alternatives.
+			-- top of the alternatives.
 		local
 			cut_point: ABSTRACT_BACKTRACKING_CUT_POINT
 		do
@@ -245,8 +245,8 @@ feature {ANY} -- Control of the exploration
 			until
 				sequence = Void
 			loop
-				cut_point ?= sequence
-				if cut_point = Void then
+				if cut_point ?:= sequence then
+					cut_point ::= sequence
 					sequence := sequence.continuation
 				else
 					alternative := cut_point.top_alternative
@@ -267,11 +267,11 @@ feature {ANY} -- Control of the exploration
 feature {} -- Internal
 	stop_search_loop: BOOLEAN
 			-- True if at the end of a search.
-			-- Such end occurs either if a solution is found
+			-- This occurs if either a solution is found
 			-- (and then search_is_success=True) or no solution
 			-- is found (and then search_is_success=False).
-			-- That feature should be modified only by 'continue' 
-			-- and 'backtrack'.
+			-- That feature should be modified only by `continue'
+			-- and `backtrack'.
 
 	search is
 			-- Common search loop to search_first and serch_next
@@ -304,13 +304,13 @@ feature {} -- Internal
 feature {} -- Internal deferred
 	evaluate_current_state is
 			-- That feature is called to evaluate the current state.
-			-- Called repeatedly by search until stop_search_loop.
+			-- Called repeatedly by `search' until `stop_search_loop'.
 		deferred
 		end
 
 	context_clear is
 			-- Clear any saved context.
-			-- Called by features 'clear' and 'search_first'.
+			-- Called by the features `clear' and `search_first'.
 		deferred
 		end
 
@@ -321,25 +321,25 @@ feature {} -- Internal deferred
 		end
 
 	context_restore is
-			-- Restore the context to the last saved one. 
+			-- Restore the context to the last saved one.
 			-- The saved context MUST remain available for futur use.
-			-- Called each time that a new alternative (of the 
+			-- Called each time that a new alternative (of the
 			-- previous alternative point) is starting.
 		deferred
 		end
 
 	context_restore_and_pop is
-			-- Restore the context to the last saved one and drop it. 
+			-- Restore the context to the last saved one and drop it.
 			-- The saved context MUST be removed.
-			-- Called each time that the last alternative (of the 
+			-- Called each time that the last alternative (of the
 			-- previous alternative point) is starting.
-			-- Should be like 'context_restore' followed by 'context_cut'.
+			-- Should be similar to `context_restore' followed by `context_cut'.
 		deferred
 		end
 
 	context_cut is
 			-- Remove the last saved context.
-			-- Called by 'cut', 'cut_all' or 'cut_until'.
+			-- Called by `cut', `cut_all' or `cut_until'.
 		deferred
 		end
 
@@ -358,7 +358,7 @@ feature {ABSTRACT_BACKTRACKING_SEQUENCE} -- Specific to sequences
 			top_sequence /= Void
 			current_continuation /= Void
 		do
-			-- technical note: because the sequence are
+			-- technical note: because the sequences are
 			-- free to record there iteration state, the
 			-- continuations, that can be used several times,
 			-- need to be copied when not Void.
@@ -383,7 +383,7 @@ feature {ABSTRACT_BACKTRACKING_ALTERNATIVE} -- Specific to alternatives
 		require
 			top_alternative /= Void
 		do
-			-- removes unusefull data
+			-- removes useless data
 			from
 			until
 				top_sequence = top_alternative.top_sequence
@@ -407,12 +407,12 @@ feature {ABSTRACT_BACKTRACKING_ALTERNATIVE} -- Specific to alternatives
 			-- and put its saved continuation path as the
 			-- current continuation path.
 			-- Remove the alternative from the stack of alternatives.
-			-- Same as 'continue_alternative' but also removes
+			-- Same as `continue_alternative' but also removes
 			-- the alternative.
 		require
 			top_alternative /= Void
 		do
-			-- removes unusefull data
+			-- removes useless data
 			from
 			until
 				top_sequence = top_alternative.top_sequence

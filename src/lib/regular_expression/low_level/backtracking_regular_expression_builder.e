@@ -251,7 +251,7 @@ feature {} -- build
 		end
 
 	unemit: BACKTRACKING_NODE is
-			-- Pops the Result the stack.
+			-- Pops the Result from the stack.
 			-- [... Result] -> [...]
 		require
 			stack_not_empty: stack.count > 0
