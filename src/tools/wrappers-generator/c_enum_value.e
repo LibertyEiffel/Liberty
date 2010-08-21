@@ -6,6 +6,7 @@ inherit
 
 insert 
 	SHARED_COLLECTIONS
+	NAME_CONVERTER
 
 creation make
 
@@ -17,7 +18,8 @@ feature
 		end
 
 	eiffel_name: STRING is 
-		local enum: C_ENUM
+		-- The eiffel name of the value. Clash with reserved words and with feature name of class ANY are avoided adding the suffix "_value" when Result will be used to form getter feature names (i.e. "is_....")
+		local enum: C_ENUM; get: STRING
 		do 
 			if stored_eiffel_name=Void then
 				--print("Enum value: ")
@@ -35,6 +37,11 @@ feature
 				end
 				stored_eiffel_name:=eiffel_feature(stored_eiffel_name)
 
+				get := once "is_"+stored_eiffel_name
+				if any_features.has(get) then
+					-- The getter formed with Current will clash with a feature of class ANY; let's escape it
+					stored_eiffel_name := stored_eiffel_name + once "_value"
+				end
 			end
 			Result:=stored_eiffel_name
 		end
@@ -62,7 +69,7 @@ feature -- Plain enumeration
 		
 		-- Append enum query
 		queries.put_message	(once 
-		"	is_@(1): BOOLEAN is%N%
+		"	@(1): BOOLEAN is%N%
 		%		do%N%
 		%			Result := (value=@(1)_low_level)%N%
 		%		end%N%N", <<eiffel_name>>)
