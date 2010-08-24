@@ -12,7 +12,7 @@ insert
 		redefine
 			is_equal
 		end
-	
+
 feature {ANY}
 	call (o: O_) is
 			-- Call feature with all its operands, using `o' for the open operands.
