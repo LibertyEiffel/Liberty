@@ -245,11 +245,7 @@ feature {} -- The retrievers
 		do
 			Result := item
 			if Result = Void then
-				if a_type.is_expanded then
-					Result := interpreter.new_object(a_type, a_position)
-				else
-					Result := interpreter.void_object(a_type, a_position)
-				end
+				Result := interpreter.default_object(a_type, a_position)
 			end
 		end
 
