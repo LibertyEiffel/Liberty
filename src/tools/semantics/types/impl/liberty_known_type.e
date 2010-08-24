@@ -58,12 +58,17 @@ feature {ANY}
 
 	full_name: FIXED_STRING is
 		local
-			fn: STRING
+			buffer: STRING
 		do
-			fn := once ""
-			fn.clear_count
-			full_name_in(fn)
-			Result := fn.intern
+			if full_name_memory /= Void then
+				Result := full_name_memory
+			else
+				buffer := full_name_pool.new
+				full_name_in(buffer)
+				Result := buffer.intern
+				full_name_memory := Result
+				full_name_pool.recycle(buffer)
+			end
 		end
 
 	is_deferred: BOOLEAN is
@@ -208,6 +213,14 @@ feature {LIBERTY_UNIVERSE}
 	set_reachable (mark: INTEGER) is
 		do
 			mark_reachable_code(mark)
+		end
+
+feature {}
+	full_name_memory: FIXED_STRING
+
+	full_name_pool: STRING_RECYCLING_POOL is
+		once
+			create Result.make
 		end
 
 invariant
