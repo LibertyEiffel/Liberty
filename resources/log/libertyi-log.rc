@@ -5,7 +5,7 @@ root LIBERTYI
 output
 	out is
 		file "${path_liberty}/target/log/libertyi.log"
-		rotated each day
+		rotated each day keeping 4
 		zipped using "gzip"
 	end
 
