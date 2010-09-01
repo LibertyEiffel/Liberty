@@ -9,6 +9,9 @@ class BINARY_FILE_WRITE
 inherit
 	DISPOSABLE
 	FILE_STREAM
+		redefine 
+			dispose
+		end
 
 creation {ANY}
 	make, connect_to, connect_for_appending_to
@@ -194,31 +197,31 @@ feature {}
 			end
 		end
 
-	put_16_ne (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+	put_16_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	put_16_le (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+	put_16_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	put_16_be (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+	put_16_be (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	put_32_ne (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
+	put_32_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	put_32_le (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
+	put_32_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	put_32_be (buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
+	put_32_be (a_buf: NATIVE_ARRAY[CHARACTER]; an_i: INTEGER_32; ch_pos: INTEGER) is
 		external "built_in"
 		end
 
-	binary_file_write_open (path_pointer: POINTER): POINTER is
+	binary_file_write_open (a_path_pointer: POINTER): POINTER is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
@@ -227,7 +230,7 @@ feature {}
 			}"
 		end
 
-	binary_file_write_append (path_pointer: POINTER): POINTER is
+	binary_file_write_append (a_path_pointer: POINTER): POINTER is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
@@ -236,7 +239,7 @@ feature {}
 			}"
 		end
 
-	putc (byte: CHARACTER; stream: POINTER) is
+	putc (a_byte: CHARACTER; a_stream: POINTER) is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
@@ -245,7 +248,7 @@ feature {}
 			}"
 		end
 
-	io_fwrite (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER is
+	io_fwrite (a_buf: NATIVE_ARRAY[CHARACTER]; a_size: INTEGER; a_stream: POINTER): INTEGER is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
@@ -254,7 +257,7 @@ feature {}
 			}"
 		end
 
-	io_flush (stream_pointer: POINTER) is
+	io_flush (a_stream_pointer: POINTER) is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
@@ -263,7 +266,7 @@ feature {}
 			}"
 		end
 
-	fclose (stream_pointer: POINTER) is
+	fclose (a_stream_pointer: POINTER) is
 		external "plug_in"
 		alias "{
 			location: "${sys}/plugins"
