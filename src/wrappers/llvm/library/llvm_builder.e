@@ -1125,7 +1125,7 @@ feature {ANY} -- Instructions on aggregates (structures or arrays)
 -- 
 -- 
 feature {} 
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		do
 			not_yet_implemented
 		end

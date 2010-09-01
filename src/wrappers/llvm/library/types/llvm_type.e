@@ -72,9 +72,9 @@ feature {ANY} -- Queries
 		-- Is Current a floating point type?
 	do
 		Result := type_kind.is_double_type_kind or else
-		type_kind.is_x_86_fp_80type_kind or else
-		type_kind.is_fp_128type_kind or else
-		type_kind.is_ppc__fp_128type_kind
+		type_kind.is_x86_fp80type_kind or else
+		type_kind.is_fp128type_kind or else
+		type_kind.is_ppc_fp128type_kind
 	end
 		
 	is_vector: BOOLEAN is

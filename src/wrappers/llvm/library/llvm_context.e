@@ -28,7 +28,7 @@ feature {} -- Disposing
 			llvmcontext_dispose(handle)
 		end
 
-	struct_size: INTEGER is do not_yet_implemented end 
+	struct_size: like size_t is do not_yet_implemented end 
 
 end -- class LLVM_CONTEXT
 

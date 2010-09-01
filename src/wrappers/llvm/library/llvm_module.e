@@ -33,7 +33,7 @@ insert
 	LLVM_TYPE_FACTORY
 	CORE_EXTERNALS 
 	BIT_WRITER_EXTERNALS
-	STDIOEXTERNALS -- to use low-level fileno function
+	STDIO_EXTERNALS -- to use low-level fileno function
 	EXCEPTIONS undefine copy, is_equal end
 
 creation {ANY} with_name, with_name_in_context
@@ -225,7 +225,7 @@ feature {ANY} -- Local strings
 			-- Converted from Leooolas code snippet found at 
 			-- http://stackoverflow.com/questions/1061753/how-can-i-implement-a-string-data-type-in-llvm
 			create Result.from_external_pointer
-			(llvmadd_global(handle, llvmarray_type(llvmint_8type,(a_text.count+1).to_natural_32),(once "string").to_external))
+			(llvmadd_global(handle, llvmarray_type(llvmint8type,(a_text.count+1).to_natural_32),(once "string").to_external))
 			Result.set_internal_linkage
 			Result.set_global_constant(True)
 			Result.set_initializer(create {LLVM_CONST_STRING}.from_string(a_text))
@@ -487,7 +487,7 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 	end
 	
 feature 
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		do
 			not_yet_implemented
 		end

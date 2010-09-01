@@ -24,7 +24,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		-- like "when.a_type.void_type_kind_low_level .....
 		if a_type.is_void_type_kind  then create {LLVM_VOID_TYPE} Result.from_external_pointer(a_pointer)
 		elseif a_type.is_double_type_kind  then create {LLVM_REAL_TYPE} Result.from_external_pointer(a_pointer)
-		elseif a_type.is_x_86_fp_80type_kind  then create {LLVM_REAL_TYPE} Result.from_external_pointer(a_pointer)
+		elseif a_type.is_x86_fp80type_kind  then create {LLVM_REAL_TYPE} Result.from_external_pointer(a_pointer)
 		--elseif a_type.is_fp_128type_kind  then create {} Result
 		--elseif a_type.is_ppc__fp_128type_kind  then create {} Result
 		elseif a_type.is_label_type_kind  then create {LLVM_LABEL_TYPE} Result.from_external_pointer(a_pointer)

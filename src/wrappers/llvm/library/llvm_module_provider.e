@@ -40,7 +40,7 @@ feature {} -- Disposing
 		llvmdispose_module_provider(handle)
 	end
 feature 
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		do
 			not_yet_implemented
 		end
