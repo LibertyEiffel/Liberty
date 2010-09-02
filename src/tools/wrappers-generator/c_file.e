@@ -38,21 +38,21 @@ feature
 	local path: POSIX_PATH_NAME
 	do
 		if is_to_be_emitted then
-			if on_standard_output then
-		 		log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
-		 		<<c_string_name>>)
-		 		output := std_output
-		 	else
-		 		create path.make_from_string(directory)
-		 		path.add_last(class_name.as_lower+once ".e")
-		 		-- if path.is_file then
-		 		-- 	log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
-		 		-- 	copy_to(path.to_string, path.to_string+once ".orig")
-		 		-- end
-		 		log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",
-		 		<<c_name.as_utf8, path.to_string>>)
-		 		create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
-		 	end
+			-- if on_standard_output then
+		 	-- 	log(once "Outputting wrapper for functions in file @(1) on standard output.%N",
+		 	-- 	<<c_string_name>>)
+		 	-- 	output := std_output
+		 	-- else
+			create path.make_from_string(directory)
+			path.add_last(class_name.as_lower+once ".e")
+			-- if path.is_file then
+			-- 	log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
+			-- 	copy_to(path.to_string, path.to_string+once ".orig")
+			-- end
+			log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",
+			<<c_name.as_utf8, path.to_string>>)
+			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
+			-- end
 		 	emit_header_on(output)
 			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)

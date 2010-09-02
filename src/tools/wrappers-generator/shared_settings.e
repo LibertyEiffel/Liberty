@@ -38,17 +38,17 @@ feature -- Syntactic sugar
 			Result := settings.global
 		end
 
-	on_standard_output: BOOLEAN is
-		-- Shall the wrappers be outputted on standard output?
-	do
-		Result := directory=Void
-	end
+	-- TODO: reimplement on_standard_output: BOOLEAN is
+	-- 	-- Shall the wrappers be outputted on standard output?
+	-- do
+	-- 	Result := directory=Void
+	-- end
 
 
-	directory: STRING is
-		do
-			Result := settings.directory
-		end
+	-- TODO: reimplement directory: STRING is
+	-- 	do
+	-- 		Result := settings.directory
+	-- 	end
 
 feature {} -- Type mangling
 	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
@@ -67,8 +67,7 @@ feature {} -- Type mangling
 	require
 		not_void: an_id /= Void
 	do
-		inspect
-		an_id.last.to_character
+		inspect an_id.last.to_character
 		when 'c', 'r', 'v' then
 		Result := an_id.substring(an_id.lower, an_id.upper - 1)
 		else Result := an_id

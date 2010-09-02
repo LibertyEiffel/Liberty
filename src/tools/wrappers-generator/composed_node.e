@@ -2,6 +2,10 @@ deferred class COMPOSED_NODE
 	-- A GCCXML node having "members" attribute. This attribute contains the
 	-- ids of the fields that compose the actual object referred by Current
 	-- node, for example a structure, a union, (a C++ class?). 
+
+	-- Note: also Namespace nodes have a "members" attribute that is
+	-- conceptually different since they are modelled as Liberty clusters and
+	-- do not belong to a single file.
 inherit 
 	NAMED_NODE
 	STORABLE_NODE

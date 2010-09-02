@@ -1,6 +1,9 @@
 class C_PLUS_PLUS_CLASS
 	-- A "Class" node of an XML file made by gccxml representing a C++ class.
 
+
+	-- Beware its names may be things like QFlags<Qt::MouseButton>
+
 inherit 
 	CONTEXTED_NODE
 	COMPOSED_NODE
@@ -60,6 +63,7 @@ feature
 	emit_wrapper is
 		-- TODO: unimplemented
 	do
+
 	end
 
 	is_artificial: BOOLEAN is

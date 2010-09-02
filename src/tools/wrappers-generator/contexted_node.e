@@ -12,22 +12,31 @@ feature
 
 	namespace: C_NAMESPACE is
 		do
-			Result:=namespaces.reference_at(context)
+			if cached_namespace=Void then
+				cached_namespace:=namespaces.reference_at(context)
+			end
+			Result:=cached_namespace
 		end
 
 	is_in_main_namespace: BOOLEAN is
+		obsolete "use namespace.is_main"
 		-- Does Current belong to the main ("::") namespace?
 	local ns: C_NAMESPACE
 	do
-		ns := namespace
-		if ns/=Void then Result := ns.c_name.is_equal(once U"::")
-		else 
-			log("Context of @(1) (line @(2)) is not a namespace", <<name.as_utf8, line.out>>)
-			check
-				Result=False
-			end
-		end
+		Result := namespace.is_main 
+		-- Previous (working) implementation
+		-- ns := namespace
+		-- if ns/=Void then Result := ns.c_name.is_equal(once U"::")
+		-- else 
+		-- 	log("Context of @(1) (line @(2)) is not a namespace", <<name.as_utf8, line.out>>)
+		-- 	check
+		-- 		Result=False
+		-- 	end
+		-- end
 	end
+feature {} -- Implementation
+	cached_namespace: C_NAMESPACE
+
 end -- class CONTEXTED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

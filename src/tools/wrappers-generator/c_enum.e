@@ -10,6 +10,7 @@ class C_ENUM
 
 	-- As far as I know this condition shall apply on all architectures.
 inherit 
+	CONTEXTED_NODE
 	IDENTIFIED_NODE
 	FILED_NODE
 	STORABLE_NODE

@@ -15,6 +15,8 @@ feature {} -- Auxiliary features
 		-- `a_name' are removed: "__foo" becomes "foo"; symbols starting with
 		-- underscores folloed by a number are prefixed with "a_"; reserved
 		-- language names and names of features of class ANY are escaped.
+
+		-- TODO: handle in a fairly 
 	require 
 		name_not_void: a_name /= Void
 		name_not_empty: not a_name.is_empty

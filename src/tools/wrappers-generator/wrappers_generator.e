@@ -21,9 +21,6 @@ feature {ANY}
 			log_string(once "done.%N Connecting nodes ")
 			log_string(once "done.%N")
 			open_plugin_files
-			if directory = Void then
-				log_string(once "Outputting everything on standard output.")
-			end
 			if file_exists(avoided) and then is_file(avoided) then
 				log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
 				tree.read_avoided_from(avoided)
@@ -34,6 +31,7 @@ feature {ANY}
 			end
 			log_string(once "Making wrappers.%N")
 			tree.emit_wrappers
+			-- tree.namespaces.do_all(agent {GCCXML_NODE}.emit_wrappers)
 			close_plugin_files
 		end
 
@@ -73,7 +71,6 @@ feature {ANY}
 			avoided := once "avoided"
 			renamed := once "renamed"
 			moved := once "moved"
-			settings.set_directory(once ".") -- Defaults on current directory
 
 			if argument_count = 0 then
 				print_usage
@@ -118,16 +115,9 @@ feature {ANY}
 					elseif arg.is_equal(once "--verbose") or else 
 						arg.is_equal(once "-v") then
 						settings.set_verbose(True)
-					elseif arg.is_equal(once "--directory") then
-						i := i + 1
-						if i <= argument_count then
-							settings.set_directory(argument(i))
-						else
-							std_error.put_line(once "No directory given")
-							print_usage
-						end
-					elseif arg.is_equal(once "--on-standard-output") then
-						settings.set_directory(Void)
+					-- TODO: re-enable grouping output on standard output
+					-- elseif arg.is_equal(once "--on-standard-output") then
+					-- 	settings.set_directory(Void)
 					else
 						if file_exists(arg) then
 							-- Current arg should be the XML file. The following
@@ -245,10 +235,10 @@ feature {ANY}
 			%		file. For usual wrappers it is normally not needed.%N%
 			%		Only the last global and local flag will be considered.%N%
 			%%N%
-			%	--on-standard-output%N%
+			%	--on-standard-output (unimplemented)%N%
 			%		Ouputs everything on standard output.%N%
 			%%N%
-			%	--directory dir%N%
+			%	--directory dir (removed)%N%
 			%		Put the generated classes in `dir'. Default is to output on %N%
 			%		current directory.%N%
 			%%N%

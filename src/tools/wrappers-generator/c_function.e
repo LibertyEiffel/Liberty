@@ -89,10 +89,10 @@ feature {ANY}
 			elseif not is_public then
 				log(once "Skipping 'hidden' function `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<c_string_name>>)
-			elseif not is_in_main_namespace then
-				log(once "Skipping function `@(1)' belonging to namespace @(2)%N",
+			elseif not namespace.is_main then
+				log(once "Skipping function `@(1)' belonging to namespace @(2) which is not wrapped%N",
 				<<c_string_name, namespace.c_string_name>>)
-				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
+				buffer.put_message(once "%T-- function @(1) in unwrapped namespace @(2) skipped.%N",
 				<<c_string_name, namespace.c_string_name>>)
 			elseif avoided.has(c_string_name) then
 				log(once "Skipping function `@(1)' as requested.%N", <<c_string_name>>)
@@ -199,10 +199,10 @@ feature {ANY}
 			if not has_arguments then actual_c_symbol := c_string_name+(once "()")
 			else actual_c_symbol := c_string_name
 			end
-			-- Temporary code to handle output to standard output.
-			if directory=Void then dir:=once "the almighty standard output"
-			else dir := directory
-			end
+			-- TODO: reimplement (if necessary) temporary code to handle output to standard output.
+			-- if directory=Void then dir:=once "the almighty standard output"
+			-- else dir := directory
+			-- end
 			-- end of temporary. TODO: remove when the tool is robust enought.
 			buffer.put_message(once "%
 			% 		-- @(1) (node at line @(3))%N%
