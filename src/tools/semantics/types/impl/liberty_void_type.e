@@ -103,7 +103,7 @@ feature {ANY}
 			visitor.visit_void(Current)
 		end
 
-	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			check not Result end
 		end

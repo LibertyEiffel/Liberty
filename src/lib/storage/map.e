@@ -285,7 +285,7 @@ feature {ANY}
 			--
 			-- See also `is_equal_map'.
 		local
-			i: INTEGER
+			i: INTEGER; k: K_
 		do
 			if Current = other then
 				Result := True
@@ -296,8 +296,9 @@ feature {ANY}
 				until
 					not Result or else i > count
 				loop
-					if other.has(key(i)) then
-						if other.at(key(i)) /= item(i) then
+					k := key(i)
+					if other.has(k) then
+						if other.at(k) /= item(i) then
 							Result := False
 						else
 							i := i + 1

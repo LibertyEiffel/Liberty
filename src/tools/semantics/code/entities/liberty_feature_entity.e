@@ -28,6 +28,9 @@ insert
 	LIBERTY_REACHABLE_MARKED
 		redefine out_in_tagged_out_memory
 		end
+	LOGGING
+		redefine out_in_tagged_out_memory
+		end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_CALL, LIBERTY_CALL_PROMOTION}
 	make
@@ -77,7 +80,7 @@ feature {ANY}
 
 	debug_display is
 		do
-			target_type.known_type.debug_display(std_output, True)
+			target_type.known_type.debug_display(log.trace, True)
 		end
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
@@ -111,18 +114,29 @@ feature {ANY}
 		end
 
 feature {LIBERTY_CALL_EXPRESSION}
-	can_check_agent_signature: BOOLEAN is
+	can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+		require
+			a_agent_call /= Void
 		do
-			Result := the_feature /= Void and then the_feature.can_check_agent_signature
+			Result := the_feature /= Void and then the_feature.can_check_agent_signature(a_agent_call)
 		ensure
 			can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
+	agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
-			can_check_agent_signature
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
 		do
-			Result := the_feature.check_agent_signature(a_agent_arguments)
+			Result := the_feature.agent_signature(a_agent_call)
+		end
+
+	check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+		require
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
+		do
+			the_feature.check_agent_signature(a_agent_call)
 		end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
@@ -132,10 +146,10 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		do
 			if not is_reachable then
 				debug ("mark.reachable")
-					std_output.put_string(once "Marked reachable the feature entity {")
-					std_output.put_string(target_type.full_name)
-					std_output.put_string(once "}.")
-					std_output.put_line(feature_name.name)
+					log.trace.put_string(once "Marked reachable the feature entity {")
+					log.trace.put_string(target_type.full_name)
+					log.trace.put_string(once "}.")
+					log.trace.put_line(feature_name.name)
 				end
 				torch.burn
 			end

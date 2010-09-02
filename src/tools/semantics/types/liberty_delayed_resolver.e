@@ -21,6 +21,9 @@ insert
 	HASHABLE
 		undefine out_in_tagged_out_memory
 		end
+	LOGGING
+		undefine out_in_tagged_out_memory, is_equal
+		end
 
 feature {LIBERTY_DELAYED_TYPE}
 	can_resolve: BOOLEAN is

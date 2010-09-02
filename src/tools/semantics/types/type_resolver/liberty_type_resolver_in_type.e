@@ -147,10 +147,10 @@ feature {}
 					i := i + 1
 				end
 				debug
-					std_output.put_string(once " ***** inferred implicit parameters of ")
-					std_output.put_string(a_class.class_header.class_name.image.image)
-					std_output.put_string(once ": ")
-					std_output.put_line(Result.out)
+					log.trace.put_string(once " ***** inferred implicit parameters of ")
+					log.trace.put_string(a_class.class_header.class_name.image.image)
+					log.trace.put_string(once ": ")
+					log.trace.put_line(Result.out)
 					check
 						Result.count = type_parameters.list_count
 					end

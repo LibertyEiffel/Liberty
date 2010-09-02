@@ -80,14 +80,17 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 		local
 			i: INTEGER
 		do
-			Result := entity.can_check_agent_signature
+			Result := entity.can_check_agent_signature(Current)
+			if target /= Void then
+				Result := target.is_open_argument implies target.result_type.is_known
+			end
 			if actuals /= Void then
 				from
 					i := actuals.lower
 				until
 					not Result or else i > actuals.upper
 				loop
-					Result := actuals.item(i).result_type.is_known
+					Result := actuals.item(i).is_open_argument implies actuals.item(i).result_type.is_known
 					i := i + 1
 				end
 			end
@@ -101,20 +104,25 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
 			arguments_types: COLLECTION[LIBERTY_KNOWN_TYPE]
 			i: INTEGER
 		do
-			if actuals = Void then
-				arguments_types := no_args
+			if actuals = Void and then (target = Void or else not target.is_open_argument) then
+				arguments_types := entity.agent_signature(Current)
 			else
-				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} arguments_types.with_capacity(actuals.count)
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} arguments_types.with_capacity(actuals.count + 1)
+				if target /= Void and then target.is_open_argument then
+					arguments_types.add_last(target.result_type.known_type)
+				end
 				from
 					i := actuals.lower
 				until
 					i > actuals.upper
 				loop
-					arguments_types.add_last(actuals.item(i).result_type.known_type)
+					if actuals.item(i).is_open_argument then
+						arguments_types.add_last(actuals.item(i).result_type.known_type)
+					end
 					i := i + 1
 				end
 			end
-			arguments_types := entity.check_agent_signature(arguments_types)
+			entity.check_agent_signature(Current)
 			if result_type = Void then
 				Result := lookup.universe.type_procedure(arguments_types, position)
 			elseif result_type = lookup.universe.type_boolean then
@@ -128,16 +136,18 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
 	can_compute_open_argument_type (index: INTEGER): BOOLEAN is
 		do
 			if index = -1 then
-				Result := entity.can_check_agent_signature and then target.result_type.is_known
+				Result := entity.can_check_agent_signature(Current) and then target.result_type.is_known
 			elseif actuals /= Void then
 				check
 					actuals.valid_index(index)
 				end
-				Result := entity.can_check_agent_signature and then actuals.item(index).result_type.is_known
+				Result := entity.can_check_agent_signature(Current) and then actuals.item(index).result_type.is_known
 			end
 		end
 
 	open_argument_type (index: INTEGER): LIBERTY_KNOWN_TYPE is
+		require
+			can_compute_open_argument_type(index)
 		do
 			if index = -1 then
 				Result := target.result_type.known_type

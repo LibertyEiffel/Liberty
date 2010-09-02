@@ -87,11 +87,13 @@ feature {}
 		require
 			a_entity /= Void
 			a_actuals /= Void
+			a_position /= Void
 		deferred
 		ensure
 			Result.target = a_target
 			Result.entity = a_entity
 			Result.actuals = a_actuals
+			Result.position = a_position
 		end
 
 	actuals_list: COLLECTION[LIBERTY_EXPRESSION] is

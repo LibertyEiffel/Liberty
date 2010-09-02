@@ -6,6 +6,7 @@ inherit
 
 insert 
 	SHARED_COLLECTIONS
+	NAME_CONVERTER
 
 creation make
 
@@ -16,23 +17,33 @@ feature
 			Result:=attribute_at(once U"init").to_utf8
 		end
 
-	compute_eiffel_name is 
-		local enum: C_ENUM
+	eiffel_name: STRING is 
+		-- The eiffel name of the value. Clash with reserved words and with feature name of class ANY are avoided adding the suffix "_value" when Result will be used to form getter feature names (i.e. "is_....")
+		local enum: C_ENUM; get: STRING
 		do 
-			--print("Enum value: ")
-			cached_eiffel_name := c_name.to_utf8
-			-- print(cached_eiffel_name)
-			enum ?= parent
-			if enum/=Void then
-				if enum.prefix_length > 0 and enum.prefix_length < c_string_name.count then
-					cached_eiffel_name.remove_head(enum.prefix_length)
-				else 
-					log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems",
-					<<c_string_name,line.out>>)
+			if stored_eiffel_name=Void then
+				--print("Enum value: ")
+				stored_eiffel_name := c_name.to_utf8
+				-- print(stored_eiffel_name)
+				enum ?= parent
+				if enum/=Void then
+					if enum.prefix_length > 0 and enum.prefix_length < c_string_name.count then
+						stored_eiffel_name.remove_head(enum.prefix_length)
+					else 
+						log("Enum value '@(1)' (at line @(2)) is the longest prefix: keeping the entire name to avoid problems",
+						<<c_string_name,line.out>>)
+					end
+				else print("The parent of C_ENUM_VALUE at line "+line.out+" is not a C_ENUM!%N")
 				end
-			else print("The parent of C_ENUM_VALUE at line "+line.out+" is not a C_ENUM!%N")
+				stored_eiffel_name:=eiffel_feature(stored_eiffel_name)
+
+				get := once "is_"+stored_eiffel_name
+				if any_features.has(get) then
+					-- The getter formed with Current will clash with a feature of class ANY; let's escape it
+					stored_eiffel_name := stored_eiffel_name + once "_value"
+				end
 			end
-			cached_eiffel_name:=eiffel_feature(cached_eiffel_name)
+			Result:=stored_eiffel_name
 		end
 
 feature -- Plain enumeration
@@ -127,6 +138,10 @@ feature -- "Flag" enumeration
 		<<eiffel_name, c_string_name>>)
 		-- TODO: add description
 	end
+
+feature {} -- Implementation
+	stored_eiffel_name: STRING
+		-- Buffered result of `eiffel_name' query
 
 end -- class C_ENUM_VALUE
 

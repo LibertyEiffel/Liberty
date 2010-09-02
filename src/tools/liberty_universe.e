@@ -87,12 +87,13 @@ feature {ANY}
 				debug ("type.building")
 					debug_types(types_incubator)
 					if target_type.is_built then
-						std_output.put_string(once "Type is ready: ")
+						log.trace.put_string(once "Type is ready: ")
+						log.trace.put_line(target_type.full_name)
 					else
-						std_output.put_string(once "Type is NOT READY: ")
+						log.trace.put_string(once "Type is NOT READY: ")
+						log.trace.put_line(target_type.full_name)
+						breakpoint
 					end
-					std_output.put_line(target_type.full_name)
-					breakpoint
 				end
 			end
 		ensure
@@ -278,6 +279,13 @@ feature {ANY} -- Kernel types
 			Result /= Void
 		end
 
+	type_routine (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
+		require
+			effective_generics /= Void
+		do
+			Result := agent_type(routine_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position) >> }, position, visit_type_routine)
+		end
+
 	type_procedure (effective_generics: TRAVERSABLE[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_ACTUAL_TYPE is
 		require
 			effective_generics /= Void
@@ -289,7 +297,6 @@ feature {ANY} -- Kernel types
 		require
 			effective_generics /= Void
 			result_type /= Void
-			result_type /= type_boolean
 		do
 			Result := agent_type(function_class_descriptor, {FAST_ARRAY[LIBERTY_TYPE] << type_tuple(effective_generics, position), result_type >> }, position, visit_type_function)
 		end
@@ -335,23 +342,21 @@ feature {}
 			root_type.set_reachable(reachable_counter.value)
 			if root_type.has_loaded_features then
 				if not root_type.has_feature(root_feature_name) then
-					std_error.put_string("No method '")
-					std_error.put_string(root_feature_name.name)
-					std_error.put_string("' feature in type ")
-					std_error.put_string(root_type.full_name)
-					std_error.put_line(". Giving up.")
+					errors.set(level_fatal_error,
+								  "Am I blind or what? I cannot find any method '" + root_feature_name.name
+								  + "' feature in the type " + root_type.full_name + "!")
 					die_with_code(1)
 				end
 				root_feature := root_type.feature_definition(root_feature_name)
 				reachable_counter.increment
 				debug ("mark.reachable")
-					std_output.put_string(once " +++ Marking reachable code (")
-					std_output.put_integer(reachable_counter.value)
-					std_output.put_line(once ")...")
+					log.trace.put_string(once " +++ Marking reachable code (")
+					log.trace.put_integer(reachable_counter.value)
+					log.trace.put_line(once ")...")
 				end
 				root_feature.set_reachable(reachable_counter.value)
 				debug ("mark.reachable")
-					std_output.put_line(once "     Reachable code marked.")
+					log.trace.put_line(once "     Reachable code marked.")
 				end
 			end
 		end
@@ -376,11 +381,14 @@ feature {}
 				loop
 					delayed_type := delayed_types.first
 					delayed_types.remove_first
+					check
+						not delayed_type.is_known
+					end
 					if delayed_type.can_resolve then
 						delayed_type.resolve
 						debug ("type.resolution")
-							std_output.put_string(once " ===> resolved ")
-							std_output.put_line(delayed_type.out)
+							log.trace.put_string(once " ===> resolved ")
+							log.trace.put_line(delayed_type.out)
 						end
 						more := True
 					else
@@ -390,21 +398,21 @@ feature {}
 				end
 			end
 			debug ("type.resolution")
-				std_output.put_line(once "======================================================================")
+				log.trace.put_line(once "======================================================================")
 				from
 					i := delayed_types.lower
 				until
 					i > delayed_types.upper
 				loop
-					std_output.put_line(delayed_types.item(i).out)
+					log.trace.put_line(delayed_types.item(i).out)
 					i := i + 1
 				end
-				std_output.put_string(once " === ")
-				std_output.put_integer(delayed_types.count)
+				log.trace.put_string(once " === ")
+				log.trace.put_integer(delayed_types.count)
 				if delayed_types.count = 1 then
-					std_output.put_line(once " delayed type yet to be resolved.")
+					log.trace.put_line(once " delayed type yet to be resolved.")
 				else
-					std_output.put_line(once " delayed types yet to be resolved.")
+					log.trace.put_line(once " delayed types yet to be resolved.")
 				end
 			end
 		end
@@ -412,7 +420,7 @@ feature {}
 	build_to_incubator (incubator: like types_incubator; target_type: LIBERTY_ACTUAL_TYPE) is
 		require
 			not types_incubator.is_empty
-			target_type /= Void
+			not target_type.is_built
 		local
 			type: LIBERTY_ACTUAL_TYPE
 		do
@@ -442,7 +450,7 @@ feature {}
 					debug ("error")
 						debug_types(incubator)
 					end
-					errors.set(level_system_error, once "Compiler stalled.")
+					errors.set(level_system_error, once "It looks like I miss some data but the hell if I know what.")
 					check
 						dead: False
 					end
@@ -451,7 +459,7 @@ feature {}
 			Result := types_incubator
 			types_incubator := incubator
 			debug
-				std_output.put_line(once "Swapped incubator")
+				log.trace.put_line(once "Swapped incubator")
 			end
 		ensure
 			types_incubator = incubator
@@ -487,9 +495,9 @@ feature {}
 			loop
 				if not incubator.item(i).is_reachable then
 					debug
-						std_output.put_string(once "Removing ")
-						std_output.put_string(incubator.item(i).full_name)
-						std_output.put_line(once ": not reachable")
+						log.trace.put_string(once "Removing ")
+						log.trace.put_string(incubator.item(i).full_name)
+						log.trace.put_line(once ": not reachable")
 					end
 					incubator.remove(i)
 				else
@@ -518,38 +526,38 @@ feature {} -- debug
 			check
 				all_types.count = types.count
 			end
-			std_output.put_line(once "--8<--------")
+			log.trace.put_line(once "--8<--------")
 			from
 				i := all_types.lower
 			until
 				i > all_types.upper
 			loop
-				std_output.put_integer(i - all_types.lower + 1)
-				std_output.put_string(once ": ")
-				all_types.item(i).debug_display(std_output, False)
+				log.trace.put_integer(i - all_types.lower + 1)
+				log.trace.put_string(once ": ")
+				all_types.item(i).debug_display(log.trace, False)
 				i := i + 1
 			end
-			std_output.put_line(once "-------->8--")
+			log.trace.put_line(once "-------->8--")
 			if incubator.is_empty then
-				std_output.put_integer(all_types.count)
-				std_output.put_line(once " types (total), incubator is empty")
+				log.trace.put_integer(all_types.count)
+				log.trace.put_line(once " types (total), incubator is empty")
 			else
-				std_output.put_integer(all_types.count)
-				std_output.put_string(once " types (total), including ")
-				std_output.put_integer(incubator.count)
-				std_output.put_line(once " types in incubator:")
-				std_output.put_line(once "--8<--------")
+				log.trace.put_integer(all_types.count)
+				log.trace.put_string(once " types (total), including ")
+				log.trace.put_integer(incubator.count)
+				log.trace.put_line(once " types in incubator:")
+				log.trace.put_line(once "--8<--------")
 				from
 					i := incubator.lower
 				until
 					i > incubator.upper
 				loop
-					std_output.put_integer(i - incubator.lower + 1)
-					std_output.put_string(once ": ")
-					incubator.item(i).debug_display(std_output, False)
+					log.trace.put_integer(i - incubator.lower + 1)
+					log.trace.put_string(once ": ")
+					incubator.item(i).debug_display(log.trace, False)
 					i := i + 1
 				end
-				std_output.put_line(once "-------->8--")
+				log.trace.put_line(once "-------->8--")
 			end
 		end
 
@@ -587,6 +595,14 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
+	routine_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
+		once
+			cluster := root.find("ROUTINE".intern)
+			create Result.make(cluster, "ROUTINE".intern, Void)
+		end
+
 	procedure_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
 		local
 			cluster: LIBERTY_CLUSTER
@@ -622,7 +638,7 @@ feature {}
 		do
 			cluster := root.find(class_name)
 			if cluster = Void then
-				errors.set(level_fatal_error, "Kernel class not found: " + class_name)
+				errors.set(level_fatal_error, "What's that installation of yours? I cannot even find the kernel class " + class_name + "!")
 			end
 			create cd.make(cluster, class_name.intern, Void)
 			create td.make(cd, no_parameters)
@@ -715,6 +731,13 @@ feature {LIBERTY_TYPE_RESOLVER}
 			when "TUPLE" then
 				parameters := get_parameters(type_definition.type_parameters)
 				Result := type_tuple(parameters, type_lookup.resolver.position(type_definition))
+			when "ROUTINE" then
+				parameters := get_parameters(type_definition.type_parameters)
+				check
+					parameters.count = 1
+					parameters.first.is_known
+				end
+				Result := type_routine(parameters.first.known_type.parameters, type_lookup.resolver.position(type_definition))
 			when "PROCEDURE" then
 				parameters := get_parameters(type_definition.type_parameters)
 				check
@@ -757,7 +780,7 @@ feature {}
 			end
 			if c = Void then
 				errors.add_position(position)
-				errors.set(level_fatal_error, "Unknown class: " + class_name)
+				errors.set(level_fatal_error, "Looks like some configuration is missing, or you mistyped something. Anyway I cannot find the class named " + class_name + ".")
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := do_get_type_from_descriptor(descriptor)
@@ -827,7 +850,8 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 		do
 			actual_cluster := cluster.find(class_name)
 			if actual_cluster = Void then
-				errors.set(level_fatal_error, "Class not found: " + class_name)
+				errors.set(level_fatal_error,
+							  "Looks like some configuration is missing, or you mistyped something. Anyway I cannot find the class named " + class_name + ".")
 				check
 					dead: False
 				end
@@ -849,8 +873,10 @@ feature {LIBERTY_TYPE_RESOLVER_IN_TYPE}
 				evaled := parser.eval(parser_buffer, eiffel.table, once "Class")
 				if not evaled then
 					errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
-					errors.set(level_fatal_error, "Incomplete class text")
-					errors.emit
+					errors.set(level_fatal_error,
+								  "I'm afraid you need to use a bit more those fingers of yours. The code of the class " + class_name
+								  +" is incomplete.")
+ 					errors.emit
 					check
 						dead: False
 					end
@@ -912,7 +938,7 @@ feature {} -- AST building
 
 			tuple_cluster := root.find("TUPLE".intern)
 			if tuple_cluster = Void then
-				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
+				errors.set(level_fatal_error, "What's that installation of yours? I cannot even find the kernel class TUPLE!")
 			end
 			create class_descriptor.make(tuple_cluster, "TUPLE".intern, pos)
 			code := once ""
@@ -924,8 +950,9 @@ feature {} -- AST building
 			evaled := parser.eval(parser_buffer, eiffel.table, once "Classes")
 			if not evaled then
 				errors.add_position(errors.syntax_position(code.upper, code, class_descriptor.file.intern))
-				errors.set(level_fatal_error, "Incomplete class text")
-				errors.emit
+				errors.set(level_fatal_error,
+							  "The code of the class TUPLE is incomplete. Maybe you could try installing Liberty again?")
+ 				errors.emit
 				check
 					dead: False
 				end
@@ -961,15 +988,19 @@ feature {} -- AST building
 			classname := a_tuple_class.class_header.class_name.image.image
 			if not classname.is_equal(once "TUPLE") then
 				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
-				errors.set(level_fatal_error, "Invalid TUPLE class: does not contain TUPLE")
+				errors.set(level_fatal_error, "Invalid TUPLE class text: strangely enough it does not contain TUPLE. Maybe you could try installing Liberty again?")
 			end
 			gencount := a_tuple_class.class_header.type_parameters.list_count
 			if gencount /= generics_count then
 				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
 				if generics_count = 1 then
-					errors.set(level_fatal_error, "Invalid TUPLE class: expected 1 generic parameter")
+					errors.set(level_fatal_error,
+								  "Invalid TUPLE class text: expected 1 generic parameter but got " + gencount.out
+								  + ". Maybe you could try installing Liberty again?")
 				else
-					errors.set(level_fatal_error, "Invalid TUPLE class: expected " + generics_count.out + " generic parameters")
+					errors.set(level_fatal_error,
+								  "Invalid TUPLE class text: expected " + generics_count.out + " generic parameters but got " + gencount.out
+								  + ". Maybe you could try installing Liberty again)?")
 				end
 			end
 		ensure
@@ -1117,6 +1148,11 @@ feature {}
 	visit_type_tuple: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_tuple
+		end
+
+	visit_type_routine: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_routine
 		end
 
 	visit_type_procedure: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is

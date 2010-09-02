@@ -103,9 +103,9 @@ feature {ANY}
 			i: INTEGER
 		do
 			debug ("feature.specialization")
-				std_output.put_string(once "Specializing in ")
-				std_output.put_string(a_type.full_name)
-				debug_display(std_output, False)
+				log.trace.put_string(once "Specializing in ")
+				log.trace.put_string(a_type.full_name)
+				debug_display(log.trace, False)
 			end
 			cl := specialized_clients(clients, a_type)
 			if creation_clients /= Void then
@@ -137,16 +137,11 @@ feature {ANY}
 				create Result.specialized(feature_name, f.current_type, ccl, cl, is_frozen, f, p, position)
 			end
 			debug ("feature.specialization")
-				std_output.put_string(once "Specialized in ")
-				std_output.put_string(a_type.full_name)
-				std_output.put_string(once ": ")
-				Result.debug_display(std_output, True)
+				log.trace.put_string(once "Specialized in ")
+				log.trace.put_string(a_type.full_name)
+				log.trace.put_string(once ": ")
+				Result.debug_display(log.trace, True)
 			end
-
-			-- if feature_name.full_name.out.is_equal(once "is_connected") then
-			-- 	std_output.flush
-			-- 	breakpoint
-			-- end
 		end
 
 feature {}
@@ -323,16 +318,16 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 	fatal_join_error_redefined_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug ("type.building")
-				std_output.put_string(once "Cannot join redefined feature ")
-				std_output.put_string(feature_name.name)
-				std_output.put_string(once " from ")
-				std_output.put_string(the_feature.definition_type.full_name)
-				std_output.put_string(once " with concrete feature ")
-				std_output.put_string(with.feature_name.name)
-				std_output.put_string(once " from ")
-				std_output.put_string(with.the_feature.definition_type.full_name)
-				std_output.put_string(once " in type ")
-				std_output.put_line(type.full_name)
+				log.trace.put_string(once "Cannot join redefined feature ")
+				log.trace.put_string(feature_name.name)
+				log.trace.put_string(once " from ")
+				log.trace.put_string(the_feature.definition_type.full_name)
+				log.trace.put_string(once " with concrete feature ")
+				log.trace.put_string(with.feature_name.name)
+				log.trace.put_string(once " from ")
+				log.trace.put_string(with.the_feature.definition_type.full_name)
+				log.trace.put_string(once " in type ")
+				log.trace.put_line(type.full_name)
 				breakpoint
 			end
 			not_yet_implemented
@@ -350,16 +345,16 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
 	fatal_join_error_concrete_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
 		do
 			debug ("type.building")
-				std_output.put_string(once "Cannot join concrete feature ")
-				std_output.put_string(feature_name.name)
-				std_output.put_string(once " from ")
-				std_output.put_string(the_feature.definition_type.full_name)
-				std_output.put_string(once " with concrete feature ")
-				std_output.put_string(with.feature_name.name)
-				std_output.put_string(once " from ")
-				std_output.put_string(with.the_feature.definition_type.full_name)
-				std_output.put_string(once " in type ")
-				std_output.put_line(type.full_name)
+				log.trace.put_string(once "Cannot join concrete feature ")
+				log.trace.put_string(feature_name.name)
+				log.trace.put_string(once " from ")
+				log.trace.put_string(the_feature.definition_type.full_name)
+				log.trace.put_string(once " with concrete feature ")
+				log.trace.put_string(with.feature_name.name)
+				log.trace.put_string(once " from ")
+				log.trace.put_string(with.the_feature.definition_type.full_name)
+				log.trace.put_string(once " in type ")
+				log.trace.put_line(type.full_name)
 				breakpoint
 			end
 			not_yet_implemented

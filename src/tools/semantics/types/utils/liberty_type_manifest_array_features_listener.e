@@ -12,12 +12,31 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS
+class LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER
 
 inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
+	LIBERTY_TYPE_LISTENER
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+creation {ANY}
 	make
 
-end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS
+feature {LIBERTY_TYPE}
+	on_type_known (type: LIBERTY_TYPE) is
+		do
+			-- nothing
+		end
+
+	on_type_built (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			type.mark_manifest_array_features(mark)
+		end
+
+feature {}
+	make (a_mark: like mark) is
+		do
+			mark := a_mark
+		end
+
+	mark: INTEGER
+
+end -- LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER

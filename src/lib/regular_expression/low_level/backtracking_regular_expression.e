@@ -101,7 +101,7 @@ feature {ANY} -- creation
 			create context.with_capacity(30)
 			create substrings_first_indexes.with_capacity(10, 0)
 			create substrings_last_indexes.with_capacity(10, 0)
-			create {HASHED_DICTIONARY[INTEGER, FIXED_STRING]} substrings_names.with_capacity(10)
+			create {HASHED_BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]} substrings_names.with_capacity(10)
 			direction := 1
 		end
 

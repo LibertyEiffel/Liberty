@@ -16,7 +16,8 @@ class LIBERTY_INTEGER_TYPED_MANIFEST
 	--
 	-- Not a INTEGER, but a typed manifest built from a INTEGER
 	--
-	-- Note that the internal representation is always an INTEGER_64 ???? TODO: WTF ?????
+	-- Note that the internal representation is always an INTEGER_64 to be sure to hold even the greatest
+	-- numbers.
 	--
 
 inherit

@@ -18,7 +18,7 @@ feature {ANY} -- matching capabilities
 			text /= Void
 			save_matching_text(text)
 		do
-			Result := match_from(text, 1)
+			Result := match_from(text, text.lower)
 		ensure
 			Result = last_match_succeeded
 			Result implies valid_substrings(text)
@@ -32,7 +32,7 @@ feature {ANY} -- matching capabilities
 			-- See also `match', `last_match_succeeded', `last_match_first_index'.
 		require
 			text /= Void
-			first_index.in_range(1, text.count + 1)
+			first_index.in_range(text.lower, text.upper + 1)
 			save_matching_text(text)
 		deferred
 		ensure
@@ -247,6 +247,36 @@ feature {ANY} -- matching capabilities
 		ensure
 			Result >= 0
 			Result = named_group_last_index(name) - named_group_first_index(name) + 1
+		end
+
+	for_all_matched_named_groups (text: STRING; action: PROCEDURE[TUPLE[FIXED_STRING, STRING]]) is
+			-- Call the `action' for each group that matched during the last match.
+			-- The first action argument is the name of the group; the second is its content.
+			-- The order of the action calls is the ascending order of the group definitions in the pattern.
+			--
+			-- Note: the same STRING objects may be reused, so be sure to copy them if you want to keep them.
+		require
+			text /= Void
+			action /= Void
+			last_match_succeeded
+			text.has_prefix(last_match_text)
+		local
+			i: INTEGER; group_name: FIXED_STRING; group_data: STRING
+		do
+			from
+				group_data := once ""
+				i := 1
+			until
+				i > group_count
+			loop
+				if ith_group_matched(i) and then substrings_names.fast_has_value(i) then
+					group_name := substrings_names.fast_key_at(i)
+					group_data.clear_count
+					append_ith_group(text, group_data, i)
+					action.call([group_name, group_data])
+				end
+				i := i + 1
+			end
 		end
 
 	append_heading_text (text, buffer: STRING) is
@@ -675,7 +705,7 @@ feature {}
 			-- The ending position of the string starting at position
 			-- found in `matching_position' at the same index.
 
-	substrings_names: DICTIONARY[INTEGER, FIXED_STRING]
+	substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
 			-- The names of the groups, if those names exist
 
 	group_names_memory: COLLECTION[FIXED_STRING]
@@ -710,9 +740,10 @@ feature {}
 		do
 			if group_names_memory = Void then
 				create {FAST_ARRAY[FIXED_STRING]} group_names_memory.with_capacity(substrings_names.count)
+			else
 				group_names_memory.clear_count
-				substrings_names.key_map_in(group_names_memory)
 			end
+			substrings_names.key_map_in(group_names_memory)
 		end
 
 	last_match_text_memory: STRING -- For assertion only.
@@ -721,7 +752,11 @@ invariant
 	substrings_first_indexes.lower = substrings_last_indexes.lower
 	substrings_first_indexes.upper = substrings_last_indexes.upper
 	substrings_names.is_empty or else (substrings_names.count <= substrings_first_indexes.count
-												  and then substrings_names.for_all(agent (i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := s /= Void and then substrings_first_indexes.fast_has(i) end))
+												  and then substrings_names.for_all(agent (i: INTEGER; s: FIXED_STRING): BOOLEAN is
+																									do
+																										Result := s /= Void
+																											and then substrings_first_indexes.valid_index(i)
+																									end))
 
 end -- class REGULAR_EXPRESSION
 --

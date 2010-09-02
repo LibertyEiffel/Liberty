@@ -3,12 +3,16 @@ log configuration
 root LIBERTYI
 
 output
-	out is file "${path_liberty}/target/log/libertyi.log"
+	out is
+		file "${path_liberty}/target/log/libertyi.log"
+		rotated each day
+		zipped using "gzip"
+	end
 
 logger
 	LIBERTYI is
 		output out
-		level info
+		level trace
 	end
 
 end

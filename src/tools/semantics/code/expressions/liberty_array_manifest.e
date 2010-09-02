@@ -92,6 +92,7 @@ feature {}
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
+			result_type.mark_reachable_code(mark)
 			expressions_marker.mark_reachable_code(mark, parameters_list)
 			expressions_marker.mark_reachable_code(mark, contents_list)
 		end

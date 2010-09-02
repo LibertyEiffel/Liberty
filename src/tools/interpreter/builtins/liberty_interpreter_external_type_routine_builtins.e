@@ -12,12 +12,10 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS
+class LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
 
-inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
-		redefine call
-		end
+insert
+	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 	make
@@ -30,9 +28,6 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 			builtin_call.evaluate_parameters
 			inspect
 				builtin_call.name
-			when "item" then
-				target ::= builtin_call.target
-				Result := target.item_agent(builtin_call.parameters, builtin_call.position)
 			when "call" then
 				target ::= builtin_call.target
 				target.call_agent(builtin_call.parameters, builtin_call.position)
@@ -41,4 +36,4 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 			end
 		end
 
-end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS
+end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS

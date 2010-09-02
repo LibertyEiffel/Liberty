@@ -20,7 +20,7 @@ feature {BACKTRACKING_REGULAR_EXPRESSION}
 	root: BACKTRACKING_NODE
 			-- The root item.
 
-	substrings_names: DICTIONARY[INTEGER, FIXED_STRING]
+	substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
 
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER}
 	make (top: like root; grpcnt: INTEGER; subnames: like substrings_names) is

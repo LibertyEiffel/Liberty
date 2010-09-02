@@ -35,7 +35,7 @@ feature {} -- Auxiliary features
 		from until Result.last/='_' loop Result.remove_last end
 		multiple_underscores_remover.substitute_all_in(Result)
 		Result.to_lower
-		Result := adapt(Result)
+		Result := adapt(Result,once "_external")
 	end
 
  	eiffel_argument (a_name: STRING): STRING is
@@ -52,10 +52,6 @@ feature {} -- Auxiliary features
 			when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_")
 			else Result.prepend(once "a_")
 			end
-			-- The following call should be unnecessary, since we hade already
-			-- prepended an English preposition that does not appear in any
-			-- SmartEiffel keywords.
-			-- Result := adapt(Result)
 		end
 
 	insert_underscores (a_string: STRING) is
@@ -139,17 +135,19 @@ feature {} -- Auxiliary features
 			end
 		end
 
-	adapt (a_name: STRING): STRING is
+	adapt (a_name, a_suffix: STRING): STRING is
 			-- A valid, adapted identifier for an Eiffel feature labelled
 			-- `a_name'. Can be either `a_name' itself or a new string
 			-- containing an adapatation. Reserved words and those of
-			-- features belonging to ANY are "escaped", appending "_external".
+			-- features belonging to ANY are "escaped", appending `a_suffix'.
 		require 
 			name_not_void: a_name /= Void
 			valid_name: a_name.first /= '_'
+			suffix_not_void: a_suffix /= Void
+			suffix_not_empty: not a_suffix.is_empty
 		do
 			if keywords.has(a_name) or else any_features.has(a_name) then
-				Result := a_name + once "_external"
+				Result := a_name + a_suffix
 			else
 				Result := a_name
 			end
@@ -157,24 +155,31 @@ feature {} -- Auxiliary features
 		end
 
 feature {} -- Constants 
-	class_path: POSIX_PATH_NAME is
-		-- Shared path buffer used in 'class_name_from_header'.
-	once
-		create Result.make_empty
-	end
-
 	keywords: HASHED_SET[STRING] is
 		once
-			Result := {HASHED_SET[STRING] << "indexing", "class", "deferred", "expanded", "separate", "end", "inherit", "insert", "creation", "feature", "rename", "redefine", "undefine", "select", "export", "require", "local", "do", "once", "ensure", "alias", "external", "attribute", "if", "then", "else", "elseif", "when", "from", "until", "loop", "check", "debug", "invariant", "variant", "rescue", "obsolete" >> }
+			Result := {HASHED_SET[STRING] << -- Keywords:
+			-- about classes
+		"indexing", "class", "deferred", "expanded", "separate", "end", "obsolete",
+		-- about inheritance
+		"inherit", "insert", "creation", "feature", "rename", "redefine", "undefine", "select", "export", 
+		-- design by contract
+		"require", "ensure", "check", "debug", "invariant", "variant", "rescue", 
+		-- features body
+		"local", "do", "once", "alias", "external", "attribute",
+		-- control flow
+		"if", "then", "else", "elseif", "when", "from", "until", "loop",
+		-- boolean operators
+		"and", "or", "xor", "not", "implies" >> }
 		end
 
 	any_features: HASHED_SET[STRING] is
 			-- The names of the features contained in class ANY. 
 		once
-			-- The following "static" definition of the features of ANY
-			-- is somehow unacceptable in a perfect world. Yet computing
-			-- it each and every time would enlarge the memory usage of
-			-- the program wildly, not counting the runtime requirements.
+			-- The following "static" definition of the features of ANY is
+			-- somehow unacceptable in a perfect world. Yet computing it each
+			-- and every time would enlarge the memory usage of the program
+			-- quite a lot, not counting the runtime requirements. We will do
+			-- it when we will cache compilation results.
 			Result := {HASHED_SET[STRING] << "generating", "generator", "same_dynamic_type", "is_equal", "standard_is_equal", "is_deep_equal", "twin", "copy", "standard_twin", "standard_copy", "deep_twin", "default", "is_default", "print_on", "tagged_out", "out", "out_in_tagged_out_memory", "tagged_out_memory", "fill_tagged_out_memory", "to_pointer", "is_basic_expanded_type", "object_size" >> }
 		end
 

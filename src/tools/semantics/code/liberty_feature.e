@@ -30,6 +30,10 @@ insert
 		redefine
 			is_equal
 		end
+	LOGGING
+		redefine
+			is_equal
+		end
 
 feature {ANY}
 	id: INTEGER
@@ -110,8 +114,8 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			if current_type.is_reachable then
 				if not is_reachable then
 					debug ("mark.reachable")
-						std_output.put_string(once "Marked reachable the feature: ")
-						std_output.put_line(out)
+						log.trace.put_string(once "Marked reachable the feature: ")
+						log.trace.put_line(out)
 					end
 					torch.burn
 				end
@@ -136,50 +140,86 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}
-	can_check_agent_signature: BOOLEAN is
+	can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+		require
+			a_agent_call /= Void
 		local
 			i: INTEGER
 		do
-			from
-				Result := result_type = Void or else result_type.is_known
-				i := parameters.lower
-			until
-				not Result or else i > parameters.upper
-			loop
-				Result := parameters.item(i).result_type.is_known
-				i := i + 1
+			if result_type = Void or else result_type.is_known then
+				from
+					Result := a_agent_call.target = Void or else a_agent_call.target.is_open_argument
+					i := parameters.lower
+				until
+					not Result or else i > parameters.upper
+				loop
+					Result := parameters.item(i).result_type.is_known
+					i := i + 1
+				end
 			end
 		ensure
 			can_also_check_result_type: Result implies (result_type = Void or else result_type.is_known)
 		end
 
-	check_agent_signature (a_agent_arguments: COLLECTION[LIBERTY_KNOWN_TYPE]): COLLECTION[LIBERTY_KNOWN_TYPE] is
+	agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
 		require
-			can_check_agent_signature
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
 		local
 			i: INTEGER
 		do
-			if a_agent_arguments.is_empty then
-				-- zero args is the same thing as all open args
-				if parameters.is_empty then
-					Result := a_agent_arguments
-				else
-					create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count)
-					from
-						i := parameters.lower
-					until
-						i > parameters.upper
-					loop
-						Result.add_last(parameters.item(i).result_type.known_type)
-						i := i + 1
-					end
-				end
-			elseif a_agent_arguments.count /= parameters.count then
-				--|*** TODO: error: bad number of arguments
-				not_yet_implemented
+			if a_agent_call.target = Void or else not a_agent_call.target.is_open_argument then
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count)
 			else
-				--|*** TODO: is there anything to do about open arguments?
-				Result := a_agent_arguments
+				create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(parameters.count + 1)
+				Result.add_last(current_type)
+			end
+			from
+				i := parameters.lower
+			until
+				i > parameters.upper
+			loop
+				Result.add_last(parameters.item(i).result_type.known_type)
+				i := i + 1
+			end
+		end
+
+	check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+		require
+			can_check_agent_signature(a_agent_call)
+			a_agent_call.is_agent_call
+		local
+			i, j: INTEGER
+		do
+			if a_agent_call.target = Void or else not a_agent_call.is_open_argument then
+				i := 0
+			else
+				if parameters.is_empty then
+					crash --| TODO: error, bad number of arguments
+				end
+				if not a_agent_call.target.result_type.known_type.is_conform_to(parameters.first.result_type.known_type)
+					and then not a_agent_call.target.result_type.known_type.converts_to(parameters.first.result_type.known_type) then
+					crash --| TODO: error, bad argument type
+				end
+				i := 1
+			end
+			if a_agent_call.actuals.count /= 0 then
+				if a_agent_call.actuals.count /= parameters.count + i then
+					crash --| TODO: error, bad number of arguments
+				end
+				from
+					i := parameters.lower + i
+					j := a_agent_call.actuals.lower
+				until
+					i > parameters.upper
+				loop
+					if not parameters.item(i).result_type.known_type.is_conform_to(a_agent_call.actuals.item(j).result_type.known_type)
+						and then not parameters.item(i).result_type.known_type.converts_to(a_agent_call.actuals.item(j).result_type.known_type) then
+						crash --| TODO: error, bad argument type
+					end
+					i := i + 1
+					j := j + 1
+				end
 			end
 		end
 
@@ -444,7 +484,7 @@ feature {ANY}
 					Result.set_specialized_in(context.specialized_in(a_type))
 					if not is_redefined then
 						debug ("feature.specialization")
-							std_output.put_line(once "   Binding specialized feature")
+							log.trace.put_line(once "   Binding specialized feature")
 						end
 						bind_or_replace(Result, a_type, True)
 					end
@@ -499,12 +539,12 @@ feature {LIBERTY_FEATURE}
 		do
 			if has_parent_binding(a_parent) then
 				debug ("feature.binding")
-					std_output.put_line(once "         => parent already added")
+					log.trace.put_line(once "         => parent already added")
 				end
 			else
 				parent_bindings_memory.add_last(a_parent)
 				debug ("feature.binding")
-					std_output.put_line(once "         => added parent to child")
+					log.trace.put_line(once "         => added parent to child")
 				end
 			end
 		end
@@ -537,14 +577,14 @@ feature {LIBERTY_FEATURE}
 			end
 
 			debug ("feature.binding")
-				std_output.put_string(once "      Binding child: ")
-				child.do_debug_display(std_output, 2)
+				log.trace.put_string(once "      Binding child: ")
+				child.do_debug_display(log.trace, 2)
 				if bind_current then
-					std_output.put_string(once "      to Current: ")
+					log.trace.put_string(once "      to Current: ")
 				else
-					std_output.put_string(once "      replacing Current: ")
+					log.trace.put_string(once "      replacing Current: ")
 				end
-				do_debug_display(std_output, 2)
+				do_debug_display(log.trace, 2)
 			end
 
 			from
@@ -553,19 +593,19 @@ feature {LIBERTY_FEATURE}
 				i > parent_bindings_memory.upper
 			loop
 				debug ("feature.binding")
-					std_output.put_string(once "       * Will bind parent #")
-					std_output.put_integer(i+1)
-					std_output.put_character('/')
-					std_output.put_integer(parent_bindings_memory.count)
-					std_output.put_string(once ": ")
-					parent_bindings_memory.item(i).do_debug_display(std_output, 3)
+					log.trace.put_string(once "       * Will bind parent #")
+					log.trace.put_integer(i+1)
+					log.trace.put_character('/')
+					log.trace.put_integer(parent_bindings_memory.count)
+					log.trace.put_string(once ": ")
+					parent_bindings_memory.item(i).do_debug_display(log.trace, 3)
 				end
 				removed := parent_bindings_memory.item(i).do_bind(child, Current, type)
 				if removed = Void then
 					i := i + 1
 				else
 					debug ("feature.binding")
-						std_output.put_line(once "         -> adding removed child's parents")
+						log.trace.put_line(once "         -> adding removed child's parents")
 					end
 					from
 						j := removed.parent_bindings.lower
@@ -582,8 +622,8 @@ feature {LIBERTY_FEATURE}
 
 			if bind_current then
 				debug ("feature.binding")
-					std_output.put_string(once "       * Will bind Current: ")
-					do_debug_display(std_output, 3)
+					log.trace.put_string(once "       * Will bind Current: ")
+					do_debug_display(log.trace, 3)
 				end
 				removed := do_bind(child, Current, type)
 				check
@@ -592,19 +632,19 @@ feature {LIBERTY_FEATURE}
 			end
 
 			debug ("feature.binding")
-				std_output.put_string(once "   Final parent bindings of ")
-				child.do_debug_display(std_output, 1)
+				log.trace.put_string(once "   Final parent bindings of ")
+				child.do_debug_display(log.trace, 1)
 				from
 					i := child.parent_bindings.lower
 				until
 					i > child.parent_bindings.upper
 				loop
-					std_output.put_string(once "    * ")
-					std_output.put_integer(i+1)
-					std_output.put_character('/')
-					std_output.put_integer(child.parent_bindings.count)
-					std_output.put_string(once ": ")
-					child.parent_bindings.item(i).do_debug_display(std_output, 2)
+					log.trace.put_string(once "    * ")
+					log.trace.put_integer(i+1)
+					log.trace.put_character('/')
+					log.trace.put_integer(child.parent_bindings.count)
+					log.trace.put_string(once ": ")
+					child.parent_bindings.item(i).do_debug_display(log.trace, 2)
 					i := i + 1
 				end
 			end
@@ -612,8 +652,8 @@ feature {LIBERTY_FEATURE}
 			parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE): BOOLEAN is
 				do
 					debug ("feature.binding")
-						std_output.put_string(once "   Checking ")
-						p.do_debug_display(std_output, 1)
+						log.trace.put_string(once "   Checking ")
+						p.do_debug_display(log.trace, 1)
 					end
 					Result := c.has_parent_binding(p)
 					if not Result then
@@ -643,14 +683,14 @@ feature {LIBERTY_FEATURE}
 					Result.has_parent_binding(Current)
 				end
 				debug ("feature.binding")
-					std_output.put_line(once "         -> already bound.")
+					log.trace.put_line(once "         -> already bound.")
 				end
 				Result := Void
 			else
 				if Result /= Void then
 					debug ("feature.binding")
-						std_output.put_string(once "         -> remove old child: ")
-						Result.do_debug_display(std_output, 4)
+						log.trace.put_string(once "         -> remove old child: ")
+						Result.do_debug_display(log.trace, 4)
 					end
 					child_bindings_memory.fast_remove(type)
 					Result.remove_parent_binding(Current)
@@ -660,7 +700,7 @@ feature {LIBERTY_FEATURE}
 					end
 				end
 				debug ("feature.binding")
-					std_output.put_line(once "         -> adding new child")
+					log.trace.put_line(once "         -> adding new child")
 				end
 				child_bindings_memory.add(child, type)
 				if child /= Current then

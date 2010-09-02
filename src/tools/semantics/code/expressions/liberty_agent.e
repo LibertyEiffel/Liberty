@@ -52,6 +52,7 @@ feature {ANY}
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: INTEGER) is
 		do
+			result_type.mark_reachable_code(mark)
 			call.mark_reachable_code(mark)
 		end
 
@@ -144,17 +145,33 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
 				Result := call.target.result_type.is_known
 			else
 				Result := call.actuals.valid_index(index)
-					and then call.actuals.item(index).result_type.is_known
+				if Result then
+					if call.actuals.item(index).result_type.is_known then
+						Result := True
+					else
+						Result := call.entity.has_feature
+							and then call.entity.feature_definition.the_feature.parameters.valid_index(index)
+							and then call.entity.feature_definition.the_feature.parameters.item(index).result_type.is_known
+					end
+				end
 			end
 		end
 
 	open_argument_type (delayed: LIBERTY_DELAYED_OPEN_ARGUMENT; index: like open_argument_index): LIBERTY_KNOWN_TYPE is
+		require
+			can_compute_open_argument_type(delayed, index)
 		do
 			if index = target_index then
 				Result := call.target.result_type.known_type
 			else
-				Result := call.actuals.item(index).result_type.known_type
+				if call.actuals.item(index).result_type.is_known then
+					Result := call.actuals.item(index).result_type.known_type
+				else
+					Result := call.entity.feature_definition.the_feature.parameters.item(index).result_type.known_type
+				end
 			end
+		ensure
+			Result /= Void
 		end
 
 feature {ANY}

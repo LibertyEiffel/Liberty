@@ -135,7 +135,7 @@ feature {ANY}
 			visit.call([visitor, Current])
 		end
 
-	converts_to (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := has_converter(target_type)
 		end
@@ -393,9 +393,9 @@ feature {LIBERTY_BUILDER_TOOLS}
 				end
 				conformant_parents.add_last(a_parent)
 				debug ("type.building")
-					std_output.put_string(name)
-					std_output.put_string(once ": adding conformant parent ")
-					std_output.put_line(a_parent.name)
+					log.trace.put_string(name)
+					log.trace.put_string(once ": adding conformant parent ")
+					log.trace.put_line(a_parent.name)
 				end
 			else
 				if non_conformant_parents = no_parents then
@@ -403,9 +403,9 @@ feature {LIBERTY_BUILDER_TOOLS}
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug ("type.building")
-					std_output.put_string(name)
-					std_output.put_string(once ": adding non-conformant parent ")
-					std_output.put_line(a_parent.name)
+					log.trace.put_string(name)
+					log.trace.put_string(once ": adding non-conformant parent ")
+					log.trace.put_line(a_parent.name)
 				end
 			end
 		end
@@ -460,6 +460,8 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 		end
 
 	build_more is
+		require
+			not is_built
 		do
 			builder.build_more
 			if builder.is_built then
@@ -479,14 +481,14 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
 			not has_converter(target_type)
 		do
 			if converters = Void then
-				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]} converters.with_capacity(3)
+				create {HASHED_DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_KNOWN_TYPE]} converters.with_capacity(3)
 			end
 			converters.add(a_converter, target_type)
 		ensure
 			converter(target_type) = a_converter
 		end
 
-	has_converter (target_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+	has_converter (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
 		do
 			Result := converters /= Void and then converters.fast_has(target_type)
 		end
@@ -569,12 +571,14 @@ feature {LIBERTY_SEMANTICS_BUILDER}
 			has_manifest_array
 		end
 
-feature {}
+feature {LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER}
 	mark_manifest_array_features (mark: like reachable_mark) is
 		local
 			fd_put, fd_make, fd_creation: like feature_definition
 		do
-			if is_built then
+			if not is_built then
+				add_listener(create {LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER}.make(mark))
+			else
 				-- TODO: should do those lookups in ANY (because of possible renames)
 
 				fd_creation := feature_definition(manifest_creation_feature_name) -- always exists (in ANY)
@@ -663,7 +667,9 @@ feature {}
 
 	conformance_checker: LIBERTY_GENERICS_CONFORMANCE_CHECKER
 
-	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_ACTUAL_TYPE]
+	converters: DICTIONARY[PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]], LIBERTY_KNOWN_TYPE]
+			-- actually contains only LIBERTY_ACTUAL_TYPE objects but it helps to be able to check against
+			-- LIBERTY_VOID_TYPE
 
 	has_manifest_array: BOOLEAN
 			-- True if some manifest array expression builds an object of this type

@@ -1,33 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class LOG_LEVELS
---
--- The logging levels
---
+deferred class LOG_FILE_OPTION
 
-feature {ANY}
-	trace: LOG_LEVEL is
-		once
-			create Result.make(2, "TRACE".intern)
+feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
+	retrieve (stream: FILE_STREAM): FILE_STREAM is
+		require
+			stream.is_connected
+		deferred
+		ensure
+			Result /= stream implies not stream.is_connected
+			Result.is_connected
+			Result.path = old stream.path
 		end
 
-	info: LOG_LEVEL is
-		once
-			create Result.make(1, "INFO ".intern)
-		end
-
-	warning: LOG_LEVEL is
-		once
-			create Result.make(0, "WARN ".intern)
-		end
-
-	error: LOG_LEVEL is
-		once
-			create Result.make(-1, "ERROR".intern)
-		end
-
-end -- class LOG_LEVELS
+end -- class LOG_FILE_OPTION
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

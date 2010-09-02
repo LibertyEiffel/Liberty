@@ -153,12 +153,12 @@ feature {}
 				if actual_fd = Void then
 					parent_features.add(fd, feature_name)
 					debug ("type.building.internals")
-						std_output.put_string(once " <=> ")
-						std_output.put_string(parent.full_name)
-						std_output.put_string(once ": late binding down to ")
-						std_output.put_string(type.full_name)
-						std_output.put_string(once " of feature ")
-						std_output.put_line(feature_name.full_name)
+						log.trace.put_string(once " <=> ")
+						log.trace.put_string(parent.full_name)
+						log.trace.put_string(once ": late binding down to ")
+						log.trace.put_string(type.full_name)
+						log.trace.put_string(once " of feature ")
+						log.trace.put_line(feature_name.full_name)
 					end
 					precursor_feature := fd.the_feature.specialized_in(type)
 					check
@@ -171,12 +171,12 @@ feature {}
 					actual_fd := fd
 				else
 					debug ("type.building.internals")
-						std_output.put_string(once " <=> ")
-						std_output.put_string(parent.full_name)
-						std_output.put_string(once ": joining in ")
-						std_output.put_string(type.full_name)
-						std_output.put_string(once " of feature ")
-						std_output.put_line(feature_name.full_name)
+						log.trace.put_string(once " <=> ")
+						log.trace.put_string(parent.full_name)
+						log.trace.put_string(once ": joining in ")
+						log.trace.put_string(type.full_name)
+						log.trace.put_string(once " of feature ")
+						log.trace.put_line(feature_name.full_name)
 					end
 					actual_fd.join(fd, parent)
 					check
@@ -189,11 +189,6 @@ feature {}
 					actual_fd.has_precursor(parent)
 					actual_fd.the_feature.bound(type) = actual_fd.the_feature
 				end
-
-				-- if feature_name.full_name.out.is_equal(once "is_connected") then
-				-- 	std_output.flush
-				-- 	breakpoint
-				-- end
 
 				i := i + 1
 			end
@@ -309,20 +304,15 @@ feature {}
 					deferred_feature.set_context(inherited_feature.context)
 					deferred_feature.set_type_resolver(inherited_feature.type_resolver, True)
 					debug ("type.building.internals")
-						std_output.put_string(once " <=> ")
-						std_output.put_string(parent.full_name)
-						std_output.put_string(once ": late binding down to ")
-						std_output.put_string(type.full_name)
-						std_output.put_string(once " of undefined feature ")
-						std_output.put_line(feature_name.full_name)
+						log.trace.put_string(once " <=> ")
+						log.trace.put_string(parent.full_name)
+						log.trace.put_string(once ": late binding down to ")
+						log.trace.put_string(type.full_name)
+						log.trace.put_string(once " of undefined feature ")
+						log.trace.put_line(feature_name.full_name)
 					end
 					deferred_feature.replace(inherited_feature, type)
 					fd.set_the_feature(deferred_feature)
-
-					-- if feature_name.full_name.out.is_equal(once "is_connected") then
-					-- 	std_output.flush
-					-- 	breakpoint
-					-- end
 				end
 				i := i + 1
 			end
@@ -358,12 +348,12 @@ feature {}
 							redefined_feature.set_context(inherited_feature.context)
 							redefined_feature.set_type_resolver(inherited_feature.type_resolver, True)
 							debug ("type.building.internals")
-								std_output.put_string(once " <=> ")
-								std_output.put_string(parent.full_name)
-								std_output.put_string(once ": late binding down to ")
-								std_output.put_string(type.full_name)
-								std_output.put_string(once " of redefined feature ")
-								std_output.put_line(feature_name.full_name)
+								log.trace.put_string(once " <=> ")
+								log.trace.put_string(parent.full_name)
+								log.trace.put_string(once ": late binding down to ")
+								log.trace.put_string(type.full_name)
+								log.trace.put_string(once " of redefined feature ")
+								log.trace.put_line(feature_name.full_name)
 							end
 							redefined_feature.replace(inherited_feature, type)
 						else
@@ -372,11 +362,6 @@ feature {}
 						end
 						fd.set_the_feature(redefined_feature)
 					end
-
-					-- if feature_name.full_name.out.is_equal(once "is_connected") then
-					-- 	std_output.flush
-					-- 	breakpoint
-					-- end
 
 					i := i + 1
 				end

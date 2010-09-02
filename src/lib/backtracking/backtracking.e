@@ -5,11 +5,11 @@ deferred class BACKTRACKING
 	--
 	-- This class is intended to explore structures that matches the and/or
 	-- graph of BACKTRACKING_NODE. The alternatives have a context that is
-	-- gotten and restored throught features 'get_context' and 'restore_context'.
+	-- gotten and restored using the features 'get_context' and 'restore_context'.
 	--
 	-- See tutorial/backtracking for examples.
 	--
-	-- The instances of the BACKTRACKING childs are typically
+	-- The instances of the BACKTRACKING children are typically
 	-- used through lines like the following ones that enumerate the
 	-- solutions:
 	--
@@ -35,7 +35,7 @@ insert
 
 feature {ANY}
 	set_current_node (node: like current_node) is
-			-- Set the next node of the BACKTRACKING_NODE graph to be evaluated.
+			-- Sets the next node of the BACKTRACKING_NODE graph to evaluate.
 		do
 			current_node := node
 		ensure
@@ -43,7 +43,7 @@ feature {ANY}
 		end
 
 	push_and (node: BACKTRACKING_NODE) is
-			-- Pushes 'node' in front of the continuation path.
+			-- Pushes `node' in front of the continuation path.
 		require
 			node_not_void: node /= Void
 		local
@@ -55,7 +55,7 @@ feature {ANY}
 		end
 
 	push_and_list (list: BACKTRACKING_NODE_AND_LIST) is
-			-- Pushes 'list' in front of the continuation path.
+			-- Pushes `list' in front of the continuation path.
 		require
 			list_not_void: list /= Void
 		local
@@ -67,7 +67,7 @@ feature {ANY}
 		end
 
 	push_or (node: BACKTRACKING_NODE) is
-			-- Pushes 'node' in front of the possible alternatives.
+			-- Pushes `node' in front of the possible alternatives.
 		require
 			node_not_void: node /= Void
 		local
@@ -79,7 +79,7 @@ feature {ANY}
 		end
 
 	push_or_list (list: BACKTRACKING_NODE_OR_LIST) is
-			-- Pushes 'list' in front of the possible alternatives.
+			-- Pushes `list' in front of the possible alternatives.
 		require
 			list_not_void: list /= Void
 		local

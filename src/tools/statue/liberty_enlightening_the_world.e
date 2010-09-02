@@ -17,14 +17,17 @@ expanded class LIBERTY_ENLIGHTENING_THE_WORLD
 -- Allows to ensure that the compiler is still progressing. Useful to avoid staying stuck in an infinite loop.
 --
 
+insert
+	LOGGING
+
 feature {ANY}
 	burn is
 		do
 			torch.increment
 			debug
-				std_output.put_string(once "FLAME: ")
-				std_output.put_integer(torch.value)
-				std_output.put_new_line
+				log.trace.put_string(once "FLAME: ")
+				log.trace.put_integer(torch.value)
+				log.trace.put_new_line
 			end
 		end
 

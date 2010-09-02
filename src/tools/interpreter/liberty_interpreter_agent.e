@@ -74,22 +74,18 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS}
 			Result := interpreter.item_feature(real_target, call.entity.feature_definition, args, call_position)
 		end
 
-feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS}
+feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS}
 	call_agent (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]; call_position: LIBERTY_POSITION) is
 		local
-			target, real_target: LIBERTY_INTERPRETER_OBJECT
-			args: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
+			lost_object: LIBERTY_INTERPRETER_OBJECT
 		do
-			if call.target = Void then
-				real_target := creation_target
-				args := unpack_tuple_and_closed(parameters, call_position, False)
-			else
-				call.target.accept(interpreter.expressions)
-				target := interpreter.expressions.eval_as_target
-				real_target := unpack_target(target, parameters, call_position)
-				args := unpack_tuple_and_closed(parameters, call_position, target.is_open)
-			end
-			interpreter.call_feature(real_target, call.entity.feature_definition, args, call_position)
+			-- Because the `call' feature of a routine may call a function; in that case the result is lost
+			-- (temporary because of SmartEiffel)
+			--
+			-- ECMA instead sets the `last_result' attribute of ROUTINE; but how the hell is `last_result'
+			-- typed?? (seems not to be specified)
+			--
+			lost_object := item_agent(parameters, call_position)
 		end
 
 feature {}

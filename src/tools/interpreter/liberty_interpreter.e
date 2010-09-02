@@ -318,6 +318,43 @@ feature {ANY}
 			create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
 		end
 
+	new_typed_integer (actual_type: LIBERTY_ACTUAL_TYPE; manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+		local
+			i8: INTEGER_8; i16: INTEGER_16; i32: INTEGER_32
+			manifest_type: LIBERTY_ACTUAL_TYPE
+		do
+			ensure_built(actual_type)
+
+			if manifest.fit_integer_8 then
+				i8 := manifest.to_integer_8
+				manifest_type := universe.type_integer_8
+				Result := new_integer_8(i8, a_position)
+			elseif manifest.fit_integer_16 then
+				i16 := manifest.to_integer_16
+				manifest_type := universe.type_integer_16
+				Result := new_integer_16(i16, a_position)
+			elseif manifest.fit_integer_32 then
+				i32 := manifest.to_integer_32
+				manifest_type := universe.type_integer_32
+				Result := new_integer_32(i32, a_position)
+			else
+				manifest_type := universe.type_integer_64
+				Result := new_integer_64(manifest, a_position)
+			end
+
+			check
+				not manifest_type.is_conform_to(actual_type)
+			end
+
+			if manifest_type.converts_to(actual_type) then
+				Result := object_converter.convert_object(Result, actual_type)
+			else
+				fatal_error("Type " + manifest_type.full_name + " does not convert to " + actual_type.full_name, a_position)
+			end
+		ensure
+			Result.result_type = actual_type
+		end
+
 	new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
 		do
 			ensure_built(universe.type_real)

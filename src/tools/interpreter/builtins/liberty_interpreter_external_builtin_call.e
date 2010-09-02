@@ -274,6 +274,20 @@ feature {LIBERTY_UNIVERSE}
 			end
 		end
 
+	visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+		local
+			ret: LIBERTY_INTERPRETER_OBJECT
+			type_routine_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
+		do
+			create type_routine_builtins.make(interpreter)
+			ret := type_routine_builtins.call(builtin_call)
+			if type_routine_builtins.last_call_failed then
+				last_call_failed := True
+			else
+				builtin_call.set_returned_object(ret)
+			end
+		end
+
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
 		local
 			ret: LIBERTY_INTERPRETER_OBJECT

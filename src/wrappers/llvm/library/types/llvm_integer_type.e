@@ -29,35 +29,35 @@ feature {} -- Creation in a specific context
 		require
 			a_context /= Void
 		do
-			handle := llvmint_1type_in_context(a_context.handle)
+			handle := llvmint1type_in_context(a_context.handle)
 		end
 
 	with_8_bits_in_context (a_context: LLVM_CONTEXT) is
 		require
 			a_context /= Void
 		do
-			handle := llvmint_8type_in_context(a_context.handle)
+			handle := llvmint8type_in_context(a_context.handle)
 		end
 
 	with_16_bits_in_context (a_context: LLVM_CONTEXT) is
 		require
 			a_context /= Void
 		do
-			handle := llvmint_16type_in_context(a_context.handle)
+			handle := llvmint16type_in_context(a_context.handle)
 		end
 
 	with_32_bits_in_context (a_context: LLVM_CONTEXT) is
 		require
 			a_context /= Void
 		do
-			handle := llvmint_32type_in_context(a_context.handle)
+			handle := llvmint32type_in_context(a_context.handle)
 		end
 
 	with_64_bits_in_context (a_context: LLVM_CONTEXT) is
 		require
 			a_context /= Void
 		do
-			handle := llvmint_1type_in_context(a_context.handle)
+			handle := llvmint1type_in_context(a_context.handle)
 		end
 
 	with_bits_in_context (a_bit_count: NATURAL_32) is
@@ -69,27 +69,27 @@ feature {} -- Creation in a specific context
 feature {} -- Creation in global context
 	with_1_bit is
 		do
-			handle := llvmint_1type
+			handle := llvmint1type
 		end
 
 	with_8_bits is
 		do
-			handle := llvmint_8type
+			handle := llvmint8type
 		end
 
 	with_16_bits is
 		do
-			handle := llvmint_16type
+			handle := llvmint16type
 		end
 
 	with_32_bits is
 		do
-			handle := llvmint_32type
+			handle := llvmint32type
 		end
 
 	with_64_bits is
 		do
-			handle := llvmint_64type
+			handle := llvmint64type
 		end
 	
 	with_bits (a_bit_count: NATURAL_32) is

@@ -102,6 +102,7 @@ feature {}
 			--
 
 			array_type ::= v.result_type.known_type
+			interpreter.ensure_built(array_type)
 
 			fd := array_type.feature_definition(manifest_make_feature_name)
 			new_array := interpreter.new_object(array_type, v.position)
@@ -362,8 +363,13 @@ feature {LIBERTY_INTEGER_8_MANIFEST}
 
 feature {LIBERTY_INTEGER_TYPED_MANIFEST}
 	visit_liberty_integer_typed_manifest (v: LIBERTY_INTEGER_TYPED_MANIFEST) is
+		local
+			actual_type: LIBERTY_ACTUAL_TYPE
 		do
-			not_yet_implemented
+			actual_type ::= v.result_type.known_type
+			eval_memory := interpreter.new_typed_integer(actual_type, v.manifest, v.position)
+		ensure
+			eval_memory /= Void
 		end
 
 feature {LIBERTY_INT_REMAINDER}

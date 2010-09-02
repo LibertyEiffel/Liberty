@@ -97,7 +97,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, position), agent store_user_type)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, type, position), agent store_user_type)
 		end
 
 	visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
@@ -113,6 +113,11 @@ feature {LIBERTY_UNIVERSE}
 	visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_tuple(?, position), agent store_tuple)
+		end
+
+	visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_AGENT]} last_accessor.make(agent retrieve_routine(?, position), agent store_routine)
 		end
 
 	visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
@@ -132,7 +137,7 @@ feature {LIBERTY_UNIVERSE}
 
 	visit_user_type (type: LIBERTY_ACTUAL_TYPE) is
 		do
-			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, position), agent store_user_type)
+			create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[LIBERTY_INTERPRETER_OBJECT]} last_accessor.make(agent retrieve_user_type(?, type, position), agent store_user_type)
 		end
 
 feature {LIBERTY_VOID_TYPE}
@@ -216,6 +221,11 @@ feature {} -- The retrievers
 			Result := item
 		end
 
+	retrieve_routine (item: LIBERTY_INTERPRETER_AGENT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
+		do
+			Result := item
+		end
+
 	retrieve_procedure (item: LIBERTY_INTERPRETER_AGENT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := item
@@ -231,9 +241,12 @@ feature {} -- The retrievers
 			Result := item
 		end
 
-	retrieve_user_type (item: LIBERTY_INTERPRETER_OBJECT; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
+	retrieve_user_type (item: LIBERTY_INTERPRETER_OBJECT; a_type: LIBERTY_ACTUAL_TYPE; a_position: like position): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := item
+			if Result = Void then
+				Result := interpreter.default_object(a_type, a_position)
+			end
 		end
 
 feature {} -- The storers
@@ -333,6 +346,11 @@ feature {} -- The storers
 	store_tuple (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_OBJECT is
 		do
 			Result := item
+		end
+
+	store_routine (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_AGENT is
+		do
+			Result ::= item
 		end
 
 	store_procedure (item: LIBERTY_INTERPRETER_OBJECT): LIBERTY_INTERPRETER_AGENT is
