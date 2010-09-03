@@ -12,7 +12,7 @@ feature -- Creation
 		-- Note: sign-extend is assumed to be 1. See `from_integer'
 	require non_negative: a_value>=0
 	do
-		handle:=llvmconst_int(llvmint_32type,a_value.to_natural_64,1)
+		handle:=llvmconst_int(llvmint32type,a_value.to_natural_64,1)
 	end
 
 	from_integer (a_type: LLVM_INTEGER_TYPE; a_value: NATURAL_64; a_sign_extend: INTEGER_32) is

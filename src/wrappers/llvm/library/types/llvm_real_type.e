@@ -39,13 +39,13 @@ feature {} -- Creation
 
 	as_x86 is
 	do
-		handle := llvmx_86fp_80type
+		handle := llvmx86fp80type
 	end
 	
 	as_x86_in_context (a_context: LLVM_CONTEXT) is
 		require a_context/=Void
 		do
-			handle:=llvmx_86fp_80type_in_context(a_context.handle)
+			handle:=llvmx86fp80type_in_context(a_context.handle)
 		end
 
 -- TODO: write a correct invariant type.is_real_type_kind

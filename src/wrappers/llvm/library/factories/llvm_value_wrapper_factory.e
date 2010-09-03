@@ -29,9 +29,9 @@ feature {WRAPPER, WRAPPER_HANDLER}
 				end
 				create {LLVM_VALUE} Result.from_external_pointer(p)
 			elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_x_86_fp_80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_ppc__fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+			elseif type.is_x86_fp80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+			elseif type.is_fp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+			elseif type.is_ppc_fp128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
 			elseif type.is_label_type_kind then raise("LLVM_VALUE_FACTORY got a label type")
 			elseif type.is_integer_type_kind then create {LLVM_CONSTANT_INT} Result.from_external_pointer(p)
 			elseif type.is_function_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)

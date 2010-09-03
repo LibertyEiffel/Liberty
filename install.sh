@@ -176,7 +176,7 @@ EOF
     if [ ! -d ../../../bin/compile_to_c.d ]; then
 	progress 30 0 11 "germ"
 	test -d ../../../bin/compile_to_c.d || mkdir ../../../bin/compile_to_c.d
-	run gcc compile_to_c.c -pipe -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
+	run gcc -c compile_to_c.c && run gcc compile_to_c.o -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 

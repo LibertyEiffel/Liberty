@@ -69,7 +69,7 @@ feature -- Plain enumeration
 		
 		-- Append enum query
 		queries.put_message	(once 
-		"	@(1): BOOLEAN is%N%
+		"	is_@(1): BOOLEAN is%N%
 		%		do%N%
 		%			Result := (value=@(1)_low_level)%N%
 		%		end%N%N", <<eiffel_name>>)

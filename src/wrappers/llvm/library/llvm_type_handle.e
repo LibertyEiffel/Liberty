@@ -34,7 +34,7 @@ feature -- Disposing
 			llvmdispose_type_handle(handle)
 		end
 
-	struct_size: INTEGER is do not_yet_implemented end 
+	struct_size: like size_t is do not_yet_implemented end 
 end -- class LLVM_TYPE_HANDLE
 
 -- Copyright 2009 Paolo Redaelli
