@@ -22,7 +22,7 @@ creation {ANY}
 
 feature {ANY}
 	std_input: INPUT_STREAM
-	
+
 	std_output: OUTPUT_STREAM
 
 	std_error: OUTPUT_STREAM
