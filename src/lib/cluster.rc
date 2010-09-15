@@ -41,6 +41,7 @@ cluster
 	ABILITIES: "./abilities"
 	AUTOMATON: "./automaton"
 	BACKTRACKING: "./backtracking"
+	COMMAND_LINE: "./cli"
 	DESIGN_PATTERNS: "./design_patterns"
 	EXEC: "./exec"
 	FOREIGN_INTERFACE: "./foreign_interface"
