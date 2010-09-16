@@ -86,6 +86,7 @@ feature {ANY}
 		require
 			a_index > 0
 			is_positional
+			not is_repeatable
 		deferred
 		end
 
@@ -105,65 +106,6 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 feature {}
 	parent: like Current is
 		deferred
-		end
-
-feature {} -- usage output helpers
-	put_short (stream: OUTPUT_STREAM) is
-		require
-			short /= Void
-		do
-			stream.put_character('-')
-			stream.put_character(short.first)
-		end
-
-	put_long (stream: OUTPUT_STREAM) is
-		require
-			long /= Void
-		do
-			stream.put_character('-')
-			stream.put_character('-')
-			stream.put_string(long)
-		end
-
-feature {} -- patterns
-	short_pattern: REGULAR_EXPRESSION is
-		local
-			re: REGULAR_EXPRESSION_BUILDER
-		once
-			Result := re.convert_python_pattern("^(?:-|/)(?P<options>[A-Za-z0-9]+)$")
-		end
-
-	long_pattern: REGULAR_EXPRESSION is
-		local
-			re: REGULAR_EXPRESSION_BUILDER
-		once
-			Result := re.convert_python_pattern("^(?:--)(?P<name>[A-Za-z0-9]([A-Za-z0-9_-]*[A-Za-z0-9])?)$")
-		end
-
-	is_short (arg: STRING; index: INTEGER): BOOLEAN is
-		require
-			short /= Void
-		local
-			options: STRING
-		do
-			if short_pattern.match(arg) and then short_pattern.named_group_matched(once "options") then
-				options := short_pattern.named_group_value(arg, once "options")
-				if options.valid_index(index) then
-					Result := options.item(index) = short.first
-				end
-			end
-		end
-
-	is_long (arg: STRING): BOOLEAN is
-		require
-			long /= Void
-		local
-			name_: FIXED_STRING
-		do
-			if long_pattern.match(arg) and then long_pattern.named_group_matched(once "name") then
-				name_ := long_pattern.named_group_value(arg, once "name").intern
-				Result := name_ = long
-			end
 		end
 
 invariant

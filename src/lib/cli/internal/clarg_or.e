@@ -10,6 +10,8 @@ create {COMMAND_LINE_ARGUMENT}
 	make
 
 feature {ANY}
+	is_repeatable: BOOLEAN is False
+
 	infix "or", infix "or else" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT is
 		do
 			args.add_last(other)
@@ -21,6 +23,11 @@ feature {ANY}
 	is_mandatory: BOOLEAN is
 		do
 			Result := args.for_all(agent {COMMAND_LINE_ARGUMENT}.is_mandatory)
+		end
+
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+		do
+			Result := args.exists(agent {COMMAND_LINE_ARGUMENT}.is_set_at(context))
 		end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
@@ -76,6 +83,11 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			end
 		end
 
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
+		do
+			args.do_all(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
+		end
+
 feature {}
 	args: FAST_ARRAY[COMMAND_LINE_ARGUMENT]
 
@@ -86,6 +98,8 @@ feature {}
 		do
 			args := {FAST_ARRAY[COMMAND_LINE_ARGUMENT] << a_left, a_right >> }
 		end
+
+	detailed: BOOLEAN
 
 invariant
 	args.count >= 2

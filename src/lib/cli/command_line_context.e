@@ -1,6 +1,32 @@
 expanded class COMMAND_LINE_CONTEXT
 
-feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
+insert
+	HASHABLE
+	COMPARABLE
+
+feature {ANY}
+	hash_code: INTEGER is
+		do
+			if is_short then
+				Result := short_index #+ (short_option_index #* 4096)
+				if Result < 0 then
+					Result := ~Result
+				end
+			else
+				Result := index
+			end
+		end
+
+	infix "<" (other: like Current): BOOLEAN is
+		do
+			if index = other.index then
+				Result := short_option_index < other.short_option_index
+			else
+				Result := index < other.index
+			end
+		end
+
+feature {ANY}
 	index: INTEGER
 			-- set to the next argument to read
 
@@ -33,7 +59,7 @@ feature {COMMAND_LINE_ARGUMENTS}
 			is_parsed
 		end
 
-feature {COMMAND_LINE_ARGUMENT}
+feature {COMMAND_LINE_ARGUMENT, CLARG_PARSER}
 	set_short (a_short_index: like short_index; a_short_option_index: like short_option_index) is
 		require
 			a_short_index > index

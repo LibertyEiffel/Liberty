@@ -1,7 +1,7 @@
-class CLARG_BOOLEAN
+class CLARG_COUNTER
 
 inherit
-	COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
+	COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
 		redefine
 			out_in_tagged_out_memory
 		end
@@ -20,7 +20,10 @@ create {COMMAND_LINE_ARGUMENT_FACTORY}
 	make
 
 feature {ANY}
-	item: BOOLEAN
+	item: INTEGER is
+		do
+			Result := set.count
+		end
 
 	usage: FIXED_STRING
 
@@ -29,11 +32,12 @@ feature {ANY}
 	is_optional: BOOLEAN is True
 	can_be_optional: BOOLEAN is True
 	is_positional: BOOLEAN is False
-	is_repeatable: BOOLEAN is False
+
+	is_repeatable: BOOLEAN is True
 
 	is_set: BOOLEAN is
 		do
-			Result := item
+			Result := not set.is_empty
 		end
 
 	force_index (a_index: INTEGER) is
@@ -55,7 +59,7 @@ feature {ANY}
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	prepare_parse is
 		do
-			item := False
+			set.clear_count
 		end
 
 	parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
@@ -65,34 +69,24 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			Result := context
 			if context.is_short then
 				if is_short(argument(context.index), context.short_option_index) then
-					item := True
+					set.add(context)
 					Result.set_index(context.index)
 					Result.set_short(context.short_index, context.short_option_index + 1)
 				elseif argument_count >= context.short_index and then is_long(argument(context.short_index)) then
-					item := True
+					set.add(context)
 					Result.set_index(context.short_index + 1)
 				end
 			elseif argument_count >= context.index then
 				arg := argument(context.index)
 				if is_short(arg, 1) then
-					item := True
+					set.add(context)
 					Result.set_index(context.index)
 					Result.set_short(context.index + 1, context.short_option_index + 1)
 				elseif is_long(arg) then
-					item := True
+					set.add(context)
 					Result.set_index(context.index + 1)
 				end
 			end
-		end
-
-	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
-		do
-			Result := item
-		end
-
-	undo_parse (context: COMMAND_LINE_CONTEXT) is
-		do
-			item := False
 		end
 
 	usage_summary (stream: OUTPUT_STREAM) is
@@ -110,6 +104,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			elseif long /= Void then
 				put_long(stream)
 			end
+			stream.put_string(once "...")
 			detailed := False
 		end
 
@@ -122,7 +117,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 				if usage /= Void then
 					stream.put_line(usage)
 				else
-					stream.put_line(once "Set the flag.")
+					stream.put_line(once "Increment the counter.")
 				end
 				detailed := True
 			end
@@ -133,12 +128,23 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			check False end
 		end
 
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+		do
+			Result := set.has(context)
+		end
+
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
+		do
+			set.remove(context)
+		end
+
 feature {}
 	make (a_short, a_long, a_usage: ABSTRACT_STRING) is
 		require
 			a_short /= Void implies a_short.count = 1
 			a_short /= Void or else a_long /= Void
 		do
+			create set.make
 			if a_short /= Void then
 				short := a_short.intern
 			end
@@ -156,10 +162,13 @@ feature {}
 
 	parent: like Current
 
+	set: HASHED_SET[COMMAND_LINE_CONTEXT]
+
 	detailed: BOOLEAN
 
 invariant
 	parent = Void
 	is_optional
+	set /= Void
 
-end -- class CLARG_TYPED
+end -- class CLARG_COUNTER

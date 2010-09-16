@@ -9,6 +9,7 @@ create {COMMAND_LINE_ARGUMENT_FACTORY}
 feature {ANY}
 	is_set: BOOLEAN
 	is_mandatory: BOOLEAN is True
+	is_repeatable: BOOLEAN is False
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	prepare_parse is
@@ -35,9 +36,21 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			detailed := True
 		end
 
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
+		do
+			is_set := False
+		end
+
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+		do
+			Result := is_set
+		end
+
 feature {}
 	make is
 		do
 		end
+
+	detailed: BOOLEAN
 
 end -- class CLARG_NOP

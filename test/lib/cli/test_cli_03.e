@@ -11,7 +11,7 @@ creation {}
 feature {}
 	make is
 		local
-			foo_option: COMMAND_LINE_TYPED_ARGUMENT[STRING]
+			foo_option: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
 			bar_option: COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
 		do
 			foo_option := +option_string("f", "foo", "foo", "The foo string")   -- '+' prefix for a mandatory option

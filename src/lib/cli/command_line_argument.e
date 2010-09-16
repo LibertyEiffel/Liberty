@@ -37,6 +37,11 @@ feature {ANY}
 		deferred
 		end
 
+	is_repeatable: BOOLEAN is
+			-- True if the argument is repeatable; False if unique.
+		deferred
+		end
+
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	prepare_parse is
 		deferred
@@ -48,6 +53,25 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 		require
 			context.is_parsed
 		deferred
+		end
+
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
+		require
+			is_set_at(context)
+		deferred
+		ensure
+			not is_set_at(context)
+			;(not is_repeatable) implies not is_set
+		end
+
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+			-- True if the option is present and correct at the given context.
+		require
+			context.is_parsed
+		deferred
+		ensure
+			Result implies is_set
+			;(not is_repeatable) implies (Result = is_set)
 		end
 
 	usage_summary (stream: OUTPUT_STREAM) is
@@ -63,6 +87,8 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 		end
 
 feature {}
-	detailed: BOOLEAN
+	detailed: BOOLEAN is
+		deferred
+		end
 
 end -- class COMMAND_LINE_ARGUMENT

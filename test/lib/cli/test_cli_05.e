@@ -11,10 +11,10 @@ creation {}
 feature {}
 	make is
 		local
-			foo_option: COMMAND_LINE_TYPED_ARGUMENT[STRING]
+			foo_option: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
 			bar_option: COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
-			arg1: COMMAND_LINE_TYPED_ARGUMENT[STRING]
-			arg2: COMMAND_LINE_TYPED_ARGUMENT[STRING]
+			arg1: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
+			arg2: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
 		do
 			foo_option := option_string("f", "foo", "foo", "The foo string")
 			bar_option := option_integer("b", "bar", "bar", "The bar integer")

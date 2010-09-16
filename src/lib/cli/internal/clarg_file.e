@@ -14,7 +14,7 @@ feature {ANY}
 			Result := item /= Void
 		end
 
-feature {CLARG_WITH_ARG}
+feature {CLARG_PARSER}
 	is_valid_data (arg: STRING): BOOLEAN is
 		do
 			bd.ensure_system_notation
@@ -24,7 +24,7 @@ feature {CLARG_WITH_ARG}
 		end
 
 feature {}
-	set_data (arg: STRING) is
+	set_data (context: COMMAND_LINE_CONTEXT; arg: STRING) is
 		do
 			create item.make(arg)
 		end

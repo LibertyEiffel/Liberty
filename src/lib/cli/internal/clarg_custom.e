@@ -14,14 +14,14 @@ feature {ANY}
 	item: COMMAND_LINE_DATA
 	is_set: BOOLEAN
 
-feature {CLARG_WITH_ARG}
+feature {CLARG_PARSER}
 	is_valid_data (arg: STRING): BOOLEAN is
 		do
 			Result := customize.item([arg]) /= Void
 		end
 
 feature {}
-	set_data (arg: STRING) is
+	set_data (context: COMMAND_LINE_CONTEXT; arg: STRING) is
 		do
 			item := customize.item([arg])
 			is_set := True

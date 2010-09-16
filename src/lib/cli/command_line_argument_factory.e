@@ -1,7 +1,7 @@
 expanded class COMMAND_LINE_ARGUMENT_FACTORY
 
 feature {ANY} -- Options
-	option_string (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[STRING] is
+	option_string (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING] is
 		require
 			short /= Void implies short_pattern.match(short.out)
 			long /= Void implies long_pattern.match(long.out)
@@ -9,6 +9,16 @@ feature {ANY} -- Options
 			name /= Void
 		do
 			create {CLARG_STRING} Result.optional(short, long, name, usage)
+		end
+
+	option_strings (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+		require
+			short /= Void implies short_pattern.match(short.out)
+			long /= Void implies long_pattern.match(long.out)
+			short /= Void or else long /= Void
+			name /= Void
+		do
+			create {CLARG_STRINGS} Result.optional(short, long, name, usage)
 		end
 
 	option_file (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
@@ -41,6 +51,16 @@ feature {ANY} -- Options
 			create {CLARG_INTEGER} Result.optional(short, long, name, usage)
 		end
 
+	option_integers (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]] is
+		require
+			short /= Void implies short_pattern.match(short.out)
+			long /= Void implies long_pattern.match(long.out)
+			short /= Void or else long /= Void
+			name /= Void
+		do
+			create {CLARG_INTEGERS} Result.optional(short, long, name, usage)
+		end
+
 	option_boolean (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
 		require
 			short /= Void implies short_pattern.match(short.out)
@@ -48,6 +68,15 @@ feature {ANY} -- Options
 			short /= Void or else long /= Void
 		do
 			create {CLARG_BOOLEAN} Result.make(short, long, usage)
+		end
+
+	option_counter (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER] is
+		require
+			short /= Void implies short_pattern.match(short.out)
+			long /= Void implies long_pattern.match(long.out)
+			short /= Void or else long /= Void
+		do
+			create {CLARG_COUNTER} Result.make(short, long, usage)
 		end
 
 	option_custom (short, long, name, usage: ABSTRACT_STRING; customize: FUNCTION[TUPLE[STRING], COMMAND_LINE_DATA]): COMMAND_LINE_TYPED_ARGUMENT[COMMAND_LINE_DATA] is
@@ -62,11 +91,18 @@ feature {ANY} -- Options
 		end
 
 feature {ANY} -- Positional
-	positional_string (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[STRING] is
+	positional_string (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING] is
 		require
 			name /= Void
 		do
 			create {CLARG_STRING} Result.positional(name, usage)
+		end
+
+	positional_strings (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+		require
+			name /= Void
+		do
+			create {CLARG_STRINGS} Result.positional(name, usage)
 		end
 
 	positional_file (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
@@ -88,6 +124,13 @@ feature {ANY} -- Positional
 			name /= Void
 		do
 			create {CLARG_INTEGER} Result.positional(name, usage)
+		end
+
+	positional_integers (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]] is
+		require
+			name /= Void
+		do
+			create {CLARG_INTEGERS} Result.positional(name, usage)
 		end
 
 	positional_custom (name, usage: ABSTRACT_STRING; customize: FUNCTION[TUPLE[STRING], COMMAND_LINE_DATA]): COMMAND_LINE_TYPED_ARGUMENT[COMMAND_LINE_DATA] is

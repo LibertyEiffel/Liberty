@@ -10,6 +10,8 @@ create {COMMAND_LINE_ARGUMENT}
 	make
 
 feature {ANY}
+	is_repeatable: BOOLEAN is False
+
 	infix "and", infix "and then" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT is
 		do
 			args.add_last(other)
@@ -24,6 +26,11 @@ feature {ANY}
 			Result := args.exists(agent {COMMAND_LINE_ARGUMENT}.is_mandatory)
 		end
 
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+		do
+			Result := args.exists(agent {COMMAND_LINE_ARGUMENT}.is_set_at(context))
+		end
+
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	prepare_parse is
 		do
@@ -36,6 +43,11 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 		do
 			Result := parse_cli(context)
 			is_set := set_count = mandatory_count
+		end
+
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
+		do
+			args.do_all(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
 		end
 
 	usage_summary (stream: OUTPUT_STREAM) is
@@ -76,12 +88,12 @@ feature {}
 				not Result.is_parsed or else i > args.upper
 			loop
 				arg := args.item(i)
-				if not arg.is_set then
+				if not arg.is_set_at(Result) then
 					ctx := arg.parse_command_line(Result)
-					if ctx.is_parsed and then arg.is_set then
+					if ctx.is_parsed and then arg.is_set_at(Result) then
 						ctx := parse_cli(ctx)
 						check
-							arg.is_set
+							arg.is_set_at(Result)
 						end
 						if ctx.is_parsed then
 							Result := ctx
@@ -89,7 +101,7 @@ feature {}
 								set_count := set_count + 1
 							end
 						else
-							arg.prepare_parse
+							arg.undo_parse(Result)
 						end
 					end
 				end
@@ -134,6 +146,8 @@ feature {}
 			args := {FAST_ARRAY[COMMAND_LINE_ARGUMENT] << a_left, a_right >> }
 			mandatory_count_memory := -1
 		end
+
+	detailed: BOOLEAN
 
 invariant
 	args.count >= 2
