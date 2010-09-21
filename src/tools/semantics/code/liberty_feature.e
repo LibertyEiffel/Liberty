@@ -118,7 +118,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 					torch.burn
 				end
 				if reachable_mark < mark then
-					do_mark_reachable_code
+					do_mark_reachable_code(mark)
 				end
 			end
 		end
