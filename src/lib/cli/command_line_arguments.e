@@ -89,7 +89,7 @@ feature {}
 invariant
 	cli_argument /= Void
 
-end
+end -- COMMAND_LINE_ARGUMENTS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
