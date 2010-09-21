@@ -47,6 +47,10 @@ feature {ANY} -- Creation:
 			original := Void
 			holders := new_holders
 			hash_code := computed_hash_code
+
+			debug
+				debug_string := out
+			end
 		ensure
 			count = model.count
 			immutable
@@ -139,6 +143,10 @@ feature {}
 			original := Void
 			share_with(other)
 			hash_code := computed_hash_code
+
+			debug
+				debug_string := out
+			end
 		ensure
 			immutable
 			is_shared
@@ -182,6 +190,10 @@ feature {} -- Creation from C string:
 			original := Void
 			holders := new_holders
 			hash_code := computed_hash_code
+
+			debug
+				debug_string := out
+			end
 		ensure
 			immutable
 		end
@@ -213,6 +225,10 @@ feature {} -- Creation from C string:
 			original := Void
 			holders := new_holders
 			hash_code := computed_hash_code
+
+			debug
+				debug_string := out
+			end
 		ensure
 			immutable
 		end
@@ -245,6 +261,10 @@ feature {} -- Creation from C string:
 			original := Void
 			holders := new_holders
 			hash_code := computed_hash_code
+
+			debug
+				debug_string := out
+			end
 		ensure
 			immutable
 			count <= size
