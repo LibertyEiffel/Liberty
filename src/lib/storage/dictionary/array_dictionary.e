@@ -134,6 +134,11 @@ feature {ANY} -- Removing:
 		end
 
 feature {ANY} -- To provide iterating facilities:
+	set_item (v: V_; index: INTEGER) is
+		do
+			items.put(v, index - 1)
+		end
+
 	item (index: INTEGER): V_ is
 		do
 			Result := items.item(index - 1)
