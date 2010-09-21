@@ -19,11 +19,15 @@ feature {ANY}
 
 feature {CLARG_PARSER}
 	is_valid_data (arg: STRING): BOOLEAN is
+		local
+			default_value: D_
 		do
 			if validate /= Void then
 				Result := validate.item([arg])
+			elseif default_value = Void then -- because of SmartEiffel's strict equality checks
+				Result := decode.item([arg]) /= default_value
 			else
-				Result := decode.item([arg]) /= Void
+				Result := True
 			end
 		end
 
