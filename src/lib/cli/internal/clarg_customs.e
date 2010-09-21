@@ -1,18 +1,15 @@
-class CLARG_CUSTOM[D_ -> COMMAND_LINE_DATA]
+class CLARG_CUSTOMS[D_ -> COMMAND_LINE_DATA]
 
 inherit
-	CLARG_WITH_ARG[D_]
+	CLARG_WITH_ARGS[D_]
 		rename
 			optional as clarg_optional
 			positional as clarg_positional
+			decode as decode_
 		end
 
 create {COMMAND_LINE_ARGUMENT_FACTORY}
 	optional, positional
-
-feature {ANY}
-	item: D_
-	is_set: BOOLEAN
 
 feature {CLARG_PARSER}
 	is_valid_data (arg: STRING): BOOLEAN is
@@ -25,18 +22,9 @@ feature {CLARG_PARSER}
 		end
 
 feature {}
-	set_data (context: COMMAND_LINE_CONTEXT; arg: STRING) is
+	decode_ (arg: STRING): D_ is
 		do
-			item := decode.item([arg])
-			is_set := True
-		end
-
-	unset is
-		local
-			default_value: D_
-		do
-			item := default_value
-			is_set := False
+			Result := decode.item([arg])
 		end
 
 feature {}
@@ -82,4 +70,4 @@ feature {}
 invariant
 	decode /= Void
 
-end -- CLARG_CUSTOM
+end -- CLARG_CUSTOMS

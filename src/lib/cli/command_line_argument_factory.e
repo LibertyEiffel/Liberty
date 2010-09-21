@@ -79,17 +79,6 @@ feature {ANY} -- Options
 			create {CLARG_COUNTER} Result.make(short, long, usage)
 		end
 
-	option_custom (short, long, name, usage: ABSTRACT_STRING; customize: FUNCTION[TUPLE[STRING], COMMAND_LINE_DATA]): COMMAND_LINE_TYPED_ARGUMENT[COMMAND_LINE_DATA] is
-		require
-			short /= Void implies short_pattern.match(short.out)
-			long /= Void implies long_pattern.match(long.out)
-			short /= Void or else long /= Void
-			name /= Void
-			customize /= Void
-		do
-			create {CLARG_CUSTOM} Result.optional(short, long, name, usage, customize)
-		end
-
 feature {ANY} -- Positional
 	positional_string (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING] is
 		require
@@ -131,14 +120,6 @@ feature {ANY} -- Positional
 			name /= Void
 		do
 			create {CLARG_INTEGERS} Result.positional(name, usage)
-		end
-
-	positional_custom (name, usage: ABSTRACT_STRING; customize: FUNCTION[TUPLE[STRING], COMMAND_LINE_DATA]): COMMAND_LINE_TYPED_ARGUMENT[COMMAND_LINE_DATA] is
-		require
-			name /= Void
-			customize /= Void
-		do
-			create {CLARG_CUSTOM} Result.positional(name, usage, customize)
 		end
 
 feature {ANY}

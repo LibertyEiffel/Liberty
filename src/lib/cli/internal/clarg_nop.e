@@ -2,14 +2,28 @@ class CLARG_NOP
 
 inherit
 	COMMAND_LINE_ARGUMENT
+		redefine
+			out_in_tagged_out_memory
+		end
+
+insert
+	ARGUMENTS
+		redefine
+			out_in_tagged_out_memory
+		end
 
 create {COMMAND_LINE_ARGUMENT_FACTORY}
 	make
 
 feature {ANY}
 	is_set: BOOLEAN
-	is_mandatory: BOOLEAN is True
+	is_mandatory: BOOLEAN is False
 	is_repeatable: BOOLEAN is False
+
+	out_in_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "<no parameters>")
+		end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	prepare_parse is
@@ -20,7 +34,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 	parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
 		do
 			Result := context
-			is_set := True
+			is_set := argument_count = 0
 		ensure
 			Result.is_parsed
 			Result.index = context.index
