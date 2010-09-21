@@ -22,7 +22,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	configure_for (a_program_cluster: STRING; a_visitor: like visitor) is
+	configure_for (a_program_cluster: ABSTRACT_STRING; a_visitor: like visitor) is
 		require
 			not is_configured
 			a_visitor /= Void
@@ -175,7 +175,7 @@ feature {}
 			end
 		end
 
-	configure_program_cluster (a_program_cluster: STRING) is
+	configure_program_cluster (a_program_cluster: ABSTRACT_STRING) is
 		do
 			dir.compute_short_name_of(a_program_cluster)
 			inspect
@@ -191,7 +191,7 @@ feature {}
 			end
 		end
 
-	configure_program_loadpath (a_program_loadpath: STRING) is
+	configure_program_loadpath (a_program_loadpath: ABSTRACT_STRING) is
 		local
 			conf: STRING; evaled: BOOLEAN
 		do
