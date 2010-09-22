@@ -73,6 +73,9 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 
 	usage_summary (stream: OUTPUT_STREAM) is
 		do
+			if not is_mandatory then
+				stream.put_character('{')
+			end
 			if short /= Void then
 				if long /= Void then
 					stream.put_character('(')
@@ -91,6 +94,9 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 			stream.put_character('<')
 			stream.put_string(name)
 			stream.put_character('>')
+			if not is_mandatory then
+				stream.put_character('}')
+			end
 			detailed := False
 		end
 

@@ -38,10 +38,13 @@ feature {ANY}
 	usage (stream: OUTPUT_STREAM) is
 		do
 			stream.put_line(once "Usage: ")
+			stream.put_string(command_name)
+			stream.put_character(' ')
 			cli_argument.usage_summary(stream)
 			stream.put_new_line
 			stream.put_new_line
 			stream.put_line(once "Options:")
+			stream.put_new_line
 			cli_argument.usage_details(stream)
 		end
 
