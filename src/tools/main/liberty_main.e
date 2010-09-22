@@ -26,8 +26,6 @@ feature {}
 		local
 			root: LIBERTY_ACTUAL_TYPE
 			root_feature_name: LIBERTY_FEATURE_NAME
-			i, eq: INTEGER
-			arg: STRING
 			etc: LIBERTY_ETC
 			log_location: like default_log_location
 		do
