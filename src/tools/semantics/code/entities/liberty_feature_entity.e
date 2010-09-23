@@ -162,7 +162,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 			end
 
 			rt := result_type
-			if rt /= Void and then rt.is_known and then rt.known_type.is_runtime_category_set and then rt.known_type.is_expanded then
+			if rt /= Void then--and then rt.is_known and then rt.known_type.is_runtime_category_set and then rt.known_type.is_expanded then
 				rt.mark_reachable_code(mark)
 			end
 		end

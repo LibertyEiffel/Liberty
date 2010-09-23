@@ -1239,10 +1239,6 @@ feature {}
 			if Result < 0 then
 				Result := ~Result
 			end
-
-			debug
-				debug_string := once "" + Current
-			end
 		end
 
 	interned: DICTIONARY[FIXED_STRING, INTEGER] is

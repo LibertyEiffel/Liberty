@@ -56,6 +56,15 @@ feature {ANY} -- Adding:
 			v = at(k)
 		end
 
+	set_item (v: V_; index: INTEGER) is
+		require
+			valid_index(index)
+		deferred
+		ensure
+			count = old count
+			v = item(index)
+		end
+
 feature {ANY} -- Removing:
 	remove (k: K_) is
 			-- Remove entry `k' (which may exist or not before this call).

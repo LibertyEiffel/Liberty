@@ -23,10 +23,7 @@ creation {ANY}
 	make, manifest_creation
 
 feature {ANY}
-	capacity: INTEGER is
-		do
-			Result := count
-		end
+	capacity: INTEGER is 0
 
 	at (k: K_): V_ is
 		do
@@ -108,6 +105,14 @@ feature {ANY}
 				count := 0
 				map_dirty := True
 			end
+		end
+
+	set_item (v: V_; index: INTEGER) is
+		do
+			if map_dirty then
+				build_map
+			end
+			map.item(index - 1).set_value(v)
 		end
 
 	item (index: INTEGER): V_ is

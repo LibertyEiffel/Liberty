@@ -314,6 +314,12 @@ feature {ANY}
 			capacity = old capacity
 		end
 
+	set_item (v: V_; index: INTEGER) is
+		do
+			set_cache_user(index)
+			cache_node.set_item(v)
+		end
+
 	item (index: INTEGER): V_ is
 		do
 			set_cache_user(index)

@@ -1,78 +1,46 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class STANDARD_STREAMS
-	--
-	-- Thanks to this `standard_streams' singleton object, you can redirect `std_input_stream',
-	-- `std_output_stream' as well as `std_error_stream'.
-	--
-	-- See also the examples from our tutorial/io directory.
-	--
+class CLARG_FILE
 
-insert
-	SINGLETON
-		rename io as any_io,
-			std_input as any_std_input,
-			std_output as any_std_output,
-			std_error as any_std_error
-		end
+inherit
+	CLARG_WITH_ARG[REGULAR_FILE]
 
-creation {ANY}
-	make
+create {COMMAND_LINE_ARGUMENT_FACTORY}
+	optional, positional
 
 feature {ANY}
-	std_input: INPUT_STREAM
+	item: REGULAR_FILE
 
-	std_output: OUTPUT_STREAM
-
-	std_error: OUTPUT_STREAM
-
-feature {ANY}
-	set_std_input (a_std_input: like std_input) is
-		require
-			a_std_input.is_connected
+	is_set: BOOLEAN is
 		do
-			std_input := a_std_input
+			Result := item /= Void
 		end
 
-	restore_std_input is
+feature {CLARG_PARSER}
+	is_valid_data (arg: STRING): BOOLEAN is
 		do
-			set_std_input(any_std_input)
-		end
-
-	set_std_output (a_std_output: like std_output) is
-		require
-			a_std_output.is_connected
-		do
-			std_output := a_std_output
-		end
-
-	restore_std_output is
-		do
-			set_std_output(any_std_output)
-		end
-
-	set_std_error (a_std_error: like std_error) is
-		require
-			a_std_error.is_connected
-		do
-			std_error := a_std_error
-		end
-
-	restore_std_error is
-		do
-			set_std_error(any_std_error)
+			bd.ensure_system_notation
+			if bd.system_notation.is_valid_path(arg) then
+				Result := not ft.file_exists(arg) or else not ft.is_directory(arg)
+			end
 		end
 
 feature {}
-	make is
+	set_data (context: COMMAND_LINE_CONTEXT; arg: STRING) is
 		do
-			restore_std_input
-			restore_std_output
-			restore_std_error
+			create item.make(arg)
 		end
 
-end -- class STANDARD_STREAMS
+	unset is
+		do
+			item := Void
+		end
+
+	bd: BASIC_DIRECTORY
+	ft: FILE_TOOLS
+
+end -- CLARG_FILE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

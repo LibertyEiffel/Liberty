@@ -203,6 +203,13 @@ feature {} -- Input and Output:
 			Result /= Void
 		end
 
+	standard_streams: STANDARD_STREAMS is
+		once
+			create Result.make
+		ensure
+			Result /= Void
+		end
+
 feature {} -- Object Printing:
 	frozen print (some: STRING) is
 			-- When some is Void, output "Void" on `std_output', otherwise, output `some' on `std_output'.

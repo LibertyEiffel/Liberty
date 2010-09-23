@@ -8,60 +8,29 @@ feature {ANY}
 
 	is_all_checked: BOOLEAN is
 		do
-			Result := level_memory.item <= level_check_all
+			Result := level_memory.item.is_all_checked
 		end
 
 	is_invariant_checked: BOOLEAN is
 		do
-			Result := level_memory.item <= level_check_invariant
+			Result := level_memory.item.is_invariant_checked
 		end
 
 	is_ensure_checked: BOOLEAN is
 		do
-			Result := level_memory.item <= level_check_ensure
+			Result := level_memory.item.is_ensure_checked
 		end
 
 	is_require_checked: BOOLEAN is
 		do
-			Result := level_memory.item <= level_check_require
-		end
-
-	is_none_checked: BOOLEAN is
-		do
-			Result := level_memory.item <= level_check_none
+			Result := level_memory.item.is_require_checked
 		end
 
 feature {LIBERTYI}
-	enable_debug is
+	set (check_level: LIBERTY_MAIN_CHECK_LEVEL; enable_debug: BOOLEAN) is
 		do
-			debug_memory.set_item(True)
-		ensure
-			debug_enabled
-		end
-
-	check_all is
-		do
-			level_memory.set_item(level_check_all)
-		end
-
-	check_invariant is
-		do
-			level_memory.set_item(level_check_invariant)
-		end
-
-	check_ensure is
-		do
-			level_memory.set_item(level_check_ensure)
-		end
-
-	check_require is
-		do
-			level_memory.set_item(level_check_require)
-		end
-
-	check_none is
-		do
-			level_memory.set_item(level_check_none)
+			debug_memory.set_item(enable_debug)
+			level_memory.set_item(check_level)
 		end
 
 feature {}
@@ -70,15 +39,9 @@ feature {}
 			create Result
 		end
 
-	level_memory: REFERENCE[INTEGER_8] is
+	level_memory: REFERENCE[LIBERTY_MAIN_CHECK_LEVEL] is
 		once
 			create Result
 		end
-
-	level_check_all: INTEGER_8 is 0
-	level_check_invariant: INTEGER_8 is 1
-	level_check_ensure: INTEGER_8 is 2
-	level_check_require: INTEGER_8 is 3
-	level_check_none: INTEGER_8 is 4
 
 end -- class LIBERTY_INTERPRETER_OPTIONS

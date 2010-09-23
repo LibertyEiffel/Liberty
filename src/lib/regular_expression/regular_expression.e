@@ -367,6 +367,24 @@ feature {ANY} -- matching capabilities
 			buffer.count = old buffer.count + named_group_count(name)
 		end
 
+	named_group_value (text: STRING; name: ABSTRACT_STRING): STRING is
+			-- Returns the text of the group named `name' (always the same STRING!)
+			-- `text' is the same as used in last matching.
+			--
+			-- See also `append_named_group', `group_name'.
+		require
+			text /= Void
+			last_match_succeeded
+			text.is_equal(last_match_text)
+			name /= Void
+			has_group_name(name)
+			named_group_matched(name)
+		do
+			Result := once ""
+			Result.clear_count
+			append_named_group(text, Result, name)
+		end
+
 feature {ANY} -- substitution capabilities
 	prepare_substitution (p: like substitution_pattern) is
 			-- Set pattern `p' for substitution. If pattern `p' is not compatible with the `Current' regular

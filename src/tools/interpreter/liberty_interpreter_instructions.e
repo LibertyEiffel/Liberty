@@ -249,31 +249,34 @@ feature {LIBERTY_LOOP}
 	visit_liberty_loop (v: LIBERTY_LOOP) is
 		local
 			exp_until: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
-			done: BOOLEAN
+			done, check_invariant, check_variant: BOOLEAN
 		do
+			check_invariant := options.is_invariant_checked
+			check_variant := v.variant_clause /= Void and then options.is_all_checked
+
 			from
 				v.init.accept(Current)
-				if v.variant_clause /= Void and then options.is_all_checked then
+				if check_variant then
 					loop_variant_stack.add_last(Void)
 				end
 			until
 				done
 			loop
+				if check_invariant then
+					v.invariant_clause.accept(interpreter.assertions)
+				end
 				v.expression.accept(interpreter.expressions)
 				exp_until ::= interpreter.expressions.eval_as_right_value
 				if exp_until.item then
 					done := True
 				else
-					if options.is_all_checked then
-						v.invariant_clause.accept(interpreter.assertions)
-						if v.variant_clause /= Void then
-							v.variant_clause.accept(Current)
-						end
+					if check_variant then
+						v.variant_clause.accept(Current)
 					end
 					v.body.accept(Current)
 				end
 			end
-			if v.variant_clause /= Void and then options.is_all_checked then
+			if check_variant then
 				loop_variant_stack.remove_last
 			end
 		end

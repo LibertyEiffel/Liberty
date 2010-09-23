@@ -1,78 +1,44 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class STANDARD_STREAMS
-	--
-	-- Thanks to this `standard_streams' singleton object, you can redirect `std_input_stream',
-	-- `std_output_stream' as well as `std_error_stream'.
-	--
-	-- See also the examples from our tutorial/io directory.
-	--
+deferred class CLARG_WITH_ARG[E_]
+
+inherit
+	COMMAND_LINE_TYPED_ARGUMENT[E_]
+		undefine
+			out_in_tagged_out_memory
+		end
 
 insert
-	SINGLETON
-		rename io as any_io,
-			std_input as any_std_input,
-			std_output as any_std_output,
-			std_error as any_std_error
-		end
-
-creation {ANY}
-	make
+	CLARG_PARSER
 
 feature {ANY}
-	std_input: INPUT_STREAM
+	is_repeatable: BOOLEAN is False
 
-	std_output: OUTPUT_STREAM
-
-	std_error: OUTPUT_STREAM
-
-feature {ANY}
-	set_std_input (a_std_input: like std_input) is
-		require
-			a_std_input.is_connected
+feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
+	prepare_parse is
 		do
-			std_input := a_std_input
+			unset
 		end
 
-	restore_std_input is
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
 		do
-			set_std_input(any_std_input)
+			Result := is_set
 		end
 
-	set_std_output (a_std_output: like std_output) is
-		require
-			a_std_output.is_connected
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
 		do
-			std_output := a_std_output
-		end
-
-	restore_std_output is
-		do
-			set_std_output(any_std_output)
-		end
-
-	set_std_error (a_std_error: like std_error) is
-		require
-			a_std_error.is_connected
-		do
-			std_error := a_std_error
-		end
-
-	restore_std_error is
-		do
-			set_std_error(any_std_error)
+			unset
 		end
 
 feature {}
-	make is
-		do
-			restore_std_input
-			restore_std_output
-			restore_std_error
+	unset is
+		deferred
+		ensure
+			not is_set
 		end
 
-end -- class STANDARD_STREAMS
+end -- class CLARG_WITH_ARG
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

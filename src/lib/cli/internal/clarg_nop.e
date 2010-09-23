@@ -1,78 +1,76 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class STANDARD_STREAMS
-	--
-	-- Thanks to this `standard_streams' singleton object, you can redirect `std_input_stream',
-	-- `std_output_stream' as well as `std_error_stream'.
-	--
-	-- See also the examples from our tutorial/io directory.
-	--
+class CLARG_NOP
 
-insert
-	SINGLETON
-		rename io as any_io,
-			std_input as any_std_input,
-			std_output as any_std_output,
-			std_error as any_std_error
+inherit
+	COMMAND_LINE_ARGUMENT
+		redefine
+			out_in_tagged_out_memory
 		end
 
-creation {ANY}
+insert
+	ARGUMENTS
+		redefine
+			out_in_tagged_out_memory
+		end
+
+create {COMMAND_LINE_ARGUMENT_FACTORY}
 	make
 
 feature {ANY}
-	std_input: INPUT_STREAM
+	is_set: BOOLEAN
+	is_mandatory: BOOLEAN is False
+	is_repeatable: BOOLEAN is False
 
-	std_output: OUTPUT_STREAM
-
-	std_error: OUTPUT_STREAM
-
-feature {ANY}
-	set_std_input (a_std_input: like std_input) is
-		require
-			a_std_input.is_connected
+	out_in_tagged_out_memory is
 		do
-			std_input := a_std_input
+			tagged_out_memory.append(once "<no parameters>")
 		end
 
-	restore_std_input is
+feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
+	prepare_parse is
 		do
-			set_std_input(any_std_input)
+			is_set := False
 		end
 
-	set_std_output (a_std_output: like std_output) is
-		require
-			a_std_output.is_connected
+	parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
 		do
-			std_output := a_std_output
+			Result := context
+			is_set := argument_count = 0
+		ensure
+			Result.is_parsed
+			Result.index = context.index
 		end
 
-	restore_std_output is
+	usage_summary (stream: OUTPUT_STREAM) is
 		do
-			set_std_output(any_std_output)
+			detailed := False
 		end
 
-	set_std_error (a_std_error: like std_error) is
-		require
-			a_std_error.is_connected
+	usage_details (stream: OUTPUT_STREAM) is
 		do
-			std_error := a_std_error
+			detailed := True
 		end
 
-	restore_std_error is
+	undo_parse (context: COMMAND_LINE_CONTEXT) is
 		do
-			set_std_error(any_std_error)
+			is_set := False
+		end
+
+	is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+		do
+			Result := is_set
 		end
 
 feature {}
 	make is
 		do
-			restore_std_input
-			restore_std_output
-			restore_std_error
 		end
 
-end -- class STANDARD_STREAMS
+	detailed: BOOLEAN
+
+end -- class CLARG_NOP
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -108,8 +108,6 @@ feature {ANY}
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 	mark_reachable_code (mark: like reachable_mark) is
-		local
-			i: INTEGER
 		do
 			if current_type.is_reachable then
 				if not is_reachable then
@@ -120,23 +118,37 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 					torch.burn
 				end
 				if reachable_mark < mark then
-					reachable_mark := mark
-					if precondition /= Void then
-						precondition.mark_reachable_code(mark)
-					end
-					if postcondition /= Void then
-						postcondition.mark_reachable_code(mark)
-					end
-					from
-						i := child_bindings_memory.lower
-					until
-						i > child_bindings_memory.upper
-					loop
-						child_bindings_memory.item(i).mark_reachable_code(mark)
-						i := i + 1
-					end
+					do_mark_reachable_code(mark)
 				end
 			end
+		end
+
+feature {}
+	do_mark_reachable_code (mark: like reachable_mark) is
+		require
+			current_type.is_reachable
+			reachable_mark < mark
+			mark > 0
+		local
+			i: INTEGER
+		do
+			reachable_mark := mark
+			if precondition /= Void then
+				precondition.mark_reachable_code(mark)
+			end
+			if postcondition /= Void then
+				postcondition.mark_reachable_code(mark)
+			end
+			from
+				i := child_bindings_memory.lower
+			until
+				i > child_bindings_memory.upper
+			loop
+				child_bindings_memory.item(i).mark_reachable_code(mark)
+				i := i + 1
+			end
+		ensure
+			reachable_mark >= mark
 		end
 
 feature {LIBERTY_FEATURE_ENTITY}
