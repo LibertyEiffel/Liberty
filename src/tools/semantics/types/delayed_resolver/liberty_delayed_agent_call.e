@@ -84,8 +84,9 @@ feature {}
 			tagged_out_memory.copy(once "agent like (")
 			a_call.out_in_tagged_out_memory
 			tagged_out_memory.extend(')')
-			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out
+
+			full_name_memory := tagged_out_memory.intern
 		ensure
 			call = a_call
 		end
