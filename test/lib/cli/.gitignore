@@ -1,0 +1,3 @@
+test*.[ch]
+test*[0-9]
+a.out
