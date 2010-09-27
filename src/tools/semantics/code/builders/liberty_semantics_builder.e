@@ -459,6 +459,7 @@ feature {} -- Entities and writables
 	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
+			definition_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 		do
 			if a_target.is_current then
 				--| TODO: error
@@ -481,7 +482,8 @@ feature {} -- Entities and writables
 					Result := create_implicit_instruction_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, ast, file))
 				end
 			elseif a_target.is_precursor then
-				Result := instruction_call_on_precursor(a_target, local_context)
+				definition_context ::= local_context
+				Result := instruction_call_on_precursor(a_target, definition_context)
 			elseif a_target.is_parenthesized_expression then
 				--| TODO: error
 				not_yet_implemented
@@ -492,7 +494,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
 		require
 			a_precursor_target.is_precursor
 		deferred
@@ -501,6 +503,7 @@ feature {} -- Entities and writables
 	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
+			definition_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 		do
 			if a_target.is_current then
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
@@ -523,7 +526,8 @@ feature {} -- Entities and writables
 					Result := create_implicit_expression_call(e, actuals(a_target.actuals, local_context), errors.semantics_position(entity_name.image.index, ast, file))
 				end
 			elseif a_target.is_precursor then
-				Result := expression_call_on_precursor(a_target, local_context)
+				definition_context ::= local_context
+				Result := expression_call_on_precursor(a_target, definition_context)
 			elseif a_target.is_parenthesized_expression then
 				Result := expression(a_target.parenthesized_expression, local_context)
 			else
@@ -533,7 +537,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
 		require
 			a_precursor_target.is_precursor
 		deferred
@@ -935,8 +939,7 @@ feature {} -- Expressions
 			elseif e10.is_open_argument then
 				create {LIBERTY_OPEN_ARGUMENT} Result.make(semantics_position_at(e10.node_at(0)))
 			elseif e10.is_inline_agent then
-				--|*** TODO
-				not_yet_implemented
+				Result := expression_inline_agent(e10.inline_agent_signature, e10.inline_agent_definition, e10.inline_agent_actuals, local_context)
 			elseif e10.is_agent_creation then
 				exp := expression(e10.agent_creation_expression, local_context)
 				if not agent_expression ?:= exp then
@@ -1029,6 +1032,57 @@ feature {} -- Expressions
 			end
 		ensure
 			not errors.has_error implies Result /= Void
+		end
+
+	expression_inline_agent (a_signature: LIBERTY_AST_AGENT_SIGNATURE; a_definition: LIBERTY_AST_ROUTINE_DEFINITION; a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INLINE_AGENT is
+		local
+			routine_execution: LIBERTY_AST_ROUTINE_EXECUTION
+			do_block: LIBERTY_AST_DO_BLOCK
+			comp: LIBERTY_INSTRUCTION
+			closure_context: LIBERTY_INLINE_AGENT_CONTEXT
+			result_type: LIBERTY_TYPE
+			type_resolver: LIBERTY_TYPE_RESOLVER_IN_INLINE_AGENT
+		do
+			routine_execution := a_definition.execution
+			if not routine_execution.is_regular then
+				--|*** TODO: error: an inline agent must be regular
+				not_yet_implemented
+			end
+			do_block := routine_execution.do_block
+			if do_block.is_deferred then
+				--|*** TODO: error: an inline agent cannot be deferred
+				not_yet_implemented
+			elseif do_block.is_attribute then
+				--|*** TODO: error: an inline agent cannot be an attribute
+				not_yet_implemented
+			elseif do_block.is_once then
+				--|*** TODO: error: an inline agent cannot be once (technical limitation, to be removed)
+				not_yet_implemented
+			end
+			if not a_definition.rescue_block.is_empty then
+				--|*** TODO
+				not_yet_implemented
+			end
+
+			create closure_context.make(local_context)
+			if a_signature.has_return_type then
+				result_type := type_lookup.resolver.type(a_signature.return_type)
+				closure_context.set_result_type(result_type)
+			end
+			create type_resolver.make(closure_context)
+			type_lookup.push(type_resolver)
+
+			if a_signature.has_parameters then
+				list_parameters(a_signature.parameters, closure_context)
+			end
+			list_locals(routine_execution.local_block, closure_context)
+			comp := compound(do_block.list, closure_context)
+
+			if not errors.has_error then
+				create Result.make(comp, actuals(a_actuals, local_context), closure_context)
+			end
+
+			type_lookup.pop
 		end
 
 	expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; a_position: LIBERTY_POSITION): LIBERTY_TUPLE is

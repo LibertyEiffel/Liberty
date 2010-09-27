@@ -67,7 +67,7 @@ feature {ANY}
 			Result := id = other.id
 		end
 
-	context: LIBERTY_FEATURE_LOCAL_CONTEXT
+	context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 	type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
 
 	precondition: LIBERTY_REQUIRE

@@ -99,7 +99,7 @@ feature {}
 		local
 			result_type: LIBERTY_TYPE
 			the_feature: LIBERTY_FEATURE
-			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+			local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 			type_resolver: LIBERTY_TYPE_RESOLVER_IN_FEATURE
 			fn: LIBERTY_AST_FEATURE_NAME
 		do
@@ -145,7 +145,7 @@ feature {}
 			type_lookup.pop
 		end
 
-	routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_FEATURE is
+	routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE is
 		require
 			local_context /= Void
 		local
@@ -184,7 +184,7 @@ feature {}
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make(type)
 				else
 					list_locals(routine_execution.local_block, local_context)
-					comp := compound(routine_execution.do_block.list, local_context)
+					comp := compound(do_block.list, local_context)
 					if not errors.has_error then
 						if do_block.is_do then
 							create {LIBERTY_FEATURE_DO} routine.make(type, comp, local_context.best_accelerator)
@@ -210,7 +210,7 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_REQUIRE is
+	feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_REQUIRE is
 		require
 			precondition /= Void
 			local_context /= Void
@@ -233,7 +233,7 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENSURE is
+	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_ENSURE is
 		require
 			postcondition /= Void
 			local_context /= Void
@@ -254,7 +254,7 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_constant (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_FEATURE_CONSTANT is
+	feature_constant (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE_CONSTANT is
 		require
 			local_context.result_type /= Void
 		local
@@ -407,7 +407,7 @@ feature {}
 feature {}
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
-	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
 		local
 			f: LIBERTY_FEATURE
 			precursor_type: LIBERTY_ACTUAL_TYPE
@@ -431,7 +431,7 @@ feature {}
 			end
 		end
 
-	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
 		local
 			f: LIBERTY_FEATURE
 			precursor_type: LIBERTY_ACTUAL_TYPE

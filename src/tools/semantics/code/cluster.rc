@@ -8,6 +8,7 @@ locations
 	"builders"
 	"entities"
 	"expressions"
+	"feature_local_context"
 	"features"
 	"instructions"
 	"visitors"

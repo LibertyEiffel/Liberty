@@ -64,7 +64,7 @@ feature {ANY}
 				end
 				i := i + 1
 			end
-			if  t = target and then e = entity and then a = actuals_list then
+			if t = target and then e = entity and then a = actuals_list then
 				Result := Current
 			else
 				Result := make_new(t, e, a, position)
