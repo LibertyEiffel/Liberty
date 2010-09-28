@@ -16,7 +16,7 @@ class LIBERTY_INTERPRETER_EXTERNAL_TYPE_ARGUMENTS_BUILTINS
 
 insert
 	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
-	ARGUMENTS
+	COMMAND_LINE_ARGUMENT_FACTORY
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 	make
@@ -24,17 +24,22 @@ creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
 		local
-			index: INTEGER; argv: LIBERTY_INTERPRETER_OBJECT
+			index: INTEGER; argv: STRING
 		do
 			last_call_failed := False
 			builtin_call.evaluate_parameters
 			inspect
 				builtin_call.name
 			when "se_argc" then
-				Result := interpreter.new_integer(se_argc)
+				Result := interpreter.new_integer(remaining_parameters.item.count, builtin_call.position)
 			when "se_argv" then
 				index := integer(builtin_call)
-				argv := interpreter.new_string(se_argv(index + arguments_offset), builtin_call.position)
+				if index = 0 then
+					argv := root_class_and_feature
+				else
+					argv := remaining_parameters.item.item(index-1).out
+				end
+				Result := interpreter.new_string(argv, builtin_call.position)
 			else
 				last_call_failed := True
 			end
@@ -50,15 +55,11 @@ feature {}
 			Result := obj.item.to_integer_32
 		end
 
-	arguments_offset: INTEGER is
+	root_class_and_feature: STRING is
 		once
-			from
-				Result := 1
-			until
-				Result > argument_count or else se_argv(Result).is_equal(once "--")
-			loop
-				Result := Result + 1
-			end
+			Result := interpreter.root_type.full_name.out
+			Result.extend('.')
+			Result.append(interpreter.root_feature_name.full_name)
 		end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_ARGUMENTS_BUILTINS

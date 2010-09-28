@@ -37,6 +37,10 @@ feature {LIBERTYI}
 		end
 
 feature {ANY}
+	root_type: LIBERTY_ACTUAL_TYPE
+	root_feature_name: LIBERTY_FEATURE_NAME
+	root_feature: LIBERTY_FEATURE_DEFINITION
+
 	frame_lower: INTEGER is
 		do
 			Result := call_stack.lower
@@ -791,9 +795,6 @@ feature {}
 			root_feature = a_root_type.feature_definition(a_root_feature_name)
 		end
 
-	root_type: LIBERTY_ACTUAL_TYPE
-	root_feature_name: LIBERTY_FEATURE_NAME
-	root_feature: LIBERTY_FEATURE_DEFINITION
 	native_array_of_character: LIBERTY_ACTUAL_TYPE
 
 	root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
