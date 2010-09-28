@@ -40,6 +40,11 @@ feature {LIBERTY_UNIVERSE}
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin", errors.unknown_position)
 		end
 
+	visit_type_arguments (a_type: LIBERTY_ACTUAL_TYPE) is
+		do
+			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin", errors.unknown_position)
+		end
+
 	visit_type_platform (a_type: LIBERTY_ACTUAL_TYPE) is
 		do
 			interpreter.fatal_error("The type " + a_type.full_name + " cannot be transmitted to a plugin", errors.unknown_position)

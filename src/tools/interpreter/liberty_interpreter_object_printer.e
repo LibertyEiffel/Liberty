@@ -58,6 +58,11 @@ feature {LIBERTY_UNIVERSE}
 			object.show_stack(stream, indent)
 		end
 
+	visit_type_arguments (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			object.show_stack(stream, indent)
+		end
+
 	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			object.show_stack(stream, indent)
