@@ -135,6 +135,12 @@ feature {ANY}
 			create {CLARG_NOP} Result.make
 		end
 
+	remaining_parameters: COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+			-- allows parameters to be set after a special "--" option
+		once
+			create {CLARG_REMAINING} Result.make
+		end
+
 feature {ANY} -- Option names validity
 	short_pattern: REGULAR_EXPRESSION is
 		local
