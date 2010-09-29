@@ -31,11 +31,6 @@ feature {ANY}
 		deferred
 		end
 
-	hash_code: INTEGER is
-		do
-			Result := to_pointer.hash_code
-		end
-
 	result_type: LIBERTY_TYPE is
 		do
 			Result := type

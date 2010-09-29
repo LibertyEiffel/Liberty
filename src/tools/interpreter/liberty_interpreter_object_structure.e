@@ -25,6 +25,7 @@ creation {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
 
 feature {ANY}
 	type: LIBERTY_ACTUAL_TYPE
+	hash_code: INTEGER
 
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		local
@@ -173,7 +174,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
 					att.put(o, attributes.key(i))
 					i := i + 1
 				end
-				create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} Result.with_attributes(interpreter, type, att, a_position)
+				create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} Result.with_attributes(interpreter, type, att, hash_code, a_position)
 				deep_twin_memory.put(Result, Current)
 			end
 		end
@@ -237,13 +238,14 @@ feature {}
 			type := a_type
 			position := a_position
 			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} attributes.with_capacity(2)
+			hash_code := new_hash_code
 		ensure
 			interpreter = a_interpreter
 			type = a_type
 			position = a_position
 		end
 
-	with_attributes (a_interpreter: like interpreter; a_type: like type; a_attributes: like attributes; a_position: like position) is
+	with_attributes (a_interpreter: like interpreter; a_type: like type; a_attributes: like attributes; a_hash_code: like hash_code; a_position: like position) is
 		require
 			a_interpreter /= Void
 			a_type /= Void
@@ -254,11 +256,13 @@ feature {}
 			type := a_type
 			attributes := a_attributes
 			position := a_position
+			hash_code := a_hash_code
 		ensure
 			interpreter = a_interpreter
 			type = a_type
 			attributes = a_attributes
 			position = a_position
+			hash_code = a_hash_code
 		end
 
 feature {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
@@ -288,17 +292,18 @@ feature {}
 
 	expanded_twin: like Current is
 		local
-			i: INTEGER
+			i: INTEGER; att: like attributes
 		do
-			create Result.make(interpreter, type, position)
+			create {HASHED_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} att.with_capacity(attributes.count)
 			from
 				i := attributes.lower
 			until
 				i > attributes.upper
 			loop
-				Result.put_attribute(attributes.key(i), attributes.item(i).as_right_value)
+				att.add(attributes.item(i).as_right_value, attributes.key(i))
 				i := i + 1
 			end
+			create Result.with_attributes(interpreter, type, att, hash_code, position)
 		end
 
 	copy_feature_name: LIBERTY_FEATURE_NAME is
@@ -314,6 +319,21 @@ feature {}
 	is_equal_feature_name: LIBERTY_FEATURE_NAME is
 		once
 			create Result.make("is_equal".intern)
+		end
+
+	new_hash_code: INTEGER is
+		do
+			if type.is_expanded then
+				hash_code_producer.increment
+				Result := hash_code_producer.value
+			else
+				Result := to_pointer.hash_code
+			end
+		end
+
+	hash_code_producer: COUNTER is
+		once
+			create Result
 		end
 
 invariant
