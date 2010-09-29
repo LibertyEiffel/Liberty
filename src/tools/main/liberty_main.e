@@ -79,7 +79,8 @@ feature {}
 			opt_debug := factory.option_boolean("d", "debug", "Enable debug sections")
 
 			create Result.make(arg_loadpath and arg_root_type and arg_root_feature_name
-									 and opt_variables and opt_log_level and opt_check_level and opt_debug)
+									 and opt_variables and opt_log_level and opt_check_level and opt_debug
+									 and factory.remaining_parameters)
 		end
 
 	usage is
