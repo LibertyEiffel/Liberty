@@ -220,10 +220,11 @@ feature {ANY}
 		end
 
 	new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
-		require
-			not object_type.is_deferred
 		do
 			ensure_built(object_type)
+			if object_type.is_deferred then
+				fatal_error("Type " + object_type.full_name + " is deferred. Cannot create an instance of that class.", a_position)
+			end
 			debug ("interpreter.creation")
 				std_output.put_string(once "Creating new object of type ")
 				std_output.put_line(object_type.full_name)
