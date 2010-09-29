@@ -29,6 +29,7 @@ feature {}
 			interpreter: LIBERTY_INTERPRETER
 			options: LIBERTY_INTERPRETER_OPTIONS
 		do
+			log.info.put_line(once "Starting the liberty interpreter.")
 			options.set(opt_check_level.item, opt_debug.item)
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
