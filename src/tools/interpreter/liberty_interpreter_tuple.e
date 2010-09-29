@@ -70,6 +70,11 @@ feature {ANY}
 			not_yet_implemented
 		end
 
+	hash_code: INTEGER is
+		do
+			Result := to_pointer.hash_code
+		end
+
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
 	builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
 		do
