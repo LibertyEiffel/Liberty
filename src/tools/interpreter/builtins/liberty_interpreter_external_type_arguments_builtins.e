@@ -31,7 +31,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
 			inspect
 				builtin_call.name
 			when "se_argc" then
-				Result := interpreter.new_integer(remaining_parameters.item.count, builtin_call.position)
+				Result := interpreter.new_integer(remaining_parameters.item.count + 1, builtin_call.position)
 			when "se_argv" then
 				index := integer(builtin_call)
 				if index = 0 then
