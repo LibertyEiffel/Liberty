@@ -211,23 +211,39 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 		do
 			o.put_character('{')
 			o.put_string(type.full_name)
-			o.put_line(once " [")
-			from
-				i := attributes.lower
-			until
-				i > attributes.upper
-			loop
-				interpreter.object_printer.put_indent(o, indent + 1)
-				o.put_string(attributes.key(i))
-				o.put_string(once " = ")
-				interpreter.object_printer.print_object(o, attributes.item(i), indent + 1)
-				i := i + 1
+			if not type.is_expanded then
+				o.put_character('@')
+				o.put_integer(hash_code)
 			end
-			interpreter.object_printer.put_indent(o, indent)
-			o.put_line(once "] }")
+			if showing then
+				check
+					expanded_objects_cannot_be_recursively_referenced: not type.is_expanded
+				end
+			else
+				showing := True
+				o.put_line(once " [")
+				from
+					i := attributes.lower
+				until
+					i > attributes.upper
+				loop
+					interpreter.object_printer.put_indent(o, indent + 1)
+					o.put_string(attributes.key(i))
+					o.put_string(once " = ")
+					interpreter.object_printer.print_object(o, attributes.item(i), indent + 1)
+					i := i + 1
+				end
+				interpreter.object_printer.put_indent(o, indent)
+				o.put_string(once "] ")
+				showing := False
+			end
+			o.put_character('}')
+			o.put_new_line
 		end
 
 feature {}
+	showing: BOOLEAN
+
 	make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
 		require
 			a_interpreter /= Void
