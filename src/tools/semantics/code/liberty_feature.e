@@ -42,6 +42,9 @@ feature {ANY}
 	definition_type: LIBERTY_ACTUAL_TYPE
 			-- The type where the feature is written
 
+	original: like Current
+			-- The original feature in `definition_type', useful to tag things (such as once results...)
+
 	is_redefined: BOOLEAN
 			-- True if this feature is proxied by a LIBERTY_REDEFINED_FEATURE and should not be used by itself.
 
@@ -493,7 +496,7 @@ feature {ANY}
 					Result := twin
 					is_specializing := False
 					specialized.add(Result, a_type)
-					Result.set_specialized_in(context.specialized_in(a_type))
+					Result.set_specialized_in(Current, context.specialized_in(a_type))
 					if not is_redefined then
 						debug ("feature.specialization")
 							log.trace.put_line(once "   Binding specialized feature")
@@ -515,10 +518,12 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 		end
 
 feature {LIBERTY_FEATURE}
-	set_specialized_in (a_context: like context) is
+	set_specialized_in (a_original: like Current; a_context: like context) is
 		require
 			is_specializing
+			a_original.id = id
 		do
+			original := a_original
 			context := a_context
 			check type_resolver /= Void end
 			create type_resolver.specialized(type_resolver.feature_name, Current, type_resolver.parent.specialized_in(a_context.current_type))
@@ -535,6 +540,8 @@ feature {LIBERTY_FEATURE}
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]} child_bindings_memory.with_capacity(3)
 
 			is_specializing := False
+		ensure
+			original = a_original
 		end
 
 feature {LIBERTY_FEATURE}
@@ -824,9 +831,11 @@ feature {}
 
 			ids_provider.increment
 			id := ids_provider.value
+			original := Current
 		ensure
 			definition_type = a_definition_type
 			accelerator = a_accelerator
+			original = Current
 		end
 
 	parent_bindings_memory: COLLECTION[LIBERTY_FEATURE]
@@ -850,6 +859,7 @@ invariant
 	specialized /= Void
 	definition_type /= Void
 	parent_bindings_memory /= Void
+	original.id = id
 
 	context = Void implies parent_bindings_memory.is_empty
 	is_redefined implies (parent_bindings_memory.is_empty and child_bindings_memory.is_empty)

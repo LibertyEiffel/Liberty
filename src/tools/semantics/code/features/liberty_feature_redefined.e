@@ -48,9 +48,9 @@ feature {ANY}
 		end
 
 feature {LIBERTY_FEATURE}
-	set_specialized_in (a_context: like context) is
+	set_specialized_in (a_original: like Current; a_context: like context) is
 		do
-			Precursor(a_context)
+			Precursor(a_original, a_context)
 			if redefined_feature /= Void then
 				redefined_feature := redefined_feature.specialized_in(a_context.current_type)
 			end
