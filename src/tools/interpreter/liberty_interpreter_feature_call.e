@@ -375,14 +375,16 @@ feature {LIBERTY_FEATURE_ONCE}
 		do
 			if prepare then
 				evaluate_parameters
-				prepare_local_map(v)
-			else
-				if tags.once_flag.is_set(v) then
-					set_returned_object(tags.once_flag.value(v))
-				else
-					v.block_instruction.accept(interpreter.instructions)
-					tags.once_flag.add(returned_object, v)
+				if not tags.once_flag.is_set(v.original) then
+					prepare_local_map(v)
 				end
+			elseif tags.once_flag.is_set(v.original) then
+				log.trace.put_line(once "Once feature already called")
+				set_returned_object(tags.once_flag.value(v.original))
+			else
+				log.trace.put_line(once "Evaluating once feature")
+				v.block_instruction.accept(interpreter.instructions)
+				tags.once_flag.add(returned_object, v.original)
 			end
 		end
 
