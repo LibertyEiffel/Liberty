@@ -765,6 +765,30 @@ feature {LIBERTY_BUILDER_TOOLS}
 			new.bind_or_replace(Current, type, False)
 		end
 
+feature {LIBERTY_FEATURE_DEFINITION_CONTEXT}
+	find_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+			--|*** TODO: change `parent_bindings_memory' to be a DICTIONARY
+		require
+			a_parent = Void implies parent_bindings_memory.count = 1
+		local
+			i: INTEGER
+		do
+			if a_parent = Void then
+				Result := parent_bindings_memory.first
+			else
+				from
+					i := parent_bindings_memory.lower
+				until
+					Result /= Void or else i > parent_bindings_memory.upper
+				loop
+					if parent_bindings_memory.item(i).current_type = a_parent then
+						Result := parent_bindings_memory.item(i)
+					end
+					i := i + 1
+				end
+			end
+		end
+
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	set_type_resolver (a_type_resolver: like type_resolver; a_replace: BOOLEAN) is
 		require

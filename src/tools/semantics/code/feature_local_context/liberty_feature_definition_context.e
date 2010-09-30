@@ -135,6 +135,9 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
 				Result := redefined_features.reference_at(create {LIBERTY_FEATURE_NAME}.make_from_ast(fn.feature_name_or_alias, ast, file))
 				i := i + 1
 			end
+			if Result /= Void then
+				Result := Result.find_precursor(parent)
+			end
 			if Result = Void then
 				breakpoint
 			end
