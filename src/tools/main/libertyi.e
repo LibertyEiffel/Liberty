@@ -33,6 +33,7 @@ feature {}
 			options.set(opt_check_level.item, opt_debug.item)
 			create interpreter.make(universe, root, root_feature_name)
 			interpreter.run
+			log.info.put_line(once "Exiting the liberty interpreter.")
 		end
 
 	default_log_location: STRING is "${path_liberty}/resources/log/libertyi-log.rc"
