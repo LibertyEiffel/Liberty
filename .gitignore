@@ -5,6 +5,7 @@
 *.swp
 ## Ignore object files
 *.[oa]
+a.out
 ## Ignore logs of any kind
 *.log
 ## Ignore tags
@@ -14,3 +15,4 @@ TAGS
 target
 ## Ignore GCC-XML wrapper-generator files
 *.gcc-xml
+*.gccxml
