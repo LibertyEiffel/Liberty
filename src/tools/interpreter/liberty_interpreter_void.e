@@ -17,7 +17,7 @@ class LIBERTY_INTERPRETER_VOID
 inherit
 	LIBERTY_INTERPRETER_OBJECT
 		redefine
-			as_target, is_void, builtin_deep_twin, hash_code
+			as_target, is_void, builtin_deep_twin
 		end
 
 creation {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_VOID}

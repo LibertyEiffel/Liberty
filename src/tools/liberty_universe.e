@@ -40,7 +40,7 @@ feature {ANY}
 			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
 		ensure
 			Result.name.is_equal(class_name)
-			Result.parameters.is_equal(effective_type_parameters)
+			same_parameters(Result.parameters, effective_type_parameters)
 		end
 
 	parse_expression (a_expression: STRING; when_error: PROCEDURE[TUPLE[PARSE_ERROR]]): LIBERTY_AST_EXPRESSION is
@@ -106,6 +106,13 @@ feature {ANY} -- Kernel types
 			not errors.has_error
 		once
 			Result := kernel_type("ANY".intern, visit_type_any)
+		end
+
+	type_arguments: LIBERTY_ACTUAL_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("ARGUMENTS".intern, visit_type_arguments)
 		end
 
 	type_platform: LIBERTY_ACTUAL_TYPE is
@@ -679,7 +686,7 @@ feature {LIBERTY_TYPE_RESOLVER}
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)
 			Result.name.is_equal(descriptor.name)
-			Result.parameters.is_equal(descriptor.parameters)
+			same_parameters(Result.parameters, descriptor.parameters)
 		end
 
 	get_type_from_type_definition (type_definition: LIBERTY_AST_TYPE_DEFINITION; cluster: LIBERTY_CLUSTER): LIBERTY_ACTUAL_TYPE is
@@ -705,6 +712,8 @@ feature {LIBERTY_TYPE_RESOLVER}
 				Result := type_integer_8
 			when "ANY" then
 				Result := type_any
+			when "ARGUMENTS" then
+				Result := type_arguments
 			when "PLATFORM" then
 				Result := type_platform
 			when "REAL" then
@@ -786,7 +795,7 @@ feature {}
 			Result := do_get_type_from_descriptor(descriptor)
 		ensure
 			Result.name.is_equal(class_name)
-			Result.parameters.is_equal(effective_type_parameters)
+			same_parameters(Result.parameters, effective_type_parameters)
 		end
 
 	do_get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_ACTUAL_TYPE is
@@ -804,7 +813,37 @@ feature {}
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)
 			Result.name.is_equal(descriptor.name)
-			Result.parameters.is_equal(descriptor.parameters)
+			same_parameters(Result.parameters, descriptor.parameters)
+		end
+
+feature {}
+	same_parameters (params1, params2: TRAVERSABLE[LIBERTY_TYPE]): BOOLEAN is
+			-- Simply doing "params1.is_equal(params2)" does not always work because one or both may actually be
+			-- a TRAVERSABLE[LIBERTY_ACTUAL_TYPE] - and is_equal has a postcondition that requires the same
+			-- actual runtime type for both the target and the parameter.
+		require
+			params1 /= Void
+			params2 /= Void
+		local
+			i: INTEGER
+		do
+			if params1.count = params2.count then
+				check
+					params1.lower = params2.lower
+				end
+				from
+					Result := True
+					i := params1.lower
+				until
+					not Result or else i > params1.upper
+				loop
+					if params1.item(i) /= params2.item(i) then
+						Result := params1.item(i).is_known and then params2.item(i).is_known
+							and then params1.item(i).known_type = params2.item(i).known_type
+					end
+					i := i + 1
+				end
+			end
 		end
 
 feature {} -- Type parameters fetching
@@ -1073,6 +1112,11 @@ feature {}
 	visit_type_any: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
 		once
 			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_any
+		end
+
+	visit_type_arguments: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is
+		once
+			Result := agent {LIBERTY_TYPE_VISITOR}.visit_type_arguments
 		end
 
 	visit_type_platform: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]] is

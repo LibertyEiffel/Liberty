@@ -12,55 +12,25 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_TYPE_RESOLVER_IN_FEATURE
+class LIBERTY_TYPE_RESOLVER_IN_INLINE_AGENT
 
 inherit
 	LIBERTY_TYPE_RESOLVER
 
-creation {LIBERTY_TYPE_FEATURES_LOADER}
+creation {LIBERTY_SEMANTICS_BUILDER}
 	make
 
-creation {LIBERTY_FEATURE}
-	specialized
-
-feature {LIBERTY_FEATURE}
-	set_the_feature (a_feature: like the_feature; replace: BOOLEAN) is
-		require
-			a_feature.context = local_context
-			the_feature /= Void implies replace
-		do
-			the_feature := a_feature
-		ensure
-			the_feature = a_feature
-		end
-
-	feature_name: LIBERTY_AST_FEATURE_NAME
-
 feature {ANY}
-	local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
-	the_feature: LIBERTY_FEATURE
+	local_context: LIBERTY_INLINE_AGENT_CONTEXT
 
 	out_in_tagged_out_memory is
-		local
-			fnoa: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
 		do
-			tagged_out_memory.append(once "resolver in feature ")
-			fnoa := feature_name.feature_name_or_alias
-			if fnoa.is_regular then
-				tagged_out_memory.append(fnoa.entity_name.image.image.intern)
-			elseif fnoa.is_prefix then
-				tagged_out_memory.append(once "prefix ")
-				tagged_out_memory.append(fnoa.free_operator_name.image.image.intern)
-			else
-				check fnoa.is_infix end
-				tagged_out_memory.append(once "infix ")
-				tagged_out_memory.append(fnoa.free_operator_name.image.image.intern)
-			end
+			tagged_out_memory.append(once "resolver in inline agent")
 		end
 
 	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
 		do
-			Result := the_feature.specialized_in(a_type).type_resolver
+			Result := Current --| TODO: ???
 		end
 
 feature {}
@@ -97,37 +67,16 @@ feature {}
 		end
 
 feature {}
-	make (a_feature_name: like feature_name; a_local_context: like local_context) is
+	make (a_local_context: like local_context) is
 		require
-			a_feature_name /= Void
 			a_local_context /= Void
 		do
-			feature_name := a_feature_name
 			local_context := a_local_context
 		ensure
-			feature_name = a_feature_name
 			local_context = a_local_context
 		end
 
-	specialized (a_feature_name: like feature_name; a_feature: like the_feature; a_parent: like parent) is
-		require
-			a_feature_name /= Void
-			a_feature /= Void
-			a_parent /= Void
-		do
-			feature_name := a_feature_name
-			local_context := a_feature.context
-			the_feature := a_feature
-			parent := a_parent
-		ensure
-			feature_name = a_feature_name
-			the_feature = a_feature
-			local_context = a_feature.context
-			parent = a_parent
-		end
-
 invariant
-	feature_name /= Void
 	local_context /= Void
 
-end -- class LIBERTY_TYPE_RESOLVER_IN_FEATURE
+end -- class LIBERTY_TYPE_RESOLVER_IN_INLINE_AGENT

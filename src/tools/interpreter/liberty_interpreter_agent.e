@@ -26,6 +26,11 @@ feature {ANY}
 	arguments: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
 	creation_target: LIBERTY_INTERPRETER_OBJECT
 
+	hash_code: INTEGER is
+		do
+			Result := to_pointer.hash_code
+		end
+
 	is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
 		do
 			Result := other = Current

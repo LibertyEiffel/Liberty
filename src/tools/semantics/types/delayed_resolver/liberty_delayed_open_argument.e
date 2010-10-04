@@ -74,8 +74,9 @@ feature {}
 			a_index.append_in(tagged_out_memory)
 			tagged_out_memory.append(once " of ")
 			a_agent.out_in_tagged_out_memory
-			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out
+
+			full_name_memory := tagged_out_memory.intern
 		ensure
 			of_agent = a_agent
 			index = a_index

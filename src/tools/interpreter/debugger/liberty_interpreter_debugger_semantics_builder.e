@@ -27,7 +27,7 @@ create {LIBERTY_INTERPRETER_DEBUGGER}
 feature {ANY}
 	expression (exp: LIBERTY_AST_EXPRESSION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_EXPRESSION is
 		local
-			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+			local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 		do
 			type := current_type
 			ast := exp
@@ -37,7 +37,7 @@ feature {ANY}
 
 	instruction (exp: LIBERTY_AST_INSTRUCTION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INSTRUCTION is
 		local
-			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+			local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
 		do
 			type := current_type
 			ast := exp
@@ -46,12 +46,12 @@ feature {ANY}
 		end
 
 feature {}
-	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+	instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
 		do
 			std_error.put_string(once "*** Cannot call Precursor")
 		end
 
-	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+	expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
 		do
 			std_error.put_string(once "*** Cannot call Precursor")
 		end

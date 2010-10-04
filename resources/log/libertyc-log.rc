@@ -1,0 +1,18 @@
+log configuration
+
+root LIBERTYI
+
+output
+	out is
+		file "${path_liberty}/target/log/libertyc.log"
+		rotated each day keeping 4
+		zipped using "gzip"
+	end
+
+logger
+	LIBERTYC is
+		output out
+		level trace
+	end
+
+end

@@ -36,6 +36,11 @@ feature {LIBERTY_UNIVERSE}
 			check False end
 		end
 
+	visit_type_arguments (type: LIBERTY_ACTUAL_TYPE) is
+		do
+			create {LIBERTY_INTERPRETER_OBJECT_STRUCTURE} last_created.make(interpreter, type, position)
+		end
+
 	visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
 		do
 			check False end

@@ -122,8 +122,9 @@ feature {}
 			tagged_out_memory.extend('.')
 			name.out_in_tagged_out_memory
 			tagged_out_memory.extend(')')
-			full_name_memory := tagged_out_memory.intern
 			unlock_tagged_out
+
+			full_name_memory := tagged_out_memory.intern
 		ensure
 			type = a_type
 			name = a_name

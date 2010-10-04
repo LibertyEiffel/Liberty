@@ -66,6 +66,11 @@ feature {ANY}
 			-- end
 		end
 
+	has_parent (a_cluster: LIBERTY_CLUSTER): BOOLEAN is
+		do
+			Result := a_cluster = Current or else (Current /= root and then parent.has_parent(a_cluster))
+		end
+
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
 	find (a_class_name: FIXED_STRING): LIBERTY_CLUSTER is
 		local
@@ -108,6 +113,36 @@ feature {LIBERTY_CLUSTER}
 					Result := find_child(a_class_name, a_file_name, new_mark)
 				end
 			end
+		end
+
+	log_cluster_tree (tab: INTEGER) is
+		require
+			tab >= 0
+		local
+			info: OUTPUT_STREAM; i: INTEGER
+		do
+			info := log.info
+			from
+				i := 0
+			until
+				i = tab
+			loop
+				info.put_string(once " |  ")
+				i := i + 1
+			end
+			info.put_string(once " +- (")
+			info.put_integer(depth)
+			info.put_string(once ") ")
+			if logged then
+				info.put_string(name)
+				info.put_line(once " ...")
+			else
+				info.put_line(name)
+				children.do_all(agent {LIBERTY_CLUSTER}.log_cluster_tree(tab + 1))
+				logged := True
+			end
+		ensure
+			logged
 		end
 
 feature {} -- find
@@ -169,9 +204,11 @@ feature {}
 			create {FAST_ARRAY[FIXED_STRING]} locations.with_capacity(0)
 			create class_names.with_capacity(7)
 			root := Current
+			parent := Current
 			create c.with_capacity(etc.clusters.count)
 			children := c
 			etc.clusters.do_all(agent add_if_root({LIBERTY_ETC_CLUSTER}, c))
+			log_cluster_tree(0)
 		ensure
 			depth = 0
 		end
@@ -185,21 +222,22 @@ feature {}
 				log.trace.put_string(name)
 				log.trace.put_string(once ": adding root cluster from etc ")
 				log.trace.put_line(a_etc.name)
-				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(1, a_etc, Current))
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc, Current, Current))
 			end
 		end
 
-	make_from_etc (a_depth: like depth; a_etc: LIBERTY_ETC_CLUSTER; a_root: like root) is
+	make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_parent: like parent; a_root: like root) is
 		require
 			a_etc /= Void
 			a_root /= Void
 			a_etc.cluster = Void
 			a_root.depth = 0
-			a_depth > 0
+			a_parent /= Void
 		local
 			c: FAST_ARRAY[LIBERTY_CLUSTER]
 		do
-			depth := a_depth
+			depth := a_parent.depth + 1
+			parent := a_parent
 			name := a_etc.name
 			root := a_root
 			locations := a_etc.locations
@@ -216,7 +254,8 @@ feature {}
 			a_etc.needs.do_all(agent add_needs({LIBERTY_ETC_NEEDS}, c, a_root))
 		ensure
 			root = a_root
-			depth = a_depth
+			parent = a_parent
+			depth = a_parent.depth + 1
 			locations = a_etc.locations
 		end
 
@@ -225,21 +264,22 @@ feature {}
 			a_root.depth = 0
 		do
 			if a_etc.cluster.cluster /= Void then
-				if a_etc.cluster.cluster /= Current then
+				if not has_parent(a_etc.cluster.cluster) then
 					a_children.add_last(a_etc.cluster.cluster)
 				end
 			else
 				log.trace.put_string(name)
 				log.trace.put_string(once ": adding child cluster from etc ")
 				log.trace.put_line(a_etc.cluster.name)
-				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster.depth + 1, a_etc.cluster, root))
+				a_children.add_last(create {LIBERTY_CLUSTER}.make_from_etc(a_etc.cluster, Current, root))
 			end
 		end
 
-	make_from_loadpath (a_depth: like depth; a_loadpath: STRING; a_root: like root) is
+	make_from_loadpath (a_loadpath: STRING; a_parent: like parent; a_root: like root) is
 		require
 			a_loadpath /= Void
 			a_root.depth = 0
+			a_parent /= Void
 		local
 			location_directory: STRING
 		do
@@ -250,7 +290,8 @@ feature {}
 				die_with_code(1)
 			end
 
-			depth := a_depth
+			depth := a_parent.depth + 1
+			parent := a_parent
 			root := a_root
 			name := a_loadpath.intern
 			dir.compute_parent_directory_of(a_loadpath)
@@ -269,7 +310,8 @@ feature {}
 			read_loadpath(a_loadpath, location_directory)
 		ensure
 			root = a_root
-			depth = a_depth
+			depth = a_parent.depth + 1
+			parent = a_parent
 		end
 
 	read_loadpath (a_loadpath, a_location_directory: STRING) is
@@ -331,7 +373,7 @@ feature {}
 					log.trace.put_string(name)
 					log.trace.put_string(once ": adding child cluster from loadpath ")
 					log.trace.put_line(sublocation)
-					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(depth + 1, sublocation, root));
+					a_children.add_last(create {LIBERTY_CLUSTER}.make_from_loadpath(sublocation, Current, root));
 				else
 					std_error.put_line(once "*** Warning: ignored location: " + sublocation)
 				end
@@ -350,6 +392,7 @@ feature {}
 	children: TRAVERSABLE[LIBERTY_CLUSTER]
 	class_names: HASHED_DICTIONARY[FIXED_STRING, FIXED_STRING]
 	root: LIBERTY_CLUSTER
+	parent: LIBERTY_CLUSTER
 
 	loadpath_entry: POSIX_PATH_NAME is
 		once
@@ -363,6 +406,7 @@ feature {}
 
 	env: LIBERTY_ENVIRONMENT
 	find_mark: INTEGER
+	logged: BOOLEAN
 
 	find_mark_counter: COUNTER is
 		once
@@ -375,5 +419,8 @@ invariant
 	locations.for_all(agent ft.is_directory)
 	root.depth = 0
 	depth = 0 implies root = Current
+	parent /= Void
+	Current = root implies Current = parent
+	depth >= 0
 
 end
