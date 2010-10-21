@@ -1,11 +1,11 @@
 class C_PLUS_PLUS_CLASS
 	-- A "Class" node of an XML file made by gccxml representing a C++ class.
 
-
-	-- Beware its names may be things like QFlags<Qt::MouseButton>
+	-- Beware class names includes templates, so they may be like "QFlags<Qt::MouseButton>" escaped as "QFlags%lt;Qt::MouseButton&gt;". C++ and therefore also GccXml does not  
 
 inherit 
 	CONTEXTED_NODE
+	NAMED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
 	FILED_NODE

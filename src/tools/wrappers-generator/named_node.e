@@ -1,6 +1,7 @@
 deferred class NAMED_NODE
 	-- A GCC_XML node that may have a "name" attribute.
 inherit GCCXML_NODE
+insert NAME_CONVERTER
 feature
 	is_anonymous: BOOLEAN is
 		-- Is Current node anonynmous?
@@ -57,10 +58,16 @@ feature {} -- Implementation
 	cached_eiffel_name: STRING
 
 	compute_eiffel_name is
-		-- 
-		deferred
+		require is_named
+		do
+			cached_eiffel_name:=eiffel_feature(c_string_name)
+			check 
+				is_public: cached_eiffel_name.first/='_'
+				not cached_eiffel_name.has_substring("__")	
+			end
 		ensure cached_eiffel_name/=Void
 		end
+
 end -- class NAMED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

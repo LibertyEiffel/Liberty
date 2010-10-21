@@ -6,9 +6,9 @@ deferred class COMPOSED_NODE
 	-- Note: also Namespace nodes have a "members" attribute that is
 	-- conceptually different since they are modelled as Liberty clusters and
 	-- do not belong to a single file.
-inherit 
-	NAMED_NODE
-	STORABLE_NODE
+
+	-- Note: previously COMPOSED_NODE inherited from NAMED_NODE and STORABLE_NODE.
+	-- The heirs of this class C_STRUCT, C_UNION and C_PLUS_PLUS_CLASS  
 feature 
 	store is
 		deferred 

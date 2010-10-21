@@ -30,9 +30,7 @@ feature
 
 	has_wrapper: BOOLEAN is True
 	wrapper_type: STRING is "INTEGER"
-
 	is_fundamental: BOOLEAN is False
-
 	is_void: BOOLEAN is False
 
 	is_to_be_emitted: BOOLEAN is
@@ -41,26 +39,19 @@ feature
 			fn := c_file.c_string_name
 			Result := file_exists(fn) and (global or else headers.has(fn))
 		end
-
-
 	
 	emit_wrapper is
 		local 
 			filename: STRING; path: POSIX_PATH_NAME
 		do
 			if is_public then
-				if on_standard_output then 
-					log(once "Outputting enum @(1) as @(2) on standard output.%N",
-					<<c_name.to_utf8, class_name>>)
-					output := std_output
-				else
-					create path.make_from_string(directory)
-					path.add_last(class_name.as_lower+once ".e")
-					filename := path.to_string
-					log(once "Wrapping enum @(1) as @(2) on @(3)",
-					<<c_name.to_utf8, class_name, filename>>)
-					create {TEXT_FILE_WRITE} output.connect_to(filename)
-				end
+				create path.make_from_string(directory)
+				path.add_last(class_name.as_lower+once ".e")
+				filename := path.to_string
+				log(once "Wrapping enum @(1) as @(2) on @(3)",
+				<<c_name.to_utf8, class_name, filename>>)
+				create {TEXT_FILE_WRITE} output.connect_to(filename)
+
 				emit_header
 				emit_items
 				emit_footer

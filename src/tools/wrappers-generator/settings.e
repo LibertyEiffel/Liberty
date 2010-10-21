@@ -15,7 +15,7 @@ feature {ANY} -- Queries
 
 	verbose: BOOLEAN
 
-	directory: STRING
+	directory: STRING is "-" -- Default output is on current directory. May be overwritten.
 
 	typedefs: STRING
 	-- The name of the class containing typedef queries, empty queries
@@ -29,6 +29,7 @@ feature {ANY} -- Setters
 		do
 			verbose := a_value
 		end
+		
 
 	set_global (a_value: BOOLEAN) is
 		do

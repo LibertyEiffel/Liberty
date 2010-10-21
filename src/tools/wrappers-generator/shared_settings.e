@@ -15,6 +15,12 @@ feature {ANY}
 		end 
 
 	headers: WORDS is once create Result.make end
+	
+	directory: STRING is
+		-- Shortcut for settings.directory
+		do
+			Result := settings.directory
+		end
 
 feature -- Plugin
 	include: TEXT_FILE_WRITE is

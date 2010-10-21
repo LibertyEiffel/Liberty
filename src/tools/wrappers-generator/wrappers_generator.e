@@ -15,10 +15,10 @@ creation {ANY}
 feature {ANY}
 	make is
 		do
+			log_string(once "wrappers generator rel 0.2%N")
 			process_arguments
 			log_string(once "Loading XML file: ")
 			create tree.make(input.url)
-			log_string(once "done.%N Connecting nodes ")
 			log_string(once "done.%N")
 			open_plugin_files
 			if file_exists(avoided) and then is_file(avoided) then

@@ -2,7 +2,10 @@ class C_UNION
 
 inherit 
 	CONTEXTED_NODE
-	COMPOSED_NODE
+	NAMED_NODE
+	COMPOSED_NODE 
+	undefine compute_eiffel_name -- the definition found in WRAPPER_CLASS is satisfactory
+	end 
 	IDENTIFIED_NODE
 	FILED_NODE
 	STORABLE_NODE

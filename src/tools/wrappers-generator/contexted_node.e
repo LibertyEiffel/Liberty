@@ -12,8 +12,13 @@ feature
 
 	namespace: C_NAMESPACE is
 		do
-			if cached_namespace=Void then
+			if not namespace_retrieved then
 				cached_namespace:=namespaces.reference_at(context)
+				namespace_retrieved := True
+				-- Namespace can be void; using a separate flag avoid multiple
+				-- unuseful queries to namespaces collection when context is
+				-- not a namespace. For example the context of a field may be a
+				-- struct or a class.
 			end
 			Result:=cached_namespace
 		end
@@ -36,6 +41,7 @@ feature
 	end
 feature {} -- Implementation
 	cached_namespace: C_NAMESPACE
+	namespace_retrieved: BOOLEAN
 
 end -- class CONTEXTED_NODE
 

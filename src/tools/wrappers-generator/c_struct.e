@@ -1,6 +1,7 @@
 class C_STRUCT
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
+	NAMED_NODE
 	CONTEXTED_NODE
 	COMPOSED_NODE
 	IDENTIFIED_NODE
@@ -62,16 +63,11 @@ feature
 	local path: POSIX_PATH_NAME
 	do
 		if is_to_be_emitted then
-			if on_standard_output then
-					log(once "Outputting wrapper for struct @(1) on standard output.%N", <<c_string_name>>)
-		 		output := std_output
-		 	else
-		 		create path.make_from_string(directory)
-		 		path.add_last(class_name.as_lower+once ".e")
-				log(once "Struct @(1) to @(2) in @(3)%N",
-				<<c_string_name, class_name, path.to_string>>)
-				create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
-			end
+			create path.make_from_string(directory)
+			path.add_last(class_name.as_lower+once ".e")
+			log(once "Struct @(1) to @(2) in @(3)%N",
+			<<c_string_name, class_name, path.to_string>>)
+			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 			-- if members.for_all(agent {}.has_wrapper) then -- it is surely wrappable
 			emit_header
 			emit_members
