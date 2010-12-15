@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HASHED_SET_NODE[E_ -> HASHABLE]
+class HASHED_SET_NODE[E_]
 	--
 	-- Auxilliary class to implement HASHED_SET.
 	--
@@ -9,10 +9,10 @@ class HASHED_SET_NODE[E_ -> HASHABLE]
 inherit
 	ANY_HASHED_SET_NODE
 
-creation {HASHED_SET}
+creation {ABSTRACT_HASHED_SET}
 	make
 
-feature {HASHED_SET}
+feature {ABSTRACT_HASHED_SET}
 	item: E_
 
 	next: like Current
@@ -25,7 +25,6 @@ feature {HASHED_SET}
 			next = n
 		end
 
-feature {HASHED_SET}
 	make (i: like item; n: like next) is
 		do
 			item := i

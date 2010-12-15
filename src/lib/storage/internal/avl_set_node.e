@@ -10,21 +10,15 @@ class AVL_SET_NODE[E_ -> COMPARABLE]
 	--
 
 inherit
-	AVL_TREE_NODE[E_]
-	ANY_AVL_SET_NODE
+	ABSTRACT_AVL_SET_NODE[E_]
 
 creation {AVL_SET}
 	default_create
 
-feature {AVL_SET} -- Creation:
-	make (i: like item) is
+feature {}
+	ordered (e1, e2: E_): BOOLEAN is
 		do
-			set_balance(balanced)
-			left := Void
-			right := Void
-			set_item(i)
-		ensure
-			item = i
+			Result := e1 < e2
 		end
 
 end -- class AVL_SET_NODE

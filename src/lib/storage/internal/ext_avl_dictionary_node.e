@@ -1,86 +1,38 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
+class EXT_AVL_DICTIONARY_NODE[V_, K_]
 	--
-	-- Auxilliary class to implement HASHED_BIJECTIVE_DICTIONARY.
+	-- Auxiliary class to implement EXT_AVL_DICTIONARY.
 	--
 
 inherit
-	ANY_HASHED_BIJECTIVE_DICTIONARY_NODE
+	ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
-creation {HASHED_BIJECTIVE_DICTIONARY}
+creation {AVL_DICTIONARY}
 	make
 
-feature {HASHED_BIJECTIVE_DICTIONARY}
-	val: V_
+feature {}
+	order: PREDICATE[TUPLE[K_, K_]]
 
-	key: K_
+	ordered (k1, k2: K_): BOOLEAN is
+		do
+			Result := order.item([k1, k2])
+		end
 
-	next_key: like Current
-			-- The forward link to the next `key' in case of hash-code clash.
-
-	next_val: like Current
-			-- The forward link to the next `val' in case of hash-code clash.
-
-	make (v: like val; nv: like next_val; k: like key; nk: like next_key) is
+	make (a_order: like order) is
 		require
-			v /= Void
-			k /= Void
+			a_order /= Void
 		do
-			val := v
-			next_val := nv
-			key := k
-			next_key := nk
+			order := a_order
 		ensure
-			val = v
-			next_val = nv
-			key = k
-			next_key = nk
-		end
-
-	set_val (v: like val) is
-		do
-			val := v
-		ensure
-			val = v
-		end
-
-	set_next_val (nv: like next_val) is
-		do
-			next_val := nv
-		ensure
-			next_val = nv
-		end
-
-	set_key (k: like key) is
-		do
-			key := k
-		ensure
-			key = k
-		end
-
-	set_next_key (nk: like next_key) is
-		do
-			next_key := nk
-		ensure
-			next_key = nk
-		end
-
-	set_val_and_key (v: like val; k: like key) is
-		do
-			val := v
-			key := k
-		ensure
-			val = v
-			key = k
+			order = a_order
 		end
 
 invariant
-	key /= Void
-	val /= Void
+	order /= Void
 
-end -- class HASHED_BIJECTIVE_DICTIONARY_NODE
+end -- class EXT_AVL_DICTIONARY_NODE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

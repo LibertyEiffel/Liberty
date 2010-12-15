@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class AVL_TREE[E_ -> COMPARABLE]
+deferred class AVL_TREE[E_]
 	--
 	-- Definition of a mathematical set of comparable objects. All common
 	-- operations on mathematical sets are available.
@@ -62,7 +62,7 @@ feature {}
 				Result := n
 				set_value(Result)
 				rebalance := False
-			elseif item_memory < n.item then
+			elseif ordered(item_memory, n.item) then
 				n.set_left(do_insert(n.left))
 				if rebalance then
 					Result := left_grown(n)
@@ -71,7 +71,7 @@ feature {}
 				end
 			else
 				check
-					item_memory > n.item
+					ordered(n.item, item_memory)
 				end
 				n.set_right(do_insert(n.right))
 				if rebalance then
@@ -94,14 +94,14 @@ feature {}
 				count := count + 1
 				map_dirty := True
 				rebalance := True
-			elseif item_memory < n.item then
+			elseif ordered(item_memory, n.item) then
 				n.set_left(do_insert(n.left))
 				if rebalance then
 					Result := left_grown(n)
 				else
 					Result := n
 				end
-			elseif item_memory > n.item then
+			elseif ordered(n.item, item_memory) then
 				n.set_right(do_insert(n.right))
 				if rebalance then
 					Result := right_grown(n)
@@ -229,7 +229,7 @@ feature {}
 						Result := n
 					end
 				end
-			elseif e < n.item then
+			elseif ordered(e, n.item) then
 				n.set_left(do_remove(n.left, e))
 				if rebalance then
 					Result := left_shrunk(n)
@@ -238,7 +238,7 @@ feature {}
 				end
 			else
 				check
-					e > n.item
+					ordered(n.item, e)
 				end
 				n.set_right(do_remove(n.right, e))
 				if rebalance then
@@ -256,14 +256,14 @@ feature {}
 		do
 			if n = Void then
 				rebalance := False
-			elseif e < n.item then
+			elseif ordered(e, n.item) then
 				n.set_left(do_remove(n.left, e))
 				if rebalance then
 					Result := left_shrunk(n)
 				else
 					Result := n
 				end
-			elseif e > n.item then
+			elseif ordered(n.item, e) then
 				n.set_right(do_remove(n.right, e))
 				if rebalance then
 					Result := right_shrunk(n)
@@ -493,6 +493,14 @@ feature {}
 		end
 
 	lost_nodes: WEAK_REFERENCE[like a_new_node]
+
+	ordered (e1, e2: E_): BOOLEAN is
+			-- True if [e1, e2] is a correctly ordered sequence; usually, e1 < e2
+		require
+			e1 /= Void
+			e2 /= Void
+		deferred
+		end
 
 invariant
 	map /= Void
