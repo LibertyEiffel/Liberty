@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HASHED_DICTIONARY_NODE[V_, K_ -> HASHABLE]
+class HASHED_DICTIONARY_NODE[V_, K_]
 	--
 	-- Auxilliary class to implement HASHED_DICTIONARY.
 	--
@@ -9,10 +9,10 @@ class HASHED_DICTIONARY_NODE[V_, K_ -> HASHABLE]
 inherit
 	ANY_HASHED_DICTIONARY_NODE
 
-creation {HASHED_DICTIONARY}
+creation {ABSTRACT_HASHED_DICTIONARY}
 	make
 
-feature {HASHED_DICTIONARY}
+feature {ABSTRACT_HASHED_DICTIONARY}
 	item: V_
 
 	key: K_

@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class AVL_TREE_NODE[E_ -> COMPARABLE]
+deferred class AVL_TREE_NODE[E_]
 	--
 	-- Auxiliary class to implement AVL_SET.
 	--
@@ -87,7 +87,7 @@ feature {AVL_TREE_NODE, AVL_TREE}
 		do
 			Result := safe_equal.test(item, e)
 			if not Result then
-				if e < item then
+				if ordered(e, item) then
 					Result := left /= Void and then left.has(e)
 				else
 					Result := right /= Void and then right.has(e)
@@ -102,7 +102,7 @@ feature {AVL_TREE_NODE, AVL_TREE}
 		do
 			Result := item = e
 			if not Result and then not safe_equal.test(item, e) then
-				if e < item then
+				if ordered(e, item) then
 					Result := left /= Void and then left.fast_has(e)
 				else
 					Result := right /= Void and then right.fast_has(e)
@@ -119,7 +119,7 @@ feature {AVL_TREE_NODE, AVL_TREE}
 		do
 			if safe_equal.test(item, e) then
 				Result := Current
-			elseif e < item then
+			elseif ordered(e, item) then
 				if left /= Void then
 					Result := left.at(e)
 				end
@@ -133,8 +133,8 @@ feature {AVL_TREE_NODE, AVL_TREE}
 	set_item (i: like item) is
 		require
 		-- Equality admitted for the free list
-			left /= Void implies left.item = i or else left.item < i
-			right /= Void implies right.item > i
+			left /= Void implies left.item.is_equal(i) or else ordered(left.item, i)
+			right /= Void implies ordered(i, right.item)
 		do
 			item := i
 		ensure
@@ -144,7 +144,7 @@ feature {AVL_TREE_NODE, AVL_TREE}
 	set_left (l: like left) is
 		require
 		-- Equality admitted for the free list
-			l /= Void implies l.item = item or else l.item < item
+			l /= Void implies l.item.is_equal(item) or else ordered(l.item, item)
 		do
 			left := l
 		ensure
@@ -153,7 +153,7 @@ feature {AVL_TREE_NODE, AVL_TREE}
 
 	set_right (r: like right) is
 		require
-			r /= Void implies r.item > item
+			r /= Void implies ordered(item, r.item)
 		do
 			right := r
 		ensure
@@ -192,6 +192,15 @@ feature {AVL_TREE} -- Rotations:
 			set_right(right_left)
 		ensure
 			Result /= Void
+		end
+
+feature {}
+	ordered (e1, e2: E_): BOOLEAN is
+			-- True if [e1, e2] is a correctly ordered sequence; usually, e1 < e2
+		require
+			e1 /= Void
+			e2 /= Void
+		deferred
 		end
 
 end -- class AVL_TREE_NODE

@@ -1,86 +1,67 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
+class EXT_HASHED_SET[E_]
 	--
-	-- Auxilliary class to implement HASHED_BIJECTIVE_DICTIONARY.
+	-- Like a HASH_SET but the items' hash_code function is given
 	--
 
 inherit
-	ANY_HASHED_BIJECTIVE_DICTIONARY_NODE
+	ABSTRACT_HASHED_SET[E_]
+		rename
+			make as abs_make,
+			with_capacity as abs_with_capacity
+			from_collection as abs_from_collection
+		end
 
-creation {HASHED_BIJECTIVE_DICTIONARY}
-	make
+creation {ANY}
+	make, with_capacity, from_collection
 
-feature {HASHED_BIJECTIVE_DICTIONARY}
-	val: V_
+feature {ANY}
+	hash_coder: FUNCTION[TUPLE[E_], INTEGER]
 
-	key: K_
-
-	next_key: like Current
-			-- The forward link to the next `key' in case of hash-code clash.
-
-	next_val: like Current
-			-- The forward link to the next `val' in case of hash-code clash.
-
-	make (v: like val; nv: like next_val; k: like key; nk: like next_key) is
+	make (a_hash_coder: like hash_coder) is
 		require
-			v /= Void
-			k /= Void
+			a_hash_coder /= Void
 		do
-			val := v
-			next_val := nv
-			key := k
-			next_key := nk
+			hash_coder := a_hash_coder
+			abs_make
 		ensure
-			val = v
-			next_val = nv
-			key = k
-			next_key = nk
+			hash_coder = a_hash_coder
 		end
 
-	set_val (v: like val) is
+	with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
+		require
+			a_hash_coder /= Void
+			medium_size > 0
 		do
-			val := v
+			hash_coder := a_hash_coder
+			abs_with_capacity(medium_size)
 		ensure
-			val = v
+			hash_coder = a_hash_coder
 		end
 
-	set_next_val (nv: like next_val) is
+	from_collection (a_hash_coder: like hash_coder; model: COLLECTION[like item]) is
+		require
+			a_hash_coder /= Void
+			model /= Void
 		do
-			next_val := nv
+			hash_coder := a_hash_coder
+			abs_from_collection(model)
 		ensure
-			next_val = nv
+			hash_coder = a_hash_coder
 		end
 
-	set_key (k: like key) is
+feature {}
+	hash_code (e: E_): INTEGER is
 		do
-			key := k
-		ensure
-			key = k
-		end
-
-	set_next_key (nk: like next_key) is
-		do
-			next_key := nk
-		ensure
-			next_key = nk
-		end
-
-	set_val_and_key (v: like val; k: like key) is
-		do
-			val := v
-			key := k
-		ensure
-			val = v
-			key = k
+			Result := hash_coder.item([e])
 		end
 
 invariant
-	key /= Void
-	val /= Void
+	hash_coder /= Void
 
-end -- class HASHED_BIJECTIVE_DICTIONARY_NODE
+end -- class EXT_HASHED_SET
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

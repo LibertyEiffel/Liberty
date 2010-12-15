@@ -1,86 +1,57 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
-	--
-	-- Auxilliary class to implement HASHED_BIJECTIVE_DICTIONARY.
-	--
+class EXT_AVL_SET[E_]
 
 inherit
-	ANY_HASHED_BIJECTIVE_DICTIONARY_NODE
+	ABSTRACT_AVL_SET[E_]
+		rename
+			make as abs_make,
+			from_collection as abs_from_collection
+		end
 
-creation {HASHED_BIJECTIVE_DICTIONARY}
-	make
+creation {ANY}
+	make, from_collection
 
-feature {HASHED_BIJECTIVE_DICTIONARY}
-	val: V_
+feature {ANY}
+	order: PREDICATE[TUPLE[E_, E_]]
 
-	key: K_
-
-	next_key: like Current
-			-- The forward link to the next `key' in case of hash-code clash.
-
-	next_val: like Current
-			-- The forward link to the next `val' in case of hash-code clash.
-
-	make (v: like val; nv: like next_val; k: like key; nk: like next_key) is
+	from_collection (a_order: like order; model: COLLECTION[like item]) is
 		require
-			v /= Void
-			k /= Void
+			a_order /= Void
+			model /= Void
 		do
-			val := v
-			next_val := nv
-			key := k
-			next_key := nk
+			order := a_order
+			abs_from_collection(model)
 		ensure
-			val = v
-			next_val = nv
-			key = k
-			next_key = nk
+			order = a_order
 		end
 
-	set_val (v: like val) is
+feature {}
+	ordered (e1, e2: E_): BOOLEAN is
 		do
-			val := v
-		ensure
-			val = v
+			Result := order.item([e1, e2])
 		end
 
-	set_next_val (nv: like next_val) is
+	a_new_node: EXT_AVL_SET_NODE[E_] is
 		do
-			next_val := nv
-		ensure
-			next_val = nv
+			create Result.make(order)
 		end
 
-	set_key (k: like key) is
+	make (a_order: like order) is
+		require
+			a_order /= Void
 		do
-			key := k
+			order := a_order
+			abs_make
 		ensure
-			key = k
-		end
-
-	set_next_key (nk: like next_key) is
-		do
-			next_key := nk
-		ensure
-			next_key = nk
-		end
-
-	set_val_and_key (v: like val; k: like key) is
-		do
-			val := v
-			key := k
-		ensure
-			val = v
-			key = k
+			order = a_order
 		end
 
 invariant
-	key /= Void
-	val /= Void
+	order /= Void
 
-end -- class HASHED_BIJECTIVE_DICTIONARY_NODE
+end -- class EXT_AVL_SET
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
