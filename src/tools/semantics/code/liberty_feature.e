@@ -767,26 +767,58 @@ feature {LIBERTY_BUILDER_TOOLS}
 
 feature {LIBERTY_FEATURE_DEFINITION_CONTEXT}
 	find_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
-			--|*** TODO: change `parent_bindings_memory' to be a DICTIONARY
-		require
-			a_parent = Void implies parent_bindings_memory.count = 1
-		local
-			i: INTEGER
 		do
 			if a_parent = Void then
-				Result := parent_bindings_memory.first
+				Result := find_closest_precursor
 			else
-				from
-					i := parent_bindings_memory.lower
-				until
-					Result /= Void or else i > parent_bindings_memory.upper
-				loop
-					if parent_bindings_memory.item(i).current_type = a_parent then
-						Result := parent_bindings_memory.item(i)
-					end
-					i := i + 1
-				end
+				Result := find_parent_precursor(a_parent)
 			end
+			Result := Result.specialized_in(current_type)
+		end
+
+feature {}
+	find_closest_precursor: LIBERTY_FEATURE is
+		local
+			i: INTEGER; candidate: LIBERTY_FEATURE
+		do
+			from
+				i := parent_bindings_memory.lower
+			until
+				i > parent_bindings_memory.upper
+			loop
+				candidate := parent_bindings_memory.item(i)
+				if Result = Void or else candidate.current_type.is_child_of(Result.current_type) then
+					Result := candidate
+				end
+				i := i + 1
+			end
+		ensure
+			Result /= Void
+			Result /= Current
+		end
+
+	find_parent_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+		require
+			a_parent /= Void
+		local
+			i: INTEGER; candidate: LIBERTY_FEATURE
+		do
+			from
+				i := parent_bindings_memory.lower
+			until
+				i > parent_bindings_memory.upper
+			loop
+				candidate := parent_bindings_memory.item(i)
+				if candidate.current_type = a_parent or else candidate.current_type.is_child_of(a_parent) then
+					if Result = Void or else candidate.current_type.is_child_of(Result.current_type) then
+						Result := candidate
+					end
+				end
+				i := i + 1
+			end
+		ensure
+			Result /= Void
+			Result /= Current
 		end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}

@@ -99,6 +99,9 @@ feature {}
 					log.trace.put_line(parent.full_name)
 				end
 				if parent /= Void then
+					check
+						parent.is_known
+					end
 					actual_parent ::= parent.known_type
 					type.add_parent(actual_parent, conformant)
 					Result := True
