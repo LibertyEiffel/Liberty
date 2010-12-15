@@ -140,23 +140,31 @@ feature {LIBERTY_KNOWN_TYPE}
 
 feature {ANY} -- Inheritance
 	is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+		require
+			other /= Void
 		deferred
 		ensure
 			Result implies is_child_of(other)
 		end
 
 	is_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+		require
+			other /= Void
 		do
 			Result := is_conform_to(other) or else is_non_conformant_child_of(other)
 		end
 
 	is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+		require
+			other /= Void
 		deferred
 		ensure
 			Result implies is_child_of(other)
 		end
 
 	common_conformant_parent_with (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE is
+		require
+			other /= Void
 		do
 			if other = Current then
 				Result := Current
@@ -174,11 +182,14 @@ feature {ANY} -- Inheritance
 		end
 
 	converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+		require
+			target_type /= Void
 		deferred
 		end
 
 	do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER) is
 		require
+			target_type /= Void
 			converts_to(target_type)
 			a_converter /= Void
 		deferred

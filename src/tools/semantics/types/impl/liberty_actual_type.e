@@ -385,6 +385,8 @@ feature {LIBERTY_BUILDER_TOOLS}
 		end
 
 	add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN) is
+		require
+			a_parent /= Void
 		do
 			torch.burn
 			if conformant then
