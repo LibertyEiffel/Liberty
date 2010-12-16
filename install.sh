@@ -21,52 +21,52 @@ function bootstrap()
     run tar xvfj $LIBERTY_HOME/work/SmartEiffel.tar.bz2
 
     if [ ! -d bin ]; then
-	title "Preparing target"
-	mkdir bin
-	cd bin
-	for f in $LIBERTY_HOME/src/tools/main/*.ace; do
-	    ace=${f##*/} && ace=${ace%.ace}
-	    mkdir $LIBERTY_HOME/target/bin/${ace}.d
-	    ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
-	done
-	mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
-	ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
-	cd ..
+        title "Preparing target"
+        mkdir bin
+        cd bin
+        for f in $LIBERTY_HOME/src/tools/main/*.ace; do
+            ace=${f##*/} && ace=${ace%.ace}
+            mkdir $LIBERTY_HOME/target/bin/${ace}.d
+            ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
+        done
+        mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
+        ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
+        cd ..
     fi
 
     if [ ! -d libertyrc ]; then
-	title "Preparing Liberty environment"
-	mkdir libertyrc
-	cd libertyrc
-	cat > libertyi.rc <<EOF
+        title "Preparing Liberty environment"
+        mkdir libertyrc
+        cd libertyrc
+        cat > libertyi.rc <<EOF
 master libertyi
 
 environment
-	path_liberty is "$LIBERTY_HOME"
-	sys is "$LIBERTY_HOME/target"
+        path_liberty is "$LIBERTY_HOME"
+        sys is "$LIBERTY_HOME/target"
 
 cluster
-	LIBERTY_LIBRARY: "\${path_liberty}/src/lib"
-	LIBERTY_TOOLS: "\${path_liberty}/src/tools"
-	LIBERTY_WRAPPERS: "\${path_liberty}/src/wrappers"
+        LIBERTY_LIBRARY: "\${path_liberty}/src/lib"
+        LIBERTY_TOOLS: "\${path_liberty}/src/tools"
+        LIBERTY_WRAPPERS: "\${path_liberty}/src/wrappers"
 
 end
 EOF
-	cd ..
+        cd ..
     fi
 
     if [ -L $HOME/.liberty ]; then
-	rm $HOME/.liberty
+        rm $HOME/.liberty
     elif [ -e $HOME/.liberty ]; then
-	mv $HOME/.liberty $HOME/.liberty~
+        mv $HOME/.liberty $HOME/.liberty~
     fi
     ln -s $LIBERTY_HOME/target/libertyrc $HOME/.liberty
 
     if [ ! -d serc ]; then
-	title "Preparing SmartEiffel environment"
-	mkdir serc
-	cd serc
-	cat > liberty.se <<EOF
+        title "Preparing SmartEiffel environment"
+        mkdir serc
+        cd serc
+        cat > liberty.se <<EOF
 [General]
 bin: $LIBERTY_HOME/target/bin
 sys: $LIBERTY_HOME/sys
@@ -160,13 +160,13 @@ cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
 smarteiffel_options: -no_split
 
 EOF
-	cd ..
+        cd ..
     fi
 
     if [ -L $HOME/.serc ]; then
-	rm $HOME/.serc
+        rm $HOME/.serc
     elif [ -e $HOME/.serc ]; then
-	mv $HOME/.serc $HOME/.serc~
+        mv $HOME/.serc $HOME/.serc~
     fi
     ln -s $LIBERTY_HOME/target/serc $HOME/.serc
 
@@ -174,36 +174,36 @@ EOF
     cd SmartEiffel/work/germ
 
     if [ ! -d ../../../bin/compile_to_c.d ]; then
-	progress 30 0 11 "germ"
-	test -d ../../../bin/compile_to_c.d || mkdir ../../../bin/compile_to_c.d
-	run gcc -c compile_to_c.c && run gcc compile_to_c.o -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
+        progress 30 0 11 "germ"
+        test -d ../../../bin/compile_to_c.d || mkdir ../../../bin/compile_to_c.d
+        run gcc -c compile_to_c.c && run gcc compile_to_c.o -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
     progress 30 1 11 "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
     if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
-	grep ^gcc compile_to_c.make | while read cmd; do
-	    progress 30 1 11 "$cmd"
-	    run $cmd || exit 1
-	done
+        grep ^gcc compile_to_c.make | while read cmd; do
+            progress 30 1 11 "$cmd"
+            run $cmd || exit 1
+        done
 
-	progress 30 2 11 "compile_to_c T2"
-	run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-	if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
-	    grep ^gcc compile_to_c.make | while read cmd; do
-		progress 30 2 11 "$cmd"
-		run $cmd || exit 1
-	    done
+        progress 30 2 11 "compile_to_c T2"
+        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
+        if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+            grep ^gcc compile_to_c.make | while read cmd; do
+                progress 30 2 11 "$cmd"
+                run $cmd || exit 1
+            done
 
-	    progress 30 3 11 "compile_to_c T3"
-	    ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-	    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
-		cat compile_to_c.make >> $LOG
-		error "The compiler is not stable."
-		exit 1
-	    fi
-	fi
+            progress 30 3 11 "compile_to_c T3"
+            ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
+            if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+                cat compile_to_c.make >> $LOG
+                error "The compiler is not stable."
+                exit 1
+            fi
+        fi
     fi
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
@@ -212,31 +212,32 @@ EOF
     cd compile.d
     run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
     grep ^gcc compile.make | while read cmd; do
-	run $cmd || exit 1
+        run $cmd || exit 1
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
     {
-	echo 5 se
-	echo 6 clean
+        echo 5 se
+        echo 6 clean
     } | while read i tool; do
-	progress 30 $i 11 "$tool"
-	test -d ${tool}.d || mkdir ${tool}.d
-	cd ${tool}.d
-	run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
-	cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+        progress 30 $i 11 "$tool"
+        test -d ${tool}.d || mkdir ${tool}.d
+        cd ${tool}.d
+        run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
+        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
     {
-	echo 7 pretty
-	echo 8 short
-	echo 9 class_check
-	echo 10 finder
+        echo 7 pretty
+        echo 8 short
+        echo 9 class_check
+        echo 10 finder
+        echo 11 eiffeltest
     } | while read i tool; do
-	progress 30 $i 11 "$tool"
-	test -d ${tool}.d || mkdir ${tool}.d
-	cd ${tool}.d
-	run ../compile -verbose -boost $tool -o $tool || exit 1
-	cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+        progress 30 $i 11 "$tool"
+        test -d ${tool}.d || mkdir ${tool}.d
+        cd ${tool}.d
+        run ../compile -verbose -boost $tool -o $tool || exit 1
+        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
     progress 30 11 11 "done."
     echo
@@ -261,12 +262,12 @@ function generate_wrappers()
     cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
     i=1
     for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
-	cd ${f%/Makefile}
-	t=${f%/library/externals/Makefile}
-	t=${t#$LIBERTY_HOME/src/wrappers/}
-	progress 30 $i $n $t
-	run make
-	i=$((i+1))
+        cd ${f%/Makefile}
+        t=${f%/library/externals/Makefile}
+        t=${t#$LIBERTY_HOME/src/wrappers/}
+        progress 30 $i $n $t
+        run make
+        i=$((i+1))
     done
     progress 30 $n $n "done."
     echo
@@ -277,12 +278,12 @@ function compile_all()
     n=$(ls $LIBERTY_HOME/src/tools/main/*.ace | wc -l)
     i=0
     for f in $LIBERTY_HOME/src/tools/main/*.ace; do
-	ace=${f##*/} && ace=${ace%.ace}
-	progress 30 $i $n $ace
-	cd $LIBERTY_HOME/target/bin/${ace}.d
-	run se c -verbose ${ace}.ace
-	cd .. && test -e $ace || ln -s ${ace}.d/$ace .
-	i=$((i+1))
+        ace=${f##*/} && ace=${ace%.ace}
+        progress 30 $i $n $ace
+        cd $LIBERTY_HOME/target/bin/${ace}.d
+        run se c -verbose ${ace}.ace
+        cd .. && test -e $ace || ln -s ${ace}.d/$ace .
+        i=$((i+1))
     done
     progress 30 $n $n "done."
     echo
@@ -299,49 +300,49 @@ function do_all()
 
 if [ $# = 0 ]; then
     if [ -d $LIBERTY_HOME/target ]; then
-	compile_all
+        compile_all
     else
-	do_all
+        do_all
     fi
 else
     while [ $# -gt 0 ]; do
-	case x"$1" in
-	    x-plugins)
-		compile_plugins
-		;;
-	    x-wrappers)
-		generate_wrappers
-		;;
-	    x-bootstrap)
-		do_all
-		;;
-	    x-bootstrap-se)
-		bootstrap
-		;;
-	    *)
-		echo "Unknown argument: $1"
-		cat >&2 <<EOF
+        case x"$1" in
+            x-plugins)
+                compile_plugins
+                ;;
+            x-wrappers)
+                generate_wrappers
+                ;;
+            x-bootstrap)
+                do_all
+                ;;
+            x-bootstrap-se)
+                bootstrap
+                ;;
+            *)
+                echo "Unknown argument: $1"
+                cat >&2 <<EOF
 
 Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se}
 
   -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
-               Liberty configuration files, up to the plugins, wrappers,
-               and Liberty tools installation
+                                        Liberty configuration files, up to the plugins, wrappers,
+                                        and Liberty tools installation
 
   -bootstrap-se Bootstraps SmartEiffel
 
   -plugins     Compiles the plugins used by the Liberty interpreter
 
   -wrappers    Generates the library wrappers; some are used by the
-               Liberty tools themselves (ffi, readline, llvm, ...)
+                                        Liberty tools themselves (ffi, readline, llvm, ...)
 
   If no argument is provided, then only the Liberty tools are rebuilt
   or the installation is bootstrapped if not already done.
 
 EOF
-		exit 1
-		;;
-	esac
-	shift
+                exit 1
+                ;;
+        esac
+        shift
     done
 fi
