@@ -290,6 +290,7 @@ function compile_all()
 
 function do_all()
 {
+    test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
     compile_plugins
     generate_wrappers
@@ -321,11 +322,13 @@ else
 		echo "Unknown argument: $1"
 		cat >&2 <<EOF
 
-Usage: $0 {-bootstrap|-plugins|-wrappers}
+Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se}
 
   -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
                Liberty configuration files, up to the plugins, wrappers,
                and Liberty tools installation
+
+  -bootstrap-se Bootstraps SmartEiffel
 
   -plugins     Compiles the plugins used by the Liberty interpreter
 
