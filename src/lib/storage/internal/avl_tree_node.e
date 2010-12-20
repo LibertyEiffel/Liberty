@@ -31,7 +31,7 @@ feature {ANY}
 			tagged_out_memory.extend(')')
 		end
 
-feature {AVL_TREE_NODE, AVL_TREE}
+feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
 	left: like Current
 
 	right: like left

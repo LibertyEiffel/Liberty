@@ -11,7 +11,9 @@ deferred class ABSTRACT_AVL_DICTIONARY[V_, K_]
 
 inherit
 	SIMPLE_DICTIONARY[V_, K_]
-		redefine occurrences, fast_occurrences, key_at, fast_key_at, copy
+		redefine
+			occurrences, fast_occurrences, key_at, fast_key_at, copy,
+			new_iterator_on_items
 		end
 
 insert
@@ -130,7 +132,12 @@ feature {ANY}
 
 	new_iterator_on_keys: ITERATOR[K_] is
 		do
-			create {ITERATOR_ON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
+			create {ITERATOR_ON_AVL_DICTIONARY_KEYS[V_, K_]} Result.make(root)
+		end
+
+	new_iterator_on_items: ITERATOR[V_] is
+		do
+			create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(root)
 		end
 
 	internal_key (k: K_): K_ is

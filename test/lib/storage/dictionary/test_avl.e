@@ -19,6 +19,7 @@ feature {}
 	test_dictionary is
 		local
 			dico: AVL_DICTIONARY[STRING, STRING]
+			iter: ITERATOR[STRING]
 		do
 			create dico.make
 			dico.add("W", "B")
@@ -29,11 +30,44 @@ feature {}
 			assert(dico.at("A").same_as("X"))
 			assert(dico.at("C").same_as("Y"))
 			assert(dico.at("@").same_as("Z"))
+
+			iter := dico.new_iterator_on_keys
+			iter.start
+			assert(not iter.is_off)
+			assert(iter.item.same_as("@"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("A"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("B"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("C"))
+			iter.next
+			assert(iter.is_off)
+
+			iter := dico.new_iterator_on_items
+			iter.start
+			assert(not iter.is_off)
+			assert(iter.item.same_as("Z"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("X"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("W"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("Y"))
+			iter.next
+			assert(iter.is_off)
 		end
 
 	test_set is
 		local
 			set: AVL_SET[STRING]
+			iter: ITERATOR[STRING]
 		do
 			create set.make
 			set.add("B")
@@ -44,6 +78,22 @@ feature {}
 			assert(set.has("A"))
 			assert(set.has("B"))
 			assert(set.has("C"))
+
+			iter := set.new_iterator
+			iter.start
+			assert(not iter.is_off)
+			assert(iter.item.same_as("@"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("A"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("B"))
+			iter.next
+			assert(not iter.is_off)
+			assert(iter.item.same_as("C"))
+			iter.next
+			assert(iter.is_off)
 		end
 
 end -- class TEST_AVL
