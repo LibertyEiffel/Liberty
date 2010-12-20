@@ -5,6 +5,8 @@ deferred class ABSTRACT_AVL_SET[E_]
 
 inherit
 	SET[E_]
+		redefine new_iterator
+		end
 
 insert
 	AVL_TREE[E_]
@@ -12,6 +14,11 @@ insert
 		end
 
 feature {ANY}
+	new_iterator: ITERATOR[E_] is
+		do
+			create {ITERATOR_ON_AVL_SET[E_]} Result.make(root)
+		end
+
 	add (e: like item) is
 		do
 			item_memory := e
