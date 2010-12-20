@@ -1,62 +1,55 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class ITERABLE[E_]
-	--
-	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
-	-- accessed through an ITERATOR[E]
-	--
+class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
+	-- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	HOARD[E_]
+	ITERATOR[V_]
 
-feature {ANY} -- Other features:
-	new_iterator: ITERATOR[E_] is
-		deferred
+creation {ANY}
+	make
+
+feature {}
+	first, node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+
+feature {ANY}
+	make (a_node: like node) is
+		require
+			a_node /= Void
+		do
+			first := a_node
+			node := Void
 		ensure
-			Result /= Void
+			first = a_node
+			node = Void
 		end
 
-	frozen get_new_iterator: like new_iterator is
-		obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
+	start is
 		do
-			Result := new_iterator
+			node := first
 		end
 
-feature {ANY} -- Agent-based features:
-	do_all (action: ROUTINE[TUPLE[E_]]) is
-			-- Apply `action' to every item of `Current'.
-			--
-			-- See also `for_all', `exists', `aggregate'.
+	is_off: BOOLEAN is
 		do
-			new_iterator.do_all(action)
+			Result := node = Void
 		end
 
-	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Do all items satisfy `test'?
-			--
-			-- See also `do_all', `exists', `aggregate'.
+	item: V_ is
 		do
-			Result := new_iterator.for_all(test)
+			Result := node.item
 		end
 
-	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Does at least one item satisfy `test'?
-			--
-			-- See also `do_all', `for_all', `aggregate'.
+	next is
 		do
-			Result := new_iterator.exists(test)
+			if node.next_link = first then
+				node := Void
+			else
+				node := node.next_link
+			end
 		end
 
-	aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
-			-- Aggregate all the elements starting from the initial value.
-			--
-			-- See also `do_all', `for_all', `exists'.
-		do
-			Result := aggregate(action, initial)
-		end
-
-end -- class ITERABLE
+end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
