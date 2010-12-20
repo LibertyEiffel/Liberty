@@ -19,7 +19,7 @@ insert
 		end
 
 feature {HASHED_DICTIONARY}
-	buckets: NATIVE_ARRAY[like cache_node]
+	buckets: NATIVE_ARRAY[HASHED_DICTIONARY_NODE[V_, K_]]
 			-- The `buckets' storage area is the primary hash table of `capacity' elements. To search some key,
 			-- the first access is done in `buckets' using the remainder of the division of the key `hash_code'
 			-- by `capacity'. In order to try to avoid clashes, `capacity' is always a prime number (selected
@@ -30,6 +30,11 @@ feature {}
 		require
 			k /= Void
 		deferred
+		end
+
+	buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
+		do
+			Result := a_buckets.item(idx)
 		end
 
 feature {ANY}
@@ -47,7 +52,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else key_safe_equal(node.key, k)
 			loop
@@ -62,7 +67,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				key_safe_equal(node.key, k)
 			loop
@@ -77,7 +82,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else key_safe_equal(node.key, k)
 			loop
@@ -94,7 +99,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else node.key = k
 			loop
@@ -109,7 +114,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node.key = k
 			loop
@@ -124,7 +129,7 @@ feature {ANY}
 		do
 			from
 				idx := hash_code(k) #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else node.key = k
 			loop
@@ -143,7 +148,7 @@ feature {ANY}
 			from
 				h := hash_code(k)
 				idx := h #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else key_safe_equal(node.key, k)
 			loop
@@ -154,7 +159,7 @@ feature {ANY}
 					increase_capacity
 					idx := h #\\ capacity
 				end
-				node := new_node(v, k, buckets.item(idx))
+				node := new_node(v, k, buckets_item(buckets, idx))
 				buckets.put(node, idx)
 				count := count + 1
 				cache_user := -1
@@ -173,7 +178,7 @@ feature {ANY}
 			from
 				h := hash_code(k)
 				idx := h #\\ capacity
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				node = Void or else node.key = k
 			loop
@@ -184,7 +189,7 @@ feature {ANY}
 					increase_capacity
 					idx := h #\\ capacity
 				end
-				node := new_node(v, k, buckets.item(idx))
+				node := new_node(v, k, buckets_item(buckets, idx))
 				buckets.put(node, idx)
 				count := count + 1
 				cache_user := -1
@@ -205,7 +210,7 @@ feature {ANY}
 				increase_capacity
 			end
 			idx := hash_code(k) #\\ capacity
-			node := new_node(v, k, buckets.item(idx))
+			node := new_node(v, k, buckets_item(buckets, idx))
 			buckets.put(node, idx)
 			count := count + 1
 			debug
@@ -220,7 +225,7 @@ feature {ANY}
 			cache_user := -1
 			h := hash_code(k)
 			idx := h #\\ capacity
-			node := buckets.item(idx)
+			node := buckets_item(buckets, idx)
 			if node /= Void then
 				if key_safe_equal(node.key, k) then
 					debug
@@ -257,7 +262,7 @@ feature {ANY}
 			cache_user := -1
 			h := hash_code(k)
 			idx := h #\\ capacity
-			node := buckets.item(idx)
+			node := buckets_item(buckets, idx)
 			if node /= Void then
 				if node.key = k then
 					debug
@@ -298,7 +303,7 @@ feature {ANY}
 			until
 				i < 0
 			loop
-				node := buckets.item(i)
+				node := buckets_item(buckets, i)
 				buckets.put(Void, i)
 				from
 				until
@@ -344,7 +349,7 @@ feature {ANY}
 		do
 			from
 				i := count
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				i <= 0
 			loop
@@ -356,7 +361,7 @@ feature {ANY}
 					check
 						idx < capacity
 					end
-					node := buckets.item(idx)
+					node := buckets_item(buckets, idx)
 				end
 				buffer.add_last(node.key)
 				node := node.next
@@ -370,7 +375,7 @@ feature {ANY}
 		do
 			from
 				i := count
-				node := buckets.item(idx)
+				node := buckets_item(buckets, idx)
 			until
 				i <= 0
 			loop
@@ -382,7 +387,7 @@ feature {ANY}
 					check
 						idx < capacity
 					end
-					node := buckets.item(idx)
+					node := buckets_item(buckets, idx)
 				end
 				buffer.add_last(node.item)
 				node := node.next
@@ -420,7 +425,7 @@ feature {ANY}
 			node: like cache_node
 		do
 			from
-				node := buckets.item(hash_code(k) #\\ capacity)
+				node := buckets_item(buckets, hash_code(k) #\\ capacity)
 				Result := node.key
 			until
 				key_safe_equal(Result, k)
@@ -455,13 +460,13 @@ feature {}
 				i < 0
 			loop
 				from
-					node1 := old_buckets.item(i)
+					node1 := buckets_item(old_buckets, i)
 				until
 					node1 = Void
 				loop
 					node2 := node1.next
 					idx := hash_code(node1.key) #\\ capacity
-					node1.set_next(buckets.item(idx))
+					node1.set_next(buckets_item(buckets, idx))
 					buckets.put(node1, idx)
 					node1 := node2
 				end
@@ -487,19 +492,19 @@ feature {}
 					cache_node /= Void
 				loop
 					cache_buckets := cache_buckets + 1
-					cache_node := buckets.item(cache_buckets)
+					cache_node := buckets_item(buckets, cache_buckets)
 				end
 			elseif index = cache_user then
 			elseif index = 1 then
 				from
 					cache_user := 1
 					cache_buckets := 0
-					cache_node := buckets.item(cache_buckets)
+					cache_node := buckets_item(buckets, cache_buckets)
 				until
 					cache_node /= Void
 				loop
 					cache_buckets := cache_buckets + 1
-					cache_node := buckets.item(cache_buckets)
+					cache_node := buckets_item(buckets, cache_buckets)
 				end
 			else
 				from
@@ -519,7 +524,7 @@ feature {}
 	cache_user: INTEGER
 			-- The last user's external index in range [1 .. `count'] (see `item' and `valid_index' for example)
 			-- may be saved in `cache_user' otherwise -1 to indicate that the cache is not active. When the cache
-			-- is active, the corresponding index in `buckets' is save in `cache_buckets' and the corresponding
+			-- is active, the corresponding index in `buckets' is saved in `cache_buckets' and the corresponding
 			-- node in `cache_node'.
 
 	cache_node: HASHED_DICTIONARY_NODE[V_, K_]
@@ -543,7 +548,7 @@ feature {}
 			Result.add(fn, Result.generating_type)
 		end
 
-	dispose_node (node: HASHED_DICTIONARY_NODE[V_, K_]): HASHED_DICTIONARY_NODE[V_, K_] is
+	dispose_node (node: like cache_node): like cache_node is
 			-- Add `node' in the `free_nodes' list.
 		require
 			node /= Void
@@ -555,7 +560,7 @@ feature {}
 			Result = old node.next
 		end
 
-	new_node (v: V_; k: K_; next: HASHED_DICTIONARY_NODE[V_, K_]): HASHED_DICTIONARY_NODE[V_, K_] is
+	new_node (v: V_; k: K_; next: like cache_node): like cache_node is
 			-- Recycle from `free_nodes' or create a new one.
 		do
 			Result := free_nodes.item
