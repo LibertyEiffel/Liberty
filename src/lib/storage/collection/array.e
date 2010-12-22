@@ -16,7 +16,7 @@ class ARRAY[E_]
 
 inherit
 	COLLECTION[E_]
-	ARRAYED_COLLECTION[E_] 
+	ARRAYED_COLLECTION[E_]
 insert
 	NATIVE_ARRAY_COLLECTOR[E_]
 		undefine
@@ -81,6 +81,7 @@ feature {}
 					clear_all
 				end
 			end
+			next_generation
 		ensure
 			needed_capacity <= capacity
 			lower = low
@@ -135,6 +136,7 @@ feature {ANY} -- Modification:
 			end
 			lower := min_index
 			upper := max_index
+			next_generation
 		ensure
 			lower = min_index
 			upper = max_index
@@ -149,6 +151,7 @@ feature {ANY} -- Modification:
 			i := new_lower - lower
 			lower := lower + i
 			upper := upper + i
+			next_generation
 		ensure
 			lower = new_lower
 			count = old count
@@ -181,6 +184,7 @@ feature {ANY} -- Implementation of deferred:
 	put (element: like item; i: INTEGER) is
 		do
 			storage.put(element, i - lower)
+			next_generation
 		end
 
 	force (element: like item; index: INTEGER) is
@@ -218,17 +222,20 @@ feature {ANY} -- Implementation of deferred:
 			if needed_capacity > 0 then
 				storage.copy_from(other.storage, needed_capacity - 1)
 			end
+			next_generation
 		end
 
 	set_all_with (v: like item) is
 		do
 			storage.set_all_with(v, upper - lower)
+			next_generation
 		end
 
 	remove_first is
 		do
 			storage.remove_first(upper - lower)
 			lower := lower + 1
+			next_generation
 		ensure then
 			upper = old upper
 		end
@@ -237,6 +244,7 @@ feature {ANY} -- Implementation of deferred:
 		do
 			storage.move(n, upper - lower, -n)
 			lower := lower + n
+			next_generation
 		ensure then
 			upper = old upper
 		end
@@ -245,11 +253,13 @@ feature {ANY} -- Implementation of deferred:
 		do
 			storage.remove(index - lower, upper - lower)
 			upper := upper - 1
+			next_generation
 		end
 
 	clear_count, clear_count_and_capacity is
 		do
 			upper := lower - 1
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -404,14 +414,14 @@ feature {ANY} -- Implementation of deferred:
 		do
 			create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
 		end
-	
+
 feature {} -- Garbage collector tuning (very low-level):
 	mark_native_arrays is
 			-- For performance reasons, the unused area of `storage' is always left as it is when
-			-- some elements are removed. No time is lost to clean the released area with a Void 
+			-- some elements are removed. No time is lost to clean the released area with a Void
 			-- or a 0 value. (Look for example the `remove_last' implementation.)
-			-- Thus, the unused area of `storage' may contains references of actually unreachable 
-			-- objects. The following `mark_native_arrays' actually replace the 
+			-- Thus, the unused area of `storage' may contains references of actually unreachable
+			-- objects. The following `mark_native_arrays' actually replace the
 			-- default behavior (the call is automatic) in order to mark only reachable objects.
 			--
 			-- See also class GARBAGE_COLLECTOR_TUNING.

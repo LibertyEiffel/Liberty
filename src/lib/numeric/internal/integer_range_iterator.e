@@ -39,6 +39,8 @@ feature {}
 			upper := up
 		end
 
+	iterable_generation: INTEGER is 0
+
 end -- class INTEGER_RANGE_ITERATOR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

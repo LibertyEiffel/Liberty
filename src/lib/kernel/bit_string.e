@@ -65,6 +65,7 @@ feature {ANY}
 			else
 				storage.make((n + word_limit) #// word_size)
 			end
+			next_generation
 		ensure
 			count = n
 			all_default
@@ -128,6 +129,7 @@ feature {ANY}
 		do
 			pos := (idx - 1) #// word_size
 			storage.put(storage.item(pos).bit_set((word_limit - (idx - 1) #\\ word_size).to_integer_8), pos)
+			next_generation
 		ensure
 			item(idx)
 		end
@@ -141,6 +143,7 @@ feature {ANY}
 		do
 			pos := (idx - 1) #// word_size
 			storage.put(storage.item(pos).bit_reset((word_limit - (idx - 1) #\\ word_size).to_integer_8), pos)
+			next_generation
 		ensure
 			not item(idx)
 		end
@@ -159,6 +162,7 @@ feature {ANY} -- Rotating and shifting:
 			elseif n < 0 then
 				shift_left_by(-n)
 			end
+			next_generation
 		ensure
 			count = old count
 		end
@@ -213,6 +217,7 @@ feature {ANY} -- Rotating and shifting:
 					storage.put(0, src)
 				end
 			end
+			next_generation
 		end
 
 	shift_right_by (n: INTEGER) is
@@ -267,6 +272,7 @@ feature {ANY} -- Rotating and shifting:
 				end
 			end
 			storage.put(storage.last.bit_and({INTEGER_32 -1 } |<< (word_size - count.bit_and(word_limit).to_integer_8)), storage.upper)
+			next_generation
 		end
 
 	rotate_by (n: INTEGER) is
@@ -431,6 +437,7 @@ feature {ANY} -- Bitwise Logical Operators:
 				storage.put(storage.item(i).bit_and(other.storage.item(i)), i)
 				i := i + 1
 			end
+			next_generation
 		end
 
 	implies_mask (other: like Current) is
@@ -456,6 +463,7 @@ feature {ANY} -- Bitwise Logical Operators:
 				mask := mask.bit_not |<< (word_size - i).to_integer_8
 				storage.put(storage.last.bit_and(mask), storage.upper)
 			end
+			next_generation
 		end
 
 	or_mask (other: like Current) is
@@ -475,6 +483,7 @@ feature {ANY} -- Bitwise Logical Operators:
 				storage.put(storage.item(i).bit_or(other.storage.item(i)), i)
 				i := i + 1
 			end
+			next_generation
 		end
 
 	xor_mask (other: like Current) is
@@ -494,6 +503,7 @@ feature {ANY} -- Bitwise Logical Operators:
 				storage.put(storage.item(i).bit_xor(other.storage.item(i)), i)
 				i := i + 1
 			end
+			next_generation
 		end
 
 	invert is
@@ -519,6 +529,7 @@ feature {ANY} -- Bitwise Logical Operators:
 				mask := mask.bit_not |<< (word_size - i).to_integer_8
 				storage.put(storage.last.bit_and(mask), storage.upper)
 			end
+			next_generation
 		end
 
 feature {ANY} -- Conversions:
@@ -555,6 +566,7 @@ feature {ANY} -- Others:
 			-- Set all bits to 0
 		do
 			storage.clear_all
+			next_generation
 		ensure
 			all_default
 		end
@@ -593,6 +605,7 @@ feature {ANY} -- Others:
 			if i /= 0 then
 				storage.put({INTEGER -1} |<< (word_size - i).to_integer_8, storage.upper)
 			end
+			next_generation
 		ensure
 			all_set
 		end
@@ -612,6 +625,7 @@ feature {ANY} -- Others:
 			else
 				storage.copy(other.storage)
 			end
+			next_generation
 		end
 
 	out_in_tagged_out_memory is
@@ -662,6 +676,7 @@ feature {ANY} -- Others:
 				put(model.item(i) = '1', i + offset - 1)
 				i := i + 1
 			end
+			next_generation
 		ensure
 			count = old count
 		end
@@ -690,6 +705,7 @@ feature {}
 				prec.shift_left_by(count - n)
 				or_mask(prec)
 			end
+			next_generation
 		end
 
 invariant

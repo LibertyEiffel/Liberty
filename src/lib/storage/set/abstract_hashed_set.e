@@ -65,6 +65,7 @@ feature {}
 			else
 				create_with_capacity(Default_size)
 			end
+			next_generation
 		ensure then
 			capacity = Default_size
 		end
@@ -80,6 +81,7 @@ feature {}
 			medium_size > 0
 		do
 			create_with_capacity(prime_capacity(medium_size))
+			next_generation
 		ensure
 			is_empty
 			capacity >= medium_size
@@ -115,6 +117,7 @@ feature {ANY}
 				buckets.put(node, idx)
 				count := count + 1
 			end
+			next_generation
 		end
 
 	fast_add (e: like item) is
@@ -140,6 +143,7 @@ feature {ANY}
 				buckets.put(node, idx)
 				count := count + 1
 			end
+			next_generation
 		end
 
 	remove (e: like item) is
@@ -171,6 +175,7 @@ feature {ANY}
 					end
 				end
 			end
+			next_generation
 		end
 
 	fast_remove (e: like item) is
@@ -202,6 +207,7 @@ feature {ANY}
 					end
 				end
 			end
+			next_generation
 		end
 
 	clear_count, clear_count_and_capacity is
@@ -225,6 +231,7 @@ feature {ANY}
 				end
 				i := i - 1
 			end
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -322,6 +329,7 @@ feature {ANY}
 				end
 				i := i - 1
 			end
+			next_generation
 		end
 
 	copy (other: like Current) is
@@ -343,6 +351,7 @@ feature {ANY}
 				add(other.item(i))
 				i := i + 1
 			end
+			next_generation
 		end
 
 	from_collection (model: COLLECTION[like item]) is
@@ -359,6 +368,7 @@ feature {ANY}
 				add(model.item(i))
 				i := i + 1
 			end
+			next_generation
 		end
 
 feature {} -- Implement manifest generic creation:

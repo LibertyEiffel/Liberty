@@ -23,7 +23,7 @@ feature {ANY}
 			s /= Void
 		do
 			string := s
-			item_index := 1
+			start
 		ensure
 			string = s
 		end
@@ -31,6 +31,7 @@ feature {ANY}
 	start is
 		do
 			item_index := 1
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -46,6 +47,12 @@ feature {ANY}
 	next is
 		do
 			item_index := item_index + 1
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := string.generation
 		end
 
 end -- class ITERATOR_ON_UNICODE_STRING

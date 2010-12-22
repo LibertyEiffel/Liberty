@@ -169,6 +169,7 @@ feature {ANY}
 			else
 				node.set_item(v)
 			end
+			next_generation
 		end
 
 	fast_put (v: V_; k: K_) is
@@ -199,6 +200,7 @@ feature {ANY}
 			else
 				node.set_item(v)
 			end
+			next_generation
 		end
 
 	add (v: V_; k: K_) is
@@ -216,6 +218,7 @@ feature {ANY}
 			debug
 				nodes_list.add_last(node)
 			end
+			next_generation
 		end
 
 	remove (k: K_) is
@@ -253,6 +256,7 @@ feature {ANY}
 					end
 				end
 			end
+			next_generation
 		end
 
 	fast_remove (k: K_) is
@@ -290,6 +294,7 @@ feature {ANY}
 					end
 				end
 			end
+			next_generation
 		end
 
 	clear_count, clear_count_and_capacity is
@@ -316,6 +321,7 @@ feature {ANY}
 			debug
 				nodes_list.clear_count
 			end
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -324,6 +330,7 @@ feature {ANY}
 		do
 			set_cache_user(index)
 			cache_node.set_item(v)
+			next_generation
 		end
 
 	item (index: INTEGER): V_ is

@@ -51,6 +51,7 @@ feature {ANY} -- Creation and modification:
 				end
 			end
 			upper := new_count - 1
+			next_generation
 		ensure
 			count = new_count
 			capacity >= old capacity
@@ -69,6 +70,7 @@ feature {ANY} -- Creation and modification:
 				storage.clear(0, upper)
 			end
 			upper := -1
+			next_generation
 		ensure
 			capacity >= needed_capacity
 			is_empty
@@ -76,7 +78,7 @@ feature {ANY} -- Creation and modification:
 
 feature {ANY} -- Modification:
 	resize (new_count: INTEGER) is
-			-- Resize the array. When `new_count' is greater than `count', new positions are initialized 
+			-- Resize the array. When `new_count' is greater than `count', new positions are initialized
 			-- with appropriate default values.
 		require
 			new_count >= 0
@@ -104,6 +106,7 @@ feature {ANY} -- Modification:
 				end
 			end
 			upper := new_count - 1
+			next_generation
 		ensure
 			count = new_count
 			capacity >= old capacity
@@ -123,6 +126,7 @@ feature {ANY} -- Implementation of deferred:
 	put (element: E_; i: INTEGER) is
 		do
 			storage.put(element, i)
+			next_generation
 		end
 
 	add_first (element: like item) is
@@ -135,6 +139,7 @@ feature {ANY} -- Implementation of deferred:
 				move(0, upper - 1, 1)
 				storage.put(element, 0)
 			end
+			next_generation
 		end
 
 	add_last (element: like item) is
@@ -154,6 +159,7 @@ feature {ANY} -- Implementation of deferred:
 				upper := upper + 1
 			end
 			storage.put(element, upper)
+			next_generation
 		end
 
 	count: INTEGER is
@@ -164,6 +170,7 @@ feature {ANY} -- Implementation of deferred:
 	clear_count, clear_count_and_capacity is
 		do
 			upper := -1
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -188,6 +195,7 @@ feature {ANY} -- Implementation of deferred:
 				storage.clear_all(capacity - 1)
 			end
 			upper := other_upper
+			next_generation
 		end
 
 	set_all_with (v: like item) is
@@ -212,6 +220,7 @@ feature {ANY} -- Implementation of deferred:
 				i1 := i1 + 1
 				i2 := i2 + 1
 			end
+			next_generation
 		end
 
 	is_equal (other: like Current): BOOLEAN is
@@ -317,6 +326,7 @@ feature {ANY} -- Implementation of deferred:
 				resize(index + 1)
 				storage.put(element, index)
 			end
+			next_generation
 		end
 
 	remove_first is
@@ -331,6 +341,7 @@ feature {ANY} -- Implementation of deferred:
 				storage.remove_first(upper)
 				upper := upper - 1
 			end
+			next_generation
 		ensure then
 			lower = old lower
 		end
@@ -339,12 +350,14 @@ feature {ANY} -- Implementation of deferred:
 		do
 			storage.move(n, upper, -n)
 			upper := upper - n
+			next_generation
 		end
 
 	remove (index: INTEGER) is
 		do
 			storage.remove(index, upper)
 			upper := upper - 1
+			next_generation
 		end
 
 	new_iterator: ITERATOR[E_] is
@@ -355,10 +368,10 @@ feature {ANY} -- Implementation of deferred:
 feature {} -- Garbage collector tuning (very low-level):
 	mark_native_arrays is
 			-- For performance reasons, the unused area of `storage' is always left as it is when
-			-- some elements are removed. No time is lost to clean the released area with a Void 
+			-- some elements are removed. No time is lost to clean the released area with a Void
 			-- or a 0 value. (Look for example the `remove_last' implementation.)
-			-- Thus, the unused area of `storage' may contains references of actually unreachable 
-			-- objects. The following `mark_native_arrays' actually replace the 
+			-- Thus, the unused area of `storage' may contains references of actually unreachable
+			-- objects. The following `mark_native_arrays' actually replace the
 			-- default behavior (the call is automatic) in order to mark only reachable objects.
 			--
 			-- See also class GARBAGE_COLLECTOR_TUNING.

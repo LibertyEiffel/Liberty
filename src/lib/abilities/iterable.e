@@ -15,6 +15,7 @@ feature {ANY} -- Other features:
 		deferred
 		ensure
 			Result /= Void
+			Result.generation = generation
 		end
 
 	frozen get_new_iterator: like new_iterator is
@@ -54,6 +55,17 @@ feature {ANY} -- Agent-based features:
 			-- See also `do_all', `for_all', `exists'.
 		do
 			Result := aggregate(action, initial)
+		end
+
+feature {ITERATOR}
+	generation: INTEGER
+
+feature {}
+	frozen next_generation is
+		do
+			generation := generation + 1
+		ensure
+			generation > old generation
 		end
 
 end -- class ITERABLE

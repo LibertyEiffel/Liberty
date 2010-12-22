@@ -12,35 +12,64 @@ deferred class ITERATOR[E_]
 	-- corresponding data structure.
 	--
 	-- See examples in directory SmartEiffel/tutorial/iterator.
+	--
 
 feature {ANY}
+	frozen is_valid: BOOLEAN is
+		do
+			Result := generation = iterable_generation
+		end
+
 	start is
 			-- Positions the iterator to the first object in the
 			-- aggregate to be traversed.
 		deferred
+		ensure
+			is_valid
 		end
 
 	is_off: BOOLEAN is
 			-- Returns True when there are no more objects in the
 			-- sequence.
+		require
+			is_valid
 		deferred
+		ensure
+			generation = old generation
+			is_valid
 		end
 
 	item: E_ is
 			-- Returns the object at the current position in the
 			-- sequence.
 		require
+			is_valid
 			not is_off
 		deferred
+		ensure
+			generation = old generation
+			is_valid
 		end
 
 	next is
 			-- Positions the iterator to the next object in the
 			-- sequence.
 		require
+			is_valid
 			not is_off
 		deferred
+		ensure
+			generation = old generation
+			is_valid
 		end
+
+feature {}
+	iterable_generation: INTEGER is
+		deferred
+		end
+
+feature {ITERABLE}
+	generation: INTEGER
 
 feature {ANY} -- Agent-based features:
 	do_all (action: ROUTINE[TUPLE[E_]]) is
@@ -50,6 +79,8 @@ feature {ANY} -- Agent-based features:
 		do
 			from
 				start
+			invariant
+				is_valid
 			until
 				is_off
 			loop
@@ -66,6 +97,8 @@ feature {ANY} -- Agent-based features:
 			from
 				Result := True
 				start
+			invariant
+				is_valid
 			until
 				not Result or else is_off
 			loop
@@ -81,6 +114,8 @@ feature {ANY} -- Agent-based features:
 		do
 			from
 				start
+			invariant
+				is_valid
 			until
 				Result or else is_off
 			loop
@@ -97,6 +132,8 @@ feature {ANY} -- Agent-based features:
 			from
 				Result := initial
 				start
+			invariant
+				is_valid
 			until
 				is_off
 			loop

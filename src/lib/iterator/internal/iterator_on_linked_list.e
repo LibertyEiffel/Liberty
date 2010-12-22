@@ -23,7 +23,7 @@ feature {ANY}
 			ll /= Void
 		do
 			linked_list := ll
-			current_link := linked_list.first_link
+			start
 		ensure
 			linked_list = ll
 		end
@@ -31,6 +31,7 @@ feature {ANY}
 	start is
 		do
 			current_link := linked_list.first_link
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -46,6 +47,12 @@ feature {ANY}
 	next is
 		do
 			current_link := current_link.next
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := linked_list.generation
 		end
 
 end -- class ITERATOR_ON_LINKED_LIST
