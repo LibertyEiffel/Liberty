@@ -94,6 +94,7 @@ feature {ANY} -- Creation / Modification:
 				low_surrogate_indexes.make(0)
 				low_surrogate_values.make(0)
 			end
+			next_generation
 		ensure
 			needed_capacity <= capacity
 			empty_string: count = 0
@@ -437,12 +438,6 @@ feature {ANY} -- Testing and Conversion:
 			Result := tmp_buffer.twin
 		end
 
-	to_string: STRING is
-		obsolete "Now use `to_utf8' instead (May 2008)."
-		do
-			Result := to_utf8
-		end
-
 	as_utf8: STRING is
 			-- Encode the string in UTF-8. Always returns the same once object.
 			--
@@ -451,12 +446,6 @@ feature {ANY} -- Testing and Conversion:
 			Result := once ""
 			Result.clear_count
 			utf8_encode_in(Result)
-		end
-
-	as_string: STRING is
-		obsolete "Now use `as_utf8' instead (May 2008)."
-		do
-			Result := as_utf8
 		end
 
 	utf8_encode_in (s: STRING) is
@@ -636,6 +625,7 @@ feature {ANY} -- Modification:
 				low_surrogate_values.remove_last
 				i := i - 1
 			end
+			next_generation
 		ensure
 			count = new_count
 			capacity >= old capacity
@@ -651,6 +641,7 @@ feature {ANY} -- Modification:
 			count := 0
 			low_surrogate_indexes.make(0)
 			low_surrogate_values.make(0)
+			next_generation
 		ensure
 			is_empty: count = 0
 			capacity = old capacity
@@ -667,6 +658,7 @@ feature {ANY} -- Modification:
 			clear_count
 			--*** capacity := 0
 			--*** storage := null_storage
+			next_generation
 		ensure
 			is_empty: count = 0
 			capacity = 0
@@ -691,6 +683,7 @@ feature {ANY} -- Modification:
 			end
 			low_surrogate_indexes.copy(other.low_surrogate_indexes)
 			low_surrogate_values.copy(other.low_surrogate_values)
+			next_generation
 		ensure then
 			count = other.count
 		end
@@ -740,6 +733,7 @@ feature {ANY} -- Modification:
 				low_surrogate_values.resize(0)
 				low_surrogate_indexes.resize(0)
 			end
+			next_generation
 		ensure
 			occurrences(unicode) = count
 		end
@@ -763,6 +757,7 @@ feature {ANY} -- Modification:
 					i := index_of(old_code, i + 1)
 				end
 			end
+			next_generation
 		ensure
 			count = old count
 			old_code /= new_code implies occurrences(old_code) = 0
@@ -800,6 +795,7 @@ feature {ANY} -- Modification:
 				i := i + 1
 			end
 			count := needed_capacity
+			next_generation
 		end
 
 	append_substring (s: like Current; start_index, end_index: INTEGER) is
@@ -858,6 +854,7 @@ feature {ANY} -- Modification:
 				k := k - 1
 			end
 			storage.copy_from(other.storage, j - 1)
+			next_generation
 		ensure
 			(old other.twin + old Current.twin).is_equal(Current)
 		end
@@ -905,6 +902,7 @@ feature {ANY} -- Modification:
 				j := j - 1
 				n := n - 1
 			end
+			next_generation
 		end
 
 	replace_substring (s: UNICODE_STRING; start_index, end_index: INTEGER) is
@@ -971,6 +969,7 @@ feature {ANY} -- Modification:
 				end
 				storage.put(unicode.low_16, i - 1)
 			end
+			next_generation
 		ensure
 			item(i) = unicode
 		end
@@ -1034,6 +1033,7 @@ feature {ANY} -- Modification:
 			end
 			storage.put(storage.item(j2), j1)
 			storage.put(tmp, j2)
+			next_generation
 		ensure
 			item(i1) = old item(i2)
 			item(i2) = old item(i1)
@@ -1107,6 +1107,7 @@ feature {ANY} -- Modification:
 				low_surrogate_values.resize(j)
 				count := max_index - min_index + 1
 			end
+			next_generation
 		ensure
 			count = max_index - min_index + 1
 		end
@@ -1179,6 +1180,7 @@ feature {ANY} -- Modification:
 				storage.put(unicode.low_16, count)
 			end
 			count := count + 1
+			next_generation
 		ensure
 			count = 1 + old count
 			item(count) = unicode
@@ -1277,6 +1279,7 @@ feature {ANY} -- Modification:
 					remove_between(1, n)
 				end
 			end
+			next_generation
 		ensure
 			count = (old count - n).max(0)
 		end
@@ -1313,6 +1316,7 @@ feature {ANY} -- Modification:
 				low_surrogate_indexes.resize(i)
 				low_surrogate_values.resize(i)
 			end
+			next_generation
 		ensure
 			count = (old count - n).max(0)
 		end
@@ -1344,6 +1348,7 @@ feature {ANY} -- Modification:
 				storage.slice_copy(start_index - 1, storage, end_index, count - 1)
 				count := count - len
 			end
+			next_generation
 		ensure
 			count = old count - (end_index - start_index + 1)
 		end
@@ -1412,6 +1417,7 @@ feature {ANY} -- Modification:
 			i := low_surrogate_position(count + 1)
 			low_surrogate_indexes.resize(i)
 			low_surrogate_values.resize(i)
+			next_generation
 		ensure
 		-- not_yet_implemented -- handle combining characters
 			stripped: is_empty or else not is_space(last)

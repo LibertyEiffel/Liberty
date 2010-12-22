@@ -189,6 +189,7 @@ feature {ANY}
 				remove(k)
 				add(v, k)
 			end
+			next_generation
 		end
 
 	add (v: V_; k: K_) is
@@ -206,6 +207,7 @@ feature {ANY}
 			val_buckets.put(node, val_idx)
 			-- Finally:
 			count := count + 1
+			next_generation
 		end
 
 	remove (k: K_) is
@@ -238,6 +240,7 @@ feature {ANY}
 					end
 				end
 			end
+			next_generation
 		end
 
 	clear_count, clear_count_and_capacity is
@@ -264,6 +267,7 @@ feature {ANY}
 				end
 				i := i - 1
 			end
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -338,6 +342,7 @@ feature {ANY}
 				add(other.item(i), other.key(i))
 				i := i + 1
 			end
+			next_generation
 		end
 
 feature {}
@@ -530,13 +535,13 @@ feature {}
 				create Result.make(v, nv, k, nk)
 			else
 				free_nodes.set_item(Result.next_key)
-				Result.make(v, nv, k, nk)				
+				Result.make(v, nv, k, nk)
 			end
 		ensure
 			Result.val = v
 			Result.next_val = nv
 			Result.key = k
-			Result.next_key = nk			
+			Result.next_key = nk
 		end
 
 	val_buckets_remove (node: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]) is

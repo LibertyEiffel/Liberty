@@ -23,7 +23,7 @@ feature {ANY}
 			d /= Void
 		do
 			bijective_dictionary := d
-			item_index := 1
+			start
 		ensure
 			bijective_dictionary = d
 		end
@@ -31,6 +31,7 @@ feature {ANY}
 	start is
 		do
 			item_index := 1
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -46,6 +47,12 @@ feature {ANY}
 	next is
 		do
 			item_index := item_index + 1
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := bijective_dictionary.generation
 		end
 
 end -- class ITERATOR_ON_BIJECTIVE_DICTIONARY_ITEMS

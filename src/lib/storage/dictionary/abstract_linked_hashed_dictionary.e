@@ -18,18 +18,18 @@ inherit
 			buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node
 		end
 
-feature {}
+feature {ITERATOR}
 	first_node, last_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
 
 feature {ANY}
 	new_iterator_on_keys: ITERATOR[K_] is
 		do
-			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]} Result.make(first_node)
+			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
 		end
 
 	new_iterator_on_items: ITERATOR[V_] is
 		do
-			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(first_node)
+			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
 		end
 
 	key_map_in (buffer: COLLECTION[K_]) is

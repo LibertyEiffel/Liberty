@@ -84,6 +84,7 @@ feature {ANY}
 	add (v: V_; k: K_) is
 		do
 			bijective_dictionary.add(k, v)
+			next_generation
 		end
 
 	remove (k: K_) is
@@ -94,16 +95,19 @@ feature {ANY}
 				v := at(k)
 				bijective_dictionary.remove(v)
 			end
+			next_generation
 		end
 
 	clear_count is
 		do
 			bijective_dictionary.clear_count
+			next_generation
 		end
 
 	clear_count_and_capacity is
 		do
 			bijective_dictionary.clear_count_and_capacity
+			next_generation
 		end
 
 	capacity: INTEGER is

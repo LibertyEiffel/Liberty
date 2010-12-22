@@ -22,7 +22,7 @@ feature {ANY}
 			d /= Void
 		do
 			dictionary := d
-			item_index := 1
+			start
 		ensure
 			dictionary = d
 		end
@@ -30,6 +30,7 @@ feature {ANY}
 	start is
 		do
 			item_index := 1
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -45,6 +46,12 @@ feature {ANY}
 	next is
 		do
 			item_index := item_index + 1
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := dictionary.generation
 		end
 
 end -- class ITERATOR_ON_DICTIONARY_KEYS

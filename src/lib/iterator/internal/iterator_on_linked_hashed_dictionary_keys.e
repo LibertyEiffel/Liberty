@@ -11,23 +11,25 @@ creation {ANY}
 	make
 
 feature {}
-	first, node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+	node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+
+	dico: ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
 
 feature {ANY}
-	make (a_node: like node) is
+	make (a_dico: like dico) is
 		require
-			a_node /= Void
+			a_dico /= Void
 		do
-			first := a_node
-			node := Void
+			dico := a_dico
+			start
 		ensure
-			first = a_node
-			node = Void
+			dico = a_dico
 		end
 
 	start is
 		do
-			node := first
+			node := dico.first_node
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -42,11 +44,13 @@ feature {ANY}
 
 	next is
 		do
-			if node.next_link = first then
-				node := Void
-			else
-				node := node.next_link
-			end
+			node := node.next_link
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := dico.generation
 		end
 
 end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS

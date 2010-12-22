@@ -23,12 +23,14 @@ feature {ANY}
 		do
 			item_memory := e
 			root := do_insert(root)
+			next_generation
 		end
 
 	fast_add (e: like item) is
 		do
 			item_memory := e
 			root := fast_do_insert(root)
+			next_generation
 		end
 
 	clear_count, clear_count_and_capacity is
@@ -39,6 +41,7 @@ feature {ANY}
 				count := 0
 				map_dirty := True
 			end
+			next_generation
 		end
 
 	reference_at (e: like item): like item is
@@ -111,6 +114,7 @@ feature {}
 					common_lost_nodes.add(lost_nodes, generating_type)
 				end
 			end
+			next_generation
 		end
 
 invariant

@@ -12,8 +12,9 @@ creation {ABSTRACT_AVL_SET}
 feature {ANY}
 	start is
 		do
-			if root /= Void then
-				nodes.push(root)
+			if set.root /= Void then
+				nodes.push(set.root)
+				generation := iterable_generation
 				go_first
 			end
 		end
@@ -37,14 +38,20 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_root: like root) is
+	make (a_set: like set) is
 		do
-			root := a_root
+			set := a_set
 			create nodes.make
+			start
 		ensure
-			root = a_root
+			set = a_set
 		end
 
-	root: ABSTRACT_AVL_SET_NODE[E_]
+	set: ABSTRACT_AVL_SET[E_]
+
+	iterable_generation: INTEGER is
+		do
+			Result := set.generation
+		end
 
 end -- class ITERATOR_ON_AVL_SET

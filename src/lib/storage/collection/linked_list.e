@@ -49,6 +49,7 @@ feature {ANY}
 			else
 				clear_count
 			end
+			next_generation
 		ensure
 			count = 0
 		end
@@ -71,6 +72,7 @@ feature {ANY}
 				upper := upper + 1
 				mem_idx := mem_idx + 1
 			end
+			next_generation
 		end
 
 	add_last (element: like item) is
@@ -89,6 +91,7 @@ feature {ANY}
 				upper := upper + 1
 				last_link := lnk
 			end
+			next_generation
 		end
 
 	add (element: like item; index: INTEGER) is
@@ -107,6 +110,7 @@ feature {ANY}
 				mem_lnk.set_next(link)
 				upper := upper + 1
 			end
+			next_generation
 		end
 
 	remove_first is
@@ -129,6 +133,7 @@ feature {ANY}
 				end
 				upper := upper - 1
 			end
+			next_generation
 		end
 
 	remove (index: INTEGER) is
@@ -147,6 +152,7 @@ feature {ANY}
 				mem_lnk.set_next(dispose_node(link))
 				upper := upper - 1
 			end
+			next_generation
 		end
 
 	first: like item is
@@ -173,6 +179,7 @@ feature {ANY}
 				go_item(index)
 			end
 			mem_lnk.set_item(element)
+			next_generation
 		end
 
 	count: INTEGER is
@@ -185,6 +192,7 @@ feature {ANY}
 			if first_link /= Void then
 				first_link.set_all_with(v)
 			end
+			next_generation
 		end
 
 	copy (other: like Current) is
@@ -332,6 +340,7 @@ feature {ANY}
 					lnk := dispose_node(lnk)
 				end
 			end
+			next_generation
 		ensure then
 			upper = 0
 		end
@@ -357,6 +366,7 @@ feature {ANY}
 				add_last(model.item(i))
 				i := i + 1
 			end
+			next_generation
 		end
 
 	slice (low, up: INTEGER): like Current is
@@ -461,6 +471,7 @@ feature {ANY}
 				last_link := mem_lnk
 				last_link.set_next(dispose_node(last_link.next))
 			end
+			next_generation
 		end
 
 	replace_all (old_value, new_value: like item) is
@@ -519,6 +530,7 @@ feature {ANY}
 			if mem_idx /= 0 then
 				mem_idx := count - mem_idx + 1
 			end
+			next_generation
 		end
 
 feature {}

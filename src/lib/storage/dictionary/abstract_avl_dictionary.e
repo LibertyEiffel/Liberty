@@ -63,6 +63,7 @@ feature {ANY}
 			value_memory := v
 			key_memory := k
 			root := do_insert(root)
+			next_generation
 		end
 
 	fast_put (v: V_; k: K_) is
@@ -70,6 +71,7 @@ feature {ANY}
 			value_memory := v
 			key_memory := k
 			root := fast_do_insert(root)
+			next_generation
 		end
 
 	occurrences (v: V_): INTEGER is
@@ -104,6 +106,7 @@ feature {ANY}
 				count := 0
 				map_dirty := True
 			end
+			next_generation
 		end
 
 	set_item (v: V_; index: INTEGER) is
@@ -112,6 +115,7 @@ feature {ANY}
 				build_map
 			end
 			map.item(index - 1).set_value(v)
+			next_generation
 		end
 
 	item (index: INTEGER): V_ is
@@ -149,6 +153,7 @@ feature {ANY}
 		do
 			make
 			Precursor(other)
+			next_generation
 		end
 
 feature {}
@@ -199,6 +204,7 @@ feature {}
 				create lost_nodes.set_item(Void)
 				common_lost_nodes.add(lost_nodes, generating_type)
 			end
+			next_generation
 		end
 
 invariant

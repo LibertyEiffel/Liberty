@@ -56,6 +56,7 @@ feature {ANY} -- Creation and Modification:
 					clear_all
 				end
 			end
+			next_generation
 		ensure
 			left_aligned: storage_lower = 0
 			lower_set: lower = min_index
@@ -76,6 +77,7 @@ feature {ANY} -- Creation and Modification:
 			lower := low
 			upper := low - 1
 			storage_lower := 0
+			next_generation
 		ensure
 			left_aligned: storage_lower = 0
 			empty: is_empty
@@ -141,6 +143,7 @@ feature {ANY} -- Modification:
 				lower := min_index
 				upper := max_index
 			end
+			next_generation
 		ensure
 			lower = min_index
 			upper = max_index
@@ -167,7 +170,7 @@ feature {ANY} -- Implementation of deferred:
 		do
 			Result := upper < lower -- *** Is there a better implementation ? *** Dom march  30th 2006 ***
 		end
-	
+
 	subarray (min, max: INTEGER): like Current is
 		do
 			Result := slice(min, max)
@@ -184,6 +187,7 @@ feature {ANY} -- Implementation of deferred:
 	put (element: like item; i: INTEGER) is
 		do
 			storage.put(element, storage_index(i))
+			next_generation
 		end
 
 	force (element: like item; index: INTEGER) is
@@ -233,6 +237,7 @@ feature {ANY} -- Implementation of deferred:
 					storage.slice_copy(other.capacity - other.storage_lower, other.storage, 0, o_s_u)
 				end
 			end
+			next_generation
 		end
 
 	set_all_with (v: like item) is
@@ -249,6 +254,7 @@ feature {ANY} -- Implementation of deferred:
 					storage.set_slice_with(v, storage_lower, capacity - 1)
 				end
 			end
+			next_generation
 		end
 
 	remove_first is
@@ -258,6 +264,7 @@ feature {ANY} -- Implementation of deferred:
 			if storage_lower = capacity then
 				storage_lower := 0
 			end
+			next_generation
 		ensure then
 			upper = old upper
 		end
@@ -274,6 +281,7 @@ feature {ANY} -- Implementation of deferred:
 				remove_first
 				i := i - 1
 			end
+			next_generation
 		ensure then
 			upper = old upper
 		end
@@ -291,11 +299,13 @@ feature {ANY} -- Implementation of deferred:
 				end
 			end
 			upper := upper - 1
+			next_generation
 		end
 
 	clear_count is
 		do
 			upper := lower - 1
+			next_generation
 		ensure then
 			capacity = old capacity
 		end
@@ -307,6 +317,7 @@ feature {ANY} -- Implementation of deferred:
 			upper := lower - 1
 			storage := null_storage
 			capacity := 0
+			next_generation
 		ensure then
 			capacity = 0
 		end
@@ -320,6 +331,7 @@ feature {ANY} -- Implementation of deferred:
 				storage_lower := storage_lower + capacity
 			end
 			storage.put(element, storage_lower)
+			next_generation
 		end
 
 	add_last (element: like item) is
@@ -343,6 +355,7 @@ feature {ANY} -- Implementation of deferred:
 				add_last(model.item(i))
 				i := i + 1
 			end
+			next_generation
 		ensure then
 			lower = model.lower
 			upper = model.upper
@@ -559,7 +572,7 @@ feature {ANY} -- Implementation of deferred:
 		do
 			create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
 		end
-	
+
 	first: like item is
 		do
 			Result := storage.item(storage_lower)
@@ -592,6 +605,7 @@ feature {}
 					end
 				end
 			end
+			next_generation
 		end
 
 	clear_slice (min, max: INTEGER) is
@@ -611,6 +625,7 @@ feature {}
 					storage.clear(0, s_max)
 				end
 			end
+			next_generation
 		end
 
 	squeeze_bubble (min, max, pos, length: INTEGER) is
@@ -629,6 +644,7 @@ feature {}
 			else
 				move(pos + length, max, -length)
 			end
+			next_generation
 		end
 
 	unwrap is
@@ -678,6 +694,7 @@ feature {}
 					upper := upper + overlap
 				end
 			end
+			next_generation
 		ensure
 			not is_wrapped
 			is_equal(old twin)
@@ -797,10 +814,10 @@ feature {RING_ARRAY}
 feature {} -- Garbage collector tuning (very low-level):
 	mark_native_arrays is
 			-- For performance reasons, the unused area of `storage' is always left as it is when
-			-- some elements are removed. No time is lost to clean the released area with a Void 
+			-- some elements are removed. No time is lost to clean the released area with a Void
 			-- or a 0 value. (Look for example the `remove_last' implementation.)
-			-- Thus, the unused area of `storage' may contains references of actually unreachable 
-			-- objects. The following `mark_native_arrays' actually replace the 
+			-- Thus, the unused area of `storage' may contains references of actually unreachable
+			-- objects. The following `mark_native_arrays' actually replace the
 			-- default behavior (the call is automatic) in order to mark only reachable objects.
 			--
 			-- See also class GARBAGE_COLLECTOR_TUNING.

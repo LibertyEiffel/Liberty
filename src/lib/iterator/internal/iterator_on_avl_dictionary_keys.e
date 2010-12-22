@@ -12,8 +12,9 @@ creation {ABSTRACT_AVL_DICTIONARY}
 feature {ANY}
 	start is
 		do
-			if root /= Void then
-				nodes.push(root)
+			if dico.root /= Void then
+				nodes.push(dico.root)
+				generation := iterable_generation
 				go_first
 			end
 		end
@@ -37,14 +38,20 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_root: like root) is
+	make (a_dico: like dico) is
 		do
-			root := a_root
+			dico := a_dico
 			create nodes.make
+			start
 		ensure
-			root = a_root
+			dico = a_dico
 		end
 
-	root: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
+	dico: ABSTRACT_AVL_DICTIONARY[V_, K_]
+
+	iterable_generation: INTEGER is
+		do
+			Result := dico.generation
+		end
 
 end -- class ITERATOR_ON_AVL_DICTIONARY_KEYS

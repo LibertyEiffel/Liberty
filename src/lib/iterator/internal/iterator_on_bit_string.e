@@ -27,6 +27,7 @@ feature {ANY}
 	start is
 		do
 			index := bit_string.lower
+			generation := iterable_generation
 		end
 
 	is_off: BOOLEAN is
@@ -42,6 +43,12 @@ feature {ANY}
 	next is
 		do
 			index := index + 1
+		end
+
+feature {}
+	iterable_generation: INTEGER is
+		do
+			Result := bit_string.generation
 		end
 
 invariant

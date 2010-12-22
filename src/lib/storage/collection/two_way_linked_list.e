@@ -9,7 +9,7 @@ class TWO_WAY_LINKED_LIST[E_]
 
 inherit
 	COLLECTION[E_]
-	
+
 insert
 	LINKED_COLLECTION[E_]
 
@@ -46,6 +46,7 @@ feature {ANY}
 			else
 				clear_count
 			end
+			next_generation
 		ensure
 			count = 0
 		end
@@ -69,6 +70,7 @@ feature {ANY}
 				upper := upper + 1
 				mem_idx := mem_idx + 1
 			end
+			next_generation
 		ensure then
 			upper = 1 + old upper
 		end
@@ -86,6 +88,7 @@ feature {ANY}
 				last_link.previous.set_next(last_link)
 				upper := upper + 1
 			end
+			next_generation
 		end
 
 	add (element: like item; index: INTEGER) is
@@ -105,6 +108,7 @@ feature {ANY}
 				mem_lnk.set_next(link)
 				upper := upper + 1
 			end
+			next_generation
 		end
 
 	remove_first is
@@ -129,6 +133,7 @@ feature {ANY}
 					mem_idx := 1
 				end
 			end
+			next_generation
 		end
 
 	remove (index: INTEGER) is
@@ -149,6 +154,7 @@ feature {ANY}
 				link := dispose_node(link)
 				upper := upper - 1
 			end
+			next_generation
 		end
 
 	first: like item is
@@ -175,6 +181,7 @@ feature {ANY}
 				go_item(index)
 			end
 			mem_lnk.set_item(element)
+			next_generation
 		end
 
 	count: INTEGER is
@@ -187,6 +194,7 @@ feature {ANY}
 			if first_link /= Void then
 				first_link.set_all_with(v)
 			end
+			next_generation
 		end
 
 	copy (other: like Current) is
@@ -327,6 +335,7 @@ feature {ANY}
 					lnk := dispose_node(lnk)
 				end
 			end
+			next_generation
 		ensure then
 			upper = 0
 		end
@@ -352,6 +361,7 @@ feature {ANY}
 				add_last(model.item(i))
 				i := i + 1
 			end
+			next_generation
 		end
 
 	slice (low, up: INTEGER): like Current is
@@ -461,6 +471,7 @@ feature {ANY}
 				end
 				upper := upper - 1
 			end
+			next_generation
 		end
 
 	replace_all (old_value, new_value: like item) is
@@ -516,6 +527,7 @@ feature {ANY}
 				high := high.previous
 				i := i - 1
 			end
+			next_generation
 		end
 
 	new_iterator: ITERATOR[E_] is
