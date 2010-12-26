@@ -2,138 +2,138 @@
 -- See the full copyright at the end.
 --
 deferred class COMMAND_LINE_TYPED_ARGUMENT[E_]
-	--
-	-- A "single" argument which bears a value aka `item'.
-	--
+   --
+   -- A "single" argument which bears a value aka `item'.
+   --
 
 inherit
-	COMMAND_LINE_ARGUMENT
+   COMMAND_LINE_ARGUMENT
 
 feature {ANY}
-	item: E_ is
-			-- The argument value, if `is_set'
-		deferred
-		end
+   item: E_ is
+         -- The argument value, if `is_set'
+      deferred
+      end
 
-	as_mandatory, prefix "+": like Current is
-			-- Make the option mandatory (default for positionals)
-		require
-			can_be_mandatory
-		do
-			if is_mandatory then
-				Result := Current
-			else
-				Result := twin
-				Result.set_mandatory(Current, True)
-			end
-		ensure
-			Result.is_mandatory
-		end
+   as_mandatory, prefix "+": like Current is
+         -- Make the option mandatory (default for positionals)
+      require
+         can_be_mandatory
+      do
+         if is_mandatory then
+            Result := Current
+         else
+            Result := twin
+            Result.set_mandatory(Current, True)
+         end
+      ensure
+         Result.is_mandatory
+      end
 
-	as_optional, prefix "-": like Current is
-			-- Make the option optional (default for options)
-		require
-			can_be_optional
-		do
-			if is_optional then
-				Result := Current
-			else
-				Result := twin
-				Result.set_mandatory(Current, False)
-			end
-		ensure
-			not Result.is_mandatory
-		end
-
-feature {ANY}
-	is_mandatory: BOOLEAN is
-			-- True if the argument must be set at least once.
-		deferred
-		ensure
-			Result implies can_be_mandatory
-		end
-
-	is_optional: BOOLEAN is
-			-- True if the argument may not be set.
-		deferred
-		ensure
-			Result implies not is_positional
-			is_mandatory implies not Result
-			Result implies can_be_optional
-		end
-
-	is_positional: BOOLEAN is
-			-- True if the argument is not introduced by a flag. Such an argument is mandatory and may have an
-			-- explicit position on the command line (see `force_index').
-		deferred
-		ensure
-			Result implies not is_optional
-			Result implies is_mandatory
-		end
-
-	can_be_mandatory: BOOLEAN is
-			-- True if the argument can be `set_mandatory'(True).
-		deferred
-		end
-
-	can_be_optional: BOOLEAN is
-			-- True if the argument can be `set_mandatory'(False).
-		deferred
-		end
+   as_optional, prefix "-": like Current is
+         -- Make the option optional (default for options)
+      require
+         can_be_optional
+      do
+         if is_optional then
+            Result := Current
+         else
+            Result := twin
+            Result.set_mandatory(Current, False)
+         end
+      ensure
+         not Result.is_mandatory
+      end
 
 feature {ANY}
-	short: FIXED_STRING is
-			-- The short (one-letter) option flag introducing the argument, Void for positionals
-		deferred
-		ensure
-			is_positional implies Result = Void
-			Result /= Void implies Result.count = 1
-		end
+   is_mandatory: BOOLEAN is
+         -- True if the argument must be set at least once.
+      deferred
+      ensure
+         Result implies can_be_mandatory
+      end
 
-	long: FIXED_STRING is
-			-- The long option flag introducing the argument, Void for positionals
-		deferred
-		ensure
-			is_positional implies Result = Void
-			Result /= Void implies not Result.is_empty
-		end
+   is_optional: BOOLEAN is
+         -- True if the argument may not be set.
+      deferred
+      ensure
+         Result implies not is_positional
+         is_mandatory implies not Result
+         Result implies can_be_optional
+      end
 
-	usage: FIXED_STRING is
-			-- The option usage
-		deferred
-		end
+   is_positional: BOOLEAN is
+         -- True if the argument is not introduced by a flag. Such an argument is mandatory and may have an
+         -- explicit position on the command line (see `force_index').
+      deferred
+      ensure
+         Result implies not is_optional
+         Result implies is_mandatory
+      end
 
-	force_index (a_index: INTEGER) is
-			-- Force a positional parameter to be valid only at the given index
-		require
-			a_index > 0
-			is_positional
-			not is_repeatable
-		deferred
-		end
+   can_be_mandatory: BOOLEAN is
+         -- True if the argument can be `set_mandatory'(True).
+      deferred
+      end
+
+   can_be_optional: BOOLEAN is
+         -- True if the argument can be `set_mandatory'(False).
+      deferred
+      end
+
+feature {ANY}
+   short: FIXED_STRING is
+         -- The short (one-letter) option flag introducing the argument, Void for positionals
+      deferred
+      ensure
+         is_positional implies Result = Void
+         Result /= Void implies Result.count = 1
+      end
+
+   long: FIXED_STRING is
+         -- The long option flag introducing the argument, Void for positionals
+      deferred
+      ensure
+         is_positional implies Result = Void
+         Result /= Void implies not Result.is_empty
+      end
+
+   usage: FIXED_STRING is
+         -- The option usage
+      deferred
+      end
+
+   force_index (a_index: INTEGER) is
+         -- Force a positional parameter to be valid only at the given index
+      require
+         a_index > 0
+         is_positional
+         not is_repeatable
+      deferred
+      end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-	set_mandatory (parent_option: like Current; enable: BOOLEAN) is
-		require
-			parent_option /= Void
-			enable /= is_mandatory
-			enable implies can_be_mandatory
-			;(not enable) implies can_be_optional
-		deferred
-		ensure
-			parent = parent_option
-			is_mandatory = enable
-		end
+   set_mandatory (parent_option: like Current; enable: BOOLEAN) is
+      require
+         parent_option /= Void
+         enable /= is_mandatory
+         enable implies can_be_mandatory
+         ;(not enable) implies can_be_optional
+      deferred
+      ensure
+         parent = parent_option
+         is_mandatory = enable
+      end
 
 feature {}
-	parent: like Current is
-			-- Internal technical trick to ensure that arguments with a non-standard behaviour (`set_mandatory')
-			-- are correctly managed.
-		deferred
-		end
+   parent: like Current is
+         -- Internal technical trick to ensure that arguments with a non-standard behaviour (`set_mandatory')
+         -- are correctly managed.
+      deferred
+      end
 
 invariant
-	is_optional or else is_positional or else is_mandatory
+   is_optional or else is_positional or else is_mandatory
 
 end -- class COMMAND_LINE_TYPED_ARGUMENT
 --

@@ -15,11 +15,11 @@
 deferred class LIBERTY_INVARIANT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_INVARIANT}
-	visit_liberty_invariant (v: LIBERTY_INVARIANT) is
-		deferred
-		end
+   visit_liberty_invariant (v: LIBERTY_INVARIANT) is
+      deferred
+      end
 
 end -- class LIBERTY_INVARIANT_VISITOR

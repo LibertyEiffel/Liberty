@@ -15,82 +15,82 @@
 class LIBERTY_OPEN_ARGUMENT
 
 inherit
-	LIBERTY_EXPRESSION
-		redefine
-			result_type_may_be_void, is_open_argument
-		end
+   LIBERTY_EXPRESSION
+      redefine
+         result_type_may_be_void, is_open_argument
+      end
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 create {LIBERTY_OPEN_ARGUMENT}
-	make_specialized
+   make_specialized
 
 feature {ANY}
-	result_type: LIBERTY_TYPE
+   result_type: LIBERTY_TYPE
 
-	result_type_may_be_void: BOOLEAN is True
-	is_open_argument: BOOLEAN is True
+   result_type_may_be_void: BOOLEAN is True
+   is_open_argument: BOOLEAN is True
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			r: like result_type
-		do
-			if result_type /= Void then
-				r := result_type.specialized_in(a_type)
-			end
-			if r = result_type then
-				Result := Current
-			else
-				create Result.make_specialized(r, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         r: like result_type
+      do
+         if result_type /= Void then
+            r := result_type.specialized_in(a_type)
+         end
+         if r = result_type then
+            Result := Current
+         else
+            create Result.make_specialized(r, position)
+         end
+      end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_AGENT}
-	set_result_type (a_result_type: like result_type) is
-		require
-			a_result_type /= Void
-		do
-			result_type := a_result_type
-		ensure
-			result_type = a_result_type
-		end
+   set_result_type (a_result_type: like result_type) is
+      require
+         a_result_type /= Void
+      do
+         result_type := a_result_type
+      ensure
+         result_type = a_result_type
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			-- nothing
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         -- nothing
+      end
 
 feature {}
-	make (a_position: like position) is
-		require
-			a_position /= Void
-		do
-			position := a_position
-		ensure
-			position = a_position
-		end
+   make (a_position: like position) is
+      require
+         a_position /= Void
+      do
+         position := a_position
+      ensure
+         position = a_position
+      end
 
-	make_specialized (a_result_type: like result_type; a_position: like position) is
-		require
-			a_result_type /= Void
-			a_position /= Void
-		do
-			result_type := a_result_type
-			position := a_position
-		ensure
-			result_type = a_result_type
-			position = a_position
-		end
+   make_specialized (a_result_type: like result_type; a_position: like position) is
+      require
+         a_result_type /= Void
+         a_position /= Void
+      do
+         result_type := a_result_type
+         position := a_position
+      ensure
+         result_type = a_result_type
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_OPEN_ARGUMENT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_open_argument(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_OPEN_ARGUMENT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_open_argument(Current)
+      end
 
 end

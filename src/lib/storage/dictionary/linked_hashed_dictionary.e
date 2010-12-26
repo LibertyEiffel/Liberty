@@ -2,23 +2,23 @@
 -- See the full copyright at the end.
 --
 class LINKED_HASHED_DICTIONARY[V_, K_ -> HASHABLE]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using `hash_code' on keys.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using `hash_code' on keys.
+   --
 
 inherit
-	ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
+   ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
 
 creation {ANY}
-	make, with_capacity, manifest_creation
+   make, with_capacity, manifest_creation
 
 feature {}
-	hash_code (k: K_): INTEGER is
-		do
-			Result := k.hash_code
-		end
+   hash_code (k: K_): INTEGER is
+      do
+         Result := k.hash_code
+      end
 
 end -- class LINKED_HASHED_DICTIONARY
 --

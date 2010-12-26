@@ -15,36 +15,36 @@
 class LIBERTY_INVARIANT
 
 inherit
-	LIBERTY_WRITTEN_ASSERTIONS
-		export {LIBERTY_FEATURE, LIBERTY_ASSERTIONS, LIBERTY_LOOP}
-			specialized_in
-		end
+   LIBERTY_WRITTEN_ASSERTIONS
+      export {LIBERTY_FEATURE, LIBERTY_ASSERTIONS, LIBERTY_LOOP}
+         specialized_in
+      end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_INVARIANT}
-	make
+   make
 
 feature {}
-	make (a_assertions: like assertions_list) is
-		require
-			a_assertions /= Void
-		do
-			assertions_list := a_assertions
-		ensure
-			assertions_list = a_assertions
-		end
+   make (a_assertions: like assertions_list) is
+      require
+         a_assertions /= Void
+      do
+         assertions_list := a_assertions
+      ensure
+         assertions_list = a_assertions
+      end
 
-	specialized (a_assertions: like assertions_list): like Current is
-		do
-			create Result.make(a_assertions)
-		end
+   specialized (a_assertions: like assertions_list): like Current is
+      do
+         create Result.make(a_assertions)
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_INVARIANT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_invariant(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_INVARIANT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_invariant(Current)
+      end
 
 end

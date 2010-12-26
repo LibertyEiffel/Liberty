@@ -2,24 +2,24 @@
 -- See the full copyright at the end.
 --
 class AVL_SET_NODE[E_ -> COMPARABLE]
-	--
-	-- Auxiliary class to implement AVL_SET.
-	--
-	-- This a classic implementation of an AVL tree (balanced tree first
-	-- designed by Adelson-Velskii and Landis, 1960)
-	--
+   --
+   -- Auxiliary class to implement AVL_SET.
+   --
+   -- This a classic implementation of an AVL tree (balanced tree first
+   -- designed by Adelson-Velskii and Landis, 1960)
+   --
 
 inherit
-	ABSTRACT_AVL_SET_NODE[E_]
+   ABSTRACT_AVL_SET_NODE[E_]
 
 creation {AVL_SET}
-	default_create
+   default_create
 
 feature {}
-	ordered (e1, e2: E_): BOOLEAN is
-		do
-			Result := e1 < e2
-		end
+   ordered (e1, e2: E_): BOOLEAN is
+      do
+         Result := e1 < e2
+      end
 
 end -- class AVL_SET_NODE
 --

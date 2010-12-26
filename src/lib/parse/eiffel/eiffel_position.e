@@ -4,52 +4,52 @@
 expanded class EIFFEL_POSITION
 
 insert
-	ANY
-		redefine
-			default_create, is_equal
-		end
+   ANY
+      redefine
+         default_create, is_equal
+      end
 
 creation {EIFFEL_GRAMMAR}
-	default_create
+   default_create
 
 feature {EIFFEL_GRAMMAR}
-	next (buffer: MINI_PARSER_BUFFER): like Current is
-		do
-			buffer.next
-			index := buffer.current_index
-			if not buffer.end_reached then
-				inspect
-					buffer.current_character
-				when '%N' then
-					line := line + 1
-					column := 1
-				when '%R' then
-					-- ignored
-				else
-					column := column + 1
-				end
-			end
-			Result := Current
-		end
+   next (buffer: MINI_PARSER_BUFFER): like Current is
+      do
+         buffer.next
+         index := buffer.current_index
+         if not buffer.end_reached then
+            inspect
+               buffer.current_character
+            when '%N' then
+               line := line + 1
+               column := 1
+            when '%R' then
+               -- ignored
+            else
+               column := column + 1
+            end
+         end
+         Result := Current
+      end
 
 feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE, EIFFEL_POSITION}
-	line: INTEGER
-	column: INTEGER
-	index: INTEGER
+   line: INTEGER
+   column: INTEGER
+   index: INTEGER
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := index = other.index
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := index = other.index
+      end
 
 feature {}
-	default_create is
-		do
-			index := 1
-			line := 1
-			column := 1
-		end
+   default_create is
+      do
+         index := 1
+         line := 1
+         column := 1
+      end
 
 end -- class EIFFEL_POSITION
 --

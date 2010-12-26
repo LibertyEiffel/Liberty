@@ -15,39 +15,39 @@
 class LIBERTY_ETC_VERSION_CONSTRAINT
 
 inherit
-	LIBERTY_ETC_CONSTRAINT
+   LIBERTY_ETC_CONSTRAINT
 
 create {LIBERTY_ETC_VISITOR_IMPL}
-	make
+   make
 
 feature {ANY}
-	check_validity (a_cluster: LIBERTY_ETC_CLUSTER) is
-		do
-			if not operator.item([a_cluster.version, version]) then
-				std_error.put_line("*** Version mismatch: " + a_cluster.name
-										 + " version " + a_cluster.version + " not compatible")
-				die_with_code(1)
-			end
-		end
+   check_validity (a_cluster: LIBERTY_ETC_CLUSTER) is
+      do
+         if not operator.item([a_cluster.version, version]) then
+            std_error.put_line("*** Version mismatch: " + a_cluster.name
+                               + " version " + a_cluster.version + " not compatible")
+            die_with_code(1)
+         end
+      end
 
 feature {}
-	make (a_operator: like operator; a_version: like version) is
-		require
-			a_operator /= Void
-			a_version /= Void
-		do
-			operator := a_operator
-			version := a_version
-		ensure
-			operator = a_operator
-			version = a_version
-		end
+   make (a_operator: like operator; a_version: like version) is
+      require
+         a_operator /= Void
+         a_version /= Void
+      do
+         operator := a_operator
+         version := a_version
+      ensure
+         operator = a_operator
+         version = a_version
+      end
 
-	operator: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
-	version: FIXED_STRING
+   operator: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
+   version: FIXED_STRING
 
 invariant
-	operator /= Void
-	version /= Void
+   operator /= Void
+   version /= Void
 
 end

@@ -2,9 +2,9 @@
 -- See the full copyright at the end.
 --
 deferred class EIFFEL_NODE_HANDLER
-	--
-	-- Type marker to access EIFFEL_NODE features
-	--
+   --
+   -- Type marker to access EIFFEL_NODE features
+   --
 end -- EIFFEL_NODE_HANDLER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

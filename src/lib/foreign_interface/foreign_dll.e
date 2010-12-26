@@ -4,55 +4,55 @@
 class FOREIGN_DLL
 
 creation {FOREIGN_DLL_LOADER}
-	make
+   make
 
 feature {ANY}
-	filename: FIXED_STRING is
-		do
-			Result ::= dso.name
-		end
+   filename: FIXED_STRING is
+      do
+         Result ::= dso.name
+      end
 
-	function (name: ABSTRACT_STRING; a_parameter_types: TRAVERSABLE[FOREIGN_TYPE]; a_result_type: FOREIGN_TYPE): FOREIGN_AGENT is
-		require
-			name /= Void
-		local
-			fn_name: FIXED_STRING
-			p: POINTER
-		do
-			fn_name := name.intern
-			Result := functions.fast_reference_at(fn_name)
-			if Result = Void then
-				p := dso.symbol(fn_name)
-				if p.is_not_null then
-					create {FOREIGN_DLL_FUNCTION} Result.make(p, a_parameter_types, a_result_type)
-				end
-			else
-				check
-					a_parameter_types = Void implies Result.parameter_types = Void
-					a_parameter_types /= Void implies Result.parameter_types /= Void and then Result.parameter_types.is_equal(a_parameter_types)
-					Result.result_type = a_result_type
-				end
-			end
-		end
+   function (name: ABSTRACT_STRING; a_parameter_types: TRAVERSABLE[FOREIGN_TYPE]; a_result_type: FOREIGN_TYPE): FOREIGN_AGENT is
+      require
+         name /= Void
+      local
+         fn_name: FIXED_STRING
+         p: POINTER
+      do
+         fn_name := name.intern
+         Result := functions.fast_reference_at(fn_name)
+         if Result = Void then
+            p := dso.symbol(fn_name)
+            if p.is_not_null then
+               create {FOREIGN_DLL_FUNCTION} Result.make(p, a_parameter_types, a_result_type)
+            end
+         else
+            check
+               a_parameter_types = Void implies Result.parameter_types = Void
+               a_parameter_types /= Void implies Result.parameter_types /= Void and then Result.parameter_types.is_equal(a_parameter_types)
+               Result.result_type = a_result_type
+            end
+         end
+      end
 
 feature {}
-	make (a_dso: like dso) is
-		require
-			a_dso /= Void
-		do
-			dso := a_dso
-			create {HASHED_DICTIONARY[FOREIGN_DLL_FUNCTION, FIXED_STRING]} functions.make
-		ensure
-			dso = a_dso
-		end
+   make (a_dso: like dso) is
+      require
+         a_dso /= Void
+      do
+         dso := a_dso
+         create {HASHED_DICTIONARY[FOREIGN_DLL_FUNCTION, FIXED_STRING]} functions.make
+      ensure
+         dso = a_dso
+      end
 
 feature {FOREIGN_DLL_HANDLER}
-	dso: DYNAMIC_SHARED_OBJECT
-	functions: DICTIONARY[FOREIGN_DLL_FUNCTION, FIXED_STRING]
+   dso: DYNAMIC_SHARED_OBJECT
+   functions: DICTIONARY[FOREIGN_DLL_FUNCTION, FIXED_STRING]
 
 invariant
-	dso /= Void
-	functions /= Void
+   dso /= Void
+   functions /= Void
 
 end -- class FOREIGN_DLL
 --

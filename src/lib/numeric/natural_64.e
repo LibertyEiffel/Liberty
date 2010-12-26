@@ -4,298 +4,298 @@
 expanded class NATURAL_64
 
 insert
-	NATURAL_GENERAL
-		redefine infix "//", infix "\\"
-		end
+   NATURAL_GENERAL
+      redefine infix "//", infix "\\"
+      end
 
 feature {ANY} -- Explicit conversions:
-	fit_natural_8: BOOLEAN is
-			-- Does `Current' fit in NATURAL_8?
-		do
-			Result := Current <= 255.to_natural_64
-		ensure
-			Result = (Current <= 255.to_natural_64)
-		end
+   fit_natural_8: BOOLEAN is
+         -- Does `Current' fit in NATURAL_8?
+      do
+         Result := Current <= 255.to_natural_64
+      ensure
+         Result = (Current <= 255.to_natural_64)
+      end
 
-	to_natural_8: NATURAL_8 is
-			-- Explicit conversion to NATURAL_8.
-		require
-			fit_natural_8
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
-	
-	fit_natural_16: BOOLEAN is
-			-- Does `Current' fit in NATURAL_16?
-		do
-			Result := Current <= 65535.to_natural_64
-		ensure
-			Result = (Current <= 65535.to_natural_64)
-		end
+   to_natural_8: NATURAL_8 is
+         -- Explicit conversion to NATURAL_8.
+      require
+         fit_natural_8
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
+   
+   fit_natural_16: BOOLEAN is
+         -- Does `Current' fit in NATURAL_16?
+      do
+         Result := Current <= 65535.to_natural_64
+      ensure
+         Result = (Current <= 65535.to_natural_64)
+      end
 
-	to_natural_16: NATURAL_16 is
-			-- Explicit conversion to NATURAL_16.
-		require
-			fit_natural_16
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
-	
-	fit_natural_32: BOOLEAN is
-			-- Does `Current' fit in NATURAL_32?
-		do
-			Result := Current <= 2147483647.to_natural_64
-		ensure
-			Result = (Current <= 2147483647.to_natural_64)
-		end
+   to_natural_16: NATURAL_16 is
+         -- Explicit conversion to NATURAL_16.
+      require
+         fit_natural_16
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
+   
+   fit_natural_32: BOOLEAN is
+         -- Does `Current' fit in NATURAL_32?
+      do
+         Result := Current <= 2147483647.to_natural_64
+      ensure
+         Result = (Current <= 2147483647.to_natural_64)
+      end
 
-	to_natural_32: NATURAL_32 is
-			-- Explicit conversion to NATURAL_32.
-		require
-			fit_natural_32
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
-	
-	fit_integer_8: BOOLEAN is
-			-- Does `Current' fit in INTEGER_8?
-		do
-			Result := Current <= 127.to_natural_64
-		ensure
-			Result = (Current <= 127.to_natural_64)
-		end
+   to_natural_32: NATURAL_32 is
+         -- Explicit conversion to NATURAL_32.
+      require
+         fit_natural_32
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
+   
+   fit_integer_8: BOOLEAN is
+         -- Does `Current' fit in INTEGER_8?
+      do
+         Result := Current <= 127.to_natural_64
+      ensure
+         Result = (Current <= 127.to_natural_64)
+      end
 
-	to_integer_8: INTEGER_8 is
-			-- Explicit conversion to INTEGER_8.
-		require
-			fit_integer_8
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
+   to_integer_8: INTEGER_8 is
+         -- Explicit conversion to INTEGER_8.
+      require
+         fit_integer_8
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
 
-	fit_integer_16: BOOLEAN is
-			-- Does `Current' fit in INTEGER_16?
-		do
-			Result := Current <= 32767.to_natural_64
-		ensure
-			Result = (Current <= 32767.to_natural_64)
-		end
+   fit_integer_16: BOOLEAN is
+         -- Does `Current' fit in INTEGER_16?
+      do
+         Result := Current <= 32767.to_natural_64
+      ensure
+         Result = (Current <= 32767.to_natural_64)
+      end
 
-	to_integer_16: INTEGER_16 is
-			-- Explicit conversion to INTEGER_16.
-		require
-			fit_integer_16
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
+   to_integer_16: INTEGER_16 is
+         -- Explicit conversion to INTEGER_16.
+      require
+         fit_integer_16
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
 
-	fit_integer_32: BOOLEAN is
-			-- Does `Current' fit in INTEGER_32?
-		do
-			Result := Current <= 2147483647.to_natural_64
-		ensure
-			Result = (Current <= 2147483647.to_natural_64)
-		end
+   fit_integer_32: BOOLEAN is
+         -- Does `Current' fit in INTEGER_32?
+      do
+         Result := Current <= 2147483647.to_natural_64
+      ensure
+         Result = (Current <= 2147483647.to_natural_64)
+      end
 
-	to_integer_32: INTEGER_32 is
-			-- Explicit conversion to INTEGER_32.
-		require
-			fit_integer_32
-		external "built_in"
-		ensure
-			Result.to_natural_64 = Current
-		end
+   to_integer_32: INTEGER_32 is
+         -- Explicit conversion to INTEGER_32.
+      require
+         fit_integer_32
+      external "built_in"
+      ensure
+         Result.to_natural_64 = Current
+      end
 
-	fit_integer_64: BOOLEAN is
-			-- Does `Current' fit in INTEGER_64?
-		do
-			Result := Current <= 9223372036854775807.to_natural_64
-		ensure
-			Result = (Current <= 9223372036854775807.to_natural_64)
-		end
+   fit_integer_64: BOOLEAN is
+         -- Does `Current' fit in INTEGER_64?
+      do
+         Result := Current <= 9223372036854775807.to_natural_64
+      ensure
+         Result = (Current <= 9223372036854775807.to_natural_64)
+      end
 
-	to_integer_64: INTEGER_64 is
-			-- Explicit conversion to INTEGER_64.
-		require
-			fit_integer_64
-		external "built_in"
-		ensure
- 			Result.to_natural_64 = Current
-		end
-	
-	fit_real_32: BOOLEAN is
-			-- Does `Current' fit in REAL_32?
-		do
-			Result := fit_natural_32 and then to_natural_32.fit_real_32
-		end
+   to_integer_64: INTEGER_64 is
+         -- Explicit conversion to INTEGER_64.
+      require
+         fit_integer_64
+      external "built_in"
+      ensure
+          Result.to_natural_64 = Current
+      end
+   
+   fit_real_32: BOOLEAN is
+         -- Does `Current' fit in REAL_32?
+      do
+         Result := fit_natural_32 and then to_natural_32.fit_real_32
+      end
 
-	to_real_32: REAL_32 is
-			-- Explicit conversion to REAL_32.
-		require
-			fit_real_32
-		do
-			Result := to_integer_64.force_to_real_32
-		ensure
-			Result.force_to_natural_64 = Current
-		end
+   to_real_32: REAL_32 is
+         -- Explicit conversion to REAL_32.
+      require
+         fit_real_32
+      do
+         Result := to_integer_64.force_to_real_32
+      ensure
+         Result.force_to_natural_64 = Current
+      end
 
-	fit_real_64: BOOLEAN is
-			-- Does `Current' fit in REAL_64?
-		do
-			Result := natural_64_fit_real_64(Current)
-		end
+   fit_real_64: BOOLEAN is
+         -- Does `Current' fit in REAL_64?
+      do
+         Result := natural_64_fit_real_64(Current)
+      end
 
-	to_real_64: REAL_64 is
-			-- Explicit conversion to REAL_64.
-		require
-			fit_real_64
-		do
-			Result := to_integer_64.to_real_64
-		ensure
-			Result.force_to_natural_64 = Current
-		end
-	
+   to_real_64: REAL_64 is
+         -- Explicit conversion to REAL_64.
+      require
+         fit_real_64
+      do
+         Result := to_integer_64.to_real_64
+      ensure
+         Result.force_to_natural_64 = Current
+      end
+   
 feature {ANY}
-	infix "//" (other: like Current): like Current is
-		require
-			other /= 0.to_natural_64
-		external "built_in"
-		end
+   infix "//" (other: like Current): like Current is
+      require
+         other /= 0.to_natural_64
+      external "built_in"
+      end
 
-	infix "\\" (other: like Current): like Current is
-		require
-			other /= 0.to_natural_64
-		external "built_in"
-		end	
+   infix "\\" (other: like Current): like Current is
+      require
+         other /= 0.to_natural_64
+      external "built_in"
+      end   
 
-	is_odd: BOOLEAN is
-		do
-			Result := (Current #\\ 2.to_natural_64) = 1.to_natural_64
-		end
+   is_odd: BOOLEAN is
+      do
+         Result := (Current #\\ 2.to_natural_64) = 1.to_natural_64
+      end
 
-	is_even: BOOLEAN is
-		do
-			Result := (Current #\\ 2.to_natural_64) = 0.to_natural_64
-		end
-	
-	hash_code: INTEGER is
-		do
-			if Current.fit_integer_64 then
-				Result := to_integer_64.hash_code
-			else
-				Result := ((Current - 1.to_natural_64) // 2.to_natural_64).hash_code
-			end
-		end
+   is_even: BOOLEAN is
+      do
+         Result := (Current #\\ 2.to_natural_64) = 0.to_natural_64
+      end
+   
+   hash_code: INTEGER is
+      do
+         if Current.fit_integer_64 then
+            Result := to_integer_64.hash_code
+         else
+            Result := ((Current - 1.to_natural_64) // 2.to_natural_64).hash_code
+         end
+      end
 
-	append_in (buffer: STRING) is
-		local
-			val: like Current; i, idx: INTEGER
-		do
-			if Current = 0.to_natural_64 then
-				buffer.extend('0')
-			else
-				from
-					val := Current
-					-- Save the position of first character in the buffer.
-					i := buffer.count + 1
-				until
-					val = 0.to_natural_64
-				loop
-					buffer.extend((val #\\ 10.to_natural_64).decimal_digit)
-					val := val #// 10.to_natural_64
-				end
-				-- Change character order.
-				from
-					idx := buffer.count
-				until
-					i >= idx
-				loop
-					buffer.swap(i, idx)
-					idx := idx - 1
-					i := i + 1
-				end
-			end
-		end
-	
-	append_in_unicode (buffer: UNICODE_STRING) is
-		local
-			val: like Current; i, idx: INTEGER
-		do
-			if Current = 0.to_natural_64 then
-				buffer.extend('0'.code)
-			else
-				from
-					val := Current
-					-- Save the position of first character in the buffer.
-					i := buffer.count + 1
-				until
-					val = 0.to_natural_64
-				loop
-					buffer.extend((val #\\ 10.to_natural_64).decimal_digit.code)
-					val := val #// 10.to_natural_64
-				end
-				-- Change character order.
-				from
-					idx := buffer.count
-				until
-					i >= idx
-				loop
-					buffer.swap(i, idx)
-					idx := idx - 1
-					i := i + 1
-				end
-			end
-		end
-	
-	decimal_digit: CHARACTER is
-		require
-			in_range(0.to_natural_64, 9.to_natural_64)
-		do
-			Result := to_integer_8.hexadecimal_digit
-		end
+   append_in (buffer: STRING) is
+      local
+         val: like Current; i, idx: INTEGER
+      do
+         if Current = 0.to_natural_64 then
+            buffer.extend('0')
+         else
+            from
+               val := Current
+               -- Save the position of first character in the buffer.
+               i := buffer.count + 1
+            until
+               val = 0.to_natural_64
+            loop
+               buffer.extend((val #\\ 10.to_natural_64).decimal_digit)
+               val := val #// 10.to_natural_64
+            end
+            -- Change character order.
+            from
+               idx := buffer.count
+            until
+               i >= idx
+            loop
+               buffer.swap(i, idx)
+               idx := idx - 1
+               i := i + 1
+            end
+         end
+      end
+   
+   append_in_unicode (buffer: UNICODE_STRING) is
+      local
+         val: like Current; i, idx: INTEGER
+      do
+         if Current = 0.to_natural_64 then
+            buffer.extend('0'.code)
+         else
+            from
+               val := Current
+               -- Save the position of first character in the buffer.
+               i := buffer.count + 1
+            until
+               val = 0.to_natural_64
+            loop
+               buffer.extend((val #\\ 10.to_natural_64).decimal_digit.code)
+               val := val #// 10.to_natural_64
+            end
+            -- Change character order.
+            from
+               idx := buffer.count
+            until
+               i >= idx
+            loop
+               buffer.swap(i, idx)
+               idx := idx - 1
+               i := i + 1
+            end
+         end
+      end
+   
+   decimal_digit: CHARACTER is
+      require
+         in_range(0.to_natural_64, 9.to_natural_64)
+      do
+         Result := to_integer_8.hexadecimal_digit
+      end
 
-	hexadecimal_digit: CHARACTER is
-		require
-			in_range(0.to_natural_64, 15.to_natural_64)
-		do
-			Result := to_integer_8.hexadecimal_digit
-		end
+   hexadecimal_digit: CHARACTER is
+      require
+         in_range(0.to_natural_64, 15.to_natural_64)
+      do
+         Result := to_integer_8.hexadecimal_digit
+      end
 
-	to_character: CHARACTER is
-		require
-			to_integer_16 <= Maximum_character_code
-		do
-			Result := to_integer_16.to_character
-		end
-	
-	to_number: NUMBER is
-		do
-			-- Well, there is probably a better way, but this should work:
-			if Current.fit_integer_64 then
-				Result := to_integer_64.to_number
-			elseif is_even then
-				Result := (Current // 2.to_natural_64).to_integer_64.to_number @* 2
-			else
-				Result := (Current - 1.to_natural_64).to_number @+ 1
-			end
-		end
+   to_character: CHARACTER is
+      require
+         to_integer_16 <= Maximum_character_code
+      do
+         Result := to_integer_16.to_character
+      end
+   
+   to_number: NUMBER is
+      do
+         -- Well, there is probably a better way, but this should work:
+         if Current.fit_integer_64 then
+            Result := to_integer_64.to_number
+         elseif is_even then
+            Result := (Current // 2.to_natural_64).to_integer_64.to_number @* 2
+         else
+            Result := (Current - 1.to_natural_64).to_number @+ 1
+         end
+      end
 
 feature {}
-	natural_64_fit_real_64 (natural_64: NATURAL_64): BOOLEAN is
-		external "plug_in"
-		alias "{
-			location: "${sys}/runtime"
-			module_name: "natural_fit_real"
-			feature_name: "natural_64_fit_real_64"
-			}"
-		end
+   natural_64_fit_real_64 (natural_64: NATURAL_64): BOOLEAN is
+      external "plug_in"
+      alias "{
+         location: "${sys}/runtime"
+         module_name: "natural_fit_real"
+         feature_name: "natural_64_fit_real_64"
+         }"
+      end
 
-	bit_count: INTEGER_8 is 64
+   bit_count: INTEGER_8 is 64
 
 end -- NATURAL_64
 --

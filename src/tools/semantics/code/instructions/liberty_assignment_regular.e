@@ -15,32 +15,32 @@
 class LIBERTY_ASSIGNMENT_REGULAR
 
 inherit
-	LIBERTY_ASSIGNMENT
+   LIBERTY_ASSIGNMENT
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_ASSIGNMENT_REGULAR}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_ASSIGNMENT_REGULAR_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_assignment_regular(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_ASSIGNMENT_REGULAR_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_assignment_regular(Current)
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			w: like writable
-			e: like expression
-		do
-			w := writable.specialized_in(a_type)
-			e := expression.specialized_in(a_type)
-			if w = writable and then e = expression then
-				Result := Current
-			else
-				create Result.make(w, e, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         w: like writable
+         e: like expression
+      do
+         w := writable.specialized_in(a_type)
+         e := expression.specialized_in(a_type)
+         if w = writable and then e = expression then
+            Result := Current
+         else
+            create Result.make(w, e, position)
+         end
+      end
 
 end

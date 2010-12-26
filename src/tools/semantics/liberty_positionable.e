@@ -15,9 +15,9 @@
 deferred class LIBERTY_POSITIONABLE
 
 feature {ANY}
-	position: LIBERTY_POSITION
+   position: LIBERTY_POSITION
 
 invariant
-	position /= Void
+   position /= Void
 
 end

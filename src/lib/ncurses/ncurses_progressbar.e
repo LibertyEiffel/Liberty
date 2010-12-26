@@ -2,115 +2,115 @@
 -- See the full copyright at the end.
 --
 class NCURSES_PROGRESSBAR
-	-- This class adds a progress bar widget.
+   -- This class adds a progress bar widget.
 
 inherit
-	NCURSES_WIDGET
+   NCURSES_WIDGET
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	left: INTEGER
+   left: INTEGER
 
-	top: INTEGER
+   top: INTEGER
 
-	width: INTEGER
+   width: INTEGER
 
-	height: INTEGER
+   height: INTEGER
 
-	min_value: INTEGER
+   min_value: INTEGER
 
-	max_value: INTEGER
+   max_value: INTEGER
 
-	current_value: INTEGER
+   current_value: INTEGER
 
-	set_value (v: like current_value) is
-		require
-			v.in_range(min_value, max_value)
-		do
-			current_value := v
-		end
+   set_value (v: like current_value) is
+      require
+         v.in_range(min_value, max_value)
+      do
+         current_value := v
+      end
 
-	refresh_later is
-		local
-			filled, start, todo: INTEGER
-			b: BOOLEAN
-			s: STRING
-		do
-			filled := width * (current_value - min_value) // (max_value - min_value)
-			s := current_value.to_string
-			start := (width - s.count) // 2
-			window.set_attribute(ncurses.a_reverse)
-			window.draw_horizontal_line(0, 0, space, filled)
-			if is_value_displayed and then filled > start then
-				todo := s.count.min(filled - start)
-				window.put_string_at(s.substring(1, todo), start, 0)
-				start := start + todo
-				todo := s.count - todo
-				b := True
-			end
-			window.unset_attribute(ncurses.a_reverse)
-			if filled < width then
-				window.draw_horizontal_line(filled, 0, space, width - filled)
-			end
-			if is_value_displayed and then (not b or else todo > 0) then
-				window.put_string_at(s.substring(todo + 1, s.count), start, 0)
-			end
-		end
+   refresh_later is
+      local
+         filled, start, todo: INTEGER
+         b: BOOLEAN
+         s: STRING
+      do
+         filled := width * (current_value - min_value) // (max_value - min_value)
+         s := current_value.to_string
+         start := (width - s.count) // 2
+         window.set_attribute(ncurses.a_reverse)
+         window.draw_horizontal_line(0, 0, space, filled)
+         if is_value_displayed and then filled > start then
+            todo := s.count.min(filled - start)
+            window.put_string_at(s.substring(1, todo), start, 0)
+            start := start + todo
+            todo := s.count - todo
+            b := True
+         end
+         window.unset_attribute(ncurses.a_reverse)
+         if filled < width then
+            window.draw_horizontal_line(filled, 0, space, width - filled)
+         end
+         if is_value_displayed and then (not b or else todo > 0) then
+            window.put_string_at(s.substring(todo + 1, s.count), start, 0)
+         end
+      end
 
-	is_value_displayed: BOOLEAN
+   is_value_displayed: BOOLEAN
 
-	display_value (b: like is_value_displayed) is
-		do
-			is_value_displayed := b
-		end
+   display_value (b: like is_value_displayed) is
+      do
+         is_value_displayed := b
+      end
 
 feature {NCURSES_WIDGET}
-	get_window: NCURSES_WINDOW is
-		do
-			Result := window
-		end
+   get_window: NCURSES_WINDOW is
+      do
+         Result := window
+      end
 
-	parent_resized is
-		do
-			if left + width > parent.width then
-				width := parent.width - left - 1
-			end
-		end
+   parent_resized is
+      do
+         if left + width > parent.width then
+            width := parent.width - left - 1
+         end
+      end
 
 feature{}
-	make (p: like parent; x, y, w, min, max: INTEGER) is
-		require
-			ncurses.is_enabled
-			p /= Void
-			x >= 0
-			y >= 0
-			x + w <= p.width
-			max >= min
-		do
-			left := x
-			top := y
-			width := w
-			height := 1
-			min_value := min
-			max_value := max
-			current_value := min_value
-			set_parent(p)
-			window := p.get_window.create_sub_window(left, top, width, height)
-		ensure
-			left = x
-			top = y
-			width = w
-			height = 1
-		end
+   make (p: like parent; x, y, w, min, max: INTEGER) is
+      require
+         ncurses.is_enabled
+         p /= Void
+         x >= 0
+         y >= 0
+         x + w <= p.width
+         max >= min
+      do
+         left := x
+         top := y
+         width := w
+         height := 1
+         min_value := min
+         max_value := max
+         current_value := min_value
+         set_parent(p)
+         window := p.get_window.create_sub_window(left, top, width, height)
+      ensure
+         left = x
+         top = y
+         width = w
+         height = 1
+      end
 
-	window: NCURSES_WINDOW
+   window: NCURSES_WINDOW
 
 invariant
-	window /= Void
-	max_value >= min_value
-	current_value.in_range(min_value, max_value)
+   window /= Void
+   max_value >= min_value
+   current_value.in_range(min_value, max_value)
 
 end -- class NCURSES_PROGRESSBAR
 --

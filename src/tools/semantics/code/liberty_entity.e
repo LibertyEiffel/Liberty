@@ -21,34 +21,34 @@ deferred class LIBERTY_ENTITY
 --
 
 inherit
-	VISITABLE
-	LIBERTY_POSITIONABLE
-		undefine out_in_tagged_out_memory
-		end
+   VISITABLE
+   LIBERTY_POSITIONABLE
+      undefine out_in_tagged_out_memory
+      end
 
 insert
-	LIBERTY_REACHABLE
+   LIBERTY_REACHABLE
 
 feature {ANY}
-	name: FIXED_STRING is
-		deferred
-		end
+   name: FIXED_STRING is
+      deferred
+      end
 
-	result_type: LIBERTY_TYPE is
-		deferred
-		ensure
-			-- Result may be Void in the particular case of procedures
-		end
+   result_type: LIBERTY_TYPE is
+      deferred
+      ensure
+         -- Result may be Void in the particular case of procedures
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		deferred
-		ensure
-			Result /= Void
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      require
+         a_type /= Void
+      deferred
+      ensure
+         Result /= Void
+      end
 
 invariant
-	name /= Void
+   name /= Void
 
 end

@@ -2,18 +2,18 @@
 -- See the full copyright at the end.
 --
 deferred class UNDOABLE_COMMAND
-	--
-	-- Another useful Command, that can be undone.
-	--
+   --
+   -- Another useful Command, that can be undone.
+   --
 
 inherit
-	COMMAND
+   COMMAND
 
 feature {ANY}
-	undo: COMMAND is
-			-- A command that makes the execution of Current undone.
-		deferred
-		end
+   undo: COMMAND is
+         -- A command that makes the execution of Current undone.
+      deferred
+      end
 
 end -- class UNDOABLE_COMMAND
 --

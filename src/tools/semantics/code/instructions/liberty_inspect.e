@@ -15,133 +15,133 @@
 class LIBERTY_INSPECT
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 create {LIBERTY_INSPECT}
-	specialized
+   specialized
 
 feature {ANY}
-	expression: LIBERTY_EXPRESSION
+   expression: LIBERTY_EXPRESSION
 
-	clauses: TRAVERSABLE[LIBERTY_INSPECT_CLAUSE] is
-		do
-			Result := clauses_list
-		ensure
-			Result = clauses_list
-		end
+   clauses: TRAVERSABLE[LIBERTY_INSPECT_CLAUSE] is
+      do
+         Result := clauses_list
+      ensure
+         Result = clauses_list
+      end
 
-	else_clause: LIBERTY_DEFAULT
+   else_clause: LIBERTY_DEFAULT
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			e: like expression
-			c: like clauses_list
-			clause: LIBERTY_INSPECT_CLAUSE
-			d: like else_clause
-			i: INTEGER
-		do
-			e := expression.specialized_in(a_type)
-			from
-				c := clauses_list
-				i := c.lower
-			until
-				i > c.upper
-			loop
-				clause := c.item(i).specialized_in(a_type)
-				if clause /= c.item(i) then
-					if c = clauses_list then
-						c := c.twin
-					end
-					c.put(clause, i)
-				end
-				i := i + 1
-			end
-			if else_clause /= Void then
-				d := else_clause.specialized_in(a_type)
-			end
-			if e = expression and then c = clauses_list and then d = else_clause then
-				Result := Current
-			else
-				create Result.specialized(e, c, d, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         e: like expression
+         c: like clauses_list
+         clause: LIBERTY_INSPECT_CLAUSE
+         d: like else_clause
+         i: INTEGER
+      do
+         e := expression.specialized_in(a_type)
+         from
+            c := clauses_list
+            i := c.lower
+         until
+            i > c.upper
+         loop
+            clause := c.item(i).specialized_in(a_type)
+            if clause /= c.item(i) then
+               if c = clauses_list then
+                  c := c.twin
+               end
+               c.put(clause, i)
+            end
+            i := i + 1
+         end
+         if else_clause /= Void then
+            d := else_clause.specialized_in(a_type)
+         end
+         if e = expression and then c = clauses_list and then d = else_clause then
+            Result := Current
+         else
+            create Result.specialized(e, c, d, position)
+         end
+      end
 
 feature {LIBERTY_BUILDER_TOOLS}
-	add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
-		require
-			a_clause /= Void
-		do
-			clauses_list.add_last(a_clause)
-		ensure
-			clauses.last = a_clause
-		end
+   add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
+      require
+         a_clause /= Void
+      do
+         clauses_list.add_last(a_clause)
+      ensure
+         clauses.last = a_clause
+      end
 
-	set_else_clause (a_else_clause: like else_clause) is
-		do
-			else_clause := a_else_clause
-		ensure
-			else_clause = a_else_clause
-		end
+   set_else_clause (a_else_clause: like else_clause) is
+      do
+         else_clause := a_else_clause
+      ensure
+         else_clause = a_else_clause
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			expression.mark_reachable_code(mark)
-			inspect_clauses_marker.mark_reachable_code(mark, clauses)
-			if else_clause /= Void then
-				else_clause.mark_reachable_code(mark)
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         expression.mark_reachable_code(mark)
+         inspect_clauses_marker.mark_reachable_code(mark, clauses)
+         if else_clause /= Void then
+            else_clause.mark_reachable_code(mark)
+         end
+      end
 
 feature {}
-	make (a_expression: like expression; a_position: like position) is
-		require
-			a_expression /= Void
-			a_position /= Void
-		do
-			create {FAST_ARRAY[LIBERTY_INSPECT_CLAUSE]} clauses_list.with_capacity(8)
-			expression := a_expression
-			position := a_position
-		ensure
-			expression = a_expression
-			position = a_position
-		end
+   make (a_expression: like expression; a_position: like position) is
+      require
+         a_expression /= Void
+         a_position /= Void
+      do
+         create {FAST_ARRAY[LIBERTY_INSPECT_CLAUSE]} clauses_list.with_capacity(8)
+         expression := a_expression
+         position := a_position
+      ensure
+         expression = a_expression
+         position = a_position
+      end
 
-	specialized (a_expression: like expression; a_clauses_list: like clauses_list; a_else_clause: like else_clause; a_position: like position) is
-		require
-			a_expression /= Void
-			a_clauses_list /= Void
-			a_position /= Void
-		do
-			expression := a_expression
-			clauses_list := a_clauses_list
-			else_clause := a_else_clause
-			position := a_position
-		ensure
-			expression = a_expression
-			clauses_list = a_clauses_list
-			else_clause = a_else_clause
-			position = a_position
-		end
+   specialized (a_expression: like expression; a_clauses_list: like clauses_list; a_else_clause: like else_clause; a_position: like position) is
+      require
+         a_expression /= Void
+         a_clauses_list /= Void
+         a_position /= Void
+      do
+         expression := a_expression
+         clauses_list := a_clauses_list
+         else_clause := a_else_clause
+         position := a_position
+      ensure
+         expression = a_expression
+         clauses_list = a_clauses_list
+         else_clause = a_else_clause
+         position = a_position
+      end
 
-	clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]
+   clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]
 
-	inspect_clauses_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSPECT_CLAUSE]
+   inspect_clauses_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSPECT_CLAUSE]
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_INSPECT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_inspect(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_INSPECT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_inspect(Current)
+      end
 
 invariant
-	expression /= Void
-	clauses_list /= Void
+   expression /= Void
+   clauses_list /= Void
 
 end

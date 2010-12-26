@@ -2,186 +2,186 @@
 -- See the full copyright at the end.
 --
 deferred class DICTIONARY[V_, K_]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	-- To make a comparison with the well knowned ARRAY class, with a DICTIONARY, index used are not only
-	-- INTEGER, you can use for example a STRING to access to your information.
-	--
-	-- Well knowned implementations, see HASHED_DICTIONARY, AVL_DICTIONARY and ARRAY_DICTIONARY.
-	--
-	-- See also BIJECTIVE_DICTIONARY class.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   -- To make a comparison with the well knowned ARRAY class, with a DICTIONARY, index used are not only
+   -- INTEGER, you can use for example a STRING to access to your information.
+   --
+   -- Well knowned implementations, see HASHED_DICTIONARY, AVL_DICTIONARY and ARRAY_DICTIONARY.
+   --
+   -- See also BIJECTIVE_DICTIONARY class.
+   --
 
 inherit
-	MAP[V_, K_]
+   MAP[V_, K_]
 
 feature {ANY} -- Adding:
-	put (v: V_; k: K_) is
-			-- Change some existing entry or `add' the new one. If there is as yet no key `k' in the dictionary,
-			-- enter it with item `v'. Otherwise overwrite the item associated with key `k'.
-			-- As the `put' procedure actually uses `is_equal', you may consider to use `fast_put' for expanded
-			-- objects as well while trying to get the very best performances.
-			--
-			-- See also `fast_put', `add'.
-		require
-			k /= Void
-		deferred
-		ensure
-			v = at(k)
-		end
+   put (v: V_; k: K_) is
+         -- Change some existing entry or `add' the new one. If there is as yet no key `k' in the dictionary,
+         -- enter it with item `v'. Otherwise overwrite the item associated with key `k'.
+         -- As the `put' procedure actually uses `is_equal', you may consider to use `fast_put' for expanded
+         -- objects as well while trying to get the very best performances.
+         --
+         -- See also `fast_put', `add'.
+      require
+         k /= Void
+      deferred
+      ensure
+         v = at(k)
+      end
 
-	fast_put (v: V_; k: K_) is
-			-- Same job as `put', but uses basic `=' for comparison.
-			-- If you are sure that `k' is not an existing entry, please consider using `add'
-			-- to get very best performances.
-			--
-			-- See also `put', `add'.
-		require
-			k /= Void
-		deferred
-		ensure
-			v = at(k)
-		end
+   fast_put (v: V_; k: K_) is
+         -- Same job as `put', but uses basic `=' for comparison.
+         -- If you are sure that `k' is not an existing entry, please consider using `add'
+         -- to get very best performances.
+         --
+         -- See also `put', `add'.
+      require
+         k /= Void
+      deferred
+      ensure
+         v = at(k)
+      end
 
-	add (v: V_; k: K_) is
-			-- To add a new entry `k' with its associated value `v'.
-			-- Actually, this is equivalent to call `put', but it may run a little bit faster.
-			--
-			-- See also `put', `fast_put'.
-		require
-			not has(k)
-		deferred
-		ensure
-			count = 1 + old count
-			v = at(k)
-		end
+   add (v: V_; k: K_) is
+         -- To add a new entry `k' with its associated value `v'.
+         -- Actually, this is equivalent to call `put', but it may run a little bit faster.
+         --
+         -- See also `put', `fast_put'.
+      require
+         not has(k)
+      deferred
+      ensure
+         count = 1 + old count
+         v = at(k)
+      end
 
-	set_item (v: V_; index: INTEGER) is
-		require
-			valid_index(index)
-		deferred
-		ensure
-			count = old count
-			v = item(index)
-		end
+   set_item (v: V_; index: INTEGER) is
+      require
+         valid_index(index)
+      deferred
+      ensure
+         count = old count
+         v = item(index)
+      end
 
 feature {ANY} -- Removing:
-	remove (k: K_) is
-			-- Remove entry `k' (which may exist or not before this call).
-			-- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
-			-- objects as well while trying to get the very best performances.
-			--
-			-- See also `fast_remove', `clear_count'.
-		require
-			k /= Void
-		deferred
-		ensure
-			not has(k)
-		end
+   remove (k: K_) is
+         -- Remove entry `k' (which may exist or not before this call).
+         -- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
+         -- objects as well while trying to get the very best performances.
+         --
+         -- See also `fast_remove', `clear_count'.
+      require
+         k /= Void
+      deferred
+      ensure
+         not has(k)
+      end
 
-	fast_remove (k: K_) is
-			-- Same job as `remove', but uses basic `=' for comparison.
-			--
-			-- See also `remove', `clear_count'.
-		require
-			k /= Void
-		deferred
-		ensure
-			not has(k)
-		end
+   fast_remove (k: K_) is
+         -- Same job as `remove', but uses basic `=' for comparison.
+         --
+         -- See also `remove', `clear_count'.
+      require
+         k /= Void
+      deferred
+      ensure
+         not has(k)
+      end
 
-	clear_count is
-			-- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
-			-- by this call.
-			--
-			-- See also `clear_count_and_capacity', `remove'.
-		deferred
-		ensure
-			is_empty: count = 0
-			capacity = old capacity
-		end
+   clear_count is
+         -- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
+         -- by this call.
+         --
+         -- See also `clear_count_and_capacity', `remove'.
+      deferred
+      ensure
+         is_empty: count = 0
+         capacity = old capacity
+      end
 
-	clear_count_and_capacity is
-			-- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
-			-- reduced after this call.
-			--
-			-- See also `clear_count', `remove'.
-		deferred
-		ensure
-			is_empty: count = 0
-			capacity <= old capacity
-		end
+   clear_count_and_capacity is
+         -- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
+         -- reduced after this call.
+         --
+         -- See also `clear_count', `remove'.
+      deferred
+      ensure
+         is_empty: count = 0
+         capacity <= old capacity
+      end
 
-	capacity: INTEGER is
-			-- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
-			-- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
-			-- the `capacity' value may not be always accurate depending of the implementation (anyway, this
-			-- `capacity' value is at least equals to `count').
-		deferred
-		end
+   capacity: INTEGER is
+         -- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
+         -- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
+         -- the `capacity' value may not be always accurate depending of the implementation (anyway, this
+         -- `capacity' value is at least equals to `count').
+      deferred
+      end
 
 feature {ANY}
-	copy (other: like Current) is
-			-- Reinitialize by copying all associations of `other'.
-		local
-			i: INTEGER
-		do
-			clear_count
-			from
-				i := 1
-			until
-				i > other.count
-			loop
-				put(other.item(i), other.key(i))
-				i := i + 1
-			end
-		end
+   copy (other: like Current) is
+         -- Reinitialize by copying all associations of `other'.
+      local
+         i: INTEGER
+      do
+         clear_count
+         from
+            i := 1
+         until
+            i > other.count
+         loop
+            put(other.item(i), other.key(i))
+            i := i + 1
+         end
+      end
 
-	new_iterator_on_items: ITERATOR[V_] is
-		do
-			create {ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
-		ensure then
-			Result /= Void
-		end
+   new_iterator_on_items: ITERATOR[V_] is
+      do
+         create {ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
+      ensure then
+         Result /= Void
+      end
 
 feature {}
-	make is
-			-- Creates an empty dictionary.
-		deferred
-		ensure
-			is_empty
-		end
+   make is
+         -- Creates an empty dictionary.
+      deferred
+      ensure
+         is_empty
+      end
 
 feature {} -- Implement manifest generic creation:
-	manifest_make (needed_capacity: INTEGER) is
-			-- Manifest creation of a dictionary.
-		do
-			make
-		end
+   manifest_make (needed_capacity: INTEGER) is
+         -- Manifest creation of a dictionary.
+      do
+         make
+      end
 
-	manifest_put (index: INTEGER; v: V_; k: K_) is
-		require
-			not has(k)
-		do
-			add(v, k)
-		end
+   manifest_put (index: INTEGER; v: V_; k: K_) is
+      require
+         not has(k)
+      do
+         add(v, k)
+      end
 
-	manifest_semicolon_check: INTEGER is 2
-			-- Put semicolons between successive value-key pairs.
+   manifest_semicolon_check: INTEGER is 2
+         -- Put semicolons between successive value-key pairs.
 
 feature {}
-	key_safe_equal (k1, k2: K_): BOOLEAN is
-			-- Because keys are never Void, we do not rely on the SAFE_EQUAL class.
-		require
-			k1 /= Void
-			k2 /= Void
-		do
-			if k1 = k2 then
-				Result := True
-			elseif k1.same_dynamic_type(k2) then
-				Result := k1.is_equal(k2)
-			end
-		end
+   key_safe_equal (k1, k2: K_): BOOLEAN is
+         -- Because keys are never Void, we do not rely on the SAFE_EQUAL class.
+      require
+         k1 /= Void
+         k2 /= Void
+      do
+         if k1 = k2 then
+            Result := True
+         elseif k1.same_dynamic_type(k2) then
+            Result := k1.is_equal(k2)
+         end
+      end
 
 end -- class DICTIONARY
 --

@@ -15,12 +15,12 @@
 class LIBERTY_AST_EXPRESSION_NO_ARRAY
 
 inherit
-	LIBERTY_AST_EXPRESSION_ROOT[LIBERTY_AST_E1, LIBERTY_AST_EXP1]
+   LIBERTY_AST_EXPRESSION_ROOT[LIBERTY_AST_E1, LIBERTY_AST_EXP1]
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {ANY}
-	name: STRING is "Expression_No_Array"
+   name: STRING is "Expression_No_Array"
 
 end

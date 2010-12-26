@@ -4,124 +4,124 @@
 expanded class PIPE_FUNCTIONS
 
 feature {}
-	basic_exec_pipe_create: POINTER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_create()"
-			}"
-		end
+   basic_exec_pipe_create: POINTER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_create()"
+         }"
+      end
 
-	basic_exec_pipe_again (data: POINTER): BOOLEAN is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_again"
-			}"
-		end
+   basic_exec_pipe_again (data: POINTER): BOOLEAN is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_again"
+         }"
+      end
 
-	basic_exec_pipe_error (data: POINTER): POINTER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_error"
-			}"
-		end
+   basic_exec_pipe_error (data: POINTER): POINTER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_error"
+         }"
+      end
 
 feature {} -- for PIPE_OUTPUT
-	basic_exec_pipe_in_disconnect (data: POINTER) is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_in_disconnect"
-			}"
-		end
+   basic_exec_pipe_in_disconnect (data: POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_in_disconnect"
+         }"
+      end
 
-	basic_exec_pipe_in_fd (data: POINTER): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_in_fd"
-			}"
-		end
+   basic_exec_pipe_in_fd (data: POINTER): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_in_fd"
+         }"
+      end
 
-	basic_exec_pipe_read (data: POINTER; sync: BOOLEAN): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_read"
-			}"
-		end
+   basic_exec_pipe_read (data: POINTER; sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_read"
+         }"
+      end
 
-	basic_exec_pipe_read_character (data: POINTER): CHARACTER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_read_character"
-			}"
-		end
+   basic_exec_pipe_read_character (data: POINTER): CHARACTER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_read_character"
+         }"
+      end
 
-	basic_exec_pipe_in_named (path: POINTER): POINTER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_in_named"
-			}"
-		end
+   basic_exec_pipe_in_named (path: POINTER): POINTER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_in_named"
+         }"
+      end
 
 feature {} -- for PIPE_INPUT
-	basic_exec_pipe_out_disconnect (data: POINTER) is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_out_disconnect"
-			}"
-		end
+   basic_exec_pipe_out_disconnect (data: POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_out_disconnect"
+         }"
+      end
 
-	basic_exec_pipe_out_fd (data: POINTER): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_out_fd"
-			}"
-		end
+   basic_exec_pipe_out_fd (data: POINTER): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_out_fd"
+         }"
+      end
 
-	basic_exec_pipe_write (data: POINTER; c: CHARACTER; sync: BOOLEAN): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_write"
-			}"
-		end
+   basic_exec_pipe_write (data: POINTER; c: CHARACTER; sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_write"
+         }"
+      end
 
-	basic_exec_pipe_flush (data: POINTER) is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_flush"
-			}"
-		end
+   basic_exec_pipe_flush (data: POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_flush"
+         }"
+      end
 
-	basic_exec_pipe_out_named (path: POINTER): POINTER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins/exec"
-			module_name: "pipes"
-			feature_name: "basic_exec_pipe_out_named"
-			}"
-		end
+   basic_exec_pipe_out_named (path: POINTER): POINTER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins/exec"
+         module_name: "pipes"
+         feature_name: "basic_exec_pipe_out_named"
+         }"
+      end
 
 end -- class PIPE_FUNCTIONS
 --

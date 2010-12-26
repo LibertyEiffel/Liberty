@@ -15,34 +15,34 @@
 class LIBERTY_AST_EXP2
 
 inherit
-	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E2]
+   LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E2]
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_or_else: BOOLEAN is
-		do
-			Result := count = 4
-			check
-				Result implies nodes.item(1).name.is_equal(once "KW or")
-				Result implies nodes.item(2).name.is_equal(once "KW else")
-			end
-		ensure
-			Result implies not is_empty
-		end
+   is_or_else: BOOLEAN is
+      do
+         Result := count = 4
+         check
+            Result implies nodes.item(1).name.is_equal(once "KW or")
+            Result implies nodes.item(2).name.is_equal(once "KW else")
+         end
+      ensure
+         Result implies not is_empty
+      end
 
-	is_or: BOOLEAN is
-		do
-			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW or")
-		end
+   is_or: BOOLEAN is
+      do
+         Result := count = 3 and then nodes.item(1).name.is_equal(once "KW or")
+      end
 
-	is_xor: BOOLEAN is
-		do
-			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW xor")
-		end
+   is_xor: BOOLEAN is
+      do
+         Result := count = 3 and then nodes.item(1).name.is_equal(once "KW xor")
+      end
 
 feature {ANY}
-	name: STRING is "e2-exp"
+   name: STRING is "e2-exp"
 
 end

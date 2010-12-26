@@ -13,23 +13,23 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_STRING_TYPED_MANIFEST
-	--
-	-- Not a STRING, but a typed manifest built from a STRING
-	--
+   --
+   -- Not a STRING, but a typed manifest built from a STRING
+   --
 
 inherit
-	LIBERTY_TYPED_MANIFEST[STRING]
+   LIBERTY_TYPED_MANIFEST[STRING]
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_STRING_TYPED_MANIFEST_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_string_typed_manifest(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_STRING_TYPED_MANIFEST_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_string_typed_manifest(Current)
+      end
 
 end

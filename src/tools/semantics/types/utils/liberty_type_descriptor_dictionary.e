@@ -13,161 +13,161 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_TYPE_DESCRIPTOR_DICTIONARY[E_]
-	--
-	-- This dictionary helps supporting keys whose equality definition changes.
-	--
+   --
+   -- This dictionary helps supporting keys whose equality definition changes.
+   --
 
 inherit
-	DICTIONARY[E_, LIBERTY_TYPE_DESCRIPTOR]
-	LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER
-		undefine
-			out_in_tagged_out_memory, copy, is_equal
-		end
+   DICTIONARY[E_, LIBERTY_TYPE_DESCRIPTOR]
+   LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER
+      undefine
+         out_in_tagged_out_memory, copy, is_equal
+      end
 
 creation {LIBERTY_UNIVERSE}
-	make, with_capacity
+   make, with_capacity
 
 feature {ANY}
-	add (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			dico.add(e, td)
-			td.add_change_listener(Current)
-		end
+   add (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         dico.add(e, td)
+         td.add_change_listener(Current)
+      end
 
-	put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			dico.put(e, td)
-			td.add_change_listener(Current)
-		end
+   put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         dico.put(e, td)
+         td.add_change_listener(Current)
+      end
 
-	fast_put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			dico.fast_put(e, td)
-			td.add_change_listener(Current)
-		end
+   fast_put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         dico.fast_put(e, td)
+         td.add_change_listener(Current)
+      end
 
-	remove (td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			dico.remove(td)
-			td.remove_change_listener(Current)
-		end
+   remove (td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         dico.remove(td)
+         td.remove_change_listener(Current)
+      end
 
-	fast_remove (td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			dico.fast_remove(td)
-			td.remove_change_listener(Current)
-		end
+   fast_remove (td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         dico.fast_remove(td)
+         td.remove_change_listener(Current)
+      end
 
-	has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
-		do
-			Result := dico.has(td)
-		end
+   has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
+      do
+         Result := dico.has(td)
+      end
 
-	at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
-		do
-			Result := dico.at(td)
-		end
+   at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+      do
+         Result := dico.at(td)
+      end
 
-	reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
-		do
-			Result := dico.reference_at(td)
-		end
+   reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+      do
+         Result := dico.reference_at(td)
+      end
 
-	fast_has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
-		do
-			Result := dico.fast_has(td)
-		end
+   fast_has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
+      do
+         Result := dico.fast_has(td)
+      end
 
-	fast_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
-		do
-			Result := dico.fast_at(td)
-		end
+   fast_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+      do
+         Result := dico.fast_at(td)
+      end
 
-	fast_reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
-		do
-			Result := dico.fast_reference_at(td)
-		end
+   fast_reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+      do
+         Result := dico.fast_reference_at(td)
+      end
 
-	clear_count is
-		do
-			dico.clear_count
-		end
+   clear_count is
+      do
+         dico.clear_count
+      end
 
-	clear_count_and_capacity is
-		do
-			dico.clear_count_and_capacity
-		end
+   clear_count_and_capacity is
+      do
+         dico.clear_count_and_capacity
+      end
 
-	count: INTEGER is
-		do
-			Result := dico.count
-		end
+   count: INTEGER is
+      do
+         Result := dico.count
+      end
 
-	capacity: INTEGER is
-		do
-			Result := dico.capacity
-		end
+   capacity: INTEGER is
+      do
+         Result := dico.capacity
+      end
 
-	item (index: INTEGER): E_ is
-		do
-			Result := dico.item(index)
-		end
+   item (index: INTEGER): E_ is
+      do
+         Result := dico.item(index)
+      end
 
-	key (index: INTEGER): LIBERTY_TYPE_DESCRIPTOR is
-		do
-			Result := dico.key(index)
-		end
+   key (index: INTEGER): LIBERTY_TYPE_DESCRIPTOR is
+      do
+         Result := dico.key(index)
+      end
 
-	new_iterator_on_keys: ITERATOR[LIBERTY_TYPE_DESCRIPTOR] is
-		do
-			Result := dico.new_iterator_on_keys
-		end
+   new_iterator_on_keys: ITERATOR[LIBERTY_TYPE_DESCRIPTOR] is
+      do
+         Result := dico.new_iterator_on_keys
+      end
 
-	internal_key (td: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE_DESCRIPTOR is
-		do
-			Result := dico.internal_key(td)
-		end
+   internal_key (td: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE_DESCRIPTOR is
+      do
+         Result := dico.internal_key(td)
+      end
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
-	on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR) is
-		local
-			i: INTEGER
-			e: E_
-		do
-			-- avoid duplicates
-			e := dico.fast_reference_at(td)
-			from
-				i := lower
-			until
-				i > upper
-			loop
-				if td.same_as(dico.key(i)) then
-					check
-						e.is_equal(dico.item(i))
-					end
-					dico.fast_remove(dico.key(i))
-				else
-					i := i + 1
-				end
-			end
-		end
+   on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR) is
+      local
+         i: INTEGER
+         e: E_
+      do
+         -- avoid duplicates
+         e := dico.fast_reference_at(td)
+         from
+            i := lower
+         until
+            i > upper
+         loop
+            if td.same_as(dico.key(i)) then
+               check
+                  e.is_equal(dico.item(i))
+               end
+               dico.fast_remove(dico.key(i))
+            else
+               i := i + 1
+            end
+         end
+      end
 
 feature {}
-	with_capacity (c: INTEGER) is
-		require
-			c >= 0
-		do
-			create dico.with_capacity(c)
-		end
+   with_capacity (c: INTEGER) is
+      require
+         c >= 0
+      do
+         create dico.with_capacity(c)
+      end
 
-	make is
-		do
-			create dico.make
-		end
+   make is
+      do
+         create dico.make
+      end
 
-	dico: HASHED_DICTIONARY[E_, LIBERTY_TYPE_DESCRIPTOR]
+   dico: HASHED_DICTIONARY[E_, LIBERTY_TYPE_DESCRIPTOR]
 
 invariant
-	dico /= Void
+   dico /= Void
 
 end

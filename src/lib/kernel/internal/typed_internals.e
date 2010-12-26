@@ -2,149 +2,149 @@
 -- See the full copyright at the end.
 --
 class TYPED_INTERNALS[E_]
-	-- WARNING: This interface is tentative and may change to a large
-	-- extent from SmartEiffel 2.2 to SmartEiffel 2.3.
-	--
-	--
-	-- TYPED_INTERNALS serves as a gateway between the typed ideal world of Eiffel objects and the untyped
-	-- physical world of raw memory, files on disks, streams on networks...
-	--
-	-- TYPED_INTERNALS[E_] describes the physical structure of class E_. For instance, TYPED_INTERNALS[STRING]
-	-- describes the physical structure of class STRING.
-	--
-	-- Optionally, an object of type E_ can be attached to that a TYPED_INTERNALS[E_]. The TYPED_INTERNALS[E_]
-	-- object can then be used to inspect and change the values of the attributes of the attached object. For
-	-- instance, a STRING could be attached to a TYPED_INTERNALS[STRING]. The TYPED_INTERNALS[STRING] could
-	-- then be used to get or set this STRING's attributes.
-	--
+   -- WARNING: This interface is tentative and may change to a large
+   -- extent from SmartEiffel 2.2 to SmartEiffel 2.3.
+   --
+   --
+   -- TYPED_INTERNALS serves as a gateway between the typed ideal world of Eiffel objects and the untyped
+   -- physical world of raw memory, files on disks, streams on networks...
+   --
+   -- TYPED_INTERNALS[E_] describes the physical structure of class E_. For instance, TYPED_INTERNALS[STRING]
+   -- describes the physical structure of class STRING.
+   --
+   -- Optionally, an object of type E_ can be attached to that a TYPED_INTERNALS[E_]. The TYPED_INTERNALS[E_]
+   -- object can then be used to inspect and change the values of the attributes of the attached object. For
+   -- instance, a STRING could be attached to a TYPED_INTERNALS[STRING]. The TYPED_INTERNALS[STRING] could
+   -- then be used to get or set this STRING's attributes.
+   --
 
 inherit
-	INTERNALS
-		redefine is_equal
-		end
+   INTERNALS
+      redefine is_equal
+      end
 
 creation {}
-	for_object
+   for_object
 
 creation {INTERNALS_HANDLER} -- Actual creation is performed by ANY.to_internals
-	make_blank
+   make_blank
 
 feature {INTERNALS_HANDLER, INTERNALS} -- Getting information about the described object's type
-	type_generator: STRING is
-		external "built_in"
-		end
+   type_generator: STRING is
+      external "built_in"
+      end
 
-	type_generating_type: STRING is
-		external "built_in"
-		end
+   type_generating_type: STRING is
+      external "built_in"
+      end
 
-	type_is_expanded: BOOLEAN is
-		external "built_in"
-		end
+   type_is_expanded: BOOLEAN is
+      external "built_in"
+      end
 
-	type_attribute_is_expanded (i: INTEGER): BOOLEAN is
-		external "built_in"
-		end
+   type_attribute_is_expanded (i: INTEGER): BOOLEAN is
+      external "built_in"
+      end
 
-	type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN is
-		external "built_in"
-		end
+   type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN is
+      external "built_in"
+      end
 
 feature {INTERNALS_HANDLER}
-	for_object (object_: like object_memory) is
-			-- Attach `Current' to `object_'
-		require
-			object_ /= Void
-			correct_generating_type(object_)
-			not object_.generator.is_equal(once "NATIVE_ARRAY")
-		do
-			object_memory := object_
-			set_object_can_be_retrieved
-		ensure
-			object_can_be_retrieved
-			object = object_
-		end
+   for_object (object_: like object_memory) is
+         -- Attach `Current' to `object_'
+      require
+         object_ /= Void
+         correct_generating_type(object_)
+         not object_.generator.is_equal(once "NATIVE_ARRAY")
+      do
+         object_memory := object_
+         set_object_can_be_retrieved
+      ensure
+         object_can_be_retrieved
+         object = object_
+      end
 
-	make_blank is
-			-- Attach `Current' to a blank object: all attributes of the object have their default value
-			-- (references are Void, INTEGERS are 0, BOOLEANs are False...)
-		require
-			not type_generator.is_equal(once "NATIVE_ARRAY")
-		external "built_in"
-		ensure
-			object_can_be_modified
-		end
+   make_blank is
+         -- Attach `Current' to a blank object: all attributes of the object have their default value
+         -- (references are Void, INTEGERS are 0, BOOLEANs are False...)
+      require
+         not type_generator.is_equal(once "NATIVE_ARRAY")
+      external "built_in"
+      ensure
+         object_can_be_modified
+      end
 
 feature {INTERNALS_HANDLER} -- Getting information about the type's attributes
-	type_attribute_count: INTEGER is
-		external "built_in"
-		end
+   type_attribute_count: INTEGER is
+      external "built_in"
+      end
 
-	type_attribute_name (i: INTEGER): STRING is
-		external "built_in"
-		end
+   type_attribute_name (i: INTEGER): STRING is
+      external "built_in"
+      end
 
-	type_attribute_generator (i: INTEGER): STRING is
-		external "built_in"
-		end
+   type_attribute_generator (i: INTEGER): STRING is
+      external "built_in"
+      end
 
-	type_attribute_generating_type (i: INTEGER): STRING is
-		external "built_in"
-		end
-
-feature {INTERNALS_HANDLER}
-	object_as_pointer: POINTER is
-		external "built_in"
-		end
+   type_attribute_generating_type (i: INTEGER): STRING is
+      external "built_in"
+      end
 
 feature {INTERNALS_HANDLER}
-	object: like object_memory is
-			-- The object `Current' is attached to
-		require
-			object_can_be_retrieved
-		do
-			Result := object_memory
-		ensure
-			Result.generating_type = type_generating_type
-		end
+   object_as_pointer: POINTER is
+      external "built_in"
+      end
+
+feature {INTERNALS_HANDLER}
+   object: like object_memory is
+         -- The object `Current' is attached to
+      require
+         object_can_be_retrieved
+      do
+         Result := object_memory
+      ensure
+         Result.generating_type = type_generating_type
+      end
 
 feature {INTERNALS_HANDLER} -- Accessing the object's attributes
-	object_attribute (i: INTEGER): INTERNALS is
-		external "built_in"
-		end
+   object_attribute (i: INTEGER): INTERNALS is
+      external "built_in"
+      end
 
-	set_object_attribute (element: INTERNALS; i: INTEGER) is
-		external "built_in"
-		end
+   set_object_attribute (element: INTERNALS; i: INTEGER) is
+      external "built_in"
+      end
 
 feature {TYPED_INTERNALS}
-	object_memory: E_
+   object_memory: E_
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-		external "built_in"
-		end
+   is_equal (other: like Current): BOOLEAN is
+      external "built_in"
+      end
 
-	set_object_can_be_retrieved is
-		do
-			object_can_be_retrieved := True
-			object.internals_can_be_retrieved
-		end
+   set_object_can_be_retrieved is
+      do
+         object_can_be_retrieved := True
+         object.internals_can_be_retrieved
+      end
 
 feature {}
-	correct_generating_type (object_: like object_memory): BOOLEAN is
-		local
-			ogt, tgt: STRING
-		do
-			ogt := object_.generating_type
-			tgt := type_generating_type
-			Result := ogt = tgt
-			check
-				Result -- Useful for debugging (Because you can read ogt and tgt)
-			end
-		ensure
-			Result = (object_.generating_type = type_generating_type)
-		end
+   correct_generating_type (object_: like object_memory): BOOLEAN is
+      local
+         ogt, tgt: STRING
+      do
+         ogt := object_.generating_type
+         tgt := type_generating_type
+         Result := ogt = tgt
+         check
+            Result -- Useful for debugging (Because you can read ogt and tgt)
+         end
+      ensure
+         Result = (object_.generating_type = type_generating_type)
+      end
 
 end -- class TYPED_INTERNALS
 --

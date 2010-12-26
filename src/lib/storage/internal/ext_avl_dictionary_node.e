@@ -2,35 +2,35 @@
 -- See the full copyright at the end.
 --
 class EXT_AVL_DICTIONARY_NODE[V_, K_]
-	--
-	-- Auxiliary class to implement EXT_AVL_DICTIONARY.
-	--
+   --
+   -- Auxiliary class to implement EXT_AVL_DICTIONARY.
+   --
 
 inherit
-	ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
+   ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
 creation {AVL_DICTIONARY}
-	make
+   make
 
 feature {}
-	order: PREDICATE[TUPLE[K_, K_]]
+   order: PREDICATE[TUPLE[K_, K_]]
 
-	ordered (k1, k2: K_): BOOLEAN is
-		do
-			Result := order.item([k1, k2])
-		end
+   ordered (k1, k2: K_): BOOLEAN is
+      do
+         Result := order.item([k1, k2])
+      end
 
-	make (a_order: like order) is
-		require
-			a_order /= Void
-		do
-			order := a_order
-		ensure
-			order = a_order
-		end
+   make (a_order: like order) is
+      require
+         a_order /= Void
+      do
+         order := a_order
+      ensure
+         order = a_order
+      end
 
 invariant
-	order /= Void
+   order /= Void
 
 end -- class EXT_AVL_DICTIONARY_NODE
 --

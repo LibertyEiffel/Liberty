@@ -15,60 +15,60 @@
 class LIBERTY_CURRENT
 
 inherit
-	LIBERTY_ENTITY
-		redefine out_in_tagged_out_memory
-		end
+   LIBERTY_ENTITY
+      redefine out_in_tagged_out_memory
+      end
 
 create {LIBERTY_ACTUAL_TYPE}
-	make
+   make
 
 feature {ANY}
-	name: FIXED_STRING is
-		once
-			Result := "Current".intern
-		end
+   name: FIXED_STRING is
+      once
+         Result := "Current".intern
+      end
 
-	out_in_tagged_out_memory is
-		do
-			tagged_out_memory.append(name)
-		end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(name)
+      end
 
-	result_type: LIBERTY_ACTUAL_TYPE
+   result_type: LIBERTY_ACTUAL_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := a_type.current_entity
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := a_type.current_entity
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			-- nothing
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         -- nothing
+      end
 
 feature {}
-	make (type: like result_type; a_position: like position) is
-		require
-			type /= Void
-			a_position /= Void
-		do
-			position := a_position
-			result_type := type
-		ensure
-			position = a_position
-			result_type = type
-		end
+   make (type: like result_type; a_position: like position) is
+      require
+         type /= Void
+         a_position /= Void
+      do
+         position := a_position
+         result_type := type
+      ensure
+         position = a_position
+         result_type = type
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_CURRENT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_current(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_CURRENT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_current(Current)
+      end
 
 invariant
-	result_type /= Void
+   result_type /= Void
 
 end

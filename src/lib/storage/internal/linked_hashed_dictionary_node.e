@@ -2,32 +2,32 @@
 -- See the full copyright at the end.
 --
 class LINKED_HASHED_DICTIONARY_NODE[V_, K_]
-	--
-	-- Auxilliary class to implement LINKED_HASHED_DICTIONARY.
-	--
+   --
+   -- Auxilliary class to implement LINKED_HASHED_DICTIONARY.
+   --
 
 inherit
-	HASHED_DICTIONARY_NODE[V_, K_]
-		export {ABSTRACT_HASHED_DICTIONARY, ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS, ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS}
-			key, item
-		end
+   HASHED_DICTIONARY_NODE[V_, K_]
+      export {ABSTRACT_HASHED_DICTIONARY, ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS, ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS}
+         key, item
+      end
 
 creation {ABSTRACT_LINKED_HASHED_DICTIONARY}
-	make
+   make
 
 feature {ABSTRACT_LINKED_HASHED_DICTIONARY, ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS, ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS}
-	previous_link, next_link: like Current
-			-- To implement the good iterating order.
+   previous_link, next_link: like Current
+         -- To implement the good iterating order.
 
 feature {ABSTRACT_LINKED_HASHED_DICTIONARY}
-	set_links (a_previous, a_next: like Current) is
-		do
-			previous_link := a_previous
-			next_link := a_next
-		ensure
-			previous_link = a_previous
-			next_link = a_next
-		end
+   set_links (a_previous, a_next: like Current) is
+      do
+         previous_link := a_previous
+         next_link := a_next
+      ensure
+         previous_link = a_previous
+         next_link = a_next
+      end
 
 end -- class LINKED_HASHED_DICTIONARY_NODE
 --

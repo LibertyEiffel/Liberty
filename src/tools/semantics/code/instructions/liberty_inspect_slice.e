@@ -15,77 +15,77 @@
 class LIBERTY_INSPECT_SLICE
 
 insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
+   LIBERTY_POSITIONABLE
+   LIBERTY_REACHABLE
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_INSPECT_SLICE}
-	make
+   make
 
 feature {ANY}
-	lower, upper: LIBERTY_EXPRESSION
+   lower, upper: LIBERTY_EXPRESSION
 
 feature {LIBERTY_INSPECT_CLAUSE}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			l, u: LIBERTY_EXPRESSION
-		do
-			l := lower.specialized_in(a_type)
-			if lower = upper then
-				if l = lower then
-					Result := Current
-				else
-					create Result.make(l, l, position)
-				end
-			else
-				u := upper.specialized_in(a_type)
-				if l = lower and then u = upper then
-					Result := Current
-				else
-					create Result.make(l, u, position)
-				end
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         l, u: LIBERTY_EXPRESSION
+      do
+         l := lower.specialized_in(a_type)
+         if lower = upper then
+            if l = lower then
+               Result := Current
+            else
+               create Result.make(l, l, position)
+            end
+         else
+            u := upper.specialized_in(a_type)
+            if l = lower and then u = upper then
+               Result := Current
+            else
+               create Result.make(l, u, position)
+            end
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			lower.mark_reachable_code(mark)
-			if upper /= lower then
-				upper.mark_reachable_code(mark)
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         lower.mark_reachable_code(mark)
+         if upper /= lower then
+            upper.mark_reachable_code(mark)
+         end
+      end
 
 feature {}
-	make (a_lower: like lower; a_upper: like upper; a_position: like position) is
-		require
-			a_lower /= Void
-			a_position /= Void
-		do
-			lower := a_lower
-			if a_upper /= Void then
-				upper := a_upper
-			else
-				upper := a_lower
-			end
-			position := a_position
-		ensure
-			lower = a_lower
-			a_upper /= Void implies upper = a_upper
-			a_upper = Void implies upper = a_lower
-			position = a_position
-		end
+   make (a_lower: like lower; a_upper: like upper; a_position: like position) is
+      require
+         a_lower /= Void
+         a_position /= Void
+      do
+         lower := a_lower
+         if a_upper /= Void then
+            upper := a_upper
+         else
+            upper := a_lower
+         end
+         position := a_position
+      ensure
+         lower = a_lower
+         a_upper /= Void implies upper = a_upper
+         a_upper = Void implies upper = a_lower
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_INSPECT_SLICE_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_inspect_slice(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_INSPECT_SLICE_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_inspect_slice(Current)
+      end
 
 invariant
-	lower /= Void
-	upper /= Void
+   lower /= Void
+   upper /= Void
 
 end

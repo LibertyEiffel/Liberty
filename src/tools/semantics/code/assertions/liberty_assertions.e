@@ -15,38 +15,38 @@
 deferred class LIBERTY_ASSERTIONS
 
 insert
-	LIBERTY_REACHABLE
-	VISITABLE
+   LIBERTY_REACHABLE
+   VISITABLE
 
 feature {LIBERTY_BUILDER_TOOLS}
-	infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
-			-- Considering that `Current' is the parent, adds an "and then" assertions block. Used by "require
-			-- then", "ensure then", and "invariant".
-		do
-			create {LIBERTY_ASSERTIONS_AND_THEN} Result.make(Current, other)
-		ensure
-			Result /= Void
-		end
+   infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
+         -- Considering that `Current' is the parent, adds an "and then" assertions block. Used by "require
+         -- then", "ensure then", and "invariant".
+      do
+         create {LIBERTY_ASSERTIONS_AND_THEN} Result.make(Current, other)
+      ensure
+         Result /= Void
+      end
 
-	infix "or else" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
-			-- Considering that `Current' is the parent, adds an "or else" assertions block. Used by "require
-			-- else".
-		do
-			create {LIBERTY_ASSERTIONS_OR_ELSE} Result.make(Current, other)
-		ensure
-			Result /= Void
-		end
+   infix "or else" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
+         -- Considering that `Current' is the parent, adds an "or else" assertions block. Used by "require
+         -- else".
+      do
+         create {LIBERTY_ASSERTIONS_OR_ELSE} Result.make(Current, other)
+      ensure
+         Result /= Void
+      end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		deferred
-		ensure
-			Result /= Void
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      require
+         a_type /= Void
+      deferred
+      ensure
+         Result /= Void
+      end
 
 feature {}
-	assertions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_ASSERTION]
+   assertions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_ASSERTION]
 
 end

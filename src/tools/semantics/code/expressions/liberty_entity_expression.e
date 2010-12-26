@@ -13,63 +13,63 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_ENTITY_EXPRESSION
-	-- expressions like "entity"
+   -- expressions like "entity"
 
 inherit
-	LIBERTY_EXPRESSION
+   LIBERTY_EXPRESSION
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_ENTITY_EXPRESSION}
-	make
+   make
 
 feature {ANY}
-	entity: LIBERTY_ENTITY
+   entity: LIBERTY_ENTITY
 
-	result_type: LIBERTY_TYPE is
-		do
-			Result := entity.result_type
-		end
+   result_type: LIBERTY_TYPE is
+      do
+         Result := entity.result_type
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			e: like entity
-		do
-			e := entity.specialized_in(a_type)
-			if e = entity then
-				Result := Current
-			else
-				create Result.make(e, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         e: like entity
+      do
+         e := entity.specialized_in(a_type)
+         if e = entity then
+            Result := Current
+         else
+            create Result.make(e, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			-- nothing
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         -- nothing
+      end
 
 feature {}
-	make (a_entity: like entity; a_position: like position) is
-		require
-			a_entity.result_type /= Void
-			a_position /= Void
-		do
-			entity := a_entity
-			position := a_position
-		ensure
-			entity = a_entity
-			position = a_position
-		end
+   make (a_entity: like entity; a_position: like position) is
+      require
+         a_entity.result_type /= Void
+         a_position /= Void
+      do
+         entity := a_entity
+         position := a_position
+      ensure
+         entity = a_entity
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_ENTITY_EXPRESSION_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_entity_expression(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_ENTITY_EXPRESSION_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_entity_expression(Current)
+      end
 
 invariant
-	entity /= Void
+   entity /= Void
 
 end

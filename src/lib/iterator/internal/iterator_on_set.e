@@ -2,57 +2,57 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_SET[E_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[E_]
+   ITERATOR[E_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	set: SET[E_]
-			-- The one to be traversed.
+   set: SET[E_]
+         -- The one to be traversed.
 
-	item_index: INTEGER
+   item_index: INTEGER
 
 feature {ANY}
-	make (d: SET[E_]) is
-		require
-			d /= Void
-		do
-			set := d
-			start
-		ensure
-			set = d
-		end
+   make (d: SET[E_]) is
+      require
+         d /= Void
+      do
+         set := d
+         start
+      ensure
+         set = d
+      end
 
-	start is
-		do
-			item_index := 1
-			generation := iterable_generation
-		end
+   start is
+      do
+         item_index := 1
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item_index > set.count
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item_index > set.count
+      end
 
-	item: E_ is
-		do
-			Result := set.item(item_index)
-		end
+   item: E_ is
+      do
+         Result := set.item(item_index)
+      end
 
-	next is
-		do
-			item_index := item_index + 1
-		end
+   next is
+      do
+         item_index := item_index + 1
+      end
 
 feature {}
-	iterable_generation: INTEGER is
-		do
-			Result := set.generation
-		end
+   iterable_generation: INTEGER is
+      do
+         Result := set.generation
+      end
 
 end -- class ITERATOR_ON_SET
 --

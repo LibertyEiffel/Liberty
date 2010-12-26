@@ -15,11 +15,11 @@
 deferred class LIBERTY_PRECURSOR_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_PRECURSOR_EXPRESSION}
-	visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
-		deferred
-		end
+   visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
+      deferred
+      end
 
 end -- class LIBERTY_PRECURSOR_EXPRESSION_VISITOR

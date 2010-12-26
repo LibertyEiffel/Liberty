@@ -2,64 +2,64 @@
 -- See the full copyright at the end.
 --
 class EXT_HASHED_SET[E_]
-	--
-	-- Like a HASH_SET but the items' hash_code function is given
-	--
+   --
+   -- Like a HASH_SET but the items' hash_code function is given
+   --
 
 inherit
-	ABSTRACT_HASHED_SET[E_]
-		rename
-			make as abs_make,
-			with_capacity as abs_with_capacity
-			from_collection as abs_from_collection
-		end
+   ABSTRACT_HASHED_SET[E_]
+      rename
+         make as abs_make,
+         with_capacity as abs_with_capacity
+         from_collection as abs_from_collection
+      end
 
 creation {ANY}
-	make, with_capacity, from_collection
+   make, with_capacity, from_collection
 
 feature {ANY}
-	hash_coder: FUNCTION[TUPLE[E_], INTEGER]
+   hash_coder: FUNCTION[TUPLE[E_], INTEGER]
 
-	make (a_hash_coder: like hash_coder) is
-		require
-			a_hash_coder /= Void
-		do
-			hash_coder := a_hash_coder
-			abs_make
-		ensure
-			hash_coder = a_hash_coder
-		end
+   make (a_hash_coder: like hash_coder) is
+      require
+         a_hash_coder /= Void
+      do
+         hash_coder := a_hash_coder
+         abs_make
+      ensure
+         hash_coder = a_hash_coder
+      end
 
-	with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
-		require
-			a_hash_coder /= Void
-			medium_size > 0
-		do
-			hash_coder := a_hash_coder
-			abs_with_capacity(medium_size)
-		ensure
-			hash_coder = a_hash_coder
-		end
+   with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
+      require
+         a_hash_coder /= Void
+         medium_size > 0
+      do
+         hash_coder := a_hash_coder
+         abs_with_capacity(medium_size)
+      ensure
+         hash_coder = a_hash_coder
+      end
 
-	from_collection (a_hash_coder: like hash_coder; model: COLLECTION[like item]) is
-		require
-			a_hash_coder /= Void
-			model /= Void
-		do
-			hash_coder := a_hash_coder
-			abs_from_collection(model)
-		ensure
-			hash_coder = a_hash_coder
-		end
+   from_collection (a_hash_coder: like hash_coder; model: COLLECTION[like item]) is
+      require
+         a_hash_coder /= Void
+         model /= Void
+      do
+         hash_coder := a_hash_coder
+         abs_from_collection(model)
+      ensure
+         hash_coder = a_hash_coder
+      end
 
 feature {}
-	hash_code (e: E_): INTEGER is
-		do
-			Result := hash_coder.item([e])
-		end
+   hash_code (e: E_): INTEGER is
+      do
+         Result := hash_coder.item([e])
+      end
 
 invariant
-	hash_coder /= Void
+   hash_coder /= Void
 
 end -- class EXT_HASHED_SET
 --

@@ -2,71 +2,71 @@
 -- See the full copyright at the end.
 --
 deferred class ITERABLE[E_]
-	--
-	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
-	-- accessed through an ITERATOR[E]
-	--
+   --
+   -- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
+   -- accessed through an ITERATOR[E]
+   --
 
 inherit
-	HOARD[E_]
+   HOARD[E_]
 
 feature {ANY} -- Other features:
-	new_iterator: ITERATOR[E_] is
-		deferred
-		ensure
-			Result /= Void
-			Result.generation = generation
-		end
+   new_iterator: ITERATOR[E_] is
+      deferred
+      ensure
+         Result /= Void
+         Result.generation = generation
+      end
 
-	frozen get_new_iterator: like new_iterator is
-		obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
-		do
-			Result := new_iterator
-		end
+   frozen get_new_iterator: like new_iterator is
+      obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
+      do
+         Result := new_iterator
+      end
 
 feature {ANY} -- Agent-based features:
-	do_all (action: ROUTINE[TUPLE[E_]]) is
-			-- Apply `action' to every item of `Current'.
-			--
-			-- See also `for_all', `exists', `aggregate'.
-		do
-			new_iterator.do_all(action)
-		end
+   do_all (action: ROUTINE[TUPLE[E_]]) is
+         -- Apply `action' to every item of `Current'.
+         --
+         -- See also `for_all', `exists', `aggregate'.
+      do
+         new_iterator.do_all(action)
+      end
 
-	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Do all items satisfy `test'?
-			--
-			-- See also `do_all', `exists', `aggregate'.
-		do
-			Result := new_iterator.for_all(test)
-		end
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Do all items satisfy `test'?
+         --
+         -- See also `do_all', `exists', `aggregate'.
+      do
+         Result := new_iterator.for_all(test)
+      end
 
-	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Does at least one item satisfy `test'?
-			--
-			-- See also `do_all', `for_all', `aggregate'.
-		do
-			Result := new_iterator.exists(test)
-		end
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Does at least one item satisfy `test'?
+         --
+         -- See also `do_all', `for_all', `aggregate'.
+      do
+         Result := new_iterator.exists(test)
+      end
 
-	aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
-			-- Aggregate all the elements starting from the initial value.
-			--
-			-- See also `do_all', `for_all', `exists'.
-		do
-			Result := aggregate(action, initial)
-		end
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      do
+         Result := aggregate(action, initial)
+      end
 
 feature {ITERATOR}
-	generation: INTEGER
+   generation: INTEGER
 
 feature {}
-	frozen next_generation is
-		do
-			generation := generation + 1
-		ensure
-			generation > old generation
-		end
+   frozen next_generation is
+      do
+         generation := generation + 1
+      ensure
+         generation > old generation
+      end
 
 end -- class ITERABLE
 --

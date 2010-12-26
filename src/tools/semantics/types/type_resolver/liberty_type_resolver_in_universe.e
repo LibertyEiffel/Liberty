@@ -15,58 +15,58 @@
 class LIBERTY_TYPE_RESOLVER_IN_UNIVERSE
 
 inherit
-	LIBERTY_TYPE_RESOLVER
+   LIBERTY_TYPE_RESOLVER
 
 insert
-	LIBERTY_ERROR_LEVELS
-		undefine out_in_tagged_out_memory
-		end
+   LIBERTY_ERROR_LEVELS
+      undefine out_in_tagged_out_memory
+      end
 
 creation {LIBERTY_UNIVERSE}
-	make
+   make
 
 feature {ANY}
-	out_in_tagged_out_memory is
-		do
-			tagged_out_memory.append(once "resolver in universe")
-		end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "resolver in universe")
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := Current
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := Current
+      end
 
 feature {}
-	universe: LIBERTY_UNIVERSE
+   universe: LIBERTY_UNIVERSE
 
-	lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
-		do
-			if not type_definition.is_anchor then
-				Result := universe.get_type_from_type_definition(type_definition, Void)
-			end
-		end
+   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+      do
+         if not type_definition.is_anchor then
+            Result := universe.get_type_from_type_definition(type_definition, Void)
+         end
+      end
 
-	lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
-		do
-			check Result = Void end
-		end
+   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+      do
+         check Result = Void end
+      end
 
-	lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
-		do
-			check Result = Void end
-		end
+   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+      do
+         check Result = Void end
+      end
 
-	make (a_universe: like universe) is
-		require
-			a_universe /= Void
-		do
-			universe := a_universe
-		ensure
-			universe = a_universe
-		end
+   make (a_universe: like universe) is
+      require
+         a_universe /= Void
+      do
+         universe := a_universe
+      ensure
+         universe = a_universe
+      end
 
 invariant
-	parent = Void
-	universe /= Void
+   parent = Void
+   universe /= Void
 
 end -- class LIBERTY_TYPE_RESOLVER_IN_UNIVERSE

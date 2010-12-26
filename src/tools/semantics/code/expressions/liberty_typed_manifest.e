@@ -15,39 +15,39 @@
 deferred class LIBERTY_TYPED_MANIFEST[E_]
 
 inherit
-	LIBERTY_EXPRESSION
+   LIBERTY_EXPRESSION
 
 feature {ANY}
-	manifest: E_
-	result_type: LIBERTY_TYPE
+   manifest: E_
+   result_type: LIBERTY_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := Current
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := Current
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			result_type.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         result_type.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
-		require
-			a_type /= Void
-			a_position /= Void
-		do
-			result_type := a_type
-			manifest := a_manifest
-			position := a_position
-		ensure
-			result_type = a_type
-			manifest = a_manifest
-			position = a_position
-		end
+   make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
+      require
+         a_type /= Void
+         a_position /= Void
+      do
+         result_type := a_type
+         manifest := a_manifest
+         position := a_position
+      ensure
+         result_type = a_type
+         manifest = a_manifest
+         position = a_position
+      end
 
 invariant
-	result_type /= Void
+   result_type /= Void
 
 end

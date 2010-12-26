@@ -2,21 +2,21 @@
 -- See the full copyright at the end.
 --
 class AVL_DICTIONARY_NODE[V_, K_ -> COMPARABLE]
-	--
-	-- Auxiliary class to implement AVL_DICTIONARY.
-	--
+   --
+   -- Auxiliary class to implement AVL_DICTIONARY.
+   --
 
 inherit
-	ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
+   ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 
 creation {AVL_DICTIONARY}
-	default_create
+   default_create
 
 feature {}
-	ordered (k1, k2: K_): BOOLEAN is
-		do
-			Result := k1 < k2
-		end
+   ordered (k1, k2: K_): BOOLEAN is
+      do
+         Result := k1 < k2
+      end
 
 end -- class AVL_DICTIONARY_NODE
 --

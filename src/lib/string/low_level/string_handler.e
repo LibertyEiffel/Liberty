@@ -2,10 +2,10 @@
 -- See the full copyright at the end.
 --
 deferred class STRING_HANDLER
-	-- Inherit this class if you need access to STRING internal storage.
+   -- Inherit this class if you need access to STRING internal storage.
 
 insert
-	ANY
+   ANY
 
 end -- class STRING_HANDLER
 --

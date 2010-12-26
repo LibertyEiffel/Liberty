@@ -15,11 +15,11 @@
 deferred class LIBERTY_TUPLE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_TUPLE}
-	visit_liberty_tuple (v: LIBERTY_TUPLE) is
-		deferred
-		end
+   visit_liberty_tuple (v: LIBERTY_TUPLE) is
+      deferred
+      end
 
 end -- class LIBERTY_TUPLE_VISITOR

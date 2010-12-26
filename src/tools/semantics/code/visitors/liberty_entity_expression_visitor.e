@@ -15,11 +15,11 @@
 deferred class LIBERTY_ENTITY_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_ENTITY_EXPRESSION}
-	visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION) is
-		deferred
-		end
+   visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION) is
+      deferred
+      end
 
 end -- class LIBERTY_ENTITY_EXPRESSION_VISITOR

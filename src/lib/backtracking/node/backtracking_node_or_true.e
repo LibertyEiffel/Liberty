@@ -2,27 +2,27 @@
 -- See the full copyright at the end.
 --
 class BACKTRACKING_NODE_OR_TRUE
-	--
-	-- Alternative between a node first and then nothing (as true)
-	--
+   --
+   -- Alternative between a node first and then nothing (as true)
+   --
 
 inherit
-	BACKTRACKING_NODE_UNARY
+   BACKTRACKING_NODE_UNARY
 
 insert
-	BACKTRACKING_NODE_GLOBALS
+   BACKTRACKING_NODE_GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	explore (explorer: BACKTRACKING) is
-		do
-			-- Tell to evaluate 'node' now.
-			explorer.set_current_node(node)
-			-- Push true in front of the possible alternatives.
-			explorer.push_or(the_true_node)
-		end
+   explore (explorer: BACKTRACKING) is
+      do
+         -- Tell to evaluate 'node' now.
+         explorer.set_current_node(node)
+         -- Push true in front of the possible alternatives.
+         explorer.push_or(the_true_node)
+      end
 
 end -- class BACKTRACKING_NODE_OR_TRUE
 --

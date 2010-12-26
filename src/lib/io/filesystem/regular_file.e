@@ -4,103 +4,103 @@
 class REGULAR_FILE
 
 inherit
-	FILE
+   FILE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	name: FIXED_STRING
-	path: FIXED_STRING
+   name: FIXED_STRING
+   path: FIXED_STRING
 
-	is_directory: BOOLEAN is False
-	is_regular: BOOLEAN is True
+   is_directory: BOOLEAN is False
+   is_regular: BOOLEAN is True
 
-	as_directory: DIRECTORY is
-		do
-			check False end
-		end
+   as_directory: DIRECTORY is
+      do
+         check False end
+      end
 
-	as_regular: REGULAR_FILE is
-		do
-			Result := Current
-		end
+   as_regular: REGULAR_FILE is
+      do
+         Result := Current
+      end
 
-	exists: BOOLEAN
+   exists: BOOLEAN
 
 feature {ANY} -- Text stream access
-	read: INPUT_STREAM is
-			-- Returns a stream connected for reading the file. If the read stream is not connected anymore,
-			-- connects it again.
-			-- Always returns the same object.
-		require
-			not is_writing
-		do
-			if read_memory = Void then
-				create read_memory.connect_to(path.out)
-			elseif not read_memory.is_connected then
-				read_memory.connect_to(path.out)
-			end
-			Result := read_memory
-		ensure
-			is_reading
-		end
+   read: INPUT_STREAM is
+         -- Returns a stream connected for reading the file. If the read stream is not connected anymore,
+         -- connects it again.
+         -- Always returns the same object.
+      require
+         not is_writing
+      do
+         if read_memory = Void then
+            create read_memory.connect_to(path.out)
+         elseif not read_memory.is_connected then
+            read_memory.connect_to(path.out)
+         end
+         Result := read_memory
+      ensure
+         is_reading
+      end
 
-	is_reading: BOOLEAN is
-		do
-			Result := read_memory /= Void and then read_memory.is_connected
-		end
+   is_reading: BOOLEAN is
+      do
+         Result := read_memory /= Void and then read_memory.is_connected
+      end
 
-	write: OUTPUT_STREAM is
-			-- Returns a stream connected for writing to the file. If the write stream is not connected anymore,
-			-- connects it again.
-			-- Always returns the same object.
-		require
-			not is_reading
-		do
-			if write_memory = Void then
-				create write_memory.connect_to(path.out)
-			elseif not write_memory.is_connected then
-				write_memory.connect_to(path.out)
-			end
-			Result := write_memory
-		ensure
-			is_writing
-		end
+   write: OUTPUT_STREAM is
+         -- Returns a stream connected for writing to the file. If the write stream is not connected anymore,
+         -- connects it again.
+         -- Always returns the same object.
+      require
+         not is_reading
+      do
+         if write_memory = Void then
+            create write_memory.connect_to(path.out)
+         elseif not write_memory.is_connected then
+            write_memory.connect_to(path.out)
+         end
+         Result := write_memory
+      ensure
+         is_writing
+      end
 
-	append: OUTPUT_STREAM is
-			-- Returns a stream connected for appending to the file. If the write stream is already conencted,
-			-- use `write' instead.
-			-- Always returns the same object.
-		require
-			not is_reading
-			not is_writing
-		do
-			if write_memory = Void then
-				create write_memory.connect_for_appending_to(path.out)
-			else
-				write_memory.connect_for_appending_to(path.out)
-			end
-			Result := write_memory
-		ensure
-			is_writing
-		end
+   append: OUTPUT_STREAM is
+         -- Returns a stream connected for appending to the file. If the write stream is already conencted,
+         -- use `write' instead.
+         -- Always returns the same object.
+      require
+         not is_reading
+         not is_writing
+      do
+         if write_memory = Void then
+            create write_memory.connect_for_appending_to(path.out)
+         else
+            write_memory.connect_for_appending_to(path.out)
+         end
+         Result := write_memory
+      ensure
+         is_writing
+      end
 
-	is_writing: BOOLEAN is
-		do
-			Result := write_memory /= Void and then write_memory.is_connected
-		end
+   is_writing: BOOLEAN is
+      do
+         Result := write_memory /= Void and then write_memory.is_connected
+      end
 
 feature {}
-	make (a_file_path: ABSTRACT_STRING) is
-		do
-			path := a_file_path.intern
-			basic_directory.compute_short_name_of(path)
-			name := basic_directory.last_entry.intern
-		end
+   make (a_file_path: ABSTRACT_STRING) is
+      do
+         path := a_file_path.intern
+         basic_directory.compute_short_name_of(path)
+         name := basic_directory.last_entry.intern
+      end
 
-	read_memory: TEXT_FILE_READ
-	write_memory: TEXT_FILE_WRITE
+   read_memory: TEXT_FILE_READ
+   write_memory: TEXT_FILE_WRITE
 
 end -- class REGULAR_FILE
 --

@@ -15,57 +15,57 @@
 class LIBERTY_DEFAULT
 
 insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
+   LIBERTY_POSITIONABLE
+   LIBERTY_REACHABLE
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_DEFAULT}
-	make
+   make
 
 feature {ANY}
-	instruction: LIBERTY_INSTRUCTION
+   instruction: LIBERTY_INSTRUCTION
 
 feature {LIBERTY_CONDITIONAL, LIBERTY_INSPECT}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			i: like instruction
-		do
-			i := instruction.specialized_in(a_type)
-			if i = instruction then
-				Result := Current
-			else
-				create Result.make(i, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         i: like instruction
+      do
+         i := instruction.specialized_in(a_type)
+         if i = instruction then
+            Result := Current
+         else
+            create Result.make(i, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			instruction.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         instruction.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_instruction: like instruction; a_position: like position) is
-		require
-			a_instruction /= Void
-			a_position /= Void
-		do
-			instruction := a_instruction
-			position := a_position
-		ensure
-			instruction = a_instruction
-			position = a_position
-		end
+   make (a_instruction: like instruction; a_position: like position) is
+      require
+         a_instruction /= Void
+         a_position /= Void
+      do
+         instruction := a_instruction
+         position := a_position
+      ensure
+         instruction = a_instruction
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_DEFAULT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_default(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_DEFAULT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_default(Current)
+      end
 
 invariant
-	instruction /= Void
+   instruction /= Void
 
 end

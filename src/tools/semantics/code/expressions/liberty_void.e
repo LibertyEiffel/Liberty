@@ -15,60 +15,60 @@
 class LIBERTY_VOID
 
 inherit
-	LIBERTY_EXPRESSION
+   LIBERTY_EXPRESSION
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	result_type: LIBERTY_TYPE
+   result_type: LIBERTY_TYPE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := Current
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := Current
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			-- nothing
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         -- nothing
+      end
 
 feature {LIBERTY_BUILDER_TOOLS}
-	set_result_type (a_result_type: like result_type) is
-		require
-			a_result_type /= Void
-			result_type = void_type
-		do
-			result_type := a_result_type
-		ensure
-			result_type = a_result_type
-		end
+   set_result_type (a_result_type: like result_type) is
+      require
+         a_result_type /= Void
+         result_type = void_type
+      do
+         result_type := a_result_type
+      ensure
+         result_type = a_result_type
+      end
 
-	void_type: LIBERTY_VOID_TYPE is
-		once
-			create Result.make
-		end
+   void_type: LIBERTY_VOID_TYPE is
+      once
+         create Result.make
+      end
 
 feature {}
-	make (a_position: like position) is
-		require
-			a_position /= Void
-		do
-			position := a_position
-			result_type := void_type
-		ensure
-			position = a_position
-			result_type = void_type
-		end
+   make (a_position: like position) is
+      require
+         a_position /= Void
+      do
+         position := a_position
+         result_type := void_type
+      ensure
+         position = a_position
+         result_type = void_type
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_VOID_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_void(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_VOID_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_void(Current)
+      end
 
 end

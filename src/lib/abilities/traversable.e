@@ -2,30 +2,30 @@
 -- See the full copyright at the end.
 --
 deferred class TRAVERSABLE[E_]
-	-- A `TRAVERSABLE[E_]' is a finite readable sequence of objects of type E_.
-	-- For instance, `COLLECTION's and `STRING's are `TRAVERSABLE'.
-	--
-	-- A good performance should always be obtained by sequentially acessing a `TRAVERSABLE' with increasing
-	-- indexes (from `lower' to `upper'), as demonstrated in the following code snippet :
-	--
-	--  from
-	--     i := a_traversable.lower
-	--  until
-	--     i > a_traversable.upper
-	--  loop
-	--     do_something_with(a_traversable.item(i))
-	--     i := i + 1
-	--  end
-	--
-	-- Other accessing methods (including random access and sequential access from `upper' to `lower') may or
-	-- may not lead to acceptable performance, depending on the particular implementation of `TRAVERSABLE'.
+   -- A `TRAVERSABLE[E_]' is a finite readable sequence of objects of type E_.
+   -- For instance, `COLLECTION's and `STRING's are `TRAVERSABLE'.
+   --
+   -- A good performance should always be obtained by sequentially acessing a `TRAVERSABLE' with increasing
+   -- indexes (from `lower' to `upper'), as demonstrated in the following code snippet :
+   --
+   --  from
+   --     i := a_traversable.lower
+   --  until
+   --     i > a_traversable.upper
+   --  loop
+   --     do_something_with(a_traversable.item(i))
+   --     i := i + 1
+   --  end
+   --
+   -- Other accessing methods (including random access and sequential access from `upper' to `lower') may or
+   -- may not lead to acceptable performance, depending on the particular implementation of `TRAVERSABLE'.
 
 inherit
-	ITERABLE[E_]
-		undefine
-			do_all, for_all, exists, aggregate
-		end
-	INDEXABLE[E_]
+   ITERABLE[E_]
+      undefine
+         do_all, for_all, exists, aggregate
+      end
+   INDEXABLE[E_]
 
 end -- class TRAVERSABLE
 --

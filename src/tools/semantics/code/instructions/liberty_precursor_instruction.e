@@ -15,27 +15,27 @@
 class LIBERTY_PRECURSOR_INSTRUCTION
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 insert
-	LIBERTY_PRECURSOR
+   LIBERTY_PRECURSOR
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_PRECURSOR_INSTRUCTION}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_PRECURSOR_INSTRUCTION_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_precursor_instruction(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_PRECURSOR_INSTRUCTION_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_precursor_instruction(Current)
+      end
 
 feature {}
-	make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current is
-		do
-			create Result.make(a_feature, a_actuals, a_position)
-		end
+   make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current is
+      do
+         create Result.make(a_feature, a_actuals, a_position)
+      end
 
 end

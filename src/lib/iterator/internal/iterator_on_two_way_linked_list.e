@@ -2,58 +2,58 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_TWO_WAY_LINKED_LIST[E_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[E_]
+   ITERATOR[E_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	linked_list: TWO_WAY_LINKED_LIST[E_]
-			-- The one to be traversed.
+   linked_list: TWO_WAY_LINKED_LIST[E_]
+         -- The one to be traversed.
 
-	item_link: TWO_WAY_LINKED_LIST_NODE[E_]
-			--  Memorize the current position.
+   item_link: TWO_WAY_LINKED_LIST_NODE[E_]
+         --  Memorize the current position.
 
 feature {ANY}
-	make (twll: TWO_WAY_LINKED_LIST[E_]) is
-		require
-			twll /= Void
-		do
-			linked_list := twll
-			start
-		ensure
-			linked_list = twll
-		end
+   make (twll: TWO_WAY_LINKED_LIST[E_]) is
+      require
+         twll /= Void
+      do
+         linked_list := twll
+         start
+      ensure
+         linked_list = twll
+      end
 
-	start is
-		do
-			item_link := linked_list.first_link
-			generation := iterable_generation
-		end
+   start is
+      do
+         item_link := linked_list.first_link
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item_link = Void
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item_link = Void
+      end
 
-	item: E_ is
-		do
-			Result := item_link.item
-		end
+   item: E_ is
+      do
+         Result := item_link.item
+      end
 
-	next is
-		do
-			item_link := item_link.next
-		end
+   next is
+      do
+         item_link := item_link.next
+      end
 
 feature {}
-	iterable_generation:  INTEGER is
-		do
-			Result := linked_list.generation
-		end
+   iterable_generation:  INTEGER is
+      do
+         Result := linked_list.generation
+      end
 
 end -- class ITERATOR_ON_TWO_WAY_LINKED_LIST
 --

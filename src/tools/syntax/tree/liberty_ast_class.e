@@ -15,26 +15,26 @@
 class LIBERTY_AST_CLASS
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	one_class: LIBERTY_AST_ONE_CLASS is
-		do
-			Result ::= nodes.item(0)
-		end
+   one_class: LIBERTY_AST_ONE_CLASS is
+      do
+         Result ::= nodes.item(0)
+      end
 
 feature {ANY}
-	count: INTEGER is 2
+   count: INTEGER is 2
 
-	name: STRING is "Class"
+   name: STRING is "Class"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 2 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 2 >> }
+      end
 
 end

@@ -4,7 +4,7 @@
 deferred class ANY_HASHED_SET_NODE
 
 insert
-	ANY
+   ANY
 
 end -- class ANY_HASHED_SET_NODE
 --

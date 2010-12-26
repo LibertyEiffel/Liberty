@@ -2,123 +2,123 @@
 -- See the full copyright at the end.
 --
 class LOGGER
-	--
-	-- A simple logger.
-	--
+   --
+   -- A simple logger.
+   --
 
 create {LOG_INTERNAL_CONF}
-	make
+   make
 
 feature {ANY}
-	tag: FIXED_STRING
+   tag: FIXED_STRING
 
 feature {ANY} -- Logging streams
-	trace: OUTPUT_STREAM is
-		do
-			Result := levels.trace.stream(level, output, tag)
-		ensure
-			Result /= Void
-		end
+   trace: OUTPUT_STREAM is
+      do
+         Result := levels.trace.stream(level, output, tag)
+      ensure
+         Result /= Void
+      end
 
-	info: OUTPUT_STREAM is
-		do
-			Result := levels.info.stream(level, output, tag)
-		ensure
-			Result /= Void
-		end
+   info: OUTPUT_STREAM is
+      do
+         Result := levels.info.stream(level, output, tag)
+      ensure
+         Result /= Void
+      end
 
-	warning: OUTPUT_STREAM is
-		do
-			Result := levels.warning.stream(level, output, tag)
-		ensure
-			Result /= Void
-		end
+   warning: OUTPUT_STREAM is
+      do
+         Result := levels.warning.stream(level, output, tag)
+      ensure
+         Result /= Void
+      end
 
-	error: OUTPUT_STREAM is
-		do
-			Result := levels.error.stream(level, output, tag)
-		ensure
-			Result /= Void
-		end
+   error: OUTPUT_STREAM is
+      do
+         Result := levels.error.stream(level, output, tag)
+      ensure
+         Result /= Void
+      end
 
 feature {ANY} -- Logging checks
-	is_trace: BOOLEAN is
-		do
-			Result := levels.trace.does_log(level)
-		end
+   is_trace: BOOLEAN is
+      do
+         Result := levels.trace.does_log(level)
+      end
 
-	is_info: BOOLEAN is
-		do
-			Result := levels.info.does_log(level)
-		end
+   is_info: BOOLEAN is
+      do
+         Result := levels.info.does_log(level)
+      end
 
-	is_warning: BOOLEAN is
-		do
-			Result := levels.warning.does_log(level)
-		end
+   is_warning: BOOLEAN is
+      do
+         Result := levels.warning.does_log(level)
+      end
 
-	is_error: BOOLEAN is
-		do
-			Result := levels.error.does_log(level)
-		end
+   is_error: BOOLEAN is
+      do
+         Result := levels.error.does_log(level)
+      end
 
 feature {ANY} -- Log level
-	set_level (a_level: like level) is
-		require
-			a_level /= Void
-		do
-			level := a_level
-		ensure
-			level = a_level
-		end
+   set_level (a_level: like level) is
+      require
+         a_level /= Void
+      do
+         level := a_level
+      ensure
+         level = a_level
+      end
 
-	level: LOG_LEVEL
+   level: LOG_LEVEL
 
 feature {LOG_INTERNAL_CONF} -- Parent logger
-	parent: LOGGER
+   parent: LOGGER
 
-	set_parent (a_parent: like parent) is
-		require
-			a_parent /= Void
-		do
-			parent := a_parent
-			set_level(a_parent.level)
-		ensure
-			parent = a_parent
-		end
+   set_parent (a_parent: like parent) is
+      require
+         a_parent /= Void
+      do
+         parent := a_parent
+         set_level(a_parent.level)
+      ensure
+         parent = a_parent
+      end
 
-	output: LOG_OUTPUT
+   output: LOG_OUTPUT
 
 feature {LOGGING}
-	is_valid: BOOLEAN is
-		local
-			conf: LOG_CONFIGURATION
-		do
-			Result := generation_id = conf.generation_id
-		end
+   is_valid: BOOLEAN is
+      local
+         conf: LOG_CONFIGURATION
+      do
+         Result := generation_id = conf.generation_id
+      end
 
 feature {}
-	make (a_output: LOG_OUTPUT; a_tag: like tag; a_id: like generation_id) is
-		require
-			a_output /= Void
-		do
-			output := a_output
-			tag := a_tag
-			generation_id := a_id
-			set_level(levels.trace)
-		ensure
-			output = a_output
-			tag = a_tag
-			generation_id = a_id
-			is_valid
-		end
+   make (a_output: LOG_OUTPUT; a_tag: like tag; a_id: like generation_id) is
+      require
+         a_output /= Void
+      do
+         output := a_output
+         tag := a_tag
+         generation_id := a_id
+         set_level(levels.trace)
+      ensure
+         output = a_output
+         tag = a_tag
+         generation_id = a_id
+         is_valid
+      end
 
-	levels: LOG_LEVELS
-	generation_id: INTEGER
+   levels: LOG_LEVELS
+   generation_id: INTEGER
 
 invariant
-	tag /= Void
-	level /= Void
+   tag /= Void
+   level /= Void
 
 end -- class LOGGER
 --

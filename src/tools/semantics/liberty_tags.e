@@ -15,36 +15,36 @@
 expanded class LIBERTY_TAGS
 
 feature {ANY} -- Tags on expressions
-	is_void: LIBERTY_TAG_REF[TRISTATE] is
-			-- This tag checks if the expression is always Void.
-		once
-			create Result.make("is void".intern)
-		end
+   is_void: LIBERTY_TAG_REF[TRISTATE] is
+         -- This tag checks if the expression is always Void.
+      once
+         create Result.make("is void".intern)
+      end
 
-	has_side_effect: LIBERTY_TAG_REF[TRISTATE] is
-			-- This tag checks if the expression has side effects (useful to drop targets when optimizing).
-		once
-			create Result.make("has side effect".intern)
-		end
+   has_side_effect: LIBERTY_TAG_REF[TRISTATE] is
+         -- This tag checks if the expression has side effects (useful to drop targets when optimizing).
+      once
+         create Result.make("has side effect".intern)
+      end
 
-	runtime_set: LIBERTY_TAG_REF[COLLECTION[LIBERTY_ACTUAL_TYPE]] is
-			-- This tag contains the complete set of actual types an expression may have at runtime.
-		once
-			create Result.make("runtime set".intern)
-		end
+   runtime_set: LIBERTY_TAG_REF[COLLECTION[LIBERTY_ACTUAL_TYPE]] is
+         -- This tag contains the complete set of actual types an expression may have at runtime.
+      once
+         create Result.make("runtime set".intern)
+      end
 
 feature {ANY} -- Tags on features (used by the interpreter)
-	once_flag: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT] is
-			-- This tag indicates that the once feature has already been called; it contains the feature's Result
-			-- if it exists.
-		once
-			create Result.make("once flag".intern)
-		end
+   once_flag: LIBERTY_TAG_REF[LIBERTY_INTERPRETER_OBJECT] is
+         -- This tag indicates that the once feature has already been called; it contains the feature's Result
+         -- if it exists.
+      once
+         create Result.make("once flag".intern)
+      end
 
-	plugin_agent: LIBERTY_TAG_REF[FOREIGN_AGENT] is
-			-- The low-level foreign function to call
-		once
-			create Result.make("plugin agent".intern)
-		end
+   plugin_agent: LIBERTY_TAG_REF[FOREIGN_AGENT] is
+         -- The low-level foreign function to call
+      once
+         create Result.make("plugin agent".intern)
+      end
 
 end

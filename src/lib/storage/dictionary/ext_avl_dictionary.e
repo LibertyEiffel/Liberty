@@ -2,48 +2,48 @@
 -- See the full copyright at the end.
 --
 class EXT_AVL_DICTIONARY[V_, K_]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using an AVL balanced tree. AVL stands for the names of G. M. Adel'son-Velskii
-	-- and E. M. Landis, two Russian mathematicians who first came up with this method of keeping the tree balanced.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using an AVL balanced tree. AVL stands for the names of G. M. Adel'son-Velskii
+   -- and E. M. Landis, two Russian mathematicians who first came up with this method of keeping the tree balanced.
+   --
 
 inherit
-	ABSTRACT_AVL_DICTIONARY[V_, K_]
-		rename
-			make as abs_make
-		end
+   ABSTRACT_AVL_DICTIONARY[V_, K_]
+      rename
+         make as abs_make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	order: PREDICATE[TUPLE[K_, K_]]
+   order: PREDICATE[TUPLE[K_, K_]]
 
 feature {}
-	ordered (k1, k2: K_): BOOLEAN is
-		do
-			Result := order.item([k1, k2])
-		end
+   ordered (k1, k2: K_): BOOLEAN is
+      do
+         Result := order.item([k1, k2])
+      end
 
-	a_new_node: EXT_AVL_DICTIONARY_NODE[V_, K_] is
-		do
-			create Result.make(order)
-		end
+   a_new_node: EXT_AVL_DICTIONARY_NODE[V_, K_] is
+      do
+         create Result.make(order)
+      end
 
-	make (a_order: like order) is
-		require
-			a_order /= Void
-		do
-			order := a_order
-			abs_make
-		ensure
-			order = a_order
-		end
+   make (a_order: like order) is
+      require
+         a_order /= Void
+      do
+         order := a_order
+         abs_make
+      ensure
+         order = a_order
+      end
 
 invariant
-	order /= Void
+   order /= Void
 
 end -- class EXT_AVL_DICTIONARY
 --

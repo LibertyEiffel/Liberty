@@ -15,46 +15,46 @@
 class LIBERTY_ETC_LIST
 
 inherit
-	EIFFEL_LIST_NODE
+   EIFFEL_LIST_NODE
 
 insert
-	EIFFEL_LIST_NODE_IMPL
-		rename
-			make as impl_make
-		export
-			{} all
-		redefine
-			accept
-		end
+   EIFFEL_LIST_NODE_IMPL
+      rename
+         make as impl_make
+      export
+         {} all
+      redefine
+         accept
+      end
 
 create {LIBERTY_ETC_FACTORY}
-	make
+   make
 
 feature {ANY}
-	accept (a_visitor: VISITOR) is
-		local
-			v: LIBERTY_ETC_VISITOR
-		do
-			v ::= a_visitor
-			visitor.call([v, Current])
-		end
+   accept (a_visitor: VISITOR) is
+      local
+         v: LIBERTY_ETC_VISITOR
+      do
+         v ::= a_visitor
+         visitor.call([v, Current])
+      end
 
 feature {}
-	make (a_name: FIXED_STRING; a_visitor: like visitor) is
-		require
-			a_name /= Void
-			a_visitor /= Void
-		do
-			impl_make(a_name)
-			visitor := a_visitor
-		ensure
-			name = a_name
-			visitor = a_visitor
-		end
+   make (a_name: FIXED_STRING; a_visitor: like visitor) is
+      require
+         a_name /= Void
+         a_visitor /= Void
+      do
+         impl_make(a_name)
+         visitor := a_visitor
+      ensure
+         name = a_name
+         visitor = a_visitor
+      end
 
-	visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_LIST]]
+   visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_LIST]]
 
 invariant
-	visitor /= Void
+   visitor /= Void
 
 end -- class LIBERTY_ETC_LIST

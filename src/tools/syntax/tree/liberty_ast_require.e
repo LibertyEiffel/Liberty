@@ -15,27 +15,27 @@
 class LIBERTY_AST_REQUIRE
 
 inherit
-	LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
-		redefine
-			possible_counts
-		end
+   LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
+      redefine
+         possible_counts
+      end
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	require_else: LIBERTY_AST_REQUIRE_ELSE is
-		do
-			Result ::= nodes.first
-		end
+   require_else: LIBERTY_AST_REQUIRE_ELSE is
+      do
+         Result ::= nodes.first
+      end
 
 feature {ANY}
-	name: STRING is "Require"
+   name: STRING is "Require"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 0, 3 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 0, 3 >> }
+      end
 
 end

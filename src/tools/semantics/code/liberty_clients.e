@@ -15,83 +15,83 @@
 class LIBERTY_CLIENTS
 
 inherit
-	LIBERTY_AST_CLIENT_VISITOR
-	TRAVERSABLE[LIBERTY_ACTUAL_TYPE]
+   LIBERTY_AST_CLIENT_VISITOR
+   TRAVERSABLE[LIBERTY_ACTUAL_TYPE]
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	lower: INTEGER is
-		do
-			Result := clients.lower
-		end
+   lower: INTEGER is
+      do
+         Result := clients.lower
+      end
 
-	upper: INTEGER is
-		do
-			Result := clients.upper
-		end
+   upper: INTEGER is
+      do
+         Result := clients.upper
+      end
 
-	count: INTEGER is
-		do
-			Result := clients.count
-		end
+   count: INTEGER is
+      do
+         Result := clients.count
+      end
 
-	is_empty: BOOLEAN is
-		do
-			Result := clients.is_empty
-		end
+   is_empty: BOOLEAN is
+      do
+         Result := clients.is_empty
+      end
 
-	item (i: INTEGER): LIBERTY_ACTUAL_TYPE is
-		do
-			Result := clients.item(i)
-		end
+   item (i: INTEGER): LIBERTY_ACTUAL_TYPE is
+      do
+         Result := clients.item(i)
+      end
 
-	first: like item is
-		do
-			Result := clients.first
-		end
+   first: like item is
+      do
+         Result := clients.first
+      end
 
-	last: like item is
-		do
-			Result := clients.last
-		end
+   last: like item is
+      do
+         Result := clients.last
+      end
 
-	new_iterator: ITERATOR[LIBERTY_ACTUAL_TYPE] is
-		do
-			Result := clients.new_iterator
-		end
+   new_iterator: ITERATOR[LIBERTY_ACTUAL_TYPE] is
+      do
+         Result := clients.new_iterator
+      end
 
 feature {LIBERTY_AST_CLIENT}
-	visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is
-		do
-			clients.add_last(type_lookup.resolver.get_export_type(v.type_definition)
-		end
+   visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is
+      do
+         clients.add_last(type_lookup.resolver.get_export_type(v.type_definition)
+      end
 
 feature {}
-	make (a_origin: like origin; a_clients: TRAVERSABLE[LIBERTY_AST_CLASS_NAME]; a_universe: like universe) is
-		require
-			a_clients /= Void
-			a_universe /= Void
-		local
-			i: INTEGER
-		do
-			universe := a_universe
-			create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} clients.with_capacity(clients.count)
-			from
-				i := a_clients.lower
-			until
-				i > a_clients.upper
-			loop
-				a_clients.item(i).accept(Current)
-				i := i + 1
-			end
-		ensure
-			clients.count = a_clients.count
-		end
+   make (a_origin: like origin; a_clients: TRAVERSABLE[LIBERTY_AST_CLASS_NAME]; a_universe: like universe) is
+      require
+         a_clients /= Void
+         a_universe /= Void
+      local
+         i: INTEGER
+      do
+         universe := a_universe
+         create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} clients.with_capacity(clients.count)
+         from
+            i := a_clients.lower
+         until
+            i > a_clients.upper
+         loop
+            a_clients.item(i).accept(Current)
+            i := i + 1
+         end
+      ensure
+         clients.count = a_clients.count
+      end
 
-	origin: LIBERTY_ACTUAL_TYPE
-	clients: COLLECTION[LIBERTY_ACTUAL_TYPE]
-	universe: LIBERTY_UNIVERSE
+   origin: LIBERTY_ACTUAL_TYPE
+   clients: COLLECTION[LIBERTY_ACTUAL_TYPE]
+   universe: LIBERTY_UNIVERSE
 
 end

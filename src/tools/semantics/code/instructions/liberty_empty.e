@@ -15,39 +15,39 @@
 class LIBERTY_EMPTY
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := Current
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := Current
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			-- nothing
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         -- nothing
+      end
 
 feature {}
-	make is
-		local
-			errors: LIBERTY_ERRORS
-		do
-			position := errors.unknown_position
-		end
+   make is
+      local
+         errors: LIBERTY_ERRORS
+      do
+         position := errors.unknown_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_EMPTY_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_empty(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_EMPTY_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_empty(Current)
+      end
 
 end
 

@@ -15,11 +15,11 @@
 deferred class LIBERTY_INT_REMAINDER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_INT_REMAINDER}
-	visit_liberty_int_remainder (v: LIBERTY_INT_REMAINDER) is
-		deferred
-		end
+   visit_liberty_int_remainder (v: LIBERTY_INT_REMAINDER) is
+      deferred
+      end
 
 end -- class LIBERTY_INT_REMAINDER_VISITOR
