@@ -15,11 +15,11 @@
 deferred class LIBERTY_DIVIDE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_DIVIDE}
-	visit_liberty_divide (v: LIBERTY_DIVIDE) is
-		deferred
-		end
+   visit_liberty_divide (v: LIBERTY_DIVIDE) is
+      deferred
+      end
 
 end -- class LIBERTY_DIVIDE_VISITOR

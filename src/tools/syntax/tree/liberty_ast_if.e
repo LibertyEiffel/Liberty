@@ -13,56 +13,56 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_AST_IF
-	--
-	-- This class handles both "if" and "elseif" hence the redefines
-	--
+   --
+   -- This class handles both "if" and "elseif" hence the redefines
+   --
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
-		redefine
-			valid_name, make
-		end
+   LIBERTY_AST_NON_TERMINAL_NODE
+      redefine
+         valid_name, make
+      end
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	expression: LIBERTY_AST_EXPRESSION is
-		do
-			Result ::= nodes.item(1)
-		end
+   expression: LIBERTY_AST_EXPRESSION is
+      do
+         Result ::= nodes.item(1)
+      end
 
-	instructions: EIFFEL_LIST_NODE is
-		do
-			Result ::= nodes.item(3)
-		end
+   instructions: EIFFEL_LIST_NODE is
+      do
+         Result ::= nodes.item(3)
+      end
 
 feature {ANY}
-	count: INTEGER is 4
+   count: INTEGER is 4
 
-	name: STRING
+   name: STRING
 
 feature {}
-	make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING]) is
-		do
-			name := a_name.out
-			Precursor(a_name, a_names)
-		end
+   make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING]) is
+      do
+         name := a_name.out
+         Precursor(a_name, a_names)
+      end
 
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 4 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 4 >> }
+      end
 
-	valid_name (a_name: like eiffel_name): BOOLEAN is
-		do
-			inspect
-				a_name
-			when "If", "ElseIf" then
-				Result := True
-			else
-				--Result := False
-			end
-		end
+   valid_name (a_name: like eiffel_name): BOOLEAN is
+      do
+         inspect
+            a_name
+         when "If", "ElseIf" then
+            Result := True
+         else
+            --Result := False
+         end
+      end
 
 end

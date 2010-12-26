@@ -15,11 +15,11 @@
 deferred class LIBERTY_REAL_MANIFEST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_REAL_MANIFEST}
-	visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
-		deferred
-		end
+   visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
+      deferred
+      end
 
 end -- class LIBERTY_REAL_MANIFEST_VISITOR

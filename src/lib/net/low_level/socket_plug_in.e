@@ -6,251 +6,251 @@
 class SOCKET_PLUG_IN
 
 feature {}
-	last_error: STRING is
-		local
-			e: POINTER
-		do
-			e := net_last_error
-			if e /= default_pointer then
-				Result := once ""
-				Result.from_external(e)
-			end
-		end
+   last_error: STRING is
+      local
+         e: POINTER
+      do
+         e := net_last_error
+         if e /= default_pointer then
+            Result := once ""
+            Result.from_external(e)
+         end
+      end
 
-	last_error_number: INTEGER is
-		require
-			last_error /= Void
-		do
-			Result := net_last_error_number
-		end
+   last_error_number: INTEGER is
+      require
+         last_error /= Void
+      do
+         Result := net_last_error_number
+      end
 
 feature {} -- Plugin
-	net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_tcp"
          }"
-		end
+      end
 
-	net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_udp"
          }"
-		end
+      end
 
-	net_local (a_port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_local (a_port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_local"
          }"
-		end
+      end
 
-	net_select (a_fd: INTEGER; a_timeout: REAL): INTEGER is
-		external "plug_in"
-		alias "{
+   net_select (a_fd: INTEGER; a_timeout: REAL): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_select_one"
          }"
-		end
+      end
 
-	net_read (a_fd, a_count: INTEGER; a_buffer: POINTER; sync: BOOLEAN): INTEGER is
-		external "plug_in"
-		alias "{
+   net_read (a_fd, a_count: INTEGER; a_buffer: POINTER; sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_read"
          }"
-		end
+      end
 
-	net_write (a_fd, a_count: INTEGER; a_buffer: NATIVE_ARRAY[CHARACTER]): INTEGER is
-		external "plug_in"
-		alias "{
+   net_write (a_fd, a_count: INTEGER; a_buffer: NATIVE_ARRAY[CHARACTER]): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_write"
          }"
-		end
+      end
 
-	net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]) is
-		external "plug_in"
-		alias "{
+   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]) is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_accept"
          }"
-		end
+      end
 
-	net_disconnect (a_fd: INTEGER) is
-		external "plug_in"
-		alias "{
+   net_disconnect (a_fd: INTEGER) is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_disconnect"
          }"
-		end
+      end
 
-	net_shutdown (a_fd: INTEGER) is
-		external "plug_in"
-		alias "{
+   net_shutdown (a_fd: INTEGER) is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_shutdown"
          }"
-		end
+      end
 
-	net_last_error: POINTER is
-		external "plug_in"
-		alias "{
+   net_last_error: POINTER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_last_error"
          }"
-		end
+      end
 
-	net_last_error_number: INTEGER is
-		external "plug_in"
-		alias "{
+   net_last_error_number: INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_last_error_number"
          }"
-		end
+      end
 
-	net_hostname (a_hostname: POINTER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_hostname (a_hostname: POINTER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_hostname"
          }"
-		end
+      end
 
-	net_tcp_server (port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_tcp_server (port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_tcp_server"
          }"
-		end
+      end
 
-	net_udp_server (port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_udp_server (port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_udp_server"
          }"
-		end
+      end
 
-	net_local_server (port: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_local_server (port: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_local_server"
          }"
-		end
+      end
 
-	net_bind_server(socket, port, sockfamily: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_bind_server(socket, port, sockfamily: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_bind_server"
          }"
-		end
+      end
 
-	net_set_int_option(fd, level, optname, opt_val: INTEGER): INTEGER is
-		external "plug_in"
-		alias "{
+   net_set_int_option(fd, level, optname, opt_val: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_set_int_option"
          }"
-		end
+      end
 
-	net_tcp_socket: INTEGER is
-		external "plug_in"
-		alias "{
+   net_tcp_socket: INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_tcp_socket()"
          }"
-		end
+      end
 
 feature {} -- Name resolution -- see LOCALHOST
-	net_gethostname: POINTER is
-		external "plug_in"
-		alias "{
+   net_gethostname: POINTER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_gethostname()"
          }"
-		end
+      end
 
-	net_sethostname (hn: POINTER; size: INTEGER) is
-		external "plug_in"
-		alias "{
+   net_sethostname (hn: POINTER; size: INTEGER) is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_sethostname"
          }"
-		end
+      end
 
-	net_getdomainname: POINTER is
-		external "plug_in"
-		alias "{
+   net_getdomainname: POINTER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_getdomainname()"
          }"
-		end
+      end
 
-	net_setdomainname (dn: POINTER; size: INTEGER) is
-		external "plug_in"
-		alias "{
+   net_setdomainname (dn: POINTER; size: INTEGER) is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "net_setdomainname"
          }"
-		end
+      end
 
 feature {} -- Macros for setting options
-	sol_socket: INTEGER is
-		external "plug_in"
-		alias "{
+   sol_socket: INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "SOL_SOCKET"
          }"
-		end
+      end
 
-	so_reuse_addr: INTEGER is
-		external "plug_in"
-		alias "{
+   so_reuse_addr: INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "SO_REUSEADDR"
          }"
-		end
+      end
 
-	af_inet: INTEGER is
-		external "plug_in"
-		alias "{
+   af_inet: INTEGER is
+      external "plug_in"
+      alias "{
          location: "${sys}/plugins"
          module_name: "net"
          feature_name: "AF_INET"
          }"
-		end
+      end
 end -- class SOCKET_PLUG_IN
 --
 -- ------------------------------------------------------------------------------------------------------------

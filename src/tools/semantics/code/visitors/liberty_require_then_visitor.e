@@ -15,11 +15,11 @@
 deferred class LIBERTY_REQUIRE_THEN_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_REQUIRE_THEN}
-	visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN) is
-		deferred
-		end
+   visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN) is
+      deferred
+      end
 
 end -- class LIBERTY_REQUIRE_THEN_VISITOR

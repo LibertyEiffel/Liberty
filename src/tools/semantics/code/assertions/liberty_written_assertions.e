@@ -15,61 +15,61 @@
 deferred class LIBERTY_WRITTEN_ASSERTIONS
 
 inherit
-	LIBERTY_ASSERTIONS
+   LIBERTY_ASSERTIONS
 
 feature {ANY}
-	assertions: TRAVERSABLE[LIBERTY_ASSERTION] is
-		do
-			Result := assertions_list
-		end
+   assertions: TRAVERSABLE[LIBERTY_ASSERTION] is
+      do
+         Result := assertions_list
+      end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			al: like assertions_list
-			a: LIBERTY_ASSERTION
-			i: INTEGER
-		do
-			from
-				al := assertions_list
-				i := al.lower
-			until
-				i > al.upper
-			loop
-				a := al.item(i).specialized_in(a_type)
-				if a /= al.item(i) then
-					if al = assertions_list then
-						al := assertions_list.twin
-					end
-					al.put(a, i)
-				end
-				i := i + 1
-			end
-			if al = assertions_list then
-				Result := Current
-			else
-				Result := specialized(al)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         al: like assertions_list
+         a: LIBERTY_ASSERTION
+         i: INTEGER
+      do
+         from
+            al := assertions_list
+            i := al.lower
+         until
+            i > al.upper
+         loop
+            a := al.item(i).specialized_in(a_type)
+            if a /= al.item(i) then
+               if al = assertions_list then
+                  al := assertions_list.twin
+               end
+               al.put(a, i)
+            end
+            i := i + 1
+         end
+         if al = assertions_list then
+            Result := Current
+         else
+            Result := specialized(al)
+         end
+      end
 
 feature {}
-	specialized (a_assertions: like assertions_list): like Current is
-		deferred
-		ensure
-			Result /= Current
-			Result.assertions_list = a_assertions
-		end
+   specialized (a_assertions: like assertions_list): like Current is
+      deferred
+      ensure
+         Result /= Current
+         Result.assertions_list = a_assertions
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			assertions_marker.mark_reachable_code(mark, assertions)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         assertions_marker.mark_reachable_code(mark, assertions)
+      end
 
 feature {LIBERTY_WRITTEN_ASSERTIONS}
-	assertions_list: COLLECTION[LIBERTY_ASSERTION]
+   assertions_list: COLLECTION[LIBERTY_ASSERTION]
 
 invariant
-	assertions /= Void
+   assertions /= Void
 
 end

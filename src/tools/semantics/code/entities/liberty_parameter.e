@@ -15,71 +15,71 @@
 class LIBERTY_PARAMETER
 
 inherit
-	LIBERTY_ENTITY
-		redefine out_in_tagged_out_memory
-		end
+   LIBERTY_ENTITY
+      redefine out_in_tagged_out_memory
+      end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_PARAMETER}
-	make
+   make
 
 feature {ANY}
-	name: FIXED_STRING
+   name: FIXED_STRING
 
-	result_type: LIBERTY_TYPE
+   result_type: LIBERTY_TYPE
 
-	out_in_tagged_out_memory is
-		do
-			tagged_out_memory.append(once "parameter: ")
-			tagged_out_memory.append(name)
-		end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "parameter: ")
+         tagged_out_memory.append(name)
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			r: like result_type
-		do
-			r := result_type.specialized_in(a_type)
-			if r = result_type then
-				Result := Current
-			else
-				create Result.make(name, r, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         r: like result_type
+      do
+         r := result_type.specialized_in(a_type)
+         if r = result_type then
+            Result := Current
+         else
+            create Result.make(name, r, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
-				result_type.mark_reachable_code(mark)
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
+            result_type.mark_reachable_code(mark)
+         end
+      end
 
 feature {}
-	make (a_name: FIXED_STRING; a_result_type: like result_type; a_position: like position) is
-		require
-			a_name /= Void
-			a_result_type /= Void
-			a_position /= Void
-		do
-			name := a_name
-			result_type := a_result_type
-			position := a_position
-		ensure
-			name = a_name
-			result_type = a_result_type
-			position = a_position
-		end
+   make (a_name: FIXED_STRING; a_result_type: like result_type; a_position: like position) is
+      require
+         a_name /= Void
+         a_result_type /= Void
+         a_position /= Void
+      do
+         name := a_name
+         result_type := a_result_type
+         position := a_position
+      ensure
+         name = a_name
+         result_type = a_result_type
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_PARAMETER_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_parameter(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_PARAMETER_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_parameter(Current)
+      end
 
 invariant
-	name /= Void
-	result_type /= Void
+   name /= Void
+   result_type /= Void
 
 end

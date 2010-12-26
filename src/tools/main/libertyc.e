@@ -13,34 +13,35 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTYC
-	--
-	-- The compiler.
-	--
+   --
+   -- The compiler.
+   --
 
 insert
-	LIBERTY_MAIN
+   LIBERTY_MAIN
 
 create {}
-	make
+   make
 
 feature {}
-	run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
-		require
-			root /= Void
-			root_feature_name /= Void
-		local
-			compiler: LIBERTY_COMPILER
-		do
-			log.info.put_new_line
-			log.info.put_line("Root type: ")
-			root.debug_display(log.info, True)
-			log.info.put_line("Done.")
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+      require
+         root /= Void
+         root_feature_name /= Void
+      local
+         compiler: LIBERTY_COMPILER
+      do
+         log.info.put_new_line
+         log.info.put_line("Root type: ")
+         root.debug_display(log.info, True)
 
-			create compiler.make(universe, root, root_feature_name, opt_check_level.item, opt_debug.item)
-			compiler.compile_classes
-			compiler.finalize
-		end
+         create compiler.make(universe, root, root_feature_name, opt_check_level.item, opt_debug.item)
+         compiler.compile_classes
+         compiler.finalize
 
-	default_log_location: STRING is "${path_liberty}/resources/log/libertyc-log.rc"
+         log.info.put_line("Done.")
+      end
+
+   default_log_location: STRING is "${path_liberty}/resources/log/libertyc-log.rc"
 
 end

@@ -15,37 +15,37 @@
 class LIBERTY_UNKNOWN_POSITION
 
 inherit
-	LIBERTY_POSITION
-		redefine
-			emit
-		end
+   LIBERTY_POSITION
+      redefine
+         emit
+      end
 
 insert
-	EIFFEL_NODE_HANDLER
+   EIFFEL_NODE_HANDLER
 
 create {LIBERTY_ERRORS}
-	make
+   make
 
 feature {ANY}
-	is_unknown: BOOLEAN is True
+   is_unknown: BOOLEAN is True
 
 feature {LIBERTY_ERROR}
-	emit (stream: OUTPUT_STREAM) is
-		do
-			stream.put_line(once "Unknown position")
-		end
+   emit (stream: OUTPUT_STREAM) is
+      do
+         stream.put_line(once "Unknown position")
+      end
 
 feature {}
-	make is
-		do
-			file := unknown_file
-		end
+   make is
+      do
+         file := unknown_file
+      end
 
-	source: STRING is ""
+   source: STRING is ""
 
-	unknown_file: FIXED_STRING is
-		once
-			Result := "Unknown file".intern
-		end
+   unknown_file: FIXED_STRING is
+      once
+         Result := "Unknown file".intern
+      end
 
 end

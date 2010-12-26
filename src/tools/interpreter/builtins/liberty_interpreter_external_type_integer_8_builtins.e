@@ -15,29 +15,29 @@
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_8_BUILTINS
 
 inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[INTEGER_8]
+   LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[INTEGER_8]
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	make
+   make
 
 feature {}
-	new_integer (value: INTEGER_8): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
-		do
-			Result := interpreter.new_integer_8(value, builtin_call.position)
-		end
+   new_integer (value: INTEGER_8): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+      do
+         Result := interpreter.new_integer_8(value, builtin_call.position)
+      end
 
-	left, target: INTEGER_8 is
-		do
-			Result := int64_target.to_integer_8
-		end
+   left, target: INTEGER_8 is
+      do
+         Result := int64_target.to_integer_8
+      end
 
-	right: INTEGER_8 is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
-		do
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
-			Result := obj.item.to_integer_8
-		end
+   right: INTEGER_8 is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+      do
+         builtin_call.evaluate_parameters
+         obj ::= builtin_call.parameters.first
+         Result := obj.item.to_integer_8
+      end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_8_BUILTINS

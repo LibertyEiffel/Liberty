@@ -4,49 +4,49 @@
 class INTEGER_RANGE
 
 inherit
-	TRAVERSABLE[INTEGER]
+   TRAVERSABLE[INTEGER]
 
 create {ANY}
-	make
+   make
 
 feature {ANY}
-	lower: INTEGER
-	upper: INTEGER
+   lower: INTEGER
+   upper: INTEGER
 
-	count: INTEGER is
-		do
-			Result := upper - lower + 1
-		end
+   count: INTEGER is
+      do
+         Result := upper - lower + 1
+      end
 
-	first: INTEGER is
-		do
-			Result := lower
-		end
+   first: INTEGER is
+      do
+         Result := lower
+      end
 
-	last: INTEGER is
-		do
-			Result := upper
-		end
+   last: INTEGER is
+      do
+         Result := upper
+      end
 
-	new_iterator: ITERATOR[INTEGER] is
-		do
-			create {INTEGER_RANGE_ITERATOR} Result.make(lower, upper)
-		end
+   new_iterator: ITERATOR[INTEGER] is
+      do
+         create {INTEGER_RANGE_ITERATOR} Result.make(lower, upper)
+      end
 
-	item (i: INTEGER): INTEGER is
-		do
-			Result := i
-		end
+   item (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
 
-	is_empty: BOOLEAN is False
+   is_empty: BOOLEAN is False
 
-	make (low, up: INTEGER) is
-		require
-			low <= up
-		do
-			lower := low
-			upper := up
-		end
+   make (low, up: INTEGER) is
+      require
+         low <= up
+      do
+         lower := low
+         upper := up
+      end
 
 end -- class INTEGER_RANGE
 --

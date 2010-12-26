@@ -20,80 +20,80 @@ class LIBERTY_WRITABLE_FEATURE
 --
 
 inherit
-	LIBERTY_WRITABLE
-		redefine out_in_tagged_out_memory
-		end
+   LIBERTY_WRITABLE
+      redefine out_in_tagged_out_memory
+      end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_WRITABLE_FEATURE}
-	make
+   make
 
 feature {ANY}
-	name: FIXED_STRING is
-		do
-			Result := entity.name
-		end
+   name: FIXED_STRING is
+      do
+         Result := entity.name
+      end
 
-	feature_name: LIBERTY_FEATURE_NAME is
-		do
-			Result := entity.feature_name
-		end
+   feature_name: LIBERTY_FEATURE_NAME is
+      do
+         Result := entity.feature_name
+      end
 
-	result_type: LIBERTY_TYPE is
-		do
-			Result := entity.result_type
-		end
+   result_type: LIBERTY_TYPE is
+      do
+         Result := entity.result_type
+      end
 
-	out_in_tagged_out_memory is
-		do
-			tagged_out_memory.append(once "writable feature: ")
-			tagged_out_memory.append(name)
-		end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "writable feature: ")
+         tagged_out_memory.append(name)
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			e: like entity
-		do
-			e := entity.specialized_in(a_type)
-			if e = entity then
-				Result := Current
-			else
-				create Result.make(e, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         e: like entity
+      do
+         e := entity.specialized_in(a_type)
+         if e = entity then
+            Result := Current
+         else
+            create Result.make(e, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
-				result_type.mark_reachable_code(mark)
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
+            result_type.mark_reachable_code(mark)
+         end
+      end
 
 feature {}
-	entity: LIBERTY_FEATURE_ENTITY
+   entity: LIBERTY_FEATURE_ENTITY
 
-	make (a_entity: like entity; a_position: like position) is
-		require
-			a_entity /= Void
-			a_position /= Void
-		do
-			entity := a_entity
-			position := a_position
-		ensure
-			entity = a_entity
-			position = a_position
-		end
+   make (a_entity: like entity; a_position: like position) is
+      require
+         a_entity /= Void
+         a_position /= Void
+      do
+         entity := a_entity
+         position := a_position
+      ensure
+         entity = a_entity
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_WRITABLE_FEATURE_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_writable_feature(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_WRITABLE_FEATURE_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_writable_feature(Current)
+      end
 
 invariant
-	entity /= Void
+   entity /= Void
 
 end

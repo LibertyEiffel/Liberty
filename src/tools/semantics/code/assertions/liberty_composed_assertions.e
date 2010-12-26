@@ -15,55 +15,55 @@
 deferred class LIBERTY_COMPOSED_ASSERTIONS
 
 inherit
-	LIBERTY_ASSERTIONS
+   LIBERTY_ASSERTIONS
 
 feature {ANY}
-	left, right: LIBERTY_ASSERTIONS
+   left, right: LIBERTY_ASSERTIONS
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			left.mark_reachable_code(mark)
-			right.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         left.mark_reachable_code(mark)
+         right.mark_reachable_code(mark)
+      end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			l, r: LIBERTY_ASSERTIONS
-		do
-			l := left.specialized_in(a_type)
-			r := right.specialized_in(a_type)
-			if l = left and then r = Void then
-				Result := Current
-			else
-				Result := twin
-				Result.set_specialized_in(l, r)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         l, r: LIBERTY_ASSERTIONS
+      do
+         l := left.specialized_in(a_type)
+         r := right.specialized_in(a_type)
+         if l = left and then r = Void then
+            Result := Current
+         else
+            Result := twin
+            Result.set_specialized_in(l, r)
+         end
+      end
 
 feature {LIBERTY_COMPOSED_ASSERTIONS}
-	set_specialized_in (l: like left; r: like right) is
-		do
-			left := l
-			right := r
-		end
+   set_specialized_in (l: like left; r: like right) is
+      do
+         left := l
+         right := r
+      end
 
 feature {}
-	make (a_left: like left; a_right: like right) is
-		require
-			a_left /= Void
-			a_right /= Void
-		do
-			left := a_left
-			right := a_right
-		ensure
-			left = a_left
-			right = a_right
-		end
+   make (a_left: like left; a_right: like right) is
+      require
+         a_left /= Void
+         a_right /= Void
+      do
+         left := a_left
+         right := a_right
+      ensure
+         left = a_left
+         right = a_right
+      end
 
 invariant
-	left /= Void
-	right /= Void
+   left /= Void
+   right /= Void
 
 end

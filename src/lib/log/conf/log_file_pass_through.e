@@ -4,21 +4,21 @@
 class LOG_FILE_PASS_THROUGH
 
 inherit
-	LOG_FILE_OPTION
+   LOG_FILE_OPTION
 
 creation {LOG_FILE_OPTIONS}
-	make
+   make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-	retrieve (stream: FILE_STREAM): FILE_STREAM is
-		do
-			Result := stream
-		end
+   retrieve (stream: FILE_STREAM): FILE_STREAM is
+      do
+         Result := stream
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class LOG_FILE_PASS_THROUGH
 --

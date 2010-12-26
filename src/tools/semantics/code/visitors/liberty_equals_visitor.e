@@ -15,11 +15,11 @@
 deferred class LIBERTY_EQUALS_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_EQUALS}
-	visit_liberty_equals (v: LIBERTY_EQUALS) is
-		deferred
-		end
+   visit_liberty_equals (v: LIBERTY_EQUALS) is
+      deferred
+      end
 
 end -- class LIBERTY_EQUALS_VISITOR

@@ -4,171 +4,171 @@
 class PROCESS_GROUP_WIN32
 
 inherit
-	PROCESS_GROUP
+   PROCESS_GROUP
 
 creation {PROCESS_FACTORY}
-	make
+   make
 
 feature {ANY}
-	wait: PROCESS_WIN32 is
-		local
-			handle, status: INTEGER
-		do
-			if not handle_map.is_empty then
-				populate_handle_list
-				if basic_exec_win32_wait_any(handle_list.to_external, count, data) then
-					handle := basic_exec_win32_handle(data)
-					check
-						handle_map.has(handle)
-					end
-					Result := handle_map.at(handle)
-					check
-						Result.handle = handle
-					end
-					status := basic_exec_status(data)
-					Result.cleanup(status)
-				end
-			end
-		end
+   wait: PROCESS_WIN32 is
+      local
+         handle, status: INTEGER
+      do
+         if not handle_map.is_empty then
+            populate_handle_list
+            if basic_exec_win32_wait_any(handle_list.to_external, count, data) then
+               handle := basic_exec_win32_handle(data)
+               check
+                  handle_map.has(handle)
+               end
+               Result := handle_map.at(handle)
+               check
+                  Result.handle = handle
+               end
+               status := basic_exec_status(data)
+               Result.cleanup(status)
+            end
+         end
+      end
 
-	finished: PROCESS_WIN32 is
-		local
-			handle, status: INTEGER
-		do
-			if not handle_map.is_empty then
-				populate_handle_list
-				if basic_exec_win32_any_finished(handle_list.to_external, count, data) then
-					handle := basic_exec_win32_handle(data)
-					check
-						handle_map.has(handle)
-					end
-					Result := handle_map.at(handle)
-					check
-						Result.handle = handle
-					end
-					status := basic_exec_status(data)
-					Result.cleanup(status)
-				end
-			end
-		end
+   finished: PROCESS_WIN32 is
+      local
+         handle, status: INTEGER
+      do
+         if not handle_map.is_empty then
+            populate_handle_list
+            if basic_exec_win32_any_finished(handle_list.to_external, count, data) then
+               handle := basic_exec_win32_handle(data)
+               check
+                  handle_map.has(handle)
+               end
+               Result := handle_map.at(handle)
+               check
+                  Result.handle = handle
+               end
+               status := basic_exec_status(data)
+               Result.cleanup(status)
+            end
+         end
+      end
 
-	count: INTEGER is
-		do
-			Result := handle_map.count
-		end
+   count: INTEGER is
+      do
+         Result := handle_map.count
+      end
 
-	capacity: INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_win32_maximum_wait"
-			}"
-		end
+   capacity: INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_win32_maximum_wait"
+         }"
+      end
 
 feature {PROCESS_WIN32}
-	register (process: PROCESS_WIN32) is
-		local
-			handle: INTEGER
-		do
-			handle := process.handle
-			handle_map.put(process, handle)
-			handle_list_dirty := True
-		end
+   register (process: PROCESS_WIN32) is
+      local
+         handle: INTEGER
+      do
+         handle := process.handle
+         handle_map.put(process, handle)
+         handle_list_dirty := True
+      end
 
-	unregister (process: PROCESS_WIN32) is
-		local
-			handle: INTEGER
-		do
-			handle := process.handle
-			handle_map.remove(handle)
-			handle_list_dirty := True
-		end
+   unregister (process: PROCESS_WIN32) is
+      local
+         handle: INTEGER
+      do
+         handle := process.handle
+         handle_map.remove(handle)
+         handle_list_dirty := True
+      end
 
 feature {}
-	make is
-		do
-			create handle_map.make
-			data := basic_exec_alloc_data
-		end
+   make is
+      do
+         create handle_map.make
+         data := basic_exec_alloc_data
+      end
 
-	handle_map: HASHED_DICTIONARY[PROCESS_WIN32, INTEGER]
+   handle_map: HASHED_DICTIONARY[PROCESS_WIN32, INTEGER]
 
-	populate_handle_list is
-		local
-			i: INTEGER
-		do
-			if handle_list_dirty then
-				if handle_list = Void then
-					create handle_list.with_capacity(handle_map.count.max(4))
-				end
-				handle_list.clear_count
-				from
-					i := handle_map.lower
-				until
-					i > handle_map.upper
-				loop
-					handle_list.add_last(handle_map.key(i))
-					i := i + 1
-				end
-				handle_list_dirty := False
-			end
-		end
+   populate_handle_list is
+      local
+         i: INTEGER
+      do
+         if handle_list_dirty then
+            if handle_list = Void then
+               create handle_list.with_capacity(handle_map.count.max(4))
+            end
+            handle_list.clear_count
+            from
+               i := handle_map.lower
+            until
+               i > handle_map.upper
+            loop
+               handle_list.add_last(handle_map.key(i))
+               i := i + 1
+            end
+            handle_list_dirty := False
+         end
+      end
 
-	handle_list_dirty: BOOLEAN
+   handle_list_dirty: BOOLEAN
 
-	handle_list: FAST_ARRAY[INTEGER]
+   handle_list: FAST_ARRAY[INTEGER]
 
-	data: POINTER
+   data: POINTER
 
-	basic_exec_win32_wait_any (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
-		require
-			not handle_map.is_empty
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_win32_wait_any"
-			}"
-		end
+   basic_exec_win32_wait_any (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
+      require
+         not handle_map.is_empty
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_win32_wait_any"
+         }"
+      end
 
-	basic_exec_win32_any_finished (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
-		require
-			not handle_map.is_empty
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_win32_any_finished"
-			}"
-		end
+   basic_exec_win32_any_finished (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
+      require
+         not handle_map.is_empty
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_win32_any_finished"
+         }"
+      end
 
-	basic_exec_alloc_data: like data is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_alloc_data()"
-			}"
-		end
+   basic_exec_alloc_data: like data is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_alloc_data()"
+         }"
+      end
 
-	basic_exec_win32_handle (dat: like data): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_win32_handle"
-			}"
-		end
+   basic_exec_win32_handle (dat: like data): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_win32_handle"
+         }"
+      end
 
-	basic_exec_status (dat: like data): INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/plugins"
-			module_name: "exec"
-			feature_name: "basic_exec_status"
-			}"
-		end
+   basic_exec_status (dat: like data): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "exec"
+         feature_name: "basic_exec_status"
+         }"
+      end
 
 end -- class PROCESS_GROUP_WIN32
 --

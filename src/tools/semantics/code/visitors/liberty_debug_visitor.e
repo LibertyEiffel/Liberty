@@ -15,11 +15,11 @@
 deferred class LIBERTY_DEBUG_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_DEBUG}
-	visit_liberty_debug (v: LIBERTY_DEBUG) is
-		deferred
-		end
+   visit_liberty_debug (v: LIBERTY_DEBUG) is
+      deferred
+      end
 
 end -- class LIBERTY_DEBUG_VISITOR

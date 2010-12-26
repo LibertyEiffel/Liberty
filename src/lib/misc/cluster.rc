@@ -3,9 +3,10 @@ cluster MISC
 version "1.0"
 
 locations
-	"."
+        "."
+        "internal"
 
 needs
-	KERNEL
+        KERNEL
 
 end

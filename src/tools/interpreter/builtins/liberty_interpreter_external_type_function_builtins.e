@@ -15,30 +15,30 @@
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS
 
 inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
-		redefine call
-		end
+   LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
+      redefine call
+      end
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	make
+   make
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
-		local
-			target: LIBERTY_INTERPRETER_AGENT
-		do
-			builtin_call.evaluate_parameters
-			inspect
-				builtin_call.name
-			when "item" then
-				target ::= builtin_call.target
-				Result := target.item_agent(builtin_call.parameters, builtin_call.position)
-			when "call" then
-				target ::= builtin_call.target
-				target.call_agent(builtin_call.parameters, builtin_call.position)
-			else
-				last_call_failed := True
-			end
-		end
+   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+      local
+         target: LIBERTY_INTERPRETER_AGENT
+      do
+         builtin_call.evaluate_parameters
+         inspect
+            builtin_call.name
+         when "item" then
+            target ::= builtin_call.target
+            Result := target.item_agent(builtin_call.parameters, builtin_call.position)
+         when "call" then
+            target ::= builtin_call.target
+            target.call_agent(builtin_call.parameters, builtin_call.position)
+         else
+            last_call_failed := True
+         end
+      end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS

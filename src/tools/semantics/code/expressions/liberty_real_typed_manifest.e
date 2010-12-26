@@ -13,23 +13,23 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_REAL_TYPED_MANIFEST
-	--
-	-- Not a REAL, but a typed manifest built from a REAL
-	--
+   --
+   -- Not a REAL, but a typed manifest built from a REAL
+   --
 
 inherit
-	LIBERTY_TYPED_MANIFEST[REAL]
+   LIBERTY_TYPED_MANIFEST[REAL]
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_REAL_TYPED_MANIFEST_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_real_typed_manifest(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_REAL_TYPED_MANIFEST_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_real_typed_manifest(Current)
+      end
 
 end

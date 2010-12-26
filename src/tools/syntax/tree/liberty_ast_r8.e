@@ -15,31 +15,31 @@
 class LIBERTY_AST_R8
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E8]
-		export {LIBERTY_AST_HANDLER}
-			expression, remainder
-		end
+   LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E8]
+      export {LIBERTY_AST_HANDLER}
+         expression, remainder
+      end
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_free_operator: BOOLEAN is
-		do
-			Result := not is_empty
-			check
-				Result implies nodes.item(0).name.is_equal(once "KW free operator")
-			end
-		end
+   is_free_operator: BOOLEAN is
+      do
+         Result := not is_empty
+         check
+            Result implies nodes.item(0).name.is_equal(once "KW free operator")
+         end
+      end
 
-	free_operator: LIBERTY_AST_TERMINAL_NODE is
-		require
-			is_free_operator
-		do
-			Result ::= nodes.first
-		end
+   free_operator: LIBERTY_AST_TERMINAL_NODE is
+      require
+         is_free_operator
+      do
+         Result ::= nodes.first
+      end
 
 feature {ANY}
-	name: STRING is "r8"
+   name: STRING is "r8"
 
 end

@@ -15,39 +15,39 @@
 class LIBERTY_INTERPRETER_DEBUGGER_TERMINAL_NODE
 
 inherit
-	EIFFEL_TERMINAL_NODE_IMPL
-		rename
-			make as make_impl
-		redefine
-			accept
-		end
+   EIFFEL_TERMINAL_NODE_IMPL
+      rename
+         make as make_impl
+      redefine
+         accept
+      end
 
 create {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_INTERPRETER_DEBUGGER_VISITOR
-		do
-			v ::= visitor
-			action.call([v, Current])
-		end
+   accept (visitor: VISITOR) is
+      local
+         v: LIBERTY_INTERPRETER_DEBUGGER_VISITOR
+      do
+         v ::= visitor
+         action.call([v, Current])
+      end
 
 feature {}
-	make (a_action: like action; a_name: like name; a_image: like image) is
-		require
-			a_action /= Void
-		do
-			make_impl(a_name, a_image)
-			action := a_action
-		ensure
-			name = a_name
-			names = a_image
-			action = a_action
-		end
+   make (a_action: like action; a_name: like name; a_image: like image) is
+      require
+         a_action /= Void
+      do
+         make_impl(a_name, a_image)
+         action := a_action
+      ensure
+         name = a_name
+         names = a_image
+         action = a_action
+      end
 
 invariant
-	action /= Void
+   action /= Void
 
 end -- class LIBERTY_INTERPRETER_DEBUGGER_TERMINAL_NODE

@@ -15,50 +15,50 @@
 class LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR[E_]
 
 inherit
-	ITERATOR[LIBERTY_INTERPRETER_OBJECT]
+   ITERATOR[LIBERTY_INTERPRETER_OBJECT]
 
 creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED}
-	make
+   make
 
 feature {ANY}
-	start is
-		do
-			elements.start
-		end
+   start is
+      do
+         elements.start
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := elements.is_off
-		end
+   is_off: BOOLEAN is
+      do
+         Result := elements.is_off
+      end
 
-	item: LIBERTY_INTERPRETER_OBJECT is
-		do
-			Result := accessor.retrieve(elements.item)
-		end
+   item: LIBERTY_INTERPRETER_OBJECT is
+      do
+         Result := accessor.retrieve(elements.item)
+      end
 
-	next is
-		do
-			elements.next
-		end
+   next is
+      do
+         elements.next
+      end
 
 feature {}
-	make (a_elements: like elements; a_accessor: like accessor) is
-		require
-			a_elements /= Void
-			a_accessor /= Void
-		do
-			elements := a_elements
-			accessor := a_accessor
-		ensure
-			elements = a_elements
-			accessor = a_accessor
-		end
+   make (a_elements: like elements; a_accessor: like accessor) is
+      require
+         a_elements /= Void
+         a_accessor /= Void
+      do
+         elements := a_elements
+         accessor := a_accessor
+      ensure
+         elements = a_elements
+         accessor = a_accessor
+      end
 
-	elements: ITERATOR[E_]
-	accessor: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
+   elements: ITERATOR[E_]
+   accessor: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
 
 invariant
-	elements /= Void
-	accessor /= Void
+   elements /= Void
+   accessor /= Void
 
 end -- class LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR

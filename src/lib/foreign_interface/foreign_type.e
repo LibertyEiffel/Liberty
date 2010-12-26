@@ -4,23 +4,23 @@
 expanded class FOREIGN_TYPE
 
 feature {ANY}
-	ffi_type: POINTER
+   ffi_type: POINTER
 
 feature {FOREIGN_TYPES}
-	set_ffi_type (a_ffi_type: like ffi_type; a_factory: like factory) is
-		do
-			ffi_type := a_ffi_type
-			factory := a_factory
-		end
+   set_ffi_type (a_ffi_type: like ffi_type; a_factory: like factory) is
+      do
+         ffi_type := a_ffi_type
+         factory := a_factory
+      end
 
 feature {FOREIGN_AGENT}
-	new: FOREIGN_OBJECT is
-		do
-			Result := factory.item([])
-		end
+   new: FOREIGN_OBJECT is
+      do
+         Result := factory.item([])
+      end
 
 feature {}
-	factory: FUNCTION[TUPLE, FOREIGN_OBJECT]
+   factory: FUNCTION[TUPLE, FOREIGN_OBJECT]
 
 end -- class FOREIGN_TYPE
 --

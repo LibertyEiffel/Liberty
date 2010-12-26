@@ -15,11 +15,11 @@
 deferred class LIBERTY_PRECURSOR_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_PRECURSOR_INSTRUCTION}
-	visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
-		deferred
-		end
+   visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
+      deferred
+      end
 
 end -- class LIBERTY_PRECURSOR_INSTRUCTION_VISITOR

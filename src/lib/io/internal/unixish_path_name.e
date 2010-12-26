@@ -2,225 +2,225 @@
 -- See the full copyright at the end.
 --
 deferred class UNIXISH_PATH_NAME
-	-- A PATH_NAME that is more or less built after the same model as traditional unix path names.
+   -- A PATH_NAME that is more or less built after the same model as traditional unix path names.
 
 inherit PATH_NAME
 
 feature {ANY} -- Access
-	last: STRING is
-		deferred
-		ensure then
-			not Result.has(directory_separator)
-		end
+   last: STRING is
+      deferred
+      ensure then
+         not Result.has(directory_separator)
+      end
 
-	extension: STRING is
-		deferred
-		ensure then
-			is_extension: not Result.is_empty implies Result.first = extension_separator
-			is_minimal: Result.occurrences(extension_separator) <= 1
-			not Result.has(directory_separator)
-		end
+   extension: STRING is
+      deferred
+      ensure then
+         is_extension: not Result.is_empty implies Result.first = extension_separator
+         is_minimal: Result.occurrences(extension_separator) <= 1
+         not Result.has(directory_separator)
+      end
 
-	is_valid_file_name (elem: STRING): BOOLEAN is
-		do
-			Result := not elem.has(directory_separator)
-		ensure then
-			Result implies not elem.has(directory_separator)
-		end
+   is_valid_file_name (elem: STRING): BOOLEAN is
+      do
+         Result := not elem.has(directory_separator)
+      ensure then
+         Result implies not elem.has(directory_separator)
+      end
 
-	is_valid_directory: BOOLEAN is True
+   is_valid_directory: BOOLEAN is True
 
-	is_valid_file: BOOLEAN is
-		local
-			lst: like last
-		do
-			lst := last
-			Result := not (last.is_empty or else last.is_equal(this_directory) or else last.is_equal(up_directory))
-		end
+   is_valid_file: BOOLEAN is
+      local
+         lst: like last
+      do
+         lst := last
+         Result := not (last.is_empty or else last.is_equal(this_directory) or else last.is_equal(up_directory))
+      end
 
-	is_separator (ch: CHARACTER): BOOLEAN is
-			-- Is `ch' a possible path separator?
-		do
-			Result := ch = directory_separator
-		ensure
-			(ch = directory_separator) implies Result
-		end
+   is_separator (ch: CHARACTER): BOOLEAN is
+         -- Is `ch' a possible path separator?
+      do
+         Result := ch = directory_separator
+      ensure
+         (ch = directory_separator) implies Result
+      end
 
 feature {ANY} -- Operations
-	go_up is
-		local
-			lst: like last
-		do
-			from
-			until
-				path.count <= 1 or else not is_separator(path.last)
-			loop
-				path.remove_last
-			end
-			if is_empty then
-				if not is_absolute then
-					add_last(up_directory)
-				end
-			else
-				lst := last
-				if lst.is_equal(this_directory) then
-					remove_last
-					add_last(up_directory)
-				elseif lst.is_equal(up_directory) then
-					add_last(up_directory)
-				else
-					remove_last
-				end
-			end
-		end
+   go_up is
+      local
+         lst: like last
+      do
+         from
+         until
+            path.count <= 1 or else not is_separator(path.last)
+         loop
+            path.remove_last
+         end
+         if is_empty then
+            if not is_absolute then
+               add_last(up_directory)
+            end
+         else
+            lst := last
+            if lst.is_equal(this_directory) then
+               remove_last
+               add_last(up_directory)
+            elseif lst.is_equal(up_directory) then
+               add_last(up_directory)
+            else
+               remove_last
+            end
+         end
+      end
 
-	join_to (other: PATH_JOINER) is
-		local
-			p: INTEGER; element: STRING
-		do
-			p := start_join_to (other)
-			if p <= path.upper then
-				element := once "a_file_name"
-				from
-					p := scan_element(p, element)
-				until
-					p > path.upper
-				loop
-					join_directory_to(other, element)
-					p := scan_element(p, element)
-				end
-				if not element.is_empty then
-					if is_separator(path.last) then
-						join_directory_to(other, element)
-					else
-						join_element_to(other, element)
-					end
-				end
-				other.end_join
-			end
-		end
+   join_to (other: PATH_JOINER) is
+      local
+         p: INTEGER; element: STRING
+      do
+         p := start_join_to (other)
+         if p <= path.upper then
+            element := once "a_file_name"
+            from
+               p := scan_element(p, element)
+            until
+               p > path.upper
+            loop
+               join_directory_to(other, element)
+               p := scan_element(p, element)
+            end
+            if not element.is_empty then
+               if is_separator(path.last) then
+                  join_directory_to(other, element)
+               else
+                  join_element_to(other, element)
+               end
+            end
+            other.end_join
+         end
+      end
 
-	short_name: STRING is
-		local
-			i: INTEGER
-		do
-			Result := once ""
-			Result.copy(path)
-			if Result.last = directory_separator then
-				Result.remove_last
-			end
-			i := Result.last_index_of(directory_separator)
-			if i >= 0 then
-				Result.shrink(i + 1, Result.count)
-			end
-		end
+   short_name: STRING is
+      local
+         i: INTEGER
+      do
+         Result := once ""
+         Result.copy(path)
+         if Result.last = directory_separator then
+            Result.remove_last
+         end
+         i := Result.last_index_of(directory_separator)
+         if i >= 0 then
+            Result.shrink(i + 1, Result.count)
+         end
+      end
 
 feature {ANY} -- Constants
-	extension_separator: CHARACTER is
-			-- Character used to separate filenames from extensions
-		deferred
-		end
+   extension_separator: CHARACTER is
+         -- Character used to separate filenames from extensions
+      deferred
+      end
 
-	directory_separator: CHARACTER is
-			-- Character used to separate directories
-			-- This character is forbidden in filenames
-		deferred
-		end
+   directory_separator: CHARACTER is
+         -- Character used to separate directories
+         -- This character is forbidden in filenames
+      deferred
+      end
 
-	up_directory: STRING is
-		deferred
-		end
+   up_directory: STRING is
+      deferred
+      end
 
-	this_directory: STRING is
-		deferred
-		end
+   this_directory: STRING is
+      deferred
+      end
 
 feature {PATH_JOINER}
-	join_element (element: STRING) is
-		do
-			if not is_empty and then last.is_equal(this_directory) then
-				remove_last
-			end
-			if not path.is_empty and then not is_separator(path.last) then
-				path.extend(directory_separator)
-			end
-			path.append(element)
-		end
+   join_element (element: STRING) is
+      do
+         if not is_empty and then last.is_equal(this_directory) then
+            remove_last
+         end
+         if not path.is_empty and then not is_separator(path.last) then
+            path.extend(directory_separator)
+         end
+         path.append(element)
+      end
 
-	join_extension (an_extension: STRING) is
-		do
-			path.extend(extension_separator)
-			path.append(an_extension)
-		end
+   join_extension (an_extension: STRING) is
+      do
+         path.extend(extension_separator)
+         path.append(an_extension)
+      end
 
-	join_error: BOOLEAN is False
+   join_error: BOOLEAN is False
 
 feature {}
-	path: STRING
+   path: STRING
 
-	start_join_to (other: PATH_JOINER): INTEGER is
-		require
-			other /= Void
-		deferred
-		ensure
-			Result.in_range(path.lower, path.upper + 1)
-		end
+   start_join_to (other: PATH_JOINER): INTEGER is
+      require
+         other /= Void
+      deferred
+      ensure
+         Result.in_range(path.lower, path.upper + 1)
+      end
 
-	scan_element (p: INTEGER; element: STRING): INTEGER is
-		require
-			path.valid_index(p)
-			element /= Void
-		do
-			element.clear_count
-			from
-				Result := p
-			until
-				Result > path.upper or else not is_separator(path.item(Result))
-			loop
-				Result := Result + 1
-			end
-			from
-			until
-				Result > path.upper or else is_separator(path.item(Result))
-			loop
-				element.add_last(path.item(Result))
-				Result := Result + 1
-			end
-		ensure
-			Result.in_range(p+1, path.upper + 1)
-			path.substring(p, Result - 1).has_suffix(element)
-		end
+   scan_element (p: INTEGER; element: STRING): INTEGER is
+      require
+         path.valid_index(p)
+         element /= Void
+      do
+         element.clear_count
+         from
+            Result := p
+         until
+            Result > path.upper or else not is_separator(path.item(Result))
+         loop
+            Result := Result + 1
+         end
+         from
+         until
+            Result > path.upper or else is_separator(path.item(Result))
+         loop
+            element.add_last(path.item(Result))
+            Result := Result + 1
+         end
+      ensure
+         Result.in_range(p+1, path.upper + 1)
+         path.substring(p, Result - 1).has_suffix(element)
+      end
 
-	join_directory_to (other: PATH_JOINER; element: STRING) is
-		require
-			other /= Void
-			not element.is_empty
-		do
-			if element.is_equal(up_directory) then
-				other.join_up
-			elseif element.is_equal(this_directory) then
-			else
-				-- *** TODO: handle extensions
-				other.join_directory(element)
-			end
-		end
+   join_directory_to (other: PATH_JOINER; element: STRING) is
+      require
+         other /= Void
+         not element.is_empty
+      do
+         if element.is_equal(up_directory) then
+            other.join_up
+         elseif element.is_equal(this_directory) then
+         else
+            -- *** TODO: handle extensions
+            other.join_directory(element)
+         end
+      end
 
-	join_element_to (other: PATH_JOINER; element: STRING) is
-		require
-			other /= Void
-			not element.is_empty
-		do
-			if element.is_equal(up_directory) then
-				other.join_up
-			elseif element.is_equal(this_directory) then
-			else
-				-- *** TODO: handle extensions
-				other.join_element(element)
-			end
-		end
+   join_element_to (other: PATH_JOINER; element: STRING) is
+      require
+         other /= Void
+         not element.is_empty
+      do
+         if element.is_equal(up_directory) then
+            other.join_up
+         elseif element.is_equal(this_directory) then
+         else
+            -- *** TODO: handle extensions
+            other.join_element(element)
+         end
+      end
 
 invariant
-	path /= Void
+   path /= Void
 
 end -- class UNIXISH_PATH_NAME
 --

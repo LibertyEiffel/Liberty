@@ -9,20 +9,20 @@ expanded class TRISTATE_VALUES
 --
 
 feature {ANY}
-	yes: TRISTATE is
-		do
-			Result := Result.with_value(Result.yes_value)
-		end
+   yes: TRISTATE is
+      do
+         Result := Result.with_value(Result.yes_value)
+      end
 
-	no: TRISTATE is
-		do
-			Result := Result.with_value(Result.no_value)
-		end
+   no: TRISTATE is
+      do
+         Result := Result.with_value(Result.no_value)
+      end
 
-	maybe: TRISTATE is
-		do
-			Result := Result.with_value(Result.maybe_value)
-		end
+   maybe: TRISTATE is
+      do
+         Result := Result.with_value(Result.maybe_value)
+      end
 
 end -- class TRISTATE_VALUES
 --

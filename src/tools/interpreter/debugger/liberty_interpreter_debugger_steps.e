@@ -15,75 +15,75 @@
 class LIBERTY_INTERPRETER_DEBUGGER_STEPS
 
 create {LIBERTY_INTERPRETER_DEBUGGER}
-	make
+   make
 
 feature {LIBERTY_INTERPRETER}
-	after (a_count: like count) is
-		require
-			a_count > 0
-		do
-			count := a_count
-		ensure
-			count = a_count
-		end
+   after (a_count: like count) is
+      require
+         a_count > 0
+      do
+         count := a_count
+      ensure
+         count = a_count
+      end
 
-	at_call_entry is
-		do
-			count := entry_count
-		ensure
-			count = entry_count
-		end
+   at_call_entry is
+      do
+         count := entry_count
+      ensure
+         count = entry_count
+      end
 
-	at_call_exit is
-		do
-			count := exit_count
-		ensure
-			count = exit_count
-		end
+   at_call_exit is
+      do
+         count := exit_count
+      ensure
+         count = exit_count
+      end
 
-	step is
-		do
-			if count > 0 then
-				count := count - 1
-				if count = 0 then
-					interpreter.break
-				end
-			end
-		end
+   step is
+      do
+         if count > 0 then
+            count := count - 1
+            if count = 0 then
+               interpreter.break
+            end
+         end
+      end
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-	enter_call is
-		do
-			if count = entry_count then
-				interpreter.break
-			end
-		end
+   enter_call is
+      do
+         if count = entry_count then
+            interpreter.break
+         end
+      end
 
-	exit_call is
-		do
-			if count = exit_count then
-				interpreter.break
-			end
-		end
+   exit_call is
+      do
+         if count = exit_count then
+            interpreter.break
+         end
+      end
 
 feature {}
-	make (a_interpreter: like interpreter) is
-		require
-			a_interpreter /= Void
-		do
-			interpreter := a_interpreter
-		ensure
-			interpreter = a_interpreter
-		end
+   make (a_interpreter: like interpreter) is
+      require
+         a_interpreter /= Void
+      do
+         interpreter := a_interpreter
+      ensure
+         interpreter = a_interpreter
+      end
 
-	interpreter: LIBERTY_INTERPRETER
-	count: INTEGER
+   interpreter: LIBERTY_INTERPRETER
+   count: INTEGER
 
-	entry_count: INTEGER is -13
-	exit_count: INTEGER is -31
+   entry_count: INTEGER is -13
+   exit_count: INTEGER is -31
 
 invariant
-	interpreter /= Void
-	count >= 0 or else count = entry_count or else count = exit_count
+   interpreter /= Void
+   count >= 0 or else count = entry_count or else count = exit_count
 
 end -- class LIBERTY_INTERPRETER_DEBUGGER_STEPS

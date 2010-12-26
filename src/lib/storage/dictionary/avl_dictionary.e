@@ -2,29 +2,29 @@
 -- See the full copyright at the end.
 --
 class AVL_DICTIONARY[V_, K_ -> COMPARABLE]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using an AVL balanced tree. AVL stands for the names of G. M. Adel'son-Velskii
-	-- and E. M. Landis, two Russian mathematicians who first came up with this method of keeping the tree balanced.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using an AVL balanced tree. AVL stands for the names of G. M. Adel'son-Velskii
+   -- and E. M. Landis, two Russian mathematicians who first came up with this method of keeping the tree balanced.
+   --
 
 inherit
-	ABSTRACT_AVL_DICTIONARY[V_, K_]
+   ABSTRACT_AVL_DICTIONARY[V_, K_]
 
 creation {ANY}
-	make, manifest_creation
+   make, manifest_creation
 
 feature {}
-	ordered (k1, k2: K_): BOOLEAN is
-		do
-			Result := k1 < k2
-		end
+   ordered (k1, k2: K_): BOOLEAN is
+      do
+         Result := k1 < k2
+      end
 
-	a_new_node: AVL_DICTIONARY_NODE[V_, K_] is
-		do
-			create Result
-		end
+   a_new_node: AVL_DICTIONARY_NODE[V_, K_] is
+      do
+         create Result
+      end
 
 end -- class AVL_DICTIONARY
 --

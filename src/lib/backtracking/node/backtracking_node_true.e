@@ -2,19 +2,19 @@
 -- See the full copyright at the end.
 --
 class BACKTRACKING_NODE_TRUE
-	--
-	-- Node that continues the current exploration.
-	--
+   --
+   -- Node that continues the current exploration.
+   --
 
 inherit
-	BACKTRACKING_NODE
+   BACKTRACKING_NODE
 
 feature {ANY}
-	explore (explorer: BACKTRACKING) is
-		do
-			-- Continues the exploration
-			explorer.continue
-		end
+   explore (explorer: BACKTRACKING) is
+      do
+         -- Continues the exploration
+         explorer.continue
+      end
 
 end -- class BACKTRACKING_NODE_TRUE
 --

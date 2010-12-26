@@ -15,29 +15,29 @@
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_32_BUILTINS
 
 inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[INTEGER_32]
+   LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[INTEGER_32]
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	make
+   make
 
 feature {}
-	new_integer (value: INTEGER_32): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
-		do
-			Result := interpreter.new_integer_32(value, builtin_call.position)
-		end
+   new_integer (value: INTEGER_32): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+      do
+         Result := interpreter.new_integer_32(value, builtin_call.position)
+      end
 
-	left, target: INTEGER_32 is
-		do
-			Result := int64_target.to_integer_32
-		end
+   left, target: INTEGER_32 is
+      do
+         Result := int64_target.to_integer_32
+      end
 
-	right: INTEGER_32 is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
-		do
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
-			Result := obj.item.to_integer_32
-		end
+   right: INTEGER_32 is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
+      do
+         builtin_call.evaluate_parameters
+         obj ::= builtin_call.parameters.first
+         Result := obj.item.to_integer_32
+      end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_32_BUILTINS

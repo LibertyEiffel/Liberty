@@ -15,12 +15,12 @@
 class LIBERTY_TYPE_DESCRIPTOR_DICTIONARY_NODE[E_]
 
 inherit
-	HASHED_DICTIONARY_NODE[E_, LIBERTY_TYPE_DESCRIPTOR]
+   HASHED_DICTIONARY_NODE[E_, LIBERTY_TYPE_DESCRIPTOR]
 
 feature {LIBERTY_TYPE_DESCRIPTOR_DICTIONARY}
-	set_key (td: LIBERTY_TYPE_DESCRIPTOR) is
-		do
-			key := td
-		end
+   set_key (td: LIBERTY_TYPE_DESCRIPTOR) is
+      do
+         key := td
+      end
 
 end

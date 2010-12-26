@@ -2,58 +2,58 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[V_]
+   ITERATOR[V_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	dictionary: DICTIONARY[V_, K_]
-			-- The one to be traversed.
+   dictionary: DICTIONARY[V_, K_]
+         -- The one to be traversed.
 
-	item_index: INTEGER
-			--  Memorize the current position.
+   item_index: INTEGER
+         --  Memorize the current position.
 
 feature {ANY}
-	make (d: like dictionary) is
-		require
-			d /= Void
-		do
-			dictionary := d
-			start
-		ensure
-			dictionary = d
-		end
+   make (d: like dictionary) is
+      require
+         d /= Void
+      do
+         dictionary := d
+         start
+      ensure
+         dictionary = d
+      end
 
-	start is
-		do
-			item_index := 1
-			generation := iterable_generation
-		end
+   start is
+      do
+         item_index := 1
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item_index > dictionary.count
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item_index > dictionary.count
+      end
 
-	item: V_ is
-		do
-			Result := dictionary.item(item_index)
-		end
+   item: V_ is
+      do
+         Result := dictionary.item(item_index)
+      end
 
-	next is
-		do
-			item_index := item_index + 1
-		end
+   next is
+      do
+         item_index := item_index + 1
+      end
 
 feature {}
-	iterable_generation: INTEGER is
-		do
-			Result := dictionary.generation
-		end
+   iterable_generation: INTEGER is
+      do
+         Result := dictionary.generation
+      end
 
 end -- class ITERATOR_ON_DICTIONARY_ITEMS
 --

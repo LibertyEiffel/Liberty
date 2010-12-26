@@ -15,65 +15,65 @@
 class LIBERTY_CONDITION
 
 insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
+   LIBERTY_POSITIONABLE
+   LIBERTY_REACHABLE
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_CONDITION}
-	make
+   make
 
 feature {ANY}
-	expression: LIBERTY_EXPRESSION
+   expression: LIBERTY_EXPRESSION
 
-	instruction: LIBERTY_INSTRUCTION
+   instruction: LIBERTY_INSTRUCTION
 
 feature {LIBERTY_CONDITIONAL}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			e: like expression
-			i: like instruction
-		do
-			e := expression.specialized_in(a_type)
-			i := instruction.specialized_in(a_type)
-			if e = expression and then i = instruction then
-				Result := Current
-			else
-				create Result.make(e, i, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         e: like expression
+         i: like instruction
+      do
+         e := expression.specialized_in(a_type)
+         i := instruction.specialized_in(a_type)
+         if e = expression and then i = instruction then
+            Result := Current
+         else
+            create Result.make(e, i, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			expression.mark_reachable_code(mark)
-			instruction.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         expression.mark_reachable_code(mark)
+         instruction.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_expression: like expression; a_instruction: like instruction; a_position: like position) is
-		require
-			a_expression /= Void
-			a_instruction /= Void
-			a_position /= Void
-		do
-			expression := a_expression
-			instruction := a_instruction
-			position := a_position
-		ensure
-			expression = a_expression
-			instruction = a_instruction
-			position = a_position
-		end
+   make (a_expression: like expression; a_instruction: like instruction; a_position: like position) is
+      require
+         a_expression /= Void
+         a_instruction /= Void
+         a_position /= Void
+      do
+         expression := a_expression
+         instruction := a_instruction
+         position := a_position
+      ensure
+         expression = a_expression
+         instruction = a_instruction
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_CONDITION_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_condition(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_CONDITION_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_condition(Current)
+      end
 
 invariant
-	expression /= Void
+   expression /= Void
 
 end

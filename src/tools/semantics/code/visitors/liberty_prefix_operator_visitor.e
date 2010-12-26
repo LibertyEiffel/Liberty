@@ -15,11 +15,11 @@
 deferred class LIBERTY_PREFIX_OPERATOR_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_PREFIX_OPERATOR}
-	visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR) is
-		deferred
-		end
+   visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR) is
+      deferred
+      end
 
 end -- class LIBERTY_PREFIX_OPERATOR_VISITOR

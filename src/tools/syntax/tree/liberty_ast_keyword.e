@@ -15,19 +15,19 @@
 class LIBERTY_AST_KEYWORD
 
 inherit
-	LIBERTY_AST_TERMINAL_NODE
+   LIBERTY_AST_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {}
-	name_for_error_message: STRING is
-		do
-			Result := once ""
-			Result.make_from_string(name)
-			Result.remove_prefix(once "KW ")
-			Result.prepend(once "the keyword %"")
-			Result.extend('%"')
-		end
+   name_for_error_message: STRING is
+      do
+         Result := once ""
+         Result.make_from_string(name)
+         Result.remove_prefix(once "KW ")
+         Result.prepend(once "the keyword %"")
+         Result.extend('%"')
+      end
 
 end

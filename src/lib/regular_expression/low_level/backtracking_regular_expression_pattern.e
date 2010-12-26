@@ -2,41 +2,41 @@
 -- See the full copyright at the end.
 --
 expanded class BACKTRACKING_REGULAR_EXPRESSION_PATTERN
-	--
-	-- Class for backtracking (compiled) regular expressions pattern.
-	--
+   --
+   -- Class for backtracking (compiled) regular expressions pattern.
+   --
 
 feature {ANY}
-	group_count: INTEGER
-			-- The count of groups of the regular expression.
+   group_count: INTEGER
+         -- The count of groups of the regular expression.
 
-	is_valid: BOOLEAN is
-			-- Is the current pattern valid?
-		do
-			Result := root /= Void
-		end
+   is_valid: BOOLEAN is
+         -- Is the current pattern valid?
+      do
+         Result := root /= Void
+      end
 
 feature {BACKTRACKING_REGULAR_EXPRESSION}
-	root: BACKTRACKING_NODE
-			-- The root item.
+   root: BACKTRACKING_NODE
+         -- The root item.
 
-	substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
+   substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
 
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER}
-	make (top: like root; grpcnt: INTEGER; subnames: like substrings_names) is
-			-- Initializing
-		require
-			top_not_void: top /= Void
-			valid_group_count: grpcnt >= 0
-			valid_subnames: subnames.for_all(agent (c, i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := i.in_range(0, c) and then s /= Void end (grpcnt, ?, ?))
-		do
-			root := top
-			group_count := grpcnt
-			substrings_names := subnames
-		ensure
-			definition: root = top and group_count = grpcnt
-			valid: is_valid
-		end
+   make (top: like root; grpcnt: INTEGER; subnames: like substrings_names) is
+         -- Initializing
+      require
+         top_not_void: top /= Void
+         valid_group_count: grpcnt >= 0
+         valid_subnames: subnames.for_all(agent (c, i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := i.in_range(0, c) and then s /= Void end (grpcnt, ?, ?))
+      do
+         root := top
+         group_count := grpcnt
+         substrings_names := subnames
+      ensure
+         definition: root = top and group_count = grpcnt
+         valid: is_valid
+      end
 
 end -- class BACKTRACKING_REGULAR_EXPRESSION_PATTERN
 --

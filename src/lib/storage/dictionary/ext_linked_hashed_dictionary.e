@@ -2,58 +2,58 @@
 -- See the full copyright at the end.
 --
 class EXT_LINKED_HASHED_DICTIONARY[V_, K_]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using a hash_coder function on keys.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using a hash_coder function on keys.
+   --
 
 inherit
-	ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
-		rename
-			make as abs_make
-			with_capacity as abs_with_capacity
-		end
+   ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
+      rename
+         make as abs_make
+         with_capacity as abs_with_capacity
+      end
 
 creation {ANY}
-	make, with_capacity
+   make, with_capacity
 
 feature {ANY}
-	hash_coder: FUNCTION[TUPLE[K_], INTEGER]
+   hash_coder: FUNCTION[TUPLE[K_], INTEGER]
 
 feature {}
-	hash_code (k: K_): INTEGER is
-		do
-			Result := k.hash_code
-		end
+   hash_code (k: K_): INTEGER is
+      do
+         Result := k.hash_code
+      end
 
 feature {ANY}
-	make (a_hash_coder: like hash_coder) is
-		require
-			a_hash_coder /= Void
-		do
-			hash_coder := a_hash_coder
-			abs_make
-		ensure
-			is_empty
-			hash_coder = a_hash_coder
-		end
+   make (a_hash_coder: like hash_coder) is
+      require
+         a_hash_coder /= Void
+      do
+         hash_coder := a_hash_coder
+         abs_make
+      ensure
+         is_empty
+         hash_coder = a_hash_coder
+      end
 
-	with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
-		require
-			a_hash_coder /= Void
-			medium_size > 0
-		do
-			hash_coder := a_hash_coder
-			abs_with_capacity(medium_size)
-		ensure
-			is_empty
-			hash_coder = a_hash_coder
-			capacity >= medium_size
-		end
+   with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
+      require
+         a_hash_coder /= Void
+         medium_size > 0
+      do
+         hash_coder := a_hash_coder
+         abs_with_capacity(medium_size)
+      ensure
+         is_empty
+         hash_coder = a_hash_coder
+         capacity >= medium_size
+      end
 
 invariant
-	hash_coder /= Void
+   hash_coder /= Void
 
 end -- class EXT_LINKED_HASHED_DICTIONARY
 --

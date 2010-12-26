@@ -15,39 +15,39 @@
 deferred class LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS[E_]
 
 inherit
-	LIBERTY_FEATURE_ACCELERATOR
+   LIBERTY_FEATURE_ACCELERATOR
 
 insert
-	LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
+   LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT is
-		do
-			last_call_failed := False
-			builtin_call := a_builtin_call
-			a_builtin_call.accelerate_call(Current)
-			Result := returned
-		end
+   call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT is
+      do
+         last_call_failed := False
+         builtin_call := a_builtin_call
+         a_builtin_call.accelerate_call(Current)
+         Result := returned
+      end
 
 feature {}
-	builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL
-	returned: LIBERTY_INTERPRETER_OBJECT
+   builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL
+   returned: LIBERTY_INTERPRETER_OBJECT
 
-	left, target: E_ is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
-		do
-			obj ::= builtin_call.target
-			Result := obj.item
-		end
+   left, target: E_ is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
+      do
+         obj ::= builtin_call.target
+         Result := obj.item
+      end
 
-	right: E_ is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
-		do
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
-			Result := obj.item
-		end
+   right: E_ is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
+      do
+         builtin_call.evaluate_parameters
+         obj ::= builtin_call.parameters.first
+         Result := obj.item
+      end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPED_BUILTINS

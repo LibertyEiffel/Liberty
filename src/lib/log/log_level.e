@@ -4,55 +4,55 @@
 class LOG_LEVEL
 
 creation {LOG_LEVELS}
-	make
+   make
 
 feature {LOGGER}
-	stream (a_level: like Current; a_log_output: LOG_OUTPUT; a_logger_tag: FIXED_STRING): OUTPUT_STREAM is
-		require
-			a_level /= Void
-			a_logger_tag /= Void
-		do
-			if does_log(a_level) then
-				a_log_output.set(tag, a_logger_tag)
-				Result := a_log_output
-			else
-				Result := bottomless_pit
-			end
-		ensure
-			Result /= Void
-		end
+   stream (a_level: like Current; a_log_output: LOG_OUTPUT; a_logger_tag: FIXED_STRING): OUTPUT_STREAM is
+      require
+         a_level /= Void
+         a_logger_tag /= Void
+      do
+         if does_log(a_level) then
+            a_log_output.set(tag, a_logger_tag)
+            Result := a_log_output
+         else
+            Result := bottomless_pit
+         end
+      ensure
+         Result /= Void
+      end
 
-	does_log (a_level: like Current): BOOLEAN is
-		require
-			a_level /= Void
-		do
-			Result := a_level.level >= level
-		end
+   does_log (a_level: like Current): BOOLEAN is
+      require
+         a_level /= Void
+      do
+         Result := a_level.level >= level
+      end
 
 feature {LOG_LEVEL}
-	level: INTEGER
-	tag: FIXED_STRING
+   level: INTEGER
+   tag: FIXED_STRING
 
 feature {}
-	make (a_level: like level; a_tag: like tag) is
-		require
-			a_tag /= Void
-		do
-			level := a_level
-			tag := a_tag
-		ensure
-			level = a_level
-			tag = a_tag
-		end
+   make (a_level: like level; a_tag: like tag) is
+      require
+         a_tag /= Void
+      do
+         level := a_level
+         tag := a_tag
+      ensure
+         level = a_level
+         tag = a_tag
+      end
 
-	bottomless_pit: OUTPUT_STREAM is
-		once
-			create {NULL_OUTPUT_STREAM} Result
-		end
+   bottomless_pit: OUTPUT_STREAM is
+      once
+         create {NULL_OUTPUT_STREAM} Result
+      end
 
 invariant
-	level /= Void
-	tag /= Void
+   level /= Void
+   tag /= Void
 
 end -- class LOG_LEVEL
 --

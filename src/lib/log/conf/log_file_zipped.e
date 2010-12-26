@@ -4,79 +4,79 @@
 class LOG_FILE_ZIPPED
 
 inherit
-	LOG_FILE_OPTION
+   LOG_FILE_OPTION
 
 creation {LOG_FILE_OPTIONS}
-	make
+   make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-	retrieve (stream: FILE_STREAM): FILE_STREAM is
-		do
-			Result := parent.retrieve(stream)
-			if Result /= stream then
-				zip(Result.path, stream)
-			end
-		end
+   retrieve (stream: FILE_STREAM): FILE_STREAM is
+      do
+         Result := parent.retrieve(stream)
+         if Result /= stream then
+            zip(Result.path, stream)
+         end
+      end
 
 feature {}
-	make (a_parent: like parent; a_command: like command) is
-		require
-			a_parent /= Void
-			a_command /= Void
-		do
-			parent := a_parent
-			command := a_command
-		ensure
-			parent = a_parent
-			command = a_command
-		end
+   make (a_parent: like parent; a_command: like command) is
+      require
+         a_parent /= Void
+         a_command /= Void
+      do
+         parent := a_parent
+         command := a_command
+      ensure
+         parent = a_parent
+         command = a_command
+      end
 
-	parent: LOG_FILE_OPTION
-	command: FIXED_STRING
+   parent: LOG_FILE_OPTION
+   command: FIXED_STRING
 
-	zip (file_path: STRING; file: FILE_STREAM) is
-		require
-			not file.is_connected
-		local
-			dir_name, file_name: STRING
-			cmd, rotated_file_path: STRING; i: INTEGER
-			pf: PROCESS_FACTORY; p: PROCESS
-		do
-			dir_name := once ""
-			bd.compute_parent_directory_of(file_path)
-			if bd.last_entry.is_empty then
-				dir_name.make_from_string(bd.current_working_directory)
-			else
-				dir_name.copy(bd.last_entry)
-			end
+   zip (file_path: STRING; file: FILE_STREAM) is
+      require
+         not file.is_connected
+      local
+         dir_name, file_name: STRING
+         cmd, rotated_file_path: STRING; i: INTEGER
+         pf: PROCESS_FACTORY; p: PROCESS
+      do
+         dir_name := once ""
+         bd.compute_parent_directory_of(file_path)
+         if bd.last_entry.is_empty then
+            dir_name.make_from_string(bd.current_working_directory)
+         else
+            dir_name.copy(bd.last_entry)
+         end
 
-			file_name := once ""
-			bd.compute_short_name_of(file_path)
-			file_name.copy(bd.last_entry)
-			file_name.append(once ".1")
+         file_name := once ""
+         bd.compute_short_name_of(file_path)
+         file_name.copy(bd.last_entry)
+         file_name.append(once ".1")
 
-			bd.compute_file_path_with(dir_name, file_name)
-			rotated_file_path := once ""
-			rotated_file_path.copy(bd.last_entry)
-			if ft.file_exists(rotated_file_path) then
-				cmd := once ""
-				cmd.make_from_string(command)
-				i := cmd.substring_index(once "{}", cmd.lower)
-				if cmd.valid_index(i) then
-					cmd.replace_substring(rotated_file_path, i, i + 1)
-				else
-					cmd.extend_unless(' ')
-					cmd.append(rotated_file_path)
-				end
-				p := pf.execute_command_line(cmd)
-				check
-					p /= Void
-				end
-			end
-		end
+         bd.compute_file_path_with(dir_name, file_name)
+         rotated_file_path := once ""
+         rotated_file_path.copy(bd.last_entry)
+         if ft.file_exists(rotated_file_path) then
+            cmd := once ""
+            cmd.make_from_string(command)
+            i := cmd.substring_index(once "{}", cmd.lower)
+            if cmd.valid_index(i) then
+               cmd.replace_substring(rotated_file_path, i, i + 1)
+            else
+               cmd.extend_unless(' ')
+               cmd.append(rotated_file_path)
+            end
+            p := pf.execute_command_line(cmd)
+            check
+               p /= Void
+            end
+         end
+      end
 
-	bd: BASIC_DIRECTORY
-	ft: FILE_TOOLS
+   bd: BASIC_DIRECTORY
+   ft: FILE_TOOLS
 
 end -- class LOG_FILE_ZIPPED
 --

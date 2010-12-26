@@ -15,18 +15,18 @@
 class LIBERTY_REAL_MANIFEST
 
 inherit
-	LIBERTY_TYPED_MANIFEST[REAL]
+   LIBERTY_TYPED_MANIFEST[REAL]
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_REAL_MANIFEST_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_real_manifest(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_REAL_MANIFEST_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_real_manifest(Current)
+      end
 
 end

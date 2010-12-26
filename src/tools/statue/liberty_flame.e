@@ -18,13 +18,13 @@ expanded class LIBERTY_FLAME
 --
 
 feature {LIBERTY_ENLIGHTENING_THE_WORLD}
-	light: INTEGER
+   light: INTEGER
 
-	set (candela: like light) is
-		do
-			light := candela
-		ensure
-			light = candela
-		end
+   set (candela: like light) is
+      do
+         light := candela
+      ensure
+         light = candela
+      end
 
 end -- class LIBERTY_FLAME

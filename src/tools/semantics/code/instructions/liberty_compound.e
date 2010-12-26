@@ -15,112 +15,112 @@
 class LIBERTY_COMPOUND
 
 inherit
-	LIBERTY_INSTRUCTION
-	TRAVERSABLE[LIBERTY_INSTRUCTION]
+   LIBERTY_INSTRUCTION
+   TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_COMPOUND}
-	make
+   make
 
 feature {ANY}
-	count: INTEGER is
-		do
-			Result := instructions.count
-		ensure then
-			Result > 1
-		end
+   count: INTEGER is
+      do
+         Result := instructions.count
+      ensure then
+         Result > 1
+      end
 
-	is_empty: BOOLEAN is False
+   is_empty: BOOLEAN is False
 
-	lower: INTEGER is
-		do
-			Result := instructions.lower
-		end
+   lower: INTEGER is
+      do
+         Result := instructions.lower
+      end
 
-	upper: INTEGER is
-		do
-			Result := instructions.upper
-		end
+   upper: INTEGER is
+      do
+         Result := instructions.upper
+      end
 
-	first: LIBERTY_INSTRUCTION is
-		do
-			Result := instructions.first
-		end
+   first: LIBERTY_INSTRUCTION is
+      do
+         Result := instructions.first
+      end
 
-	last: LIBERTY_INSTRUCTION is
-		do
-			Result := instructions.last
-		end
+   last: LIBERTY_INSTRUCTION is
+      do
+         Result := instructions.last
+      end
 
-	item (i: INTEGER): LIBERTY_INSTRUCTION is
-		do
-			Result := instructions.item(i)
-		end
+   item (i: INTEGER): LIBERTY_INSTRUCTION is
+      do
+         Result := instructions.item(i)
+      end
 
-	new_iterator: ITERATOR[LIBERTY_INSTRUCTION] is
-		do
-			Result := instructions.new_iterator
-		end
+   new_iterator: ITERATOR[LIBERTY_INSTRUCTION] is
+      do
+         Result := instructions.new_iterator
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			i: INTEGER
-			ins: like instructions
-			inst: LIBERTY_INSTRUCTION
-		do
-			from
-				ins := instructions
-				i := ins.lower
-			until
-				i > ins.upper
-			loop
-				inst := ins.item(i).specialized_in(a_type)
-				if inst /= ins.item(i) then
-					if ins = instructions then
-						ins := instructions.twin
-					end
-					ins.put(inst, i)
-				end
-				i := i + 1
-			end
-			if ins = instructions then
-				Result := Current
-			else
-				create Result.make(ins, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         i: INTEGER
+         ins: like instructions
+         inst: LIBERTY_INSTRUCTION
+      do
+         from
+            ins := instructions
+            i := ins.lower
+         until
+            i > ins.upper
+         loop
+            inst := ins.item(i).specialized_in(a_type)
+            if inst /= ins.item(i) then
+               if ins = instructions then
+                  ins := instructions.twin
+               end
+               ins.put(inst, i)
+            end
+            i := i + 1
+         end
+         if ins = instructions then
+            Result := Current
+         else
+            create Result.make(ins, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			instructions_marker.mark_reachable_code(mark, instructions)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         instructions_marker.mark_reachable_code(mark, instructions)
+      end
 
 feature {}
-	make (a_instructions: like instructions; a_position: like position) is
-		require
-			a_instructions.count > 1
-			a_position /= Void
-		do
-			instructions := a_instructions
-			position := a_position
-		ensure
-			instructions = a_instructions
-			position = a_position
-		end
+   make (a_instructions: like instructions; a_position: like position) is
+      require
+         a_instructions.count > 1
+         a_position /= Void
+      do
+         instructions := a_instructions
+         position := a_position
+      ensure
+         instructions = a_instructions
+         position = a_position
+      end
 
-	instructions: COLLECTION[LIBERTY_INSTRUCTION]
+   instructions: COLLECTION[LIBERTY_INSTRUCTION]
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_COMPOUND_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_compound(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_COMPOUND_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_compound(Current)
+      end
 
 invariant
-	instructions /= Void
+   instructions /= Void
 
 end
 

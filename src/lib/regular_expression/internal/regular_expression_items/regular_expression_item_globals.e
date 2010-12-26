@@ -2,246 +2,246 @@
 -- See the full copyright at the end.
 --
 class REGULAR_EXPRESSION_ITEM_GLOBALS
-	--
-	-- common invariant nodes and POSIX classes naming
-	--
+   --
+   -- common invariant nodes and POSIX classes naming
+   --
 
 inherit
-	BACKTRACKING_NODE_GLOBALS
+   BACKTRACKING_NODE_GLOBALS
 
 feature {ANY} -- assertions
-	the_any_character_item: REGULAR_EXPRESSION_ITEM_ANY is
-		once
-			create Result
-		end
+   the_any_character_item: REGULAR_EXPRESSION_ITEM_ANY is
+      once
+         create Result
+      end
 
-	the_not_end_of_line_item: REGULAR_EXPRESSION_ITEM_NOT_END_OF_LINE is
-		once
-			create Result
-		end
+   the_not_end_of_line_item: REGULAR_EXPRESSION_ITEM_NOT_END_OF_LINE is
+      once
+         create Result
+      end
 
-	the_begin_of_line_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_LINE is
-		once
-			create Result
-		end
+   the_begin_of_line_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_LINE is
+      once
+         create Result
+      end
 
-	the_end_of_line_item: REGULAR_EXPRESSION_ITEM_END_OF_LINE is
-		once
-			create Result
-		end
+   the_end_of_line_item: REGULAR_EXPRESSION_ITEM_END_OF_LINE is
+      once
+         create Result
+      end
 
-	the_begin_of_text_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_TEXT is
-		once
-			create Result
-		end
+   the_begin_of_text_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_TEXT is
+      once
+         create Result
+      end
 
-	the_real_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
-		once
-			create Result.make(True)
-		end
+   the_real_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
+      once
+         create Result.make(True)
+      end
 
-	the_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
-		once
-			create Result.make(False)
-		end
+   the_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
+      once
+         create Result.make(False)
+      end
 
-	the_begin_of_word_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_WORD is
-		once
-			create Result
-		end
+   the_begin_of_word_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_WORD is
+      once
+         create Result
+      end
 
-	the_end_of_word_item: REGULAR_EXPRESSION_ITEM_END_OF_WORD is
-		once
-			create Result
-		end
+   the_end_of_word_item: REGULAR_EXPRESSION_ITEM_END_OF_WORD is
+      once
+         create Result
+      end
 
 feature {ANY} -- character classes
-	the_is_posix_alnum_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALNUM is
-		once
-			create Result
-		end
+   the_is_posix_alnum_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALNUM is
+      once
+         create Result
+      end
 
-	the_is_posix_alpha_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALPHA is
-		once
-			create Result
-		end
+   the_is_posix_alpha_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALPHA is
+      once
+         create Result
+      end
 
-	the_is_posix_ascii_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ASCII is
-		once
-			create Result
-		end
+   the_is_posix_ascii_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ASCII is
+      once
+         create Result
+      end
 
-	the_is_posix_blank_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_BLANK is
-		once
-			create Result
-		end
+   the_is_posix_blank_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_BLANK is
+      once
+         create Result
+      end
 
-	the_is_posix_cntrl_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_CNTRL is
-		once
-			create Result
-		end
+   the_is_posix_cntrl_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_CNTRL is
+      once
+         create Result
+      end
 
-	the_is_posix_digit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_DIGIT is
-		once
-			create Result
-		end
+   the_is_posix_digit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_DIGIT is
+      once
+         create Result
+      end
 
-	the_is_posix_graph_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_GRAPH is
-		once
-			create Result
-		end
+   the_is_posix_graph_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_GRAPH is
+      once
+         create Result
+      end
 
-	the_is_posix_lower_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_LOWER is
-		once
-			create Result
-		end
+   the_is_posix_lower_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_LOWER is
+      once
+         create Result
+      end
 
-	the_is_posix_print_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PRINT is
-		once
-			create Result
-		end
+   the_is_posix_print_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PRINT is
+      once
+         create Result
+      end
 
-	the_is_posix_punct_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PUNCT is
-		once
-			create Result
-		end
+   the_is_posix_punct_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PUNCT is
+      once
+         create Result
+      end
 
-	the_is_posix_space_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_SPACE is
-		once
-			create Result
-		end
+   the_is_posix_space_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_SPACE is
+      once
+         create Result
+      end
 
-	the_is_posix_upper_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_UPPER is
-		once
-			create Result
-		end
+   the_is_posix_upper_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_UPPER is
+      once
+         create Result
+      end
 
-	the_is_posix_word_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_WORD is
-		once
-			create Result
-		end
+   the_is_posix_word_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_WORD is
+      once
+         create Result
+      end
 
-	the_is_posix_xdigit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_XDIGIT is
-		once
-			create Result
-		end
+   the_is_posix_xdigit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_XDIGIT is
+      once
+         create Result
+      end
 
 feature {ANY} -- character class naming
-	has_named_posix_item (name: STRING): BOOLEAN is
-			-- True if 'name' is for a valid posix character class
-		require
-			name_not_void: name /= Void
-		do
-			Result := internal_named_posix_item(name) /= Void
-		end
+   has_named_posix_item (name: STRING): BOOLEAN is
+         -- True if 'name' is for a valid posix character class
+      require
+         name_not_void: name /= Void
+      do
+         Result := internal_named_posix_item(name) /= Void
+      end
 
-	named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
-			-- the item for the valid posix character class 'name'
-		require
-			name_not_void: name /= Void
-			good_name: has_named_posix_item(name)
-		do
-			Result := internal_named_posix_item(name)
-		ensure
-			good_result: Result /= Void
-		end
+   named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+         -- the item for the valid posix character class 'name'
+      require
+         name_not_void: name /= Void
+         good_name: has_named_posix_item(name)
+      do
+         Result := internal_named_posix_item(name)
+      ensure
+         good_result: Result /= Void
+      end
 
-	has_named_perl_item (name: STRING): BOOLEAN is
-			-- True if 'name' is for a valid perl character class
-		require
-			name_not_void: name /= Void
-		do
-			Result := internal_named_perl_item(name) /= Void
-		end
+   has_named_perl_item (name: STRING): BOOLEAN is
+         -- True if 'name' is for a valid perl character class
+      require
+         name_not_void: name /= Void
+      do
+         Result := internal_named_perl_item(name) /= Void
+      end
 
-	named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
-			-- the item for the valid perl character class 'name'
-		require
-			name_not_void: name /= Void
-			good_name: has_named_perl_item(name)
-		do
-			Result := internal_named_perl_item(name)
-		ensure
-			good_result: Result /= Void
-		end
+   named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+         -- the item for the valid perl character class 'name'
+      require
+         name_not_void: name /= Void
+         good_name: has_named_perl_item(name)
+      do
+         Result := internal_named_perl_item(name)
+      ensure
+         good_result: Result /= Void
+      end
 
 feature {}
-	internal_named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
-			-- the item for a presumed posix character class 'name'
-		require
-			name_not_void: name /= Void
-		do
-			inspect
-				name
-			when "alnum" then
-				Result := the_is_posix_alnum_item
-			when "alpha" then
-				Result := the_is_posix_alpha_item
-			when "ascii" then
-				Result := the_is_posix_ascii_item
-			when "blank" then
-				Result := the_is_posix_blank_item
-			when "cntrl" then
-				Result := the_is_posix_cntrl_item
-			when "digit" then
-				Result := the_is_posix_digit_item
-			when "graph" then
-				Result := the_is_posix_graph_item
-			when "lower" then
-				Result := the_is_posix_lower_item
-			when "print" then
-				Result := the_is_posix_print_item
-			when "punct" then
-				Result := the_is_posix_punct_item
-			when "space" then
-				Result := the_is_posix_space_item
-			when "upper" then
-				Result := the_is_posix_upper_item
-			when "word" then
-				Result := the_is_posix_word_item
-			when "xdigit" then
-				Result := the_is_posix_xdigit_item
-			else
-			end
-		end
+   internal_named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+         -- the item for a presumed posix character class 'name'
+      require
+         name_not_void: name /= Void
+      do
+         inspect
+            name
+         when "alnum" then
+            Result := the_is_posix_alnum_item
+         when "alpha" then
+            Result := the_is_posix_alpha_item
+         when "ascii" then
+            Result := the_is_posix_ascii_item
+         when "blank" then
+            Result := the_is_posix_blank_item
+         when "cntrl" then
+            Result := the_is_posix_cntrl_item
+         when "digit" then
+            Result := the_is_posix_digit_item
+         when "graph" then
+            Result := the_is_posix_graph_item
+         when "lower" then
+            Result := the_is_posix_lower_item
+         when "print" then
+            Result := the_is_posix_print_item
+         when "punct" then
+            Result := the_is_posix_punct_item
+         when "space" then
+            Result := the_is_posix_space_item
+         when "upper" then
+            Result := the_is_posix_upper_item
+         when "word" then
+            Result := the_is_posix_word_item
+         when "xdigit" then
+            Result := the_is_posix_xdigit_item
+         else
+         end
+      end
 
-	internal_named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
-			-- the item for a presumed perl character class 'name'
-		require
-			name_not_void: name /= Void
-		do
-			inspect
-				name
-			when "IsAlnum" then
-				Result := the_is_posix_alnum_item
-			when "IsAlpha" then
-				Result := the_is_posix_alpha_item
-			when "IsASCII" then
-				Result := the_is_posix_ascii_item
-				--when "blank" then Result := the_is_posix_blank_item
-			when "IsCntrl" then
-				Result := the_is_posix_cntrl_item
-			when "IsDigit" then
-				Result := the_is_posix_digit_item
-			when "IsGraph" then
-				Result := the_is_posix_graph_item
-			when "IsLower" then
-				Result := the_is_posix_lower_item
-			when "IsPrint" then
-				Result := the_is_posix_print_item
-			when "IsPunct" then
-				Result := the_is_posix_punct_item
-			when "IsSpace", "IsSpacePerl" then
-				Result := the_is_posix_space_item
-			when "IsUpper" then
-				Result := the_is_posix_upper_item
-			when "IsWord" then
-				Result := the_is_posix_word_item
-			when "IsXDigit" then
-				Result := the_is_posix_xdigit_item
-			else
-			end
-		end
+   internal_named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+         -- the item for a presumed perl character class 'name'
+      require
+         name_not_void: name /= Void
+      do
+         inspect
+            name
+         when "IsAlnum" then
+            Result := the_is_posix_alnum_item
+         when "IsAlpha" then
+            Result := the_is_posix_alpha_item
+         when "IsASCII" then
+            Result := the_is_posix_ascii_item
+            --when "blank" then Result := the_is_posix_blank_item
+         when "IsCntrl" then
+            Result := the_is_posix_cntrl_item
+         when "IsDigit" then
+            Result := the_is_posix_digit_item
+         when "IsGraph" then
+            Result := the_is_posix_graph_item
+         when "IsLower" then
+            Result := the_is_posix_lower_item
+         when "IsPrint" then
+            Result := the_is_posix_print_item
+         when "IsPunct" then
+            Result := the_is_posix_punct_item
+         when "IsSpace", "IsSpacePerl" then
+            Result := the_is_posix_space_item
+         when "IsUpper" then
+            Result := the_is_posix_upper_item
+         when "IsWord" then
+            Result := the_is_posix_word_item
+         when "IsXDigit" then
+            Result := the_is_posix_xdigit_item
+         else
+         end
+      end
 
 end -- class REGULAR_EXPRESSION_ITEM_GLOBALS
 --

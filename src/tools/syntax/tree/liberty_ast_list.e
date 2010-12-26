@@ -13,90 +13,90 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 deferred class LIBERTY_AST_LIST[N_ -> EIFFEL_NODE]
-	-- An optional list preceded by a keyword.
+   -- An optional list preceded by a keyword.
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-	list: EIFFEL_LIST_NODE is
-		require
-			count > 1
-		do
-			Result ::= nodes.item(1)
-		end
+   list: EIFFEL_LIST_NODE is
+      require
+         count > 1
+      do
+         Result ::= nodes.item(1)
+      end
 
 feature {LIBERTY_AST_HANDLER}
-	list_valid_index (index: INTEGER): BOOLEAN is
-		do
-			if count > 1 then
-				Result := list.valid_index(index)
-			end
-		end
+   list_valid_index (index: INTEGER): BOOLEAN is
+      do
+         if count > 1 then
+            Result := list.valid_index(index)
+         end
+      end
 
-	list_is_empty: BOOLEAN is
-		do
-			if count > 1 then
-				Result := list.is_empty
-			else
-				Result := True
-			end
-		end
+   list_is_empty: BOOLEAN is
+      do
+         if count > 1 then
+            Result := list.is_empty
+         else
+            Result := True
+         end
+      end
 
-	list_count: INTEGER is
-		do
-			if count > 1 then
-				Result := list.count
-			end
-		end
+   list_count: INTEGER is
+      do
+         if count > 1 then
+            Result := list.count
+         end
+      end
 
-	list_lower: INTEGER is
-		do
-			if count > 1 then
-				Result := list.lower
-			end
-		end
+   list_lower: INTEGER is
+      do
+         if count > 1 then
+            Result := list.lower
+         end
+      end
 
-	list_upper: INTEGER is
-		do
-			if count > 1 then
-				Result := list.upper
-			else
-				Result := -1
-			end
-		end
+   list_upper: INTEGER is
+      do
+         if count > 1 then
+            Result := list.upper
+         else
+            Result := -1
+         end
+      end
 
-	list_item (index: INTEGER): N_ is
-		require
-			list_valid_index(index)
-		do
-			Result ::= list.item(index)
-		end
+   list_item (index: INTEGER): N_ is
+      require
+         list_valid_index(index)
+      do
+         Result ::= list.item(index)
+      end
 
-	list_first: N_ is
-		require
-			list_valid_index(list_lower)
-		do
-			Result := list_item(list_lower)
-		end
+   list_first: N_ is
+      require
+         list_valid_index(list_lower)
+      do
+         Result := list_item(list_lower)
+      end
 
-	list_last: N_ is
-		require
-			list_valid_index(list_upper)
-		do
-			Result := list_item(list_upper)
-		end
+   list_last: N_ is
+      require
+         list_valid_index(list_upper)
+      do
+         Result := list_item(list_upper)
+      end
 
 feature {ANY}
-	count: INTEGER is
-		do
-			Result := nodes.count
-		end
+   count: INTEGER is
+      do
+         Result := nodes.count
+      end
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 0, 2 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 0, 2 >> }
+      end
 
 end

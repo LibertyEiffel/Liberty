@@ -2,101 +2,101 @@
 -- See the full copyright at the end.
 --
 class DESCENDING_PARSER
-	--
-	-- The entry point to LL(n) parsing. Currently that top-down parsing is directly implemented in the
-	-- PARSE_ATOM classes.
-	--
+   --
+   -- The entry point to LL(n) parsing. Currently that top-down parsing is directly implemented in the
+   -- PARSE_ATOM classes.
+   --
 
 insert
-	TRISTATE_VALUES
+   TRISTATE_VALUES
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
-			-- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
-			-- could make it succeed.
-		require
-			a_actions /= Void
-			grammar.is_coherent
-			grammar.has(start)
-		local
-			atom: PARSE_ATOM
-			parsed: TRISTATE
-		do
-			error := Void
-			atom := grammar.item(start)
-			parsed := atom.parse(buffer, a_actions)
-			if parsed = yes then
-				Result := True
-			elseif parsed = no then
-				error := buffer.last_error
-				if error = Void then
-					create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
-				end
-				Result := True
-			else
-				check
-					should_add_more: not Result
-				end
-			end
-		ensure
-			a_actions.count >= old a_actions.count
-		end
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+         -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
+         -- could make it succeed.
+      require
+         a_actions /= Void
+         grammar.is_coherent
+         grammar.has(start)
+      local
+         atom: PARSE_ATOM
+         parsed: TRISTATE
+      do
+         error := Void
+         atom := grammar.item(start)
+         parsed := atom.parse(buffer, a_actions)
+         if parsed = yes then
+            Result := True
+         elseif parsed = no then
+            error := buffer.last_error
+            if error = Void then
+               create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
+            end
+            Result := True
+         else
+            check
+               should_add_more: not Result
+            end
+         end
+      ensure
+         a_actions.count >= old a_actions.count
+      end
 
-	eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
-			-- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
-			-- could make it succeed.
-		local
-			i: INTEGER
-		do
-			actions.clear_count
-			Result := parse(buffer, grammar, start, actions)
-			if Result and then error = Void then
-				debug ("parse")
-					std_error.put_line(once "Actions:")
-					std_error.put_line(once "--8<-------- <start actions>")
-					from
-						i := actions.lower
-					until
-						i > actions.upper
-					loop
-						std_error.put_integer(i)
-						std_error.put_character('%T')
-						std_error.put_line(actions.item(i).name)
-						i := i + 1
-					end
-					std_error.put_line(once "-------->8-- <end actions>")
-				end
-				from
-					i := actions.lower
-				until
-					i > actions.upper
-				loop
-					debug ("parse")
-						std_error.put_string(once "Calling action #")
-						std_error.put_integer(i)
-						std_error.put_string(once ": ")
-						std_error.put_line(actions.item(i).name)
-					end
-					actions.item(i).call
-					i := i + 1
-				end
-			end
-		end
+   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
+         -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
+         -- could make it succeed.
+      local
+         i: INTEGER
+      do
+         actions.clear_count
+         Result := parse(buffer, grammar, start, actions)
+         if Result and then error = Void then
+            debug ("parse")
+               std_error.put_line(once "Actions:")
+               std_error.put_line(once "--8<-------- <start actions>")
+               from
+                  i := actions.lower
+               until
+                  i > actions.upper
+               loop
+                  std_error.put_integer(i)
+                  std_error.put_character('%T')
+                  std_error.put_line(actions.item(i).name)
+                  i := i + 1
+               end
+               std_error.put_line(once "-------->8-- <end actions>")
+            end
+            from
+               i := actions.lower
+            until
+               i > actions.upper
+            loop
+               debug ("parse")
+                  std_error.put_string(once "Calling action #")
+                  std_error.put_integer(i)
+                  std_error.put_string(once ": ")
+                  std_error.put_line(actions.item(i).name)
+               end
+               actions.item(i).call
+               i := i + 1
+            end
+         end
+      end
 
-	error: PARSE_ERROR
+   error: PARSE_ERROR
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	actions: FAST_ARRAY[PARSE_ACTION] is
-		once
-			create Result.make(0)
-		end
+   actions: FAST_ARRAY[PARSE_ACTION] is
+      once
+         create Result.make(0)
+      end
 
 end -- class DESCENDING_PARSER
 --

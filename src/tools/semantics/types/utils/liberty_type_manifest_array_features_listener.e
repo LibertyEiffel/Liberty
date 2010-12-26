@@ -15,28 +15,28 @@
 class LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER
 
 inherit
-	LIBERTY_TYPE_LISTENER
+   LIBERTY_TYPE_LISTENER
 
 creation {ANY}
-	make
+   make
 
 feature {LIBERTY_TYPE}
-	on_type_known (type: LIBERTY_TYPE) is
-		do
-			-- nothing
-		end
+   on_type_known (type: LIBERTY_TYPE) is
+      do
+         -- nothing
+      end
 
-	on_type_built (type: LIBERTY_ACTUAL_TYPE) is
-		do
-			type.mark_manifest_array_features(mark)
-		end
+   on_type_built (type: LIBERTY_ACTUAL_TYPE) is
+      do
+         type.mark_manifest_array_features(mark)
+      end
 
 feature {}
-	make (a_mark: like mark) is
-		do
-			mark := a_mark
-		end
+   make (a_mark: like mark) is
+      do
+         mark := a_mark
+      end
 
-	mark: INTEGER
+   mark: INTEGER
 
 end -- LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER

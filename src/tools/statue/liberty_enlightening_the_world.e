@@ -18,33 +18,33 @@ expanded class LIBERTY_ENLIGHTENING_THE_WORLD
 --
 
 insert
-	LOGGING
+   LOGGING
 
 feature {ANY}
-	burn is
-		do
-			torch.increment
-			debug
-				log.trace.put_string(once "FLAME: ")
-				log.trace.put_integer(torch.value)
-				log.trace.put_new_line
-			end
-		end
+   burn is
+      do
+         torch.increment
+         debug
+            log.trace.put_string(once "FLAME: ")
+            log.trace.put_integer(torch.value)
+            log.trace.put_new_line
+         end
+      end
 
-	flame: LIBERTY_FLAME is
-		do
-			Result.set(torch.value)
-		end
+   flame: LIBERTY_FLAME is
+      do
+         Result.set(torch.value)
+      end
 
-	still_burns (a_flame: like flame): BOOLEAN is
-		do
-			Result := torch.value > a_flame.light
-		end
+   still_burns (a_flame: like flame): BOOLEAN is
+      do
+         Result := torch.value > a_flame.light
+      end
 
 feature {}
-	torch: COUNTER is
-		once
-			create Result
-		end
+   torch: COUNTER is
+      once
+         create Result
+      end
 
 end -- class LIBERTY_ENLIGHTENING_THE_WORLD

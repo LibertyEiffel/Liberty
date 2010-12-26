@@ -2,103 +2,103 @@
 -- See the full copyright at the end.
 --
 deferred class PARSE_ATOM
-	--
-	-- A part of the PARSE_TABLE.
-	--
+   --
+   -- A part of the PARSE_TABLE.
+   --
 
 insert
-	TRISTATE_VALUES
+   TRISTATE_VALUES
 
 feature {ANY}
-	name: FIXED_STRING
+   name: FIXED_STRING
 
-	table: PARSE_TABLE
+   table: PARSE_TABLE
 
 feature {PARSE_TABLE}
-	set (a_name: ABSTRACT_STRING; a_table: like table) is
-		require
-			not a_name.is_empty
-			a_table /= Void
-		do
-			name := a_name.intern
-			table := a_table
-		ensure
-			name = a_name
-			table = a_table
-		end
+   set (a_name: ABSTRACT_STRING; a_table: like table) is
+      require
+         not a_name.is_empty
+         a_table /= Void
+      do
+         name := a_name.intern
+         table := a_table
+      ensure
+         name = a_name
+         table = a_table
+      end
 
-	set_table (a_table: like table) is
-		require
-			a_table /= Void
-		do
-			table := a_table
-		ensure
-			table = a_table
-		end
+   set_table (a_table: like table) is
+      require
+         a_table /= Void
+      do
+         table := a_table
+      ensure
+         table = a_table
+      end
 
-	is_coherent: BOOLEAN is
-		deferred
-		ensure
-			must_be_coherent: Result
-		end
+   is_coherent: BOOLEAN is
+      deferred
+      ensure
+         must_be_coherent: Result
+      end
 
-	set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-		require
-			is_coherent
-		deferred
-		end
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+      require
+         is_coherent
+      deferred
+      end
 
 feature {DESCENDING_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
-			-- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
-			-- parse could complete with some more text.
-		require
-			actions /= Void
-		deferred
-		ensure
-			actions.count >= old actions.count
-			;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
-		end
+   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+         -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
+         -- parse could complete with some more text.
+      require
+         actions /= Void
+      deferred
+      ensure
+         actions.count >= old actions.count
+         ;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+      end
 
 feature {}
-	add_error_position (error: STRING; buffer: MINI_PARSER_BUFFER) is
-		local
-			n, l, c: INTEGER
-		do
-			n := buffer.current_index
-			from
-				l := 1
-				c := 1
-				buffer.set_current_index(1)
-			until
-				buffer.current_index = n
-			loop
-				if buffer.current_character = '%N' then
-					l := l + 1
-					c := 1
-				else
-					c := c + 1
-				end
-				buffer.next
-			end
-			if not error.is_empty then
-				error.extend(' ')
-			end
-			error.append(once "at line ")
-			l.append_in(error)
-			error.append(once ", column ")
-			c.append_in(error)
-		end
+   add_error_position (error: STRING; buffer: MINI_PARSER_BUFFER) is
+      local
+         n, l, c: INTEGER
+      do
+         n := buffer.current_index
+         from
+            l := 1
+            c := 1
+            buffer.set_current_index(1)
+         until
+            buffer.current_index = n
+         loop
+            if buffer.current_character = '%N' then
+               l := l + 1
+               c := 1
+            else
+               c := c + 1
+            end
+            buffer.next
+         end
+         if not error.is_empty then
+            error.extend(' ')
+         end
+         error.append(once "at line ")
+         l.append_in(error)
+         error.append(once ", column ")
+         c.append_in(error)
+      end
 
-	print_error_position (o: OUTPUT_STREAM; buffer: MINI_PARSER_BUFFER) is
-		local
-			s: STRING
-		do
-			s := once ""
-			s.clear_count
-			add_error_position(s, buffer)
-			o.put_string(s)
-		end
+   print_error_position (o: OUTPUT_STREAM; buffer: MINI_PARSER_BUFFER) is
+      local
+         s: STRING
+      do
+         s := once ""
+         s.clear_count
+         add_error_position(s, buffer)
+         o.put_string(s)
+      end
 
 end -- class PARSE_ATOM
 --

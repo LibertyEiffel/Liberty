@@ -11,7 +11,7 @@
 ./kernel/loadpath.se
 ./log/loadpath.se
 ./message_formatter/
-./misc/
+./misc/loadpath.se
 ./ncurses/loadpath.se
 ./net/loadpath.se
 ./numeric/loadpath.se

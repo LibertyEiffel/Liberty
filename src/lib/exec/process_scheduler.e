@@ -4,216 +4,216 @@
 class PROCESS_SCHEDULER
 
 inherit
-	PROCESS_RUNNER
+   PROCESS_RUNNER
 
 creation
-	make
+   make
 
 feature {ANY}
-	execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN) is
-		local
-			p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
-		do
-			p := new_process
-			launch_info := processes.reference_at(p)
-			if launch_info = Void then
-				create launch_info.execute(program, arguments, keep_environment)
-				processes.add(launch_info, p)
-			else
-				launch_info.execute(program, arguments, keep_environment)
-			end
-			process_count := process_count + 1
-			p.execute(program, arguments, keep_environment)
-			post_launch(p, launch_info)
-		end
+   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN) is
+      local
+         p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
+      do
+         p := new_process
+         launch_info := processes.reference_at(p)
+         if launch_info = Void then
+            create launch_info.execute(program, arguments, keep_environment)
+            processes.add(launch_info, p)
+         else
+            launch_info.execute(program, arguments, keep_environment)
+         end
+         process_count := process_count + 1
+         p.execute(program, arguments, keep_environment)
+         post_launch(p, launch_info)
+      end
 
-	execute_command_line (command_line: STRING; keep_environment: BOOLEAN) is
-		local
-			p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
-		do
-			p := new_process
-			launch_info := processes.reference_at(p)
-			if launch_info = Void then
-				create launch_info.execute_command_line(command_line, keep_environment)
-				processes.add(launch_info, p)
-			else
-				launch_info.execute_command_line(command_line, keep_environment)
-			end
-			process_count := process_count + 1
-			p.execute_command_line(command_line, keep_environment)
-			post_launch(p, launch_info)
-		end
+   execute_command_line (command_line: STRING; keep_environment: BOOLEAN) is
+      local
+         p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
+      do
+         p := new_process
+         launch_info := processes.reference_at(p)
+         if launch_info = Void then
+            create launch_info.execute_command_line(command_line, keep_environment)
+            processes.add(launch_info, p)
+         else
+            launch_info.execute_command_line(command_line, keep_environment)
+         end
+         process_count := process_count + 1
+         p.execute_command_line(command_line, keep_environment)
+         post_launch(p, launch_info)
+      end
 
-	is_ready: BOOLEAN is
-		do
-			Result := maximum_process_count >= 1
-		ensure
-			Result = (maximum_process_count >= 1)
-		end
+   is_ready: BOOLEAN is
+      do
+         Result := maximum_process_count >= 1
+      ensure
+         Result = (maximum_process_count >= 1)
+      end
 
-	set_parallel_process_count (parallel_process_count_: like parallel_process_count) is
-		require
-			parallel_process_count_ >= 1
-		do
-			parallel_process_count := parallel_process_count_.min(group.capacity)
-			wait_until(process_count)
-		ensure
-			parallel_process_count.in_range(0, parallel_process_count_)
-		end
+   set_parallel_process_count (parallel_process_count_: like parallel_process_count) is
+      require
+         parallel_process_count_ >= 1
+      do
+         parallel_process_count := parallel_process_count_.min(group.capacity)
+         wait_until(process_count)
+      ensure
+         parallel_process_count.in_range(0, parallel_process_count_)
+      end
 
-	wait is
-		do
-			wait_until(0)
-		ensure
-			process_count = 0
-		end
+   wait is
+      do
+         wait_until(0)
+      ensure
+         process_count = 0
+      end
 
-	maximum_process_count: INTEGER is
-		do
-			Result := parallel_process_count
-			if is_serial then
-				Result := Result.min(1)
-			end
-		ensure
-			is_serial implies Result = parallel_process_count.min(1)
-			(not is_serial) implies Result = parallel_process_count
-		end
+   maximum_process_count: INTEGER is
+      do
+         Result := parallel_process_count
+         if is_serial then
+            Result := Result.min(1)
+         end
+      ensure
+         is_serial implies Result = parallel_process_count.min(1)
+         (not is_serial) implies Result = parallel_process_count
+      end
 
-	parallel_process_count: INTEGER
-			-- How many processes can run concurrently in a parallel session.
+   parallel_process_count: INTEGER
+         -- How many processes can run concurrently in a parallel session.
 
-	process_count: INTEGER
-			-- How many processes are currently running.
+   process_count: INTEGER
+         -- How many processes are currently running.
 
-	is_serial: BOOLEAN
-			-- Are processes currently launched sequentially rather than concurrently.
+   is_serial: BOOLEAN
+         -- Are processes currently launched sequentially rather than concurrently.
 
-	set_parallel is
-		do
-			if is_serial then
-				wait
-			end
-			is_serial := False
-		end
+   set_parallel is
+      do
+         if is_serial then
+            wait
+         end
+         is_serial := False
+      end
 
-	set_serial is
-		do
-			wait_until(1)
-			is_serial := True
-		end
+   set_serial is
+      do
+         wait_until(1)
+         is_serial := True
+      end
 
 feature {ANY}
-	register_on_launched (on_launched_: like on_launched) is
-		do
-			on_launched := on_launched_
-		ensure
-			on_launched = on_launched_
-		end
+   register_on_launched (on_launched_: like on_launched) is
+      do
+         on_launched := on_launched_
+      ensure
+         on_launched = on_launched_
+      end
 
-	register_on_failed (on_failed_: like on_failed) is
-		do
-			on_failed := on_failed_
-		ensure
-			on_failed = on_failed_
-		end
+   register_on_failed (on_failed_: like on_failed) is
+      do
+         on_failed := on_failed_
+      ensure
+         on_failed = on_failed_
+      end
 
-	register_on_finished (on_finished_: like on_finished) is
-		do
-			on_finished := on_finished_
-		ensure
-			on_finished = on_finished_
-		end
+   register_on_finished (on_finished_: like on_finished) is
+      do
+         on_finished := on_finished_
+      ensure
+         on_finished = on_finished_
+      end
 
 feature {}
-	on_launched: ROUTINE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_launched: ROUTINE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
-	on_failed: like on_launched
+   on_failed: like on_launched
 
-	on_finished: ROUTINE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_finished: ROUTINE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
-	post_launch (process: PROCESS; launch_info: PROCESS_LAUNCH_INFO) is
-		local
-			callback: like on_launched
-		do
-			if process.is_connected then
-				callback := on_launched
-			else
-				callback := on_failed
-			end
-			if callback /= Void then
-				callback.call([launch_info.command_line,
-									launch_info.program,
-									launch_info.arguments,
-									launch_info.keep_environment])
-			end
-		end
+   post_launch (process: PROCESS; launch_info: PROCESS_LAUNCH_INFO) is
+      local
+         callback: like on_launched
+      do
+         if process.is_connected then
+            callback := on_launched
+         else
+            callback := on_failed
+         end
+         if callback /= Void then
+            callback.call([launch_info.command_line,
+                           launch_info.program,
+                           launch_info.arguments,
+                           launch_info.keep_environment])
+         end
+      end
 
-	wait_until (process_count_: like process_count) is
-		require
-			process_count_ >= 0
-		local
-			p: PROCESS; i: INTEGER
-		do
-			from
-				i := process_count - process_count_
-			until
-				i <= 0
-			loop
-				p := wait_process
-				i := i - 1
-			end
-		ensure
-			process_count <= process_count_
-		end
+   wait_until (process_count_: like process_count) is
+      require
+         process_count_ >= 0
+      local
+         p: PROCESS; i: INTEGER
+      do
+         from
+            i := process_count - process_count_
+         until
+            i <= 0
+         loop
+            p := wait_process
+            i := i - 1
+         end
+      ensure
+         process_count <= process_count_
+      end
 
 feature{}
-	processes: HASHED_DICTIONARY[PROCESS_LAUNCH_INFO, PROCESS]
+   processes: HASHED_DICTIONARY[PROCESS_LAUNCH_INFO, PROCESS]
 
-	factory: PROCESS_FACTORY
+   factory: PROCESS_FACTORY
 
-	group: PROCESS_GROUP is
-		do
-			Result := factory.group
-		end
+   group: PROCESS_GROUP is
+      do
+         Result := factory.group
+      end
 
-	new_process: PROCESS is
-		do
-			if process_count < maximum_process_count then
-				Result := factory.create_process
-			else
-				Result := wait_process
-			end
-		end
+   new_process: PROCESS is
+      do
+         if process_count < maximum_process_count then
+            Result := factory.create_process
+         else
+            Result := wait_process
+         end
+      end
 
-	wait_process: PROCESS is
-		local
-			launch_info: PROCESS_LAUNCH_INFO
-		do
-			Result := group.wait
-			if on_finished /= Void then
-				launch_info := processes.at(Result)
-				on_finished.call([Result.status,
-										launch_info.command_line,
-										launch_info.program,
-										launch_info.arguments,
-										launch_info.keep_environment])
-			end
-			process_count := process_count - 1
-		ensure
-			Result /= Void
-		end
+   wait_process: PROCESS is
+      local
+         launch_info: PROCESS_LAUNCH_INFO
+      do
+         Result := group.wait
+         if on_finished /= Void then
+            launch_info := processes.at(Result)
+            on_finished.call([Result.status,
+                              launch_info.command_line,
+                              launch_info.program,
+                              launch_info.arguments,
+                              launch_info.keep_environment])
+         end
+         process_count := process_count - 1
+      ensure
+         Result /= Void
+      end
 
-	make is
-		do
-			create processes.make
-			factory.set_direct_input(True)
-			factory.set_direct_output(True)
-			factory.set_direct_error(True)
-			parallel_process_count := group.capacity.min(1)
-		end
+   make is
+      do
+         create processes.make
+         factory.set_direct_input(True)
+         factory.set_direct_output(True)
+         factory.set_direct_error(True)
+         parallel_process_count := group.capacity.min(1)
+      end
 
 invariant
-	process_count.in_range(0, maximum_process_count)
+   process_count.in_range(0, maximum_process_count)
 
 end -- class PROCESS_SCHEDULER
 --

@@ -4,21 +4,21 @@
 class AVL_SET[E_ -> COMPARABLE]
 
 inherit
-	ABSTRACT_AVL_SET[E_]
+   ABSTRACT_AVL_SET[E_]
 
 creation {ANY}
-	make, from_collection, manifest_creation
+   make, from_collection, manifest_creation
 
 feature {}
-	ordered (e1, e2: E_): BOOLEAN is
-		do
-			Result := e1 < e2
-		end
+   ordered (e1, e2: E_): BOOLEAN is
+      do
+         Result := e1 < e2
+      end
 
-	a_new_node: AVL_SET_NODE[E_] is
-		do
-			create Result
-		end
+   a_new_node: AVL_SET_NODE[E_] is
+      do
+         create Result
+      end
 
 end -- class AVL_SET
 --

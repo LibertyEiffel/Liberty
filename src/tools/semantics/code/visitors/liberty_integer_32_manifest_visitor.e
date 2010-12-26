@@ -15,11 +15,11 @@
 deferred class LIBERTY_INTEGER_32_MANIFEST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_INTEGER_32_MANIFEST}
-	visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
-		deferred
-		end
+   visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
+      deferred
+      end
 
 end -- class LIBERTY_INTEGER_32_MANIFEST_VISITOR

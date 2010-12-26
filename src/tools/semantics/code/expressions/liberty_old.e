@@ -15,60 +15,60 @@
 class LIBERTY_OLD
 
 inherit
-	LIBERTY_EXPRESSION
+   LIBERTY_EXPRESSION
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_OLD}
-	make
+   make
 
 feature {ANY}
-	expression: LIBERTY_EXPRESSION
+   expression: LIBERTY_EXPRESSION
 
-	result_type: LIBERTY_TYPE is
-		do
-			Result := expression.result_type
-		end
+   result_type: LIBERTY_TYPE is
+      do
+         Result := expression.result_type
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			e: like expression
-		do
-			e := expression.specialized_in(a_type)
-			if e = expression then
-				Result := Current
-			else
-				create Result.make(e, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         e: like expression
+      do
+         e := expression.specialized_in(a_type)
+         if e = expression then
+            Result := Current
+         else
+            create Result.make(e, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			expression.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         expression.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_expression: like expression; a_position: like position) is
-		require
-			a_expression /= Void
-			a_position /= Void
-		do
-			expression := a_expression
-			position := a_position
-		ensure
-			expression = a_expression
-			position = a_position
-		end
+   make (a_expression: like expression; a_position: like position) is
+      require
+         a_expression /= Void
+         a_position /= Void
+      do
+         expression := a_expression
+         position := a_position
+      ensure
+         expression = a_expression
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_OLD_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_old(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_OLD_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_old(Current)
+      end
 
 invariant
-	expression /= Void
+   expression /= Void
 
 end

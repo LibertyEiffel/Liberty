@@ -15,33 +15,33 @@
 class LIBERTY_SYNTAX_POSITION
 
 inherit
-	LIBERTY_POSITION
+   LIBERTY_POSITION
 
 create {LIBERTY_ERRORS}
-	make
+   make
 
 feature {ANY}
-	source: STRING
+   source: STRING
 
 feature {ANY}
-	is_unknown: BOOLEAN is False
+   is_unknown: BOOLEAN is False
 
 feature {}
-	make (a_index: like index; a_source: like source; a_file: like file) is
-		require
-			a_source /= Void
-			a_index.in_range(a_source.lower, a_source.upper)
-		do
-			index := a_index
-			source := a_source
-			file := a_file
-		ensure
-			index = a_index
-			source = a_source
-			file = a_file
-		end
+   make (a_index: like index; a_source: like source; a_file: like file) is
+      require
+         a_source /= Void
+         a_index.in_range(a_source.lower, a_source.upper)
+      do
+         index := a_index
+         source := a_source
+         file := a_file
+      ensure
+         index = a_index
+         source = a_source
+         file = a_file
+      end
 
 invariant
-	source /= Void
+   source /= Void
 
 end

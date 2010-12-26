@@ -15,11 +15,11 @@
 deferred class LIBERTY_INLINE_AGENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_INLINE_AGENT}
-	visit_liberty_inline_agent (v: LIBERTY_INLINE_AGENT) is
-		deferred
-		end
+   visit_liberty_inline_agent (v: LIBERTY_INLINE_AGENT) is
+      deferred
+      end
 
 end -- class LIBERTY_INLINE_AGENT_VISITOR

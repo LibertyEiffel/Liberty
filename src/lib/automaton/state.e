@@ -4,68 +4,68 @@
 class STATE[E_]
 
 creation {ANY}
-	manifest_creation
+   manifest_creation
 
 feature {ANY}
-	name: FIXED_STRING
+   name: FIXED_STRING
 
 feature {AUTOMATON}
-	set_name (a_name: like name) is
-		require
-			a_name /= Void
-			set_once: name = Void
-		do
-			name := a_name
-		ensure
-			name = a_name
-		end
+   set_name (a_name: like name) is
+      require
+         a_name /= Void
+         set_once: name = Void
+      do
+         name := a_name
+      ensure
+         name = a_name
+      end
 
-	run (a: AUTOMATON[E_]; e: E_): ABSTRACT_STRING is
-		local
-			i: INTEGER; found: BOOLEAN
-		do
-			a.call_before_guards(e, Current)
-			from
-				i := guards.lower
-			until
-				found
-			loop
-				found := guards.item(i).item([e, Current])
-				if found then
-					a.call_after_guards(e, Current)
-					Result := transitions.item(i).item([e, Current])
-				end
-				i := i + 1
-			end
-		end
-
-feature {}
-	guards: COLLECTION[PREDICATE[TUPLE[E_, STATE[E_]]]]
-			-- Each guard tests if the corresponding transition may be done.
-
-	transitions: COLLECTION[FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]]
-			-- The transition gives the name of the successor state.
+   run (a: AUTOMATON[E_]; e: E_): ABSTRACT_STRING is
+      local
+         i: INTEGER; found: BOOLEAN
+      do
+         a.call_before_guards(e, Current)
+         from
+            i := guards.lower
+         until
+            found
+         loop
+            found := guards.item(i).item([e, Current])
+            if found then
+               a.call_after_guards(e, Current)
+               Result := transitions.item(i).item([e, Current])
+            end
+            i := i + 1
+         end
+      end
 
 feature {}
-	manifest_make (needed_capacity: INTEGER) is
-		do
-			create {FAST_ARRAY[PREDICATE[TUPLE[E_, STATE[E_]]]]} guards.with_capacity(needed_capacity)
-			create {FAST_ARRAY[FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]]} transitions.with_capacity(needed_capacity)
-		end
+   guards: COLLECTION[PREDICATE[TUPLE[E_, STATE[E_]]]]
+         -- Each guard tests if the corresponding transition may be done.
 
-	manifest_put (index: INTEGER; guard: PREDICATE[TUPLE[E_, STATE[E_]]]; transition: FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]) is
-		require
-			index >= 0
-		do
-			guards.add_last(guard)
-			transitions.add_last(transition)
-		end
+   transitions: COLLECTION[FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]]
+         -- The transition gives the name of the successor state.
 
-	manifest_semicolon_check: INTEGER is 2
+feature {}
+   manifest_make (needed_capacity: INTEGER) is
+      do
+         create {FAST_ARRAY[PREDICATE[TUPLE[E_, STATE[E_]]]]} guards.with_capacity(needed_capacity)
+         create {FAST_ARRAY[FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]]} transitions.with_capacity(needed_capacity)
+      end
+
+   manifest_put (index: INTEGER; guard: PREDICATE[TUPLE[E_, STATE[E_]]]; transition: FUNCTION[TUPLE[E_, STATE[E_]], ABSTRACT_STRING]) is
+      require
+         index >= 0
+      do
+         guards.add_last(guard)
+         transitions.add_last(transition)
+      end
+
+   manifest_semicolon_check: INTEGER is 2
 
 invariant
-	guards.count = transitions.count
-	guards.lower = transitions.lower
+   guards.count = transitions.count
+   guards.lower = transitions.lower
 
 end -- class STATE
 --

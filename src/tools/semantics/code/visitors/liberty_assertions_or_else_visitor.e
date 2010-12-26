@@ -15,11 +15,11 @@
 deferred class LIBERTY_ASSERTIONS_OR_ELSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_ASSERTIONS_OR_ELSE}
-	visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE) is
-		deferred
-		end
+   visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE) is
+      deferred
+      end
 
 end -- class LIBERTY_ASSERTIONS_OR_ELSE_VISITOR

@@ -2,38 +2,38 @@
 -- See the full copyright at the end.
 --
 class EXT_AVL_SET_NODE[E_]
-	--
-	-- Auxiliary class to implement EXT_AVL_SET.
-	--
-	-- This a classic implementation of an AVL tree (balanced tree first
-	-- designed by Adelson-Velskii and Landis, 1960)
-	--
+   --
+   -- Auxiliary class to implement EXT_AVL_SET.
+   --
+   -- This a classic implementation of an AVL tree (balanced tree first
+   -- designed by Adelson-Velskii and Landis, 1960)
+   --
 
 inherit
-	ABSTRACT_AVL_SET_NODE[E_]
+   ABSTRACT_AVL_SET_NODE[E_]
 
 creation {EXT_AVL_SET}
-	make
+   make
 
 feature {}
-	order: PREDICATE[TUPLE[E_, E_]]
+   order: PREDICATE[TUPLE[E_, E_]]
 
-	ordered (e1, e2: E_): BOOLEAN is
-		do
-			Result := order.item([e1, e2])
-		end
+   ordered (e1, e2: E_): BOOLEAN is
+      do
+         Result := order.item([e1, e2])
+      end
 
-	make (a_order: like order) is
-		require
-			a_order /= Void
-		do
-			order := a_order
-		ensure
-			order = a_order
-		end
+   make (a_order: like order) is
+      require
+         a_order /= Void
+      do
+         order := a_order
+      ensure
+         order = a_order
+      end
 
 invariant
-	order /= Void
+   order /= Void
 
 end -- class EXT_AVL_SET_NODE
 --

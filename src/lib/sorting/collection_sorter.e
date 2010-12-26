@@ -2,35 +2,35 @@
 -- See the full copyright at the end.
 --
 expanded class COLLECTION_SORTER[X -> COMPARABLE]
-	--
-	-- Some algorithms to sort any COLLECTION[COMPARABLE].
-	--
-	-- Elements are sorted using increasing order: large elements at the beginning of the collection, small at the end (increasing
-	-- order is implemented by class COLLECTION_SORTER).
-	--
-	--
-	-- How to use this expanded class :
-	--
-	--          local
-	--             sorter: COLLECTION_SORTER[INTEGER]
-	--             array: ARRAY[INTEGER]
-	--          do
-	--             array := <<1,3,2>>
-	--             sorter.sort(array)
-	--             check
-	--                sorter.is_sorted(array)
-	--             end
-	--             ...
-	--
+   --
+   -- Some algorithms to sort any COLLECTION[COMPARABLE].
+   --
+   -- Elements are sorted using increasing order: large elements at the beginning of the collection, small at the end (increasing
+   -- order is implemented by class COLLECTION_SORTER).
+   --
+   --
+   -- How to use this expanded class :
+   --
+   --          local
+   --             sorter: COLLECTION_SORTER[INTEGER]
+   --             array: ARRAY[INTEGER]
+   --          do
+   --             array := <<1,3,2>>
+   --             sorter.sort(array)
+   --             check
+   --                sorter.is_sorted(array)
+   --             end
+   --             ...
+   --
 
 insert
-	ABSTRACT_SORTER[X]
+   ABSTRACT_SORTER[X]
 
 feature {}
-	lt (x, y: X): BOOLEAN is
-		do
-			Result := x < y
-		end
+   lt (x, y: X): BOOLEAN is
+      do
+         Result := x < y
+      end
 
 end -- class COLLECTION_SORTER
 --

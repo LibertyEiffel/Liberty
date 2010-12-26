@@ -4,192 +4,192 @@
 class LOG_OUTPUT
 
 inherit
-	OUTPUT_STREAM
+   OUTPUT_STREAM
 
 insert
-	STRING_FORMATTER
+   STRING_FORMATTER
 
 create {LOG_INTERNAL_CONF}
-	make
+   make
 
 feature {ANY}
-	is_connected: BOOLEAN is
-		do
-			Result := output.is_connected
-		end
+   is_connected: BOOLEAN is
+      do
+         Result := output.is_connected
+      end
 
-	can_disconnect: BOOLEAN is False
+   can_disconnect: BOOLEAN is False
 
-	disconnect is
-		do
-			check False end
-		end
+   disconnect is
+      do
+         check False end
+      end
 
-	can_put_character (c: CHARACTER): BOOLEAN is
-		do
-			Result := output.can_put_character(c)
-		end
+   can_put_character (c: CHARACTER): BOOLEAN is
+      do
+         Result := output.can_put_character(c)
+      end
 
 feature {FILTER_OUTPUT_STREAM}
-	filtered_put_character (c: CHARACTER) is
-		do
-			if c = '%N' then
-				format_and_print_message
-			else
-				message.extend(c)
-			end
-		end
+   filtered_put_character (c: CHARACTER) is
+      do
+         if c = '%N' then
+            format_and_print_message
+         else
+            message.extend(c)
+         end
+      end
 
-	filtered_flush is
-		do
-			-- no, thanks
-		end
+   filtered_flush is
+      do
+         -- no, thanks
+      end
 
 feature {FILTER}
-	filtered_descriptor: INTEGER is
-		do
-			check False end
-		end
+   filtered_descriptor: INTEGER is
+      do
+         check False end
+      end
 
-	filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN is False
 
-	filtered_stream_pointer: POINTER is
-			-- Find the pointer of the terminal stream... Filters do not have pointers of their own
-		do
-			check False end
-		end
+   filtered_stream_pointer: POINTER is
+         -- Find the pointer of the terminal stream... Filters do not have pointers of their own
+      do
+         check False end
+      end
 
-	filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN is False
 
 feature {LOG_LEVEL}
-	level_tag: FIXED_STRING
-	logger_tag: FIXED_STRING
+   level_tag: FIXED_STRING
+   logger_tag: FIXED_STRING
 
-	set (a_level_tag, a_logger_tag: FIXED_STRING) is
-		do
-			level_tag := a_level_tag
-			logger_tag := a_logger_tag
-		ensure
-			level_tag = a_level_tag
-			logger_tag = a_logger_tag
-		end
+   set (a_level_tag, a_logger_tag: FIXED_STRING) is
+      do
+         level_tag := a_level_tag
+         logger_tag := a_logger_tag
+      ensure
+         level_tag = a_level_tag
+         logger_tag = a_logger_tag
+      end
 
 feature {LOGGER}
-	output: OUTPUT_STREAM is
-		do
-			Result := output_retriever.item([])
-		ensure
-			Result /= Void
-		end
+   output: OUTPUT_STREAM is
+      do
+         Result := output_retriever.item([])
+      ensure
+         Result /= Void
+      end
 
-	tag: FIXED_STRING
+   tag: FIXED_STRING
 
-	format: FIXED_STRING
+   format: FIXED_STRING
 
-	set_format (a_format: ABSTRACT_STRING) is
-		require
-			a_format /= Void
-		do
-			format := a_format.intern
-		ensure
-			format.is_equal(a_format)
-		end
-
-feature {}
-	put (c: CHARACTER) is
-		do
-			message.extend(c)
-		end
-
-	put_item (item: ABSTRACT_STRING) is
-		do
-			message.append(item)
-		end
+   set_format (a_format: ABSTRACT_STRING) is
+      require
+         a_format /= Void
+      do
+         format := a_format.intern
+      ensure
+         format.is_equal(a_format)
+      end
 
 feature {}
-	make (a_output_retriever: like output_retriever; a_tag: like tag) is
-		require
-			a_output_retriever /= Void
-			a_tag /= Void
-		do
-			output_retriever := a_output_retriever
-			tag := a_tag
-			format := default_format
-			message := ""
-		ensure
-			output_retriever = a_output_retriever
-			tag = a_tag
-		end
+   put (c: CHARACTER) is
+      do
+         message.extend(c)
+      end
 
-	output_retriever: FUNCTION[TUPLE, OUTPUT_STREAM]
-	message: STRING
+   put_item (item: ABSTRACT_STRING) is
+      do
+         message.append(item)
+      end
 
-	default_format: FIXED_STRING is
-		once
-			Result := ("@C [@t] - @m%N").intern
-		end
+feature {}
+   make (a_output_retriever: like output_retriever; a_tag: like tag) is
+      require
+         a_output_retriever /= Void
+         a_tag /= Void
+      do
+         output_retriever := a_output_retriever
+         tag := a_tag
+         format := default_format
+         message := ""
+      ensure
+         output_retriever = a_output_retriever
+         tag = a_tag
+      end
 
-	format_and_print_message is
-		local
-			i: INTEGER; i18n: I18N
-		do
-			time.update
-			from
-				i := format.lower
-			variant
-				format.upper - i
-			until
-				i > format.upper
-			loop
-				if format.item(i) = '@' then
-					if i = format.upper then
-						output.put_character('@')
-					else
-						inspect format.item(i + 1)
-						when 'C' then
-							output.put_string(level_tag)
-						when 'L' then
-							output.put_string(logger_tag)
-						when 'T' then
-							output.put_string(tag)
-						when 't' then
-							output.put_string(i18n.locale.localized_time_and_date(time))
-						when 'm' then
-							output.put_string(message)
-						when '@' then
-							output.put_character('@')
-						else
-							output.put_character('@')
-							output.put_character(format.item(i + 1))
-						end
-						i := i + 2
-					end
-				else
-					output.put_character(format.item(i))
-					i := i + 1
-				end
-			end
-			output.flush
-			message.clear_count
-		end
+   output_retriever: FUNCTION[TUPLE, OUTPUT_STREAM]
+   message: STRING
 
-	put_two_figure_integer (int: INTEGER) is
-		require
-			int.in_range(0, 99)
-		do
-			if int < 10 then
-				output.put_character('0')
-			end
-			output.put_integer(int)
-		end
+   default_format: FIXED_STRING is
+      once
+         Result := ("@C [@t] - @m%N").intern
+      end
 
-	time: TIME
+   format_and_print_message is
+      local
+         i: INTEGER; i18n: I18N
+      do
+         time.update
+         from
+            i := format.lower
+         variant
+            format.upper - i
+         until
+            i > format.upper
+         loop
+            if format.item(i) = '@' then
+               if i = format.upper then
+                  output.put_character('@')
+               else
+                  inspect format.item(i + 1)
+                  when 'C' then
+                     output.put_string(level_tag)
+                  when 'L' then
+                     output.put_string(logger_tag)
+                  when 'T' then
+                     output.put_string(tag)
+                  when 't' then
+                     output.put_string(i18n.locale.localized_time_and_date(time))
+                  when 'm' then
+                     output.put_string(message)
+                  when '@' then
+                     output.put_character('@')
+                  else
+                     output.put_character('@')
+                     output.put_character(format.item(i + 1))
+                  end
+                  i := i + 2
+               end
+            else
+               output.put_character(format.item(i))
+               i := i + 1
+            end
+         end
+         output.flush
+         message.clear_count
+      end
+
+   put_two_figure_integer (int: INTEGER) is
+      require
+         int.in_range(0, 99)
+      do
+         if int < 10 then
+            output.put_character('0')
+         end
+         output.put_integer(int)
+      end
+
+   time: TIME
 
 invariant
-	output_retriever /= Void
-	format /= Void
-	message /= Void
-	tag /= Void
+   output_retriever /= Void
+   format /= Void
+   message /= Void
+   tag /= Void
 
 end -- class LOG_OUTPUT
 --

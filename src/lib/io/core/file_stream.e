@@ -2,54 +2,54 @@
 -- See the full copyright at the end.
 --
 deferred class FILE_STREAM
-	--
-	-- Common parent class to all the file-related streams. Provides a common
-	-- connection interface to the "real" files of the operating system.
-	--
+   --
+   -- Common parent class to all the file-related streams. Provides a common
+   -- connection interface to the "real" files of the operating system.
+   --
 
 inherit
-	STREAM
+   STREAM
 
 feature {ANY}
-	path: STRING
-			-- Not Void when connected to the corresponding file on the disk.
+   path: STRING
+         -- Not Void when connected to the corresponding file on the disk.
 
-	is_connected: BOOLEAN is
-			-- Is this file connected to some file of the operating system?
-		do
-			Result := path /= Void
-		ensure
-			definition: Result = (path /= Void)
-		end
+   is_connected: BOOLEAN is
+         -- Is this file connected to some file of the operating system?
+      do
+         Result := path /= Void
+      ensure
+         definition: Result = (path /= Void)
+      end
 
-	connect_to (new_path: ABSTRACT_STRING) is
-			-- Try to connect to an existing file of the operating system.
-		require
-			not is_connected
-			not_malformed_path: not new_path.is_empty
-		deferred
-		ensure
-			is_connected implies path.same_as(new_path.out)
-		end
+   connect_to (new_path: ABSTRACT_STRING) is
+         -- Try to connect to an existing file of the operating system.
+      require
+         not is_connected
+         not_malformed_path: not new_path.is_empty
+      deferred
+      ensure
+         is_connected implies path.same_as(new_path.out)
+      end
 
 feature {}
-	set_path (new_path: ABSTRACT_STRING) is
-		do
-			if path = Void then
-				path := new_path.out
-			else
-				lock_tagged_out
-				tagged_out_memory.clear_count
-				new_path.out_in_tagged_out_memory
-				path.copy(tagged_out_memory)
-				unlock_tagged_out
-			end
-		ensure
-			path.same_as(new_path.out)
-		end
+   set_path (new_path: ABSTRACT_STRING) is
+      do
+         if path = Void then
+            path := new_path.out
+         else
+            lock_tagged_out
+            tagged_out_memory.clear_count
+            new_path.out_in_tagged_out_memory
+            path.copy(tagged_out_memory)
+            unlock_tagged_out
+         end
+      ensure
+         path.same_as(new_path.out)
+      end
 
 invariant
-	is_connected implies path /= Void
+   is_connected implies path /= Void
 
 end -- class FILE_STREAM
 --

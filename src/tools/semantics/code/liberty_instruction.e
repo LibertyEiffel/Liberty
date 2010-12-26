@@ -15,20 +15,20 @@
 deferred class LIBERTY_INSTRUCTION
 
 inherit
-	LIBERTY_TAGGED
+   LIBERTY_TAGGED
 
 insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_REACHABLE
-	VISITABLE
+   LIBERTY_POSITIONABLE
+   LIBERTY_REACHABLE
+   VISITABLE
 
 feature {ANY}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		deferred
-		ensure
-			Result /= Void
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      require
+         a_type /= Void
+      deferred
+      ensure
+         Result /= Void
+      end
 
 end

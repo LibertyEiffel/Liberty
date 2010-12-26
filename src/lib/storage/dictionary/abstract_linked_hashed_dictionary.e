@@ -2,127 +2,127 @@
 -- See the full copyright at the end.
 --
 deferred class ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using some hash_code on keys.
-	--
-	-- When iterating over the dictionary, the insertion order is kept.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using some hash_code on keys.
+   --
+   -- When iterating over the dictionary, the insertion order is kept.
+   --
 
 inherit
-	ABSTRACT_HASHED_DICTIONARY[V_, K_]
-		redefine
-			new_iterator_on_keys, new_iterator_on_items,
-			key_map_in, item_map_in,
-			buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node
-		end
+   ABSTRACT_HASHED_DICTIONARY[V_, K_]
+      redefine
+         new_iterator_on_keys, new_iterator_on_items,
+         key_map_in, item_map_in,
+         buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node
+      end
 
 feature {ITERATOR}
-	first_node, last_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+   first_node, last_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
 
 feature {ANY}
-	new_iterator_on_keys: ITERATOR[K_] is
-		do
-			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
-		end
+   new_iterator_on_keys: ITERATOR[K_] is
+      do
+         create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
+      end
 
-	new_iterator_on_items: ITERATOR[V_] is
-		do
-			create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
-		end
+   new_iterator_on_items: ITERATOR[V_] is
+      do
+         create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
+      end
 
-	key_map_in (buffer: COLLECTION[K_]) is
-		local
-			node: like first_node
-		do
-			from
-				node := first_node
-			until
-				node = Void
-			loop
-				buffer.add_last(node.key)
-				node := node.next_link
-			end
-		end
+   key_map_in (buffer: COLLECTION[K_]) is
+      local
+         node: like first_node
+      do
+         from
+            node := first_node
+         until
+            node = Void
+         loop
+            buffer.add_last(node.key)
+            node := node.next_link
+         end
+      end
 
-	item_map_in (buffer: COLLECTION[V_]) is
-		local
-			node: like first_node
-		do
-			from
-				node := first_node
-			until
-				node = Void
-			loop
-				buffer.add_last(node.item)
-				node := node.next_link
-			end
-		end
+   item_map_in (buffer: COLLECTION[V_]) is
+      local
+         node: like first_node
+      do
+         from
+            node := first_node
+         until
+            node = Void
+         loop
+            buffer.add_last(node.item)
+            node := node.next_link
+         end
+      end
 
 feature {}
-	buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
-		do
-			Result ::= a_buckets.item(idx)
-		end
+   buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
+      do
+         Result ::= a_buckets.item(idx)
+      end
 
-	cache_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+   cache_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
 
-	free_nodes: WEAK_REFERENCE[LINKED_HASHED_DICTIONARY_NODE[V_, K_]]
+   free_nodes: WEAK_REFERENCE[LINKED_HASHED_DICTIONARY_NODE[V_, K_]]
 
-	nodes_list: FAST_ARRAY[LINKED_HASHED_DICTIONARY_NODE[V_, K_]]
+   nodes_list: FAST_ARRAY[LINKED_HASHED_DICTIONARY_NODE[V_, K_]]
 
-	dispose_node (node: like cache_node): like cache_node is
-		local
-			previous, next: like node
-		do
-			Result := Precursor(node)
+   dispose_node (node: like cache_node): like cache_node is
+      local
+         previous, next: like node
+      do
+         Result := Precursor(node)
 
-			next := node.next_link
-			previous := node.previous_link
+         next := node.next_link
+         previous := node.previous_link
 
-			if node = first_node then
-				check
-					previous = Void
-				end
-				first_node := next
-			else
-				previous.set_links(previous.previous_link, next)
-			end
+         if node = first_node then
+            check
+               previous = Void
+            end
+            first_node := next
+         else
+            previous.set_links(previous.previous_link, next)
+         end
 
-			if node = last_node then
-				check
-					next = Void
-				end
-				last_node := previous
-			else
-				next.set_links(previous, next.next_link)
-			end
+         if node = last_node then
+            check
+               next = Void
+            end
+            last_node := previous
+         else
+            next.set_links(previous, next.next_link)
+         end
 
-			node.set_links(Void, Void)
-		end
+         node.set_links(Void, Void)
+      end
 
-	new_node (v: V_; k: K_; next: like cache_node): like cache_node is
-		do
-			Result := Precursor(v, k, next)
-			Result.set_links(last_node, Void)
-			if first_node = Void then
-				check
-					last_node = Void
-				end
-				first_node := Result
-			else
-				last_node.set_links(last_node.previous_link, Result)
-			end
-			last_node := Result
-		ensure
-			last_node = Result
-			last_node.previous_link = (old last_node)
-		end
+   new_node (v: V_; k: K_; next: like cache_node): like cache_node is
+      do
+         Result := Precursor(v, k, next)
+         Result.set_links(last_node, Void)
+         if first_node = Void then
+            check
+               last_node = Void
+            end
+            first_node := Result
+         else
+            last_node.set_links(last_node.previous_link, Result)
+         end
+         last_node := Result
+      ensure
+         last_node = Result
+         last_node.previous_link = (old last_node)
+      end
 
 invariant
-	count > 0 implies (first_node /= Void and last_node /= Void)
-	count > 1 = (first_node /= last_node)
+   count > 0 implies (first_node /= Void and last_node /= Void)
+   count > 1 = (first_node /= last_node)
 
 end -- class ABSTRACT_LINKED_HASHED_DICTIONARY
 --

@@ -15,11 +15,11 @@
 deferred class LIBERTY_ASSIGNMENT_REGULAR_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_ASSIGNMENT_REGULAR}
-	visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
-		deferred
-		end
+   visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
+      deferred
+      end
 
 end -- class LIBERTY_ASSIGNMENT_REGULAR_VISITOR

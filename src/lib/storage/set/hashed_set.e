@@ -4,16 +4,16 @@
 class HASHED_SET[E_ -> HASHABLE]
 
 inherit
-	ABSTRACT_HASHED_SET[E_]
+   ABSTRACT_HASHED_SET[E_]
 
 creation {ANY}
-	make, with_capacity, from_collection, manifest_creation
+   make, with_capacity, from_collection, manifest_creation
 
 feature {}
-	hash_code (e: E_): INTEGER is
-		do
-			Result := e.hash_code
-		end
+   hash_code (e: E_): INTEGER is
+      do
+         Result := e.hash_code
+      end
 
 end -- class HASHED_SET
 --

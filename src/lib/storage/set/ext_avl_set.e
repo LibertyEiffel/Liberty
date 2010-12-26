@@ -4,52 +4,52 @@
 class EXT_AVL_SET[E_]
 
 inherit
-	ABSTRACT_AVL_SET[E_]
-		rename
-			make as abs_make,
-			from_collection as abs_from_collection
-		end
+   ABSTRACT_AVL_SET[E_]
+      rename
+         make as abs_make,
+         from_collection as abs_from_collection
+      end
 
 creation {ANY}
-	make, from_collection
+   make, from_collection
 
 feature {ANY}
-	order: PREDICATE[TUPLE[E_, E_]]
+   order: PREDICATE[TUPLE[E_, E_]]
 
-	from_collection (a_order: like order; model: COLLECTION[like item]) is
-		require
-			a_order /= Void
-			model /= Void
-		do
-			order := a_order
-			abs_from_collection(model)
-		ensure
-			order = a_order
-		end
+   from_collection (a_order: like order; model: COLLECTION[like item]) is
+      require
+         a_order /= Void
+         model /= Void
+      do
+         order := a_order
+         abs_from_collection(model)
+      ensure
+         order = a_order
+      end
 
 feature {}
-	ordered (e1, e2: E_): BOOLEAN is
-		do
-			Result := order.item([e1, e2])
-		end
+   ordered (e1, e2: E_): BOOLEAN is
+      do
+         Result := order.item([e1, e2])
+      end
 
-	a_new_node: EXT_AVL_SET_NODE[E_] is
-		do
-			create Result.make(order)
-		end
+   a_new_node: EXT_AVL_SET_NODE[E_] is
+      do
+         create Result.make(order)
+      end
 
-	make (a_order: like order) is
-		require
-			a_order /= Void
-		do
-			order := a_order
-			abs_make
-		ensure
-			order = a_order
-		end
+   make (a_order: like order) is
+      require
+         a_order /= Void
+      do
+         order := a_order
+         abs_make
+      ensure
+         order = a_order
+      end
 
 invariant
-	order /= Void
+   order /= Void
 
 end -- class EXT_AVL_SET
 --

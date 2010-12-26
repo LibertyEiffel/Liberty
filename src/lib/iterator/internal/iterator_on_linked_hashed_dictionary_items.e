@@ -2,56 +2,56 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[V_]
+   ITERATOR[V_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+   node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
 
-	dico: ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
+   dico: ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
 
 feature {ANY}
-	make (a_dico: like dico) is
-		require
-			a_dico /= Void
-		do
-			dico := a_dico
-			start
-		ensure
-			dico = a_dico
-		end
+   make (a_dico: like dico) is
+      require
+         a_dico /= Void
+      do
+         dico := a_dico
+         start
+      ensure
+         dico = a_dico
+      end
 
-	start is
-		do
-			node := dico.first_node
-			generation := iterable_generation
-		end
+   start is
+      do
+         node := dico.first_node
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := node = Void
-		end
+   is_off: BOOLEAN is
+      do
+         Result := node = Void
+      end
 
-	item: V_ is
-		do
-			Result := node.item
-		end
+   item: V_ is
+      do
+         Result := node.item
+      end
 
-	next is
-		do
-			node := node.next_link
-		end
+   next is
+      do
+         node := node.next_link
+      end
 
 feature {}
-	iterable_generation: INTEGER is
-		do
-			Result := dico.generation
-		end
+   iterable_generation: INTEGER is
+      do
+         Result := dico.generation
+      end
 
 end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS
 --

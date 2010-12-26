@@ -2,13 +2,13 @@
 -- See the full copyright at the end.
 --
 deferred class ARRAYED_COLLECTION_HANDLER
-	-- Inherit this class if you need access to COLLECTION internal storage.
+   -- Inherit this class if you need access to COLLECTION internal storage.
 
 insert
-	ANY
-		undefine 
-			copy, is_equal
-		end
+   ANY
+      undefine 
+         copy, is_equal
+      end
 end -- class ARRAYED_COLLECTION_HANDLER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

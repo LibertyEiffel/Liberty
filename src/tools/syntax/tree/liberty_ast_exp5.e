@@ -15,23 +15,23 @@
 class LIBERTY_AST_EXP5
 
 inherit
-	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E5]
+   LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E5]
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_plus: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW +")
-		end
+   is_plus: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW +")
+      end
 
-	is_minus: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW -")
-		end
+   is_minus: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW -")
+      end
 
 feature {ANY}
-	name: STRING is "e5-exp"
+   name: STRING is "e5-exp"
 
 end

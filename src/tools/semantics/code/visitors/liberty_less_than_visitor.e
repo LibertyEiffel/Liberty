@@ -15,11 +15,11 @@
 deferred class LIBERTY_LESS_THAN_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_LESS_THAN}
-	visit_liberty_less_than (v: LIBERTY_LESS_THAN) is
-		deferred
-		end
+   visit_liberty_less_than (v: LIBERTY_LESS_THAN) is
+      deferred
+      end
 
 end -- class LIBERTY_LESS_THAN_VISITOR

@@ -15,11 +15,11 @@
 deferred class LIBERTY_STRING_TYPED_MANIFEST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
-	visit_liberty_string_typed_manifest (v: LIBERTY_STRING_TYPED_MANIFEST) is
-		deferred
-		end
+   visit_liberty_string_typed_manifest (v: LIBERTY_STRING_TYPED_MANIFEST) is
+      deferred
+      end
 
 end -- class LIBERTY_STRING_TYPED_MANIFEST_VISITOR

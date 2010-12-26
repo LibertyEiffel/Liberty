@@ -2,49 +2,49 @@
 -- See the full copyright at the end.
 --
 class HASHED_DICTIONARY[V_, K_ -> HASHABLE]
-	--
-	-- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-	--
-	-- Efficient implementation of DICTIONARY using `hash_code' on keys.
-	--
+   --
+   -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
+   --
+   -- Efficient implementation of DICTIONARY using `hash_code' on keys.
+   --
 
 inherit
-	ABSTRACT_HASHED_DICTIONARY[V_, K_]
+   ABSTRACT_HASHED_DICTIONARY[V_, K_]
 
 creation {ANY}
-	make, with_capacity, manifest_creation
+   make, with_capacity, manifest_creation
 
 creation {ABSTRACT_HASHED_DICTIONARY}
-	special_common_dictionary
+   special_common_dictionary
 
 feature {}
-	hash_code (k: K_): INTEGER is
-		do
-			Result := k.hash_code
-		end
+   hash_code (k: K_): INTEGER is
+      do
+         Result := k.hash_code
+      end
 
-	special_common_dictionary (fn: like free_nodes) is
-			-- Used to avoid having a recursive once function while initializing `common_free_nodes'.
-		require
-			fn /= Void
-			-- common_free_nodes = Void
-			-- {V_} ?:= free_nodes
-			-- {K_} ?:= generating_type
-		local
-			new_capacity: INTEGER
-		do
-			new_capacity := Default_size
-			buckets := buckets.calloc(new_capacity)
-			capacity := new_capacity
-			cache_user := -1
-			count := 0
-			free_nodes := fn
-			debug
-				create nodes_list.with_capacity(new_capacity)
-			end
-		ensure
-			count = 0
-		end
+   special_common_dictionary (fn: like free_nodes) is
+         -- Used to avoid having a recursive once function while initializing `common_free_nodes'.
+      require
+         fn /= Void
+         -- common_free_nodes = Void
+         -- {V_} ?:= free_nodes
+         -- {K_} ?:= generating_type
+      local
+         new_capacity: INTEGER
+      do
+         new_capacity := Default_size
+         buckets := buckets.calloc(new_capacity)
+         capacity := new_capacity
+         cache_user := -1
+         count := 0
+         free_nodes := fn
+         debug
+            create nodes_list.with_capacity(new_capacity)
+         end
+      ensure
+         count = 0
+      end
 
 end -- class HASHED_DICTIONARY
 --

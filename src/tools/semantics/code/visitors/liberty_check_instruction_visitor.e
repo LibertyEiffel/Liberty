@@ -15,11 +15,11 @@
 deferred class LIBERTY_CHECK_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_CHECK_INSTRUCTION}
-	visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
-		deferred
-		end
+   visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
+      deferred
+      end
 
 end -- class LIBERTY_CHECK_INSTRUCTION_VISITOR

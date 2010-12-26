@@ -15,57 +15,57 @@
 class LIBERTY_TAG_REF[T_]
 
 create {LIBERTY_TAGS}
-	make
+   make
 
 feature {ANY}
-	add (a_value: T_; tagged: LIBERTY_TAGGED) is
-		require
-			not is_set(tagged)
-		local
-			tag: LIBERTY_TYPED_TAG[T_]
-		do
-			create tag.make(Current, a_value)
-			tagged.add_tag(tag)
-		ensure
-			is_set(tagged)
-		end
+   add (a_value: T_; tagged: LIBERTY_TAGGED) is
+      require
+         not is_set(tagged)
+      local
+         tag: LIBERTY_TYPED_TAG[T_]
+      do
+         create tag.make(Current, a_value)
+         tagged.add_tag(tag)
+      ensure
+         is_set(tagged)
+      end
 
-	set (a_value: T_; tagged: LIBERTY_TAGGED) is
-		local
-			tag: LIBERTY_TYPED_TAG[T_]
-		do
-			create tag.make(Current, a_value)
-			tagged.set_tag(tag)
-		ensure
-			is_set(tagged)
-		end
+   set (a_value: T_; tagged: LIBERTY_TAGGED) is
+      local
+         tag: LIBERTY_TYPED_TAG[T_]
+      do
+         create tag.make(Current, a_value)
+         tagged.set_tag(tag)
+      ensure
+         is_set(tagged)
+      end
 
-	is_set (tagged: LIBERTY_TAGGED): BOOLEAN is
-		require
-			tagged /= Void
-		do
-			Result := tagged.tag_set(id)
-		end
+   is_set (tagged: LIBERTY_TAGGED): BOOLEAN is
+      require
+         tagged /= Void
+      do
+         Result := tagged.tag_set(id)
+      end
 
-	value (tagged: LIBERTY_TAGGED): T_ is
-		require
-			is_set(tagged)
-		local
-			tag: LIBERTY_TYPED_TAG[T_]
-		do
-			tag ::= tagged.tag(id)
-			Result := tag.value
-		end
+   value (tagged: LIBERTY_TAGGED): T_ is
+      require
+         is_set(tagged)
+      local
+         tag: LIBERTY_TYPED_TAG[T_]
+      do
+         tag ::= tagged.tag(id)
+         Result := tag.value
+      end
 
 feature {LIBERTY_TAGGED, LIBERTY_TAG}
-	id: FIXED_STRING
+   id: FIXED_STRING
 
 feature {}
-	make (a_id: like id) is
-		require
-			a_id /= Void
-		do
-			id := a_id
-		end
+   make (a_id: like id) is
+      require
+         a_id /= Void
+      do
+         id := a_id
+      end
 
 end

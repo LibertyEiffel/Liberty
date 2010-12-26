@@ -15,46 +15,46 @@
 class LIBERTY_AST_ROUTINE_DEFINITION
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	obsolete_clause: LIBERTY_AST_OBSOLETE is
-		do
-			Result ::= nodes.item(0)
-		end
+   obsolete_clause: LIBERTY_AST_OBSOLETE is
+      do
+         Result ::= nodes.item(0)
+      end
 
-	require_clause: LIBERTY_AST_REQUIRE is
-		do
-			Result ::= nodes.item(1)
-		end
+   require_clause: LIBERTY_AST_REQUIRE is
+      do
+         Result ::= nodes.item(1)
+      end
 
-	execution: LIBERTY_AST_ROUTINE_EXECUTION is
-		do
-			Result ::= nodes.item(2)
-		end
+   execution: LIBERTY_AST_ROUTINE_EXECUTION is
+      do
+         Result ::= nodes.item(2)
+      end
 
-	ensure_clause: LIBERTY_AST_ENSURE is
-		do
-			Result ::= nodes.item(3)
-		end
+   ensure_clause: LIBERTY_AST_ENSURE is
+      do
+         Result ::= nodes.item(3)
+      end
 
-	rescue_block: LIBERTY_AST_RESCUE_BLOCK is
-		do
-			Result ::= nodes.item(4)
-		end
+   rescue_block: LIBERTY_AST_RESCUE_BLOCK is
+      do
+         Result ::= nodes.item(4)
+      end
 
 feature {ANY}
-	count: INTEGER is 6
+   count: INTEGER is 6
 
-	name: STRING is "Routine_Definition"
+   name: STRING is "Routine_Definition"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 6 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 6 >> }
+      end
 
 end
