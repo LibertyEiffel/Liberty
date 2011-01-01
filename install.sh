@@ -182,7 +182,7 @@ EOF
 
     progress 30 1 11 "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-    if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+    if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
         grep ^gcc compile_to_c.make | while read cmd; do
             progress 30 1 11 "$cmd"
             run $cmd || exit 1
@@ -190,7 +190,7 @@ EOF
 
         progress 30 2 11 "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-        if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+        if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
             grep ^gcc compile_to_c.make | while read cmd; do
                 progress 30 2 11 "$cmd"
                 run $cmd || exit 1
@@ -198,7 +198,7 @@ EOF
 
             progress 30 3 11 "compile_to_c T3"
             ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if [ $(cat compile_to_c.make | grep ^gcc | wc -l) != 0 ]; then
+            if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1

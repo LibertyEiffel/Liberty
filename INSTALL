@@ -11,6 +11,9 @@ The installation procedure is as follows: go to the Liberty directory and type
 
     ./install.sh
 
+Please note that you have to run a gcc version <= 3.4.6 at this time being for
+SmartEiffel compilation to succeed.
+
 Don't forget to add the Liberty/target/bin directory to your PATH...
 
 and you're done :-)
