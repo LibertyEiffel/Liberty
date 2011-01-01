@@ -10,13 +10,16 @@ inherit
 
 insert
    AVL_TREE[E_]
-      rename set_value_and_key as set_item
+      rename
+         set_value_and_key as set_item
+      export
+         {ITERATOR_ON_AVL_SET} root
       end
 
 feature {ANY}
    new_iterator: ITERATOR[E_] is
       do
-         create {ITERATOR_ON_AVL_SET[E_]} Result.make(root)
+         create {ITERATOR_ON_AVL_SET[E_]} Result.make(Current)
       end
 
    add (e: like item) is

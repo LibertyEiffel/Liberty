@@ -26,7 +26,7 @@ feature {ANY}
 
    item: E_ is
       local
-         node: like root
+         node: AVL_TREE_NODE[E_]
       do
          node ::= cur
          Result := node.item
@@ -39,6 +39,8 @@ feature {ANY}
 
 feature {}
    make (a_set: like set) is
+      require
+         a_set /= Void
       do
          set := a_set
          create nodes.make
@@ -53,5 +55,8 @@ feature {}
       do
          Result := set.generation
       end
+
+invariant
+   set /= Void
 
 end -- class ITERATOR_ON_AVL_SET
