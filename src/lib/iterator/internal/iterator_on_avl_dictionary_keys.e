@@ -26,7 +26,7 @@ feature {ANY}
 
    item: K_ is
       local
-         node: like root
+         node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
          node ::= cur
          Result := node.key
