@@ -26,7 +26,7 @@ feature {ANY}
 
    item: E_ is
       local
-         node: AVL_TREE_NODE[E_]
+         node: ABSTRACT_AVL_SET_NODE[E_]
       do
          node ::= cur
          Result := node.item

@@ -18,7 +18,10 @@ inherit
 
 insert
    AVL_TREE[K_]
-      rename item_memory as key_memory
+      rename
+         item_memory as key_memory
+      export
+         {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS} root
       end
 
 feature {ANY}
@@ -136,12 +139,12 @@ feature {ANY}
 
    new_iterator_on_keys: ITERATOR[K_] is
       do
-         create {ITERATOR_ON_AVL_DICTIONARY_KEYS[V_, K_]} Result.make(root)
+         create {ITERATOR_ON_AVL_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
    new_iterator_on_items: ITERATOR[V_] is
       do
-         create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(root)
+         create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
    internal_key (k: K_): K_ is
