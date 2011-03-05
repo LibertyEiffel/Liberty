@@ -164,7 +164,7 @@ feature {ANY} -- Testing:
          -- Do both strings have the same character sequence?
          --
          -- See also `same_as'.
-      deferred 
+      deferred
       end
 
    same_as (other: ABSTRACT_STRING): BOOLEAN is
@@ -236,7 +236,7 @@ feature {ANY} -- Testing:
          -- True if `c' is in the STRING.
          --
          -- See also `index_of', `occurrences', `has_substring'.
-      deferred 
+      deferred
       end
 
    has_substring (other: ABSTRACT_STRING): BOOLEAN is
@@ -1002,7 +1002,7 @@ feature {ANY} -- Concatenation
    ensure
          Result.out.is_equal(Current + other)
    rescue
-      debug 
+      debug
          -- This rescue clause doens't actually rescue
          -- anything at all. I put it here for debugging.
          -- Paolo 2010-02-27
@@ -1192,7 +1192,7 @@ feature {ANY} -- Other features:
          Result /= Void
          Result.is_equal(Current)
          Result.is_interned
-         interned.fast_has(Result.hash_code)
+         interned.fast_has(Result.hash_code) and then interned.fast_reference_at(Result.hash_code).fast_has(Result)
       end
 
 feature {ANY} -- Interfacing with C string:
@@ -1206,7 +1206,7 @@ feature {ANY} -- Interfacing with C string:
          -- TODO: clarify the meaning of this feature for non-natively stored heirs of ABSTRACT_STRING.
       deferred
       ensure
-         -- TODO: generalize this postcondition 
+         -- TODO: generalize this postcondition
          -- (is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')
          count = old count
          Result.is_not_null
@@ -1241,11 +1241,11 @@ feature {}
          end
       end
 
-   interned: DICTIONARY[FIXED_STRING, INTEGER] is
+   interned: HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING], INTEGER] is
          -- Key: `hash_code'
          -- Item: interned string
       once
-         create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
+         create Result.make
       end
 
 feature {STRING_HANDLER}
