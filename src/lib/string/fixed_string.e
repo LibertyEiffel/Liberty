@@ -61,13 +61,23 @@ feature {ANY}
 
    intern: FIXED_STRING is
          -- A shared version of this string.
+      local
+         strings: FAST_ARRAY[FIXED_STRING]
+         i: INTEGER
       do
          if is_interned then
             Result := Current
          else
-            Result := interned.reference_at(hash_code)
-            if Result = Void then
-               do_intern
+            strings := interned.reference_at(hash_code)
+            if strings = Void then
+               create strings.with_capacity(4)
+               interned.add(strings, hash_code)
+            end
+            i := strings.first_index_of(Current)
+            if strings.valid_index(i) then
+               Result := strings.item(i)
+            else
+               do_intern(strings)
                Result := Current
             end
          end
@@ -108,12 +118,13 @@ feature {ANY}
    immutable: BOOLEAN
 
 feature {ABSTRACT_STRING}
-   do_intern is
+   do_intern (strings: FAST_ARRAY[FIXED_STRING]) is
       require
+         interned.fast_reference_at(hash_code) = strings
          not is_interned
-         not interned.fast_has(hash_code)
+         not strings.has(Current)
       do
-         interned.add(Current, hash_code)
+         strings.add_last(Current)
          is_interned := True
       ensure
          is_interned
@@ -414,7 +425,7 @@ invariant
    ;(immutable and not is_shared) implies (storage.item(count) = '%U' implies capacity = count + 1)
    holders.fast_has(Current)
    holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN is do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
-   is_interned = interned.fast_has(hash_code)
+   is_interned = (interned.fast_has(hash_code) and then interned.fast_reference_at(hash_code).fast_has(Current))
    is_interned implies immutable
    --is_storage_unchanged
 

@@ -94,10 +94,13 @@ feature {ANY}
       end
 
    index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+      local
+         index: INTEGER
       do
          if start_index <= count then
-            Result := lower + storage.fast_index_of(c, start_index + storage_lower, storage_lower + count - 1) - storage_lower
-            if Result > count then
+            index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
+            Result := lower + index - storage_lower
+            if Result > upper then
                Result := 0
             end
          end

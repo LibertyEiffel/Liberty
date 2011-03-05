@@ -856,11 +856,28 @@ feature {ANY} -- Other features:
 
    intern: FIXED_STRING is
          -- A shared version of this string.
+      local
+         strings: FAST_ARRAY[FIXED_STRING]
+         i: INTEGER
       do
-         Result := interned.reference_at(hash_code)
+         strings := interned.reference_at(hash_code)
+         if strings = Void then
+            create strings.with_capacity(4)
+            interned.add(strings, hash_code)
+         end
+         from
+            i := strings.lower
+         until
+            Result /= Void or else i > strings.upper
+         loop
+            if strings.item(i).same_as(Current) then
+               Result := strings.item(i)
+            end
+            i := i + 1
+         end
          if Result = Void then
             create Result.make_from_string(Current)
-            Result.do_intern
+            Result.do_intern(strings)
          end
       end
 
