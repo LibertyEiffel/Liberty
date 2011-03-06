@@ -23,7 +23,7 @@ feature {PARSE_TABLE}
          name := a_name.intern
          table := a_table
       ensure
-         name = a_name
+         name = a_name.intern
          table = a_table
       end
 
