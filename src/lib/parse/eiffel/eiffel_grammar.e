@@ -2029,6 +2029,7 @@ feature {}
       ensure
          factory = a_factory
          stack.is_empty
+         left_assoc_stack.is_empty
       end
 
    make_default is
