@@ -6,14 +6,26 @@ class TUPLE -- Empty TUPLE definition.
 
 inherit
    ANY
+      redefine out_in_tagged_out_memory, is_equal
+      end
 
 creation
    default_create
-   
+
 feature {ANY}
    count: INTEGER is
       do
          Result := 0
+      end
+
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "[]")
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := count = other.count
       end
 
 end -- TUPLE
@@ -24,7 +36,7 @@ class TUPLE [A_] -- One field TUPLE definition.
 
 inherit
    TUPLE
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -58,6 +70,25 @@ feature {ANY}
          item_1 = i1
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+      end
+
 end -- TUPLE 1
 
 
@@ -65,7 +96,7 @@ class TUPLE [A_, B_] -- Two fields TUPLE definition.
 
 inherit
    TUPLE [A_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -101,6 +132,31 @@ feature {ANY}
          item_2 = i2
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+      end
+
 end -- TUPLE 2
 
 
@@ -109,7 +165,7 @@ class TUPLE [A_, B_, C_] -- Three fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -147,6 +203,37 @@ feature {ANY}
          item_3 = i3
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+      end
+
 end -- TUPLE 3
 
 
@@ -154,7 +241,7 @@ class TUPLE [A_, B_, C_, D_] -- Four fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -194,6 +281,43 @@ feature {ANY}
          item_4 = i4
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+      end
+
 end -- TUPLE 4
 
 
@@ -202,7 +326,7 @@ class TUPLE [A_, B_, C_, D_, E_] -- Five fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_, D_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -244,6 +368,49 @@ feature {ANY}
          item_5 = i5
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
+      end
+
 end -- TUPLE 5
 
 
@@ -251,7 +418,7 @@ class TUPLE [A_, B_, C_, D_, E_, F_] -- Six fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_, D_, E_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -289,13 +456,64 @@ feature {ANY}
          item_6 = i6
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_6 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_6.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_6 = other.item_6
+                      or else (item_6 /= Void and then other.item_6 /= Void
+                               and then item_6.is_equal(other.item_6)))
+      end
+
 end -- TUPLE 6
+
+
 
 class TUPLE [A_, B_, C_, D_, E_, F_, G_] -- Seven fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -336,13 +554,70 @@ feature {ANY}
          item_7 = i7
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_6 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_6.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_7 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_7.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_7 = other.item_7
+                      or else (item_7 /= Void and then other.item_7 /= Void
+                               and then item_7.is_equal(other.item_7)))
+      end
+
 end -- TUPLE 7
+
+
 
 class TUPLE [A_, B_, C_, D_, E_, F_, G_, H_] -- Eight fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_, G_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -385,13 +660,76 @@ feature {ANY}
          item_8 = i8
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_6 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_6.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_7 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_7.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_8 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_8.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_8 = other.item_8
+                      or else (item_8 /= Void and then other.item_8 /= Void
+                               and then item_8.is_equal(other.item_8)))
+      end
+
 end -- TUPLE 8
+
+
 
 class TUPLE [A_, B_, C_, D_, E_, F_, G_, H_, I_] -- Nine fields TUPLE definition.
 
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_, G_, H_]
-      redefine count
+      redefine count, out_in_tagged_out_memory
       end
 
 creation
@@ -436,18 +774,87 @@ feature {ANY}
          item_9 = i9
       end
 
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_6 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_6.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_7 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_7.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_8 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_8.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_9 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_9.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_9 = other.item_9
+                      or else (item_9 /= Void and then other.item_9 /= Void
+                               and then item_9.is_equal(other.item_9)))
+      end
+
 end -- TUPLE 9
+
+
 
 class TUPLE [A_, B_, C_, D_, E_, F_, G_, H_, I_, J_] -- Ten fields TUPLE definition.
    --
-   -- Note: If your application really needs more than 10 fields in some TUPLE object, you should 
+   -- Note: If your application really needs more than 10 fields in some TUPLE object, you should
    -- probably consider to use an ordinary hand-written class !
-   -- If you _really_ want more than 10 fields for TUPLE, you may also consider to use your own 
+   -- If you _really_ want more than 10 fields for TUPLE, you may also consider to use your own
    -- definition of the tuple.e class file.
-   -- 
+   --
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_, G_, H_, I_]
-      redefine count
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 creation
@@ -492,6 +899,79 @@ feature {ANY}
          item_8 = i8
          item_9 = i9
          item_10 = i10
+      end
+
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('[')
+         if item_1 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_1.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_2 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_2.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_3 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_3.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_4 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_4.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_5 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_5.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_6 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_6.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_7 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_7.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_8 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_8.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_9 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_9.out_in_tagged_out_memory
+         end
+         tagged_out_memory.append(once ", ")
+         if item_10 = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item_10.out_in_tagged_out_memory
+         end
+         tagged_out_memory.extend(']')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := Precursor(Current)
+            and then (item_10 = other.item_10
+                      or else (item_10 /= Void and then other.item_10 /= Void
+                               and then item_10.is_equal(other.item_10)))
       end
 
 end -- TUPLE 10
