@@ -148,12 +148,22 @@ feature {ANY}
       end
 
    gcd (other: like Current): like Current is
-         -- Great Common Divisor of `Current' and `other'.
+         -- Greatest Common Divisor of `Current' and `other'.
       deferred
       ensure
          Result >= zero
          Result = zero implies Current = zero and other = zero
          Result >= (one+one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
+      end
+
+   lcm (other: like Current): like Current is
+         -- Least Common Multiple of `Current' and `other'.
+      do
+         Result := (Current * other).abs // gcd(other)
+      ensure
+         Result >= zero
+         Result = zero implies Current = zero or other = zero
+         Result * gcd(other) = (Current * other).abs
       end
 
 feature {ANY} -- Conversions:
