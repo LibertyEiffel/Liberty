@@ -54,7 +54,7 @@ feature {ANY} -- Agent-based features:
          --
          -- See also `do_all', `for_all', `exists'.
       do
-         Result := aggregate(action, initial)
+         Result := new_iterator.aggregate(action, initial)
       end
 
 feature {ITERATOR}
