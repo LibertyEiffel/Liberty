@@ -159,7 +159,7 @@ feature {ANY}
    lcm (other: like Current): like Current is
          -- Least Common Multiple of `Current' and `other'.
       do
-         Result := (Current * other).abs // gcd(other)
+         Result := abs // gcd(other) * other.abs
       ensure
          Result >= zero
          Result = zero implies Current = zero or other = zero
