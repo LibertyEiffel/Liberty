@@ -159,7 +159,7 @@ feature {RECYCLING_POOL}
 feature {}
    dispose is
       do
-         if is_connected then
+         if is_connected and then can_disconnect then
             check
                -- Because the previous code is just here to catch
                -- non-clean usage of STREAMs:
