@@ -11,6 +11,7 @@ class EIFFEL_GRAMMAR
 insert
    EIFFEL_NODE_HANDLER
    PLATFORM
+   LOGGING
 
 create {ANY}
    make, make_default
@@ -1613,18 +1614,18 @@ feature {}
       local
          i: INTEGER
       do
-         std_error.put_line(once "--8<-------- <start stack>")
+         log.trace.put_line(once "--8<-------- <start stack>")
          from
             i := stack.lower
          until
             i > stack.upper
          loop
-            std_error.put_integer(i)
-            std_error.put_string(once ":%T")
-            std_error.put_line(stack.item(i).name)
+            log.trace.put_integer(i)
+            log.trace.put_string(once ":%T")
+            log.trace.put_line(stack.item(i).name)
             i := i + 1
          end
-         std_error.put_line(once "-------->8-- <end stack>")
+         log.trace.put_line(once "-------->8-- <end stack>")
       end
 
    stack_matches (node_content: TRAVERSABLE[FIXED_STRING]): BOOLEAN is
@@ -1651,8 +1652,8 @@ feature {}
       do
          build_non_terminal(root_name, root_content)
          debug ("parse/eiffel/ast")
-            std_error.put_line(once "Final AST:")
-            display(std_error)
+            log.trace.put_line(once "Final AST:")
+            display(log.trace)
          end
       end
 
@@ -1663,11 +1664,11 @@ feature {}
          i: INTEGER; new_node: EIFFEL_NON_TERMINAL_NODE; node: EIFFEL_NODE
       do
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building non-terminal node: ")
-            std_error.put_character('"')
-            std_error.put_string(node_name)
-            std_error.put_character('"')
-            std_error.put_new_line
+            log.trace.put_string(once "Building non-terminal node: ")
+            log.trace.put_character('"')
+            log.trace.put_string(node_name)
+            log.trace.put_character('"')
+            log.trace.put_new_line
          end
          new_node := factory.non_terminal(node_name, node_content)
          from
@@ -1679,8 +1680,8 @@ feature {}
             stack.remove_last
             new_node.set(i, node)
             debug ("parse/eiffel/build")
-               std_error.put_string(once "   aggregating: ")
-               std_error.put_line(node_content.item(i))
+               log.trace.put_string(once "   aggregating: ")
+               log.trace.put_line(node_content.item(i))
             end
             i := i - 1
          end
@@ -1700,11 +1701,11 @@ feature {}
       do
          eiffel_image ::= node_image
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building terminal node: ")
-            std_error.put_character('"')
-            std_error.put_string(node_name)
-            std_error.put_string(once "%": ")
-            std_error.put_line(eiffel_image.image)
+            log.trace.put_string(once "Building terminal node: ")
+            log.trace.put_character('"')
+            log.trace.put_string(node_name)
+            log.trace.put_string(once "%": ")
+            log.trace.put_line(eiffel_image.image)
          end
          stack.add_last(factory.terminal(node_name, eiffel_image))
          debug ("parse/eiffel/build")
@@ -1743,17 +1744,17 @@ feature {}
          i: INTEGER
       do
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building left-associative expression ")
-            std_error.put_string(expression_name)
-            std_error.put_string(once " using operator ")
-            std_error.put_line(operator_names.out)
+            log.trace.put_string(once "Building left-associative expression ")
+            log.trace.put_string(expression_name)
+            log.trace.put_string(once " using operator ")
+            log.trace.put_line(operator_names.out)
          end
 
          exp := ensure_expression(stack.last, expression_name)
          stack.remove_last
          debug ("parse/eiffel/build")
-            std_error.put_string(once "  => setting aside: ")
-            std_error.put_line(exp.name)
+            log.trace.put_string(once "  => setting aside: ")
+            log.trace.put_line(exp.name)
          end
          create {FAST_ARRAY[EIFFEL_NODE]} operator_nodes.with_capacity(operator_names.count)
          from
@@ -1780,8 +1781,8 @@ feature {}
          i: INTEGER; name: STRING
       do
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building simple expression ")
-            std_error.put_line(expression_name)
+            log.trace.put_string(once "Building simple expression ")
+            log.trace.put_line(expression_name)
          end
 
          name := once "..-exp"
@@ -1797,8 +1798,8 @@ feature {}
             left_assoc_stack.is_empty
          loop
             debug ("parse/eiffel/build")
-               std_error.put_string(once "  left: ")
-               std_error.put_line(left.name)
+               log.trace.put_string(once "  left: ")
+               log.trace.put_line(left.name)
             end
 
             tail := left_assoc_stack.last
@@ -1806,10 +1807,10 @@ feature {}
 
             right := ensure_expression(tail.right_node, expression_name)
             debug ("parse/eiffel/build")
-               std_error.put_string(once "  op: ")
-               std_error.put_line(tail.operator_names_out)
-               std_error.put_string(once "  right: ")
-               std_error.put_line(right.name)
+               log.trace.put_string(once "  op: ")
+               log.trace.put_line(tail.operator_names_out)
+               log.trace.put_string(once "  right: ")
+               log.trace.put_line(right.name)
             end
 
             left_assoc_names.clear_count
@@ -1821,8 +1822,8 @@ feature {}
             nt.set(nt.lower, left)
             nt.set(nt.upper, right)
             debug ("parse/eiffel/build")
-               std_error.put_string(once "  => nt: ")
-               std_error.put_line(nt.name)
+               log.trace.put_string(once "  => nt: ")
+               log.trace.put_line(nt.name)
             end
             check
                tail.operator_nodes.lower = 0
@@ -1848,8 +1849,8 @@ feature {}
    build_expression_epsilon (expression_name: FIXED_STRING) is
       do
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building epsilon expression ")
-            std_error.put_line(expression_name)
+            log.trace.put_string(once "Building epsilon expression ")
+            log.trace.put_line(expression_name)
          end
 
          stack.put(ensure_expression(stack.last, expression_name), stack.upper)
@@ -1862,7 +1863,7 @@ feature {}
    build_expression_e6 is
       do
          debug ("parse/eiffel/build")
-            std_error.put_line(once "Building epsilon expression e6")
+            log.trace.put_line(once "Building epsilon expression e6")
          end
 
          -- nothing
@@ -1879,7 +1880,7 @@ feature {}
          build_expression(expression_name)
 
          debug ("parse/eiffel/build")
-            std_error.put_line(once "Building expression no-array")
+            log.trace.put_line(once "Building expression no-array")
          end
 
          exp ::= stack.last
@@ -1907,10 +1908,10 @@ feature {}
          list: EIFFEL_LIST_NODE
       do
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building new empty list %"")
-            std_error.put_string(list_name)
-            std_error.put_character('"')
-            std_error.put_character('%N')
+            log.trace.put_string(once "Building new empty list %"")
+            log.trace.put_string(list_name)
+            log.trace.put_character('"')
+            log.trace.put_character('%N')
          end
          list := factory.list(list_name.intern)
          stack.add_last(list)
@@ -1932,14 +1933,14 @@ feature {}
          atom := stack.last
          stack.remove_last
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building new list %"")
-            std_error.put_string(list_name)
-            std_error.put_string(once "%" with one atom: atom should be %"")
-            std_error.put_string(atom_name)
-            std_error.put_character('"')
-            std_error.put_character('%N')
-            std_error.put_string(once "   Found atom: ")
-            std_error.put_line(atom.name)
+            log.trace.put_string(once "Building new list %"")
+            log.trace.put_string(list_name)
+            log.trace.put_string(once "%" with one atom: atom should be %"")
+            log.trace.put_string(atom_name)
+            log.trace.put_character('"')
+            log.trace.put_character('%N')
+            log.trace.put_string(once "   Found atom: ")
+            log.trace.put_line(atom.name)
          end
          list := factory.list(list_name.intern)
          list.add(atom)
@@ -1985,16 +1986,16 @@ feature {}
             atom.name = atom_name.intern
          end
          debug ("parse/eiffel/build")
-            std_error.put_string(once "Building list %"")
-            std_error.put_string(list_name)
-            std_error.put_string(once "%" (continuation): atom should be %"")
-            std_error.put_string(atom_name)
-            std_error.put_character('"')
-            std_error.put_character('%N')
-            std_error.put_string(once "   Found list: ")
-            std_error.put_line(list.name)
-            std_error.put_string(once "   Found atom: ")
-            std_error.put_line(atom.name)
+            log.trace.put_string(once "Building list %"")
+            log.trace.put_string(list_name)
+            log.trace.put_string(once "%" (continuation): atom should be %"")
+            log.trace.put_string(atom_name)
+            log.trace.put_character('"')
+            log.trace.put_character('%N')
+            log.trace.put_string(once "   Found list: ")
+            log.trace.put_line(list.name)
+            log.trace.put_string(once "   Found atom: ")
+            log.trace.put_line(atom.name)
          end
          list.add(atom)
          stack.add_last(list)

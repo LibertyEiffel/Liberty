@@ -9,6 +9,7 @@ class DESCENDING_PARSER
 
 insert
    TRISTATE_VALUES
+   LOGGING
 
 creation {ANY}
    make
@@ -55,19 +56,19 @@ feature {ANY}
          Result := parse(buffer, grammar, start, actions)
          if Result and then error = Void then
             debug ("parse")
-               std_error.put_line(once "Actions:")
-               std_error.put_line(once "--8<-------- <start actions>")
+               log.trace.put_line(once "Actions:")
+               log.trace.put_line(once "--8<-------- <start actions>")
                from
                   i := actions.lower
                until
                   i > actions.upper
                loop
-                  std_error.put_integer(i)
-                  std_error.put_character('%T')
-                  std_error.put_line(actions.item(i).name)
+                  log.trace.put_integer(i)
+                  log.trace.put_character('%T')
+                  log.trace.put_line(actions.item(i).name)
                   i := i + 1
                end
-               std_error.put_line(once "-------->8-- <end actions>")
+               log.trace.put_line(once "-------->8-- <end actions>")
             end
             from
                i := actions.lower
@@ -75,10 +76,10 @@ feature {ANY}
                i > actions.upper
             loop
                debug ("parse")
-                  std_error.put_string(once "Calling action #")
-                  std_error.put_integer(i)
-                  std_error.put_string(once ": ")
-                  std_error.put_line(actions.item(i).name)
+                  log.trace.put_string(once "Calling action #")
+                  log.trace.put_integer(i)
+                  log.trace.put_string(once ": ")
+                  log.trace.put_line(actions.item(i).name)
                end
                actions.item(i).call
                i := i + 1

@@ -26,6 +26,12 @@ inherit
          copy, is_equal, out_in_tagged_out_memory
       end
 
+insert
+   LOGGING
+      redefine
+         copy, is_equal, out_in_tagged_out_memory
+      end
+
 creation {ANY}
    manifest_creation
 
@@ -57,21 +63,21 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
          if Result = yes then
             buffer.set_last_error(Void)
             debug ("parse")
-               std_error.put_string(once "%T-->%Tnon-terminal ")
-               print_error_position(std_error, buffer)
-               std_error.put_character(' ')
-               std_error.put_character('"')
-               std_error.put_string(name)
-               std_error.put_character('"')
-               std_error.put_new_line
+               log.trace.put_string(once "%T-->%Tnon-terminal ")
+               print_error_position(log.trace, buffer)
+               log.trace.put_character(' ')
+               log.trace.put_character('"')
+               log.trace.put_string(name)
+               log.trace.put_character('"')
+               log.trace.put_new_line
             end
          else
             debug ("parse")
-               std_error.put_string(once "** Expected non-terminal %"")
-               std_error.put_string(name)
-               std_error.put_string(once "%" ")
-               print_error_position(std_error, buffer)
-               std_error.put_new_line
+               log.trace.put_string(once "** Expected non-terminal %"")
+               log.trace.put_string(name)
+               log.trace.put_string(once "%" ")
+               print_error_position(log.trace, buffer)
+               log.trace.put_new_line
             end
          end
       end
