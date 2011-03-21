@@ -417,8 +417,6 @@ feature {LOG_CONFIGURATION}
          on_error: like when_error
          path_resolver: FUNCTION[TUPLE[STRING], STRING]
       do
-         generations.increment
-
          if when_error = Void then
             on_error := agent fatal_error
          else
@@ -430,9 +428,6 @@ feature {LOG_CONFIGURATION}
          else
             path_resolver := a_path_resolver
          end
-
-         loggers.clear_count
-         outputs.clear_count
 
          conf := once ""
          conf.clear_count
@@ -453,6 +448,10 @@ feature {LOG_CONFIGURATION}
             if parser.error /= Void then
                on_error.call([parser.error.message])
             else
+               generations.increment
+               loggers.clear_count
+               outputs.clear_count
+
                pass := agent do_pass_1(on_error, path_resolver, ?)
                grammar.root_node.accept(Current)
                pass := agent do_pass_2(on_error, ?)
@@ -518,6 +517,7 @@ feature {}
       local
          in: TEXT_FILE_READ
          o: LOG_OUTPUT
+         root0: like root
       do
          if loggers = Void then
             create loggers.make
@@ -526,6 +526,13 @@ feature {}
             end
             create outputs.make
          end
+
+         -- This very basic initialization ensures that a root always exists, which is useful while parsing
+         -- the log file (the parsing engine itself uses the logging framework...)
+         create o.make(agent pass_through(std_output), "root".intern)
+         create root0.make(o, "root".intern, generation_id)
+         root0.set_level(levels.info)
+         root := root0
 
          if ft.file_exists("log.rc") then
             create in.connect_to("log.rc")
@@ -537,11 +544,6 @@ feature {}
                std_error.put_line(once "Could not initialize the logging framework.%NPlease check your log.rc file or explicitly call LOG_CONFIGURATION.load")
                die_with_code(1)
             end
-         else
-            generations.increment
-            create o.make(agent pass_through(std_output), "root".intern)
-            create root.make(o, "root".intern, generation_id)
-            root.set_level(levels.info)
          end
       end
 

@@ -12,6 +12,12 @@ inherit
          out_in_tagged_out_memory
       end
 
+insert
+   LOGGING
+      redefine
+         out_in_tagged_out_memory
+      end
+
 creation {ANY}
    make
 
@@ -42,13 +48,13 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
          if image /= Void then
             create parse_action.make(agent call_action(image))
             debug ("parse")
-               std_error.put_string(once "%T==>%Tterminal ")
-               print_error_position(std_error, buffer)
-               std_error.put_character(' ')
-               std_error.put_character('"')
-               std_error.put_string(name)
-               std_error.put_string(once "%": ")
-               std_error.put_line(image.out)
+               log.trace.put_string(once "%T==>%Tterminal ")
+               print_error_position(log.trace, buffer)
+               log.trace.put_character(' ')
+               log.trace.put_character('"')
+               log.trace.put_string(name)
+               log.trace.put_string(once "%": ")
+               log.trace.put_line(image.out)
                parse_action.set_name(once "Shift %"" + name + once "%": " + image.out)
             end
             actions.add_last(parse_action)
@@ -66,11 +72,11 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
             error_message.append(once "%" expected")
             buffer.set_last_error_message(error_message)
             debug ("parse")
-               std_error.put_string(once "** Expected terminal %"")
-               std_error.put_string(name)
-               std_error.put_string(once "%" ")
-               print_error_position(std_error, buffer)
-               std_error.put_new_line
+               log.trace.put_string(once "** Expected terminal %"")
+               log.trace.put_string(name)
+               log.trace.put_string(once "%" ")
+               print_error_position(log.trace, buffer)
+               log.trace.put_new_line
             end
             buffer.set_current_index(old_index)
          end

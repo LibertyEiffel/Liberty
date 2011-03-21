@@ -18,6 +18,9 @@ class PARSE_TABLE
    -- where each name is a STRING and each atom may be either a PARSE_NON_TERMINAL or a PARSE_TERMINAL.
    --
 
+insert
+   LOGGING
+
 creation {ANY}
    manifest_creation
 
@@ -108,12 +111,12 @@ feature {ANY}
          Result := atoms.fast_reference_at(atom_name.intern)
          debug
             if Result = Void then
-               std_output.put_string(once "Unknown atom: ")
-               std_output.put_line(atom_name)
-               std_output.put_line(once "Known atoms:")
-               std_output.put_line(once "--8<--------")
+               log.trace.put_string(once "Unknown atom: ")
+               log.trace.put_line(atom_name)
+               log.trace.put_line(once "Known atoms:")
+               log.trace.put_line(once "--8<--------")
                atoms.do_all(agent print_atom)
-               std_output.put_line(once "-------->8--")
+               log.trace.put_line(once "-------->8--")
                breakpoint
             end
          end
@@ -122,11 +125,11 @@ feature {ANY}
 feature {}
    print_atom (v: PARSE_ATOM; k: FIXED_STRING) is
       do
-         std_output.put_character('"')
-         std_output.put_string(k)
-         std_output.put_character('"')
-         std_output.put_string(once " => ")
-         std_output.put_line(v.out)
+         log.trace.put_character('"')
+         log.trace.put_string(k)
+         log.trace.put_character('"')
+         log.trace.put_string(once " => ")
+         log.trace.put_line(v.out)
       end
 
 feature {PARSE_TABLE}

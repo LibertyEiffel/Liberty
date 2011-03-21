@@ -11,6 +11,10 @@ insert
       redefine
          copy, is_equal, out_in_tagged_out_memory
       end
+   LOGGING
+      redefine
+         copy, is_equal, out_in_tagged_out_memory
+      end
 
 creation {PARSE_NON_TERMINAL}
    root
@@ -127,32 +131,32 @@ feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
       do
          if end_of_rule and then action = Void then
             debug ("parse")
-               std_error.put_string(once "Setting default non-terminal tree builder for %"")
-               std_error.put_string(nt.name)
-               std_error.put_string(once "%": ")
+               log.trace.put_string(once "Setting default non-terminal tree builder for %"")
+               log.trace.put_string(nt.name)
+               log.trace.put_string(once "%": ")
                if prefix_name = Void then
                   -- root
                   check
                      path.is_empty
                   end
-                  std_error.put_line(once "Epsilon")
+                  log.trace.put_line(once "Epsilon")
                else
                   from
                      i := path.lower
                   until
                      i > path.upper
                   loop
-                     std_error.put_character('"')
-                     std_error.put_string(path.item(i))
-                     std_error.put_character('"')
-                     std_error.put_character(' ')
+                     log.trace.put_character('"')
+                     log.trace.put_string(path.item(i))
+                     log.trace.put_character('"')
+                     log.trace.put_character(' ')
                      i := i + 1
                   end
-                  std_error.put_character('"')
-                  std_error.put_string(prefix_name)
-                  std_error.put_character('"')
-                  std_error.put_character('>')
-                  std_error.put_new_line
+                  log.trace.put_character('"')
+                  log.trace.put_string(prefix_name)
+                  log.trace.put_character('"')
+                  log.trace.put_character('>')
+                  log.trace.put_new_line
                end
             end
             if prefix_name /= Void then
@@ -301,15 +305,15 @@ feature {}
          old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
       do
          debug ("parse")
-            std_error.put_string(once "Scanning non-terminal %"")
-            std_error.put_string(nt.name)
-            std_error.put_character('"')
+            log.trace.put_string(once "Scanning non-terminal %"")
+            log.trace.put_string(nt.name)
+            log.trace.put_character('"')
             if prefix_name /= Void then
-               std_error.put_string(once " for a suffix of %"")
-               std_error.put_string(prefix_name)
-               std_error.put_character('"')
+               log.trace.put_string(once " for a suffix of %"")
+               log.trace.put_string(prefix_name)
+               log.trace.put_character('"')
             end
-            std_error.put_new_line
+            log.trace.put_new_line
          end
          old_index := buffer.current_index
          old_count := actions.count
@@ -332,17 +336,17 @@ feature {}
                   actions.remove_tail(actions.count - old_count)
                end
                debug ("parse")
-                  std_error.put_string(once "Still scanning non-terminal %"")
-                  std_error.put_string(nt.name)
-                  std_error.put_character('"')
+                  log.trace.put_string(once "Still scanning non-terminal %"")
+                  log.trace.put_string(nt.name)
+                  log.trace.put_character('"')
                   if prefix_name /= Void then
-                     std_error.put_string(once " for a suffix of %"")
-                     std_error.put_string(prefix_name)
-                     std_error.put_character('"')
+                     log.trace.put_string(once " for a suffix of %"")
+                     log.trace.put_string(prefix_name)
+                     log.trace.put_character('"')
                   end
-                  std_error.put_string(once " (%"")
-                  std_error.put_string(suffices.key(i))
-                  std_error.put_line(once "%" did not match)")
+                  log.trace.put_string(once " (%"")
+                  log.trace.put_string(suffices.key(i))
+                  log.trace.put_line(once "%" did not match)")
                end
                i := i + 1
             end
