@@ -52,7 +52,9 @@ feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
          if non_terminal_builder /= Void then
-            parser_tree.set_default_tree_builder(non_terminal_builder, default_tree_builder_path)
+            save_tree_builder_path
+            parser_tree.set_default_tree_builder(non_terminal_builder, tree_builder_path)
+            restore_tree_builder_path
          end
       end
 
@@ -106,9 +108,56 @@ feature {PARSE_NON_TERMINAL}
    parser_tree: PARSE_NT_NODE
 
 feature {}
-   default_tree_builder_path: FAST_ARRAY[FIXED_STRING] is
+   tree_builder_path_used: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]] is
       once
          create Result.make(0)
+      end
+
+   tree_builder_path_free: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]] is
+      once
+         create Result.make(0)
+      end
+
+   tree_builder_path: FAST_ARRAY[FIXED_STRING]
+
+   save_tree_builder_path is
+      do
+         if tree_builder_path = Void then
+            tree_builder_path := free_tree_builder_path
+         elseif not tree_builder_path.is_empty then
+            tree_builder_path_used.add_last(tree_builder_path)
+         end
+      ensure
+         tree_builder_path.is_empty
+         ;(not old tree_builder_path.is_empty) implies (tree_builder_path_used.last = old tree_builder_path)
+         ;(not old tree_builder_path.is_empty) implies (tree_builder_path_used.count = old tree_builder_path_used.count + 1)
+      end
+
+   restore_tree_builder_path is
+      require
+         tree_builder_path.is_empty
+      do
+         if not tree_builder_path_used.is_empty then
+            tree_builder_path_free.add_last(tree_builder_path)
+            tree_builder_path := tree_builder_path_used.last
+            tree_builder_path_used.remove_last
+         end
+      ensure
+         tree_builder_path /= Void
+         ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path = old tree_builder_path_used.last)
+         ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path_used.count = old tree_builder_path_used.count - 1)
+      end
+
+   free_tree_builder_path: like tree_builder_path is
+      do
+         if tree_builder_path_free.is_empty then
+            create Result.make(0)
+         else
+            Result := tree_builder_path_free.last
+            tree_builder_path_free.remove_last
+         end
+      ensure
+         Result.is_empty
       end
 
 feature {}
