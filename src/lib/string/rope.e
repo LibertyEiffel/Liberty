@@ -6,7 +6,7 @@ class ROPE
    -- http://en.wikipedia.org/Rope_(computer_science) and
    -- http://pcplus.techradar.com/node/3079/
 
-   -- Known bugs: using out with temporary 
+   -- Known bugs: using out with temporary
 inherit ABSTRACT_STRING redefine new_iterator, infix "<" end
 
 creation {ANY} from_strings
@@ -26,7 +26,7 @@ feature -- Creation
       separation:=another.separation
    end
 
-feature 
+feature
    count: INTEGER is
       do
          Result := left.count +right.count
@@ -35,7 +35,7 @@ feature
    item (an_index: INTEGER): CHARACTER is
       -- Random access is an O(count) operation for a ROPE.
       do
-         if an_index<=separation 
+         if an_index<=separation
          then Result := left.item(an_index)
          else Result := right.item(an_index-separation)
          end
@@ -45,7 +45,7 @@ feature
       do
          not_yet_implemented
       end
-   
+
    occurrences (c: CHARACTER): INTEGER is
       local i: ITERATOR[CHARACTER]
       do
@@ -56,14 +56,14 @@ feature
          end
       end
 
-feature {ANY} 
+feature {ANY}
    infix "<" (other: ABSTRACT_STRING): BOOLEAN is
       local ci, oi: ITERATOR[CHARACTER]
       do
-         from 
+         from
             ci:=new_iterator; ci.start
             oi:=other.new_iterator; oi.start
-         until (ci.is_off or oi.is_off) or else ci.item/=oi.item 
+         until (ci.is_off or oi.is_off) or else ci.item/=oi.item
          loop ci.next; oi.next
          end
          -- TODO: turn this if statement into something more concise.
@@ -83,11 +83,11 @@ feature {ANY}
       local ci,oi: ITERATOR[CHARACTER]
       do
          if count=other.count then
-            from 
+            from
                Result := True
                ci:=new_iterator; ci.start
                oi:=other.new_iterator; oi.start
-            until ci.is_off or else ci.item/=oi.item 
+            until ci.is_off or else ci.item/=oi.item
             loop ci.next; oi.next
             end
          else Result:=False
@@ -103,7 +103,7 @@ feature {ANY}
       -- O(min(count,other.count))
       local ci,oi: ITERATOR[CHARACTER]
       do
-         from 
+         from
             ci:=new_iterator; ci.start
             oi:=other.new_iterator; oi.start
          until (ci.is_off or oi.is_off) or else ci.item.same_as(oi.item)
@@ -122,7 +122,7 @@ feature {ANY}
          Result:=right.last
       end
 
-   has (c: CHARACTER): BOOLEAN is
+   has, fast_has (c: CHARACTER): BOOLEAN is
       local i: ITERATOR[CHARACTER]
       do
          from i:=new_iterator; i.start until not (Result or i.is_off)
@@ -132,11 +132,11 @@ feature {ANY}
          end
       end
 
-   index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
       local n: INTEGER; i: ITERATOR[CHARACTER]
       do
 
-         from 
+         from
             i:=new_iterator
             -- Reach start_index
             from n:=lower; i.start until n>=start_index
@@ -147,8 +147,8 @@ feature {ANY}
          end
       end
 
-      
-   reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+
+   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
       do
          not_yet_implemented
       end
@@ -167,7 +167,7 @@ feature -- Iterating and other features
       do
          create {ITERATOR_ON_ROPE} Result.make(Current)
       end
-   
+
    intern: FIXED_STRING is
       do
          not_yet_implemented
@@ -183,18 +183,18 @@ feature {ANY} -- Interfacing with C string:
       do
          not_yet_implemented
       end
-feature 
+feature
    recycle is
       do
          not_yet_implemented
       end
 feature {ABSTRACT_STRING,ITERATOR_ON_ROPE} -- Implementation
    separation: INTEGER
-      -- The index where 
+      -- The index where
    left,right: ABSTRACT_STRING
       -- The left and right part of the ROPE
 invariant
    left/=Void
    right/=Void
    separation=left.count
-end -- class ROPE 
+end -- class ROPE

@@ -8,12 +8,11 @@ deferred class SET[E_]
    -- Well knowned implementations are HASHED_SET and AVL_SET.
    --
 
-inherit
-   TRAVERSABLE[E_]
+insert
+   ITERABLE[E_]
       redefine is_equal, copy
       end
 
-insert
    SAFE_EQUAL[E_]
       redefine is_equal, copy
       end
@@ -152,12 +151,12 @@ feature {ANY} -- To provide iterating facilities:
       do
          Result := item(lower)
       end
-   
+
    last: E_ is
       do
          Result := item(upper)
       end
-   
+
    new_iterator: ITERATOR[E_] is
       do
          create {ITERATOR_ON_SET[E_]} Result.make(Current)
