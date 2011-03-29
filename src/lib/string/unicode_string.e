@@ -237,7 +237,7 @@ feature {ANY} -- Testing:
          not_yet_implemented
       end
 
-   index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
          -- Index of first occurrence of `unicode' at or after `start_index',
          -- 0 if none.
          --
@@ -284,19 +284,19 @@ feature {ANY} -- Testing:
                Result := 0
             end
          end
-      ensure
+      ensure then
          Result /= 0 implies item(Result) = unicode
       end
 
-   reverse_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
+   reverse_index_of, fast_reverse_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
          -- Index of first occurrence of `unicode' at or before `start_index', 0 if none.
          -- The search is done in reverse direction, which means from the `start_index' down
          -- to the first character.
          --
          -- See also `index_of', `last_index_of', `first_index_of'.
-      require
-         valid_start_index: start_index >= 0 and start_index <= count
-         valid_unicode_value: valid_unicode(unicode)
+      --require
+      --   valid_start_index: start_index >= 0 and start_index <= count
+      --   valid_unicode_value: valid_unicode(unicode)
       do
          from
             Result := start_index
@@ -305,33 +305,27 @@ feature {ANY} -- Testing:
          loop
             Result := Result - 1
          end
-      ensure
+      ensure then
          Result /= 0 implies item(Result) = unicode
       end
 
-   first_index_of (unicode: INTEGER): INTEGER is
+   first_index_of, fast_first_index_of (unicode: INTEGER): INTEGER is
          -- Index of first occurrence of `unicode' at index 1 or after index 1.
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
-      require
-         valid_unicode_value: valid_unicode(unicode)
       do
          Result := index_of(unicode, 1)
-      ensure
-         definition: Result = index_of(unicode, 1)
       end
 
-   last_index_of (unicode: INTEGER): INTEGER is
+   last_index_of, fast_last_index_of (unicode: INTEGER): INTEGER is
          -- Index of last occurrence of `unicode', 0 if none.
          --
          -- See also `first_index_of', `reverse_index_of', `index_of'.
       do
          Result := reverse_index_of(unicode, upper)
-      ensure
-         definition: Result = reverse_index_of(unicode, upper)
       end
 
-   has (unicode: INTEGER): BOOLEAN is
+   has, fast_has (unicode: INTEGER): BOOLEAN is
          -- True if `unicode' is in the STRING.
          --
          -- See also `index_of', `occurrences', `has_substring'.

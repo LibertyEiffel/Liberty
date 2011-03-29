@@ -188,55 +188,20 @@ feature {ANY} -- Testing:
          definition: Result = item(i).code
       end
 
-   index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-         -- Index of first occurrence of `c' at or after `start_index', 0 if none.
-         --
-         -- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
-      require
-         valid_start_index: start_index >= lower and start_index <= upper + 1
-      deferred
-      ensure
-         Result /= 0 implies item(Result) = c
-      end
-
-   reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-         -- Index of first occurrence of `c' at or before `start_index', 0 if none.
-         -- The search is done in reverse direction, which means from the `start_index' down
-         -- to the first character.
-         --
-         -- See also `index_of', `last_index_of', `first_index_of'.
-      require
-         valid_start_index: start_index >= lower - 1 and start_index <= upper
-      deferred
-      ensure
-         Result /= 0 implies item(Result) = c
-      end
-
-   first_index_of (c: CHARACTER): INTEGER is
+   first_index_of, fast_first_index_of (c: CHARACTER): INTEGER is
          -- Index of first occurrence of `c', 0 if none.
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
       do
          Result := index_of(c, 1)
-      ensure
-         definition: Result = index_of(c, 1)
       end
 
-   last_index_of (c: CHARACTER): INTEGER is
+   last_index_of, fast_last_index_of (c: CHARACTER): INTEGER is
          -- Index of last occurrence of `c', 0 if none.
          --
          -- See also `first_index_of', `reverse_index_of', `index_of'.
       do
          Result := reverse_index_of(c, upper)
-      ensure
-         definition: Result = reverse_index_of(c, upper)
-      end
-
-   has (c: CHARACTER): BOOLEAN is
-         -- True if `c' is in the STRING.
-         --
-         -- See also `index_of', `occurrences', `has_substring'.
-      deferred
       end
 
    has_substring (other: ABSTRACT_STRING): BOOLEAN is

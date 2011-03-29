@@ -81,6 +81,117 @@ feature {ANY} -- Accessing:
          definition: Result = item(upper)
       end
 
+feature {ANY} -- Looking and Searching:
+   has (x: like item): BOOLEAN is
+         -- Look for `x' using `is_equal' for comparison.
+         --
+         -- See also `fast_has', `index_of', `fast_index_of'.
+      deferred
+      ensure
+         definition: Result = valid_index(first_index_of(x))
+      end
+
+   fast_has (x: like item): BOOLEAN is
+         -- Look for `x' using basic `=' for comparison.
+         --
+         -- See also `has', `fast_index_of', `index_of'.
+      deferred
+      ensure
+         definition: Result = valid_index(fast_first_index_of(x))
+      end
+
+   first_index_of (element: like item): INTEGER is
+         -- Give the index of the first occurrence of `element' using `is_equal' for comparison.
+         -- Answer `upper + 1' when `element' is not inside.
+         --
+         -- See also `fast_first_index_of', `index_of', `last_index_of', `reverse_index_of'.
+      deferred
+      ensure
+         definition: Result = index_of(element, lower)
+      end
+
+   index_of (element: like item; start_index: INTEGER): INTEGER is
+         -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or after
+         -- `start_index'. Answer `upper + 1' when `element' when the search fail.
+         --
+         -- See also `fast_index_of', `reverse_index_of', `first_index_of'.
+      deferred
+      ensure
+         Result.in_range(start_index, upper + 1)
+         valid_index(Result) implies (create {SAFE_EQUAL[E_]}).test(element, item(Result))
+      end
+
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+         -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or before
+         -- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
+         -- `lower' index . Answer `lower -1' when the search fail.
+         --
+         -- See also `fast_reverse_index_of', `last_index_of', `index_of'.
+      require
+         valid_index(start_index)
+      deferred
+      ensure
+         Result.in_range(lower - 1, start_index)
+         valid_index(Result) implies item(Result).is_equal(element)
+      end
+
+   last_index_of (element: like item): INTEGER is
+         -- Using `is_equal' for comparison, gives the index of the last occurrence of `element' at or before
+         -- `upper'. Search is done in reverse direction, which means from the `upper' down to the
+         -- `lower' index . Answer `lower -1' when the search fail.
+         --
+         -- See also `fast_last_index_of', `reverse_index_of', `index_of'.
+      deferred
+      ensure
+         definition: Result = reverse_index_of(element, upper)
+      end
+
+   fast_first_index_of (element: like item): INTEGER is
+         -- Give the index of the first occurrence of `element' using basic `=' for comparison.
+         -- Answer `upper + 1' when `element' is not inside.
+         --
+         -- See also `first_index_of', `last_index_of', `fast_last_index_of'.
+      deferred
+      ensure
+         definition: Result = fast_index_of(element, lower)
+      end
+
+   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+         -- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or after
+         -- `start_index'. Answer `upper + 1' when `element' when the search fail.
+         --
+         -- See also `index_of', `fast_reverse_index_of', `fast_first_index_of'.
+      deferred
+      ensure
+         Result.in_range(start_index, upper + 1)
+         valid_index(Result) implies element = item(Result)
+      end
+
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+         -- Using basic `=' comparison, gives the index of the first occurrence of `element' at or before
+         -- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
+         -- `lower' index . Answer `lower -1' when the search fail.
+         --
+         -- See also `reverse_index_of', `fast_index_of', `fast_last_index_of'.
+      require
+         valid_index(start_index)
+      deferred
+      ensure
+         Result.in_range(lower - 1, start_index)
+         valid_index(Result) implies item(Result) = element
+      end
+
+   fast_last_index_of (element: like item): INTEGER is
+         -- Using basic `=' for comparison, gives the index of the last occurrence of `element' at or before
+         -- `upper'. Search is done in reverse direction, which means from the `upper' down to the
+         -- `lower' index . Answer `lower -1' when the search fail.
+         --
+         -- See also `fast_reverse_index_of', `last_index_of'.
+      deferred
+      ensure
+         definition: Result = fast_reverse_index_of(element, upper)
+      end
+
 feature {ANY} -- Agent-based features:
    do_all (action: ROUTINE[TUPLE[E_]]) is
          -- Apply `action' to every item of `Current'.
