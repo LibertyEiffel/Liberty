@@ -9,7 +9,7 @@ deferred class MAP[V_, K_]
    --
 
 insert
-   ITERABLE[V_]
+   TRAVERSABLE[V_]
       rename
          new_iterator as new_iterator_on_items,
          do_all as do_all_items,
@@ -27,11 +27,6 @@ feature {ANY} -- Counting:
          -- Is it empty?
       do
          Result := count = 0
-      end
-
-   valid_index (index: INTEGER): BOOLEAN is
-      do
-         Result := index.in_range(lower, upper)
       end
 
 feature {ANY} -- Basic access:

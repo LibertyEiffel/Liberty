@@ -33,6 +33,9 @@ inherit
    TRAVERSABLE[INTEGER]
       redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
       end
+   SEARCHABLE[INTEGER]
+      redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
+      end
    RECYCLABLE
       redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
       end

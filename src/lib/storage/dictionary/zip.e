@@ -3,11 +3,19 @@
 --
 class ZIP[V_, K_]
    --
-   -- Makes a dictionary of two independent collections.
+   -- Makes a dictionary of two independent hoards.
    --
 
 inherit
    MAP[V_, K_]
+
+insert
+   SAFE_EQUAL[K_]
+      undefine
+         is_equal, out_in_tagged_out_memory
+      redefine
+         copy
+      end
 
 create {ANY}
    make
@@ -25,38 +33,28 @@ feature {ANY}
 
    has (k: K_): BOOLEAN is
       do
-         Result := keys.valid_index(keys.first_index_of(k))
+         Result := keys.valid_index(index_of(k))
       end
 
-   at (k: K_): V_ is
+   at, reference_at (k: K_): V_ is
       local
          index: INTEGER
       do
-         index := keys.first_index_of(k)
+         index := index_of(k)
          Result := items.item(index - keys.lower + items.lower)
-      end
-
-   reference_at (k: K_): V_ is
-      do
-         Result := at(k)
       end
 
    fast_has (k: K_): BOOLEAN is
       do
-         Result := keys.valid_index(keys.fast_first_index_of(k))
+         Result := keys.valid_index(fast_index_of(k))
       end
 
-   fast_at (k: K_): V_ is
+   fast_at, fast_reference_at (k: K_): V_ is
       local
          index: INTEGER
       do
-         index := keys.fast_first_index_of(k)
+         index := fast_index_of(k)
          Result := items.item(index - keys.lower + items.lower)
-      end
-
-   fast_reference_at (k: K_): V_ is
-      do
-         Result := fast_at(k)
       end
 
    item (index: INTEGER): V_ is
@@ -84,7 +82,7 @@ feature {ANY} -- Other features:
       local
          index: INTEGER
       do
-         index := keys.first_index_of(k)
+         index := index_of(k)
          Result := keys.item(index)
       end
 
@@ -103,6 +101,41 @@ feature {ANY}
 feature {ZIP}
    items: TRAVERSABLE[V_]
    keys: TRAVERSABLE[K_]
+
+feature {}
+   index_of (k: K_): INTEGER is
+      local
+         i: INTEGER
+      do
+         from
+            Result := keys.lower - 1
+            i := keys.lower
+         until
+            keys.valid_index(Result) or else i > keys.upper
+         loop
+            if safe_equal(k, keys.item(i)) then
+               Result := i
+            end
+            i := i + 1
+         end
+      end
+
+   fast_index_of (k: K_): INTEGER is
+      local
+         i: INTEGER
+      do
+         from
+            Result := keys.lower - 1
+            i := keys.lower
+         until
+            keys.valid_index(Result) or else i > keys.upper
+         loop
+            if k = keys.item(i) then
+               Result := i
+            end
+            i := i + 1
+         end
+      end
 
 invariant
    items.count = keys.count
