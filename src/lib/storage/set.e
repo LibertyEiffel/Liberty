@@ -8,11 +8,12 @@ deferred class SET[E_]
    -- Well knowned implementations are HASHED_SET and AVL_SET.
    --
 
-insert
-   ITERABLE[E_]
+inherit
+   TRAVERSABLE[E_]
       redefine is_equal, copy
       end
 
+insert
    SAFE_EQUAL[E_]
       redefine is_equal, copy
       end

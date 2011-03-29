@@ -21,6 +21,9 @@ inherit
    TRAVERSABLE[CHARACTER]
       redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
       end
+   SEARCHABLE[CHARACTER]
+      redefine print_on, copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+      end
 
 insert
    PLATFORM

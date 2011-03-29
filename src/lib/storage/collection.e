@@ -28,6 +28,9 @@ inherit
    TRAVERSABLE[E_]
       redefine copy, is_equal, out_in_tagged_out_memory
       end
+   SEARCHABLE[E_]
+      redefine copy, is_equal, out_in_tagged_out_memory
+      end
 
 feature {ANY} -- Accessing:
    frozen infix "@" (i: INTEGER): E_ is

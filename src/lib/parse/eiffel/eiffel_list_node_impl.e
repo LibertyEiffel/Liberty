@@ -58,56 +58,6 @@ feature {ANY}
          Result := children.is_empty
       end
 
-   has (x: like item): BOOLEAN is
-      do
-         Result := children.has(x)
-      end
-
-   fast_has (x: like item): BOOLEAN is
-      do
-         Result := children.fast_has(x)
-      end
-
-   first_index_of (element: like item): INTEGER is
-      do
-         Result := children.first_index_of(element)
-      end
-
-   index_of (element: like item; start_index: INTEGER): INTEGER is
-      do
-         Result := children.index_of(element, start_index)
-      end
-
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
-      do
-         Result := children.reverse_index_of(element, start_index)
-      end
-
-   last_index_of (element: like item): INTEGER is
-      do
-         Result := children.last_index_of(element)
-      end
-
-   fast_first_index_of (element: like item): INTEGER is
-      do
-         Result := children.fast_first_index_of(element)
-      end
-
-   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
-      do
-         Result := children.fast_index_of(element, start_index)
-      end
-
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
-      do
-         Result := children.fast_reverse_index_of(element, start_index)
-      end
-
-   fast_last_index_of (element: like item): INTEGER is
-      do
-         Result := children.fast_last_index_of(element)
-      end
-
 feature {EIFFEL_GRAMMAR}
    add (a_child: like item) is
       do
