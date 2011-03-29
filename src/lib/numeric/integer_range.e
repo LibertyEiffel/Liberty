@@ -40,6 +40,21 @@ feature {ANY}
 
    is_empty: BOOLEAN is False
 
+   has, fast_has (i: INTEGER): BOOLEAN is
+      do
+         Result := i.in_range(lower, upper)
+      end
+
+   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i, start: INTEGER): INTEGER is
+      do
+         Result := i
+      end
+
+   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
+
    make (low, up: INTEGER) is
       require
          low <= up

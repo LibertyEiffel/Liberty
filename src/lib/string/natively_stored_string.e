@@ -93,7 +93,7 @@ feature {ANY}
          end
       end
 
-   index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
       local
          index: INTEGER
       do
@@ -106,7 +106,7 @@ feature {ANY}
          end
       end
 
-   reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
          -- Index of first occurrence of `c' at or before `start_index', 0 if none.  The search is done in
          -- reverse direction, which means from the `start_index' down to the first character.
          --
@@ -120,7 +120,7 @@ feature {ANY}
          end
       end
 
-   has (c: CHARACTER): BOOLEAN is
+   has, fast_has (c: CHARACTER): BOOLEAN is
       do
          Result := storage.slice_fast_has(c, storage_lower, storage_lower + count - 1)
       end

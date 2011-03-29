@@ -8,13 +8,14 @@ deferred class MAP[V_, K_]
    -- See also DICTIONARY
    --
 
-inherit
-   TRAVERSABLE[V_]
+insert
+   ITERABLE[V_]
       rename
          new_iterator as new_iterator_on_items,
          do_all as do_all_items,
          for_all as for_all_items,
-         exists as exists_item
+         exists as exists_item,
+         aggregate as aggregate_items
       undefine
          copy
       redefine
@@ -26,6 +27,11 @@ feature {ANY} -- Counting:
          -- Is it empty?
       do
          Result := count = 0
+      end
+
+   valid_index (index: INTEGER): BOOLEAN is
+      do
+         Result := index.in_range(lower, upper)
       end
 
 feature {ANY} -- Basic access:
@@ -58,8 +64,8 @@ feature {ANY} -- Basic access:
       end
 
    reference_at (k: K_): V_ is
-         -- Return Void or the value associated with key `k'. Actually, this feature is useful only 
-         -- when the type of values (the type V_) is a reference type, to avoid using `has' just 
+         -- Return Void or the value associated with key `k'. Actually, this feature is useful only
+         -- when the type of values (the type V_) is a reference type, to avoid using `has' just
          -- followed by `at' to get the corresponding value with the very best performances.
          --
          -- See also `fast_reference_at', `at', `has'.
