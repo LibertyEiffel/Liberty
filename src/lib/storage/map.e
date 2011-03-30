@@ -195,7 +195,7 @@ feature {ANY} -- To provide iterating facilities:
       do
          Result := count
       ensure
-         Result = count
+         count = Result - lower + 1
       end
 
    item (index: INTEGER): V_ is
