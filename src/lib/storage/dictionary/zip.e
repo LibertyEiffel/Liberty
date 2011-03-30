@@ -8,6 +8,9 @@ class ZIP[V_, K_]
 
 inherit
    MAP[V_, K_]
+      redefine
+         lower, upper
+      end
 
 insert
    SAFE_EQUAL[K_]
@@ -21,6 +24,13 @@ create {ANY}
    make
 
 feature {ANY}
+   lower: INTEGER is 0
+
+   upper: INTEGER is
+      do
+         Result := count - 1
+      end
+
    count: INTEGER is
       do
          Result := keys.count
