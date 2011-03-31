@@ -17,6 +17,8 @@ feature {ANY}
 feature {PARSE_TABLE}
    set (a_name: ABSTRACT_STRING; a_table: like table) is
       require
+         name = Void
+         table = Void
          not a_name.is_empty
          a_table /= Void
       do
