@@ -126,11 +126,12 @@ feature {}
             tree_builder_path := free_tree_builder_path
          elseif not tree_builder_path.is_empty then
             tree_builder_path_used.add_last(tree_builder_path)
+            tree_builder_path := free_tree_builder_path
          end
       ensure
          tree_builder_path.is_empty
-         ;(not old tree_builder_path.is_empty) implies (tree_builder_path_used.last = old tree_builder_path)
-         ;(not old tree_builder_path.is_empty) implies (tree_builder_path_used.count = old tree_builder_path_used.count + 1)
+         ;(old (tree_builder_path /= Void and then not tree_builder_path.is_empty)) implies (tree_builder_path_used.last = old tree_builder_path)
+         ;(old (tree_builder_path /= Void and then not tree_builder_path.is_empty)) implies (tree_builder_path_used.count = old tree_builder_path_used.count + 1)
       end
 
    restore_tree_builder_path is
@@ -144,7 +145,7 @@ feature {}
          end
       ensure
          tree_builder_path /= Void
-         ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path = old tree_builder_path_used.last)
+         ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path = (old tree_builder_path_used.twin).last)
          ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path_used.count = old tree_builder_path_used.count - 1)
       end
 
