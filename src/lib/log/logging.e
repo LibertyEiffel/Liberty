@@ -12,16 +12,16 @@ feature {}
       local
          conf: LOG_CONFIGURATION
       do
-         Result := log_memory
+         Result := log_memory__0_
          if Result = Void or else not Result.is_valid then
             Result := conf.logger(generating_type.intern)
-            log_memory := Result
+            log_memory__0_ := Result
          end
       ensure
          Result /= Void
       end
 
-   log_memory: LOGGER
+   log_memory__0_: LOGGER
          -- The cached logger. Don't use directly.
 
 end -- class LOGGING
