@@ -24,7 +24,7 @@ feature {ANY}
 feature {}
    hash_code (k: K_): INTEGER is
       do
-         Result := k.hash_code
+         Result := hash_coder.item([k])
       end
 
 feature {ANY}
