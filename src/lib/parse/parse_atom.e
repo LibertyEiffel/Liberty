@@ -71,7 +71,7 @@ feature {}
          from
             l := 1
             c := 1
-            buffer.set_current_index(1)
+            buffer.set_current_index(buffer.lower)
          until
             buffer.current_index = n
          loop

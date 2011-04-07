@@ -11,6 +11,12 @@ class MINI_PARSER_BUFFER
 
 insert
    STRING_HANDLER
+      redefine
+         default_create
+      end
+
+create {ANY}
+   default_create
 
 feature {ANY}
    initialize_with (string: ABSTRACT_STRING) is
@@ -82,6 +88,28 @@ feature {ANY}
          current_index = new_index
       end
 
+feature {ANY} -- Memo
+   set_memory (a_memory: like memory) is
+      require
+         a_memory /= Void
+      do
+         memory := a_memory
+      ensure
+         memory = a_memory
+      end
+
+   memo: INTEGER is
+      do
+         Result := memory.memo(Current)
+      end
+
+   restore (a_memo: like memo) is
+      do
+         memory.restore(a_memo, Current)
+      end
+
+   memory: MINI_PARSER_MEMORY
+
 feature {ANY} -- Queries
    lower: INTEGER is
       do
@@ -112,7 +140,7 @@ feature {ANY} -- Queries
    current_character: CHARACTER is
          -- The current character (the one at `current_index').
       require
-         current_index.in_range(1, count)
+         current_index.in_range(lower, upper + 1)
       do
          Result := storage.item(current_index)
       end
@@ -141,6 +169,19 @@ feature {ANY} -- Queries
 feature {}
    storage: FIXED_STRING
          -- The `storage' area to be parsed.
+
+   default_create is
+      do
+         memory := default_memory
+      end
+
+   default_memory: DEFAULT_MINI_PARSER_MEMORY is
+      once
+         create Result
+      end
+
+invariant
+   memory /= Void
 
 end -- class MINI_PARSER_BUFFER
 --
