@@ -40,10 +40,10 @@ feature {PARSE_TABLE}
 feature {DESCENDING_PARSER, PARSE_NT_NODE}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
       local
-         old_index: INTEGER; image: PARSER_IMAGE
+         memo: INTEGER; image: PARSER_IMAGE
          parse_action: PARSE_ACTION; error_message: STRING
       do
-         old_index := buffer.current_index
+         memo := buffer.memo
          image := parser.item([buffer]) -- should clear the mark when necessary
          if image /= Void then
             create parse_action.make(agent call_action(image))
@@ -78,7 +78,7 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
                print_error_position(log.trace, buffer)
                log.trace.put_new_line
             end
-            buffer.set_current_index(old_index)
+            buffer.restore(memo)
          end
       end
 

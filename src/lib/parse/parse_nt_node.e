@@ -254,10 +254,10 @@ feature {PARSE_NT_NODE}
       require
          not_root: prefix_name /= Void
       local
-         old_index, old_count: INTEGER; atom: PARSE_ATOM
+         memo, old_count: INTEGER; atom: PARSE_ATOM
          parse_action: PARSE_ACTION
       do
-         old_index := buffer.current_index
+         memo := buffer.memo
          old_count := actions.count
          atom := nt.table.item(prefix_name)
          check
@@ -288,7 +288,7 @@ feature {PARSE_NT_NODE}
             end
          end
          if Result /= yes then
-            buffer.set_current_index(old_index)
+            buffer.restore(memo)
             if actions.count > old_count then
                actions.remove_tail(actions.count - old_count)
             end
@@ -302,7 +302,7 @@ feature {}
       require
          suffices /= Void
       local
-         old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
+         memo, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
       do
          debug ("parse")
             log.trace.put_string(once "Scanning non-terminal %"")
@@ -315,7 +315,7 @@ feature {}
             end
             log.trace.put_new_line
          end
-         old_index := buffer.current_index
+         memo := buffer.memo
          old_count := actions.count
          from
             i := suffices.lower
@@ -331,7 +331,7 @@ feature {}
                if parsenode = maybe then
                   perhaps := True
                end
-               buffer.set_current_index(old_index)
+               buffer.restore(memo)
                if actions.count > old_count then
                   actions.remove_tail(actions.count - old_count)
                end
