@@ -8,7 +8,7 @@ deferred class MAP[V_, K_]
    -- See also DICTIONARY
    --
 
-insert
+inherit
    TRAVERSABLE[V_]
       rename
          new_iterator as new_iterator_on_items,
