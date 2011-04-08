@@ -36,17 +36,8 @@ feature {ANY}
 feature {}
 	notify is
 			-- Notify all the observers that the state of Current changed
-		local
-			i: INTEGER
 		do
-			from
-				i := observers.lower
-			until
-				i > observers.upper
-			loop
-				observers.item(i).update(Current)
-				i := i + 1
-			end
+			observers.do_all(agent {OBSERVER}.update(Current))
 		end
 
 feature {}
