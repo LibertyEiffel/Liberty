@@ -41,7 +41,7 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result := is_public and then is_in_main_namespace and then 
+			Result := is_public and then namespace.is_main and then 
 			(global or else headers.has(c_file.c_string_name))
 		end
 

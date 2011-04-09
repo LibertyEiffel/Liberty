@@ -4,11 +4,8 @@ class SETTINGS
 inherit
 	SINGLETON
 insert 
-	FILE_TOOLS undefine is_equal, copy end
-	BASIC_DIRECTORY undefine is_equal, copy end
-
-creation {ANY}
-	default_create
+		FILE_TOOLS undefine is_equal, copy end
+		BASIC_DIRECTORY undefine is_equal, copy end
 
 feature {ANY} -- Queries
 	global: BOOLEAN
@@ -36,10 +33,10 @@ feature {ANY} -- Setters
 			global := a_value
 		end
 
-	set_directory (a_directory: STRING) is
-		do
-			directory := a_directory
-		end
+-- 	set_directory (a_directory: STRING) is
+-- 		do
+-- 			directory := a_directory
+-- 		end
 	
 	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
 

@@ -5,7 +5,6 @@ deferred class WRAPPER_CLASS
 
 inherit 
 	WRAPPABLE_NODE 
-		undefine suffix
 		redefine compute_eiffel_name -- To make sure that it is a correct class name	
 		end
 
@@ -16,9 +15,10 @@ feature
 
 	compute_eiffel_name is
 		do
-			Precursor
-			cached_eiffel_name.to_upper
+			cached_eiffel_name := eiffel_class_name(c_string_name,suffix)
 		end
+
+	suffix: STRING is deferred end
 
 feature {} -- Implementation
 	output: TERMINAL_OUTPUT_STREAM

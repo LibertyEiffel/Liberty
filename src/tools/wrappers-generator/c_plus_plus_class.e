@@ -4,12 +4,11 @@ class C_PLUS_PLUS_CLASS
 	-- Beware class names includes templates, so they may be like "QFlags<Qt::MouseButton>" escaped as "QFlags%lt;Qt::MouseButton&gt;". C++ and therefore also GccXml does not  
 
 inherit 
-	CONTEXTED_NODE
-	NAMED_NODE
-	COMPOSED_NODE
-	IDENTIFIED_NODE
+	COMPOSED_NODE -- hence also a STORABLE_NODE and a NAMED_NODE
+		undefine compute_eiffel_name end
+	CONTEXTED_NODE -- therefore also a NAMED_NODE
 	FILED_NODE
-	STORABLE_NODE
+	IDENTIFIED_NODE
 	TYPED_NODE
 	WRAPPER_CLASS
 	-- This node also has those fields: demangled, size, align, bases

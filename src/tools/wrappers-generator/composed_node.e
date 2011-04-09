@@ -7,8 +7,14 @@ deferred class COMPOSED_NODE
 	-- conceptually different since they are modelled as Liberty clusters and
 	-- do not belong to a single file.
 
-	-- Note: previously COMPOSED_NODE inherited from NAMED_NODE and STORABLE_NODE.
-	-- The heirs of this class C_STRUCT, C_UNION and C_PLUS_PLUS_CLASS  
+	-- Note: previously COMPOSED_NODE inherited from NAMED_NODE. The heirs of
+	-- this class C_STRUCT, C_UNION and C_PLUS_PLUS_CLASS will be made direct
+	-- heir of NAMED_NODE.
+
+inherit 
+	STORABLE_NODE -- inherited to add the non-void fields postcondition to the store command
+	NAMED_NODE -- all heirs (Class, Struct, Namespace, Union) are also named
+
 feature 
 	store is
 		deferred 
