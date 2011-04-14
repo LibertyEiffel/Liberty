@@ -10,33 +10,35 @@ create {LOG_INTERNAL_CONF}
    make
 
 feature {ANY}
+   parent: LOGGER
+   level: LOG_LEVEL
    tag: FIXED_STRING
 
 feature {ANY} -- Logging streams
    trace: OUTPUT_STREAM is
       do
-         Result := levels.trace.stream(level, output, tag)
+         Result := levels.trace.stream(Current)
       ensure
          Result /= Void
       end
 
    info: OUTPUT_STREAM is
       do
-         Result := levels.info.stream(level, output, tag)
+         Result := levels.info.stream(Current)
       ensure
          Result /= Void
       end
 
    warning: OUTPUT_STREAM is
       do
-         Result := levels.warning.stream(level, output, tag)
+         Result := levels.warning.stream(Current)
       ensure
          Result /= Void
       end
 
    error: OUTPUT_STREAM is
       do
-         Result := levels.error.stream(level, output, tag)
+         Result := levels.error.stream(Current)
       ensure
          Result /= Void
       end
@@ -72,11 +74,7 @@ feature {ANY} -- Log level
          level = a_level
       end
 
-   level: LOG_LEVEL
-
 feature {LOG_INTERNAL_CONF} -- Parent logger
-   parent: LOGGER
-
    set_parent (a_parent: like parent) is
       require
          a_parent /= Void
@@ -87,6 +85,7 @@ feature {LOG_INTERNAL_CONF} -- Parent logger
          parent = a_parent
       end
 
+feature {LOG_INTERNAL_CONF, LOG_LEVEL} -- Log output, internal usage only
    output: LOG_OUTPUT
 
 feature {LOGGING}

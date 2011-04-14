@@ -6,15 +6,27 @@ class LOG_LEVEL
 creation {LOG_LEVELS}
    make
 
+feature {ANY}
+   level: INTEGER
+   tag: FIXED_STRING
+
 feature {LOGGER}
-   stream (a_level: like Current; a_log_output: LOG_OUTPUT; a_logger_tag: FIXED_STRING): OUTPUT_STREAM is
+   stream (a_logger: LOGGER): OUTPUT_STREAM is
       require
-         a_level /= Void
-         a_logger_tag /= Void
+         a_logger /= Void
+      local
+         parent_stream: OUTPUT_STREAM
       do
-         if does_log(a_level) then
-            a_log_output.set(tag, a_logger_tag)
-            Result := a_log_output
+         if does_log(a_logger.level) then
+            a_logger.output.set(tag, a_logger.tag)
+            a_logger.output.set_forward(bottomless_pit)
+            if a_logger.parent /= Void then
+               parent_stream := stream(a_logger.parent)
+               if parent_stream /= a_logger.output then
+                  a_logger.output.set_forward(parent_stream)
+               end
+            end
+            Result := a_logger.output
          else
             Result := bottomless_pit
          end
@@ -28,10 +40,6 @@ feature {LOGGER}
       do
          Result := a_level.level >= level
       end
-
-feature {LOG_LEVEL}
-   level: INTEGER
-   tag: FIXED_STRING
 
 feature {}
    make (a_level: like level; a_tag: like tag) is
