@@ -510,6 +510,8 @@ feature {LOG_CONFIGURATION}
 feature {}
    make is
       do
+         create loggers.make
+         create outputs.make
          create generations
       end
 
@@ -519,14 +521,6 @@ feature {}
          o: LOG_OUTPUT
          root0: like root
       do
-         if loggers = Void then
-            create loggers.make
-            check
-               outputs = Void
-            end
-            create outputs.make
-         end
-
          -- This very basic initialization ensures that a root always exists, which is useful while parsing
          -- the log file (the parsing engine itself uses the logging framework...)
          create o.make(agent pass_through(std_output), "root".intern)
@@ -575,7 +569,7 @@ feature {}
 
    default_output: LOG_OUTPUT is
       once
-         create Result.make(agent pass_through(std_output), "default".intern)
+         create Result.make(agent pass_through(std_output), "*default*".intern)
       end
 
    generations: COUNTER

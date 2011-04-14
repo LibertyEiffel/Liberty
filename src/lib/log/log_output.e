@@ -15,7 +15,7 @@ create {LOG_INTERNAL_CONF}
 feature {ANY}
    is_connected: BOOLEAN is
       do
-         Result := output.is_connected
+         Result := output.is_connected and then forward /= Void and then forward.is_connected
       end
 
    can_disconnect: BOOLEAN is False
@@ -27,7 +27,7 @@ feature {ANY}
 
    can_put_character (c: CHARACTER): BOOLEAN is
       do
-         Result := output.can_put_character(c)
+         Result := output.can_put_character(c) and then forward /= Void and then forward.can_put_character(c)
       end
 
 feature {FILTER_OUTPUT_STREAM}
@@ -38,6 +38,7 @@ feature {FILTER_OUTPUT_STREAM}
          else
             message.extend(c)
          end
+         forward.put_character(c)
       end
 
    filtered_flush is
@@ -93,6 +94,18 @@ feature {LOGGER}
          format := a_format.intern
       ensure
          format.is_equal(a_format)
+      end
+
+feature {LOG_LEVEL}
+   forward: OUTPUT_STREAM
+
+   set_forward (a_forward: like forward) is
+      require
+         forward /= Void
+      do
+         forward := a_forward
+      ensure
+         forward = a_forward
       end
 
 feature {}
