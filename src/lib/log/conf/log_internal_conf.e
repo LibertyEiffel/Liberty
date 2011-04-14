@@ -473,7 +473,7 @@ feature {LOG_CONFIGURATION}
       local
          i: INTEGER; parent: LOGGER; parent_tag: FIXED_STRING
       do
-         if loggers = Void then
+         if not default_loaded then
             load_default
          end
 
@@ -516,6 +516,8 @@ feature {}
       end
 
    load_default is
+      require
+         not default_loaded
       local
          in: TEXT_FILE_READ
          o: LOG_OUTPUT
@@ -539,6 +541,10 @@ feature {}
                die_with_code(1)
             end
          end
+
+         default_loaded := True
+      ensure
+         default_loaded
       end
 
    last_class_name: STRING
@@ -578,6 +584,8 @@ feature {}
       do
          Result := a_output
       end
+
+   default_loaded: BOOLEAN
 
 end -- class LOG_INTERNAL_CONF
 --
