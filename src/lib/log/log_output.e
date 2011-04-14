@@ -101,7 +101,7 @@ feature {LOG_LEVEL}
 
    set_forward (a_forward: like forward) is
       require
-         forward /= Void
+         a_forward /= Void
       do
          forward := a_forward
       ensure
