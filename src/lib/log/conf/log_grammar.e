@@ -35,11 +35,9 @@ feature {}
                                                                          {FAST_ARRAY[STRING] << "File_Option", "File_Option+" >> }, agent build_continue_list("File_Option", 0, "File_Option+");
                                                                          {FAST_ARRAY[STRING] << "File_Option", "KW ,", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+");
                                                                          {FAST_ARRAY[STRING] << "File_Option", "KW ;", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+"); >> };
-                                  "File_Option", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Format" >> }, Void;
+                                  "File_Option", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW format", "KW string" >> }, Void;
                                                                         {FAST_ARRAY[STRING] << "KW rotated", "KW each", "Rotation", "Retention" >> }, Void;
                                                                         {FAST_ARRAY[STRING] << "KW zipped", "KW using", "KW string" >> }, Void >> };
-                                  "Format", {PARSE_NON_TERMINAL << epsilon, Void;
-                                                                  {FAST_ARRAY[STRING] << "KW format", "KW string" >> }, Void; >> };
                                   "Rotation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW day" >> }, Void;
                                                                      {FAST_ARRAY[STRING] << "KW week" >> }, Void;
                                                                      {FAST_ARRAY[STRING] << "KW month" >> }, Void;

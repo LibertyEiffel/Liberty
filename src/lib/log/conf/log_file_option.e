@@ -11,7 +11,7 @@ feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
       ensure
          Result /= stream implies not stream.is_connected
          Result.is_connected
-         Result.path = old stream.path
+         --Result.path = old stream.path
       end
 
 end -- class LOG_FILE_OPTION
