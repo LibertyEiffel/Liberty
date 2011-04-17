@@ -49,6 +49,7 @@ feature {}
          num: TYPED_EIFFEL_IMAGE[INTEGER_64]; rotation: INTEGER_64
          rotation_condition: PREDICATE[TUPLE[FILE_STREAM]]
          file_path: STRING
+         file_options_index: INTEGER
       do
          inspect
             node.name
@@ -69,16 +70,28 @@ feature {}
             output_name := last_entity_name.intern
             output := outputs.fast_reference_at(output_name)
             if output = Void then
-               node.node_at(3).accept(Current)
-               -- TODO: to check when the "url" construct is implemented
-               file_path := path_resolver.item([last_string])
-               create file_options.make(output_name, file_path)
+               last_format := Void
+               inspect
+                  node.node_at(2).name
+               when "KW file" then
+                  node.node_at(3).accept(Current)
+                  -- TODO: to check when the "url" construct is implemented
+                  file_path := path_resolver.item([last_string])
+                  create file_options.file(output_name, file_path)
+                  file_options_index := 4
+               when "KW console" then
+                  create file_options.console(output_name)
+                  file_options_index := 3
+               end
                if file_options.is_connected then
-                  node.node_at(4).accept(Current)
+                  node.node_at(file_options_index).accept(Current)
                   create output.make(file_options.retriever, output_name)
                   outputs.put(output, output_name)
                else
                   on_error.call([output_name + ": could not connect to " + file_path])
+               end
+               if last_format /= Void then
+                  output.set_format(last_format)
                end
             else
                on_error.call(["Duplicate output name: " + output_name])
@@ -96,6 +109,8 @@ feature {}
             when "KW zipped" then
                node.node_at(2).accept(Current)
                file_options.zipped(last_string.intern, on_error)
+            else
+               node.node_at(0).accept(Current)
             end
          when "Rotation" then
             if node.count = 1 then
@@ -181,6 +196,11 @@ feature {}
             if not node.is_empty then
                node.node_at(1).accept(Current)
             end
+         when "Format" then
+            if not node.is_empty then
+               node.node_at(1).accept(Current)
+               last_format := last_string.intern
+            end
          end
       end
 
@@ -201,12 +221,16 @@ feature {}
             node.node_at(0).accept(Current)
             logger_name := last_class_name.intern
             current_logger := loggers.fast_reference_at(logger_name)
+            last_level := Void
+            last_format := Void
             check
                current_logger /= Void
             end
             node.node_at(2).accept(Current)
             node.node_at(4).accept(Current)
-            current_logger.set_level(last_level)
+            if last_level /= Void then
+               current_logger.set_level(last_level)
+            end
             current_logger := Void
          when "Level" then
             if not node.is_empty then
@@ -236,6 +260,8 @@ feature {}
                   end
                end
             end
+         when "Format" then
+            -- ignored on 2nd pass
          end
       end
 
@@ -552,6 +578,7 @@ feature {}
    last_string: STRING
    last_number: EIFFEL_IMAGE
    last_level: LOG_LEVEL
+   last_format: FIXED_STRING
    last_retention: INTEGER_64
    current_logger: LOGGER
    pass: PROCEDURE[TUPLE[EIFFEL_NON_TERMINAL_NODE_IMPL]]

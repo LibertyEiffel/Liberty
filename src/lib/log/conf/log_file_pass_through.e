@@ -10,7 +10,7 @@ creation {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-   retrieve (stream: FILE_STREAM): FILE_STREAM is
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
       do
          Result := stream
       end

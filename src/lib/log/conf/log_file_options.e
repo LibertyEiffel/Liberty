@@ -4,7 +4,7 @@
 class LOG_FILE_OPTIONS
 
 creation {LOG_INTERNAL_CONF}
-   make
+   file, console
 
 feature {LOG_INTERNAL_CONF}
    retriever: FUNCTION[TUPLE, OUTPUT_STREAM] is
@@ -16,7 +16,9 @@ feature {LOG_INTERNAL_CONF}
       require
          condition /= Void
       do
-         if option_rotated then
+         if file_path = Void then
+            on_error.call([output_name + ": 'rotated' not allowed on console"])
+         elseif option_rotated then
             on_error.call([output_name + ": only one 'rotated' statement allowed"])
          else
             create {LOG_FILE_ROTATED} option.make(option, condition, retention)
@@ -28,7 +30,9 @@ feature {LOG_INTERNAL_CONF}
       require
          command /= Void
       do
-         if option_zipped then
+         if file_path = Void then
+            on_error.call([output_name + ": 'zipped' not allowed on console"])
+         elseif option_zipped then
             on_error.call([output_name + ": only one 'zipped' statement allowed"])
          elseif not option_rotated then
             on_error.call([output_name + ": the 'zipped' statement must follow a 'rotated' statement"])
@@ -44,7 +48,7 @@ feature {LOG_INTERNAL_CONF}
       end
 
 feature {}
-   make (a_output_name: like output_name; a_file_path: like file_path) is
+   file (a_output_name: like output_name; a_file_path: like file_path) is
       require
          a_output_name /= Void
          a_file_path /= Void
@@ -57,6 +61,19 @@ feature {}
          output_name = a_output_name
          file_path = a_file_path
          stream.is_connected implies stream.path = a_file_path
+      end
+
+   console (a_output_name:  like output_name) is
+      require
+         a_output_name /= Void
+      do
+         output_name := a_output_name
+         stream := std_output
+         create {LOG_FILE_PASS_THROUGH} option.make
+      ensure
+         output_name = a_output_name
+         file_path = Void
+         stream = std_output
       end
 
    retrieve: OUTPUT_STREAM is
@@ -75,7 +92,7 @@ feature {}
    option_zipped: BOOLEAN
 
    option: LOG_FILE_OPTION
-   stream: FILE_STREAM
+   stream: OUTPUT_STREAM
 
    output_name: FIXED_STRING
    file_path: STRING
@@ -85,7 +102,6 @@ invariant
    option /= Void
 
    output_name /= Void
-   file_path /= Void
 
 end -- class LOG_FILE_OPTIONS
 --

@@ -10,11 +10,16 @@ creation {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-   retrieve (stream: FILE_STREAM): FILE_STREAM is
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
+      local
+         s: STREAM
+         file: FILE_STREAM
       do
          Result := parent.retrieve(stream)
-         if Result /= stream then
-            zip(Result.path, stream)
+         s := Result
+         if Result /= stream and then file ?:= s then
+            file ::= s
+            zip(file.path, file)
          end
       end
 
