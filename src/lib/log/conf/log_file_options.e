@@ -60,7 +60,7 @@ feature {}
       ensure
          output_name = a_output_name
          file_path = a_file_path
-         stream.is_connected implies stream.path = a_file_path
+         --stream.is_connected implies stream.path = a_file_path
       end
 
    console (a_output_name:  like output_name) is

@@ -109,6 +109,9 @@ feature {}
             when "KW zipped" then
                node.node_at(2).accept(Current)
                file_options.zipped(last_string.intern, on_error)
+            when "KW format" then
+               node.node_at(1).accept(Current)
+               last_format := last_string.intern
             else
                node.node_at(0).accept(Current)
             end
@@ -196,11 +199,6 @@ feature {}
             if not node.is_empty then
                node.node_at(1).accept(Current)
             end
-         when "Format" then
-            if not node.is_empty then
-               node.node_at(1).accept(Current)
-               last_format := last_string.intern
-            end
          end
       end
 
@@ -260,8 +258,6 @@ feature {}
                   end
                end
             end
-         when "Format" then
-            -- ignored on 2nd pass
          end
       end
 
