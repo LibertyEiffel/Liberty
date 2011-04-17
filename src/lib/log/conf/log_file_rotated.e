@@ -10,11 +10,19 @@ creation {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-   retrieve (stream: FILE_STREAM): FILE_STREAM is
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
+      local
+         s: STREAM
+         file: FILE_STREAM
       do
          Result := parent.retrieve(stream)
-         if condition.item([Result]) then
-            Result := rotate(Result)
+         s := Result
+         if file ?:= s then -- TODO: BERK (inheritance branch skipped)
+            file ::= s
+            if condition.item([file]) then
+               s := rotate(file)
+               Result ::= s
+            end
          end
       end
 

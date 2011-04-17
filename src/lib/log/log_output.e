@@ -30,6 +30,9 @@ feature {ANY}
          Result := output.can_put_character(c) and then forward /= Void and then forward.can_put_character(c)
       end
 
+   tag: FIXED_STRING
+   format: FIXED_STRING
+
 feature {FILTER_OUTPUT_STREAM}
    filtered_put_character (c: CHARACTER) is
       do
@@ -83,10 +86,7 @@ feature {LOGGER}
          Result /= Void
       end
 
-   tag: FIXED_STRING
-
-   format: FIXED_STRING
-
+feature {LOG_INTERNAL_CONF}
    set_format (a_format: ABSTRACT_STRING) is
       require
          a_format /= Void

@@ -27,6 +27,7 @@ feature {}
                                                                     {FAST_ARRAY[STRING] << "Output", "Output*" >> }, agent build_continue_list("Output", 0, "Output*");
                                                                     {FAST_ARRAY[STRING] << "Output", "KW ;", "Output*" >> }, agent build_continue_list("Output", 1, "Output*") >> };
                                   "Output", {PARSE_NON_TERMINAL << --{FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW url", "KW string" >> }, Void;
+                                                                   {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW console", "File_Options" >> }, Void;
                                                                    {FAST_ARRAY[STRING] << "KW entity name", "KW is", "KW file", "KW string", "File_Options" >> }, Void >> };
                                   "File_Options", {PARSE_NON_TERMINAL << epsilon, Void;
                                                                          {FAST_ARRAY[STRING] << "File_Option+", "KW end" >> }, Void >> };
@@ -34,8 +35,11 @@ feature {}
                                                                          {FAST_ARRAY[STRING] << "File_Option", "File_Option+" >> }, agent build_continue_list("File_Option", 0, "File_Option+");
                                                                          {FAST_ARRAY[STRING] << "File_Option", "KW ,", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+");
                                                                          {FAST_ARRAY[STRING] << "File_Option", "KW ;", "File_Option+" >> }, agent build_continue_list("File_Option", 1, "File_Option+"); >> };
-                                  "File_Option", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW rotated", "KW each", "Rotation", "Retention" >> }, Void;
+                                  "File_Option", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Format" >> }, Void;
+                                                                        {FAST_ARRAY[STRING] << "KW rotated", "KW each", "Rotation", "Retention" >> }, Void;
                                                                         {FAST_ARRAY[STRING] << "KW zipped", "KW using", "KW string" >> }, Void >> };
+                                  "Format", {PARSE_NON_TERMINAL << epsilon, Void;
+                                                                  {FAST_ARRAY[STRING] << "KW format", "KW string" >> }, Void; >> };
                                   "Rotation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW day" >> }, Void;
                                                                      {FAST_ARRAY[STRING] << "KW week" >> }, Void;
                                                                      {FAST_ARRAY[STRING] << "KW month" >> }, Void;
@@ -90,11 +94,13 @@ feature {}
                                   -- Keywords
 
                                   "KW configuration", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "configuration"), Void);
+                                  "KW console",       create {PARSE_TERMINAL}.make(agent parse_keyword(?, "console"), Void);
                                   "KW each",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "each"), Void);
                                   "KW end",           create {PARSE_TERMINAL}.make(agent parse_keyword(?, "end"), Void);
                                   "KW end of file",   create {PARSE_TERMINAL}.make(agent parse_end, Void);
                                   "KW error",         create {PARSE_TERMINAL}.make(agent parse_keyword(?, "error"), Void);
                                   "KW file",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "file"), Void);
+                                  "KW format",        create {PARSE_TERMINAL}.make(agent parse_keyword(?, "format"), Void);
                                   "KW info",          create {PARSE_TERMINAL}.make(agent parse_keyword(?, "info"), Void);
                                   "KW is",            create {PARSE_TERMINAL}.make(agent parse_keyword(?, "is"), Void);
                                   "KW keeping",       create {PARSE_TERMINAL}.make(agent parse_keyword(?, "keeping"), Void);
