@@ -14,6 +14,7 @@ inherit
    ABSTRACT_HASHED_DICTIONARY[V_, K_]
       redefine
          new_iterator_on_keys, new_iterator_on_items,
+         do_all_items, for_all_items, exists_item, aggregate_items,
          key_map_in, item_map_in,
          buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node
       end
@@ -58,6 +59,39 @@ feature {ANY}
             buffer.add_last(node.item)
             node := node.next_link
          end
+      end
+
+feature {ANY} -- Agent-based features:
+   do_all_items (action: ROUTINE[TUPLE[V_]]) is
+         -- Apply `action' to every item of `Current'.
+         --
+         -- See also `for_all', `exists', `aggregate'.
+      do
+         new_iterator_on_items.do_all(action)
+      end
+
+   for_all_items (test: PREDICATE[TUPLE[V_]]): BOOLEAN is
+         -- Do all items satisfy `test'?
+         --
+         -- See also `do_all', `exists', `aggregate'.
+      do
+         Result := new_iterator_on_items.for_all(test)
+      end
+
+   exists_item (test: PREDICATE[TUPLE[V_]]): BOOLEAN is
+         -- Does at least one item satisfy `test'?
+         --
+         -- See also `do_all', `for_all', `aggregate'.
+      do
+         Result := new_iterator_on_items.exists(test)
+      end
+
+   aggregate_items (action: FUNCTION[TUPLE[V_, V_], V_]; initial: V_): V_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      do
+         Result := new_iterator_on_items.aggregate(action, initial)
       end
 
 feature {}
