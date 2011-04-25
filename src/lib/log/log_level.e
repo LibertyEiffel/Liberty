@@ -59,7 +59,6 @@ feature {}
       end
 
 invariant
-   level /= Void
    tag /= Void
 
 end -- class LOG_LEVEL
