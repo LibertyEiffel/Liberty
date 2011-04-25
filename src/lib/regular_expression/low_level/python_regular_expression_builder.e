@@ -179,7 +179,7 @@ feature {} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-end -- class PERL5_REGULAR_EXPRESSION_BUILDER
+end -- class PYTHON_REGULAR_EXPRESSION_BUILDER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
