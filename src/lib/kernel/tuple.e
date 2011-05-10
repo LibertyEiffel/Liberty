@@ -83,7 +83,7 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
             and then (item_1 = other.item_1
                       or else (item_1 /= Void and then other.item_1 /= Void
                                and then item_1.is_equal(other.item_1)))
@@ -151,7 +151,10 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
             and then (item_2 = other.item_2
                       or else (item_2 /= Void and then other.item_2 /= Void
                                and then item_2.is_equal(other.item_2)))
@@ -228,7 +231,13 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
             and then (item_3 = other.item_3
                       or else (item_3 /= Void and then other.item_3 /= Void
                                and then item_3.is_equal(other.item_3)))
@@ -312,7 +321,16 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
             and then (item_4 = other.item_4
                       or else (item_4 /= Void and then other.item_4 /= Void
                                and then item_4.is_equal(other.item_4)))
@@ -405,7 +423,19 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
             and then (item_5 = other.item_5
                       or else (item_5 /= Void and then other.item_5 /= Void
                                and then item_5.is_equal(other.item_5)))
@@ -499,7 +529,22 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
             and then (item_6 = other.item_6
                       or else (item_6 /= Void and then other.item_6 /= Void
                                and then item_6.is_equal(other.item_6)))
@@ -603,7 +648,25 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
+            and then (item_6 = other.item_6
+                      or else (item_6 /= Void and then other.item_6 /= Void
+                               and then item_6.is_equal(other.item_6)))
             and then (item_7 = other.item_7
                       or else (item_7 /= Void and then other.item_7 /= Void
                                and then item_7.is_equal(other.item_7)))
@@ -715,7 +778,28 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
+            and then (item_6 = other.item_6
+                      or else (item_6 /= Void and then other.item_6 /= Void
+                               and then item_6.is_equal(other.item_6)))
+            and then (item_7 = other.item_7
+                      or else (item_7 /= Void and then other.item_7 /= Void
+                               and then item_7.is_equal(other.item_7)))
             and then (item_8 = other.item_8
                       or else (item_8 /= Void and then other.item_8 /= Void
                                and then item_8.is_equal(other.item_8)))
@@ -835,7 +919,31 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
+            and then (item_6 = other.item_6
+                      or else (item_6 /= Void and then other.item_6 /= Void
+                               and then item_6.is_equal(other.item_6)))
+            and then (item_7 = other.item_7
+                      or else (item_7 /= Void and then other.item_7 /= Void
+                               and then item_7.is_equal(other.item_7)))
+            and then (item_8 = other.item_8
+                      or else (item_8 /= Void and then other.item_8 /= Void
+                               and then item_8.is_equal(other.item_8)))
             and then (item_9 = other.item_9
                       or else (item_9 /= Void and then other.item_9 /= Void
                                and then item_9.is_equal(other.item_9)))
@@ -968,7 +1076,34 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result := Precursor(Current)
+         Result := count = other.count
+            and then (item_1 = other.item_1
+                      or else (item_1 /= Void and then other.item_1 /= Void
+                               and then item_1.is_equal(other.item_1)))
+            and then (item_2 = other.item_2
+                      or else (item_2 /= Void and then other.item_2 /= Void
+                               and then item_2.is_equal(other.item_2)))
+            and then (item_3 = other.item_3
+                      or else (item_3 /= Void and then other.item_3 /= Void
+                               and then item_3.is_equal(other.item_3)))
+            and then (item_4 = other.item_4
+                      or else (item_4 /= Void and then other.item_4 /= Void
+                               and then item_4.is_equal(other.item_4)))
+            and then (item_5 = other.item_5
+                      or else (item_5 /= Void and then other.item_5 /= Void
+                               and then item_5.is_equal(other.item_5)))
+            and then (item_6 = other.item_6
+                      or else (item_6 /= Void and then other.item_6 /= Void
+                               and then item_6.is_equal(other.item_6)))
+            and then (item_7 = other.item_7
+                      or else (item_7 /= Void and then other.item_7 /= Void
+                               and then item_7.is_equal(other.item_7)))
+            and then (item_8 = other.item_8
+                      or else (item_8 /= Void and then other.item_8 /= Void
+                               and then item_8.is_equal(other.item_8)))
+            and then (item_9 = other.item_9
+                      or else (item_9 /= Void and then other.item_9 /= Void
+                               and then item_9.is_equal(other.item_9)))
             and then (item_10 = other.item_10
                       or else (item_10 /= Void and then other.item_10 /= Void
                                and then item_10.is_equal(other.item_10)))
