@@ -5,6 +5,9 @@ class INTEGER_RANGE
 
 inherit
    TRAVERSABLE[INTEGER]
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
    make
@@ -12,6 +15,13 @@ create {ANY}
 feature {ANY}
    lower: INTEGER
    upper: INTEGER
+
+   out_in_tagged_out_memory is
+      do
+         lower.append_in(tagged_out_memory)
+         tagged_out_memory.append(once "|..|")
+         upper.append_in(tagged_out_memory)
+      end
 
    count: INTEGER is
       do
