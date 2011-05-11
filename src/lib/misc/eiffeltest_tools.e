@@ -54,10 +54,10 @@ feature {}
       local
          actual_label: STRING
       do
-         assert_counter.increment
+         assert_counter.next
          if not test then
             actual_label := message_generator.item([])
-            test_failed.item.call([assert_counter.value, actual_label, generator, assertion_flag])
+            test_failed.item.call([assert_counter.item, actual_label, generator, assertion_flag])
          end
       end
 
@@ -172,7 +172,7 @@ feature {}
 
    count_to_message: STRING is
       do
-         Result := "number " + assert_counter.value.out
+         Result := "number " + assert_counter.item.out
       end
 
    label_to_message (label: STRING): STRING is
