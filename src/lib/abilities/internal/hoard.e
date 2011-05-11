@@ -30,7 +30,7 @@ feature {ANY} -- Agent-based features:
    do_all (action: ROUTINE[TUPLE[E_]]) is
          -- Apply `action' to every item of `Current'.
          --
-         -- See also `for_all', `exists'.
+         -- See also `for_all', `exists', `aggregate'.
       require
          action /= Void
       deferred
@@ -39,7 +39,7 @@ feature {ANY} -- Agent-based features:
    for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Do all items satisfy `test'?
          --
-         -- See also `do_all', `exists'.
+         -- See also `do_all', `exists', `aggregate'.
       require
          test /= Void
       deferred
@@ -48,9 +48,18 @@ feature {ANY} -- Agent-based features:
    exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
          -- Does at least one item satisfy `test'?
          --
-         -- See also `do_all', `for_all'.
+         -- See also `do_all', `for_all', `aggregate'.
       require
          test /= Void
+      deferred
+      end
+
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      require
+         action /= Void
       deferred
       end
 
