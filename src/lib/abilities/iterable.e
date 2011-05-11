@@ -9,6 +9,9 @@ deferred class ITERABLE[E_]
 
 inherit
    HOARD[E_]
+      redefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY} -- Other features:
    new_iterator: ITERATOR[E_] is
@@ -55,6 +58,34 @@ feature {ANY} -- Agent-based features:
          -- See also `do_all', `for_all', `exists'.
       do
          Result := new_iterator.aggregate(action, initial)
+      end
+
+feature {ANY} -- Printing:
+   out_in_tagged_out_memory is
+      local
+         i: like new_iterator; v: E_
+      do
+         tagged_out_memory.extend('{')
+         tagged_out_memory.append(generating_type)
+         tagged_out_memory.append(once ":[")
+         from
+            i := new_iterator
+            i.start
+         until
+            i.is_off
+         loop
+            v := i.item
+            if v = Void then
+               tagged_out_memory.append(once "Void")
+            else
+               v.out_in_tagged_out_memory
+            end
+            i.next
+            if not i.is_off then
+               tagged_out_memory.extend(' ')
+            end
+         end
+         tagged_out_memory.append(once "]}")
       end
 
 feature {ITERATOR}
