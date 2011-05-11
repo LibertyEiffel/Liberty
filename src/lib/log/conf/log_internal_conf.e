@@ -470,7 +470,7 @@ feature {LOG_CONFIGURATION}
             if parser.error /= Void then
                on_error.call([parser.error.message])
             else
-               generations.increment
+               generations.next
                loggers.clear_count
                outputs.clear_count
 
@@ -526,7 +526,7 @@ feature {LOG_CONFIGURATION}
 
    generation_id: INTEGER is
       do
-         Result := generations.value
+         Result := generations.item
       end
 
 feature {}
