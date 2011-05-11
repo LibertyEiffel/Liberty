@@ -23,6 +23,9 @@ deferred class INDEXABLE[E_]
 
 inherit
    HOARD[E_]
+      redefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY} -- Indexing:
    lower: INTEGER is
@@ -150,6 +153,33 @@ feature {ANY} -- Agent-based features:
             Result := action.item([Result, item(i)])
             i := i + 1
          end
+      end
+
+feature {ANY} -- Printing:
+   out_in_tagged_out_memory is
+      local
+         i: INTEGER; v: like item
+      do
+         tagged_out_memory.extend('{')
+         tagged_out_memory.append(generating_type)
+         tagged_out_memory.append(once ":[")
+         from
+            i := lower
+         until
+            i > upper
+         loop
+            v := item(i)
+            if v = Void then
+               tagged_out_memory.append(once "Void")
+            else
+               v.out_in_tagged_out_memory
+            end
+            if i < upper then
+               tagged_out_memory.extend(' ')
+            end
+            i := i + 1
+         end
+         tagged_out_memory.append(once "]}")
       end
 
 end -- class INDEXABLE

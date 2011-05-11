@@ -19,8 +19,7 @@ inherit
    ARRAYED_COLLECTION[E_]
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
-      undefine
-         out_in_tagged_out_memory
+      undefine out_in_tagged_out_memory
       end
 
 creation {ANY}

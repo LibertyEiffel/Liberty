@@ -19,17 +19,16 @@ deferred class COLLECTION[E_]
    --
 
 inherit
-   ANY
-      redefine copy, is_equal, out_in_tagged_out_memory
-      end
    STORABLE
-      redefine copy, is_equal, out_in_tagged_out_memory
+      undefine out_in_tagged_out_memory
+      redefine copy, is_equal
       end
    TRAVERSABLE[E_]
-      redefine copy, is_equal, out_in_tagged_out_memory
+      redefine copy, is_equal
       end
    SEARCHABLE[E_]
-      redefine copy, is_equal, out_in_tagged_out_memory
+      undefine out_in_tagged_out_memory
+      redefine copy, is_equal
       end
 
 feature {ANY} -- Accessing:
@@ -420,33 +419,6 @@ feature {ANY} -- Looking and comparison:
       deferred
       ensure
          Result >= 0
-      end
-
-feature {ANY} -- Printing:
-   out_in_tagged_out_memory is
-      local
-         i: INTEGER; v: like item
-      do
-         tagged_out_memory.extend('{')
-         tagged_out_memory.append(generating_type)
-         tagged_out_memory.append(once ":[")
-         from
-            i := lower
-         until
-            i > upper
-         loop
-            v := item(i)
-            if v = Void then
-               tagged_out_memory.append(once "Void")
-            else
-               v.out_in_tagged_out_memory
-            end
-            if i < upper then
-               tagged_out_memory.extend(' ')
-            end
-            i := i + 1
-         end
-         tagged_out_memory.append(once "]}")
       end
 
 feature {ANY} -- Other features:

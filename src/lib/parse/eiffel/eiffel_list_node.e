@@ -5,6 +5,8 @@ deferred class EIFFEL_LIST_NODE
 
 inherit
    EIFFEL_NODE
+      undefine out_in_tagged_out_memory
+      end
 
 insert
    TRAVERSABLE[EIFFEL_NODE]

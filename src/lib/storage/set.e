@@ -15,6 +15,7 @@ inherit
 
 insert
    SAFE_EQUAL[E_]
+      undefine out_in_tagged_out_memory
       redefine is_equal, copy
       end
 

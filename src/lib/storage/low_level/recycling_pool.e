@@ -27,8 +27,8 @@ insert
          mark_native_arrays
       end
    ANY
-      undefine
-         out_in_tagged_out_memory, copy, is_equal
+      -- To get reasonable default exports
+      undefine out_in_tagged_out_memory, copy, is_equal
       end
 
 creation {ANY}
