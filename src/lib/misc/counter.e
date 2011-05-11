@@ -10,7 +10,7 @@ feature {ANY}
    item: INTEGER
          -- The `value' of the counter.
 
-   increment is
+   increment, next is
          -- Increment the `item' of `Current' counter.
       do
          item := item + 1
@@ -18,7 +18,7 @@ feature {ANY}
          item = 1 + old item
       end
 
-   decrement is
+   decrement, previous is
          -- Decrement the `item' of `Current' counter.
       do
          item := item - 1
@@ -26,7 +26,7 @@ feature {ANY}
          item + 1 = old item
       end
 
-   reset is
+   reset, start is
          -- Reset the `item' of `Current' counter.
       do
          item := 0
