@@ -366,7 +366,7 @@ feature {ANY}
          end
       end
 
-   from_collection (model: COLLECTION[like item]) is
+   from_collection (model: TRAVERSABLE[like item]) is
          -- Add all items of `model'.
       require
          model /= Void
