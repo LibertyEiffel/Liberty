@@ -7,37 +7,43 @@ class COUNTER
    --
 
 feature {ANY}
-   value: INTEGER
+   item: INTEGER
          -- The `value' of the counter.
 
    increment is
-         -- Increment the `value' of `Current' counter.
+         -- Increment the `item' of `Current' counter.
       do
-         value := value + 1
+         item := item + 1
       ensure
-         value = 1 + old value
+         item = 1 + old item
       end
 
    decrement is
-         -- Decrement the `value' of `Current' counter.
+         -- Decrement the `item' of `Current' counter.
       do
-         value := value - 1
+         item := item - 1
       ensure
-         value + 1 = old value
+         item + 1 = old item
       end
 
    reset is
-         -- Reset the `value' of `Current' counter.
+         -- Reset the `item' of `Current' counter.
       do
-         value := 0
+         item := 0
       ensure
-         value = 0
+         item = 0
       end
 
    append_in (buffer: STRING) is
-         -- Append the `value' of the `Current' counter in the `buffer'.
+         -- Append the `item' of the `Current' counter in the `buffer'.
       do
-         value.append_in(buffer)
+         item.append_in(buffer)
+      end
+
+   value: INTEGER is
+      obsolete "use `item' instead"
+      do
+         Result := item
       end
 
 end -- class COUNTER
