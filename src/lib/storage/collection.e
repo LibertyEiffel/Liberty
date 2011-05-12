@@ -345,11 +345,22 @@ feature {ANY} -- Looking and Searching:
       end
 
 feature {ANY} -- Looking and comparison:
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
          -- Do both collections have the same `lower', `upper', and items?
          -- The basic `=' is used for comparison of items.
          --
-         -- See also `is_equal_map', `same_items'.
+         -- See also `is_equal', `same_items'.
+      deferred
+      ensure
+         Result implies lower = other.lower and upper = other.upper
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+         -- Do both collections have the same `lower', `upper', and
+         -- items?
+         -- Feature `is_equal' is used for comparison of items.
+         --
+         -- See also `fast_is_equal', `same_items'.
       deferred
       ensure then
          Result implies lower = other.lower and upper = other.upper
@@ -359,11 +370,9 @@ feature {ANY} -- Looking and comparison:
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
-         --
-         -- See also `is_equal', `same_items'.
-      deferred
-      ensure
-         Result implies lower = other.lower and upper = other.upper
+      obsolete "is_equal now does that."
+      do
+         Result := is_equal(other)
       end
 
    all_default: BOOLEAN is
@@ -380,7 +389,7 @@ feature {ANY} -- Looking and comparison:
          -- example this routine may yeld True with `Current' indexed in
          -- range [1..2] and `other' indexed in range [2..3]).
          --
-         -- See also `is_equal_map', `is_equal'.
+         -- See also `is_equal', `fast_is_equal'.
       require
          other /= Void
       local

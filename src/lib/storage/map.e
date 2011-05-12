@@ -279,12 +279,12 @@ feature {ANY} -- To provide iterating facilities:
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
          -- Do both dictionaries have the same set of associations?
          -- Keys are compared with `is_equal' and values are comnpared
          -- with the basic = operator.
          --
-         -- See also `is_equal_map'.
+         -- See also `is_equal'.
       local
          i: INTEGER; k: K_
       do
@@ -309,15 +309,15 @@ feature {ANY}
                end
             end
          end
-      ensure then
+      ensure
          Result implies count = other.count
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN is
          -- Do both dictionaries have the same set of associations?
          -- Both keys and values are compared with `is_equal'.
          --
-         -- See also `is_equal'.
+         -- See also `fast_is_equal'.
       local
          i: INTEGER; k: K_; safe_equal: SAFE_EQUAL[V_]
       do
@@ -342,6 +342,15 @@ feature {ANY}
                end
             end
          end
+      end
+
+   is_equal_map (other: like Current): BOOLEAN is
+         -- Do both collections have the same `lower', `upper', and
+         -- items?
+         -- Feature `is_equal' is used for comparison of items.
+      obsolete "is_equal now does that."
+      do
+         Result := is_equal(other)
       end
 
 feature {ANY} -- Display support:
