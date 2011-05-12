@@ -202,7 +202,7 @@ feature {ANY}
          from_collection(other)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
       local
          lnk1, lnk2: like first_link
       do
@@ -223,7 +223,7 @@ feature {ANY}
          end
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN is
       local
          lnk1, lnk2: like first_link; safe_equal: SAFE_EQUAL[E_]
       do

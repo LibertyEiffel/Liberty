@@ -198,10 +198,10 @@ feature {ANY} -- Looking and comparison:
       deferred
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
          -- Do both collections have the same `lower1', `lower2', `upper1' and `upper2', and items?
          -- The basic `=' is used for comparison of items.
-         -- See also `is_equal_map'.
+         -- See also `is_equal'.
       local
          line, column: INTEGER
       do
@@ -229,10 +229,10 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN is
          -- Do both collections have the same `lower1', `lower2', `upper1' and `upper2', and items?
          -- Feature `is_equal' is used for comparison of items.
-         -- See also `is_equal'.
+         -- See also `fast_is_equal'.
       local
          line, column: INTEGER
       do
@@ -258,6 +258,15 @@ feature {ANY} -- Looking and comparison:
                line := line - 1
             end
          end
+      end
+
+   is_equal_map (other: like Current): BOOLEAN is
+         -- Do both collections have the same `lower', `upper', and
+         -- items?
+         -- Feature `is_equal' is used for comparison of items.
+      obsolete "is_equal now does that."
+      do
+         Result := is_equal(other)
       end
 
 feature {ANY} -- Printing:

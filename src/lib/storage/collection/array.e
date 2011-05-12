@@ -382,7 +382,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
       do
          if Current = other then
             Result := True
@@ -391,7 +391,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN is
       do
          if Current = other then
             Result := True

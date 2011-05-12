@@ -517,7 +517,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN is
       local
          wp, owp: INTEGER
       do
@@ -534,7 +534,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN is
       local
          wp, owp: INTEGER
       do
