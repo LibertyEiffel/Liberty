@@ -97,7 +97,6 @@ feature {} -- Disk access:
          -- See also `scan_current_working_directory'.
       require
          not directory_path.is_empty
-         directory_path /= path
       do
          path := connect_directory(directory_path)
          if basic_directory.is_connected then
@@ -116,8 +115,6 @@ feature {} -- Disk access:
             basic_directory.compute_short_name_of(path)
             name := basic_directory.last_entry.intern
          end
-      ensure
-         path /= directory_path
       end
 
    scan_current_working_directory is
