@@ -100,9 +100,6 @@ feature {ANY}
          if start_index <= count then
             index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
             Result := lower + index - storage_lower
-            if Result > upper then
-               Result := 0
-            end
          end
       end
 
