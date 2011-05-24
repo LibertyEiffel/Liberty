@@ -433,7 +433,74 @@ feature {EIFFEL_LIST_NODE_IMPL}
       end
 
 feature {LOG_CONFIGURATION}
-   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]) is
+   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
+      local
+         load_item: TUPLE[INPUT_STREAM, PROCEDURE[TUPLE[STRING]], FUNCTION[TUPLE[STRING], STRING], PROCEDURE[TUPLE]]
+      do
+         if loading then
+            load_queue.add_last([a_stream, when_error, a_path_resolver, a_load_completion])
+         else
+            loading := True
+            from
+               load_(a_stream, when_error, a_path_resolver, a_load_completion)
+            until
+               load_queue.is_empty
+            loop
+               load_item := load_queue.first
+               load_queue.remove_first
+               load_(load_item.first, load_item.second, load_item.third, load_item.fourth)
+            end
+            loading := False
+         end
+      end
+
+   conf_logger (a_tag: FIXED_STRING): LOGGER is
+      require
+         a_tag.intern = a_tag
+      local
+         i: INTEGER; parent: LOGGER; parent_tag: FIXED_STRING
+      do
+         if not default_loaded then
+            load_default
+         end
+
+         Result := loggers.fast_reference_at(a_tag)
+         if Result = Void then
+            i := a_tag.first_index_of('[')
+            if a_tag.valid_index(i) then
+               parent_tag := a_tag.substring(a_tag.lower, i - 1).intern
+               parent := loggers.fast_reference_at(parent_tag)
+               if parent = Void then
+                  create parent.make(root.output, parent_tag, generation_id)
+                  parent.set_parent(root)
+                  loggers.put(parent, parent_tag)
+               end
+            else
+               parent := root
+            end
+            check
+               parent /= Void
+            end
+            create Result.make(parent.output, a_tag, generation_id)
+            Result.set_parent(parent)
+            loggers.put(Result, a_tag)
+         end
+      ensure
+         Result /= Void
+      end
+
+   generation_id: INTEGER is
+      do
+         Result := generations.item
+      end
+
+feature {}
+   load_queue: RING_ARRAY[TUPLE[INPUT_STREAM, PROCEDURE[TUPLE[STRING]], FUNCTION[TUPLE[STRING], STRING], PROCEDURE[TUPLE]]]
+   loading: BOOLEAN
+
+   load_ (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
+      require
+         a_stream.is_connected
       local
          conf: STRING
          on_error: like when_error
@@ -481,52 +548,16 @@ feature {LOG_CONFIGURATION}
             end
          else
             if when_error /= Void then
-               when_error.call(["Unknown error while loading log configuration"])
+               when_error.call(["Truncated log configuration file"])
             else
-               std_error.put_line("Unknown error while loading log configuration")
+               std_error.put_line("Truncated log configuration file")
                die_with_code(1)
             end
          end
-      end
 
-   conf_logger (a_tag: FIXED_STRING): LOGGER is
-      require
-         a_tag.intern = a_tag
-      local
-         i: INTEGER; parent: LOGGER; parent_tag: FIXED_STRING
-      do
-         if not default_loaded then
-            load_default
+         if a_load_completion /= Void then
+            a_load_completion.call([])
          end
-
-         Result := loggers.fast_reference_at(a_tag)
-         if Result = Void then
-            i := a_tag.first_index_of('[')
-            if a_tag.valid_index(i) then
-               parent_tag := a_tag.substring(a_tag.lower, i - 1).intern
-               parent := loggers.fast_reference_at(parent_tag)
-               if parent = Void then
-                  create parent.make(root.output, parent_tag, generation_id)
-                  parent.set_parent(root)
-                  loggers.put(parent, parent_tag)
-               end
-            else
-               parent := root
-            end
-            check
-               parent /= Void
-            end
-            create Result.make(parent.output, a_tag, generation_id)
-            Result.set_parent(parent)
-            loggers.put(Result, a_tag)
-         end
-      ensure
-         Result /= Void
-      end
-
-   generation_id: INTEGER is
-      do
-         Result := generations.item
       end
 
 feature {}
@@ -535,6 +566,7 @@ feature {}
          create loggers.make
          create outputs.make
          create generations
+         create load_queue.make(1, 0)
       end
 
    load_default is
@@ -555,8 +587,7 @@ feature {}
          if ft.file_exists("log.rc") then
             create in.connect_to("log.rc")
             if in.is_connected then
-               load(in, Void, Void)
-               in.disconnect
+               load(in, Void, Void, agent (a_in: TEXT_FILE_READ) is do a_in.disconnect end(in))
             end
             if root = Void then
                std_error.put_line(once "Could not initialize the logging framework.%NPlease check your log.rc file or explicitly call LOG_CONFIGURATION.load")
