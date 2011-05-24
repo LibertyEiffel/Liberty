@@ -469,6 +469,8 @@ feature {}
    epsilon: FAST_ARRAY[STRING] is
       once
          create Result.with_capacity(0)
+      ensure
+         Result.is_empty
       end
 
    is_a_keyword (id: STRING): BOOLEAN is
