@@ -7,11 +7,11 @@ expanded class LOG_CONFIGURATION
 --
 
 feature {ANY}
-   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]) is
+   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
       require
          a_stream.is_connected
       do
-         internal.load(a_stream, when_error, path_resolver)
+         internal.load(a_stream, when_error, path_resolver, a_load_completion)
       end
 
 feature {LOGGING}
