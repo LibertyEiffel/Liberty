@@ -10,6 +10,9 @@ inherit
 
 insert
    HASH_TABLE_SIZE
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY}
    Default_size: INTEGER is 53
