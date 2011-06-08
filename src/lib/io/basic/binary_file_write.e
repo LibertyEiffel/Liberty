@@ -9,7 +9,7 @@ class BINARY_FILE_WRITE
 inherit
    DISPOSABLE
    FILE_STREAM
-      redefine 
+      redefine
          dispose
       end
 
@@ -72,6 +72,8 @@ feature {ANY}
          fclose(output_stream)
          path := Void
       end
+
+   can_disconnect: BOOLEAN is True
 
    put_byte (byte: INTEGER) is
       require
