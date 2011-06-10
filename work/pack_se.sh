@@ -12,7 +12,7 @@ export SMARTEIFFEL_HOME=$(pwd)
 test -d $TMPDIR && rm -rf $TMPDIR
 mkdir -p $SEDIR
 
-svn diff tools > $SEDIR/tools.patch
+svn diff -x-b tools > $SEDIR/tools.patch
 
 cd $SEDIR
 cp -R $SMARTEIFFEL_HOME/short ./
