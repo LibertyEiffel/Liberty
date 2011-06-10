@@ -164,13 +164,21 @@ feature {ANY}
          buffer_position := buffer_position + 4
       end
 
+feature {FILTER}
+   filtered_descriptor: INTEGER is 0
+   filtered_has_descriptor: BOOLEAN is False
+
+   filtered_stream_pointer: POINTER is
+      do
+         Result := output_stream
+      end
+
+   filtered_has_stream_pointer: BOOLEAN is True
+
 feature {}
    buffer: NATIVE_ARRAY[CHARACTER]
-
    buffer_position: INTEGER
-
    capacity: INTEGER
-
    output_stream: POINTER
 
    make is
@@ -199,6 +207,12 @@ feature {}
          end
       end
 
+   new_url: URL is
+      do
+         create Result.from_stream(Current, False, True)
+      end
+
+feature {} -- built-ins
    put_16_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
       external "built_in"
       end
