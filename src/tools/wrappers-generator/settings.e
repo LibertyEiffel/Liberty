@@ -12,7 +12,7 @@ feature {ANY} -- Queries
 
 	verbose: BOOLEAN
 
-	directory: STRING is "-" -- Default output is on current directory. May be overwritten.
+	directory: STRING is "." -- Default output is on current directory. May be overwritten.
 
 	typedefs: STRING
 	-- The name of the class containing typedef queries, empty queries
