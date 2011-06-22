@@ -11,14 +11,25 @@ feature
 		end
 
 	namespace: C_NAMESPACE is
+		local symbol: NAMED_NODE; contexted: CONTEXTED_NODE
 		do
 			if not namespace_retrieved then
-				cached_namespace:=namespaces.reference_at(context)
+				-- Some elements have a context which is their actual
+				-- namespace; other like fields referes to their container;
+				-- also in C++ things like a typedef may be containted into a
+				-- struct. Therefore the actual namespace is contained in
+				-- context of Current or in the node referred by context.
+				cached_namespace := namespaces.reference_at(context)
+				if cached_namespace=Void then -- Recursively look for the namespace
+					from symbol := symbols.reference_at(context.as_utf8) 
+					until cached_namespace /= Void
+					loop
+						cached_namespace ?= symbol
+						symbol := symbols.reference_at(symbol.attribute_at(once U"context").as_utf8)
+					end
+				end
+				check cached_namespace/=Void end
 				namespace_retrieved := True
-				-- Namespace can be void; using a separate flag avoid multiple
-				-- unuseful queries to namespaces collection when context is
-				-- not a namespace. For example the context of a field may be a
-				-- struct or a class.
 			end
 			Result:=cached_namespace
 		end
@@ -29,16 +40,8 @@ feature
 	local ns: C_NAMESPACE
 	do
 		Result := namespace.is_main 
-		-- Previous (working) implementation
-		-- ns := namespace
-		-- if ns/=Void then Result := ns.c_name.is_equal(once U"::")
-		-- else 
-		-- 	log("Context of @(1) (line @(2)) is not a namespace", <<name.as_utf8, line.out>>)
-		-- 	check
-		-- 		Result=False
-		-- 	end
-		-- end
 	end
+	
 feature {} -- Implementation
 	cached_namespace: C_NAMESPACE
 	namespace_retrieved: BOOLEAN

@@ -18,7 +18,7 @@ feature
 			create moved.make
 			Precursor(url)
 		end
-
+	
 	new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
 		do
 			inspect node_name.as_utf8
@@ -50,6 +50,7 @@ feature
 			when "Struct" then create {C_STRUCT} Result.make(node_name, line, column)
 			when "Typedef" then create {C_TYPEDEF} Result.make(node_name, line, column)
 			when "Union" then create {C_UNION} Result.make(node_name, line, column)
+			when "Unimplemented" then create {UNIMPLEMENTED_NODE} Result.make(node_name,line,column)
 			when "Variable" then create {C_VARIABLE} Result.make(node_name, line, column)
 			else 
 				raise(node_name.as_utf8+" does not have an GCCXML_NODE")
@@ -82,8 +83,12 @@ feature {ANY} -- Wrappers emittions
 			-- Assign each variable to the file they belong to.
 			variables.do_all(agent move_feature)
 
+			check node ?:= root end -- this is not stricly necessary, we check that root is actually a GCCXML_NODE
 			node ::= root
-			node.emit_wrappers	
+			node.emit_wrappers
+			-- Note that an eventual assertion like "check node/=Void end" or a
+			-- run-time check like "if node/=Void then node.emit_wrappers end"
+			-- are not necessary since "node ::= root" actually requires root to be a GCCXML_NODE
 		end
 
 	move_feature (a_feature: WRAPPER_FEATURE) is
