@@ -5,10 +5,9 @@
 XML=libxml2.gcc-xml
 HEADER=/usr/include/libxml2/libxml/parser.h
 
-$(XML): 
+wrappers: $(XML)
+	wrappers-generator --local $(XML) $(HEADER)   
+
+$(XML): $(HEADER) 
 	gccxml `pkg-config --cflags libxml-2.0` $(HEADER) -fxml=$(XML)
-
-wrappers: 
-	wrappers-generator --local --directory . $(XML) $(HEADER)   
-
 
