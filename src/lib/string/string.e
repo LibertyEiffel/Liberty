@@ -206,7 +206,7 @@ feature {ANY} -- Modification:
             ensure_capacity(needed_capacity)
          end
          slice_copy(upper, s, s.lower, s.upper)
-         count := needed_capacity
+         count := needed_capacity - storage_lower
          next_generation
       end
 
