@@ -196,7 +196,7 @@ feature {ANY} -- Modification:
 				ensure_capacity(needed_capacity)
 			end
 			slice_copy(upper, s, s.lower, s.upper)
-			count := needed_capacity
+			count := needed_capacity - storage_lower
 		end
 
 	append_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -215,7 +215,7 @@ feature {ANY} -- Modification:
 				ensure_capacity(needed_capacity)
 			end
 			slice_copy(upper, s, start_index, end_index)
-			count := needed_capacity
+			count := needed_capacity 
 		end
 
 	prepend (other: ABSTRACT_STRING) is
