@@ -614,7 +614,7 @@ feature {}
          -- smaller than `medium_size'. Afterall, tuning of storage size is done automatically according to
          -- usage.
       require
-         medium_size > 0
+         medium_size >= 0
       do
          create_with_capacity(prime_capacity(medium_size))
       ensure

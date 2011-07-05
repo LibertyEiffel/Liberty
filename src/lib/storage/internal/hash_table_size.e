@@ -138,10 +138,10 @@ feature {}
 feature {} -- Capacity management: ideally we try to keep the dictionary less than 2/3rd filled
    prime_capacity (a_capacity: INTEGER_32): INTEGER_32 is
       require
-         a_capacity > 0
+         a_capacity >= 0
       do
          Result := a_capacity #+ (a_capacity #// 2)
-         if Result > 0 then
+         if Result >= 0 then
             Result := prime_number_ceiling(Result)
          else
             Result := prime_number_ceiling(Maximum_integer)
