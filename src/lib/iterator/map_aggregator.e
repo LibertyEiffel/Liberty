@@ -1,25 +1,25 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class AGGREGATOR[E_, R_]
+expanded class MAP_AGGREGATOR[V_, K_, R_]
 
 feature {ANY}
-   map, map_iter (items: ITERABLE[E_]; action: FUNCTION[TUPLE[E_, R_], R_]; initial: R_): R_ is
+   map, map_iter (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_ is
       local
-         iterator: ITERATOR[E_]
+         i: ITERATOR[K_]
       do
          Result := initial
          from
-            iterator := items.new_iterator
+            i := items.new_iterator_on_keys
          until
-            iterator.is_off
+            i.is_off
          loop
-            Result := action.item([iterator.item, Result])
-            iterator.next
+            Result := action.item([items.at(i.item), i.item, Result])
+            i.next
          end
       end
 
-   map_index (items: INDEXABLE[E_]; action: FUNCTION[TUPLE[E_, R_, INTEGER], R_]; initial: R_): R_ is
+   map_index (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_ is
       local
          i: INTEGER
       do
@@ -29,12 +29,12 @@ feature {ANY}
          until
             i > items.upper
          loop
-            Result := action.item([items.item(i), Result, i])
+            Result := action.item([items.item(i), items.key(i), Result])
             i := i + 1
          end
       end
 
-end -- class AGGREGATOR
+end -- class MAP_AGGREGATOR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
