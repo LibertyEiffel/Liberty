@@ -34,14 +34,6 @@ feature
 			Result:=cached_namespace
 		end
 
-	is_in_main_namespace: BOOLEAN is
-		obsolete "use namespace.is_main"
-		-- Does Current belong to the main ("::") namespace?
-	local ns: C_NAMESPACE
-	do
-		Result := namespace.is_main 
-	end
-	
 feature {} -- Implementation
 	cached_namespace: C_NAMESPACE
 	namespace_retrieved: BOOLEAN

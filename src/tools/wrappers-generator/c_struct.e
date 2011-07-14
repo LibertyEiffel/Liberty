@@ -1,9 +1,9 @@
 class C_STRUCT
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
-	COMPOSED_NODE -- hence also STORABLE_NODE 
-		undefine compute_eiffel_name end
-	CONTEXTED_NODE -- therefore also a STORABLE_NODE and a NAMED_NODE 
+	COMPOSED_NODE -- hence also STORABLE_NODE  and a NAMED_NODE
+		undefine compute_eiffel_name end -- using the definition made in WRAPPER_CLASS
+	CONTEXTED_NODE 
 	FILED_NODE
 	IDENTIFIED_NODE
 	TYPED_NODE
@@ -51,7 +51,7 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result:= is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			Result:= is_named and then (is_public or has_assigned_name) and then namespace.is_main and then 
 			(global or else headers.has(c_file.c_string_name))
 		end
 	emit_wrapper is
@@ -59,15 +59,15 @@ feature
 
 		-- A reference wrapper handles the structure as a memory area referred by a pointer.
 		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
-	local path: POSIX_PATH_NAME
+	local path: POSIX_PATH_NAME; filename: STRING
 	do
 		if is_to_be_emitted then
 			create path.make_from_string(directory)
 			path.add_last(eiffel_name.as_lower+once ".e")
+			filename := path.to_string
 			log(once "Struct @(1) to @(2) in @(3)%N",
-			<<c_string_name, eiffel_name, path.to_string>>)
-			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
-			-- if members.for_all(agent {}.has_wrapper) then -- it is surely wrappable
+			<<c_string_name, eiffel_name, filename>>)
+			create {TEXT_FILE_WRITE} output.connect_to(filename)
 			emit_header
 			emit_members
 			emit_size
