@@ -1,0 +1,24 @@
+body{background:#fff;color:#000;link:#3f3;vlink:#1a1;}
+
+a:link{color:#0c0;}
+a:visited{color:#f80;}
+a:hover{background:#ff9;color:#0c0;text-decoration:underline;}
+
+.title{font-size: x-large; margin-left: 0cm}
+.section{font-size: large; margin-left: 0cm}
+
+.classname{font-weight:bold;}
+.comment{color:#088;font-style:italic;}
+.keywords{font-weight:bold;color:#b77;font-style:italic;}
+.constants{color:#d40;font-style:italic}
+.argumentname{font-style:italic;}
+.simple_featurename{font-weight:bold;}
+.assertiontag{color:#888;font-style:italic;font-weight:bold;}
+
+.tab_comment{margin-left: 10%; margin-top: -1em}
+.tab_feature{margin-left: 5%}
+.tab_feature_comment{margin-left: 10%; margin-top: -1em}
+.tab_contract{margin-left: 10%; margin-top: -1em}
+.tab_contract_comment{margin-left: 15%; margin-top: -1em}
+.tab_assertion{margin-left: 15%; margin-top: -1em}
+.tab_feature_deferred{margin-left: 10%; margin-top: -0.5em; margin-bottom: +1.5em}
