@@ -9,6 +9,12 @@ class DIRECTORY
 
 inherit
    FILE
+   TRAVERSABLE[FIXED_STRING]
+      rename
+         exists as exists_that
+      undefine
+         out_in_tagged_out_memory
+      end
 
 insert
    DIRECTORY_NOTATION_HANDLER
@@ -155,30 +161,25 @@ feature {ANY} -- Access:
          -- Number of items (files or directories) in Current.
       do
          Result := name_list.count
-      ensure
-         Result >= 0
       end
 
    is_empty: BOOLEAN is
       do
          Result := count = 0
-      ensure
-         definition: Result = (count = 0)
       end
 
-   valid_index (index: INTEGER): BOOLEAN is
+   first: FIXED_STRING is
       do
-         if index >= 1 then
-            Result := index <= name_list.upper + 1
-         end
-      ensure
-         Result = (lower <= index and index <= upper)
+         Result := name_list.first
+      end
+
+   last: FIXED_STRING is
+      do
+         Result := name_list.last
       end
 
    item (index: INTEGER): FIXED_STRING is
          -- Return the name of entry (file or subdirectory) at `index'.
-      require
-         valid_index(index)
       do
          Result := name_list.item(index - 1)
       ensure
@@ -191,6 +192,11 @@ feature {ANY} -- Access:
          not entry_name.is_empty
       do
          Result := collection_sorter.has(name_list, case_canonical_filename(entry_name))
+      end
+
+   new_iterator: ITERATOR[FIXED_STRING] is
+      do
+         Result := name_list.new_iterator
       end
 
 feature {ANY} -- File access:
