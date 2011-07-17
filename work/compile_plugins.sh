@@ -33,7 +33,7 @@ do_generate()
     progress 30 $((i*3)) $((n*3)) "Generating header file for $plugin_so"
 
     {
-	cat <<EOF
+        cat <<EOF
 #ifndef __LIBERTY_PLUGIN__
 #define __LIBERTY_PLUGIN__
 
@@ -41,53 +41,53 @@ do_generate()
 #include <errno.h>
 
 EOF
-	if [ "$(echo ${plugin_pattern}*.h)" != "$plugin_pattern"'*.h' ]; then
-	    for f in ${plugin_pattern}*.h; do
-		echo '#include "'${f##*/}'"'
-	    done
-	fi
+        if [ "$(echo ${plugin_pattern}*.h)" != "$plugin_pattern"'*.h' ]; then
+            for f in ${plugin_pattern}*.h; do
+                echo '#include "'${f##*/}'"'
+            done
+        fi
 
-	echo
+        echo
 
-	find $path_liberty -name \*.e -exec grep -Hn 'location: "${sys}/'$location'"' {} \; | \
-	    awk -F: '{print $1}' | uniq | \
-	    xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
-	    sed 's/"\([^"]*\)"/\1/g' | sort -u | \
-	while read file symbol; do
-	    {
-		cat $file | grep "$symbol" | grep ' is$'
-		cat $file | grep -C3 'feature_name: "'$symbol'"'
-	    } | $LIBERTY_HOME/work/find_feature.py header $symbol ${file##*/}
-	done | sort -u
+        find $path_liberty -name \*.e -exec grep -Hn 'location: "${sys}/'$location'"' {} \; | \
+            awk -F: '{print $1}' | uniq | \
+            xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
+            sed 's/"\([^"]*\)"/\1/g' | sort -u | \
+        while read file symbol; do
+            {
+                cat $file | grep "$symbol" | grep ' is$'
+                cat $file | grep -C3 'feature_name: "'$symbol'"'
+            } | $LIBERTY_HOME/work/find_feature.py header $symbol ${file##*/}
+        done | sort -u
 
-	echo '#endif'
+        echo '#endif'
     } > $plugin_h
 
     progress 30 $((i*3+1)) $((n*3)) "Generating code file for $plugin_so"
 
     {
-	cat <<EOF
+        cat <<EOF
 #include "${plugin_h##*/}"
 
 EOF
-	if [ "$(echo ${plugin_pattern}*.c)" != "$plugin_pattern"'*.c' ]; then
-	    for f in ${plugin_pattern}*.c; do
-		echo '#include "'${f##*/}'"'
-	    done
-	fi
+        if [ "$(echo ${plugin_pattern}*.c)" != "$plugin_pattern"'*.c' ]; then
+            for f in ${plugin_pattern}*.c; do
+                echo '#include "'${f##*/}'"'
+            done
+        fi
 
-	echo
+        echo
 
-	find $path_liberty -name \*.e -exec grep -Hn 'location: "${sys}/'"$location"'"' {} \; | \
-	    awk -F: '{print $1}' | uniq | \
-	    xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
-	    sed 's/"\([^"]*\)"/\1/g' | sort -u | \
-	while read file symbol; do
-	    {
-		cat $file | grep "$symbol" | grep ' is$'
-		cat $file | grep -C3 'feature_name: "'$symbol'"'
-	    } | $LIBERTY_HOME/work/find_feature.py code $symbol ${file##*/}
-	done | sort -u
+        find $path_liberty -name \*.e -exec grep -Hn 'location: "${sys}/'"$location"'"' {} \; | \
+            awk -F: '{print $1}' | uniq | \
+            xargs -n1 awk '/module_name: "'$plugin_name'"/ { i=1 } /feature_name: "[^"]*"/ { if (i) printf("%s %s\n", ARGV[1], $2); i=0 }' | \
+            sed 's/"\([^"]*\)"/\1/g' | sort -u | \
+        while read file symbol; do
+            {
+                cat $file | grep -E "^[[:space:]]*$symbol(|[:([:space:]].*) is$"
+                cat $file | grep -C3 'feature_name: "'$symbol'"'
+            } | $LIBERTY_HOME/work/find_feature.py code $symbol ${file##*/}
+        done | sort -u
     } > $plugin_c
 
     progress 30 $((i*3+2)) $((n*3)) "Building $plugin_so"

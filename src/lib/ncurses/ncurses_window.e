@@ -609,7 +609,7 @@ feature {ANY}
       require
          ncurses.is_enabled
       do
-         ncurses.check_for_error(wsyncup(widget) = ncurses.ok)
+         wsyncup(widget)
       end
 
    synchronize_parents_cursor is
@@ -617,7 +617,7 @@ feature {ANY}
       require
          ncurses.is_enabled
       do
-         ncurses.check_for_error(wcursyncup(widget) = ncurses.ok)
+         wcursyncup(widget)
       end
 
 feature {NCURSES_WIDGET}
@@ -1059,7 +1059,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wsyncup (win: POINTER): INTEGER is
+   wsyncup (win: POINTER) is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1068,7 +1068,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wcursyncup (win: POINTER): INTEGER is
+   wcursyncup (win: POINTER) is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
