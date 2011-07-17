@@ -1,11 +1,11 @@
 class C_STRUCT
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
-	CONTEXTED_NODE
-	COMPOSED_NODE
-	IDENTIFIED_NODE
+	COMPOSED_NODE -- hence also STORABLE_NODE 
+		undefine compute_eiffel_name end
+	CONTEXTED_NODE -- therefore also a STORABLE_NODE and a NAMED_NODE 
 	FILED_NODE
-	STORABLE_NODE
+	IDENTIFIED_NODE
 	TYPED_NODE
 	WRAPPER_CLASS
 
@@ -46,7 +46,7 @@ feature
 				"C_STRUCT.wrapper_type requires creation%
 				% of external/expanded types; currently returning an empty string")
 			end
-			not_yet_implemented -- Result := class_name
+			not_yet_implemented -- Result := eiffel_name
 		end
 
 	is_to_be_emitted: BOOLEAN is
@@ -62,16 +62,11 @@ feature
 	local path: POSIX_PATH_NAME
 	do
 		if is_to_be_emitted then
-			if on_standard_output then
-					log(once "Outputting wrapper for struct @(1) on standard output.%N", <<c_string_name>>)
-		 		output := std_output
-		 	else
-		 		create path.make_from_string(directory)
-		 		path.add_last(class_name.as_lower+once ".e")
-				log(once "Struct @(1) to @(2) in @(3)%N",
-				<<c_string_name, class_name, path.to_string>>)
-				create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
-			end
+			create path.make_from_string(directory)
+			path.add_last(eiffel_name.as_lower+once ".e")
+			log(once "Struct @(1) to @(2) in @(3)%N",
+			<<c_string_name, eiffel_name, path.to_string>>)
+			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 			-- if members.for_all(agent {}.has_wrapper) then -- it is surely wrappable
 			emit_header
 			emit_members
@@ -92,8 +87,8 @@ feature
 	do
 		buffer.append(automatically_generated_header)
 		buffer.append(deferred_class)
-		buffer.append(class_name)
-		-- TODO: emit_description(class_descriptions.reference_at(class_name))
+		buffer.append(eiffel_name)
+		-- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
 		buffer.append(struct_inherits)
 		buffer.put_message(once "%T@(1)%N",<<settings.typedefs>>)
 		buffer.print_on(output)
@@ -107,7 +102,7 @@ feature
 				setters.reset; queries.reset
 				setters.append(setters_header)
 				queries.append(queries_header)
-				fields.do_all(agent {C_FIELD}.append_getter_and_setter(class_name))
+				fields.do_all(agent {C_FIELD}.append_getter_and_setter(eiffel_name))
 				setters.print_on(output)
 				queries.print_on(output)
 			else
@@ -138,7 +133,7 @@ feature
 	emit_footer is
 		do
 			buffer.append(once "end -- class ")
-			buffer.append(class_name)
+			buffer.append(eiffel_name)
 			buffer.append_new_line
 			buffer.append(automatically_generated_header)
 			buffer.print_on(output)

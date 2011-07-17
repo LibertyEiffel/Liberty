@@ -15,19 +15,17 @@ feature {} -- Auxiliary features
 		-- `a_name' are removed: "__foo" becomes "foo"; symbols starting with
 		-- underscores folloed by a number are prefixed with "a_"; reserved
 		-- language names and names of features of class ANY are escaped.
+
+		-- TODO: handle in a fairly 
 	require 
 		name_not_void: a_name /= Void
 		name_not_empty: not a_name.is_empty
 	do
 		create Result.copy(a_name)
 		-- Remove header underscores.
-		from until Result.first /= '_'
-		loop Result.remove_first
-		end
+		from until Result.first /= '_' loop Result.remove_first end
 		-- If first character is a number prepend an `a_'
-		if Result.first.is_digit then
-			Result.prepend(once "a_")
-		end
+		if Result.first.is_digit then Result.prepend(once "a_") end
 		insert_underscores(Result)
 		-- Remove spurious underscores and the end
 		from until Result.last/='_' loop Result.remove_last end
@@ -37,7 +35,7 @@ feature {} -- Auxiliary features
 	end
 
  	eiffel_argument (a_name: STRING): STRING is
-			-- Translate `a_name' content into a proper argument placeholderi for
+			-- `a_name' content translated into a proper argument placeholder for
 			-- the Gnu-Eiffel language.  "CamelCase" is translated into
 			-- "a_camel_case", "ENOO" is translated into "an_enoo". Eventual
 			-- underscores in front of `a_name' are removed: "__foo" becomes

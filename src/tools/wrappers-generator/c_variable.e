@@ -17,7 +17,7 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result:= (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			Result:= (is_public or has_assigned_name) and then namespace.is_main and then 
 			(global or else headers.has(c_file.c_string_name))
 		end
 
@@ -44,7 +44,7 @@ feature
 			elseif not is_public then
 				log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)
-			elseif not is_in_main_namespace then
+			elseif not namespace.is_main then
 				log(once "Skipping variable `@(1)' belonging to namespace @(2)%N",
 				<<c_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- variable @(1) in namespace @(2) skipped.%N",

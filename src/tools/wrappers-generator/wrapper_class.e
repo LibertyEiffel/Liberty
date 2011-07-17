@@ -3,43 +3,26 @@ deferred class WRAPPER_CLASS
 	-- Liberty class also containing the wrapper features of child
 	-- and/or related nodes.
 
-inherit WRAPPABLE_NODE
-	
+inherit 
+	WRAPPABLE_NODE 
+		redefine compute_eiffel_name -- To make sure that it is a correct class name	
+		end
+
 feature
 	emit_wrapper is
 		deferred
 		end
 
-	class_name: STRING is
-		-- the name of the Eiffel class that wraps Current. CamelCase is converted into CAMEL_CASE, `suffix' is added at the end, eventual trailing underscores are removed.
-	do
-		if stored_class_name=Void then 
-			if assigned_name/=Void then stored_class_name:=assigned_name.twin
-			else stored_class_name:=c_string_name.twin
-			end
-			insert_underscores(stored_class_name)
-			stored_class_name.append(suffix)
-			stored_class_name.to_upper
-			check 
-				is_public: stored_class_name.first/='_'
-				not class_name.has_substring("__")	
-			end
+	compute_eiffel_name is
+		do
+			cached_eiffel_name := eiffel_class_name(c_string_name,suffix)
 		end
-		Result := stored_class_name
-	ensure 
-		non_void: Result/=Void
-		is_valid_class_name(Result)
-	end
 
-feature {}
-	stored_class_name: STRING
+	suffix: STRING is deferred end
 
+feature {} -- Implementation
 	output: TERMINAL_OUTPUT_STREAM
 
-	suffix: STRING is
-		-- The suffix that will be added to class_name, i.e. "_EXTERNALS", "_ENUM", "_STRUCT"
-		deferred
-		end
 end -- class WRAPPER_CLASS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 

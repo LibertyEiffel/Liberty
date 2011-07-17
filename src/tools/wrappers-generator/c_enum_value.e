@@ -3,6 +3,9 @@ class C_ENUM_VALUE
 inherit 
 	GCCXML_NODE
 	NAMED_NODE
+		redefine
+			eiffel_name
+		end
 
 insert 
 	SHARED_COLLECTIONS

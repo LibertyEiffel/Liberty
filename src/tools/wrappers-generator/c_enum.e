@@ -10,6 +10,7 @@ class C_ENUM
 
 	-- As far as I know this condition shall apply on all architectures.
 inherit 
+	CONTEXTED_NODE
 	IDENTIFIED_NODE
 	FILED_NODE
 	STORABLE_NODE
@@ -29,9 +30,7 @@ feature
 
 	has_wrapper: BOOLEAN is True
 	wrapper_type: STRING is "INTEGER"
-
 	is_fundamental: BOOLEAN is False
-
 	is_void: BOOLEAN is False
 
 	is_to_be_emitted: BOOLEAN is
@@ -40,26 +39,19 @@ feature
 			fn := c_file.c_string_name
 			Result := file_exists(fn) and (global or else headers.has(fn))
 		end
-
-
 	
 	emit_wrapper is
 		local 
 			filename: STRING; path: POSIX_PATH_NAME
 		do
 			if is_public then
-				if on_standard_output then 
-					log(once "Outputting enum @(1) as @(2) on standard output.%N",
-					<<c_name.to_utf8, class_name>>)
-					output := std_output
-				else
-					create path.make_from_string(directory)
-					path.add_last(class_name.as_lower+once ".e")
-					filename := path.to_string
-					log(once "Wrapping enum @(1) as @(2) on @(3)",
-					<<c_name.to_utf8, class_name, filename>>)
-					create {TEXT_FILE_WRITE} output.connect_to(filename)
-				end
+				create path.make_from_string(directory)
+				path.add_last(eiffel_name.as_lower+once ".e")
+				filename := path.to_string
+				log(once "Wrapping enum @(1) as @(2) on @(3)",
+				<<c_name.to_utf8, eiffel_name, filename>>)
+				create {TEXT_FILE_WRITE} output.connect_to(filename)
+
 				emit_header
 				emit_items
 				emit_footer
@@ -73,7 +65,7 @@ feature
 		do
 			buffer.reset_with(automatically_generated_header)
 			buffer.append(expanded_class)
-			buffer.append(class_name)
+			buffer.append(eiffel_name)
 			buffer.append_new_line
 			buffer.append(once "%N-- TODO emit_description(class_descriptions.reference_at(an_enum_name))%N")
 			buffer.append(once "%Ninsert ENUM%N%Ncreation default_create%N")
@@ -83,7 +75,7 @@ feature
 	emit_items is
 		do
 			if children_count>0 then
-				if flags.has(class_name) then 
+				if flags.has(eiffel_name) then 
 					log_string(once ", forcefully wrapped as flag.%N")
 					append_flag_items
 				elseif have_flags_values then 
@@ -107,7 +99,7 @@ feature
 
 	emit_footer is
 		do
-			buffer.put_message("%Nend -- class @(1)%N",<<class_name>>)
+			buffer.put_message("%Nend -- class @(1)%N",<<eiffel_name>>)
 			buffer.print_on(output)
 		end
 		

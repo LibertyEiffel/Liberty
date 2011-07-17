@@ -1,6 +1,7 @@
 deferred class NAMED_NODE
 	-- A GCC_XML node that may have a "name" attribute.
 inherit GCCXML_NODE
+insert NAME_CONVERTER
 feature
 	is_anonymous: BOOLEAN is
 		-- Is Current node anonynmous?
@@ -33,6 +34,16 @@ feature
 			end
 		end
 
+	eiffel_name: STRING is
+		-- the name of Current when wrapped in Liberty Eiffel.
+	do
+		if cached_eiffel_name=Void then
+			compute_eiffel_name
+		end
+		Result:=cached_eiffel_name
+	end
+
+
 	is_public: BOOLEAN is
 		-- Does `c_name' start with an alphabetical character? Names
 		-- starting with underscores or other strange characters are
@@ -44,6 +55,19 @@ feature
 feature {} -- Implementation
 	cached_c_name: UNICODE_STRING
 	cached_c_string_name: STRING
+	cached_eiffel_name: STRING
+
+	compute_eiffel_name is
+		require is_named
+		do
+			cached_eiffel_name:=eiffel_feature(c_string_name)
+			check 
+				is_public: cached_eiffel_name.first/='_'
+				not cached_eiffel_name.has_substring("__")	
+			end
+		ensure cached_eiffel_name/=Void
+		end
+
 end -- class NAMED_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

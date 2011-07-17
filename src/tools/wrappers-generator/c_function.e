@@ -4,9 +4,9 @@ class C_FUNCTION
 inherit
 	CONTEXTED_NODE
 	IDENTIFIED_NODE
-	MOVABLE_NODE
+	MOVABLE_NODE redefine compute_eiffel_name end
 	STORABLE_NODE
-	WRAPPER_FEATURE
+	WRAPPER_FEATURE redefine compute_eiffel_name end
 
 creation make
 
@@ -27,20 +27,11 @@ feature {ANY}
 			Result := types.at(returns)
 		end
 
-	eiffel_name: STRING is
-		-- The Eiffel version of Current's function name.
-		-- NOTE: this way of assigning feature names is not entirely
-		-- bullet-proof. In fact MyFunction and myfunction will get the same
-		-- Eiffel feature name. I could say that such code is not worth your
-		-- time; such cases are handled much more effectively by the developer
-		-- of a wrapper library with case-by-case inspection.
+	compute_eiffel_name is
 		do
-			if stored_eiffel_name=Void then 
-				stored_eiffel_name := eiffel_feature(c_string_name)	
-			end
-			Result := stored_eiffel_name
+			cached_eiffel_name := eiffel_feature(c_string_name)	
 		end
-	
+
 	has_arguments: BOOLEAN is
 		-- Does Current function have arguments?
 	do
@@ -89,10 +80,10 @@ feature {ANY}
 			elseif not is_public then
 				log(once "Skipping 'hidden' function `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<c_string_name>>)
-			elseif not is_in_main_namespace then
-				log(once "Skipping function `@(1)' belonging to namespace @(2)%N",
+			elseif not namespace.is_main then
+				log(once "Skipping function `@(1)' belonging to namespace @(2) which is not wrapped%N",
 				<<c_string_name, namespace.c_string_name>>)
-				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
+				buffer.put_message(once "%T-- function @(1) in unwrapped namespace @(2) skipped.%N",
 				<<c_string_name, namespace.c_string_name>>)
 			elseif avoided.has(c_string_name) then
 				log(once "Skipping function `@(1)' as requested.%N", <<c_string_name>>)
@@ -199,10 +190,10 @@ feature {ANY}
 			if not has_arguments then actual_c_symbol := c_string_name+(once "()")
 			else actual_c_symbol := c_string_name
 			end
-			-- Temporary code to handle output to standard output.
-			if directory=Void then dir:=once "the almighty standard output"
-			else dir := directory
-			end
+			-- TODO: reimplement (if necessary) temporary code to handle output to standard output.
+			-- if directory=Void then dir:=once "the almighty standard output"
+			-- else dir := directory
+			-- end
 			-- end of temporary. TODO: remove when the tool is robust enought.
 			buffer.put_message(once "%
 			% 		-- @(1) (node at line @(3))%N%
@@ -223,17 +214,6 @@ feature {} -- Implementation
 		Result?=child(an_index)
 	ensure no_child_with_wrong_type: Result/=Void
 	end
-
-	stored_eiffel_name: STRING is
-		-- Buffered Eiffellized name of Current
-		attribute
-		end
-
-	compute_eiffel_name is
-			
-		do
-			
-		end
 
 -- invariant name.is_equal(once U"Function")
 end -- class C_FUNCTION

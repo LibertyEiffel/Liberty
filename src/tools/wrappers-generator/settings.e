@@ -4,18 +4,15 @@ class SETTINGS
 inherit
 	SINGLETON
 insert 
-	FILE_TOOLS undefine is_equal, copy end
-	BASIC_DIRECTORY undefine is_equal, copy end
-
-creation {ANY}
-	default_create
+		FILE_TOOLS undefine is_equal, copy end
+		BASIC_DIRECTORY undefine is_equal, copy end
 
 feature {ANY} -- Queries
 	global: BOOLEAN
 
 	verbose: BOOLEAN
 
-	directory: STRING
+	directory: STRING is "-" -- Default output is on current directory. May be overwritten.
 
 	typedefs: STRING
 	-- The name of the class containing typedef queries, empty queries
@@ -29,16 +26,17 @@ feature {ANY} -- Setters
 		do
 			verbose := a_value
 		end
+		
 
 	set_global (a_value: BOOLEAN) is
 		do
 			global := a_value
 		end
 
-	set_directory (a_directory: STRING) is
-		do
-			directory := a_directory
-		end
+-- 	set_directory (a_directory: STRING) is
+-- 		do
+-- 			directory := a_directory
+-- 		end
 	
 	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
 
