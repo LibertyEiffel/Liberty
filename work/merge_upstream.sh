@@ -20,7 +20,7 @@ echo
 title "Switching to upstream branch"
 git checkout -q upstream/master
 
-title "Metging branches"
+title "Merging branches"
 i=0
 for remote in $(git remote); do
     progress 40 $i $n $remote
