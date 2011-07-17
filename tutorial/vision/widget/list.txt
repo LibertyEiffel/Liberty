@@ -1,0 +1,12 @@
+210 105  30             chocolate
+
+178  34  34             firebrick
+
+165  42  42             brown
+
+233 150 122             dark salmon
+250 128 114             salmon
+255 160 122             light salmon
+
+255 140   0             dark orange
+255 165   0             orange

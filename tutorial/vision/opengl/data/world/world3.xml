@@ -1,0 +1,25 @@
+<world>
+	<camera>
+		<position x="7" y="3.5" z="10"></position>
+		<orientation h="40" p="-10" r="0"></orientation>
+	</camera>
+	<light type="directional">
+		<direction x="-1" y="0" z="0"></direction>
+	</light>
+	<object file="crate2.xml">
+		<position x="-1" y="1" z="-1"></position>
+	</object>
+	<object file="crate2.xml">
+		<position x="1" y="1" z="-1"></position>
+	</object>
+	<object file="crate2.xml">
+		<position x="-1" y="1" z="1"></position>
+	</object>
+	<object file="glass.xml">
+		<position x="1" y="1" z="5"></position>
+	</object>
+	<object file="crate1.xml">
+		<position x="2" y="1" z="2"></position>
+		<orientation h="50" p="0" r="0"></orientation>
+	</object>
+</world>

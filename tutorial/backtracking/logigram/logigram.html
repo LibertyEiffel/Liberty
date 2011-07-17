@@ -1,0 +1,378 @@
+<html><head>
+
+<title>The tutorial logigram</title>
+
+<style>
+
+
+body {
+	background-color: white;
+	margin: 3px;
+}
+
+body * {
+/*
+	margin: 0px 0px 5px 0px;
+*/
+}
+
+h1 {
+	background-color: #3366FF;
+	font-size: 300%;
+	color: white;
+	text-align: center;
+	font-weight: normal;
+	padding: 10px;
+}
+
+h2 {
+	background-color: #3366FF;
+	font-size: 150%;
+	color: white;
+	text-align: left;
+	font-weight: normal;
+	padding: 5px;
+}
+
+.i {
+	background-color: yellow;
+	font-size: 110%;
+	color: #3366FF;
+	text-align: center;
+	font-weight: bolder;
+	padding: 10px 30px 10px 30px;
+}
+
+p {
+/*
+	text-align: justify;
+*/
+}
+
+pre {
+	margin: 3px 50px 3px 50px;
+	padding: 3px 5px 3px 5px;
+	border: 2px dashed #3366FF;
+	background: #eef;
+}
+
+.class {
+	font-weight: bolder;
+	color: #3366FF;
+}
+
+.sesign {
+	text-align: center;
+	font-size: small;
+	font-style: italic;
+}
+
+.exercice { color: green; font: small-caps bold; }
+
+</style>
+
+</head><body>
+
+<h1>The tutorial logigram</h1>
+<div class="i">
+<p>This tutorial shows a typical use of the backtracking cluster.</p></div>
+<a name="sommaire"/><h2>Sommaire</h2>
+<div class="s"><ul class="s">
+ <li><a href="#chap-1">How to compile?</a></li>
+ <li><a href="#chap-2">What does it do?</a></li>
+ <li><a href="#chap-3">How does it work?</a></li>
+ <ul class="s">
+  <li><a href="#chap-3.1">Description of the problem</a></li>
+  <li><a href="#chap-3.2">Transformation of the description</a></li>
+  <li><a href="#chap-3.3">Exploration of the solutions</a></li>
+ </ul>
+</ul></div>
+
+<a name="chap-1"/><h2>How to compile?</h2>
+<div class="c2">
+<p>Just type:</p>
+<p><pre>
+  se c -boost -clean -o logigram logigram
+</pre></p>
+</div>
+<a name="chap-2"/><h2>What does it do?</h2>
+<div class="c2">
+<p>That tutorial that shows how to solve problems 
+sometimes called logigrams. The logigrams
+are made of a set of items (persons, date, places, ...)
+grouped into categories and set of true propositions 
+about the items. From these propositions you must deduce
+how the given items are combined together.</p>
+<p>Here is an example:</p>
+<p>That program solves the following classic problem.</p>
+<p>Knowing that:</p>
+<ul class="hyphen">
+<li>
+<p>the house of the english is red,</p>
+</li>
+<li>
+<p>the spanish has a dog,</p>
+</li>
+<li>
+<p>one drink coffee in the green house,</p>
+</li>
+<li>
+<p>the ukrainian drinks tea,</p>
+</li>
+<li>
+<p>the green house is just at right of the ivory house,</p>
+</li>
+<li>
+<p>the man that smokes winstons have a snail,</p>
+</li>
+<li>
+<p>the man that smokes kools have the yellow house,</p>
+</li>
+<li>
+<p>one drinks milk in the house at the middle,</p>
+</li>
+<li>
+<p>the norvegian lives in the house at left,</p>
+</li>
+<li>
+<p>the one who smokes chesterfields is neibourgh of a fox,</p>
+</li>
+<li>
+<p>the one who smokes kools is neibourgh of a horse,</p>
+</li>
+<li>
+<p>the one who smokes luckystrike drinks orange juice,</p>
+</li>
+<li>
+<p>the japanese smokes parliaments,</p>
+</li>
+<li>
+<p>the norvegian is neibourgh of the blue house.</p>
+</li>
+</ul>
+<p>Tell who got the zebra and who drinks water?</p>
+<p>The output of the program is
+<pre>
+> logigram</p>
+<p>+-----------+-------------+--------+--------------+---------------+--------+
+| house     | nationality | animal | drink        | cigarette     | color  |
++-----------+-------------+--------+--------------+---------------+--------+
+| left      | norvegian   | fox    | water        | kools         | yellow |
+| mid-left  | ukrainian   | horse  | tea          | chesterfields | blue   |
+| middle    | english     | snail  | milk         | winston       | red    |
+| mid-right | spanish     | dog    | orange juice | luckystrike   | ivory  |
+| right     | japanese    | zebra  | coffee       | parliaments   | green  |
++-----------+-------------+--------+--------------+---------------+--------+</p>
+<p>1 solution</p>
+<p></pre></p>
+<p>There are three other problems that let you challenge the
+tutorial.</p>
+<p><span class="exercice">Exercice:</span> in file logigram.e, feature describe_problem_classic put
+in comment line that declares that the house of the english is red
+as below and re-run. How many solutions now? Happy chrismas!
+<pre>
+  -- rule(yes(item("nationality", "english"), item("color", "red")))
+</pre></p>
+<p><span class="exercice">Exercice:</span> in file logigram.e, feature describe_problem_classic put
+line that declares the ordered group house at the end of the
+groups declarations and measure the difference of computing time 
+with the command 'time' (under unix). Explain.</p>
+<p><span class="exercice">Exercice:</span> write a program that solves the same problem.</p>
+<p><span class="exercice">Exercice:</span> write a program that solves any problem of the same kind.</p>
+</div>
+<a name="chap-3"/><h2>How does it work?</h2>
+<div class="c2">
+<p>It works in three steps:</p>
+<ul class="hyphen">
+<li>
+<p>Creation of the problem description.</p>
+</li>
+<li>
+<p>Transformation of the description to a <span class="class">AND</span>/<span class="class">OR</span> 
+   tree of possible permutations.</p>
+</li>
+<li>
+<p>Exploration of the <span class="class">AND</span>/<span class="class">OR</span> tree by backtracking to
+   retrieve the solutions.</p>
+</li>
+</ul>
+<p>The main idea is to use permutations for retrieving the solutions.</p>
+<a name="chap-3.1"/><h3>Description of the problem</h3>
+<div class="c3">
+<p>The description is managed with an object of the class <span class="class">DESCRIPTION</span>
+that mainly contains:</p>
+<ul class="hyphen">
+<li>
+<p>a set of groups;</p>
+</li>
+<li>
+<p>a set of constraints through an object of class <span class="class">CONSTRAINT_SET</span>.</p>
+</li>
+</ul>
+<p>First of all, the groups must be declared. There are 3 kind of
+groups:</p>
+<ul class="hyphen">
+<li>
+<p>the atomic groups;</p>
+</li>
+<li>
+<p>the ordered groups what means that the order of the items
+   of the group cares and that each item receive a number that
+   is its place, beginning to zero;</p>
+</li>
+<li>
+<p>the numeric groups that must contain numeric items.</p>
+</li>
+</ul>
+<p>The groups are all managed through objects of class <span class="class">GROUP</span>.</p>
+<p>The constraints (class <span class="class">CONSTRAINT</span>) are distinguished in two 
+types: </p>
+<ul class="hyphen">
+<li>
+<p>Constraints on couples (class <span class="class">CONSTRAINT_COUPLE</span> association of a 
+   couple of two items that are not of the same group), that comprises:</p>
+</li>
+<ul class="hyphen">
+<li>
+<p>positive association of a couple (class <span class="class">CONSTRAINT_YES</span>) what meaning
+       is that the 2 items are associated together (example: marie had 
+       4 children);</p>
+</li>
+<li>
+<p>negative association of a couple (class <span class="class">CONSTRAINT_NO</span>) what meaning
+       is that the 2 items are never associated together (example: marie 
+       didn't have 4 children).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Logical constraints (class <span class="class">CONSTRAINT_LOGICAL</span>) that currently only are 
+   the relationnal constraints (class <span class="class">CONSTRAINT_RELATIONAL</span>) on some integer 
+   expressions, that comprises equal, greater, lesser, and 
+   not equal, from the classes <span class="class">CONSTRAINT_EQUAL</span>, <span class="class">CONSTRAINT_GREATER</span>, 
+   <span class="class">CONSTRAINT_LESSER</span>, <span class="class">CONSTRAINT_NOT_EQUAL</span>.</p>
+</li>
+</ul>
+<p>The relational constraints are on expressions that are built using 
+inheriters of class <span class="class">EXPR</span>, say:</p>
+<ul class="hyphen">
+<li>
+<p>constants from <span class="class">EXPR_VALUE</span>;</p>
+</li>
+<li>
+<p>addition, substraction, multiplication from <span class="class">EXPR_ADD</span>, <span class="class">EXPR_SUB</span>
+   and <span class="class">EXPR_MUL</span>;</p>
+</li>
+<li>
+<p>absolute value from <span class="class">EXPR_ABS</span>;</p>
+</li>
+<li>
+<p>the conversion from an item to an integer (possible only for items
+   of numeric or ordered groups) with <span class="class">EXPR_ITEM</span>.</p>
+</li>
+</ul>
+<p>The constraints on couple take 2 items and the item expression take 
+one item. In any of these cases, items can be or true items (<span class="class">ITEM_ITEM</span>)
+or variable items (<span class="class">ITEM_VAR</span>). A variable is attached to a group and can
+take any value into it.</p>
+<p>The description is built by putting constraints into the the constraint
+set. The constraints set records the constraint in several groups of 
+bound constraints. Two constraints are bound together if they share the
+same variable. The class <span class="class">ITEM_COLLECTOR</span> serves the purpose of enumerating
+the items of a constraint.</p>
+<p>Such a binding relation define equivalent classes that are 
+used to group the constraints together into <span class="class">CONSTRAINT_GROUP</span>. 
+At the end of the description the constraint set contains</p>
+<ul class="hyphen">
+<li>
+<p>an unbound constraint group that does not depend on any variables;</p>
+</li>
+<li>
+<p>a list of constraint groups that have variables such that any
+   pair of group in the list have a separate set of variables.</p>
+</li>
+</ul>
+<p><span class="exercice">Exercice:</span> add some new logical operators like and, or, ...</p>
+</div>
+<a name="chap-3.2"/><h3>Transformation of the description</h3>
+<div class="c3">
+<p>In that step, the constraints are transformed to a <span class="class">AND</span>/<span class="class">OR</span>
+tree of the possible permutations.</p>
+<p>The possible permutations are recorded using a <span class="class">BIT_STRING</span>.
+Here is how.</p>
+<p>Let get two groups: A and X. 
+The group A is made of the item a, b, c.
+The group X is made of the item x, y, z.
+The possible permutations from A and X are
+listed below:
+<pre>
+   +-----+-----------+---------+
+   |  A  | a | b | c |  number |
+   +-----+---+---+---+---------+
+   |     | x | y | z |    0    |
+   |     | x | z | y |    1    |
+   |  X  | y | x | z |    2    |
+   |     | y | z | x |    3    |
+   |     | z | x | y |    4    |
+   |     | z | y | x |    5    |
+   +-----+---+---+---+---------+
+</pre>
+Each of these permutation have received a number that identifies
+it. That number is used for the <span class="class">BIT_STRING</span> indexes.</p>
+<p>For example, the possible permutations where b is associated
+with z are the ones of number 1 and 3 then the corresponding
+bit string value is:
+<pre>
+     index: 0 1 2 3 4 5
+     value: 0 1 0 1 0 0
+</pre></p>
+<p>For example, the possible permutations where c is not associated
+with y are the ones of number 0, 2, 3, 5 and 3 then the corresponding
+bit string value is:
+<pre>
+     index: 0 1 2 3 4 5
+     value: 1 0 1 1 0 1
+</pre></p>
+<p>So if the problem is to find how to arrange A with X in a such
+way that b is with z and c is not with y, a sample or between the
+possible combinations gives the solution:
+<pre>
+              index: 0 1 2 3 4 5</p>
+<p>(P1)       b with x: 0 1 0 1 0 0
+(P2)   c not with y: 1 0 1 1 0 1
+                    -------------
+      (P1) and (P2): 0 0 0 1 0 0
+</pre>
+The solution is permutation 3: a with y, b with z, c with x.</p>
+<p>For N groups, the program manages (N * (N-1))/2 pair of 
+possible permutations.</p>
+<p>The <span class="class">AND</span>/<span class="class">OR</span> tree is created by <span class="class">CONSTRAINT_SET</span> that simply make
+a and of the sub trees created by each of the group of constraint
+<span class="class">CONSTRAINT_GROUP</span> it contains.</p>
+<p>The <span class="class">CONSTRAINT_GROUP</span> enumerate all possible combination of 
+the variables and when a combination is consistent for the
+set of logical constraints, it generates a <span class="class">AND</span> list of the
+possible permutations that the combination represent. 
+The result is a <span class="class">OR</span> of all the detected possibilities.</p>
+<p>The masks are built by using an instance of <span class="class">MASK_BUILDER</span>.</p>
+<p><span class="exercice">Exercice:</span> explain how permutations are numbered.</p>
+<p><span class="exercice">Exercice:</span> try to improve the time used for the transformation by
+challenging the variables before each invocation of 'get_node'
+in 'get_node_of_var', class <span class="class">CONSTRAINT_GROUP</span>. Trick: add a deferred
+feature 'can_challenge' in <span class="class">CONSTRAINT_LOGICAL</span>.</p>
+</div>
+<a name="chap-3.3"/><h3>Exploration of the solutions</h3>
+<div class="c3">
+<p>During this step, the possible combinations of the <span class="class">AND</span>/<span class="class">OR</span> tre are 
+enumerated using the <span class="class">BACKTRACKING</span> behaviors. When a solution is
+possible, it is checked to see if it is consistent. In effect,
+it is not possible to detect all impossibilities during the
+exploration.</p>
+<p>The class <span class="class">SITUATION</span> is used to do all that stuff.</p>
+<p><span class="exercice">Exercice:</span> try to improve the checking of the consistency of the 
+presumed solutions. You wil find it in class <span class="class">SITUATION</span>, the feature
+is 'try_solution'.</p>
+</div>
+</div>
+
+</body></html>

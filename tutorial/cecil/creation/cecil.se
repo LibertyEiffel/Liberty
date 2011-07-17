@@ -1,0 +1,4 @@
+-- The name of the include C file :
+eiffel.h
+-- The features you want to call from C :
+string_make	STRING	 from_external_copy	create

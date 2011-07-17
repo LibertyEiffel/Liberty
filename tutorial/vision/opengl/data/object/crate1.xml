@@ -1,0 +1,194 @@
+<object>
+	<facet>
+		<vertex x="-1" y="1" z="1">
+			<normal x="-1" y="1" z="1"></normal>
+		</vertex>
+		<vertex x="-1" y="-1" z="1">
+			<normal x="-1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<normal x="1" y="1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="1">
+			<normal x="-1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<normal x="1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<normal x="1" y="1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="1" z="1">
+			<normal x="1" y="1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<normal x="1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<normal x="1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="-1" z="1">
+			<normal x="1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<normal x="1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<normal x="1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="-1">
+			<normal x="-1" y="1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<normal x="-1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<normal x="-1" y="1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="-1">
+			<normal x="-1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="-1" z="1">
+			<normal x="-1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<normal x="-1" y="1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="-1">
+			<normal x="-1" y="1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<normal x="-1" y="1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<normal x="1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="1">
+			<normal x="-1" y="1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<normal x="1" y="1" z="1"></normal>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<normal x="1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="1">
+			<normal x="-1" y="-1" z="1"></normal>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<normal x="-1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<normal x="1" y="-1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="-1">
+			<normal x="-1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<normal x="1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<normal x="1" y="-1" z="1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="1" z="-1">
+			<normal x="1" y="1" z="-1"></normal>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<normal x="1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="1" z="-1">
+			<normal x="-1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="-1" z="-1">
+			<normal x="1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<normal x="-1" y="-1" z="-1"></normal>
+		</vertex>
+		<vertex x="-1" y="1" z="-1">
+			<normal x="-1" y="1" z="-1"></normal>
+		</vertex>
+		<texture file="crate1.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+</object>

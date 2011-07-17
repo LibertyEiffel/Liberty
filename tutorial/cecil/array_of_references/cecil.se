@@ -1,0 +1,8 @@
+-- The name of the include C file :
+eiffel.h
+-- The features you want to call from C :
+array_of_animal_item	ARRAY[ANIMAL]	item
+array_of_animal_lower	ARRAY[ANIMAL]	lower
+array_of_animal_upper	ARRAY[ANIMAL]	upper
+cry			ANIMAL		cry
+string_to_external	STRING		to_external

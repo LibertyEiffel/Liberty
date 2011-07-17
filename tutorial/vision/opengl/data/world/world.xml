@@ -1,0 +1,9 @@
+<world>
+	<camera>
+		<position x="5" y="5" z="5"></position>
+		<orientation h="45" p="-32" r="0"></orientation>
+	</camera>
+	<object file="crate.xml">
+		<position x="0" y="0" z="0"></position>
+	</object>
+</world>

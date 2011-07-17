@@ -1,0 +1,6 @@
+-- The name of the include C file :
+eiffel.h
+-- The features you want to call from C :
+EXAMPLE_new_string	EXAMPLE	      new_string
+EIF_STUFF_eif_adopt	EIF_STUFF     adopt
+EIF_STUFF_eif_wean	EIF_STUFF     wean

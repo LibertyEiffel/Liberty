@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<!-- a simple tree that is read by EXAMPLE1 and validated by EXAMPLE2 -->
+<tree>
+  <node>
+    <leaf id="1"/>
+  </node>
+</tree>

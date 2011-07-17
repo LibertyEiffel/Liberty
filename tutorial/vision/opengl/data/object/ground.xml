@@ -1,0 +1,24 @@
+<object>
+	<facet>
+		<vertex x="-7" y="0" z="-7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+		<vertex x="-7" y="0" z="7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+		<vertex x="7" y="0" z="-7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+	</facet>
+	<facet>
+		<vertex x="-7" y="0" z="7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+		<vertex x="7" y="0" z="7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+		<vertex x="7" y="0" z="-7">
+			<color r="0.5" g="0.5" b="0.5" a="1"></color>
+		</vertex>
+	</facet>
+</object>

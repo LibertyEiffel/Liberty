@@ -1,0 +1,144 @@
+<html><head>
+
+<title>tutorial of lib/backtracking</title>
+
+<style>
+
+
+body {
+	background-color: white;
+	margin: 3px;
+}
+
+body * {
+/*
+	margin: 0px 0px 5px 0px;
+*/
+}
+
+h1 {
+	background-color: #3366FF;
+	font-size: 300%;
+	color: white;
+	text-align: center;
+	font-weight: normal;
+	padding: 10px;
+}
+
+h2 {
+	background-color: #3366FF;
+	font-size: 150%;
+	color: white;
+	text-align: left;
+	font-weight: normal;
+	padding: 5px;
+}
+
+.i {
+	background-color: yellow;
+	font-size: 110%;
+	color: #3366FF;
+	text-align: center;
+	font-weight: bolder;
+	padding: 10px 30px 10px 30px;
+}
+
+p {
+/*
+	text-align: justify;
+*/
+}
+
+pre {
+	margin: 3px 50px 3px 50px;
+	padding: 3px 5px 3px 5px;
+	border: 2px dashed #3366FF;
+	background: #eef;
+}
+
+.class {
+	font-weight: bolder;
+	color: #3366FF;
+}
+
+.sesign {
+	text-align: center;
+	font-size: small;
+	font-style: italic;
+}
+
+</style>
+
+</head><body>
+
+<h1>tutorial of lib/backtracking</h1>
+<div class="i">
+<p>The cluster lib/backtracking provides a usefull abstraction to implements
+all kinds of backtracking algorithms or and/or tree exploration.</p></div>
+<a name="sommaire"/><h2>Sommaire</h2>
+<div class="s"><ul class="s">
+ <li><a href="#chap-1">The tutorial backtracking/expand_expression</a></li>
+ <li><a href="#chap-2">The tutorial backtracking/logigram</a></li>
+ <li><a href="#chap-3">The tutorial backtracking/tiny_parse</a></li>
+ <li><a href="#chap-4">The tutorial backtracking/tiny_prolog</a></li>
+ <li><a href="#chap-5">Some other examples</a></li>
+</ul></div>
+
+<a name="chap-1"/><h2>The tutorial backtracking/expand_expression</h2>
+<div class="c2">
+<p>The main class, <span class="class">ABSTRACT_BACKTRACKING</span>,
+implements the abstract algorithm that explorate a virtual and/or tree.
+It defines the basic data used for the exploration and the way the exploration
+is done. The tutorial [expand_expression] shows its use.</p>
+<p>That tutorial expands the expressions that are entered at its input.
+Here is a short example.</p>
+<p><pre>
+> cd expand_expression/tree
+> se c -clean -o ee expand_expression
+> ./ee
+the(good+bad)(boy+girl)
+        (1)     the good boy
+        (2)     the good girl
+        (3)     the bad boy
+        (4)     the bad girl
+</pre></p>
+</div>
+<a name="chap-2"/><h2>The tutorial backtracking/logigram</h2>
+<div class="c2">
+<p>A tutorial that shows how to solve problems 
+sometimes called logigrams. The logigrams
+are made of a set of items (persons, date, places, ...)
+grouped into categories and set of true propositions 
+about the items. From these propositions you must deduce
+how the given items are combined together.</p>
+<p>Here is an example: there are 3 women, Marie, Julie and Eve of
+the 19th century. We know that:</p>
+<ul class="hyphen">
+<li>
+<p>The one that have no child is born in 1804 and is not Marie.</p>
+</li>
+<li>
+<p>Julie dont have exactly one child and have less children than Marie.</p>
+</li>
+<li>
+<p>The one that have 2 children is not born in 1805 and is not Eve.</p>
+</li>
+</ul>
+<p>Which woman is born in 1806? How many children had she?</p>
+</div>
+<a name="chap-3"/><h2>The tutorial backtracking/tiny_parse</h2>
+<div class="c2">
+<p><span class="class">WORK</span> <span class="class">IN</span> <span class="class">PROGRESS</span> <span class="class">NOTHING</span> <span class="class">TO</span> <span class="class">SEE</span> <span class="class">HERE</span></p>
+</div>
+<a name="chap-4"/><h2>The tutorial backtracking/tiny_prolog</h2>
+<div class="c2">
+<p><span class="class">WORK</span> <span class="class">IN</span> <span class="class">PROGRESS</span> <span class="class">NOTHING</span> <span class="class">TO</span> <span class="class">SEE</span> <span class="class">HERE</span></p>
+</div>
+<a name="chap-5"/><h2>Some other examples</h2>
+<div class="c2">
+<p>The cluster regular_expression use the cluster bactracking.
+Just take a look at it.</p>
+<p><div class="sesign"><rule/>Copyright &copy; The SmartEiffel Team - <a href="mailto:SmartEiffel@loria.fr">&lt;SmartEiffel@loria.fr&gt;</a></div></p>
+</div>
+
+</body></html>
