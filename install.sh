@@ -16,10 +16,6 @@ function bootstrap()
     cd target
     test -d log || mkdir log
 
-    title "Unpacking SmartEiffel"
-    test -d SmartEiffel && rm -rf SmartEiffel
-    run tar xvfj $LIBERTY_HOME/work/SmartEiffel.tar.bz2
-
     if [ ! -d bin ]; then
         title "Preparing target"
         mkdir bin
@@ -49,6 +45,7 @@ cluster
         LIBERTY_LIBRARY: "\${path_liberty}/src/lib"
         LIBERTY_TOOLS: "\${path_liberty}/src/tools"
         LIBERTY_WRAPPERS: "\${path_liberty}/src/wrappers"
+        SMARTEIFFEL_TOOLS: "\${path_liberty}/src/smarteiffel"
 
 end
 EOF
@@ -70,7 +67,7 @@ EOF
 [General]
 bin: $LIBERTY_HOME/target/bin
 sys: $LIBERTY_HOME/sys
-short: $LIBERTY_HOME/target/SmartEiffel/short
+short: $LIBERTY_HOME/resources/short
 os: UNIX
 flavor: Linux
 tag: 3
@@ -78,8 +75,8 @@ jobs: 4
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
-path_se_tools: $LIBERTY_HOME/target/SmartEiffel/tools/
-path_se_tutorial: $LIBERTY_HOME/target/SmartEiffel/tutorial/
+path_se_tools: $LIBERTY_HOME/src/smarteiffel/
+path_se_tutorial: $LIBERTY_HOME/tutorial/
 
 [Loadpath]
 liberty: \${path_liberty}src/loadpath.se
@@ -171,12 +168,12 @@ EOF
     ln -s $LIBERTY_HOME/target/serc $HOME/.serc
 
     title "Bootstrapping SmartEiffel tools"
-    cd SmartEiffel/work/germ
+    cd $LIBERTY_HOME/resources/smarteiffel-germ
 
-    if [ ! -d ../../../bin/compile_to_c.d ]; then
+    if [ ! -d $LIBERTY_HOME/target/bin/compile_to_c.d ]; then
         progress 30 0 11 "germ"
-        test -d ../../../bin/compile_to_c.d || mkdir ../../../bin/compile_to_c.d
-        run gcc -c compile_to_c.c && run gcc compile_to_c.o -o ../../../bin/compile_to_c.d/compile_to_c || exit 1
+        test -d $LIBERTY_HOME/target/bin/compile_to_c.d || mkdir $LIBERTY_HOME/target/bin/compile_to_c.d
+        run gcc -c compile_to_c.c && run gcc compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
