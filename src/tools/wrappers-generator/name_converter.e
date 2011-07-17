@@ -97,13 +97,18 @@ feature {} -- Auxiliary features
 		create Result.make_from_string(a_string)
 		-- Remove trailing underscores
 		from until Result.first/='_' loop Result.remove_first end
+		check Result.last.code /= 0 end
 		-- Remove spurious underscores at the end
 		from until Result.last/='_' loop Result.remove_last end
+		check Result.last.code /= 0 end
 		if a_suffix/=Void then
 			Result.append(a_suffix)
 		end
+		check Result.last.code /= 0 end
 		Result.replace_all('-','_')
 		Result.to_upper
+		print("'"+Result+"' last charcter code is: "+Result.last.code.to_string+"%N")
+		check Result.last.code /= 0 end
 	ensure 
 		Result/=Void
 		is_valid_class_name(Result)

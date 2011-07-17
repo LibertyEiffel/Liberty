@@ -1,34 +1,12 @@
-class C_REFERENCE_TYPE
-	-- A GccXml node representing a C++ reference. 
-
-	-- Currently crudely wrapped as a POINTER.
-inherit 
-	GCCXML_NODE
-	IDENTIFIED_NODE
-	TYPED_NODE
-	STORABLE_NODE
+class UNIMPLEMENTED_NODE
+	-- An "Unimplemented" node in the output of GccXml. 
+inherit GCCXML_NODE
 
 creation make
 feature 
-	store is
-		do
-			types.fast_put(Current,id)
-		end
+end -- class UNIMPLEMENTED_NODE
 
-	is_fundamental: BOOLEAN is False
-	-- Note: Accounting a C++ reference as fundamental type is a rought approximation. 
-
-	is_void: BOOLEAN is False
-
-	has_wrapper: BOOLEAN is False
-
-	wrapper_type: STRING is "POINTER"
-	-- Note: this is a rought approximation. 
-
--- invariant name.is_equal(once U"ReferenceType")
-end -- class C_REFERENCE_TYPE
-
--- Copyright 2008,2009,2010 Paolo Redaelli
+-- Copyright 2011 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the Free

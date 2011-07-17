@@ -1,14 +1,15 @@
 ## To avoid an Ubuntu Intrepid Ibex bug.
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
-##export GCCXML_COMPILER = gcc-4.2
+export GCCXML_COMPILER = gcc-4.5
 
 XML=posix.gcc-xml
 HEADER=plugin/c/liberty-posix.h
 HEADERS=/usr/include/fcntl.h \
-	/usr/include/sys/mman.h
+	/usr/include/sys/mman.h \
+	/usr/include/unistd.h
 
 wrappers: $(XML)
-	wrappers-generator --local --directory . $(XML) $(HEADERS)
+	wrappers-generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 	gccxml $(HEADER) -fxml=$(XML)

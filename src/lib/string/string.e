@@ -88,7 +88,6 @@ feature {ANY} -- Modification:
             storage.clear(count + storage_lower, new_count + storage_lower - 1)
          end
          count := new_count
-         next_generation
       ensure
          count = new_count
          capacity >= old capacity
@@ -96,18 +95,17 @@ feature {ANY} -- Modification:
 
    clear_count, wipe_out is
          -- Discard all characters so that `is_empty' is True after that call.
-         --   The internal `capacity' is not changed by this call (i.e. the internal `storage' memory is
-         --   neither released nor shrunk).
+         --     The internal `capacity' is not changed by this call (i.e. the internal `storage' memory is
+         --     neither released nor shrunk).
          --
          -- See also `clear_count_and_capacity'.
       do
          count := 0
          storage_lower := 0
-         next_generation
       ensure
          is_empty: count = 0
-         capacity = old capacity
-         storage_lower = 0
+                   capacity = old capacity
+                   storage_lower = 0
       end
 
    clear_count_and_capacity is
@@ -122,12 +120,11 @@ feature {ANY} -- Modification:
          capacity := 0
          storage_lower := 0
          storage := null_storage
-         next_generation
       ensure
          is_empty: count = 0
-         capacity = 0
-         storage_lower = 0
-         storage.is_null
+                   capacity = 0
+                   storage_lower = 0
+                   storage.is_null
       end
 
    copy (other: like Current) is
@@ -144,7 +141,6 @@ feature {ANY} -- Modification:
             storage.copy_slice_from(other.storage, other.storage_lower, other.storage_lower + c - 1)
          end
          count := c
-         next_generation
       ensure then
          count = other.count
       end
@@ -168,7 +164,6 @@ feature {ANY} -- Modification:
          end
          slice_copy(0, s, start_index, end_index)
          count := needed_capacity
-         next_generation
       end
 
    fill_with (c: CHARACTER) is
@@ -176,7 +171,6 @@ feature {ANY} -- Modification:
       do
          storage_lower := 0
          storage.set_all_with(c, count - 1)
-         next_generation
       ensure
          occurrences(c) = count
       end
@@ -185,7 +179,6 @@ feature {ANY} -- Modification:
          -- Replace all occurrences of the element `old_character' by `new_character'.
       do
          storage.fast_replace_all(old_character, new_character, count + storage_lower - 1)
-         next_generation
       ensure
          count = old count
          old_character /= new_character implies occurrences(old_character) = 0
@@ -207,7 +200,6 @@ feature {ANY} -- Modification:
          end
          slice_copy(upper, s, s.lower, s.upper)
          count := needed_capacity - storage_lower
-         next_generation
       end
 
    append_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -227,7 +219,6 @@ feature {ANY} -- Modification:
          end
          slice_copy(upper, s, start_index, end_index)
          count := needed_capacity
-         next_generation
       end
 
    prepend (other: ABSTRACT_STRING) is
@@ -251,7 +242,6 @@ feature {ANY} -- Modification:
          end
          storage_lower := 0
          slice_copy(0, other, other.lower, other.upper)
-         next_generation
       ensure
          (old other.twin + old Current.twin).is_equal(Current)
       end
@@ -286,7 +276,6 @@ feature {ANY} -- Modification:
             storage_lower := 0
             slice_copy(i - lower, s, s.lower, s.upper)
          end
-         next_generation
       end
 
    replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -323,7 +312,6 @@ feature {ANY} -- Modification:
          end
          count := count + difference
          slice_copy(start_index - lower, s, s.lower, s.upper)
-         next_generation
       end
 
    put (c: CHARACTER; i: INTEGER) is
@@ -334,7 +322,6 @@ feature {ANY} -- Modification:
          valid_index: valid_index(i)
       do
          storage.put(c, storage_lower + i - lower)
-         next_generation
       ensure
          item(i) = c
       end
@@ -376,7 +363,6 @@ feature {ANY} -- Modification:
          end
          storage.put(c, storage_lower + i - lower)
          count := count + 1
-         next_generation
       ensure
          item(i) = c
          count = old count + 1
@@ -398,7 +384,6 @@ feature {ANY} -- Modification:
             storage_lower := storage_lower + min_index - lower
             count := max_index - min_index + 1
          end
-         next_generation
       ensure
          count = max_index - min_index + 1
       end
@@ -510,7 +495,6 @@ feature {ANY} -- Modification:
       do
          storage_lower := storage_lower + 1
          count := count - 1
-         next_generation
       ensure
          count = old count - 1
       end
@@ -529,7 +513,6 @@ feature {ANY} -- Modification:
             storage_lower := storage_lower + n
             count := count - n
          end
-         next_generation
       ensure
          count = (old count - n).max(0)
       end
@@ -542,7 +525,6 @@ feature {ANY} -- Modification:
          not is_empty
       do
          count := count - 1
-         next_generation
       ensure
          count = old count - 1
       end
@@ -560,7 +542,6 @@ feature {ANY} -- Modification:
          else
             count := count - n
          end
-         next_generation
       ensure
          count = (old count - n).max(0)
       end

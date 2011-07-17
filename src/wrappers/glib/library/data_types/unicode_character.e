@@ -198,7 +198,7 @@ feature -- Convertions
 	end
 
 	to_title: like Current is
-		-- Current character converted to title case. It it not an uppercase or
+		-- Current character converted to title case. If it not an uppercase or
 		-- a lowercase character it is returned unchanged.
 	do
 		Result.set(g_unichar_totitle (code))

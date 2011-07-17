@@ -79,7 +79,7 @@
 // Also in standard C lib: ##include <time.h>
 // #include <trace.h>
 // #include <ulimit.h>
-// #include <unistd.h>
+#include <unistd.h>
 // #include <utime.h>
 // #include <utmpx.h>
 // #include <wchar.h>

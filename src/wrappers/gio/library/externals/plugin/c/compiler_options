@@ -1,0 +1,3 @@
+[UNIX]
+glib: "$(pkg-config --cflags gio-2.0)"
+

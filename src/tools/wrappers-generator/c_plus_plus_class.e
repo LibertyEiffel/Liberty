@@ -1,7 +1,10 @@
 class C_PLUS_PLUS_CLASS
 	-- A "Class" node of an XML file made by gccxml representing a C++ class.
 
-	-- Beware class names includes templates, so they may be like "QFlags<Qt::MouseButton>" escaped as "QFlags%lt;Qt::MouseButton&gt;". C++ and therefore also GccXml does not  
+	-- Beware class names includes templates, so they may be like
+	-- "QFlags<Qt::MouseButton>" escaped as "QFlags%lt;Qt::MouseButton&gt;".
+	-- C++ and therefore also GccXml does not have the concept of template
+	-- classes at parsed code level, only within source code. 
 
 inherit 
 	COMPOSED_NODE -- hence also a STORABLE_NODE and a NAMED_NODE
@@ -55,14 +58,31 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result:= is_named and then (is_public or has_assigned_name) and then is_in_main_namespace and then 
+			Result:= is_named and then (is_public or has_assigned_name) and then namespace.is_main and then 
 			(global or else headers.has(c_file.c_string_name))
+			-- TODO: also emit C++ classes not belonging to main namespace 
 		end
 
 	emit_wrapper is
-		-- TODO: unimplemented
+	local path: POSIX_PATH_NAME
 	do
-
+		if is_to_be_emitted then
+			create path.make_from_string(directory)
+			path.add_last(eiffel_name.as_lower+once ".e")
+			log(once "Class @(1) to @(2) in @(3)%N", <<c_string_name, eiffel_name, path.to_string>>)
+			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
+			-- emit_header
+			-- emit_members
+			-- emit_size
+			-- emit_footer
+			output.flush
+			output.disconnect
+		else
+			if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
+			else log(once "Struct @(1) skipped%N", <<c_string_name>>)
+			end
+			
+		end
 	end
 
 	is_artificial: BOOLEAN is
