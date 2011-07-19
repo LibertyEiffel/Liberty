@@ -15,11 +15,11 @@
 deferred class LIBERTY_NEGATIVE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_NEGATIVE}
-	visit_liberty_negative (v: LIBERTY_NEGATIVE) is
-		deferred
-		end
+   visit_liberty_negative (v: LIBERTY_NEGATIVE) is
+      deferred
+      end
 
 end -- class LIBERTY_NEGATIVE_VISITOR

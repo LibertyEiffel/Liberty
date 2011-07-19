@@ -15,114 +15,114 @@
 deferred class LIBERTY_FEATURE_LOCAL_CONTEXT
 
 feature {ANY}
-	current_type: LIBERTY_ACTUAL_TYPE is
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   current_type: LIBERTY_ACTUAL_TYPE is
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
-	result_type: LIBERTY_TYPE is
-		deferred
-		end
+   result_type: LIBERTY_TYPE is
+      deferred
+      end
 
-	parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
-	locals: TRAVERSABLE[LIBERTY_LOCAL] is
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   locals: TRAVERSABLE[LIBERTY_LOCAL] is
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
-	is_parameter (name: ABSTRACT_STRING): BOOLEAN is
-		require
-			name /= Void
-		deferred
-		end
+   is_parameter (name: ABSTRACT_STRING): BOOLEAN is
+      require
+         name /= Void
+      deferred
+      end
 
-	parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER is
-		require
-			name /= Void
-			is_parameter(name)
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER is
+      require
+         name /= Void
+         is_parameter(name)
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
-	is_local (name: ABSTRACT_STRING): BOOLEAN is
-		require
-			name /= Void
-		deferred
-		end
+   is_local (name: ABSTRACT_STRING): BOOLEAN is
+      require
+         name /= Void
+      deferred
+      end
 
-	local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL is
-		require
-			name /= Void
-			is_local(name)
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL is
+      require
+         name /= Void
+         is_local(name)
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
-	current_entity: LIBERTY_CURRENT is
-		deferred
-		end
+   current_entity: LIBERTY_CURRENT is
+      deferred
+      end
 
-	result_entity: LIBERTY_RESULT is
-		deferred
-		end
+   result_entity: LIBERTY_RESULT is
+      deferred
+      end
 
-	can_retry: BOOLEAN is
-		deferred
-		end
+   can_retry: BOOLEAN is
+      deferred
+      end
 
-	retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
-		require
-			can_retry
-		deferred
-		ensure
-			exists: Result /= Void
-		end
+   retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
+      require
+         can_retry
+      deferred
+      ensure
+         exists: Result /= Void
+      end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
-	add_parameter (a_parameter: LIBERTY_PARAMETER) is
-		require
-			a_parameter /= Void
-			not is_local(a_parameter.name)
-		deferred
-		ensure
-			is_parameter(a_parameter.name)
-		end
+   add_parameter (a_parameter: LIBERTY_PARAMETER) is
+      require
+         a_parameter /= Void
+         not is_local(a_parameter.name)
+      deferred
+      ensure
+         is_parameter(a_parameter.name)
+      end
 
-	add_local (a_local: LIBERTY_LOCAL) is
-		require
-			a_local /= Void
-			not is_parameter(a_local.name)
-		deferred
-		ensure
-			is_local(a_local.name)
-		end
+   add_local (a_local: LIBERTY_LOCAL) is
+      require
+         a_local /= Void
+         not is_parameter(a_local.name)
+      deferred
+      ensure
+         is_local(a_local.name)
+      end
 
-	reconcile_retry_instructions (a_feature: LIBERTY_FEATURE) is
-		require
-			can_retry
-		deferred
-		end
+   reconcile_retry_instructions (a_feature: LIBERTY_FEATURE) is
+      require
+         can_retry
+      deferred
+      end
 
-	set_result_type (a_result_type: like result_type) is
-		require
-			a_result_type /= Void
-		deferred
-		ensure
-			result_type = a_result_type
-		end
+   set_result_type (a_result_type: like result_type) is
+      require
+         a_result_type /= Void
+      deferred
+      ensure
+         result_type = a_result_type
+      end
 
 feature {LIBERTY_SEMANTICS_BUILDER}
-	specialized_in (a_type: like current_type): like Current is
-		deferred
-		end
+   specialized_in (a_type: like current_type): like Current is
+      deferred
+      end
 
 end

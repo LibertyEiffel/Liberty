@@ -15,24 +15,24 @@
 class LIBERTY_NOT_EQUALS
 
 inherit
-	LIBERTY_COMPARISON
+   LIBERTY_COMPARISON
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_NOT_EQUALS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_NOT_EQUALS_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_not_equals(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_NOT_EQUALS_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_not_equals(Current)
+      end
 
 feature {}
-	make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
-		do
-			create Result.make(a_left, a_right, a_result_type, a_position)
-		end
+   make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
+      do
+         create Result.make(a_left, a_right, a_result_type, a_position)
+      end
 
 end

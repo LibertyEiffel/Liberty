@@ -1,0 +1,262 @@
+The tutorial logigram
+#####################
+
+This tutorial shows a typical use of the backtracking cluster.
+
+How to compile?
+===============
+
+Just type:
+
+{{{{
+  se c -boost -clean -o logigram logigram
+}}}}
+
+
+What does it do?
+================
+
+That tutorial that shows how to solve problems 
+sometimes called logigrams. The logigrams
+are made of a set of items (persons, date, places, ...)
+grouped into categories and set of true propositions 
+about the items. From these propositions you must deduce
+how the given items are combined together.
+
+Here is an example:
+
+That program solves the following classic problem.
+
+Knowing that:
+  - the house of the english is red,
+  - the spanish has a dog,
+  - one drink coffee in the green house,
+  - the ukrainian drinks tea,
+  - the green house is just at right of the ivory house,
+  - the man that smokes winstons have a snail,
+  - the man that smokes kools have the yellow house,
+  - one drinks milk in the house at the middle,
+  - the norvegian lives in the house at left,
+  - the one who smokes chesterfields is neibourgh of a fox,
+  - the one who smokes kools is neibourgh of a horse,
+  - the one who smokes luckystrike drinks orange juice,
+  - the japanese smokes parliaments,
+  - the norvegian is neibourgh of the blue house.
+Tell who got the zebra and who drinks water?
+
+The output of the program is
+{{{{
+> logigram
+
++-----------+-------------+--------+--------------+---------------+--------+
+| house     | nationality | animal | drink        | cigarette     | color  |
++-----------+-------------+--------+--------------+---------------+--------+
+| left      | norvegian   | fox    | water        | kools         | yellow |
+| mid-left  | ukrainian   | horse  | tea          | chesterfields | blue   |
+| middle    | english     | snail  | milk         | winston       | red    |
+| mid-right | spanish     | dog    | orange juice | luckystrike   | ivory  |
+| right     | japanese    | zebra  | coffee       | parliaments   | green  |
++-----------+-------------+--------+--------------+---------------+--------+
+
+1 solution
+
+}}}}
+
+There are three other problems that let you challenge the
+tutorial.
+
+Exercice: in file logigram.e, feature describe_problem_classic put
+in comment line that declares that the house of the english is red
+as below and re-run. How many solutions now? Happy chrismas!
+{{{{
+  -- rule(yes(item("nationality", "english"), item("color", "red")))
+}}}}
+
+
+Exercice: in file logigram.e, feature describe_problem_classic put
+line that declares the ordered group house at the end of the
+groups declarations and measure the difference of computing time 
+with the command 'time' (under unix). Explain.
+
+Exercice: write a program that solves the same problem.
+
+Exercice: write a program that solves any problem of the same kind.
+
+
+How does it work?
+=================
+
+It works in three steps:
+ - Creation of the problem description.
+ - Transformation of the description to a AND/OR 
+   tree of possible permutations.
+ - Exploration of the AND/OR tree by backtracking to
+   retrieve the solutions.
+
+The main idea is to use permutations for retrieving the solutions.
+
+Description of the problem
+--------------------------
+
+The description is managed with an object of the class DESCRIPTION
+that mainly contains:
+ - a set of groups;
+ - a set of constraints through an object of class CONSTRAINT_SET.
+
+First of all, the groups must be declared. There are 3 kind of
+groups:
+ - the atomic groups;
+ - the ordered groups what means that the order of the items
+   of the group cares and that each item receive a number that
+   is its place, beginning to zero;
+ - the numeric groups that must contain numeric items.
+
+The groups are all managed through objects of class GROUP.
+
+The constraints (class CONSTRAINT) are distinguished in two 
+types: 
+ - Constraints on couples (class CONSTRAINT_COUPLE association of a 
+   couple of two items that are not of the same group), that comprises:
+     - positive association of a couple (class CONSTRAINT_YES) what meaning
+       is that the 2 items are associated together (example: marie had 
+       4 children);
+     - negative association of a couple (class CONSTRAINT_NO) what meaning
+       is that the 2 items are never associated together (example: marie 
+       didn't have 4 children).
+ - Logical constraints (class CONSTRAINT_LOGICAL) that currently only are 
+   the relationnal constraints (class CONSTRAINT_RELATIONAL) on some integer 
+   expressions, that comprises equal, greater, lesser, and 
+   not equal, from the classes CONSTRAINT_EQUAL, CONSTRAINT_GREATER, 
+   CONSTRAINT_LESSER, CONSTRAINT_NOT_EQUAL.
+
+The relational constraints are on expressions that are built using 
+inheriters of class EXPR, say:
+ - constants from EXPR_VALUE;
+ - addition, substraction, multiplication from EXPR_ADD, EXPR_SUB
+   and EXPR_MUL;
+ - absolute value from EXPR_ABS;
+ - the conversion from an item to an integer (possible only for items
+   of numeric or ordered groups) with EXPR_ITEM.
+
+The constraints on couple take 2 items and the item expression take 
+one item. In any of these cases, items can be or true items (ITEM_ITEM)
+or variable items (ITEM_VAR). A variable is attached to a group and can
+take any value into it.
+
+The description is built by putting constraints into the the constraint
+set. The constraints set records the constraint in several groups of 
+bound constraints. Two constraints are bound together if they share the
+same variable. The class ITEM_COLLECTOR serves the purpose of enumerating
+the items of a constraint.
+
+Such a binding relation define equivalent classes that are 
+used to group the constraints together into CONSTRAINT_GROUP. 
+At the end of the description the constraint set contains
+ - an unbound constraint group that does not depend on any variables;
+ - a list of constraint groups that have variables such that any
+   pair of group in the list have a separate set of variables.
+
+Exercice: add some new logical operators like and, or, ...
+
+Transformation of the description
+---------------------------------
+
+In that step, the constraints are transformed to a AND/OR
+tree of the possible permutations.
+
+The possible permutations are recorded using a BIT_STRING.
+Here is how.
+
+Let get two groups: A and X. 
+The group A is made of the item a, b, c.
+The group X is made of the item x, y, z.
+The possible permutations from A and X are
+listed below:
+{{{{
+   +-----+-----------+---------+
+   |  A  | a | b | c |  number |
+   +-----+---+---+---+---------+
+   |     | x | y | z |    0    |
+   |     | x | z | y |    1    |
+   |  X  | y | x | z |    2    |
+   |     | y | z | x |    3    |
+   |     | z | x | y |    4    |
+   |     | z | y | x |    5    |
+   +-----+---+---+---+---------+
+}}}}
+Each of these permutation have received a number that identifies
+it. That number is used for the BIT_STRING indexes.
+
+For example, the possible permutations where b is associated
+with z are the ones of number 1 and 3 then the corresponding
+bit string value is:
+{{{{
+     index: 0 1 2 3 4 5
+     value: 0 1 0 1 0 0
+}}}}
+
+For example, the possible permutations where c is not associated
+with y are the ones of number 0, 2, 3, 5 and 3 then the corresponding
+bit string value is:
+{{{{
+     index: 0 1 2 3 4 5
+     value: 1 0 1 1 0 1
+}}}}
+
+So if the problem is to find how to arrange A with X in a such
+way that b is with z and c is not with y, a sample or between the
+possible combinations gives the solution:
+{{{{
+              index: 0 1 2 3 4 5
+
+(P1)       b with x: 0 1 0 1 0 0
+(P2)   c not with y: 1 0 1 1 0 1
+                    -------------
+      (P1) and (P2): 0 0 0 1 0 0
+}}}}
+The solution is permutation 3: a with y, b with z, c with x.
+
+For N groups, the program manages (N * (N-1))/2 pair of 
+possible permutations.
+
+The AND/OR tree is created by CONSTRAINT_SET that simply make
+a and of the sub trees created by each of the group of constraint
+CONSTRAINT_GROUP it contains.
+
+The CONSTRAINT_GROUP enumerate all possible combination of 
+the variables and when a combination is consistent for the
+set of logical constraints, it generates a AND list of the
+possible permutations that the combination represent. 
+The result is a OR of all the detected possibilities.
+
+The masks are built by using an instance of MASK_BUILDER.
+
+Exercice: explain how permutations are numbered.
+
+Exercice: try to improve the time used for the transformation by
+challenging the variables before each invocation of 'get_node'
+in 'get_node_of_var', class CONSTRAINT_GROUP. Trick: add a deferred
+feature 'can_challenge' in CONSTRAINT_LOGICAL.
+
+Exploration of the solutions
+----------------------------
+
+During this step, the possible combinations of the AND/OR tre are 
+enumerated using the BACKTRACKING behaviors. When a solution is
+possible, it is checked to see if it is consistent. In effect,
+it is not possible to detect all impossibilities during the
+exploration.
+
+The class SITUATION is used to do all that stuff.
+
+Exercice: try to improve the checking of the consistency of the 
+presumed solutions. You wil find it in class SITUATION, the feature
+is 'try_solution'.
+
+
+.def [[:upper:]_]\{2,\} <span class="class">&</span>
+.def {{{{ <pre>
+.def }}}} </pre>
+.def ^Exercice: <span class="exercice">&</span>
+.sty .exercice { color: green; font: small-caps bold; }
+

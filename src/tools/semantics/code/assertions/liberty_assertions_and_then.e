@@ -15,18 +15,18 @@
 class LIBERTY_ASSERTIONS_AND_THEN
 
 inherit
-	LIBERTY_COMPOSED_ASSERTIONS
+   LIBERTY_COMPOSED_ASSERTIONS
 
 create {LIBERTY_ASSERTIONS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_ASSERTIONS_AND_THEN_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_assertions_and_then(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_ASSERTIONS_AND_THEN_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_assertions_and_then(Current)
+      end
 
 end

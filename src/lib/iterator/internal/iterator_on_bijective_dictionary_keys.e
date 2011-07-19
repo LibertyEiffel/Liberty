@@ -2,50 +2,57 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS[V_, K_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[K_]
+   ITERATOR[K_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	bijective_dictionary: BIJECTIVE_DICTIONARY[V_, K_]
-			-- The one to be traversed.
+   bijective_dictionary: BIJECTIVE_DICTIONARY[V_, K_]
+         -- The one to be traversed.
 
-	item_index: INTEGER
+   item_index: INTEGER
 
 feature {ANY}
-	make (d: like bijective_dictionary) is
-		require
-			d /= Void
-		do
-			bijective_dictionary := d
-			item_index := 1
-		ensure
-			bijective_dictionary = d
-		end
+   make (d: like bijective_dictionary) is
+      require
+         d /= Void
+      do
+         bijective_dictionary := d
+         start
+      ensure
+         bijective_dictionary = d
+      end
 
-	start is
-		do
-			item_index := 1
-		end
+   start is
+      do
+         item_index := 1
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item_index > bijective_dictionary.count
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item_index > bijective_dictionary.count
+      end
 
-	item: K_ is
-		do
-			Result := bijective_dictionary.key(item_index)
-		end
+   item: K_ is
+      do
+         Result := bijective_dictionary.key(item_index)
+      end
 
-	next is
-		do
-			item_index := item_index + 1
-		end
+   next is
+      do
+         item_index := item_index + 1
+      end
+
+feature {}
+   iterable_generation: INTEGER is
+      do
+         Result := bijective_dictionary.generation
+      end
 
 end -- class ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS
 --

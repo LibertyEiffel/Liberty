@@ -13,28 +13,29 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTYI
-	--
-	-- The interpreter.
-	--
+   --
+   -- The interpreter.
+   --
 
 insert
-	LIBERTY_MAIN
+   LIBERTY_MAIN
 
 create {}
-	make
+   make
 
 feature {}
-	run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
-		local
-			interpreter: LIBERTY_INTERPRETER
-			options: LIBERTY_INTERPRETER_OPTIONS
-		do
-			log.info.put_line(once "Starting the liberty interpreter.")
-			options.set(opt_check_level.item, opt_debug.item)
-			create interpreter.make(universe, root, root_feature_name)
-			interpreter.run
-		end
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+      local
+         interpreter: LIBERTY_INTERPRETER
+         options: LIBERTY_INTERPRETER_OPTIONS
+      do
+         log.info.put_line(once "Starting the liberty interpreter.")
+         options.set(opt_check_level.item, opt_debug.item)
+         create interpreter.make(universe, root, root_feature_name)
+         interpreter.run
+         log.info.put_line(once "Exiting the liberty interpreter.")
+      end
 
-	default_log_location: STRING is "${path_liberty}/resources/log/libertyi-log.rc"
+   default_log_location: STRING is "${path_liberty}/resources/log/libertyi-log.rc"
 
 end -- class LIBERTYI

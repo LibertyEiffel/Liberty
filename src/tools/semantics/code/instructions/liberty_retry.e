@@ -14,57 +14,57 @@
 --
 class LIBERTY_RETRY
 
-	-- NOTE: retries are not yet implemented. At all.
+   -- NOTE: retries are not yet implemented. At all.
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 create {LIBERTY_FEATURE_LOCAL_CONTEXT}
-	make
+   make
 
 feature {ANY}
-	the_feature: LIBERTY_FEATURE
+   the_feature: LIBERTY_FEATURE
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := Current
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := Current
+      end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-	set_feature (a_feature: like the_feature) is
-		require
-			a_feature /= Void
-		do
-			the_feature := a_feature
-		ensure
-			the_feature = a_feature
-		end
+   set_feature (a_feature: like the_feature) is
+      require
+         a_feature /= Void
+      do
+         the_feature := a_feature
+      ensure
+         the_feature = a_feature
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			check
-				the_feature /= Void implies the_feature.is_reachable
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         check
+            the_feature /= Void implies the_feature.is_reachable
+         end
+      end
 
 feature {}
-	make (a_position: like position) is
-		require
-			a_position /= Void
-		do
-			position := a_position
-		ensure
-			position = a_position
-		end
+   make (a_position: like position) is
+      require
+         a_position /= Void
+      do
+         position := a_position
+      ensure
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_RETRY_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_retry(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_RETRY_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_retry(Current)
+      end
 
 end

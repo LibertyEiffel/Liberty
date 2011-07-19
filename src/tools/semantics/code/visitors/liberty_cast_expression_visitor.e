@@ -15,11 +15,11 @@
 deferred class LIBERTY_CAST_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_CAST_EXPRESSION}
-	visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
-		deferred
-		end
+   visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
+      deferred
+      end
 
 end -- class LIBERTY_CAST_EXPRESSION_VISITOR

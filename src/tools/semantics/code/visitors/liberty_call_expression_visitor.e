@@ -15,11 +15,11 @@
 deferred class LIBERTY_CALL_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_CALL_EXPRESSION}
-	visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
-		deferred
-		end
+   visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
+      deferred
+      end
 
 end -- class LIBERTY_CALL_EXPRESSION_VISITOR

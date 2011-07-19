@@ -9,100 +9,100 @@ expanded class TRISTATE
 --| TODO: make it native to have a real semi-evaluation of `and then' and `or else'
 
 insert
-	TRISTATE_VALUES
-		redefine
-			is_equal
-		end
+   TRISTATE_VALUES
+      redefine
+         is_equal
+      end
 
 feature {ANY} -- Expressions:
-	to_boolean: BOOLEAN is
-		require
-			certain_state: not is_equal(maybe)
-		do
-			Result := value = yes_value
-		end
+   to_boolean: BOOLEAN is
+      require
+         certain_state: not is_equal(maybe)
+      do
+         Result := value = yes_value
+      end
 
-	from_boolean (b: BOOLEAN): TRISTATE is
-		do
-			if b then
-				Result := with_value(yes_value)
-			else
-				Result := with_value(no_value)
-			end
-		end
+   from_boolean (b: BOOLEAN): TRISTATE is
+      do
+         if b then
+            Result := with_value(yes_value)
+         else
+            Result := with_value(no_value)
+         end
+      end
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other.value = value
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other.value = value
+      end
 
-	prefix "not": TRISTATE is
-		do
-			inspect
-				value
-			when yes_value then
-				Result := no
-			when no_value then
-				Result := yes
-			else
-				Result := maybe
-			end
-		end
+   prefix "not": TRISTATE is
+      do
+         inspect
+            value
+         when yes_value then
+            Result := no
+         when no_value then
+            Result := yes
+         else
+            Result := maybe
+         end
+      end
 
-	infix "and" (other: TRISTATE): TRISTATE is
-		do
-			Result := Current and then other
-		end
+   infix "and" (other: TRISTATE): TRISTATE is
+      do
+         Result := Current and then other
+      end
 
-	infix "or" (other: TRISTATE): TRISTATE is
-		do
-			Result := Current or else other
-		end
+   infix "or" (other: TRISTATE): TRISTATE is
+      do
+         Result := Current or else other
+      end
 
-	infix "and then" (other: TRISTATE): TRISTATE is
-		do
-			if value = maybe_value or else other.value = maybe_value then
-				Result := maybe
-			else
-				Result := from_boolean(to_boolean and then other.to_boolean)
-			end
-		end
+   infix "and then" (other: TRISTATE): TRISTATE is
+      do
+         if value = maybe_value or else other.value = maybe_value then
+            Result := maybe
+         else
+            Result := from_boolean(to_boolean and then other.to_boolean)
+         end
+      end
 
-	infix "or else" (other: TRISTATE): TRISTATE is
-		do
-			if value = maybe_value or else other.value = maybe_value then
-				Result := maybe
-			else
-				Result := from_boolean(to_boolean or else other.to_boolean)
-			end
-		end
+   infix "or else" (other: TRISTATE): TRISTATE is
+      do
+         if value = maybe_value or else other.value = maybe_value then
+            Result := maybe
+         else
+            Result := from_boolean(to_boolean or else other.to_boolean)
+         end
+      end
 
-	infix "implies" (other: TRISTATE): TRISTATE is
-		do
-			Result := (not Current) or else other
-		end
+   infix "implies" (other: TRISTATE): TRISTATE is
+      do
+         Result := (not Current) or else other
+      end
 
-	infix "xor" (other: TRISTATE): TRISTATE is
-		do
-			if value = maybe_value or else other.value = maybe_value then
-				Result := maybe
-			else
-				Result := from_boolean(to_boolean xor other.to_boolean)
-			end
-		end
+   infix "xor" (other: TRISTATE): TRISTATE is
+      do
+         if value = maybe_value or else other.value = maybe_value then
+            Result := maybe
+         else
+            Result := from_boolean(to_boolean xor other.to_boolean)
+         end
+      end
 
 feature {TRISTATE, TRISTATE_VALUES}
-	with_value (a_value: like value): TRISTATE is
-		do
-			value := a_value
-			Result := Current
-		end
+   with_value (a_value: like value): TRISTATE is
+      do
+         value := a_value
+         Result := Current
+      end
 
-	value: INTEGER_8
+   value: INTEGER_8
 
-	yes_value: INTEGER_8 is 1
-	no_value: INTEGER_8 is -1
-	maybe_value: INTEGER_8 is 0
+   yes_value: INTEGER_8 is 1
+   no_value: INTEGER_8 is -1
+   maybe_value: INTEGER_8 is 0
 
 end -- class TRISTATE
 --

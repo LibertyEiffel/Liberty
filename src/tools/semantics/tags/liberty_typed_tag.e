@@ -15,42 +15,42 @@
 class LIBERTY_TYPED_TAG[T_]
 
 inherit
-	LIBERTY_TAG
+   LIBERTY_TAG
 
 create {LIBERTY_TAG_REF}
-	make
+   make
 
 feature {ANY}
-	id: FIXED_STRING is
-		do
-			Result := ref.id
-		end
+   id: FIXED_STRING is
+      do
+         Result := ref.id
+      end
 
-	value: T_
+   value: T_
 
 feature {LIBERTY_TAG_REF}
-	set (a_value: like value) is
-		do
-			value := a_value
-		ensure
-			value = a_value
-		end
+   set (a_value: like value) is
+      do
+         value := a_value
+      ensure
+         value = a_value
+      end
 
 feature {}
-	make (a_ref: like ref; a_value: like value) is
-		require
-			a_ref /= Void
-		do
-			ref := a_ref
-			value := a_value
-		ensure
-			ref = a_ref
-			value = a_value
-		end
+   make (a_ref: like ref; a_value: like value) is
+      require
+         a_ref /= Void
+      do
+         ref := a_ref
+         value := a_value
+      ensure
+         ref = a_ref
+         value = a_value
+      end
 
-	ref: LIBERTY_TAG_REF[T_]
+   ref: LIBERTY_TAG_REF[T_]
 
 invariant
-	ref /= Void
+   ref /= Void
 
 end

@@ -15,74 +15,74 @@
 deferred class LIBERTY_AST_EXPRESSION_BINARY[E_ -> LIBERTY_AST_NON_TERMINAL_NODE]
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-	left_expression: E_ is
-		require
-			not is_empty
-			not is_binary
-		do
-			Result ::= nodes.first
-		end
+   left_expression: E_ is
+      require
+         not is_empty
+         not is_binary
+      do
+         Result ::= nodes.first
+      end
 
-	left_binary: like Current is
-		require
-			not is_empty
-			is_binary
-		do
-			Result ::= nodes.first
-		end
+   left_binary: like Current is
+      require
+         not is_empty
+         is_binary
+      do
+         Result ::= nodes.first
+      end
 
-	right_expression: E_ is
-		require
-			not is_empty
-		do
-			Result ::= nodes.last
-		end
+   right_expression: E_ is
+      require
+         not is_empty
+      do
+         Result ::= nodes.last
+      end
 
-	is_binary: BOOLEAN is
-		require
-			not is_empty
-		do
-			Result := nodes.first.name = eiffel_name
-		end
+   is_binary: BOOLEAN is
+      require
+         not is_empty
+      do
+         Result := nodes.first.name = eiffel_name
+      end
 
-	is_double_operator: BOOLEAN is
-		do
-			Result := count = 4
-		end
+   is_double_operator: BOOLEAN is
+      do
+         Result := count = 4
+      end
 
-	operator1: EIFFEL_IMAGE is
-		local
-			op1: LIBERTY_AST_TERMINAL_NODE
-		do
-			op1 ::= nodes.item(1)
-			Result := op1.image
-		end
+   operator1: EIFFEL_IMAGE is
+      local
+         op1: LIBERTY_AST_TERMINAL_NODE
+      do
+         op1 ::= nodes.item(1)
+         Result := op1.image
+      end
 
-	operator2: EIFFEL_IMAGE is
-		require
-			is_double_operator
-		local
-			op2: LIBERTY_AST_TERMINAL_NODE
-		do
-			op2 ::= nodes.item(2)
-			Result := op2.image
-		end
+   operator2: EIFFEL_IMAGE is
+      require
+         is_double_operator
+      local
+         op2: LIBERTY_AST_TERMINAL_NODE
+      do
+         op2 ::= nodes.item(2)
+         Result := op2.image
+      end
 
 feature {ANY}
-	count: INTEGER is
-		do
-			Result := nodes.count
-		end
+   count: INTEGER is
+      do
+         Result := nodes.count
+      end
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 3, 4 >> } -- depends on the operator
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 3, 4 >> } -- depends on the operator
+      end
 
-	errors: LIBERTY_ERRORS
+   errors: LIBERTY_ERRORS
 
 end

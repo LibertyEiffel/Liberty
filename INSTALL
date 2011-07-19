@@ -7,6 +7,10 @@ libraries) for bootstrap.
 Note that this is a temporary setup, as SmartEiffel will be removed as soon as
 Liberty can bootstrap from itself.
 
+Please note that SmartEiffel should not be already installed on your system.
+Particularily, any /etc/serc file will prevent you from installing Liberty
+correctly.
+
 The installation procedure is as follows: go to the Liberty directory and type
 
     ./install.sh

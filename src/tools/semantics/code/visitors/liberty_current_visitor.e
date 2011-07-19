@@ -15,11 +15,11 @@
 deferred class LIBERTY_CURRENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_CURRENT}
-	visit_liberty_current (v: LIBERTY_CURRENT) is
-		deferred
-		end
+   visit_liberty_current (v: LIBERTY_CURRENT) is
+      deferred
+      end
 
 end -- class LIBERTY_CURRENT_VISITOR

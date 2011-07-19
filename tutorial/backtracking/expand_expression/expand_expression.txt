@@ -1,0 +1,100 @@
+The tutorial expand_expression
+##############################
+
+This tutorial shows basic use of the cluster backtracking.
+
+The same example: expanding syntactic expression, is
+written using two differents ways: ABSTRACT and TREE.
+It is recommended to start with TREE.
+
+How to compile?
+===============
+
+In both case, just type:
+
+  se c -clean -o a_nick_name expand_expression
+
+
+What does it do?
+================
+
+Each of the 2 programs performs syntaxic expansion.
+For example, putting the line
+
+{{{{
+	(Hello + Hi) the ( + great) world!
+}}}}
+
+at input will produce the output:
+
+{{{{
+        (1)     Hello the world!
+        (2)     Hello the great world!
+        (3)     Hi the world!
+        (4)     Hi the great world!
+}}}}
+
+The grammar of the inputs are:
+
+{{{{
+  input       ::= alternative;
+  alternative ::= sequence ['+' sequence]...;
+  sequence    ::= [term]...;
+  term        ::= '(' alternative ')' | "a term";
+}}}}
+
+
+Exercice: write a program that does the same syntaxic expansion.
+(trick: reuse the parser of the tutorial)
+
+
+How does 'tree' works?
+======================
+
+The tree example uses the most usable class of the
+backtracking cluster: the class BACKTRACKING.
+
+The class BACKTRACKING make an exploration of the
+and/or graphes made of BACKTRACKING_NODE instances. Many
+usefull BACKTRACKING_NODE inheriters are defined and 
+useables.
+
+The syntaxic expression is transformed to a such
+and/or structure. Alternatives does use BACKTRACKING_NODE_OR_PAIR
+that make a or between two nodes. Sequences does use
+BACKTRACKING_NODE_AND_PAIR that make a and between to nodes.
+In both cases, the order of the nodes is meaningful.
+Two other predefined nodes are used: the_true_node
+(of class BACKTRACKING_NODE_TRUE) for empty terms, and,
+the_false_node (of class BACKTRACKING_NODE_FALSE) for 
+errors of syntax.
+
+To get practical results, the terms are using a local
+class STRING_NODE that records what to print in a local
+field. When explored these nodes push the string on the
+and call the feature continue. Not that covariance is
+used.
+
+The use of that class is easy: define the features
+'get_context' and 'restore_context'. These features
+will be called during the exploration to save the
+context before to explore an alternative and to restore
+it during the backtracking. These feature are defined
+as returning ANY but please make a covariant redefinition
+as in exemples, where the context, an INTEGER, records the 
+count of items pushed.
+
+
+How does 'abstract' works?
+==========================
+
+The abstract example does exactly the same that tree except
+that it uses a more abstract class ABSTRACT_BACKTRACKING.
+
+That class is intended to be used when structures to be
+explored can not be derived from BACKTRACKING_NODE. 
+
+.def [[:upper:]_]\{2,\} <span class="class">&</span>
+.def {{{{ <pre>
+.def }}}} </pre>
+

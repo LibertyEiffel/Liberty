@@ -2,169 +2,169 @@
 -- See the full copyright at the end.
 --
 class NCURSES_MENU[E_]
-	-- This class adds a menu widget.
+   -- This class adds a menu widget.
 
 inherit
-	NCURSES_WIDGET
+   NCURSES_WIDGET
 
 creation{ANY}
-	make
+   make
 
 feature{ANY}
-	left: INTEGER
+   left: INTEGER
 
-	top: INTEGER
+   top: INTEGER
 
-	width: INTEGER
+   width: INTEGER
 
-	height: INTEGER
+   height: INTEGER
 
-	refresh_later is
-		local
-			x, y, i: INTEGER
-		do
-			if has_border then
-				x := 1
-				y := 1
-				window.draw_border
-			end
-			from
-				i := items.lower
-			variant
-				items.upper - i
-			until
-				i > items.upper
-			loop
-				if i = selected then
-					window.set_attribute(ncurses.a_reverse)
-				end
-				window.put_string_at(items.item(i).tag, x, y)
-				if i = selected then
-					window.unset_attribute(ncurses.a_reverse)
-				end
-				y := y + 1
-				i := i + 1
-			end
-		end
+   refresh_later is
+      local
+         x, y, i: INTEGER
+      do
+         if has_border then
+            x := 1
+            y := 1
+            window.draw_border
+         end
+         from
+            i := items.lower
+         variant
+            items.upper - i
+         until
+            i > items.upper
+         loop
+            if i = selected then
+               window.set_attribute(ncurses.a_reverse)
+            end
+            window.put_string_at(items.item(i).tag, x, y)
+            if i = selected then
+               window.unset_attribute(ncurses.a_reverse)
+            end
+            y := y + 1
+            i := i + 1
+         end
+      end
 
-	tag: STRING
+   tag: STRING
 
-	items: ARRAY[NCURSES_MENU_ITEM[E_]]
+   items: ARRAY[NCURSES_MENU_ITEM[E_]]
 
-	selected: INTEGER
+   selected: INTEGER
 
-	has_border: BOOLEAN
+   has_border: BOOLEAN
 
-	get_choice: E_ is
-		obsolete "use read_choice and last_choice"
-		do
-			read_choice
-			if valid_choice then
-				Result := last_choice
-			end
-		end
+   get_choice: E_ is
+      obsolete "use read_choice and last_choice"
+      do
+         read_choice
+         if valid_choice then
+            Result := last_choice
+         end
+      end
 
-	read_choice is
-		local
-			key: INTEGER; done: BOOLEAN
-		do
-			from
-				selected := items.lower
-			until
-				done
-			loop
-				redraw_now
-				key := window.wait_keypress
-				if key = key_up then
-					if selected > items.lower then
-						selected := selected - 1
-					else
-						done := True
-					end
-				elseif key = key_down and then selected < items.upper then
-					selected := selected + 1
-				elseif key = key_return then
-					last_choice_memory := items.item(selected).value
-					valid_choice := True
-					done := True
-				elseif key = key_escape then
-					valid_choice := False
-					done := True
-				end
-			end
-		end
+   read_choice is
+      local
+         key: INTEGER; done: BOOLEAN
+      do
+         from
+            selected := items.lower
+         until
+            done
+         loop
+            redraw_now
+            key := window.wait_keypress
+            if key = key_up then
+               if selected > items.lower then
+                  selected := selected - 1
+               else
+                  done := True
+               end
+            elseif key = key_down and then selected < items.upper then
+               selected := selected + 1
+            elseif key = key_return then
+               last_choice_memory := items.item(selected).value
+               valid_choice := True
+               done := True
+            elseif key = key_escape then
+               valid_choice := False
+               done := True
+            end
+         end
+      end
 
-	valid_choice: BOOLEAN
+   valid_choice: BOOLEAN
 
-	last_choice: E_ is
-		require
-			valid_choice
-		do
-			Result := last_choice_memory
-		end
+   last_choice: E_ is
+      require
+         valid_choice
+      do
+         Result := last_choice_memory
+      end
 
 feature {}
-	last_choice_memory: E_
+   last_choice_memory: E_
 
 feature{NCURSES_WIDGET}
-	get_window: NCURSES_WINDOW is
-		do
-			Result := window
-		end
+   get_window: NCURSES_WINDOW is
+      do
+         Result := window
+      end
 
-	parent_resized is
-		do
-		end
+   parent_resized is
+      do
+      end
 
 feature{}
-	make (p: like parent; x, y: INTEGER; t: like tag; its: like items; with_border: BOOLEAN) is
-		require
-			ncurses.is_enabled
-			p /= Void
-			x >= 0
-			y >= 0
-			not t.is_empty
-			its.count > 0
-		local
-			i: INTEGER
-		do
-			left := x
-			top := y
-			tag := t
-			items := its
-			selected := items.lower
-			has_border := with_border
-			height := items.count
-			from
-				i := items.lower
-			variant
-				items.upper - i
-			until
-				i > items.upper
-			loop
-				width := width.max(items.item(i).tag.count + 1)
-				i := i + 1
-			end
-			if has_border then
-				width := width + 1
-				height := height + 2
-			end
-			set_parent(p)
-			window := p.get_window.create_sub_window(left, top, width, height)
-		ensure
-			left = x
-			top = y
-			tag = t
-			items = its
-			selected = items.lower
-			has_border = with_border
-		end
+   make (p: like parent; x, y: INTEGER; t: like tag; its: like items; with_border: BOOLEAN) is
+      require
+         ncurses.is_enabled
+         p /= Void
+         x >= 0
+         y >= 0
+         not t.is_empty
+         its.count > 0
+      local
+         i: INTEGER
+      do
+         left := x
+         top := y
+         tag := t
+         items := its
+         selected := items.lower
+         has_border := with_border
+         height := items.count
+         from
+            i := items.lower
+         variant
+            items.upper - i
+         until
+            i > items.upper
+         loop
+            width := width.max(items.item(i).tag.count + 1)
+            i := i + 1
+         end
+         if has_border then
+            width := width + 1
+            height := height + 2
+         end
+         set_parent(p)
+         window := p.get_window.create_sub_window(left, top, width, height)
+      ensure
+         left = x
+         top = y
+         tag = t
+         items = its
+         selected = items.lower
+         has_border = with_border
+      end
 
-	window: NCURSES_WINDOW
+   window: NCURSES_WINDOW
 
 invariant
-	window /= Void
-	items.valid_index(selected)
+   window /= Void
+   items.valid_index(selected)
 
 end -- class NCURSES_MENU
 --

@@ -15,21 +15,21 @@
 class LIBERTY_AST_INVARIANT
 
 inherit
-	LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
-		redefine
-			possible_counts
-		end
+   LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
+      redefine
+         possible_counts
+      end
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {ANY}
-	name: STRING is "Invariant"
+   name: STRING is "Invariant"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 0, 3 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 0, 3 >> }
+      end
 
 end

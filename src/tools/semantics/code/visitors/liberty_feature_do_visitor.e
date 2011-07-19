@@ -15,11 +15,11 @@
 deferred class LIBERTY_FEATURE_DO_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_FEATURE_DO}
-	visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
-		deferred
-		end
+   visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
+      deferred
+      end
 
 end -- class LIBERTY_FEATURE_DO_VISITOR

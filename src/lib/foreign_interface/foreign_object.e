@@ -4,17 +4,17 @@
 deferred class FOREIGN_OBJECT
 
 feature {ANY}
-	match_type (a_type: FOREIGN_TYPE): BOOLEAN is
-		do
-			Result := type = a_type
-		end
+   match_type (a_type: FOREIGN_TYPE): BOOLEAN is
+      do
+         Result := type = a_type
+      end
 
-	type: FOREIGN_TYPE
+   type: FOREIGN_TYPE
 
 feature {FOREIGN_PARAMETERS, FOREIGN_AGENT}
-	as_pointer: POINTER is
-		deferred
-		end
+   as_pointer: POINTER is
+      deferred
+      end
 
 end -- class FOREIGN_OBJECT
 --

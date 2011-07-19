@@ -15,37 +15,37 @@
 deferred class LIBERTY_ASSIGNMENT
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 feature {ANY}
-	writable: LIBERTY_WRITABLE
-	expression: LIBERTY_EXPRESSION
+   writable: LIBERTY_WRITABLE
+   expression: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			writable.mark_reachable_code(mark)
-			expression.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         writable.mark_reachable_code(mark)
+         expression.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_writable: like writable; a_expression: like expression; a_position: like position) is
-		require
-			a_writable /= Void
-			a_expression /= Void
-			a_position /= Void
-		do
-			writable := a_writable
-			expression := a_expression
-			position := a_position
-		ensure
-			writable = a_writable
-			expression = a_expression
-			position = a_position
-		end
+   make (a_writable: like writable; a_expression: like expression; a_position: like position) is
+      require
+         a_writable /= Void
+         a_expression /= Void
+         a_position /= Void
+      do
+         writable := a_writable
+         expression := a_expression
+         position := a_position
+      ensure
+         writable = a_writable
+         expression = a_expression
+         position = a_position
+      end
 
 invariant
-	writable /= Void
-	expression /= Void
+   writable /= Void
+   expression /= Void
 
 end

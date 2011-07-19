@@ -15,55 +15,55 @@
 class LIBERTY_CHECK_INSTRUCTION
 
 inherit
-	LIBERTY_INSTRUCTION
+   LIBERTY_INSTRUCTION
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_CHECK_INSTRUCTION}
-	make
+   make
 
 feature {ANY}
-	checks: LIBERTY_CHECK
+   checks: LIBERTY_CHECK
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		local
-			c: like checks
-		do
-			c := checks.specialized_in(a_type)
-			if c = checks then
-				Result := Current
-			else
-				create Result.make(c, position)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      local
+         c: like checks
+      do
+         c := checks.specialized_in(a_type)
+         if c = checks then
+            Result := Current
+         else
+            create Result.make(c, position)
+         end
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			checks.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         checks.mark_reachable_code(mark)
+      end
 
 feature {}
-	make (a_checks: like checks; a_position: like position) is
-		require
-			a_checks /= Void
-			a_position /= Void
-		do
-			checks := a_checks
-			position := a_position
-		ensure
-			checks = a_checks
-			position = a_position
-		end
+   make (a_checks: like checks; a_position: like position) is
+      require
+         a_checks /= Void
+         a_position /= Void
+      do
+         checks := a_checks
+         position := a_position
+      ensure
+         checks = a_checks
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_CHECK_INSTRUCTION_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_check_instruction(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_CHECK_INSTRUCTION_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_check_instruction(Current)
+      end
 
 invariant
-	checks /= Void
+   checks /= Void
 
 end

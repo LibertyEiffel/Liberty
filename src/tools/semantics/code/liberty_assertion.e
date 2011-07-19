@@ -15,44 +15,44 @@
 class LIBERTY_ASSERTION
 
 insert
-	LIBERTY_REACHABLE
+   LIBERTY_REACHABLE
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_ASSERTION}
-	make
+   make
 
 feature {ANY}
-	tag: FIXED_STRING
-	assertion: LIBERTY_EXPRESSION
+   tag: FIXED_STRING
+   assertion: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			assertion.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         assertion.mark_reachable_code(mark)
+      end
 
 feature {LIBERTY_ASSERTIONS}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		local
-			a: like assertion
-		do
-			a := assertion.specialized_in(a_type)
-			if a = assertion then
-				Result := Current
-			else
-				create Result.make(tag, a)
-			end
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      require
+         a_type /= Void
+      local
+         a: like assertion
+      do
+         a := assertion.specialized_in(a_type)
+         if a = assertion then
+            Result := Current
+         else
+            create Result.make(tag, a)
+         end
+      end
 
 feature {}
-	make (a_tag: like tag; a_assertion: like assertion) is
-		do
-			tag := a_tag
-			assertion := a_assertion
-		ensure
-			tag = a_tag
-			assertion = a_assertion
-		end
+   make (a_tag: like tag; a_assertion: like assertion) is
+      do
+         tag := a_tag
+         assertion := a_assertion
+      ensure
+         tag = a_tag
+         assertion = a_assertion
+      end
 
 end

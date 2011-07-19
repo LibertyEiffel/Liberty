@@ -1,0 +1,4 @@
+-- The name of the include C file :
+eiffel.h
+-- The feature you want to call from C :
+STRING_extend STRING extend

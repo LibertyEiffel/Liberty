@@ -15,40 +15,40 @@
 class LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
 
 inherit
-	LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR
+   LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR
 
 creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY}
-	make
+   make
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY, LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR}
-	retrieve (item: E_): LIBERTY_INTERPRETER_OBJECT is
-		do
-			Result := retriever.item([item])
-		end
+   retrieve (item: E_): LIBERTY_INTERPRETER_OBJECT is
+      do
+         Result := retriever.item([item])
+      end
 
-	store (item: LIBERTY_INTERPRETER_OBJECT): E_ is
-		do
-			Result := storer.item([item])
-		end
+   store (item: LIBERTY_INTERPRETER_OBJECT): E_ is
+      do
+         Result := storer.item([item])
+      end
 
 feature {}
-	make (a_retriever: like retriever; a_storer: like storer) is
-		require
-			a_retriever /= Void
-			a_storer /= Void
-		do
-			retriever := a_retriever
-			storer := a_storer
-		ensure
-			retriever = a_retriever
-			storer = a_storer
-		end
+   make (a_retriever: like retriever; a_storer: like storer) is
+      require
+         a_retriever /= Void
+         a_storer /= Void
+      do
+         retriever := a_retriever
+         storer := a_storer
+      ensure
+         retriever = a_retriever
+         storer = a_storer
+      end
 
-	retriever: FUNCTION[TUPLE[E_], LIBERTY_INTERPRETER_OBJECT]
-	storer: FUNCTION[TUPLE[LIBERTY_INTERPRETER_OBJECT], E_]
+   retriever: FUNCTION[TUPLE[E_], LIBERTY_INTERPRETER_OBJECT]
+   storer: FUNCTION[TUPLE[LIBERTY_INTERPRETER_OBJECT], E_]
 
 invariant
-	retriever /= Void
-	storer /= Void
+   retriever /= Void
+   storer /= Void
 
 end -- class LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED

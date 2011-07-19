@@ -1,0 +1,4 @@
+mini_gtk_cecil.h
+mini_gtk_launch_routine	GTK_AGENT_LAUNCHER	launch_routine
+mini_gtk_agent_launcher	GTK_AGENT_LAUNCHER	make		create
+mini_gtk_auto_init	GTK_INITIALISER		init_from_c	create

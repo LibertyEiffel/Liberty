@@ -15,33 +15,33 @@
 class LIBERTY_REQUIRE
 
 inherit
-	LIBERTY_WRITTEN_ASSERTIONS
+   LIBERTY_WRITTEN_ASSERTIONS
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_REQUIRE}
-	make
+   make
 
 feature {}
-	make (a_assertions: like assertions_list) is
-		require
-			a_assertions /= Void
-		do
-			assertions_list := a_assertions
-		ensure
-			assertions_list = a_assertions
-		end
+   make (a_assertions: like assertions_list) is
+      require
+         a_assertions /= Void
+      do
+         assertions_list := a_assertions
+      ensure
+         assertions_list = a_assertions
+      end
 
-	specialized (a_assertions: like assertions_list): like Current is
-		do
-			create Result.make(a_assertions)
-		end
+   specialized (a_assertions: like assertions_list): like Current is
+      do
+         create Result.make(a_assertions)
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_REQUIRE_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_require(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_REQUIRE_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_require(Current)
+      end
 
 end

@@ -1,0 +1,49 @@
+1. USAGE
+
+(a) Basic Usage
+
+	Copy this directory into $SMARTEIFFEL/short/
+	
+	You can get the short form in this format using
+		short -html_css class_name.e
+	The default behavior of short is to print a file to standard output, so
+	you will probably want to redirect this to a file, e.g.
+		short -html_css class_name.e > class_name.html
+
+	You will then need to copy seshort.css from this directory to the
+	same directory where you keep the output, e.g.
+		cp $SMARTEIFFEL/short/html_css/seshort.css documentation/seshort.css
+
+(b) Customization
+
+	You can modify the styles in pagestyle.css as desired. The classes
+	I implemented in the hooks are:
+
+	CLASSES USED FOR PARAGRAPHS (i.e., <p class="...">)
+		section
+		tab_comment
+		tab_feature
+		tab_feature_comment
+		tab_contract
+		tab_contract_comment
+		tab_assertion
+	
+	CLASSES USED FOR SPANS (i.e., <span class="...">)
+		title
+		keywords
+		comment
+		featurename
+		classname
+		argumentname
+		constants
+		simple_featurename
+		assertiontag
+	
+2. CONTACT
+Originally created 2004, 2005, 2006 by John Perry, and released into the Public
+domain.
+
+If you modify this by adding classes or something to that effect, please send me
+a copy of the new version; I might like to see it.
+
+Email address as of 2006: jeperry@ncwc.edu

@@ -2,45 +2,145 @@
 -- See the full copyright at the end.
 --
 deferred class ITERATOR[E_]
-	--
-	-- The iterator pattern at work: this abstract class defines a
-	-- traversal interface for any kind of aggregates data structure.
-	-- An iterator can be used when you need to do something on all
-	-- elements in the data structure, but there is no order concept.
-	--
-	-- To create a new iterator, use `new_iterator' in the
-	-- corresponding data structure.
-	--
-	-- See examples in directory SmartEiffel/tutorial/iterator.
+   --
+   -- The iterator pattern at work: this abstract class defines a
+   -- traversal interface for any kind of aggregates data structure.
+   -- An iterator can be used when you need to do something on all
+   -- elements in the data structure, but there is no order concept.
+   --
+   -- To create a new iterator, use `new_iterator' in the
+   -- corresponding data structure.
+   --
+   -- See examples in directory SmartEiffel/tutorial/iterator.
+   --
 
 feature {ANY}
-	start is
-			-- Positions the iterator to the first object in the
-			-- aggregate to be traversed.
-		deferred
-		end
+   frozen is_valid: BOOLEAN is
+      do
+         Result := generation = iterable_generation
+      end
 
-	is_off: BOOLEAN is
-			-- Returns True when there are no more objects in the
-			-- sequence.
-		deferred
-		end
+   start is
+         -- Positions the iterator to the first object in the
+         -- aggregate to be traversed.
+      deferred
+      ensure
+         is_valid
+      end
 
-	item: E_ is
-			-- Returns the object at the current position in the
-			-- sequence.
-		require
-			not is_off
-		deferred
-		end
+   is_off: BOOLEAN is
+         -- Returns True when there are no more objects in the
+         -- sequence.
+      require
+         is_valid
+      deferred
+      ensure
+         generation = old generation
+         is_valid
+      end
 
-	next is
-			-- Positions the iterator to the next object in the
-			-- sequence.
-		require
-			not is_off
-		deferred
-		end
+   item: E_ is
+         -- Returns the object at the current position in the
+         -- sequence.
+      require
+         is_valid
+         not is_off
+      deferred
+      ensure
+         generation = old generation
+         is_valid
+      end
+
+   next is
+         -- Positions the iterator to the next object in the
+         -- sequence.
+      require
+         is_valid
+         not is_off
+      deferred
+      ensure
+         generation = old generation
+         is_valid
+      end
+
+feature {}
+   iterable_generation: INTEGER is
+      deferred
+      end
+
+feature {ITERABLE}
+   generation: INTEGER
+
+feature {ANY} -- Agent-based features:
+   do_all (action: ROUTINE[TUPLE[E_]]) is
+         -- Apply `action' to every item of `Current'.
+         --
+         -- See also `for_all', `exists', `aggregate'.
+      do
+         from
+            start
+         invariant
+            is_valid
+         until
+            is_off
+         loop
+            action.call([item])
+            next
+         end
+      end
+
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Do all items satisfy `test'?
+         --
+         -- See also `do_all', `exists', `aggregate'.
+      do
+         from
+            Result := True
+            start
+         invariant
+            is_valid
+         until
+            not Result or else is_off
+         loop
+            Result := test.item([item])
+            next
+         end
+      end
+
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Does at least one item satisfy `test'?
+         --
+         -- See also `do_all', `for_all', `aggregate'.
+      do
+         from
+            start
+         invariant
+            is_valid
+         until
+            Result or else is_off
+         loop
+            Result := test.item([item])
+            next
+         end
+      end
+
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      do
+         from
+            Result := initial
+            start
+         invariant
+            is_valid
+         until
+            is_off
+         loop
+            Result := action.item([Result, item])
+            next
+         end
+      end
 
 end -- class ITERATOR
 --

@@ -2,68 +2,74 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_ROPE
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[CHARACTER]
+   ITERATOR[CHARACTER]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	root: ROPE
-		-- The beginning of the rope to be traversed.
+   root: ROPE
+      -- The beginning of the rope to be traversed.
 
-	right_visited: BOOLEAN
-		-- Has `right' been iterated onto?
+   right_visited: BOOLEAN
+      -- Has `right' been iterated onto?
 
-	iter: ITERATOR[CHARACTER]
-		--  Current position on `piece'.
+   iter: ITERATOR[CHARACTER]
+      --  Current position on `piece'.
 
 feature {ANY}
-	make (r: like root) is
-	require
-			r /= Void
-		do
-			root:=r
-		ensure
-			root=r
-		end
+   make (r: like root) is
+   require
+         r /= Void
+      do
+         root:=r
+      ensure
+         root=r
+      end
 
-	start is
-		do
-			-- debug 
-			-- 	print("Starting ROPE iterator `")
-			-- 	root.left.print_on(std_output) 
-			-- 	print("'-`") 
-			-- 	root.right.print_on(std_output) 
-			-- 	print("'. ") 
-			-- end
-			right_visited:=False
-			iter := root.left.new_iterator
-			iter.start
-		ensure iter/=Void
-		end
+   start is
+      do
+         -- debug
+         --    print("Starting ROPE iterator `")
+         --    root.left.print_on(std_output)
+         --    print("'-`")
+         --    root.right.print_on(std_output)
+         --    print("'. ")
+         -- end
+         right_visited:=False
+         iter := root.left.new_iterator
+         iter.start
+      ensure then iter/=Void
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := iter=Void
-		end
+   is_off: BOOLEAN is
+      do
+         Result := iter=Void
+      end
 
-	item: CHARACTER is
-		do
-			Result := iter.item
-		end
+   item: CHARACTER is
+      do
+         Result := iter.item
+      end
 
-	next is
-		do
-			iter.next
-			if iter.is_off then -- switch to the next piece of rope
-				if right_visited then iter:=Void
-			 	else right_visited:=True; iter:=root.right.new_iterator; iter.start
-				end
-			end
-		end
+   next is
+      do
+         iter.next
+         if iter.is_off then -- switch to the next piece of rope
+            if right_visited then iter:=Void
+             else right_visited:=True; iter:=root.right.new_iterator; iter.start
+            end
+         end
+      end
+
+feature {}
+   iterable_generation: INTEGER is
+      do
+         Result := root.generation
+      end
 
 end -- class ITERATOR_ON_ROPE
 --

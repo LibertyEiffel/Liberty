@@ -15,12 +15,12 @@
 deferred class LIBERTY_REACHABLE
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		deferred
-		end
+   mark_reachable_code (mark: INTEGER) is
+      deferred
+      end
 
 feature {}
-	expressions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_EXPRESSION]
-	instructions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSTRUCTION]
+   expressions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_EXPRESSION]
+   instructions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSTRUCTION]
 
 end -- class LIBERTY_REACHABLE

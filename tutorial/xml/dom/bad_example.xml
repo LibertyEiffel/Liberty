@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<tree>
+  <node>
+    <leaf id="1">
+      <!-- there should be no node here -->
+      <node/>
+    </leaf>
+  </node>
+</tree>

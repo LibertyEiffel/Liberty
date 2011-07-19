@@ -2,43 +2,49 @@
 -- See the full copyright at the end.
 --
 class COUNTER
-	--
-	-- Simple counter object (useful as a once function).
-	--
+   --
+   -- Simple counter object (useful as a once function).
+   --
 
 feature {ANY}
-	value: INTEGER
-			-- The `value' of the counter.
+   item: INTEGER
+         -- The `value' of the counter.
 
-	increment is
-			-- Increment the `value' of `Current' counter.
-		do
-			value := value + 1
-		ensure
-			value = 1 + old value
-		end
+   increment, next is
+         -- Increment the `item' of `Current' counter.
+      do
+         item := item + 1
+      ensure
+         item = 1 + old item
+      end
 
-	decrement is
-			-- Decrement the `value' of `Current' counter.
-		do
-			value := value - 1
-		ensure
-			value + 1 = old value
-		end
+   decrement, previous is
+         -- Decrement the `item' of `Current' counter.
+      do
+         item := item - 1
+      ensure
+         item + 1 = old item
+      end
 
-	reset is
-			-- Reset the `value' of `Current' counter.
-		do
-			value := 0
-		ensure
-			value = 0
-		end
+   reset, start is
+         -- Reset the `item' of `Current' counter.
+      do
+         item := 0
+      ensure
+         item = 0
+      end
 
-	append_in (buffer: STRING) is
-			-- Append the `value' of the `Current' counter in the `buffer'.
-		do
-			value.append_in(buffer)
-		end
+   append_in (buffer: STRING) is
+         -- Append the `item' of the `Current' counter in the `buffer'.
+      do
+         item.append_in(buffer)
+      end
+
+   value: INTEGER is
+      obsolete "use `item' instead"
+      do
+         Result := item
+      end
 
 end -- class COUNTER
 --

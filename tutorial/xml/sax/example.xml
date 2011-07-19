@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<!DOCTYPE tree [
+  <!ELEMENT tree node*>
+  <!ELEMENT node (node|leaf)*>
+  <!ELEMENT leaf #PCDATA>
+]>
+<tree>
+  <node>
+    <leaf id="1"/>
+    <leaf id="2">lt is &lt; but gt is &gt;</leaf>
+    <leaf id="3">
+<![CDATA[
+This is an example of a raw <cdata> leaf.
+]]>
+    </leaf>
+    <node>
+      <leaf id="4"/>
+    </node>
+  </node>
+</tree>

@@ -4,40 +4,42 @@
 class INTEGER_RANGE_ITERATOR
 
 inherit
-	ITERATOR[INTEGER]
+   ITERATOR[INTEGER]
 
 create {INTEGER_RANGE}
-	make
+   make
 
 feature {ANY}
-	start is
-		do
-			item := lower
-		end
+   start is
+      do
+         item := lower
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := item > upper
-		end
+   is_off: BOOLEAN is
+      do
+         Result := item > upper
+      end
 
-	item: INTEGER
+   item: INTEGER
 
-	next is
-		do
-			item := item + 1
-		end
+   next is
+      do
+         item := item + 1
+      end
 
 feature {}
-	lower: INTEGER
-	upper: INTEGER
+   lower: INTEGER
+   upper: INTEGER
 
-	make (low, up: INTEGER) is
-		require
-			low <= up
-		do
-			lower := low
-			upper := up
-		end
+   make (low, up: INTEGER) is
+      require
+         low <= up
+      do
+         lower := low
+         upper := up
+      end
+
+   iterable_generation: INTEGER is 0
 
 end -- class INTEGER_RANGE_ITERATOR
 --

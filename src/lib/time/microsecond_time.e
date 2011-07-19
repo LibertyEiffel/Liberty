@@ -2,154 +2,154 @@
 -- See the full copyright at the end.
 --
 expanded class MICROSECOND_TIME
-	--
-	-- Date and time facilities (like TIME) plus an extra microsecond information.
-	--
+   --
+   -- Date and time facilities (like TIME) plus an extra microsecond information.
+   --
 
 insert
-	HASHABLE
-	COMPARABLE
-		redefine is_equal
-		end
-	
+   HASHABLE
+   COMPARABLE
+      redefine is_equal
+      end
+   
 feature {ANY}
-	time: TIME
-			-- The normal TIME with second accuracy.
+   time: TIME
+         -- The normal TIME with second accuracy.
 
-	microsecond: INTEGER
-			-- Extra information in number of microseconds in range 0 .. 999999.
-			-- Note that the accuracy is system dependant.
+   microsecond: INTEGER
+         -- Extra information in number of microseconds in range 0 .. 999999.
+         -- Note that the accuracy is system dependant.
 
-	update is
-			-- Update `Current' with the current system clock.
-		do
-			basic_microsecond_update
-			time.set_time_memory(basic_microsecond_time)
-			microsecond := basic_microsecond_microsecond
-		end
+   update is
+         -- Update `Current' with the current system clock.
+      do
+         basic_microsecond_update
+         time.set_time_memory(basic_microsecond_time)
+         microsecond := basic_microsecond_microsecond
+      end
 
-	set_time (t: like time) is
-		do
-			time := t
-		ensure
-			time = t
-		end
+   set_time (t: like time) is
+      do
+         time := t
+      ensure
+         time = t
+      end
 
-	set_microsecond (microsec: INTEGER) is
-			-- To set `microsecond' in range 0 .. 999 999.
-		require
-			microsec.in_range(0, 999999)
-		do
-			microsecond := microsec
-		ensure
-			microsecond = microsec
-		end
+   set_microsecond (microsec: INTEGER) is
+         -- To set `microsecond' in range 0 .. 999 999.
+      require
+         microsec.in_range(0, 999999)
+      do
+         microsecond := microsec
+      ensure
+         microsecond = microsec
+      end
 
-	infix "+" (s: REAL): like Current is
-			-- Add `s' seconds (2.476 is 2 seconds and 476 milliseconds)
-		require
-			s >= 0.0
-		local
-			a, b: INTEGER
-		do
-			a := s.force_to_integer_32
-			b := ((s - a) * 1000000).force_to_integer_32
-			Result := Current
-			Result.add_second(a)
-			Result.add_microsecond(b)
-		end
+   infix "+" (s: REAL): like Current is
+         -- Add `s' seconds (2.476 is 2 seconds and 476 milliseconds)
+      require
+         s >= 0.0
+      local
+         a, b: INTEGER
+      do
+         a := s.force_to_integer_32
+         b := ((s - a) * 1000000).force_to_integer_32
+         Result := Current
+         Result.add_second(a)
+         Result.add_microsecond(b)
+      end
 
-	add_second (s: INTEGER) is
-			-- Add `s' seconds to `Current'.
-		require
-			s >= 0
-		do
-			time.add_second(s)
-		ensure
-			Current >= old Current
-		end
+   add_second (s: INTEGER) is
+         -- Add `s' seconds to `Current'.
+      require
+         s >= 0
+      do
+         time.add_second(s)
+      ensure
+         Current >= old Current
+      end
 
-	add_millisecond (millisecond: INTEGER) is
-			-- Add `millisecond' milliseconds.
-		require
-			millisecond.in_range(0, 999)
-		do
-			add_microsecond(millisecond * 1000)
-		ensure
-			Current >= old Current
-		end
+   add_millisecond (millisecond: INTEGER) is
+         -- Add `millisecond' milliseconds.
+      require
+         millisecond.in_range(0, 999)
+      do
+         add_microsecond(millisecond * 1000)
+      ensure
+         Current >= old Current
+      end
 
-	add_microsecond (microsec: INTEGER) is
-			-- Add `microsec' microseconds
-		require
-			microsec.in_range(0, 999999)
-		local
-			a: INTEGER
-		do
-			a := microsec + microsecond
-			if a >= 1000000 then
-				add_second(1)
-				a := a - 1000000
-			end
-			microsecond := a
-		ensure
-			Current >= old Current
-		end
+   add_microsecond (microsec: INTEGER) is
+         -- Add `microsec' microseconds
+      require
+         microsec.in_range(0, 999999)
+      local
+         a: INTEGER
+      do
+         a := microsec + microsecond
+         if a >= 1000000 then
+            add_second(1)
+            a := a - 1000000
+         end
+         microsecond := a
+      ensure
+         Current >= old Current
+      end
 
-	elapsed_seconds (other: like Current): REAL is
-			-- Elapsed time in seconds from `Current' to `other' with sub-second precision.
-		do
-			Result := time.elapsed_seconds(other.time)
-			Result := Result + (other.microsecond - microsecond) / 1000000
-		end
+   elapsed_seconds (other: like Current): REAL is
+         -- Elapsed time in seconds from `Current' to `other' with sub-second precision.
+      do
+         Result := time.elapsed_seconds(other.time)
+         Result := Result + (other.microsecond - microsecond) / 1000000
+      end
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other.time = time and then other.microsecond = microsecond
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other.time = time and then other.microsecond = microsecond
+      end
 
-	infix "<" (other: like Current): BOOLEAN is
-		do
-			Result := time < other.time or else time = other.time and then microsecond < other.microsecond
-		ensure then
-			Result implies elapsed_seconds(other) > 0
-		end
+   infix "<" (other: like Current): BOOLEAN is
+      do
+         Result := time < other.time or else time = other.time and then microsecond < other.microsecond
+      ensure then
+         Result implies elapsed_seconds(other) > 0
+      end
 
-	hash_code: INTEGER is
-		do
-			Result := time.hash_code
-		end
+   hash_code: INTEGER is
+      do
+         Result := time.hash_code
+      end
 
 feature {}
-	basic_microsecond_time: INTEGER_64 is
-		external "plug_in"
-		alias "{
-			location: "${sys}/runtime"
-			module_name: "basic_microsecond"
-			feature_name: "basic_microsecond_time"
-			}"
-		end
+   basic_microsecond_time: INTEGER_64 is
+      external "plug_in"
+      alias "{
+         location: "${sys}/runtime"
+         module_name: "basic_microsecond"
+         feature_name: "basic_microsecond_time"
+         }"
+      end
 
-	basic_microsecond_microsecond: INTEGER is
-		external "plug_in"
-		alias "{
-			location: "${sys}/runtime"
-			module_name: "basic_microsecond"
-			feature_name: "basic_microsecond_microsecond"
-			}"
-		end
+   basic_microsecond_microsecond: INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/runtime"
+         module_name: "basic_microsecond"
+         feature_name: "basic_microsecond_microsecond"
+         }"
+      end
 
-	basic_microsecond_update is
-		external "plug_in"
-		alias "{
-			location: "${sys}/runtime"
-			module_name: "basic_microsecond"
-			feature_name: "basic_microsecond_update"
-			}"
-		end
+   basic_microsecond_update is
+      external "plug_in"
+      alias "{
+         location: "${sys}/runtime"
+         module_name: "basic_microsecond"
+         feature_name: "basic_microsecond_update"
+         }"
+      end
 
 invariant
-	microsecond.in_range(0, 999999)
+   microsecond.in_range(0, 999999)
 
 end -- class MICROSECOND_TIME
 --

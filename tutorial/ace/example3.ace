@@ -1,0 +1,39 @@
+-- To launch the compilation with this file, just type:
+-- 
+--               compile example3.ace
+--
+-- In his example, only one class (the root class) is traced by the 
+-- SmartEiffel debugger.
+--
+system
+   "number2" -- Because this is also the example2 of tutorial/number
+
+root
+
+   EXAMPLE2 : make
+
+default
+
+   verbose (no);
+       --   yes is the equivalent of the -verbose flag.
+
+   assertion (no);
+
+   trace(no);
+
+   debug (no);
+
+cluster
+
+   "${path_tutorial}/number"
+      default
+         trace(yes)
+      end
+
+   "${path_lib}/loadpath.se"
+
+external
+
+generate
+
+end

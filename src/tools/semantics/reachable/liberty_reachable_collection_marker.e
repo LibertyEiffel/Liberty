@@ -15,20 +15,20 @@
 expanded class LIBERTY_REACHABLE_COLLECTION_MARKER[E_ -> LIBERTY_REACHABLE]
 
 feature {LIBERTY_REACHABLE}
-	mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_]) is
-		require
-			elements /= Void
-		local
-			i: INTEGER
-		do
-			from
-				i := elements.lower
-			until
-				i > elements.upper
-			loop
-				elements.item(i).mark_reachable_code(mark)
-				i := i + 1
-			end
-		end
+   mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_]) is
+      require
+         elements /= Void
+      local
+         i: INTEGER
+      do
+         from
+            i := elements.lower
+         until
+            i > elements.upper
+         loop
+            elements.item(i).mark_reachable_code(mark)
+            i := i + 1
+         end
+      end
 
 end -- class LIBERTY_REACHABLE_COLLECTION_MARKER

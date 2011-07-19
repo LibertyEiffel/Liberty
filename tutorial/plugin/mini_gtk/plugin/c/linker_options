@@ -1,0 +1,2 @@
+[UNIX]
+gtk: "$(pkg-config --libs gtk+-2.0)"

@@ -15,48 +15,48 @@
 class LIBERTY_ETC_NON_TERMINAL
 
 inherit
-	EIFFEL_NON_TERMINAL_NODE
+   EIFFEL_NON_TERMINAL_NODE
 
 insert
-	EIFFEL_NON_TERMINAL_NODE_IMPL
-		rename
-			make as impl_make
-		export
-			{} all
-		redefine
-			accept
-		end
+   EIFFEL_NON_TERMINAL_NODE_IMPL
+      rename
+         make as impl_make
+      export
+         {} all
+      redefine
+         accept
+      end
 
 create {LIBERTY_ETC_FACTORY}
-	make
+   make
 
 feature {ANY}
-	accept (a_visitor: VISITOR) is
-		local
-			v: LIBERTY_ETC_VISITOR
-		do
-			v ::= a_visitor
-			visitor.call([v, Current])
-		end
+   accept (a_visitor: VISITOR) is
+      local
+         v: LIBERTY_ETC_VISITOR
+      do
+         v ::= a_visitor
+         visitor.call([v, Current])
+      end
 
 feature {}
-	make (a_name: FIXED_STRING; a_names: like names; a_visitor: like visitor) is
-		require
-			a_name /= Void
-			a_visitor /= Void
-			a_names /= Void
-		do
-			impl_make(a_name, a_names)
-			visitor := a_visitor
-		ensure
-			name = a_name
-			visitor = a_visitor
-			names = a_names
-		end
+   make (a_name: FIXED_STRING; a_names: like names; a_visitor: like visitor) is
+      require
+         a_name /= Void
+         a_visitor /= Void
+         a_names /= Void
+      do
+         impl_make(a_name, a_names)
+         visitor := a_visitor
+      ensure
+         name = a_name
+         visitor = a_visitor
+         names = a_names
+      end
 
-	visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]]
+   visitor: PROCEDURE[TUPLE[LIBERTY_ETC_VISITOR, LIBERTY_ETC_NON_TERMINAL]]
 
 invariant
-	visitor /= Void
+   visitor /= Void
 
 end -- class LIBERTY_ETC_NON_TERMINAL

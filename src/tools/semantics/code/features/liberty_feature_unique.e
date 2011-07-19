@@ -15,77 +15,77 @@
 class LIBERTY_FEATURE_UNIQUE
 
 inherit
-	LIBERTY_FEATURE
-		rename
-			make as make_late_binding
-		end
+   LIBERTY_FEATURE
+      rename
+         make as make_late_binding
+      end
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_FEATURE_UNIQUE_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_feature_unique(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_FEATURE_UNIQUE_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_feature_unique(Current)
+      end
 
 feature {}
-	do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			Result := a_feature.joined_unique(a_type, Current, other_fd, current_fd)
-		end
+   do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         Result := a_feature.joined_unique(a_type, Current, other_fd, current_fd)
+      end
 
 feature {LIBERTY_FEATURE}
-	joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
-	joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
-	joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			Result := Current
-		end
+   joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         Result := Current
+      end
 
-	joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
-	joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
-	joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
-	joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			if a_feature.definition_type = definition_type then
-				current_fd.fatal_join_error_concrete_redefined(a_type, other_fd)
-			end
-			Result := Current
-		end
+   joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         if a_feature.definition_type = definition_type then
+            current_fd.fatal_join_error_concrete_redefined(a_type, other_fd)
+         end
+         Result := Current
+      end
 
-	joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
-		do
-			current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
-		end
+   joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+      do
+         current_fd.fatal_join_error_concrete_concrete(a_type, other_fd)
+      end
 
 feature {}
-	make (a_definition_type: like definition_type) is
-		do
-			make_late_binding(a_definition_type, Void)
-		end
+   make (a_definition_type: like definition_type) is
+      do
+         make_late_binding(a_definition_type, Void)
+      end
 
 end

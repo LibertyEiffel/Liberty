@@ -15,11 +15,11 @@
 deferred class LIBERTY_FEATURE_EXTERNAL_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_FEATURE_EXTERNAL}
-	visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
-		deferred
-		end
+   visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
+      deferred
+      end
 
 end -- class LIBERTY_FEATURE_EXTERNAL_VISITOR

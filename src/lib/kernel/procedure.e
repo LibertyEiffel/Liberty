@@ -2,12 +2,12 @@
 -- See the full copyright at the end.
 --
 class PROCEDURE[O_ -> TUPLE]
-	--
-	-- Where O_ represents open arguments (i.e. arguments which are delayed).
-	--
+   --
+   -- Where O_ represents open arguments (i.e. arguments which are delayed).
+   --
 
 inherit
-	ROUTINE[O_]
+   ROUTINE[O_]
 
 end -- class PROCEDURE
 --

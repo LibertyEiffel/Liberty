@@ -15,57 +15,57 @@
 class LIBERTY_VARIANT
 
 insert
-	LIBERTY_REACHABLE
+   LIBERTY_REACHABLE
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_VARIANT}
-	make
+   make
 
 feature {ANY}
-	expression: LIBERTY_EXPRESSION
+   expression: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			expression.mark_reachable_code(mark)
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         expression.mark_reachable_code(mark)
+      end
 
 feature {LIBERTY_LOOP}
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		require
-			a_type /= Void
-		local
-			e: like expression
-		do
-			e := expression.specialized_in(a_type)
-			if e = expression then
-				Result := Current
-			else
-				create Result.make(expression)
-			end
-		ensure
-			Result /= Void
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      require
+         a_type /= Void
+      local
+         e: like expression
+      do
+         e := expression.specialized_in(a_type)
+         if e = expression then
+            Result := Current
+         else
+            create Result.make(expression)
+         end
+      ensure
+         Result /= Void
+      end
 
 feature {}
-	make (a_expression: like expression) is
-		require
-			a_expression /= Void
-		do
-			expression := a_expression
-		ensure
-			expression = a_expression
-		end
+   make (a_expression: like expression) is
+      require
+         a_expression /= Void
+      do
+         expression := a_expression
+      ensure
+         expression = a_expression
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_VARIANT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_variant(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_VARIANT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_variant(Current)
+      end
 
 invariant
-	expression /= Void
+   expression /= Void
 
 end

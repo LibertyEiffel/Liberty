@@ -4,15 +4,15 @@
 deferred class LOG_FILE_OPTION
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-	retrieve (stream: FILE_STREAM): FILE_STREAM is
-		require
-			stream.is_connected
-		deferred
-		ensure
-			Result /= stream implies not stream.is_connected
-			Result.is_connected
-			Result.path = old stream.path
-		end
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
+      require
+         stream.is_connected
+      deferred
+      ensure
+         Result /= stream implies not stream.is_connected
+         Result.is_connected
+         --Result.path = old stream.path
+      end
 
 end -- class LOG_FILE_OPTION
 --

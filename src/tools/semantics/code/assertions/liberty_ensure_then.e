@@ -15,27 +15,27 @@
 class LIBERTY_ENSURE_THEN
 
 inherit
-	LIBERTY_ENSURE
-		redefine
-			accept, specialized
-		end
+   LIBERTY_ENSURE
+      redefine
+         accept, specialized
+      end
 
 create {LIBERTY_BUILDER_TOOLS, LIBERTY_ENSURE_THEN}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_ENSURE_THEN_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_ensure_then(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_ENSURE_THEN_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_ensure_then(Current)
+      end
 
 feature {}
-	specialized (a_assertions: like assertions_list): like Current is
-		do
-			create Result.make(a_assertions)
-		end
+   specialized (a_assertions: like assertions_list): like Current is
+      do
+         create Result.make(a_assertions)
+      end
 
 end

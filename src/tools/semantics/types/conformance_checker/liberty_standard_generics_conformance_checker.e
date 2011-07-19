@@ -15,58 +15,58 @@
 class LIBERTY_STANDARD_GENERICS_CONFORMANCE_CHECKER
 
 inherit
-	LIBERTY_GENERICS_CONFORMANCE_CHECKER
-		undefine
-			is_equal
-		end
+   LIBERTY_GENERICS_CONFORMANCE_CHECKER
+      undefine
+         is_equal
+      end
 
 insert
-	SINGLETON
+   SINGLETON
 
 creation {LIBERTY_UNIVERSE}
-	make
+   make
 
 feature {LIBERTY_ACTUAL_TYPE}
-	inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
-		do
-			Result := check_inheritance(parent, child, True)
-		end
+   inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
+      do
+         Result := check_inheritance(parent, child, True)
+      end
 
-	inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
-		do
-			Result := check_inheritance(parent, child, False)
-		end
-
-feature {}
-	check_inheritance (parent, child: LIBERTY_KNOWN_TYPE; conformance: BOOLEAN): BOOLEAN is
-		local
-			i: INTEGER
-		do
-			check
-				parent.parameters.lower = child.parameters.lower
-			end
-			from
-				Result := parent.parameters.count = child.parameters.count
-				i := parent.parameters.lower
-			until
-				not Result or else i > parent.parameters.upper
-			loop
-				check
-					parent.parameters.item(i).is_known
-					child.parameters.item(i).is_known
-				end
-				if conformance then
-					Result := child.parameters.item(i).known_type.is_conform_to(parent.parameters.item(i).known_type)
-				else
-					Result := child.parameters.item(i).known_type.is_non_conformant_child_of(parent.parameters.item(i).known_type)
-				end
-				i := i + 1
-			end
-		end
+   inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
+      do
+         Result := check_inheritance(parent, child, False)
+      end
 
 feature {}
-	make is
-		do
-		end
+   check_inheritance (parent, child: LIBERTY_KNOWN_TYPE; conformance: BOOLEAN): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         check
+            parent.parameters.lower = child.parameters.lower
+         end
+         from
+            Result := parent.parameters.count = child.parameters.count
+            i := parent.parameters.lower
+         until
+            not Result or else i > parent.parameters.upper
+         loop
+            check
+               parent.parameters.item(i).is_known
+               child.parameters.item(i).is_known
+            end
+            if conformance then
+               Result := child.parameters.item(i).known_type.is_conform_to(parent.parameters.item(i).known_type)
+            else
+               Result := child.parameters.item(i).known_type.is_non_conformant_child_of(parent.parameters.item(i).known_type)
+            end
+            i := i + 1
+         end
+      end
+
+feature {}
+   make is
+      do
+      end
 
 end -- class LIBERTY_STANDARD_GENERICS_CONFORMANCE_CHECKER

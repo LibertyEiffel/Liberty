@@ -4,49 +4,74 @@
 class INTEGER_RANGE
 
 inherit
-	TRAVERSABLE[INTEGER]
+   TRAVERSABLE[INTEGER]
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
-	make
+   make
 
 feature {ANY}
-	lower: INTEGER
-	upper: INTEGER
+   lower: INTEGER
+   upper: INTEGER
 
-	count: INTEGER is
-		do
-			Result := upper - lower + 1
-		end
+   out_in_tagged_out_memory is
+      do
+         lower.append_in(tagged_out_memory)
+         tagged_out_memory.append(once "|..|")
+         upper.append_in(tagged_out_memory)
+      end
 
-	first: INTEGER is
-		do
-			Result := lower
-		end
+   count: INTEGER is
+      do
+         Result := upper - lower + 1
+      end
 
-	last: INTEGER is
-		do
-			Result := upper
-		end
+   first: INTEGER is
+      do
+         Result := lower
+      end
 
-	new_iterator: ITERATOR[INTEGER] is
-		do
-			create {INTEGER_RANGE_ITERATOR} Result.make(lower, upper)
-		end
+   last: INTEGER is
+      do
+         Result := upper
+      end
 
-	item (i: INTEGER): INTEGER is
-		do
-			Result := i
-		end
+   new_iterator: ITERATOR[INTEGER] is
+      do
+         create {INTEGER_RANGE_ITERATOR} Result.make(lower, upper)
+      end
 
-	is_empty: BOOLEAN is False
+   item (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
 
-	make (low, up: INTEGER) is
-		require
-			low <= up
-		do
-			lower := low
-			upper := up
-		end
+   is_empty: BOOLEAN is False
+
+   has, fast_has (i: INTEGER): BOOLEAN is
+      do
+         Result := i.in_range(lower, upper)
+      end
+
+   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i, start: INTEGER): INTEGER is
+      do
+         Result := i
+      end
+
+   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
+
+   make (low, up: INTEGER) is
+      require
+         low <= up
+      do
+         lower := low
+         upper := up
+      end
 
 end -- class INTEGER_RANGE
 --

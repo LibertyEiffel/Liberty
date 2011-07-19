@@ -1,0 +1,156 @@
+<html><head>
+
+<title>The tutorial expand_expression</title>
+
+<style>
+
+
+body {
+	background-color: white;
+	margin: 3px;
+}
+
+body * {
+/*
+	margin: 0px 0px 5px 0px;
+*/
+}
+
+h1 {
+	background-color: #3366FF;
+	font-size: 300%;
+	color: white;
+	text-align: center;
+	font-weight: normal;
+	padding: 10px;
+}
+
+h2 {
+	background-color: #3366FF;
+	font-size: 150%;
+	color: white;
+	text-align: left;
+	font-weight: normal;
+	padding: 5px;
+}
+
+.i {
+	background-color: yellow;
+	font-size: 110%;
+	color: #3366FF;
+	text-align: center;
+	font-weight: bolder;
+	padding: 10px 30px 10px 30px;
+}
+
+p {
+/*
+	text-align: justify;
+*/
+}
+
+pre {
+	margin: 3px 50px 3px 50px;
+	padding: 3px 5px 3px 5px;
+	border: 2px dashed #3366FF;
+	background: #eef;
+}
+
+.class {
+	font-weight: bolder;
+	color: #3366FF;
+}
+
+.sesign {
+	text-align: center;
+	font-size: small;
+	font-style: italic;
+}
+
+</style>
+
+</head><body>
+
+<h1>The tutorial expand_expression</h1>
+<div class="i">
+<p>This tutorial shows basic use of the cluster backtracking.</p>
+<p>The same example: expanding syntactic expression, is
+written using two differents ways: <span class="class">ABSTRACT</span> and <span class="class">TREE</span>.
+It is recommended to start with <span class="class">TREE</span>.</p></div>
+<a name="sommaire"/><h2>Sommaire</h2>
+<div class="s"><ul class="s">
+ <li><a href="#chap-1">How to compile?</a></li>
+ <li><a href="#chap-2">What does it do?</a></li>
+ <li><a href="#chap-3">How does 'tree' works?</a></li>
+ <li><a href="#chap-4">How does 'abstract' works?</a></li>
+</ul></div>
+
+<a name="chap-1"/><h2>How to compile?</h2>
+<div class="c2">
+<p>In both case, just type:</p>
+<p>  se c -clean -o a_nick_name expand_expression</p>
+</div>
+<a name="chap-2"/><h2>What does it do?</h2>
+<div class="c2">
+<p>Each of the 2 programs performs syntaxic expansion.
+For example, putting the line</p>
+<p><pre>
+	(Hello + Hi) the ( + great) world!
+</pre></p>
+<p>at input will produce the output:</p>
+<p><pre>
+        (1)     Hello the world!
+        (2)     Hello the great world!
+        (3)     Hi the world!
+        (4)     Hi the great world!
+</pre></p>
+<p>The grammar of the inputs are:</p>
+<p><pre>
+  input       ::= alternative;
+  alternative ::= sequence ['+' sequence]...;
+  sequence    ::= [term]...;
+  term        ::= '(' alternative ')' | "a term";
+</pre></p>
+<p>Exercice: write a program that does the same syntaxic expansion.
+(trick: reuse the parser of the tutorial)</p>
+</div>
+<a name="chap-3"/><h2>How does 'tree' works?</h2>
+<div class="c2">
+<p>The tree example uses the most usable class of the
+backtracking cluster: the class <span class="class">BACKTRACKING</span>.</p>
+<p>The class <span class="class">BACKTRACKING</span> make an exploration of the
+and/or graphes made of <span class="class">BACKTRACKING_NODE</span> instances. Many
+usefull <span class="class">BACKTRACKING_NODE</span> inheriters are defined and 
+useables.</p>
+<p>The syntaxic expression is transformed to a such
+and/or structure. Alternatives does use <span class="class">BACKTRACKING_NODE_OR_PAIR</span>
+that make a or between two nodes. Sequences does use
+<span class="class">BACKTRACKING_NODE_AND_PAIR</span> that make a and between to nodes.
+In both cases, the order of the nodes is meaningful.
+Two other predefined nodes are used: the_true_node
+(of class <span class="class">BACKTRACKING_NODE_TRUE</span>) for empty terms, and,
+the_false_node (of class <span class="class">BACKTRACKING_NODE_FALSE</span>) for 
+errors of syntax.</p>
+<p>To get practical results, the terms are using a local
+class <span class="class">STRING_NODE</span> that records what to print in a local
+field. When explored these nodes push the string on the
+and call the feature continue. Not that covariance is
+used.</p>
+<p>The use of that class is easy: define the features
+'get_context' and 'restore_context'. These features
+will be called during the exploration to save the
+context before to explore an alternative and to restore
+it during the backtracking. These feature are defined
+as returning <span class="class">ANY</span> but please make a covariant redefinition
+as in exemples, where the context, an <span class="class">INTEGER</span>, records the 
+count of items pushed.</p>
+</div>
+<a name="chap-4"/><h2>How does 'abstract' works?</h2>
+<div class="c2">
+<p>The abstract example does exactly the same that tree except
+that it uses a more abstract class <span class="class">ABSTRACT_BACKTRACKING</span>.</p>
+<p>That class is intended to be used when structures to be
+explored can not be derived from <span class="class">BACKTRACKING_NODE</span>. </p>
+</div>
+
+</body></html>

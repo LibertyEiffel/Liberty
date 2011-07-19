@@ -4,77 +4,77 @@
 deferred class FILE
 
 feature {ANY}
-	name: FIXED_STRING is
-			-- The short name of the file.
-		deferred
-		end
+   name: FIXED_STRING is
+         -- The short name of the file.
+      deferred
+      end
 
-	path: FIXED_STRING is
-			-- The file path.
-		deferred
-		end
+   path: FIXED_STRING is
+         -- The file path.
+      deferred
+      end
 
-	frozen parent: DIRECTORY is
-		local
-			parent_path: STRING
-		do
-			Result := parent_memory
-			if Result = Void then
-				basic_directory.compute_parent_directory_of(path)
-				if not basic_directory.last_entry.is_empty then
-					parent_path := once ""
-					parent_path.copy(basic_directory.last_entry)
-					create Result.scan(parent_path)
-					Result.set_file(name, Current)
-					parent_memory := Result
-				end
-			end
-		end
+   frozen parent: DIRECTORY is
+      local
+         parent_path: STRING
+      do
+         Result := parent_memory
+         if Result = Void then
+            basic_directory.compute_parent_directory_of(path)
+            if not basic_directory.last_entry.is_empty then
+               parent_path := once ""
+               parent_path.copy(basic_directory.last_entry)
+               create Result.scan(parent_path)
+               Result.set_file(name, Current)
+               parent_memory := Result
+            end
+         end
+      end
 
-	is_directory: BOOLEAN is
-		deferred
-		end
+   is_directory: BOOLEAN is
+      deferred
+      end
 
-	is_regular: BOOLEAN is
-		deferred
-		end
+   is_regular: BOOLEAN is
+      deferred
+      end
 
-	as_directory: DIRECTORY is
-		require
-			is_directory
-		deferred
-		ensure
-			Result = Current
-		end
+   as_directory: DIRECTORY is
+      require
+         is_directory
+      deferred
+      ensure
+         Result = Current
+      end
 
-	as_regular: REGULAR_FILE is
-		require
-			is_regular
-		deferred
-		ensure
-			Result = Current
-		end
+   as_regular: REGULAR_FILE is
+      require
+         is_regular
+      deferred
+      ensure
+         Result = Current
+      end
 
-	exists: BOOLEAN is
-		deferred
-		end
+   exists: BOOLEAN is
+      deferred
+      end
 
 feature {DIRECTORY}
-	set_parent (a_parent: like parent) is
-		do
-		ensure
-			parent = a_parent
-		end
+   set_parent (a_parent: like parent) is
+      do
+      ensure
+         parent = a_parent
+      end
 
 feature {}
-	parent_memory: DIRECTORY
+   parent_memory: DIRECTORY
 
-	basic_directory: BASIC_DIRECTORY
-			-- Provide low level access to directories.
+   basic_directory: BASIC_DIRECTORY
+         -- Provide low level access to directories.
 
 invariant
-	name /= Void
-	path /= Void
+   name /= Void
+   path /= Void
 
 end -- class FILE
 --

@@ -2,551 +2,561 @@
 -- See the full copyright at the end.
 --
 deferred class INTEGRAL
-	--
-	-- General integer abstraction for both integers and naturals.
-	--
+   --
+   -- General integer abstraction for both integers and naturals.
+   --
 
 inherit
-	COMPARABLE
-		undefine infix "<=", infix ">", infix ">=", is_equal
-		end
+   COMPARABLE
+      undefine infix "<=", infix ">", infix ">=", is_equal
+      end
 
 insert
-	NUMERIC
-	PLATFORM
+   NUMERIC
+   PLATFORM
 
 feature {ANY}
-	infix "+" (other: like Current): like Current is
-		require
-			no_overflow: Current > zero = (other > zero) implies Current #+ other > zero = (Current > zero) -- this means: if operand are of same sign, it will be sign of the Result.
-		deferred
-		ensure
-			Result #- other = Current
-		end
+   infix "+" (other: like Current): like Current is
+      require
+         no_overflow: Current > zero = (other > zero) implies Current #+ other > zero = (Current > zero) -- this means: if operand are of same sign, it will be sign of the Result.
+      deferred
+      ensure
+         Result #- other = Current
+      end
 
-	infix "-" (other: like Current): like Current is
-		require
-			no_overflow: Current > zero /= (other > zero) implies Current #- other > zero = (Current > zero) -- this means: if operand are of different sign, sign of the Result will be the same sign as Current.
-		deferred
-		ensure
-			Result #+ other = Current
-		end
+   infix "-" (other: like Current): like Current is
+      require
+         no_overflow: Current > zero /= (other > zero) implies Current #- other > zero = (Current > zero) -- this means: if operand are of different sign, sign of the Result will be the same sign as Current.
+      deferred
+      ensure
+         Result #+ other = Current
+      end
 
-	infix "*" (other: like Current): like Current is
-		require
-			no_overflow: (other /= zero) implies Current #* other #// other = Current
-		deferred
-		ensure
-			Current /= zero and other /= zero implies Result /= zero
-			Result /= zero implies Result #// other = Current
-			Result /= zero implies Result #\\ other = zero
-		end
+   infix "*" (other: like Current): like Current is
+      require
+         no_overflow: (other /= zero) implies Current #* other #// other = Current
+      deferred
+      ensure
+         Current /= zero and other /= zero implies Result /= zero
+         Result /= zero implies Result #// other = Current
+         Result /= zero implies Result #\\ other = zero
+      end
 
-	infix "/" (other: like Current): REAL is
-		deferred
-		end
+   infix "/" (other: like Current): REAL is
+      deferred
+      end
 
-	infix "//" (other: like Current): like Current is
-			-- Quotient of the euclidian division of `Current' by `other'.
-			-- The corresponding remainder is given by infix "\\".
-			--
-			-- See also infix "#//".
-		require
-			other /= zero
-			no_overflow: other = -one implies Current = zero or Current |<< 1 /= zero
-		deferred
-		ensure
-			euclidian_divide_case1: Current >= zero implies Result * other + Current \\ other = Current
-			euclidian_divide_case2: Current < zero implies Result #* other #+ (Current \\ other) = Current
-		end
+   infix "//" (other: like Current): like Current is
+         -- Quotient of the euclidian division of `Current' by `other'.
+         -- The corresponding remainder is given by infix "\\".
+         --
+         -- See also infix "#//".
+      require
+         other /= zero
+         no_overflow: other = -one implies Current = zero or Current |<< 1 /= zero
+      deferred
+      ensure
+         euclidian_divide_case1: Current >= zero implies Result * other + Current \\ other = Current
+         euclidian_divide_case2: Current < zero implies Result #* other #+ (Current \\ other) = Current
+      end
 
-	infix "\\" (other: like Current): like Current is
-			-- Remainder of the euclidian division of `Current' by `other'.
-			-- By definition, `zero <= Result < other.abs'.
-			--
-			-- See also infix "#\\", infix "//".
-		require
-			other /= zero
-		deferred
-		ensure
-			Result >= zero
-			other |<< 1 /= zero implies Result < other.abs
-			good_remainder: Result #- (Current #\\ other) #\\ other = zero
-		end
+   infix "\\" (other: like Current): like Current is
+         -- Remainder of the euclidian division of `Current' by `other'.
+         -- By definition, `zero <= Result < other.abs'.
+         --
+         -- See also infix "#\\", infix "//".
+      require
+         other /= zero
+      deferred
+      ensure
+         Result >= zero
+         other |<< 1 /= zero implies Result < other.abs
+         good_remainder: Result #- (Current #\\ other) #\\ other = zero
+      end
 
-	infix "^" (exp: like Current): INTEGER_64 is
-			-- Integer power of `Current' by `other'
-		require
-			exp >= zero
-		deferred
-		end
+   infix "^" (exp: like Current): INTEGER_64 is
+         -- Integer power of `Current' by `other'
+      require
+         exp >= zero
+      deferred
+      end
 
-	abs: like Current is
-			-- Absolute value of `Current'.
-		require
-			not_minimum_value: Current < zero implies zero < #-Current
-		deferred
-		ensure
-			Result >= zero
-		end
+   abs: like Current is
+         -- Absolute value of `Current'.
+      require
+         not_minimum_value: Current < zero implies zero < #-Current
+      deferred
+      ensure
+         Result >= zero
+      end
 
-	infix "<" (other: like Current): BOOLEAN is
-		deferred
-		end
+   infix "<" (other: like Current): BOOLEAN is
+      deferred
+      end
 
-	infix "<=" (other: like Current): BOOLEAN is
-		deferred
-		end
+   infix "<=" (other: like Current): BOOLEAN is
+      deferred
+      end
 
-	infix ">" (other: like Current): BOOLEAN is
-		deferred
-		end
+   infix ">" (other: like Current): BOOLEAN is
+      deferred
+      end
 
-	infix ">=" (other: like Current): BOOLEAN is
-		deferred
-		end
+   infix ">=" (other: like Current): BOOLEAN is
+      deferred
+      end
 
-	prefix "+": like Current is
-		deferred
-		end
+   prefix "+": like Current is
+      deferred
+      end
 
-	prefix "-": like Current is
-		require
-			not_minimum_value: Current < zero implies zero < #-Current
-		deferred
-		end
+   prefix "-": like Current is
+      require
+         not_minimum_value: Current < zero implies zero < #-Current
+      deferred
+      end
 
-	is_odd: BOOLEAN is
-			-- Is odd?
-		deferred
-		end
+   is_odd: BOOLEAN is
+         -- Is odd?
+      deferred
+      end
 
-	is_even: BOOLEAN is
-			-- Is even?
-		deferred
-		end
+   is_even: BOOLEAN is
+         -- Is even?
+      deferred
+      end
 
-	sqrt: REAL is
-			-- Square root of `Current'.
-		require
-			Current >= zero
-		deferred
-		end
+   sqrt: REAL is
+         -- Square root of `Current'.
+      require
+         Current >= zero
+      deferred
+      end
 
-	log: REAL is
-			-- Natural Logarithm of `Current'.
-		require
-			Current > zero
-		deferred
-		end
+   log: REAL is
+         -- Natural Logarithm of `Current'.
+      require
+         Current > zero
+      deferred
+      end
 
-	log10: REAL is
-			-- Base-10 Logarithm of Current.
-		require
-			Current > zero
-		deferred
-		end
+   log10: REAL is
+         -- Base-10 Logarithm of Current.
+      require
+         Current > zero
+      deferred
+      end
 
-	gcd (other: like Current): like Current is
-			-- Great Common Divisor of `Current' and `other'.
-		deferred
-		ensure
-			Result >= zero
-			Result = zero implies Current = zero and other = zero
-			Result >= (one+one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
-		end
+   gcd (other: like Current): like Current is
+         -- Greatest Common Divisor of `Current' and `other'.
+      deferred
+      ensure
+         Result >= zero
+         Result = zero implies Current = zero and other = zero
+         Result >= (one+one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
+      end
+
+   lcm (other: like Current): like Current is
+         -- Least Common Multiple of `Current' and `other'.
+      do
+         Result := abs // gcd(other) * other.abs
+      ensure
+         Result >= zero
+         Result = zero implies Current = zero or other = zero
+         Result * gcd(other) = (Current * other).abs
+      end
 
 feature {ANY} -- Conversions:
-	to_string: STRING is
-			-- The decimal view of `Current' into a new allocated STRING.
-			-- For example, if `Current' is -1 the `Result' is "-1".
-			--
-			-- See also `append_in', `to_string_format', `to_unicode_string', `to_hexadecimal', `to_octal'.
-		deferred
-		end
+   to_string: STRING is
+         -- The decimal view of `Current' into a new allocated STRING.
+         -- For example, if `Current' is -1 the `Result' is "-1".
+         --
+         -- See also `append_in', `to_string_format', `to_unicode_string', `to_hexadecimal', `to_octal'.
+      deferred
+      end
 
-	to_unicode_string: UNICODE_STRING is
-			-- The decimal view of `Current' into a new allocated UNICODE_STRING.
-			-- For example, if `Current' is -1 the `Result' is U"-1".
-			--
-			-- See also `append_in_unicode', `to_unicode_string_format', `to_string', `to_hexadecimal', `to_octal'.
-		deferred
-		end
+   to_unicode_string: UNICODE_STRING is
+         -- The decimal view of `Current' into a new allocated UNICODE_STRING.
+         -- For example, if `Current' is -1 the `Result' is U"-1".
+         --
+         -- See also `append_in_unicode', `to_unicode_string_format', `to_string', `to_hexadecimal', `to_octal'.
+      deferred
+      end
 
-	to_boolean: BOOLEAN is
-			-- Return False for 0, otherwise True.
-			--
-			-- See also `to_string', `to_character', `to_hexadecimal', `to_number'.
-		deferred
-		ensure
-			Result = (Current /= zero)
-		end
+   to_boolean: BOOLEAN is
+         -- Return False for 0, otherwise True.
+         --
+         -- See also `to_string', `to_character', `to_hexadecimal', `to_number'.
+      deferred
+      ensure
+         Result = (Current /= zero)
+      end
 
-	to_number: NUMBER is
-			-- Convert `Current' into a new allocated NUMBER.
-			--
-			-- See also `to_boolean', `to_string', `to_character', `to_hexadecimal'.
-		deferred
-		ensure
-			Result.to_string.is_equal(to_string)
-		end
+   to_number: NUMBER is
+         -- Convert `Current' into a new allocated NUMBER.
+         --
+         -- See also `to_boolean', `to_string', `to_character', `to_hexadecimal'.
+      deferred
+      ensure
+         Result.to_string.is_equal(to_string)
+      end
 
-	append_in (buffer: STRING) is
-			-- Append in the `buffer' the equivalent of `to_string'.
-			-- If you look for performances, you should always prefer `append_in' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_string' allocate a new object!).
-			--
-			-- See also `append_in_format', `append_in_unicode', `append_in_unicode_format', `to_hexadecimal_in'.
-		require
-			buffer /= Void
-		deferred
-		end
+   append_in (buffer: STRING) is
+         -- Append in the `buffer' the equivalent of `to_string'.
+         -- If you look for performances, you should always prefer `append_in' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_string' allocate a new object!).
+         --
+         -- See also `append_in_format', `append_in_unicode', `append_in_unicode_format', `to_hexadecimal_in'.
+      require
+         buffer /= Void
+      deferred
+      end
 
-	append_in_unicode (buffer: UNICODE_STRING) is
-			-- Append in the `buffer' the equivalent of `to_unicode_string'.
-			-- If you look for performances, you should always prefer `append_in_unicode' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_unicode_string' allocate a new object!).
-			--
-			-- See also `append_in_unicode_format', `append_in', `append_in_format', `to_hexadecimal_in'.
-		require
-			buffer /= Void
-		deferred
-		end
+   append_in_unicode (buffer: UNICODE_STRING) is
+         -- Append in the `buffer' the equivalent of `to_unicode_string'.
+         -- If you look for performances, you should always prefer `append_in_unicode' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_unicode_string' allocate a new object!).
+         --
+         -- See also `append_in_unicode_format', `append_in', `append_in_format', `to_hexadecimal_in'.
+      require
+         buffer /= Void
+      deferred
+      end
 
-	to_string_format (s: INTEGER): STRING is
-			-- Same as `to_string' but the result is on `s' character and the number is right aligned.
-			--
-			-- See also `append_in_format', `to_character', `to_number', `to_hexadecimal'.
-		require
-			to_string.count <= s
-		deferred
-		ensure
-			Result.count = s
-		end
+   to_string_format (s: INTEGER): STRING is
+         -- Same as `to_string' but the result is on `s' character and the number is right aligned.
+         --
+         -- See also `append_in_format', `to_character', `to_number', `to_hexadecimal'.
+      require
+         to_string.count <= s
+      deferred
+      ensure
+         Result.count = s
+      end
 
-	to_unicode_string_format (s: INTEGER): UNICODE_STRING is
-			-- Same as `to_unicode_string' but the result is on `s' character and the number is right aligned.
-			--
-			-- See also `append_in_unicode_format', `to_string', `to_hexadecimal', `to_octal'.
-		require
-			to_string.count <= s
-		deferred
-		ensure
-			Result.count = s
-		end
+   to_unicode_string_format (s: INTEGER): UNICODE_STRING is
+         -- Same as `to_unicode_string' but the result is on `s' character and the number is right aligned.
+         --
+         -- See also `append_in_unicode_format', `to_string', `to_hexadecimal', `to_octal'.
+      require
+         to_string.count <= s
+      deferred
+      ensure
+         Result.count = s
+      end
 
-	append_in_format (buffer: STRING; s: INTEGER) is
-			-- Append in the `buffer' the equivalent of `to_string_format'.
-			-- If you look for performances, you should always prefer `append_in_format' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_string_format' allocate a new object!).
-			--
-			-- See also `append_in', `append_in_unicode', `append_in_unicode_format', `to_hexadecimal_in'.
-		require
-			to_string.count <= s
-		deferred
-		ensure
-			buffer.count >= old buffer.count + s
-		end
+   append_in_format (buffer: STRING; s: INTEGER) is
+         -- Append in the `buffer' the equivalent of `to_string_format'.
+         -- If you look for performances, you should always prefer `append_in_format' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_string_format' allocate a new object!).
+         --
+         -- See also `append_in', `append_in_unicode', `append_in_unicode_format', `to_hexadecimal_in'.
+      require
+         to_string.count <= s
+      deferred
+      ensure
+         buffer.count >= old buffer.count + s
+      end
 
-	append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
-			-- Append in the `buffer' the equivalent of `to_unicode_string_format'.
-			-- If you look for performances, you should always prefer `append_in_unicode_format' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_unicode_string_format' allocate a new object!).
-			--
-			-- See also `append_in_format', `append_in', `append_in_format', `to_hexadecimal_in'.
-		require
-			to_string.count <= s
-		deferred
-		ensure
-			buffer.count >= old buffer.count + s
-		end
+   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
+         -- Append in the `buffer' the equivalent of `to_unicode_string_format'.
+         -- If you look for performances, you should always prefer `append_in_unicode_format' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_unicode_string_format' allocate a new object!).
+         --
+         -- See also `append_in_format', `append_in', `append_in_format', `to_hexadecimal_in'.
+      require
+         to_string.count <= s
+      deferred
+      ensure
+         buffer.count >= old buffer.count + s
+      end
 
-	digit: CHARACTER is
-			-- Legacy synonym for `decimal_digit'.
-			-- Note: already prefer `decimal_digit' because digit may become obsolete (feb 4th 2006).
-		deferred
-		ensure
-			Result = decimal_digit
-		end
+   digit: CHARACTER is
+         -- Legacy synonym for `decimal_digit'.
+         -- Note: already prefer `decimal_digit' because digit may become obsolete (feb 4th 2006).
+      deferred
+      ensure
+         Result = decimal_digit
+      end
 
-	is_decimal_digit: BOOLEAN is
-		deferred
-		end
+   is_decimal_digit: BOOLEAN is
+      deferred
+      end
 
-	decimal_digit: CHARACTER is
-			-- Gives the corresponding CHARACTER for range 0..9.
-		require
-			is_decimal_digit
-		deferred
-		ensure
-			(once "0123456789").has(Result)
-			--Current.is_equal(Result.value)
-		end
+   decimal_digit: CHARACTER is
+         -- Gives the corresponding CHARACTER for range 0..9.
+      require
+         is_decimal_digit
+      deferred
+      ensure
+         (once "0123456789").has(Result)
+         --Current.is_equal(Result.value)
+      end
 
-	is_hexadecimal_digit: BOOLEAN is
-		deferred
-		end
+   is_hexadecimal_digit: BOOLEAN is
+      deferred
+      end
 
-	hexadecimal_digit: CHARACTER is
-			-- Gives the corresponding CHARACTER for range 0..15.
-		require
-			is_hexadecimal_digit
-		deferred
-		ensure
-			(once "0123456789ABCDEF").has(Result)
-		end
+   hexadecimal_digit: CHARACTER is
+         -- Gives the corresponding CHARACTER for range 0..15.
+      require
+         is_hexadecimal_digit
+      deferred
+      ensure
+         (once "0123456789ABCDEF").has(Result)
+      end
 
-	to_character: CHARACTER is
-			-- Return the coresponding ASCII character.
-			--
-			-- See also `to_boolean', `to_number', `to_string', `to_hexadecimal'.
-		require
-			Current >= zero
-			--Current <= Maximum_character_code
-		deferred
-		end
+   to_character: CHARACTER is
+         -- Return the coresponding ASCII character.
+         --
+         -- See also `to_boolean', `to_number', `to_string', `to_hexadecimal'.
+      require
+         Current >= zero
+         --Current <= Maximum_character_code
+      deferred
+      end
 
-	to_octal_in (buffer: STRING) is
-			-- Append in the `buffer' the equivalent of `to_octal'.
-			-- If you look for performances, you should always prefer `to_octal_in' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_octal' allocate a new object!).
-			--
-			-- See also `to_hexadecimal_in', `append_in', `append_in_format', `append_in_unicode'.
-		deferred
-		ensure
-			buffer.count = old buffer.count + bit_count #// 3 + 1
-		end
+   to_octal_in (buffer: STRING) is
+         -- Append in the `buffer' the equivalent of `to_octal'.
+         -- If you look for performances, you should always prefer `to_octal_in' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_octal' allocate a new object!).
+         --
+         -- See also `to_hexadecimal_in', `append_in', `append_in_format', `append_in_unicode'.
+      deferred
+      ensure
+         buffer.count = old buffer.count + bit_count #// 3 + 1
+      end
 
-	to_octal: STRING is
-			-- The octal view of `Current' into a new allocated STRING.
-			-- For example, if `Current' is -1 and if `Current' is a 16 bits integer the `Result' is "177777".
-			--
-			-- See also `to_octal_in', `to_hexadecimal', `to_number', `to_string'.
-		deferred
-		ensure
-			Result.count = bit_count #// 3 + 1
-		end
+   to_octal: STRING is
+         -- The octal view of `Current' into a new allocated STRING.
+         -- For example, if `Current' is -1 and if `Current' is a 16 bits integer the `Result' is "177777".
+         --
+         -- See also `to_octal_in', `to_hexadecimal', `to_number', `to_string'.
+      deferred
+      ensure
+         Result.count = bit_count #// 3 + 1
+      end
 
-	to_hexadecimal: STRING is
-			-- The hexadecimal view of `Current' into a new allocated STRING.
-			-- For example, if `Current' is -1 and if `Current' is a 32 bits integer the `Result' is "FFFFFFFF".
-			--
-			-- See also `to_hexadecimal_in', `to_octal', `to_number', `to_string'.
-		deferred
-		ensure
-			Result.count = object_size * 2
-		end
+   to_hexadecimal: STRING is
+         -- The hexadecimal view of `Current' into a new allocated STRING.
+         -- For example, if `Current' is -1 and if `Current' is a 32 bits integer the `Result' is "FFFFFFFF".
+         --
+         -- See also `to_hexadecimal_in', `to_octal', `to_number', `to_string'.
+      deferred
+      ensure
+         Result.count = object_size * 2
+      end
 
-	to_hexadecimal_in (buffer: STRING) is
-			-- Append in the `buffer' the equivalent of `to_hexadecimal'.
-			-- If you look for performances, you should always prefer `to_hexadecimal_in' which allow you to recycle
-			-- a unique common `buffer' (each call of `to_hexadecimal' allocate a new object!).
-			--
-			-- See also `to_octal_in', `append_in', `append_in_format', `append_in_unicode'.
-		deferred
-		ensure
-			buffer.count = old buffer.count + object_size * 2
-		end
+   to_hexadecimal_in (buffer: STRING) is
+         -- Append in the `buffer' the equivalent of `to_hexadecimal'.
+         -- If you look for performances, you should always prefer `to_hexadecimal_in' which allow you to recycle
+         -- a unique common `buffer' (each call of `to_hexadecimal' allocate a new object!).
+         --
+         -- See also `to_octal_in', `append_in', `append_in_format', `append_in_unicode'.
+      deferred
+      ensure
+         buffer.count = old buffer.count + object_size * 2
+      end
 
 feature {ANY} -- Bitwise Logical Operators:
-	bit_test (idx: INTEGER_8): BOOLEAN is
-			-- The value of the `idx'-ith bit (the right-most bit is at index 0).
-		require
-			idx.in_range(0, bit_count - 1)
-		deferred
-		end
+   bit_test (idx: INTEGER_8): BOOLEAN is
+         -- The value of the `idx'-ith bit (the right-most bit is at index 0).
+      require
+         idx.in_range(0, bit_count - 1)
+      deferred
+      end
 
-	bit_set (idx: INTEGER_8): like Current is
-			-- The value of the `idx'-ith bit (the right-most bit is at index 0).
-		require
-			idx.in_range(0, bit_count - 1)
-		deferred
-		ensure
-			Result.bit_test(idx)
-			Result = Current or Result.bit_reset(idx) = Current
-		end
+   bit_set (idx: INTEGER_8): like Current is
+         -- The value of the `idx'-ith bit (the right-most bit is at index 0).
+      require
+         idx.in_range(0, bit_count - 1)
+      deferred
+      ensure
+         Result.bit_test(idx)
+         Result = Current or Result.bit_reset(idx) = Current
+      end
 
-	bit_reset (idx: INTEGER_8): like Current is
-			-- The value of the `idx'-ith bit (the right-most bit is at index 0).
-		require
-			idx.in_range(0, bit_count - 1)
-		deferred
-		ensure
-			not Result.bit_test(idx)
-			Result = Current or Result.bit_set(idx) = Current
-		end
+   bit_reset (idx: INTEGER_8): like Current is
+         -- The value of the `idx'-ith bit (the right-most bit is at index 0).
+      require
+         idx.in_range(0, bit_count - 1)
+      deferred
+      ensure
+         not Result.bit_test(idx)
+         Result = Current or Result.bit_set(idx) = Current
+      end
 
-	infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
-			-- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
-		require
-			s.in_range(0, bit_count - 1)
-		deferred
-		end
+   infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
+         -- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
+      require
+         s.in_range(0, bit_count - 1)
+      deferred
+      end
 
-	infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current is
-			-- Shift by `s' positions right (sign bit not copied) bits falling off the end are lost.
-		require
-			s.in_range(0, bit_count - 1)
-		deferred
-		end
+   infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current is
+         -- Shift by `s' positions right (sign bit not copied) bits falling off the end are lost.
+      require
+         s.in_range(0, bit_count - 1)
+      deferred
+      end
 
-	infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
-			-- Shift by `s' positions left bits falling off the end are lost.
-		require
-			s.in_range(0, bit_count - 1)
-		deferred
-		end
+   infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
+         -- Shift by `s' positions left bits falling off the end are lost.
+      require
+         s.in_range(0, bit_count - 1)
+      deferred
+      end
 
-	infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
-			-- Rotate by `s' positions right.
-			--
-			-- See also `bit_rotate_left' and `bit_rotate'.
-		require
-			s.in_range(1, bit_count - 1)
-		deferred
-		end
+   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
+         -- Rotate by `s' positions right.
+         --
+         -- See also `bit_rotate_left' and `bit_rotate'.
+      require
+         s.in_range(1, bit_count - 1)
+      deferred
+      end
 
-	infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
-			-- Rotate by `s' positions left.
-			--
-			-- See also `bit_rotate_right' and `bit_rotate'.
-		require
-			s.in_range(1, bit_count - 1)
-		deferred
-		end
+   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
+         -- Rotate by `s' positions left.
+         --
+         -- See also `bit_rotate_right' and `bit_rotate'.
+      require
+         s.in_range(1, bit_count - 1)
+      deferred
+      end
 
-	bit_rotate (s: INTEGER_8): like Current is
-			-- Rotate by `s' positions (positive `s' shifts right, negative left
-			--
-			-- See also `bit_rotate_right' and `bit_rotate_left'.
-		require
-			s.in_range(- (bit_count - 1), bit_count - 1)
-		deferred
-		end
+   bit_rotate (s: INTEGER_8): like Current is
+         -- Rotate by `s' positions (positive `s' shifts right, negative left
+         --
+         -- See also `bit_rotate_right' and `bit_rotate_left'.
+      require
+         s.in_range(- (bit_count - 1), bit_count - 1)
+      deferred
+      end
 
-	prefix "~", bit_not: like Current is
-			-- One's complement of `Current'.
-		deferred
-		end
+   prefix "~", bit_not: like Current is
+         -- One's complement of `Current'.
+      deferred
+      end
 
-	infix "&", bit_and (other: like Current): like Current is
-			-- Bitwise logical and of `Current' with `other'.
-		deferred
-		end
+   infix "&", bit_and (other: like Current): like Current is
+         -- Bitwise logical and of `Current' with `other'.
+      deferred
+      end
 
-	infix "|", bit_or (other: like Current): like Current is
-			-- Bitwise logical inclusive or of `Current' with `other'.
-		deferred
-		end
+   infix "|", bit_or (other: like Current): like Current is
+         -- Bitwise logical inclusive or of `Current' with `other'.
+      deferred
+      end
 
-	bit_xor (other: like Current): like Current is
-			-- Bitwise logical exclusive or of `Current' with `other'.
-		deferred
-		end
+   bit_xor (other: like Current): like Current is
+         -- Bitwise logical exclusive or of `Current' with `other'.
+      deferred
+      end
 
-	bit_shift (s: INTEGER_8): like Current is
-			-- Shift by `s' positions (positive `s' shifts right (sign bit
-			-- copied), negative shifts left bits falling off the end are lost).
-			--
-			-- See also infix "|>>" and infix "|<<".
-		require
-			s /= 0
-		deferred
-		end
+   bit_shift (s: INTEGER_8): like Current is
+         -- Shift by `s' positions (positive `s' shifts right (sign bit
+         -- copied), negative shifts left bits falling off the end are lost).
+         --
+         -- See also infix "|>>" and infix "|<<".
+      require
+         s /= 0
+      deferred
+      end
 
-	bit_shift_unsigned (s: INTEGER_8): like Current is
-			-- Shift by `s' positions (positive `s' shifts right (sign bit not
-			-- copied), negative left bits falling off the end are lost).
-			--
-			-- See also infix "|>>>" and infix "|<<".
-		require
-			s /= 0
-		deferred
-		end
+   bit_shift_unsigned (s: INTEGER_8): like Current is
+         -- Shift by `s' positions (positive `s' shifts right (sign bit not
+         -- copied), negative left bits falling off the end are lost).
+         --
+         -- See also infix "|>>>" and infix "|<<".
+      require
+         s /= 0
+      deferred
+      end
 
 feature {ANY} -- Miscellaneous:
-	sign: INTEGER_8 is
-			-- Sign of `Current' (0 or -1 or 1).
-		deferred
-		end
+   sign: INTEGER_8 is
+         -- Sign of `Current' (0 or -1 or 1).
+      deferred
+      end
 
-	divisible (other: like Current): BOOLEAN is
-		deferred
-		ensure
-			definition: Result = (other /= zero)
-		end
+   divisible (other: like Current): BOOLEAN is
+      deferred
+      ensure
+         definition: Result = (other /= zero)
+      end
 
-	is_a_power_of_2: BOOLEAN is
-			-- Is `Current' a power of 2?
-		require
-			Current > zero
-		deferred
-		end
+   is_a_power_of_2: BOOLEAN is
+         -- Is `Current' a power of 2?
+      require
+         Current > zero
+      deferred
+      end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
-	infix "#+" (other: like Current): like Current is
-		deferred
-		end
+   infix "#+" (other: like Current): like Current is
+      deferred
+      end
 
-	prefix "#-": like Current is
-		deferred
-		end
+   prefix "#-": like Current is
+      deferred
+      end
 
-	infix "#-" (other: like Current): like Current is
-		deferred
-		end
+   infix "#-" (other: like Current): like Current is
+      deferred
+      end
 
-	infix "#*" (other: like Current): like Current is
-		deferred
-		end
+   infix "#*" (other: like Current): like Current is
+      deferred
+      end
 
-	infix "#//" (other: like Current): like Current is
-			-- Integer division of `Current' by `other'.
-			--
-			-- According to the ANSI C99: if `Current' and `other' are both non-negative, the `Result' is the
-			-- quotient of the euclidian division; but this is not the general case, the `Result' value is the
-			-- algebraic quotient `Current/other' with any fractional part discarded. (This is often called
-			-- "truncated toward zero"). So, the corresponding remainder value only verify the expression
-			-- `remainder.abs < other.abs'.
-			--
-			-- See also infix "//", infix "#\\".
-		require
-			other /= zero
-		deferred
-		ensure
-			Result * other + Current #\\ other = Current
-			ansi_c_remainder: (other |<< 1 /= zero) implies (Current - Result * other).abs < other.abs
-			ansi_c_good_case: Current >= zero and other > zero implies Current - Result * other >= zero
-		end
+   infix "#//" (other: like Current): like Current is
+         -- Integer division of `Current' by `other'.
+         --
+         -- According to the ANSI C99: if `Current' and `other' are both non-negative, the `Result' is the
+         -- quotient of the euclidian division; but this is not the general case, the `Result' value is the
+         -- algebraic quotient `Current/other' with any fractional part discarded. (This is often called
+         -- "truncated toward zero"). So, the corresponding remainder value only verify the expression
+         -- `remainder.abs < other.abs'.
+         --
+         -- See also infix "//", infix "#\\".
+      require
+         other /= zero
+      deferred
+      ensure
+         Result * other + Current #\\ other = Current
+         ansi_c_remainder: (other |<< 1 /= zero) implies (Current - Result * other).abs < other.abs
+         ansi_c_good_case: Current >= zero and other > zero implies Current - Result * other >= zero
+      end
 
-	infix "#\\" (other: like Current): like Current is
-			-- Remainder of the integer division of `Current' by `other'.
-			-- According to the ANSI C99:
-			--   * if `Current' and `other' are both non-negative,
-			--     the `Result' is the remainder of the euclidian division.
-			--   * but this is not the general case,
-			--     `Result' as the same sign as `Current' and only verify
-			--     the expression `Result.abs < other.abs'.
-			--
-			-- See also infix "\\", infix "#//".
-		require
-			other /= zero
-		deferred
-		ensure
-			(Current - Result) #\\ other = zero
-			ansi_c_remainder: (other |<< 1 /= zero) implies Result.abs < other.abs
-			ansi_c_good_case: (Current >= zero and other > zero) implies Result >= zero
-		end
+   infix "#\\" (other: like Current): like Current is
+         -- Remainder of the integer division of `Current' by `other'.
+         -- According to the ANSI C99:
+         --   * if `Current' and `other' are both non-negative,
+         --     the `Result' is the remainder of the euclidian division.
+         --   * but this is not the general case,
+         --     `Result' as the same sign as `Current' and only verify
+         --     the expression `Result.abs < other.abs'.
+         --
+         -- See also infix "\\", infix "#//".
+      require
+         other /= zero
+      deferred
+      ensure
+         (Current - Result) #\\ other = zero
+         ansi_c_remainder: (other |<< 1 /= zero) implies Result.abs < other.abs
+         ansi_c_good_case: (Current >= zero and other > zero) implies Result >= zero
+      end
 
 feature {}
-	bit_count: INTEGER_8 is
-			-- Well, it is 8 for INTEGER_8, 16 for INTEGER_16 and so on.
-			-- Note that this feature is not exported because this information is part of the type.
-			-- This is actually used only for assertion here, in INTEGER_GENERAL.
-		deferred
-		ensure
-			Result = (object_size * 8)
-		end
+   bit_count: INTEGER_8 is
+         -- Well, it is 8 for INTEGER_8, 16 for INTEGER_16 and so on.
+         -- Note that this feature is not exported because this information is part of the type.
+         -- This is actually used only for assertion here, in INTEGER_GENERAL.
+      deferred
+      ensure
+         Result = (object_size * 8)
+      end
 
 end -- class INTEGRAL
 --

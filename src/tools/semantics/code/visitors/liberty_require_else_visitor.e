@@ -15,11 +15,11 @@
 deferred class LIBERTY_REQUIRE_ELSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_REQUIRE_ELSE}
-	visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE) is
-		deferred
-		end
+   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE) is
+      deferred
+      end
 
 end -- class LIBERTY_REQUIRE_ELSE_VISITOR

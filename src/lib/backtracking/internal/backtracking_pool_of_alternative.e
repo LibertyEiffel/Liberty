@@ -2,21 +2,21 @@
 -- See the full copyright at the end.
 --
 class BACKTRACKING_POOL_OF_ALTERNATIVE
-	--
-	-- Pool of simple node alternatives
-	--
+   --
+   -- Pool of simple node alternatives
+   --
 
 inherit
-	ABSTRACT_BACKTRACKING_POOL[BACKTRACKING_ALTERNATIVE]
+   ABSTRACT_BACKTRACKING_POOL[BACKTRACKING_ALTERNATIVE]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	get_fresh_instance: BACKTRACKING_ALTERNATIVE is
-		do
-			create Result
-		end
+   get_fresh_instance: BACKTRACKING_ALTERNATIVE is
+      do
+         create Result
+      end
 
 end -- class BACKTRACKING_POOL_OF_ALTERNATIVE
 --

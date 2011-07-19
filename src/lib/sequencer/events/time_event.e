@@ -2,12 +2,12 @@
 -- See the full copyright at the end.
 --
 deferred class TIME_EVENT
-	--
-	-- An object that is managed by TIME_EVENTS.
-	--
+   --
+   -- An object that is managed by TIME_EVENTS.
+   --
 
 inherit
-	EVENT_DESCRIPTOR
+   EVENT_DESCRIPTOR
 
 end -- class TIME_EVENT
 --

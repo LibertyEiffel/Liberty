@@ -15,33 +15,33 @@
 class LIBERTY_AST_EXPORT_FEATURES
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_all: BOOLEAN is
-		do
-			Result := nodes.item(0).name.is_equal(once "KW all")
-		end
+   is_all: BOOLEAN is
+      do
+         Result := nodes.item(0).name.is_equal(once "KW all")
+      end
 
-	feature_names: EIFFEL_LIST_NODE is
-		require
-			not is_all
-		do
-			Result ::= nodes.item(0)
-		end
+   feature_names: EIFFEL_LIST_NODE is
+      require
+         not is_all
+      do
+         Result ::= nodes.item(0)
+      end
 
 feature {ANY}
-	count: INTEGER is 1
+   count: INTEGER is 1
 
-	name: STRING is "Export_Features"
+   name: STRING is "Export_Features"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 1 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 1 >> }
+      end
 
 end

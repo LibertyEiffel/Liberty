@@ -15,11 +15,11 @@
 deferred class LIBERTY_LOOP_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_LOOP}
-	visit_liberty_loop (v: LIBERTY_LOOP) is
-		deferred
-		end
+   visit_liberty_loop (v: LIBERTY_LOOP) is
+      deferred
+      end
 
 end -- class LIBERTY_LOOP_VISITOR

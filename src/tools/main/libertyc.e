@@ -13,44 +13,35 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTYC
-	--
-	-- The compiler.
-	--
+   --
+   -- The compiler.
+   --
 
 insert
-	ARGUMENTS
-	LOGGING
+   LIBERTY_MAIN
 
 create {}
-	make
+   make
 
 feature {}
-	make is
-		local
-			universe: LIBERTY_UNIVERSE
-			root: LIBERTY_ACTUAL_TYPE
-			root_feature_name: LIBERTY_FEATURE_NAME
-			errors: LIBERTY_ERRORS
-			etc: LIBERTY_ETC
-		do
-			if argument_count /= 2 then
-				std_error.put_line("This is a bootstrap version of the compiler; it only accepts two arguments - the path to loadpath.se and the name of the root class which must have a %"make%" creation procedure.")
-				die_with_code(1)
-			end
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+      require
+         root /= Void
+         root_feature_name /= Void
+      local
+         compiler: LIBERTY_COMPILER
+      do
+         log.info.put_new_line
+         log.info.put_line("Root type: ")
+         root.debug_display(log.info, True)
 
-			etc.configure_for(argument(1), create {LIBERTY_ETC_VISITOR_IMPL}.make("libertyc"))
-			etc.log
+         create compiler.make(universe, root, root_feature_name, opt_check_level.item, opt_debug.item)
+         compiler.compile_classes
+         compiler.finalize
 
-			create universe.make
-			root := universe.get_type(Void, errors.unknown_position, argument(2).intern, create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]}.with_capacity(0))
+         log.info.put_line("Done.")
+      end
 
-			create root_feature_name.make("make".intern)
-			universe.build_types(root, root_feature_name, root)
-
-			log.info.put_new_line
-			log.info.put_line("Root type: ")
-			root.debug_display(log.info, True)
-			log.info.put_line("Done.")
-		end
+   default_log_location: STRING is "${path_liberty}/resources/log/libertyc-log.rc"
 
 end

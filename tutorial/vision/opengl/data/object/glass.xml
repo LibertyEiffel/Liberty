@@ -1,0 +1,194 @@
+<object>
+	<facet>
+		<vertex x="-1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="-1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="-1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="1"></coord>
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+	<facet>
+		<vertex x="-1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<vertex x="1" y="1" z="-1">
+			<color r="0.75" g="0.75" b="1" a="0.5"></color>
+		</vertex>
+		<texture file="glass.bmp">
+			<coord s="0" t="0"></coord>
+			<coord s="1" t="0"></coord>
+			<coord s="1" t="1"></coord>
+		</texture>
+	</facet>
+</object>

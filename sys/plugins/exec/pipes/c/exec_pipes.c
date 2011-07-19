@@ -107,7 +107,7 @@ char* basic_exec_pipe_error(se_pipe_data_t*data) {
   if (data->errnum == 0) {
     return NULL;
   }
-  snprintf(result, SE_PIPES_ERROR_BUFFER_SIZE, strerror(data->errnum));
+  snprintf(result, SE_PIPES_ERROR_BUFFER_SIZE, "%s", strerror(data->errnum));
   return result;
 }
 

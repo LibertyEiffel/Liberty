@@ -15,14 +15,14 @@
 expanded class LIBERTY_ARRAY_MANIFEST_SEPARATOR
 
 feature {}
-	value: INTEGER_8
+   value: INTEGER_8
 
 feature {LIBERTY_ARRAY_MANIFEST_CONSTANTS}
-	set (a_value: like value) is
-		do
-			value := a_value
-		ensure
-			value = a_value
-		end
+   set (a_value: like value) is
+      do
+         value := a_value
+      ensure
+         value = a_value
+      end
 
 end -- class LIBERTY_ARRAY_MANIFEST_SEPARATOR

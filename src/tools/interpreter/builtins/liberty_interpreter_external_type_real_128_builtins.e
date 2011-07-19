@@ -15,37 +15,37 @@
 class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_128_BUILTINS
 
 inherit
-	LIBERTY_INTERPRETER_EXTERNAL_TYPE_REALS_BUILTINS[REAL_128]
+   LIBERTY_INTERPRETER_EXTERNAL_TYPE_REALS_BUILTINS[REAL_128]
 
 creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-	make
+   make
 
 feature {}
-	new_real (value: REAL_128): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
-		do
-			Result := interpreter.new_real_128(value, builtin_call.position)
-		end
+   new_real (value: REAL_128): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+      do
+         Result := interpreter.new_real_128(value, builtin_call.position)
+      end
 
-	left, target: REAL_128 is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
-		do
-			obj ::= builtin_call.target
-			Result := obj.item
-		end
+   left, target: REAL_128 is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+      do
+         obj ::= builtin_call.target
+         Result := obj.item
+      end
 
-	right: REAL_128 is
-		local
-			obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
-		do
-			builtin_call.evaluate_parameters
-			obj ::= builtin_call.parameters.first
-			Result := obj.item
-		end
+   right: REAL_128 is
+      local
+         obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
+      do
+         builtin_call.evaluate_parameters
+         obj ::= builtin_call.parameters.first
+         Result := obj.item
+      end
 
-	call_specific (f: LIBERTY_FEATURE) is
-		do
-			last_call_failed := True
-		end
+   call_specific (f: LIBERTY_FEATURE) is
+      do
+         last_call_failed := True
+      end
 
 end -- class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_128_BUILTINS

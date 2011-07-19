@@ -5,4 +5,3 @@
 ./wrappers/posix/dynamic-linking/library/loadpath.se
 ./wrappers/readline/library/loadpath.se
 ./tools/loadpath.se
-./bootstrap/loadpath.se

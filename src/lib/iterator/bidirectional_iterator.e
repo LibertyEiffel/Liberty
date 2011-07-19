@@ -2,28 +2,28 @@
 -- See the full copyright at the end.
 --
 deferred class BIDIRECTIONAL_ITERATOR[E_]
-	-- An iterator that allows to traverse a COLLETION forward and backward.
+   -- An iterator that allows to traverse a COLLETION forward and backward.
 
-	-- Such a collection shall be ordered, even if its items are not
-	-- COMPARABLE. FOr example a two-way list of three-dimensional points may
-	-- be iterated back and forth while the points are not naturally ordered.
+   -- Such a collection shall be ordered, even if its items are not
+   -- COMPARABLE. FOr example a two-way list of three-dimensional points may
+   -- be iterated back and forth while the points are not naturally ordered.
 
 inherit ITERATOR[E_]
 
 feature {ANY}
-	finish is
-			-- Positions the iterator to the last object in the
-			-- aggregate to be traversed.
-		deferred
-		end
+   finish is
+         -- Positions the iterator to the last object in the
+         -- aggregate to be traversed.
+      deferred
+      end
 
-	previous is
-			-- Positions the iterator to the previous object in the
-			-- sequence.
-		require
-			not is_off
-		deferred
-		end
+   previous is
+         -- Positions the iterator to the previous object in the
+         -- sequence.
+      require
+         not is_off
+      deferred
+      end
 
 end -- class BIDIRECTIONAL_ITERATOR
 --

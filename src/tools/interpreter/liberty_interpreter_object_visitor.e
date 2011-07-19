@@ -15,13 +15,13 @@
 deferred class LIBERTY_INTERPRETER_OBJECT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-	visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT) is
-		require
-			a_object /= Void
-		deferred
-		end
+   visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT) is
+      require
+         a_object /= Void
+      deferred
+      end
 
 end -- class LIBERTY_INTERPRETER_OBJECT_VISITOR

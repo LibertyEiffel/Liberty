@@ -15,93 +15,93 @@
 class LIBERTY_AST_ASSIGNMENT_OR_CALL
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	writable: LIBERTY_AST_WRITABLE is
-		require
-			is_assignment
-		do
-			Result ::= nodes.item(0)
-		end
+   writable: LIBERTY_AST_WRITABLE is
+      require
+         is_assignment
+      do
+         Result ::= nodes.item(0)
+      end
 
-	expression: LIBERTY_AST_EXPRESSION is
-		require
-			is_assignment
-		do
-			Result ::= nodes.item(2)
-		end
+   expression: LIBERTY_AST_EXPRESSION is
+      require
+         is_assignment
+      do
+         Result ::= nodes.item(2)
+      end
 
-	target: LIBERTY_AST_TARGET is
-		require
-			is_call
-		do
-			Result ::= nodes.item(0)
-		end
+   target: LIBERTY_AST_TARGET is
+      require
+         is_call
+      do
+         Result ::= nodes.item(0)
+      end
 
-	r10: LIBERTY_AST_R10 is
-		require
-			is_call
-		do
-			Result ::= nodes.item(1)
-		end
+   r10: LIBERTY_AST_R10 is
+      require
+         is_call
+      do
+         Result ::= nodes.item(1)
+      end
 
-	is_regular_assignment: BOOLEAN is
-		require
-			is_assignment
-		do
-			Result := nodes.item(1).name.is_equal(once "KW :=")
-		ensure
-			Result implies not is_assignment_attempt and then not is_forced_assignment
-		end
+   is_regular_assignment: BOOLEAN is
+      require
+         is_assignment
+      do
+         Result := nodes.item(1).name.is_equal(once "KW :=")
+      ensure
+         Result implies not is_assignment_attempt and then not is_forced_assignment
+      end
 
-	is_assignment_attempt: BOOLEAN is
-		require
-			is_assignment
-		do
-			Result := nodes.item(1).name.is_equal(once "KW ?=")
-		ensure
-			Result implies not is_regular_assignment and then not is_forced_assignment
-		end
+   is_assignment_attempt: BOOLEAN is
+      require
+         is_assignment
+      do
+         Result := nodes.item(1).name.is_equal(once "KW ?=")
+      ensure
+         Result implies not is_regular_assignment and then not is_forced_assignment
+      end
 
-	is_forced_assignment: BOOLEAN is
-		require
-			is_assignment
-		do
-			Result := nodes.item(1).name.is_equal(once "KW ::=")
-		ensure
-			Result implies not is_assignment_attempt and then not is_regular_assignment
-		end
+   is_forced_assignment: BOOLEAN is
+      require
+         is_assignment
+      do
+         Result := nodes.item(1).name.is_equal(once "KW ::=")
+      ensure
+         Result implies not is_assignment_attempt and then not is_regular_assignment
+      end
 
-	is_assignment: BOOLEAN is
-		do
-			Result := count = 3
-		ensure
-			Result = not is_call
-		end
+   is_assignment: BOOLEAN is
+      do
+         Result := count = 3
+      ensure
+         Result = not is_call
+      end
 
-	is_call: BOOLEAN is
-		do
-			Result := count = 2
-		ensure
-			Result = not is_assignment
-		end
+   is_call: BOOLEAN is
+      do
+         Result := count = 2
+      ensure
+         Result = not is_assignment
+      end
 
 feature {ANY}
-	count: INTEGER is
-		do
-			Result := nodes.count
-		end
+   count: INTEGER is
+      do
+         Result := nodes.count
+      end
 
-	name: STRING is "Assignment_Or_Call"
+   name: STRING is "Assignment_Or_Call"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 2, 3 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 2, 3 >> }
+      end
 
 end

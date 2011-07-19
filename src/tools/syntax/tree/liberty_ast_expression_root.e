@@ -15,44 +15,44 @@
 deferred class LIBERTY_AST_EXPRESSION_ROOT[S_ -> LIBERTY_AST_NON_TERMINAL_NODE, B_ -> LIBERTY_AST_EXPRESSION_BINARY[S_]]
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-	simple_expression: S_ is
-		require
-			is_simple_expression
-		do
-			Result ::= nodes.first
-		ensure
-			Result /= Void
-		end
+   simple_expression: S_ is
+      require
+         is_simple_expression
+      do
+         Result ::= nodes.first
+      ensure
+         Result /= Void
+      end
 
-	binary_expression: B_ is
-		require
-			is_binary_expression
-		do
-			Result ::= nodes.first
-		ensure
-			Result /= Void
-		end
+   binary_expression: B_ is
+      require
+         is_binary_expression
+      do
+         Result ::= nodes.first
+      ensure
+         Result /= Void
+      end
 
-	is_simple_expression: BOOLEAN is
-		do
-			Result := not is_binary_expression
-		end
+   is_simple_expression: BOOLEAN is
+      do
+         Result := not is_binary_expression
+      end
 
-	is_binary_expression: BOOLEAN is
-		do
-			Result := nodes.first.name.has_suffix(once "-exp")
-		end
+   is_binary_expression: BOOLEAN is
+      do
+         Result := nodes.first.name.has_suffix(once "-exp")
+      end
 
 feature {ANY}
-	count: INTEGER is 1
+   count: INTEGER is 1
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 1 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 1 >> }
+      end
 
 end

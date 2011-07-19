@@ -1,0 +1,68 @@
+tutorial of lib/backtracking
+############################
+
+The cluster lib/backtracking provides a usefull abstraction to implements
+all kinds of backtracking algorithms or and/or tree exploration.
+
+The tutorial backtracking/expand_expression
+===========================================
+
+The main class, ABSTRACT_BACKTRACKING,
+implements the abstract algorithm that explorate a virtual and/or tree.
+It defines the basic data used for the exploration and the way the exploration
+is done. The tutorial [expand_expression] shows its use.
+
+That tutorial expands the expressions that are entered at its input.
+Here is a short example.
+
+{{{{
+> cd expand_expression/tree
+> se c -clean -o ee expand_expression
+> ./ee
+the(good+bad)(boy+girl)
+        (1)     the good boy
+        (2)     the good girl
+        (3)     the bad boy
+        (4)     the bad girl
+}}}}
+
+
+The tutorial backtracking/logigram
+==================================
+
+A tutorial that shows how to solve problems 
+sometimes called logigrams. The logigrams
+are made of a set of items (persons, date, places, ...)
+grouped into categories and set of true propositions 
+about the items. From these propositions you must deduce
+how the given items are combined together.
+
+Here is an example: there are 3 women, Marie, Julie and Eve of
+the 19th century. We know that:
+ - The one that have no child is born in 1804 and is not Marie.
+ - Julie dont have exactly one child and have less children than Marie.
+ - The one that have 2 children is not born in 1805 and is not Eve.
+Which woman is born in 1806? How many children had she?
+
+The tutorial backtracking/tiny_parse
+==============================
+
+WORK IN PROGRESS NOTHING TO SEE HERE
+
+The tutorial backtracking/tiny_prolog
+===============================
+
+WORK IN PROGRESS NOTHING TO SEE HERE
+
+Some other examples
+===================
+
+The cluster regular_expression use the cluster bactracking.
+Just take a look at it.
+
+.end
+
+.def [[:upper:]_]\{2,\} <span class="class">&</span>
+.def {{{{ <pre>
+.def }}}} </pre>
+.def ^\.end  <div class="sesign"><rule/>Copyright \&copy; The SmartEiffel Team - <a href="mailto:SmartEiffel@loria.fr">\&lt;SmartEiffel@loria.fr\&gt;</a></div>

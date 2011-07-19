@@ -15,31 +15,31 @@
 class LIBERTY_AST_CLASS_CREATION
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+   LIBERTY_AST_NON_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	clients: LIBERTY_AST_CLIENTS is
-		do
-			Result ::= nodes.item(1)
-		end
+   clients: LIBERTY_AST_CLIENTS is
+      do
+         Result ::= nodes.item(1)
+      end
 
-	feature_names: EIFFEL_LIST_NODE is
-		do
-			Result ::= nodes.item(2)
-		end
+   feature_names: EIFFEL_LIST_NODE is
+      do
+         Result ::= nodes.item(2)
+      end
 
 feature {ANY}
-	count: INTEGER is 3
+   count: INTEGER is 3
 
-	name: STRING is "Class_Creation"
+   name: STRING is "Class_Creation"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 3 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 3 >> }
+      end
 
 end

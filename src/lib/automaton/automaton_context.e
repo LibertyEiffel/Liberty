@@ -4,40 +4,40 @@
 class AUTOMATON_CONTEXT[E_]
 
 creation {AUTOMATON}
-	make
+   make
 
 feature {ANY} -- user data
-	data: E_
+   data: E_
 
-	is_valid: BOOLEAN
+   is_valid: BOOLEAN
 
-	current_state: STATE[E_]
+   current_state: STATE[E_]
 
 feature {AUTOMATON} -- state memo
-	set_current_state (s: like current_state) is
-		require
-			s /= Void
-		do
-			current_state := s
-		ensure
-			current_state = s
-		end
+   set_current_state (s: like current_state) is
+      require
+         s /= Void
+      do
+         current_state := s
+      ensure
+         current_state = s
+      end
 
-	invalidate is
-		do
-			is_valid := False
-		ensure
-			not is_valid
-		end
+   invalidate is
+      do
+         is_valid := False
+      ensure
+         not is_valid
+      end
 
 feature {}
-	make (e: E_) is
-		do
-			data := e
-			is_valid := True
-		ensure
-			data = e
-		end
+   make (e: E_) is
+      do
+         data := e
+         is_valid := True
+      ensure
+         data = e
+      end
 
 end -- class AUTOMATON_CONTEXT
 --

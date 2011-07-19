@@ -2,51 +2,58 @@
 -- See the full copyright at the end.
 --
 class ITERATOR_ON_LINKED_LIST[E_]
-	-- Please do not use this class directly. Look at `ITERATOR'.
+   -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-	ITERATOR[E_]
+   ITERATOR[E_]
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	linked_list: LINKED_LIST[E_]
-			-- The one to be traversed.
+   linked_list: LINKED_LIST[E_]
+         -- The one to be traversed.
 
-	current_link: LINKED_LIST_NODE[E_]
-			--  Memorize the current position.
+   current_link: LINKED_LIST_NODE[E_]
+         --  Memorize the current position.
 
 feature {ANY}
-	make (ll: LINKED_LIST[E_]) is
-		require
-			ll /= Void
-		do
-			linked_list := ll
-			current_link := linked_list.first_link
-		ensure
-			linked_list = ll
-		end
+   make (ll: LINKED_LIST[E_]) is
+      require
+         ll /= Void
+      do
+         linked_list := ll
+         start
+      ensure
+         linked_list = ll
+      end
 
-	start is
-		do
-			current_link := linked_list.first_link
-		end
+   start is
+      do
+         current_link := linked_list.first_link
+         generation := iterable_generation
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := current_link = Void
-		end
+   is_off: BOOLEAN is
+      do
+         Result := current_link = Void
+      end
 
-	item: E_ is
-		do
-			Result := current_link.item
-		end
+   item: E_ is
+      do
+         Result := current_link.item
+      end
 
-	next is
-		do
-			current_link := current_link.next
-		end
+   next is
+      do
+         current_link := current_link.next
+      end
+
+feature {}
+   iterable_generation: INTEGER is
+      do
+         Result := linked_list.generation
+      end
 
 end -- class ITERATOR_ON_LINKED_LIST
 --

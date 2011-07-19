@@ -2,57 +2,66 @@
 -- See the full copyright at the end.
 --
 deferred class HOARD[E_]
-	--
-	-- A hoard of objects is a collation of many objects sharing the same type. This meta type defines some
-	-- traversal features using agents, as long as very simple hoard properties: `count' and `is_empty'.
-	--
+   --
+   -- A hoard of objects is a collation of many objects sharing the same type. This meta type defines some
+   -- traversal features using agents, as long as very simple hoard properties: `count' and `is_empty'.
+   --
 
 feature {ANY} -- Counting:
-	count: INTEGER is
-			-- Number of available items in the hoard.
-			--
-			-- See also `is_empty'
-		deferred
-		ensure
-			Result >= 0
-		end
+   count: INTEGER is
+         -- Number of available items in the hoard.
+         --
+         -- See also `is_empty'
+      deferred
+      ensure
+         Result >= 0
+      end
 
-	is_empty: BOOLEAN is
-			-- Is the hoard empty ?
-			--
-			-- See also `count'.
-		deferred
-		ensure
-			definition: Result = (count = 0)
-		end
+   is_empty: BOOLEAN is
+         -- Is the hoard empty ?
+         --
+         -- See also `count'.
+      deferred
+      ensure
+         definition: Result = (count = 0)
+      end
 
 feature {ANY} -- Agent-based features:
-	do_all (action: ROUTINE[TUPLE[E_]]) is
-			-- Apply `action' to every item of `Current'.
-			--
-			-- See also `for_all', `exists'.
-		require
-			action /= Void
-		deferred
-		end
+   do_all (action: ROUTINE[TUPLE[E_]]) is
+         -- Apply `action' to every item of `Current'.
+         --
+         -- See also `for_all', `exists', `aggregate'.
+      require
+         action /= Void
+      deferred
+      end
 
-	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Do all items satisfy `test'?
-			--
-			-- See also `do_all', `exists'.
-		require
-			test /= Void
-		deferred
-		end
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Do all items satisfy `test'?
+         --
+         -- See also `do_all', `exists', `aggregate'.
+      require
+         test /= Void
+      deferred
+      end
 
-	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
-			-- Does at least one item satisfy `test'?
-			--
-			-- See also `do_all', `for_all'.
-		require
-			test /= Void
-		deferred
-		end
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+         -- Does at least one item satisfy `test'?
+         --
+         -- See also `do_all', `for_all', `aggregate'.
+      require
+         test /= Void
+      deferred
+      end
+
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      require
+         action /= Void
+      deferred
+      end
 
 end -- class HOARD
 --

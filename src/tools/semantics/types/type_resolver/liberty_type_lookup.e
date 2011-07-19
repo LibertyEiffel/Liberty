@@ -20,75 +20,75 @@ expanded class LIBERTY_TYPE_LOOKUP
 --
 
 insert
-	LOGGING
+   LOGGING
 
 feature {ANY}
-	push (r: like resolver) is
-		require
-			r /= Void
-		do
-			r.set_parent(resolver)
-			resolver_memory.set_item(r)
-			debug
-				log.trace.put_string(once " >>> Type Lookup: pushed ")
-				log.trace.put_line(r.out)
-			end
-		ensure
-			resolver = r
-		end
+   push (r: like resolver) is
+      require
+         r /= Void
+      do
+         r.set_parent(resolver)
+         resolver_memory.set_item(r)
+         debug
+            log.trace.put_string(once " >>> Type Lookup: pushed ")
+            log.trace.put_line(r.out)
+         end
+      ensure
+         resolver = r
+      end
 
-	pop is
-		require
-			resolver /= Void
-		local
-			r: like resolver
-		do
-			debug
-				r := resolver
-			end
-			resolver_memory.set_item(resolver.parent)
-			debug
-				log.trace.put_string(once " <<< Type Lookup: popped ")
-				log.trace.put_string(r.out)
-				if resolver /= Void then
-					log.trace.put_string(once ", back to ")
-					log.trace.put_line(resolver.out)
-				else
-					log.trace.put_new_line
-				end
-			end
-		end
+   pop is
+      require
+         resolver /= Void
+      local
+         r: like resolver
+      do
+         debug
+            r := resolver
+         end
+         resolver_memory.set_item(resolver.parent)
+         debug
+            log.trace.put_string(once " <<< Type Lookup: popped ")
+            log.trace.put_string(r.out)
+            if resolver /= Void then
+               log.trace.put_string(once ", back to ")
+               log.trace.put_line(resolver.out)
+            else
+               log.trace.put_new_line
+            end
+         end
+      end
 
-	resolver: LIBERTY_TYPE_RESOLVER is
-		do
-			Result := resolver_memory.item
-		end
+   resolver: LIBERTY_TYPE_RESOLVER is
+      do
+         Result := resolver_memory.item
+      end
 
-	universe: LIBERTY_UNIVERSE is
-		do
-			Result := universe_memory.item
-		end
+   universe: LIBERTY_UNIVERSE is
+      do
+         Result := universe_memory.item
+      end
 
 feature {LIBERTY_UNIVERSE}
-	set_universe (a_universe: LIBERTY_UNIVERSE) is
-		require
-			a_universe /= Void
-			universe = Void
-		do
-			universe_memory.set_item(a_universe)
-		ensure
-			universe = a_universe
-		end
+   set_universe (a_universe: LIBERTY_UNIVERSE) is
+      require
+         a_universe /= Void
+         universe = Void
+      do
+         universe_memory.set_item(a_universe)
+      ensure
+         universe = a_universe
+      end
 
 feature {}
-	resolver_memory: REFERENCE[LIBERTY_TYPE_RESOLVER] is
-		once
-			create Result
-		end
+   resolver_memory: REFERENCE[LIBERTY_TYPE_RESOLVER] is
+      once
+         create Result
+      end
 
-	universe_memory: REFERENCE[LIBERTY_UNIVERSE] is
-		once
-			create Result
-		end
+   universe_memory: REFERENCE[LIBERTY_UNIVERSE] is
+      once
+         create Result
+      end
 
 end -- class LIBERTY_TYPE_LOOKUP

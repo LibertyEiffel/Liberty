@@ -15,62 +15,62 @@
 class LIBERTY_RESULT
 
 inherit
-	LIBERTY_WRITABLE
-		redefine out_in_tagged_out_memory
-		end
+   LIBERTY_WRITABLE
+      redefine out_in_tagged_out_memory
+      end
 
 create {LIBERTY_TYPE}
-	make
+   make
 
 feature {ANY}
-	name: FIXED_STRING is
-		once
-			Result := "Result".intern
-		end
+   name: FIXED_STRING is
+      once
+         Result := "Result".intern
+      end
 
-	result_type: LIBERTY_TYPE
+   result_type: LIBERTY_TYPE
 
-	out_in_tagged_out_memory is
-		do
-			tagged_out_memory.append(name)
-		end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(name)
+      end
 
-	specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
-		do
-			Result := result_type.specialized_in(a_type).result_entity
-		end
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+      do
+         Result := result_type.specialized_in(a_type).result_entity
+      end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-	mark_reachable_code (mark: INTEGER) is
-		do
-			if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
-				result_type.mark_reachable_code(mark)
-			end
-		end
+   mark_reachable_code (mark: INTEGER) is
+      do
+         if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
+            result_type.mark_reachable_code(mark)
+         end
+      end
 
 feature {}
-	make (a_result_type: like result_type; a_position: like position) is
-		require
-			a_result_type /= Void
-			a_position /= Void
-		do
-			result_type := a_result_type
-			position := a_position
-		ensure
-			result_type = a_result_type
-			position = a_position
-		end
+   make (a_result_type: like result_type; a_position: like position) is
+      require
+         a_result_type /= Void
+         a_position /= Void
+      do
+         result_type := a_result_type
+         position := a_position
+      ensure
+         result_type = a_result_type
+         position = a_position
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_RESULT_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_result(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_RESULT_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_result(Current)
+      end
 
 invariant
-	result_type /= Void
+   result_type /= Void
 
 end

@@ -13,106 +13,109 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_TYPE_PARENT_LOADER
-	--
-	-- Loads the type's parents
-	--
+   --
+   -- Loads the type's parents
+   --
 
 insert
-	LIBERTY_TYPE_BUILDER_TOOLS
-	LOGGING
+   LIBERTY_TYPE_BUILDER_TOOLS
+   LOGGING
 
 creation {LIBERTY_TYPE_BUILDER}
-	make
+   make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters) is
-		require
-			a_builder /= Void
-			a_type /= Void
-			a_universe /= Void
-		do
-			builder := a_builder
-			type := a_type
-			universe := a_universe
-			effective_generic_parameters := default_effective_generic_parameters
-		ensure
-			builder = a_builder
-			type = a_type
-			universe = a_universe
-			effective_generic_parameters = default_effective_generic_parameters
-		end
+   make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters) is
+      require
+         a_builder /= Void
+         a_type /= Void
+         a_universe /= Void
+      do
+         builder := a_builder
+         type := a_type
+         universe := a_universe
+         effective_generic_parameters := default_effective_generic_parameters
+      ensure
+         builder = a_builder
+         type = a_type
+         universe = a_universe
+         effective_generic_parameters = default_effective_generic_parameters
+      end
 
-	universe: LIBERTY_UNIVERSE
+   universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
-	load is
-		local
-			ast_class: LIBERTY_AST_ONE_CLASS
-			has_parents: BOOLEAN
-		do
-			ast_class := type.ast
-			if ast_class.obsolete_clause.count > 0 then
-				errors.add_position(semantics_position_at(ast_class.obsolete_clause.string))
-				errors.set(level_warning, decoded_string(ast_class.obsolete_clause.string))
-			end
-			if is_any then
-				torch.burn
-			else
-				has_parents := add_parents(ast_class.inherit_clause, True, False)
-				has_parents := add_parents(ast_class.insert_clause, False, has_parents)
-				check
-					has_parents
-				end
-			end
-		end
+   load is
+      local
+         ast_class: LIBERTY_AST_ONE_CLASS
+         has_parents: BOOLEAN
+      do
+         ast_class := type.ast
+         if ast_class.obsolete_clause.count > 0 then
+            errors.add_position(semantics_position_at(ast_class.obsolete_clause.string))
+            errors.set(level_warning, decoded_string(ast_class.obsolete_clause.string))
+         end
+         if is_any then
+            torch.burn
+         else
+            has_parents := add_parents(ast_class.inherit_clause, True, False)
+            has_parents := add_parents(ast_class.insert_clause, False, has_parents)
+            check
+               has_parents
+            end
+         end
+      end
 
 feature {}
-	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant, had_parents: BOOLEAN): BOOLEAN is
-			-- Returns True if at least a parent was added
-		local
-			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE
-		do
-			if conformant then
-				log.trace.put_string(once "Adding conformant parents to ")
-			else
-				log.trace.put_string(once "Adding non-conformant parents to ")
-			end
-			log.trace.put_line(type.full_name)
+   add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant, had_parents: BOOLEAN): BOOLEAN is
+         -- Returns True if at least a parent was added
+      local
+         i: INTEGER; parent_clause: LIBERTY_AST_PARENT
+         parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE
+      do
+         if conformant then
+            log.trace.put_string(once "Adding conformant parents to ")
+         else
+            log.trace.put_string(once "Adding non-conformant parents to ")
+         end
+         log.trace.put_line(type.full_name)
 
-			from
-				Result := had_parents
-				i := parents.list_lower
-			until
-				errors.has_error or else i > parents.list_upper
-			loop
-				parent_clause := parents.list_item(i)
-				parent := type_lookup.resolver.type(parent_clause.type_definition)
-				debug
-					log.trace.put_string(once "  ")
-					log.trace.put_string(type.full_name)
-					if conformant then
-						log.trace.put_string(once " --> ")
-					else
-						log.trace.put_string(once " -+> ")
-					end
-					log.trace.put_line(parent.full_name)
-				end
-				if parent /= Void then
-					actual_parent ::= parent.known_type
-					type.add_parent(actual_parent, conformant)
-					Result := True
-				end
-				i := i + 1
-			end
-			if not conformant and then not Result and then not errors.has_error then
-				debug
-					log.trace.put_string(type.name)
-					log.trace.put_line(once ": adding default parent ANY")
-				end
-				type.add_parent(universe.type_any, False)
-				Result := True
-			end
-		end
+         from
+            Result := had_parents
+            i := parents.list_lower
+         until
+            errors.has_error or else i > parents.list_upper
+         loop
+            parent_clause := parents.list_item(i)
+            parent := type_lookup.resolver.type(parent_clause.type_definition)
+            debug
+               log.trace.put_string(once "  ")
+               log.trace.put_string(type.full_name)
+               if conformant then
+                  log.trace.put_string(once " --> ")
+               else
+                  log.trace.put_string(once " -+> ")
+               end
+               log.trace.put_line(parent.full_name)
+            end
+            if parent /= Void then
+               check
+                  parent.is_known
+               end
+               actual_parent ::= parent.known_type
+               type.add_parent(actual_parent, conformant)
+               Result := True
+            end
+            i := i + 1
+         end
+         if not conformant and then not Result and then not errors.has_error then
+            debug
+               log.trace.put_string(type.name)
+               log.trace.put_line(once ": adding default parent ANY")
+            end
+            type.add_parent(universe.type_any, False)
+            Result := True
+         end
+      end
 
 end -- class LIBERTY_TYPE_PARENT_LOADER

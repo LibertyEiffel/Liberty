@@ -2,44 +2,44 @@
 -- See the full copyright at the end.
 --
 class ABSTRACT_BACKTRACKING_CUT_POINT
-	--
-	-- Instances of that class are used by the ABSTRACT_BACKTRACKING
-	-- to record "cut points" data. A cut point is an indication of
-	-- up to wich alternative are to be removed from the exploration.
-	--
-	-- Instances of that class are inserted in the continuation path
-	-- to be retrieved by dynamic cast during calls to cut.
-	--
+   --
+   -- Instances of that class are used by the ABSTRACT_BACKTRACKING
+   -- to record "cut points" data. A cut point is an indication of
+   -- up to wich alternative are to be removed from the exploration.
+   --
+   -- Instances of that class are inserted in the continuation path
+   -- to be retrieved by dynamic cast during calls to cut.
+   --
 
 inherit
-	ABSTRACT_BACKTRACKING_SEQUENCE
-		rename pool as pool_of_cut_points
-		end
+   ABSTRACT_BACKTRACKING_SEQUENCE
+      rename pool as pool_of_cut_points
+      end
 
 insert
-	ABSTRACT_BACKTRACKING_GLOBALS
+   ABSTRACT_BACKTRACKING_GLOBALS
 
 feature {ABSTRACT_BACKTRACKING}
-	top_alternative: ABSTRACT_BACKTRACKING_ALTERNATIVE
-			-- Record of what top of the stack of alternative
-			-- is to restore when cut is called.
-			-- Managed by ABSTRACT_BACKTRACKING.
+   top_alternative: ABSTRACT_BACKTRACKING_ALTERNATIVE
+         -- Record of what top of the stack of alternative
+         -- is to restore when cut is called.
+         -- Managed by ABSTRACT_BACKTRACKING.
 
-	set_top_alternative (value: like top_alternative) is
-		do
-			top_alternative := value
-		ensure
-			definition: top_alternative = value
-		end
+   set_top_alternative (value: like top_alternative) is
+      do
+         top_alternative := value
+      ensure
+         definition: top_alternative = value
+      end
 
-	next_sequence (explorer: ABSTRACT_BACKTRACKING) is
-			-- Do nothing: remove itself (as if it were the end
-			-- of a sequence) and evaluate the continuation by
-			-- issuing a 'continue'.
-		do
-			explorer.pop_sequence
-			explorer.continue
-		end
+   next_sequence (explorer: ABSTRACT_BACKTRACKING) is
+         -- Do nothing: remove itself (as if it were the end
+         -- of a sequence) and evaluate the continuation by
+         -- issuing a 'continue'.
+      do
+         explorer.pop_sequence
+         explorer.continue
+      end
 
 end -- class ABSTRACT_BACKTRACKING_CUT_POINT
 --

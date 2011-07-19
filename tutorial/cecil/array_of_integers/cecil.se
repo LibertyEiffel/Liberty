@@ -1,0 +1,6 @@
+-- The name of the include C file :
+eiffel.h
+-- The features you want to call from C :
+array_of_int_item	ARRAY[INTEGER] item
+array_of_int_lower	ARRAY[INTEGER] lower
+array_of_int_upper	ARRAY[INTEGER] upper

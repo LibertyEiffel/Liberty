@@ -15,15 +15,15 @@
 class LIBERTY_AST_EXP1
 
 inherit
-	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E1]
+   LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E1]
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_implies: BOOLEAN is True
+   is_implies: BOOLEAN is True
 
 feature {ANY}
-	name: STRING is "e1-exp"
+   name: STRING is "e1-exp"
 
 end

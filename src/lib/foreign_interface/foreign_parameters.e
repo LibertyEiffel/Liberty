@@ -4,58 +4,58 @@
 expanded class FOREIGN_PARAMETERS
 
 feature {ANY}
-	set (a_parameters: like parameters) is
-		require
-			no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
-		do
-			parameters := a_parameters
-		ensure
-			parameters = a_parameters
-		end
+   set (a_parameters: like parameters) is
+      require
+         no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
+      do
+         parameters := a_parameters
+      ensure
+         parameters = a_parameters
+      end
 
-	match_types (a_types: TRAVERSABLE[FOREIGN_TYPE]): BOOLEAN is
-		local
-			i, offset: INTEGER
-		do
-			if parameters /= Void then
-				from
-					Result := a_types.count = parameters.count
-					offset := a_types.lower - parameters.lower
-					i := parameters.lower
-				until
-					not Result or else i > parameters.upper
-				loop
-					Result := parameters.item(i).match_type(a_types.item(i + offset))
-					i := i + 1
-				end
-			end
-		ensure
-			not_set_is_wrong: parameters = Void implies not Result
-		end
+   match_types (a_types: TRAVERSABLE[FOREIGN_TYPE]): BOOLEAN is
+      local
+         i, offset: INTEGER
+      do
+         if parameters /= Void then
+            from
+               Result := a_types.count = parameters.count
+               offset := a_types.lower - parameters.lower
+               i := parameters.lower
+            until
+               not Result or else i > parameters.upper
+            loop
+               Result := parameters.item(i).match_type(a_types.item(i + offset))
+               i := i + 1
+            end
+         end
+      ensure
+         not_set_is_wrong: parameters = Void implies not Result
+      end
 
 feature {FOREIGN_AGENT}
-	as_arrayed_collection: ARRAYED_COLLECTION[POINTER] is
-		local
-			i: INTEGER
-		do
-			if not parameters.is_empty then
-				create {FAST_ARRAY[POINTER]} Result.with_capacity(parameters.count)
-				from
-					i := parameters.lower
-				until
-					i > parameters.upper
-				loop
-					Result.add_last(parameters.item(i).as_pointer)
-					i := i + 1
-				end
-			end
-		end
+   as_arrayed_collection: ARRAYED_COLLECTION[POINTER] is
+      local
+         i: INTEGER
+      do
+         if not parameters.is_empty then
+            create {FAST_ARRAY[POINTER]} Result.with_capacity(parameters.count)
+            from
+               i := parameters.lower
+            until
+               i > parameters.upper
+            loop
+               Result.add_last(parameters.item(i).as_pointer)
+               i := i + 1
+            end
+         end
+      end
 
 feature {}
-	parameters: TRAVERSABLE[FOREIGN_OBJECT]
+   parameters: TRAVERSABLE[FOREIGN_OBJECT]
 
 invariant
-	no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
+   no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end)
 
 end -- class FOREIGN_PARAMETERS
 --

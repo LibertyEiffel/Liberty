@@ -15,27 +15,27 @@
 class LIBERTY_AST_ENSURE
 
 inherit
-	LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
-		redefine
-			possible_counts
-		end
+   LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
+      redefine
+         possible_counts
+      end
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	ensure_then: LIBERTY_AST_ENSURE_THEN is
-		do
-			Result ::= nodes.first
-		end
+   ensure_then: LIBERTY_AST_ENSURE_THEN is
+      do
+         Result ::= nodes.first
+      end
 
 feature {ANY}
-	name: STRING is "Ensure"
+   name: STRING is "Ensure"
 
 feature {}
-	possible_counts: SET[INTEGER] is
-		once
-			Result := {AVL_SET[INTEGER] << 0, 3 >> }
-		end
+   possible_counts: SET[INTEGER] is
+      once
+         Result := {AVL_SET[INTEGER] << 0, 3 >> }
+      end
 
 end

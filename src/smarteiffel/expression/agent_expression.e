@@ -1,0 +1,296 @@
+-- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- See the Copyright notice at the end of this file.
+--
+class AGENT_EXPRESSION
+	--
+	-- See AGENT_CREATION first just because AGENT_CREATION is the first step in an agent's life.
+	-- The second step is an AGENT_EXPRESSION which correspond to the actual call of some delayed
+	-- expression. At this time we are supposed to provide the missing arguments. Here are some example of
+	-- AGENT_EXPRESSIONs:
+	--
+	--    x := foo.item([bar])
+	--
+
+inherit
+	EXPRESSION
+
+insert
+	AGENT_LAUNCHER
+		export {AGENT_EXPRESSION_VISITOR} fake_tuple, target
+		end
+
+creation {CALL_1}
+	make
+
+feature {ANY}
+	written_link: CALL_1
+			-- To the syntactical written one which is at the origin of the creation of `Current'.
+
+	declaration_type: TYPE is
+		do
+			Result := agent_type.agent_result
+		ensure then
+			Result /= Void
+		end
+
+	start_position: POSITION is
+		do
+			Result := written_link.start_position
+		end
+
+	is_current, is_implicit_current: BOOLEAN is False
+
+	is_void: BOOLEAN is False
+
+	is_manifest_string: BOOLEAN is False
+
+	is_static: BOOLEAN is False
+
+	is_result: BOOLEAN is False
+
+	is_writable: BOOLEAN is False
+
+	extra_bracket_flag: BOOLEAN is True
+
+	specialize_in (type: TYPE): like Current is
+		do
+			check
+				False -- (`Current' is created after that phase.)
+			end
+		end
+
+	specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+		local
+			t: like target; ft: like fake_tuple
+		do
+			t := target.specialize_thru(parent_type, parent_edge, new_type)
+			ft := fake_tuple.specialize_thru(parent_type, parent_edge, new_type)
+			Result := current_or_twin_init(t, ft)
+		end
+
+	specialize_2 (type: TYPE): like Current is
+		local
+			t: like target; ft: like fake_tuple
+		do
+			t := target.specialize_2(type)
+			ft := fake_tuple.specialize_2(type)
+			ft := ft.implicit_cast(type, t.resolve_in(type).open_arguments)
+			Result := current_or_twin_init(t, ft)
+			Result.specialize_2_check(type)
+		end
+
+	resolve_in (type: TYPE): TYPE is
+		do
+			Result := agent_type.agent_result
+		end
+
+	side_effect_free (type: TYPE): BOOLEAN is
+		do
+		end
+
+	adapt_for (type: TYPE): like Current is
+		local
+			t: like target; args: like fake_tuple
+		do
+			t := target.adapt_for(type)
+			args := fake_tuple.adapt_for(type)
+			Result := current_or_twin_init(t, args)
+		end
+
+	non_void_no_dispatch_type (type: TYPE): TYPE is
+		do
+		end
+
+	simplify (type: TYPE): EXPRESSION is
+		local
+			t: like target; args: like fake_tuple; fs: FEATURE_STAMP; target_type: TYPE
+		do
+			t := target.simplify(type)
+			if t.is_void then
+				-- As the target is Void, no need to consider arguments anymore.
+				target_type := target.resolve_in(type)
+				fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_item, start_position)) 
+				create {VOID_CALL} Result.make(start_position, fs, target_type)
+			else
+				args := fake_tuple.simplify(type)
+				Result := current_or_twin_init(t, args)
+			end
+		end
+
+	compile_to_c (type: TYPE) is
+		do
+			if agent_pool.agent_creation_collected_flag then
+				agent_args.c_agent_definition_call(type, target, fake_tuple)
+			else
+				--|*** It would be nice to be able to substitute `Current' 
+				--| with the corresponding VOID_CALL in a final stage, may 
+				--| be `adapt' in order to really simplify the back end.
+				--| (This should be done before `compile_to_c'...)
+				--|*** Dom sept 26th 2004 ***
+				compile_to_c_void_call(type, start_position, as_item)
+			end
+		end
+
+	mapping_c_target (type, formal_target_type: TYPE) is
+		do
+			standard_mapping_c_target(type, formal_target_type)
+		end
+
+	mapping_c_arg (type: TYPE) is
+		do
+			compile_to_c(type)
+		end
+
+	collect (type: TYPE): TYPE is
+		do
+			agent_launcher_collect(type)
+			Result := agent_type.agent_result
+		end
+
+	accept (visitor: AGENT_EXPRESSION_VISITOR) is
+		do
+			visitor.visit_agent_expression(Current)
+		end
+
+	compile_target_to_jvm, compile_to_jvm (type: TYPE) is
+		do
+			not_yet_implemented
+		end
+
+	jvm_branch_if_false (type: TYPE): INTEGER is
+		do
+			Result := jvm_standard_branch_if_false(type)
+		end
+
+	jvm_branch_if_true (type: TYPE): INTEGER is
+		do
+			Result := jvm_standard_branch_if_true(type)
+		end
+
+	jvm_assign_creation, jvm_assign (type: TYPE) is
+		do
+			check
+				False
+			end
+		end
+
+	precedence: INTEGER is
+		do
+			Result := atomic_precedence
+		end
+
+	short (type: TYPE) is
+		do
+			written_link.short(type)
+		end
+
+	short_target (type: TYPE) is
+		do
+			short(type)
+			short_printer.put_dot
+		end
+
+	pretty (indent_level: INTEGER) is
+		do
+			written_link.pretty(indent_level)
+		end
+
+	bracketed_pretty (indent_level: INTEGER) is
+		do
+			pretty_printer.put_character('(')
+			pretty(indent_level)
+			pretty_printer.put_character(')')
+		end
+
+	pretty_target (indent_level: INTEGER) is
+		do
+			pretty_printer.put_character('(')
+			pretty(indent_level)
+			pretty_printer.put_character(')')
+			pretty_printer.put_character('.')
+		end
+
+feature {AGENT_EXPRESSION}
+	init (t: like target; args: like fake_tuple) is
+		require
+			t /= Void
+			args /= Void
+		do
+			target := t
+			fake_tuple := args
+		ensure
+			target = t
+			fake_tuple = args
+		end
+
+feature {CODE, EFFECTIVE_ARG_LIST}
+	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+		local
+			t: like target; args: like fake_tuple
+		do
+			target.inline_dynamic_dispatch_(code_accumulator, type)
+			t := code_accumulator.current_context.last.to_expression
+			code_accumulator.current_context.remove_last
+			fake_tuple.inline_dynamic_dispatch_(code_accumulator, type)
+			args ::= code_accumulator.current_context.last.to_expression
+			code_accumulator.current_context.remove_last
+			code_accumulator.current_context.add_last(current_or_twin_init(t, args))
+		end
+	
+feature {}
+	make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST) is
+		require
+			wl /= Void
+			at.canonical_type_mark.is_agent
+			t /= Void
+			at = t.resolve_in(type)
+			args /= Void
+		do
+			agent_type := at
+			written_link := wl
+			target := t
+			fake_tuple := args.to_fake_tuple.specialize_2(type)
+			specialize_2_check(type)
+			fake_tuple := fake_tuple.implicit_cast(type, at.open_arguments)
+		ensure
+			agent_type = at
+			written_link = wl
+			target = t
+			fake_tuple /= Void
+		end
+
+	current_or_twin_init (t: like target; args: like fake_tuple): like Current is
+		require
+			t /= Void
+			args /= Void
+		do
+			if target = t and then fake_tuple = args then
+				Result := Current
+			else
+				Result := twin
+				Result.init(t, args)
+			end
+		end
+
+invariant
+	written_link /= Void
+
+end -- class AGENT_EXPRESSION
+--
+-- ------------------------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
+-- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------------------------

@@ -15,32 +15,32 @@
 class LIBERTY_NEGATIVE
 
 inherit
-	LIBERTY_PREFIX_CALL
+   LIBERTY_PREFIX_CALL
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 create {LIBERTY_NEGATIVE}
-	new
+   new
 
 feature {}
-	the_prefix_name: FIXED_STRING is
-		once
-			Result := "-".intern
-		end
+   the_prefix_name: FIXED_STRING is
+      once
+         Result := "-".intern
+      end
 
-	make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
-		do
-			create Result.new(a_target, a_entity, a_actuals, a_position)
-		end
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+      do
+         create Result.new(a_target, a_entity, a_actuals, a_position)
+      end
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_NEGATIVE_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_negative(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_NEGATIVE_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_negative(Current)
+      end
 
 end

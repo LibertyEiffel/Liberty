@@ -15,59 +15,59 @@
 class LIBERTY_ETC_NEEDS
 
 create {LIBERTY_ETC_VISITOR_IMPL}
-	make
+   make
 
 feature {ANY}
-	cluster: LIBERTY_ETC_CLUSTER
+   cluster: LIBERTY_ETC_CLUSTER
 
 feature {LIBERTY_ETC_CLUSTER}
-	check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
-		require
-			all_clusters /= Void
-		do
-			if cluster = Void then
-				cluster := all_clusters.fast_reference_at(cluster_name)
-				if cluster = Void then
-					std_error.put_line("Unknown cluster: " + cluster_name)
-					die_with_code(1)
-				end
-			else
-				check
-					cluster = all_clusters.fast_at(cluster_name)
-				end
-			end
-			constraints.do_all(agent {LIBERTY_ETC_CONSTRAINT}.check_validity(cluster))
-		end
+   check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
+      require
+         all_clusters /= Void
+      do
+         if cluster = Void then
+            cluster := all_clusters.fast_reference_at(cluster_name)
+            if cluster = Void then
+               std_error.put_line("Unknown cluster: " + cluster_name)
+               die_with_code(1)
+            end
+         else
+            check
+               cluster = all_clusters.fast_at(cluster_name)
+            end
+         end
+         constraints.do_all(agent {LIBERTY_ETC_CONSTRAINT}.check_validity(cluster))
+      end
 
-	in_cycle: BOOLEAN
+   in_cycle: BOOLEAN
 
-	set_in_cycle is
-		do
-			in_cycle := True
-		ensure
-			in_cycle
-		end
+   set_in_cycle is
+      do
+         in_cycle := True
+      ensure
+         in_cycle
+      end
 
 feature {}
-	make (a_cluster_name: like cluster_name; a_cluster: like cluster; a_constraints: like constraints) is
-		require
-			a_cluster_name /= Void
-			a_constraints /= Void
-		do
-			cluster_name := a_cluster_name
-			cluster := a_cluster
-			constraints := a_constraints
-		ensure
-			cluster_name = a_cluster_name
-			cluster = a_cluster
-			constraints = a_constraints
-		end
+   make (a_cluster_name: like cluster_name; a_cluster: like cluster; a_constraints: like constraints) is
+      require
+         a_cluster_name /= Void
+         a_constraints /= Void
+      do
+         cluster_name := a_cluster_name
+         cluster := a_cluster
+         constraints := a_constraints
+      ensure
+         cluster_name = a_cluster_name
+         cluster = a_cluster
+         constraints = a_constraints
+      end
 
-	cluster_name: FIXED_STRING
-	constraints: TRAVERSABLE[LIBERTY_ETC_CONSTRAINT]
+   cluster_name: FIXED_STRING
+   constraints: TRAVERSABLE[LIBERTY_ETC_CONSTRAINT]
 
 invariant
-	cluster_name /= Void
-	constraints /= Void
+   cluster_name /= Void
+   constraints /= Void
 
 end -- class LIBERTY_ETC_NEEDS

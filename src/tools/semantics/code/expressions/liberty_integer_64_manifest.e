@@ -15,18 +15,18 @@
 class LIBERTY_INTEGER_64_MANIFEST
 
 inherit
-	LIBERTY_TYPED_MANIFEST[INTEGER_64]
+   LIBERTY_TYPED_MANIFEST[INTEGER_64]
 
 create {LIBERTY_BUILDER_TOOLS}
-	make
+   make
 
 feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_INTEGER_64_MANIFEST_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_integer_64_manifest(Current)
-		end
+   accept (v: VISITOR) is
+      local
+         v0: LIBERTY_INTEGER_64_MANIFEST_VISITOR
+      do
+         v0 ::= v
+         v0.visit_liberty_integer_64_manifest(Current)
+      end
 
 end

@@ -15,33 +15,33 @@
 class LIBERTY_AST_EXP6
 
 inherit
-	LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E6]
+   LIBERTY_AST_EXPRESSION_BINARY[LIBERTY_AST_E6]
 
 create {LIBERTY_NODE_FACTORY}
-	make
+   make
 
 feature {LIBERTY_AST_HANDLER}
-	is_times: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW *")
-		end
+   is_times: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW *")
+      end
 
-	is_divide: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW /")
-		end
+   is_divide: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW /")
+      end
 
-	is_int_divide: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW //")
-		end
+   is_int_divide: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW //")
+      end
 
-	is_int_remainder: BOOLEAN is
-		do
-			Result := not is_empty and then nodes.item(1).name.is_equal(once "KW \\")
-		end
+   is_int_remainder: BOOLEAN is
+      do
+         Result := not is_empty and then nodes.item(1).name.is_equal(once "KW \\")
+      end
 
 feature {ANY}
-	name: STRING is "e6-exp"
+   name: STRING is "e6-exp"
 
 end
