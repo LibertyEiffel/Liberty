@@ -6,6 +6,7 @@ indexing
 
 
 deferred class G_THREAD
+	obsolete "G_THREAD is currently unusable because standard library is NOT thread safe. At all"
 	-- A thread of work.
 	
 	-- Threads act almost like processes, but unlike processes all threads of

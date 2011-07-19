@@ -5,6 +5,7 @@ indexing
 	version: "2.28"
 
 deferred class G_THREAD_POOL [A_ROUTINE -> G_POOLED_ROUTINE]
+	obsolete "G_THREAD_POOL is currently unusable because standard library is NOT thread safe. At all"
 	-- A pool of threads executing A_ROUTINE concurrently.
 
 	-- Sometimes you wish to asynchronously fork out the execution of work and

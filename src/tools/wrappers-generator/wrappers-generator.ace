@@ -24,11 +24,6 @@ cluster -- section
 		assertion (all)
 	end 
 
-   legacy_xml: "${path_liberty}/src/tools/wrappers-generator/xml/loadpath.se"
-	-- default
-	-- 	assertion (boost)
-	-- end 
-
    legacy_unicode: "${path_liberty}/src/tools/wrappers-generator/unicode"
 	-- default
 	-- 	assertion (boost)

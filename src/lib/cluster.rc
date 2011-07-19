@@ -36,6 +36,7 @@ needs
 	TIME
 	UNICODE
 	LIBERTY_WRAPPERS
+	XML
 
 cluster
 	ABILITIES: "./abilities"
@@ -66,5 +67,6 @@ cluster
 	TIME: "./time"
 	UNICODE: "./unicode"
 	LIBERTY_WRAPPERS: "../wrappers"
+	XML: "./xml"
 
 end

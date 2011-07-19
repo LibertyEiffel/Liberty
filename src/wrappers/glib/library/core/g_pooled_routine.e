@@ -1,4 +1,6 @@
 deferred class G_POOLED_ROUTINE
+	obsolete "G_POOLED_ROUTINE is currently unusable because standard library is NOT thread safe. At all"
+	
 	-- Some work to be processed by a thread pool.
 feature
 	invoke (a_pool: G_THREAD_POOL[G_POOLED_ROUTINE]) is

@@ -10,7 +10,7 @@ insert
 			next, current_character, end_of_input
 		end
 	XML_DTD_MEMORY
-	SINGLETON
+	SINGLETON undefine is_equal end 
 	URL_VALIDITY
 
 creation {XML_PARSER}
