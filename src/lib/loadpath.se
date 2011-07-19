@@ -25,3 +25,4 @@
 ./string/loadpath.se
 ./time/loadpath.se
 ./unicode/
+./xml/loadpath.se
