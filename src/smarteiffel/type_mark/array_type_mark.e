@@ -26,26 +26,6 @@ feature {ANY}
 
    need_c_struct: BOOLEAN is True
 
-   c_header_pass1 is
-      do
-         standard_c_typedef
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-         standard_c_struct
-         standard_c_object_model
-         standard_c_print_function
-      end
-
    c_initialize_in (buffer: STRING) is
       do
          buffer.append(once "(void*)0")

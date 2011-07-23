@@ -103,27 +103,6 @@ feature {ANY}
          buffer.append(once "(void*)0")
       end
 
-   c_header_pass1 is
-      do
-         cpp.out_h_buffer.copy(once "typedef T0 T")
-         id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once ";%N")
-         cpp.write_out_h_buffer
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-         standard_c_print_function
-      end
-
    just_before_gc_mark_in (str: STRING) is
       do
       end

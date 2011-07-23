@@ -181,45 +181,6 @@ feature {ANY}
          visitor.visit_class_type_mark(Current)
       end
 
-   c_header_pass1 is
-      do
-         if not type.has_external_type then
-            standard_c_typedef
-         else
-            cpp.out_h_buffer.clear_count
-            cpp.out_h_buffer.append(once "typedef ")
-            cpp.out_h_buffer.append(type.external_type.type_name)
-            cpp.out_h_buffer.append(once " T")
-            id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-            cpp.write_out_h_buffer
-         end
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-         if is_expanded then
-            if need_c_struct then
-               standard_c_struct
-            end
-         end
-      end
-
-   c_header_pass4 is
-      do
-         if is_reference then
-            if need_c_struct then
-               standard_c_struct
-            end
-         end
-         standard_c_object_model
-         standard_c_print_function
-      end
-
    c_type_for_argument_in (buffer: STRING) is
       do
          if is_reference then

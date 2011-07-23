@@ -75,34 +75,6 @@ feature {ANY}
          end
       end
 
-   frozen c_header_pass1 is
-      do
-         check
-            False
-         end
-      end
-
-   frozen c_header_pass2 is
-      do
-         check
-            False
-         end
-      end
-
-   frozen c_header_pass3 is
-      do
-         check
-            False
-         end
-      end
-
-   frozen c_header_pass4 is
-      do
-         check
-            False
-         end
-      end
-
    frozen c_type_for_argument_in (str: STRING) is
       do
          check

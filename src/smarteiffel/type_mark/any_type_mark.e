@@ -10,12 +10,12 @@ inherit
    STATIC_TYPE_MARK
       redefine resolve_in
       end
-   
+
 insert
    NON_GENERIC_TYPE_MARK
       redefine resolve_in
       end
-   
+
 creation {ANY}
    make
 
@@ -33,12 +33,12 @@ feature {ANY}
       do
          Result := smart_eiffel.type_any
       end
-   
+
    resolve_in (new_type: TYPE): TYPE is
       do
          Result := type
       end
-   
+
    accept (visitor: ANY_TYPE_MARK_VISITOR) is
       do
          visitor.visit_any_type_mark(Current)
@@ -52,28 +52,6 @@ feature {ANY}
    id: INTEGER is
       do
          Result := class_text.id
-      end
-
-   c_header_pass1 is
-      do
-         standard_c_typedef
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-         if need_c_struct then
-            standard_c_struct
-         end
-         standard_c_object_model
-         standard_c_print_function
       end
 
    c_type_for_argument_in (str: STRING) is

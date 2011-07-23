@@ -3,15 +3,153 @@
 --
 class C_HEADER_PASS_3
 
-insert
-   GLOBALS
+inherit
+   C_HEADER_PASS
 
-feature {C_PRETTY_PRINTER}
-   compile is
+create {ANY}
+   make
+
+feature {}
+   header_comment: STRING is "/* C Header Pass 2: */%N"
+
+   pre_compile is
       do
-         cpp.out_h_buffer.copy(once "/* C Header Pass 3: */%N")
-         cpp.write_out_h_buffer
-         smart_eiffel.live_type_map.do_all(agent {LIVE_TYPE}.c_header_pass3)
+      end
+
+   do_compile (live_type: LIVE_TYPE) is
+      do
+         if live_type.canonical_type_mark.is_user_expanded and then live_type.writable_attributes /= Void then
+            live_type.writable_attributes.do_all(agent compile_expanded)
+         end
+         live_type.canonical_type_mark.accept(Current)
+      end
+
+   compile_expanded (writable_attribute: RUN_FEATURE_2) is
+      require
+         writable_attribute /= Void
+      local
+         attribute_type: TYPE_MARK
+      do
+         attribute_type := writable_attribute.result_type
+         if attribute_type.is_expanded then
+            compile_header(attribute_type.type.live_type)
+         end
+      end
+
+feature {LIKE_ARGUMENT_TYPE_MARK}
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+      do
+         check
+            False
+         end
+      end
+
+feature {LIKE_FEATURE_TYPE_MARK}
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+      do
+         check
+            False
+         end
+      end
+
+feature {LIKE_CURRENT_TYPE_MARK}
+   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
+      do
+         check
+            False
+         end
+      end
+
+feature {FORMAL_GENERIC_TYPE_MARK}
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+      do
+         check
+            False
+         end
+      end
+
+feature {REAL_TYPE_MARK}
+   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+      do
+      end
+
+feature {CHARACTER_TYPE_MARK}
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+      do
+      end
+
+feature {BOOLEAN_TYPE_MARK}
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+      do
+      end
+
+feature {POINTER_TYPE_MARK}
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+      do
+      end
+
+feature {NATURAL_TYPE_MARK}
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+      do
+      end
+
+feature {INTEGER_TYPE_MARK}
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+      do
+      end
+
+feature {STRING_TYPE_MARK}
+   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+      do
+      end
+
+feature {CLASS_TYPE_MARK}
+   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+      do
+         if visited.is_expanded and then visited.need_c_struct then
+            standard_c_struct(visited)
+         end
+      end
+
+feature {ANY_TYPE_MARK}
+   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+      do
+      end
+
+feature {EMPTY_TUPLE_TYPE_MARK}
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+      do
+      end
+
+feature {NON_EMPTY_TUPLE_TYPE_MARK}
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+      do
+      end
+
+feature {AGENT_TYPE_MARK}
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+      do
+      end
+
+feature {NATIVE_ARRAY_TYPE_MARK}
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      do
+      end
+
+feature {USER_GENERIC_TYPE_MARK}
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+      do
+         if visited.is_expanded then
+            if visited.need_c_struct then
+               standard_c_struct(visited)
+            end
+            standard_c_object_model(visited)
+         end
+      end
+
+feature {ARRAY_TYPE_MARK}
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+      do
       end
 
 end -- class C_HEADER_PASS_3

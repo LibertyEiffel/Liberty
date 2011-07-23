@@ -153,36 +153,6 @@ feature {ANY}
          jvm.std_is_equal(rc, wa)
       end
 
-   c_header_pass1 is
-      do
-         standard_c_typedef
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-         if is_expanded then
-            if need_c_struct then
-               standard_c_struct
-            end
-            standard_c_object_model
-         end
-      end
-
-   c_header_pass4 is
-      do
-         if is_reference then
-            if need_c_struct then
-               standard_c_struct
-               standard_c_object_model
-            end
-         end
-         standard_c_print_function
-      end
-
    c_initialize_in (buffer: STRING) is
       do
          if is_expanded then

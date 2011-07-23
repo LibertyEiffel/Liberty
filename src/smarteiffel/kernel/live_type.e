@@ -779,7 +779,7 @@ feature {ANY}
          end
       end
 
-feature {GC_HANDLER, TYPE_MARK, TUPLE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, CODE_PRINTER, ASSIGNMENT_HANDLER, NATIVE, BUILT_IN_EQ_NEQ, INTROSPECTION_HANDLER}
+feature {GC_HANDLER, TYPE_MARK, TUPLE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, CODE_PRINTER, ASSIGNMENT_HANDLER, NATIVE, BUILT_IN_EQ_NEQ, INTROSPECTION_HANDLER, C_HEADER_PASS}
    writable_attributes: ARRAY[RUN_FEATURE_2] is
          -- Computed and ordered array of writable attributes. Storage in C
          -- struct is to be done in reverse order (from `upper' to `lower').
@@ -891,113 +891,6 @@ feature {TYPE_MARK}
                Result := lt.type.need_gc_mark_function
             end
             i := i - 1
-         end
-      end
-
-feature {TYPE_MARK}
-   c_print_function is
-      require
-         ace.no_check
-      local
-         ct, t: TYPE_MARK; i: INTEGER; wa: like writable_attributes; rf2: RUN_FEATURE_2
-      do
-         cpp.prepare_c_function
-         ct := canonical_type_mark
-         cpp.pending_c_function_signature.append(once "void se_prinT")
-         id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(FILE* file,T")
-         id.append_in(cpp.pending_c_function_signature)
-         if ct.is_reference then
-            cpp.pending_c_function_signature.extend('*')
-         end
-         cpp.pending_c_function_signature.append(once "*o)")
-         if ct.is_reference then
-            cpp.pending_c_function_body.append(once "[
-               if(*o==NULL){
-                  fprintf(file, "void");
-                  return;}
-
-                              ]")
-         end
-         cpp.pending_c_function_body.append(once "fprintf(file,%"")
-         cpp.pending_c_function_body.append(name.to_string)
-         cpp.pending_c_function_body.append(once "%");%N")
-         if ct.is_reference or else ct.is_native_array then
-            cpp.pending_c_function_body.append(once "fprintf(file,%"#%%p%",(void*)*o);%N")
-         end
-         wa := writable_attributes
-         if wa /= Void then
-            cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t[ %");%N")
-            from
-               i := wa.upper
-            until
-               i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               t := rf2.result_type
-               cpp.pending_c_function_body.append(once "fprintf(file,%"")
-               cpp.pending_c_function_body.append(rf2.name.to_string)
-               cpp.pending_c_function_body.append(once " = %");%Nse_prinT")
-               if t.is_expanded then
-                  t.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "(file,")
-               elseif t.is_string then
-                  cpp.pending_c_function_body.append(once "7(file,(EIF_STRING*)")
-               else
-                  cpp.pending_c_function_body.append(once "0(file,(T0**)")
-               end
-               cpp.pending_c_function_body.append(once "(&((*o)")
-               if ct.is_reference then
-                  cpp.pending_c_function_body.append(once "->")
-               else
-                  cpp.pending_c_function_body.extend('.')
-               end
-               cpp.pending_c_function_body.extend('_')
-               cpp.pending_c_function_body.append(rf2.name.to_string)
-               cpp.pending_c_function_body.append(once ")));%N")
-               i := i - 1
-               if i >= wa.lower then
-                  cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t  %");%N")
-               end
-            end
-            cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t]%");%N")
-         end
-         cpp.dump_pending_c_function(True)
-      end
-
-   c_object_model_in (str: STRING) is
-      local
-         wa: like writable_attributes; i: INTEGER; rf2: RUN_FEATURE_2; t: TYPE_MARK
-      do
-         wa := writable_attributes
-         if wa = Void then
-            if is_tagged then
-               str.extend('{')
-               id.append_in(str)
-               str.extend('}')
-            else
-               canonical_type_mark.c_initialize_in(str)
-            end
-         else
-            str.extend('{')
-            if is_tagged then
-               id.append_in(str)
-               str.extend(',')
-            end
-            from
-               i := wa.upper
-            until
-               i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               t := rf2.result_type
-               t.c_initialize_in(str)
-               i := i - 1
-               if i >= wa.lower then
-                  str.extend(',')
-               end
-            end
-            str.extend('}')
          end
       end
 
@@ -1117,62 +1010,6 @@ feature {SMART_EIFFEL}
                smart_eiffel.magic_count_increment
             end
             i := i + 1
-         end
-      end
-
-feature {ANY}
-   c_header_pass1 is
-      do
-         if at_run_time then
-            if c_header_pass_level_done < 1 then
-               canonical_type_mark.c_header_pass1
-               c_header_pass_level_done := 1
-            end
-         end
-      end
-
-   c_header_pass2 is
-      do
-         if at_run_time then
-            if c_header_pass_level_done < 2 then
-               canonical_type_mark.c_header_pass2
-               c_header_pass_level_done := 2
-            end
-         end
-      end
-
-   c_header_pass3 is
-      local
-         i: INTEGER; attribute_type: TYPE_MARK
-      do
-         if at_run_time then
-            if c_header_pass_level_done < 3 then
-               if canonical_type_mark.is_user_expanded and then writable_attributes /= Void then
-                  from
-                     i := writable_attributes.upper
-                  until
-                     i < writable_attributes.lower
-                  loop
-                     attribute_type := writable_attributes.item(i).result_type
-                     if attribute_type.is_expanded then
-                        attribute_type.type.live_type.c_header_pass3
-                     end
-                     i := i - 1
-                  end
-               end
-               canonical_type_mark.c_header_pass3
-               c_header_pass_level_done := 3
-            end
-         end
-      end
-
-   c_header_pass4 is
-      do
-         if at_run_time then
-            if c_header_pass_level_done < 4 then
-               canonical_type_mark.c_header_pass4
-               c_header_pass_level_done := 4
-            end
          end
       end
 
@@ -2710,8 +2547,6 @@ feature {}
       once
          create Result.make(256)
       end
-
-   c_header_pass_level_done: INTEGER
 
    em1: STRING is "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
 

@@ -36,7 +36,7 @@ feature {ANY}
          end
          Result := type_memory
       end
-   
+
    written_name: HASHED_STRING is
       do
          Result := string_aliaser.tuple_name
@@ -59,15 +59,6 @@ feature {ANY}
          buffer.append(once "(void*)0")
       end
 
-   c_header_pass4 is
-      do
-         if need_c_struct then
-            standard_c_struct
-         end
-         standard_c_object_model
-         standard_c_print_function
-      end   
-   
    accept (visitor: EMPTY_TUPLE_TYPE_MARK_VISITOR) is
       do
          visitor.visit_empty_tuple_type_mark(Current)
@@ -95,7 +86,7 @@ feature {TYPE_MARK}
 
 feature {}
    type_memory: like type
-   
+
    make (sp: like start_position) is
       require
          not sp.is_unknown

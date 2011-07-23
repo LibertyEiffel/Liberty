@@ -21,7 +21,7 @@ feature {ANY}
       do
          Result := Current
       end
-   
+
    pretty_in (buffer: STRING) is
       local
          i: INTEGER
@@ -57,13 +57,6 @@ feature {ANY}
    c_initialize_in (buffer: STRING) is
       do
          buffer.append(once "(void*)0")
-      end
-
-   c_header_pass4 is
-      do
-         standard_c_struct
-         standard_c_object_model
-         standard_c_print_function
       end
 
 feature {TYPE_MARK}

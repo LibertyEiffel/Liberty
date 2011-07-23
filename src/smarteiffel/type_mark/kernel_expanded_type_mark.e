@@ -54,22 +54,6 @@ feature {ANY}
          Result := Current
       end
 
-   c_header_pass1 is
-      do
-      end
-
-   frozen c_header_pass2 is
-      do
-      end
-
-   frozen c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-      end
-
    frozen c_initialize_in (buffer: STRING) is
       do
          if is_pointer then

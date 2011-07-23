@@ -11,13 +11,13 @@ inherit
       redefine
          resolve_in
       end
-   
+
 insert
    NON_GENERIC_TYPE_MARK
       redefine
          resolve_in
       end
-   
+
 creation {ANY}
    make
 
@@ -43,29 +43,10 @@ feature {ANY}
       do
          Result := smart_eiffel.type_string
       end
-   
+
    resolve_in (new_type: TYPE): TYPE is
       do
          Result := type
-      end
-   
-   c_header_pass1 is
-      do
-         standard_c_typedef
-      end
-
-   c_header_pass2 is
-      do
-      end
-
-   c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-         standard_c_struct
-         standard_c_object_model
       end
 
    c_initialize_in (buffer: STRING) is

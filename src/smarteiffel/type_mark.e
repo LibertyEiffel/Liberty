@@ -236,7 +236,7 @@ feature {ANY} -- Others:
 
    frozen is_kernel_expanded: BOOLEAN is
          -- Is it written one of: "BOOLEAN", "CHARACTER", "INTEGER", "INTEGER_8", "INTEGER_16",
-         -- "INTEGER_32", "INTEGER_64", "NATURAL_8", "NATURAL_16", "NATURAL_32", "NATURAL_64", 
+         -- "INTEGER_32", "INTEGER_64", "NATURAL_8", "NATURAL_16", "NATURAL_32", "NATURAL_64",
          -- "REAL_32", "REAL_64", "REAL", "REAL_80", "POINTER".
       do
          if is_boolean then
@@ -497,7 +497,7 @@ feature {TYPE}
       deferred
       end
 
-feature {TYPE, LIVE_TYPE, TYPE_MARK}
+feature {TYPE, LIVE_TYPE, TYPE_MARK, C_HEADER_PASS}
    id: INTEGER is
          -- Used for example to mangle feature name in the generated C code.
       require
@@ -1243,166 +1243,7 @@ feature {ANONYMOUS_FEATURE}
          Result := other = Current or else signature_resolve_in(into) = other.signature_resolve_in(into)
       end
 
-feature {LIVE_TYPE}
-   c_header_pass1 is
-      require
-         type.live_type.at_run_time
-      deferred
-      end   
-   
-   c_header_pass2 is
-      require
-         type.live_type.at_run_time
-      deferred
-      end
-
-   c_header_pass3 is
-      require
-         type.live_type.at_run_time
-      deferred
-      end
-
-   c_header_pass4 is
-      require
-         type.live_type.at_run_time
-      deferred
-      end
-
 feature {}
-   frozen standard_c_typedef is
-      require
-         type.live_type.at_run_time
-      local
-         mem_id: INTEGER
-      do
-         mem_id := id
-         cpp.out_h_buffer.clear_count
-         if need_c_struct then
-            cpp.out_h_buffer.append(once "typedef struct S")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once " T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-         elseif is_empty_expanded then
-            cpp.out_h_buffer.append(once "typedef int T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-         elseif is_reference then
-            cpp.out_h_buffer.append(once "typedef void*T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-         end
-         cpp.write_out_h_buffer
-      end
-
-   frozen standard_c_struct is
-         -- Produce C code for the standard C struct (for user's
-         -- expanded or reference as well).
-      require
-         is_static
-         need_c_struct
-      local
-         wa: ARRAY[RUN_FEATURE_2]; i, mem_id: INTEGER; a: RUN_FEATURE_2; t: TYPE_MARK
-      do
-         mem_id := id
-         wa := type.live_type.writable_attributes
-         cpp.out_h_buffer.copy(once "struct S")
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.extend('{')
-         if is_reference then
-            if type.live_type.is_tagged then
-               cpp.out_h_buffer.append(once "Tid id;")
-            end
-         end
-         if wa /= Void then
-            from
-               i := wa.upper
-            until
-               i = 0
-            loop
-               a := wa.item(i)
-               t := a.result_type
-               t.c_type_for_result_in(cpp.out_h_buffer)
-               cpp.out_h_buffer.append(once " _")
-               cpp.out_h_buffer.append(a.name.to_string)
-               cpp.out_h_buffer.extend(';')
-               i := i - 1
-            end
-         end
-         cpp.out_h_buffer.append(once "};%N")
-         cpp.write_out_h_buffer
-         if is_expanded then
-            -- For expanded comparison:
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "int se_cmpT")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "(T")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "* o1,T")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "* o2)")
-            cpp.pending_c_function_body.append(once "int R=0;%N")
-            if wa /= Void then
-               from
-                  i := wa.upper
-               until
-                  i = 0
-               loop
-                  a := wa.item(i)
-                  if not a.result_type.is_empty_expanded then
-                     if a.result_type.is_expanded and then not a.result_type.is_kernel_expanded then
-                        cpp.pending_c_function_body.append(once "R = R || se_cmpT")
-                        a.result_type.id.append_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "(&(o1->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "), &(o2->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "));%N")
-                     else
-                        cpp.pending_c_function_body.append(once "R = R || ((o1->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once ") != (o2->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "));%N")
-                     end
-                  end
-                  i := i - 1
-               end
-            end
-            cpp.pending_c_function_body.append(once "return R;%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
-   frozen standard_c_object_model is
-         -- Produce C code to define the model object.
-      require
-         is_static
-      local
-         mem_id: INTEGER; lt: LIVE_TYPE
-      do
-         lt := type.live_type
-         mem_id := lt.id
-         cpp.out_h_buffer.clear_count
-         cpp.out_h_buffer.extend('T')
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once " M")
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_c_buffer.clear_count
-         lt.c_object_model_in(cpp.out_c_buffer)
-         cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-      end
-
-   frozen standard_c_print_function is
-         -- Produce `prinTid' function.
-      require
-         is_static
-      do
-         if ace.no_check then
-            type.live_type.c_print_function
-         end
-      end
-
    frozen c_initialize_user_expanded_in (buffer: STRING) is
          -- For all kinds of `is_user_expanded' including `is_empty_expanded' as well.
       require

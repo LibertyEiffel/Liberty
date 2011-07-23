@@ -13,7 +13,7 @@ insert
       end
    SINGLETON
 
-feature {AGENT_LAUNCHER}
+feature {AGENT_LAUNCHER, C_HEADER_PASS_1}
    agent_creation_collected_flag: BOOLEAN
 
 feature {AGENT_CREATION}
@@ -149,19 +149,6 @@ feature {SMART_EIFFEL}
             i := i + 1
          end
          launcher_collected_memory.clear_count
-      end
-
-feature {C_HEADER_PASS_1}
-   c_header_pass1 is
-      do
-         if agent_creation_collected_flag then
-            cpp.out_h_buffer.copy(once "[
-               typedef union _se_agent se_agent;
-               typedef struct _se_agent0 se_agent0;
-
-                                 ]")
-            cpp.write_out_h_buffer
-         end
       end
 
 feature {C_PRETTY_PRINTER}

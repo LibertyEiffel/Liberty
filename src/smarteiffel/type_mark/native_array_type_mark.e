@@ -37,33 +37,6 @@ feature {ANY}
          Result := type.live_type.id
       end
 
-   c_header_pass1 is
-      do
-         generic_list.first.type.live_type.c_header_pass1
-      end
-
-   c_header_pass2 is
-      do
-         generic_list.first.type.live_type.c_header_pass2
-         cpp.out_h_buffer.copy(once "typedef ")
-         c_type_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.extend('T')
-         id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once ";%N#define M")
-         id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once " NULL%N")
-         cpp.write_out_h_buffer
-      end
-
-   c_header_pass3 is
-      do
-      end
-
-   c_header_pass4 is
-      do
-         standard_c_print_function
-      end
-
    need_c_struct: BOOLEAN is
       do
       end
@@ -310,7 +283,7 @@ feature {INTROSPECTION_HANDLER}
          create {USER_GENERIC_TYPE_MARK} Result.make(cn, gl)
       end
 
-feature {}
+feature {C_HEADER_PASS_2}
    c_type_in (str: STRING) is
       local
          et: TYPE_MARK
@@ -325,8 +298,9 @@ feature {}
          str.extend('*')
       end
 
+feature {}
    gc_mark is
-         -- The main purpose is to compute for example the best body for the gc_markXXX function. 
+         -- The main purpose is to compute for example the best body for the gc_markXXX function.
          -- Actually, this feature may be called to produce C code when C variable `o' is not NULL.
       require
          cpp.pending_c_function

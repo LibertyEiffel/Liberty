@@ -8,7 +8,7 @@ deferred class TUPLE_TYPE_MARK
 
 insert
    GLOBALS
-      
+
 feature {ANY}
    is_tuple: BOOLEAN is True
 
@@ -60,19 +60,6 @@ feature {ANY}
          str.append(once "T0*")
       end
 
-   frozen c_header_pass1 is
-      do
-         standard_c_typedef
-      end
-
-   frozen c_header_pass2 is
-      do
-      end
-
-   frozen c_header_pass3 is
-      do
-      end
-   
    jvm_method_flags: INTEGER is 17
 
    jvm_descriptor_in (str: STRING) is
@@ -180,7 +167,7 @@ feature {LIVE_TYPE, TYPE_MARK}
       end
 
 feature {}
-   standard_c_struct, standard_c_typedef, standard_c_object_model, standard_jvm_check_class_invariant, standard_c_print_function, standard_gc_define1, standard_gc_define2 is
+   standard_jvm_check_class_invariant, standard_gc_define1, standard_gc_define2 is
       deferred
       end
 

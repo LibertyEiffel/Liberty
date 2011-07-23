@@ -54,6 +54,26 @@ feature {}
          create Result
       end
 
+   frozen c_header_pass_1: C_HEADER_PASS_1 is
+      once
+         create Result.make
+      end
+
+   frozen c_header_pass_2: C_HEADER_PASS_2 is
+      once
+         create Result.make
+      end
+
+   frozen c_header_pass_3: C_HEADER_PASS_3 is
+      once
+         create Result.make
+      end
+
+   frozen c_header_pass_4: C_HEADER_PASS_4 is
+      once
+         create Result.make
+      end
+
    frozen pretty_printer: PRETTY_PRINTER is
       once
          create Result.make
@@ -105,7 +125,7 @@ feature {}
       once
          create Result.make
       end
-   
+
    frozen jvm_tools: JVM_TOOLS is
       once
          create Result.make
@@ -342,32 +362,32 @@ feature {}
       once
          Result := string_aliaser.hashed_string(as_manifest_make)
       end
-   
+
    manifest_put_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_manifest_put)
       end
-   
+
    manifest_semicolon_check_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_manifest_semicolon_check)
       end
-   
+
    manifest_initialize_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_manifest_initialize)
       end
-   
+
    calloc_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_calloc)
       end
-   
+
    put_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_put)
       end
-   
+
    item_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_item)
@@ -397,12 +417,12 @@ feature {}
       once
          Result := string_aliaser.hashed_string(as_mark_item)
       end
-   
+
    mark_native_arrays_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_mark_native_arrays)
       end
-   
+
    and_then_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_and_then)
@@ -484,10 +504,10 @@ feature {}
       end
 
    character_coding (c: CHARACTER; str: STRING) is
-         -- Append in `str' the Eiffel coding of the character (Table in chapter 25 of ETL, page 423). 
-         -- When  the % letter notation exists, it is returned in priority: '%N' gives "%N", '%T' 
+         -- Append in `str' the Eiffel coding of the character (Table in chapter 25 of ETL, page 423).
+         -- When  the % letter notation exists, it is returned in priority: '%N' gives "%N", '%T'
          -- gives "%T", etc.
-         -- When % letter notation does not exists (not in the ETL table), numbered coding is 
+         -- When % letter notation does not exists (not in the ETL table), numbered coding is
          -- used ("%/1/", "%/2/" etc).
       local
          special: CHARACTER
@@ -633,7 +653,7 @@ feature {}
    unrelated_code: INTEGER_8 is 0
    inserts_code: INTEGER_8 is 1
    inherits_code: INTEGER_8 is 2
-   
+
 end -- class GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

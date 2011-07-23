@@ -50,10 +50,10 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.customize_runtime
             -- ---------------------------------------------------------
-            ;(create {C_HEADER_PASS_1}).compile
-            ;(create {C_HEADER_PASS_2}).compile
-            ;(create {C_HEADER_PASS_3}).compile
-            ;(create {C_HEADER_PASS_4}).compile
+            c_header_pass_1.compile
+            c_header_pass_2.compile
+            c_header_pass_3.compile
+            c_header_pass_4.compile
             -- ---------------------------------------------------------
             if not smart_eiffel.is_at_run_time(as_native_array_character) then
                -- Force definition of T9 and T7:
