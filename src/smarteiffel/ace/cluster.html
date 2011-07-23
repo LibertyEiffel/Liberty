@@ -1,0 +1,45 @@
+<html>
+  <head>
+  </head>
+
+  <body>
+    <p>Provides <a href="index/ACE.html">ACE</a> handling and class loading algorithms, including the (in)famous "distance class
+      loader". Let's explain how this algorithm works.</p>
+
+    <p>Classes are stored in <a href="index/CLUSTER.html">clusters</a> which are physical directories. Those
+      clusters are organized:</p>
+
+    <ul>
+      <li>either explicitly via an ACE file,</li>
+      <li>or implicitly via configuration files.</li>
+    </ul>
+
+    <p>In both cases, clusters are organized in a tree. The interface of this tree is <a
+      href="index/CLASSES.html"><code>CLASSES</code></a>. The root instance of the tree is a direct instance
+      of <a href="index/UNIVERSE.html"><code>UNIVERSE</code></a>, which is a <a
+      href="index/SINGLETON.html">singleton</a>. Node instances of the tree are direct instances of <a
+      href="index/LOADPATH.html"><code>LOADPATH</code></a>. Leaf instances, i.e. the ones holding a reference
+      to an actual <a href="index/CLUSTER.html">cluster</a>, are direct instances of <a
+      href="index/CLASSES_TREE.html"><code>CLASSES_TREE</code></a>. Note that both inherit from <a
+      href="index/CLUSTERS.html"><code>CLUSTERS</code></a>, and technically a <a
+      href="index/CLASSES_TREE.html"><code>CLASSES_TREE</code></a> is a node that may contain other cluster
+      nodes. In fact that's not the case but that could change of course ;-)<p>
+
+    <p><b>How do we load classes</b> now that the tree is built?</p>
+
+    <p>A class is searched starting from <i>who</i> searches it. A "provider" class is always looked for in
+    conjunction to its "client". We compute the distance between the client and one or more would-be provider
+    classes having the same name, and the <b>closest</b> class is selected.</p>
+
+    <p>The distance is calculated thus:</p>
+
+    <ul>
+      <li>The class loader tries to look for the provider class in the same cluster as the client class' and
+      below (in the clusters tree). If it find one or more below, it will select the closest in priority and
+      stop its lookup.</li>
+      <li>Otherwise, it tries again starting from the parent of the client class' cluster... Until reaching
+      the Universe. If at that stage no class is found, no class is returned (usually leading to a "class not
+      found" error...)</li>
+    </ul>
+  </body>
+</html>
