@@ -56,28 +56,9 @@ feature {MANIFEST_STRING}
             if Result = Void then
                cpp.out_h_buffer.copy(once "ms")
                cpp.out_h_buffer.append(ms.initial_storage_id)
-               if collected_once_variables.has(cpp.out_h_buffer) then
-                  -- Adding the `class_text.id' first:
-                  cpp.out_h_buffer.append(once "bc")
-                  position.class_text.id.append_in(cpp.out_h_buffer)
-               end
-               if collected_once_variables.has(cpp.out_h_buffer) then
-                  -- Using the column number now because it moves less often than the line number:
-                  cpp.out_h_buffer.extend('c')
-                  position.column.append_in(cpp.out_h_buffer)
-               end
-               if collected_once_variables.has(cpp.out_h_buffer) then
-                  -- Using now the line number:
-                  cpp.out_h_buffer.extend('l')
-                  position.line.append_in(cpp.out_h_buffer)
-               end
-               -- Finally, we continue we what we can:
-               from
-               until
-                  not collected_once_variables.has(cpp.out_h_buffer)
-               loop
-                  cpp.out_h_buffer.extend('a')
-               end
+               cpp.out_h_buffer.append(once "bc")
+               position.class_text.id.append_in(cpp.out_h_buffer)
+               extend_once_variable
                Result := cpp.out_h_buffer.twin
             end
             collected_once_variables.put(ms, Result)
@@ -168,6 +149,48 @@ feature {MANIFEST_STRING}
          if trace then
             buffer.extend(')')
          end
+      end
+
+feature {}
+   extend_once_variable is
+      local
+         index, up: INTEGER
+      do
+         up := cpp.out_h_buffer.upper
+         from
+            index := 0
+            append_once_variable_index(index)
+         until
+            not collected_once_variables.has(cpp.out_h_buffer)
+         loop
+            cpp.out_h_buffer.shrink(cpp.out_h_buffer.lower, up)
+            index := index + 1
+            append_once_variable_index(index)
+         end
+      ensure
+         not collected_once_variables.has(cpp.out_h_buffer)
+         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
+      end
+
+   append_once_variable_index (index: INTEGER) is
+      require
+         index >= 0
+      local
+         q, r: INTEGER; s: STRING; done: BOOLEAN
+      do
+         s := once "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+         from
+            q := index
+         until
+            done
+         loop
+            r := q \\ s.count
+            cpp.out_h_buffer.extend(s.item(r + s.lower))
+            q := q // s.count
+            done := q = 0
+         end
+      ensure
+         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
       end
 
 feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
@@ -319,8 +342,8 @@ feature {C_PRETTY_PRINTER}
             cpp.prepare_c_function
             cpp.pending_c_function_signature.copy(once "T0*se_string(char*e)")
             cpp.pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e */%N%
-            %int c=strlen(e);%N%
-            %T7*")
+                                                  %int c=strlen(e);%N%
+                                                  %T7*")
             common_body_for_se_string_and_se_ms(string_at_run_time)
             cpp.dump_pending_c_function(True)
          end
@@ -348,15 +371,15 @@ feature {C_PRETTY_PRINTER}
                      end
                      if no_check then
                         cpp.pending_c_function_body.append(once "[
-                      se_frame_descriptor fd={"<global-once>",0,0,"",1};
-                      se_dump_stack ds;
-                      ds.fd=&fd;
-                      ds.p=0;
-                      ds.caller=NULL;
-                      ds.exception_origin=NULL;
-                      ds.locals=NULL;
-                     
-                      ]")
+                                                                 se_frame_descriptor fd={"<global-once>",0,0,"",1};
+                                                                 se_dump_stack ds;
+                                                                 ds.fd=&fd;
+                                                                 ds.p=0;
+                                                                 ds.caller=NULL;
+                                                                 ds.exception_origin=NULL;
+                                                                 ds.locals=NULL;
+
+                                                                 ]")
                      end
                      if ace.profile then
                         cpp.pending_c_function_body.append(once "local_profile.profile=&prof;%N")
@@ -636,13 +659,13 @@ feature {}
       do
          gc_handler.manifest_string_in(cpp.pending_c_function_body, string_at_run_time)
          cpp.pending_c_function_body.append(once "s->_count=c;%N%
-         %s->_capacity=c+1;%N%
-         %s->_storage_lower=0;%N%
-         %s->_storage=((T9)")
+                                                 %s->_capacity=c+1;%N%
+                                                 %s->_storage_lower=0;%N%
+                                                 %s->_storage=((T9)")
          gc_handler.native9_in(cpp.pending_c_function_body, string_at_run_time)
          cpp.pending_c_function_body.append(once "(c+1));%N%
-         %memcpy(s->_storage,e,c+1);%N%
-         %return((T0*)s);")
+                                                 %memcpy(s->_storage,e,c+1);%N%
+                                                 %return((T0*)s);")
       end
 
    manifest_string_mark_signature (number: INTEGER) is

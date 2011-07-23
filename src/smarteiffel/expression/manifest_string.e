@@ -278,7 +278,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {CST_ATT_STRING, E_ROUTINE, WRITABLE_ATTRIBUTE}
    pretty_without_once (indent_level: INTEGER) is
       local
@@ -365,8 +365,8 @@ feature {MANIFEST_STRING_POOL}
 
 feature {MINI_BUFFER, MANIFEST_STRING_VISITOR}
    source_view: STRING
-         -- The manifest string as it appear in the Eiffel source file including opening and closing '%"' (see 
-         -- also `to_string'). This information is only computed for formatting tools (`pretty' or `short' 
+         -- The manifest string as it appear in the Eiffel source file including opening and closing '%"' (see
+         -- also `to_string'). This information is only computed for formatting tools (`pretty' or `short'
          -- for example).
 
 feature {}
@@ -399,7 +399,7 @@ feature {}
          unicode_flag := False
          to_string := hs.to_string
       end
-   
+
 invariant
    not start_position.is_unknown
 

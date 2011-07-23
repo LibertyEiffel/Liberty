@@ -9,7 +9,7 @@ insert
 feature {C_PRETTY_PRINTER}
    compile is
       do
-         cpp.out_h_buffer.copy(once "/* ~~~~ C Header Pass 1 ~~~~ */%N")
+         cpp.out_h_buffer.copy(once "/* C Header Pass 1: */%N")
          cpp.write_out_h_buffer
          agent_pool.c_header_pass1
          smart_eiffel.live_type_map.do_all(agent {LIVE_TYPE}.c_header_pass1)
