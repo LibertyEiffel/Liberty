@@ -2,449 +2,449 @@
 -- See the Copyright notice at the end of this file.
 --
 class PARENT_EDGE
-	--
-	-- To represent either an "inherit" or an "insert" parent edge.
-	--
+   --
+   -- To represent either an "inherit" or an "insert" parent edge.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	type_mark: TYPE_MARK
-			-- Declaration `type_mark' of the parent.
+   type_mark: TYPE_MARK
+         -- Declaration `type_mark' of the parent.
 
-	start_position: POSITION is
-		do
-			Result := type_mark.start_position
-		end
+   start_position: POSITION is
+      do
+         Result := type_mark.start_position
+      end
 
-	class_text: CLASS_TEXT
-			-- An alias for `type_mark.class_text'.
+   class_text: CLASS_TEXT
+         -- An alias for `type_mark.class_text'.
 
-	class_text_name: STRING
-			-- An alias for `class_text.name.to_string'.
+   class_text_name: STRING
+         -- An alias for `class_text.name.to_string'.
 
-	parent_lists: PARENT_LISTS
-			-- The corresponding one
+   parent_lists: PARENT_LISTS
+         -- The corresponding one
 
-	is_insert_member: BOOLEAN
-			-- This parent is inserted (then current type does not 
-			-- conform to this parent via this inherit text item)
+   is_insert_member: BOOLEAN
+         -- This parent is inserted (then current type does not 
+         -- conform to this parent via this inherit text item)
 
-	is_inherit_member: BOOLEAN is
-		do
-			Result := not is_insert_member
-		end
+   is_inherit_member: BOOLEAN is
+      do
+         Result := not is_insert_member
+      end
 
-	accept (visitor: PARENT_EDGE_VISITOR) is
-		do
-			visitor.visit_parent_edge(Current)
-		end
+   accept (visitor: PARENT_EDGE_VISITOR) is
+      do
+         visitor.visit_parent_edge(Current)
+      end
 
 feature {PARENT_LISTS, EXPORT_LIST}
-	is_target_of_rename (fn: FEATURE_NAME): BOOLEAN is
-		do
-			if rename_list /= Void then
-				Result := rename_list.is_target_of_rename(fn)
-			end
-		end
+   is_target_of_rename (fn: FEATURE_NAME): BOOLEAN is
+      do
+         if rename_list /= Void then
+            Result := rename_list.is_target_of_rename(fn)
+         end
+      end
 
 feature {PARENT_LISTS}
-	is_source_of_rename (fn: FEATURE_NAME): BOOLEAN is
-		do
-			if rename_list /= Void then
-				Result := rename_list.is_source_of_rename(fn)
-			end
-		end
+   is_source_of_rename (fn: FEATURE_NAME): BOOLEAN is
+      do
+         if rename_list /= Void then
+            Result := rename_list.is_source_of_rename(fn)
+         end
+      end
 
-	set_insert_member is
-		require
-			is_inherit_member
-		do
-			is_insert_member := True
-		ensure
-			is_insert_member
-		end
+   set_insert_member is
+      require
+         is_inherit_member
+      do
+         is_insert_member := True
+      ensure
+         is_insert_member
+      end
 
 feature {FEATURE_ACCUMULATOR, ANONYMOUS_FEATURE_MIXER, PARENT_LISTS}
-	get_undefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
-			-- If the undefine list exists and if `a_final_fn' is member of the undefine list, this 
-			-- function returns the actual feature name which is in the list. (This can be useful to print 
-			-- error messages with accurate POSITIONs and to know if `a_final_fn' is undefined.)
-		require
-			a_final_fn /= Void
-		do
-			if undefine_list /= Void then
-				Result := undefine_list.internal_name(a_final_fn)
-			end
-		end
+   get_undefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
+         -- If the undefine list exists and if `a_final_fn' is member of the undefine list, this 
+         -- function returns the actual feature name which is in the list. (This can be useful to print 
+         -- error messages with accurate POSITIONs and to know if `a_final_fn' is undefined.)
+      require
+         a_final_fn /= Void
+      do
+         if undefine_list /= Void then
+            Result := undefine_list.internal_name(a_final_fn)
+         end
+      end
 
-	get_redefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
-		require
-			a_final_fn /= Void
-		do
-			if redefine_list /= Void then
-				Result := redefine_list.internal_name(a_final_fn)
-			end
-		end
+   get_redefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
+      require
+         a_final_fn /= Void
+      do
+         if redefine_list /= Void then
+            Result := redefine_list.internal_name(a_final_fn)
+         end
+      end
 
 feature {TYPE, CLASS_TEXT}
-	rename_count: INTEGER is
-		do
-			if rename_list /= Void then
-				Result := rename_list.count
-			end
-		end
+   rename_count: INTEGER is
+      do
+         if rename_list /= Void then
+            Result := rename_list.count
+         end
+      end
 
 feature {TYPE}
-	rename_item (i: INTEGER): RENAME_PAIR is
-		require
-			i.in_range(1, rename_count)
-		do
-			Result := rename_list.item(i)
-		end
+   rename_item (i: INTEGER): RENAME_PAIR is
+      require
+         i.in_range(1, rename_count)
+      do
+         Result := rename_list.item(i)
+      end
 
 feature {PARENT_EDGE, VISITOR} -- Optionnal list in syntaxical order:
-	rename_list: RENAME_LIST
+   rename_list: RENAME_LIST
 
-	export_list: EXPORT_LIST
+   export_list: EXPORT_LIST
 
-	undefine_list: FEATURE_NAME_LIST
+   undefine_list: FEATURE_NAME_LIST
 
-	redefine_list: FEATURE_NAME_LIST
+   redefine_list: FEATURE_NAME_LIST
 
 feature {PARENT_LISTS, TYPE, FEATURE_STAMP, FEATURE_ACCUMULATOR}
-	do_rename (fn: FEATURE_NAME): like fn is
-			-- If some rename exists for `fn', return the new name, otherwise, give back `fn'.
-			-- Use FEATURE_STAMP.resolve_dynamic_binding_for or FEATURE_STAMP.fs_for_building_type.
-		require
-			fn /= Void
-		do
-			if rename_list = Void then
-				Result := fn
-			else
-				Result := rename_list.name_in_child(fn)
-				if Result = Void then
-					Result := fn
-				end
-			end
-		ensure
-			Result /= Void
-		end
+   do_rename (fn: FEATURE_NAME): like fn is
+         -- If some rename exists for `fn', return the new name, otherwise, give back `fn'.
+         -- Use FEATURE_STAMP.resolve_dynamic_binding_for or FEATURE_STAMP.fs_for_building_type.
+      require
+         fn /= Void
+      do
+         if rename_list = Void then
+            Result := fn
+         else
+            Result := rename_list.name_in_child(fn)
+            if Result = Void then
+               Result := fn
+            end
+         end
+      ensure
+         Result /= Void
+      end
 
 feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
-	runnable_type (ct: TYPE_MARK): TYPE_MARK is
-		require
-			ct.is_static
-		do
-			if type_mark.is_generic then
-				Result := type_mark.to_static(ct.type)
-			else
-				Result := type_mark
-			end
-		ensure
-			Result.is_static
-		end
+   runnable_type (ct: TYPE_MARK): TYPE_MARK is
+      require
+         ct.is_static
+      do
+         if type_mark.is_generic then
+            Result := type_mark.to_static(ct.type)
+         else
+            Result := type_mark
+         end
+      ensure
+         Result.is_static
+      end
 
-	exports_for (fn: FEATURE_NAME): CLIENT_LIST is
-			-- Only looks for a possible explicit export clause for a given feature name. Contrarily to 
-			-- `clients_for', does not compute the export list. Hence, the result may be Void.
-		require
-			fn /= Void
-		do
-			if export_list /= Void then
-				Result := export_list.clients_for(fn)
-			end
-		end
+   exports_for (fn: FEATURE_NAME): CLIENT_LIST is
+         -- Only looks for a possible explicit export clause for a given feature name. Contrarily to 
+         -- `clients_for', does not compute the export list. Hence, the result may be Void.
+      require
+         fn /= Void
+      do
+         if export_list /= Void then
+            Result := export_list.clients_for(fn)
+         end
+      end
 
-	exports_for_all: CLIENT_LIST is
-		do
-			if export_list /= Void then
-				Result := export_list.for_all
-			end
-		end
+   exports_for_all: CLIENT_LIST is
+      do
+         if export_list /= Void then
+            Result := export_list.for_all
+         end
+      end
 
 feature {PARENT_LISTS}
-	id_extra_information (tfw: TEXT_FILE_WRITE) is
-		do
-			tfw.put_integer(class_text.id)
-		end
+   id_extra_information (tfw: TEXT_FILE_WRITE) is
+      do
+         tfw.put_integer(class_text.id)
+      end
 
-	pretty is
-		local
-			end_needed: BOOLEAN
-		do
-			pretty_printer.set_indent_level(1)
-			pretty_printer.put_type_mark(type_mark)
-			pretty_printer.set_indent_level(2)
-			if comment /= Void then
-				comment.pretty(2)
-			end
-			pretty_printer.set_indent_level(2)
-			if rename_list /= Void then
-				end_needed := True
-				rename_list.pretty
-			end
-			pretty_printer.set_indent_level(2)
-			if export_list /= Void then
-				end_needed := True
-				export_list.pretty
-			end
-			pretty_printer.set_indent_level(2)
-			if undefine_list /= Void then
-				end_needed := True
-				pretty_printer.keyword(once "undefine")
-				undefine_list.pretty(3)
-			end
-			pretty_printer.set_indent_level(2)
-			if redefine_list /= Void then
-				end_needed := True
-				pretty_printer.keyword(once "redefine")
-				redefine_list.pretty(3)
-			end
-			pretty_printer.set_indent_level(2)
-			if end_needed then
-				pretty_printer.keyword(once "end")
-			end
-			pretty_printer.set_indent_level(0)
-		end
+   pretty is
+      local
+         end_needed: BOOLEAN
+      do
+         pretty_printer.set_indent_level(1)
+         pretty_printer.put_type_mark(type_mark)
+         pretty_printer.set_indent_level(2)
+         if comment /= Void then
+            comment.pretty(2)
+         end
+         pretty_printer.set_indent_level(2)
+         if rename_list /= Void then
+            end_needed := True
+            rename_list.pretty
+         end
+         pretty_printer.set_indent_level(2)
+         if export_list /= Void then
+            end_needed := True
+            export_list.pretty
+         end
+         pretty_printer.set_indent_level(2)
+         if undefine_list /= Void then
+            end_needed := True
+            pretty_printer.keyword(once "undefine")
+            undefine_list.pretty(3)
+         end
+         pretty_printer.set_indent_level(2)
+         if redefine_list /= Void then
+            end_needed := True
+            pretty_printer.keyword(once "redefine")
+            redefine_list.pretty(3)
+         end
+         pretty_printer.set_indent_level(2)
+         if end_needed then
+            pretty_printer.keyword(once "end")
+         end
+         pretty_printer.set_indent_level(0)
+      end
 
-	initialize_and_check_level_1 (pl: like parent_lists) is
-			-- First step of initialization (see also `check_level_2').
-		require
-			pl /= Void
-		local
-			i: INTEGER; written_site: CLASS_TEXT; fn, new_fn: FEATURE_NAME
-			written_site_name: STRING
-		do
-			parent_lists := pl
-			class_text := type_mark.class_text
-			class_text_name := class_text.name.to_string
-			written_site := parent_lists.class_text
-			if forbidden_parent_list.fast_has(class_text_name) then
-				written_site_name := written_site.name.to_string
-				if written_site_name = as_integer_32 then
-					-- INTEGER_32 allowed to inherit INTEGER.
-					check
-						class_text_name = as_integer
-					end
-				elseif written_site_name = as_real_64 then
-					-- REAL_64 allowed to inherit REAL.
-					check
-						class_text_name = as_real
-					end
-				else
-					error_handler.add_position(start_position)
-					error_handler.append("You cannot inherit %"")
-					error_handler.append(class_text_name)
-					error_handler.append("%" (forbidden or not yet implemented).")
-					error_handler.print_as_fatal_error
-				end
-			end
-			if type_mark.is_generic and then class_text.formal_generic_list = Void then
-				error_handler.add_position(class_text.name.start_position)
-				error_handler.add_position(start_position)
-				error_handler.append("Class ")
-				error_handler.append(class_text.name.to_string)
-				error_handler.append(" is not generic.")
-				error_handler.print_as_fatal_error
-			end
-			if rename_list /= Void then
-				rename_list.initialize_and_check_level_1
-			end
-			if redefine_list /= Void then
-				from
-					i := redefine_list.count
-				until
-					i = 0
-				loop
-					fn := redefine_list.item(i)
-					if not written_site.proper_has(fn) then
-						error_handler.add_position(fn.start_position)
-						error_handler.append("Redefinition of ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(" not found in this class.")
-						error_handler.print_as_fatal_error
-					end
-					new_fn := get_name_in_child(fn)
-					if new_fn /= Void then
-						error_handler.add_position(fn.start_position)
-						error_handler.add_position(rename_list.name_in_parent(new_fn).start_position)
-						error_handler.append("Cannot redefine ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(" which is actually already renamed as ")
-						error_handler.add_feature_name(new_fn)
-						error_handler.print_as_fatal_error
-					end
-					i := i - 1
-				end
-			end
-		ensure
-			parent_lists = pl
-			class_text /= Void
-			class_text_name /= Void
-		end
+   initialize_and_check_level_1 (pl: like parent_lists) is
+         -- First step of initialization (see also `check_level_2').
+      require
+         pl /= Void
+      local
+         i: INTEGER; written_site: CLASS_TEXT; fn, new_fn: FEATURE_NAME
+         written_site_name: STRING
+      do
+         parent_lists := pl
+         class_text := type_mark.class_text
+         class_text_name := class_text.name.to_string
+         written_site := parent_lists.class_text
+         if forbidden_parent_list.fast_has(class_text_name) then
+            written_site_name := written_site.name.to_string
+            if written_site_name = as_integer_32 then
+               -- INTEGER_32 allowed to inherit INTEGER.
+               check
+                  class_text_name = as_integer
+               end
+            elseif written_site_name = as_real_64 then
+               -- REAL_64 allowed to inherit REAL.
+               check
+                  class_text_name = as_real
+               end
+            else
+               error_handler.add_position(start_position)
+               error_handler.append("You cannot inherit %"")
+               error_handler.append(class_text_name)
+               error_handler.append("%" (forbidden or not yet implemented).")
+               error_handler.print_as_fatal_error
+            end
+         end
+         if type_mark.is_generic and then class_text.formal_generic_list = Void then
+            error_handler.add_position(class_text.name.start_position)
+            error_handler.add_position(start_position)
+            error_handler.append("Class ")
+            error_handler.append(class_text.name.to_string)
+            error_handler.append(" is not generic.")
+            error_handler.print_as_fatal_error
+         end
+         if rename_list /= Void then
+            rename_list.initialize_and_check_level_1
+         end
+         if redefine_list /= Void then
+            from
+               i := redefine_list.count
+            until
+               i = 0
+            loop
+               fn := redefine_list.item(i)
+               if not written_site.proper_has(fn) then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.append("Redefinition of ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(" not found in this class.")
+                  error_handler.print_as_fatal_error
+               end
+               new_fn := get_name_in_child(fn)
+               if new_fn /= Void then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.add_position(rename_list.name_in_parent(new_fn).start_position)
+                  error_handler.append("Cannot redefine ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(" which is actually already renamed as ")
+                  error_handler.add_feature_name(new_fn)
+                  error_handler.print_as_fatal_error
+               end
+               i := i - 1
+            end
+         end
+      ensure
+         parent_lists = pl
+         class_text /= Void
+         class_text_name /= Void
+      end
 
-	check_level_2 (type: TYPE) is
-			-- Second and last step (see also `initialize_and_check_level_1').
-		require
-			type.class_text = parent_lists.class_text
-		local
-			parent_type: TYPE; i: INTEGER; fn: FEATURE_NAME
-		do
-			if undefine_list /= Void then
-				parent_type := type_mark.resolve_in(type)
-				from
-					i := undefine_list.count
-				until
-					i = 0
-				loop
-					fn := undefine_list.item(i)
-					if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
-						error_handler.add_position(fn.start_position)
-						error_handler.append("Cannot undefine ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(" because type ")
-						error_handler.append(parent_type.name.to_string)
-						error_handler.append(" does not have ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(".")
-						error_handler.print_as_fatal_error
-					end
-					i := i - 1
-				end
-			end
-			if redefine_list /= Void then
-				if parent_type = Void then
-					parent_type := type_mark.resolve_in(type)
-				end
-				from
-					i := redefine_list.count
-				until
-					i = 0
-				loop
-					fn := redefine_list.item(i)
-					if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
-						error_handler.add_position(fn.start_position)
-						error_handler.append("Cannot redefine ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(" because type ")
-						error_handler.append(parent_type.name.to_string)
-						error_handler.append(" does not have ")
-						error_handler.add_feature_name(fn)
-						error_handler.append(".")						
-						error_handler.print_as_fatal_error
-					end
-					i := i - 1
-				end
-			end
-			if export_list /= Void then
-				if parent_type = Void then
-					parent_type := type_mark.resolve_in(type)
-				end
-				export_list.check_level_2(Current, parent_type)
-			end
-			if rename_list /= Void then
-				if parent_type = Void then
-					parent_type := type_mark.resolve_in(type)
-				end
-				rename_list.check_level_2(parent_type)
-			end
-		end
+   check_level_2 (type: TYPE) is
+         -- Second and last step (see also `initialize_and_check_level_1').
+      require
+         type.class_text = parent_lists.class_text
+      local
+         parent_type: TYPE; i: INTEGER; fn: FEATURE_NAME
+      do
+         if undefine_list /= Void then
+            parent_type := type_mark.resolve_in(type)
+            from
+               i := undefine_list.count
+            until
+               i = 0
+            loop
+               fn := undefine_list.item(i)
+               if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.append("Cannot undefine ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(" because type ")
+                  error_handler.append(parent_type.name.to_string)
+                  error_handler.append(" does not have ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(".")
+                  error_handler.print_as_fatal_error
+               end
+               i := i - 1
+            end
+         end
+         if redefine_list /= Void then
+            if parent_type = Void then
+               parent_type := type_mark.resolve_in(type)
+            end
+            from
+               i := redefine_list.count
+            until
+               i = 0
+            loop
+               fn := redefine_list.item(i)
+               if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.append("Cannot redefine ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(" because type ")
+                  error_handler.append(parent_type.name.to_string)
+                  error_handler.append(" does not have ")
+                  error_handler.add_feature_name(fn)
+                  error_handler.append(".")                  
+                  error_handler.print_as_fatal_error
+               end
+               i := i - 1
+            end
+         end
+         if export_list /= Void then
+            if parent_type = Void then
+               parent_type := type_mark.resolve_in(type)
+            end
+            export_list.check_level_2(Current, parent_type)
+         end
+         if rename_list /= Void then
+            if parent_type = Void then
+               parent_type := type_mark.resolve_in(type)
+            end
+            rename_list.check_level_2(parent_type)
+         end
+      end
 
 feature {EIFFEL_PARSER}
-	set_comment (c: like comment) is
-		do
-			comment := c
-		end
+   set_comment (c: like comment) is
+      do
+         comment := c
+      end
 
-	add_rename (rp: RENAME_PAIR) is
-		require
-			rp /= Void
-		do
-			if rename_list = Void then
-				create rename_list.make(rp)
-			else
-				rename_list.add_last(rp)
-			end
-		end
+   add_rename (rp: RENAME_PAIR) is
+      require
+         rp /= Void
+      do
+         if rename_list = Void then
+            create rename_list.make(rp)
+         else
+            rename_list.add_last(rp)
+         end
+      end
 
-	set_export (el: EXPORT_LIST) is
-		require
-			el /= Void
-		do
-			export_list := el
-		ensure
-			export_list = el
-		end
+   set_export (el: EXPORT_LIST) is
+      require
+         el /= Void
+      do
+         export_list := el
+      ensure
+         export_list = el
+      end
 
-	set_undefine (ul: FEATURE_NAME_LIST) is
-		do
-			undefine_list := ul
-		ensure
-			undefine_list = ul
-		end
+   set_undefine (ul: FEATURE_NAME_LIST) is
+      do
+         undefine_list := ul
+      ensure
+         undefine_list = ul
+      end
 
-	set_redefine (rl: FEATURE_NAME_LIST) is
-		do
-			redefine_list := rl
-		ensure
-			redefine_list = rl
-		end
+   set_redefine (rl: FEATURE_NAME_LIST) is
+      do
+         redefine_list := rl
+      ensure
+         redefine_list = rl
+      end
 
 feature {}
-	comment: COMMENT
-			-- Associated heading comment.
+   comment: COMMENT
+         -- Associated heading comment.
 
-	make (insert_flag: BOOLEAN; tm: like type_mark) is
-		require
-			not tm.is_anchored
-		do
-			is_insert_member := insert_flag
-			type_mark := tm
-		ensure
-			is_insert_member = insert_flag
-			type_mark = tm
-		end
+   make (insert_flag: BOOLEAN; tm: like type_mark) is
+      require
+         not tm.is_anchored
+      do
+         is_insert_member := insert_flag
+         type_mark := tm
+      ensure
+         is_insert_member = insert_flag
+         type_mark = tm
+      end
 
-	forbidden_parent_list: HASHED_SET[STRING] is
-			-- It is not allowed to inherit a class of this list (except exceptions !).
-		once
-			Result := {HASHED_SET[STRING] <<	as_boolean,
-														as_character,
-														as_integer_8,
-														as_integer_16,
-													--	as_integer_32,
-													--	as_integer,
-														as_integer_64,
-														as_native_array,
-														as_pointer,
-													--	as_real_32,
-													--	as_real_64,
-													--	as_real,
-														as_real_80,
-														as_weak_reference
-														>> }
-		end
+   forbidden_parent_list: HASHED_SET[STRING] is
+         -- It is not allowed to inherit a class of this list (except exceptions !).
+      once
+         Result := {HASHED_SET[STRING] <<   as_boolean,
+                                          as_character,
+                                          as_integer_8,
+                                          as_integer_16,
+                                       --   as_integer_32,
+                                       --   as_integer,
+                                          as_integer_64,
+                                          as_native_array,
+                                          as_pointer,
+                                       --   as_real_32,
+                                       --   as_real_64,
+                                       --   as_real,
+                                          as_real_80,
+                                          as_weak_reference
+                                          >> }
+      end
 
-	get_name_in_child (fn: FEATURE_NAME): like fn is
-		do
-			if rename_list /= Void then
-				Result := rename_list.name_in_child(fn)
-				if Result = fn then
-					Result := Void
-				end
-			end
-		end
+   get_name_in_child (fn: FEATURE_NAME): like fn is
+      do
+         if rename_list /= Void then
+            Result := rename_list.name_in_child(fn)
+            if Result = fn then
+               Result := Void
+            end
+         end
+      end
 
 invariant
-	not type_mark.is_anchored
+   not type_mark.is_anchored
 
 end -- class PARENT_EDGE
 --

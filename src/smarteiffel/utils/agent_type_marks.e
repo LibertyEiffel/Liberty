@@ -4,8 +4,8 @@
 expanded class AGENT_TYPE_MARKS
 
 feature {}
-	routine_code, procedure_code, function_code, predicate_code: INTEGER is unique
-			-- All the known Agent type mark codes
+   routine_code, procedure_code, function_code, predicate_code: INTEGER is unique
+         -- All the known Agent type mark codes
 
 end -- class AGENT_TYPE_MARKS
 --

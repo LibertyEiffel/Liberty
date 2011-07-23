@@ -4,14 +4,14 @@
 deferred class RENAME_PAIR_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RENAME_PAIR}
-	visit_rename_pair (visited: RENAME_PAIR) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_rename_pair (visited: RENAME_PAIR) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RENAME_PAIR_VISITOR
 --

@@ -2,248 +2,248 @@
 -- See the Copyright notice at the end of this file.
 --
 class SERC_CHAIN
-	--
-	-- The ''Chain of Responsibility'' design pattern
-	--
+   --
+   -- The ''Chain of Responsibility'' design pattern
+   --
 
 inherit
-	SE_CONFIG
+   SE_CONFIG
 
 creation {SERC_FACTORY}
-	make
+   make
 
 feature {ANY}
-	bin: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).bin
-				i := i + 1
-			end
-		end
+   bin: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).bin
+            i := i + 1
+         end
+      end
 
-	sys: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).sys
-				i := i + 1
-			end
-		end
+   sys: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).sys
+            i := i + 1
+         end
+      end
 
-	short: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).short
-				i := i + 1
-			end
-		end
+   short: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).short
+            i := i + 1
+         end
+      end
 
-	os: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).os
-				i := i + 1
-			end
-		end
+   os: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).os
+            i := i + 1
+         end
+      end
 
-	flavor: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).flavor
-				i := i + 1
-			end
-		end
+   flavor: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).flavor
+            i := i + 1
+         end
+      end
 
-	jobs: INTEGER is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= 0 or else i > config.upper
-			loop
-				Result := config.item(i).jobs
-				i := i + 1
-			end
-		end
+   jobs: INTEGER is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= 0 or else i > config.upper
+         loop
+            Result := config.item(i).jobs
+            i := i + 1
+         end
+      end
 
-	jar: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).jar
-				i := i + 1
-			end
-		end
+   jar: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).jar
+            i := i + 1
+         end
+      end
 
-	java_virtual_machine: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).java_virtual_machine
-				i := i + 1
-			end
-		end
+   java_virtual_machine: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).java_virtual_machine
+            i := i + 1
+         end
+      end
 
-	java_compiler: STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).java_compiler
-				i := i + 1
-			end
-		end
+   java_compiler: STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).java_compiler
+            i := i + 1
+         end
+      end
 
-	environment (var: STRING): STRING is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).environment(var)
-				i := i + 1
-			end
-		end
+   environment (var: STRING): STRING is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).environment(var)
+            i := i + 1
+         end
+      end
 
-	loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				i > config.upper
-			loop
-				config.item(i).loadpaths_in(loadpaths)
-				i := i + 1
-			end
-		end
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            i > config.upper
+         loop
+            config.item(i).loadpaths_in(loadpaths)
+            i := i + 1
+         end
+      end
 
-	tools_in (tools: DICTIONARY[STRING, STRING]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				i > config.upper
-			loop
-				config.item(i).tools_in(tools)
-				i := i + 1
-			end
-		end
+   tools_in (tools: DICTIONARY[STRING, STRING]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            i > config.upper
+         loop
+            config.item(i).tools_in(tools)
+            i := i + 1
+         end
+      end
 
-	environment_in (env: DICTIONARY[STRING, STRING]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				i > config.upper
-			loop
-				config.item(i).environment_in(env)
-				i := i + 1
-			end
-		end
+   environment_in (env: DICTIONARY[STRING, STRING]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            i > config.upper
+         loop
+            config.item(i).environment_in(env)
+            i := i + 1
+         end
+      end
 
-	c_mode (a_c_mode: STRING): SE_C_MODE is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.lower
-			until
-				Result /= Void or else i > config.upper
-			loop
-				Result := config.item(i).c_mode(a_c_mode)
-				i := i + 1
-			end
-		end
+   c_mode (a_c_mode: STRING): SE_C_MODE is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.lower
+         until
+            Result /= Void or else i > config.upper
+         loop
+            Result := config.item(i).c_mode(a_c_mode)
+            i := i + 1
+         end
+      end
 
-	c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := config.upper
-			until
-				i < config.lower
-			loop
-				config.item(i).c_modes_in(c_modes)
-				i := i - 1
-			end
-		end
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := config.upper
+         until
+            i < config.lower
+         loop
+            config.item(i).c_modes_in(c_modes)
+            i := i - 1
+         end
+      end
 
 feature {SERC_FACTORY}
-	add (a_config: SE_CONFIG) is
-		do
-			config.add_last(a_config)
-		end
+   add (a_config: SE_CONFIG) is
+      do
+         config.add_last(a_config)
+      end
 
-	is_empty: BOOLEAN is
-		do
-			Result := config.is_empty
-		end
+   is_empty: BOOLEAN is
+      do
+         Result := config.is_empty
+      end
 
 feature {}
-	config: FAST_ARRAY[SE_CONFIG]
+   config: FAST_ARRAY[SE_CONFIG]
 
-	make is
-		do
-			create config.make(0)
-		end
+   make is
+      do
+         create config.make(0)
+      end
 
 invariant
-	config /= Void
+   config /= Void
 
 end -- class SERC_CHAIN
 --

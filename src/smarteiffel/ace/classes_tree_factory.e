@@ -4,62 +4,62 @@
 expanded class CLASSES_TREE_FACTORY
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {ACE}
-	universe: UNIVERSE is
-		once
-			create Result.make
-		end
+   universe: UNIVERSE is
+      once
+         create Result.make
+      end
 
 feature {CLASSES}
-	classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES is
-		require
-			not name.is_empty
-			string_aliaser.registered_one(name)
-			not path.is_empty
-			string_aliaser.registered_one(path)
-			universe.classes_notation.is_absolute_path(path)
-			system_path /= Void implies (create {FILE_TOOLS}).file_exists(system_path)
-		do
-			Result := classes_memory.reference_at(path)
-			if Result = Void then
-				if system_path /= Void and then file_tools.is_directory(system_path) then
-					if not universe.has_physical_cluster(system_path) then
-						create {CLASSES_TREE} Result.make(distance, name, path, system_path)
-					elseif not discard_silently then
-						error_handler.append(once "Duplicate directory")
-						if loadpath /= Void then
-							error_handler.append(once " in ")
-							error_handler.append(loadpath.path)
-						end
-						error_handler.append(once ": ")
-						error_handler.append(path)
-						error_handler.print_as_warning
-					end
-				else
-					create {LOADPATH} Result.make(distance, name, path, system_path, loadpath, discard_silently)
-				end
-				classes_memory.add(Result, path)
-			elseif not discard_silently then
-				error_handler.append(once "Classes path set more than once")
-				if loadpath /= Void then
-					error_handler.append(once " in ")
-					error_handler.append(loadpath.path)
-				end
-				error_handler.append(once ": ")
-				error_handler.append(path)
-				error_handler.print_as_warning
-			end
-		end
+   classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES is
+      require
+         not name.is_empty
+         string_aliaser.registered_one(name)
+         not path.is_empty
+         string_aliaser.registered_one(path)
+         universe.classes_notation.is_absolute_path(path)
+         system_path /= Void implies (create {FILE_TOOLS}).file_exists(system_path)
+      do
+         Result := classes_memory.reference_at(path)
+         if Result = Void then
+            if system_path /= Void and then file_tools.is_directory(system_path) then
+               if not universe.has_physical_cluster(system_path) then
+                  create {CLASSES_TREE} Result.make(distance, name, path, system_path)
+               elseif not discard_silently then
+                  error_handler.append(once "Duplicate directory")
+                  if loadpath /= Void then
+                     error_handler.append(once " in ")
+                     error_handler.append(loadpath.path)
+                  end
+                  error_handler.append(once ": ")
+                  error_handler.append(path)
+                  error_handler.print_as_warning
+               end
+            else
+               create {LOADPATH} Result.make(distance, name, path, system_path, loadpath, discard_silently)
+            end
+            classes_memory.add(Result, path)
+         elseif not discard_silently then
+            error_handler.append(once "Classes path set more than once")
+            if loadpath /= Void then
+               error_handler.append(once " in ")
+               error_handler.append(loadpath.path)
+            end
+            error_handler.append(once ": ")
+            error_handler.append(path)
+            error_handler.print_as_warning
+         end
+      end
 
 feature {}
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
-	classes_memory: DICTIONARY[CLASSES, STRING] is
-		once
-			create {HASHED_DICTIONARY[CLASSES, STRING]} Result.make
-		end
+   classes_memory: DICTIONARY[CLASSES, STRING] is
+      once
+         create {HASHED_DICTIONARY[CLASSES, STRING]} Result.make
+      end
 
 end -- class CLASSES_TREE_FACTORY
 --

@@ -4,44 +4,44 @@
 deferred class DEBUG_KEY_SUPPORT
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN is
-		local
-			key: STRING; i: INTEGER
-		do
-			from
-				i := list.upper
-			until
-				Result or else i < list.lower
-			loop
-				key := list.item(i)
-				if key = fz_yes then
-					Result := True
-				elseif key = fz_no then
-					i := list.lower
-				else
-					Result := e_debug.match_debug_key(key)
-				end
-				i := i - 1
-			end
-		end
+   match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN is
+      local
+         key: STRING; i: INTEGER
+      do
+         from
+            i := list.upper
+         until
+            Result or else i < list.lower
+         loop
+            key := list.item(i)
+            if key = fz_yes then
+               Result := True
+            elseif key = fz_no then
+               i := list.lower
+            else
+               Result := e_debug.match_debug_key(key)
+            end
+            i := i - 1
+         end
+      end
 
-	add_default_debug_key (key: STRING) is
-		require
-			key /= Void
-		do
-			if default_debug_keys = Void then
-				create default_debug_keys.with_capacity(4)
-			end
-			default_debug_keys.add_last(key)
-		ensure
-			default_debug_keys.has(key)
-		end
+   add_default_debug_key (key: STRING) is
+      require
+         key /= Void
+      do
+         if default_debug_keys = Void then
+            create default_debug_keys.with_capacity(4)
+         end
+         default_debug_keys.add_last(key)
+      ensure
+         default_debug_keys.has(key)
+      end
 
-	default_debug_keys: FAST_ARRAY[STRING]
-			-- The default(s) one for this cluster/ace file.
+   default_debug_keys: FAST_ARRAY[STRING]
+         -- The default(s) one for this cluster/ace file.
 
 end -- class DEBUG_KEY_SUPPORT
 --

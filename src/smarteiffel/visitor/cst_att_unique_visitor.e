@@ -4,14 +4,14 @@
 deferred class CST_ATT_UNIQUE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CST_ATT_UNIQUE}
-	visit_cst_att_unique (visited: CST_ATT_UNIQUE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cst_att_unique (visited: CST_ATT_UNIQUE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CST_ATT_UNIQUE_VISITOR
 --

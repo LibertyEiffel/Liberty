@@ -4,14 +4,14 @@
 deferred class E_PROCEDURE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {E_PROCEDURE}
-	visit_e_procedure (visited: E_PROCEDURE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_e_procedure (visited: E_PROCEDURE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class E_PROCEDURE_VISITOR
 --

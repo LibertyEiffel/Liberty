@@ -2,68 +2,68 @@
 -- See the Copyright notice at the end of this file.
 --
 class RENAME_PAIR
-	--
-	-- To store a rename pair inside some rename clause:
-	--       "... rename ... as ... "
-	--
+   --
+   -- To store a rename pair inside some rename clause:
+   --       "... rename ... as ... "
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	old_name, new_name: FEATURE_NAME
+   old_name, new_name: FEATURE_NAME
 
-	make (on:like old_name; nn: like new_name) is
-		require
-			on /= Void
-			nn /= Void
-		local
-			old_name_to_string: STRING
-		do
-			old_name := on
-			new_name := nn
-			old_name_to_string := old_name.to_string
-			if old_name_to_string = new_name.to_string then
-				error_handler.add_position(old_name.start_position)
-				error_handler.add_position(new_name.start_position)
-				error_handler.append("New name and old name must be different.")
-				error_handler.print_as_fatal_error
-			elseif old_name_to_string = as_c_inline_c then
-				error_handler.add_position(on.start_position)
-				error_handler.append("Cannot rename feature `c_inline_c' because this name is used as a keyword %
-											%to handle the corresponding %"built_in%" feature of ANY.")
-				error_handler.print_as_fatal_error				
-			elseif old_name_to_string = as_c_inline_h then
-				error_handler.add_position(on.start_position)
-				error_handler.append("Cannot rename feature `c_inline_h' because this name is used as a keyword %
-											%to handle the corresponding %"built_in%" feature of ANY.")
-				error_handler.print_as_fatal_error				
-			end
-		ensure
-			old_name = on
-			new_name = nn
-		end
+   make (on:like old_name; nn: like new_name) is
+      require
+         on /= Void
+         nn /= Void
+      local
+         old_name_to_string: STRING
+      do
+         old_name := on
+         new_name := nn
+         old_name_to_string := old_name.to_string
+         if old_name_to_string = new_name.to_string then
+            error_handler.add_position(old_name.start_position)
+            error_handler.add_position(new_name.start_position)
+            error_handler.append("New name and old name must be different.")
+            error_handler.print_as_fatal_error
+         elseif old_name_to_string = as_c_inline_c then
+            error_handler.add_position(on.start_position)
+            error_handler.append("Cannot rename feature `c_inline_c' because this name is used as a keyword %
+                                 %to handle the corresponding %"built_in%" feature of ANY.")
+            error_handler.print_as_fatal_error            
+         elseif old_name_to_string = as_c_inline_h then
+            error_handler.add_position(on.start_position)
+            error_handler.append("Cannot rename feature `c_inline_h' because this name is used as a keyword %
+                                 %to handle the corresponding %"built_in%" feature of ANY.")
+            error_handler.print_as_fatal_error            
+         end
+      ensure
+         old_name = on
+         new_name = nn
+      end
 
-	pretty (rank: INTEGER) is
-		do
-			if rank > 1 then
-				pretty_printer.set_indent_level(3)
-			end
-			old_name.declaration_pretty_print
-			pretty_printer.keyword(once "as")
-			new_name.declaration_pretty_print
-		end
+   pretty (rank: INTEGER) is
+      do
+         if rank > 1 then
+            pretty_printer.set_indent_level(3)
+         end
+         old_name.declaration_pretty_print
+         pretty_printer.keyword(once "as")
+         new_name.declaration_pretty_print
+      end
 
-	accept (visitor: RENAME_PAIR_VISITOR) is
-		do
-			visitor.visit_rename_pair(Current)
-		end
+   accept (visitor: RENAME_PAIR_VISITOR) is
+      do
+         visitor.visit_rename_pair(Current)
+      end
 
 end -- class RENAME_PAIR
 --

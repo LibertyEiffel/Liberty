@@ -4,14 +4,14 @@
 deferred class E_OLD_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {E_OLD}
-	visit_e_old (visited: E_OLD) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_e_old (visited: E_OLD) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class E_OLD_VISITOR
 --

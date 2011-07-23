@@ -4,14 +4,14 @@
 deferred class CREATE_WRITABLE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CREATE_WRITABLE}
-	visit_create_writable (visited: CREATE_WRITABLE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_create_writable (visited: CREATE_WRITABLE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CREATE_WRITABLE_VISITOR
 --

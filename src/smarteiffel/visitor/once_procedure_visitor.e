@@ -4,14 +4,14 @@
 deferred class ONCE_PROCEDURE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ONCE_PROCEDURE}
-	visit_once_procedure (visited: ONCE_PROCEDURE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_once_procedure (visited: ONCE_PROCEDURE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ONCE_PROCEDURE_VISITOR
 --

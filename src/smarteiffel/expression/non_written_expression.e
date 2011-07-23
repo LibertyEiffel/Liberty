@@ -2,73 +2,73 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class NON_WRITTEN_EXPRESSION
-	--
-	-- Common parent of all internal expression which cannot be written in pure eiffel.
-	-- (As an example, see VOID_CALL class.)
-	--
+   --
+   -- Common parent of all internal expression which cannot be written in pure eiffel.
+   -- (As an example, see VOID_CALL class.)
+   --
 
 inherit
-	EXPRESSION
+   EXPRESSION
 
 feature {ANY}
-	is_current: BOOLEAN is False
+   is_current: BOOLEAN is False
 
-	is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN is False
 
-	is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
 
-	is_void: BOOLEAN is False
+   is_void: BOOLEAN is False
 
-	has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN is True
 
-	frozen specialize_in (type: TYPE): like Current is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_in (type: TYPE): like Current is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen specialize_2 (type: TYPE): EXPRESSION is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_2 (type: TYPE): EXPRESSION is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen precedence: INTEGER is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen precedence: INTEGER is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen short, frozen short_target (type: TYPE) is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen short, frozen short_target (type: TYPE) is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen pretty_target, frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen pretty_target, frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	extra_bracket_flag: BOOLEAN is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   extra_bracket_flag: BOOLEAN is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
 end -- class NON_WRITTEN_EXPRESSION
 --

@@ -8,102 +8,102 @@ class SEDB
    --
 
 inherit
-	NON_WRITTEN_INSTRUCTION
+   NON_WRITTEN_INSTRUCTION
 
 creation {CODE_ACCUMULATOR}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
-			-- To be shown at run-time (the one of the `sedb' call or the `ds.p' assignment).
+   start_position: POSITION
+         -- To be shown at run-time (the one of the `sedb' call or the `ds.p' assignment).
 
-	simplify (type: TYPE): INSTRUCTION is
-		do
-			if ace.boost then
-				check
-					Result = Void
-				end
-			else
-				Result := Current
-			end
-		end
-	
-	collect (type: TYPE): TYPE is
-		do
-		end
+   simplify (type: TYPE): INSTRUCTION is
+      do
+         if ace.boost then
+            check
+               Result = Void
+            end
+         else
+            Result := Current
+         end
+      end
+   
+   collect (type: TYPE): TYPE is
+      do
+      end
 
-	use_current (type: TYPE): BOOLEAN is
-		do
-		end
+   use_current (type: TYPE): BOOLEAN is
+      do
+      end
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := True
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := True
+      end
 
-	safety_check (type: TYPE) is
-		do
-		end
+   safety_check (type: TYPE) is
+      do
+      end
 
-	adapt_for (type: TYPE): like Current is
-		do
-			Result := Current
-		end
+   adapt_for (type: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			if start_position.sedb_trace then
-				cpp.pending_c_function_body.append(once "sedb(&ds,")
-				put_start_position
-				cpp.pending_c_function_body.append(once ",'")
-				cpp.pending_c_function_body.extend(info_code)
-				cpp.pending_c_function_body.append(once "')")
-			else
-				cpp.pending_c_function_body.append(once "ds.p=")
-				put_start_position
-			end
-			cpp.pending_c_function_body.append(once ";%N")
-		end
+   compile_to_c (type: TYPE) is
+      do
+         if start_position.sedb_trace then
+            cpp.pending_c_function_body.append(once "sedb(&ds,")
+            put_start_position
+            cpp.pending_c_function_body.append(once ",'")
+            cpp.pending_c_function_body.extend(info_code)
+            cpp.pending_c_function_body.append(once "')")
+         else
+            cpp.pending_c_function_body.append(once "ds.p=")
+            put_start_position
+         end
+         cpp.pending_c_function_body.append(once ";%N")
+      end
 
-	accept (visitor: SEDB_VISITOR) is
-		do
-			visitor.visit_sedb(Current)
-		end
+   accept (visitor: SEDB_VISITOR) is
+      do
+         visitor.visit_sedb(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		do
-			if not ace.boost then
-				code_accumulator.current_context.add_last(Current)
-			end
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      do
+         if not ace.boost then
+            code_accumulator.current_context.add_last(Current)
+         end
+      end
+   
 feature {}
-	info_code: CHARACTER
-	
-	make (sp: like start_position; ic: like info_code) is
-		require
-			not sp.is_unknown
-			not ace.boost
-		do
-			start_position := sp
-			info_code := ic
-		ensure
-			start_position = sp
-			info_code = ic
-		end
+   info_code: CHARACTER
+   
+   make (sp: like start_position; ic: like info_code) is
+      require
+         not sp.is_unknown
+         not ace.boost
+      do
+         start_position := sp
+         info_code := ic
+      ensure
+         start_position = sp
+         info_code = ic
+      end
 
-	put_start_position is
-		do
-			cpp.pending_c_function_body.append(once "0x")
-			start_position.mangling.to_hexadecimal_in(cpp.pending_c_function_body)
-			cpp.put_position_comment_in(cpp.pending_c_function_body, start_position)
-		end
+   put_start_position is
+      do
+         cpp.pending_c_function_body.append(once "0x")
+         start_position.mangling.to_hexadecimal_in(cpp.pending_c_function_body)
+         cpp.put_position_comment_in(cpp.pending_c_function_body, start_position)
+      end
 
 invariant
-	not ace.boost
-	not start_position.is_unknown
-	
+   not ace.boost
+   not start_position.is_unknown
+   
 end -- class SEDB
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

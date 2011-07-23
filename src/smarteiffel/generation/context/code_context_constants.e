@@ -4,26 +4,26 @@
 deferred class CODE_CONTEXT_CONSTANTS
 
 feature {}
-	C_direct_call: INTEGER is unique
-			-- Target is sure not to be Void and there is only one possible type (target is 
-			-- often Current, a manifest string or some expanded).
+   C_direct_call: INTEGER is unique
+         -- Target is sure not to be Void and there is only one possible type (target is 
+         -- often Current, a manifest string or some expanded).
 
-	C_create_instruction: INTEGER is unique
-			-- Target has been just created with a create instruction and need to be initialized 
-			-- with some create procedure call.
+   C_create_instruction: INTEGER is unique
+         -- Target has been just created with a create instruction and need to be initialized 
+         -- with some create procedure call.
 
-	C_create_expression: INTEGER is unique
-			-- Target has been just created with a create expression and need to be initialized 
-			-- inside the create function.
+   C_create_expression: INTEGER is unique
+         -- Target has been just created with a create expression and need to be initialized 
+         -- inside the create function.
 
-	C_inside_twin: INTEGER is unique
-			-- In order to call the user's `copy'.
+   C_inside_twin: INTEGER is unique
+         -- In order to call the user's `copy'.
 
-	C_precursor: INTEGER is unique
-			-- For Precursor calls.
+   C_precursor: INTEGER is unique
+         -- For Precursor calls.
 
-	C_inside_some_wrapper: INTEGER is unique
-			-- The feature to be called is inside some wrapper using the most general convention.
+   C_inside_some_wrapper: INTEGER is unique
+         -- The feature to be called is inside some wrapper using the most general convention.
 
 end -- class CODE_CONTEXT_CONSTANTS
 --

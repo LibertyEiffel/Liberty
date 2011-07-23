@@ -4,14 +4,14 @@
 deferred class CREATION_CLAUSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CREATION_CLAUSE}
-	visit_creation_clause (visited: CREATION_CLAUSE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_creation_clause (visited: CREATION_CLAUSE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CREATION_CLAUSE_VISITOR
 --

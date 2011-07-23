@@ -2,65 +2,65 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_AND
-	--
-	--   Infix operator : "and".
-	--
+   --
+   --   Infix operator : "and".
+   --
 
 inherit
-	CALL_INFIX
+   CALL_INFIX
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {AGENT_CREATION}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 5
+   precedence: INTEGER is 5
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	operator: STRING is
-		do
-			Result := as_and
-		end
+   operator: STRING is
+      do
+         Result := as_and
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_INFIX_AND_VISITOR) is
-		do
-			visitor.visit_call_infix_and(Current)
-		end
+   accept (visitor: CALL_INFIX_AND_VISITOR) is
+      do
+         visitor.visit_call_infix_and(Current)
+      end
 
 feature {}
-	make (lp: like target; operator_position: POSITION; rp: like arg1) is
-		require
-			lp /= Void
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			target := lp
-			create feature_name.infix_name(eiffel_parser.and_name, operator_position)
-			create arguments.make_1(rp)
-		ensure
-			target = lp
-			start_position = operator_position
-			arguments.first = rp
-		end
+   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+      require
+         lp /= Void
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         target := lp
+         create feature_name.infix_name(eiffel_parser.and_name, operator_position)
+         create arguments.make_1(rp)
+      ensure
+         target = lp
+         start_position = operator_position
+         arguments.first = rp
+      end
 
 end -- class CALL_INFIX_AND
 --

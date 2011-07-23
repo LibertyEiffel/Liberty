@@ -2,91 +2,91 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class IF_SUPPORT
-	--
-	-- Common ancestor of IFTHENELSE and IFTHEN.
-	--
+   --
+   -- Common ancestor of IFTHENELSE and IFTHEN.
+   --
 
 insert
-	GLOBALS
-	
+   GLOBALS
+   
 feature {ANY}
-	start_position: POSITION
-			-- Of the "if" keyword or `start_position' of the "elseif" keyword.
+   start_position: POSITION
+         -- Of the "if" keyword or `start_position' of the "elseif" keyword.
 
-	expression: EXPRESSION
-			-- Which must be a boolean `expression'.
+   expression: EXPRESSION
+         -- Which must be a boolean `expression'.
 
-	then_compound: INSTRUCTION
-			-- Not Void if any.
+   then_compound: INSTRUCTION
+         -- Not Void if any.
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			--|*** Could be better ***
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         --|*** Could be better ***
+      end
 
-	end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN is True
 
 feature {IF_SUPPORT}
-	frozen specialize_2_check_ (type: TYPE) is
-		local
-			dt: TYPE
-		do
-			dt := expression.declaration_type
-			if not dt.is_boolean then
-				error_handler.append("%"if%" (or %"elseif%" as well) must be followed by a BOOLEAN expression.")
-				error_handler.add_position(start_position)
-				error_handler.print_as_error
-				error_handler.append("The declaration type of this expression is ")
-				error_handler.append(dt.name.to_string)
-				error_handler.append(" (this is not BOOLEAN).")
-				error_handler.add_position(expression.start_position)
-				error_handler.print_as_fatal_error
-			end
-		end
+   frozen specialize_2_check_ (type: TYPE) is
+      local
+         dt: TYPE
+      do
+         dt := expression.declaration_type
+         if not dt.is_boolean then
+            error_handler.append("%"if%" (or %"elseif%" as well) must be followed by a BOOLEAN expression.")
+            error_handler.add_position(start_position)
+            error_handler.print_as_error
+            error_handler.append("The declaration type of this expression is ")
+            error_handler.append(dt.name.to_string)
+            error_handler.append(" (this is not BOOLEAN).")
+            error_handler.add_position(expression.start_position)
+            error_handler.print_as_fatal_error
+         end
+      end
 
-	frozen pretty_ (indent_level: INTEGER; first_keyword: STRING) is
-		require
-			first_keyword.is_equal(once "if") or first_keyword.is_equal(once "elseif")
-		do
-			pretty_printer.set_indent_level(indent_level)
-			pretty_printer.keyword(first_keyword)
-			pretty_printer.set_semi_colon_flag(False)
-			expression.pretty(indent_level + 1)
-			pretty_printer.keyword(once "then")
-			pretty_printer.set_indent_level(0)
-			if then_compound /= Void then
-				then_compound.pretty(indent_level + 1)
-			end
-		end
+   frozen pretty_ (indent_level: INTEGER; first_keyword: STRING) is
+      require
+         first_keyword.is_equal(once "if") or first_keyword.is_equal(once "elseif")
+      do
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.keyword(first_keyword)
+         pretty_printer.set_semi_colon_flag(False)
+         expression.pretty(indent_level + 1)
+         pretty_printer.keyword(once "then")
+         pretty_printer.set_indent_level(0)
+         if then_compound /= Void then
+            then_compound.pretty(indent_level + 1)
+         end
+      end
 
-	frozen pretty_end_if (indent_level: INTEGER) is
-		do
-			pretty_printer.set_indent_level(indent_level)
-			pretty_printer.keyword(once "end")
-			if pretty_printer.print_end_of_statement then
-				pretty_printer.put_end_of(once "if")
-			end
-			pretty_printer.set_indent_level(indent_level)
-		end
+   frozen pretty_end_if (indent_level: INTEGER) is
+      do
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.keyword(once "end")
+         if pretty_printer.print_end_of_statement then
+            pretty_printer.put_end_of(once "if")
+         end
+         pretty_printer.set_indent_level(indent_level)
+      end
 
 feature {IFTHENELSE}
-	frozen compile_to_jvm_ (type: TYPE) is
-		local
-			point: INTEGER
-		do
-			point := expression.jvm_branch_if_false(type)
-			if then_compound /= Void then
-				then_compound.compile_to_jvm(type)
-			end
-			jvm_after_point := code_attribute.opcode_goto
-			code_attribute.resolve_u2_branch(point)
-		end
+   frozen compile_to_jvm_ (type: TYPE) is
+      local
+         point: INTEGER
+      do
+         point := expression.jvm_branch_if_false(type)
+         if then_compound /= Void then
+            then_compound.compile_to_jvm(type)
+         end
+         jvm_after_point := code_attribute.opcode_goto
+         code_attribute.resolve_u2_branch(point)
+      end
 
-	jvm_after_point: INTEGER
-			-- To reach the end of IFTHENELSE.
+   jvm_after_point: INTEGER
+         -- To reach the end of IFTHENELSE.
 
 invariant
-	expression /= Void
+   expression /= Void
 
 end -- class IF_SUPPORT
 --

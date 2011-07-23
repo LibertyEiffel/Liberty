@@ -4,14 +4,14 @@
 deferred class NATIVE_C_PLUS_PLUS_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NATIVE_C_PLUS_PLUS}
-	visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NATIVE_C_PLUS_PLUS_VISITOR
 --

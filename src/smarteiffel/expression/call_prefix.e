@@ -2,81 +2,81 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class CALL_PREFIX
-	--
-	-- For all sort of prefix operators.
-	-- Root of all CALL_PREFIX_*.
-	--
+   --
+   -- For all sort of prefix operators.
+   -- Root of all CALL_PREFIX_*.
+   --
 
 inherit
-	CALL_0
-		redefine pretty_target
-		end
+   CALL_0
+      redefine pretty_target
+      end
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN is True
 
-	operator: STRING is
-		deferred
-		end
+   operator: STRING is
+      deferred
+      end
 
-	frozen bracketed_pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-		end
+   frozen bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+      end
 
-	frozen pretty (indent_level: INTEGER) is
-		do
-			feature_name.pretty(indent_level)
-			if feature_name.to_string.last.is_letter then
-				pretty_printer.put_character(' ')
-			end
-			if target.precedence < precedence then
-				pretty_printer.put_character('(')
-				target.pretty(indent_level)
-				pretty_printer.put_character(')')
-			else
-				target.pretty(indent_level)
-			end
-		end
+   frozen pretty (indent_level: INTEGER) is
+      do
+         feature_name.pretty(indent_level)
+         if feature_name.to_string.last.is_letter then
+            pretty_printer.put_character(' ')
+         end
+         if target.precedence < precedence then
+            pretty_printer.put_character('(')
+            target.pretty(indent_level)
+            pretty_printer.put_character(')')
+         else
+            target.pretty(indent_level)
+         end
+      end
 
-	frozen pretty_target (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-			pretty_printer.put_character('.')
-		end
+   frozen pretty_target (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+         pretty_printer.put_character('.')
+      end
 
-	frozen short (type: TYPE) is
-		do
-			short_printer.put_prefix_name(feature_name)
-			if target.precedence < precedence then
-				target.bracketed_short(type)
-			else
-				target.short(type)
-			end
-		end
+   frozen short (type: TYPE) is
+      do
+         short_printer.put_prefix_name(feature_name)
+         if target.precedence < precedence then
+            target.bracketed_short(type)
+         else
+            target.short(type)
+         end
+      end
 
-	frozen short_target (type: TYPE) is
-		do
-			bracketed_short(type)
-			short_printer.put_dot
-		end
+   frozen short_target (type: TYPE) is
+      do
+         bracketed_short(type)
+         short_printer.put_dot
+      end
 
 feature {}
-	frozen with (t: like target; fn: like feature_name) is
-		require
-			t /= Void
-			fn /= Void
-		do
-			target := t
-			feature_name := fn
-		ensure
-			target = t
-			feature_name = fn
-		end
+   frozen with (t: like target; fn: like feature_name) is
+      require
+         t /= Void
+         fn /= Void
+      do
+         target := t
+         feature_name := fn
+      ensure
+         target = t
+         feature_name = fn
+      end
 
 end -- class CALL_PREFIX
 --

@@ -4,14 +4,14 @@
 deferred class PRECURSOR_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {PRECURSOR_INSTRUCTION}
-	visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class PRECURSOR_INSTRUCTION_VISITOR
 --

@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class E_TRUE
-	--
-	-- When using explicit constant `True'.
-	--
+   --
+   -- When using explicit constant `True'.
+   --
 
 inherit
-	BOOLEAN_CONSTANT
+   BOOLEAN_CONSTANT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value: BOOLEAN is True
+   value: BOOLEAN is True
 
-	to_string: STRING is
-		do
-			Result := fz_true
-		end
+   to_string: STRING is
+      do
+         Result := fz_true
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			cpp.pending_c_function_body.extend('1')
-		end
+   compile_to_c (type: TYPE) is
+      do
+         cpp.pending_c_function_body.extend('1')
+      end
 
-	compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-		do
-			code_attribute.opcode_bipush(1)
-		end
+   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
+      do
+         code_attribute.opcode_bipush(1)
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			code_attribute.opcode_iconst_1
-			Result := code_attribute.opcode_ifeq
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         code_attribute.opcode_iconst_1
+         Result := code_attribute.opcode_ifeq
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := code_attribute.opcode_goto
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := code_attribute.opcode_goto
+      end
 
 feature {ANY}
-	accept (visitor: E_TRUE_VISITOR) is
-		do
-			visitor.visit_e_true(Current)
-		end
+   accept (visitor: E_TRUE_VISITOR) is
+      do
+         visitor.visit_e_true(Current)
+      end
 
 end -- class E_TRUE
 --

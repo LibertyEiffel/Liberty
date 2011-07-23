@@ -4,14 +4,14 @@
 deferred class STATIC_CALL_0_C_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {STATIC_CALL_0_C}
-	visit_static_call_0_c (visited: STATIC_CALL_0_C) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class STATIC_CALL_0_C_VISITOR
 --

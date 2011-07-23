@@ -4,14 +4,14 @@
 deferred class LOCAL_NAME2_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LOCAL_NAME2}
-	visit_local_name2 (visited: LOCAL_NAME2) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_local_name2 (visited: LOCAL_NAME2) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LOCAL_NAME2_VISITOR
 --

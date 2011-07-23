@@ -4,14 +4,14 @@
 deferred class TAG_NAME_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {TAG_NAME}
-	visit_tag_name (visited: TAG_NAME) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_tag_name (visited: TAG_NAME) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class TAG_NAME_VISITOR
 --

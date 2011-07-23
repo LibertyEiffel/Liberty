@@ -4,14 +4,14 @@
 deferred class LIKE_FEATURE_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIKE_FEATURE_TYPE_MARK}
-	visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LIKE_FEATURE_TYPE_MARK_VISITOR
 --

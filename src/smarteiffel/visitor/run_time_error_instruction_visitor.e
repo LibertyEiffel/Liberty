@@ -4,14 +4,14 @@
 deferred class RUN_TIME_ERROR_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
-	visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RUN_TIME_ERROR_INSTRUCTION_VISITOR
 --

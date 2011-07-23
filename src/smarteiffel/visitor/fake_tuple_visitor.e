@@ -4,14 +4,14 @@
 deferred class FAKE_TUPLE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FAKE_TUPLE}
-	visit_fake_tuple (visited: FAKE_TUPLE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_fake_tuple (visited: FAKE_TUPLE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FAKE_TUPLE_VISITOR
 --

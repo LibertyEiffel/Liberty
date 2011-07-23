@@ -2,8 +2,8 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class INI_HANDLER
-	-- A class that needs to use the INI_PARSER to parse an ini file
-	-- should `insert INI_HANDLER'.
+   -- A class that needs to use the INI_PARSER to parse an ini file
+   -- should `insert INI_HANDLER'.
 
 end -- class INI_HANDLER
 --

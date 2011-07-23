@@ -4,23 +4,23 @@
 class CODE_CONTEXT_CREATE_EXPRESSION
 
 inherit
-	CODE_CONTEXT
+   CODE_CONTEXT
 
 feature {CODE_PRINTER}
-	code: INTEGER is
-		do
-			Result := C_create_expression
-		end
+   code: INTEGER is
+      do
+         Result := C_create_expression
+      end
 
-	valid_anonymous_feature: BOOLEAN is False
+   valid_anonymous_feature: BOOLEAN is False
 
-	valid_target: BOOLEAN is False
+   valid_target: BOOLEAN is False
 
-	valid_effective_arguments: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN is False
 
-	valid_static_type: BOOLEAN is True
+   valid_static_type: BOOLEAN is True
 
-	valid_internal_c_local: BOOLEAN is True
+   valid_internal_c_local: BOOLEAN is True
 
 end -- class CODE_CONTEXT_CREATE_EXPRESSION
 --

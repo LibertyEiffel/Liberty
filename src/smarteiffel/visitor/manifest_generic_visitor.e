@@ -4,14 +4,14 @@
 deferred class MANIFEST_GENERIC_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {MANIFEST_GENERIC}
-	visit_manifest_generic (visited: MANIFEST_GENERIC) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class MANIFEST_GENERIC_VISITOR
 --

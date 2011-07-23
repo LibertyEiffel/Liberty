@@ -4,14 +4,14 @@
 deferred class OTHER_INSPECT_STATEMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {OTHER_INSPECT_STATEMENT}
-	visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class OTHER_INSPECT_STATEMENT_VISITOR
 --

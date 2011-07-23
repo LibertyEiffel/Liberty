@@ -4,14 +4,14 @@
 deferred class CST_ATT_INTEGER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CST_ATT_INTEGER}
-	visit_cst_att_integer (visited: CST_ATT_INTEGER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cst_att_integer (visited: CST_ATT_INTEGER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CST_ATT_INTEGER_VISITOR
 --

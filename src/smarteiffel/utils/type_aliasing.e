@@ -10,23 +10,23 @@ expanded class TYPE_ALIASING
 -- INTEGER_32 and REAL is REAL_64.
 --
 insert
-	GLOBALS
+   GLOBALS
 
 feature {ANY} -- INTEGER aliasing
-	integer_alias: HASHED_STRING is
-		once
-			Result := string_aliaser.hashed_string(as_integer_32)
-		end
+   integer_alias: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_integer_32)
+      end
 
-	integer_bit_count: INTEGER is 32
+   integer_bit_count: INTEGER is 32
 
 feature {ANY} -- REAL aliasing
-	real_alias: HASHED_STRING is
-		once
-			Result := string_aliaser.hashed_string(as_real_64)
-		end
+   real_alias: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_real_64)
+      end
 
-	real_bit_count: INTEGER is 64
+   real_bit_count: INTEGER is 64
 
 end -- class TYPE_ALIASING
 --

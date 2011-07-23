@@ -4,14 +4,14 @@
 deferred class CST_ATT_BOOLEAN_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CST_ATT_BOOLEAN}
-	visit_cst_att_boolean (visited: CST_ATT_BOOLEAN) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cst_att_boolean (visited: CST_ATT_BOOLEAN) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CST_ATT_BOOLEAN_VISITOR
 --

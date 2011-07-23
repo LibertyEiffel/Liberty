@@ -2,63 +2,63 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_COMMENT_STATE_IN_CHARACTER
-	--
-	-- Handle single characters (in single quotes)
-	--
+   --
+   -- Handle single characters (in single quotes)
+   --
 
 inherit
-	EIFFELDOC_COMMENT_STATE
+   EIFFELDOC_COMMENT_STATE
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-	can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
-		do
-			if offset < comment.count and then comment.item(offset) = '%'' then
-				if comment.item(offset + 1) = '%%' then
-					Result := offset <= comment.count - 3 and then comment.item(offset + 3) = '%''
-				else
-					Result := offset <= comment.count - 2 and then comment.item(offset + 2) = '%''
-				end
-			end
-		end
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+      do
+         if offset < comment.count and then comment.item(offset) = '%'' then
+            if comment.item(offset + 1) = '%%' then
+               Result := offset <= comment.count - 3 and then comment.item(offset + 3) = '%''
+            else
+               Result := offset <= comment.count - 2 and then comment.item(offset + 2) = '%''
+            end
+         end
+      end
 
-	handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
-		do
-			html.with_attribute(once "class", once "wiki_character")
-			html.open_typeset
-			html.put_character('%'')
-			if offset < comment.count and then comment.item(offset) = '%'' then
-				if comment.item(offset + 1) = '%%' then
-					html.put_character('%%')
-					html.put_character(comment.item(offset + 2))
-					Result := offset + 4
-				else
-					html.put_character(comment.item(offset + 1))
-					Result := offset + 3
-				end
-			end
-			html.put_character('%'')
-			html.close_typeset
-		end
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+      do
+         html.with_attribute(once "class", once "wiki_character")
+         html.open_typeset
+         html.put_character('%'')
+         if offset < comment.count and then comment.item(offset) = '%'' then
+            if comment.item(offset + 1) = '%%' then
+               html.put_character('%%')
+               html.put_character(comment.item(offset + 2))
+               Result := offset + 4
+            else
+               html.put_character(comment.item(offset + 1))
+               Result := offset + 3
+            end
+         end
+         html.put_character('%'')
+         html.close_typeset
+      end
 
-	abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
-		do
-			check
-				False
-			end
-		end
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+      do
+         check
+            False
+         end
+      end
 
-	handle_first: BOOLEAN is True
+   handle_first: BOOLEAN is True
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_IN_CHARACTER
 --

@@ -2,73 +2,73 @@
 -- See the Copyright notice at the end of this file.
 --
 class CLUSTER_POOL_DATA
-	--
-	-- This class is a CLUSTER_CLASS factory (one such object per used class in the system; more than one class
-	-- may have the same name, but in different clusters)
-	--
+   --
+   -- This class is a CLUSTER_CLASS factory (one such object per used class in the system; more than one class
+   -- may have the same name, but in different clusters)
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {CLUSTER}
-	make
+   make
 
 feature {CLUSTER}
-	class_count: INTEGER is
-		do
-			Result := classes.count
-		end
+   class_count: INTEGER is
+      do
+         Result := classes.count
+      end
 
-	cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS is
-		do
-			if a_class_name.is_tuple_related then
-				Result := classes.fast_reference_at(hash_tuple)
-			else
-				Result := classes.fast_reference_at(a_class_name)
-			end
-		end
+   cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS is
+      do
+         if a_class_name.is_tuple_related then
+            Result := classes.fast_reference_at(hash_tuple)
+         else
+            Result := classes.fast_reference_at(a_class_name)
+         end
+      end
 
-	has (a_class_name: HASHED_STRING): BOOLEAN is
-		do
-			if a_class_name.is_tuple_related then
-				Result := classes.fast_has(hash_tuple)
-			else
-				Result := classes.fast_has(a_class_name)
-			end
-		end
+   has (a_class_name: HASHED_STRING): BOOLEAN is
+      do
+         if a_class_name.is_tuple_related then
+            Result := classes.fast_has(hash_tuple)
+         else
+            Result := classes.fast_has(a_class_name)
+         end
+      end
 
-	add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING) is
-		require
-			cluster_class(a_class_name) = Void
-		local
-			c: CLUSTER_CLASS
-		do
-			if a_class_name.is_tuple_related then
-				if not classes.fast_has(hash_tuple) then
-					create c.make(hash_tuple, cluster, a_path)
-					classes.add(c, hash_tuple)
-				end
-			else
-				create c.make(a_class_name, cluster, a_path)
-				classes.add(c, a_class_name)
-			end
-		end
+   add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING) is
+      require
+         cluster_class(a_class_name) = Void
+      local
+         c: CLUSTER_CLASS
+      do
+         if a_class_name.is_tuple_related then
+            if not classes.fast_has(hash_tuple) then
+               create c.make(hash_tuple, cluster, a_path)
+               classes.add(c, hash_tuple)
+            end
+         else
+            create c.make(a_class_name, cluster, a_path)
+            classes.add(c, a_class_name)
+         end
+      end
 
 feature {}
-	hash_tuple: HASHED_STRING is
-		once
-			Result := string_aliaser.hashed_string(as_tuple)
-		end
+   hash_tuple: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_tuple)
+      end
 
-	classes: HASHED_DICTIONARY[CLUSTER_CLASS, HASHED_STRING]
+   classes: HASHED_DICTIONARY[CLUSTER_CLASS, HASHED_STRING]
 
-	cluster: CLUSTER
+   cluster: CLUSTER
 
-	make (a_cluster: CLUSTER) is
-		do
-			cluster := a_cluster
-			create classes.make
-		end
+   make (a_cluster: CLUSTER) is
+      do
+         cluster := a_cluster
+         create classes.make
+      end
 
 end -- class CLUSTER_POOL_DATA
 --

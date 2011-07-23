@@ -4,14 +4,14 @@
 deferred class FEATURE_NAME_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FEATURE_NAME}
-	visit_feature_name (visited: FEATURE_NAME) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_feature_name (visited: FEATURE_NAME) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FEATURE_NAME_VISITOR
 --

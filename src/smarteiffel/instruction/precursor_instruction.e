@@ -2,47 +2,47 @@
 -- See the Copyright notice at the end of this file.
 --
 class PRECURSOR_INSTRUCTION
-	--
-	-- Handling of the `Precursor' procedure call.
-	--
+   --
+   -- Handling of the `Precursor' procedure call.
+   --
 
 inherit
-	INSTRUCTION
-	PRECURSOR_CALL
-	
+   INSTRUCTION
+   PRECURSOR_CALL
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN is False
 
-	accept (visitor: PRECURSOR_INSTRUCTION_VISITOR) is
-		do
-			visitor.visit_precursor_instruction(Current)
-		end
+   accept (visitor: PRECURSOR_INSTRUCTION_VISITOR) is
+      do
+         visitor.visit_precursor_instruction(Current)
+      end
 
-	collect (t: TYPE): TYPE is
-		do
-			--|*** Attention ici on fait simple : si le Precursor s'appelle
-			--| lui-même, la liaison dynamique est suivie (-> rappel de la
-			--| fonction redéfinie).
-			--| Le choix contraire (qui consiste à dire qu'il s'agit d'un double
-			--| héritage + redéfinition => suivre "la bonne branche") est très
-			--| complexe à implanter, est-ce utile ?
-			specialized_anonymous_feature.collect(t)
-			if arguments /= Void then
-				arguments.simple_collect(t, specialized_anonymous_feature.arguments)
-			end
-		end
+   collect (t: TYPE): TYPE is
+      do
+         --|*** Attention ici on fait simple : si le Precursor s'appelle
+         --| lui-même, la liaison dynamique est suivie (-> rappel de la
+         --| fonction redéfinie).
+         --| Le choix contraire (qui consiste à dire qu'il s'agit d'un double
+         --| héritage + redéfinition => suivre "la bonne branche") est très
+         --| complexe à implanter, est-ce utile ?
+         specialized_anonymous_feature.collect(t)
+         if arguments /= Void then
+            arguments.simple_collect(t, specialized_anonymous_feature.arguments)
+         end
+      end
 
-	pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.set_indent_level(indent_level)
-			pretty_(indent_level)
-			if pretty_printer.semi_colon_flag then
-				pretty_printer.put_character(';')
-			end
-		end
+   pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.set_indent_level(indent_level)
+         pretty_(indent_level)
+         if pretty_printer.semi_colon_flag then
+            pretty_printer.put_character(';')
+         end
+      end
 
 end -- class PRECURSOR_INSTRUCTION
 --

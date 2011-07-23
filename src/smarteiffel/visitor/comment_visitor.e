@@ -4,14 +4,14 @@
 deferred class COMMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {COMMENT}
-	visit_comment (visited: COMMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_comment (visited: COMMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class COMMENT_VISITOR
 --

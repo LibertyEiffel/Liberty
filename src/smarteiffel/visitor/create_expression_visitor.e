@@ -4,14 +4,14 @@
 deferred class CREATE_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CREATE_EXPRESSION}
-	visit_create_expression (visited: CREATE_EXPRESSION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_create_expression (visited: CREATE_EXPRESSION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CREATE_EXPRESSION_VISITOR
 --

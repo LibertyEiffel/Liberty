@@ -4,41 +4,41 @@
 class CST_ATT_BOOLEAN
 
 inherit
-	CST_ATT
+   CST_ATT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: CST_ATT_BOOLEAN_VISITOR) is
-		do
-			visitor.visit_cst_att_boolean(Current)
-		end
+   accept (visitor: CST_ATT_BOOLEAN_VISITOR) is
+      do
+         visitor.visit_cst_att_boolean(Current)
+      end
 
 feature {}
-	value_memory: BOOLEAN_CONSTANT
+   value_memory: BOOLEAN_CONSTANT
 
-	add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
-		do
-			add_into_shared(ft, fd)
-		end
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+      do
+         add_into_shared(ft, fd)
+      end
 
-	make (rt: like result_type; bc: BOOLEAN_CONSTANT) is
-		require
-			rt /= Void
-			bc /= Void
-		do
-			result_type := rt
-			value_memory := bc
-		ensure
-			result_type = rt
-			value_memory = bc
-		end
+   make (rt: like result_type; bc: BOOLEAN_CONSTANT) is
+      require
+         rt /= Void
+         bc /= Void
+      do
+         result_type := rt
+         value_memory := bc
+      ensure
+         result_type = rt
+         value_memory = bc
+      end
 
-	pretty_constant_value (indent_level: INTEGER) is
-		do
-			value_memory.pretty(indent_level)
-		end
+   pretty_constant_value (indent_level: INTEGER) is
+      do
+         value_memory.pretty(indent_level)
+      end
 
 end -- class CST_ATT_BOOLEAN
 --

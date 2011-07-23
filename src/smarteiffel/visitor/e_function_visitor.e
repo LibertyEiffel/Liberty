@@ -4,14 +4,14 @@
 deferred class E_FUNCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {E_FUNCTION}
-	visit_e_function (visited: E_FUNCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_e_function (visited: E_FUNCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class E_FUNCTION_VISITOR
 --

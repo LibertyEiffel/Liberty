@@ -2,75 +2,75 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_FREEOP
-	--
-	--   Infix free operator : "@...", "#...", "|...", "&..."
-	--
+   --
+   --   Infix free operator : "@...", "#...", "|...", "&..."
+   --
 
 inherit
-	CALL_INFIX
+   CALL_INFIX
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {AGENT_CREATION, CALL_INFIX}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 10
+   precedence: INTEGER is 10
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	operator: STRING is
-		do
-			Result := feature_name.to_string
-		end
-		--|*** simplify_1_: EXPRESSION is
-		--|*** do
-		--|*** target := target.simplify_1
-		--|*** arguments.simplify_1
-		--|*** -- *** TODO ???? : shift operation on INTEGERs. (Dom. march 26th 2004) ***
-		--|*** Result := Current
-		--|*** end
+   operator: STRING is
+      do
+         Result := feature_name.to_string
+      end
+      --|*** simplify_1_: EXPRESSION is
+      --|*** do
+      --|*** target := target.simplify_1
+      --|*** arguments.simplify_1
+      --|*** -- *** TODO ???? : shift operation on INTEGERs. (Dom. march 26th 2004) ***
+      --|*** Result := Current
+      --|*** end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_INFIX_FREEOP_VISITOR) is
-		do
-			visitor.visit_call_infix_freeop(Current)
-		end
+   accept (visitor: CALL_INFIX_FREEOP_VISITOR) is
+      do
+         visitor.visit_call_infix_freeop(Current)
+      end
 
 feature {}
-	make (lp: like target; in: like feature_name; rp: like arg1) is
-		require
-			lp /= Void
-			in.is_free_operator
-			rp /= Void
-		do
-			target := lp
-			feature_name := in
-			create arguments.make_1(rp)
-		ensure
-			target = lp
-			feature_name = in
-			arguments.first = rp
-		end
+   make (lp: like target; in: like feature_name; rp: like arg1) is
+      require
+         lp /= Void
+         in.is_free_operator
+         rp /= Void
+      do
+         target := lp
+         feature_name := in
+         create arguments.make_1(rp)
+      ensure
+         target = lp
+         feature_name = in
+         arguments.first = rp
+      end
 
 invariant
-	feature_name.is_free_operator
+   feature_name.is_free_operator
 
 end -- class CALL_INFIX_FREEOP
 --

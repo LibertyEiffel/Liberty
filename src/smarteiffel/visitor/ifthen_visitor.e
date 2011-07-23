@@ -4,14 +4,14 @@
 deferred class IFTHEN_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {IFTHEN}
-	visit_ifthen (visited: IFTHEN) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_ifthen (visited: IFTHEN) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class IFTHEN_VISITOR
 --

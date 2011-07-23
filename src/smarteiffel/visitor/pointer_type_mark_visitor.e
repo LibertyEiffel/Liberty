@@ -4,14 +4,14 @@
 deferred class POINTER_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {POINTER_TYPE_MARK}
-	visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class POINTER_TYPE_MARK_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class NON_EMPTY_TUPLE_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-	visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NON_EMPTY_TUPLE_TYPE_MARK_VISITOR
 --

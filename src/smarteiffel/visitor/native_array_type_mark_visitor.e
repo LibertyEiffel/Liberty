@@ -4,14 +4,14 @@
 deferred class NATIVE_ARRAY_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-	visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NATIVE_ARRAY_TYPE_MARK_VISITOR
 --

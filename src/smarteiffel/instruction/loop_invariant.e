@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class LOOP_INVARIANT
-	--
-	-- To store a `loop invariant' clause.
-	--
+   --
+   -- To store a `loop invariant' clause.
+   --
 
 inherit
-	ASSERTION_LIST
+   ASSERTION_LIST
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: LOOP_INVARIANT_VISITOR) is
-		do
-			visitor.visit_loop_invariant(Current)
-		end
+   accept (visitor: LOOP_INVARIANT_VISITOR) is
+      do
+         visitor.visit_loop_invariant(Current)
+      end
 
 feature {}
 end -- class LOOP_INVARIANT

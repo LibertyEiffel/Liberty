@@ -4,14 +4,14 @@
 deferred class DECLARATION_GROUP_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {DECLARATION_GROUP}
-	visit_declaration_group (visited: DECLARATION_GROUP) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_declaration_group (visited: DECLARATION_GROUP) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class DECLARATION_GROUP_VISITOR
 --

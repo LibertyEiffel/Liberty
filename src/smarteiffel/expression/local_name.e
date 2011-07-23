@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class LOCAL_NAME
-	--
-	-- Handling of local variables.
-	--
+   --
+   -- Handling of local variables.
+   --
 
 insert
-	LOCAL_ARGUMENT
+   LOCAL_ARGUMENT
 
 feature {ANY}
-	is_writable: BOOLEAN is True
+   is_writable: BOOLEAN is True
 
-	frozen compile_to_c (type: TYPE) is
-		do
-			cpp.print_local(to_string)
-		end
+   frozen compile_to_c (type: TYPE) is
+      do
+         cpp.print_local(to_string)
+      end
 
-	frozen pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_string(to_string)
-		end
+   frozen pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_string(to_string)
+      end
 
 feature {}
-	tmp_string: STRING is
-		once
-			create Result.make(256)
-		end
+   tmp_string: STRING is
+      once
+         create Result.make(256)
+      end
 
 end -- class LOCAL_NAME
 --

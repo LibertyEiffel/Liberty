@@ -4,14 +4,14 @@
 deferred class MANIFEST_STRING_INSPECT_STATEMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
-	visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class MANIFEST_STRING_INSPECT_STATEMENT_VISITOR
 --

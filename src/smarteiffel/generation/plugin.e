@@ -2,69 +2,69 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class PLUGIN
-	--
-	-- Plugin handling
-	--
-	-- Note that all the exported features return the same STRING object.
-	--
+   --
+   -- Plugin handling
+   --
+   -- Note that all the exported features return the same STRING object.
+   --
 
 inherit
-	HASHABLE
+   HASHABLE
 
 insert
-	GLOBALS
-		redefine is_equal
-		end
+   GLOBALS
+      redefine is_equal
+      end
 
 feature {SYSTEM_TOOLS}
-	try_auto_init is
-			-- try to write init code for this plugin, provided all dependancies are satisfied.
-		require
-			not auto_init_done
-		deferred
-		end
+   try_auto_init is
+         -- try to write init code for this plugin, provided all dependancies are satisfied.
+      require
+         not auto_init_done
+      deferred
+      end
 
 feature {ANY}
-	auto_init_done: BOOLEAN is
-			-- True when the auto_init code was written.
-		deferred
-		end
+   auto_init_done: BOOLEAN is
+         -- True when the auto_init code was written.
+      deferred
+      end
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := name.same_as(other.name) and then path.same_as(other.path)
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := name.same_as(other.name) and then path.same_as(other.path)
+      end
 
-	hash_code: INTEGER
+   hash_code: INTEGER
 
 feature {PLUGIN, NATIVE}
-	name: STRING
+   name: STRING
 
-	path: STRING
+   path: STRING
 
 feature {NATIVE_PLUG_IN}
-	include (position: POSITION) is
-		deferred
-		end
+   include (position: POSITION) is
+      deferred
+      end
 
 feature {} -- directory handling
-	bd: BASIC_DIRECTORY
+   bd: BASIC_DIRECTORY
 
-	cwd: STRING is ""
+   cwd: STRING is ""
 
-	absolute_path (some_path: STRING): STRING is
-		do
-			Result := once ""
-			Result.copy(cwd)
-			bd.ensure_system_notation
-			bd.system_notation.to_absolute_path_in(Result, some_path)
-		end
+   absolute_path (some_path: STRING): STRING is
+      do
+         Result := once ""
+         Result.copy(cwd)
+         bd.ensure_system_notation
+         bd.system_notation.to_absolute_path_in(Result, some_path)
+      end
 
-	tfr: TEXT_FILE_READ is
-		once
-			create Result.make
-		end
+   tfr: TEXT_FILE_READ is
+      once
+         create Result.make
+      end
 
 end -- class PLUGIN
 --

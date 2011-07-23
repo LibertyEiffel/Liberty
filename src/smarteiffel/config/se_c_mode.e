@@ -2,62 +2,62 @@
 -- See the Copyright notice at the end of this file.
 --
 class SE_C_MODE
-	--
-	-- C mode as used by the compiler itself (different from C_MODE which is used by the installer)
-	--
+   --
+   -- C mode as used by the compiler itself (different from C_MODE which is used by the installer)
+   --
 
 creation {SERC}
-	make
+   make
 
 feature {SYSTEM_TOOLS, COMMAND_LINE_TOOLS}
-	c_compiler: STRING
+   c_compiler: STRING
 
-	c_compiler_path: STRING
+   c_compiler_path: STRING
 
-	c_linker_path: STRING
+   c_linker_path: STRING
 
-	c_strip_path: STRING
+   c_strip_path: STRING
 
-	c_compiler_options: STRING
+   c_compiler_options: STRING
 
-	c_linker_options: STRING
+   c_linker_options: STRING
 
-	cpp_compiler: STRING
+   cpp_compiler: STRING
 
-	cpp_compiler_path: STRING
+   cpp_compiler_path: STRING
 
-	cpp_strip_path: STRING
+   cpp_strip_path: STRING
 
-	cpp_linker_path: STRING
+   cpp_linker_path: STRING
 
-	cpp_compiler_options: STRING
+   cpp_compiler_options: STRING
 
-	cpp_linker_options: STRING
+   cpp_linker_options: STRING
 
-	smarteiffel_options: STRING
+   smarteiffel_options: STRING
 
 feature {}
-	make (a_c_compiler: like c_compiler; a_c_compiler_path: like c_compiler_path; a_c_linker_path: like c_linker_path
-		a_c_strip_path: like c_strip_path; a_c_compiler_options: like c_compiler_options
-		a_c_linker_options: like c_linker_options; a_cpp_compiler: like cpp_compiler
-		a_cpp_compiler_path: like cpp_compiler_path; a_cpp_linker_path: like cpp_linker_path
-		a_cpp_strip_path: like cpp_strip_path; a_cpp_compiler_options: like cpp_compiler_options
-		a_cpp_linker_options: like cpp_linker_options; a_smarteiffel_options: like smarteiffel_options) is
-		do
-			c_compiler := a_c_compiler
-			c_compiler_path := a_c_compiler_path
-			c_linker_path := a_c_linker_path
-			c_strip_path := a_c_strip_path
-			c_compiler_options := a_c_compiler_options
-			c_linker_options := a_c_linker_options
-			cpp_compiler := a_cpp_compiler
-			cpp_compiler_path := a_cpp_compiler_path
-			cpp_linker_path := a_cpp_linker_path
-			cpp_strip_path := a_cpp_strip_path
-			cpp_compiler_options := a_cpp_compiler_options
-			cpp_linker_options := a_cpp_linker_options
-			smarteiffel_options := a_smarteiffel_options
-		end
+   make (a_c_compiler: like c_compiler; a_c_compiler_path: like c_compiler_path; a_c_linker_path: like c_linker_path
+      a_c_strip_path: like c_strip_path; a_c_compiler_options: like c_compiler_options
+      a_c_linker_options: like c_linker_options; a_cpp_compiler: like cpp_compiler
+      a_cpp_compiler_path: like cpp_compiler_path; a_cpp_linker_path: like cpp_linker_path
+      a_cpp_strip_path: like cpp_strip_path; a_cpp_compiler_options: like cpp_compiler_options
+      a_cpp_linker_options: like cpp_linker_options; a_smarteiffel_options: like smarteiffel_options) is
+      do
+         c_compiler := a_c_compiler
+         c_compiler_path := a_c_compiler_path
+         c_linker_path := a_c_linker_path
+         c_strip_path := a_c_strip_path
+         c_compiler_options := a_c_compiler_options
+         c_linker_options := a_c_linker_options
+         cpp_compiler := a_cpp_compiler
+         cpp_compiler_path := a_cpp_compiler_path
+         cpp_linker_path := a_cpp_linker_path
+         cpp_strip_path := a_cpp_strip_path
+         cpp_compiler_options := a_cpp_compiler_options
+         cpp_linker_options := a_cpp_linker_options
+         smarteiffel_options := a_smarteiffel_options
+      end
 
 end -- class SE_C_MODE
 --

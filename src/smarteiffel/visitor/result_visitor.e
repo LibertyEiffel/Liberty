@@ -4,14 +4,14 @@
 deferred class RESULT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RESULT}
-	visit_result (visited: RESULT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_result (visited: RESULT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RESULT_VISITOR
 --

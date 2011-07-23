@@ -4,14 +4,14 @@
 deferred class VOID_CALL_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {VOID_CALL}
-	visit_void_call (visited: VOID_CALL) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_void_call (visited: VOID_CALL) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class VOID_CALL_VISITOR
 --

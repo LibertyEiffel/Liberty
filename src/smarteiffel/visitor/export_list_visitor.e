@@ -4,14 +4,14 @@
 deferred class EXPORT_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {EXPORT_LIST}
-	visit_export_list (visited: EXPORT_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_export_list (visited: EXPORT_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class EXPORT_LIST_VISITOR
 --

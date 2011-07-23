@@ -2,238 +2,238 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class PRECURSOR_CALL
-	--
-	-- Handling of the `Precursor' construct. Common ancestor of
-	-- PRECURSOR_CALL_EXPRESSION (when `Precursor' is inside a function call) and
-	-- PRECURSOR_CALL_INSTRUCTION (when `Precursor' is inside a procedure call).
-	--
+   --
+   -- Handling of the `Precursor' construct. Common ancestor of
+   -- PRECURSOR_CALL_EXPRESSION (when `Precursor' is inside a function call) and
+   -- PRECURSOR_CALL_INSTRUCTION (when `Precursor' is inside a procedure call).
+   --
 
 inherit
-	CODE
+   CODE
 
 feature {ANY}
-	start_position: POSITION -- Of the "Precursor" keyword.
+   start_position: POSITION -- Of the "Precursor" keyword.
 
-	parent: TYPE_MARK
-			-- Used when only when the call looks like: {TYPE_MARK} Precursor...
-			-- The goal of this extra {TYPE_MARK} is to remove a possible ambiguity in case 
-			-- of multiple inheritance.
+   parent: TYPE_MARK
+         -- Used when only when the call looks like: {TYPE_MARK} Precursor...
+         -- The goal of this extra {TYPE_MARK} is to remove a possible ambiguity in case 
+         -- of multiple inheritance.
 
-	arguments: EFFECTIVE_ARG_LIST
+   arguments: EFFECTIVE_ARG_LIST
 
-	specialized_anonymous_feature: ANONYMOUS_FEATURE
-			-- The specialized version of the precursor feature
+   specialized_anonymous_feature: ANONYMOUS_FEATURE
+         -- The specialized version of the precursor feature
 
-	specialized_parent: CLASS_TEXT
-			-- The parent the feature effectively comes from.
+   specialized_parent: CLASS_TEXT
+         -- The parent the feature effectively comes from.
 
-	frozen use_current (type: TYPE): BOOLEAN is
-		do
-			-- Could be actually better.
-			Result := True
-		end
+   frozen use_current (type: TYPE): BOOLEAN is
+      do
+         -- Could be actually better.
+         Result := True
+      end
 
-	frozen safety_check (type: TYPE) is
-		do
-			if arguments /= Void then
-				arguments.safety_check(type)
-			end
-		end
+   frozen safety_check (type: TYPE) is
+      do
+         if arguments /= Void then
+            arguments.safety_check(type)
+         end
+      end
 
-	frozen specialize_2 (type: TYPE): like Current is
-		local
-			saf: like specialized_anonymous_feature; args: like arguments
-		do
-			saf := specialized_anonymous_feature.specialize_2(type)
-			if arguments /= Void then
-				args := arguments.specialize_2(type, saf, type, True)
-				check
-					specialized_anonymous_feature.arguments.count = args.count
-				end
-			end
-			Result := current_or_twin_init(saf, args)
-		end
+   frozen specialize_2 (type: TYPE): like Current is
+      local
+         saf: like specialized_anonymous_feature; args: like arguments
+      do
+         saf := specialized_anonymous_feature.specialize_2(type)
+         if arguments /= Void then
+            args := arguments.specialize_2(type, saf, type, True)
+            check
+               specialized_anonymous_feature.arguments.count = args.count
+            end
+         end
+         Result := current_or_twin_init(saf, args)
+      end
 
-	frozen compile_to_c (type: TYPE) is
-		local
-			run_feature: RUN_FEATURE
-		do
-			run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
-			cpp.push_precursor(type, run_feature, arguments)
-			run_feature.mapping_c
-			cpp.pop
-		end
+   frozen compile_to_c (type: TYPE) is
+      local
+         run_feature: RUN_FEATURE
+      do
+         run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
+         cpp.push_precursor(type, run_feature, arguments)
+         run_feature.mapping_c
+         cpp.pop
+      end
 
-	frozen compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   frozen compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	frozen specialize_in (new_type: TYPE): like Current is
-		local
-			saf: like specialized_anonymous_feature; arg: like arguments
-		do
-			--|*** PH(14/04/04): assignment handler should be warned!
-			saf := feature_accumulator.current_mixer.build_precursor(Current, new_type)
-			if arguments /= Void then
-				arg := arguments.specialize_in(new_type)
-			end
-			smart_eiffel.argument_count_check(Void, start_position, saf, arg)
-			Result := current_or_twin_init(saf, arg)
-		end
+   frozen specialize_in (new_type: TYPE): like Current is
+      local
+         saf: like specialized_anonymous_feature; arg: like arguments
+      do
+         --|*** PH(14/04/04): assignment handler should be warned!
+         saf := feature_accumulator.current_mixer.build_precursor(Current, new_type)
+         if arguments /= Void then
+            arg := arguments.specialize_in(new_type)
+         end
+         smart_eiffel.argument_count_check(Void, start_position, saf, arg)
+         Result := current_or_twin_init(saf, arg)
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		local
-			saf: like specialized_anonymous_feature; arg: like arguments
-		do
-			check
-				specialized_anonymous_feature /= Void
-			end
-			saf := feature_accumulator.current_mixer.specialize_precursor(specialized_anonymous_feature, parent_type, parent_edge, new_type)
-			if arguments /= Void then
-				arg := arguments.specialize_thru(parent_type, parent_edge, new_type)
-			end
-			Result := current_or_twin_init(saf, arg)
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         saf: like specialized_anonymous_feature; arg: like arguments
+      do
+         check
+            specialized_anonymous_feature /= Void
+         end
+         saf := feature_accumulator.current_mixer.specialize_precursor(specialized_anonymous_feature, parent_type, parent_edge, new_type)
+         if arguments /= Void then
+            arg := arguments.specialize_thru(parent_type, parent_edge, new_type)
+         end
+         Result := current_or_twin_init(saf, arg)
+      end
 
-	frozen has_been_specialized: BOOLEAN is
-		do
-			Result := arguments /= Void implies arguments.has_been_specialized
-			Result := Result and then specialized_anonymous_feature /= Void
-			Result := Result and then specialized_parent /= Void
-		end
+   frozen has_been_specialized: BOOLEAN is
+      do
+         Result := arguments /= Void implies arguments.has_been_specialized
+         Result := Result and then specialized_anonymous_feature /= Void
+         Result := Result and then specialized_parent /= Void
+      end
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := specialized_anonymous_feature.side_effect_free(type)
-			if arguments /= Void then
-				Result := Result and then arguments.side_effect_free(type)
-			end
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := specialized_anonymous_feature.side_effect_free(type)
+         if arguments /= Void then
+            Result := Result and then arguments.side_effect_free(type)
+         end
+      end
 
-	adapt_for (type: TYPE): like Current is
-		local
-			arg: like arguments; run_feature: RUN_FEATURE
-		do
-			if arguments /= Void then
-				arg := arguments.adapt_for(type)
-			end
-			-- Following access to trigger the corresponding RUN_FEATURE creation:
-			run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
-			check
-				run_feature.type_of_current = type
-			end
-			if arg /= arguments then
-				Result := twin
-				Result.set_arguments(arg)
-			else
-				Result := Current
-			end
-		end
+   adapt_for (type: TYPE): like Current is
+      local
+         arg: like arguments; run_feature: RUN_FEATURE
+      do
+         if arguments /= Void then
+            arg := arguments.adapt_for(type)
+         end
+         -- Following access to trigger the corresponding RUN_FEATURE creation:
+         run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
+         check
+            run_feature.type_of_current = type
+         end
+         if arg /= arguments then
+            Result := twin
+            Result.set_arguments(arg)
+         else
+            Result := Current
+         end
+      end
 
-	simplify (type: TYPE): like Current is
-		local
-			saf: like specialized_anonymous_feature; arg: like arguments
-		do
-			saf := specialized_anonymous_feature.simplify(type)
-			if arguments /= Void then
-				arg := arguments.simplify(type)
-			end
-			Result := current_or_twin_init(saf, arg)
-		end
+   simplify (type: TYPE): like Current is
+      local
+         saf: like specialized_anonymous_feature; arg: like arguments
+      do
+         saf := specialized_anonymous_feature.simplify(type)
+         if arguments /= Void then
+            arg := arguments.simplify(type)
+         end
+         Result := current_or_twin_init(saf, arg)
+      end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-	set_specialized_parent (sp: like specialized_parent) is
-		require
-			sp /= Void
-			parent /= Void implies parent.class_text = sp
-			specialized_parent /= Void implies specialized_parent = sp
-		do
-			specialized_parent := sp
-		ensure
-			specialized_parent = sp
-		end
+   set_specialized_parent (sp: like specialized_parent) is
+      require
+         sp /= Void
+         parent /= Void implies parent.class_text = sp
+         specialized_parent /= Void implies specialized_parent = sp
+      do
+         specialized_parent := sp
+      ensure
+         specialized_parent = sp
+      end
 
 feature {PRECURSOR_CALL}
-	set_arguments (a: like arguments) is
-		do
-			arguments := a
-		end
+   set_arguments (a: like arguments) is
+      do
+         arguments := a
+      end
 
-	init (saf: like specialized_anonymous_feature; arg: like arguments) is
-		do
-			specialized_anonymous_feature := saf
-			arguments := arg
-		end
+   init (saf: like specialized_anonymous_feature; arg: like arguments) is
+      do
+         specialized_anonymous_feature := saf
+         arguments := arg
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		local
-			args: like arguments; saf: like specialized_anonymous_feature
-			new_precursor: like Current
-		do
- 			saf := specialized_anonymous_feature.twin
-			saf.inline_dynamic_dispatch(code_accumulator, type)
- 			if arguments /= Void then
- 				args := arguments.inline_dynamic_dispatch(code_accumulator, type)
- 			end
-			new_precursor := twin
-			new_precursor.init(saf, args)
- 			code_accumulator.current_context.add_last(new_precursor)
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         args: like arguments; saf: like specialized_anonymous_feature
+         new_precursor: like Current
+      do
+          saf := specialized_anonymous_feature.twin
+         saf.inline_dynamic_dispatch(code_accumulator, type)
+          if arguments /= Void then
+             args := arguments.inline_dynamic_dispatch(code_accumulator, type)
+          end
+         new_precursor := twin
+         new_precursor.init(saf, args)
+          code_accumulator.current_context.add_last(new_precursor)
+      end
+   
 feature {}
-	make (sp: like start_position; pc: like parent; pal: like arguments) is
-		require
-			not sp.is_unknown
-		do
-			start_position := sp
-			parent := pc
-			arguments := pal
-		ensure
-			start_position = sp
-			parent = pc
-			arguments = pal
-		end
+   make (sp: like start_position; pc: like parent; pal: like arguments) is
+      require
+         not sp.is_unknown
+      do
+         start_position := sp
+         parent := pc
+         arguments := pal
+      ensure
+         start_position = sp
+         parent = pc
+         arguments = pal
+      end
 
-	current_or_twin_init (saf: like specialized_anonymous_feature; a: like arguments): like Current is
-		require
-			saf /= Void
-			a /= Void = (arguments /= Void)
-		do
-			if saf = specialized_anonymous_feature and then a = arguments then
-				Result := Current
-			else
-				Result := twin
-				Result.init(saf, a)
-			end
-		ensure
-			Result.specialized_anonymous_feature = saf
-			Result.arguments = a
-		end
+   current_or_twin_init (saf: like specialized_anonymous_feature; a: like arguments): like Current is
+      require
+         saf /= Void
+         a /= Void = (arguments /= Void)
+      do
+         if saf = specialized_anonymous_feature and then a = arguments then
+            Result := Current
+         else
+            Result := twin
+            Result.init(saf, a)
+         end
+      ensure
+         Result.specialized_anonymous_feature = saf
+         Result.arguments = a
+      end
 
-	frozen pretty_ (indent_level: INTEGER) is
-		local
-			buffer: STRING
-		do
-			pretty_printer.put_string(once "Precursor")
-			if parent /= Void then
-				pretty_printer.put_character(' ')
-				pretty_printer.put_character('{')
-				buffer := once "......................."
-				buffer.clear_count
-				parent.pretty_in(buffer)
-				pretty_printer.put_string(buffer)
-				pretty_printer.put_character('}')
-				pretty_printer.put_character(' ')
-			end
-			if arguments /= Void then
-				arguments.pretty(indent_level + 1)
-			end
-		end
+   frozen pretty_ (indent_level: INTEGER) is
+      local
+         buffer: STRING
+      do
+         pretty_printer.put_string(once "Precursor")
+         if parent /= Void then
+            pretty_printer.put_character(' ')
+            pretty_printer.put_character('{')
+            buffer := once "......................."
+            buffer.clear_count
+            parent.pretty_in(buffer)
+            pretty_printer.put_string(buffer)
+            pretty_printer.put_character('}')
+            pretty_printer.put_character(' ')
+         end
+         if arguments /= Void then
+            arguments.pretty(indent_level + 1)
+         end
+      end
 
 invariant
-	parent /= Void and specialized_parent /= Void implies parent.class_text = specialized_parent
+   parent /= Void and specialized_parent /= Void implies parent.class_text = specialized_parent
 
 end -- class PRECURSOR_CALL
 --

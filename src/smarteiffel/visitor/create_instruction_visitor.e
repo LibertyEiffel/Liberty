@@ -4,14 +4,14 @@
 deferred class CREATE_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CREATE_INSTRUCTION}
-	visit_create_instruction (visited: CREATE_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_create_instruction (visited: CREATE_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CREATE_INSTRUCTION_VISITOR
 --

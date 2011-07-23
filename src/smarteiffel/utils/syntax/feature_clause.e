@@ -2,171 +2,171 @@
 -- See the Copyright notice at the end of this file.
 --
 class FEATURE_CLAUSE
-	--
-	-- The syntactical contents of some feature clause.
-	-- Note: for a `pretty' pretty_printing, it is obviously necessary to store
-	-- exactly the original contents (in the source file) of a feature clause.
-	--
+   --
+   -- The syntactical contents of some feature clause.
+   -- Note: for a `pretty' pretty_printing, it is obviously necessary to store
+   -- exactly the original contents (in the source file) of a feature clause.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	clients: CLIENT_LIST
-			-- The `clients' allowed to use these features.
+   clients: CLIENT_LIST
+         -- The `clients' allowed to use these features.
 
-	comment: COMMENT
-			-- The heading comment comming with the clause.
+   comment: COMMENT
+         -- The heading comment comming with the clause.
 
-	class_text: CLASS_TEXT
-			-- The one where `Current' is written.
+   class_text: CLASS_TEXT
+         -- The one where `Current' is written.
 
-	pretty is
-		do
-			if list = Void or else list.is_empty or else not list.first.is_inline_agent then
-				do_pretty
-			end
-		end
+   pretty is
+      do
+         if list = Void or else list.is_empty or else not list.first.is_inline_agent then
+            do_pretty
+         end
+      end
 
-	start_position: POSITION is
-		do
-			if clients /= Void then
-				Result := clients.start_position
-			end
-		end
+   start_position: POSITION is
+      do
+         if clients /= Void then
+            Result := clients.start_position
+         end
+      end
 
 feature {FEATURE_CLAUSE_LIST}
-	for_short (bcn: CLASS_NAME; parent, type: TYPE; client: CLASS_NAME) is
-		require
-			not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
-		local
-			i: INTEGER; ft: FEATURE_TEXT; heading_done: BOOLEAN
-		do
-			if list /= Void then
-				if client = Void or else clients.gives_permission_to(client) then
-					from
-						i := list.lower
-					until
-						i > list.upper
-					loop
-						ft := list.item(i)
-						heading_done := ft.names.for_short(Current, heading_done, bcn, parent, type, client)
-						i := i + 1
-					end
-				end
-			end
-		ensure
-			not_done_to_report_errors: error_handler.is_empty
-		end
+   for_short (bcn: CLASS_NAME; parent, type: TYPE; client: CLASS_NAME) is
+      require
+         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
+      local
+         i: INTEGER; ft: FEATURE_TEXT; heading_done: BOOLEAN
+      do
+         if list /= Void then
+            if client = Void or else clients.gives_permission_to(client) then
+               from
+                  i := list.lower
+               until
+                  i > list.upper
+               loop
+                  ft := list.item(i)
+                  heading_done := ft.names.for_short(Current, heading_done, bcn, parent, type, client)
+                  i := i + 1
+               end
+            end
+         end
+      ensure
+         not_done_to_report_errors: error_handler.is_empty
+      end
 
 feature {FEATURE_NAME_LIST}
-	do_heading_for_short (bcn: CLASS_NAME) is
-		do
-			if comment = Void then
-				short_printer.hook_or("hook202", "feature(s) from ")
-				short_printer.put_class_name(bcn)
-				short_printer.hook_or("hook203", "%N")
-			else
-				short_printer.hook_or("hook204", "feature(s) from ")
-				short_printer.put_class_name(bcn)
-				short_printer.hook_or("hook205", "%N")
-				comment.short("hook206", "   --", "hook207", "%N")
-				short_printer.hook_or("hook208", "")
-			end
-		end
+   do_heading_for_short (bcn: CLASS_NAME) is
+      do
+         if comment = Void then
+            short_printer.hook_or("hook202", "feature(s) from ")
+            short_printer.put_class_name(bcn)
+            short_printer.hook_or("hook203", "%N")
+         else
+            short_printer.hook_or("hook204", "feature(s) from ")
+            short_printer.put_class_name(bcn)
+            short_printer.hook_or("hook205", "%N")
+            comment.short("hook206", "   --", "hook207", "%N")
+            short_printer.hook_or("hook208", "")
+         end
+      end
 
 feature {FEATURE_CLAUSE_LIST}
-	add_into (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
-		require
-			fd /= Void
-		local
-			i: INTEGER; feature_text: FEATURE_TEXT
-		do
-			if list /= Void then
-				from
-					i := 0
-				until
-					i > list.upper
-				loop
-					feature_text := list.item(i)
-					feature_text.add_into(Current, fd)
-					i := i + 1
-				end
-			end
-		end
+   add_into (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+      require
+         fd /= Void
+      local
+         i: INTEGER; feature_text: FEATURE_TEXT
+      do
+         if list /= Void then
+            from
+               i := 0
+            until
+               i > list.upper
+            loop
+               feature_text := list.item(i)
+               feature_text.add_into(Current, fd)
+               i := i + 1
+            end
+         end
+      end
 
 feature {ANY}
-	accept (visitor: FEATURE_CLAUSE_VISITOR) is
-		do
-			visitor.visit_feature_clause(Current)
-		end
+   accept (visitor: FEATURE_CLAUSE_VISITOR) is
+      do
+         visitor.visit_feature_clause(Current)
+      end
 
 feature {FEATURE_CLAUSE_VISITOR}
-	list: FAST_ARRAY[FEATURE_TEXT]
-			-- Only the features of the current clause. (Actually, this is useful
-			-- only for `pretty' because all features of a class are grouped in a
-			-- single DICTIONARY (see CLASS_TEXT).
+   list: FAST_ARRAY[FEATURE_TEXT]
+         -- Only the features of the current clause. (Actually, this is useful
+         -- only for `pretty' because all features of a class are grouped in a
+         -- single DICTIONARY (see CLASS_TEXT).
 
 feature {}
-	make (ct: like class_text; c: like clients; cm: COMMENT; l: like list) is
-		require
-			ct /= Void
-			c /= Void
-			l /= Void implies not l.is_empty
-		do
-			class_text := ct
-			clients := c
-			comment := cm
-			list := l
-		ensure
-			class_text = ct
-			clients = c
-			comment = cm
-			list = l
-		end
+   make (ct: like class_text; c: like clients; cm: COMMENT; l: like list) is
+      require
+         ct /= Void
+         c /= Void
+         l /= Void implies not l.is_empty
+      do
+         class_text := ct
+         clients := c
+         comment := cm
+         list := l
+      ensure
+         class_text = ct
+         clients = c
+         comment = cm
+         list = l
+      end
 
-	do_pretty is
-		local
-			i: INTEGER
-		do
-			if not pretty_printer.zen_mode then
-				pretty_printer.skip_one_line
-			end
-			pretty_printer.set_indent_level(0)
-			pretty_printer.keyword(once "feature")
-			clients.pretty(1)
-			if comment /= Void then
-				comment.pretty(1)
-			end
-			if list /= Void then
-				from
-					i := list.lower
-				until
-					i > list.upper
-				loop
-					if pretty_printer.parano_mode then
-						pretty_printer.skip_one_line
-					end
-					pretty_printer.set_indent_level(1)
-					list.item(i).pretty
-					pretty_printer.skip_one_line
-					i := i + 1
-				end
-			end
-			pretty_printer.skip_one_line
-		end
+   do_pretty is
+      local
+         i: INTEGER
+      do
+         if not pretty_printer.zen_mode then
+            pretty_printer.skip_one_line
+         end
+         pretty_printer.set_indent_level(0)
+         pretty_printer.keyword(once "feature")
+         clients.pretty(1)
+         if comment /= Void then
+            comment.pretty(1)
+         end
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               if pretty_printer.parano_mode then
+                  pretty_printer.skip_one_line
+               end
+               pretty_printer.set_indent_level(1)
+               list.item(i).pretty
+               pretty_printer.skip_one_line
+               i := i + 1
+            end
+         end
+         pretty_printer.skip_one_line
+      end
 
 invariant
-	clients /= Void
+   clients /= Void
 
-	list /= Void implies not list.is_empty
+   list /= Void implies not list.is_empty
 
-	class_text /= Void
+   class_text /= Void
 
 end -- class FEATURE_CLAUSE
 --

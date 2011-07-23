@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_COMMENT_STATE_IN_BOLD
-	--
-	-- Handle '''bold text''' (in triple quotes)
-	--
+   --
+   -- Handle '''bold text''' (in triple quotes)
+   --
 
 inherit
-	EIFFELDOC_COMMENT_STATE
+   EIFFELDOC_COMMENT_STATE
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-	can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
-		do
-			Result := offset < comment.count - 3 and then comment.item(offset) = '%'' and then comment.item(offset + 1) = '%'' and then comment.item(offset + 2) = '%''
-		end
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+      do
+         Result := offset < comment.count - 3 and then comment.item(offset) = '%'' and then comment.item(offset + 1) = '%'' and then comment.item(offset + 2) = '%''
+      end
 
-	handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
-		do
-			if not states.is_empty and then states.top = Current then
-				html.close_bold
-				states.pop
-			else
-				html.with_attribute(once "class", once "wiki_bold")
-				html.open_bold
-				states.push(Current)
-			end
-			Result := offset + 3
-		end
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+      do
+         if not states.is_empty and then states.top = Current then
+            html.close_bold
+            states.pop
+         else
+            html.with_attribute(once "class", once "wiki_bold")
+            html.open_bold
+            states.push(Current)
+         end
+         Result := offset + 3
+      end
 
-	abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
-		do
-			html.close_bold
-			states.pop
-		end
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+      do
+         html.close_bold
+         states.pop
+      end
 
-	handle_first: BOOLEAN is True
+   handle_first: BOOLEAN is True
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_IN_BOLD
 --

@@ -4,14 +4,14 @@
 deferred class ADDRESS_OF_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ADDRESS_OF}
-	visit_address_of (visited: ADDRESS_OF) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_address_of (visited: ADDRESS_OF) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ADDRESS_OF_VISITOR
 --

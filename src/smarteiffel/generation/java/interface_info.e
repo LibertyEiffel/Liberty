@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class INTERFACE_INFO
-	--
-	-- Unique Global Object to delay field info writing.
-	-- Obviously, the same object is recycled.
-	--
+   --
+   -- Unique Global Object to delay field info writing.
+   -- Obviously, the same object is recycled.
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	count: INTEGER
-			-- Number of fields.
+   count: INTEGER
+         -- Number of fields.
 
-	storage: STRING is
-			-- To store the final JVM `method_info'.
-		once
-			create Result.make(512)
-		end
+   storage: STRING is
+         -- To store the final JVM `method_info'.
+      once
+         create Result.make(512)
+      end
 
 feature {JVM}
-	clear is
-		do
-			count := 0
-			storage.clear_count
-		end
+   clear is
+      do
+         count := 0
+         storage.clear_count
+      end
 
-	write_bytes is
-		do
-			echo.print_count("interface", count)
-			jvm.b_put_u2(count)
-			jvm.b_put_byte_string(storage)
-		end
+   write_bytes is
+      do
+         echo.print_count("interface", count)
+         jvm.b_put_u2(count)
+         jvm.b_put_byte_string(storage)
+      end
 
 feature {ANY}
-	add (name_idx: INTEGER) is
-		do
-			count := count + 1
-			append_u2(storage, name_idx)
-			-- attributes_count :
-			-- include this?         append_u2(storage,0)
-		end
+   add (name_idx: INTEGER) is
+      do
+         count := count + 1
+         append_u2(storage, name_idx)
+         -- attributes_count :
+         -- include this?         append_u2(storage,0)
+      end
 
 end -- class INTERFACE_INFO
 --

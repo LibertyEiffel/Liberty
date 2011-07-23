@@ -4,14 +4,14 @@
 deferred class DYNAMIC_DISPATCH_TEMPORARY2_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-	visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class DYNAMIC_DISPATCH_TEMPORARY2_VISITOR
 --

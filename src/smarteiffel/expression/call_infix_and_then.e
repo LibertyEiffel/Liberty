@@ -2,108 +2,108 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_AND_THEN
-	--
-	--   Infix operator : "and then".
-	--
+   --
+   --   Infix operator : "and then".
+   --
 
 inherit
-	CALL_INFIX
-		redefine inline_dynamic_dispatch_
-		end
+   CALL_INFIX
+      redefine inline_dynamic_dispatch_
+      end
 
 creation {EIFFEL_PARSER, IFTHEN, INTROSPECTION_HANDLER}
-	make
+   make
 
 creation {AGENT_CREATION}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 5
+   precedence: INTEGER is 5
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	operator: STRING is
-		do
-			Result := as_and_then
-		end
+   operator: STRING is
+      do
+         Result := as_and_then
+      end
 
-	compile_to_jvm (type: TYPE) is
-		local
-			failure, point2: INTEGER; ca: like code_attribute
-		do
-			ca := code_attribute
-			target.compile_to_jvm(type)
-			failure := ca.opcode_ifeq
-			arg1.compile_to_jvm(type)
-			point2 := ca.opcode_goto
-			ca.resolve_u2_branch(failure)
-			ca.opcode_iconst_0
-			ca.resolve_u2_branch(point2)
-		end
+   compile_to_jvm (type: TYPE) is
+      local
+         failure, point2: INTEGER; ca: like code_attribute
+      do
+         ca := code_attribute
+         target.compile_to_jvm(type)
+         failure := ca.opcode_ifeq
+         arg1.compile_to_jvm(type)
+         point2 := ca.opcode_goto
+         ca.resolve_u2_branch(failure)
+         ca.opcode_iconst_0
+         ca.resolve_u2_branch(point2)
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
-	accept (visitor: CALL_INFIX_AND_THEN_VISITOR) is
-		do
-			visitor.visit_call_infix_and_then(Current)
-		end
+   accept (visitor: CALL_INFIX_AND_THEN_VISITOR) is
+      do
+         visitor.visit_call_infix_and_then(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		local
-			left: like target; right: like arg1; compound: INSTRUCTION; ifthen: IFTHEN
-			sp: POSITION; internal_local2: INTERNAL_LOCAL2
-		do
-			sp := feature_name.start_position
-			target.inline_dynamic_dispatch_(code_accumulator, type)
-			left := code_accumulator.current_context.last.to_expression
-			code_accumulator.current_context.remove_last
-			check
-				left.resolve_in(type).is_boolean
-			end
-			create internal_local2.make(sp, Current, feature_name.to_string, True)
-			code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, left))
-			-- New context for the righ-hand side:
-			code_accumulator.open_new_context
-			arg1.inline_dynamic_dispatch_(code_accumulator, type)
-			right := code_accumulator.current_context.last.to_expression
-			code_accumulator.current_context.remove_last
-			check
-				right.resolve_in(type).is_boolean
-			end
-			code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, right))
-			compound := code_accumulator.current_context_to_instruction
-			code_accumulator.close_current_context
-			-- Non inlining the "and then" with an IFTHEN:
-			create ifthen.make(sp, internal_local2, compound)
-			code_accumulator.current_context.add_last(ifthen)
-			-- Adding the final result:
-			code_accumulator.current_context.add_last(internal_local2)
-		end
-			
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         left: like target; right: like arg1; compound: INSTRUCTION; ifthen: IFTHEN
+         sp: POSITION; internal_local2: INTERNAL_LOCAL2
+      do
+         sp := feature_name.start_position
+         target.inline_dynamic_dispatch_(code_accumulator, type)
+         left := code_accumulator.current_context.last.to_expression
+         code_accumulator.current_context.remove_last
+         check
+            left.resolve_in(type).is_boolean
+         end
+         create internal_local2.make(sp, Current, feature_name.to_string, True)
+         code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, left))
+         -- New context for the righ-hand side:
+         code_accumulator.open_new_context
+         arg1.inline_dynamic_dispatch_(code_accumulator, type)
+         right := code_accumulator.current_context.last.to_expression
+         code_accumulator.current_context.remove_last
+         check
+            right.resolve_in(type).is_boolean
+         end
+         code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, right))
+         compound := code_accumulator.current_context_to_instruction
+         code_accumulator.close_current_context
+         -- Non inlining the "and then" with an IFTHEN:
+         create ifthen.make(sp, internal_local2, compound)
+         code_accumulator.current_context.add_last(ifthen)
+         -- Adding the final result:
+         code_accumulator.current_context.add_last(internal_local2)
+      end
+         
 feature {}
-	make (left: like target; operator_position: POSITION; right: like arg1) is
-		require
-			left /= Void
-			not operator_position.is_unknown
-			right /= Void
-		do
-			target := left
-			create feature_name.infix_name(and_then_name, operator_position)
-			create arguments.make_1(right)
-		ensure
-			target = left
-			start_position = operator_position
-			arguments.first = right
-		end
+   make (left: like target; operator_position: POSITION; right: like arg1) is
+      require
+         left /= Void
+         not operator_position.is_unknown
+         right /= Void
+      do
+         target := left
+         create feature_name.infix_name(and_then_name, operator_position)
+         create arguments.make_1(right)
+      ensure
+         target = left
+         start_position = operator_position
+         arguments.first = right
+      end
 
 end -- class CALL_INFIX_AND_THEN
 --

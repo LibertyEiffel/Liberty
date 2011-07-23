@@ -2,371 +2,371 @@
 -- See the Copyright notice at the end of this file.
 --
 class CREATION_CLAUSE
-	--
-	-- The store the contents of one creation clause.
-	--   example 1
-	--                creation {ANY} make
-	--   example 2
-	--                creation make, foo
-	--   example 3
-	--                creation {FOO, ANY} make, foo
-	--   example 4
-	--                creation
-	--
-	-- Note : The original text of the source file can be stored
-	--        for pretty pretty_printing to be fine.
-	--
+   --
+   -- The store the contents of one creation clause.
+   --   example 1
+   --                creation {ANY} make
+   --   example 2
+   --                creation make, foo
+   --   example 3
+   --                creation {FOO, ANY} make, foo
+   --   example 4
+   --                creation
+   --
+   -- Note : The original text of the source file can be stored
+   --        for pretty pretty_printing to be fine.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the "creation" keyword.
+   start_position: POSITION
+         -- Of the "creation" keyword.
 
-	clients: CLIENT_LIST
+   clients: CLIENT_LIST
 
-	comment: COMMENT
+   comment: COMMENT
 
 feature {}
-	make (sp: like start_position; c: like clients; cm: like comment; pl: like procedure_list) is
-		require
-			not sp.is_unknown
-			c /= Void
-			pl /= Void
-		do
-			start_position := sp
-			clients := c
-			comment := cm
-			procedure_list := pl
-		ensure
-			clients = c
-			comment = cm
-			procedure_list = pl
-		end
+   make (sp: like start_position; c: like clients; cm: like comment; pl: like procedure_list) is
+      require
+         not sp.is_unknown
+         c /= Void
+         pl /= Void
+      do
+         start_position := sp
+         clients := c
+         comment := cm
+         procedure_list := pl
+      ensure
+         clients = c
+         comment = cm
+         procedure_list = pl
+      end
 
 feature {ANY}
-	pretty is
-		do
-			if not pretty_printer.zen_mode then
-				pretty_printer.skip_one_line
-			end
-			pretty_printer.set_indent_level(0)
-			pretty_printer.keyword(once "creation")
-			if clients /= Void then
-				clients.pretty(1)
-			end
-			if comment /= Void then
-				comment.pretty(1)
-			end
-			pretty_printer.set_indent_level(1)
-			procedure_list.pretty(1)
-		end
+   pretty is
+      do
+         if not pretty_printer.zen_mode then
+            pretty_printer.skip_one_line
+         end
+         pretty_printer.set_indent_level(0)
+         pretty_printer.keyword(once "creation")
+         if clients /= Void then
+            clients.pretty(1)
+         end
+         if comment /= Void then
+            comment.pretty(1)
+         end
+         pretty_printer.set_indent_level(1)
+         procedure_list.pretty(1)
+      end
 
-	short (heading_done: BOOLEAN; client: CLASS_NAME): BOOLEAN is
-			-- True when at least one creation list is printed.
-		require
-			not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
-		local
-			i: INTEGER; fn: FEATURE_NAME; mgs: MANIFEST_GENERIC_SAMPLE_PRINTER
-		do
-			if client = Void or else clients.gives_permission_to(client) then
-				if not heading_done then
-					short_printer.hook_or("hook100", "creation%N")
-				end
-				from
-					i := 1
-				until
-					i > procedure_list.count
-				loop
-					fn := procedure_list.item(i)
-					if fn.to_string /= as_manifest_creation then
-						short_printer.put_feature_1(fn)
-					else
-						create mgs
-						mgs.display_manifest_generic_for(start_position.class_text.declaration_type_of_like_current)
-					end
-					i := i + 1
-				end
-				short_printer.hook_or("hook101", "")
-				Result := True
-			end
-		ensure
-			not_done_to_report_errors: error_handler.is_empty
-		end
+   short (heading_done: BOOLEAN; client: CLASS_NAME): BOOLEAN is
+         -- True when at least one creation list is printed.
+      require
+         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
+      local
+         i: INTEGER; fn: FEATURE_NAME; mgs: MANIFEST_GENERIC_SAMPLE_PRINTER
+      do
+         if client = Void or else clients.gives_permission_to(client) then
+            if not heading_done then
+               short_printer.hook_or("hook100", "creation%N")
+            end
+            from
+               i := 1
+            until
+               i > procedure_list.count
+            loop
+               fn := procedure_list.item(i)
+               if fn.to_string /= as_manifest_creation then
+                  short_printer.put_feature_1(fn)
+               else
+                  create mgs
+                  mgs.display_manifest_generic_for(start_position.class_text.declaration_type_of_like_current)
+               end
+               i := i + 1
+            end
+            short_printer.hook_or("hook101", "")
+            Result := True
+         end
+      ensure
+         not_done_to_report_errors: error_handler.is_empty
+      end
 
-	has (fn: FEATURE_NAME): BOOLEAN is
-		require
-			fn /= Void
-		do
-			Result := procedure_list.has(fn)
-		end
+   has (fn: FEATURE_NAME): BOOLEAN is
+      require
+         fn /= Void
+      do
+         Result := procedure_list.has(fn)
+      end
 
 feature {CREATION_CLAUSE_LIST, CREATION_CLAUSE_VISITOR}
-	procedure_list: FEATURE_NAME_LIST
+   procedure_list: FEATURE_NAME_LIST
 
 feature {ANY}
-	accept (visitor: CREATION_CLAUSE_VISITOR) is
-		do
-			visitor.visit_creation_clause(Current)
-		end
+   accept (visitor: CREATION_CLAUSE_VISITOR) is
+      do
+         visitor.visit_creation_clause(Current)
+      end
 
 feature {CREATION_CLAUSE_LIST}
-	default_root: STRING is
-			-- Return the default creation procedure name to be used as the root procedure (the execution
-			-- entry point of the system).
-		do
-			if procedure_list.has_make then
-				Result := as_make
-			else
-				Result := procedure_list.first.to_string
-			end
-		end
+   default_root: STRING is
+         -- Return the default creation procedure name to be used as the root procedure (the execution
+         -- entry point of the system).
+      do
+         if procedure_list.has_make then
+            Result := as_make
+         else
+            Result := procedure_list.first.to_string
+         end
+      end
 
-	root_creation_search (a_name: STRING): FEATURE_NAME is
-		do
-			Result := procedure_list.root_creation_search(a_name)
-		end
+   root_creation_search (a_name: STRING): FEATURE_NAME is
+      do
+         Result := procedure_list.root_creation_search(a_name)
+      end
 
-	check_for (type: TYPE) is
-		require
-			start_position.class_text = type.class_text
-		local
-			i: INTEGER; af: ANONYMOUS_FEATURE; fs: FEATURE_STAMP; fn: FEATURE_NAME
-		do
-			from
-				i := procedure_list.count
-			until
-				i = 0
-			loop
-				fn := procedure_list.item(i)
-				if fn.to_string = as_manifest_creation then
-					if type.is_expanded and then not type.is_native_array then
-						error_handler.add_position(start_position)
-						error_handler.append("Manifest generic creation not yet implemented for expanded types (")
-						error_handler.append(type.name.to_string)
-						error_handler.append(" is expanded).")
-						error_handler.print_as_fatal_error
-					end
-					check_manifest_make(type, fn)
-					check_manifest_put(type, fn)
-					check_manifest_semicolon_check(type, fn)
-				else
-					fs := type.lookup(fn)
-					if fs = Void then
-						error_handler.add_position(fn.start_position)
-						error_handler.append("Creation procedure not found.")
-						error_handler.print_as_fatal_error
-					end
-					af := fs.anonymous_feature(type)
-					if af.result_type /= Void then
-						error_handler.add_position(fn.start_position)
-						error_handler.add_position(af.start_position)
-						error_handler.append("Invalid creation procedure. A function is not allowed %
-													%as a creation procedure.")
-						error_handler.print_as_error
-					end
-					if {ONCE_PROCEDURE} ?:= af then
-						error_handler.add_position(fn.start_position)
-						error_handler.add_position(af.start_position)
-						error_handler.append("Invalid creation procedure. A %"once%" procedure is not allowed %
-													%as a creation procedure.")
-						error_handler.print_as_error
-					end
-				end
-				i := i - 1
-			end
-		end
+   check_for (type: TYPE) is
+      require
+         start_position.class_text = type.class_text
+      local
+         i: INTEGER; af: ANONYMOUS_FEATURE; fs: FEATURE_STAMP; fn: FEATURE_NAME
+      do
+         from
+            i := procedure_list.count
+         until
+            i = 0
+         loop
+            fn := procedure_list.item(i)
+            if fn.to_string = as_manifest_creation then
+               if type.is_expanded and then not type.is_native_array then
+                  error_handler.add_position(start_position)
+                  error_handler.append("Manifest generic creation not yet implemented for expanded types (")
+                  error_handler.append(type.name.to_string)
+                  error_handler.append(" is expanded).")
+                  error_handler.print_as_fatal_error
+               end
+               check_manifest_make(type, fn)
+               check_manifest_put(type, fn)
+               check_manifest_semicolon_check(type, fn)
+            else
+               fs := type.lookup(fn)
+               if fs = Void then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.append("Creation procedure not found.")
+                  error_handler.print_as_fatal_error
+               end
+               af := fs.anonymous_feature(type)
+               if af.result_type /= Void then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.add_position(af.start_position)
+                  error_handler.append("Invalid creation procedure. A function is not allowed %
+                                       %as a creation procedure.")
+                  error_handler.print_as_error
+               end
+               if {ONCE_PROCEDURE} ?:= af then
+                  error_handler.add_position(fn.start_position)
+                  error_handler.add_position(af.start_position)
+                  error_handler.append("Invalid creation procedure. A %"once%" procedure is not allowed %
+                                       %as a creation procedure.")
+                  error_handler.print_as_error
+               end
+            end
+            i := i - 1
+         end
+      end
 
-	extra_expanded_check (type: TYPE; default_creation_procedure: FEATURE_NAME): FEATURE_NAME is
-			-- If not Void, the `default_creation_procedure' comes from another CREATION_CLAUSE.
-		require
-			type.is_user_expanded
-		local
-			fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; fn: FEATURE_NAME; i: INTEGER
-		do
-			from
-				i := procedure_list.count
-			until
-				i = 0
-			loop
-				fn := procedure_list.item(i)
-				-- Using `search' here because the existance of all creation procedures is done 
-				-- for all TYPEs (reference and expanded as well) somewhere else:
-				fs := type.search(fn)
-				if fs /= Void then
-					af := fs.anonymous_feature(type)
-					if af.arguments = Void then
-						-- It is a possible default creation procedure.
-						if default_creation_procedure = Void and then Result = Void then
-							Result := fn
-						else
-							error_handler.add_position(fn.start_position)
-							error_handler.add_position(af.start_position)
-							if default_creation_procedure /= Void then
-								error_handler.add_position(default_creation_procedure.start_position)
-							else
-								error_handler.add_position(Result.start_position)
-								fs := type.search(Result)
-								af := fs.anonymous_feature(type)
-								error_handler.add_position(af.start_position)
-							end
-							error_handler.append("Found two possible default creation procedures for expanded type ")
-							error_handler.append(type.name.to_string)
-							error_handler.append(". An expanded type must have one unique creation procedure with no %
-														%argument: the creation procedure used for automatic initialization.")
-							error_handler.print_as_fatal_error
-						end
-					end
-				end
-				i := i - 1
-			end
-		end
+   extra_expanded_check (type: TYPE; default_creation_procedure: FEATURE_NAME): FEATURE_NAME is
+         -- If not Void, the `default_creation_procedure' comes from another CREATION_CLAUSE.
+      require
+         type.is_user_expanded
+      local
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; fn: FEATURE_NAME; i: INTEGER
+      do
+         from
+            i := procedure_list.count
+         until
+            i = 0
+         loop
+            fn := procedure_list.item(i)
+            -- Using `search' here because the existance of all creation procedures is done 
+            -- for all TYPEs (reference and expanded as well) somewhere else:
+            fs := type.search(fn)
+            if fs /= Void then
+               af := fs.anonymous_feature(type)
+               if af.arguments = Void then
+                  -- It is a possible default creation procedure.
+                  if default_creation_procedure = Void and then Result = Void then
+                     Result := fn
+                  else
+                     error_handler.add_position(fn.start_position)
+                     error_handler.add_position(af.start_position)
+                     if default_creation_procedure /= Void then
+                        error_handler.add_position(default_creation_procedure.start_position)
+                     else
+                        error_handler.add_position(Result.start_position)
+                        fs := type.search(Result)
+                        af := fs.anonymous_feature(type)
+                        error_handler.add_position(af.start_position)
+                     end
+                     error_handler.append("Found two possible default creation procedures for expanded type ")
+                     error_handler.append(type.name.to_string)
+                     error_handler.append(". An expanded type must have one unique creation procedure with no %
+                                          %argument: the creation procedure used for automatic initialization.")
+                     error_handler.print_as_fatal_error
+                  end
+               end
+            end
+            i := i - 1
+         end
+      end
 
-	user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP is
-			-- Must be called after `extra_expanded_check'.
-		require
-			type.is_user_expanded
-		local
-			i: INTEGER; fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
-		do
-			from
-				i := procedure_list.count
-			until
-				(i = 0) or else Result /= Void
-			loop
-				fs := type.lookup(procedure_list.item(i))
-				af := fs.anonymous_feature(type)
-				check
-					-- Already check that:
-					af.result_type = Void
-				end
-				if af.arguments = Void then
-					Result := fs
-				end
-				i := i - 1
-			end
-		end
+   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP is
+         -- Must be called after `extra_expanded_check'.
+      require
+         type.is_user_expanded
+      local
+         i: INTEGER; fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
+      do
+         from
+            i := procedure_list.count
+         until
+            (i = 0) or else Result /= Void
+         loop
+            fs := type.lookup(procedure_list.item(i))
+            af := fs.anonymous_feature(type)
+            check
+               -- Already check that:
+               af.result_type = Void
+            end
+            if af.arguments = Void then
+               Result := fs
+            end
+            i := i - 1
+         end
+      end
 
 feature {}
-	check_manifest_make(t: TYPE; fn: FEATURE_NAME) is
-		local
-			fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
-		do
-			if t.has_simple_feature_name(manifest_make_name) then
-				fs := t.feature_stamp_of(manifest_make_name)
-				af := fs.anonymous_feature_if_exist(t)
-			end
-			if af = Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.append("Class ")
-				error_handler.append(t.class_text.name.to_string)
-				error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
-											%of feature `manifest_make').")
-				error_handler.print_as_fatal_error
-			end
-			if af.result_type /= Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("Feature `manifest_make' must be a procedure.")
-				error_handler.print_as_fatal_error
-			end
-			formal_arg_list := af.arguments
-			if formal_arg_list = Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("Feature `manifest_make' must have at least one INTEGER argument.")
-				error_handler.print_as_fatal_error
-			end
-			if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("First argument of `manifest_make' must be an INTEGER.")
-				error_handler.print_as_fatal_error
-			end
-		end
+   check_manifest_make(t: TYPE; fn: FEATURE_NAME) is
+      local
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
+      do
+         if t.has_simple_feature_name(manifest_make_name) then
+            fs := t.feature_stamp_of(manifest_make_name)
+            af := fs.anonymous_feature_if_exist(t)
+         end
+         if af = Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.append("Class ")
+            error_handler.append(t.class_text.name.to_string)
+            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+                                 %of feature `manifest_make').")
+            error_handler.print_as_fatal_error
+         end
+         if af.result_type /= Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("Feature `manifest_make' must be a procedure.")
+            error_handler.print_as_fatal_error
+         end
+         formal_arg_list := af.arguments
+         if formal_arg_list = Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("Feature `manifest_make' must have at least one INTEGER argument.")
+            error_handler.print_as_fatal_error
+         end
+         if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("First argument of `manifest_make' must be an INTEGER.")
+            error_handler.print_as_fatal_error
+         end
+      end
 
-	check_manifest_put(t: TYPE; fn: FEATURE_NAME) is
-		local
-			fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
-		do
-			if t.has_simple_feature_name(manifest_put_name) then
-				fs := t.feature_stamp_of(manifest_put_name)
-				af := fs.anonymous_feature_if_exist(t)
-			end
-			if af = Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.append("Class ")
-				error_handler.append(t.class_text.name.to_string)
-				error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
-											%of feature `manifest_put').")
-				error_handler.print_as_fatal_error
-			end
-			if af.result_type /= Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("Feature `manifest_put' must be a procedure.")
-				error_handler.print_as_fatal_error
-			end
-			formal_arg_list := af.arguments
-			if formal_arg_list = Void or else formal_arg_list.count < 2 then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("Feature `manifest_put' must have at least two argument and the first %
-											%one must be an INTEGER argument.")
-				error_handler.print_as_fatal_error
-			end
-			if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("First argument of `manifest_put' must be an INTEGER.")
-				error_handler.print_as_fatal_error
-			end
-		end
+   check_manifest_put(t: TYPE; fn: FEATURE_NAME) is
+      local
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
+      do
+         if t.has_simple_feature_name(manifest_put_name) then
+            fs := t.feature_stamp_of(manifest_put_name)
+            af := fs.anonymous_feature_if_exist(t)
+         end
+         if af = Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.append("Class ")
+            error_handler.append(t.class_text.name.to_string)
+            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+                                 %of feature `manifest_put').")
+            error_handler.print_as_fatal_error
+         end
+         if af.result_type /= Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("Feature `manifest_put' must be a procedure.")
+            error_handler.print_as_fatal_error
+         end
+         formal_arg_list := af.arguments
+         if formal_arg_list = Void or else formal_arg_list.count < 2 then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("Feature `manifest_put' must have at least two argument and the first %
+                                 %one must be an INTEGER argument.")
+            error_handler.print_as_fatal_error
+         end
+         if not formal_arg_list.type_mark(1).resolve_in(t).is_integer then
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("First argument of `manifest_put' must be an INTEGER.")
+            error_handler.print_as_fatal_error
+         end
+      end
 
-	check_manifest_semicolon_check(t: TYPE; fn: FEATURE_NAME) is
-		local
-			fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
-			cst_att_integer: CST_ATT_INTEGER; integer_constant: INTEGER_CONSTANT
-		do
-			if t.has_simple_feature_name(manifest_semicolon_check_name) then
-				fs := t.feature_stamp_of(manifest_semicolon_check_name)
-				af := fs.anonymous_feature_if_exist(t)
-			end
-			if af = Void then
-				error_handler.add_position(fn.start_position)
-				error_handler.append("Class ")
-				error_handler.append(t.class_text.name.to_string)
-				error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
-											%of feature `manifest_semicolon_check').")
-				error_handler.print_as_fatal_error
-			end
-			if {CST_ATT_INTEGER} ?:= af then
-				cst_att_integer ::= af
-				integer_constant ::= cst_att_integer.value
-				if integer_constant.value_memory <= 1 then
-					error_handler.add_position(integer_constant.start_position)
-					error_handler.append("Invalid manifest equipment (must be greater than 1).")
-					error_handler.print_as_fatal_error
-				end
-			elseif not {CST_ATT_BOOLEAN} ?:= af then
-				error_handler.add_position(start_position)
-				error_handler.add_position(af.start_position)
-				error_handler.append("Feature `manifest_semicolon_check' must be a constant (INTEGER or BOOLEAN).")
-				error_handler.print_as_fatal_error
-			end
-		end
+   check_manifest_semicolon_check(t: TYPE; fn: FEATURE_NAME) is
+      local
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
+         cst_att_integer: CST_ATT_INTEGER; integer_constant: INTEGER_CONSTANT
+      do
+         if t.has_simple_feature_name(manifest_semicolon_check_name) then
+            fs := t.feature_stamp_of(manifest_semicolon_check_name)
+            af := fs.anonymous_feature_if_exist(t)
+         end
+         if af = Void then
+            error_handler.add_position(fn.start_position)
+            error_handler.append("Class ")
+            error_handler.append(t.class_text.name.to_string)
+            error_handler.append(" not correctly equiped for manifest generic creation (missing definition %
+                                 %of feature `manifest_semicolon_check').")
+            error_handler.print_as_fatal_error
+         end
+         if {CST_ATT_INTEGER} ?:= af then
+            cst_att_integer ::= af
+            integer_constant ::= cst_att_integer.value
+            if integer_constant.value_memory <= 1 then
+               error_handler.add_position(integer_constant.start_position)
+               error_handler.append("Invalid manifest equipment (must be greater than 1).")
+               error_handler.print_as_fatal_error
+            end
+         elseif not {CST_ATT_BOOLEAN} ?:= af then
+            error_handler.add_position(start_position)
+            error_handler.add_position(af.start_position)
+            error_handler.append("Feature `manifest_semicolon_check' must be a constant (INTEGER or BOOLEAN).")
+            error_handler.print_as_fatal_error
+         end
+      end
 
 invariant
-	clients /= Void
+   clients /= Void
 
-	procedure_list /= Void
-	
+   procedure_list /= Void
+   
 end -- class CREATION_CLAUSE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

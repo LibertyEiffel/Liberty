@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class DEFERRED_PROCEDURE
-	--
-	-- For deferred routines.
-	--
+   --
+   -- For deferred routines.
+   --
 
 inherit
-	DEFERRED_ROUTINE
+   DEFERRED_ROUTINE
 
 creation {ANY}
-	make, from_effective
+   make, from_effective
 
 feature {ANY}
-	result_type: TYPE_MARK is
-		do
-		end
+   result_type: TYPE_MARK is
+      do
+      end
 
-	from_effective (fn: FEATURE_NAME; fa: like arguments; ra: like require_assertion; ea: like ensure_assertion
-		bc: like class_text; pe: like permissions) is
-		do
-			feature_text := bc.non_written(fn, Current)
-			make_routine(fa, Void, Void, ra)
-			permissions := pe
-			if ea /= Void then
-				set_ensure_assertion(ea)
-			end
-		end
+   from_effective (fn: FEATURE_NAME; fa: like arguments; ra: like require_assertion; ea: like ensure_assertion
+      bc: like class_text; pe: like permissions) is
+      do
+         feature_text := bc.non_written(fn, Current)
+         make_routine(fa, Void, Void, ra)
+         permissions := pe
+         if ea /= Void then
+            set_ensure_assertion(ea)
+         end
+      end
 
 feature {ANY}
-	accept (visitor: DEFERRED_PROCEDURE_VISITOR) is
-		do
-			visitor.visit_deferred_procedure(Current)
-		end
+   accept (visitor: DEFERRED_PROCEDURE_VISITOR) is
+      do
+         visitor.visit_deferred_procedure(Current)
+      end
 
 feature {}
-	make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
-		do
-			make_routine(fa, om, hc, ra)
-		end
+   make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
+      do
+         make_routine(fa, om, hc, ra)
+      end
 
 end -- class DEFERRED_PROCEDURE
 --

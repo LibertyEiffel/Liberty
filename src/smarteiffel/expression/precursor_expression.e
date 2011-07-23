@@ -2,142 +2,142 @@
 -- See the Copyright notice at the end of this file.
 --
 class PRECURSOR_EXPRESSION
-	--
-	-- Handling of the `Precursor' function call.
-	--
+   --
+   -- Handling of the `Precursor' function call.
+   --
 
 inherit
-	EXPRESSION
-	PRECURSOR_CALL
+   EXPRESSION
+   PRECURSOR_CALL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	is_current: BOOLEAN is False
+   is_current: BOOLEAN is False
 
-	is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
 
-	is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN is False
 
-	is_result: BOOLEAN is False
+   is_result: BOOLEAN is False
 
-	is_void: BOOLEAN is False
+   is_void: BOOLEAN is False
 
-	is_static: BOOLEAN is False
+   is_static: BOOLEAN is False
 
-	is_writable: BOOLEAN is False
+   is_writable: BOOLEAN is False
 
-	extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
 
-	declaration_type: TYPE is
-		do
-			Result := specialized_anonymous_feature.result_type.declaration_type.type
-		end
+   declaration_type: TYPE is
+      do
+         Result := specialized_anonymous_feature.result_type.declaration_type.type
+      end
 
-	resolve_in (type: TYPE): TYPE is
-		do
-			Result := specialized_anonymous_feature.result_type.resolve_in(type)
-		end
+   resolve_in (type: TYPE): TYPE is
+      do
+         Result := specialized_anonymous_feature.result_type.resolve_in(type)
+      end
 
-	non_void_no_dispatch_type (type: TYPE): TYPE is
-		do
-			--|*** To be done. *** (Dom. june 18th 2004) ***
-		end
+   non_void_no_dispatch_type (type: TYPE): TYPE is
+      do
+         --|*** To be done. *** (Dom. june 18th 2004) ***
+      end
 
-	precedence: INTEGER is
-		do
-			Result := dot_precedence
-		end
+   precedence: INTEGER is
+      do
+         Result := dot_precedence
+      end
 
-	mapping_c_target (type, formal_target_type: TYPE) is
-		do
-			standard_mapping_c_target(type, formal_target_type)
-		end
+   mapping_c_target (type, formal_target_type: TYPE) is
+      do
+         standard_mapping_c_target(type, formal_target_type)
+      end
 
-	mapping_c_arg (type: TYPE) is
-		do
-			compile_to_c(type)
-		end
+   mapping_c_arg (type: TYPE) is
+      do
+         compile_to_c(type)
+      end
 
-	compile_target_to_jvm (type: TYPE) is
-		do
-			standard_compile_target_to_jvm(type)
-		end
+   compile_target_to_jvm (type: TYPE) is
+      do
+         standard_compile_target_to_jvm(type)
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			compile_to_jvm(type)
-			Result := code_attribute.opcode_ifeq
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         compile_to_jvm(type)
+         Result := code_attribute.opcode_ifeq
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			compile_to_jvm(type)
-			Result := code_attribute.opcode_ifne
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         compile_to_jvm(type)
+         Result := code_attribute.opcode_ifne
+      end
 
-	jvm_assign_creation, jvm_assign (type: TYPE) is
-		do
-			check
-				False
-			end
-		end
+   jvm_assign_creation, jvm_assign (type: TYPE) is
+      do
+         check
+            False
+         end
+      end
 
-	pretty (indent_level: INTEGER) is
-		do
-			pretty_(indent_level)
-		end
+   pretty (indent_level: INTEGER) is
+      do
+         pretty_(indent_level)
+      end
 
-	bracketed_pretty (indent_level: INTEGER) is
-		do
-			pretty(indent_level)
-		end
+   bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty(indent_level)
+      end
 
-	pretty_target (indent_level: INTEGER) is
-		do
-			pretty(indent_level)
-			pretty_printer.put_character('.')
-		end
+   pretty_target (indent_level: INTEGER) is
+      do
+         pretty(indent_level)
+         pretty_printer.put_character('.')
+      end
 
-	short (type: TYPE) is
-		do
-			if parent /= Void then
-				short_printer.hook_or(once "open_curly_bracket", once "{")
-				parent.short(type)
-				short_printer.hook_or(once "close_curly_bracket", once "}")
-			end
-			short_printer.hook_or(as_precursor, as_precursor)
-			if arguments /= Void then
-				arguments.short(type)
-			end
-		end
+   short (type: TYPE) is
+      do
+         if parent /= Void then
+            short_printer.hook_or(once "open_curly_bracket", once "{")
+            parent.short(type)
+            short_printer.hook_or(once "close_curly_bracket", once "}")
+         end
+         short_printer.hook_or(as_precursor, as_precursor)
+         if arguments /= Void then
+            arguments.short(type)
+         end
+      end
 
-	short_target (type: TYPE) is
-		do
-			short(type)
-			short_printer.put_dot
-		end
+   short_target (type: TYPE) is
+      do
+         short(type)
+         short_printer.put_dot
+      end
 
-	collect (t: TYPE): TYPE is
-		do
-			--|*** Attention ici on fait simple : si le Precursor s'appelle
-			--| lui-même, la liaison dynamique est suivie (-> rappel de la
-			--| fonction redéfinie).
-			--| Le choix contraire (qui consiste à dire qu'il s'agit d'un double
-			--| héritage + redéfinition => suivre "la bonne branche") est très
-			--| complexe à implanter, est-ce utile ?
-			specialized_anonymous_feature.collect(t)
-			Result := specialized_anonymous_feature.result_type.resolve_in(t)
-			if arguments /= Void then
-				arguments.simple_collect(t, specialized_anonymous_feature.arguments)
-			end
-		end
+   collect (t: TYPE): TYPE is
+      do
+         --|*** Attention ici on fait simple : si le Precursor s'appelle
+         --| lui-même, la liaison dynamique est suivie (-> rappel de la
+         --| fonction redéfinie).
+         --| Le choix contraire (qui consiste à dire qu'il s'agit d'un double
+         --| héritage + redéfinition => suivre "la bonne branche") est très
+         --| complexe à implanter, est-ce utile ?
+         specialized_anonymous_feature.collect(t)
+         Result := specialized_anonymous_feature.result_type.resolve_in(t)
+         if arguments /= Void then
+            arguments.simple_collect(t, specialized_anonymous_feature.arguments)
+         end
+      end
 
-	accept (visitor: PRECURSOR_EXPRESSION_VISITOR) is
-		do
-			visitor.visit_precursor_expression(Current)
-		end
+   accept (visitor: PRECURSOR_EXPRESSION_VISITOR) is
+      do
+         visitor.visit_precursor_expression(Current)
+      end
 
 end -- class PRECURSOR_EXPRESSION
 --

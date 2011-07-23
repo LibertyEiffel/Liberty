@@ -4,21 +4,21 @@
 class WRITTEN_CURRENT
 
 inherit
-	ABSTRACT_CURRENT
+   ABSTRACT_CURRENT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: WRITTEN_CURRENT_VISITOR) is
-		do
-			visitor.visit_written_current(Current)
-		end
+   accept (visitor: WRITTEN_CURRENT_VISITOR) is
+      do
+         visitor.visit_written_current(Current)
+      end
 
-	is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
 
 feature {}
-	is_written: BOOLEAN is True
+   is_written: BOOLEAN is True
 
 end -- class WRITTEN_CURRENT
 --

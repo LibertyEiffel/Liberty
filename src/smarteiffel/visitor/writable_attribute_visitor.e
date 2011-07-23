@@ -4,14 +4,14 @@
 deferred class WRITABLE_ATTRIBUTE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {WRITABLE_ATTRIBUTE}
-	visit_writable_attribute (visited: WRITABLE_ATTRIBUTE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_writable_attribute (visited: WRITABLE_ATTRIBUTE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class WRITABLE_ATTRIBUTE_VISITOR
 --

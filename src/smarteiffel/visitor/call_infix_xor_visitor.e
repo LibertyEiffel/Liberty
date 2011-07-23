@@ -4,14 +4,14 @@
 deferred class CALL_INFIX_XOR_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CALL_INFIX_XOR}
-	visit_call_infix_xor (visited: CALL_INFIX_XOR) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_call_infix_xor (visited: CALL_INFIX_XOR) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CALL_INFIX_XOR_VISITOR
 --

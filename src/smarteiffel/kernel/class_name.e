@@ -2,212 +2,212 @@
 -- See the Copyright notice at the end of this file.
 --
 class CLASS_NAME
-	--
-	-- To store a CLASS_TEXT name with its associated `start_position'.
-	--
+   --
+   -- To store a CLASS_TEXT name with its associated `start_position'.
+   --
 
 inherit
-	NAME
-		redefine is_equal
-		end
-	HASHABLE
+   NAME
+      redefine is_equal
+      end
+   HASHABLE
 
 creation {ANY}
-	make, unknown_position
+   make, unknown_position
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the first character.
+   start_position: POSITION
+         -- Of the first character.
 
-	hashed_name: HASHED_STRING
-			-- The corresponding unique one.
+   hashed_name: HASHED_STRING
+         -- The corresponding unique one.
 
-	to_string: STRING
-			-- The name itself.
+   to_string: STRING
+         -- The name itself.
 
-	hash_code: INTEGER
-			-- A memory cache for `hashed_name.hash_code'.
+   hash_code: INTEGER
+         -- A memory cache for `hashed_name.hash_code'.
 
-	predefined: BOOLEAN is
-			-- All following classes are handled in a special way by the *_TYPE_MARK corresponding class.
-		do
-			inspect
-				to_string
-			when "ANY", "ARRAY", "BOOLEAN", "CHARACTER", "DOUBLE",
-				"INTEGER_8", "INTEGER_16", "INTEGER_32", "INTEGER", "INTEGER_64", "POINTER",
-				"REAL_32", "REAL_64", "REAL_80", "REAL_128", "REAL_EXTENDED", "STRING"
-			 then
-				Result := True
-			else
-				-- Not `predefined'.
-			end
-		end
+   predefined: BOOLEAN is
+         -- All following classes are handled in a special way by the *_TYPE_MARK corresponding class.
+      do
+         inspect
+            to_string
+         when "ANY", "ARRAY", "BOOLEAN", "CHARACTER", "DOUBLE",
+            "INTEGER_8", "INTEGER_16", "INTEGER_32", "INTEGER", "INTEGER_64", "POINTER",
+            "REAL_32", "REAL_64", "REAL_80", "REAL_128", "REAL_EXTENDED", "STRING"
+          then
+            Result := True
+         else
+            -- Not `predefined'.
+         end
+      end
 
-	looks_like_a_formal_generic_name: BOOLEAN is
-		do
-			Result := to_string.last = '_'
-		end
+   looks_like_a_formal_generic_name: BOOLEAN is
+      do
+         Result := to_string.last = '_'
+      end
 
-	class_text: CLASS_TEXT is
-			-- The corresponding one unique instance.
-		do
-			Result := class_text_memory
-			if Result = Void then
-				Result := smart_eiffel.class_text(Current, True)
-				class_text_memory := Result
-			end
-		ensure
-			Result /= Void
-		end
+   class_text: CLASS_TEXT is
+         -- The corresponding one unique instance.
+      do
+         Result := class_text_memory
+         if Result = Void then
+            Result := smart_eiffel.class_text(Current, True)
+            class_text_memory := Result
+         end
+      ensure
+         Result /= Void
+      end
 
-	try_class_text: CLASS_TEXT is
-		require
-			not_done_to_report_errors: error_handler.is_empty
-		do
-			if class_text_memory = Void then
-				if not has_tried_to_load then
-					class_text_memory := smart_eiffel.class_text(Current, False)
-					error_handler.cancel
-					has_tried_to_load := True
-				end
-			end
-			Result := class_text_memory
-		ensure
-			not_done_to_report_errors: error_handler.is_empty
-		end
+   try_class_text: CLASS_TEXT is
+      require
+         not_done_to_report_errors: error_handler.is_empty
+      do
+         if class_text_memory = Void then
+            if not has_tried_to_load then
+               class_text_memory := smart_eiffel.class_text(Current, False)
+               error_handler.cancel
+               has_tried_to_load := True
+            end
+         end
+         Result := class_text_memory
+      ensure
+         not_done_to_report_errors: error_handler.is_empty
+      end
 
-	pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_string(to_string)
-		end
+   pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_string(to_string)
+      end
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := to_string = other.to_string
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := to_string = other.to_string
+      end
 
-	is_tuple_related: BOOLEAN is
-			-- Is it some TUPLE-related name ("TUPLE", "TUPLE 1", "TUPLE 2", etc.)?
-		do
-			Result := hashed_name.is_tuple_related
-		end
+   is_tuple_related: BOOLEAN is
+         -- Is it some TUPLE-related name ("TUPLE", "TUPLE 1", "TUPLE 2", etc.)?
+      do
+         Result := hashed_name.is_tuple_related
+      end
 
-	accept (visitor: CLASS_NAME_VISITOR) is
-		do
-			visitor.visit_class_name(Current)
-		end
+   accept (visitor: CLASS_NAME_VISITOR) is
+      do
+         visitor.visit_class_name(Current)
+      end
 
 feature {SMART_EIFFEL}
-	tuple_count: INTEGER is
-		require
-			is_tuple_related
-		local
-			i: INTEGER; string: STRING
-		do
-			i := to_string.first_index_of(' ')
-			if i /= 0 then
-				string := once ".... local buffer ...."
-				string.clear_count
-				string.append_substring(to_string, i + 1, to_string.count)
-				Result := string.to_integer
-			end
-		end
+   tuple_count: INTEGER is
+      require
+         is_tuple_related
+      local
+         i: INTEGER; string: STRING
+      do
+         i := to_string.first_index_of(' ')
+         if i /= 0 then
+            string := once ".... local buffer ...."
+            string.clear_count
+            string.append_substring(to_string, i + 1, to_string.count)
+            Result := string.to_integer
+         end
+      end
 
 feature {EIFFEL_PARSER, CLASS_TEXT, TYPE_MARK}
-	set_accurate_position (sp: like start_position) is
-		do
-			start_position := sp
-		ensure
-			start_position = sp
-		end
+   set_accurate_position (sp: like start_position) is
+      do
+         start_position := sp
+      ensure
+         start_position = sp
+      end
 
 feature {LIVE_TYPE, ANONYMOUS_FEATURE}
-	get_export_permission_of (other: CLASS_NAME): BOOLEAN is
-		require
-			to_string /= other.to_string
-		local
-			other_class_text: CLASS_TEXT
-		do
-			if as_any = other.to_string then
-				Result := True
-			else
-				other_class_text := other.class_text_memory
-				if other_class_text = Void then
-					other_class_text := smart_eiffel.loaded_class_text(other)
-					if other_class_text /= Void then
-						other.set_class_text_memory(other_class_text)
-					end
-				end
-				if other_class_text /= Void then
-					Result := class_text.get_export_permission_of(other_class_text)
-				end
-			end
-		end
+   get_export_permission_of (other: CLASS_NAME): BOOLEAN is
+      require
+         to_string /= other.to_string
+      local
+         other_class_text: CLASS_TEXT
+      do
+         if as_any = other.to_string then
+            Result := True
+         else
+            other_class_text := other.class_text_memory
+            if other_class_text = Void then
+               other_class_text := smart_eiffel.loaded_class_text(other)
+               if other_class_text /= Void then
+                  other.set_class_text_memory(other_class_text)
+               end
+            end
+            if other_class_text /= Void then
+               Result := class_text.get_export_permission_of(other_class_text)
+            end
+         end
+      end
 
 feature {CLASS_NAME, CLASS_NAME_VISITOR}
-	class_text_memory: CLASS_TEXT
-			-- To cache `class_text' function Result.
+   class_text_memory: CLASS_TEXT
+         -- To cache `class_text' function Result.
 
-	has_tried_to_load: BOOLEAN
+   has_tried_to_load: BOOLEAN
 
 feature {CLASS_NAME}
-	set_class_text_memory (bcm: like class_text_memory) is
-		require
-			bcm /= Void
-			class_text_memory = Void
-		do
-			class_text_memory := bcm
-		ensure
-			class_text_memory = bcm
-		end
+   set_class_text_memory (bcm: like class_text_memory) is
+      require
+         bcm /= Void
+         class_text_memory = Void
+      do
+         class_text_memory := bcm
+      ensure
+         class_text_memory = bcm
+      end
 
 feature {CLASS_NAME_VISITOR, CLASS_TEXT}
-	set_string (s: STRING) is
-		do
-			set_hashed_name(string_aliaser.hashed_string(s))
-		end
+   set_string (s: STRING) is
+      do
+         set_hashed_name(string_aliaser.hashed_string(s))
+      end
 
 feature {INTEGER_TYPE_MARK}
-	set_hashed_name (hn: HASHED_STRING) is
-		require
-			hn /= Void
-		do
-			hashed_name := hn
-			hash_code := hn.hash_code
-			to_string := hn.to_string
-		ensure
-			hashed_name = hn
-			to_string = hashed_name.to_string
-			hash_code = to_string.hash_code
-		end
+   set_hashed_name (hn: HASHED_STRING) is
+      require
+         hn /= Void
+      do
+         hashed_name := hn
+         hash_code := hn.hash_code
+         to_string := hn.to_string
+      ensure
+         hashed_name = hn
+         to_string = hashed_name.to_string
+         hash_code = to_string.hash_code
+      end
 
 feature {}
-	make (hn: like hashed_name; sp: like start_position) is
-		require
-			hn /= Void
-		do
-			set_hashed_name(hn)
-			start_position := sp
-		ensure
-			hashed_name = hn
-			start_position = sp
-			to_string = hashed_name.to_string
-			hash_code = to_string.hash_code
-		end
+   make (hn: like hashed_name; sp: like start_position) is
+      require
+         hn /= Void
+      do
+         set_hashed_name(hn)
+         start_position := sp
+      ensure
+         hashed_name = hn
+         start_position = sp
+         to_string = hashed_name.to_string
+         hash_code = to_string.hash_code
+      end
 
-	unknown_position (hn: like hashed_name) is
-		require
-			hn /= Void
-		local
-			p: POSITION
-		do
-			make(hn, p)
-		ensure
-			hashed_name = hn
-			start_position.is_unknown
-			to_string = hashed_name.to_string
-			hash_code = to_string.hash_code
-		end
+   unknown_position (hn: like hashed_name) is
+      require
+         hn /= Void
+      local
+         p: POSITION
+      do
+         make(hn, p)
+      ensure
+         hashed_name = hn
+         start_position.is_unknown
+         to_string = hashed_name.to_string
+         hash_code = to_string.hash_code
+      end
 
 end -- class CLASS_NAME
 --

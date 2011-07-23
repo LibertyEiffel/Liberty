@@ -4,50 +4,50 @@
 deferred class NON_WRITTEN_INSTRUCTION
 
 inherit
-	INSTRUCTION
+   INSTRUCTION
 
 feature {ANY}
-	has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN is True
 
-	frozen specialize_in (type: TYPE): like Current is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_in (type: TYPE): like Current is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen specialize_2 (type: TYPE): INSTRUCTION is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen specialize_2 (type: TYPE): INSTRUCTION is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen pretty (indent_level: INTEGER) is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen pretty (indent_level: INTEGER) is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen end_mark_comment: BOOLEAN is
-		do
-			check
-				non_written_code: False
-			end
-		end
+   frozen end_mark_comment: BOOLEAN is
+      do
+         check
+            non_written_code: False
+         end
+      end
 
-	frozen compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   frozen compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
 end -- class NON_WRITTEN_INSTRUCTION
 --

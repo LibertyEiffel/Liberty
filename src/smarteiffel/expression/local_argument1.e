@@ -2,115 +2,115 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class LOCAL_ARGUMENT1
-	--
-	-- Common behavior for LOCAL_NAME1 and ARGUMENT_NAME1
-	--
+   --
+   -- Common behavior for LOCAL_NAME1 and ARGUMENT_NAME1
+   --
 
 inherit
-	LOCAL_ARGUMENT
+   LOCAL_ARGUMENT
 
 feature {ANY}
-	hashed_string: HASHED_STRING
-			-- The unique corresponding one for the name of this entity.
+   hashed_string: HASHED_STRING
+         -- The unique corresponding one for the name of this entity.
 
-	to_string: STRING
-			-- An alias of `hashed_string.to_string'.
+   to_string: STRING
+         -- An alias of `hashed_string.to_string'.
 
-	result_type: TYPE_MARK
-			-- The the corresponding written one in the declaration list.
+   result_type: TYPE_MARK
+         -- The the corresponding written one in the declaration list.
 
-	rank: INTEGER
-			-- The `rank' in the corresponding declaration list.
+   rank: INTEGER
+         -- The `rank' in the corresponding declaration list.
 
-	declaration_type: TYPE is
-		do
-			not_yet_implemented
-		end
+   declaration_type: TYPE is
+      do
+         not_yet_implemented
+      end
 
-	specialize_2 (type: TYPE): EXPRESSION is
-		do
-			not_yet_implemented
-		end
+   specialize_2 (type: TYPE): EXPRESSION is
+      do
+         not_yet_implemented
+      end
 
-	resolve_in (type: TYPE): TYPE is
-		do
-			Result := result_type.resolve_in(type)
-		end
+   resolve_in (type: TYPE): TYPE is
+      do
+         Result := result_type.resolve_in(type)
+      end
 
 feature {DECLARATION_LIST}
-	set_rank (r: like rank) is
-		require
-			r >= 1
-		do
-			rank := r
-		ensure
-			rank = r
-		end
+   set_rank (r: like rank) is
+      require
+         r >= 1
+      do
+         rank := r
+      ensure
+         rank = r
+      end
 
 feature {LOCAL_ARGUMENT1, DECLARATION_LIST, DECLARATION}
-	set_result_type (rt: like result_type) is
-		require
-			rt /= Void
-		do
-			result_type := rt
-		ensure
-			result_type = rt
-		end
+   set_result_type (rt: like result_type) is
+      require
+         rt /= Void
+      do
+         result_type := rt
+      ensure
+         result_type = rt
+      end
 
 feature {DECLARATION_LIST}
-	name_clash_check (type: TYPE) is
-			-- Check for name clash between argument/feature or local/feature.
-			-- (Note: clash between local/argument are checked during parsing.)
-		require
-			type /= Void
-		deferred
-		end
+   name_clash_check (type: TYPE) is
+         -- Check for name clash between argument/feature or local/feature.
+         -- (Note: clash between local/argument are checked during parsing.)
+      require
+         type /= Void
+      deferred
+      end
 
 feature {ANY}
-	frozen specialize_in (type: TYPE): like Current is
-		do
-			result_type.specialize_in(type)
-			Result := Current
-		end
+   frozen specialize_in (type: TYPE): like Current is
+      do
+         result_type.specialize_in(type)
+         Result := Current
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		local
-			rt: like result_type
-		do
-			rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
-			if result_type = rt then
-				Result := Current
-			else
-				Result := twin
-				Result.set_result_type(rt)
-			end
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         rt: like result_type
+      do
+         rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
+         if result_type = rt then
+            Result := Current
+         else
+            Result := twin
+            Result.set_result_type(rt)
+         end
+      end
 
-	has_been_specialized: BOOLEAN is
-		do
-			Result := result_type.has_been_specialized
-		end
+   has_been_specialized: BOOLEAN is
+      do
+         Result := result_type.has_been_specialized
+      end
 
-	adapt_for (type: TYPE): like Current is
-		deferred
-		end
-	
+   adapt_for (type: TYPE): like Current is
+      deferred
+      end
+   
 feature {}
-	name_clash_check_ (type: TYPE; msg: STRING) is
-		require
-			type /= Void
-			msg /= Void
-		local
-			fn: FEATURE_NAME
-		do
-			if type.has_simple_feature_name(hashed_string) then
-				fn := type.name_from_string(to_string)
-				error_handler.append(msg)
-				error_handler.add_position(fn.start_position)
-				error_handler.add_position(start_position)
-				error_handler.print_as_fatal_error
-			end
-		end
+   name_clash_check_ (type: TYPE; msg: STRING) is
+      require
+         type /= Void
+         msg /= Void
+      local
+         fn: FEATURE_NAME
+      do
+         if type.has_simple_feature_name(hashed_string) then
+            fn := type.name_from_string(to_string)
+            error_handler.append(msg)
+            error_handler.add_position(fn.start_position)
+            error_handler.add_position(start_position)
+            error_handler.print_as_fatal_error
+         end
+      end
 
 end -- class LOCAL_ARGUMENT1
 --

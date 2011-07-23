@@ -4,14 +4,14 @@
 deferred class PARENT_EDGE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {PARENT_EDGE}
-	visit_parent_edge (visited: PARENT_EDGE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_parent_edge (visited: PARENT_EDGE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class PARENT_EDGE_VISITOR
 --

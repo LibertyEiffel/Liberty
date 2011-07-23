@@ -2,68 +2,68 @@
 -- See the Copyright notice at the end of this file.
 --
 class INDEX_LIST
-	--
-	-- For the indexing clause in the heading part of a class.
-	--
+   --
+   -- For the indexing clause in the heading part of a class.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {CLASS_TEXT}
-	make
+   make
 
 feature {ANY}
-	pretty is
-		local
-			i: INTEGER
-		do
-			pretty_printer.set_indent_level(0)
-			pretty_printer.put_string(once "indexing")
-			pretty_printer.set_indent_level(1)
-			from
-				i := list.lower
-			until
-				i > list.upper
-			loop
-				list.item(i).pretty
-				i := i + 1
-			end
-			pretty_printer.set_indent_level(0)
-		end
+   pretty is
+      local
+         i: INTEGER
+      do
+         pretty_printer.set_indent_level(0)
+         pretty_printer.put_string(once "indexing")
+         pretty_printer.set_indent_level(1)
+         from
+            i := list.lower
+         until
+            i > list.upper
+         loop
+            list.item(i).pretty
+            i := i + 1
+         end
+         pretty_printer.set_indent_level(0)
+      end
 
-	accept (visitor: INDEX_LIST_VISITOR) is
-		do
-			visitor.visit_index_list(Current)
-		end
+   accept (visitor: INDEX_LIST_VISITOR) is
+      do
+         visitor.visit_index_list(Current)
+      end
 
 feature {INDEX_LIST_VISITOR}
-	list: ARRAY[INDEX_CLAUSE]
+   list: ARRAY[INDEX_CLAUSE]
 
 feature {}
-	make (first: INDEX_CLAUSE) is
-		require
-			first /= Void
-		do
-			create list.with_capacity(4, 1)
-			list.add_last(first)
-		ensure
-			list.first = first
-		end
+   make (first: INDEX_CLAUSE) is
+      require
+         first /= Void
+      do
+         create list.with_capacity(4, 1)
+         list.add_last(first)
+      ensure
+         list.first = first
+      end
 
 feature {CLASS_TEXT}
-	add_last (ic: INDEX_CLAUSE) is
-		require
-			ic /= Void
-		do
-			list.add_last(ic)
-		end
+   add_last (ic: INDEX_CLAUSE) is
+      require
+         ic /= Void
+      do
+         list.add_last(ic)
+      end
 
 invariant
-	list.lower = 1
+   list.lower = 1
 
-	not list.is_empty
+   not list.is_empty
 
 end -- class INDEX_LIST
 --

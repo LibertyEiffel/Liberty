@@ -4,43 +4,43 @@
 class MAKE_RELEASE_VISION_GUI
 
 inherit
-	MAKE_RELEASE_GUI
+   MAKE_RELEASE_GUI
 
 insert
-	GRAPHIC
+   GRAPHIC
 
 creation {MAKE_RELEASE}
-	make
+   make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}
-	start (job: MAKE_RELEASE_JOB) is
-		do
-		end
+   start (job: MAKE_RELEASE_JOB) is
+      do
+      end
 
-	set_title (a_message: STRING) is
-		do
-		end
+   set_title (a_message: STRING) is
+      do
+      end
 
-	set_action (a_message: STRING) is
-		do
-		end
+   set_action (a_message: STRING) is
+      do
+      end
 
-	set_progress (a_value, a_max: INTEGER; a_message: STRING) is
-		do
-		end
+   set_progress (a_value, a_max: INTEGER; a_message: STRING) is
+      do
+      end
 
-	die (death_code: INTEGER) is
-		do
-		end
+   die (death_code: INTEGER) is
+      do
+      end
 
-	run_command (a_command: STRING): INTEGER is
-		do
-		end
+   run_command (a_command: STRING): INTEGER is
+      do
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class MAKE_RELEASE_VISION_GUI
 --

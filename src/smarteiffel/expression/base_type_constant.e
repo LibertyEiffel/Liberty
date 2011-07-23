@@ -2,128 +2,128 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class BASE_TYPE_CONSTANT
-	--
-	-- Ancestor of BOOLEAN_CONSTANT, CHARACTER_CONSTANT, INTEGER_CONSTANT and REAL_CONSTANT.
-	--
+   --
+   -- Ancestor of BOOLEAN_CONSTANT, CHARACTER_CONSTANT, INTEGER_CONSTANT and REAL_CONSTANT.
+   --
 
 inherit
-	MANIFEST_EXPRESSION
+   MANIFEST_EXPRESSION
 
 feature {ANY}
-	is_static: BOOLEAN is True
+   is_static: BOOLEAN is True
 
-	is_manifest_string, is_void: BOOLEAN is False
+   is_manifest_string, is_void: BOOLEAN is False
 
-	start_position: POSITION
+   start_position: POSITION
 
-	frozen side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := True
-		end
+   frozen side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := True
+      end
 
-	adapt_for (t: TYPE): like Current is
-		do
-			Result := Current
-		end
+   adapt_for (t: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	frozen safety_check (type: TYPE) is
-		do
-		end
+   frozen safety_check (type: TYPE) is
+      do
+      end
 
-	frozen specialize_in (type: TYPE): like Current is
-		do
-			Result := Current
-		end
+   frozen specialize_in (type: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		do
-			Result := Current
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	frozen specialize_2 (type: TYPE): like Current is
-		do
-			Result := Current
-		end
+   frozen specialize_2 (type: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN is True
 
-	frozen mapping_c_target (type, target_formal_type: TYPE) is
-		do
-			compile_to_c(type)
-		end
+   frozen mapping_c_target (type, target_formal_type: TYPE) is
+      do
+         compile_to_c(type)
+      end
 
-	frozen mapping_c_arg (type: TYPE) is
-		do
-			compile_to_c(type)
-		end
+   frozen mapping_c_arg (type: TYPE) is
+      do
+         compile_to_c(type)
+      end
 
-	frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_string(to_string)
-		end
+   frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_string(to_string)
+      end
 
-	pretty_target (indent_level: INTEGER) is
-		do
-			if extra_bracket_flag then
-				pretty_printer.put_character('(')
-				pretty(indent_level)
-				pretty_printer.put_character(')')
-			else
-				pretty(indent_level)
-			end
-			pretty_printer.put_character('.')
-		end
+   pretty_target (indent_level: INTEGER) is
+      do
+         if extra_bracket_flag then
+            pretty_printer.put_character('(')
+            pretty(indent_level)
+            pretty_printer.put_character(')')
+         else
+            pretty(indent_level)
+         end
+         pretty_printer.put_character('.')
+      end
 
-	frozen short (type: TYPE) is
-		do
-			short_printer.put_base_type_constant(to_string)
-		end
+   frozen short (type: TYPE) is
+      do
+         short_printer.put_base_type_constant(to_string)
+      end
 
-	frozen short_target (type: TYPE) is
-		do
-			short(type)
-			short_printer.put_dot
-		end
+   frozen short_target (type: TYPE) is
+      do
+         short(type)
+         short_printer.put_dot
+      end
 
-	frozen precedence: INTEGER is
-		do
-			Result := atomic_precedence
-		end
+   frozen precedence: INTEGER is
+      do
+         Result := atomic_precedence
+      end
 
-	frozen jvm_assign_creation, jvm_assign (type: TYPE) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_assign_creation, jvm_assign (type: TYPE) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen non_void_no_dispatch_type (type: TYPE): TYPE is
-		do
-			Result := resolve_in(type)
-		end
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+      do
+         Result := resolve_in(type)
+      end
 
-	frozen simplify (type: TYPE): EXPRESSION is
-		do
-			Result := Current
-		end
+   frozen simplify (type: TYPE): EXPRESSION is
+      do
+         Result := Current
+      end
 
-	frozen collect (type: TYPE): TYPE is
-		do
-			Result := resolve_in(type)
-			smart_eiffel.collect_constant(Result)
-		end
+   frozen collect (type: TYPE): TYPE is
+      do
+         Result := resolve_in(type)
+         smart_eiffel.collect_constant(Result)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		do
-			code_accumulator.add_sedb(start_position, 'S')			
-			code_accumulator.current_context.add_last(Current)
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      do
+         code_accumulator.add_sedb(start_position, 'S')         
+         code_accumulator.current_context.add_last(Current)
+      end
+   
 feature {}
-	to_string: STRING is
-		deferred
-		end
+   to_string: STRING is
+      deferred
+      end
 
 end -- class BASE_TYPE_CONSTANT
 --

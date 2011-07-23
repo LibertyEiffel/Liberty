@@ -2,115 +2,115 @@
 -- See the Copyright notice at the end of this file.
 --
 class DECLARATION_1
-	--
-	-- For a single declaration like :
-	--             foo : BAR
-	--
+   --
+   -- For a single declaration like :
+   --             foo : BAR
+   --
 
 inherit
-	DECLARATION
+   DECLARATION
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION is
-		do
-			Result := name.start_position
-		end
+   start_position: POSITION is
+      do
+         Result := name.start_position
+      end
 
-	pretty_in (buffer: STRING) is
-		do
-			buffer.append(name.to_string)
-			buffer.append(once ": ")
-			name.result_type.pretty_in(buffer)
-		end
+   pretty_in (buffer: STRING) is
+      do
+         buffer.append(name.to_string)
+         buffer.append(once ": ")
+         name.result_type.pretty_in(buffer)
+      end
 
-	short (type: TYPE) is
-		do
-			name.short(type)
-			short_printer.hook_or("hook305", ": ")
-			name.result_type.short(type)
-		end
+   short (type: TYPE) is
+      do
+         name.short(type)
+         short_printer.hook_or("hook305", ": ")
+         name.result_type.short(type)
+      end
 
 feature {ANY}
-	accept (visitor: DECLARATION_1_VISITOR) is
-		do
-			visitor.visit_declaration_1(Current)
-		end
+   accept (visitor: DECLARATION_1_VISITOR) is
+      do
+         visitor.visit_declaration_1(Current)
+      end
 
 feature {DECLARATION_LIST}
-	count: INTEGER is 1
+   count: INTEGER is 1
 
-	specialize_in (type: TYPE): like Current is
-		local
-			n: like name
-		do
-			n := name.specialize_in(type)
-			if name = n then
-				Result := Current
-			else
-				Result := twin
-				Result.set_name(n)
-			end
-		end
+   specialize_in (type: TYPE): like Current is
+      local
+         n: like name
+      do
+         n := name.specialize_in(type)
+         if name = n then
+            Result := Current
+         else
+            Result := twin
+            Result.set_name(n)
+         end
+      end
 
-	specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		local
-			n: like name
-		do
-			n := name.specialize_thru(parent_type, parent_edge, new_type)
-			if name = n then
-				Result := Current
-			else
-				Result := twin
-				Result.set_name(n)
-			end
-		end
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         n: like name
+      do
+         n := name.specialize_thru(parent_type, parent_edge, new_type)
+         if name = n then
+            Result := Current
+         else
+            Result := twin
+            Result.set_name(n)
+         end
+      end
 
 feature {DECLARATION, DECLARATION_LIST}
 
-	has_been_specialized: BOOLEAN is
-		do
-			Result := name.has_been_specialized
-		end
+   has_been_specialized: BOOLEAN is
+      do
+         Result := name.has_been_specialized
+      end
 
 feature {FORMAL_ARG_LIST}
-	append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
-		do
-			fal.add_last(name)
-		end
+   append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
+      do
+         fal.add_last(name)
+      end
 
 feature {LOCAL_VAR_LIST}
-	append_in_local_var_list (lvl: LOCAL_VAR_LIST) is
-		do
-			lvl.add_last(name)
-		end
+   append_in_local_var_list (lvl: LOCAL_VAR_LIST) is
+      do
+         lvl.add_last(name)
+      end
 
 feature {DECLARATION_1_VISITOR}
-	name: LOCAL_ARGUMENT1
-			-- Of the declared variable.
+   name: LOCAL_ARGUMENT1
+         -- Of the declared variable.
 
 feature {DECLARATION_1}
-	set_name(n: like name) is
-		require
-			n /= Void
-		do
-			name := n
-		ensure
-			name = n
-		end
+   set_name(n: like name) is
+      require
+         n /= Void
+      do
+         name := n
+      ensure
+         name = n
+      end
 
 feature {}
-	make (n: like name; type: TYPE_MARK) is
-		require
-			n /= Void
-		do
-			name := n
-			name.set_result_type(type)
-		ensure
-			name = n
-		end
+   make (n: like name; type: TYPE_MARK) is
+      require
+         n /= Void
+      do
+         name := n
+         name.set_result_type(type)
+      ensure
+         name = n
+      end
 
 end -- class DECLARATION_1
 --

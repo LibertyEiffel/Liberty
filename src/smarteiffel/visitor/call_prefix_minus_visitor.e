@@ -4,14 +4,14 @@
 deferred class CALL_PREFIX_MINUS_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CALL_PREFIX_MINUS}
-	visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CALL_PREFIX_MINUS_VISITOR
 --

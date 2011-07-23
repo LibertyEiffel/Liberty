@@ -2,66 +2,66 @@
 -- See the Copyright notice at the end of this file.
 --
 class ENSURE_ASSERTION
-	--
-	-- To store a `ensure' or an `ensure then' assertion. 
-	--
+   --
+   -- To store a `ensure' or an `ensure then' assertion. 
+   --
 
 inherit
-	ASSERTION_LIST
-		rename make as assertion_list_make
-		redefine
-			compile_to_c, pretty
-		end
-	
+   ASSERTION_LIST
+      rename make as assertion_list_make
+      redefine
+         compile_to_c, pretty
+      end
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	is_ensure_then: BOOLEAN
+   is_ensure_then: BOOLEAN
 
-	compile_to_c (type: TYPE) is
-		local
-			i: INTEGER; assertion: ASSERTION
-		do
-			if not is_always_true(type) then
-				cpp.stop_recursive_assertion_opening(True)
-				from
-					i := list.lower
-				until
-					i > list.upper
-				loop
-					assertion := list.item(i)
-					if not assertion.is_always_true(type) then
-						assertion.compile_to_c_as_ensure(type)
-					end
-					i := i + 1
-				end
-				cpp.stop_recursive_assertion_closing(True)
-			end
-		end
+   compile_to_c (type: TYPE) is
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         if not is_always_true(type) then
+            cpp.stop_recursive_assertion_opening(True)
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               assertion := list.item(i)
+               if not assertion.is_always_true(type) then
+                  assertion.compile_to_c_as_ensure(type)
+               end
+               i := i + 1
+            end
+            cpp.stop_recursive_assertion_closing(True)
+         end
+      end
 
-	pretty (indent_level: INTEGER) is
-		do
-			check
-				indent_level = 2
-			end
-			if is_ensure_then then
-				pretty_print_with_tag(2, once "ensure then")
-			else
-				pretty_print_with_tag(2, once "ensure")
-			end
-		end
+   pretty (indent_level: INTEGER) is
+      do
+         check
+            indent_level = 2
+         end
+         if is_ensure_then then
+            pretty_print_with_tag(2, once "ensure then")
+         else
+            pretty_print_with_tag(2, once "ensure")
+         end
+      end
 
 feature {}
-	make (sp: like start_position; then_flag: BOOLEAN; hc: like header_comment; l: like list) is
-		do
-			assertion_list_make(sp, hc, l)
-			is_ensure_then := then_flag
-		ensure
-			is_ensure_then = then_flag
-		end
+   make (sp: like start_position; then_flag: BOOLEAN; hc: like header_comment; l: like list) is
+      do
+         assertion_list_make(sp, hc, l)
+         is_ensure_then := then_flag
+      ensure
+         is_ensure_then = then_flag
+      end
 
-	check_assertion_mode: STRING is "ens"
+   check_assertion_mode: STRING is "ens"
 
 end -- class ENSURE_ASSERTION
 --

@@ -2,91 +2,91 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class CP_INFO_TAGS
-	--
-	-- Some usefull Java Virtual machine constants
-	--
+   --
+   -- Some usefull Java Virtual machine constants
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	--
-	-- As defined page 93 of "The Java Virtual Machine Specification",
-	-- The Java Series, Tim Lindholm and Frank Yellin, ISBN 0-201-63452-X
-	--
-	Constant_class: CHARACTER is '%/7/'
+   --
+   -- As defined page 93 of "The Java Virtual Machine Specification",
+   -- The Java Series, Tim Lindholm and Frank Yellin, ISBN 0-201-63452-X
+   --
+   Constant_class: CHARACTER is '%/7/'
 
-	Constant_fieldref: CHARACTER is '%/9/'
+   Constant_fieldref: CHARACTER is '%/9/'
 
-	Constant_methodref: CHARACTER is '%/10/'
+   Constant_methodref: CHARACTER is '%/10/'
 
-	Constant_interfacemethodref: CHARACTER is '%/11/'
+   Constant_interfacemethodref: CHARACTER is '%/11/'
 
-	Constant_string: CHARACTER is '%/8/'
+   Constant_string: CHARACTER is '%/8/'
 
-	Constant_integer: CHARACTER is '%/3/'
+   Constant_integer: CHARACTER is '%/3/'
 
-	Constant_float: CHARACTER is '%/4/'
+   Constant_float: CHARACTER is '%/4/'
 
-	Constant_long: CHARACTER is '%/5/'
+   Constant_long: CHARACTER is '%/5/'
 
-	Constant_double: CHARACTER is '%/6/'
+   Constant_double: CHARACTER is '%/6/'
 
-	Constant_name_and_type: CHARACTER is '%/12/'
+   Constant_name_and_type: CHARACTER is '%/12/'
 
-	Constant_utf8: CHARACTER is '%/1/'
-
-feature {}
-	cp_info_tag_name_in (tag: CHARACTER; s: STRING) is
-			-- Append in `s' the original name of the constant.
-		do
-			inspect
-				tag
-			when Constant_class then
-				s.append("CONSTANT_Class")
-			when Constant_fieldref then
-				s.append("CONSTANT_Fieldref")
-			when Constant_methodref then
-				s.append("CONSTANT_Methodref")
-			when Constant_interfacemethodref then
-				s.append("CONSTANT_InterfaceMethodref")
-			when Constant_string then
-				s.append("CONSTANT_String")
-			when Constant_integer then
-				s.append("CONSTANT_Integer")
-			when Constant_float then
-				s.append("CONSTANT_Float")
-			when Constant_long then
-				s.append("CONSTANT_Long")
-			when Constant_double then
-				s.append("CONSTANT_Double")
-			when Constant_name_and_type then
-				s.append("CONSTANT_NameAndType")
-			when Constant_utf8 then
-				s.append("CONSTANT_Utf8")
-			end
-		end
+   Constant_utf8: CHARACTER is '%/1/'
 
 feature {}
-	--
-	-- For SmallEifel internal usage :
-	Constant_empty: CHARACTER is '%/0/'
+   cp_info_tag_name_in (tag: CHARACTER; s: STRING) is
+         -- Append in `s' the original name of the constant.
+      do
+         inspect
+            tag
+         when Constant_class then
+            s.append("CONSTANT_Class")
+         when Constant_fieldref then
+            s.append("CONSTANT_Fieldref")
+         when Constant_methodref then
+            s.append("CONSTANT_Methodref")
+         when Constant_interfacemethodref then
+            s.append("CONSTANT_InterfaceMethodref")
+         when Constant_string then
+            s.append("CONSTANT_String")
+         when Constant_integer then
+            s.append("CONSTANT_Integer")
+         when Constant_float then
+            s.append("CONSTANT_Float")
+         when Constant_long then
+            s.append("CONSTANT_Long")
+         when Constant_double then
+            s.append("CONSTANT_Double")
+         when Constant_name_and_type then
+            s.append("CONSTANT_NameAndType")
+         when Constant_utf8 then
+            s.append("CONSTANT_Utf8")
+         end
+      end
 
 feature {}
-	string_to_utf8 (string, utf8: STRING) is
-			-- Source `string' is not affected.
-		require
-			string /= Void
-			utf8 /= Void
-			utf8 /= string
-		do
-			utf8.clear_count
-			append_u2(utf8, string.count)
-			utf8.append(string)
-		ensure
-			string.count = old string.count
-			utf8.count = 2 + string.count
-		end
+   --
+   -- For SmallEifel internal usage :
+   Constant_empty: CHARACTER is '%/0/'
+
+feature {}
+   string_to_utf8 (string, utf8: STRING) is
+         -- Source `string' is not affected.
+      require
+         string /= Void
+         utf8 /= Void
+         utf8 /= string
+      do
+         utf8.clear_count
+         append_u2(utf8, string.count)
+         utf8.append(string)
+      ensure
+         string.count = old string.count
+         utf8.count = 2 + string.count
+      end
 
 end -- class CP_INFO_TAGS
 --

@@ -2,72 +2,72 @@
 -- See the Copyright notice at the end of this file.
 --
 class EXCEPTIONS_HANDLER
-	--
-	-- Unique global object in charge of EXCEPTION handling.
-	--
+   --
+   -- Unique global object in charge of EXCEPTION handling.
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	used: BOOLEAN
-			-- Indicate wheter the live code uses EXCEPTIONS or not.
+   used: BOOLEAN
+         -- Indicate wheter the live code uses EXCEPTIONS or not.
 
 feature {INSPECT_STATEMENT, MANIFEST_STRING_INSPECTOR}
-	bad_inspect_value (p: POSITION) is
-			-- When some Eiffel "inspect" instruction without the optional "else" part does not match the input.
-		require
-			cpp.pending_c_function
-			ace.no_check
-		do
-			if used then
-				cpp.pending_c_function_body.append(once "internal_exception_handler(Incorrect_inspect_value);%N")
-			else
-				cpp.pending_c_function_body.append(once "error1(%"Invalid inspect (nothing selected).%",")
-				cpp.put_position(p)
-				cpp.pending_c_function_body.append(once ");%N")
-			end
-		end
+   bad_inspect_value (p: POSITION) is
+         -- When some Eiffel "inspect" instruction without the optional "else" part does not match the input.
+      require
+         cpp.pending_c_function
+         ace.no_check
+      do
+         if used then
+            cpp.pending_c_function_body.append(once "internal_exception_handler(Incorrect_inspect_value);%N")
+         else
+            cpp.pending_c_function_body.append(once "error1(%"Invalid inspect (nothing selected).%",")
+            cpp.put_position(p)
+            cpp.pending_c_function_body.append(once ");%N")
+         end
+      end
 
 feature {RUN_FEATURE, EXTERNAL_ROUTINE}
-	set_used is
-		do
-			used := True
-		end
+   set_used is
+      do
+         used := True
+      end
 
 feature {C_PRETTY_PRINTER}
-	customize_c_runtime is
-		do
-			if used then
-				cpp.sys_runtime_h_and_c(once "exceptions")
-			end
-		end
+   customize_c_runtime is
+      do
+         if used then
+            cpp.sys_runtime_h_and_c(once "exceptions")
+         end
+      end
 
-	initialize_runtime is
-		do
-			if used then
-				cpp.pending_c_function_body.append(once "setup_signal_handler();%N")
-			end
-		end
+   initialize_runtime is
+      do
+         if used then
+            cpp.pending_c_function_body.append(once "setup_signal_handler();%N")
+         end
+      end
 
-	se_evobt is
-		require
-			ace.boost
-		do
-			if used then
-				cpp.pending_c_function_body.append(once "internal_exception_handler(Void_call_target)")
-			else
-				cpp.pending_c_function_body.append(once "se_print_run_time_stack(),exit(1)")
-			end
-		end
+   se_evobt is
+      require
+         ace.boost
+      do
+         if used then
+            cpp.pending_c_function_body.append(once "internal_exception_handler(Void_call_target)")
+         else
+            cpp.pending_c_function_body.append(once "se_print_run_time_stack(),exit(1)")
+         end
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class EXCEPTIONS_HANDLER
 --

@@ -4,30 +4,30 @@
 class CLUSTER_CLASS
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {CLUSTER_POOL_DATA}
-	make
+   make
 
 feature {ANY}
-	class_name: HASHED_STRING
+   class_name: HASHED_STRING
 
-	cluster: CLUSTER
+   cluster: CLUSTER
 
-	path: STRING
+   path: STRING
 
 feature {}
-	make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path) is
-		require
-			a_class_name.is_tuple_related implies a_class_name.to_string = as_tuple
-		do
-			class_name := a_class_name
-			cluster := a_cluster
-			path := a_path
-		end
+   make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path) is
+      require
+         a_class_name.is_tuple_related implies a_class_name.to_string = as_tuple
+      do
+         class_name := a_class_name
+         cluster := a_cluster
+         path := a_path
+      end
 
 invariant
-	class_name.is_tuple_related implies class_name.to_string = as_tuple
+   class_name.is_tuple_related implies class_name.to_string = as_tuple
 
 end -- class CLUSTER_CLASS
 --

@@ -4,14 +4,14 @@
 deferred class LOCAL_VAR_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LOCAL_VAR_LIST}
-	visit_local_var_list (visited: LOCAL_VAR_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LOCAL_VAR_LIST_VISITOR
 --

@@ -4,12 +4,12 @@
 deferred class PLUGIN_FACTORY
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {SYSTEM_TOOLS}
-	new (position: POSITION; a_name, a_path: STRING): PLUGIN is
-		deferred
-		end
+   new (position: POSITION; a_name, a_path: STRING): PLUGIN is
+      deferred
+      end
 
 end -- class PLUGIN_FACTORY
 --

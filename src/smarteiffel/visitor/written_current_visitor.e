@@ -4,14 +4,14 @@
 deferred class WRITTEN_CURRENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {WRITTEN_CURRENT}
-	visit_written_current (visited: WRITTEN_CURRENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_written_current (visited: WRITTEN_CURRENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class WRITTEN_CURRENT_VISITOR
 --

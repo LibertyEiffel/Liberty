@@ -2,80 +2,80 @@
 -- See the Copyright notice at the end of this file.
 --
 class INLINE_MEMO
-	--
-	-- Used to store the result of an inlining attempt. Just because a Void `Result' would be 
-	-- ambiguous: if the caller get an INLINE_MEMO, he knows that the inlining was possible, 
-	-- even, if the result of the inlining is a Void value!
-	--
+   --
+   -- Used to store the result of an inlining attempt. Just because a Void `Result' would be 
+   -- ambiguous: if the caller get an INLINE_MEMO, he knows that the inlining was possible, 
+   -- even, if the result of the inlining is a Void value!
+   --
 
 creation {SMART_EIFFEL}
-	make
+   make
 
 feature {ANY}
-	expression: EXPRESSION is
-		require
-			is_expression_holder
-		do
-			Result ::= code
-		ensure
-			-- The inlining of an EXPRESSION cannot be Void:
-			Result /= Void
-		end
+   expression: EXPRESSION is
+      require
+         is_expression_holder
+      do
+         Result ::= code
+      ensure
+         -- The inlining of an EXPRESSION cannot be Void:
+         Result /= Void
+      end
 
-	instruction: INSTRUCTION is
-		require
-			is_instruction_holder
-		do
-			Result ::= code
-		end
+   instruction: INSTRUCTION is
+      require
+         is_instruction_holder
+      do
+         Result ::= code
+      end
 
-	cleared: BOOLEAN is
-		do
-			Result := code = Void
-		end
+   cleared: BOOLEAN is
+      do
+         Result := code = Void
+      end
 
-	is_instruction_holder: BOOLEAN is
-		do
-			Result := {INSTRUCTION} ?:= code
-		end
+   is_instruction_holder: BOOLEAN is
+      do
+         Result := {INSTRUCTION} ?:= code
+      end
 
-	is_expression_holder: BOOLEAN is
-		do
-			Result := {EXPRESSION} ?:= code
-		end
+   is_expression_holder: BOOLEAN is
+      do
+         Result := {EXPRESSION} ?:= code
+      end
 
 feature {ANONYMOUS_FEATURE, EFFECTIVE_ARG_LIST}
-	set_expression (e: like expression) is
-		require
-			e /= Void
-			code = Void
-		do
-			code := e
-		ensure
-			code = e
-		end
+   set_expression (e: like expression) is
+      require
+         e /= Void
+         code = Void
+      do
+         code := e
+      ensure
+         code = e
+      end
 
-	set_instruction (i: like instruction) is
-		require
-			code = Void
-		do
-			code := i
-		ensure
-			code = i
-		end
+   set_instruction (i: like instruction) is
+      require
+         code = Void
+      do
+         code := i
+      ensure
+         code = i
+      end
 
 feature {SMART_EIFFEL}
-	clear is
-		do
-			code := Void
-		end
+   clear is
+      do
+         code := Void
+      end
 
 feature {}
-	code: CODE
-	
-	make is
-		do
-		end
+   code: CODE
+   
+   make is
+      do
+      end
 
 end -- class INLINE_MEMO
 --

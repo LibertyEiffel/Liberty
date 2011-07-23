@@ -4,14 +4,14 @@
 deferred class INDEX_CLAUSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {INDEX_CLAUSE}
-	visit_index_clause (visited: INDEX_CLAUSE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_index_clause (visited: INDEX_CLAUSE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class INDEX_CLAUSE_VISITOR
 --

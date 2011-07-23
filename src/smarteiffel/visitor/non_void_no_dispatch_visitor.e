@@ -4,14 +4,14 @@
 deferred class NON_VOID_NO_DISPATCH_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NON_VOID_NO_DISPATCH}
-	visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NON_VOID_NO_DISPATCH_VISITOR
 --

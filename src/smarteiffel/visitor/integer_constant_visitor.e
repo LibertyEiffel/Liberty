@@ -4,14 +4,14 @@
 deferred class INTEGER_CONSTANT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {INTEGER_CONSTANT}
-	visit_integer_constant (visited: INTEGER_CONSTANT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_integer_constant (visited: INTEGER_CONSTANT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class INTEGER_CONSTANT_VISITOR
 --

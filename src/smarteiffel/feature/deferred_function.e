@@ -4,87 +4,87 @@
 class DEFERRED_FUNCTION
 
 inherit
-	DEFERRED_ROUTINE
-		redefine specialize_signature_in, specialize_signature_thru
-		end
+   DEFERRED_ROUTINE
+      redefine specialize_signature_in, specialize_signature_thru
+      end
 
 creation {ANY}
-	make
+   make
 
 creation {ANY}
-	from_effective
+   from_effective
 
 feature {ANY}
-	accept (visitor: DEFERRED_FUNCTION_VISITOR) is
-		do
-			visitor.visit_deferred_function(Current)
-		end
+   accept (visitor: DEFERRED_FUNCTION_VISITOR) is
+      do
+         visitor.visit_deferred_function(Current)
+      end
 
 feature {ANY}
-	result_type: TYPE_MARK
+   result_type: TYPE_MARK
 
 feature {ANONYMOUS_FEATURE_MIXER}
-	specialize_signature_in (new_type: TYPE): like Current is
-		local
-			args: like arguments
-		do
-			result_type.specialize_in(new_type)
-			if arguments /= Void then
-				args := arguments.specialize_in(new_type)
-			end
-			if args = arguments then
-				Result := Current
-			else
-				Result := twin
-				Result.set_arguments(args)
-			end
-		end
+   specialize_signature_in (new_type: TYPE): like Current is
+      local
+         args: like arguments
+      do
+         result_type.specialize_in(new_type)
+         if arguments /= Void then
+            args := arguments.specialize_in(new_type)
+         end
+         if args = arguments then
+            Result := Current
+         else
+            Result := twin
+            Result.set_arguments(args)
+         end
+      end
 
-	specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		local
-			args: like arguments; rt: like result_type
-		do
-			rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
-			if arguments /= Void then
-				args := arguments.specialize_thru(parent_type, parent_edge, new_type)
-			end
-			if result_type = rt and then args = arguments then
-				Result := Current
-			else
-				Result := twin
-				Result.set_arguments(args)
-				Result.set_result_type(rt)
-			end
-		end
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         args: like arguments; rt: like result_type
+      do
+         rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
+         if arguments /= Void then
+            args := arguments.specialize_thru(parent_type, parent_edge, new_type)
+         end
+         if result_type = rt and then args = arguments then
+            Result := Current
+         else
+            Result := twin
+            Result.set_arguments(args)
+            Result.set_result_type(rt)
+         end
+      end
 
 feature {DEFERRED_FUNCTION}
-	set_result_type (rt: like result_type) is
-		require
-			rt /= Void
-		do
-			result_type := rt
-		end
+   set_result_type (rt: like result_type) is
+      require
+         rt /= Void
+      do
+         result_type := rt
+      end
 
 feature {}
-	make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-		ra: like require_assertion) is
-		require
-			rt /= Void
-		do
-			make_routine(fa, om, hc, ra)
-			result_type := rt
-		end
+   make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
+      ra: like require_assertion) is
+      require
+         rt /= Void
+      do
+         make_routine(fa, om, hc, ra)
+         result_type := rt
+      end
 
-	from_effective (fn: FEATURE_NAME; fa: like arguments; rt: like result_type; ra: like require_assertion
-		ea: like ensure_assertion; bc: like class_text; pe: like permissions) is
-		do
-			feature_text := bc.non_written(fn, Current)
-			make(fa, rt, Void, Void, ra)
-			permissions := pe
-			if ea /= Void then
-				set_ensure_assertion(ea)
-			end
-		end
+   from_effective (fn: FEATURE_NAME; fa: like arguments; rt: like result_type; ra: like require_assertion
+      ea: like ensure_assertion; bc: like class_text; pe: like permissions) is
+      do
+         feature_text := bc.non_written(fn, Current)
+         make(fa, rt, Void, Void, ra)
+         permissions := pe
+         if ea /= Void then
+            set_ensure_assertion(ea)
+         end
+      end
 
 end -- class DEFERRED_FUNCTION
 --

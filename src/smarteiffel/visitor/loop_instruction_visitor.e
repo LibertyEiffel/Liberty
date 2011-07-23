@@ -4,14 +4,14 @@
 deferred class LOOP_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LOOP_INSTRUCTION}
-	visit_loop_instruction (visited: LOOP_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_loop_instruction (visited: LOOP_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LOOP_INSTRUCTION_VISITOR
 --

@@ -2,292 +2,292 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class NON_STATIC_TYPE_MARK
-	--
-	-- Some frozen definition shared by non static type marks (ANCHORED_TYPE_MARK and TYPE_FORMAL_GENERIC).
-	--
+   --
+   -- Some frozen definition shared by non static type marks (ANCHORED_TYPE_MARK and TYPE_FORMAL_GENERIC).
+   --
 
 inherit
-	TYPE_MARK
+   TYPE_MARK
 
 feature {ANY}
-	frozen is_static: BOOLEAN is False
+   frozen is_static: BOOLEAN is False
 
-	frozen type: TYPE is
-		do
-			check
-				False
-			end
-		end
+   frozen type: TYPE is
+      do
+         check
+            False
+         end
+      end
 
-	frozen is_reference: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen is_reference: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen is_expanded: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen is_expanded: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen is_generic: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen is_generic: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen generic_list: ARRAY[TYPE_MARK] is
-		do
-			check
-				False
-			end
-		end
+   frozen generic_list: ARRAY[TYPE_MARK] is
+      do
+         check
+            False
+         end
+      end
 
-	frozen id: INTEGER is
-		do
-			check
-				False
-			end
-		end
+   frozen id: INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	frozen class_text_name: CLASS_NAME is
-		do
-			check
-				False
-			end
-		end
+   frozen class_text_name: CLASS_NAME is
+      do
+         check
+            False
+         end
+      end
 
-	frozen is_user_expanded: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen is_user_expanded: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen is_empty_expanded: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen is_empty_expanded: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_header_pass1 is
-		do
-			check
-				False
-			end
-		end
+   frozen c_header_pass1 is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_header_pass2 is
-		do
-			check
-				False
-			end
-		end
+   frozen c_header_pass2 is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_header_pass3 is
-		do
-			check
-				False
-			end
-		end
+   frozen c_header_pass3 is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_header_pass4 is
-		do
-			check
-				False
-			end
-		end
+   frozen c_header_pass4 is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_type_for_argument_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen c_type_for_argument_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_type_for_target_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen c_type_for_target_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_type_for_result_in (str: STRING) is
-		do
-			sedb_breakpoint
-			check
-				False
-			end
-		end
+   frozen c_type_for_result_in (str: STRING) is
+      do
+         sedb_breakpoint
+         check
+            False
+         end
+      end
 
-	frozen need_c_struct: BOOLEAN is
-		do
-			check
-				False
-			end
-		end
+   frozen need_c_struct: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
-	frozen c_initialize_in (buffer: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen c_initialize_in (buffer: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_method_flags: INTEGER is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_method_flags: INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_descriptor_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_descriptor_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_target_descriptor_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_target_descriptor_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_return_code is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_return_code is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_push_local (offset: INTEGER) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_push_local (offset: INTEGER) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_check_class_invariant is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_check_class_invariant is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_push_default: INTEGER is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_push_default: INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_write_local_creation (offset: INTEGER) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_write_local_creation (offset: INTEGER) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_write_local (offset: INTEGER) is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_write_local (offset: INTEGER) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_xnewarray is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_xnewarray is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_xastore is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_xastore is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_xaload is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_xaload is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_if_x_eq: INTEGER is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_if_x_eq: INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_if_x_ne: INTEGER is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_if_x_ne: INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	frozen jvm_standard_is_equal is
-		do
-			check
-				False
-			end
-		end
+   frozen jvm_standard_is_equal is
+      do
+         check
+            False
+         end
+      end
 
 feature {TYPE}
-	frozen need_gc_mark_function (current_type: TYPE): BOOLEAN is
-		do
-			check
-				would_violate_the_require: False
-			end
-		end
+   frozen need_gc_mark_function (current_type: TYPE): BOOLEAN is
+      do
+         check
+            would_violate_the_require: False
+         end
+      end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-	frozen long_name: HASHED_STRING is
-		do
-			check
-				False
-			end
-		end
+   frozen long_name: HASHED_STRING is
+      do
+         check
+            False
+         end
+      end
 
 feature {LIVE_TYPE, TYPE_MARK}
-	frozen just_before_gc_mark_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen just_before_gc_mark_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen gc_info_in (str: STRING) is
-		do
-			check
-				False
-			end
-		end
+   frozen gc_info_in (str: STRING) is
+      do
+         check
+            False
+         end
+      end
 
-	frozen gc_define1 is
-		do
-			check
-				False
-			end
-		end
+   frozen gc_define1 is
+      do
+         check
+            False
+         end
+      end
 
-	frozen gc_define2 is
-		do
-			check
-				False
-			end
-		end
+   frozen gc_define2 is
+      do
+         check
+            False
+         end
+      end
 
 end -- class NON_STATIC_TYPE_MARK
 --

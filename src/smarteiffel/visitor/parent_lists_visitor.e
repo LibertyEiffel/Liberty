@@ -4,14 +4,14 @@
 deferred class PARENT_LISTS_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {PARENT_LISTS}
-	visit_parent_lists (visited: PARENT_LISTS) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_parent_lists (visited: PARENT_LISTS) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class PARENT_LISTS_VISITOR
 --

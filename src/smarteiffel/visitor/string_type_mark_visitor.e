@@ -4,14 +4,14 @@
 deferred class STRING_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {STRING_TYPE_MARK}
-	visit_string_type_mark (visited: STRING_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class STRING_TYPE_MARK_VISITOR
 --

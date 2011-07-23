@@ -4,14 +4,14 @@
 deferred class C_INLINE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {C_INLINE}
-	visit_c_inline (visited: C_INLINE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_c_inline (visited: C_INLINE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class C_INLINE_VISITOR
 --

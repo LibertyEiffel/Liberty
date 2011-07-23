@@ -4,88 +4,88 @@
 class EIFFELDOC_HTML
 
 inherit
-	HTML_ELEMENT
+   HTML_ELEMENT
 
 insert
-	HTML_HANDLER
+   HTML_HANDLER
 
 creation {EIFFELDOC}
-	make
+   make
 
 feature {HTML_ELEMENT}
-	really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
-		local
-			i: INTEGER
-		do
-			check
-				node /= Void
-			end
-			Result := stopped
-			if not Result then
-				from
-					i := 1
-				until
-					i > node.attributes_count
-				loop
-					buffer.extend(' ')
-					node.html_attribute(i).append_in(buffer)
-					i := i + 1
-				end
-				from
-					i := 1
-				until
-					Result or else i > node.children_count
-				loop
-					Result := node.child(i).really_append_in(buffer, stop_at_dot, Result)
-					i := i + 1
-				end
-			end
-		end
+   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         check
+            node /= Void
+         end
+         Result := stopped
+         if not Result then
+            from
+               i := 1
+            until
+               i > node.attributes_count
+            loop
+               buffer.extend(' ')
+               node.html_attribute(i).append_in(buffer)
+               i := i + 1
+            end
+            from
+               i := 1
+            until
+               Result or else i > node.children_count
+            loop
+               Result := node.child(i).really_append_in(buffer, stop_at_dot, Result)
+               i := i + 1
+            end
+         end
+      end
 
-	really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
-		local
-			i: INTEGER
-		do
-			check
-				node /= Void
-			end
-			Result := stopped
-			if not Result then
-				from
-					i := 1
-				until
-					i > node.attributes_count
-				loop
-					node.html_attribute(i).to_html_stream(html)
-					i := i + 1
-				end
-				from
-					i := 1
-				until
-					Result or else i > node.children_count
-				loop
-					Result := node.child(i).really_to_html_stream(html, stop_at_dot, Result)
-					i := i + 1
-				end
-			end
-		end
+   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         check
+            node /= Void
+         end
+         Result := stopped
+         if not Result then
+            from
+               i := 1
+            until
+               i > node.attributes_count
+            loop
+               node.html_attribute(i).to_html_stream(html)
+               i := i + 1
+            end
+            from
+               i := 1
+            until
+               Result or else i > node.children_count
+            loop
+               Result := node.child(i).really_to_html_stream(html, stop_at_dot, Result)
+               i := i + 1
+            end
+         end
+      end
 
 feature {EIFFELDOC}
-	set (a_node: like node) is
-		require
-			a_node /= Void
-		do
-			node := a_node
-		ensure
-			node = a_node
-		end
+   set (a_node: like node) is
+      require
+         a_node /= Void
+      do
+         node := a_node
+      ensure
+         node = a_node
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	node: HTML_NODE
+   node: HTML_NODE
 
 end -- class EIFFELDOC_HTML
 --

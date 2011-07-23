@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class ARGUMENT_NAME
-	--
-	-- Handling of arguments.
-	--
+   --
+   -- Handling of arguments.
+   --
 
 insert
-	LOCAL_ARGUMENT
+   LOCAL_ARGUMENT
 
 feature {ANY}
-	is_writable: BOOLEAN is False
+   is_writable: BOOLEAN is False
 
-	frozen pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_string(to_string)
-		end
+   frozen pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_string(to_string)
+      end
 
-	frozen compile_to_c (type: TYPE) is
-		do
-			cpp.print_argument(rank)
-		end
+   frozen compile_to_c (type: TYPE) is
+      do
+         cpp.print_argument(rank)
+      end
 
 end -- class ARGUMENT_NAME
 --

@@ -4,60 +4,60 @@
 class MAKE_RELEASE_PLAIN_GUI
 
 inherit
-	MAKE_RELEASE_GUI
+   MAKE_RELEASE_GUI
 
 creation {MAKE_RELEASE}
-	make
+   make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}
-	start (job: MAKE_RELEASE_JOB) is
-		local
-			stack: LOOP_STACK
-		do
-			create stack.make
-			stack.add_job(job)
-			stack.run
-			die(0)
-		end
+   start (job: MAKE_RELEASE_JOB) is
+      local
+         stack: LOOP_STACK
+      do
+         create stack.make
+         stack.add_job(job)
+         stack.run
+         die(0)
+      end
 
-	set_title (a_message: STRING) is
-		do
-			echo.put_string(a_message)
-			echo.put_character('%N')
-		end
+   set_title (a_message: STRING) is
+      do
+         echo.put_string(a_message)
+         echo.put_character('%N')
+      end
 
-	set_action (a_message: STRING) is
-		do
-			echo.put_string(a_message)
-			echo.put_character('%N')
-		end
+   set_action (a_message: STRING) is
+      do
+         echo.put_string(a_message)
+         echo.put_character('%N')
+      end
 
-	set_progress (a_value, a_max: INTEGER; a_message: STRING) is
-		do
-			echo.put_string(a_message)
-			echo.put_string(once " (")
-			echo.put_integer(a_value)
-			echo.put_string(once " of ")
-			echo.put_integer(a_max)
-			echo.put_string(once ")%N")
-		end
+   set_progress (a_value, a_max: INTEGER; a_message: STRING) is
+      do
+         echo.put_string(a_message)
+         echo.put_string(once " (")
+         echo.put_integer(a_value)
+         echo.put_string(once " of ")
+         echo.put_integer(a_max)
+         echo.put_string(once ")%N")
+      end
 
-	die (death_code: INTEGER) is
-		do
-			die_with_code(death_code)
-		end
+   die (death_code: INTEGER) is
+      do
+         die_with_code(death_code)
+      end
 
-	run_command (a_command: STRING): INTEGER is
-		local
-			s: SYSTEM
-		do
-			Result := s.execute_command(a_command)
-		end
+   run_command (a_command: STRING): INTEGER is
+      local
+         s: SYSTEM
+      do
+         Result := s.execute_command(a_command)
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class MAKE_RELEASE_PLAIN_GUI
 --

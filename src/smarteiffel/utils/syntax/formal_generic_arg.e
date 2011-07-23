@@ -2,153 +2,153 @@
 -- See the Copyright notice at the end of this file.
 --
 class FORMAL_GENERIC_ARG
-	--
-	-- To store one formal generic argument.
-	--
+   --
+   -- To store one formal generic argument.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: FORMAL_GENERIC_ARG_VISITOR) is
-		do
-			visitor.visit_formal_generic_arg(Current)
-		end
+   accept (visitor: FORMAL_GENERIC_ARG_VISITOR) is
+      do
+         visitor.visit_formal_generic_arg(Current)
+      end
 
 feature {ANY}
-	name: CLASS_NAME
-			-- Name of the formal generic argument.
+   name: CLASS_NAME
+         -- Name of the formal generic argument.
 
-	constraint: TYPE_MARK
-			-- Non Void if any.
+   constraint: TYPE_MARK
+         -- Non Void if any.
 
-	rank: INTEGER
-			-- In the corresponding declation list.
+   rank: INTEGER
+         -- In the corresponding declation list.
 
-	constrained: BOOLEAN is
-		do
-			Result := constraint /= Void
-		end
+   constrained: BOOLEAN is
+      do
+         Result := constraint /= Void
+      end
 
-	start_position: POSITION is
-		do
-			Result := name.start_position
-		end
+   start_position: POSITION is
+      do
+         Result := name.start_position
+      end
 
-	pretty is
-		do
-			name.pretty(1)
-			if constraint /= Void then
-				pretty_printer.put_string(once " -> ")
-				pretty_printer.put_type_mark(constraint)
-			end
-		end
+   pretty is
+      do
+         name.pretty(1)
+         if constraint /= Void then
+            pretty_printer.put_string(once " -> ")
+            pretty_printer.put_type_mark(constraint)
+         end
+      end
 
-	short (type: TYPE) is
-		do
-			short_printer.put_class_name_without_link(name)
-			if constrained then
-				short_printer.hook_or("arrow", "->")
-				constraint.short(type)
-			end
-		end
+   short (type: TYPE) is
+      do
+         short_printer.put_class_name_without_link(name)
+         if constrained then
+            short_printer.hook_or("arrow", "->")
+            constraint.short(type)
+         end
+      end
 
 feature {FORMAL_GENERIC_LIST}
-	generic_formal_arguments_check is
-		local
-			class_text: CLASS_TEXT
-		do
-			class_text := smart_eiffel.class_text(name, False)
-			if class_text /= Void then
-				error_handler.add_position(name.start_position)
-				error_handler.add_position(class_text.name.start_position)
-				error_handler.append("A formal generic argument must not use the name of some existing class.")
-				error_handler.print_as_error
-				error_handler.add_position(name.start_position)
-				error_handler.append("You have to use another name for this formal generic argument. %
-											%The common usage is to add an extra trailing underscore character %
-											%(see for example COLLECTION, ARRAY or DICTIONARY).")
-				error_handler.print_as_fatal_error
-			end
-		end
+   generic_formal_arguments_check is
+      local
+         class_text: CLASS_TEXT
+      do
+         class_text := smart_eiffel.class_text(name, False)
+         if class_text /= Void then
+            error_handler.add_position(name.start_position)
+            error_handler.add_position(class_text.name.start_position)
+            error_handler.append("A formal generic argument must not use the name of some existing class.")
+            error_handler.print_as_error
+            error_handler.add_position(name.start_position)
+            error_handler.append("You have to use another name for this formal generic argument. %
+                                 %The common usage is to add an extra trailing underscore character %
+                                 %(see for example COLLECTION, ARRAY or DICTIONARY).")
+            error_handler.print_as_fatal_error
+         end
+      end
 
-	set_rank (r: like rank) is
-		require
-			r > 0
-		do
-			rank := r
-		ensure
-			rank = r
-		end
+   set_rank (r: like rank) is
+      require
+         r > 0
+      do
+         rank := r
+      ensure
+         rank = r
+      end
 
-	constraint_substitution (fga: like Current; r: INTEGER) is
-			-- Substitute in the previously read `Current' `constraint'
-			-- all occurrences of `fga' which will be added at rank `r'.
-		local
-			fgan: STRING; cn: CLASS_NAME
-		do
-			if constraint /= Void then
-				fgan := fga.name.to_string
-				if constraint.is_formal_generic then
-				elseif constraint.is_generic then
-					substitute(constraint.generic_list, fga, r, fgan)
-				else
-					cn := constraint.class_text_name
-					if fgan = cn.to_string then
-						create {FORMAL_GENERIC_TYPE_MARK} constraint.make(cn, fga, r)
-					end
-				end
-			end
-		end
+   constraint_substitution (fga: like Current; r: INTEGER) is
+         -- Substitute in the previously read `Current' `constraint'
+         -- all occurrences of `fga' which will be added at rank `r'.
+      local
+         fgan: STRING; cn: CLASS_NAME
+      do
+         if constraint /= Void then
+            fgan := fga.name.to_string
+            if constraint.is_formal_generic then
+            elseif constraint.is_generic then
+               substitute(constraint.generic_list, fga, r, fgan)
+            else
+               cn := constraint.class_text_name
+               if fgan = cn.to_string then
+                  create {FORMAL_GENERIC_TYPE_MARK} constraint.make(cn, fga, r)
+               end
+            end
+         end
+      end
 
 feature {}
-	substitute (gl: ARRAY[TYPE_MARK]; fga: like Current; r: INTEGER; fgan: STRING) is
-			-- Substitute recursively all occurrences of `fgan' in `gl'.
-		require
-			gl /= Void
-			fgan = fga.name.to_string
-		local
-			i: INTEGER; tfg: FORMAL_GENERIC_TYPE_MARK; t: TYPE_MARK; cn: CLASS_NAME
-		do
-			from
-				i := gl.upper
-			until
-				i < gl.lower
-			loop
-				t := gl.item(i)
-				if t.is_formal_generic then
-				elseif t.is_generic then
-					substitute(t.generic_list, fga, r, fgan)
-				else
-					cn := t.class_text_name
-					if fgan = cn.to_string then
-						create tfg.make(cn, fga, r)
-						gl.put(tfg, i)
-					end
-				end
-				i := i - 1
-			end
-		end
+   substitute (gl: ARRAY[TYPE_MARK]; fga: like Current; r: INTEGER; fgan: STRING) is
+         -- Substitute recursively all occurrences of `fgan' in `gl'.
+      require
+         gl /= Void
+         fgan = fga.name.to_string
+      local
+         i: INTEGER; tfg: FORMAL_GENERIC_TYPE_MARK; t: TYPE_MARK; cn: CLASS_NAME
+      do
+         from
+            i := gl.upper
+         until
+            i < gl.lower
+         loop
+            t := gl.item(i)
+            if t.is_formal_generic then
+            elseif t.is_generic then
+               substitute(t.generic_list, fga, r, fgan)
+            else
+               cn := t.class_text_name
+               if fgan = cn.to_string then
+                  create tfg.make(cn, fga, r)
+                  gl.put(tfg, i)
+               end
+            end
+            i := i - 1
+         end
+      end
 
-	make (n: like name; c: like constraint) is
-		require
-			n /= Void
-		do
-			name := n
-			constraint := c
-		ensure
-			name = n
-			constraint = c
-		end
+   make (n: like name; c: like constraint) is
+      require
+         n /= Void
+      do
+         name := n
+         constraint := c
+      ensure
+         name = n
+         constraint = c
+      end
 
 invariant
-	name /= Void
+   name /= Void
 
 end -- class FORMAL_GENERIC_ARG
 --

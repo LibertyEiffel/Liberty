@@ -4,14 +4,14 @@
 deferred class CLASS_TEXT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CLASS_TEXT}
-	visit_class_text (visited: CLASS_TEXT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_class_text (visited: CLASS_TEXT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CLASS_TEXT_VISITOR
 --

@@ -2,89 +2,89 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_SHORTER
-	--
-	-- Writes all the files concerning a given class
-	--
+   --
+   -- Writes all the files concerning a given class
+   --
 
 insert
-	EIFFELDOC_GLOBALS
+   EIFFELDOC_GLOBALS
 
 creation {EIFFELDOC_CORE}
-	make
+   make
 
 feature {EIFFELDOC_CORE}
-	short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
-			-- The filename of the class file is returned
-		local
-			fn: STRING; i: INTEGER; client: CLASS_NAME
-		do
-			if remote_cluster(ct.cluster) = Void then
-				-- It is a local class
-				depends.clear_count
-				echo.put_character('%T')
-				echo.put_string(ct.name.to_string)
-				echo.put_new_line
-				clients := find_clients.clients_of(ct)
-				-- Now iterate over all the known clients
-				from
-					i := 1
-				until
-					i > clients.count
-				loop
-					client := clients.item(i)
-					fn := filename_of(ct, client)
-					classdoc.generate(ct, client, fn, inherit_children, insert_children)
-					depends.union(classdoc.depends)
-					i := i + 1
-				end
-				-- Now adding all_features:
-				client := Void
-				fn := filename_of(ct, client)
-				classdoc.generate(ct, client, fn, inherit_children, insert_children)
-				depends.union(classdoc.depends)
-			end
-		end
+   short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
+         -- The filename of the class file is returned
+      local
+         fn: STRING; i: INTEGER; client: CLASS_NAME
+      do
+         if remote_cluster(ct.cluster) = Void then
+            -- It is a local class
+            depends.clear_count
+            echo.put_character('%T')
+            echo.put_string(ct.name.to_string)
+            echo.put_new_line
+            clients := find_clients.clients_of(ct)
+            -- Now iterate over all the known clients
+            from
+               i := 1
+            until
+               i > clients.count
+            loop
+               client := clients.item(i)
+               fn := filename_of(ct, client)
+               classdoc.generate(ct, client, fn, inherit_children, insert_children)
+               depends.union(classdoc.depends)
+               i := i + 1
+            end
+            -- Now adding all_features:
+            client := Void
+            fn := filename_of(ct, client)
+            classdoc.generate(ct, client, fn, inherit_children, insert_children)
+            depends.union(classdoc.depends)
+         end
+      end
 
-	depends: HASHED_SET[CLASS_NAME] is
-		once
-			create Result.make
-		end
+   depends: HASHED_SET[CLASS_NAME] is
+      once
+         create Result.make
+      end
 
 feature {}
-	make (a_context: EIFFELDOC_CONTEXT) is
-		do
-			options := a_context.options
-			create find_clients.make
-			create classdoc.make(a_context)
-			create sourcedoc.make(options)
-		end
+   make (a_context: EIFFELDOC_CONTEXT) is
+      do
+         options := a_context.options
+         create find_clients.make
+         create classdoc.make(a_context)
+         create sourcedoc.make(options)
+      end
 
-	find_clients: EIFFELDOC_SHORTER_FIND_CLIENTS
+   find_clients: EIFFELDOC_SHORTER_FIND_CLIENTS
 
-	classdoc: EIFFELDOC_SHORTER_CLASSDOC
+   classdoc: EIFFELDOC_SHORTER_CLASSDOC
 
-	sourcedoc: EIFFELDOC_SHORTER_SOURCEDOC
+   sourcedoc: EIFFELDOC_SHORTER_SOURCEDOC
 
-	options: EIFFELDOC_OPTIONS
+   options: EIFFELDOC_OPTIONS
 
-	clients: CLASS_NAME_LIST
+   clients: CLASS_NAME_LIST
 
 feature {ANY}
-	command_name: STRING is ""
+   command_name: STRING is ""
 
-	command_line_help_summary: STRING is ""
+   command_line_help_summary: STRING is ""
 
 feature {}
-	valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING is ""
 
-	parse_arguments is
-		do
-		end
+   parse_arguments is
+      do
+      end
 
-	is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
-		do
-			-- Always False
-		end
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+      do
+         -- Always False
+      end
 
 end -- class EIFFELDOC_SHORTER
 --

@@ -4,14 +4,14 @@
 deferred class VOID_PROC_CALL_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {VOID_PROC_CALL}
-	visit_void_proc_call (visited: VOID_PROC_CALL) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_void_proc_call (visited: VOID_PROC_CALL) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class VOID_PROC_CALL_VISITOR
 --

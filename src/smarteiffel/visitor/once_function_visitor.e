@@ -4,14 +4,14 @@
 deferred class ONCE_FUNCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ONCE_FUNCTION}
-	visit_once_function (visited: ONCE_FUNCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_once_function (visited: ONCE_FUNCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ONCE_FUNCTION_VISITOR
 --

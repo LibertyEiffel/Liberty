@@ -4,14 +4,14 @@
 deferred class INTEGER_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {INTEGER_TYPE_MARK}
-	visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class INTEGER_TYPE_MARK_VISITOR
 --

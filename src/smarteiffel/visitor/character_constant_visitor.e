@@ -4,14 +4,14 @@
 deferred class CHARACTER_CONSTANT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CHARACTER_CONSTANT}
-	visit_character_constant (visited: CHARACTER_CONSTANT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_character_constant (visited: CHARACTER_CONSTANT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CHARACTER_CONSTANT_VISITOR
 --

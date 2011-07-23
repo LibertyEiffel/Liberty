@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class NON_GENERIC_TYPE_MARK
-	--
-	-- Converse of GENERIC_TYPE_MARK.
-	--
+   --
+   -- Converse of GENERIC_TYPE_MARK.
+   --
 
 inherit
-	TYPE_MARK
+   TYPE_MARK
 
 feature {ANY}
-	frozen is_generic: BOOLEAN is False
+   frozen is_generic: BOOLEAN is False
 
-	frozen generic_list: ARRAY[TYPE_MARK] is
-		do
-			check
-		      False -- Because of the inherited require.
-			end
-		end
+   frozen generic_list: ARRAY[TYPE_MARK] is
+      do
+         check
+            False -- Because of the inherited require.
+         end
+      end
 
 end -- class NON_GENERIC_TYPE_MARK
 --

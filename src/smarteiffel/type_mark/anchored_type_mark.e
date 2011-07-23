@@ -2,76 +2,76 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class ANCHORED_TYPE_MARK
-	--
-	-- Root of anchored declaration type marks: TYPE_LIKE_CURRENT,
-	-- LIKE_FEATURE_TYPE_MARK and LIKE_ARGUMENT_TYPE_MARK.
-	--
+   --
+   -- Root of anchored declaration type marks: TYPE_LIKE_CURRENT,
+   -- LIKE_FEATURE_TYPE_MARK and LIKE_ARGUMENT_TYPE_MARK.
+   --
 
 inherit
-	NON_STATIC_TYPE_MARK
+   NON_STATIC_TYPE_MARK
 
 feature {ANY}
-	start_position: POSITION
-			-- Of first letter of `like'.
+   start_position: POSITION
+         -- Of first letter of `like'.
 
 feature {TYPE_MARK}
-	set_start_position (sp: like start_position) is
-		do
-			start_position := sp
-		end
+   set_start_position (sp: like start_position) is
+      do
+         start_position := sp
+      end
 
 feature {}
-	written_mark_buffer: STRING is
-		once
-			create Result.make(128)
-		end
+   written_mark_buffer: STRING is
+      once
+         create Result.make(128)
+      end
 
-	anchor_cycle_start is
-		local
-			i: INTEGER
-		do
-			if visited.upper < 0 then
-				visited.add_last(start_position)
-			elseif visited.fast_has(start_position) and then visited.occurrences(start_position) > 2
-				-- Note: this second strange condition appears to be useful to detect
-				-- wrong type marks or to give a second chance to some complex
-				-- anchored definitions.
-				then
-				error_handler.add_position(visited.first)
-				error_handler.append("Unable to compute this anchored type mark (see next message).")
-				error_handler.print_as_warning
-				from
-					i := visited.lower
-				until
-					i > visited.upper
-				loop
-					error_handler.add_position(visited.item(i))
-					i := i + 1
-				end
-				error_handler.append(fz_cad)
-				error_handler.print_as_fatal_error
-			else
-				visited.add_last(start_position)
-			end
-		ensure
-			not visited.is_empty
-		end
+   anchor_cycle_start is
+      local
+         i: INTEGER
+      do
+         if visited.upper < 0 then
+            visited.add_last(start_position)
+         elseif visited.fast_has(start_position) and then visited.occurrences(start_position) > 2
+            -- Note: this second strange condition appears to be useful to detect
+            -- wrong type marks or to give a second chance to some complex
+            -- anchored definitions.
+            then
+            error_handler.add_position(visited.first)
+            error_handler.append("Unable to compute this anchored type mark (see next message).")
+            error_handler.print_as_warning
+            from
+               i := visited.lower
+            until
+               i > visited.upper
+            loop
+               error_handler.add_position(visited.item(i))
+               i := i + 1
+            end
+            error_handler.append(fz_cad)
+            error_handler.print_as_fatal_error
+         else
+            visited.add_last(start_position)
+         end
+      ensure
+         not visited.is_empty
+      end
 
-	anchor_cycle_end is
-		do
-			if start_position = visited.first then
-				visited.clear_count
-			end
-		end
+   anchor_cycle_end is
+      do
+         if start_position = visited.first then
+            visited.clear_count
+         end
+      end
 
-	visited: FAST_ARRAY[POSITION] is
-			-- Cycle detection.
-		once
-			create Result.with_capacity(4)
-		end
+   visited: FAST_ARRAY[POSITION] is
+         -- Cycle detection.
+      once
+         create Result.with_capacity(4)
+      end
 
 invariant
-	not is_static
+   not is_static
 
 end -- class ANCHORED_TYPE_MARK
 --

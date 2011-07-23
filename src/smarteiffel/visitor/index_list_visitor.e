@@ -4,14 +4,14 @@
 deferred class INDEX_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {INDEX_LIST}
-	visit_index_list (visited: INDEX_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_index_list (visited: INDEX_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class INDEX_LIST_VISITOR
 --

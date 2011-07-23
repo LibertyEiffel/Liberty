@@ -4,14 +4,14 @@
 deferred class CST_ATT_REAL_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CST_ATT_REAL}
-	visit_cst_att_real (visited: CST_ATT_REAL) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cst_att_real (visited: CST_ATT_REAL) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CST_ATT_REAL_VISITOR
 --

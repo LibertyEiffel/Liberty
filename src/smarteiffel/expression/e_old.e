@@ -2,304 +2,304 @@
 -- See the Copyright notice at the end of this file.
 --
 class E_OLD
-	--
-	-- To store the "old foo" expression that can be used only in ensure assertions.
-	--
+   --
+   -- To store the "old foo" expression that can be used only in ensure assertions.
+   --
 
 inherit
-	EXPRESSION
+   EXPRESSION
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the "old" keyword.
+   start_position: POSITION
+         -- Of the "old" keyword.
 
-	expression: EXPRESSION
-			-- The one after keyword "old".
+   expression: EXPRESSION
+         -- The one after keyword "old".
 
-	is_current: BOOLEAN is False
+   is_current: BOOLEAN is False
 
-	is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
 
-	is_writable: BOOLEAN is False
+   is_writable: BOOLEAN is False
 
-	is_static: BOOLEAN is False
+   is_static: BOOLEAN is False
 
-	is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN is False
 
-	is_result: BOOLEAN is False
+   is_result: BOOLEAN is False
 
-	is_void: BOOLEAN is False
+   is_void: BOOLEAN is False
 
-	extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN is True
 
-	safety_check (type: TYPE) is
-		do
-			expression.safety_check(type)
-		end
+   safety_check (type: TYPE) is
+      do
+         expression.safety_check(type)
+      end
 
-	specialize_in (type: TYPE): like Current is
-		local
-			exp: like expression
-		do
-			if vaol_check_memory.item = Void then
-				vaol_check_memory.set_item(Current)
-			else
-				error_handler.add_position(vaol_check_memory.item.start_position)
-				error_handler.add_position(start_position)
-				error_handler.append("Must not use old inside some old expression (VAOL.2).")
-				error_handler.print_as_fatal_error
-			end
-			exp := expression.specialize_in(type)
-			vaol_check_memory.clear
-			Result := current_or_twin_init(exp)
-		end
+   specialize_in (type: TYPE): like Current is
+      local
+         exp: like expression
+      do
+         if vaol_check_memory.item = Void then
+            vaol_check_memory.set_item(Current)
+         else
+            error_handler.add_position(vaol_check_memory.item.start_position)
+            error_handler.add_position(start_position)
+            error_handler.append("Must not use old inside some old expression (VAOL.2).")
+            error_handler.print_as_fatal_error
+         end
+         exp := expression.specialize_in(type)
+         vaol_check_memory.clear
+         Result := current_or_twin_init(exp)
+      end
 
-	specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-		local
-			exp: like expression
-		do
-			exp := expression.specialize_thru(parent_type, parent_edge, new_type)
-			Result := current_or_twin_init(exp)
-		end
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         exp: like expression
+      do
+         exp := expression.specialize_thru(parent_type, parent_edge, new_type)
+         Result := current_or_twin_init(exp)
+      end
 
-	specialize_2 (type: TYPE): like Current is
-		local
-			exp: like expression
-		do
-			exp := expression.specialize_2(type)
-			Result := current_or_twin_init(exp)
-		end
+   specialize_2 (type: TYPE): like Current is
+      local
+         exp: like expression
+      do
+         exp := expression.specialize_2(type)
+         Result := current_or_twin_init(exp)
+      end
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			-- As the `expression' is memorized and always evaluated once:
-			Result := True
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         -- As the `expression' is memorized and always evaluated once:
+         Result := True
+      end
 
-	has_been_specialized: BOOLEAN is
-		do
-			Result := expression.has_been_specialized
-		end
+   has_been_specialized: BOOLEAN is
+      do
+         Result := expression.has_been_specialized
+      end
 
-	declaration_type: TYPE is
-		do
-			Result := expression.declaration_type
-		end
+   declaration_type: TYPE is
+      do
+         Result := expression.declaration_type
+      end
 
-	resolve_in (type: TYPE): TYPE is
-		do
-			Result := expression.resolve_in(type)
-		end
+   resolve_in (type: TYPE): TYPE is
+      do
+         Result := expression.resolve_in(type)
+      end
 
-	non_void_no_dispatch_type (type: TYPE): TYPE is
-		do
-			Result := expression.non_void_no_dispatch_type(type)
-		end
+   non_void_no_dispatch_type (type: TYPE): TYPE is
+      do
+         Result := expression.non_void_no_dispatch_type(type)
+      end
 
-	simplify (type: TYPE): EXPRESSION is
-		do
-			not_yet_implemented
-			check
-				False -- Because `simplify' is only made for -boost.
-			end
-		end
+   simplify (type: TYPE): EXPRESSION is
+      do
+         not_yet_implemented
+         check
+            False -- Because `simplify' is only made for -boost.
+         end
+      end
 
-	bracketed_pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-		end
+   bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+      end
 
-	pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.keyword(once "old")
-			if expression.precedence <= precedence then
-				expression.bracketed_pretty(indent_level + 1)
-			else
-				expression.pretty(indent_level + 1)
-			end
-		end
+   pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.keyword(once "old")
+         if expression.precedence <= precedence then
+            expression.bracketed_pretty(indent_level + 1)
+         else
+            expression.pretty(indent_level + 1)
+         end
+      end
 
-	pretty_target (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-			pretty_printer.put_character('.')
-		end
+   pretty_target (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+         pretty_printer.put_character('.')
+      end
 
-	short (type: TYPE) is
-		do
-			short_printer.hook_or(once "old", once "old ")
-			expression.short(type)
-		end
+   short (type: TYPE) is
+      do
+         short_printer.hook_or(once "old", once "old ")
+         expression.short(type)
+      end
 
-	short_target (type: TYPE) is
-		do
-			bracketed_short(type)
-			short_printer.put_dot
-		end
+   short_target (type: TYPE) is
+      do
+         bracketed_short(type)
+         short_printer.put_dot
+      end
 
-	precedence: INTEGER is
-		do
-			Result := 11
-		end
+   precedence: INTEGER is
+      do
+         Result := 11
+      end
 
-	compile_to_c_old_memory (type: TYPE) is
-			-- Produce the C code which stores the old value at the routine entry.
-		local
-			compound_expression: COMPOUND_EXPRESSION; exp: like expression
-		do
-			if {COMPOUND_EXPRESSION} ?:= expression then
-				compound_expression ::= expression
-				compound_expression.compound_compile_to_c(type)
-				exp := compound_expression.last.to_expression
-			else
-				exp := expression
-			end
-			if internal_c_local = Void	or else
-				pending_c_function_counter /= cpp.pending_c_function_counter
-			 then
-				internal_c_local := cpp.pending_c_function_lock_local(resolve_in(type), once "old")
-				pending_c_function_counter := cpp.pending_c_function_counter
-			end
-			internal_c_local.append_in(cpp.pending_c_function_body)
-			cpp.pending_c_function_body.extend('=')
-			exp.mapping_c_arg(type)
-			cpp.pending_c_function_body.append(once ";%N")
-		end
+   compile_to_c_old_memory (type: TYPE) is
+         -- Produce the C code which stores the old value at the routine entry.
+      local
+         compound_expression: COMPOUND_EXPRESSION; exp: like expression
+      do
+         if {COMPOUND_EXPRESSION} ?:= expression then
+            compound_expression ::= expression
+            compound_expression.compound_compile_to_c(type)
+            exp := compound_expression.last.to_expression
+         else
+            exp := expression
+         end
+         if internal_c_local = Void   or else
+            pending_c_function_counter /= cpp.pending_c_function_counter
+          then
+            internal_c_local := cpp.pending_c_function_lock_local(resolve_in(type), once "old")
+            pending_c_function_counter := cpp.pending_c_function_counter
+         end
+         internal_c_local.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.extend('=')
+         exp.mapping_c_arg(type)
+         cpp.pending_c_function_body.append(once ";%N")
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			-- Now read the memorized value:
-			internal_c_local.append_in(cpp.pending_c_function_body)
-		end
+   compile_to_c (type: TYPE) is
+      do
+         -- Now read the memorized value:
+         internal_c_local.append_in(cpp.pending_c_function_body)
+      end
 
-	mapping_c_target (type, formal_target_type: TYPE) is
-		do
-			standard_mapping_c_target(type, formal_target_type)
-		end
+   mapping_c_target (type, formal_target_type: TYPE) is
+      do
+         standard_mapping_c_target(type, formal_target_type)
+      end
 
-	mapping_c_arg (type: TYPE) is
-		do
-			compile_to_c(type)
-		end
+   mapping_c_arg (type: TYPE) is
+      do
+         compile_to_c(type)
+      end
 
-	compile_to_jvm_old (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm_old (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	compile_target_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_target_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			not_yet_implemented
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			not_yet_implemented
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         not_yet_implemented
+      end
 
-	jvm_assign_creation, jvm_assign (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   jvm_assign_creation, jvm_assign (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	use_current (type: TYPE): BOOLEAN is
-		do
-			Result := expression.use_current(type)
-		end
+   use_current (type: TYPE): BOOLEAN is
+      do
+         Result := expression.use_current(type)
+      end
 
-	collect (type: TYPE): TYPE is
-		do
-			Result := expression.collect(type)
-		end
+   collect (type: TYPE): TYPE is
+      do
+         Result := expression.collect(type)
+      end
 
-	adapt_for (type: TYPE): like Current is
-		do
-			Result := current_or_twin_init(expression.adapt_for(type))
-			smart_eiffel.register_old(Result)
-		end
+   adapt_for (type: TYPE): like Current is
+      do
+         Result := current_or_twin_init(expression.adapt_for(type))
+         smart_eiffel.register_old(Result)
+      end
 
-	accept (visitor: E_OLD_VISITOR) is
-		do
-			visitor.visit_e_old(Current)
-		end
+   accept (visitor: E_OLD_VISITOR) is
+      do
+         visitor.visit_e_old(Current)
+      end
 
 feature {E_OLD}
-	init (exp: like expression) is
-		require
-			exp /= Void
-		do
-			expression := exp
-		ensure
-			expression = exp
-		end
+   init (exp: like expression) is
+      require
+         exp /= Void
+      do
+         expression := exp
+      ensure
+         expression = exp
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		local
-			exp: like expression
-		do
-			code_accumulator.open_new_context
-			expression.inline_dynamic_dispatch_(code_accumulator, type)
-			exp := code_accumulator.current_context_to_expression
-			code_accumulator.close_current_context
-			code_accumulator.current_context.add_last(current_or_twin_init(exp))
-		end
-		
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         exp: like expression
+      do
+         code_accumulator.open_new_context
+         expression.inline_dynamic_dispatch_(code_accumulator, type)
+         exp := code_accumulator.current_context_to_expression
+         code_accumulator.close_current_context
+         code_accumulator.current_context.add_last(current_or_twin_init(exp))
+      end
+      
 feature {}
-	pending_c_function_counter: INTEGER
-	
-	internal_c_local: INTERNAL_C_LOCAL
+   pending_c_function_counter: INTEGER
+   
+   internal_c_local: INTERNAL_C_LOCAL
 
-	make (sp: like start_position; exp: like expression) is
-		require
-			not sp.is_unknown
-			exp /= Void
-		do
-			start_position := sp
-			expression := exp
-		ensure
-			start_position = sp
-			expression = exp
-		end
+   make (sp: like start_position; exp: like expression) is
+      require
+         not sp.is_unknown
+         exp /= Void
+      do
+         start_position := sp
+         expression := exp
+      ensure
+         start_position = sp
+         expression = exp
+      end
 
-	current_or_twin_init (exp: like expression): like Current is
-		require
-			exp /= Void
-		do
-			if exp = expression then
-				Result := Current
-			else
-				Result := twin
-				Result.init(exp)
-			end
-		ensure
-			Result.expression = exp
-		end
+   current_or_twin_init (exp: like expression): like Current is
+      require
+         exp /= Void
+      do
+         if exp = expression then
+            Result := Current
+         else
+            Result := twin
+            Result.init(exp)
+         end
+      ensure
+         Result.expression = exp
+      end
 
-	vaol_check_memory: REFERENCE[E_OLD] is
-		once
-			create Result
-		end
+   vaol_check_memory: REFERENCE[E_OLD] is
+      once
+         create Result
+      end
 
 invariant
-	expression /= Void
+   expression /= Void
 
 end -- class E_OLD
 --

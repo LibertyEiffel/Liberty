@@ -2,78 +2,78 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_COMMENT_STATE_IN_BULLET_LIST
-	--
-	-- * example
-	-- * line two
-	-- ** two dot one
-	-- ** two dot two
-	-- * line three
-	--
+   --
+   -- * example
+   -- * line two
+   -- ** two dot one
+   -- ** two dot two
+   -- * line three
+   --
 
 inherit
-	EIFFELDOC_COMMENT_STATE_IN_LIST
+   EIFFELDOC_COMMENT_STATE_IN_LIST
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {}
-	is_list_marker (c: CHARACTER): BOOLEAN is
-		do
-			Result := c = '*'
-		end
+   is_list_marker (c: CHARACTER): BOOLEAN is
+      do
+         Result := c = '*'
+      end
 
-	open_lists (how_many: INTEGER) is
-		local
-			i: INTEGER
-		do
-			from
-				--*** I would remove the next 3 lines <FM-24/04/2006>
-				if depth > 0 then
-					next_list_item
-				end
-			until
-				i = how_many
-			loop
-				html.with_attribute(once "class", once "wiki_bullet_list")
-				html.open_list
-				html.with_attribute(once "class", once "wiki_bullet_list")
-				html.open_list_item
-				i := i + 1
-			end
-		end
+   open_lists (how_many: INTEGER) is
+      local
+         i: INTEGER
+      do
+         from
+            --*** I would remove the next 3 lines <FM-24/04/2006>
+            if depth > 0 then
+               next_list_item
+            end
+         until
+            i = how_many
+         loop
+            html.with_attribute(once "class", once "wiki_bullet_list")
+            html.open_list
+            html.with_attribute(once "class", once "wiki_bullet_list")
+            html.open_list_item
+            i := i + 1
+         end
+      end
 
-	close_lists (how_many: INTEGER) is
-		local
-			i: INTEGER
-		do
-			from
-			until
-				i = how_many
-			loop
-				html.close_list_item
-				html.close_list
-				i := i + 1
-			end
-			--*** I would remove the next 3 lines <FM-24/04/2006>
-			if how_many < depth then
-				next_list_item
-			end
-		end
+   close_lists (how_many: INTEGER) is
+      local
+         i: INTEGER
+      do
+         from
+         until
+            i = how_many
+         loop
+            html.close_list_item
+            html.close_list
+            i := i + 1
+         end
+         --*** I would remove the next 3 lines <FM-24/04/2006>
+         if how_many < depth then
+            next_list_item
+         end
+      end
 
-	next_list_item is
-		do
-			html.close_list_item
-			html.with_attribute(once "class", once "wiki_bullet_list")
-			html.open_list_item
-		end
+   next_list_item is
+      do
+         html.close_list_item
+         html.with_attribute(once "class", once "wiki_bullet_list")
+         html.open_list_item
+      end
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_IN_BULLET_LIST
 --

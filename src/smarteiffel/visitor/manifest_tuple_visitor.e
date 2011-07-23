@@ -4,14 +4,14 @@
 deferred class MANIFEST_TUPLE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {MANIFEST_TUPLE}
-	visit_manifest_tuple (visited: MANIFEST_TUPLE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class MANIFEST_TUPLE_VISITOR
 --

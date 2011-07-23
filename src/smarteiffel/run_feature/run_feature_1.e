@@ -4,117 +4,117 @@
 class RUN_FEATURE_1
 
 inherit
-	RUN_FEATURE
-		redefine base_feature
-		end
+   RUN_FEATURE
+      redefine base_feature
+      end
 
 creation {CST_ATT}
-	for
+   for
 
 feature {ANY}
-	base_feature: CST_ATT
+   base_feature: CST_ATT
 
-	value: EXPRESSION
+   value: EXPRESSION
 
-	result_type: TYPE_MARK
+   result_type: TYPE_MARK
 
-	is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN is False
 
-	side_effect_free: BOOLEAN is True
+   side_effect_free: BOOLEAN is True
 
-	is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN is False
 
-	is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN is False
 
-	arguments: FORMAL_ARG_LIST is
-		do
-		end
+   arguments: FORMAL_ARG_LIST is
+      do
+      end
 
-	require_assertion: REQUIRE_ASSERTION is
-		do
-		end
+   require_assertion: REQUIRE_ASSERTION is
+      do
+      end
 
-	local_vars: LOCAL_VAR_LIST is
-		do
-		end
+   local_vars: LOCAL_VAR_LIST is
+      do
+      end
 
-	routine_body: INSTRUCTION is
-		do
-		end
+   routine_body: INSTRUCTION is
+      do
+      end
 
-	ensure_assertion: ENSURE_ASSERTION is
-		do
-		end
+   ensure_assertion: ENSURE_ASSERTION is
+      do
+      end
 
-	rescue_compound: INSTRUCTION is
-		do
-		end
+   rescue_compound: INSTRUCTION is
+      do
+      end
 
-	afd_check is
-		do
-		end
+   afd_check is
+      do
+      end
 
-	mapping_c is
-		local
-			has_target: BOOLEAN
-		do
-			if cpp.target_cannot_be_dropped then
-				has_target := True
-				cpp.pending_c_function_body.extend(',')
-			end
-			cpp.pending_c_function_body.append(once "/*RF1")
-			cpp.pending_c_function_body.append(name.to_string)
-			cpp.pending_c_function_body.append(once "*/")
-			value.compile_to_c(type_of_current)
-			if has_target then
-				cpp.pending_c_function_body.extend(')')
-			end
-		end
+   mapping_c is
+      local
+         has_target: BOOLEAN
+      do
+         if cpp.target_cannot_be_dropped then
+            has_target := True
+            cpp.pending_c_function_body.extend(',')
+         end
+         cpp.pending_c_function_body.append(once "/*RF1")
+         cpp.pending_c_function_body.append(name.to_string)
+         cpp.pending_c_function_body.append(once "*/")
+         value.compile_to_c(type_of_current)
+         if has_target then
+            cpp.pending_c_function_body.extend(')')
+         end
+      end
 
-	c_define is
-		do
-		end
+   c_define is
+      do
+      end
 
 feature {LIVE_TYPE}
-	jvm_field_or_method is
-		do
-		end
+   jvm_field_or_method is
+      do
+      end
 
 feature {RUN_FEATURE}
-	compute_use_current is
-		do
-			use_current_state := False_state
-		end
+   compute_use_current is
+      do
+         use_current_state := False_state
+      end
 
 feature {ANY}
-	mapping_jvm is
-		do
-			jvm.drop_target
-			value.compile_to_jvm(type_of_current)
-		end
+   mapping_jvm is
+      do
+         jvm.drop_target
+         value.compile_to_jvm(type_of_current)
+      end
 
 feature {JVM}
-	jvm_define is
-		do
-		end
+   jvm_define is
+      do
+      end
 
 feature {}
-	do_adapt is
-		do
-		end
+   do_adapt is
+      do
+      end
 
-	set_result_type is
-		do
-			result_type := base_feature.result_type
-			check
-				result_type.is_static
-			end
-			value := base_feature.value
-		end
+   set_result_type is
+      do
+         result_type := base_feature.result_type
+         check
+            result_type.is_static
+         end
+         value := base_feature.value
+      end
 
-	update_tmp_jvm_descriptor is
-		do
-		end
+   update_tmp_jvm_descriptor is
+      do
+      end
 
 end -- class RUN_FEATURE_1
 --

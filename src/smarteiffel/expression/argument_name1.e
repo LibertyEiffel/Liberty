@@ -2,64 +2,64 @@
 -- See the Copyright notice at the end of this file.
 --
 class ARGUMENT_NAME1
-	--
-	-- An argument name in some declaration list.
-	--
+   --
+   -- An argument name in some declaration list.
+   --
 
 inherit
-	LOCAL_ARGUMENT1
+   LOCAL_ARGUMENT1
 
 insert
-	ARGUMENT_NAME
+   ARGUMENT_NAME
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	collect (type: TYPE): TYPE is
-		do
-			Result := result_type.resolve_in(type)
-		end
+   collect (type: TYPE): TYPE is
+      do
+         Result := result_type.resolve_in(type)
+      end
 
-	adapt_for (type: TYPE): like Current is
-			--|*** (PH 25/08/04) should be identical with 
-			--|*** LOCAL_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
-		local
-			tm: TYPE_MARK
-		do
-			tm := result_type.resolve_in(type).canonical_type_mark
-			if result_type = tm then
-				Result := Current
-			else
-				Result := twin
-				Result.set_result_type(tm)
-			end
-		end
+   adapt_for (type: TYPE): like Current is
+         --|*** (PH 25/08/04) should be identical with 
+         --|*** LOCAL_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
+      local
+         tm: TYPE_MARK
+      do
+         tm := result_type.resolve_in(type).canonical_type_mark
+         if result_type = tm then
+            Result := Current
+         else
+            Result := twin
+            Result.set_result_type(tm)
+         end
+      end
 
-	accept (visitor: ARGUMENT_NAME1_VISITOR) is
-		do
-			visitor.visit_argument_name1(Current)
-		end
+   accept (visitor: ARGUMENT_NAME1_VISITOR) is
+      do
+         visitor.visit_argument_name1(Current)
+      end
 
 feature {DECLARATION_LIST}
-	name_clash_check (type: TYPE) is
-		do
-			name_clash_check_(type, once "Conflict between argument/feature name (VRFA).")
-		end
+   name_clash_check (type: TYPE) is
+      do
+         name_clash_check_(type, once "Conflict between argument/feature name (VRFA).")
+      end
 
 feature {}
-	make (sp: POSITION; n: STRING) is
-		require
-			not sp.is_unknown
-			not n.is_empty
-		do
-			start_position := sp
-			hashed_string := string_aliaser.hashed_string(n)
-			to_string := hashed_string.to_string
-		ensure
-			start_position = sp
-			to_string.is_equal(n) and string_aliaser.registered_one(to_string)
-		end
+   make (sp: POSITION; n: STRING) is
+      require
+         not sp.is_unknown
+         not n.is_empty
+      do
+         start_position := sp
+         hashed_string := string_aliaser.hashed_string(n)
+         to_string := hashed_string.to_string
+      ensure
+         start_position = sp
+         to_string.is_equal(n) and string_aliaser.registered_one(to_string)
+      end
 
 end -- class ARGUMENT_NAME1
 --

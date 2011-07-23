@@ -4,14 +4,14 @@
 deferred class TYPE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {TYPE}
-	visit_type (visited: TYPE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_type (visited: TYPE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class TYPE_VISITOR
 --

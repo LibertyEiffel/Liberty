@@ -4,15 +4,15 @@
 deferred class DECLARATION_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {DECLARATION_LIST}
-	visit_declaration_list (visited: DECLARATION_LIST) is
-		require
-			visited /= Void
-		do
-			visited.accept(Current)
-		end
+   visit_declaration_list (visited: DECLARATION_LIST) is
+      require
+         visited /= Void
+      do
+         visited.accept(Current)
+      end
 
 end -- class DECLARATION_LIST_VISITOR
 --

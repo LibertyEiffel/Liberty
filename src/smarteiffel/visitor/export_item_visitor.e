@@ -4,14 +4,14 @@
 deferred class EXPORT_ITEM_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {EXPORT_ITEM}
-	visit_export_item (visited: EXPORT_ITEM) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_export_item (visited: EXPORT_ITEM) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class EXPORT_ITEM_VISITOR
 --

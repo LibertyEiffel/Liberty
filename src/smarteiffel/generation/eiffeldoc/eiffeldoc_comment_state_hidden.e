@@ -4,50 +4,50 @@
 class EIFFELDOC_COMMENT_STATE_HIDDEN
 
 inherit
-	EIFFELDOC_COMMENT_STATE
+   EIFFELDOC_COMMENT_STATE
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-	can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
-		do
-			if offset = comment.lower then
-				Result := offset <= comment.upper and then comment.first = '|'
-			elseif offset < comment.upper then
-				Result := comment.item(offset) = '%N' and then comment.item(offset + 1) = '|'
-			end
-		end
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+      do
+         if offset = comment.lower then
+            Result := offset <= comment.upper and then comment.first = '|'
+         elseif offset < comment.upper then
+            Result := comment.item(offset) = '%N' and then comment.item(offset + 1) = '|'
+         end
+      end
 
-	handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
-		do
-			if offset = comment.lower then
-				Result := comment.first_index_of('%N')
-			else
-				Result := comment.index_of('%N', offset + 1)
-			end
-			if Result < offset then
-				Result := comment.upper + 1
-			end
-		end
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+      do
+         if offset = comment.lower then
+            Result := comment.first_index_of('%N')
+         else
+            Result := comment.index_of('%N', offset + 1)
+         end
+         if Result < offset then
+            Result := comment.upper + 1
+         end
+      end
 
-	abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
-		do
-			check
-				False
-			end
-		end
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+      do
+         check
+            False
+         end
+      end
 
-	handle_first: BOOLEAN is False
-			-- anyway, not used because the states stack never has Current
+   handle_first: BOOLEAN is False
+         -- anyway, not used because the states stack never has Current
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_HIDDEN
 --

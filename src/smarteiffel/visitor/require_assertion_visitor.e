@@ -4,14 +4,14 @@
 deferred class REQUIRE_ASSERTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {REQUIRE_ASSERTION}
-	visit_require_assertion (visited: REQUIRE_ASSERTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_require_assertion (visited: REQUIRE_ASSERTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class REQUIRE_ASSERTION_VISITOR
 --

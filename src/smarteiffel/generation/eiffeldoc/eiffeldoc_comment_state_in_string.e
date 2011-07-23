@@ -2,57 +2,57 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_COMMENT_STATE_IN_STRING
-	--
-	-- Handle Eiffel strings
-	--
-	-- '' Known bug:'' '%"' in strings not correctly handled. Verbatim multi-line strings are not handled either.
-	--
+   --
+   -- Handle Eiffel strings
+   --
+   -- '' Known bug:'' '%"' in strings not correctly handled. Verbatim multi-line strings are not handled either.
+   --
 
 inherit
-	EIFFELDOC_COMMENT_STATE
+   EIFFELDOC_COMMENT_STATE
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-	can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
-		do
-			Result := offset < comment.count and then comment.item(offset) = '"' and then comment.index_of('"', offset + 1) > offset
-		end
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+      do
+         Result := offset < comment.count and then comment.item(offset) = '"' and then comment.index_of('"', offset + 1) > offset
+      end
 
-	handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
-		local
-			i: INTEGER
-		do
-			html.with_attribute(once "class", once "wiki_string")
-			html.open_typeset
-			i := comment.index_of('"', offset + 1)
-			buffer.copy(comment)
-			buffer.shrink(offset, i)
-			html.put_string(buffer)
-			html.close_typeset
-			Result := i + 1
-		end
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+      local
+         i: INTEGER
+      do
+         html.with_attribute(once "class", once "wiki_string")
+         html.open_typeset
+         i := comment.index_of('"', offset + 1)
+         buffer.copy(comment)
+         buffer.shrink(offset, i)
+         html.put_string(buffer)
+         html.close_typeset
+         Result := i + 1
+      end
 
-	abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
-		do
-			check
-				False
-			end
-		end
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+      do
+         check
+            False
+         end
+      end
 
-	handle_first: BOOLEAN is True
-
-feature {}
-	buffer: STRING is ""
+   handle_first: BOOLEAN is True
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   buffer: STRING is ""
+
+feature {}
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_IN_STRING
 --

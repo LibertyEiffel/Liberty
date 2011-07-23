@@ -4,14 +4,14 @@
 deferred class NO_INVARIANT_WRAPPER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NO_INVARIANT_WRAPPER}
-	visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NO_INVARIANT_WRAPPER_VISITOR
 --

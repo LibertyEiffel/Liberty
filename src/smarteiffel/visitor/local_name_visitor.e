@@ -4,15 +4,15 @@
 deferred class LOCAL_NAME_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LOCAL_NAME}
-	visit_local_name (visited: LOCAL_NAME) is
-		require
-			visited /= Void
-		do
-			visited.accept(Current)
-		end
+   visit_local_name (visited: LOCAL_NAME) is
+      require
+         visited /= Void
+      do
+         visited.accept(Current)
+      end
 
 end -- class LOCAL_NAME_VISITOR
 --

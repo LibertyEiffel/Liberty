@@ -2,128 +2,128 @@
 -- See the Copyright notice at the end of this file.
 --
 class BOOLEAN_TYPE_MARK
-	--
-	-- For BOOLEAN declaration :
-	--                                  foo: BOOLEAN
-	--
+   --
+   -- For BOOLEAN declaration :
+   --                                  foo: BOOLEAN
+   --
 
 inherit
-	KERNEL_EXPANDED_TYPE_MARK
-		redefine resolve_in, default_expression
-		end
-	
+   KERNEL_EXPANDED_TYPE_MARK
+      redefine resolve_in, default_expression
+      end
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	id: INTEGER is 6
+   id: INTEGER is 6
 
-	written_name: HASHED_STRING is
-			-- (Is always the same one.)
-		once
-			Result := string_aliaser.hashed_string(as_boolean)
-		end
+   written_name: HASHED_STRING is
+         -- (Is always the same one.)
+      once
+         Result := string_aliaser.hashed_string(as_boolean)
+      end
 
-	type: TYPE is
-		do
-			Result := smart_eiffel.type_boolean
-		end
-	
-	resolve_in (new_type: TYPE): TYPE is
-		do
-			Result := type
-		end
-	
-	default_expression (sp: POSITION): EXPRESSION is
-		do
-			create {E_FALSE} Result.make(sp)
-		end
-	
-	accept (visitor: BOOLEAN_TYPE_MARK_VISITOR) is
-		do
-			visitor.visit_boolean_type_mark(Current)
-		end
+   type: TYPE is
+      do
+         Result := smart_eiffel.type_boolean
+      end
+   
+   resolve_in (new_type: TYPE): TYPE is
+      do
+         Result := type
+      end
+   
+   default_expression (sp: POSITION): EXPRESSION is
+      do
+         create {E_FALSE} Result.make(sp)
+      end
+   
+   accept (visitor: BOOLEAN_TYPE_MARK_VISITOR) is
+      do
+         visitor.visit_boolean_type_mark(Current)
+      end
 
-	c_type_for_argument_in (str: STRING) is
-		do
-			str.extend('T')
-			str.extend('6')
-		end
+   c_type_for_argument_in (str: STRING) is
+      do
+         str.extend('T')
+         str.extend('6')
+      end
 
-	jvm_descriptor_in (str: STRING) is
-		do
-			str.extend('Z')
-		end
+   jvm_descriptor_in (str: STRING) is
+      do
+         str.extend('Z')
+      end
 
-	jvm_return_code is
-		do
-			code_attribute.opcode_ireturn
-		end
+   jvm_return_code is
+      do
+         code_attribute.opcode_ireturn
+      end
 
-	jvm_push_local (offset: INTEGER) is
-		do
-			code_attribute.opcode_iload(offset)
-		end
+   jvm_push_local (offset: INTEGER) is
+      do
+         code_attribute.opcode_iload(offset)
+      end
 
-	jvm_push_default: INTEGER is
-		do
-			code_attribute.opcode_iconst_0
-			Result := 1
-		end
+   jvm_push_default: INTEGER is
+      do
+         code_attribute.opcode_iconst_0
+         Result := 1
+      end
 
-	jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-		do
-			code_attribute.opcode_istore(offset)
-		end
+   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
+      do
+         code_attribute.opcode_istore(offset)
+      end
 
-	jvm_xnewarray is
-		do
-			code_attribute.opcode_newarray(4)
-		end
+   jvm_xnewarray is
+      do
+         code_attribute.opcode_newarray(4)
+      end
 
-	jvm_xastore is
-		do
-			code_attribute.opcode_bastore
-		end
+   jvm_xastore is
+      do
+         code_attribute.opcode_bastore
+      end
 
-	jvm_xaload is
-		do
-			code_attribute.opcode_baload
-		end
+   jvm_xaload is
+      do
+         code_attribute.opcode_baload
+      end
 
-	jvm_if_x_eq: INTEGER is
-		do
-			Result := code_attribute.opcode_if_icmpeq
-		end
+   jvm_if_x_eq: INTEGER is
+      do
+         Result := code_attribute.opcode_if_icmpeq
+      end
 
-	jvm_if_x_ne: INTEGER is
-		do
-			Result := code_attribute.opcode_if_icmpne
-		end
+   jvm_if_x_ne: INTEGER is
+      do
+         Result := code_attribute.opcode_if_icmpne
+      end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-	long_name: HASHED_STRING is
-		once
-			Result := string_aliaser.hashed_string(as_boolean)
-		end
+   long_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_boolean)
+      end
 
 feature {LIVE_TYPE}
-	structure_mark: CHARACTER is 'p'
+   structure_mark: CHARACTER is 'p'
 
 feature {MANIFEST_GENERIC_POOL}
-	c_type_for_va_arg_in (buffer: STRING) is
-		do
-			buffer.append(once "int")
-		end
+   c_type_for_va_arg_in (buffer: STRING) is
+      do
+         buffer.append(once "int")
+      end
 
 feature {}
-	make (sp: like start_position) is
-		do
-			create class_text_name.make(written_name, sp)
-		end
+   make (sp: like start_position) is
+      do
+         create class_text_name.make(written_name, sp)
+      end
 
 invariant
-	written_mark = as_boolean
+   written_mark = as_boolean
 
 end -- class BOOLEAN_TYPE_MARK
 --

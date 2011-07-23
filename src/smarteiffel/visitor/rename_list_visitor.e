@@ -4,14 +4,14 @@
 deferred class RENAME_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RENAME_LIST}
-	visit_rename_list (visited: RENAME_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_rename_list (visited: RENAME_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RENAME_LIST_VISITOR
 --

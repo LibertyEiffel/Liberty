@@ -4,14 +4,14 @@
 deferred class NATIVE_PLUG_IN_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NATIVE_PLUG_IN}
-	visit_native_plug_in (visited: NATIVE_PLUG_IN) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NATIVE_PLUG_IN_VISITOR
 --

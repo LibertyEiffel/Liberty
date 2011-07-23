@@ -4,14 +4,14 @@
 deferred class EXPRESSION_WITH_COMMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {EXPRESSION_WITH_COMMENT}
-	visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class EXPRESSION_WITH_COMMENT_VISITOR
 --

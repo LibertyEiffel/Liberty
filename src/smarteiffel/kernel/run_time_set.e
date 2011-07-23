@@ -2,192 +2,192 @@
 -- See the Copyright notice at the end of this file.
 --
 class RUN_TIME_SET
-	--
-	-- The set of all possible `at_run_time' LIVE_TYPEs which are associated with some `owner' LIVE_TYPE. There is
-	-- exactely one RUN_TIME_SET object for each LIVE_TYPE. The RUN_TIME_SET of a LIVE_TYPE is the set of
-	-- possible `at_run_time' LIVE_TYPEs which can be assigned into a variable of this LIVE_TYPE and which may be
-	-- actually held by an expression of the type of `owner'.
-	-- Note: except for some kernel expanded (*), the RUN_TIME_SET of some expanded LIVE_TYPE has only one
-	-- element (i.e. the expanded LIVE_TYPE itself).
-	--
-	-- (*) The RUN_TIME_SET of INTEGER_16 can contains INTEGER_16 and INTEGER_8 (because we can directely assign an
-	-- INTEGER_8 into a variable of type INTEGER_16).
-	--
+   --
+   -- The set of all possible `at_run_time' LIVE_TYPEs which are associated with some `owner' LIVE_TYPE. There is
+   -- exactely one RUN_TIME_SET object for each LIVE_TYPE. The RUN_TIME_SET of a LIVE_TYPE is the set of
+   -- possible `at_run_time' LIVE_TYPEs which can be assigned into a variable of this LIVE_TYPE and which may be
+   -- actually held by an expression of the type of `owner'.
+   -- Note: except for some kernel expanded (*), the RUN_TIME_SET of some expanded LIVE_TYPE has only one
+   -- element (i.e. the expanded LIVE_TYPE itself).
+   --
+   -- (*) The RUN_TIME_SET of INTEGER_16 can contains INTEGER_16 and INTEGER_8 (because we can directely assign an
+   -- INTEGER_8 into a variable of type INTEGER_16).
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {LIVE_TYPE}
-	make
+   make
 
 feature {ANY} -- Basic accessing:
-	count: INTEGER is
-		do
-			Result := sorted.count
-		ensure
-			Result >= 0
-		end
+   count: INTEGER is
+      do
+         Result := sorted.count
+      ensure
+         Result >= 0
+      end
 
-	item (index: INTEGER): LIVE_TYPE is
-		require
-			index.in_range(1, count)
-		do
-			Result := sorted.item(index - 1)
-		ensure
-			Result /= Void
-		end
+   item (index: INTEGER): LIVE_TYPE is
+      require
+         index.in_range(1, count)
+      do
+         Result := sorted.item(index - 1)
+      ensure
+         Result /= Void
+      end
 
-	is_empty: BOOLEAN is
-		do
-			Result := count = 0
-		ensure
-			Result = (count = 0)
-		end
+   is_empty: BOOLEAN is
+      do
+         Result := count = 0
+      ensure
+         Result = (count = 0)
+      end
 
-	has (live_type: LIVE_TYPE): BOOLEAN is
-		require
-			live_type /= Void
-		do
-			Result := set.fast_has(live_type)
-		end
+   has (live_type: LIVE_TYPE): BOOLEAN is
+      require
+         live_type /= Void
+      do
+         Result := set.fast_has(live_type)
+      end
 
-	owner: LIVE_TYPE
-			-- The `owner' of the `Current' set.
+   owner: LIVE_TYPE
+         -- The `owner' of the `Current' set.
 
-	first: LIVE_TYPE is
-		require
-			count = 1
-		do
-			Result := sorted.first
-		ensure
-			Result = item(1)
-		end
+   first: LIVE_TYPE is
+      require
+         count = 1
+      do
+         Result := sorted.first
+      ensure
+         Result = item(1)
+      end
 
 feature {LIVE_TYPE}
-	id_extra_information (tfw: TEXT_FILE_WRITE) is
-		local
-			c, i: INTEGER; lt: LIVE_TYPE
-		do
-			c := sorted.count
-			tfw.put_string(once "run-time-set-count: ")
-			tfw.put_integer(c)
-			tfw.put_character('%N')
-			if c > 0 then
-				from
-					tfw.put_string(once "run-time-set:%N")
-					i := sorted.lower
-				until
-					i = c
-				loop
-					lt := sorted.item(i)
-					tfw.put_character('%T')
-					tfw.put_string(lt.name.to_string)
-					tfw.put_character(' ')
-					tfw.put_character('(')
-					tfw.put_integer(lt.id)
-					tfw.put_character(')')
-					tfw.put_character('%N')
-					i := i + 1
-				end
-			end
-		end
+   id_extra_information (tfw: TEXT_FILE_WRITE) is
+      local
+         c, i: INTEGER; lt: LIVE_TYPE
+      do
+         c := sorted.count
+         tfw.put_string(once "run-time-set-count: ")
+         tfw.put_integer(c)
+         tfw.put_character('%N')
+         if c > 0 then
+            from
+               tfw.put_string(once "run-time-set:%N")
+               i := sorted.lower
+            until
+               i = c
+            loop
+               lt := sorted.item(i)
+               tfw.put_character('%T')
+               tfw.put_string(lt.name.to_string)
+               tfw.put_character(' ')
+               tfw.put_character('(')
+               tfw.put_integer(lt.id)
+               tfw.put_character(')')
+               tfw.put_character('%N')
+               i := i + 1
+            end
+         end
+      end
 
-	reset is
-		do
-			sorted.clear_count
-			set.clear_count
-			debug
-				debug_info.append(once " ***reset*** ")
-			end
-		ensure
-			count = 0
-		end
+   reset is
+      do
+         sorted.clear_count
+         set.clear_count
+         debug
+            debug_info.append(once " ***reset*** ")
+         end
+      ensure
+         count = 0
+      end
 
 feature {RUN_TIME_SET}
-	set: SET[LIVE_TYPE]
-			-- The set of possible LIVE_TYPEs which are all `at_run_time' and that can be held by a variable
-			-- of the `owner' type.
+   set: SET[LIVE_TYPE]
+         -- The set of possible LIVE_TYPEs which are all `at_run_time' and that can be held by a variable
+         -- of the `owner' type.
 
-	sorted: FAST_ARRAY[LIVE_TYPE]
-			-- Same `set' of LIVE_TYPEs, but sorted by increasing id.
+   sorted: FAST_ARRAY[LIVE_TYPE]
+         -- Same `set' of LIVE_TYPEs, but sorted by increasing id.
 
 feature {GRAPH_NODE}
-	add_set (other: like Current): INTEGER is
-			-- Add elements of `other' into `Current' and return the number of actually added elements.
-		require
-			not smart_eiffel.is_ready
-			not other.is_empty
-			other /= Current
-		local
-			i: INTEGER; other_sorted: like sorted; lt: LIVE_TYPE
-		do
-			from
-				other_sorted := other.sorted
-				i := other_sorted.upper
-			until
-				i < other_sorted.lower
-			loop
-				lt := other_sorted.item(i)
-				if owner = lt then
-					check
-						set.fast_has(lt)
-					end
-				elseif not set.fast_has(lt) then
-					if lt.can_be_assigned_to(owner) then
-						force_add(lt)
-						Result := Result + 1
-					end
-				end
-				i := i - 1
-			end
-		ensure
-			Result = count - old count
-		end
+   add_set (other: like Current): INTEGER is
+         -- Add elements of `other' into `Current' and return the number of actually added elements.
+      require
+         not smart_eiffel.is_ready
+         not other.is_empty
+         other /= Current
+      local
+         i: INTEGER; other_sorted: like sorted; lt: LIVE_TYPE
+      do
+         from
+            other_sorted := other.sorted
+            i := other_sorted.upper
+         until
+            i < other_sorted.lower
+         loop
+            lt := other_sorted.item(i)
+            if owner = lt then
+               check
+                  set.fast_has(lt)
+               end
+            elseif not set.fast_has(lt) then
+               if lt.can_be_assigned_to(owner) then
+                  force_add(lt)
+                  Result := Result + 1
+               end
+            end
+            i := i - 1
+         end
+      ensure
+         Result = count - old count
+      end
 
 feature {LIVE_TYPE}
-	force_add (live_type: LIVE_TYPE) is
-		require
-			live_type.is_expanded implies live_type = owner
-		local
-			i: INTEGER
-		do
-			set.fast_add(live_type)
-			debug
-				debug_info.extend(' ')
-				debug_info.append(live_type.name.to_string)
-			end
-			from
-				i := sorted.upper
-				sorted.add_last(live_type)
-			until
-				i < sorted.lower or else sorted.item(i).id < live_type.id
-			loop
-				sorted.swap(i, i + 1)
-				i := i - 1
-			end
-		end
+   force_add (live_type: LIVE_TYPE) is
+      require
+         live_type.is_expanded implies live_type = owner
+      local
+         i: INTEGER
+      do
+         set.fast_add(live_type)
+         debug
+            debug_info.extend(' ')
+            debug_info.append(live_type.name.to_string)
+         end
+         from
+            i := sorted.upper
+            sorted.add_last(live_type)
+         until
+            i < sorted.lower or else sorted.item(i).id < live_type.id
+         loop
+            sorted.swap(i, i + 1)
+            i := i - 1
+         end
+      end
 
-	debug_info: STRING
+   debug_info: STRING
 
-	make (o: like owner) is
-		require
-			o /= Void
-		do
-			owner := o
-			create sorted.with_capacity(64)
-			create {HASHED_SET[LIVE_TYPE]} set.make
-			debug
-				debug_info := owner.name.to_string.twin
-				debug_info.append(once ": ")
-			end
-		ensure
-			owner = o
-		end
+   make (o: like owner) is
+      require
+         o /= Void
+      do
+         owner := o
+         create sorted.with_capacity(64)
+         create {HASHED_SET[LIVE_TYPE]} set.make
+         debug
+            debug_info := owner.name.to_string.twin
+            debug_info.append(once ": ")
+         end
+      ensure
+         owner = o
+      end
 
 invariant
-	owner.run_time_set = Current or else owner.run_time_set = Void
+   owner.run_time_set = Current or else owner.run_time_set = Void
 
-	sorted.count = set.count
+   sorted.count = set.count
 
 end -- class RUN_TIME_SET
 --

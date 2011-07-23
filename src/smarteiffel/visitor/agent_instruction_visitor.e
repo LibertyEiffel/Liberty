@@ -4,14 +4,14 @@
 deferred class AGENT_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {AGENT_INSTRUCTION}
-	visit_agent_instruction (visited: AGENT_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_agent_instruction (visited: AGENT_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class AGENT_INSTRUCTION_VISITOR
 --

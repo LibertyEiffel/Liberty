@@ -4,14 +4,14 @@
 deferred class NATURAL_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NATURAL_TYPE_MARK}
-	visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NATURAL_TYPE_MARK_VISITOR
 --

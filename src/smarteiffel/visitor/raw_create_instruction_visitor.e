@@ -4,14 +4,14 @@
 deferred class RAW_CREATE_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RAW_CREATE_INSTRUCTION}
-	visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RAW_CREATE_INSTRUCTION_VISITOR
 --

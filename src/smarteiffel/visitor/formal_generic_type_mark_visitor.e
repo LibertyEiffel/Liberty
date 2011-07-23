@@ -4,14 +4,14 @@
 deferred class FORMAL_GENERIC_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-	visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FORMAL_GENERIC_TYPE_MARK_VISITOR
 --

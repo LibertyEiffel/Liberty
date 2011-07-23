@@ -4,78 +4,78 @@
 deferred class SE_CONFIG
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {ANY}
-	bin: STRING is
-		deferred
-		end
+   bin: STRING is
+      deferred
+      end
 
-	sys: STRING is
-		deferred
-		end
+   sys: STRING is
+      deferred
+      end
 
-	short: STRING is
-		deferred
-		end
+   short: STRING is
+      deferred
+      end
 
-	os: STRING is
-		deferred
-		end
+   os: STRING is
+      deferred
+      end
 
-	flavor: STRING is
-		deferred
-		end
+   flavor: STRING is
+      deferred
+      end
 
-	jobs: INTEGER is
-		deferred
-		end
+   jobs: INTEGER is
+      deferred
+      end
 
-	jar: STRING is
-		deferred
-		end
+   jar: STRING is
+      deferred
+      end
 
-	java_virtual_machine: STRING is
-		deferred
-		end
+   java_virtual_machine: STRING is
+      deferred
+      end
 
-	java_compiler: STRING is
-		deferred
-		end
+   java_compiler: STRING is
+      deferred
+      end
 
-	environment (var: STRING): STRING is
-		deferred
-		end
+   environment (var: STRING): STRING is
+      deferred
+      end
 
-	loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
-		require
-			loadpaths /= Void
-		deferred
-		end
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+      require
+         loadpaths /= Void
+      deferred
+      end
 
-	tools_in (tools: DICTIONARY[STRING, STRING]) is
-		require
-			tools /= Void
-		deferred
-		end
+   tools_in (tools: DICTIONARY[STRING, STRING]) is
+      require
+         tools /= Void
+      deferred
+      end
 
-	environment_in (env: DICTIONARY[STRING, STRING]) is
-		require
-			env /= Void
-		deferred
-		end
+   environment_in (env: DICTIONARY[STRING, STRING]) is
+      require
+         env /= Void
+      deferred
+      end
 
-	c_mode (a_c_mode: STRING): SE_C_MODE is
-		require
-			not a_c_mode.is_empty
-		deferred
-		end
+   c_mode (a_c_mode: STRING): SE_C_MODE is
+      require
+         not a_c_mode.is_empty
+      deferred
+      end
 
-	c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
-		require
-			c_modes /= Void
-		deferred
-		end
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+      require
+         c_modes /= Void
+      deferred
+      end
 
 end -- class SE_CONFIG
 --

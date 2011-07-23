@@ -4,14 +4,14 @@
 deferred class DEBUG_COMPOUND_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {DEBUG_COMPOUND}
-	visit_debug_compound (visited: DEBUG_COMPOUND) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_debug_compound (visited: DEBUG_COMPOUND) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class DEBUG_COMPOUND_VISITOR
 --

@@ -2,82 +2,82 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_PREFIX_NOT
-	--
-	--   Prefix operator : "not".
-	--
+   --
+   --   Prefix operator : "not".
+   --
 
 inherit
-	CALL_PREFIX
-		redefine compile_to_c
-		end
+   CALL_PREFIX
+      redefine compile_to_c
+      end
 
 creation {ANY}
-	make, with
+   make, with
 
 feature {ANY}
-	--|*** (PR 21/09/04) not not X should be simplified into X.
+   --|*** (PR 21/09/04) not not X should be simplified into X.
 
-	precedence: INTEGER is 11
+   precedence: INTEGER is 11
 
-	operator: STRING is
-		do
-			Result := as_not
-		end
+   operator: STRING is
+      do
+         Result := as_not
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			if ace.boost and then target.resolve_in(type).is_boolean then
-				cpp.pending_c_function_body.append(once "!(")
-				target.compile_to_c(type)
-				cpp.pending_c_function_body.extend(')')
-			else
-				Precursor(type)
-			end
-		end
+   compile_to_c (type: TYPE) is
+      do
+         if ace.boost and then target.resolve_in(type).is_boolean then
+            cpp.pending_c_function_body.append(once "!(")
+            target.compile_to_c(type)
+            cpp.pending_c_function_body.extend(')')
+         else
+            Precursor(type)
+         end
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			if resolve_in(type).is_boolean then
-				target.compile_to_jvm(type)
-				Result := code_attribute.opcode_ifne
-			else
-				Result := jvm_standard_branch_if_false(type)
-			end
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         if resolve_in(type).is_boolean then
+            target.compile_to_jvm(type)
+            Result := code_attribute.opcode_ifne
+         else
+            Result := jvm_standard_branch_if_false(type)
+         end
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			if resolve_in(type).is_boolean then
-				target.compile_to_jvm(type)
-				Result := code_attribute.opcode_ifeq
-			else
-				Result := jvm_standard_branch_if_true(type)
-			end
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         if resolve_in(type).is_boolean then
+            target.compile_to_jvm(type)
+            Result := code_attribute.opcode_ifeq
+         else
+            Result := jvm_standard_branch_if_true(type)
+         end
+      end
 
 feature {ANY}
-	accept (visitor: CALL_PREFIX_NOT_VISITOR) is
-		do
-			visitor.visit_call_prefix_not(Current)
-		end
+   accept (visitor: CALL_PREFIX_NOT_VISITOR) is
+      do
+         visitor.visit_call_prefix_not(Current)
+      end
 
 feature {}
-	make (operator_position: POSITION; rp: like target) is
-		require
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			create feature_name.prefix_name(eiffel_parser.not_name, operator_position)
-			target := rp
-		ensure
-			start_position = operator_position
-			target = rp
-		end
+   make (operator_position: POSITION; rp: like target) is
+      require
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         create feature_name.prefix_name(eiffel_parser.not_name, operator_position)
+         target := rp
+      ensure
+         start_position = operator_position
+         target = rp
+      end
 
 end -- class CALL_PREFIX_NOT
 --

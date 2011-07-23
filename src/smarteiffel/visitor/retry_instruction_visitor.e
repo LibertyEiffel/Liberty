@@ -4,14 +4,14 @@
 deferred class RETRY_INSTRUCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {RETRY_INSTRUCTION}
-	visit_retry_instruction (visited: RETRY_INSTRUCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_retry_instruction (visited: RETRY_INSTRUCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class RETRY_INSTRUCTION_VISITOR
 --

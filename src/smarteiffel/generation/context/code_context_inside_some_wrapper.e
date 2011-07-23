@@ -4,23 +4,23 @@
 class CODE_CONTEXT_INSIDE_SOME_WRAPPER
 
 inherit
-	CODE_CONTEXT
+   CODE_CONTEXT
 
 feature {CODE_PRINTER}
-	code: INTEGER is
-		do
-			Result := C_inside_some_wrapper
-		end
+   code: INTEGER is
+      do
+         Result := C_inside_some_wrapper
+      end
 
-	valid_anonymous_feature: BOOLEAN is True
+   valid_anonymous_feature: BOOLEAN is True
 
-	valid_target: BOOLEAN is False
+   valid_target: BOOLEAN is False
 
-	valid_effective_arguments: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN is False
 
-	valid_static_type: BOOLEAN is False
+   valid_static_type: BOOLEAN is False
 
-	valid_internal_c_local: BOOLEAN is False
+   valid_internal_c_local: BOOLEAN is False
 
 end -- class CODE_CONTEXT_INSIDE_SOME_WRAPPER
 --

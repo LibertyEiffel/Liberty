@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class LOCAL_ARGUMENT2
-	--
-	-- Common behavior for LOCAL_NAME2 and ARGUMENT_NAME2
-	--
+   --
+   -- Common behavior for LOCAL_NAME2 and ARGUMENT_NAME2
+   --
 
 inherit
-	EXPRESSION
+   EXPRESSION
 
 feature {ANY}
-	frozen non_void_no_dispatch_type (type: TYPE): TYPE is
-		local
-			rt: TYPE
-		do
-			rt := resolve_in(type)
-			if rt.is_expanded then
-				Result := rt
-			end
-		end
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+      local
+         rt: TYPE
+      do
+         rt := resolve_in(type)
+         if rt.is_expanded then
+            Result := rt
+         end
+      end
 
-	frozen simplify (type: TYPE): EXPRESSION is
-		do
-			Result := Current
-		end
+   frozen simplify (type: TYPE): EXPRESSION is
+      do
+         Result := Current
+      end
 
-	frozen side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := True
-		end
+   frozen side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := True
+      end
 
-	frozen safety_check (type: TYPE) is
-		do
-		end
+   frozen safety_check (type: TYPE) is
+      do
+      end
 
-	frozen compile_target_to_jvm (type: TYPE) is
-		do
-			standard_compile_target_to_jvm(type)
-		end
+   frozen compile_target_to_jvm (type: TYPE) is
+      do
+         standard_compile_target_to_jvm(type)
+      end
 
-	frozen mapping_c_target (type, formal_target_type: TYPE) is
-		do
-			standard_mapping_c_target(type, formal_target_type)
-		end
+   frozen mapping_c_target (type, formal_target_type: TYPE) is
+      do
+         standard_mapping_c_target(type, formal_target_type)
+      end
 
 invariant
-	not start_position.is_unknown
+   not start_position.is_unknown
 
 end -- class LOCAL_ARGUMENT2
 --

@@ -4,14 +4,14 @@
 deferred class SEDB_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {SEDB}
-	visit_sedb (visited: SEDB) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_sedb (visited: SEDB) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class SEDB_VISITOR
 --

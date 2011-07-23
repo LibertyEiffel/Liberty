@@ -4,14 +4,14 @@
 deferred class IMPLICIT_CURRENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {IMPLICIT_CURRENT}
-	visit_implicit_current (visited: IMPLICIT_CURRENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_implicit_current (visited: IMPLICIT_CURRENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class IMPLICIT_CURRENT_VISITOR
 --

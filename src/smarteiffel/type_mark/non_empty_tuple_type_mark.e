@@ -2,95 +2,95 @@
 -- See the Copyright notice at the end of this file.
 --
 class NON_EMPTY_TUPLE_TYPE_MARK
-	--
-	-- For non empty TUPLE declaration type_mark like: "TUPLE[BAR]" or "TUPLE[BAR, ZOO]".
-	--
+   --
+   -- For non empty TUPLE declaration type_mark like: "TUPLE[BAR]" or "TUPLE[BAR, ZOO]".
+   --
 
 inherit
-	TUPLE_TYPE_MARK
-	GENERIC_TYPE_MARK
-		undefine is_tuple, canonical_long_name
-		redefine pretty_in
-		end
+   TUPLE_TYPE_MARK
+   GENERIC_TYPE_MARK
+      undefine is_tuple, canonical_long_name
+      redefine pretty_in
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	as_type_mark: TYPE_MARK is
-		do
-			Result := Current
-		end
-	
-	pretty_in (buffer: STRING) is
-		local
-			i: INTEGER
-		do
-			buffer.append(once "TUPLE")
-			buffer.extend('[')
-			from
-				i := generic_list.lower
-			until
-				i > generic_list.upper
-			loop
-				generic_list.item(i).pretty_in(buffer)
-				i := i + 1
-				if i <= generic_list.upper then
-					buffer.append(once ", ")
-				end
-			end
-			buffer.extend(']')
-		end
+   as_type_mark: TYPE_MARK is
+      do
+         Result := Current
+      end
+   
+   pretty_in (buffer: STRING) is
+      local
+         i: INTEGER
+      do
+         buffer.append(once "TUPLE")
+         buffer.extend('[')
+         from
+            i := generic_list.lower
+         until
+            i > generic_list.upper
+         loop
+            generic_list.item(i).pretty_in(buffer)
+            i := i + 1
+            if i <= generic_list.upper then
+               buffer.append(once ", ")
+            end
+         end
+         buffer.extend(']')
+      end
 
-	count: INTEGER is
-		do
-			Result := generic_list.count
-		end
+   count: INTEGER is
+      do
+         Result := generic_list.count
+      end
 
-	accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR) is
-		do
-			visitor.visit_non_empty_tuple_type_mark(Current)
-		end
+   accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR) is
+      do
+         visitor.visit_non_empty_tuple_type_mark(Current)
+      end
 
-	need_c_struct: BOOLEAN is True
+   need_c_struct: BOOLEAN is True
 
-	c_initialize_in (buffer: STRING) is
-		do
-			buffer.append(once "(void*)0")
-		end
+   c_initialize_in (buffer: STRING) is
+      do
+         buffer.append(once "(void*)0")
+      end
 
-	c_header_pass4 is
-		do
-			standard_c_struct
-			standard_c_object_model
-			standard_c_print_function
-		end
+   c_header_pass4 is
+      do
+         standard_c_struct
+         standard_c_object_model
+         standard_c_print_function
+      end
 
 feature {TYPE_MARK}
-	short_ (shorted_type: TYPE) is
-		do
-			short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position))
-		end
+   short_ (shorted_type: TYPE) is
+      do
+         short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position))
+      end
 
 feature {}
-	make (sp: like start_position; gl: like generic_list) is
-		require
-			gl.lower = 1 and gl.count > 0
-		local
-			buffer: STRING
-		do
-			generic_list := gl
-			buffer := once "TUPLE..."
-			buffer.copy(as_tuple)
-			if gl /= Void then
-				buffer.extend(' ')
-				gl.count.append_in(buffer)
-			end
-			create class_text_name.make(string_aliaser.hashed_string(buffer), sp)
-		ensure
-			start_position = sp
-			generic_list = gl
-		end
+   make (sp: like start_position; gl: like generic_list) is
+      require
+         gl.lower = 1 and gl.count > 0
+      local
+         buffer: STRING
+      do
+         generic_list := gl
+         buffer := once "TUPLE..."
+         buffer.copy(as_tuple)
+         if gl /= Void then
+            buffer.extend(' ')
+            gl.count.append_in(buffer)
+         end
+         create class_text_name.make(string_aliaser.hashed_string(buffer), sp)
+      ensure
+         start_position = sp
+         generic_list = gl
+      end
 
 end -- class NON_EMPTY_TUPLE_TYPE_MARK
 --

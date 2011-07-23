@@ -4,14 +4,14 @@
 deferred class ASSIGNMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ASSIGNMENT}
-	visit_assignment (visited: ASSIGNMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_assignment (visited: ASSIGNMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ASSIGNMENT_VISITOR
 --

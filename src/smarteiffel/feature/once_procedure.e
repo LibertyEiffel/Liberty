@@ -4,40 +4,40 @@
 class ONCE_PROCEDURE
 
 inherit
-	ONCE_ROUTINE
-		rename make_effective_routine as make
-		export {ANY} make
-		end
+   ONCE_ROUTINE
+      rename make_effective_routine as make
+      export {ANY} make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	side_effect_free (target_type: TYPE): BOOLEAN is
-		do
-		end
+   side_effect_free (target_type: TYPE): BOOLEAN is
+      do
+      end
 
-	result_type: TYPE_MARK is
-		do
-		end
+   result_type: TYPE_MARK is
+      do
+      end
 
 feature {ANY}
-	accept (visitor: ONCE_PROCEDURE_VISITOR) is
-		do
-			visitor.visit_once_procedure(Current)
-		end
+   accept (visitor: ONCE_PROCEDURE_VISITOR) is
+      do
+         visitor.visit_once_procedure(Current)
+      end
 
 feature {}
-	new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_5 is
-		do
-			create Result.for(t.live_type, Current, fn)
-		end
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_5 is
+      do
+         create Result.for(t.live_type, Current, fn)
+      end
 
 feature {}
-	try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
-		do
-			create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
-		end
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+      do
+         create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
+      end
 
 end -- class ONCE_PROCEDURE
 --

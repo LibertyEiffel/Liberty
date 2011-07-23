@@ -4,14 +4,14 @@
 deferred class BUILT_IN_EQ_NEQ_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {BUILT_IN_EQ_NEQ}
-	visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class BUILT_IN_EQ_NEQ_VISITOR
 --

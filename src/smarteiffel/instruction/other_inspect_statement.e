@@ -2,55 +2,55 @@
 -- See the Copyright notice at the end of this file.
 --
 class OTHER_INSPECT_STATEMENT
-	--
-	-- See INSPECT_STATEMENT for explanations.
-	--
-	
+   --
+   -- See INSPECT_STATEMENT for explanations.
+   --
+   
 inherit
-	INSPECT_STATEMENT
+   INSPECT_STATEMENT
 
 creation
-	make, with_when_list, make_strippable
+   make, with_when_list, make_strippable
 
 feature {ANY}
-	accept (visitor: OTHER_INSPECT_STATEMENT_VISITOR) is
-		do
-			visitor.visit_other_inspect_statement(Current)
-		end
+   accept (visitor: OTHER_INSPECT_STATEMENT_VISITOR) is
+      do
+         visitor.visit_other_inspect_statement(Current)
+      end
 
-	dynamic_dispatch_flag: BOOLEAN is
-			-- Indicate that the intent of `Current' is to implement dynamic dispatch.
-		do
-			Result := dynamic_dispatch_temporary1 /= Void
-		end
-	
+   dynamic_dispatch_flag: BOOLEAN is
+         -- Indicate that the intent of `Current' is to implement dynamic dispatch.
+      do
+         Result := dynamic_dispatch_temporary1 /= Void
+      end
+   
 feature {PROCEDURE_CALL, FUNCTION_CALL}
-	set_dynamic_dispatch_flag (ddt1: like dynamic_dispatch_temporary1) is
-		require
-			ddt1 /= Void
-		do
-			dynamic_dispatch_temporary1 := ddt1
-		ensure
-			dynamic_dispatch_temporary1 = ddt1
-		end
+   set_dynamic_dispatch_flag (ddt1: like dynamic_dispatch_temporary1) is
+      require
+         ddt1 /= Void
+      do
+         dynamic_dispatch_temporary1 := ddt1
+      ensure
+         dynamic_dispatch_temporary1 = ddt1
+      end
 
 feature {INSPECT_STATEMENT}
-	validity_check (type, expression_type: TYPE) is
-		local
-			i: INTEGER
-		do
-			if when_list /= Void then
-				-- Validity check first:
-				from
-					i := when_list.lower
-				until
-					i > when_list.upper
-				loop
-					when_list.item(i).validity_check(type, expression_type, Current)
-					i := i + 1
-				end
-			end
-		end
+   validity_check (type, expression_type: TYPE) is
+      local
+         i: INTEGER
+      do
+         if when_list /= Void then
+            -- Validity check first:
+            from
+               i := when_list.lower
+            until
+               i > when_list.upper
+            loop
+               when_list.item(i).validity_check(type, expression_type, Current)
+               i := i + 1
+            end
+         end
+      end
 
 end -- class OTHER_INSPECT_STATEMENT
 --

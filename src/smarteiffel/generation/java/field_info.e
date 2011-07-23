@@ -2,96 +2,96 @@
 -- See the Copyright notice at the end of this file.
 --
 class FIELD_INFO
-	--
-	-- Unique Global Object to delay field info writing.
-	-- Obviously, the same object is recycled.
-	--
+   --
+   -- Unique Global Object to delay field info writing.
+   -- Obviously, the same object is recycled.
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	count: INTEGER
-			-- Number of fields.
+   count: INTEGER
+         -- Number of fields.
 
-	storage: STRING is
-			-- To store the final JVM `method_info'.
-		once
-			create Result.make(512)
-		end
+   storage: STRING is
+         -- To store the final JVM `method_info'.
+      once
+         create Result.make(512)
+      end
 
-	field_modifiers: DICTIONARY[FIELD_MODIFIER, INTEGER] is
-		once
-			create {HASHED_DICTIONARY[FIELD_MODIFIER, INTEGER]} Result.make
-			--|*** AVL
-		end
+   field_modifiers: DICTIONARY[FIELD_MODIFIER, INTEGER] is
+      once
+         create {HASHED_DICTIONARY[FIELD_MODIFIER, INTEGER]} Result.make
+         --|*** AVL
+      end
 
 feature {JVM}
-	clear is
-		do
-			count := 0
-			storage.clear_count
-			field_modifiers.clear_count
-		end
+   clear is
+      do
+         count := 0
+         storage.clear_count
+         field_modifiers.clear_count
+      end
 
-	write_bytes is
-		do
-			echo.print_count("field", count)
-			jvm.b_put_u2(count)
-			jvm.b_put_byte_string(storage)
-		end
-
-feature {ANY}
-	add (access_flags, name_idx, descriptor: INTEGER) is
-		do
-			count := count + 1
-			append_u2(storage, access_flags)
-			append_u2(storage, name_idx)
-			append_u2(storage, descriptor)
-			-- attributes_count :
-			append_u2(storage, 0)
-		end
+   write_bytes is
+      do
+         echo.print_count("field", count)
+         jvm.b_put_u2(count)
+         jvm.b_put_byte_string(storage)
+      end
 
 feature {ANY}
-	field_set_transient (name_idx: INTEGER) is
-		local
-			fm: FIELD_MODIFIER
-		do
-			if field_modifiers.has(name_idx) then
-				fm := field_modifiers.at(name_idx)
-				fm.set_transient
-			else
-				create fm
-				fm.set_transient
-				field_modifiers.put(fm, name_idx)
-			end
-		end
+   add (access_flags, name_idx, descriptor: INTEGER) is
+      do
+         count := count + 1
+         append_u2(storage, access_flags)
+         append_u2(storage, name_idx)
+         append_u2(storage, descriptor)
+         -- attributes_count :
+         append_u2(storage, 0)
+      end
 
-	field_set_volatile (name_idx: INTEGER) is
-		local
-			fm: FIELD_MODIFIER
-		do
-			if field_modifiers.has(name_idx) then
-				fm := field_modifiers.at(name_idx)
-				fm.set_volatile
-			else
-				create fm
-				fm.set_volatile
-				field_modifiers.put(fm, name_idx)
-			end
-		end
+feature {ANY}
+   field_set_transient (name_idx: INTEGER) is
+      local
+         fm: FIELD_MODIFIER
+      do
+         if field_modifiers.has(name_idx) then
+            fm := field_modifiers.at(name_idx)
+            fm.set_transient
+         else
+            create fm
+            fm.set_transient
+            field_modifiers.put(fm, name_idx)
+         end
+      end
 
-	field_modifier (name_idx: INTEGER): INTEGER is
-		local
-			fm: FIELD_MODIFIER
-		do
-			if field_modifiers.has(name_idx) then
-				fm := field_modifiers.at(name_idx)
-				Result := fm.access_flags
-			else
-				Result := 1
-			end
-		end
+   field_set_volatile (name_idx: INTEGER) is
+      local
+         fm: FIELD_MODIFIER
+      do
+         if field_modifiers.has(name_idx) then
+            fm := field_modifiers.at(name_idx)
+            fm.set_volatile
+         else
+            create fm
+            fm.set_volatile
+            field_modifiers.put(fm, name_idx)
+         end
+      end
+
+   field_modifier (name_idx: INTEGER): INTEGER is
+      local
+         fm: FIELD_MODIFIER
+      do
+         if field_modifiers.has(name_idx) then
+            fm := field_modifiers.at(name_idx)
+            Result := fm.access_flags
+         else
+            Result := 1
+         end
+      end
 
 end -- class FIELD_INFO
 --

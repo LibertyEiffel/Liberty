@@ -2,84 +2,84 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_PREFIX_MINUS
-	--
-	--   Prefix operator : "-".
-	--
+   --
+   --   Prefix operator : "-".
+   --
 
 inherit
-	CALL_PREFIX
-		redefine static_simplify
-		end
+   CALL_PREFIX
+      redefine static_simplify
+      end
 
 insert
-	PLATFORM
-	
+   PLATFORM
+   
 creation {ANY}
-	make, with
+   make, with
 
 feature {ANY}
-	precedence: INTEGER is 11
+   precedence: INTEGER is 11
 
-	operator: STRING is
-		do
-			Result := as_minus
-		end
+   operator: STRING is
+      do
+         Result := as_minus
+      end
 
-	static_simplify: EXPRESSION is
-		local
-			ic: INTEGER_CONSTANT; v: INTEGER_64
-		do
-			target := target.static_simplify
-			ic ?= target
-			if ic = Void then
-				Result := Current
-			else
-				v := ic.value_memory
-				if v = Minimum_integer_64 then
-					error_handler.add_position(feature_name.start_position)
-					error_handler.append("The value of ")
-					error_handler.add_expression(Current)
-					error_handler.append(" is 9223372036854775808 which is out of INTEGER_64 range.")
-					error_handler.print_as_fatal_error
-				else
-					create {INTEGER_CONSTANT} Result.make(-v, feature_name.start_position)
-				end
-			end
-		end
+   static_simplify: EXPRESSION is
+      local
+         ic: INTEGER_CONSTANT; v: INTEGER_64
+      do
+         target := target.static_simplify
+         ic ?= target
+         if ic = Void then
+            Result := Current
+         else
+            v := ic.value_memory
+            if v = Minimum_integer_64 then
+               error_handler.add_position(feature_name.start_position)
+               error_handler.append("The value of ")
+               error_handler.add_expression(Current)
+               error_handler.append(" is 9223372036854775808 which is out of INTEGER_64 range.")
+               error_handler.print_as_fatal_error
+            else
+               create {INTEGER_CONSTANT} Result.make(-v, feature_name.start_position)
+            end
+         end
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_PREFIX_MINUS_VISITOR) is
-		do
-			visitor.visit_call_prefix_minus(Current)
-		end
+   accept (visitor: CALL_PREFIX_MINUS_VISITOR) is
+      do
+         visitor.visit_call_prefix_minus(Current)
+      end
 
 feature {}
-	make (operator_position: POSITION; rp: like target) is
-		require
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			create feature_name.prefix_name(eiffel_parser.minus_name, operator_position)
-			target := rp
-		ensure
-			start_position = operator_position
-			target = rp
-		end
+   make (operator_position: POSITION; rp: like target) is
+      require
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         create feature_name.prefix_name(eiffel_parser.minus_name, operator_position)
+         target := rp
+      ensure
+         start_position = operator_position
+         target = rp
+      end
 
 end -- class CALL_PREFIX_MINUS
 --

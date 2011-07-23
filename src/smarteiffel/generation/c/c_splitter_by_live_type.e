@@ -2,132 +2,132 @@
 -- See the Copyright notice at the end of this file.
 --
 class C_SPLITTER_BY_LIVE_TYPE
-	--
-	-- This splitter strives to keep one C file per live type
-	--
+   --
+   -- This splitter strives to keep one C file per live type
+   --
 
 inherit
-	C_SPLITTER_SPLIT
-		redefine
-			connect
-		end
+   C_SPLITTER_SPLIT
+      redefine
+         connect
+      end
 
 creation {ACE, CLEAN}
-	make
+   make
 
 feature {}
-	check_clean (path_c, c: STRING): BOOLEAN is
-		do
-			if c.has_prefix(path_c) then
-				c.remove_prefix(path_c)
-				if c.has_prefix(once "_T") then
-					c.remove_prefix(once "_T")
-					Result := c.is_integer
-				end
-			end
-		end
+   check_clean (path_c, c: STRING): BOOLEAN is
+      do
+         if c.has_prefix(path_c) then
+            c.remove_prefix(path_c)
+            if c.has_prefix(once "_T") then
+               c.remove_prefix(once "_T")
+               Result := c.is_integer
+            end
+         end
+      end
 
-	do_split is
-		do
-			count := suffixes.count
-		end
+   do_split is
+      do
+         count := suffixes.count
+      end
 
-	current_id: INTEGER is
-		do
-			if live_type /= Void then
-				Result := live_type.id
-			else
-				Result := 0
-			end
-		end
+   current_id: INTEGER is
+      do
+         if live_type /= Void then
+            Result := live_type.id
+         else
+            Result := 0
+         end
+      end
 
-	current_c_file_suffix: STRING is
-		do
-			Result := once ""
-			Result.copy(once "_T")
-			current_id.append_in(Result)
-		end
+   current_c_file_suffix: STRING is
+      do
+         Result := once ""
+         Result.copy(once "_T")
+         current_id.append_in(Result)
+      end
 
-	c_files_suffixes: ITERATOR[STRING] is
-		do
-			Result := suffixes.new_iterator
-		end
+   c_files_suffixes: ITERATOR[STRING] is
+      do
+         Result := suffixes.new_iterator
+      end
 
 feature {}
-	append_suffix is
-		local
-			i, id: INTEGER
-		do
-			id := current_id
-			i := sorter.insert_index(ids, id)
-			ids.add(id, i)
-			suffixes.add(current_c_file_suffix.twin, i)
-		end
+   append_suffix is
+      local
+         i, id: INTEGER
+      do
+         id := current_id
+         i := sorter.insert_index(ids, id)
+         ids.add(id, i)
+         suffixes.add(current_c_file_suffix.twin, i)
+      end
 
 feature {C_PRETTY_PRINTER}
-	connect (path_c: STRING) is
-		do
-			Precursor(path_c)
-			append_suffix
-		end
+   connect (path_c: STRING) is
+      do
+         Precursor(path_c)
+         append_suffix
+      end
 
-	set_live_type (a_live_type: like live_type) is
-		do
-			live_type := a_live_type
-			append_suffix
-		end
+   set_live_type (a_live_type: like live_type) is
+      do
+         live_type := a_live_type
+         append_suffix
+      end
 
-	live_type: LIVE_TYPE
+   live_type: LIVE_TYPE
 
-	should_split (functions_count: INTEGER): BOOLEAN is
-		do
-			if not dont_split then
-				Result := count < suffixes.count -- True if a new LIVE_TYPE has been set
-			end
-		end
+   should_split (functions_count: INTEGER): BOOLEAN is
+      do
+         if not dont_split then
+            Result := count < suffixes.count -- True if a new LIVE_TYPE has been set
+         end
+      end
 
-	linker_command (c_file_prefix: STRING): STRING is
-		local
-			c_name, object: STRING; objects: FAST_ARRAY[STRING]; i: INTEGER
-		do
-			c_name := once ""
-			c_name.copy(c_file_prefix)
-			c_name.append(once "_T")
-			create objects.with_capacity(suffixes.count)
-			from
-				object := once ""
-				i := suffixes.lower
-			until
-				i > suffixes.upper
-			loop
-				path_in(object, suffixes.item(i), system_tools.object_suffix)
-				objects.add_last(object.twin)
-				i := i + 1
-			end
-			Result := system_tools.linker_command(c_name, objects)
-		end
+   linker_command (c_file_prefix: STRING): STRING is
+      local
+         c_name, object: STRING; objects: FAST_ARRAY[STRING]; i: INTEGER
+      do
+         c_name := once ""
+         c_name.copy(c_file_prefix)
+         c_name.append(once "_T")
+         create objects.with_capacity(suffixes.count)
+         from
+            object := once ""
+            i := suffixes.lower
+         until
+            i > suffixes.upper
+         loop
+            path_in(object, suffixes.item(i), system_tools.object_suffix)
+            objects.add_last(object.twin)
+            i := i + 1
+         end
+         Result := system_tools.linker_command(c_name, objects)
+      end
 
 feature {ACE}
-	pretty_ace_in (txt: STRING) is
-		do
-			txt.append("	split (%"by type%")%N")
-		end
+   pretty_ace_in (txt: STRING) is
+      do
+         txt.append("   split (%"by type%")%N")
+      end
 
 feature {}
-	make is
-		do
-			create suffixes.make(0)
-			create ids.make(0)
-			echo.put_string(once "By-type splitter enabled.%N")
-		end
+   make is
+      do
+         create suffixes.make(0)
+         create ids.make(0)
+         echo.put_string(once "By-type splitter enabled.%N")
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	suffixes: FAST_ARRAY[STRING]
+   suffixes: FAST_ARRAY[STRING]
 
-	ids: FAST_ARRAY[INTEGER]
+   ids: FAST_ARRAY[INTEGER]
 
-	sorter: REVERSE_COLLECTION_SORTER[INTEGER]
+   sorter: REVERSE_COLLECTION_SORTER[INTEGER]
 
 end -- class C_SPLITTER_BY_LIVE_TYPE
 --

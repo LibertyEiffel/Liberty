@@ -4,68 +4,68 @@
 class TAG_NAME
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	hashed_name: HASHED_STRING
-			-- The corresponding unique one.
+   hashed_name: HASHED_STRING
+         -- The corresponding unique one.
 
-	to_string: STRING is
-			-- An alias for `hashed_name.to_string'.
-		do
-			Result := hashed_name.to_string
-		end
+   to_string: STRING is
+         -- An alias for `hashed_name.to_string'.
+      do
+         Result := hashed_name.to_string
+      end
 
-	start_position: POSITION
+   start_position: POSITION
 
-	to_key: STRING is
-		do
-			Result := to_string
-		end
+   to_key: STRING is
+      do
+         Result := to_string
+      end
 
-	short is
-		local
-			i: INTEGER; c: CHARACTER
-		do
-			short_printer.hook("Btag")
-			from
-				i := 1
-			until
-				i > to_string.count
-			loop
-				c := to_string.item(i)
-				if c = '_' then
-					short_printer.hook_or("Utag", "_")
-				else
-					short_printer.put_character(c)
-				end
-				i := i + 1
-			end
-			short_printer.hook("Atag")
-		end
+   short is
+      local
+         i: INTEGER; c: CHARACTER
+      do
+         short_printer.hook("Btag")
+         from
+            i := 1
+         until
+            i > to_string.count
+         loop
+            c := to_string.item(i)
+            if c = '_' then
+               short_printer.hook_or("Utag", "_")
+            else
+               short_printer.put_character(c)
+            end
+            i := i + 1
+         end
+         short_printer.hook("Atag")
+      end
 
 feature {ANY}
-	accept (visitor: TAG_NAME_VISITOR) is
-		do
-			visitor.visit_tag_name(Current)
-		end
+   accept (visitor: TAG_NAME_VISITOR) is
+      do
+         visitor.visit_tag_name(Current)
+      end
 
 feature {}
-	make (hn: like hashed_name; sp: like start_position) is
-		require
-			hn /= Void
-		do
-			hashed_name := hn
-			start_position := sp
-		ensure
-			hashed_name = hn
-			start_position = sp
-		end
+   make (hn: like hashed_name; sp: like start_position) is
+      require
+         hn /= Void
+      do
+         hashed_name := hn
+         start_position := sp
+      ensure
+         hashed_name = hn
+         start_position = sp
+      end
 
 end -- class TAG_NAME
 --

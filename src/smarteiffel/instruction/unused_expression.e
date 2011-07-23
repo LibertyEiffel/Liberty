@@ -8,99 +8,99 @@ class UNUSED_EXPRESSION
    --
 
 inherit
-	NON_WRITTEN_INSTRUCTION
+   NON_WRITTEN_INSTRUCTION
 
 creation
-	make
+   make
 
 feature {ANY}
-	expression: EXPRESSION
-			-- The unused one.
-	
-	start_position: POSITION is
-		do
-			Result := expression.start_position
-		end
+   expression: EXPRESSION
+         -- The unused one.
+   
+   start_position: POSITION is
+      do
+         Result := expression.start_position
+      end
 
-	use_current (type: TYPE): BOOLEAN is
-		do
-			Result := expression.use_current(type)
-		end
+   use_current (type: TYPE): BOOLEAN is
+      do
+         Result := expression.use_current(type)
+      end
 
-	collect (type: TYPE): TYPE is
-		local
-			dummy: TYPE
-		do
-			dummy := expression.collect(type)
-		end
+   collect (type: TYPE): TYPE is
+      local
+         dummy: TYPE
+      do
+         dummy := expression.collect(type)
+      end
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := expression.side_effect_free(type)
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := expression.side_effect_free(type)
+      end
 
-	safety_check (type: TYPE) is
-		do
-			expression.safety_check(type)
-		end
+   safety_check (type: TYPE) is
+      do
+         expression.safety_check(type)
+      end
 
-	adapt_for (type: TYPE): like Current is
-		local
-			e: like expression
-		do
-			e := expression.adapt_for(type)
-			if e = expression then
-				Result := Current
-			else
-				create Result.make(e)
-			end
-		end
+   adapt_for (type: TYPE): like Current is
+      local
+         e: like expression
+      do
+         e := expression.adapt_for(type)
+         if e = expression then
+            Result := Current
+         else
+            create Result.make(e)
+         end
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			cpp.pending_c_function_body.append(once "/*UNUSED_EXPRESSION:*/")
-			expression.compile_to_c(type)
-			cpp.pending_c_function_body.append(once ";%N")
-		end
+   compile_to_c (type: TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "/*UNUSED_EXPRESSION:*/")
+         expression.compile_to_c(type)
+         cpp.pending_c_function_body.append(once ";%N")
+      end
 
-	simplify (type: TYPE): INSTRUCTION is
-		local
-			e: like expression
-		do
-			e := expression.simplify(type)
-			if e.side_effect_free(type) then
-				check
-					Result = Void
-				end
-			elseif e = expression then
-				Result := Current
-			else
-				create {UNUSED_EXPRESSION} Result.make(e)
-			end
-		end
-	
-	accept (visitor: UNUSED_EXPRESSION_VISITOR) is
-		do
-			visitor.visit_unused_expression(Current)
-		end
+   simplify (type: TYPE): INSTRUCTION is
+      local
+         e: like expression
+      do
+         e := expression.simplify(type)
+         if e.side_effect_free(type) then
+            check
+               Result = Void
+            end
+         elseif e = expression then
+            Result := Current
+         else
+            create {UNUSED_EXPRESSION} Result.make(e)
+         end
+      end
+   
+   accept (visitor: UNUSED_EXPRESSION_VISITOR) is
+      do
+         visitor.visit_unused_expression(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		do
-			if not expression.side_effect_free(type) then
-				code_accumulator.current_context.add_last(Current)
-			end
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      do
+         if not expression.side_effect_free(type) then
+            code_accumulator.current_context.add_last(Current)
+         end
+      end
+   
 feature {}
-	make (e: like expression) is
-		require
-			e /= Void
-		do
-			expression := e
-		ensure
-			expression = e			
-		end
+   make (e: like expression) is
+      require
+         e /= Void
+      do
+         expression := e
+      ensure
+         expression = e         
+      end
 
 end -- class UNUSED_EXPRESSION
 --

@@ -2,80 +2,80 @@
 -- See the Copyright notice at the end of this file.
 --
 class EXPORT_ITEM
-	--
-	-- To store one item of the option "inherit ... export ... end".
-	--
+   --
+   -- To store one item of the option "inherit ... export ... end".
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make_all, make
+   make_all, make
 
 feature {ANY}
-	accept (visitor: EXPORT_ITEM_VISITOR) is
-		do
-			visitor.visit_export_item(Current)
-		end
+   accept (visitor: EXPORT_ITEM_VISITOR) is
+      do
+         visitor.visit_export_item(Current)
+      end
 
-	clients: CLIENT_LIST
+   clients: CLIENT_LIST
 
-	list: FEATURE_NAME_LIST
+   list: FEATURE_NAME_LIST
 
 feature {}
-	make_all (c: like clients) is
-		require
-			c /= Void
-		do
-			clients := c
-			list := Void
-		end
+   make_all (c: like clients) is
+      require
+         c /= Void
+      do
+         clients := c
+         list := Void
+      end
 
-	make (c: like clients; l: like list) is
-		require
-			c /= Void
-		do
-			clients := c
-			list := l
-		ensure
-			clients = c
-			list = l
-		end
+   make (c: like clients; l: like list) is
+      require
+         c /= Void
+      do
+         clients := c
+         list := l
+      ensure
+         clients = c
+         list = l
+      end
 
 feature {ANY}
-	for_all: BOOLEAN is
-			-- True when "all" primitives affected
-		do
-			Result := list = Void
-		end
+   for_all: BOOLEAN is
+         -- True when "all" primitives affected
+      do
+         Result := list = Void
+      end
 
-	affect (fn: FEATURE_NAME): BOOLEAN is
-		do
-			if for_all then
-				Result := True
-			else
-				Result := list.has(fn)
-			end
-		end
+   affect (fn: FEATURE_NAME): BOOLEAN is
+      do
+         if for_all then
+            Result := True
+         else
+            Result := list.has(fn)
+         end
+      end
 
-	pretty (rank: INTEGER) is
-		do
-			if rank > 1 then
-				pretty_printer.set_indent_level(3)
-			end
-			clients.pretty(3)
-			pretty_printer.put_character(' ')
-			if for_all then
-				pretty_printer.keyword(once "all")
-			else
-				list.pretty(4)
-			end
-		end
+   pretty (rank: INTEGER) is
+      do
+         if rank > 1 then
+            pretty_printer.set_indent_level(3)
+         end
+         clients.pretty(3)
+         pretty_printer.put_character(' ')
+         if for_all then
+            pretty_printer.keyword(once "all")
+         else
+            list.pretty(4)
+         end
+      end
 
 invariant
-	clients /= Void
+   clients /= Void
 
 end -- class EXPORT_ITEM
 --

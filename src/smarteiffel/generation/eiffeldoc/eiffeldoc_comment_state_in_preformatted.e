@@ -2,86 +2,86 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELDOC_COMMENT_STATE_IN_PREFORMATTED
-	--
-	-- This is an example of preformatted text:
-	--
-	--  if element.is_fifth then
-	--     zorg.game_over
-	--  end
-	--
+   --
+   -- This is an example of preformatted text:
+   --
+   --  if element.is_fifth then
+   --     zorg.game_over
+   --  end
+   --
 
 inherit
-	EIFFELDOC_COMMENT_STATE_IN_LIST
+   EIFFELDOC_COMMENT_STATE_IN_LIST
 
 creation {EIFFELDOC_CONTEXT}
-	make
+   make
 
 feature {}
-	is_list_marker (c: CHARACTER): BOOLEAN is
-		do
-			Result := (once " %T").has(c)
-		end
+   is_list_marker (c: CHARACTER): BOOLEAN is
+      do
+         Result := (once " %T").has(c)
+      end
 
-	open_lists (how_many: INTEGER) is
-		local
-			i, d: INTEGER
-		do
-			if depth = 0 then
-				html.with_attribute(once "class", once "wiki_preformatted")
-				html.open_preformatted
-			else
-				html.put_new_line
-			end
-			from
-				d := depth + how_many
-			until
-				i = d
-			loop
-				html.put_character(' ')
-				i := i + 1
-			end
-		end
+   open_lists (how_many: INTEGER) is
+      local
+         i, d: INTEGER
+      do
+         if depth = 0 then
+            html.with_attribute(once "class", once "wiki_preformatted")
+            html.open_preformatted
+         else
+            html.put_new_line
+         end
+         from
+            d := depth + how_many
+         until
+            i = d
+         loop
+            html.put_character(' ')
+            i := i + 1
+         end
+      end
 
-	close_lists (how_many: INTEGER) is
-		local
-			i, d: INTEGER
-		do
-			if how_many = depth then
-				html.close_preformatted
-			else
-				html.put_new_line
-				from
-					d := depth - how_many
-				until
-					i = d
-				loop
-					html.put_character(' ')
-					i := i + 1
-				end
-			end
-		end
+   close_lists (how_many: INTEGER) is
+      local
+         i, d: INTEGER
+      do
+         if how_many = depth then
+            html.close_preformatted
+         else
+            html.put_new_line
+            from
+               d := depth - how_many
+            until
+               i = d
+            loop
+               html.put_character(' ')
+               i := i + 1
+            end
+         end
+      end
 
-	next_list_item is
-		local
-			i: INTEGER
-		do
-			html.put_new_line
-			from
-			until
-				i = depth
-			loop
-				html.put_character(' ')
-				i := i + 1
-			end
-		end
+   next_list_item is
+      local
+         i: INTEGER
+      do
+         html.put_new_line
+         from
+         until
+            i = depth
+         loop
+            html.put_character(' ')
+            i := i + 1
+         end
+      end
 
 feature {}
-	make (a_context: like context) is
-		require
-			a_context /= Void
-		do
-			context := a_context
-		end
+   make (a_context: like context) is
+      require
+         a_context /= Void
+      do
+         context := a_context
+      end
 
 end -- class EIFFELDOC_COMMENT_STATE_IN_PREFORMATTED
 --

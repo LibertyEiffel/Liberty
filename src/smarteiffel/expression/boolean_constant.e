@@ -2,40 +2,40 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class BOOLEAN_CONSTANT
-	--
-	-- Root class of E_FALSE and E_TRUE.
-	--
+   --
+   -- Root class of E_FALSE and E_TRUE.
+   --
 
 inherit
-	BASE_TYPE_CONSTANT
+   BASE_TYPE_CONSTANT
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
 
-	value: BOOLEAN is
-		deferred
-		end
+   value: BOOLEAN is
+      deferred
+      end
 
-	frozen declaration_type: TYPE is
-		once
-			Result := smart_eiffel.type_boolean
-		end
-	
-	frozen resolve_in (type: TYPE): TYPE is
-		do
-			Result := declaration_type
-		end
-	
-	frozen simplify_1_, frozen simplify_2: like Current is
-		do
-			Result := Current
-		end
+   frozen declaration_type: TYPE is
+      once
+         Result := smart_eiffel.type_boolean
+      end
+   
+   frozen resolve_in (type: TYPE): TYPE is
+      do
+         Result := declaration_type
+      end
+   
+   frozen simplify_1_, frozen simplify_2: like Current is
+      do
+         Result := Current
+      end
 
 feature {}
-	make (sp: like start_position) is
-		do
-			start_position := sp
-		end
+   make (sp: like start_position) is
+      do
+         start_position := sp
+      end
 
 end -- class BOOLEAN_CONSTANT
 --

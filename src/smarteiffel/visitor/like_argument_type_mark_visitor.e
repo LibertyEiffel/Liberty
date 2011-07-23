@@ -4,14 +4,14 @@
 deferred class LIKE_ARGUMENT_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-	visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LIKE_ARGUMENT_TYPE_MARK_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class ASSERTION_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ASSERTION_LIST}
-	visit_assertion_list (visited: ASSERTION_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_assertion_list (visited: ASSERTION_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ASSERTION_LIST_VISITOR
 --

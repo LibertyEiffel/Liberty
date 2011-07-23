@@ -4,14 +4,14 @@
 deferred class FAKE_ARGUMENT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FAKE_ARGUMENT}
-	visit_fake_argument (visited: FAKE_ARGUMENT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_fake_argument (visited: FAKE_ARGUMENT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FAKE_ARGUMENT_VISITOR
 --

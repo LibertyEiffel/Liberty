@@ -2,105 +2,105 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_IMPLIES
-	--
-	--   Infix operator : "implies".
-	--
+   --
+   --   Infix operator : "implies".
+   --
 
 inherit
-	CALL_INFIX
-		redefine inline_dynamic_dispatch_
-		end
-	
+   CALL_INFIX
+      redefine inline_dynamic_dispatch_
+      end
+   
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {AGENT_CREATION}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 3
+   precedence: INTEGER is 3
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	operator: STRING is
-		do
-			Result := as_implies
-		end
+   operator: STRING is
+      do
+         Result := as_implies
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_INFIX_IMPLIES_VISITOR) is
-		do
-			visitor.visit_call_infix_implies(Current)
-		end
+   accept (visitor: CALL_INFIX_IMPLIES_VISITOR) is
+      do
+         visitor.visit_call_infix_implies(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		local
-			lp: like target; rp: like arg1; then_compound, else_compound: INSTRUCTION; ifthenelse: IFTHENELSE
-			internal_local2: INTERNAL_LOCAL2; sp: POSITION
-		do
-			if not target.resolve_in(type).is_boolean then
-				Precursor(code_accumulator, type)
-			else
-				sp := feature_name.start_position
-				target.inline_dynamic_dispatch_(code_accumulator, type)
-				lp := code_accumulator.current_context.last.to_expression
-				code_accumulator.current_context.remove_last
-				check
-					lp.resolve_in(type).is_boolean
-				end
-				create internal_local2.make(sp, Current, feature_name.to_string, True)
-				code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, lp))
-				-- New context for the righ-hand side:
-				code_accumulator.open_new_context
-				arg1.inline_dynamic_dispatch_(code_accumulator, type)
-				rp := code_accumulator.current_context.last.to_expression
-				code_accumulator.current_context.remove_last
-				check
-					rp.resolve_in(type).is_boolean
-				end
-				code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, rp))
-				then_compound := code_accumulator.current_context_to_instruction
-				code_accumulator.close_current_context  
-				create {ASSIGNMENT} else_compound.make(internal_local2, create {E_TRUE}.make(sp))
-				-- Non inlining the "or else" with an IFTHENELSE:
-				create ifthenelse.with_else(sp, internal_local2, then_compound, else_compound)
-				code_accumulator.current_context.add_last(ifthenelse)
-				-- Adding the final result:
-				code_accumulator.current_context.add_last(internal_local2)
-			end
-		end
-			
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         lp: like target; rp: like arg1; then_compound, else_compound: INSTRUCTION; ifthenelse: IFTHENELSE
+         internal_local2: INTERNAL_LOCAL2; sp: POSITION
+      do
+         if not target.resolve_in(type).is_boolean then
+            Precursor(code_accumulator, type)
+         else
+            sp := feature_name.start_position
+            target.inline_dynamic_dispatch_(code_accumulator, type)
+            lp := code_accumulator.current_context.last.to_expression
+            code_accumulator.current_context.remove_last
+            check
+               lp.resolve_in(type).is_boolean
+            end
+            create internal_local2.make(sp, Current, feature_name.to_string, True)
+            code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, lp))
+            -- New context for the righ-hand side:
+            code_accumulator.open_new_context
+            arg1.inline_dynamic_dispatch_(code_accumulator, type)
+            rp := code_accumulator.current_context.last.to_expression
+            code_accumulator.current_context.remove_last
+            check
+               rp.resolve_in(type).is_boolean
+            end
+            code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, rp))
+            then_compound := code_accumulator.current_context_to_instruction
+            code_accumulator.close_current_context  
+            create {ASSIGNMENT} else_compound.make(internal_local2, create {E_TRUE}.make(sp))
+            -- Non inlining the "or else" with an IFTHENELSE:
+            create ifthenelse.with_else(sp, internal_local2, then_compound, else_compound)
+            code_accumulator.current_context.add_last(ifthenelse)
+            -- Adding the final result:
+            code_accumulator.current_context.add_last(internal_local2)
+         end
+      end
+         
 feature {}
-	make (lp: like target; operator_position: POSITION; rp: like arg1) is
-		require
-			lp /= Void
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			target := lp
-			create feature_name.infix_name(eiffel_parser.implies_name, operator_position)
-			create arguments.make_1(rp)
-		ensure
-			target = lp
-			start_position = operator_position
-			arguments.first = rp
-		end
+   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+      require
+         lp /= Void
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         target := lp
+         create feature_name.infix_name(eiffel_parser.implies_name, operator_position)
+         create arguments.make_1(rp)
+      ensure
+         target = lp
+         start_position = operator_position
+         arguments.first = rp
+      end
 
 end -- class CALL_INFIX_IMPLIES
 --

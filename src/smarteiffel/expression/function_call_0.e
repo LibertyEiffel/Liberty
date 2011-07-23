@@ -2,88 +2,88 @@
 -- See the Copyright notice at the end of this file.
 --
 class FUNCTION_CALL_0
-	--
-	-- Other calls without argument.
-	--
+   --
+   -- Other calls without argument.
+   --
 
 inherit
-	CALL_0
-	
+   CALL_0
+   
 creation {ANY}
-	make
+   make
 
 create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT}
-	make_specialized
+   make_specialized
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
 
-	precedence: INTEGER is
-		do
-			Result := dot_precedence
-		end
+   precedence: INTEGER is
+      do
+         Result := dot_precedence
+      end
 
-	short (type: TYPE) is
-		local
-			target_type: TYPE; fs: FEATURE_STAMP
-		do
-			target.short_target(type)
-			target_type := target.resolve_in(type)
-			fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
-			target_type.get_feature_name(fs).short(type)
-		end
+   short (type: TYPE) is
+      local
+         target_type: TYPE; fs: FEATURE_STAMP
+      do
+         target.short_target(type)
+         target_type := target.resolve_in(type)
+         fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
+         target_type.get_feature_name(fs).short(type)
+      end
 
-	short_target (type: TYPE) is
-		do
-			short(type)
-			short_printer.put_dot
-		end
+   short_target (type: TYPE) is
+      do
+         short(type)
+         short_printer.put_dot
+      end
 
-	bracketed_pretty, pretty (indent_level: INTEGER) is
-		do
-			target.pretty_target(indent_level)
-			pretty_printer.put_string(feature_name.to_string)
-		end
+   bracketed_pretty, pretty (indent_level: INTEGER) is
+      do
+         target.pretty_target(indent_level)
+         pretty_printer.put_string(feature_name.to_string)
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: FUNCTION_CALL_0_VISITOR) is
-		do
-			visitor.visit_function_call_0(Current)
-		end
+   accept (visitor: FUNCTION_CALL_0_VISITOR) is
+      do
+         visitor.visit_function_call_0(Current)
+      end
 
 feature {}
-	make (t: like target; fn: like feature_name) is
-		require
-			t /= Void
-			fn /= Void
-		do
-			target := t
-			feature_name := fn
-		ensure
-			target = t
-			feature_name = fn
-		end
+   make (t: like target; fn: like feature_name) is
+      require
+         t /= Void
+         fn /= Void
+      do
+         target := t
+         feature_name := fn
+      ensure
+         target = t
+         feature_name = fn
+      end
 
-	make_specialized (t: like target; type: TYPE; fn: like feature_name) is
-		do
-			make(t, fn)
-			feature_stamp := type.search(fn)
-		end
+   make_specialized (t: like target; type: TYPE; fn: like feature_name) is
+      do
+         make(t, fn)
+         feature_stamp := type.search(fn)
+      end
 
 end -- class FUNCTION_CALL_0
 --

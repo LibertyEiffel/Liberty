@@ -4,14 +4,14 @@
 deferred class FEATURE_STAMP_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FEATURE_STAMP}
-	visit_feature_stamp (visited: FEATURE_STAMP) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_feature_stamp (visited: FEATURE_STAMP) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FEATURE_STAMP_VISITOR
 --

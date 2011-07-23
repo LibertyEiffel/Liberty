@@ -8,93 +8,93 @@ class RUN_TIME_ERROR_INSTRUCTION
    --
 
 inherit
-	NON_WRITTEN_INSTRUCTION
+   NON_WRITTEN_INSTRUCTION
 
 creation
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
+   start_position: POSITION
 
-	error_message: STRING
-			-- Error message printed when exceptions are turned off.
+   error_message: STRING
+         -- Error message printed when exceptions are turned off.
 
-	error_name: STRING
-			-- Symbolic name for the error code to be raised when 
-			-- exceptions are turned on.
+   error_name: STRING
+         -- Symbolic name for the error code to be raised when 
+         -- exceptions are turned on.
 
-	simplify (type: TYPE): INSTRUCTION is
-		do
-			Result := Current
-		end
+   simplify (type: TYPE): INSTRUCTION is
+      do
+         Result := Current
+      end
 
-	collect (type: TYPE): TYPE is
-		do
-		end
+   collect (type: TYPE): TYPE is
+      do
+      end
 
-	use_current (type: TYPE): BOOLEAN is
-		do
-		end
-	
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			Result := False
-		end
+   use_current (type: TYPE): BOOLEAN is
+      do
+      end
+   
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         Result := False
+      end
 
-	safety_check (type: TYPE) is
-		do
-		end
-	
-	adapt_for (type: TYPE): like Current is
-		do
-			Result := Current
-		end
+   safety_check (type: TYPE) is
+      do
+      end
+   
+   adapt_for (type: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			if ace.no_check then
-				if exceptions_handler.used then
-					cpp.pending_c_function_body.append(once "internal_exception_handler(")
-					cpp.pending_c_function_body.append(error_name)
-					cpp.pending_c_function_body.append(once ");%N")
-				else
-					cpp.pending_c_function_body.append(once "error1(")
-					manifest_string_pool.string_to_c_code(error_message, cpp.pending_c_function_body)
-					cpp.pending_c_function_body.extend(',')
-					cpp.put_position(start_position)
-					cpp.pending_c_function_body.append(once ");%N")
-				end
-			else
-				not_yet_implemented
-			end
-		end
-	
-	accept (visitor: RUN_TIME_ERROR_INSTRUCTION_VISITOR) is
-		do
-			visitor.visit_run_time_error_instruction(Current)
-		end
+   compile_to_c (type: TYPE) is
+      do
+         if ace.no_check then
+            if exceptions_handler.used then
+               cpp.pending_c_function_body.append(once "internal_exception_handler(")
+               cpp.pending_c_function_body.append(error_name)
+               cpp.pending_c_function_body.append(once ");%N")
+            else
+               cpp.pending_c_function_body.append(once "error1(")
+               manifest_string_pool.string_to_c_code(error_message, cpp.pending_c_function_body)
+               cpp.pending_c_function_body.extend(',')
+               cpp.put_position(start_position)
+               cpp.pending_c_function_body.append(once ");%N")
+            end
+         else
+            not_yet_implemented
+         end
+      end
+   
+   accept (visitor: RUN_TIME_ERROR_INSTRUCTION_VISITOR) is
+      do
+         visitor.visit_run_time_error_instruction(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		do
-			code_accumulator.current_context.add_last(Current)			
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      do
+         code_accumulator.current_context.add_last(Current)         
+      end
+   
 feature {}
-	make (sp: like start_position; em: like error_message; en: like error_name) is
-		require
-			not sp.is_unknown
-			em /= Void
-			en.is_equal(once "Void_call_target") or else en.is_equal(once "System_level_type_error")
-		do
-			start_position := sp
-			error_message := em
-			error_name := en
-		ensure
-			start_position = sp
-			error_message = em
-			error_name = en
-		end
+   make (sp: like start_position; em: like error_message; en: like error_name) is
+      require
+         not sp.is_unknown
+         em /= Void
+         en.is_equal(once "Void_call_target") or else en.is_equal(once "System_level_type_error")
+      do
+         start_position := sp
+         error_message := em
+         error_name := en
+      ensure
+         start_position = sp
+         error_message = em
+         error_name = en
+      end
 
 end -- class RUN_TIME_ERROR_INSTRUCTION
 --

@@ -4,14 +4,14 @@
 deferred class NULL_POINTER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NULL_POINTER}
-	visit_null_pointer (visited: NULL_POINTER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_null_pointer (visited: NULL_POINTER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NULL_POINTER_VISITOR
 --

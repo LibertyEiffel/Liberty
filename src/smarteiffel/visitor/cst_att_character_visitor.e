@@ -4,14 +4,14 @@
 deferred class CST_ATT_CHARACTER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CST_ATT_CHARACTER}
-	visit_cst_att_character (visited: CST_ATT_CHARACTER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cst_att_character (visited: CST_ATT_CHARACTER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CST_ATT_CHARACTER_VISITOR
 --

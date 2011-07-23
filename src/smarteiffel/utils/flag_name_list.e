@@ -2,77 +2,77 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class FLAG_NAME_LIST
-	--
-	-- Shared Frozen String list for command flags.
-	--
+   --
+   -- Shared Frozen String list for command flags.
+   --
 feature {} -- Most of them are command flag names:
-	fz_case_insensitive: STRING is "case_insensitive"
+   fz_case_insensitive: STRING is "case_insensitive"
 
-	fz_cc: STRING is "cc"
+   fz_cc: STRING is "cc"
 
-	fz_cecil: STRING is "cecil"
+   fz_cecil: STRING is "cecil"
 
-	fz_clean: STRING is "clean"
+   fz_clean: STRING is "clean"
 
-	fz_c_mode: STRING is "c_mode"
+   fz_c_mode: STRING is "c_mode"
 
-	fz_gc_info: STRING is "gc_info"
+   fz_gc_info: STRING is "gc_info"
 
-	fz_help: STRING is "help"
+   fz_help: STRING is "help"
 
-	fz_high_memory_compiler: STRING is "high_memory_compiler"
+   fz_high_memory_compiler: STRING is "high_memory_compiler"
 
-	fz_loadpath: STRING is "loadpath"
+   fz_loadpath: STRING is "loadpath"
 
-	fz_manifest_string_trace: STRING is "manifest_string_trace"
+   fz_manifest_string_trace: STRING is "manifest_string_trace"
 
-	fz_no_main: STRING is "no_main"
+   fz_no_main: STRING is "no_main"
 
-	fz_no_split: STRING is "no_split"
+   fz_no_split: STRING is "no_split"
 
-	fz_no_strip: STRING is "no_strip"
+   fz_no_strip: STRING is "no_strip"
 
-	fz_no_style_warning: STRING is "no_style_warning"
+   fz_no_style_warning: STRING is "no_style_warning"
 
-	fz_no_warning: STRING is "no_warning"
+   fz_no_warning: STRING is "no_warning"
 
-	fz_o: STRING is "-o"
+   fz_o: STRING is "-o"
 
-	fz_profile: STRING is "profile"
+   fz_profile: STRING is "profile"
 
-	fz_relax: STRING is "relax"
+   fz_relax: STRING is "relax"
 
-	fz_safety_check: STRING is "safety_check"
+   fz_safety_check: STRING is "safety_check"
 
-	fz_sedb: STRING is "sedb"
+   fz_sedb: STRING is "sedb"
 
-	fz_split: STRING is "split"
+   fz_split: STRING is "split"
 
-	fz_verbose: STRING is "verbose"
+   fz_verbose: STRING is "verbose"
 
-	fz_version: STRING is "version"
+   fz_version: STRING is "version"
 
-	fz_flag_jar: STRING is "jar"
+   fz_flag_jar: STRING is "jar"
 
-	fz_flag_run: STRING is "run"
+   fz_flag_run: STRING is "run"
 
-	fz_flag_use_jar: STRING is "use_jar"
+   fz_flag_use_jar: STRING is "use_jar"
 
-	fz_flag_use_jvm: STRING is "use_jvm"
+   fz_flag_use_jvm: STRING is "use_jvm"
 
-	fz_flag_java_compiler: STRING is "java_compiler"
+   fz_flag_java_compiler: STRING is "java_compiler"
 
-	fz_flag_ss: STRING is "ss" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
+   fz_flag_ss: STRING is "ss" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
 
-	fz_flag_mx: STRING is "mx" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
+   fz_flag_mx: STRING is "mx" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
 
-	fz_flag_ms: STRING is "ms" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
+   fz_flag_ms: STRING is "ms" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
 
-	fz_flag_classpath: STRING is "classpath"
+   fz_flag_classpath: STRING is "classpath"
 
-	fz_flag_clean_classes: STRING is "clean_classes"
+   fz_flag_clean_classes: STRING is "clean_classes"
 
-	fz_flag_hard_clean: STRING is "hard_clean"
+   fz_flag_hard_clean: STRING is "hard_clean"
 
 end -- class FLAG_NAME_LIST
 --

@@ -2,90 +2,90 @@
 -- See the Copyright notice at the end of this file.
 --
 class EXCEPTION_TABLE
-	--
-	-- Unique Global Object in charge of the exception table of
-	-- a method_info as describe in the JVM specification.
-	-- Obviously, the same object is recycled.
-	--
+   --
+   -- Unique Global Object in charge of the exception table of
+   -- a method_info as describe in the JVM specification.
+   -- Obviously, the same object is recycled.
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {CODE_ATTRIBUTE}
-	make
+   make
 
 feature {}
-	from_pc: FAST_ARRAY[INTEGER] is
-		once
-			create Result.with_capacity(4)
-		end
+   from_pc: FAST_ARRAY[INTEGER] is
+      once
+         create Result.with_capacity(4)
+      end
 
-	to_pc: FAST_ARRAY[INTEGER] is
-		once
-			create Result.with_capacity(4)
-		end
+   to_pc: FAST_ARRAY[INTEGER] is
+      once
+         create Result.with_capacity(4)
+      end
 
-	handler_pc: FAST_ARRAY[INTEGER] is
-		once
-			create Result.with_capacity(4)
-		end
+   handler_pc: FAST_ARRAY[INTEGER] is
+      once
+         create Result.with_capacity(4)
+      end
 
-	type_idx: FAST_ARRAY[INTEGER] is
-		once
-			create Result.with_capacity(4)
-		end
-
-feature {}
-	make is
-		do
-		end
+   type_idx: FAST_ARRAY[INTEGER] is
+      once
+         create Result.with_capacity(4)
+      end
 
 feature {}
-	count: INTEGER is
-		do
-			Result := from_pc.count
-		end
+   make is
+      do
+      end
+
+feature {}
+   count: INTEGER is
+      do
+         Result := from_pc.count
+      end
 
 feature {CODE_ATTRIBUTE}
-	length: INTEGER is
-		do
-			Result := 8 * count
-		end
+   length: INTEGER is
+      do
+         Result := 8 * count
+      end
 
-	clear is
-		do
-			from_pc.clear_count
-			to_pc.clear_count
-			handler_pc.clear_count
-			type_idx.clear_count
-		end
+   clear is
+      do
+         from_pc.clear_count
+         to_pc.clear_count
+         handler_pc.clear_count
+         type_idx.clear_count
+      end
 
-	add (f, t, h, type: INTEGER) is
-		do
-			from_pc.add_last(f)
-			to_pc.add_last(t)
-			handler_pc.add_last(h)
-			type_idx.add_last(type)
-		end
+   add (f, t, h, type: INTEGER) is
+      do
+         from_pc.add_last(f)
+         to_pc.add_last(t)
+         handler_pc.add_last(h)
+         type_idx.add_last(type)
+      end
 
-	store_in (storage: STRING) is
-		local
-			c, i: INTEGER
-		do
-			c := count
-			append_u2(storage, c)
-			from
-				i := 0
-			until
-				i >= c
-			loop
-				append_u2(storage, from_pc.item(i))
-				append_u2(storage, to_pc.item(i))
-				append_u2(storage, handler_pc.item(i))
-				append_u2(storage, type_idx.item(i))
-				i := i + 1
-			end
-		end
+   store_in (storage: STRING) is
+      local
+         c, i: INTEGER
+      do
+         c := count
+         append_u2(storage, c)
+         from
+            i := 0
+         until
+            i >= c
+         loop
+            append_u2(storage, from_pc.item(i))
+            append_u2(storage, to_pc.item(i))
+            append_u2(storage, handler_pc.item(i))
+            append_u2(storage, type_idx.item(i))
+            i := i + 1
+         end
+      end
 
 end -- class EXCEPTION_TABLE
 --

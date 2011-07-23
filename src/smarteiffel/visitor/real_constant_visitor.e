@@ -4,14 +4,14 @@
 deferred class REAL_CONSTANT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {REAL_CONSTANT}
-	visit_real_constant (visited: REAL_CONSTANT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_real_constant (visited: REAL_CONSTANT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class REAL_CONSTANT_VISITOR
 --

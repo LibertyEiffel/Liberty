@@ -4,14 +4,14 @@
 deferred class E_TRUE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {E_TRUE}
-	visit_e_true (visited: E_TRUE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_e_true (visited: E_TRUE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class E_TRUE_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class INTERNAL_LOCAL2_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {INTERNAL_LOCAL2}
-	visit_internal_local2 (visited: INTERNAL_LOCAL2) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class INTERNAL_LOCAL2_VISITOR
 --

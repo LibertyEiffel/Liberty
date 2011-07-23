@@ -4,14 +4,14 @@
 deferred class FORMAL_GENERIC_ARG_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FORMAL_GENERIC_ARG}
-	visit_formal_generic_arg (visited: FORMAL_GENERIC_ARG) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_formal_generic_arg (visited: FORMAL_GENERIC_ARG) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FORMAL_GENERIC_ARG_VISITOR
 --

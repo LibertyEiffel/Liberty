@@ -2,118 +2,118 @@
 -- See the Copyright notice at the end of this file.
 --
 class CHARACTER_CONSTANT
-	--
-	-- For Manifest Constant CHARACTER.
-	--
+   --
+   -- For Manifest Constant CHARACTER.
+   --
 
 inherit
-	BASE_TYPE_CONSTANT
+   BASE_TYPE_CONSTANT
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {ANY}
-	with
+   with
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
 
-	value: CHARACTER
+   value: CHARACTER
 
-	pretty_view: STRING
-			-- To be used for `pretty'.
-	
-	declaration_type: TYPE is
-		once
-			Result := smart_eiffel.type_character
-		end
-	
-	frozen resolve_in (type: TYPE): TYPE is
-		do
-			Result := declaration_type
-		end
-	
-	compile_to_c (type: TYPE) is
-		do
-			cpp.pending_c_function_body.append(once "((T3)%'")
-			if value.is_letter or else value.is_digit then
-				cpp.pending_c_function_body.extend(value)
-			elseif value = '%N' then
-				cpp.pending_c_function_body.append(once "\n")
-			else
-				cpp.pending_c_function_body.extend('\')
-				value.code.low_8.to_octal_in(cpp.pending_c_function_body)
-			end
-			cpp.pending_c_function_body.append(once "%')")
-		end
+   pretty_view: STRING
+         -- To be used for `pretty'.
+   
+   declaration_type: TYPE is
+      once
+         Result := smart_eiffel.type_character
+      end
+   
+   frozen resolve_in (type: TYPE): TYPE is
+      do
+         Result := declaration_type
+      end
+   
+   compile_to_c (type: TYPE) is
+      do
+         cpp.pending_c_function_body.append(once "((T3)%'")
+         if value.is_letter or else value.is_digit then
+            cpp.pending_c_function_body.extend(value)
+         elseif value = '%N' then
+            cpp.pending_c_function_body.append(once "\n")
+         else
+            cpp.pending_c_function_body.extend('\')
+            value.code.low_8.to_octal_in(cpp.pending_c_function_body)
+         end
+         cpp.pending_c_function_body.append(once "%')")
+      end
 
-	compile_to_jvm, compile_target_to_jvm (type: TYPE) is
-		do
-			code_attribute.opcode_push_integer(value.code)
-		end
+   compile_to_jvm, compile_target_to_jvm (type: TYPE) is
+      do
+         code_attribute.opcode_push_integer(value.code)
+      end
 
-	jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			check
-				False
-			end
-		end
+   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         check
+            False
+         end
+      end
 
-	to_string: STRING is
-		do
-			if pretty_view /= Void then
-				Result := pretty_view.twin
-			else
-				check
-					(not smart_eiffel.pretty_flag) and then (not smart_eiffel.short_or_class_check_flag)
-				end
-				-- Probably trying to report an error. So we just rebuild 
-				-- a standard 
-				Result := once "......."
-				Result.clear_count
-				Result.extend('%'')
-				inspect
-					value
-				when '@' .. '~' then
-					Result.extend(value)
-				else
-					character_coding(value, Result)
-				end
-				Result.extend('%'')
-			end
-		end
+   to_string: STRING is
+      do
+         if pretty_view /= Void then
+            Result := pretty_view.twin
+         else
+            check
+               (not smart_eiffel.pretty_flag) and then (not smart_eiffel.short_or_class_check_flag)
+            end
+            -- Probably trying to report an error. So we just rebuild 
+            -- a standard 
+            Result := once "......."
+            Result.clear_count
+            Result.extend('%'')
+            inspect
+               value
+            when '@' .. '~' then
+               Result.extend(value)
+            else
+               character_coding(value, Result)
+            end
+            Result.extend('%'')
+         end
+      end
 
-	simplify_1_, simplify_2: like Current is
-		do
-			Result := Current
-		end
+   simplify_1_, simplify_2: like Current is
+      do
+         Result := Current
+      end
 
 feature {ANY}
-	accept (visitor: CHARACTER_CONSTANT_VISITOR) is
-		do
-			visitor.visit_character_constant(Current)
-		end
+   accept (visitor: CHARACTER_CONSTANT_VISITOR) is
+      do
+         visitor.visit_character_constant(Current)
+      end
 
 feature {}
-	make (sp: like start_position; v: like value; pv: like pretty_view) is
-		require
-			not sp.is_unknown
-		do
-			start_position := sp
-			value := v
-			pretty_view := pv
-		ensure
-			start_position = sp
-			value = v
-			pretty_view = pv
-		end
+   make (sp: like start_position; v: like value; pv: like pretty_view) is
+      require
+         not sp.is_unknown
+      do
+         start_position := sp
+         value := v
+         pretty_view := pv
+      ensure
+         start_position = sp
+         value = v
+         pretty_view = pv
+      end
 
-	with (sp: like start_position; v: like value) is
-		require
-			not sp.is_unknown
-		do
-			make(sp, v, Void)
-		end
+   with (sp: like start_position; v: like value) is
+      require
+         not sp.is_unknown
+      do
+         make(sp, v, Void)
+      end
 
 end -- class CHARACTER_CONSTANT
 --

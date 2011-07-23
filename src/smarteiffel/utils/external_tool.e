@@ -36,7 +36,7 @@ feature {}
 
          -- Now parse the arguments
          if not ace_file_mode then
-				parse_arguments
+            parse_arguments
             ace.set_root_class_name_using(root_class_name)
             if root_procedure_name /= Void then
                ace.set_root_procedure_name(root_procedure_name)

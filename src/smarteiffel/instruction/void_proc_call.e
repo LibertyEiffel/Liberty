@@ -8,90 +8,90 @@ class VOID_PROC_CALL
    --
 
 inherit
-	NON_WRITTEN_INSTRUCTION
+   NON_WRITTEN_INSTRUCTION
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the Void call.
+   start_position: POSITION
+         -- Of the Void call.
 
-	feature_stamp: FEATURE_STAMP
-			-- Of the Void call.
-	
-	target_type: TYPE
-			--  Of the Void call (the one to be used with `feature_stamp').
+   feature_stamp: FEATURE_STAMP
+         -- Of the Void call.
+   
+   target_type: TYPE
+         --  Of the Void call (the one to be used with `feature_stamp').
 
-	use_current (type: TYPE): BOOLEAN is
-		do
-		end
+   use_current (type: TYPE): BOOLEAN is
+      do
+      end
 
-	simplify (type: TYPE): INSTRUCTION is
-		do
-			Result := Current
-		end
+   simplify (type: TYPE): INSTRUCTION is
+      do
+         Result := Current
+      end
 
-	collect (type: TYPE): TYPE is
-		do
-		end
+   collect (type: TYPE): TYPE is
+      do
+      end
 
-	side_effect_free (type: TYPE): BOOLEAN is
-		do
-			-- No because it produces a crash.
-		end
+   side_effect_free (type: TYPE): BOOLEAN is
+      do
+         -- No because it produces a crash.
+      end
 
-	safety_check (type: TYPE) is
-		do
-			error_handler.append("Call on a Void target in the live code (when the type of Current is ")
-			error_handler.append(type.name.to_string)
-			error_handler.append(").")
-			error_handler.add_position(start_position)
-			error_handler.print_as_warning
-		end
+   safety_check (type: TYPE) is
+      do
+         error_handler.append("Call on a Void target in the live code (when the type of Current is ")
+         error_handler.append(type.name.to_string)
+         error_handler.append(").")
+         error_handler.add_position(start_position)
+         error_handler.print_as_warning
+      end
 
-	adapt_for (t: TYPE): like Current is
-		do
-			Result := Current
-		end
+   adapt_for (t: TYPE): like Current is
+      do
+         Result := Current
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			cpp.se_evobt(Void, type, create {E_VOID}.make(start_position))
-		end
+   compile_to_c (type: TYPE) is
+      do
+         cpp.se_evobt(Void, type, create {E_VOID}.make(start_position))
+      end
 
-	accept (visitor: VOID_PROC_CALL_VISITOR) is
-		do
-			visitor.visit_void_proc_call(Current)
-		end
+   accept (visitor: VOID_PROC_CALL_VISITOR) is
+      do
+         visitor.visit_void_proc_call(Current)
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-	inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		do
-			code_accumulator.current_context.add_last(Current)
-		end
-	
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      do
+         code_accumulator.current_context.add_last(Current)
+      end
+   
 feature {}
-	make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
-		require
-			not sp.is_unknown
-			fs /= Void
-			tt /= Void
-		do
-			start_position := sp
-			target_type := tt
-			feature_stamp := fs
-		ensure
-			start_position = sp
-			feature_stamp = fs
-			target_type = tt
-		end
+   make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
+      require
+         not sp.is_unknown
+         fs /= Void
+         tt /= Void
+      do
+         start_position := sp
+         target_type := tt
+         feature_stamp := fs
+      ensure
+         start_position = sp
+         feature_stamp = fs
+         target_type = tt
+      end
 
 invariant
-	feature_stamp /= Void
-	
-	target_type /= Void
-	
+   feature_stamp /= Void
+   
+   target_type /= Void
+   
 end -- class VOID_PROC_CALL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

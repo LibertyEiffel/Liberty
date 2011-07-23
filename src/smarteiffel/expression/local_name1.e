@@ -2,130 +2,130 @@
 -- See the Copyright notice at the end of this file.
 --
 class LOCAL_NAME1
-	--
-	-- A local name in some declaration list.
-	--
+   --
+   -- A local name in some declaration list.
+   --
 
 inherit
-	LOCAL_ARGUMENT1
+   LOCAL_ARGUMENT1
 
 insert
-	LOCAL_NAME
+   LOCAL_NAME
 
 creation {TOKEN_BUFFER, INTROSPECTION_HANDLER}
-	make
+   make
 
 feature {ANY}
-	collect (type: TYPE): TYPE is
-		do
-			Result := result_type.resolve_in(type)
-			live_reference_counter_increment
-		end
+   collect (type: TYPE): TYPE is
+      do
+         Result := result_type.resolve_in(type)
+         live_reference_counter_increment
+      end
 
-	adapt_for (type: TYPE): like Current is
-		do
-			--|*** (PH 25/08/04) should be identical with 
-			--|*** ARGUMENT_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
-			usage_warning_check(type) --|*** (PH 29/05/04) should be done earlier
-			Result := Current
-		end
+   adapt_for (type: TYPE): like Current is
+      do
+         --|*** (PH 25/08/04) should be identical with 
+         --|*** ARGUMENT_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
+         usage_warning_check(type) --|*** (PH 29/05/04) should be done earlier
+         Result := Current
+      end
 
-	accept (visitor: LOCAL_NAME1_VISITOR) is
-		do
-			visitor.visit_local_name1(Current)
-		end
-
-feature {LOCAL_VAR_LIST}
-	must_be_c_generated (type: TYPE): BOOLEAN is
-			-- True if some C code must be generated for this local variable (i.e. this routine now 
-			-- handle correctly user's expanded types with a side-effect default creation).
-		local
-			actual_type: TYPE
-		do
-			if live_reference_counter > 0 then
-				Result := True
-			elseif parsing_reference_counter = 0 then
-				actual_type := result_type.resolve_in(type)
-				if type.is_user_expanded then
-					Result := not type.live_type.side_effect_free_default_create
-				end
-			end
-		end
+   accept (visitor: LOCAL_NAME1_VISITOR) is
+      do
+         visitor.visit_local_name1(Current)
+      end
 
 feature {LOCAL_VAR_LIST}
-	c_declare (type: TYPE; volatile_flag: BOOLEAN) is
-			-- C declaration of the local.
-		require
-			cpp.pending_c_function
-		local
-			static_tm: TYPE_MARK
-		do
-			if must_be_c_generated(type) then
-				static_tm := result_type.to_static(type)
-				if volatile_flag then
-					if static_tm.is_kernel_expanded then
-						cpp.pending_c_function_body.append(once "volatile ")
-					end
-				end
-				static_tm.c_type_for_result_in(cpp.pending_c_function_body)
-				cpp.pending_c_function_body.extend(' ')
-				cpp.print_local(to_string)
-				cpp.pending_c_function_body.extend('=')
-				static_tm.c_initialize_in(cpp.pending_c_function_body)
-				cpp.pending_c_function_body.append(once ";%N")
-			end
-		end
+   must_be_c_generated (type: TYPE): BOOLEAN is
+         -- True if some C code must be generated for this local variable (i.e. this routine now 
+         -- handle correctly user's expanded types with a side-effect default creation).
+      local
+         actual_type: TYPE
+      do
+         if live_reference_counter > 0 then
+            Result := True
+         elseif parsing_reference_counter = 0 then
+            actual_type := result_type.resolve_in(type)
+            if type.is_user_expanded then
+               Result := not type.live_type.side_effect_free_default_create
+            end
+         end
+      end
+
+feature {LOCAL_VAR_LIST}
+   c_declare (type: TYPE; volatile_flag: BOOLEAN) is
+         -- C declaration of the local.
+      require
+         cpp.pending_c_function
+      local
+         static_tm: TYPE_MARK
+      do
+         if must_be_c_generated(type) then
+            static_tm := result_type.to_static(type)
+            if volatile_flag then
+               if static_tm.is_kernel_expanded then
+                  cpp.pending_c_function_body.append(once "volatile ")
+               end
+            end
+            static_tm.c_type_for_result_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.extend(' ')
+            cpp.print_local(to_string)
+            cpp.pending_c_function_body.extend('=')
+            static_tm.c_initialize_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once ";%N")
+         end
+      end
 
 feature {DECLARATION_LIST}
-	name_clash_check (type: TYPE) is
-		do
-			name_clash_check_(type, once "Conflict between local/feature name (VRLE).")
-		end
+   name_clash_check (type: TYPE) is
+      do
+         name_clash_check_(type, once "Conflict between local/feature name (VRLE).")
+      end
 
 feature {LOCAL_NAME2}
-	parsing_reference_counter_increment is
-		do
-			parsing_reference_counter := parsing_reference_counter + 1
-		end
+   parsing_reference_counter_increment is
+      do
+         parsing_reference_counter := parsing_reference_counter + 1
+      end
 
-	live_reference_counter_increment is
-		do
-			live_reference_counter := live_reference_counter + 1
-		end
+   live_reference_counter_increment is
+      do
+         live_reference_counter := live_reference_counter + 1
+      end
 
 feature {LOCAL_NAME1}
-	usage_warning_check (type: TYPE) is
-		do
-			if parsing_reference_counter = 0 then
-				if must_be_c_generated(type) then
-					-- Well, it is a bad idea to rely on side-effects, but it is still allowed...
-				else
-					error_handler.append("Unused local variable.")
-					error_handler.add_position(start_position)
-					error_handler.print_as_warning
-				end
-			end
-		end
+   usage_warning_check (type: TYPE) is
+      do
+         if parsing_reference_counter = 0 then
+            if must_be_c_generated(type) then
+               -- Well, it is a bad idea to rely on side-effects, but it is still allowed...
+            else
+               error_handler.append("Unused local variable.")
+               error_handler.add_position(start_position)
+               error_handler.print_as_warning
+            end
+         end
+      end
 
 feature {}
-	parsing_reference_counter: INTEGER
-			-- How many LOCAL_NAME2 encountered during parsing for this local declaration.
+   parsing_reference_counter: INTEGER
+         -- How many LOCAL_NAME2 encountered during parsing for this local declaration.
 
-	live_reference_counter: INTEGER
-			-- How many actual usage encountered in the living code?
+   live_reference_counter: INTEGER
+         -- How many actual usage encountered in the living code?
 
-	make (sp: POSITION; n: STRING) is
-		require
-			not sp.is_unknown
-			not n.is_empty
-		do
-			start_position := sp
-			hashed_string := string_aliaser.hashed_string(n)
-			to_string := hashed_string.to_string
-		ensure
-			start_position = sp
-			to_string.is_equal(n) and string_aliaser.registered_one(to_string)
-		end
+   make (sp: POSITION; n: STRING) is
+      require
+         not sp.is_unknown
+         not n.is_empty
+      do
+         start_position := sp
+         hashed_string := string_aliaser.hashed_string(n)
+         to_string := hashed_string.to_string
+      ensure
+         start_position = sp
+         to_string.is_equal(n) and string_aliaser.registered_one(to_string)
+      end
 
 end -- class LOCAL_NAME1
 --

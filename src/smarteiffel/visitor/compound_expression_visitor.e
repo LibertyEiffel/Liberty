@@ -4,14 +4,14 @@
 deferred class COMPOUND_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {COMPOUND_EXPRESSION}
-	visit_compound_expression (visited: COMPOUND_EXPRESSION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class COMPOUND_EXPRESSION_VISITOR
 --

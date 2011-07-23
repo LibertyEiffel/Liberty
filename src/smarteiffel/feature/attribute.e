@@ -2,84 +2,84 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class ATTRIBUTE
-	--
-	-- For all sorts of attributes : constants (CST_ATT), unique
-	--   (CST_ATT_UNIQUE) and instance variables (WRITABLE_ATTRIBUTE).
-	--
+   --
+   -- For all sorts of attributes : constants (CST_ATT), unique
+   --   (CST_ATT_UNIQUE) and instance variables (WRITABLE_ATTRIBUTE).
+   --
 
 inherit
-	ANONYMOUS_FEATURE
+   ANONYMOUS_FEATURE
 
 feature {ANY}
-	result_type: TYPE_MARK
+   result_type: TYPE_MARK
 
-	is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN is False
 
-	is_attribute: BOOLEAN is True
+   is_attribute: BOOLEAN is True
 
-	obsolete_mark: MANIFEST_STRING
+   obsolete_mark: MANIFEST_STRING
 
-	frozen rescue_compound: INSTRUCTION is
-		do
-		end
+   frozen rescue_compound: INSTRUCTION is
+      do
+      end
 
-	frozen set_rescue_compound (instruction: like rescue_compound) is
-		do
-			if instruction /= Void then
-				error_handler.add_position(instruction.start_position)
-			else
-				error_handler.add_position(start_position)
-			end
-			error_handler.append("Attributes cannot have a rescue compound.")
-			error_handler.print_as_fatal_error
-		end
+   frozen set_rescue_compound (instruction: like rescue_compound) is
+      do
+         if instruction /= Void then
+            error_handler.add_position(instruction.start_position)
+         else
+            error_handler.add_position(start_position)
+         end
+         error_handler.append("Attributes cannot have a rescue compound.")
+         error_handler.print_as_fatal_error
+      end
 
-	frozen arguments: FORMAL_ARG_LIST is
-		do
-		end
+   frozen arguments: FORMAL_ARG_LIST is
+      do
+      end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-	specialize_2 (type: TYPE): like Current is
-		local
-			ra: like require_assertion; ea: like ensure_assertion
-		do
-			if ace.boost then
-				Result := Current
-			else
-				if require_assertion /= Void then
-					ra ::= require_assertion.specialize_2(type)
-				end
-				if ensure_assertion /= Void then
-					ea := ensure_assertion.specialize_2(type)
-				end
-				if ra = require_assertion and then ea = ensure_assertion then
-					Result := Current
-				else
-					Result := twin
-					Result.set_require_assertion(ra)
-					Result.set_ensure_assertion(ea)
-				end
-			end
-		end
+   specialize_2 (type: TYPE): like Current is
+      local
+         ra: like require_assertion; ea: like ensure_assertion
+      do
+         if ace.boost then
+            Result := Current
+         else
+            if require_assertion /= Void then
+               ra ::= require_assertion.specialize_2(type)
+            end
+            if ensure_assertion /= Void then
+               ea := ensure_assertion.specialize_2(type)
+            end
+            if ra = require_assertion and then ea = ensure_assertion then
+               Result := Current
+            else
+               Result := twin
+               Result.set_require_assertion(ra)
+               Result.set_ensure_assertion(ea)
+            end
+         end
+      end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
-	simplify (type: TYPE): ANONYMOUS_FEATURE is
-		do
-			Result := Current
-		end
+   simplify (type: TYPE): ANONYMOUS_FEATURE is
+      do
+         Result := Current
+      end
 
 feature {}
-	frozen try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
-		do
-			error_handler.add_position(start_position)
-			error_handler.add_position(fn.start_position)
-			error_handler.append("An attribute cannot be undefined.")
-			error_handler.print_as_error
-			bc.fatal_undefine(fn)
-		end
+   frozen try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+      do
+         error_handler.add_position(start_position)
+         error_handler.add_position(fn.start_position)
+         error_handler.append("An attribute cannot be undefined.")
+         error_handler.print_as_error
+         bc.fatal_undefine(fn)
+      end
 
 invariant
-	no_arguments: arguments = Void
+   no_arguments: arguments = Void
 
 end -- class ATTRIBUTE
 --

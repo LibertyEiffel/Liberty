@@ -4,46 +4,46 @@
 expanded class ABSOLUTE_FEATURE_NAME
 
 insert
-	HASHABLE
+   HASHABLE
 
 creation {TYPE}
-	make
+   make
 
 creation {ANY}
-	default_create
+   default_create
 
 feature {ANY}
-	class_name: CLASS_NAME
+   class_name: CLASS_NAME
 
-	feature_name: FEATURE_NAME
+   feature_name: FEATURE_NAME
 
-	hash_code: INTEGER
+   hash_code: INTEGER
 
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other.matches(class_name, feature_name)
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other.matches(class_name, feature_name)
+      end
 
-	matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN is
-		do
-			Result := class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_)
-		ensure
-			Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
-		end
+   matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN is
+      do
+         Result := class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_)
+      ensure
+         Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
+      end
 
 feature {}
-	make (class_name_: like class_name; feature_name_: like feature_name) is
-		require
-			class_name_ /= Void
-			feature_name_ /= Void
-		do
-			class_name := class_name_
-			feature_name := feature_name_
-			hash_code := class_name.hash_code.bit_xor(feature_name.hash_code)
-		ensure
-			class_name = class_name_
-			feature_name = feature_name_
-		end
+   make (class_name_: like class_name; feature_name_: like feature_name) is
+      require
+         class_name_ /= Void
+         feature_name_ /= Void
+      do
+         class_name := class_name_
+         feature_name := feature_name_
+         hash_code := class_name.hash_code.bit_xor(feature_name.hash_code)
+      ensure
+         class_name = class_name_
+         feature_name = feature_name_
+      end
 
 end -- class ABSOLUTE_FEATURE_NAME
 --

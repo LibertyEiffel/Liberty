@@ -4,14 +4,14 @@
 deferred class IMPLICIT_CAST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {IMPLICIT_CAST}
-	visit_implicit_cast (visited: IMPLICIT_CAST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_implicit_cast (visited: IMPLICIT_CAST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class IMPLICIT_CAST_VISITOR
 --

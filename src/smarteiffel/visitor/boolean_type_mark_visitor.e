@@ -4,14 +4,14 @@
 deferred class BOOLEAN_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {BOOLEAN_TYPE_MARK}
-	visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class BOOLEAN_TYPE_MARK_VISITOR
 --

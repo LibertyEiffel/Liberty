@@ -4,14 +4,14 @@
 deferred class WHEN_ITEM_1_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {WHEN_ITEM_1}
-	visit_when_item_1 (visited: WHEN_ITEM_1) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_when_item_1 (visited: WHEN_ITEM_1) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class WHEN_ITEM_1_VISITOR
 --

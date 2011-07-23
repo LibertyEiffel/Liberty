@@ -4,14 +4,14 @@
 deferred class FORMAL_ARG_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FORMAL_ARG_LIST}
-	visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FORMAL_ARG_LIST_VISITOR
 --

@@ -2,143 +2,143 @@
 -- See the Copyright notice at the end of this file.
 --
 class CECIL_POOL
-	--
-	-- Unique global object in charge of CECIL calls.
-	--
+   --
+   -- Unique global object in charge of CECIL calls.
+   --
 
 insert
-	GLOBALS
-		undefine is_equal
-		end
-	SINGLETON
+   GLOBALS
+      undefine is_equal
+      end
+   SINGLETON
 
 feature {ACE, COMMAND_LINE_TOOLS, C_PLUGIN}
-	add_cecil_file (path: STRING) is
-			-- Add `path' as a new -cecil file to be considered.
-		require
-			path /= Void
-			not string_aliaser.registered_one(path)
-			may_report_an_error: error_handler.is_empty
-		local
-			file: CECIL_FILE
-		do
-			echo.put_string(once "Adding Cecil file: ")
-			echo.put_string(path)
-			echo.put_new_line
-			if cecil_files = Void then
-				create {HASHED_DICTIONARY[CECIL_FILE, STRING]} cecil_files.make
-			end
-			if not cecil_files.has(path) then
-				create file.make(path)
-				cecil_files.add(file, path)
-				-- because plugins add cecil files only at collect time
-				inspect state
-				when State_initial then
-					-- nothing
-				when State_parsed then
-					file.parse
-				when State_collected then
-					file.parse
-					file.collect(smart_eiffel.type_any)
-				end
-			end
-		ensure
-			may_report_an_error: error_handler.is_empty
-		end
+   add_cecil_file (path: STRING) is
+         -- Add `path' as a new -cecil file to be considered.
+      require
+         path /= Void
+         not string_aliaser.registered_one(path)
+         may_report_an_error: error_handler.is_empty
+      local
+         file: CECIL_FILE
+      do
+         echo.put_string(once "Adding Cecil file: ")
+         echo.put_string(path)
+         echo.put_new_line
+         if cecil_files = Void then
+            create {HASHED_DICTIONARY[CECIL_FILE, STRING]} cecil_files.make
+         end
+         if not cecil_files.has(path) then
+            create file.make(path)
+            cecil_files.add(file, path)
+            -- because plugins add cecil files only at collect time
+            inspect state
+            when State_initial then
+               -- nothing
+            when State_parsed then
+               file.parse
+            when State_collected then
+               file.parse
+               file.collect(smart_eiffel.type_any)
+            end
+         end
+      ensure
+         may_report_an_error: error_handler.is_empty
+      end
 
 feature {SMART_EIFFEL}
-	parse_cecil_files is
-		require
-			state = State_initial
-			may_report_an_error: error_handler.is_empty
-		local
-			i: INTEGER
-		do
-			if cecil_files /= Void then
-				from
-					i := cecil_files.lower
-				until
-					i > cecil_files.upper
-				loop
-					cecil_files.item(i).parse
-					i := i + 1
-				end
-			end
-			state := State_parsed
-		ensure
-			state = State_parsed
-			may_report_an_error: error_handler.is_empty
-		end
+   parse_cecil_files is
+      require
+         state = State_initial
+         may_report_an_error: error_handler.is_empty
+      local
+         i: INTEGER
+      do
+         if cecil_files /= Void then
+            from
+               i := cecil_files.lower
+            until
+               i > cecil_files.upper
+            loop
+               cecil_files.item(i).parse
+               i := i + 1
+            end
+         end
+         state := State_parsed
+      ensure
+         state = State_parsed
+         may_report_an_error: error_handler.is_empty
+      end
 
-	collect is
-		require
-			(state = State_parsed) xor (state = State_collected)
-		local
-			i: INTEGER
-		do
-			if cecil_files /= Void then
-				echo.put_string(once "Collecting Cecil features.%N")
-				from
-					i := cecil_files.lower
-				until
-					i > cecil_files.upper
-				loop
-					cecil_files.item(i).collect(smart_eiffel.type_any)
-					i := i + 1
-				end
-			end
-			state := State_collected
-		ensure
-			state = State_collected
-		end
+   collect is
+      require
+         (state = State_parsed) xor (state = State_collected)
+      local
+         i: INTEGER
+      do
+         if cecil_files /= Void then
+            echo.put_string(once "Collecting Cecil features.%N")
+            from
+               i := cecil_files.lower
+            until
+               i > cecil_files.upper
+            loop
+               cecil_files.item(i).collect(smart_eiffel.type_any)
+               i := i + 1
+            end
+         end
+         state := State_collected
+      ensure
+         state = State_collected
+      end
 
-	inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-		local
-			i: INTEGER
-		do
-			if cecil_files /= Void then
-				echo.put_string(once "Collecting Cecil features.%N")
-				from
-					i := cecil_files.lower
-				until
-					i > cecil_files.upper
-				loop
-					cecil_files.item(i).inline_dynamic_dispatch(code_accumulator, type)
-					i := i + 1
-				end
-			end
-		end
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         i: INTEGER
+      do
+         if cecil_files /= Void then
+            echo.put_string(once "Collecting Cecil features.%N")
+            from
+               i := cecil_files.lower
+            until
+               i > cecil_files.upper
+            loop
+               cecil_files.item(i).inline_dynamic_dispatch(code_accumulator, type)
+               i := i + 1
+            end
+         end
+      end
 
 feature {ANY}
-	state: INTEGER
+   state: INTEGER
 
-	State_initial: INTEGER is 0
-	State_parsed: INTEGER is 1
-	State_collected: INTEGER is 2
+   State_initial: INTEGER is 0
+   State_parsed: INTEGER is 1
+   State_collected: INTEGER is 2
 
 feature {C_PRETTY_PRINTER}
-	c_define_users is
-		local
-			i: INTEGER
-		do
-			if cecil_files /= Void then
-				from
-					i := cecil_files.lower
-				until
-					i > cecil_files.upper
-				loop
-					cecil_files.item(i).c_define_users
-					i := i + 1
-				end
-			end
-		end
+   c_define_users is
+      local
+         i: INTEGER
+      do
+         if cecil_files /= Void then
+            from
+               i := cecil_files.lower
+            until
+               i > cecil_files.upper
+            loop
+               cecil_files.item(i).c_define_users
+               i := i + 1
+            end
+         end
+      end
 
 feature {CECIL_FILE}
-	cecil_files: DICTIONARY[CECIL_FILE, STRING]
-			-- Non Void if some -cecil option is used.
+   cecil_files: DICTIONARY[CECIL_FILE, STRING]
+         -- Non Void if some -cecil option is used.
 
 invariant
-	valid_state: state.in_range(State_initial, State_collected)
+   valid_state: state.in_range(State_initial, State_collected)
 
 end -- class CECIL_POOL
 --

@@ -4,14 +4,14 @@
 deferred class PROCEDURE_CALL_N_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {PROCEDURE_CALL_N}
-	visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class PROCEDURE_CALL_N_VISITOR
 --

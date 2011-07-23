@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class ONCE_ROUTINE
-	--
-	-- Root of ONCE_FUNCTION or ONCE_PROCEDURE.
-	--
+   --
+   -- Root of ONCE_FUNCTION or ONCE_PROCEDURE.
+   --
 
 inherit
-	EFFECTIVE_ROUTINE
+   EFFECTIVE_ROUTINE
 
 feature {}
-	pretty_print_once_or_do (indent_level: INTEGER) is
-		do
-			pretty_printer.set_indent_level(indent_level)
-			pretty_printer.put_string(once "once")
-		end
+   pretty_print_once_or_do (indent_level: INTEGER) is
+      do
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.put_string(once "once")
+      end
 
 end -- class ONCE_ROUTINE
 --

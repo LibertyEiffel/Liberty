@@ -1,17 +1,17 @@
 class X_GET_TEXT_GLOBALS
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	messages: SET[HASHED_STRING] is
-		once
-			create {HASHED_SET[HASHED_STRING]} Result.make
-		end
+   messages: SET[HASHED_STRING] is
+      once
+         create {HASHED_SET[HASHED_STRING]} Result.make
+      end
 
-	number_messages: DICTIONARY[STRING, HASHED_STRING] is
-		once
-			create {HASHED_DICTIONARY[STRING, HASHED_STRING]} Result.make
-		end
+   number_messages: DICTIONARY[STRING, HASHED_STRING] is
+      once
+         create {HASHED_DICTIONARY[STRING, HASHED_STRING]} Result.make
+      end
 
 end -- class X_GET_TEXT_GLOBALS

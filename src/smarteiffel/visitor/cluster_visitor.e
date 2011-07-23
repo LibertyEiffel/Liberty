@@ -4,14 +4,14 @@
 deferred class CLUSTER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CLUSTER}
-	visit_cluster (visited: CLUSTER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cluster (visited: CLUSTER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CLUSTER_VISITOR
 --

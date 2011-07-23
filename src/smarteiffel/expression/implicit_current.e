@@ -4,21 +4,21 @@
 class IMPLICIT_CURRENT
 
 inherit
-	ABSTRACT_CURRENT
+   ABSTRACT_CURRENT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: IMPLICIT_CURRENT_VISITOR) is
-		do
-			visitor.visit_implicit_current(Current)
-		end
+   accept (visitor: IMPLICIT_CURRENT_VISITOR) is
+      do
+         visitor.visit_implicit_current(Current)
+      end
 
-	is_implicit_current: BOOLEAN is True
+   is_implicit_current: BOOLEAN is True
 
 feature {}
-	is_written: BOOLEAN is False
+   is_written: BOOLEAN is False
 
 end -- class IMPLICIT_CURRENT
 --

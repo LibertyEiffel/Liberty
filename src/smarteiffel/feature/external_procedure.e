@@ -4,88 +4,88 @@
 class EXTERNAL_PROCEDURE
 
 inherit
-	EXTERNAL_ROUTINE
-		redefine hook_collect
-		end
+   EXTERNAL_ROUTINE
+      redefine hook_collect
+      end
 
 creation {FEATURE_TEXT}
-	make
+   make
 
 creation {CLASS_TEXT}
-	non_written
+   non_written
 
 feature {ANY}
-	side_effect_free (target_type: TYPE): BOOLEAN is
-		do
-			-- As it is a procedure, there are side effects!
-		end
+   side_effect_free (target_type: TYPE): BOOLEAN is
+      do
+         -- As it is a procedure, there are side effects!
+      end
 
-	result_type: TYPE_MARK is
-		do
-		end
+   result_type: TYPE_MARK is
+      do
+      end
 
 feature {}
-	new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_7 is
-		do
-			create Result.for(t.live_type, Current, fn)
-		end
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_7 is
+      do
+         create Result.for(t.live_type, Current, fn)
+      end
 
 feature {RUN_FEATURE}
-	hook_collect (t: TYPE) is
-		local
-			n: STRING
-		do
-			n := first_name.to_string
-			if as_raise_exception = n then
-				exceptions_handler.set_used
-			end
-		end
+   hook_collect (t: TYPE) is
+      local
+         n: STRING
+      do
+         n := first_name.to_string
+         if as_raise_exception = n then
+            exceptions_handler.set_used
+         end
+      end
 
 feature {}
-	collect_body (type: TYPE) is
-		local
-			dummy: TYPE
-		do
-			if routine_body /= Void and then not type.is_deferred then
-				if local_vars /= Void then
-					local_vars.collect(type)
-				end
-				dummy := routine_body.collect(type)
-			end
-			native.collect(type, Current)
-		end
+   collect_body (type: TYPE) is
+      local
+         dummy: TYPE
+      do
+         if routine_body /= Void and then not type.is_deferred then
+            if local_vars /= Void then
+               local_vars.collect(type)
+            end
+            dummy := routine_body.collect(type)
+         end
+         native.collect(type, Current)
+      end
 
 feature {ANY}
-	accept (visitor: EXTERNAL_PROCEDURE_VISITOR) is
-		do
-			visitor.visit_external_procedure(Current)
-		end
+   accept (visitor: EXTERNAL_PROCEDURE_VISITOR) is
+      do
+         visitor.visit_external_procedure(Current)
+      end
 
 feature {}
-	make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion
-		l: like native; en: like alias_string) is
-		require
-			l /= Void
-		do
-			make_routine(fa, om, hc, ra)
-			make_external_routine(l, en)
-		end
+   make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion
+      l: like native; en: like alias_string) is
+      require
+         l /= Void
+      do
+         make_routine(fa, om, hc, ra)
+         make_external_routine(l, en)
+      end
 
-	non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; l: like native) is
-		require
-			ct /= Void
-			fn /= Void
-			fa /= Void
-			l /= Void
-		do
-			feature_text := ct.non_written(fn, Current)
-			make(fa, Void, Void, Void, l, Void)
-		end
+   non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; l: like native) is
+      require
+         ct /= Void
+         fn /= Void
+         fa /= Void
+         l /= Void
+      do
+         feature_text := ct.non_written(fn, Current)
+         make(fa, Void, Void, Void, l, Void)
+      end
 
-	try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
-		do
-			create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
-		end
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+      do
+         create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
+      end
 
 end -- class EXTERNAL_PROCEDURE
 --

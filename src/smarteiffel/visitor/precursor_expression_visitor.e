@@ -4,14 +4,14 @@
 deferred class PRECURSOR_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {PRECURSOR_EXPRESSION}
-	visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class PRECURSOR_EXPRESSION_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class IFTHENELSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {IFTHENELSE}
-	visit_ifthenelse (visited: IFTHENELSE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_ifthenelse (visited: IFTHENELSE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class IFTHENELSE_VISITOR
 --

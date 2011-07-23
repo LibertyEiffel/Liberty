@@ -2,128 +2,128 @@
 -- See the Copyright notice at the end of this file.
 --
 class CHARACTER_TYPE_MARK
-	--
-	-- Handling of the "CHARACTER" type mark.
-	--
+   --
+   -- Handling of the "CHARACTER" type mark.
+   --
 
 inherit
-	KERNEL_EXPANDED_TYPE_MARK
-		redefine resolve_in, default_expression
-		end
-	
+   KERNEL_EXPANDED_TYPE_MARK
+      redefine resolve_in, default_expression
+      end
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	id: INTEGER is 3
+   id: INTEGER is 3
 
-	written_name: HASHED_STRING is
-			-- (Is always the same one.)
-		once
-			Result := string_aliaser.hashed_string(as_character)
-		end
+   written_name: HASHED_STRING is
+         -- (Is always the same one.)
+      once
+         Result := string_aliaser.hashed_string(as_character)
+      end
 
-	type: TYPE is
-			--|*** TYPE creation can be quite recursive, so this cannot be a once function <FM-14/10/2004>
-		do
-			Result := smart_eiffel.type_character
-		end
-	
-	resolve_in (new_type: TYPE): TYPE is
-		do
-			Result := type
-		end
-	
-	default_expression (sp: POSITION): EXPRESSION is
-		do
-			create {CHARACTER_CONSTANT} Result.with(sp, '%U')
-		end
-	
-	accept (visitor: CHARACTER_TYPE_MARK_VISITOR) is
-		do
-			visitor.visit_character_type_mark(Current)
-		end
+   type: TYPE is
+         --|*** TYPE creation can be quite recursive, so this cannot be a once function <FM-14/10/2004>
+      do
+         Result := smart_eiffel.type_character
+      end
+   
+   resolve_in (new_type: TYPE): TYPE is
+      do
+         Result := type
+      end
+   
+   default_expression (sp: POSITION): EXPRESSION is
+      do
+         create {CHARACTER_CONSTANT} Result.with(sp, '%U')
+      end
+   
+   accept (visitor: CHARACTER_TYPE_MARK_VISITOR) is
+      do
+         visitor.visit_character_type_mark(Current)
+      end
 
-	c_type_for_argument_in (str: STRING) is
-		do
-			str.extend('T')
-			str.extend('3')
-		end
+   c_type_for_argument_in (str: STRING) is
+      do
+         str.extend('T')
+         str.extend('3')
+      end
 
-	jvm_descriptor_in (str: STRING) is
-		do
-			str.extend('B')
-		end
+   jvm_descriptor_in (str: STRING) is
+      do
+         str.extend('B')
+      end
 
-	jvm_return_code is
-		do
-			code_attribute.opcode_ireturn
-		end
+   jvm_return_code is
+      do
+         code_attribute.opcode_ireturn
+      end
 
-	jvm_push_local (offset: INTEGER) is
-		do
-			code_attribute.opcode_iload(offset)
-		end
+   jvm_push_local (offset: INTEGER) is
+      do
+         code_attribute.opcode_iload(offset)
+      end
 
-	jvm_push_default: INTEGER is
-		do
-			code_attribute.opcode_iconst_0
-			Result := 1
-		end
+   jvm_push_default: INTEGER is
+      do
+         code_attribute.opcode_iconst_0
+         Result := 1
+      end
 
-	jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-		do
-			code_attribute.opcode_istore(offset)
-		end
+   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
+      do
+         code_attribute.opcode_istore(offset)
+      end
 
-	jvm_xnewarray is
-		do
-			code_attribute.opcode_newarray(8)
-		end
+   jvm_xnewarray is
+      do
+         code_attribute.opcode_newarray(8)
+      end
 
-	jvm_xastore is
-		do
-			code_attribute.opcode_bastore
-		end
+   jvm_xastore is
+      do
+         code_attribute.opcode_bastore
+      end
 
-	jvm_xaload is
-		do
-			code_attribute.opcode_baload
-		end
+   jvm_xaload is
+      do
+         code_attribute.opcode_baload
+      end
 
-	jvm_if_x_eq: INTEGER is
-		do
-			Result := code_attribute.opcode_if_icmpeq
-		end
+   jvm_if_x_eq: INTEGER is
+      do
+         Result := code_attribute.opcode_if_icmpeq
+      end
 
-	jvm_if_x_ne: INTEGER is
-		do
-			Result := code_attribute.opcode_if_icmpne
-		end
+   jvm_if_x_ne: INTEGER is
+      do
+         Result := code_attribute.opcode_if_icmpne
+      end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-	long_name: HASHED_STRING is
-		once
-			Result := string_aliaser.hashed_string(as_character)
-		end
+   long_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_character)
+      end
 
 feature {LIVE_TYPE}
-	structure_mark: CHARACTER is 'c'
+   structure_mark: CHARACTER is 'c'
 
 feature {MANIFEST_GENERIC_POOL}
-	c_type_for_va_arg_in (buffer: STRING) is
-		do
-			buffer.append(once "int")
-		end
+   c_type_for_va_arg_in (buffer: STRING) is
+      do
+         buffer.append(once "int")
+      end
 
 feature {}
-	make (sp: like start_position) is
-		do
-			create class_text_name.make(written_name, sp)
-		end
+   make (sp: like start_position) is
+      do
+         create class_text_name.make(written_name, sp)
+      end
 
 invariant
-	written_mark = as_character
+   written_mark = as_character
 
 end -- class CHARACTER_TYPE_MARK
 --

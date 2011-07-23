@@ -2,95 +2,95 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_INT_REM
-	--
-	--   Infix operator : "\\".
-	--
+   --
+   --   Infix operator : "\\".
+   --
 
 inherit
-	CALL_INFIX
-		redefine static_simplify
-		end
+   CALL_INFIX
+      redefine static_simplify
+      end
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {AGENT_CREATION}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 8
+   precedence: INTEGER is 8
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	operator: STRING is
-		do
-			Result := as_backslash_backslash
-		end
+   operator: STRING is
+      do
+         Result := as_backslash_backslash
+      end
 
-	static_simplify: EXPRESSION is
-		local
-			ic1, ic2: INTEGER_CONSTANT; v1, v2, r: INTEGER_64
-		do
-			target := target.static_simplify
-			arguments.static_simplify
-			ic2 ?= arg1
-			if ic2 = Void then
-				Result := Current
-			else
-				v2 := ic2.value_memory
-				if v2 = 0 then
-					error_handler.append("Division by zero.")
-					error_handler.add_position(feature_name.start_position)
-					error_handler.print_as_fatal_error
-				end
-				ic1 ?= target
-				if ic1 = Void then
-					Result := Current
-				else
-					v1 := ic1.value_memory
-					r := v1 \\ v2
-					create {INTEGER_CONSTANT}
-					Result.make(r, feature_name.start_position)
-				end
-			end
-		end
-	
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   static_simplify: EXPRESSION is
+      local
+         ic1, ic2: INTEGER_CONSTANT; v1, v2, r: INTEGER_64
+      do
+         target := target.static_simplify
+         arguments.static_simplify
+         ic2 ?= arg1
+         if ic2 = Void then
+            Result := Current
+         else
+            v2 := ic2.value_memory
+            if v2 = 0 then
+               error_handler.append("Division by zero.")
+               error_handler.add_position(feature_name.start_position)
+               error_handler.print_as_fatal_error
+            end
+            ic1 ?= target
+            if ic1 = Void then
+               Result := Current
+            else
+               v1 := ic1.value_memory
+               r := v1 \\ v2
+               create {INTEGER_CONSTANT}
+               Result.make(r, feature_name.start_position)
+            end
+         end
+      end
+   
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_INFIX_INT_REM_VISITOR) is
-		do
-			visitor.visit_call_infix_int_rem(Current)
-		end
+   accept (visitor: CALL_INFIX_INT_REM_VISITOR) is
+      do
+         visitor.visit_call_infix_int_rem(Current)
+      end
 
 feature {}
-	make (lp: like target; operator_position: POSITION; rp: like arg1) is
-		require
-			lp /= Void
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			target := lp
-			create feature_name.infix_name(eiffel_parser.backslash_backslash_name, operator_position)
-			create arguments.make_1(rp)
-		ensure
-			target = lp
-			start_position = operator_position
-			arguments.first = rp
-		end
+   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+      require
+         lp /= Void
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         target := lp
+         create feature_name.infix_name(eiffel_parser.backslash_backslash_name, operator_position)
+         create arguments.make_1(rp)
+      ensure
+         target = lp
+         start_position = operator_position
+         arguments.first = rp
+      end
 
 end -- class CALL_INFIX_INT_REM
 --

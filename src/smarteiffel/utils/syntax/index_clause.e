@@ -4,78 +4,78 @@
 class INDEX_CLAUSE
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	with_tag, without_tag
+   with_tag, without_tag
 
 feature {ANY}
-	pretty is
-		local
-			i: INTEGER
-		do
-			pretty_printer.set_indent_level(1)
-			if tag /= Void then
-				pretty_printer.put_string(tag.to_string)
-				pretty_printer.put_string(once ": ")
-			end
-			if list /= Void then
-				from
-					i := list.lower
-				until
-					i > list.upper
-				loop
-					pretty_printer.set_indent_level(2)
-					list.item(i).pretty(3)
-					i := i + 1
-					if i <= list.upper then
-						pretty_printer.put_string(once ",%N")
-					end
-				end
-			end
-			pretty_printer.set_indent_level(0)
-		end
+   pretty is
+      local
+         i: INTEGER
+      do
+         pretty_printer.set_indent_level(1)
+         if tag /= Void then
+            pretty_printer.put_string(tag.to_string)
+            pretty_printer.put_string(once ": ")
+         end
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               pretty_printer.set_indent_level(2)
+               list.item(i).pretty(3)
+               i := i + 1
+               if i <= list.upper then
+                  pretty_printer.put_string(once ",%N")
+               end
+            end
+         end
+         pretty_printer.set_indent_level(0)
+      end
 
-	accept (visitor: INDEX_CLAUSE_VISITOR) is
-		do
-			visitor.visit_index_clause(Current)
-		end
+   accept (visitor: INDEX_CLAUSE_VISITOR) is
+      do
+         visitor.visit_index_clause(Current)
+      end
 
 feature {INDEX_CLAUSE, INDEX_CLAUSE_VISITOR}
-	tag: HASHED_STRING
+   tag: HASHED_STRING
 
-	list: FAST_ARRAY[MANIFEST_STRING]
+   list: FAST_ARRAY[MANIFEST_STRING]
 
 feature {}
-	with_tag (i: like tag) is
-		require
-			i /= Void
-		do
-			tag := i
-		ensure
-			tag = i
-		end
+   with_tag (i: like tag) is
+      require
+         i /= Void
+      do
+         tag := i
+      ensure
+         tag = i
+      end
 
-	without_tag (index_value: MANIFEST_STRING) is
-		do
-			add_last(index_value)
-		end
+   without_tag (index_value: MANIFEST_STRING) is
+      do
+         add_last(index_value)
+      end
 
 feature {EIFFEL_PARSER, INDEX_CLAUSE_VISITOR}
-	add_last (index_value: MANIFEST_STRING) is
-		require
-			index_value /= Void
-		do
-			if list = Void then
-				create list.with_capacity(4)
-			end
-			list.add_last(index_value)
-		end
+   add_last (index_value: MANIFEST_STRING) is
+      require
+         index_value /= Void
+      do
+         if list = Void then
+            create list.with_capacity(4)
+         end
+         list.add_last(index_value)
+      end
 
 invariant
-	tag /= Void or else list /= Void
+   tag /= Void or else list /= Void
 
 end -- class INDEX_CLAUSE
 --

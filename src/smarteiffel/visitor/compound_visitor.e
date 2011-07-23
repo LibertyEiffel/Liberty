@@ -4,14 +4,14 @@
 deferred class COMPOUND_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {COMPOUND}
-	visit_compound (visited: COMPOUND) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_compound (visited: COMPOUND) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class COMPOUND_VISITOR
 --

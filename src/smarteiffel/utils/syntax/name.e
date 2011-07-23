@@ -2,64 +2,64 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class NAME
-	--
-	-- Handling of all sort of names you can find in an Eiffel source file :
-	--
-	--   CLASS_NAME: a base class name.
-	--   FEATURE_NAME: a feature name (not an EXPRESSION)
-	--   WRITABLE_ATTRIBUTE_NAME: left-hand side or writable of create.
-	--   LOCAL_ARGUMENT (deferred)
-	--      LOCAL_NAME (deferred)
-	--         LOCAL_NAME1: in a declaration list.
-	--         LOCAL_NAME2: used in an expression.
-	--      ARGUMENT_NAME (deferred)
-	--         ARGUMENT_NAME1: in a declaration list.
-	--         ARGUMENT_NAME2: used in an expression.
-	--
+   --
+   -- Handling of all sort of names you can find in an Eiffel source file :
+   --
+   --   CLASS_NAME: a base class name.
+   --   FEATURE_NAME: a feature name (not an EXPRESSION)
+   --   WRITABLE_ATTRIBUTE_NAME: left-hand side or writable of create.
+   --   LOCAL_ARGUMENT (deferred)
+   --      LOCAL_NAME (deferred)
+   --         LOCAL_NAME1: in a declaration list.
+   --         LOCAL_NAME2: used in an expression.
+   --      ARGUMENT_NAME (deferred)
+   --         ARGUMENT_NAME1: in a declaration list.
+   --         ARGUMENT_NAME2: used in an expression.
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 insert
-	GLOBALS
+   GLOBALS
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN is False
 
-	start_position: POSITION is
-			-- The position of the first character of `to_string' in the text source.
-		deferred
-		end
+   start_position: POSITION is
+         -- The position of the first character of `to_string' in the text source.
+      deferred
+      end
 
-	to_string: STRING is
-			-- The corresponding name (alone in a STRING).
-		deferred
-		ensure
-			not Result.is_empty
-			string_aliaser.registered_one(Result)
-		end
+   to_string: STRING is
+         -- The corresponding name (alone in a STRING).
+      deferred
+      ensure
+         not Result.is_empty
+         string_aliaser.registered_one(Result)
+      end
 
-	frozen line: INTEGER is
-		require
-			not start_position.is_unknown
-		do
-			Result := start_position.line
-		end
+   frozen line: INTEGER is
+      require
+         not start_position.is_unknown
+      do
+         Result := start_position.line
+      end
 
-	frozen column: INTEGER is
-		require
-			not start_position.is_unknown
-		do
-			Result := start_position.column
-		end
+   frozen column: INTEGER is
+      require
+         not start_position.is_unknown
+      do
+         Result := start_position.column
+      end
 
-	pretty (indent_level: INTEGER) is
-		deferred
-		end
+   pretty (indent_level: INTEGER) is
+      deferred
+      end
 
-	frozen bracketed_pretty (indent_level: INTEGER) is
-		do
-			pretty(indent_level)
-		end
+   frozen bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty(indent_level)
+      end
 
 end -- class NAME
 --

@@ -2,130 +2,130 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class C_SPLITTER
-	--
-	-- A simple Strategy pattern to know when to split the generated C files
-	--
+   --
+   -- A simple Strategy pattern to know when to split the generated C files
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {}
-	do_split is
-		require
-			not dont_split
-		deferred
-		end
+   do_split is
+      require
+         not dont_split
+      deferred
+      end
 
 feature {CLEAN}
-	should_clean (path_c, file_name: STRING): BOOLEAN is
-		require
-			path_c /= Void
-			file_name /= Void
-		deferred
-		end
+   should_clean (path_c, file_name: STRING): BOOLEAN is
+      require
+         path_c /= Void
+         file_name /= Void
+      deferred
+      end
 
 feature {C_PRETTY_PRINTER}
-	connect (path_c: STRING) is
-		require
-			path_c /= Void
-			not out_c.is_connected
-		do
-			c_path := path_c.twin
-			connect_out_c
-			cpp.begin_c_file
-		ensure
-			out_c.is_connected
-		end
+   connect (path_c: STRING) is
+      require
+         path_c /= Void
+         not out_c.is_connected
+      do
+         c_path := path_c.twin
+         connect_out_c
+         cpp.begin_c_file
+      ensure
+         out_c.is_connected
+      end
 
-	connect_cpp (cpp_path_c: STRING) is
-		do
-		end
+   connect_cpp (cpp_path_c: STRING) is
+      do
+      end
 
-	split_now is
-		require
-			not dont_split
-		do
-			cpp.end_c_file
-			do_split
-			connect_out_c
-			cpp.begin_c_file
-		end
+   split_now is
+      require
+         not dont_split
+      do
+         cpp.end_c_file
+         do_split
+         connect_out_c
+         cpp.begin_c_file
+      end
 
-	set_live_type (a_live_type: like live_type) is
-		deferred
-		end
+   set_live_type (a_live_type: like live_type) is
+      deferred
+      end
 
-	live_type: LIVE_TYPE is
-		deferred
-		end
+   live_type: LIVE_TYPE is
+      deferred
+      end
 
-	should_split (features_count: INTEGER): BOOLEAN is
-		require
-			features_count >= 0
-		deferred
-		ensure
-			dont_split implies not Result
-		end
+   should_split (features_count: INTEGER): BOOLEAN is
+      require
+         features_count >= 0
+      deferred
+      ensure
+         dont_split implies not Result
+      end
 
-	linker_command (c_file_prefix: STRING): STRING is
-		require
-			not c_file_prefix.is_empty
-		deferred
-		end
+   linker_command (c_file_prefix: STRING): STRING is
+      require
+         not c_file_prefix.is_empty
+      deferred
+      end
 
-	out_c: TEXT_FILE_WRITE is
-		once
-			create Result.make
-		end
+   out_c: TEXT_FILE_WRITE is
+      once
+         create Result.make
+      end
 
-	set_dont_split (please_dont: BOOLEAN) is
-		do
-			dont_split := please_dont
-		ensure
-			dont_split = please_dont
-		end
+   set_dont_split (please_dont: BOOLEAN) is
+      do
+         dont_split := please_dont
+      ensure
+         dont_split = please_dont
+      end
 
-	dont_split: BOOLEAN
+   dont_split: BOOLEAN
 
-	write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
-			-- True if some compilation should occur, False if the executable is up to date.
-		require
-			out_make.is_connected
-		deferred
-		end
+   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
+         -- True if some compilation should occur, False if the executable is up to date.
+      require
+         out_make.is_connected
+      deferred
+      end
 
 feature {ACE}
-	pretty_ace_in (txt: STRING) is
-		require
-			txt /= Void
-		deferred
-		end
+   pretty_ace_in (txt: STRING) is
+      require
+         txt /= Void
+      deferred
+      end
 
 feature {}
-	connect_out_c is
-		deferred
-		ensure
-			out_c.is_connected
-		end
+   connect_out_c is
+      deferred
+      ensure
+         out_c.is_connected
+      end
 
-	c_connect (real_c_path: STRING) is
-		do
-			out_c.connect_to(real_c_path)
-			if out_c.is_connected then
-				echo.put_string(once "Writing %"")
-				echo.put_string(real_c_path)
-				echo.put_string(once "%" file.%N")
-			else
-				echo.w_put_string(once "Cannot write file %"")
-				echo.w_put_string(real_c_path)
-				echo.w_put_string(once "%".%N")
-				die_with_code(exit_failure_code)
-			end
-		ensure
-			out_c.is_connected
-		end
+   c_connect (real_c_path: STRING) is
+      do
+         out_c.connect_to(real_c_path)
+         if out_c.is_connected then
+            echo.put_string(once "Writing %"")
+            echo.put_string(real_c_path)
+            echo.put_string(once "%" file.%N")
+         else
+            echo.w_put_string(once "Cannot write file %"")
+            echo.w_put_string(real_c_path)
+            echo.w_put_string(once "%".%N")
+            die_with_code(exit_failure_code)
+         end
+      ensure
+         out_c.is_connected
+      end
 
-	c_path: STRING
+   c_path: STRING
 
 end -- class C_SPLITTER
 --

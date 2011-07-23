@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class FIELD_MODIFIER
-	--
-	-- Holds JVM field modifiers.
-	--
+   --
+   -- Holds JVM field modifiers.
+   --
 
 insert
-	GLOBALS
+   GLOBALS
 
 feature {ANY}
-	is_transient: BOOLEAN
+   is_transient: BOOLEAN
 
-	set_transient is
-		do
-			is_transient := True
-		end
+   set_transient is
+      do
+         is_transient := True
+      end
 
-	clear_transient is
-		do
-			is_transient := False
-		end
-
-feature {ANY}
-	is_volatile: BOOLEAN
-
-	set_volatile is
-		do
-			is_volatile := True
-		end
-
-	clear_volatile is
-		do
-			is_volatile := False
-		end
+   clear_transient is
+      do
+         is_transient := False
+      end
 
 feature {ANY}
-	access_flags: INTEGER is
-		do
-			Result := 1
-			if is_transient then
-				Result := Result + 128
-			end
-			if is_volatile then
-				Result := Result + 64
-			end
-		end
+   is_volatile: BOOLEAN
+
+   set_volatile is
+      do
+         is_volatile := True
+      end
+
+   clear_volatile is
+      do
+         is_volatile := False
+      end
+
+feature {ANY}
+   access_flags: INTEGER is
+      do
+         Result := 1
+         if is_transient then
+            Result := Result + 128
+         end
+         if is_volatile then
+            Result := Result + 64
+         end
+      end
 
 end -- class FIELD_MODIFIER
 --

@@ -4,14 +4,14 @@
 deferred class ARRAY_TYPE_MARK_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ARRAY_TYPE_MARK}
-	visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ARRAY_TYPE_MARK_VISITOR
 --

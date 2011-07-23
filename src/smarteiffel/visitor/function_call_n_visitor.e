@@ -4,14 +4,14 @@
 deferred class FUNCTION_CALL_N_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {FUNCTION_CALL_N}
-	visit_function_call_n (visited: FUNCTION_CALL_N) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_function_call_n (visited: FUNCTION_CALL_N) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class FUNCTION_CALL_N_VISITOR
 --

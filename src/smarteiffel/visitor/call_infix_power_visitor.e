@@ -4,14 +4,14 @@
 deferred class CALL_INFIX_POWER_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CALL_INFIX_POWER}
-	visit_call_infix_power (visited: CALL_INFIX_POWER) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_call_infix_power (visited: CALL_INFIX_POWER) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CALL_INFIX_POWER_VISITOR
 --

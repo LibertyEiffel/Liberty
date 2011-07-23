@@ -4,14 +4,14 @@
 deferred class CALL_INFIX_INT_DIV_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CALL_INFIX_INT_DIV}
-	visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CALL_INFIX_INT_DIV_VISITOR
 --

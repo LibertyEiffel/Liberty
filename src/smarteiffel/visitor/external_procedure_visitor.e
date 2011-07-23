@@ -4,14 +4,14 @@
 deferred class EXTERNAL_PROCEDURE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {EXTERNAL_PROCEDURE}
-	visit_external_procedure (visited: EXTERNAL_PROCEDURE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_external_procedure (visited: EXTERNAL_PROCEDURE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class EXTERNAL_PROCEDURE_VISITOR
 --

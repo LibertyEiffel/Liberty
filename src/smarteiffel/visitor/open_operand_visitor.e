@@ -4,14 +4,14 @@
 deferred class OPEN_OPERAND_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {OPEN_OPERAND}
-	visit_open_operand (visited: OPEN_OPERAND) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_open_operand (visited: OPEN_OPERAND) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class OPEN_OPERAND_VISITOR
 --

@@ -2,83 +2,83 @@
 -- See the Copyright notice at the end of this file.
 --
 class ORDERED_DICTIONARY[V_, K_ -> HASHABLE]
-	--
-	-- Used by INI_PARSER to be sure that the key iterator wanders through the
-	-- key set in the order in which they were added.
-	--
+   --
+   -- Used by INI_PARSER to be sure that the key iterator wanders through the
+   -- key set in the order in which they were added.
+   --
 
 inherit
-	HASHED_DICTIONARY[V_, K_]
-		redefine put, add, new_iterator_on_keys, create_with_capacity, copy, clear_count, clear_count_and_capacity
-		end
+   HASHED_DICTIONARY[V_, K_]
+      redefine put, add, new_iterator_on_keys, create_with_capacity, copy, clear_count, clear_count_and_capacity
+      end
 
 creation {ANY}
-	make, with_capacity
+   make, with_capacity
 
 feature {ANY}
-	put (v: V_; k: K_) is
-		do
-			if has(k) then
-				Precursor(v, k)
-			else
-				add(v, k)
-			end
-		end
+   put (v: V_; k: K_) is
+      do
+         if has(k) then
+            Precursor(v, k)
+         else
+            add(v, k)
+         end
+      end
 
-	copy (other: like Current) is
-		local
-			i: INTEGER
-		do
-			clear_count
-			from
-				if capacity < other.count then
-					with_capacity(other.count + 1)
-				elseif capacity = 0 then
-					make
-				end
-				i := 1
-			until
-				i > other.count
-			loop
-				add(other.item(i), other.key(i))
-				i := i + 1
-			end
-		end
+   copy (other: like Current) is
+      local
+         i: INTEGER
+      do
+         clear_count
+         from
+            if capacity < other.count then
+               with_capacity(other.count + 1)
+            elseif capacity = 0 then
+               make
+            end
+            i := 1
+         until
+            i > other.count
+         loop
+            add(other.item(i), other.key(i))
+            i := i + 1
+         end
+      end
 
-	clear_count is
-		do
-			Precursor
-			ordered_keys.clear_count
-		end
+   clear_count is
+      do
+         Precursor
+         ordered_keys.clear_count
+      end
 
-	clear_count_and_capacity is
-		do
-			Precursor
-			ordered_keys.clear_count_and_capacity
-		end
+   clear_count_and_capacity is
+      do
+         Precursor
+         ordered_keys.clear_count_and_capacity
+      end
 
-	add (v: V_; k: K_) is
-		do
-			Precursor(v, k)
-			ordered_keys.add_last(k)
-		end
+   add (v: V_; k: K_) is
+      do
+         Precursor(v, k)
+         ordered_keys.add_last(k)
+      end
 
-	new_iterator_on_keys: ITERATOR[K_] is
-		do
-			Result := ordered_keys.new_iterator
-		end
+   new_iterator_on_keys: ITERATOR[K_] is
+      do
+         Result := ordered_keys.new_iterator
+      end
 
 feature {}
-	create_with_capacity (medium_size: INTEGER) is
-		do
-			Precursor(medium_size)
-			create ordered_keys.with_capacity(medium_size)
-		end
+   create_with_capacity (medium_size: INTEGER) is
+      do
+         Precursor(medium_size)
+         create ordered_keys.with_capacity(medium_size)
+      end
 
-	ordered_keys: FAST_ARRAY[K_]
+   ordered_keys: FAST_ARRAY[K_]
 
 invariant
-	count = ordered_keys.count
+   count = ordered_keys.count
 
 end -- class ORDERED_DICTIONARY
 --

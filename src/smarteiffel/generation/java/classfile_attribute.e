@@ -2,68 +2,68 @@
 -- See the Copyright notice at the end of this file.
 --
 class CLASSFILE_ATTRIBUTE
-	--
-	-- Unique Global Object in charge of the classfile attribute of
-	-- a class as described in the JVM specification.
-	-- Obviously, the same object is recycled.
-	--
-	
+   --
+   -- Unique Global Object in charge of the classfile attribute of
+   -- a class as described in the JVM specification.
+   -- Obviously, the same object is recycled.
+   --
+   
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {JVM}
-	idx_sourcefile: INTEGER
+   idx_sourcefile: INTEGER
 
-	idx_classfile: INTEGER
+   idx_classfile: INTEGER
 
-	is_set: BOOLEAN
+   is_set: BOOLEAN
 
-	clear is
-		do
-			is_set := False
-			idx_sourcefile := -1
-			idx_classfile := -1
-		end
+   clear is
+      do
+         is_set := False
+         idx_sourcefile := -1
+         idx_classfile := -1
+      end
 
-	set (name: STRING) is
-		local
-			i: INTEGER; s: STRING
-		do
-			idx_sourcefile := constant_pool.idx_utf8(once "SourceFile")
-			create s.make(64)
-			from
-				i := name.lower
-			until
-				i > name.upper or else name.item(i) = '['
-			loop
-				s.extend(name.item(i).to_lower)
-				i := i + 1
-			end
-			s.append(once ".e")
-			idx_classfile := constant_pool.idx_utf8(s)
-			is_set := True
-		end
+   set (name: STRING) is
+      local
+         i: INTEGER; s: STRING
+      do
+         idx_sourcefile := constant_pool.idx_utf8(once "SourceFile")
+         create s.make(64)
+         from
+            i := name.lower
+         until
+            i > name.upper or else name.item(i) = '['
+         loop
+            s.extend(name.item(i).to_lower)
+            i := i + 1
+         end
+         s.append(once ".e")
+         idx_classfile := constant_pool.idx_utf8(s)
+         is_set := True
+      end
 
-	write_bytes is
-		do
-			if is_set = False or ace.boost = True then
-				jvm.b_put_u2(0)
-			else
-				jvm.b_put_u2(1)
-				jvm.b_put_u2(idx_sourcefile)
-				jvm.b_put_u2(0)
-				jvm.b_put_u2(2)
-				jvm.b_put_u2(idx_classfile)
-			end
-		end
+   write_bytes is
+      do
+         if is_set = False or ace.boost = True then
+            jvm.b_put_u2(0)
+         else
+            jvm.b_put_u2(1)
+            jvm.b_put_u2(idx_sourcefile)
+            jvm.b_put_u2(0)
+            jvm.b_put_u2(2)
+            jvm.b_put_u2(idx_classfile)
+         end
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class CLASSFILE_ATTRIBUTE
 --

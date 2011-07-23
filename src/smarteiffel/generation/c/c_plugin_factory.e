@@ -4,21 +4,21 @@
 class C_PLUGIN_FACTORY
 
 inherit
-	PLUGIN_FACTORY
+   PLUGIN_FACTORY
 
 creation {COMPILE_TO_C}
-	make
+   make
 
 feature {SYSTEM_TOOLS}
-	new (position: POSITION; a_name, a_path: STRING): PLUGIN is
-		do
-			create {C_PLUGIN} Result.make(position, a_name, a_path)
-		end
+   new (position: POSITION; a_name, a_path: STRING): PLUGIN is
+      do
+         create {C_PLUGIN} Result.make(position, a_name, a_path)
+      end
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class C_PLUGIN_FACTORY
 --

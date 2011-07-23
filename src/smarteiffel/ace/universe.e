@@ -4,58 +4,58 @@
 class UNIVERSE
 
 inherit
-	CLUSTERS
-		undefine is_equal
-		end
+   CLUSTERS
+      undefine is_equal
+      end
 
 insert
-	SINGLETON
+   SINGLETON
 
 creation {CLASSES_TREE_FACTORY}
-	make
+   make
 
 feature {ANY}
-	to_string: STRING is "Universe"
+   to_string: STRING is "Universe"
 
 feature {ACE}
-	add_entry (a_distance: INTEGER; system_path, path, name: STRING; discard_silently: BOOLEAN) is
-		require
-			a_distance > 0
-			name /= Void
-			string_aliaser.registered_one(name)
-			path /= Void
-			is_classes_path(path)
-			string_aliaser.registered_one(path)
-			system_path /= Void implies is_system_path(system_path)
-		local
-			factory: CLASSES_TREE_FACTORY; classes: CLASSES
-		do
-			classes := factory.classes(a_distance, system_path, path, name, Void, discard_silently)
-			if classes /= Void and then classes.parent = Void then
-				add_classes(classes)
-			end
-		end
+   add_entry (a_distance: INTEGER; system_path, path, name: STRING; discard_silently: BOOLEAN) is
+      require
+         a_distance > 0
+         name /= Void
+         string_aliaser.registered_one(name)
+         path /= Void
+         is_classes_path(path)
+         string_aliaser.registered_one(path)
+         system_path /= Void implies is_system_path(system_path)
+      local
+         factory: CLASSES_TREE_FACTORY; classes: CLASSES
+      do
+         classes := factory.classes(a_distance, system_path, path, name, Void, discard_silently)
+         if classes /= Void and then classes.parent = Void then
+            add_classes(classes)
+         end
+      end
 
 feature {CLASSES_TREE_FACTORY}
-	has_physical_cluster (system_path: STRING): BOOLEAN is
-		do
-			Result := find_physical_cluster(system_path) /= Void
-		end
+   has_physical_cluster (system_path: STRING): BOOLEAN is
+      do
+         Result := find_physical_cluster(system_path) /= Void
+      end
 
 feature {}
-	make is
-		do
-			create classeses.with_capacity(4)
-		end
+   make is
+      do
+         create classeses.with_capacity(4)
+      end
 
-	show_name is
-		do
-			echo.put_string(once "<Universe>")
-		end
+   show_name is
+      do
+         echo.put_string(once "<Universe>")
+      end
 
 invariant
-	distance = 0
-	parent = Void
+   distance = 0
+   parent = Void
 
 end -- class UNIVERSE
 --

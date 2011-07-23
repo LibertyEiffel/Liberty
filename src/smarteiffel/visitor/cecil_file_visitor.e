@@ -4,14 +4,14 @@
 deferred class CECIL_FILE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CECIL_FILE}
-	visit_cecil_file (visited: CECIL_FILE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_cecil_file (visited: CECIL_FILE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CECIL_FILE_VISITOR
 --

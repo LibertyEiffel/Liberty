@@ -2,140 +2,140 @@
 -- See the Copyright notice at the end of this file.
 --
 class JVM_TOOLS
-	--
-	-- Singleton object to handle system dependant information.
-	-- This singleton is shared via the GLOBALS.`system_tools' once function.
-	--
-	-- Only this object is supposed to handle contents of the `SmartEiffel'
-	-- system environment variable.
-	--
-	-- You may also want to customize this class in order to support a
-	-- new operating system (please let us know).
-	--
+   --
+   -- Singleton object to handle system dependant information.
+   -- This singleton is shared via the GLOBALS.`system_tools' once function.
+   --
+   -- Only this object is supposed to handle contents of the `SmartEiffel'
+   -- system environment variable.
+   --
+   -- You may also want to customize this class in order to support a
+   -- new operating system (please let us know).
+   --
 
 insert
-	GLOBALS
-		undefine is_equal
-		end
-	DIRECTORY_NOTATION_HANDLER
-		undefine is_equal
-		end
-	SINGLETON
+   GLOBALS
+      undefine is_equal
+      end
+   DIRECTORY_NOTATION_HANDLER
+      undefine is_equal
+      end
+   SINGLETON
 
 creation {ANY}
-	make
+   make
 
 feature {INSTALL}
-	javac: STRING is "javac"
+   javac: STRING is "javac"
 
-	gcj: STRING is "gcj"
+   gcj: STRING is "gcj"
 
-	kjc: STRING is "kjc"
+   kjc: STRING is "kjc"
 
-	jikes: STRING is "jikes"
+   jikes: STRING is "jikes"
 
-	jar: STRING is "jar"
+   jar: STRING is "jar"
 
-	fastjar: STRING is "fastjar"
+   fastjar: STRING is "fastjar"
 
-	java: STRING is "java"
+   java: STRING is "java"
 
-	kaffe: STRING is "kaffe"
+   kaffe: STRING is "kaffe"
 
-	sablevm: STRING is "sablevm"
+   sablevm: STRING is "sablevm"
 
-	jamvm: STRING is "jamvm"
+   jamvm: STRING is "jamvm"
 
-	compiler_list: FAST_ARRAY[STRING] is
-		once
-			Result := {FAST_ARRAY[STRING]	<<javac, gcj, kjc, jikes>> }
-		end
+   compiler_list: FAST_ARRAY[STRING] is
+      once
+         Result := {FAST_ARRAY[STRING]   <<javac, gcj, kjc, jikes>> }
+      end
 
-	jar_list: FAST_ARRAY[STRING] is
-		once
-			Result := {FAST_ARRAY[STRING] << jar, fastjar >> }
-		end
+   jar_list: FAST_ARRAY[STRING] is
+      once
+         Result := {FAST_ARRAY[STRING] << jar, fastjar >> }
+      end
 
-	jvm_list: FAST_ARRAY[STRING] is
-		once
-			Result := {FAST_ARRAY[STRING] << java, kaffe, sablevm, jamvm>> }
-		end
+   jvm_list: FAST_ARRAY[STRING] is
+      once
+         Result := {FAST_ARRAY[STRING] << java, kaffe, sablevm, jamvm>> }
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 feature{ANY}
-	get_compiler_flags(which: STRING): STRING is
-		do
-			Result := once ""
-			if not ace.boost then
-				Result.extend(' ')
-				Result.append(g_flag)
-			end
-		end
-	
-	get_jvm_flags(which: STRING): STRING is
-		do
-			Result := once ""
-			if ace.ss /= Void then
-				Result.extend(' ')
-				Result.append(ss_flag)
-				Result.extend(' ')
-				Result.append(ace.ss)
-			end
-			if ace.mx /= Void then
-				Result.extend(' ')
-				Result.append(mx_flag)
-				Result.extend(' ')
-				Result.append(ace.mx)
-			end
-			if ace.ms /= Void then
-				Result.extend(' ')
-				Result.append(ms_flag)
-				Result.extend(' ')
-				Result.append(ace.ms)
-			end
-			if ace.classpath /= Void then
-				Result.extend(' ')
-				Result.append(classpath_flag)
-				Result.extend(' ')
-				Result.append(ace.classpath)
-			end
-		end
+   get_compiler_flags(which: STRING): STRING is
+      do
+         Result := once ""
+         if not ace.boost then
+            Result.extend(' ')
+            Result.append(g_flag)
+         end
+      end
+   
+   get_jvm_flags(which: STRING): STRING is
+      do
+         Result := once ""
+         if ace.ss /= Void then
+            Result.extend(' ')
+            Result.append(ss_flag)
+            Result.extend(' ')
+            Result.append(ace.ss)
+         end
+         if ace.mx /= Void then
+            Result.extend(' ')
+            Result.append(mx_flag)
+            Result.extend(' ')
+            Result.append(ace.mx)
+         end
+         if ace.ms /= Void then
+            Result.extend(' ')
+            Result.append(ms_flag)
+            Result.extend(' ')
+            Result.append(ace.ms)
+         end
+         if ace.classpath /= Void then
+            Result.extend(' ')
+            Result.append(classpath_flag)
+            Result.extend(' ')
+            Result.append(ace.classpath)
+         end
+      end
 
-	get_jar_flags(which, jar_file, mf_file, directory: STRING): STRING is
-		do
-			Result := " "
-			Result.append(jar_create_flag)
-			Result.extend(' ')
-			Result.append(jar_file)
-			Result.extend(' ')
-			Result.append(mf_file)
-			Result.extend(' ')
-			Result.append(jar_change_directory_flag)
-			Result.extend(' ')
-			Result.append(directory)
-			Result.extend(' ')
-			Result.append(jar_current_directory_flag)
-		end
-	
+   get_jar_flags(which, jar_file, mf_file, directory: STRING): STRING is
+      do
+         Result := " "
+         Result.append(jar_create_flag)
+         Result.extend(' ')
+         Result.append(jar_file)
+         Result.extend(' ')
+         Result.append(mf_file)
+         Result.extend(' ')
+         Result.append(jar_change_directory_flag)
+         Result.extend(' ')
+         Result.append(directory)
+         Result.extend(' ')
+         Result.append(jar_current_directory_flag)
+      end
+   
 feature {}
-	g_flag: STRING is "-g"
+   g_flag: STRING is "-g"
 
-	ss_flag: STRING is "-ss"
+   ss_flag: STRING is "-ss"
 
-	mx_flag: STRING is "-mx"
+   mx_flag: STRING is "-mx"
 
-	ms_flag: STRING is "-ms"
+   ms_flag: STRING is "-ms"
 
-	classpath_flag: STRING is "-classpath"
+   classpath_flag: STRING is "-classpath"
 
-	jar_create_flag: STRING is "cfm"
+   jar_create_flag: STRING is "cfm"
 
-	jar_change_directory_flag: STRING is "-C"
+   jar_change_directory_flag: STRING is "-C"
 
-	jar_current_directory_flag: STRING is "."
+   jar_current_directory_flag: STRING is "."
 
 end -- class JVM_TOOLS
 --

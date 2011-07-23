@@ -4,14 +4,14 @@
 deferred class EXTERNAL_FUNCTION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {EXTERNAL_FUNCTION}
-	visit_external_function (visited: EXTERNAL_FUNCTION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_external_function (visited: EXTERNAL_FUNCTION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class EXTERNAL_FUNCTION_VISITOR
 --

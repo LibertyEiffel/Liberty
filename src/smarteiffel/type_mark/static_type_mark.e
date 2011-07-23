@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class STATIC_TYPE_MARK
-	--
-	-- Some definition shared by True static type marks.
-	--
+   --
+   -- Some definition shared by True static type marks.
+   --
 
 inherit
-	TYPE_MARK
+   TYPE_MARK
 
 feature {ANY}
-	frozen is_static: BOOLEAN is True
+   frozen is_static: BOOLEAN is True
 
-	frozen has_been_specialized: BOOLEAN is True
+   frozen has_been_specialized: BOOLEAN is True
 
-	frozen specialize_in (new_type: TYPE) is
-		do
-		end
+   frozen specialize_in (new_type: TYPE) is
+      do
+      end
 
-	frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
-		do
-			Result := Current
-		end
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
+      do
+         Result := Current
+      end
 
-	frozen declaration_type: TYPE_MARK is
-		do
-			Result := Current
-		end
+   frozen declaration_type: TYPE_MARK is
+      do
+         Result := Current
+      end
 
-	frozen to_static (new_type: TYPE): TYPE_MARK is
-		do
-			Result := Current
-		end
+   frozen to_static (new_type: TYPE): TYPE_MARK is
+      do
+         Result := Current
+      end
 
-	frozen signature_resolve_in (new_type: TYPE): TYPE is
-		do
-			Result := type
-		end
+   frozen signature_resolve_in (new_type: TYPE): TYPE is
+      do
+         Result := type
+      end
 
 end -- class STATIC_TYPE_MARK
 --

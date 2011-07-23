@@ -2,97 +2,97 @@
 -- See the Copyright notice at the end of this file.
 --
 class CALL_INFIX_TIMES
-	--
-	--   Infix operator : "*".
-	--
+   --
+   --   Infix operator : "*".
+   --
 
 inherit
-	CALL_INFIX
-		redefine static_simplify
-		end
+   CALL_INFIX
+      redefine static_simplify
+      end
 
 creation {EIFFEL_PARSER}
-	make
+   make
 
 creation {AGENT_CREATION}
-	with
+   with
 
 feature {ANY}
-	precedence: INTEGER is 8
+   precedence: INTEGER is 8
 
-	left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN is False
 
-	frozen operator: STRING is
-		do
-			Result := as_muls
-		end
+   frozen operator: STRING is
+      do
+         Result := as_muls
+      end
 
-	static_simplify: EXPRESSION is
-		local
-			ic1, ic2: INTEGER_CONSTANT; number: NUMBER
-		do
-			target := target.static_simplify
-			arguments.static_simplify
-			ic1 ?= target
-			if ic1 = Void then
-				Result := Current
-			else
-				ic2 ?= arg1
-				if ic2 = Void then
-					Result := Current
-				else
-					number := ic1.value_memory.to_number * ic2.value_memory.to_number
-					if number.is_integer_64 then
-						create {INTEGER_CONSTANT} Result.make(number.to_integer_64, feature_name.start_position)
-					else
-						error_handler.add_position(feature_name.start_position)
-						error_handler.append("The value of ")
-						error_handler.add_expression(Current)
-						error_handler.append(" is ")
-						error_handler.append(number.to_string)
-						error_handler.append(" which is out of INTEGER_64 range.")
-						error_handler.print_as_fatal_error
-					end
-				end
-			end
-		end
+   static_simplify: EXPRESSION is
+      local
+         ic1, ic2: INTEGER_CONSTANT; number: NUMBER
+      do
+         target := target.static_simplify
+         arguments.static_simplify
+         ic1 ?= target
+         if ic1 = Void then
+            Result := Current
+         else
+            ic2 ?= arg1
+            if ic2 = Void then
+               Result := Current
+            else
+               number := ic1.value_memory.to_number * ic2.value_memory.to_number
+               if number.is_integer_64 then
+                  create {INTEGER_CONSTANT} Result.make(number.to_integer_64, feature_name.start_position)
+               else
+                  error_handler.add_position(feature_name.start_position)
+                  error_handler.append("The value of ")
+                  error_handler.add_expression(Current)
+                  error_handler.append(" is ")
+                  error_handler.append(number.to_string)
+                  error_handler.append(" which is out of INTEGER_64 range.")
+                  error_handler.print_as_fatal_error
+               end
+            end
+         end
+      end
 
-	compile_to_jvm (type: TYPE) is
-		do
-			not_yet_implemented
-		end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_false(type)
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_false(type)
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			Result := jvm_standard_branch_if_true(type)
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         Result := jvm_standard_branch_if_true(type)
+      end
 
 feature {ANY}
-	accept (visitor: CALL_INFIX_TIMES_VISITOR) is
-		do
-			visitor.visit_call_infix_times(Current)
-		end
+   accept (visitor: CALL_INFIX_TIMES_VISITOR) is
+      do
+         visitor.visit_call_infix_times(Current)
+      end
 
 feature {}
-	make (lp: like target; operator_position: POSITION; rp: like arg1) is
-		require
-			lp /= Void
-			not operator_position.is_unknown
-			rp /= Void
-		do
-			target := lp
-			create feature_name.infix_name(eiffel_parser.muls_name, operator_position)
-			create arguments.make_1(rp)
-		ensure
-			target = lp
-			start_position = operator_position
-			arguments.first = rp
-		end
+   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+      require
+         lp /= Void
+         not operator_position.is_unknown
+         rp /= Void
+      do
+         target := lp
+         create feature_name.infix_name(eiffel_parser.muls_name, operator_position)
+         create arguments.make_1(rp)
+      ensure
+         target = lp
+         start_position = operator_position
+         arguments.first = rp
+      end
 
 end -- class CALL_INFIX_TIMES
 --

@@ -2,151 +2,151 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class CALL_INFIX
-	--
-	-- For all sort of infix operators (root of all CALL_INFIX_*).
-	--
+   --
+   -- For all sort of infix operators (root of all CALL_INFIX_*).
+   --
 
 inherit
-	CALL_1
-		redefine pretty_target
-		end
+   CALL_1
+      redefine pretty_target
+      end
 
 feature {ANY}
-	extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN is True
 
-	left_brackets: BOOLEAN is
-		deferred
-		end
+   left_brackets: BOOLEAN is
+      deferred
+      end
 
-	right_brackets: BOOLEAN is
-		do
-			Result := not left_brackets
-		end
+   right_brackets: BOOLEAN is
+      do
+         Result := not left_brackets
+      end
 
-	operator: STRING is
-		deferred
-		ensure
-			Result.count >= 1
-		end
+   operator: STRING is
+      deferred
+      ensure
+         Result.count >= 1
+      end
 
-	frozen short (type: TYPE) is
-		do
-			if target.precedence = atomic_precedence then
-				target.short(type)
-			elseif precedence > target.precedence then
-				target.bracketed_short(type)
-			elseif precedence < target.precedence then
-				target.short(type)
-			elseif left_brackets then
-				target.bracketed_short(type)
-			else
-				target.short(type)
-			end
-			short_print_feature_name
-			if arg1.precedence = atomic_precedence then
-				arg1.short(type)
-			elseif precedence > arg1.precedence then
-				arg1.bracketed_short(type)
-			elseif precedence < arg1.precedence then
-				arg1.short(type)
-			elseif right_brackets then
-				arg1.bracketed_short(type)
-			else
-				arg1.short(type)
-			end
-		end
+   frozen short (type: TYPE) is
+      do
+         if target.precedence = atomic_precedence then
+            target.short(type)
+         elseif precedence > target.precedence then
+            target.bracketed_short(type)
+         elseif precedence < target.precedence then
+            target.short(type)
+         elseif left_brackets then
+            target.bracketed_short(type)
+         else
+            target.short(type)
+         end
+         short_print_feature_name
+         if arg1.precedence = atomic_precedence then
+            arg1.short(type)
+         elseif precedence > arg1.precedence then
+            arg1.bracketed_short(type)
+         elseif precedence < arg1.precedence then
+            arg1.short(type)
+         elseif right_brackets then
+            arg1.bracketed_short(type)
+         else
+            arg1.short(type)
+         end
+      end
 
-	frozen short_target (type: TYPE) is
-		do
-			bracketed_short(type)
-			short_printer.put_dot
-		end
+   frozen short_target (type: TYPE) is
+      do
+         bracketed_short(type)
+         short_printer.put_dot
+      end
 
-	frozen pretty_target (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-			pretty_printer.put_character('.')
-		end
+   frozen pretty_target (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+         pretty_printer.put_character('.')
+      end
 
-	frozen bracketed_pretty (indent_level: INTEGER) is
-		do
-			pretty_printer.put_character('(')
-			pretty(indent_level)
-			pretty_printer.put_character(')')
-		end
+   frozen bracketed_pretty (indent_level: INTEGER) is
+      do
+         pretty_printer.put_character('(')
+         pretty(indent_level)
+         pretty_printer.put_character(')')
+      end
 
-	frozen pretty (indent_level: INTEGER) is
-		do
-			-- The `target' first:
-			if target.precedence = atomic_precedence then
-				target.pretty(indent_level)
-			elseif precedence > target.precedence then
-				target.bracketed_pretty(indent_level)
-			elseif precedence < target.precedence then
-				target.pretty(indent_level)
-			elseif left_brackets then
-				target.bracketed_pretty(indent_level)
-			else
-				target.pretty(indent_level)
-			end
-			-- The operator:
-			pretty_printer.put_character(' ')
-			feature_name.pretty(indent_level)
-			pretty_printer.put_character(' ')
-			-- The argument, `arg1':
-			if arg1.precedence = atomic_precedence then
-				arg1.pretty(indent_level)
-			elseif precedence > arg1.precedence then
-				arg1.bracketed_pretty(indent_level)
-			elseif precedence < arg1.precedence then
-				arg1.pretty(indent_level)
-			elseif right_brackets then
-				arg1.bracketed_pretty(indent_level)
-			else
-				arg1.pretty(indent_level)
-			end
-		end
+   frozen pretty (indent_level: INTEGER) is
+      do
+         -- The `target' first:
+         if target.precedence = atomic_precedence then
+            target.pretty(indent_level)
+         elseif precedence > target.precedence then
+            target.bracketed_pretty(indent_level)
+         elseif precedence < target.precedence then
+            target.pretty(indent_level)
+         elseif left_brackets then
+            target.bracketed_pretty(indent_level)
+         else
+            target.pretty(indent_level)
+         end
+         -- The operator:
+         pretty_printer.put_character(' ')
+         feature_name.pretty(indent_level)
+         pretty_printer.put_character(' ')
+         -- The argument, `arg1':
+         if arg1.precedence = atomic_precedence then
+            arg1.pretty(indent_level)
+         elseif precedence > arg1.precedence then
+            arg1.bracketed_pretty(indent_level)
+         elseif precedence < arg1.precedence then
+            arg1.pretty(indent_level)
+         elseif right_brackets then
+            arg1.bracketed_pretty(indent_level)
+         else
+            arg1.pretty(indent_level)
+         end
+      end
 
 feature {}
-	frozen with (t: like target; fn: like feature_name; a: like arguments) is
-		require
-			t /= Void
-			fn /= Void
-			a.count = 1
-		do
-			target := t
-			feature_name := fn
-			arguments := a
-		ensure
-			target = t
-			feature_name = fn
-			arguments = a
-		end
+   frozen with (t: like target; fn: like feature_name; a: like arguments) is
+      require
+         t /= Void
+         fn /= Void
+         a.count = 1
+      do
+         target := t
+         feature_name := fn
+         arguments := a
+      ensure
+         target = t
+         feature_name = fn
+         arguments = a
+      end
 
-	frozen short_print_feature_name is
-		do
-			short_printer.put_infix_name(once "Binfix", once " ", once "Ainfix", once " ", feature_name)
-		end
+   frozen short_print_feature_name is
+      do
+         short_printer.put_infix_name(once "Binfix", once " ", once "Ainfix", once " ", feature_name)
+      end
 
-	frozen c2c_cast_op (type: TYPE; cast, op: STRING) is
-		do
-			cpp.pending_c_function_body.append(once "(((")
-			cpp.pending_c_function_body.append(cast)
-			cpp.pending_c_function_body.append(once ")(")
-			target.compile_to_c(type)
-			cpp.pending_c_function_body.append(once "))")
-			cpp.pending_c_function_body.append(op)
-			cpp.pending_c_function_body.append(once "((")
-			cpp.pending_c_function_body.append(cast)
-			cpp.pending_c_function_body.append(once ")(")
-			arg1.compile_to_c(type)
-			cpp.pending_c_function_body.append(once ")))")
-		end
+   frozen c2c_cast_op (type: TYPE; cast, op: STRING) is
+      do
+         cpp.pending_c_function_body.append(once "(((")
+         cpp.pending_c_function_body.append(cast)
+         cpp.pending_c_function_body.append(once ")(")
+         target.compile_to_c(type)
+         cpp.pending_c_function_body.append(once "))")
+         cpp.pending_c_function_body.append(op)
+         cpp.pending_c_function_body.append(once "((")
+         cpp.pending_c_function_body.append(cast)
+         cpp.pending_c_function_body.append(once ")(")
+         arg1.compile_to_c(type)
+         cpp.pending_c_function_body.append(once ")))")
+      end
 
 invariant
-	feature_name.is_infix_name
+   feature_name.is_infix_name
 
 end -- class CALL_INFIX
 --

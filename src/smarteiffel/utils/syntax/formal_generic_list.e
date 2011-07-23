@@ -2,196 +2,196 @@
 -- See the Copyright notice at the end of this file.
 --
 class FORMAL_GENERIC_LIST
-	--
-	-- To store the list of formal generic arguments of a generic
-	-- class :
-	--              [X,Y->Z]
-	--
+   --
+   -- To store the list of formal generic arguments of a generic
+   -- class :
+   --              [X,Y->Z]
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 
 insert
-	GLOBALS
+   GLOBALS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the opening square bracket.
+   start_position: POSITION
+         -- Of the opening square bracket.
 
-	count: INTEGER is
-		do
-			Result := list.count
-		end
+   count: INTEGER is
+      do
+         Result := list.count
+      end
 
-	item (i: INTEGER): FORMAL_GENERIC_ARG is
-		require
-			i.in_range(1, count)
-		do
-			Result := list.item(i)
-		ensure
-			Result /= Void
-		end
+   item (i: INTEGER): FORMAL_GENERIC_ARG is
+      require
+         i.in_range(1, count)
+      do
+         Result := list.item(i)
+      ensure
+         Result /= Void
+      end
 
-	pretty is
-		local
-			i: INTEGER
-		do
-			pretty_printer.put_character('[')
-			from
-				i := list.lower
-			until
-				i > list.upper
-			loop
-				list.item(i).pretty
-				i := i + 1
-				if i <= list.upper then
-					pretty_printer.put_string(once ", ")
-				end
-			end
-			pretty_printer.put_character(']')
-		end
+   pretty is
+      local
+         i: INTEGER
+      do
+         pretty_printer.put_character('[')
+         from
+            i := list.lower
+         until
+            i > list.upper
+         loop
+            list.item(i).pretty
+            i := i + 1
+            if i <= list.upper then
+               pretty_printer.put_string(once ", ")
+            end
+         end
+         pretty_printer.put_character(']')
+      end
 
-	short (type: TYPE) is
-		local
-			i: INTEGER
-		do
-			short_printer.hook_or("open_sb", "[")
-			from
-				i := list.lower
-			until
-				i > list.upper
-			loop
-				list.item(i).short(type)
-				i := i + 1
-				if i <= list.upper then
-					short_printer.hook_or("fgl_sep", ", ")
-				end
-			end
-			short_printer.hook_or("close_sb", "]")
-		end
+   short (type: TYPE) is
+      local
+         i: INTEGER
+      do
+         short_printer.hook_or("open_sb", "[")
+         from
+            i := list.lower
+         until
+            i > list.upper
+         loop
+            list.item(i).short(type)
+            i := i + 1
+            if i <= list.upper then
+               short_printer.hook_or("fgl_sep", ", ")
+            end
+         end
+         short_printer.hook_or("close_sb", "]")
+      end
 
 feature {TYPE, GENERIC_TYPE_MARK}
-	constraint_genericity_check (t: TYPE; actual_list: ARRAY[TYPE_MARK]; actual_position: POSITION) is
-		require
-			actual_list.count = count
-		local
-			i: INTEGER; fga: FORMAL_GENERIC_ARG; formal, static_formal, actual: TYPE_MARK
-			actual_type, formal_type: TYPE
-		do
-			if not no_generic_constraint_flag then
-				no_generic_constraint_flag := True
-				from
-					i := list.upper
-				until
-					i < list.lower
-				loop
-					fga := list.item(i)
-					formal := fga.constraint
-					if formal /= Void then
-						no_generic_constraint_flag := False
+   constraint_genericity_check (t: TYPE; actual_list: ARRAY[TYPE_MARK]; actual_position: POSITION) is
+      require
+         actual_list.count = count
+      local
+         i: INTEGER; fga: FORMAL_GENERIC_ARG; formal, static_formal, actual: TYPE_MARK
+         actual_type, formal_type: TYPE
+      do
+         if not no_generic_constraint_flag then
+            no_generic_constraint_flag := True
+            from
+               i := list.upper
+            until
+               i < list.lower
+            loop
+               fga := list.item(i)
+               formal := fga.constraint
+               if formal /= Void then
+                  no_generic_constraint_flag := False
 --|*** Not true for classes like FOO[A,B->BAR[A]] or FOO[A,B->A]
 --|*** check
 --|*** formal.is_static
 --|*** end
-						actual := actual_list.item(i)
-						check
-							actual.is_static
-						end
-						actual_type := actual.type
-						formal.specialize_in(t)
-						static_formal := formal.to_static(t)
-						formal_type := static_formal.type
-						if actual_type = formal_type then
-							-- Allowed generic derivation!
-						elseif actual_type.insert_inherit_test(formal_type) = unrelated_code then
-							error_handler.add_position(actual_position)
-							error_handler.add_position(formal.start_position)
-							error_handler.append("Actual generic derivation ")
-							error_handler.append(actual_type.name.to_string)
-							error_handler.append(" must insert ")
-							error_handler.append(formal_type.name.to_string)
-							error_handler.append(" which is the generic constraint.")
-							error_handler.print_as_error
-							--
-							error_handler.add_position(actual_position)
-							error_handler.add_position(list.item(i).start_position)
-							error_handler.append(" Constraint Generic Violation.")
-							error_handler.print_as_fatal_error
-						end
-					end
-					i := i - 1
-				end
-			end
-		end
+                  actual := actual_list.item(i)
+                  check
+                     actual.is_static
+                  end
+                  actual_type := actual.type
+                  formal.specialize_in(t)
+                  static_formal := formal.to_static(t)
+                  formal_type := static_formal.type
+                  if actual_type = formal_type then
+                     -- Allowed generic derivation!
+                  elseif actual_type.insert_inherit_test(formal_type) = unrelated_code then
+                     error_handler.add_position(actual_position)
+                     error_handler.add_position(formal.start_position)
+                     error_handler.append("Actual generic derivation ")
+                     error_handler.append(actual_type.name.to_string)
+                     error_handler.append(" must insert ")
+                     error_handler.append(formal_type.name.to_string)
+                     error_handler.append(" which is the generic constraint.")
+                     error_handler.print_as_error
+                     --
+                     error_handler.add_position(actual_position)
+                     error_handler.add_position(list.item(i).start_position)
+                     error_handler.append(" Constraint Generic Violation.")
+                     error_handler.print_as_fatal_error
+                  end
+               end
+               i := i - 1
+            end
+         end
+      end
 
 feature {CLASS_TEXT}
-	generic_formal_arguments_check is
-		local
-			i: INTEGER
-		do
-			from
-				i := list.upper
-			until
-				i < list.lower
-			loop
-				list.item(i).generic_formal_arguments_check
-				i := i - 1
-			end
-		end
+   generic_formal_arguments_check is
+      local
+         i: INTEGER
+      do
+         from
+            i := list.upper
+         until
+            i < list.lower
+         loop
+            list.item(i).generic_formal_arguments_check
+            i := i - 1
+         end
+      end
 
 feature {EIFFEL_PARSER}
-	add_last (fga: FORMAL_GENERIC_ARG) is
-		require
-			fga /= Void
-		local
-			fga2: FORMAL_GENERIC_ARG; i: INTEGER; n1, n2: STRING
-		do
-			from
-				i := list.upper
-				fga.set_rank(i + 1)
-				n1 := fga.name.to_string
-			until
-				i < list.lower
-			loop
-				fga2 := list.item(i)
-				n2 := fga2.name.to_string
-				if n1 = n2 then
-					error_handler.add_position(fga.start_position)
-					error_handler.add_position(fga2.start_position)
-					error_handler.append("Formal generic name appears twice in %
-				    %formal generic list (VCFG.2).")
-					error_handler.print_as_fatal_error
-				end
-				fga2.constraint_substitution(fga, list.upper + 1)
-				i := i - 1
-			end
-			list.add_last(fga)
-		end
+   add_last (fga: FORMAL_GENERIC_ARG) is
+      require
+         fga /= Void
+      local
+         fga2: FORMAL_GENERIC_ARG; i: INTEGER; n1, n2: STRING
+      do
+         from
+            i := list.upper
+            fga.set_rank(i + 1)
+            n1 := fga.name.to_string
+         until
+            i < list.lower
+         loop
+            fga2 := list.item(i)
+            n2 := fga2.name.to_string
+            if n1 = n2 then
+               error_handler.add_position(fga.start_position)
+               error_handler.add_position(fga2.start_position)
+               error_handler.append("Formal generic name appears twice in %
+                %formal generic list (VCFG.2).")
+               error_handler.print_as_fatal_error
+            end
+            fga2.constraint_substitution(fga, list.upper + 1)
+            i := i - 1
+         end
+         list.add_last(fga)
+      end
 
 feature {ANY}
-	accept (visitor: FORMAL_GENERIC_LIST_VISITOR) is
-		do
-			visitor.visit_formal_generic_list(Current)
-		end
+   accept (visitor: FORMAL_GENERIC_LIST_VISITOR) is
+      do
+         visitor.visit_formal_generic_list(Current)
+      end
 
 feature {}
-	list: ARRAY[FORMAL_GENERIC_ARG]
+   list: ARRAY[FORMAL_GENERIC_ARG]
 
-	make (sp: like start_position) is
-		require
-			not sp.is_unknown
-		do
-			create list.with_capacity(4, 1)
-			start_position := sp
-		ensure
-			start_position = sp
-		end
+   make (sp: like start_position) is
+      require
+         not sp.is_unknown
+      do
+         create list.with_capacity(4, 1)
+         start_position := sp
+      ensure
+         start_position = sp
+      end
 
-	no_generic_constraint_flag: BOOLEAN
-			-- To speed up `constraint_genericity_check'.
+   no_generic_constraint_flag: BOOLEAN
+         -- To speed up `constraint_genericity_check'.
 
 end -- class FORMAL_GENERIC_LIST
 --

@@ -4,84 +4,84 @@
 class CST_ATT_STRING
 
 inherit
-	CST_ATT
+   CST_ATT
 
 creation {ANY}
-	make
+   make
 
 creation {CST_ATT_STRING}
-	with
+   with
 
 feature {ANY}
-	accept (visitor: CST_ATT_STRING_VISITOR) is
-		do
-			visitor.visit_cst_att_string(Current)
-		end
+   accept (visitor: CST_ATT_STRING_VISITOR) is
+      do
+         visitor.visit_cst_att_string(Current)
+      end
 
 feature {CST_ATT_STRING, CST_ATT_STRING_VISITOR}
-	value_memory: MANIFEST_STRING
+   value_memory: MANIFEST_STRING
 
 feature {}
-	rank: INTEGER
-			-- To find the the corresponding name in the `feature_text' (i.e.
-			-- in most cases, this is simply one, because people are not
-			-- used to have a lot of synonyms).
+   rank: INTEGER
+         -- To find the the corresponding name in the `feature_text' (i.e.
+         -- in most cases, this is simply one, because people are not
+         -- used to have a lot of synonyms).
 
-	add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
-			--|*** remove rank and change add_into_ to use default definition.
-		local
-			n: like names; fn: FEATURE_NAME; i: INTEGER; cst_att_string: like Current
-		do
-			n := ft.names
-			i := n.count
-			rank := i
-			fn := n.item(i)
-			fd.add(Current, fn)
-			-- Creation of copies for synonyms:
-			from
-				i := i - 1
-			until
-				i = 0
-			loop
-				fn := n.item(i)
-				create cst_att_string.with(ft, Current, i)
-				fd.add(cst_att_string, fn)
-				i := i - 1
-			end
-		end
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+         --|*** remove rank and change add_into_ to use default definition.
+      local
+         n: like names; fn: FEATURE_NAME; i: INTEGER; cst_att_string: like Current
+      do
+         n := ft.names
+         i := n.count
+         rank := i
+         fn := n.item(i)
+         fd.add(Current, fn)
+         -- Creation of copies for synonyms:
+         from
+            i := i - 1
+         until
+            i = 0
+         loop
+            fn := n.item(i)
+            create cst_att_string.with(ft, Current, i)
+            fd.add(cst_att_string, fn)
+            i := i - 1
+         end
+      end
 
-	make (rt: like result_type; ms: MANIFEST_STRING) is
-		require
-			rt /= Void
-			ms /= Void
-		do
-			result_type := rt
-			value_memory := ms
-		ensure
-			result_type = rt
-			value_memory = ms
-		end
+   make (rt: like result_type; ms: MANIFEST_STRING) is
+      require
+         rt /= Void
+         ms /= Void
+      do
+         result_type := rt
+         value_memory := ms
+      ensure
+         result_type = rt
+         value_memory = ms
+      end
 
-	with (ft: like feature_text; model: like Current; r: like rank) is
-		require
-			ft /= Void
-			model /= Void
-			r >= 1
-		do
-			feature_text := ft
-			result_type := model.result_type
-			value_memory := model.value_memory.twin
-			rank := r
-		ensure
-			feature_text = ft
-			result_type = model.result_type
-			value /= model.value and value.is_equal(model.value)
-		end
+   with (ft: like feature_text; model: like Current; r: like rank) is
+      require
+         ft /= Void
+         model /= Void
+         r >= 1
+      do
+         feature_text := ft
+         result_type := model.result_type
+         value_memory := model.value_memory.twin
+         rank := r
+      ensure
+         feature_text = ft
+         result_type = model.result_type
+         value /= model.value and value.is_equal(model.value)
+      end
 
-	pretty_constant_value (indent_level: INTEGER) is
-		do
-			value_memory.pretty_without_once(indent_level)
-		end
+   pretty_constant_value (indent_level: INTEGER) is
+      do
+         value_memory.pretty_without_once(indent_level)
+      end
 
 end -- class CST_ATT_STRING
 --

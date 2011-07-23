@@ -4,14 +4,14 @@
 deferred class CLIENT_LIST_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CLIENT_LIST}
-	visit_client_list (visited: CLIENT_LIST) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_client_list (visited: CLIENT_LIST) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CLIENT_LIST_VISITOR
 --

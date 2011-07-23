@@ -4,40 +4,40 @@
 class CST_ATT_INTEGER
 
 inherit
-	CST_ATT
+   CST_ATT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	accept (visitor: CST_ATT_INTEGER_VISITOR) is
-		do
-			visitor.visit_cst_att_integer(Current)
-		end
+   accept (visitor: CST_ATT_INTEGER_VISITOR) is
+      do
+         visitor.visit_cst_att_integer(Current)
+      end
 
 feature {CST_ATT_INTEGER_VISITOR}
-	value_memory: INTEGER_CONSTANT
+   value_memory: INTEGER_CONSTANT
 
 feature {}
-	add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
-		do
-			add_into_shared(ft, fd)
-		end
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+      do
+         add_into_shared(ft, fd)
+      end
 
-	make (ic: INTEGER_CONSTANT) is
-		require
-			ic /= Void
-		do
-			result_type := ic.result_type
-			value_memory := ic
-		ensure
-			value = ic
-		end
+   make (ic: INTEGER_CONSTANT) is
+      require
+         ic /= Void
+      do
+         result_type := ic.result_type
+         value_memory := ic
+      ensure
+         value = ic
+      end
 
-	pretty_constant_value (indent_level: INTEGER) is
-		do
-			value_memory.pretty(indent_level)
-		end
+   pretty_constant_value (indent_level: INTEGER) is
+      do
+         value_memory.pretty(indent_level)
+      end
 
 end -- class CST_ATT_INTEGER
 --

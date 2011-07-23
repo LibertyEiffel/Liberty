@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class E_FALSE
-	--
-	-- When using explicit constant `False'.
-	--
+   --
+   -- When using explicit constant `False'.
+   --
 
 inherit
-	BOOLEAN_CONSTANT
+   BOOLEAN_CONSTANT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value: BOOLEAN is False
+   value: BOOLEAN is False
 
-	to_string: STRING is
-		do
-			Result := fz_false
-		end
+   to_string: STRING is
+      do
+         Result := fz_false
+      end
 
-	compile_to_c (type: TYPE) is
-		do
-			cpp.pending_c_function_body.extend('0')
-		end
+   compile_to_c (type: TYPE) is
+      do
+         cpp.pending_c_function_body.extend('0')
+      end
 
-	compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-		do
-			code_attribute.opcode_bipush(0)
-		end
+   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
+      do
+         code_attribute.opcode_bipush(0)
+      end
 
-	jvm_branch_if_false (type: TYPE): INTEGER is
-		do
-			Result := code_attribute.opcode_goto
-		end
+   jvm_branch_if_false (type: TYPE): INTEGER is
+      do
+         Result := code_attribute.opcode_goto
+      end
 
-	jvm_branch_if_true (type: TYPE): INTEGER is
-		do
-			code_attribute.opcode_iconst_0
-			Result := code_attribute.opcode_ifeq
-		end
+   jvm_branch_if_true (type: TYPE): INTEGER is
+      do
+         code_attribute.opcode_iconst_0
+         Result := code_attribute.opcode_ifeq
+      end
 
 feature {ANY}
-	accept (visitor: E_FALSE_VISITOR) is
-		do
-			visitor.visit_e_false(Current)
-		end
+   accept (visitor: E_FALSE_VISITOR) is
+      do
+         visitor.visit_e_false(Current)
+      end
 
 end -- class E_FALSE
 --

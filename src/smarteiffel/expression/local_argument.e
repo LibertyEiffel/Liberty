@@ -2,90 +2,90 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class LOCAL_ARGUMENT
-	--
-	-- Common root to handle local variables (LOCAL_NAME) or formal
-	-- argument names (ARGUMENT_NAME).
-	--
+   --
+   -- Common root to handle local variables (LOCAL_NAME) or formal
+   -- argument names (ARGUMENT_NAME).
+   --
 
 inherit
-	NAME
+   NAME
 
 feature {ANY}
-	start_position: POSITION
-			-- Of the first character of the name.
+   start_position: POSITION
+         -- Of the first character of the name.
 
-	is_void: BOOLEAN is False
+   is_void: BOOLEAN is False
 
-	is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN is False
 
-	is_current: BOOLEAN is False
+   is_current: BOOLEAN is False
 
-	is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN is False
 
-	is_result: BOOLEAN is False
+   is_result: BOOLEAN is False
 
-	is_static: BOOLEAN is False
+   is_static: BOOLEAN is False
 
-	to_string: STRING is
-		deferred
-		end
+   to_string: STRING is
+      deferred
+      end
 
-	rank: INTEGER is
-			-- in the corresponding flat list.
-		deferred
-		ensure
-			Result >= 1
-		end
+   rank: INTEGER is
+         -- in the corresponding flat list.
+      deferred
+      ensure
+         Result >= 1
+      end
 
-	frozen use_current (type: TYPE): BOOLEAN is
-		do
-		end
+   frozen use_current (type: TYPE): BOOLEAN is
+      do
+      end
 
-	frozen to_key: STRING is
-		do
-			Result := to_string
-		end
+   frozen to_key: STRING is
+      do
+         Result := to_string
+      end
 
-	frozen precedence: INTEGER is
-		do
-			Result := atomic_precedence
-		end
+   frozen precedence: INTEGER is
+      do
+         Result := atomic_precedence
+      end
 
-	frozen pretty_target (indent_level: INTEGER) is
-		do
-			pretty_printer.put_string(to_string)
-			pretty_printer.put_character('.')
-		end
+   frozen pretty_target (indent_level: INTEGER) is
+      do
+         pretty_printer.put_string(to_string)
+         pretty_printer.put_character('.')
+      end
 
-	frozen short (type: TYPE) is
-		local
-			i: INTEGER; c: CHARACTER
-		do
-			short_printer.hook("Ban")
-			from
-				i := 1
-			until
-				i > to_string.count
-			loop
-				c := to_string.item(i)
-				if c = '_' then
-					short_printer.hook_or("Uan", "_")
-				else
-					short_printer.put_character(c)
-				end
-				i := i + 1
-			end
-			short_printer.hook("Aan")
-		end
+   frozen short (type: TYPE) is
+      local
+         i: INTEGER; c: CHARACTER
+      do
+         short_printer.hook("Ban")
+         from
+            i := 1
+         until
+            i > to_string.count
+         loop
+            c := to_string.item(i)
+            if c = '_' then
+               short_printer.hook_or("Uan", "_")
+            else
+               short_printer.put_character(c)
+            end
+            i := i + 1
+         end
+         short_printer.hook("Aan")
+      end
 
-	frozen short_target (type: TYPE) is
-		do
-			short(type)
-			short_printer.put_dot
-		end
+   frozen short_target (type: TYPE) is
+      do
+         short(type)
+         short_printer.put_dot
+      end
 
 invariant
-	not start_position.is_unknown
+   not start_position.is_unknown
 
 end -- class LOCAL_ARGUMENT
 --

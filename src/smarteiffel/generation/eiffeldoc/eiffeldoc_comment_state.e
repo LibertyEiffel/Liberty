@@ -2,84 +2,84 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class EIFFELDOC_COMMENT_STATE
-	--
-	-- The ''State'' Design Pattern in action. See EIFFELDOC_COMMENT_WRITER which uses those states.
-	--
+   --
+   -- The ''State'' Design Pattern in action. See EIFFELDOC_COMMENT_WRITER which uses those states.
+   --
 
 inherit
-	IN_OUT_VISITOR
+   IN_OUT_VISITOR
 
 insert
-	EIFFELDOC_GLOBALS
+   EIFFELDOC_GLOBALS
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-	can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
-			-- True if this state can handle the characters starting at the offset point
-		deferred
-		end
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+         -- True if this state can handle the characters starting at the offset point
+      deferred
+      end
 
-	handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
-			-- Handle the comment; returns the next offset where a new state can be considered. Can also remove
-			-- an element of the stack or add itself.
-		require
-			can_handle(comment, offset)
-			offset > comment.count implies states.top = Current
-			not_done_to_report_errors: error_handler.is_empty
-		deferred
-		ensure
-			Result >= offset
-			offset > comment.count implies Result = offset and then states.count < old states.count
-			states.count <= old states.count + 1
-			states.count > old states.count implies states.top = Current
-			not_done_to_report_errors: error_handler.is_empty
-		end
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+         -- Handle the comment; returns the next offset where a new state can be considered. Can also remove
+         -- an element of the stack or add itself.
+      require
+         can_handle(comment, offset)
+         offset > comment.count implies states.top = Current
+         not_done_to_report_errors: error_handler.is_empty
+      deferred
+      ensure
+         Result >= offset
+         offset > comment.count implies Result = offset and then states.count < old states.count
+         states.count <= old states.count + 1
+         states.count > old states.count implies states.top = Current
+         not_done_to_report_errors: error_handler.is_empty
+      end
 
-	abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
-		require
-			states /= Void
-			not states.is_empty
-			states.top = Current
-		deferred
-		ensure
-			states.count = old states.count - 1
-		end
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+      require
+         states /= Void
+         not states.is_empty
+         states.top = Current
+      deferred
+      ensure
+         states.count = old states.count - 1
+      end
 
-	handle_first: BOOLEAN is
-			-- True if use the EIFFELDOC_COMMENT_WRITER optimisation that makes this object be handled first if
-			-- it is at the top of the states stack
-		deferred
-		end
+   handle_first: BOOLEAN is
+         -- True if use the EIFFELDOC_COMMENT_WRITER optimisation that makes this object be handled first if
+         -- it is at the top of the states stack
+      deferred
+      end
 
 feature {}
-	context: EIFFELDOC_CONTEXT
+   context: EIFFELDOC_CONTEXT
 
-	html: EIFFELDOC_OUTPUT_STREAM is
-		do
-			Result := context.html
-		end
+   html: EIFFELDOC_OUTPUT_STREAM is
+      do
+         Result := context.html
+      end
 
-	type: TYPE is
-		do
-			Result := context.type
-		end
+   type: TYPE is
+      do
+         Result := context.type
+      end
 
-	class_type: TYPE is
-		do
-			Result := context.class_type
-		end
+   class_type: TYPE is
+      do
+         Result := context.class_type
+      end
 
-	client: CLASS_NAME is
-		do
-			Result := context.client
-		end
+   client: CLASS_NAME is
+      do
+         Result := context.client
+      end
 
-	class_text: CLASS_TEXT is
-		do
-			Result := context.class_text
-		end
+   class_text: CLASS_TEXT is
+      do
+         Result := context.class_text
+      end
 
 invariant
-	context /= Void
+   context /= Void
 
 end -- class EIFFELDOC_COMMENT_STATE
 --

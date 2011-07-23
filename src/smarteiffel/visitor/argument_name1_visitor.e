@@ -4,14 +4,14 @@
 deferred class ARGUMENT_NAME1_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ARGUMENT_NAME1}
-	visit_argument_name1 (visited: ARGUMENT_NAME1) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_argument_name1 (visited: ARGUMENT_NAME1) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class ARGUMENT_NAME1_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class AGENT_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {AGENT_EXPRESSION}
-	visit_agent_expression (visited: AGENT_EXPRESSION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_agent_expression (visited: AGENT_EXPRESSION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class AGENT_EXPRESSION_VISITOR
 --

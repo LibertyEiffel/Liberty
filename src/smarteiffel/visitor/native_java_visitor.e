@@ -4,14 +4,14 @@
 deferred class NATIVE_JAVA_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {NATIVE_JAVA}
-	visit_native_java (visited: NATIVE_JAVA) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_native_java (visited: NATIVE_JAVA) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class NATIVE_JAVA_VISITOR
 --

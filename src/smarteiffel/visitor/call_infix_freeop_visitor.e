@@ -4,14 +4,14 @@
 deferred class CALL_INFIX_FREEOP_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {CALL_INFIX_FREEOP}
-	visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class CALL_INFIX_FREEOP_VISITOR
 --

@@ -4,14 +4,14 @@
 deferred class OLD_MANIFEST_ARRAY_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {OLD_MANIFEST_ARRAY}
-	visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class OLD_MANIFEST_ARRAY_VISITOR
 --

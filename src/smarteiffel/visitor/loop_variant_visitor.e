@@ -4,14 +4,14 @@
 deferred class LOOP_VARIANT_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {LOOP_VARIANT}
-	visit_loop_variant (visited: LOOP_VARIANT) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_loop_variant (visited: LOOP_VARIANT) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class LOOP_VARIANT_VISITOR
 --

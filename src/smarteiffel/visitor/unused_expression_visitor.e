@@ -4,14 +4,14 @@
 deferred class UNUSED_EXPRESSION_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {UNUSED_EXPRESSION}
-	visit_unused_expression (visited: UNUSED_EXPRESSION) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_unused_expression (visited: UNUSED_EXPRESSION) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class UNUSED_EXPRESSION_VISITOR
 --

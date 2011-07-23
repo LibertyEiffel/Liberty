@@ -4,14 +4,14 @@
 deferred class WHEN_CLAUSE_VISITOR
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {WHEN_CLAUSE}
-	visit_when_clause (visited: WHEN_CLAUSE) is
-		require
-			visited /= Void
-		deferred
-		end
+   visit_when_clause (visited: WHEN_CLAUSE) is
+      require
+         visited /= Void
+      deferred
+      end
 
 end -- class WHEN_CLAUSE_VISITOR
 --
