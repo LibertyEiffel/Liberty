@@ -372,8 +372,8 @@ feature {ANY} -- Modification:
          -- Keep only the slice [`min_index' .. `max_index'] or nothing
          -- when the slice is empty.
       require
-         1 <= min_index
-         max_index <= count
+         lower <= min_index
+         max_index <= upper
          min_index <= max_index + 1
       do
          if max_index < min_index then
