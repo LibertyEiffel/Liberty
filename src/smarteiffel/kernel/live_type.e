@@ -47,14 +47,14 @@ feature {ANY}
          -- the corresponding `canonical_type_mark' at run time).
 
    run_time_set: RUN_TIME_SET
-         -- The set of all possible dynamic types (existing types at run-time, i.e. with a 
-         -- corresponding `at_run_time' object) which may be actually returned by an 
-         -- expression of the `Current' type. This set, which is empty at the beginning of 
+         -- The set of all possible dynamic types (existing types at run-time, i.e. with a
+         -- corresponding `at_run_time' object) which may be actually returned by an
+         -- expression of the `Current' type. This set, which is empty at the beginning of
          -- the compilation process will grow, following the `smart_eiffel.status' evolution.
-         -- Thus, if the type of `Current' is a reference type, the `run_time_set' has only 
-         -- reference run classes elements. If the type of `Current' is an expanded type, the 
+         -- Thus, if the type of `Current' is a reference type, the `run_time_set' has only
+         -- reference run classes elements. If the type of `Current' is an expanded type, the
          -- `run_time_set' has only `Current' as a single element. Futhermore, the size of the
-         -- `run_time_set' depends on live assignments (as well as argument passing and creation 
+         -- `run_time_set' depends on live assignments (as well as argument passing and creation
          -- statements) that are found in the live code.
 
    class_invariant: ASSERTION_LIST is
@@ -143,32 +143,34 @@ feature {SMART_EIFFEL, EXTERNAL_FUNCTION}
    collect (fs: FEATURE_STAMP) is
       require
          valid_stamp: fs /= Void
-      local
-         i: INTEGER; sub_type: LIVE_TYPE; tmp: BOOLEAN
       do
          check
             stamp_has_feature: fs.has_anonymous_feature_for(type)
          end
          if no_dispatch_collect(fs) then
             if smart_eiffel.status.inlining_dynamic_dispatch_done then
-               -- No need to collect what's in "when" clauses of "inspect" which are now implementing 
+               -- No need to collect what's in "when" clauses of "inspect" which are now implementing
                -- dynamic dispatch.
             else
-               from
-                  i := run_time_set.count
-               until
-                  i = 0
-               loop
-                  sub_type := run_time_set.item(i)
-                  if sub_type /= Current then
-                     tmp := sub_type.no_dispatch_collect(fs.resolve_static_binding_for(type, sub_type.type))
-                  end
-                  i := i - 1
-               end
+               run_time_set.do_all(agent collect_sub_type(fs, ?))
             end
          end
       ensure
          collected(fs)
+      end
+
+feature {}
+   collect_sub_type (fs: FEATURE_STAMP; sub_type: LIVE_TYPE) is
+      require
+         valid_stamp: fs /= Void
+         valid_sub_type: sub_type /= Void
+      local
+         is_new: BOOLEAN
+      do
+         if sub_type /= Current then
+            is_new := sub_type.no_dispatch_collect(fs.resolve_static_binding_for(type, sub_type.type))
+            -- TODO: lost `is_new', meaningless?
+         end
       end
 
 feature {WHEN_CLAUSE}
@@ -281,7 +283,7 @@ feature {TYPE}
 
 feature {LIVE_TYPE, LIVE_TYPE_VISITOR}
    live_features: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_STAMP]
-         --|*** PH(12/05/04) it's dangerous to keep here the link between FS and AF (if the AF is changed), but it 
+         --|*** PH(12/05/04) it's dangerous to keep here the link between FS and AF (if the AF is changed), but it
          --|speed-up search because live_features.has use he hash code.
 
 feature {}
@@ -629,7 +631,7 @@ feature {SMART_EIFFEL}
          end
          if precursor_run_features /= Void then
             from
-               -- Loop this way because new precursor may be created 
+               -- Loop this way because new precursor may be created
                -- while adapting.
                i := precursor_run_features.lower
             until
@@ -868,7 +870,7 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME1}
          if e_procedure.routine_body = Void then
             Result := e_procedure.local_vars = Void
          end
-         --*** (PH 18/08/2008) Should really ensure and rescue part 
+         --*** (PH 18/08/2008) Should really ensure and rescue part
          --be ignored? compilation mode?
       end
 

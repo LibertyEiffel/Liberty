@@ -63,6 +63,13 @@ feature {ANY} -- Basic accessing:
          Result = item(1)
       end
 
+   do_all (action: PROCEDURE[TUPLE[LIVE_TYPE]]) is
+      require
+         action /= Void
+      do
+         sorted.do_all(action)
+      end
+
 feature {LIVE_TYPE}
    id_extra_information (tfw: TEXT_FILE_WRITE) is
       local
