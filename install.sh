@@ -97,6 +97,7 @@ class_check: class_check
 test: eiffeltest
 --x_int: extract_internals
 --sedb: se_debug
+make: se_make.sh
 
 [boost]
 -- c_compiler_type: tcc
@@ -171,29 +172,29 @@ EOF
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
     if [ ! -d $LIBERTY_HOME/target/bin/compile_to_c.d ]; then
-        progress 30 0 11 "germ"
+        progress 30 0 13 "germ"
         test -d $LIBERTY_HOME/target/bin/compile_to_c.d || mkdir $LIBERTY_HOME/target/bin/compile_to_c.d
         run gcc -c compile_to_c.c && run gcc compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
-    progress 30 1 11 "compile_to_c T1"
+    progress 30 1 13 "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
     if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
         grep ^gcc compile_to_c.make | while read cmd; do
-            progress 30 1 11 "$cmd"
+            progress 30 1 13 "$cmd"
             run $cmd || exit 1
         done
 
-        progress 30 2 11 "compile_to_c T2"
+        progress 30 2 13 "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
         if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
             grep ^gcc compile_to_c.make | while read cmd; do
-                progress 30 2 11 "$cmd"
+                progress 30 2 13 "$cmd"
                 run $cmd || exit 1
             done
 
-            progress 30 3 11 "compile_to_c T3"
+            progress 30 3 13 "compile_to_c T3"
             ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
             if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
                 cat compile_to_c.make >> $LOG
@@ -204,7 +205,7 @@ EOF
     fi
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
-    progress 30 4 11 "compile"
+    progress 30 4 13 "compile"
     test -d compile.d || mkdir compile.d
     cd compile.d
     run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
@@ -217,7 +218,7 @@ EOF
         echo 5 se
         echo 6 clean
     } | while read i tool; do
-        progress 30 $i 11 "$tool"
+        progress 30 $i 13 "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
@@ -230,13 +231,17 @@ EOF
         echo 10 finder
         echo 11 eiffeltest
     } | while read i tool; do
-        progress 30 $i 11 "$tool"
+        progress 30 $i 13 "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
-    progress 30 11 11 "done."
+
+    progress 30 12 13 "se_make.sh"
+    cp $LIBERTY_HOME/work/se_make.sh .
+
+    progress 30 13 13 "done."
     echo
 }
 
