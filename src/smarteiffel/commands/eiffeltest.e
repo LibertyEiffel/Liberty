@@ -8,7 +8,6 @@ class EIFFELTEST
 
 insert
    COMMAND_LINE_TOOLS
-   GRAPHIC
 
 creation {}
    main
@@ -21,8 +20,6 @@ feature {ANY}
 
       Option summary:
 
-        -watch              Watch some running eiffeltest process(es) (no test run, just
-                            watch the work in progress or the status of the last test run)
         -force              To force automatic creation of the eiffeltest directory
                             (useful while creating new test directories)
 
@@ -33,7 +30,7 @@ feature {ANY}
 
       ]"
 
-feature {EIFFELTEST_DIRECTORY_VIEW}
+feature {}
    directory_path: STRING
          -- The uppermost directory. The directory where tests are stored.
 
@@ -61,20 +58,20 @@ feature {EIFFELTEST_DIRECTORY_VIEW}
             echo.w_put_string("%" the current working directory.%N")
             die_with_code(exit_failure_code)
          end
-         directory_path.copy(basic_directory.current_working_directory)
+         directory_path.make_from_string(basic_directory.current_working_directory)
          echo.put_string(once "Current working directory is now %"")
          echo.put_string(directory_path)
          echo.put_string(once "%".%N")
 
          if version_flag or else help_flag then
             -- We just finish here.
-         elseif watch_flag then
-            locked_directories_update
-            if locked_directories.is_empty then
-               eiffeltest_watch_diff_mode(directory_path)
-            else
-               eiffeltest_watch_mode
-            end
+         --elseif watch_flag then
+         --   locked_directories_update
+         --   if locked_directories.is_empty then
+         --      eiffeltest_watch_diff_mode(directory_path)
+         --   else
+         --      eiffeltest_watch_mode
+         --   end
          else
             eiffeltest_normal_running_mode
          end
@@ -82,209 +79,209 @@ feature {EIFFELTEST_DIRECTORY_VIEW}
          die_with_code(final_die_with_code_result)
       end
 
-   locked_directories: FAST_ARRAY[STRING] is
-         -- The list of directories where some other "eiffeltest" is still running.
-         -- See `locked_directories_update'.
-      once
-         create Result.with_capacity(32)
-      end
+   --locked_directories: FAST_ARRAY[STRING] is
+   --      -- The list of directories where some other "eiffeltest" is still running.
+   --      -- See `locked_directories_update'.
+   --   once
+   --      create Result.with_capacity(32)
+   --   end
 
-   locked_directories_view: FAST_ARRAY[EIFFELTEST_DIRECTORY_VIEW] is
-      once
-         create Result.with_capacity(32)
-      end
+   --locked_directories_view: FAST_ARRAY[EIFFELTEST_DIRECTORY_VIEW] is
+   --   once
+   --      create Result.with_capacity(32)
+   --   end
 
-   locked_directories_update is
-         -- Update `locked_directories'.
-      do
-         from
-         until
-            locked_directories.count = 0
-         loop
-            strings.recycle(locked_directories.last)
-            locked_directories.remove_last
-         end
-         check
-            file_tools.is_directory(directory_path)
-         end
-         locked_directories_update_rec(directory_path)
-      end
+   --locked_directories_update is
+   --      -- Update `locked_directories'.
+   --   do
+   --      from
+   --      until
+   --         locked_directories.count = 0
+   --      loop
+   --         strings.recycle(locked_directories.last)
+   --         locked_directories.remove_last
+   --      end
+   --      check
+   --         file_tools.is_directory(directory_path)
+   --      end
+   --      locked_directories_update_rec(directory_path)
+   --   end
 
-   locked_directories_update_rec (parent_path: STRING) is
-      require
-         file_tools.is_directory(parent_path)
-      local
-         lock_path, path, name: STRING; directory_scanner: BASIC_DIRECTORY
-      do
-         basic_directory.compute_subdirectory_with(parent_path, once "eiffeltest")
-         lock_path := strings.new
-         lock_path.copy(basic_directory.last_entry)
-         basic_directory.compute_file_path_with(lock_path, once "LOCK")
-         lock_path.copy(basic_directory.last_entry)
-         if file_tools.file_exists(lock_path) then
-            if not locked_directories.has(parent_path) then
-               path := strings.new
-               path.copy(parent_path)
-               locked_directories.add_last(path)
-            end
-         end
-         strings.recycle(lock_path)
-         directory_scanner.connect_with(parent_path)
-         if directory_scanner.is_connected then
-            from
-               directory_scanner.read_entry
-            until
-               directory_scanner.end_of_input
-            loop
-               name := once ".................................................."
-               name.copy(directory_scanner.last_entry)
-               if not ignored_subdirectory_name(name) then
-                  basic_directory.compute_subdirectory_with(parent_path, name)
-                  path := strings.new
-                  path.copy(basic_directory.last_entry)
-                  if file_tools.is_directory(path) then
-                     locked_directories_update_rec(path)
-                  end
-                  strings.recycle(path)
-               end
-               directory_scanner.read_entry
-            end
-            directory_scanner.disconnect
-         end
-      end
+   --locked_directories_update_rec (parent_path: STRING) is
+   --   require
+   --      file_tools.is_directory(parent_path)
+   --   local
+   --      lock_path, path, name: STRING; directory_scanner: BASIC_DIRECTORY
+   --   do
+   --      basic_directory.compute_subdirectory_with(parent_path, once "eiffeltest")
+   --      lock_path := strings.new
+   --      lock_path.copy(basic_directory.last_entry)
+   --      basic_directory.compute_file_path_with(lock_path, once "LOCK")
+   --      lock_path.copy(basic_directory.last_entry)
+   --      if file_tools.file_exists(lock_path) then
+   --         if not locked_directories.has(parent_path) then
+   --            path := strings.new
+   --            path.copy(parent_path)
+   --            locked_directories.add_last(path)
+   --         end
+   --      end
+   --      strings.recycle(lock_path)
+   --      directory_scanner.connect_with(parent_path)
+   --      if directory_scanner.is_connected then
+   --         from
+   --            directory_scanner.read_entry
+   --         until
+   --            directory_scanner.end_of_input
+   --         loop
+   --            name := once ".................................................."
+   --            name.copy(directory_scanner.last_entry)
+   --            if not ignored_subdirectory_name(name) then
+   --               basic_directory.compute_subdirectory_with(parent_path, name)
+   --               path := strings.new
+   --               path.copy(basic_directory.last_entry)
+   --               if file_tools.is_directory(path) then
+   --                  locked_directories_update_rec(path)
+   --               end
+   --               strings.recycle(path)
+   --            end
+   --            directory_scanner.read_entry
+   --         end
+   --         directory_scanner.disconnect
+   --      end
+   --   end
 
-   toplevel_window: TOPLEVEL_WINDOW
+   --toplevel_window: TOPLEVEL_WINDOW
 
-   eiffeltest_watch_mode is
-      local
-         title: STRING; sub_window: SUB_WINDOW; i: INTEGER
-         container: CONTAINER; row_layout: ROW_LAYOUT; column_layout: COLUMN_LAYOUT; button: BUTTON
-         alignable_label: ALIGNABLE_LABEL; eiffeltest_directory_view: EIFFELTEST_DIRECTORY_VIEW
-         simple_periodic_job: SIMPLE_PERIODIC_JOB
-      do
-         create toplevel_window
-         toplevel_window.set_title(once "se test -watch ")
-         toplevel_window.set_background_color(white_color)
-         toplevel_window.when_close_requested(agent vision.loop_stack.break)
-         toplevel_window.set_expand(True)
-         toplevel_window.set_shrink(True)
+   --eiffeltest_watch_mode is
+   --   local
+   --      title: STRING; sub_window: SUB_WINDOW; i: INTEGER
+   --      container: CONTAINER; row_layout: ROW_LAYOUT; column_layout: COLUMN_LAYOUT; button: BUTTON
+   --      alignable_label: ALIGNABLE_LABEL; eiffeltest_directory_view: EIFFELTEST_DIRECTORY_VIEW
+   --      simple_periodic_job: SIMPLE_PERIODIC_JOB
+   --   do
+   --      create toplevel_window
+   --      toplevel_window.set_title(once "se test -watch ")
+   --      toplevel_window.set_background_color(white_color)
+   --      toplevel_window.when_close_requested(agent vision.loop_stack.break)
+   --      toplevel_window.set_expand(True)
+   --      toplevel_window.set_shrink(True)
+   --
+   --      -- Top line:
+   --      title := once " se test -watch " + directory_path
+   --      create alignable_label.make(create {UNICODE_STRING}.from_utf8(title))
+   --      alignable_label.set_alignment(left_alignment)
+   --      alignable_label.set_expand(True)
+   --      alignable_label.set_x_shrink(True)
+   --      alignable_label.set_y_shrink(False)
+   --      toplevel_window.child_attach(alignable_label)
+   --
+   --      -- Middle part list:
+   --      check
+   --         locked_directories.lower = locked_directories_view.lower
+   --      end
+   --      from
+   --         i := locked_directories.lower
+   --      until
+   --         locked_directories_view.count > 20 -- Maximum number op progress bars is frozen here :-(
+   --      loop
+   --         create eiffeltest_directory_view.make(Current, i)
+   --         create sub_window.make_layout(toplevel_window, eiffeltest_directory_view)
+   --         sub_window.when_key_down(agent key_down)
+   --         sub_window.set_expand(True)
+   --         sub_window.set_shrink(True)
+   --         locked_directories_view.add_last(eiffeltest_directory_view)
+   --         sub_window.map
+   --         i := i + 1
+   --      end
+   --
+   --      -- Bottom part:
+   --      column_layout ::= toplevel_window.layout
+   --      column_layout.insert_button_space
+   --
+   --      toplevel_window.child_attach(create {HORIZONTAL_LINE})
+   --
+   --      column_layout ::= toplevel_window.layout
+   --      column_layout.insert_button_space
+   --
+   --      create row_layout
+   --      create container.make_layout(toplevel_window, row_layout)
+   --      create button.with_label(container, U"Quit")
+   --      button.when_left_clicked(agent vision.loop_stack.break)
+   --      button.when_right_clicked(agent vision.loop_stack.break)
+   --      row_layout.insert_button_space
+   --      create button.with_label(container, U"Refresh")
+   --      button.when_left_clicked(agent refresh)
+   --      button.when_right_clicked(agent refresh)
+   --      row_layout.set_border(1)
+   --      row_layout.set_spacing(3)
+   --      container.set_expand(True)
+   --      container.set_shrink(True)
+   --
+   --      create simple_periodic_job.set_work(agent redraw, Void, 1, 2.5)
+   --      vision.loop_stack.add_job(simple_periodic_job)
+   --
+   --      toplevel_window.when_key_down(agent key_down)
+   --      toplevel_window.map
+   --      vision.start
+   --
+   --      if locked_directories.is_empty then
+   --         eiffeltest_watch_diff_mode(directory_path)
+   --      end
+   --   end
 
-         -- Top line:
-         title := once " se test -watch " + directory_path
-         create alignable_label.make(create {UNICODE_STRING}.from_utf8(title))
-         alignable_label.set_alignment(left_alignment)
-         alignable_label.set_expand(True)
-         alignable_label.set_x_shrink(True)
-         alignable_label.set_y_shrink(False)
-         toplevel_window.child_attach(alignable_label)
+   --key_down is
+   --   local
+   --      key_code: INTEGER;
+   --   do
+   --      key_code := vision.last_character
+   --      inspect
+   --         key_code
+   --      when 81, 113, 27 then -- 'Q' 'q' Esc
+   --         vision.loop_stack.break
+   --      when 32, 12 then -- ' ' C-l
+   --         refresh
+   --      else
+   --
+   --      end
+   --   end
 
-         -- Middle part list:
-         check
-            locked_directories.lower = locked_directories_view.lower
-         end
-         from
-            i := locked_directories.lower
-         until
-            locked_directories_view.count > 20 -- Maximum number op progress bars is frozen here :-(
-         loop
-            create eiffeltest_directory_view.make(Current, i)
-            create sub_window.make_layout(toplevel_window, eiffeltest_directory_view)
-            sub_window.when_key_down(agent key_down)
-            sub_window.set_expand(True)
-            sub_window.set_shrink(True)
-            locked_directories_view.add_last(eiffeltest_directory_view)
-            sub_window.map
-            i := i + 1
-         end
+   --refresh is
+   --   local
+   --      dummy: BOOLEAN
+   --   do
+   --      dummy := redraw
+   --   end
 
-         -- Bottom part:
-         column_layout ::= toplevel_window.layout
-         column_layout.insert_button_space
-
-         toplevel_window.child_attach(create {HORIZONTAL_LINE})
-
-         column_layout ::= toplevel_window.layout
-         column_layout.insert_button_space
-
-         create row_layout
-         create container.make_layout(toplevel_window, row_layout)
-         create button.with_label(container, U"Quit")
-         button.when_left_clicked(agent vision.loop_stack.break)
-         button.when_right_clicked(agent vision.loop_stack.break)
-         row_layout.insert_button_space
-         create button.with_label(container, U"Refresh")
-         button.when_left_clicked(agent refresh)
-         button.when_right_clicked(agent refresh)
-         row_layout.set_border(1)
-         row_layout.set_spacing(3)
-         container.set_expand(True)
-         container.set_shrink(True)
-
-         create simple_periodic_job.set_work(agent redraw, Void, 1, 2.5)
-         vision.loop_stack.add_job(simple_periodic_job)
-
-         toplevel_window.when_key_down(agent key_down)
-         toplevel_window.map
-         vision.start
-
-         if locked_directories.is_empty then
-            eiffeltest_watch_diff_mode(directory_path)
-         end
-      end
-
-   key_down is
-      local
-         key_code: INTEGER;
-      do
-         key_code := vision.last_character
-         inspect
-            key_code
-         when 81, 113, 27 then -- 'Q' 'q' Esc
-            vision.loop_stack.break
-         when 32, 12 then -- ' ' C-l
-            refresh
-         else
-
-         end
-      end
-
-   refresh is
-      local
-         dummy: BOOLEAN
-      do
-         dummy := redraw
-      end
-
-   redraw: BOOLEAN is
-      local
-         i: INTEGER
-      do
-         locked_directories_update
-         if locked_directories.is_empty then
-            vision.loop_stack.break
-         else
-            check
-               locked_directories.lower = locked_directories_view.lower
-            end
-            from
-               i := locked_directories_view.lower
-            until
-               i > locked_directories_view.upper
-            loop
-               locked_directories_view.item(i).update_requisition
-               i := i + 1
-            end
-            from
-               i := locked_directories_view.lower
-            until
-               i > locked_directories_view.upper
-            loop
-               locked_directories_view.item(i).redraw
-               i := i + 1
-            end
-         end
-         Result := True
-      end
+   --redraw: BOOLEAN is
+   --   local
+   --      i: INTEGER
+   --   do
+   --      locked_directories_update
+   --      if locked_directories.is_empty then
+   --         vision.loop_stack.break
+   --      else
+   --         check
+   --            locked_directories.lower = locked_directories_view.lower
+   --         end
+   --         from
+   --            i := locked_directories_view.lower
+   --         until
+   --            i > locked_directories_view.upper
+   --         loop
+   --            locked_directories_view.item(i).update_requisition
+   --            i := i + 1
+   --         end
+   --         from
+   --            i := locked_directories_view.lower
+   --         until
+   --            i > locked_directories_view.upper
+   --         loop
+   --            locked_directories_view.item(i).redraw
+   --            i := i + 1
+   --         end
+   --      end
+   --      Result := True
+   --   end
 
    eiffeltest_watch_diff_mode (dir_path: STRING) is
          -- No other "se test" in progress.
@@ -1464,7 +1461,7 @@ feature {}
 
    final_die_with_code_result: INTEGER
          -- For those who are using "se test" with scripts.
-   
+
 end -- class EIFFELTEST
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
