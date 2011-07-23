@@ -10,11 +10,11 @@ n=$(git remote | wc -l)
 title "Fetching branches"
 i=0
 for remote in $(git remote); do
-    progress 40 $i $n $remote
+    progress 30 $i $n $remote
     git fetch $remote
     i=$((i+1))
 done
-progress 40 $i $n done.
+progress 30 $i $n done.
 echo
 
 title "Switching to upstream branch"
@@ -23,7 +23,7 @@ git checkout -q upstream/master
 title "Merging branches"
 i=0
 for remote in $(git remote); do
-    progress 40 $i $n $remote
+    progress 30 $i $n $remote
     git merge -q remotes/$remote/master
     while [ $(git ls-files -u | wc -l) -gt 0 ]; do
         echo
@@ -34,7 +34,7 @@ for remote in $(git remote); do
     done
     i=$((i+1))
 done
-progress 40 $i $n done.
+progress 30 $i $n done.
 echo
 
 title "Pushing back upstream"
