@@ -151,7 +151,7 @@ feature {SMART_EIFFEL}
          launcher_collected_memory.clear_count
       end
 
-feature {C_PRETTY_PRINTER}
+feature {C_HEADER_PASS_1}
    c_header_pass1 is
       do
          if agent_creation_collected_flag then
@@ -164,6 +164,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
+feature {C_PRETTY_PRINTER}
    customize_c_runtime_1 is
       local
          boost: BOOLEAN

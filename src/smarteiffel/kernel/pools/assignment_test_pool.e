@@ -59,7 +59,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {C_PRETTY_PRINTER}
-   c_define_assignment_test_functions (live_type_map: FAST_ARRAY[LIVE_TYPE]) is
+   c_define_assignment_test_functions (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       local
          right_type: TYPE; left_set: SET[TYPE]; i, j: INTEGER
       do
@@ -83,7 +83,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   c_define_assignment_test_for (left_type, right_type: TYPE; live_type_map: FAST_ARRAY[LIVE_TYPE]) is
+   c_define_assignment_test_for (left_type, right_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       require
          must_be_simplified_in_boost: ace.boost implies not right_type.can_be_assigned_to(left_type)
       local

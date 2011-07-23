@@ -145,7 +145,7 @@ feature {C_PRETTY_PRINTER}
       require
          not is_off
       local
-         i: INTEGER; lt: LIVE_TYPE; live_type_map: FAST_ARRAY[LIVE_TYPE]; root_type: TYPE
+         i: INTEGER; lt: LIVE_TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]; root_type: TYPE
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
@@ -228,7 +228,7 @@ feature {ANY}
 
 feature {}
    initialize_user_expanded_attributes (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-         -- Produce C code to initialize, if any, expanded attributes of the newly `created_live_type' which is 
+         -- Produce C code to initialize, if any, expanded attributes of the newly `created_live_type' which is
          -- currently stored in the `internal_c_local'.
       require
          smart_eiffel.is_ready
@@ -378,7 +378,7 @@ feature {}
 
    compute_ceils is
       local
-         fsoc_count_ceil, rsoc_count_ceil, i: INTEGER; live_type_map: FAST_ARRAY[LIVE_TYPE]; lt: LIVE_TYPE
+         fsoc_count_ceil, rsoc_count_ceil, i: INTEGER; live_type_map: TRAVERSABLE[LIVE_TYPE]; lt: LIVE_TYPE
          kb_count: INTEGER
       do
          live_type_map := smart_eiffel.live_type_map
@@ -464,7 +464,7 @@ feature {}
          end
       end
 
-   just_before_mark (live_type_map: FAST_ARRAY[LIVE_TYPE]) is
+   just_before_mark (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       require
          not is_off
          cpp.pending_c_function
@@ -482,7 +482,7 @@ feature {}
          end
       end
 
-   define_gc_info (live_type_map: FAST_ARRAY[LIVE_TYPE]) is
+   define_gc_info (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       require
          info_flag
       local
@@ -514,7 +514,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   define_gc_start (root_type: TYPE; live_type_map: FAST_ARRAY[LIVE_TYPE]) is
+   define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")

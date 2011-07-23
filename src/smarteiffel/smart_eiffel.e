@@ -24,11 +24,15 @@ feature {ANY}
                         Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
                         D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - SmartEiffel@loria.fr
                         http://SmartEiffel.loria.fr
-                        
+
+                        Copyright (C), 2011 - C.ADRIAN - cyril.adrian@gmail.com
+                        https://github.com/LibertyEiffel/Liberty
+
                         ]")
+         Result.append("                        ")
       end
 
-   release_number: STRING is "Release 2.3.99 (LibertyEiffel patched bootstrapper)%N"
+   release_number: STRING is "Release 2011.07 (LibertyEiffel revival)%N"
 
    status: STATUS is
       once
@@ -325,7 +329,7 @@ feature {COMMAND_LINE_TOOLS}
       local
          root_class_name, root_procedure_name: STRING
       do
-         create live_type_map.with_capacity(2048)
+         create live_type_map_.with_capacity(2048)
          initialize_any_tuple
          root_class_name := ace.root_class_name.to_string
          root_procedure_name := ace.root_procedure_name
@@ -336,19 +340,9 @@ feature {COMMAND_LINE_TOOLS}
 
 feature {CODE_PRINTER}
    customize_runtime is
-      local
-         i: INTEGER; plugin: NATIVE_PLUG_IN
       do
          if collected_plug_in /= Void then
-            from
-               i := collected_plug_in.lower
-            until
-               i > collected_plug_in.upper
-            loop
-               plugin := collected_plug_in.item(i)
-               plugin.customize_runtime
-               i := i + 1
-            end
+            collected_plug_in.do_all(agent {NATIVE_PLUG_IN}.customize_runtime)
          end
       end
 
@@ -384,11 +378,14 @@ feature {ANY}
 
 feature {ASSIGNMENT_HANDLER}
    simplify_done: BOOLEAN
-         -- After optimizations, some code may be turned into invalid eiffel code. 
+         -- After optimizations, some code may be turned into invalid eiffel code.
          -- Has to be very uncommon.
 
-feature {GC_HANDLER, CODE_PRINTER, INTROSPECTION_HANDLER, C_SPLITTER_BY_LIVE_TYPE}
-   live_type_map: FAST_ARRAY[LIVE_TYPE]
+feature {ANY}
+   live_type_map: TRAVERSABLE[LIVE_TYPE] is
+      do
+         Result := live_type_map_
+      end
 
 feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC}
    collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
@@ -716,7 +713,7 @@ feature {CODE_PRINTER}
    weak_reference_used: BOOLEAN is
          -- Is the WEAK_REFERENCE class used?
          --
-         -- This function is conservative: when it returns False, you are guaranteed that no WEAK_REFERENCE 
+         -- This function is conservative: when it returns False, you are guaranteed that no WEAK_REFERENCE
          -- is used. There is no guarantee when it returns True.
       require
          status.collecting_done
@@ -799,7 +796,7 @@ feature {}
    type_real_64_memory: TYPE
 
    type_real_extended_memory: TYPE
-   
+
 feature {ANY} -- To get a TYPE:
    --|*** TYPE creation can be quite recursive, so these cannot be once functions <FM-14/10/2004>
 
@@ -1172,7 +1169,7 @@ feature {ANY} -- To get a TYPE:
                   i := i + 1
                end
             end
-            -- Because it is possible that the previous computation actually resulted in 
+            -- Because it is possible that the previous computation actually resulted in
             -- creating the type of `static_type' itself:
             Result := type_dictionary.fast_reference_at(long_name)
             if Result = Void then
@@ -1244,7 +1241,7 @@ feature {ANY} -- To get a TYPE:
          end
          error_handler.print_as_fatal_error
       end
-   
+
 feature {CLASS_TYPE_MARK}
    get_type_for_non_generic (non_generic_static_type: TYPE_MARK): TYPE is
          -- Just an optimized version of `get_type'.
@@ -1259,7 +1256,7 @@ feature {CLASS_TYPE_MARK}
       ensure
          Result = get_type(non_generic_static_type)
       end
-   
+
 feature {}
    feature_stamp_of (class_name, feature_name: STRING): FEATURE_STAMP is
       require
@@ -1428,7 +1425,7 @@ feature {FEATURE_CALL}
                 then
                   error_handler.add_position(call_site)
                   error_handler.append("Unsafe call site (see also next warning).")
-                  error_handler.print_as_warning                  
+                  error_handler.print_as_warning
                   error_handler.append("Unsafe covariant redefinition of argument number ")
                   error_handler.append_integer(a)
                   error_handler.append(" (type %"")
@@ -1468,13 +1465,13 @@ feature {}
       once
          create Result.with_capacity(2)
       end
-   
+
 feature {RUN_FEATURE}
    old_list_stack_push is
       do
          old_list_stack.add_last(Void)
       end
-   
+
    old_list_stack_pop: FAST_ARRAY[E_OLD] is
       do
          Result := old_list_stack.last
@@ -1669,7 +1666,7 @@ feature {}
 
 feature {E_FUNCTION, CALL_INFIX_POWER}
    simplify_integer_infix_power (call_site: POSITION; target, exponent: EXPRESSION): INTEGER_CONSTANT is
-         -- Static simplification of {INTEGER_GENERAL}.infix "^" is here to be shared for `static_simplify' and 
+         -- Static simplification of {INTEGER_GENERAL}.infix "^" is here to be shared for `static_simplify' and
          -- `simplify'.
       local
          ic1, ic2: INTEGER_CONSTANT; v1, v2, r, i: INTEGER_64; overflow: BOOLEAN
@@ -1688,7 +1685,7 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
                   error_handler.add_position(call_site)
                   error_handler.print_as_fatal_error
                end
-               -- We now computing the result of `v1^v2' in `r' slowly, but carefully whitout 
+               -- We now computing the result of `v1^v2' in `r' slowly, but carefully whitout
                -- using infix "^" itself:
                if v2 = 0 then
                   r := 1
@@ -1697,7 +1694,7 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
                      r := v1
                      i := v2
                   until
-                     overflow or else i = 1 
+                     overflow or else i = 1
                   loop
                      i := i - 1
                      if ((r #* v1) #// v1) /= r then
@@ -1715,7 +1712,7 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
                   error_handler.add_position(call_site)
                   error_handler.print_as_fatal_error
                end
-               -- Now checking that the result is identical to what's actually in INTEGER_GENERAL: 
+               -- Now checking that the result is identical to what's actually in INTEGER_GENERAL:
                if r /= v1 ^ v2 then
                   error_handler.append("Internal compiler error. Definition of infix %"^%" of %
                                        %INTEGER_GENERAL is not coherent with compiler builtin %
@@ -1755,7 +1752,7 @@ feature {}
       once
          create Result.make
       end
-   
+
 feature {AGENT_CREATION}
    set_agent_creation_error_trap (agent_creation: AGENT_CREATION) is
       require
@@ -1763,7 +1760,7 @@ feature {AGENT_CREATION}
       do
          agent_creation_error_trap.push(agent_creation)
       end
-   
+
    clear_agent_creation_error_trap (agent_creation: AGENT_CREATION) is
       require
          agent_creation /= Void
@@ -1774,7 +1771,7 @@ feature {AGENT_CREATION}
          end
          agent_creation_error_trap.pop
       end
-   
+
 feature {FUNCTION_CALL}
    try_agent_creation_error_trap (function_call: FUNCTION_CALL): BOOLEAN is
       do
@@ -1801,7 +1798,7 @@ feature {}
       end
 
    front_end (root_class_name, root_procedure_name: STRING) is
-         -- Get started to compile using creation procedure `root_procedure_name' of class text 
+         -- Get started to compile using creation procedure `root_procedure_name' of class text
          -- `root_class_name'.
       require
          not root_class_name.is_empty
@@ -1859,7 +1856,7 @@ feature {}
             status.collecting_done
          end
          if nb_errors = 0 and then not pretty_flag and then not short_or_class_check_flag then
-            -- Well, we are now producing executable code. One pass first of `simplify' to compute what 
+            -- Well, we are now producing executable code. One pass first of `simplify' to compute what
             -- is obviously static (e.g. 1 + 1 = 2):
             simplify_and_optimize(root_type, root_type.lookup(root_fn))
             -- Now inlining of dynamic dispatch:
@@ -1952,7 +1949,7 @@ feature {}
             do_one_collect_cycle
          end
          if ace.no_check then
-            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive 
+            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive
             -- so we want to do this as late as possible in boost mode.
             from
                introspection_handler.collect_internals_handler
@@ -2055,13 +2052,13 @@ feature {}
 
    monomorphic_procedure_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
-   
+
    monomorphic_function_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
 
    expanded_target_procedure_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
-   
+
    expanded_target_function_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
 
@@ -2070,7 +2067,7 @@ feature {}
 
    polymorphic_function_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
-   
+
    void_target_procedure_call_count: INTEGER
          -- Updated during `inline_dynamic_dispatch'.
 
@@ -2079,14 +2076,14 @@ feature {}
 
    polymorphic_distribution: ARRAY[INTEGER]
          -- About the "inspect" statements used to implement dynamic dispatch.
-         -- The index of the ARRAY is used to indicate the number of branches of the inspect. 
-         -- The corresponding content in the ARRAY indicate the number of call sites. As an 
-         -- example `polymorphic_distribution.item(50) = 4' indicates that we have 4 polymorphic 
+         -- The index of the ARRAY is used to indicate the number of branches of the inspect.
+         -- The corresponding content in the ARRAY indicate the number of call sites. As an
+         -- example `polymorphic_distribution.item(50) = 4' indicates that we have 4 polymorphic
          -- call sites implemented with a 50 branches inspect.
 
    inspect_when_merge_counter: INTEGER
          -- Total number of merged when clauses in "inspect" statements.
-   
+
    inline_dynamic_dispatch (root_type: TYPE; root_fn: FEATURE_NAME) is
       require
          not pretty_flag
@@ -2135,7 +2132,7 @@ feature {}
          score := score + void_target_procedure_call_count + void_target_function_call_count
          score := score / (score + polymorphic_procedure_call_count + polymorphic_function_call_count) * 100.0
          echo.put_real_format(score, 2)
-         echo.put_string(once "%%%N")         
+         echo.put_string(once "%%%N")
          echo_polymorphic_inspect_distribution(once "during inlining of dynamic dispatch")
          code_accumulator.echo_information
          echo.put_string(once "Finished inlining of dynamic dispatch.%N")
@@ -2145,7 +2142,7 @@ feature {}
       ensure
          status.inlining_dynamic_dispatch_done
       end
-   
+
    simplify_and_optimize (root_type: TYPE; root_feature: FEATURE_STAMP) is
       require
          not pretty_flag
@@ -2190,7 +2187,7 @@ feature {}
       ensure
          simplify_done
       end
-   
+
    simplify is
       require
          not pretty_flag
@@ -2302,7 +2299,7 @@ feature {INSPECT_STATEMENT}
          magic_count_increment
          inspect_when_merge_counter := inspect_when_merge_counter + 1
       end
-   
+
 feature {C_PRETTY_PRINTER}
    echo_polymorphic_inspect_distribution (step_tag: STRING) is
       local
@@ -2351,7 +2348,7 @@ feature {LIVE_TYPE}
       require
          live_type /= Void
       do
-         live_type_map.add_last(live_type)
+         live_type_map_.add_last(live_type)
       end
 
 feature {PROCEDURE_CALL}
@@ -2416,6 +2413,18 @@ feature {INSPECT_STATEMENT}
             polymorphic_distribution.force(1, nb_branches)
          end
       end
+
+feature {C_PRETTY_PRINTER}
+   sort_live_type_map is
+      do
+         live_type_sorter.sort(live_type_map_)
+      ensure
+         is_sorted: live_type_sorter.is_sorted(live_type_map_)
+      end
+
+feature {}
+   live_type_map_: FAST_ARRAY[LIVE_TYPE]
+   live_type_sorter: COLLECTION_SORTER[LIVE_TYPE]
 
 end -- class SMART_EIFFEL
 --

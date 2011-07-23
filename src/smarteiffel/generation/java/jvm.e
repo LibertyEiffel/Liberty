@@ -48,7 +48,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   live_type_map: FAST_ARRAY[LIVE_TYPE] is
+   live_type_map: TRAVERSABLE[LIVE_TYPE] is
       do
          Result := smart_eiffel.live_type_map
       end
@@ -451,7 +451,7 @@ feature {COMPILE_TO_JVM}
    clean_output_directory is
          -- Clear a potential existing output directory.
          --|*** FAIRE UN APPEL SYSTEME A LA COMMANDE clean ***
-         --|*** Dom 1 10 2005 *** 
+         --|*** Dom 1 10 2005 ***
       require
          smart_eiffel.status.is_generating or else smart_eiffel.status.is_done
       local
@@ -617,7 +617,7 @@ feature {COMPILE_TO_JVM}
          basic_directory.compute_file_path_with(ace.executable_name, ace.executable_name)
          out_file_path.copy(basic_directory.last_entry)
          out_file_path.append(class_suffix)
-         
+
          bfw_connect(out_file, out_file_path)
          start_basic
          this_class_idx := cp.idx_class2(ace.executable_name)
@@ -664,7 +664,7 @@ feature {AGENT_POOL}
    write_agent_class (e_agent: AGENT_CREATION) is
          --|*** THIS IS DEAD CODE TO BE REMOVED ????
          --       D. Colnet (june 7 2003)
-         --|*** 
+         --|***
          --|*** local
          --|*** cp: like constant_pool
          --|*** ca: like code_attribute
@@ -779,7 +779,7 @@ feature {NATIVE}
          full_name.clear_count
          --|*** We should use the `location_' instead ! ***
          --| ... but I keep the old mangling (to be discussed with Cyril).
-         --|*** (Dom sept 18th 2004) ***         
+         --|*** (Dom sept 18th 2004) ***
          full_name.append(once "fr/loria/smarteiffel/")
          --|*** *****************************
          full_name.append(module_name_)
@@ -816,7 +816,7 @@ feature {NATIVE}
          idx := constant_pool.idx_methodref3(full_name, feature_name_, prototype)
          code_attribute.opcode_invokestatic(idx, space)
       end
-   
+
 feature {NATIVE_BUILT_IN}
    push_se_argc is
       local
@@ -974,7 +974,7 @@ feature {NATIVE}
    inside_twin (cpy: RUN_FEATURE) is
       do
          stack_push(C_inside_twin)
-         stack_top.set_type(cpy.type_of_current)         
+         stack_top.set_type(cpy.type_of_current)
          stack_top.set_anonymous_feature(cpy.base_feature)
          cpy.mapping_jvm
          pop

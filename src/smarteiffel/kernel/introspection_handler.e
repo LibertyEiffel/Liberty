@@ -53,7 +53,7 @@ feature {EXTERNAL_FUNCTION}
    collect_internals_from_generating_type (insp: OTHER_INSPECT_STATEMENT;
                                            sp: like internals_from_generating_type_position; nt: TYPE) is
       local
-         live_types: FAST_ARRAY[LIVE_TYPE]; dummy: TYPE
+         live_types: TRAVERSABLE[LIVE_TYPE]; dummy: TYPE
          i: INTEGER
          live_type: LIVE_TYPE
       do
@@ -84,7 +84,7 @@ feature {EXTERNAL_FUNCTION}
                                                         args: FORMAL_ARG_LIST; nt: TYPE) is
       local
          arg: ARGUMENT_NAME2; arg_type, dummy: TYPE
-         live_types: FAST_ARRAY[LIVE_TYPE]; i: INTEGER; live_type: LIVE_TYPE
+         live_types: TRAVERSABLE[LIVE_TYPE]; i: INTEGER; live_type: LIVE_TYPE
       do
          if not is_native_array_internals_from_generating_type_used then
             native_array_internals_from_generating_type_position := sp
@@ -1336,7 +1336,7 @@ feature {}
          original_when_item, when_item: WHEN_ITEM_1
          original_manifest_string, manifest_string: MANIFEST_STRING
          original_type_name: STRING
-         live_types: FAST_ARRAY[LIVE_TYPE]
+         live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
          live_type: LIVE_TYPE
          type_name: HASHED_STRING
@@ -1399,7 +1399,7 @@ feature {}
          original_when_item, when_item: WHEN_ITEM_1
          original_manifest_string, manifest_string: MANIFEST_STRING
          original_type_name: STRING
-         live_types: FAST_ARRAY[LIVE_TYPE]
+         live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
          live_type: LIVE_TYPE
          type_name: HASHED_STRING
@@ -1470,7 +1470,7 @@ feature {}
          original_when_item, when_item: WHEN_ITEM_1
          original_manifest_string, manifest_string: MANIFEST_STRING
          original_type_name: STRING
-         live_types: FAST_ARRAY[LIVE_TYPE]
+         live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
          live_type: LIVE_TYPE
          type_name: HASHED_STRING
@@ -1533,7 +1533,7 @@ feature {}
          original_when_item, when_item: WHEN_ITEM_1
          original_manifest_string, manifest_string: MANIFEST_STRING
          original_type_name: STRING
-         live_types: FAST_ARRAY[LIVE_TYPE]
+         live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
          live_type: LIVE_TYPE
          type_name: HASHED_STRING

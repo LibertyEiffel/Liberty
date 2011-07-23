@@ -16,7 +16,7 @@ insert
 feature {SMART_EIFFEL}
    compile is
       local
-         gc_flag: BOOLEAN i, run_count: INTEGER; lt: LIVE_TYPE
+         gc_flag: BOOLEAN
       do
          check
             ace.splitter /= Void
@@ -50,57 +50,11 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.customize_runtime
             -- ---------------------------------------------------------
-            from
-               out_h_buffer.copy(once "/* C Header Pass 1: */%N")
-               write_out_h_buffer
-               agent_pool.c_header_pass1
-               i := live_type_map.upper
-            until
-               i < 0
-            loop
-               lt := live_type_map.item(i)
-               if lt.at_run_time then
-                  run_count := run_count + 1
-               end
-               lt.c_header_pass1
-               i := i - 1
-            end
+            ;(create {C_HEADER_PASS_1}).compile
+            ;(create {C_HEADER_PASS_2}).compile
+            ;(create {C_HEADER_PASS_3}).compile
+            ;(create {C_HEADER_PASS_4}).compile
             -- ---------------------------------------------------------
-            from
-               out_h_buffer.copy(once "/* C Header Pass 2: */%N")
-               write_out_h_buffer
-               i := live_type_map.upper
-            until
-               i < 0
-            loop
-               lt := live_type_map.item(i)
-               lt.c_header_pass2
-               i := i - 1
-            end
-            -- ---------------------------------------------------------
-            from
-               out_h_buffer.copy(once "/* C Header Pass 3: */%N")
-               write_out_h_buffer
-               i := live_type_map.upper
-            until
-               i < 0
-            loop
-               lt := live_type_map.item(i)
-               lt.c_header_pass3
-               i := i - 1
-            end
-            -- ---------------------------------------------------------
-            from
-               out_h_buffer.copy(once "/* C Header Pass 4: */%N")
-               write_out_h_buffer
-               i := live_type_map.upper
-            until
-               i < 0
-            loop
-               lt := live_type_map.item(i)
-               lt.c_header_pass4
-               i := i - 1
-            end
             if not smart_eiffel.is_at_run_time(as_native_array_character) then
                -- Force definition of T9 and T7:
                out_h_buffer.copy(once "typedef T3* T9;%N")
@@ -151,7 +105,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   live_type_map: FAST_ARRAY[LIVE_TYPE] is
+   live_type_map: TRAVERSABLE[LIVE_TYPE] is
       do
          Result := smart_eiffel.live_type_map
       end
@@ -505,11 +459,11 @@ feature {}
       require
          not smart_eiffel.status.is_analyzing
       local
-         i_ltm, i_c, nb_types: INTEGER; a_type: LIVE_TYPE; collection_sorter: COLLECTION_SORTER[LIVE_TYPE]
+         i_ltm, i_c, nb_types: INTEGER; a_type: LIVE_TYPE
       do
          nb_types := id_provider.max_id + 1
          out_c_buffer.clear_count
-         collection_sorter.sort(live_type_map)
+         smart_eiffel.sort_live_type_map
          from
             i_ltm := 0
             i_c := 0
