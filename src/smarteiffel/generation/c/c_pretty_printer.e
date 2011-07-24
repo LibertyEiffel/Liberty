@@ -13,6 +13,26 @@ inherit
 insert
    PLATFORM
 
+create {ANY}
+   make
+
+feature {ANY}
+   header_pass_1: C_HEADER_PASS_1
+   header_pass_2: C_HEADER_PASS_2
+   header_pass_3: C_HEADER_PASS_3
+   header_pass_4: C_HEADER_PASS_4
+   live_type_compiler: C_LIVE_TYPE_COMPILER
+
+feature {}
+   make is
+      do
+         create header_pass_1.make
+         create header_pass_2.make
+         create header_pass_3.make
+         create header_pass_4.make
+         create live_type_compiler.make
+      end
+
 feature {SMART_EIFFEL}
    compile is
       local
@@ -50,10 +70,10 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.customize_runtime
             -- ---------------------------------------------------------
-            c_header_pass_1.compile
-            c_header_pass_2.compile
-            c_header_pass_3.compile
-            c_header_pass_4.compile
+            header_pass_1.compile
+            header_pass_2.compile
+            header_pass_3.compile
+            header_pass_4.compile
             -- ---------------------------------------------------------
             if not smart_eiffel.is_at_run_time(as_native_array_character) then
                -- Force definition of T9:
@@ -169,7 +189,7 @@ feature {}
                if cn /= current_class_name then
                   current_class_name := cn
                end
-               c_live_type_compiler.compile(lt, 0)
+               live_type_compiler.compile(lt, 0)
                i := i + 1
             end
          else
@@ -184,7 +204,7 @@ feature {}
                lt := live_type_map.item(i)
                ct := lt.canonical_type_mark
                if ct.is_kernel_expanded then
-                  c_live_type_compiler.compile(lt, 0)
+                  live_type_compiler.compile(lt, 0)
                elseif ct.is_string then
                   lt_string := lt
                end
@@ -206,13 +226,13 @@ feature {}
                lt := live_type_map.item(i)
                ctn := lt.class_text_name.to_string
                if as_native_array = ctn then
-                  c_live_type_compiler.compile(lt, 0)
+                  live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
             if lt_string /= Void then
                if lt_string.at_run_time then
-                  c_live_type_compiler.compile(lt_string, 0)
+                  live_type_compiler.compile(lt_string, 0)
                end
             end
             from
@@ -224,7 +244,7 @@ feature {}
                ct := lt.canonical_type_mark
                ctn := ct.class_text_name.to_string
                if as_array = ctn or else as_fixed_array = ctn then
-                  c_live_type_compiler.compile(lt, 0)
+                  live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
@@ -235,7 +255,7 @@ feature {}
             loop
                lt := live_type_map.item(i)
                if lt.is_generic then
-                  c_live_type_compiler.compile(lt, 0)
+                  live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
@@ -255,8 +275,8 @@ feature {}
                loop
                   lt := live_type_map.item(i)
                   if lt.at_run_time then
-                     c_live_type_compiler.compile(lt, depth)
-                     if not c_live_type_compiler.is_compiled(lt) then
+                     live_type_compiler.compile(lt, depth)
+                     if not live_type_compiler.is_compiled(lt) then
                         stop := False
                      end
                   end

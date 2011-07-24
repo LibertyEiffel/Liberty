@@ -51,31 +51,6 @@ feature {}
 
    frozen cpp: C_PRETTY_PRINTER is
       once
-         create Result
-      end
-
-   frozen c_header_pass_1: C_HEADER_PASS_1 is
-      once
-         create Result.make
-      end
-
-   frozen c_header_pass_2: C_HEADER_PASS_2 is
-      once
-         create Result.make
-      end
-
-   frozen c_header_pass_3: C_HEADER_PASS_3 is
-      once
-         create Result.make
-      end
-
-   frozen c_header_pass_4: C_HEADER_PASS_4 is
-      once
-         create Result.make
-      end
-
-   frozen c_live_type_compiler: C_LIVE_TYPE_COMPILER is
-      once
          create Result.make
       end
 
