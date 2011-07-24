@@ -60,23 +60,6 @@ feature {ANY}
       do
       end
 
-   mapping_c is
-      local
-         has_target: BOOLEAN
-      do
-         if cpp.target_cannot_be_dropped then
-            has_target := True
-            cpp.pending_c_function_body.extend(',')
-         end
-         cpp.pending_c_function_body.append(once "/*RF1")
-         cpp.pending_c_function_body.append(name.to_string)
-         cpp.pending_c_function_body.append(once "*/")
-         value.compile_to_c(type_of_current)
-         if has_target then
-            cpp.pending_c_function_body.extend(')')
-         end
-      end
-
 feature {LIVE_TYPE}
    jvm_field_or_method is
       do

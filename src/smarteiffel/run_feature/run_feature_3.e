@@ -53,28 +53,6 @@ feature {ANY}
          end
       end
 
-   mapping_c is
-      do
-         if ace.boost and then empty_body_side_effect_free_in_boost then
-            cpp.pending_c_function_body.append(once "/*RF3E*/")
-            if cpp.cannot_drop_all then
-               cpp.pending_c_function_body.append(once ");%N")
-            end
-         else
-            default_mapping_procedure
-         end
-      end
-
-   mapping_c_root is
-         -- Called for root creation production
-      require
-         is_root
-      once
-         mapping_c
-      ensure
-         is_root
-      end
-
    mapping_jvm is
       do
          routine_mapping_jvm
@@ -190,7 +168,7 @@ feature {JVM}
          method_info.finish
       end
 
-feature {C_LIVE_TYPE_COMPILER}
+feature {C_MAPPER, C_LIVE_TYPE_COMPILER}
    empty_body_side_effect_free_in_boost: BOOLEAN is
       require
          ace.boost

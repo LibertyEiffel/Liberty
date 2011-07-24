@@ -16,7 +16,7 @@ feature {ANY}
 
    parent: TYPE_MARK
          -- Used when only when the call looks like: {TYPE_MARK} Precursor...
-         -- The goal of this extra {TYPE_MARK} is to remove a possible ambiguity in case 
+         -- The goal of this extra {TYPE_MARK} is to remove a possible ambiguity in case
          -- of multiple inheritance.
 
    arguments: EFFECTIVE_ARG_LIST
@@ -60,7 +60,7 @@ feature {ANY}
       do
          run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
          cpp.push_precursor(type, run_feature, arguments)
-         run_feature.mapping_c
+         cpp.mapper.compile(run_feature)
          cpp.pop
       end
 
@@ -181,7 +181,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          new_precursor.init(saf, args)
           code_accumulator.current_context.add_last(new_precursor)
       end
-   
+
 feature {}
    make (sp: like start_position; pc: like parent; pal: like arguments) is
       require

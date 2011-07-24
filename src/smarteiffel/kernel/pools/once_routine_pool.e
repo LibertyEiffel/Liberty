@@ -530,7 +530,7 @@ feature {RUN_FEATURE_6}
          end
       end
 
-feature {RUN_FEATURE, LIVE_TYPE, C_LIVE_TYPE_COMPILER, RESULT, NON_VOID_NO_DISPATCH}
+feature {RUN_FEATURE, LIVE_TYPE, C_LIVE_TYPE_COMPILER, C_MAPPER, RESULT, NON_VOID_NO_DISPATCH}
    unique_result_in (string: STRING; af: ANONYMOUS_FEATURE) is
       do
          string.extend('o')
@@ -593,7 +593,7 @@ feature {}
                id.append_in(cpp.pending_c_function_body)
                cpp.pending_c_function_body.append(once ";%N")
                cpp.push_create_instruction(type, default_create_procedure, Void, internal_c_local)
-               default_create_procedure.mapping_c
+               cpp.mapper.compile(default_create_procedure)
                cpp.pop
                unique_result_in(cpp.pending_c_function_body, rf.base_feature)
                cpp.pending_c_function_body.extend('=')

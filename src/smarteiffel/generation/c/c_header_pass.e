@@ -10,7 +10,7 @@ inherit
       end
 
 insert
-   C_COMPILATION_MIXIN
+   C_LIVE_TYPE_MIXIN
       undefine
          is_equal
       end

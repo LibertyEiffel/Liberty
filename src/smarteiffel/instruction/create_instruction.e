@@ -124,7 +124,7 @@ feature {ANY}
                   c := Void
                   smart_eiffel.magic_count_increment
                end
-            end   
+            end
          end
          Result := current_or_twin_init(explicit_type, writable, c)
       end
@@ -165,7 +165,7 @@ feature {ANY}
             if call /= Void then
                rf := call.run_feature_for(type)
                cpp.push_create_instruction(type, rf, arguments, internal_c_local)
-               rf.mapping_c
+               cpp.mapper.compile(rf)
                cpp.pop
             end
             writable.compile_to_c(type)
@@ -193,7 +193,7 @@ feature {ANY}
                id.append_in(cpp.pending_c_function_body)
                cpp.pending_c_function_body.append(once ";%N")
                cpp.push_create_instruction(type, rf, args, internal_c_local)
-               rf.mapping_c
+               cpp.mapper.compile(rf)
                cpp.pop
                writable.compile_to_c(type)
                cpp.pending_c_function_body.extend('=')
@@ -322,7 +322,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
          end
       end
-   
+
 feature {}
    make (sp: like start_position; et: like explicit_type; w: like writable; c: like call) is
       require

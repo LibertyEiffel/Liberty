@@ -177,12 +177,6 @@ feature {ANY}
          Result := base_feature.start_position
       end
 
-   mapping_c is
-         -- Produce C code when current is called and when the concrete type of target is unique (`cpp' is in
-         -- charge of the context).
-      deferred
-      end
-
    mapping_jvm is
       deferred
       end
@@ -208,69 +202,6 @@ feature {ANY}
          end
          if rescue_compound /= Void then
             Result := Result + 1
-         end
-      end
-
-feature {}
-   frozen default_mapping_procedure is
-         -- Default mapping for procedure calls with target.
-      do
-         default_mapping_function
-         cpp.pending_c_function_body.append(once ";%N")
-      end
-
-   frozen default_mapping_function is
-         -- Default mapping for function calls with target.
-      require
-         cpp.pending_c_function
-      local
-         no_check, uc, tcbd: BOOLEAN
-      do
-         no_check := ace.no_check
-         uc := use_current
-         if not uc then
-            tcbd := cpp.target_cannot_be_dropped
-            if tcbd then
-               cpp.pending_c_function_body.extend(',')
-            end
-         end
-         mapping_name_in(cpp.pending_c_function_body)
-         default_mapping_arg(no_check, uc, tcbd)
-      end
-
-   frozen default_mapping_arg (no_check, uc, tcbd: BOOLEAN) is
-      do
-         cpp.pending_c_function_body.extend('(')
-         if no_check then
-            cpp.pending_c_function_body.append(once "&ds")
-         end
-         if ace.profile then
-            if no_check then
-               cpp.pending_c_function_body.extend(',')
-            end
-            cpp.pending_c_function_body.append(once "&local_profile")
-         end
-         if uc then
-            if no_check or else ace.profile then
-               cpp.pending_c_function_body.extend(',')
-            end
-            if type_of_current.is_boolean then
-               cpp.pending_c_function_body.append(once "(T6)(")
-            end
-            cpp.put_target_as_target(type_of_current)
-            if type_of_current.is_boolean then
-               cpp.pending_c_function_body.extend(')')
-            end
-         end
-         if arguments /= Void then
-            if uc or else no_check or else ace.profile then
-               cpp.pending_c_function_body.extend(',')
-            end
-            cpp.put_arguments(arguments.count)
-         end
-         cpp.pending_c_function_body.extend(')')
-         if not uc and then tcbd then
-            cpp.pending_c_function_body.extend(')')
          end
       end
 

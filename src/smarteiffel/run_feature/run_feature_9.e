@@ -44,19 +44,6 @@ feature {ANY}
       do
       end
 
-   mapping_c is
-      do
-         if ace.no_check then
-            if result_type = Void then
-               default_mapping_procedure
-            else
-               default_mapping_function
-            end
-         elseif result_type /= Void then
-            result_type.c_initialize_in(cpp.pending_c_function_body)
-         end
-      end
-
    local_vars: LOCAL_VAR_LIST is
       do
       end

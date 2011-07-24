@@ -14,13 +14,13 @@ inherit
       end
 
 insert
-   C_COMPILATION_MIXIN
+   C_LIVE_TYPE_MIXIN
       undefine
          is_equal
       end
    SINGLETON
 
-create {ANY}
+create {C_PRETTY_PRINTER}
    make
 
 feature {C_PRETTY_PRINTER}
@@ -184,7 +184,7 @@ feature {}
          end
          if fs /= Void then
             cpp.push_create_expression(live_type.type, fs, internal_c_local)
-            fs.run_feature_for(live_type.type).mapping_c
+            cpp.mapper.compile(fs.run_feature_for(live_type.type))
             cpp.pop
             if fs /= Void and then ace.profile then
                smart_eiffel.stop_profile
@@ -379,7 +379,7 @@ feature {}
                   result_type_id.append_in(function_body)
                   function_body.append(once ";%N")
                   cpp.push_create_instruction(run_feature.type_of_current, rf, Void, internal_c_local)
-                  rf.mapping_c
+                  cpp.mapper.compile(rf)
                   cpp.pop
                   if run_feature.is_once_function then
                      once_routine_pool.unique_result_in(function_body, run_feature.base_feature)

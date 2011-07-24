@@ -44,11 +44,6 @@ feature {ANY}
       do
       end
 
-   mapping_c is
-      do
-         default_mapping_procedure
-      end
-
 feature {}
    do_adapt is
       local

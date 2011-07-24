@@ -6,7 +6,7 @@ class C_HEADER_PASS_4
 inherit
    C_HEADER_PASS
 
-create {ANY}
+create {C_PRETTY_PRINTER}
    make
 
 feature {}

@@ -50,15 +50,6 @@ feature {ANY}
          Result := is_precomputable_once
       end
 
-   mapping_c is
-      do
-         if is_precomputable_once then
-            once_routine_pool.unique_result_in(cpp.pending_c_function_body, base_feature)
-         else
-            default_mapping_function
-         end
-      end
-
    mapping_jvm is
       do
          routine_mapping_jvm

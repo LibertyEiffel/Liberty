@@ -75,34 +75,6 @@ feature {ANY}
          cpp.recompilation_comment(type_of_current.live_type)
       end
 
-   mapping_c is
-      do
-         check
-            -- No more attribute in kernel expanded classes.
-            not type_of_current.is_kernel_expanded
-         end
-         if need_c_function and then cpp.use_c_function_call_for_attribute_read then
-            default_mapping_function
-         else
-            cpp.pending_c_function_body.append(once "(/*RF2*/")
-            if type_of_current.is_reference then
-               cpp.pending_c_function_body.extend('(')
-               cpp.put_target_as_target(type_of_current)
-               cpp.pending_c_function_body.append(once ")->")
-               put_c_field_name
-            else
-               check
-                  type_of_current.is_user_expanded
-               end
-               cpp.pending_c_function_body.extend('(')
-               cpp.put_target_as_value
-               cpp.pending_c_function_body.append(once ").")
-               put_c_field_name
-            end
-            cpp.pending_c_function_body.extend(')')
-         end
-      end
-
 feature {LIVE_TYPE}
    mapping_c_inside_introspect is
       do
@@ -235,7 +207,7 @@ feature {JVM}
          field_info.add(access_flags, name_idx, descriptor)
       end
 
-feature {C_LIVE_TYPE_COMPILER}
+feature {C_MAPPER, C_LIVE_TYPE_COMPILER}
    need_c_function: BOOLEAN is
       do
          if ace.ensure_check then

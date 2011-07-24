@@ -248,7 +248,7 @@ feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
                   id.append_in(cpp.pending_c_function_body)
                   cpp.pending_c_function_body.append(once ";%N")
                   cpp.push_create_instruction(type, rf, Void, internal_c_local)
-                  rf.mapping_c
+                  cpp.mapper.compile(rf)
                   cpp.pop
                   cpp.pending_c_function_body.extend('_')
                   cpp.pending_c_function_body.append(name(i).to_string)

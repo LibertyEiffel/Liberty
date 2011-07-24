@@ -51,19 +51,6 @@ feature {ANY}
       do
       end
 
-   mapping_c is
-      local
-         bf: like base_feature; native: NATIVE
-      do
-         bf := base_feature
-         native := bf.native
-         if does_need_c_wrapper(native) then
-            default_mapping_function
-         else
-            native.c_mapping_function(Current, bf.class_text.name.to_string, bf.first_name.to_string)
-         end
-      end
-
    mapping_jvm is
       local
          bf: like base_feature; native: NATIVE; bcn: STRING
@@ -173,7 +160,7 @@ feature {}
          routine_update_tmp_jvm_descriptor
       end
 
-feature {C_LIVE_TYPE_COMPILER}
+feature {C_LIVE_TYPE_COMPILER, C_MAPPER}
    does_need_c_wrapper (native: NATIVE): BOOLEAN is
       do
          if base_feature.is_generated_eiffel then

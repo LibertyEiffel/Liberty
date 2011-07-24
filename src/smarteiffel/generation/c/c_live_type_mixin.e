@@ -1,39 +1,56 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_COMPILATION_MIXIN
+deferred class C_LIVE_TYPE_MIXIN
 
 insert
-   GLOBALS
+   C_COMPILATION_MIXIN
 
-feature {} -- cpp access helpers for a bit of prettiness
-   out_h: STRING is
+feature {ANY}
+   is_compiled (live_type: LIVE_TYPE): BOOLEAN is
+      require
+         live_type /= Void
       do
-         Result := cpp.out_h_buffer
+         Result := compiled.fast_has(live_type)
       end
 
-   flush_out_h is
+feature {}
+   compile_live_type (live_type: LIVE_TYPE) is
+      require
+         live_type /= Void
       do
-         cpp.write_out_h_buffer
-         cpp.out_h_buffer.clear_count
+         if live_type.at_run_time and then not is_compiled(live_type) then
+            set_compiled(live_type)
+            do_compile(live_type)
+         end
       end
 
-   out_c: STRING is
-      do
-         Result := cpp.out_c_buffer
+   do_compile (live_type: LIVE_TYPE) is
+      require
+         live_type /= Void
+         live_type.at_run_time
+      deferred
       end
 
-   function_signature: STRING is
+feature {}
+   set_compiled (live_type: LIVE_TYPE) is
+      require
+         live_type /= Void
+         not is_compiled(live_type)
       do
-         Result := cpp.pending_c_function_signature
+         compiled.fast_add(live_type)
+      ensure
+         is_compiled(live_type)
       end
 
-   function_body: STRING is
+   compiled: HASHED_SET[LIVE_TYPE]
+
+   make is
       do
-         Result := cpp.pending_c_function_body
+         create compiled.make
       end
 
-end -- class C_COMPILATION_MIXIN
+end -- class C_LIVE_TYPE_MIXIN
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

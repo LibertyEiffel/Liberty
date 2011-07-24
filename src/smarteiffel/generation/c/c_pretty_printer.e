@@ -22,6 +22,7 @@ feature {ANY}
    header_pass_3: C_HEADER_PASS_3
    header_pass_4: C_HEADER_PASS_4
    live_type_compiler: C_LIVE_TYPE_COMPILER
+   mapper: C_MAPPER
 
 feature {}
    make is
@@ -31,6 +32,7 @@ feature {}
          create header_pass_3.make
          create header_pass_4.make
          create live_type_compiler.make
+         create mapper.make
       end
 
 feature {SMART_EIFFEL}
@@ -1136,7 +1138,7 @@ feature {}
          end
       end
 
-feature {RUN_FEATURE, NATIVE}
+feature {C_MAPPER, NATIVE}
    target_cannot_be_dropped: BOOLEAN is
          -- True when top target cannot be dropped because we are not sure that
          -- target is non Void or that target has no side effects. When Result is True,
@@ -1425,7 +1427,7 @@ feature {CECIL_FILE}
          out_h.disconnect
       end
 
-feature {RUN_FEATURE_2}
+feature {C_MAPPER}
    use_c_function_call_for_attribute_read: BOOLEAN is
       require
          not ace.boost
@@ -1487,7 +1489,7 @@ feature {NATIVE}
       do
          stack_push(C_inside_twin)
          stack_top.set_type(cpy.type_of_current)
-         cpy.mapping_c
+         mapper.compile(cpy)
          pop
       end
 
@@ -1766,7 +1768,7 @@ feature {FEATURE_CALL}
             end
             run_feature := feature_stamp.run_feature_for(target_type)
             push_direct(run_feature, type, target, arguments)
-            run_feature.mapping_c
+            mapper.compile(run_feature)
             pop
          end
       end
@@ -1804,7 +1806,7 @@ feature {STATIC_CALL_0_C}
    put_direct (type: TYPE; dynamic_feature: RUN_FEATURE; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
       do
          push_direct(dynamic_feature, type, target, arguments)
-         dynamic_feature.mapping_c
+         mapper.compile(dynamic_feature)
          pop
       end
 
@@ -2477,7 +2479,7 @@ feature {}
             rf3.c_set_dump_stack_top(once "&ds", once "link")
          end
          push_create_instruction(type, rf3, Void, internal_c_local)
-         rf3.mapping_c_root
+         mapper.compile(rf3)
          pop
          class_invariant_flag := class_invariant_call_opening(rf3.type_of_current, True)
          if class_invariant_flag > 0 then

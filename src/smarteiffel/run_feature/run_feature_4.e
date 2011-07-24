@@ -51,11 +51,6 @@ feature {ANY}
          end
       end
 
-   mapping_c is
-      do
-         default_mapping_function
-      end
-
 feature {}
    do_adapt is
       local
