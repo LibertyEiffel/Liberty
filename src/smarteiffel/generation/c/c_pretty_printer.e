@@ -749,16 +749,18 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          pending_c_function_counter = 1 + old pending_c_function_counter
       end
 
-   dump_pending_c_function (non_static_flag: BOOLEAN) is
+   dump_pending_c_function (shared: BOOLEAN) is
          -- Actually dump the `pending_c_function' on `out_h' / `out_c'.
       require
          pending_c_function
       do
          out_c.put_character('%N')
          -- The signature first:
-         if non_static_flag then
+         if shared then
             out_h.put_string(pending_c_function_signature)
             out_h.put_string(once ";%N")
+         else
+            out_c.put_string(once "static ")
          end
          out_c.put_string(pending_c_function_signature)
          out_c.put_string(once "{%N")

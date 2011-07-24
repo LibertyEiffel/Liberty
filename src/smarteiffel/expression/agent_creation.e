@@ -540,7 +540,7 @@ feature {AGENT_POOL}
 
          -- The agent launcher function:
          cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "%N/*agent launcher*/static ")
+         cpp.pending_c_function_signature.append(once "%N/*agent launcher*/")
          if agent_result /= Void then
             agent_result.canonical_type_mark.c_type_for_result_in(cpp.pending_c_function_signature)
          else
