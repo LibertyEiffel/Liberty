@@ -223,7 +223,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {C_PRETTY_PRINTER}
-   c_define1 (string_at_run_time: BOOLEAN) is
+   c_define1 is
       local
          i, j, upper: INTEGER; ms: MANIFEST_STRING; us: UNICODE_STRING; storage: NATIVE_ARRAY[INTEGER_16]
          lsv: FAST_ARRAY[INTEGER_16]; lsi: FAST_ARRAY[INTEGER]

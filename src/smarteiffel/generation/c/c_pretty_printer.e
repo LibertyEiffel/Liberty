@@ -56,17 +56,17 @@ feature {SMART_EIFFEL}
             c_header_pass_4.compile
             -- ---------------------------------------------------------
             if not smart_eiffel.is_at_run_time(as_native_array_character) then
-               -- Force definition of T9 and T7:
-               out_h_buffer.copy(once "typedef T3* T9;%N")
+               -- Force definition of T9:
+               out_h_buffer.copy(once "/*Force definition of non-live NATIVE_ARRAY[CHARACTER] for manifest strings*/%Ntypedef T3* T9;%N")
                write_out_h_buffer
                if ace.no_check then
                   prepare_c_function
                   pending_c_function_signature.append(once "void se_prinT9(FILE* file, T9*o)")
-                  pending_c_function_body.append(once "fprintf(file, %"NATIVE_ARRAY[STRING]#%%p\n%",(void*)*o);")
+                  pending_c_function_body.append(once "fprintf(file, %"NATIVE_ARRAY[CHARACTER]#%%p\n%",(void*)*o);")
                   dump_pending_c_function(True)
                end
             end
-            manifest_string_pool.c_define1(smart_eiffel.is_at_run_time(as_string))
+            manifest_string_pool.c_define1
             customize_runtime
             -- ---------------------------------------------------------
             if gc_flag then
@@ -152,7 +152,7 @@ feature {}
       require
          smart_eiffel.root_procedure.set_is_root
       local
-         lt, lt_string: LIVE_TYPE; ct: TYPE_MARK; deep, i: INTEGER; stop: BOOLEAN; ctn: STRING
+         lt, lt_string: LIVE_TYPE; ct: TYPE_MARK; depth, i: INTEGER; stop: BOOLEAN; ctn: STRING
          cn, current_class_name: CLASS_NAME
       do
          if ace.no_check then
@@ -160,9 +160,9 @@ feature {}
             echo.put_integer(live_type_map.count)
             echo.put_string(once " run classes :%N")
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.lower
             loop
                lt := live_type_map.item(i)
                cn := lt.class_text_name
@@ -170,16 +170,16 @@ feature {}
                   current_class_name := cn
                end
                lt.compile_to_c(0)
-               i := i - 1
+               i := i + 1
             end
          else
             echo.put_string(once "Compiling/Sorting ")
             echo.put_integer(live_type_map.count)
             echo.put_string(once " live TYPEs:%N")
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                ct := lt.canonical_type_mark
@@ -188,27 +188,27 @@ feature {}
                elseif ct.is_string then
                   lt_string := lt
                end
-               i := i - 1
+               i := i + 1
             end
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               i := i - 1
+               i := i + 1
             end
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                ctn := lt.class_text_name.to_string
                if as_native_array = ctn then
                   lt.compile_to_c(0)
                end
-               i := i - 1
+               i := i + 1
             end
             if lt_string /= Void then
                if lt_string.at_run_time then
@@ -216,9 +216,9 @@ feature {}
                end
             end
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                ct := lt.canonical_type_mark
@@ -226,44 +226,43 @@ feature {}
                if as_array = ctn or else as_fixed_array = ctn then
                   lt.compile_to_c(0)
                end
-               i := i - 1
+               i := i + 1
             end
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                if lt.is_generic then
                   lt.compile_to_c(0)
                end
-               i := i - 1
+               i := i + 1
             end
             from
                -- General sorting:
-               deep := 6
+               depth := 8
+            variant
+               depth + 1
             until
                stop
             loop
                from
                   stop := True
-                  i := live_type_map.upper
+                  i := live_type_map.lower
                until
-                  i < 0
+                  i > live_type_map.upper
                loop
                   lt := live_type_map.item(i)
                   if not lt.compile_to_c_done then
-                     lt.compile_to_c(deep)
+                     lt.compile_to_c(depth)
                      if not lt.compile_to_c_done then
                         stop := False
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
-               deep := deep - 1
-               check
-                  deep >= -1
-               end
+               depth := depth - 1
             end
          end
       end

@@ -1876,49 +1876,47 @@ feature {}
       end
 
 feature {C_PRETTY_PRINTER, LIVE_TYPE}
-   compile_to_c (deep: INTEGER) is
-         -- Produce C code for features of Current. The `deep' indicator is used to sort the C output in the best possible
-         -- order (more C  inlinings are possible when basic functions are produced first). As there is not always a total
-         -- order between clients, the `deep' avoid infinite track. When `deep' is greater than 0, C code writting is produced
+   compile_to_c (depth: INTEGER) is
+         -- Produce C code for features of Current. The `depth' indicator is used to sort the C output in the best possible
+         -- order (more C inlinings are possible when basic functions are produced first). As there is not always a total
+         -- order between clients, the `depth' avoids infinite recursion. When `depth' is equal to 0, C code writting is produced
          -- whatever the real client relation is.
       require
-         deep >= 0
+         depth >= 0
       local
          i: INTEGER; lt1, lt2: like Current; cc1, cc2: INTEGER
       do
          if compile_to_c_done then
          elseif not at_run_time then
             compile_to_c_done := True
-         elseif deep = 0 then
+         elseif depth = 0 then
             really_compile_to_c
-         else
-            i := actual_clients.upper
-            if i >= 0 then
-               from
-                  lt1 := Current
-                  cc1 := i + 1
-               until
-                  i = 0
-               loop
-                  lt2 := actual_clients.item(i)
-                  if not lt2.compile_to_c_done then
-                     cc2 := lt2.actual_clients.count
-                     if cc2 > cc1 then
-                        lt1 := lt2
-                        cc1 := cc2
-                     end
+         elseif not actual_clients.is_empty then
+            from
+               lt1 := Current
+               cc1 := actual_clients.count
+               i := actual_clients.lower
+            until
+               i > actual_clients.upper
+            loop
+               lt2 := actual_clients.item(i)
+               if not lt2.compile_to_c_done then
+                  cc2 := lt2.actual_clients.count
+                  if cc2 > cc1 then
+                     lt1 := lt2
+                     cc1 := cc2
                   end
-                  i := i - 1
                end
-               if lt1 = Current then
-                  really_compile_to_c
-               else
-                  lt1.compile_to_c(deep - 1)
-               end
+               i := i + 1
+            end
+            if lt1 = Current then
+               really_compile_to_c
+            else
+               lt1.compile_to_c(depth - 1)
             end
          end
       ensure
-         deep = 0 implies compile_to_c_done
+         depth = 0 implies compile_to_c_done
       end
 
 feature {LIVE_TYPE}
@@ -2477,6 +2475,7 @@ feature {}
    really_compile_to_c is
       require
          at_run_time
+         not compile_to_c_done
       local
          i: INTEGER; fs: FEATURE_STAMP; rf: RUN_FEATURE
       do
