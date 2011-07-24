@@ -16,11 +16,38 @@ insert
       end
    SINGLETON
 
+feature {} -- cpp access helpers for a bit of prettiness
+   out_h: STRING is
+      do
+         Result := cpp.out_h_buffer
+      end
+
+   flush_out_h is
+      do
+         cpp.write_out_h_buffer
+         cpp.out_h_buffer.clear_count
+      end
+
+   out_c: STRING is
+      do
+         Result := cpp.out_c_buffer
+      end
+
+   function_signature: STRING is
+      do
+         Result := cpp.pending_c_function_signature
+      end
+
+   function_body: STRING is
+      do
+         Result := cpp.pending_c_function_body
+      end
+
 feature {C_PRETTY_PRINTER}
    compile is
       do
-         cpp.out_h_buffer.copy(header_comment)
-         cpp.write_out_h_buffer
+         out_h.copy(header_comment)
+         flush_out_h
          pre_compile
          smart_eiffel.live_type_map.do_all(agent compile_header)
       end
@@ -87,12 +114,12 @@ feature {}
       do
          mem_id := type_mark.id
          wa := type_mark.type.live_type.writable_attributes
-         cpp.out_h_buffer.copy(once "struct S")
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.extend('{')
+         out_h.copy(once "struct S")
+         mem_id.append_in(out_h)
+         out_h.extend('{')
          if type_mark.is_reference then
             if type_mark.type.live_type.is_tagged then
-               cpp.out_h_buffer.append(once "Tid id;")
+               out_h.append(once "Tid id;")
             end
          end
          if wa /= Void then
@@ -103,26 +130,26 @@ feature {}
             loop
                a := wa.item(i)
                t := a.result_type
-               t.c_type_for_result_in(cpp.out_h_buffer)
-               cpp.out_h_buffer.append(once " _")
-               cpp.out_h_buffer.append(a.name.to_string)
-               cpp.out_h_buffer.extend(';')
+               t.c_type_for_result_in(out_h)
+               out_h.append(once " _")
+               out_h.append(a.name.to_string)
+               out_h.extend(';')
                i := i - 1
             end
          end
-         cpp.out_h_buffer.append(once "};%N")
-         cpp.write_out_h_buffer
+         out_h.append(once "};%N")
+         flush_out_h
          if type_mark.is_expanded then
             -- For expanded comparison:
             cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "int se_cmpT")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "(T")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "* o1,T")
-            mem_id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "* o2)")
-            cpp.pending_c_function_body.append(once "int R=0;%N")
+            function_signature.append(once "int se_cmpT")
+            mem_id.append_in(function_signature)
+            function_signature.append(once "(T")
+            mem_id.append_in(function_signature)
+            function_signature.append(once "* o1,T")
+            mem_id.append_in(function_signature)
+            function_signature.append(once "* o2)")
+            function_body.append(once "int R=0;%N")
             if wa /= Void then
                from
                   i := wa.upper
@@ -132,25 +159,25 @@ feature {}
                   a := wa.item(i)
                   if not a.result_type.is_empty_expanded then
                      if a.result_type.is_expanded and then not a.result_type.is_kernel_expanded then
-                        cpp.pending_c_function_body.append(once "R = R || se_cmpT")
-                        a.result_type.id.append_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "(&(o1->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "), &(o2->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "));%N")
+                        function_body.append(once "R = R || se_cmpT")
+                        a.result_type.id.append_in(function_body)
+                        function_body.append(once "(&(o1->_")
+                        function_body.append(a.name.to_string)
+                        function_body.append(once "), &(o2->_")
+                        function_body.append(a.name.to_string)
+                        function_body.append(once "));%N")
                      else
-                        cpp.pending_c_function_body.append(once "R = R || ((o1->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once ") != (o2->_")
-                        cpp.pending_c_function_body.append(a.name.to_string)
-                        cpp.pending_c_function_body.append(once "));%N")
+                        function_body.append(once "R = R || ((o1->_")
+                        function_body.append(a.name.to_string)
+                        function_body.append(once ") != (o2->_")
+                        function_body.append(a.name.to_string)
+                        function_body.append(once "));%N")
                      end
                   end
                   i := i - 1
                end
             end
-            cpp.pending_c_function_body.append(once "return R;%N")
+            function_body.append(once "return R;%N")
             cpp.dump_pending_c_function(True)
          end
       end
@@ -164,14 +191,14 @@ feature {}
       do
          lt := type_mark.type.live_type
          mem_id := lt.id
-         cpp.out_h_buffer.clear_count
-         cpp.out_h_buffer.extend('T')
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once " M")
-         mem_id.append_in(cpp.out_h_buffer)
-         cpp.out_c_buffer.clear_count
+         out_h.clear_count
+         out_h.extend('T')
+         mem_id.append_in(out_h)
+         out_h.append(once " M")
+         mem_id.append_in(out_h)
+         out_c.clear_count
          c_object_model_in(lt)
-         cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
+         cpp.write_extern_2(out_h, out_c)
       end
 
    c_object_model_in (live_type: LIVE_TYPE) is
@@ -181,17 +208,17 @@ feature {}
          wa := live_type.writable_attributes
          if wa = Void then
             if live_type.is_tagged then
-               cpp.out_c_buffer.extend('{')
-               live_type.id.append_in(cpp.out_c_buffer)
-               cpp.out_c_buffer.extend('}')
+               out_c.extend('{')
+               live_type.id.append_in(out_c)
+               out_c.extend('}')
             else
-               live_type.canonical_type_mark.c_initialize_in(cpp.out_c_buffer)
+               live_type.canonical_type_mark.c_initialize_in(out_c)
             end
          else
-            cpp.out_c_buffer.extend('{')
+            out_c.extend('{')
             if live_type.is_tagged then
-               live_type.id.append_in(cpp.out_c_buffer)
-               cpp.out_c_buffer.extend(',')
+               live_type.id.append_in(out_c)
+               out_c.extend(',')
             end
             from
                i := wa.upper
@@ -200,13 +227,13 @@ feature {}
             loop
                rf2 := wa.item(i)
                t := rf2.result_type
-               t.c_initialize_in(cpp.out_c_buffer)
+               t.c_initialize_in(out_c)
                i := i - 1
                if i >= wa.lower then
-                  cpp.out_c_buffer.extend(',')
+                  out_c.extend(',')
                end
             end
-            cpp.out_c_buffer.extend('}')
+            out_c.extend('}')
          end
       end
 

@@ -39,31 +39,31 @@ feature {}
       do
          cpp.prepare_c_function
          ct := live_type.canonical_type_mark
-         cpp.pending_c_function_signature.append(once "void se_prinT")
-         live_type.id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(FILE* file,T")
-         live_type.id.append_in(cpp.pending_c_function_signature)
+         function_signature.append(once "void se_prinT")
+         live_type.id.append_in(function_signature)
+         function_signature.append(once "(FILE* file,T")
+         live_type.id.append_in(function_signature)
          if ct.is_reference then
-            cpp.pending_c_function_signature.extend('*')
+            function_signature.extend('*')
          end
-         cpp.pending_c_function_signature.append(once "*o)")
+         function_signature.append(once "*o)")
          if ct.is_reference then
-            cpp.pending_c_function_body.append(once "[
+            function_body.append(once "[
                if(*o==NULL){
                   fprintf(file, "void");
                   return;}
 
                               ]")
          end
-         cpp.pending_c_function_body.append(once "fprintf(file,%"")
-         cpp.pending_c_function_body.append(live_type.name.to_string)
-         cpp.pending_c_function_body.append(once "%");%N")
+         function_body.append(once "fprintf(file,%"")
+         function_body.append(live_type.name.to_string)
+         function_body.append(once "%");%N")
          if ct.is_reference or else ct.is_native_array then
-            cpp.pending_c_function_body.append(once "fprintf(file,%"#%%p%",(void*)*o);%N")
+            function_body.append(once "fprintf(file,%"#%%p%",(void*)*o);%N")
          end
          wa := live_type.writable_attributes
          if wa /= Void then
-            cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t[ %");%N")
+            function_body.append(once "fprintf(file,%"\n\t[ %");%N")
             from
                i := wa.upper
             until
@@ -71,32 +71,32 @@ feature {}
             loop
                rf2 := wa.item(i)
                t := rf2.result_type
-               cpp.pending_c_function_body.append(once "fprintf(file,%"")
-               cpp.pending_c_function_body.append(rf2.name.to_string)
-               cpp.pending_c_function_body.append(once " = %");%Nse_prinT")
+               function_body.append(once "fprintf(file,%"")
+               function_body.append(rf2.name.to_string)
+               function_body.append(once " = %");%Nse_prinT")
                if t.is_expanded then
-                  t.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "(file,")
+                  t.id.append_in(function_body)
+                  function_body.append(once "(file,")
                elseif t.is_string then
-                  cpp.pending_c_function_body.append(once "7(file,(EIF_STRING*)")
+                  function_body.append(once "7(file,(EIF_STRING*)")
                else
-                  cpp.pending_c_function_body.append(once "0(file,(T0**)")
+                  function_body.append(once "0(file,(T0**)")
                end
-               cpp.pending_c_function_body.append(once "(&((*o)")
+               function_body.append(once "(&((*o)")
                if ct.is_reference then
-                  cpp.pending_c_function_body.append(once "->")
+                  function_body.append(once "->")
                else
-                  cpp.pending_c_function_body.extend('.')
+                  function_body.extend('.')
                end
-               cpp.pending_c_function_body.extend('_')
-               cpp.pending_c_function_body.append(rf2.name.to_string)
-               cpp.pending_c_function_body.append(once ")));%N")
+               function_body.extend('_')
+               function_body.append(rf2.name.to_string)
+               function_body.append(once ")));%N")
                i := i - 1
                if i >= wa.lower then
-                  cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t  %");%N")
+                  function_body.append(once "fprintf(file,%"\n\t  %");%N")
                end
             end
-            cpp.pending_c_function_body.append(once "fprintf(file,%"\n\t]%");%N")
+            function_body.append(once "fprintf(file,%"\n\t]%");%N")
          end
          cpp.dump_pending_c_function(True)
       end
@@ -158,12 +158,12 @@ feature {NATURAL_TYPE_MARK}
       do
          if ace.no_check then
             cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "void se_prinT")
-            visited.id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "(FILE* file,T")
-            visited.id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "*o)")
-            cpp.pending_c_function_body.append(once "fprintf(file,%"%%llu%",((uint64_t) *o));")
+            function_signature.append(once "void se_prinT")
+            visited.id.append_in(function_signature)
+            function_signature.append(once "(FILE* file,T")
+            visited.id.append_in(function_signature)
+            function_signature.append(once "*o)")
+            function_body.append(once "fprintf(file,%"%%llu%",((uint64_t) *o));")
             cpp.dump_pending_c_function(True)
          end
       end

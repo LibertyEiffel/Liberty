@@ -15,12 +15,12 @@ feature {}
    pre_compile is
       do
          if agent_pool.agent_creation_collected_flag then
-            cpp.out_h_buffer.copy(once "[
-                                        typedef union _se_agent se_agent;
-                                        typedef struct _se_agent0 se_agent0;
+            out_h.copy(once "[
+                             typedef union _se_agent se_agent;
+                             typedef struct _se_agent0 se_agent0;
 
-                                        ]")
-            cpp.write_out_h_buffer
+                             ]")
+            flush_out_h
          end
       end
 
@@ -37,23 +37,23 @@ feature {}
          mem_id: INTEGER
       do
          mem_id := type_mark.id
-         cpp.out_h_buffer.clear_count
+         out_h.clear_count
          if type_mark.need_c_struct then
-            cpp.out_h_buffer.append(once "typedef struct S")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once " T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
+            out_h.append(once "typedef struct S")
+            mem_id.append_in(out_h)
+            out_h.append(once " T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
          elseif type_mark.is_empty_expanded then
-            cpp.out_h_buffer.append(once "typedef int T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
+            out_h.append(once "typedef int T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
          elseif type_mark.is_reference then
-            cpp.out_h_buffer.append(once "typedef void*T")
-            mem_id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
+            out_h.append(once "typedef void*T")
+            mem_id.append_in(out_h)
+            out_h.append(once ";%N")
          end
-         cpp.write_out_h_buffer
+         flush_out_h
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
@@ -111,15 +111,15 @@ feature {POINTER_TYPE_MARK}
 feature {NATURAL_TYPE_MARK}
    visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
       do
-         cpp.out_h_buffer.clear_count
-         cpp.out_h_buffer.append(once "typedef uint")
-         visited.bit_count.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once "_t T")
-         visited.id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once "; /*NATURAL_")
-         visited.bit_count.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once "*/%N")
-         cpp.write_out_h_buffer
+         out_h.clear_count
+         out_h.append(once "typedef uint")
+         visited.bit_count.append_in(out_h)
+         out_h.append(once "_t T")
+         visited.id.append_in(out_h)
+         out_h.append(once "; /*NATURAL_")
+         visited.bit_count.append_in(out_h)
+         out_h.append(once "*/%N")
+         flush_out_h
       end
 
 feature {INTEGER_TYPE_MARK}
@@ -139,13 +139,13 @@ feature {CLASS_TYPE_MARK}
          if not visited.type.has_external_type then
             standard_c_typedef(visited)
          else
-            cpp.out_h_buffer.clear_count
-            cpp.out_h_buffer.append(once "typedef ")
-            cpp.out_h_buffer.append(visited.type.external_type.type_name)
-            cpp.out_h_buffer.append(once " T")
-            visited.id.append_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once ";%N")
-            cpp.write_out_h_buffer
+            out_h.clear_count
+            out_h.append(once "typedef ")
+            out_h.append(visited.type.external_type.type_name)
+            out_h.append(once " T")
+            visited.id.append_in(out_h)
+            out_h.append(once ";%N")
+            flush_out_h
          end
       end
 
@@ -170,16 +170,16 @@ feature {NON_EMPTY_TUPLE_TYPE_MARK}
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         cpp.out_h_buffer.copy(once "typedef T0 T")
-         visited.id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once ";%N")
-         cpp.write_out_h_buffer
+         out_h.copy(once "typedef T0 T")
+         visited.id.append_in(out_h)
+         out_h.append(once ";%N")
+         flush_out_h
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         visited.generic_list.first.type.live_type.canonical_type_mark.accept(Current)
+         compile_header(visited.generic_list.first.type.live_type)
       end
 
 feature {USER_GENERIC_TYPE_MARK}

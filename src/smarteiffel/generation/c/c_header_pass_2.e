@@ -116,15 +116,15 @@ feature {AGENT_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         visited.generic_list.first.type.live_type.canonical_type_mark.accept(Current)
-         cpp.out_h_buffer.copy(once "typedef ")
-         visited.c_type_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.extend('T')
-         visited.id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once ";%N#define M")
-         visited.id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once " NULL%N")
-         cpp.write_out_h_buffer
+         compile_header(visited.generic_list.first.type.live_type)
+         out_h.copy(once "typedef ")
+         visited.c_type_in(out_h)
+         out_h.extend('T')
+         visited.id.append_in(out_h)
+         out_h.append(once ";%N#define M")
+         visited.id.append_in(out_h)
+         out_h.append(once " NULL%N")
+         flush_out_h
       end
 
 feature {USER_GENERIC_TYPE_MARK}
