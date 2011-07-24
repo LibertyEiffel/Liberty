@@ -32,9 +32,7 @@ feature {C_PRETTY_PRINTER}
          i: INTEGER; lt1, lt2: LIVE_TYPE; cc1, cc2: INTEGER
       do
          if not live_type.at_run_time or else is_compiled(live_type) then
-            std_output.put_line(live_type.name.to_string + ": don't compile now")
          elseif depth = 0 then
-            std_output.put_line(live_type.name.to_string + ": compile now")
             live_type.accept(Current)
          elseif not live_type.actual_clients.is_empty then
             from
@@ -44,7 +42,6 @@ feature {C_PRETTY_PRINTER}
             until
                i > live_type.actual_clients.upper
             loop
-               std_output.put_line(live_type.name.to_string + ": " + live_type.actual_clients.lower.out + ".." + live_type.actual_clients.upper.out + " -> " + i.out + " (" + lt1.name.to_string + ")")
                lt2 := live_type.actual_clients.item(i)
                if lt2.at_run_time and then not is_compiled(lt2) then
                   cc2 := lt2.actual_clients.count
