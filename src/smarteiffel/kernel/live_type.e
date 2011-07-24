@@ -63,10 +63,6 @@ feature {ANY}
          Result := type.class_invariant
       end
 
-   compile_to_c_done: BOOLEAN
-         -- True if `compile_to_c' has already be called.
-         --|*** PH(20/04/04) Should be removed I think.
-
    hash_code: INTEGER
          -- Actually, in order to speed up the compiler, this is a cache
          -- for value `name.to_string'.
@@ -270,11 +266,6 @@ feature {PRECURSOR_CALL}
          Result.base_feature = af --***Not sure it's true. Needed?
       end
 
-feature {}
-   precursor_classes: FAST_ARRAY[CLASS_TEXT]
-
-   precursor_run_features: FAST_ARRAY[RUN_FEATURE]
-
 feature {TYPE}
    feature_count: INTEGER is
       do
@@ -285,6 +276,12 @@ feature {LIVE_TYPE, LIVE_TYPE_VISITOR}
    live_features: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_STAMP]
          --|*** PH(12/05/04) it's dangerous to keep here the link between FS and AF (if the AF is changed), but it
          --|speed-up search because live_features.has use he hash code.
+
+   create_function_list: FAST_ARRAY[FEATURE_STAMP]
+
+   precursor_classes: FAST_ARRAY[CLASS_TEXT]
+
+   precursor_run_features: FAST_ARRAY[RUN_FEATURE]
 
 feature {}
    is_collecting: BOOLEAN
@@ -693,8 +690,7 @@ feature {}
          class_text_name := class_text.name
          t.set_live_type(Current)
          smart_eiffel.register_live_type(Current)
-         compile_to_c_done := True -- (Not yet `at_run_time'.)
-         create actual_clients.with_capacity(16)
+         create actual_clients_.with_capacity(16)
          id := id_provider.item(t.name, class_text.cluster)
          create run_time_set.make(Current)
          to_internals_stamp := type.feature_stamp_of(string_aliaser.hashed_string(as_to_internals))
@@ -906,7 +902,6 @@ feature {SMART_EIFFEL}
          fs: FEATURE_STAMP
       do
          at_run_time := True
-         compile_to_c_done := False
          fs := smart_eiffel.memory_dispose_stamp
          if fs.has_anonymous_feature_for(type) then
             memory_dispose_stamp := fs
@@ -1875,64 +1870,21 @@ feature {}
          end
       end
 
-feature {C_PRETTY_PRINTER, LIVE_TYPE}
-   compile_to_c (depth: INTEGER) is
-         -- Produce C code for features of Current. The `depth' indicator is used to sort the C output in the best possible
-         -- order (more C inlinings are possible when basic functions are produced first). As there is not always a total
-         -- order between clients, the `depth' avoids infinite recursion. When `depth' is equal to 0, C code writting is produced
-         -- whatever the real client relation is.
-      require
-         depth >= 0
-      local
-         i: INTEGER; lt1, lt2: like Current; cc1, cc2: INTEGER
+feature {C_LIVE_TYPE_COMPILER}
+   actual_clients: TRAVERSABLE[LIVE_TYPE] is
       do
-         if compile_to_c_done then
-         elseif not at_run_time then
-            compile_to_c_done := True
-         elseif depth = 0 then
-            really_compile_to_c
-         elseif not actual_clients.is_empty then
-            from
-               lt1 := Current
-               cc1 := actual_clients.count
-               i := actual_clients.lower
-            until
-               i > actual_clients.upper
-            loop
-               lt2 := actual_clients.item(i)
-               if not lt2.compile_to_c_done then
-                  cc2 := lt2.actual_clients.count
-                  if cc2 > cc1 then
-                     lt1 := lt2
-                     cc1 := cc2
-                  end
-               end
-               i := i + 1
-            end
-            if lt1 = Current then
-               really_compile_to_c
-            else
-               lt1.compile_to_c(depth - 1)
-            end
-         end
-      ensure
-         depth = 0 implies compile_to_c_done
+         Result := actual_clients_
       end
 
-feature {LIVE_TYPE}
-   actual_clients: FAST_ARRAY[LIVE_TYPE]
+feature {}
+   actual_clients_: HASHED_SET[LIVE_TYPE]
 
 feature {RUN_FEATURE}
    add_client (lt: LIVE_TYPE) is
       require
          lt /= Void
-      local
-         i: INTEGER
       do
-         i := actual_clients.fast_first_index_of(lt)
-         if i > actual_clients.upper then
-            actual_clients.add_last(lt)
-         end
+         actual_clients_.fast_add(lt)
       end
 
 feature {C_PRETTY_PRINTER, LIVE_TYPE}
@@ -2201,98 +2153,6 @@ feature {}
          cpp.pending_c_function_body.append(field_name)
       end
 
-   create_function_list: FAST_ARRAY[FEATURE_STAMP]
-
-   create_function_define (fs: FEATURE_STAMP) is
-         -- Note that `fs' may be Void for the case of a create expression with no call.
-      local
-         boost: BOOLEAN; args: FORMAL_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL
-      do
-         boost := ace.boost
-         cpp.prepare_c_function
-         if canonical_type_mark.is_reference then
-            canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_signature)
-         else
-            canonical_type_mark.c_type_for_result_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.extend(' ')
-         end
-         cpp.pending_c_function_signature.append(once "create")
-         id.append_in(cpp.pending_c_function_signature)
-         if fs /= Void then
-            cpp.pending_c_function_signature.append(type.get_feature_name(fs).to_string)
-         end
-         cpp.pending_c_function_signature.extend('(')
-         if fs /= Void then
-            args := fs.anonymous_feature(type).arguments
-         end
-         if ace.profile then
-            cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile")
-         end
-         if boost then
-            if args /= Void then
-               if ace.profile then
-                  cpp.pending_c_function_signature.extend(',')
-               end
-               args.compile_to_c_in(type, cpp.pending_c_function_signature)
-            elseif not ace.profile then
-               cpp.pending_c_function_signature.append(once "void")
-            end
-         else
-            if ace.profile then
-               cpp.pending_c_function_signature.extend(',')
-            end
-            cpp.pending_c_function_signature.append(once "se_dump_stack*caller")
-            if args /= Void then
-               cpp.pending_c_function_signature.extend(',')
-               args.compile_to_c_in(type, cpp.pending_c_function_signature)
-            end
-         end
-         cpp.pending_c_function_signature.extend(')')
-         --
-         if fs /= Void and then ace.profile then
-            smart_eiffel.local_profile
-         end
-         internal_c_local := cpp.pending_c_function_lock_local(type, once "new")
-         if fs /= Void and then ace.profile then
-            smart_eiffel.start_profile(fs.run_feature_for(type))
-         end
-         if not boost then
-            cpp.pending_c_function_body.append(once "se_frame_descriptor fd=%
-            %{%"create expression wrapper%",0,0,%"%",1};%N%
-                 %se_dump_stack ds;%N%
-            %ds.fd=&fd;%Nds.p=0;%N%
-                           %ds.caller=caller;%N%
-                           %ds.exception_origin=NULL;%N%
-                           %ds.locals=NULL;%N")
-         end
-         if canonical_type_mark.is_reference then
-            gc_handler.allocation_of(internal_c_local, Current)
-         else
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "=M")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-         if fs /= Void then
-            cpp.push_create_expression(type, fs, internal_c_local)
-            fs.run_feature_for(type).mapping_c
-            cpp.pop
-            if fs /= Void and then ace.profile then
-               smart_eiffel.stop_profile
-            end
-         end
-         cpp.pending_c_function_body.append(once "return (")
-         if type.is_reference then
-            cpp.pending_c_function_body.append(once "(T")
-            id.append_in(cpp.pending_c_function_body);
-            cpp.pending_c_function_body.append(once "*)")
-         end
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ");%N")
-         internal_c_local.unlock
-         cpp.dump_pending_c_function(True)
-      end
-
    default_create_run_feature_memory: like default_create_run_feature
          -- To cache `default_create_run_feature' computation.
 
@@ -2471,69 +2331,6 @@ feature {}
       end
 
    writable_attributes_mem: like writable_attributes
-
-   really_compile_to_c is
-      require
-         at_run_time
-         not compile_to_c_done
-      local
-         i: INTEGER; fs: FEATURE_STAMP; rf: RUN_FEATURE
-      do
-         compile_to_c_done := True
-         cpp.set_live_type(Current)
-         cpp.split_c_file_now(live_features.count)
-         agent_pool.c_define_agent_creation_for(type)
-         if create_function_list /= Void then
-            if create_function_list.is_empty then
-               create_function_define(Void)
-            else
-               from
-                  i := create_function_list.upper
-               until
-                  i < create_function_list.lower
-               loop
-                  fs := create_function_list.item(i)
-                  create_function_define(fs)
-                  i := i - 1
-               end
-            end
-         end
-         echo.put_character('%T')
-         echo.put_string(name.to_string)
-         echo.put_string(once " (")
-         if precursor_run_features = Void then
-            echo.put_integer(live_features.count)
-         else
-            echo.put_integer(live_features.count + precursor_run_features.count)
-         end
-         echo.put_string(once " features).%N")
-         from
-            i := live_features.lower
-         until
-            i > live_features.upper
-         loop
-            rf := live_features.key(i).run_feature_for(type)
-            rf.c_define
-            i := i + 1
-         end
-         if precursor_run_features /= Void then
-            from
-               i := precursor_run_features.upper
-            until
-               i < precursor_run_features.lower
-            loop
-               rf := precursor_run_features.item(i)
-               rf.c_define
-               i := i - 1
-            end
-         end
-         if class_text.invariant_check and then class_invariant /= Void then
-            class_invariant.define_check_class_invariant_c_function(Current)
-         end
-         type.address_of_c_define
-      ensure
-         compile_to_c_done
-      end
 
    unqualified_name_memory: STRING is
       once

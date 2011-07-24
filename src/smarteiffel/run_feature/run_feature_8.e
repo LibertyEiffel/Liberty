@@ -12,6 +12,12 @@ creation {EXTERNAL_FUNCTION}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_8_VISITOR) is
+      do
+         visitor.visit_run_feature_8(Current)
+      end
+
+feature {ANY}
    base_feature: EXTERNAL_FUNCTION
 
    arguments: FORMAL_ARG_LIST
@@ -51,38 +57,10 @@ feature {ANY}
       do
          bf := base_feature
          native := bf.native
-         if do_needs_c_wrapper(native) then
+         if does_need_c_wrapper(native) then
             default_mapping_function
          else
             native.c_mapping_function(Current, bf.class_text.name.to_string, bf.first_name.to_string)
-         end
-      end
-
-   c_define is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         if do_needs_c_wrapper(native) then
-            cpp.prepare_c_function
-            define_c_signature
-            c_define_opening
-            if bf.is_generated_eiffel then
-               if routine_body /= Void then
-                  routine_body.compile_to_c(type_of_current)
-               end
-            else
-               bcn := bf.class_text.name.to_string
-               cpp.push_inside_some_wrapper(bf)
-               cpp.pending_c_function_body.append(once "R=")
-               native.c_mapping_function(Current, bcn, bf.first_name.to_string)
-               cpp.pending_c_function_body.append(once ";%N")
-               cpp.pop
-            end
-            c_define_closing
-            cpp.pending_c_function_body.append(once "return R;%N")
-            cpp.dump_pending_c_function(True)
          end
       end
 
@@ -171,19 +149,6 @@ feature {}
          end
       end
 
-   do_needs_c_wrapper (native: NATIVE): BOOLEAN is
-      do
-         if base_feature.is_generated_eiffel then
-            Result := True
-         elseif native.do_needs_c_wrapper(type_of_current, base_feature.first_name.to_string) then
-            Result := True
-         elseif require_assertion /= Void then
-            Result := True
-         elseif ensure_assertion /= Void then
-            Result := True
-         end
-      end
-   
    set_result_type is
       do
          -- Adapt the result type:
@@ -206,6 +171,20 @@ feature {}
    update_tmp_jvm_descriptor is
       do
          routine_update_tmp_jvm_descriptor
+      end
+
+feature {C_LIVE_TYPE_COMPILER}
+   does_need_c_wrapper (native: NATIVE): BOOLEAN is
+      do
+         if base_feature.is_generated_eiffel then
+            Result := True
+         elseif native.does_need_c_wrapper(type_of_current, base_feature.first_name.to_string) then
+            Result := True
+         elseif require_assertion /= Void then
+            Result := True
+         elseif ensure_assertion /= Void then
+            Result := True
+         end
       end
 
 end -- class RUN_FEATURE_8

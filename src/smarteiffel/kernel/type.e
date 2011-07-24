@@ -1464,7 +1464,7 @@ feature {}
 
    address_of_memory2: FAST_ARRAY[ADDRESS_OF]
 
-feature {LIVE_TYPE}
+feature {C_LIVE_TYPE_COMPILER}
    address_of_c_define is
       local
          i: INTEGER

@@ -263,7 +263,7 @@ feature {}
       end
 
    o_flag (bf: ANONYMOUS_FEATURE): STRING is
-         -- Compute the only one corresponding `flag': fBCxxKey used to check that 
+         -- Compute the only one corresponding `flag': fBCxxKey used to check that
          -- execution is done.
       require
          bf /= Void
@@ -346,7 +346,7 @@ feature {C_PRETTY_PRINTER}
          loop
             non_void_no_dispatch := precomputable_function_list.item(i)
             if collected_precomputable_function.fast_has(non_void_no_dispatch) then
-               -- Only collected one are generated, but we must also make sure that it is not yet generated 
+               -- Only collected one are generated, but we must also make sure that it is not yet generated
                -- (more than one `non_void_no_dispatch' may correspond to the same `once_function'):
                once_function := non_void_no_dispatch.once_function
                unique_id := once "... unique buffer ..."
@@ -373,7 +373,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {RUN_FEATURE} -- For `compile_to_c':
+feature {RUN_FEATURE_5, RUN_FEATURE_6, C_LIVE_TYPE_COMPILER} -- For `compile_to_c':
    c_define_o_flag (rf: RUN_FEATURE) is
          -- Add the definition/initialization of the corresponding `o_flag' if not yet done.
       require
@@ -450,10 +450,10 @@ feature {RUN_FEATURE} -- For `compile_to_c':
             cpp.pending_c_function_body.append(once "=2;}%Nelse{%N")
             cpp.pending_c_function_body.append(once "ac_req(")
             cpp.pending_c_function_body.append(flag)
-            cpp.pending_c_function_body.append(once "==2, %"Recursive once function.%");%N}%N")            
+            cpp.pending_c_function_body.append(once "==2, %"Recursive once function.%");%N}%N")
          end
       end
-   
+
    c_test_o_flag_introspect (rf: RUN_FEATURE) is
       require
          rf.is_once_routine
@@ -530,7 +530,7 @@ feature {RUN_FEATURE_6}
          end
       end
 
-feature {RUN_FEATURE, LIVE_TYPE, RESULT, NON_VOID_NO_DISPATCH}
+feature {RUN_FEATURE, LIVE_TYPE, C_LIVE_TYPE_COMPILER, RESULT, NON_VOID_NO_DISPATCH}
    unique_result_in (string: STRING; af: ANONYMOUS_FEATURE) is
       do
          string.extend('o')

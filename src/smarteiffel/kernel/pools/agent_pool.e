@@ -109,7 +109,7 @@ feature {AGENT_LAUNCHER}
          Result /= Void
       end
 
-feature {LIVE_TYPE}
+feature {C_LIVE_TYPE_COMPILER}
    c_define_agent_creation_for (type: TYPE) is
       local
          agent_creation_list: FAST_ARRAY[AGENT_CREATION]; i: INTEGER

@@ -12,6 +12,12 @@ creation {EXTERNAL_PROCEDURE}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_7_VISITOR) is
+      do
+         visitor.visit_run_feature_7(Current)
+      end
+
+feature {ANY}
    base_feature: EXTERNAL_PROCEDURE
 
    arguments: FORMAL_ARG_LIST
@@ -55,35 +61,10 @@ feature {ANY}
       do
          bf := base_feature
          native := bf.native
-         if do_needs_c_wrapper(native) then
+         if does_need_c_wrapper(native) then
             default_mapping_procedure
          else
             native.c_mapping_procedure(Current, bf.class_text.name.to_string, bf.first_name.to_string)
-         end
-      end
-
-   c_define is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         if do_needs_c_wrapper(native) then
-            cpp.prepare_c_function
-            define_c_signature
-            c_define_opening
-            if bf.is_generated_eiffel then
-               if routine_body /= Void then
-                  routine_body.compile_to_c(type_of_current)
-               end
-            else
-               bcn := bf.class_text.name.to_string
-               cpp.push_inside_some_wrapper(bf)
-               native.c_mapping_procedure(Current, bcn, bf.first_name.to_string)
-               cpp.pop
-            end
-            c_define_closing
-            cpp.dump_pending_c_function(True)
          end
       end
 
@@ -181,11 +162,12 @@ feature {}
          routine_update_tmp_jvm_descriptor
       end
 
-   do_needs_c_wrapper (native: NATIVE): BOOLEAN is
+feature {C_LIVE_TYPE_COMPILER}
+   does_need_c_wrapper (native: NATIVE): BOOLEAN is
       do
          if base_feature.is_generated_eiffel then
             Result := True
-         elseif native.do_needs_c_wrapper(type_of_current, base_feature.first_name.to_string) then
+         elseif native.does_need_c_wrapper(type_of_current, base_feature.first_name.to_string) then
             Result := True
          elseif require_assertion /= Void then
             Result := True
@@ -193,7 +175,7 @@ feature {}
             Result := True
          end
       end
-   
+
 end -- class RUN_FEATURE_7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

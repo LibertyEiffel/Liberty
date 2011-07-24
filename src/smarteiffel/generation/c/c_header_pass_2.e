@@ -116,7 +116,7 @@ feature {AGENT_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         compile_header(visited.generic_list.first.type.live_type)
+         compile_live_type(visited.generic_list.first.type.live_type)
          out_h.copy(once "typedef ")
          visited.c_type_in(out_h)
          out_h.extend('T')

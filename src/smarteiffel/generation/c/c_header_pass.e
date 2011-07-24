@@ -10,38 +10,11 @@ inherit
       end
 
 insert
-   GLOBALS
+   C_COMPILATION_MIXIN
       undefine
          is_equal
       end
    SINGLETON
-
-feature {} -- cpp access helpers for a bit of prettiness
-   out_h: STRING is
-      do
-         Result := cpp.out_h_buffer
-      end
-
-   flush_out_h is
-      do
-         cpp.write_out_h_buffer
-         cpp.out_h_buffer.clear_count
-      end
-
-   out_c: STRING is
-      do
-         Result := cpp.out_c_buffer
-      end
-
-   function_signature: STRING is
-      do
-         Result := cpp.pending_c_function_signature
-      end
-
-   function_body: STRING is
-      do
-         Result := cpp.pending_c_function_body
-      end
 
 feature {C_PRETTY_PRINTER}
    compile is
@@ -49,57 +22,16 @@ feature {C_PRETTY_PRINTER}
          out_h.copy(header_comment)
          flush_out_h
          pre_compile
-         smart_eiffel.live_type_map.do_all(agent compile_header)
+         smart_eiffel.live_type_map.do_all(agent compile_live_type)
       end
 
 feature {}
-   compile_header (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-      do
-         if live_type.at_run_time and then not is_compiled(live_type) then
-            do_compile(live_type)
-            set_compiled(live_type)
-         end
-      end
-
    header_comment: STRING is
       deferred
       end
 
    pre_compile is
       deferred
-      end
-
-   do_compile (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-      deferred
-      end
-
-feature {}
-   is_compiled (live_type: LIVE_TYPE): BOOLEAN is
-      require
-         live_type /= Void
-      do
-         Result := compiled.fast_has(live_type)
-      end
-
-   set_compiled (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-         not is_compiled(live_type)
-      do
-         compiled.fast_add(live_type)
-      ensure
-         is_compiled(live_type)
-      end
-
-   compiled: HASHED_SET[LIVE_TYPE]
-
-   make is
-      do
-         create compiled.make
       end
 
 feature {}

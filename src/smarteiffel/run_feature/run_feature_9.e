@@ -12,6 +12,12 @@ creation {DEFERRED_ROUTINE}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_9_VISITOR) is
+      do
+         visitor.visit_run_feature_9(Current)
+      end
+
+feature {ANY}
    base_feature: DEFERRED_ROUTINE
 
    arguments: FORMAL_ARG_LIST
@@ -51,42 +57,9 @@ feature {ANY}
          end
       end
 
-   c_define is
-      local
-         msg: STRING
-      do
-         if ace.relax then
-            -- The deferred feature warning will be made later if the feature is actually in the live code.
-            error_handler.append("Feature %"")
-            error_handler.append(name.to_string)
-            error_handler.append("%" is deferred in type ")
-            error_handler.append(type_of_current.name.to_string)
-            error_handler.append(". This type should be marked as deferred.")
-            error_handler.print_as_warning
-         end
-         define_c_signature
-         error_handler.add_position(start_position)
-         error_handler.append("This routine is actually deferred is still in the live code set. %
-                              %(You will have a crash at run-time if the dynamic type of Current is ")
-         error_handler.append(type_of_current.name.to_string)
-         error_handler.append(".)")
-         error_handler.print_as_warning
-         cpp.prepare_c_function
-         c_define_opening
-         msg := "Deferred {"
-         msg.append(type_of_current.name.to_string)
-         msg.append(once "}.")
-         msg.append(name.to_string)
-         msg.append(once " called.")
-         cpp.put_error0(msg)
-         c_define_closing
-         cpp.dump_pending_c_function(True)
-      end
-
    local_vars: LOCAL_VAR_LIST is
       do
       end
-
 
 feature {}
    do_adapt is

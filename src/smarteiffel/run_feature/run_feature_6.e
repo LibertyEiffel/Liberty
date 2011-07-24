@@ -12,6 +12,12 @@ creation {ONCE_FUNCTION}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_6_VISITOR) is
+      do
+         visitor.visit_run_feature_6(Current)
+      end
+
+feature {ANY}
    base_feature: ONCE_FUNCTION
 
    arguments: FORMAL_ARG_LIST
@@ -50,27 +56,6 @@ feature {ANY}
             once_routine_pool.unique_result_in(cpp.pending_c_function_body, base_feature)
          else
             default_mapping_function
-         end
-      end
-
-   c_define is
-      do
-         once_routine_pool.c_define_o_result(Current)
-         if not is_precomputable_once then
-            once_routine_pool.c_define_o_flag(Current)
-            cpp.prepare_c_function
-            define_c_signature
-            c_define_opening
-            if routine_body /= Void then
-               once_routine_pool.c_test_o_flag(Current)
-               routine_body.compile_to_c(type_of_current)
-               once_routine_pool.c_test_o_flag_recursion(Current)
-            end
-            c_define_closing
-            cpp.pending_c_function_body.append(once "return ")
-            once_routine_pool.unique_result_in(cpp.pending_c_function_body, base_feature)
-            cpp.pending_c_function_body.append(once ";%N")            
-            cpp.dump_pending_c_function(True)
          end
       end
 

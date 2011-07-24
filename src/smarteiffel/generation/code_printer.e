@@ -32,7 +32,7 @@ feature {SMART_EIFFEL}
       deferred
       end
 
-feature {RUN_FEATURE_3}
+feature {ANY}
    incr_real_procedure_count is
       do
          real_procedure_count := real_procedure_count + 1
@@ -43,7 +43,6 @@ feature {RUN_FEATURE_3}
          procedure_count := procedure_count + 1
       end
 
-feature {RUN_FEATURE_4}
    incr_real_function_count is
       do
          real_function_count := real_function_count + 1
@@ -54,7 +53,6 @@ feature {RUN_FEATURE_4}
          function_count := function_count + 1
       end
 
-feature {}
    incr_precursor_routine_count is
       do
          precursor_routine_count := precursor_routine_count + 1
@@ -125,14 +123,14 @@ feature {} -- Context stacks:
                free_contexts.remove_last
             end
          else
-            Result := new_context(code)            
+            Result := new_context(code)
          end
          Result.reserve
       ensure
          Result.code = code
          Result.valid
       end
-   
+
    free_context (ctx: CODE_CONTEXT) is
       require
          ctx.valid
@@ -180,7 +178,7 @@ feature {ANY}
          context_stack.valid_index(top) implies stack_top.valid
 -- ***         not (old stack_top).valid
 -- *** Well, at time beeing, the previous assertion cannot be compiled....
--- *** Dom. june 8th 2008 ***         
+-- *** Dom. june 8th 2008 ***
       end
 
 feature {}

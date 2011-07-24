@@ -664,7 +664,7 @@ feature {ANONYMOUS_FEATURE, RUN_FEATURE, ARGUMENT_NAME2, LOCAL_NAME2, RESULT, E_
          Result := context_feature_stack.top
       end
 
-feature {ANONYMOUS_FEATURE, RUN_FEATURE, FEATURE_STAMP}
+feature {ANONYMOUS_FEATURE, FEATURE_STAMP, RUN_FEATURE, C_LIVE_TYPE_COMPILER}
    push_context (af: ANONYMOUS_FEATURE) is
       do
          context_feature_stack.push(af)
@@ -1478,7 +1478,7 @@ feature {RUN_FEATURE}
          old_list_stack.remove_last
       end
 
-feature {RUN_FEATURE, LIVE_TYPE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS}
+feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_LIVE_TYPE_COMPILER}
    local_profile is
       require
          ace.profile

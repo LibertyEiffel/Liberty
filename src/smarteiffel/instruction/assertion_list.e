@@ -2,881 +2,881 @@
 -- See the Copyright notice at the end of this file.
 --
 class ASSERTION_LIST
-        --
-        -- To store a list of assertions (see ASSERTION). Used as a basic element to represent
-        -- class invariant, ensure, require, loop invariant, check compound, etc.
-        --
+   --
+   -- To store a list of assertions (see ASSERTION). Used as a basic element to represent
+   -- class invariant, ensure, require, loop invariant, check compound, etc.
+   --
 
 inherit
-        INSTRUCTION
+   INSTRUCTION
       undefine out_in_tagged_out_memory
       end
 
 insert
-        TRAVERSABLE[ASSERTION]
-        ASSERTION_PRINT_TOOLS
+   TRAVERSABLE[ASSERTION]
+   ASSERTION_PRINT_TOOLS
       undefine out_in_tagged_out_memory
       end
 
 creation {ANY}
-        make
+   make
 
 feature {ANY}
-        start_position: POSITION
-                        -- The position of the corresponding keyword in the source code.
+   start_position: POSITION
+         -- The position of the corresponding keyword in the source code.
 
-        header_comment: COMMENT
+   header_comment: COMMENT
 
-        specialize_in (type: TYPE): like Current is
-                local
-                        i: INTEGER; a1, a2: ASSERTION; l: like list
-                do
-                        if list = Void then
-                                Result := Current
-                        else
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower or else a1 /= a2
-                                loop
-                                        a1 := list.item(i)
-                                        a2 := a1.specialize_in(type)
-                                        i := i - 1
-                                end
-                                if a1 = a2 then
-                                        Result := Current
-                                else
-                                        from
-                                                l := list.twin
-                                                Result := twin
-                                                Result.set_list(l)
-                                                l.put(a2, i + 1)
-                                        until
-                                                i < list.lower
-                                        loop
-                                                l.put(list.item(i).specialize_in(type), i)
-                                                i := i - 1
-                                        end
-                                end
-                        end
-                end
+   specialize_in (type: TYPE): like Current is
+      local
+         i: INTEGER; a1, a2: ASSERTION; l: like list
+      do
+         if list = Void then
+            Result := Current
+         else
+            from
+               i := list.upper
+            until
+               i < list.lower or else a1 /= a2
+            loop
+               a1 := list.item(i)
+               a2 := a1.specialize_in(type)
+               i := i - 1
+            end
+            if a1 = a2 then
+               Result := Current
+            else
+               from
+                  l := list.twin
+                  Result := twin
+                  Result.set_list(l)
+                  l.put(a2, i + 1)
+               until
+                  i < list.lower
+               loop
+                  l.put(list.item(i).specialize_in(type), i)
+                  i := i - 1
+               end
+            end
+         end
+      end
 
-        specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-                local
-                        i: INTEGER; a1, a2: ASSERTION; l: like list
-                do
-                        if list = Void then
-                                Result := Current
-                        else
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower or else a1 /= a2
-                                loop
-                                        a1 := list.item(i)
-                                        a2 := a1.specialize_thru(parent_type, parent_edge, new_type)
-                                        i := i - 1
-                                end
-                                if a1 = a2 then
-                                        Result := Current
-                                else
-                                        from
-                                                l := list.twin
-                                                Result := twin
-                                                Result.set_list(l)
-                                                l.put(a2, i + 1)
-                                        until
-                                                i < list.lower
-                                        loop
-                                                l.put(list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                                                i := i - 1
-                                        end
-                                end
-                        end
-                end
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+      local
+         i: INTEGER; a1, a2: ASSERTION; l: like list
+      do
+         if list = Void then
+            Result := Current
+         else
+            from
+               i := list.upper
+            until
+               i < list.lower or else a1 /= a2
+            loop
+               a1 := list.item(i)
+               a2 := a1.specialize_thru(parent_type, parent_edge, new_type)
+               i := i - 1
+            end
+            if a1 = a2 then
+               Result := Current
+            else
+               from
+                  l := list.twin
+                  Result := twin
+                  Result.set_list(l)
+                  l.put(a2, i + 1)
+               until
+                  i < list.lower
+               loop
+                  l.put(list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  i := i - 1
+               end
+            end
+         end
+      end
 
-        specialize_2 (type: TYPE): like Current is
-                local
-                        i: INTEGER; a1, a2: ASSERTION; l: like list
-                do
-                        if list = Void then
-                                Result := Current
-                        else
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower or else a1 /= a2
-                                loop
-                                        a1 := list.item(i)
-                                        a2 := a1.specialize_2(type)
-                                        i := i - 1
-                                end
-                                if a1 = a2 then
-                                        Result := Current
-                                else
-                                        from
-                                                l := list.twin
-                                                Result := twin
-                                                Result.set_list(l)
-                                                l.put(a2, i + 1)
-                                        until
-                                                i < list.lower
-                                        loop
-                                                l.put(list.item(i).specialize_2(type), i)
-                                                i := i - 1
-                                        end
-                                end
-                        end
-                end
+   specialize_2 (type: TYPE): like Current is
+      local
+         i: INTEGER; a1, a2: ASSERTION; l: like list
+      do
+         if list = Void then
+            Result := Current
+         else
+            from
+               i := list.upper
+            until
+               i < list.lower or else a1 /= a2
+            loop
+               a1 := list.item(i)
+               a2 := a1.specialize_2(type)
+               i := i - 1
+            end
+            if a1 = a2 then
+               Result := Current
+            else
+               from
+                  l := list.twin
+                  Result := twin
+                  Result.set_list(l)
+                  l.put(a2, i + 1)
+               until
+                  i < list.lower
+               loop
+                  l.put(list.item(i).specialize_2(type), i)
+                  i := i - 1
+               end
+            end
+         end
+      end
 
-        has_been_specialized: BOOLEAN is
-                local
-                        i: INTEGER
-                do
-                        Result := True
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower or else not Result
-                                loop
-                                        Result := list.item(i).has_been_specialized
-                                        i := i - 1
-                                end
-                        end
-                end
+   has_been_specialized: BOOLEAN is
+      local
+         i: INTEGER
+      do
+         Result := True
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               i < list.lower or else not Result
+            loop
+               Result := list.item(i).has_been_specialized
+               i := i - 1
+            end
+         end
+      end
 
-        side_effect_free (type: TYPE): BOOLEAN is
-                local
-                        i: INTEGER
-                do
-                        Result := True
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        not Result or else i < list.lower
-                                loop
-                                        Result := list.item(i).side_effect_free(type)
-                                        i := i - 1
-                                end
-                        end
-                end
+   side_effect_free (type: TYPE): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         Result := True
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               not Result or else i < list.lower
+            loop
+               Result := list.item(i).side_effect_free(type)
+               i := i - 1
+            end
+         end
+      end
 
-        is_always_true (type: TYPE): BOOLEAN is
-                local
-                        i: INTEGER; assertion: ASSERTION
-                do
-                        Result := True
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        not Result or else i < list.lower
-                                loop
-                                        assertion := list.item(i)
-                                        Result := assertion.is_always_true(type)
-                                        i := i - 1
-                                end
-                        end
-                end
+   is_always_true (type: TYPE): BOOLEAN is
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         Result := True
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               not Result or else i < list.lower
+            loop
+               assertion := list.item(i)
+               Result := assertion.is_always_true(type)
+               i := i - 1
+            end
+         end
+      end
 
-        collect (type: TYPE): TYPE is
-                local
-                        i: INTEGER; dummy: TYPE
-                do
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower
-                                loop
-                                        dummy := list.item(i).collect(type)
-                                        i := i - 1
-                                end
-                        end
-                end
+   collect (type: TYPE): TYPE is
+      local
+         i: INTEGER; dummy: TYPE
+      do
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               i < list.lower
+            loop
+               dummy := list.item(i).collect(type)
+               i := i - 1
+            end
+         end
+      end
 
-        safety_check (type: TYPE) is
-                local
-                        i: INTEGER
-                do
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower
-                                loop
-                                        list.item(i).safety_check(type)
-                                        i := i - 1
-                                end
-                        end
-                end
+   safety_check (type: TYPE) is
+      local
+         i: INTEGER
+      do
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               i < list.lower
+            loop
+               list.item(i).safety_check(type)
+               i := i - 1
+            end
+         end
+      end
 
-        simplify (type: TYPE): like Current is
-                do
-                        check
-                                simplify_is_only_made_for_boost: False
-                        end
-                        not_yet_implemented -- To be warned as well in -boost mode.
-                end
+   simplify (type: TYPE): like Current is
+      do
+         check
+            simplify_is_only_made_for_boost: False
+         end
+         not_yet_implemented -- To be warned as well in -boost mode.
+      end
 
-        adapt_for (type: TYPE): like Current is
-                local
-                        i: INTEGER; a1, a2: ASSERTION; l: like list
-                do
-                        if list = Void then
-                                Result := Current
-                        else
-                                from
-                                        i := list.upper
-                                until
-                                        i < list.lower or else a1 /= a2
-                                loop
-                                        a1 := list.item(i)
-                                        a2 := a1.adapt_for(type)
-                                        i := i - 1
-                                end
-                                if a1 = a2 then
-                                        Result := Current
-                                else
-                                        from
-                                                l := list.twin
-                                                Result := twin
-                                                Result.set_list(l)
-                                                l.put(a2, i + 1)
-                                        until
-                                                i < list.lower
-                                        loop
-                                                l.put(list.item(i).adapt_for(type), i)
-                                                i := i - 1
-                                        end
-                                end
-                        end
-                end
+   adapt_for (type: TYPE): like Current is
+      local
+         i: INTEGER; a1, a2: ASSERTION; l: like list
+      do
+         if list = Void then
+            Result := Current
+         else
+            from
+               i := list.upper
+            until
+               i < list.lower or else a1 /= a2
+            loop
+               a1 := list.item(i)
+               a2 := a1.adapt_for(type)
+               i := i - 1
+            end
+            if a1 = a2 then
+               Result := Current
+            else
+               from
+                  l := list.twin
+                  Result := twin
+                  Result.set_list(l)
+                  l.put(a2, i + 1)
+               until
+                  i < list.lower
+               loop
+                  l.put(list.item(i).adapt_for(type), i)
+                  i := i - 1
+               end
+            end
+         end
+      end
 
-        accept (visitor: ASSERTION_LIST_VISITOR) is
-                do
-                        visitor.visit_assertion_list(Current)
-                end
+   accept (visitor: ASSERTION_LIST_VISITOR) is
+      do
+         visitor.visit_assertion_list(Current)
+      end
 
-        compile_to_jvm (type: TYPE) is
-                do
-                        not_yet_implemented
-                end
+   compile_to_jvm (type: TYPE) is
+      do
+         not_yet_implemented
+      end
 
-        use_current (type: TYPE): BOOLEAN is
-                local
-                        i: INTEGER
-                do
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        Result or else i < list.lower
-                                loop
-                                        Result := list.item(i).use_current(type)
-                                        i := i - 1
-                                end
-                        end
-                end
+   use_current (type: TYPE): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               Result or else i < list.lower
+            loop
+               Result := list.item(i).use_current(type)
+               i := i - 1
+            end
+         end
+      end
 
-        set_header_comment (hc: like header_comment) is
-                do
-                        header_comment := hc
-                end
+   set_header_comment (hc: like header_comment) is
+      do
+         header_comment := hc
+      end
 
-        pretty (indent_level: INTEGER) is
-                do
-                        check
-                                False -- This one must never be called.
-                        end
-                        not_yet_implemented -- To be warned as well in -boost mode.
-                end
+   pretty (indent_level: INTEGER) is
+      do
+         check
+            False -- This one must never be called.
+         end
+         not_yet_implemented -- To be warned as well in -boost mode.
+      end
 
-        compile_to_c (type: TYPE) is
-                do
-                        check
-                                False -- This one must never be called.
-                        end
-                        not_yet_implemented -- To be warned as well in -boost mode.
-                end
+   compile_to_c (type: TYPE) is
+      do
+         check
+            False -- This one must never be called.
+         end
+         not_yet_implemented -- To be warned as well in -boost mode.
+      end
 
-        end_mark_comment: BOOLEAN is
-                do
-                        check
-                                False
-                        end
-                end
+   end_mark_comment: BOOLEAN is
+      do
+         check
+            False
+         end
+      end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-        lower: INTEGER is
-                do
-                        if not is_empty then
-                                Result := list.lower
-                        end
-                end
+   lower: INTEGER is
+      do
+         if not is_empty then
+            Result := list.lower
+         end
+      end
 
-        upper: INTEGER is
-                do
-                        if is_empty then
-                                Result := -1
-                        else
-                                Result := list.upper
-                        end
-                end
+   upper: INTEGER is
+      do
+         if is_empty then
+            Result := -1
+         else
+            Result := list.upper
+         end
+      end
 
-        count: INTEGER is
-                do
-                        if not is_empty then
-                                Result := list.count
-                        end
-                end
+   count: INTEGER is
+      do
+         if not is_empty then
+            Result := list.count
+         end
+      end
 
-        is_empty: BOOLEAN is
-                do
-                        Result := list = Void
-                end
+   is_empty: BOOLEAN is
+      do
+         Result := list = Void
+      end
 
-        item (i: INTEGER): ASSERTION is
-                do
-                        Result := list.item(i)
-                end
+   item (i: INTEGER): ASSERTION is
+      do
+         Result := list.item(i)
+      end
 
-        first: like item is
-                do
-                        Result := list.first
-                end
+   first: like item is
+      do
+         Result := list.first
+      end
 
-        last: like item is
-                do
-                        Result := list.last
-                end
+   last: like item is
+      do
+         Result := list.last
+      end
 
 feature {}
-        new_iterator: ITERATOR[ASSERTION] is
-                do
-                        check
-                                False -- Just use the usual pattern instead please.
-                        end
-                end
+   new_iterator: ITERATOR[ASSERTION] is
+      do
+         check
+            False -- Just use the usual pattern instead please.
+         end
+      end
 
-        list: FAST_ARRAY[ASSERTION]
+   list: FAST_ARRAY[ASSERTION]
 
-        make (sp: like start_position; hc: like header_comment; l: like list) is
-                require
-                        not sp.is_unknown
-                        l /= Void implies not l.is_empty
-                        hc /= Void or else l /= Void
-                do
-                        start_position := sp
-                        header_comment := hc
-                        list := l
-                ensure
-                        start_position = sp
-                        header_comment = hc
-                        list = l
-                end
+   make (sp: like start_position; hc: like header_comment; l: like list) is
+      require
+         not sp.is_unknown
+         l /= Void implies not l.is_empty
+         hc /= Void or else l /= Void
+      do
+         start_position := sp
+         header_comment := hc
+         list := l
+      ensure
+         start_position = sp
+         header_comment = hc
+         list = l
+      end
 
 feature {CLASS_TEXT, REQUIRE_ASSERTION}
-        pretty_print_with_tag (indent_level: INTEGER; name: STRING) is
-                        -- Where `name' can be "require", "require else", "ensure", "ensure then" or "check" as well.
-                local
-                        index_in_pretty_printer, i: INTEGER
-                do
-                        pretty_printer.set_indent_level(indent_level)
-                        pretty_printer.put_string(name)
-                        if header_comment /= Void then
-                                pretty_printer.set_indent_level(indent_level + 1)
-                                header_comment.pretty(indent_level)
-                        end
-                        if list /= Void then
-                                from
-                                        i := list.lower
-                                until
-                                        i > list.upper
-                                loop
-                                        pretty_printer.set_semi_colon_flag(False)
-                                        index_in_pretty_printer := pretty_printer.index_of_last_character
-                                        list.item(i).pretty(indent_level + 1)
-                                        if i > list.lower and then pretty_printer.is_opening_bracket_after(index_in_pretty_printer) then
-                                                pretty_printer.erase_everything_after(index_in_pretty_printer)
-                                                pretty_printer.set_indent_level(indent_level + 1)
-                                                pretty_printer.put_character(';')
-                                                index_in_pretty_printer := pretty_printer.index_of_last_character
-                                                pretty_printer.set_semi_colon_flag(False)
-                                                list.item(i).pretty(indent_level + 1)
-                                                pretty_printer.erase_separators_after(index_in_pretty_printer)
-                                        end
-                                        i := i + 1
-                                end
-                        end
-                end
+   pretty_print_with_tag (indent_level: INTEGER; name: STRING) is
+         -- Where `name' can be "require", "require else", "ensure", "ensure then" or "check" as well.
+      local
+         index_in_pretty_printer, i: INTEGER
+      do
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.put_string(name)
+         if header_comment /= Void then
+            pretty_printer.set_indent_level(indent_level + 1)
+            header_comment.pretty(indent_level)
+         end
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               pretty_printer.set_semi_colon_flag(False)
+               index_in_pretty_printer := pretty_printer.index_of_last_character
+               list.item(i).pretty(indent_level + 1)
+               if i > list.lower and then pretty_printer.is_opening_bracket_after(index_in_pretty_printer) then
+                  pretty_printer.erase_everything_after(index_in_pretty_printer)
+                  pretty_printer.set_indent_level(indent_level + 1)
+                  pretty_printer.put_character(';')
+                  index_in_pretty_printer := pretty_printer.index_of_last_character
+                  pretty_printer.set_semi_colon_flag(False)
+                  list.item(i).pretty(indent_level + 1)
+                  pretty_printer.erase_separators_after(index_in_pretty_printer)
+               end
+               i := i + 1
+            end
+         end
+      end
 
 feature {TYPE, ANONYMOUS_FEATURE_MIXER}
-        add_items_from (other_list: like Current): like Current is
-                        -- Add inherited `other_list' to `Current' only if it is really new code (i.e. using
-                        -- `start_position' to decide.).
-                require
-                        other_list /= Void
-                local
-                        l: like list; i: INTEGER; assertion: ASSERTION
-                do
-                        if start_position = other_list.start_position then
-                                Result := Current
-                        elseif other_list.is_empty then
-                                Result := Current
-                        else
-                                from
-                                        i := other_list.lower
-                                until
-                                        i > other_list.upper
-                                loop
-                                        assertion := other_list.item(i)
-                                        if not Current.has_assertion_located_at(assertion.start_position) then
-                                                if l = Void then
-                                                        if list /= Void then
-                                                                l := list.twin
-                                                        else
-                                                                create l.with_capacity(other_list.count)
-                                                        end
-                                                end
-                                                l.add_last(assertion)
-                                        end
-                                        i := i + 1
-                                end
-                                if l = Void then
-                                        Result := Current
-                                else
-                                        Result := twin
-                                        Result.set_list(l)
-                                end
-                        end
-                ensure
-                        Result.start_position = start_position
-                        Result.count >= old count
-                end
+   add_items_from (other_list: like Current): like Current is
+         -- Add inherited `other_list' to `Current' only if it is really new code (i.e. using
+         -- `start_position' to decide.).
+      require
+         other_list /= Void
+      local
+         l: like list; i: INTEGER; assertion: ASSERTION
+      do
+         if start_position = other_list.start_position then
+            Result := Current
+         elseif other_list.is_empty then
+            Result := Current
+         else
+            from
+               i := other_list.lower
+            until
+               i > other_list.upper
+            loop
+               assertion := other_list.item(i)
+               if not Current.has_assertion_located_at(assertion.start_position) then
+                  if l = Void then
+                     if list /= Void then
+                        l := list.twin
+                     else
+                        create l.with_capacity(other_list.count)
+                     end
+                  end
+                  l.add_last(assertion)
+               end
+               i := i + 1
+            end
+            if l = Void then
+               Result := Current
+            else
+               Result := twin
+               Result.set_list(l)
+            end
+         end
+      ensure
+         Result.start_position = start_position
+         Result.count >= old count
+      end
 
 feature {SHORT_PRINTER}
-        class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: CLASS_NAME) is
-                local
-                        i: INTEGER
-                do
-                        class_text.header_comment_for_class_invariant(Current)
-                        tmp_assertion_list.clear_count
-                        if list /= Void then
-                                from
-                                        i := 0
-                                until
-                                        i > list.upper
-                                loop
-                                        if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
-                                                tmp_assertion_list.add_last(list.item(i))
-                                        end
-                                        i := i + 1
-                                end
-                        end
-                        if header_comment /= Void or else not tmp_assertion_list.is_empty then
-                                short_printer.hook_or(once "hook811", once "invariant%N")
-                                if header_comment = Void then
-                                        short_printer.hook_or(once "hook812", once "")
-                                else
-                                        short_printer.hook_or(once "hook813", once "")
-                                        header_comment.short(once "hook814", once "   --", once "hook815", once "%N")
-                                        short_printer.hook_or(once "hook816", once "")
-                                end
-                                if tmp_assertion_list.is_empty then
-                                        short_printer.hook_or(once "hook817", once "")
-                                else
-                                        short_printer.hook_or(once "hook818", once "")
-                                        from
-                                                i := 0
-                                        until
-                                                i = tmp_assertion_list.upper
-                                        loop
-                                                tmp_assertion_list.item(i).short_hooks(type
-                                                , once "hook819"
-                                                , once "   "
-                                                , once "hook820" -- before each assertion
-                                                , once "", once "hook821" -- no tag
-                                                , once "", once "hook822" -- before tag
-                                                , once ": ", once "hook823" -- after tag
-                                                , once "", once "hook824" -- no expression
-                                                , once "", once "hook825" -- before expression
-                                                , once ";", once "hook826" -- after expression except last
-                                                , once "%N", once "hook827" -- no comment
-                                                , once "", once "hook828" -- before comment
-                                                , once " --", once "hook829" -- comment begin line
-                                                , once "%N", once "hook830" -- comment end of line
-                                                , once "", once "hook831" -- after comment
-                                                , once "")
-                                                -- end of each assertion
-                                                i := i + 1
-                                        end
-                                        tmp_assertion_list.item(i).short_hooks(type
-                                        , once "hook819"
-                                        , once "   "
-                                        , once "hook820" -- before each assertion
-                                        , once "", once "hook821" -- no tag
-                                        , once "", once "hook822" -- before tag
-                                        , once ": ", once "hook823" -- after tag
-                                        , once "", once "hook824" -- no expression
-                                        , once "", once "hook832" -- before expression
-                                        , once ";", once "hook826" -- after last expression
-                                        , once "%N", once "hook827" -- no comment
-                                        , once "", once "hook828" -- before comment
-                                        , once " --", once "hook829" -- comment begin line
-                                        , once "%N", once "hook830" -- comment end of line
-                                        , once "", once "hook831" -- after comment
-                                        , once "")
-                                        short_printer.hook_or(once "hook833", once "")
-                                end
-                                short_printer.hook_or(once "hook834", once "")
-                        end
-                end
+   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: CLASS_NAME) is
+      local
+         i: INTEGER
+      do
+         class_text.header_comment_for_class_invariant(Current)
+         tmp_assertion_list.clear_count
+         if list /= Void then
+            from
+               i := 0
+            until
+               i > list.upper
+            loop
+               if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
+                  tmp_assertion_list.add_last(list.item(i))
+               end
+               i := i + 1
+            end
+         end
+         if header_comment /= Void or else not tmp_assertion_list.is_empty then
+            short_printer.hook_or(once "hook811", once "invariant%N")
+            if header_comment = Void then
+               short_printer.hook_or(once "hook812", once "")
+            else
+               short_printer.hook_or(once "hook813", once "")
+               header_comment.short(once "hook814", once "   --", once "hook815", once "%N")
+               short_printer.hook_or(once "hook816", once "")
+            end
+            if tmp_assertion_list.is_empty then
+               short_printer.hook_or(once "hook817", once "")
+            else
+               short_printer.hook_or(once "hook818", once "")
+               from
+                  i := 0
+               until
+                  i = tmp_assertion_list.upper
+               loop
+                  tmp_assertion_list.item(i).short_hooks(type
+                  , once "hook819"
+                  , once "   "
+                  , once "hook820" -- before each assertion
+                  , once "", once "hook821" -- no tag
+                  , once "", once "hook822" -- before tag
+                  , once ": ", once "hook823" -- after tag
+                  , once "", once "hook824" -- no expression
+                  , once "", once "hook825" -- before expression
+                  , once ";", once "hook826" -- after expression except last
+                  , once "%N", once "hook827" -- no comment
+                  , once "", once "hook828" -- before comment
+                  , once " --", once "hook829" -- comment begin line
+                  , once "%N", once "hook830" -- comment end of line
+                  , once "", once "hook831" -- after comment
+                  , once "")
+                  -- end of each assertion
+                  i := i + 1
+               end
+               tmp_assertion_list.item(i).short_hooks(type
+               , once "hook819"
+               , once "   "
+               , once "hook820" -- before each assertion
+               , once "", once "hook821" -- no tag
+               , once "", once "hook822" -- before tag
+               , once ": ", once "hook823" -- after tag
+               , once "", once "hook824" -- no expression
+               , once "", once "hook832" -- before expression
+               , once ";", once "hook826" -- after last expression
+               , once "%N", once "hook827" -- no comment
+               , once "", once "hook828" -- before comment
+               , once " --", once "hook829" -- comment begin line
+               , once "%N", once "hook830" -- comment end of line
+               , once "", once "hook831" -- after comment
+               , once "")
+               short_printer.hook_or(once "hook833", once "")
+            end
+            short_printer.hook_or(once "hook834", once "")
+         end
+      end
 
-        ensure_assertion_short (type: TYPE; client: CLASS_NAME) is
-                local
-                        i: INTEGER
-                do
-                        tmp_assertion_list.clear_count
-                        if list /= Void then
-                                from
-                                        i := 0
-                                until
-                                        i > list.upper
-                                loop
-                                        if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
-                                                tmp_assertion_list.add_last(list.item(i))
-                                        end
-                                        i := i + 1
-                                end
-                        end
-                        if header_comment /= Void or else not tmp_assertion_list.is_empty then
-                                short_printer.hook_or(once "hook511", "      ensure%N")
-                                if header_comment = Void then
-                                        short_printer.hook_or(once "hook512", once "")
-                                else
-                                        short_printer.hook_or(once "hook513", once "")
-                                        header_comment.short(once "hook514", once "         --", once "hook515", once "%N")
-                                        short_printer.hook_or(once "hook516", once "")
-                                end
-                                if tmp_assertion_list.is_empty then
-                                        short_printer.hook_or(once "hook517", once "")
-                                else
-                                        short_printer.hook_or(once "hook518", once "")
-                                        from
-                                                i := tmp_assertion_list.lower
-                                        until
-                                                i = tmp_assertion_list.upper
-                                        loop
-                                                tmp_assertion_list.item(i).short_hooks(type
-                                                , once "hook519"
-                                                , once "         "
-                                                , once "hook520" -- before each assertion
-                                                , once "", once "hook521" -- no tag
-                                                , once "", once "hook522" -- before tag
-                                                , once ": ", once "hook523" -- after tag
-                                                , once "", once "hook524" -- no expression
-                                                , once "", once "hook525" -- before expression
-                                                , once ";", once "hook526" -- after expression except last
-                                                , once "%N", once "hook527" -- no comment
-                                                , once "", once "hook528" -- before comment
-                                                , once " --", once "hook529" -- comment begin line
-                                                , once "%N", once "hook530" -- comment end of line
-                                                , once "", once "hook531" -- after comment
-                                                , once "")
-                                                -- end of each assertion
-                                                i := i + 1
-                                        end
-                                        tmp_assertion_list.item(i).short_hooks(type
-                                        , once "hook519", once "         "
-                                        , once "hook520" -- before each assertion
-                                        , once "", once "hook521" -- no tag
-                                        , once "", once "hook522" -- before tag
-                                        , once ": ", once "hook523" -- after tag
-                                        , once "", once "hook524" -- no expression
-                                        , once "", once "hook532" -- before expression
-                                        , once "", once "hook526" -- after expression except last
-                                        , once "%N", once "hook527" -- no comment
-                                        , once "", once "hook528" -- before comment
-                                        , once " --", once "hook529" -- comment begin line
-                                        , once "%N", once "hook530" -- comment end of line
-                                        , once "", once "hook531" -- after comment
-                                        , once "")
-                                        -- end of each assertion
-                                        short_printer.hook_or(once "hook533", once "")
-                                end
-                                short_printer.hook_or(once "hook534", once "")
-                        end
-                end
+   ensure_assertion_short (type: TYPE; client: CLASS_NAME) is
+      local
+         i: INTEGER
+      do
+         tmp_assertion_list.clear_count
+         if list /= Void then
+            from
+               i := 0
+            until
+               i > list.upper
+            loop
+               if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
+                  tmp_assertion_list.add_last(list.item(i))
+               end
+               i := i + 1
+            end
+         end
+         if header_comment /= Void or else not tmp_assertion_list.is_empty then
+            short_printer.hook_or(once "hook511", "      ensure%N")
+            if header_comment = Void then
+               short_printer.hook_or(once "hook512", once "")
+            else
+               short_printer.hook_or(once "hook513", once "")
+               header_comment.short(once "hook514", once "    --", once "hook515", once "%N")
+               short_printer.hook_or(once "hook516", once "")
+            end
+            if tmp_assertion_list.is_empty then
+               short_printer.hook_or(once "hook517", once "")
+            else
+               short_printer.hook_or(once "hook518", once "")
+               from
+                  i := tmp_assertion_list.lower
+               until
+                  i = tmp_assertion_list.upper
+               loop
+                  tmp_assertion_list.item(i).short_hooks(type
+                  , once "hook519"
+                  , once "    "
+                  , once "hook520" -- before each assertion
+                  , once "", once "hook521" -- no tag
+                  , once "", once "hook522" -- before tag
+                  , once ": ", once "hook523" -- after tag
+                  , once "", once "hook524" -- no expression
+                  , once "", once "hook525" -- before expression
+                  , once ";", once "hook526" -- after expression except last
+                  , once "%N", once "hook527" -- no comment
+                  , once "", once "hook528" -- before comment
+                  , once " --", once "hook529" -- comment begin line
+                  , once "%N", once "hook530" -- comment end of line
+                  , once "", once "hook531" -- after comment
+                  , once "")
+                  -- end of each assertion
+                  i := i + 1
+               end
+               tmp_assertion_list.item(i).short_hooks(type
+               , once "hook519", once "    "
+               , once "hook520" -- before each assertion
+               , once "", once "hook521" -- no tag
+               , once "", once "hook522" -- before tag
+               , once ": ", once "hook523" -- after tag
+               , once "", once "hook524" -- no expression
+               , once "", once "hook532" -- before expression
+               , once "", once "hook526" -- after expression except last
+               , once "%N", once "hook527" -- no comment
+               , once "", once "hook528" -- before comment
+               , once " --", once "hook529" -- comment begin line
+               , once "%N", once "hook530" -- comment end of line
+               , once "", once "hook531" -- after comment
+               , once "")
+               -- end of each assertion
+               short_printer.hook_or(once "hook533", once "")
+            end
+            short_printer.hook_or(once "hook534", once "")
+         end
+      end
 
-feature {LIVE_TYPE}
-        define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
-                require
-                        live_type.at_run_time
-                        not is_always_true(live_type.type)
-                        smart_eiffel.is_ready
-                local
-                        id: INTEGER; profile: BOOLEAN; i: INTEGER; assertion: ASSERTION; type: TYPE
-                do
-                        type := live_type.type
-                        id := live_type.id
-                        profile := ace.profile -- The invariant frame descriptor :
-                        cpp.out_h_buffer.copy(once "se_frame_descriptor se_ifd")
-                        id.append_in(cpp.out_h_buffer)
-                        cpp.out_c_buffer.copy(once "{%"invariant ")
-                        cpp.out_c_buffer.append(live_type.name.to_string)
-                        cpp.out_c_buffer.append(once "%",1,0,%"")
-                        live_type.canonical_type_mark.c_frame_descriptor_in(cpp.out_c_buffer)
-                        cpp.out_c_buffer.append(once "%",1}")
-                        cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-                        -- The function itself:
-                        cpp.prepare_c_function
-                        cpp.pending_c_function_signature.extend('T')
-                        id.append_in(cpp.pending_c_function_signature)
-                        cpp.pending_c_function_signature.append(once "*se_i")
-                        id.append_in(cpp.pending_c_function_signature)
-                        cpp.pending_c_function_signature.append(once "(se_dump_stack*caller,")
-                        if profile then
-                                cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-                        end
-                        cpp.pending_c_function_signature.extend('T')
-                        id.append_in(cpp.pending_c_function_signature)
-                        cpp.pending_c_function_signature.append(once "*C)")
-                        cpp.pending_c_function_body.append(once "se_dump_stack ds;%N")
-                        if profile then
-                                smart_eiffel.local_profile
-                        end
-                        cpp.pending_c_function_body.append(once "ds.fd=&se_ifd")
-                        id.append_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once ";%Nds.current=((void*)&C);%N")
-                        cpp.put_position_in_ds(start_position)
-                        cpp.pending_c_function_body.append(once
-                           "ds.caller=caller;%Nds.exception_origin=NULL;%Nds.locals=NULL;%Nset_dump_stack_top(&ds);/*link*/%N")
-                        if not is_always_true(type) then
-                                if profile then
-                                        smart_eiffel.start_profile_class_invariant(live_type)
-                                end
-                                cpp.stop_recursive_assertion_opening(False)
-                                from
-                                        i := list.lower
-                                until
-                                        i > list.upper
-                                loop
-                                        assertion := list.item(i)
-                                        if not assertion.is_always_true(type) then
-                                                assertion.compile_to_c_as_class_invariant(type)
-                                        end
-                                        i := i + 1
-                                end
-                                cpp.stop_recursive_assertion_closing(False)
-                                if profile then
-                                        smart_eiffel.stop_profile
-                                end
-                        end
-                        cpp.pending_c_function_body.append(once "set_dump_stack_top(caller);/*unlink*/%Nreturn C;%N")
-                        cpp.dump_pending_c_function(True)
-                end
+feature {C_LIVE_TYPE_COMPILER}
+   define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
+      require
+         live_type.at_run_time
+         not is_always_true(live_type.type)
+         smart_eiffel.is_ready
+      local
+         id: INTEGER; profile: BOOLEAN; i: INTEGER; assertion: ASSERTION; type: TYPE
+      do
+         type := live_type.type
+         id := live_type.id
+         profile := ace.profile -- The invariant frame descriptor :
+         cpp.out_h_buffer.copy(once "se_frame_descriptor se_ifd")
+         id.append_in(cpp.out_h_buffer)
+         cpp.out_c_buffer.copy(once "{%"invariant ")
+         cpp.out_c_buffer.append(live_type.name.to_string)
+         cpp.out_c_buffer.append(once "%",1,0,%"")
+         live_type.canonical_type_mark.c_frame_descriptor_in(cpp.out_c_buffer)
+         cpp.out_c_buffer.append(once "%",1}")
+         cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
+         -- The function itself:
+         cpp.prepare_c_function
+         cpp.pending_c_function_signature.extend('T')
+         id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "*se_i")
+         id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(se_dump_stack*caller,")
+         if profile then
+            cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         cpp.pending_c_function_signature.extend('T')
+         id.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "*C)")
+         cpp.pending_c_function_body.append(once "se_dump_stack ds;%N")
+         if profile then
+            smart_eiffel.local_profile
+         end
+         cpp.pending_c_function_body.append(once "ds.fd=&se_ifd")
+         id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ";%Nds.current=((void*)&C);%N")
+         cpp.put_position_in_ds(start_position)
+         cpp.pending_c_function_body.append(once
+            "ds.caller=caller;%Nds.exception_origin=NULL;%Nds.locals=NULL;%Nset_dump_stack_top(&ds);/*link*/%N")
+         if not is_always_true(type) then
+            if profile then
+               smart_eiffel.start_profile_class_invariant(live_type)
+            end
+            cpp.stop_recursive_assertion_opening(False)
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               assertion := list.item(i)
+               if not assertion.is_always_true(type) then
+                  assertion.compile_to_c_as_class_invariant(type)
+               end
+               i := i + 1
+            end
+            cpp.stop_recursive_assertion_closing(False)
+            if profile then
+               smart_eiffel.stop_profile
+            end
+         end
+         cpp.pending_c_function_body.append(once "set_dump_stack_top(caller);/*unlink*/%Nreturn C;%N")
+         cpp.dump_pending_c_function(True)
+      end
 
 feature {ASSERTION_LIST}
-        has_assertion_located_at (sp: POSITION): BOOLEAN is
-                        -- Is there already the source code of the assertion located at `sp' ?
-                require
-                        not sp.is_unknown
-                local
-                        i: INTEGER
-                do
-                        if list /= Void then
-                                from
-                                        i := list.upper
-                                until
-                                        Result or else i < list.lower
-                                loop
-                                        if list.item(i).start_position = sp then
-                                                Result := True
-                                        end
-                                        i := i - 1
-                                end
-                        end
-                end
+   has_assertion_located_at (sp: POSITION): BOOLEAN is
+         -- Is there already the source code of the assertion located at `sp' ?
+      require
+         not sp.is_unknown
+      local
+         i: INTEGER
+      do
+         if list /= Void then
+            from
+               i := list.upper
+            until
+               Result or else i < list.lower
+            loop
+               if list.item(i).start_position = sp then
+                  Result := True
+               end
+               i := i - 1
+            end
+         end
+      end
 
-        set_list (l: like list) is
-                require
-                        l /= Void
-                do
-                        list := l
-                ensure
-                        list = l
-                end
+   set_list (l: like list) is
+      require
+         l /= Void
+      do
+         list := l
+      ensure
+         list = l
+      end
 
 feature {REQUIRE_ASSERTION}
-        compile_to_c_as_require_1 (type: TYPE) is
-                        -- A require assertion with only one level.
-                require
-                        not is_always_true(type)
-                local
-                        i: INTEGER; assertion: ASSERTION
-                do
-                        from
-                                i := list.lower
-                        until
-                                i > list.upper
-                        loop
-                                assertion := list.item(i)
-                                if not assertion.is_always_true(type) then
-                                        assertion.compile_to_c_as_require_1(type)
-                                end
-                                i := i + 1
-                        end
-                end
+   compile_to_c_as_require_1 (type: TYPE) is
+         -- A require assertion with only one level.
+      require
+         not is_always_true(type)
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         from
+            i := list.lower
+         until
+            i > list.upper
+         loop
+            assertion := list.item(i)
+            if not assertion.is_always_true(type) then
+               assertion.compile_to_c_as_require_1(type)
+            end
+            i := i + 1
+         end
+      end
 
-        compile_to_c_as_require_n (type: TYPE) is
-                        -- A require assertion with more than one level.
-                require
-                        not is_always_true(type)
-                local
-                        i: INTEGER; assertion: ASSERTION
-                do
-                        from
-                                i := list.lower
-                        invariant
-                                list.valid_index(i)
-                        until
-                                not list.item(i).is_always_true(type)
-                        loop
-                                i := i + 1
-                        end
-                        list.item(i).compile_to_c_as_require_n(type)
-                        from
-                                i := i + 1
-                        until
-                                i > list.upper
-                        loop
-                                assertion := list.item(i)
-                                if not assertion.is_always_true(type) then
-                                        cpp.pending_c_function_body.append(once "if(requireresult){%N")
-                                        assertion.compile_to_c_as_require_n(type)
-                                        cpp.pending_c_function_body.append(once "}%N")
-                                end
-                                i := i + 1
-                        end
-                end
+   compile_to_c_as_require_n (type: TYPE) is
+         -- A require assertion with more than one level.
+      require
+         not is_always_true(type)
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         from
+            i := list.lower
+         invariant
+            list.valid_index(i)
+         until
+            not list.item(i).is_always_true(type)
+         loop
+            i := i + 1
+         end
+         list.item(i).compile_to_c_as_require_n(type)
+         from
+            i := i + 1
+         until
+            i > list.upper
+         loop
+            assertion := list.item(i)
+            if not assertion.is_always_true(type) then
+               cpp.pending_c_function_body.append(once "if(requireresult){%N")
+               assertion.compile_to_c_as_require_n(type)
+               cpp.pending_c_function_body.append(once "}%N")
+            end
+            i := i + 1
+         end
+      end
 
 feature {LOOP_INSTRUCTION}
-        compile_to_c_as_loop_invariant (type: TYPE) is
-                        -- A require assertion with only one item.
-                local
-                        i: INTEGER; assertion: ASSERTION
-                do
-                        if not is_always_true(type) then
-                                cpp.stop_recursive_assertion_opening(True)
-                                from
-                                        i := list.lower
-                                until
-                                        i > list.upper
-                                loop
-                                        assertion := list.item(i)
-                                        if not assertion.is_always_true(type) then
-                                                assertion.compile_to_c_as_loop_invariant(type)
-                                        end
-                                        i := i + 1
-                                end
-                                cpp.stop_recursive_assertion_closing(True)
-                        end
-                end
+   compile_to_c_as_loop_invariant (type: TYPE) is
+         -- A require assertion with only one item.
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         if not is_always_true(type) then
+            cpp.stop_recursive_assertion_opening(True)
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               assertion := list.item(i)
+               if not assertion.is_always_true(type) then
+                  assertion.compile_to_c_as_loop_invariant(type)
+               end
+               i := i + 1
+            end
+            cpp.stop_recursive_assertion_closing(True)
+         end
+      end
 
-        pretty_as_loop_invariant (indent_level: INTEGER) is
-                do
-                        pretty_print_with_tag(indent_level, once "invariant")
-                end
+   pretty_as_loop_invariant (indent_level: INTEGER) is
+      do
+         pretty_print_with_tag(indent_level, once "invariant")
+      end
 
 feature {CHECK_COMPOUND}
-        compile_to_c_as_check_compound (type: TYPE) is
-                        -- A require assertion with only one item.
-                local
-                        i: INTEGER; assertion: ASSERTION
-                do
-                        if not is_always_true(type) then
-                                cpp.stop_recursive_assertion_opening(True)
-                                from
-                                        i := list.lower
-                                until
-                                        i > list.upper
-                                loop
-                                        assertion := list.item(i)
-                                        if not assertion.is_always_true(type) then
-                                                assertion.compile_to_c_as_check_compound(type)
-                                        end
-                                        i := i + 1
-                                end
-                                cpp.stop_recursive_assertion_closing(True)
-                        end
-                end
+   compile_to_c_as_check_compound (type: TYPE) is
+         -- A require assertion with only one item.
+      local
+         i: INTEGER; assertion: ASSERTION
+      do
+         if not is_always_true(type) then
+            cpp.stop_recursive_assertion_opening(True)
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               assertion := list.item(i)
+               if not assertion.is_always_true(type) then
+                  assertion.compile_to_c_as_check_compound(type)
+               end
+               i := i + 1
+            end
+            cpp.stop_recursive_assertion_closing(True)
+         end
+      end
 
-        pretty_as_check_compound (indent_level: INTEGER) is
-                do
-                        pretty_print_with_tag(indent_level, once "check")
-                        pretty_printer.set_indent_level(indent_level)
-                        pretty_printer.keyword(once "end")
-                        if pretty_printer.print_end_of_statement then
-                                pretty_printer.put_end_of(once "check")
-                        end
-                end
+   pretty_as_check_compound (indent_level: INTEGER) is
+      do
+         pretty_print_with_tag(indent_level, once "check")
+         pretty_printer.set_indent_level(indent_level)
+         pretty_printer.keyword(once "end")
+         if pretty_printer.print_end_of_statement then
+            pretty_printer.put_end_of(once "check")
+         end
+      end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-        inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-                local
-                        i: INTEGER; assertion1, assertion2: ASSERTION; l: like list; al: like Current
-                do
-                        if list = Void then
-                                code_accumulator.current_context.add_last(Current)
-                        else
-                                from
-                                        i := list.lower
-                                until
-                                        i > list.upper or else assertion1 /= assertion2
-                                loop
-                                        assertion1 := list.item(i)
-                                        code_accumulator.open_new_context
-                                        assertion1.inline_dynamic_dispatch_(code_accumulator, type)
-                                        check
-                                                code_accumulator.current_context.count = 1
-                                        end
-                                        assertion2 ::= code_accumulator.current_context.last
-                                        code_accumulator.close_current_context
-                                        i := i + 1
-                                end
-                                if assertion1 = assertion2 then
-                                        code_accumulator.current_context.add_last(Current)
-                                else
-                                        from
-                                                l := list.twin
-                                                l.put(assertion2, i - 1)
-                                        until
-                                                i > l.upper
-                                        loop
-                                                code_accumulator.open_new_context
-                                                l.item(i).inline_dynamic_dispatch_(code_accumulator, type)
-                                                check
-                                                        code_accumulator.current_context.count = 1
-                                                end
-                                                assertion1 ::= code_accumulator.current_context.last
-                                                code_accumulator.close_current_context
-                                                l.put(assertion1, i)
-                                                i := i + 1
-                                        end
-                                        al := twin
-                                        al.set_list(l)
-                                        code_accumulator.current_context.add_last(al)
-                                end
-                        end
-                end
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+      local
+         i: INTEGER; assertion1, assertion2: ASSERTION; l: like list; al: like Current
+      do
+         if list = Void then
+            code_accumulator.current_context.add_last(Current)
+         else
+            from
+               i := list.lower
+            until
+               i > list.upper or else assertion1 /= assertion2
+            loop
+               assertion1 := list.item(i)
+               code_accumulator.open_new_context
+               assertion1.inline_dynamic_dispatch_(code_accumulator, type)
+               check
+                  code_accumulator.current_context.count = 1
+               end
+               assertion2 ::= code_accumulator.current_context.last
+               code_accumulator.close_current_context
+               i := i + 1
+            end
+            if assertion1 = assertion2 then
+               code_accumulator.current_context.add_last(Current)
+            else
+               from
+                  l := list.twin
+                  l.put(assertion2, i - 1)
+               until
+                  i > l.upper
+               loop
+                  code_accumulator.open_new_context
+                  l.item(i).inline_dynamic_dispatch_(code_accumulator, type)
+                  check
+                     code_accumulator.current_context.count = 1
+                  end
+                  assertion1 ::= code_accumulator.current_context.last
+                  code_accumulator.close_current_context
+                  l.put(assertion1, i)
+                  i := i + 1
+               end
+               al := twin
+               al.set_list(l)
+               code_accumulator.current_context.add_last(al)
+            end
+         end
+      end
 
 invariant
-        not start_position.is_unknown
+   not start_position.is_unknown
 
-        list /= Void implies not list.is_empty
+   list /= Void implies not list.is_empty
 
 end -- class ASSERTION_LIST
 --

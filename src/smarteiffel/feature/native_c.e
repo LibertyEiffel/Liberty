@@ -8,7 +8,7 @@ class NATIVE_C
 
 inherit
    NATIVE
-   
+
 creation {ANY}
    make
 
@@ -21,11 +21,11 @@ feature {ANY}
    use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
       do
          -- Without assertion, an external routine uses only its arguments.
-         -- Note: assertion of the corresponding `er' may use `Current' and the check is done at 
+         -- Note: assertion of the corresponding `er' may use `Current' and the check is done at
          -- the EXTERNAL_ROUTINE level.
       end
 
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
       do
          parse_external_tag
          if ace.no_check and then not c_inline then
@@ -40,10 +40,10 @@ feature {ANY}
          type_of_current := rf8.type_of_current
          parse_external_tag
          if need_prototype and then not prototype_dumped then
-            prototype_dumped := True 
+            prototype_dumped := True
             extra_c_prototype(start_position, type_of_current, rf8.base_feature)
          end
-         if do_needs_c_wrapper(type_of_current, name) then
+         if does_need_c_wrapper(type_of_current, name) then
             c_mapping(rf8.base_feature, True, True, rf8.arg_count)
          else
             c_mapping(rf8.base_feature, False, True, rf8.arg_count)
@@ -57,10 +57,10 @@ feature {ANY}
          type_of_current := rf7.type_of_current
          parse_external_tag
          if need_prototype and then not prototype_dumped then
-            prototype_dumped := True 
+            prototype_dumped := True
             extra_c_prototype(start_position, type_of_current, rf7.base_feature)
          end
-         if do_needs_c_wrapper(type_of_current, name) then
+         if does_need_c_wrapper(type_of_current, name) then
             c_mapping(rf7.base_feature, True, False, rf7.arg_count)
          else
             c_mapping(rf7.base_feature, False, False, rf7.arg_count)

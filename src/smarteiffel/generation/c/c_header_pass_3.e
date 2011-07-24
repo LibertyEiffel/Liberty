@@ -32,7 +32,7 @@ feature {}
       do
          attribute_type := writable_attribute.result_type
          if attribute_type.is_expanded then
-            compile_header(attribute_type.type.live_type)
+            compile_live_type(attribute_type.type.live_type)
          end
       end
 

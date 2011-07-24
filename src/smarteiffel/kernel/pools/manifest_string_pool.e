@@ -462,7 +462,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {C_PRETTY_PRINTER, MANIFEST_STRING, CODE, RUN_FEATURE, EIFFEL_TO_LISAAC}
+feature {C_PRETTY_PRINTER, MANIFEST_STRING, CODE, EIFFEL_TO_LISAAC, C_LIVE_TYPE_COMPILER}
    string_to_c_code (s: STRING; c_code: STRING) is
          -- Add in the `c_code' buffer, the C language view of the Eiffel `s' STRING.
          -- (Replace all strange character of `s' with the appropriate C \ escape sequence).

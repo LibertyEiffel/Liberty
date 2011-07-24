@@ -12,6 +12,12 @@ creation {CST_ATT}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_1_VISITOR) is
+      do
+         visitor.visit_run_feature_1(Current)
+      end
+
+feature {ANY}
    base_feature: CST_ATT
 
    value: EXPRESSION
@@ -69,10 +75,6 @@ feature {ANY}
          if has_target then
             cpp.pending_c_function_body.extend(')')
          end
-      end
-
-   c_define is
-      do
       end
 
 feature {LIVE_TYPE}

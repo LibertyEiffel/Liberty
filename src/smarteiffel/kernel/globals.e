@@ -74,6 +74,11 @@ feature {}
          create Result.make
       end
 
+   frozen c_live_type_compiler: C_LIVE_TYPE_COMPILER is
+      once
+         create Result.make
+      end
+
    frozen pretty_printer: PRETTY_PRINTER is
       once
          create Result.make

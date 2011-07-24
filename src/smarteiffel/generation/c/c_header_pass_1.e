@@ -32,7 +32,7 @@ feature {}
 feature {}
    frozen standard_c_typedef (type_mark: TYPE_MARK) is
       require
-         type.live_type.at_run_time
+         type_mark.type.live_type.at_run_time
       local
          mem_id: INTEGER
       do
@@ -179,7 +179,7 @@ feature {AGENT_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         compile_header(visited.generic_list.first.type.live_type)
+         compile_live_type(visited.generic_list.first.type.live_type)
       end
 
 feature {USER_GENERIC_TYPE_MARK}

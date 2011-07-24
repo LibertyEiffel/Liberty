@@ -96,7 +96,7 @@ feature {}
             cpp.pending_c_function_body.extend('^')
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.extend(')')
-         else 
+         else
             -- Well, that can be only some usual infix:
             cpp.pending_c_function_body.append(once "((")
             cpp.put_target_as_value
@@ -119,9 +119,9 @@ feature {}
             cpp.pending_c_function_body.append(once "))")
          end
       end
-                                                
+
 feature {ANY}
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
       do
          if as_and_then = name then
             check
@@ -138,7 +138,7 @@ feature {ANY}
          elseif as_sedb_breakpoint = name then
             check
                not Result -- Well, `sedb_breakpoint' is really special.
-            end            
+            end
          elseif ace.sedb then
             -- To see built_in while debugging.
             Result := True
@@ -517,7 +517,7 @@ feature {ANY}
                if ace.no_check then
                   cpp.pending_c_function_body.append(once ";%Nerror0(%"Invalid deep_twin.%",NULL)")
                end
-            elseif type_of_current.is_user_expanded and then type_of_current.is_empty_expanded then 
+            elseif type_of_current.is_user_expanded and then type_of_current.is_empty_expanded then
                cpp.put_target_as_target(type_of_current)
             else
                check
@@ -1293,7 +1293,7 @@ feature {}
       do
          jvm.runtime_invokestatic(Void, fz_se_runtime, name, rf)
       end
-                                   
+
    jvm_standard_twin (t: TYPE_MARK) is
       require
          t /= Void
@@ -1860,7 +1860,7 @@ feature {}
                cpp.pending_c_function_body.append(once "ceil")
             else
                cpp.pending_c_function_body.append(once "ceill")
-            end                                   
+            end
             cpp.pending_c_function_body.extend('(')
             cpp.put_target_as_value
             cpp.pending_c_function_body.extend(')')
@@ -1933,7 +1933,7 @@ feature {}
             when 64 then
             else
                cpp.pending_c_function_body.extend('l')
-            end                                   
+            end
             cpp.pending_c_function_body.extend('(')
             cpp.put_target_as_value
             cpp.pending_c_function_body.extend(')')
@@ -1952,7 +1952,7 @@ feature {}
             when 64 then
             else
                cpp.pending_c_function_body.extend('l')
-            end                                   
+            end
             cpp.pending_c_function_body.extend('(')
             cpp.put_target_as_value
             cpp.pending_c_function_body.extend(',')

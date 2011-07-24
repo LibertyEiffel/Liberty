@@ -24,7 +24,7 @@ feature {}
    frozen standard_c_print_function (type_mark: TYPE_MARK) is
          -- Produce `prinTid' function.
       require
-         is_static
+         type_mark.is_static
       do
          if ace.no_check then
             c_print_function(type_mark.type.live_type)

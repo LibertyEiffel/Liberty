@@ -12,6 +12,12 @@ creation {E_FUNCTION}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_4_VISITOR) is
+      do
+         visitor.visit_run_feature_4(Current)
+      end
+
+feature {ANY}
    base_feature: E_FUNCTION
 
    arguments: FORMAL_ARG_LIST
@@ -48,24 +54,6 @@ feature {ANY}
    mapping_c is
       do
          default_mapping_function
-      end
-
-   c_define is
-      do
-         if use_current then
-            cpp.incr_function_count
-         else
-            cpp.incr_real_function_count
-         end
-         cpp.prepare_c_function
-         define_c_signature
-         c_define_opening
-         if routine_body /= Void then
-            routine_body.compile_to_c(type_of_current)
-         end
-         c_define_closing
-         cpp.pending_c_function_body.append(once "return R;%N")
-         cpp.dump_pending_c_function(True)
       end
 
 feature {}

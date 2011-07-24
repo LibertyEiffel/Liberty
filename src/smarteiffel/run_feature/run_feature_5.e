@@ -12,6 +12,12 @@ creation {ONCE_PROCEDURE}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_5_VISITOR) is
+      do
+         visitor.visit_run_feature_5(Current)
+      end
+
+feature {ANY}
    base_feature: ONCE_PROCEDURE
 
    arguments: FORMAL_ARG_LIST
@@ -41,21 +47,6 @@ feature {ANY}
    mapping_c is
       do
          default_mapping_procedure
-      end
-
-   c_define is
-      do
-         once_routine_pool.c_define_o_flag(Current)
-         cpp.prepare_c_function
-         define_c_signature
-         c_define_opening
-         if routine_body /= Void then
-            once_routine_pool.c_test_o_flag(Current)
-            routine_body.compile_to_c(type_of_current)
-            cpp.pending_c_function_body.append(once "}}")
-         end
-         c_define_closing
-         cpp.dump_pending_c_function(True)
       end
 
 feature {}

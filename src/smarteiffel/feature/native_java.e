@@ -758,10 +758,10 @@ feature {ANY}
          fe_c2c(rf7)
       end
 
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
       do
       end
-   
+
    frozen c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
       do
          fe_c2c(rf8)

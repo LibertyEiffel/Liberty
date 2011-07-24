@@ -12,6 +12,12 @@ creation {E_PROCEDURE}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_3_VISITOR) is
+      do
+         visitor.visit_run_feature_3(Current)
+      end
+
+feature {ANY}
    base_feature: E_PROCEDURE
 
    arguments: FORMAL_ARG_LIST
@@ -67,27 +73,6 @@ feature {ANY}
          mapping_c
       ensure
          is_root
-      end
-
-   c_define is
-      do
-         if use_current then
-            cpp.incr_procedure_count
-         else
-            cpp.incr_real_procedure_count
-         end
-         if ace.boost and then empty_body_side_effect_free_in_boost then
-            -- No C function defined.
-         else
-            cpp.prepare_c_function
-            define_c_signature
-            c_define_opening
-            if routine_body /= Void then
-               routine_body.compile_to_c(type_of_current)
-            end
-            c_define_closing
-            cpp.dump_pending_c_function(True)
-         end
       end
 
    mapping_jvm is
@@ -205,7 +190,7 @@ feature {JVM}
          method_info.finish
       end
 
-feature {}
+feature {C_LIVE_TYPE_COMPILER}
    empty_body_side_effect_free_in_boost: BOOLEAN is
       require
          ace.boost
@@ -215,6 +200,7 @@ feature {}
                     rescue_compound = Void)
       end
 
+feature {}
    side_effect_free_flag: BOOLEAN
 
 end -- class RUN_FEATURE_3

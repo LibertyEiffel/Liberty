@@ -122,7 +122,7 @@ feature {ANY}
          visitor.visit_formal_arg_list(Current)
       end
 
-feature {RUN_FEATURE}
+feature {C_LIVE_TYPE_COMPILER}
    c_frame_descriptor (type: TYPE; format, locals: STRING) is
       require
          ace.no_check
@@ -144,7 +144,6 @@ feature {RUN_FEATURE}
          end
       end
 
-feature {LIVE_TYPE, RUN_FEATURE}
    compile_to_c_in (type: TYPE; c_code_buffer: STRING) is
       local
          i: INTEGER; static_tm: TYPE_MARK
@@ -154,15 +153,15 @@ feature {LIVE_TYPE, RUN_FEATURE}
          until
             i > count
          loop
+            if i > 1 then
+               c_code_buffer.extend(',')
+            end
             static_tm := type_mark(i).to_static(type)
             static_tm.c_type_for_argument_in(c_code_buffer)
             c_code_buffer.extend(' ')
             c_code_buffer.extend('a')
             i.append_in(c_code_buffer)
             i := i + 1
-            if i <= count then
-               c_code_buffer.extend(',')
-            end
          end
       end
 

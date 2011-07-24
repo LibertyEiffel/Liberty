@@ -169,7 +169,7 @@ feature {}
                if cn /= current_class_name then
                   current_class_name := cn
                end
-               lt.compile_to_c(0)
+               c_live_type_compiler.compile(lt, 0)
                i := i + 1
             end
          else
@@ -184,7 +184,7 @@ feature {}
                lt := live_type_map.item(i)
                ct := lt.canonical_type_mark
                if ct.is_kernel_expanded then
-                  lt.compile_to_c(0)
+                  c_live_type_compiler.compile(lt, 0)
                elseif ct.is_string then
                   lt_string := lt
                end
@@ -206,13 +206,13 @@ feature {}
                lt := live_type_map.item(i)
                ctn := lt.class_text_name.to_string
                if as_native_array = ctn then
-                  lt.compile_to_c(0)
+                  c_live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
             if lt_string /= Void then
                if lt_string.at_run_time then
-                  lt_string.compile_to_c(0)
+                  c_live_type_compiler.compile(lt_string, 0)
                end
             end
             from
@@ -224,7 +224,7 @@ feature {}
                ct := lt.canonical_type_mark
                ctn := ct.class_text_name.to_string
                if as_array = ctn or else as_fixed_array = ctn then
-                  lt.compile_to_c(0)
+                  c_live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
@@ -235,7 +235,7 @@ feature {}
             loop
                lt := live_type_map.item(i)
                if lt.is_generic then
-                  lt.compile_to_c(0)
+                  c_live_type_compiler.compile(lt, 0)
                end
                i := i + 1
             end
@@ -254,9 +254,9 @@ feature {}
                   i > live_type_map.upper
                loop
                   lt := live_type_map.item(i)
-                  if not lt.compile_to_c_done then
-                     lt.compile_to_c(depth)
-                     if not lt.compile_to_c_done then
+                  if lt.at_run_time then
+                     c_live_type_compiler.compile(lt, depth)
+                     if not c_live_type_compiler.is_compiled(lt) then
                         stop := False
                      end
                   end
@@ -843,7 +843,7 @@ feature {NO_INVARIANT_WRAPPER}
          assertion_checks_disabled = i
       end
 
-feature {LIVE_TYPE}
+feature {C_LIVE_TYPE_COMPILER}
    split_c_file_now (features_count: INTEGER) is
       do
          if ace.splitter.should_split(features_count + function_count_in_file) then
@@ -1422,14 +1422,14 @@ feature {RUN_FEATURE_2}
          end
       end
 
-feature {RUN_FEATURE_7, RUN_FEATURE_8}
+feature {C_LIVE_TYPE_COMPILER}
    push_inside_some_wrapper (af: ANONYMOUS_FEATURE) is
       do
          stack_push(C_inside_some_wrapper)
          stack_top.set_anonymous_feature(af)
       end
 
-feature {LIVE_TYPE}
+feature {C_LIVE_TYPE_COMPILER}
    push_create_expression (type: TYPE; fs: FEATURE_STAMP; internal_c_local: INTERNAL_C_LOCAL) is
       require
          type /= Void
@@ -1444,7 +1444,7 @@ feature {LIVE_TYPE}
          stack_top.set_internal_c_local(internal_c_local)
       end
 
-feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, RUN_FEATURE, CECIL_POOL}
+feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_LIVE_TYPE_COMPILER}
    push_create_instruction (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL) is
          -- Where `internal_c_local' holds the newly allocated object.
       require
@@ -1572,7 +1572,7 @@ feature {LOOP_INSTRUCTION}
          pending_c_function_body.append(once ");%N")
       end
 
-feature {RUN_FEATURE}
+feature {C_LIVE_TYPE_COMPILER}
    current_class_invariant (type_of_current: TYPE) is
          -- Add some C code to check class invariant with Current at the end of a routine for `Current'.
       require
@@ -1937,7 +1937,7 @@ feature {REQUIRE_ASSERTION, ASSERTION_LIST}
          end
       end
 
-feature {E_OLD, RUN_FEATURE}
+feature {E_OLD, C_LIVE_TYPE_COMPILER}
    c_frame_descriptor_format: STRING is
          -- The format to print `Current' and other locals.
       once

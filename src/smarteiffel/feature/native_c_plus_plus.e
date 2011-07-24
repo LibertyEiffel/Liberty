@@ -19,7 +19,7 @@ feature {ANY}
       do
       end
 
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
       do
          Result := True
       end

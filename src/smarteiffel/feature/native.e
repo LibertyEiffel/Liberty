@@ -39,11 +39,11 @@ feature {ANY}
       deferred
       end
 
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
          -- Do we need some extra C wrapping function to perform this native action?
       deferred
       end
-   
+
    c_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
          -- Produce C code to perform the corresponding `rf7' action.
       require
@@ -111,11 +111,11 @@ feature {EXTERNAL_FUNCTION}
       do
          -- The default is False.
       end
-   
+
 feature {EXTERNAL_ROUTINE}
    collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
          -- Note1 : as an example the `collect' call is used to collect actually used NATIVE_PLUG_IN.
-         -- Note 2: also used to notify to the `assignment_handler' of possible weird assignments which may be 
+         -- Note 2: also used to notify to the `assignment_handler' of possible weird assignments which may be
          -- done outside of the Eiffel code.
       require
          type /= Void
@@ -205,7 +205,7 @@ feature {}
          cpp.write_out_h_buffer
          cpp.write_out_c_buffer
       end
-   
+
 invariant
    external_tag /= Void implies not external_tag.once_flag
 

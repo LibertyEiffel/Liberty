@@ -240,7 +240,7 @@ feature {}
 
 feature {RUN_FEATURE_7, RUN_FEATURE_8}
    adapt_routine_body_for (t: TYPE): like routine_body is
-         -- Remove parts of the body that are not needed because they 
+         -- Remove parts of the body that are not needed because they
          -- refer to dead features.
       local
          cn: STRING
@@ -262,6 +262,7 @@ feature {RUN_FEATURE_7, RUN_FEATURE_8}
          end
       end
 
+feature {ANY}
    is_generated_eiffel: BOOLEAN
          -- Must `routine_body' be used instead of `native' ?
 

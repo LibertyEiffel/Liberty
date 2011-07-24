@@ -41,10 +41,11 @@ feature {ANY}
          Result := plugin.is_equal(other.plugin) and then feature_name.same_as(other.feature_name)
       end
 
-   do_needs_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
+   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
       do
          -- *** VERIFIER ***
       end
+
    c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
       do
          -- This is obviously defined outside.
@@ -178,7 +179,7 @@ feature {}
          if not mini_buffer.is_off then
             mini_buffer.show_position_with_fatal_error("Unexpected trailing character")
          end
-         
+
          location := required_key(once "location")
          module_name := required_key(once "module_name")
 

@@ -12,6 +12,12 @@ creation {WRITABLE_ATTRIBUTE}
    for
 
 feature {ANY}
+   accept (visitor: RUN_FEATURE_2_VISITOR) is
+      do
+         visitor.visit_run_feature_2(Current)
+      end
+
+feature {ANY}
    base_feature: WRITABLE_ATTRIBUTE
 
    result_type: TYPE_MARK
@@ -32,7 +38,7 @@ feature {ANY}
          elseif ace.require_check then
             Result := require_assertion = Void or else require_assertion.side_effect_free(type_of_current)
          else
-            Result := True            
+            Result := True
          end
       end
 
@@ -57,9 +63,9 @@ feature {ANY}
    ensure_assertion: ENSURE_ASSERTION
 
    put_c_field_name is
-         --  Emit using `cpp' the corresponding field name with an extra C comment which 
-         --  include the offset of the corresponding C field. This extra C comment is 
-         --  mandatory to force C recompilation, because the field may move from one 
+         --  Emit using `cpp' the corresponding field name with an extra C comment which
+         --  include the offset of the corresponding C field. This extra C comment is
+         --  mandatory to force C recompilation, because the field may move from one
          --  compilation to another.
       require
          cpp.pending_c_function
@@ -96,21 +102,6 @@ feature {ANY}
             cpp.pending_c_function_body.extend(')')
          end
       end
-   
-   c_define is
-      do
-         if need_c_function then
-            cpp.prepare_c_function
-            define_c_signature
-            c_define_opening
-            cpp.pending_c_function_body.append(once "R=C->")
-            put_c_field_name
-            cpp.pending_c_function_body.append(once ";%N")
-            c_define_closing
-            cpp.pending_c_function_body.append(once "return R;%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
 
 feature {LIVE_TYPE}
    mapping_c_inside_introspect is
@@ -128,7 +119,7 @@ feature {LIVE_TYPE}
          end
          cpp.pending_c_function_body.extend(')')
       end
-   
+
 feature {}
    do_adapt is
       local
@@ -243,8 +234,8 @@ feature {JVM}
          access_flags := field_info.field_modifier(name_idx)
          field_info.add(access_flags, name_idx, descriptor)
       end
-   
-feature {}
+
+feature {C_LIVE_TYPE_COMPILER}
    need_c_function: BOOLEAN is
       do
          if ace.ensure_check then
@@ -253,7 +244,8 @@ feature {}
             Result := require_assertion /= Void
          end
       end
-   
+
+feature {}
    update_tmp_jvm_descriptor is
       local
          rt: TYPE_MARK

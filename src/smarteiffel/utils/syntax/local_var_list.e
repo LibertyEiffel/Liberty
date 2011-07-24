@@ -172,7 +172,7 @@ feature {DECLARATION}
          n1.set_rank(i)
       end
 
-feature {RUN_FEATURE}
+feature {C_LIVE_TYPE_COMPILER}
    c_frame_descriptor (type: TYPE; format, locals: STRING) is
       require
          ace.no_check
@@ -206,7 +206,7 @@ feature {RUN_FEATURE}
          end
       end
 
-feature {ONCE_ROUTINE_POOL, RUN_FEATURE}
+feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
    c_declare (type: TYPE; volatile_flag: BOOLEAN) is
          -- Generate the C code for the declaration part. The `volatile_flag' indicate that an extra
          -- volatile C keyword must be generated because we are in the case of a routine with a rescue
@@ -272,6 +272,7 @@ feature {ONCE_ROUTINE_POOL, RUN_FEATURE}
          end
       end
 
+feature {ONCE_ROUTINE_POOL, RUN_FEATURE}
    jvm_initialize (type: TYPE) is
          -- Produce code in order to initialize variables.
       local
