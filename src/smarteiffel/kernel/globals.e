@@ -81,11 +81,6 @@ feature {}
          Result >= 0
       end
 
-   frozen gc_handler: GC_HANDLER is
-      once
-         create Result.make
-      end
-
    frozen system_tools: SYSTEM_TOOLS is
       once
          create Result.make

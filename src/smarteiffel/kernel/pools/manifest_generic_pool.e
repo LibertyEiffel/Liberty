@@ -93,7 +93,7 @@ feature {}
          cpp.pending_c_function_body.append(once "*/%NT")
          created_type_id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
-         if gc_handler.is_off then
+         if cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "se_malloc(sizeof(*C));%N*C=M")
             created_type_id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once ";%N")
@@ -144,7 +144,7 @@ feature {}
             cpp.pending_c_function_body.extend(' ')
             cpp.pending_c_function_body.append(fal.name(i).to_string)
             cpp.pending_c_function_body.append(once "=((")
-            va_type.c_type_for_argument_in(cpp.pending_c_function_body)            
+            va_type.c_type_for_argument_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once ")(va_arg(pa,")
             va_type_in(cpp.pending_c_function_body, va_type)
             cpp.pending_c_function_body.append(once ")));%N")
@@ -176,7 +176,7 @@ feature {}
          cpp.pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn ((T0*)C);%N")
          cpp.dump_pending_c_function(True)
       end
-         
+
    c_define_for_native_array (native_array: TYPE) is
       require
          native_array.is_native_array
@@ -204,7 +204,7 @@ feature {}
          cpp.pending_c_function_body.append(once "*/%NT")
          native_array_id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
-         if gc_handler.is_off then
+         if cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "se_malloc(sizeof(*C)*")
          else
             cpp.pending_c_function_body.append(once "new")
@@ -214,7 +214,7 @@ feature {}
          cpp.pending_c_function_body.append(once "argc);%Nwhile (i < argc ) {%N")
          va_type.c_type_for_argument_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once " element=((")
-         va_type.c_type_for_argument_in(cpp.pending_c_function_body)            
+         va_type.c_type_for_argument_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ")(va_arg(pa,")
          va_type_in(cpp.pending_c_function_body, va_type)
          cpp.pending_c_function_body.append(once ")));%NC[i]=element;%Ni++;%N}%Nva_end(pa);%Nreturn C;%N")
@@ -234,7 +234,7 @@ feature {}
             va_type.c_type_for_argument_in(buffer)
          end
       end
-   
+
 end -- class MANIFEST_GENERIC_POOL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

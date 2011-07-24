@@ -303,7 +303,7 @@ feature {CECIL_FILE}
             end
             cpp.pending_c_function_body.append(once " R;%N")
          end
-         if not gc_handler.is_off then
+         if not cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                     %int valid_stack_bottom = stack_bottom != NULL;%N%
                                                     %#endif%N")
@@ -315,7 +315,7 @@ feature {CECIL_FILE}
                                                     %ds.locals=NULL;%N")
             cpp.set_dump_stack_top_for(target_type, once "&ds", once "link")
          end
-         if not gc_handler.is_off then
+         if not cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                  %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
                                  %#endif%N")
@@ -325,7 +325,7 @@ feature {CECIL_FILE}
             cpp.pending_c_function_body.append(once "/* CECIL creation */%N{%N")
             internal_c_local := cpp.pending_c_function_lock_local(target_type, once "cecilcrea")
             if target_type.is_reference then
-               gc_handler.allocation_of(internal_c_local, target_type.live_type)
+               cpp.gc_handler.allocation_of(internal_c_local, target_type.live_type)
             else
                internal_c_local.append_in(cpp.pending_c_function_body)
                cpp.pending_c_function_body.append(once "=M")
@@ -353,7 +353,7 @@ feature {CECIL_FILE}
             expression.compile_to_c(type)
             cpp.pending_c_function_body.append(once ";%N")
          end
-         if not gc_handler.is_off then
+         if not cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                     %if(!valid_stack_bottom) stack_bottom = NULL;%N%
                                     %#endif%N")

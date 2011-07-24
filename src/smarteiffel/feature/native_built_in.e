@@ -230,7 +230,7 @@ feature {ANY}
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.append(once ");%N")
          elseif as_full_collect = name then
-            if not gc_handler.is_off then
+            if not cpp.gc_handler.is_off then
                cpp.pending_c_function_body.append(once "gc_start();%N")
             end
          elseif as_trace_switch = name then
@@ -238,11 +238,11 @@ feature {ANY}
          elseif as_sedb_breakpoint = name then
             cpp.put_sedb_breakpoint
          elseif as_collection_off = name then
-            if not gc_handler.is_off then
+            if not cpp.gc_handler.is_off then
                cpp.pending_c_function_body.append(once "gc_is_off=1;%N")
             end
          elseif as_collection_on = name then
-            if not gc_handler.is_off then
+            if not cpp.gc_handler.is_off then
                cpp.pending_c_function_body.append(once "gc_is_off=0;%N")
             end
          elseif as_put_16_be = name or else as_put_16_le = name or else as_put_16_ne = name then
@@ -304,7 +304,7 @@ feature {ANY}
             cpp.pending_c_function_body.append(once "[")
             cpp.put_ith_argument(2)
             cpp.pending_c_function_body.append(once "];%N")
-            gc_handler.mark_for(once "elt", elt_type.live_type, False)
+            cpp.gc_handler.mark_for(once "elt", elt_type.live_type, False)
             cpp.pending_c_function_body.append(once "/*mark_item*/}")
          else
             check -- Unknown external.
@@ -488,7 +488,7 @@ feature {ANY}
                c_mapping_standard_twin(type_of_current)
             else
                if live_type_of_current.is_reference then
-                  if gc_handler.is_off then
+                  if cpp.gc_handler.is_off then
                      id := live_type_of_current.id
                      cpp.pending_c_function_body.append(once "se_malloc(sizeof(*C));%N*((T")
                      id.append_in(cpp.pending_c_function_body)
@@ -613,13 +613,13 @@ feature {ANY}
          elseif as_signal_number = name then
             cpp.pending_c_function_body.append(once "signal_exception_number")
          elseif as_collecting = name then
-            if gc_handler.is_off then
+            if cpp.gc_handler.is_off then
                cpp.pending_c_function_body.extend('0')
             else
                cpp.pending_c_function_body.append(once "!gc_is_off")
             end
          elseif as_collector_counter = name then
-            if gc_handler.is_off then
+            if cpp.gc_handler.is_off then
                cpp.pending_c_function_body.append(once "(-1)")
             else
                cpp.pending_c_function_body.append(as_collector_counter)
@@ -1022,7 +1022,7 @@ feature {}
                cpp.pending_c_function_body.append(once "memcpy(&R,C,sizeof(R))")
             end
          else
-            if gc_handler.is_off then
+            if cpp.gc_handler.is_off then
                cpp.pending_c_function_body.append(once "se_malloc(sizeof(*C));%N")
             else
                cpp.pending_c_function_body.append(once "((void*)")
@@ -1124,7 +1124,7 @@ feature {}
             end
          elseif as_calloc = name then
             if expanded_initializer(elt_type) then
-               if gc_handler.is_off then
+               if cpp.gc_handler.is_off then
                   cpp.pending_c_function_body.append(once "se_malloc(sizeof(T")
                   elt_type.id.append_in(cpp.pending_c_function_body)
                   cpp.pending_c_function_body.append(once ")*")
@@ -1148,7 +1148,7 @@ feature {}
                if tcbd then
                   cpp.pending_c_function_body.extend(',')
                end
-               if gc_handler.is_off then
+               if cpp.gc_handler.is_off then
                   cpp.pending_c_function_body.append(once "((T")
                   type_of_current.id.append_in(cpp.pending_c_function_body)
                   cpp.pending_c_function_body.append(once ")(se_calloc(")

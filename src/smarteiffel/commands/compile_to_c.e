@@ -165,10 +165,10 @@ feature {}
                ace.set_no_main
                argi := argi + 1
             elseif flag_match(once "no_gc", arg) then
-               gc_handler.no_gc
+               cpp.gc_handler.no_gc
                argi := argi + 1
             elseif flag_match(fz_gc_info, arg) then
-               gc_handler.set_info_flag
+               cpp.gc_handler.set_info_flag
                argi := argi + 1
             elseif is_safety_check_flag(arg) then
                argi := argi + 1

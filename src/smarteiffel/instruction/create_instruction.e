@@ -161,7 +161,7 @@ feature {ANY}
          created_type_memory := created_type(type)
          if created_type_memory.is_reference then
             internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "new")
-            gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
+            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
             if call /= Void then
                rf := call.run_feature_for(type)
                cpp.push_create_instruction(type, rf, arguments, internal_c_local)

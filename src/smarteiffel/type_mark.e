@@ -647,7 +647,7 @@ feature {LIVE_TYPE}
    gc_define1 is
          -- Define prototypes and C struct for the Garbage Collector
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       deferred
       end
@@ -655,7 +655,7 @@ feature {LIVE_TYPE}
    gc_define2 is
          -- Define C functions for the Garbage Collector
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       deferred
       end
@@ -663,15 +663,15 @@ feature {LIVE_TYPE}
    gc_info_in (buffer: STRING) is
          -- Produce C code to print GC information.
       require
-         not gc_handler.is_off
-         gc_handler.info_flag
+         not cpp.gc_handler.is_off
+         cpp.gc_handler.info_flag
          type.live_type.at_run_time
       deferred
       end
 
    just_before_gc_mark_in (buffer: STRING) is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       deferred
       end
@@ -679,7 +679,7 @@ feature {LIVE_TYPE}
 feature {}
    standard_just_before_gc_mark_in (buffer: STRING) is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       do
          gc_free_in(buffer)
@@ -847,7 +847,7 @@ feature {}
    frozen standard_gc_define1 is
          -- For Fixed Size Objects.
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       local
          lt: LIVE_TYPE; ltid: INTEGER
@@ -887,7 +887,7 @@ feature {}
          gc_free_in(cpp.out_h_buffer)
          cpp.write_extern_2(cpp.out_h_buffer, once "(void*)0")
          -- -------------------------------- Declare gc_info_nbXXX :
-         if gc_handler.info_flag then
+         if cpp.gc_handler.info_flag then
             cpp.out_h_buffer.copy(once "int ")
             gc_info_nb_in(cpp.out_h_buffer)
             cpp.write_extern_0(cpp.out_h_buffer)
@@ -897,7 +897,7 @@ feature {}
    frozen standard_gc_define2 is
       require
          is_reference
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       local
          lt: LIVE_TYPE; ltid, arg_id: INTEGER; gc_check_id: BOOLEAN; wr_gen_arg_lt: LIVE_TYPE; is_weak_ref: BOOLEAN
@@ -937,7 +937,7 @@ feature {}
             end
          end
          cpp.pending_c_function_body.append(once "}%Nelse{%N")
-         gc_handler.memory_dispose(once "o1", lt)
+         cpp.gc_handler.memory_dispose(once "o1", lt)
          cpp.pending_c_function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ";%Ngc_free")
@@ -965,7 +965,7 @@ feature {}
             end
          end
          cpp.pending_c_function_body.append(once "dead=0;}%Nelse{%N")
-         gc_handler.memory_dispose(once "o1", lt)
+         cpp.gc_handler.memory_dispose(once "o1", lt)
          cpp.pending_c_function_body.append(once "o1->header.next=gc_free")
          ltid.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ";%Ngc_free")
@@ -1057,7 +1057,7 @@ feature {}
          cpp.pending_c_function_body.append(once "gc")
          ltid.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*n;%Nfsoc*c;%N")
-         if gc_handler.info_flag then
+         if cpp.gc_handler.info_flag then
             gc_info_nb_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "++;%N")
          end
@@ -1131,7 +1131,7 @@ feature {}
          -- For user's expanded with reference attribute to mark.
       require
          is_expanded
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          type.live_type.at_run_time
       local
          lt: LIVE_TYPE; lt_id: INTEGER
@@ -1154,7 +1154,7 @@ feature {}
    frozen generate_once_gc_update_weak_ref_item_polymorph is
       require
          is_reference -- is_weak_ref
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          not cpp.pending_c_function
          type.live_type.at_run_time
       once

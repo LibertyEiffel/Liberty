@@ -175,7 +175,7 @@ feature {C_PRETTY_PRINTER}
              se_agent*);
              ]")
 
-            if not gc_handler.is_off then
+            if not cpp.gc_handler.is_off then
                cpp.out_h_buffer.append(once "[
              void(*gc_mark_agent_mold)(se_agent*);
 

@@ -175,7 +175,7 @@ feature {}
                            %ds.locals=NULL;%N")
          end
          if live_type.canonical_type_mark.is_reference then
-            gc_handler.allocation_of(internal_c_local, live_type)
+            cpp.gc_handler.allocation_of(internal_c_local, live_type)
          else
             internal_c_local.append_in(function_body)
             function_body.append(once "=M")

@@ -437,7 +437,7 @@ feature {C_PRETTY_PRINTER}
             end
             cpp.pending_c_function_signature.append("int32_t c,uint16_t*s,int32_t sc,int16_t*lsv,int32_t*lsi)")
             internal_c_local := cpp.pending_c_function_lock_local(lt.type, once "mspalloc")
-            gc_handler.allocation_of(internal_c_local, lt)
+            cpp.gc_handler.allocation_of(internal_c_local, lt)
             cpp.pending_c_function_body.extend('r')
             id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append("manifest_initialize(")
@@ -657,12 +657,12 @@ feature {}
       require
          cpp.pending_c_function
       do
-         gc_handler.manifest_string_in(cpp.pending_c_function_body, string_at_run_time)
+         cpp.gc_handler.manifest_string_in(cpp.pending_c_function_body, string_at_run_time)
          cpp.pending_c_function_body.append(once "s->_count=c;%N%
                                                  %s->_capacity=c+1;%N%
                                                  %s->_storage_lower=0;%N%
                                                  %s->_storage=((T9)")
-         gc_handler.native9_in(cpp.pending_c_function_body, string_at_run_time)
+         cpp.gc_handler.native9_in(cpp.pending_c_function_body, string_at_run_time)
          cpp.pending_c_function_body.append(once "(c+1));%N%
                                                  %memcpy(s->_storage,e,c+1);%N%
                                                  %return((T0*)s);")

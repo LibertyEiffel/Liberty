@@ -191,7 +191,7 @@ feature {LIVE_TYPE, TYPE_MARK}
          cpp.out_c_buffer.extend('}')
          cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
          -- -------------------------------- Declare gc_info_nbXXX :
-         if gc_handler.info_flag then
+         if cpp.gc_handler.info_flag then
             cpp.out_h_buffer.copy(once "int ")
             gc_info_nb_in(cpp.out_h_buffer)
             cpp.write_extern_0(cpp.out_h_buffer)
@@ -222,7 +222,7 @@ feature {LIVE_TYPE, TYPE_MARK}
          cpp.pending_c_function_body.append(once "size=(size*sizeof(")
          generic_list.first.c_type_for_result_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
-         if gc_handler.info_flag then
+         if cpp.gc_handler.info_flag then
             gc_info_nb_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "++;%N")
             gc_na_env_in(cpp.pending_c_function_body)
@@ -304,7 +304,7 @@ feature {}
          -- Actually, this feature may be called to produce C code when C variable `o' is not NULL.
       require
          cpp.pending_c_function
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          is_native_array
          type.live_type.at_run_time
       local
@@ -333,7 +333,7 @@ feature {}
             cpp.pending_c_function_body.append(once "p=((void*)(o+((((h->header.size)-sizeof(rsoh))/sizeof(e))-1)));%N%
                %for(;((void*)p)>=((void*)o);p--){%N%
                %e=*p;%N")
-            gc_handler.mark_for(once "e", e_live_type, False)
+            cpp.gc_handler.mark_for(once "e", e_live_type, False)
             cpp.pending_c_function_body.append(once "}}}}%N")
          else
             cpp.pending_c_function_body.append(once "(((rsoh*)o)-1)->header.magic_flag=RSOH_MARKED;%N")

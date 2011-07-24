@@ -133,7 +133,7 @@ feature {GC_HANDLER}
                memory.add(unique_result.twin)
                type := non_void_no_dispatch.dynamic_type
                if type.need_gc_mark_function then
-                  gc_handler.mark_for(unique_result, type.live_type, True)
+                  cpp.gc_handler.mark_for(unique_result, type.live_type, True)
                end
             end
             i := i - 1
@@ -158,7 +158,7 @@ feature {GC_HANDLER}
                   memory.add(unique_result.twin)
                   type := rf.result_type.type
                   if type.live_type /= Void and then type.need_gc_mark_function then
-                     gc_handler.mark_for(unique_result, type.live_type, False)
+                     cpp.gc_handler.mark_for(unique_result, type.live_type, False)
                   end
                end
             end

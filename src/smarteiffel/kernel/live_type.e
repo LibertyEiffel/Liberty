@@ -514,7 +514,7 @@ feature {}
             end
          when 0 then
             native_array_collector_memory := -1
-            if not gc_handler.is_off and then type.is_native_array_collector_enabled then
+            if not cpp.gc_handler.is_off and then type.is_native_array_collector_enabled then
                fs := type.feature_stamp_of(mark_item_name)
                if fs = Void then
                   error_handler.append("Internal problem while searching for %"mark_item%".")
@@ -1025,7 +1025,7 @@ feature {GC_HANDLER}
 
    gc_define1 is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
       do
          if at_run_time then
             canonical_type_mark.gc_define1
@@ -1034,7 +1034,7 @@ feature {GC_HANDLER}
 
    gc_define2 is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
       do
          if at_run_time then
             canonical_type_mark.gc_define2
@@ -1044,8 +1044,8 @@ feature {GC_HANDLER}
    gc_info_in (str: STRING) is
          -- Produce C code to print GC information.
       require
-         not gc_handler.is_off
-         gc_handler.info_flag
+         not cpp.gc_handler.is_off
+         cpp.gc_handler.info_flag
       do
          if at_run_time then
             canonical_type_mark.gc_info_in(str)
@@ -1054,7 +1054,7 @@ feature {GC_HANDLER}
 
    just_before_gc_mark_in (body: STRING) is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
       do
          if at_run_time then
             canonical_type_mark.just_before_gc_mark_in(body)
@@ -1114,7 +1114,7 @@ feature {TYPE_MARK}
          -- Finally, when `is_unmarked' is True, object `o' is unmarked.
       require
          cpp.pending_c_function
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          not canonical_type_mark.is_native_array
          at_run_time
       local
@@ -1208,7 +1208,7 @@ feature {TYPE_MARK}
          -- Compute the best body for gc_align_markXXX of a fixed_size object.
       require
          cpp.pending_c_function
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
          not canonical_type_mark.is_native_array
          at_run_time
       do
@@ -1405,7 +1405,7 @@ feature {NATIVE_BUILT_IN}
          if is_reference then
             cpp.pending_c_function_body.append(once "R=se_deep_twin_search((void*)C);%N%
                                                     %if(R == NULL){%N")
-            gc_handler.allocation_of(internal_c_local, Current)
+            cpp.gc_handler.allocation_of(internal_c_local, Current)
             cpp.pending_c_function_body.append(once "R=")
             internal_c_local.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once ";%N*((T")
@@ -2197,7 +2197,7 @@ feature {}
                end
                cpp.pending_c_function_body.append(once "o);%N}%N}%N}")
             else
-               gc_handler.mark_for(field_name, attribute_type, False)
+               cpp.gc_handler.mark_for(field_name, attribute_type, False)
             end
          end
       end

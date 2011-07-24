@@ -23,6 +23,7 @@ feature {ANY}
    header_pass_4: C_HEADER_PASS_4
    live_type_compiler: C_LIVE_TYPE_COMPILER
    mapper: C_MAPPER
+   gc_handler: GC_HANDLER
 
 feature {}
    make is
@@ -33,6 +34,7 @@ feature {}
          create header_pass_4.make
          create live_type_compiler.make
          create mapper.make
+         create gc_handler.make
       end
 
 feature {SMART_EIFFEL}

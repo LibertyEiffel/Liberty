@@ -37,7 +37,7 @@ feature {ANY}
             next_option
             arg := option_buffer
             if flag_match(once "no_gc", arg) then
-               gc_handler.no_gc
+               cpp.gc_handler.no_gc
             elseif flag_match(fz_no_strip, arg) then
                system_tools.set_no_strip
             elseif flag_match(fz_no_split, arg) then

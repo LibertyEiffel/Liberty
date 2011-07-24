@@ -885,7 +885,7 @@ feature {ACE_CHECK}
          else
             txt.append("   trace (no)%N")
          end
-         if gc_handler.is_off then
+         if cpp.gc_handler.is_off then
             txt.append("   collect (no)%N")
          else
             txt.append("   collect (yes)%N")
@@ -1323,7 +1323,7 @@ feature {}
                add_default_debug_key(a_debug_key)
             elseif a_keyword(once "collect") then
                if not a_yes_no_all then
-                  gc_handler.no_gc
+                  cpp.gc_handler.no_gc
                end
             elseif a_keyword(fz_case_insensitive) then
                error_handler.add_position(current_position)
@@ -1744,7 +1744,7 @@ feature {}
                system_tools.set_c_compiler(string_aliaser.string(a_string))
             elseif a_keyword(fz_gc_info) then
                if a_yes_no_all then
-                  gc_handler.set_info_flag
+                  cpp.gc_handler.set_info_flag
                end
             elseif a_keyword(fz_no_strip) then
                if a_yes_no_all then

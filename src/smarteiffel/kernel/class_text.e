@@ -153,12 +153,12 @@ feature {ANY}
 
    get_export_permission_of (other: CLASS_TEXT): BOOLEAN is
          -- Do `Current' get permission of `other' to use some feature?
-         -- Here, `other' is the name of some class in some exportation list and we are trying to 
+         -- Here, `other' is the name of some class in some exportation list and we are trying to
          -- know if `Current' is allowed or not.
          --
          -- Note 1: we consider both "inherit" links and "insert" links as equivalent for exportations.
          --
-         -- Note 2: we do not rely on the TYPE graph for exportation, first because the CLASS_TEXT 
+         -- Note 2: we do not rely on the TYPE graph for exportation, first because the CLASS_TEXT
          -- inherit/insert graph is smaller and because it is much more easy for generic classes.
       require
          any_gives_permission_to_all: other.name.to_string /= as_any
@@ -271,7 +271,7 @@ feature {ANY}
       end
 
    declaration_type_of_like_current: TYPE is
-         -- See also the comment of {TYPE_MARK}.declaration_type, because `declaration_type_of_like_current' 
+         -- See also the comment of {TYPE_MARK}.declaration_type, because `declaration_type_of_like_current'
          -- is actually the implementation of `declaration_type' for the "like Current" type mark.
       local
          type_of_current: TYPE_MARK; sp: POSITION
@@ -428,7 +428,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
 
 feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
    has_creation_check (procedure_name: FEATURE_NAME; call_site: POSITION; type: TYPE): BOOLEAN is
-         -- Check that the `procedure_name' is actually a creation procedure for `Current'. Then, also check that 
+         -- Check that the `procedure_name' is actually a creation procedure for `Current'. Then, also check that
          -- `procedure_name' is written in an allowed base class for creation from `type'.
       require
          creation_clause_list /= Void
@@ -533,7 +533,7 @@ feature {}
 feature {TYPE}
    is_native_array_collector_enabled: BOOLEAN is
       require
-         not gc_handler.is_off
+         not cpp.gc_handler.is_off
       do
          inspect
             native_array_collector_memory
@@ -560,12 +560,12 @@ feature {TYPE}
             end
          end
       ensure
-         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1) 
+         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1)
       end
-   
+
 feature {}
    check_expanded_with_flag: TYPE
-   
+
 feature {ONCE_ROUTINE_POOL}
    once_flag (mark: STRING): BOOLEAN is
          -- Flag used to avoid double C definition of globals C variables for
@@ -860,7 +860,7 @@ feature {TYPE}
             parent_lists.check_level_2(type)
          end
       end
-   
+
 feature {ACE, CLASS_TEXT}
    assertion_level_not_yet_computed: BOOLEAN is
       do
@@ -1052,7 +1052,7 @@ feature {TYPE, CLASS_TEXT_VISITOR}
             end
          end
       end
-   
+
 feature {}
    declaration_type_of_like_current_memory: TYPE
          -- To cache `declaration_type' value.
@@ -1068,7 +1068,7 @@ feature {}
 
    creation_list_check_done: BOOLEAN
          -- See `creation_list_check'.
-   
+
    fn_buffer: FEATURE_NAME is
          -- Dummy once name to avoid memory leaks.
       once
@@ -1154,12 +1154,12 @@ feature {}
 
 feature {}
    insert_inherit_test_memory_cache: HASHED_DICTIONARY[INTEGER_8, CLASS_TEXT]
-   
+
 invariant
    name /= Void
 
    feature_dictionary /= Void implies hash_code = name.to_string.hash_code
-   
+
 end -- class CLASS_TEXT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
