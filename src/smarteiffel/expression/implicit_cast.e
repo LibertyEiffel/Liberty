@@ -3,7 +3,7 @@
 --
 class IMPLICIT_CAST
    --
-   -- To memorize an implicit legal conversion from one type to another. This invisible expression is 
+   -- To memorize an implicit legal conversion from one type to another. This invisible expression is
    -- used for all kinds of legal implicit conversions:
    --
    --   from INTEGER_8 to INTEGER_16
@@ -14,14 +14,14 @@ class IMPLICIT_CAST
    --   from INTEGER_16 to INTEGER_64,
    --
    --   from INTEGER_32 to INTEGER_64,
-   --   
+   --
    --   from REAL_32 to REAL_64,
    --   from REAL_32 to REAL_80,
    --   from REAL_32 to REAL_128,
    --   from REAL_32 to REAL_EXTENDED,
    --
    -- (See also NO_DISPATCH.)
-   -- 
+   --
 
 inherit
    EXPRESSION
@@ -94,13 +94,8 @@ feature {ANY}
          cpp.pending_c_function_body.append(once "/*IC*/(")
          resolved_memory.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once ")(")
-         expression.mapping_c_target(type, expression_type)
+         cpp.target_mapper.compile(expression, type, expression_type)
          cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         compile_to_c(type)
       end
 
    mapping_c_arg (type: TYPE) is
@@ -171,7 +166,7 @@ feature {ANY}
       do
          e := expression.specialize_2(type)
          if type.is_integer then
-            -- Because INTEGER_GENERAL is a very special case, we have to unwrap the IMPLICIT_CAST 
+            -- Because INTEGER_GENERAL is a very special case, we have to unwrap the IMPLICIT_CAST
             -- in order to give another chance for expression to match with INTEGER_8 / 16 / 32 / 64:
             Result := e
          elseif e = expression then
@@ -312,7 +307,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(implicit_cast)
          end
       end
-   
+
 feature {}
    make (e: like expression; et: like expression_type; rm: like resolved_memory) is
       require

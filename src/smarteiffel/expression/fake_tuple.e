@@ -6,34 +6,34 @@ class FAKE_TUPLE
    -- Pseudo expression used to avoid creation of TUPLEs while lauching agents.
    -- Also important to check arguments passing more stricly.
    --
-   
+
 inherit
    EXPRESSION
-   
+
 creation {EFFECTIVE_ARG_LIST}
    make
-   
+
 feature {ANY}
    is_void: BOOLEAN is False
-   
+
    is_current, is_implicit_current: BOOLEAN is False
-   
+
    precedence: INTEGER is 2
-   
+
    is_static: BOOLEAN is False
-   
+
    is_manifest_string: BOOLEAN is False
-   
+
    is_result: BOOLEAN is False
-   
+
    is_writable: BOOLEAN is False
-   
+
    extra_bracket_flag: BOOLEAN is False
-   
+
    start_position: POSITION
-   
+
    debug_info: STRING
-   
+
    specialize_in (type: TYPE): like Current is
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
@@ -66,7 +66,7 @@ feature {ANY}
             end
          end
       end
-   
+
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
@@ -99,7 +99,7 @@ feature {ANY}
             end
          end
       end
-   
+
    specialize_2 (type: TYPE): like Current is
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
@@ -132,7 +132,7 @@ feature {ANY}
             end
          end
       end
-   
+
    has_been_specialized: BOOLEAN is
       local
          i: INTEGER
@@ -149,23 +149,23 @@ feature {ANY}
             end
          end
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          sedb_breakpoint
          check
             False
-            -- Because Void can be a valid item in `list,' and because Void as no type, 
+            -- Because Void can be a valid item in `list,' and because Void as no type,
             -- one must not collect `Current' entirely. Each item must be collected separately.
          end
       end
-   
+
    collect (type: TYPE): TYPE is
       do
          sedb_breakpoint
          check
             False
-            -- Because Void can be a valid item in `list,' and because Void as no type, 
+            -- Because Void can be a valid item in `list,' and because Void as no type,
             -- one must not collect `Current' entirely. Each item must be collected separately.
          end
       end
@@ -173,7 +173,7 @@ feature {ANY}
    side_effect_free (type: TYPE): BOOLEAN is
       do
       end
-   
+
    adapt_for (type: TYPE): like Current is
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
@@ -206,16 +206,16 @@ feature {ANY}
             end
          end
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
       end
-   
+
    simplify (type: TYPE): FAKE_TUPLE is
       do
          Result := Current --|*** To be done ***
       end
-   
+
    compile_to_c (type: TYPE) is
       local
          i: INTEGER; e: EXPRESSION
@@ -235,21 +235,14 @@ feature {ANY}
             end
          end
       end
-   
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-   
+
    mapping_c_arg (type: TYPE) is
       do
          check
             False
          end
       end
-   
+
    safety_check (type: TYPE) is
       local
          i: INTEGER
@@ -265,7 +258,7 @@ feature {ANY}
             end
          end
       end
-   
+
    declaration_type: TYPE is
       local
          i: INTEGER; rt: TYPE_MARK; gl: ARRAY[TYPE_MARK]
@@ -288,7 +281,7 @@ feature {ANY}
          end
          Result := rt.type
       end
-   
+
    use_current (type: TYPE): BOOLEAN is
       local
          i: INTEGER
@@ -304,28 +297,28 @@ feature {ANY}
             end
          end
       end
-   
+
    pretty (indent_level: INTEGER) is
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
-   
+
    pretty_target (indent_level: INTEGER) is
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
-   
+
    bracketed_pretty (indent_level: INTEGER) is
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
-   
+
    short (type: TYPE) is
       local
          i: INTEGER
@@ -346,22 +339,22 @@ feature {ANY}
                end
                short_printer.hook_or(once "close_sb",once "]")
                end
-               
+
                short_target (type: TYPE) is
       do
          short_target(type)
       end
-   
+
    jvm_assign_creation, jvm_assign (type: TYPE) is
       do
          check False end
       end
-   
+
    jvm_branch_if_false, jvm_branch_if_true  (type: TYPE): INTEGER is
       do
          check False end
       end
-   
+
    compile_to_jvm (type: TYPE) is
       local
          i: INTEGER
@@ -377,33 +370,33 @@ feature {ANY}
             end
          end
       end
-   
+
    compile_target_to_jvm (type: TYPE) is
       do
          check
             False
          end
       end
-   
+
    accept(visitor: FAKE_TUPLE_VISITOR) is
       do
          visitor.visit_fake_tuple(Current)
       end
-   
+
    count: INTEGER is
       do
          if list /= Void then
             Result := list.count
          end
       end
-   
+
    expression (i: INTEGER): EXPRESSION is
       require
          i.in_range(1, count)
       do
          Result := list.item(i - 1)
       end
-   
+
 feature {AGENT_LAUNCHER}
    implicit_cast (type: TYPE; open: ARRAY[TYPE]): like Current is
       local
@@ -447,7 +440,7 @@ feature {AGENT_LAUNCHER}
             end
          end
       end
-   
+
 feature {FAKE_TUPLE}
    set_list (l: like list) is
       require
@@ -457,10 +450,10 @@ feature {FAKE_TUPLE}
       ensure
          list = l
       end
-   
+
 feature {FAKE_TUPLE_VISITOR}
    list: FAST_ARRAY[EXPRESSION]
-   
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
@@ -477,7 +470,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(ft)
          end
       end
-   
+
 feature {}
    make (mt: MANIFEST_TUPLE) is
       require
@@ -499,11 +492,11 @@ feature {}
             end
          end
       end
-   
+
 invariant
-   
+
    not start_position.is_unknown
-   
+
 end --  FAKE_TUPLE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

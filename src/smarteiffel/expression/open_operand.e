@@ -3,7 +3,7 @@
 --
 class OPEN_OPERAND
    --
-   -- An open operand (or open target as well) inside some AGENT_CREATION expression. Most often, an 
+   -- An open operand (or open target as well) inside some AGENT_CREATION expression. Most often, an
    -- open  operand is a single question mark inside some agent creation expression like in:
    --    agent foo(?)
    -- But, keep in mind that an open operand can also be some type mark inside curly brackets like in:
@@ -26,14 +26,14 @@ creation {EIFFEL_PARSER}
 feature {ANY}
    start_position: POSITION
          -- Of the `?' or of the '{' opening character.
-   
+
    curly_type: TYPE_MARK
-         -- If any, provided by the `eiffel_parser'. The one written between {} when the ? notation 
+         -- If any, provided by the `eiffel_parser'. The one written between {} when the ? notation
          -- is not used.
 
    rank: INTEGER
-         -- The `rank' of the corresponding open argument in the actual argument list. The `rank' 
-         -- is set to -1 to indicate that it is an open target. Initial 0 value indicate that 
+         -- The `rank' of the corresponding open argument in the actual argument list. The `rank'
+         -- is set to -1 to indicate that it is an open target. Initial 0 value indicate that
          -- `Current' is out of scope of its corresponding "agent" keyword.
 
    is_current: BOOLEAN is False
@@ -55,16 +55,16 @@ feature {ANY}
    specialize_in (type: TYPE): like Current is
       do
          Result := Current
-         if rank = 0 then 
+         if rank = 0 then
             error_handler.add_position(start_position)
             error_handler.append("This ")
             error_handler.add_expression(Current)
             error_handler.append(" open operand expression is out of %"agent%" keyword scope.")
             error_handler.print_as_fatal_error
          end
-         if curly_type /= Void then            
+         if curly_type /= Void then
             curly_type.specialize_in(type)
-         elseif rank = -1 then 
+         elseif rank = -1 then
             error_handler.add_position(start_position)
             error_handler.append("This ")
             error_handler.add_expression(Current)
@@ -89,7 +89,7 @@ feature {ANY}
             end
          end
       end
-   
+
    specialize_2 (type: TYPE): like Current is
       do
          check
@@ -98,7 +98,7 @@ feature {ANY}
          -- Actually, nothing to do, even for `curly_type'. Let's wait.
          Result := Current
       end
-   
+
    declaration_type: TYPE is
       do
          Result := curly_type.declaration_type.type
@@ -114,7 +114,7 @@ feature {ANY}
          -- As it is always inside some wrapper, the answer is:
          Result := True
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          if resolved_memory = Void then
@@ -127,7 +127,7 @@ feature {ANY}
             resolved_memory.put(Result, type)
          end
       end
-   
+
    has_been_specialized: BOOLEAN is
       do
          if curly_type = Void then
@@ -136,12 +136,12 @@ feature {ANY}
             Result := curly_type.has_been_specialized
          end
       end
-   
+
    adapt_for (t: TYPE): like Current is
       do
          Result := Current
       end
-   
+
    bracketed_pretty, pretty (indent_level: INTEGER) is
       do
          if curly_type = Void then
@@ -201,11 +201,6 @@ feature {ANY}
          c_name_in(cpp.pending_c_function_body)
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -217,7 +212,7 @@ feature {ANY}
             not Result
          end
       end
-      
+
    jvm_assign_creation, jvm_assign (type: TYPE) is
       do
          check
@@ -262,7 +257,7 @@ feature {AGENT_CREATION, FORMAL_ARG_LIST}
       ensure
          rank = r
       end
-      
+
 feature {AGENT_CREATION}
    c_name_in (buffer: STRING) is
       do
@@ -273,7 +268,7 @@ feature {AGENT_CREATION}
             rank.append_in(buffer)
          end
       end
-   
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
@@ -282,7 +277,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 
 feature {}
    resolved_memory: HASHED_DICTIONARY[TYPE, TYPE]
-   
+
 feature {EFFECTIVE_ARG_LIST, FORMAL_ARG_LIST}
    update_resolved_memory (type, resolved: TYPE) is
       require
@@ -294,7 +289,7 @@ feature {EFFECTIVE_ARG_LIST, FORMAL_ARG_LIST}
          end
          resolved_memory.put(resolved, type)
       end
-   
+
 feature {}
    current_or_twin_init (ct: like curly_type): like Current is
       do
@@ -337,11 +332,11 @@ feature {}
 
 invariant
    rank >= -1
-   
+
    curly_type_or_question_mark: (curly_type = Void) xor (notify_memory = Void)
 
-   (curly_type /= Void) implies rank.in_range(-1, 0)   
-   
+   (curly_type /= Void) implies rank.in_range(-1, 0)
+
 end -- class OPEN_OPERAND
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

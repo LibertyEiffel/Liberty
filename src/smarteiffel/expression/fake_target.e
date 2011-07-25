@@ -19,10 +19,10 @@ creation {EIFFEL_PARSER, MANIFEST_TUPLE, CREATE_EXPRESSION, CECIL_ENTRY}
 feature {ANY}
    start_position: POSITION
          -- Of the opening curly bracket.
-   
+
    explicit_type_mark: TYPE_MARK
          -- The written one between curly brackets.
-   
+
    is_current, is_implicit_current: BOOLEAN is False
 
    is_writable: BOOLEAN is False
@@ -121,11 +121,6 @@ feature {ANY}
          cpp.pending_c_function_body.extend('C')
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         standard_mapping_c_target(type, target_formal_type)
-      end
-   
    mapping_c_arg (type: TYPE) is
       do
          check
@@ -168,7 +163,7 @@ feature {ANY}
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
-   
+
    pretty, bracketed_pretty (indent_level: INTEGER) is
       do
          pretty_printer.put_character('{')
@@ -206,12 +201,12 @@ feature {FAKE_TARGET}
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
-         code_accumulator.current_context.add_last(Current)         
+         code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    declaration_type_memory: TYPE
-   
+
    make (sp: like start_position; etm: like explicit_type_mark) is
       require
          etm /= Void

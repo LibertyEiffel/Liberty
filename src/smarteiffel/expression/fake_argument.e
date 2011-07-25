@@ -101,13 +101,6 @@ feature {ANY}
          rank.append_in(cpp.pending_c_function_body)
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -176,9 +169,9 @@ feature {ANY}
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
-         code_accumulator.current_context.add_last(Current)         
+         code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    rank: INTEGER
 
@@ -199,7 +192,7 @@ feature {}
 
 invariant
    not start_position.is_unknown
-   
+
    rank > 0
 
    result_type.is_static

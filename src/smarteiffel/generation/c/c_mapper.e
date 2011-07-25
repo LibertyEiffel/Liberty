@@ -110,6 +110,7 @@ feature {RUN_FEATURE_1}
          if has_target then
             cpp.pending_c_function_body.extend(')')
          end
+         function_body.append(once "/*:RF1*/")
       end
 
 feature {RUN_FEATURE_2}
@@ -119,12 +120,12 @@ feature {RUN_FEATURE_2}
             -- No more attribute in kernel expanded classes.
             not visited.type_of_current.is_kernel_expanded
          end
+         function_body.append(once "(/*RF2:")
+         function_body.append(visited.name.to_string)
+         function_body.append(once "*/")
          if visited.need_c_function and then cpp.use_c_function_call_for_attribute_read then
             default_mapping_function(visited)
          else
-            function_body.append(once "(/*RF2:")
-            function_body.append(visited.name.to_string)
-            function_body.append(once "*/")
             if visited.type_of_current.is_reference then
                function_body.extend('(')
                cpp.put_target_as_target(visited.type_of_current)
@@ -141,6 +142,7 @@ feature {RUN_FEATURE_2}
             end
             function_body.extend(')')
          end
+         function_body.append(once "/*:RF2*/")
       end
 
 feature {RUN_FEATURE_3}
@@ -157,6 +159,7 @@ feature {RUN_FEATURE_3}
          else
             default_mapping_procedure(visited)
          end
+         function_body.append(once "/*:RF3*/")
       end
 
 feature {RUN_FEATURE_4}
@@ -166,6 +169,7 @@ feature {RUN_FEATURE_4}
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
          default_mapping_function(visited)
+         function_body.append(once "/*:RF4*/")
       end
 
 feature {RUN_FEATURE_5}
@@ -175,6 +179,7 @@ feature {RUN_FEATURE_5}
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
          default_mapping_procedure(visited)
+         function_body.append(once "/*:RF5*/")
       end
 
 feature {RUN_FEATURE_6}
@@ -188,6 +193,7 @@ feature {RUN_FEATURE_6}
          else
             default_mapping_function(visited)
          end
+         function_body.append(once "/*:RF6*/")
       end
 
 feature {RUN_FEATURE_7}
@@ -205,6 +211,7 @@ feature {RUN_FEATURE_7}
          else
             native.c_mapping_procedure(visited, bf.class_text.name.to_string, bf.first_name.to_string)
          end
+         function_body.append(once "/*:RF7*/")
       end
 
 feature {RUN_FEATURE_8}
@@ -222,6 +229,7 @@ feature {RUN_FEATURE_8}
          else
             native.c_mapping_function(visited, bf.class_text.name.to_string, bf.first_name.to_string)
          end
+         function_body.append(once "/*:RF8*/")
       end
 
 feature {RUN_FEATURE_9}
@@ -241,6 +249,7 @@ feature {RUN_FEATURE_9}
          else
             function_body.append(once "(void)0;")
          end
+         function_body.append(once "/*:RF9*/")
       end
 
 end -- class C_MAPPER

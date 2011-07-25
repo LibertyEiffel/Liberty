@@ -12,7 +12,7 @@ inherit
       redefine
          written_declaration_type_mark
       end
-   
+
 creation {INSPECT_STATEMENT, FUNCTION_CALL, MANIFEST_STRING_INSPECTOR, IFTHEN}
    make
 
@@ -24,9 +24,9 @@ feature {ANY}
 
    collect_flag: BOOLEAN
          -- Indicate that `original_expression' must be collected.
-   
+
    is_result: BOOLEAN is False
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := True
@@ -94,24 +94,6 @@ feature {ANY}
          internal_c_local.append_in(cpp.pending_c_function_body)
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         if formal_target_type.is_reference then
-            cpp.pending_c_function_body.append(once "((T")
-            formal_target_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            compile_to_c(type)
-            cpp.pending_c_function_body.extend(')')
-         elseif formal_target_type.is_user_expanded then
-            if not formal_target_type.is_empty_expanded then
-               cpp.pending_c_function_body.extend('&')
-            end
-            compile_to_c(type)
-         else
-            compile_to_c(type)
-         end
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -153,20 +135,20 @@ feature {ASSIGNMENT}
    unlock is
       do
       end
-   
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    pending_c_function_counter: INTEGER
-   
+
    internal_c_local: INTERNAL_C_LOCAL
 
    tag: STRING
-   
+
    make (sp: like start_position; oe: like original_expression; t: like tag; cf: like collect_flag) is
       require
          not sp.is_unknown

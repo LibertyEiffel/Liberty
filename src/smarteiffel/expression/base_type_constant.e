@@ -47,11 +47,6 @@ feature {ANY}
 
    has_been_specialized: BOOLEAN is True
 
-   frozen mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    frozen mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -116,10 +111,10 @@ feature {ANY}
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
-         code_accumulator.add_sedb(start_position, 'S')         
+         code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    to_string: STRING is
       deferred

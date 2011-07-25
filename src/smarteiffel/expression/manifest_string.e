@@ -97,15 +97,6 @@ feature {ANY}
          end
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "((")
-         target_formal_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend(')')
-         compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)

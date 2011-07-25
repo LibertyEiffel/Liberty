@@ -6,8 +6,8 @@ class OLD_MANIFEST_ARRAY
    -- The old (now obsolete) manifest array notation:
    --                                                    << foo, bar >>
    --
-   -- is still accepted when the type of elements can be computed with no ambiguity. 
-   -- Expression OLD_MANIFEST_ARRAY are internally replaced with  the canonical corresponding 
+   -- is still accepted when the type of elements can be computed with no ambiguity.
+   -- Expression OLD_MANIFEST_ARRAY are internally replaced with  the canonical corresponding
    -- canonical MANIFEST_GENERIC.
    --
 inherit
@@ -21,7 +21,7 @@ feature
          -- Of first character of the first < character.
 
    list: FAST_ARRAY[EXPRESSION]
-   
+
    is_void: BOOLEAN is False
 
    is_current: BOOLEAN is False
@@ -251,7 +251,7 @@ feature
             False -- (Because we have already switched to the canonical form.)
          end
       end
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := False
@@ -277,13 +277,6 @@ feature
       end
 
    compile_to_c (type: TYPE) is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
       do
          check
             False -- (Because we have already switched to the canonical form.)
@@ -376,7 +369,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             False -- (Because we have already switched to the canonical form.)
          end
       end
-   
+
 feature {OLD_MANIFEST_ARRAY}
    set_list (l: like list) is
       do
@@ -413,7 +406,7 @@ feature {}
       local
          i: INTEGER; type, type_2: TYPE; expanded_flag: BOOLEAN
       do
-         -- First loop to handle the simple situation where one TYPE of `type_set_buffer' 
+         -- First loop to handle the simple situation where one TYPE of `type_set_buffer'
          -- can hold all other types:
          from
             i := type_set_buffer.lower
@@ -477,7 +470,7 @@ feature {}
 invariant
 
    list.count > 0
-   
+
 end -- class OLD_MANIFEST_ARRAY
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

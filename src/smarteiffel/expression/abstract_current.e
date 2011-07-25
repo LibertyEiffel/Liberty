@@ -8,7 +8,7 @@ deferred class ABSTRACT_CURRENT
 
 inherit
    EXPRESSION
-   
+
 feature {ANY}
    start_position: POSITION
 
@@ -37,22 +37,9 @@ feature {ANY}
       do
          Result := True
       end
-   
+
    frozen safety_check (type: TYPE) is
       do
-      end
-
-   frozen mapping_c_target (type, target_formal_type: TYPE) is
-      local
-         class_invariant_flag: INTEGER
-      do
-         if is_written then
-            class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, False)
-         end
-         cpp.print_current
-         if class_invariant_flag > 0 then
-            cpp.class_invariant_call_closing(class_invariant_flag, False)
-         end
       end
 
    frozen mapping_c_arg (type: TYPE) is

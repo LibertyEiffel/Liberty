@@ -3,7 +3,7 @@
 --
 class ASSERTION
    --
-   -- To store one assertion whatever its positioning: require, ensure, class invariant, loop 
+   -- To store one assertion whatever its positioning: require, ensure, class invariant, loop
    -- invariant, require else, etc.
    --
 
@@ -30,13 +30,13 @@ feature {ANY}
             Result := comment.start_position
          end
       end
-   
+
    is_void: BOOLEAN is False
 
    is_manifest_string: BOOLEAN is False
 
    is_implicit_current: BOOLEAN is False
-   
+
    is_current: BOOLEAN is False
 
    is_result: BOOLEAN is False
@@ -48,14 +48,14 @@ feature {ANY}
          check
             False -- This one must never be called.
             -- Well, an ASSERTION is not really an ordinary EXPRESSION.
-         end         
+         end
       end
-   
+
    is_static: BOOLEAN is
       do
          Result := expression.is_static
       end
-   
+
    pretty (indent_level: INTEGER) is
       do
          pretty_printer.set_indent_level(indent_level)
@@ -130,7 +130,7 @@ feature {ANY}
       do
          check
             False
-         end         
+         end
       end
 
    extra_bracket_flag: BOOLEAN is
@@ -139,49 +139,42 @@ feature {ANY}
             False
          end
       end
-         
+
    bracketed_pretty (indent_level: INTEGER) is
       do
          check
             False
          end
       end
-         
+
    pretty_target (indent_level: INTEGER) is
       do
          check
             False
          end
       end
-         
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-   
+
    mapping_c_arg (type: TYPE) is
       do
          check
             False
          end
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          check
             False
          end
       end
-   
+
    declaration_type: TYPE is
       do
          check
             False
          end
       end
-      
+
    is_always_true (type: TYPE): BOOLEAN is
          -- Well, if we can avoid the cost of some assertions, it is better.
       local
@@ -204,9 +197,9 @@ feature {ANY}
 --***            loop
 --***               sedb_breakpoint
 --***               exp1 := exp2
---***               exp2 := exp1.simplify(type)               
+--***               exp2 := exp1.simplify(type)
 --***            end
---***            
+--***
 --***            Result := ({E_TRUE} ?:= exp1)
          end
       end
@@ -217,7 +210,7 @@ feature {ANY}
             expression.safety_check(type)
          end
       end
-         
+
    accept (visitor: ASSERTION_VISITOR) is
       do
          visitor.visit_assertion(Current)
@@ -235,7 +228,7 @@ feature {ANY}
    resolve_in (type: TYPE): TYPE is
       do
       end
-   
+
    adapt_for (t: TYPE): like Current is
       local
          exp: like expression
@@ -342,7 +335,7 @@ feature {ASSERTION_LIST}
          end
          cpp.check_assertion(type, expression, once "ac_inv", tag_name)
       end
-   
+
    compile_to_c_as_require_1 (type: TYPE) is
       require
          not is_always_true(type)
@@ -356,7 +349,7 @@ feature {ASSERTION_LIST}
          end
          cpp.check_assertion(type, expression, once "ac_req", tag_name)
       end
-   
+
    compile_to_c_as_require_n (type: TYPE) is
       require
          not is_always_true(type)
@@ -380,7 +373,7 @@ feature {ASSERTION_LIST}
             cpp.pending_c_function_body.append(once ";%N")
          end
       end
-   
+
    compile_to_c_as_ensure (type: TYPE) is
       require
          not is_always_true(type)
@@ -394,7 +387,7 @@ feature {ASSERTION_LIST}
          end
          cpp.check_assertion(type, expression, once "ac_ens", tag_name)
       end
-   
+
    compile_to_c_as_check_compound (type: TYPE) is
       require
          not is_always_true(type)
@@ -447,7 +440,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.count = 1
          {ASSERTION} ?:= code_accumulator.current_context.last
       end
-   
+
 feature {ASSERTION}
    specialize_2_check (type: TYPE) is
       local
@@ -478,7 +471,7 @@ feature {ASSERTION}
 
 feature {}
    source_view: STRING
-   
+
    current_or_twin_init (exp: like expression): like Current is
       do
          if exp = expression then

@@ -23,6 +23,7 @@ feature {ANY}
    header_pass_4: C_HEADER_PASS_4
    live_type_compiler: C_LIVE_TYPE_COMPILER
    mapper: C_MAPPER
+   target_mapper: C_TARGET_MAPPER
    gc_handler: GC_HANDLER
 
 feature {}
@@ -34,6 +35,7 @@ feature {}
          create header_pass_4.make
          create live_type_compiler.make
          create mapper.make
+         create target_mapper.make
          create gc_handler.make
       end
 
@@ -993,7 +995,7 @@ feature {ANY}
          when C_direct_call then
             target := stack_top.target
             type := stack_top.type
-            target.mapping_c_target(type, target_formal_type)
+            target_mapper.compile(target, type, target_formal_type)
          else
             common_put_target
          end
@@ -1655,6 +1657,7 @@ feature {ANY}
       do
          inspect
             integer_flag
+         when 0 then
          when 1 then
             pending_c_function_body.extend(')')
          when 3 then

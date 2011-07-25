@@ -13,7 +13,7 @@ feature {ANY}
    start_position: POSITION
 
    target_type: TYPE
-   
+
    array_name: CHARACTER
 
    is_writable: BOOLEAN is False
@@ -120,11 +120,6 @@ feature {ANY}
          cpp.pending_c_function_body.append(once "])")
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -211,7 +206,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make_generating_type (sp: like start_position; tt: like target_type) is
       require

@@ -68,44 +68,6 @@ feature {ANY}
          end
       end
 
-   frozen mapping_c_target (type, target_formal_type: TYPE) is
-      local
-         class_invariant_flag: INTEGER; actual_type: TYPE; internal_c_local: INTERNAL_C_LOCAL
-      do
-         class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, True)
-         actual_type := resolve_in(type)
-         if actual_type.is_reference then
-            cpp.pending_c_function_body.extend('(')
-            target_formal_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")(")
-            compile_to_c(type)
-            cpp.pending_c_function_body.extend(')')
-         elseif target_formal_type.canonical_type_mark.need_c_struct or target_formal_type.has_external_type then
-            if extra_local_expanded(type) = Void then
-               cpp.pending_c_function_body.append(once "&(")
-            else
-               check
-                  extra_local_expanded(type) = actual_type
-               end
-               cpp.pending_c_function_body.extend('(')
-               internal_c_local := cpp.pending_c_function_lock_local(actual_type, once "fcstrangeisnotunlock")
-               internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend('=')
-            end
-            compile_to_c(type)
-            if internal_c_local /= Void then
-               cpp.pending_c_function_body.append(once ",&")
-               internal_c_local.append_in(cpp.pending_c_function_body)
-            end
-            cpp.pending_c_function_body.extend(')')
-         else
-            compile_to_c(type)
-         end
-         if class_invariant_flag > 0 then
-            cpp.class_invariant_call_closing(class_invariant_flag, False)
-         end
-      end
-
    frozen mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -145,7 +107,7 @@ feature {ANY}
          end
       end
 
-feature {FEATURE_CALL, IMPLICIT_CAST}
+feature {FEATURE_CALL, IMPLICIT_CAST, C_TARGET_MAPPER}
    extra_local_expanded (type: TYPE): TYPE is
          -- Assuming that `Current' is used as some target, if some extra local variable is required, the
          -- corresponding user's expanded type is returned.
@@ -200,7 +162,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             monomorphic_flag := True
             if non_void_no_dispatch /= target_type then
                fs := fs.resolve_static_binding_for(target_type, non_void_no_dispatch)
-            end            
+            end
          elseif target_live_type = Void then
             void_call_flag := True
          else
@@ -348,7 +310,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 
 feature {}
    declaration_type_memory: TYPE
-   
+
    frozen function_and_argument_count_check (af: ANONYMOUS_FEATURE; actual_args: like arguments) is
          -- Check that the feature found is really a function then launch `argument_count_check'.
       require

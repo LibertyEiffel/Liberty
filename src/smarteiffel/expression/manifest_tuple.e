@@ -2,7 +2,7 @@ class MANIFEST_TUPLE
 --
 -- Manifest TUPLE creation like:  [ foo , bar ]
 --
--- Implementation note: actually, the manifest tuple notation is only syntactic sugar for 
+-- Implementation note: actually, the manifest tuple notation is only syntactic sugar for
 -- expression creation call using creators of in class(es) TUPLEs.
 --
 
@@ -18,7 +18,7 @@ feature {ANY}
    effective_arg_list: EFFECTIVE_ARG_LIST
          -- Provided by the `eiffel_parser': the list of expressions inside square brackets.
          -- This `effective_arg_list' is Void for the empty TUPLE.
-   
+
 
    is_void: BOOLEAN is False
 
@@ -124,7 +124,7 @@ feature {ANY}
             Result := current_or_twin_init(eal, create_expression)
          end
       end
-   
+
    specialize_2 (type: TYPE): like Current is
       local
          cx: like create_expression; eal: like effective_arg_list; i: INTEGER
@@ -133,7 +133,7 @@ feature {ANY}
          if effective_arg_list = Void then
             cx := create_expression
          else
-            -- Checking that Void is not member of the `effective_arg_list' in order to warn the 
+            -- Checking that Void is not member of the `effective_arg_list' in order to warn the
             -- user:
             from
                i := 1
@@ -162,7 +162,7 @@ feature {ANY}
                --|*** We should be able to avoid this leak. ***
                --| We also have to check that the creation type is identical.
                --| No time. Still leaky. (Dom feb 8th 2004)
-               --|*** 
+               --|***
                cx := create_expression_for(type, eal)
             else
                cx := create_expression_for(type, eal)
@@ -182,17 +182,17 @@ feature {ANY}
             Result := effective_arg_list.has_been_specialized
          end
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := create_expression.resolve_in(type)
       end
-   
+
    declaration_type: TYPE is
       do
          Result := create_expression.declaration_type
       end
-   
+
    adapt_for (t: TYPE): like Current is
       local
          ce: like create_expression
@@ -200,7 +200,7 @@ feature {ANY}
          ce := create_expression.adapt_for(t)
          Result := current_or_twin_init(effective_arg_list, ce)
       end
-   
+
    collect (type: TYPE): TYPE is
       do
          Result := create_expression.collect(type)
@@ -273,15 +273,6 @@ feature {ANY}
          create_expression.compile_to_jvm(type)
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "((")
-         target_formal_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend(')')
-         compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -299,10 +290,10 @@ feature {ANY}
 
 feature {MANIFEST_TUPLE}
    create_expression: CREATE_EXPRESSION
-         -- The corresponding one used to implement the manifest TUPLE creation. As an example, 
-         -- expression ['a'] is internally replaced with the following 
+         -- The corresponding one used to implement the manifest TUPLE creation. As an example,
+         -- expression ['a'] is internally replaced with the following
          -- expression: create {TUPLE[CHARACTER]}.make('a')
-   
+
    init (eal: like effective_arg_list; ce: like create_expression) is
       do
          debug
@@ -325,7 +316,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          -- Back to the canonical form:
          create_expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
-   
+
 feature {}
    make (sp: like start_position; eal: like effective_arg_list) is
       require
@@ -344,7 +335,7 @@ feature {}
          start_position = sp
          effective_arg_list = eal
       end
-   
+
    current_or_twin_init (eal: like effective_arg_list; ce: like create_expression): like Current is
       do
          if eal = effective_arg_list and then ce = create_expression then
@@ -359,7 +350,7 @@ feature {}
       end
 
    create_expression_for (type: TYPE; eal: EFFECTIVE_ARG_LIST): CREATE_EXPRESSION is
-         -- Create the corresponding TUPLE create expression knowing that `eal' has already got its 
+         -- Create the corresponding TUPLE create expression knowing that `eal' has already got its
          -- `specialize_2' call using `type'.
       require
          type /= Void
@@ -394,7 +385,7 @@ feature {}
          buffer.copy(as_make)
          buffer.extend('_')
          eal.count.append_in(buffer)
-         create fn.ordinary_name(string_aliaser.hashed_string(buffer), start_position) 
+         create fn.ordinary_name(string_aliaser.hashed_string(buffer), start_position)
          if eal.count = 1 then
             create {PROCEDURE_CALL_1} proc_call.make(fake_target, fn, eal)
          else
@@ -402,5 +393,5 @@ feature {}
          end
          create Result.make(start_position, non_empty_tuple_type_mark, proc_call)
       end
-   
+
 end

@@ -5,12 +5,12 @@ class NON_VOID_NO_DISPATCH
    --
    -- Used each time we have a non Void object with no need for dynamic dispatch because we know its dynamic type.
    --
-   -- As an example, such an object is created for precomputed once function for which we are able to determine 
+   -- As an example, such an object is created for precomputed once function for which we are able to determine
    -- the exact dynamic type (this is the most common usage of NON_VOID_NO_DISPATCH).
-   -- As another example, NON_VOID_NO_DISPATCH class is also used to manipulate some external for well known 
+   -- As another example, NON_VOID_NO_DISPATCH class is also used to manipulate some external for well known
    -- entities like `stdin', `stdout' or `stderr' (we are also sure of the non-Void properties here).
    --
-   
+
 inherit
    NON_WRITTEN_EXPRESSION
 
@@ -48,7 +48,7 @@ feature {ANY}
    is_static: BOOLEAN is True
 
    is_result: BOOLEAN is False
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := dynamic_type
@@ -72,7 +72,7 @@ feature {ANY}
    use_current (type: TYPE): BOOLEAN is
       do
       end
-      
+
    adapt_for (type: TYPE): like Current is
       do
          Result := Current
@@ -104,24 +104,6 @@ feature {ANY}
             cpp.pending_c_function_body.append(once ")")
          else
             once_routine_pool.unique_result_in(cpp.pending_c_function_body, once_function)
-         end
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         if once_function /= Void then
-            if dynamic_type.is_user_expanded then
-               cpp.pending_c_function_body.extend('&')
-               compile_to_c(type)
-            else
-               cpp.pending_c_function_body.append(once "((")
-               target_formal_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(')')
-               compile_to_c(type)
-               cpp.pending_c_function_body.extend(')')
-            end
-         else
-            compile_to_c(type)
          end
       end
 
@@ -173,7 +155,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (dt: like dynamic_type; fs: like feature_stamp; ct: like context_type) is
       require

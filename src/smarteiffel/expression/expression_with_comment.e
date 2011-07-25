@@ -105,11 +105,6 @@ feature {ANY}
          Result := expression.is_static
       end
 
-   mapping_c_target (type, target_type: TYPE) is
-      do
-         expression.mapping_c_target(type, target_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          expression.mapping_c_arg(type)
@@ -239,7 +234,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
-   
+
 feature {}
    make (e: like expression; c: like comment) is
       require

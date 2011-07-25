@@ -179,11 +179,6 @@ feature {ANY}
          internal_c_local.append_in(cpp.pending_c_function_body)
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -261,10 +256,10 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.close_current_context
          code_accumulator.current_context.add_last(current_or_twin_init(exp))
       end
-      
+
 feature {}
    pending_c_function_counter: INTEGER
-   
+
    internal_c_local: INTERNAL_C_LOCAL
 
    make (sp: like start_position; exp: like expression) is

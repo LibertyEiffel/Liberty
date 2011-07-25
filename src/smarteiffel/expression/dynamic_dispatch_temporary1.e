@@ -3,13 +3,13 @@
 --
 class DYNAMIC_DISPATCH_TEMPORARY1
    --
-   -- Simple wrapper or add automatically an extra internal local in order to implement dynamic 
-   -- dispatch with an `inspect' statement. DYNAMIC_DISPATCH_TEMPORARY1 is used outside of the 
+   -- Simple wrapper or add automatically an extra internal local in order to implement dynamic
+   -- dispatch with an `inspect' statement. DYNAMIC_DISPATCH_TEMPORARY1 is used outside of the
    -- `inspect' instruction to wrap the target.
    --
    -- See also DYNAMIC_DISPATCH_TEMPORARY1_ID and DYNAMIC_DISPATCH_TEMPORARY2.
    --
-   
+
 inherit
    NON_WRITTEN_EXPRESSION
 
@@ -21,29 +21,29 @@ feature {ANY}
       do
          Result := target.start_position
       end
-   
+
    is_static: BOOLEAN is
       do
          Result := target.is_static
       end
-   
+
    is_writable: BOOLEAN is
       do
          Result := target.is_writable
       end
-   
+
    is_result: BOOLEAN is
       do
          Result := target.is_result
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          check
             False
          end
       end
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := True
@@ -55,7 +55,7 @@ feature {ANY}
       ensure then
          Result.can_be_assigned_to(target.resolve_in(type))
       end
-   
+
    collect (type: TYPE): TYPE is
       do
          Result := target.collect(type)
@@ -65,16 +65,16 @@ feature {ANY}
       do
          check
             False
-            -- Because `Current' is created after `status.collecting_done', this information is 
+            -- Because `Current' is created after `status.collecting_done', this information is
             -- not available.
          end
       end
-   
+
    safety_check (type: TYPE) is
       do
          target.safety_check(type)
       end
-   
+
    simplify (type: TYPE): EXPRESSION is
       do
          Result := Current
@@ -98,19 +98,11 @@ feature {ANY}
          Result := target.use_current(type)
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         not_yet_implemented
-         check
-            False -- By very nature, not used in target position.
-         end
-      end
-   
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
       end
-   
+
    compile_to_c (type: TYPE) is
       do
          if target.is_stored_in_some_local_variable or else target.side_effect_free(type) then
@@ -130,37 +122,37 @@ feature {ANY}
             end
          end
       end
-   
+
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented
       end
-   
+
    compile_target_to_jvm (type: TYPE) is
       do
          not_yet_implemented
       end
-   
+
    jvm_assign_creation (type: TYPE) is
       do
          not_yet_implemented
       end
-   
+
    jvm_assign (type: TYPE) is
       do
          not_yet_implemented
       end
-   
+
    jvm_branch_if_false (type: TYPE): INTEGER is
       do
          not_yet_implemented
       end
-   
+
    jvm_branch_if_true (type: TYPE): INTEGER is
       do
          not_yet_implemented
       end
-   
+
    accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_VISITOR) is
       do
          visitor.visit_dynamic_dispatch_temporary1(Current)
@@ -171,7 +163,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {INSPECT_STATEMENT}
    unlock is
       do
@@ -180,7 +172,7 @@ feature {INSPECT_STATEMENT}
             internal_c_local := Void
          end
       end
-   
+
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
    set_target (t: like target) is
       require
@@ -195,11 +187,11 @@ feature {}
    target: EXPRESSION
 
    target_type: TYPE
-   
+
    pending_c_function_counter: INTEGER
-   
+
    internal_c_local: INTERNAL_C_LOCAL
-   
+
    make (t: like target; tt: like target_type) is
       require
          t /= Void
@@ -214,9 +206,9 @@ feature {}
 
 invariant
    target /= Void
-   
+
    target_type /= Void
-   
+
 end -- DYNAMIC_DISPATCH_TEMPORARY1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -79,7 +79,7 @@ feature {ANY}
             test_default := True
          end
          c.set_creation_type(created_type_memory.canonical_type_mark)
-         --|*** 
+         --|***
          c ::= c.specialize_2(type)
          --|*** BEURK: drawback of the new signature of specialize_2.
          if test_default then
@@ -154,35 +154,6 @@ feature {ANY}
             end
          end
          Result := current_or_twin_init(explicit_type, c)
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-      local
-         created_type_memory: TYPE; internal_c_local: INTERNAL_C_LOCAL
-      do
-         created_type_memory := created_type(type)
-         check
-            -- This is actually a direct call:
-            target_formal_type = created_type_memory
-         end
-         if created_type_memory.is_reference then
-            compile_to_c_support(type, created_type_memory)
-         elseif extra_local_expanded(type) /= Void then
-            check
-               extra_local_expanded(type) = created_type_memory
-            end
-            cpp.pending_c_function_body.extend('(')
-            internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "new")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend('=')
-            compile_to_c_support(type, created_type_memory)            
-            cpp.pending_c_function_body.append(once ",&")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            internal_c_local.unlock
-            cpp.pending_c_function_body.extend(')')
-         else
-            compile_to_c_support(type, created_type_memory)            
-         end
       end
 
    mapping_c_arg (type: TYPE) is
@@ -292,12 +263,12 @@ feature {ANY}
          if call /= Void then
             --|*** PH: why short on create_expression? If specialize_2
             --|has been called, then use 'default_create_call' instead.
-            --|*** 
+            --|***
             --| I do not understand your question Philippe ?
             --| a CREATE_EXPRESSION can be used in a require assertion.
             --| So I think there is no problem here.
             --| Dom. jan 25 th 2004
-            --|*** 
+            --|***
             call.short(type)
          end
       end
@@ -312,7 +283,7 @@ feature {ANY}
       do
          Result := explicit_type.resolve_in(type)
       end
-   
+
 feature {CREATE_EXPRESSION}
    init (et: like explicit_type; c: like call) is
       do
@@ -323,7 +294,7 @@ feature {CREATE_EXPRESSION}
          call = c
       end
 
-feature {FEATURE_CALL}
+feature {FEATURE_CALL, C_TARGET_MAPPER}
    extra_local_expanded (type: TYPE): TYPE is
          -- Assuming that `Current' is used as some target, if some extra local variable is required, the
          -- corresponding user's expanded type is returned.
@@ -363,8 +334,8 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
          end
       end
-   
-feature {}
+
+feature {C_TARGET_MAPPER}
    compile_to_c_support (type, created_type_memory: TYPE) is
       require
          created_type_memory = created_type(type)
@@ -399,6 +370,7 @@ feature {}
          cpp.pending_c_function_body.extend(')')
       end
 
+feature {}
    current_or_twin_init (et: like explicit_type; c: like call): like Current is
       require
          et /= Void

@@ -8,7 +8,7 @@ class ADDRESS_OF
 
 inherit
    EXPRESSION
-   
+
 creation {ANY}
    with_local, with_feature_name
 
@@ -21,13 +21,13 @@ feature {ANY}
 
    target_type: TYPE
          -- Used only when `feature_name' is not Void.
-   
+
    feature_stamp: FEATURE_STAMP
          -- Used only when `feature_name' is not Void.
 
    calling_code: CODE
          -- Used only when `feature_name' is not Void.
-   
+
    is_writable: BOOLEAN is False
 
    is_current: BOOLEAN is False
@@ -133,11 +133,6 @@ feature {ANY}
          end
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -200,7 +195,7 @@ feature {ANY}
                create target.make(feature_name.start_position)
                calling_code := feature_stamp.fake_feature_call(start_position, target, parent_type)
                calling_code := calling_code.specialize_in(parent_type)
-            end               
+            end
             fs := feature_stamp.specialize_thru(parent_type, parent_edge, new_type)
             cc := calling_code.specialize_thru(parent_type, parent_edge, new_type)
             check
@@ -387,7 +382,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
          end
       end
-   
+
 feature {ADDRESS_OF}
    set_local_name (ln: like local_name) is
       require
@@ -500,9 +495,9 @@ invariant
    local_name /= Void xor feature_name /= Void
 
    (local_name /= Void) implies feature_stamp = Void
-   
+
    (local_name /= Void) implies calling_code = Void
-   
+
 end -- class ADDRESS_OF
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

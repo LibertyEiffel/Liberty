@@ -4,9 +4,9 @@
 class ASSIGNMENT_TEST
    --
    -- Both for expressions like:   foo  ?:= bar
-   --                  or:   {FOO} ?:= bar 
+   --                  or:   {FOO} ?:= bar
    --
-   
+
 inherit
    EXPRESSION
 
@@ -15,7 +15,7 @@ creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
 
 creation {ASSIGNMENT_TEST}
    make
-   
+
 feature {ANY}
    left_type_mark: TYPE_MARK
          -- When non Void, it is an expression like: {FOO} ?:= bar
@@ -44,7 +44,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is   
+   simplify (type: TYPE): EXPRESSION is
       local
          rs: like right_side; left_type, right_type: TYPE; right_run_time_set: RUN_TIME_SET
          counter1, counter2, i: INTEGER
@@ -108,8 +108,8 @@ feature {ANY}
                   smart_eiffel.magic_count_increment
                   create {E_TRUE} Result.make(start_position)
                elseif  right_run_time_set.count = counter2 then
-                  -- Conversely, all possibilities of the right-hand side are all non-assignable into 
-                  -- the left-hand side. We must still take care of the fact that the right-hand can be 
+                  -- Conversely, all possibilities of the right-hand side are all non-assignable into
+                  -- the left-hand side. We must still take care of the fact that the right-hand can be
                   -- non Void:
                   smart_eiffel.magic_count_increment
                   create {E_VOID} Result.make(start_position)
@@ -138,13 +138,6 @@ feature {ANY}
          cpp.pending_c_function_body.append(once "((T0*)(")
          right_side.compile_to_c(type)
          cpp.pending_c_function_body.append(once "))")
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         cpp.pending_c_function_body.extend('(')
-         compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
       end
 
    mapping_c_arg (type: TYPE) is
@@ -237,7 +230,7 @@ feature {ANY}
          else
             r_dt := rs.declaration_type
             if not l_dt.can_be_assigned_to(r_dt) then
-               error_handler.add_position(start_position)               
+               error_handler.add_position(start_position)
                error_handler.add_position(right_side.start_position)
                error_handler.append("Invalid assignment test. The left-hand side expression must conforms %
                                     %with the right-hand side. The left-hand side is of type ")
@@ -249,7 +242,7 @@ feature {ANY}
                error_handler.append(".")
                error_handler.print_as_fatal_error
             elseif r_dt.can_be_assigned_to(l_dt) and then static_left_type_mark(lw) then
-               error_handler.add_position(start_position)               
+               error_handler.add_position(start_position)
                error_handler.add_position(right_side.start_position)
                error_handler.append("Expression ")
                error_handler.add_expression(right_side)
@@ -407,7 +400,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(create {like Current}.make(left_type_mark, left_writable, rs))
          end
       end
-      
+
 feature {}
    with_writable (lw: like left_writable; rs: like right_side) is
       require
@@ -455,12 +448,12 @@ feature {}
             Result := left_type_mark.is_static
          end
       end
-   
+
 invariant
-   left_writable /= Void implies left_writable.is_writable 
+   left_writable /= Void implies left_writable.is_writable
 
    left_writable = Void xor left_type_mark = Void
-   
+
    right_side /= Void
 
 end -- class ASSIGNMENT_TEST

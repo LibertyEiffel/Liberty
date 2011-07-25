@@ -49,13 +49,6 @@ feature {ANY}
       do
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -174,7 +167,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position) is
       require

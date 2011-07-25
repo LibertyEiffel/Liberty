@@ -7,7 +7,7 @@ class CLOSED_OPERAND
    --
    -- See also OPEN_ARGUMENT.
    --
-   
+
 inherit
    EXPRESSION
 
@@ -24,20 +24,20 @@ feature {ANY}
          -- Can be -1 when the target is captured or the rank of the corresponding argument.
 
    capture_memory: HASHED_DICTIONARY[EXPRESSION, TYPE]
-         -- For each context TYPE, the corresponding specialized `original_capture' EXPRESSION. Thus, 
+         -- For each context TYPE, the corresponding specialized `original_capture' EXPRESSION. Thus,
          -- an CLOSED_OPERAND object is never twinned.
 
    declaration_type: TYPE is
       do
          Result := original_capture.declaration_type
       end
-   
+
    specialize_in (type: TYPE): like Current is
       do
          capture_memory.put(original_capture.specialize_in(type), type)
          Result := Current
       end
-   
+
    has_been_specialized: BOOLEAN is
       local
          i: INTEGER
@@ -52,7 +52,7 @@ feature {ANY}
             i := i + 1
          end
       end
-   
+
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
          expression: EXPRESSION
@@ -65,7 +65,7 @@ feature {ANY}
          capture_memory.put(expression, new_type)
          Result := Current
       end
-   
+
    specialize_2 (type: TYPE): EXPRESSION is
       local
          expression: EXPRESSION
@@ -78,7 +78,7 @@ feature {ANY}
          capture_memory.put(expression, type)
          Result := Current
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          if is_current then
@@ -94,7 +94,7 @@ feature {ANY}
          capture_memory.put(capture_memory.reference_at(type).simplify(type), type)
          Result := Current
       end
-   
+
    collect (type: TYPE): TYPE is
       local
          expression: EXPRESSION
@@ -106,13 +106,13 @@ feature {ANY}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
          if inside_agent_launcher_flag then
-            code_accumulator.current_context.add_last(Current)         
+            code_accumulator.current_context.add_last(Current)
          else
             capture_memory.reference_at(type).inline_dynamic_dispatch_(code_accumulator, type)
             code_accumulator.current_context.remove_last
          end
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          Result := capture_memory.reference_at(type).non_void_no_dispatch_type(type)
@@ -122,7 +122,7 @@ feature {ANY}
       do
          Result := capture_memory.reference_at(type).side_effect_free(type)
       end
-   
+
    adapt_for (type: TYPE): like Current is
       do
          Result := Current
@@ -141,20 +141,7 @@ feature {ANY}
             capture_memory.reference_at(type).compile_to_c(type)
          end
       end
-   
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         if is_static then
-            -- No field to store such a static value:
-            original_capture.mapping_c_target(type, target_formal_type)
-         elseif inside_agent_launcher_flag then
-            standard_mapping_c_target(type, target_formal_type)
-         else
-            -- Well, outside of the agent:
-            capture_memory.reference_at(type).mapping_c_target(type, target_formal_type)
-         end
-      end
-   
+
    mapping_c_arg (type: TYPE) is
       do
          if is_static then
@@ -172,34 +159,34 @@ feature {ANY}
       do
          Result := capture_memory.reference_at(type).use_current(type)
       end
-   
+
    safety_check (type: TYPE) is
       do
          capture_memory.reference_at(type).safety_check(type)
       end
-   
+
    precedence: INTEGER is
       do
          Result := original_capture.precedence
       end
-   
+
    is_writable: BOOLEAN is False
 
    is_current: BOOLEAN is
       do
          Result := original_capture.is_current
       end
-   
+
    is_implicit_current: BOOLEAN is
       do
          Result := original_capture.is_implicit_current
       end
-   
+
    is_void: BOOLEAN is
       do
          Result := original_capture.is_void
       end
-   
+
    is_static: BOOLEAN is
       do
          Result := original_capture.is_static
@@ -209,7 +196,7 @@ feature {ANY}
       do
          Result := original_capture.is_manifest_string
       end
-   
+
    is_result: BOOLEAN is
       do
          Result := original_capture.is_result
@@ -224,27 +211,27 @@ feature {ANY}
       do
          capture_memory.reference_at(type).short_target(type)
       end
-      
+
    pretty (indent_level: INTEGER) is
       do
          original_capture.pretty(indent_level)
       end
-   
+
    pretty_target (indent_level: INTEGER) is
       do
          original_capture.pretty_target(indent_level)
       end
-   
+
    bracketed_pretty (indent_level: INTEGER) is
       do
          original_capture.bracketed_pretty(indent_level)
       end
-   
+
    extra_bracket_flag: BOOLEAN is
       do
          Result := original_capture.extra_bracket_flag
       end
-         
+
    accept (visitor: CLOSED_OPERAND_VISITOR) is
       do
          visitor.visit_closed_operand(Current)
@@ -279,10 +266,10 @@ feature {ANY}
       do
          not_yet_implemented
       end
-   
-feature {AGENT_CREATION}
+
+feature {AGENT_CREATION, C_TARGET_MAPPER}
    inside_agent_launcher_flag: BOOLEAN
-   
+
    c_name_in (buffer: STRING) is
       do
          if rank = -1 then
@@ -292,15 +279,15 @@ feature {AGENT_CREATION}
             rank.append_in(buffer)
          end
       end
-   
+
    set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
       do
          inside_agent_launcher_flag := flag_value
       end
-   
+
 feature {}
    make (r: like rank; c: like original_capture) is
-      require   
+      require
          (r = -1) or else (r > 0)
       do
          rank := r
@@ -319,7 +306,7 @@ invariant
    ;(rank = -1) or else (rank > 0)
 
    original_capture /= Void
-   
+
 end -- class CLOSED_OPERAND
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

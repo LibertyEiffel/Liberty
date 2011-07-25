@@ -3,7 +3,7 @@
 --
 class VOID_CALL
    --
-   -- Such an object is created when a Void target call on a function (or an attribute) is detected. 
+   -- Such an object is created when a Void target call on a function (or an attribute) is detected.
    -- (See also VOID_PROC_CALL.)
    --
 inherit
@@ -17,14 +17,14 @@ feature {ANY}
 
    feature_stamp: FEATURE_STAMP
          -- Of the Void call.
-   
+
    target_type: TYPE
          --  Of the Void call (the one to be used with `feature_stamp').
 
    is_writable: BOOLEAN is False
 
    is_result: BOOLEAN is False
-   
+
    use_current (type: TYPE): BOOLEAN is
       do
       end
@@ -87,11 +87,6 @@ feature {ANY}
          cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(start_position))
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -131,7 +126,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
       require
@@ -150,9 +145,9 @@ feature {}
 
 invariant
    feature_stamp /= Void
-   
+
    target_type /= Void
-   
+
 end -- class VOID_CALL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

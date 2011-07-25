@@ -150,11 +150,6 @@ feature {ANY}
          writable.safety_check(type)
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         writable.mapping_c_target(type, target_formal_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          writable.mapping_c_arg(type)
@@ -285,7 +280,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (tm: like type_mark; w: like writable) is
       require

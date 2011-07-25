@@ -47,7 +47,7 @@ feature {ANY}
       end
 
    frozen is_default_value: BOOLEAN is
-         -- True if `Current' represents `Void', `False' , `0', '%U' or whatever is a default value. Also note 
+         -- True if `Current' represents `Void', `False' , `0', '%U' or whatever is a default value. Also note
          -- that some default values like NULL_POINTER, cannot be written in pure Eiffel.
          -- (Thanks to the new ?:= operator, this `is_default_value' frozen definition is pretty fine.)
       local
@@ -62,7 +62,7 @@ feature {ANY}
             integer_constant ::= Current
             Result := integer_constant.value_memory = 0
          elseif {NULL_POINTER} ?:= Current then
-            Result := True            
+            Result := True
          elseif character_constant ?:= Current then
             character_constant ::= Current
             Result := character_constant.value = '%U'
@@ -71,10 +71,10 @@ feature {ANY}
             Result := real_constant.normalized_view.is_equal(once "0e0")
          end
       end
-   
+
    frozen is_stored_in_some_local_variable: BOOLEAN is
-         -- True if `Current' is stored in some local variable of the _target_ language. It does not 
-         -- mean that `Current' is writable! The goal here is to avoid creating an extra local 
+         -- True if `Current' is stored in some local variable of the _target_ language. It does not
+         -- mean that `Current' is writable! The goal here is to avoid creating an extra local
          -- storage in the _target_ language.
       do
          if {INTERNAL_LOCAL2} ?:= Current then
@@ -95,17 +95,17 @@ feature {ANY}
             Result := True
          end
       end
-   
+
    resolve_in (type: TYPE): TYPE is
-         -- This method may be called to solve the `Current' expression type knowing that the `Current' 
-         -- expression `has_been_specialized' for the `type' given as an argument. It is important to keep 
-         -- in mind that the `resolve_in' function must not be called from some `specialize_in' or 
-         -- `specialize_thru' function (those functions are used when *one* TYPE is created and current 
-         -- expression may refer to TYPEs not yet created). Hence, `resolve_in' calls are likely to occurs 
-         -- during the `specialize_2' process or later if it is necessary, but `specialize_2' *must* have 
-         -- been called on `Current' expression before `resolve_in' is called. One may also know that 
-         -- `resolve_in' function may be called one or more times or may not be called at all. (Note that 
-         -- the require assertion is checking that we are not currently doing some `specialize_in' or 
+         -- This method may be called to solve the `Current' expression type knowing that the `Current'
+         -- expression `has_been_specialized' for the `type' given as an argument. It is important to keep
+         -- in mind that the `resolve_in' function must not be called from some `specialize_in' or
+         -- `specialize_thru' function (those functions are used when *one* TYPE is created and current
+         -- expression may refer to TYPEs not yet created). Hence, `resolve_in' calls are likely to occurs
+         -- during the `specialize_2' process or later if it is necessary, but `specialize_2' *must* have
+         -- been called on `Current' expression before `resolve_in' is called. One may also know that
+         -- `resolve_in' function may be called one or more times or may not be called at all. (Note that
+         -- the require assertion is checking that we are not currently doing some `specialize_in' or
          -- `specialize_thru'.)
       require
          has_been_specialized
@@ -121,10 +121,10 @@ feature {ANY}
       ensure
          (Result /= Void) implies (Result = resolve_in(type))
       end
-   
+
    declaration_type: TYPE is
-         -- The static type one can deduce from the declaration written in source text. As inheritance and 
-         -- redefinitions are ignored, it's the type to use for a lookup (for a method with this expression as 
+         -- The static type one can deduce from the declaration written in source text. As inheritance and
+         -- redefinitions are ignored, it's the type to use for a lookup (for a method with this expression as
          -- target).
       require
          has_been_specialized
@@ -148,7 +148,7 @@ feature {ANY}
       end
 
    is_static: BOOLEAN is
-         -- True if the expression has always the same static value regardless the context of the code. 
+         -- True if the expression has always the same static value regardless the context of the code.
          -- For example, this is True for True, False, Void, 2, "foo", 2.5, etc.
       deferred
       end
@@ -162,18 +162,6 @@ feature {ANY}
       deferred
       ensure
          Result /= Void implies Result.live_type /= Void
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-         -- Produce C code in order to pass `Current' EXPRESSION as the target of some feature call. When it is 
-         -- needed, C code to check invariant is automatically added as well as a C cast according to the 
-         -- destination `target_formal_type'.
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
-         target_formal_type.live_type /= Void
-         cpp.pending_c_function
-      deferred
       end
 
    mapping_c_arg (type: TYPE) is
@@ -192,7 +180,7 @@ feature {ANY}
       end
 
    static_simplify: EXPRESSION is
-         -- This one is working completely out of context and is called directly by the parser only for 
+         -- This one is working completely out of context and is called directly by the parser only for
          -- some typical expressions.
       require
          not smart_eiffel.pretty_flag
@@ -203,7 +191,7 @@ feature {ANY}
       ensure
          Result /= Void
       end
-   
+
    precedence: INTEGER is
          -- Handling of precedence (priority of expressions).
       deferred
@@ -260,7 +248,7 @@ feature {ANY}
       ensure
          assertion_check_only: Result
       end
-   
+
    frozen inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): EXPRESSION is
       require
          code_accumulator /= Void
@@ -331,9 +319,9 @@ feature {ANY} -- For `compile_to_jvm':
 
 feature {ANY} -- For `pretty' and `short':
    extra_bracket_flag: BOOLEAN is
-         -- True when we do have to add an extra pair of brackets if the `Current' expression is the target 
-         -- of a call. As an example, this is True for infix calls. (This feature is used for `pretty' as 
-         -- well as for `short'). As another example, it is also true (-1).foo because of the usual low 
+         -- True when we do have to add an extra pair of brackets if the `Current' expression is the target
+         -- of a call. As an example, this is True for infix calls. (This feature is used for `pretty' as
+         -- well as for `short'). As another example, it is also true (-1).foo because of the usual low
          -- priority of prefix minus.
       deferred
       end
@@ -375,37 +363,6 @@ feature {ANY} -- For `pretty' and `short':
       end
 
 feature {}
-   frozen standard_mapping_c_target (type, target_formal_type: TYPE) is
-         -- The standard definition for `mapping_c_target'.
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
-         target_formal_type.live_type /= Void
-      local
-         class_invariant_flag: INTEGER; actual_type: TYPE
-      do
-         class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, True)
-         -- ***
-         -- Why don't we use `target_formal_type' to avoid the followin computation:
-         actual_type := Current.resolve_in(type)
-         -- *** Dom April 30th 2008 ***
-         if actual_type.is_reference then
-            cpp.pending_c_function_body.append(once "((")
-            target_formal_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend(')')
-            compile_to_c(type)
-            cpp.pending_c_function_body.extend(')')
-         else
-            if actual_type.canonical_type_mark.need_c_struct or actual_type.has_external_type then
-               cpp.pending_c_function_body.extend('&')
-            end
-            compile_to_c(type)
-         end
-         if class_invariant_flag > 0 then
-            cpp.class_invariant_call_closing(class_invariant_flag, False)
-         end
-      end
-
    frozen jvm_standard_branch_if_false (type: TYPE): INTEGER is
          -- Gives the `program_counter' to be resolved.
       require

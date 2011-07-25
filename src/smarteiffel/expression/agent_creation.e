@@ -270,11 +270,6 @@ feature {ANY}
          cpp.pending_c_function_body.extend(')')
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)

@@ -17,14 +17,14 @@ feature {ANY}
          -- True indicate that it is the "=" operator (otherwise, it is a "/=").
 
    operator_position: POSITION
-         -- To show the "/=" or the "=". 
-   
+         -- To show the "/=" or the "=".
+
    left_side: EXPRESSION
          -- The right-hand side part.
-   
+
    right_side: EXPRESSION
          -- The left-hand side part.
-   
+
    precedence: INTEGER is 6
 
    is_writable: BOOLEAN is False
@@ -43,7 +43,7 @@ feature {ANY}
       do
          Result := left_side.start_position
       end
-   
+
    is_static: BOOLEAN is
       do
          Result := left_side.is_static and then right_side.is_static
@@ -149,7 +149,7 @@ feature {ANY}
 
    specialize_in (type: TYPE): like Current is
       local
-         ls: like left_side; rs: like right_side 
+         ls: like left_side; rs: like right_side
       do
          ls := left_side.specialize_in(type)
          rs := right_side.specialize_in(type)
@@ -163,7 +163,7 @@ feature {ANY}
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
-         ls: like left_side; rs: like right_side 
+         ls: like left_side; rs: like right_side
       do
          ls := left_side.specialize_thru(parent_type, parent_edge, new_type)
          rs := right_side.specialize_thru(parent_type, parent_edge, new_type)
@@ -177,7 +177,7 @@ feature {ANY}
 
    specialize_2 (type: TYPE): like Current is
       local
-         ls: like left_side; rs: like right_side 
+         ls: like left_side; rs: like right_side
       do
          ls := left_side.specialize_2(type)
          rs := right_side.specialize_2(type)
@@ -276,12 +276,12 @@ feature {ANY}
          left_side.safety_check(type)
          right_side.safety_check(type)
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          Result :=  resolve_in(type)
       end
-   
+
    compile_to_c (type: TYPE) is
       local
          left_type, right_type: TYPE
@@ -334,11 +334,6 @@ feature {ANY}
                compile_to_c_for_reference(type, left_type, right_type)
             end
          end
-      end
-
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         compile_to_c(type)
       end
 
    mapping_c_arg (type: TYPE) is
@@ -403,7 +398,7 @@ feature {ANY}
       do
          Result := jvm_standard_branch_if_true(type)
       end
-   
+
    jvm_assign_creation, jvm_assign (type: TYPE) is
       do
          check
@@ -551,7 +546,7 @@ feature {BUILT_IN_EQ_NEQ}
          left_side = ls
          right_side = rs
       end
-   
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
@@ -571,7 +566,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(built_in_eq_neq)
          end
       end
-   
+
 feature {}
    basic_make (flag: like eq_flag; ls: like left_side; op: like operator_position; rs: like right_side) is
       require
@@ -594,12 +589,12 @@ feature {}
       do
          basic_make(True, ls, op, rs)
       end
-   
+
    make_neq (ls: like left_side; op: like operator_position; rs: like right_side) is
       do
          basic_make(False, ls, op, rs)
       end
-   
+
    simplify_boolean_constant (e1, e2: EXPRESSION): EXPRESSION is
          -- To simplify comparison with True / False.
       require
@@ -819,7 +814,7 @@ feature {}
             error_handler.print_as_fatal_error
          else
             if type.class_text = operator_position.class_text then
-               -- The strict rule is relaxed when the code is inherited. As an example, STACK insert 
+               -- The strict rule is relaxed when the code is inherited. As an example, STACK insert
                -- COLLECTION and some assertions are normally always True (or False).
                error_flag := True
             end
@@ -869,7 +864,7 @@ feature {}
          end
          cpp.pending_c_function_body.extend(')')
       end
-   
+
    jvm_void_cmp (type: TYPE; e: EXPRESSION) is
       local
          point1, point2: INTEGER

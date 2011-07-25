@@ -20,9 +20,9 @@ feature {ANY}
    is_writable: BOOLEAN is False
 
    is_static: BOOLEAN is True
-   
+
    is_result: BOOLEAN is False
-   
+
    use_current (type: TYPE): BOOLEAN is
       do
       end
@@ -72,11 +72,6 @@ feature {ANY}
          cpp.pending_c_function_body.append(once "NULL/*_POINTER*/")
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
@@ -116,7 +111,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position; tm: like type_mark) is
       require

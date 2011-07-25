@@ -109,7 +109,7 @@ feature {ANY}
          if t.is_void then
             -- As the target is Void, no need to consider arguments anymore.
             target_type := target.resolve_in(type)
-            fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_item, start_position)) 
+            fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_item, start_position))
             create {VOID_CALL} Result.make(start_position, fs, target_type)
          else
             args := fake_tuple.simplify(type)
@@ -122,18 +122,13 @@ feature {ANY}
          if agent_pool.agent_creation_collected_flag then
             agent_args.c_agent_definition_call(type, target, fake_tuple)
          else
-            --|*** It would be nice to be able to substitute `Current' 
-            --| with the corresponding VOID_CALL in a final stage, may 
+            --|*** It would be nice to be able to substitute `Current'
+            --| with the corresponding VOID_CALL in a final stage, may
             --| be `adapt' in order to really simplify the back end.
             --| (This should be done before `compile_to_c'...)
             --|*** Dom sept 26th 2004 ***
             compile_to_c_void_call(type, start_position, as_item)
          end
-      end
-
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
       end
 
    mapping_c_arg (type: TYPE) is
@@ -236,7 +231,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.remove_last
          code_accumulator.current_context.add_last(current_or_twin_init(t, args))
       end
-   
+
 feature {}
    make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST) is
       require

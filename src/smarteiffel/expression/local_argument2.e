@@ -39,11 +39,6 @@ feature {ANY}
          standard_compile_target_to_jvm(type)
       end
 
-   frozen mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
 invariant
    not start_position.is_unknown
 

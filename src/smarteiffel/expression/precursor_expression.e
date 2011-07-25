@@ -50,11 +50,6 @@ feature {ANY}
          Result := dot_precedence
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)

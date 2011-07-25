@@ -117,11 +117,6 @@ feature {ANY}
          end
       end
 
-   mapping_c_target (type, formal_target_type: TYPE) is
-      do
-         standard_mapping_c_target(type, formal_target_type)
-      end
-
    safety_check (type: TYPE) is
       do
       end

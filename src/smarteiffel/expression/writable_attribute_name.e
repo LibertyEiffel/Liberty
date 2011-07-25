@@ -12,17 +12,17 @@ inherit
    EXPRESSION
       redefine written_declaration_type_mark
       end
-   
+
 insert
    NAME
 
 creation {ANY}
    make
-   
+
 feature {ANY}
    feature_name: FEATURE_NAME
          -- The corresponding one.
-   
+
    feature_stamp: FEATURE_STAMP
          -- The good feature_stamp for the feature in some type.
 
@@ -35,7 +35,7 @@ feature {ANY}
       do
          Result := feature_name.to_string
       end
-   
+
    is_writable: BOOLEAN is True
 
    is_current: BOOLEAN is False
@@ -180,18 +180,10 @@ feature {ANY}
          cpp.pending_c_function_body.extend(')')
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         check
-            -- Cannot be syntactically in target position. 
-            False
-         end
-      end
-
    mapping_c_arg (type: TYPE) is
       do
          check
-            -- Cannot be syntactically in target position. 
+            -- Cannot be syntactically in target position.
             False
          end
       end
@@ -339,7 +331,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {TYPE}
    make (hs: HASHED_STRING; sp: like start_position) is
       require

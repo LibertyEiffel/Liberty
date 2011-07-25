@@ -25,16 +25,16 @@ feature {ANY}
 
    type_mark: TYPE_MARK
          -- Of the created static TYPE.
-   
+
    optional_arguments: FAST_ARRAY[EXPRESSION]
          -- Non Void if any.
-   
+
    item_list: FAST_ARRAY[EXPRESSION]
          -- Which is never empty.
 
    semicolon_count: INTEGER
          -- When non 0, indicates that there are ";" separators used in the `item_list'.
-   
+
    created_type: TYPE
          -- The unique corresponding one for `type_mark' (which can be only static).
 
@@ -45,9 +45,9 @@ feature {ANY}
          -- Unique too (see `created_type')
 
    is_current: BOOLEAN is False
-   
+
    is_implicit_current: BOOLEAN is False
-   
+
    is_writable: BOOLEAN is False
 
    is_void: BOOLEAN is False
@@ -73,7 +73,7 @@ feature {ANY}
          end
          Result := created_type = other.created_type
       end
-   
+
    declaration_type: TYPE is
       do
          if created_type /= Void then
@@ -82,7 +82,7 @@ feature {ANY}
             Result := type_mark.type
          end
       end
-   
+
    use_current (type: TYPE): BOOLEAN is
       do
          if optional_arguments /= Void then
@@ -92,12 +92,12 @@ feature {ANY}
             Result := use_current_of(type, item_list)
          end
       end
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := False
       end
-   
+
    pretty (indent_level: INTEGER) is
       local
          i, sc_count: INTEGER; left_margin: STRING
@@ -151,9 +151,9 @@ feature {ANY}
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
-      
+
    extra_bracket_flag: BOOLEAN is False
-      
+
    short (type: TYPE) is
       local
          i: INTEGER
@@ -188,13 +188,13 @@ feature {ANY}
          short_printer.hook_or(once "blank_space", once " ")
          short_printer.hook_or(once "close_curly_bracket", once "}")
       end
-      
+
    short_target (type: TYPE) is
       do
          short(type)
          short_printer.put_dot
       end
-      
+
    specialize_in (type: TYPE): like Current is
       local
          oa: like optional_arguments; il: like item_list
@@ -211,7 +211,7 @@ feature {ANY}
             Result.init(oa, il)
          end
       end
-   
+
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
          tm: like type_mark; oa: like optional_arguments; il: like item_list
@@ -231,7 +231,7 @@ feature {ANY}
             Result.init(oa, il)
          end
       end
-   
+
    specialize_2 (type: TYPE): like Current is
       local
          oa: like optional_arguments; il: like item_list; af: ANONYMOUS_FEATURE
@@ -314,7 +314,7 @@ feature {ANY}
                   end
                   if semicolon_count < 0 then
                      error_handler.add_position(irregular_position)
-                     error_handler.append("Unexpected %";%" (semicolon) separator in manifest generic expression. % 
+                     error_handler.append("Unexpected %";%" (semicolon) separator in manifest generic expression. %
                                                           %Less items found in this bunch than in the previous one.")
                      error_handler.print_as_fatal_error
                   end
@@ -367,7 +367,7 @@ feature {ANY}
             Result.init(oa, il)
          end
       end
-   
+
    has_been_specialized: BOOLEAN is
       do
          if optional_arguments /= Void then
@@ -379,7 +379,7 @@ feature {ANY}
             Result := has_been_specialized_of(item_list)
          end
       end
-      
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := created_type
@@ -387,7 +387,7 @@ feature {ANY}
             Result = type_mark.resolve_in(type)
          end
       end
-   
+
    collect (type: TYPE): TYPE is
       local
          dummy: TYPE; formal_arg_list: FORMAL_ARG_LIST; expression_type, destination_type: TYPE
@@ -443,7 +443,7 @@ feature {ANY}
          end
          manifest_generic_pool.collect(Current)
       end
-      
+
    simplify (type: TYPE): like Current is
       local
          oa: like optional_arguments; il: like item_list
@@ -532,20 +532,11 @@ feature {ANY}
          cpp.pending_c_function_body.extend(')')
       end
 
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "((T")
-         created_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*)(")
-         compile_to_c(type)
-         cpp.pending_c_function_body.append(once "))")
-      end
-   
    mapping_c_arg (type: TYPE) is
       do
          compile_to_c(type)
       end
-   
+
    precedence: INTEGER is
       do
          Result := atomic_precedence
@@ -590,7 +581,7 @@ feature {ANY}
             i := i + 1
          end
       end
-   
+
    compile_target_to_jvm (type: TYPE) is
       do
          not_yet_implemented
@@ -660,10 +651,10 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(mg)
          end
       end
-   
+
    irregular_position: POSITION
          -- Not unknown when some irregular usage of the ";" (semicolon) has been detected by the parser.
-   
+
    make (sp: like start_position; tm: like type_mark; oa, il: FAST_ARRAY[EXPRESSION]
          sc: like semicolon_count; ip: like irregular_position) is
       require
@@ -725,7 +716,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       ensure
          Result.count = l.count
       end
-   
+
    specialize_thru_of (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE
       l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
       require
@@ -758,7 +749,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       ensure
          Result.count = l.count
       end
-   
+
    optional_arguments_specialize_2 (type: TYPE): FAST_ARRAY[EXPRESSION] is
       require
          not optional_arguments.is_empty
@@ -790,7 +781,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       ensure
          Result.count = optional_arguments.count
       end
-   
+
    use_current_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): BOOLEAN is
       require
          not l.is_empty
@@ -806,7 +797,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             i := i - 1
          end
       end
-   
+
    has_been_specialized_of (l: FAST_ARRAY[EXPRESSION]): BOOLEAN is
       require
          not l.is_empty
@@ -822,7 +813,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             i := i - 1
          end
       end
-   
+
    simplify_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
       require
          not l.is_empty
@@ -854,7 +845,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       ensure
          Result.count = l.count
       end
-   
+
    adapt_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
       require
          not l.is_empty
@@ -980,14 +971,14 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       ensure
          Result /= Void
       end
-   
+
 invariant
    not start_position.is_unknown
-   
+
    type_mark.is_static
 
    not item_list.is_empty
-   
+
 end -- class MANIFEST_GENERIC
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

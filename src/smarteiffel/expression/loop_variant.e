@@ -3,8 +3,8 @@
 --
 class LOOP_VARIANT
    --
-   -- The variant part of a loop instruction. This class is mostly syntactic sugar (see 
-   -- LOOP_INSTRUCTION). Also note that, a LOOP_VARIANT is not really an ordinary EXPRESSION, but it 
+   -- The variant part of a loop instruction. This class is mostly syntactic sugar (see
+   -- LOOP_INSTRUCTION). Also note that, a LOOP_VARIANT is not really an ordinary EXPRESSION, but it
    -- is convenient to inherit EXPRESSION.
    --
 
@@ -35,15 +35,15 @@ feature {ANY}
             Result := expression.start_position
          end
       end
-   
+
    is_implicit_current: BOOLEAN is False
 
    is_current: BOOLEAN is False
-   
+
    is_manifest_string: BOOLEAN is False
-   
+
    is_void: BOOLEAN is False
-   
+
    is_static: BOOLEAN is False
 
    is_result: BOOLEAN is False
@@ -56,7 +56,7 @@ feature {ANY}
             False -- Not really an expression.
          end
       end
-   
+
    extra_bracket_flag: BOOLEAN is
       do
          check
@@ -70,14 +70,14 @@ feature {ANY}
       ensure then
          Result.is_integer
       end
-   
+
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          check
             False -- Not in target position.
          end
       end
-   
+
    collect (t: TYPE): TYPE is
       do
          Result := expression.collect(t)
@@ -110,14 +110,14 @@ feature {ANY}
          end
          expression.pretty(indent_level)
       end
-   
+
    bracketed_pretty (indent_level: INTEGER) is
       do
          check
             False -- Not in target position.
          end
       end
-      
+
    pretty_target (indent_level: INTEGER) is
       do
          check
@@ -131,14 +131,14 @@ feature {ANY}
             False -- Not visible in contracts.
          end
       end
-   
+
    short_target (type: TYPE) is
       do
          check
             False -- Not visible in contracts.
          end
       end
-   
+
    specialize_in (type: TYPE): like Current is
       local
          exp: like expression
@@ -176,7 +176,7 @@ feature {ANY}
          else
             Result := Current
          end
-         Result.specialize_2_check(type)         
+         Result.specialize_2_check(type)
       end
 
    has_been_specialized: BOOLEAN is
@@ -190,12 +190,12 @@ feature {ANY}
       ensure then
          Result.is_integer
       end
-   
+
    accept (visitor: LOOP_VARIANT_VISITOR) is
       do
          visitor.visit_loop_variant(Current)
       end
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := expression.side_effect_free(type)
@@ -205,27 +205,20 @@ feature {ANY}
       do
          expression.safety_check(type)
       end
-   
+
    simplify (type: TYPE): EXPRESSION is
       do
          smart_eiffel.magic_count_increment
          Result := expression.simplify(type)
       end
-   
+
    compile_to_c (type: TYPE) is
       do
          check
             False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
          end
       end
-   
-   mapping_c_target (type, target_formal_type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-   
+
    mapping_c_arg (type: TYPE) is
       do
          check
@@ -274,7 +267,7 @@ feature {ANY}
             False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
          end
       end
-   
+
 feature {LOOP_VARIANT}
    init (exp: like expression) is
       require
@@ -290,7 +283,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
-   
+
    specialize_2_check (type: TYPE) is
       local
          dt: TYPE
