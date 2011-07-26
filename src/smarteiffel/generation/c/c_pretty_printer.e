@@ -1289,7 +1289,31 @@ feature {ANY}
          when C_create_instruction, C_direct_call, C_precursor then
             fal := stack_top.anonymous_feature.arguments
             type := stack_top.type
-            stack_top.effective_arguments.compile_to_c_ith(type, fal, index)
+            args_compile_to_c_ith(type, stack_top.effective_arguments, fal, index)
+         end
+      end
+
+feature {C_EXPRESSION_COMPILATION_MIXIN}
+   args_compile_to_c_ith (type: TYPE; args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST; index: INTEGER) is
+         -- Produce C code for expression `index'.
+      require
+         args.count = fal.count
+         index.in_range(1, count)
+      local
+         e: EXPRESSION; boolean_cast_flag: BOOLEAN
+      do
+         e := args.expression(index)
+         if e.is_void then
+            cpp.arg_mapper.compile(e, type)
+         else
+            boolean_cast_flag := e.resolve_in(type).is_boolean
+            if boolean_cast_flag then
+               pending_c_function_body.append(once "(T6)(")
+            end
+            cpp.arg_mapper.compile(e, type)
+            if boolean_cast_flag then
+               pending_c_function_body.extend(')')
+            end
          end
       end
 

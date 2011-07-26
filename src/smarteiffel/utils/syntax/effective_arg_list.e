@@ -350,50 +350,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE; fal: FORMAL_ARG_LIST) is
-         -- Produce C code for all expressions of the list.
-      require
-         count = fal.count
-      local
-         i, up: INTEGER
-      do
-         from
-            i := 1
-            up := count
-         until
-            i > up
-         loop
-            compile_to_c_ith(type, fal, i)
-            i := i + 1
-            if i <= up then
-               cpp.pending_c_function_body.extend(',')
-            end
-         end
-      end
-
-   compile_to_c_ith (type: TYPE; fal: FORMAL_ARG_LIST; index: INTEGER) is
-         -- Produce C code for expression `index'.
-      require
-         count = fal.count
-         index.in_range(1, count)
-      local
-         e: EXPRESSION; boolean_cast_flag: BOOLEAN
-      do
-         e := expression(index)
-         if e.is_void then
-            cpp.arg_mapper.compile(e, type)
-         else
-            boolean_cast_flag := e.resolve_in(type).is_boolean
-            if boolean_cast_flag then
-               cpp.pending_c_function_body.append(once "(T6)(")
-            end
-            cpp.arg_mapper.compile(e, type)
-            if boolean_cast_flag then
-               cpp.pending_c_function_body.extend(')')
-            end
-         end
-      end
-
    compile_to_jvm (type: TYPE; fal: FORMAL_ARG_LIST): INTEGER is
       require
          count = fal.count

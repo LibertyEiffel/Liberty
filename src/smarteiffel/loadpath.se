@@ -17,7 +17,6 @@
 ./run_feature
 ./generation
 ./generation/eiffeldoc
-./generation/lisaac
 ./generation/c
 ./generation/sedb
 ./generation/short

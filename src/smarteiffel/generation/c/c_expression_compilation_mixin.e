@@ -408,7 +408,7 @@ feature {CREATE_EXPRESSION}
             if not boost or else ace.profile then
                function_body.extend(',')
             end
-            args.compile_to_c(type, rf.arguments)
+            args_compile_to_c(args, rf.arguments)
          end
          function_body.extend(')')
       end
@@ -481,9 +481,9 @@ feature {CALL_PREFIX_NOT}
    visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
       do
          if ace.boost and then visited.target.resolve_in(type).is_boolean then
-            cpp.pending_c_function_body.append(once "!(")
+            function_body.append(once "!(")
             compile_expression(visited.target)
-            cpp.pending_c_function_body.extend(')')
+            function_body.extend(')')
          else
             compile_feature_call(visited)
          end
@@ -1093,6 +1093,27 @@ feature {}
             char.code.low_8.to_octal_in(function_body)
          end
          function_body.append(once "%')")
+      end
+
+   args_compile_to_c (args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST) is
+         -- Produce C code for all expressions of the list.
+      require
+         args.count = fal.count
+      local
+         i, up: INTEGER
+      do
+         from
+            i := 1
+            up := args.count
+         until
+            i > up
+         loop
+            if i > 1 then
+               function_body.extend(',')
+            end
+            cpp.args_compile_to_c_ith(type, args, fal, i)
+            i := i + 1
+         end
       end
 
 end -- class C_EXPRESSION_COMPILATION_MIXIN
