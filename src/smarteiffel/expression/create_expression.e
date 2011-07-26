@@ -156,11 +156,6 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type, c)
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    result_type: TYPE_MARK is
       do
          Result := explicit_type
@@ -181,20 +176,6 @@ feature {ANY}
    accept (visitor: CREATE_EXPRESSION_VISITOR) is
       do
          visitor.visit_create_expression(Current)
-      end
-
-   compile_to_c (type: TYPE) is
-      local
-         created_type_memory: TYPE
-      do
-         created_type_memory := created_type(type)
-         if created_type_memory.is_reference then
-            cpp.pending_c_function_body.append(once "((T0*)")
-         end
-         compile_to_c_support(type, created_type_memory)
-         if created_type_memory.is_reference then
-            cpp.pending_c_function_body.extend(')')
-         end
       end
 
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
@@ -333,41 +314,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                code_accumulator.current_context.add_last(create_expression)
             end
          end
-      end
-
-feature {C_TARGET_MAPPER}
-   compile_to_c_support (type, created_type_memory: TYPE) is
-      require
-         created_type_memory = created_type(type)
-      local
-         boost: BOOLEAN; rf: RUN_FEATURE; args: like arguments; id: INTEGER
-      do
-         id := created_type_memory.live_type.id
-         boost := ace.boost
-         cpp.pending_c_function_body.append(once "create")
-         id.append_in(cpp.pending_c_function_body)
-         if call /= Void then
-            args := call.arguments
-            rf := call.run_feature_for(type)
-            cpp.pending_c_function_body.append(rf.name.to_string)
-         end
-         cpp.pending_c_function_body.extend('(')
-         if ace.profile then
-            cpp.pending_c_function_body.append(once "&local_profile")
-         end
-         if not boost then
-            if ace.profile then
-               cpp.pending_c_function_body.extend(',')
-            end
-            cpp.pending_c_function_body.append(once "&ds")
-         end
-         if args /= Void then
-            if not boost or else ace.profile then
-               cpp.pending_c_function_body.extend(',')
-            end
-            args.compile_to_c(type, rf.arguments)
-         end
-         cpp.pending_c_function_body.extend(')')
       end
 
 feature {}

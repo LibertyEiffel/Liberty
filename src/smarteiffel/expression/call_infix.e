@@ -130,21 +130,6 @@ feature {}
          short_printer.put_infix_name(once "Binfix", once " ", once "Ainfix", once " ", feature_name)
       end
 
-   frozen c2c_cast_op (type: TYPE; cast, op: STRING) is
-      do
-         cpp.pending_c_function_body.append(once "(((")
-         cpp.pending_c_function_body.append(cast)
-         cpp.pending_c_function_body.append(once ")(")
-         target.compile_to_c(type)
-         cpp.pending_c_function_body.append(once "))")
-         cpp.pending_c_function_body.append(op)
-         cpp.pending_c_function_body.append(once "((")
-         cpp.pending_c_function_body.append(cast)
-         cpp.pending_c_function_body.append(once ")(")
-         arg1.compile_to_c(type)
-         cpp.pending_c_function_body.append(once ")))")
-      end
-
 invariant
    feature_name.is_infix_name
 

@@ -16,7 +16,7 @@ feature {ANY}
    used: BOOLEAN
          -- Indicate wheter the live code uses EXCEPTIONS or not.
 
-feature {INSPECT_STATEMENT, MANIFEST_STRING_INSPECTOR}
+feature {C_CODE_COMPILER}
    bad_inspect_value (p: POSITION) is
          -- When some Eiffel "inspect" instruction without the optional "else" part does not match the input.
       require

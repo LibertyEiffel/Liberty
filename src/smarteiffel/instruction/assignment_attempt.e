@@ -11,7 +11,7 @@ inherit
 
 insert
    PLATFORM
-   
+
 creation {ANY}
    make
 
@@ -21,7 +21,7 @@ feature {ANY}
    right_side: EXPRESSION
 
    forced_flag: BOOLEAN
-         -- Indicate that it is a forced one (i.e ::=). 
+         -- Indicate that it is a forced one (i.e ::=).
 
    end_mark_comment: BOOLEAN is False
 
@@ -101,15 +101,15 @@ feature {ANY}
                   smart_eiffel.magic_count_increment
                   create {ASSIGNMENT} Result.make(left_side, rs)
                elseif  right_run_time_set.count = counter2 then
-                  -- Conversely, all possibilities of the right-hand side are all non-assignable into 
-                  -- the left-hand side. We must still take care of the fact that the right-hand can be 
+                  -- Conversely, all possibilities of the right-hand side are all non-assignable into
+                  -- the left-hand side. We must still take care of the fact that the right-hand can be
                   -- non Void:
                   smart_eiffel.magic_count_increment
                   if rs.side_effect_free(type) then
                      create {ASSIGNMENT} Result.make(left_side, create {E_VOID}.make(rs.start_position))
                   else
                      --|*** (Fred. + Ph + Dom Oct 21th 2004) ***
-                     --| Should use one day some new kind of INSTRUCTION, just to drop the value of 
+                     --| Should use one day some new kind of INSTRUCTION, just to drop the value of
                      --| some unused expression:
                      create {COMPOUND}
                         Result.make_2(create {ASSIGNMENT}.make(left_side, rs),
@@ -123,179 +123,6 @@ feature {ANY}
                end
             end
          end
-      end
-
-   compile_to_c (type: TYPE) is
-      local
-         left_type, right_type: TYPE; left_run_time_set, right_run_time_set: RUN_TIME_SET
-         counter1, counter2, i: INTEGER; left_live_type: LIVE_TYPE
-      do
-         left_type := left_side.resolve_in(type)
-         right_type := right_side.resolve_in(type)
-         cpp.pending_c_function_body.append(once "/*")
-         cpp.pending_c_function_body.append(left_type.name.to_string)
-         if forced_flag then
-            cpp.pending_c_function_body.append(once " ::= ")
-            check
-               not ace.boost -- Alway replaced with an assignment in boost mode.
-            end
-         else
-            cpp.pending_c_function_body.append(once " ?= ")
-         end
-         cpp.pending_c_function_body.append(right_type.name.to_string)
-         cpp.pending_c_function_body.append(once "*/")
-         if left_type.live_type = Void or else left_type.live_type.run_time_set.count = 0 then
-            -- Left-hand side is always Void:
-            if not right_side.side_effect_free(type) then
-               right_side.compile_to_c(type)
-               cpp.pending_c_function_body.extend(';')
-            end
-         elseif right_type.live_type = Void or else right_type.live_type.run_time_set.count = 0 then
-            -- Right-hand side is always Void:
-            if not right_side.side_effect_free(type) then
-               right_side.compile_to_c(type)
-               cpp.pending_c_function_body.extend(';')
-            end
-            left_side.compile_to_c(type)
-            cpp.pending_c_function_body.append(once "=NULL;")
-         elseif right_side.non_void_no_dispatch_type(type) /= Void then
-            -- We are sure of the right-hand side:
-            if right_type.can_be_assigned_to(left_type) then
-               cpp.start_assignment
-               left_side.compile_to_c(type)
-               if cpp.check_assignment then
-                  cpp.pending_c_function_body.append(once "=((void*)")
-                  right_side.compile_to_c(type)
-                  cpp.pending_c_function_body.append(once ");")
-               else
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-            elseif forced_flag then
-               cpp.pending_c_function_body.append(once "error1(%"Invalid ::= assignment (inserted type).%",")
-               cpp.put_position(start_position)
-               cpp.pending_c_function_body.append(once ");")
-            else
-               cpp.start_assignment
-               left_side.compile_to_c(type)
-               if cpp.check_assignment then
-                  cpp.pending_c_function_body.append(once "=NULL;")
-               else
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-            end
-         else
-            from
-               right_run_time_set := right_type.live_type.run_time_set
-               left_run_time_set := left_type.live_type.run_time_set
-               i := 1
-            until
-               i > right_run_time_set.count
-            loop
-               if left_run_time_set.has(right_run_time_set.item(i)) then
-                  counter1 := counter1 + 1
-                  if counter2 > 0 then
-                     i := Maximum_integer
-                  else
-                     i := i + 1
-                  end
-               else
-                  counter2 := counter2 + 1
-                  if counter1 > 0 then
-                     i := Maximum_integer
-                  else
-                     i := i + 1
-                  end
-               end
-            end
-            if right_run_time_set.count = counter1 then
-               -- They can be all assigned into `left_side':
-               cpp.start_assignment
-               left_side.compile_to_c(type)
-               if cpp.check_assignment then
-                  cpp.pending_c_function_body.append(once "=((void*)")
-                  right_side.compile_to_c(type)
-                  cpp.pending_c_function_body.append(once ");")
-               else
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-            elseif right_run_time_set.count = counter2 then
-               -- Conversely, all possibilities of the right-hand side are all non-assignable into 
-               -- the left-hand side. We must still take care of the fact that the right-hand can be 
-               -- non Void:
-               if forced_flag then
-                  cpp.start_assignment
-                  left_side.compile_to_c(type)
-                  if cpp.check_assignment then
-                     cpp.pending_c_function_body.append(once "=((void*)")
-                     right_side.compile_to_c(type)
-                     cpp.pending_c_function_body.append(once ");%Nif (")
-                     left_side.compile_to_c(type)
-                     cpp.pending_c_function_body.append(once "!=NULL){%N%
-                                         %error1(%"Invalid ::= assignment (inserted type).%",")
-                     cpp.put_position(start_position)
-                     cpp.pending_c_function_body.append(once ");%N}")
-                  else
-                     cpp.pending_c_function_body.append(once ";%N")
-                  end
-               else
-                  if not right_side.side_effect_free(type) then
-                     right_side.compile_to_c(type)
-                     cpp.pending_c_function_body.append(once ";%N")
-                  end
-                  cpp.start_assignment
-                  left_side.compile_to_c(type)
-                  if cpp.check_assignment then
-                     cpp.pending_c_function_body.append(once "=NULL;")
-                  else
-                     cpp.pending_c_function_body.append(once ";%N")
-                  end
-               end
-            else
-               -- General translation scheme:
-               cpp.start_assignment
-               left_side.compile_to_c(type)
-               if cpp.check_assignment then
-                  cpp.pending_c_function_body.append(once "=((void*)")
-                  right_side.compile_to_c(type)
-                  cpp.pending_c_function_body.append(once ");%Nif(NULL!=(")
-                  left_side.compile_to_c(type)
-                  cpp.pending_c_function_body.append(once ")){%Nswitch(((T0*)")
-                  left_side.compile_to_c(type)
-                  cpp.pending_c_function_body.append(once ")->id){%N")
-                  from
-                     i := 1
-                  until
-                     i > left_run_time_set.count
-                  loop
-                     left_live_type := left_run_time_set.item(i)
-                     check
-                        left_live_type.is_tagged
-                     end
-                     cpp.pending_c_function_body.append(once "case ")
-                     left_live_type.id.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once ":/*")
-                     cpp.pending_c_function_body.append(left_live_type.name.to_string)
-                     cpp.pending_c_function_body.append(once "*/%N")
-                     i := i + 1
-                  end
-                  cpp.pending_c_function_body.append(once "break;%N")
-                  if forced_flag then
-                     cpp.pending_c_function_body.append(once "default:%N%
-                                                             %error1(%"Invalid ::= assignment (inserted type).%",")
-                     cpp.put_position(start_position)
-                     cpp.pending_c_function_body.append(once ");%N")
-                  else
-                     cpp.pending_c_function_body.append(once "default:%N")
-                     left_side.compile_to_c(type)
-                     cpp.pending_c_function_body.append(once "=NULL;%N")
-                  end
-                  cpp.pending_c_function_body.append(once "}}")
-               else
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-            end
-         end
-         cpp.pending_c_function_body.extend('%N')
       end
 
    compile_to_jvm (type: TYPE) is
@@ -406,7 +233,7 @@ feature {ANY}
             error_handler.add_position(start_position)
             error_handler.print_as_fatal_error
          elseif not l_dt.can_be_assigned_to(r_dt) then
-            error_handler.add_position(left_side.start_position)               
+            error_handler.add_position(left_side.start_position)
             error_handler.add_position(right_side.start_position)
             error_handler.append("Invalid ")
             if forced_flag then
@@ -426,7 +253,7 @@ feature {ANY}
             error_handler.append(".")
             error_handler.print_as_fatal_error
          elseif r_dt.can_be_assigned_to(l_dt) and then left_side.written_declaration_type_mark.is_static then
-            error_handler.add_position(left_side.start_position)               
+            error_handler.add_position(left_side.start_position)
             error_handler.add_position(right_side.start_position)
             error_handler.append("Expression ")
             error_handler.add_expression(right_side)
@@ -483,7 +310,7 @@ feature {ANY}
             expression_with_comment.expression.pretty(indent_level)
             pretty_printer.set_indent_level(indent_level)
             expression_with_comment.comment.pretty(indent_level)
-         else      
+         else
             right_side.pretty(indent_level)
          end
          pretty_printer.set_semi_colon_flag(semi_colon_flag)
@@ -553,7 +380,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(create {like Current}.make(left_side, rs, forced_flag))
          end
       end
-      
+
 feature {}
    make (ls: like left_side; rs: like right_side; f: like forced_flag) is
       require

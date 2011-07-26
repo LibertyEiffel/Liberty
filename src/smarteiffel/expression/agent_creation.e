@@ -241,40 +241,6 @@ feature {ANY}
          code.safety_check(type)
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER; boost: BOOLEAN; closed_operand: CLOSED_OPERAND
-      do
-         mold_id_in(type, cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('(')
-         boost := ace.boost
-         if not boost then
-            cpp.pending_c_function_body.append(once "&ds")
-         end
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               closed_operand := closed_operand_list.item(i)
-               if stored_closed_operand(type, closed_operand) then
-                  if cpp.pending_c_function_body.last /= '(' then
-                     cpp.pending_c_function_body.extend(',')
-                  end
-                  closed_operand.mapping_c_arg(type)
-               end
-               i := i + 1
-            end
-         end
-         cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          if code /= Void then
@@ -504,7 +470,7 @@ feature {}
          end
       end
 
-feature {AGENT_POOL}
+feature {AGENT_POOL, AGENT_CREATION_VISITOR}
    mold_id_in (type: TYPE; buffer: STRING) is
          -- Identify the corresponding AGENT_CREATION function.
       do
@@ -526,8 +492,7 @@ feature {AGENT_POOL}
    c_define_function (type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
       local
          boost: BOOLEAN; agent_type, agent_result, t: TYPE; tm: TYPE_MARK;   i: INTEGER
-         expression: EXPRESSION; compound_expression: COMPOUND_EXPRESSION
-         open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
+         expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
       do
          boost := ace.boost
          agent_type := c_define_type(type, boost, mold_id, integer_mold_id)
@@ -593,7 +558,7 @@ feature {AGENT_POOL}
                once "static se_frame_descriptor fd={%"Agent launcher%",0,0,%"%",1};%N")
          end
          if ace.profile then
-            smart_eiffel.local_profile
+            cpp.local_profile
          end
          if not boost then
             cpp.pending_c_function_body.append(once "[
@@ -609,26 +574,18 @@ feature {AGENT_POOL}
          end
          -- Calling the actual one:
          if ace.profile then
-            smart_eiffel.start_profile_agent_creation(Current)
+            cpp.start_profile_agent_creation(Current)
          end
          set_inside_agent_launcher_flag(True)
          if agent_result /= Void then
-            if {COMPOUND_EXPRESSION} ?:= code then
-               compound_expression ::= code
-               compound_expression.compound_compile_to_c(type)
-               expression := compound_expression.last.to_expression
-            else
-               expression ::= code
-            end
-            cpp.pending_c_function_body.append(once "u->R=")
-            expression.compile_to_c(type)
-            cpp.pending_c_function_body.append(once ";%N")
+            expression ::= code
+            cpp.compound_expression_compiler.compile(once "u->R=", expression, once ";%N", type)
          elseif code /= Void then
-            code.to_instruction.compile_to_c(type)
+            cpp.code_compiler.compile(code.to_instruction, type)
          end
          set_inside_agent_launcher_flag(False)
          if ace.profile then
-            smart_eiffel.stop_profile
+            cpp.stop_profile
          end
          if agent_result /= Void then
             cpp.pending_c_function_body.append(once "return u->R;%N")
@@ -975,7 +932,7 @@ feature {AGENT_CREATION}
          end
       end
 
-feature {}
+feature {AGENT_CREATION_VISITOR}
    stored_closed_operand (type: TYPE; closed_operand: CLOSED_OPERAND): BOOLEAN is
          -- Is the `closed_operand' stored inside the agent memory.
       require
@@ -992,6 +949,7 @@ feature {}
          end
       end
 
+feature {}
    set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
       local
          i: INTEGER

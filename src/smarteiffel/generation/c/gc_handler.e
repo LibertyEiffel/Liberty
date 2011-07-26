@@ -290,7 +290,7 @@ feature {}
          end
       end
 
-feature {MANIFEST_STRING_POOL}
+feature {C_PRETTY_PRINTER}
    manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
          -- Code to create a new Manifest STRING in the "s" local C variable.
       do

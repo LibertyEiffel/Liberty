@@ -273,27 +273,18 @@ feature {ANY}
          create_expression.compile_to_jvm(type)
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         create_expression.compile_to_c(type)
-      end
-
    accept (visitor: MANIFEST_TUPLE_VISITOR) is
       do
          visitor.visit_manifest_tuple(Current)
       end
 
-feature {MANIFEST_TUPLE}
+feature {MANIFEST_TUPLE, MANIFEST_TUPLE_VISITOR}
    create_expression: CREATE_EXPRESSION
          -- The corresponding one used to implement the manifest TUPLE creation. As an example,
          -- expression ['a'] is internally replaced with the following
          -- expression: create {TUPLE[CHARACTER]}.make('a')
 
+feature {MANIFEST_TUPLE}
    init (eal: like effective_arg_list; ce: like create_expression) is
       do
          debug

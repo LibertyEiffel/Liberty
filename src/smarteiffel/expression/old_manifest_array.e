@@ -276,20 +276,6 @@ feature
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
       do
          check

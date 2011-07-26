@@ -182,16 +182,6 @@ feature {ANY}
       deferred
       end
 
-   compile_to_c (type: TYPE) is
-         -- For an INSTRUCTION, produce the corresponding C code. For an EXPRESSION the C code to access
-         -- the value (user's expanded are no longuer pointer).
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
-         cpp.pending_c_function
-      deferred
-      end
-
    pretty (indent_level: INTEGER) is
       require
          smart_eiffel.pretty_flag implies indent_level >= 1

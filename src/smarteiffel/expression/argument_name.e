@@ -17,11 +17,6 @@ feature {ANY}
          pretty_printer.put_string(to_string)
       end
 
-   frozen compile_to_c (type: TYPE) is
-      do
-         cpp.print_argument(rank)
-      end
-
 end -- class ARGUMENT_NAME
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

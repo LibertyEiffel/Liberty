@@ -123,13 +123,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    pretty (indent_level: INTEGER) is
       do
          check
@@ -259,7 +252,6 @@ feature {CECIL_FILE}
          not cpp.pending_c_function
       local
          type: TYPE; result_type_mark: TYPE_MARK; arguments: FORMAL_ARG_LIST; af: ANONYMOUS_FEATURE
-         compound_expression: COMPOUND_EXPRESSION; expression: EXPRESSION
          internal_c_local: INTERNAL_C_LOCAL
       do
          type := smart_eiffel.type_any
@@ -340,18 +332,9 @@ feature {CECIL_FILE}
          if code = Void then
             -- Well, nothing to do.
          elseif result_type_mark = Void then
-            code.to_instruction.compile_to_c(type)
+            cpp.code_compiler.compile(code, type)
          else
-            if {COMPOUND_EXPRESSION} ?:= code then
-               compound_expression ::= code
-               compound_expression.compound_compile_to_c(type)
-               expression := compound_expression.last.to_expression
-            else
-               expression := code.to_expression
-            end
-            cpp.pending_c_function_body.append(once "R=")
-            expression.compile_to_c(type)
-            cpp.pending_c_function_body.append(once ";%N")
+            cpp.compound_expression_compiler.compile(once "R=", code.to_expression, once ";%N", type)
          end
          if not cpp.gc_handler.is_off then
             cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%

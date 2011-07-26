@@ -13,7 +13,7 @@ inherit
 
 insert
    PLATFORM
-   
+
 creation {ANY}
    make
 
@@ -69,13 +69,13 @@ feature {ANY}
       ensure
          Result /= Void
       end
-   
+
    value_memory: INTEGER_64
          -- We use here a 64 bit INTEGER to be able to store large values.
 
    size: INTEGER
          -- is 8, 16, 32 or 64.
-         -- Note this is the actual `size' of the `value_memory' which may be smaller or equal to the 
+         -- Note this is the actual `size' of the `value_memory' which may be smaller or equal to the
          -- corresponding size of the `result_type_memory'.
 
    declaration_type: TYPE is
@@ -92,66 +92,15 @@ feature {ANY}
             Result := smart_eiffel.type_integer_64
          end
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := declaration_type
       end
-   
+
    simplify_1_, simplify_2: like Current is
       do
          Result := Current
-      end
-
-   compile_to_c (type: TYPE) is
-      local
-         actual_size: INTEGER
-      do
-         if pretty_view /= Void then
-            cpp.pending_c_function_body.append(once "/*")
-            cpp.pending_c_function_body.append(pretty_view)
-            cpp.pending_c_function_body.append(once "*/")
-         end
-         if result_type_memory /= Void then
-            actual_size := result_type_memory.bit_count
-         else
-            actual_size := size
-         end
-         inspect
-            actual_size
-         when 8 then
-            if value_memory = Minimum_integer_8 then
-               cpp.pending_c_function_body.append(once "INT8_MIN")
-            else
-               cpp.pending_c_function_body.append(once "INT8_C(")
-               value_memory.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(')')
-            end
-         when 16 then
-            if value_memory = Minimum_integer_16 then
-               cpp.pending_c_function_body.append(once "INT16_MIN")
-            else
-               cpp.pending_c_function_body.append(once "INT16_C(")
-               value_memory.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(')')
-            end
-         when 32 then
-            if value_memory = Minimum_integer_32 then
-               cpp.pending_c_function_body.append(once "INT32_MIN")
-            else
-               cpp.pending_c_function_body.append(once "INT32_C(")
-               value_memory.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(')')
-            end
-         when 64 then
-            if value_memory = Minimum_integer_64 then
-               cpp.pending_c_function_body.append(once "INT64_MIN")
-            else
-               cpp.pending_c_function_body.append(once "INT64_C(")
-               value_memory.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(')')
-            end
-         end
       end
 
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
@@ -224,14 +173,15 @@ feature {INTROSPECTION_HANDLER}
          value_memory = v
       end
 
-feature {}
+feature {INTEGER_CONSTANT_VISITOR}
    result_type_memory: INTEGER_TYPE_MARK
          -- Usually Void (`size' is used).
-   
+
    pretty_view: STRING
-         -- Used as soon as the non basic notation is used. Non-basic means hexadecimal, underscore 
+         -- Used as soon as the non basic notation is used. Non-basic means hexadecimal, underscore
          -- or the {INTEGER_* ...} notation.
-   
+
+feature {}
    special (sp: like start_position; pv: like pretty_view; rt: like result_type; vm: like value_memory) is
       require
          not sp.is_unknown

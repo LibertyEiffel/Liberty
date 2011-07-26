@@ -495,48 +495,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER
-      do
-         cpp.pending_c_function_body.append(once "se_manifest")
-         created_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('(')
-         if not ace.boost then
-            cpp.pending_c_function_body.append(once "&ds,")
-         end
-         if ace.profile then
-            cpp.pending_c_function_body.append(once "&local_profile,")
-         end
-         if optional_arguments /= Void then
-            from
-               i := optional_arguments.lower
-            until
-               i > optional_arguments.upper
-            loop
-               optional_arguments.item(i).compile_to_c(type)
-               cpp.pending_c_function_body.extend(',')
-               i := i + 1
-            end
-         end
-         item_list.count.append_in(cpp.pending_c_function_body)
-         from
-            i := item_list.lower
-         until
-            i > item_list.upper
-         loop
-            cpp.pending_c_function_body.append(once ",%N")
-            item_list.item(i).compile_to_c(type)
-            i := i + 1
-         end
-         cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    precedence: INTEGER is
       do
          Result := atomic_precedence

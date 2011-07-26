@@ -17,7 +17,7 @@ feature {ANY}
          -- Used to memorize the notation used in the Eiffel source (always used by `pretty' as it is).
 
    result_type: REAL_TYPE_MARK
-   
+
    extra_bracket_flag: BOOLEAN is
       do
          -- Because of the usual low priority of prefix minus:
@@ -40,31 +40,10 @@ feature {ANY}
             end
          end
       end
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := declaration_type
-      end
-   
-   compile_to_c (type: TYPE) is
-      local
-         real_type_mark: REAL_TYPE_MARK
-      do
-         cpp.pending_c_function_body.append(once "/*")
-         cpp.pending_c_function_body.append(pretty_view)
-         cpp.pending_c_function_body.append(once "*/")
-         cpp.pending_c_function_body.append(normalized_view)
-         real_type_mark ::= declaration_type.canonical_type_mark
-         inspect
-            real_type_mark.bit_count
-         when 32 then
-            cpp.pending_c_function_body.extend('F')
-         when 64 then
-            -- double
-         else
-            cpp.pending_c_function_body.extend('L')
-         end
-         
       end
 
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
@@ -94,7 +73,7 @@ feature {ANY}
       do
          Result := pretty_view
       end
-   
+
    normalized_view: STRING is
          -- Return our internal normalized notation:
          --    0.0      --> 0e0
@@ -175,7 +154,7 @@ feature {ANY}
                   when '-' then
                      negative_user_exponent_flag := True
                   when '0' .. '9' then
-                     user_exponent := (user_exponent * 10) + cc.decimal_value 
+                     user_exponent := (user_exponent * 10) + cc.decimal_value
                   when '}', '_' then
                   end
                end
@@ -196,7 +175,7 @@ feature {ANY}
                buffer.copy(once "0e0")
             else
                -- Remove trailing '0'.
-               from 
+               from
                until
                   buffer.last /= '0'
                loop
@@ -230,7 +209,7 @@ feature {IMPLICIT_CAST, TMP_FEATURE}
 feature {}
    normalized_memory: STRING
          -- (See `normalized_view'.)
-   
+
    make (sp: like start_position; pv: like pretty_view; rt: like result_type) is
       require
          not sp.is_unknown

@@ -13,7 +13,7 @@ insert
       end
    SINGLETON
 
-feature {AGENT_LAUNCHER, C_HEADER_PASS_1}
+feature {AGENT_LAUNCHER, C_HEADER_PASS_1, C_EXPRESSION_COMPILATION_MIXIN}
    agent_creation_collected_flag: BOOLEAN
 
 feature {AGENT_CREATION}

@@ -83,74 +83,6 @@ feature {MANIFEST_STRING}
          once_flag implies Result /= Void
       end
 
-   se_ms_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
-      require
-         not ms.unicode_flag
-      local
-         trace: BOOLEAN
-      do
-         trace := manifest_string_trace(ms, buffer)
-         buffer.append(once "se_ms(")
-         ms.count.append_in(buffer)
-         buffer.extend(',')
-         if ms.alias_link = Void then
-            string_to_c_code(ms.to_string, buffer)
-         else
-            buffer.extend('s')
-            buffer.append(ms.initial_storage_id)
-         end
-         buffer.extend(')')
-         if trace then
-            buffer.extend(')')
-         end
-      end
-
-   se_ums_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
-      require
-         ms.unicode_flag
-      local
-         trace: BOOLEAN; us: UNICODE_STRING; c: INTEGER
-      do
-         trace := manifest_string_trace(ms, buffer)
-         us := ms.unicode_string
-         buffer.append(once "se_ums(")
-         if ace.no_check then
-            buffer.append(once "&ds,")
-         end
-         if ace.profile then
-            buffer.append(once "&local_profile,")
-         end
-         c := us.count
-         c.append_in(buffer)
-         buffer.extend(',')
-         if c = 0 then
-            buffer.append(once "(void*)0")
-         else
-            buffer.extend('s')
-            buffer.append(ms.initial_storage_id)
-         end
-         buffer.extend(',')
-         if us.low_surrogate_values = Void then
-            c := 0
-         else
-            c := us.low_surrogate_values.count
-         end
-         c.append_in(buffer)
-         buffer.extend(',')
-         if c /= 0 then
-            buffer.append(once "lsv")
-            buffer.append(ms.initial_storage_id)
-            buffer.append(once ",lsi")
-            buffer.append(ms.initial_storage_id)
-         else
-            buffer.append(once "NULL, NULL")
-         end
-         buffer.extend(')')
-         if trace then
-            buffer.extend(')')
-         end
-      end
-
 feature {}
    extend_once_variable is
       local
@@ -223,283 +155,6 @@ feature {SMART_EIFFEL}
       end
 
 feature {C_PRETTY_PRINTER}
-   c_define1 is
-      local
-         i, j, upper: INTEGER; ms: MANIFEST_STRING; us: UNICODE_STRING; storage: NATIVE_ARRAY[INTEGER_16]
-         lsv: FAST_ARRAY[INTEGER_16]; lsi: FAST_ARRAY[INTEGER]
-      do
-         from
-            cpp.out_c_buffer.copy(once "/*Aliased storage area or unicode storage.*/%N")
-            cpp.write_out_c_buffer
-            i := storage_alias.lower
-         until
-            i > storage_alias.count
-         loop
-            ms := storage_alias.item(i)
-            if ms.unicode_flag then
-               us := ms.unicode_string
-               upper := us.count
-               if upper > 0 then
-                  -- Preparing `cpp.write_extern_array_1' call:
-                  cpp.out_h_buffer.copy(once "uint16_t s")
-                  cpp.out_h_buffer.append(ms.initial_storage_id)
-                  cpp.out_c_buffer.clear_count
-                  from
-                     storage := us.storage
-                     j := 0
-                  until
-                     j >= upper
-                  loop
-                     storage.item(j).append_in(cpp.out_c_buffer)
-                     j := j + 1
-                     if j <= upper then
-                        cpp.out_c_buffer.extend(',')
-                     end
-                  end
-                  cpp.write_extern_array_1(cpp.out_h_buffer, upper, cpp.out_c_buffer)
-                  upper := upper - 1
-               end
-               lsv := us.low_surrogate_values
-               if lsv /= Void and then lsv.count > 0 then
-                  -- Preparing `cpp.write_extern_array_1' call:
-                  cpp.out_h_buffer.copy(once "uint16_t lsv")
-                  cpp.out_h_buffer.append(ms.initial_storage_id)
-                  cpp.out_c_buffer.clear_count
-                  from
-                     j := 0
-                  until
-                     j > lsv.upper
-                  loop
-                     lsv.item(j).append_in(cpp.out_c_buffer)
-                     j := j + 1
-                     if j <= lsv.upper then
-                        cpp.out_c_buffer.extend(',')
-                     end
-                  end
-                  cpp.write_extern_array_1(cpp.out_h_buffer, upper, cpp.out_c_buffer)
-               end
-               lsi := us.low_surrogate_indexes
-               if lsi /= Void and then lsi.count > 0 then
-                  -- Preparing `cpp.write_extern_array_1' call:
-                  cpp.out_h_buffer.copy(once "uint32_t lsi")
-                  cpp.out_h_buffer.append(ms.initial_storage_id)
-                  cpp.out_c_buffer.clear_count
-                  from
-                     j := 0
-                  until
-                     j > lsi.upper
-                  loop
-                     lsi.item(j).append_in(cpp.out_c_buffer)
-                     j := j + 1
-                     if j <= lsi.upper then
-                        cpp.out_c_buffer.extend(',')
-                     end
-                  end
-                  cpp.write_extern_array_1(cpp.out_h_buffer, upper, cpp.out_c_buffer)
-               end
-            elseif ms.alias_link /= Void then
-               cpp.out_h_buffer.copy(once "char*s")
-               cpp.out_h_buffer.append(ms.initial_storage_id)
-               cpp.out_c_buffer.clear_count
-               string_to_c_code(ms.to_string, cpp.out_c_buffer)
-               cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-            end
-            i := i + 1
-         end
-      end
-
-   c_define2 (string_at_run_time: BOOLEAN) is
-      local
-         i, j, function_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
-         internal_c_local: INTERNAL_C_LOCAL
-      do
-         cpp.split_c_file_padding_here
-         no_check := ace.no_check
-         mdc := collected_once_variables.count
-         echo.print_count(once "Manifest String", mdc)
-         if mdc > 0 then
-            from
-               -- For the *.h file:
-               i := 1
-            until
-               i > mdc
-            loop
-               ms := collected_once_variables.item(i)
-               cpp.out_h_buffer.copy(once "T0*")
-               cpp.out_h_buffer.append(ms.once_variable)
-               cpp.write_extern_1(cpp.out_h_buffer)
-               i := i + 1
-            end
-         end
-         --
-         if string_at_run_time then
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.copy(once "T0*se_ms(int c,char*e)")
-            cpp.pending_c_function_body.copy(once "/* Allocate a Manifest STRING.*/%NT7*")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
-            cpp.dump_pending_c_function(True)
-            --
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.copy(once "T0*se_string(char*e)")
-            cpp.pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e */%N%
-                                                  %int c=strlen(e);%N%
-                                                  %T7*")
-            common_body_for_se_string_and_se_ms(string_at_run_time)
-            cpp.dump_pending_c_function(True)
-         end
-         --
-         if mdc > 0 then
-            from
-               -- For the *.c file:
-               i := 1
-               function_count := 1
-            until
-               function_count > 1 and then i > mdc
-            loop
-               cpp.prepare_c_function
-               cpp.pending_c_function_signature.copy(once "void se_msi")
-               function_count.append_in(cpp.pending_c_function_signature)
-               if ace.profile and then first_unicode_manifest_string_collected_flag then
-                  cpp.pending_c_function_signature.append(once "(se_local_profile_t*parent_profile)")
-               else
-                  cpp.pending_c_function_signature.append(once "(void)")
-               end
-               from
-                  if first_unicode_manifest_string_collected_flag then
-                     if ace.profile then
-                        cpp.pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%N")
-                     end
-                     if no_check then
-                        cpp.pending_c_function_body.append(once "[
-                                                                 se_frame_descriptor fd={"<global-once>",0,0,"",1};
-                                                                 se_dump_stack ds;
-                                                                 ds.fd=&fd;
-                                                                 ds.p=0;
-                                                                 ds.caller=NULL;
-                                                                 ds.exception_origin=NULL;
-                                                                 ds.locals=NULL;
-
-                                                                 ]")
-                     end
-                     if ace.profile then
-                        cpp.pending_c_function_body.append(once "local_profile.profile=&prof;%N")
-                        cpp.pending_c_function_body.append(once "init_profile(&prof, %"se_msi")
-                        function_count.append_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
-                     end
-                  end
-                  j := nb_ms_per_function
-               until
-                  j = 0 or else i > mdc
-               loop
-                  ms := collected_once_variables.item(i)
-                  cpp.pending_c_function_body.append(ms.once_variable)
-                  cpp.pending_c_function_body.extend('=')
-                  if ms.unicode_flag then
-                     se_ums_c_call_in(cpp.pending_c_function_body, ms)
-                  else
-                     se_ms_c_call_in(cpp.pending_c_function_body, ms)
-                  end
-                  cpp.pending_c_function_body.append(once ";%N")
-                  j := j - 1
-                  i := i + 1
-               end
-               function_count := function_count + 1
-               if i <= mdc then
-                  cpp.pending_c_function_body.append(once "se_msi")
-                  function_count.append_in(cpp.pending_c_function_body)
-                  if ace.profile and then first_unicode_manifest_string_collected_flag then
-                     cpp.pending_c_function_body.append(once "(&local_profile);%N")
-                  else
-                     cpp.pending_c_function_body.append(once "();")
-                  end
-               end
-               if ace.profile and then first_unicode_manifest_string_collected_flag then
-                  cpp.pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-               end
-               cpp.dump_pending_c_function(True)
-            end
-         end
-         if first_unicode_manifest_string_collected_flag then
-            if se_ums = Void then
-               -- Yes, this is the very first usage of `se_ums':
-               se_ums := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
-            end
-            lt := se_ums.type_of_current.live_type
-            id := lt.id
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.copy("T0*se_ums(")
-            if no_check then
-               cpp.pending_c_function_signature.append("se_dump_stack*caller,")
-            end
-            if ace.profile then
-               cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-            end
-            cpp.pending_c_function_signature.append("int32_t c,uint16_t*s,int32_t sc,int16_t*lsv,int32_t*lsi)")
-            internal_c_local := cpp.pending_c_function_lock_local(lt.type, once "mspalloc")
-            cpp.gc_handler.allocation_of(internal_c_local, lt)
-            cpp.pending_c_function_body.extend('r')
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append("manifest_initialize(")
-            if no_check then
-               cpp.pending_c_function_body.append("caller,")
-            end
-            if ace.profile then
-               cpp.pending_c_function_body.append(once "parent_profile,")
-            end
-            cpp.pending_c_function_body.extend('(')
-            if internal_c_local.type.is_reference then
-               cpp.pending_c_function_body.append(once "(T")
-               id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "*)")
-            end
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append("),c,(int16_t*)s,sc,lsv,lsi);return (T0*)")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(";%N")
-            internal_c_local.unlock
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
-feature {C_PRETTY_PRINTER, MANIFEST_STRING, CODE, EIFFEL_TO_LISAAC, C_LIVE_TYPE_COMPILER}
-   string_to_c_code (s: STRING; c_code: STRING) is
-         -- Add in the `c_code' buffer, the C language view of the Eiffel `s' STRING.
-         -- (Replace all strange character of `s' with the appropriate C \ escape sequence).
-         --|*** Is it the right place for such a tool ?
-         --|*** ... probably in the C pretty_printer would be a better choice ?
-         --|*** ... no time to decide now. *** (Dom july 12th 2004) ***
-      do
-         native_array_to_c_code(s.count, s.storage, c_code)
-      end
-
-feature {C_PRETTY_PRINTER}
-   character_to_c_code (c: CHARACTER; c_code: STRING) is
-      do
-         if c = '%N' then
-            c_code.extend('\')
-            c_code.extend('n')
-         elseif c = '\' then
-            c_code.extend('\')
-            c_code.extend('\')
-         elseif c = '?' then
-            c_code.extend('\')
-            c_code.extend('?')
-         elseif c = '%"' then
-            c_code.extend('\')
-            c_code.extend('%"')
-         elseif c = '%'' then
-            c_code.extend('\')
-            c_code.extend('%'')
-         elseif c.code < 32 or else 122 < c.code then
-            c_code.extend('\')
-            c.code.low_8.to_octal_in(c_code)
-            c_code.append(once "%"%"")
-         else
-            c_code.extend(c)
-         end
-      end
-
    c_call_initialize is
       require
          cpp.pending_c_function
@@ -604,7 +259,7 @@ feature {JVM}
          end
       end
 
-feature {}
+feature {CODE_PRINTER}
    first_manifest_string_collected_flag: BOOLEAN
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
@@ -632,42 +287,6 @@ feature {}
          create {HASHED_SET[STRING]} Result.with_capacity(4096)
       end
 
-   native_array_to_c_code (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]; c_code: STRING) is
-      local
-         break, i: INTEGER
-      do
-         c_code.extend('%"')
-         from
-         until
-            i >= capacity
-         loop
-            character_to_c_code(storage.item(i), c_code)
-            i := i + 1
-            break := break + 1
-            if break > 1024 then
-               -- Because of a limitation of the Visual C/C++ compiler which do not like too long lines:
-               c_code.append(once "%"%N%"")
-               break := 0
-            end
-         end
-         c_code.extend('%"')
-      end
-
-   common_body_for_se_string_and_se_ms (string_at_run_time: BOOLEAN) is
-      require
-         cpp.pending_c_function
-      do
-         cpp.gc_handler.manifest_string_in(cpp.pending_c_function_body, string_at_run_time)
-         cpp.pending_c_function_body.append(once "s->_count=c;%N%
-                                                 %s->_capacity=c+1;%N%
-                                                 %s->_storage_lower=0;%N%
-                                                 %s->_storage=((T9)")
-         cpp.gc_handler.native9_in(cpp.pending_c_function_body, string_at_run_time)
-         cpp.pending_c_function_body.append(once "(c+1));%N%
-                                                 %memcpy(s->_storage,e,c+1);%N%
-                                                 %return((T0*)s);")
-      end
-
    manifest_string_mark_signature (number: INTEGER) is
       require
          cpp.pending_c_function
@@ -679,36 +298,25 @@ feature {}
 
    nb_ms_per_function: INTEGER is 50
 
-   manifest_string_trace (ms: MANIFEST_STRING; buffer: STRING): BOOLEAN is
-      local
-         position: POSITION
-      do
-         if ms.once_flag then
-            -- (Nothing to trace.)
-         elseif ace.manifest_string_trace then
-            Result := True
-            position := ms.start_position
-            buffer.append(once "%N(fprintf(SE_ERR,%"%%s\n%",")
-            string_to_c_code(ms.to_string, buffer)
-            buffer.append(once "),%Nfprintf(SE_ERR,%"-manifest_string_trace: line ")
-            position.line.append_in(buffer)
-            buffer.append(once " column ")
-            position.column.append_in(buffer)
-            buffer.append(once " %"")
-            -- To translate strange characters, especially '\':
-            string_to_c_code(position.path, buffer)
-            buffer.append(once "%"\n%"),%N")
-         end
-      end
-
    unicode_string_manifest_initialize_stamp: FEATURE_STAMP
          -- Feature stamp for {UNICODE_STRING}.manifest_initialize which is actually the body of `se_ums'.
 
    unicode_string_type: TYPE
          -- Is cached here too in order to get `se_ums' later.
 
-   se_ums: RUN_FEATURE
+   se_ums: RUN_FEATURE is
          -- The one of `unicode_string_manifest_initialize_stamp'.
+      do
+         Result := se_ums_
+         if Result = Void then
+            -- Yes, this is the very first usage of `se_ums':
+            Result := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
+            se_ums_ := Result
+         end
+      end
+
+feature {}
+   se_ums_: RUN_FEATURE
 
 end -- class MANIFEST_STRING_POOL
 --

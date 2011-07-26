@@ -13,11 +13,47 @@ inherit
       end
 
 insert
-   C_COMPILATION_MIXIN
-      undefine
-         is_equal
+   C_EXPRESSION_COMPILATION_MIXIN[EXPRESSION]
+      rename
+         compile as compile_
+      export {}
+         compile_
+      redefine
+         visit_implicit_current,
+         visit_written_current,
+         visit_agent_expression,
+         visit_assertion,
+         visit_assignment_test,
+         visit_closed_operand,
+         visit_create_expression,
+         visit_create_writable,
+         visit_e_old,
+         visit_expression_with_comment,
+         visit_fake_argument,
+         visit_fake_target,
+         visit_fake_tuple,
+         visit_generator_generating_type,
+         visit_argument_name2,
+         visit_local_name2,
+         visit_loop_variant,
+         visit_e_void,
+         visit_manifest_string,
+         visit_manifest_generic,
+         visit_manifest_tuple,
+         visit_compound_expression,
+         visit_dynamic_dispatch_temporary1_id,
+         visit_dynamic_dispatch_temporary1,
+         visit_dynamic_dispatch_temporary2,
+         visit_internal_local2,
+         visit_no_dispatch,
+         visit_non_void_no_dispatch,
+         visit_old_manifest_array,
+         visit_open_operand,
+         visit_precursor_expression,
+         visit_result,
+         visit_writable_attribute_name,
+         compile_feature_call
       end
-   SINGLETON
 
 create {C_PRETTY_PRINTER}
    make
@@ -31,22 +67,17 @@ feature {ANY}
          a_target_formal_type.live_type /= Void
          cpp.pending_c_function
       local
-         old_type: like type
          old_target_formal_type: like target_formal_type
       do
-         old_type := type
          old_target_formal_type := target_formal_type
-         type := a_type
          target_formal_type := a_target_formal_type
 
-         target.accept(Current)
+         compile_(target, a_type)
 
-         type := old_type
          target_formal_type := old_target_formal_type
       end
 
 feature {}
-   type: TYPE
    target_formal_type: TYPE
 
    frozen standard_mapping_c_target (target: EXPRESSION) is
@@ -67,20 +98,15 @@ feature {}
             function_body.append(once "((")
             target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
             function_body.extend(')')
-            target.compile_to_c(type)
+            compile_expression(target)
             function_body.extend(')')
          else
             if actual_type.canonical_type_mark.need_c_struct or actual_type.has_external_type then
                function_body.extend('&')
             end
-            target.compile_to_c(type)
+            compile_expression(target)
          end
          cpp.class_invariant_call_closing(class_invariant_flag, False)
-      end
-
-feature {}
-   make is
-      do
       end
 
 feature {IMPLICIT_CURRENT}
@@ -99,18 +125,6 @@ feature {WRITTEN_CURRENT}
          cpp.class_invariant_call_closing(class_invariant_flag, False)
       end
 
-feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
-      do
-         visited.compile_to_c(type)
-      end
-
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
@@ -127,14 +141,8 @@ feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
          function_body.extend('(')
-         visited.compile_to_c(type)
+         Precursor(visited)
          function_body.extend(')')
-      end
-
-feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
-      do
-         visited.compile_to_c(type)
       end
 
 feature {CLOSED_OPERAND}
@@ -161,9 +169,9 @@ feature {CREATE_EXPRESSION}
             target_formal_type = visited.created_type(type)
          end
          if target_formal_type.is_reference then
-            visited.compile_to_c_support(type, target_formal_type)
+            create_expression_support(visited, target_formal_type)
          elseif visited.extra_local_expanded(type) = Void then
-            visited.compile_to_c_support(type, target_formal_type)
+            create_expression_support(visited, target_formal_type)
          else
             check
                visited.extra_local_expanded(type) = target_formal_type
@@ -172,7 +180,7 @@ feature {CREATE_EXPRESSION}
             internal_c_local := cpp.pending_c_function_lock_local(target_formal_type, once "new")
             internal_c_local.append_in(function_body)
             function_body.extend('=')
-            visited.compile_to_c_support(type, target_formal_type)
+            create_expression_support(visited, target_formal_type)
             function_body.append(once ",&")
             internal_c_local.append_in(function_body)
             internal_c_local.unlock
@@ -216,209 +224,10 @@ feature {FAKE_TUPLE}
          crash
       end
 
-feature {}
-   visit_function_call (visited: FUNCTION_CALL) is
-      local
-         class_invariant_flag: INTEGER; actual_type: TYPE; internal_c_local: INTERNAL_C_LOCAL
-      do
-         class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, True)
-         actual_type := visited.resolve_in(type)
-         if actual_type.is_reference then
-            function_body.extend('(')
-            target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
-            function_body.append(once ")(")
-            visited.compile_to_c(type)
-            function_body.extend(')')
-         elseif target_formal_type.canonical_type_mark.need_c_struct or target_formal_type.has_external_type then
-            if visited.extra_local_expanded(type) = Void then
-               function_body.append(once "&(")
-            else
-               check
-                  visited.extra_local_expanded(type) = actual_type
-               end
-               function_body.extend('(')
-               internal_c_local := cpp.pending_c_function_lock_local(actual_type, once "fcstrangeisnotunlock")
-               internal_c_local.append_in(function_body)
-               function_body.extend('=')
-            end
-            visited.compile_to_c(type)
-            if internal_c_local /= Void then
-               function_body.append(once ",&")
-               internal_c_local.append_in(function_body)
-            end
-            function_body.extend(')')
-         else
-            visited.compile_to_c(type)
-         end
-         cpp.class_invariant_call_closing(class_invariant_flag, False)
-      end
-
-feature {CALL_PREFIX_MINUS}
-   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_PREFIX_FREEOP}
-   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_PREFIX_NOT}
-   visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_PREFIX_PLUS}
-   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {STATIC_CALL_0_C}
-   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {FUNCTION_CALL_0}
-   visit_function_call_0 (visited: FUNCTION_CALL_0) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_AND_THEN}
-   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_AND}
-   visit_call_infix_and (visited: CALL_INFIX_AND) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_INT_DIV}
-   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_FREEOP}
-   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_GE}
-   visit_call_infix_ge (visited: CALL_INFIX_GE) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_GT}
-   visit_call_infix_gt (visited: CALL_INFIX_GT) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_IMPLIES}
-   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_DIV}
-   visit_call_infix_div (visited: CALL_INFIX_DIV) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_INT_REM}
-   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_LE}
-   visit_call_infix_le (visited: CALL_INFIX_LE) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_LT}
-   visit_call_infix_lt (visited: CALL_INFIX_LT) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_MINUS}
-   visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_OR_ELSE}
-   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_OR}
-   visit_call_infix_or (visited: CALL_INFIX_OR) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_PLUS}
-   visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_POWER}
-   visit_call_infix_power (visited: CALL_INFIX_POWER) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_TIMES}
-   visit_call_infix_times (visited: CALL_INFIX_TIMES) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {CALL_INFIX_XOR}
-   visit_call_infix_xor (visited: CALL_INFIX_XOR) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {FUNCTION_CALL_1}
-   visit_function_call_1 (visited: FUNCTION_CALL_1) is
-      do
-         visit_function_call(visited)
-      end
-
-feature {FUNCTION_CALL_N}
-   visit_function_call_n (visited: FUNCTION_CALL_N) is
-      do
-         visit_function_call(visited)
-      end
-
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
       do
          standard_mapping_c_target(visited)
-      end
-
-feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
-      do
-         visited.compile_to_c(type)
       end
 
 feature {ARGUMENT_NAME2}
@@ -439,36 +248,6 @@ feature {LOOP_VARIANT}
          crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
-feature {E_FALSE}
-   visit_e_false (visited: E_FALSE) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {REAL_CONSTANT}
-   visit_real_constant (visited: REAL_CONSTANT) is
-      do
-         visited.compile_to_c(type)
-      end
-
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
@@ -481,7 +260,7 @@ feature {MANIFEST_STRING}
          function_body.append(once "((")
          target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
          function_body.extend(')')
-         visited.compile_to_c(type)
+         Precursor(visited)
          function_body.extend(')')
       end
 
@@ -491,7 +270,7 @@ feature {MANIFEST_GENERIC}
          function_body.append(once "((T")
          visited.created_type.id.append_in(function_body)
          function_body.append(once "*)(")
-         visited.compile_to_c(type)
+         Precursor(visited)
          function_body.append(once "))")
       end
 
@@ -501,7 +280,7 @@ feature {MANIFEST_TUPLE}
          function_body.append(once "((")
          target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
          function_body.extend(')')
-         visited.compile_to_c(type)
+         Precursor(visited)
          function_body.extend(')')
       end
 
@@ -533,10 +312,10 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
             function_body.append(once "((T")
             visited.live_type.id.append_in(function_body)
             function_body.append(once "*)")
-            visited.dynamic_dispatch_temporary1.compile_to_c(type)
+            compile_expression(visited.dynamic_dispatch_temporary1)
             function_body.extend(')')
          else
-            visited.dynamic_dispatch_temporary1.accept(Current)
+            compile_expression(visited.dynamic_dispatch_temporary1)
          end
       end
 
@@ -547,15 +326,15 @@ feature {INTERNAL_LOCAL2}
             function_body.append(once "((T")
             target_formal_type.id.append_in(function_body)
             function_body.append(once "*)")
-            visited.compile_to_c(type)
+            Precursor(visited)
             function_body.extend(')')
          elseif target_formal_type.is_user_expanded then
             if not target_formal_type.is_empty_expanded then
                function_body.extend('&')
             end
-            visited.compile_to_c(type)
+            Precursor(visited)
          else
-            visited.compile_to_c(type)
+            Precursor(visited)
          end
       end
 
@@ -565,7 +344,7 @@ feature {NO_DISPATCH}
          function_body.append(once "((")
          target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
          function_body.extend(')')
-         visited.compile_to_c(type)
+         Precursor(visited)
          function_body.extend(')')
       end
 
@@ -573,29 +352,17 @@ feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do
          if visited.once_function = Void then
-            visited.compile_to_c(type)
+            Precursor(visited)
          elseif visited.dynamic_type.is_user_expanded then
             function_body.extend('&')
-            visited.compile_to_c(type)
+            Precursor(visited)
          else
             function_body.append(once "((")
             target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
             function_body.extend(')')
-            visited.compile_to_c(type)
+            Precursor(visited)
             function_body.extend(')')
          end
-      end
-
-feature {NULL_POINTER}
-   visit_null_pointer (visited: NULL_POINTER) is
-      do
-         visited.compile_to_c(type)
-      end
-
-feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
-      do
-         visited.compile_to_c(type)
       end
 
 feature {OLD_MANIFEST_ARRAY}
@@ -626,6 +393,43 @@ feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
          crash -- Cannot be syntactically in target position.
+      end
+
+feature {}
+   compile_feature_call (visited: FUNCTION_CALL) is
+      local
+         class_invariant_flag: INTEGER; actual_type: TYPE; internal_c_local: INTERNAL_C_LOCAL
+      do
+         class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, True)
+         actual_type := visited.resolve_in(type)
+         if actual_type.is_reference then
+            function_body.extend('(')
+            target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+            function_body.append(once ")(")
+            Precursor(visited)
+            function_body.extend(')')
+         elseif target_formal_type.canonical_type_mark.need_c_struct or target_formal_type.has_external_type then
+            if visited.extra_local_expanded(type) = Void then
+               function_body.append(once "&(")
+            else
+               check
+                  visited.extra_local_expanded(type) = actual_type
+               end
+               function_body.extend('(')
+               internal_c_local := cpp.pending_c_function_lock_local(actual_type, once "fcstrangeisnotunlock")
+               internal_c_local.append_in(function_body)
+               function_body.extend('=')
+            end
+            Precursor(visited)
+            if internal_c_local /= Void then
+               function_body.append(once ",&")
+               internal_c_local.append_in(function_body)
+            end
+            function_body.extend(')')
+         else
+            Precursor(visited)
+         end
+         cpp.class_invariant_call_closing(class_invariant_flag, False)
       end
 
 end -- class C_TARGET_MAPPER

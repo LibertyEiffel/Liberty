@@ -20,7 +20,7 @@ feature {ANY}
          -- Error message printed when exceptions are turned off.
 
    error_name: STRING
-         -- Symbolic name for the error code to be raised when 
+         -- Symbolic name for the error code to be raised when
          -- exceptions are turned on.
 
    simplify (type: TYPE): INSTRUCTION is
@@ -35,7 +35,7 @@ feature {ANY}
    use_current (type: TYPE): BOOLEAN is
       do
       end
-   
+
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := False
@@ -44,31 +44,12 @@ feature {ANY}
    safety_check (type: TYPE) is
       do
       end
-   
+
    adapt_for (type: TYPE): like Current is
       do
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if ace.no_check then
-            if exceptions_handler.used then
-               cpp.pending_c_function_body.append(once "internal_exception_handler(")
-               cpp.pending_c_function_body.append(error_name)
-               cpp.pending_c_function_body.append(once ");%N")
-            else
-               cpp.pending_c_function_body.append(once "error1(")
-               manifest_string_pool.string_to_c_code(error_message, cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend(',')
-               cpp.put_position(start_position)
-               cpp.pending_c_function_body.append(once ");%N")
-            end
-         else
-            not_yet_implemented
-         end
-      end
-   
    accept (visitor: RUN_TIME_ERROR_INSTRUCTION_VISITOR) is
       do
          visitor.visit_run_time_error_instruction(Current)
@@ -77,9 +58,9 @@ feature {ANY}
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
-         code_accumulator.current_context.add_last(Current)         
+         code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position; em: like error_message; en: like error_name) is
       require

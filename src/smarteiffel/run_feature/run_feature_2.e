@@ -207,7 +207,7 @@ feature {JVM}
          field_info.add(access_flags, name_idx, descriptor)
       end
 
-feature {C_MAPPER, C_LIVE_TYPE_COMPILER}
+feature {RUN_FEATURE_2_VISITOR}
    need_c_function: BOOLEAN is
       do
          if ace.ensure_check then

@@ -8,17 +8,19 @@ class LOOP_INVARIANT
 
 inherit
    ASSERTION_LIST
+      redefine
+         accept
+      end
 
 creation {ANY}
    make
 
 feature {ANY}
-   accept (visitor: LOOP_INVARIANT_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR) is
       do
          visitor.visit_loop_invariant(Current)
       end
 
-feature {}
 end -- class LOOP_INVARIANT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,8 +3,8 @@
 --
 class MANIFEST_STRING_INSPECTOR
    --
-   -- *** I am quite sure that this class is not so useful. All the stuff should be now included into 
-   -- the INSPECT_STATEMENT class. Please, consider do the removal job... or replace this comment 
+   -- *** I am quite sure that this class is not so useful. All the stuff should be now included into
+   -- the INSPECT_STATEMENT class. Please, consider do the removal job... or replace this comment
    -- with an explaination telling us why this MANIFEST_STRING_INSPECTOR is still useful.
    -- *** Dom. May 20th 2008 ***
    --
@@ -14,11 +14,19 @@ insert
 creation {ANY}
    make
 
-feature {}
+feature {INSPECT_STATEMENT_VISITOR}
    string_pool: TUPLE_STRING_POOL
 
    headers: FAST_ARRAY[STRING]
 
+   has_empty: BOOLEAN is
+      local
+         unknown_position: POSITION
+      do
+         Result := empty_position /= unknown_position
+      end
+
+feature {}
    make (ei: INSPECT_STATEMENT) is
       require
          ei /= Void
@@ -102,13 +110,6 @@ feature {}
          end
       end
 
-   has_empty: BOOLEAN is
-      local
-         unknown_position: POSITION
-      do
-         Result := empty_position /= unknown_position
-      end
-
    empty_position: POSITION
 
 feature {INSPECT_STATEMENT}
@@ -160,169 +161,6 @@ feature {INSPECT_STATEMENT}
          end
          smart_eiffel.magic_count_increment
          Result := compound.simplify(type)
-      end
-
-feature {INSPECT_STATEMENT}
-   c_compile (type: TYPE; inspect_statement: INSPECT_STATEMENT) is
-      require
-         cpp.pending_c_function
-      local
-         i, cur_state, new_state, ext_state: INTEGER; cur_char: CHARACTER; octal: STRING
-         no_check, all_check: BOOLEAN; transition: LINKED_LIST[TUPLE[CHARACTER, INTEGER]]
-         storage_internal_c_local, count_internal_c_local, state_internal_c_local, i_internal_c_local: INTERNAL_C_LOCAL
-      do
-         no_check := ace.no_check
-         all_check := ace.all_check
-         cpp.pending_c_function_body.append(once "/*[manifest INSPECT*/%N")
-
-         storage_internal_c_local := cpp.pending_c_function_lock_local(smart_eiffel.type_native_array_character, once "storage")
-         storage_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "/*storage*/=((")
-         cpp.inspect_local_type(type)
-         cpp.pending_c_function_body.append(once ")")
-         cpp.inspect_local_compile_to_c(type)
-         cpp.pending_c_function_body.append(once ")->_storage + ((")
-         cpp.inspect_local_type(type)
-         cpp.pending_c_function_body.append(once ")")
-         cpp.inspect_local_compile_to_c(type)
-         cpp.pending_c_function_body.append(once ")->_storage_lower;%N")
-
-         count_internal_c_local := cpp.pending_c_function_lock_local(smart_eiffel.type_integer_32, once "count")
-         count_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "/*count*/=((")
-         cpp.inspect_local_type(type)
-         cpp.pending_c_function_body.append(once ")")
-         cpp.inspect_local_compile_to_c(type)
-         cpp.pending_c_function_body.append(once ")->_count;%N")
-
-         -- Walk through the string to have the final state:
-         state_internal_c_local := cpp.pending_c_function_lock_local(smart_eiffel.type_integer_32, once "state")
-         state_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "/*state*/=")
-         string_pool.unknown_state.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%N")
-         i_internal_c_local := cpp.pending_c_function_lock_local(smart_eiffel.type_integer_32, once "i")
-         i_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "/*i*/=0;%N")
-         if has_empty then
-            cpp.pending_c_function_body.append(once " /* has_empty */ if (")
-            count_internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "==0) ")
-            state_internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "=")
-            string_pool.external_state(string_pool.state_empty).append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%Nelse")
-         end
-         cpp.pending_c_function_body.append(once " while (")
-         i_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once " < ")
-         count_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once " && (")
-         i_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "==0 || ")
-         state_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "!=")
-         string_pool.unknown_state.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ")) {%Nswitch(")
-         state_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ") {%N")
-         from
-            cur_state := string_pool.unknown_state
-         until
-            cur_state > string_pool.maxstate
-         loop
-            cpp.pending_c_function_body.append(once "case ")
-            cur_state.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ": switch(*(")
-            storage_internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend('+')
-            i_internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")) {%N")
-            transition := string_pool.transition(cur_state)
-            from
-               i := transition.lower
-            until
-               i > transition.upper
-            loop
-               cur_char := transition.item(i).first
-               new_state := transition.item(i).second
-               cpp.pending_c_function_body.append(once "case (unsigned char)'")
-               inspect
-                  cur_char.code
-               when 9 then
-                  cpp.pending_c_function_body.append(once "\t")
-               when 10 then
-                  cpp.pending_c_function_body.append(once "\r")
-               when 13 then
-                  cpp.pending_c_function_body.append(once "\n")
-               when 39 then
-                  cpp.pending_c_function_body.append(once "\'")
-               when 92 then
-                  cpp.pending_c_function_body.append(once "\\")
-               when 0 .. 8, 11, 12, 14 .. 31 then
-                  octal := once ""
-                  octal.clear_count
-                  cur_char.code.to_integer_8.to_octal_in(octal)
-                  cpp.pending_c_function_body.extend('\')
-                  cpp.pending_c_function_body.append(octal)
-               else
-                  cpp.pending_c_function_body.extend(cur_char)
-               end
-               cpp.pending_c_function_body.append(once "': ")
-               state_internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.extend('=')
-               if new_state < headers.count and then new_state /= string_pool.unknown_state then
-                  ext_state := string_pool.external_state(new_state)
-                  if ext_state /= new_state then
-                     cpp.pending_c_function_body.extend('(')
-                     i_internal_c_local.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "!=")
-                     count_internal_c_local.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "-1)?")
-                     new_state.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.extend(':')
-                  end
-                  ext_state.append_in(cpp.pending_c_function_body)
-               else
-                  new_state.append_in(cpp.pending_c_function_body)
-               end
-               cpp.pending_c_function_body.append(once ";break;%N")
-               i := i + 1
-            end
-            cpp.pending_c_function_body.append(once "default: ")
-            state_internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend('=')
-            string_pool.unknown_state.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%Nbreak;%N}%Nbreak;%N")
-            cur_state := cur_state + 1
-         end
-         cpp.pending_c_function_body.append(once "default: ")
-         state_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('=')
-         string_pool.unknown_state.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nbreak;%N}%N")
-         i_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "++;%N}%N")
-         -- now compile the compounds:
-         cpp.pending_c_function_body.append(once "switch(")
-         state_internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "){%N")
-         inspect_statement.compile_to_c_switch(type)
-         if inspect_statement.else_compound /= Void then
-            check
-               not inspect_statement.else_position.is_unknown
-            end
-            cpp.pending_c_function_body.append(once "default:;%N")
-            inspect_statement.else_compound.compile_to_c(type)
-         elseif inspect_statement.else_position.is_unknown and then no_check then
-            cpp.pending_c_function_body.append(once "default:;%N")
-            exceptions_handler.bad_inspect_value(inspect_statement.start_position)
-         end
-         cpp.pending_c_function_body.append(once "}/*manifest INSPECT]*/%N")
-         storage_internal_c_local.unlock
-         count_internal_c_local.unlock
-         state_internal_c_local.unlock
-         i_internal_c_local.unlock
       end
 
 feature {}

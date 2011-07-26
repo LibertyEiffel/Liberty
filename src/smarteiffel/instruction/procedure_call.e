@@ -41,11 +41,6 @@ feature {ANY}
          end
       end
 
-   frozen compile_to_c (type: TYPE) is
-      do
-         feature_call_compile_to_c(type)
-      end
-
    end_mark_comment: BOOLEAN is False
 
 feature {FEATURE_CALL, CREATE_SUPPORT}
@@ -249,7 +244,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
             -- The general polymorphic case with an `inspect' INSTRUCTION:
             create ddt1.make(t, target_type)
-            non_void_check(code_accumulator, type, ddt1, target_type)               
+            non_void_check(code_accumulator, type, ddt1, target_type)
             create ddt1_id.make(ddt1)
             create inspect_statement.make(feature_name.start_position, ddt1_id)
             inspect_statement.set_dynamic_dispatch_flag(ddt1)
@@ -276,7 +271,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                   if arguments /= Void then
                      args := arguments.inline_dynamic_dispatch(code_accumulator, type)
                      args.unused_expression_inline(code_accumulator, type)
-                  end   
+                  end
                else
                   procedure_call := Current.twin
                   create ddt2.make(ddt1, live_type)
@@ -306,7 +301,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          loop
             code_accumulator.current_context.item(code_accumulator_index).to_instruction.set_eiffel_parser_stamp(eiffel_parser_stamp)
             code_accumulator_index := code_accumulator_index + 1
-         end         
+         end
       end
 
 feature {}

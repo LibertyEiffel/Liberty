@@ -21,14 +21,14 @@ feature {ANY}
 
    inherit_comment: COMMENT
          -- Comment just after the "inherit" keyword.
-   
+
    insert_comment: COMMENT
          -- Comment just after the "insert" keyword.
 
    default_insert_any_added_flag: BOOLEAN
-         -- This flag indicates that ANY has been automatically added in the `insert_list' in order to reach 
+         -- This flag indicates that ANY has been automatically added in the `insert_list' in order to reach
          -- the canonical form (necessary for `pretty' and for error messages printing).
-   
+
    class_text_name: CLASS_NAME is
       do
          Result := class_text.name
@@ -183,7 +183,7 @@ feature {CLASS_TEXT}
           end
        end
 
-    header_comment_for_class_invariant (class_invariant: ASSERTION_LIST) is
+    header_comment_for_class_invariant (class_invariant: CLASS_INVARIANT) is
        local
           i: INTEGER
        do
@@ -262,7 +262,7 @@ feature {CLASS_TEXT}
             end
          end
       end
-   
+
    pretty is
       local
          i: INTEGER
@@ -339,7 +339,7 @@ feature {CLASS_TEXT}
             end
          end
       end
-   
+
 feature {TYPE, PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER}
    inherit_list: FAST_ARRAY[PARENT_EDGE]
          -- The Void or non-empty list after the "inherit" keyword.
@@ -410,10 +410,10 @@ invariant
 
    (not class_text.is_any) implies (inherit_count + insert_count > 0)
       --*** DO THE "ANY" CLASS MUST HAVE A PARENT_LISTS OBJECT OR NOT?
-      --*** According to {CLASS_TEXT}.create_parent_lists_using, ANY 
-      --has no parent_lists object. We must make a clear decision and 
+      --*** According to {CLASS_TEXT}.create_parent_lists_using, ANY
+      --has no parent_lists object. We must make a clear decision and
       --check that with invariant.
-   
+
 end -- class PARENT_LISTS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

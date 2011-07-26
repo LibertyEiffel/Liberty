@@ -89,20 +89,6 @@ feature {ANY}
          Result := expression.is_static
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "/*IC*/(")
-         resolved_memory.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ")(")
-         cpp.target_mapper.compile(expression, type, expression_type)
-         cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    safety_check (type: TYPE) is
       do
          expression.safety_check(type)

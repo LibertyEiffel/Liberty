@@ -1,48 +1,19 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class E_FALSE
-   --
-   -- When using explicit constant `False'.
-   --
+deferred class CLASS_INVARIANT_VISITOR
 
 inherit
-   BOOLEAN_CONSTANT
+   VISITOR
 
-creation {ANY}
-   make
-
-feature {ANY}
-   value: BOOLEAN is False
-
-   to_string: STRING is
-      do
-         Result := fz_false
+feature {CLASS_INVARIANT}
+   visit_class_invariant (visited: CLASS_INVARIANT) is
+      require
+         visited /= Void
+      deferred
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_bipush(0)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := code_attribute.opcode_goto
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         code_attribute.opcode_iconst_0
-         Result := code_attribute.opcode_ifeq
-      end
-
-feature {ANY}
-   accept (visitor: E_FALSE_VISITOR) is
-      do
-         visitor.visit_e_false(Current)
-      end
-
-end -- class E_FALSE
+end -- class CLASS_INVARIANT_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -55,7 +26,7 @@ end -- class E_FALSE
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --

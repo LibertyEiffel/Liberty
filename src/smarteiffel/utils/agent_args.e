@@ -63,8 +63,8 @@ feature {AGENT_POOL}
             end
          end
          if ace.profile then
-            smart_eiffel.local_profile
-            smart_eiffel.start_profile_agent_switch(agent_type)
+            cpp.local_profile
+            cpp.start_profile_agent_switch(agent_type)
          end
          cpp.pending_c_function_body.append(once "/*")
          cpp.pending_c_function_body.append(agent_type.name.to_string)
@@ -78,7 +78,7 @@ feature {AGENT_POOL}
          end
          cpp.pending_c_function_body.append(once "}%N")
          if ace.profile then
-            smart_eiffel.stop_profile
+            cpp.stop_profile
          end
          if agent_result /= Void then
             cpp.pending_c_function_body.append(once "return R;%N")
@@ -116,40 +116,6 @@ feature {AGENT_POOL}
             ca.opcode_return
          end
          method_info.finish
-      end
-
-feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   c_agent_definition_call (type: TYPE; agent_target: EXPRESSION; fake_tuple: FAKE_TUPLE) is
-         -- Generate the C code to launch the execution of the `agent_target'.
-      require
-         cpp.pending_c_function
-         agent_target /= Void
-      local
-         boost: BOOLEAN
-      do
-         cpp.pending_c_function_body.append(signature)
-         cpp.pending_c_function_body.extend('(')
-         boost := ace.boost
-         if not boost then
-            cpp.pending_c_function_body.append(once "&ds,")
-         end
-         if ace.profile then
-            cpp.pending_c_function_body.append(once "&local_profile,")
-         end
-         if not boost then
-            cpp.pending_c_function_body.append(once "vc(")
-         end
-         agent_target.compile_to_c(type)
-         if not boost then
-            cpp.pending_c_function_body.extend(',')
-            cpp.put_position(agent_target.start_position)
-            cpp.pending_c_function_body.extend(')')
-         end
-         if fake_tuple.count > 0 then
-            cpp.pending_c_function_body.extend(',')
-            fake_tuple.compile_to_c(type)
-         end
-         cpp.pending_c_function_body.extend(')')
       end
 
 feature {}

@@ -86,22 +86,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if once_flag then
-            cpp.pending_c_function_body.append(once_variable)
-         elseif unicode_flag then
-            manifest_string_pool.se_ums_c_call_in(cpp.pending_c_function_body, Current)
-         else
-            manifest_string_pool.se_ms_c_call_in(cpp.pending_c_function_body, Current)
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    safety_check (type: TYPE) is
       do
       end
@@ -310,7 +294,7 @@ feature {PARSER}
          source_view = sv
       end
 
-feature {MANIFEST_STRING, MANIFEST_STRING_POOL}
+feature {MANIFEST_STRING, MANIFEST_STRING_POOL, CODE_PRINTER}
    alias_link: like Current
          -- May be non Void to indicate that `alias_link' has exactely the same initial storage information as
          -- `Current'. In this situation, both `Current' and `alias_link' have exactely the same `initial_storage_id'
@@ -322,11 +306,12 @@ feature {MANIFEST_STRING, MANIFEST_STRING_POOL}
          -- itself is shared into a global variable. The corresponding global variable is used only and only if
          -- there is really an actual alias collected.)
 
-feature {MANIFEST_STRING_POOL}
+feature {MANIFEST_STRING_POOL, MANIFEST_STRING_VISITOR, CODE_PRINTER}
    once_variable: STRING
          -- Used when `once_flag' is True. This is the name used for the corresponding global variable in the generated code (C
          -- or in the bytecode as well).
 
+feature {MANIFEST_STRING_POOL}
    set_initial_storage_id (ag: like initial_storage_id) is
       require
          ag /= Void

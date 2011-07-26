@@ -6,7 +6,7 @@ class LOCAL_VAR_LIST
    -- To store local variables declaration list.
    --
 
-insert
+inherit
    DECLARATION_LIST
 
 creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}

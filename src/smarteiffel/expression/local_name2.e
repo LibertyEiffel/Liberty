@@ -11,7 +11,7 @@ inherit
       redefine
          written_declaration_type_mark
       end
-   
+
 insert
    LOCAL_NAME
 
@@ -25,7 +25,7 @@ feature {ANY}
    declaration_type: TYPE
 
    written_declaration_type_mark: TYPE_MARK
-   
+
    resolve_in (type: TYPE): TYPE is
       do
          Result := local_var_list.type_mark(rank).resolve_in(type)
@@ -104,11 +104,6 @@ feature {ANY}
    accept (visitor: LOCAL_NAME2_VISITOR) is
       do
          visitor.visit_local_name2(Current)
-      end
-
-   frozen mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
       end
 
    frozen compile_to_jvm (type: TYPE) is

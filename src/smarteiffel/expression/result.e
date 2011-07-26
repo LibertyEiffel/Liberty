@@ -108,15 +108,6 @@ feature {ANY}
          Result := type_mark_memory /= Void
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if is_once_result then
-            once_routine_pool.unique_result_in(cpp.pending_c_function_body, enclosing_function)
-         else
-            cpp.pending_c_function_body.extend('R')
-         end
-      end
-
    safety_check (type: TYPE) is
       do
       end
@@ -155,11 +146,6 @@ feature {ANY}
    simplify (type: TYPE): EXPRESSION is
       do
          Result := Current
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
       end
 
    compile_to_jvm (type: TYPE) is
@@ -219,13 +205,19 @@ feature {ANY}
          visitor.visit_result(Current)
       end
 
-feature {CREATE_INSTRUCTION}
+feature {RESULT_VISITOR}
    is_once_result: BOOLEAN is
       require
          enclosing_function /= Void
       do
          Result := once_function /= Void
       end
+
+   enclosing_function: ANONYMOUS_FEATURE
+         -- The corresponding one which now contains this `Result' expression.
+
+   once_function: ONCE_FUNCTION
+         -- When not Void, an alias of `enclosing_function' (to avoid multiple assignment attempts).
 
 feature {CREATE_SUPPORT}
    c_variable_name: STRING is
@@ -280,12 +272,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   enclosing_function: ANONYMOUS_FEATURE
-         -- The corresponding one which now contains this `Result' expression.
-
-   once_function: ONCE_FUNCTION
-         -- When not Void, an alias of `enclosing_function' (to avoid multiple assignment attempts).
-
    make (sp: like start_position) is
       require
          not sp.is_unknown

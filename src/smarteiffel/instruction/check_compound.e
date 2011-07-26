@@ -85,13 +85,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if must_be_generated(type) then
-            assertion_list.compile_to_c_as_check_compound(type)
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented
@@ -146,6 +139,13 @@ feature {CHECK_COMPOUND_VISITOR}
    assertion_list: ASSERTION_LIST
          -- (May be Void when there is only a comment after a "check" keyword.)
 
+   must_be_generated (type: TYPE): BOOLEAN is
+      do
+         if assertion_list /= Void then
+            Result := type.class_text.all_check
+         end
+      end
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
@@ -166,13 +166,6 @@ feature {}
       do
          if hc /= Void or else l /= Void then
             create assertion_list.make(sp, hc, l)
-         end
-      end
-
-   must_be_generated (type: TYPE): BOOLEAN is
-      do
-         if assertion_list /= Void then
-            Result := type.class_text.all_check
          end
       end
 

@@ -164,15 +164,6 @@ feature {ANY}
          Result /= Void implies Result.live_type /= Void
       end
 
-   mapping_c_arg (type: TYPE) is
-         -- Produce C code in order to pass `Current' expression as an argument of the feature called.
-      require
-         smart_eiffel.is_ready
-         type /= Void
-         cpp.pending_c_function
-      deferred
-      end
-
    simplify (type: TYPE): EXPRESSION is
       deferred
       ensure then

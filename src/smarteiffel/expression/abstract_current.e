@@ -42,29 +42,6 @@ feature {ANY}
       do
       end
 
-   frozen mapping_c_arg (type: TYPE) is
-      do
-         if type.is_reference then
-            cpp.pending_c_function_body.append(once "(T0*)")
-            cpp.print_current
-         else
-            if type.is_user_expanded then
-               if not type.is_empty_expanded then
-                  cpp.pending_c_function_body.extend('*')
-               end
-            end
-            cpp.print_current
-         end
-      end
-
-   frozen compile_to_c (type: TYPE) is
-      do
-         if type.is_user_expanded and then not type.is_empty_expanded then
-            cpp.pending_c_function_body.extend('*')
-         end
-         cpp.print_current
-      end
-
    frozen compile_to_jvm (type: TYPE) is
       do
          type.canonical_type_mark.jvm_push_local(0)

@@ -292,8 +292,8 @@ feature {}
             i := i - 1
          end
       end
-   
-feature {MANIFEST_GENERIC}          
+
+feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
       local
          created_type: TYPE; feature_stamp: FEATURE_STAMP
@@ -402,6 +402,24 @@ feature {ASSERTION_LIST}
             visited.item(i).accept(Current)
             i := i - 1
          end
+      end
+
+feature {ENSURE_ASSERTION}
+   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+      do
+         visit_assertion_list(visited)
+      end
+
+feature {LOOP_INVARIANT}
+   visit_loop_invariant (visited: LOOP_INVARIANT) is
+      do
+         visit_assertion_list(visited)
+      end
+
+feature {CLASS_INVARIANT}
+   visit_class_invariant (visited: CLASS_INVARIANT) is
+      do
+         visit_assertion_list(visited)
       end
 
 feature {REQUIRE_ASSERTION}
@@ -569,7 +587,7 @@ feature {SEDB}
    visit_sedb (visited: SEDB) is
       do
       end
-   
+
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
@@ -577,13 +595,13 @@ feature {WHEN_CLAUSE}
             visited.compound.accept(Current)
          end
       end
-   
+
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
          precomputable := False
       end
-   
+
 feature {INSPECT_STATEMENT}
    visit_inspect_statement (visited: INSPECT_STATEMENT) is
       local
@@ -611,13 +629,13 @@ feature {MANIFEST_STRING_INSPECT_STATEMENT}
       do
          visit_inspect_statement(visited)
       end
-   
+
 feature {OTHER_INSPECT_STATEMENT}
    visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
       do
          visit_inspect_statement(visited)
       end
-   
+
 feature {CREATE_INSTRUCTION}
    visit_create_instruction (visited: CREATE_INSTRUCTION) is
       local
@@ -638,6 +656,12 @@ feature {CREATE_INSTRUCTION}
             anonymous_feature_stack.remove_last
             type_stack.remove_last
          end
+      end
+
+feature {RAW_CREATE_INSTRUCTION}
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+      do
+         visit_create_instruction(visited)
       end
 
 feature {CREATE_EXPRESSION}
@@ -1045,7 +1069,7 @@ feature {CLOSED_OPERAND}
       do
          precomputable := False
       end
-   
+
 feature {EXPRESSION_WITH_COMMENT}
    visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
       do
@@ -1132,7 +1156,7 @@ feature {}
 
    can_be_dropped_flag: BOOLEAN
          -- To indicate that `can_be_dropped' is running.
-   
+
    make is
       do
       end

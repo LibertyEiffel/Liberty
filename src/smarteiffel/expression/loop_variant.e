@@ -212,20 +212,6 @@ feature {ANY}
          Result := expression.simplify(type)
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          check

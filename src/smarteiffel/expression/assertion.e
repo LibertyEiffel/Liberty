@@ -154,13 +154,6 @@ feature {ANY}
          end
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          check
@@ -313,109 +306,6 @@ feature {ANY}
          not_yet_implemented
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            False -- This one must never be called.
-         end
-         not_yet_implemented -- To be warned as well in -boost mode.
-      end
-
-feature {ASSERTION_LIST}
-   compile_to_c_as_class_invariant (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         tag_name: STRING
-      do
-         if tag /= Void then
-            tag_name := tag.to_string
-         else
-            tag_name := source_view
-         end
-         cpp.check_assertion(type, expression, once "ac_inv", tag_name)
-      end
-
-   compile_to_c_as_require_1 (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         tag_name: STRING
-      do
-         if tag /= Void then
-            tag_name := tag.to_string
-         else
-            tag_name := source_view
-         end
-         cpp.check_assertion(type, expression, once "ac_req", tag_name)
-      end
-
-   compile_to_c_as_require_n (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         compound_expression: COMPOUND_EXPRESSION; e: like expression
-      do
-         --*** REMOVE THIS TEST
-         if is_always_true(type) then
-            sedb_breakpoint
-            -- Don't touch `requireresult'.
-         else
-            if {COMPOUND_EXPRESSION} ?:= expression then
-               compound_expression ::= expression
-               e := compound_expression.last.to_expression
-               compound_expression.compound_compile_to_c(type)
-            else
-               e := expression
-            end
-            cpp.pending_c_function_body.append(once "requireresult=")
-            e.compile_to_c(type)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-      end
-
-   compile_to_c_as_ensure (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         tag_name: STRING
-      do
-         if tag /= Void then
-            tag_name := tag.to_string
-         else
-            tag_name := source_view
-         end
-         cpp.check_assertion(type, expression, once "ac_ens", tag_name)
-      end
-
-   compile_to_c_as_check_compound (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         tag_name: STRING
-      do
-         if tag /= Void then
-            tag_name := tag.to_string
-         else
-            tag_name := source_view
-         end
-         cpp.check_assertion(type, expression, once "ac_civ", tag_name)
-      end
-
-   compile_to_c_as_loop_invariant (type: TYPE) is
-      require
-         not is_always_true(type)
-      local
-         tag_name: STRING
-      do
-         if tag /= Void then
-            tag_name := tag.to_string
-         else
-            tag_name := source_view
-         end
-         cpp.check_assertion(type, expression, once "ac_liv", tag_name)
-      end
-
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
@@ -469,9 +359,10 @@ feature {ASSERTION}
          expression = exp
       end
 
-feature {}
+feature {ANY}
    source_view: STRING
 
+feature {}
    current_or_twin_init (exp: like expression): like Current is
       do
          if exp = expression then

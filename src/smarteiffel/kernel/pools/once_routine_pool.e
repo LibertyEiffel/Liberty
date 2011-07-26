@@ -530,7 +530,7 @@ feature {RUN_FEATURE_6}
          end
       end
 
-feature {RUN_FEATURE, LIVE_TYPE, C_LIVE_TYPE_COMPILER, C_MAPPER, RESULT, NON_VOID_NO_DISPATCH}
+feature {RUN_FEATURE, LIVE_TYPE, RESULT, NON_VOID_NO_DISPATCH, C_LIVE_TYPE_COMPILER, C_MAPPER, C_EXPRESSION_COMPILATION_MIXIN}
    unique_result_in (string: STRING; af: ANONYMOUS_FEATURE) is
       do
          string.extend('o')
@@ -580,7 +580,7 @@ feature {}
       do
          type := rf.type_of_current
          if rf.require_assertion /= Void then
-            rf.require_assertion.compile_to_c(type)
+            cpp.code_compiler.compile(rf.require_assertion, type)
          end
          result_type := rf.result_type
          if result_type.is_user_expanded then
@@ -615,11 +615,11 @@ feature {}
          end
          --
          if rf.routine_body /= Void then
-            rf.routine_body.compile_to_c(type)
+            cpp.code_compiler.compile(rf.routine_body, type)
          end
          --
          if rf.ensure_assertion /= Void then
-            rf.ensure_assertion.compile_to_c(type)
+            cpp.code_compiler.compile(rf.ensure_assertion, type)
          end
          --
          if local_vars /= Void then

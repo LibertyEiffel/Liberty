@@ -107,7 +107,7 @@ feature {}
          end
 
          if live_type.class_text.invariant_check and then live_type.class_invariant /= Void then
-            live_type.class_invariant.define_check_class_invariant_c_function(live_type)
+            define_check_class_invariant_c_function(live_type)
          end
          live_type.type.address_of_c_define
       end
@@ -142,7 +142,7 @@ feature {}
                if ace.profile then
                   function_signature.extend(',')
                end
-               args.compile_to_c_in(live_type.type, function_signature)
+               args_compile_to_c_in(args, live_type.type)
             elseif not ace.profile then
                function_signature.append(once "void")
             end
@@ -153,17 +153,17 @@ feature {}
             function_signature.append(once "se_dump_stack*caller")
             if args /= Void then
                function_signature.extend(',')
-               args.compile_to_c_in(live_type.type, function_signature)
+               args_compile_to_c_in(args, live_type.type)
             end
          end
          function_signature.extend(')')
          --
          if fs /= Void and then ace.profile then
-            smart_eiffel.local_profile
+            cpp.local_profile
          end
          internal_c_local := cpp.pending_c_function_lock_local(live_type.type, once "new")
          if fs /= Void and then ace.profile then
-            smart_eiffel.start_profile(fs.run_feature_for(live_type.type))
+            cpp.start_profile(fs.run_feature_for(live_type.type))
          end
          if not boost then
             function_body.append(once "se_frame_descriptor fd=%
@@ -187,7 +187,7 @@ feature {}
             cpp.mapper.compile(fs.run_feature_for(live_type.type))
             cpp.pop
             if fs /= Void and then ace.profile then
-               smart_eiffel.stop_profile
+               cpp.stop_profile
             end
          end
          function_body.append(once "return (")
@@ -252,11 +252,32 @@ feature {}
                function_signature.append(once "void")
             end
          else
-            run_feature.arguments.compile_to_c_in(run_feature.type_of_current, function_signature)
+            args_compile_to_c_in(run_feature.arguments, run_feature.type_of_current)
          end
          function_signature.extend(')')
       ensure
          cpp.pending_c_function
+      end
+
+   args_compile_to_c_in (args: FORMAL_ARG_LIST; type: TYPE) is
+      local
+         i: INTEGER; static_tm: TYPE_MARK
+      do
+         from
+            i := 1
+         until
+            i > args.count
+         loop
+            if i > 1 then
+               function_signature.extend(',')
+            end
+            static_tm := args.type_mark(i).to_static(type)
+            static_tm.c_type_for_argument_in(function_signature)
+            function_signature.extend(' ')
+            function_signature.extend('a')
+            i.append_in(function_signature)
+            i := i + 1
+         end
       end
 
    c_frame_descriptor (run_feature: RUN_FEATURE) is
@@ -274,7 +295,7 @@ feature {}
             run_feature.type_of_current.canonical_type_mark.c_frame_descriptor_in(c_frame_descriptor_format)
          end
          if run_feature.arguments /= Void then
-            run_feature.arguments.c_frame_descriptor(run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
+            args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
          end
          if run_feature.is_once_function then
             c_frame_descriptor_locals.append(once "(void**)&")
@@ -288,7 +309,28 @@ feature {}
             run_feature.result_type.c_frame_descriptor_in(c_frame_descriptor_format)
          end
          if run_feature.local_vars /= Void then
-            run_feature.local_vars.c_frame_descriptor(run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
+            args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
+         end
+      end
+
+   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; format, locals: STRING) is
+      require
+         ace.no_check
+      local
+         i: INTEGER; static_tm: TYPE_MARK
+      do
+         from
+            i := 1
+         until
+            i > args.count
+         loop
+            format.append(args.name(i).to_string)
+            static_tm := args.type_mark(i).to_static(type)
+            static_tm.c_frame_descriptor_in(format)
+            locals.append(once "(void**)&a")
+            i.append_in(locals)
+            locals.extend(',')
+            i := i + 1
          end
       end
 
@@ -324,7 +366,7 @@ feature {}
          end
          -- (3) ------------------- Local variables for profile:
          if ace.profile then
-            smart_eiffel.local_profile
+            cpp.local_profile
          end
          if no_check then
             -- (4) ------------------------------- Prepare locals:
@@ -347,7 +389,7 @@ feature {}
          end
          -- (7) ---------------------------------- Add profile:
          if ace.profile then
-            smart_eiffel.start_profile(run_feature)
+            cpp.start_profile(run_feature)
          end
          -- (8) --------------------- Execute old expressions:
          if run_feature.old_list /= Void then
@@ -356,14 +398,14 @@ feature {}
             until
                i > run_feature.old_list.upper
             loop
-               run_feature.old_list.item(i).compile_to_c_old_memory(run_feature.type_of_current)
+               compile_to_c_old_memory(run_feature.old_list.item(i), run_feature.type_of_current)
                i := i + 1
             end
          end
          -- (9) -------------------------- Exception handling :
          if run_feature.rescue_compound /= Void then
             function_body.append(once "handle(SE_HANDLE_EXCEPTION_SET,NULL);if(SETJMP(rc.jb)!=0){/*rescue*/%N")
-            run_feature.rescue_compound.compile_to_c(run_feature.type_of_current)
+            cpp.code_compiler.compile(run_feature.rescue_compound, run_feature.type_of_current)
             function_body.append(once "internal_exception_handler(Routine_failure);%N}%N")
          end
          -- (10) ------------ Initialize Result/local expanded :
@@ -416,7 +458,7 @@ feature {}
          end
          -- (12) ---------------------- Require assertion code :
          if run_feature.type_of_current.class_text.require_check and then run_feature.require_assertion /= Void then
-            run_feature.require_assertion.compile_to_c(run_feature.type_of_current)
+            cpp.code_compiler.compile(run_feature.require_assertion, run_feature.type_of_current)
          end
          -- (13) ------------------------- Save rescue context :
          if run_feature.rescue_compound /= Void then
@@ -445,7 +487,7 @@ feature {}
                function_body.extend(' ')
                function_body.extend('%"')
             end
-            manifest_string_pool.string_to_c_code(run_feature.name.to_string, function_body)
+            cpp.string_to_c_code(run_feature.name.to_string, function_body)
             function_body.append(once "%" (%"")
          end
          tag := fn.infix_or_prefix
@@ -455,7 +497,7 @@ feature {}
             function_body.extend(' ')
             function_body.extend('%"')
          end
-         manifest_string_pool.string_to_c_code(fn.to_string, function_body)
+         cpp.string_to_c_code(fn.to_string, function_body)
          function_body.extend('%"')
          function_body.extend(' ')
          function_body.append(run_feature.type_of_current.name.to_string)
@@ -530,7 +572,7 @@ feature {}
       do
          -- (1) --------------------------- Ensure Check Code:
          if run_feature.ensure_assertion /= Void then
-            run_feature.ensure_assertion.compile_to_c(run_feature.type_of_current)
+            cpp.code_compiler.compile(run_feature.ensure_assertion, run_feature.type_of_current)
          end
          -- (2) ----------------------------- Class Invariant:
          if run_feature.use_current then
@@ -548,7 +590,7 @@ feature {}
          end
          -- (5) ------------------------------------ Profiling:
          if ace.profile then
-            smart_eiffel.stop_profile
+            cpp.stop_profile
          end
          smart_eiffel.pop_context(run_feature.base_feature)
       end
@@ -595,7 +637,7 @@ feature {RUN_FEATURE_3}
             define_c_signature(visited)
             c_define_opening(visited)
             if visited.routine_body /= Void then
-               visited.routine_body.compile_to_c(visited.type_of_current)
+               cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
             end
             c_define_closing(visited)
             cpp.dump_pending_c_function(True)
@@ -614,7 +656,7 @@ feature {RUN_FEATURE_4}
          define_c_signature(visited)
          c_define_opening(visited)
          if visited.routine_body /= Void then
-            visited.routine_body.compile_to_c(visited.type_of_current)
+            cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
          end
          c_define_closing(visited)
          function_body.append(once "return R;%N")
@@ -630,7 +672,7 @@ feature {RUN_FEATURE_5}
          c_define_opening(visited)
          if visited.routine_body /= Void then
             once_routine_pool.c_test_o_flag(visited)
-            visited.routine_body.compile_to_c(visited.type_of_current)
+            cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
             function_body.append(once "}}")
          end
          c_define_closing(visited)
@@ -648,7 +690,7 @@ feature {RUN_FEATURE_6}
             c_define_opening(visited)
             if visited.routine_body /= Void then
                once_routine_pool.c_test_o_flag(visited)
-               visited.routine_body.compile_to_c(visited.type_of_current)
+               cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                once_routine_pool.c_test_o_flag_recursion(visited)
             end
             c_define_closing(visited)
@@ -672,7 +714,7 @@ feature {RUN_FEATURE_7}
             c_define_opening(visited)
             if bf.is_generated_eiffel then
                if visited.routine_body /= Void then
-                  visited.routine_body.compile_to_c(visited.type_of_current)
+                  cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
                bcn := bf.class_text.name.to_string
@@ -698,7 +740,7 @@ feature {RUN_FEATURE_8}
             c_define_opening(visited)
             if bf.is_generated_eiffel then
                if visited.routine_body /= Void then
-                  visited.routine_body.compile_to_c(visited.type_of_current)
+                  cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
                bcn := bf.class_text.name.to_string
@@ -745,6 +787,70 @@ feature {RUN_FEATURE_9}
          cpp.put_error0(msg)
          c_define_closing(visited)
          cpp.dump_pending_c_function(True)
+      end
+
+feature {}
+   define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
+      require
+         live_type.at_run_time
+         not is_always_true(live_type.type)
+         smart_eiffel.is_ready
+      local
+         inv: ASSERTION_LIST; id: INTEGER; profile: BOOLEAN; type: TYPE
+      do
+         inv := live_type.class_invariant
+         type := live_type.type
+         id := live_type.id
+         profile := ace.profile -- The invariant frame descriptor :
+         out_h.copy(once "se_frame_descriptor se_ifd")
+         id.append_in(out_h)
+         out_c.copy(once "{%"invariant ")
+         out_c.append(live_type.name.to_string)
+         out_c.append(once "%",1,0,%"")
+         live_type.canonical_type_mark.c_frame_descriptor_in(out_c)
+         out_c.append(once "%",1}")
+         cpp.write_extern_2(out_h, out_c)
+         -- The function itself:
+         cpp.prepare_c_function
+         function_signature.extend('T')
+         id.append_in(function_signature)
+         function_signature.append(once "*se_i")
+         id.append_in(function_signature)
+         function_signature.append(once "(se_dump_stack*caller,")
+         if profile then
+            function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         function_signature.extend('T')
+         id.append_in(function_signature)
+         function_signature.append(once "*C)")
+         function_body.append(once "se_dump_stack ds;%N")
+         if profile then
+            cpp.local_profile
+         end
+         function_body.append(once "ds.fd=&se_ifd")
+         id.append_in(cpp.pending_c_function_body)
+         function_body.append(once ";%Nds.current=((void*)&C);%N")
+         cpp.put_position_in_ds(inv.start_position)
+         function_body.append(once "ds.caller=caller;%Nds.exception_origin=NULL;%Nds.locals=NULL;%Nset_dump_stack_top(&ds);/*link*/%N")
+         cpp.code_compiler.compile(inv, live_type.type)
+         function_body.append(once "set_dump_stack_top(caller);/*unlink*/%Nreturn C;%N")
+         cpp.dump_pending_c_function(True)
+      end
+
+   compile_to_c_old_memory (e_old: E_OLD; type: TYPE) is
+         -- Produce the C code which stores the old value at the routine entry.
+      local
+         assign_old: STRING
+      do
+         if e_old.internal_c_local = Void or else e_old.pending_c_function_counter /= cpp.pending_c_function_counter then
+            e_old.set_internal_c_local(cpp.pending_c_function_lock_local(e_old.resolve_in(type), once "old"))
+            e_old.set_pending_c_function_counter
+         end
+         assign_old := once "........"
+         assign_old.clear_count
+         e_old.internal_c_local.append_in(assign_old)
+         assign_old.extend('=')
+         cpp.compound_expression_compiler.compile(assign_old, e_old.expression, once ";%N", type)
       end
 
 end -- class C_LIVE_TYPE_COMPILER

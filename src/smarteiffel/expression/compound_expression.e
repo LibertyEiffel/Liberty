@@ -99,63 +99,6 @@ feature {ANY}
          end
       end
 
-   compound_compile_to_c (type: TYPE) is
-      local
-         i: INTEGER
-      do
-         from
-            i := list.lower
-         until
-            i = list.upper
-         loop
-            check
-               {INSTRUCTION} ?:= list.item(i)
-            end
-            list.item(i).compile_to_c(type)
-            i := i + 1
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER; stop: BOOLEAN
-      do
-         cpp.pending_c_function_body.extend('(')
-         from
-            i := list.lower
-         until
-            i > list.upper
-         loop
-            cpp.pending_c_function_body.extend('(')
-            list.item(i).compile_to_c(type)
-            -- Because this item is an INSTRUCTION, we have to remove the trailing semicolon:
-            from
-               stop := False
-            until
-               stop
-            loop
-               inspect
-                  cpp.pending_c_function_body.last
-               when ';', ' ', '%N' then
-                  cpp.pending_c_function_body.remove_last
-               else
-                  stop := True
-               end
-            end
-            cpp.pending_c_function_body.extend(')')
-            if i /= list.upper then
-               cpp.pending_c_function_body.extend(',')
-            end
-            i := i + 1
-         end
-         cpp.pending_c_function_body.extend(')')
-      end
-
    use_current (type: TYPE): BOOLEAN is
       local
          i: INTEGER
@@ -312,7 +255,7 @@ feature {}
          end
       end
 
-feature {COMPOUND}
+feature {COMPOUND, COMPOUND_EXPRESSION_VISITOR}
    list: FAST_ARRAY[CODE]
          -- Contains at least 2 items (just because this is the canonical form to be enforced).
 

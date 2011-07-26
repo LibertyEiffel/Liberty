@@ -11,13 +11,13 @@ class ASSIGNMENT
 
 inherit
    INSTRUCTION
-   
+
 creation
    make
-   
+
 creation
    inline_make
-   
+
 feature {ANY}
    left_side: EXPRESSION
 
@@ -40,46 +40,6 @@ feature {ANY}
          else
             Result := Current
          end
-      end
-
-   compile_to_c (type: TYPE) is
-      local
-         cast_t0: BOOLEAN; right_type: TYPE
-      do
-         if right_side.is_void then
-            cpp.start_assignment
-            left_side.compile_to_c(type)
-            if cpp.check_assignment then
-               cpp.pending_c_function_body.extend('=')
-               right_side.compile_to_c(type)
-            else
-               cpp.pending_c_function_body.append(once ";%N")
-            end
-         else
-            cpp.start_assignment
-            left_side.compile_to_c(type)
-            if cpp.check_assignment then
-               right_type := right_side.resolve_in(type)
-               if right_side.is_current then
-                  if left_side.resolve_in(type).is_reference then
-                     cast_t0 := right_type.is_reference
-                  end
-               end
-               cpp.pending_c_function_body.extend('=')
-               if cast_t0 then
-                  cpp.pending_c_function_body.append(once "((T0*)(")
-               elseif right_type.is_boolean then
-                  cpp.pending_c_function_body.append(once "((T6)(")
-               end
-               right_side.compile_to_c(type)
-               if cast_t0 or else right_type.is_boolean then
-                  cpp.pending_c_function_body.append(once "))")
-               end
-            else
-               cpp.pending_c_function_body.append(once ";%N")
-            end
-         end
-         cpp.pending_c_function_body.append(once ";%N")
       end
 
    compile_to_jvm (type: TYPE) is
@@ -210,7 +170,7 @@ feature {ANY}
             expression_with_comment.expression.pretty(indent_level)
             pretty_printer.set_indent_level(indent_level)
             expression_with_comment.comment.pretty(indent_level)
-         else      
+         else
             right_side.pretty(indent_level)
          end
          pretty_printer.set_semi_colon_flag(semi_colon_flag)
@@ -283,7 +243,7 @@ feature {}
       end
 
    make (ls: like left_side; rs: like right_side) is
-         -- Note: this creation procedure is for example called by the `eiffel_parser' which is in charge 
+         -- Note: this creation procedure is for example called by the `eiffel_parser' which is in charge
          -- of checking that `ls' is actually a writable entity. (See also `inline_make'.)
       require
          ls.is_writable
@@ -298,7 +258,7 @@ feature {}
       end
 
    inline_make (ls: like left_side; rs: like right_side) is
-         -- This creation procedure is called to inline for example a procedure which is actually an 
+         -- This creation procedure is called to inline for example a procedure which is actually an
          -- attribute setter, hence the `is_writable' property is not necessary. (See also `make'.)
       require
          ls /= Void
@@ -348,7 +308,7 @@ feature {ANONYMOUS_FEATURE}
             end
          end
       end
-   
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local

@@ -20,11 +20,6 @@ feature {ANY}
          Result := fz_true
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.extend('1')
-      end
-
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
       do
          code_attribute.opcode_bipush(1)

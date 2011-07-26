@@ -117,27 +117,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if local_name /= Void then
-            cpp.pending_c_function_body.append(once "/*$*/(void*)&")
-            local_name.compile_to_c(type)
-         elseif feature_stamp.anonymous_feature(type).is_attribute then
-            cpp.pending_c_function_body.append(once "/*$*/(void*)&")
-            calling_code.compile_to_c(target_type)
-         else
-            cpp.pending_c_function_body.append(once "/*$*/((void*)W")
-            target_type.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(feature_stamp.name.to_string)
-            cpp.pending_c_function_body.extend(')')
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    specialize_in (type: TYPE): like Current is
       local
          ln: like local_name; fs: like feature_stamp; cc: like calling_code
@@ -421,8 +400,7 @@ feature {ADDRESS_OF}
 feature {TYPE}
    c_define (wrapper_id: INTEGER) is
       local
-         result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; compound_expression: COMPOUND_EXPRESSION
-         expression: EXPRESSION
+         result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; expression: EXPRESSION
       do
          af := feature_stamp.anonymous_feature(target_type)
          cpp.prepare_c_function
@@ -452,22 +430,14 @@ feature {TYPE}
          end
          if result_type = Void then
             if calling_code /= Void then
-               calling_code.compile_to_c(target_type)
+               cpp.code_compiler.compile(calling_code, target_type)
             end
          else
             check
                calling_code /= Void
             end
-            if {COMPOUND_EXPRESSION} ?:= calling_code then
-               compound_expression ::= calling_code
-               compound_expression.compound_compile_to_c(target_type)
-               expression ::= compound_expression.last
-            else
-               expression ::= calling_code
-            end
-            cpp.pending_c_function_body.append(once "return ")
-            expression.compile_to_c(target_type)
-            cpp.pending_c_function_body.append(once ";%N")
+            expression ::= calling_code
+            cpp.compound_expression_compiler.compile(once "return ", expression, once ";%N", target_type)
          end
          cpp.dump_pending_c_function(True)
       end

@@ -106,7 +106,7 @@ feature {RUN_FEATURE_1}
          function_body.append(once "/*RF1:")
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
-         visited.value.compile_to_c(visited.type_of_current)
+         cpp.code_compiler.compile(visited.value, visited.type_of_current)
          if has_target then
             cpp.pending_c_function_body.extend(')')
          end

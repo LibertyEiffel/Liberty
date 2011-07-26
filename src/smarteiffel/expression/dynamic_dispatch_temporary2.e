@@ -91,16 +91,6 @@ feature {ANY}
       do
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         dynamic_dispatch_temporary1.mapping_c_arg(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         dynamic_dispatch_temporary1.compile_to_c(type)
-      end
-
    accept (visitor: DYNAMIC_DISPATCH_TEMPORARY2_VISITOR) is
       do
          visitor.visit_dynamic_dispatch_temporary2(Current)

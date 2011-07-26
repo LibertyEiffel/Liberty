@@ -282,65 +282,6 @@ feature {ANY}
          Result :=  resolve_in(type)
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         left_type, right_type: TYPE
-      do
-         if right_side.is_void then
-            if left_side.is_void then
-               if eq_flag then
-                  cpp.pending_c_function_body.extend('1')
-               else
-                  cpp.pending_c_function_body.extend('0')
-               end
-            else
-               left_type := left_side.resolve_in(type)
-               if left_type.is_expanded then
-                  c2c_cmp_expanded_with_void(type, left_side)
-               else
-                  compile_to_c_for_reference(type, left_type, Void)
-               end
-            end
-         elseif left_side.is_void then
-            if right_side.is_void then
-               if eq_flag then
-                  cpp.pending_c_function_body.extend('1')
-               else
-                  cpp.pending_c_function_body.extend('0')
-               end
-            else
-               right_type := right_side.resolve_in(type)
-               if right_type.is_expanded then
-                  c2c_cmp_expanded_with_void(type, left_side)
-               else
-                  compile_to_c_for_reference(type, Void, right_type)
-               end
-            end
-         else
-            left_type := left_side.resolve_in(type)
-            right_type:= right_side.resolve_in(type)
-            if left_type.is_expanded then
-               if left_type.is_user_expanded then
-                  cmp_user_expanded(type, left_type)
-               elseif left_type.is_kernel_expanded then
-                  cmp_basic_eiffel_expanded(type, right_type, left_type)
-               else
-                  check
-                     left_type.is_native_array
-                  end
-                  compile_to_c_for_reference(type, left_type, right_type)
-               end
-            else
-               compile_to_c_for_reference(type, left_type, right_type)
-            end
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_to_jvm (type: TYPE) is
       local
          point1, point2: INTEGER; left_type, right_type: TYPE; lt: LIVE_TYPE
@@ -419,119 +360,6 @@ feature {E_FUNCTION}
       do
          Result := twin
          Result.set_left_and_right(new_left_side, new_right_side)
-      end
-
-feature {BUILT_IN_EQ_NEQ}
-   cmp_user_expanded (type: TYPE; user_expanded_type: TYPE) is
-      require
-         user_expanded_type.is_user_expanded
-      local
-         mem_id: INTEGER; icl1, icl2: INTERNAL_C_LOCAL
-      do
-         if user_expanded_type.is_empty_expanded then
-            cpp.pending_c_function_body.extend('(')
-            left_side.compile_to_c(type)
-            cpp.pending_c_function_body.extend(',')
-            right_side.compile_to_c(type)
-            cpp.pending_c_function_body.extend(',')
-            if eq_flag then
-               cpp.pending_c_function_body.extend('1')
-            else
-               cpp.pending_c_function_body.extend('0')
-            end
-            cpp.pending_c_function_body.extend(')')
-         else
-            icl1 := cpp.pending_c_function_lock_local(user_expanded_type, once "se_cmp1")
-            icl2 := cpp.pending_c_function_lock_local(user_expanded_type, once "se_cmp2")
-            mem_id := user_expanded_type.id
-            if eq_flag then
-               cpp.pending_c_function_body.extend('!')
-            end
-            cpp.pending_c_function_body.append(once "se_cmpT")
-            mem_id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "((")
-            icl1.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend('=')
-            left_side.compile_to_c(type)
-            cpp.pending_c_function_body.append(once ", &")
-            icl1.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "),(")
-            icl2.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.extend('=')
-            right_side.compile_to_c(type)
-            cpp.pending_c_function_body.append(once ", &")
-            icl2.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "))")
-            icl1.unlock
-            icl2.unlock
-         end
-      end
-
-   cmp_basic_eiffel_expanded (type: TYPE; t1, t2: TYPE) is
-      require
-         t1.is_kernel_expanded
-         t2.is_kernel_expanded
-      local
-         cast: STRING; type_mark: TYPE_MARK; real_type_mark_1, real_type_mark_2: REAL_TYPE_MARK
-      do
-         if t1.is_real or else t2.is_real then
-            -- Taking the largest one in real_type_mark_1:
-            type_mark := t1.canonical_type_mark
-            if real_type_mark_1 ?:= type_mark then
-               real_type_mark_1 ::= type_mark
-               type_mark := t2.canonical_type_mark
-               if real_type_mark_2 ?:= type_mark then
-                  real_type_mark_2 ::= type_mark
-                  if real_type_mark_2.bit_count > real_type_mark_1.bit_count then
-                     real_type_mark_1 := real_type_mark_2
-                  end
-               end
-            else
-               real_type_mark_1 ::= t2.canonical_type_mark
-            end
-            cast := once "......."
-            cast.copy(once "((T")
-            real_type_mark_1.id.append_in(cast)
-            cast.append(once ")(")
-         end
-         if cast /= Void then
-            cpp.pending_c_function_body.append(cast)
-         end
-         cpp.pending_c_function_body.extend('(')
-         left_side.compile_to_c(type)
-         if cast /= Void then
-            cpp.pending_c_function_body.append(once "))")
-         end
-         cpp.pending_c_function_body.extend(')')
-         if eq_flag then
-            cpp.pending_c_function_body.append(once "==")
-         else
-            cpp.pending_c_function_body.append(once "!=")
-         end
-         cpp.pending_c_function_body.extend('(')
-         if cast /= Void then
-            cpp.pending_c_function_body.append(cast)
-         end
-         right_side.compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
-         if cast /= Void then
-            cpp.pending_c_function_body.append(once "))")
-         end
-      end
-
-   compile_to_c_for_reference (type: TYPE; left_type, right_type: TYPE) is
-      do
-         cpp.pending_c_function_body.extend('(')
-         left_side.compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
-         if eq_flag then
-            cpp.pending_c_function_body.append(once "==")
-         else
-            cpp.pending_c_function_body.append(once "!=")
-         end
-         cpp.pending_c_function_body.append(once "((void*)(")
-         right_side.compile_to_c(type)
-         cpp.pending_c_function_body.append(once "))")
       end
 
 feature {BUILT_IN_EQ_NEQ}
@@ -848,21 +676,6 @@ feature {}
          else
             create {E_FALSE} Result.make(operator_position)
          end
-      end
-
-   c2c_cmp_expanded_with_void(type: TYPE; expression: EXPRESSION) is
-      require
-         expression.resolve_in(type).is_expanded
-      do
-         cpp.pending_c_function_body.extend('(')
-         expression.compile_to_c(type)
-         cpp.pending_c_function_body.extend(',')
-         if eq_flag then
-            cpp.pending_c_function_body.extend('0')
-         else
-            cpp.pending_c_function_body.extend('1')
-         end
-         cpp.pending_c_function_body.extend(')')
       end
 
    jvm_void_cmp (type: TYPE; e: EXPRESSION) is

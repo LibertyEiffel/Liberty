@@ -97,21 +97,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is do
-         if external_function /= Void then
-            cpp.pending_c_function_body.append(once "(")
-            cpp.pending_c_function_body.append(external_function.names.first.to_string)
-            cpp.pending_c_function_body.append(once ")")
-         else
-            once_routine_pool.unique_result_in(cpp.pending_c_function_body, once_function)
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented

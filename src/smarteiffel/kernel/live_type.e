@@ -57,7 +57,7 @@ feature {ANY}
          -- `run_time_set' depends on live assignments (as well as argument passing and creation
          -- statements) that are found in the live code.
 
-   class_invariant: ASSERTION_LIST is
+   class_invariant: CLASS_INVARIANT is
          -- Collected Runnable invariant if any and only is necessary.
       do
          Result := type.class_invariant
@@ -223,7 +223,7 @@ feature {LIVE_TYPE}
          collected(fs)
       end
 
-feature {PRECURSOR_CALL}
+feature {ANY}
    precursor_run_feature (ct: CLASS_TEXT; af: ANONYMOUS_FEATURE): RUN_FEATURE is
       require
          ct /= Void

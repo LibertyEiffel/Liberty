@@ -4,7 +4,9 @@
 deferred class ASSERTION_LIST_VISITOR
 
 inherit
-   VISITOR
+   CLASS_INVARIANT_VISITOR
+   ENSURE_ASSERTION_VISITOR
+   LOOP_INVARIANT_VISITOR
 
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is

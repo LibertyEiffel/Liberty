@@ -6,31 +6,20 @@ inherit
    CALL_0
       undefine
          jvm_assign
-      redefine
-         compile_to_c
       end
-   
+
 insert
    FUNCTION_CALL_0
       rename
          accept as c0c_accept
       redefine
-         compile_to_c, compile_to_jvm, c0c_accept
+         compile_to_jvm, c0c_accept
       end
 
 creation {INTROSPECTION_HANDLER}
    make
 
 feature {ANY}
-   compile_to_c (type: TYPE) is
-      local
-         target_type: TYPE; dynamic_feature: RUN_FEATURE
-      do
-         target_type := target.resolve_in(type)
-         dynamic_feature := target_type.live_type.dynamic_feature(feature_stamp.run_feature_for(target_type))
-         cpp.put_direct(type, dynamic_feature, target, arguments)
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented

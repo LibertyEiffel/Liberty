@@ -13,11 +13,7 @@ class AGENT_EXPRESSION
 
 inherit
    EXPRESSION
-
-insert
    AGENT_LAUNCHER
-      export {AGENT_EXPRESSION_VISITOR} fake_tuple, target
-      end
 
 creation {CALL_1}
    make
@@ -115,25 +111,6 @@ feature {ANY}
             args := fake_tuple.simplify(type)
             Result := current_or_twin_init(t, args)
          end
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         if agent_pool.agent_creation_collected_flag then
-            agent_args.c_agent_definition_call(type, target, fake_tuple)
-         else
-            --|*** It would be nice to be able to substitute `Current'
-            --| with the corresponding VOID_CALL in a final stage, may
-            --| be `adapt' in order to really simplify the back end.
-            --| (This should be done before `compile_to_c'...)
-            --|*** Dom sept 26th 2004 ***
-            compile_to_c_void_call(type, start_position, as_item)
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
       end
 
    collect (type: TYPE): TYPE is

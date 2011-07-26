@@ -79,19 +79,6 @@ feature {ANY}
          error_handler.print_as_warning
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         rt: TYPE
-      do
-         rt := resolve_in(type)
-         cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(start_position))
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    jvm_branch_if_true, jvm_branch_if_false (type: TYPE): INTEGER is
       do
          check

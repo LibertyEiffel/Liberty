@@ -60,19 +60,6 @@ feature {ANY}
          Result := Current --|*** To be done *** (Dom. april 29th 2004) ***
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if ace.no_check then
-            if ace.flat_check then
-               --|*** PH (17/04/2005) it's wrong but very hard to do better here
-               cpp.pending_c_function_body.append(once "assertion_depth=1;%Nfree_exception_frames();%N")
-            else
-               cpp.pending_c_function_body.append(once "fd.assertion_flag=1;%Nfree_exception_frames();%N")
-            end
-         end
-         cpp.pending_c_function_body.append(once "goto retry_tag;%N")
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          code_attribute.opcode_goto_backward(jvm.current_frame.jvm_try_begin)
@@ -98,7 +85,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position) is
       do

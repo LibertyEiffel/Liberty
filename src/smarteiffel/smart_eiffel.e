@@ -1478,70 +1478,6 @@ feature {RUN_FEATURE}
          old_list_stack.remove_last
       end
 
-feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_LIVE_TYPE_COMPILER}
-   local_profile is
-      require
-         ace.profile
-         cpp.pending_c_function
-      do
-         cpp.pending_c_function_body.append(once "se_local_profile_t local_profile;%N")
-      end
-
-   start_profile (rf: RUN_FEATURE) is
-      require
-         ace.profile
-         cpp.pending_c_function
-         rf /= Void
-      do
-         cpp.pending_c_function_body.append(once "local_profile.profile=profile+")
-         run_features.fast_first_index_of(rf).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
-      end
-
-   start_profile_class_invariant (t: LIVE_TYPE) is
-      require
-         ace.profile
-         cpp.pending_c_function
-         t /= Void
-      do
-         register_class_invariant(t)
-         cpp.pending_c_function_body.append(once "local_profile.profile=inv_profile+")
-         class_invariants.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
-      end
-
-   start_profile_agent_creation (ac: AGENT_CREATION) is
-      require
-         ace.profile
-         cpp.pending_c_function
-         ac /= Void
-      do
-         register_agent_creation(ac)
-         cpp.pending_c_function_body.append(once "local_profile.profile=agent_profile+")
-         agent_creations.fast_first_index_of(ac).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
-      end
-
-   start_profile_agent_switch (t: TYPE) is
-      require
-         ace.profile
-         cpp.pending_c_function
-         t /= Void
-      do
-         register_agent_switch(t)
-         cpp.pending_c_function_body.append(once "local_profile.profile=agent_switch_profile+")
-         agent_switches.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
-      end
-
-   stop_profile is
-      require
-         ace.profile
-         cpp.pending_c_function
-      do
-         cpp.pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-      end
-
 feature {}
    collected_plug_in: SET[NATIVE_PLUG_IN] is
       once
@@ -1633,7 +1569,7 @@ feature {COMMAND_LINE_TOOLS}
          -- Note: even the simple HELLO_WORLD, normally has to load TUPLE.
       end
 
-feature {}
+feature {CODE_PRINTER}
    register_class_invariant (t: LIVE_TYPE) is
       do
          if class_invariants = Void then
@@ -2399,7 +2335,7 @@ feature {FUNCTION_CALL}
          void_target_function_call_count := void_target_function_call_count + 1
       end
 
-feature {INSPECT_STATEMENT}
+feature {C_CODE_COMPILER}
    update_polymorphic_distribution (nb_branches: INTEGER) is
       require
          nb_branches >= 2

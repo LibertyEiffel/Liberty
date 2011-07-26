@@ -168,7 +168,7 @@ feature {JVM}
          method_info.finish
       end
 
-feature {C_MAPPER, C_LIVE_TYPE_COMPILER}
+feature {RUN_FEATURE_3_VISITOR}
    empty_body_side_effect_free_in_boost: BOOLEAN is
       require
          ace.boost

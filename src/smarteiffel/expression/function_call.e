@@ -68,16 +68,6 @@ feature {ANY}
          end
       end
 
-   frozen mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         feature_call_compile_to_c(type)
-      end
-
    pretty_target (indent_level: INTEGER) is
       do
          pretty(indent_level)

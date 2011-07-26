@@ -67,7 +67,7 @@ feature {ANY}
    feature_clause_list: FEATURE_CLAUSE_LIST
          -- Features.
 
-   class_invariant: ASSERTION_LIST
+   class_invariant: CLASS_INVARIANT
          -- If any, the class invariant.
 
    end_comment: COMMENT

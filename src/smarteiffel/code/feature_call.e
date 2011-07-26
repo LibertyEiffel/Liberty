@@ -92,7 +92,7 @@ feature {FEATURE_CALL}
          af.obsolete_warning_check(type, start_position)
          -- Now exportation:
          if creation_type /= Void then
-            -- This is actually a creation calls. Exportation checked somewhere else. 
+            -- This is actually a creation calls. Exportation checked somewhere else.
          elseif target.is_implicit_current then
             -- No need to check exportation.
          else
@@ -203,7 +203,7 @@ feature {FEATURE_CALL, CREATE_SUPPORT, AGENT_CREATION}
          arguments = a
       end
 
-feature {FEATURE_CALL, CREATE_SUPPORT}
+feature {ANY}
    frozen run_feature_for (type: TYPE): RUN_FEATURE is
       local
          target_type: TYPE
@@ -308,11 +308,6 @@ feature {ANY}
       end
 
 feature {}
-   frozen feature_call_compile_to_c (type: TYPE) is
-      do
-         cpp.put_monomorphic_or_void_call(type, feature_stamp, target, arguments)
-      end
-
    use_current_stack: FAST_ARRAY[ANONYMOUS_FEATURE] is
       once
          create Result.with_capacity(32)
@@ -340,9 +335,9 @@ feature {}
             code_accumulator.current_context.add_last(ifthen)
          end
       end
-   
+
    type_id_check (code_accumulator: CODE_ACCUMULATOR; type: TYPE; t: like target; target_live_type: LIVE_TYPE) is
-         -- In non -boost mode, assuming that `t' is non Void, add code to check that `t' really hold holds a 
+         -- In non -boost mode, assuming that `t' is non Void, add code to check that `t' really hold holds a
          -- `target_live_type' value.
       require
          smart_eiffel.status.is_inlining_dynamic_dispatch
@@ -356,8 +351,8 @@ feature {}
          elseif t.is_current or else t.is_manifest_string then
             -- Well, it would be better to check that too, but the code is already large enough.
          elseif {FAKE_TARGET} ?:= t then
-            -- Well, this is certainly the target of some cecil call, and it is probably harmless to trust the 
-            -- caller (see FAKE_TARGET). Actually, the real problem is that we cannot know, right now, whether 
+            -- Well, this is certainly the target of some cecil call, and it is probably harmless to trust the
+            -- caller (see FAKE_TARGET). Actually, the real problem is that we cannot know, right now, whether
             -- the corresponding type of the target really got an `id' at runtime.
          else
             msg := once "..... unique target buffer ....."

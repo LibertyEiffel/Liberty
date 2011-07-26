@@ -3,41 +3,25 @@
 --
 class ENSURE_ASSERTION
    --
-   -- To store a `ensure' or an `ensure then' assertion. 
+   -- To store a `ensure' or an `ensure then' assertion.
    --
 
 inherit
    ASSERTION_LIST
       rename make as assertion_list_make
       redefine
-         compile_to_c, pretty
+         accept, pretty
       end
-   
+
 creation {ANY}
    make
 
 feature {ANY}
    is_ensure_then: BOOLEAN
 
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER; assertion: ASSERTION
+   accept (visitor: ASSERTION_LIST_VISITOR) is
       do
-         if not is_always_true(type) then
-            cpp.stop_recursive_assertion_opening(True)
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               assertion := list.item(i)
-               if not assertion.is_always_true(type) then
-                  assertion.compile_to_c_as_ensure(type)
-               end
-               i := i + 1
-            end
-            cpp.stop_recursive_assertion_closing(True)
-         end
+         visitor.visit_ensure_assertion(Current)
       end
 
    pretty (indent_level: INTEGER) is
@@ -49,6 +33,83 @@ feature {ANY}
             pretty_print_with_tag(2, once "ensure then")
          else
             pretty_print_with_tag(2, once "ensure")
+         end
+      end
+
+feature {SHORT_PRINTER}
+   ensure_assertion_short (type: TYPE; client: CLASS_NAME) is
+      local
+         i: INTEGER
+      do
+         tmp_assertion_list.clear_count
+         if list /= Void then
+            from
+               i := 0
+            until
+               i > list.upper
+            loop
+               if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
+                  tmp_assertion_list.add_last(list.item(i))
+               end
+               i := i + 1
+            end
+         end
+         if header_comment /= Void or else not tmp_assertion_list.is_empty then
+            short_printer.hook_or(once "hook511", "      ensure%N")
+            if header_comment = Void then
+               short_printer.hook_or(once "hook512", once "")
+            else
+               short_printer.hook_or(once "hook513", once "")
+               header_comment.short(once "hook514", once "    --", once "hook515", once "%N")
+               short_printer.hook_or(once "hook516", once "")
+            end
+            if tmp_assertion_list.is_empty then
+               short_printer.hook_or(once "hook517", once "")
+            else
+               short_printer.hook_or(once "hook518", once "")
+               from
+                  i := tmp_assertion_list.lower
+               until
+                  i = tmp_assertion_list.upper
+               loop
+                  tmp_assertion_list.item(i).short_hooks(type
+                  , once "hook519"
+                  , once "    "
+                  , once "hook520" -- before each assertion
+                  , once "", once "hook521" -- no tag
+                  , once "", once "hook522" -- before tag
+                  , once ": ", once "hook523" -- after tag
+                  , once "", once "hook524" -- no expression
+                  , once "", once "hook525" -- before expression
+                  , once ";", once "hook526" -- after expression except last
+                  , once "%N", once "hook527" -- no comment
+                  , once "", once "hook528" -- before comment
+                  , once " --", once "hook529" -- comment begin line
+                  , once "%N", once "hook530" -- comment end of line
+                  , once "", once "hook531" -- after comment
+                  , once "")
+                  -- end of each assertion
+                  i := i + 1
+               end
+               tmp_assertion_list.item(i).short_hooks(type
+               , once "hook519", once "    "
+               , once "hook520" -- before each assertion
+               , once "", once "hook521" -- no tag
+               , once "", once "hook522" -- before tag
+               , once ": ", once "hook523" -- after tag
+               , once "", once "hook524" -- no expression
+               , once "", once "hook532" -- before expression
+               , once "", once "hook526" -- after expression except last
+               , once "%N", once "hook527" -- no comment
+               , once "", once "hook528" -- before comment
+               , once " --", once "hook529" -- comment begin line
+               , once "%N", once "hook530" -- comment end of line
+               , once "", once "hook531" -- after comment
+               , once "")
+               -- end of each assertion
+               short_printer.hook_or(once "hook533", once "")
+            end
+            short_printer.hook_or(once "hook534", once "")
          end
       end
 

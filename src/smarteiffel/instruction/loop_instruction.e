@@ -73,49 +73,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         loop_check_flag, variant_flag, invariant_flag: BOOLEAN; compound_expression: COMPOUND_EXPRESSION
-      do
-         loop_check_flag := loop_check(type)
-         if loop_check_flag and then loop_variant /= Void then
-            cpp.pending_c_function_body.append(once "{int c=0;int v=0;%N")
-            variant_flag := True
-         end
-         if initialize /= Void then
-            initialize.compile_to_c(type)
-         end
-         if loop_check_flag and then loop_invariant /= Void then
-            loop_invariant.compile_to_c_as_loop_invariant(type)
-            invariant_flag := True
-         end
-         if {COMPOUND_EXPRESSION} ?:= until_expression then
-            compound_expression ::= until_expression
-            cpp.pending_c_function_body.append(once "while(1){%N")
-            compound_expression.compound_compile_to_c(type)
-            cpp.pending_c_function_body.append(once "if(")
-            compound_expression.last.to_expression.compile_to_c(type)
-            cpp.pending_c_function_body.append(once "){%Nbreak;%N}%N")
-         else
-            cpp.pending_c_function_body.append(once "while(!(")
-            until_expression.compile_to_c(type)
-            cpp.pending_c_function_body.append(once "))%N{%N")
-         end
-         if variant_flag then
-            cpp.variant_check(type, loop_variant)
-         end
-         if loop_body /= Void then
-            loop_body.compile_to_c(type)
-         end
-         if invariant_flag then
-            loop_invariant.compile_to_c_as_loop_invariant(type)
-         end
-         cpp.pending_c_function_body.append(once "}%N")
-         if variant_flag then
-            cpp.pending_c_function_body.append(once "}%N")
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented
@@ -355,7 +312,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body; loop_check_flag: BOOLEAN
       do
-         loop_check_flag := loop_check(type)         
+         loop_check_flag := loop_check(type)
          code_accumulator.open_new_context
          if initialize /= Void then
             initialize.inline_dynamic_dispatch_(code_accumulator, type)
@@ -382,7 +339,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          create loop_instruction.make(start_position, it, li, lv, ue, lb)
          code_accumulator.current_context.add_last(loop_instruction)
       end
-   
+
 feature {}
    loop_check (type: TYPE): BOOLEAN is
       do

@@ -29,6 +29,7 @@ feature {ASSIGNMENT_TEST}
          left_set.fast_add(left_type)
       end
 
+feature {ASSIGNMENT_TEST, C_EXPRESSION_COMPILATION_MIXIN}
    function_name_in (buffer: STRING; left_type, right_type: TYPE) is
       require
          buffer /= Void

@@ -573,7 +573,7 @@ feature {ANY}
          Result := feature_stamps /= Void
       end
 
-   class_invariant: ASSERTION_LIST
+   class_invariant: CLASS_INVARIANT
 
    copy_stamp: FEATURE_STAMP is
          -- The one of the `copy' feature (which is magically called inside `twin').

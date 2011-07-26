@@ -196,16 +196,6 @@ feature {ANY}
       do
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         c_name_in(cpp.pending_c_function_body)
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          check
@@ -258,7 +248,7 @@ feature {AGENT_CREATION, FORMAL_ARG_LIST}
          rank = r
       end
 
-feature {AGENT_CREATION}
+feature {AGENT_CREATION, OPEN_OPERAND_VISITOR}
    c_name_in (buffer: STRING) is
       do
          if rank = -1 then

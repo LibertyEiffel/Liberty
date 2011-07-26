@@ -8,7 +8,7 @@ class TUPLE_STRING_POOL
 
 inherit
    STRING_POOL
-      export {MANIFEST_STRING_INSPECTOR} maxstate, unknown_state, tag_state
+      export {INSPECT_STATEMENT_VISITOR} maxstate, unknown_state, tag_state
       end
 
 creation {ANY}
@@ -48,7 +48,7 @@ feature {} -- State management:
          end
       end
 
-feature {MANIFEST_STRING_INSPECTOR}
+feature {INSPECT_STATEMENT_VISITOR}
    state (previous_state: INTEGER; character: CHARACTER): INTEGER is
       local
          i: INTEGER; l: like transition
@@ -74,16 +74,16 @@ feature {MANIFEST_STRING_INSPECTOR}
          Result := empty_idx
       end
 
+   capacity: INTEGER is
+      do
+         Result := transitions.capacity
+      end
+
    transition (previous_state: INTEGER): LINKED_LIST[TUPLE[CHARACTER, INTEGER]] is
       require
          previous_state.in_range(unknown_state, maxstate)
       do
          Result := transitions.item(previous_state + 1)
-      end
-
-   capacity: INTEGER is
-      do
-         Result := transitions.capacity
       end
 
    external_state (internal_state: INTEGER): INTEGER is

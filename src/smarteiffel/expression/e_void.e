@@ -49,11 +49,6 @@ feature {ANY}
       do
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    short (type: TYPE) is
       do
          short_printer.hook_or(as_void, as_void)
@@ -63,11 +58,6 @@ feature {ANY}
       do
          short(type)
          short_printer.put_dot
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "(void*)0")
       end
 
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is

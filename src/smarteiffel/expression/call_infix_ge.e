@@ -8,9 +8,6 @@ class CALL_INFIX_GE
 
 inherit
    CALL_INFIX
-      redefine
-         compile_to_c
-      end
 
 creation {EIFFEL_PARSER}
    make
@@ -49,18 +46,6 @@ feature {ANY}
       --|*** end
       --|*** end
       --|*** end
-
-   compile_to_c (type: TYPE) is
-      local
-         target_type: TYPE
-      do
-         target_type := target.resolve_in(type)
-         if ace.boost and then target_type.is_character then
-            c2c_cast_op(type, once "unsigned", as_ge)
-         else
-            Precursor(type)
-         end
-      end
 
    compile_to_jvm (type: TYPE) is
       do

@@ -77,42 +77,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER; ifthen: IFTHEN; c: INSTRUCTION
-      do
-         cpp.pending_c_function_body.append(once "if(")
-         expression.compile_to_c(type)
-         cpp.pending_c_function_body.append(once "){%N")
-         if then_compound /= Void then
-            then_compound.compile_to_c(type)
-         end
-         cpp.pending_c_function_body.append(once "}%N")
-         if elseif_list /= Void then
-            from
-               i := elseif_list.lower
-            until
-               i > elseif_list.upper
-            loop
-               ifthen := elseif_list.item(i)
-               cpp.pending_c_function_body.append(once "else if(")
-               ifthen.expression.compile_to_c(type)
-               cpp.pending_c_function_body.append(once "){%N")
-               c := ifthen.then_compound
-               if c /= Void then
-                  c.compile_to_c(type)
-               end
-               cpp.pending_c_function_body.append(once "}%N")
-               i := i + 1
-            end
-         end
-         if else_compound /= Void then
-            cpp.pending_c_function_body.append(once "else{%N")
-            else_compound.compile_to_c(type)
-            cpp.pending_c_function_body.append(once "}%N")
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       local
          i: INTEGER; ca: like code_attribute
@@ -541,8 +505,8 @@ feature {IFTHENELSE}
 
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
-         -- Because complex BOOLEAN expression may needs to let escape dynamic dispatch instructions, 
-         -- "elseif" constructions are removed and replaced by imbricated "else if then...". Thus, 
+         -- Because complex BOOLEAN expression may needs to let escape dynamic dispatch instructions,
+         -- "elseif" constructions are removed and replaced by imbricated "else if then...". Thus,
          -- extra statements needed by dynamic dispatch have a place to go (between "else" and "if").
       local
          e: like expression; tc: like then_compound; ec: like else_compound; i: INSTRUCTION
@@ -780,7 +744,7 @@ feature {}
       ensure
          assertion_check_only: Result
       end
-   
+
 invariant
    canonical_form
 

@@ -26,7 +26,7 @@ insert
 
 feature {ANY}
    class_text: CLASS_TEXT is
-         -- The corresponding one which may be Void for example when `is_unknown' or when parsing 
+         -- The corresponding one which may be Void for example when `is_unknown' or when parsing
          -- a -cecil file or the ACE file.
       do
          Result := class_text_storage.item(id)
@@ -306,10 +306,10 @@ feature {INI_PARSER}
          column = 0 or else column = co
       end
 
-feature {C_PRETTY_PRINTER, SEDB, AGENT_CREATION, POSITION}
+feature {C_PRETTY_PRINTER, SEDB, AGENT_CREATION, POSITION, C_CODE_COMPILER}
    mangling: INTEGER_32
          -- In order to save memory (there are a lot of objects like `Current'), the `id' of the class, the
-         -- `line' and the `column' are saved in this 32 BIT sequence. Two mangling are used, and the 
+         -- `line' and the `column' are saved in this 32 BIT sequence. Two mangling are used, and the
          -- `column' may be dropped (not memorized, see `set'). The two manglings are:
          --  ---------------------------------------------------------------
          -- |      id (11)        |    line (13)            | col (7)     |0|

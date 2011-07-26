@@ -150,16 +150,6 @@ feature {ANY}
          writable.safety_check(type)
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         writable.mapping_c_arg(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         writable.compile_to_c(type)
-      end
-
    side_effect_free (type: TYPE): BOOLEAN is
       do
          Result := writable.side_effect_free(type)

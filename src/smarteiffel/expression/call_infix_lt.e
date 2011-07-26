@@ -8,9 +8,6 @@ class CALL_INFIX_LT
 
 inherit
    CALL_INFIX
-      redefine
-         compile_to_c
-      end
 
 creation {EIFFEL_PARSER}
    make
@@ -26,15 +23,6 @@ feature {ANY}
    operator: STRING is
       do
          Result := as_lt
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         if ace.boost and then target.resolve_in(type).is_character then
-            c2c_cast_op(type, once "unsigned", as_lt)
-         else
-            Precursor(type)
-         end
       end
 
    compile_to_jvm (type: TYPE) is

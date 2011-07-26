@@ -22,29 +22,15 @@ feature {ANY}
 
    pretty_view: STRING
          -- To be used for `pretty'.
-   
+
    declaration_type: TYPE is
       once
          Result := smart_eiffel.type_character
       end
-   
+
    frozen resolve_in (type: TYPE): TYPE is
       do
          Result := declaration_type
-      end
-   
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "((T3)%'")
-         if value.is_letter or else value.is_digit then
-            cpp.pending_c_function_body.extend(value)
-         elseif value = '%N' then
-            cpp.pending_c_function_body.append(once "\n")
-         else
-            cpp.pending_c_function_body.extend('\')
-            value.code.low_8.to_octal_in(cpp.pending_c_function_body)
-         end
-         cpp.pending_c_function_body.append(once "%')")
       end
 
    compile_to_jvm, compile_target_to_jvm (type: TYPE) is
@@ -67,8 +53,8 @@ feature {ANY}
             check
                (not smart_eiffel.pretty_flag) and then (not smart_eiffel.short_or_class_check_flag)
             end
-            -- Probably trying to report an error. So we just rebuild 
-            -- a standard 
+            -- Probably trying to report an error. So we just rebuild
+            -- a standard
             Result := once "......."
             Result.clear_count
             Result.extend('%'')

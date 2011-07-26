@@ -124,27 +124,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         left_type, right_type: TYPE
-      do
-         if left_type_mark /= Void then
-            left_type := left_type_mark.resolve_in(type)
-         else
-            left_type := left_writable.resolve_in(type)
-         end
-         right_type := right_side.resolve_in(type)
-         assignment_test_pool.function_name_in(cpp.pending_c_function_body, left_type, right_type)
-         cpp.pending_c_function_body.append(once "((T0*)(")
-         right_side.compile_to_c(type)
-         cpp.pending_c_function_body.append(once "))")
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_target_to_jvm, compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented

@@ -95,17 +95,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.extend('a')
-         rank.append_in(cpp.pending_c_function_body)
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          -- jvm_offset: INTEGER
@@ -172,9 +161,10 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.add_last(Current)
       end
 
-feature {}
+feature {FAKE_ARGUMENT_VISITOR}
    rank: INTEGER
 
+feature {}
    make (target_type: TYPE; sp: like start_position; rt: like result_type; r: like rank) is
       require
          not sp.is_unknown

@@ -362,7 +362,7 @@ feature {CLASS_CHECKER}
    finish (obsolete_flag: BOOLEAN) is
          -- The `obsolete_flag' indicates that the class to short itself is obsolete.
       local
-         fgl: FORMAL_GENERIC_LIST; class_invariant: ASSERTION_LIST
+         fgl: FORMAL_GENERIC_LIST; class_invariant: CLASS_INVARIANT
       do
          if not obsolete_flag then
             class_invariant := type.class_invariant
@@ -427,12 +427,12 @@ feature {CLASS_CHECKER}
             finish(False)
             i := i + 1
             if i <= tuple_list.upper then
-               hook_or(once "new_line", once "%N")               
-               hook_or(once "new_line", once "%N")               
+               hook_or(once "new_line", once "%N")
+               hook_or(once "new_line", once "%N")
             end
          end
       end
-   
+
 feature {CALL_PREFIX}
    put_prefix_name (pn: FEATURE_NAME) is
          -- Used in an expression.

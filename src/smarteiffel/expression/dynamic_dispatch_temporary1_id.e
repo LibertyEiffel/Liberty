@@ -88,21 +88,6 @@ feature {ANY}
          Result := dynamic_dispatch_temporary1.use_current(type)
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            dynamic_dispatch_temporary1.side_effect_free(type)
-         end
-         cpp.pending_c_function_body.append(once "((")
-         dynamic_dispatch_temporary1.compile_to_c(type)
-         cpp.pending_c_function_body.append(once ")->id)")
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_ID_VISITOR) is
       do
          visitor.visit_dynamic_dispatch_temporary1_id(Current)

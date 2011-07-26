@@ -83,22 +83,6 @@ feature {ANY}
 
    is_static: BOOLEAN is False
 
-   compile_to_c (type: TYPE) is
-      do
-         if internal_c_local = Void   or else
-            pending_c_function_counter /= cpp.pending_c_function_counter
-          then
-            internal_c_local := cpp.pending_c_function_lock_local(resolve_in(type), tag)
-            pending_c_function_counter := cpp.pending_c_function_counter
-         end
-         internal_c_local.append_in(cpp.pending_c_function_body)
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    simplify (type: TYPE): EXPRESSION is
       do
          Result := Current
@@ -142,13 +126,34 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.add_last(Current)
       end
 
-feature {}
+feature {C_COMPILATION_MIXIN}
    pending_c_function_counter: INTEGER
+
+   set_pending_c_function_counter is
+      require
+         cpp.pending_c_function_counter > pending_c_function_counter
+      do
+         pending_c_function_counter := cpp.pending_c_function_counter
+      ensure
+         pending_c_function_counter = cpp.pending_c_function_counter
+      end
 
    internal_c_local: INTERNAL_C_LOCAL
 
+   set_internal_c_local (c_local: INTERNAL_C_LOCAL) is
+      require
+         internal_c_local = Void
+         c_local /= Void
+      do
+         internal_c_local := c_local
+      ensure
+         internal_c_local = c_local
+      end
+
+feature {INTERNAL_LOCAL2_VISITOR}
    tag: STRING
 
+feature {}
    make (sp: like start_position; oe: like original_expression; t: like tag; cf: like collect_flag) is
       require
          not sp.is_unknown

@@ -216,33 +216,6 @@ feature {ANY}
          Result := Current --|*** To be done ***
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         i: INTEGER; e: EXPRESSION
-      do
-         if list /= Void then
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               e := list.item(i)
-               e.mapping_c_arg(type)
-               if i < list.upper then
-                  cpp.pending_c_function_body.extend(',')
-               end
-               i := i + 1
-            end
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    safety_check (type: TYPE) is
       local
          i: INTEGER

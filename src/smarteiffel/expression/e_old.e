@@ -149,41 +149,6 @@ feature {ANY}
          Result := 11
       end
 
-   compile_to_c_old_memory (type: TYPE) is
-         -- Produce the C code which stores the old value at the routine entry.
-      local
-         compound_expression: COMPOUND_EXPRESSION; exp: like expression
-      do
-         if {COMPOUND_EXPRESSION} ?:= expression then
-            compound_expression ::= expression
-            compound_expression.compound_compile_to_c(type)
-            exp := compound_expression.last.to_expression
-         else
-            exp := expression
-         end
-         if internal_c_local = Void   or else
-            pending_c_function_counter /= cpp.pending_c_function_counter
-          then
-            internal_c_local := cpp.pending_c_function_lock_local(resolve_in(type), once "old")
-            pending_c_function_counter := cpp.pending_c_function_counter
-         end
-         internal_c_local.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('=')
-         exp.mapping_c_arg(type)
-         cpp.pending_c_function_body.append(once ";%N")
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         -- Now read the memorized value:
-         internal_c_local.append_in(cpp.pending_c_function_body)
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_to_jvm_old (type: TYPE) is
       do
          not_yet_implemented
@@ -257,11 +222,31 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.add_last(current_or_twin_init(exp))
       end
 
-feature {}
+feature {C_COMPILATION_MIXIN}
    pending_c_function_counter: INTEGER
+
+   set_pending_c_function_counter is
+      require
+         cpp.pending_c_function_counter > pending_c_function_counter
+      do
+         pending_c_function_counter := cpp.pending_c_function_counter
+      ensure
+         pending_c_function_counter = cpp.pending_c_function_counter
+      end
 
    internal_c_local: INTERNAL_C_LOCAL
 
+   set_internal_c_local (c_local: INTERNAL_C_LOCAL) is
+      require
+         internal_c_local = Void
+         c_local /= Void
+      do
+         internal_c_local := c_local
+      ensure
+         internal_c_local = c_local
+      end
+
+feature {}
    make (sp: like start_position; exp: like expression) is
       require
          not sp.is_unknown

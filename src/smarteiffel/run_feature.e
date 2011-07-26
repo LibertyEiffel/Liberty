@@ -307,7 +307,7 @@ feature {RUN_FEATURE, RETRY_INSTRUCTION}
 
    jvm_handler: INTEGER
 
-feature {C_LIVE_TYPE_COMPILER}
+feature {RUN_FEATURE_VISITOR}
    old_list: FAST_ARRAY[E_OLD]
          -- Non Void when `ensure_assertion' actually has "old" expression.
 

@@ -3,7 +3,7 @@
 --
 class SEDB
    --
-   -- Such a pseudo instruction is added to produce `sedb' viewpoint calls or to add code position 
+   -- Such a pseudo instruction is added to produce `sedb' viewpoint calls or to add code position
    -- information in non -boost mode.
    --
 
@@ -27,7 +27,7 @@ feature {ANY}
             Result := Current
          end
       end
-   
+
    collect (type: TYPE): TYPE is
       do
       end
@@ -50,21 +50,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if start_position.sedb_trace then
-            cpp.pending_c_function_body.append(once "sedb(&ds,")
-            put_start_position
-            cpp.pending_c_function_body.append(once ",'")
-            cpp.pending_c_function_body.extend(info_code)
-            cpp.pending_c_function_body.append(once "')")
-         else
-            cpp.pending_c_function_body.append(once "ds.p=")
-            put_start_position
-         end
-         cpp.pending_c_function_body.append(once ";%N")
-      end
-
    accept (visitor: SEDB_VISITOR) is
       do
          visitor.visit_sedb(Current)
@@ -77,10 +62,11 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(Current)
          end
       end
-   
-feature {}
+
+feature {SEDB_VISITOR}
    info_code: CHARACTER
-   
+
+feature {}
    make (sp: like start_position; ic: like info_code) is
       require
          not sp.is_unknown
@@ -93,17 +79,10 @@ feature {}
          info_code = ic
       end
 
-   put_start_position is
-      do
-         cpp.pending_c_function_body.append(once "0x")
-         start_position.mangling.to_hexadecimal_in(cpp.pending_c_function_body)
-         cpp.put_position_comment_in(cpp.pending_c_function_body, start_position)
-      end
-
 invariant
    not ace.boost
    not start_position.is_unknown
-   
+
 end -- class SEDB
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

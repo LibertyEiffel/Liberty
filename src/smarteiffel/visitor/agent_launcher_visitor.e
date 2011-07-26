@@ -4,15 +4,8 @@
 deferred class AGENT_LAUNCHER_VISITOR
 
 inherit
-   VISITOR
-
-feature {AGENT_LAUNCHER}
-   visit_agent_launcher (visited: AGENT_LAUNCHER) is
-      require
-         visited /= Void
-      do
-         visited.accept(Current)
-      end
+   AGENT_EXPRESSION_VISITOR
+   AGENT_INSTRUCTION_VISITOR
 
 end -- class AGENT_LAUNCHER_VISITOR
 --

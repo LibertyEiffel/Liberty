@@ -26,7 +26,7 @@ feature {}
    doc_tag: STRING
          -- The `doc_tag' is used to make the C code more readable.
 
-feature {INTERNAL_C_LOCAL, MANIFEST_STRING_POOL}
+feature {INTERNAL_C_LOCAL, CODE_PRINTER}
    type: TYPE
          -- Corresponding `type' for this INTERNAL_C_LOCAL variable.
 

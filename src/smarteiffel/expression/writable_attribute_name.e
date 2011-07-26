@@ -170,24 +170,6 @@ feature {ANY}
       do
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         run_feature_2: RUN_FEATURE_2
-      do
-         cpp.pending_c_function_body.append(once "/*SFN*/(C->")
-         run_feature_2 ::= feature_stamp.run_feature_for(type)
-         run_feature_2.put_c_field_name
-         cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            -- Cannot be syntactically in target position.
-            False
-         end
-      end
-
    is_static: BOOLEAN is True
 
    pretty (indent_level: INTEGER) is

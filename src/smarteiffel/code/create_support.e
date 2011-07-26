@@ -68,8 +68,8 @@ feature {ONCE_ROUTINE_POOL, PRECOMPUTABLE_ROUTINE_DETECTOR, HIDDEN_EXPRESSION_DE
 
 feature {CREATE_SUPPORT}
    specialize_2_checks (type: TYPE) is
-         -- Check the validity of the CREATION_INSTRUCTION / CREATION_EXPRESSION where `type' is the  
-         -- `specialize_2' argument. (Note because of possible redefinition checks are not wrapped inside a 
+         -- Check the validity of the CREATION_INSTRUCTION / CREATION_EXPRESSION where `type' is the
+         -- `specialize_2' argument. (Note because of possible redefinition checks are not wrapped inside a
          -- `is_the_validity_check_site_of' call.)
       require
          type /= Void
@@ -195,7 +195,7 @@ feature {CREATE_SUPPORT}
          call = c
       end
 
-feature {MANIFEST_TUPLE}
+feature {MANIFEST_TUPLE, CREATE_INSTRUCTION_VISITOR, CREATE_EXPRESSION_VISITOR}
    arguments: EFFECTIVE_ARG_LIST is
       require
          call /= Void

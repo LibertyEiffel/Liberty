@@ -47,11 +47,6 @@ feature {ANY}
 
    has_been_specialized: BOOLEAN is True
 
-   frozen mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
       do
          pretty_printer.put_string(to_string)

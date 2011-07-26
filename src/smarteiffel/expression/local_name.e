@@ -12,11 +12,6 @@ insert
 feature {ANY}
    is_writable: BOOLEAN is True
 
-   frozen compile_to_c (type: TYPE) is
-      do
-         cpp.print_local(to_string)
-      end
-
    frozen pretty (indent_level: INTEGER) is
       do
          pretty_printer.put_string(to_string)

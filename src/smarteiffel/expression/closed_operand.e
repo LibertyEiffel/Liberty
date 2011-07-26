@@ -129,32 +129,6 @@ feature {ANY}
          capture_memory.put(capture_memory.reference_at(type).adapt_for(type), type)
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if is_static then
-            -- No field to store such a static value:
-            original_capture.compile_to_c(type)
-         elseif inside_agent_launcher_flag then
-            c_name_in(cpp.pending_c_function_body)
-         else
-            -- Well, outside of the agent:
-            capture_memory.reference_at(type).compile_to_c(type)
-         end
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         if is_static then
-            -- No field to store such a static value:
-            original_capture.mapping_c_arg(type)
-         elseif inside_agent_launcher_flag then
-            c_name_in(cpp.pending_c_function_body)
-         else
-            -- Well, outside of the agent:
-            capture_memory.reference_at(type).mapping_c_arg(type)
-         end
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          Result := capture_memory.reference_at(type).use_current(type)
@@ -267,7 +241,7 @@ feature {ANY}
          not_yet_implemented
       end
 
-feature {AGENT_CREATION, C_TARGET_MAPPER}
+feature {AGENT_CREATION, CLOSED_OPERAND_VISITOR}
    inside_agent_launcher_flag: BOOLEAN
 
    c_name_in (buffer: STRING) is

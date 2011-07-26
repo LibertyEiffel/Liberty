@@ -39,7 +39,7 @@ feature {}
 feature {FEATURE_STAMP}
    debug_info: STRING
 
-feature {CODE, FEATURE_CALL, LIVE_TYPE, CECIL_ENTRY, MANIFEST_STRING_POOL, CODE_PRINTER, AGENT_EQUAL, C_LIVE_TYPE_COMPILER}
+feature {ANY}
    has_run_feature_for (t: TYPE): BOOLEAN is
       do
          if run_features /= Void then

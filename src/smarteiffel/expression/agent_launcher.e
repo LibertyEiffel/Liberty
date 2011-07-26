@@ -12,9 +12,9 @@ inherit
 insert
    GLOBALS
 
-feature {AGENT_LAUNCHER_VISITOR}
+feature {AGENT_EXPRESSION_VISITOR, AGENT_INSTRUCTION_VISITOR}
    agent_type: TYPE
-         -- It's `canonical_type_mark' is the AGENT_TYPE_MARK associated with agent launcher (`item' or 
+         -- It's `canonical_type_mark' is the AGENT_TYPE_MARK associated with agent launcher (`item' or
          -- `call').
 
    target: EXPRESSION
@@ -147,26 +147,6 @@ feature {}
          end
       end
 
-   compile_to_c_void_call (type: TYPE; start_position: POSITION; item_or_call: STRING) is
-      require
-         not agent_pool.agent_creation_collected_flag
-         ; (item_or_call = as_item) or (item_or_call = as_call)
-      local
-         target_type: TYPE; feature_stamp: FEATURE_STAMP; fn: FEATURE_NAME
-         void_call: VOID_CALL; void_proc_call: VOID_PROC_CALL
-      do
-         target_type := target.resolve_in(type)
-         create fn.simple_feature_name(item_or_call, start_position)
-         feature_stamp := target_type.lookup(fn)
-         if item_or_call = as_item then
-            create void_call.make(start_position, feature_stamp, target_type)
-            void_call.compile_to_c(type)
-         else
-            create void_proc_call.make(start_position, feature_stamp, target_type)            
-            void_proc_call.compile_to_c(type)
-         end
-      end
-   
 invariant
    agent_type.is_agent
 

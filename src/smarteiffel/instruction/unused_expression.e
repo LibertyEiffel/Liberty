@@ -3,7 +3,7 @@
 --
 class UNUSED_EXPRESSION
    --
-   -- To wrap some expression which appears to be unused but that cannot be dropped because 
+   -- To wrap some expression which appears to be unused but that cannot be dropped because
    -- of some possible side effect.
    --
 
@@ -16,7 +16,7 @@ creation
 feature {ANY}
    expression: EXPRESSION
          -- The unused one.
-   
+
    start_position: POSITION is
       do
          Result := expression.start_position
@@ -56,13 +56,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "/*UNUSED_EXPRESSION:*/")
-         expression.compile_to_c(type)
-         cpp.pending_c_function_body.append(once ";%N")
-      end
-
    simplify (type: TYPE): INSTRUCTION is
       local
          e: like expression
@@ -78,7 +71,7 @@ feature {ANY}
             create {UNUSED_EXPRESSION} Result.make(e)
          end
       end
-   
+
    accept (visitor: UNUSED_EXPRESSION_VISITOR) is
       do
          visitor.visit_unused_expression(Current)
@@ -91,7 +84,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(Current)
          end
       end
-   
+
 feature {}
    make (e: like expression) is
       require
@@ -99,7 +92,7 @@ feature {}
       do
          expression := e
       ensure
-         expression = e         
+         expression = e
       end
 
 end -- class UNUSED_EXPRESSION

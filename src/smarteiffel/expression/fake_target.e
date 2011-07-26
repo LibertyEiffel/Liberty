@@ -116,19 +116,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.extend('C')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         check
-            -- Not a fake argument:
-            False
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          explicit_type_mark.jvm_push_local(0)

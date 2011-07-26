@@ -8,8 +8,6 @@ class CALL_PREFIX_NOT
 
 inherit
    CALL_PREFIX
-      redefine compile_to_c
-      end
 
 creation {ANY}
    make, with
@@ -22,17 +20,6 @@ feature {ANY}
    operator: STRING is
       do
          Result := as_not
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         if ace.boost and then target.resolve_in(type).is_boolean then
-            cpp.pending_c_function_body.append(once "!(")
-            target.compile_to_c(type)
-            cpp.pending_c_function_body.extend(')')
-         else
-            Precursor(type)
-         end
       end
 
    compile_to_jvm (type: TYPE) is

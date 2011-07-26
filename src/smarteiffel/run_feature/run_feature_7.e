@@ -149,7 +149,7 @@ feature {}
          routine_update_tmp_jvm_descriptor
       end
 
-feature {C_LIVE_TYPE_COMPILER, C_MAPPER}
+feature {RUN_FEATURE_7_VISITOR}
    does_need_c_wrapper (native: NATIVE): BOOLEAN is
       do
          if base_feature.is_generated_eiffel then

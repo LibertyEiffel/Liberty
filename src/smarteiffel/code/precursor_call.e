@@ -54,16 +54,6 @@ feature {ANY}
          Result := current_or_twin_init(saf, args)
       end
 
-   frozen compile_to_c (type: TYPE) is
-      local
-         run_feature: RUN_FEATURE
-      do
-         run_feature := type.live_type.precursor_run_feature(specialized_parent, specialized_anonymous_feature)
-         cpp.push_precursor(type, run_feature, arguments)
-         cpp.mapper.compile(run_feature)
-         cpp.pop
-      end
-
    frozen compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented

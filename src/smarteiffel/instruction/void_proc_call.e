@@ -3,7 +3,7 @@
 --
 class VOID_PROC_CALL
    --
-   -- Such an object is created when a Void target call on a procedure is detected. 
+   -- Such an object is created when a Void target call on a procedure is detected.
    -- (See also VOID_CALL.)
    --
 
@@ -19,7 +19,7 @@ feature {ANY}
 
    feature_stamp: FEATURE_STAMP
          -- Of the Void call.
-   
+
    target_type: TYPE
          --  Of the Void call (the one to be used with `feature_stamp').
 
@@ -55,11 +55,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.se_evobt(Void, type, create {E_VOID}.make(start_position))
-      end
-
    accept (visitor: VOID_PROC_CALL_VISITOR) is
       do
          visitor.visit_void_proc_call(Current)
@@ -70,7 +65,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
       require
@@ -89,9 +84,9 @@ feature {}
 
 invariant
    feature_stamp /= Void
-   
+
    target_type /= Void
-   
+
 end -- class VOID_PROC_CALL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

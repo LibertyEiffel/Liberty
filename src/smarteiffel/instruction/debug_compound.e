@@ -109,15 +109,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if must_be_generated(type) then
-            if compound /= Void then
-               compound.compile_to_c(type)
-            end
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          if must_be_generated(type) then
@@ -220,6 +211,17 @@ feature {DEBUG_COMPOUND, DEBUG_COMPOUND_VISITOR}
 
    compound: INSTRUCTION
 
+   must_be_generated (type: TYPE): BOOLEAN is
+         -- Note: during the execution of this routine, the
+         -- `default_assertion_level' may be switched from `level_boost' to
+         -- `level_no'.
+         --|*** Do we want this ? (FM - june 9th 2004)
+      do
+         if compound /= Void then
+            Result := ace.is_debug_checked(Current, type)
+         end
+      end
+
 feature {}
    make (sp: like start_position; kl: like key_list; c: like compound) is
       require
@@ -246,17 +248,6 @@ feature {}
          end
       ensure
          Result.compound = c
-      end
-
-   must_be_generated (type: TYPE): BOOLEAN is
-         -- Note: during the execution of this routine, the
-         -- `default_assertion_level' may be switched from `level_boost' to
-         -- `level_no'.
-         --|*** Do we want this ? (FM - june 9th 2004)
-      do
-         if compound /= Void then
-            Result := ace.is_debug_checked(Current, type)
-         end
       end
 
 invariant

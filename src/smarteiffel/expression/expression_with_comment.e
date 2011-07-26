@@ -105,19 +105,9 @@ feature {ANY}
          Result := expression.is_static
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         expression.mapping_c_arg(type)
-      end
-
    safety_check (type: TYPE) is
       do
          expression.safety_check(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         expression.compile_to_c(type)
       end
 
    compile_to_jvm (type: TYPE) is

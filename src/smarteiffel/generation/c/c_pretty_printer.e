@@ -9,9 +9,14 @@ class C_PRETTY_PRINTER
 
 inherit
    CODE_PRINTER
+      export
+         {PRECURSOR_CALL, C_EXPRESSION_COMPILATION_MIXIN} push_precursor
+      end
 
 insert
    PLATFORM
+   STRING_HANDLER
+   UNICODE_STRING_HANDLER
 
 create {ANY}
    make
@@ -24,6 +29,9 @@ feature {ANY}
    live_type_compiler: C_LIVE_TYPE_COMPILER
    mapper: C_MAPPER
    target_mapper: C_TARGET_MAPPER
+   arg_mapper: C_ARG_MAPPER
+   code_compiler: C_CODE_COMPILER
+   compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
    gc_handler: GC_HANDLER
 
 feature {}
@@ -36,6 +44,9 @@ feature {}
          create live_type_compiler.make
          create mapper.make
          create target_mapper.make
+         create arg_mapper.make
+         create code_compiler.make
+         create compound_expression_compiler.make
          create gc_handler.make
       end
 
@@ -92,7 +103,7 @@ feature {SMART_EIFFEL}
                   dump_pending_c_function(True)
                end
             end
-            manifest_string_pool.c_define1
+            c_define1_manifest_string_pool
             customize_runtime
             -- ---------------------------------------------------------
             if gc_flag then
@@ -108,7 +119,7 @@ feature {SMART_EIFFEL}
             end
             -- ---------------------------------------------------------
             split_c_file_padding_here
-            manifest_string_pool.c_define2(smart_eiffel.is_at_run_time(as_string))
+            c_define2_manifest_string_pool
             if gc_flag then
                gc_handler.define2
             end
@@ -543,7 +554,7 @@ feature {}
             pending_c_function_body.append(once "p[")
             id.append_in(cpp.pending_c_function_body)
             pending_c_function_body.append(once "]=")
-            manifest_string_pool.string_to_c_code(ct.path, pending_c_function_body)
+            string_to_c_code(ct.path, pending_c_function_body)
             pending_c_function_body.append(once ";%N")
          end
       end
@@ -676,7 +687,7 @@ feature {}
             b.copy(rf.type_of_current.name.to_string)
             b.extend('.')
             rf.name.complete_name_in(b)
-            manifest_string_pool.string_to_c_code(b, pending_c_function_body)
+            string_to_c_code(b, pending_c_function_body)
             pending_c_function_body.append(once ");%N")
             i := i - 1
          end
@@ -693,7 +704,7 @@ feature {}
                pending_c_function_body.extend(',')
                b.copy(once "invariant of ")
                b.append(lt.name.to_string)
-               manifest_string_pool.string_to_c_code(b, pending_c_function_body)
+               string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
                i := i - 1
             end
@@ -711,7 +722,7 @@ feature {}
                pending_c_function_body.extend(',')
                b.clear_count
                pretty_printer.expression_in(b, ac)
-               manifest_string_pool.string_to_c_code(b, pending_c_function_body)
+               string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
                i := i - 1
             end
@@ -729,7 +740,7 @@ feature {}
                pending_c_function_body.extend(',')
                b.copy(once "agents ")
                b.append(t.canonical_type_mark.written_mark)
-               manifest_string_pool.string_to_c_code(b, pending_c_function_body)
+               string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
                i := i - 1
             end
@@ -813,7 +824,7 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          Result /= Void
       end
 
-feature {COMPOUND}
+feature {COMPOUND, C_CODE_COMPILER}
    eiffel_parser_stamp_push (eiffel_parser_stamp: INTEGER) is
       require
          eiffel_parser_stamp > 0
@@ -859,7 +870,7 @@ feature {SMART_EIFFEL, MANIFEST_STRING_POOL, GC_HANDLER, MANIFEST_GENERIC_POOL}
          split_c_file_now(0)
       end
 
-feature {NO_INVARIANT_WRAPPER}
+feature {C_COMPILATION_MIXIN}
    assertion_checks_disabled: BOOLEAN
 
    set_assertion_checks_disabled (i: like assertion_checks_disabled) is
@@ -869,7 +880,6 @@ feature {NO_INVARIANT_WRAPPER}
          assertion_checks_disabled = i
       end
 
-feature {C_LIVE_TYPE_COMPILER}
    split_c_file_now (features_count: INTEGER) is
       do
          if ace.splitter.should_split(features_count + function_count_in_file) then
@@ -1014,7 +1024,7 @@ feature {ANY}
          inspect
             code
          when C_direct_call then
-            stack_top.target.compile_to_c(stack_top.type)
+            code_compiler.compile(stack_top.target, stack_top.type)
          else
             common_put_target
          end
@@ -1031,7 +1041,7 @@ feature {ANY}
             pending_c_function_body.append(once "*/%Nse_signal_handler(14/*System_level_type_error*/);%N")
          else
             pending_c_function_body.append(once "error0(")
-            manifest_string_pool.string_to_c_code(msg, pending_c_function_body)
+            string_to_c_code(msg, pending_c_function_body)
             pending_c_function_body.append(once ",NULL);%N")
          end
       end
@@ -1066,7 +1076,7 @@ feature {}
          pending_c_function
       do
          pending_c_function_body.append(once "(T7*)se_string(")
-         manifest_string_pool.string_to_c_code(c_string, pending_c_function_body)
+         string_to_c_code(c_string, pending_c_function_body)
          pending_c_function_body.extend(')')
       end
 
@@ -1283,7 +1293,7 @@ feature {ANY}
          end
       end
 
-feature {C_INLINE}
+feature {C_COMPILATION_MIXIN}
    put_c_inline_h(code: STRING) is
       do
          if not c_inline_h_mem.fast_has(code) then
@@ -1448,14 +1458,13 @@ feature {C_MAPPER}
          end
       end
 
-feature {C_LIVE_TYPE_COMPILER}
+feature {C_COMPILATION_MIXIN}
    push_inside_some_wrapper (af: ANONYMOUS_FEATURE) is
       do
          stack_push(C_inside_some_wrapper)
          stack_top.set_anonymous_feature(af)
       end
 
-feature {C_LIVE_TYPE_COMPILER}
    push_create_expression (type: TYPE; fs: FEATURE_STAMP; internal_c_local: INTERNAL_C_LOCAL) is
       require
          type /= Void
@@ -1470,7 +1479,7 @@ feature {C_LIVE_TYPE_COMPILER}
          stack_top.set_internal_c_local(internal_c_local)
       end
 
-feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_LIVE_TYPE_COMPILER}
+feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_COMPILATION_MIXIN}
    push_create_instruction (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL) is
          -- Where `internal_c_local' holds the newly allocated object.
       require
@@ -1497,7 +1506,7 @@ feature {NATIVE}
          pop
       end
 
-feature {ASSERTION}
+feature {C_COMPILATION_MIXIN}
    check_assertion (type: TYPE; e: EXPRESSION; check_assertion_mode, tag_name: STRING) is
          -- Produce a standard C instruction to check a mandatory ASSERTION.
       require
@@ -1507,27 +1516,20 @@ feature {ASSERTION}
          not check_assertion_mode.is_empty
          not tag_name.is_empty
       local
-         compound_expression: COMPOUND_EXPRESSION; expression: EXPRESSION
+         continue, finish: STRING
       do
-         if {COMPOUND_EXPRESSION} ?:= e then
-            compound_expression ::= e
-            expression := compound_expression.last.to_expression
-            compound_expression.compound_compile_to_c(type)
-         else
-            expression := e
-         end
-         check
-            not ({E_TRUE} ?:= expression)
-         end
-         pending_c_function_body.append(check_assertion_mode)
-         pending_c_function_body.extend('(')
-         expression.compile_to_c(type)
-         pending_c_function_body.extend(',')
-         manifest_string_pool.string_to_c_code(tag_name, pending_c_function_body)
-         pending_c_function_body.append(once ");%N")
+         continue := once "........"
+         continue.copy(check_assertion_mode)
+         continue.extend('(')
+
+         finish := once "................................"
+         finish.copy(once ",")
+         string_to_c_code(tag_name, finish)
+         finish.append(once ");%N")
+
+         compound_expression_compiler.compile(continue, e, finish, type)
       end
 
-feature {INSPECT_STATEMENT}
    inspect_local_push (expression: EXPRESSION) is
       do
          inspect_local_stack.push(expression)
@@ -1538,10 +1540,9 @@ feature {INSPECT_STATEMENT}
          inspect_local_stack.pop
       end
 
-feature {INSPECT_STATEMENT, WHEN_CLAUSE, MANIFEST_STRING_INSPECTOR}
    inspect_local_compile_to_c (type: TYPE) is
       do
-         inspect_local_stack.top.compile_to_c(type)
+         code_compiler.compile(inspect_local_stack.top, type)
       end
 
    inspect_local_type (type: TYPE) is
@@ -1578,27 +1579,15 @@ feature {ANY} -- Printing Current, local or argument :
          pending_c_function_body.append(name)
       end
 
-feature {LOOP_INSTRUCTION}
+feature {C_COMPILATION_MIXIN}
    variant_check (type: TYPE; loop_variant: EXPRESSION) is
       require
          pending_c_function
          loop_variant /= Void
-      local
-         compound_expression: COMPOUND_EXPRESSION; expression: EXPRESSION
       do
-         if {COMPOUND_EXPRESSION} ?:= loop_variant then
-            compound_expression ::= loop_variant
-            compound_expression.compound_compile_to_c(type)
-            expression := compound_expression.last.to_expression
-         else
-            expression := loop_variant
-         end
-         pending_c_function_body.append(once "v=ac_lvc(c++,v,")
-         expression.compile_to_c(type)
-         pending_c_function_body.append(once ");%N")
+         compound_expression_compiler.compile(once "v=ac_lvc(c++,v,", loop_variant, once ");%N", type)
       end
 
-feature {C_LIVE_TYPE_COMPILER}
    current_class_invariant (type_of_current: TYPE) is
          -- Add some C code to check class invariant with Current at the end of a routine for `Current'.
       require
@@ -1737,7 +1726,7 @@ feature {}
          end
       end
 
-feature {FEATURE_CALL}
+feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
    put_monomorphic_or_void_call (type: TYPE; feature_stamp: FEATURE_STAMP; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
          -- Unfortunately, because `simplify' can reduce the number of elements in RUN_TIME_SET objects,
          -- long after `inline_dynamic_dispatch_', we still  have this special case for Void in the
@@ -1766,7 +1755,7 @@ feature {FEATURE_CALL}
                assignment_evobt := True -- see below `start_assignment' and `check_assignment'
                code := create {VOID_CALL}.make(target.start_position, feature_stamp, target_type)
             end
-            code.compile_to_c(type)
+            code_compiler.compile(code, type)
          else
             if live_type.run_time_set.count = 1 then
                target_type := live_type.run_time_set.first.type
@@ -1778,7 +1767,7 @@ feature {FEATURE_CALL}
          end
       end
 
-feature {ASSIGNMENT, ASSIGNMENT_ATTEMPT}
+feature {C_CODE_COMPILER}
    start_assignment is
          -- Called just before compiling the left (written to) expression of an assignment
       require
@@ -1807,7 +1796,7 @@ feature {ASSIGNMENT, ASSIGNMENT_ATTEMPT}
 feature {}
    assignment_evobt: BOOLEAN
 
-feature {STATIC_CALL_0_C}
+feature {C_EXPRESSION_COMPILATION_MIXIN}
    put_direct (type: TYPE; dynamic_feature: RUN_FEATURE; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
       do
          push_direct(dynamic_feature, type, target, arguments)
@@ -1933,7 +1922,7 @@ feature {ANY}
          pending_c_function_body.append(once "*/%N")
       end
 
-feature {REQUIRE_ASSERTION, ASSERTION_LIST}
+feature {C_COMPILATION_MIXIN}
    stop_recursive_assertion_opening (inside_feature_flag: BOOLEAN) is
       do
          if ace.no_check then --|*** should be require_check?
@@ -1964,7 +1953,6 @@ feature {REQUIRE_ASSERTION, ASSERTION_LIST}
          end
       end
 
-feature {E_OLD, C_LIVE_TYPE_COMPILER}
    c_frame_descriptor_format: STRING is
          -- The format to print `Current' and other locals.
       once
@@ -2053,7 +2041,7 @@ feature {}
          create Result.with_capacity(4)
       end
 
-feature {VOID_PROC_CALL, VOID_CALL}
+feature {C_EXPRESSION_COMPILATION_MIXIN}
    se_evobt (return_type: TYPE_MARK; type: TYPE; target: EXPRESSION) is
       require
          target /= Void
@@ -2070,7 +2058,7 @@ feature {VOID_PROC_CALL, VOID_CALL}
          if ace.no_check then
             pending_c_function_body.append(once "se_evobt")
             pending_c_function_body.extend('(')
-            target.compile_to_c(type)
+            code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
             put_position(target.start_position)
             pending_c_function_body.extend(')')
@@ -2078,7 +2066,7 @@ feature {VOID_PROC_CALL, VOID_CALL}
             pending_c_function_body.append(once "/*se_evobt*/")
             p := target.start_position
             put_position_comment_on(out_c, p)
-            target.compile_to_c(type)
+            code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
             exceptions_handler.se_evobt
          end
@@ -2300,12 +2288,12 @@ feature {}
             pending_c_function_body.append(once "*)ci(")
             id.append_in(cpp.pending_c_function_body)
             pending_c_function_body.extend(',')
-            e.compile_to_c(type)
+            code_compiler.compile(e, type)
             pending_c_function_body.extend(',')
             put_position(e.start_position)
             pending_c_function_body.append(once "))")
          else
-            e.compile_to_c(type)
+            code_compiler.compile(e, type)
          end
       end
 
@@ -2519,7 +2507,7 @@ feature {}
          output.put_string(buffer)
       end
 
-feature {SEDB}
+feature {C_CODE_COMPILER}
    put_position_comment_in (buffer: STRING; p: POSITION) is
          -- See also `put_position_comment_on'.
       local
@@ -2570,6 +2558,469 @@ feature {SEDB}
    internal_c_local_list: INTERNAL_C_LOCAL_LIST is
       once
          create Result
+      end
+
+feature {C_COMPILATION_MIXIN}
+   string_to_c_code (s: STRING; buffer: STRING) is
+         -- Add in the `buffer' the C language view of the Eiffel `s' STRING.
+         -- (Replace all strange characters of `s' with the appropriate C backslash escape sequences).
+      do
+         native_array_to_c_code(s.count, s.storage, buffer)
+      end
+
+feature {}
+   native_array_to_c_code (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]; buffer: STRING) is
+      local
+         break, i: INTEGER
+      do
+         buffer.extend('%"')
+         from
+         until
+            i >= capacity
+         loop
+            character_to_c_code(storage.item(i), buffer)
+            i := i + 1
+            break := break + 1
+            if break > 1024 then
+               -- Because of a limitation of the Visual C/C++ compiler which do not like too long lines:
+               buffer.append(once "%"%N%"")
+               break := 0
+            end
+         end
+         buffer.extend('%"')
+      end
+
+   character_to_c_code (c: CHARACTER; buffer: STRING) is
+      do
+         if c = '%N' then
+            buffer.extend('\')
+            buffer.extend('n')
+         elseif c = '\' then
+            buffer.extend('\')
+            buffer.extend('\')
+         elseif c = '?' then
+            buffer.extend('\')
+            buffer.extend('?')
+         elseif c = '%"' then
+            buffer.extend('\')
+            buffer.extend('%"')
+         elseif c = '%'' then
+            buffer.extend('\')
+            buffer.extend('%'')
+         elseif c.code < 32 or else 122 < c.code then
+            buffer.extend('\')
+            c.code.low_8.to_octal_in(buffer)
+            buffer.append(once "%"%"")
+         else
+            buffer.extend(c)
+         end
+      end
+
+feature {}
+   c_define1_manifest_string_pool is
+      local
+         i, j, upper: INTEGER; ms: MANIFEST_STRING; us: UNICODE_STRING; storage: NATIVE_ARRAY[INTEGER_16]
+         lsv: FAST_ARRAY[INTEGER_16]; lsi: FAST_ARRAY[INTEGER]
+      do
+         from
+            out_c_buffer.copy(once "/*Aliased storage area or unicode storage.*/%N")
+            write_out_c_buffer
+            i := manifest_string_pool.storage_alias.lower
+         until
+            i > manifest_string_pool.storage_alias.count
+         loop
+            ms := manifest_string_pool.storage_alias.item(i)
+            if ms.unicode_flag then
+               us := ms.unicode_string
+               upper := us.count
+               if upper > 0 then
+                  -- Preparing `write_extern_array_1' call:
+                  out_h_buffer.copy(once "uint16_t s")
+                  out_h_buffer.append(ms.initial_storage_id)
+                  out_c_buffer.clear_count
+                  from
+                     storage := us.storage
+                     j := 0
+                  until
+                     j >= upper
+                  loop
+                     if j > 0 then
+                        out_c_buffer.extend(',')
+                     end
+                     storage.item(j).append_in(out_c_buffer)
+                     j := j + 1
+                  end
+                  write_extern_array_1(out_h_buffer, upper, out_c_buffer)
+                  upper := upper - 1
+               end
+               lsv := us.low_surrogate_values
+               if lsv /= Void and then lsv.count > 0 then
+                  -- Preparing `write_extern_array_1' call:
+                  out_h_buffer.copy(once "uint16_t lsv")
+                  out_h_buffer.append(ms.initial_storage_id)
+                  out_c_buffer.clear_count
+                  from
+                     j := lsv.lower
+                  until
+                     j > lsv.upper
+                  loop
+                     if j > lsv.lower then
+                        out_c_buffer.extend(',')
+                     end
+                     lsv.item(j).append_in(out_c_buffer)
+                     j := j + 1
+                  end
+                  write_extern_array_1(out_h_buffer, upper, out_c_buffer)
+               end
+               lsi := us.low_surrogate_indexes
+               if lsi /= Void and then lsi.count > 0 then
+                  -- Preparing `write_extern_array_1' call:
+                  out_h_buffer.copy(once "uint32_t lsi")
+                  out_h_buffer.append(ms.initial_storage_id)
+                  out_c_buffer.clear_count
+                  from
+                     j := lsi.lower
+                  until
+                     j > lsi.upper
+                  loop
+                     if j > lsi.lower then
+                        out_c_buffer.extend(',')
+                     end
+                     lsi.item(j).append_in(out_c_buffer)
+                     j := j + 1
+                  end
+                  write_extern_array_1(out_h_buffer, upper, out_c_buffer)
+               end
+            elseif ms.alias_link /= Void then
+               out_h_buffer.copy(once "char*s")
+               out_h_buffer.append(ms.initial_storage_id)
+               out_c_buffer.clear_count
+               string_to_c_code(ms.to_string, out_c_buffer)
+               write_extern_2(out_h_buffer, out_c_buffer)
+            end
+            i := i + 1
+         end
+      end
+
+   c_define2_manifest_string_pool is
+      local
+         i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
+         internal_c_local: INTERNAL_C_LOCAL; string_at_run_time: BOOLEAN
+      do
+         string_at_run_time := smart_eiffel.is_at_run_time(as_string)
+         split_c_file_padding_here
+         no_check := ace.no_check
+         mdc := manifest_string_pool.collected_once_variables.count
+         echo.print_count(once "Manifest String", mdc)
+         if mdc > 0 then
+            from
+               -- For the *.h file:
+               i := manifest_string_pool.collected_once_variables.lower
+            until
+               i > manifest_string_pool.collected_once_variables.upper
+            loop
+               ms := manifest_string_pool.collected_once_variables.item(i)
+               out_h_buffer.copy(once "T0*")
+               out_h_buffer.append(ms.once_variable)
+               write_extern_1(out_h_buffer)
+               i := i + 1
+            end
+         end
+         --
+         if string_at_run_time then
+            prepare_c_function
+            pending_c_function_signature.copy(once "T0*se_ms(int c,char*e)")
+            pending_c_function_body.copy(once "/* Allocate a Manifest STRING given its length and chars array.*/%N")
+            common_body_for_se_string_and_se_ms(string_at_run_time)
+            dump_pending_c_function(True)
+            --
+            prepare_c_function
+            pending_c_function_signature.copy(once "T0*se_string(char*e)")
+            pending_c_function_body.copy(once "/* Allocate an Eiffel STRING by copying C char*e (must be a well-formed C string with terminal \0) */%N%
+                                                  %int c=strlen(e);%N")
+            common_body_for_se_string_and_se_ms(string_at_run_time)
+            dump_pending_c_function(True)
+         end
+         --
+         if mdc > 0 then
+            from
+               -- For the *.c file:
+               i := 1
+               fn_count := 1
+            until
+               fn_count > 1 and then i > mdc
+            loop
+               prepare_c_function
+               pending_c_function_signature.copy(once "void se_msi")
+               fn_count.append_in(pending_c_function_signature)
+               if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+                  pending_c_function_signature.append(once "(se_local_profile_t*parent_profile)")
+               else
+                  pending_c_function_signature.append(once "(void)")
+               end
+               from
+                  if manifest_string_pool.first_unicode_manifest_string_collected_flag then
+                     if ace.profile then
+                        pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%N")
+                     end
+                     if no_check then
+                        pending_c_function_body.append(once "[
+                                                              se_frame_descriptor fd={"<global-once>",0,0,"",1};
+                                                              se_dump_stack ds;
+                                                              ds.fd=&fd;
+                                                              ds.p=0;
+                                                              ds.caller=NULL;
+                                                              ds.exception_origin=NULL;
+                                                              ds.locals=NULL;
+
+                                                              ]")
+                     end
+                     if ace.profile then
+                        pending_c_function_body.append(once "local_profile.profile=&prof;%N")
+                        pending_c_function_body.append(once "init_profile(&prof, %"se_msi")
+                        fn_count.append_in(pending_c_function_body)
+                        pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
+                     end
+                  end
+                  j := manifest_string_pool.nb_ms_per_function
+               until
+                  j = 0 or else i > mdc
+               loop
+                  ms := manifest_string_pool.collected_once_variables.item(i)
+                  pending_c_function_body.append(ms.once_variable)
+                  pending_c_function_body.extend('=')
+                  if ms.unicode_flag then
+                     se_ums_c_call_in(pending_c_function_body, ms)
+                  else
+                     se_ms_c_call_in(pending_c_function_body, ms)
+                  end
+                  pending_c_function_body.append(once ";%N")
+                  j := j - 1
+                  i := i + 1
+               end
+               fn_count := fn_count + 1
+               if i <= mdc then
+                  pending_c_function_body.append(once "se_msi")
+                  fn_count.append_in(pending_c_function_body)
+                  if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+                     pending_c_function_body.append(once "(&local_profile);%N")
+                  else
+                     pending_c_function_body.append(once "();")
+                  end
+               end
+               if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+                  pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+               end
+               dump_pending_c_function(True)
+            end
+         end
+         if manifest_string_pool.first_unicode_manifest_string_collected_flag then
+            lt := manifest_string_pool.se_ums.type_of_current.live_type
+            id := lt.id
+            prepare_c_function
+            pending_c_function_signature.copy("T0*se_ums(")
+            if no_check then
+               pending_c_function_signature.append("se_dump_stack*caller,")
+            end
+            if ace.profile then
+               pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+            end
+            pending_c_function_signature.append("int32_t c,uint16_t*s,int32_t sc,int16_t*lsv,int32_t*lsi)")
+            internal_c_local := pending_c_function_lock_local(lt.type, once "mspalloc")
+            gc_handler.allocation_of(internal_c_local, lt)
+            pending_c_function_body.extend('r')
+            id.append_in(pending_c_function_body)
+            pending_c_function_body.append("manifest_initialize(")
+            if no_check then
+               pending_c_function_body.append("caller,")
+            end
+            if ace.profile then
+               pending_c_function_body.append(once "parent_profile,")
+            end
+            pending_c_function_body.extend('(')
+            if internal_c_local.type.is_reference then
+               pending_c_function_body.append(once "(T")
+               id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "*)")
+            end
+            internal_c_local.append_in(pending_c_function_body)
+            pending_c_function_body.append("),c,(int16_t*)s,sc,lsv,lsi);return (T0*)")
+            internal_c_local.append_in(pending_c_function_body)
+            pending_c_function_body.append(";%N")
+            internal_c_local.unlock
+            dump_pending_c_function(True)
+         end
+      end
+
+   common_body_for_se_string_and_se_ms (string_at_run_time: BOOLEAN) is
+      require
+         pending_c_function
+      do
+         pending_c_function_body.append(once "T7*")
+         gc_handler.manifest_string_in(pending_c_function_body, string_at_run_time)
+         pending_c_function_body.append(once "s->_count=c;%N%
+                                             %s->_capacity=c+1;%N%
+                                             %s->_storage_lower=0;%N%
+                                             %s->_storage=((T9)")
+         gc_handler.native9_in(pending_c_function_body, string_at_run_time)
+         pending_c_function_body.append(once "(c+1));%N%
+                                             %memcpy(s->_storage,e,c+1);%N%
+                                             %return((T0*)s);")
+      end
+
+feature {C_EXPRESSION_COMPILATION_MIXIN}
+   se_ms_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
+      require
+         not ms.unicode_flag
+      local
+         trace: BOOLEAN
+      do
+         trace := manifest_string_trace(ms, buffer)
+         buffer.append(once "se_ms(")
+         ms.count.append_in(buffer)
+         buffer.extend(',')
+         if ms.alias_link = Void then
+            string_to_c_code(ms.to_string, buffer)
+         else
+            buffer.extend('s')
+            buffer.append(ms.initial_storage_id)
+         end
+         buffer.extend(')')
+         if trace then
+            buffer.extend(')')
+         end
+      end
+
+   se_ums_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
+      require
+         ms.unicode_flag
+      local
+         trace: BOOLEAN; us: UNICODE_STRING; c: INTEGER
+      do
+         trace := manifest_string_trace(ms, buffer)
+         us := ms.unicode_string
+         buffer.append(once "se_ums(")
+         if ace.no_check then
+            buffer.append(once "&ds,")
+         end
+         if ace.profile then
+            buffer.append(once "&local_profile,")
+         end
+         c := us.count
+         c.append_in(buffer)
+         buffer.extend(',')
+         if c = 0 then
+            buffer.append(once "(void*)0")
+         else
+            buffer.extend('s')
+            buffer.append(ms.initial_storage_id)
+         end
+         buffer.extend(',')
+         if us.low_surrogate_values = Void then
+            c := 0
+         else
+            c := us.low_surrogate_values.count
+         end
+         c.append_in(buffer)
+         buffer.extend(',')
+         if c /= 0 then
+            buffer.append(once "lsv")
+            buffer.append(ms.initial_storage_id)
+            buffer.append(once ",lsi")
+            buffer.append(ms.initial_storage_id)
+         else
+            buffer.append(once "NULL, NULL")
+         end
+         buffer.extend(')')
+         if trace then
+            buffer.extend(')')
+         end
+      end
+
+   manifest_string_trace (ms: MANIFEST_STRING; buffer: STRING): BOOLEAN is
+      local
+         position: POSITION
+      do
+         if ms.once_flag then
+            -- (Nothing to trace.)
+         elseif ace.manifest_string_trace then
+            Result := True
+            position := ms.start_position
+            buffer.append(once "%N(fprintf(SE_ERR,%"%%s\n%",")
+            string_to_c_code(ms.to_string, buffer)
+            buffer.append(once "),%Nfprintf(SE_ERR,%"-manifest_string_trace: line ")
+            position.line.append_in(buffer)
+            buffer.append(once " column ")
+            position.column.append_in(buffer)
+            buffer.append(once " %"")
+            -- To translate strange characters, especially '\':
+            string_to_c_code(position.path, buffer)
+            buffer.append(once "%"\n%"),%N")
+         end
+      end
+
+feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_MIXIN}
+   local_profile is
+      require
+         ace.profile
+         cpp.pending_c_function
+      do
+         cpp.pending_c_function_body.append(once "se_local_profile_t local_profile;%N")
+      end
+
+   start_profile (rf: RUN_FEATURE) is
+      require
+         ace.profile
+         cpp.pending_c_function
+         rf /= Void
+      do
+         cpp.pending_c_function_body.append(once "local_profile.profile=profile+")
+         run_features.fast_first_index_of(rf).append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+      end
+
+   start_profile_class_invariant (t: LIVE_TYPE) is
+      require
+         ace.profile
+         cpp.pending_c_function
+         t /= Void
+      do
+         smart_eiffel.register_class_invariant(t)
+         cpp.pending_c_function_body.append(once "local_profile.profile=inv_profile+")
+         class_invariants.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+      end
+
+   start_profile_agent_creation (ac: AGENT_CREATION) is
+      require
+         ace.profile
+         cpp.pending_c_function
+         ac /= Void
+      do
+         smart_eiffel.register_agent_creation(ac)
+         cpp.pending_c_function_body.append(once "local_profile.profile=agent_profile+")
+         agent_creations.fast_first_index_of(ac).append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+      end
+
+   start_profile_agent_switch (t: TYPE) is
+      require
+         ace.profile
+         cpp.pending_c_function
+         t /= Void
+      do
+         smart_eiffel.register_agent_switch(t)
+         cpp.pending_c_function_body.append(once "local_profile.profile=agent_switch_profile+")
+         agent_switches.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+      end
+
+   stop_profile is
+      require
+         ace.profile
+         cpp.pending_c_function
+      do
+         cpp.pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
       end
 
 end -- class C_PRETTY_PRINTER

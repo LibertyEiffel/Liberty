@@ -10,8 +10,6 @@ class AGENT_INSTRUCTION
 
 inherit
    INSTRUCTION
-
-insert
    AGENT_LAUNCHER
 
 creation {PROCEDURE_CALL_1}
@@ -46,21 +44,6 @@ feature {ANY}
    pretty (indent_level: INTEGER) is
       do
          written_link.pretty(indent_level)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         if agent_pool.agent_creation_collected_flag then
-            agent_args.c_agent_definition_call(type, target, fake_tuple)
-            cpp.pending_c_function_body.append(once ";%N")
-         else
-            --|*** It would be nice to be able to substitute `Current' 
-            --| with the corresponding VOID_PROC_CALL in a final stage, may 
-            --| be `adapt' in order to really simplify the back end.
-            --| (This should be done before `compile_to_c'...)
-            --|*** Dom sept 26th 2004 ***
-            compile_to_c_void_call(type, start_position, as_call)
-         end
       end
 
    specialize_in (type: TYPE): like Current is
@@ -98,7 +81,7 @@ feature {ANY}
          if t.is_void then
             -- As the target is Void, no need to consider arguments anymore.
             target_type := target.resolve_in(type)
-            fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_call, start_position)) 
+            fs := target_type.lookup(create {FEATURE_NAME}.simple_feature_name(as_call, start_position))
             create {VOID_PROC_CALL} Result.make(start_position, fs, target_type)
          else
             ft := fake_tuple.simplify(type)
@@ -146,7 +129,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.remove_last
          code_accumulator.current_context.add_last(current_or_twin_init(t, args))
       end
-   
+
 feature {}
    make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST) is
       require

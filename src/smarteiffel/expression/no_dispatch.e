@@ -98,18 +98,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "/*no_dispatch.e*/(T0*)(")
-         side_effect_free_expression.compile_to_c(type)
-         cpp.pending_c_function_body.extend(')')
-      end
-
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented

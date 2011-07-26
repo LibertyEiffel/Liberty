@@ -153,63 +153,6 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   compile_to_c (type: TYPE) is
-      local
-         created_type_memory: TYPE; rf: RUN_FEATURE; args: like arguments;
-         id, class_invariant_flag: INTEGER; internal_c_local: INTERNAL_C_LOCAL
-      do
-         created_type_memory := created_type(type)
-         if created_type_memory.is_reference then
-            internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "new")
-            cpp.gc_handler.allocation_of(internal_c_local, created_type_memory.live_type)
-            if call /= Void then
-               rf := call.run_feature_for(type)
-               cpp.push_create_instruction(type, rf, arguments, internal_c_local)
-               cpp.mapper.compile(rf)
-               cpp.pop
-            end
-            writable.compile_to_c(type)
-            cpp.pending_c_function_body.extend('=')
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N")
-            internal_c_local.unlock
-         else
-            if call = Void then
-               rf := created_type_memory.live_type.default_create_run_feature
-            else
-               rf := call.run_feature_for(type)
-               args := arguments
-            end
-            id := created_type_memory.live_type.id
-            if rf = Void then
-               writable.compile_to_c(type)
-               cpp.pending_c_function_body.append(once "=M")
-               id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ";%N")
-            else
-               internal_c_local := cpp.pending_c_function_lock_local(created_type_memory, once "creatinstexp")
-               internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "=M")
-               id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ";%N")
-               cpp.push_create_instruction(type, rf, args, internal_c_local)
-               cpp.mapper.compile(rf)
-               cpp.pop
-               writable.compile_to_c(type)
-               cpp.pending_c_function_body.extend('=')
-               internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ";%N")
-               internal_c_local.unlock
-            end
-         end
-         -- For all kind of newly created objet, we may call the class invariant:
-         class_invariant_flag := cpp.class_invariant_call_opening(created_type_memory, True)
-         if class_invariant_flag > 0 then
-            writable.compile_to_c(type)
-            cpp.class_invariant_call_closing(class_invariant_flag, True)
-         end
-      end
-
    frozen compile_to_jvm (type: TYPE) is
       local
          created: TYPE_MARK; rf: RUN_FEATURE

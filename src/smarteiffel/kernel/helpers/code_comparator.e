@@ -116,7 +116,7 @@ feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
          trace_result := False
-      end   
+      end
 
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
@@ -153,7 +153,7 @@ feature {FAKE_ARGUMENT}
       do
          trace_result := False
       end
-   
+
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
@@ -166,7 +166,7 @@ feature {C_INLINE}
          trace.append(visited.c_code)
          trace.extend(')')
       end
-   
+
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
    visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
       do
@@ -280,7 +280,7 @@ feature {MANIFEST_STRING}
       do
          trace_result := False
       end
-   
+
 feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
       do
@@ -696,6 +696,24 @@ feature {ASSERTION_LIST}
          trace_result := False
       end
 
+feature {ENSURE_ASSERTION}
+   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+      do
+         trace_result := False
+      end
+
+feature {LOOP_INVARIANT}
+   visit_loop_invariant (visited: LOOP_INVARIANT) is
+      do
+         trace_result := False
+      end
+
+feature {CLASS_INVARIANT}
+   visit_class_invariant (visited: CLASS_INVARIANT) is
+      do
+         trace_result := False
+      end
+
 feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
@@ -720,6 +738,12 @@ feature {CREATE_INSTRUCTION}
          trace_result := False
       end
 
+feature {RAW_CREATE_INSTRUCTION}
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+      do
+         trace_result := False
+      end
+
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
@@ -735,7 +759,7 @@ feature {UNUSED_EXPRESSION}
 
 feature {INSPECT_STATEMENT}
    trace_in (tr: like trace; ty: like type; instruction: INSTRUCTION): BOOLEAN is
-         -- In case of a True `Result', there is a possibility that the `instruction' can be indentical to 
+         -- In case of a True `Result', there is a possibility that the `instruction' can be indentical to
          -- some other piece of `instruction' (written somewhere else!).
       require
          smart_eiffel.status.inlining_dynamic_dispatch_done
@@ -750,17 +774,17 @@ feature {INSPECT_STATEMENT}
          instruction.accept(Current)
          Result := trace_result
       end
-   
+
 feature {}
    type: TYPE;
          -- The classic context TYPE.
-   
+
    trace: STRING
          -- The identification `trace' of the INSTRUCTION to traverse.
 
    trace_result: BOOLEAN
          -- The `Result' of `trace_in'.
-   
+
    make is
       do
       end

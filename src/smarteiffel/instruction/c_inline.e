@@ -14,7 +14,7 @@ creation {EIFFEL_PARSER}
 
 feature {ANY}
    is_c_inline_c: BOOLEAN
-   
+
    c_code: STRING
          -- The C code to be inlined.
 
@@ -27,7 +27,7 @@ feature {ANY}
       do
          Result := Current
       end
-   
+
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       do
          Result := Current
@@ -47,7 +47,7 @@ feature {ANY}
       do
          Result := Current
       end
-   
+
    accept (visitor: C_INLINE_VISITOR) is
       do
          visitor.visit_c_inline(Current)
@@ -86,15 +86,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         if is_c_inline_c then
-            cpp.pending_c_function_body.append(c_code)
-         else
-            cpp.put_c_inline_h(c_code)
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          error_handler.add_position(start_position)
@@ -108,7 +99,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    make_c_inline_c (sp: like start_position; cc: like c_code) is
       do
@@ -119,10 +110,10 @@ feature {}
          is_c_inline_c
          start_position = sp
       end
-   
+
    make_c_inline_h (sp: like start_position; cc: like c_code) is
       do
-         c_code := cc         
+         c_code := cc
          start_position := sp
       ensure
          not is_c_inline_c
@@ -131,7 +122,7 @@ feature {}
 
 invariant
    not start_position.is_unknown
-   
+
 end -- class C_INLINE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

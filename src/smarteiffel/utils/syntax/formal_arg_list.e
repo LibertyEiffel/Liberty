@@ -6,7 +6,7 @@ class FORMAL_ARG_LIST
    -- For the formal arguments list of a routine.
    --
 
-insert
+inherit
    DECLARATION_LIST
 
 creation {ANY}
@@ -120,49 +120,6 @@ feature {ANY}
    accept (visitor: FORMAL_ARG_LIST_VISITOR) is
       do
          visitor.visit_formal_arg_list(Current)
-      end
-
-feature {C_LIVE_TYPE_COMPILER}
-   c_frame_descriptor (type: TYPE; format, locals: STRING) is
-      require
-         ace.no_check
-      local
-         i: INTEGER; static_tm: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            format.append(name(i).to_string)
-            static_tm := type_mark(i).to_static(type)
-            static_tm.c_frame_descriptor_in(format)
-            locals.append(once "(void**)&a")
-            i.append_in(locals)
-            locals.extend(',')
-            i := i + 1
-         end
-      end
-
-   compile_to_c_in (type: TYPE; c_code_buffer: STRING) is
-      local
-         i: INTEGER; static_tm: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            if i > 1 then
-               c_code_buffer.extend(',')
-            end
-            static_tm := type_mark(i).to_static(type)
-            static_tm.c_type_for_argument_in(c_code_buffer)
-            c_code_buffer.extend(' ')
-            c_code_buffer.extend('a')
-            i.append_in(c_code_buffer)
-            i := i + 1
-         end
       end
 
 feature {JVM}

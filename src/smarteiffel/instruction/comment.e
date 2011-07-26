@@ -100,10 +100,6 @@ feature {ANY}
       do
       end
 
-   compile_to_c (type: TYPE) is
-      do
-      end
-
    compile_to_jvm (type: TYPE) is
       do
       end
@@ -162,7 +158,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
       end
-   
+
 feature {ANONYMOUS_FEATURE}
    is_dummy_feature_end (e_feature: ANONYMOUS_FEATURE): BOOLEAN is
          -- Is this comment a dummy en comment of the `e_feature'?

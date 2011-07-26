@@ -294,14 +294,6 @@ feature {ANY}
          not_yet_implemented -- To be warned as well in -boost mode.
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         check
-            False -- This one must never be called.
-         end
-         not_yet_implemented -- To be warned as well in -boost mode.
-      end
-
    end_mark_comment: BOOLEAN is
       do
          check
@@ -353,6 +345,9 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          Result := list.last
       end
 
+feature {ASSERTION_LIST_VISITOR}
+   list: FAST_ARRAY[ASSERTION]
+
 feature {}
    new_iterator: ITERATOR[ASSERTION] is
       do
@@ -360,8 +355,6 @@ feature {}
             False -- Just use the usual pattern instead please.
          end
       end
-
-   list: FAST_ARRAY[ASSERTION]
 
    make (sp: like start_position; hc: like header_comment; l: like list) is
       require
@@ -457,228 +450,6 @@ feature {TYPE, ANONYMOUS_FEATURE_MIXER}
          Result.count >= old count
       end
 
-feature {SHORT_PRINTER}
-   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: CLASS_NAME) is
-      local
-         i: INTEGER
-      do
-         class_text.header_comment_for_class_invariant(Current)
-         tmp_assertion_list.clear_count
-         if list /= Void then
-            from
-               i := 0
-            until
-               i > list.upper
-            loop
-               if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
-                  tmp_assertion_list.add_last(list.item(i))
-               end
-               i := i + 1
-            end
-         end
-         if header_comment /= Void or else not tmp_assertion_list.is_empty then
-            short_printer.hook_or(once "hook811", once "invariant%N")
-            if header_comment = Void then
-               short_printer.hook_or(once "hook812", once "")
-            else
-               short_printer.hook_or(once "hook813", once "")
-               header_comment.short(once "hook814", once "   --", once "hook815", once "%N")
-               short_printer.hook_or(once "hook816", once "")
-            end
-            if tmp_assertion_list.is_empty then
-               short_printer.hook_or(once "hook817", once "")
-            else
-               short_printer.hook_or(once "hook818", once "")
-               from
-                  i := 0
-               until
-                  i = tmp_assertion_list.upper
-               loop
-                  tmp_assertion_list.item(i).short_hooks(type
-                  , once "hook819"
-                  , once "   "
-                  , once "hook820" -- before each assertion
-                  , once "", once "hook821" -- no tag
-                  , once "", once "hook822" -- before tag
-                  , once ": ", once "hook823" -- after tag
-                  , once "", once "hook824" -- no expression
-                  , once "", once "hook825" -- before expression
-                  , once ";", once "hook826" -- after expression except last
-                  , once "%N", once "hook827" -- no comment
-                  , once "", once "hook828" -- before comment
-                  , once " --", once "hook829" -- comment begin line
-                  , once "%N", once "hook830" -- comment end of line
-                  , once "", once "hook831" -- after comment
-                  , once "")
-                  -- end of each assertion
-                  i := i + 1
-               end
-               tmp_assertion_list.item(i).short_hooks(type
-               , once "hook819"
-               , once "   "
-               , once "hook820" -- before each assertion
-               , once "", once "hook821" -- no tag
-               , once "", once "hook822" -- before tag
-               , once ": ", once "hook823" -- after tag
-               , once "", once "hook824" -- no expression
-               , once "", once "hook832" -- before expression
-               , once ";", once "hook826" -- after last expression
-               , once "%N", once "hook827" -- no comment
-               , once "", once "hook828" -- before comment
-               , once " --", once "hook829" -- comment begin line
-               , once "%N", once "hook830" -- comment end of line
-               , once "", once "hook831" -- after comment
-               , once "")
-               short_printer.hook_or(once "hook833", once "")
-            end
-            short_printer.hook_or(once "hook834", once "")
-         end
-      end
-
-   ensure_assertion_short (type: TYPE; client: CLASS_NAME) is
-      local
-         i: INTEGER
-      do
-         tmp_assertion_list.clear_count
-         if list /= Void then
-            from
-               i := 0
-            until
-               i > list.upper
-            loop
-               if client = Void or else not hidden_expression_detector.visit(list.item(i), type, client, False) then
-                  tmp_assertion_list.add_last(list.item(i))
-               end
-               i := i + 1
-            end
-         end
-         if header_comment /= Void or else not tmp_assertion_list.is_empty then
-            short_printer.hook_or(once "hook511", "      ensure%N")
-            if header_comment = Void then
-               short_printer.hook_or(once "hook512", once "")
-            else
-               short_printer.hook_or(once "hook513", once "")
-               header_comment.short(once "hook514", once "    --", once "hook515", once "%N")
-               short_printer.hook_or(once "hook516", once "")
-            end
-            if tmp_assertion_list.is_empty then
-               short_printer.hook_or(once "hook517", once "")
-            else
-               short_printer.hook_or(once "hook518", once "")
-               from
-                  i := tmp_assertion_list.lower
-               until
-                  i = tmp_assertion_list.upper
-               loop
-                  tmp_assertion_list.item(i).short_hooks(type
-                  , once "hook519"
-                  , once "    "
-                  , once "hook520" -- before each assertion
-                  , once "", once "hook521" -- no tag
-                  , once "", once "hook522" -- before tag
-                  , once ": ", once "hook523" -- after tag
-                  , once "", once "hook524" -- no expression
-                  , once "", once "hook525" -- before expression
-                  , once ";", once "hook526" -- after expression except last
-                  , once "%N", once "hook527" -- no comment
-                  , once "", once "hook528" -- before comment
-                  , once " --", once "hook529" -- comment begin line
-                  , once "%N", once "hook530" -- comment end of line
-                  , once "", once "hook531" -- after comment
-                  , once "")
-                  -- end of each assertion
-                  i := i + 1
-               end
-               tmp_assertion_list.item(i).short_hooks(type
-               , once "hook519", once "    "
-               , once "hook520" -- before each assertion
-               , once "", once "hook521" -- no tag
-               , once "", once "hook522" -- before tag
-               , once ": ", once "hook523" -- after tag
-               , once "", once "hook524" -- no expression
-               , once "", once "hook532" -- before expression
-               , once "", once "hook526" -- after expression except last
-               , once "%N", once "hook527" -- no comment
-               , once "", once "hook528" -- before comment
-               , once " --", once "hook529" -- comment begin line
-               , once "%N", once "hook530" -- comment end of line
-               , once "", once "hook531" -- after comment
-               , once "")
-               -- end of each assertion
-               short_printer.hook_or(once "hook533", once "")
-            end
-            short_printer.hook_or(once "hook534", once "")
-         end
-      end
-
-feature {C_LIVE_TYPE_COMPILER}
-   define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
-      require
-         live_type.at_run_time
-         not is_always_true(live_type.type)
-         smart_eiffel.is_ready
-      local
-         id: INTEGER; profile: BOOLEAN; i: INTEGER; assertion: ASSERTION; type: TYPE
-      do
-         type := live_type.type
-         id := live_type.id
-         profile := ace.profile -- The invariant frame descriptor :
-         cpp.out_h_buffer.copy(once "se_frame_descriptor se_ifd")
-         id.append_in(cpp.out_h_buffer)
-         cpp.out_c_buffer.copy(once "{%"invariant ")
-         cpp.out_c_buffer.append(live_type.name.to_string)
-         cpp.out_c_buffer.append(once "%",1,0,%"")
-         live_type.canonical_type_mark.c_frame_descriptor_in(cpp.out_c_buffer)
-         cpp.out_c_buffer.append(once "%",1}")
-         cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
-         -- The function itself:
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.extend('T')
-         id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "*se_i")
-         id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(se_dump_stack*caller,")
-         if profile then
-            cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-         end
-         cpp.pending_c_function_signature.extend('T')
-         id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "*C)")
-         cpp.pending_c_function_body.append(once "se_dump_stack ds;%N")
-         if profile then
-            smart_eiffel.local_profile
-         end
-         cpp.pending_c_function_body.append(once "ds.fd=&se_ifd")
-         id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nds.current=((void*)&C);%N")
-         cpp.put_position_in_ds(start_position)
-         cpp.pending_c_function_body.append(once
-            "ds.caller=caller;%Nds.exception_origin=NULL;%Nds.locals=NULL;%Nset_dump_stack_top(&ds);/*link*/%N")
-         if not is_always_true(type) then
-            if profile then
-               smart_eiffel.start_profile_class_invariant(live_type)
-            end
-            cpp.stop_recursive_assertion_opening(False)
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               assertion := list.item(i)
-               if not assertion.is_always_true(type) then
-                  assertion.compile_to_c_as_class_invariant(type)
-               end
-               i := i + 1
-            end
-            cpp.stop_recursive_assertion_closing(False)
-            if profile then
-               smart_eiffel.stop_profile
-            end
-         end
-         cpp.pending_c_function_body.append(once "set_dump_stack_top(caller);/*unlink*/%Nreturn C;%N")
-         cpp.dump_pending_c_function(True)
-      end
-
 feature {ASSERTION_LIST}
    has_assertion_located_at (sp: POSITION): BOOLEAN is
          -- Is there already the source code of the assertion located at `sp' ?
@@ -710,110 +481,13 @@ feature {ASSERTION_LIST}
          list = l
       end
 
-feature {REQUIRE_ASSERTION}
-   compile_to_c_as_require_1 (type: TYPE) is
-         -- A require assertion with only one level.
-      require
-         not is_always_true(type)
-      local
-         i: INTEGER; assertion: ASSERTION
-      do
-         from
-            i := list.lower
-         until
-            i > list.upper
-         loop
-            assertion := list.item(i)
-            if not assertion.is_always_true(type) then
-               assertion.compile_to_c_as_require_1(type)
-            end
-            i := i + 1
-         end
-      end
-
-   compile_to_c_as_require_n (type: TYPE) is
-         -- A require assertion with more than one level.
-      require
-         not is_always_true(type)
-      local
-         i: INTEGER; assertion: ASSERTION
-      do
-         from
-            i := list.lower
-         invariant
-            list.valid_index(i)
-         until
-            not list.item(i).is_always_true(type)
-         loop
-            i := i + 1
-         end
-         list.item(i).compile_to_c_as_require_n(type)
-         from
-            i := i + 1
-         until
-            i > list.upper
-         loop
-            assertion := list.item(i)
-            if not assertion.is_always_true(type) then
-               cpp.pending_c_function_body.append(once "if(requireresult){%N")
-               assertion.compile_to_c_as_require_n(type)
-               cpp.pending_c_function_body.append(once "}%N")
-            end
-            i := i + 1
-         end
-      end
-
 feature {LOOP_INSTRUCTION}
-   compile_to_c_as_loop_invariant (type: TYPE) is
-         -- A require assertion with only one item.
-      local
-         i: INTEGER; assertion: ASSERTION
-      do
-         if not is_always_true(type) then
-            cpp.stop_recursive_assertion_opening(True)
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               assertion := list.item(i)
-               if not assertion.is_always_true(type) then
-                  assertion.compile_to_c_as_loop_invariant(type)
-               end
-               i := i + 1
-            end
-            cpp.stop_recursive_assertion_closing(True)
-         end
-      end
-
    pretty_as_loop_invariant (indent_level: INTEGER) is
       do
          pretty_print_with_tag(indent_level, once "invariant")
       end
 
 feature {CHECK_COMPOUND}
-   compile_to_c_as_check_compound (type: TYPE) is
-         -- A require assertion with only one item.
-      local
-         i: INTEGER; assertion: ASSERTION
-      do
-         if not is_always_true(type) then
-            cpp.stop_recursive_assertion_opening(True)
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               assertion := list.item(i)
-               if not assertion.is_always_true(type) then
-                  assertion.compile_to_c_as_check_compound(type)
-               end
-               i := i + 1
-            end
-            cpp.stop_recursive_assertion_closing(True)
-         end
-      end
-
    pretty_as_check_compound (indent_level: INTEGER) is
       do
          pretty_print_with_tag(indent_level, once "check")

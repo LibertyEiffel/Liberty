@@ -100,33 +100,6 @@ feature {ANY}
          new_compound := compound.adapt_for(t)
          Result := current_or_twin_init(new_compound)
       end
-         
-   compile_to_c (type: TYPE) is
-      local
-         old_invariant_check_disabled: BOOLEAN
-      do
-         old_invariant_check_disabled := cpp.assertion_checks_disabled
-         cpp.set_assertion_checks_disabled(True)
-         if ace.no_check then
-            -- Insert a frame with a NULL descriptor to convince se_rci that the invariant should not be checked.
-            cpp.pending_c_function_body.append(once "[
-               {
-               se_dump_stack *caller=&ds;
-               {
-               se_dump_stack ds={NULL,NULL,caller->p,caller,NULL,NULL};
-               
-               ]")
-         end
-         compound.compile_to_c(type)
-         if ace.no_check then
-            cpp.pending_c_function_body.append(once "[
-               }
-               }
-               
-               ]")
-         end
-         cpp.set_assertion_checks_disabled(old_invariant_check_disabled)
-      end
 
    end_mark_comment: BOOLEAN is
       local

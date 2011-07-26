@@ -19,7 +19,7 @@ feature {ANY}
    rank: INTEGER
 
    declaration_type: TYPE -- *** IT WOULD BE BETTER TO COMPUTE `declaration_type' USING
-         -- `formal_arg_list' ... BUT IT DOES NOT WORK BECAUSE FOR EXAMPLE 
+         -- `formal_arg_list' ... BUT IT DOES NOT WORK BECAUSE FOR EXAMPLE
          -- like Current ARE HARD CODED INSIDE `formal_arg_list' *** DOM April 14th 2008 ***
 
    to_string: STRING is
@@ -125,11 +125,6 @@ feature {ANY}
          end
       end
 
-   frozen mapping_c_arg (type: TYPE) is
-      do
-         cpp.print_argument(rank)
-      end
-
 feature {ARGUMENT_NAME2}
    set_formal_arg_list (fal: like formal_arg_list) is
       require
@@ -159,7 +154,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
-   
+
 feature {}
    refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank) is
       require

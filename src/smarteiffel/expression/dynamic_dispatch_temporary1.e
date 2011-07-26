@@ -98,31 +98,6 @@ feature {ANY}
          Result := target.use_current(type)
       end
 
-   mapping_c_arg (type: TYPE) is
-      do
-         compile_to_c(type)
-      end
-
-   compile_to_c (type: TYPE) is
-      do
-         if target.is_stored_in_some_local_variable or else target.side_effect_free(type) then
-            -- No need to use an extra INTERNAL_C_LOCAL:
-            target.compile_to_c(type)
-         else
-            if internal_c_local = Void   or else pending_c_function_counter /= cpp.pending_c_function_counter then
-               internal_c_local := cpp.pending_c_function_lock_local(resolve_in(type), once "ddt1")
-               pending_c_function_counter := cpp.pending_c_function_counter
-               cpp.pending_c_function_body.append(once "(")
-               internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "=(")
-               target.compile_to_c(type)
-               cpp.pending_c_function_body.append(once "))")
-            else
-               internal_c_local.append_in(cpp.pending_c_function_body)
-            end
-         end
-      end
-
    compile_to_jvm (type: TYPE) is
       do
          not_yet_implemented
@@ -164,15 +139,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          code_accumulator.current_context.add_last(Current)
       end
 
-feature {INSPECT_STATEMENT}
-   unlock is
-      do
-         if internal_c_local /= Void then
-            internal_c_local.unlock
-            internal_c_local := Void
-         end
-      end
-
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
    set_target (t: like target) is
       require
@@ -183,15 +149,44 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1}
          target = t
       end
 
-feature {}
+feature {C_COMPILATION_MIXIN}
+   unlock is
+      do
+         if internal_c_local /= Void then
+            internal_c_local.unlock
+            internal_c_local := Void
+         end
+      end
+
+   pending_c_function_counter: INTEGER
+
+   set_pending_c_function_counter is
+      require
+         cpp.pending_c_function_counter > pending_c_function_counter
+      do
+         pending_c_function_counter := cpp.pending_c_function_counter
+      ensure
+         pending_c_function_counter = cpp.pending_c_function_counter
+      end
+
+   internal_c_local: INTERNAL_C_LOCAL
+
+   set_internal_c_local (c_local: INTERNAL_C_LOCAL) is
+      require
+         internal_c_local = Void
+         c_local /= Void
+      do
+         internal_c_local := c_local
+      ensure
+         internal_c_local = c_local
+      end
+
+feature {DYNAMIC_DISPATCH_TEMPORARY1_VISITOR}
    target: EXPRESSION
 
    target_type: TYPE
 
-   pending_c_function_counter: INTEGER
-
-   internal_c_local: INTERNAL_C_LOCAL
-
+feature {}
    make (t: like target; tt: like target_type) is
       require
          t /= Void

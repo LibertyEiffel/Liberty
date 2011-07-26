@@ -69,17 +69,6 @@ feature {ANY}
          end
       end
 
-   compile_to_c (type: TYPE) is
-      do
-         cpp.pending_c_function_body.append(once "if(")
-         expression.compile_to_c(type)
-         cpp.pending_c_function_body.append(once "){%N")
-         if then_compound /= Void then
-            then_compound.compile_to_c(type)
-         end
-         cpp.pending_c_function_body.append(once "}%N")
-      end
-
    compile_to_jvm (type: TYPE) is
       local
          point: INTEGER
@@ -179,7 +168,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.close_current_context
          end
          if tc = Void then
-            -- Note that we can do the following simplification because we are sure that `Current' is 
+            -- Note that we can do the following simplification because we are sure that `Current' is
             -- not a member of some "elseif" list (see `inline_dynamic_dispatch_' of IF_THEN_ELSE).
             if e.side_effect_free(type) then
                -- Well, nothing is always better.
@@ -191,7 +180,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(current_or_twin_init(e, tc))
          end
       end
-   
+
 feature {}
    current_or_twin_init (e: like expression; tc: like then_compound): like Current is
       do
