@@ -248,17 +248,6 @@ feature {AGENT_CREATION, FORMAL_ARG_LIST}
          rank = r
       end
 
-feature {AGENT_CREATION, OPEN_OPERAND_VISITOR}
-   c_name_in (buffer: STRING) is
-      do
-         if rank = -1 then
-            buffer.append(once "open_C")
-         else
-            buffer.append(once "open_a")
-            rank.append_in(buffer)
-         end
-      end
-
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do

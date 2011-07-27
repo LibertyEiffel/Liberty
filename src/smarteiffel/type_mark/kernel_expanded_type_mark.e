@@ -100,18 +100,6 @@ feature {LIVE_TYPE, TYPE_MARK}
       do
       end
 
-   frozen gc_info_in (str: STRING) is
-      do
-      end
-
-   frozen gc_define1 is
-      do
-      end
-
-   frozen gc_define2 is
-      do
-      end
-
 feature {TYPE_MARK}
    frozen short_ (shorted_type: TYPE) is
       do

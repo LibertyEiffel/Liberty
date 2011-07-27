@@ -45,47 +45,6 @@ feature {ANY}
       end
 
 feature {AGENT_POOL}
-   c_define_agent_launcher is
-      local
-         boost: BOOLEAN
-      do
-         cpp.prepare_c_function
-         boost := c_define_agent_launcher_heading(once "(live)")
-         if agent_result /= Void then
-            agent_result.canonical_type_mark.c_type_for_result_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(" R=")
-            if agent_result.is_reference then
-               cpp.pending_c_function_body.append(once "NULL;%N")
-            else
-               cpp.pending_c_function_body.append(once "M")
-               agent_result.live_type.id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ";%N")
-            end
-         end
-         if ace.profile then
-            cpp.local_profile
-            cpp.start_profile_agent_switch(agent_type)
-         end
-         cpp.pending_c_function_body.append(once "/*")
-         cpp.pending_c_function_body.append(agent_type.name.to_string)
-         cpp.pending_c_function_body.append(once "*/switch(((se_agent0*)a)->creation_mold_id){%N")
-         agent_pool.c_switch_in(cpp.pending_c_function_body, agent_type, agent_result)
-         if not boost then
-            cpp.pending_c_function_body.append(once "[
-               default:
-               error0("Internal error in agent launcher.",NULL);
-                                ]")
-         end
-         cpp.pending_c_function_body.append(once "}%N")
-         if ace.profile then
-            cpp.stop_profile
-         end
-         if agent_result /= Void then
-            cpp.pending_c_function_body.append(once "return R;%N")
-         end
-         cpp.dump_pending_c_function(True)
-      end
-
    jvm_define (actual: BOOLEAN) is
          -- Define both the deferred wrapper or the `actual' definition.
       local
@@ -118,12 +77,13 @@ feature {AGENT_POOL}
          method_info.finish
       end
 
-feature {}
+feature {ANY}
    agent_result: TYPE is
       do
          Result := agent_type.agent_result
       end
 
+feature {}
    make (s: like signature; at: like agent_type) is
       require
          s /= Void
@@ -134,51 +94,6 @@ feature {}
       ensure
          signature = s
          agent_type = at
-      end
-
-   c_define_agent_launcher_heading (tag: STRING): BOOLEAN is
-      local
-         boost: BOOLEAN; i: INTEGER; ar: like agent_result; open: ARRAY[TYPE]
-      do
-         echo.put_string(once "Defining ")
-         echo.put_string(tag)
-         echo.put_string(once " agent wrapper: ")
-         echo.put_string(signature)
-         echo.put_string(once "%N")
-         boost := ace.boost
-         ar := agent_result
-         if ar = Void then
-            cpp.pending_c_function_signature.append(once "void")
-         else
-            ar.c_type_for_result_in(cpp.pending_c_function_signature)
-         end
-         cpp.pending_c_function_signature.extend(' ')
-         cpp.pending_c_function_signature.append(signature)
-         cpp.pending_c_function_signature.extend('(')
-         if not boost then
-            cpp.pending_c_function_signature.append(once "se_dump_stack*caller,")
-         end
-         if ace.profile then
-            cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-         end
-         cpp.pending_c_function_signature.append(once "/*agent*/T0*a")
-         open := agent_type.open_arguments
-         if open /= Void then
-            from
-               i := open.lower
-            until
-               i > open.upper
-            loop
-               cpp.pending_c_function_signature.extend(',')
-               open.item(i).canonical_type_mark.c_type_for_argument_in(cpp.pending_c_function_signature)
-               cpp.pending_c_function_signature.extend(' ')
-               cpp.pending_c_function_signature.extend('a')
-               i.append_in(cpp.pending_c_function_signature)
-               i := i + 1
-            end
-         end
-         cpp.pending_c_function_signature.extend(')')
-         Result := boost
       end
 
 invariant

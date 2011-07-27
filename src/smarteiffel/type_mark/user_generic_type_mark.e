@@ -224,37 +224,6 @@ feature {TYPE}
          end
       end
 
-feature {LIVE_TYPE, TYPE_MARK}
-   just_before_gc_mark_in (str: STRING) is
-      do
-         if is_reference then
-            standard_just_before_gc_mark_in(str)
-         end
-      end
-
-   gc_info_in (str: STRING) is
-      do
-         if is_reference then
-            standard_gc_info_in(str)
-         end
-      end
-
-   gc_define1 is
-      do
-         if is_reference then
-            standard_gc_define1
-         end
-      end
-
-   gc_define2 is
-      do
-         if is_reference then
-            standard_gc_define2
-         else
-            standard_gc_define2_for_expanded
-         end
-      end
-
 feature {TYPE}
    special_weak_reference_extra_check is
       require
@@ -295,6 +264,7 @@ feature {}
          generic_list = gl
       end
 
+feature {ANY}
    weak_reference_argument (lt: LIVE_TYPE): LIVE_TYPE is
       do
          if lt.class_text_name.to_string = as_weak_reference then

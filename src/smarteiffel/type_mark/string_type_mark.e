@@ -182,27 +182,6 @@ feature {TYPE_MARK}
          end
       end
 
-feature {LIVE_TYPE, TYPE_MARK}
-   just_before_gc_mark_in (str: STRING) is
-      do
-         standard_just_before_gc_mark_in(str)
-      end
-
-   gc_info_in (str: STRING) is
-      do
-         standard_gc_info_in(str)
-      end
-
-   gc_define1 is
-      do
-         standard_gc_define1
-      end
-
-   gc_define2 is
-      do
-         standard_gc_define2
-      end
-
 feature {}
    make (sp: like start_position) is
       do

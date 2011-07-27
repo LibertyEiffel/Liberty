@@ -266,37 +266,6 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
          Result := canonical_long_name
       end
 
-feature {LIVE_TYPE}
-   just_before_gc_mark_in (str: STRING) is
-      do
-         if is_reference then
-            standard_just_before_gc_mark_in(str)
-         end
-      end
-
-   gc_info_in (str: STRING) is
-      do
-         if is_reference then
-            standard_gc_info_in(str)
-         end
-      end
-
-   gc_define1 is
-      do
-         if is_reference then
-            standard_gc_define1
-         end
-      end
-
-   gc_define2 is
-      do
-         if is_reference then
-            standard_gc_define2
-         else
-            standard_gc_define2_for_expanded
-         end
-      end
-
 feature {TYPE_MARK}
    frozen short_ (shorted_type: TYPE) is
       do

@@ -112,7 +112,7 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             compile_routines
             cecil_define
-            agent_pool.customize_c_runtime_2
+            customize_agent_pool_runtime_2
             -- ---------------------------------------------------------
             if ace.sedb then
                prepare_introspection
@@ -1142,13 +1142,246 @@ feature {}
          end
          exceptions_handler.customize_c_runtime
          gc_handler.customize_c_runtime
-         agent_pool.customize_c_runtime_1
+         customize_agent_pool_runtime_1
          if smart_eiffel.deep_twin_used then
             sys_runtime_h_and_c(as_deep_twin)
          end
          if ace.profile then
             system_tools.add_lib_profile
             system_tools.add_lib_math
+         end
+      end
+
+feature {C_LIVE_TYPE_COMPILER}
+   defined_agent_creation: FAST_ARRAY[STRING] is
+      once
+         create Result.with_capacity(32)
+      end
+
+feature {}
+   customize_agent_pool_runtime_1 is
+      local
+         boost: BOOLEAN
+      do
+         boost := ace.boost
+         if agent_pool.agent_creation_collected_flag then
+            out_h_buffer.copy(once "/*The generic se_agent0 definition:*/%N%
+                                   %struct _se_agent0{%N%
+                                   %Tid id;%N%
+                                   %Tid creation_mold_id;%N%
+                                   %void(*afp)(")
+            if not boost then
+               out_h_buffer.append(once "se_dump_stack*,")
+            end
+            if ace.profile then
+               out_h_buffer.append(once "se_local_profile_t*,")
+            end
+            out_h_buffer.append(once "se_agent*);%N")
+
+            if not gc_handler.is_off then
+               out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
+            end
+
+            out_h_buffer.append(once "int(*eq)(se_agent*,se_agent*);%N};%N")
+            write_out_h_buffer
+         end
+      end
+
+   customize_agent_pool_runtime_2 is
+      require
+         not pending_c_function
+      local
+         i: INTEGER; mold_id: STRING; agent_args: AGENT_ARGS
+      do
+         if agent_pool.agent_creation_collected_flag then
+            echo.print_count(once "Agent call wrapper", agent_pool.launcher_collected_memory.count)
+            from
+               i := agent_pool.launcher_collected_memory.lower
+            until
+               i > agent_pool.launcher_collected_memory.upper
+            loop
+               agent_args := agent_pool.launcher_collected_memory.item(i)
+               agent_pool.agent_definition_set.add(agent_args.signature)
+               define_agent_launcher_args(agent_args)
+               i := i + 1
+            end
+
+            out_h_buffer.copy(once "union _se_agent{T0 s0;se_agent0 u0;%N")
+            from
+               i := defined_agent_creation.lower
+            until
+               i > defined_agent_creation.upper
+            loop
+               mold_id := defined_agent_creation.item(i)
+               out_h_buffer.append(once "se_")
+               out_h_buffer.append(mold_id)
+               out_h_buffer.append(once " u")
+               out_h_buffer.append(mold_id)
+               out_h_buffer.append(once ";%N")
+               i := i + 1
+            end
+            out_h_buffer.append(once "};%N")
+            write_out_h_buffer
+
+            sys_runtime_h_and_c(once "agents")
+         end
+      end
+
+   define_agent_launcher_args (agent_args: AGENT_ARGS) is
+      local
+         boost: BOOLEAN
+      do
+         prepare_c_function
+         boost := define_agent_launcher_heading(agent_args, once "(live)")
+         if agent_args.agent_result /= Void then
+            agent_args.agent_result.canonical_type_mark.c_type_for_result_in(pending_c_function_body)
+            pending_c_function_body.append(" R=")
+            if agent_args.agent_result.is_reference then
+               pending_c_function_body.append(once "NULL;%N")
+            else
+               pending_c_function_body.append(once "M")
+               agent_args.agent_result.live_type.id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ";%N")
+            end
+         end
+         if ace.profile then
+            local_profile
+            start_profile_agent_switch(agent_args.agent_type)
+         end
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(agent_args.agent_type.name.to_string)
+         pending_c_function_body.append(once "*/switch(((se_agent0*)a)->creation_mold_id){%N")
+         agent_pool_switch_in(pending_c_function_body, agent_args.agent_type, agent_args.agent_result)
+         if not boost then
+            pending_c_function_body.append(once "default:%N%
+                                                %error0(%"Internal error in agent launcher.%",NULL);%N")
+         end
+         pending_c_function_body.append(once "}%N")
+         if ace.profile then
+            stop_profile
+         end
+         if agent_args.agent_result /= Void then
+            pending_c_function_body.append(once "return R;%N")
+         end
+         dump_pending_c_function(True)
+      end
+
+   define_agent_launcher_heading (agent_args: AGENT_ARGS; tag: STRING): BOOLEAN is
+      local
+         boost: BOOLEAN; i: INTEGER; ar: TYPE; open: ARRAY[TYPE]
+      do
+         echo.put_string(once "Defining ")
+         echo.put_string(tag)
+         echo.put_string(once " agent wrapper: ")
+         echo.put_string(agent_args.signature)
+         echo.put_string(once "%N")
+         boost := ace.boost
+         ar := agent_args.agent_result
+         if ar = Void then
+            pending_c_function_signature.append(once "void")
+         else
+            ar.c_type_for_result_in(pending_c_function_signature)
+         end
+         pending_c_function_signature.extend(' ')
+         pending_c_function_signature.append(agent_args.signature)
+         pending_c_function_signature.extend('(')
+         if not boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.append(once "/*agent*/T0*a")
+         open := agent_args.agent_type.open_arguments
+         if open /= Void then
+            from
+               i := open.lower
+            until
+               i > open.upper
+            loop
+               pending_c_function_signature.extend(',')
+               open.item(i).canonical_type_mark.c_type_for_argument_in(pending_c_function_signature)
+               pending_c_function_signature.extend(' ')
+               pending_c_function_signature.extend('a')
+               i.append_in(pending_c_function_signature)
+               i := i + 1
+            end
+         end
+         pending_c_function_signature.extend(')')
+         Result := boost
+      end
+
+   agent_pool_switch_in (buffer: STRING; launcher_type, agent_result: TYPE) is
+      require
+         agent_result = launcher_type.agent_result
+      local
+         mold_id: STRING;
+         type_idx, agent_creation_idx, arg_idx, open_count, idx: INTEGER
+         open_args: ARRAY[TYPE]
+         agent_creation_list: FAST_ARRAY[AGENT_CREATION]; agent_creation: AGENT_CREATION
+         type, agent_creation_type: TYPE
+      do
+         mold_id := once "..........................."
+         from
+            type_idx := agent_pool.creation_collected_memory.lower
+         until
+            type_idx > agent_pool.creation_collected_memory.upper
+         loop
+            type := agent_pool.creation_collected_memory.key(type_idx)
+            agent_creation_list := agent_pool.creation_collected_memory.item(type_idx)
+            from
+               agent_creation_idx := agent_creation_list.lower
+            until
+               agent_creation_idx > agent_creation_list.upper
+            loop
+               agent_creation := agent_creation_list.item(agent_creation_idx)
+               agent_creation_type := agent_creation.resolve_in(type)
+               if agent_creation_type.can_be_assigned_to(launcher_type) then
+                  mold_id.clear_count
+                  agent_creation.mold_id_in(type, mold_id)
+                  idx := defined_agent_creation.first_index_of(mold_id)
+                  if defined_agent_creation.valid_index(idx) then
+                     buffer.append(once "case ")
+                     idx.append_in(buffer)
+                     buffer.append(once ":{%N")
+                     if agent_result /= Void then
+                        buffer.append(once "R=(")
+                        agent_result.canonical_type_mark.c_type_for_result_in(buffer)
+                        buffer.append(once ")(")
+                     end
+                     buffer.append(once "((se_")
+                     buffer.append(mold_id)
+                     buffer.append(once "*)a)->afp(")
+                     if not ace.boost then
+                        buffer.append(once "caller,")
+                     end
+                     if ace.profile then
+                        buffer.append(once "&local_profile,")
+                     end
+                     buffer.append(once "((/*agent*/void*)a)")
+                     open_args := agent_creation_type.open_arguments
+                     if open_args /= Void then
+                        open_count := open_args.count
+                        from
+                           arg_idx := 1
+                        until
+                           arg_idx > open_count
+                        loop
+                           buffer.append(once ",a")
+                           arg_idx.append_in(buffer)
+                           arg_idx := arg_idx + 1
+                        end
+                     end
+                     buffer.extend(')')
+                     if agent_result /= Void then
+                        buffer.extend(')')
+                     end
+                     buffer.append(once ";%Nbreak;%N}%N")
+                  end
+               end
+               agent_creation_idx := agent_creation_idx + 1
+            end
+            type_idx := type_idx + 1
          end
       end
 
@@ -1276,7 +1509,7 @@ feature {ANY}
             code
          when C_create_expression, C_inside_some_wrapper then
             pending_c_function_body.extend('a')
-            index.append_in(cpp.pending_c_function_body)
+            index.append_in(pending_c_function_body)
          when C_inside_twin then
             check
                index = 1
@@ -1298,19 +1531,19 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
          -- Produce C code for expression `index'.
       require
          args.count = fal.count
-         index.in_range(1, count)
+         index.in_range(1, args.count)
       local
          e: EXPRESSION; boolean_cast_flag: BOOLEAN
       do
          e := args.expression(index)
          if e.is_void then
-            cpp.arg_mapper.compile(e, type)
+            arg_mapper.compile(e, type)
          else
             boolean_cast_flag := e.resolve_in(type).is_boolean
             if boolean_cast_flag then
                pending_c_function_body.append(once "(T6)(")
             end
-            cpp.arg_mapper.compile(e, type)
+            arg_mapper.compile(e, type)
             if boolean_cast_flag then
                pending_c_function_body.extend(')')
             end
@@ -1875,7 +2108,7 @@ feature {PLUGIN}
          not tfr.is_connected
       end
 
-feature {GC_HANDLER, LIVE_TYPE, RUN_FEATURE}
+feature {GC_HANDLER, LIVE_TYPE, RUN_FEATURE, C_COMPILATION_MIXIN}
    recompilation_comment (lt: LIVE_TYPE) is
       require
          lt /= Void
@@ -2308,9 +2541,9 @@ feature {}
       do
          if ace.no_check then
             pending_c_function_body.append(once "((T")
-            id.append_in(cpp.pending_c_function_body)
+            id.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*)ci(")
-            id.append_in(cpp.pending_c_function_body)
+            id.append_in(pending_c_function_body)
             pending_c_function_body.extend(',')
             code_compiler.compile(e, type)
             pending_c_function_body.extend(',')
@@ -2987,64 +3220,64 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
    local_profile is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
       do
-         cpp.pending_c_function_body.append(once "se_local_profile_t local_profile;%N")
+         pending_c_function_body.append(once "se_local_profile_t local_profile;%N")
       end
 
    start_profile (rf: RUN_FEATURE) is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
          rf /= Void
       do
-         cpp.pending_c_function_body.append(once "local_profile.profile=profile+")
-         run_features.fast_first_index_of(rf).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+         pending_c_function_body.append(once "local_profile.profile=profile+")
+         run_features.fast_first_index_of(rf).append_in(pending_c_function_body)
+         pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
    start_profile_class_invariant (t: LIVE_TYPE) is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
          t /= Void
       do
          smart_eiffel.register_class_invariant(t)
-         cpp.pending_c_function_body.append(once "local_profile.profile=inv_profile+")
-         class_invariants.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+         pending_c_function_body.append(once "local_profile.profile=inv_profile+")
+         class_invariants.fast_first_index_of(t).append_in(pending_c_function_body)
+         pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
    start_profile_agent_creation (ac: AGENT_CREATION) is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
          ac /= Void
       do
          smart_eiffel.register_agent_creation(ac)
-         cpp.pending_c_function_body.append(once "local_profile.profile=agent_profile+")
-         agent_creations.fast_first_index_of(ac).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+         pending_c_function_body.append(once "local_profile.profile=agent_profile+")
+         agent_creations.fast_first_index_of(ac).append_in(pending_c_function_body)
+         pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
    start_profile_agent_switch (t: TYPE) is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
          t /= Void
       do
          smart_eiffel.register_agent_switch(t)
-         cpp.pending_c_function_body.append(once "local_profile.profile=agent_switch_profile+")
-         agent_switches.fast_first_index_of(t).append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
+         pending_c_function_body.append(once "local_profile.profile=agent_switch_profile+")
+         agent_switches.fast_first_index_of(t).append_in(pending_c_function_body)
+         pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
    stop_profile is
       require
          ace.profile
-         cpp.pending_c_function
+         pending_c_function
       do
-         cpp.pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
+         pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
       end
 
 end -- class C_PRETTY_PRINTER

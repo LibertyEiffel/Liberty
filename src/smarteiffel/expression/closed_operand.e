@@ -244,16 +244,6 @@ feature {ANY}
 feature {AGENT_CREATION, CLOSED_OPERAND_VISITOR}
    inside_agent_launcher_flag: BOOLEAN
 
-   c_name_in (buffer: STRING) is
-      do
-         if rank = -1 then
-            buffer.append(once "closed_C")
-         else
-            buffer.append(once "closed_a")
-            rank.append_in(buffer)
-         end
-      end
-
    set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
       do
          inside_agent_launcher_flag := flag_value

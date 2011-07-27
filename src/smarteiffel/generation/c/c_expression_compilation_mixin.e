@@ -357,7 +357,7 @@ feature {CLOSED_OPERAND}
             -- No field to store such a static value:
             visited.original_capture.accept(Current)
          elseif visited.inside_agent_launcher_flag then
-            visited.c_name_in(function_body)
+            closed_operand_name_in(visited, function_body)
          else
             -- Well, outside of the agent:
             visited.capture_memory.reference_at(type).accept(Current)
@@ -381,7 +381,7 @@ feature {CREATE_EXPRESSION}
 
    create_expression_support (visited: CREATE_EXPRESSION; created_type_memory: TYPE) is
       require
-         created_type_memory = created_type(type)
+         created_type_memory = visited.created_type(type)
       local
          boost: BOOLEAN; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST; id: INTEGER
       do
@@ -967,7 +967,7 @@ feature {OLD_MANIFEST_ARRAY}
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
       do
-         visited.c_name_in(function_body)
+         open_operand_name_in(visited, function_body)
       end
 
 feature {PRECURSOR_EXPRESSION}
@@ -1030,7 +1030,7 @@ feature {}
 
    compile_agent_void_call (visited: AGENT_LAUNCHER; start_position: POSITION; item_or_call: STRING) is
       require
-         not visited.agent_pool.agent_creation_collected_flag
+         not agent_pool.agent_creation_collected_flag
          ;(item_or_call = as_item) or (item_or_call = as_call)
       local
          target_type: TYPE; feature_stamp: FEATURE_STAMP; fn: FEATURE_NAME
@@ -1052,7 +1052,7 @@ feature {}
          -- Generate the C code to launch the execution of the `agent_target'.
       require
          cpp.pending_c_function
-         agent_target /= Void
+         visited.target /= Void
       local
          boost: BOOLEAN
       do

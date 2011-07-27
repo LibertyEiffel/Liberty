@@ -145,33 +145,8 @@ feature {TYPE}
          Result := True
       end
 
-feature {LIVE_TYPE, TYPE_MARK}
-   just_before_gc_mark_in (str: STRING) is
-      do
-         standard_just_before_gc_mark_in(str)
-      end
-
-   gc_info_in (str: STRING) is
-      do
-         standard_gc_info_in(str)
-      end
-
-   gc_define1 is
-      do
-         standard_gc_define1
-      end
-
-   gc_define2 is
-      do
-         standard_gc_define2
-      end
-
 feature {}
-   standard_jvm_check_class_invariant, standard_gc_define1, standard_gc_define2 is
-      deferred
-      end
-
-   standard_just_before_gc_mark_in, standard_gc_info_in(str: STRING) is
+   standard_jvm_check_class_invariant is
       deferred
       end
 

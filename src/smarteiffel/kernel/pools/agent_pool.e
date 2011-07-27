@@ -13,7 +13,7 @@ insert
       end
    SINGLETON
 
-feature {AGENT_LAUNCHER, C_HEADER_PASS_1, C_EXPRESSION_COMPILATION_MIXIN}
+feature {ANY}
    agent_creation_collected_flag: BOOLEAN
 
 feature {AGENT_CREATION}
@@ -109,31 +109,6 @@ feature {AGENT_LAUNCHER}
          Result /= Void
       end
 
-feature {C_LIVE_TYPE_COMPILER}
-   c_define_agent_creation_for (type: TYPE) is
-      local
-         agent_creation_list: FAST_ARRAY[AGENT_CREATION]; i: INTEGER
-         agent_creation: AGENT_CREATION; buffer, mold_id: STRING
-      do
-         buffer := once "............................."
-         agent_creation_list := creation_collected_memory.reference_at(type)
-         if agent_creation_list /= Void then
-            from
-               i := agent_creation_list.lower
-            until
-               i > agent_creation_list.upper
-            loop
-               agent_creation := agent_creation_list.item(i)
-               buffer.clear_count
-               agent_creation.mold_id_in(type, buffer)
-               mold_id := buffer.twin
-               defined_agent_creation.add_last(mold_id)
-               agent_creation.c_define_function(type, mold_id, defined_agent_creation.upper)
-               i := i + 1
-            end
-         end
-      end
-
 feature {SMART_EIFFEL}
    reset is
       local
@@ -149,86 +124,6 @@ feature {SMART_EIFFEL}
             i := i + 1
          end
          launcher_collected_memory.clear_count
-      end
-
-feature {C_PRETTY_PRINTER}
-   customize_c_runtime_1 is
-      local
-         boost: BOOLEAN
-      do
-         boost := ace.boost
-         if agent_creation_collected_flag then
-            cpp.out_h_buffer.copy(once "[
-               /*The generic se_agent0 definition:*/
-               struct _se_agent0{
-               Tid id;
-               Tid creation_mold_id;
-               void(*afp)(
-             ]")
-            if not boost then
-               cpp.out_h_buffer.append(once "se_dump_stack*,")
-            end
-            if ace.profile then
-               cpp.out_h_buffer.append(once "se_local_profile_t*,")
-            end
-            cpp.out_h_buffer.append(once "[
-             se_agent*);
-             ]")
-
-            if not cpp.gc_handler.is_off then
-               cpp.out_h_buffer.append(once "[
-             void(*gc_mark_agent_mold)(se_agent*);
-
-             ]")
-            end
-
-            cpp.out_h_buffer.append(once "[
-             int(*eq)(se_agent*,se_agent*);
-             };
-
-             ]")
-            cpp.write_out_h_buffer
-         end
-      end
-
-   customize_c_runtime_2 is
-      require
-         not cpp.pending_c_function
-      local
-         i: INTEGER; mold_id: STRING; agent_args: AGENT_ARGS
-      do
-         if agent_creation_collected_flag then
-            echo.print_count(once "Agent call wrapper", launcher_collected_memory.count)
-            from
-               i := 1
-            until
-               i > launcher_collected_memory.count
-            loop
-               agent_args := launcher_collected_memory.item(i)
-               agent_definition_set.add(agent_args.signature)
-               agent_args.c_define_agent_launcher
-               i := i + 1
-            end
-
-            cpp.out_h_buffer.copy(once "union _se_agent{T0 s0;se_agent0 u0;%N")
-            from
-               i := defined_agent_creation.upper
-            until
-               i < defined_agent_creation.lower
-            loop
-               mold_id := defined_agent_creation.item(i)
-               cpp.out_h_buffer.append(once "se_")
-               cpp.out_h_buffer.append(mold_id)
-               cpp.out_h_buffer.append(once " u")
-               cpp.out_h_buffer.append(mold_id)
-               cpp.out_h_buffer.append(once ";%N")
-               i := i - 1
-            end
-            cpp.out_h_buffer.append(once "};%N")
-            cpp.write_out_h_buffer
-
-            cpp.sys_runtime_h_and_c(once "agents")
-         end
       end
 
 feature {JVM}
@@ -278,79 +173,22 @@ feature {GC_HANDLER}
          end
       end
 
-feature {AGENT_ARGS}
-   c_switch_in (buffer: STRING; launcher_type, agent_result: TYPE) is
-      require
-         agent_result = launcher_type.agent_result
-      local
-         mold_id: STRING;
-         type_idx, agent_creation_idx, arg_idx, open_count, idx: INTEGER
-         open_args: ARRAY[TYPE]
-         agent_creation_list: FAST_ARRAY[AGENT_CREATION]; agent_creation: AGENT_CREATION
-         type, agent_creation_type: TYPE
-      do
-         mold_id := once "..........................."
-         from
-            type_idx := creation_collected_memory.lower
-         until
-            type_idx > creation_collected_memory.upper
-         loop
-            type := creation_collected_memory.key(type_idx)
-            agent_creation_list := creation_collected_memory.item(type_idx)
-            from
-               agent_creation_idx := agent_creation_list.lower
-            until
-               agent_creation_idx > agent_creation_list.upper
-            loop
-               agent_creation := agent_creation_list.item(agent_creation_idx)
-               agent_creation_type := agent_creation.resolve_in(type)
-               if agent_creation_type.can_be_assigned_to(launcher_type) then
-                  mold_id.clear_count
-                  agent_creation.mold_id_in(type, mold_id)
-                  idx := defined_agent_creation.first_index_of(mold_id)
-                  if defined_agent_creation.valid_index(idx) then
-                     buffer.append(once "case ")
-                     idx.append_in(buffer)
-                     buffer.append(once ":{%N")
-                     if agent_result /= Void then
-                        buffer.append(once "R=(")
-                        agent_result.canonical_type_mark.c_type_for_result_in(buffer)
-                        buffer.append(once ")(")
-                     end
-                     buffer.append(once "((se_")
-                     buffer.append(mold_id)
-                     buffer.append(once "*)a)->afp(")
-                     if not ace.boost then
-                        buffer.append(once "caller,")
-                     end
-                     if ace.profile then
-                        buffer.append(once "&local_profile,")
-                     end
-                     buffer.append(once "((/*agent*/void*)a)")
-                     open_args := agent_creation_type.open_arguments
-                     if open_args /= Void then
-                        open_count := open_args.count
-                        from
-                           arg_idx := 1
-                        until
-                           arg_idx > open_count
-                        loop
-                           buffer.append(once ",a")
-                           arg_idx.append_in(buffer)
-                           arg_idx := arg_idx + 1
-                        end
-                     end
-                     buffer.extend(')')
-                     if agent_result /= Void then
-                        buffer.extend(')')
-                     end
-                     buffer.append(once ";%Nbreak;%N}%N")
-                  end
-               end
-               agent_creation_idx := agent_creation_idx + 1
-            end
-            type_idx := type_idx + 1
-         end
+feature {CODE_PRINTER, C_LIVE_TYPE_COMPILER}
+   creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE] is
+         -- For each context TYPE, those which are collected.
+      once
+         create Result.make
+      end
+
+   launcher_collected_memory: SET[AGENT_ARGS] is
+         -- A subset of `launcher_memory' (collected ones).
+      once
+         create {HASHED_SET[AGENT_ARGS]} Result.make
+      end
+
+   agent_definition_set: SET[STRING] is
+      once
+         create {HASHED_SET[STRING]} Result.make
       end
 
 feature {}
@@ -392,27 +230,10 @@ feature {}
          end
       end
 
-   creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE] is
-         -- For each context TYPE, those which are collected.
-      once
-         create Result.make
-      end
-
    launcher_memory: HASHED_DICTIONARY[AGENT_ARGS, STRING] is
          -- All ever created signatures for all encountered agent launcher.
       once
          create Result.make
-      end
-
-   launcher_collected_memory: SET[AGENT_ARGS] is
-         -- A subset of `launcher_memory' (collected ones).
-      once
-         create {HASHED_SET[AGENT_ARGS]} Result.make
-      end
-
-   agent_definition_set: SET[STRING] is
-      once
-         create {HASHED_SET[STRING]} Result.make
       end
 
    signature_add_last (signature: STRING; type: TYPE) is
@@ -439,11 +260,6 @@ feature {}
             end
             i := i + 1
          end
-      end
-
-   defined_agent_creation: FAST_ARRAY[STRING] is
-      once
-         create Result.with_capacity(32)
       end
 
 end -- class AGENT_POOL

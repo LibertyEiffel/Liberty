@@ -118,7 +118,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       do
          compile_live_type(visited.generic_list.first.type.live_type)
          out_h.copy(once "typedef ")
-         visited.c_type_in(out_h)
+         native_array_type_in(visited, out_h)
          out_h.extend('T')
          visited.id.append_in(out_h)
          out_h.append(once ";%N#define M")

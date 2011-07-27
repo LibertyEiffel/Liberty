@@ -1,75 +1,54 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_COMPILATION_MIXIN
+class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
+   --
+   -- Produce C code to print GC information.
+   --
 
-insert
-   GLOBALS
+inherit
+   C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
 
-feature {} -- cpp access helpers for a bit of prettiness
-   out_h: STRING is
+create {GC_HANDLER}
+   make
+
+feature {AGENT_TYPE_MARK}
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
-         Result := cpp.out_h_buffer
       end
 
-   flush_out_h is
+feature {NATIVE_ARRAY_TYPE_MARK}
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
-         cpp.write_out_h_buffer
-         cpp.out_h_buffer.clear_count
-      end
-
-   out_c: STRING is
-      do
-         Result := cpp.out_c_buffer
-      end
-
-   function_signature: STRING is
-      do
-         Result := cpp.pending_c_function_signature
-      end
-
-   function_body: STRING is
-      do
-         Result := cpp.pending_c_function_body
+         function_body.append(once "if(")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store_left>0){%N")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store->header.size=")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store_left;%N")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store->header.magic_flag=RSOH_FREE;%N")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store_left=0;%N}%N")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".chunk_list=NULL;%N")
+         cpp.gc_handler.na_env_in(visited, function_body)
+         function_body.append(once ".store_chunk=NULL;%N")
       end
 
 feature {}
-   native_array_type_in (na: NATIVE_ARRAY_TYPE_MARK; str: STRING) is
-      local
-         et: TYPE_MARK
+   gc_reference (visited: TYPE_MARK) is
       do
-         et := na.generic_list.first
-         if et.is_reference then
-            str.append(once "T0**")
-         else
-            str.extend('T')
-            et.type.live_type.id.append_in(str)
-            str.extend('*')
-         end
+         cpp.gc_handler.free_in(visited, function_body)
+         function_body.append(once "=(void*)0;%N")
       end
 
-   rank_name_in (rank: INTEGER; tag, buffer: STRING) is
+   gc_expanded (visited: TYPE_MARK) is
       do
-         buffer.append(tag)
-         if rank = -1 then
-            buffer.extend('C')
-         else
-            buffer.extend('a')
-            rank.append_in(buffer)
-         end
       end
 
-   closed_operand_name_in (co: CLOSED_OPERAND; buffer: STRING) is
-      do
-         rank_name_in(co.rank, once "closed_", buffer)
-      end
-
-   open_operand_name_in (oo: OPEN_OPERAND; buffer: STRING) is
-      do
-         rank_name_in(oo.rank, once "open_", buffer)
-      end
-
-end -- class C_COMPILATION_MIXIN
+end -- class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -19,10 +19,10 @@ feature {ANY}
          -- The one written.
 
    written_name: HASHED_STRING
-   
+
    type_marks_memory: HASHED_DICTIONARY[TYPE_MARK, TYPE]
          -- Memorize the corresponding TYPE_MARK for all context TYPEs.
-   
+
    has_been_specialized: BOOLEAN is
       do
          Result := type_marks_memory /= Void
@@ -32,7 +32,7 @@ feature {ANY}
       local
          type_mark: TYPE_MARK
       do
-         type_mark := like_what.formal_arg_list.type_mark(like_what.rank)   
+         type_mark := like_what.formal_arg_list.type_mark(like_what.rank)
          if {LIKE_ARGUMENT_TYPE_MARK} ?:= type_mark then
             error_handler.append(once "Type mark %"like <argument>%" must not reference another %"like <argument>%" type mark. %
                                        %(One level of indirection is always possible and always better ;-)")
@@ -52,7 +52,7 @@ feature {ANY}
       do
          type_mark := type_marks_memory.fast_reference_at(parent_type)
          type_mark := type_mark.specialize_thru(parent_type, parent_edge, new_type)
-         type_marks_memory.fast_put(type_mark, new_type)         
+         type_marks_memory.fast_put(type_mark, new_type)
          Result := Current
       end
 

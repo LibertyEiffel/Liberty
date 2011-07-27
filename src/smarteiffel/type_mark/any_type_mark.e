@@ -173,27 +173,6 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
          Result := string_aliaser.hashed_string(as_any)
       end
 
-feature {LIVE_TYPE, TYPE_MARK}
-   just_before_gc_mark_in (str: STRING) is
-      do
-         standard_just_before_gc_mark_in(str)
-      end
-
-   gc_info_in (str: STRING) is
-      do
-         standard_gc_info_in(str)
-      end
-
-   gc_define1 is
-      do
-         standard_gc_define1
-      end
-
-   gc_define2 is
-      do
-         standard_gc_define2
-      end
-
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE) is
       do

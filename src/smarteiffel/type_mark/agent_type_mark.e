@@ -103,27 +103,7 @@ feature {ANY}
          buffer.append(once "(void*)0")
       end
 
-   just_before_gc_mark_in (str: STRING) is
-      do
-      end
-
-   gc_define1 is
-      do
-         cpp.out_h_buffer.copy(once "%N#define gc_mark")
-         id.append_in(cpp.out_h_buffer)
-         cpp.out_h_buffer.append(once "(x) (((se_agent0*)(x))->gc_mark_agent_mold((se_agent*)(x)))%N%N")
-         cpp.write_out_h_buffer
-      end
-
-   gc_define2 is
-      do
-      end
-
    is_user_expanded: BOOLEAN is False
-
-   gc_info_in (str: STRING) is
-      do
-      end
 
    is_empty_expanded: BOOLEAN is False
 

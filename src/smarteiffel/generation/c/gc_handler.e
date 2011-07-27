@@ -19,6 +19,12 @@ feature {ANY}
    info_flag: BOOLEAN
          -- True when Garbage Collector Information need to be printed.
 
+feature {}
+   header_compiler: C_GARBAGE_COLLECTOR_HEADER_COMPILER
+   functions_compiler: C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER
+   info_compiler: C_GARBAGE_COLLECTOR_INFO_COMPILER
+   before_mark_compiler: C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
+
 feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
    no_gc is
       do
@@ -38,7 +44,7 @@ feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
          info_flag
       end
 
-feature {TYPE_MARK}
+feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
    memory_dispose (o: STRING; live_type: LIVE_TYPE) is
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
@@ -158,31 +164,35 @@ feature {C_PRETTY_PRINTER}
          echo.put_string(once "GC support (gc_define1 step).%N")
          cpp.split_c_file_padding_here
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
-            lt.gc_define1
-            i := i - 1
+            if lt.at_run_time then
+               header_compiler.compile(lt.canonical_type_mark)
+            end
+            i := i + 1
          end
          echo.put_string(once "GC support (gc_define2 step).%N")
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
-            lt.gc_define2
-            i := i - 1
+            if lt.at_run_time then
+               functions_compiler.compile(lt.canonical_type_mark)
+            end
+            i := i + 1
          end
          from
-            i := switch_list.upper
+            i := switch_list.lower
          until
-            i < 0
+            i > switch_list.upper
          loop
             switch_for(switch_list.item(i))
-            i := i - 1
+            i := i + 1
          end
          if info_flag then
             define_gc_info(live_type_map)
@@ -290,6 +300,69 @@ feature {}
          end
       end
 
+feature {C_COMPILATION_MIXIN}
+   frozen store_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "store")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen store_left_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "store_left")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen store_chunk_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "store_chunk")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen free_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_free")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen align_mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_align_mark")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen info_nb_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_info_nb")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_mark")
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen na_env_in (type_mark: TYPE_MARK; str: STRING) is
+      do
+         str.append(once "na_env")
+         type_mark.id.append_in(str)
+      end
+
 feature {C_PRETTY_PRINTER}
    manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
          -- Code to create a new Manifest STRING in the "s" local C variable.
@@ -315,7 +388,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {LIVE_TYPE, ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN}
+feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
    mark_for (entity: STRING; lt: LIVE_TYPE; non_void_no_dispatch_flag: BOOLEAN) is
          -- Add C code to mark the `entity' of `lt'. The `non_void_no_dispatch_flag' indicates that we
          -- are sure that the entity to mark is never NULL or Void)
@@ -348,10 +421,10 @@ feature {LIVE_TYPE, ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN}
                cpp.pending_c_function_body.extend('X')
                --|*** Could be better when `non_void_no_dispatch_flag' !
                --|*** (Dom. june 14th 2004) ***
-               ct.gc_mark_in(cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body)
             else
                ct := run_time_set.first.canonical_type_mark
-               ct.gc_mark_in(cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body)
             end
             cpp.pending_c_function_body.extend('(')
             if ct.is_reference then
@@ -374,6 +447,10 @@ feature {LIVE_TYPE, ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN}
 feature {}
    make is
       do
+         create header_compiler.make
+         create functions_compiler.make
+         create info_compiler.make
+         create before_mark_compiler.make
       end
 
    compute_ceils is
@@ -428,7 +505,7 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void X")
          ct := lt.canonical_type_mark
-         ct.gc_mark_in(cpp.pending_c_function_signature)
+         mark_in(ct, cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "(T0*o)")
          run_time_set := lt.run_time_set
          cpp.pending_c_function_body.append(once "{int i=o->id;%N")
@@ -447,7 +524,7 @@ feature {}
       do
          if bi = bs then
             lt := run_time_set.item(bi)
-            lt.canonical_type_mark.gc_mark_in(cpp.pending_c_function_body)
+            mark_in(lt.canonical_type_mark, cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "((T")
             lt.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "*)o);%N")
@@ -472,13 +549,15 @@ feature {}
          i: INTEGER; lt: LIVE_TYPE
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
-            lt.just_before_gc_mark_in(cpp.pending_c_function_body)
-            i := i - 1
+            if lt.at_run_time then
+               before_mark_compiler.compile(lt.canonical_type_mark)
+            end
+            i := i + 1
          end
       end
 
@@ -493,12 +572,14 @@ feature {}
          cpp.pending_c_function_body.append(once
          "fprintf(SE_GCINFO,%"--------------------\nNumber\tTotal\tStore\tName\ncreated\tsize\tleft\n%");%N")
          from
-            i := 0
+            i := live_type_map.lower
          until
             i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
-            lt.gc_info_in(cpp.pending_c_function_body)
+            if lt.at_run_time then
+               info_compiler.compile(lt.canonical_type_mark)
+            end
             i := i + 1
          end
          agent_pool.gc_info

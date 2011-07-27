@@ -470,7 +470,7 @@ feature {}
          end
       end
 
-feature {AGENT_POOL, AGENT_CREATION_VISITOR}
+feature {ANY}
    mold_id_in (type: TYPE; buffer: STRING) is
          -- Identify the corresponding AGENT_CREATION function.
       do
@@ -487,224 +487,6 @@ feature {AGENT_POOL, AGENT_CREATION_VISITOR}
    same_mold_id_as (other: like Current): BOOLEAN is
       do
          Result := start_position = other.start_position
-      end
-
-   c_define_function (type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
-      local
-         boost: BOOLEAN; agent_type, agent_result, t: TYPE; tm: TYPE_MARK;   i: INTEGER
-         expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
-      do
-         boost := ace.boost
-         agent_type := c_define_type(type, boost, mold_id, integer_mold_id)
-         agent_result := agent_type.agent_result
-
-         -- The agent launcher function:
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "%N/*agent launcher*/")
-         if agent_result /= Void then
-            agent_result.canonical_type_mark.c_type_for_result_in(cpp.pending_c_function_signature)
-         else
-            cpp.pending_c_function_signature.append(once "void")
-         end
-         cpp.pending_c_function_signature.append(once " _")
-         cpp.pending_c_function_signature.append(mold_id)
-         cpp.pending_c_function_signature.extend('(')
-         if not boost then
-            cpp.pending_c_function_signature.append(once "se_dump_stack*caller,")
-         end
-         if ace.profile then
-            cpp.pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
-         end
-         cpp.pending_c_function_signature.append(once "se_")
-         cpp.pending_c_function_signature.append(mold_id)
-         cpp.pending_c_function_signature.append(once "*u")
-         if open_operand_list /= Void then
-            from
-               i := open_operand_list.lower
-            until
-               i > open_operand_list.upper
-            loop
-               open_operand := open_operand_list.item(i)
-               cpp.pending_c_function_signature.extend(',')
-               tm := open_operand.resolve_in(type).canonical_type_mark
-               tm.c_type_for_result_in(cpp.pending_c_function_signature)
-               cpp.pending_c_function_signature.extend(' ')
-               open_operand.c_name_in(cpp.pending_c_function_signature)
-               i := i + 1
-            end
-         end
-         cpp.pending_c_function_signature.extend(')')
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               closed_operand := closed_operand_list.item(i)
-               if stored_closed_operand(type, closed_operand) then
-                  tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.extend(' ')
-                  closed_operand.c_name_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "=(u->")
-                  closed_operand.c_name_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once ");%N")
-               end
-               i := i + 1
-            end
-         end
-         if not boost then
-            cpp.pending_c_function_body.append(
-               once "static se_frame_descriptor fd={%"Agent launcher%",0,0,%"%",1};%N")
-         end
-         if ace.profile then
-            cpp.local_profile
-         end
-         if not boost then
-            cpp.pending_c_function_body.append(once "[
-               se_dump_stack ds;
-               ds.fd=&fd;
-               ds.current=NULL;
-               ds.p=(caller->p);
-               ds.caller=caller;
-               ds.exception_origin=NULL;
-               ds.locals=NULL;
-
-               ]")
-         end
-         -- Calling the actual one:
-         if ace.profile then
-            cpp.start_profile_agent_creation(Current)
-         end
-         set_inside_agent_launcher_flag(True)
-         if agent_result /= Void then
-            expression ::= code
-            cpp.compound_expression_compiler.compile(once "u->R=", expression, once ";%N", type)
-         elseif code /= Void then
-            cpp.code_compiler.compile(code.to_instruction, type)
-         end
-         set_inside_agent_launcher_flag(False)
-         if ace.profile then
-            cpp.stop_profile
-         end
-         if agent_result /= Void then
-            cpp.pending_c_function_body.append(once "return u->R;%N")
-         end
-         cpp.dump_pending_c_function(False)
-
-         -- The agent creation function:
-         cpp.prepare_c_function
-         cpp.pending_c_function_signature.append(once "/*agent creation*/T0*")
-         cpp.pending_c_function_signature.append(mold_id)
-         cpp.pending_c_function_signature.extend('(')
-         if not boost then
-            cpp.pending_c_function_signature.append(once "se_dump_stack*caller")
-         end
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               closed_operand := closed_operand_list.item(i)
-               if stored_closed_operand(type, closed_operand) then
-                  if cpp.pending_c_function_signature.last /= '(' then
-                     cpp.pending_c_function_signature.extend(',')
-                  end
-                  tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(cpp.pending_c_function_signature)
-                  cpp.pending_c_function_signature.extend(' ')
-                  closed_operand.c_name_in(cpp.pending_c_function_signature)
-               end
-               i := i + 1
-            end
-         end
-         if cpp.pending_c_function_signature.last = '(' then
-            cpp.pending_c_function_signature.append(once "void")
-         end
-         cpp.pending_c_function_signature.extend(')')
-         cpp.pending_c_function_body.append(once "se_")
-         cpp.pending_c_function_body.append(mold_id)
-         cpp.pending_c_function_body.append(once "*u=(void*)new_agent(")
-         agent_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ");%Nu->creation_mold_id=")
-         integer_mold_id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ";%Nu->afp=_")
-         cpp.pending_c_function_body.append(mold_id)
-         cpp.pending_c_function_body.append(once ";%N")
-         if is_equal_used_in(agent_type) then
-            cpp.pending_c_function_body.append(once "u->eq=")
-            is_equal_mold_id_in(type, cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-         if not cpp.gc_handler.is_off then
-            cpp.pending_c_function_body.append(once "u->gc_mark_agent_mold=gc_mark_")
-            cpp.pending_c_function_body.append(mold_id)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               closed_operand := closed_operand_list.item(i)
-               if stored_closed_operand(type, closed_operand) then
-                  cpp.pending_c_function_body.append(once "u->")
-                  closed_operand.c_name_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.extend('=')
-                  closed_operand.c_name_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-               i := i + 1
-            end
-         end
-         cpp.pending_c_function_body.append(once "return((T0*)u);%N")
-         cpp.dump_pending_c_function(True)
-
-         -- The gc_mark_MOLD_ID function:
-         if not cpp.gc_handler.is_off then
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "void gc_mark_")
-            cpp.pending_c_function_signature.append(mold_id)
-            cpp.pending_c_function_signature.append(once "(se_")
-            cpp.pending_c_function_signature.append(mold_id)
-            cpp.pending_c_function_signature.append(once "*u)")
-
-            cpp.pending_c_function_body.append(once "gc_agent*gcu=(gc_agent*)u;%N%
-                             %if (gcu->header.flag==FSOH_UNMARKED){%N%
-                             %gcu->header.flag=FSOH_MARKED;%N")
-
-            if closed_operand_list /= Void then
-               from
-                  i := closed_operand_list.lower
-               until
-                  i > closed_operand_list.upper
-               loop
-                  closed_operand := closed_operand_list.item(i)
-                  if stored_closed_operand(type, closed_operand) then
-                     t := closed_operand.resolve_in(type)
-                     if t.is_reference then
-                        cpp.pending_c_function_body.append(once "gc_mark(u->")
-                        closed_operand.c_name_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once ");%N")
-                     elseif t.need_gc_mark_function then
-                        t.canonical_type_mark.gc_mark_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "(&(u->")
-                        closed_operand.c_name_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "));%N")
-                     end
-                  end
-                  i := i + 1
-               end
-            end
-            cpp.pending_c_function_body.append(once "}%N")
-            cpp.dump_pending_c_function(True)
-         end
-         if is_equal_used_in(agent_type) then
-            -- The is_equal function:
-            is_equal_c_define_function(type)
-         end
       end
 
 feature {AGENT_CREATION}
@@ -779,91 +561,6 @@ feature {}
          code = function_call
       end
 
-   c_define_type (type: TYPE; boost: BOOLEAN; mold_id: STRING; integer_mold_id: INTEGER): TYPE is
-         -- The Result is the `agent_type'.
-      require
-         boost = ace.boost
-         not cpp.pending_c_function
-      local
-         i: INTEGER; agent_type, agent_result: TYPE; closed_operand: CLOSED_OPERAND; tm: TYPE_MARK
-      do
-         agent_type := resolve_in(type)
-         Result := agent_type
-         cpp.out_h_buffer.copy(once "typedef struct _se_")
-         cpp.out_h_buffer.append(mold_id)
-         cpp.out_h_buffer.append(once " se_")
-         cpp.out_h_buffer.append(mold_id)
-         cpp.out_h_buffer.append(once ";%Nstruct _se_")
-         cpp.out_h_buffer.append(mold_id)
-         cpp.out_h_buffer.append(once "{Tid id;%Nint creation_mold_id;%N")
-         agent_result := agent_type.agent_result
-         if agent_result = Void then
-            cpp.out_h_buffer.append(once "void")
-         else
-            agent_result.canonical_type_mark.c_type_for_result_in(cpp.out_h_buffer)
-         end
-         cpp.out_h_buffer.append(once "(*afp)(")
-         if not boost then
-            cpp.out_h_buffer.append(once "se_dump_stack*,")
-         end
-         if ace.profile then
-            cpp.out_h_buffer.append(once "se_local_profile_t*,")
-         end
-         cpp.out_h_buffer.append(once "se_")
-         cpp.out_h_buffer.append(mold_id)
-         cpp.out_h_buffer.extend('*')
-         if open_operand_list /= Void then
-            from
-               i := open_operand_list.lower
-            until
-               i > open_operand_list.upper
-            loop
-               cpp.out_h_buffer.extend(',')
-               tm := open_operand_list.item(i).resolve_in(type).canonical_type_mark
-               tm.c_type_for_result_in(cpp.out_h_buffer)
-               i := i + 1
-            end
-         end
-         cpp.out_h_buffer.append(once ");%N")
-         if not cpp.gc_handler.is_off then
-            cpp.out_h_buffer.append(once "[
-                 void(*gc_mark_agent_mold)(se_
-                 ]")
-            cpp.out_h_buffer.append(mold_id)
-            cpp.out_h_buffer.append(once "*);%N")
-         end
-         cpp.out_h_buffer.append(once "[
-              int (*eq)(se_agent*,se_agent*);
-
-              ]")
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               closed_operand := closed_operand_list.item(i)
-               if stored_closed_operand(type, closed_operand) then
-                  tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(cpp.out_h_buffer)
-                  cpp.out_h_buffer.extend(' ')
-                  closed_operand.c_name_in(cpp.out_h_buffer)
-                  cpp.out_h_buffer.extend(';')
-               end
-               i := i + 1
-            end
-         end
-         if agent_result /= Void then
-            agent_result.canonical_type_mark.c_type_for_argument_in(cpp.out_h_buffer)
-            cpp.out_h_buffer.append(once " R;")
-         end
-         cpp.out_h_buffer.append(once "};%N")
-         cpp.write_out_h_buffer
-         if is_equal_used_in(agent_type) then
-            is_equal_c_define_type_for(type)
-         end
-      end
-
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local
@@ -932,7 +629,7 @@ feature {AGENT_CREATION}
          end
       end
 
-feature {AGENT_CREATION_VISITOR}
+feature {ANY}
    stored_closed_operand (type: TYPE; closed_operand: CLOSED_OPERAND): BOOLEAN is
          -- Is the `closed_operand' stored inside the agent memory.
       require
@@ -949,7 +646,16 @@ feature {AGENT_CREATION_VISITOR}
          end
       end
 
-feature {}
+   is_equal_used_in (agent_type: TYPE): BOOLEAN is
+         -- Because it is quite uncommon to use `is_equal' between two agents, this feature make it
+         -- easy to skip the corresponding runtime support.
+      require
+         agent_type.is_agent
+      do
+         Result := agent_type.live_type.collected(any_is_equal_fs)
+      end
+
+feature {C_LIVE_TYPE_COMPILER}
    set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
       local
          i: INTEGER
@@ -964,143 +670,6 @@ feature {}
                i := i - 1
             end
          end
-      end
-
-   is_equal_used_in (agent_type: TYPE): BOOLEAN is
-         -- Because it is quite uncommon to use `is_equal' between two agents, this feature make it
-         -- easy to skip the corresponding runtime support.
-      require
-         agent_type.is_agent
-      do
-         Result := agent_type.live_type.collected(any_is_equal_fs)
-      end
-
-   is_equal_mold_id_in (type: TYPE; buffer: STRING) is
-      local
-         i: INTEGER
-      do
-         buffer.append(once "agent_eq")
-         if closed_operand_list /= Void then
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               buffer.extend('_')
-               closed_operand_list.item(i).resolve_in(type).id.append_in(buffer)
-               i := i + 1
-            end
-         end
-         buffer.extend('_')
-         original_function_call.feature_name.mapping_c_in(buffer)
-      end
-
-   is_equal_c_define_type_for (type: TYPE) is
-         -- An alias type just to allow simple type casts.
-      local
-         i: INTEGER; expression: EXPRESSION; is_equal_mold_id: STRING
-      do
-         is_equal_mold_id := "... once unique buffer ..."
-         is_equal_mold_id.clear_count
-         is_equal_mold_id_in(type, is_equal_mold_id)
-         if not is_equal_type_generated.has(is_equal_mold_id) then
-            is_equal_type_generated.add(is_equal_mold_id.twin)
-            cpp.out_h_buffer.copy(once "typedef struct _se_")
-            cpp.out_h_buffer.append(is_equal_mold_id)
-            cpp.out_h_buffer.append(once " se_")
-            cpp.out_h_buffer.append(is_equal_mold_id)
-            cpp.out_h_buffer.append(once ";%Nstruct _se_")
-            cpp.out_h_buffer.append(is_equal_mold_id)
-            cpp.out_h_buffer.append(once "{Tid id;%Nint creation_mold_id;%N")
-            cpp.out_h_buffer.append(once "void*afp;%N")
-            if not cpp.gc_handler.is_off then
-               cpp.out_h_buffer.append(once "void*gc_mark_agent_mold;%N")
-            end
-            cpp.out_h_buffer.append(once "void*eq;%N")
-            from
-               i := closed_operand_list.lower
-            until
-               i > closed_operand_list.upper
-            loop
-               expression := closed_operand_list.item(i)
-               if expression.is_void then
-                  cpp.out_h_buffer.append(once "T0*")
-               else
-                  expression.resolve_in(type).canonical_type_mark.c_type_for_result_in(cpp.out_h_buffer)
-               end
-               cpp.out_h_buffer.append(once " c")
-               i.append_in(cpp.out_h_buffer)
-               cpp.out_h_buffer.extend(';')
-               i := i + 1
-            end
-            cpp.out_h_buffer.append(once "};%N")
-            cpp.write_out_h_buffer
-         end
-      end
-
-   is_equal_c_define_function (type: TYPE) is
-      local
-         i: INTEGER; closed_operand: CLOSED_OPERAND; t: TYPE; is_equal_mold_id: STRING
-      do
-         is_equal_mold_id := "... once unique buffer ..."
-         is_equal_mold_id.clear_count
-         is_equal_mold_id_in(type, is_equal_mold_id)
-         if not is_equal_function_generated.has(is_equal_mold_id) then
-            is_equal_function_generated.add(is_equal_mold_id.twin)
-            cpp.prepare_c_function
-            cpp.pending_c_function_signature.append(once "/*agent is_equal*/int ")
-            cpp.pending_c_function_signature.append(is_equal_mold_id)
-            cpp.pending_c_function_signature.append(once "(se_agent*u1, se_agent*u2)")
-
-            cpp.pending_c_function_body.append(once "int R=1;%Nse_")
-            cpp.pending_c_function_body.append(is_equal_mold_id)
-            cpp.pending_c_function_body.append(once "*a1=(se_")
-            cpp.pending_c_function_body.append(is_equal_mold_id)
-            cpp.pending_c_function_body.append(once "*)u1;%Nse_")
-            cpp.pending_c_function_body.append(is_equal_mold_id)
-            cpp.pending_c_function_body.append(once "*a2=(se_")
-            cpp.pending_c_function_body.append(is_equal_mold_id)
-            cpp.pending_c_function_body.append(once "*)u2;%N")
-            if closed_operand_list /= Void then
-               from
-                  i := closed_operand_list.lower
-               until
-                  i > closed_operand_list.upper
-               loop
-                  closed_operand := closed_operand_list.item(i)
-                  t := closed_operand.resolve_in(type)
-                  cpp.pending_c_function_body.append(once "R&=")
-                  if t.is_user_expanded and then t.canonical_type_mark.need_c_struct then
-                     cpp.pending_c_function_body.append(once "se_cmpT")
-                     t.id.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "(&(a1->c")
-                     i.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "),&(a2->c")
-                     i.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "))")
-                  else
-                     cpp.pending_c_function_body.append(once "a1->c")
-                     i.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "==a2->c")
-                     i.append_in(cpp.pending_c_function_body)
-                  end
-                  cpp.pending_c_function_body.append(once ";%N")
-                  i := i + 1
-               end
-            end
-            cpp.pending_c_function_body.append(once "return R;%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
-   is_equal_function_generated: HASHED_SET[STRING] is
-      once
-         create Result.make
-      end
-
-   is_equal_type_generated: HASHED_SET[STRING] is
-      once
-         create Result.make
       end
 
 invariant

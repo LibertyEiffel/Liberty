@@ -485,13 +485,14 @@ feature {SMART_EIFFEL} -- Collect:
          has_been_collected
       end
 
-feature {}
+feature {ANY}
    insert_native_array_collector_flag: BOOLEAN is
          -- Is `Current' type under NATIVE_ARRAY_COLLECTOR special treatment?
       do
          Result := native_array_collector_memory = 1
       end
 
+feature {}
    native_array_collector_memory: INTEGER
          -- To cache `do_collect_native_array_collector' and `insert_native_array_collector_flag' work.
 
@@ -775,7 +776,7 @@ feature {ANY}
          end
       end
 
-feature {GC_HANDLER, TYPE_MARK, TUPLE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, CODE_PRINTER, ASSIGNMENT_HANDLER, NATIVE, BUILT_IN_EQ_NEQ, INTROSPECTION_HANDLER, C_HEADER_PASS}
+feature {ANY}
    writable_attributes: ARRAY[RUN_FEATURE_2] is
          -- Computed and ordered array of writable attributes. Storage in C
          -- struct is to be done in reverse order (from `upper' to `lower').
@@ -870,7 +871,7 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME1}
          --be ignored? compilation mode?
       end
 
-feature {TYPE_MARK}
+feature {ANY}
    gc_mark_to_follow: BOOLEAN is
       local
          i: INTEGER; lt: like Current
@@ -1023,44 +1024,6 @@ feature {GC_HANDLER}
          end
       end
 
-   gc_define1 is
-      require
-         not cpp.gc_handler.is_off
-      do
-         if at_run_time then
-            canonical_type_mark.gc_define1
-         end
-      end
-
-   gc_define2 is
-      require
-         not cpp.gc_handler.is_off
-      do
-         if at_run_time then
-            canonical_type_mark.gc_define2
-         end
-      end
-
-   gc_info_in (str: STRING) is
-         -- Produce C code to print GC information.
-      require
-         not cpp.gc_handler.is_off
-         cpp.gc_handler.info_flag
-      do
-         if at_run_time then
-            canonical_type_mark.gc_info_in(str)
-         end
-      end
-
-   just_before_gc_mark_in (body: STRING) is
-      require
-         not cpp.gc_handler.is_off
-      do
-         if at_run_time then
-            canonical_type_mark.just_before_gc_mark_in(body)
-         end
-      end
-
 feature {TYPE_MARK}
    weak_ref_attributes: FAST_ARRAY[RUN_FEATURE_2] is
          -- Attributes of type WEAK_REFERENCE[...].
@@ -1104,132 +1067,6 @@ feature {TYPE_MARK}
                end
             end
          end
-      end
-
-   gc_mark_fixed_size (is_unmarked: BOOLEAN) is
-         -- The main purpose is to compute for example the best body for the corresponding
-         -- gc_markXXX function (as well as gc_align_markXXX). In fact, this feature can
-         -- be called to produce C code when C variable `o' is not NULL and when `o' is of
-         -- some concrete type (Tid*) where `id' is the one of the current LIVE_TYPE.
-         -- Finally, when `is_unmarked' is True, object `o' is unmarked.
-      require
-         cpp.pending_c_function
-         not cpp.gc_handler.is_off
-         not canonical_type_mark.is_native_array
-         at_run_time
-      local
-         rf2: RUN_FEATURE_2; t: TYPE; lvtp: LIVE_TYPE; i: INTEGER
-      do
-         if as_weak_reference = class_text_name.to_string then
-            gc_set_fsoh_marked
-         else
-            wa_buf.clear_count
-            wa_cyclic_buf.clear_count
-            if writable_attributes /= Void then
-               from
-                  i := writable_attributes.upper
-               until
-                  i < writable_attributes.lower
-               loop
-                  rf2 := writable_attributes.item(i)
-                  t := rf2.result_type.type
-                  if t.need_gc_mark_function then
-                     lvtp := t.live_type
-                     wa_cycle.clear_count
-                     wa_cycle.add_last(rf2)
-                     if lvtp = Current then
-                        wa_cyclic_buf.add_last(rf2)
-                     else
-                        wa_buf.add_last(rf2)
-                     end
-                  end
-                  i := i - 1
-               end
-            end
-            if wa_buf.is_empty and then wa_cyclic_buf.is_empty then
-               gc_set_fsoh_marked
-            else
-               if wa_cyclic_buf.upper >= 0 then
-                  cpp.pending_c_function_body.append(once "begin:%N")
-               end
-               if not is_unmarked then
-                  cpp.pending_c_function_body.append(once "if(((gc")
-                  id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "*)o)->header.flag==FSOH_UNMARKED){%N")
-               end
-               gc_set_fsoh_marked
-               from
-                  -- Ordinary attributes :
-                  i := wa_buf.upper
-               until
-                  i < 0
-               loop
-                  rf2 := wa_buf.item(i)
-                  mark_attribute(rf2)
-                  i := i - 1
-               end
-               from
-                  -- Cyclic attributes :
-                  i := wa_cyclic_buf.upper
-               until
-                  i < 0
-               loop
-                  rf2 := wa_cyclic_buf.item(i)
-                  t := rf2.result_type.type
-                  lvtp := t.live_type
-                  wa_cycle.clear_count
-                  wa_cycle.add_last(rf2)
-                  if i = 0 and then wa_cycle.count = 1 and then lvtp.run_time_set.count = 1 and then lvtp.run_time_set.item(1) = Current then
-                     cpp.pending_c_function_body.append(once "o=(void*)o->_")
-                     cpp.pending_c_function_body.append(rf2.name.to_string)
-                     cpp.pending_c_function_body.append(once ";%Nif((o!=NULL)")
-                     if is_unmarked then
-                        cpp.pending_c_function_body.append(once "&&(((gc")
-                        id.append_in(cpp.pending_c_function_body)
-                        cpp.pending_c_function_body.append(once "*)o)->header.flag==FSOH_UNMARKED))")
-                     else
-                        cpp.pending_c_function_body.extend(')')
-                     end
-                     cpp.pending_c_function_body.append(once "goto begin;%N")
-                  else
-                     mark_attribute(rf2)
-                  end
-                  i := i - 1
-               end
-               if not is_unmarked then
-                  cpp.pending_c_function_body.append(once "}%N")
-               end
-            end
-         end
-      end
-
-feature {TYPE_MARK}
-   gc_align_mark_fixed_size is
-         -- Compute the best body for gc_align_markXXX of a fixed_size object.
-      require
-         cpp.pending_c_function
-         not cpp.gc_handler.is_off
-         not canonical_type_mark.is_native_array
-         at_run_time
-      do
-         cpp.pending_c_function_body.append(once "gc")
-         id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*b=((gc")
-         id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*)(&(c->first_object)));%N%
-            %if((c->header.state_type==FSO_STORE_CHUNK)%
-            %&&(((char*)p)>=((char*)store")
-         id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once ")))return;%N%
-            %if(((char*)p)>((char*)(b+(c->count_minus_one))))return;%N%
-            %if(((char*)p)<((char*)b))return;%N%
-            %if(((((char*)p)-((char*)b))%%sizeof(*p))==0){%N%
-            %if(p->header.flag==FSOH_UNMARKED){%N%
-            %T")
-         id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "*o=(&(p->object));%N")
-         gc_mark_fixed_size(True)
-         cpp.pending_c_function_body.append(once "}%N}%N")
       end
 
 feature {SMART_EIFFEL}
@@ -1948,17 +1785,6 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
 feature {}
    structure_signature_memory: STRING
 
-feature {ANY}
-   wa_buf: FAST_ARRAY[RUN_FEATURE_2] is
-      once
-         create Result.with_capacity(24)
-      end
-
-   wa_cyclic_buf: FAST_ARRAY[RUN_FEATURE_2] is
-      once
-         create Result.with_capacity(24)
-      end
-
 feature {LIVE_TYPE, EXTERNAL_FUNCTION}
    collect_deep_twin is
       local
@@ -2046,14 +1872,6 @@ feature {}
    must_collect_status: INTEGER_8 is 1
 
    already_collected_status: INTEGER_8 is 2
-
-feature {LIVE_TYPE}
-   is_wa_cycle (origin: like Current): BOOLEAN is
-      do
-         if Current = origin then
-            Result := True
-         end
-      end
 
 feature {ANY} -- Some useful JVM opcode:
    opcode_checkcast_1 is
@@ -2156,63 +1974,6 @@ feature {}
    default_create_run_feature_memory: like default_create_run_feature
          -- To cache `default_create_run_feature' computation.
 
-   mark_attribute (rf2: RUN_FEATURE_2) is
-      require
-         cpp.pending_c_function
-      local
-         attribute_type: LIVE_TYPE; field_name: STRING
-      do
-         attribute_type := rf2.result_type.type.live_type
-         if attribute_type = Void then
-            -- Access to the attribute actually exist, but this is always Void because no creation
-            -- exists for the corresponding type.
-            -- Yes, this is possible `simplify', but this test can stay there.
-         else
-            field_name := once "............ unique local buffer ..................."
-            field_name.copy(once "o->_")
-            field_name.append(rf2.name.to_string)
-            cpp.recompilation_comment(Current)
-            if insert_native_array_collector_flag and then attribute_type.is_native_array then
-               cpp.pending_c_function_body.append(once "{%NT")
-               attribute_type.id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once " na=")
-               cpp.pending_c_function_body.append(field_name)
-               cpp.pending_c_function_body.append(once "[
-                  ;
-                  if(gc_find_chunk(na)!=NULL){/* non external NA */
-                     rsoh*h=((rsoh*)na)-1;
-                     if((h->header.magic_flag)==RSOH_UNMARKED){
-                        h->header.magic_flag=RSOH_MARKED;
-
-                  ]")
-               cpp.pending_c_function_body.append(once "r")
-               id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "mark_native_arrays(")
-               if not ace.boost then
-                  -- Hope there is no bug in `mark_native_arrays'...
-                  cpp.pending_c_function_body.append(once "NULL,")
-               end
-               if ace.profile then
-                  cpp.pending_c_function_body.append(once "NULL,")
-               end
-               cpp.pending_c_function_body.append(once "o);%N}%N}%N}")
-            else
-               cpp.gc_handler.mark_for(field_name, attribute_type, False)
-            end
-         end
-      end
-
-   gc_set_fsoh_marked is
-      require
-         cpp.pending_c_function
-      do
-         if canonical_type_mark.is_reference then
-            cpp.pending_c_function_body.append(once "((gc")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)o)->header.flag=FSOH_MARKED;%N")
-         end
-      end
-
    need_gc_mark: BOOLEAN is
       require
          at_run_time
@@ -2231,11 +1992,6 @@ feature {}
                i := i - 1
             end
          end
-      end
-
-   wa_cycle: FAST_ARRAY[RUN_FEATURE_2] is
-      once
-         create Result.with_capacity(24)
       end
 
    tmp_string: STRING is

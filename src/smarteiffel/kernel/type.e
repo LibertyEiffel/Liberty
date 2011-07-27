@@ -899,8 +899,9 @@ feature {INTROSPECTION_HANDLER}
          fs: FEATURE_STAMP
          af: ANONYMOUS_FEATURE
       do
-         if writable_attributes_memory = Void then
-            create writable_attributes_memory.with_capacity(4, 1)
+         Result := writable_attributes_memory
+         if Result = Void then
+            create Result.with_capacity(4, 1)
             from
                i := feature_stamps.lower
             until
@@ -909,18 +910,18 @@ feature {INTROSPECTION_HANDLER}
                fs := feature_stamps.item(i)
                af := fs.anonymous_feature(Current)
                if {WRITABLE_ATTRIBUTE} ?:= af then
-                  writable_attributes_memory.add_last(fs)
+                  Result.add_last(fs)
                end
                i := i + 1
             end
+            writable_attributes_memory := Result
          end
-         Result := writable_attributes_memory
       end
 
 feature {}
    writable_attributes_memory: ARRAY[FEATURE_STAMP]
 
-feature {AGENT_ARGS, AGENT_CREATION, AGENT_LAUNCHER, AGENT_POOL, AGENT_TYPE_MARK, OPEN_OPERAND, TYPE_VISITOR, TYPE}
+feature {ANY}
    open_arguments: ARRAY[TYPE] is
          -- (The `Result' can be Void when open arguments is the empty TUPLE.)
       require

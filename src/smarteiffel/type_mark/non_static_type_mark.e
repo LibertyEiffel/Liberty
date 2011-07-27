@@ -240,27 +240,6 @@ feature {LIVE_TYPE, TYPE_MARK}
          end
       end
 
-   frozen gc_info_in (str: STRING) is
-      do
-         check
-            False
-         end
-      end
-
-   frozen gc_define1 is
-      do
-         check
-            False
-         end
-      end
-
-   frozen gc_define2 is
-      do
-         check
-            False
-         end
-      end
-
 end -- class NON_STATIC_TYPE_MARK
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

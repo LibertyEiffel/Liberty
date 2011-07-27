@@ -69,7 +69,7 @@ feature {}
       do
          cpp.set_live_type(live_type)
          cpp.split_c_file_now(live_type.live_features.count)
-         agent_pool.c_define_agent_creation_for(live_type.type)
+         define_agent_creation_for(live_type.type)
          if live_type.create_function_list /= Void then
             if live_type.create_function_list.is_empty then
                create_function_define(live_type, Void)
@@ -110,6 +110,456 @@ feature {}
             define_check_class_invariant_c_function(live_type)
          end
          live_type.type.address_of_c_define
+      end
+
+   define_agent_creation_for (type: TYPE) is
+      local
+         agent_creation_list: FAST_ARRAY[AGENT_CREATION]; i: INTEGER
+         agent_creation: AGENT_CREATION; buffer, mold_id: STRING
+      do
+         buffer := once "............................."
+         agent_creation_list := agent_pool.creation_collected_memory.reference_at(type)
+         if agent_creation_list /= Void then
+            from
+               i := agent_creation_list.lower
+            until
+               i > agent_creation_list.upper
+            loop
+               agent_creation := agent_creation_list.item(i)
+               buffer.clear_count
+               agent_creation.mold_id_in(type, buffer)
+               mold_id := buffer.twin
+               cpp.defined_agent_creation.add_last(mold_id)
+               define_agent_creation_function(agent_creation, type, mold_id, cpp.defined_agent_creation.upper)
+               i := i + 1
+            end
+         end
+      end
+
+   define_agent_creation_function (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
+      local
+         boost: BOOLEAN; agent_type, agent_result, t: TYPE; tm: TYPE_MARK;   i: INTEGER
+         expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
+      do
+         boost := ace.boost
+         agent_type := define_agent_creation_type(agent_creation, type, boost, mold_id, integer_mold_id)
+         agent_result := agent_type.agent_result
+
+         -- The agent launcher function:
+         cpp.prepare_c_function
+         function_signature.append(once "%N/*agent launcher*/")
+         if agent_result /= Void then
+            agent_result.canonical_type_mark.c_type_for_result_in(function_signature)
+         else
+            function_signature.append(once "void")
+         end
+         function_signature.append(once " _")
+         function_signature.append(mold_id)
+         function_signature.extend('(')
+         if not boost then
+            function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         function_signature.append(once "se_")
+         function_signature.append(mold_id)
+         function_signature.append(once "*u")
+         if agent_creation.open_operand_list /= Void then
+            from
+               i := agent_creation.open_operand_list.lower
+            until
+               i > agent_creation.open_operand_list.upper
+            loop
+               open_operand := agent_creation.open_operand_list.item(i)
+               function_signature.extend(',')
+               tm := open_operand.resolve_in(type).canonical_type_mark
+               tm.c_type_for_result_in(function_signature)
+               function_signature.extend(' ')
+               open_operand_name_in(open_operand, function_signature)
+               i := i + 1
+            end
+         end
+         function_signature.extend(')')
+         if agent_creation.closed_operand_list /= Void then
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               closed_operand := agent_creation.closed_operand_list.item(i)
+               if agent_creation.stored_closed_operand(type, closed_operand) then
+                  tm := closed_operand.resolve_in(type).canonical_type_mark
+                  tm.c_type_for_result_in(function_body)
+                  function_body.extend(' ')
+                  closed_operand_name_in(closed_operand, function_body)
+                  function_body.append(once "=(u->")
+                  closed_operand_name_in(closed_operand, function_body)
+                  function_body.append(once ");%N")
+               end
+               i := i + 1
+            end
+         end
+         if not boost then
+            function_body.append(
+               once "static se_frame_descriptor fd={%"Agent launcher%",0,0,%"%",1};%N")
+         end
+         if ace.profile then
+            cpp.local_profile
+         end
+         if not boost then
+            function_body.append(once "[
+               se_dump_stack ds;
+               ds.fd=&fd;
+               ds.current=NULL;
+               ds.p=(caller->p);
+               ds.caller=caller;
+               ds.exception_origin=NULL;
+               ds.locals=NULL;
+
+               ]")
+         end
+         -- Calling the actual one:
+         if ace.profile then
+            cpp.start_profile_agent_creation(agent_creation)
+         end
+         agent_creation.set_inside_agent_launcher_flag(True)
+         if agent_result /= Void then
+            expression ::= agent_creation.code
+            cpp.compound_expression_compiler.compile(once "u->R=", expression, once ";%N", type)
+         elseif agent_creation.code /= Void then
+            cpp.code_compiler.compile(agent_creation.code, type)
+         end
+         agent_creation.set_inside_agent_launcher_flag(False)
+         if ace.profile then
+            cpp.stop_profile
+         end
+         if agent_result /= Void then
+            function_body.append(once "return u->R;%N")
+         end
+         cpp.dump_pending_c_function(False)
+
+         -- The agent creation function:
+         cpp.prepare_c_function
+         function_signature.append(once "/*agent creation*/T0*")
+         function_signature.append(mold_id)
+         function_signature.extend('(')
+         if not boost then
+            function_signature.append(once "se_dump_stack*caller")
+         end
+         if agent_creation.closed_operand_list /= Void then
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               closed_operand := agent_creation.closed_operand_list.item(i)
+               if agent_creation.stored_closed_operand(type, closed_operand) then
+                  if function_signature.last /= '(' then
+                     function_signature.extend(',')
+                  end
+                  tm := closed_operand.resolve_in(type).canonical_type_mark
+                  tm.c_type_for_result_in(function_signature)
+                  function_signature.extend(' ')
+                  closed_operand_name_in(closed_operand, function_signature)
+               end
+               i := i + 1
+            end
+         end
+         if function_signature.last = '(' then
+            function_signature.append(once "void")
+         end
+         function_signature.extend(')')
+         function_body.append(once "se_")
+         function_body.append(mold_id)
+         function_body.append(once "*u=(void*)new_agent(")
+         agent_type.id.append_in(function_body)
+         function_body.append(once ");%Nu->creation_mold_id=")
+         integer_mold_id.append_in(function_body)
+         function_body.append(once ";%Nu->afp=_")
+         function_body.append(mold_id)
+         function_body.append(once ";%N")
+         if agent_creation.is_equal_used_in(agent_type) then
+            function_body.append(once "u->eq=")
+            is_equal_mold_id_in(agent_creation, type, function_body)
+            function_body.append(once ";%N")
+         end
+         if not cpp.gc_handler.is_off then
+            function_body.append(once "u->gc_mark_agent_mold=gc_mark_")
+            function_body.append(mold_id)
+            function_body.append(once ";%N")
+         end
+         if agent_creation.closed_operand_list /= Void then
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               closed_operand := agent_creation.closed_operand_list.item(i)
+               if agent_creation.stored_closed_operand(type, closed_operand) then
+                  function_body.append(once "u->")
+                  closed_operand_name_in(closed_operand, function_body)
+                  function_body.extend('=')
+                  closed_operand_name_in(closed_operand, function_body)
+                  function_body.append(once ";%N")
+               end
+               i := i + 1
+            end
+         end
+         function_body.append(once "return((T0*)u);%N")
+         cpp.dump_pending_c_function(True)
+
+         -- The gc_mark_MOLD_ID function:
+         if not cpp.gc_handler.is_off then
+            cpp.prepare_c_function
+            function_signature.append(once "void gc_mark_")
+            function_signature.append(mold_id)
+            function_signature.append(once "(se_")
+            function_signature.append(mold_id)
+            function_signature.append(once "*u)")
+
+            function_body.append(once "gc_agent*gcu=(gc_agent*)u;%N%
+                                      %if (gcu->header.flag==FSOH_UNMARKED){%N%
+                                      %gcu->header.flag=FSOH_MARKED;%N")
+
+            if agent_creation.closed_operand_list /= Void then
+               from
+                  i := agent_creation.closed_operand_list.lower
+               until
+                  i > agent_creation.closed_operand_list.upper
+               loop
+                  closed_operand := agent_creation.closed_operand_list.item(i)
+                  if agent_creation.stored_closed_operand(type, closed_operand) then
+                     t := closed_operand.resolve_in(type)
+                     if t.is_reference then
+                        function_body.append(once "gc_mark(u->")
+                        closed_operand_name_in(closed_operand, function_body)
+                        function_body.append(once ");%N")
+                     elseif t.need_gc_mark_function then
+                        cpp.gc_handler.mark_in(t.canonical_type_mark, function_body)
+                        function_body.append(once "(&(u->")
+                        closed_operand_name_in(closed_operand, function_body)
+                        function_body.append(once "));%N")
+                     end
+                  end
+                  i := i + 1
+               end
+            end
+            function_body.append(once "}%N")
+            cpp.dump_pending_c_function(True)
+         end
+         if agent_creation.is_equal_used_in(agent_type) then
+            -- The is_equal function:
+            is_equal_agent_creation_define_function(agent_creation, type)
+         end
+      end
+
+   is_equal_agent_creation_function_generated: HASHED_SET[STRING] is
+      once
+         create Result.make
+      end
+
+   is_equal_agent_creation_define_function (agent_creation: AGENT_CREATION; type: TYPE) is
+      local
+         i: INTEGER; closed_operand: CLOSED_OPERAND; t: TYPE; is_equal_mold_id: STRING
+      do
+         is_equal_mold_id := "... once unique buffer ..."
+         is_equal_mold_id.clear_count
+         is_equal_mold_id_in(agent_creation, type, is_equal_mold_id)
+         if not is_equal_agent_creation_function_generated.has(is_equal_mold_id) then
+            is_equal_agent_creation_function_generated.add(is_equal_mold_id.twin)
+            cpp.prepare_c_function
+            function_signature.append(once "/*agent is_equal*/int ")
+            function_signature.append(is_equal_mold_id)
+            function_signature.append(once "(se_agent*u1, se_agent*u2)")
+
+            function_body.append(once "int R=1;%Nse_")
+            function_body.append(is_equal_mold_id)
+            function_body.append(once "*a1=(se_")
+            function_body.append(is_equal_mold_id)
+            function_body.append(once "*)u1;%Nse_")
+            function_body.append(is_equal_mold_id)
+            function_body.append(once "*a2=(se_")
+            function_body.append(is_equal_mold_id)
+            function_body.append(once "*)u2;%N")
+            if agent_creation.closed_operand_list /= Void then
+               from
+                  i := agent_creation.closed_operand_list.lower
+               until
+                  i > agent_creation.closed_operand_list.upper
+               loop
+                  closed_operand := agent_creation.closed_operand_list.item(i)
+                  t := closed_operand.resolve_in(type)
+                  function_body.append(once "R&=")
+                  if t.is_user_expanded and then t.canonical_type_mark.need_c_struct then
+                     function_body.append(once "se_cmpT")
+                     t.id.append_in(function_body)
+                     function_body.append(once "(&(a1->c")
+                     i.append_in(function_body)
+                     function_body.append(once "),&(a2->c")
+                     i.append_in(function_body)
+                     function_body.append(once "))")
+                  else
+                     function_body.append(once "a1->c")
+                     i.append_in(function_body)
+                     function_body.append(once "==a2->c")
+                     i.append_in(function_body)
+                  end
+                  function_body.append(once ";%N")
+                  i := i + 1
+               end
+            end
+            function_body.append(once "return R;%N")
+            cpp.dump_pending_c_function(True)
+         end
+      end
+
+   define_agent_creation_type (agent_creation: AGENT_CREATION; type: TYPE; boost: BOOLEAN; mold_id: STRING; integer_mold_id: INTEGER): TYPE is
+         -- The Result is the `agent_type'.
+      require
+         boost = ace.boost
+         not cpp.pending_c_function
+      local
+         i: INTEGER; agent_type, agent_result: TYPE; closed_operand: CLOSED_OPERAND; tm: TYPE_MARK
+      do
+         agent_type := agent_creation.resolve_in(type)
+         Result := agent_type
+         out_h.copy(once "typedef struct _se_")
+         out_h.append(mold_id)
+         out_h.append(once " se_")
+         out_h.append(mold_id)
+         out_h.append(once ";%Nstruct _se_")
+         out_h.append(mold_id)
+         out_h.append(once "{Tid id;%Nint creation_mold_id;%N")
+         agent_result := agent_type.agent_result
+         if agent_result = Void then
+            out_h.append(once "void")
+         else
+            agent_result.canonical_type_mark.c_type_for_result_in(out_h)
+         end
+         out_h.append(once "(*afp)(")
+         if not boost then
+            out_h.append(once "se_dump_stack*,")
+         end
+         if ace.profile then
+            out_h.append(once "se_local_profile_t*,")
+         end
+         out_h.append(once "se_")
+         out_h.append(mold_id)
+         out_h.extend('*')
+         if agent_creation.open_operand_list /= Void then
+            from
+               i := agent_creation.open_operand_list.lower
+            until
+               i > agent_creation.open_operand_list.upper
+            loop
+               out_h.extend(',')
+               tm := agent_creation.open_operand_list.item(i).resolve_in(type).canonical_type_mark
+               tm.c_type_for_result_in(out_h)
+               i := i + 1
+            end
+         end
+         out_h.append(once ");%N")
+         if not cpp.gc_handler.is_off then
+            out_h.append(once "void(*gc_mark_agent_mold)(se_")
+            out_h.append(mold_id)
+            out_h.append(once "*);%N")
+         end
+         out_h.append(once "int (*eq)(se_agent*,se_agent*);%N")
+         if agent_creation.closed_operand_list /= Void then
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               closed_operand := agent_creation.closed_operand_list.item(i)
+               if agent_creation.stored_closed_operand(type, closed_operand) then
+                  tm := closed_operand.resolve_in(type).canonical_type_mark
+                  tm.c_type_for_result_in(out_h)
+                  out_h.extend(' ')
+                  closed_operand_name_in(closed_operand, out_h)
+                  out_h.extend(';')
+               end
+               i := i + 1
+            end
+         end
+         if agent_result /= Void then
+            agent_result.canonical_type_mark.c_type_for_argument_in(out_h)
+            out_h.append(once " R;")
+         end
+         out_h.append(once "};%N")
+         cpp.write_out_h_buffer
+         if agent_creation.is_equal_used_in(agent_type) then
+            is_equal_agent_creation_define_type_for(agent_creation, type)
+         end
+      end
+
+   is_equal_agent_creation_type_generated: HASHED_SET[STRING] is
+      once
+         create Result.make
+      end
+
+   is_equal_agent_creation_define_type_for (agent_creation: AGENT_CREATION; type: TYPE) is
+         -- An alias type just to allow simple type casts.
+      local
+         i: INTEGER; expression: EXPRESSION; is_equal_mold_id: STRING
+      do
+         is_equal_mold_id := "... once unique buffer ..."
+         is_equal_mold_id.clear_count
+         is_equal_mold_id_in(agent_creation, type, is_equal_mold_id)
+         if not is_equal_agent_creation_type_generated.has(is_equal_mold_id) then
+            is_equal_agent_creation_type_generated.add(is_equal_mold_id.twin)
+            out_h.copy(once "typedef struct _se_")
+            out_h.append(is_equal_mold_id)
+            out_h.append(once " se_")
+            out_h.append(is_equal_mold_id)
+            out_h.append(once ";%Nstruct _se_")
+            out_h.append(is_equal_mold_id)
+            out_h.append(once "{Tid id;%Nint creation_mold_id;%N")
+            out_h.append(once "void*afp;%N")
+            if not cpp.gc_handler.is_off then
+               out_h.append(once "void*gc_mark_agent_mold;%N")
+            end
+            out_h.append(once "void*eq;%N")
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               expression := agent_creation.closed_operand_list.item(i)
+               if expression.is_void then
+                  out_h.append(once "T0*")
+               else
+                  expression.resolve_in(type).canonical_type_mark.c_type_for_result_in(out_h)
+               end
+               out_h.append(once " c")
+               i.append_in(out_h)
+               out_h.extend(';')
+               i := i + 1
+            end
+            out_h.append(once "};%N")
+            cpp.write_out_h_buffer
+         end
+      end
+
+   is_equal_mold_id_in (agent_creation: AGENT_CREATION; type: TYPE; buffer: STRING) is
+      local
+         i: INTEGER
+      do
+         buffer.append(once "agent_eq")
+         if agent_creation.closed_operand_list /= Void then
+            from
+               i := agent_creation.closed_operand_list.lower
+            until
+               i > agent_creation.closed_operand_list.upper
+            loop
+               buffer.extend('_')
+               agent_creation.closed_operand_list.item(i).resolve_in(type).id.append_in(buffer)
+               i := i + 1
+            end
+         end
+         buffer.extend('_')
+         agent_creation.original_function_call.feature_name.mapping_c_in(buffer)
       end
 
    create_function_define (live_type: LIVE_TYPE; fs: FEATURE_STAMP) is
@@ -793,7 +1243,7 @@ feature {}
    define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
       require
          live_type.at_run_time
-         not is_always_true(live_type.type)
+         not live_type.class_invariant.is_always_true(live_type.type)
          smart_eiffel.is_ready
       local
          inv: ASSERTION_LIST; id: INTEGER; profile: BOOLEAN; type: TYPE
@@ -828,7 +1278,7 @@ feature {}
             cpp.local_profile
          end
          function_body.append(once "ds.fd=&se_ifd")
-         id.append_in(cpp.pending_c_function_body)
+         id.append_in(function_body)
          function_body.append(once ";%Nds.current=((void*)&C);%N")
          cpp.put_position_in_ds(inv.start_position)
          function_body.append(once "ds.caller=caller;%Nds.exception_origin=NULL;%Nds.locals=NULL;%Nset_dump_stack_top(&ds);/*link*/%N")
