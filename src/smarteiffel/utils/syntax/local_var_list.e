@@ -172,40 +172,6 @@ feature {DECLARATION}
          n1.set_rank(i)
       end
 
-feature {C_LIVE_TYPE_COMPILER}
-   c_frame_descriptor (type: TYPE; format, locals: STRING) is
-      require
-         ace.no_check
-      local
-         i, c: INTEGER; n: LOCAL_NAME1; to_string: STRING; static_type: TYPE
-      do
-         from
-            i := 1
-            c := count
-         until
-            i > c
-         loop
-            n := name(i)
-            if n.must_be_c_generated(type) then
-               to_string := n.to_string
-               format.append(to_string)
-               locals.append(once "(void**)&_")
-               locals.append(to_string)
-               locals.extend(',')
-               static_type := type_mark(i).resolve_in(type)
-               if static_type.live_type /= Void then
-                  static_type.canonical_type_mark.c_frame_descriptor_in(format)
-               else
-                  check
-                     static_type.is_reference
-                  end
-                  format.append(once "R0%%")
-               end
-            end
-            i := i + 1
-         end
-      end
-
 feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
    c_declare (type: TYPE; volatile_flag: BOOLEAN) is
          -- Generate the C code for the declaration part. The `volatile_flag' indicate that an extra
