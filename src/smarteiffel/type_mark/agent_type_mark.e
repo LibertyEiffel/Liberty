@@ -95,8 +95,6 @@ feature {ANY}
 
    is_empty_expanded: BOOLEAN is False
 
-   need_c_struct: BOOLEAN is False
-
    id: INTEGER is
       do
          Result := type.live_type.id

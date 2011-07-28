@@ -16,7 +16,7 @@ insert
 feature {ANY}
    is_expanded: BOOLEAN is True
 
-   is_reference, is_empty_expanded, is_user_expanded, need_c_struct: BOOLEAN is False
+   is_reference, is_empty_expanded, is_user_expanded: BOOLEAN is False
 
    class_text_name: CLASS_NAME
 

@@ -260,7 +260,7 @@ feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
                -- Even when there is no default creation procedure to apply, we must call the class invariant:
                class_invariant_flag := cpp.class_invariant_call_opening(local_type, False)
                if class_invariant_flag > 0 then
-                  if local_type.canonical_type_mark.need_c_struct then
+                  if cpp.need_struct.for(local_type.canonical_type_mark) then
                      cpp.pending_c_function_body.extend('&')
                   end
                   cpp.pending_c_function_body.extend('_')

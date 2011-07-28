@@ -71,25 +71,25 @@ feature {EMPTY_TUPLE_TYPE_MARK}
 feature {LIKE_ARGUMENT_TYPE_MARK}
    visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
       do
-         c_crash
+         crash
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
    visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
       do
-         c_crash
+         crash
       end
 
 feature {LIKE_CURRENT_TYPE_MARK}
    visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
       do
-         c_crash
+         crash
       end
 
 feature {FORMAL_GENERIC_TYPE_MARK}
    visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
       do
-         c_crash
+         crash
       end
 
 feature {ANY_TYPE_MARK}

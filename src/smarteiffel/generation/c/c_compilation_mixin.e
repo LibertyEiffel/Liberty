@@ -69,14 +69,6 @@ feature {}
          rank_name_in(oo.rank, once "open_", buffer)
       end
 
-feature {} -- force low-level SEGV
-   c_crash is
-      do
-         print_run_time_stack
-         c_inline_h(once "typedef struct { void (*run)(); } c_crash_t;%Nstatic void do_crash(void) {%Nc_crash_t c_crash = {NULL};%Nc_crash.run();%N}%N")
-         c_inline_c(once "do_crash();%N")
-      end
-
 end -- class C_COMPILATION_MIXIN
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

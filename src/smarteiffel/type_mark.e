@@ -410,14 +410,6 @@ feature {ANY} -- Others:
          Result /= Void
       end
 
-   need_c_struct: BOOLEAN is
-         -- Is it necessary to define a C struct ?
-      require
-         smart_eiffel.is_ready
-         is_static
-      deferred
-      end
-
    c_initialize_in (buffer: STRING) is
          -- Append in `buffer' C code for initialisation of local variables or attributes (see also
          -- `c_initialize').

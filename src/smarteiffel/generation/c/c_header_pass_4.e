@@ -183,7 +183,7 @@ feature {STRING_TYPE_MARK}
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
-         if visited.is_reference and then visited.need_c_struct then
+         if visited.is_reference and then cpp.need_struct.for(visited) then
             standard_c_struct(visited)
          end
          standard_c_object_model(visited)
@@ -193,7 +193,7 @@ feature {CLASS_TYPE_MARK}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         if visited.need_c_struct then
+         if cpp.need_struct.for(visited) then
             standard_c_struct(visited)
          end
          standard_c_object_model(visited)
@@ -203,7 +203,7 @@ feature {ANY_TYPE_MARK}
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         if visited.need_c_struct then
+         if cpp.need_struct.for(visited) then
             standard_c_struct(visited)
          end
          standard_c_object_model(visited)
@@ -234,7 +234,7 @@ feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
          if visited.is_reference then
-            if visited.need_c_struct then
+            if cpp.need_struct.for(visited) then
                standard_c_struct(visited)
                standard_c_object_model(visited)
             end

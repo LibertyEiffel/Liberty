@@ -49,11 +49,6 @@ feature {ANY}
 
    count: INTEGER is 0
 
-   need_c_struct: BOOLEAN is
-      do
-         Result := not ace.boost
-      end
-
    c_initialize_in (buffer: STRING) is
       do
          buffer.append(once "(void*)0")

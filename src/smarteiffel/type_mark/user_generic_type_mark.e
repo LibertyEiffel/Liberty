@@ -162,18 +162,6 @@ feature {ANY}
          end
       end
 
-   need_c_struct: BOOLEAN is
-      do
-         if is_empty_expanded then
-         elseif is_expanded then
-            Result := True
-         elseif type.live_type.is_tagged then
-            Result := True
-         else
-            Result := type.live_type.writable_attributes /= Void
-         end
-      end
-
    accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR) is
       do
          visitor.visit_user_generic_type_mark(Current)

@@ -300,7 +300,7 @@ feature {}
          cpp.gc_handler.store_in(visited, function_body)
          function_body.append(once "++;%N}%N%
                                    %}%Nn->header.flag=FSOH_UNMARKED;%N")
-         if visited.need_c_struct then
+         if cpp.need_struct.for(visited) then
             function_body.append(once "n->object=M")
             ltid.append_in(function_body)
             function_body.append(once ";%N")

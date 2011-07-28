@@ -54,15 +54,6 @@ feature {ANY}
          Result := class_text.id
       end
 
-   need_c_struct: BOOLEAN is
-      do
-         if type.live_type.is_tagged then
-            Result := True
-         else
-            Result := type.live_type.writable_attributes /= Void
-         end
-      end
-
    c_initialize_in (str: STRING) is
       do
          str.append(once "(void*)0")

@@ -147,7 +147,7 @@ feature {AGENT_EXPRESSION}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         c_crash -- This one must never be called.
+         crash -- This one must never be called.
       end
 
 feature {ASSIGNMENT_TEST}
@@ -682,7 +682,7 @@ feature {LOCAL_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         c_crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
+         crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {E_FALSE}
@@ -961,7 +961,7 @@ feature {VOID_CALL}
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
-         c_crash -- Because we have already switched to the canonical form
+         crash -- Because we have already switched to the canonical form
       end
 
 feature {OPEN_OPERAND}

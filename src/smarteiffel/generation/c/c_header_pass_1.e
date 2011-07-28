@@ -38,7 +38,7 @@ feature {}
       do
          mem_id := type_mark.id
          out_h.clear_count
-         if type_mark.need_c_struct then
+         if cpp.need_struct.for(type_mark) then
             out_h.append(once "typedef struct S")
             mem_id.append_in(out_h)
             out_h.append(once " T")

@@ -212,7 +212,7 @@ feature {ANY}
          internal_c_local.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.extend('=')
          if is_off then
-            if created_live_type.canonical_type_mark.need_c_struct then
+            if cpp.need_struct.for(created_live_type.canonical_type_mark) then
                cpp.pending_c_function_body.append(once "((T0*)se_malloc(sizeof(T")
                created_live_type.id.append_in(cpp.pending_c_function_body)
                cpp.pending_c_function_body.append(once ")))")

@@ -181,19 +181,6 @@ feature {ANY}
          visitor.visit_class_type_mark(Current)
       end
 
-   need_c_struct: BOOLEAN is
-      do
-         if is_empty_expanded then
-         elseif type.has_external_type then
-         elseif is_expanded then
-            Result := True
-         elseif type.live_type.is_tagged then
-            Result := True
-         else
-            Result := type.live_type.writable_attributes /= Void
-         end
-      end
-
    start_position: POSITION is
       do
          Result := class_text_name.start_position

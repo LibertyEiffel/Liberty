@@ -391,7 +391,7 @@ feature {}
                   closed_operand := agent_creation.closed_operand_list.item(i)
                   t := closed_operand.resolve_in(type)
                   function_body.append(once "R&=")
-                  if t.is_user_expanded and then t.canonical_type_mark.need_c_struct then
+                  if t.is_user_expanded and then cpp.need_struct.for(t.canonical_type_mark) then
                      function_body.append(once "se_cmpT")
                      t.id.append_in(function_body)
                      function_body.append(once "(&(a1->c")
@@ -885,7 +885,7 @@ feature {}
                -- invariant:
                class_invariant_flag := cpp.class_invariant_call_opening(lt.type, True)
                if class_invariant_flag > 0 then
-                  if run_feature.result_type.need_c_struct then
+                  if cpp.need_struct.for(run_feature.result_type) then
                      function_body.extend('&')
                   end
                   if run_feature.is_once_function then

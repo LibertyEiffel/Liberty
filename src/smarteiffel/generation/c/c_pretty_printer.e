@@ -22,6 +22,7 @@ create {ANY}
    make
 
 feature {ANY}
+   -- Code generators
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
@@ -34,10 +35,12 @@ feature {ANY}
    compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
    gc_handler: GC_HANDLER
 
+   -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
+   need_struct: C_NEED_STRUCT
 
 feature {}
    make is
@@ -57,6 +60,7 @@ feature {}
          create result_type.make
          create argument_type.make
          create va_arg_type.make
+         create need_struct.make
       end
 
 feature {SMART_EIFFEL}

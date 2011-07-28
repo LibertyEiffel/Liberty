@@ -1,59 +1,60 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
-   --
-   -- Common behaviour for GC generation classes
-   --
+class C_NEED_STRUCT
+         -- Is it necessary to define a C struct ?
 
 inherit
    TYPE_MARK_VISITOR
-      undefine
-         is_equal
-      end
 
 insert
    C_COMPILATION_MIXIN
-      undefine
-         is_equal
-      end
-   SINGLETON
 
-feature {GC_HANDLER}
-   compile (type_mark: TYPE_MARK) is
+create {C_PRETTY_PRINTER}
+   make
+
+feature {ANY}
+   for (type_mark: TYPE_MARK): BOOLEAN is
       require
-         not cpp.gc_handler.is_off
-         type_mark.type.live_type.at_run_time
+         type_mark.is_static
       do
+         flag := False
          type_mark.accept(Current)
+         Result := flag
+      end
+
+feature {AGENT_TYPE_MARK}
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+      do
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
-         gc_reference(visited)
+         flag := True
+      end
+
+feature {NATIVE_ARRAY_TYPE_MARK}
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      do
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do
-         gc_reference(visited)
+         flag := True
       end
 
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
-         if visited.is_reference then
-            gc_reference(visited)
-         else
-            gc_expanded(visited)
-         end
+         set_flag_for(visited)
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         gc_reference(visited)
+         flag := not ace.boost
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
@@ -83,17 +84,13 @@ feature {FORMAL_GENERIC_TYPE_MARK}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         gc_reference(visited)
+         set_flag_for(visited)
       end
 
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
-         if visited.is_reference then
-            gc_reference(visited)
-         else
-            gc_expanded(visited)
-         end
+         set_flag_for(visited)
       end
 
 feature {BOOLEAN_TYPE_MARK}
@@ -129,7 +126,7 @@ feature {REAL_TYPE_MARK}
 feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
-         gc_reference(visited)
+         flag := True
       end
 
 feature {}
@@ -137,27 +134,24 @@ feature {}
       do
       end
 
-   gc_reference (visited: TYPE_MARK) is
-         -- For Fixed Size Objects.
-      require
-         visited.is_static
-         visited.is_reference
-         not cpp.gc_handler.is_off
-         visited.type.live_type.at_run_time
-      deferred
+   flag: BOOLEAN
+
+   set_flag_for (visited: TYPE_MARK) is
+      do
+         check
+            not flag
+         end
+         if visited.is_empty_expanded then
+         elseif visited.is_expanded then
+            flag := True
+         elseif visited.type.live_type.is_tagged then
+            flag := True
+         else
+            flag := visited.type.live_type.writable_attributes /= Void
+         end
       end
 
-   gc_expanded (visited: TYPE_MARK) is
-         -- For user's expanded with reference attribute to mark.
-      require
-         visited.is_static
-         visited.is_expanded
-         not cpp.gc_handler.is_off
-         visited.type.live_type.at_run_time
-      deferred
-      end
-
-end -- class C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
+end -- class C_TYPE_FOR_ARGUMENT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

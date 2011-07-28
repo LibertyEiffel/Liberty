@@ -24,7 +24,7 @@ creation {ANY}
 feature {ANY}
    id: INTEGER is 7
 
-   is_reference, need_c_struct: BOOLEAN is True
+   is_reference: BOOLEAN is True
 
    is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN is False
 

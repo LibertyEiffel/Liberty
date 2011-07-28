@@ -37,10 +37,6 @@ feature {ANY}
          Result := type.live_type.id
       end
 
-   need_c_struct: BOOLEAN is
-      do
-      end
-
    c_initialize_in (buffer: STRING) is
       do
          buffer.append(once "(void*)0")

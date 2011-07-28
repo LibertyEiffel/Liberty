@@ -40,7 +40,7 @@ feature {}
          -- expanded or reference as well).
       require
          type_mark.is_static
-         type_mark.need_c_struct
+         cpp.need_struct.for(type_mark)
       local
          wa: ARRAY[RUN_FEATURE_2]; i, mem_id: INTEGER; a: RUN_FEATURE_2; t: TYPE_MARK
       do

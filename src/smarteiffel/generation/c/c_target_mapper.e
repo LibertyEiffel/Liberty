@@ -101,7 +101,7 @@ feature {}
             compile_expression(target)
             function_body.extend(')')
          else
-            if actual_type.canonical_type_mark.need_c_struct or actual_type.has_external_type then
+            if actual_type.has_external_type or else cpp.need_struct.for(actual_type.canonical_type_mark) then
                function_body.extend('&')
             end
             compile_expression(target)
@@ -134,7 +134,7 @@ feature {AGENT_EXPRESSION}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         c_crash
+         crash
       end
 
 feature {ASSIGNMENT_TEST}
@@ -209,7 +209,7 @@ feature {EXPRESSION_WITH_COMMENT}
 feature {FAKE_ARGUMENT}
    visit_fake_argument (visited: FAKE_ARGUMENT) is
       do
-         c_crash
+         crash
       end
 
 feature {FAKE_TARGET}
@@ -221,7 +221,7 @@ feature {FAKE_TARGET}
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
-         c_crash
+         crash
       end
 
 feature {GENERATOR_GENERATING_TYPE}
@@ -245,13 +245,13 @@ feature {LOCAL_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         c_crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
+         crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
-         c_crash
+         crash
       end
 
 feature {MANIFEST_STRING}
@@ -368,7 +368,7 @@ feature {NON_VOID_NO_DISPATCH}
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
-         c_crash -- Because we have already switched to the canonical form.
+         crash -- Because we have already switched to the canonical form.
       end
 
 feature {OPEN_OPERAND}
@@ -392,7 +392,7 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
-         c_crash -- Cannot be syntactically in target position.
+         crash -- Cannot be syntactically in target position.
       end
 
 feature {}
@@ -408,7 +408,7 @@ feature {}
             function_body.append(once ")(")
             Precursor(visited)
             function_body.extend(')')
-         elseif target_formal_type.canonical_type_mark.need_c_struct or target_formal_type.has_external_type then
+         elseif target_formal_type.has_external_type or else cpp.need_struct.for(target_formal_type.canonical_type_mark) then
             if visited.extra_local_expanded(type) = Void then
                function_body.append(once "&(")
             else

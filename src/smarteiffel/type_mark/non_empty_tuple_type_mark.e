@@ -52,8 +52,6 @@ feature {ANY}
          visitor.visit_non_empty_tuple_type_mark(Current)
       end
 
-   need_c_struct: BOOLEAN is True
-
    c_initialize_in (buffer: STRING) is
       do
          buffer.append(once "(void*)0")

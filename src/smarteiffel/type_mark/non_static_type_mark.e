@@ -75,13 +75,6 @@ feature {ANY}
          end
       end
 
-   frozen need_c_struct: BOOLEAN is
-      do
-         check
-            False
-         end
-      end
-
    frozen c_initialize_in (buffer: STRING) is
       do
          check
