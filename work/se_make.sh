@@ -17,6 +17,7 @@ NOGC=false
 OPTIONS=''
 TOOL=compile_to_c
 BUILD=true
+GDB=false
 
 while [ $# -gt 0 ]; do
     case x"$1" in
@@ -62,6 +63,9 @@ while [ $# -gt 0 ]; do
             ;;
         x-no_build|x--no_build|x/no_build)
             BUILD=false
+            ;;
+        x-gdb|x--gdb|x/gdb)
+            GDB=true
             ;;
         x-version|x--version|x/version)
             if [ x$SMART_EIFFEL_SHORT_VERSION = x1 ]; then
@@ -118,8 +122,18 @@ if $BUILD; then
     fi
     cd new
     echo "Compiling $TOOL..."
-    echo $SE_BIN/se compile $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out
-    $SE_BIN/se compile $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out || exit 1
+    if $GDB; then
+        gdb --args $SE_BIN/compile_to_c $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out || exit 1
+        if [ -e $TOOL.make ]; then
+            while read cmd; do
+                echo "$cmd"
+                eval "$cmd" || exit 1
+            done < $TOOL.make
+        fi
+    else
+        echo $SE_BIN/se compile $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out
+        $SE_BIN/se compile $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out || exit 1
+    fi
 else
     test -d new || mkdir new
     cd new
