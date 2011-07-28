@@ -52,19 +52,19 @@ feature {}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         crash
+         c_crash
       end
 
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do
-         crash -- Not a fake argument
+         c_crash -- Not a fake argument
       end
 
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
-         crash
+         c_crash
       end
 
 feature {ARGUMENT_NAME2}
@@ -76,7 +76,7 @@ feature {ARGUMENT_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
+         c_crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {COMPOUND_EXPRESSION}
@@ -94,7 +94,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
-         crash -- Cannot be syntactically in arg position.
+         c_crash -- Cannot be syntactically in arg position.
       end
 
 end -- class C_ARG_MAPPER

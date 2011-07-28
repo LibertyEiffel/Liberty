@@ -263,11 +263,9 @@ feature {CECIL_FILE}
          arguments := af.arguments
          cpp.prepare_c_function
          if is_creation then
-            target_type_mark.c_type_for_external_in(cpp.pending_c_function_signature)
-         elseif result_type_mark /= Void then
-            result_type_mark.c_type_for_external_in(cpp.pending_c_function_signature)
+            cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type_mark))
          else
-            cpp.pending_c_function_signature.append(once "void")
+            cpp.pending_c_function_signature.append(cpp.result_type.for_external(result_type_mark))
          end
          cpp.pending_c_function_signature.extend(' ')
          cpp.pending_c_function_signature.append(c_name)
@@ -279,7 +277,7 @@ feature {CECIL_FILE}
                arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
             end
          else
-            target_type_mark.c_type_for_external_in(cpp.pending_c_function_signature)
+            cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type_mark))
             cpp.pending_c_function_signature.append(once " C")
             if arguments /= Void then
                cpp.pending_c_function_signature.extend(',')
@@ -289,9 +287,9 @@ feature {CECIL_FILE}
          cpp.pending_c_function_signature.extend(')')
          if result_type_mark /= Void or else is_creation then
             if is_creation then
-               target_type_mark.c_type_for_external_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(cpp.result_type.for_external(target_type_mark))
             else
-               result_type_mark.c_type_for_external_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(cpp.result_type.for_external(result_type_mark))
             end
             cpp.pending_c_function_body.append(once " R;%N")
          end

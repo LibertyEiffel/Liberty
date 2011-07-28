@@ -24,7 +24,7 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current is
       do
-         --|*** (PH 25/08/04) should be identical with 
+         --|*** (PH 25/08/04) should be identical with
          --|*** ARGUMENT_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
          usage_warning_check(type) --|*** (PH 29/05/04) should be done earlier
          Result := Current
@@ -37,7 +37,7 @@ feature {ANY}
 
 feature {LOCAL_VAR_LIST}
    must_be_c_generated (type: TYPE): BOOLEAN is
-         -- True if some C code must be generated for this local variable (i.e. this routine now 
+         -- True if some C code must be generated for this local variable (i.e. this routine now
          -- handle correctly user's expanded types with a side-effect default creation).
       local
          actual_type: TYPE
@@ -67,7 +67,7 @@ feature {LOCAL_VAR_LIST}
                   cpp.pending_c_function_body.append(once "volatile ")
                end
             end
-            static_tm.c_type_for_result_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.result_type.for(static_tm))
             cpp.pending_c_function_body.extend(' ')
             cpp.print_local(to_string)
             cpp.pending_c_function_body.extend('=')

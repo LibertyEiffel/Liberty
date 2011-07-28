@@ -1,83 +1,70 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_COMPILATION_MIXIN
+class C_TYPE_FOR_VA_ARG
 
-insert
-   GLOBALS
-
-feature {} -- cpp access helpers for a bit of prettiness
-   out_h: STRING is
-      do
-         Result := cpp.out_h_buffer
+inherit
+   C_TYPE_FOR_ARGUMENT
+      redefine
+         visit_boolean_type_mark,
+         visit_character_type_mark,
+         visit_integer_type_mark,
+         visit_natural_type_mark,
+         visit_real_type_mark
       end
 
-   flush_out_h is
+create {C_PRETTY_PRINTER}
+   make
+
+feature {BOOLEAN_TYPE_MARK}
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
       do
-         cpp.write_out_h_buffer
-         cpp.out_h_buffer.clear_count
+         buffer.append(once "int")
       end
 
-   out_c: STRING is
+feature {CHARACTER_TYPE_MARK}
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
       do
-         Result := cpp.out_c_buffer
+         buffer.append(once "int")
       end
 
-   function_signature: STRING is
+feature {INTEGER_TYPE_MARK}
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
       do
-         Result := cpp.pending_c_function_signature
-      end
-
-   function_body: STRING is
-      do
-         Result := cpp.pending_c_function_body
-      end
-
-feature {}
-   native_array_type_in (na: NATIVE_ARRAY_TYPE_MARK; str: STRING) is
-      local
-         et: TYPE_MARK
-      do
-         et := na.generic_list.first
-         if et.is_reference then
-            str.append(once "T0**")
-         else
-            str.extend('T')
-            et.type.live_type.id.append_in(str)
-            str.extend('*')
+         inspect
+            visited.bit_count
+         when 8, 16, 32 then
+            buffer.append(once "int")
+         when 64 then
+            buffer.append(once "T11")
          end
       end
 
-   rank_name_in (rank: INTEGER; tag, buffer: STRING) is
+feature {NATURAL_TYPE_MARK}
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
       do
-         buffer.append(tag)
-         if rank = -1 then
-            buffer.extend('C')
+         if visited.bit_count <= 32 then
+            buffer.append(once "uint32")
          else
-            buffer.extend('a')
-            rank.append_in(buffer)
+            buffer.append(once "uint")
+            visited.bit_count.append_in(buffer)
+            buffer.append(once "_t")
          end
       end
 
-   closed_operand_name_in (co: CLOSED_OPERAND; buffer: STRING) is
+feature {REAL_TYPE_MARK}
+   visit_real_type_mark (visited: REAL_TYPE_MARK) is
       do
-         rank_name_in(co.rank, once "closed_", buffer)
+         inspect
+            visited.bit_count
+         when 32, 64 then
+            buffer.append(once "double")
+         else
+            buffer.append(once "T12")
+         end
       end
 
-   open_operand_name_in (oo: OPEN_OPERAND; buffer: STRING) is
-      do
-         rank_name_in(oo.rank, once "open_", buffer)
-      end
-
-feature {} -- force low-level SEGV
-   c_crash is
-      do
-         print_run_time_stack
-         c_inline_h(once "typedef struct { void (*run)(); } c_crash_t;%Nstatic void do_crash(void) {%Nc_crash_t c_crash = {NULL};%Nc_crash.run();%N}%N")
-         c_inline_c(once "do_crash();%N")
-      end
-
-end -- class C_COMPILATION_MIXIN
+end -- class C_TYPE_FOR_VA_ARG
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

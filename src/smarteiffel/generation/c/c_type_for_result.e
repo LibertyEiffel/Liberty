@@ -1,60 +1,27 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_LIVE_TYPE_MIXIN
+class C_TYPE_FOR_RESULT
 
-insert
-   C_COMPILATION_MIXIN
-      undefine
-         is_equal
-      end
-   SINGLETON
+inherit
+   C_TYPE_FOR_ARGUMENT
+
+create {C_PRETTY_PRINTER}
+   make
 
 feature {ANY}
-   is_compiled (live_type: LIVE_TYPE): BOOLEAN is
-      require
-         live_type /= Void
+   for_external (type_mark: TYPE_MARK): STRING is
       do
-         Result := compiled.fast_has(live_type)
-      end
-
-feature {}
-   compile_live_type (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-      do
-         if live_type.at_run_time and then not is_compiled(live_type) then
-            set_compiled(live_type)
-            do_compile(live_type)
+         if type_mark = Void then
+            Result := once "void"
+         elseif type_mark.is_reference then
+            Result := once "void*"
+         else
+            Result := for(type_mark)
          end
       end
 
-   do_compile (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-         live_type.at_run_time
-      deferred
-      end
-
-feature {}
-   set_compiled (live_type: LIVE_TYPE) is
-      require
-         live_type /= Void
-         not is_compiled(live_type)
-      do
-         compiled.fast_add(live_type)
-      ensure
-         is_compiled(live_type)
-      end
-
-   compiled: HASHED_SET[LIVE_TYPE]
-
-   make is
-      do
-         create compiled.make
-      end
-
-end -- class C_LIVE_TYPE_MIXIN
+end -- class C_TYPE_FOR_RESULT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -43,23 +43,6 @@ feature {ANY}
          Result := type.live_type.id
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         str.extend('T')
-         id.append_in(str)
-         str.extend('*')
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
    jvm_method_flags: INTEGER is 17
 
    jvm_descriptor_in (str: STRING) is

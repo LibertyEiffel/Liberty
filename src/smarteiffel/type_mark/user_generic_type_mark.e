@@ -174,41 +174,6 @@ feature {ANY}
          end
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         if is_reference then
-            str.append(once "T0*")
-         elseif is_empty_expanded then
-            str.append(once "int")
-         else
-            str.extend('T')
-            id.append_in(str)
-         end
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         if is_empty_expanded then
-            str.append(once "int")
-         else
-            str.extend('T')
-            id.append_in(str)
-            str.extend('*')
-         end
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         if is_reference then
-            str.append(once "T0*")
-         elseif is_empty_expanded then
-            str.append(once "int")
-         else
-            str.extend('T')
-            id.append_in(str)
-         end
-      end
-
    accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR) is
       do
          visitor.visit_user_generic_type_mark(Current)

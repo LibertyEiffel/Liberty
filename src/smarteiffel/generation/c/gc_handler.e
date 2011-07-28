@@ -92,7 +92,7 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
                   cpp.pending_c_function_body.extend(',')
                end
                cpp.pending_c_function_body.extend('(')
-               live_type.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(cpp.target_type.for(live_type.canonical_type_mark))
                cpp.pending_c_function_body.extend(')')
                cpp.pending_c_function_body.append(o)
             end
@@ -432,7 +432,7 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_GARBAGE_C
                if run_time_set.count > 1 then
                   cpp.pending_c_function_body.append(once "T0*")
                else
-                  ct.c_type_for_target_in(cpp.pending_c_function_body)
+                  cpp.pending_c_function_body.append(cpp.target_type.for(ct))
                end
                cpp.pending_c_function_body.extend(')')
             elseif ct.is_user_expanded then

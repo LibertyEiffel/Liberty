@@ -298,7 +298,7 @@ feature {ANY}
          elseif as_mark_item = name then
             cpp.pending_c_function_body.append(once "{/*mark_item*/%N")
             elt_type := rf7.arguments.name(1).resolve_in(rf7.type_of_current).generic_list.first
-            elt_type.canonical_type_mark.c_type_for_argument_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
             cpp.pending_c_function_body.append(once " elt=")
             cpp.put_ith_argument(1)
             cpp.pending_c_function_body.append(once "[")
@@ -1117,7 +1117,7 @@ feature {}
                cpp.pending_c_function_body.extend(',')
             end
             cpp.pending_c_function_body.append(once "sizeof(")
-            elt_type.canonical_type_mark.c_type_for_argument_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
             cpp.pending_c_function_body.extend(')')
             if tcbd then
                cpp.pending_c_function_body.extend(')')
@@ -1154,7 +1154,7 @@ feature {}
                   cpp.pending_c_function_body.append(once ")(se_calloc(")
                   cpp.put_ith_argument(1)
                   cpp.pending_c_function_body.append(once ",sizeof(")
-                  elt_type.canonical_type_mark.c_type_for_result_in(cpp.pending_c_function_body)
+                  cpp.pending_c_function_body.append(cpp.result_type.for(elt_type.canonical_type_mark))
                   cpp.pending_c_function_body.append(once "))))")
                else
                   cpp.pending_c_function_body.append(once "new")

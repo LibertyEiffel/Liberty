@@ -405,16 +405,12 @@ feature {TYPE}
          af := feature_stamp.anonymous_feature(target_type)
          cpp.prepare_c_function
          result_type := af.result_type
-         if result_type = Void then
-            cpp.pending_c_function_signature.append(once "void")
-         else
-            result_type.c_type_for_external_in(cpp.pending_c_function_signature)
-         end
+         cpp.pending_c_function_signature.append(cpp.result_type.for_external(result_type))
          cpp.pending_c_function_signature.append(once " W")
          target_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(feature_stamp.name.to_string)
          cpp.pending_c_function_signature.extend('(')
-         target_type.canonical_type_mark.c_type_for_external_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type.canonical_type_mark))
          cpp.pending_c_function_signature.append(once " C")
          if af.arguments /= Void then
             cpp.pending_c_function_signature.extend(',')

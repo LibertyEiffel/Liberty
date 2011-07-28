@@ -812,26 +812,6 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          Result := (live_type = Void) or else (live_type.run_time_set.count = 0)
       end
 
-   c_type_for_target_in (str: STRING) is
-         -- Append in `str' the C type to use when current Eiffel type is
-         -- used for the target of a feature.
-      require
-         smart_eiffel.is_ready
-         str /= Void
-      do
-         canonical_type_mark.c_type_for_target_in(str)
-      end
-
-   c_type_for_result_in (str: STRING) is
-         -- Append in `str' the C type to use when current Eiffel
-         -- type is used as a result type of a C function.
-      require
-         smart_eiffel.is_ready
-         str /= Void
-      do
-         canonical_type_mark.c_type_for_result_in(str)
-      end
-
    direct_non_void_call_flag: BOOLEAN is
       require
          smart_eiffel.status.collecting_done

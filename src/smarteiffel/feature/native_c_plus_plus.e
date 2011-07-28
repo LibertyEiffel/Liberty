@@ -170,7 +170,7 @@ feature {}
             extra_c_prototype_in_cpp_out_h_buffer(start_position, rf8.type_of_current, rf8.base_feature)
             cpp.pending_c_function_signature.append(cpp.out_h_buffer)
             cpp.pending_c_function_body.append(once "return ((")
-            rf8.result_type.c_type_for_external_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.result_type.for_external(rf8.result_type))
             cpp.pending_c_function_body.extend(')')
             if rf8.arguments /= Void then
                args_count := rf8.arguments.count

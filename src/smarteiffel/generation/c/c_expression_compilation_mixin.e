@@ -147,7 +147,7 @@ feature {AGENT_EXPRESSION}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         crash -- This one must never be called.
+         c_crash -- This one must never be called.
       end
 
 feature {ASSIGNMENT_TEST}
@@ -661,7 +661,7 @@ feature {IMPLICIT_CAST}
    visit_implicit_cast (visited: IMPLICIT_CAST) is
       do
          function_body.append(once "/*IC*/(")
-         visited.resolved_memory.canonical_type_mark.c_type_for_target_in(function_body)
+         function_body.append(cpp.target_type.for(visited.resolved_memory.canonical_type_mark))
          function_body.append(once ")(")
          cpp.target_mapper.compile(visited.expression, type, visited.expression_type)
          function_body.extend(')')
@@ -682,7 +682,7 @@ feature {LOCAL_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
+         c_crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {E_FALSE}
@@ -961,7 +961,7 @@ feature {VOID_CALL}
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
-         crash -- Because we have already switched to the canonical form
+         c_crash -- Because we have already switched to the canonical form
       end
 
 feature {OPEN_OPERAND}

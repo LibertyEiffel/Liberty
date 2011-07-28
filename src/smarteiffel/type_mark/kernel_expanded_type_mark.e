@@ -63,16 +63,6 @@ feature {ANY}
          end
       end
 
-   frozen c_type_for_target_in (str: STRING) is
-      do
-         c_type_for_argument_in(str)
-      end
-
-   frozen c_type_for_result_in (str: STRING) is
-      do
-         c_type_for_argument_in(str)
-      end
-
 feature {TYPE}
    need_gc_mark_function (current_type: TYPE): BOOLEAN is
       do
@@ -112,13 +102,6 @@ feature {TYPE_MARK}
             class_text_name := class_text_name.twin
             class_text_name.set_accurate_position(sp)
          end
-      end
-
-feature {MANIFEST_GENERIC_POOL}
-   c_type_for_va_arg_in (buffer: STRING) is
-      require
-         buffer /= Void
-      deferred
       end
 
 end -- class KERNEL_EXPANDED_TYPE_MARK

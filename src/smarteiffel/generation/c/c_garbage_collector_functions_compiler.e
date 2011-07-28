@@ -43,7 +43,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          ltid.append_in(function_signature)
          function_signature.append(once "(unsigned int size)")
          function_body.append(once "size=(size*sizeof(")
-         visited.generic_list.first.c_type_for_result_in(function_body)
+         function_body.append(cpp.result_type.for(visited.generic_list.first))
          function_body.append(once "))+sizeof(rsoh);%Nsize=((size+(sizeof(double)-1))&~(sizeof(double)-1));%N")
          if cpp.gc_handler.info_flag then
             cpp.gc_handler.info_nb_in(visited, function_body)

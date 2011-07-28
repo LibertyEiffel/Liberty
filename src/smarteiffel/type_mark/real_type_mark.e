@@ -11,14 +11,14 @@ inherit
       redefine
          pretty_in, default_expression, resolve_in
       end
-   
+
 creation {ANY}
    real_32, real_64, real, real_80, real_128, real_extended
 
 feature {ANY}
    pretty_name: HASHED_STRING
-         -- The one actually written in the source code (`as_real_32', `as_real_64', `as_real', `as_real_80', 
-         -- `as_real_128' or `as_real_extended'). 
+         -- The one actually written in the source code (`as_real_32', `as_real_64', `as_real', `as_real_80',
+         -- `as_real_128' or `as_real_extended').
 
    bit_count: INTEGER
 
@@ -57,29 +57,15 @@ feature {ANY}
             Result := smart_eiffel.type_real_extended
          end
       end
-   
+
    resolve_in (new_type: TYPE): TYPE is
       do
          Result := type
       end
-   
+
    default_expression (sp: POSITION): EXPRESSION is
       do
          create {REAL_CONSTANT} Result.make(sp, once "0.0", Current)
-      end
-   
-   c_type_for_argument_in (buffer: STRING) is
-      do
-         buffer.extend('T')
-         inspect
-            bit_count
-         when 32 then
-            buffer.extend('4')
-         when 64 then
-            buffer.extend('5')
-         else
-            buffer.append(once "12")
-         end
       end
 
    jvm_descriptor_in (buffer: STRING) is
@@ -177,17 +163,6 @@ feature {LIVE_TYPE}
             Result := 'd'
          else
             Result := 'D'
-         end
-      end
-
-feature {MANIFEST_GENERIC_POOL}
-   c_type_for_va_arg_in (buffer: STRING) is
-      do
-         if bit_count <= 64 then
-            -- Because C va_list uses size of double for float.
-            buffer.append(once "double")
-         else
-            c_type_for_argument_in(buffer)
          end
       end
 

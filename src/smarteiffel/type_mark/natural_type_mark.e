@@ -57,14 +57,6 @@ feature {ANY}
          visitor.visit_natural_type_mark(Current)
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         -- Actually: "uint8_t", "uint16_t", "uint32_t" or "uint64_t".
-         str.append(once "uint")
-         bit_count.append_in(str)
-         str.append(once "_t")
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       do
@@ -84,16 +76,6 @@ feature {LIVE_TYPE}
             Result := 'i'
          when 64 then
             Result := 'I'
-         end
-      end
-
-feature {MANIFEST_GENERIC_POOL}
-   c_type_for_va_arg_in (buffer: STRING) is
-      do
-         if bit_count <= 32 then
-            buffer.append(once "int")
-         else
-            c_type_for_argument_in(buffer)
          end
       end
 

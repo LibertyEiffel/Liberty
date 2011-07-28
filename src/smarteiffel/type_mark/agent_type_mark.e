@@ -81,18 +81,6 @@ feature {ANY}
          open_check(new_type, gl.first)
       end
 
-   c_type_for_target_in (buffer: STRING) is
-      do
-         buffer.extend('T')
-         id.append_in(buffer)
-         buffer.extend('*')
-      end
-
-   c_type_for_argument_in, c_type_for_result_in (buffer: STRING) is
-      do
-         buffer.append(once "T0*")
-      end
-
    accept (visitor: AGENT_TYPE_MARK_VISITOR) is
       do
          visitor.visit_agent_type_mark(Current)

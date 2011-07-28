@@ -3,7 +3,7 @@
 --
 class INTEGER_TYPE_MARK
    --
-   -- Handling of the "INTEGER" type mark. This class handles all variants of the "INTEGER" type 
+   -- Handling of the "INTEGER" type mark. This class handles all variants of the "INTEGER" type
    -- mark: "INTEGER_8", "INTEGER_16", "INTEGER_32", "INTEGER_64"
    --
 
@@ -17,8 +17,8 @@ creation {ANY}
 
 feature {ANY}
    pretty_name: HASHED_STRING
-         -- The one actually written in the source code (`as_integer_8', `as_integer_16', `as_integer' 
-         -- or `as_integer_64'). 
+         -- The one actually written in the source code (`as_integer_8', `as_integer_16', `as_integer'
+         -- or `as_integer_64').
 
    class_text: CLASS_TEXT is
       local
@@ -73,17 +73,17 @@ feature {ANY}
             Result := smart_eiffel.type_integer_64
          end
       end
-   
+
    resolve_in (new_type: TYPE): TYPE is
       do
          Result := type
       end
-   
+
    default_expression (sp: POSITION): EXPRESSION is
       do
          create {INTEGER_CONSTANT} Result.with(0, sp, Current)
       end
-   
+
    accept (visitor: INTEGER_TYPE_MARK_VISITOR) is
       do
          visitor.visit_integer_type_mark(Current)
@@ -97,22 +97,6 @@ feature {ANY}
    pretty_in (buffer: STRING) is
       do
          buffer.append(pretty_name.to_string)
-      end
-
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.extend('T')
-         inspect
-            bit_count
-         when 8 then
-            str.extend('1')
-         when 32 then
-            str.extend('2')
-         when 16 then
-            str.append(once "10")
-         when 64 then
-            str.append(once "11")
-         end
       end
 
    jvm_descriptor_in (str: STRING) is
@@ -280,16 +264,6 @@ feature {TYPE}
          elseif other.is_real then
             real_type_mark ::= other
             Result := real_type_mark.bit_count > bit_count
-         end
-      end
-
-feature {MANIFEST_GENERIC_POOL}
-   c_type_for_va_arg_in (buffer: STRING) is
-      do
-         if bit_count <= 32 then
-            buffer.append(once "int")
-         else
-            c_type_for_argument_in(buffer)
          end
       end
 

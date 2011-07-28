@@ -149,7 +149,7 @@ feature {}
          cpp.prepare_c_function
          function_signature.append(once "%N/*agent launcher*/")
          if agent_result /= Void then
-            agent_result.canonical_type_mark.c_type_for_result_in(function_signature)
+            function_signature.append(cpp.result_type.for(agent_result.canonical_type_mark))
          else
             function_signature.append(once "void")
          end
@@ -174,7 +174,7 @@ feature {}
                open_operand := agent_creation.open_operand_list.item(i)
                function_signature.extend(',')
                tm := open_operand.resolve_in(type).canonical_type_mark
-               tm.c_type_for_result_in(function_signature)
+               function_signature.append(cpp.result_type.for(tm))
                function_signature.extend(' ')
                open_operand_name_in(open_operand, function_signature)
                i := i + 1
@@ -190,7 +190,7 @@ feature {}
                closed_operand := agent_creation.closed_operand_list.item(i)
                if agent_creation.stored_closed_operand(type, closed_operand) then
                   tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(function_body)
+                  function_body.append(cpp.result_type.for(tm))
                   function_body.extend(' ')
                   closed_operand_name_in(closed_operand, function_body)
                   function_body.append(once "=(u->")
@@ -259,7 +259,7 @@ feature {}
                      function_signature.extend(',')
                   end
                   tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(function_signature)
+                  function_signature.append(cpp.result_type.for(tm))
                   function_signature.extend(' ')
                   closed_operand_name_in(closed_operand, function_signature)
                end
@@ -435,7 +435,7 @@ feature {}
          if agent_result = Void then
             out_h.append(once "void")
          else
-            agent_result.canonical_type_mark.c_type_for_result_in(out_h)
+            out_h.append(cpp.result_type.for(agent_result.canonical_type_mark))
          end
          out_h.append(once "(*afp)(")
          if not boost then
@@ -455,7 +455,7 @@ feature {}
             loop
                out_h.extend(',')
                tm := agent_creation.open_operand_list.item(i).resolve_in(type).canonical_type_mark
-               tm.c_type_for_result_in(out_h)
+               out_h.append(cpp.result_type.for(tm))
                i := i + 1
             end
          end
@@ -475,7 +475,7 @@ feature {}
                closed_operand := agent_creation.closed_operand_list.item(i)
                if agent_creation.stored_closed_operand(type, closed_operand) then
                   tm := closed_operand.resolve_in(type).canonical_type_mark
-                  tm.c_type_for_result_in(out_h)
+                  out_h.append(cpp.result_type.for(tm))
                   out_h.extend(' ')
                   closed_operand_name_in(closed_operand, out_h)
                   out_h.extend(';')
@@ -484,7 +484,7 @@ feature {}
             end
          end
          if agent_result /= Void then
-            agent_result.canonical_type_mark.c_type_for_argument_in(out_h)
+            out_h.append(cpp.argument_type.for(agent_result.canonical_type_mark))
             out_h.append(once " R;")
          end
          out_h.append(once "};%N")
@@ -530,7 +530,7 @@ feature {}
                if expression.is_void then
                   out_h.append(once "T0*")
                else
-                  expression.resolve_in(type).canonical_type_mark.c_type_for_result_in(out_h)
+                  out_h.append(cpp.result_type.for(expression.resolve_in(type).canonical_type_mark))
                end
                out_h.append(once " c")
                i.append_in(out_h)
@@ -569,13 +569,8 @@ feature {}
       do
          boost := ace.boost
          cpp.prepare_c_function
-         if live_type.canonical_type_mark.is_reference then
-            live_type.canonical_type_mark.c_type_for_target_in(function_signature)
-         else
-            live_type.canonical_type_mark.c_type_for_result_in(function_signature)
-            function_signature.extend(' ')
-         end
-         function_signature.append(once "create")
+         function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
+         function_signature.append(once " create")
          live_type.id.append_in(function_signature)
          if fs /= Void then
             function_signature.append(live_type.type.get_feature_name(fs).to_string)
@@ -671,7 +666,7 @@ feature {}
          if run_feature.result_type = Void then
             function_signature.append(once "void")
          else
-            run_feature.result_type.c_type_for_result_in(function_signature)
+            function_signature.append(cpp.result_type.for(run_feature.result_type))
          end
          function_signature.append(once " r")
          run_feature.type_of_current.live_type.id.append_in(function_signature)
@@ -690,7 +685,7 @@ feature {}
             end
          end
          if run_feature.use_current then
-            run_feature.type_of_current.canonical_type_mark.c_type_for_target_in(function_signature)
+            function_signature.append(cpp.target_type.for(run_feature.type_of_current.canonical_type_mark))
             function_signature.append(once " C")
             if run_feature.arguments /= Void then
                function_signature.extend(',')
@@ -722,7 +717,7 @@ feature {}
                function_signature.extend(',')
             end
             static_tm := args.type_mark(i).to_static(type)
-            static_tm.c_type_for_argument_in(function_signature)
+            function_signature.append(cpp.argument_type.for(static_tm))
             function_signature.extend(' ')
             function_signature.extend('a')
             i.append_in(function_signature)
@@ -804,7 +799,7 @@ feature {}
          if run_feature.result_type /= Void then
             if not run_feature.is_once_function then
                t := run_feature.result_type
-               t.c_type_for_result_in(function_body)
+               function_body.append(cpp.result_type.for(t))
                function_body.append(once " R=")
                t.c_initialize_in(function_body)
                function_body.append(once ";%N")

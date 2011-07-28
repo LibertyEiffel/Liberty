@@ -80,7 +80,7 @@ feature {}
          until
             i > fal.count
          loop
-            fal.type_mark(i).resolve_in(created_type).canonical_type_mark.c_type_for_argument_in(cpp.pending_c_function_signature)
+            cpp.pending_c_function_signature.append(cpp.argument_type.for(fal.type_mark(i).resolve_in(created_type).canonical_type_mark))
             cpp.pending_c_function_signature.extend(' ')
             cpp.pending_c_function_signature.append(fal.name(i).to_string)
             cpp.pending_c_function_signature.extend(',')
@@ -140,11 +140,11 @@ feature {}
             i > fal.count
          loop
             va_type := fal.type_mark(i).resolve_in(created_type).canonical_type_mark
-            va_type.c_type_for_argument_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.argument_type.for(va_type))
             cpp.pending_c_function_body.extend(' ')
             cpp.pending_c_function_body.append(fal.name(i).to_string)
             cpp.pending_c_function_body.append(once "=((")
-            va_type.c_type_for_argument_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.argument_type.for(va_type))
             cpp.pending_c_function_body.append(once ")(va_arg(pa,")
             va_type_in(cpp.pending_c_function_body, va_type)
             cpp.pending_c_function_body.append(once ")));%N")
@@ -212,9 +212,9 @@ feature {}
             cpp.pending_c_function_body.append(once "(")
          end
          cpp.pending_c_function_body.append(once "argc);%Nwhile (i < argc ) {%N")
-         va_type.c_type_for_argument_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(cpp.argument_type.for(va_type))
          cpp.pending_c_function_body.append(once " element=((")
-         va_type.c_type_for_argument_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(cpp.argument_type.for(va_type))
          cpp.pending_c_function_body.append(once ")(va_arg(pa,")
          va_type_in(cpp.pending_c_function_body, va_type)
          cpp.pending_c_function_body.append(once ")));%NC[i]=element;%Ni++;%N}%Nva_end(pa);%Nreturn C;%N")
@@ -222,17 +222,8 @@ feature {}
       end
 
    va_type_in (buffer: STRING; va_type: TYPE_MARK) is
-      local
-         ketm: KERNEL_EXPANDED_TYPE_MARK
       do
-         if va_type.is_reference then
-            buffer.append(once "T0*")
-         elseif va_type.is_kernel_expanded then
-            ketm ::= va_type
-            ketm.c_type_for_va_arg_in(buffer)
-         else
-            va_type.c_type_for_argument_in(buffer)
-         end
+         buffer.append(cpp.va_arg_type.for(va_type))
       end
 
 end -- class MANIFEST_GENERIC_POOL

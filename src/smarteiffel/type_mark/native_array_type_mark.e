@@ -46,22 +46,6 @@ feature {ANY}
          buffer.append(once "(void*)0")
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.extend('T')
-         id.append_in(str)
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         c_type_for_argument_in(str)
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         c_type_for_argument_in(str)
-      end
-
    jvm_target_descriptor_in, jvm_descriptor_in (str: STRING) is
       do
          str.extend('[')

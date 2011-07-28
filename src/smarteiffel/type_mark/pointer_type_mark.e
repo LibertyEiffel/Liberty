@@ -10,7 +10,7 @@ inherit
    KERNEL_EXPANDED_TYPE_MARK
       redefine default_expression, resolve_in
       end
-   
+
 creation {ANY}
    make
 
@@ -28,25 +28,20 @@ feature {ANY}
       do
          Result := smart_eiffel.type_pointer
       end
-   
+
    resolve_in (new_type: TYPE): TYPE is
       do
          Result := type
       end
-   
+
    default_expression (sp: POSITION): EXPRESSION is
       do
          create {NULL_POINTER} Result.make(sp, Current)
       end
-   
+
    accept (visitor: POINTER_TYPE_MARK_VISITOR) is
       do
          visitor.visit_pointer_type_mark(Current)
-      end
-
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.append(once "T8")
       end
 
    jvm_descriptor_in (str: STRING) is
@@ -111,12 +106,6 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
 
 feature {LIVE_TYPE}
    structure_mark: CHARACTER is 'p'
-
-feature {MANIFEST_GENERIC_POOL}
-   c_type_for_va_arg_in (buffer: STRING) is
-      do
-         c_type_for_argument_in(buffer)
-      end
 
 feature {}
    make (sp: like start_position) is

@@ -76,7 +76,7 @@ feature {INTERNAL_C_LOCAL_LIST}
    c_type_in (buffer: STRING) is
       do
          if type.is_expanded then
-            type.canonical_type_mark.c_type_for_argument_in(buffer)
+            buffer.append(cpp.argument_type.for(type.canonical_type_mark))
          else
             buffer.append(once "T0*")
          end

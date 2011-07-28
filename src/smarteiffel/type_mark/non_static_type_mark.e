@@ -75,28 +75,6 @@ feature {ANY}
          end
       end
 
-   frozen c_type_for_argument_in (str: STRING) is
-      do
-         check
-            False
-         end
-      end
-
-   frozen c_type_for_target_in (str: STRING) is
-      do
-         check
-            False
-         end
-      end
-
-   frozen c_type_for_result_in (str: STRING) is
-      do
-         sedb_breakpoint
-         check
-            False
-         end
-      end
-
    frozen need_c_struct: BOOLEAN is
       do
          check

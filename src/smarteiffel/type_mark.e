@@ -410,44 +410,6 @@ feature {ANY} -- Others:
          Result /= Void
       end
 
-   c_type_for_argument_in (buffer: STRING) is
-         -- Append in `buffer' the C type to use when current Eiffel type is used for an argument of a
-         -- feature.
-      require
-         is_static
-         buffer /= Void
-      deferred
-      end
-
-   c_type_for_target_in (buffer: STRING) is
-         -- Append in `buffer' the C type to use when current Eiffel type is used for the target of a feature.
-      require
-         is_static
-         buffer /= Void
-      deferred
-      end
-
-   c_type_for_result_in (buffer: STRING) is
-         -- Append in `buffer' the C type to use when current Eiffel type is used as a result type of a C
-         -- function.
-      require
-         is_static
-         buffer /= Void
-      deferred
-      end
-
-   frozen c_type_for_external_in (buffer: STRING) is
-      require
-         is_static
-         buffer /= Void
-      do
-         if is_reference then
-            buffer.append(once "void*")
-         else
-            c_type_for_result_in(buffer)
-         end
-      end
-
    need_c_struct: BOOLEAN is
          -- Is it necessary to define a C struct ?
       require

@@ -181,41 +181,6 @@ feature {ANY}
          visitor.visit_class_type_mark(Current)
       end
 
-   c_type_for_argument_in (buffer: STRING) is
-      do
-         if is_reference then
-            buffer.append(once "T0*")
-         elseif is_empty_expanded then
-            buffer.append(once "int")
-         else
-            buffer.extend('T')
-            id.append_in(buffer)
-         end
-      end
-
-   c_type_for_target_in (buffer: STRING) is
-      do
-         if is_empty_expanded then
-            buffer.append(once "int")
-         else
-            buffer.extend('T')
-            id.append_in(buffer)
-            buffer.extend('*')
-         end
-      end
-
-   c_type_for_result_in (buffer: STRING) is
-      do
-         if is_reference then
-            buffer.append(once "T0*")
-         elseif is_empty_expanded then
-            buffer.append(once "int")
-         else
-            buffer.extend('T')
-            id.append_in(buffer)
-         end
-      end
-
    need_c_struct: BOOLEAN is
       do
          if is_empty_expanded then

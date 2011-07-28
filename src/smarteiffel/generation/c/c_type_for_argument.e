@@ -1,59 +1,71 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
-   --
-   -- Common behaviour for GC generation classes
-   --
+class C_TYPE_FOR_ARGUMENT
 
 inherit
    TYPE_MARK_VISITOR
-      undefine
-         is_equal
-      end
 
 insert
    C_COMPILATION_MIXIN
-      undefine
-         is_equal
-      end
-   SINGLETON
 
-feature {GC_HANDLER}
-   compile (type_mark: TYPE_MARK) is
+create {C_PRETTY_PRINTER}
+   make
+
+feature {ANY}
+   for (type_mark: TYPE_MARK): STRING is
       require
-         not cpp.gc_handler.is_off
-         type_mark.type.live_type.at_run_time
+         type_mark.is_static
       do
+         Result := buffer
+         Result.clear_count
          type_mark.accept(Current)
+      ensure
+         Result /= Void
+      end
+
+feature {AGENT_TYPE_MARK}
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+      do
+         buffer.append(once "T0*")
       end
 
 feature {ARRAY_TYPE_MARK}
    visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
       do
-         gc_reference(visited)
+         buffer.append(once "T0*")
+      end
+
+feature {NATIVE_ARRAY_TYPE_MARK}
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+      do
+         buffer.extend('T')
+         visited.id.append_in(buffer)
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
    visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
       do
-         gc_reference(visited)
+         buffer.append(once "T0*")
       end
 
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
          if visited.is_reference then
-            gc_reference(visited)
+            buffer.append(once "T0*")
+         elseif visited.is_empty_expanded then
+            buffer.append(once "int")
          else
-            gc_expanded(visited)
+            buffer.extend('T')
+            visited.id.append_in(buffer)
          end
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         gc_reference(visited)
+         buffer.append(once "T0*")
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
@@ -83,53 +95,84 @@ feature {FORMAL_GENERIC_TYPE_MARK}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         gc_reference(visited)
+         buffer.append(once "T0*")
       end
 
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
          if visited.is_reference then
-            gc_reference(visited)
+            buffer.append(once "T0*")
+         elseif visited.is_empty_expanded then
+            buffer.append(once "int")
          else
-            gc_expanded(visited)
+            buffer.extend('T')
+            visited.id.append_in(buffer)
          end
       end
 
 feature {BOOLEAN_TYPE_MARK}
    visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
       do
+         buffer.append(once "T6")
       end
 
 feature {CHARACTER_TYPE_MARK}
    visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
       do
+         buffer.append(once "T3")
       end
 
 feature {INTEGER_TYPE_MARK}
    visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
       do
+         buffer.extend('T')
+         inspect
+            visited.bit_count
+         when 8 then
+            buffer.extend('1')
+         when 32 then
+            buffer.extend('2')
+         when 16 then
+            buffer.append(once "10")
+         when 64 then
+            buffer.append(once "11")
+         end
       end
 
 feature {NATURAL_TYPE_MARK}
    visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
       do
+         buffer.append(once "uint")
+         visited.bit_count.append_in(buffer)
+         buffer.append(once "_t")
       end
 
 feature {POINTER_TYPE_MARK}
    visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
       do
+         buffer.append(once "T8")
       end
 
 feature {REAL_TYPE_MARK}
    visit_real_type_mark (visited: REAL_TYPE_MARK) is
       do
+         buffer.extend('T')
+         inspect
+            visited.bit_count
+         when 32 then
+            buffer.extend('4')
+         when 64 then
+            buffer.extend('5')
+         else
+            buffer.append(once "12")
+         end
       end
 
 feature {STRING_TYPE_MARK}
    visit_string_type_mark (visited: STRING_TYPE_MARK) is
       do
-         gc_reference(visited)
+         buffer.append(once "T0*")
       end
 
 feature {}
@@ -137,27 +180,9 @@ feature {}
       do
       end
 
-   gc_reference (visited: TYPE_MARK) is
-         -- For Fixed Size Objects.
-      require
-         visited.is_static
-         visited.is_reference
-         not cpp.gc_handler.is_off
-         visited.type.live_type.at_run_time
-      deferred
-      end
+   buffer: STRING is "........"
 
-   gc_expanded (visited: TYPE_MARK) is
-         -- For user's expanded with reference attribute to mark.
-      require
-         visited.is_static
-         visited.is_expanded
-         not cpp.gc_handler.is_off
-         visited.type.live_type.at_run_time
-      deferred
-      end
-
-end -- class C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
+end -- class C_TYPE_FOR_ARGUMENT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

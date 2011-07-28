@@ -62,7 +62,7 @@ feature {}
             loop
                a := wa.item(i)
                t := a.result_type
-               t.c_type_for_result_in(out_h)
+               out_h.append(cpp.result_type.for(t))
                out_h.append(once " _")
                out_h.append(a.name.to_string)
                out_h.extend(';')

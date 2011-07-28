@@ -1295,7 +1295,7 @@ feature {NATIVE_BUILT_IN}
                      end
                      if rts.count = 1 then
                         cpp.pending_c_function_body.extend('(')
-                        rts.first.canonical_type_mark.c_type_for_target_in(cpp.pending_c_function_body)
+                        cpp.pending_c_function_body.append(cpp.target_type.for(rts.first.canonical_type_mark))
                         cpp.pending_c_function_body.extend(')')
                      end
                      cpp.pending_c_function_body.extend('(')
@@ -1372,7 +1372,7 @@ feature {NATIVE_BUILT_IN}
             cpp.pending_c_function_body.append(once "R=se_deep_equal_search(C,a1);%N")
          end
          cpp.pending_c_function_body.append(once "if(!R){%N")
-         ct.c_type_for_target_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(cpp.target_type.for(ct))
          cpp.pending_c_function_body.append(once "a1ptr=")
          if ct.is_reference then
             cpp.pending_c_function_body.append(once "((void*)a1);%N")
@@ -1439,7 +1439,7 @@ feature {NATIVE_BUILT_IN}
                      end
                      if rts.count = 1 then
                         cpp.pending_c_function_body.extend('(')
-                        tm.c_type_for_target_in(cpp.pending_c_function_body)
+                        cpp.pending_c_function_body.append(cpp.target_type.for(tm))
                         cpp.pending_c_function_body.extend(')')
                      end
                      cpp.pending_c_function_body.append(once "o1,o2);}%N}%N")
@@ -1570,7 +1570,7 @@ feature {C_PRETTY_PRINTER}
                   cpp.pending_c_function_body.append(once "*exp=0;%N")
                end
                cpp.pending_c_function_body.append(once "R=(*((")
-               t.c_type_for_result_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(cpp.result_type.for(t))
                cpp.pending_c_function_body.append(once "**)C)+atoi(attr));%N")
                if t.type.live_type.run_time_set.count > 1 then
                   cpp.pending_c_function_body.append(once "*id=(*((T0**)R))->id;%N")

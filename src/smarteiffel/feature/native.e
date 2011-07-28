@@ -171,7 +171,7 @@ feature {}
          if er.result_type = Void then
             cpp.out_h_buffer.append(once "void")
          else
-            er.result_type.to_static(context_type).c_type_for_external_in(cpp.out_h_buffer)
+            cpp.out_h_buffer.append(cpp.result_type.for_external(er.result_type.to_static(context_type)))
          end
          cpp.out_h_buffer.extend(' ')
          cpp.out_h_buffer.append(er.external_name)
@@ -185,7 +185,7 @@ feature {}
             until
                i > arguments.count
             loop
-               arguments.type_mark(i).to_static(context_type).c_type_for_external_in(cpp.out_h_buffer)
+               cpp.out_h_buffer.append(cpp.result_type.for_external(arguments.type_mark(i).to_static(context_type)))
                cpp.out_h_buffer.append(once " a")
                i.append_in(cpp.out_h_buffer)
                if i < arguments.count then

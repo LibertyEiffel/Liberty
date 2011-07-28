@@ -186,7 +186,7 @@ feature {ADDRESS_OF, CECIL_ENTRY}
          loop
             t := type_mark(i).to_static(target_type)
             sedb_breakpoint
-            t.c_type_for_external_in(str)
+            str.append(cpp.result_type.for_external(t))
             str.extend(' ')
             str.extend('a')
             i.append_in(str)

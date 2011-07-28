@@ -34,6 +34,11 @@ feature {ANY}
    compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
    gc_handler: GC_HANDLER
 
+   target_type: C_TYPE_FOR_TARGET
+   result_type: C_TYPE_FOR_RESULT
+   argument_type: C_TYPE_FOR_ARGUMENT
+   va_arg_type: C_TYPE_FOR_VA_ARG
+
 feature {}
    make is
       do
@@ -48,6 +53,10 @@ feature {}
          create code_compiler.make
          create compound_expression_compiler.make
          create gc_handler.make
+         create target_type.make
+         create result_type.make
+         create argument_type.make
+         create va_arg_type.make
       end
 
 feature {SMART_EIFFEL}
@@ -1234,7 +1243,7 @@ feature {}
          prepare_c_function
          boost := define_agent_launcher_heading(agent_args, once "(live)")
          if agent_args.agent_result /= Void then
-            agent_args.agent_result.canonical_type_mark.c_type_for_result_in(pending_c_function_body)
+            pending_c_function_body.append(result_type.for(agent_args.agent_result.canonical_type_mark))
             pending_c_function_body.append(" R=")
             if agent_args.agent_result.is_reference then
                pending_c_function_body.append(once "NULL;%N")
@@ -1280,7 +1289,7 @@ feature {}
          if ar = Void then
             pending_c_function_signature.append(once "void")
          else
-            ar.c_type_for_result_in(pending_c_function_signature)
+            pending_c_function_signature.append(result_type.for(ar.canonical_type_mark))
          end
          pending_c_function_signature.extend(' ')
          pending_c_function_signature.append(agent_args.signature)
@@ -1300,7 +1309,7 @@ feature {}
                i > open.upper
             loop
                pending_c_function_signature.extend(',')
-               open.item(i).canonical_type_mark.c_type_for_argument_in(pending_c_function_signature)
+               pending_c_function_signature.append(argument_type.for(open.item(i).canonical_type_mark))
                pending_c_function_signature.extend(' ')
                pending_c_function_signature.extend('a')
                i.append_in(pending_c_function_signature)
@@ -1346,7 +1355,7 @@ feature {}
                      buffer.append(once ":{%N")
                      if agent_result /= Void then
                         buffer.append(once "R=(")
-                        agent_result.canonical_type_mark.c_type_for_result_in(buffer)
+                        buffer.append(result_type.for(agent_result.canonical_type_mark))
                         buffer.append(once ")(")
                      end
                      buffer.append(once "((se_")
@@ -1994,30 +2003,30 @@ feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
          feature_stamp /= Void
          target /= Void
       local
-         target_type: TYPE; live_type: LIVE_TYPE; anonymous_feature: ANONYMOUS_FEATURE; run_feature: RUN_FEATURE
+         tgt_type: TYPE; live_type: LIVE_TYPE; anonymous_feature: ANONYMOUS_FEATURE; run_feature: RUN_FEATURE
          code: CODE
       do
-         target_type := target.resolve_in(type)
-         live_type := target_type.live_type
+         tgt_type := target.resolve_in(type)
+         live_type := tgt_type.live_type
          if live_type.run_time_set.count = 0 then
-            anonymous_feature := feature_stamp.anonymous_feature(target_type)
+            anonymous_feature := feature_stamp.anonymous_feature(tgt_type)
             pending_c_function_body.append(once "/* Void call detected in back-end (function called: {")
-            pending_c_function_body.append(target_type.canonical_type_mark.written_mark)
+            pending_c_function_body.append(tgt_type.canonical_type_mark.written_mark)
             pending_c_function_body.append(once "}.")
             pending_c_function_body.append(anonymous_feature.names.first.to_string)
             pending_c_function_body.append(once ") */ ")
             if anonymous_feature.result_type = Void then
-               code := create {VOID_PROC_CALL}.make(target.start_position, feature_stamp, target_type)
+               code := create {VOID_PROC_CALL}.make(target.start_position, feature_stamp, tgt_type)
             else
                assignment_evobt := True -- see below `start_assignment' and `check_assignment'
-               code := create {VOID_CALL}.make(target.start_position, feature_stamp, target_type)
+               code := create {VOID_CALL}.make(target.start_position, feature_stamp, tgt_type)
             end
             code_compiler.compile(code, type)
          else
             if live_type.run_time_set.count = 1 then
-               target_type := live_type.run_time_set.first.type
+               tgt_type := live_type.run_time_set.first.type
             end
-            run_feature := feature_stamp.run_feature_for(target_type)
+            run_feature := feature_stamp.run_feature_for(tgt_type)
             push_direct(run_feature, type, target, arguments)
             mapper.compile(run_feature)
             pop
@@ -2639,7 +2648,7 @@ feature {}
             created_type := stack_top.type
             if created_type.is_reference then
                pending_c_function_body.append(once "((")
-               created_type.canonical_type_mark.c_type_for_target_in(pending_c_function_body)
+               pending_c_function_body.append(target_type.for(created_type.canonical_type_mark))
                pending_c_function_body.append(once ")R)")
             else
                pending_c_function_body.append(once "&R")

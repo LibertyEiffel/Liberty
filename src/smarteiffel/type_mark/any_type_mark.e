@@ -54,23 +54,6 @@ feature {ANY}
          Result := class_text.id
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         str.extend('T')
-         id.append_in(str)
-         str.extend('*')
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
    need_c_struct: BOOLEAN is
       do
          if type.live_type.is_tagged then

@@ -36,23 +36,6 @@ feature {ANY}
          Result := generic_list.first
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         str.extend('T')
-         id.append_in(str)
-         str.extend('*')
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
    jvm_descriptor_in (str: STRING) is
       do
          str.append(jvm_root_descriptor)

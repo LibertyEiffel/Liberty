@@ -141,21 +141,6 @@ feature {ANY}
          Result := class_text_name.start_position
       end
 
-   c_type_for_argument_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
-   c_type_for_target_in (str: STRING) is
-      do
-         str.append(once "T7*")
-      end
-
-   c_type_for_result_in (str: STRING) is
-      do
-         str.append(once "T0*")
-      end
-
 feature {TYPE}
    need_gc_mark_function (current_type: TYPE): BOOLEAN is
       do

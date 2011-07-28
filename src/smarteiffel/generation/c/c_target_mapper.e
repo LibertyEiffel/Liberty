@@ -96,7 +96,7 @@ feature {}
          -- *** Dom April 30th 2008 ***
          if actual_type.is_reference then
             function_body.append(once "((")
-            target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+            function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
             function_body.extend(')')
             compile_expression(target)
             function_body.extend(')')
@@ -134,7 +134,7 @@ feature {AGENT_EXPRESSION}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         crash
+         c_crash
       end
 
 feature {ASSIGNMENT_TEST}
@@ -209,7 +209,7 @@ feature {EXPRESSION_WITH_COMMENT}
 feature {FAKE_ARGUMENT}
    visit_fake_argument (visited: FAKE_ARGUMENT) is
       do
-         crash
+         c_crash
       end
 
 feature {FAKE_TARGET}
@@ -221,7 +221,7 @@ feature {FAKE_TARGET}
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
-         crash
+         c_crash
       end
 
 feature {GENERATOR_GENERATING_TYPE}
@@ -245,20 +245,20 @@ feature {LOCAL_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
+         c_crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
-         crash
+         c_crash
       end
 
 feature {MANIFEST_STRING}
    visit_manifest_string (visited: MANIFEST_STRING) is
       do
          function_body.append(once "((")
-         target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+         function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
          function_body.extend(')')
          Precursor(visited)
          function_body.extend(')')
@@ -278,7 +278,7 @@ feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
          function_body.append(once "((")
-         target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+         function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
          function_body.extend(')')
          Precursor(visited)
          function_body.extend(')')
@@ -342,7 +342,7 @@ feature {NO_DISPATCH}
    visit_no_dispatch (visited: NO_DISPATCH) is
       do
          function_body.append(once "((")
-         target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+         function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
          function_body.extend(')')
          Precursor(visited)
          function_body.extend(')')
@@ -358,7 +358,7 @@ feature {NON_VOID_NO_DISPATCH}
             Precursor(visited)
          else
             function_body.append(once "((")
-            target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+            function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
             function_body.extend(')')
             Precursor(visited)
             function_body.extend(')')
@@ -368,7 +368,7 @@ feature {NON_VOID_NO_DISPATCH}
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
-         crash -- Because we have already switched to the canonical form.
+         c_crash -- Because we have already switched to the canonical form.
       end
 
 feature {OPEN_OPERAND}
@@ -392,7 +392,7 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
-         crash -- Cannot be syntactically in target position.
+         c_crash -- Cannot be syntactically in target position.
       end
 
 feature {}
@@ -404,7 +404,7 @@ feature {}
          actual_type := visited.resolve_in(type)
          if actual_type.is_reference then
             function_body.extend('(')
-            target_formal_type.canonical_type_mark.c_type_for_target_in(function_body)
+            function_body.append(cpp.target_type.for(target_formal_type.canonical_type_mark))
             function_body.append(once ")(")
             Precursor(visited)
             function_body.extend(')')
