@@ -2235,6 +2235,30 @@ feature {C_COMPILATION_MIXIN}
          create Result.make(512)
       end
 
+   c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is
+         -- Update `c_frame_descriptor_format' accordingly.
+      require
+         is_static
+         buffer /= Void
+      local
+         lt: LIVE_TYPE
+      do
+         buffer.extend('%%')
+         if type_mark.is_reference then
+            lt := type_mark.type.live_type
+            buffer.extend('R')
+            if lt = Void then
+               buffer.extend('0')
+            else
+               lt.id.append_in(buffer)
+            end
+         else
+            buffer.extend('E')
+            type_mark.id.append_in(buffer)
+         end
+         buffer.extend('%%')
+      end
+
 feature {}
    c_plus_plus: FAST_ARRAY[NATIVE_C_PLUS_PLUS]
 
@@ -2709,7 +2733,7 @@ feature {}
          pending_c_function_signature.append(once " main(int argc,char*argv[])")
          if ace.no_check then
             pending_c_function_body.append(once "se_frame_descriptor root={%"<system root>%",1,0,%"")
-            ct.c_frame_descriptor_in(pending_c_function_body)
+            c_frame_descriptor_in(ct, pending_c_function_body)
             pending_c_function_body.append(once "%",1};%Nse_dump_stack ds;%N")
          end
          if ace.profile then

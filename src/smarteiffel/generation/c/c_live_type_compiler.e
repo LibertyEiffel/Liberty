@@ -740,7 +740,7 @@ feature {}
          c_frame_descriptor_format.clear_count
          c_frame_descriptor_locals.clear_count
          if run_feature.use_current then
-            run_feature.type_of_current.canonical_type_mark.c_frame_descriptor_in(c_frame_descriptor_format)
+            cpp.c_frame_descriptor_in(run_feature.type_of_current.canonical_type_mark, c_frame_descriptor_format)
          end
          if run_feature.arguments /= Void then
             args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
@@ -750,11 +750,11 @@ feature {}
             once_routine_pool.unique_result_in(c_frame_descriptor_locals, run_feature.base_feature)
             c_frame_descriptor_locals.extend(',')
             c_frame_descriptor_format.append(as_result)
-            run_feature.result_type.c_frame_descriptor_in(c_frame_descriptor_format)
+            cpp.c_frame_descriptor_in(run_feature.result_type, c_frame_descriptor_format)
          elseif run_feature.result_type /= Void then
             c_frame_descriptor_locals.append(once "(void**)&R,")
             c_frame_descriptor_format.append(as_result)
-            run_feature.result_type.c_frame_descriptor_in(c_frame_descriptor_format)
+            cpp.c_frame_descriptor_in(run_feature.result_type, c_frame_descriptor_format)
          end
          if run_feature.local_vars /= Void then
             args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
@@ -774,7 +774,7 @@ feature {}
          loop
             format.append(args.name(i).to_string)
             static_tm := args.type_mark(i).to_static(type)
-            static_tm.c_frame_descriptor_in(format)
+            cpp.c_frame_descriptor_in(static_tm, format)
             locals.append(once "(void**)&a")
             i.append_in(locals)
             locals.extend(',')
@@ -1255,7 +1255,7 @@ feature {}
          out_c.copy(once "{%"invariant ")
          out_c.append(live_type.name.to_string)
          out_c.append(once "%",1,0,%"")
-         live_type.canonical_type_mark.c_frame_descriptor_in(out_c)
+         cpp.c_frame_descriptor_in(live_type.canonical_type_mark, out_c)
          out_c.append(once "%",1}")
          cpp.write_extern_2(out_h, out_c)
          -- The function itself:

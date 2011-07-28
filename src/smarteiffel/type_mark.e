@@ -419,30 +419,6 @@ feature {ANY} -- Others:
       deferred
       end
 
-   frozen c_frame_descriptor_in (buffer: STRING) is
-         -- Update `c_frame_descriptor_format' accordingly.
-      require
-         is_static
-         buffer /= Void
-      local
-         lt: LIVE_TYPE
-      do
-         buffer.extend('%%')
-         if is_reference then
-            lt := type.live_type
-            buffer.extend('R')
-            if lt = Void then
-               buffer.extend('0')
-            else
-               lt.id.append_in(buffer)
-            end
-         else
-            buffer.extend('E')
-            id.append_in(buffer)
-         end
-         buffer.extend('%%')
-      end
-
 feature {TYPE}
    need_gc_mark_function (current_type: TYPE): BOOLEAN is
       require
