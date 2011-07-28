@@ -569,6 +569,9 @@ feature {}
       do
          boost := ace.boost
          cpp.prepare_c_function
+         function_signature.append(once "/*")
+         function_signature.append(live_type.name.to_string)
+         function_signature.append(once "*/")
          function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
          function_signature.append(once " create")
          live_type.id.append_in(function_signature)
