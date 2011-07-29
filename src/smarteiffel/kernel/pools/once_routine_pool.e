@@ -118,10 +118,10 @@ feature {JVM}
          create name_list.with_capacity(fields_count)
          if function_list.count > 0 then
             from
-               i := function_list.upper
+               i := function_list.lower
                byte_idx := constant_pool.idx_utf8(once "B")
             until
-               i < 0
+               i > function_list.upper
             loop
                rf := function_list.item(i)
                bf := rf.base_feature
@@ -136,15 +136,15 @@ feature {JVM}
                   -- ---------- Static field for result:
                   field_info.add(9, idx_name_for_result(bf), idx_descriptor(rf.result_type))
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if procedure_list.count > 0 then
             from
-               i := procedure_list.upper
+               i := procedure_list.lower
                byte_idx := constant_pool.idx_utf8(once "B")
             until
-               i < 0
+               i > procedure_list.upper
             loop
                rf := procedure_list.item(i)
                bf := rf.base_feature
@@ -155,7 +155,7 @@ feature {JVM}
                   -- ---------- Static field for flag:
                   field_info.add(9, idx_flag, byte_idx)
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -258,13 +258,13 @@ feature {C_PRETTY_PRINTER}
          i: INTEGER; non_void_no_dispatch: NON_VOID_NO_DISPATCH
       do
          from
-            i := collected_precomputable_function.upper
+            i := collected_precomputable_function.lower
          until
-            i < collected_precomputable_function.lower
+            i > collected_precomputable_function.upper
          loop
             non_void_no_dispatch := collected_precomputable_function.item(i)
             c_define_o_result(non_void_no_dispatch.run_feature)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -461,12 +461,12 @@ feature {RUN_FEATURE_6}
       do
          from
             feature_text := once_function.feature_text
-            i := precomputable_function_list.upper
+            i := precomputable_function_list.lower
          until
-            Result or else i < precomputable_function_list.lower
+            Result or else i > precomputable_function_list.upper
          loop
             Result := precomputable_function_list.item(i).once_function.feature_text = feature_text
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -488,9 +488,9 @@ feature {}
          i: INTEGER
       do
          from
-            i := precomputable_function_list.upper
+            i := precomputable_function_list.lower
          until
-            Result /= Void or else i < precomputable_function_list.lower
+            Result /= Void or else i > precomputable_function_list.upper
          loop
             Result := precomputable_function_list.item(i)
             if Result.feature_stamp = fs and then Result.context_type = type then
@@ -500,7 +500,7 @@ feature {}
             else
                Result := Void
             end
-            i := i - 1
+            i := i + 1
          end
          if Result = Void then
             create Result.make(created_type, fs, type)

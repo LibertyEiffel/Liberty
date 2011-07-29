@@ -208,15 +208,15 @@ feature {}
             error_handler.add_position(start_position)
             error_handler.append("Unexpected keys found%N")
             from
-               i := alias_data.upper
+               i := alias_data.lower
             until
-               i < alias_data.lower
+               i > alias_data.upper
             loop
                error_handler.append(alias_data.key(i))
                error_handler.append(once " :")
                error_handler.append(alias_data.item(i))
                error_handler.extend('%N')
-               i := i - 1
+               i := i + 1
             end
             error_handler.print_as_fatal_error
          end

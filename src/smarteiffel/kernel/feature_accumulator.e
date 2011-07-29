@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class FEATURE_ACCUMULATOR
-   -- This accumulator is a singleton which works on one type at a time only. Then, all aspects of some 
+   -- This accumulator is a singleton which works on one type at a time only. Then, all aspects of some
    -- feature have to be collected before collecting informations on another feature.
    --
-   -- When all features are collected for the type, then the last step is to update the type (adding all 
+   -- When all features are collected for the type, then the last step is to update the type (adding all
    -- anonymous_features for each feature_stamp).
    --
    -- Only one FEATURE_ACCUMULATOR object is created in the system.
    --
    -- How does it work?
    -- Insert are analyzed before inherit.
-   --|*** Looking at TYPE.collect_one_feature, one gets the impression that inherited parents are analysed 
+   --|*** Looking at TYPE.collect_one_feature, one gets the impression that inherited parents are analysed
    --|*** first <FM-22/02/2006>
    --
 
@@ -81,7 +81,7 @@ feature {SMART_EIFFEL}
          echo.put_integer(rename_count)
          echo.put_string(once "%N")
       end
-   
+
 feature {TYPE, LIKE_FEATURE_TYPE_MARK, FUNCTION_CALL, SMART_EIFFEL}
    context_type: TYPE -- Type where features are being accumulated.
 
@@ -239,17 +239,18 @@ feature {TYPE}
          to_feature(Void)
          finish_insert_seeds
          from
-            i := features.upper
+            i := features.lower
          until
-            i < features.lower
+            i > features.upper
          loop
-            features.item(i).specialize_signature(context_type)
-            i := i - 1
+            m := features.item(i)
+            m.specialize_signature(context_type)
+            i := i + 1
          end
          from
-            i := features.upper
+            i := features.lower
          until
-            i < features.lower
+            i > features.upper
          loop
             m := features.item(i)
             current_mixer := m
@@ -261,7 +262,7 @@ feature {TYPE}
             end
             fs.add_anonymous_feature(m.build_definition, context_type)
             free.add_last(m)
-            i := i - 1
+            i := i + 1
          end
          features.clear_count
          features_dictionary.clear_count
@@ -326,7 +327,7 @@ feature {}
          a_final_fn = Void implies feature_stamp = Void
          error_handler.is_empty -- If it wasn't on entry, then the function dies with a fatal error
       end
-   
+
    do_pending_types is
       local
          type: TYPE

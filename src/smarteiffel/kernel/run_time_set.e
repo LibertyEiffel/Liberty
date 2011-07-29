@@ -130,9 +130,9 @@ feature {GRAPH_NODE}
       do
          from
             other_sorted := other.sorted
-            i := other_sorted.upper
+            i := other_sorted.lower
          until
-            i < other_sorted.lower
+            i > other_sorted.upper
          loop
             lt := other_sorted.item(i)
             if owner = lt then
@@ -145,7 +145,7 @@ feature {GRAPH_NODE}
                   Result := Result + 1
                end
             end
-            i := i - 1
+            i := i + 1
          end
       ensure
          Result = count - old count

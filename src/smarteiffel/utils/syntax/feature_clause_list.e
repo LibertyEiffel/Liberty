@@ -67,12 +67,12 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).add_into(fd)
-            i := i - 1
+            i := i + 1
          end
       end
 

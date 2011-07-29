@@ -76,31 +76,28 @@ feature {ANY}
                   right_run_time_set.count > 0
                end
                from
-                  i := right_run_time_set.count
+                  i := 1
                until
-                  i = 0
+                  i > right_run_time_set.count
                loop
                   if right_run_time_set.item(i).type.can_be_assigned_to(left_type) then
                      counter1 := counter1 + 1
                      if counter2 > 0 then
-                        i := 0
-                     else
-                        i := i - 1
+                        i := right_run_time_set.count
                      end
                   else
                      counter2 := counter2 + 1
                      if counter1 > 0 then
-                        i := 0
-                     else
-                        i := i - 1
+                        i := right_run_time_set.count
                      end
                   end
+                  i := i + 1
                end
                if right_run_time_set.count = counter1 then
                   -- They can be all assigned into `left_side':
                   smart_eiffel.magic_count_increment
                   create {ASSIGNMENT} Result.make(left_side, rs)
-               elseif  right_run_time_set.count = counter2 then
+               elseif right_run_time_set.count = counter2 then
                   -- Conversely, all possibilities of the right-hand side are all non-assignable into
                   -- the left-hand side. We must still take care of the fact that the right-hand can be
                   -- non Void:
@@ -151,15 +148,15 @@ feature {ANY}
             point1 := ca.opcode_ifnull
             from
                branch_index := ca.get_branch_array_index
-               i := run_time_set.count
+               i := 1
             until
-               i = 0
+               i > run_time_set.count
             loop
                ca.opcode_dup
                rc := run_time_set.item(i)
                rc.opcode_instanceof
                ca.add_branch(ca.opcode_ifne, branch_index)
-               i := i - 1
+               i := i + 1
             end
             ca.opcode_pop
             ca.opcode_aconst_null

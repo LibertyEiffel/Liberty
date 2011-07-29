@@ -35,7 +35,7 @@ feature {}
       end
 
 feature {}
-   frozen standard_c_struct (type_mark: TYPE_MARK) is
+   standard_c_struct (type_mark: TYPE_MARK) is
          -- Produce C code for the standard C struct (for user's
          -- expanded or reference as well).
       require
@@ -49,10 +49,8 @@ feature {}
          out_h.copy(once "struct S")
          mem_id.append_in(out_h)
          out_h.extend('{')
-         if type_mark.is_reference then
-            if type_mark.type.live_type.is_tagged then
-               out_h.append(once "Tid id;")
-            end
+         if type_mark.is_reference and then type_mark.type.live_type.is_tagged then
+            out_h.append(once "Tid id;")
          end
          if wa /= Void then
             from
@@ -84,9 +82,9 @@ feature {}
             function_body.append(once "int R=0;%N")
             if wa /= Void then
                from
-                  i := wa.upper
+                  i := wa.lower
                until
-                  i = 0
+                  i > wa.upper
                loop
                   a := wa.item(i)
                   if not a.result_type.is_empty_expanded then
@@ -106,7 +104,7 @@ feature {}
                         function_body.append(once "));%N")
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
             end
             function_body.append(once "return R;%N")
@@ -114,7 +112,7 @@ feature {}
          end
       end
 
-   frozen standard_c_object_model (type_mark: TYPE_MARK) is
+   standard_c_object_model (type_mark: TYPE_MARK) is
          -- Produce C code to define the model object.
       require
          type_mark.is_static
@@ -153,17 +151,17 @@ feature {}
                out_c.extend(',')
             end
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
+               if i > wa.lower then
+                  out_c.extend(',')
+               end
                rf2 := wa.item(i)
                t := rf2.result_type
                out_c.append(cpp.initializer.for(t))
-               i := i - 1
-               if i >= wa.lower then
-                  out_c.extend(',')
-               end
+               i := i + 1
             end
             out_c.extend('}')
          end

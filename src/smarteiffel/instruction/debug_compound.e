@@ -186,12 +186,12 @@ feature {DEBUG_KEY_SUPPORT}
       do
          if key_list /= Void then
             from
-               i := key_list.upper
+               i := key_list.lower
             until
-               Result or else i < key_list.lower
+               Result or else i > key_list.upper
             loop
                Result := key_list.item(i).to_string.is_equal(key)
-               i := i - 1
+               i := i + 1
             end
          end
       end

@@ -79,22 +79,22 @@ feature {CLASS_TEXT}
        do
          if inherit_list /= Void then
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
                fn2 /= Void
             loop
                fn2 := inherit_list.item(i).get_undefine(fn)
-               i := i - 1
+               i := i + 1
             end
          end
          if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
                fn2 /= Void
             loop
                fn2 := insert_list.item(i).get_undefine(fn)
-               i := i - 1
+               i := i + 1
             end
           end
           Result := fn2.start_position
@@ -149,9 +149,9 @@ feature {CLASS_TEXT}
        do
          if inherit_list /= Void then
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
-               Result or else i < inherit_list.lower
+               Result or else i > inherit_list.upper
             loop
                parent_edge := inherit_list.item(i)
                if parent_edge.class_text_name /= as_any then
@@ -161,14 +161,14 @@ feature {CLASS_TEXT}
                   end
                   Result := other = bc or else bc.get_export_permission_of(other)
                end
-               i := i - 1
+               i := i + 1
             end
          end
-         if (not Result) and then insert_list /= Void then
+         if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
-               Result or else i < insert_list.lower
+               Result or else i > insert_list.upper
             loop
                parent_edge := insert_list.item(i)
                if parent_edge.class_text_name /= as_any then
@@ -178,7 +178,7 @@ feature {CLASS_TEXT}
                   end
                   Result := other = bc or else bc.get_export_permission_of(other)
                end
-               i := i - 1
+               i := i + 1
             end
           end
        end
@@ -189,22 +189,22 @@ feature {CLASS_TEXT}
        do
          if inherit_list /= Void then
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
-               i < inherit_list.lower or else class_invariant.header_comment /= Void
+               class_invariant.header_comment /= Void or else i > inherit_list.upper
             loop
                inherit_list.item(i).class_text.header_comment_for_class_invariant(class_invariant)
-               i := i - 1
+               i := i + 1
             end
          end
          if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
-               i < insert_list.lower or else class_invariant.header_comment /= Void
+               class_invariant.header_comment /= Void or else i > insert_list.upper
             loop
                insert_list.item(i).class_text.header_comment_for_class_invariant(class_invariant)
-               i := i - 1
+               i := i + 1
             end
          end
        end
@@ -215,22 +215,22 @@ feature {CLASS_TEXT}
        do
          if inherit_list /= Void then
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
-               i < inherit_list.lower
+               i > inherit_list.upper
             loop
                inherit_list.item(i).initialize_and_check_level_1(Current)
-               i := i - 1
+               i := i + 1
             end
          end
          if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
-               i < insert_list.lower
+               i > insert_list.upper
             loop
                insert_list.item(i).initialize_and_check_level_1(Current)
-               i := i - 1
+               i := i + 1
             end
          end
        end
@@ -243,22 +243,22 @@ feature {CLASS_TEXT}
       do
          if inherit_list /= Void then
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
-               i < inherit_list.lower
+               i > inherit_list.upper
             loop
                inherit_list.item(i).check_level_2(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
-               i < insert_list.lower
+               i > insert_list.upper
             loop
                insert_list.item(i).check_level_2(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -319,23 +319,23 @@ feature {CLASS_TEXT}
       do
          if insert_list /= Void then
             from
-               i := insert_list.upper
+               i := insert_list.lower
             until
-               i < insert_list.lower or else Result
+               Result or else i > insert_list.upper
             loop
                Result := insert_list.item(i).class_text_name = as_native_array_collector
-               i := i - 1
+               i := i + 1
             end
          end
-         if (not Result) and then inherit_list /= Void then
+         if inherit_list /= Void then
             -- Even if it is not good practice, we also look inside the `inherit_list':
             from
-               i := inherit_list.upper
+               i := inherit_list.lower
             until
-               i < inherit_list.lower or else Result
+               Result or else i > inherit_list.upper
             loop
                Result := inherit_list.item(i).class_text_name = as_native_array_collector
-               i := i - 1
+               i := i + 1
             end
          end
       end

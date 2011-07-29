@@ -51,13 +51,13 @@ feature {ANY}
             c := compound.specialize_in(new_type)
          end
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else wi1 /= wi2
+            wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
             wi2 := wi1.specialize_in(new_type)
-            i := i - 1
+            i := i + 1
          end
          if c = compound and then wi1 = wi2 then
             Result := Current
@@ -74,12 +74,12 @@ feature {ANY}
                -- *** DOM April 23 th 2008 ***
                from
                   l := list.twin
-                  l.put(wi2, i + 1)
+                  l.put(wi2, i - 1)
                until
-                  i < list.lower
+                  i > l.upper
                loop
                   l.put(list.item(i).specialize_in(new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
                Result.init(c, l)
             end
@@ -94,13 +94,13 @@ feature {ANY}
             c := compound.specialize_thru(parent_type, parent_edge, new_type)
          end
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else wi1 /= wi2
+            wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
             wi2 := wi1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if c = compound and then wi1 = wi2 then
             Result := Current
@@ -117,12 +117,12 @@ feature {ANY}
                -- *** DOM April 23 th 2008 ***
                from
                   l := list.twin
-                  l.put(wi2, i + 1)
+                  l.put(wi2, i - 1)
                until
-                  i < list.lower
+                  i > l.upper
                loop
                   l.put(list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
                Result.init(c, l)
             end
@@ -142,15 +142,13 @@ feature {ANY}
          i: INTEGER
       do
          Result := compound /= Void implies compound.has_been_specialized
-         if Result then
-            from
-               i := list.upper
-            until
-               i < list.lower or else not Result
-            loop
-               Result := list.item(i).has_been_specialized
-               i := i - 1
-            end
+         from
+            i := list.lower
+         until
+            not Result or else i > list.upper
+         loop
+            Result := list.item(i).has_been_specialized
+            i := i + 1
          end
       end
 
@@ -210,12 +208,12 @@ feature {ANY}
             end
          end
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).collect(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -287,13 +285,13 @@ feature {ANY}
             c := compound.adapt_for(t)
          end
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else wi1 /= wi2
+            wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
             wi2 := wi1.adapt_for(t)
-            i := i - 1
+            i := i + 1
          end
          if c = compound and then wi1 = wi2 then
             Result := Current
@@ -304,12 +302,12 @@ feature {ANY}
             else
                from
                   l := list.twin
-                  l.put(wi2, i + 1)
+                  l.put(wi2, i - 1)
                until
-                  i < list.lower
+                  i > l.upper
                loop
                   l.put(list.item(i).adapt_for(t), i)
-                  i := i - 1
+                  i := i + 1
                end
                Result.init(c, l)
             end
@@ -458,13 +456,13 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
             c := compound.specialize_2(type)
          end
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else wi1 /= wi2
+            wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
             wi2 := wi1.specialize_2_character(type)
-            i := i - 1
+            i := i + 1
          end
          if c = compound and then wi1 = wi2 then
             Result := Current
@@ -475,12 +473,12 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
             else
                from
                   l := list.twin
-                  l.put(wi2, i + 1)
+                  l.put(wi2, i - 1)
                until
-                  i < list.lower
+                  i > l.upper
                loop
                   l.put(list.item(i).specialize_2_character(type), i)
-                  i := i - 1
+                  i := i + 1
                end
                Result.init(c, l)
             end
@@ -514,13 +512,13 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          i: INTEGER; l: like list; wi1, wi2: WHEN_ITEM
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else wi1 /= wi2
+            wi1 /= wi2 or else i > list.upper
          loop
             wi1 := list.item(i)
             wi2 := wi1.specialize_2_integer(type)
-            i := i - 1
+            i := i + 1
          end
          if c = compound and then wi1 = wi2 then
             Result := Current
@@ -531,12 +529,12 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
             else
                from
                   l := list.twin
-                  l.put(wi2, i + 1)
+                  l.put(wi2, i - 1)
                until
-                  i < list.lower
+                  i > list.upper
                loop
                   l.put(list.item(i).specialize_2_integer(type), i)
-                  i := i - 1
+                  i := i + 1
                end
                Result.init(c, l)
             end
@@ -585,12 +583,12 @@ feature {INSPECT_STATEMENT}
             end
          else
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                values := list.item(i).compute_values(type, values)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -600,12 +598,12 @@ feature {INSPECT_STATEMENT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).force_internal_integer_values(type, Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -614,12 +612,12 @@ feature {INSPECT_STATEMENT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).force_internal_character_values(type, Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -628,12 +626,12 @@ feature {INSPECT_STATEMENT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            Result or else i < list.lower
+            Result or else i > list.upper
          loop
             Result := list.item(i).match_value(v)
-            i := i - 1
+            i := i + 1
          end
       end
 

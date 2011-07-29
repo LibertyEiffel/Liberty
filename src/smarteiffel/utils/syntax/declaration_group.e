@@ -46,12 +46,12 @@ feature {}
       do
          name_list := nl
          from
-            i := name_list.upper
+            i := name_list.lower
          until
-            i = 0
+            i > name_list.upper
          loop
             name_list.item(i).set_result_type(type)
-            i := i - 1
+            i := i + 1
          end
       ensure
          name_list = nl
@@ -110,13 +110,13 @@ feature {DECLARATION_LIST}
          la1, la2: LOCAL_ARGUMENT1; nl: like name_list; i: INTEGER
       do
          from
-            i := name_list.upper
+            i := name_list.lower
          until
-            i < name_list.lower or else la1 /= la2
+            la1 /= la2 or else i > name_list.upper
          loop
             la1 := name_list.item(i)
             la2 := la1.specialize_in(type)
-            i := i - 1
+            i := i + 1
          end
          if la1 = la2 then
             Result := Current
@@ -125,12 +125,12 @@ feature {DECLARATION_LIST}
             create nl.from_collection(name_list)
             Result.set_name_list(nl)
             from
-               nl.put(la2, i + 1)
+               nl.put(la2, i - 1)
             until
-               i < name_list.lower
+               i > nl.upper
             loop
                nl.put(name_list.item(i).specialize_in(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -140,13 +140,13 @@ feature {DECLARATION_LIST}
          la1, la2: LOCAL_ARGUMENT1; nl: like name_list; i: INTEGER
       do
          from
-            i := name_list.upper
+            i := name_list.lower
          until
-            i < name_list.lower or else la1 /= la2
+            la1 /= la2 or else i > name_list.upper
          loop
             la1 := name_list.item(i)
             la2 := la1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if la1 = la2 then
             Result := Current
@@ -155,12 +155,12 @@ feature {DECLARATION_LIST}
             create nl.from_collection(name_list)
             Result.set_name_list(nl)
             from
-               nl.put(la2, i + 1)
+               nl.put(la2, i - 1)
             until
-               i < name_list.lower
+               i > nl.upper
             loop
                nl.put(name_list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -173,12 +173,12 @@ feature {DECLARATION, DECLARATION_LIST}
       do
          from
             Result := True
-            i := name_list.upper
+            i := name_list.lower
          until
-            i < name_list.lower or else not Result
+            not Result or else i > name_list.upper
          loop
             Result := name_list.item(i).has_been_specialized
-            i := i - 1
+            i := i + 1
          end
       end
 

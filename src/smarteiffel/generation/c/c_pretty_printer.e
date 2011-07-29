@@ -190,12 +190,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             live_type_map.item(i).prepare_introspection
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -583,9 +583,9 @@ feature {}
          pending_c_function_body.append(once "p[0]=%"???%";%N")
          ace.for_all(agent initialize_path_table_of(?))
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
@@ -610,7 +610,7 @@ feature {}
                   lt.prepare_introspection2
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -639,9 +639,9 @@ feature {}
       do
          ace.for_all(agent initialize_generator_of(?))
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.generator_used then
@@ -653,7 +653,7 @@ feature {}
                   pending_c_function_body.append(once ";%N")
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -662,9 +662,9 @@ feature {}
          i: INTEGER; lt: LIVE_TYPE; ct: CLASS_TEXT; rtm: STRING
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.generating_type_used then
@@ -679,7 +679,7 @@ feature {}
                end
                pending_c_function_body.append(once ";%N")
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -691,9 +691,9 @@ feature {}
       do
          from
             b := once "......................................."
-            i := run_features.upper
+            i := run_features.lower
          until
-            i < run_features.lower
+            i > run_features.upper
          loop
             rf := run_features.item(i)
             pending_c_function_body.append(once "init_profile(profile+")
@@ -704,14 +704,14 @@ feature {}
             rf.name.complete_name_in(b)
             string_to_c_code(b, pending_c_function_body)
             pending_c_function_body.append(once ");%N")
-            i := i - 1
+            i := i + 1
          end
          if class_invariants /= Void then
             from
                b := once ""
-               i := class_invariants.upper
+               i := class_invariants.lower
             until
-               i < class_invariants.lower
+               i > class_invariants.upper
             loop
                lt := class_invariants.item(i)
                pending_c_function_body.append(once "init_profile(inv_profile+")
@@ -721,15 +721,15 @@ feature {}
                b.append(lt.name.to_string)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
          if agent_creations /= Void then
             from
                b := once ""
-               i := agent_creations.upper
+               i := agent_creations.lower
             until
-               i < agent_creations.lower
+               i > agent_creations.upper
             loop
                ac := agent_creations.item(i)
                pending_c_function_body.append(once "init_profile(agent_profile+")
@@ -739,15 +739,15 @@ feature {}
                pretty_printer.expression_in(b, ac)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
          if agent_switches /= Void then
             from
                b := once ""
-               i := agent_switches.upper
+               i := agent_switches.lower
             until
-               i < agent_switches.lower
+               i > agent_switches.upper
             loop
                t := agent_switches.item(i)
                pending_c_function_body.append(once "init_profile(agent_switch_profile+")
@@ -757,7 +757,7 @@ feature {}
                b.append(t.canonical_type_mark.written_mark)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -2240,7 +2240,7 @@ feature {C_COMPILATION_MIXIN}
    c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is
          -- Update `c_frame_descriptor_format' accordingly.
       require
-         is_static
+         type_mark.is_static
          buffer /= Void
       local
          lt: LIVE_TYPE
@@ -2298,12 +2298,12 @@ feature {}
             sys_runtime_h_and_c(once "c_plus_plus")
             if c_plus_plus /= Void then
                from
-                  i := c_plus_plus.upper
+                  i := c_plus_plus.lower
                until
-                  i < 0
+                  i > c_plus_plus.upper
                loop
                   c_plus_plus.item(i).c_plus_plus_definition
-                  i := i - 1
+                  i := i + 1
                end
             end
             end_c_linkage(out_c)

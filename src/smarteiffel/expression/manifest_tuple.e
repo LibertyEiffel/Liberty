@@ -228,12 +228,12 @@ feature {ANY}
       do
          if effective_arg_list /= Void then
             from
-               i := effective_arg_list.count
+               i := 1
             until
-               i <= 0 or else Result
+               Result or else i > effective_arg_list.count
             loop
                Result := effective_arg_list.expression(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -244,12 +244,12 @@ feature {ANY}
       do
          if effective_arg_list /= Void then
             from
-               i := effective_arg_list.count
+               i := 1
             until
-               i <= 0
+               i > effective_arg_list.count
             loop
                effective_arg_list.expression(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end

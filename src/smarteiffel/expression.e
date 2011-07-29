@@ -223,12 +223,12 @@ feature {ANY}
                fake_tuple_1 ::= Current
                fake_tuple_2 ::= other
                Result := fake_tuple_1.count = fake_tuple_2.count
-               i := fake_tuple_1.count
+               i := 1
             until
-               not Result or else i = 0
+               not Result or else i > fake_tuple_1.count
             loop
                Result := fake_tuple_1.expression(i).is_an_acceptable_replacement(type, fake_tuple_2.expression(i))
-               i := i - 1
+               i := i + 1
             end
          else
             -- Now the general basic scheme:

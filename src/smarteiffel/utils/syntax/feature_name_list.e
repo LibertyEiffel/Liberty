@@ -58,13 +58,13 @@ feature {ANY}
             Result := first
          elseif remainder /= Void then
             from
-               i := remainder.upper
+               i := remainder.lower
             until
-               i < 0 or else fn.is_equal(remainder.item(i))
+               i > remainder.upper or else fn.is_equal(remainder.item(i))
             loop
-               i := i - 1
+               i := i + 1
             end
-            if i >= 0 then
+            if remainder.valid_index(i) then
                Result := remainder.item(i)
             end
          end
@@ -224,14 +224,14 @@ feature {CREATION_CLAUSE}
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            Result or else i = 0
+            Result or else i > count
          loop
             if item(i).to_string = as_make then
                Result := True
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -240,15 +240,15 @@ feature {CREATION_CLAUSE}
          i: INTEGER; fn: FEATURE_NAME
       do
          from
-            i := count
+            i := 1
          until
-            i = 0 or else Result /= Void
+            Result /= Void or else i > count
          loop
             fn := item(i)
             if fn.to_string.is_equal(a_name) then
                Result := fn
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -274,21 +274,21 @@ feature {}
          i, j: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < 0
+            i > list.upper
          loop
             from
-               j := i - 1
+               j := i + 1
             until
-               j < 0
+               j > list.upper
             loop
                if list.item(i).is_equal(list.item(j)) then
                   fe_multiple(list.item(i), list.item(j))
                end
-               j := j - 1
+               j := j + 1
             end
-            i := i - 1
+            i := i + 1
          end
          first := list.item(0)
          i := list.upper

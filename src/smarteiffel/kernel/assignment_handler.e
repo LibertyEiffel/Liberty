@@ -84,7 +84,7 @@ feature {SMART_EIFFEL}
          end
          echo.put_string(once ".(done).%N")
       end
-   
+
 feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CALL_1, FAKE_TUPLE, E_FUNCTION}
    implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION is
          -- If necessary, wrap the source `expression' inside an IMPLICIT_CAST invisible wrapper object,
@@ -142,7 +142,7 @@ feature {LIVE_TYPE}
          end
          tfw.put_character('%N')
       end
-   
+
 feature {SMART_EIFFEL}
    reset is
          -- Called before a re-collect cycle.
@@ -202,12 +202,12 @@ feature {NATIVE, CECIL_ENTRY}
       do
          if args /= Void then
             from
-               i := args.count
+               i := 1
             until
-               i <= 0
+               i > args.count
             loop
                from_external_(type, args.type_mark(i))
-               i := i - 1
+               i := i + 1
             end
          end
          if result_type /= Void then

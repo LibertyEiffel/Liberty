@@ -32,16 +32,16 @@ feature {AGENT_CREATION}
          end
          from
             add_flag := True
-            i := agent_creation_list.upper
+            i := agent_creation_list.lower
          until
-            i < agent_creation_list.lower
+            i > agent_creation_list.upper
          loop
             ac := agent_creation_list.item(i)
             if agent_creation.same_mold_id_as(ac) then
                add_flag := False
-               i := agent_creation_list.lower
+               i := agent_creation_list.upper
             end
-            i := i - 1
+            i := i + 1
          end
          if add_flag then
             agent_creation_list.add_last(agent_creation)

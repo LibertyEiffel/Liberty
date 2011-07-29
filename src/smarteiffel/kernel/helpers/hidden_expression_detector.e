@@ -34,12 +34,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := args.count
+            i := 1
          until
-            i < 1 or else hidden
+            hidden or else i > args.count
          loop
             args.expression(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -68,12 +68,12 @@ feature {COMPOUND_EXPRESSION}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            (i < visited.lower) or else hidden
+            hidden or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -83,12 +83,12 @@ feature {FAKE_TUPLE}
          i: INTEGER
       do
          from
-            i := visited.count
+            i := 1
          until
-            i < 1 or else hidden
+            hidden or else i > visited.count
          loop
             visited.expression(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -100,15 +100,15 @@ feature {}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else hidden
+            hidden or else i > list.upper
          loop
             list.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
-         
+
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
       do
@@ -119,7 +119,7 @@ feature {MANIFEST_GENERIC}
             visit_fast_array_of_expression(visited.item_list)
          end
       end
-   
+
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
@@ -484,7 +484,7 @@ feature {CLOSED_OPERAND}
       do
          visited.original_capture.accept(Current)
       end
-   
+
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do

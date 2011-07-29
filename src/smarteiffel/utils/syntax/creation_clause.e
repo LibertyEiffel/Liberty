@@ -140,9 +140,9 @@ feature {CREATION_CLAUSE_LIST}
          i: INTEGER; af: ANONYMOUS_FEATURE; fs: FEATURE_STAMP; fn: FEATURE_NAME
       do
          from
-            i := procedure_list.count
+            i := 1
          until
-            i = 0
+            i > procedure_list.count
          loop
             fn := procedure_list.item(i)
             if fn.to_string = as_manifest_creation then
@@ -179,7 +179,7 @@ feature {CREATION_CLAUSE_LIST}
                   error_handler.print_as_error
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -191,12 +191,12 @@ feature {CREATION_CLAUSE_LIST}
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; fn: FEATURE_NAME; i: INTEGER
       do
          from
-            i := procedure_list.count
+            i := 1
          until
-            i = 0
+            i > procedure_list.count
          loop
             fn := procedure_list.item(i)
-            -- Using `search' here because the existance of all creation procedures is done 
+            -- Using `search' here because the existance of all creation procedures is done
             -- for all TYPEs (reference and expanded as well) somewhere else:
             fs := type.search(fn)
             if fs /= Void then
@@ -224,7 +224,7 @@ feature {CREATION_CLAUSE_LIST}
                   end
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -236,9 +236,9 @@ feature {CREATION_CLAUSE_LIST}
          i: INTEGER; fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
          from
-            i := procedure_list.count
+            i := 1
          until
-            (i = 0) or else Result /= Void
+            Result /= Void or else i > procedure_list.count
          loop
             fs := type.lookup(procedure_list.item(i))
             af := fs.anonymous_feature(type)
@@ -249,7 +249,7 @@ feature {CREATION_CLAUSE_LIST}
             if af.arguments = Void then
                Result := fs
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -366,7 +366,7 @@ invariant
    clients /= Void
 
    procedure_list /= Void
-   
+
 end -- class CREATION_CLAUSE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

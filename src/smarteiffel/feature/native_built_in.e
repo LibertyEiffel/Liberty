@@ -992,13 +992,13 @@ feature {}
             wa := ct.type.live_type.writable_attributes
             if wa /= Void then
                from
-                  i := wa.upper
+                  i := wa.lower
                until
-                  i = 0
+                  i > wa.upper
                loop
                   t := wa.item(i).result_type
                   space := space + t.jvm_stack_space
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -1272,16 +1272,16 @@ feature {}
          code_attribute.opcode_astore_1
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i = 0
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                code_attribute.opcode_aload_1
                idx := constant_pool.idx_fieldref(rf2)
                space := rf2.result_type.jvm_push_default
                code_attribute.opcode_putfield(idx, - (space + 1))
-               i := i - 1
+               i := i + 1
             end
          end
          jvm.inside_twin(cpy)
@@ -1331,9 +1331,9 @@ feature {}
             jvm.push_target
             lt.opcode_checkcast
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i = 0
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                ca.opcode_dup2
@@ -1341,7 +1341,7 @@ feature {}
                space := rf2.result_type.jvm_stack_space
                ca.opcode_getfield(idx, space - 1)
                ca.opcode_putfield(idx, space + 1)
-               i := i - 1
+               i := i + 1
             end
             ca.opcode_pop
          end

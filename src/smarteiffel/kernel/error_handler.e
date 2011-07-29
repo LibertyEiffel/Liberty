@@ -91,7 +91,7 @@ feature {ANY}
 
    add_expression (expression: EXPRESSION) is
          -- Add a piece of `expression' in the message.
-         -- Note: the `start_position' of `expression' is not automatically added by this call because it may be not 
+         -- Note: the `start_position' of `expression' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
       require
          expression /= Void
@@ -103,7 +103,7 @@ feature {ANY}
 
    add_instruction (instruction: INSTRUCTION) is
          -- Add a piece of `instruction' in the message.
-         -- Note: the `start_position' of `instruction' is not automatically added by this call because it may be not 
+         -- Note: the `start_position' of `instruction' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
       require
          instruction /= Void
@@ -115,7 +115,7 @@ feature {ANY}
 
    add_feature_name (fn: FEATURE_NAME) is
          -- Useful to show `fn' which may be an infix or a prefix name as well as an ordinary feature name.
-         -- Note: the `start_position' of `fn' is not automatically added by this call because it may be not 
+         -- Note: the `start_position' of `fn' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
       require
          fn /= Void
@@ -387,7 +387,7 @@ feature {}
       end
 
    detab_line (line: STRING): INTEGER is
-         -- Replace all leading tabs of `line' with spaces, and return the number of spaces that must 
+         -- Replace all leading tabs of `line' with spaces, and return the number of spaces that must
          -- be prepended to `line' to compensate for this change.
       require
          line.count > 0
@@ -410,7 +410,7 @@ feature {}
       end
 
    put_arrows_into (line: STRING; p: FAST_ARRAY[POSITION]) is
-         -- Replace the characters of `line' that are at column numbers from `p' by '^'. Replace 
+         -- Replace the characters of `line' that are at column numbers from `p' by '^'. Replace
          -- all remaining non-tab characters by spaces.
       require
          (create {COLLECTION_SORTER[POSITION]}).is_sorted(p)
@@ -420,23 +420,23 @@ feature {}
          i: INTEGER
       do
          from
-            i := line.upper - 1
+            i := line.lower
          until
-            i < line.lower
+            i >= line.upper
          loop
             if line.item(i) /= '%T' then
                line.put(' ', i)
             end
-            i := i - 1
+            i := i + 1
          end
          if p.first.column > 0 then
             from
-               i := p.upper
+               i := p.lower
             until
-               i < p.lower
+               i > p.upper
             loop
                line.put('^', p.item(i).column)
-               i := i - 1
+               i := i + 1
             end
          end
       ensure

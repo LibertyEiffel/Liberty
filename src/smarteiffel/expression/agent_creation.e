@@ -662,12 +662,12 @@ feature {C_LIVE_TYPE_COMPILER}
       do
          if closed_operand_list /= Void then
             from
-               i := closed_operand_list.upper
+               i := closed_operand_list.lower
             until
-               i < closed_operand_list.lower
+               i > closed_operand_list.upper
             loop
                closed_operand_list.item(i).set_inside_agent_launcher_flag(flag_value)
-               i := i - 1
+               i := i + 1
             end
          end
       end

@@ -158,9 +158,9 @@ feature {}
          i: INTEGER; ct: CLASS_TEXT; fcl: FEATURE_CLAUSE_LIST; parent: TYPE
       do
          from
-            i := parent_list.upper
+            i := parent_list.lower
          until
-            i < 0
+            i > parent_list.upper
          loop
             parent := parent_list.item(i)
             ct := parent.class_text
@@ -168,7 +168,7 @@ feature {}
             if fcl /= Void then
                fcl.for_short(ct.name, parent, type, cn)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

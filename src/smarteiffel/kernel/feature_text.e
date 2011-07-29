@@ -113,9 +113,9 @@ feature {FEATURE_CLAUSE}
       do
          feature_clause := fc -- Checking for multiple definition first:
          from
-            i := names.count
+            i := 1
          until
-            i = 0
+            i > names.count
          loop
             fn1 := names.item(i)
             af := fd.reference_at(fn1)
@@ -131,7 +131,7 @@ feature {FEATURE_CLAUSE}
                error_handler.append(".")
                error_handler.print_as_fatal_error
             end
-            i := i - 1
+            i := i + 1
          end
          -- Adding the new one:
          anonymous_feature.add_into(Current, fd)

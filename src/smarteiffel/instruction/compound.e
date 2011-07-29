@@ -34,12 +34,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).safety_check(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -119,12 +119,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            Result or else i < list.lower
+            Result or else i > list.upper
          loop
             Result := list.item(i).use_current(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -134,12 +134,12 @@ feature {ANY}
       do
          Result := True
          from
-            i := list.upper
+            i := list.lower
          until
-            not Result or else i < list.lower
+            not Result or else i > list.upper
          loop
             Result := list.item(i).has_been_specialized
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -148,13 +148,13 @@ feature {ANY}
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else inst1 /= inst2
+            inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
             inst2 := inst1.specialize_in(type)
-            i := i - 1
+            i := i + 1
          end
          if inst1 = inst2 then
             Result := Current
@@ -163,12 +163,12 @@ feature {ANY}
             l := list.twin
             Result.set_list(l)
             from
-               l.put(inst2, i + 1)
+               l.put(inst2, i - 1)
             until
-               i < l.lower
+               i > l.upper
             loop
                l.put(l.item(i).specialize_in(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -178,13 +178,13 @@ feature {ANY}
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else inst1 /= inst2
+            inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
             inst2 := inst1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if inst1 = inst2 then
             Result := Current
@@ -193,12 +193,12 @@ feature {ANY}
             l := list.twin
             Result.set_list(l)
             from
-               l.put(inst2, i + 1)
+               l.put(inst2, i - 1)
             until
-               i < l.lower
+               i > l.upper
             loop
                l.put(l.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -208,13 +208,13 @@ feature {ANY}
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else inst1 /= inst2
+            inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
             inst2 := inst1.specialize_2(type)
-            i := i - 1
+            i := i + 1
          end
          if inst1 = inst2 then
             Result := Current
@@ -223,12 +223,12 @@ feature {ANY}
             l := list.twin
             Result.set_list(l)
             from
-               l.put(inst2, i + 1)
+               l.put(inst2, i - 1)
             until
-               i < l.lower
+               i > l.upper
             loop
                l.put(l.item(i).specialize_2(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -238,13 +238,13 @@ feature {ANY}
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else inst1 /= inst2
+            inst1 /= inst2 or else i > list.upper
          loop
             inst1 := list.item(i)
             inst2 := inst1.adapt_for(type)
-            i := i - 1
+            i := i + 1
          end
          if inst1 = inst2 then
             Result := Current
@@ -253,12 +253,12 @@ feature {ANY}
             l := list.twin
             Result.set_list(l)
             from
-               l.put(inst2, i + 1)
+               l.put(inst2, i - 1)
             until
-               i < l.lower
+               i > l.upper
             loop
                l.put(l.item(i).adapt_for(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -340,13 +340,13 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
             Result := True
          until
-            not Result or else i <= list.lower
+            not Result or else i > list.upper
          loop
             Result := list.item(i).side_effect_free(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -355,12 +355,12 @@ feature {ANY}
          i: INTEGER; dummy: TYPE
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             dummy := list.item(i).collect(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -578,12 +578,12 @@ feature {}
       do
          Result := True
          from
-            i := l.upper
+            i := l.lower
          until
-            not Result or else i < l.lower
+            not Result or else i > l.upper
          loop
             Result := l.item(i).is_not_a_compound
-            i := i - 1
+            i := i + 1
          end
       ensure
          assertion_check_only: Result

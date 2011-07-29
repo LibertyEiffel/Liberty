@@ -117,9 +117,9 @@ feature {}
          i: INTEGER; tfg: FORMAL_GENERIC_TYPE_MARK; t: TYPE_MARK; cn: CLASS_NAME
       do
          from
-            i := gl.upper
+            i := gl.lower
          until
-            i < gl.lower
+            i > gl.upper
          loop
             t := gl.item(i)
             if t.is_formal_generic then
@@ -132,7 +132,7 @@ feature {}
                   gl.put(tfg, i)
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

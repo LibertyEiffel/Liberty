@@ -106,9 +106,9 @@ feature {C_PRETTY_PRINTER}
                end
                cpp.pending_c_function_body.append(once "switch (expression->id) {%N")
                from
-                  i := live_type_map.upper
+                  i := live_type_map.lower
                until
-                  i < live_type_map.lower
+                  i > live_type_map.upper
                loop
                   dynamic := live_type_map.item(i).type
                   if dynamic.live_type.at_run_time then
@@ -126,7 +126,7 @@ feature {C_PRETTY_PRINTER}
                         cpp.pending_c_function_body.append(once "*/: error2(expression,/*unknown-position*/0);break;%N")
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
                cpp.pending_c_function_body.append(once "}%Nreturn 0;%N")
             elseif right_type.live_type.run_time_set.count = 1 then

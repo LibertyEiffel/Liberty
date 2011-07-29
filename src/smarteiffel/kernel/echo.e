@@ -412,7 +412,7 @@ feature {NEW_ECHO}
    output_stream: OUTPUT_STREAM
          -- Usually `std_output', but may be something else in case of redirection of `echo'.
          -- Note that this stream is always kept flushed.
-   
+
    error_stream: OUTPUT_STREAM
          -- Usually `std_error', but may be something else in case of redirection of `echo'.
          -- Note that, as `output_stream', this stream is always kept flushed.

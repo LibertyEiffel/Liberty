@@ -312,9 +312,9 @@ feature {}
          end
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i = 0
+               i > wa.upper
             loop
                a := wa.item(i)
                at := a.result_type
@@ -354,7 +354,7 @@ feature {}
                      cpp.pending_c_function_body.append(once ");%N")
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -520,9 +520,9 @@ feature {}
       do
          live_type_map := smart_eiffel.live_type_map
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
@@ -532,7 +532,7 @@ feature {}
                   fsoc_count_ceil := fsoc_count_ceil + 1
                end
             end
-            i := i - 1
+            i := i + 1
          end
          fsoc_count_ceil := 4 * fsoc_count_ceil
          kb_count := fsoc_count_ceil * (fsoc_size #// 1024)

@@ -385,16 +385,16 @@ feature {SMART_EIFFEL}
          end
          if type_internals_handler /= Void then
             from
-               i := smart_eiffel.live_type_map.upper
+               i := smart_eiffel.live_type_map.lower
             until
-               i < smart_eiffel.live_type_map.lower
+               i > smart_eiffel.live_type_map.upper
             loop
                t := smart_eiffel.live_type_map.item(i).type
                collect_internals_handler_for(t, as_internals_from_generating_type)
                collect_internals_handler_for(t, as_valid_generating_type_for_internals)
                collect_internals_handler_for(t, as_native_array_internals_from_generating_type)
                collect_internals_handler_for(t, as_valid_generating_type_for_native_array_internals)
-               i := i - 1
+               i := i + 1
             end
          end
       end

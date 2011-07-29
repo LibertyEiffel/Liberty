@@ -44,15 +44,15 @@ feature {ANY}
       do
          from
             Result := True
-            i := count
+            i := 1
          until
-            not Result or else i = 0
+            not Result or else i > count
          loop
             static_tm := type_mark(i).to_static(type)
             if static_tm.is_user_expanded then
                Result := static_tm.type.live_type.side_effect_free_default_create
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -199,9 +199,9 @@ feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
          internal_c_local: INTERNAL_C_LOCAL
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             local_type := type_mark(i).resolve_in(type)
             if local_type.is_user_expanded and then name(i).must_be_c_generated(type) then
@@ -234,7 +234,7 @@ feature {ONCE_ROUTINE_POOL, C_LIVE_TYPE_COMPILER}
                   cpp.class_invariant_call_closing(class_invariant_flag, True)
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -245,15 +245,15 @@ feature {ONCE_ROUTINE_POOL, RUN_FEATURE}
          jvm_offset, i, dummy: INTEGER; t: TYPE_MARK
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             jvm_offset := jvm.local_offset_of(name(i))
             t := type_mark(i).to_static(type)
             dummy := t.jvm_push_default
             t.jvm_write_local_creation(jvm_offset)
-            i := i - 1
+            i := i + 1
          end
       end
 

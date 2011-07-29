@@ -230,12 +230,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := flat_list.upper
+            i := flat_list.lower
          until
-            Result or else i < flat_list.lower
+            Result or else i > flat_list.upper
          loop
             Result := flat_list.item(i).result_type.is_like_current
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -292,9 +292,9 @@ feature {}
             check
                count = actual_count
             end
-            i := actual_count
+            i := 1
          until
-            i = 0
+            i > actual_count
          loop
             an := name(i)
             tlf ?= an.result_type
@@ -310,13 +310,13 @@ feature {}
                   an.set_result_type(tla)
                end
             end
-            i := i - 1
+            i := i + 1
          end
          if ace.all_check then
             from
-               i := count
+               i := 1
             until
-               i = 0
+               i > count
             loop
                tla ?= name(i).result_type
                if tla /= Void then
@@ -329,7 +329,7 @@ feature {}
                      error_handler.print_as_fatal_error
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       ensure

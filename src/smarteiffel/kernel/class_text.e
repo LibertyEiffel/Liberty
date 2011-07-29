@@ -331,9 +331,9 @@ feature {ANY}
             if parent_lists /= Void then
                -- First, we look only at inherit links:
                from
-                  i := parent_lists.inherit_count
+                  i := 1
                until
-                  Result = inherits_code or else i <= 0
+                  Result = inherits_code or else i > parent_lists.inherit_count
                loop
                   a_parent_edge := parent_lists.inherit_edge(i)
                   parent := a_parent_edge.class_text
@@ -345,27 +345,25 @@ feature {ANY}
                         Result := code
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
-               if Result = unrelated_code then
-                  -- Next, we try insert links:
-                  from
-                     i := parent_lists.insert_count
-                  until
-                     Result /= unrelated_code or else i <= 0
-                  loop
-                     a_parent_edge := parent_lists.insert_edge(i)
-                     parent := a_parent_edge.class_text
-                     if other = parent then
+               -- Next, we try insert links:
+               from
+                  i := 1
+               until
+                  Result /= unrelated_code or else i > parent_lists.insert_count
+               loop
+                  a_parent_edge := parent_lists.insert_edge(i)
+                  parent := a_parent_edge.class_text
+                  if other = parent then
+                     Result := inserts_code
+                  else
+                     code := parent.insert_inherit_test(other)
+                     if code /= unrelated_code then
                         Result := inserts_code
-                     else
-                        code := parent.insert_inherit_test(other)
-                        if code /= unrelated_code then
-                           Result := inserts_code
-                        end
                      end
-                     i := i - 1
                   end
+                  i := i + 1
                end
             end
             insert_inherit_test_memory_cache.add(Result, other)
@@ -383,9 +381,9 @@ feature {FEATURE_STAMP, CLASS_TEXT}
          i, insert_inherit_code: INTEGER; a_parent_edge: PARENT_EDGE; parent: CLASS_TEXT
       do
          from
-            i := parent_lists.inherit_count
+            i := 1
          until
-            Result or else i <= 0
+            Result or else i > parent_lists.inherit_count
          loop
             a_parent_edge := parent_lists.inherit_edge(i)
             if a_parent_edge.rename_count = 0 then
@@ -401,13 +399,13 @@ feature {FEATURE_STAMP, CLASS_TEXT}
                   end
                end
             end
-            i := i - 1
+            i := i + 1
          end
-         if can_insert and then not Result then
+         if can_insert then
             from
-               i := parent_lists.insert_count
+               i := 1
             until
-               Result or else i <= 0
+               Result or else i > parent_lists.insert_count
             loop
                a_parent_edge := parent_lists.insert_edge(i)
                if a_parent_edge.rename_count = 0 then
@@ -421,7 +419,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
                      end
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end

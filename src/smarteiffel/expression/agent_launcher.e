@@ -60,7 +60,7 @@ feature {AGENT_LAUNCHER}
                if count > 0 then
                   error_handler.add_position(fake_tuple.start_position)
                   error_handler.append("To many actual arguments for agent call. %
-               %(The agent you are trying to call has no arguments.)")
+                                       %(The agent you are trying to call has no arguments.)")
                   error_handler.print_as_fatal_error
                end
             elseif count /= open.count then
@@ -69,12 +69,13 @@ feature {AGENT_LAUNCHER}
                                     %are trying to call has ")
                error_handler.append_integer(open.count)
                error_handler.append(" argument")
-               if open.count > 1 then
+               if open.count /= 1 then
                   error_handler.extend('s')
                end
                error_handler.append(". Its type is ")
                error_handler.append(agent_type.name.to_string)
                error_handler.append(".)")
+               sedb_breakpoint
                error_handler.print_as_fatal_error
             end
          until
@@ -133,16 +134,16 @@ feature {}
                formal_types.lower = 1
             end
             from
-               i := fake_tuple.count
+               i := 1
             until
-               i <= 0
+               i > fake_tuple.count
             loop
                expression := fake_tuple.expression(i)
                if not expression.is_void then
                   actual_type := expression.collect(type)
                   assignment_handler.collect_normal(actual_type, formal_types.item(i))
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end

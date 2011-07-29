@@ -3,8 +3,8 @@
 --
 deferred class COMMAND_LINE_TOOLS
    --
-   -- Some useful tools to handle command line flags. Actually, this class is inherited by all command line 
-   -- tools of SmartEiffel (eg. "compile", "compile_to_c", "compile_to_jvm", "finder", "clean", "short", 
+   -- Some useful tools to handle command line flags. Actually, this class is inherited by all command line
+   -- tools of SmartEiffel (eg. "compile", "compile_to_c", "compile_to_jvm", "finder", "clean", "short",
    -- "pretty", "class_check", etc. and "install" as well).
    --
 
@@ -112,9 +112,9 @@ feature {}
          -- Memory of `is_help_flag'.
 
    search_for_echo_redirect_flag: STRING is
-         -- Seach for the -output_error_warning_on flag amongs arguments in order to apply redirection as 
+         -- Seach for the -output_error_warning_on flag amongs arguments in order to apply redirection as
          -- early as possible (should be called first when the command accept this flag).
-         -- A non Void `Result' indicates the redirection path. 
+         -- A non Void `Result' indicates the redirection path.
       local
          argi: INTEGER; arg: STRING; file_tools: FILE_TOOLS
       do
@@ -157,7 +157,7 @@ feature {}
             end
          end
       end
-   
+
    search_for_verbose_flag is
          -- Seach the -verbose flag amongs arguments in order to become verbose as soon as possible (should be
          -- called after `search_for_echo_redirect_flag' when the command accept this flag).
@@ -216,16 +216,16 @@ feature {}
          end
          -- First, search for some *.ace or *.ACE file name:
          from
-            i := argument_count
+            i := 1
          until
-            Result or else i = 0
+            Result or else i > argument_count
          loop
             arg := argument(i)
             if arg.has_suffix(once ".ace") or else arg.has_suffix(once ".ACE") then
                Result := True
                ace.analyse_ace_file(arg)
             end
-            i := i - 1
+            i := i + 1
          end
          if Result then
             -- Second, check that other arguments are allowed in ACE file mode:
@@ -347,7 +347,7 @@ feature {}
             if not version_flag then
                echo_verbose_status_save := echo.is_verbose
                echo.set_verbose
-               -- We use an environment variable rather than a new argument (e.g. -short_version) so that a 
+               -- We use an environment variable rather than a new argument (e.g. -short_version) so that a
                -- recent "se" degrades gracefully when used with an old plugin.
                if (create {SYSTEM}).get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
                   echo.put_string(smart_eiffel.release_number)
@@ -357,7 +357,7 @@ feature {}
                   echo.put_string(once "%" is:%N")
                   echo.put_string(smart_eiffel.copyright)
                end
-               echo.set_verbose_with(echo_verbose_status_save)   
+               echo.set_verbose_with(echo_verbose_status_save)
             end
             version_flag := True
             Result := True
@@ -430,7 +430,7 @@ feature {}
             end
          end
       end
-   
+
    is_cecil_flag (flag: STRING; argi: INTEGER): BOOLEAN is
       do
          if flag_match(fz_cecil, flag) then
@@ -508,7 +508,7 @@ feature {}
             Result := True
          end
       end
-   
+
    is_run (flag: STRING): BOOLEAN is
       do
          if flag_match(fz_flag_run, flag) then
@@ -600,7 +600,7 @@ feature {}
             end
          end
       end
-      
+
    is_ms (flag: STRING; argi: INTEGER): BOOLEAN is
       do
          if flag_match(fz_flag_ms, flag) then

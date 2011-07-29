@@ -49,9 +49,9 @@ feature {PARENT_EDGE}
       do
          Result := fn
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             rp := list.item(i)
             if rp.old_name.is_equal(fn) then
@@ -59,7 +59,7 @@ feature {PARENT_EDGE}
             elseif rp.new_name.is_equal(fn) then
                no_longer_exists := True
             end
-            i := i - 1
+            i := i + 1
          end
          if no_longer_exists and then Result = fn then
             Result := Void
@@ -74,7 +74,7 @@ feature {PARENT_EDGE}
          i: INTEGER; rp: RENAME_PAIR
       do
          from
-            i := list.upper
+            i := list.lower
          until
             Result /= Void
          loop
@@ -82,7 +82,7 @@ feature {PARENT_EDGE}
             if rp.new_name = fn then
                Result := rp.old_name
             end
-            i := i - 1
+            i := i + 1
          end
       ensure
          fn = name_in_child(Result)
@@ -95,13 +95,13 @@ feature {PARENT_EDGE}
          i: INTEGER; rp: RENAME_PAIR
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or Result
+            Result or else i > list.upper
          loop
             rp := list.item(i)
             Result := rp.new_name.is_equal(fn)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -112,13 +112,13 @@ feature {PARENT_EDGE}
          i: INTEGER; rp: RENAME_PAIR
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or Result
+            Result or else i > list.upper
          loop
             rp := list.item(i)
             Result := rp.old_name.is_equal(fn)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -134,16 +134,16 @@ feature {PARENT_EDGE}
          i, j: INTEGER; rp1, rp2: RENAME_PAIR
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             rp1 := list.item(i)
-            i := i - 1
+            i := i + 1
             from
                j := i
             until
-               j < list.lower
+               j > list.upper
             loop
                rp2 := list.item(j)
                if rp2.old_name.is_equal(rp1.old_name) then
@@ -152,7 +152,7 @@ feature {PARENT_EDGE}
                   error_handler.append("Multiple rename for the same feature is not allowed.")
                   error_handler.print_as_fatal_error
                end
-               j := j - 1
+               j := j + 1
             end
          end
       end
@@ -164,9 +164,9 @@ feature {PARENT_EDGE}
          i: INTEGER; rename_pair: RENAME_PAIR
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             rename_pair := list.item(i)
             if not parent_type.valid_feature_name(rename_pair.old_name) then
@@ -180,7 +180,7 @@ feature {PARENT_EDGE}
                error_handler.append(".")
                error_handler.print_as_fatal_error
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

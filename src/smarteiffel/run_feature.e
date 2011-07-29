@@ -479,12 +479,12 @@ feature {}
                ensure_assertion /= Void
             end
             from
-               i := old_list.upper
+               i := old_list.lower
             until
-               i < old_list.lower
+               i > old_list.upper
             loop
                old_list.item(i).compile_to_jvm_old(type_of_current)
-               i := i - 1
+               i := i + 1
             end
          end
          jvm_try_begin := code_attribute.program_counter -- (4) ----------------------- Require assertion code :

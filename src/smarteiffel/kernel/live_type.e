@@ -236,17 +236,15 @@ feature {ANY}
             create precursor_classes.with_capacity(1)
          end
          from
-            i := precursor_run_features.upper
-         invariant
-            precursor_run_features.valid_index(i)
+            i := precursor_run_features.lower
          until
-            i < precursor_run_features.lower
+            i > precursor_run_features.upper
                or else (af.feature_text = precursor_run_features.item(i).base_feature.feature_text
                         and then precursor_classes.item(i) = ct)
          loop
-            i := i - 1
+            i := i + 1
          end
-         if i >= precursor_run_features.lower then
+         if precursor_run_features.valid_index(i) then
             Result := precursor_run_features.item(i)
          else
             s := once ""
@@ -1015,22 +1013,22 @@ feature {TYPE_MARK}
       do
          if writable_attributes /= Void then
             from
-               i := writable_attributes.upper
+               i := writable_attributes.lower
             until
-               i < writable_attributes.lower
+               i > writable_attributes.upper
             loop
                rf2 := writable_attributes.item(i)
                tm := rf2.result_type
                if as_weak_reference = tm.class_text_name.to_string then
-                  create Result.with_capacity(i + 1)
+                  create Result.with_capacity(writable_attributes.upper - i + 1)
                   check
                      tm.is_expanded
                   end
                   Result.add_last(rf2)
                   from
-                     i := i - 1
+                     i := i + 1
                   until
-                     i < writable_attributes.lower
+                     i > writable_attributes.upper
                   loop
                      rf2 := writable_attributes.item(i)
                      tm := rf2.result_type
@@ -1040,10 +1038,10 @@ feature {TYPE_MARK}
                         end
                         Result.add_last(rf2)
                      end
-                     i := i - 1
+                     i := i + 1
                   end
                else
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -1109,14 +1107,14 @@ feature {JVM}
          end
          if precursor_run_features /= Void then
             from
-               i := precursor_run_features.upper
+               i := precursor_run_features.lower
             until
-               i < precursor_run_features.lower
+               i > precursor_run_features.upper
             loop
                rf := precursor_run_features.item(i)
                jvm.set_current_frame(rf)
                rf.jvm_field_or_method
-               i := i - 1
+               i := i + 1
             end
          end
          jvm.prepare_fields
@@ -1173,9 +1171,9 @@ feature {ANY}
          wa := writable_attributes
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                t2 := rf2.result_type
@@ -1185,7 +1183,7 @@ feature {ANY}
                   idx := cp.idx_fieldref(rf2)
                   ca.opcode_putfield(idx, -2)
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -1239,9 +1237,9 @@ feature {NATIVE_BUILT_IN}
          wa := writable_attributes
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
@@ -1320,7 +1318,7 @@ feature {NATIVE_BUILT_IN}
                      tm.is_kernel_expanded
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if is_user_expanded then
@@ -1363,9 +1361,9 @@ feature {NATIVE_BUILT_IN}
          wa := writable_attributes
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
@@ -1377,12 +1375,12 @@ feature {NATIVE_BUILT_IN}
                   cpp.pending_c_function_body.append(field_name)
                   cpp.pending_c_function_body.append(once "));%N")
                end
-               i := i - 1
+               i := i + 1
             end
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                field_name := rf2.name.to_string
@@ -1459,7 +1457,7 @@ feature {NATIVE_BUILT_IN}
                   cpp.pending_c_function_body.append(field_name)
                   cpp.pending_c_function_body.append(once ");%N")
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if check_type then
@@ -1731,9 +1729,9 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                end
                from
                   wa := writable_attributes
-                  i := wa.upper
+                  i := wa.lower
                until
-                  i < wa.lower
+                  i > wa.upper
                loop
                   lt := wa.item(i).type_of_current.live_type
                   if lt.is_reference then
@@ -1748,7 +1746,7 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                      ref_count := 0
                      Result.append(lt.structure_signature)
                   end
-                  i := i - 1
+                  i := i + 1
                end
                if ref_count = 1 then
                   Result.extend('p')
