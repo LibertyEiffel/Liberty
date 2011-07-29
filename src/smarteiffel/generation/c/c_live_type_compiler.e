@@ -335,7 +335,7 @@ feature {}
                         function_body.append(once "gc_mark(u->")
                         closed_operand_name_in(closed_operand, function_body)
                         function_body.append(once ");%N")
-                     elseif t.need_gc_mark_function then
+                     elseif cpp.gc_handler.need_mark.for(t) then
                         cpp.gc_handler.mark_in(t.canonical_type_mark, function_body)
                         function_body.append(once "(&(u->")
                         closed_operand_name_in(closed_operand, function_body)

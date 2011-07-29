@@ -135,12 +135,6 @@ feature {ANY}
          jvm.std_is_equal(rc, wa)
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         Result := True
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       once

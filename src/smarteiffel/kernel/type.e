@@ -303,12 +303,6 @@ feature {OLD_MANIFEST_ARRAY}
          Result /= Void implies Result /= Current
       end
 
-feature {ANY}
-   need_gc_mark_function: BOOLEAN is
-      do
-         Result := canonical_type_mark.need_gc_mark_function(Current)
-      end
-
 feature {EFFECTIVE_ROUTINE}
    collect_default_rescue (caller: ANONYMOUS_FEATURE) is
       require

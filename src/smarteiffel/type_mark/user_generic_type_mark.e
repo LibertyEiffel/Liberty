@@ -168,16 +168,6 @@ feature {ANY}
       end
 
 feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         if is_reference then
-            Result := True
-         else
-            Result := current_type.live_type.gc_mark_to_follow
-         end
-      end
-
-feature {TYPE}
    special_weak_reference_extra_check is
       require
          is_static

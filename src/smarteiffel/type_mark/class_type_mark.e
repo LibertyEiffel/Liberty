@@ -202,16 +202,6 @@ feature {ANY}
          end
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         if is_reference then
-            Result := True
-         else
-            Result := current_type.live_type.gc_mark_to_follow
-         end
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       do

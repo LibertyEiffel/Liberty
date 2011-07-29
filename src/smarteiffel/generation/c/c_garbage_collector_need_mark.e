@@ -1,8 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class C_NEED_STRUCT
-         -- Is it necessary to define a C struct ?
+class C_GARBAGE_COLLECTOR_NEED_MARK
 
 inherit
    TYPE_MARK_VISITOR
@@ -10,22 +9,65 @@ inherit
 insert
    C_COMPILATION_MIXIN
 
-create {C_PRETTY_PRINTER}
+create {GC_HANDLER}
    make
 
 feature {ANY}
-   for (type_mark: TYPE_MARK): BOOLEAN is
-      require
-         type_mark.is_static
+   for (type: TYPE): BOOLEAN is
       do
          flag := False
-         type_mark.accept(Current)
+         type.canonical_type_mark.accept(Current)
          Result := flag
+      end
+
+feature {}
+   gc_mark_to_follow (live_type: LIVE_TYPE) is
+      require
+         live_type.at_run_time
+         not flag
+      local
+         i: INTEGER; lt: LIVE_TYPE
+      do
+         from
+            i := 1
+         until
+            flag or else i > live_type.run_time_set.count
+         loop
+            lt := live_type.run_time_set.item(i)
+            if lt = live_type then
+               need_gc_mark(live_type)
+            else
+               lt.canonical_type_mark.accept(Current)
+            end
+            i := i + 1
+         end
+      end
+
+   need_gc_mark (live_type: LIVE_TYPE) is
+      require
+         live_type.at_run_time
+         not flag
+      local
+         i: INTEGER; wa: ARRAY[RUN_FEATURE_2]; rf2: RUN_FEATURE_2
+      do
+         wa := live_type.writable_attributes
+         if wa /= Void then
+            from
+               i := wa.lower
+            until
+               flag or else i > wa.upper
+            loop
+               rf2 := wa.item(i)
+               rf2.result_type.accept(Current)
+               i := i + 1
+            end
+         end
       end
 
 feature {AGENT_TYPE_MARK}
    visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
       do
+         flag := True
       end
 
 feature {ARRAY_TYPE_MARK}
@@ -37,6 +79,7 @@ feature {ARRAY_TYPE_MARK}
 feature {NATIVE_ARRAY_TYPE_MARK}
    visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
       do
+         flag := True
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
@@ -48,13 +91,17 @@ feature {NON_EMPTY_TUPLE_TYPE_MARK}
 feature {USER_GENERIC_TYPE_MARK}
    visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
       do
-         set_flag_for(visited)
+         if visited.is_reference then
+            flag := True
+         else
+            gc_mark_to_follow(visited.type.live_type)
+         end
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
    visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
       do
-         flag := not ace.boost
+         flag := True
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
@@ -84,13 +131,17 @@ feature {FORMAL_GENERIC_TYPE_MARK}
 feature {ANY_TYPE_MARK}
    visit_any_type_mark (visited: ANY_TYPE_MARK) is
       do
-         set_flag_for(visited)
+         flag := True
       end
 
 feature {CLASS_TYPE_MARK}
    visit_class_type_mark (visited: CLASS_TYPE_MARK) is
       do
-         set_flag_for(visited)
+         if visited.is_reference then
+            flag := True
+         else
+            gc_mark_to_follow(visited.type.live_type)
+         end
       end
 
 feature {BOOLEAN_TYPE_MARK}
@@ -136,22 +187,7 @@ feature {}
 
    flag: BOOLEAN
 
-   set_flag_for (visited: TYPE_MARK) is
-      do
-         check
-            not flag
-         end
-         if visited.is_empty_expanded then
-         elseif visited.is_expanded then
-            flag := True
-         elseif visited.type.live_type.is_tagged then
-            flag := True
-         else
-            flag := visited.type.live_type.writable_attributes /= Void
-         end
-      end
-
-end -- class C_NEED_STRUCT
+end -- class C_GARBAGE_COLLECTOR_NEED_MARK
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

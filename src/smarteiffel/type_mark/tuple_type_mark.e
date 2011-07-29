@@ -122,12 +122,6 @@ feature {ANY}
          jvm.std_is_equal(rc, wa)
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         Result := True
-      end
-
 feature {}
    standard_jvm_check_class_invariant is
       deferred

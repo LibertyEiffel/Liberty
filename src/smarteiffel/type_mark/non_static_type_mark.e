@@ -187,14 +187,6 @@ feature {ANY}
          end
       end
 
-feature {TYPE}
-   frozen need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         check
-            would_violate_the_require: False
-         end
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    frozen long_name: HASHED_STRING is
       do

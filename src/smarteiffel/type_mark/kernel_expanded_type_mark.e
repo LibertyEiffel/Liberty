@@ -63,14 +63,6 @@ feature {ANY}
          end
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         check
-            not Result
-         end
-      end
-
 feature {LIVE_TYPE}
    structure_mark: CHARACTER is
          -- 's' short

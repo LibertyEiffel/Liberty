@@ -141,12 +141,6 @@ feature {ANY}
          Result := class_text_name.start_position
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         Result := True
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       once

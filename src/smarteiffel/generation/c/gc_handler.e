@@ -19,11 +19,12 @@ feature {ANY}
    info_flag: BOOLEAN
          -- True when Garbage Collector Information need to be printed.
 
-feature {}
+feature {C_COMPILATION_MIXIN}
    header_compiler: C_GARBAGE_COLLECTOR_HEADER_COMPILER
    functions_compiler: C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER
    info_compiler: C_GARBAGE_COLLECTOR_INFO_COMPILER
    before_mark_compiler: C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
+   need_mark: C_GARBAGE_COLLECTOR_NEED_MARK
 
 feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
    no_gc is
@@ -158,7 +159,7 @@ feature {C_PRETTY_PRINTER}
          manifest_string_pool.define_manifest_string_mark
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
-         once_routine_pool.gc_mark
+         mark_once_routines
          cpp.dump_pending_c_function(True)
          define_gc_start(root_type, live_type_map)
          echo.put_string(once "GC support (gc_define1 step).%N")
@@ -199,6 +200,64 @@ feature {C_PRETTY_PRINTER}
          end
       ensure
          smart_eiffel.magic_count = old smart_eiffel.magic_count
+      end
+
+   mark_once_routines is
+         -- Produce the C code to mark results of all once functions (because they are part of the root).
+      require
+         smart_eiffel.is_ready
+      local
+         i: INTEGER; rf: RUN_FEATURE; memory: HASHED_SET[STRING]; once_function: ONCE_FUNCTION;
+         type: TYPE;   unique_result: STRING; non_void_no_dispatch: NON_VOID_NO_DISPATCH; live_type: LIVE_TYPE
+      do
+         unique_result := once "... unique buffer ..."
+         create memory.make
+         -- Precomputed once_function first:
+         cpp.pending_c_function_body.append(once "/*NON_VOID_NO_DISPATCH:*/%N")
+         from
+            i := once_routine_pool.collected_precomputable_function.lower
+         until
+            i > once_routine_pool.collected_precomputable_function.upper
+         loop
+            non_void_no_dispatch := once_routine_pool.collected_precomputable_function.item(i)
+            once_function := non_void_no_dispatch.once_function
+            unique_result.clear_count
+            once_routine_pool.unique_result_in(unique_result, once_function)
+            if not memory.has(unique_result) then
+               memory.add(unique_result.twin)
+               type := non_void_no_dispatch.dynamic_type
+               if need_mark.for(type) then
+                  mark_for(unique_result, type.live_type, True)
+               end
+            end
+            i := i + 1
+         end
+         -- Then, ordinary non precomputed once function:
+         cpp.pending_c_function_body.append(once "/*Ordinary once functions:*/%N")
+         from
+            i := once_routine_pool.function_list.lower
+         until
+            i > once_routine_pool.function_list.upper
+         loop
+            rf := once_routine_pool.function_list.item(i)
+            once_function ?= rf.base_feature
+            check
+               once_function /= Void
+            end
+            unique_result.clear_count
+            once_routine_pool.unique_result_in(unique_result, once_function)
+            if not memory.has(unique_result) then
+               live_type := rf.type_of_current.live_type
+               if live_type /= Void and then live_type.at_run_time then
+                  memory.add(unique_result.twin)
+                  type := rf.result_type.type
+                  if type.live_type /= Void and then need_mark.for(type) then
+                     mark_for(unique_result, type.live_type, False)
+                  end
+               end
+            end
+            i := i + 1
+         end
       end
 
 feature {ANY}
@@ -395,7 +454,7 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_GARBAGE_C
       require
          cpp.pending_c_function
          not is_off
-         lt.type.need_gc_mark_function
+         need_mark.for(lt.type)
       local
          ct: TYPE_MARK; run_time_set: RUN_TIME_SET
       do
@@ -451,6 +510,7 @@ feature {}
          create functions_compiler.make
          create info_compiler.make
          create before_mark_compiler.make
+         create need_mark.make
       end
 
    compute_ceils is

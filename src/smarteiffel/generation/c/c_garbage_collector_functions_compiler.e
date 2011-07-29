@@ -316,7 +316,7 @@ feature {}
          lt: LIVE_TYPE; lt_id: INTEGER
       do
          lt := visited.type.live_type
-         if lt.gc_mark_to_follow then
+         if cpp.gc_handler.need_mark.for(lt.type) then
             lt_id := lt.id
             -- -------------------------- Definition for gc_markXXX:
             cpp.prepare_c_function
@@ -397,7 +397,7 @@ feature {}
                loop
                   rf2 := lt.writable_attributes.item(i)
                   t := rf2.result_type.type
-                  if t.need_gc_mark_function then
+                  if cpp.gc_handler.need_mark.for(t) then
                      lvtp := t.live_type
                      wa_cycle.clear_count
                      wa_cycle.add_last(rf2)
@@ -556,7 +556,7 @@ feature {}
                                       %return; /* external NA */%N")
          end
          e_type := visited.elements_type.type
-         if e_type.need_gc_mark_function then
+         if cpp.gc_handler.need_mark.for(e_type) then
             e_live_type := e_type.live_type
             function_body.append(once "{rsoh*h=((rsoh*)o)-1;%N%
                                       %if((h->header.magic_flag)==RSOH_UNMARKED){%N%

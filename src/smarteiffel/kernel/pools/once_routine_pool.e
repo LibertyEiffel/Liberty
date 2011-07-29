@@ -53,7 +53,7 @@ feature {NON_VOID_NO_DISPATCH}
          end
       end
 
-feature {}
+feature {GC_HANDLER}
    precomputable_function_list: FAST_ARRAY[NON_VOID_NO_DISPATCH] is
          -- Ordered list of ONCE_FUNCTION to precompute. The `precomputable_function_list' must not be cleared
          -- by `reset' because it gives the order of evaluation (a ONCE_FUNCTION can become precomputable
@@ -104,65 +104,6 @@ feature {ONCE_FUNCTION}
                   end
                end
             end
-         end
-      end
-
-feature {GC_HANDLER}
-   gc_mark is
-         -- Produce the C code to mark results of all once functions (because they are part of the root).
-      require
-         smart_eiffel.is_ready
-      local
-         i: INTEGER; rf: RUN_FEATURE; memory: HASHED_SET[STRING]; once_function: ONCE_FUNCTION;
-         type: TYPE;   unique_result: STRING; non_void_no_dispatch: NON_VOID_NO_DISPATCH; live_type: LIVE_TYPE
-      do
-         unique_result := once "... unique buffer ..."
-         create memory.make
-         -- Precomputed once_function first:
-         cpp.pending_c_function_body.append(once "/*NON_VOID_NO_DISPATCH:*/%N")
-         from
-            i := collected_precomputable_function.upper
-         until
-            i < collected_precomputable_function.lower
-         loop
-            non_void_no_dispatch := collected_precomputable_function.item(i)
-            once_function := non_void_no_dispatch.once_function
-            unique_result.clear_count
-            unique_result_in(unique_result, once_function)
-            if not memory.has(unique_result) then
-               memory.add(unique_result.twin)
-               type := non_void_no_dispatch.dynamic_type
-               if type.need_gc_mark_function then
-                  cpp.gc_handler.mark_for(unique_result, type.live_type, True)
-               end
-            end
-            i := i - 1
-         end
-         -- Then, ordinary non precomputed once function:
-         cpp.pending_c_function_body.append(once "/*Ordinary once functions:*/%N")
-         from
-            i := function_list.upper
-         until
-            i < function_list.lower
-         loop
-            rf := function_list.item(i)
-            once_function ?= rf.base_feature
-            check
-               once_function /= Void
-            end
-            unique_result.clear_count
-            unique_result_in(unique_result, once_function)
-            if not memory.has(unique_result) then
-               live_type := rf.type_of_current.live_type
-               if live_type /= Void and then live_type.at_run_time then
-                  memory.add(unique_result.twin)
-                  type := rf.result_type.type
-                  if type.live_type /= Void and then type.need_gc_mark_function then
-                     cpp.gc_handler.mark_for(unique_result, type.live_type, False)
-                  end
-               end
-            end
-            i := i - 1
          end
       end
 
@@ -235,7 +176,7 @@ feature {RUN_FEATURE}
          Result := cp.idx_fieldref3(jvm_root_class, o_flag(rf.base_feature), once "B")
       end
 
-feature {}
+feature {C_COMPILATION_MIXIN, GC_HANDLER}
    idx_fieldref_for_result (type: TYPE; af: ANONYMOUS_FEATURE): INTEGER is
       require
          af.is_once_function
@@ -530,7 +471,7 @@ feature {RUN_FEATURE_6}
          end
       end
 
-feature {RUN_FEATURE, LIVE_TYPE, RESULT, NON_VOID_NO_DISPATCH, C_LIVE_TYPE_COMPILER, C_MAPPER, C_EXPRESSION_COMPILATION_MIXIN}
+feature {ANY}
    unique_result_in (string: STRING; af: ANONYMOUS_FEATURE) is
       do
          string.extend('o')

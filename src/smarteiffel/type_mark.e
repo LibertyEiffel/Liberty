@@ -419,14 +419,6 @@ feature {ANY} -- Others:
       deferred
       end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      require
-         is_static
-         current_type.canonical_type_mark = Current
-      deferred
-      end
-
 feature {ANY}
    id: INTEGER is
          -- Used for example to mangle feature name in the generated C code.

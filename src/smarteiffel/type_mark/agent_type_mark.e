@@ -217,12 +217,6 @@ feature {ANY}
 --         end
 --      end
 
-feature {TYPE}
-   need_gc_mark_function (current_type: TYPE): BOOLEAN is
-      do
-         Result := True
-      end
-
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE) is
       local

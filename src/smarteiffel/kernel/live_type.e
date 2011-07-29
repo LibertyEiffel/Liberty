@@ -871,26 +871,6 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME1}
          --be ignored? compilation mode?
       end
 
-feature {ANY}
-   gc_mark_to_follow: BOOLEAN is
-      local
-         i: INTEGER; lt: like Current
-      do
-         from
-            i := run_time_set.count
-         until
-            Result or else i = 0
-         loop
-            lt := run_time_set.item(i)
-            if lt = Current then
-               Result := need_gc_mark
-            else
-               Result := lt.type.need_gc_mark_function
-            end
-            i := i - 1
-         end
-      end
-
 feature {SMART_EIFFEL}
    set_at_run_time is
          -- Set Current `at_run_time' and do needed update of other instances of LIVE_TYPE.
@@ -1973,26 +1953,6 @@ feature {}
 
    default_create_run_feature_memory: like default_create_run_feature
          -- To cache `default_create_run_feature' computation.
-
-   need_gc_mark: BOOLEAN is
-      require
-         at_run_time
-      local
-         i: INTEGER; wa: like writable_attributes; rf2: RUN_FEATURE_2
-      do
-         wa := writable_attributes
-         if wa /= Void then
-            from
-               i := wa.upper
-            until
-               Result or else i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               Result := rf2.result_type.type.need_gc_mark_function
-               i := i - 1
-            end
-         end
-      end
 
    tmp_string: STRING is
       once
