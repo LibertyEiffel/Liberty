@@ -49,11 +49,6 @@ feature {ANY}
 
    count: INTEGER is 0
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
    accept (visitor: EMPTY_TUPLE_TYPE_MARK_VISITOR) is
       do
          visitor.visit_empty_tuple_type_mark(Current)

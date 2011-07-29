@@ -356,8 +356,7 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_LIVE_TYPE_COMPILER} -- For `compile_to_
                cpp.out_h_buffer.append(once "0*")
             end
             cpp.out_h_buffer.append(unique_result)
-            cpp.out_c_buffer.clear_count
-            rt.c_initialize_in(cpp.out_c_buffer)
+            cpp.out_c_buffer.copy(cpp.initializer.for(rt))
             cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
          end
       end

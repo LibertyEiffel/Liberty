@@ -245,7 +245,7 @@ feature {RUN_FEATURE_9}
                default_mapping_function(visited)
             end
          elseif visited.result_type /= Void then
-            visited.result_type.c_initialize_in(function_body)
+            function_body.append(cpp.initializer.for(visited.result_type))
          else
             function_body.append(once "(void)0;")
          end

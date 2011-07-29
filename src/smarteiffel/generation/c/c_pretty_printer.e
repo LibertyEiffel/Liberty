@@ -29,6 +29,7 @@ feature {ANY}
    header_pass_4: C_HEADER_PASS_4
    live_type_compiler: C_LIVE_TYPE_COMPILER
    mapper: C_MAPPER
+   initializer: C_INITIALIZER
    target_mapper: C_TARGET_MAPPER
    arg_mapper: C_ARG_MAPPER
    code_compiler: C_CODE_COMPILER
@@ -51,6 +52,7 @@ feature {}
          create header_pass_4.make
          create live_type_compiler.make
          create mapper.make
+         create initializer.make
          create target_mapper.make
          create arg_mapper.make
          create code_compiler.make
@@ -945,7 +947,7 @@ feature {ANY}
          out_c.put_string(once ";%N")
       end
 
-   write_extern_2 (type_variable: STRING; initializer: STRING) is
+   write_extern_2 (type_variable: STRING; init: STRING) is
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -953,7 +955,7 @@ feature {ANY}
          --
          out_c.put_string(type_variable)
          out_c.put_character('=')
-         out_c.put_string(initializer)
+         out_c.put_string(init)
          out_c.put_string(once ";%N")
       end
 
@@ -2370,7 +2372,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
                internal_c_local := pending_c_function_lock_local(return_type.type, once "evobt");
                internal_c_local.append_in(pending_c_function_body)
                pending_c_function_body.extend('=')
-               return_type.c_initialize_in(pending_c_function_body)
+               pending_c_function_body.append(initializer.for(return_type))
             else
                pending_c_function_body.extend('M')
                return_type.type.id.append_in(pending_c_function_body)

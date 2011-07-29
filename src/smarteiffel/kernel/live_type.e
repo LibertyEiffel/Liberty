@@ -1639,7 +1639,7 @@ feature {RUN_FEATURE_2, RUN_FEATURE_6}
             cpp.pending_c_function_body.append(once ";%N{%Nstatic ")
             cpp.pending_c_function_body.append(s)
             cpp.pending_c_function_body.append(once " _r=")
-            tm.c_initialize_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.initializer.for(tm))
             cpp.pending_c_function_body.append(once ";%N_r=")
             if tm.is_reference then
                cpp.pending_c_function_body.extend('(')

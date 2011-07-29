@@ -52,11 +52,6 @@ feature {ANY}
          visitor.visit_non_empty_tuple_type_mark(Current)
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE) is
       do

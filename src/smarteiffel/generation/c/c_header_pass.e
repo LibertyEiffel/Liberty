@@ -56,9 +56,9 @@ feature {}
          end
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i = 0
+               i > wa.upper
             loop
                a := wa.item(i)
                t := a.result_type
@@ -66,7 +66,7 @@ feature {}
                out_h.append(once " _")
                out_h.append(a.name.to_string)
                out_h.extend(';')
-               i := i - 1
+               i := i + 1
             end
          end
          out_h.append(once "};%N")
@@ -144,7 +144,7 @@ feature {}
                live_type.id.append_in(out_c)
                out_c.extend('}')
             else
-               live_type.canonical_type_mark.c_initialize_in(out_c)
+               out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
             end
          else
             out_c.extend('{')
@@ -159,7 +159,7 @@ feature {}
             loop
                rf2 := wa.item(i)
                t := rf2.result_type
-               t.c_initialize_in(out_c)
+               out_c.append(cpp.initializer.for(t))
                i := i - 1
                if i >= wa.lower then
                   out_c.extend(',')

@@ -804,7 +804,7 @@ feature {}
                t := run_feature.result_type
                function_body.append(cpp.result_type.for(t))
                function_body.append(once " R=")
-               t.c_initialize_in(function_body)
+               function_body.append(cpp.initializer.for(t))
                function_body.append(once ";%N")
             end
          end

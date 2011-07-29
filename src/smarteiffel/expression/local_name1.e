@@ -71,7 +71,7 @@ feature {LOCAL_VAR_LIST}
             cpp.pending_c_function_body.extend(' ')
             cpp.print_local(to_string)
             cpp.pending_c_function_body.extend('=')
-            static_tm.c_initialize_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(cpp.initializer.for(static_tm))
             cpp.pending_c_function_body.append(once ";%N")
          end
       end
