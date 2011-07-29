@@ -179,7 +179,7 @@ feature {}
                socket.read(read_sync)
                if socket.last_read.is_empty then
                   end_of_stream := True
-                  next_index := index + 1
+                  --next_index := index + 1
                else
                   end_of_stream := not socket.is_connected
                   -- Remove all previously read characters but the last one (to be able to unread once).
