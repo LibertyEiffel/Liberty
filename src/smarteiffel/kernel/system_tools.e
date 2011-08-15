@@ -601,7 +601,7 @@ feature {ANY}
          end
       end
 
-feature {NATIVE_BUILT_IN, C_PRETTY_PRINTER}
+feature {C_PRETTY_PRINTER, C_COMPILATION_MIXIN}
    add_lib_math is
       once
          add_lib_math_do_it_again

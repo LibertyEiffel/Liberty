@@ -35,6 +35,9 @@ feature {ANY}
    code_compiler: C_CODE_COMPILER
    compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
    gc_handler: GC_HANDLER
+   native_function_mapper: C_NATIVE_FUNCTION_MAPPER
+   native_procedure_mapper: C_NATIVE_PROCEDURE_MAPPER
+   native_c_definition: C_NATIVE_C_DEFINITION
 
    -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
@@ -42,6 +45,7 @@ feature {ANY}
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
+   native_need_wrapper: C_NATIVE_NEED_WRAPPER
 
 feature {}
    make is
@@ -58,11 +62,18 @@ feature {}
          create code_compiler.make
          create compound_expression_compiler.make
          create gc_handler.make
+         create native_function_mapper.make
+         create native_procedure_mapper.make
+         create native_c_definition.make
+
          create target_type.make
          create result_type.make
          create argument_type.make
          create va_arg_type.make
          create need_struct.make
+         create native_need_wrapper.make
+
+         create registered_natives.make
       end
 
 feature {SMART_EIFFEL}
@@ -1400,7 +1411,7 @@ feature {}
          end
       end
 
-feature {C_MAPPER, NATIVE}
+feature {C_COMPILATION_MIXIN}
    target_cannot_be_dropped: BOOLEAN is
          -- True when top target cannot be dropped because we are not sure that
          -- target is non Void or that target has no side effects. When Result is True,
@@ -1575,7 +1586,6 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-feature {NATIVE_BUILT_IN}
    put_trace_switch is
          -- The {ANY}.trace_switch feature
       require
@@ -1766,7 +1776,7 @@ feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_CO
          stack_top.set_internal_c_local(internal_c_local)
       end
 
-feature {NATIVE}
+feature {C_COMPILATION_MIXIN}
    inside_twin (type: TYPE; cpy: RUN_FEATURE) is
       require
          type /= Void
@@ -2147,41 +2157,6 @@ feature {NATIVE}
          end
       end
 
-feature {NATIVE_C_PLUS_PLUS}
-   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS) is
-      do
-         if c_plus_plus = Void then
-            create c_plus_plus.with_capacity(64)
-         end
-         c_plus_plus.add_last(native)
-      end
-
-   add_include (include: STRING) is
-      do
-         add_include_on(out_h, include)
-      end
-
-   add_include_on (output: TEXT_FILE_WRITE; include: STRING) is
-      do
-         end_c_linkage(output)
-         output.put_string(once "#include ")
-         inspect
-            include.first
-         when '%"', '<' then
-         else
-            output.put_character('%"')
-         end
-         output.put_string(include)
-         inspect
-            include.last
-         when '%"', '>' then
-         else
-            output.put_character('%"')
-         end
-         output.put_character('%N')
-         begin_c_linkage(output)
-      end
-
 feature {ANY}
    set_dump_stack_top_for (t: TYPE; ds, comment: STRING) is
       require
@@ -2262,8 +2237,6 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   c_plus_plus: FAST_ARRAY[NATIVE_C_PLUS_PLUS]
-
    begin_c_linkage (output: TEXT_FILE_WRITE) is
          -- Begin wrap for C linkage
       do
@@ -2280,7 +2253,7 @@ feature {}
       local
          cpp_path_h, cpp_path_c: STRING; i: INTEGER
       do
-         if c_plus_plus /= Void then
+         if has_c_plus_plus then
             ace.splitter.set_dont_split(True)
             echo.put_string(once "C++ external definitions.%N")
             cpp_path_h := system_tools.path_h.twin
@@ -2296,16 +2269,16 @@ feature {}
             add_first_include(cpp_path_h)
             system_tools.add_c_plus_plus_file(cpp_path_c)
             sys_runtime_h_and_c(once "c_plus_plus")
-            if c_plus_plus /= Void then
-               from
-                  i := c_plus_plus.lower
-               until
-                  i > c_plus_plus.upper
-               loop
-                  c_plus_plus.item(i).c_plus_plus_definition
-                  i := i + 1
-               end
+
+            from
+               i := registered_natives.lower
+            until
+               i > registered_natives.upper
+            loop
+               native_c_definition.compile(registered_natives.key(i), registered_natives.item(i))
+               i := i + 1
             end
+
             end_c_linkage(out_c)
             end_c_linkage(out_h)
             out_h.disconnect
@@ -3318,6 +3291,84 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
       do
          pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
       end
+
+feature {C_NATIVE_FUNCTION_MAPPER, C_NATIVE_PROCEDURE_MAPPER}
+   has_c_plus_plus: BOOLEAN
+
+   c_plus_plus_registered (native: NATIVE_C_PLUS_PLUS): BOOLEAN is
+      require
+         native /= Void
+      do
+         Result := has_c_plus_plus and then registered_natives.fast_has(native)
+      end
+
+   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS; rf: RUN_FEATURE) is
+      require
+         native /= Void
+         rf /= Void
+         not c_plus_plus_registered(native)
+      do
+         registered_natives.add(rf, native)
+         has_c_plus_plus := True
+      ensure
+         c_plus_plus_registered(native)
+         has_c_plus_plus
+      end
+
+   c_registered (native: NATIVE_C): BOOLEAN is
+      require
+         native /= Void
+      do
+         Result := registered_natives.fast_has(native)
+      end
+
+   c_register (native: NATIVE_C; rf: RUN_FEATURE) is
+      require
+         native /= Void
+         rf /= Void
+         not c_registered(native)
+      do
+         registered_natives.add(rf, native)
+      ensure
+         c_registered(native)
+      end
+
+   registered_natives: HASHED_DICTIONARY[RUN_FEATURE, NATIVE]
+
+feature {NATIVE_C_PLUS_PLUS}
+   add_include (include: STRING) is
+      do
+         add_include_on(out_h, include)
+      end
+
+feature {}
+   add_include_on (output: TEXT_FILE_WRITE; include: STRING) is
+      do
+         end_c_linkage(output)
+         output.put_string(once "#include ")
+         inspect
+            include.first
+         when '%"', '<' then
+         else
+            output.put_character('%"')
+         end
+         output.put_string(include)
+         inspect
+            include.last
+         when '%"', '>' then
+         else
+            output.put_character('%"')
+         end
+         output.put_character('%N')
+         begin_c_linkage(output)
+      end
+
+invariant
+   registered_natives.for_all(agent (rf: RUN_FEATURE; native: NATIVE): BOOLEAN is
+      do
+         Result := (({NATIVE_C} ?:= native) or else ({NATIVE_C_PLUS_PLUS} ?:= native))
+            and then (({RUN_FEATURE_7} ?:= rf) or else ({RUN_FEATURE_8} ?:= rf))
+      end)
 
 end -- class C_PRETTY_PRINTER
 --

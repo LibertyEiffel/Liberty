@@ -8,9 +8,8 @@ class NATIVE_PLUG_IN
 
 inherit
    NATIVE
-      redefine is_equal
+      redefine is_equal, hash_code
       end
-   HASHABLE
 
 creation {ANY}
    make
@@ -21,7 +20,7 @@ feature {SMART_EIFFEL}
          plugin.include(start_position)
       end
 
-feature {NATIVE_PLUG_IN}
+feature {NATIVE_PLUG_IN, NATIVE_PLUG_IN_VISITOR}
    feature_name: STRING
    plugin: PLUGIN
 
@@ -41,30 +40,14 @@ feature {ANY}
          Result := plugin.is_equal(other.plugin) and then feature_name.same_as(other.feature_name)
       end
 
-   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
-      do
-         -- *** VERIFIER ***
-      end
-
    c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
       do
          -- This is obviously defined outside.
       end
 
-   c_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         c_mapping(rf8.arguments)
-      end
-
    c_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
       do
          -- This is obviously defined outside.
-      end
-
-   c_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         c_mapping(rf7.arguments)
-         cpp.pending_c_function_body.append(once ";%N")
       end
 
    jvm_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
@@ -219,25 +202,6 @@ feature {}
                i := i + 1
             end
             error_handler.print_as_fatal_error
-         end
-      end
-
-   c_mapping (arguments: FORMAL_ARG_LIST) is
-      local
-         cbd: BOOLEAN
-      do
-         cbd := cpp.target_cannot_be_dropped
-         if cbd then
-            cpp.pending_c_function_body.extend(',')
-         end
-         cpp.pending_c_function_body.append(feature_name)
-         if arguments /= Void then
-            cpp.pending_c_function_body.extend('(')
-            cpp.put_arguments(arguments.count)
-            cpp.pending_c_function_body.extend(')')
-         end
-         if cbd then
-            cpp.pending_c_function_body.extend(')')
          end
       end
 

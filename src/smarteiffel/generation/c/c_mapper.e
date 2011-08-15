@@ -199,17 +199,16 @@ feature {RUN_FEATURE_6}
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       local
-         bf: EXTERNAL_PROCEDURE; native: NATIVE
+         bf: EXTERNAL_PROCEDURE
       do
          function_body.append(once "/*RF7:")
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
          bf := visited.base_feature
-         native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf7_does_need_c_wrapper(visited) then
             default_mapping_procedure(visited)
          else
-            native.c_mapping_procedure(visited, bf.class_text.name.to_string, bf.first_name.to_string)
+            cpp.native_procedure_mapper.compile(visited)
          end
          function_body.append(once "/*:RF7*/")
       end
@@ -217,17 +216,16 @@ feature {RUN_FEATURE_7}
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       local
-         bf: EXTERNAL_FUNCTION; native: NATIVE
+         bf: EXTERNAL_FUNCTION
       do
          function_body.append(once "/*RF8:")
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
          bf := visited.base_feature
-         native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf8_does_need_c_wrapper(visited) then
             default_mapping_function(visited)
          else
-            native.c_mapping_function(visited, bf.class_text.name.to_string, bf.first_name.to_string)
+            cpp.native_function_mapper.compile(visited)
          end
          function_body.append(once "/*:RF8*/")
       end

@@ -447,7 +447,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
+feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATION_MIXIN}
    mark_for (entity: STRING; lt: LIVE_TYPE; non_void_no_dispatch_flag: BOOLEAN) is
          -- Add C code to mark the `entity' of `lt'. The `non_void_no_dispatch_flag' indicates that we
          -- are sure that the entity to mark is never NULL or Void)

@@ -149,20 +149,6 @@ feature {}
          routine_update_tmp_jvm_descriptor
       end
 
-feature {RUN_FEATURE_7_VISITOR}
-   does_need_c_wrapper (native: NATIVE): BOOLEAN is
-      do
-         if base_feature.is_generated_eiffel then
-            Result := True
-         elseif native.does_need_c_wrapper(type_of_current, base_feature.first_name.to_string) then
-            Result := True
-         elseif require_assertion /= Void then
-            Result := True
-         elseif ensure_assertion /= Void then
-            Result := True
-         end
-      end
-
 end -- class RUN_FEATURE_7
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

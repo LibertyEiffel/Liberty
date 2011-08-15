@@ -1152,11 +1152,11 @@ feature {RUN_FEATURE_6}
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       local
-         bf: EXTERNAL_PROCEDURE; native: NATIVE; bcn: STRING
+         bf: EXTERNAL_PROCEDURE; native: NATIVE
       do
          bf := visited.base_feature
          native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf7_does_need_c_wrapper(visited) then
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
@@ -1165,9 +1165,8 @@ feature {RUN_FEATURE_7}
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
-               bcn := bf.class_text.name.to_string
                cpp.push_inside_some_wrapper(bf)
-               native.c_mapping_procedure(visited, bcn, bf.first_name.to_string)
+               cpp.native_procedure_mapper.compile(visited)
                cpp.pop
             end
             c_define_closing(visited)
@@ -1178,11 +1177,11 @@ feature {RUN_FEATURE_7}
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       local
-         bf: EXTERNAL_FUNCTION; native: NATIVE; bcn: STRING
+         bf: EXTERNAL_FUNCTION; native: NATIVE
       do
          bf := visited.base_feature
          native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf8_does_need_c_wrapper(visited) then
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
@@ -1191,10 +1190,9 @@ feature {RUN_FEATURE_8}
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
-               bcn := bf.class_text.name.to_string
                cpp.push_inside_some_wrapper(bf)
                function_body.append(once "R=")
-               native.c_mapping_function(visited, bcn, bf.first_name.to_string)
+               cpp.native_function_mapper.compile(visited)
                function_body.append(once ";%N")
                cpp.pop
             end

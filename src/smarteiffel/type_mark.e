@@ -556,14 +556,6 @@ feature {ANY}
       deferred
       end
 
-feature {NATIVE_BUILT_IN, GC_HANDLER}
-   gc_call_new_in (buffer: STRING) is
-      do
-         buffer.append(once "new")
-         id.append_in(buffer)
-         buffer.append(once "()")
-      end
-
 feature {ANY}
    jvm_method_flags: INTEGER is
          -- Return the appropriate flag (static/virtual) when the receiver has this type.

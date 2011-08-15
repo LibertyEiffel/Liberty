@@ -747,31 +747,6 @@ feature {ANY}
       do
       end
 
-feature {ANY}
-   frozen c_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         fe_c2c(rf7)
-      end
-
-   frozen c_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         fe_c2c(rf7)
-      end
-
-   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
-      do
-      end
-
-   frozen c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         fe_c2c(rf8)
-      end
-
-   frozen c_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         fe_c2c(rf8)
-      end
-
 feature {}
    idx_fieldref (er: EXTERNAL_ROUTINE): INTEGER is
       local
