@@ -1,195 +1,195 @@
 -- See the Copyright notice at the end of this file.
 --
 class XML_TREE
-	--
-	-- DOM-like representation of an XML document
-	--
-	-- See also XML_PARSER
-	--
+   --
+   -- DOM-like representation of an XML document
+   --
+   -- See also XML_PARSER
+   --
 
 inherit
-	XML_CALLBACKS
+   XML_CALLBACKS
 
 creation {ANY}
-	make, with_error_handler
+   make, with_error_handler
 
 feature {ANY}
-	root: XML_COMPOSITE_NODE
-			-- The root of the tree
+   root: XML_COMPOSITE_NODE
+         -- The root of the tree
 
-	attribute_at (a_attribute_name: UNICODE_STRING): UNICODE_STRING is
-			-- Usually to recover the "version" or "encoding" attributes
-		do
-			Result := tree_attributes.reference_at(a_attribute_name)
-		end
+   attribute_at (a_attribute_name: UNICODE_STRING): UNICODE_STRING is
+         -- Usually to recover the "version" or "encoding" attributes
+      do
+         Result := tree_attributes.reference_at(a_attribute_name)
+      end
 
-	set_processing_instruction (target: UNICODE_STRING; processor: PROCEDURE[TUPLE[UNICODE_STRING]]) is
-		require
-			target /= Void
-			processor /= Void
-		local
-			processors: FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]]
-		do
-			processors := processing_instructions.reference_at(target)
-			if processors = Void then
-				create processors.make(0)
-				processing_instructions.add(processors, target.twin)
-			end
-			processors.add_last(processor)
-		end
+   set_processing_instruction (target: UNICODE_STRING; processor: PROCEDURE[TUPLE[UNICODE_STRING]]) is
+      require
+         target /= Void
+         processor /= Void
+      local
+         processors: FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]]
+      do
+         processors := processing_instructions.reference_at(target)
+         if processors = Void then
+            create processors.make(0)
+            processing_instructions.add(processors, target.twin)
+         end
+         processors.add_last(processor)
+      end
 
 feature {}
-	attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
+   attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
 
-	tree_attributes: like attributes
+   tree_attributes: like attributes
 
-	open_nodes: STACK[XML_COMPOSITE_NODE]
+   open_nodes: STACK[XML_COMPOSITE_NODE]
 
-	processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]], UNICODE_STRING] is
-		once
-			create Result.make
-		end
+   processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]], UNICODE_STRING] is
+      once
+         create Result.make
+      end
 
 feature {XML_PARSER}
-	with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
-		do
-			if attribute_value=Void
-			 then attributes.put(Void, attribute_name.twin)
-			else attributes.put(attribute_value.twin, attribute_name.twin)
-			end
-		end
+   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
+      do
+         if attribute_value=Void
+          then attributes.put(Void, attribute_name.twin)
+         else attributes.put(attribute_value.twin, attribute_name.twin)
+         end
+      end
 
-	open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
-		local
-			node: XML_COMPOSITE_NODE; i: INTEGER
-		do
-			node := new_node(node_name.twin, line, column)
-			from
-				i := attributes.lower
-			until
-				i > attributes.upper
-			loop
-				node.set_attribute(attributes.key(i), attributes.item(i))
-				i := i + 1
-			end
-			attributes.clear_count
-			open_nodes.push(node)
-		end
+   open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+      local
+         node: XML_COMPOSITE_NODE; i: INTEGER
+      do
+         node := new_node(node_name.twin, line, column)
+         from
+            i := attributes.lower
+         until
+            i > attributes.upper
+         loop
+            node.set_attribute(attributes.key(i), attributes.item(i))
+            i := i + 1
+         end
+         attributes.clear_count
+         open_nodes.push(node)
+      end
 
-	close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
-		local
-			node: XML_COMPOSITE_NODE
-		do
-			node := open_nodes.top
-			open_nodes.pop
-			if open_nodes.is_empty then
-				root := node
-			else
-				open_nodes.top.add_child(node)
-			end
-		end
+   close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+      local
+         node: XML_COMPOSITE_NODE
+      do
+         node := open_nodes.top
+         open_nodes.pop
+         if open_nodes.is_empty then
+            root := node
+         else
+            open_nodes.top.add_child(node)
+         end
+      end
 
-	open_close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
-		do
-			open_node(node_name, line, column)
-			close_node(node_name, line, column)
-		end
+   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+      do
+         open_node(node_name, line, column)
+         close_node(node_name, line, column)
+      end
 
-	xml_header (line, column: INTEGER) is
-		do
-			check
-				tree_attributes.is_empty
-			end
-			tree_attributes.copy(attributes)
-			attributes.clear_count
-		end
+   xml_header (line, column: INTEGER) is
+      do
+         check
+            tree_attributes.is_empty
+         end
+         tree_attributes.copy(attributes)
+         attributes.clear_count
+      end
 
-	processing_instruction (a_target, a_data: UNICODE_STRING) is
-		local
-			processors: FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]]; i: INTEGER
-		do
-			processors := processing_instructions.reference_at(a_target)
-			if processors /= Void then
-				from
-					i := processors.lower
-				until
-					i > processors.upper
-				loop
-					processors.item(i).call([a_data])
-					i := i + 1
-				end
-			end
-		end
+   processing_instruction (a_target, a_data: UNICODE_STRING) is
+      local
+         processors: FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]]; i: INTEGER
+      do
+         processors := processing_instructions.reference_at(a_target)
+         if processors /= Void then
+            from
+               i := processors.lower
+            until
+               i > processors.upper
+            loop
+               processors.item(i).call([a_data])
+               i := i + 1
+            end
+         end
+      end
 
-	current_node: UNICODE_STRING is
-		do
-			if not open_nodes.is_empty then
-				Result := open_nodes.top.name
-			end
-		end
+   current_node: UNICODE_STRING is
+      do
+         if not open_nodes.is_empty then
+            Result := open_nodes.top.name
+         end
+      end
 
-	entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
-		do
-			-- The default tree does not recognize any other entity than XML defaults.
-		end
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+      do
+         -- The default tree does not recognize any other entity than XML defaults.
+      end
 
-	data (a_data: UNICODE_STRING; line, column: INTEGER) is
-		local
-			d: XML_DATA_NODE
-		do
-			create d.make(a_data.twin, line, column)
-			open_nodes.top.add_child(d)
-		end
+   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+      local
+         d: XML_DATA_NODE
+      do
+         create d.make(a_data.twin, line, column)
+         open_nodes.top.add_child(d)
+      end
 
-	parse_error (line, column: INTEGER; message: STRING) is
-		do
-			at_error := True
-			if error_handler /= Void then
-				error_handler.call([line, column, message])
-			else
-				std_error.put_string(message)
-				std_error.put_string(" at line ")
-				std_error.put_integer(line)
-				std_error.put_string(", column ")
-				std_error.put_integer(column)
-				std_error.put_new_line
-				die_with_code(1)
-			end
-		end
+   parse_error (line, column: INTEGER; message: STRING) is
+      do
+         at_error := True
+         if error_handler /= Void then
+            error_handler.call([line, column, message])
+         else
+            std_error.put_string(message)
+            std_error.put_string(" at line ")
+            std_error.put_integer(line)
+            std_error.put_string(", column ")
+            std_error.put_integer(column)
+            std_error.put_new_line
+            die_with_code(1)
+         end
+      end
 
-	at_error: BOOLEAN
+   at_error: BOOLEAN
 
 feature {}
-	error_handler: PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]
+   error_handler: PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]
 
-	make (url: URL) is
-			-- read the xml tree at the given `url'
-		require
-			url.is_connected implies url.read
-		do
-			create attributes.make
-			create tree_attributes.make
-			create open_nodes.make
-			parser.connect_to(url)
-			parser.parse(Current)
-			parser.disconnect
-		end
+   make (url: URL) is
+         -- read the xml tree at the given `url'
+      require
+         url.is_connected implies url.read
+      do
+         create attributes.make
+         create tree_attributes.make
+         create open_nodes.make
+         parser.connect_to(url)
+         parser.parse(Current)
+         parser.disconnect
+      end
 
-	with_error_handler (url: URL; a_error_handler: like error_handler) is
-		do
-			error_handler := a_error_handler
-			make(url)
-		end
+   with_error_handler (url: URL; a_error_handler: like error_handler) is
+      do
+         error_handler := a_error_handler
+         make(url)
+      end
 
-	new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
-		do
-			create Result.make(node_name, line, column)
-		end
+   new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
+      do
+         create Result.make(node_name, line, column)
+      end
 
-	parser: XML_PARSER is
-		once
-			create Result.make
-		end
+   parser: XML_PARSER is
+      once
+         create Result.make
+      end
 
 end -- class XML_TREE
 --
