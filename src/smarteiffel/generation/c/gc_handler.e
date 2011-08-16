@@ -72,8 +72,8 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
                 ds.exception_origin=NULL;
                 ds.locals=NULL;
 
-                     ]")
-               rf3.c_set_dump_stack_top(once "&ds", once "link")
+               ]")
+               cpp.set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
             end
             cpp.pending_c_function_body.extend('r')
             live_type.id.append_in(cpp.pending_c_function_body)
@@ -99,7 +99,7 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
             end
             cpp.pending_c_function_body.append(once ");%N")
             if no_check then
-               rf3.c_set_dump_stack_top(once "ds.caller", once "unlink")
+               cpp.set_dump_stack_top_for(rf3.type_of_current, once "ds.caller", once "unlink")
             end
             cpp.pending_c_function_body.extend('}')
          end

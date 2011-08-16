@@ -235,13 +235,6 @@ feature {CONSTANT_POOL}
          Result := tmp_jvm_descriptor
       end
 
-feature {C_PRETTY_PRINTER, GC_HANDLER, CECIL_POOL}
-   c_set_dump_stack_top (ds, comment: STRING) is
-      obsolete "to be removed"
-      do
-         cpp.set_dump_stack_top_for(type_of_current, ds, comment)
-      end
-
 feature {JVM}
    jvm_define is
          -- To compute the constant pool, the number of fields, the number of methods, etc.

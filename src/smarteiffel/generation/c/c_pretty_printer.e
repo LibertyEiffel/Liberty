@@ -2450,8 +2450,8 @@ feature {}
                 se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
                 ds.fd=&irfd;
 
-           ]")
-            rf3.c_set_dump_stack_top(once "&ds", once "link")
+            ]")
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
          end
          pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
          if do_atexit then
@@ -2540,7 +2540,7 @@ feature {}
          internal_c_local.unlock
          system_tools.auto_init_plugins
          if ace.no_check then
-            rf3.c_set_dump_stack_top(once "(void*)0", once "unlink")
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
          end
          if ace.profile then
             pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
@@ -2742,7 +2742,7 @@ feature {}
             pending_c_function_body.append(once "));%N")
             put_position_in_ds(rf3.start_position)
             pending_c_function_body.append(once "ds.caller=NULL;%Nds.exception_origin=NULL;%Nds.locals=NULL;%N")
-            rf3.c_set_dump_stack_top(once "&ds", once "link")
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
          end
          push_create_instruction(type, rf3, Void, internal_c_local)
          mapper.compile(rf3)
@@ -2755,7 +2755,7 @@ feature {}
          gc_handler.gc_info_before_exit
          pending_c_function_body.append(once "handle(SE_HANDLE_NORMAL_EXIT, NULL);%N");
          if ace.no_check then
-            rf3.c_set_dump_stack_top(once "NULL", once "unlink")
+            cpp.set_dump_stack_top_for(rf3.type_of_current, once "NULL", once "unlink")
          end
          if ace.profile then
             pending_c_function_body.append(once "global_profile=local_profile;%N")
