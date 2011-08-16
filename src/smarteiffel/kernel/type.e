@@ -76,9 +76,9 @@ feature {}
             -- Parent list is build in reverse order (non conforming first)
             if parent_lists.insert_list /= Void then
                from
-                  i := parent_lists.insert_list.upper
+                  i := parent_lists.insert_list.lower
                until
-                  i < parent_lists.insert_list.lower
+                  i > parent_lists.insert_list.upper
                loop
                   a_parent_edge := parent_lists.insert_list.item(i)
                   --        parent_tm := a_parent_edge.type_mark.resolve_in(Current).canonical_type_mark
@@ -91,18 +91,15 @@ feature {}
                   add_parent(parent_tm.type)
                   parents_edge_load.put(a_parent_edge, parents_edge_load.upper)
                   --|*** attention: info non posee sur edge reverse
-                  i := i - 1
+                  i := i + 1
                end
             end
             first_inherit_index := parents.upper + 1
             if parent_lists.inherit_list /= Void then
                from
-                  i := parent_lists.inherit_list.upper
-                  check
-                     parent_lists.inherit_list.lower = 0
-                  end
+                  i := parent_lists.inherit_list.lower
                until
-                  i < 0
+                  i > parent_lists.inherit_list.upper
                loop
                   a_parent_edge := parent_lists.inherit_list.item(i)
                   --        parent_tm := a_parent_edge.type_mark.resolve_in(Current).canonical_type_mark
@@ -114,6 +111,8 @@ feature {}
                   end
                   add_parent(parent_tm.type)
                   parents_edge_load.put(a_parent_edge, parents_edge_load.upper)
+                  --|*** attention: info non posee sur edge reverse
+
                   if parent_tm.is_expanded then
                      error_handler.append("Expanded classes can be inserted only.")
                      error_handler.add_position(a_parent_edge.start_position)
@@ -123,10 +122,10 @@ feature {}
                         parents_edge_load.swap(parents_edge_load.upper, first_inherit_index)
                      end
                      first_inherit_index := first_inherit_index + 1
-                     parent_lists.set_insert_member(i) --|*** This only works because we are traversing last to first
+                     parent_lists.set_insert_member(i) -- this changes the `inherit_list', we must not increment `i' otherwise we miss some
+                  else
+                     i := i + 1
                   end
-                  --|*** attention: info non posee sur edge reverse
-                  i := i - 1
                end
             end
          end
@@ -225,24 +224,24 @@ feature {ANY}
                      else
                         Result := inherits_code
                      end
-                     i := private_generic_list.upper
+                     i := private_generic_list.lower
                   until
-                     Result = unrelated_code or else i < private_generic_list.lower
+                     Result = unrelated_code or else i > private_generic_list.upper
                   loop
                      g1 := private_generic_list.item(i)
                      g2 := other.private_generic_list.item(i)
                      if g1 /= g2 then
                         Result := Result.min(g1.insert_inherit_test(g2))
                      end
-                     i := i - 1
+                     i := i + 1
                   end
                end
             else
                -- First, we look only inherit links:
                from
-                  i := parents_count
+                  i := 1
                until
-                  (Result = inherits_code) or else i <= 0
+                  (Result = inherits_code) or else i > parents_count
                loop
                   a_parent_edge := parent_edge_load(i)
                   if a_parent_edge.is_inherit_member then
@@ -256,14 +255,14 @@ feature {ANY}
                         end
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
                if Result = unrelated_code then
                   -- Second, we try now only insert links:
                   from
-                     i := parents_count
+                     i := 1
                   until
-                     (Result /= unrelated_code) or else i <= 0
+                     (Result /= unrelated_code) or else i > parents_count
                   loop
                      a_parent_edge := parent_edge_load(i)
                      if a_parent_edge.is_insert_member then
@@ -277,7 +276,7 @@ feature {ANY}
                            end
                         end
                      end
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -1043,16 +1042,16 @@ feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
          --|*** This implementation is quite slow. Maybe it is possible to take shortcuts like
          --|*** resolve_static_binding does. <FM-26/03/2006>
          from
-            i := parents_count
+            i := 1
          until
-            i <= 0
+            i > parents_count
          loop
             a_parent_edge := parent_edge_load(i)
             if inherit_link implies a_parent_edge.is_inherit_member then
                type := a_parent_edge.type_mark.resolve_in(Current)
                is_not_root := final_fs.add_seeds(type, a_parent_edge, seed_set, inherit_link) or else is_not_root
             end
-            i := i - 1
+            i := i + 1
          end
          if not is_not_root then
             create afn.make(class_text.name, final_fs.name)
@@ -1083,16 +1082,16 @@ feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
          Result := seed.matches(cn, fn)
          if not Result then
             from
-               i := parents_count
+               i := 1
             until
-               Result or else i <= 0
+               Result or else i > parents_count
             loop
                a_parent_edge := parent_edge_load(i)
                if inherit_link implies a_parent_edge.is_inherit_member then
                   type := a_parent_edge.type_mark.resolve_in(Current)
                   Result := final_fs.print_feature_hierarchy(type, a_parent_edge, seed, inherit_link)
                end
-               i := i - 1
+               i := i + 1
             end
             if Result then
                if a_parent_edge.is_inherit_member then
@@ -1123,15 +1122,15 @@ feature {TYPE}
          else
             error_handler.append(", ")
             from
-               i := parents.upper
+               i := parents.lower
             until
-               i < parents.lower
+               i > parents.upper
             loop
                if parents.item(i).feature_stamps = Void then
                   error_handler.add_position(parents_edge_load.item(i).start_position)
                   parents.item(i).print_graph_cycle(first)
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -1178,9 +1177,9 @@ feature {}
          i: INTEGER
       do
          from
-            i := parents.upper
+            i := parents.lower
          until
-            i < parents.lower
+            i > parents.upper
          loop
             if parents.item(i).feature_stamps = Void then
                check
@@ -1196,7 +1195,7 @@ feature {}
                   error_handler.print_as_internal_error
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -1205,7 +1204,7 @@ feature {}
          feature_stamps = Void
          not has_parent_cycle
       local
-         i, k, feature_stamps_size: INTEGER; a_parent: TYPE; upper: INTEGER; pfs: like feature_stamps
+         i, k, feature_stamps_size: INTEGER; a_parent: TYPE; pfs: like feature_stamps
          fn, final_name: FEATURE_NAME; a_parent_edge: PARENT_EDGE; accu: FEATURE_ACCUMULATOR
       do
          accu := feature_accumulator
@@ -1215,18 +1214,19 @@ feature {}
          -- FEATURE_STAMPs as in the `parents'):
          from
             feature_stamps_size := 150
-            i := parents.upper
+            i := parents.lower
          until
-            i < parents.lower
+            i > parents.upper
          loop
             feature_stamps_size := feature_stamps_size.max(parents.item(i).feature_stamps.count)
-            i := i - 1
+            i := i + 1
          end
          feature_stamps_size := feature_stamps_size + class_text.feature_dictionary.count
          create feature_stamps.with_capacity(feature_stamps_size)
 
          -- Actually the `collect_features' true job:
          from
+            --| Don't revert that loop! (see `collect_one_feature' comment for explanations)
             i := parents.upper
          until
             i < parents.lower
@@ -1236,9 +1236,8 @@ feature {}
             from
                pfs := a_parent.feature_stamps
                k := pfs.lower
-               upper := pfs.upper
             until
-               k > upper
+               k > pfs.upper
             loop
                fn := pfs.key(k)
                if a_parent_edge /= Void then
@@ -1273,17 +1272,17 @@ feature {}
          from
             accu := feature_accumulator
             accu.new_feature(final_fn)
-            i := inherit_index
+            i := 0
          until
-            i < 0
+            i > inherit_index
          loop
             a_type := parents.item(i)
             a_parent_edge := parents_edge_load.item(i)
             from
                renamed := False
-               j := a_parent_edge.rename_count
+               j := 1
             until
-               j < 1
+               j > a_parent_edge.rename_count
             loop
                a_rename := a_parent_edge.rename_item(j)
                old_name := a_rename.old_name
@@ -1294,14 +1293,14 @@ feature {}
                   a_fs := a_type.feature_stamps.reference_at(old_name)
                   accu.add_parent_definition(a_type, a_parent_edge, a_fs, old_name)
                end
-               j := j - 1
+               j := j + 1
             end
             if (not renamed) and then a_type.valid_feature_name(final_fn) then
                old_name := a_type.registered_name(final_fn)
                a_fs := a_type.feature_stamps.reference_at(old_name)
                accu.add_parent_definition(a_type, a_parent_edge, a_fs, old_name)
             end
-            i := i - 1
+            i := i + 1
          end
          an_af := class_text.proper_get(final_fn)
          if an_af /= Void then
@@ -1344,9 +1343,9 @@ feature {}
             class_invariant := class_invariant.specialize_in(Current)
          end
          from
-            i := parents.upper
+            i := parents.lower
          until
-            i < parents.lower
+            i > parents.upper
          loop
             a_parent := parents.item(i)
             ci := a_parent.class_invariant
@@ -1358,7 +1357,7 @@ feature {}
                   class_invariant := class_invariant.add_items_from(ci)
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -1446,12 +1445,12 @@ feature {C_LIVE_TYPE_COMPILER}
       do
          if address_of_memory2 /= Void then
             from
-               i := address_of_memory2.upper
+               i := address_of_memory2.lower
             until
-               i < address_of_memory2.lower
+               i > address_of_memory2.upper
             loop
                address_of_memory2.item(i).c_define(i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
