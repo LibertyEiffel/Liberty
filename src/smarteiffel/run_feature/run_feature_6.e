@@ -5,7 +5,7 @@ class RUN_FEATURE_6
 
 inherit
    RUN_FEATURE
-      redefine base_feature, prepare_introspection, prepare_introspection2
+      redefine base_feature
       end
 
 creation {ONCE_FUNCTION}
@@ -137,51 +137,6 @@ feature {JVM}
          once_routine_pool.jvm_result_load(type_of_current, base_feature)
          result_type.jvm_return_code
          method_info.finish
-      end
-
-feature {LIVE_TYPE}
-   prepare_introspection (put_else: BOOLEAN): BOOLEAN is
-      local
-         lt: LIVE_TYPE
-      do
-         lt := result_type.type.live_type
-         if lt /= Void then
-            if put_else then
-               cpp.pending_c_function_body.append(once "else ")
-            end
-            cpp.pending_c_function_body.append(once "if (!strcmp(attr,%"")
-            cpp.pending_c_function_body.append(name.to_string)
-            cpp.pending_c_function_body.append(once "%")) {%N")
-            if is_precomputable_once then
-               lt.c_return_introspect(Void, Current)
-            else
-               once_routine_pool.c_test_o_flag_introspect(Current)
-               lt.c_return_introspect(Void, Current)
-               cpp.pending_c_function_body.append(once "} else { *id=0; }%N")
-            end
-            cpp.pending_c_function_body.append(once "}%N")
-            Result := True
-         else
-            Result := put_else
-         end
-      end
-
-   prepare_introspection2 (put_coma: BOOLEAN): BOOLEAN is
-      local
-         lt: LIVE_TYPE
-      do
-         lt := result_type.type.live_type
-         if lt /= Void then
-            if put_coma then
-               cpp.pending_c_function_body.append(once ", ")
-            else
-               cpp.pending_c_function_body.extend('"')
-            end
-            cpp.pending_c_function_body.append(name.to_string)
-            Result := True
-         else
-            Result := put_coma
-         end
       end
 
 feature {}

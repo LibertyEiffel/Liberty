@@ -242,27 +242,6 @@ feature {C_PRETTY_PRINTER, GC_HANDLER, CECIL_POOL}
          cpp.set_dump_stack_top_for(type_of_current, ds, comment)
       end
 
-feature {LIVE_TYPE}
-   prepare_introspection (put_else: BOOLEAN): BOOLEAN is
-      require
-         cpp.pending_c_function
-         ace.no_check
-      do
-         Result := put_else
-      ensure
-         put_else implies Result
-      end
-
-   prepare_introspection2 (put_coma: BOOLEAN): BOOLEAN is
-      require
-         cpp.pending_c_function
-         ace.no_check
-      do
-         Result := put_coma
-      ensure
-         put_coma implies Result
-      end
-
 feature {JVM}
    jvm_define is
          -- To compute the constant pool, the number of fields, the number of methods, etc.

@@ -5,7 +5,7 @@ class RUN_FEATURE_2
 
 inherit
    RUN_FEATURE
-      redefine base_feature, prepare_introspection, prepare_introspection2
+      redefine base_feature
       end
 
 creation {WRITABLE_ATTRIBUTE}
@@ -61,36 +61,6 @@ feature {ANY}
       end
 
    ensure_assertion: ENSURE_ASSERTION
-
-   put_c_field_name is
-         --  Emit using `cpp' the corresponding field name with an extra C comment which
-         --  include the offset of the corresponding C field. This extra C comment is
-         --  mandatory to force C recompilation, because the field may move from one
-         --  compilation to another.
-      require
-         cpp.pending_c_function
-      do
-         cpp.pending_c_function_body.extend('_')
-         cpp.pending_c_function_body.append(name.to_string)
-         cpp.recompilation_comment(type_of_current.live_type)
-      end
-
-feature {LIVE_TYPE}
-   mapping_c_inside_introspect is
-      do
-         cpp.pending_c_function_body.extend('(')
-         if type_of_current.is_reference then
-            cpp.pending_c_function_body.append(once "(*C)->")
-            put_c_field_name
-         else
-            check
-               type_of_current.is_user_expanded
-            end
-            cpp.pending_c_function_body.append(once "(*C).")
-            put_c_field_name
-         end
-         cpp.pending_c_function_body.extend(')')
-      end
 
 feature {}
    do_adapt is
@@ -153,45 +123,6 @@ feature {ANY}
             stack_level := result_type.jvm_stack_space - 1
             idx := constant_pool.idx_fieldref(Current)
             code_attribute.opcode_getfield(idx, stack_level)
-         end
-      end
-
-feature {LIVE_TYPE}
-   prepare_introspection (put_else: BOOLEAN): BOOLEAN is
-      local
-         lt: LIVE_TYPE
-      do
-         lt := result_type.type.live_type
-         if lt /= Void then
-            if put_else then
-               cpp.pending_c_function_body.append(once "else ")
-            end
-            cpp.pending_c_function_body.append(once "if (!strcmp(attr,%"")
-            cpp.pending_c_function_body.append(name.to_string)
-            cpp.pending_c_function_body.append(once "%")) {%N")
-            lt.c_return_introspect(Current, Void)
-            cpp.pending_c_function_body.append(once "}%N")
-            Result := True
-         else
-            Result := put_else
-         end
-      end
-
-   prepare_introspection2 (put_coma: BOOLEAN): BOOLEAN is
-      local
-         lt: LIVE_TYPE
-      do
-         lt := result_type.type.live_type
-         if lt /= Void then
-            if put_coma then
-               cpp.pending_c_function_body.append(once ", ")
-            else
-               cpp.pending_c_function_body.extend('"')
-            end
-            cpp.pending_c_function_body.append(name.to_string)
-            Result := True
-         else
-            Result := put_coma
          end
       end
 

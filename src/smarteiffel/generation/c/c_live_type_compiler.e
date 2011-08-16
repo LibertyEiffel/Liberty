@@ -1062,7 +1062,7 @@ feature {RUN_FEATURE_2}
             define_c_signature(visited)
             c_define_opening(visited)
             function_body.append(once "R=C->")
-            visited.put_c_field_name
+            put_c_field_name(visited)
             function_body.append(once ";%N")
             c_define_closing(visited)
             function_body.append(once "return R;%N")

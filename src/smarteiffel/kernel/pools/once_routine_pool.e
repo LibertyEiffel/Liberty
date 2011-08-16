@@ -314,7 +314,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {RUN_FEATURE_5, RUN_FEATURE_6, C_LIVE_TYPE_COMPILER} -- For `compile_to_c':
+feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN} -- For `compile_to_c':
    c_define_o_flag (rf: RUN_FEATURE) is
          -- Add the definition/initialization of the corresponding `o_flag' if not yet done.
       require

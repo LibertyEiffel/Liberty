@@ -38,6 +38,8 @@ feature {ANY}
    native_function_mapper: C_NATIVE_FUNCTION_MAPPER
    native_procedure_mapper: C_NATIVE_PROCEDURE_MAPPER
    native_c_definition: C_NATIVE_C_DEFINITION
+   introspection_function: C_INTROSPECTION_FUNCTION
+   introspection_display: C_INTROSPECTION_DISPLAY
 
    -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
@@ -65,6 +67,8 @@ feature {}
          create native_function_mapper.make
          create native_procedure_mapper.make
          create native_c_definition.make
+         create introspection_function.make
+         create introspection_display.make
 
          create target_type.make
          create result_type.make
@@ -205,7 +209,7 @@ feature {}
          until
             i > live_type_map.upper
          loop
-            live_type_map.item(i).prepare_introspection
+            introspection_function.compile(live_type_map.item(i))
             i := i + 1
          end
       end
@@ -618,7 +622,7 @@ feature {}
                   pending_c_function_body.append(once "]=((void*(*)(void*,char*,int*,int*))se_introspecT")
                   lt.id.append_in(cpp.pending_c_function_body)
                   pending_c_function_body.append(once ");%N")
-                  lt.prepare_introspection2
+                  introspection_display.compile(lt)
                end
             end
             i := i + 1

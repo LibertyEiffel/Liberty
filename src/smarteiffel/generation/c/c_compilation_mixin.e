@@ -103,6 +103,19 @@ feature {}
          end
       end
 
+   put_c_field_name (rf2: RUN_FEATURE_2) is
+         --  Emit using `cpp' the corresponding field name with an extra C comment which
+         --  include the offset of the corresponding C field. This extra C comment is
+         --  mandatory to force C recompilation, because the field may move from one
+         --  compilation to another.
+      require
+         cpp.pending_c_function
+      do
+         function_body.extend('_')
+         function_body.append(rf2.name.to_string)
+         cpp.recompilation_comment(rf2.type_of_current.live_type)
+      end
+
 feature {}
    fe_c2c (rf: RUN_FEATURE) is
       do

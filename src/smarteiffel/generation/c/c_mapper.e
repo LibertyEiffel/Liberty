@@ -130,7 +130,7 @@ feature {RUN_FEATURE_2}
                function_body.extend('(')
                cpp.put_target_as_target(visited.type_of_current)
                function_body.append(once ")->")
-               visited.put_c_field_name
+               put_c_field_name(visited)
             else
                check
                   visited.type_of_current.is_user_expanded
@@ -138,7 +138,7 @@ feature {RUN_FEATURE_2}
                function_body.extend('(')
                cpp.put_target_as_value
                function_body.append(once ").")
-               visited.put_c_field_name
+               put_c_field_name(visited)
             end
             function_body.extend(')')
          end
