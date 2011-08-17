@@ -696,7 +696,7 @@ feature {}
             end
             i := i + 1
          end
-         gc_info
+         agent_pool_gc_info
          cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"C-stack=%%d %",gc_stack_size());%N%
            %fprintf(SE_GCINFO,%"main-table=%%d/%%d %",gcmt_used,gcmt_max);%N%
            %fprintf(SE_GCINFO,%"fsoc:%%d(%",fsoc_count);%N%
@@ -709,7 +709,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_info is
+   agent_pool_gc_info is
          -- Produce C code to print GC information.
       require
          cpp.pending_c_function
