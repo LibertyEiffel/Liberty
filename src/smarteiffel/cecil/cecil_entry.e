@@ -274,14 +274,14 @@ feature {CECIL_FILE}
             if arguments = Void then
                cpp.pending_c_function_signature.append(once "void")
             else
-               arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
+               cpp.external_prototype_in(arguments, cpp.pending_c_function_signature, target_type)
             end
          else
             cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type_mark))
             cpp.pending_c_function_signature.append(once " C")
             if arguments /= Void then
                cpp.pending_c_function_signature.extend(',')
-               arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
+               cpp.external_prototype_in(arguments, cpp.pending_c_function_signature, target_type)
             end
          end
          cpp.pending_c_function_signature.extend(')')

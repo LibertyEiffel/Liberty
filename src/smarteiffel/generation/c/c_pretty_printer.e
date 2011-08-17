@@ -3424,6 +3424,28 @@ feature {}
          end
       end
 
+feature {CECIL_ENTRY, C_COMPILATION_MIXIN}
+   external_prototype_in (formal_arg_list: FORMAL_ARG_LIST; str: STRING; tgt_type: TYPE) is
+      local
+         i: INTEGER; t: TYPE_MARK
+      do
+         from
+            i := 1
+         until
+            i > formal_arg_list.count
+         loop
+            if i > 1 then
+               str.extend(',')
+            end
+            t := formal_arg_list.type_mark(i).to_static(tgt_type)
+            str.append(result_type.for_external(t))
+            str.extend(' ')
+            str.extend('a')
+            i.append_in(str)
+            i := i + 1
+         end
+      end
+
 feature {} -- ASSIGNMENT_TEST_POOL
    c_define_assignment_test_functions is
       do

@@ -156,23 +156,6 @@ feature {JVM}
          method_info.finish
       end
 
-feature {GC_HANDLER}
-   gc_info is
-         -- Produce C code to print GC information.
-      require
-         cpp.pending_c_function
-      do
-         if agent_creation_collected_flag then
-            cpp.pending_c_function_body.append(once "[
-               if(gc_info_nb_agent)
-                  fprintf(SE_GCINFO,
-                  "%d\tagent(s) created. (store_left=%d).\n",
-                  gc_info_nb_agent,store_left_agent);
-
-                              ]")
-         end
-      end
-
 feature {CODE_PRINTER, C_LIVE_TYPE_COMPILER}
    creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE] is
          -- For each context TYPE, those which are collected.

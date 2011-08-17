@@ -285,34 +285,6 @@ feature {}
 
    rf8_memory: RUN_FEATURE_8
 
---   c_mapping_external (er: EXTERNAL_ROUTINE; arg_count: INTEGER) is
---      local
---         eruc, tcbd: BOOLEAN
---      do
---         eruc := use_current(er)
---         if not eruc then
---            tcbd := cpp.target_cannot_be_dropped
---            if tcbd then
---               cpp.pending_c_function_body.extend(',')
---            end
---         end
---         cpp.pending_c_function_body.append(er.external_name)
---         cpp.pending_c_function_body.extend('(')
---         if eruc then
---            cpp.put_target_as_value
---         end
---         if arg_count > 0 then
---            if eruc then
---               cpp.pending_c_function_body.extend(',')
---            end
---            cpp.put_arguments(arg_count)
---         end
---         cpp.pending_c_function_body.extend(')')
---         if not eruc and then tcbd then
---            cpp.pending_c_function_body.extend(')')
---         end
---      end
-
    parse_args_in (body: STRING; s: INTEGER; tag: STRING; args, args_count: INTEGER): INTEGER is
       require
          tag.item(s) = '('

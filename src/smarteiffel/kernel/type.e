@@ -1435,23 +1435,15 @@ feature {ADDRESS_OF}
 
 feature {}
    address_of_memory1: HASHED_SET[FEATURE_STAMP]
-
    address_of_memory2: FAST_ARRAY[ADDRESS_OF]
 
-feature {C_LIVE_TYPE_COMPILER}
-   address_of_c_define is
-      local
-         i: INTEGER
+feature {ANY}
+   do_all_address_of (action: PROCEDURE[TUPLE[ADDRESS_OF]]) is
+      require
+         action /= Void
       do
          if address_of_memory2 /= Void then
-            from
-               i := address_of_memory2.lower
-            until
-               i > address_of_memory2.upper
-            loop
-               address_of_memory2.item(i).c_define(i)
-               i := i + 1
-            end
+            address_of_memory2.do_all(action)
          end
       end
 

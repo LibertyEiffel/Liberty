@@ -174,29 +174,6 @@ feature {RUN_FEATURE, JVM}
          end
       end
 
-feature {ADDRESS_OF, CECIL_ENTRY}
-   external_prototype_in (str: STRING; target_type: TYPE) is
-      local
-         i: INTEGER; t: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            t := type_mark(i).to_static(target_type)
-            sedb_breakpoint
-            str.append(cpp.result_type.for_external(t))
-            str.extend(' ')
-            str.extend('a')
-            i.append_in(str)
-            i := i + 1
-            if i <= count then
-               str.extend(',')
-            end
-         end
-      end
-
 feature {AGENT_CREATION}
    omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST is
          -- Create the corresponding ommited open arguments list.

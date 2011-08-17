@@ -696,7 +696,7 @@ feature {}
             end
             i := i + 1
          end
-         agent_pool.gc_info
+         gc_info
          cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"C-stack=%%d %",gc_stack_size());%N%
            %fprintf(SE_GCINFO,%"main-table=%%d/%%d %",gcmt_used,gcmt_max);%N%
            %fprintf(SE_GCINFO,%"fsoc:%%d(%",fsoc_count);%N%
@@ -707,6 +707,22 @@ feature {}
            %fprintf(SE_GCINFO,%"GC called %%d time(s)\n%",collector_counter);%N%
            %fprintf(SE_GCINFO,%"--------------------\n%");%N")
          cpp.dump_pending_c_function(True)
+      end
+
+   gc_info is
+         -- Produce C code to print GC information.
+      require
+         cpp.pending_c_function
+      do
+         if agent_pool.agent_creation_collected_flag then
+            cpp.pending_c_function_body.append(once "[
+               if(gc_info_nb_agent)
+                  fprintf(SE_GCINFO,
+                  "%d\tagent(s) created. (store_left=%d).\n",
+                  gc_info_nb_agent,store_left_agent);
+
+                              ]")
+         end
       end
 
    define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is

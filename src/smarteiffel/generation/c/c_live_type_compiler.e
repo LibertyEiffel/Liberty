@@ -109,7 +109,53 @@ feature {}
          if live_type.class_text.invariant_check and then live_type.class_invariant /= Void then
             define_check_class_invariant_c_function(live_type)
          end
-         live_type.type.address_of_c_define
+         live_type.type.do_all_address_of(agent_address_of_c_define)
+      end
+
+   agent_address_of_c_define: PROCEDURE[TUPLE[ADDRESS_OF]] is
+      once
+         Result := agent address_of_c_define
+      end
+
+   address_of_c_define (address_of: ADDRESS_OF) is
+      local
+         result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; expression: EXPRESSION; target_type: TYPE
+      do
+         target_type := address_of.target_type
+         af := address_of.feature_stamp.anonymous_feature(target_type)
+         cpp.prepare_c_function
+         result_type := af.result_type
+         function_signature.append(cpp.result_type.for_external(result_type))
+         function_signature.append(once " W")
+         target_type.id.append_in(function_signature)
+         function_signature.append(address_of.feature_stamp.name.to_string)
+         function_signature.extend('(')
+         function_signature.append(cpp.result_type.for_external(target_type.canonical_type_mark))
+         function_signature.append(once " C")
+         if af.arguments /= Void then
+            function_signature.extend(',')
+            cpp.external_prototype_in(af.arguments, function_signature, target_type)
+         end
+         function_signature.extend(')')
+         if ace.no_check then
+            function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+                                      %ds.caller=se_dst;%N%
+                                      %ds.exception_origin=NULL;%N%
+                                      %ds.locals=NULL;%N")
+            cpp.set_dump_stack_top_for(target_type, once "&ds", once "link")
+         end
+         if result_type = Void then
+            if address_of.calling_code /= Void then
+               cpp.code_compiler.compile(address_of.calling_code, target_type)
+            end
+         else
+            check
+               address_of.calling_code /= Void
+            end
+            expression ::= address_of.calling_code
+            cpp.compound_expression_compiler.compile(once "return ", expression, once ";%N", target_type)
+         end
+         cpp.dump_pending_c_function(True)
       end
 
    define_agent_creation_for (type: TYPE) is
