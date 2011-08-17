@@ -810,7 +810,7 @@ feature {}
          end
          -- (2) ----------------------- User's local variables:
          if run_feature.local_vars /= Void then
-            run_feature.local_vars.c_declare(run_feature.type_of_current, run_feature.rescue_compound /= Void)
+            cpp.c_declare_locals(run_feature.local_vars, run_feature.type_of_current, run_feature.rescue_compound /= Void)
          end
          -- (3) ------------------- Local variables for profile:
          if ace.profile then
@@ -898,7 +898,7 @@ feature {}
             end
          end
          if run_feature.local_vars /= Void then
-            run_feature.local_vars.initialize_expanded(run_feature.type_of_current)
+            initialize_expanded(run_feature.local_vars, run_feature.type_of_current)
          end
          -- (11) --------------------------- Retry start label :
          if run_feature.rescue_compound /= Void then
@@ -916,6 +916,55 @@ feature {}
                function_body.append(once "rc.top_of_ds=&ds;%N")
                cpp.set_dump_stack_top_for(run_feature.type_of_current, once "&ds", once "link")
             end
+         end
+      end
+
+   initialize_expanded (local_var_list: LOCAL_VAR_LIST; type: TYPE) is
+      require
+         local_var_list /= Void
+         cpp.pending_c_function
+      local
+         i, id, class_invariant_flag: INTEGER; local_type: TYPE; rf: RUN_FEATURE
+         local_name: LOCAL_NAME1; internal_c_local: INTERNAL_C_LOCAL
+      do
+         from
+            i := 1
+         until
+            i > local_var_list.count
+         loop
+            local_type := local_var_list.type_mark(i).resolve_in(type)
+            local_name := local_var_list.name(i)
+            if local_type.is_user_expanded and then local_name.is_used(type) then
+               rf := local_type.live_type.default_create_run_feature
+               if rf /= Void then
+                  internal_c_local := cpp.pending_c_function_lock_local(local_type, once "locexp")
+                  id := local_type.id
+                  internal_c_local.append_in(function_body)
+                  function_body.append(once "=M")
+                  id.append_in(function_body)
+                  function_body.append(once ";%N")
+                  cpp.push_create_instruction(type, rf, Void, internal_c_local)
+                  cpp.mapper.compile(rf)
+                  cpp.pop
+                  function_body.extend('_')
+                  function_body.append(local_name.to_string)
+                  function_body.extend('=')
+                  internal_c_local.append_in(function_body)
+                  function_body.append(once ";%N")
+                  internal_c_local.unlock
+               end
+               -- Even when there is no default creation procedure to apply, we must call the class invariant:
+               class_invariant_flag := cpp.class_invariant_call_opening(local_type, False)
+               if class_invariant_flag > 0 then
+                  if cpp.need_struct.for(local_type.canonical_type_mark) then
+                     function_body.extend('&')
+                  end
+                  function_body.extend('_')
+                  function_body.append(local_name.to_string)
+                  cpp.class_invariant_call_closing(class_invariant_flag, True)
+               end
+            end
+            i := i + 1
          end
       end
 
@@ -1114,12 +1163,12 @@ feature {RUN_FEATURE_4}
 feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
-         once_routine_pool.c_define_o_flag(visited)
+         cpp.c_define_o_flag(visited)
          cpp.prepare_c_function
          define_c_signature(visited)
          c_define_opening(visited)
          if visited.routine_body /= Void then
-            once_routine_pool.c_test_o_flag(visited)
+            cpp.c_test_o_flag(visited)
             cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
             function_body.append(once "}}")
          end
@@ -1130,16 +1179,16 @@ feature {RUN_FEATURE_5}
 feature {RUN_FEATURE_6}
    visit_run_feature_6 (visited: RUN_FEATURE_6) is
       do
-         once_routine_pool.c_define_o_result(visited)
+         cpp.c_define_o_result(visited)
          if not visited.is_precomputable_once then
-            once_routine_pool.c_define_o_flag(visited)
+            cpp.c_define_o_flag(visited)
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
             if visited.routine_body /= Void then
-               once_routine_pool.c_test_o_flag(visited)
+               cpp.c_test_o_flag(visited)
                cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
-               once_routine_pool.c_test_o_flag_recursion(visited)
+               cpp.c_test_o_flag_recursion(visited)
             end
             c_define_closing(visited)
             function_body.append(once "return ")

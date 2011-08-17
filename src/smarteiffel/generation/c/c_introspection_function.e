@@ -148,7 +148,7 @@ feature {RUN_FEATURE_6}
             if visited.is_precomputable_once then
                c_return_introspect(lt, Void, visited)
             else
-               once_routine_pool.c_test_o_flag_introspect(visited)
+               cpp.c_test_o_flag_introspect(visited)
                c_return_introspect(lt, Void, visited)
                function_body.append(once "} else { *id=0; }%N")
             end

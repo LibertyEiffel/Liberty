@@ -264,7 +264,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
             if count > 0 then
                put_string(once "Total ")
                put_string(msg)
-               if count > 1 then
+               if count /= 1 then
                   put_character('s')
                end
                put_string(once ": ")

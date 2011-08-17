@@ -393,9 +393,8 @@ feature {SMART_EIFFEL} -- Collect:
 
    propagate_features is
          -- This propagates in subtypes alive features detected while previous collect cycle, using
-         -- dynaminc binding. This means that a newly alive feature will became pending in all sub-types
-         -- and then will be collected while the upcoming collect cycle.
-         --
+         -- dynaminc binding. This means that a newly alive feature will become pending in all sub-types
+         -- and then will be collected in the next collect cycle.
       require
          smart_eiffel.status.is_collecting
       local
@@ -451,18 +450,7 @@ feature {SMART_EIFFEL} -- Collect:
             live_features.item(i).collect(type)
             i := i + 1
          end
-         from --|*** (PH 11/09/04) move this loop to the end of the feature?
-         until
-            new_features.is_empty
-         loop
-            af := new_features.item(new_features.upper)
-            fs := new_features.key(new_features.upper)
-            new_features.fast_remove(fs)
-            live_features.add(af, fs)
-            af.collect(type)
-         end
-         is_collecting := False
-         has_been_collected := True
+
          if class_text.invariant_check and then class_invariant /= Void then
             dummy := class_invariant.collect(type)
          end
@@ -478,6 +466,19 @@ feature {SMART_EIFFEL} -- Collect:
             collect(default_create_stamp)
          end
          do_collect_native_array_collector
+
+         from
+         until
+            new_features.is_empty
+         loop
+            af := new_features.item(new_features.upper)
+            fs := new_features.key(new_features.upper)
+            new_features.fast_remove(fs)
+            live_features.add(af, fs)
+            af.collect(type)
+         end
+         is_collecting := False
+         has_been_collected := True
       ensure
          not is_collecting
          has_been_collected

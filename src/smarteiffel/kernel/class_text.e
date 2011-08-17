@@ -528,6 +528,7 @@ feature {TYPE}
 feature {}
    native_array_collector_memory: INTEGER
          -- To cache `is_native_array_collector_enabled' computation.
+
 feature {TYPE}
    is_native_array_collector_enabled: BOOLEAN is
       require
@@ -563,26 +564,6 @@ feature {TYPE}
 
 feature {}
    check_expanded_with_flag: TYPE
-
-feature {ONCE_ROUTINE_POOL}
-   once_flag (mark: STRING): BOOLEAN is
-         -- Flag used to avoid double C definition of globals C variables for
-         -- once routines.
-      require
-         string_aliaser.registered_one(mark)
-         smart_eiffel.is_ready
-      do
-         if once_mark_list = Void then
-            create once_mark_list.with_capacity(4)
-            once_mark_list.add_last(mark)
-         elseif once_mark_list.fast_has(mark) then
-            Result := True
-         else
-            once_mark_list.add_last(mark)
-         end
-      ensure
-         once_flag(mark)
-      end
 
 feature {CLASS_TEXT}
    declaration_type_of_like_current_ (sp: POSITION): TYPE_MARK is
@@ -1059,10 +1040,6 @@ feature {}
          -- The one `Current' (mangled using ASSERTION_LEVEL_NUMBERING).
 
    family_member: TYPE
-
-   once_mark_list: FAST_ARRAY[STRING]
-         -- When the tag is in the list, the corresponding routine
-         -- does not use Current and C code is already written.
 
    creation_list_check_done: BOOLEAN
          -- See `creation_list_check'.
