@@ -24,8 +24,10 @@ feature {MANIFEST_STRING}
          unicode_flag = ms.unicode_flag
          type.is_string xor type.is_unicode_string
       local
-         storage_id: STRING; ms2: MANIFEST_STRING; position: POSITION; dummy: TYPE
+         storage_id, buffer: STRING; ms2: MANIFEST_STRING; position: POSITION; dummy: TYPE
       do
+         buffer := once "................"
+
          position := ms.start_position
          ms2 := storage_alias.reference_at(ms)
          if ms2 = Void then
@@ -33,17 +35,12 @@ feature {MANIFEST_STRING}
             if storage_id /= Void and then not collected_storage_id_set.has(storage_id) then
                -- (Was previously computed.)
             else
-               cpp.out_h_buffer.clear_count
-               position.class_text.id.append_in(cpp.out_h_buffer)
-               cpp.out_h_buffer.extend('_')
-               ms.hash_code.append_in(cpp.out_h_buffer)
-               from
-               until
-                  not collected_storage_id_set.has(cpp.out_h_buffer)
-               loop
-                  cpp.out_h_buffer.extend('a')
-               end
-               storage_id := cpp.out_h_buffer.twin
+               buffer.clear_count
+               position.class_text.id.append_in(buffer)
+               buffer.extend('_')
+               ms.hash_code.append_in(buffer)
+               make_unique(buffer, agent_exists_in_collected_storage_id_set)
+               storage_id := buffer.twin
                ms.set_initial_storage_id(storage_id)
             end
             collected_storage_id_set.add(storage_id)
@@ -54,12 +51,12 @@ feature {MANIFEST_STRING}
          if once_flag then
             Result := ms.once_variable
             if Result = Void then
-               cpp.out_h_buffer.copy(once "ms")
-               cpp.out_h_buffer.append(ms.initial_storage_id)
-               cpp.out_h_buffer.append(once "bc")
-               position.class_text.id.append_in(cpp.out_h_buffer)
-               extend_once_variable
-               Result := cpp.out_h_buffer.twin
+               buffer.copy(once "ms")
+               buffer.append(ms.initial_storage_id)
+               buffer.append(once "bc")
+               position.class_text.id.append_in(buffer)
+               make_unique(buffer, agent_exists_in_collected_once_variables)
+               Result := buffer.twin
             end
             collected_once_variables.put(ms, Result)
          end
@@ -84,27 +81,27 @@ feature {MANIFEST_STRING}
       end
 
 feature {}
-   extend_once_variable is
+   make_unique (buffer: STRING; exists: PREDICATE[TUPLE[STRING]]) is
       local
          index, up: INTEGER
       do
-         up := cpp.out_h_buffer.upper
+         up := buffer.upper
          from
             index := 0
-            append_once_variable_index(index)
+            append_once_variable_index(buffer, index)
          until
-            not collected_once_variables.has(cpp.out_h_buffer)
+            not exists.item([buffer])
          loop
-            cpp.out_h_buffer.shrink(cpp.out_h_buffer.lower, up)
+            buffer.shrink(buffer.lower, up)
             index := index + 1
-            append_once_variable_index(index)
+            append_once_variable_index(buffer, index)
          end
       ensure
-         not collected_once_variables.has(cpp.out_h_buffer)
-         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
+         not exists.item([buffer])
+         buffer.count > old buffer.count
       end
 
-   append_once_variable_index (index: INTEGER) is
+   append_once_variable_index (buffer: STRING; index: INTEGER) is
       require
          index >= 0
       local
@@ -117,12 +114,12 @@ feature {}
             done
          loop
             r := q \\ s.count
-            cpp.out_h_buffer.extend(s.item(r + s.lower))
+            buffer.extend(s.item(r + s.lower))
             q := q // s.count
             done := q = 0
          end
       ensure
-         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
+         buffer.count > old buffer.count
       end
 
 feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
@@ -257,6 +254,27 @@ feature {JVM}
                i := i + 1
             end
          end
+      end
+
+feature {}
+   agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]] is
+      once
+         Result := agent exists_in_collected_once_variables
+      end
+
+   exists_in_collected_once_variables (a_string: STRING): BOOLEAN is
+      do
+         Result := collected_once_variables.has(a_string)
+      end
+
+   agent_exists_in_collected_storage_id_set: PREDICATE[TUPLE[STRING]] is
+      once
+         Result := agent exists_in_collected_storage_id_set
+      end
+
+   exists_in_collected_storage_id_set (a_string: STRING): BOOLEAN is
+      do
+         Result := collected_storage_id_set.has(a_string)
       end
 
 feature {CODE_PRINTER}
