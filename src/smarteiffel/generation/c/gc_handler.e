@@ -156,7 +156,7 @@ feature {C_PRETTY_PRINTER}
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
-         manifest_string_pool.define_manifest_string_mark
+         define_manifest_string_mark
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
          mark_once_routines
@@ -258,6 +258,60 @@ feature {C_PRETTY_PRINTER}
             end
             i := i + 1
          end
+      end
+
+   define_manifest_string_mark is
+      local
+         i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
+      do
+         mdc := manifest_string_pool.collected_once_count
+         function_count := 1
+         cpp.prepare_c_function
+         manifest_string_mark_signature(function_count)
+         from
+            i := 1
+            if manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               us_id := manifest_string_pool.se_ums.type_of_current.live_type.id
+            end
+         until
+            i > mdc
+         loop
+            if ms_count > 300 then
+               ms_count := 0
+               function_count := function_count + 1
+               cpp.pending_c_function_body.append(once "manifest_string_mark")
+               function_count.append_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(once "();%N")
+               cpp.dump_pending_c_function(True)
+               cpp.prepare_c_function
+               manifest_string_mark_signature(function_count)
+            end
+            ms := manifest_string_pool.collected_once_item(i)
+            cpp.pending_c_function_body.append(once "gc_mark")
+            if ms.unicode_flag then
+               id := us_id
+            else
+               id := 7
+            end
+            id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "((T")
+            id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*)")
+            cpp.pending_c_function_body.append(ms.once_variable)
+            cpp.pending_c_function_body.append(once ");%N")
+            ms_count := ms_count + 1
+            i := i + 1
+         end
+         cpp.dump_pending_c_function(True)
+      end
+
+   manifest_string_mark_signature (number: INTEGER) is
+      require
+         cpp.pending_c_function
+      do
+         cpp.pending_c_function_signature.copy(once "void manifest_string_mark")
+         number.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(void)")
       end
 
 feature {ANY}

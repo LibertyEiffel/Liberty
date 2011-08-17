@@ -2520,7 +2520,7 @@ feature {}
 
                 ]")
          end
-         manifest_string_pool.c_call_initialize
+         c_call_initialize_manifest_strings
          c_code_for_precomputable_routines
          if ace.sedb then
             pending_c_function_body.append(once "se_general_trace_switch=1;%N")
@@ -2544,6 +2544,21 @@ feature {}
             pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
          end
          dump_pending_c_function(True)
+      end
+
+   c_call_initialize_manifest_strings is
+      require
+         cpp.pending_c_function
+      do
+         if manifest_string_pool.collected_once_count > 0 then
+            if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               cpp.pending_c_function_body.append(once "se_msi1(&local_profile);%N")
+            else
+               cpp.pending_c_function_body.append(once "se_msi1();%N")
+            end
+         end
+      ensure
+         cpp.pending_c_function
       end
 
    check_id (type: TYPE; e: EXPRESSION; id: INTEGER) is
@@ -2896,11 +2911,11 @@ feature {}
          from
             out_c_buffer.copy(once "/*Aliased storage area or unicode storage.*/%N")
             write_out_c_buffer
-            i := manifest_string_pool.storage_alias.lower
+            i := 1
          until
-            i > manifest_string_pool.storage_alias.count
+            i > manifest_string_pool.storage_alias_count
          loop
-            ms := manifest_string_pool.storage_alias.item(i)
+            ms := manifest_string_pool.storage_alias_item(i)
             if ms.unicode_flag then
                us := ms.unicode_string
                upper := us.count
@@ -2973,6 +2988,8 @@ feature {}
          end
       end
 
+   nb_ms_per_function: INTEGER is 50
+
    c_define2_manifest_string_pool is
       local
          i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
@@ -2981,16 +2998,16 @@ feature {}
          string_at_run_time := smart_eiffel.is_at_run_time(as_string)
          split_c_file_padding_here
          no_check := ace.no_check
-         mdc := manifest_string_pool.collected_once_variables.count
+         mdc := manifest_string_pool.collected_once_count
          echo.print_count(once "Manifest String", mdc)
          if mdc > 0 then
             from
                -- For the *.h file:
-               i := manifest_string_pool.collected_once_variables.lower
+               i := 1
             until
-               i > manifest_string_pool.collected_once_variables.upper
+               i > manifest_string_pool.collected_once_count
             loop
-               ms := manifest_string_pool.collected_once_variables.item(i)
+               ms := manifest_string_pool.collected_once_item(i)
                out_h_buffer.copy(once "T0*")
                out_h_buffer.append(ms.once_variable)
                write_extern_1(out_h_buffer)
@@ -3053,11 +3070,11 @@ feature {}
                         pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
                      end
                   end
-                  j := manifest_string_pool.nb_ms_per_function
+                  j := nb_ms_per_function
                until
                   j = 0 or else i > mdc
                loop
-                  ms := manifest_string_pool.collected_once_variables.item(i)
+                  ms := manifest_string_pool.collected_once_item(i)
                   pending_c_function_body.append(ms.once_variable)
                   pending_c_function_body.extend('=')
                   if ms.unicode_flag then

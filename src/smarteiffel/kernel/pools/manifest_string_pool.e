@@ -151,68 +151,6 @@ feature {SMART_EIFFEL}
          collected_storage_id_set.clear_count
       end
 
-feature {C_PRETTY_PRINTER}
-   c_call_initialize is
-      require
-         cpp.pending_c_function
-      do
-         if collected_once_variables.count > 0 then
-            if ace.profile and then first_unicode_manifest_string_collected_flag then
-               cpp.pending_c_function_body.append(once "se_msi1(&local_profile);%N")
-            else
-               cpp.pending_c_function_body.append(once "se_msi1();%N")
-            end
-         end
-      ensure
-         cpp.pending_c_function
-      end
-
-feature {GC_HANDLER}
-   define_manifest_string_mark is
-      local
-         i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
-      do
-         mdc := collected_once_variables.count
-         function_count := 1
-         cpp.prepare_c_function
-         manifest_string_mark_signature(function_count)
-         from
-            i := 1
-            if first_unicode_manifest_string_collected_flag then
-               us_id := se_ums.type_of_current.live_type.id
-            end
-         until
-            i > mdc
-         loop
-            if ms_count > 300 then
-               ms_count := 0
-               function_count := function_count + 1
-               cpp.pending_c_function_body.append(once "manifest_string_mark")
-               function_count.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "();%N")
-               cpp.dump_pending_c_function(True)
-               cpp.prepare_c_function
-               manifest_string_mark_signature(function_count)
-            end
-            ms := collected_once_variables.item(i)
-            cpp.pending_c_function_body.append(once "gc_mark")
-            if ms.unicode_flag then
-               id := us_id
-            else
-               id := 7
-            end
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "((T")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            cpp.pending_c_function_body.append(ms.once_variable)
-            cpp.pending_c_function_body.append(once ");%N")
-            ms_count := ms_count + 1
-            i := i + 1
-         end
-         cpp.dump_pending_c_function(True)
-      end
-
 feature {JVM}
    jvm_define_fields is
       local
@@ -277,7 +215,7 @@ feature {}
          Result := collected_storage_id_set.has(a_string)
       end
 
-feature {CODE_PRINTER}
+feature {ANY}
    first_manifest_string_collected_flag: BOOLEAN
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
@@ -286,6 +224,44 @@ feature {CODE_PRINTER}
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
 
+   collected_once_count: INTEGER is
+      do
+         Result := collected_once_variables.count
+      end
+
+   collected_once_item (i: INTEGER): MANIFEST_STRING is
+      require
+         i.in_range(1, collected_once_count)
+      do
+         Result := collected_once_variables.item(i)
+      end
+
+   storage_alias_count: INTEGER is
+      do
+         Result := storage_alias.count
+      end
+
+   storage_alias_item (i: INTEGER): MANIFEST_STRING is
+      require
+         i.in_range(1, storage_alias_count)
+      do
+         Result := storage_alias.item(i)
+      end
+
+   se_ums: RUN_FEATURE is
+         -- The one of `unicode_string_manifest_initialize_stamp'.
+      require
+         first_unicode_manifest_string_collected_flag
+      do
+         Result := se_ums_
+         if Result = Void then
+            -- Yes, this is the very first usage of `se_ums':
+            Result := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
+            se_ums_ := Result
+         end
+      end
+
+feature {}
    collected_once_variables: DICTIONARY[MANIFEST_STRING, STRING] is
          -- To allocate different global variables names for each collected "once" manifest string.
       once
@@ -305,33 +281,11 @@ feature {CODE_PRINTER}
          create {HASHED_SET[STRING]} Result.with_capacity(4096)
       end
 
-   manifest_string_mark_signature (number: INTEGER) is
-      require
-         cpp.pending_c_function
-      do
-         cpp.pending_c_function_signature.copy(once "void manifest_string_mark")
-         number.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(void)")
-      end
-
-   nb_ms_per_function: INTEGER is 50
-
    unicode_string_manifest_initialize_stamp: FEATURE_STAMP
          -- Feature stamp for {UNICODE_STRING}.manifest_initialize which is actually the body of `se_ums'.
 
    unicode_string_type: TYPE
          -- Is cached here too in order to get `se_ums' later.
-
-   se_ums: RUN_FEATURE is
-         -- The one of `unicode_string_manifest_initialize_stamp'.
-      do
-         Result := se_ums_
-         if Result = Void then
-            -- Yes, this is the very first usage of `se_ums':
-            Result := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
-            se_ums_ := Result
-         end
-      end
 
 feature {}
    se_ums_: RUN_FEATURE
