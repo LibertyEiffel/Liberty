@@ -1135,7 +1135,7 @@ feature {TYPE}
          end
       end
 
-feature {LIVE_TYPE}
+feature {ANY}
    is_native_array_collector_enabled: BOOLEAN is
          -- The `Result' is True if `Current' do needs magic extra collect for NATIVE_ARRAY_COLLECTOR.
       require

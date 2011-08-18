@@ -21,8 +21,7 @@ insert
 create {ANY}
    make
 
-feature {ANY}
-   -- Code generators
+feature {ANY} -- Code generators
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
@@ -41,13 +40,23 @@ feature {ANY}
    introspection_function: C_INTROSPECTION_FUNCTION
    introspection_display: C_INTROSPECTION_DISPLAY
 
-   -- C-related type properties
+feature {ANY} -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
    native_need_wrapper: C_NATIVE_NEED_WRAPPER
+
+feature {ANY} -- Extra collectors
+   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
+
+   add_extra_collectors is
+      do
+         if not gc_handler.is_off then
+            live_type_extra_collectors.add_last(native_array_collector)
+         end
+      end
 
 feature {}
    make is
@@ -78,6 +87,8 @@ feature {}
          create native_need_wrapper.make
 
          create registered_natives.make
+
+         create native_array_collector.make
       end
 
 feature {SMART_EIFFEL}

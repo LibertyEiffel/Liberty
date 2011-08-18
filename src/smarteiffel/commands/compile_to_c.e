@@ -121,6 +121,7 @@ feature {}
             -- Now finish the work.
             ace.command_line_parsed(command_line_name)
          end
+         cpp.add_extra_collectors
          smart_eiffel.compile(cpp)
          id_provider.disk_save
          string_aliaser.echo_information

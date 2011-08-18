@@ -135,7 +135,7 @@ feature {ANY}
          visitor.visit_live_type(Current)
       end
 
-feature {SMART_EIFFEL, EXTERNAL_FUNCTION}
+feature {SMART_EIFFEL, EXTERNAL_FUNCTION, LIVE_TYPE_EXTRA_COLLECTOR}
    collect (fs: FEATURE_STAMP) is
       require
          valid_stamp: fs /= Void
@@ -465,7 +465,8 @@ feature {SMART_EIFFEL} -- Collect:
          if default_create_stamp /= Void then
             collect(default_create_stamp)
          end
-         do_collect_native_array_collector
+
+         live_type_extra_collectors.do_all(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
 
          from
          until
@@ -484,53 +485,32 @@ feature {SMART_EIFFEL} -- Collect:
          has_been_collected
       end
 
-feature {ANY}
-   insert_native_array_collector_flag: BOOLEAN is
-         -- Is `Current' type under NATIVE_ARRAY_COLLECTOR special treatment?
+feature {LIVE_TYPE_EXTRA_COLLECTOR}
+   extra_collected (tag: FIXED_STRING): LIVE_TYPE_EXTRA_COLLECTED is
+      require
+         sensible_tag: tag.intern = tag
       do
-         Result := native_array_collector_memory = 1
+         if extra_collected_memory /= Void then
+            Result := extra_collected_memory.fast_reference_at(tag)
+         end
+      end
+
+   set_extra_collected (tag: FIXED_STRING; data: LIVE_TYPE_EXTRA_COLLECTED) is
+      require
+         sensible_tag: tag.intern = tag
+         sensible_data: data /= Void
+         no_previous_data: extra_collected(tag) = Void
+      do
+         if extra_collected_memory = Void then
+            create extra_collected_memory.make
+         end
+         extra_collected_memory.add(data, tag)
+      ensure
+         extra_collected(tag) = data
       end
 
 feature {}
-   native_array_collector_memory: INTEGER
-         -- To cache `do_collect_native_array_collector' and `insert_native_array_collector_flag' work.
-
-   do_collect_native_array_collector is
-      local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; args: FORMAL_ARG_LIST
-      do
-         inspect
-            native_array_collector_memory
-         when -1 then
-            -- Nothing to collect.
-         when 1 then
-            -- Must collect `mark_native_arrays':
-            fs := type.feature_stamp_of(mark_native_arrays_name)
-            if fs = Void then
-               error_handler.append("Internal problem for %"mark_native_arrays%".")
-               error_handler.print_as_warning
-            else
-               collect(fs)
-            end
-         when 0 then
-            native_array_collector_memory := -1
-            if not cpp.gc_handler.is_off and then type.is_native_array_collector_enabled then
-               fs := type.feature_stamp_of(mark_item_name)
-               if fs = Void then
-                  error_handler.append("Internal problem while searching for %"mark_item%".")
-                  error_handler.print_as_warning
-               else
-                  af := fs.anonymous_feature(type)
-                  args := af.arguments
-                  if args.name(1).resolve_in(type).generic_list.first.is_reference then
-                     native_array_collector_memory := 1
-                  end
-               end
-            end
-         end
-      ensure
-         native_array_collector_memory /= 0
-      end
+   extra_collected_memory: HASHED_DICTIONARY[LIVE_TYPE_EXTRA_COLLECTED, FIXED_STRING]
 
 feature {SMART_EIFFEL}
    inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR) is

@@ -467,6 +467,16 @@ feature {}
          end
       end
 
+   insert_native_array_collector_flag (lt: LIVE_TYPE): BOOLEAN is
+      require
+         lt /= Void
+      local
+         must_collect: LIVE_TYPE_EXTRA_COLLECTED_FLAG
+      do
+         must_collect := cpp.native_array_collector.must_collect(lt)
+         Result := must_collect /= Void and then must_collect.item
+      end
+
    mark_attribute (lt: LIVE_TYPE; rf2: RUN_FEATURE_2) is
       require
          cpp.pending_c_function
@@ -483,7 +493,7 @@ feature {}
             field_name.copy(once "o->_")
             field_name.append(rf2.name.to_string)
             cpp.recompilation_comment(lt)
-            if lt.insert_native_array_collector_flag and then attribute_type.is_native_array then
+            if  attribute_type.is_native_array and then insert_native_array_collector_flag(lt) then
                function_body.append(once "{%NT")
                attribute_type.id.append_in(function_body)
                function_body.append(once " na=")
