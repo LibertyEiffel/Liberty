@@ -9,20 +9,17 @@ Homepage: http://liberty-eiffel.blogspot.com/
 
 Package: libertyeiffel-tools
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libertyeiffel-core-libs
+Depends: ${shlibs:Depends}, ${misc:Depends}, libertyeiffel-core-libs, gcc
 Recommends: libertyeiffel-extra-libs
 Suggests: libertyeiffel-tools-src
 Description: The Liberty Eiffel tools
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
-
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
-
  Note that the name "Liberty" was chosen as a not-so-subtle to the
  Liberty Tower, which innards were designed by Gustave Eiffel, the
  French engineer.
-
  This package provides the core tools: compiler, pretty printer,
  documenter, tester, and so on.
 
@@ -33,15 +30,27 @@ Recommends: libertyeiffel-tools
 Description: The Liberty Eiffel tools source
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
-
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
-
  Note that the name "Liberty" was chosen as a not-so-subtle to the
  Liberty Tower, which innards were designed by Gustave Eiffel, the
  French engineer.
-
  This package provides the Eiffel source of the Liberty Eiffel tools.
+
+
+Package: libertyeiffel-tools-doc
+Architecture: all
+Recommends: libertyeiffel-tools
+Description: The Liberty Eiffel tools source
+ Liberty Eiffel is the proud successor of SmartEiffel, also formerly
+ known as the GNU Eiffel compiler.
+ Since the original maintainer lost interest, and the community has to
+ be rebuilt with a new purpose, the name was also changed.
+ Note that the name "Liberty" was chosen as a not-so-subtle to the
+ Liberty Tower, which innards were designed by Gustave Eiffel, the
+ French engineer.
+ This package provides the documentation for the Liberty Eiffel tools
+ classes.
 
 
 Package: libertyeiffel-core-libs
@@ -50,33 +59,13 @@ Recommends: libertyeiffel-tools
 Description: documentation for libertyeiffel
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
-
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
-
  Note that the name "Liberty" was chosen as a not-so-subtle to the
  Liberty Tower, which innards were designed by Gustave Eiffel, the
  French engineer.
-
  This package provides the core libraries needed to compile event the
  most simple program.
-
-
-Package: libertyeiffel-extra-libs
-Architecture: all
-Recommends: libertyeiffel-tools, libertyeiffel-core-libs
-Description: documentation for libertyeiffel
- Liberty Eiffel is the proud successor of SmartEiffel, also formerly
- known as the GNU Eiffel compiler.
-
- Since the original maintainer lost interest, and the community has to
- be rebuilt with a new purpose, the name was also changed.
-
- Note that the name "Liberty" was chosen as a not-so-subtle to the
- Liberty Tower, which innards were designed by Gustave Eiffel, the
- French engineer.
-
- This package provides extra libraries for advanced usage.
 
 
 Package: libertyeiffel-core-doc
@@ -85,29 +74,10 @@ Recommends: libertyeiffel-tools, libertyeiffel-core-libs
 Description: documentation for libertyeiffel
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
-
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
-
  Note that the name "Liberty" was chosen as a not-so-subtle to the
  Liberty Tower, which innards were designed by Gustave Eiffel, the
  French engineer.
-
- This package provides the documentation for the core libraries.
-
-
-Package: libertyeiffel-extra-doc
-Architecture: all
-Recommends: libertyeiffel-tools, libertyeiffel-extra-libs
-Description: documentation for libertyeiffel
- Liberty Eiffel is the proud successor of SmartEiffel, also formerly
- known as the GNU Eiffel compiler.
-
- Since the original maintainer lost interest, and the community has to
- be rebuilt with a new purpose, the name was also changed.
-
- Note that the name "Liberty" was chosen as a not-so-subtle to the
- Liberty Tower, which innards were designed by Gustave Eiffel, the
- French engineer.
-
- This package provides the documentation for the extra libraries.
+ This package provides the documentation for the core libraries
+ classes.
