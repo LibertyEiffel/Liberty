@@ -313,34 +313,7 @@ feature {CLASS_TEXT}
          pretty_printer.set_indent_level(0)
       end
 
-   is_native_array_collector_enabled: BOOLEAN is
-      local
-         i: INTEGER
-      do
-         if insert_list /= Void then
-            from
-               i := insert_list.lower
-            until
-               Result or else i > insert_list.upper
-            loop
-               Result := insert_list.item(i).class_text_name = as_native_array_collector
-               i := i + 1
-            end
-         end
-         if inherit_list /= Void then
-            -- Even if it is not good practice, we also look inside the `inherit_list':
-            from
-               i := inherit_list.lower
-            until
-               Result or else i > inherit_list.upper
-            loop
-               Result := inherit_list.item(i).class_text_name = as_native_array_collector
-               i := i + 1
-            end
-         end
-      end
-
-feature {TYPE, PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER}
+feature {TYPE, PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER, TAGGER}
    inherit_list: FAST_ARRAY[PARENT_EDGE]
          -- The Void or non-empty list after the "inherit" keyword.
          -- (Items are in the same order as they are in the source text file.)

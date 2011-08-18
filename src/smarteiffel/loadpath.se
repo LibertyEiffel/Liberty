@@ -18,9 +18,9 @@
 ./install
 ./instruction
 ./kernel
-./kernel/extra_collected
 ./kernel/helpers
 ./kernel/pools
+./kernel/tagged
 ./parser
 ./run_feature
 ./type_mark

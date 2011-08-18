@@ -13,20 +13,25 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   must_collect (live_type: LIVE_TYPE): LIVE_TYPE_EXTRA_COLLECTED_FLAG is
+   must_collect (live_type: LIVE_TYPE): TAGGED_FLAG is
       do
-         Result ::= live_type.extra_collected(tag)
+         Result ::= get_tag(live_type)
+      end
+
+   is_enabled (class_text: CLASS_TEXT): TAGGED_FLAG is
+      do
+         Result ::= get_tag(class_text)
       end
 
 feature {LIVE_TYPE}
    collect (live_type: LIVE_TYPE) is
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; args: FORMAL_ARG_LIST
-         flag: LIVE_TYPE_EXTRA_COLLECTED_FLAG
+         flag: TAGGED_FLAG
       do
          flag := must_collect(live_type)
          if flag = Void then
-            if cpp.gc_handler.is_off or else not live_type.type.is_native_array_collector_enabled then
+            if cpp.gc_handler.is_off or else not is_native_array_collector_enabled(live_type.type.class_text) then
                flag := no
             else
                fs := live_type.type.feature_stamp_of(mark_item_name)
@@ -41,7 +46,7 @@ feature {LIVE_TYPE}
                   end
                end
             end
-            live_type.set_extra_collected(tag, flag)
+            set_tag(live_type, flag)
          elseif flag.item then
             -- Must collect `mark_native_arrays':
             fs := live_type.type.feature_stamp_of(mark_native_arrays_name)
@@ -59,21 +64,74 @@ feature {LIVE_TYPE}
       end
 
 feature {}
+   is_native_array_collector_enabled (class_text: CLASS_TEXT): BOOLEAN is
+      require
+         not cpp.gc_handler.is_off
+      local
+         flag: TAGGED_FLAG
+      do
+         flag := is_enabled(class_text)
+         if flag = Void then
+            if class_text.parent_lists = Void then
+               flag := no
+            elseif is_native_array_collector_enabled_(class_text.parent_lists) then
+               flag := yes
+            else
+               flag := no
+            end
+            set_tag(class_text, flag)
+         end
+
+         Result := flag.item
+      ensure
+         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1)
+      end
+
+   is_native_array_collector_enabled_ (parent_lists: PARENT_LISTS): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         if parent_lists.insert_list /= Void then
+            from
+               i := parent_lists.insert_list.lower
+            until
+               Result or else i > parent_lists.insert_list.upper
+            loop
+               Result := parent_lists.insert_list.item(i).class_text_name = as_native_array_collector
+                  or else is_native_array_collector_enabled(parent_lists.insert_list.item(i).class_text)
+               i := i + 1
+            end
+         end
+         if parent_lists.inherit_list /= Void then
+            -- Even if it is not good practice, we also look inside the `inherit_list':
+            from
+               i := parent_lists.inherit_list.lower
+            until
+               Result or else i > parent_lists.inherit_list.upper
+            loop
+               Result := parent_lists.inherit_list.item(i).class_text_name = as_native_array_collector
+                  or else is_native_array_collector_enabled(parent_lists.inherit_list.item(i).class_text)
+               i := i + 1
+            end
+         end
+      end
+
+feature {}
    make is
       do
       end
 
-   tag: FIXED_STRING is
+   tag_key: FIXED_STRING is
       once
          Result := "native_array_collector".intern
       end
 
-   yes: LIVE_TYPE_EXTRA_COLLECTED_FLAG is
+   yes: TAGGED_FLAG is
       once
          create Result.as_true
       end
 
-   no: LIVE_TYPE_EXTRA_COLLECTED_FLAG is
+   no: TAGGED_FLAG is
       once
          create Result.as_false
       end

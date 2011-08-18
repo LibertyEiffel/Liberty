@@ -1,17 +1,17 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LIVE_TYPE_EXTRA_COLLECTED_TYPED[T_]
+deferred class TYPED_TAGGED_DATA[T_]
 
 inherit
-   LIVE_TYPE_EXTRA_COLLECTED
+   TAGGED_DATA
 
 feature {ANY}
    item: T_ is
       deferred
       end
 
-end -- class LIVE_TYPE_EXTRA_COLLECTED_TYPED
+end -- class TYPED_TAGGED_DATA
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

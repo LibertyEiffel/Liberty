@@ -471,7 +471,7 @@ feature {}
       require
          lt /= Void
       local
-         must_collect: LIVE_TYPE_EXTRA_COLLECTED_FLAG
+         must_collect: TAGGED_FLAG
       do
          must_collect := cpp.native_array_collector.must_collect(lt)
          Result := must_collect /= Void and then must_collect.item

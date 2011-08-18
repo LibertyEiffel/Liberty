@@ -1,19 +1,36 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LIVE_TYPE_EXTRA_COLLECTOR
+deferred class TAGGED
 
-insert
-   TAGGER
-
-feature {LIVE_TYPE}
-   collect (live_type: LIVE_TYPE) is
+feature {TAGGER}
+   tag (a_tag: FIXED_STRING): TAGGED_DATA is
       require
-         live_type /= Void
-      deferred
+         sensible_tag: a_tag.intern = a_tag
+      do
+         if tagged_data_map /= Void then
+            Result := tagged_data_map.fast_reference_at(a_tag)
+         end
       end
 
-end -- class LIVE_TYPE_EXTRA_COLLECTOR
+   set_tag (a_tag: FIXED_STRING; a_data: TAGGED_DATA) is
+      require
+         sensible_tag: a_tag.intern = a_tag
+         sensible_data: a_data /= Void
+         no_previous_data: tag(a_tag) = Void
+      do
+         if tagged_data_map = Void then
+            create tagged_data_map.make
+         end
+         tagged_data_map.add(a_data, a_tag)
+      ensure
+         tag(a_tag) = a_data
+      end
+
+feature {}
+   tagged_data_map: HASHED_DICTIONARY[TAGGED_DATA, FIXED_STRING]
+
+end -- class TAGGED
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

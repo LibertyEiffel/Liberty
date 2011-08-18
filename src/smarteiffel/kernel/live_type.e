@@ -14,6 +14,9 @@ inherit
    VISITABLE
       redefine is_equal
       end
+   TAGGED
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -484,33 +487,6 @@ feature {SMART_EIFFEL} -- Collect:
          not is_collecting
          has_been_collected
       end
-
-feature {LIVE_TYPE_EXTRA_COLLECTOR}
-   extra_collected (tag: FIXED_STRING): LIVE_TYPE_EXTRA_COLLECTED is
-      require
-         sensible_tag: tag.intern = tag
-      do
-         if extra_collected_memory /= Void then
-            Result := extra_collected_memory.fast_reference_at(tag)
-         end
-      end
-
-   set_extra_collected (tag: FIXED_STRING; data: LIVE_TYPE_EXTRA_COLLECTED) is
-      require
-         sensible_tag: tag.intern = tag
-         sensible_data: data /= Void
-         no_previous_data: extra_collected(tag) = Void
-      do
-         if extra_collected_memory = Void then
-            create extra_collected_memory.make
-         end
-         extra_collected_memory.add(data, tag)
-      ensure
-         extra_collected(tag) = data
-      end
-
-feature {}
-   extra_collected_memory: HASHED_DICTIONARY[LIVE_TYPE_EXTRA_COLLECTED, FIXED_STRING]
 
 feature {SMART_EIFFEL}
    inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR) is

@@ -1,10 +1,10 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class LIVE_TYPE_EXTRA_COLLECTED_FLAG
+class TAGGED_FLAG
 
 inherit
-   LIVE_TYPE_EXTRA_COLLECTED_TYPED[BOOLEAN]
+   TYPED_TAGGED_DATA[BOOLEAN]
       redefine
          is_equal
       end
@@ -33,7 +33,7 @@ feature {}
          end
       end
 
-end -- class LIVE_TYPE_EXTRA_COLLECTED_FLAG
+end -- class TAGGED_FLAG
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

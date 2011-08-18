@@ -1,9 +1,9 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class LIVE_TYPE_EXTRA_COLLECTED
-   -- see LIVE_TYPE_EXTRA_COLLECTED_TYPED
-end -- class LIVE_TYPE_EXTRA_COLLECTED
+deferred class TAGGED_DATA
+   -- see TYPED_TAGGED_DATA
+end -- class TAGGED_DATA
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
