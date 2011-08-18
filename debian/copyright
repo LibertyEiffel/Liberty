@@ -1,0 +1,39 @@
+This work was packaged for Debian by:
+
+    Cyril Adrian <cyril.adrian@gmail.com> on Thu, 18 Aug 2011 12:56:45 +0200
+
+It was packaged from upstream.
+
+Upstream Author(s):
+
+    Cyril Adrian <cyril.adrian@gmail.com>
+    Paolo Redaelli <paolo.redaelli@gmail.com>
+
+Copyright:
+
+    Copyright (C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+                             Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+    Copyright (C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+                             Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+    Copyright (C) 2009-2001: Cyril ADRIAN, Paolo REDAELLI
+
+License:
+
+    GPL  (core tools)
+    X-MIT (libraries)
+
+The Debian packaging is:
+
+    Copyright (C) 2011 Cyril Adrian <cyril.adrian@gmail.com>
+
+# Please chose a license for your packaging work. If the program you package
+# uses a mainstream license, using the same license is the safest choice.
+# Please avoid to pick license terms that are more restrictive than the
+# packaged work, as it may make Debian's contributions unacceptable upstream.
+# If you just want it to be GPL version 3, leave the following lines in.
+
+and is licensed under the GPL version 3,
+see `/usr/share/common-licenses/GPL-3'.
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.

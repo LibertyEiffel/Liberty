@@ -9,6 +9,14 @@ export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
+# TODO: packaging
+#
+# Currently there is no top level Makefile. This may require additional tuning.
+# Done. Please edit the files in the debian/ subdirectory now. You should also
+# check that the libertyeiffel Makefiles install into $DESTDIR and not in / .
+#
+
+
 function bootstrap()
 {
     cd $LIBERTY_HOME
@@ -328,15 +336,15 @@ else
 Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se}
 
   -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
-                                        Liberty configuration files, up to the plugins, wrappers,
-                                        and Liberty tools installation
+               Liberty configuration files, up to the plugins, wrappers,
+               and Liberty tools installation
 
   -bootstrap-se Bootstraps SmartEiffel
 
   -plugins     Compiles the plugins used by the Liberty interpreter
 
   -wrappers    Generates the library wrappers; some are used by the
-                                        Liberty tools themselves (ffi, readline, llvm, ...)
+               Liberty tools themselves (ffi, readline, llvm, ...)
 
   If no argument is provided, then only the Liberty tools are rebuilt
   or the installation is bootstrapped if not already done.
