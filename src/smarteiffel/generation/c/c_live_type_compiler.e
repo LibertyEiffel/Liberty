@@ -618,8 +618,13 @@ feature {}
          function_signature.append(once "/*")
          function_signature.append(live_type.name.to_string)
          function_signature.append(once "*/")
-         function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
-         function_signature.append(once " create")
+         if live_type.canonical_type_mark.is_reference then
+            function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
+         else
+            function_signature.append(cpp.result_type.for(live_type.canonical_type_mark))
+            function_signature.extend(' ')
+         end
+         function_signature.append(once "create")
          live_type.id.append_in(function_signature)
          if fs /= Void then
             function_signature.append(live_type.type.get_feature_name(fs).to_string)
