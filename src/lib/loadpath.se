@@ -5,6 +5,8 @@
 ./design_patterns/
 ./exec/loadpath.se
 ./foreign_interface/
+./html/
+./html/internal/
 ./i18n/
 ./io/loadpath.se
 ./iterator/loadpath.se
