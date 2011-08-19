@@ -8,6 +8,7 @@ class E_OLD
 
 inherit
    EXPRESSION
+   TAGGED
 
 creation {EIFFEL_PARSER}
    make
@@ -220,30 +221,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          exp := code_accumulator.current_context_to_expression
          code_accumulator.close_current_context
          code_accumulator.current_context.add_last(current_or_twin_init(exp))
-      end
-
-feature {C_COMPILATION_MIXIN}
-   pending_c_function_counter: INTEGER
-
-   set_pending_c_function_counter is
-      require
-         cpp.pending_c_function_counter > pending_c_function_counter
-      do
-         pending_c_function_counter := cpp.pending_c_function_counter
-      ensure
-         pending_c_function_counter = cpp.pending_c_function_counter
-      end
-
-   internal_c_local: INTERNAL_C_LOCAL
-
-   set_internal_c_local (c_local: INTERNAL_C_LOCAL) is
-      require
-         internal_c_local = Void
-         c_local /= Void
-      do
-         internal_c_local := c_local
-      ensure
-         internal_c_local = c_local
       end
 
 feature {}

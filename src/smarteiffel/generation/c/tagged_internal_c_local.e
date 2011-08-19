@@ -1,9 +1,28 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class TAGGER
-   -- empty role class
-end -- class TAGGER
+class TAGGED_INTERNAL_C_LOCAL
+
+inherit
+   TYPED_TAGGED_DATA[INTERNAL_C_LOCAL]
+
+create {C_COMPILATION_MIXIN}
+   set_item
+
+feature {ANY}
+   item: INTERNAL_C_LOCAL
+
+feature {C_COMPILATION_MIXIN}
+   set_item (a_item: like item) is
+      require
+         (a_item = Void) xor (item = Void)
+      do
+         item := a_item
+      ensure
+         item = a_item
+      end
+
+end -- class TAGGED_INTERNAL_C_LOCAL
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

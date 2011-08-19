@@ -1388,13 +1388,13 @@ feature {}
       local
          assign_old: STRING
       do
-         if e_old.internal_c_local = Void or else e_old.pending_c_function_counter /= cpp.pending_c_function_counter then
-            e_old.set_internal_c_local(cpp.pending_c_function_lock_local(e_old.resolve_in(type), once "old"))
-            e_old.set_pending_c_function_counter
+         if internal_c_local_tag(e_old) = Void or else pending_c_function_counter_tag(e_old) /= cpp.pending_c_function_counter then
+            set_internal_c_local_tag(e_old, cpp.pending_c_function_lock_local(e_old.resolve_in(type), once "old"))
+            set_pending_c_function_counter_tag(e_old)
          end
          assign_old := once "........"
          assign_old.clear_count
-         e_old.internal_c_local.append_in(assign_old)
+         internal_c_local_tag(e_old).append_in(assign_old)
          assign_old.extend('=')
          cpp.compound_expression_compiler.compile(assign_old, e_old.expression, once ";%N", type)
       end

@@ -117,13 +117,32 @@ feature {}
       end
 
 feature {}
-   make is
+   get_tag (tagged: TAGGED): TAGGED_DATA is
+      require
+         tagged /= Void
       do
+         Result := tagged.tag(tag_key)
+      end
+
+   set_tag (tagged: TAGGED; data: TAGGED_DATA) is
+      require
+         tagged /= Void
+         data /= Void
+         tagged.tag(tag_key) = Void
+      do
+         tagged.set_tag(tag_key, data)
+      ensure
+         tagged.tag(tag_key) = data
       end
 
    tag_key: FIXED_STRING is
       once
-         Result := "native_array_collector".intern
+         Result := "native_array_collector_tag".intern
+      end
+
+feature {}
+   make is
+      do
       end
 
    yes: TAGGED_FLAG is

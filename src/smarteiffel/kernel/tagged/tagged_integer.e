@@ -1,9 +1,34 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class TAGGER
-   -- empty role class
-end -- class TAGGER
+class TAGGED_INTEGER
+
+inherit
+   TYPED_TAGGED_DATA[INTEGER]
+      redefine
+         is_equal
+      end
+
+create {ANY}
+   set_item
+
+feature {ANY}
+   item: INTEGER
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := item = other.item
+      end
+
+feature {}
+   set_item (a_item: like item) is
+      do
+         item := a_item
+      ensure
+         item = a_item
+      end
+
+end -- class TAGGED_INTEGER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
