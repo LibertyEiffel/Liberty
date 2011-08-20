@@ -65,10 +65,13 @@ feature {}
          if wa /= Void then
             function_body.append(once "fprintf(file,%"\n\t[ %");%N")
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
+               if i > wa.lower then
+                  function_body.append(once "fprintf(file,%"\n\t  %");%N")
+               end
                rf2 := wa.item(i)
                t := rf2.result_type
                function_body.append(once "fprintf(file,%"")
@@ -91,10 +94,7 @@ feature {}
                function_body.extend('_')
                function_body.append(rf2.name.to_string)
                function_body.append(once ")));%N")
-               i := i - 1
-               if i >= wa.lower then
-                  function_body.append(once "fprintf(file,%"\n\t  %");%N")
-               end
+               i := i + 1
             end
             function_body.append(once "fprintf(file,%"\n\t]%");%N")
          end

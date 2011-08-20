@@ -5,7 +5,7 @@ class EXPORT_LIST
 
 inherit
    VISITABLE
-   
+
 insert
    GLOBALS
 
@@ -66,16 +66,16 @@ feature {PARENT_EDGE}
       do
          parent_class_text := parent_edge.class_text
          from
-            items_idx := items.upper
+            items_idx := items.lower
          until
-            items_idx < items.lower
+            items_idx > items.upper
          loop
             list := items.item(items_idx).list
             if list /= Void then
                from
-                  list_idx := list.count
+                  list_idx := 1
                until
-                  list_idx = 0
+                  list_idx > list.count
                loop
                   fn := list.item(list_idx)
                   if (not parent_edge.is_target_of_rename(fn)) and then
@@ -91,13 +91,13 @@ feature {PARENT_EDGE}
                      error_handler.append(".")
                      error_handler.print_as_warning
                   end
-                  list_idx := list_idx - 1
+                  list_idx := list_idx + 1
                end
             end
-            items_idx := items_idx - 1
+            items_idx := items_idx + 1
          end
       end
-   
+
 feature {}
    make (sp: like start_position; it: like items) is
       require
@@ -111,9 +111,9 @@ feature {}
          items := it
          create {HASHED_DICTIONARY[CLIENT_LIST, FEATURE_NAME]} permissions.with_capacity(10)
          from
-            i := items.upper
+            i := items.lower
          until
-            i < items.lower
+            i > items.upper
          loop
             ei := items.item(i)
             if ei.for_all then
@@ -131,9 +131,9 @@ feature {}
             else
                list := ei.list
                from
-                  j := list.count
+                  j := 1
                until
-                  j < 1
+                  j > list.count
                loop
                   fn := list.item(j)
                   cl := permissions.reference_at(fn)
@@ -150,10 +150,10 @@ feature {}
                      error_handler.print_as_warning
                      permissions.put(cl.merge_with(ei.clients), fn)
                   end
-                  j := j - 1
+                  j := j + 1
                end
             end
-            i := i - 1
+            i := i + 1
          end
       ensure
          start_position = sp

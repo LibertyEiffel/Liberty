@@ -41,12 +41,12 @@ feature {ANY}
          end
          if not Result and then elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               Result or else i < elseif_list.lower
+               Result or else i > elseif_list.upper
             loop
                Result := elseif_list.item(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if not Result and then else_compound /= Void then
@@ -64,12 +64,12 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower
+               i > elseif_list.upper
             loop
                elseif_list.item(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -121,25 +121,25 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower or else it1 /= it2
+               it1 /= it2 or else i > elseif_list.upper
             loop
                it1 := elseif_list.item(i)
                it2 := it1.specialize_in(type)
-               i := i - 1
+               i := i + 1
             end
             if it1 = it2 then
                eil := elseif_list
             else
                from
                   eil := elseif_list.twin
-                  eil.put(it2, i + 1)
+                  eil.put(it2, i - 1)
                until
-                  i < eil.lower
+                  i > eil.upper
                loop
                   eil.put(elseif_list.item(i).specialize_in(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -160,25 +160,25 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower or else it1 /= it2
+               it1 /= it2 or else i > elseif_list.upper
             loop
                it1 := elseif_list.item(i)
                it2 := it1.specialize_thru(parent_type, parent_edge, new_type)
-               i := i - 1
+               i := i + 1
             end
             if it1 = it2 then
                eil := elseif_list
             else
                from
                   eil := elseif_list.twin
-                  eil.put(it2, i + 1)
+                  eil.put(it2, i - 1)
                until
-                  i < eil.lower
+                  i > eil.upper
                loop
                   eil.put(elseif_list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -199,25 +199,25 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower or else it1 /= it2
+               it1 /= it2 or else i > elseif_list.upper
             loop
                it1 := elseif_list.item(i)
                it2 := it1.specialize_2(type)
-               i := i - 1
+               i := i + 1
             end
             if it1 = it2 then
                eil := elseif_list
             else
                from
                   eil := elseif_list.twin
-                  eil.put(it2, i + 1)
+                  eil.put(it2, i - 1)
                until
-                  i < eil.lower
+                  i > eil.upper
                loop
                   eil.put(elseif_list.item(i).specialize_2(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -238,12 +238,12 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               not Result or else i < elseif_list.lower
+               not Result or else i > elseif_list.upper
             loop
                Result := elseif_list.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -387,12 +387,12 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower
+               i > elseif_list.upper
             loop
                dummy := elseif_list.item(i).collect(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -411,25 +411,25 @@ feature {ANY}
          end
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower or else it1 /= it2
+               it1 /= it2 or else i > elseif_list.upper
             loop
                it1 := elseif_list.item(i)
                it2 := it1.adapt_for(type)
-               i := i - 1
+               i := i + 1
             end
             if it1 = it2 then
                eil := elseif_list
             else
                from
                   eil := elseif_list.twin
-                  eil.put(it2, i + 1)
+                  eil.put(it2, i - 1)
                until
-                  i < eil.lower
+                  i > eil.upper
                loop
                   eil.put(elseif_list.item(i).adapt_for(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -480,12 +480,12 @@ feature {IFTHENELSE}
          specialize_2_check_(type)
          if elseif_list /= Void then
             from
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               i < elseif_list.lower
+               i > elseif_list.upper
             loop
                elseif_list.item(i).specialize_2_check_(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end

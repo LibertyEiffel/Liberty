@@ -5703,12 +5703,12 @@ feature {}
          elseif type_mark.is_generic then
             from
                gl := type_mark.generic_list
-               i := gl.upper
+               i := gl.lower
             until
-               i < gl.lower
+               i > gl.upper
             loop
                valid_parent_edge_type_check(gl.item(i))
-               i := i - 1
+               i := i + 1
             end
          end
       end

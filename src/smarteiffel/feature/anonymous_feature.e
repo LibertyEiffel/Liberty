@@ -509,9 +509,9 @@ feature {ANONYMOUS_FEATURE_MIXER}
          if Result then
             if arguments /= Void then
                from
-                  i := arguments.count
+                  i := 1
                until
-                  i < 1
+                  i > arguments.count
                loop
                   tm1 := arguments.type_mark(i)
                   t1 := tm1.resolve_in(new_type)
@@ -534,7 +534,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
                         Result := False
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -601,12 +601,12 @@ feature {ANONYMOUS_FEATURE}
                   from
                      arg1 := Current.arguments
                      arg2 := other.arguments
-                     i := arg1.count
+                     i := 1
                   until
-                     i < 1
+                     i > arg1.count
                   loop
                      Result := Result and then arg1.type_mark(i).same_signature_type(arg2.type_mark(i), into)
-                     i := i - 1
+                     i := i + 1
                   end
                   if not Result then
                      error_handler.append("Different arguments types.")
@@ -1030,9 +1030,9 @@ feature {}
       do
          from
             n := ft.names
-            i := n.count
+            i := 1
          until
-            i = 0
+            i > n.count
          loop
             fn := n.item(i)
             check
@@ -1043,7 +1043,7 @@ feature {}
             else
                fd.add(twin, fn)
             end
-            i := i - 1
+            i := i + 1
          end
       ensure
          fd.count = old fd.count + ft.names.count

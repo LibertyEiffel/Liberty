@@ -84,9 +84,9 @@ feature {TYPE, GENERIC_TYPE_MARK}
          if not no_generic_constraint_flag then
             no_generic_constraint_flag := True
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                fga := list.item(i)
                formal := fga.constraint
@@ -122,7 +122,7 @@ feature {TYPE, GENERIC_TYPE_MARK}
                      error_handler.print_as_fatal_error
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -133,12 +133,12 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).generic_formal_arguments_check
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -150,11 +150,11 @@ feature {EIFFEL_PARSER}
          fga2: FORMAL_GENERIC_ARG; i: INTEGER; n1, n2: STRING
       do
          from
-            i := list.upper
-            fga.set_rank(i + 1)
+            i := list.lower
+            fga.set_rank(list.count + 1)
             n1 := fga.name.to_string
          until
-            i < list.lower
+            i > list.upper
          loop
             fga2 := list.item(i)
             n2 := fga2.name.to_string
@@ -166,7 +166,7 @@ feature {EIFFEL_PARSER}
                error_handler.print_as_fatal_error
             end
             fga2.constraint_substitution(fga, list.upper + 1)
-            i := i - 1
+            i := i + 1
          end
          list.add_last(fga)
       end

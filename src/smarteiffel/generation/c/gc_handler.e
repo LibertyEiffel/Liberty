@@ -72,8 +72,8 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
                 ds.exception_origin=NULL;
                 ds.locals=NULL;
 
-                     ]")
-               rf3.c_set_dump_stack_top(once "&ds", once "link")
+               ]")
+               cpp.set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
             end
             cpp.pending_c_function_body.extend('r')
             live_type.id.append_in(cpp.pending_c_function_body)
@@ -99,7 +99,7 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
             end
             cpp.pending_c_function_body.append(once ");%N")
             if no_check then
-               rf3.c_set_dump_stack_top(once "ds.caller", once "unlink")
+               cpp.set_dump_stack_top_for(rf3.type_of_current, once "ds.caller", once "unlink")
             end
             cpp.pending_c_function_body.extend('}')
          end
@@ -156,7 +156,7 @@ feature {C_PRETTY_PRINTER}
       do
          live_type_map := smart_eiffel.live_type_map
          root_type := smart_eiffel.root_procedure.type_of_current
-         manifest_string_pool.define_manifest_string_mark
+         define_manifest_string_mark
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void once_function_mark(void)")
          mark_once_routines
@@ -260,6 +260,60 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
+   define_manifest_string_mark is
+      local
+         i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
+      do
+         mdc := manifest_string_pool.collected_once_count
+         function_count := 1
+         cpp.prepare_c_function
+         manifest_string_mark_signature(function_count)
+         from
+            i := 1
+            if manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               us_id := manifest_string_pool.se_ums.type_of_current.live_type.id
+            end
+         until
+            i > mdc
+         loop
+            if ms_count > 300 then
+               ms_count := 0
+               function_count := function_count + 1
+               cpp.pending_c_function_body.append(once "manifest_string_mark")
+               function_count.append_in(cpp.pending_c_function_body)
+               cpp.pending_c_function_body.append(once "();%N")
+               cpp.dump_pending_c_function(True)
+               cpp.prepare_c_function
+               manifest_string_mark_signature(function_count)
+            end
+            ms := manifest_string_pool.collected_once_item(i)
+            cpp.pending_c_function_body.append(once "gc_mark")
+            if ms.unicode_flag then
+               id := us_id
+            else
+               id := 7
+            end
+            id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "((T")
+            id.append_in(cpp.pending_c_function_body)
+            cpp.pending_c_function_body.append(once "*)")
+            cpp.pending_c_function_body.append(ms.once_variable)
+            cpp.pending_c_function_body.append(once ");%N")
+            ms_count := ms_count + 1
+            i := i + 1
+         end
+         cpp.dump_pending_c_function(True)
+      end
+
+   manifest_string_mark_signature (number: INTEGER) is
+      require
+         cpp.pending_c_function
+      do
+         cpp.pending_c_function_signature.copy(once "void manifest_string_mark")
+         number.append_in(cpp.pending_c_function_signature)
+         cpp.pending_c_function_signature.append(once "(void)")
+      end
+
 feature {ANY}
    allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
          -- Heap-allocation into `internal_c_local' of a new object of some `created_live_type'.
@@ -312,9 +366,9 @@ feature {}
          end
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i = 0
+               i > wa.upper
             loop
                a := wa.item(i)
                at := a.result_type
@@ -354,7 +408,7 @@ feature {}
                      cpp.pending_c_function_body.append(once ");%N")
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -447,7 +501,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
+feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATION_MIXIN}
    mark_for (entity: STRING; lt: LIVE_TYPE; non_void_no_dispatch_flag: BOOLEAN) is
          -- Add C code to mark the `entity' of `lt'. The `non_void_no_dispatch_flag' indicates that we
          -- are sure that the entity to mark is never NULL or Void)
@@ -520,9 +574,9 @@ feature {}
       do
          live_type_map := smart_eiffel.live_type_map
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
@@ -532,7 +586,7 @@ feature {}
                   fsoc_count_ceil := fsoc_count_ceil + 1
                end
             end
-            i := i - 1
+            i := i + 1
          end
          fsoc_count_ceil := 4 * fsoc_count_ceil
          kb_count := fsoc_count_ceil * (fsoc_size #// 1024)
@@ -642,7 +696,7 @@ feature {}
             end
             i := i + 1
          end
-         agent_pool.gc_info
+         agent_pool_gc_info
          cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"C-stack=%%d %",gc_stack_size());%N%
            %fprintf(SE_GCINFO,%"main-table=%%d/%%d %",gcmt_used,gcmt_max);%N%
            %fprintf(SE_GCINFO,%"fsoc:%%d(%",fsoc_count);%N%
@@ -653,6 +707,22 @@ feature {}
            %fprintf(SE_GCINFO,%"GC called %%d time(s)\n%",collector_counter);%N%
            %fprintf(SE_GCINFO,%"--------------------\n%");%N")
          cpp.dump_pending_c_function(True)
+      end
+
+   agent_pool_gc_info is
+         -- Produce C code to print GC information.
+      require
+         cpp.pending_c_function
+      do
+         if agent_pool.agent_creation_collected_flag then
+            cpp.pending_c_function_body.append(once "[
+               if(gc_info_nb_agent)
+                  fprintf(SE_GCINFO,
+                  "%d\tagent(s) created. (store_left=%d).\n",
+                  gc_info_nb_agent,store_left_agent);
+
+                              ]")
+         end
       end
 
    define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is

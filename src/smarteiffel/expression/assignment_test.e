@@ -83,25 +83,22 @@ feature {ANY}
                   right_run_time_set.count > 0
                end
                from
-                  i := right_run_time_set.count
+                  i := 1
                until
-                  i = 0
+                  i > right_run_time_set.count
                loop
                   if right_run_time_set.item(i).type.can_be_assigned_to(left_type) then
                      counter1 := counter1 + 1
                      if counter2 > 0 then
-                        i := 0
-                     else
-                        i := i - 1
+                        i := right_run_time_set.count
                      end
                   else
                      counter2 := counter2 + 1
                      if counter1 > 0 then
-                        i := 0
-                     else
-                        i := i - 1
+                        i := right_run_time_set.count
                      end
                   end
+                  i := i + 1
                end
                if right_run_time_set.count = counter1 then
                   -- They can be all assigned into the left-hand side:

@@ -12,9 +12,9 @@ feature {}
          key: STRING; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            Result or else i < list.lower
+            Result or else i > list.upper
          loop
             key := list.item(i)
             if key = fz_yes then
@@ -24,7 +24,7 @@ feature {}
             else
                Result := e_debug.match_debug_key(key)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

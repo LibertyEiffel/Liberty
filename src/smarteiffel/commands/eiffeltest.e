@@ -527,9 +527,9 @@ feature {}
       do
          search_for_verbose_flag
          from
-            i := argument_count
+            i := 1
          until
-            i = 0
+            i > argument_count
          loop
             arg := argument(i)
             if is_verbose_flag(arg) then
@@ -565,7 +565,7 @@ feature {}
                echo.w_put_string(once "%": unknown argument or option.%N")
                die_with_code(exit_failure_code)
             end
-            i := i - 1
+            i := i + 1
          end
          if directory_path = Void then
             echo.w_put_string(once "se test (eiffeltest): must give a directory as argument (where tests are stored).%N")

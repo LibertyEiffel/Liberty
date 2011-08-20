@@ -154,7 +154,7 @@ feature {ANY}
     Information:
       -help               Display this help information
       -version            Display SmartEiffel version information
-      -verbose            Display detailed information about what 
+      -verbose            Display detailed information about what
                            extract_internals is doing
 
     Warning levels:
@@ -251,18 +251,18 @@ feature {}
             type := type_mark.type
             create cn_internals_handler.unknown_position(string_aliaser.hashed_string(as_internals_handler))
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                creation_clause := list.item(i)
                if creation_clause.clients.gives_permission_to(cn_internals_handler) then
                   procedure_list := creation_clause.procedure_list
                   if procedure_list /= Void then
                      from
-                        j := procedure_list.count
+                        j := 1
                      until
-                        j < 1
+                        j > procedure_list.count
                      loop
                         creation_name := procedure_list.item(j)
                         if creation_name.to_string /= as_manifest_creation then
@@ -270,11 +270,11 @@ feature {}
                            create creation_feature_weight.make(creation_feature_stamp, creation_name.to_string, type)
                            Result.add_last(creation_feature_weight)
                         end
-                        j := j - 1
+                        j := j + 1
                      end
                   end
                end
-               i := i - 1
+               i := i + 1
             end
             (create {REVERSE_COLLECTION_SORTER[WEIGHTED_CREATION_PROCEDURE]}).sort(Result)
          end

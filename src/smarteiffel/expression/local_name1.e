@@ -35,10 +35,10 @@ feature {ANY}
          visitor.visit_local_name1(Current)
       end
 
-feature {LOCAL_VAR_LIST}
-   must_be_c_generated (type: TYPE): BOOLEAN is
+feature {ANY}
+   is_used (type: TYPE): BOOLEAN is
          -- True if some C code must be generated for this local variable (i.e. this routine now
-         -- handle correctly user's expanded types with a side-effect default creation).
+         -- handles correctly user expanded types with a side-effect default creation).
       local
          actual_type: TYPE
       do
@@ -53,28 +53,6 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {LOCAL_VAR_LIST}
-   c_declare (type: TYPE; volatile_flag: BOOLEAN) is
-         -- C declaration of the local.
-      require
-         cpp.pending_c_function
-      local
-         static_tm: TYPE_MARK
-      do
-         if must_be_c_generated(type) then
-            static_tm := result_type.to_static(type)
-            if volatile_flag then
-               if static_tm.is_kernel_expanded then
-                  cpp.pending_c_function_body.append(once "volatile ")
-               end
-            end
-            cpp.pending_c_function_body.append(cpp.result_type.for(static_tm))
-            cpp.pending_c_function_body.extend(' ')
-            cpp.print_local(to_string)
-            cpp.pending_c_function_body.extend('=')
-            static_tm.c_initialize_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-      end
 
 feature {DECLARATION_LIST}
    name_clash_check (type: TYPE) is
@@ -97,7 +75,7 @@ feature {LOCAL_NAME1}
    usage_warning_check (type: TYPE) is
       do
          if parsing_reference_counter = 0 then
-            if must_be_c_generated(type) then
+            if is_used(type) then
                -- Well, it is a bad idea to rely on side-effects, but it is still allowed...
             else
                error_handler.append("Unused local variable.")

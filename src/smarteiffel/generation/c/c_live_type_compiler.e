@@ -109,7 +109,53 @@ feature {}
          if live_type.class_text.invariant_check and then live_type.class_invariant /= Void then
             define_check_class_invariant_c_function(live_type)
          end
-         live_type.type.address_of_c_define
+         live_type.type.do_all_address_of(agent_address_of_c_define)
+      end
+
+   agent_address_of_c_define: PROCEDURE[TUPLE[ADDRESS_OF]] is
+      once
+         Result := agent address_of_c_define
+      end
+
+   address_of_c_define (address_of: ADDRESS_OF) is
+      local
+         result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; expression: EXPRESSION; target_type: TYPE
+      do
+         target_type := address_of.target_type
+         af := address_of.feature_stamp.anonymous_feature(target_type)
+         cpp.prepare_c_function
+         result_type := af.result_type
+         function_signature.append(cpp.result_type.for_external(result_type))
+         function_signature.append(once " W")
+         target_type.id.append_in(function_signature)
+         function_signature.append(address_of.feature_stamp.name.to_string)
+         function_signature.extend('(')
+         function_signature.append(cpp.result_type.for_external(target_type.canonical_type_mark))
+         function_signature.append(once " C")
+         if af.arguments /= Void then
+            function_signature.extend(',')
+            cpp.external_prototype_in(af.arguments, function_signature, target_type)
+         end
+         function_signature.extend(')')
+         if ace.no_check then
+            function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+                                      %ds.caller=se_dst;%N%
+                                      %ds.exception_origin=NULL;%N%
+                                      %ds.locals=NULL;%N")
+            cpp.set_dump_stack_top_for(target_type, once "&ds", once "link")
+         end
+         if result_type = Void then
+            if address_of.calling_code /= Void then
+               cpp.code_compiler.compile(address_of.calling_code, target_type)
+            end
+         else
+            check
+               address_of.calling_code /= Void
+            end
+            expression ::= address_of.calling_code
+            cpp.compound_expression_compiler.compile(once "return ", expression, once ";%N", target_type)
+         end
+         cpp.dump_pending_c_function(True)
       end
 
    define_agent_creation_for (type: TYPE) is
@@ -572,8 +618,13 @@ feature {}
          function_signature.append(once "/*")
          function_signature.append(live_type.name.to_string)
          function_signature.append(once "*/")
-         function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
-         function_signature.append(once " create")
+         if live_type.canonical_type_mark.is_reference then
+            function_signature.append(cpp.target_type.for(live_type.canonical_type_mark))
+         else
+            function_signature.append(cpp.result_type.for(live_type.canonical_type_mark))
+            function_signature.extend(' ')
+         end
+         function_signature.append(once "create")
          live_type.id.append_in(function_signature)
          if fs /= Void then
             function_signature.append(live_type.type.get_feature_name(fs).to_string)
@@ -804,13 +855,13 @@ feature {}
                t := run_feature.result_type
                function_body.append(cpp.result_type.for(t))
                function_body.append(once " R=")
-               t.c_initialize_in(function_body)
+               function_body.append(cpp.initializer.for(t))
                function_body.append(once ";%N")
             end
          end
          -- (2) ----------------------- User's local variables:
          if run_feature.local_vars /= Void then
-            run_feature.local_vars.c_declare(run_feature.type_of_current, run_feature.rescue_compound /= Void)
+            cpp.c_declare_locals(run_feature.local_vars, run_feature.type_of_current, run_feature.rescue_compound /= Void)
          end
          -- (3) ------------------- Local variables for profile:
          if ace.profile then
@@ -898,7 +949,7 @@ feature {}
             end
          end
          if run_feature.local_vars /= Void then
-            run_feature.local_vars.initialize_expanded(run_feature.type_of_current)
+            initialize_expanded(run_feature.local_vars, run_feature.type_of_current)
          end
          -- (11) --------------------------- Retry start label :
          if run_feature.rescue_compound /= Void then
@@ -916,6 +967,55 @@ feature {}
                function_body.append(once "rc.top_of_ds=&ds;%N")
                cpp.set_dump_stack_top_for(run_feature.type_of_current, once "&ds", once "link")
             end
+         end
+      end
+
+   initialize_expanded (local_var_list: LOCAL_VAR_LIST; type: TYPE) is
+      require
+         local_var_list /= Void
+         cpp.pending_c_function
+      local
+         i, id, class_invariant_flag: INTEGER; local_type: TYPE; rf: RUN_FEATURE
+         local_name: LOCAL_NAME1; internal_c_local: INTERNAL_C_LOCAL
+      do
+         from
+            i := 1
+         until
+            i > local_var_list.count
+         loop
+            local_type := local_var_list.type_mark(i).resolve_in(type)
+            local_name := local_var_list.name(i)
+            if local_type.is_user_expanded and then local_name.is_used(type) then
+               rf := local_type.live_type.default_create_run_feature
+               if rf /= Void then
+                  internal_c_local := cpp.pending_c_function_lock_local(local_type, once "locexp")
+                  id := local_type.id
+                  internal_c_local.append_in(function_body)
+                  function_body.append(once "=M")
+                  id.append_in(function_body)
+                  function_body.append(once ";%N")
+                  cpp.push_create_instruction(type, rf, Void, internal_c_local)
+                  cpp.mapper.compile(rf)
+                  cpp.pop
+                  function_body.extend('_')
+                  function_body.append(local_name.to_string)
+                  function_body.extend('=')
+                  internal_c_local.append_in(function_body)
+                  function_body.append(once ";%N")
+                  internal_c_local.unlock
+               end
+               -- Even when there is no default creation procedure to apply, we must call the class invariant:
+               class_invariant_flag := cpp.class_invariant_call_opening(local_type, False)
+               if class_invariant_flag > 0 then
+                  if cpp.need_struct.for(local_type.canonical_type_mark) then
+                     function_body.extend('&')
+                  end
+                  function_body.extend('_')
+                  function_body.append(local_name.to_string)
+                  cpp.class_invariant_call_closing(class_invariant_flag, True)
+               end
+            end
+            i := i + 1
          end
       end
 
@@ -1062,7 +1162,7 @@ feature {RUN_FEATURE_2}
             define_c_signature(visited)
             c_define_opening(visited)
             function_body.append(once "R=C->")
-            visited.put_c_field_name
+            put_c_field_name(visited)
             function_body.append(once ";%N")
             c_define_closing(visited)
             function_body.append(once "return R;%N")
@@ -1114,12 +1214,12 @@ feature {RUN_FEATURE_4}
 feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
-         once_routine_pool.c_define_o_flag(visited)
+         cpp.c_define_o_flag(visited)
          cpp.prepare_c_function
          define_c_signature(visited)
          c_define_opening(visited)
          if visited.routine_body /= Void then
-            once_routine_pool.c_test_o_flag(visited)
+            cpp.c_test_o_flag(visited)
             cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
             function_body.append(once "}}")
          end
@@ -1130,16 +1230,16 @@ feature {RUN_FEATURE_5}
 feature {RUN_FEATURE_6}
    visit_run_feature_6 (visited: RUN_FEATURE_6) is
       do
-         once_routine_pool.c_define_o_result(visited)
+         cpp.c_define_o_result(visited)
          if not visited.is_precomputable_once then
-            once_routine_pool.c_define_o_flag(visited)
+            cpp.c_define_o_flag(visited)
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
             if visited.routine_body /= Void then
-               once_routine_pool.c_test_o_flag(visited)
+               cpp.c_test_o_flag(visited)
                cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
-               once_routine_pool.c_test_o_flag_recursion(visited)
+               cpp.c_test_o_flag_recursion(visited)
             end
             c_define_closing(visited)
             function_body.append(once "return ")
@@ -1152,11 +1252,11 @@ feature {RUN_FEATURE_6}
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       local
-         bf: EXTERNAL_PROCEDURE; native: NATIVE; bcn: STRING
+         bf: EXTERNAL_PROCEDURE; native: NATIVE
       do
          bf := visited.base_feature
          native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf7_does_need_c_wrapper(visited) then
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
@@ -1165,9 +1265,8 @@ feature {RUN_FEATURE_7}
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
-               bcn := bf.class_text.name.to_string
                cpp.push_inside_some_wrapper(bf)
-               native.c_mapping_procedure(visited, bcn, bf.first_name.to_string)
+               cpp.native_procedure_mapper.compile(visited)
                cpp.pop
             end
             c_define_closing(visited)
@@ -1178,11 +1277,11 @@ feature {RUN_FEATURE_7}
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       local
-         bf: EXTERNAL_FUNCTION; native: NATIVE; bcn: STRING
+         bf: EXTERNAL_FUNCTION; native: NATIVE
       do
          bf := visited.base_feature
          native := bf.native
-         if visited.does_need_c_wrapper(native) then
+         if rf8_does_need_c_wrapper(visited) then
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
@@ -1191,10 +1290,9 @@ feature {RUN_FEATURE_8}
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
             else
-               bcn := bf.class_text.name.to_string
                cpp.push_inside_some_wrapper(bf)
                function_body.append(once "R=")
-               native.c_mapping_function(visited, bcn, bf.first_name.to_string)
+               cpp.native_function_mapper.compile(visited)
                function_body.append(once ";%N")
                cpp.pop
             end

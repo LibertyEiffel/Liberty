@@ -75,13 +75,6 @@ feature {ANY}
          end
       end
 
-   frozen c_initialize_in (buffer: STRING) is
-      do
-         check
-            False
-         end
-      end
-
    frozen jvm_method_flags: INTEGER is
       do
          check

@@ -24,11 +24,6 @@ feature {ANY}
 
    jvm_method_flags: INTEGER is 17
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
    array_of: TYPE_MARK is
       do
          Result := generic_list.first

@@ -240,16 +240,16 @@ feature {ANY} --|*** CONTINUER LES EXPORTS ***
          i: INTEGER; type_mark: TYPE_MARK; type: TYPE
       do
          from
-            i := visited.count
+            i := 1
          until
-            not precomputable or else i = 0
+            not precomputable or else i > visited.count
          loop
             type_mark := visited.type_mark(i)
             type := type_mark.resolve_in(current_dynamic_type)
             if type.is_user_expanded then
                visit_anonymous_feature(type.live_type.default_create_stamp, type, type)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -258,12 +258,12 @@ feature {ANY} --|*** CONTINUER LES EXPORTS ***
          i: INTEGER
       do
          from
-            i := visited.count
+            i := 1
          until
-            not precomputable or else i = 0
+            not precomputable or else i > visited.count
          loop
             visited.expression(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -284,12 +284,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else not precomputable
+            not precomputable or else i > list.upper
          loop
             list.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -365,12 +365,12 @@ feature {COMPOUND}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not precomputable or else i < visited.lower
+            not precomputable or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -380,12 +380,12 @@ feature {COMPOUND_EXPRESSION}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not precomputable or else i < visited.lower
+            not precomputable or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -395,12 +395,12 @@ feature {ASSERTION_LIST}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not precomputable or else i < visited.lower
+            not precomputable or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -428,12 +428,12 @@ feature {REQUIRE_ASSERTION}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not precomputable or else i < visited.lower
+            not precomputable or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -531,12 +531,12 @@ feature {IFTHENELSE}
          if precomputable and then visited.elseif_list /= Void then
             from
                elseif_list := visited.elseif_list
-               i := elseif_list.upper
+               i := elseif_list.lower
             until
-               not precomputable or else i < elseif_list.lower
+               not precomputable or else i > elseif_list.upper
             loop
                visit_ifthen(elseif_list.item(i))
-               i := i - 1
+               i := i + 1
             end
          end
          if precomputable and then visited.else_compound /= Void then
@@ -611,12 +611,12 @@ feature {INSPECT_STATEMENT}
          if precomputable and then visited.when_list /= Void then
             from
                when_list := visited.when_list
-               i := when_list.upper
+               i := when_list.lower
             until
-               not precomputable or else i < when_list.lower
+               not precomputable or else i > when_list.upper
             loop
                when_list.item(i).accept(Current)
-               i := i - 1
+               i := i + 1
             end
          end
          if precomputable and then visited.else_compound /= Void then

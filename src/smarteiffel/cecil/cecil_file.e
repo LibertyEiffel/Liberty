@@ -19,9 +19,26 @@ feature {ANY}
    path: STRING
          -- The `path' given after the -cecil flag.
 
+   path_h: STRING
+         -- The name of the include file to be generated (ie. the first information inside file `path)'.
+
    accept (visitor: CECIL_FILE_VISITOR) is
       do
          visitor.visit_cecil_file(Current)
+      end
+
+feature {ANY}
+   has_entries: BOOLEAN is
+      do
+         Result := entries /= Void
+      end
+
+   do_all (action: PROCEDURE[TUPLE[CECIL_ENTRY]]) is
+      require
+         has_entries
+         action /= Void
+      do
+         entries.do_all(action)
       end
 
 feature {CECIL_POOL}
@@ -64,37 +81,16 @@ feature {CECIL_POOL}
          --
          echo.put_string(once "Loading cecil entries:%N")
          from
-            i := entries.upper
+            i := entries.lower
          until
-            i < entries.lower
+            i > entries.upper
          loop
             cecil_entry := entries.item(i)
             cecil_entry.get_started(Current)
-            i := i - 1
+            i := i + 1
          end
       ensure
          may_report_an_error: error_handler.is_empty
-      end
-
-   c_define_users is
-      local
-         i: INTEGER; cecil_entry: CECIL_ENTRY
-      do
-         if entries /= Void then
-            echo.put_string(once "Cecil (C function for external code) :%N")
-            cpp.connect_cecil_out_h(path_h)
-            from
-               i := entries.upper
-            until
-               i < entries.lower
-            loop
-               cecil_entry := entries.item(i)
-               cecil_entry.on_echo(Current)
-               cecil_entry.c_define_function
-               i := i - 1
-            end
-            cpp.disconnect_cecil_out_h
-         end
       end
 
    collect (type: TYPE) is
@@ -103,12 +99,12 @@ feature {CECIL_POOL}
       do
          if entries /= Void then
             from
-               i := entries.upper
+               i := entries.lower
             until
-               i < entries.lower
+               i > entries.upper
             loop
                dummy := entries.item(i).collect(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -119,20 +115,17 @@ feature {CECIL_POOL}
       do
          if entries /= Void then
             from
-               i := entries.upper
+               i := entries.lower
             until
-               i < entries.lower
+               i > entries.upper
             loop
                entries.item(i).inline_dynamic_dispatch(code_accumulator, type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
 
 feature {}
-   path_h: STRING
-         -- The name of the include file to be generated (ie. the first information inside file `path)'.
-
    entries: FAST_ARRAY[CECIL_ENTRY]
          -- List of `entries' parsed from the `path' file.
 

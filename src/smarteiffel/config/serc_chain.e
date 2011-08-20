@@ -214,12 +214,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := config.upper
+            i := config.lower
          until
-            i < config.lower
+            i > config.upper
          loop
             config.item(i).c_modes_in(c_modes)
-            i := i - 1
+            i := i + 1
          end
       end
 

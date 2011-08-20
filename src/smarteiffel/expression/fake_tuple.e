@@ -41,27 +41,27 @@ feature {ANY}
          Result := Current
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else e1 /= e2
+               e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
                e2 := e1.specialize_in(type)
-               i := i - 1
+               i := i + 1
             end
             if e1 = e2 then
-               Result := Current
+               check Result = Current end
             else
                from
                   Result := twin
                   l := list.twin
                   Result.set_list(l)
-                  l.put(e2, i + 1)
+                  l.put(e2, i - 1)
                until
-                  i < l.lower
+                  i > l.upper
                loop
                   l.put(l.item(i).specialize_in(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -74,27 +74,27 @@ feature {ANY}
          Result := Current
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else e1 /= e2
+               e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
                e2 := e1.specialize_thru(parent_type, parent_edge, new_type)
-               i := i - 1
+               i := i + 1
             end
             if e1 = e2 then
-               Result := Current
+               check Result = Current end
             else
                from
                   Result := twin
                   l := list.twin
                   Result.set_list(l)
-                  l.put(e2, i + 1)
+                  l.put(e2, i - 1)
                until
-                  i < l.lower
+                  i > l.upper
                loop
                   l.put(l.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -107,27 +107,27 @@ feature {ANY}
          Result := Current
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else e1 /= e2
+               e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
                e2 := e1.specialize_2(type)
-               i := i - 1
+               i := i + 1
             end
             if e1 = e2 then
-               Result := Current
+               check Result = Current end
             else
                from
                   Result := twin
                   l := list.twin
                   Result.set_list(l)
-                  l.put(e2, i + 1)
+                  l.put(e2, i - 1)
                until
-                  i < l.lower
+                  i > l.upper
                loop
                   l.put(l.item(i).specialize_2(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -140,12 +140,12 @@ feature {ANY}
          Result := True
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               not Result or else i < list.lower
+               not Result or else i > list.upper
             loop
                Result := list.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -181,27 +181,27 @@ feature {ANY}
          Result := Current
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else e1 /= e2
+               e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
                e2 := e1.adapt_for(type)
-               i := i - 1
+               i := i + 1
             end
             if e1 = e2 then
-               Result := Current
+               check Result = Current end
             else
                from
                   Result := twin
                   l := list.twin
                   Result.set_list(l)
-                  l.put(e2, i + 1)
+                  l.put(e2, i - 1)
                until
-                  i < l.lower
+                  i > l.upper
                loop
                   l.put(l.item(i).adapt_for(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -222,12 +222,12 @@ feature {ANY}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                list.item(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -242,13 +242,13 @@ feature {ANY}
          else
             from
                create gl.make(1, list.count)
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                rt := list.item(i).declaration_type.canonical_type_mark
                gl.put(rt, i + 1)
-               i := i - 1
+               i := i + 1
             end
             create {NON_EMPTY_TUPLE_TYPE_MARK} rt.make(start_position, gl)
          end
@@ -261,12 +261,12 @@ feature {ANY}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               Result or else i < list.lower
+               Result or else i > list.upper
             loop
                Result := list.item(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -297,23 +297,23 @@ feature {ANY}
          i: INTEGER
       do
          short_printer.hook_or(once "open_sb",once "[")
-            if list /= Void then
-               from
-                  i := list.lower
-               until
-                  i > list.upper
-               loop
-                  list.item(i).short(type)
-                  i := i + 1
-                  if i <= list.upper then
-                     short_printer.hook_or(once "ma_sep", once ",")
-                     end
-                  end
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               if i > list.lower then
+                  short_printer.hook_or(once "ma_sep", once ",")
                end
-               short_printer.hook_or(once "close_sb",once "]")
-               end
+               list.item(i).short(type)
+               i := i + 1
+            end
+         end
+         short_printer.hook_or(once "close_sb",once "]")
+      end
 
-               short_target (type: TYPE) is
+   short_target (type: TYPE) is
       do
          short_target(type)
       end
@@ -379,10 +379,10 @@ feature {AGENT_LAUNCHER}
             Result := Current
          else
             from
-               j := open.upper
-               i := list.upper
+               j := open.lower
+               i := list.lower
             until
-               i < list.lower or else e1 /= e2
+               e1 /= e2 or else i > list.upper
             loop
                e1 := list.item(i)
                if e1.is_void then
@@ -390,8 +390,8 @@ feature {AGENT_LAUNCHER}
                else
                   e2 := assignment_handler.implicit_cast(e1, e1.resolve_in(type), open.item(j))
                end
-               i := i - 1
-               j := j - 1
+               i := i + 1
+               j := j + 1
             end
             if e1 = e2 then
                Result := Current
@@ -400,15 +400,15 @@ feature {AGENT_LAUNCHER}
                   Result := twin
                   l := list.twin
                   Result.set_list(l)
-                  l.put(e2, i + 1)
+                  l.put(e2, i - 1)
                until
-                  i < l.lower
+                  i > l.upper
                loop
                   e2 := l.item(i)
                   e2 := assignment_handler.implicit_cast(e2, e2.resolve_in(type), open.item(j))
                   l.put(e2, i)
-                  i := i - 1
-                  j := j - 1
+                  i := i + 1
+                  j := j + 1
                end
             end
          end
@@ -455,19 +455,18 @@ feature {}
          eal := mt.effective_arg_list
          if eal /= Void then
             from
-               i := eal.count
-               create list.make(i)
+               i := 1
+               create list.make(eal.count)
             until
-               i = 0
+               i > eal.count
             loop
                list.put(eal.expression(i), i - 1)
-               i := i - 1
+               i := i + 1
             end
          end
       end
 
 invariant
-
    not start_position.is_unknown
 
 end --  FAKE_TUPLE

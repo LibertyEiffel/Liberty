@@ -650,25 +650,25 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER; exp1, exp2: EXPRESSION
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > l.upper
          loop
             exp1 := l.item(i)
             exp2 := exp1.specialize_in(type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := l
          else
             from
                Result := l.twin
-               Result.put(exp2, i + 1)
+               Result.put(exp2, i - 1)
             until
-               i < Result.lower
+               i > Result.upper
             loop
                Result.put(Result.item(i).specialize_in(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -683,25 +683,25 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER; exp1, exp2: EXPRESSION
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > l.upper
          loop
             exp1 := l.item(i)
             exp2 := exp1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := l
          else
             from
                Result := l.twin
-               Result.put(exp2, i + 1)
+               Result.put(exp2, i - 1)
             until
-               i < Result.lower
+               i > Result.upper
             loop
                Result.put(Result.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -747,12 +747,12 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            Result or else i < l.lower
+            Result or else i > l.upper
          loop
             Result := l.item(i).use_current(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -763,12 +763,12 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            Result or else i < l.lower
+            Result or else i > l.upper
          loop
             Result := l.item(i).has_been_specialized
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -779,25 +779,25 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER; exp1, exp2: EXPRESSION
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > l.upper
          loop
             exp1 := l.item(i)
             exp2 := exp1.simplify(type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := l
          else
             from
                Result := l.twin
-               Result.put(exp2, i + 1)
+               Result.put(exp2, i - 1)
             until
-               i < Result.lower
+               i > Result.upper
             loop
                Result.put(Result.item(i).simplify(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -811,25 +811,25 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER; exp1, exp2: EXPRESSION
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > l.upper
          loop
             exp1 := l.item(i)
             exp2 := exp1.adapt_for(type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := l
          else
             from
                Result := l.twin
-               Result.put(exp2, i + 1)
+               Result.put(exp2, i - 1)
             until
-               i < Result.lower
+               i > Result.upper
             loop
                Result.put(Result.item(i).adapt_for(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -843,12 +843,12 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          i: INTEGER
       do
          from
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower
+            i > l.upper
          loop
             l.item(i).safety_check(type)
-            i := i - 1
+            i := i + 1
          end
       end
 

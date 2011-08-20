@@ -696,16 +696,16 @@ feature {LIVE_TYPE}
          i: INTEGER; run_time_set: RUN_TIME_SET
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            Result or else i < 0
+            Result or else i > live_type_map.upper
          loop
             run_time_set := live_type_map.item(i).run_time_set
             if run_time_set.count = 0 then
             elseif run_time_set.has(lt) then
                Result := run_time_set.count > 1
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -1803,22 +1803,22 @@ feature {}
          if nb_errors = 0 then
             status.set_adapting
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < live_type_map.lower
+               i > live_type_map.upper
             loop
                live_type_map.item(i).make_run_features
-               i := i - 1
+               i := i + 1
             end
             if nb_errors = 0 then
                from
-                  i := live_type_map.upper
+                  i := live_type_map.lower
                until
-                  i < live_type_map.lower
+                  i > live_type_map.upper
                loop
                   lt := live_type_map.item(i)
                   lt.adapt_run_features_and_class_invariant
-                  i := i - 1
+                  i := i + 1
                end
                if nb_errors = 0 then
                   --|*** PH(03/03/04) Next lines may be removed I think.
@@ -1852,12 +1852,12 @@ feature {}
          --|*** reseted: manifest [unicode] strings, and maybe some other pools such as tuples, ...
          se_atexit_stamp := Void
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < live_type_map.lower
+            i > live_type_map.upper
          loop
             live_type_map.item(i).forget_previous_collect
-            i := i - 1
+            i := i + 1
          end
          echo_magic_count(once "Starting collect")
          -- Collect all the live features:
@@ -1914,12 +1914,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < live_type_map.lower
+            i > live_type_map.upper
          loop
             live_type_map.item(i).propagate_features
-            i := i - 1
+            i := i + 1
          end
          from
             i := live_type_map.lower
@@ -1939,12 +1939,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < live_type_map.lower
+            i > live_type_map.upper
          loop
             live_type_map.item(i).do_collect_is_deep_equal
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -1964,15 +1964,15 @@ feature {}
          if do_it then
             echo_magic_count(once "Starting type safety check")
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < live_type_map.lower
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                if lt.at_run_time then
                   lt.safety_check
                end
-               i := i - 1
+               i := i + 1
             end
             status.set_safety_check_ok
          end
@@ -2033,12 +2033,12 @@ feature {}
          echo.put_string(once "Now inlining dynamic dispatch (using inspect instructions)%N")
          create polymorphic_distribution.with_capacity(32, 2)
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < live_type_map.lower
+            i > live_type_map.upper
          loop
             live_type_map.item(i).inline_dynamic_dispatch(code_accumulator)
-            i := i - 1
+            i := i + 1
          end
          if cecil_pool /= Void then
             cecil_pool.inline_dynamic_dispatch(code_accumulator, type_any)
@@ -2142,13 +2142,13 @@ feature {}
             prev_magic_count := magic_count
             echo_magic_count(once "Before simplify cycle")
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                lt.simplify
-               i := i - 1
+               i := i + 1
             end
             max_loop := max_loop - 1
          end
@@ -2161,13 +2161,13 @@ feature {}
             prev_magic_count := magic_count
             echo_magic_count(once "Before simplify cycle")
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                lt.simplify
-               i := i - 1
+               i := i + 1
             end
             max_loop := max_loop - 1
          end
@@ -2197,13 +2197,13 @@ feature {}
             prev_magic_count := magic_count
             echo.put_character('.')
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                lt.contextual_simplify
-               i := i - 1
+               i := i + 1
             end
          end
          from
@@ -2214,13 +2214,13 @@ feature {}
             prev_magic_count := magic_count
             echo.put_character('.')
             from
-               i := live_type_map.upper
+               i := live_type_map.lower
             until
-               i < 0
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                lt.contextual_simplify
-               i := i - 1
+               i := i + 1
             end
          end
          echo.put_string(once " finished context_simplify (")

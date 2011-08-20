@@ -595,13 +595,13 @@ feature {ANY}
          -- Suffix for precompiled header. Void if none.
       once
          if gcc = c_compiler or else gpp = c_compiler or else distcc = c_compiler then
-            -- Although distcc doesn't support precompiled headers, it's good to remove any precompiler 
+            -- Although distcc doesn't support precompiled headers, it's good to remove any precompiler
             -- header that could by lying around to be sure not to confuse the underlying gcc.
             Result := once ".h.gch"
          end
       end
 
-feature {NATIVE_BUILT_IN, C_PRETTY_PRINTER}
+feature {C_PRETTY_PRINTER, C_COMPILATION_MIXIN}
    add_lib_math is
       once
          add_lib_math_do_it_again
@@ -1738,7 +1738,7 @@ feature {}
             create is_win_like.set_item(s = windows_system or else
                                         s = dos_system or else
                                         s = os2_system)
-            
+
             create is_unix_like.set_item(s = unix_system or else
                                          s = cygwin_system or else
                                          s = elate_system or else
@@ -2268,21 +2268,21 @@ feature {ACE}
             c_compiler /= Void
          end
          from
-            i := external_libs.upper
+            i := external_libs.lower
          until
-            i < external_libs.lower
+            i > external_libs.upper
          loop
             add_external_lib(external_libs.item(i))
-            i := i - 1
+            i := i + 1
          end
          external_libs.clear_count
          from
-            i := external_lib_paths.upper
+            i := external_lib_paths.lower
          until
-            i < external_lib_paths.lower
+            i > external_lib_paths.upper
          loop
             add_external_lib(external_lib_paths.item(i))
-            i := i - 1
+            i := i + 1
          end
          external_lib_paths.clear_count
       end

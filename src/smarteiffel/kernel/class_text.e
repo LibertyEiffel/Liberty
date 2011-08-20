@@ -12,6 +12,9 @@ inherit
    VISITABLE
       redefine is_equal
       end
+   TAGGED
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -331,9 +334,9 @@ feature {ANY}
             if parent_lists /= Void then
                -- First, we look only at inherit links:
                from
-                  i := parent_lists.inherit_count
+                  i := 1
                until
-                  Result = inherits_code or else i <= 0
+                  Result = inherits_code or else i > parent_lists.inherit_count
                loop
                   a_parent_edge := parent_lists.inherit_edge(i)
                   parent := a_parent_edge.class_text
@@ -345,27 +348,25 @@ feature {ANY}
                         Result := code
                      end
                   end
-                  i := i - 1
+                  i := i + 1
                end
-               if Result = unrelated_code then
-                  -- Next, we try insert links:
-                  from
-                     i := parent_lists.insert_count
-                  until
-                     Result /= unrelated_code or else i <= 0
-                  loop
-                     a_parent_edge := parent_lists.insert_edge(i)
-                     parent := a_parent_edge.class_text
-                     if other = parent then
+               -- Next, we try insert links:
+               from
+                  i := 1
+               until
+                  Result /= unrelated_code or else i > parent_lists.insert_count
+               loop
+                  a_parent_edge := parent_lists.insert_edge(i)
+                  parent := a_parent_edge.class_text
+                  if other = parent then
+                     Result := inserts_code
+                  else
+                     code := parent.insert_inherit_test(other)
+                     if code /= unrelated_code then
                         Result := inserts_code
-                     else
-                        code := parent.insert_inherit_test(other)
-                        if code /= unrelated_code then
-                           Result := inserts_code
-                        end
                      end
-                     i := i - 1
                   end
+                  i := i + 1
                end
             end
             insert_inherit_test_memory_cache.add(Result, other)
@@ -383,9 +384,9 @@ feature {FEATURE_STAMP, CLASS_TEXT}
          i, insert_inherit_code: INTEGER; a_parent_edge: PARENT_EDGE; parent: CLASS_TEXT
       do
          from
-            i := parent_lists.inherit_count
+            i := 1
          until
-            Result or else i <= 0
+            Result or else i > parent_lists.inherit_count
          loop
             a_parent_edge := parent_lists.inherit_edge(i)
             if a_parent_edge.rename_count = 0 then
@@ -401,13 +402,13 @@ feature {FEATURE_STAMP, CLASS_TEXT}
                   end
                end
             end
-            i := i - 1
+            i := i + 1
          end
-         if can_insert and then not Result then
+         if can_insert then
             from
-               i := parent_lists.insert_count
+               i := 1
             until
-               Result or else i <= 0
+               Result or else i > parent_lists.insert_count
             loop
                a_parent_edge := parent_lists.insert_edge(i)
                if a_parent_edge.rename_count = 0 then
@@ -421,7 +422,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
                      end
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -528,63 +529,7 @@ feature {TYPE}
    external_type: EXTERNAL_TYPE
 
 feature {}
-   native_array_collector_memory: INTEGER
-         -- To cache `is_native_array_collector_enabled' computation.
-feature {TYPE}
-   is_native_array_collector_enabled: BOOLEAN is
-      require
-         not cpp.gc_handler.is_off
-      do
-         inspect
-            native_array_collector_memory
-         when -1 then
-            check
-               not Result
-            end
-         when 1 then
-            Result := True
-         when 0 then
-            if parent_lists = Void then
-               native_array_collector_memory := -1
-               check
-                  not Result
-               end
-            elseif parent_lists.is_native_array_collector_enabled then
-               native_array_collector_memory := 1
-               Result := True
-            else
-               native_array_collector_memory := -1
-               check
-                  not Result
-               end
-            end
-         end
-      ensure
-         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1)
-      end
-
-feature {}
    check_expanded_with_flag: TYPE
-
-feature {ONCE_ROUTINE_POOL}
-   once_flag (mark: STRING): BOOLEAN is
-         -- Flag used to avoid double C definition of globals C variables for
-         -- once routines.
-      require
-         string_aliaser.registered_one(mark)
-         smart_eiffel.is_ready
-      do
-         if once_mark_list = Void then
-            create once_mark_list.with_capacity(4)
-            once_mark_list.add_last(mark)
-         elseif once_mark_list.fast_has(mark) then
-            Result := True
-         else
-            once_mark_list.add_last(mark)
-         end
-      ensure
-         once_flag(mark)
-      end
 
 feature {CLASS_TEXT}
    declaration_type_of_like_current_ (sp: POSITION): TYPE_MARK is
@@ -1061,10 +1006,6 @@ feature {}
          -- The one `Current' (mangled using ASSERTION_LEVEL_NUMBERING).
 
    family_member: TYPE
-
-   once_mark_list: FAST_ARRAY[STRING]
-         -- When the tag is in the list, the corresponding routine
-         -- does not use Current and C code is already written.
 
    creation_list_check_done: BOOLEAN
          -- See `creation_list_check'.

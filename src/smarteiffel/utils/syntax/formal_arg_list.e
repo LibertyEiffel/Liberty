@@ -174,29 +174,6 @@ feature {RUN_FEATURE, JVM}
          end
       end
 
-feature {ADDRESS_OF, CECIL_ENTRY}
-   external_prototype_in (str: STRING; target_type: TYPE) is
-      local
-         i: INTEGER; t: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            t := type_mark(i).to_static(target_type)
-            sedb_breakpoint
-            str.append(cpp.result_type.for_external(t))
-            str.extend(' ')
-            str.extend('a')
-            i.append_in(str)
-            i := i + 1
-            if i <= count then
-               str.extend(',')
-            end
-         end
-      end
-
 feature {AGENT_CREATION}
    omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST is
          -- Create the corresponding ommited open arguments list.
@@ -230,12 +207,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := flat_list.upper
+            i := flat_list.lower
          until
-            Result or else i < flat_list.lower
+            Result or else i > flat_list.upper
          loop
             Result := flat_list.item(i).result_type.is_like_current
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -292,9 +269,9 @@ feature {}
             check
                count = actual_count
             end
-            i := actual_count
+            i := 1
          until
-            i = 0
+            i > actual_count
          loop
             an := name(i)
             tlf ?= an.result_type
@@ -310,13 +287,13 @@ feature {}
                   an.set_result_type(tla)
                end
             end
-            i := i - 1
+            i := i + 1
          end
          if ace.all_check then
             from
-               i := count
+               i := 1
             until
-               i = 0
+               i > count
             loop
                tla ?= name(i).result_type
                if tla /= Void then
@@ -329,7 +306,7 @@ feature {}
                      error_handler.print_as_fatal_error
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       ensure

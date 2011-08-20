@@ -153,15 +153,6 @@ feature {ANY}
          jvm.std_is_equal(rc, wa)
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         if is_expanded then
-            c_initialize_user_expanded_in(buffer)
-         else
-            buffer.append(once "(void*)0")
-         end
-      end
-
    accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR) is
       do
          visitor.visit_user_generic_type_mark(Current)

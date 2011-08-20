@@ -34,7 +34,7 @@ feature {ANY}
          -- The corresponding one
 
    is_insert_member: BOOLEAN
-         -- This parent is inserted (then current type does not 
+         -- This parent is inserted (then current type does not
          -- conform to this parent via this inherit text item)
 
    is_inherit_member: BOOLEAN is
@@ -74,8 +74,8 @@ feature {PARENT_LISTS}
 
 feature {FEATURE_ACCUMULATOR, ANONYMOUS_FEATURE_MIXER, PARENT_LISTS}
    get_undefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
-         -- If the undefine list exists and if `a_final_fn' is member of the undefine list, this 
-         -- function returns the actual feature name which is in the list. (This can be useful to print 
+         -- If the undefine list exists and if `a_final_fn' is member of the undefine list, this
+         -- function returns the actual feature name which is in the list. (This can be useful to print
          -- error messages with accurate POSITIONs and to know if `a_final_fn' is undefined.)
       require
          a_final_fn /= Void
@@ -153,7 +153,7 @@ feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
       end
 
    exports_for (fn: FEATURE_NAME): CLIENT_LIST is
-         -- Only looks for a possible explicit export clause for a given feature name. Contrarily to 
+         -- Only looks for a possible explicit export clause for a given feature name. Contrarily to
          -- `clients_for', does not compute the export list. Hence, the result may be Void.
       require
          fn /= Void
@@ -260,9 +260,9 @@ feature {PARENT_LISTS}
          end
          if redefine_list /= Void then
             from
-               i := redefine_list.count
+               i := 1
             until
-               i = 0
+               i > redefine_list.count
             loop
                fn := redefine_list.item(i)
                if not written_site.proper_has(fn) then
@@ -282,7 +282,7 @@ feature {PARENT_LISTS}
                   error_handler.add_feature_name(new_fn)
                   error_handler.print_as_fatal_error
                end
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -301,9 +301,9 @@ feature {PARENT_LISTS}
          if undefine_list /= Void then
             parent_type := type_mark.resolve_in(type)
             from
-               i := undefine_list.count
+               i := 1
             until
-               i = 0
+               i > undefine_list.count
             loop
                fn := undefine_list.item(i)
                if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
@@ -317,7 +317,7 @@ feature {PARENT_LISTS}
                   error_handler.append(".")
                   error_handler.print_as_fatal_error
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if redefine_list /= Void then
@@ -325,9 +325,9 @@ feature {PARENT_LISTS}
                parent_type := type_mark.resolve_in(type)
             end
             from
-               i := redefine_list.count
+               i := 1
             until
-               i = 0
+               i > redefine_list.count
             loop
                fn := redefine_list.item(i)
                if (not is_target_of_rename(fn)) and then not parent_type.valid_feature_name(fn) then
@@ -338,10 +338,10 @@ feature {PARENT_LISTS}
                   error_handler.append(parent_type.name.to_string)
                   error_handler.append(" does not have ")
                   error_handler.add_feature_name(fn)
-                  error_handler.append(".")                  
+                  error_handler.append(".")
                   error_handler.print_as_fatal_error
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if export_list /= Void then

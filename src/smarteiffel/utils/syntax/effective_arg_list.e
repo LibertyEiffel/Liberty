@@ -61,36 +61,36 @@ feature {ANY}
                create rem.make(remainder.count)
                Result.set_remainder(rem)
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower
+                  i > remainder.upper
                loop
                   rem.put(remainder.item(i).specialize_in(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          else
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower or else exp1 /= exp2
+                  exp1 /= exp2 or else i > remainder.upper
                loop
                   exp1 := remainder.item(i)
                   exp2 := exp1.specialize_in(type)
-                  i := i - 1
+                  i := i + 1
                end
                if exp1 /= exp2 then
                   Result := twin
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(exp2, i + 1)
+                     rem.put(exp2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      rem.put(remainder.item(i).specialize_in(type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -117,36 +117,36 @@ feature {ANY}
                create rem.make(remainder.count)
                Result.set_remainder(rem)
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower
+                  i > remainder.upper
                loop
                   rem.put(remainder.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          else
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower or else exp1 /= exp2
+                  exp1 /= exp2 or else i > remainder.upper
                loop
                   exp1 := remainder.item(i)
                   exp2 := exp1.specialize_thru(parent_type, parent_edge, new_type)
-                  i := i - 1
+                  i := i + 1
                end
                if exp1 /= exp2 then
                   Result := twin
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(exp2, i + 1)
+                     rem.put(exp2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      rem.put(remainder.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -188,26 +188,26 @@ feature {ANY}
             Result.set_first_one(e2)
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                   e2 := Void
                until
-                  i < remainder.lower or else e1 /= e2
+                  e1 /= e2 or else i > remainder.upper
                loop
                   e1 := remainder.item(i)
                   e2 := specialize_2_basic(t, e1, fal.type_mark(i + 2), target_type)
-                  i := i - 1
+                  i := i + 1
                end
                if e1 /= e2 then
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(e2, i + 1)
+                     rem.put(e2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      e2 := specialize_2_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
                      rem.put(e2, i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -215,27 +215,27 @@ feature {ANY}
             Result := Current
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                   e2 := Void
                until
-                  i < remainder.lower or else e1 /= e2
+                  e1 /= e2 or else i > remainder.upper
                loop
                   e1 := remainder.item(i)
                   e2 := specialize_2_basic(t, e1, fal.type_mark(i + 2), target_type)
-                  i := i - 1
+                  i := i + 1
                end
                if e1 /= e2 then
                   Result := twin
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(e2, i + 1)
+                     rem.put(e2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      e2 := specialize_2_basic(t, remainder.item(i), fal.type_mark(i + 2), target_type)
                      rem.put(e2, i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -251,12 +251,12 @@ feature {ANY}
          Result := first_one /= Void implies first_one.has_been_specialized
          if Result and remainder /= Void then
             from
-               i := remainder.upper
+               i := remainder.lower
             until
-               i < remainder.lower or else not Result
+               not Result or else i > remainder.upper
             loop
                Result := remainder.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -270,25 +270,25 @@ feature {ANY}
          fo := first_one.simplify(type)
          if remainder /= Void then
             from
-               i := remainder.upper
+               i := remainder.lower
             until
-               e1 /= e2 or else i < remainder.lower
+               e1 /= e2 or else i > remainder.upper
             loop
                e1 := remainder.item(i)
                e2 := e1.simplify(type)
-               i := i - 1
+               i := i + 1
             end
             if e1 = e2 then
                rem := remainder
             else
                from
                   rem := remainder.twin
-                  rem.put(e2, i + 1)
+                  rem.put(e2, i - 1)
                until
-                  i < rem.lower
+                  i > rem.upper
                loop
                   rem.put(rem.item(i).simplify(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -311,12 +311,12 @@ feature {ANY}
          first_one := first_one.static_simplify
          if remainder /= Void then
             from
-               i := remainder.upper
+               i := remainder.lower
             until
-               i < remainder.lower
+               i > remainder.upper
             loop
                remainder.put(remainder.item(i).static_simplify, i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -327,12 +327,12 @@ feature {ANY}
       do
          from
             Result := True
-            i := count
+            i := 1
          until
-            not Result or else i = 0
+            not Result or else i > count
          loop
             Result := expression(i).side_effect_free(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -341,12 +341,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             expression(i).safety_check(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -388,12 +388,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            Result or else i = 0
+            Result or else i > count
          loop
             Result := expression(i).use_current(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -442,12 +442,12 @@ feature {ANY}
       do
          from
             Result := True
-            i := count
+            i := 1
          until
-            not Result or else i = 0
+            not Result or else i > count
          loop
             Result := expression(i).is_static
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -613,36 +613,36 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
                create rem.make(remainder.count)
                Result.set_remainder(rem)
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower
+                  i > remainder.upper
                loop
                   rem.put(remainder.item(i).specialize_2(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          else
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower or else exp1 /= exp2
+                  exp1 /= exp2 or else i > remainder.upper
                loop
                   exp1 := remainder.item(i)
                   exp2 := exp1.specialize_2(type)
-                  i := i - 1
+                  i := i + 1
                end
                if exp1 /= exp2 then
                   Result := twin
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(exp2, i + 1)
+                     rem.put(exp2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      rem.put(remainder.item(i).specialize_2(type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -667,36 +667,36 @@ feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
                create rem.make(remainder.count)
                Result.set_remainder(rem)
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower
+                  i > remainder.upper
                loop
                   rem.put(remainder.item(i).adapt_for(t), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          else
             if remainder /= Void then
                from
-                  i := remainder.upper
+                  i := remainder.lower
                until
-                  i < remainder.lower or else exp1 /= exp2
+                  exp1 /= exp2 or else i > remainder.upper
                loop
                   exp1 := remainder.item(i)
                   exp2 := exp1.adapt_for(t)
-                  i := i - 1
+                  i := i + 1
                end
                if exp1 /= exp2 then
                   Result := twin
                   rem := remainder.twin
                   Result.set_remainder(rem)
                   from
-                     rem.put(exp2, i + 1)
+                     rem.put(exp2, i - 1)
                   until
-                     i < remainder.lower
+                     i > rem.upper
                   loop
                      rem.put(remainder.item(i).adapt_for(t), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             end
@@ -724,15 +724,15 @@ feature {FEATURE_CALL}
             first_fal := cf.upper + 1
             cfst := collecting_formal_sub_type
             rts := feature_type.live_type.run_time_set
-            i := rts.count
+            i := 1
          until
-            i = 0
+            i > rts.count
          loop
             sub_type := rts.item(i).type
             dynamic_fs := fs.resolve_static_binding_for(feature_type, sub_type)
             cf.add_last(dynamic_fs.anonymous_feature(sub_type).arguments)
             cfst.add_last(sub_type)
-            i := i - 1
+            i := i + 1
          end
          check
             cf.upper - first_fal + 1 = feature_type.live_type.run_time_set.count
@@ -740,20 +740,20 @@ feature {FEATURE_CALL}
          end
          -- Collect each effective argument and apply assignment for types from formal types listed.
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             expr := expression(i)
             if not expr.is_void then
                arg_type := expr.collect(t)
                from
-                  j := cf.upper
+                  j := first_fal
                until
-                  j < first_fal
+                  j > cf.upper
                loop
                   --|*** PH: removing duplicate FAL in cf.range(first_fal, cf.last)
-                  --will reduce resolve_in here
+                  --|will reduce resolve_in here
                   formal_type := cf.item(j).type_mark(i).resolve_in(cfst.item(j))
                   if formal_type.live_type = Void then
                      if arg_type.live_type /= Void then
@@ -763,10 +763,10 @@ feature {FEATURE_CALL}
                      end
                   end
                   assignment_handler.collect_force(arg_type, formal_type)
-                  j := j - 1
+                  j := j + 1
                end
             end
-            i := i - 1
+            i := i + 1
          end
          cf.resize(first_fal)
          cfst.resize(first_fal)
@@ -783,14 +783,14 @@ feature {PRECURSOR_CALL}
          i: INTEGER; arg_type: TYPE; expr: EXPRESSION
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             expr := expression(i)
             arg_type := expr.collect(t)
             assignment_handler.collect_normal(arg_type, fal.type_mark(i).resolve_in(t))
-            i := i - 1
+            i := i + 1
          end
       end
 

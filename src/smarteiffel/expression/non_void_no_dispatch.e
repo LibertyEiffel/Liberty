@@ -129,7 +129,7 @@ feature {ANY}
          visitor.visit_non_void_no_dispatch(Current)
       end
 
-feature {ONCE_ROUTINE_POOL}
+feature {ANY}
    run_feature: RUN_FEATURE is
       do
          Result := feature_stamp.run_feature_for(context_type)

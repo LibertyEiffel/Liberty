@@ -1631,12 +1631,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := points.upper
+            i := points.lower
          until
-            i < 0
+            i > points.upper
          loop
             resolve_u2_branch(points.item(i))
-            i := i - 1
+            i := i + 1
          end
       end
 

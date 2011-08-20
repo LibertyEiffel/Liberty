@@ -104,12 +104,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            Result or else i < list.lower
+            Result or else i > list.upper
          loop
             Result := list.item(i).use_current(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -118,29 +118,27 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
             Result := True
          until
-            not Result or else i <= list.lower
+            not Result or else i > list.upper
          loop
             Result := list.item(i).side_effect_free(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
    collect (type: TYPE): TYPE is
       local
-         i: INTEGER; dummy: TYPE
+         i: INTEGER
       do
-         i := list.upper
-         Result := list.item(i).collect(type)
          from
-            i := i - 1
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
-            dummy := list.item(i).collect(type)
-            i := i - 1
+            Result := list.item(i).collect(type)
+            i := i + 1
          end
       end
 
@@ -149,13 +147,13 @@ feature {ANY}
          l: like list; code1, code2: CODE; i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else code1 /= code2
+            code1 /= code2 or else i > list.upper
          loop
             code1 := list.item(i)
             code2 := code1.adapt_for(type)
-            i := i - 1
+            i := i + 1
          end
          if code1 = code2 then
             Result := Current
@@ -164,12 +162,12 @@ feature {ANY}
             l := list.twin
             Result.set_list(l)
             from
-               l.put(code2, i + 1)
+               l.put(code2, i - 1)
             until
-               i < l.lower
+               i > l.upper
             loop
                l.put(l.item(i).adapt_for(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end

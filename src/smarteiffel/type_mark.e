@@ -410,15 +410,6 @@ feature {ANY} -- Others:
          Result /= Void
       end
 
-   c_initialize_in (buffer: STRING) is
-         -- Append in `buffer' C code for initialisation of local variables or attributes (see also
-         -- `c_initialize').
-      require
-         is_static
-         buffer /= Void
-      deferred
-      end
-
 feature {ANY}
    id: INTEGER is
          -- Used for example to mangle feature name in the generated C code.
@@ -565,14 +556,6 @@ feature {ANY}
       deferred
       end
 
-feature {NATIVE_BUILT_IN, GC_HANDLER}
-   gc_call_new_in (buffer: STRING) is
-      do
-         buffer.append(once "new")
-         id.append_in(buffer)
-         buffer.append(once "()")
-      end
-
 feature {ANY}
    jvm_method_flags: INTEGER is
          -- Return the appropriate flag (static/virtual) when the receiver has this type.
@@ -712,36 +695,6 @@ feature {ANONYMOUS_FEATURE}
    frozen same_signature_type (other: TYPE_MARK; into: TYPE): BOOLEAN is
       do
          Result := other = Current or else signature_resolve_in(into) = other.signature_resolve_in(into)
-      end
-
-feature {}
-   frozen c_initialize_user_expanded_in (buffer: STRING) is
-         -- For all kinds of `is_user_expanded' including `is_empty_expanded' as well.
-      require
-         buffer /= Void
-         is_user_expanded
-      local
-         wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf: RUN_FEATURE_2
-      do
-         if is_empty_expanded then
-            buffer.extend('0')
-         else
-            buffer.extend('{')
-            wa := type.live_type.writable_attributes
-            from
-               i := wa.upper
-            until
-               i = 0
-            loop
-               rf := wa.item(i)
-               rf.result_type.c_initialize_in(buffer)
-               i := i - 1
-               if i > 0 then
-                  buffer.extend(',')
-               end
-            end
-            buffer.extend('}')
-         end
       end
 
 end -- class TYPE_MARK

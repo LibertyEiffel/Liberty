@@ -35,13 +35,13 @@ feature {ANY}
             Result := Current
          else
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else a1 /= a2
+               a1 /= a2 or else i > list.upper
             loop
                a1 := list.item(i)
                a2 := a1.specialize_in(type)
-               i := i - 1
+               i := i + 1
             end
             if a1 = a2 then
                Result := Current
@@ -50,12 +50,12 @@ feature {ANY}
                   l := list.twin
                   Result := twin
                   Result.set_list(l)
-                  l.put(a2, i + 1)
+                  l.put(a2, i - 1)
                until
-                  i < list.lower
+                  i > list.upper
                loop
                   l.put(list.item(i).specialize_in(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -69,13 +69,13 @@ feature {ANY}
             Result := Current
          else
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else a1 /= a2
+               a1 /= a2 or else i > list.upper
             loop
                a1 := list.item(i)
                a2 := a1.specialize_thru(parent_type, parent_edge, new_type)
-               i := i - 1
+               i := i + 1
             end
             if a1 = a2 then
                Result := Current
@@ -84,12 +84,12 @@ feature {ANY}
                   l := list.twin
                   Result := twin
                   Result.set_list(l)
-                  l.put(a2, i + 1)
+                  l.put(a2, i - 1)
                until
-                  i < list.lower
+                  i > list.upper
                loop
                   l.put(list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -103,13 +103,13 @@ feature {ANY}
             Result := Current
          else
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else a1 /= a2
+               a1 /= a2 or else i > list.upper
             loop
                a1 := list.item(i)
                a2 := a1.specialize_2(type)
-               i := i - 1
+               i := i + 1
             end
             if a1 = a2 then
                Result := Current
@@ -118,12 +118,12 @@ feature {ANY}
                   l := list.twin
                   Result := twin
                   Result.set_list(l)
-                  l.put(a2, i + 1)
+                  l.put(a2, i - 1)
                until
-                  i < list.lower
+                  i > list.upper
                loop
                   l.put(list.item(i).specialize_2(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -136,12 +136,12 @@ feature {ANY}
          Result := True
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else not Result
+               not Result or else i > list.upper
             loop
                Result := list.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -153,12 +153,12 @@ feature {ANY}
          Result := True
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               not Result or else i < list.lower
+               not Result or else i > list.upper
             loop
                Result := list.item(i).side_effect_free(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -170,13 +170,13 @@ feature {ANY}
          Result := True
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               not Result or else i < list.lower
+               not Result or else i > list.upper
             loop
                assertion := list.item(i)
                Result := assertion.is_always_true(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -187,12 +187,12 @@ feature {ANY}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                dummy := list.item(i).collect(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -203,12 +203,12 @@ feature {ANY}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower
+               i > list.upper
             loop
                list.item(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -229,13 +229,13 @@ feature {ANY}
             Result := Current
          else
             from
-               i := list.upper
+               i := list.lower
             until
-               i < list.lower or else a1 /= a2
+               a1 /= a2 or else i > list.upper
             loop
                a1 := list.item(i)
                a2 := a1.adapt_for(type)
-               i := i - 1
+               i := i + 1
             end
             if a1 = a2 then
                Result := Current
@@ -244,12 +244,12 @@ feature {ANY}
                   l := list.twin
                   Result := twin
                   Result.set_list(l)
-                  l.put(a2, i + 1)
+                  l.put(a2, i - 1)
                until
-                  i < list.lower
+                  i > l.upper
                loop
                   l.put(list.item(i).adapt_for(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -271,12 +271,12 @@ feature {ANY}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               Result or else i < list.lower
+               Result or else i > list.upper
             loop
                Result := list.item(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -460,14 +460,12 @@ feature {ASSERTION_LIST}
       do
          if list /= Void then
             from
-               i := list.upper
+               i := list.lower
             until
-               Result or else i < list.lower
+               Result or else i > list.upper
             loop
-               if list.item(i).start_position = sp then
-                  Result := True
-               end
-               i := i - 1
+               Result := list.item(i).start_position = sp
+               i := i + 1
             end
          end
       end

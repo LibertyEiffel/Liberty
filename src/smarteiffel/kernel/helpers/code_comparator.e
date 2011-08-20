@@ -26,12 +26,12 @@ feature {EFFECTIVE_ARG_LIST}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not trace_result or else i < visited.lower
+            not trace_result or else i > visited.upper
          loop
             visited.item(i).accept(Current)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -41,13 +41,13 @@ feature {COMPOUND}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not trace_result or else i < visited.lower
+            not trace_result or else i > visited.upper
          loop
             visited.item(i).accept(Current)
             trace.extend(';')
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -57,13 +57,13 @@ feature {COMPOUND_EXPRESSION}
          i: INTEGER
       do
          from
-            i := visited.upper
+            i := visited.lower
          until
-            not trace_result or else i < visited.lower
+            not trace_result or else i > visited.upper
          loop
             visited.item(i).accept(Current)
             trace.extend(';')
-            i := i - 1
+            i := i + 1
          end
       end
 

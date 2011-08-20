@@ -24,8 +24,10 @@ feature {MANIFEST_STRING}
          unicode_flag = ms.unicode_flag
          type.is_string xor type.is_unicode_string
       local
-         storage_id: STRING; ms2: MANIFEST_STRING; position: POSITION; dummy: TYPE
+         storage_id, buffer: STRING; ms2: MANIFEST_STRING; position: POSITION; dummy: TYPE
       do
+         buffer := once "................"
+
          position := ms.start_position
          ms2 := storage_alias.reference_at(ms)
          if ms2 = Void then
@@ -33,17 +35,12 @@ feature {MANIFEST_STRING}
             if storage_id /= Void and then not collected_storage_id_set.has(storage_id) then
                -- (Was previously computed.)
             else
-               cpp.out_h_buffer.clear_count
-               position.class_text.id.append_in(cpp.out_h_buffer)
-               cpp.out_h_buffer.extend('_')
-               ms.hash_code.append_in(cpp.out_h_buffer)
-               from
-               until
-                  not collected_storage_id_set.has(cpp.out_h_buffer)
-               loop
-                  cpp.out_h_buffer.extend('a')
-               end
-               storage_id := cpp.out_h_buffer.twin
+               buffer.clear_count
+               position.class_text.id.append_in(buffer)
+               buffer.extend('_')
+               ms.hash_code.append_in(buffer)
+               make_unique(buffer, agent_exists_in_collected_storage_id_set)
+               storage_id := buffer.twin
                ms.set_initial_storage_id(storage_id)
             end
             collected_storage_id_set.add(storage_id)
@@ -54,12 +51,12 @@ feature {MANIFEST_STRING}
          if once_flag then
             Result := ms.once_variable
             if Result = Void then
-               cpp.out_h_buffer.copy(once "ms")
-               cpp.out_h_buffer.append(ms.initial_storage_id)
-               cpp.out_h_buffer.append(once "bc")
-               position.class_text.id.append_in(cpp.out_h_buffer)
-               extend_once_variable
-               Result := cpp.out_h_buffer.twin
+               buffer.copy(once "ms")
+               buffer.append(ms.initial_storage_id)
+               buffer.append(once "bc")
+               position.class_text.id.append_in(buffer)
+               make_unique(buffer, agent_exists_in_collected_once_variables)
+               Result := buffer.twin
             end
             collected_once_variables.put(ms, Result)
          end
@@ -84,27 +81,27 @@ feature {MANIFEST_STRING}
       end
 
 feature {}
-   extend_once_variable is
+   make_unique (buffer: STRING; exists: PREDICATE[TUPLE[STRING]]) is
       local
          index, up: INTEGER
       do
-         up := cpp.out_h_buffer.upper
+         up := buffer.upper
          from
             index := 0
-            append_once_variable_index(index)
+            append_once_variable_index(buffer, index)
          until
-            not collected_once_variables.has(cpp.out_h_buffer)
+            not exists.item([buffer])
          loop
-            cpp.out_h_buffer.shrink(cpp.out_h_buffer.lower, up)
+            buffer.shrink(buffer.lower, up)
             index := index + 1
-            append_once_variable_index(index)
+            append_once_variable_index(buffer, index)
          end
       ensure
-         not collected_once_variables.has(cpp.out_h_buffer)
-         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
+         not exists.item([buffer])
+         buffer.count > old buffer.count
       end
 
-   append_once_variable_index (index: INTEGER) is
+   append_once_variable_index (buffer: STRING; index: INTEGER) is
       require
          index >= 0
       local
@@ -117,12 +114,12 @@ feature {}
             done
          loop
             r := q \\ s.count
-            cpp.out_h_buffer.extend(s.item(r + s.lower))
+            buffer.extend(s.item(r + s.lower))
             q := q // s.count
             done := q = 0
          end
       ensure
-         cpp.out_h_buffer.count > old cpp.out_h_buffer.count
+         buffer.count > old buffer.count
       end
 
 feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
@@ -152,68 +149,6 @@ feature {SMART_EIFFEL}
          collected_once_variables.clear_count
          storage_alias.clear_count
          collected_storage_id_set.clear_count
-      end
-
-feature {C_PRETTY_PRINTER}
-   c_call_initialize is
-      require
-         cpp.pending_c_function
-      do
-         if collected_once_variables.count > 0 then
-            if ace.profile and then first_unicode_manifest_string_collected_flag then
-               cpp.pending_c_function_body.append(once "se_msi1(&local_profile);%N")
-            else
-               cpp.pending_c_function_body.append(once "se_msi1();%N")
-            end
-         end
-      ensure
-         cpp.pending_c_function
-      end
-
-feature {GC_HANDLER}
-   define_manifest_string_mark is
-      local
-         i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
-      do
-         mdc := collected_once_variables.count
-         function_count := 1
-         cpp.prepare_c_function
-         manifest_string_mark_signature(function_count)
-         from
-            i := 1
-            if first_unicode_manifest_string_collected_flag then
-               us_id := se_ums.type_of_current.live_type.id
-            end
-         until
-            i > mdc
-         loop
-            if ms_count > 300 then
-               ms_count := 0
-               function_count := function_count + 1
-               cpp.pending_c_function_body.append(once "manifest_string_mark")
-               function_count.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "();%N")
-               cpp.dump_pending_c_function(True)
-               cpp.prepare_c_function
-               manifest_string_mark_signature(function_count)
-            end
-            ms := collected_once_variables.item(i)
-            cpp.pending_c_function_body.append(once "gc_mark")
-            if ms.unicode_flag then
-               id := us_id
-            else
-               id := 7
-            end
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "((T")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            cpp.pending_c_function_body.append(ms.once_variable)
-            cpp.pending_c_function_body.append(once ");%N")
-            ms_count := ms_count + 1
-            i := i + 1
-         end
-         cpp.dump_pending_c_function(True)
       end
 
 feature {JVM}
@@ -259,7 +194,28 @@ feature {JVM}
          end
       end
 
-feature {CODE_PRINTER}
+feature {}
+   agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]] is
+      once
+         Result := agent exists_in_collected_once_variables
+      end
+
+   exists_in_collected_once_variables (a_string: STRING): BOOLEAN is
+      do
+         Result := collected_once_variables.has(a_string)
+      end
+
+   agent_exists_in_collected_storage_id_set: PREDICATE[TUPLE[STRING]] is
+      once
+         Result := agent exists_in_collected_storage_id_set
+      end
+
+   exists_in_collected_storage_id_set (a_string: STRING): BOOLEAN is
+      do
+         Result := collected_storage_id_set.has(a_string)
+      end
+
+feature {ANY}
    first_manifest_string_collected_flag: BOOLEAN
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
@@ -268,6 +224,44 @@ feature {CODE_PRINTER}
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
 
+   collected_once_count: INTEGER is
+      do
+         Result := collected_once_variables.count
+      end
+
+   collected_once_item (i: INTEGER): MANIFEST_STRING is
+      require
+         i.in_range(1, collected_once_count)
+      do
+         Result := collected_once_variables.item(i)
+      end
+
+   storage_alias_count: INTEGER is
+      do
+         Result := storage_alias.count
+      end
+
+   storage_alias_item (i: INTEGER): MANIFEST_STRING is
+      require
+         i.in_range(1, storage_alias_count)
+      do
+         Result := storage_alias.item(i)
+      end
+
+   se_ums: RUN_FEATURE is
+         -- The one of `unicode_string_manifest_initialize_stamp'.
+      require
+         first_unicode_manifest_string_collected_flag
+      do
+         Result := se_ums_
+         if Result = Void then
+            -- Yes, this is the very first usage of `se_ums':
+            Result := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
+            se_ums_ := Result
+         end
+      end
+
+feature {}
    collected_once_variables: DICTIONARY[MANIFEST_STRING, STRING] is
          -- To allocate different global variables names for each collected "once" manifest string.
       once
@@ -287,33 +281,11 @@ feature {CODE_PRINTER}
          create {HASHED_SET[STRING]} Result.with_capacity(4096)
       end
 
-   manifest_string_mark_signature (number: INTEGER) is
-      require
-         cpp.pending_c_function
-      do
-         cpp.pending_c_function_signature.copy(once "void manifest_string_mark")
-         number.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(once "(void)")
-      end
-
-   nb_ms_per_function: INTEGER is 50
-
    unicode_string_manifest_initialize_stamp: FEATURE_STAMP
          -- Feature stamp for {UNICODE_STRING}.manifest_initialize which is actually the body of `se_ums'.
 
    unicode_string_type: TYPE
          -- Is cached here too in order to get `se_ums' later.
-
-   se_ums: RUN_FEATURE is
-         -- The one of `unicode_string_manifest_initialize_stamp'.
-      do
-         Result := se_ums_
-         if Result = Void then
-            -- Yes, this is the very first usage of `se_ums':
-            Result := unicode_string_manifest_initialize_stamp.run_feature_for(unicode_string_type)
-            se_ums_ := Result
-         end
-      end
 
 feature {}
    se_ums_: RUN_FEATURE

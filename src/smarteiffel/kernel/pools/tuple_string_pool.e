@@ -25,12 +25,12 @@ feature {} -- State management:
             transitions.make(maxstate + 2)
          end
          from
-            i := transitions.upper
+            i := transitions.lower
          until
-            i < transitions.lower
+            i > transitions.upper
          loop
             transitions.put(create {LINKED_LIST[TUPLE[CHARACTER, INTEGER]]}.make, i)
-            i := i - 1
+            i := i + 1
          end
       end
 

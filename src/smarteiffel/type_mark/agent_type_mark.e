@@ -86,11 +86,6 @@ feature {ANY}
          visitor.visit_agent_type_mark(Current)
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
    is_user_expanded: BOOLEAN is False
 
    is_empty_expanded: BOOLEAN is False

@@ -75,15 +75,15 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            Result /= Void or else i < list.lower
+            Result /= Void or else i > list.upper
          loop
             Result := list.item(i).default_root
             if Result /= as_make then
                Result := Void
             end
-            i := i - 1
+            i := i + 1
          end
          from
             i := list.lower
@@ -100,12 +100,12 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else Result /= Void
+            Result /= Void or else i > list.upper
          loop
             Result := list.item(i).root_creation_search(a_name)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -153,12 +153,12 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
             Result /= Void
          loop
             Result := list.item(i).user_expanded_default_create_stamp(type)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -167,15 +167,15 @@ feature {CLASS_TEXT}
          i: INTEGER
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             list.item(i).check_for(type)
-            i := i - 1
+            i := i + 1
          end
       end
-   
+
 feature {CREATE_SUPPORT}
    all_positions_in_error_handler is
          -- (To show available creation procedure.)
@@ -183,9 +183,9 @@ feature {CREATE_SUPPORT}
          i: INTEGER; creation_clause: CREATION_CLAUSE; procedure_list: FEATURE_NAME_LIST
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower
+            i > list.upper
          loop
             creation_clause := list.item(i)
             procedure_list := creation_clause.procedure_list
@@ -194,7 +194,7 @@ feature {CREATE_SUPPORT}
             else
                error_handler.add_position(creation_clause.start_position)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

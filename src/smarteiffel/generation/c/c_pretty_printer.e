@@ -21,26 +21,42 @@ insert
 create {ANY}
    make
 
-feature {ANY}
-   -- Code generators
+feature {ANY} -- Code generators
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
    header_pass_4: C_HEADER_PASS_4
    live_type_compiler: C_LIVE_TYPE_COMPILER
    mapper: C_MAPPER
+   initializer: C_INITIALIZER
    target_mapper: C_TARGET_MAPPER
    arg_mapper: C_ARG_MAPPER
    code_compiler: C_CODE_COMPILER
    compound_expression_compiler: C_COMPOUND_EXPRESSION_COMPILER
    gc_handler: GC_HANDLER
+   native_function_mapper: C_NATIVE_FUNCTION_MAPPER
+   native_procedure_mapper: C_NATIVE_PROCEDURE_MAPPER
+   native_c_definition: C_NATIVE_C_DEFINITION
+   introspection_function: C_INTROSPECTION_FUNCTION
+   introspection_display: C_INTROSPECTION_DISPLAY
 
-   -- C-related type properties
+feature {ANY} -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
+   native_need_wrapper: C_NATIVE_NEED_WRAPPER
+
+feature {ANY} -- Extra collectors
+   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
+
+   add_extra_collectors is
+      do
+         if not gc_handler.is_off then
+            live_type_extra_collectors.add_last(native_array_collector)
+         end
+      end
 
 feature {}
    make is
@@ -51,16 +67,28 @@ feature {}
          create header_pass_4.make
          create live_type_compiler.make
          create mapper.make
+         create initializer.make
          create target_mapper.make
          create arg_mapper.make
          create code_compiler.make
          create compound_expression_compiler.make
          create gc_handler.make
+         create native_function_mapper.make
+         create native_procedure_mapper.make
+         create native_c_definition.make
+         create introspection_function.make
+         create introspection_display.make
+
          create target_type.make
          create result_type.make
          create argument_type.make
          create va_arg_type.make
          create need_struct.make
+         create native_need_wrapper.make
+
+         create registered_natives.make
+
+         create native_array_collector.make
       end
 
 feature {SMART_EIFFEL}
@@ -137,10 +165,8 @@ feature {SMART_EIFFEL}
                gc_handler.define2
             end
             define_main(smart_eiffel.root_procedure)
-            split_c_file_padding_here
-            manifest_generic_pool.c_define
-            split_c_file_padding_here
-            assignment_test_pool.c_define_assignment_test_functions(live_type_map)
+            c_define_manifest_generic_functions
+            c_define_assignment_test_functions
             debug
                echo.put_string(once "Very Final magic_count : ")
                echo.put_integer(smart_eiffel.magic_count)
@@ -188,12 +214,12 @@ feature {}
          i: INTEGER
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
-            live_type_map.item(i).prepare_introspection
-            i := i - 1
+            introspection_function.compile(live_type_map.item(i))
+            i := i + 1
          end
       end
 
@@ -338,86 +364,86 @@ feature {}
                              %if (profile_file!=NULL) {%N%
                              %int i;%N%
                              %se_profile_t sorted_profile[")
-         n.append_in(cpp.pending_c_function_body)
+         n.append_in(pending_c_function_body)
          if i > 0 then
             pending_c_function_body.append(once "];%Nse_profile_t sorted_inv_profile[")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
          end
          if a > 0 then
             pending_c_function_body.append(once "];%Nse_profile_t sorted_agent_profile[")
-            a.append_in(cpp.pending_c_function_body)
+            a.append_in(pending_c_function_body)
          end
          if sa > 0 then
             pending_c_function_body.append(once "];%Nse_profile_t sorted_agent_switch_profile[")
-            sa.append_in(cpp.pending_c_function_body)
+            sa.append_in(pending_c_function_body)
          end
          pending_c_function_body.append(once "];%Nse_profile_t sorted_all_profile[")
-         (n + i + a + sa + 3).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa + 3).append_in(pending_c_function_body)
 
          -- sorting profiles
 
          pending_c_function_body.append(once "];%Nmemcpy(sorted_profile, profile, ")
-         n.append_in(cpp.pending_c_function_body)
+         n.append_in(pending_c_function_body)
          pending_c_function_body.append(once "*sizeof(se_profile_t));%Nqsort(sorted_profile, ")
-         n.append_in(cpp.pending_c_function_body)
+         n.append_in(pending_c_function_body)
          pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
          pending_c_function_body.append(once "memcpy(sorted_all_profile, profile, ")
-         n.append_in(cpp.pending_c_function_body)
+         n.append_in(pending_c_function_body)
          pending_c_function_body.append(once "*sizeof(se_profile_t));%N")
          if i > 0 then
             pending_c_function_body.append(once "memcpy(sorted_inv_profile, inv_profile, ")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%Nqsort(sorted_inv_profile, ")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
             pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
             pending_c_function_body.append(once "memcpy(sorted_all_profile+")
-            n.append_in(cpp.pending_c_function_body)
+            n.append_in(pending_c_function_body)
             pending_c_function_body.append(once ", inv_profile, ")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%N")
          end
          if a > 0 then
             pending_c_function_body.append(once "memcpy(sorted_agent_profile, agent_profile, ")
-            a.append_in(cpp.pending_c_function_body)
+            a.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%Nqsort(sorted_agent_profile, ")
-            a.append_in(cpp.pending_c_function_body)
+            a.append_in(pending_c_function_body)
             pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
             pending_c_function_body.append(once "memcpy(sorted_all_profile+")
-            (n + i).append_in(cpp.pending_c_function_body)
+            (n + i).append_in(pending_c_function_body)
             pending_c_function_body.append(once ", agent_profile, ")
-            a.append_in(cpp.pending_c_function_body)
+            a.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%N")
          end
          if sa > 0 then
             pending_c_function_body.append(once "memcpy(sorted_agent_switch_profile, agent_switch_profile, ")
-            sa.append_in(cpp.pending_c_function_body)
+            sa.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%Nqsort(sorted_agent_switch_profile, ")
-            sa.append_in(cpp.pending_c_function_body)
+            sa.append_in(pending_c_function_body)
             pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
             pending_c_function_body.append(once "memcpy(sorted_all_profile+")
-            (n + i + a).append_in(cpp.pending_c_function_body)
+            (n + i + a).append_in(pending_c_function_body)
             pending_c_function_body.append(once ", agent_switch_profile, ")
-            sa.append_in(cpp.pending_c_function_body)
+            sa.append_in(pending_c_function_body)
             pending_c_function_body.append(once "*sizeof(se_profile_t));%N")
          end
          pending_c_function_body.append(once "sorted_all_profile[")
-         (n + i + a + sa).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa).append_in(pending_c_function_body)
          pending_c_function_body.append(once "]=root_profile;%N")
          pending_c_function_body.append(once "sorted_all_profile[")
-         (n + i + a + sa + 1).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa + 1).append_in(pending_c_function_body)
          pending_c_function_body.append(once "]=runinit_profile;%N")
          pending_c_function_body.append(once "sorted_all_profile[")
-         (n + i + a + sa + 2).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa + 2).append_in(pending_c_function_body)
          pending_c_function_body.append(once "]=atexit_profile;%N")
          pending_c_function_body.append(once "qsort(sorted_all_profile, ")
-         (n + i + a + sa + 3).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa + 3).append_in(pending_c_function_body)
          pending_c_function_body.append(once ", sizeof(se_profile_t), profile_comparator);%N")
 
          -- summary
 
          pending_c_function_body.append(once "fprintf(profile_file, %"===============================================================================\nSummary:\n%");%N")
          pending_c_function_body.append(once "start_sumup_profile(profile_file);%Ni=")
-         (n + i + a + sa + 3).append_in(cpp.pending_c_function_body)
+         (n + i + a + sa + 3).append_in(pending_c_function_body)
          pending_c_function_body.append(once ";while (i-->0) {%Nsumup_profile(profile_file, sorted_all_profile+i);%N}%N")
 
          -- detailed printing
@@ -428,21 +454,21 @@ feature {}
          pending_c_function_body.append(once "print_profile(profile_file, &runinit_profile);%N")
          pending_c_function_body.append(once "print_profile(profile_file, &atexit_profile);%N")
          pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
-         n.append_in(cpp.pending_c_function_body)
+         n.append_in(pending_c_function_body)
          pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_profile+i);%N}%N")
          if i > 0 then
             pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
             pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_inv_profile+i);%N}%N")
          end
          if a > 0 then
             pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
-            a.append_in(cpp.pending_c_function_body)
+            a.append_in(pending_c_function_body)
             pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_agent_profile+i);%N}%N")
          end
          if sa > 0 then
             pending_c_function_body.append(once "fprintf(profile_file, %"\n-------------------------------------------------------------------------------\n%");%Ni=")
-            sa.append_in(cpp.pending_c_function_body)
+            sa.append_in(pending_c_function_body)
             pending_c_function_body.append(once ";while (i-->0) {%Nprint_profile(profile_file, sorted_agent_switch_profile+i);%N}%N")
          end
 
@@ -538,7 +564,7 @@ feature {}
             end
             if a_type.at_run_time then
                out_c_buffer.append(once "sizeof(T")
-               i_c.append_in(cpp.out_c_buffer)
+               i_c.append_in(out_c_buffer)
                out_c_buffer.append(once "),")
             else
                out_c_buffer.append(once "0,")
@@ -565,7 +591,7 @@ feature {}
          id := ct.id
          if id > 0 then
             pending_c_function_body.append(once "p[")
-            id.append_in(cpp.pending_c_function_body)
+            id.append_in(pending_c_function_body)
             pending_c_function_body.append(once "]=")
             string_to_c_code(ct.path, pending_c_function_body)
             pending_c_function_body.append(once ";%N")
@@ -581,34 +607,34 @@ feature {}
          pending_c_function_body.append(once "p[0]=%"???%";%N")
          ace.for_all(agent initialize_path_table_of(?))
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.at_run_time then
                pending_c_function_body.append(once "se_prinT[")
-               lt.id.append_in(cpp.pending_c_function_body)
+               lt.id.append_in(pending_c_function_body)
                pending_c_function_body.append(once "]=((void(*)(FILE*,void*))se_prinT")
-               lt.id.append_in(cpp.pending_c_function_body)
+               lt.id.append_in(pending_c_function_body)
                pending_c_function_body.append(once ");%N")
                if lt.is_generic then
                   pending_c_function_body.append(once "p[")
-                  lt.id.append_in(cpp.pending_c_function_body)
+                  lt.id.append_in(pending_c_function_body)
                   pending_c_function_body.append(once "]=p[")
-                  lt.class_text.id.append_in(cpp.pending_c_function_body)
+                  lt.class_text.id.append_in(pending_c_function_body)
                   pending_c_function_body.append(once "];%N")
                end
                if ace.sedb then
                   pending_c_function_body.append(once "se_introspecT[")
-                  lt.id.append_in(cpp.pending_c_function_body)
+                  lt.id.append_in(pending_c_function_body)
                   pending_c_function_body.append(once "]=((void*(*)(void*,char*,int*,int*))se_introspecT")
-                  lt.id.append_in(cpp.pending_c_function_body)
+                  lt.id.append_in(pending_c_function_body)
                   pending_c_function_body.append(once ");%N")
-                  lt.prepare_introspection2
+                  introspection_display.compile(lt)
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -637,9 +663,9 @@ feature {}
       do
          ace.for_all(agent initialize_generator_of(?))
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.generator_used then
@@ -651,7 +677,7 @@ feature {}
                   pending_c_function_body.append(once ";%N")
                end
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -660,9 +686,9 @@ feature {}
          i: INTEGER; lt: LIVE_TYPE; ct: CLASS_TEXT; rtm: STRING
       do
          from
-            i := live_type_map.upper
+            i := live_type_map.lower
          until
-            i < 0
+            i > live_type_map.upper
          loop
             lt := live_type_map.item(i)
             if lt.generating_type_used then
@@ -677,7 +703,7 @@ feature {}
                end
                pending_c_function_body.append(once ";%N")
             end
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -689,73 +715,73 @@ feature {}
       do
          from
             b := once "......................................."
-            i := run_features.upper
+            i := run_features.lower
          until
-            i < run_features.lower
+            i > run_features.upper
          loop
             rf := run_features.item(i)
             pending_c_function_body.append(once "init_profile(profile+")
-            i.append_in(cpp.pending_c_function_body)
+            i.append_in(pending_c_function_body)
             pending_c_function_body.extend(',')
             b.copy(rf.type_of_current.name.to_string)
             b.extend('.')
             rf.name.complete_name_in(b)
             string_to_c_code(b, pending_c_function_body)
             pending_c_function_body.append(once ");%N")
-            i := i - 1
+            i := i + 1
          end
          if class_invariants /= Void then
             from
                b := once ""
-               i := class_invariants.upper
+               i := class_invariants.lower
             until
-               i < class_invariants.lower
+               i > class_invariants.upper
             loop
                lt := class_invariants.item(i)
                pending_c_function_body.append(once "init_profile(inv_profile+")
-               i.append_in(cpp.pending_c_function_body)
+               i.append_in(pending_c_function_body)
                pending_c_function_body.extend(',')
                b.copy(once "invariant of ")
                b.append(lt.name.to_string)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
          if agent_creations /= Void then
             from
                b := once ""
-               i := agent_creations.upper
+               i := agent_creations.lower
             until
-               i < agent_creations.lower
+               i > agent_creations.upper
             loop
                ac := agent_creations.item(i)
                pending_c_function_body.append(once "init_profile(agent_profile+")
-               i.append_in(cpp.pending_c_function_body)
+               i.append_in(pending_c_function_body)
                pending_c_function_body.extend(',')
                b.clear_count
                pretty_printer.expression_in(b, ac)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
          if agent_switches /= Void then
             from
                b := once ""
-               i := agent_switches.upper
+               i := agent_switches.lower
             until
-               i < agent_switches.lower
+               i > agent_switches.upper
             loop
                t := agent_switches.item(i)
                pending_c_function_body.append(once "init_profile(agent_switch_profile+")
-               i.append_in(cpp.pending_c_function_body)
+               i.append_in(pending_c_function_body)
                pending_c_function_body.extend(',')
                b.copy(once "agents ")
                b.append(t.canonical_type_mark.written_mark)
                string_to_c_code(b, pending_c_function_body)
                pending_c_function_body.append(once ");%N")
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -945,7 +971,7 @@ feature {ANY}
          out_c.put_string(once ";%N")
       end
 
-   write_extern_2 (type_variable: STRING; initializer: STRING) is
+   write_extern_2 (type_variable: STRING; init: STRING) is
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -953,7 +979,7 @@ feature {ANY}
          --
          out_c.put_string(type_variable)
          out_c.put_character('=')
-         out_c.put_string(initializer)
+         out_c.put_string(init)
          out_c.put_string(once ";%N")
       end
 
@@ -1117,15 +1143,6 @@ feature {}
          put_banner(out_h)
          out_h.put_character('%N')
          sys_runtime_h_and_c(once "base")
-      end
-
-   cecil_define is
-      local
-         save_out_h: like out_h
-      do
-         save_out_h := out_h
-         cecil_pool.c_define_users
-         out_h := save_out_h
       end
 
    echo_information is
@@ -1398,7 +1415,7 @@ feature {}
          end
       end
 
-feature {C_MAPPER, NATIVE}
+feature {C_COMPILATION_MIXIN}
    target_cannot_be_dropped: BOOLEAN is
          -- True when top target cannot be dropped because we are not sure that
          -- target is non Void or that target has no side effects. When Result is True,
@@ -1573,7 +1590,6 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-feature {NATIVE_BUILT_IN}
    put_trace_switch is
          -- The {ANY}.trace_switch feature
       require
@@ -1764,7 +1780,7 @@ feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_CO
          stack_top.set_internal_c_local(internal_c_local)
       end
 
-feature {NATIVE}
+feature {C_COMPILATION_MIXIN}
    inside_twin (type: TYPE; cpy: RUN_FEATURE) is
       require
          type /= Void
@@ -2145,41 +2161,6 @@ feature {NATIVE}
          end
       end
 
-feature {NATIVE_C_PLUS_PLUS}
-   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS) is
-      do
-         if c_plus_plus = Void then
-            create c_plus_plus.with_capacity(64)
-         end
-         c_plus_plus.add_last(native)
-      end
-
-   add_include (include: STRING) is
-      do
-         add_include_on(out_h, include)
-      end
-
-   add_include_on (output: TEXT_FILE_WRITE; include: STRING) is
-      do
-         end_c_linkage(output)
-         output.put_string(once "#include ")
-         inspect
-            include.first
-         when '%"', '<' then
-         else
-            output.put_character('%"')
-         end
-         output.put_string(include)
-         inspect
-            include.last
-         when '%"', '>' then
-         else
-            output.put_character('%"')
-         end
-         output.put_character('%N')
-         begin_c_linkage(output)
-      end
-
 feature {ANY}
    set_dump_stack_top_for (t: TYPE; ds, comment: STRING) is
       require
@@ -2238,7 +2219,7 @@ feature {C_COMPILATION_MIXIN}
    c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is
          -- Update `c_frame_descriptor_format' accordingly.
       require
-         is_static
+         type_mark.is_static
          buffer /= Void
       local
          lt: LIVE_TYPE
@@ -2260,8 +2241,6 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   c_plus_plus: FAST_ARRAY[NATIVE_C_PLUS_PLUS]
-
    begin_c_linkage (output: TEXT_FILE_WRITE) is
          -- Begin wrap for C linkage
       do
@@ -2278,7 +2257,7 @@ feature {}
       local
          cpp_path_h, cpp_path_c: STRING; i: INTEGER
       do
-         if c_plus_plus /= Void then
+         if has_c_plus_plus then
             ace.splitter.set_dont_split(True)
             echo.put_string(once "C++ external definitions.%N")
             cpp_path_h := system_tools.path_h.twin
@@ -2294,16 +2273,16 @@ feature {}
             add_first_include(cpp_path_h)
             system_tools.add_c_plus_plus_file(cpp_path_c)
             sys_runtime_h_and_c(once "c_plus_plus")
-            if c_plus_plus /= Void then
-               from
-                  i := c_plus_plus.upper
-               until
-                  i < 0
-               loop
-                  c_plus_plus.item(i).c_plus_plus_definition
-                  i := i - 1
-               end
+
+            from
+               i := registered_natives.lower
+            until
+               i > registered_natives.upper
+            loop
+               native_c_definition.compile(registered_natives.key(i), registered_natives.item(i))
+               i := i + 1
             end
+
             end_c_linkage(out_c)
             end_c_linkage(out_h)
             out_h.disconnect
@@ -2370,7 +2349,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
                internal_c_local := pending_c_function_lock_local(return_type.type, once "evobt");
                internal_c_local.append_in(pending_c_function_body)
                pending_c_function_body.extend('=')
-               return_type.c_initialize_in(pending_c_function_body)
+               pending_c_function_body.append(initializer.for(return_type))
             else
                pending_c_function_body.extend('M')
                return_type.type.id.append_in(pending_c_function_body)
@@ -2393,7 +2372,7 @@ feature {}
          lt := rf3.type_of_current.live_type
          echo.put_string(once "Define initialize stuff.%N")
          define_extern_tables
-         once_routine_pool.c_variables_for_precomputable_routines
+         c_variables_for_precomputable_routines
          -- Define atexit() function, if useful (i.e. std_output is used):
          se_atexit_stamp := smart_eiffel.se_atexit_stamp
          do_atexit := se_atexit_stamp /= Void or else ace.profile
@@ -2471,8 +2450,8 @@ feature {}
                 se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
                 ds.fd=&irfd;
 
-           ]")
-            rf3.c_set_dump_stack_top(once "&ds", once "link")
+            ]")
+            set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
          end
          pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
          if do_atexit then
@@ -2543,8 +2522,8 @@ feature {}
 
                 ]")
          end
-         manifest_string_pool.c_call_initialize
-         once_routine_pool.c_code_for_precomputable_routines
+         c_call_initialize_manifest_strings
+         c_code_for_precomputable_routines
          if ace.sedb then
             pending_c_function_body.append(once "se_general_trace_switch=1;%N")
          end
@@ -2561,12 +2540,27 @@ feature {}
          internal_c_local.unlock
          system_tools.auto_init_plugins
          if ace.no_check then
-            rf3.c_set_dump_stack_top(once "(void*)0", once "unlink")
+            set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
          end
          if ace.profile then
             pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
          end
          dump_pending_c_function(True)
+      end
+
+   c_call_initialize_manifest_strings is
+      require
+         cpp.pending_c_function
+      do
+         if manifest_string_pool.collected_once_count > 0 then
+            if ace.profile and then manifest_string_pool.first_unicode_manifest_string_collected_flag then
+               cpp.pending_c_function_body.append(once "se_msi1(&local_profile);%N")
+            else
+               cpp.pending_c_function_body.append(once "se_msi1();%N")
+            end
+         end
+      ensure
+         cpp.pending_c_function
       end
 
    check_id (type: TYPE; e: EXPRESSION; id: INTEGER) is
@@ -2763,7 +2757,7 @@ feature {}
             pending_c_function_body.append(once "));%N")
             put_position_in_ds(rf3.start_position)
             pending_c_function_body.append(once "ds.caller=NULL;%Nds.exception_origin=NULL;%Nds.locals=NULL;%N")
-            rf3.c_set_dump_stack_top(once "&ds", once "link")
+            set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
          end
          push_create_instruction(type, rf3, Void, internal_c_local)
          mapper.compile(rf3)
@@ -2776,7 +2770,7 @@ feature {}
          gc_handler.gc_info_before_exit
          pending_c_function_body.append(once "handle(SE_HANDLE_NORMAL_EXIT, NULL);%N");
          if ace.no_check then
-            rf3.c_set_dump_stack_top(once "NULL", once "unlink")
+            set_dump_stack_top_for(rf3.type_of_current, once "NULL", once "unlink")
          end
          if ace.profile then
             pending_c_function_body.append(once "global_profile=local_profile;%N")
@@ -2919,11 +2913,11 @@ feature {}
          from
             out_c_buffer.copy(once "/*Aliased storage area or unicode storage.*/%N")
             write_out_c_buffer
-            i := manifest_string_pool.storage_alias.lower
+            i := 1
          until
-            i > manifest_string_pool.storage_alias.count
+            i > manifest_string_pool.storage_alias_count
          loop
-            ms := manifest_string_pool.storage_alias.item(i)
+            ms := manifest_string_pool.storage_alias_item(i)
             if ms.unicode_flag then
                us := ms.unicode_string
                upper := us.count
@@ -2996,6 +2990,8 @@ feature {}
          end
       end
 
+   nb_ms_per_function: INTEGER is 50
+
    c_define2_manifest_string_pool is
       local
          i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
@@ -3004,16 +3000,16 @@ feature {}
          string_at_run_time := smart_eiffel.is_at_run_time(as_string)
          split_c_file_padding_here
          no_check := ace.no_check
-         mdc := manifest_string_pool.collected_once_variables.count
+         mdc := manifest_string_pool.collected_once_count
          echo.print_count(once "Manifest String", mdc)
          if mdc > 0 then
             from
                -- For the *.h file:
-               i := manifest_string_pool.collected_once_variables.lower
+               i := 1
             until
-               i > manifest_string_pool.collected_once_variables.upper
+               i > manifest_string_pool.collected_once_count
             loop
-               ms := manifest_string_pool.collected_once_variables.item(i)
+               ms := manifest_string_pool.collected_once_item(i)
                out_h_buffer.copy(once "T0*")
                out_h_buffer.append(ms.once_variable)
                write_extern_1(out_h_buffer)
@@ -3076,11 +3072,11 @@ feature {}
                         pending_c_function_body.append(once "%");%Nstart_profile(parent_profile, &local_profile);%N")
                      end
                   end
-                  j := manifest_string_pool.nb_ms_per_function
+                  j := nb_ms_per_function
                until
                   j = 0 or else i > mdc
                loop
-                  ms := manifest_string_pool.collected_once_variables.item(i)
+                  ms := manifest_string_pool.collected_once_item(i)
                   pending_c_function_body.append(ms.once_variable)
                   pending_c_function_body.extend('=')
                   if ms.unicode_flag then
@@ -3316,6 +3312,772 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
       do
          pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
       end
+
+feature {C_NATIVE_FUNCTION_MAPPER, C_NATIVE_PROCEDURE_MAPPER}
+   has_c_plus_plus: BOOLEAN
+
+   c_plus_plus_registered (native: NATIVE_C_PLUS_PLUS): BOOLEAN is
+      require
+         native /= Void
+      do
+         Result := has_c_plus_plus and then registered_natives.fast_has(native)
+      end
+
+   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS; rf: RUN_FEATURE) is
+      require
+         native /= Void
+         rf /= Void
+         not c_plus_plus_registered(native)
+      do
+         registered_natives.add(rf, native)
+         has_c_plus_plus := True
+      ensure
+         c_plus_plus_registered(native)
+         has_c_plus_plus
+      end
+
+   c_registered (native: NATIVE_C): BOOLEAN is
+      require
+         native /= Void
+      do
+         Result := registered_natives.fast_has(native)
+      end
+
+   c_register (native: NATIVE_C; rf: RUN_FEATURE) is
+      require
+         native /= Void
+         rf /= Void
+         not c_registered(native)
+      do
+         registered_natives.add(rf, native)
+      ensure
+         c_registered(native)
+      end
+
+   registered_natives: HASHED_DICTIONARY[RUN_FEATURE, NATIVE]
+
+feature {NATIVE_C_PLUS_PLUS}
+   add_include (include: STRING) is
+      do
+         add_include_on(out_h, include)
+      end
+
+feature {}
+   add_include_on (output: TEXT_FILE_WRITE; include: STRING) is
+      do
+         end_c_linkage(output)
+         output.put_string(once "#include ")
+         inspect
+            include.first
+         when '%"', '<' then
+         else
+            output.put_character('%"')
+         end
+         output.put_string(include)
+         inspect
+            include.last
+         when '%"', '>' then
+         else
+            output.put_character('%"')
+         end
+         output.put_character('%N')
+         begin_c_linkage(output)
+      end
+
+feature {C_COMPILATION_MIXIN}
+   c_declare_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE; volatile_flag: BOOLEAN) is
+         -- Generate the C code for the declaration part. The `volatile_flag' indicate that an extra
+         -- volatile C keyword must be generated because we are in the case of a routine with a rescue
+         -- clause.
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+         until
+            i > local_var_list.count
+         loop
+            c_declare_local(local_var_list.name(i), type, volatile_flag)
+            i := i + 1
+         end
+      end
+
+feature {}
+   c_declare_local (local_name: LOCAL_NAME1; type: TYPE; volatile_flag: BOOLEAN) is
+         -- C declaration of the local.
+      require
+         pending_c_function
+      local
+         static_tm: TYPE_MARK
+      do
+         if local_name.is_used(type) then
+            static_tm := local_name.result_type.to_static(type)
+            if volatile_flag then
+               if static_tm.is_kernel_expanded then
+                  pending_c_function_body.append(once "volatile ")
+               end
+            end
+            pending_c_function_body.append(result_type.for(static_tm))
+            pending_c_function_body.extend(' ')
+            print_local(local_name.to_string)
+            pending_c_function_body.extend('=')
+            pending_c_function_body.append(initializer.for(static_tm))
+            pending_c_function_body.append(once ";%N")
+         end
+      end
+
+feature {C_COMPILATION_MIXIN}
+   external_prototype_in (formal_arg_list: FORMAL_ARG_LIST; str: STRING; tgt_type: TYPE) is
+      local
+         i: INTEGER; t: TYPE_MARK
+      do
+         from
+            i := 1
+         until
+            i > formal_arg_list.count
+         loop
+            if i > 1 then
+               str.extend(',')
+            end
+            t := formal_arg_list.type_mark(i).to_static(tgt_type)
+            str.append(result_type.for_external(t))
+            str.extend(' ')
+            str.extend('a')
+            i.append_in(str)
+            i := i + 1
+         end
+      end
+
+feature {} -- ASSIGNMENT_TEST_POOL
+   c_define_assignment_test_functions is
+      do
+         split_c_file_padding_here
+         echo.print_count(once "Assignment test (%"?:=%") function", assignment_test_pool.count)
+         assignment_test_pool.do_all(agent c_define_assignment_test_for)
+      end
+
+   c_define_assignment_test_for (left_type, right_type: TYPE) is
+      require
+         must_be_simplified_in_boost: ace.boost implies not right_type.can_be_assigned_to(left_type)
+      local
+         i: INTEGER; dynamic: TYPE
+      do
+         prepare_c_function
+         pending_c_function_signature.append(once "int ")
+         assignment_test_pool.function_name_in(pending_c_function_signature, left_type, right_type)
+         pending_c_function_signature.append(once "(T0* expression)")
+         pending_c_function_body.append(once "/* ")
+         pending_c_function_body.append(left_type.name.to_string)
+         pending_c_function_body.append(once " ?:= ")
+         pending_c_function_body.append(right_type.name.to_string)
+         pending_c_function_body.append(once " */%Nif (expression == NULL) return 1;%N")
+         if right_type.live_type /= Void then
+            if right_type.live_type.run_time_set.count > 1 then
+               check
+                  right_type.live_type.is_tagged
+               end
+               pending_c_function_body.append(once "switch (expression->id) {%N")
+               from
+                  i := live_type_map.lower
+               until
+                  i > live_type_map.upper
+               loop
+                  dynamic := live_type_map.item(i).type
+                  if dynamic.live_type.at_run_time then
+                     if dynamic.can_be_assigned_to(left_type) then
+                        pending_c_function_body.append(once "case ")
+                        dynamic.live_type.id.append_in(pending_c_function_body)
+                        pending_c_function_body.append(once "/*")
+                        pending_c_function_body.append(dynamic.name.to_string)
+                        pending_c_function_body.append(once "*/: return 1;%N")
+                     elseif (not ace.boost) and then not dynamic.can_be_assigned_to(right_type) then
+                        pending_c_function_body.append(once "case ")
+                        dynamic.live_type.id.append_in(pending_c_function_body)
+                        pending_c_function_body.append(once "/*")
+                        pending_c_function_body.append(dynamic.name.to_string)
+                        pending_c_function_body.append(once "*/: error2(expression,/*unknown-position*/0);break;%N")
+                     end
+                  end
+                  i := i + 1
+               end
+               pending_c_function_body.append(once "}%Nreturn 0;%N")
+            elseif right_type.live_type.run_time_set.count = 1 then
+               if not ace.boost then
+                  pending_c_function_body.append(once "ci(")
+                  right_type.live_type.run_time_set.first.id.append_in(pending_c_function_body)
+                  pending_c_function_body.append(once ",expression,/*unknown-position*/0);%N")
+               end
+               if right_type.live_type.run_time_set.first.type.can_be_assigned_to(left_type) then
+                  pending_c_function_body.append(once "return 1;%N")
+               else
+                  pending_c_function_body.append(once "return 0;%N")
+               end
+            else
+               right_hand_side_can_only_be_void
+            end
+         else
+            right_hand_side_can_only_be_void
+         end
+         dump_pending_c_function(True)
+      end
+
+   right_hand_side_can_only_be_void is
+      do
+         -- The right-hand side can only be Void:
+         if not ace.boost then
+            pending_c_function_body.append(once "if (expression != NULL) error2(expression,/*unknown-position*/0);%N")
+         end
+         pending_c_function_body.append(once "return 1;%N")
+      end
+
+feature {} -- MANIFEST_GENERIC_POOL
+   c_define_manifest_generic_functions is
+      require
+         smart_eiffel.is_ready
+      do
+         split_c_file_padding_here
+         manifest_generic_pool.do_all(agent c_define_manifest_generic_for)
+      end
+
+   c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC) is
+      do
+         if manifest_generic.created_type.is_native_array then
+            c_define_for_native_array(manifest_generic.created_type)
+         else
+            c_define_for_user_generic(manifest_generic)
+         end
+      end
+
+   c_define_for_user_generic (manifest_generic: MANIFEST_GENERIC) is
+      require
+         not manifest_generic.created_type.is_native_array
+      local
+         created_type: TYPE; created_type_id, i: INTEGER;
+         af: ANONYMOUS_FEATURE; fal: FORMAL_ARG_LIST; va_type: TYPE_MARK
+      do
+         created_type := manifest_generic.created_type
+         created_type_id := created_type.id
+         prepare_c_function
+         pending_c_function_signature.append(once "T0* se_manifest")
+         created_type_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once "(")
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         af := manifest_generic.manifest_make_feature_stamp.anonymous_feature(created_type)
+         from
+            i := 2
+            fal := af.arguments
+         until
+            i > fal.count
+         loop
+            pending_c_function_signature.append(argument_type.for(fal.type_mark(i).resolve_in(created_type).canonical_type_mark))
+            pending_c_function_signature.extend(' ')
+            pending_c_function_signature.append(fal.name(i).to_string)
+            pending_c_function_signature.extend(',')
+            i := i + 1
+         end
+         pending_c_function_signature.append(once "int argc,...)")
+         -- Prepare body:
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(created_type.name.to_string)
+         pending_c_function_body.append(once "*/%NT")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
+         if gc_handler.is_off then
+            pending_c_function_body.append(once "se_malloc(sizeof(*C));%N*C=M")
+            created_type_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once ";%N")
+         else
+            pending_c_function_body.append(once "new")
+            created_type_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "();%N")
+         end
+         pending_c_function_body.extend('r')
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "manifest_make(")
+         if not ace.boost then
+            pending_c_function_body.append(once "caller,")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "parent_profile,")
+         end
+         if af.use_current(created_type) or else not ace.boost then
+            pending_c_function_body.append(once "C,")
+         end
+         pending_c_function_body.append(once "argc")
+         from
+            i := 2
+            fal := af.arguments
+         until
+            i > fal.count
+         loop
+            pending_c_function_body.extend(',')
+            pending_c_function_body.append(fal.name(i).to_string)
+            i := i + 1
+         end
+         pending_c_function_body.append(once ");%Nimax=argc")
+         af := manifest_generic.manifest_put_feature_stamp.anonymous_feature(created_type)
+         fal := af.arguments
+         if fal.count > 2 then
+            pending_c_function_body.append(once "/")
+            (fal.count - 1).append_in(pending_c_function_body)
+         end
+         pending_c_function_body.append(once ";%Nwhile (i < imax) {%N")
+         from
+            i := 2
+            fal := af.arguments
+         until
+            i > fal.count
+         loop
+            va_type := fal.type_mark(i).resolve_in(created_type).canonical_type_mark
+            pending_c_function_body.append(argument_type.for(va_type))
+            pending_c_function_body.extend(' ')
+            pending_c_function_body.append(fal.name(i).to_string)
+            pending_c_function_body.append(once "=((")
+            pending_c_function_body.append(argument_type.for(va_type))
+            pending_c_function_body.append(once ")(va_arg(pa,")
+            va_type_in(pending_c_function_body, va_type)
+            pending_c_function_body.append(once ")));%N")
+            i := i + 1
+         end
+         pending_c_function_body.append(once "r")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "manifest_put(")
+         if not ace.boost then
+            pending_c_function_body.append(once "caller,")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "parent_profile,")
+         end
+         if af.use_current(created_type) or else not ace.boost then
+            pending_c_function_body.append(once "C,")
+         end
+         pending_c_function_body.append(once "i++")
+         from
+            i := 2
+            fal := af.arguments
+         until
+            i > fal.count
+         loop
+            pending_c_function_body.extend(',')
+            pending_c_function_body.append(fal.name(i).to_string)
+            i := i + 1
+         end
+         pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn ((T0*)C);%N")
+         dump_pending_c_function(True)
+      end
+
+   c_define_for_native_array (native_array: TYPE) is
+      require
+         native_array.is_native_array
+      local
+         native_array_id: INTEGER; va_type: TYPE_MARK
+      do
+         native_array_id := native_array.live_type.id
+         va_type := native_array.private_generic_list.first.canonical_type_mark
+         prepare_c_function
+         pending_c_function_signature.extend('T')
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once " se_manifest")
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.extend('(')
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.append(once "int argc,...)")
+         -- Prepare body:
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(native_array.name.to_string)
+         pending_c_function_body.append(once "*/%NT")
+         native_array_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
+         if gc_handler.is_off then
+            pending_c_function_body.append(once "se_malloc(sizeof(*C)*")
+         else
+            pending_c_function_body.append(once "new")
+            native_array_id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "(")
+         end
+         pending_c_function_body.append(once "argc);%Nwhile (i < argc ) {%N")
+         pending_c_function_body.append(argument_type.for(va_type))
+         pending_c_function_body.append(once " element=((")
+         pending_c_function_body.append(argument_type.for(va_type))
+         pending_c_function_body.append(once ")(va_arg(pa,")
+         va_type_in(pending_c_function_body, va_type)
+         pending_c_function_body.append(once ")));%NC[i]=element;%Ni++;%N}%Nva_end(pa);%Nreturn C;%N")
+         dump_pending_c_function(True)
+      end
+
+   va_type_in (buffer: STRING; va_type: TYPE_MARK) is
+      do
+         buffer.append(va_arg_type.for(va_type))
+      end
+
+feature {} -- ONCE_ROUTINE_POOL
+   c_variables_for_precomputable_routines is
+         -- Generate the C code for once routine which are precomputable.
+      do
+         once_routine_pool.do_all_precomputed(agent c_define_o_result_for)
+      end
+
+   c_define_o_result_for (non_void_no_dispatch: NON_VOID_NO_DISPATCH) is
+      do
+         c_define_o_result(non_void_no_dispatch.run_feature)
+      end
+
+   c_code_for_precomputable_routines is
+         -- Generate the C code for once routine which are precomputable.
+      require
+         smart_eiffel.is_ready
+      local
+         unique_id_set: HASHED_SET[STRING]
+      do
+         echo.put_string(once "Order of evaluation for pre-computed once functions:%N")
+         create unique_id_set.make
+         -- Note: the `precomputable_function_list' must be generated in good order because
+         -- we may have dependencies between precomputed once functions.
+         once_routine_pool.do_all_precomputed_ordered(agent c_code_for_precomputable_routine(?, unique_id_set))
+         if unique_id_set.count > 0 then
+            echo.print_count(once "Precomputed once function", unique_id_set.count)
+         end
+      end
+
+   c_code_for_precomputable_routine (non_void_no_dispatch: NON_VOID_NO_DISPATCH; unique_id_set: HASHED_SET[STRING]) is
+         -- Generate the C code for once routine which are precomputable.
+      require
+         smart_eiffel.is_ready
+      local
+         once_function: ONCE_FUNCTION; unique_id: STRING
+      do
+         -- Only collected one are generated, but we must also make sure that it is not yet generated
+         -- (more than one `non_void_no_dispatch' may correspond to the same `once_function'):
+         once_function := non_void_no_dispatch.once_function
+         unique_id := once "... unique buffer ..."
+         unique_id.clear_count
+         once_routine_pool.unique_id_in(unique_id, once_function)
+         if not unique_id_set.has(unique_id) then
+            unique_id_set.add(unique_id.twin)
+            -- Only collected one are generated:
+            echo.put_string(once "%T{")
+            echo.put_string(once_function.class_text.name.to_string)
+            echo.put_string(once "}.")
+            echo.put_string(once_function.first_name.to_string)
+            echo.put_string(once "%N")
+            pending_c_function_body.append(once "/*PCO*/%N")
+            c_pre_compute_once_function(non_void_no_dispatch.run_feature, once_function)
+         end
+      end
+
+   c_pre_compute_once_function (rf: RUN_FEATURE; bf: ANONYMOUS_FEATURE) is
+      require
+         rf.is_once_function
+         pending_c_function
+      local
+         type: TYPE; rt: TYPE_MARK; local_vars: LOCAL_VAR_LIST; default_create_procedure: RUN_FEATURE
+         id, class_invariant_flag: INTEGER; internal_c_local: INTERNAL_C_LOCAL
+      do
+         type := rf.type_of_current
+         if rf.require_assertion /= Void then
+            code_compiler.compile(rf.require_assertion, type)
+         end
+         rt := rf.result_type
+         if rt.is_user_expanded then
+            default_create_procedure := rt.type.live_type.default_create_run_feature
+            if default_create_procedure /= Void then
+               id := rt.type.id
+               internal_c_local := pending_c_function_lock_local(rt.type, once "orp")
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "=M")
+               id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ";%N")
+               push_create_instruction(type, default_create_procedure, Void, internal_c_local)
+               mapper.compile(default_create_procedure)
+               pop
+               once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
+               pending_c_function_body.extend('=')
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ";%N")
+               internal_c_local.unlock
+            end
+            class_invariant_flag := class_invariant_call_opening(rt.type, True)
+            if class_invariant_flag > 0 then
+               once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
+               class_invariant_call_closing(class_invariant_flag, True)
+            end
+         end
+         --
+         local_vars := rf.local_vars
+         if local_vars /= Void then
+            pending_c_function_body.extend('{')
+            c_declare_locals(local_vars, rf.type_of_current, False)
+         end
+         --
+         if rf.routine_body /= Void then
+            code_compiler.compile(rf.routine_body, type)
+         end
+         --
+         if rf.ensure_assertion /= Void then
+            code_compiler.compile(rf.ensure_assertion, type)
+         end
+         --
+         if local_vars /= Void then
+            pending_c_function_body.extend('}')
+         end
+      end
+
+   once_flag (mark: STRING): BOOLEAN is
+         -- Flag used to avoid double C definition of globals C variables for
+         -- once routines.
+      require
+         string_aliaser.registered_one(mark)
+         smart_eiffel.is_ready
+      do
+         if once_mark_list = Void then
+            create once_mark_list.with_capacity(4)
+            once_mark_list.add_last(mark)
+         elseif once_mark_list.fast_has(mark) then
+            Result := True
+         else
+            once_mark_list.add_last(mark)
+         end
+      ensure
+         once_flag(mark)
+      end
+
+   once_mark_list: FAST_ARRAY[STRING]
+         -- When the tag is in the list, the corresponding routine
+         -- does not use Current and C code is already written.
+
+feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
+   c_define_o_flag (rf: RUN_FEATURE) is
+         -- Add the definition/initialization of the corresponding `o_flag' if not yet done.
+      require
+         rf.is_once_routine
+      local
+         bf: ANONYMOUS_FEATURE; bcbf: CLASS_TEXT; flag: STRING
+      do
+         bf := rf.base_feature
+         bcbf := bf.class_text
+         flag := once_routine_pool.o_flag(bf)
+         if not once_flag(flag) then
+            out_h_buffer.copy(once "int ")
+            out_h_buffer.append(flag)
+            write_extern_0(out_h_buffer)
+         end
+      end
+
+   c_define_o_result (rf: RUN_FEATURE) is
+      require
+         rf.is_once_function
+      local
+         bf: ANONYMOUS_FEATURE; bcbf: CLASS_TEXT; unique_result: STRING; rt: TYPE_MARK
+      do
+         bf := rf.base_feature
+         bcbf := bf.class_text
+         unique_result := once "............ unique buffer ..........."
+         unique_result.clear_count
+         once_routine_pool.unique_result_in(unique_result, bf)
+         unique_result := unique_result.twin
+         unique_result := string_aliaser.string(unique_result)
+         if not once_flag(unique_result) then
+            out_h_buffer.clear_count
+            rt := rf.result_type
+            out_h_buffer.extend('T')
+            if rt.is_expanded then
+               rt.type.id.append_in(out_h_buffer)
+               out_h_buffer.extend(' ')
+            else
+               out_h_buffer.append(once "0*")
+            end
+            out_h_buffer.append(unique_result)
+            out_c_buffer.copy(initializer.for(rt))
+            write_extern_2(out_h_buffer, out_c_buffer)
+         end
+      end
+
+   c_test_o_flag (rf: RUN_FEATURE) is
+      require
+         rf.is_once_routine
+      local
+         flag: STRING
+      do
+         flag := once_routine_pool.o_flag(rf.base_feature)
+         pending_c_function_body.append(once "if(")
+         pending_c_function_body.append(flag)
+         pending_c_function_body.append(once "==0){")
+         pending_c_function_body.append(flag)
+         pending_c_function_body.append(once "=1;{%N")
+      end
+
+   c_test_o_flag_recursion (rf: RUN_FEATURE) is
+      require
+         rf.is_once_routine
+      local
+         flag: STRING
+      do
+         if not ace.require_check then
+            pending_c_function_body.append(once "}}%N")
+         else
+            flag := once_routine_pool.o_flag(rf.base_feature)
+            pending_c_function_body.append(once "}%N")
+            pending_c_function_body.append(flag)
+            pending_c_function_body.append(once "=2;}%Nelse{%N")
+            pending_c_function_body.append(once "ac_req(")
+            pending_c_function_body.append(flag)
+            pending_c_function_body.append(once "==2, %"Recursive once function.%");%N}%N")
+         end
+      end
+
+   c_test_o_flag_introspect (rf: RUN_FEATURE) is
+      require
+         rf.is_once_routine
+      local
+         flag: STRING
+      do
+         flag := once_routine_pool.o_flag(rf.base_feature)
+         pending_c_function_body.append(once "if(")
+         pending_c_function_body.append(flag)
+         pending_c_function_body.append(once "!=0){%N")
+      end
+
+feature {} -- CECIL_POOL
+   cecil_define is
+      local
+         save_out_h: like out_h
+      do
+         save_out_h := out_h
+         cecil_pool.do_all(agent cecil_define_users_for_file)
+         out_h := save_out_h
+      end
+
+   cecil_define_users_for_file (cecil_file: CECIL_FILE) is
+      require
+         not pending_c_function
+      do
+         if cecil_file.has_entries then
+            echo.put_string(once "Cecil (C function for external code) :%N")
+            connect_cecil_out_h(cecil_file.path_h)
+            cecil_file.do_all(agent cecil_define_users_for_entry(cecil_file, ?))
+            disconnect_cecil_out_h
+         end
+      end
+
+   cecil_define_users_for_entry (cecil_file: CECIL_FILE; cecil_entry: CECIL_ENTRY) is
+      require
+         not pending_c_function
+      local
+         type: TYPE; result_type_mark: TYPE_MARK; arguments: FORMAL_ARG_LIST; af: ANONYMOUS_FEATURE
+         internal_c_local: INTERNAL_C_LOCAL
+      do
+         cecil_entry.on_echo(cecil_file)
+
+         type := smart_eiffel.type_any
+         af := cecil_entry.anonymous_feature
+         result_type_mark := af.result_type
+         if result_type_mark /= Void then
+            result_type_mark := result_type_mark.to_static(cecil_entry.target_type)
+         end
+         arguments := af.arguments
+         prepare_c_function
+         if cecil_entry.is_creation then
+            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+         else
+            pending_c_function_signature.append(result_type.for_external(result_type_mark))
+         end
+         pending_c_function_signature.extend(' ')
+         pending_c_function_signature.append(cecil_entry.c_name)
+         pending_c_function_signature.extend('(')
+         if cecil_entry.is_creation then
+            if arguments = Void then
+               pending_c_function_signature.append(once "void")
+            else
+               external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
+            end
+         else
+            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(once " C")
+            if arguments /= Void then
+               pending_c_function_signature.extend(',')
+               external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
+            end
+         end
+         pending_c_function_signature.extend(')')
+         if result_type_mark /= Void or else cecil_entry.is_creation then
+            if cecil_entry.is_creation then
+               pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
+            else
+               pending_c_function_body.append(result_type.for_external(result_type_mark))
+            end
+            pending_c_function_body.append(once " R;%N")
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %int valid_stack_bottom = stack_bottom != NULL;%N%
+                                                %#endif%N")
+         end
+         if ace.no_check then
+            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+                                                %ds.caller=se_dst;%N%
+                                                %ds.exception_origin=NULL;%N%
+                                                %ds.locals=NULL;%N")
+            set_dump_stack_top_for(cecil_entry.target_type, once "&ds", once "link")
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
+                                                %#endif%N")
+         end
+         if cecil_entry.is_creation then
+            --sedb_breakpoint --| *** TODO
+            pending_c_function_body.append(once "/* CECIL creation */%N{%N")
+            internal_c_local := pending_c_function_lock_local(cecil_entry.target_type, once "cecilcrea")
+            if cecil_entry.target_type.is_reference then
+               gc_handler.allocation_of(internal_c_local, cecil_entry.target_type.live_type)
+            else
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "=M")
+               cecil_entry.target_type.live_type.id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ";%N")
+            end
+            pending_c_function_body.append(once "R=")
+            internal_c_local.append_in(pending_c_function_body)
+            internal_c_local.unlock
+            pending_c_function_body.append(once ";%N}%N")
+         end
+         if cecil_entry.code = Void then
+            -- Well, nothing to do.
+         elseif result_type_mark = Void then
+            code_compiler.compile(cecil_entry.code, type)
+         else
+            compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %if(!valid_stack_bottom) stack_bottom = NULL;%N%
+                                                %#endif%N")
+         end
+         if ace.no_check then
+            set_dump_stack_top_for(cecil_entry.target_type, once "ds.caller", once "unlink")
+         end
+         if result_type_mark /= Void or else cecil_entry.is_creation then
+            pending_c_function_body.append(once "return R;%N")
+         end
+         dump_pending_c_function(True)
+      end
+
+invariant
+   registered_natives.for_all(agent (rf: RUN_FEATURE; native: NATIVE): BOOLEAN is
+      do
+         Result := (({NATIVE_C} ?:= native) or else ({NATIVE_C_PLUS_PLUS} ?:= native))
+            and then (({RUN_FEATURE_7} ?:= rf) or else ({RUN_FEATURE_8} ?:= rf))
+      end)
 
 end -- class C_PRETTY_PRINTER
 --

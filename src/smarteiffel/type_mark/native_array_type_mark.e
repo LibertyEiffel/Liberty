@@ -37,11 +37,6 @@ feature {ANY}
          Result := type.live_type.id
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
    jvm_target_descriptor_in, jvm_descriptor_in (str: STRING) is
       do
          str.extend('[')

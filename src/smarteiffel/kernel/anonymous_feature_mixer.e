@@ -62,8 +62,7 @@ feature {FEATURE_ACCUMULATOR}
    set_body (an_af: ANONYMOUS_FEATURE; parent_type: TYPE; parent_edge: PARENT_EDGE) is
       require
          parent_type /= Void
-         --|*** 
-         -- parent_edge /= Void implies parent_type.feature_accumulator.context_type.direct_thru_step(parent_type, parent_edge)
+         --|*** parent_edge /= Void implies parent_type.feature_accumulator.context_type.direct_thru_step(parent_type, parent_edge)
          an_af.has_been_specialized
       do
          body_feature := an_af
@@ -374,7 +373,7 @@ feature {}
          conforming_parent_clients, tmp_clients, parent_clients: CLIENT_LIST;
          parent_edge: PARENT_EDGE; i: INTEGER; redefined_name: FEATURE_NAME
       do
-         -- Compute the exportation status from the export clauses in `export_clause', from the inherited parents in 
+         -- Compute the exportation status from the export clauses in `export_clause', from the inherited parents in
          -- `conforming_parent_clients' and from the inserted parents in `non_conforming_parent_clients'.
          if local_definition then
             Result := original.clients
@@ -606,7 +605,7 @@ feature {PRECURSOR_CALL}
             parents_af.valid_index(i)
             --|*** Probably true, but the case when a feature_name has multiple old names needs to be carefully checked
             --|*** parents_af.item(i) = parents_type.item(i).lookup(parents_edges.item(i).reverse_rename(feature_name)).anonymous_feature(parents_type.item(i))
-            -- lookup with the old name should find the same anonymous feature
+            --| lookup with the old name should find the same anonymous feature
          end
          -- save build_definition
          old_af := build_definition

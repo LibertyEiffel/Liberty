@@ -186,22 +186,6 @@ feature {ANY}
          Result := class_text_name.start_position
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         if is_expanded then
-            check
-               is_user_expanded
-            end
-            if not type.has_external_type then
-               c_initialize_user_expanded_in(buffer)
-            else
-               buffer.append(type.external_type.default_value)
-            end
-         else
-            buffer.append(once "(void*)0")
-         end
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       do

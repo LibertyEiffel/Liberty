@@ -397,47 +397,6 @@ feature {ADDRESS_OF}
          calling_code = cc
       end
 
-feature {TYPE}
-   c_define (wrapper_id: INTEGER) is
-      local
-         result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; expression: EXPRESSION
-      do
-         af := feature_stamp.anonymous_feature(target_type)
-         cpp.prepare_c_function
-         result_type := af.result_type
-         cpp.pending_c_function_signature.append(cpp.result_type.for_external(result_type))
-         cpp.pending_c_function_signature.append(once " W")
-         target_type.id.append_in(cpp.pending_c_function_signature)
-         cpp.pending_c_function_signature.append(feature_stamp.name.to_string)
-         cpp.pending_c_function_signature.extend('(')
-         cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type.canonical_type_mark))
-         cpp.pending_c_function_signature.append(once " C")
-         if af.arguments /= Void then
-            cpp.pending_c_function_signature.extend(',')
-            af.arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
-         end
-         cpp.pending_c_function_signature.extend(')')
-         if ace.no_check then
-            cpp.pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
-                                                    %ds.caller=se_dst;%N%
-                                                    %ds.exception_origin=NULL;%N%
-                                                    %ds.locals=NULL;%N")
-            cpp.set_dump_stack_top_for(target_type, once "&ds", once "link")
-         end
-         if result_type = Void then
-            if calling_code /= Void then
-               cpp.code_compiler.compile(calling_code, target_type)
-            end
-         else
-            check
-               calling_code /= Void
-            end
-            expression ::= calling_code
-            cpp.compound_expression_compiler.compile(once "return ", expression, once ";%N", target_type)
-         end
-         cpp.dump_pending_c_function(True)
-      end
-
 feature {}
    with_local (ln: like local_name) is
       require

@@ -36,7 +36,7 @@ feature {INSPECT_STATEMENT}
 
 feature {}
    canonical_form (wl: like when_list): BOOLEAN is
-         -- To summarize: the `when_list' is never empty and each "when" clause has 
+         -- To summarize: the `when_list' is never empty and each "when" clause has
          -- only MANIFEST_STRING as members.
       require
          not wl.is_empty
@@ -47,22 +47,22 @@ feature {}
       do
          Result := True
          from
-            i := wl.upper
+            i := wl.lower
          until
-            not Result or else i < wl.lower
+            not Result or else i > wl.upper
          loop
             from
                when_clause_list := wl.item(i).list
-               j := when_clause_list.upper
+               j := when_clause_list.lower
             until
-               not Result or else j < when_clause_list.lower
+               not Result or else j > when_clause_list.upper
             loop
                when_item_1 ::= when_clause_list.item(j)
                constant := when_item_1.expression
                Result := (constant /= Void) and then {MANIFEST_STRING} ?:= constant
-               j := j - 1
+               j := j + 1
             end
-            i := i - 1
+            i := i + 1
          end
       ensure
          assertion_check_only: Result

@@ -306,10 +306,14 @@ feature {MANIFEST_STRING, MANIFEST_STRING_POOL, CODE_PRINTER}
          -- itself is shared into a global variable. The corresponding global variable is used only and only if
          -- there is really an actual alias collected.)
 
-feature {MANIFEST_STRING_POOL, MANIFEST_STRING_VISITOR, CODE_PRINTER}
-   once_variable: STRING
+feature {ANY}
+   once_variable: STRING is
          -- Used when `once_flag' is True. This is the name used for the corresponding global variable in the generated code (C
          -- or in the bytecode as well).
+      require
+         once_flag
+      attribute
+      end
 
 feature {MANIFEST_STRING_POOL}
    set_initial_storage_id (ag: like initial_storage_id) is

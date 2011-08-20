@@ -54,11 +54,6 @@ feature {ANY}
          Result := class_text.id
       end
 
-   c_initialize_in (str: STRING) is
-      do
-         str.append(once "(void*)0")
-      end
-
    start_position: POSITION is
       do
          Result := class_text_name.start_position

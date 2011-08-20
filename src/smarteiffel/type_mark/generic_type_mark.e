@@ -3,7 +3,7 @@
 --
 deferred class GENERIC_TYPE_MARK
    --
-   -- Common parent of all generic types (USER_GENERIC_TYPE_MARK, TYPE_ARRAY, TYPE_NATIVE_ARRAY, 
+   -- Common parent of all generic types (USER_GENERIC_TYPE_MARK, TYPE_ARRAY, TYPE_NATIVE_ARRAY,
    -- NON_EMPTY_TUPLE_TYPE_MARK and AGENT_TYPE_MARK as well).
    --
 
@@ -33,7 +33,7 @@ feature {ANY}
          end
          Result := type_memory
       end
-   
+
    pretty_in (buffer: STRING) is
       local
          i: INTEGER
@@ -68,12 +68,12 @@ feature {ANY}
          else
             from
                Result := True
-               i := generic_list.upper
+               i := generic_list.lower
             until
-               not Result or else i < generic_list.lower
+               not Result or else i > generic_list.upper
             loop
                Result := generic_list.item(i).is_static
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -83,12 +83,12 @@ feature {ANY}
          i: INTEGER
       do
          from
-            i := generic_list.upper
+            i := generic_list.lower
          until
-            i < generic_list.lower
+            i > generic_list.upper
          loop
             generic_list.item(i).specialize_in(new_type)
-            i := i - 1
+            i := i + 1
          end
          Current.update_static_memory(new_type)
       end
@@ -98,25 +98,25 @@ feature {ANY}
          tm1, tm2: TYPE_MARK; i: INTEGER; gl: like generic_list
       do
          from
-            i := generic_list.upper
+            i := generic_list.lower
          until
-            i < generic_list.lower or else tm1 /= tm2
+            tm1 /= tm2 or else i > generic_list.upper
          loop
             tm1 := generic_list.item(i)
             tm2 := tm1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if tm1 = tm2 then
             Result := Current
          else
             from
                gl := generic_list.twin
-               gl.put(tm2, i + 1)
+               gl.put(tm2, i - 1)
             until
-               i < gl.lower
+               i > gl.upper
             loop
                gl.put(gl.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-               i := i - 1
+               i := i + 1
             end
             Result := twin
             Result.set_generic_list(gl)
@@ -136,23 +136,23 @@ feature {ANY}
       do
          if declaration_type_memory = Void then
             from
-               i := generic_list.upper
+               i := generic_list.lower
             until
-               i < generic_list.lower or else tm1 /= tm2
+               tm1 /= tm2 or else i > generic_list.upper
             loop
                tm1 := generic_list.item(i)
                tm2 := tm1.declaration_type
-               i := i - 1
+               i := i + 1
             end
             if tm1 /= tm2 then
                from
                   gl := generic_list.twin
-                  gl.put(tm2, i + 1)
+                  gl.put(tm2, i - 1)
                until
-                  i < gl.lower
+                  i > gl.upper
                loop
                   gl.put(gl.item(i).declaration_type, i)
-                  i := i - 1
+                  i := i + 1
                end
                static_generic_type_mark := twin
                static_generic_type_mark.set_static_generic_list(gl)
@@ -174,16 +174,16 @@ feature {ANY}
          if Result = Void then
             gl := generic_list -- To force first the computation of `generic_list' items:
             from
-               i := gl.upper
+               i := gl.lower
             until
-               i < 1
+               i > gl.upper
             loop
                if gl.item(i).written_name = Void then
                   check
                      False
                   end
                end
-               i := i - 1
+               i := i + 1
             end
             -- Now prepare the `buffer':
             buffer := once ".....         local unique buffer          ....."
@@ -198,7 +198,7 @@ feature {ANY}
             end
             from
                buffer.extend('[')
-               i := 1
+               i := gl.lower
             until
                i > gl.upper
             loop
@@ -236,12 +236,12 @@ feature {ANY}
          if Result = Void then
             from
                gl := generic_list.twin
-               i := gl.upper
+               i := gl.lower
             until
-               i < gl.lower
+               i > gl.upper
             loop
                gl.put(generic_list.item(i).signature_resolve_in(new_type).canonical_type_mark, i)
-               i := i - 1
+               i := i + 1
             end
             static_generic_type_mark := twin
             static_generic_type_mark.set_static_generic_list(gl)
@@ -253,7 +253,7 @@ feature {ANY}
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       local
-         ln: STRING; i, n: INTEGER
+         ln: STRING; i: INTEGER
       do
          Result := long_name_memory
          if Result = Void then
@@ -261,9 +261,8 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
             ln.extend('[')
             from
                i := generic_list.lower
-               n := generic_list.upper
             until
-               i > n
+               i > generic_list.upper
             loop
                if i > generic_list.lower then
                   ln.extend(',')
@@ -319,38 +318,38 @@ feature {GENERIC_TYPE_MARK}
          if declaration_type_memory /= Void then
             gl := declaration_type_memory.generic_list
             from
-               i := generic_list.upper
+               i := generic_list.lower
                current_ok := i
                memory_ok := i
             until
-               i < generic_list.lower or else (current_ok > i and then memory_ok > i)
+               (current_ok < i and then memory_ok < i) or else i > generic_list.upper
             loop
                tm1 := generic_list.item(i)
                tm2 := tm1.declaration_type
                tm3 := gl.item(i)
                if current_ok = i and then tm1 = tm2 then
-                  current_ok := current_ok - 1
+                  current_ok := current_ok + 1
                end
                if memory_ok = i and then tm3 = tm2 then
-                  memory_ok := memory_ok - 1
+                  memory_ok := memory_ok + 1
                end
-               i := i - 1
+               i := i + 1
             end
             if current_ok = i then
                declaration_type_memory := Current
             elseif memory_ok /= i then
-               if current_ok <= memory_ok then
+               if current_ok >= memory_ok then
                   gl := generic_list.twin
                else
                   gl := gl.twin
                end
                from
-                  gl.put(tm2, i + 1)
+                  gl.put(tm2, i - 1)
                until
-                  i < gl.lower
+                  i > gl.upper
                loop
                   gl.put(generic_list.item(i).declaration_type, i)
-                  i := i - 1
+                  i := i + 1
                end
                static_generic_type_mark := twin
                static_generic_type_mark.set_static_generic_list(gl)
@@ -372,13 +371,13 @@ feature {GENERIC_TYPE_MARK, CREATE_INSTRUCTION}
          end
          if static = Void then
             from
-               i := generic_list.upper
+               i := generic_list.lower
             until
-               i < generic_list.lower or else tm1 /= tm2
+               tm1 /= tm2 or else i > generic_list.upper
             loop
                tm1 := generic_list.item(i)
                tm2 := tm1.to_static(new_type)
-               i := i - 1
+               i := i + 1
             end
             if tm1 = tm2 then
                -- Was a True static `generic_list':
@@ -386,12 +385,12 @@ feature {GENERIC_TYPE_MARK, CREATE_INSTRUCTION}
             else
                from
                   gl := generic_list.twin
-                  gl.put(tm2, i + 1)
+                  gl.put(tm2, i - 1)
                until
-                  i < gl.lower
+                  i > gl.upper
                loop
                   gl.put(gl.item(i).to_static(new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
                static_generic_type_mark := twin
                static_generic_type_mark.set_static_generic_list(gl)

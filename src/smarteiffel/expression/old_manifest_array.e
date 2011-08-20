@@ -45,13 +45,13 @@ feature
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > list.upper
          loop
             exp1 := list.item(i)
             exp2 := exp1.specialize_in(type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := Current
@@ -60,12 +60,12 @@ feature
                l := list.twin
                Result := twin
                Result.set_list(l)
-               l.put(exp2, i + 1)
+               l.put(exp2, i - 1)
             until
-               i < list.lower
+               i > l.upper
             loop
                l.put(list.item(i).specialize_in(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -76,12 +76,12 @@ feature
       do
          Result := True
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else not Result
+            not Result or else i > list.upper
          loop
             Result := list.item(i).has_been_specialized
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -90,13 +90,13 @@ feature
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
       do
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > list.upper
          loop
             exp1 := list.item(i)
             exp2 := exp1.specialize_thru(parent_type, parent_edge, new_type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             Result := Current
@@ -105,12 +105,12 @@ feature
                l := list.twin
                Result := twin
                Result.set_list(l)
-               l.put(exp2, i + 1)
+               l.put(exp2, i - 1)
             until
-               i < list.lower
+               i > l.upper
             loop
                l.put(list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -125,33 +125,33 @@ feature
       do
          -- First applying `specialize_2' for all items of the `list':
          from
-            i := list.upper
+            i := list.lower
          until
-            i < list.lower or else exp1 /= exp2
+            exp1 /= exp2 or else i > list.upper
          loop
             exp1 := list.item(i)
             exp2 := exp1.specialize_2(type)
-            i := i - 1
+            i := i + 1
          end
          if exp1 = exp2 then
             l := list
          else
             from
                l := list.twin
-               l.put(exp2, i + 1)
+               l.put(exp2, i - 1)
             until
-               i < list.lower
+               i > l.upper
             loop
                l.put(list.item(i).specialize_2(type), i)
-               i := i - 1
+               i := i + 1
             end
          end
          -- Now computing `items_type_mark':
          from
             type_set_buffer.clear_count
-            i := l.upper
+            i := l.lower
          until
-            i < l.lower
+            i > l.upper
          loop
             exp1 := l.item(i)
             if exp1.is_void then
@@ -159,7 +159,7 @@ feature
             else
                type_set_buffer.add(exp1.resolve_in(type))
             end
-            i := i - 1
+            i := i + 1
          end
          if void_expression /= Void and then type_set_buffer.count = 0 then
             void_type := void_expression.resolve_in(type)

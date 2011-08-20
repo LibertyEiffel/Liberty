@@ -45,13 +45,13 @@ feature {ANY}
          i: INTEGER; cn: CLASS_NAME
       do
          from
-            i := count
+            i := 1
          until
-            i = 0
+            i > count
          loop
             cn := item(i)
             error_handler.add_position(cn.start_position)
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -61,12 +61,12 @@ feature {ANY}
       do
          Result := other.count = count
          from
-            i := count
+            i := 1
          until
-            not Result or else i = 0
+            not Result or else i > count
          loop
             Result := item(i).is_equal(other.item(i))
-            i := i - 1
+            i := i + 1
          end
       ensure then
          Result = (wider_than(other) and other.wider_than(Current))
@@ -171,9 +171,9 @@ feature {CLIENT_LIST}
             Result := gives_permission_to_any
          else
             from
-               i := count
+               i := 1
             until
-               Result or else i = 0
+               Result or else i > count
             loop
                item_class_name := item(i)
                if item_class_name.to_string = as_any then
@@ -196,7 +196,7 @@ feature {CLIENT_LIST}
                      Result := cn_class_text.get_export_permission_of(item_class_text)
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
       ensure
@@ -208,12 +208,12 @@ feature {CLIENT_LIST}
          i: INTEGER
       do
          from
-            i := count
+            i := 1
          until
-            Result or else i = 0
+            Result or else i > count
          loop
             Result := item(i).to_string = as_any
-            i := i - 1
+            i := i + 1
          end
       end
 
@@ -234,15 +234,15 @@ feature {CLIENT_LIST, CLASS_NAME_LIST}
             if oc /= Void then
                from
                   Result := False
-                  i := count
+                  i := 1
                until
-                  Result or else i = 0
+                  Result or else i > count
                loop
                   c := item(i).try_class_text
                   if c /= Void then
                      Result := oc = c or else oc.get_export_permission_of(c)
                   end
-                  i := i - 1
+                  i := i + 1
                end
             end
             o := o - 1
@@ -273,26 +273,26 @@ feature {}
       local
          i: INTEGER; cn: CLASS_NAME
       do
-         first := l1.item(1)
          create remainder.with_capacity(l1.count + l2.count - 1)
          from
-            i := l1.count
+            first := l1.item(1)
+            i := 2
          until
-            i = 1 --|*** strange... should be documented (by the proper require?)
+            i > l1.count
          loop
             remainder.add_last(l1.item(i))
-            i := i - 1
+            i := i + 1
          end
          from
-            i := l2.count
+            i := 1
          until
-            i = 0
+            i > l2.count
          loop
             cn := l2.item(i)
             if index_of(cn) = 0 then
                remainder.add_last(cn)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

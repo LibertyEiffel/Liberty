@@ -19,34 +19,6 @@ feature {ANY}
       do
       end
 
-   does_need_c_wrapper (type_of_current: TYPE; name: STRING): BOOLEAN is
-      do
-         Result := True
-      end
-
-   c_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         if not extra_c_prototype_dumped then
-            extra_c_prototype_dumped := True
-            extra_c_prototype(external_tag.start_position, rf7.type_of_current, rf7.base_feature)
-            cpp.c_plus_plus_register(Current)
-            rf7_memory := rf7
-         end
-         wrapped_external_call_in(cpp.pending_c_function_body, rf7.base_feature, rf7.arg_count)
-         cpp.pending_c_function_body.append(once ";%N")
-      end
-
-   c_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         if not extra_c_prototype_dumped then
-            extra_c_prototype_dumped := True
-            extra_c_prototype(external_tag.start_position, rf8.type_of_current, rf8.base_feature)
-            cpp.c_plus_plus_register(Current)
-            rf8_memory := rf8
-         end
-         wrapped_external_call_in(cpp.pending_c_function_body, rf8.base_feature, rf8.arg_count)
-      end
-
    jvm_add_method_for_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
       do
       end
@@ -87,119 +59,7 @@ feature {EXTERNAL_TYPE}
          not_yet_implemented
       end
 
-feature {C_PRETTY_PRINTER}
-   c_plus_plus_definition is
-      do
-         if rf8_memory /= Void then
-            c_plus_plus_function_definition(rf8_memory)
-         else
-            c_plus_plus_procedure_definition(rf7_memory)
-         end
-      end
-
-feature {}
-   extra_c_prototype_dumped: BOOLEAN
-
-   rf7_memory: RUN_FEATURE_7
-
-   rf8_memory: RUN_FEATURE_8
-
-   c_mapping_external (er: EXTERNAL_ROUTINE; arg_count: INTEGER) is
-      local
-         eruc, tcbd: BOOLEAN
-      do
-         eruc := use_current(er)
-         if not eruc then
-            tcbd := cpp.target_cannot_be_dropped
-            if tcbd then
-               cpp.pending_c_function_body.extend(',')
-            end
-         end
-         cpp.pending_c_function_body.append(er.external_name)
-         cpp.pending_c_function_body.extend('(')
-         if eruc then
-            cpp.put_target_as_value
-         end
-         if arg_count > 0 then
-            if eruc then
-               cpp.pending_c_function_body.extend(',')
-            end
-            cpp.put_arguments(arg_count)
-         end
-         cpp.pending_c_function_body.extend(')')
-         if not eruc and then tcbd then
-            cpp.pending_c_function_body.extend(')')
-         end
-      end
-
-   wrapped_external_call_in (body: STRING; er: EXTERNAL_ROUTINE; arg_count: INTEGER) is
-      local
-         i: INTEGER
-      do
-         body.append(er.external_name)
-         body.extend('(')
-         if use_current(er) then
-            body.extend('C')
-            if arg_count > 0 then
-               body.extend(',')
-            end
-         end
-         from
-            i := 1
-         until
-            i > arg_count
-         loop
-            body.extend('a')
-            i.append_in(body)
-            i := i + 1
-            if i <= arg_count then
-               body.extend(',')
-            end
-         end
-         body.append(once ")")
-      end
-
-   c_plus_plus_function_definition (rf8: RUN_FEATURE_8) is
-      local
-         er: EXTERNAL_ROUTINE; args_count: INTEGER
-      do
-         er := rf8.base_feature
-         if not external_routine_memory.fast_has(er) then
-            external_routine_memory.add_last(er)
-            cpp.prepare_c_function
-            extra_c_prototype_in_cpp_out_h_buffer(start_position, rf8.type_of_current, rf8.base_feature)
-            cpp.pending_c_function_signature.append(cpp.out_h_buffer)
-            cpp.pending_c_function_body.append(once "return ((")
-            cpp.pending_c_function_body.append(cpp.result_type.for_external(rf8.result_type))
-            cpp.pending_c_function_body.extend(')')
-            if rf8.arguments /= Void then
-               args_count := rf8.arguments.count
-            end
-            parse_external_in(cpp.pending_c_function_body, args_count, external_tag.to_string, er)
-            cpp.pending_c_function_body.append(once ");%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
-   c_plus_plus_procedure_definition (rf7: RUN_FEATURE_7) is
-      local
-         er: EXTERNAL_ROUTINE; args_count: INTEGER
-      do
-         er := rf7.base_feature
-         if not external_routine_memory.fast_has(er) then
-            external_routine_memory.add_last(er)
-            cpp.prepare_c_function
-            extra_c_prototype_in_cpp_out_h_buffer(start_position, rf7.type_of_current, rf7.base_feature)
-            cpp.pending_c_function_signature.append(cpp.out_h_buffer)
-            if rf7.arguments /= Void then
-               args_count := rf7.arguments.count
-            end
-            parse_external_in(cpp.pending_c_function_body, args_count, external_tag.to_string, er)
-            cpp.pending_c_function_body.append(once ";%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
+feature {ANY}
    parse_external_in (body: STRING; args_count: INTEGER; tag: STRING; er: EXTERNAL_ROUTINE) is
          -- Lazy parsing (hope the tag is correct) of this syntax :
          --
@@ -418,6 +278,13 @@ feature {}
          end
       end
 
+feature {}
+   extra_c_prototype_dumped: BOOLEAN
+
+   rf7_memory: RUN_FEATURE_7
+
+   rf8_memory: RUN_FEATURE_8
+
    parse_args_in (body: STRING; s: INTEGER; tag: STRING; args, args_count: INTEGER): INTEGER is
       require
          tag.item(s) = '('
@@ -606,11 +473,6 @@ feature {}
       end
 
    include_memory: FAST_ARRAY[STRING] is
-      once
-         create Result.with_capacity(4)
-      end
-
-   external_routine_memory: FAST_ARRAY[EXTERNAL_ROUTINE] is
       once
          create Result.with_capacity(4)
       end

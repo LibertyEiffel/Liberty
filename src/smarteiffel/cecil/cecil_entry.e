@@ -130,7 +130,7 @@ feature {ANY}
          end
       end
 
-feature {CECIL_FILE, CECIL_POOL}
+feature {ANY}
    anonymous_feature: ANONYMOUS_FEATURE is
       local
          fs: FEATURE_STAMP
@@ -213,7 +213,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-feature {CECIL_FILE}
+feature {ANY}
    on_echo (cecil_file: CECIL_FILE) is
       do
          if is_creation then
@@ -244,108 +244,6 @@ feature {CECIL_POOL}
    run_feature: RUN_FEATURE is
       do
          Result := feature_stamp.run_feature_for(target_type)
-      end
-
-feature {CECIL_FILE}
-   c_define_function is
-      require
-         not cpp.pending_c_function
-      local
-         type: TYPE; result_type_mark: TYPE_MARK; arguments: FORMAL_ARG_LIST; af: ANONYMOUS_FEATURE
-         internal_c_local: INTERNAL_C_LOCAL
-      do
-         type := smart_eiffel.type_any
-         af := anonymous_feature
-         result_type_mark := af.result_type
-         if result_type_mark /= Void then
-            result_type_mark := result_type_mark.to_static(target_type)
-         end
-         arguments := af.arguments
-         cpp.prepare_c_function
-         if is_creation then
-            cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type_mark))
-         else
-            cpp.pending_c_function_signature.append(cpp.result_type.for_external(result_type_mark))
-         end
-         cpp.pending_c_function_signature.extend(' ')
-         cpp.pending_c_function_signature.append(c_name)
-         cpp.pending_c_function_signature.extend('(')
-         if is_creation then
-            if arguments = Void then
-               cpp.pending_c_function_signature.append(once "void")
-            else
-               arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
-            end
-         else
-            cpp.pending_c_function_signature.append(cpp.result_type.for_external(target_type_mark))
-            cpp.pending_c_function_signature.append(once " C")
-            if arguments /= Void then
-               cpp.pending_c_function_signature.extend(',')
-               arguments.external_prototype_in(cpp.pending_c_function_signature, target_type)
-            end
-         end
-         cpp.pending_c_function_signature.extend(')')
-         if result_type_mark /= Void or else is_creation then
-            if is_creation then
-               cpp.pending_c_function_body.append(cpp.result_type.for_external(target_type_mark))
-            else
-               cpp.pending_c_function_body.append(cpp.result_type.for_external(result_type_mark))
-            end
-            cpp.pending_c_function_body.append(once " R;%N")
-         end
-         if not cpp.gc_handler.is_off then
-            cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                                    %int valid_stack_bottom = stack_bottom != NULL;%N%
-                                                    %#endif%N")
-         end
-         if ace.no_check then
-            cpp.pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
-                                                    %ds.caller=se_dst;%N%
-                                                    %ds.exception_origin=NULL;%N%
-                                                    %ds.locals=NULL;%N")
-            cpp.set_dump_stack_top_for(target_type, once "&ds", once "link")
-         end
-         if not cpp.gc_handler.is_off then
-            cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                 %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
-                                 %#endif%N")
-         end
-         if is_creation then
-            --sedb_breakpoint -- *** A FAIRE
-            cpp.pending_c_function_body.append(once "/* CECIL creation */%N{%N")
-            internal_c_local := cpp.pending_c_function_lock_local(target_type, once "cecilcrea")
-            if target_type.is_reference then
-               cpp.gc_handler.allocation_of(internal_c_local, target_type.live_type)
-            else
-               internal_c_local.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once "=M")
-               target_type.live_type.id.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ";%N")
-            end
-            cpp.pending_c_function_body.append(once "R=")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            internal_c_local.unlock
-            cpp.pending_c_function_body.append(once ";%N}%N")
-         end
-         if code = Void then
-            -- Well, nothing to do.
-         elseif result_type_mark = Void then
-            cpp.code_compiler.compile(code, type)
-         else
-            cpp.compound_expression_compiler.compile(once "R=", code.to_expression, once ";%N", type)
-         end
-         if not cpp.gc_handler.is_off then
-            cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
-                                    %if(!valid_stack_bottom) stack_bottom = NULL;%N%
-                                    %#endif%N")
-         end
-         if ace.no_check then
-            cpp.set_dump_stack_top_for(target_type, once "ds.caller", once "unlink")
-         end
-         if result_type_mark /= Void or else is_creation then
-            cpp.pending_c_function_body.append(once "return R;%N")
-         end
-         cpp.dump_pending_c_function(True)
       end
 
 feature {}

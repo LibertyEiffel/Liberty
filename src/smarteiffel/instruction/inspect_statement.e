@@ -73,16 +73,16 @@ feature {ANY}
                   Result := else_compound
                else
                   from
-                     i := when_list.upper
+                     i := when_list.lower
                   until
-                     selected or else i < when_list.lower
+                     selected or else i > when_list.upper
                   loop
                      wc1 := when_list.item(i)
                      if wc1.match_value(value) then
                         selected := True
                         Result := wc1.compound
                      end
-                     i := i - 1
+                     i := i + 1
                   end
                   if not selected then
                      if else_position.is_unknown then
@@ -113,25 +113,25 @@ feature {ANY}
                -- The general scheme:
                if when_list /= Void then
                   from
-                     i := when_list.upper
+                     i := when_list.lower
                   until
-                     i < when_list.lower or else wc1 /= wc2
+                     wc1 /= wc2 or else i > when_list.upper
                   loop
                      wc1 := when_list.item(i)
                      wc2 := wc1.simplify(type)
-                     i := i - 1
+                     i := i + 1
                   end
                   if wc1 = wc2 then
                      wl := when_list
                   else
                      from
                         wl := when_list.twin
-                        wl.put(wc2, i + 1)
+                        wl.put(wc2, i - 1)
                      until
-                        i < wl.lower
+                        i > wl.upper
                      loop
                         wl.put(wl.item(i).simplify(type), i)
-                        i := i - 1
+                        i := i + 1
                      end
                   end
                end
@@ -205,12 +205,12 @@ feature {ANY}
          Result := expression.use_current(type)
          if not Result and then when_list /= Void then
             from
-               i := when_list.upper
+               i := when_list.lower
             until
-               Result or else i < when_list.lower
+               Result or else i > when_list.upper
             loop
                Result := when_list.item(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -225,25 +225,25 @@ feature {ANY}
          exp := expression.specialize_in(new_type)
          if when_list /= Void then
             from
-               i := when_list.upper
+               i := when_list.lower
             until
-               i < when_list.lower or else ew1 /= ew2
+               ew1 /= ew2 or else i > when_list.upper
             loop
                ew1 := when_list.item(i)
                ew2 := ew1.specialize_in(new_type)
-               i := i - 1
+               i := i + 1
             end
             if ew1 = ew2 then
                wl := when_list
             else
                from
                   wl := when_list.twin
-                  wl.put(ew2, i + 1)
+                  wl.put(ew2, i - 1)
                until
-                  i < wl.lower
+                  i > wl.upper
                loop
                   wl.put(when_list.item(i).specialize_in(new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -260,25 +260,25 @@ feature {ANY}
          exp := expression.specialize_thru(parent_type, parent_edge, new_type)
          if when_list /= Void then
             from
-               i := when_list.upper
+               i := when_list.lower
             until
-               i < when_list.lower or else ew1 /= ew2
+               ew1 /= ew2 or else i > when_list.upper
             loop
                ew1 := when_list.item(i)
                ew2 := ew1.specialize_thru(parent_type, parent_edge, new_type)
-               i := i - 1
+               i := i + 1
             end
             if ew1 = ew2 then
                wl := when_list
             else
                from
                   wl := when_list.twin
-                  wl.put(ew2, i + 1)
+                  wl.put(ew2, i - 1)
                until
-                  i < wl.lower
+                  i > wl.upper
                loop
                   wl.put(when_list.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -298,72 +298,72 @@ feature {ANY}
          if when_list /= Void then
             if expression_type.is_character then
                from
-                  i := when_list.upper
+                  i := when_list.lower
                until
-                  i < when_list.lower or else ew1 /= ew2
+                  ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
                   ew2 := ew1.specialize_2_character(type)
-                  i := i - 1
+                  i := i + 1
                end
                if ew1 = ew2 then
                   wl := when_list
                else
                   from
                      wl := when_list.twin
-                     wl.put(ew2, i + 1)
+                     wl.put(ew2, i - 1)
                   until
-                     i < wl.lower
+                     i > wl.upper
                   loop
                      wl.put(when_list.item(i).specialize_2_character(type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             elseif expression_type.is_integer then
                from
-                  i := when_list.upper
+                  i := when_list.lower
                until
-                  i < when_list.lower or else ew1 /= ew2
+                  ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
                   ew2 := ew1.specialize_2_integer(type)
-                  i := i - 1
+                  i := i + 1
                end
                if ew1 = ew2 then
                   wl := when_list
                else
                   from
                      wl := when_list.twin
-                     wl.put(ew2, i + 1)
+                     wl.put(ew2, i - 1)
                   until
-                     i < wl.lower
+                     i > wl.upper
                   loop
                      wl.put(when_list.item(i).specialize_2_integer(type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             elseif expression_type.is_string or else expression_type.is_fixed_string then
                create manifest_string_inspector.make(Current)
                from
-                  i := when_list.upper
+                  i := when_list.lower
                until
-                  i < when_list.lower or else ew1 /= ew2
+                  ew1 /= ew2 or else i > when_list.upper
                loop
                   ew1 := when_list.item(i)
                   ew2 := ew1.specialize_2_string(type)
-                  i := i - 1
+                  i := i + 1
                end
                if ew1 = ew2 then
                   wl := when_list
                else
                   from
                      wl := when_list.twin
-                     wl.put(ew2, i + 1)
+                     wl.put(ew2, i - 1)
                   until
-                     i < wl.lower
+                     i > wl.upper
                   loop
                      wl.put(when_list.item(i).specialize_2_string(type), i)
-                     i := i - 1
+                     i := i + 1
                   end
                end
             else
@@ -391,12 +391,12 @@ feature {ANY}
          expression.safety_check(type)
          if when_list /= Void then
             from
-               i := when_list.upper
+               i := when_list.lower
             until
-               i < when_list.lower
+               i > when_list.upper
             loop
                when_list.item(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -411,13 +411,13 @@ feature {ANY}
          Result := expression.has_been_specialized
          if Result and then when_list /= Void then
             from
-               i := when_list.upper
+               i := when_list.lower
                Result := True
             until
-               i < when_list.lower or not Result
+               not Result or else i > when_list.upper
             loop
                Result := when_list.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
          if Result and then else_compound /= Void then
@@ -474,14 +474,14 @@ feature {ANY}
                condition_live_type := condition_type.live_type
             end
             from
-               i := when_list.upper
+               i := when_list.lower
             until
-               i < when_list.lower
+               i > when_list.upper
             loop
                when_clause := when_list.item(i)
                when_clause.set_condition_live_type(condition_live_type)
                dummy := when_clause.collect(type)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then
@@ -728,16 +728,16 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          if when_list /= Void then
             from
                create wl.make(when_list.count)
-               i := when_list.upper
+               i := when_list.lower
             until
-               i < when_list.lower
+               i > when_list.upper
             loop
                code_accumulator.open_new_context
                when_list.item(i).inline_dynamic_dispatch_(code_accumulator, type)
                when_clause ::= code_accumulator.current_context_to_instruction
                code_accumulator.close_current_context
                wl.put(when_clause, i)
-               i := i - 1
+               i := i + 1
             end
          end
          if else_compound /= Void then

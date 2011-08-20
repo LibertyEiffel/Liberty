@@ -33,9 +33,9 @@ feature {}
          if Result /= Void and then target_type.live_type /= Void then
             from
                rts := target_type.live_type.run_time_set
-               i := rts.count
+               i := 1
             until
-               i = 0
+               i > rts.count
             loop
                sub_type := rts.item(i).type
                if sub_type /= target_type then
@@ -53,7 +53,7 @@ feature {}
                      end
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          end
          if arguments /= Void then

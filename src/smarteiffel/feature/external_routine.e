@@ -166,7 +166,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
          Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
       end
 
-feature {NATIVE_C}
+feature {ANY}
    argument_rank_of (arg_name: STRING): INTEGER is
          -- Gives 0 or the index of `arg_name'.
       require

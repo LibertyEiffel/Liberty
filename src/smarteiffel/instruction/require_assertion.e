@@ -241,12 +241,12 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower or else not Result
+               not Result or else i > direct_parents_require.upper
             loop
                Result := direct_parents_require.item(i).has_been_specialized
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -266,13 +266,13 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower or else ra1 /= ra2
+                ra1 /= ra2 or else i > direct_parents_require.upper
             loop
                ra1 := direct_parents_require.item(i)
                ra2 := ra1.specialize_thru(parent_type, parent_edge, new_type)
-               i := i - 1
+               i := i + 1
             end
             if ra1 /= ra2 then
                if Result = Current then
@@ -281,12 +281,12 @@ feature {ANY}
                from
                   pr := direct_parents_require.twin
                   Result.set_direct_parents_require(pr)
-                  pr.put(ra2, i + 1)
+                  pr.put(ra2, i - 1)
                until
-                  i < direct_parents_require.lower
+                  i > direct_parents_require.upper
                loop
                   pr.put(direct_parents_require.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -309,11 +309,11 @@ feature {ANY}
             from
                i := direct_parents_require.upper
             until
-               i < direct_parents_require.lower or else ra1 /= ra2
+               ra1 /= ra2 or else i > direct_parents_require.upper
             loop
                ra1 := direct_parents_require.item(i)
                ra2 := ra1.specialize_2(type)
-               i := i - 1
+               i := i + 1
             end
             if ra1 /= ra2 then
                if Result = Current then
@@ -322,12 +322,12 @@ feature {ANY}
                from
                   pr := direct_parents_require.twin
                   Result.set_direct_parents_require(pr)
-                  pr.put(ra2, i + 1)
+                  pr.put(ra2, i - 1)
                until
-                  i < direct_parents_require.lower
+                  i > direct_parents_require.upper
                loop
                   pr.put(direct_parents_require.item(i).specialize_2(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -342,12 +342,12 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower
+               i > direct_parents_require.upper
             loop
                dummy := direct_parents_require.item(i).collect(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -370,16 +370,16 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower or else ra1 /= ra2
+               ra1 /= ra2 or else i > direct_parents_require.upper
             loop
                ra1 := direct_parents_require.item(i)
                ra2 ::= ra1.inline_dynamic_dispatch(code_accumulator, type)
                check
                   ra2 /= Void
                end
-               i := i - 1
+               i := i + 1
             end
             if ra1 /= ra2 then
                if require_assertion = Current then
@@ -388,16 +388,16 @@ feature {ANY}
                from
                   pr := direct_parents_require.twin
                   require_assertion.set_direct_parents_require(pr)
-                  pr.put(ra2, i + 1)
+                  pr.put(ra2, i - 1)
                until
-                  i < direct_parents_require.lower
+                  i > pr.upper
                loop
                   ra1 ::= direct_parents_require.item(i).inline_dynamic_dispatch(code_accumulator, type)
                   check
                      ra1 /= Void
                   end
                   pr.put(ra1, i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -419,13 +419,13 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower or else ra1 /= ra2
+               ra1 /= ra2 or else i > direct_parents_require.upper
             loop
                ra1 := direct_parents_require.item(i)
                ra2 := ra1.adapt_for(type)
-               i := i - 1
+               i := i + 1
             end
             if ra1 /= ra2 then
                if Result = Current then
@@ -434,12 +434,12 @@ feature {ANY}
                from
                   pr := direct_parents_require.twin
                   Result.set_direct_parents_require(pr)
-                  pr.put(ra2, i + 1)
+                  pr.put(ra2, i - 1)
                until
-                  i < direct_parents_require.lower
+                  i > pr.upper
                loop
                   pr.put(direct_parents_require.item(i).adapt_for(type), i)
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -454,12 +454,12 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               Result or else i < direct_parents_require.lower
+               Result or else i > direct_parents_require.upper
             loop
                Result := direct_parents_require.item(i).use_current(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -493,12 +493,12 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               i < direct_parents_require.lower
+               i > direct_parents_require.upper
             loop
                direct_parents_require.item(i).safety_check(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -522,12 +522,12 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               not Result or else i < direct_parents_require.lower
+               not Result or else i > direct_parents_require.upper
             loop
                Result := direct_parents_require.item(i).side_effect_free(type)
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -652,14 +652,12 @@ feature {}
       do
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
-               Result or else i < direct_parents_require.lower
+               Result or else i > direct_parents_require.upper
             loop
-               if direct_parents_require.item(i).start_position = sp then
-                  Result := True
-               end
-               i := i - 1
+               Result := direct_parents_require.item(i).start_position = sp
+               i := i + 1
             end
          end
       end

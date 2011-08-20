@@ -49,11 +49,6 @@ feature {ANY}
          Result := type
       end
 
-   c_initialize_in (buffer: STRING) is
-      do
-         buffer.append(once "(void*)0")
-      end
-
    run_type: TYPE_MARK is
       do
          Result := Current

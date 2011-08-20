@@ -251,10 +251,10 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(inspect_statement)
             from
                run_time_set := target_live_type.run_time_set
-               i := run_time_set.count
+               i := 1
                smart_eiffel.polymorphic_procedure_call_count_increment(i)
             until
-               i = 0
+               i > run_time_set.count
             loop
                live_type := run_time_set.item(i)
                code_accumulator.open_new_context
@@ -285,7 +285,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                end
                when_clause.set_compound(code_accumulator.current_context_to_instruction)
                code_accumulator.close_current_context
-               i := i - 1
+               i := i + 1
             end
             if not ace.boost then
                create run_time_error_instruction.make(feature_name.start_position,

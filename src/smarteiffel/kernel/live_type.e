@@ -14,6 +14,9 @@ inherit
    VISITABLE
       redefine is_equal
       end
+   TAGGED
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -135,7 +138,7 @@ feature {ANY}
          visitor.visit_live_type(Current)
       end
 
-feature {SMART_EIFFEL, EXTERNAL_FUNCTION}
+feature {SMART_EIFFEL, EXTERNAL_FUNCTION, LIVE_TYPE_EXTRA_COLLECTOR}
    collect (fs: FEATURE_STAMP) is
       require
          valid_stamp: fs /= Void
@@ -236,17 +239,15 @@ feature {ANY}
             create precursor_classes.with_capacity(1)
          end
          from
-            i := precursor_run_features.upper
-         invariant
-            precursor_run_features.valid_index(i)
+            i := precursor_run_features.lower
          until
-            i < precursor_run_features.lower
+            i > precursor_run_features.upper
                or else (af.feature_text = precursor_run_features.item(i).base_feature.feature_text
                         and then precursor_classes.item(i) = ct)
          loop
-            i := i - 1
+            i := i + 1
          end
-         if i >= precursor_run_features.lower then
+         if precursor_run_features.valid_index(i) then
             Result := precursor_run_features.item(i)
          else
             s := once ""
@@ -395,9 +396,8 @@ feature {SMART_EIFFEL} -- Collect:
 
    propagate_features is
          -- This propagates in subtypes alive features detected while previous collect cycle, using
-         -- dynaminc binding. This means that a newly alive feature will became pending in all sub-types
-         -- and then will be collected while the upcoming collect cycle.
-         --
+         -- dynaminc binding. This means that a newly alive feature will become pending in all sub-types
+         -- and then will be collected in the next collect cycle.
       require
          smart_eiffel.status.is_collecting
       local
@@ -453,18 +453,7 @@ feature {SMART_EIFFEL} -- Collect:
             live_features.item(i).collect(type)
             i := i + 1
          end
-         from --|*** (PH 11/09/04) move this loop to the end of the feature?
-         until
-            new_features.is_empty
-         loop
-            af := new_features.item(new_features.upper)
-            fs := new_features.key(new_features.upper)
-            new_features.fast_remove(fs)
-            live_features.add(af, fs)
-            af.collect(type)
-         end
-         is_collecting := False
-         has_been_collected := True
+
          if class_text.invariant_check and then class_invariant /= Void then
             dummy := class_invariant.collect(type)
          end
@@ -479,58 +468,24 @@ feature {SMART_EIFFEL} -- Collect:
          if default_create_stamp /= Void then
             collect(default_create_stamp)
          end
-         do_collect_native_array_collector
+
+         live_type_extra_collectors.do_all(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
+
+         from
+         until
+            new_features.is_empty
+         loop
+            af := new_features.item(new_features.upper)
+            fs := new_features.key(new_features.upper)
+            new_features.fast_remove(fs)
+            live_features.add(af, fs)
+            af.collect(type)
+         end
+         is_collecting := False
+         has_been_collected := True
       ensure
          not is_collecting
          has_been_collected
-      end
-
-feature {ANY}
-   insert_native_array_collector_flag: BOOLEAN is
-         -- Is `Current' type under NATIVE_ARRAY_COLLECTOR special treatment?
-      do
-         Result := native_array_collector_memory = 1
-      end
-
-feature {}
-   native_array_collector_memory: INTEGER
-         -- To cache `do_collect_native_array_collector' and `insert_native_array_collector_flag' work.
-
-   do_collect_native_array_collector is
-      local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; args: FORMAL_ARG_LIST
-      do
-         inspect
-            native_array_collector_memory
-         when -1 then
-            -- Nothing to collect.
-         when 1 then
-            -- Must collect `mark_native_arrays':
-            fs := type.feature_stamp_of(mark_native_arrays_name)
-            if fs = Void then
-               error_handler.append("Internal problem for %"mark_native_arrays%".")
-               error_handler.print_as_warning
-            else
-               collect(fs)
-            end
-         when 0 then
-            native_array_collector_memory := -1
-            if not cpp.gc_handler.is_off and then type.is_native_array_collector_enabled then
-               fs := type.feature_stamp_of(mark_item_name)
-               if fs = Void then
-                  error_handler.append("Internal problem while searching for %"mark_item%".")
-                  error_handler.print_as_warning
-               else
-                  af := fs.anonymous_feature(type)
-                  args := af.arguments
-                  if args.name(1).resolve_in(type).generic_list.first.is_reference then
-                     native_array_collector_memory := 1
-                  end
-               end
-            end
-         end
-      ensure
-         native_array_collector_memory /= 0
       end
 
 feature {SMART_EIFFEL}
@@ -1015,22 +970,22 @@ feature {TYPE_MARK}
       do
          if writable_attributes /= Void then
             from
-               i := writable_attributes.upper
+               i := writable_attributes.lower
             until
-               i < writable_attributes.lower
+               i > writable_attributes.upper
             loop
                rf2 := writable_attributes.item(i)
                tm := rf2.result_type
                if as_weak_reference = tm.class_text_name.to_string then
-                  create Result.with_capacity(i + 1)
+                  create Result.with_capacity(writable_attributes.upper - i + 1)
                   check
                      tm.is_expanded
                   end
                   Result.add_last(rf2)
                   from
-                     i := i - 1
+                     i := i + 1
                   until
-                     i < writable_attributes.lower
+                     i > writable_attributes.upper
                   loop
                      rf2 := writable_attributes.item(i)
                      tm := rf2.result_type
@@ -1040,10 +995,10 @@ feature {TYPE_MARK}
                         end
                         Result.add_last(rf2)
                      end
-                     i := i - 1
+                     i := i + 1
                   end
                else
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -1109,14 +1064,14 @@ feature {JVM}
          end
          if precursor_run_features /= Void then
             from
-               i := precursor_run_features.upper
+               i := precursor_run_features.lower
             until
-               i < precursor_run_features.lower
+               i > precursor_run_features.upper
             loop
                rf := precursor_run_features.item(i)
                jvm.set_current_frame(rf)
                rf.jvm_field_or_method
-               i := i - 1
+               i := i + 1
             end
          end
          jvm.prepare_fields
@@ -1173,9 +1128,9 @@ feature {ANY}
          wa := writable_attributes
          if wa /= Void then
             from
-               i := wa.upper
+               i := wa.lower
             until
-               i < wa.lower
+               i > wa.upper
             loop
                rf2 := wa.item(i)
                t2 := rf2.result_type
@@ -1185,7 +1140,7 @@ feature {ANY}
                   idx := cp.idx_fieldref(rf2)
                   ca.opcode_putfield(idx, -2)
                end
-               i := i - 1
+               i := i + 1
             end
          end
       end
@@ -1206,266 +1161,6 @@ feature {TYPE_MARK, LIVE_TYPE, NATIVE_BUILT_IN}
             rf.mapping_jvm
             jvm.pop
          end
-      end
-
-feature {NATIVE_BUILT_IN}
-   c_deep_twin_body is
-      require
-         cpp.pending_c_function
-         at_run_time
-      local
-         i: INTEGER; wa: ARRAY[RUN_FEATURE_2]; rf2: RUN_FEATURE_2; lt: LIVE_TYPE; tm: TYPE_MARK
-         field_name: STRING; rts: RUN_TIME_SET; internal_c_local: INTERNAL_C_LOCAL
-      do
-         internal_c_local := cpp.pending_c_function_lock_local(type, once "deeptwin")
-         cpp.pending_c_function_body.append(once "se_deep_twin_start();%N")
-         if is_reference then
-            cpp.pending_c_function_body.append(once "R=se_deep_twin_search((void*)C);%N%
-                                                    %if(R == NULL){%N")
-            cpp.gc_handler.allocation_of(internal_c_local, Current)
-            cpp.pending_c_function_body.append(once "R=")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N*((T")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")=*C;%Nse_deep_twin_register(((T0*)C),")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ");%N")
-         else
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "=*C;%N")
-         end
-         wa := writable_attributes
-         if wa /= Void then
-            from
-               i := wa.upper
-            until
-               i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(type)
-               if tm.is_reference then
-                  lt := tm.type.live_type
-                  if lt = Void then
-                     rts := Void
-                  else
-                     rts := lt.run_time_set
-                  end
-                  if rts /= Void and then rts.count > 0 then
-                     cpp.pending_c_function_body.append(once "if(")
-                     c_field_access(internal_c_local, field_name)
-                     cpp.pending_c_function_body.append(once "!=NULL){%N")
-                     c_field_access(internal_c_local, field_name)
-                     cpp.pending_c_function_body.extend('=')
-                     if rts.count > 1 then
-                        cpp.pending_c_function_body.extend('X')
-                        rts.owner.id.append_in(cpp.pending_c_function_body)
-                     else
-                        cpp.pending_c_function_body.extend('r')
-                        rts.first.id.append_in(cpp.pending_c_function_body)
-                     end
-                     cpp.pending_c_function_body.append(once "deep_twin(")
-                     if ace.no_check then
-                        cpp.pending_c_function_body.append(once "&ds,")
-                        if rts.count > 1 then
-                           cpp.pending_c_function_body.append(once "ds.p,")
-                        end
-                     end
-                     if rts.count = 1 then
-                        cpp.pending_c_function_body.extend('(')
-                        cpp.pending_c_function_body.append(cpp.target_type.for(rts.first.canonical_type_mark))
-                        cpp.pending_c_function_body.extend(')')
-                     end
-                     cpp.pending_c_function_body.extend('(')
-                     c_field_access(internal_c_local, field_name)
-                     cpp.pending_c_function_body.append(once "));%N}%N")
-                  end
-               elseif tm.is_native_array then
-                  if not type.has_simple_feature_name(capacity_name) then
-                     error_handler.add_type_mark(tm)
-                     error_handler.add_position(tm.start_position)
-                     error_handler.append(fz_dtideena)
-                     error_handler.print_as_error
-                     error_handler.add_position(rf2.start_position)
-                     error_handler.append(em1)
-                     error_handler.print_as_fatal_error
-                  end
-                  c_field_access(internal_c_local, field_name)
-                  cpp.pending_c_function_body.append(once "=r")
-                  tm.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "deep_twin_from(")
-                  if ace.no_check then
-                     cpp.pending_c_function_body.append(once "&ds,")
-                  end
-                  c_field_access(internal_c_local, field_name)
-                  cpp.pending_c_function_body.extend(',')
-                  c_field_access(internal_c_local, as_capacity)
-                  cpp.pending_c_function_body.append(once ");%N")
-               elseif tm.is_empty_expanded then
-               elseif tm.is_user_expanded then
-                  c_field_access(internal_c_local, field_name)
-                  cpp.pending_c_function_body.append(once "=r")
-                  tm.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "deep_twin(")
-                  if ace.no_check then
-                     cpp.pending_c_function_body.append(once "&ds,")
-                  end
-                  cpp.pending_c_function_body.append(once "&(")
-                  c_field_access(internal_c_local, field_name)
-                  cpp.pending_c_function_body.append(once "));%N")
-               else
-                  check
-                     tm.is_kernel_expanded
-                  end
-               end
-               i := i - 1
-            end
-         end
-         if is_user_expanded then
-            cpp.pending_c_function_body.append(once "R=")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-         if is_reference then
-            cpp.pending_c_function_body.append(once "}%N")
-         end
-         cpp.pending_c_function_body.append(once "se_deep_twin_trats()%N")
-         internal_c_local.unlock
-      end
-
-   is_deep_equal_c_code is
-      require
-         cpp.pending_c_function
-      local
-         i: INTEGER; wa: ARRAY[RUN_FEATURE_2]; rf2: RUN_FEATURE_2; ct, tm: TYPE_MARK; field_name: STRING
-         check_type: BOOLEAN; lt: LIVE_TYPE; rts: RUN_TIME_SET
-      do
-         ct := canonical_type_mark
-         cpp.pending_c_function_body.append(once "se_deep_equal_start();%N")
-         if ct.is_reference then
-            check_type := ct.type.live_type.is_tagged
-            if check_type then
-               cpp.pending_c_function_body.append(once "R=(C->id==a1->id);%Nif(R){%N")
-            end
-            cpp.pending_c_function_body.append(once "R=se_deep_equal_search(C,a1);%N")
-         end
-         cpp.pending_c_function_body.append(once "if(!R){%N")
-         cpp.pending_c_function_body.append(cpp.target_type.for(ct))
-         cpp.pending_c_function_body.append(once "a1ptr=")
-         if ct.is_reference then
-            cpp.pending_c_function_body.append(once "((void*)a1);%N")
-         else
-            cpp.pending_c_function_body.append(once "((void*)(&a1));%N")
-         end
-         cpp.pending_c_function_body.append(once "R=1;%N")
-         wa := writable_attributes
-         if wa /= Void then
-            from
-               i := wa.upper
-            until
-               i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(type)
-               if tm.is_kernel_expanded then
-                  cpp.pending_c_function_body.append(once "if(R)R=((C->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once ")==(a1ptr->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once "));%N")
-               end
-               i := i - 1
-            end
-            from
-               i := wa.upper
-            until
-               i < wa.lower
-            loop
-               rf2 := wa.item(i)
-               field_name := rf2.name.to_string
-               tm := rf2.result_type.to_static(type)
-               if tm.is_reference then
-                  lt := tm.type.live_type
-                  if lt = Void then
-                     rts := Void
-                  else
-                     rts := lt.run_time_set
-                  end
-                  if rts /= Void and then rts.count > 0 then
-                     cpp.pending_c_function_body.append(once "if(R){%NT0*o1=C->_")
-                     cpp.pending_c_function_body.append(field_name)
-                     cpp.pending_c_function_body.append(once ";%NT0*o2=a1ptr->_")
-                     cpp.pending_c_function_body.append(field_name)
-                     cpp.pending_c_function_body.append(once ";%Nif(o1==o2){}%N%
-                                                             %else if(o1==NULL){R=0;}%N%
-                                                             %else if(o2==NULL){R=0;}%N%
-                                                             %else {R=")
-                     if rts.count = 1 then
-                        tm := rts.first.canonical_type_mark
-                        cpp.pending_c_function_body.extend('r')
-                     else
-                        cpp.pending_c_function_body.extend('X')
-                     end
-                     tm.id.append_in(cpp.pending_c_function_body)
-                     cpp.pending_c_function_body.append(once "is_deep_equal(")
-                     if ace.no_check then
-                        cpp.pending_c_function_body.append(once "&ds,")
-                        if rts.count > 1 then
-                           cpp.pending_c_function_body.append(once "ds.p,")
-                        end
-                     end
-                     if rts.count = 1 then
-                        cpp.pending_c_function_body.extend('(')
-                        cpp.pending_c_function_body.append(cpp.target_type.for(tm))
-                        cpp.pending_c_function_body.extend(')')
-                     end
-                     cpp.pending_c_function_body.append(once "o1,o2);}%N}%N")
-                  end
-               elseif tm.is_native_array then
-                  if not type.has_simple_feature_name(capacity_name) then
-                     error_handler.add_type_mark(tm)
-                     error_handler.add_position(tm.start_position)
-                     error_handler.append(fz_dtideena)
-                     error_handler.print_as_error
-                     error_handler.add_position(rf2.start_position)
-                     error_handler.append(em1)
-                     error_handler.print_as_fatal_error
-                  end
-                  cpp.pending_c_function_body.append(once "if(R)R=r")
-                  tm.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "deep_memcmp(")
-                  if ace.no_check then
-                     cpp.pending_c_function_body.append(once "&ds,")
-                  end
-                  cpp.pending_c_function_body.append(once "C->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once ",a1ptr->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once ",C->_capacity);%N")
-               elseif tm.is_empty_expanded then
-               elseif tm.is_user_expanded then
-                  cpp.pending_c_function_body.append(once "if(R)R=r")
-                  tm.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once "is_deep_equal(")
-                  if ace.no_check then
-                     cpp.pending_c_function_body.append(once "&ds,")
-                  end
-                  cpp.pending_c_function_body.append(once "&(C->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once "),a1ptr->_")
-                  cpp.pending_c_function_body.append(field_name)
-                  cpp.pending_c_function_body.append(once ");%N")
-               end
-               i := i - 1
-            end
-         end
-         if check_type then
-            cpp.pending_c_function_body.append(once "}%N")
-         end
-         cpp.pending_c_function_body.append(once "}%Nse_deep_equal_trats()%N")
       end
 
 feature {JVM}
@@ -1516,177 +1211,6 @@ feature {SMART_EIFFEL}
          run_time_set.id_extra_information(tfw)
       end
 
-feature {C_PRETTY_PRINTER}
-   prepare_introspection is
-      require
-         ace.no_check
-      local
-         i: INTEGER; put_else: BOOLEAN; rf: RUN_FEATURE; ct, t: TYPE_MARK
-      do
-         if at_run_time then
-            cpp.prepare_c_function
-            ct := canonical_type_mark
-            cpp.pending_c_function_signature.append(once "void* se_introspecT")
-            id.append_in(cpp.pending_c_function_signature)
-            cpp.pending_c_function_signature.append(once "(T")
-            ct.id.append_in(cpp.pending_c_function_signature)
-            if ct.is_reference then
-               cpp.pending_c_function_signature.extend('*')
-            end
-            cpp.pending_c_function_signature.append(once "*C,char*attr,int*id,int*exp)")
-            cpp.pending_c_function_body.append(once "void*R=NULL;%N")
-            if ct.is_native_array then
-               -- NATIVE_ARRAY: support access to an element
-               check
-                  ct.is_generic
-                  ct.generic_list.count = 1
-               end
-               t := ct.generic_list.first
-               if t.is_expanded then
-                  cpp.pending_c_function_body.append(once "*id=")
-                  t.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once ";%N*exp=1;%N")
-               else
-                  cpp.pending_c_function_body.append(once "*exp=0;%N")
-               end
-               cpp.pending_c_function_body.append(once "R=(*((")
-               cpp.pending_c_function_body.append(cpp.result_type.for(t))
-               cpp.pending_c_function_body.append(once "**)C)+atoi(attr));%N")
-               if t.type.live_type.run_time_set.count > 1 then
-                  cpp.pending_c_function_body.append(once "*id=(*((T0**)R))->id;%N")
-               else
-                  cpp.pending_c_function_body.append(once "*id=")
-                  t.id.append_in(cpp.pending_c_function_body)
-                  cpp.pending_c_function_body.append(once ";%N")
-               end
-            else
-               -- General case: support access to attributes and once queries
-               cpp.pending_c_function_body.append(once "*id=-1;%N")
-               from
-                  put_else := False
-                  i := live_features.lower
-               until
-                  i > live_features.upper
-               loop
-                  rf := live_features.key(i).run_feature_for(type)
-                  put_else := rf.prepare_introspection(put_else)
-                  i := i + 1
-               end
-               --|*** PH: loop on precursors?
-            end
-            cpp.pending_c_function_body.append(once "return R;%N")
-            cpp.dump_pending_c_function(True)
-         end
-      end
-
-   prepare_introspection2 is
-      require
-         ace.no_check
-         cpp.pending_c_function
-      local
-         i: INTEGER; put_coma: BOOLEAN; rf: RUN_FEATURE; ct: TYPE_MARK
-      do
-         if at_run_time then
-            ct := canonical_type_mark
-            cpp.pending_c_function_body.append(once "se_atT[")
-            ct.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "]=")
-            from
-               put_coma := False
-               i := live_features.lower
-            until
-               i > live_features.upper
-            loop
-               rf := live_features.key(i).run_feature_for(type)
-               put_coma := rf.prepare_introspection2(put_coma)
-               i := i + 1
-            end
-            --|*** PH: loop on precursors?
-            if not put_coma then
-               cpp.pending_c_function_body.append(once "NULL")
-            else
-               cpp.pending_c_function_body.extend('"')
-            end
-            cpp.pending_c_function_body.append(once ";%N")
-         end
-      end
-
-feature {RUN_FEATURE_2, RUN_FEATURE_6}
-   c_return_introspect (rf2: RUN_FEATURE_2; rf6: RUN_FEATURE_6) is
-      require
-         (rf2 /= Void) xor (rf6 /= Void)
-         cpp.pending_c_function
-         ace.no_check
-      local
-         i, t: INTEGER; rts: like run_time_set; tm: TYPE_MARK; s: STRING
-      do
-         rts := run_time_set
-         inspect
-            rts.count
-         when 0 then
-            -- nothing
-         when 1 then
-            tm := rts.first.canonical_type_mark
-            s := c_pointer_to_type(tm)
-            t := tm.id
-            if tm.is_expanded then
-               cpp.pending_c_function_body.append(once "*exp=1;%N")
-            else
-               cpp.pending_c_function_body.append(once "*exp=0;%N")
-            end
-            cpp.pending_c_function_body.append(once "*id=")
-            t.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N{%Nstatic ")
-            cpp.pending_c_function_body.append(s)
-            cpp.pending_c_function_body.append(once " _r=")
-            tm.c_initialize_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ";%N_r=")
-            if tm.is_reference then
-               cpp.pending_c_function_body.extend('(')
-               cpp.pending_c_function_body.append(s)
-               cpp.pending_c_function_body.extend(')')
-            end
-            cpp.pending_c_function_body.extend('(')
-            if rf2 /= Void then
-               rf2.mapping_c_inside_introspect
-            else
-               once_routine_pool.unique_result_in(cpp.pending_c_function_body, rf6.base_feature)
-            end
-            cpp.pending_c_function_body.append(once ");%NR=&_r;%N}%N")
-         else
-            cpp.pending_c_function_body.append(once "{%Nstatic T0*_r=NULL;%N_r=")
-            if rf2 /= Void then
-               rf2.mapping_c_inside_introspect
-            else
-               once_routine_pool.unique_result_in(cpp.pending_c_function_body, rf6.base_feature)
-            end
-            cpp.pending_c_function_body.append(once ";%Nif (_r==NULL) {R=&_r; *id=0;} else {%Nswitch(_r->id) {%N")
-            from
-               i := 1
-            until
-               i > rts.count
-            loop
-               t := rts.item(i).canonical_type_mark.id
-               cpp.pending_c_function_body.append(once "case ")
-               t.append_in(cpp.pending_c_function_body)
-               cpp.pending_c_function_body.append(once ":%N")
-               i := i + 1
-            end
-            cpp.pending_c_function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:break;%N}%N}%N}%N")
-         end
-      end
-
-feature {}
-   c_pointer_to_type (t: TYPE_MARK): STRING is
-      do
-         Result := once "                "
-         Result.copy(once "T")
-         t.id.append_in(Result)
-         if t.is_reference then
-            Result.extend('*')
-         end
-      end
-
 feature {C_LIVE_TYPE_COMPILER}
    actual_clients: TRAVERSABLE[LIVE_TYPE] is
       do
@@ -1731,9 +1255,9 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                end
                from
                   wa := writable_attributes
-                  i := wa.upper
+                  i := wa.lower
                until
-                  i < wa.lower
+                  i > wa.upper
                loop
                   lt := wa.item(i).type_of_current.live_type
                   if lt.is_reference then
@@ -1748,7 +1272,7 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                      ref_count := 0
                      Result.append(lt.structure_signature)
                   end
-                  i := i - 1
+                  i := i + 1
                end
                if ref_count = 1 then
                   Result.extend('p')
@@ -1930,27 +1454,6 @@ feature {INTROSPECTION_HANDLER}
    to_internals_stamp: FEATURE_STAMP
 
 feature {}
-   c_field_access (internal_c_local: INTERNAL_C_LOCAL; field_name: STRING) is
-      do
-         if is_reference then
-            cpp.pending_c_function_body.append(once "((T")
-            id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "*)")
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once ")->_")
-         elseif is_native_array then
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "->_")
-         else
-            internal_c_local.append_in(cpp.pending_c_function_body)
-            check
-               is_user_expanded
-            end
-            cpp.pending_c_function_body.append(once "._")
-         end
-         cpp.pending_c_function_body.append(field_name)
-      end
-
    default_create_run_feature_memory: like default_create_run_feature
          -- To cache `default_create_run_feature' computation.
 
@@ -2059,8 +1562,6 @@ feature {}
       once
          create Result.make(256)
       end
-
-   em1: STRING is "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
 
 invariant
    type.live_type = Current

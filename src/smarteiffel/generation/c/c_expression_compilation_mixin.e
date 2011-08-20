@@ -989,11 +989,11 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       local
-         run_feature_2: RUN_FEATURE_2
+         rf2: RUN_FEATURE_2
       do
          function_body.append(once "/*SFN*/(C->")
-         run_feature_2 ::= visited.feature_stamp.run_feature_for(type)
-         run_feature_2.put_c_field_name
+         rf2 ::= visited.feature_stamp.run_feature_for(type)
+         put_c_field_name(rf2)
          function_body.extend(')')
       end
 

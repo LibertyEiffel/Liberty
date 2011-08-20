@@ -235,34 +235,6 @@ feature {CONSTANT_POOL}
          Result := tmp_jvm_descriptor
       end
 
-feature {C_PRETTY_PRINTER, GC_HANDLER, CECIL_POOL}
-   c_set_dump_stack_top (ds, comment: STRING) is
-      obsolete "to be removed"
-      do
-         cpp.set_dump_stack_top_for(type_of_current, ds, comment)
-      end
-
-feature {LIVE_TYPE}
-   prepare_introspection (put_else: BOOLEAN): BOOLEAN is
-      require
-         cpp.pending_c_function
-         ace.no_check
-      do
-         Result := put_else
-      ensure
-         put_else implies Result
-      end
-
-   prepare_introspection2 (put_coma: BOOLEAN): BOOLEAN is
-      require
-         cpp.pending_c_function
-         ace.no_check
-      do
-         Result := put_coma
-      ensure
-         put_coma implies Result
-      end
-
 feature {JVM}
    jvm_define is
          -- To compute the constant pool, the number of fields, the number of methods, etc.
@@ -479,12 +451,12 @@ feature {}
                ensure_assertion /= Void
             end
             from
-               i := old_list.upper
+               i := old_list.lower
             until
-               i < old_list.lower
+               i > old_list.upper
             loop
                old_list.item(i).compile_to_jvm_old(type_of_current)
-               i := i - 1
+               i := i + 1
             end
          end
          jvm_try_begin := code_attribute.program_counter -- (4) ----------------------- Require assertion code :

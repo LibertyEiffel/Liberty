@@ -54,15 +54,6 @@ feature {ANY}
          Result := Current
       end
 
-   frozen c_initialize_in (buffer: STRING) is
-      do
-         if is_pointer then
-            buffer.append(once "(void*)0")
-         else
-            buffer.extend('0')
-         end
-      end
-
 feature {LIVE_TYPE}
    structure_mark: CHARACTER is
          -- 's' short

@@ -264,7 +264,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
             if count > 0 then
                put_string(once "Total ")
                put_string(msg)
-               if count > 1 then
+               if count /= 1 then
                   put_character('s')
                end
                put_string(once ": ")
@@ -412,7 +412,7 @@ feature {NEW_ECHO}
    output_stream: OUTPUT_STREAM
          -- Usually `std_output', but may be something else in case of redirection of `echo'.
          -- Note that this stream is always kept flushed.
-   
+
    error_stream: OUTPUT_STREAM
          -- Usually `std_error', but may be something else in case of redirection of `echo'.
          -- Note that, as `output_stream', this stream is always kept flushed.
