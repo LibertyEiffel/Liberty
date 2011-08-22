@@ -4,7 +4,7 @@
 class TEST_CHARACTER4
 
 insert
-	EIFFEL_TOOLS
+	EIFFELTEST_TOOLS
 
 creation {ANY}
 	make
