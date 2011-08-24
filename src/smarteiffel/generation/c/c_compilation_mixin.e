@@ -123,7 +123,7 @@ feature {} -- internal_c_local
             tag.set_item(Void)
          end
       ensure
-         internal_c_local_tag(tagged) = c_local
+         internal_c_local_tag(tagged) = Void
       end
 
    internal_c_local_tag_key: FIXED_STRING is

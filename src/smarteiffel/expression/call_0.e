@@ -112,9 +112,9 @@ feature {ANY}
 
    specialize_2 (type: TYPE): like Current is
          --|*** PH/Dom(22/01/04) Improvement: save the result of
-         --"target.declaration_type.search(feature_name)" because it
-         --will not change. Hope the memory penalty is not too big
-         --for the computing time saved.
+         --|"target.declaration_type.search(feature_name)" because it
+         --|will not change. Hope the memory penalty is not too big
+         --|for the computing time saved.
          ----------- Duplicate code call_0/proc_call_0  -----------
          --|*** Except for the `function_and_argument_count_check' calls (Dom. march 28th 2004) ***
       local
@@ -215,7 +215,7 @@ feature {}
                   end
                   nested_calls_counter := nested_calls_counter + 1
                   if nested_calls_counter > 50 then
-                     -- Well, so many nested CALLs is likely to be only possible with 
+                     -- Well, so many nested CALLs is likely to be only possible with
                      -- some infinite inlining chain.
                      stop := True
                      Result := True

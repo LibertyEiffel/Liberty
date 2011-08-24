@@ -37,9 +37,9 @@ feature {ANY}
          right_type /= Void
          simplify_done_in_boost_mode: ace.boost implies not right_type.can_be_assigned_to(left_type)
       do
-         buffer.append(once "at_")
+         buffer.append(once "can_assign_to")
          signature_add_last(buffer, left_type)
-         buffer.append(once "__")
+         buffer.append(once "_from")
          signature_add_last(buffer, right_type)
       end
 

@@ -132,10 +132,10 @@ feature {CLIENT_LIST}
          until
             i > count
          loop
-            b.append(item(i).to_string)
-            if i < count then
+            if i > 1 then
                b.append(once ", ")
             end
+            b.append(item(i).to_string)
             i := i + 1
          end
       end

@@ -81,10 +81,7 @@ feature {}
             end
             set_tag(class_text, flag)
          end
-
          Result := flag.item
-      ensure
-         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1)
       end
 
    is_native_array_collector_enabled_ (parent_lists: PARENT_LISTS): BOOLEAN is

@@ -307,7 +307,7 @@ feature {ANY}
          end
          if direct_parents_require /= Void then
             from
-               i := direct_parents_require.upper
+               i := direct_parents_require.lower
             until
                ra1 /= ra2 or else i > direct_parents_require.upper
             loop

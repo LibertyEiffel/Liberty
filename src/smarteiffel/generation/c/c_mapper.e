@@ -125,24 +125,21 @@ feature {RUN_FEATURE_2}
          function_body.append(once "*/")
          if visited.need_c_function and then cpp.use_c_function_call_for_attribute_read then
             default_mapping_function(visited)
+         elseif visited.type_of_current.is_reference then
+            function_body.extend('(')
+            cpp.put_target_as_target(visited.type_of_current)
+            function_body.append(once ")->")
+            put_c_field_name(visited)
          else
-            if visited.type_of_current.is_reference then
-               function_body.extend('(')
-               cpp.put_target_as_target(visited.type_of_current)
-               function_body.append(once ")->")
-               put_c_field_name(visited)
-            else
-               check
-                  visited.type_of_current.is_user_expanded
-               end
-               function_body.extend('(')
-               cpp.put_target_as_value
-               function_body.append(once ").")
-               put_c_field_name(visited)
+            check
+               visited.type_of_current.is_user_expanded
             end
-            function_body.extend(')')
+            function_body.extend('(')
+            cpp.put_target_as_value
+            function_body.append(once ").")
+            put_c_field_name(visited)
          end
-         function_body.append(once "/*:RF2*/")
+         function_body.append(once "/*:RF2*/)")
       end
 
 feature {RUN_FEATURE_3}
