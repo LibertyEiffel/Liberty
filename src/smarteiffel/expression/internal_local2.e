@@ -12,6 +12,10 @@ inherit
       redefine
          written_declaration_type_mark
       end
+   TAGGED
+      rename
+         tag as tagged_tag
+      end
 
 creation {INSPECT_STATEMENT, FUNCTION_CALL, MANIFEST_STRING_INSPECTOR, IFTHEN}
    make
@@ -124,30 +128,6 @@ feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do
          code_accumulator.current_context.add_last(Current)
-      end
-
-feature {C_COMPILATION_MIXIN}
-   pending_c_function_counter: INTEGER
-
-   set_pending_c_function_counter is
-      require
-         cpp.pending_c_function_counter > pending_c_function_counter
-      do
-         pending_c_function_counter := cpp.pending_c_function_counter
-      ensure
-         pending_c_function_counter = cpp.pending_c_function_counter
-      end
-
-   internal_c_local: INTERNAL_C_LOCAL
-
-   set_internal_c_local (c_local: INTERNAL_C_LOCAL) is
-      require
-         internal_c_local = Void
-         c_local /= Void
-      do
-         internal_c_local := c_local
-      ensure
-         internal_c_local = c_local
       end
 
 feature {INTERNAL_LOCAL2_VISITOR}

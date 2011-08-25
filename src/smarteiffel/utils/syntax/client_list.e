@@ -46,7 +46,7 @@ feature {ANY}
       end
 
    gives_permission_to (cn: CLASS_NAME): BOOLEAN is
-         -- Check whether the `cn' class is a member (or a subclass as well) of the `Current' client 
+         -- Check whether the `cn' class is a member (or a subclass as well) of the `Current' client
          -- list. (No error report done here in `error_handler').
       require
          cn /= Void
@@ -139,8 +139,8 @@ feature {ANONYMOUS_FEATURE_MIXER, CLIENT_LIST_VISITOR}
 
 feature {ANY}
    eiffel_view: STRING is
-         -- The Eiffel view of the allowed classe(s) list. (Because of clients list merging, the 
-         -- `Current' clients list may be located on many Eiffel source files. This function is also 
+         -- The Eiffel view of the allowed classe(s) list. (Because of clients list merging, the
+         -- `Current' clients list may be located on many Eiffel source files. This function is also
          -- useful to remind default abbreviated notation as omitted list or empty list.)
       local
          i: INTEGER
@@ -255,7 +255,7 @@ feature {}
       end
 
    omitted is
-         -- When the client list is omitted. (Remind that when the client list is omitted, it is like 
+         -- When the client list is omitted. (Remind that when the client list is omitted, it is like
          -- {ANY}.)
       do
       end
@@ -278,7 +278,7 @@ feature {}
 
 invariant
    class_name_list /= Void implies class_name_list.count > 0
-   
+
 end -- class CLIENT_LIST
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

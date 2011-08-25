@@ -423,7 +423,7 @@ feature {E_OLD}
    visit_e_old (visited: E_OLD) is
       do
          -- Now read the memorized value:
-         visited.internal_c_local.append_in(function_body)
+         internal_c_local_tag(visited).append_in(function_body)
       end
 
 feature {EXPRESSION_WITH_COMMENT}
@@ -893,16 +893,16 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1}
             -- No need to use an extra INTERNAL_C_LOCAL:
             visited.target.accept(Current)
          else
-            if visited.internal_c_local = Void or else visited.pending_c_function_counter /= cpp.pending_c_function_counter then
-               visited.set_internal_c_local(cpp.pending_c_function_lock_local(visited.resolve_in(type), once "ddt1"))
-               visited.set_pending_c_function_counter
+            if internal_c_local_tag(visited) = Void or else pending_c_function_counter_tag(visited) /= cpp.pending_c_function_counter then
+               set_internal_c_local_tag(visited, cpp.pending_c_function_lock_local(visited.resolve_in(type), once "ddt1"))
+               set_pending_c_function_counter_tag(visited)
                function_body.append(once "(")
-               visited.internal_c_local.append_in(function_body)
+               internal_c_local_tag(visited).append_in(function_body)
                function_body.append(once "=(")
                visited.target.accept(Current)
                function_body.append(once "))")
             else
-               visited.internal_c_local.append_in(function_body)
+               internal_c_local_tag(visited).append_in(function_body)
             end
          end
       end
@@ -916,11 +916,11 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
-         if visited.internal_c_local = Void or else visited.pending_c_function_counter /= cpp.pending_c_function_counter then
-            visited.set_pending_c_function_counter
-            visited.set_internal_c_local(cpp.pending_c_function_lock_local(visited.resolve_in(type), visited.tag))
+         if internal_c_local_tag(visited) = Void or else pending_c_function_counter_tag(visited) /= cpp.pending_c_function_counter then
+            set_pending_c_function_counter_tag(visited)
+            set_internal_c_local_tag(visited, cpp.pending_c_function_lock_local(visited.resolve_in(type), visited.tag))
          end
-         visited.internal_c_local.append_in(function_body)
+         internal_c_local_tag(visited).append_in(function_body)
       end
 
 feature {NO_DISPATCH}

@@ -127,20 +127,20 @@ feature {FEATURE_ACCUMULATOR}
          i: INTEGER; original, an_af: ANONYMOUS_FEATURE
       do
          if body_inherit = Void and then body_feature = Void then
-            -- Inherited definition (all deferred without locale)
+            -- Inherited definition (all deferred without local)
             check
                not local_definition
             end
             from
                -- for deferred methods
-               original := parents_af.last
+               original := parents_af.first
                build_definition := parents_af.last.specialize_signature_thru(parents_type.last, parents_edges.last, context_type)
-               i := parents_af.upper - 1
+               i := parents_af.lower + 1
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                build_definition := parents_af.item(i).merge_signature_thru(build_definition, parents_type.item(i), parents_edges.item(i), context_type, original = build_definition)
-               i := i - 1
+               i := i + 1
             end
          elseif body_inherit /= Void then
             -- Inherited definition (concrete)
@@ -149,9 +149,9 @@ feature {FEATURE_ACCUMULATOR}
             end
             build_definition := body_feature.specialize_signature_thru(body_type, body_inherit, context_type)
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                an_af := parents_af.item(i)
                if an_af /= build_definition and then
@@ -170,7 +170,7 @@ feature {FEATURE_ACCUMULATOR}
                   error_handler.append(".")
                   error_handler.print_as_fatal_error
                end
-               i := i - 1
+               i := i + 1
             end
          else
             -- Local definition
@@ -180,9 +180,9 @@ feature {FEATURE_ACCUMULATOR}
             if not signature_ready then
                build_definition := body_feature.specialize_signature_in(context_type)
                from
-                  i := parents_af.upper
+                  i := parents_af.lower
                until
-                  i < parents_af.lower
+                  i > parents_af.upper
                loop
                   if not build_definition.valid_redefinition(parents_af.item(i), parents_type.item(i), parents_edges.item(i), context_type) then
                      error_handler.print_as_error
@@ -192,7 +192,7 @@ feature {FEATURE_ACCUMULATOR}
                      error_handler.append("Signature of the redefined feature is not valid.")
                      error_handler.print_as_fatal_error
                   end
-                  i := i - 1
+                  i := i + 1
                end
             end
          end
@@ -247,9 +247,9 @@ feature {FEATURE_ACCUMULATOR}
                new_ensure := build_definition.ensure_assertion
             end
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                if parents_edges.item(i) /= body_inherit then
                   --|*** WHY?
@@ -283,7 +283,7 @@ feature {FEATURE_ACCUMULATOR}
                      new_ensure := new_ensure.add_items_from(parent_ensure)
                   end
                end
-               i := i - 1
+               i := i + 1
             end
             if local_require = Void then
                local_require := inherited_require
@@ -330,9 +330,9 @@ feature {FEATURE_ACCUMULATOR}
          -- Computing the header comment:
          if smart_eiffel.short_or_class_check_flag then
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               build_definition.header_comment /= Void or else i < parents_af.lower
+               build_definition.header_comment /= Void or else i > parents_af.upper
             loop
                paf := parents_af.item(i)
                if paf.header_comment /= Void then
@@ -341,7 +341,7 @@ feature {FEATURE_ACCUMULATOR}
                   end
                   build_definition.set_header_comment(paf.header_comment)
                end
-               i := i - 1
+               i := i + 1
             end
          end
          -- Specialize body
@@ -378,9 +378,9 @@ feature {}
          if local_definition then
             Result := original.clients
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                parent_edge := parents_edges.item(i)
                tmp_clients := parent_edge.exports_for(feature_name)
@@ -408,13 +408,13 @@ feature {}
                      conforming_parent_clients := conforming_parent_clients.merge_with(tmp_clients)
                   end
                end
-               i := i - 1
+               i := i + 1
             end
          else
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                parent_edge := parents_edges.item(i)
                tmp_clients := parent_edge.exports_for(feature_name)
@@ -440,12 +440,12 @@ feature {}
                      conforming_parent_clients := conforming_parent_clients.merge_with(parent_clients)
                   end
                end
-               i := i - 1
+               i := i + 1
             end
             from
-               i := parents_af.upper
+               i := parents_af.lower
             until
-               i < parents_af.lower
+               i > parents_af.upper
             loop
                parent_edge := parents_edges.item(i)
                tmp_clients := parent_edge.exports_for(feature_name)
@@ -456,7 +456,7 @@ feature {}
                   error_handler.append(" is different from the one explicitly listed here.")
                   error_handler_show_resulting_client_list(Result)
                end
-               i := i - 1
+               i := i + 1
             end
          end
          check
@@ -527,15 +527,15 @@ feature {PRECURSOR_CALL}
          --|*** Is there a better way?
          if pc.parent /= Void then
             from
-               i := parents_type.upper
+               i := parents_type.lower
             variant
-               i + 1
+               parents_type.upper - i + 1
             until
-               i < parents_type.lower or else parents_type.item(i).class_text = pc.parent.class_text
+                i > parents_type.upper or else parents_type.item(i).class_text = pc.parent.class_text
             loop
-               i := i - 1
+               i := i + 1
             end
-            if i < parents_type.lower then
+            if i > parents_type.upper then
                error_handler.append("The type ")
                error_handler.append(pc.parent.written_name.to_string)
                error_handler.append(" is not a valid ancestor for this method.")
@@ -543,15 +543,15 @@ feature {PRECURSOR_CALL}
                error_handler.print_as_fatal_error
             end
             from
-               j := i - 1
+               j := i + 1
             variant
-               j + 1
+               parents_type.upper - j + 1
             until
-               j < parents_type.lower or else parents_type.item(j).class_text = pc.parent.class_text
+               j > parents_type.upper or else parents_type.item(j).class_text = pc.parent.class_text
             loop
-               j := j - 1
+               j := j + 1
             end
-            if j >= parents_type.lower then
+            if j <= parents_type.upper then
                error_handler.append("This Precursor call is ambiguous because the type ")
                error_handler.append(pc.parent.written_name.to_string)
                error_handler.append(" is inherited more than once.")
@@ -569,29 +569,29 @@ feature {PRECURSOR_CALL}
             specialized_parent := parents_type.item(i).class_text
          else
             from
-               i := parents_af.upper
+               i := parents_af.lower
             variant
-               i + 1
+               parents_type.upper - i + 1
             until
-               i < parents_af.lower or else not parents_af.item(i).is_deferred
+               i > parents_af.upper or else not parents_af.item(i).is_deferred
             loop
-               i := i - 1
+               i := i + 1
             end
-            if i < parents_af.lower then
+            if i > parents_af.upper then
                error_handler.append("All ancestors are deferred, hence making this Precursor call not valid.")
                error_handler.add_position(pc.start_position)
                error_handler.print_as_fatal_error
             end
             from
-               j := i - 1
+               j := i + 1
             variant
-               j + 1
+               parents_type.upper - j + 1
             until
-               j < parents_af.lower or else not parents_af.item(j).is_deferred
+               j > parents_af.upper or else not parents_af.item(j).is_deferred
             loop
-               j := j - 1
+               j := j + 1
             end
-            if j >= parents_af.lower then
+            if j <= parents_af.upper then
                error_handler.append("Multiple Precursor found (must use Precursor {...} ancestor selection).")
                error_handler.add_position(pc.start_position)
                error_handler.add_position(parents_edges.item(i).start_position)
@@ -661,22 +661,20 @@ feature {PRECURSOR_CALL}
 
 feature {}
    error_handler_add_export_positions (client_list: CLIENT_LIST) is
-         -- True if there is at least one explicit export clause
-         --|*** Strange comment. This is not a function. (Dom jan 29th 2004) ***
       local
          i: INTEGER; export_clause: CLIENT_LIST
       do
          error_handler.add_position(client_list.start_position)
          from
-            i := parents_af.upper
+            i := parents_af.lower
          until
-            i < parents_af.lower
+            i > parents_af.upper
          loop
             export_clause := parents_af.item(i).permissions
             if not client_list.wider_than(export_clause) then
                error_handler.add_position(export_clause.start_position)
             end
-            i := i - 1
+            i := i + 1
          end
       end
 

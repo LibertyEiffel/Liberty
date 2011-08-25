@@ -2,32 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class TAGGER
-
-feature {}
-   get_tag (tagged: TAGGED): TAGGED_DATA is
-      require
-         tagged /= Void
-      do
-         Result := tagged.tag(tag_key)
-      end
-
-   set_tag (tagged: TAGGED; data: TAGGED_DATA) is
-      require
-         tagged /= Void
-         data /= Void
-         tagged.tag(tag_key) = Void
-      do
-         tagged.set_tag(tag_key, data)
-      ensure
-         tagged.tag(tag_key) = data
-      end
-
-   tag_key: FIXED_STRING is
-      deferred
-      ensure
-         interned: Result.intern = Result
-      end
-
+   -- empty role class
 end -- class TAGGER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

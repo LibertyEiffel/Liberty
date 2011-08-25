@@ -58,7 +58,7 @@ feature {ANY}
             Result := declaration_type_memory
          end
       end
-   
+
    specialize_in (type: TYPE): like Current is
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---- except balancing rule here ---------------
@@ -137,7 +137,7 @@ feature {ANY}
             if is_balanced_operator(feature_name.to_string) then
                if target_type.is_integer or else target_type.is_real then
                   if is_question_mark_open_operand(a1) then
-                     -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in' 
+                     -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in'
                      -- yet and, by nature, we must not apply balancing rule here.
                      -- (If one want to allow balancing he must use a curly typed OPEN_OPERAND.)
                   else
@@ -264,7 +264,7 @@ feature {}
             Result := open_operand.curly_type = Void
          end
       end
-   
+
 invariant
    arguments.count = 1
 

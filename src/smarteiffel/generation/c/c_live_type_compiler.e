@@ -783,18 +783,14 @@ feature {}
          -- Initialize all `c_frame_descriptor' variables accordingly.
       require
          ace.no_check
-      local
-         c_frame_descriptor_format, c_frame_descriptor_locals: STRING
       do
-         c_frame_descriptor_format := cpp.c_frame_descriptor_format
-         c_frame_descriptor_locals := cpp.c_frame_descriptor_locals
          c_frame_descriptor_format.clear_count
          c_frame_descriptor_locals.clear_count
          if run_feature.use_current then
             cpp.c_frame_descriptor_in(run_feature.type_of_current.canonical_type_mark, c_frame_descriptor_format)
          end
          if run_feature.arguments /= Void then
-            args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
+            args_c_frame_descriptor(run_feature.arguments, run_feature.type_of_current, False)
          end
          if run_feature.is_once_function then
             c_frame_descriptor_locals.append(once "(void**)&")
@@ -808,11 +804,11 @@ feature {}
             cpp.c_frame_descriptor_in(run_feature.result_type, c_frame_descriptor_format)
          end
          if run_feature.local_vars /= Void then
-            args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, c_frame_descriptor_format, c_frame_descriptor_locals)
+            args_c_frame_descriptor(run_feature.local_vars, run_feature.type_of_current, True)
          end
       end
 
-   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; format, locals: STRING) is
+   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; use_real_name: BOOLEAN) is
       require
          ace.no_check
       local
@@ -823,12 +819,18 @@ feature {}
          until
             i > args.count
          loop
-            format.append(args.name(i).to_string)
+            c_frame_descriptor_format.append(args.name(i).to_string)
             static_tm := args.type_mark(i).to_static(type)
-            cpp.c_frame_descriptor_in(static_tm, format)
-            locals.append(once "(void**)&a")
-            i.append_in(locals)
-            locals.extend(',')
+            cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
+            c_frame_descriptor_locals.append(once "(void**)&")
+            if use_real_name then
+               c_frame_descriptor_locals.extend('_')
+               c_frame_descriptor_locals.append(args.name(i).to_string)
+            else
+               c_frame_descriptor_locals.extend('a')
+               i.append_in(c_frame_descriptor_locals)
+            end
+            c_frame_descriptor_locals.extend(',')
             i := i + 1
          end
       end
@@ -869,7 +871,7 @@ feature {}
          end
          if no_check then
             -- (4) ------------------------------- Prepare locals:
-            clc := cpp.c_frame_descriptor_format.occurrences('%%')
+            clc := c_frame_descriptor_format.occurrences('%%')
             if clc > 0 then
                clc := clc #// 2
                if run_feature.use_current then
@@ -1059,10 +1061,8 @@ feature {}
       require
          ace.no_check
       local
-         c_frame_descriptor_format, c_frame_descriptor_locals: STRING; i, j: INTEGER; c: CHARACTER
+         i, j: INTEGER; c: CHARACTER
       do
-         c_frame_descriptor_format := cpp.c_frame_descriptor_format
-         c_frame_descriptor_locals := cpp.c_frame_descriptor_locals
          function_body.append(once "static se_frame_descriptor fd={")
          put_c_name_tag(run_feature)
          function_body.extend(',')
@@ -1141,6 +1141,18 @@ feature {}
             cpp.stop_profile
          end
          smart_eiffel.pop_context(run_feature.base_feature)
+      end
+
+   c_frame_descriptor_format: STRING is
+         -- The format to print `Current' and other locals.
+      once
+         create Result.make(512)
+      end
+
+   c_frame_descriptor_locals: STRING is
+         -- To initialize field `locals' of `se_dump_stack'.
+      once
+         create Result.make(512)
       end
 
 feature {LIVE_TYPE}
@@ -1388,13 +1400,13 @@ feature {}
       local
          assign_old: STRING
       do
-         if e_old.internal_c_local = Void or else e_old.pending_c_function_counter /= cpp.pending_c_function_counter then
-            e_old.set_internal_c_local(cpp.pending_c_function_lock_local(e_old.resolve_in(type), once "old"))
-            e_old.set_pending_c_function_counter
+         if internal_c_local_tag(e_old) = Void or else pending_c_function_counter_tag(e_old) /= cpp.pending_c_function_counter then
+            set_internal_c_local_tag(e_old, cpp.pending_c_function_lock_local(e_old.resolve_in(type), once "old"))
+            set_pending_c_function_counter_tag(e_old)
          end
          assign_old := once "........"
          assign_old.clear_count
-         e_old.internal_c_local.append_in(assign_old)
+         internal_c_local_tag(e_old).append_in(assign_old)
          assign_old.extend('=')
          cpp.compound_expression_compiler.compile(assign_old, e_old.expression, once ";%N", type)
       end

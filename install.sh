@@ -205,7 +205,7 @@ EOF
             done
 
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
-            ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
+            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
             if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
@@ -251,7 +251,7 @@ EOF
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
 
-    progress 30 $MAXTOOLCOUNT $(($MAXTOOLCOUNT - 1)) "se_make.sh"
+    progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
     cp $LIBERTY_HOME/work/se_make.sh .
 
     progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."

@@ -238,7 +238,7 @@ feature {}
             from
                i := live_type_map.lower
             until
-               i > live_type_map.lower
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                cn := lt.class_text_name
@@ -2202,18 +2202,6 @@ feature {C_COMPILATION_MIXIN}
                end
             end
          end
-      end
-
-   c_frame_descriptor_format: STRING is
-         -- The format to print `Current' and other locals.
-      once
-         create Result.make(512)
-      end
-
-   c_frame_descriptor_locals: STRING is
-         -- To initialize field `locals' of `se_dump_stack'.
-      once
-         create Result.make(512)
       end
 
    c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is

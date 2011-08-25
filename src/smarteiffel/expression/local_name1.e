@@ -52,8 +52,6 @@ feature {ANY}
          end
       end
 
-feature {LOCAL_VAR_LIST}
-
 feature {DECLARATION_LIST}
    name_clash_check (type: TYPE) is
       do

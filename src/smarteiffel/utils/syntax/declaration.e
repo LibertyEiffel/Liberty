@@ -52,13 +52,11 @@ feature {DECLARATION_LIST}
       end
 
 feature {DECLARATION, DECLARATION_LIST}
-
    has_been_specialized: BOOLEAN is
       deferred
       ensure
          Result
       end
-
 
 feature {FORMAL_ARG_LIST}
    append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
