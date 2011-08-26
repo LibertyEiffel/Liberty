@@ -334,7 +334,7 @@ function do_pkg_tools()
 
     for tool in c compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
     do
-        cp $LIBERTY_HOME/target/bin/$tool $PRIVATE/
+        test -e $LIBERTY_HOME/target/bin/$tool && cp $LIBERTY_HOME/target/bin/$tool $PRIVATE/
     done
 
     cp -a $LIBERTY_HOME/resources/short $SHORT
