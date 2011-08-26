@@ -82,7 +82,7 @@ short: $LIBERTY_HOME/resources/short
 os: UNIX
 flavor: Linux
 tag: 3
-jobs: 4
+jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
@@ -236,8 +236,8 @@ EOF
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
     {
-        echo 8  pretty
-        echo 9  short
+        echo  8 pretty
+        echo  9 short
         echo 10 class_check
         echo 11 finder
         echo 12 eiffeltest
@@ -327,18 +327,26 @@ function do_pkg_tools()
     ETC=$DESTDIR/etc/serc
     SHORT=$DESTDIR/usr/share/libertyeiffel/short
     SYS=$DESTDIR/usr/share/libertyeiffel/sys
+    SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/libertyeiffel
 
-    mkdir -p $PUBLIC $PRIVATE $ETC
+    install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SITE_LISP
 
-    cp $LIBERTY_HOME/target/bin/se $PUBLIC/
+    install -m 0755 -o root -g root $LIBERTY_HOME/target/bin/se $PUBLIC/
+    install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
-    for tool in c compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
+    for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
     do
-        test -e $LIBERTY_HOME/target/bin/$tool && cp $LIBERTY_HOME/target/bin/$tool $PRIVATE/
+        bin=$LIBERTY_HOME/target/bin/${tool}.d/$tool
+        if test -e $bin; then
+            echo "$bin to $PRIVATE/"
+            install -m 0755 -o root -g root $bin $PRIVATE/
+        fi
     done
 
     cp -a $LIBERTY_HOME/resources/short $SHORT
     cp -a $LIBERTY_HOME/sys $SYS
+
+    chown -R root:root $SHORT $SYS
 
     cat >$ETC/liberty.se <<EOF
 [General]
@@ -420,6 +428,8 @@ cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
 smarteiffel_options: -no_split
 
 EOF
+
+    chown root:root $ETC/liberty.se
 }
 
 function do_pkg_tools_src()
@@ -427,10 +437,12 @@ function do_pkg_tools_src()
     SRC=$DESTDIR/usr/share/libertyeiffel/src/
     ETC=$DESTDIR/etc/serc
 
-    cp -a $LIBERTY_HOME/src/smarteiffel $SRC/tools
-    mkdir -p $SRC $ETC
+    install -d -m 0755 -o root -g root $SRC $ETC
 
-cat > $ETC/serc/liberty_tools.se <<EOF
+    cp -a $LIBERTY_HOME/src/smarteiffel $SRC/tools
+    chown -R root:root $SRC/tools
+
+cat > $ETC/liberty_tools.se <<EOF
 [Environment]
 path_tools: /usr/share/libertyeiffel/src/tools/
 
@@ -444,10 +456,12 @@ function do_pkg_core_libs()
     SRC=$DESTDIR/usr/share/libertyeiffel/src/
     ETC=$DESTDIR/etc/serc
 
-    cp -a $LIBERTY_HOME/src/lib $SRC/core
-    mkdir -p $SRC $ETC
+    install -d -m 0755 -o root -g root $SRC $ETC
 
-cat > $ETC/serc/liberty_core.se <<EOF
+    cp -a $LIBERTY_HOME/src/lib $SRC/core
+    chown -R root:root $SRC/core
+
+cat > $ETC/liberty_core.se <<EOF
 [Environment]
 path_liberty: /usr/share/libertyeiffel/src/core/
 
@@ -459,15 +473,17 @@ EOF
 function do_pkg_tools_doc()
 {
     DOC=$DESTDIR/usr/share/doc/libertyeiffel/
-    mkdir -p $DOC
+    install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/tools $DOC/
+    chown -R root:root $DOC
 }
 
 function do_pkg_core_doc()
 {
     DOC=$DESTDIR/usr/share/doc/libertyeiffel/
-    mkdir -p $DOC
+    install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/core $DOC/
+    chown -R root:root $DOC
 }
 
 function do_pkg()
@@ -512,6 +528,9 @@ else
                 ;;
             x-package)
                 do_pkg
+                ;;
+            x-plain)
+                plain=TRUE
                 ;;
             *)
                 echo "Unknown argument: $1"
