@@ -86,6 +86,10 @@ EOF
             fi
             exit 0
             ;;
+        x-c_mode)
+            OPTIONS="$OPTIONS -c_mode $2"
+            shift
+            ;;
         x-*|x/*)
             OPTIONS="$OPTIONS $1"
             ;;

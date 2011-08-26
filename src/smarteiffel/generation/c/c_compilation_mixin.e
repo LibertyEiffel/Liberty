@@ -3,6 +3,9 @@
 --
 deferred class C_COMPILATION_MIXIN
 
+inherit
+   TAGGER
+
 insert
    GLOBALS
 
@@ -31,6 +34,101 @@ feature {} -- cpp access helpers for a bit of prettiness
    function_body: STRING is
       do
          Result := cpp.pending_c_function_body
+      end
+
+feature {} -- pending_c_function_counter
+   pending_c_function_counter_tag (tagged: TAGGED): INTEGER is
+      require
+         tagged /= Void
+      local
+         tag: TAGGED_INTEGER
+      do
+         tag ::= tagged.tag(pending_c_function_counter_tag_key)
+         if tag /= Void then
+            Result := tag.item
+         end
+      end
+
+   set_pending_c_function_counter_tag (tagged: TAGGED) is
+      require
+         tagged /= Void
+      local
+         value: INTEGER; tag: TAGGED_INTEGER
+      do
+         value := cpp.pending_c_function_counter
+         tag := pending_c_function_counter_tag_values.fast_reference_at(value)
+         if tag = Void then
+            create tag.set_item(value)
+            pending_c_function_counter_tag_values.add(tag, value)
+         end
+         check
+            tag.item = value
+         end
+         tagged.set_tag(pending_c_function_counter_tag_key, tag)
+      ensure
+         pending_c_function_counter_tag(tagged) = cpp.pending_c_function_counter
+      end
+
+   pending_c_function_counter_tag_key: FIXED_STRING is
+      once
+         Result := "pending_c_function_counter_tag".intern
+      end
+
+   pending_c_function_counter_tag_values: HASHED_DICTIONARY[TAGGED_INTEGER, INTEGER] is
+      once
+         create Result.make
+      end
+
+feature {} -- internal_c_local
+   internal_c_local_tag (tagged: TAGGED): INTERNAL_C_LOCAL is
+      require
+         tagged /= Void
+      local
+         tag: TAGGED_INTERNAL_C_LOCAL
+      do
+         tag ::= tagged.tag(internal_c_local_tag_key)
+         if tag /= Void then
+            Result := tag.item
+         end
+      end
+
+   set_internal_c_local_tag (tagged: TAGGED; c_local: INTERNAL_C_LOCAL) is
+      require
+         tagged /= Void
+         internal_c_local_tag(tagged) = Void
+         c_local /= Void
+      local
+         tag: TAGGED_INTERNAL_C_LOCAL
+      do
+         tag ::= tagged.tag(internal_c_local_tag_key)
+         if tag /= Void then
+            tag.set_item(c_local)
+         else
+            create tag.set_item(c_local)
+            tagged.set_tag(internal_c_local_tag_key, tag)
+         end
+      ensure
+         internal_c_local_tag(tagged) = c_local
+      end
+
+   unlock_internal_c_local_tag (tagged: TAGGED) is
+      require
+         tagged /= Void
+      local
+         tag: TAGGED_INTERNAL_C_LOCAL
+      do
+         tag ::= tagged.tag(internal_c_local_tag_key)
+         if tag /= Void and then tag.item /= Void then
+            tag.item.unlock
+            tag.set_item(Void)
+         end
+      ensure
+         internal_c_local_tag(tagged) = Void
+      end
+
+   internal_c_local_tag_key: FIXED_STRING is
+      once
+         Result := "internal_c_local_tag".intern
       end
 
 feature {}

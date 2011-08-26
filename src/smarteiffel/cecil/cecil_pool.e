@@ -116,20 +116,12 @@ feature {ANY}
    State_parsed: INTEGER is 1
    State_collected: INTEGER is 2
 
-feature {C_PRETTY_PRINTER}
-   c_define_users is
-      local
-         i: INTEGER
+   do_all (action: PROCEDURE[TUPLE[CECIL_FILE]]) is
+      require
+         action /= Void
       do
          if cecil_files /= Void then
-            from
-               i := cecil_files.lower
-            until
-               i > cecil_files.upper
-            loop
-               cecil_files.item(i).c_define_users
-               i := i + 1
-            end
+            cecil_files.do_all(action)
          end
       end
 

@@ -21,8 +21,7 @@ insert
 create {ANY}
    make
 
-feature {ANY}
-   -- Code generators
+feature {ANY} -- Code generators
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
@@ -41,13 +40,23 @@ feature {ANY}
    introspection_function: C_INTROSPECTION_FUNCTION
    introspection_display: C_INTROSPECTION_DISPLAY
 
-   -- C-related type properties
+feature {ANY} -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
    native_need_wrapper: C_NATIVE_NEED_WRAPPER
+
+feature {ANY} -- Extra collectors
+   native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
+
+   add_extra_collectors is
+      do
+         if not gc_handler.is_off then
+            live_type_extra_collectors.add_last(native_array_collector)
+         end
+      end
 
 feature {}
    make is
@@ -78,6 +87,8 @@ feature {}
          create native_need_wrapper.make
 
          create registered_natives.make
+
+         create native_array_collector.make
       end
 
 feature {SMART_EIFFEL}
@@ -227,7 +238,7 @@ feature {}
             from
                i := live_type_map.lower
             until
-               i > live_type_map.lower
+               i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
                cn := lt.class_text_name
@@ -1132,15 +1143,6 @@ feature {}
          put_banner(out_h)
          out_h.put_character('%N')
          sys_runtime_h_and_c(once "base")
-      end
-
-   cecil_define is
-      local
-         save_out_h: like out_h
-      do
-         save_out_h := out_h
-         cecil_pool.c_define_users
-         out_h := save_out_h
       end
 
    echo_information is
@@ -2200,18 +2202,6 @@ feature {C_COMPILATION_MIXIN}
                end
             end
          end
-      end
-
-   c_frame_descriptor_format: STRING is
-         -- The format to print `Current' and other locals.
-      once
-         create Result.make(512)
-      end
-
-   c_frame_descriptor_locals: STRING is
-         -- To initialize field `locals' of `se_dump_stack'.
-      once
-         create Result.make(512)
       end
 
    c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is
@@ -3424,7 +3414,7 @@ feature {}
          end
       end
 
-feature {CECIL_ENTRY, C_COMPILATION_MIXIN}
+feature {C_COMPILATION_MIXIN}
    external_prototype_in (formal_arg_list: FORMAL_ARG_LIST; str: STRING; tgt_type: TYPE) is
       local
          i: INTEGER; t: TYPE_MARK
@@ -3943,6 +3933,131 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "if(")
          pending_c_function_body.append(flag)
          pending_c_function_body.append(once "!=0){%N")
+      end
+
+feature {} -- CECIL_POOL
+   cecil_define is
+      local
+         save_out_h: like out_h
+      do
+         save_out_h := out_h
+         cecil_pool.do_all(agent cecil_define_users_for_file)
+         out_h := save_out_h
+      end
+
+   cecil_define_users_for_file (cecil_file: CECIL_FILE) is
+      require
+         not pending_c_function
+      do
+         if cecil_file.has_entries then
+            echo.put_string(once "Cecil (C function for external code) :%N")
+            connect_cecil_out_h(cecil_file.path_h)
+            cecil_file.do_all(agent cecil_define_users_for_entry(cecil_file, ?))
+            disconnect_cecil_out_h
+         end
+      end
+
+   cecil_define_users_for_entry (cecil_file: CECIL_FILE; cecil_entry: CECIL_ENTRY) is
+      require
+         not pending_c_function
+      local
+         type: TYPE; result_type_mark: TYPE_MARK; arguments: FORMAL_ARG_LIST; af: ANONYMOUS_FEATURE
+         internal_c_local: INTERNAL_C_LOCAL
+      do
+         cecil_entry.on_echo(cecil_file)
+
+         type := smart_eiffel.type_any
+         af := cecil_entry.anonymous_feature
+         result_type_mark := af.result_type
+         if result_type_mark /= Void then
+            result_type_mark := result_type_mark.to_static(cecil_entry.target_type)
+         end
+         arguments := af.arguments
+         prepare_c_function
+         if cecil_entry.is_creation then
+            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+         else
+            pending_c_function_signature.append(result_type.for_external(result_type_mark))
+         end
+         pending_c_function_signature.extend(' ')
+         pending_c_function_signature.append(cecil_entry.c_name)
+         pending_c_function_signature.extend('(')
+         if cecil_entry.is_creation then
+            if arguments = Void then
+               pending_c_function_signature.append(once "void")
+            else
+               external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
+            end
+         else
+            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(once " C")
+            if arguments /= Void then
+               pending_c_function_signature.extend(',')
+               external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
+            end
+         end
+         pending_c_function_signature.extend(')')
+         if result_type_mark /= Void or else cecil_entry.is_creation then
+            if cecil_entry.is_creation then
+               pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
+            else
+               pending_c_function_body.append(result_type.for_external(result_type_mark))
+            end
+            pending_c_function_body.append(once " R;%N")
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %int valid_stack_bottom = stack_bottom != NULL;%N%
+                                                %#endif%N")
+         end
+         if ace.no_check then
+            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+                                                %ds.caller=se_dst;%N%
+                                                %ds.exception_origin=NULL;%N%
+                                                %ds.locals=NULL;%N")
+            set_dump_stack_top_for(cecil_entry.target_type, once "&ds", once "link")
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
+                                                %#endif%N")
+         end
+         if cecil_entry.is_creation then
+            --sedb_breakpoint --| *** TODO
+            pending_c_function_body.append(once "/* CECIL creation */%N{%N")
+            internal_c_local := pending_c_function_lock_local(cecil_entry.target_type, once "cecilcrea")
+            if cecil_entry.target_type.is_reference then
+               gc_handler.allocation_of(internal_c_local, cecil_entry.target_type.live_type)
+            else
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "=M")
+               cecil_entry.target_type.live_type.id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ";%N")
+            end
+            pending_c_function_body.append(once "R=")
+            internal_c_local.append_in(pending_c_function_body)
+            internal_c_local.unlock
+            pending_c_function_body.append(once ";%N}%N")
+         end
+         if cecil_entry.code = Void then
+            -- Well, nothing to do.
+         elseif result_type_mark = Void then
+            code_compiler.compile(cecil_entry.code, type)
+         else
+            compound_expression_compiler.compile(once "R=", cecil_entry.code.to_expression, once ";%N", type)
+         end
+         if not gc_handler.is_off then
+            pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
+                                                %if(!valid_stack_bottom) stack_bottom = NULL;%N%
+                                                %#endif%N")
+         end
+         if ace.no_check then
+            set_dump_stack_top_for(cecil_entry.target_type, once "ds.caller", once "unlink")
+         end
+         if result_type_mark /= Void or else cecil_entry.is_creation then
+            pending_c_function_body.append(once "return R;%N")
+         end
+         dump_pending_c_function(True)
       end
 
 invariant

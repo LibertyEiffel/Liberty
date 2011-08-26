@@ -8,7 +8,7 @@ class FUNCTION_CALL_0
 
 inherit
    CALL_0
-   
+
 creation {ANY}
    make
 

@@ -12,6 +12,9 @@ inherit
    VISITABLE
       redefine is_equal
       end
+   TAGGED
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -524,43 +527,6 @@ feature {TYPE}
       end
 
    external_type: EXTERNAL_TYPE
-
-feature {}
-   native_array_collector_memory: INTEGER
-         -- To cache `is_native_array_collector_enabled' computation.
-
-feature {TYPE}
-   is_native_array_collector_enabled: BOOLEAN is
-      require
-         not cpp.gc_handler.is_off
-      do
-         inspect
-            native_array_collector_memory
-         when -1 then
-            check
-               not Result
-            end
-         when 1 then
-            Result := True
-         when 0 then
-            if parent_lists = Void then
-               native_array_collector_memory := -1
-               check
-                  not Result
-               end
-            elseif parent_lists.is_native_array_collector_enabled then
-               native_array_collector_memory := 1
-               Result := True
-            else
-               native_array_collector_memory := -1
-               check
-                  not Result
-               end
-            end
-         end
-      ensure
-         (Result and native_array_collector_memory = 1) xor ((not Result) and native_array_collector_memory = -1)
-      end
 
 feature {}
    check_expanded_with_flag: TYPE

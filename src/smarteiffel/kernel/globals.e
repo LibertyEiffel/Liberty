@@ -111,6 +111,11 @@ feature {}
          create Result.make
       end
 
+   frozen live_type_extra_collectors: FAST_ARRAY[LIVE_TYPE_EXTRA_COLLECTOR] is
+      once
+         create Result.make(0)
+      end
+
 feature {ACE}
    is_launcher: BOOLEAN is
          -- If True, the clusters list will not be retrieved (it means that the tool is only used to start

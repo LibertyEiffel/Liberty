@@ -1135,15 +1135,6 @@ feature {TYPE}
          end
       end
 
-feature {LIVE_TYPE}
-   is_native_array_collector_enabled: BOOLEAN is
-         -- The `Result' is True if `Current' do needs magic extra collect for NATIVE_ARRAY_COLLECTOR.
-      require
-         not cpp.gc_handler.is_off
-      do
-         Result := class_text.is_native_array_collector_enabled
-      end
-
 feature {}
    inline_dynamic_dispatch_flag: BOOLEAN
 
