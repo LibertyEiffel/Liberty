@@ -1,8 +1,8 @@
 build: install.sh
-	bash install.sh -bootstrap
+	bash install.sh -plain -bootstrap
 
 clean:
 	test -d target && rm -rf target
 
-install: build
-	bash install.sh -package
+install:
+	bash install.sh -plain -package

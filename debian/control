@@ -11,7 +11,7 @@ Package: libertyeiffel-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libertyeiffel-core-libs, gcc
 Recommends: libertyeiffel-extra-libs
-Suggests: libertyeiffel-tools-src
+Suggests: libertyeiffel-tools-src, emacs
 Description: The Liberty Eiffel tools
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
