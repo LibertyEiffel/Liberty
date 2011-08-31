@@ -532,6 +532,9 @@ else
             x-plain)
                 plain=TRUE
                 ;;
+            x-doc)
+                make_doc
+                ;;
             *)
                 echo "Unknown argument: $1"
                 cat >&2 <<EOF
@@ -548,6 +551,8 @@ Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se|-package}
 
   -wrappers    Generates the library wrappers; some are used by the
                Liberty tools themselves (ffi, readline, llvm, ...)
+
+  -doc         Generates the HTML documentation for all classes.
 
   -package     Generates the Debian packages into DESTDIR.
 
