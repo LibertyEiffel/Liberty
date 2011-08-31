@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=16
+MAXTOOLCOUNT=17
 
 test ${0%/*} != $0 && cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
@@ -10,14 +10,6 @@ export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
-
-
-# TODO: packaging
-#
-# Currently there is no top level Makefile. This may require additional tuning.
-# Done. Please edit the files in the debian/ subdirectory now. You should also
-# check that the libertyeiffel Makefiles install into $DESTDIR and not in / .
-#
 
 
 function bootstrap()
@@ -108,6 +100,7 @@ doc: eiffeldoc
 test: eiffeltest
 x_int: extract_internals
 make: se_make.sh
+wrap: wrappers_generator
 
 [boost]
 -- c_compiler_type: tcc
@@ -227,7 +220,8 @@ EOF
     {
         echo 5 se
         echo 6 clean
-        echo 7 eiffeldoc
+        echo 7 ace_check
+        echo 8 eiffeltest
     } | while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
@@ -236,13 +230,13 @@ EOF
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
     {
-        echo  8 pretty
-        echo  9 short
-        echo 10 class_check
-        echo 11 finder
-        echo 12 eiffeltest
-        echo 13 ace_check
+        echo  9 pretty
+        echo 10 short
+        echo 11 class_check
+        echo 12 finder
+        echo 13 eiffeldoc
         echo 14 extract_internals
+        echo 15 wrappers_generator
     } | while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
@@ -370,6 +364,7 @@ class_check: class_check
 doc: eiffeldoc
 test: eiffeltest
 x_int: extract_internals
+wrap: wrappers_generator
 
 [boost]
 c_compiler_type: gcc
@@ -499,10 +494,10 @@ function do_all()
 {
     test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
-    make_doc
     #compile_plugins
-    #generate_wrappers
+    generate_wrappers
     #compile_all
+    make_doc
 }
 
 if [ $# = 0 ]; then
