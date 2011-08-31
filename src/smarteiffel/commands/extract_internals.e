@@ -2,15 +2,23 @@ class EXTRACT_INTERNALS
 
 inherit
    CODE_PRINTER
+      undefine is_equal
+      end
    INTROSPECTION_HANDLER
       redefine
          make
       end
    CREATION_CLAUSE_LIST_VISITOR
+      undefine is_equal
+      end
    CREATION_CLAUSE_VISITOR
+      undefine is_equal
+      end
 
 insert
    EXTERNAL_TOOL
+      undefine is_equal
+      end
 
 creation {}
    make
@@ -77,7 +85,7 @@ feature {ANY}
 
    compile is
       local
-         live_types: FAST_ARRAY[LIVE_TYPE]
+         live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
          live_type: LIVE_TYPE
          helper_name: STRING

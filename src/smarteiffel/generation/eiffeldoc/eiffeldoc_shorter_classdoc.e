@@ -268,7 +268,7 @@ feature {} -- Sorting and displaying lists of classes:
          not children.is_empty
       do
          list_of_classes.with_capacity(children.count)
-         list_of_classes.append_collection(children)
+         list_of_classes.append_traversable(children)
          put_list_of_classes(title)
       end
 
@@ -377,7 +377,7 @@ feature {}
       end
 
 feature {}
-   enter_class_invariant (visited: ASSERTION_LIST): BOOLEAN is
+   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN is
       do
          if phase = invariant_phase then
             print_assertion_list(visited, Void)

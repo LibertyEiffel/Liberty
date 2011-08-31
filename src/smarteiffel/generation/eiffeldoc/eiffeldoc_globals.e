@@ -363,7 +363,7 @@ feature {}
          i, j: INTEGER; bd: BASIC_DIRECTORY; buffer, dirname: STRING
       do
          last_dirname := once ""
-         last_dirname.copy(bd.current_working_directory)
+         last_dirname.make_from_string(bd.current_working_directory)
          buffer := once ""
          buffer.copy(a_filename)
          from
