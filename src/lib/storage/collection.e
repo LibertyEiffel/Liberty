@@ -192,6 +192,7 @@ feature {ANY} -- Adding:
             add_last(other.item(i))
             i := i + 1
          end
+		 -- Note: AFAIK it could also be implemented with other.do_all(agent add_last). Paolo 2011-08-12
       ensure
          count = other.count + old count
       end
