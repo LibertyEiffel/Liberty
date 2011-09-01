@@ -63,10 +63,7 @@ feature {CLASS_TEXT}
                   visited.feature_clause_list.accept(Current)
                end
                if visited.class_invariant /= Void then
-                  if enter_class_invariant(visited.class_invariant) then
-                     visited.class_invariant.accept(Current)
-                     exit_class_invariant(visited.class_invariant)
-                  end
+                  visited.class_invariant.accept(Current)
                end
                visitting_class_texts.remove(visited)
             end
@@ -1217,6 +1214,66 @@ feature {}
       do
       end
 
+feature {CLASS_INVARIANT}
+   visit_class_invariant (visited: CLASS_INVARIANT) is
+      local
+         i: INTEGER
+      do
+         if enter_class_invariant(visited) then
+            if visited.is_empty then
+               from
+                  i := visited.lower
+               until
+                  i > visited.upper
+               loop
+                  visited.item(i).accept(Current)
+                  i := i + 1
+               end
+            end
+            exit_class_invariant(visited)
+         end
+      end
+
+feature {}
+   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_class_invariant (visited: CLASS_INVARIANT) is
+      do
+      end
+
+feature {LOOP_INVARIANT}
+   visit_loop_invariant (visited: LOOP_INVARIANT) is
+      local
+         i: INTEGER
+      do
+         if enter_loop_invariant(visited) then
+            if visited.is_empty then
+               from
+                  i := visited.lower
+               until
+                  i > visited.upper
+               loop
+                  visited.item(i).accept(Current)
+                  i := i + 1
+               end
+            end
+            exit_loop_invariant(visited)
+         end
+      end
+
+feature {}
+   enter_loop_invariant (visited: LOOP_INVARIANT): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_loop_invariant (visited: LOOP_INVARIANT) is
+      do
+      end
+
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
@@ -1232,26 +1289,6 @@ feature {}
       end
 
    exit_ensure_assertion (visited: ENSURE_ASSERTION) is
-      do
-      end
-
-feature {}
-   enter_class_invariant (visited: ASSERTION_LIST): BOOLEAN is
-      do
-         Result := True
-      end
-
-   exit_class_invariant (visited: ASSERTION_LIST) is
-      do
-      end
-
-feature {}
-   enter_loop_invariant (visited: ASSERTION_LIST): BOOLEAN is
-      do
-         Result := True
-      end
-
-   exit_loop_invariant (visited: ASSERTION_LIST) is
       do
       end
 
@@ -2553,6 +2590,30 @@ feature {}
       do
       end
 
+feature {RAW_CREATE_INSTRUCTION}
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+      do
+         if enter_raw_create_instruction(visited) then
+            if visited.explicit_type /= Void then
+               visited.explicit_type.accept(Current)
+            end
+            if visited.call /= Void then
+               visited.call.accept(Current)
+            end
+            exit_raw_create_instruction(visited)
+         end
+      end
+
+feature {}
+   enter_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+      do
+      end
+
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
@@ -2582,10 +2643,7 @@ feature {LOOP_INSTRUCTION}
                visited.initialize.accept(Current)
             end
             if visited.loop_invariant /= Void then
-               if enter_loop_invariant(visited.loop_invariant) then
-                  visited.loop_invariant.accept(Current)
-                  exit_loop_invariant(visited.loop_invariant)
-               end
+               visited.loop_invariant.accept(Current)
             end
             if visited.loop_variant /= Void then
                visited.loop_variant.accept(Current)
@@ -2655,18 +2713,18 @@ feature {OTHER_INSPECT_STATEMENT}
       do
          visit_inspect_statement(visited)
       end
-   
+
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
    visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
       do
          visit_inspect_statement(visited)
       end
-   
+
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
       end
-   
+
 feature {}
    enter_inspect_statement (visited: INSPECT_STATEMENT): BOOLEAN is
       do

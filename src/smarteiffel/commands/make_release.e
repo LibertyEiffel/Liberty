@@ -10,7 +10,6 @@ inherit
 
 insert
    INSTALL_GLOBALS
-   GRAPHIC
 
 creation {}
    make
@@ -24,7 +23,7 @@ feature {ANY}
 
                                          -verbose  make the installer a bit more talkative.
                                          -plain    make the installer not use fancy interfaces but only plain text.
-                                         -mini     forces the use of the %"mini%" interface even if Vision is available.
+                                         -mini     forces the use of the %"mini%" interface.
                                          -cc       choose the C compiler. The default is gcc.
                                          -help     just shows this text.
 
@@ -96,11 +95,7 @@ feature {}
             end
          end
          if gui = Void then
-            if vision_available then
-               create {MAKE_RELEASE_VISION_GUI} gui.make
-            else
-               create {MAKE_RELEASE_MINI_GUI} gui.make
-            end
+            create {MAKE_RELEASE_MINI_GUI} gui.make
          end
          check
             gui /= Void

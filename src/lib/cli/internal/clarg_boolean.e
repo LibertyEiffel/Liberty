@@ -165,7 +165,7 @@ invariant
    parent = Void
    is_optional
 
-end -- class CLARG_TYPED
+end -- class CLARG_BOOLEAN
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
