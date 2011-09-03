@@ -17,7 +17,7 @@ feature {ANY} -- Looking and Searching:
          -- See also `fast_has', `index_of', `fast_index_of'.
       deferred
       ensure
-         definition: Result implies valid_index(first_index_of(x))
+         definition: Result = valid_index(first_index_of(x))
 		 -- Note: previously the "definition" postcondition were "Result = valid_index(first_index_of(x)"
 		 -- this holds when Result is True but it cannot when False; in fact
 		 -- when a SEARCHABLE does not have an x the result of the query
