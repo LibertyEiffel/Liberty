@@ -38,6 +38,7 @@ feature
 		if is_to_be_emitted then
 			create path.make_from_string(directory)
 			path.add_last(eiffel_name.as_lower+once ".e")
+			check path.to_string.occurrences('.')=1 end
 			-- if path.is_file then
 			-- 	log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
 			-- 	copy_to(path.to_string, path.to_string+once ".orig")
@@ -86,8 +87,10 @@ feature
 			-- CamelCase is converted into CAMEL_CASE, dashes are converted to
 			-- underscores, `suffix' is added at the endi, eventual; i.e.:
 			-- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
+			print("C_FILE.compute_eiffel_name for "+c_string_name+":")
 			create path.make_from_string(c_string_name)
-			cached_eiffel_name := path.last
+			create cached_eiffel_name.copy(path.last)
+			print(" `"+cached_eiffel_name+"'. Removing extension `"+path.extension+"' "+path.extension.count.out+" characters long.")
 			cached_eiffel_name.remove_tail(path.extension.count)
 			insert_underscores(cached_eiffel_name)
 			-- Remove trailing underscores
@@ -101,6 +104,9 @@ feature
 			cached_eiffel_name.replace_all('-','_')
 			cached_eiffel_name.to_upper
 			cached_eiffel_name.append(suffix)
+			print(" Final eiffel name is "+cached_eiffel_name+"%N")
+		ensure then
+			cached_eiffel_name.occurrences('.')=0
 		end
 
 feature -- Content

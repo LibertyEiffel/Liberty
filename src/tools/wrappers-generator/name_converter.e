@@ -107,7 +107,7 @@ feature {} -- Auxiliary features
 		check Result.last.code /= 0 end
 		Result.replace_all('-','_')
 		Result.to_upper
-		print("'"+Result+"' last charcter code is: "+Result.last.code.to_string+"%N")
+		-- print("'"+Result+"' last charcter code is: "+Result.last.code.to_string+"%N")
 		check Result.last.code /= 0 end
 	ensure 
 		Result/=Void
@@ -121,18 +121,15 @@ feature {} -- Auxiliary features
 			-- letters, underscores and numbers?
 		require
 			a_name /= Void
-		local
-			i: INTEGER; c: CHARACTER
+		local iter: ITERATOR[CHARACTER] ; c: CHARACTER
 		do
-			Result := a_name.first.is_upper
-			from
-				i := 2
-			until
-				Result = False or else i <= a_name.upper
+			iter := a_name.new_iterator
+			from iter.start; Result := iter.item.is_upper; iter.next
+			until Result = False or else not iter.is_off
 			loop
-				c := a_name @ i
+				c := iter.item
 				Result := c.is_upper or else (c.is_digit and c/='.') or else c = '_' 
-				i := i + 1
+				iter.next
 			end
 		end
 
