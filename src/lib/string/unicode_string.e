@@ -245,7 +245,7 @@ feature {ANY} -- Testing:
          -- 0 if none.
          --
          -- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
-	 require else
+	 require 
          valid_unicode_value: valid_unicode(unicode)
       local
          code: INTEGER_16; remainder: INTEGER_16; i: INTEGER

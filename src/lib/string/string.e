@@ -661,21 +661,26 @@ feature {ANY} -- Other features:
          count = n + old count
       end
 
-   precede_multiple (c: CHARACTER; n: INTEGER) is
-         -- Prepend `n' times character `c' to Current.
-      require
-         n >= 0
-      local
-         old_upper, i, new_storage_lower: INTEGER
-      do
-         if n > 0 then
-            old_upper := upper
-            if old_upper < lower then
-               check count = 0 end
-               storage_lower := 0
-               extend_multiple(c, n)
-            else
-               if n > storage_lower then
+  precede_multiple (c: CHARACTER; n: INTEGER) is
+	  -- Prepend `n' times character `c' to Current.
+
+ local
+	  old_upper, new_storage_lower: INTEGER
+  do
+	  -- Note: This command once had this precondition: "require n >= 0" As you
+	  -- can see this implementation does not actually need it.  In fact this
+	  -- command will not fail if n is negative. Perhaps it is a vestigial
+	  -- precondition when there were no NATURAL type. When n is not positive
+	  -- this command does not make any change. Paolo
+	  -- 2011-09-04
+	  if n > 0 then
+		  old_upper := upper
+		  if old_upper < lower then
+			  check count = 0 end
+				  storage_lower := 0
+				  extend_multiple(c, n)
+			  else
+				  if n > storage_lower then
                   new_storage_lower := 0
                   count := count + storage_lower
                   extend_multiple('%U', n - storage_lower)
@@ -690,7 +695,8 @@ feature {ANY} -- Other features:
             end
          end
       ensure
-         count = n + old count
+         count = n.max(0) + old count
+		 not_changed_when_n_is_not_positive: n<1 implies Current ~ old Current
       end
 
    extend_to_count (c: CHARACTER; needed_count: INTEGER) is
