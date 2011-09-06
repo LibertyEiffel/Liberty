@@ -260,8 +260,8 @@ feature {ANY} -- Testing:
       do
          if p.count <= count then
             from
-               i := lower + p.count
-			   ip := p.lower + p.count
+               i := lower + p.count - 1 
+			   ip := p.upper
             until
                i < lower or else item(i) /= p.item(ip)
             loop
