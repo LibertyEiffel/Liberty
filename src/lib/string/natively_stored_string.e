@@ -93,16 +93,16 @@ feature {ANY}
          end
       end
 
-	index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-		local
-			index: INTEGER
-		do
-			if start_index <= count then
-				index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
-				Result := lower + index - storage_lower
-			else Result := upper+1
-			end
-		end
+   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+	   local
+		   index: INTEGER
+	   do
+		   if start_index <= count then
+			   index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
+			   Result := lower + index - storage_lower
+		   else Result:=upper+1
+		   end
+	   end
 
    reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
          -- Index of first occurrence of `c' at or before `start_index', 

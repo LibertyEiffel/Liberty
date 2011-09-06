@@ -18,11 +18,6 @@ feature {ANY} -- Looking and Searching:
       deferred
       ensure
          definition: Result = valid_index(first_index_of(x))
-		 -- Note: previously the "definition" postcondition were "Result = valid_index(first_index_of(x)"
-		 -- this holds when Result is True but it cannot when False; in fact
-		 -- when a SEARCHABLE does not have an x the result of the query
-		 -- first_index_of(x) will be a not valid index; this postcondition
-		 -- will always fail when Result is False
       end
 
    fast_has (x: like item): BOOLEAN is
