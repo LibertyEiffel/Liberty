@@ -235,13 +235,6 @@ feature {ANY}
 			%		file. For usual wrappers it is normally not needed.%N%
 			%		Only the last global and local flag will be considered.%N%
 			%%N%
-			%	--on-standard-output (unimplemented)%N%
-			%		Ouputs everything on standard output.%N%
-			%%N%
-			%	--directory dir (removed)%N%
-			%		Put the generated classes in `dir'. Default is to output on %N%
-			%		current directory.%N%
-			%%N%
 			%	--flags flag-file%N%
 			%		Read a list of enumeration that will be forcefully wrapped as %N%
 			%		a flag. In fact sometimes there is no way to distinguish when%N%
