@@ -16,7 +16,7 @@ HEADERS= /usr/include/assert.h \
 	 /usr/include/time.h
 
 wrappers: $(XML)
-	wrappers-generator --verbose --local $(XML) $(HEADERS)
+	wrappers-generator --local $(XML) $(HEADERS)
 
 $(XML): 
 	gccxml $(HEADER) -fxml=$(XML)

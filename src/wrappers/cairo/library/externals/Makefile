@@ -8,8 +8,9 @@ HEADER=/usr/include/cairo/cairo.h
 HEADERS=cairo.gcc-xml /usr/include/cairo/*.h 
 
 wrappers: $(XML)
-	wrappers-generator --local --directory . $(HEADERS) 
+	wrappers-generator --local $(XML)  $(HEADERS) 
 
 $(XML): $(HEADER)
-	gccxml `pkg-config --cflags cairo` $(HEADER) -fxml=$(XML)
+	pkg-config --exists cairo
+	gccxml `pkg-config --cflags-only-I cairo` $(HEADER) -fxml=$(XML)
 

@@ -8,5 +8,6 @@ wrappers: $(XML)
 	@echo unecho this wrappers-generator --local $(XML) $(HEADERS)   
 
 $(XML):$(HEADER) 
+	pkg-config --exists eigen2
 	@echo gccxml `pkg-config --cflags eigen2 ` $(HEADER) -fxml=$(XML)
 
