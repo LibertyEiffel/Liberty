@@ -34,8 +34,8 @@ cluster -- section
 		default
 			assertion(no)
 		option
-			debug(all): FIXED_STRING -- `debug_string' is very useful
-			assertion(require): HASHED_DICTIONARY, FAST_ARRAY
+			-- debug(all): FIXED_STRING -- `debug_string' is very useful
+			assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
 		end
 
 external -- section for elements written in another language
