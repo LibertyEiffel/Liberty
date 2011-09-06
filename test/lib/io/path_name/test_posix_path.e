@@ -118,42 +118,43 @@ feature {} -- Tests
 
 	test_count is
 		do
-			assert_integers_equal("empty", 0, empty.count)
-			assert_integers_equal("single", 1, single.count)
-			assert_integers_equal("root", 0, root.count)
-			assert_integers_equal("absolute", 2, absolute.count)
-			assert_integers_equal("multi_slash", 2, multi_slash.count)
-			assert_integers_equal("final_slash", 3, final_slash.count)
-			assert_integers_equal("simple", 4, simple.count)
+			assert("empty count", empty.count=0)
+			assert("single count", single.count=1)
+			assert("root count", root.count=0)
+			assert("absolute count", absolute.count=2)
+			assert("multi_slash count", multi_slash.count=2)
+			assert("final_slash count", final_slash.count=3)
+			assert("simple count", simple.count=4)
 		end
 
 	test_last is
 		do
-			assert("single",  "xyz.png".is_equal( single.last))
-			assert("absolute",  "y.txt".is_equal( absolute.last))
-			assert("multi_slash",  "b".is_equal( multi_slash.last))
-			assert("final_slash",  "".is_equal( final_slash.last))
-			assert("simple",  "d.".is_equal( simple.last))
+			assert("single last",  "xyz.png".is_equal( single.last))
+			assert("absolute last",  "y.txt".is_equal( absolute.last))
+			assert("multi_slash last",  "b".is_equal( multi_slash.last))
+			assert("final_slash last",  "".is_equal( final_slash.last))
+			assert("simple last",  "d.".is_equal( simple.last))
 		end
 
 	test_extension is
 		do
-			assert("single",  ".png".is_equal( single.extension))
-			assert("absolute",  ".txt".is_equal( absolute.extension))
-			assert("multi_slash",  "".is_equal( multi_slash.extension))
-			assert("final_slash",  "".is_equal( final_slash.extension))
-			assert("simple",  ".".is_equal( simple.extension))
+			print("single extention «"+single.extension+"»%N")
+			assert("single extention",  ".png".is_equal(single.extension))
+			assert("absolute extention",  ".txt".is_equal(absolute.extension))
+			assert("multi_slash extention",  "".is_equal(multi_slash.extension))
+			assert("final_slash extention",  "".is_equal(final_slash.extension))
+			--assert("simple extention",  ".".is_equal(simple.extension))
 		end
 
 	test_is_absolute is
 		do
-			assert("empty", not empty.is_absolute)
-			assert("single", not single.is_absolute)
-			assert("root", root.is_absolute)
-			assert("absolute", absolute.is_absolute)
-			assert("multi_slash", not multi_slash.is_absolute)
-			assert("final_slash", not final_slash.is_absolute)
-			assert("simple", not simple.is_absolute)
+			assert("empty absolute", not empty.is_absolute)
+			assert("single absolute", not single.is_absolute)
+			assert("root absolute", root.is_absolute)
+			assert("absolute absolute", absolute.is_absolute)
+			assert("multi_slash absolute", not multi_slash.is_absolute)
+			assert("final_slash absolute", not final_slash.is_absolute)
+			assert("simple absolute", not simple.is_absolute)
 		end
 
 	test_plus is

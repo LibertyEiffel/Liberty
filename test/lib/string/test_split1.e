@@ -9,7 +9,7 @@ creation {ANY}
 feature {ANY}
 	make is
 		local
-			any: ANY
+			any: COLLECTION[STRING] -- ANY
 		do
 			any := ("ki ki").split
 			any := ("").split

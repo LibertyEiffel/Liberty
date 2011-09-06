@@ -214,7 +214,7 @@ feature {ANY} -- Testing:
       require
          other_not_void: other /= Void
       do
-         Result := substring_index(other, lower) /= 0
+         Result := substring_index(other, lower)>=lower 
       end
 
    occurrences (c: CHARACTER): INTEGER is
@@ -237,8 +237,8 @@ feature {ANY} -- Testing:
       do
          if s.count <= count then
             from
-               i1 := count - s.count + 1
-               i2 := 1
+               i1 := count - s.count + lower
+               i2 := lower
             until
                i1 > count or else item(i1) /= s.item(i2)
             loop
@@ -256,17 +256,19 @@ feature {ANY} -- Testing:
       require
          p /= Void
       local
-         i: INTEGER
+         i, ip: INTEGER
       do
          if p.count <= count then
             from
-               i := p.count
+               i := lower + p.count
+			   ip := p.lower + p.count
             until
-               i = 0 or else item(i) /= p.item(i)
+               i < lower or else item(i) /= p.item(ip)
             loop
                i := i - 1
+			   ip := ip - 1
             end
-            Result := i = 0
+            Result := i < lower
          end
       end
 
