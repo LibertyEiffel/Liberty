@@ -37,13 +37,6 @@ insert
       end
 
 feature {ANY}
-   count: INTEGER is
-         -- String length which is also the maximum valid index.
-         --
-         -- See also `is_empty', `lower', `upper'.
-      deferred
-      end
-
    lower: INTEGER is 1
          -- Minimum index; actually, this is always 1 (this feature is
          -- here to mimic the one of the COLLECTION hierarchy).
