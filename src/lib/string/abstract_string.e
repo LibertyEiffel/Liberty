@@ -101,7 +101,7 @@ feature {ANY} -- Testing:
          i: INTEGER; maxi: INTEGER
       do
          from
-            i := 1
+            i :=  lower
             maxi := count.min(other.count)
          until
             i > maxi or else item(i) /= other.item(i)
@@ -135,7 +135,7 @@ feature {ANY} -- Testing:
          i: INTEGER; maxi: INTEGER
       do
          from
-            i := 1
+            i := lower 
             maxi := count.min(other.count)
          until
             i > maxi or else item(i) /= other.item(i)
@@ -189,7 +189,7 @@ feature {ANY} -- Testing:
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
       do
-         Result := index_of(c, 1)
+         Result := index_of(c, lower)
       end
 
    last_index_of, fast_last_index_of (c: CHARACTER): INTEGER is
@@ -207,7 +207,7 @@ feature {ANY} -- Testing:
       require
          other_not_void: other /= Void
       do
-         Result := substring_index(other, 1) /= 0
+         Result := substring_index(other, lower)>=lower 
       end
 
    occurrences (c: CHARACTER): INTEGER is
@@ -230,8 +230,8 @@ feature {ANY} -- Testing:
       do
          if s.count <= count then
             from
-               i1 := count - s.count + 1
-               i2 := 1
+               i1 := count - s.count + lower
+               i2 := lower
             until
                i1 > count or else item(i1) /= s.item(i2)
             loop
@@ -249,17 +249,19 @@ feature {ANY} -- Testing:
       require
          p /= Void
       local
-         i: INTEGER
+         i, ip: INTEGER
       do
          if p.count <= count then
             from
-               i := p.count
+               i := lower + p.count - 1 
+			   ip := p.upper
             until
-               i = 0 or else item(i) /= p.item(i)
+               i < lower or else item(i) /= p.item(ip)
             loop
                i := i - 1
+			   ip := ip - 1
             end
-            Result := i = 0
+            Result := i < lower
          end
       end
 
@@ -324,7 +326,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 4: last digit of a critically big number
          -- state 5: after the number.
          from
-            i := 1
+            i := lower 
          variant
             count - i
          until
@@ -404,7 +406,7 @@ feature {ANY} -- Testing and Conversion:
          i: INTEGER; cc: CHARACTER; negative: BOOLEAN
       do
          from
-            i := 1
+            i := lower
          variant
             count - i
          until
@@ -475,7 +477,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 4: last digit of a critically big number
          -- state 5: after the number.
          from
-            i := 1
+            i :=  lower
          variant
             count - i
          until
@@ -555,7 +557,7 @@ feature {ANY} -- Testing and Conversion:
          i: INTEGER; cc: CHARACTER; negative: BOOLEAN
       do
          from
-            i := 1
+            i := lower
          variant
             count - i
          until
@@ -643,7 +645,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 8: after the number.
          -- state 9: error.
          from
-            i := 1
+            i := lower
          variant
             count - i
          until
@@ -774,7 +776,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 7: in exponent
          -- state 8: after the number.
          from
-            i := 1
+            i := lower
          variant
             count - i
          until
@@ -901,7 +903,7 @@ feature {ANY} -- Testing and Conversion:
             i := count
             Result := True
          until
-            not Result or else i = 0
+            not Result or else i < lower
          loop
             Result := item(i).is_bit
             i := i - 1
@@ -920,7 +922,7 @@ feature {ANY} -- Testing and Conversion:
          i: INTEGER
       do
          from
-            i := 1
+            i := lower
          until
             i > count
          loop
@@ -965,7 +967,7 @@ feature {ANY} -- Concatenation
    rescue
       debug
          -- This rescue clause doens't actually rescue
-         -- anything at all. I put it here for debugging.
+         -- anything at all. I put it here to ease debugging.
          -- Paolo 2010-02-27
          print("'"+Current+"' | '"+other+"' /= '"+Result+"'%N")--.print_on(std_error)
       end
@@ -1054,7 +1056,7 @@ feature {ANY} -- Other features:
             Result /= 0 or else s + other.count - 1 > count
          loop
             from
-               i := 1
+               i := other.lower
             until
                i > other.count or else item(s + i - 1) /= other.item(i)
             loop
@@ -1111,7 +1113,7 @@ feature {ANY} -- Splitting a STRING:
          -- state = 1: inside a new word.
          if count > 0 then
             from
-               i := 1
+               i := lower
             until
                i > count
             loop

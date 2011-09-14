@@ -11,7 +11,7 @@ feature
 		end
 
 	namespace: C_NAMESPACE is
-		local symbol: NAMED_NODE; contexted: CONTEXTED_NODE
+		local symbol: NAMED_NODE; -- unused contexted: CONTEXTED_NODE
 		do
 			if not namespace_retrieved then
 				-- Some elements have a context which is their actual
@@ -21,9 +21,13 @@ feature
 				-- context of Current or in the node referred by context.
 				cached_namespace := namespaces.reference_at(context)
 				if cached_namespace=Void then -- Recursively look for the namespace
-					from symbol := symbols.reference_at(context.as_utf8) 
-					until cached_namespace /= Void
+					from
+						print("Looking for context "+context.as_utf8+" namespace: ")
+						symbol := symbols.reference_at(context.as_utf8) 
+					until cached_namespace = Void
 					loop
+						check symbol /= Void end
+						print(" symbol: "+ symbol.out)
 						cached_namespace ?= symbol
 						symbol := symbols.reference_at(symbol.attribute_at(once U"context").as_utf8)
 					end
@@ -32,6 +36,7 @@ feature
 				namespace_retrieved := True
 			end
 			Result:=cached_namespace
+		ensure Result/=Void
 		end
 
 feature {} -- Implementation

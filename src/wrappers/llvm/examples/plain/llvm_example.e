@@ -2,10 +2,9 @@ class LLVM_EXAMPLE
 	-- A plain example of LLVM that outputs bytecode of a module. Pass it to llvm-dis
 
 	-- Currently we must use Makefile becuase even if we used C bindings we
-	-- must use C++ linker. This could be achieved changind compile modes; it
+	-- must use C++ linker. This could be achieved changing compile modes; it
 	-- is more easily approached using make. See
 	-- http://npcontemplation.blogspot.com/2008/06/secret-of-llvm-c-bindings.html 
-
 
 	-- TODO: once working, make this example more "Libertish", i.e. removing
 	-- make_make and turning main into an once feature

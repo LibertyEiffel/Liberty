@@ -87,7 +87,7 @@ feature
 			-- underscores, `suffix' is added at the endi, eventual; i.e.:
 			-- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
 			create path.make_from_string(c_string_name)
-			cached_eiffel_name := path.last
+			create cached_eiffel_name.copy(path.last)
 			cached_eiffel_name.remove_tail(path.extension.count)
 			insert_underscores(cached_eiffel_name)
 			-- Remove trailing underscores
@@ -101,6 +101,8 @@ feature
 			cached_eiffel_name.replace_all('-','_')
 			cached_eiffel_name.to_upper
 			cached_eiffel_name.append(suffix)
+		ensure then
+			cached_eiffel_name.occurrences('.')=0
 		end
 
 feature -- Content

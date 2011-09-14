@@ -135,12 +135,13 @@ feature {ANY}
 			assert(str1 /= str2)
 			create s.make(10)
 			assert(s.count = 0)
-			assert(s.capacity <= 10)
+			assert(s.capacity >= 10)
 			words := ("un machin").split
 			assert(words.count = 2)
-			assert(words.is_equal_map({ARRAY[STRING] 1, << "un", "machin" >> }))
+			assert(words.is_equal({ARRAY[STRING] 1, << "un", "machin" >> }))
 			words := ("   un machin  ").split
-			assert(words.is_equal_map({ARRAY[STRING] 1, << "un", "machin" >> }))
+			assert(words.is_equal({ARRAY[STRING] 1, << "un", "machin" >> }))
+			assert("   un machin ".split.is_equal({ARRAY[STRING] 1, << "un", "machin" >> }))
 			assert(("   ").split = Void)
 			assert(("%/32/").first = ' ')
 			assert(("%/122/").first = 'z')
@@ -153,7 +154,7 @@ feature {ANY}
 			assert((" -67  ").to_real = -67)
 		end
 
-	str1, str2: STRING is "Ouupps ..."
+	str1,str2: STRING is "Ouupps ..."
 
 end -- class TEST_STRING1
 --

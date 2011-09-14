@@ -16,31 +16,11 @@ creation {ANY}
 	make
 
 feature {}
-	analyse_cluster (cluster: CLUSTER) is
-		local
-			i: INTEGER
-		do
-			io.put_string(cluster.name)
-			io.put_new_line
-			class_files.clear_count
-			cluster.read_classes_into(class_files)
-			from
-				i := class_files.lower
-			until
-				i > class_files.upper
-			loop
-				io.put_string(class_files.key(i).to_string)
-				io.put_new_line
-				i := i + 1
-			end
-			io.put_new_line
-		end
-
 	make is
 		do
 			root_class_name := as_any
 			bootstrap
-			load_clusters
+			ace.for_all_clusters (agent visit_cluster)
 		end
 
 	parse_arguments is
@@ -111,32 +91,19 @@ feature {}
 
 	]"
 
-	load_clusters is
-		local
-			i: INTEGER; c: CLUSTER
-		do
-			from
-				i := 0
-			until
-				i = ace.cluster_count
-			loop
-				c := ace.cluster_at(i)
-				analyse_cluster(c)
-				i := i + 1
-			end
-		end
-
-	class_files: DICTIONARY[TUPLE[CLUSTER, STRING], HASHED_STRING] is
-		once
-			create {HASHED_DICTIONARY[TUPLE[CLUSTER, STRING], HASHED_STRING]} Result.make
-		end
-
 feature {CLUSTER}
-	visit_cluster (visited: CLUSTER) is
-		do
-			check
-				False
-			end
+	visit_cluster (a_cluster: CLUSTER) is
+		-- For each class in `a_cluster' print its name 
+	local
+		path: STRING; directory: DIRECTORY
+	do
+		io.put_string(once "Cluster: "); io.put_line(a_cluster.name) 
+		path := a_cluster.directory_path
+		if path /= Void and then not path.is_empty then
+			create directory.scan(path)
+			directory.do_all(agent io.put_string) 
+		else io.put_line(once "Path void or empty") 
 		end
+	end
 
 end -- class EIFFELDOC_LIKE

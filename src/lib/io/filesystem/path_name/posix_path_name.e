@@ -95,24 +95,39 @@ feature {ANY} -- Access
       local
          p: INTEGER
       do
-         p := to_string.reverse_index_of('/', to_string.count) + 1
-         Result := to_string.substring(p, to_string.count)
+		  p := to_string.last_index_of(directory_separator) + 1
+		  -- check to_string.is_valid_index(p) end
+		  Result := to_string.substring(p, to_string.upper)
       ensure then
          to_string.has_suffix(Result)
       end
 
-   extension: STRING is
-      local
-         p: INTEGER
-      do
-         Result := once ""
-         p := to_string.reverse_index_of(extension_separator, to_string.count)
-         if p /= 0 then
-            if to_string.index_of('/', p) = 0 then
-               Result := to_string.substring(p, to_string.count)
-            end
-         end
-      end
+	extension: STRING is
+		local
+			p: INTEGER -- the position of the eventual (last) separator (usually a point)
+			as_string: like to_string
+		do
+			-- A naive implementation, requiring an hidden allocation could be 
+			-- Result := last; Result := Result.right(Result.last_index_of(extention_separator)) 
+			-- beside requiring "right"
+			Result := once ""
+			as_string := to_string -- let's cache the complete path as a string in the eventuality that an heir of POSIX_PATH_NAME redefine to_string into a computed feature (a function)
+			p := as_string.last_index_of(extension_separator)
+			if p > as_string.lower then 
+				if p > as_string.last_index_of(directory_separator) then
+					Result := as_string.substring(p, as_string.upper)
+				else 
+					check 
+						not last.has(extension_separator) -- Current is like "xxx.d/we"
+					end
+				end
+			else 
+				-- path should be like "./without_extension" or like "../asd/./qwerty"
+				check
+					Result.is_empty
+				end
+			end
+		end
 
    is_absolute: BOOLEAN is
       do
