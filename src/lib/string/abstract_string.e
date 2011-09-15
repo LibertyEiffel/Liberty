@@ -956,15 +956,10 @@ feature {ANY} -- Concatenation
       require
          other_exists: other /= Void
       do
-         -- (once "Making ROPE: %"").print_on(std_output)
-         -- Current.print_on(std_output)
-         -- (once "%"|%"").print_on(std_output)
-         -- other. print_on(std_output)
-         -- (once "%"%N").print_on(std_output)
          create Result.from_strings(Current,other)
-   ensure
+      ensure
          Result.out.is_equal(Current + other)
-   end
+      end
 
    infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
          -- Current and `other' concatenating into a new object. The actual effective type of Result is
@@ -1227,6 +1222,7 @@ feature {}
 
 invariant
    0 <= count
+   lower = 1
 
 end -- class ABSTRACT_STRING
 --
