@@ -4,21 +4,21 @@
 class AUX_AGENT46
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	test is
-		local
-			p: PROCEDURE[TUPLE]
-		do
-			p := agent f
-			p.call([])
-		end
+   test is
+      local
+         p: PROCEDURE[TUPLE]
+      do
+         p := agent f
+         p.call([])
+      end
 
-	f is
-		do
-			assert(assert_counter.value = 0)
-		end
+   f is
+      do
+         assert(assert_counter.item = 0)
+      end
 
 end -- class AUX_AGENT46
 --

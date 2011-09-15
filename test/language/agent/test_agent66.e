@@ -4,15 +4,15 @@
 class TEST_AGENT66
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		local
-			ag: ROUTINE[TUPLE]; aux: AUX_AGENT66
-		do
-			ag := aux.an_agent
-		end
+   make is
+      local
+         ag: ROUTINE[TUPLE]; aux: AUX_AGENT66
+      do
+         ag := aux.an_agent
+      end
 
 end -- class TEST_AGENT66
 --

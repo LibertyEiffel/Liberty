@@ -4,15 +4,15 @@
 class AUX_AGENT44B
 
 inherit
-	AUX_AGENT44A
-		redefine f
-		end
+   AUX_AGENT44A
+      redefine f
+      end
 
 feature {ANY}
-	f is
-		do
-			execution := "B"
-		end
+   f is
+      do
+         execution := "B"
+      end
 
 end -- class AUX_AGENT44B
 --

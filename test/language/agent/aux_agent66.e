@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class AUX_AGENT66
-	-- A "dummy expanded" class
+   -- A "dummy expanded" class
 
 feature {TEST_AGENT66}
-	an_agent: ROUTINE[TUPLE] is
-		do
-			Result := agent do_something
-		end
+   an_agent: ROUTINE[TUPLE] is
+      do
+         Result := agent do_something
+      end
 
 feature {}
-	do_something is
-		do
-		end
+   do_something is
+      do
+      end
 
 end -- class AUX_AGENT66
 --

@@ -4,12 +4,12 @@
 expanded class AUX_AGENT24
 
 feature {ANY}
-	n: INTEGER
+   n: INTEGER
 
-	set_n (x: INTEGER) is
-		do
-			n := x
-		end
+   set_n (x: INTEGER) is
+      do
+         n := x
+      end
 
 end -- class AUX_AGENT24
 --

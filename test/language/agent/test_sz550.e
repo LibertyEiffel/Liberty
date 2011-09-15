@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SZ550
-	-- From smartzilla 550
+   -- From smartzilla 550
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			foo: PREDICATE[TUPLE]
-		do
-			foo := agent (create {FAST_ARRAY[TUPLE]}.make(0)).has([])
-		end
+   make is
+      local
+         foo: PREDICATE[TUPLE]
+      do
+         foo := agent (create {FAST_ARRAY[TUPLE]}.make(0)).has([])
+      end
 
 end -- class TEST_SZ550
 --

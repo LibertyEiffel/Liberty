@@ -4,24 +4,24 @@
 expanded class AUX_AGENT13B
 
 feature {ANY}
-	c: AUX_AGENT13C
+   c: AUX_AGENT13C
 
-	s: STRING
+   s: STRING
 
-	setup is
-		do
-			s := "Never printed (in AUX_AGENT13B).%N"
-			create c.make(agent proc)
-		end
+   setup is
+      do
+         s := "Never printed (in AUX_AGENT13B).%N"
+         create c.make(agent proc)
+      end
 
-	proc is
-		local
-			b: BOOLEAN
-		do
-			if b then
-				io.put_string(s)
-			end
-		end
+   proc is
+      local
+         b: BOOLEAN
+      do
+         if b then
+            io.put_string(s)
+         end
+      end
 
 end -- class AUX_AGENT13B
 --

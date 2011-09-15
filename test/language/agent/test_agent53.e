@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT53
-	-- SZ:403: pc@axlog.fr (philippe coucaud)
+   -- SZ:403: pc@axlog.fr (philippe coucaud)
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			k1: AUX_AGENT53_CONTAINER[AUX_AGENT53_FOO1]; b: BOOLEAN; d: REAL
-		do
-			create k1.make
-			b := k1.exists(agent {AUX_AGENT53_FOO1}.has1) -- FOO1 -> BOOLEAN
-			assert(not b)
-			b := k1.exists(agent {AUX_AGENT53_FOO1}.has2) -- FOO1 -> BOOLEAN
-			assert(not b)
-			d := k1.stats_for(agent {AUX_AGENT53_FOO1}.stats1) -- FOO1 -> [INTEGER,INTEGER]
-		end
+   make is
+      local
+         k1: AUX_AGENT53_CONTAINER[AUX_AGENT53_FOO1]; b: BOOLEAN; d: REAL
+      do
+         create k1.make
+         b := k1.exists(agent {AUX_AGENT53_FOO1}.has1) -- FOO1 -> BOOLEAN
+         assert(not b)
+         b := k1.exists(agent {AUX_AGENT53_FOO1}.has2) -- FOO1 -> BOOLEAN
+         assert(not b)
+         d := k1.stats_for(agent {AUX_AGENT53_FOO1}.stats1) -- FOO1 -> [INTEGER,INTEGER]
+      end
 
 end -- class TEST_AGENT53
 --

@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT15
-	--
-	-- From a bug report of Benjamin Franksen <franksen@mail.bessy.de>
-	--
+   --
+   -- From a bug report of Benjamin Franksen <franksen@mail.bessy.de>
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			h: AUX_AGENT15
-		do
-			create h.make(agent cb)
-			h.fire(True)
-		end
+   make is
+      local
+         h: AUX_AGENT15
+      do
+         create h.make(agent cb)
+         h.fire(True)
+      end
 
-	cb (h: AUX_AGENT15) is
-		do
-			assert(h.is_good)
-		end
+   cb (h: AUX_AGENT15) is
+      do
+         assert(h.is_good)
+      end
 
 end -- class TEST_AGENT15
 --

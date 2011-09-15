@@ -4,15 +4,15 @@
 class AUX_AGENT45_S1
 
 inherit
-	AUX_AGENT45_SD
+   AUX_AGENT45_SD
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_AGENT45_S1
 --

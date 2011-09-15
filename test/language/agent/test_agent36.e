@@ -4,36 +4,36 @@
 class TEST_AGENT36
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make, empty_make
+   make, empty_make
 
 feature {ANY}
-	make is
-		local
-			c: like Current
-		do
-			current_memory.set_item(Current)
-			(agent f).call([])
-			c := create {TEST_AGENT36}.empty_make
-			current_memory.set_item(c)
-			(agent {TEST_AGENT36}.f).call([c])
-		end
+   make is
+      local
+         c: like Current
+      do
+         current_memory.set_item(Current)
+         (agent f).call([])
+         c := create {TEST_AGENT36}.empty_make
+         current_memory.set_item(c)
+         (agent {TEST_AGENT36}.f).call([c])
+      end
 
-	empty_make is
-		do
-		end
+   empty_make is
+      do
+      end
 
-	current_memory: REFERENCE[TEST_AGENT36] is
-		once
-			create Result
-		end
+   current_memory: REFERENCE[TEST_AGENT36] is
+      once
+         create Result
+      end
 
-	f is
-		do
-			assert(Current = current_memory.item)
-		end
+   f is
+      do
+         assert(Current = current_memory.item)
+      end
 
 end -- class TEST_AGENT36
 --

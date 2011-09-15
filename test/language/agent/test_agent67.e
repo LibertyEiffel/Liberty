@@ -4,35 +4,35 @@
 class TEST_AGENT67
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	hello: STRING is "hello"
-	world: STRING is "world"
+   hello: STRING is "hello"
+   world: STRING is "world"
 
-	make is
-		local
-			a, b, c, d: PROCEDURE[TUPLE]
-		do
-			a := agent println(hello)
-			b := agent println(hello)
-			c := agent println(world)
-			d := agent println("hello")
-			-- test with the same closed arguments
-			assert(a.is_equal(b))
-			-- test with different closed arguments
-			assert(not a.is_equal(c))
-			-- to check that the comparison is made with '=', not `is_equal'
-			assert(not a.is_equal(d))
-		end
+   make is
+      local
+         a, b, c, d: PROCEDURE[TUPLE]
+      do
+         a := agent println(hello)
+         b := agent println(hello)
+         c := agent println(world)
+         d := agent println("hello")
+         -- test with the same closed arguments
+         assert(a.is_equal(b))
+         -- test with different closed arguments
+         assert(not a.is_equal(c))
+         -- to check that the comparison is made with '=', not `is_equal'
+         assert(not a.is_equal(d))
+      end
 
-	println (s: STRING) is
-		do
-			std_output.put_line(s)
-		end
+   println (s: STRING) is
+      do
+         std_output.put_line(s)
+      end
 
 end -- class TEST_AGENT67
 --

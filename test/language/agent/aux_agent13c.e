@@ -4,13 +4,13 @@
 class AUX_AGENT13C
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (p: PROCEDURE[TUPLE]) is
-		do
-			p.call([])
-		end
+   make (p: PROCEDURE[TUPLE]) is
+      do
+         p.call([])
+      end
 
 end -- class AUX_AGENT13C
 --

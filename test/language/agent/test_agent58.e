@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT58
-	-- SZ:539:
+   -- SZ:539:
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	r: AUX_AGENT57[FUNCTION[TUPLE, INTEGER]]
+   r: AUX_AGENT57[FUNCTION[TUPLE, INTEGER]]
 
-	make is
-		do
-			die_with_code(exit_success_code)
-			if r.item.item([]) = 1 then
-			end
-		end
+   make is
+      do
+         die_with_code(exit_success_code)
+         if r.item.item([]) = 1 then
+         end
+      end
 
 end -- class TEST_AGENT58
 --

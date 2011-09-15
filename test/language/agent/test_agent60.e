@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT60
-	--
-	-- What about is_equal on agents?
-	--
+   --
+   -- What about is_equal on agents?
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			agent1, agent2: PROCEDURE[TUPLE[STRING]]; agent3: PROCEDURE[TUPLE[STRING, STRING]]; other: like Current
-		do
-			agent1 := agent foo(?)
-			assert(agent1.is_equal(agent1))
-			agent2 := agent foo(?)
-			assert(agent1 /= agent2)
-			assert(agent1.is_equal(agent2))
-			agent3 := agent bar(?, ?)
-			assert(not agent3.is_equal(agent2))
-			other := Current.twin
-			agent2 := agent other.foo(?)
-			assert(agent1 /= agent2)
-			assert(not agent1.is_equal(agent2))
-		end
+   main is
+      local
+         agent1, agent2: PROCEDURE[TUPLE[STRING]]; agent3: PROCEDURE[TUPLE[STRING, STRING]]; other: like Current
+      do
+         agent1 := agent foo(?)
+         assert(agent1.is_equal(agent1))
+         agent2 := agent foo(?)
+         assert(agent1 /= agent2)
+         assert(agent1.is_equal(agent2))
+         agent3 := agent bar(?, ?)
+         assert(not agent3.is_equal(agent2))
+         other := Current.twin
+         agent2 := agent other.foo(?)
+         assert(agent1 /= agent2)
+         assert(not agent1.is_equal(agent2))
+      end
 
 feature {ANY}
-	dummy: INTEGER
+   dummy: INTEGER
 
-	foo (arg: STRING) is
-		do
-			dummy := dummy
-		end
+   foo (arg: STRING) is
+      do
+         dummy := dummy
+      end
 
-	bar (arg1, arg2: STRING) is
-		do
-			dummy := dummy
-		end
+   bar (arg1, arg2: STRING) is
+      do
+         dummy := dummy
+      end
 
 end -- class TEST_AGENT60
 --

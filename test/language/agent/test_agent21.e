@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT21
-	--
-	-- From a bug report of Alexander Rios (AlexanderRios@netscape.net)
-	--
+   --
+   -- From a bug report of Alexander Rios (AlexanderRios@netscape.net)
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create assertions.make
-			assertions.add_last(agent is_flawed)
-			assert(assertions.last.item([ once "is flawed?"]))
-		end
+   make is
+      do
+         create assertions.make
+         assertions.add_last(agent is_flawed)
+         assert(assertions.last.item([ once "is flawed?"]))
+      end
 
-	assertions: LINKED_LIST[FUNCTION[TUPLE[STRING], BOOLEAN]]
+   assertions: LINKED_LIST[FUNCTION[TUPLE[STRING], BOOLEAN]]
 
-	is_flawed (message_: STRING): BOOLEAN is
-		do
-			Result := (once "is flawed?").is_equal(message_)
-		end
+   is_flawed (message_: STRING): BOOLEAN is
+      do
+         Result := (once "is flawed?").is_equal(message_)
+      end
 
 end -- class TEST_AGENT21
 --

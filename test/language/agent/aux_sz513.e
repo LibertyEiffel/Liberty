@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class AUX_SZ513
-	-- For SZ:513: from jose.bollo@tele2.fr (jose bollo)
+   -- For SZ:513: from jose.bollo@tele2.fr (jose bollo)
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	set_value (v: like value) is
-		do
-			value := v
-		end
+   set_value (v: like value) is
+      do
+         value := v
+      end
 
-	append_in (s: STRING) is
-		do
-			s.extend(' ')
-			value.append_in(s)
-			s.extend(' ')
-		end
+   append_in (s: STRING) is
+      do
+         s.extend(' ')
+         value.append_in(s)
+         s.extend(' ')
+      end
 
 end -- class AUX_SZ513
 --

@@ -2,45 +2,45 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT64
-	-- As for manifest TUPLE (test_agent63.e), a creation call must be
-	-- captured and cannot hold open arguments.
+   -- As for manifest TUPLE (test_agent63.e), a creation call must be
+   -- captured and cannot hold open arguments.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	loop_stack: LOOP_STACK
+   loop_stack: LOOP_STACK
 
-	make is
-		do
-			create loop_stack.make
-			init(3)
-			loop_stack.run
-			assert(counter = 2)
-		end
+   make is
+      do
+         create loop_stack.make
+         init(3)
+         loop_stack.run
+         assert(counter = 2)
+      end
 
-	init (repeat: INTEGER) is
-		local
-			update: SIMPLE_PERIODIC_JOB
-		do
-			create update.set_work(agent foo(create {STRING}.make(2)), Void, 1, 0.1)
-			loop_stack.add_job(update)
-			assert(counter = 0)
-		end
+   init (repeat: INTEGER) is
+      local
+         update: SIMPLE_PERIODIC_JOB
+      do
+         create update.set_work(agent foo(create {STRING}.make(2)), Void, 1, 0.1)
+         loop_stack.add_job(update)
+         assert(counter = 0)
+      end
 
-	foo (repeat: STRING): BOOLEAN is
-		do
-			assert(repeat.count.in_range(0, 1))
-			assert(repeat.capacity = 2)
-			repeat.add_last(' ')
-			counter := counter + 1
-			Result := repeat.capacity > repeat.count
-		end
+   foo (repeat: STRING): BOOLEAN is
+      do
+         assert(repeat.count.in_range(0, 1))
+         assert(repeat.capacity = 2)
+         repeat.add_last(' ')
+         counter := counter + 1
+         Result := repeat.capacity > repeat.count
+      end
 
-	counter: INTEGER
+   counter: INTEGER
 
 end -- class TEST_AGENT64
 --

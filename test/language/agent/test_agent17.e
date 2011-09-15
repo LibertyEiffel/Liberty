@@ -4,26 +4,26 @@
 class TEST_AGENT17
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			f: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]; d: REAL
-		do
-			-- ok if result is INTEGER, result conversion is probably missing.
-			f := agent multiply
-			d := f.item([{INTEGER_32 3}, {INTEGER_32 2}])
-			assert(d = 6)
-		end
+   make is
+      local
+         f: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]; d: REAL
+      do
+         -- ok if result is INTEGER, result conversion is probably missing.
+         f := agent multiply
+         d := f.item([{INTEGER_32 3}, {INTEGER_32 2}])
+         assert(d = 6)
+      end
 
-	multiply (i, j: INTEGER): INTEGER is
-		do
-			Result := i * j
-		end
+   multiply (i, j: INTEGER): INTEGER is
+      do
+         Result := i * j
+      end
 
 end -- class TEST_AGENT17
 --

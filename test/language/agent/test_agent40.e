@@ -2,52 +2,52 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT40
-	-- SZ:232:
-	-- for marking of expanded arguments
+   -- SZ:232:
+   -- for marking of expanded arguments
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			mem: MEMORY; aux: AUX_AGENT40
-		do
-			create aux.make
-			-- to get one
-			doit := agent foo(aux)
-			create aux.make -- to erase it in the stack
-			doit.call([])
-			generate_garbage
-			mem.collection_on
-			mem.full_collect
-			doit.call([])
-		end
+   make is
+      local
+         mem: MEMORY; aux: AUX_AGENT40
+      do
+         create aux.make
+         -- to get one
+         doit := agent foo(aux)
+         create aux.make -- to erase it in the stack
+         doit.call([])
+         generate_garbage
+         mem.collection_on
+         mem.full_collect
+         doit.call([])
+      end
 
-	doit: PROCEDURE[TUPLE]
+   doit: PROCEDURE[TUPLE]
 
-	foo (x: AUX_AGENT40) is
-		do
-			assert(not x.is_disposed)
-			assert(not x.field.is_disposed)
-		end
+   foo (x: AUX_AGENT40) is
+      do
+         assert(not x.is_disposed)
+         assert(not x.field.is_disposed)
+      end
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
 
 end -- class TEST_AGENT40
 --

@@ -4,27 +4,27 @@
 class AUX_AGENT41
 
 inherit
-	DISPOSABLE
-	EIFFELTEST_TOOLS
+   DISPOSABLE
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	get_agent: PROCEDURE[TUPLE] is
-		do
-			Result := agent foo
-		end
+   get_agent: PROCEDURE[TUPLE] is
+      do
+         Result := agent foo
+      end
 
 feature {}
-	is_disposed: BOOLEAN
+   is_disposed: BOOLEAN
 
-	dispose is
-		do
-			is_disposed := True
-		end
+   dispose is
+      do
+         is_disposed := True
+      end
 
-	foo is
-		do
-			assert(not is_disposed)
-		end
+   foo is
+      do
+         assert(not is_disposed)
+      end
 
 end -- class AUX_AGENT41
 --

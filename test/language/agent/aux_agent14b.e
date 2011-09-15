@@ -4,22 +4,22 @@
 class AUX_AGENT14B[T]
 
 inherit
-	AUX_AGENT14A[T]
+   AUX_AGENT14A[T]
 
 feature {ANY}
-	do_set_proc is
-		do
-			set_proc(agent some_proc)
-			-- compiles when line deleted
-		end
+   do_set_proc is
+      do
+         set_proc(agent some_proc)
+         -- compiles when line deleted
+      end
 
-	set_proc (proc_in: PROCEDURE[TUPLE]) is
-		do
-		end
+   set_proc (proc_in: PROCEDURE[TUPLE]) is
+      do
+      end
 
-	some_proc is
-		do
-		end
+   some_proc is
+      do
+      end
 
 end -- class AUX_AGENT14B
 --

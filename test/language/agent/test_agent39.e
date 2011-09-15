@@ -4,23 +4,23 @@
 class TEST_AGENT39
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			a: FUNCTION[TUPLE, INTEGER]
-		do
-			a := agent an_attribute
-			assert(a.item([]) = 0)
-			an_attribute := 5
-			assert(a.item([]) = 5)
-		end
+   make is
+      local
+         a: FUNCTION[TUPLE, INTEGER]
+      do
+         a := agent an_attribute
+         assert(a.item([]) = 0)
+         an_attribute := 5
+         assert(a.item([]) = 5)
+      end
 
-	an_attribute: INTEGER
+   an_attribute: INTEGER
 
 end -- class TEST_AGENT39
 --

@@ -2,48 +2,48 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT37
-	-- SZ:232:
-	-- for marking of reference arguments
+   -- SZ:232:
+   -- for marking of reference arguments
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			mem: MEMORY
-		do
-			doit := agent foo(create {AUX_AGENT37})
-			doit.call([])
-			generate_garbage -- no error if this is commented out
-			mem.collection_on
-			mem.full_collect
-			doit.call([])
-		end
+   make is
+      local
+         mem: MEMORY
+      do
+         doit := agent foo(create {AUX_AGENT37})
+         doit.call([])
+         generate_garbage -- no error if this is commented out
+         mem.collection_on
+         mem.full_collect
+         doit.call([])
+      end
 
-	doit: PROCEDURE[TUPLE]
+   doit: PROCEDURE[TUPLE]
 
-	foo (x: AUX_AGENT37) is
-		do
-			assert(not x.is_disposed)
-		end
+   foo (x: AUX_AGENT37) is
+      do
+         assert(not x.is_disposed)
+      end
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
 
 end -- class TEST_AGENT37
 --

@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT33
-	-- bug from SZ:234:
+   -- bug from SZ:234:
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			ab: AUX_AGENT33AB; ac: AUX_AGENT33AC; b: AUX_AGENT33B; c: AUX_AGENT33C
-		do
-			create ab.make
-			ab.subscribe(agent rb)
-			create ac.make
-			ac.subscribe(agent rc)
-			create b
-			create c
-			ab.publish(b)
-			ac.publish(c)
-			assert(assert_counter.value = 2)
-		end
+   make is
+      local
+         ab: AUX_AGENT33AB; ac: AUX_AGENT33AC; b: AUX_AGENT33B; c: AUX_AGENT33C
+      do
+         create ab.make
+         ab.subscribe(agent rb)
+         create ac.make
+         ac.subscribe(agent rc)
+         create b
+         create c
+         ab.publish(b)
+         ac.publish(c)
+         assert(assert_counter.item = 2)
+      end
 
-	rb (b: AUX_AGENT33B) is
-		do
-			assert(assert_counter.value = 0)
-		end
+   rb (b: AUX_AGENT33B) is
+      do
+         assert(assert_counter.item = 0)
+      end
 
-	rc (c: AUX_AGENT33C) is
-		do
-			assert(assert_counter.value = 1)
-		end
+   rc (c: AUX_AGENT33C) is
+      do
+         assert(assert_counter.item = 1)
+      end
 
 end -- class TEST_AGENT33
 --

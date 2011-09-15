@@ -4,11 +4,11 @@
 class AUX_AGENT10[E]
 
 feature {ANY}
-	item: E
+   item: E
 
-	do_all (action: ROUTINE[TUPLE[E]]) is
-		do
-		end
+   do_all (action: ROUTINE[TUPLE[E]]) is
+      do
+      end
 
 end -- class AUX_AGENT10
 --

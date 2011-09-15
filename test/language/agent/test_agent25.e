@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT25
-	-- SZ:184:
+   -- SZ:184:
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			i := 6
-			p := agent do_something
-			p.call([i.to_string])
-			assert(assert_counter.value = 1)
-		end
+   make is
+      do
+         i := 6
+         p := agent do_something
+         p.call([i.to_string])
+         assert(assert_counter.item = 1)
+      end
 
-	i: INTEGER
+   i: INTEGER
 
-	p: PROCEDURE[TUPLE[STRING]]
+   p: PROCEDURE[TUPLE[STRING]]
 
-	do_something (a: STRING) is
-		do
-			assert(a.is_equal("6"))
-		end
+   do_something (a: STRING) is
+      do
+         assert(a.is_equal("6"))
+      end
 
 end -- class TEST_AGENT25
 --

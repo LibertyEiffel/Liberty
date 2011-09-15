@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT50
-	--
-	-- SZ:407: from philippe.coucaud@antevista.com
-	--
+   --
+   -- SZ:407: from philippe.coucaud@antevista.com
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	fct (s: STRING): FAST_ARRAY[STRING] is
-		do
-			create Result.make(0)
-		ensure
-		-- ***		Result.for_all(agent {STRING}.occurrences('%N').is_odd)
-		-- *** This complex code is now rejected as incorrect.
-		-- *** All calls must be flat now...
-		-- *** July 12th 2006 *** Dom. ***
-			Result.for_all(agent work_around(?))
-		end
+   fct (s: STRING): FAST_ARRAY[STRING] is
+      do
+         create Result.make(0)
+      ensure
+      -- ***      Result.for_all(agent {STRING}.occurrences('%N').is_odd)
+      -- *** This complex code is now rejected as incorrect.
+      -- *** All calls must be flat now...
+      -- *** July 12th 2006 *** Dom. ***
+         Result.for_all(agent work_around(?))
+      end
 
-	work_around (string: STRING): BOOLEAN is
-		do
-			Result := string.occurrences('%N').is_odd
-		end
+   work_around (string: STRING): BOOLEAN is
+      do
+         Result := string.occurrences('%N').is_odd
+      end
 
-	make is
-		local
-			s: like fct
-		do
-			s := fct(once "")
-		end
+   make is
+      local
+         s: like fct
+      do
+         s := fct(once "")
+      end
 
 end -- class TEST_AGENT50
 --

@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT52
-	--
-	-- To follow SZ:407: from philippe.coucaud@antevista.com
-	--
+   --
+   -- To follow SZ:407: from philippe.coucaud@antevista.com
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert((agent "foo" + ?).item(["bar"]).is_equal("foobar"))
-			assert((agent 2 * ?).item([2]) = 4)
-		end
+   make is
+      do
+         assert((agent "foo" + ?).item(["bar"]).is_equal("foobar"))
+         assert((agent 2 * ?).item([2]) = 4)
+      end
 
 end -- class TEST_AGENT52
 --

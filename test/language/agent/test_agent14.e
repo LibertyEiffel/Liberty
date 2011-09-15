@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT14
-	--
-	-- From a bug report of Bill Moser <billm@ll.mit.edu>
-	--
+   --
+   -- From a bug report of Bill Moser <billm@ll.mit.edu>
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t: AUX_AGENT14TARG[AUX_AGENT14GEN]
+   t: AUX_AGENT14TARG[AUX_AGENT14GEN]
 
-	b: AUX_AGENT14B[AUX_AGENT14GEN]
+   b: AUX_AGENT14B[AUX_AGENT14GEN]
 
-	c: AUX_AGENT14C[AUX_AGENT14GEN] -- compiles with c: AUX_AGENT14A[AUX_AGENT14GEN]
+   c: AUX_AGENT14C[AUX_AGENT14GEN] -- compiles with c: AUX_AGENT14A[AUX_AGENT14GEN]
 
-	make is
-		do
-			create b
-			create c
-			b.do_set_proc -- compiles when line deleted
-			c.set_target(t) -- compiles when line deleted
-		end
+   make is
+      do
+         create b
+         create c
+         b.do_set_proc -- compiles when line deleted
+         c.set_target(t) -- compiles when line deleted
+      end
 
 end -- class TEST_AGENT14
 --

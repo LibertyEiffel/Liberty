@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT57
-	-- SZ:539:
+   -- SZ:539:
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	r: AUX_AGENT57[PROCEDURE[TUPLE]]
+   r: AUX_AGENT57[PROCEDURE[TUPLE]]
 
-	make is
-		do
-			die_with_code(exit_success_code)
-			r.item.call([])
-		end
+   make is
+      do
+         die_with_code(exit_success_code)
+         r.item.call([])
+      end
 
 end -- class TEST_AGENT57
 --

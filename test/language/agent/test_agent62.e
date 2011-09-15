@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT62
-	-- Report from Philippe Ribet
-	-- 'x' is removed in boost mode as with test_agent61.
-	-- Checking agent call correctness.
+   -- Report from Philippe Ribet
+   -- 'x' is removed in boost mode as with test_agent61.
+   -- Checking agent call correctness.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
-		do
-			x := 1
-			p := agent foo([x])
-			x := 4 -- This value has to be ignored
-			p.call([[x]])
-			p := agent foo
-			x := 1
-			p.call([[x]])
-		end
+   make is
+      local
+         p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
+      do
+         x := 1
+         p := agent foo([x])
+         x := 4 -- This value has to be ignored
+         p.call([[x]])
+         p := agent foo
+         x := 1
+         p.call([[x]])
+      end
 
-	foo (value: TUPLE[INTEGER]) is
-		do
-			assert(value.first = 1)
-		end
+   foo (value: TUPLE[INTEGER]) is
+      do
+         assert(value.first = 1)
+      end
 
 end -- class TEST_AGENT62
 --

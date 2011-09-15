@@ -4,15 +4,15 @@
 class AUX_AGENT37
 
 inherit
-	DISPOSABLE
+   DISPOSABLE
 
 feature {ANY}
-	is_disposed: BOOLEAN
+   is_disposed: BOOLEAN
 
-	dispose is
-		do
-			is_disposed := True
-		end
+   dispose is
+      do
+         is_disposed := True
+      end
 
 end -- class AUX_AGENT37
 --

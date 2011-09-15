@@ -4,27 +4,27 @@
 class TEST_AGENT44
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_AGENT44A; b: AUX_AGENT44B
-		do
-			create a
-			create b
-			assert(a.execution = Void)
-			assert(b.execution = Void)
-			a.p.call([b])
-			assert(a.execution = Void)
-			assert(b.execution.is_equal("B"))
-			b.p.call([b]) -- Does it print A or B?
-			assert(a.execution = Void)
-			assert(b.execution.is_equal("B"))
-		end
+   make is
+      local
+         a: AUX_AGENT44A; b: AUX_AGENT44B
+      do
+         create a
+         create b
+         assert(a.execution = Void)
+         assert(b.execution = Void)
+         a.p.call([b])
+         assert(a.execution = Void)
+         assert(b.execution.is_equal("B"))
+         b.p.call([b]) -- Does it print A or B?
+         assert(a.execution = Void)
+         assert(b.execution.is_equal("B"))
+      end
 
 end -- class TEST_AGENT44
 --

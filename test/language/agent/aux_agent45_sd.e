@@ -2,10 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class AUX_AGENT45_SD
-	-- slave
+   -- slave
 
 inherit
-	AUX_AGENT45_MD
+   AUX_AGENT45_MD
 
 end -- class AUX_AGENT45_SD
 --

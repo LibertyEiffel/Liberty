@@ -4,29 +4,29 @@
 class TEST_AGENT18
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			f: FUNCTION[TUPLE[INTEGER, REAL], REAL]; d: REAL
-		do
-			f := agent multiply
-			f.call([{INTEGER_32 3}, 1.5])
-			--assert(f.last_result = 6) -- *** NOT YET IMPLEMENTED
-			d := f.item([{INTEGER_32 3}, 2.0])
-			assert(d = 6)
-			assert(6 - f.item([{INTEGER_32 3}, 2.0]) = 0)
-			--as argument (needed for io.put_double(f.item([3, 2]))
-		end
+   make is
+      local
+         f: FUNCTION[TUPLE[INTEGER, REAL], REAL]; d: REAL
+      do
+         f := agent multiply
+         f.call([{INTEGER_32 3}, 1.5])
+         --assert(f.last_result = 6) -- *** NOT YET IMPLEMENTED
+         d := f.item([{INTEGER_32 3}, 2.0])
+         assert(d = 6)
+         assert(6 - f.item([{INTEGER_32 3}, 2.0]) = 0)
+         --as argument (needed for io.put_double(f.item([3, 2]))
+      end
 
-	multiply (i: INTEGER; d: REAL): REAL is
-		do
-			Result := d * i
-		end
+   multiply (i: INTEGER; d: REAL): REAL is
+      do
+         Result := d * i
+      end
 
 end -- class TEST_AGENT18
 --

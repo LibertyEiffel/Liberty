@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT41
-	-- SZ:232:
-	-- for marking of base (current) parameter
+   -- SZ:232:
+   -- for marking of base (current) parameter
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			mem: MEMORY; aux: AUX_AGENT41
-		do
-			create aux
-			doit := aux.get_agent
-			aux := Void
-			doit.call([])
-			generate_garbage
-			-- no error if this is commented out
-			mem.collection_on
-			mem.full_collect
-			doit.call([])
-		end
+   make is
+      local
+         mem: MEMORY; aux: AUX_AGENT41
+      do
+         create aux
+         doit := aux.get_agent
+         aux := Void
+         doit.call([])
+         generate_garbage
+         -- no error if this is commented out
+         mem.collection_on
+         mem.full_collect
+         doit.call([])
+      end
 
-	doit: PROCEDURE[TUPLE]
+   doit: PROCEDURE[TUPLE]
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
 
 end -- class TEST_AGENT41
 --

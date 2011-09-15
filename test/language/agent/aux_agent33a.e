@@ -4,32 +4,32 @@
 class AUX_AGENT33A[G]
 
 feature {ANY}
-	make is
-		do
-			create subscribers.make(0, -1)
-		end
+   make is
+      do
+         create subscribers.make(0, -1)
+      end
 
-	subscribers: ARRAY[ROUTINE[TUPLE[G]]]
+   subscribers: ARRAY[ROUTINE[TUPLE[G]]]
 
-	subscribe (a_routine: ROUTINE[TUPLE[G]]) is
-		do
-			subscribers.add_last(a_routine)
-		end
+   subscribe (a_routine: ROUTINE[TUPLE[G]]) is
+      do
+         subscribers.add_last(a_routine)
+      end
 
-	publish (a_event: G) is
-		local
-			i: INTEGER; a: ROUTINE[TUPLE[G]]
-		do
-			from
-				i := subscribers.lower
-			until
-				i > subscribers.upper
-			loop
-				a := subscribers.item(i)
-				a.call([a_event])
-				i := i + 1
-			end
-		end
+   publish (a_event: G) is
+      local
+         i: INTEGER; a: ROUTINE[TUPLE[G]]
+      do
+         from
+            i := subscribers.lower
+         until
+            i > subscribers.upper
+         loop
+            a := subscribers.item(i)
+            a.call([a_event])
+            i := i + 1
+         end
+      end
 
 end -- class AUX_AGENT33A
 --

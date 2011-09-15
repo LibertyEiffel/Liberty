@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT10
-	-- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
+   -- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			create aa
-			aa.do_all(agent fa(?))
-			create bb
-			bb.do_all(agent fb(?))
-		end
+   make is
+      do
+         create aa
+         aa.do_all(agent fa(?))
+         create bb
+         bb.do_all(agent fb(?))
+      end
 
-	aa: AUX_AGENT10[INTEGER]
+   aa: AUX_AGENT10[INTEGER]
 
-	bb: AUX_AGENT10[CHARACTER]
+   bb: AUX_AGENT10[CHARACTER]
 
-	fa (a: INTEGER) is
-		do
-		end
+   fa (a: INTEGER) is
+      do
+      end
 
-	fb (b: CHARACTER) is
-		do
-		end
+   fb (b: CHARACTER) is
+      do
+      end
 
 end -- class TEST_AGENT10
 --

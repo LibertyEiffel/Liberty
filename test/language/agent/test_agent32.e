@@ -4,41 +4,41 @@
 class TEST_AGENT32
 
 inherit
-	EIFFELTEST_TOOLS
-		--SZ:114: the compiler gets confused. It consider bar return
-		--type being the return type of foo!
+   EIFFELTEST_TOOLS
+      --SZ:114: the compiler gets confused. It consider bar return
+      --type being the return type of foo!
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: BOOLEAN; i: INTEGER
-		do
-			bar := agent is_greater_than_5(?)
-			b := bar.item([{INTEGER_32 6}])
-			assert(b)
-			foo := Void
-			assert(foo = Void)
-			foo := agent five
-			i := foo.item([])
-			assert(i = 5)
-		end
+   make is
+      local
+         b: BOOLEAN; i: INTEGER
+      do
+         bar := agent is_greater_than_5(?)
+         b := bar.item([{INTEGER_32 6}])
+         assert(b)
+         foo := Void
+         assert(foo = Void)
+         foo := agent five
+         i := foo.item([])
+         assert(i = 5)
+      end
 
-	is_greater_than_5 (i: INTEGER): BOOLEAN is
-		do
-			Result := i > 5
-		end
+   is_greater_than_5 (i: INTEGER): BOOLEAN is
+      do
+         Result := i > 5
+      end
 
-	bar: PREDICATE[TUPLE[INTEGER]]
+   bar: PREDICATE[TUPLE[INTEGER]]
 
-	five: INTEGER is
-		do
-			Result := 5
-		end
+   five: INTEGER is
+      do
+         Result := 5
+      end
 
-	foo: FUNCTION[TUPLE, INTEGER]
+   foo: FUNCTION[TUPLE, INTEGER]
 
 end -- class TEST_AGENT32
 --

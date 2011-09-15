@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT51
-	--
-	-- To follow SZ:407: from philippe.coucaud@antevista.com
-	--
+   --
+   -- To follow SZ:407: from philippe.coucaud@antevista.com
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			string: STRING; code: FUNCTION[TUPLE[STRING], STRING]
-		do
-			code := agent "foo" + ?
-			string := code.item(["bar"])
-			assert(("foobar").is_equal(string))
-		end
+   make is
+      local
+         string: STRING; code: FUNCTION[TUPLE[STRING], STRING]
+      do
+         code := agent "foo" + ?
+         string := code.item(["bar"])
+         assert(("foobar").is_equal(string))
+      end
 
 end -- class TEST_AGENT51
 --

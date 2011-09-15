@@ -2,57 +2,57 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT27
-	-- From SZ:211: no bug
+   -- From SZ:211: no bug
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	last_call: INTEGER
+   last_call: INTEGER
 
-	msg: STRING
+   msg: STRING
 
-	no_arg is
-		do
-			last_call := 1
-		end
+   no_arg is
+      do
+         last_call := 1
+      end
 
-	str_arg (s: STRING) is
-		do
-			last_call := 2
-			msg := s
-		end
+   str_arg (s: STRING) is
+      do
+         last_call := 2
+         msg := s
+      end
 
-	action: PROCEDURE[TUPLE[STRING]]
+   action: PROCEDURE[TUPLE[STRING]]
 
-	set_action (a: like action) is
-		do
-			action := a
-		end
+   set_action (a: like action) is
+      do
+         action := a
+      end
 
-	perform is
-		local
-			a_no_arg: PROCEDURE[TUPLE]
-		do
-			a_no_arg ?= action
-			if a_no_arg /= Void then
-				a_no_arg.call([])
-			else
-				action.call(["test"])
-			end
-		end
+   perform is
+      local
+         a_no_arg: PROCEDURE[TUPLE]
+      do
+         a_no_arg ?= action
+         if a_no_arg /= Void then
+            a_no_arg.call([])
+         else
+            action.call(["test"])
+         end
+      end
 
-	make is
-		do
-			set_action(agent no_arg)
-			perform
-			assert(last_call = 1)
-			last_call := 0
-			assert(msg = Void)
-		end
+   make is
+      do
+         set_action(agent no_arg)
+         perform
+         assert(last_call = 1)
+         last_call := 0
+         assert(msg = Void)
+      end
 
 end -- class TEST_AGENT27
 --

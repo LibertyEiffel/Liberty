@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT56
-	--
-	-- To check infix call.
-	--
+   --
+   -- To check infix call.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			v: INTEGER
-		do
-			func := agent {INTEGER_8} + 2
-			v := func.item([2])
-			assert(v = 4)
-		end
+   make is
+      local
+         v: INTEGER
+      do
+         func := agent {INTEGER_8} + 2
+         v := func.item([2])
+         assert(v = 4)
+      end
 
-	func: FUNCTION[TUPLE[INTEGER_8], INTEGER_8]
+   func: FUNCTION[TUPLE[INTEGER_8], INTEGER_8]
 
-	func_run (i: INTEGER_8): INTEGER_8 is
-		do
-			Result := i + 1
-		end
+   func_run (i: INTEGER_8): INTEGER_8 is
+      do
+         Result := i + 1
+      end
 
 end -- class TEST_AGENT56
 --

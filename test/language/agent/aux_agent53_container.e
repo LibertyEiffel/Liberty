@@ -4,48 +4,48 @@
 class AUX_AGENT53_CONTAINER[G]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	list: FAST_ARRAY[G]
+   list: FAST_ARRAY[G]
 
-	make is
-		do
-			create list.make(0)
-		end
+   make is
+      do
+         create list.make(0)
+      end
 
-	stats_for (fct: FUNCTION[TUPLE[G], TUPLE[INTEGER, INTEGER]]): REAL is
-		local
-			ti: TUPLE[INTEGER, INTEGER]; i, n1, n2: INTEGER
-		do
-			from
-				i := list.lower
-			until
-				i > list.upper
-			loop
-				ti := fct.item([list.item(i)])
-				n1 := n1 + ti.first
-				n2 := n2 + ti.second
-				i := i + 1
-			end
-			if n1 /= 0 then
-				Result := n2 / n1 * 100
-			end
-		end
+   stats_for (fct: FUNCTION[TUPLE[G], TUPLE[INTEGER, INTEGER]]): REAL is
+      local
+         ti: TUPLE[INTEGER, INTEGER]; i, n1, n2: INTEGER
+      do
+         from
+            i := list.lower
+         until
+            i > list.upper
+         loop
+            ti := fct.item([list.item(i)])
+            n1 := n1 + ti.first
+            n2 := n2 + ti.second
+            i := i + 1
+         end
+         if n1 /= 0 then
+            Result := n2 / n1 * 100
+         end
+      end
 
-	exists (test: FUNCTION[TUPLE[G], BOOLEAN]): BOOLEAN is
-		local
-			i: INTEGER
-		do
-			from
-				i := list.lower
-			until
-				i > list.upper or else Result
-			loop
-				Result := test.item([list.item(i)])
-				i := i + 1
-			end
-		end
+   exists (test: FUNCTION[TUPLE[G], BOOLEAN]): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         from
+            i := list.lower
+         until
+            i > list.upper or else Result
+         loop
+            Result := test.item([list.item(i)])
+            i := i + 1
+         end
+      end
 
 end -- class AUX_AGENT53_CONTAINER
 --

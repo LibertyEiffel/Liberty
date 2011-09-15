@@ -2,51 +2,51 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT22
-	--
-	-- From a bug report of Harald Erdbrügger <he@softpoint.de>
-	--
+   --
+   -- From a bug report of Harald Erdbrügger <he@softpoint.de>
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	callback_a (i: AUX_AGENT22A) is
-		do
-			i.set_c(2)
-		end
+   callback_a (i: AUX_AGENT22A) is
+      do
+         i.set_c(2)
+      end
 
-	callback_b (i: AUX_AGENT22B) is
-		do
-			i.set_c(5)
-		end
+   callback_b (i: AUX_AGENT22B) is
+      do
+         i.set_c(5)
+      end
 
-	make is
-		do
-			doit
-		end
+   make is
+      do
+         doit
+      end
 
-	ca_agent: PROCEDURE[TUPLE[AUX_AGENT22A]]
+   ca_agent: PROCEDURE[TUPLE[AUX_AGENT22A]]
 
-	cb_agent: PROCEDURE[TUPLE[AUX_AGENT22B]]
+   cb_agent: PROCEDURE[TUPLE[AUX_AGENT22B]]
 
-	doit is
-		local
-			aux_a: AUX_AGENT22A; aux_b: AUX_AGENT22B
-		do
-			create aux_a
-			create aux_b
-			ca_agent := agent callback_a
-			ca_agent.call([aux_a])
-			assert(aux_a.c = 2)
-			-- never called in beta5 and beta6, works in -74:
-			-- agent call is missing in
-			cb_agent := agent callback_b
-			cb_agent.call([aux_b])
-			assert(aux_b.c = 5)
-		end
+   doit is
+      local
+         aux_a: AUX_AGENT22A; aux_b: AUX_AGENT22B
+      do
+         create aux_a
+         create aux_b
+         ca_agent := agent callback_a
+         ca_agent.call([aux_a])
+         assert(aux_a.c = 2)
+         -- never called in beta5 and beta6, works in -74:
+         -- agent call is missing in
+         cb_agent := agent callback_b
+         cb_agent.call([aux_b])
+         assert(aux_b.c = 5)
+      end
 
 end -- class TEST_AGENT22
 --

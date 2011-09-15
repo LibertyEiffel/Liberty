@@ -2,48 +2,48 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT30
-	-- From SZ:211: bug in assignment attempt of agents objects.
+   -- From SZ:211: bug in assignment attempt of agents objects.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	last_call: INTEGER
+   last_call: INTEGER
 
-	msg: STRING
+   msg: STRING
 
-	no_arg is
-		do
-			last_call := 1
-		end
+   no_arg is
+      do
+         last_call := 1
+      end
 
-	str_arg (s: STRING) is
-		do
-			last_call := 2
-			msg := s
-		end
+   str_arg (s: STRING) is
+      do
+         last_call := 2
+         msg := s
+      end
 
-	make is
-		local
-			a: PROCEDURE[TUPLE]; b: PROCEDURE[TUPLE[STRING]]
-		do
-			b := agent str_arg(?)
-			b.call(["test"])
-			assert(last_call = 2)
-			last_call := 0
-			assert(msg.is_equal("test"))
-			msg := Void
-			b := agent no_arg
-			a ?= b
-			assert(a /= Void)
-			a.call([])
-			assert(last_call = 1)
-			last_call := 0
-			assert(msg = Void)
-		end
+   make is
+      local
+         a: PROCEDURE[TUPLE]; b: PROCEDURE[TUPLE[STRING]]
+      do
+         b := agent str_arg(?)
+         b.call(["test"])
+         assert(last_call = 2)
+         last_call := 0
+         assert(msg.is_equal("test"))
+         msg := Void
+         b := agent no_arg
+         a ?= b
+         assert(a /= Void)
+         a.call([])
+         assert(last_call = 1)
+         last_call := 0
+         assert(msg = Void)
+      end
 
 end -- class TEST_AGENT30
 --

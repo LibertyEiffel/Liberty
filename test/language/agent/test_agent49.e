@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT49
-	-- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			p: PREDICATE[TUPLE]
-		do
-			exec(p)
-		end
+   make is
+      local
+         p: PREDICATE[TUPLE]
+      do
+         exec(p)
+      end
 
-	exec (p: PREDICATE[TUPLE]) is
-		do
-			if p /= Void then
-				if p.item([]) then
-				end
-			end
-		end
+   exec (p: PREDICATE[TUPLE]) is
+      do
+         if p /= Void then
+            if p.item([]) then
+            end
+         end
+      end
 
 end -- class TEST_AGENT49
 --

@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT59
-	-- Bug isolated thanks to a tarball sent by Oliver Elphick
+   -- Bug isolated thanks to a tarball sent by Oliver Elphick
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			string: STRING
-		do
-			create field_list.make(1, 1)
-			field_list.put("foo", 1)
-			string := object_contents
-		end
+   main is
+      local
+         string: STRING
+      do
+         create field_list.make(1, 1)
+         field_list.put("foo", 1)
+         string := object_contents
+      end
 
-	field_list: ARRAY[STRING]
+   field_list: ARRAY[STRING]
 
-	object_contents: STRING is
-		do
-			Result := "bar"
-			field_list.do_all(agent show_content(Result, ?))
-		end
+   object_contents: STRING is
+      do
+         Result := "bar"
+         field_list.do_all(agent show_content(Result, ?))
+      end
 
-	show_content (bar, foo: STRING) is
-		do
-			assert(bar.is_equal("bar"))
-			assert(foo.is_equal("foo"))
-		end
+   show_content (bar, foo: STRING) is
+      do
+         assert(bar.is_equal("bar"))
+         assert(foo.is_equal("foo"))
+      end
 
 end -- class TEST_AGENT59
 --

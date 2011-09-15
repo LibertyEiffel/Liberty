@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT42
-	-- SZ:295:
-	-- expanded -> reference automatic conversion
+   -- SZ:295:
+   -- expanded -> reference automatic conversion
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-			--***      local
-			--***         coll: ARRAY[INTEGER]
-		do
-			--***         create coll.make(1, 0)
-			--***         coll.add_last(1)
-			--***         coll.do_all(agent print)
-			--***
-		end
+   make is
+         --***      local
+         --***         coll: ARRAY[INTEGER]
+      do
+         --***         create coll.make(1, 0)
+         --***         coll.add_last(1)
+         --***         coll.do_all(agent print)
+         --***
+      end
 
 end -- class TEST_AGENT42
 --

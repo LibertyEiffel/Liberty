@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT12
-	-- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	x: INTEGER
+   x: INTEGER
 
-	make is
-		local
-			p: PROCEDURE[TUPLE]
-		do
-			exec(p)
-			assert(x = 3)
-		rescue
-			p := agent set_x(3)
-			retry
-		end
+   make is
+      local
+         p: PROCEDURE[TUPLE]
+      do
+         exec(p)
+         assert(x = 3)
+      rescue
+         p := agent set_x(3)
+         retry
+      end
 
-	set_x (v: INTEGER) is
-		do
-			x := v
-		end
+   set_x (v: INTEGER) is
+      do
+         x := v
+      end
 
-	exec (p: PROCEDURE[TUPLE]) is
-		do
-			p.call([])
-		end
+   exec (p: PROCEDURE[TUPLE]) is
+      do
+         p.call([])
+      end
 
 end -- class TEST_AGENT12
 --

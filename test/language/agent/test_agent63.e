@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT63
-	-- Report from Philippe Ribet
-	-- As TUPLE is not expanded, this example should work.
+   -- Report from Philippe Ribet
+   -- As TUPLE is not expanded, this example should work.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	loop_stack: LOOP_STACK
+   loop_stack: LOOP_STACK
 
-	counter: INTEGER
+   counter: INTEGER
 
-	make is
-		do
-			create loop_stack.make
-			init(3)
-			loop_stack.run
-		end
+   make is
+      do
+         create loop_stack.make
+         init(3)
+         loop_stack.run
+      end
 
-	init (repeat: INTEGER) is
-		local
-			update: SIMPLE_PERIODIC_JOB
-		do
-			counter := repeat
-			create update.set_work(agent foo([repeat]), Void, 1, 0.1)
-			loop_stack.add_job(update)
-		end
+   init (repeat: INTEGER) is
+      local
+         update: SIMPLE_PERIODIC_JOB
+      do
+         counter := repeat
+         create update.set_work(agent foo([repeat]), Void, 1, 0.1)
+         loop_stack.add_job(update)
+      end
 
-	foo (repeat: TUPLE[INTEGER]): BOOLEAN is
-		do
-			assert(repeat.first = counter)
-			counter := counter - 1
-			repeat.set_first(repeat.first - 1)
-			Result := repeat.first > 0
-		end
+   foo (repeat: TUPLE[INTEGER]): BOOLEAN is
+      do
+         assert(repeat.first = counter)
+         counter := counter - 1
+         repeat.set_first(repeat.first - 1)
+         Result := repeat.first > 0
+      end
 
 end -- class TEST_AGENT63
 --

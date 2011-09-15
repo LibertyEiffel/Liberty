@@ -4,26 +4,26 @@
 class TEST_AGENT07
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			(agent proc(?)).call(['H'])
-			(agent proc(?)).call(['e'])
-			(agent proc(?)).call(['l'])
-			(agent proc(?)).call(['l'])
-			(agent proc(?)).call(['o'])
-			(agent proc).call(['%N'])
-		end
+   make is
+      do
+         (agent proc(?)).call(['H'])
+         (agent proc(?)).call(['e'])
+         (agent proc(?)).call(['l'])
+         (agent proc(?)).call(['l'])
+         (agent proc(?)).call(['o'])
+         (agent proc).call(['%N'])
+      end
 
 feature {}
-	proc (c: CHARACTER) is
-		do
-			debug
-				std_output.put_character(c)
-			end
-		end
+   proc (c: CHARACTER) is
+      do
+         debug
+            std_output.put_character(c)
+         end
+      end
 
 end -- class TEST_AGENT07
 --

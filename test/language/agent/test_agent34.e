@@ -2,45 +2,45 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT34
-	-- SZ:116:
+   -- SZ:116:
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			my_collection: COLLECTION[STRING]; my_list: LINKED_LIST[STRING]; my_set: HASHED_SET[STRING]
-		do
-			my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-			create my_list.make
-			-- Using an agent to fill `my_list' using `my_collection':
-			my_collection.do_all(agent my_list.add_last(?))
-			create my_set.make
-			-- Using an agent to fill `my_set' with `my_list':
-			my_list.do_all(agent my_set.add(?))
-			-- Using an agent to print `my_set':
-			my_set.do_all(agent print_item(?))
-		end
+   make is
+      local
+         my_collection: COLLECTION[STRING]; my_list: LINKED_LIST[STRING]; my_set: HASHED_SET[STRING]
+      do
+         my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
+         create my_list.make
+         -- Using an agent to fill `my_list' using `my_collection':
+         my_collection.do_all(agent my_list.add_last(?))
+         create my_set.make
+         -- Using an agent to fill `my_set' with `my_list':
+         my_list.do_all(agent my_set.add(?))
+         -- Using an agent to print `my_set':
+         my_set.do_all(agent print_item(?))
+      end
 
-	counter: INTEGER
+   counter: INTEGER
 
-	print_item (item: STRING) is
-		do
-			counter := counter + 1
-			inspect
-				counter
-			when 1 then
-				assert(item.is_equal("Benedicte"))
-			when 2 then
-				assert(item.is_equal("Marie"))
-			when 3 then
-				assert(item.is_equal("Lucien"))
-			end
-		end
+   print_item (item: STRING) is
+      do
+         counter := counter + 1
+         inspect
+            counter
+         when 1 then
+            assert(item.is_equal("Benedicte"))
+         when 2 then
+            assert(item.is_equal("Marie"))
+         when 3 then
+            assert(item.is_equal("Lucien"))
+         end
+      end
 
 end -- class TEST_AGENT34
 --

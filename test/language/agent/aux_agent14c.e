@@ -4,7 +4,7 @@
 class AUX_AGENT14C[T]
 
 inherit
-	AUX_AGENT14B[T]
+   AUX_AGENT14B[T]
 
 end -- class AUX_AGENT14C
 --

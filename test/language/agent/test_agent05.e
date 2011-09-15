@@ -4,30 +4,30 @@
 class TEST_AGENT05
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			memory: INTEGER
-		do
-			create cb.make(1, 0)
-			memory := assert_counter.value
-			cb.add_last(agent callback)
-			assert(assert_counter.value = memory)
-			cb.item(cb.lower).call([])
-			assert(assert_counter.value = memory + 2)
-		end
+   make is
+      local
+         memory: INTEGER
+      do
+         create cb.make(1, 0)
+         memory := assert_counter.item
+         cb.add_last(agent callback)
+         assert(assert_counter.item = memory)
+         cb.item(cb.lower).call([])
+         assert(assert_counter.item = memory + 2)
+      end
 
-	callback is
-		do
-			assert(True)
-		end
+   callback is
+      do
+         assert(True)
+      end
 
-	cb: ARRAY[PROCEDURE[TUPLE]]
+   cb: ARRAY[PROCEDURE[TUPLE]]
 
 end -- class TEST_AGENT05
 --

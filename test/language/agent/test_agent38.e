@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT38
-	--Test code reduced from code given in SZ:269:
+   --Test code reduced from code given in SZ:269:
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b: AUX_AGENT38B; c: AUX_AGENT38C; gb: AUX_AGENT38G[AUX_AGENT38B]; gc: AUX_AGENT38G[AUX_AGENT38C]
-		do
-			create b
-			create c
-			create gb
-			gb.set_agent(agent on_b(?))
-			create gc
-			gc.set_agent(agent on_c(?))
-		end
+   make is
+      local
+         b: AUX_AGENT38B; c: AUX_AGENT38C; gb: AUX_AGENT38G[AUX_AGENT38B]; gc: AUX_AGENT38G[AUX_AGENT38C]
+      do
+         create b
+         create c
+         create gb
+         gb.set_agent(agent on_b(?))
+         create gc
+         gc.set_agent(agent on_c(?))
+      end
 
-	on_b (b: AUX_AGENT38B) is
-		do
-		end
+   on_b (b: AUX_AGENT38B) is
+      do
+      end
 
-	on_c (c: AUX_AGENT38C) is
-		do
-		end
+   on_c (c: AUX_AGENT38C) is
+      do
+      end
 
 end -- class TEST_AGENT38
 --

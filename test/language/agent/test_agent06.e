@@ -2,53 +2,53 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT06
-	-- From: Michael Utech <michael@itd.utech.de>
+   -- From: Michael Utech <michael@itd.utech.de>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	data: ARRAY[STRING]
+   data: ARRAY[STRING]
 
-	do_all (action: ROUTINE[TUPLE[STRING]]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := data.lower
-			until
-				i > data.upper
-			loop
-				action.call([data.item(i)])
-				i := i + 1
-			end
-		end
+   do_all (action: ROUTINE[TUPLE[STRING]]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := data.lower
+         until
+            i > data.upper
+         loop
+            action.call([data.item(i)])
+            i := i + 1
+         end
+      end
 
-	make is
-		local
-			test: STRING
-		do
-			data := {ARRAY[STRING] 1, << "eins", "zwei", "drei" >> }
-			test := "zwei"
-			do_all(agent print_string(?, True))
-		end
+   make is
+      local
+         test: STRING
+      do
+         data := {ARRAY[STRING] 1, << "eins", "zwei", "drei" >> }
+         test := "zwei"
+         do_all(agent print_string(?, True))
+      end
 
-	print_string (s: STRING; new_line: BOOLEAN) is
-		do
-			assert(new_line)
-			inspect
-				assert_counter.value
-			when 1 then
-				assert(s.is_equal("eins"))
-			when 3 then
-				assert(s.is_equal("zwei"))
-			when 5 then
-				assert(s.is_equal("drei"))
-			end
-		end
+   print_string (s: STRING; new_line: BOOLEAN) is
+      do
+         assert(new_line)
+         inspect
+            assert_counter.item
+         when 1 then
+            assert(s.is_equal("eins"))
+         when 3 then
+            assert(s.is_equal("zwei"))
+         when 5 then
+            assert(s.is_equal("drei"))
+         end
+      end
 
 end -- class TEST_AGENT06
 --

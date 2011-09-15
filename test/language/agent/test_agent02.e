@@ -4,47 +4,47 @@
 class TEST_AGENT02
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			my_collection: COLLECTION[STRING]
-		do
-			my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-			my_collection.do_all(agent print_item1('#', ?))
-			number := 0
-			my_collection.do_all(agent print_item2(?))
-		end
+   make is
+      local
+         my_collection: COLLECTION[STRING]
+      do
+         my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
+         my_collection.do_all(agent print_item1('#', ?))
+         number := 0
+         my_collection.do_all(agent print_item2(?))
+      end
 
 feature {}
-	print_item1 (c: CHARACTER; item: STRING) is
-		require
-			c /= '%U'
-			item /= Void
-		do
-			assert(c = '#')
-			number := number + 1
-			inspect
-				number
-			when 1 then
-				assert(item.is_equal("Benedicte"))
-			when 2 then
-				assert(item.is_equal("Lucien"))
-			when 3 then
-				assert(item.is_equal("Marie"))
-			end
-		end
+   print_item1 (c: CHARACTER; item: STRING) is
+      require
+         c /= '%U'
+         item /= Void
+      do
+         assert(c = '#')
+         number := number + 1
+         inspect
+            number
+         when 1 then
+            assert(item.is_equal("Benedicte"))
+         when 2 then
+            assert(item.is_equal("Lucien"))
+         when 3 then
+            assert(item.is_equal("Marie"))
+         end
+      end
 
-	print_item2 (item: STRING) is
-		do
-			print_item1('#', item)
-		end
+   print_item2 (item: STRING) is
+      do
+         print_item1('#', item)
+      end
 
-	number: INTEGER
+   number: INTEGER
 
 end -- class TEST_AGENT02
 --
