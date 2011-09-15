@@ -91,7 +91,7 @@ feature {ANY}
             Result := 1
          end
       ensure
-         equal_zero: Result = 0 = is_equal(other)
+         equal_zero: (Result = 0) = is_equal(other)
          smaller_negative: Result = -1 = (Current < other)
          greater_positive: Result = 1 = (Current > other)
       end
