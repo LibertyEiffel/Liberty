@@ -10,6 +10,7 @@ LIBRARIES=cairo \
 	  posix \
 	  posix/dynamic-linking \
 	  readline \
+	  xml \
 	  zmq
 ## Unfinished wrappers: gconf gda gdk gio gtk-math-view gtk-source-view gtk-unix-print json-glib qt4 xml zlib
 

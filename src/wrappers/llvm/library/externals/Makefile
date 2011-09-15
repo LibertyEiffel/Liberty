@@ -3,7 +3,7 @@ HEADER=plugin/c/llvm-liberty.h
 HEADERS=/usr/include/llvm-c/*
 
 wrappers: $(XML)
-	wrappers-generator --verbose --local $(XML) $(HEADERS)
+	wrappers-generator --local $(XML) $(HEADERS)
 $(XML): 
 	## Sometimes gccxml cannot process sources behaving like the default compiler. 
 	## We force it to try to behave like versions known to work until it finds one that is actually available.
