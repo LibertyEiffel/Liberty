@@ -6,7 +6,7 @@ class LAZY_STRING
 inherit
    ABSTRACT_STRING
       redefine
-         immutable, copy_slice_to_native, new_iterator
+         immutable, copy_slice_to_native, new_iterator, lazy_out, prefix "&"
       end
 
 create {ANY}
@@ -23,6 +23,11 @@ feature {ANY} -- redefinitions
    new_iterator: ITERATOR[CHARACTER] is
       do
          Result := lazy_out_.new_iterator
+      end
+
+   lazy_out, prefix "&": ABSTRACT_STRING is
+      do
+         Result := Current
       end
 
 feature {ANY} -- from ABSTRACT_STRING
