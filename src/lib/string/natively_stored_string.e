@@ -132,8 +132,13 @@ feature {ANY} -- Concatenation
          -- Current and `another' concatenating into a new object. The actual effective type of Result is
          -- chosen by the implementation, possibly based on heuristics.
       do
-         -- Currently returning a ROPE.
-         Result := Current | another
+         if another.is_empty then
+            Result := Current
+         elseif is_empty then
+            Result := another
+         else
+            Result := Current | another
+         end
       end
 
 feature {ANY} -- Access

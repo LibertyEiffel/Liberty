@@ -969,13 +969,6 @@ feature {ANY} -- Concatenation
          create Result.from_strings(Current,other)
    ensure
          Result.out.is_equal(Current + other)
-   rescue
-      debug
-         -- This rescue clause doens't actually rescue
-         -- anything at all. I put it here for debugging.
-         -- Paolo 2010-02-27
-         print("'"+Current+"' | '"+other+"' /= '"+Result+"'%N")--.print_on(std_error)
-      end
    end
 
    infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
