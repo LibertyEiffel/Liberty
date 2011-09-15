@@ -22,14 +22,12 @@ feature {ANY} -- Creation
       do
          left := left_string
          right := right_string
-         split_index := left_string.upper
       end
 
    copy (another: like Current) is
       do
          left := another.left
          right := another.right
-         split_index := another.split_index
       end
 
 feature {ANY}
@@ -236,9 +234,14 @@ feature {ANY}
          right := once ""
       end
 
-feature {ABSTRACT_STRING,ITERATOR_ON_ROPE} -- Implementation
-   split_index: INTEGER
+feature {ABSTRACT_STRING, ITERATOR_ON_ROPE} -- Implementation
+   split_index: INTEGER is
          -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
+      do
+         Result := left.upper
+      ensure
+         definition: Result = left.upper
+      end
 
    left, right: ABSTRACT_STRING
          -- The left and right parts of the ROPE
@@ -246,6 +249,5 @@ feature {ABSTRACT_STRING,ITERATOR_ON_ROPE} -- Implementation
 invariant
    left /= Void
    right /= Void
-   split_index = left.upper
 
 end -- class ROPE
