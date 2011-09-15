@@ -212,8 +212,36 @@ feature {ANY}
       end
 
    simplify (type: TYPE): FAKE_TUPLE is
+      local
+         i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
-         Result := Current --|*** To be done ***
+         Result := Current
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               e1 /= e2 or else i > list.upper
+            loop
+               e1 := list.item(i)
+               e2 := e1.simplify(type)
+               i := i + 1
+            end
+            if e1 = e2 then
+               check Result = Current end
+            else
+               from
+                  Result := twin
+                  l := list.twin
+                  Result.set_list(l)
+                  l.put(e2, i - 1)
+               until
+                  i > l.upper
+               loop
+                  l.put(l.item(i).simplify(type), i)
+                  i := i + 1
+               end
+            end
+         end
       end
 
    safety_check (type: TYPE) is

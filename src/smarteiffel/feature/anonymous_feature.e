@@ -278,6 +278,8 @@ feature {LIVE_TYPE, PRECURSOR_CALL}
          inline_dynamic_dispatch_must_be_done_once
          code_accumulator /= Void
          type /= Void
+      local
+         resc: CODE
       do
          if require_assertion /= Void then
             if type.class_text.require_check then
@@ -288,7 +290,12 @@ feature {LIVE_TYPE, PRECURSOR_CALL}
          end
          inline_dynamic_dispatch_(code_accumulator, type)
          if rescue_compound /= Void then
-            set_rescue_compound(rescue_compound.inline_dynamic_dispatch(code_accumulator, type).to_instruction)
+            resc := rescue_compound.inline_dynamic_dispatch(code_accumulator, type)
+            if resc = Void then
+               set_rescue_compound(Void)
+            else
+               set_rescue_compound(resc.to_instruction)
+            end
          end
          if ensure_assertion /= Void then
             if type.class_text.ensure_check then

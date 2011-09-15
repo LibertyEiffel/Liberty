@@ -11,7 +11,7 @@ class CLOSED_OPERAND
 inherit
    EXPRESSION
 
-creation   {AGENT_CREATION}
+creation {AGENT_CREATION}
    make
 
 feature {ANY}

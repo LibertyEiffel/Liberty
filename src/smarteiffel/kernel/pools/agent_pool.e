@@ -76,23 +76,25 @@ feature {AGENT_LAUNCHER}
       do
          -- Computation of the `signature' first:
          signature := once "..... unique buffer ....."
-         signature.clear_count
+         signature.copy(once "agent_launcher")
+
          ar := launcher_type.agent_result
          if ar /= Void then
-            signature_add_last(signature, ar)
-            signature.extend('_')
+            signature.append(once "_R")
+            ar.id.append_in(signature)
          end
-         signature.append(once "agent_launcher")
+
          open := launcher_type.open_arguments
          if open /= Void then
+            signature.extend('_')
             from
                i := 1
             until
                i > open.count
             loop
                formal := open.item(i)
-               signature.extend('_')
-               signature_add_last(signature, formal)
+               signature.extend('o')
+               formal.id.append_in(signature)
                i := i + 1
             end
          end
@@ -217,32 +219,6 @@ feature {}
          -- All ever created signatures for all encountered agent launcher.
       once
          create Result.make
-      end
-
-   signature_add_last (signature: STRING; type: TYPE) is
-      require
-         type /= Void
-      local
-         s: STRING; i: INTEGER; c: CHARACTER
-      do
-         from
-            s := type.name.to_string
-            i := 1
-         until
-            i > s.count
-         loop
-            c := s.item(i)
-            inspect
-               c
-            when '[', ']', ',', ' ' then
-               signature.append(once "__")
-               -- It is not allowed to have 2 _ in the same
-               -- identifier in Eiffel, but in C.
-            else
-               signature.extend(c)
-            end
-            i := i + 1
-         end
       end
 
 end -- class AGENT_POOL

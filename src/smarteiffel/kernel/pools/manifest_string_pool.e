@@ -138,6 +138,8 @@ feature {EXTERNAL_FUNCTION, SMART_EIFFEL}
          dummy := smart_eiffel.collect(string_type, fs, True)
          fs := string_type.feature_stamp_of(capacity_name)
          dummy := smart_eiffel.collect(string_type, fs, True)
+         fs := string_type.feature_stamp_of(storage_lower_name)
+         dummy := smart_eiffel.collect(string_type, fs, True)
       end
 
 feature {SMART_EIFFEL}
