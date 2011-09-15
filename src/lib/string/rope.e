@@ -168,13 +168,17 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         fill_tagged_out_memory
+         tagged_out_memory.append(left)
+         tagged_out_memory.append(right)
       end
 
    fill_tagged_out_memory is
       do
+         tagged_out_memory.append(once "[left: ")
          left.fill_tagged_out_memory
+         tagged_out_memory.append(once " | right: ")
          right.fill_tagged_out_memory
+         tagged_out_memory.append(once "]")
       end
 
 feature {ANY} -- Concatenation

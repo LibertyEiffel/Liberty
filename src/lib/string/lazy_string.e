@@ -15,7 +15,9 @@ create {ANY}
 feature {ANY} -- redefinitions
    fill_tagged_out_memory is
       do
-         tagged_out_memory.append(lazy_out_)
+         tagged_out_memory.append(once "[lazy outter: ")
+         tagged_out_memory.append(outter.out)
+         tagged_out_memory.append(once "]")
       end
 
    immutable: BOOLEAN is True
