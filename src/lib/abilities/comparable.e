@@ -128,7 +128,21 @@ feature {ANY}
       ensure
          Result >= Current and then Result >= other
          compare(Result) = 0 or else other.compare(Result) = 0
-      end
+	 end
+
+	clamp,clamped (a_min, a_max: like Current): like Current is
+		-- Current clamped between `a_min' and `a_max'.
+
+		-- TODO: a single name for this query from "clamp" and "clamped". Paolo 2011-09-06
+	do
+		if Current<a_min then Result:=a_min
+		elseif Current>a_max then Result:=a_max
+		else Result:=Current
+		end
+	ensure 
+		correctness: Result.in_range(a_min,a_max)
+		definition: Result = a_min.max(Current.min(a_max))
+	end
 
 end -- class COMPARABLE
 --

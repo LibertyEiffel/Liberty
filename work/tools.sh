@@ -16,7 +16,7 @@ if [ x$plain == x ]; then
 elif [ x"$(tty)" == "not a tty" ]; then
     plain=FALSE
 fi
-if [ $plain != TRUE ]; then
+if [ $plain != FALSE ]; then
     eval `tset -s`
     tput init
 fi
@@ -39,114 +39,117 @@ underline() {
 
 foreground() {
     if test $plain = FALSE; then
-	case $1 in
-	    black)
-		tput setaf 0
-		;;
-	    red)
-		tput setaf 1
-		;;
-	    green)
-		tput setaf 2
-		;;
-	    yellow)
-		tput setaf 3
-		;;
-	    blue)
-		tput setaf 4
-		;;
-	    magenta)
-		tput setaf 5
-		;;
-	    cyan)
-		tput setaf 6
-		;;
-	    white)
-		tput setaf 7
-		;;
-	esac
+        case $1 in
+            black)
+                tput setaf 0
+                ;;
+            red)
+                tput setaf 1
+                ;;
+            green)
+                tput setaf 2
+                ;;
+            yellow)
+                tput setaf 3
+                ;;
+            blue)
+                tput setaf 4
+                ;;
+            magenta)
+                tput setaf 5
+                ;;
+            cyan)
+                tput setaf 6
+                ;;
+            white)
+                tput setaf 7
+                ;;
+        esac
     fi
 }
 
 background() {
     if test $plain = FALSE; then
-	case $1 in
-	    black)
-		tput setab 0
-		;;
-	    red)
-		tput setab 1
-		;;
-	    green)
-		tput setab 2
-		;;
-	    yellow)
-		tput setab 3
-		;;
-	    blue)
-		tput setab 4
-		;;
-	    magenta)
-		tput setab 5
-		;;
-	    cyan)
-		tput setab 6
-		;;
-	    white)
-		tput setab 7
-		;;
-	esac
+        case $1 in
+            black)
+                tput setab 0
+                ;;
+            red)
+                tput setab 1
+                ;;
+            green)
+                tput setab 2
+                ;;
+            yellow)
+                tput setab 3
+                ;;
+            blue)
+                tput setab 4
+                ;;
+            magenta)
+                tput setab 5
+                ;;
+            cyan)
+                tput setab 6
+                ;;
+            white)
+                tput setab 7
+                ;;
+        esac
     fi
 }
 
 title() {
     if test $plain = TRUE; then
-	echo "$1"
+        echo "== $1 =="
     else
-	tput el
-	foreground blue
-	bold
-	echo "$1"
-	foreground black
-	normal
+        tput el
+        foreground blue
+        bold
+        echo "$1"
+        foreground black
+        normal
     fi
 }
 
 show_status() {
     if test $plain = TRUE; then
-	if test $1 = 0; then
-	    echo "    OK"
-	else
-	    echo "    KO"
-	fi
+        if test $1 = 0; then
+            echo "    OK"
+        else
+            echo "    KO"
+        fi
     else
-	tput el
-	if test $1 = 0; then
-	    tput setaf 2
-	    echo "    OK"
-	else
-	    tput bold
-	    tput setaf 1
-	    echo "    KO"
-	fi
-	tput setaf 0
-	tput sgr0
-	echo
+        tput el
+        if test $1 = 0; then
+            tput setaf 2
+            echo "    OK"
+        else
+            tput bold
+            tput setaf 1
+            echo "    KO"
+        fi
+        tput setaf 0
+        tput sgr0
+        echo
     fi
 }
 
 progress() {
+    size=$1
+    current=$2
+    max=$3
     label="$4"
     if test $plain = TRUE; then
-	echo "$label"
+        awk 'BEGIN {
+                printf(" * %02d/%02d: %s\n", '$current', '$max', "'"$label"'");
+                exit;
+             }' </dev/null >/dev/tty
     else
-	col=`expr \`tput cols\` - $1 - 11`
-	tput setaf 0
-	tput sgr0
-	size=$1
-	current=$2
-	max=$3
-	awk 'BEGIN {
+        col=`expr \`tput cols\` - $1 - 11`
+        tput setaf 0
+        tput sgr0
+        awk 'BEGIN {
                 fill=int('$size' * '$current' / '$max' + .5);
                 printf(" '`tput bold`'%3.1f%%'`tput sgr0`'\t'`tput setab 6`'", 100*'$current'/'$max');
                 for (i=0;    i<fill; i++) printf(" ");
@@ -154,21 +157,21 @@ progress() {
                 for (i=fill; i<'$size'; i++) printf(" ");
                 printf("'`tput sgr0`' '`tput setaf 5`'%-'$col'.'$col's'`tput sgr0`' \r", "'"$label"'");
                 exit;
-            }' </dev/null >/dev/tty
+             }' </dev/null >/dev/tty
     fi
 }
 
 error_message() {
     if test $plain = FALSE; then
-	tput el
-	tput setaf 1
-	tput bold
+        tput el
+        tput setaf 1
+        tput bold
     fi
     echo "$1"
     echo "$2"
     if test $plain = FALSE; then
-	tput setaf 0
-	tput sgr0
+        tput setaf 0
+        tput sgr0
     fi
 }
 
@@ -179,11 +182,11 @@ error() {
 run() {
     echo "$(date) - $@" >> $LOG
     if eval "$@" >>$LOG 2>&1; then
-	status=0
+        status=0
     else
-	s=$?
-	error $s "$1"
-	status=1
+        s=$?
+        error $s "$1"
+        status=1
     fi
     return $status
 }

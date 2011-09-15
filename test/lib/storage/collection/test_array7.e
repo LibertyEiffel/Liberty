@@ -40,8 +40,12 @@ feature {}
 			--			verify(a.item(1), 1)
 			--			verify(a.item(2), 2)
 			--			verify(a.item(3), 3)
-			verify(b.item(1), a)
-			verify(c.item(1), "hello")
+			assert(b.item(1)~a)
+			assert (c.item(1)~"hello") 
+			-- *** the following reimplementation of the the previous two tests fails as the compiler wrongly says that a STRING and does not conform to ANY (Paolo R. 29/8/2011)
+			--     verify(b.item(1),a)
+			--     verify(c.item(1), "hello") 
+
 			-- *** INTEGER doesn't conform to ANY (Vincent Croizier,
 			-- 01/11/2004) ***
 			--			verify(d.item(2), aux2)

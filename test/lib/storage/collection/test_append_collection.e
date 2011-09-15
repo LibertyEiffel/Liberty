@@ -15,7 +15,7 @@ feature {ANY}
 			c1: COLLECTION[INTEGER]
 		do
 			c1 := {ARRAY[INTEGER] 1, << 1, 2 >> }
-			c1.append_collection({ARRAY[INTEGER] 1, << 3, 4 >> })
+			c1.append_traversable({ARRAY[INTEGER] 1, << 3, 4 >> })
 			assert(c1.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 4 >> }))
 		end
 

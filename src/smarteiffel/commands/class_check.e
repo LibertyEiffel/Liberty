@@ -85,7 +85,7 @@ feature {}
          if version_flag then
             die_with_code(exit_success_code)
          end
-         root_class_names.append_collection(ace.root_class_names)
+         root_class_names.append_traversable(ace.root_class_names)
          if root_class_names.is_empty then
             fatal_bad_usage
          end

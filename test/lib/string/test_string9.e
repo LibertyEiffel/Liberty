@@ -81,6 +81,8 @@ feature {ANY}
 			str.extend_multiple('a', 2)
 			assert(("baa").is_equal(str))
 			str := ""
+			str.precede_multiple('a',-1)
+			assert(str ~ "")
 			str.precede_multiple('a', 0)
 			assert(("").is_equal(str))
 			str.precede_multiple('b', 1)

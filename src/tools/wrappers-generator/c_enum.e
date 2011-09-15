@@ -248,7 +248,7 @@ feature {C_ENUM_VALUE} -- Implementation
 		-- The length of longest prefix common to all values of Current enumeration
 		-- Useful to remove the common prefix of many enumeration values.
 	require has_values: values.count > 1 
-	local i, upper: INTEGER
+	local i,upper: INTEGER
 	do
 		from Result:=values.first.c_name.lower; upper:=shortest_length
 		until Result>=upper or else not same_character_at_index(Result)

@@ -14,7 +14,8 @@ class FAST_ARRAY[E_]
    -- you can expect good performances while using a FAST_ARRAY to modelize a stack behavior with `add_last' /
    -- `last' / `remove_last'. Conversely `add_first' and `remove_first' are likely to slow down your program if
    -- they are too often used. If the fact that `lower' is stuck to 0 do matter, also consider ARRAY.
-   --
+   
+   -- `add_first' and `remove_first' are O(count) commands for FAST_ARRAY.
 
 inherit
    COLLECTION[E_]

@@ -94,28 +94,34 @@ feature {ANY}
       end
 
    index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-      local
-         index: INTEGER
-      do
-         if start_index <= count then
-            index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
-            Result := lower + index - storage_lower
-         end
-      end
+	   local
+		   index: INTEGER
+	   do
+		   if start_index <= count then
+			   index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
+			   Result := lower + index - storage_lower
+		   else Result:=upper+1
+		   end
+	   end
 
    reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-         -- Index of first occurrence of `c' at or before `start_index', 0 if none.  The search is done in
-         -- reverse direction, which means from the `start_index' down to the first character.
+         -- Index of first occurrence of `c' at or before `start_index', 
+		 -- The index will be invalid, smaller than `lower' when no occurrence is found;
+		 -- The search is done in reverse direction, which means from the
+		 -- `start_index' down to the first character.
          --
          -- See also `index_of', `last_index_of', `first_index_of'.
-      do
-         if count > 0 then
-            Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
-            if Result <= 0 then
-               Result := 0
-            end
-         end
-      end
+	 do
+		-- Implementation note: the actual value of Result when no occurrence
+		-- is found has deliberately not been written in public documentation
+		-- because an eventual heir may redefine the value of lower
+		if count > 0 then
+			Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
+			if Result <= 0 then
+				Result := lower-1
+			end
+		end
+	end
 
    has, fast_has (c: CHARACTER): BOOLEAN is
       do

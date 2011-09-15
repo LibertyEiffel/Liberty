@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=16
+MAXTOOLCOUNT=17
 
 test ${0%/*} != $0 && cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
@@ -10,14 +10,6 @@ export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
-
-
-# TODO: packaging
-#
-# Currently there is no top level Makefile. This may require additional tuning.
-# Done. Please edit the files in the debian/ subdirectory now. You should also
-# check that the libertyeiffel Makefiles install into $DESTDIR and not in / .
-#
 
 
 function bootstrap()
@@ -82,7 +74,7 @@ short: $LIBERTY_HOME/resources/short
 os: UNIX
 flavor: Linux
 tag: 3
-jobs: 4
+jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
@@ -108,6 +100,7 @@ doc: eiffeldoc
 test: eiffeltest
 x_int: extract_internals
 make: se_make.sh
+wrap: wrappers_generator
 
 [boost]
 -- c_compiler_type: tcc
@@ -227,7 +220,8 @@ EOF
     {
         echo 5 se
         echo 6 clean
-        echo 7 eiffeldoc
+        echo 7 ace_check
+        echo 8 eiffeltest
     } | while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
@@ -236,13 +230,13 @@ EOF
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done
     {
-        echo 8  pretty
-        echo 9  short
-        echo 10 class_check
-        echo 11 finder
-        echo 12 eiffeltest
-        echo 13 ace_check
+        echo  9 pretty
+        echo 10 short
+        echo 11 class_check
+        echo 12 finder
+        echo 13 eiffeldoc
         echo 14 extract_internals
+        echo 15 wrappers_generator
     } | while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
@@ -327,18 +321,26 @@ function do_pkg_tools()
     ETC=$DESTDIR/etc/serc
     SHORT=$DESTDIR/usr/share/libertyeiffel/short
     SYS=$DESTDIR/usr/share/libertyeiffel/sys
+    SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/libertyeiffel
 
-    mkdir -p $PUBLIC $PRIVATE $ETC
+    install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SITE_LISP
 
-    cp $LIBERTY_HOME/target/bin/se $PUBLIC/
+    install -m 0755 -o root -g root $LIBERTY_HOME/target/bin/se $PUBLIC/
+    install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
-    for tool in c compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
+    for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals
     do
-        cp $LIBERTY_HOME/target/bin/$tool $PRIVATE/
+        bin=$LIBERTY_HOME/target/bin/${tool}.d/$tool
+        if test -e $bin; then
+            echo "$bin to $PRIVATE/"
+            install -m 0755 -o root -g root $bin $PRIVATE/
+        fi
     done
 
     cp -a $LIBERTY_HOME/resources/short $SHORT
     cp -a $LIBERTY_HOME/sys $SYS
+
+    chown -R root:root $SHORT $SYS
 
     cat >$ETC/liberty.se <<EOF
 [General]
@@ -362,6 +364,7 @@ class_check: class_check
 doc: eiffeldoc
 test: eiffeltest
 x_int: extract_internals
+wrap: wrappers_generator
 
 [boost]
 c_compiler_type: gcc
@@ -420,6 +423,8 @@ cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
 smarteiffel_options: -no_split
 
 EOF
+
+    chown root:root $ETC/liberty.se
 }
 
 function do_pkg_tools_src()
@@ -427,10 +432,12 @@ function do_pkg_tools_src()
     SRC=$DESTDIR/usr/share/libertyeiffel/src/
     ETC=$DESTDIR/etc/serc
 
-    cp -a $LIBERTY_HOME/src/smarteiffel $SRC/tools
-    mkdir -p $SRC $ETC
+    install -d -m 0755 -o root -g root $SRC $ETC
 
-cat > $ETC/serc/liberty_tools.se <<EOF
+    cp -a $LIBERTY_HOME/src/smarteiffel $SRC/tools
+    chown -R root:root $SRC/tools
+
+cat > $ETC/liberty_tools.se <<EOF
 [Environment]
 path_tools: /usr/share/libertyeiffel/src/tools/
 
@@ -444,10 +451,12 @@ function do_pkg_core_libs()
     SRC=$DESTDIR/usr/share/libertyeiffel/src/
     ETC=$DESTDIR/etc/serc
 
-    cp -a $LIBERTY_HOME/src/lib $SRC/core
-    mkdir -p $SRC $ETC
+    install -d -m 0755 -o root -g root $SRC $ETC
 
-cat > $ETC/serc/liberty_core.se <<EOF
+    cp -a $LIBERTY_HOME/src/lib $SRC/core
+    chown -R root:root $SRC/core
+
+cat > $ETC/liberty_core.se <<EOF
 [Environment]
 path_liberty: /usr/share/libertyeiffel/src/core/
 
@@ -459,15 +468,17 @@ EOF
 function do_pkg_tools_doc()
 {
     DOC=$DESTDIR/usr/share/doc/libertyeiffel/
-    mkdir -p $DOC
+    install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/tools $DOC/
+    chown -R root:root $DOC
 }
 
 function do_pkg_core_doc()
 {
     DOC=$DESTDIR/usr/share/doc/libertyeiffel/
-    mkdir -p $DOC
+    install -d -m 0755 -o root -g root $DOC
     cp -a $LIBERTY_HOME/target/doc/core $DOC/
+    chown -R root:root $DOC
 }
 
 function do_pkg()
@@ -483,10 +494,10 @@ function do_all()
 {
     test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
-    make_doc
     #compile_plugins
-    #generate_wrappers
+    generate_wrappers
     #compile_all
+    make_doc
 }
 
 if [ $# = 0 ]; then
@@ -513,6 +524,12 @@ else
             x-package)
                 do_pkg
                 ;;
+            x-plain)
+                plain=TRUE
+                ;;
+            x-doc)
+                make_doc
+                ;;
             *)
                 echo "Unknown argument: $1"
                 cat >&2 <<EOF
@@ -529,6 +546,8 @@ Usage: $0 {-bootstrap|-plugins|-wrappers|-bootstrap-se|-package}
 
   -wrappers    Generates the library wrappers; some are used by the
                Liberty tools themselves (ffi, readline, llvm, ...)
+
+  -doc         Generates the HTML documentation for all classes.
 
   -package     Generates the Debian packages into DESTDIR.
 
