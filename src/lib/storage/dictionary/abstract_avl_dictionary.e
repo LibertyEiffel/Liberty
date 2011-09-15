@@ -178,6 +178,7 @@ feature {}
 
    exchange_and_discard (n1, n2: like root) is
       do
+         map_dirty := True
          n1.set_key(n2.key)
          n1.set_value(n2.value)
          rebalance := True

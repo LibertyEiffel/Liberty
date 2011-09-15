@@ -63,7 +63,7 @@ feature {}
             set_value(Result)
             rebalance := False
          elseif ordered(item_memory, n.item) then
-            n.set_left(do_insert(n.left))
+            n.set_left(fast_do_insert(n.left))
             if rebalance then
                Result := left_grown(n)
             else
@@ -73,7 +73,7 @@ feature {}
             check
                ordered(n.item, item_memory)
             end
-            n.set_right(do_insert(n.right))
+            n.set_right(fast_do_insert(n.right))
             if rebalance then
                Result := right_grown(n)
             else
