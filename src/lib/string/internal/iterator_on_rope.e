@@ -32,13 +32,6 @@ feature {ANY}
 
    start is
       do
-         -- debug
-         --    print("Starting ROPE iterator `")
-         --    root.left.print_on(std_output)
-         --    print("'-`")
-         --    root.right.print_on(std_output)
-         --    print("'. ")
-         -- end
          right_visited := False
          iter := root.left.new_iterator
          iter.start

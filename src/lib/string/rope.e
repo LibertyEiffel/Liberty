@@ -1,12 +1,16 @@
+-- This file is part of a Liberty Eiffel library.
+-- See the full copyright at the end.
+--
 class ROPE
    --
    -- A string of characters allowing for efficient concatenation.
    --
-   -- See also FIXED_STRING and STRING
-   -- http://en.wikipedia.org/Rope_(computer_science) and
+   -- See also LAZY_STRING, FIXED_STRING, and STRING
+   --
+   -- http://en.wikipedia.org/Rope_(computer_science)
    -- http://pcplus.techradar.com/node/3079/
 
-   -- Known bugs: using out with temporary
+   --|NOTE: this class works on the assumption that lower = 1 (see ABSTRACT_STRING invariant)
 
 inherit
    ABSTRACT_STRING
@@ -19,6 +23,9 @@ creation {ANY}
 
 feature {ANY} -- Creation
    from_strings (left_string, right_string: ABSTRACT_STRING) is
+      require
+         left_string /= Void
+         right_string /= Void
       do
          left := left_string
          right := right_string
@@ -26,8 +33,7 @@ feature {ANY} -- Creation
 
    copy (another: like Current) is
       do
-         left := another.left
-         right := another.right
+         from_strings(another.left, another.right)
       end
 
 feature {ANY}
@@ -64,19 +70,8 @@ feature {ANY}
       end
 
    occurrences (c: CHARACTER): INTEGER is
-      local
-         i: INTEGER
       do
-         from
-            i := lower
-         until
-            i > upper
-         loop
-            if item(i) = c then
-               Result := Result + 1
-            end
-            i := i + 1
-         end
+         Result := left.occurrences(c) + right.occurrences(c)
       end
 
 feature {ANY}
@@ -141,17 +136,8 @@ feature {ANY}
       end
 
    has, fast_has (c: CHARACTER): BOOLEAN is
-      local
-         i: INTEGER
       do
-         from
-            i := lower
-         until
-            Result or i > upper
-         loop
-            Result := item(i) = c
-            i:= i + 1
-         end
+         Result := left.has(c) or else right.has(c)
       end
 
    index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
@@ -231,23 +217,59 @@ feature {ANY}
    recycle is
       do
          left := once ""
-         right := once ""
+         right := left
       end
 
 feature {ABSTRACT_STRING, ITERATOR_ON_ROPE} -- Implementation
+   left, right: ABSTRACT_STRING
+         -- The left and right parts of the ROPE
+
+feature {} -- Split index
    split_index: INTEGER is
          -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
       do
-         Result := left.upper
+         Result := split_index_memory - 1
+         if Result < 0 then
+            check
+               Result = -1
+            end
+            Result := left.upper
+            split_index_memory := Result + 1
+            check
+               split_index_memory > 0
+            end
+         end
       ensure
          definition: Result = left.upper
       end
 
-   left, right: ABSTRACT_STRING
-         -- The left and right parts of the ROPE
+   split_index_memory: INTEGER
+         -- off-by-one upper index of the left part (the offset allows the default initialization = 0 to act
+         -- as a not-yet-evaluated value)
 
 invariant
    left /= Void
    right /= Void
+   split_index_memory >= 0
 
 end -- class ROPE
+--
+-- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.
