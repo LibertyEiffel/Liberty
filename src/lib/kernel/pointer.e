@@ -97,6 +97,16 @@ feature {}
          }"
       end
 
+  pointer_to_natural_32 (p: POINTER): NATURAL_32 is
+      external "plug_in"
+      alias "{
+         location: "${sys}/runtime"
+         module_name: "basic_pointer"
+         feature_name: "pointer_to_natural_32"
+         }"
+      end
+
+
    pointer_to_any (p: POINTER): ANY is
          -- Dangerous forced conversion. This function assume that `p' is
          -- really a reference to some Eiffel allocated object.

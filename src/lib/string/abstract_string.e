@@ -100,6 +100,16 @@ feature {ANY} -- Testing:
          definition: Result = item(i)
       end
 
+	infix "^" (a_range: INTEGER_RANGE): ABSTRACT_STRING is
+		-- Substring of items in `a_range' .
+	require valid_range: valid_index(a_range.lower) and valid_index(a_range.upper)
+	do
+		Result := substring (a_range.lower, a_range.upper)
+	ensure
+		Result.count = a_range.count
+		has_substring(Result) -- This is the same of writing "substring_index(Result,lower)=a_range.lower"
+	end
+
    infix "<" (other: ABSTRACT_STRING): BOOLEAN is
          -- Is `Current' less than `other'?
          --
@@ -989,6 +999,13 @@ feature {ANY} -- Concatenation
       ensure
          Result.out.is_equal(Current + other)
       end
+
+
+	  --	infix "#" (a_value: ABSTRACT_STRING): like ABSTRACT_STRING is
+	  --		-- Replace the placeholder "@(n)" with the lower n with the content of `a_value'
+	  --		deferred
+	  --		ensure definition: has_substring(a_value)
+	  --		end
 
 feature -- Case convertion
    as_lower: STRING is

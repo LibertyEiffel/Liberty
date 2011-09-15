@@ -26,5 +26,6 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 #define pointer_hash_code(p) (((unsigned int)(unsigned long)(p))>>1)
+#define pointer_to_natural_32(p) ((unsigned int) (p))
 #define pointer_to_any(p) ((T0*)(p))
 #define pointer_plus(p, o) (((char*)(p))+o)

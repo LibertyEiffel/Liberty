@@ -63,6 +63,8 @@ feature {ANY}
 			s1.remove_first
 			s1.insert_string("XYZ", 3)
 			assert(("34XYZ567").is_equal(s1))
+			
+			assert(("1234567890"^4|..|6)~"456")
 		end
 
 feature {}
