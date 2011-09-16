@@ -4,13 +4,13 @@
 class AUX_AGENT38G[E -> AUX_AGENT38A]
 
 feature {ANY}
-	set_agent (a_proc: ROUTINE[TUPLE[E]]) is
-		do
-			proc := a_proc
-		end
+   set_agent (a_proc: ROUTINE[TUPLE[E]]) is
+      do
+         proc := a_proc
+      end
 
 feature {}
-	proc: ROUTINE[TUPLE[E]]
+   proc: ROUTINE[TUPLE[E]]
 
 end -- class AUX_AGENT38G
 --

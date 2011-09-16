@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT48
-	-- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			p: PROCEDURE[TUPLE]
-		do
-			exec(p)
-		end
+   make is
+      local
+         p: PROCEDURE[TUPLE]
+      do
+         exec(p)
+      end
 
-	exec (p: PROCEDURE[TUPLE]) is
-		do
-			if p /= Void then
-				p.call([])
-			end
-		end
+   exec (p: PROCEDURE[TUPLE]) is
+      do
+         if p /= Void then
+            p.call([])
+         end
+      end
 
 end -- class TEST_AGENT48
 --

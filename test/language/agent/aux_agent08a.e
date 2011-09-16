@@ -4,9 +4,9 @@
 class AUX_AGENT08A
 
 feature {ANY}
-	foo is
-		do
-		end
+   foo is
+      do
+      end
 
 end -- class AUX_AGENT08A
 --

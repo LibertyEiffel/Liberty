@@ -4,10 +4,10 @@
 class AUX_AGENT16[T]
 
 feature {ANY} -- Access
-	abstraction: FUNCTION[TUPLE[T, T], T]
+   abstraction: FUNCTION[TUPLE[T, T], T]
 
 invariant
-	valid: abstraction = Void
+   valid: abstraction = Void
 
 end -- class AUX_AGENT16
 --

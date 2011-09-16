@@ -4,22 +4,22 @@
 class AUX_AGENT45_M1
 
 inherit
-	AUX_AGENT45_MD
-		--*** The test works if we don't redefine slave, but create it via create {AUX_AGENT45_S1}
-		redefine slave
-		end
+   AUX_AGENT45_MD
+      --*** The test works if we don't redefine slave, but create it via create {AUX_AGENT45_S1}
+      redefine slave
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create slave.make
-		end
+   make is
+      do
+         create slave.make
+      end
 
 feature {}
-	slave: AUX_AGENT45_S1
+   slave: AUX_AGENT45_S1
 
 end -- class AUX_AGENT45_M1
 --

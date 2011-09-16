@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT47
-	-- Test de la liaison dynamique (sur la cible)
+   -- Test de la liaison dynamique (sur la cible)
 
 inherit
-	AUX_AGENT47
-		redefine f
-		end
+   AUX_AGENT47
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_AGENT47
-		do
-			create aux
-			memory.set_item("In aux agent 47%N")
-			aux.test(aux)
-			memory.set_item("In agent 47%N")
-			aux.test(Current)
-			aux := Current
-			memory.set_item("In aux agent 47%N")
-			aux.test(create {AUX_AGENT47})
-			memory.set_item("In agent 47%N")
-			aux.test(Current)
-		end
+   make is
+      local
+         aux: AUX_AGENT47
+      do
+         create aux
+         memory.set_item("In aux agent 47%N")
+         aux.test(aux)
+         memory.set_item("In agent 47%N")
+         aux.test(Current)
+         aux := Current
+         memory.set_item("In aux agent 47%N")
+         aux.test(create {AUX_AGENT47})
+         memory.set_item("In agent 47%N")
+         aux.test(Current)
+      end
 
-	f is
-		do
-			assert(memory.item.is_equal("In agent 47%N"))
-			memory.set_item(Void)
-		end
+   f is
+      do
+         assert(memory.item.is_equal("In agent 47%N"))
+         memory.set_item(Void)
+      end
 
 end -- class TEST_AGENT47
 --

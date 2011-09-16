@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT46
-	-- Test de la liaison pas dynamique (l'agent est un appel
-	-- implicite sur Current)
+   -- Test de la liaison pas dynamique (l'agent est un appel
+   -- implicite sur Current)
 
 inherit
-	AUX_AGENT46
-		redefine f
-		end
+   AUX_AGENT46
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_AGENT46
-		do
-			create aux
-			aux.test
-			test
-			aux := Current
-			aux.test
-			assert(assert_counter.value = 3)
-		end
+   make is
+      local
+         aux: AUX_AGENT46
+      do
+         create aux
+         aux.test
+         test
+         aux := Current
+         aux.test
+         assert(assert_counter.item = 3)
+      end
 
-	f is
-		do
-			assert(assert_counter.value.in_range(1, 2))
-		end
+   f is
+      do
+         assert(assert_counter.item.in_range(1, 2))
+      end
 
 end -- class TEST_AGENT46
 --

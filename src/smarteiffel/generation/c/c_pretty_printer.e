@@ -1258,11 +1258,9 @@ feature {}
       end
 
    define_agent_launcher_args (agent_args: AGENT_ARGS) is
-      local
-         boost: BOOLEAN
       do
          prepare_c_function
-         boost := define_agent_launcher_heading(agent_args, once "(live)")
+         define_agent_launcher_heading(agent_args, once "(live)")
          if agent_args.agent_result /= Void then
             pending_c_function_body.append(result_type.for(agent_args.agent_result.canonical_type_mark))
             pending_c_function_body.append(" R=")
@@ -1278,15 +1276,7 @@ feature {}
             local_profile
             start_profile_agent_switch(agent_args.agent_type)
          end
-         pending_c_function_body.append(once "/*")
-         pending_c_function_body.append(agent_args.agent_type.name.to_string)
-         pending_c_function_body.append(once "*/switch(((se_agent0*)a)->creation_mold_id){%N")
-         agent_pool_switch_in(pending_c_function_body, agent_args.agent_type, agent_args.agent_result)
-         if not boost then
-            pending_c_function_body.append(once "default:%N%
-                                                %error0(%"Internal error in agent launcher.%",NULL);%N")
-         end
-         pending_c_function_body.append(once "}%N")
+         agent_pool_switch_in(pending_c_function_body, agent_args, agent_args.agent_type, agent_args.agent_result)
          if ace.profile then
             stop_profile
          end
@@ -1296,16 +1286,15 @@ feature {}
          dump_pending_c_function(True)
       end
 
-   define_agent_launcher_heading (agent_args: AGENT_ARGS; tag: STRING): BOOLEAN is
+   define_agent_launcher_heading (agent_args: AGENT_ARGS; tag: STRING) is
       local
-         boost: BOOLEAN; i: INTEGER; ar: TYPE; open: ARRAY[TYPE]
+         i: INTEGER; ar: TYPE; open: ARRAY[TYPE]
       do
          echo.put_string(once "Defining ")
          echo.put_string(tag)
          echo.put_string(once " agent wrapper: ")
          echo.put_string(agent_args.signature)
          echo.put_string(once "%N")
-         boost := ace.boost
          ar := agent_args.agent_result
          if ar = Void then
             pending_c_function_signature.append(once "void")
@@ -1315,7 +1304,7 @@ feature {}
          pending_c_function_signature.extend(' ')
          pending_c_function_signature.append(agent_args.signature)
          pending_c_function_signature.extend('(')
-         if not boost then
+         if not ace.boost then
             pending_c_function_signature.append(once "se_dump_stack*caller,")
          end
          if ace.profile then
@@ -1338,20 +1327,23 @@ feature {}
             end
          end
          pending_c_function_signature.extend(')')
-         Result := boost
       end
 
-   agent_pool_switch_in (buffer: STRING; launcher_type, agent_result: TYPE) is
+   agent_pool_switch_in (buffer: STRING; agent_args: AGENT_ARGS; launcher_type, agent_result: TYPE) is
       require
          agent_result = launcher_type.agent_result
       local
-         mold_id: STRING;
-         type_idx, agent_creation_idx, arg_idx, open_count, idx: INTEGER
-         open_args: ARRAY[TYPE]
+         mold_id: STRING; type_idx, agent_creation_idx, idx: INTEGER
          agent_creation_list: FAST_ARRAY[AGENT_CREATION]; agent_creation: AGENT_CREATION
-         type, agent_creation_type: TYPE
+         type, agent_creation_type: TYPE; need_switch: BOOLEAN
       do
-         mold_id := once "..........................."
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(agent_args.agent_type.name.to_string)
+         pending_c_function_body.append(once "*/")
+         need_switch := not (ace.boost and then agent_pool_has_only_one_case_for(launcher_type, agent_result))
+         if need_switch then
+            pending_c_function_body.append(once "switch(((se_agent0*)a)->creation_mold_id){%N")
+         end
          from
             type_idx := agent_pool.creation_collected_memory.lower
          until
@@ -1367,52 +1359,116 @@ feature {}
                agent_creation := agent_creation_list.item(agent_creation_idx)
                agent_creation_type := agent_creation.resolve_in(type)
                if agent_creation_type.can_be_assigned_to(launcher_type) then
+                  mold_id := once "..........................."
                   mold_id.clear_count
                   agent_creation.mold_id_in(type, mold_id)
                   idx := defined_agent_creation.first_index_of(mold_id)
                   if defined_agent_creation.valid_index(idx) then
-                     buffer.append(once "case ")
-                     idx.append_in(buffer)
-                     buffer.append(once ":{%N")
-                     if agent_result /= Void then
-                        buffer.append(once "R=(")
-                        buffer.append(result_type.for(agent_result.canonical_type_mark))
-                        buffer.append(once ")(")
+                     if need_switch then
+                        buffer.append(once "case ")
+                        idx.append_in(buffer)
+                        buffer.append(once ":%N")
+                        agent_pool_call_in(buffer, mold_id, agent_result, agent_creation_type)
+                        buffer.append(once "break;%N")
+                     else
+                        agent_pool_call_in(buffer, mold_id, agent_result, agent_creation_type)
                      end
-                     buffer.append(once "((se_")
-                     buffer.append(mold_id)
-                     buffer.append(once "*)a)->afp(")
-                     if not ace.boost then
-                        buffer.append(once "caller,")
-                     end
-                     if ace.profile then
-                        buffer.append(once "&local_profile,")
-                     end
-                     buffer.append(once "((/*agent*/void*)a)")
-                     open_args := agent_creation_type.open_arguments
-                     if open_args /= Void then
-                        open_count := open_args.count
-                        from
-                           arg_idx := 1
-                        until
-                           arg_idx > open_count
-                        loop
-                           buffer.append(once ",a")
-                           arg_idx.append_in(buffer)
-                           arg_idx := arg_idx + 1
-                        end
-                     end
-                     buffer.extend(')')
-                     if agent_result /= Void then
-                        buffer.extend(')')
-                     end
-                     buffer.append(once ";%Nbreak;%N}%N")
                   end
                end
                agent_creation_idx := agent_creation_idx + 1
             end
             type_idx := type_idx + 1
          end
+         if not ace.boost then
+            check
+               need_switch
+            end
+            pending_c_function_body.append(once "default:%Nerror0(%"Internal error in agent launcher.%",NULL);%N")
+         end
+         if need_switch then
+            pending_c_function_body.append(once "}%N")
+         end
+      end
+
+   agent_pool_has_only_one_case_for (launcher_type, agent_result: TYPE): BOOLEAN is
+      require
+         ace.boost
+      local
+         mold_id: STRING; type_idx, agent_creation_idx, idx: INTEGER
+         agent_creation_list: FAST_ARRAY[AGENT_CREATION]; agent_creation: AGENT_CREATION
+         type, agent_creation_type: TYPE
+         count: INTEGER
+      do
+         from
+            type_idx := agent_pool.creation_collected_memory.lower
+         until
+            type_idx > agent_pool.creation_collected_memory.upper or else count > 1
+         loop
+            type := agent_pool.creation_collected_memory.key(type_idx)
+            agent_creation_list := agent_pool.creation_collected_memory.item(type_idx)
+            from
+               agent_creation_idx := agent_creation_list.lower
+            until
+               agent_creation_idx > agent_creation_list.upper or else count > 1
+            loop
+               agent_creation := agent_creation_list.item(agent_creation_idx)
+               agent_creation_type := agent_creation.resolve_in(type)
+               if agent_creation_type.can_be_assigned_to(launcher_type) then
+                  mold_id := once "..........................."
+                  mold_id.clear_count
+                  agent_creation.mold_id_in(type, mold_id)
+                  idx := defined_agent_creation.first_index_of(mold_id)
+                  if defined_agent_creation.valid_index(idx) then
+                     count := count + 1
+                  end
+               end
+               agent_creation_idx := agent_creation_idx + 1
+            end
+            type_idx := type_idx + 1
+         end
+         Result := count < 2
+      end
+
+   agent_pool_call_in (buffer, mold_id: STRING; agent_result, agent_creation_type: TYPE) is
+      require
+         agent_creation_type.can_be_assigned_to(launcher_type)
+      local
+         open_args: ARRAY[TYPE]
+         arg_idx, open_count: INTEGER
+      do
+         if agent_result /= Void then
+            buffer.append(once "R=(")
+            buffer.append(result_type.for(agent_result.canonical_type_mark))
+            buffer.append(once ")(")
+         end
+         buffer.append(once "((se_")
+         buffer.append(mold_id)
+         buffer.append(once "*)a)->afp(")
+         if not ace.boost then
+            buffer.append(once "caller,")
+         end
+         if ace.profile then
+            buffer.append(once "&local_profile,")
+         end
+         buffer.append(once "((/*agent*/void*)a)")
+         open_args := agent_creation_type.open_arguments
+         if open_args /= Void then
+            open_count := open_args.count
+            from
+               arg_idx := 1
+            until
+               arg_idx > open_count
+            loop
+               buffer.append(once ",a")
+               arg_idx.append_in(buffer)
+               arg_idx := arg_idx + 1
+            end
+         end
+         buffer.extend(')')
+         if agent_result /= Void then
+            buffer.extend(')')
+         end
+         buffer.append(once ";%N")
       end
 
 feature {C_COMPILATION_MIXIN}
@@ -1799,8 +1855,8 @@ feature {C_COMPILATION_MIXIN}
          pending_c_function
          e.resolve_in(type).is_boolean
          avoid_useless_code: not ({E_TRUE} ?:= e)
-         not check_assertion_mode.is_empty
-         not tag_name.is_empty
+                                             not check_assertion_mode.is_empty
+                                             not tag_name.is_empty
       local
          continue, finish: STRING
       do
@@ -1885,16 +1941,16 @@ feature {C_COMPILATION_MIXIN}
          if live_type_of_current /= Void then
             if live_type_of_current.is_reference then
                pending_c_function_body.append(once "if(se_rci(caller,C))")
-            end
-            pending_c_function_body.append(once "se_i")
-            live_type_of_current.id.append_in(pending_c_function_body)
-            if ace.profile then
-               pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
-            else
-               pending_c_function_body.append(once "(&ds,C);%N")
+               end
+               pending_c_function_body.append(once "se_i")
+               live_type_of_current.id.append_in(pending_c_function_body)
+               if ace.profile then
+                  pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
+               else
+                  pending_c_function_body.append(once "(&ds,C);%N")
+               end
             end
          end
-      end
 
 feature {ANY}
    class_invariant_call_opening (type_of_target: TYPE; extra_cast_flag: BOOLEAN): INTEGER is
@@ -1961,14 +2017,14 @@ feature {}
       do
          --
          end_c_linkage(out_h)
-         out_h.disconnect
-         end_c_linkage(out_c)
-         out_c.disconnect
-         --
-         c_plus_plus_definitions
-         --
-         echo.tfw_connect(out_make, path_make)
-         do_write_make_file
+      out_h.disconnect
+      end_c_linkage(out_c)
+      out_c.disconnect
+      --
+      c_plus_plus_definitions
+   --
+   echo.tfw_connect(out_make, path_make)
+do_write_make_file
          if not executable_is_up_to_date then
             cmd := system_tools.strip_executable
             if cmd /= Void then
@@ -2179,17 +2235,17 @@ feature {C_COMPILATION_MIXIN}
          if ace.no_check then --|*** should be require_check?
             if ace.flat_check then
                pending_c_function_body.append(once "if(assertion_depth){%Nassertion_depth--;%N")
-            else
-               if inside_feature_flag then
-                  pending_c_function_body.append(once "if(fd.assertion_flag){%Nfd.assertion_flag=0;%N")
                else
-                  pending_c_function_body.append(once "if(ds.fd->assertion_flag){%Nds.fd->assertion_flag=0;%N")
+                  if inside_feature_flag then
+                     pending_c_function_body.append(once "if(fd.assertion_flag){%Nfd.assertion_flag=0;%N")
+                     else
+                        pending_c_function_body.append(once "if(ds.fd->assertion_flag){%Nds.fd->assertion_flag=0;%N")
+                        end
+                     end
+                  end
                end
-            end
-         end
-      end
 
-   stop_recursive_assertion_closing (inside_feature_flag: BOOLEAN) is
+               stop_recursive_assertion_closing (inside_feature_flag: BOOLEAN) is
       do
          if ace.no_check then
             if ace.flat_check then
@@ -2372,15 +2428,15 @@ feature {}
             end
             if no_check then
                pending_c_function_body.append(once "[
-                 se_frame_descriptor fd={"<atexit wrapper>",0,0,"",1};
-                 se_dump_stack ds;
-                 ds.fd=&fd;
-                 ds.p=0;
-                 ds.caller=NULL;
-                 ds.exception_origin=NULL;
-                 ds.locals=NULL;
+                                                    se_frame_descriptor fd={"<atexit wrapper>",0,0,"",1};
+                                                                                                     se_dump_stack ds;
+                                                                                                     ds.fd=&fd;
+                                                                                                     ds.p=0;
+                                                                                                     ds.caller=NULL;
+                                                                                                     ds.exception_origin=NULL;
+                                                                                                     ds.locals=NULL;
 
-                 ]")
+                                                                                                     ]")
             end
             if ace.profile then
                pending_c_function_body.append(once "parent_profile=&global_profile;%N")
@@ -2394,147 +2450,147 @@ feature {}
                   -- (Calling Eiffel function flush would result in running sedb again whereas the user said s/he
                   -- wanted to exit.)
                   pending_c_function_body.append("if (sedb_status != SEDB_EXIT_MODE) ")
-               end
-               pending_c_function_body.extend('r')
-               smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
-               pending_c_function_body.append(once "se_atexit(")
-               if not ace.boost then
-                  pending_c_function_body.append(once "&ds")
+                  end
+                  pending_c_function_body.extend('r')
+                  smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
+                  pending_c_function_body.append(once "se_atexit(")
+                  if not ace.boost then
+                     pending_c_function_body.append(once "&ds")
+                  end
+                  if ace.profile then
+                     if pending_c_function_body.last /= '(' then
+                        pending_c_function_body.extend(',')
+                     end
+                     pending_c_function_body.append(once "&local_profile")
+                  end
+                  if not ace.boost then
+                     if pending_c_function_body.last /= '(' then
+                        pending_c_function_body.extend(',')
+                     end
+                     pending_c_function_body.append(once "NULL/*Unused Target*/")
+                  end
+                  pending_c_function_body.append(once ");%N")
                end
                if ace.profile then
-                  if pending_c_function_body.last /= '(' then
-                     pending_c_function_body.extend(',')
-                  end
-                  pending_c_function_body.append(once "&local_profile")
+                  pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
                end
-               if not ace.boost then
-                  if pending_c_function_body.last /= '(' then
-                     pending_c_function_body.extend(',')
-                  end
-                  pending_c_function_body.append(once "NULL/*Unused Target*/")
+               if ace.profile then
+                  show_profile
                end
-               pending_c_function_body.append(once ");%N")
+               dump_pending_c_function(True)
+            end
+            --|*** if (not ace.no_split) and then split_count > 10 then
+            --|***    -- We are producing a quite large system, so just use a brand new file right-now:
+            --|***    ace.splitter.split_now
+            --|*** end
+            prepare_c_function
+            pending_c_function_signature.append(once "void initialize_eiffel_runtime(int argc,char*argv[])")
+            if ace.profile then
+               pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
+            end
+            if no_check then
+               pending_c_function_body.append(once "[
+                                                    se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
+                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
+                                                                                                     ds.fd=&irfd;
+
+                                                                                                     ]")
+               set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
+            end
+            pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
+            if do_atexit then
+               pending_c_function_body.append(once "atexit(se_atexit);%N")
+            end
+            if ace.profile then
+               pending_c_function_body.append(once "parent_profile=&global_profile;%N")
+               pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
+               pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+            end
+            gc_handler.initialize_runtime
+            exceptions_handler.initialize_runtime
+            if no_check then
+               initialize_path_table
+            end
+            if smart_eiffel.generator_used then
+               initialize_generator
+            end
+            if smart_eiffel.generating_type_used then
+               initialize_generating_type
+            end
+            if ace.profile then
+               initialize_profile
+            end
+            if not exceptions_handler.used then
+               if ace.no_check then
+                  pending_c_function_body.append(once "[
+#ifdef SIGINT
+                                                       signal(SIGINT,se_signal_handler);
+#endif
+#ifdef SIGTERM
+                                                       signal(SIGTERM,se_signal_handler);
+#endif
+
+                                                       ]")
+               end
+               pending_c_function_body.append(once "[
+#ifdef SIGQUIT
+                                                    signal(SIGQUIT,se_signal_handler);
+#endif
+#ifdef SIGILL
+                                                    signal(SIGILL,se_signal_handler);
+#endif
+#ifdef SIGABRT
+                                                    signal(SIGABRT,se_signal_handler);
+#endif
+#ifdef SIGFPE
+                                                    signal(SIGFPE,se_signal_handler);
+#endif
+#ifdef SIGSEGV
+                                                    signal(SIGSEGV,se_signal_handler);
+#endif
+#ifdef SIGBUS
+                                                    signal(SIGBUS,se_signal_handler);
+#endif
+#ifdef SIGSYS
+                                                    signal(SIGSYS,se_signal_handler);
+#endif
+#ifdef SIGTRAP
+                                                    signal(SIGTRAP,se_signal_handler);
+#endif
+#ifdef SIGXCPU
+                                                    signal(SIGXCPU,se_signal_handler);
+#endif
+#ifdef SIGXFSZ
+                                                    signal(SIGXFSZ,se_signal_handler);
+#endif
+
+                                                    ]")
+            end
+            c_call_initialize_manifest_strings
+            c_code_for_precomputable_routines
+            if ace.sedb then
+               pending_c_function_body.append(once "se_general_trace_switch=1;%N")
+            end
+            if not gc_handler.is_off then
+               pending_c_function_body.append(once "gc_is_off=0;%N")
+            end
+            internal_c_local := pending_c_function_lock_local(lt.type, once "root")
+            gc_handler.allocation_of(internal_c_local, lt)
+            pending_c_function_body.append(once "eiffel_root_object=((T")
+            lt.id.append_in(pending_c_function_body)
+            pending_c_function_body.append(once "*)")
+            internal_c_local.append_in(pending_c_function_body)
+            pending_c_function_body.append(once ");%N")
+            internal_c_local.unlock
+            system_tools.auto_init_plugins
+            if ace.no_check then
+               set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
             end
             if ace.profile then
                pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
             end
-            if ace.profile then
-               show_profile
-            end
             dump_pending_c_function(True)
          end
-         --|*** if (not ace.no_split) and then split_count > 10 then
-         --|***    -- We are producing a quite large system, so just use a brand new file right-now:
-         --|***    ace.splitter.split_now
-         --|*** end
-         prepare_c_function
-         pending_c_function_signature.append(once "void initialize_eiffel_runtime(int argc,char*argv[])")
-         if ace.profile then
-            pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
-         end
-         if no_check then
-            pending_c_function_body.append(once "[
-                se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
-                se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
-                ds.fd=&irfd;
-
-            ]")
-            set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
-         end
-         pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
-         if do_atexit then
-            pending_c_function_body.append(once "atexit(se_atexit);%N")
-         end
-         if ace.profile then
-            pending_c_function_body.append(once "parent_profile=&global_profile;%N")
-            pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
-            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
-         end
-         gc_handler.initialize_runtime
-         exceptions_handler.initialize_runtime
-         if no_check then
-            initialize_path_table
-         end
-         if smart_eiffel.generator_used then
-            initialize_generator
-         end
-         if smart_eiffel.generating_type_used then
-            initialize_generating_type
-         end
-         if ace.profile then
-            initialize_profile
-         end
-         if not exceptions_handler.used then
-            if ace.no_check then
-               pending_c_function_body.append(once "[
-               #ifdef SIGINT
-               signal(SIGINT,se_signal_handler);
-               #endif
-               #ifdef SIGTERM
-               signal(SIGTERM,se_signal_handler);
-               #endif
-
-                ]")
-            end
-            pending_c_function_body.append(once "[
-               #ifdef SIGQUIT
-               signal(SIGQUIT,se_signal_handler);
-               #endif
-               #ifdef SIGILL
-               signal(SIGILL,se_signal_handler);
-               #endif
-               #ifdef SIGABRT
-               signal(SIGABRT,se_signal_handler);
-               #endif
-               #ifdef SIGFPE
-               signal(SIGFPE,se_signal_handler);
-               #endif
-               #ifdef SIGSEGV
-               signal(SIGSEGV,se_signal_handler);
-               #endif
-               #ifdef SIGBUS
-               signal(SIGBUS,se_signal_handler);
-               #endif
-               #ifdef SIGSYS
-               signal(SIGSYS,se_signal_handler);
-               #endif
-               #ifdef SIGTRAP
-               signal(SIGTRAP,se_signal_handler);
-               #endif
-               #ifdef SIGXCPU
-               signal(SIGXCPU,se_signal_handler);
-               #endif
-               #ifdef SIGXFSZ
-               signal(SIGXFSZ,se_signal_handler);
-               #endif
-
-                ]")
-         end
-         c_call_initialize_manifest_strings
-         c_code_for_precomputable_routines
-         if ace.sedb then
-            pending_c_function_body.append(once "se_general_trace_switch=1;%N")
-         end
-         if not gc_handler.is_off then
-            pending_c_function_body.append(once "gc_is_off=0;%N")
-         end
-         internal_c_local := pending_c_function_lock_local(lt.type, once "root")
-         gc_handler.allocation_of(internal_c_local, lt)
-         pending_c_function_body.append(once "eiffel_root_object=((T")
-         lt.id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once "*)")
-         internal_c_local.append_in(pending_c_function_body)
-         pending_c_function_body.append(once ");%N")
-         internal_c_local.unlock
-         system_tools.auto_init_plugins
-         if ace.no_check then
-            set_dump_stack_top_for(rf3.type_of_current, once "(void*)0", once "unlink")
-         end
-         if ace.profile then
-            pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-         end
-         dump_pending_c_function(True)
-      end
 
    c_call_initialize_manifest_strings is
       require

@@ -4,17 +4,17 @@
 class AUX_AGENT44A
 
 feature {ANY}
-	f is
-		do
-			execution := "A"
-		end
+   f is
+      do
+         execution := "A"
+      end
 
-	p: PROCEDURE[TUPLE[AUX_AGENT44A]] is
-		do
-			Result := agent {AUX_AGENT44A}.f
-		end
+   p: PROCEDURE[TUPLE[AUX_AGENT44A]] is
+      do
+         Result := agent {AUX_AGENT44A}.f
+      end
 
-	execution: STRING
+   execution: STRING
 
 end -- class AUX_AGENT44A
 --

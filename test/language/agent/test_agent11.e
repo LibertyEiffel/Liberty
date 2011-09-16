@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT11
-	-- From: Philippe Ribet <p.ribet@worldonline.fr>
-	-- In boost mode, 'Current' is not given to foo but is needed to find local_io.
+   -- From: Philippe Ribet <p.ribet@worldonline.fr>
+   -- In boost mode, 'Current' is not given to foo but is needed to find local_io.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	local_io: STD_INPUT_OUTPUT
+   local_io: STD_INPUT_OUTPUT
 
-	make is
-		do
-			local_io := io
-			foo(3)
-		end
+   make is
+      do
+         local_io := io
+         foo(3)
+      end
 
-	foo (tmp: INTEGER) is
-		local
-			dummy: INTEGER
-		do
-			dummy := tmp
-			exec(agent local_io.is_connected)
-		end
+   foo (tmp: INTEGER) is
+      local
+         dummy: INTEGER
+      do
+         dummy := tmp
+         exec(agent local_io.is_connected)
+      end
 
-	exec (p: PREDICATE[TUPLE]) is
-		do
-			assert(p.item([]))
-		end
+   exec (p: PREDICATE[TUPLE]) is
+      do
+         assert(p.item([]))
+      end
 
 end -- class TEST_AGENT11
 --

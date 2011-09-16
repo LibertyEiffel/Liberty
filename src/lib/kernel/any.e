@@ -51,7 +51,7 @@ feature {ANY} -- Comparison:
       -- Is `other' attached to an object considered equal to current object? Shorthand for `is_equal'
       require
          other /= Void
-      do 
+      do
          Result := is_equal(other)
       ensure
          commutative: generating_type = other.generating_type implies Result = other.is_equal(Current)
@@ -272,6 +272,11 @@ feature {ANY} -- Object Printing:
          not_locked: not tagged_out_locked
       end
 
+   lazy_out, prefix "&": ABSTRACT_STRING is
+      do
+         create {LAZY_STRING} Result.make(agent out)
+      end
+
    out_in_tagged_out_memory is
          -- Append terse printable represention of current object in `tagged_out_memory'.
       require
@@ -397,7 +402,7 @@ feature {} -- Various useful tools:
                                Some feature is not yet implemented (i.e. feature `not_yet_implemented' of
                                class ANY has been called somewhere). Just run this code under the debugger
                                to know the `not_yet_implemented' caller.
-                               
+
                                The error occured in the type
                                ]")
          std_error.put_string(generating_type)
@@ -407,12 +412,12 @@ feature {} -- Various useful tools:
 
 feature {ANY} -- The Guru section:
    to_pointer: POINTER is
-         -- The memory address of `Current'. 
-         -- This routine can be used only if `Current' is not expanded or 
+         -- The memory address of `Current'.
+         -- This routine can be used only if `Current' is not expanded or
          -- if `Current' is some NATIVE_ARRAY or some FIXED_ARRAY.
-         -- Actually, this routine does nothing: the value of `Current' which is 
+         -- Actually, this routine does nothing: the value of `Current' which is
          -- a memory address is returned.
-         -- The compiler will emit an error message if you try to use `to_pointer' 
+         -- The compiler will emit an error message if you try to use `to_pointer'
          -- on some expanded type which is not a NATIVE_ARRAY nor FIXED_ARRAY.
       external "built_in"
       end

@@ -37,13 +37,6 @@ insert
       end
 
 feature {ANY}
-   count: INTEGER is
-         -- String length which is also the maximum valid index.
-         --
-         -- See also `is_empty', `lower', `upper'.
-      deferred
-      end
-
    lower: INTEGER is 1
          -- Minimum index; actually, this is always 1 (this feature is
          -- here to mimic the one of the COLLECTION hierarchy).
@@ -152,7 +145,7 @@ feature {ANY} -- Testing:
          i: INTEGER; maxi: INTEGER
       do
          from
-            i := lower 
+            i := lower
             maxi := count.min(other.count)
          until
             i > maxi or else item(i) /= other.item(i)
@@ -224,7 +217,7 @@ feature {ANY} -- Testing:
       require
          other_not_void: other /= Void
       do
-         Result := substring_index(other, lower)>=lower 
+         Result := substring_index(other, lower)>=lower
       end
 
    occurrences (c: CHARACTER): INTEGER is
@@ -270,13 +263,13 @@ feature {ANY} -- Testing:
       do
          if p.count <= count then
             from
-               i := lower + p.count - 1 
-			   ip := p.upper
+               i := lower + p.count - 1
+                           ip := p.upper
             until
                i < lower or else item(i) /= p.item(ip)
             loop
                i := i - 1
-			   ip := ip - 1
+                           ip := ip - 1
             end
             Result := i < lower
          end
@@ -343,7 +336,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 4: last digit of a critically big number
          -- state 5: after the number.
          from
-            i := lower 
+            i := lower
          variant
             count - i
          until
@@ -973,22 +966,10 @@ feature {ANY} -- Concatenation
       require
          other_exists: other /= Void
       do
-         -- (once "Making ROPE: %"").print_on(std_output)
-         -- Current.print_on(std_output)
-         -- (once "%"|%"").print_on(std_output)
-         -- other. print_on(std_output)
-         -- (once "%"%N").print_on(std_output)
          create Result.from_strings(Current,other)
-   ensure
+      ensure
          Result.out.is_equal(Current + other)
-   rescue
-      debug
-         -- This rescue clause doens't actually rescue
-         -- anything at all. I put it here to ease debugging.
-         -- Paolo 2010-02-27
-         print("'"+Current+"' | '"+other+"' /= '"+Result+"'%N")--.print_on(std_error)
       end
-   end
 
    infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
          -- Current and `other' concatenating into a new object. The actual effective type of Result is
@@ -1268,6 +1249,7 @@ feature {}
 
 invariant
    0 <= count
+   lower = 1
 
 end -- class ABSTRACT_STRING
 --

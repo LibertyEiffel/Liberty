@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT09
-	-- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
+   -- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			create aa.make
-			create bb.with_capacity(10)
-			aa.do_all(agent {AUX_AGENT08A}.foo)
-			bb.do_all(agent {AUX_AGENT08B}.foo)
-		end
+   make is
+      do
+         create aa.make
+         create bb.with_capacity(10)
+         aa.do_all(agent {AUX_AGENT08A}.foo)
+         bb.do_all(agent {AUX_AGENT08B}.foo)
+      end
 
-	aa: LINKED_LIST[AUX_AGENT08A]
+   aa: LINKED_LIST[AUX_AGENT08A]
 
-	bb: FAST_ARRAY[AUX_AGENT08B]
+   bb: FAST_ARRAY[AUX_AGENT08B]
 
 end -- class TEST_AGENT09
 --

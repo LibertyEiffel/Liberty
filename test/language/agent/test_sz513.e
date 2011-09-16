@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SZ513
-	-- For SZ:513: from jose.bollo@tele2.fr (jose bollo)
+   -- For SZ:513: from jose.bollo@tele2.fr (jose bollo)
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			string: STRING; collection: FAST_ARRAY[AUX_SZ513]; integer: INTEGER; aux_sz513: AUX_SZ513
-		do
-			create collection.make(5)
-			from
-				integer := collection.upper
-			until
-				integer < collection.lower
-			loop
-				aux_sz513.set_value(integer)
-				collection.put(aux_sz513, integer)
-				integer := integer - 1
-			end
-			string := ""
-			collection.do_all(agent {AUX_SZ513}.append_in(string))
-			assert(string.is_equal(" 0  1  2  3  4 "))
-		end
+   main is
+      local
+         string: STRING; collection: FAST_ARRAY[AUX_SZ513]; integer: INTEGER; aux_sz513: AUX_SZ513
+      do
+         create collection.make(5)
+         from
+            integer := collection.upper
+         until
+            integer < collection.lower
+         loop
+            aux_sz513.set_value(integer)
+            collection.put(aux_sz513, integer)
+            integer := integer - 1
+         end
+         string := ""
+         collection.do_all(agent {AUX_SZ513}.append_in(string))
+         assert(string.is_equal(" 0  1  2  3  4 "))
+      end
 
 end -- class TEST_SZ513
 --

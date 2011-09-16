@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT16
-	--
-	-- From a bug report of roy.maclean@om.com
-	--
+   --
+   -- From a bug report of roy.maclean@om.com
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			x: AUX_AGENT16[INTEGER]
-		do
-			create x
-		end
+   make is
+      local
+         x: AUX_AGENT16[INTEGER]
+      do
+         create x
+      end
 
 end -- class TEST_AGENT16
 --

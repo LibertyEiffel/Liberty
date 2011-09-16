@@ -4,17 +4,17 @@
 class TEST_AGENT45
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux1: AUX_AGENT45_MD
-		do
-			create {AUX_AGENT45_M1} aux1.make
-			aux1.show
-			aux1.action.call([])
-		end
+   make is
+      local
+         aux1: AUX_AGENT45_MD
+      do
+         create {AUX_AGENT45_M1} aux1.make
+         aux1.show
+         aux1.action.call([])
+      end
 
 end -- class TEST_AGENT45
 --

@@ -199,7 +199,7 @@ feature {}
          else
             function_signature.append(once "void")
          end
-         function_signature.append(once " _")
+         function_signature.append(once " afp_")
          function_signature.append(mold_id)
          function_signature.extend('(')
          if not boost then
@@ -322,7 +322,7 @@ feature {}
          agent_type.id.append_in(function_body)
          function_body.append(once ");%Nu->creation_mold_id=")
          integer_mold_id.append_in(function_body)
-         function_body.append(once ";%Nu->afp=_")
+         function_body.append(once ";%Nu->afp=afp_")
          function_body.append(mold_id)
          function_body.append(once ";%N")
          if agent_creation.is_equal_used_in(agent_type) then

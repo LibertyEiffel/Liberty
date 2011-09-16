@@ -8,45 +8,45 @@ class TEST_AGENT54
 --
 
 insert
-	EIFFELTEST_TOOLS
-	
+   EIFFELTEST_TOOLS
+   
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			v: INTEGER
-		do
-			n := 3
-			func := agent func_run(n) -- closed_arg=3 at agent creation time
-			n := 5
-			v := func.item([])  -- uses new value of `n' for closed_arg
-			assert(v = 3)
+   make is
+      local
+         v: INTEGER
+      do
+         n := 3
+         func := agent func_run(n) -- closed_arg=3 at agent creation time
+         n := 5
+         v := func.item([])  -- uses new value of `n' for closed_arg
+         assert(v = 3)
 
-			n := 3
-			proc := agent proc_run(n)
-			n := 5
-			proc.call([])
-			assert(n = 3)
-		end
+         n := 3
+         proc := agent proc_run(n)
+         n := 5
+         proc.call([])
+         assert(n = 3)
+      end
 
-	n: INTEGER
-	
-	func: FUNCTION[TUPLE, INTEGER]
+   n: INTEGER
+   
+   func: FUNCTION[TUPLE, INTEGER]
 
-	func_run (i: INTEGER): INTEGER is
-		do
-			Result := i
-		end
+   func_run (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
 
-	proc: PROCEDURE[ANY, TUPLE]
+   proc: PROCEDURE[ANY, TUPLE]
 
-	proc_run (i: INTEGER) is
-		do
-			n := i
-		end
-	
+   proc_run (i: INTEGER) is
+      do
+         n := i
+      end
+   
 end -- TEST_AGENT54
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

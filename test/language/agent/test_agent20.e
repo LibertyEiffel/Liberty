@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT20
-	--
-	-- From a bug report of Alexander Rios (AlexanderRios@netscape.net)
-	--
+   --
+   -- From a bug report of Alexander Rios (AlexanderRios@netscape.net)
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			flawed: BOOLEAN
-		do
-			assertion := agent is_flawed
-			create assertions.make
-			assertions.add_last(assertion)
-			flawed := assertions.last.item([ once "is flawed?"])
-			assert(flawed)
-			assert(assertions.last.item([ once "is flawed?"]))
-			assert(not assertions.last.item([ once "foo"]))
-		end
+   make is
+      local
+         flawed: BOOLEAN
+      do
+         assertion := agent is_flawed
+         create assertions.make
+         assertions.add_last(assertion)
+         flawed := assertions.last.item([ once "is flawed?"])
+         assert(flawed)
+         assert(assertions.last.item([ once "is flawed?"]))
+         assert(not assertions.last.item([ once "foo"]))
+      end
 
-	assertion: PREDICATE[TUPLE[STRING]]
+   assertion: PREDICATE[TUPLE[STRING]]
 
-	assertions: LINKED_LIST[like assertion]
+   assertions: LINKED_LIST[like assertion]
 
-	is_flawed (message_: STRING): BOOLEAN is
-		do
-			Result := (once "is flawed?").is_equal(message_)
-		end
+   is_flawed (message_: STRING): BOOLEAN is
+      do
+         Result := (once "is flawed?").is_equal(message_)
+      end
 
 end -- class TEST_AGENT20
 --

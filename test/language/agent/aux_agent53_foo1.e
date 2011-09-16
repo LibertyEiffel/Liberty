@@ -4,15 +4,15 @@
 class AUX_AGENT53_FOO1
 
 inherit
-	AUX_AGENT53_FOO
+   AUX_AGENT53_FOO
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_AGENT53_FOO1
 --

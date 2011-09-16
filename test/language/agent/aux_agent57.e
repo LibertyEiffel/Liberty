@@ -4,7 +4,7 @@
 expanded class AUX_AGENT57[G_]
 
 insert
-	REFERENCE[G_]
+   REFERENCE[G_]
 
 end -- class AUX_AGENT57
 --

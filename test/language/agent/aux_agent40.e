@@ -4,26 +4,26 @@
 expanded class AUX_AGENT40
 
 insert
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	is_disposed: BOOLEAN
+   is_disposed: BOOLEAN
 
-	field: AUX_AGENT40B
+   field: AUX_AGENT40B
 
 feature {}
-	dispose is
-		do
-			is_disposed := True
-		end
+   dispose is
+      do
+         is_disposed := True
+      end
 
-	make is
-		do
-			create field
-		end
+   make is
+      do
+         create field
+      end
 
 end -- class AUX_AGENT40
 --

@@ -12,42 +12,36 @@ creation {ANY}
 
 feature {}
    root: ROPE
-      -- The beginning of the rope to be traversed.
+         -- The beginning of the rope to be traversed.
 
    right_visited: BOOLEAN
-      -- Has `right' been iterated onto?
+         -- Has `right' been iterated onto?
 
    iter: ITERATOR[CHARACTER]
-      --  Current position on `piece'.
+         --  Current position on `piece'.
 
 feature {ANY}
    make (r: like root) is
-   require
+      require
          r /= Void
       do
-         root:=r
+         root := r
       ensure
-         root=r
+         root = r
       end
 
    start is
       do
-         -- debug
-         --    print("Starting ROPE iterator `")
-         --    root.left.print_on(std_output)
-         --    print("'-`")
-         --    root.right.print_on(std_output)
-         --    print("'. ")
-         -- end
-         right_visited:=False
+         right_visited := False
          iter := root.left.new_iterator
          iter.start
-      ensure then iter/=Void
+      ensure then
+         iter /= Void
       end
 
    is_off: BOOLEAN is
       do
-         Result := iter=Void
+         Result := iter = Void
       end
 
    item: CHARACTER is
@@ -59,8 +53,12 @@ feature {ANY}
       do
          iter.next
          if iter.is_off then -- switch to the next piece of rope
-            if right_visited then iter:=Void
-             else right_visited:=True; iter:=root.right.new_iterator; iter.start
+            if right_visited then
+               iter := Void
+            else
+               right_visited := True
+               iter := root.right.new_iterator
+               iter.start
             end
          end
       end

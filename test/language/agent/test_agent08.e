@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT08
-	-- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
+   -- From: Schmidt Ralf <Ralf.Schmidt@ts.siemens.de>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			create aa.with_capacity(10, 1)
-			create bb.with_capacity(10, 1)
-			aa.add_last(create {AUX_AGENT08A})
-			bb.add_last(create {AUX_AGENT08B})
-			aa.do_all(agent {AUX_AGENT08A}.foo)
-			bb.do_all(agent {AUX_AGENT08B}.foo)
-		end
+   make is
+      do
+         create aa.with_capacity(10, 1)
+         create bb.with_capacity(10, 1)
+         aa.add_last(create {AUX_AGENT08A})
+         bb.add_last(create {AUX_AGENT08B})
+         aa.do_all(agent {AUX_AGENT08A}.foo)
+         bb.do_all(agent {AUX_AGENT08B}.foo)
+      end
 
-	aa: ARRAY[AUX_AGENT08A]
+   aa: ARRAY[AUX_AGENT08A]
 
-	bb: ARRAY[AUX_AGENT08B]
+   bb: ARRAY[AUX_AGENT08B]
 
 end -- class TEST_AGENT08
 --

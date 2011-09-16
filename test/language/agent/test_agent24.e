@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT24
-	-- SZ:122
+   -- SZ:122
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	check_int (a: INTEGER) is
-		do
-			assert(expected = a)
-		end
+   check_int (a: INTEGER) is
+      do
+         assert(expected = a)
+      end
 
-	check_aux (a: AUX_AGENT24) is
-		do
-			assert(expected = a.n)
-		end
+   check_aux (a: AUX_AGENT24) is
+      do
+         assert(expected = a.n)
+      end
 
-	make is
-		local
-			action: ROUTINE[TUPLE[AUX_AGENT24]]; action2: ROUTINE[TUPLE[INTEGER]]; a: AUX_AGENT24
-		do
-			action2 := agent check_int
-			action := agent check_aux
-			a.set_n(666)
-			expected := 666
-			action.call([a])
-			expected := 777
-			action2.call([{INTEGER_32 777}])
-		end
+   make is
+      local
+         action: ROUTINE[TUPLE[AUX_AGENT24]]; action2: ROUTINE[TUPLE[INTEGER]]; a: AUX_AGENT24
+      do
+         action2 := agent check_int
+         action := agent check_aux
+         a.set_n(666)
+         expected := 666
+         action.call([a])
+         expected := 777
+         action2.call([{INTEGER_32 777}])
+      end
 
-	expected: INTEGER
+   expected: INTEGER
 
 end -- class TEST_AGENT24
 --

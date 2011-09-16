@@ -4,12 +4,12 @@
 class AUX_AGENT22A
 
 feature {ANY}
-	set_c (i: INTEGER) is
-		do
-			c := i
-		end
+   set_c (i: INTEGER) is
+      do
+         c := i
+      end
 
-	c: INTEGER
+   c: INTEGER
 
 end -- class AUX_AGENT22A
 --

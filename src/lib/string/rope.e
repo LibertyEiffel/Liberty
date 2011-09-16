@@ -1,97 +1,104 @@
+-- This file is part of a Liberty Eiffel library.
+-- See the full copyright at the end.
+--
 class ROPE
    --
    -- A string of characters allowing for efficient concatenation.
    --
-   -- See also FIXED_STRING and STRING
-   -- http://en.wikipedia.org/Rope_(computer_science) and
+   -- See also LAZY_STRING, FIXED_STRING, and STRING
+   --
+   -- http://en.wikipedia.org/Rope_(computer_science)
    -- http://pcplus.techradar.com/node/3079/
 
-   -- Known bugs: using out with temporary
-inherit ABSTRACT_STRING redefine new_iterator, infix "<" end
+   --|NOTE: this class works on the assumption that lower = 1 (see ABSTRACT_STRING invariant)
 
-creation {ANY} from_strings
+inherit
+   ABSTRACT_STRING
+      redefine
+         new_iterator, infix "<", out_in_tagged_out_memory
+      end
 
-feature -- Creation
-   from_strings (first_string, second_string: ABSTRACT_STRING) is
-   do
-      left := first_string
-      right := second_string
-      separation := left.count
-   end
+creation {ANY}
+   from_strings
+
+feature {ANY} -- Creation
+   from_strings (left_string, right_string: ABSTRACT_STRING) is
+      require
+         left_string /= Void
+         right_string /= Void
+      do
+         left := left_string
+         right := right_string
+      end
 
    copy (another: like Current) is
-   do
-      left:=another.left
-      right:=another.right
-      separation:=another.separation
-   end
+      do
+         from_strings(another.left, another.right)
+      end
 
-feature
+feature {ANY}
    count: INTEGER is
       do
-         Result := left.count +right.count
+         Result := left.count + right.count
       end
 
    item (an_index: INTEGER): CHARACTER is
-      -- Random access is an O(count) operation for a ROPE.
+         -- Random access is an O(count) operation for a ROPE.
       do
-         if an_index<=separation
-         then Result := left.item(an_index)
-         else Result := right.item(an_index-separation)
+         if an_index <= split_index then
+            Result := left.item(an_index)
+         else
+            Result := right.item(an_index - split_index)
          end
       end
 
    substring (start_index, end_index: INTEGER): like Current is
+      local
+         left_substring, right_substring: ABSTRACT_STRING
       do
-         not_yet_implemented
+         if end_index <= split_index then
+            left_substring := left.substring(start_index, end_index)
+            right_substring := once ""
+         elseif start_index > split_index then
+            left_substring := once ""
+            right_substring := right.substring(start_index - split_index, end_index - split_index)
+         else
+            left_substring := left.substring(start_index, split_index)
+            right_substring := right.substring(1, end_index - split_index)
+         end
+         create Result.from_strings(left_substring, right_substring)
       end
 
    occurrences (c: CHARACTER): INTEGER is
-      local i: ITERATOR[CHARACTER]
       do
-         from i:=new_iterator; i.start until not i.is_off
-         loop
-            if i.item=c then Result:=Result+1 end
-            i.next
-         end
+         Result := left.occurrences(c) + right.occurrences(c)
       end
 
 feature {ANY}
    infix "<" (other: ABSTRACT_STRING): BOOLEAN is
-      local ci, oi: ITERATOR[CHARACTER]
+      local
+         i: INTEGER; done: BOOLEAN
       do
          from
-            ci:=new_iterator; ci.start
-            oi:=other.new_iterator; oi.start
-         until (ci.is_off or oi.is_off) or else ci.item/=oi.item
-         loop ci.next; oi.next
-         end
-         -- TODO: turn this if statement into something more concise.
-         if ci.is_off then
-            if oi.is_off then Result := False
-            else Result := True
+            i := lower
+            check
+               i = other.lower
             end
-         else
-            if oi.is_off then Result := False
-            else Result := (ci.item < oi.item)
+         until
+            done or else i > upper or else  i > other.upper
+         loop
+            if item(i) /= other.item(i) then
+               Result := item(i) < other.item(i)
+               done := True
             end
+            i := i + 1
          end
       end
 
    is_equal (other: ABSTRACT_STRING): BOOLEAN is
-      -- O(min(count,other.count))
-      local ci,oi: ITERATOR[CHARACTER]
+         -- O(min(count,other.count))
       do
-         if count=other.count then
-            from
-               Result := True
-               ci:=new_iterator; ci.start
-               oi:=other.new_iterator; oi.start
-            until ci.is_off or else ci.item/=oi.item
-            loop ci.next; oi.next
-            end
-         else Result:=False
-         end
+         Result := same_as(other)
       end
 
    hash_code: INTEGER is
@@ -100,69 +107,100 @@ feature {ANY}
       end
 
    same_as (other: ABSTRACT_STRING): BOOLEAN is
-      -- O(min(count,other.count))
-      local ci,oi: ITERATOR[CHARACTER]
+         -- O(min(count,other.count))
+      local
+         i: INTEGER
       do
          from
-            ci:=new_iterator; ci.start
-            oi:=other.new_iterator; oi.start
-         until (ci.is_off or oi.is_off) or else ci.item.same_as(oi.item)
-         loop ci.next; oi.next
+            i := lower
+            check
+               i = other.lower
+            end
+            Result := True
+         until
+            not Result or else i > upper or else  i > other.upper
+         loop
+            Result := item(i) = other.item(i)
+            i := i + 1
          end
-         Result := ci.is_off and oi.is_off
       end
 
    first: CHARACTER is
       do
-         Result:=left.first
+         Result := left.first
       end
 
    last: CHARACTER is
       do
-         Result:=right.last
+         Result := right.last
       end
 
    has, fast_has (c: CHARACTER): BOOLEAN is
-      local i: ITERATOR[CHARACTER]
       do
-         from i:=new_iterator; i.start until not (Result or i.is_off)
-         loop
-            Result := (i.item=c)
-            i.next
-         end
+         Result := left.has(c) or else right.has(c)
       end
 
    index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-      local n: INTEGER; i: ITERATOR[CHARACTER]
       do
-
-         from
-            i:=new_iterator
-            -- Reach start_index
-            from n:=lower; i.start until n>=start_index
-            loop i.next; n:=n+1
+         if start_index > split_index then
+            Result := right.index_of(c, start_index - split_index) + split_index
+         else
+            Result := left.index_of(c, start_index)
+            if not left.valid_index(Result) then
+               Result := right.index_of(c, right.lower) + split_index
             end
-         until i.item/=c or else not i.is_off
-         loop i.next; n:=n+1
          end
       end
 
-
    reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
       do
-         not_yet_implemented
+         if start_index <= split_index then
+            Result := left.reverse_index_of(c, start_index)
+         else
+            Result := right.reverse_index_of(c, start_index - split_index)
+            if right.valid_index(Result) then
+               Result := Result + split_index
+            else
+               Result := left.reverse_index_of(c, left.upper)
+            end
+         end
       end
 
-feature -- Concatenation
-   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
-      -- A newly allocated string containing Current and `another'
-      -- concatenated. Implementation may choose any effective heir of
-      -- ABSTRACT_STRING.
-   do
-      not_yet_implemented
-   end
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(left)
+         tagged_out_memory.append(right)
+      end
 
-feature -- Iterating and other features
+   fill_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "[left: ")
+         left.fill_tagged_out_memory
+         tagged_out_memory.append(once " | right: ")
+         right.fill_tagged_out_memory
+         tagged_out_memory.append(once "]")
+      end
+
+feature {ANY} -- Concatenation
+   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
+         -- A newly allocated string containing Current and `another'
+         -- concatenated. Implementation may choose any effective heir of
+         -- ABSTRACT_STRING.
+      do
+         if another.is_empty then
+            Result := Current
+         elseif is_empty then
+            Result := another
+         elseif left.is_empty then
+            Result := right | another
+         elseif right.is_empty then
+            Result := left | another
+         else
+            Result := Current | another
+         end
+      end
+
+feature {ANY} -- Iterating and other features
    new_iterator: ITERATOR[CHARACTER] is
       do
          create {ITERATOR_ON_ROPE} Result.make(Current)
@@ -170,31 +208,72 @@ feature -- Iterating and other features
 
    intern: FIXED_STRING is
       do
-         not_yet_implemented
-      end
-feature {ANY} -- Printing:
-   fill_tagged_out_memory is
-      do
-         not_yet_implemented
+         Result := out.intern
       end
 
 feature {ANY} -- Interfacing with C string:
    to_external: POINTER is
       do
-         not_yet_implemented
+         Result := out.to_external
       end
-feature
+
+feature {ANY}
    recycle is
       do
-         not_yet_implemented
+         left := once ""
+         right := left
       end
-feature {ABSTRACT_STRING,ITERATOR_ON_ROPE} -- Implementation
-   separation: INTEGER
-      -- The index where
-   left,right: ABSTRACT_STRING
-      -- The left and right part of the ROPE
+
+feature {ABSTRACT_STRING, ITERATOR_ON_ROPE} -- Implementation
+   left, right: ABSTRACT_STRING
+         -- The left and right parts of the ROPE
+
+feature {} -- Split index
+   split_index: INTEGER is
+         -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
+      do
+         Result := split_index_memory - 1
+         if Result < 0 then
+            check
+               Result = -1
+            end
+            Result := left.upper
+            split_index_memory := Result + 1
+            check
+               split_index_memory > 0
+            end
+         end
+      ensure
+         definition: Result = left.upper
+      end
+
+   split_index_memory: INTEGER
+         -- off-by-one upper index of the left part (the offset allows the default initialization = 0 to act
+         -- as a not-yet-evaluated value)
+
 invariant
-   left/=Void
-   right/=Void
-   separation=left.count
+   left /= Void
+   right /= Void
+   split_index_memory >= 0
+
 end -- class ROPE
+--
+-- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

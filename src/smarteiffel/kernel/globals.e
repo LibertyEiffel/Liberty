@@ -393,6 +393,11 @@ feature {}
          Result := string_aliaser.hashed_string(as_capacity)
       end
 
+   storage_lower_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_storage_lower)
+      end
+
    mark_item_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_mark_item)

@@ -2,55 +2,55 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT55
-	--
-	-- From a bug report of Wolfgang Jansen on our mailing list.
-	-- SZ:490:
-	--
+   --
+   -- From a bug report of Wolfgang Jansen on our mailing list.
+   -- SZ:490:
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			v: INTEGER
-		do
-			n_memory := 3
-			func := agent func_run(n)
-			assert(n_memory = 4)
-			v := func.item([])
-			assert(v = 3)
-			assert(n_memory = 4)
-			proc := agent proc_run(n)
-			assert(n_memory = 5)
-			proc.call([])
-			assert(n_memory = 4)
-		end
+   make is
+      local
+         v: INTEGER
+      do
+         n_memory := 3
+         func := agent func_run(n)
+         assert(n_memory = 4)
+         v := func.item([])
+         assert(v = 3)
+         assert(n_memory = 4)
+         proc := agent proc_run(n)
+         assert(n_memory = 5)
+         proc.call([])
+         assert(n_memory = 4)
+      end
 
-	n_memory: INTEGER
+   n_memory: INTEGER
 
-	n: INTEGER is
-		do
-			Result := n_memory
-			n_memory := n_memory + 1
-		end
+   n: INTEGER is
+      do
+         Result := n_memory
+         n_memory := n_memory + 1
+      end
 
-	func: FUNCTION[TUPLE, INTEGER]
+   func: FUNCTION[TUPLE, INTEGER]
 
-	func_run (i: INTEGER): INTEGER is
-		do
-			Result := i
-		end
+   func_run (i: INTEGER): INTEGER is
+      do
+         Result := i
+      end
 
-	proc: PROCEDURE[TUPLE]
+   proc: PROCEDURE[TUPLE]
 
-	proc_run (i: INTEGER) is
-		do
-			n_memory := i
-		end
+   proc_run (i: INTEGER) is
+      do
+         n_memory := i
+      end
 
 end -- class TEST_AGENT55
 --

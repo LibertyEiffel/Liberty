@@ -370,6 +370,8 @@ feature {} -- Hard coded feature names:
 
    as_storage: STRING is "storage"
 
+   as_storage_lower: STRING is "storage_lower"
+
    as_third: STRING is "third"
 
    as_to_character: STRING is "to_character"
@@ -473,7 +475,7 @@ feature {} -- Operator/Infix/Prefix list:
    as_sharp_muls: STRING is "#*"
 
    as_sharp_plus: STRING is "#+"
-   
+
    as_sharp_slash_slash: STRING is "#//"
 
    as_bit_shift_left: STRING is "|<<"

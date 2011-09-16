@@ -517,7 +517,7 @@ feature {LOOP_INSTRUCTION}
          if loop_check_flag and then visited.loop_invariant /= Void then
             compile_as_loop_invariant(visited.loop_invariant)
          end
-         cpp.compound_expression_compiler.compile(once "/*until*/if(", visited.until_expression, once "){break;}%N", type)
+         cpp.compound_expression_compiler.compile(once "/*until*/if(", visited.until_expression, once ") break;%N", type)
          if variant_flag then
             cpp.variant_check(type, visited.loop_variant)
          end

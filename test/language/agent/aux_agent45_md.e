@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class AUX_AGENT45_MD
-	-- master
+   -- master
 
 feature {ANY}
-	frozen show is
-		do
-			if slave /= Void then
-				action := agent slave.show
-			end
-		end
+   frozen show is
+      do
+         if slave /= Void then
+            action := agent slave.show
+         end
+      end
 
-	action: PROCEDURE[TUPLE]
+   action: PROCEDURE[TUPLE]
 
 feature {}
-	slave: AUX_AGENT45_SD
+   slave: AUX_AGENT45_SD
 
 end -- class AUX_AGENT45_MD
 --

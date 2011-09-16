@@ -4,27 +4,27 @@
 class AUX_AGENT47
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	memory: REFERENCE[STRING] is
-		once
-			create Result
-		end
+   memory: REFERENCE[STRING] is
+      once
+         create Result
+      end
 
-	test (other: AUX_AGENT47) is
-		local
-			p: PROCEDURE[TUPLE]
-		do
-			p := agent other.f
-			p.call([])
-		end
+   test (other: AUX_AGENT47) is
+      local
+         p: PROCEDURE[TUPLE]
+      do
+         p := agent other.f
+         p.call([])
+      end
 
-	f is
-		do
-			assert(memory.item.is_equal("In aux agent 47%N"))
-			memory.set_item(Void)
-		end
+   f is
+      do
+         assert(memory.item.is_equal("In aux agent 47%N"))
+         memory.set_item(Void)
+      end
 
 end -- class AUX_AGENT47
 --

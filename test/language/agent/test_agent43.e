@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT43
-	-- SZ:296:
-	-- reference with agents
+   -- SZ:296:
+   -- reference with agents
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			--***         coll: ARRAY[reference INTEGER]
-			--***         create coll.make(1, 0)
-			--***         coll.add_last(1)
-			--***         coll.do_all(agent print)
-			--*** The signature of print has changed and reference INTEGER will be removed.
-			--*** (Dom. aug 31th 2004)
-		end
+   make is
+      do
+         --***         coll: ARRAY[reference INTEGER]
+         --***         create coll.make(1, 0)
+         --***         coll.add_last(1)
+         --***         coll.do_all(agent print)
+         --*** The signature of print has changed and reference INTEGER will be removed.
+         --*** (Dom. aug 31th 2004)
+      end
 
 end -- class TEST_AGENT43
 --

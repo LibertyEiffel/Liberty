@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT35
-	-- SZ:261: when the result of the item call is used as a target cast is needed.
+   -- SZ:261: when the result of the item call is used as a target cast is needed.
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bad_agent: FUNCTION[TUPLE[STRING], STRING]
-		do
-			bad_agent := agent {STRING}.string
-			assert(bad_agent.item(["13"]).to_integer = 13)
-		end
+   make is
+      local
+         bad_agent: FUNCTION[TUPLE[STRING], STRING]
+      do
+         bad_agent := agent {STRING}.string
+         assert(bad_agent.item(["13"]).to_integer = 13)
+      end
 
 end -- class TEST_AGENT35
 --

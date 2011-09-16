@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT61
-	-- Report from Philippe Ribet
-	-- 'x' is removed in boost mode.
+   -- Report from Philippe Ribet
+   -- 'x' is removed in boost mode.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
-		do
-			p := agent foo([x])
-		end
+   make is
+      local
+         p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
+      do
+         p := agent foo([x])
+      end
 
-	foo (value: TUPLE[INTEGER]) is
-		do
-		end
+   foo (value: TUPLE[INTEGER]) is
+      do
+      end
 
 end -- class TEST_AGENT61
 --

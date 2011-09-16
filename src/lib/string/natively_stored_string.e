@@ -94,34 +94,35 @@ feature {ANY}
       end
 
    index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-	   local
-		   index: INTEGER
-	   do
-		   if start_index <= count then
-			   index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
-			   Result := lower + index - storage_lower
-		   else Result:=upper+1
-		   end
-	   end
+      local
+         index: INTEGER
+      do
+         if start_index <= count then
+            index := storage.fast_index_of(c, start_index + storage_lower - lower, storage_lower + count - lower)
+            Result := lower + index - storage_lower
+         else
+            Result := upper + 1
+         end
+      end
 
    reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
-         -- Index of first occurrence of `c' at or before `start_index', 
-		 -- The index will be invalid, smaller than `lower' when no occurrence is found;
-		 -- The search is done in reverse direction, which means from the
-		 -- `start_index' down to the first character.
+         -- Index of first occurrence of `c' at or before `start_index',
+         -- The index will be invalid, smaller than `lower' when no occurrence is found;
+         -- The search is done in reverse direction, which means from the
+         -- `start_index' down to the first character.
          --
          -- See also `index_of', `last_index_of', `first_index_of'.
-	 do
-		-- Implementation note: the actual value of Result when no occurrence
-		-- is found has deliberately not been written in public documentation
-		-- because an eventual heir may redefine the value of lower
-		if count > 0 then
-			Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
-			if Result <= 0 then
-				Result := lower-1
-			end
-		end
-	end
+      do
+         -- Implementation note: the actual value of Result when no occurrence
+         -- is found has deliberately not been written in public documentation
+         -- because an eventual heir may redefine the value of lower
+         if count > 0 then
+            Result := storage.fast_reverse_index_of(c, start_index + storage_lower - lower) - storage_lower + lower
+            if Result <= 0 then
+               Result := lower - 1
+            end
+         end
+      end
 
    has, fast_has (c: CHARACTER): BOOLEAN is
       do
@@ -138,8 +139,13 @@ feature {ANY} -- Concatenation
          -- Current and `another' concatenating into a new object. The actual effective type of Result is
          -- chosen by the implementation, possibly based on heuristics.
       do
-         -- Currently returning a ROPE.
-         Result := Current | another
+         if another.is_empty then
+            Result := Current
+         elseif is_empty then
+            Result := another
+         else
+            Result := Current | another
+         end
       end
 
 feature {ANY} -- Access
@@ -155,13 +161,13 @@ feature {ANY} -- Access
 
    fill_tagged_out_memory is
       do
-         tagged_out_memory.append(once "count: ")
+         tagged_out_memory.append(once "[count: ")
          count.append_in(tagged_out_memory)
          tagged_out_memory.append(once "capacity: ")
          capacity.append_in(tagged_out_memory)
          tagged_out_memory.append(once "storage: %"")
          tagged_out_memory.append(Current)
-         tagged_out_memory.add_last('%"')
+         tagged_out_memory.append(once "%"]")
       end
 
    print_on (file: OUTPUT_STREAM) is

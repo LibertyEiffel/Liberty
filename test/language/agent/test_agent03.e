@@ -4,91 +4,91 @@
 class TEST_AGENT03
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			my_collection: COLLECTION[STRING]; agent1: PROCEDURE[TUPLE]; agent2: FUNCTION[TUPLE[APPLE], STRING]
-			string: STRING; memo: INTEGER
-		do
-			my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-			my_collection.do_all(agent print_item1('#', ?))
-			number := 0
-			my_collection.do_all(agent print_item1('#', ?))
-			number := 0
-			my_collection.do_all(agent print_item2(?))
-			memo := assert_counter.value
-			agent1 := agent print3
-			assert(memo = assert_counter.value)
-			agent1.call([])
-			assert(memo = assert_counter.value - 2)
-			agent2 := agent function2({APPLE})
-			string := agent2.item([ create {APPLE}])
-			assert(string.is_equal("APPLE"))
-			agent2 := agent function2({APPLE})
-			number := 0
-			my_collection.do_all(agent function1(?))
-			number := 0
-			my_collection.do_all(agent function1)
-			(agent function1).call(["foo"])
-		end
+   make is
+      local
+         my_collection: COLLECTION[STRING]; agent1: PROCEDURE[TUPLE]; agent2: FUNCTION[TUPLE[APPLE], STRING]
+         string: STRING; memo: INTEGER
+      do
+         my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
+         my_collection.do_all(agent print_item1('#', ?))
+         number := 0
+         my_collection.do_all(agent print_item1('#', ?))
+         number := 0
+         my_collection.do_all(agent print_item2(?))
+         memo := assert_counter.item
+         agent1 := agent print3
+         assert(memo = assert_counter.item)
+         agent1.call([])
+         assert(memo = assert_counter.item - 2)
+         agent2 := agent function2({APPLE})
+         string := agent2.item([ create {APPLE}])
+         assert(string.is_equal("APPLE"))
+         agent2 := agent function2({APPLE})
+         number := 0
+         my_collection.do_all(agent function1(?))
+         number := 0
+         my_collection.do_all(agent function1)
+         (agent function1).call(["foo"])
+      end
 
-	function1 (s: STRING): STRING is
-		do
-			number := number + 1
-			Result := s
-			inspect
-				number
-			when 1 then
-				assert(Result.is_equal("Benedicte"))
-			when 2 then
-				assert(Result.is_equal("Lucien"))
-			when 3 then
-				assert(Result.is_equal("Marie"))
-			when 4 then
-				assert(Result.is_equal("foo"))
-			end
-		end
+   function1 (s: STRING): STRING is
+      do
+         number := number + 1
+         Result := s
+         inspect
+            number
+         when 1 then
+            assert(Result.is_equal("Benedicte"))
+         when 2 then
+            assert(Result.is_equal("Lucien"))
+         when 3 then
+            assert(Result.is_equal("Marie"))
+         when 4 then
+            assert(Result.is_equal("foo"))
+         end
+      end
 
-	function2 (f: FRUIT): STRING is
-		do
-			Result := f.generator
-			assert(Result.is_equal("APPLE"))
-		end
+   function2 (f: FRUIT): STRING is
+      do
+         Result := f.generator
+         assert(Result.is_equal("APPLE"))
+      end
 
-	print3 is
-		do
-			assert(True)
-		end
+   print3 is
+      do
+         assert(True)
+      end
 
-	print_item1 (c: CHARACTER; item: STRING) is
-		require
-			c /= '%U'
-			item /= Void
-		do
-			assert(c = '#')
-			number := number + 1
-			inspect
-				number
-			when 1 then
-				assert(item.is_equal("Benedicte"))
-			when 2 then
-				assert(item.is_equal("Lucien"))
-			when 3 then
-				assert(item.is_equal("Marie"))
-			end
-		end
+   print_item1 (c: CHARACTER; item: STRING) is
+      require
+         c /= '%U'
+         item /= Void
+      do
+         assert(c = '#')
+         number := number + 1
+         inspect
+            number
+         when 1 then
+            assert(item.is_equal("Benedicte"))
+         when 2 then
+            assert(item.is_equal("Lucien"))
+         when 3 then
+            assert(item.is_equal("Marie"))
+         end
+      end
 
-	print_item2 (item: STRING) is
-		do
-			print_item1('#', item)
-		end
+   print_item2 (item: STRING) is
+      do
+         print_item1('#', item)
+      end
 
-	number: INTEGER
+   number: INTEGER
 
 end -- class TEST_AGENT03
 --

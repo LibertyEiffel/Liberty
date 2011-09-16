@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT13
-	-- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- From: Benjamin Franksen <franksen@mail.bessy.de>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	b: AUX_AGENT13B
+   b: AUX_AGENT13B
 
-	make is
-		do
-			b.setup
-		end
+   make is
+      do
+         b.setup
+      end
 
 end -- class TEST_AGENT13
 --

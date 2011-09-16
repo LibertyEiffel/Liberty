@@ -93,18 +93,18 @@ feature {ANY}
                if column + i <= wrap_limit then
                   from
                   until
-                     buffer.index_of(';', i + 1) = 0 or else column + buffer.index_of(';', i + 1) > wrap_limit
+                     not buffer.valid_index(buffer.index_of(';', i + 1)) or else column + buffer.index_of(';', i + 1) > wrap_limit
                   loop
                      i := buffer.index_of(';', i + 1)
                   end
                else
                   i := buffer.index_of(',', 1)
-                  if i = 0 then
+                  if not buffer.valid_index(i) then
                      i := buffer.index_of(';', 1)
                   else
                      from
                      until
-                        buffer.index_of(',', i + 1) = 0 or else column + buffer.index_of(',', i + 1) > wrap_limit
+                        not buffer.valid_index(buffer.index_of(',', i + 1)) or else column + buffer.index_of(',', i + 1) > wrap_limit
                      loop
                         i := buffer.index_of(',', i + 1)
                      end

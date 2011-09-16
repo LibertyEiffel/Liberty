@@ -4,22 +4,22 @@
 class TEST_AGENT04
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			agent_list: LINKED_LIST[ROUTINE[TUPLE]]; my_collection: COLLECTION[STRING]
-		do
-			my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-			create agent_list.make
-			agent_list.add_last(agent function1)
-		end
+   make is
+      local
+         agent_list: LINKED_LIST[ROUTINE[TUPLE]]; my_collection: COLLECTION[STRING]
+      do
+         my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
+         create agent_list.make
+         agent_list.add_last(agent function1)
+      end
 
 feature {}
-	function1: INTEGER is
-		do
-		end
+   function1: INTEGER is
+      do
+      end
 
 end -- class TEST_AGENT04
 --

@@ -4,10 +4,10 @@
 class AUX_AGENT33AC
 
 inherit
-	AUX_AGENT33A[AUX_AGENT33C]
+   AUX_AGENT33A[AUX_AGENT33C]
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_AGENT33AC
 --

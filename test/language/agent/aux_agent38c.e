@@ -4,7 +4,7 @@
 class AUX_AGENT38C
 
 inherit
-	AUX_AGENT38A
+   AUX_AGENT38A
 
 end -- class AUX_AGENT38C
 --

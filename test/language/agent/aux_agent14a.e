@@ -4,12 +4,12 @@
 class AUX_AGENT14A[T]
 
 feature {ANY}
-	set_target (target_in: AUX_AGENT14TARG[T]) is
-		do
-			target := target_in -- compiles when line deleted
-		end
+   set_target (target_in: AUX_AGENT14TARG[T]) is
+      do
+         target := target_in -- compiles when line deleted
+      end
 
-	target: AUX_AGENT14TARG[T] -- compiles with target: ANY
+   target: AUX_AGENT14TARG[T] -- compiles with target: ANY
 
 end -- class AUX_AGENT14A
 --

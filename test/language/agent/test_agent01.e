@@ -4,36 +4,36 @@
 class TEST_AGENT01
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			my_collection: COLLECTION[STRING]
-		do
-			my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-			my_collection.do_all(agent print_item('#', ?))
-		end
+   make is
+      local
+         my_collection: COLLECTION[STRING]
+      do
+         my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
+         my_collection.do_all(agent print_item('#', ?))
+      end
 
-	print_item (c: CHARACTER; item: STRING) is
-		do
-			assert(c = '#')
-			number := number + 1
-			inspect
-				number
-			when 1 then
-				assert(item.is_equal("Benedicte"))
-			when 2 then
-				assert(item.is_equal("Lucien"))
-			when 3 then
-				assert(item.is_equal("Marie"))
-			end
-		end
+   print_item (c: CHARACTER; item: STRING) is
+      do
+         assert(c = '#')
+         number := number + 1
+         inspect
+            number
+         when 1 then
+            assert(item.is_equal("Benedicte"))
+         when 2 then
+            assert(item.is_equal("Lucien"))
+         when 3 then
+            assert(item.is_equal("Marie"))
+         end
+      end
 
-	number: INTEGER
+   number: INTEGER
 
 end -- class TEST_AGENT01
 --

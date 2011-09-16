@@ -1,51 +1,81 @@
 class TEST_ROPE
-insert EIFFELTEST_TOOLS
-creation make
+insert
+    EIFFELTEST_TOOLS
+
+creation
+    make
+
 feature
-	make is 
-		-- Main testing
-	local outcome: STRING; ss: STRING_OUTPUT_STREAM
-	do
-		create outcome.make_empty
-		create ss.connect_to(outcome)
-		r:="A-"|"rope"|"-is-beutiful"
-		r.print_on(ss)
-		assert(outcome~"A-rope-is-beutiful")
+    make is
+        local
+            a: STRING
+            r: ROPE
+            ai, ri:  ITERATOR[CHARACTER]
+            outcome: STRING; ss: STRING_OUTPUT_STREAM
+        do
+            a:="A-"+"rope"+"-is-beautiful"
+            r:="A-"|"rope"|"-is-beautiful"
 
-		outcome.clear_count
-		from i:=r.new_iterator; i.start; until i.is_off
-		loop ss.put_character(i.item) i.next
-		end
+            assert(a.count = r.count)
+            assert(a.is_equal(r))			
+            assert(r.is_equal(a))
 
-		assert(outcome~"A-rope-is-beutiful")
-		assert(r.count=18)
+            from
+                ai := a.new_iterator; ai.start
+                ri := r.new_iterator; ri.start
+            until
+                ai.is_off or else ri.is_off
+            loop
+                assert(ai.item = ri.item)
+                ai.next; ri.next
+            end
+            assert(ai.is_off and then ri.is_off)
 
-		outcome.clear_count;
-		("The rope «"+r+"» does not have spaces.").print_on(ss)
-		assert(outcome~"The rope «A-rope-is-beutiful» does not have spaces.")
+            create outcome.make_empty
+            create ss.connect_to(outcome)
+            r.print_on(ss)
+            assert(outcome~"A-rope-is-beautiful")
 
-		outcome.clear_count;
-		("The rope «"|r|"» does not have spaces.").print_on(ss)
-		assert(outcome~"The rope «A-rope-is-beutiful» does not have spaces.")
+            outcome.clear_count
+            from ri:=r.new_iterator; ri.start; until ri.is_off
+            loop ss.put_character(ri.item); ri.next
+            end
 
-		outcome.clear_count;
-		("Foo is "|(3.out)|" characters long%N").print_on(ss)
-		assert(outcome~"Foo is 3 characters long%N")
+            assert(outcome~"A-rope-is-beautiful")
+            assert(r.count=19)
 
-		label_assert("not string ~ rope",not ("Failing equality").is_equal("Test-"|"equality"))
-		label_assert("string ~ rope", ("Test-"|"equality").is_equal("Test-"|"equality"))
-		label_assert("not rope ~ rope", not ("Failing"|"equality").is_equal("Test-"|"equality"))
-		label_assert("rope ~ rope",("Test"|"-equality").is_equal("Test-equality"))
-		label_assert("rope ~ another rope",("Test"|"-equality").is_equal("Test-equ"|"ality"))
-		label_assert("not rope ~ string", not ("Failing-"|"equality").is_equal("equality"))
-		label_assert("ropes with count",("Foo is "|foo.count.out|" characters long.").is_equal("Foo is 3 characters long."))
-		label_assert("rope made with constats and string ",(foo|" is "|foo.count.out|" characters long.").is_equal("Foo is 3 characters long."))
+            assert(not r.has(' '))
+            assert(r.has('-'))
+            assert(not r.valid_index(r.first_index_of(' ')))
+            assert(r.valid_index(r.first_index_of('-')))
 
-		label_assert("rope with intern string",("Ropes are "|("beutiful".intern)).is_equal("Ropes are beutiful"))
-		label_assert("rope.intern ~ rope ",("Ropes are "|("beutiful".intern)).is_equal("Ropes are beutiful".intern))
-	end
-	r,s: ROPE
-	foo: STRING is "Foo"
-	i:  ITERATOR[CHARACTER]
+            outcome.clear_count;
+            ("The rope «"+r+"» does not have spaces.").print_on(ss)
+            assert(outcome~"The rope «A-rope-is-beautiful» does not have spaces.")
 
-end -- class TEST_ROPE
+            outcome.clear_count;
+            ("The rope «"|r|"» does not have spaces.").print_on(ss)
+            assert(outcome~"The rope «A-rope-is-beautiful» does not have spaces.")
+
+            outcome.clear_count;
+            ("Foo is "|(3.out)|" characters long%N").print_on(ss)
+            assert(outcome~"Foo is 3 characters long%N")
+
+            assert(("Rope r is "+r.count.to_string+" characters long.").is_equal("Rope r is 19 characters long."))
+            assert(("Rope r is "|r.count.to_string|" characters long.").is_equal("Rope r is 19 characters long."))
+            assert(("Rope r is "| &r.count        |" characters long.").is_equal("Rope r is 19 characters long."))
+            assert(not ("Failing equality").is_equal("Test-"|"equality"))
+            assert(("Test-"|"equality").is_equal("Test-"|"equality"))
+            assert(not ("Failing"|"equality").is_equal("Test-"|"equality"))
+            assert(("Test"|"-equality").is_equal("Test-equality"))
+            assert(("Test"|"-equality").is_equal("Test-equ"|"ality"))
+            assert(not ("Failing-"|"equality").is_equal("equality"))
+            assert(("Foo is "|foo.count.out|" characters long.").is_equal("Foo is 3 characters long."))
+            assert(("Foo is "| &foo.count  |" characters long.").is_equal("Foo is 3 characters long."))
+            assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful"))
+            assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful".intern))
+        end
+
+        foo: STRING is "Foo"
+
+    end -- class TEST_ROPE
