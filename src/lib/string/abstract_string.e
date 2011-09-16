@@ -1000,12 +1000,22 @@ feature {ANY} -- Concatenation
          Result.out.is_equal(Current + other)
       end
 
+	arg (an_index: INTEGER; a_value: ABSTRACT_STRING): ABSTRACT_STRING is
+		-- A copy of Current with the placeholder "@(an_index)" is replaced (if present) with the content of `a_value'.
+		deferred
+		ensure 
+			substitution_made: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value)
+			substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
+		end
 
-	  --	infix "#" (a_value: ABSTRACT_STRING): like ABSTRACT_STRING is
-	  --		-- Replace the placeholder "@(n)" with the lower n with the content of `a_value'
-	  --		deferred
-	  --		ensure definition: has_substring(a_value)
-	  --		end
+	infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING is
+		-- A copy of Current with the placeholder "@(n)" (with n the lower found) is replaced with the content of `a_value'. See also `arg'.
+	do
+		Result:= Current.arg(1,a_value)
+		-- The above implementation is based on the assumption that `arg'
+		-- actually return a FILLABLE_STRING and that FILLABLE_STRING redefine
+		-- infix "#"
+	end
 
 feature -- Case convertion
    as_lower: STRING is
