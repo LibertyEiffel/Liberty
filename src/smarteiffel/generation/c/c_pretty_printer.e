@@ -1431,7 +1431,7 @@ feature {}
 
    agent_pool_call_in (buffer, mold_id: STRING; agent_result, agent_creation_type: TYPE) is
       require
-         agent_creation_type.can_be_assigned_to(launcher_type)
+         agent_creation_type.can_be_assigned_to(agent_result.launcher_type)
       local
          open_args: ARRAY[TYPE]
          arg_idx, open_count: INTEGER
