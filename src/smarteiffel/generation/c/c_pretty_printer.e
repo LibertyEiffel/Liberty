@@ -1368,10 +1368,10 @@ feature {}
                         buffer.append(once "case ")
                         idx.append_in(buffer)
                         buffer.append(once ":%N")
-                        agent_pool_call_in(buffer, mold_id, agent_result, agent_creation_type)
+                        agent_pool_call_in(buffer, mold_id, launcher_type, agent_result, agent_creation_type)
                         buffer.append(once "break;%N")
                      else
-                        agent_pool_call_in(buffer, mold_id, agent_result, agent_creation_type)
+                        agent_pool_call_in(buffer, mold_id, launcher_type, agent_result, agent_creation_type)
                      end
                   end
                end
@@ -1429,9 +1429,9 @@ feature {}
          Result := count < 2
       end
 
-   agent_pool_call_in (buffer, mold_id: STRING; agent_result, agent_creation_type: TYPE) is
+   agent_pool_call_in (buffer, mold_id: STRING; launcher_type, agent_result, agent_creation_type: TYPE) is
       require
-         agent_creation_type.can_be_assigned_to(agent_result.launcher_type)
+         agent_creation_type.can_be_assigned_to(launcher_type)
       local
          open_args: ARRAY[TYPE]
          arg_idx, open_count: INTEGER
