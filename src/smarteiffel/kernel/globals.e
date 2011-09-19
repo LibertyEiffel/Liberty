@@ -54,6 +54,11 @@ feature {}
          create Result.make
       end
 
+   frozen runner: RUNNER is
+      once
+         create Result.make
+      end
+
    frozen pretty_printer: PRETTY_PRINTER is
       once
          create Result.make

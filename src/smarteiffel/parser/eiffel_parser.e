@@ -306,7 +306,7 @@ feature {SMART_EIFFEL}
          show_nb(nb_errors, once " error")
       end
 
-feature {COMPILE_TO_C, COMPILE_TO_JVM}
+feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN}
    set_drop_comments is
       do
          drop_comments := True
