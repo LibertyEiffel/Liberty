@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=17
+MAXTOOLCOUNT=18
 
 test ${0%/*} != $0 && cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
@@ -88,19 +88,20 @@ se_tools: \${path_se_tools}loadpath.se
 se_tutorial: \${path_se_tutorial}loadpath.se
 
 [Tools]
-c: compile
-c2c: compile_to_c
-clean: clean
-pretty: pretty
-short: short
-find: finder
 ace_check: ace_check
+c2c: compile_to_c
+c: compile
 class_check: class_check
+clean: clean
 doc: eiffeldoc
-test: eiffeltest
-x_int: extract_internals
+find: finder
 make: se_make.sh
+pretty: pretty
+run: run
+short: short
+test: eiffeltest
 wrap: wrappers_generator
+x_int: extract_internals
 
 [boost]
 -- c_compiler_type: tcc
@@ -237,6 +238,7 @@ EOF
         echo 13 eiffeldoc
         echo 14 extract_internals
         echo 15 wrappers_generator
+        echo 16 run
     } | while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
@@ -353,18 +355,19 @@ tag: 3
 jobs: 2
 
 [Tools]
-c: compile
-c2c: compile_to_c
-clean: clean
-pretty: pretty
-short: short
-find: finder
 ace_check: ace_check
+c2c: compile_to_c
+c: compile
 class_check: class_check
+clean: clean
 doc: eiffeldoc
+find: finder
+pretty: pretty
+run: run
+short: short
 test: eiffeltest
-x_int: extract_internals
 wrap: wrappers_generator
+x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
