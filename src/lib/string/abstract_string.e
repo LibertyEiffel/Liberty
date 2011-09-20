@@ -982,20 +982,50 @@ feature {ANY} -- Concatenation
       end
 
 	arg (an_index: INTEGER; a_value: ABSTRACT_STRING): ABSTRACT_STRING is
-		-- A copy of Current with the placeholder "@(an_index)" is replaced (if present) with the content of `a_value'.
-		deferred
-		ensure 
-			substitution_made: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value)
-			substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
+		-- A copy of Current with the placeholder "#(an_index)" is replaced (if present) with the content of `a_value'.
+
+		-- TODO: current implementation is incomplete as it does not allow
+		-- multiple occurrences of the placeholder. This limitation will be
+		-- removed if later (and it would «require
+		-- substring_occurrences("#("+a_value.out+")")=1» if ABSTRACT_STRING
+		-- actually had it.)
+	local 
+		i,l: INTEGER
+		placeholder: STRING
+	do
+		placeholder := "#("+an_index.out+")"
+		l := placeholder.count
+		i:=substring_index(placeholder,lower)
+		if valid_index(i) then
+			check 
+				correct_index: i+l<=upper
+			end
+			if i>lower then Result := substring(lower,i-1)|a_value
+			else Result := a_value
+			end
+			if i+l<upper then Result := Result|substring(i+l,upper)
+			end
+		else Result:=Current
 		end
+		debug
+			print("«"+Current+"».arg("+an_index.out+",«"+a_value+"»)=«"+Result+"»%N")
+		end
+	ensure 
+		definition: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value) 
+		-- TODO: when implementation will replace multiple occurences of placeholder add «and not Result.has_substring("#("+an_index.out+")")» to the above postcondition
+		substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
+	end
 
 	infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING is
-		-- A copy of Current with the placeholder "@(n)" (with n the lower found) is replaced with the content of `a_value'. See also `arg'.
+		-- TODO: Currently unimplemented.
+		-- A copy of Current with a placeholder "#(n)" is replaced with the content of `a_value'. A chain of # queries will progressively replace placeholder 1, 2 ... 
+
+		-- For example a_string#"foo"#"bar"#"maman" is equivalent to a_string.arg(1,"foo").arg(2,"bar").arg(3,"maman")
+		
+		-- See also `arg'.
 	do
-		Result:= Current.arg(1,a_value)
-		-- The above implementation is based on the assumption that `arg'
-		-- actually return a FILLABLE_STRING and that FILLABLE_STRING redefine
-		-- infix "#"
+		not_yet_implemented
+		-- create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current,a_value,1)
 	end
 
 feature -- Case convertion
