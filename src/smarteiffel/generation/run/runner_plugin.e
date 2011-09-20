@@ -24,7 +24,15 @@ feature {NATIVE_PLUG_IN}
 
 feature {}
    make (position: POSITION; a_name, a_path: STRING) is
+      require
+         a_name /= Void
+         a_path /= Void
       do
+         name := a_name
+         path := a_path
+      ensure
+         name = a_name
+         path = a_path
       end
 
 end -- class RUNNER_PLUGIN

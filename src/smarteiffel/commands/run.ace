@@ -1,30 +1,35 @@
 system "RUN"
 
 root
-    RUN: make
+   RUN: make
 
 default
-    assertion(no)
-    collect(yes)
-    debug(no)
-    trace(yes)
+   assertion(no)
+   collect(yes)
+   debug(no)
+   trace(yes)
 
 cluster
-    liberty: "${path_liberty}src/loadpath.se"
-        default
-            assertion(require)
-        option
-            debug(yes): FIXED_STRING
-        end
+   liberty: "${path_liberty}src/loadpath.se"
+      default
+         assertion(no)
+      option
+         debug(yes): FIXED_STRING
+      end
 
-    smarteiffel: "${path_se_tools}loadpath.se"
-        default
-            assertion(all)
-            debug(yes)
-        end
+   runner: "${path_se_tools}generation/run"
+      default
+         assertion(invariant)
+         debug(yes)
+      end
+
+   smarteiffel: "${path_se_tools}loadpath.se"
+      default
+         assertion(no)
+      end
 
 generate
-    no_strip(yes)
-    split("by_type")
+   no_strip(yes)
+   split("by_type")
 
 end -- system "RUN"

@@ -1,49 +1,69 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER
-   --
-   -- Singleton in charge of handling Eiffel interpretation.
-   -- This singleton is shared via the GLOBALS.`runner' once function.
-   --
+class RUNNER_FEATURES
 
 inherit
-   CODE_PRINTER
-      -- not really a "printer", but it consumes code semantics all the same; and that's what
-      -- SMART_EIFFEL.`compile' expects
+   RUN_FEATURE_VISITOR
 
-create {ANY}
+insert
+   RUNNER_FACET
+
+create {RUNNER_CONTEXT}
    make
 
-feature {SMART_EIFFEL}
-   compile is
-         -- Code interpretation happens here.
+feature {RUN_FEATURE_1}
+   visit_run_feature_1 (visited: RUN_FEATURE_1) is
       do
-         if nb_errors = 0 then
-            check
-               smart_eiffel.root_procedure /= Void
-            end
-            get_started
-            check
-               smart_eiffel.is_ready
-            end
-            smart_eiffel.customize_runtime
-            context.call(smart_eiffel.root_procedure)
-         end
+      end
+
+feature {RUN_FEATURE_2}
+   visit_run_feature_2 (visited: RUN_FEATURE_2) is
+      do
+      end
+
+feature {RUN_FEATURE_3}
+   visit_run_feature_3 (visited: RUN_FEATURE_3) is
+      do
+         visited.routine_body.accept(context.instructions)
+      end
+
+feature {RUN_FEATURE_4}
+   visit_run_feature_4 (visited: RUN_FEATURE_4) is
+      do
+      end
+
+feature {RUN_FEATURE_5}
+   visit_run_feature_5 (visited: RUN_FEATURE_5) is
+      do
+      end
+
+feature {RUN_FEATURE_6}
+   visit_run_feature_6 (visited: RUN_FEATURE_6) is
+      do
+      end
+
+feature {RUN_FEATURE_7}
+   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+      do
+      end
+
+feature {RUN_FEATURE_8}
+   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+      do
+      end
+
+feature {RUN_FEATURE_9}
+   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+      do
       end
 
 feature {}
-   get_started is
-      require
-         smart_eiffel.status.is_safety_checking
+   make (a_context: like context) is
       do
-         smart_eiffel.status.set_generating
-      end
-
-feature {}
-   make is
-      do
-         create context.make
+         context := a_context
+      ensure
+         context = a_context
       end
 
    context: RUNNER_CONTEXT
@@ -51,7 +71,7 @@ feature {}
 invariant
    context /= Void
 
-end -- class RUNNER
+end -- class RUNNER_FEATURES
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
