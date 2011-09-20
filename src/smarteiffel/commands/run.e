@@ -138,7 +138,7 @@ feature {}
                argi := argi + 2
             elseif flag_match(fz_loadpath, arg) then
                if pass = 1 then
-                  -- C compiler choice is only parsed in pass 1
+                  -- loadpath setting is only parsed in pass 1, otherwise there will be double definitions
                   if argi < argument_count then
                      system_tools.add_loadpath_file(argument(argi + 1))
                      argi := argi + 2
@@ -150,6 +150,13 @@ feature {}
                else
                   argi := argi + 2
                end
+            elseif pass = 2 then
+               if ace.root_class_name = Void then
+                  ace.set_root_class_name_using(arg)
+               else
+                  ace.set_root_procedure_name(arg)
+               end
+               argi := argi + 1
             else
                argi := argi + 1
             end

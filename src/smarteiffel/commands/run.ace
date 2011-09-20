@@ -1,0 +1,30 @@
+system "RUN"
+
+root
+    RUN: make
+
+default
+    assertion(no)
+    collect(yes)
+    debug(no)
+    trace(yes)
+
+cluster
+    liberty: "${path_liberty}src/loadpath.se"
+        default
+            assertion(require)
+        option
+            debug(yes): FIXED_STRING
+        end
+
+    smarteiffel: "${path_se_tools}loadpath.se"
+        default
+            assertion(all)
+            debug(yes)
+        end
+
+generate
+    no_strip(yes)
+    split("by_type")
+
+end -- system "RUN"
