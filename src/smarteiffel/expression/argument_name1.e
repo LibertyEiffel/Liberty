@@ -22,7 +22,7 @@ feature {ANY}
       end
 
    adapt_for (type: TYPE): like Current is
-         --|*** (PH 25/08/04) should be identical with 
+         --|*** (PH 25/08/04) should be identical with
          --|*** LOCAL_NAME1.adapt_for, so put it in LOCAL_ARGUMENT1.
       local
          tm: TYPE_MARK
@@ -39,6 +39,11 @@ feature {ANY}
    accept (visitor: ARGUMENT_NAME1_VISITOR) is
       do
          visitor.visit_argument_name1(Current)
+      end
+
+   is_used (type: TYPE): BOOLEAN is
+      do
+         Result := True
       end
 
 feature {DECLARATION_LIST}

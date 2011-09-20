@@ -819,18 +819,20 @@ feature {}
          until
             i > args.count
          loop
-            c_frame_descriptor_format.append(args.name(i).to_string)
-            static_tm := args.type_mark(i).to_static(type)
-            cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
-            c_frame_descriptor_locals.append(once "(void**)&")
-            if use_real_name then
-               c_frame_descriptor_locals.extend('_')
-               c_frame_descriptor_locals.append(args.name(i).to_string)
-            else
-               c_frame_descriptor_locals.extend('a')
-               i.append_in(c_frame_descriptor_locals)
+            if args.name(i).is_used(type) then
+               c_frame_descriptor_format.append(args.name(i).to_string)
+               static_tm := args.type_mark(i).to_static(type)
+               cpp.c_frame_descriptor_in(static_tm, c_frame_descriptor_format)
+               c_frame_descriptor_locals.append(once "(void**)&")
+               if use_real_name then
+                  c_frame_descriptor_locals.extend('_')
+                  c_frame_descriptor_locals.append(args.name(i).to_string)
+               else
+                  c_frame_descriptor_locals.extend('a')
+                  i.append_in(c_frame_descriptor_locals)
+               end
+               c_frame_descriptor_locals.extend(',')
             end
-            c_frame_descriptor_locals.extend(',')
             i := i + 1
          end
       end

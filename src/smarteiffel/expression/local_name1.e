@@ -37,8 +37,6 @@ feature {ANY}
 
 feature {ANY}
    is_used (type: TYPE): BOOLEAN is
-         -- True if some C code must be generated for this local variable (i.e. this routine now
-         -- handles correctly user expanded types with a side-effect default creation).
       local
          actual_type: TYPE
       do

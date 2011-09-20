@@ -37,6 +37,12 @@ feature {ANY}
          Result := result_type.resolve_in(type)
       end
 
+   is_used (type: TYPE): BOOLEAN is
+         -- True if some C code must be generated for this local variable (i.e. this routine now
+         -- handles correctly user expanded types with a side-effect default creation).
+      deferred
+      end
+
 feature {DECLARATION_LIST}
    set_rank (r: like rank) is
       require
@@ -94,7 +100,7 @@ feature {ANY}
    adapt_for (type: TYPE): like Current is
       deferred
       end
-   
+
 feature {}
    name_clash_check_ (type: TYPE; msg: STRING) is
       require

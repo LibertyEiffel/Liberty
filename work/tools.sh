@@ -146,7 +146,7 @@ progress() {
                 exit;
              }' </dev/null >/dev/tty
     else
-        col=`expr \`tput cols\` - $1 - 11`
+        col=`expr \`tput cols\` - $size - 11`
         tput setaf 0
         tput sgr0
         awk 'BEGIN {
