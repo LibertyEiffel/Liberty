@@ -213,7 +213,7 @@ feature {}
                end
             elseif flag_match(fz_loadpath, arg) then
                if pass = 1 then
-                  -- C compiler choice is only parsed in pass 1
+                  -- loadpath setting is only parsed in pass 1, otherwise there will be double definitions
                   if argi < argument_count then
                      system_tools.add_loadpath_file(argument(argi + 1))
                      argi := argi + 2
