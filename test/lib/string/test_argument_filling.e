@@ -15,7 +15,9 @@ feature {ANY}
 			assert("But #(1) and #(2) are".arg(1,"one").arg(2,"another").is_equal("But one and another are"))
 			assert("But #(1) and #(2) are".arg(2,"another").arg(1,"one").is_equal("But one and another are"))
 			assert("But #(1) and #(2) are".arg(1,"one").arg(2,"another").is_equal("But one and another are"))
-			assert (("Hey #(2) I got #(1) with #(3)!".arg(1,"an apple").arg(2,"teacher").arg(3,"a worm")) ~ "Hey teacher I got an apple with a worm!" )
+			assert (("Hey #(2) I got #(1) with #(3)!".arg(1,"an apple").arg(2,"teacher").arg(3,"a worm")).is_equal("Hey teacher I got an apple with a worm!"))
+			assert (("#(1) is #(1)").arg(1,"life").is_equal("life is life"))
+			assert (("He sang «#(1) is #(1)»").arg(1,"life").is_equal("He sang «life is life»"))
 			-- TODO: also test "#" with things like
 			-- assert("Also ## is not changed"#"dummy").is_equal("Also ## is not changed"))
 			-- assert("Even #( is not changed"#"dummy").is_equal("Even #( is not changed"))

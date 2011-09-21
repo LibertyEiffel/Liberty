@@ -986,29 +986,74 @@ feature {ANY} -- Concatenation
 
 		-- TODO: current implementation is incomplete as it does not allow
 		-- multiple occurrences of the placeholder. This limitation will be
-		-- removed if later (and it would «require
-		-- substring_occurrences("#("+a_value.out+")")=1» if ABSTRACT_STRING
-		-- actually had it.)
-	local 
-		i,l: INTEGER
-		placeholder: STRING
-	do
-		placeholder := "#("+an_index.out+")"
-		l := placeholder.count
-		i:=substring_index(placeholder,lower)
-		if valid_index(i) then
-			check 
-				correct_index: i+l<=upper
-			end
-			if i>lower then Result := substring(lower,i-1)|a_value
-			else Result := a_value
-			end
-			if i+l<upper then Result := Result|substring(i+l,upper)
-			end
-		else Result:=Current
+		-- removed later (or stating it as «require
+		-- substring_occurrences("#("+a_value.out+")")=1» with an eventual
+		-- `substring_occurrences')
+	local
+         i, backtrack_i: INTEGER
+         index: INTEGER
+         state: INTEGER
+         ch: CHARACTER
+		 delimeter, opening_brace, closing_brace: CHARACTER 
+		 accumulator: STRING
+      do
+		  delimeter := '#'; opening_brace := '('; closing_brace := ')'
+		  -- The above constants are not put in the class to avoid "polluting"
+		  -- its namespace. Feel free to move it outside this feature if it is
+		  -- fitter, i.e. redefining them in an heir.
+		  accumulator := ""
+		  Result := accumulator
+		  from i := lower; state := normal_state
+		  until i > upper
+		  loop
+			  from until i > upper loop
+				  ch := item(i)
+				  inspect state
+				  when always_print_state then
+					  accumulator.append_character(ch)
+					  state := normal_state
+				  when normal_state then 
+					  if ch.is_equal(delimeter) then
+						  backtrack_i := i - 1
+						  state := after_delimiter_state
+					  else accumulator.append_character(ch)
+					  end
+				  when after_delimiter_state then 
+					  if ch.is_equal(delimeter) then
+						  accumulator.append_character(ch)
+						  state := normal_state
+					  elseif ch.is_equal(opening_brace) then
+						  index := 0
+						  state := after_brace_state
+					  else
+						  i := backtrack_i
+						  state := always_print_state
+					  end
+				  when after_brace_state then 
+					  if ch.is_decimal_digit then
+						  index := 10*index + ch.decimal_value
+					  elseif ch.is_equal(closing_brace) and then index = an_index then
+						  accumulator := "" -- newly allocated empty string
+						  Result := Result | a_value | accumulator
+						  state := normal_state
+					  else
+						  i := backtrack_i
+						  state := always_print_state
+					  end
+				  end
+				  i := i +1
+			  end
+
+			  check
+				  i >= 0
+			  end
+			  if state > normal_state then
+				  i := backtrack_i + 1
+				  state := always_print_state
+			  end
 		end
-		debug
-			print("«"+Current+"».arg("+an_index.out+",«"+a_value+"»)=«"+Result+"»%N")
+		debug 
+			print("%""+Current+"%"arg("+an_index.out+",%""+a_value+"%")=%""+Result+"%"%N") 
 		end
 	ensure 
 		definition: has_substring("#("+an_index.out+")") implies Result.has_substring(a_value) 
@@ -1026,6 +1071,7 @@ feature {ANY} -- Concatenation
 	do
 		not_yet_implemented
 		-- create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current,a_value,1)
+	ensure implemented: False
 	end
 
 feature -- Case convertion
@@ -1272,6 +1318,19 @@ feature {STRING_HANDLER}
             j := j + 1
          end
       end
+feature {} -- The states of the finite state automaton used in `arg' feature
+	always_print_state: INTEGER is -1
+	normal_state: INTEGER is 0
+	after_delimiter_state: INTEGER is 1
+	after_brace_state: INTEGER is 2 
+	-- Please note that we picked the same values used in MESSAGE_FORMATTER. It may also be written like 
+
+	-- "always_print_state, normal_state, after_delimiter_state, after_brace_state: INTEGER is unique"
+	
+	-- but I'm not sure that the compiler will actually choose sequential
+	-- values necessary in the last if tense in the arg query
+
+
 
 feature {}
    debug_string: STRING
