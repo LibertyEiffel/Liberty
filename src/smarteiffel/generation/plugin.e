@@ -66,6 +66,10 @@ feature {} -- directory handling
          create Result.make
       end
 
+invariant
+   name /= Void
+   path /= Void
+
 end -- class PLUGIN
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
