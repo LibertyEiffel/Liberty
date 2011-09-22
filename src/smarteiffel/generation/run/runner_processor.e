@@ -23,7 +23,7 @@ feature {RUNNER_FACET}
 feature {RUNNER}
    run (rf: RUN_FEATURE) is
       local
-         type: TYPE; root_object: RUNNER_OBJECT
+         root_object: RUNNER_OBJECT
       do
          root_object := memory.new_object(Current, rf.type_of_current)
          features.call(root_object, Void, rf)

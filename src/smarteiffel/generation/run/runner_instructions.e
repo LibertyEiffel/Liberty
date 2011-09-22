@@ -169,7 +169,6 @@ feature {}
                i := i + 1
             end
          end
-
          processor.features.call(target, arguments, visited.run_feature_for(processor.current_frame.type_of_current))
       end
 

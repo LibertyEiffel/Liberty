@@ -50,15 +50,12 @@ feature {}
          a_target /= Void
          a_arguments /= Void
          a_rf /= Void
-      local
-         old_frame: like current_frame
       do
-         old_frame := current_frame
-         create Result.make(processor, old_frame, a_target, a_arguments, a_rf)
+         create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result
          a_rf.accept(Current)
-         current_frame.execute
-         current_frame := old_frame
+         Result.execute
+         current_frame := Result.caller
       ensure
          Result /= Void
       end
