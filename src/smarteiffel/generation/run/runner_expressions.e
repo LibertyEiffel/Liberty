@@ -9,17 +9,27 @@ inherit
 insert
    RUNNER_FACET
 
-create {RUNNER_CONTEXT}
+create {RUNNER_PROCESSOR}
    make
+
+feature {RUNNER_FACET}
+   eval (a_expression: EXPRESSION): RUNNER_OBJECT is
+      do
+         a_expression.accept(Current)
+         Result := return
+         return := Void
+      end
 
 feature {IMPLICIT_CURRENT}
    visit_implicit_current (visited: IMPLICIT_CURRENT) is
       do
+         return := processor.current_frame.target
       end
 
 feature {WRITTEN_CURRENT}
    visit_written_current (visited: WRITTEN_CURRENT) is
       do
+         return := processor.current_frame.target
       end
 
 feature {ADDRESS_OF}
@@ -363,17 +373,18 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_processor: like processor) is
       do
-         context := a_context
+         processor := a_processor
       ensure
-         context = a_context
+         processor = a_processor
       end
 
-   context: RUNNER_CONTEXT
+   processor: RUNNER_PROCESSOR
+   return: RUNNER_OBJECT
 
 invariant
-   context /= Void
+   processor /= Void
 
 end -- class RUNNER_EXPRESSIONS
 --

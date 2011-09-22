@@ -1,60 +1,74 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER
-   --
-   -- Singleton in charge of handling Eiffel interpretation.
-   -- This singleton is shared via the GLOBALS.`runner' once function.
-   --
+class RUNNER_ASSIGNMENT
 
 inherit
-   CODE_PRINTER
-      -- not really a "printer", but it consumes code semantics all the same; and that's what
-      -- SMART_EIFFEL.`compile' expects
+   LOCAL_NAME2_VISITOR
+   WRITABLE_ATTRIBUTE_NAME_VISITOR
+   RESULT_VISITOR
 
-create {ANY}
+insert
+   RUNNER_FACET
+
+create {RUNNER_INSTRUCTIONS}
    make
 
-feature {SMART_EIFFEL}
-   compile is
-         -- Code interpretation happens here.
+feature {RUNNER_INSTRUCTIONS}
+   assign (assignment: ASSIGNMENT) is
       do
-         if nb_errors = 0 then
-            check
-               smart_eiffel.root_procedure /= Void
-            end
-            get_started
-            check
-               smart_eiffel.is_ready
-            end
-            smart_eiffel.customize_runtime
-            processor.run(smart_eiffel.root_procedure)
-         end
+         value := processor.expressions.eval(assignment.right_side)
+         assignment.left_side.accept(Current)
+         value := Void
+      end
+
+   try_assign (assignment: ASSIGNMENT_ATTEMPT) is
+      do
+         value := processor.expressions.eval(assignment.right_side)
+         assignment.left_side.accept(Current)
+         --|*** TODO check the entity type and act accordingly
+         value := Void
+      end
+
+feature {LOCAL_NAME2}
+   visit_local_name2 (visited: LOCAL_NAME2) is
+      do
+         processor.current_frame.set_local_object(visited.to_string, value)
+         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+      end
+
+feature {WRITABLE_ATTRIBUTE_NAME}
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+      do
+         processor.current_frame.target.set_field(visited.to_string, value)
+         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+      end
+
+feature {RESULT}
+   visit_result (visited: RESULT) is
+      do
+         processor.current_frame.set_return(value)
+         entity_type := processor.current_frame.type_of_result
       end
 
 feature {}
-   get_started is
+   make (a_processor: like processor) is
       require
-         smart_eiffel.status.is_safety_checking
+         a_processor /= Void
       do
-         smart_eiffel.status.set_generating
-      end
-
-feature {}
-   make is
-      local
-         memory: RUNNER_MEMORY
-      do
-         create memory.make
-         create processor.make(memory)
+         processor := a_processor
+      ensure
+         processor = a_processor
       end
 
    processor: RUNNER_PROCESSOR
+   value: RUNNER_OBJECT
+   entity_type: TYPE
 
 invariant
-   runner /= Void
+   processor /= Void
 
-end -- class RUNNER
+end -- class RUNNER_ASSIGNMENT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

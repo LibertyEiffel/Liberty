@@ -9,8 +9,14 @@ inherit
 insert
    RUNNER_FACET
 
-create {RUNNER_CONTEXT}
+create {RUNNER_PROCESSOR}
    make
+
+feature {RUNNER_FACET}
+   execute (a_inst: INSTRUCTION) is
+      do
+         a_inst.accept(Current)
+      end
 
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
@@ -40,11 +46,13 @@ feature {LOOP_INVARIANT}
 feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
       do
+         assignment.try_assign(visited)
       end
 
 feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT) is
       do
+         assignment.assign(visited)
       end
 
 feature {CHECK_COMPOUND}
@@ -60,12 +68,13 @@ feature {C_INLINE}
 feature {COMMENT}
    visit_comment (visited: COMMENT) is
       do
+         -- nothing
       end
 
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
       do
-         context.add_instructions(visited.list)
+         processor.current_frame.add_instructions(visited.list)
       end
 
 feature {CREATE_INSTRUCTION}
@@ -76,11 +85,15 @@ feature {CREATE_INSTRUCTION}
 feature {RAW_CREATE_INSTRUCTION}
    visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
       do
+         visit_create_instruction(visited)
       end
 
 feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
+         if visited.must_be_generated(processor.current_frame.type_of_current) then
+            visited.compound.accept(Current)
+         end
       end
 
 feature {IFTHENELSE}
@@ -138,19 +151,44 @@ feature {PRECURSOR_INSTRUCTION}
       do
       end
 
+feature {}
+   visit_procedure_call (visited: PROCEDURE_CALL) is
+      local
+         target: RUNNER_OBJECT; arguments: FAST_ARRAY[RUNNER_OBJECT]
+         i: INTEGER
+      do
+         target := processor.expressions.eval(visited.target)
+         if visited.arg_count > 0 then
+            create arguments.with_capacity(visited.arg_count)
+            from
+               i := 1
+            until
+               i > visited.arg_count
+            loop
+               arguments.add_last(processor.expressions.eval(visited.arguments.expression(i)))
+               i := i + 1
+            end
+         end
+
+         processor.features.call(target, arguments, visited.run_feature_for(processor.current_frame.type_of_current))
+      end
+
 feature {PROCEDURE_CALL_0}
    visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
       do
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
    visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
       do
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
    visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
       do
+         visit_procedure_call(visited)
       end
 
 feature {REQUIRE_ASSERTION}
@@ -169,17 +207,21 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_processor: like processor) is
       do
-         context := a_context
+         processor := a_processor
+         create assignment.make(a_processor)
       ensure
-         context = a_context
+         processor = a_processor
       end
 
-   context: RUNNER_CONTEXT
+   processor: RUNNER_PROCESSOR
+   assignment: RUNNER_ASSIGNMENT
 
 invariant
-   context /= Void
+   processor /= Void
+   assignment /= Void
+   assignment.processor = processor
 
 end -- class RUNNER_INSTRUCTIONS
 --

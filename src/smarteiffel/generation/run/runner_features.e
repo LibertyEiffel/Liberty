@@ -9,8 +9,59 @@ inherit
 insert
    RUNNER_FACET
 
-create {RUNNER_CONTEXT}
+create {RUNNER_PROCESSOR}
    make
+
+feature {RUNNER_PROCESSOR}
+   current_frame: RUNNER_FRAME
+
+feature {RUNNER_FACET}
+   call (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE) is
+      require
+         a_target /= Void
+         a_arguments /= Void
+         a_rf /= Void
+         a_rf.result_type = Void
+      local
+         return: RUNNER_OBJECT
+      do
+         return := execute(a_target, a_arguments, a_rf).return
+         check
+            return = Void
+         end
+      end
+
+   item (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
+      require
+         a_target /= Void
+         a_arguments /= Void
+         a_rf /= Void
+         a_rf.result_type /= Void
+      do
+         Result := execute(a_target, a_arguments, a_rf).return
+         check
+            Result /= Void implies Result.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current))
+         end
+      end
+
+feature {}
+   execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
+      require
+         a_target /= Void
+         a_arguments /= Void
+         a_rf /= Void
+      local
+         old_frame: like current_frame
+      do
+         old_frame := current_frame
+         create Result.make(processor, old_frame, a_target, a_arguments, a_rf)
+         current_frame := Result
+         a_rf.accept(Current)
+         current_frame.execute
+         current_frame := old_frame
+      ensure
+         Result /= Void
+      end
 
 feature {RUN_FEATURE_1}
    visit_run_feature_1 (visited: RUN_FEATURE_1) is
@@ -25,7 +76,7 @@ feature {RUN_FEATURE_2}
 feature {RUN_FEATURE_3}
    visit_run_feature_3 (visited: RUN_FEATURE_3) is
       do
-         visited.routine_body.accept(context.instructions)
+         processor.instructions.execute(visited.routine_body)
       end
 
 feature {RUN_FEATURE_4}
@@ -59,17 +110,17 @@ feature {RUN_FEATURE_9}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_processor: like processor) is
       do
-         context := a_context
+         processor := a_processor
       ensure
-         context = a_context
+         processor = a_processor
       end
 
-   context: RUNNER_CONTEXT
+   processor: RUNNER_PROCESSOR
 
 invariant
-   context /= Void
+   processor /= Void
 
 end -- class RUNNER_FEATURES
 --
