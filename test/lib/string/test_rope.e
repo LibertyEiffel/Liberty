@@ -8,7 +8,7 @@ creation
 feature
     make is
         local
-            a: STRING
+            a,b: STRING
             r: ROPE
             ai, ri:  ITERATOR[CHARACTER]
             outcome: STRING; ss: STRING_OUTPUT_STREAM
@@ -17,7 +17,7 @@ feature
             r:="A-"|"rope"|"-is-beautiful"
 
             assert(a.count = r.count)
-            assert(a.is_equal(r))			
+            assert(a.is_equal(r))            
             assert(r.is_equal(a))
 
             from
@@ -74,6 +74,19 @@ feature
             assert(("Foo is "| &foo.count  |" characters long.").is_equal("Foo is 3 characters long."))
             assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful"))
             assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful".intern))
+
+
+            -- Test mutable ROPEs
+            a := "Eiffel"
+            b := "beautiful"
+            r := a|" is "|b
+            assert(r.is_equal("Eiffel is beautiful"))
+            a.prepend("Liberty")
+            assert(r.is_equal("LibertyEiffel is beautiful"))
+            b.append(" programming language.")
+            assert(r.is_equal("LibertyEiffel is beautiful programming language."))
+            b.prepend("a ")
+            assert(r.is_equal("LibertyEiffel is a beautiful programming language."))
         end
 
         foo: STRING is "Foo"
