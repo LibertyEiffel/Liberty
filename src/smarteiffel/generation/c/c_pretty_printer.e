@@ -2766,7 +2766,7 @@ feature {}
          echo.put_string(once "Define C main function.%N")
          prepare_c_function
          type := rf3.type_of_current
-         ct := rf3.type_of_current.canonical_type_mark
+         ct := type.canonical_type_mark
          system_tools.main_function_return_type_in(pending_c_function_signature)
          pending_c_function_signature.append(once " main(int argc,char*argv[])")
          if ace.no_check then
