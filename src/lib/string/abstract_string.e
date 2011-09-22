@@ -1069,9 +1069,11 @@ feature {ANY} -- Concatenation
         
         -- See also `arg'.
     do
-        not_yet_implemented
-        -- create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current,a_value,1)
-    ensure implemented: False
+        -- not_yet_implemented
+        create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current,a_value,1)
+         debug 
+            print("%""+Current+"%"#("+a_value+"%")=%""+Result+"%"%N") 
+        end
     end
 
 feature -- Case convertion

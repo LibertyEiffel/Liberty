@@ -19,9 +19,13 @@ feature {ANY}
 			assert (("#(1) is #(1)").arg(1,"life").is_equal("life is life"))
 			assert (("He sang «#(1) is #(1)»").arg(1,"life").is_equal("He sang «life is life»"))
 			-- TODO: also test "#" with things like
-			-- assert("Also ## is not changed"#"dummy").is_equal("Also ## is not changed"))
-			-- assert("Even #( is not changed"#"dummy").is_equal("Even #( is not changed"))
-
+			assert(("Also ## is not changed"#"dummy").is_equal("Also ## is not changed"))
+			assert(("Even #( is not changed"#"dummy").is_equal("Even #( is not changed"))
+			assert(("#(1) is nice"#"Eiffel").is_equal("Eiffel is nice"))
+			assert(("But #(1) and #(2) are"#"one"#"another").is_equal("But one and another are"))
+			assert(("Hey #(2) I got #(1) with #(3)!" # "an apple" # "teacher" # "a worm").is_equal("Hey teacher I got an apple with a worm!"))
+			assert(("#(1) is #(1)"#"life").is_equal("life is life"))
+			assert(("He sang «#(1) is #(1)»"#"life").is_equal("He sang «life is life»"))
 
 		end
 
