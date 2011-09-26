@@ -1,77 +1,83 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_ASSIGNMENT
+class RUNNER_STRUCTURED_OBJECT
 
 inherit
-   LOCAL_NAME2_VISITOR
-   WRITABLE_ATTRIBUTE_NAME_VISITOR
-   RESULT_VISITOR
+   RUNNER_OBJECT
 
-insert
-   RUNNER_FACET
-
-create {RUNNER_INSTRUCTIONS}
+create {RUNNER_MEMORY}
    make
 
-feature {RUNNER_INSTRUCTIONS}
-   assign (assignment: ASSIGNMENT) is
-      do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
-         value := Void
-      end
+create {RUNNER_STRUCTURED_OBJECT}
+   copy_expanded
 
-   try_assign (assignment: ASSIGNMENT_ATTEMPT) is
-      do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
-         --|*** TODO check the entity type and act accordingly
-         value := Void
-      end
+feature {ANY}
+   processor: RUNNER_PROCESSOR
+   type: TYPE
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
-      do
-         processor.current_frame.set_local_object(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
-      end
-
-feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
       local
-         target: RUNNER_STRUCTURED_OBJECT
+         value: RUNNER_OBJECT
       do
-         target ::= processor.current_frame.target
-         target.set_field(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         if a_value /= Void then
+            value := a_value.copy_if_expanded
+         end
+         fields.fast_put(value, a_name.intern)
       end
 
-feature {RESULT}
-   visit_result (visited: RESULT) is
+   field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
       do
-         processor.current_frame.set_return(value)
-         entity_type := processor.current_frame.type_of_result
+         Result := fields.fast_at(a_name.intern)
+         if Result /= Void then
+            Result := Result.copy_if_expanded
+         end
+      end
+
+feature {RUNNER_FACET}
+   copy_if_expanded: like Current is
+      do
+         if type.is_reference then
+            Result := Current
+         else
+            create Result.copy_expanded(Current)
+         end
       end
 
 feature {}
-   make (a_processor: like processor) is
+   copy_expanded (model: like Current) is
       require
-         a_processor /= Void
+         model.type.is_expanded
       do
-         processor := a_processor
-      ensure
-         processor = a_processor
+         make(model.processor, model.type)
+         model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
+                             do
+                                fields.add(field_value.copy_if_expanded, field_name)
+                             end)
       end
 
-   processor: RUNNER_PROCESSOR
-   value: RUNNER_OBJECT
-   entity_type: TYPE
+feature {}
+   make (a_processor: like processor; a_type: like type) is
+      require
+         a_processor /= Void
+         a_type.live_type /= Void
+      do
+         processor := a_processor
+         type := a_type
+         create fields.make
+      ensure
+         processor = a_processor
+         type = a_type
+      end
+
+feature {RUNNER_STRUCTURED_OBJECT}
+   fields: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
 
 invariant
-   processor /= Void
+   type.live_type /= Void
+   fields /= Void
 
-end -- class RUNNER_ASSIGNMENT
+end -- class RUNNER_STRUCTURED_OBJECT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

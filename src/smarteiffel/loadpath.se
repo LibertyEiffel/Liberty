@@ -13,7 +13,7 @@
 ./generation/fake_generator
 ./generation/java
 ./generation/pretty
-./generation/run
+./generation/run/loadpath.se
 ./generation/sedb
 ./generation/short
 ./install

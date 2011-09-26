@@ -3,6 +3,9 @@
 --
 deferred class RUNNER_OBJECT
 
+insert
+   RUNNER_FACET
+
 feature {ANY}
    processor: RUNNER_PROCESSOR is
       deferred
@@ -12,12 +15,12 @@ feature {ANY}
       deferred
       end
 
-   set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+feature {RUNNER_FACET}
+   copy_if_expanded: like Current is
       deferred
-      end
-
-   field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
-      deferred
+      ensure
+         Result.is_equal(Current)
+         type.is_reference implies Result = Current
       end
 
 invariant

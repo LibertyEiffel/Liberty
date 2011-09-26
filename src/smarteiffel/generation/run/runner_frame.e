@@ -54,7 +54,11 @@ feature {RUNNER_FACET}
       require
          type_of_result /= Void
       do
-         return := a_return
+         if a_return = Void then
+            return := Void
+         else
+            return := a_return.copy_if_expanded
+         end
       ensure
          return = a_return
       end

@@ -1,15 +1,43 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class RUNNER_FACET
---
--- role to access parts of the RUNNER framework
---
+class RUNNER_NATIVE_EXPANDED[E_]
+
+inherit
+   RUNNER_OBJECT
 
 insert
    GLOBALS
 
-end -- class RUNNER_FACET
+create {RUNNER_MEMORY}
+   make
+
+feature {ANY}
+   processor: RUNNER_PROCESSOR
+   type: TYPE
+   item: E_
+
+feature {RUNNER_FACET}
+   copy_if_expanded: like Current is
+      do
+         Result := Current
+      end
+
+feature {}
+   make (a_processor: like processor; a_type: like type; a_item: like item) is
+      require
+         a_processor /= Void
+      do
+         processor := a_processor
+         type := a_type
+         item := a_item
+      ensure
+         processor = a_processor
+         type = a_type
+         item = a_item
+      end
+
+end -- class RUNNER_NATIVE_EXPANDED
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

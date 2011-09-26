@@ -8,6 +8,7 @@ inherit
 
 insert
    RUNNER_FACET
+   STRING_HANDLER
 
 create {RUNNER_PROCESSOR}
    make
@@ -285,11 +286,38 @@ feature {REAL_CONSTANT}
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
+         check
+            return = Void
+         end
       end
 
 feature {MANIFEST_STRING}
    visit_manifest_string (visited: MANIFEST_STRING) is
+      local
+         manifest_string: STRING
       do
+         manifest_string := visited.to_string
+         if visited.once_flag then
+            return := once_manifest_strings.fast_reference_at(manifest_string)
+            if return = Void then
+               return := new_manifest_string(manifest_string)
+               once_manifest_strings.add(return, manifest_string)
+            end
+         else
+            return := new_manifest_string(manifest_string)
+         end
+      end
+
+feature {}
+   once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, STRING]
+
+   new_manifest_string (manifest_string: STRING): RUNNER_STRUCTURED_OBJECT is
+      do
+         Result := processor.new_object(smart_eiffel.type_string)
+         Result.set_field(once "count",         processor.new_integer_32(manifest_string.count))
+         Result.set_field(once "capacity",      processor.new_integer_32(manifest_string.capacity))
+         Result.set_field(once "storage_lower", processor.new_integer_32(0))
+         Result.set_field(once "storage",       processor.new_native_array_character(manifest_string.capacity, manifest_string.storage)) -- should be OK to share the storage
       end
 
 feature {MANIFEST_GENERIC}
@@ -376,6 +404,7 @@ feature {}
    make (a_processor: like processor) is
       do
          processor := a_processor
+         create once_manifest_strings.make
       ensure
          processor = a_processor
       end

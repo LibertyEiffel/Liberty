@@ -1,77 +1,76 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_ASSIGNMENT
+class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
 
 inherit
-   LOCAL_NAME2_VISITOR
-   WRITABLE_ATTRIBUTE_NAME_VISITOR
-   RESULT_VISITOR
+   RUNNER_OBJECT
 
 insert
-   RUNNER_FACET
+   GLOBALS
 
-create {RUNNER_INSTRUCTIONS}
+create {RUNNER_MEMORY}
    make
 
-feature {RUNNER_INSTRUCTIONS}
-   assign (assignment: ASSIGNMENT) is
+feature {ANY}
+   processor: RUNNER_PROCESSOR
+   type: TYPE
+
+   item (index: INTEGER): O_ is
+      require
+         index.in_range(0, capacity - 1)
       do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
-         value := Void
+         Result := retriever.item([processor, storage.item(index)])
       end
 
-   try_assign (assignment: ASSIGNMENT_ATTEMPT) is
+   put (a_item: O_; index: INTEGER) is
+      require
+         index.in_range(0, capacity - 1)
       do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
-         --|*** TODO check the entity type and act accordingly
-         value := Void
+         storage.put(setter.item([a_item]), index)
       end
 
-feature {LOCAL_NAME2}
-   visit_local_name2 (visited: LOCAL_NAME2) is
+feature {RUNNER_FACET}
+   copy_if_expanded: like Current is
       do
-         processor.current_frame.set_local_object(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
-      end
-
-feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
-      local
-         target: RUNNER_STRUCTURED_OBJECT
-      do
-         target ::= processor.current_frame.target
-         target.set_field(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
-      end
-
-feature {RESULT}
-   visit_result (visited: RESULT) is
-      do
-         processor.current_frame.set_return(value)
-         entity_type := processor.current_frame.type_of_result
+         Result := Current
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
+         a_retriever: like retriever; a_setter: like setter) is
       require
          a_processor /= Void
+         a_capacity >= 0
+         a_retriever /= Void
+         a_setter /= Void
       do
          processor := a_processor
+         type := a_type
+         capacity := a_capacity
+         storage := a_storage
+         retriever := a_retriever
+         setter := a_setter
       ensure
          processor = a_processor
+         type = a_type
+         capacity = a_capacity
+         storage = a_storage
+         retriever = a_retriever
+         setter = a_setter
       end
 
-   processor: RUNNER_PROCESSOR
-   value: RUNNER_OBJECT
-   entity_type: TYPE
+   storage: NATIVE_ARRAY[E_]
+   capacity: INTEGER
+   retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
+   setter: FUNCTION[TUPLE[O_], E_]
 
 invariant
-   processor /= Void
+   capacity >= 0
+   retriever /= Void
+   setter /= Void
 
-end -- class RUNNER_ASSIGNMENT
+end -- class RUNNER_NATIVE_ARRAY
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
