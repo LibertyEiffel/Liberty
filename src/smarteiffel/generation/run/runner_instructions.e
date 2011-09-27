@@ -14,6 +14,8 @@ create {RUNNER_PROCESSOR}
 
 feature {RUNNER_FACET}
    execute (a_inst: INSTRUCTION) is
+      require
+         a_inst /= Void
       do
          a_inst.accept(Current)
       end
@@ -79,7 +81,11 @@ feature {COMPOUND}
 
 feature {CREATE_INSTRUCTION}
    visit_create_instruction (visited: CREATE_INSTRUCTION) is
+      local
+         new: RUNNER_OBJECT
       do
+         new := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
+         assignment.assign_to(new, visited.writable)
       end
 
 feature {RAW_CREATE_INSTRUCTION}

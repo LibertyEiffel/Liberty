@@ -19,16 +19,21 @@ feature {RUNNER_INSTRUCTIONS}
 
    assign (assignment: ASSIGNMENT) is
       do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
-         value := Void
+         assign_to(processor.expressions.eval(assignment.right_side),
+                   assignment.left_side)
       end
 
    try_assign (assignment: ASSIGNMENT_ATTEMPT) is
       do
-         value := processor.expressions.eval(assignment.right_side)
-         assignment.left_side.accept(Current)
+         assign_to(processor.expressions.eval(assignment.right_side),
+                   assignment.left_side)
          --|*** TODO check the entity type and act accordingly
+      end
+
+   assign_to (a_value: RUNNER_OBJECT; a_writable: EXPRESSION) is
+      do
+         value := a_value
+         a_writable.accept(Current)
          value := Void
       end
 

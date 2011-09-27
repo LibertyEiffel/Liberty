@@ -35,6 +35,22 @@ feature {RUNNER_FACET}
          Result := execute(a_call).return
       end
 
+   new (a_type: TYPE; a_call: PROCEDURE_CALL): RUNNER_OBJECT is
+      require
+         a_type /= Void
+      local
+         return: RUNNER_OBJECT
+      do
+         Result := processor.new_object(a_type)
+         if a_call /= Void then
+            return := do_execute(Result, arguments(a_call),
+                                 a_call.run_feature_for(processor.current_frame.type_of_current)).return
+            check
+               return = Void
+            end
+         end
+      end
+
 feature {RUNNER_PROCESSOR}
    run (rf: RUN_FEATURE) is
       local
@@ -49,26 +65,32 @@ feature {RUNNER_PROCESSOR}
       end
 
 feature {}
-   execute (a_call: FEATURE_CALL): like current_frame is
-      require
-         a_call /= Void
+   arguments (a_call: FEATURE_CALL): FAST_ARRAY[RUNNER_OBJECT] is
       local
-         target: RUNNER_OBJECT; arguments: FAST_ARRAY[RUNNER_OBJECT]
          i: INTEGER
       do
-         target := processor.expressions.eval(a_call.target)
          if a_call.arg_count > 0 then
-            create arguments.with_capacity(a_call.arg_count)
+            create Result.with_capacity(a_call.arg_count)
             from
                i := 1
             until
                i > a_call.arg_count
             loop
-               arguments.add_last(expand(processor.expressions.eval(a_call.arguments.expression(i))))
+               Result.add_last(expand(processor.expressions.eval(a_call.arguments.expression(i))))
                i := i + 1
             end
          end
-         Result := do_execute(target, arguments, a_call.run_feature_for(processor.current_frame.type_of_current))
+      end
+
+   execute (a_call: FEATURE_CALL): like current_frame is
+      require
+         a_call /= Void
+      local
+         target: RUNNER_OBJECT
+      do
+         target := processor.expressions.eval(a_call.target)
+         Result := do_execute(target, arguments(a_call),
+                              a_call.run_feature_for(processor.current_frame.type_of_current))
       end
 
    do_execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
@@ -106,7 +128,9 @@ feature {RUN_FEATURE_2}
 feature {RUN_FEATURE_3}
    visit_run_feature_3 (visited: RUN_FEATURE_3) is
       do
-         processor.instructions.execute(visited.routine_body)
+         if visited.routine_body /= Void then
+            processor.instructions.execute(visited.routine_body)
+         end
          check
             current_frame.return = Void
          end
@@ -115,14 +139,18 @@ feature {RUN_FEATURE_3}
 feature {RUN_FEATURE_4}
    visit_run_feature_4 (visited: RUN_FEATURE_4) is
       do
-         processor.instructions.execute(visited.routine_body)
+         if visited.routine_body /= Void then
+            processor.instructions.execute(visited.routine_body)
+         end
       end
 
 feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
          if not once_run_features.fast_has(visited) then
-            processor.instructions.execute(visited.routine_body)
+            if visited.routine_body /= Void then
+               processor.instructions.execute(visited.routine_body)
+            end
             check
                current_frame.return = Void
             end
@@ -136,7 +164,9 @@ feature {RUN_FEATURE_6}
          if once_run_features.fast_has(visited) then
             current_frame.set_return(once_run_features.fast_at(visited))
          else
-            processor.instructions.execute(visited.routine_body)
+            if visited.routine_body /= Void then
+               processor.instructions.execute(visited.routine_body)
+            end
             once_run_features.add(expand(current_frame.return), visited)
          end
       end
