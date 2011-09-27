@@ -14,6 +14,9 @@ feature {RUNNER_FEATURES}
       local
          inst: INSTRUCTION
       do
+         debug
+            std_output.put_line(" -> " + rf.name.to_string)
+         end
          from
          until
             instructions_list.is_empty
@@ -21,6 +24,9 @@ feature {RUNNER_FEATURES}
             inst := instructions_list.last
             instructions_list.remove_last
             processor.instructions.execute(inst)
+         end
+         debug
+            std_output.put_line(" <- " + rf.name.to_string)
          end
       end
 

@@ -288,13 +288,13 @@ feature {IMPLICIT_CAST}
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
-         sedb_breakpoint --| **** TODO
+         return := expand(processor.current_frame.arguments.item(visited.rank - 1))
       end
 
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         sedb_breakpoint --| **** TODO
+         return := expand(processor.current_frame.local_object(visited.to_string))
       end
 
 feature {LOOP_VARIANT}
@@ -425,7 +425,7 @@ feature {WRITABLE_ATTRIBUTE_NAME}
 feature {NO_DISPATCH}
    visit_no_dispatch (visited: NO_DISPATCH) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.side_effect_free_expression.accept(Current)
       end
 
 feature {INTERNAL_LOCAL2}
