@@ -126,11 +126,13 @@ feature {CALL_PREFIX_PLUS}
 feature {STATIC_CALL_0_C}
    visit_static_call_0_c (visited: STATIC_CALL_0_C) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {FUNCTION_CALL_0}
    visit_function_call_0 (visited: FUNCTION_CALL_0) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_AND_THEN}
@@ -226,11 +228,13 @@ feature {CALL_INFIX_XOR}
 feature {FUNCTION_CALL_1}
    visit_function_call_1 (visited: FUNCTION_CALL_1) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {FUNCTION_CALL_N}
    visit_function_call_n (visited: FUNCTION_CALL_N) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {GENERATOR_GENERATING_TYPE}
@@ -323,7 +327,7 @@ feature {MANIFEST_STRING}
       end
 
 feature {}
-   once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, STRING]
+   once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, STRING] -- OK, that's once per processor :-)
 
    new_manifest_string (manifest_string: STRING): RUNNER_STRUCTURED_OBJECT is
       do

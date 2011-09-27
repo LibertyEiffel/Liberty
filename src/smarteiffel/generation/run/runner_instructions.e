@@ -151,43 +151,22 @@ feature {PRECURSOR_INSTRUCTION}
       do
       end
 
-feature {}
-   visit_procedure_call (visited: PROCEDURE_CALL) is
-      local
-         target: RUNNER_OBJECT; arguments: FAST_ARRAY[RUNNER_OBJECT]
-         i: INTEGER
-      do
-         target := processor.expressions.eval(visited.target)
-         if visited.arg_count > 0 then
-            create arguments.with_capacity(visited.arg_count)
-            from
-               i := 1
-            until
-               i > visited.arg_count
-            loop
-               arguments.add_last(processor.expressions.eval(visited.arguments.expression(i)))
-               i := i + 1
-            end
-         end
-         processor.features.call(target, arguments, visited.run_feature_for(processor.current_frame.type_of_current))
-      end
-
 feature {PROCEDURE_CALL_0}
    visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
       do
-         visit_procedure_call(visited)
+         processor.features.call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
    visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
       do
-         visit_procedure_call(visited)
+         processor.features.call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
    visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
       do
-         visit_procedure_call(visited)
+         processor.features.call(visited)
       end
 
 feature {REQUIRE_ASSERTION}

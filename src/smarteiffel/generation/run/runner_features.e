@@ -16,46 +16,74 @@ feature {RUNNER_PROCESSOR}
    current_frame: RUNNER_FRAME
 
 feature {RUNNER_FACET}
-   call (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE) is
+   call (a_call: FEATURE_CALL) is
       require
-         a_target /= Void
-         a_arguments /= Void
-         a_rf /= Void
-         a_rf.result_type = Void
+         a_call /= Void
       local
          return: RUNNER_OBJECT
       do
-         return := execute(a_target, a_arguments, a_rf).return
+         return := execute(a_call).return
          check
             return = Void
          end
       end
 
-   item (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
+   item (a_call: FEATURE_CALL): RUNNER_OBJECT is
       require
-         a_target /= Void
-         a_arguments /= Void
-         a_rf /= Void
-         a_rf.result_type /= Void
+         a_call /= Void
       do
-         Result := execute(a_target, a_arguments, a_rf).return
+         Result := execute(a_call).return
+      end
+
+feature {RUNNER_PROCESSOR}
+   run (rf: RUN_FEATURE) is
+      local
+         root_object: RUNNER_OBJECT
+         return: RUNNER_OBJECT
+      do
+         root_object := processor.new_object(rf.type_of_current)
+         return := do_execute(root_object, Void, rf).return
          check
-            Result /= Void implies Result.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current))
+            return = Void
          end
       end
 
 feature {}
-   execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
+   execute (a_call: FEATURE_CALL): like current_frame is
       require
-         a_target /= Void
-         a_arguments /= Void
-         a_rf /= Void
+         a_call /= Void
+      local
+         target: RUNNER_OBJECT; arguments: FAST_ARRAY[RUNNER_OBJECT]
+         i: INTEGER
+      do
+         target := processor.expressions.eval(a_call.target)
+         if a_call.arg_count > 0 then
+            create arguments.with_capacity(a_call.arg_count)
+            from
+               i := 1
+            until
+               i > a_call.arg_count
+            loop
+               arguments.add_last(processor.expressions.eval(a_call.arguments.expression(i)))
+               i := i + 1
+            end
+         end
+         Result := do_execute(target, arguments, a_call.run_feature_for(processor.current_frame.type_of_current))
+      end
+
+   do_execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
+      require
+         a_target.type = a_rf.type_of_current
       do
          create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result
          a_rf.accept(Current)
          Result.execute
          current_frame := Result.caller
+
+         check
+            Result.return /= Void implies Result.return.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current))
+         end
       ensure
          Result /= Void
       end

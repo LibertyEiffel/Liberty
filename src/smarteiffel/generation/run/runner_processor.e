@@ -184,11 +184,8 @@ feature {RUNNER_FACET}
 
 feature {RUNNER}
    run (rf: RUN_FEATURE) is
-      local
-         root_object: RUNNER_OBJECT
       do
-         root_object := memory.new_object(Current, rf.type_of_current)
-         features.call(root_object, Void, rf)
+         features.run(rf)
       end
 
 feature {}
