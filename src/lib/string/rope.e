@@ -232,29 +232,14 @@ feature {} -- Split index
    split_index: INTEGER is
          -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
       do
-         Result := split_index_memory - 1
-         if Result < 0 then
-            check
-               Result = -1
-            end
-            Result := left.upper
-            split_index_memory := Result + 1
-            check
-               split_index_memory > 0
-            end
-         end
+         Result := left.upper
       ensure
          definition: Result = left.upper
       end
 
-   split_index_memory: INTEGER
-         -- off-by-one upper index of the left part (the offset allows the default initialization = 0 to act
-         -- as a not-yet-evaluated value)
-
 invariant
    left /= Void
    right /= Void
-   split_index_memory >= 0
 
 end -- class ROPE
 --
