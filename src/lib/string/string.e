@@ -602,16 +602,12 @@ feature {ANY} -- Modification:
       local
          i: INTEGER
       do
-         from
-            i := 1
-         until
-            i > count or else item(i) /= ' '
-         loop
-            i := i + 1
+         from i := 1
+         until i > count or else not item(i).is_separator -- i.e. not a blank like ' '
+         loop i := i + 1
          end
          remove_head(i - 1)
-      ensure
-         stripped: is_empty or else first /= ' '
+      ensure stripped: is_empty or else not first.is_separator
       end
 
    right_adjust is
@@ -620,13 +616,10 @@ feature {ANY} -- Modification:
          -- See also `remove_tail', `last'.
       do
          from
-         until
-            count = 0 or else item(count) /= ' '
-         loop
-            count := count - 1
+		 until count = 0 or else not item(count).is_separator
+         loop count := count - 1
          end
-      ensure
-         stripped: is_empty or else last /= ' '
+	  ensure stripped: is_empty or else not last.is_separator
       end
 
 feature {ANY} -- Other features:

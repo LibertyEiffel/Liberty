@@ -78,11 +78,13 @@ feature {ANY} -- Wrappers emittions
 			typedefs.emit_wrappers
 
 			-- Assign each field to the composed node it belongs to
-			-- Assign each function and variable to the file they belong to.
+			-- Wrap namespaces as Eiffel clusters which are directories containing classes
+			namespaces.do_all(agent {C_NAMESPACE}.emit_wrapper)
+
+			-- Assign each function to the file they belong to.
 			functions.do_all(agent move_feature)
 			-- Assign each variable to the file they belong to.
 			variables.do_all(agent move_feature)
-
 			check node ?:= root end -- this is not stricly necessary, we check that root is actually a GCCXML_NODE
 			node ::= root
 			node.emit_wrappers

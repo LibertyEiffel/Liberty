@@ -58,9 +58,8 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result:= is_named and then (is_public or has_assigned_name) and then namespace.is_main and then 
+			Result:= is_named and then (is_public or has_assigned_name) and then  
 			(global or else headers.has(c_file.c_string_name))
-			-- TODO: also emit C++ classes not belonging to main namespace 
 		end
 
 	emit_wrapper is

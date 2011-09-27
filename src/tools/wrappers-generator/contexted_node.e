@@ -14,6 +14,7 @@ feature
 		local symbol: NAMED_NODE; -- unused contexted: CONTEXTED_NODE
 		do
 			if not namespace_retrieved then
+				sedb_breakpoint
 				-- Some elements have a context which is their actual
 				-- namespace; other like fields referes to their container;
 				-- also in C++ things like a typedef may be containted into a
@@ -24,8 +25,9 @@ feature
 					from
 						print("Looking for context "+context.as_utf8+" namespace: ")
 						symbol := symbols.reference_at(context.as_utf8) 
-					until cached_namespace = Void
+					until cached_namespace /= Void
 					loop
+						print(" symbol "+symbol.out)
 						check symbol /= Void end
 						print(" symbol: "+ symbol.out)
 						cached_namespace ?= symbol

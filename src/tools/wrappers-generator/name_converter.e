@@ -30,6 +30,11 @@ feature {} -- Auxiliary features
 		-- Remove spurious underscores and the end
 		from until Result.last/='_' loop Result.remove_last end
 		multiple_underscores_remover.substitute_all_in(Result)
+		-- Deal with C++ names: turn list<foo> into list_of_foo
+		-- queue<dock,deepspace::station> into queue_of_dock_and_deepspace_station
+		lt_translator.substitute_all_in(Result)
+		gt_translator.substitute_all_in(Result)
+		namespace_separator_translator.substitute_all_in(Result)
 		Result.to_lower
 		Result := adapt(Result,once "_external")
 	end
@@ -70,12 +75,37 @@ feature {} -- Auxiliary features
 	
 	multiple_underscores_remover: REGULAR_EXPRESSION is
 			-- Replace all multiple occurences of underscore "_" with a single one
-		local
-			builder: REGULAR_EXPRESSION_BUILDER
+		local builder: REGULAR_EXPRESSION_BUILDER
 		once
 			Result := builder.convert_perl_pattern("(\_\_+)")
 			Result.prepare_substitution("_")
 		end
+
+	lt_translator: REGULAR_EXPRESSION is
+			-- Replace all occurences of "<" (shown as "&lt;") with "_of_"
+		local builder: REGULAR_EXPRESSION_BUILDER
+		once
+			Result := builder.convert_perl_pattern("(&lt;)")
+			Result.prepare_substitution("_of_")
+		end
+
+	gt_translator: REGULAR_EXPRESSION is
+			-- Remove all occurences of ">" (shown as "&gt;") 
+		local builder: REGULAR_EXPRESSION_BUILDER
+		once
+			Result := builder.convert_perl_pattern("(&gt;)")
+			Result.prepare_substitution("")
+		end
+
+
+	namespace_separator_translator: REGULAR_EXPRESSION is
+			-- Replace all occurences of "::" (C++ namespace separator) with "_" 
+		local builder: REGULAR_EXPRESSION_BUILDER
+		once
+			Result := builder.convert_perl_pattern("(&gt;)")
+			Result.prepare_substitution("i")
+		end
+
 
 	is_public_name (a_name: STRING): BOOLEAN is
 			-- Does `a_name' start with an alphabetical character? Names

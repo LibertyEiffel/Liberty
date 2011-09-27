@@ -16,6 +16,9 @@ feature
 	store is
 		do
 			namespaces.put(Current,id)
+			if not is_main then
+				symbols.put(Current,c_string_name)
+			end
 		end
 
 	is_main: BOOLEAN is
@@ -54,14 +57,16 @@ feature
 	do
 		-- Create a directory named like Current namespace that will contain everything defined in that namespace.
 		-- Try to create the directory and forget about the result
-		outcome :=  bd.create_new_directory(path.to_string);
-		if path.is_directory then
-			are_members_wrapped:=True 
-			-- Each gccxml node will query its containing namespace to see if it shall be wrapped.
-		else -- directory still doesn't exists, we cannot wrap its content. 
-			log("Namespace `@(1)' would be wrapped into `@(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N",
-			<<c_string_name, path.to_string>>)
-		end
+		log_string("Faking creation of «"+path.to_string+"»directory%N")
+		outcome := False
+		-- 	outcome :=  bd.create_new_directory(path.to_string);
+		-- 	if path.is_directory then
+		-- 		are_members_wrapped:=True 
+		-- 		-- Each gccxml node will query its containing namespace to see if it shall be wrapped.
+		-- 	else -- directory still doesn't exists, we cannot wrap its content. 
+		-- 		log("Namespace `@(1)' would be wrapped into `@(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N",
+		-- 		<<c_string_name, path.to_string>>)
+		-- 	end
 	end
 
 feature {STORABLE_NODE} -- Contained nodes

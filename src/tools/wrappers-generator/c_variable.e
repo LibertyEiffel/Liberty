@@ -17,7 +17,7 @@ feature
 
 	is_to_be_emitted: BOOLEAN is
 		do
-			Result:= (is_public or has_assigned_name) and then namespace.is_main and then 
+			Result:= (is_public or has_assigned_name) and then  
 			(global or else headers.has(c_file.c_string_name))
 		end
 
@@ -30,7 +30,8 @@ feature
 				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
-				buffer.put_message(once "%Taddress_of_@(1): POINTER is%N%
+				buffer.put_message(once 
+				"	address_of_@(1): POINTER is%N%
 				% 		-- Address of @(1) (node at line @(2))%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
