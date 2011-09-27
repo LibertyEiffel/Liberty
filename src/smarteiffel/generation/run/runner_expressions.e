@@ -261,21 +261,35 @@ feature {LOOP_VARIANT}
 feature {E_FALSE}
    visit_e_false (visited: E_FALSE) is
       do
+         return := processor.new_boolean(False)
       end
 
 feature {E_TRUE}
    visit_e_true (visited: E_TRUE) is
       do
+         return := processor.new_boolean(True)
       end
 
 feature {CHARACTER_CONSTANT}
    visit_character_constant (visited: CHARACTER_CONSTANT) is
       do
+         return := processor.new_character(visited.value)
       end
 
 feature {INTEGER_CONSTANT}
    visit_integer_constant (visited: INTEGER_CONSTANT) is
       do
+         inspect
+            visited.result_type.bit_count
+         when 8 then
+            return := processor.new_integer_8(visited.value_memory.to_integer_8)
+         when 16 then
+            return := processor.new_integer_16(visited.value_memory.to_integer_16)
+         when 32 then
+            return := processor.new_integer_32(visited.value_memory.to_integer_32)
+         when 64 then
+            return := processor.new_integer_64(visited.value_memory)
+         end
       end
 
 feature {REAL_CONSTANT}
@@ -348,6 +362,7 @@ feature {PRECURSOR_EXPRESSION}
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
+         return := processor.current_frame.return
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}

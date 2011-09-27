@@ -25,7 +25,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_64 = Current
       end
-   
+
    fit_natural_16: BOOLEAN is
          -- Does `Current' fit in NATURAL_16?
       do
@@ -42,7 +42,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_64 = Current
       end
-   
+
    fit_natural_32: BOOLEAN is
          -- Does `Current' fit in NATURAL_32?
       do
@@ -59,7 +59,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_64 = Current
       end
-   
+
    fit_integer_8: BOOLEAN is
          -- Does `Current' fit in INTEGER_8?
       do
@@ -127,7 +127,7 @@ feature {ANY} -- Explicit conversions:
       ensure
           Result.to_natural_64 = Current
       end
-   
+
    fit_real_32: BOOLEAN is
          -- Does `Current' fit in REAL_32?
       do
@@ -159,7 +159,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.force_to_natural_64 = Current
       end
-   
+
 feature {ANY}
    infix "//" (other: like Current): like Current is
       require
@@ -171,7 +171,7 @@ feature {ANY}
       require
          other /= 0.to_natural_64
       external "built_in"
-      end   
+      end
 
    is_odd: BOOLEAN is
       do
@@ -182,7 +182,7 @@ feature {ANY}
       do
          Result := (Current #\\ 2.to_natural_64) = 0.to_natural_64
       end
-   
+
    hash_code: INTEGER is
       do
          if Current.fit_integer_64 then
@@ -221,7 +221,7 @@ feature {ANY}
             end
          end
       end
-   
+
    append_in_unicode (buffer: UNICODE_STRING) is
       local
          val: like Current; i, idx: INTEGER
@@ -251,7 +251,7 @@ feature {ANY}
             end
          end
       end
-   
+
    decimal_digit: CHARACTER is
       require
          in_range(0.to_natural_64, 9.to_natural_64)
@@ -272,7 +272,7 @@ feature {ANY}
       do
          Result := to_integer_16.to_character
       end
-   
+
    to_number: NUMBER is
       do
          -- Well, there is probably a better way, but this should work:

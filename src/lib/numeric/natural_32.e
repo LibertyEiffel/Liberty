@@ -25,7 +25,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_32 = Current
       end
-   
+
    fit_natural_16: BOOLEAN is
          -- Does `Current' fit in NATURAL_16?
       do
@@ -42,14 +42,14 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_32 = Current
       end
-      
+
    to_natural_64: NATURAL_64 is
          -- Explicit conversion to NATURAL_64.
       external "built_in"
       ensure
          Result.to_natural_32 = Current
       end
-   
+
    fit_integer_8: BOOLEAN is
          -- Does `Current' fit in INTEGER_8?
       do
@@ -107,7 +107,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_32 = Current
       end
-   
+
    fit_real_32: BOOLEAN is
          -- Does `Current' fit in REAL_32?
       do
@@ -141,7 +141,7 @@ feature {ANY}
       require
          other /= 0.to_natural_32
       external "built_in"
-      end   
+      end
 
    is_odd: BOOLEAN is
       do
@@ -152,7 +152,7 @@ feature {ANY}
       do
          Result := to_integer_64.is_even
       end
-   
+
    hash_code: INTEGER is
       do
          if fit_integer_32 then
@@ -192,7 +192,7 @@ feature {ANY}
       do
          Result := to_integer_16.to_character
       end
-   
+
    to_number: NUMBER is
       do
          Result := to_integer_64.to_number

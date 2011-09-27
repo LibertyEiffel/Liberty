@@ -7,7 +7,7 @@ insert
    NATURAL_GENERAL
       redefine infix "//", infix "\\"
       end
-   
+
 feature {ANY} -- Explicit conversions:
    to_natural_16: NATURAL_16 is
          -- Explicit conversion to NATURAL_16.
@@ -15,21 +15,21 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_8 = Current
       end
-   
+
    to_natural_32: NATURAL_32 is
          -- Explicit conversion to NATURAL_32.
       external "built_in"
       ensure
          Result.to_natural_8 = Current
       end
-   
+
    to_natural_64: NATURAL_64 is
          -- Explicit conversion to NATURAL_64.
       external "built_in"
       ensure
          Result.to_natural_8 = Current
       end
-   
+
    fit_integer_8: BOOLEAN is
          -- Does `Current' fit in INTEGER_8?
       do
@@ -67,7 +67,7 @@ feature {ANY} -- Explicit conversions:
       ensure
          Result.to_natural_8 = Current
       end
-   
+
    to_real_32: REAL_32 is
          -- Explicit conversion to REAL_32.
       do
@@ -91,7 +91,7 @@ feature {ANY}
       require
          other /= 0.to_natural_8
       external "built_in"
-      end   
+      end
 
    is_odd: BOOLEAN is
       do
@@ -102,7 +102,7 @@ feature {ANY}
       do
          Result := to_integer_16.is_even
       end
-   
+
    hash_code: INTEGER is
       do
          Result := to_integer_16
@@ -139,12 +139,12 @@ feature {ANY}
       do
          Result := to_integer_16.to_character
       end
-   
+
    to_number: NUMBER is
       do
          Result := to_integer_16.to_number
       end
-   
+
 feature {}
    bit_count: INTEGER_8 is 8
 

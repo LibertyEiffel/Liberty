@@ -6,8 +6,8 @@ deferred class NATURAL_GENERAL
    -- General natural number abstraction to share common code for NATURAL_8, NATURAL_16, NATURAL_32 and
    -- NATURAL_64.
    --
-   -- All implementations have a limited size (8, 16, 32 or 64 bits). 
-   -- As NATURAL_8, NATURAL_16, NATURAL_32 and NATURAL_64 are expanded classes, it is not possible to 
+   -- All implementations have a limited size (8, 16, 32 or 64 bits).
+   -- As NATURAL_8, NATURAL_16, NATURAL_32 and NATURAL_64 are expanded classes, it is not possible to
    -- expect any form of polymorphism (but you are sure to get the very best execution speed).
    --
    -- See also INTEGER_8, INTEGER_16, INTEGER_32, INTEGER_64, NUMBER or MUTABLE_BIG_INTEGER.
@@ -18,6 +18,10 @@ inherit
       redefine
          is_equal, fill_tagged_out_memory, out_in_tagged_out_memory, infix ">",
          infix "<=", infix ">="
+      end
+   HASHABLE --| **** TODO change to NUMERIC when NATURAL integration is complete
+      redefine
+         fill_tagged_out_memory, out_in_tagged_out_memory
       end
 
 insert
