@@ -106,21 +106,25 @@ feature {FAKE_TUPLE}
 feature {CALL_PREFIX_MINUS}
    visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_FREEOP}
    visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_NOT}
    visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_PLUS}
    visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {STATIC_CALL_0_C}
@@ -138,91 +142,109 @@ feature {FUNCTION_CALL_0}
 feature {CALL_INFIX_AND_THEN}
    visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_AND}
    visit_call_infix_and (visited: CALL_INFIX_AND) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_DIV}
    visit_call_infix_div (visited: CALL_INFIX_DIV) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_FREEOP}
    visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_GE}
    visit_call_infix_ge (visited: CALL_INFIX_GE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_GT}
    visit_call_infix_gt (visited: CALL_INFIX_GT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_IMPLIES}
    visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_INT_DIV}
    visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_INT_REM}
    visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_LE}
    visit_call_infix_le (visited: CALL_INFIX_LE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_LT}
    visit_call_infix_lt (visited: CALL_INFIX_LT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_MINUS}
    visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_OR_ELSE}
    visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_OR}
    visit_call_infix_or (visited: CALL_INFIX_OR) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_PLUS}
    visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_POWER}
    visit_call_infix_power (visited: CALL_INFIX_POWER) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_TIMES}
    visit_call_infix_times (visited: CALL_INFIX_TIMES) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_XOR}
    visit_call_infix_xor (visited: CALL_INFIX_XOR) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {FUNCTION_CALL_1}

@@ -64,7 +64,7 @@ feature {}
             until
                i > a_call.arg_count
             loop
-               arguments.add_last(processor.expressions.eval(a_call.arguments.expression(i)))
+               arguments.add_last(expand(processor.expressions.eval(a_call.arguments.expression(i))))
                i := i + 1
             end
          end
@@ -91,53 +91,82 @@ feature {}
 feature {RUN_FEATURE_1}
    visit_run_feature_1 (visited: RUN_FEATURE_1) is
       do
+         current_frame.set_return(processor.expressions.eval(visited.value))
       end
 
 feature {RUN_FEATURE_2}
    visit_run_feature_2 (visited: RUN_FEATURE_2) is
+      local
+         target: RUNNER_STRUCTURED_OBJECT
       do
+         target ::= current_frame.target
+         current_frame.set_return(target.field(visited.name.to_string))
       end
 
 feature {RUN_FEATURE_3}
    visit_run_feature_3 (visited: RUN_FEATURE_3) is
       do
          processor.instructions.execute(visited.routine_body)
+         check
+            current_frame.return = Void
+         end
       end
 
 feature {RUN_FEATURE_4}
    visit_run_feature_4 (visited: RUN_FEATURE_4) is
       do
+         processor.instructions.execute(visited.routine_body)
       end
 
 feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
+         if not once_run_features.fast_has(visited) then
+            processor.instructions.execute(visited.routine_body)
+            check
+               current_frame.return = Void
+            end
+            once_run_features.add(Void, visited)
+         end
       end
 
 feature {RUN_FEATURE_6}
    visit_run_feature_6 (visited: RUN_FEATURE_6) is
       do
+         if once_run_features.fast_has(visited) then
+            current_frame.set_return(once_run_features.fast_at(visited))
+         else
+            processor.instructions.execute(visited.routine_body)
+            once_run_features.add(expand(current_frame.return), visited)
+         end
       end
+
+feature {}
+   once_run_features: HASHED_DICTIONARY[RUNNER_OBJECT, RUN_FEATURE]
 
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       do
+         sedb_breakpoint
       end
 
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       do
+         sedb_breakpoint
       end
 
 feature {RUN_FEATURE_9}
    visit_run_feature_9 (visited: RUN_FEATURE_9) is
       do
+         --| **** TODO: deferred feature called
       end
 
 feature {}
    make (a_processor: like processor) is
       do
          processor := a_processor
+         create once_run_features.make
       ensure
          processor = a_processor
       end

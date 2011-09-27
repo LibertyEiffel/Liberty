@@ -52,7 +52,7 @@ feature {}
    processor: RUNNER_PROCESSOR
 
 invariant
-   runner /= Void
+   processor /= Void
 
 end -- class RUNNER
 --

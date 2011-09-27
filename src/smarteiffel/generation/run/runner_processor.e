@@ -41,13 +41,12 @@ feature {RUNNER_FACET}
    new_object (type: TYPE): RUNNER_STRUCTURED_OBJECT is
       require
          alive: type.live_type /= Void
-         processing: processor /= Void
       do
          Result := memory.new_object(Current, type)
       ensure
          exists: Result /= Void
          good_type: Result.type = type
-         good_processor: Result.processor = processor
+         good_processor: Result.processor = Current
       end
 
    new_boolean (boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
@@ -57,6 +56,10 @@ feature {RUNNER_FACET}
             Result := memory.new_boolean(Current, boolean)
             booleans.put(Result, boolean.to_integer)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_boolean
+         good_processor: Result.processor = Current
       end
 
    new_character (character: CHARACTER): RUNNER_NATIVE_EXPANDED[CHARACTER] is
@@ -66,16 +69,28 @@ feature {RUNNER_FACET}
             Result := memory.new_character(Current, character)
             characters.add(Result, character)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_character
+         good_processor: Result.processor = Current
       end
 
    new_native_array_character (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]): RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
       do
          Result := memory.new_native_array_character(Current, capacity, storage)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_native_array_character
+         good_processor: Result.processor = Current
       end
 
    new_pointer (pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER] is
       do
          Result := memory.new_pointer(Current, pointer)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_pointer
+         good_processor: Result.processor = Current
       end
 
    new_integer_8 (integer_8: INTEGER_8): RUNNER_NATIVE_EXPANDED[INTEGER_8] is
@@ -85,6 +100,10 @@ feature {RUNNER_FACET}
             Result := memory.new_integer_8(Current, integer_8)
             integers_8.add(Result, integer_8)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_8
+         good_processor: Result.processor = Current
       end
 
    new_integer_16 (integer_16: INTEGER_16): RUNNER_NATIVE_EXPANDED[INTEGER_16] is
@@ -94,6 +113,10 @@ feature {RUNNER_FACET}
             Result := memory.new_integer_16(Current, integer_16)
             integers_16.add(Result, integer_16)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_16
+         good_processor: Result.processor = Current
       end
 
    new_integer_32 (integer_32: INTEGER_32): RUNNER_NATIVE_EXPANDED[INTEGER_32] is
@@ -103,6 +126,10 @@ feature {RUNNER_FACET}
             Result := memory.new_integer_32(Current, integer_32)
             integers_32.add(Result, integer_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_32
+         good_processor: Result.processor = Current
       end
 
    new_integer_64 (integer_64: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
@@ -112,6 +139,10 @@ feature {RUNNER_FACET}
             Result := memory.new_integer_64(Current, integer_64)
             integers_64.add(Result, integer_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_64
+         good_processor: Result.processor = Current
       end
 
    new_natural_8 (natural_8: NATURAL_8): RUNNER_NATIVE_EXPANDED[NATURAL_8] is
@@ -121,6 +152,10 @@ feature {RUNNER_FACET}
             Result := memory.new_natural_8(Current, natural_8)
             naturals_8.add(Result, natural_8)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_8
+         good_processor: Result.processor = Current
       end
 
    new_natural_16 (natural_16: NATURAL_16): RUNNER_NATIVE_EXPANDED[NATURAL_16] is
@@ -130,6 +165,10 @@ feature {RUNNER_FACET}
             Result := memory.new_natural_16(Current, natural_16)
             naturals_16.add(Result, natural_16)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_16
+         good_processor: Result.processor = Current
       end
 
    new_natural_32 (natural_32: NATURAL_32): RUNNER_NATIVE_EXPANDED[NATURAL_32] is
@@ -139,6 +178,10 @@ feature {RUNNER_FACET}
             Result := memory.new_natural_32(Current, natural_32)
             naturals_32.add(Result, natural_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_32
+         good_processor: Result.processor = Current
       end
 
    new_natural_64 (natural_64: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
@@ -148,11 +191,19 @@ feature {RUNNER_FACET}
             Result := memory.new_natural_64(Current, natural_64)
             naturals_64.add(Result, natural_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_64
+         good_processor: Result.processor = Current
       end
 
    new_internals_handler_if_exists (internals_handler: INTERNALS_HANDLER): RUNNER_OBJECT is
       do
          Result := memory.new_internals_handler_if_exists(Current, internals_handler)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_internals_handler_if_exists
+         good_processor: Result.processor = Current
       end
 
    new_real_32 (real_32: REAL_32): RUNNER_NATIVE_EXPANDED[REAL_32] is
@@ -162,6 +213,10 @@ feature {RUNNER_FACET}
             Result := memory.new_real_32(Current, real_32)
             reals_32.add(Result, real_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_32
+         good_processor: Result.processor = Current
       end
 
    new_real_64 (real_64: REAL_64): RUNNER_NATIVE_EXPANDED[REAL_64] is
@@ -171,6 +226,10 @@ feature {RUNNER_FACET}
             Result := memory.new_real_64(Current, real_64)
             reals_64.add(Result, real_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_64
+         good_processor: Result.processor = Current
       end
 
    new_real_extended (real_extended: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
@@ -180,6 +239,10 @@ feature {RUNNER_FACET}
             Result := memory.new_real_extended(Current, real_extended)
             reals_extended.add(Result, real_extended)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_extended
+         good_processor: Result.processor = Current
       end
 
 feature {RUNNER}

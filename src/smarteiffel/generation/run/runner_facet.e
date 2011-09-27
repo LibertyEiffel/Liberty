@@ -9,6 +9,14 @@ expanded class RUNNER_FACET
 insert
    GLOBALS
 
+feature {} -- some utils
+   expand (object: RUNNER_OBJECT): RUNNER_OBJECT is
+      do
+         if object /= Void then
+            Result := object.copy_if_expanded
+         end
+      end
+
 end -- class RUNNER_FACET
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

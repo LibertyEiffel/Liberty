@@ -15,6 +15,8 @@ create {RUNNER_INSTRUCTIONS}
    make
 
 feature {RUNNER_INSTRUCTIONS}
+   processor: RUNNER_PROCESSOR
+
    assign (assignment: ASSIGNMENT) is
       do
          value := processor.expressions.eval(assignment.right_side)
@@ -64,7 +66,6 @@ feature {}
          processor = a_processor
       end
 
-   processor: RUNNER_PROCESSOR
    value: RUNNER_OBJECT
    entity_type: TYPE
 

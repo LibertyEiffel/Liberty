@@ -54,13 +54,9 @@ feature {RUNNER_FACET}
       require
          type_of_result /= Void
       do
-         if a_return = Void then
-            return := Void
-         else
-            return := a_return.copy_if_expanded
-         end
+         return := expand(a_return)
       ensure
-         return = a_return
+         return.is_equal(a_return)
       end
 
    set_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
@@ -78,7 +74,6 @@ feature {RUNNER_FACET}
 feature {RUNNER_FACET}
    add_instruction (a_instruction: INSTRUCTION) is
       require
-         a_frame /= Void
          a_instruction /= Void
       do
          instructions_list.add_last(a_instruction)
@@ -86,7 +81,6 @@ feature {RUNNER_FACET}
 
    add_instructions (a_instructions: TRAVERSABLE[INSTRUCTION]) is
       require
-         a_frame /= Void
          a_instructions /= Void
          a_instructions.for_all(instruction_is_not_void)
       local
@@ -102,12 +96,12 @@ feature {RUNNER_FACET}
          end
       ensure
          all_added: instructions_list.count = old instructions_list.count + a_instructions.count
-         added_first_in_good_order: (create {ZIP[INSTRUCTION, INTEGER]}.make(a_instructions,
-                                                                             instructions_list.lower |..| (instructions_list.lower + a_instructions.count - 1))
-                                     ).for_all(agent (inst: INSTRUCTION; i: INTEGER): BOOLEAN is
-                                               do
-                                                  Result := inst = instructions_list.item(i)
-                                               end)
+         added_last_in_reverse_order: (create {ZIP[INSTRUCTION, INTEGER]}.make(a_instructions,
+                                                                               1 |..| a_instructions.count)
+                                       ).for_all(agent (inst: INSTRUCTION; i: INTEGER): BOOLEAN is
+                                                 do
+                                                    Result := inst = instructions_list.item(instructions_list.upper - i + 1)
+                                                 end)
       end
 
 feature {}
@@ -146,7 +140,6 @@ feature {}
 
 invariant
    target /= Void
-   return /= Void
    locals /= Void
    rf /= Void
 

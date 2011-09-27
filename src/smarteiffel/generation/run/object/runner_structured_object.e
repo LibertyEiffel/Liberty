@@ -17,21 +17,13 @@ feature {ANY}
    type: TYPE
 
    set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
-      local
-         value: RUNNER_OBJECT
       do
-         if a_value /= Void then
-            value := a_value.copy_if_expanded
-         end
-         fields.fast_put(value, a_name.intern)
+         fields.fast_put(expand(a_value), a_name.intern)
       end
 
    field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
       do
-         Result := fields.fast_at(a_name.intern)
-         if Result /= Void then
-            Result := Result.copy_if_expanded
-         end
+         Result := expand(fields.fast_at(a_name.intern))
       end
 
 feature {RUNNER_FACET}
@@ -52,7 +44,7 @@ feature {}
          make(model.processor, model.type)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
-                                fields.add(field_value.copy_if_expanded, field_name)
+                                fields.add(expand(field_value), field_name)
                              end)
       end
 
