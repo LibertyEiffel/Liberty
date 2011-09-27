@@ -497,7 +497,7 @@ function do_all()
 {
     test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
-    #compile_plugins
+    compile_plugins
     generate_wrappers
     #compile_all
     make_doc
