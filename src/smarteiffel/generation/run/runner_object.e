@@ -5,6 +5,9 @@ deferred class RUNNER_OBJECT
 
 insert
    RUNNER_FACET
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY}
    processor: RUNNER_PROCESSOR is

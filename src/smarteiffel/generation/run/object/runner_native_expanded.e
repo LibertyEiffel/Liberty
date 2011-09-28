@@ -6,9 +6,6 @@ class RUNNER_NATIVE_EXPANDED[E_]
 inherit
    RUNNER_OBJECT
 
-insert
-   GLOBALS
-
 create {RUNNER_MEMORY}
    make
 
@@ -17,16 +14,22 @@ feature {ANY}
    type: TYPE
    item: E_
 
+   out_in_tagged_out_memory is
+      do
+         item.out_in_tagged_out_memory
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do
-         Result := Current
+         Result := Current -- because native expanded values are flyweights
       end
 
 feature {}
    make (a_processor: like processor; a_type: like type; a_item: like item) is
       require
          a_processor /= Void
+         a_type.is_kernel_expanded
       do
          processor := a_processor
          type := a_type
@@ -36,6 +39,9 @@ feature {}
          type = a_type
          item = a_item
       end
+
+invariant
+   item_is_expanded: item /= Void
 
 end -- class RUNNER_NATIVE_EXPANDED
 --

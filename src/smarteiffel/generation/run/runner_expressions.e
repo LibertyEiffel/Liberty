@@ -472,8 +472,22 @@ feature {NON_VOID_NO_DISPATCH}
 
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+      local
+         i, watermark: INTEGER; inst: INSTRUCTION; exp: EXPRESSION
       do
-         sedb_breakpoint --| **** TODO
+         watermark := processor.current_frame.watermark
+         from
+            i := visited.lower
+         until
+            i = visited.upper
+         loop
+            inst ::= visited.item(i)
+            processor.current_frame.add_instruction(inst)
+            i := i + 1
+         end
+         processor.current_frame.execute_until(watermark)
+         exp ::= visited.last
+         exp.accept(Current)
       end
 
 feature {}

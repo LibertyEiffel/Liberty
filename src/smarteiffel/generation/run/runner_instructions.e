@@ -5,6 +5,7 @@ class RUNNER_INSTRUCTIONS
 
 inherit
    INSTRUCTION_VISITOR
+   RUNNER_LOOP_VISITOR
 
 insert
    RUNNER_FACET
@@ -125,6 +126,20 @@ feature {OTHER_INSPECT_STATEMENT}
 feature {LOOP_INSTRUCTION}
    visit_loop_instruction (visited: LOOP_INSTRUCTION) is
       do
+         processor.current_frame.add_instruction(visited.initialize)
+         processor.current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
+      end
+
+feature {RUNNER_LOOP}
+   visit_runner_loop (visited: RUNNER_LOOP) is
+      local
+         guard: RUNNER_NATIVE_EXPANDED[BOOLEAN]
+      do
+         guard ::= processor.expressions.eval(visited.loop_instruction.until_expression)
+         if guard.item then
+            processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
+            processor.current_frame.add_instruction(visited)
+         end
       end
 
 feature {NO_INVARIANT_WRAPPER}

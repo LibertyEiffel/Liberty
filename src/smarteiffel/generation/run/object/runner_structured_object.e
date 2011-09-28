@@ -26,6 +26,24 @@ feature {ANY}
          Result := expand(fields.fast_at(a_name.intern))
       end
 
+   out_in_tagged_out_memory is
+      do
+         type.long_name.out_in_tagged_out_memory
+         tagged_out_memory.extend('[')
+         fields.do_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING) is
+                       do
+                          f.out_in_tagged_out_memory
+                          tagged_out_memory.extend('=')
+                          if o = Void then
+                             tagged_out_memory.append(once "Void")
+                          else
+                             o.out_in_tagged_out_memory
+                          end
+                          tagged_out_memory.extend(',')
+                       end)
+         tagged_out_memory.put(']', tagged_out_memory.upper)
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

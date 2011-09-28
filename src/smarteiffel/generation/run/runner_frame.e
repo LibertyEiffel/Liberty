@@ -11,22 +11,33 @@ create {RUNNER_FEATURES}
 
 feature {RUNNER_FEATURES}
    execute is
-      local
-         inst: INSTRUCTION
       do
          debug
             std_output.put_line(" -> " + rf.name.to_string)
          end
+         execute_until(0)
+         debug
+            std_output.put_line(" <- " + rf.name.to_string)
+         end
+      end
+
+feature {RUNNER_FACET}
+   watermark: INTEGER is
+      do
+         Result := instructions_list.count
+      end
+
+   execute_until (a_watermark: like watermark) is
+      local
+         inst: INSTRUCTION
+      do
          from
          until
-            instructions_list.is_empty
+            instructions_list.count <= a_watermark
          loop
             inst := instructions_list.last
             instructions_list.remove_last
             processor.instructions.execute(inst)
-         end
-         debug
-            std_output.put_line(" <- " + rf.name.to_string)
          end
       end
 
@@ -59,6 +70,7 @@ feature {RUNNER_FACET}
    set_return (a_return: like return) is
       require
          type_of_result /= Void
+         a_return.type.can_be_assigned_to(type_of_result)
       do
          return := expand(a_return)
       ensure
@@ -66,15 +78,27 @@ feature {RUNNER_FACET}
       end
 
    set_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+      require
+         has_local(a_name)
       do
-         locals.put(a_value, a_name.intern)
+         debug
+            std_output.put_line(a_name + " := " + &a_value)
+         end
+         locals.fast_put(a_value, a_name.intern)
       ensure
          local_object(a_name) = a_value
       end
 
    local_object (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
+      require
+         has_local(a_name)
       do
          Result := locals.fast_reference_at(a_name.intern)
+      end
+
+   has_local (a_name: ABSTRACT_STRING): BOOLEAN is
+      do
+         Result := locals /= Void and then locals.fast_has(a_name.intern)
       end
 
 feature {RUNNER_FACET}
@@ -122,7 +146,7 @@ feature {}
          target := a_target
          arguments := a_arguments
          rf := a_rf
-         create locals.make
+         initialize_locals
          create instructions_list.make(1, 0)
       ensure
          processor = a_processor
@@ -130,6 +154,32 @@ feature {}
          target = a_target
          arguments = a_arguments
          rf = a_rf
+         a_rf.local_vars /= Void implies locals.count = a_rf.local_vars.count
+         a_rf.local_vars = Void implies locals = Void
+      end
+
+   initialize_locals is
+      local
+         local_vars: LOCAL_VAR_LIST; local_name: LOCAL_NAME1; local_type: TYPE; i: INTEGER
+      do
+         local_vars := rf.local_vars
+         if local_vars /= Void then
+            create locals.with_capacity(local_vars.count)
+            from
+               i := 1
+            until
+               i > local_vars.count
+            loop
+               local_name := local_vars.name(i)
+               local_type := local_name.result_type.resolve_in(type_of_current)
+               if local_type.is_expanded then
+                  locals.add(processor.default_expanded(local_type), local_name.to_string.intern)
+               else
+                  locals.add(Void, local_name.to_string.intern)
+               end
+               i := i + 1
+            end
+         end
       end
 
    locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
@@ -146,7 +196,6 @@ feature {}
 
 invariant
    target /= Void
-   locals /= Void
    rf /= Void
 
    instructions_list.for_all(instruction_is_not_void)

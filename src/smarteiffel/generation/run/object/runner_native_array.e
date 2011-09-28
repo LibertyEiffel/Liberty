@@ -6,9 +6,6 @@ class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
 inherit
    RUNNER_OBJECT
 
-insert
-   GLOBALS
-
 create {RUNNER_MEMORY}
    make
 
@@ -28,6 +25,31 @@ feature {ANY}
          index.in_range(0, capacity - 1)
       do
          storage.put(setter.item([a_item]), index)
+      end
+
+   out_in_tagged_out_memory is
+      local
+         i: INTEGER; o: like item
+      do
+         type.out_in_tagged_out_memory
+         tagged_out_memory.extend('<')
+         tagged_out_memory.extend('<')
+         from
+            i := 0
+         until
+            i = capacity
+         loop
+            o := item(i)
+            if o = Void then
+               tagged_out_memory.append(once "Void")
+            else
+               o.out_in_tagged_out_memory
+            end
+            tagged_out_memory.extend(',')
+            i := i + 1
+         end
+         tagged_out_memory.put('>', tagged_out_memory.upper)
+         tagged_out_memory.extend('>')
       end
 
 feature {RUNNER_FACET}
