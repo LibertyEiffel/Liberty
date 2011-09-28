@@ -283,6 +283,8 @@ feature {IMPLICIT_CAST}
    visit_implicit_cast (visited: IMPLICIT_CAST) is
       do
          visited.expression.accept(Current)
+         --| **** not enough! its type must be correctly changed
+         --| **** for example: RUNNER_NATIVE_EXPANDED[INTEGER_8] -> RUNNER_NATIVE_EXPANDED[INTEGER_32]
       end
 
 feature {ARGUMENT_NAME2}
