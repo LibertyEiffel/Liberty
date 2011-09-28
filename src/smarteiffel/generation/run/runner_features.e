@@ -5,6 +5,7 @@ class RUNNER_FEATURES
 
 inherit
    RUN_FEATURE_VISITOR
+   NATIVE_VISITOR
 
 insert
    RUNNER_FACET
@@ -190,21 +191,49 @@ feature {}
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       do
-         current_frame.force_eval_arguments -- don't, we need to semi-evaluate in some cases
-         sedb_breakpoint
+         visited.base_feature.native.accept(Current)
       end
 
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       do
-         current_frame.force_eval_arguments -- don't, we need to semi-evaluate in some cases
-         sedb_breakpoint
+         visited.base_feature.native.accept(Current)
       end
 
 feature {RUN_FEATURE_9}
    visit_run_feature_9 (visited: RUN_FEATURE_9) is
       do
          --| **** TODO: deferred feature called
+      end
+
+feature {NATIVE_BUILT_IN}
+   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+      do
+         sedb_breakpoint
+      end
+
+feature {NATIVE_C_PLUS_PLUS}
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+      do
+         sedb_breakpoint
+      end
+
+feature {NATIVE_C}
+   visit_native_c (visited: NATIVE_C) is
+      do
+         sedb_breakpoint
+      end
+
+feature {NATIVE_JAVA}
+   visit_native_java (visited: NATIVE_JAVA) is
+      do
+         sedb_breakpoint
+      end
+
+feature {NATIVE_PLUG_IN}
+   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+      do
+         sedb_breakpoint
       end
 
 feature {}
