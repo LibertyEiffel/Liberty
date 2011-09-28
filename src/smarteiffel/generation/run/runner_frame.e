@@ -22,9 +22,9 @@ feature {RUNNER_FEATURES}
       end
 
 feature {RUNNER_FACET}
-   watermark: INTEGER is
+   watermark: RUNNER_FRAME_WATERMARK is
       do
-         Result := instructions_list.count
+         Result.set(instructions_list.count)
       end
 
    execute_until (a_watermark: like watermark) is
@@ -33,7 +33,7 @@ feature {RUNNER_FACET}
       do
          from
          until
-            instructions_list.count <= a_watermark
+            instructions_list.count <= a_watermark.item
          loop
             inst := instructions_list.last
             instructions_list.remove_last
@@ -47,7 +47,15 @@ feature {RUNNER_FACET}
    caller: RUNNER_FRAME
 
    target: RUNNER_OBJECT
-   arguments: TRAVERSABLE[RUNNER_OBJECT]
+
+   arguments: TRAVERSABLE[RUNNER_OBJECT] is
+      do
+         Result := arguments_memory
+         if Result = Void then
+            Result := arguments_factory.item([])
+            arguments_memory := Result
+         end
+      end
 
    return: RUNNER_OBJECT
 
@@ -67,6 +75,13 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FACET}
+   force_eval_arguments is
+      local
+         arg: like arguments
+      do
+         arg := arguments
+      end
+
    set_return (a_return: like return) is
       require
          type_of_result /= Void
@@ -135,16 +150,17 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_arguments: like arguments; a_rf: like rf) is
+   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_arguments_factory: like arguments_factory; a_rf: like rf) is
       require
          a_processor /= Void
          a_target /= Void
+         a_arguments_factory /= Void
          a_rf /= Void
       do
          processor := a_processor
          caller := a_caller
          target := a_target
-         arguments := a_arguments
+         arguments_factory := a_arguments_factory
          rf := a_rf
          initialize_locals
          create instructions_list.make(1, 0)
@@ -155,7 +171,7 @@ feature {}
          processor = a_processor
          caller = a_caller
          target = a_target
-         arguments = a_arguments
+         arguments_factory = a_arguments_factory
          rf = a_rf
          a_rf.local_vars /= Void implies locals.count = a_rf.local_vars.count
          a_rf.local_vars = Void implies locals = Void
@@ -188,6 +204,9 @@ feature {}
    locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
    return_ref: REFERENCE[RUNNER_OBJECT]
 
+   arguments_factory: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]
+   arguments_memory: TRAVERSABLE[RUNNER_OBJECT]
+
    instructions_list: RING_ARRAY[INSTRUCTION]
 
    instruction_is_not_void: PREDICATE[TUPLE[INSTRUCTION]] is
@@ -200,6 +219,8 @@ feature {}
 invariant
    target /= Void
    rf /= Void
+
+   arguments_factory /= Void
 
    instructions_list.for_all(instruction_is_not_void)
 

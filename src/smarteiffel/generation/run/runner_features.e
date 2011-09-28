@@ -65,11 +65,16 @@ feature {RUNNER_PROCESSOR}
       end
 
 feature {}
-   arguments (a_call: FEATURE_CALL): FAST_ARRAY[RUNNER_OBJECT] is
+   arguments (a_call: FEATURE_CALL; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+         -- evaluates the arguments of the call in the given frame
       local
          i: INTEGER
+         old_frame: like current_frame
       do
          if a_call.arg_count > 0 then
+            old_frame := current_frame
+            current_frame := a_frame
+
             create Result.with_capacity(a_call.arg_count)
             from
                i := 1
@@ -79,6 +84,8 @@ feature {}
                Result.add_last(expand(processor.expressions.eval(a_call.arguments.expression(i))))
                i := i + 1
             end
+
+            current_frame := old_frame
          end
       end
 
@@ -89,11 +96,25 @@ feature {}
          target: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         Result := do_execute(target, arguments(a_call),
+         Result := do_execute(target, agent arguments(a_call, current_frame),
                               a_call.run_feature_for(processor.current_frame.type_of_current))
       end
 
    do_execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
+      require
+         a_target.type = a_rf.type_of_current
+      do
+         do_execute_(a_target, agent idem_arguments(a_arguments), a_rf)
+      ensure
+         Result /= Void
+      end
+
+   idem_arguments (a_arguments: like arguments): like arguments is
+      do
+         Result := a_arguments
+      end
+
+   do_execute_ (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): like current_frame is
       require
          a_target.type = a_rf.type_of_current
       do
@@ -113,6 +134,7 @@ feature {}
 feature {RUN_FEATURE_1}
    visit_run_feature_1 (visited: RUN_FEATURE_1) is
       do
+         current_frame.force_eval_arguments
          current_frame.set_return(processor.expressions.eval(visited.value))
       end
 
@@ -121,6 +143,7 @@ feature {RUN_FEATURE_2}
       local
          target: RUNNER_STRUCTURED_OBJECT
       do
+         current_frame.force_eval_arguments
          target ::= current_frame.target
          current_frame.set_return(target.field(visited.name.to_string))
       end
@@ -128,6 +151,7 @@ feature {RUN_FEATURE_2}
 feature {RUN_FEATURE_3}
    visit_run_feature_3 (visited: RUN_FEATURE_3) is
       do
+         current_frame.force_eval_arguments
          if visited.routine_body /= Void then
             processor.instructions.execute(visited.routine_body)
          end
@@ -139,6 +163,7 @@ feature {RUN_FEATURE_3}
 feature {RUN_FEATURE_4}
    visit_run_feature_4 (visited: RUN_FEATURE_4) is
       do
+         current_frame.force_eval_arguments
          if visited.routine_body /= Void then
             processor.instructions.execute(visited.routine_body)
          end
@@ -147,6 +172,7 @@ feature {RUN_FEATURE_4}
 feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
+         current_frame.force_eval_arguments
          if not once_run_features.fast_has(visited) then
             if visited.routine_body /= Void then
                processor.instructions.execute(visited.routine_body)
@@ -161,6 +187,7 @@ feature {RUN_FEATURE_5}
 feature {RUN_FEATURE_6}
    visit_run_feature_6 (visited: RUN_FEATURE_6) is
       do
+         current_frame.force_eval_arguments
          if once_run_features.fast_has(visited) then
             current_frame.set_return(once_run_features.fast_at(visited))
          else
@@ -177,12 +204,14 @@ feature {}
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       do
+         current_frame.force_eval_arguments -- don't, we need to semi-evaluate in some cases
          sedb_breakpoint
       end
 
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       do
+         current_frame.force_eval_arguments -- don't, we need to semi-evaluate in some cases
          sedb_breakpoint
       end
 

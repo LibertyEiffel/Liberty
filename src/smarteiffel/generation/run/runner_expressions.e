@@ -473,7 +473,7 @@ feature {NON_VOID_NO_DISPATCH}
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
       local
-         i, watermark: INTEGER; inst: INSTRUCTION; exp: EXPRESSION
+         i: INTEGER; watermark: RUNNER_FRAME_WATERMARK; inst: INSTRUCTION; exp: EXPRESSION
       do
          watermark := processor.current_frame.watermark
          from
