@@ -20,9 +20,11 @@ feature {RUNNER_FACET}
       require
          a_call /= Void
       local
-         return: RUNNER_OBJECT
+         target, return: RUNNER_OBJECT
       do
-         return := execute(a_call).return
+         target := processor.expressions.eval(a_call.target)
+         return := execute(target, agent arguments(a_call, current_frame),
+                           a_call.run_feature_for(processor.current_frame.type_of_current)).return
          check
             return = Void
          end
@@ -31,8 +33,12 @@ feature {RUNNER_FACET}
    item (a_call: FEATURE_CALL): RUNNER_OBJECT is
       require
          a_call /= Void
+      local
+         target: RUNNER_OBJECT
       do
-         Result := execute(a_call).return
+         target := processor.expressions.eval(a_call.target)
+         Result := execute(target, agent arguments(a_call, current_frame),
+                           a_call.run_feature_for(processor.current_frame.type_of_current)).return
       end
 
    new (a_type: TYPE; a_call: PROCEDURE_CALL): RUNNER_OBJECT is
@@ -43,8 +49,8 @@ feature {RUNNER_FACET}
       do
          Result := processor.new_object(a_type)
          if a_call /= Void then
-            return := do_execute(Result, arguments(a_call),
-                                 a_call.run_feature_for(processor.current_frame.type_of_current)).return
+            return := execute(Result, agent arguments(a_call, current_frame),
+                              a_call.run_feature_for(processor.current_frame.type_of_current)).return
             check
                return = Void
             end
@@ -58,7 +64,7 @@ feature {RUNNER_PROCESSOR}
          return: RUNNER_OBJECT
       do
          root_object := processor.new_object(rf.type_of_current)
-         return := do_execute(root_object, Void, rf).return
+         return := execute(root_object, agent idem_arguments(Void), rf).return
          check
             return = Void
          end
@@ -89,32 +95,12 @@ feature {}
          end
       end
 
-   execute (a_call: FEATURE_CALL): like current_frame is
-      require
-         a_call /= Void
-      local
-         target: RUNNER_OBJECT
-      do
-         target := processor.expressions.eval(a_call.target)
-         Result := do_execute(target, agent arguments(a_call, current_frame),
-                              a_call.run_feature_for(processor.current_frame.type_of_current))
-      end
-
-   do_execute (a_target: RUNNER_OBJECT; a_arguments: TRAVERSABLE[RUNNER_OBJECT]; a_rf: RUN_FEATURE): like current_frame is
-      require
-         a_target.type = a_rf.type_of_current
-      do
-         do_execute_(a_target, agent idem_arguments(a_arguments), a_rf)
-      ensure
-         Result /= Void
-      end
-
    idem_arguments (a_arguments: like arguments): like arguments is
       do
          Result := a_arguments
       end
 
-   do_execute_ (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): like current_frame is
+   execute (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): like current_frame is
       require
          a_target.type = a_rf.type_of_current
       do

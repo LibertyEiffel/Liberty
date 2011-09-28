@@ -11,11 +11,14 @@ create {RUNNER_FEATURES}
 
 feature {RUNNER_FEATURES}
    execute is
+      local
+         empty_watermark: RUNNER_FRAME_WATERMARK
       do
          debug
             std_output.put_line(" -> " + rf.name.to_string)
          end
-         execute_until(0)
+         empty_watermark.set(0)
+         execute_until(empty_watermark)
          debug
             std_output.put_line(" <- " + rf.name.to_string)
          end
