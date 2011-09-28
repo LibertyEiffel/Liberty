@@ -63,7 +63,6 @@ feature {RUNNER_FACET}
    builtin_infix_gt (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item > right(processor).item))
-         sedb_breakpoint
       end
 
    builtin_infix_ge (processor: RUNNER_PROCESSOR) is
