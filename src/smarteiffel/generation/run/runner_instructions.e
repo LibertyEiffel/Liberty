@@ -133,10 +133,10 @@ feature {LOOP_INSTRUCTION}
 feature {RUNNER_LOOP}
    visit_runner_loop (visited: RUNNER_LOOP) is
       local
-         guard: RUNNER_NATIVE_EXPANDED[BOOLEAN]
+         stop: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
-         guard ::= processor.expressions.eval(visited.loop_instruction.until_expression)
-         if guard.item then
+         stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
+         if not stop.item then
             processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
             processor.current_frame.add_instruction(visited)
          end

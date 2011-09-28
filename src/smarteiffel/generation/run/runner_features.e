@@ -208,8 +208,10 @@ feature {RUN_FEATURE_9}
 
 feature {NATIVE_BUILT_IN}
    visit_native_built_in (visited: NATIVE_BUILT_IN) is
+      local
+         builtins: RUNNER_BUILTINS
       do
-         sedb_breakpoint
+         builtins.call(processor)
       end
 
 feature {NATIVE_C_PLUS_PLUS}

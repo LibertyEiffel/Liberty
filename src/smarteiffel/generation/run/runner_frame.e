@@ -100,9 +100,9 @@ feature {RUNNER_FACET}
          has_local(a_name)
       do
          debug
-            std_output.put_line(a_name + " := " + &a_value)
+            std_output.put_line(a_name + " := " + a_value.out)
          end
-         locals.fast_put(a_value, a_name.intern)
+         locals.fast_put(expand(a_value), a_name.intern)
       ensure
          local_object(a_name) = a_value
       end
@@ -111,7 +111,7 @@ feature {RUNNER_FACET}
       require
          has_local(a_name)
       do
-         Result := locals.fast_reference_at(a_name.intern)
+         Result := expand(locals.fast_reference_at(a_name.intern))
       end
 
    has_local (a_name: ABSTRACT_STRING): BOOLEAN is

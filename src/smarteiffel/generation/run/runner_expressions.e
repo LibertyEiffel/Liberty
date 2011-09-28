@@ -282,19 +282,19 @@ feature {GENERATOR_GENERATING_TYPE}
 feature {IMPLICIT_CAST}
    visit_implicit_cast (visited: IMPLICIT_CAST) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.expression.accept(Current)
       end
 
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
-         return := expand(processor.current_frame.arguments.item(visited.rank - 1))
+         return := processor.current_frame.arguments.item(visited.rank - 1)
       end
 
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         return := expand(processor.current_frame.local_object(visited.to_string))
+         return := processor.current_frame.local_object(visited.to_string)
       end
 
 feature {LOOP_VARIANT}
