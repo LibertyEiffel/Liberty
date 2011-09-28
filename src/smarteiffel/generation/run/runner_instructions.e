@@ -126,8 +126,8 @@ feature {OTHER_INSPECT_STATEMENT}
 feature {LOOP_INSTRUCTION}
    visit_loop_instruction (visited: LOOP_INSTRUCTION) is
       do
-         processor.current_frame.add_instruction(visited.initialize)
          processor.current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
+         processor.current_frame.add_instruction(visited.initialize)
       end
 
 feature {RUNNER_LOOP}
@@ -137,8 +137,8 @@ feature {RUNNER_LOOP}
       do
          stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
          if not stop.item then
-            processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
             processor.current_frame.add_instruction(visited)
+            processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
          end
       end
 
