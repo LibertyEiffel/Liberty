@@ -148,6 +148,9 @@ feature {}
          rf := a_rf
          initialize_locals
          create instructions_list.make(1, 0)
+         if type_of_result /= Void and then type_of_result.is_expanded then
+            set_return(processor.default_expanded(type_of_result))
+         end
       ensure
          processor = a_processor
          caller = a_caller
