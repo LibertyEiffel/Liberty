@@ -10,6 +10,10 @@ insert
       end
 
 feature {ANY}
+   builtins: RUNNER_ANY_BUILTINS is
+      deferred
+      end
+
    processor: RUNNER_PROCESSOR is
       deferred
       end

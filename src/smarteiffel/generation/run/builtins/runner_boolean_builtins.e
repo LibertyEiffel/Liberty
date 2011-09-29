@@ -1,15 +1,18 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class RUNNER_BOOLEAN_BUILTINS
---
--- a collection of builtins for BOOLEAN
+class RUNNER_BOOLEAN_BUILTINS
+   --
+   -- a collection of builtins for BOOLEAN
    --
 
-insert
-   RUNNER_ANY_BUILTINS[BOOLEAN]
+inherit
+   RUNNER_TYPED_BUILTINS[BOOLEAN]
 
-feature {RUNNER_BUILTINS}
+create {RUNNER_MEMORY}
+   make
+
+feature {RUNNER_FACET}
    call (processor: RUNNER_PROCESSOR) is
       do
          inspect
@@ -23,7 +26,7 @@ feature {RUNNER_BUILTINS}
          end
       end
 
-feature {RUNNER_FACET}
+feature {}
    builtin_infix_and_then (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item and then right(processor).item))
@@ -37,6 +40,11 @@ feature {RUNNER_FACET}
    builtin_infix_or_else (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item or else right(processor).item))
+      end
+
+feature {}
+   make is
+      do
       end
 
 end -- class RUNNER_BOOLEAN_BUILTINS

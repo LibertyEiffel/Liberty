@@ -2,14 +2,14 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class RUNNER_NUMERIC_BUILTINS[E_ -> NUMERIC]
---
--- a collection of builtins for NUMERIC
---
+   --
+   -- a collection of builtins for NUMERIC
+   --
 
-insert
-   RUNNER_ANY_BUILTINS[E_]
+inherit
+   RUNNER_TYPED_BUILTINS[E_]
 
-feature {RUNNER_BUILTINS}
+feature {RUNNER_FACET}
    call (processor: RUNNER_PROCESSOR) is
       do
          inspect
@@ -39,7 +39,7 @@ feature {RUNNER_BUILTINS}
          end
       end
 
-feature {RUNNER_FACET}
+feature {}
    builtin_infix_plus (processor: RUNNER_PROCESSOR) is
       do
          set_return(processor, left(processor).item + right(processor).item)

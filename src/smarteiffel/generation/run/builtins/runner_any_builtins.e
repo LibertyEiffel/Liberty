@@ -1,7 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class RUNNER_ANY_BUILTINS[E_]
+deferred class RUNNER_ANY_BUILTINS
    --
    -- a collection of builtins tools
    --
@@ -9,27 +9,9 @@ deferred class RUNNER_ANY_BUILTINS[E_]
 insert
    RUNNER_FACET
 
-feature {RUNNER_BUILTINS}
+feature {RUNNER_FACET}
    call (processor: RUNNER_PROCESSOR) is
       deferred
-      end
-
-feature {}
-   left (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
-      do
-         Result ::= processor.current_frame.target
-      end
-
-   right (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
-      do
-         Result ::= processor.current_frame.arguments.first
-      end
-
-   set_return (processor: RUNNER_PROCESSOR; value: E_) is
-      local
-         the_factory: RUNNER_EXPANDED_FACTORY[E_]
-      do
-         processor.current_frame.set_return(the_factory.new(processor, value, processor.current_frame.type_of_result))
       end
 
 end -- class RUNNER_ANY_BUILTINS

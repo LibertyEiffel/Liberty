@@ -10,6 +10,8 @@ create {RUNNER_MEMORY}
    make
 
 feature {ANY}
+   builtins: RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_]
+
    processor: RUNNER_PROCESSOR
    type: TYPE
 
@@ -65,7 +67,8 @@ feature {RUNNER_FACET}
 
 feature {}
    make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
-         a_retriever: like retriever; a_setter: like setter) is
+         a_retriever: like retriever; a_setter: like setter;
+         a_builtins: like builtins) is
       require
          a_processor /= Void
          a_capacity >= 0
@@ -78,6 +81,7 @@ feature {}
          storage := a_storage
          retriever := a_retriever
          setter := a_setter
+         builtins := a_builtins
       ensure
          processor = a_processor
          type = a_type
@@ -85,6 +89,7 @@ feature {}
          storage = a_storage
          retriever = a_retriever
          setter = a_setter
+         builtins = a_builtins
       end
 
 feature {RUNNER_NATIVE_ARRAY}

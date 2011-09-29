@@ -13,6 +13,10 @@ create {RUNNER_STRUCTURED_OBJECT}
    copy_expanded
 
 feature {ANY}
+   builtins: RUNNER_ANY_BUILTINS is
+      do
+      end
+
    processor: RUNNER_PROCESSOR
    type: TYPE
 

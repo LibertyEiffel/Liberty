@@ -1,18 +1,21 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class RUNNER_INTEGRAL_BUILTINS[E_ -> INTEGRAL]
---
--- a collection of builtins for INTEGRAL
---
+class RUNNER_INTEGRAL_BUILTINS[E_ -> INTEGRAL]
+   --
+   -- a collection of builtins for INTEGRAL
+   --
 
-insert
+inherit
    RUNNER_NUMERIC_BUILTINS[E_]
       redefine
          call
       end
 
-feature {RUNNER_BUILTINS}
+create {RUNNER_MEMORY}
+   make
+
+feature {RUNNER_FACET}
    call (processor: RUNNER_PROCESSOR) is
       do
          inspect
@@ -34,7 +37,7 @@ feature {RUNNER_BUILTINS}
          end
       end
 
-feature {RUNNER_FACET}
+feature {}
    builtin_infix_divide (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_real_64(left(processor).item / right(processor).item))
@@ -68,6 +71,11 @@ feature {RUNNER_FACET}
    builtin_infix_ge (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item >= right(processor).item))
+      end
+
+feature {}
+   make is
+      do
       end
 
 end -- class RUNNER_INTEGRAL_BUILTINS

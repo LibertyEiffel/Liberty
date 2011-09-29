@@ -10,6 +10,8 @@ create {RUNNER_MEMORY}
    make
 
 feature {ANY}
+   builtins: RUNNER_TYPED_BUILTINS[E_]
+
    processor: RUNNER_PROCESSOR
    type: TYPE
    item: E_
@@ -31,7 +33,7 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item) is
+   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type.is_kernel_expanded
@@ -39,10 +41,12 @@ feature {}
          processor := a_processor
          type := a_type
          item := a_item
+         builtins := a_builtins
       ensure
          processor = a_processor
          type = a_type
          item = a_item
+         builtins = a_builtins
       end
 
 invariant
