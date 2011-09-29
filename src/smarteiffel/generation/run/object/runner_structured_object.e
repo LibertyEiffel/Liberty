@@ -44,6 +44,24 @@ feature {ANY}
          tagged_out_memory.put(']', tagged_out_memory.upper)
       end
 
+   is_equal (other: like Current): BOOLEAN is
+      do
+         if type.is_reference then
+            Result := Current = other
+         else
+            Result := other.fields.count = fields.count
+               and then other.fields.for_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING): BOOLEAN is
+                                             local
+                                                o0: RUNNER_OBJECT
+                                             do
+                                                if fields.fast_has(f) then
+                                                   o0 := fields.fast_reference_at(f)
+                                                   Result := o0 = o or else (o0 /= Void and then o /= Void and then o0.eq(o))
+                                                end
+                                             end)
+         end
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

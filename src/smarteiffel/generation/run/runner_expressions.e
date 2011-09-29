@@ -65,8 +65,15 @@ feature {ASSIGNMENT_TEST}
 
 feature {BUILT_IN_EQ_NEQ}
    visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+      local
+         left, right: RUNNER_OBJECT
       do
-         sedb_breakpoint --| **** TODO
+         visited.left_side.accept(Current)
+         left := return
+         visited.right_side.accept(Current)
+         right := return
+         return := processor.new_boolean(left.eq(right) = visited.eq_flag)
+         sedb_breakpoint
       end
 
 feature {CLOSED_OPERAND}
@@ -282,9 +289,10 @@ feature {GENERATOR_GENERATING_TYPE}
 feature {IMPLICIT_CAST}
    visit_implicit_cast (visited: IMPLICIT_CAST) is
       do
+         implicit_cast_type := visited.resolved_memory
+         -- example: RUNNER_NATIVE_EXPANDED[INTEGER_8] -> RUNNER_NATIVE_EXPANDED[INTEGER_32]
          visited.expression.accept(Current)
-         --| **** not enough! its type must be correctly changed
-         --| **** for example: RUNNER_NATIVE_EXPANDED[INTEGER_8] -> RUNNER_NATIVE_EXPANDED[INTEGER_32]
+         implicit_cast_type := Void
       end
 
 feature {ARGUMENT_NAME2}
@@ -325,9 +333,17 @@ feature {CHARACTER_CONSTANT}
 
 feature {INTEGER_CONSTANT}
    visit_integer_constant (visited: INTEGER_CONSTANT) is
+      local
+         size: INTEGER; integer_type_mark: INTEGER_TYPE_MARK
       do
+         if implicit_cast_type /= Void then
+            integer_type_mark ::= implicit_cast_type.canonical_type_mark
+            size := integer_type_mark.bit_count
+         else
+            size := visited.size
+         end
          inspect
-            visited.result_type.bit_count
+            size
          when 8 then
             return := processor.new_integer_8(visited.value_memory.to_integer_8)
          when 16 then
@@ -348,9 +364,7 @@ feature {REAL_CONSTANT}
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
-         check
-            return = Void
-         end
+         return := Void
       end
 
 feature {MANIFEST_STRING}
@@ -503,6 +517,8 @@ feature {}
 
    processor: RUNNER_PROCESSOR
    return: RUNNER_OBJECT
+
+   implicit_cast_type: TYPE
 
 invariant
    processor /= Void

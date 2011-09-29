@@ -26,6 +26,8 @@ cluster
    smarteiffel: "${path_se_tools}loadpath.se"
       default
          assertion(no)
+      option
+         debug(yes): POSITION
       end
 
 generate

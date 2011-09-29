@@ -6,7 +6,7 @@ deferred class RUNNER_OBJECT
 insert
    RUNNER_FACET
       undefine
-         out_in_tagged_out_memory
+         out_in_tagged_out_memory, is_equal
       end
 
 feature {ANY}
@@ -24,6 +24,16 @@ feature {RUNNER_FACET}
       ensure
          Result.is_equal(Current)
          type.is_reference implies Result = Current
+      end
+
+   eq (other: RUNNER_OBJECT): BOOLEAN is
+      local
+         o: like Current
+      do
+         if other /= Void and then other.same_dynamic_type(Current) then
+            o ::= other
+            Result := is_equal(o)
+         end
       end
 
 invariant

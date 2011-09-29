@@ -24,26 +24,31 @@ feature {RUNNER_FACET}
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
+         sedb_breakpoint
       end
 
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
+         sedb_breakpoint
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
+         sedb_breakpoint
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
+         sedb_breakpoint
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
+         sedb_breakpoint
       end
 
 feature {ASSIGNMENT_ATTEMPT}
@@ -61,11 +66,13 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
+         sedb_breakpoint
       end
 
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
+         sedb_breakpoint
       end
 
 feature {COMMENT}
@@ -99,28 +106,37 @@ feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
          if visited.must_be_generated(processor.current_frame.type_of_current) then
-            visited.compound.accept(Current)
+            processor.current_frame.add_instruction(visited.compound)
          end
       end
 
 feature {IFTHENELSE}
    visit_ifthenelse (visited: IFTHENELSE) is
       do
+         sedb_breakpoint
       end
 
 feature {IFTHEN}
    visit_ifthen (visited: IFTHEN) is
+      local
+         condition: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
+         condition ::= processor.expressions.eval(visited.expression)
+         if condition.item then
+            processor.current_frame.add_instruction(visited.then_compound)
+         end
       end
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
    visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
       do
+         sedb_breakpoint
       end
 
 feature {OTHER_INSPECT_STATEMENT}
    visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
       do
+         sedb_breakpoint
       end
 
 feature {LOOP_INSTRUCTION}
@@ -145,31 +161,41 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
+         sedb_breakpoint
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
    visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
       do
+         std_error.put_line("**** " + visited.start_position.path +
+                            ":"     + visited.start_position.line.out +
+                            ","     + visited.start_position.column.out +
+                            ": "    + visited.error_message)
+         sedb_breakpoint
       end
 
 feature {SEDB}
    visit_sedb (visited: SEDB) is
       do
+         --sedb_breakpoint
       end
 
 feature {UNUSED_EXPRESSION}
    visit_unused_expression (visited: UNUSED_EXPRESSION) is
       do
+         sedb_breakpoint
       end
 
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
+         sedb_breakpoint
       end
 
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
+         sedb_breakpoint
       end
 
 feature {PROCEDURE_CALL_0}
@@ -193,16 +219,19 @@ feature {PROCEDURE_CALL_N}
 feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
+         sedb_breakpoint
       end
 
 feature {RETRY_INSTRUCTION}
    visit_retry_instruction (visited: RETRY_INSTRUCTION) is
       do
+         sedb_breakpoint
       end
 
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
+         sedb_breakpoint
       end
 
 feature {}

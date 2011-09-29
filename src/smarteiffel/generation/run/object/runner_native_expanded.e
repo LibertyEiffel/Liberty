@@ -19,6 +19,11 @@ feature {ANY}
          item.out_in_tagged_out_memory
       end
 
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := item = other.item
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

@@ -52,6 +52,11 @@ feature {ANY}
          tagged_out_memory.extend('>')
       end
 
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := storage.is_equal(other.storage)
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do
@@ -82,6 +87,7 @@ feature {}
          setter = a_setter
       end
 
+feature {RUNNER_NATIVE_ARRAY}
    storage: NATIVE_ARRAY[E_]
    capacity: INTEGER
    retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
