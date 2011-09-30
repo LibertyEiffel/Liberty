@@ -6,27 +6,27 @@ class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
 inherit
    RUNNER_OBJECT
 
-create {RUNNER_MEMORY}
+create {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
    make
 
 feature {ANY}
-   builtins: RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_]
+   builtins: RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_, O_]
 
    processor: RUNNER_PROCESSOR
    type: TYPE
 
-   item (index: INTEGER): O_ is
+   item (index: INTEGER_64): O_ is
       require
          index.in_range(0, capacity - 1)
       do
-         Result := retriever.item([processor, storage.item(index)])
+         Result := retriever.item([processor, storage.item(index.to_integer_32)])
       end
 
-   put (a_item: O_; index: INTEGER) is
+   put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
       do
-         storage.put(setter.item([a_item]), index)
+         storage.put(setter.item([a_item]), index.to_integer_32)
       end
 
    out_in_tagged_out_memory is
@@ -97,6 +97,19 @@ feature {RUNNER_NATIVE_ARRAY}
    capacity: INTEGER
    retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
    setter: FUNCTION[TUPLE[O_], E_]
+
+feature {RUNNER_FACET}
+   builtin_calloc (nb_elements: INTEGER_64): like Current is
+      require
+         nb_elements.fit_integer_32
+      local
+         storage_: NATIVE_ARRAY[E_]
+      do
+         if nb_elements > 0 then
+            storage_ := storage_.calloc(nb_elements.to_integer_32)
+         end
+         create Result.make(processor, type, nb_elements.to_integer_32, storage_, retriever, setter, builtins)
+      end
 
 invariant
    capacity >= 0

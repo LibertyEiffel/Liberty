@@ -462,15 +462,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
       do
          visited.dynamic_dispatch_temporary1.accept(Current)
          id := return.type.id
-         if id.fit_integer_8 then
-            return := processor.new_integer_8(id.to_integer_8)
-         elseif id.fit_integer_16 then
-            return := processor.new_integer_16(id.to_integer_16)
-         elseif id.fit_integer_32 then
-            return := processor.new_integer_32(id.to_integer_32)
-         else
-            return := processor.new_integer_64(id)
-         end
+         return := processor.new_integer(id)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}

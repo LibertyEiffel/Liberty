@@ -6,6 +6,12 @@ class RUNNER_STRUCTURED_OBJECT
 inherit
    RUNNER_OBJECT
 
+insert
+   TYPE_VISITOR
+      undefine
+         is_equal, out_in_tagged_out_memory
+      end
+
 create {RUNNER_MEMORY}
    make
 
@@ -96,14 +102,44 @@ feature {}
       do
          processor := a_processor
          type := a_type
-         create fields.make
+         initialize_fields
       ensure
          processor = a_processor
          type = a_type
       end
 
+   initialize_fields is
+      do
+         create fields.make
+         type.writable_attributes.do_all(agent (stamp: FEATURE_STAMP) is
+                                         local
+                                            rf: RUN_FEATURE; t: TYPE; o: RUNNER_OBJECT
+                                         do
+                                            if stamp.has_run_feature_for(type) then
+                                               rf := stamp.run_feature_for(type)
+                                               t := rf.result_type.resolve_in(type)
+                                               if t.is_expanded then
+                                                  o := processor.default_expanded(t)
+                                               else
+                                                  check
+                                                     o = Void
+                                                  end
+                                               end
+                                               fields.add(o, rf.name.to_string.intern)
+                                            else
+                                               -- that field is not used, forget it
+                                            end
+                                         end)
+      end
+
 feature {RUNNER_STRUCTURED_OBJECT}
    fields: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
+
+feature {TYPE}
+   visit_type (visited: TYPE) is
+      do
+         check False end -- I only need to insert TYPE_VISITOR to access some TYPE features
+      end
 
 invariant
    type.live_type /= Void

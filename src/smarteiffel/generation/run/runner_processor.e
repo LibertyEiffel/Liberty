@@ -28,16 +28,16 @@ feature {RUNNER_FACET}
 feature {} -- fly-weights
    booleans:       FAST_ARRAY[RUNNER_NATIVE_EXPANDED[BOOLEAN]]
    characters:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[CHARACTER],     CHARACTER]
-   integers_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_8],     INTEGER_8]
-   integers_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_16],    INTEGER_16]
-   integers_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_32],    INTEGER_32]
+   integers_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
+   integers_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
+   integers_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
    integers_64:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
-   naturals_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_8],     NATURAL_8]
-   naturals_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_16],    NATURAL_16]
-   naturals_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_32],    NATURAL_32]
+   naturals_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
+   naturals_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
+   naturals_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
    naturals_64:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
-   reals_32:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_32],       REAL_32]
-   reals_64:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_64],       REAL_64]
+   reals_32:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
+   reals_64:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
    reals_extended: HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
 
 feature {RUNNER_FACET}
@@ -134,12 +134,25 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_8: RUNNER_NATIVE_EXPANDED[INTEGER_8] is
+   new_integer (a_integer: INTEGER_64): RUNNER_OBJECT is
+      do
+         if a_integer.fit_integer_8 then
+            Result := new_integer_8(a_integer.to_integer_8)
+         elseif a_integer.fit_integer_16 then
+            Result := new_integer_16(a_integer.to_integer_16)
+         elseif a_integer.fit_integer_32 then
+            Result := new_integer_32(a_integer.to_integer_32)
+         else
+            Result := new_integer_64(a_integer)
+         end
+      end
+
+   default_integer_8: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := new_integer_8(0)
       end
 
-   new_integer_8 (integer_8: INTEGER_8): RUNNER_NATIVE_EXPANDED[INTEGER_8] is
+   new_integer_8 (integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_8.fast_reference_at(integer_8)
          if Result = Void then
@@ -152,12 +165,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_16: RUNNER_NATIVE_EXPANDED[INTEGER_16] is
+   default_integer_16: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := new_integer_16(0)
       end
 
-   new_integer_16 (integer_16: INTEGER_16): RUNNER_NATIVE_EXPANDED[INTEGER_16] is
+   new_integer_16 (integer_16: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_16.fast_reference_at(integer_16)
          if Result = Void then
@@ -170,12 +183,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_32: RUNNER_NATIVE_EXPANDED[INTEGER_32] is
+   default_integer_32: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := new_integer_32(0)
       end
 
-   new_integer_32 (integer_32: INTEGER_32): RUNNER_NATIVE_EXPANDED[INTEGER_32] is
+   new_integer_32 (integer_32: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_32.fast_reference_at(integer_32)
          if Result = Void then
@@ -206,12 +219,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_8: RUNNER_NATIVE_EXPANDED[NATURAL_8] is
+   default_natural_8: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
-         Result := new_natural_8(0.to_natural_8)
+         Result := new_natural_8(0.to_natural_64)
       end
 
-   new_natural_8 (natural_8: NATURAL_8): RUNNER_NATIVE_EXPANDED[NATURAL_8] is
+   new_natural_8 (natural_8: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_8.fast_reference_at(natural_8)
          if Result = Void then
@@ -224,12 +237,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_16: RUNNER_NATIVE_EXPANDED[NATURAL_16] is
+   default_natural_16: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
-         Result := new_natural_16(0.to_natural_16)
+         Result := new_natural_16(0.to_natural_64)
       end
 
-   new_natural_16 (natural_16: NATURAL_16): RUNNER_NATIVE_EXPANDED[NATURAL_16] is
+   new_natural_16 (natural_16: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_16.fast_reference_at(natural_16)
          if Result = Void then
@@ -242,12 +255,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_32: RUNNER_NATIVE_EXPANDED[NATURAL_32] is
+   default_natural_32: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
-         Result := new_natural_32(0.to_natural_32)
+         Result := new_natural_32(0.to_natural_64)
       end
 
-   new_natural_32 (natural_32: NATURAL_32): RUNNER_NATIVE_EXPANDED[NATURAL_32] is
+   new_natural_32 (natural_32: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_32.fast_reference_at(natural_32)
          if Result = Void then
@@ -292,12 +305,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_real_32: RUNNER_NATIVE_EXPANDED[REAL_32] is
+   default_real_32: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
-         Result := new_real_32({REAL_32 0.0})
+         Result := new_real_32(0.0)
       end
 
-   new_real_32 (real_32: REAL_32): RUNNER_NATIVE_EXPANDED[REAL_32] is
+   new_real_32 (real_32: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
          Result := reals_32.fast_reference_at(real_32)
          if Result = Void then
@@ -310,12 +323,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_real_64: RUNNER_NATIVE_EXPANDED[REAL_64] is
+   default_real_64: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
          Result := new_real_64(0.0)
       end
 
-   new_real_64 (real_64: REAL_64): RUNNER_NATIVE_EXPANDED[REAL_64] is
+   new_real_64 (real_64: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
          Result := reals_64.fast_reference_at(real_64)
          if Result = Void then

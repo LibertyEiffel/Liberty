@@ -22,7 +22,6 @@ feature {}
          <<
             agent new_boolean,                smart_eiffel.type_boolean;
             agent new_character,              smart_eiffel.type_character;
-            --agent new_native_array_character, smart_eiffel.type_native_array_character;
             agent new_pointer,                smart_eiffel.type_pointer;
             agent new_integer_8,              smart_eiffel.type_integer_8;
             agent new_integer_16,             smart_eiffel.type_integer_16;
@@ -54,14 +53,6 @@ feature {}
          Result := the_value.processor.new_character(the_value.item)
       end
 
---   new_native_array_character (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATIVE_ARRAY_CHARACTER] is
---      local
---         the_value: RUNNER_BUILTINS_VALUE[NATIVE_ARRAY_CHARACTER]
---      do
---         the_value ::= value
---         Result := the_value.processor.new_native_array_character(the_value.item)
---      end
-
    new_pointer (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[POINTER] is
       local
          the_value: RUNNER_BUILTINS_VALUE[POINTER]
@@ -70,25 +61,25 @@ feature {}
          Result := the_value.processor.new_pointer(the_value.item)
       end
 
-   new_integer_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_8] is
+   new_integer_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       local
-         the_value: RUNNER_BUILTINS_VALUE[INTEGER_8]
+         the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
          the_value ::= value
          Result := the_value.processor.new_integer_8(the_value.item)
       end
 
-   new_integer_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_16] is
+   new_integer_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       local
-         the_value: RUNNER_BUILTINS_VALUE[INTEGER_16]
+         the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
          the_value ::= value
          Result := the_value.processor.new_integer_16(the_value.item)
       end
 
-   new_integer_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_32] is
+   new_integer_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       local
-         the_value: RUNNER_BUILTINS_VALUE[INTEGER_32]
+         the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
          the_value ::= value
          Result := the_value.processor.new_integer_32(the_value.item)
@@ -134,7 +125,7 @@ feature {}
 --         Result := the_value.processor.new_natural_64(the_value.item)
 --      end
 
-   new_real_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_32] is
+   new_real_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       local
          the_value: RUNNER_BUILTINS_VALUE[REAL_32]
       do
@@ -142,7 +133,7 @@ feature {}
          Result := the_value.processor.new_real_32(the_value.item)
       end
 
-   new_real_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_64] is
+   new_real_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       local
          the_value: RUNNER_BUILTINS_VALUE[REAL_64]
       do

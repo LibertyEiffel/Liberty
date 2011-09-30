@@ -863,7 +863,7 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
 feature {TYPE, TYPE_VISITOR}
    feature_stamps: HASHED_BIJECTIVE_DICTIONARY[FEATURE_STAMP, FEATURE_NAME]
 
-feature {INTROSPECTION_HANDLER}
+feature {INTROSPECTION_HANDLER, TYPE_VISITOR}
    writable_attributes: ARRAY[FEATURE_STAMP] is
       require
          feature_collection_done
