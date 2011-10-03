@@ -17,7 +17,7 @@ cluster
          debug(yes): FIXED_STRING
       end
 
-   runner: "${path_se_tools}generation/run"
+   runner: "${path_se_tools}generation/run/loadpath.se"
       default
          assertion(invariant)
          debug(yes)
@@ -26,6 +26,8 @@ cluster
    smarteiffel: "${path_se_tools}loadpath.se"
       default
          assertion(no)
+      option
+         debug(yes): POSITION
       end
 
 generate

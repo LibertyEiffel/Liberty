@@ -6,28 +6,57 @@ class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
 inherit
    RUNNER_OBJECT
 
-insert
-   GLOBALS
-
-create {RUNNER_MEMORY}
+create {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
    make
 
 feature {ANY}
+   builtins: RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_, O_]
+
    processor: RUNNER_PROCESSOR
    type: TYPE
 
-   item (index: INTEGER): O_ is
+   item (index: INTEGER_64): O_ is
       require
          index.in_range(0, capacity - 1)
       do
-         Result := retriever.item([processor, storage.item(index)])
+         Result := retriever.item([processor, storage.item(index.to_integer_32)])
       end
 
-   put (a_item: O_; index: INTEGER) is
+   put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
       do
-         storage.put(setter.item([a_item]), index)
+         storage.put(setter.item([a_item]), index.to_integer_32)
+      end
+
+   out_in_tagged_out_memory is
+      local
+         i: INTEGER; o: like item
+      do
+         type.out_in_tagged_out_memory
+         tagged_out_memory.extend('<')
+         tagged_out_memory.extend('<')
+         from
+            i := 0
+         until
+            i = capacity
+         loop
+            o := item(i)
+            if o = Void then
+               tagged_out_memory.append(once "Void")
+            else
+               o.out_in_tagged_out_memory
+            end
+            tagged_out_memory.extend(',')
+            i := i + 1
+         end
+         tagged_out_memory.put('>', tagged_out_memory.upper)
+         tagged_out_memory.extend('>')
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := storage.is_equal(other.storage)
       end
 
 feature {RUNNER_FACET}
@@ -38,7 +67,8 @@ feature {RUNNER_FACET}
 
 feature {}
    make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
-         a_retriever: like retriever; a_setter: like setter) is
+         a_retriever: like retriever; a_setter: like setter;
+         a_builtins: like builtins) is
       require
          a_processor /= Void
          a_capacity >= 0
@@ -51,6 +81,7 @@ feature {}
          storage := a_storage
          retriever := a_retriever
          setter := a_setter
+         builtins := a_builtins
       ensure
          processor = a_processor
          type = a_type
@@ -58,12 +89,27 @@ feature {}
          storage = a_storage
          retriever = a_retriever
          setter = a_setter
+         builtins = a_builtins
       end
 
+feature {RUNNER_NATIVE_ARRAY}
    storage: NATIVE_ARRAY[E_]
    capacity: INTEGER
    retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
    setter: FUNCTION[TUPLE[O_], E_]
+
+feature {RUNNER_FACET}
+   builtin_calloc (nb_elements: INTEGER_64): like Current is
+      require
+         nb_elements.fit_integer_32
+      local
+         storage_: NATIVE_ARRAY[E_]
+      do
+         if nb_elements > 0 then
+            storage_ := storage_.calloc(nb_elements.to_integer_32)
+         end
+         create Result.make(processor, type, nb_elements.to_integer_32, storage_, retriever, setter, builtins)
+      end
 
 invariant
    capacity >= 0

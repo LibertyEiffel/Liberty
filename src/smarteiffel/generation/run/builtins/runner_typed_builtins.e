@@ -1,58 +1,33 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_NATIVE_EXPANDED[E_]
+deferred class RUNNER_TYPED_BUILTINS[E_]
+   --
+   -- a collection of builtins tools
+   --
 
 inherit
-   RUNNER_OBJECT
-
-create {RUNNER_MEMORY}
-   make
-
-feature {ANY}
-   builtins: RUNNER_TYPED_BUILTINS[E_]
-
-   processor: RUNNER_PROCESSOR
-   type: TYPE
-   item: E_
-
-   out_in_tagged_out_memory is
-      do
-         item.out_in_tagged_out_memory
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := item = other.item
-      end
-
-feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
-      do
-         Result := Current -- because native expanded values are flyweights
-      end
+   RUNNER_ANY_BUILTINS
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
-      require
-         a_processor /= Void
-         a_type.is_kernel_expanded
+   left (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
       do
-         processor := a_processor
-         type := a_type
-         item := a_item
-         builtins := a_builtins
-      ensure
-         processor = a_processor
-         type = a_type
-         item = a_item
-         builtins = a_builtins
+         Result ::= processor.current_frame.target
       end
 
-invariant
-   item_is_expanded: item /= Void
+   right (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
+      do
+         Result ::= processor.current_frame.arguments.first
+      end
 
-end -- class RUNNER_NATIVE_EXPANDED
+   set_return (processor: RUNNER_PROCESSOR; value: E_) is
+      local
+         the_factory: RUNNER_EXPANDED_FACTORY[E_]
+      do
+         processor.current_frame.set_return(the_factory.new(processor, value, processor.current_frame.type_of_result))
+      end
+
+end -- class RUNNER_TYPED_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

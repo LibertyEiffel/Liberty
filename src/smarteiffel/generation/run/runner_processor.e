@@ -5,6 +5,9 @@ class RUNNER_PROCESSOR
 
 insert
    RUNNER_FACET
+      rename
+         default_pointer as default_pointer_
+      end
 
 create {RUNNER}
    make
@@ -25,29 +28,49 @@ feature {RUNNER_FACET}
 feature {} -- fly-weights
    booleans:       FAST_ARRAY[RUNNER_NATIVE_EXPANDED[BOOLEAN]]
    characters:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[CHARACTER],     CHARACTER]
-   integers_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_8],     INTEGER_8]
-   integers_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_16],    INTEGER_16]
-   integers_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_32],    INTEGER_32]
+   integers_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
+   integers_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
+   integers_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
    integers_64:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[INTEGER_64],    INTEGER_64]
-   naturals_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_8],     NATURAL_8]
-   naturals_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_16],    NATURAL_16]
-   naturals_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_32],    NATURAL_32]
+   naturals_8:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
+   naturals_16:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
+   naturals_32:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
    naturals_64:    HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[NATURAL_64],    NATURAL_64]
-   reals_32:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_32],       REAL_32]
-   reals_64:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_64],       REAL_64]
+   reals_32:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
+   reals_64:       HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
    reals_extended: HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
 
 feature {RUNNER_FACET}
    new_object (type: TYPE): RUNNER_STRUCTURED_OBJECT is
       require
          alive: type.live_type /= Void
-         processing: processor /= Void
       do
          Result := memory.new_object(Current, type)
       ensure
          exists: Result /= Void
          good_type: Result.type = type
-         good_processor: Result.processor = processor
+         good_processor: Result.processor = Current
+      end
+
+   default_expanded (type: TYPE): RUNNER_OBJECT is
+      require
+         type.is_expanded
+      local
+         default_value: FUNCTION[TUPLE, RUNNER_OBJECT]
+      do
+         default_value := defaults.fast_reference_at(type)
+         if default_value /= Void then
+            Result := default_value.item([])
+         else
+            Result := new_object(type)
+         end
+      ensure
+         Result /= Void
+      end
+
+   default_boolean: RUNNER_NATIVE_EXPANDED[BOOLEAN] is
+      do
+         Result := new_boolean(False)
       end
 
    new_boolean (boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
@@ -57,6 +80,15 @@ feature {RUNNER_FACET}
             Result := memory.new_boolean(Current, boolean)
             booleans.put(Result, boolean.to_integer)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_boolean
+         good_processor: Result.processor = Current
+      end
+
+   default_character: RUNNER_NATIVE_EXPANDED[CHARACTER] is
+      do
+         Result := new_character('%U')
       end
 
    new_character (character: CHARACTER): RUNNER_NATIVE_EXPANDED[CHARACTER] is
@@ -66,43 +98,112 @@ feature {RUNNER_FACET}
             Result := memory.new_character(Current, character)
             characters.add(Result, character)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_character
+         good_processor: Result.processor = Current
+      end
+
+   default_native_array_character: RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
+      local
+         storage: NATIVE_ARRAY[CHARACTER]
+      do
+         Result := new_native_array_character(0, storage)
       end
 
    new_native_array_character (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]): RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
       do
          Result := memory.new_native_array_character(Current, capacity, storage)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_native_array_character
+         good_processor: Result.processor = Current
+      end
+
+   default_pointer: RUNNER_NATIVE_EXPANDED[POINTER] is
+      do
+         Result := new_pointer(default_pointer_)
       end
 
    new_pointer (pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER] is
       do
          Result := memory.new_pointer(Current, pointer)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_pointer
+         good_processor: Result.processor = Current
       end
 
-   new_integer_8 (integer_8: INTEGER_8): RUNNER_NATIVE_EXPANDED[INTEGER_8] is
+   new_integer (a_integer: INTEGER_64): RUNNER_OBJECT is
+      do
+         if a_integer.fit_integer_8 then
+            Result := new_integer_8(a_integer.to_integer_8)
+         elseif a_integer.fit_integer_16 then
+            Result := new_integer_16(a_integer.to_integer_16)
+         elseif a_integer.fit_integer_32 then
+            Result := new_integer_32(a_integer.to_integer_32)
+         else
+            Result := new_integer_64(a_integer)
+         end
+      end
+
+   default_integer_8: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+      do
+         Result := new_integer_8(0)
+      end
+
+   new_integer_8 (integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_8.fast_reference_at(integer_8)
          if Result = Void then
             Result := memory.new_integer_8(Current, integer_8)
             integers_8.add(Result, integer_8)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_8
+         good_processor: Result.processor = Current
       end
 
-   new_integer_16 (integer_16: INTEGER_16): RUNNER_NATIVE_EXPANDED[INTEGER_16] is
+   default_integer_16: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+      do
+         Result := new_integer_16(0)
+      end
+
+   new_integer_16 (integer_16: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_16.fast_reference_at(integer_16)
          if Result = Void then
             Result := memory.new_integer_16(Current, integer_16)
             integers_16.add(Result, integer_16)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_16
+         good_processor: Result.processor = Current
       end
 
-   new_integer_32 (integer_32: INTEGER_32): RUNNER_NATIVE_EXPANDED[INTEGER_32] is
+   default_integer_32: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+      do
+         Result := new_integer_32(0)
+      end
+
+   new_integer_32 (integer_32: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
       do
          Result := integers_32.fast_reference_at(integer_32)
          if Result = Void then
             Result := memory.new_integer_32(Current, integer_32)
             integers_32.add(Result, integer_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_32
+         good_processor: Result.processor = Current
+      end
+
+   default_integer_64: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+      do
+         Result := new_integer_64(0)
       end
 
    new_integer_64 (integer_64: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
@@ -112,33 +213,69 @@ feature {RUNNER_FACET}
             Result := memory.new_integer_64(Current, integer_64)
             integers_64.add(Result, integer_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_integer_64
+         good_processor: Result.processor = Current
       end
 
-   new_natural_8 (natural_8: NATURAL_8): RUNNER_NATIVE_EXPANDED[NATURAL_8] is
+   default_natural_8: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+      do
+         Result := new_natural_8(0.to_natural_64)
+      end
+
+   new_natural_8 (natural_8: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_8.fast_reference_at(natural_8)
          if Result = Void then
             Result := memory.new_natural_8(Current, natural_8)
             naturals_8.add(Result, natural_8)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_8
+         good_processor: Result.processor = Current
       end
 
-   new_natural_16 (natural_16: NATURAL_16): RUNNER_NATIVE_EXPANDED[NATURAL_16] is
+   default_natural_16: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+      do
+         Result := new_natural_16(0.to_natural_64)
+      end
+
+   new_natural_16 (natural_16: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_16.fast_reference_at(natural_16)
          if Result = Void then
             Result := memory.new_natural_16(Current, natural_16)
             naturals_16.add(Result, natural_16)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_16
+         good_processor: Result.processor = Current
       end
 
-   new_natural_32 (natural_32: NATURAL_32): RUNNER_NATIVE_EXPANDED[NATURAL_32] is
+   default_natural_32: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+      do
+         Result := new_natural_32(0.to_natural_64)
+      end
+
+   new_natural_32 (natural_32: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
       do
          Result := naturals_32.fast_reference_at(natural_32)
          if Result = Void then
             Result := memory.new_natural_32(Current, natural_32)
             naturals_32.add(Result, natural_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_32
+         good_processor: Result.processor = Current
+      end
+
+   default_natural_64: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+      do
+         Result := new_natural_64(0.to_natural_64)
       end
 
    new_natural_64 (natural_64: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
@@ -148,29 +285,65 @@ feature {RUNNER_FACET}
             Result := memory.new_natural_64(Current, natural_64)
             naturals_64.add(Result, natural_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_natural_64
+         good_processor: Result.processor = Current
+      end
+
+   default_internals_handler_if_exists: RUNNER_OBJECT is
+      do
+         Result := new_internals_handler_if_exists(Void) --| **** TODO
       end
 
    new_internals_handler_if_exists (internals_handler: INTERNALS_HANDLER): RUNNER_OBJECT is
       do
          Result := memory.new_internals_handler_if_exists(Current, internals_handler)
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_internals_handler_if_exists
+         good_processor: Result.processor = Current
       end
 
-   new_real_32 (real_32: REAL_32): RUNNER_NATIVE_EXPANDED[REAL_32] is
+   default_real_32: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+      do
+         Result := new_real_32(0.0)
+      end
+
+   new_real_32 (real_32: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
          Result := reals_32.fast_reference_at(real_32)
          if Result = Void then
             Result := memory.new_real_32(Current, real_32)
             reals_32.add(Result, real_32)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_32
+         good_processor: Result.processor = Current
       end
 
-   new_real_64 (real_64: REAL_64): RUNNER_NATIVE_EXPANDED[REAL_64] is
+   default_real_64: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+      do
+         Result := new_real_64(0.0)
+      end
+
+   new_real_64 (real_64: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
       do
          Result := reals_64.fast_reference_at(real_64)
          if Result = Void then
             Result := memory.new_real_64(Current, real_64)
             reals_64.add(Result, real_64)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_64
+         good_processor: Result.processor = Current
+      end
+
+   default_real_extended: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+      do
+         Result := new_real_extended(0.0)
       end
 
    new_real_extended (real_extended: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
@@ -180,6 +353,10 @@ feature {RUNNER_FACET}
             Result := memory.new_real_extended(Current, real_extended)
             reals_extended.add(Result, real_extended)
          end
+      ensure
+         exists: Result /= Void
+         good_type: Result.type = smart_eiffel.type_real_extended
+         good_processor: Result.processor = Current
       end
 
 feature {RUNNER}
@@ -211,10 +388,31 @@ feature {}
          create reals_64.make
          create reals_extended.make
 
+         defaults := {HASHED_DICTIONARY[FUNCTION[TUPLE, RUNNER_OBJECT], TYPE]
+         <<
+            agent default_boolean,                smart_eiffel.type_boolean;
+            agent default_character,              smart_eiffel.type_character;
+            agent default_native_array_character, smart_eiffel.type_native_array_character;
+            agent default_pointer,                smart_eiffel.type_pointer;
+            agent default_integer_8,              smart_eiffel.type_integer_8;
+            agent default_integer_16,             smart_eiffel.type_integer_16;
+            agent default_integer_32,             smart_eiffel.type_integer_32;
+            agent default_integer_64,             smart_eiffel.type_integer_64;
+            agent default_natural_8,              smart_eiffel.type_natural_8;
+            agent default_natural_16,             smart_eiffel.type_natural_16;
+            agent default_natural_32,             smart_eiffel.type_natural_32;
+            agent default_natural_64,             smart_eiffel.type_natural_64;
+            agent default_real_32,                smart_eiffel.type_real_32;
+            agent default_real_64,                smart_eiffel.type_real_64;
+            agent default_real_extended,          smart_eiffel.type_real_extended;
+         >>}
+
          memory := a_memory
       ensure
          memory = a_memory
       end
+
+   defaults: HASHED_DICTIONARY[FUNCTION[TUPLE, RUNNER_OBJECT], TYPE]
 
 invariant
    features /= Void
@@ -236,6 +434,8 @@ invariant
    reals_extended /= Void
 
    memory /= Void
+
+   defaults /= Void
 
 end -- class RUNNER_PROCESSOR
 --

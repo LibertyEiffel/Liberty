@@ -1,58 +1,53 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_NATIVE_EXPANDED[E_]
+class RUNNER_BOOLEAN_BUILTINS
+   --
+   -- a collection of builtins for BOOLEAN
+   --
 
 inherit
-   RUNNER_OBJECT
+   RUNNER_TYPED_BUILTINS[BOOLEAN]
 
 create {RUNNER_MEMORY}
    make
 
-feature {ANY}
-   builtins: RUNNER_TYPED_BUILTINS[E_]
-
-   processor: RUNNER_PROCESSOR
-   type: TYPE
-   item: E_
-
-   out_in_tagged_out_memory is
-      do
-         item.out_in_tagged_out_memory
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := item = other.item
-      end
-
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   call (processor: RUNNER_PROCESSOR) is
       do
-         Result := Current -- because native expanded values are flyweights
+         inspect
+            processor.current_frame.rf.name.to_string
+         when "and then" then
+            builtin_infix_and_then(processor)
+         when "implies" then
+            builtin_infix_implies(processor)
+         when "or else" then
+            builtin_infix_or_else(processor)
+         end
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
-      require
-         a_processor /= Void
-         a_type.is_kernel_expanded
+   builtin_infix_and_then (processor: RUNNER_PROCESSOR) is
       do
-         processor := a_processor
-         type := a_type
-         item := a_item
-         builtins := a_builtins
-      ensure
-         processor = a_processor
-         type = a_type
-         item = a_item
-         builtins = a_builtins
+         processor.current_frame.set_return(processor.new_boolean(left(processor).item and then right(processor).item))
       end
 
-invariant
-   item_is_expanded: item /= Void
+   builtin_infix_implies (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_boolean(left(processor).item implies right(processor).item))
+      end
 
-end -- class RUNNER_NATIVE_EXPANDED
+   builtin_infix_or_else (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_boolean(left(processor).item or else right(processor).item))
+      end
+
+feature {}
+   make is
+      do
+      end
+
+end -- class RUNNER_BOOLEAN_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

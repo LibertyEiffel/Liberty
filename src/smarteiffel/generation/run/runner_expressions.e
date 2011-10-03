@@ -36,91 +36,115 @@ feature {WRITTEN_CURRENT}
 feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {BUILT_IN_EQ_NEQ}
    visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+      local
+         left, right: RUNNER_OBJECT
       do
+         visited.left_side.accept(Current)
+         left := return
+         visited.right_side.accept(Current)
+         right := return
+         return := processor.new_boolean(left.eq(right) = visited.eq_flag)
       end
 
 feature {CLOSED_OPERAND}
    visit_closed_operand (visited: CLOSED_OPERAND) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {CREATE_EXPRESSION}
    visit_create_expression (visited: CREATE_EXPRESSION) is
       do
+         return := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
       end
 
 feature {CREATE_WRITABLE}
    visit_create_writable (visited: CREATE_WRITABLE) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {E_OLD}
    visit_e_old (visited: E_OLD) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {EXPRESSION_WITH_COMMENT}
    visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_ARGUMENT}
    visit_fake_argument (visited: FAKE_ARGUMENT) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {CALL_PREFIX_MINUS}
    visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_FREEOP}
    visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_NOT}
    visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_PLUS}
    visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {STATIC_CALL_0_C}
@@ -138,91 +162,109 @@ feature {FUNCTION_CALL_0}
 feature {CALL_INFIX_AND_THEN}
    visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_AND}
    visit_call_infix_and (visited: CALL_INFIX_AND) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_DIV}
    visit_call_infix_div (visited: CALL_INFIX_DIV) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_FREEOP}
    visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_GE}
    visit_call_infix_ge (visited: CALL_INFIX_GE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_GT}
    visit_call_infix_gt (visited: CALL_INFIX_GT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_IMPLIES}
    visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_INT_DIV}
    visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_INT_REM}
    visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_LE}
    visit_call_infix_le (visited: CALL_INFIX_LE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_LT}
    visit_call_infix_lt (visited: CALL_INFIX_LT) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_MINUS}
    visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_OR_ELSE}
    visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_OR}
    visit_call_infix_or (visited: CALL_INFIX_OR) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_PLUS}
    visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_POWER}
    visit_call_infix_power (visited: CALL_INFIX_POWER) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_TIMES}
    visit_call_infix_times (visited: CALL_INFIX_TIMES) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {CALL_INFIX_XOR}
    visit_call_infix_xor (visited: CALL_INFIX_XOR) is
       do
+         return := processor.features.item(visited)
       end
 
 feature {FUNCTION_CALL_1}
@@ -240,26 +282,34 @@ feature {FUNCTION_CALL_N}
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {IMPLICIT_CAST}
    visit_implicit_cast (visited: IMPLICIT_CAST) is
       do
+         implicit_cast_type := visited.resolved_memory
+         -- example: RUNNER_NATIVE_EXPANDED[INTEGER_8] -> RUNNER_NATIVE_EXPANDED[INTEGER_32]
+         visited.expression.accept(Current)
+         implicit_cast_type := Void
       end
 
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
+         return := processor.current_frame.arguments.item(visited.rank - 1)
       end
 
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
+         return := processor.current_frame.local_object(visited.to_string)
       end
 
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {E_FALSE}
@@ -282,9 +332,17 @@ feature {CHARACTER_CONSTANT}
 
 feature {INTEGER_CONSTANT}
    visit_integer_constant (visited: INTEGER_CONSTANT) is
+      local
+         size: INTEGER; integer_type_mark: INTEGER_TYPE_MARK
       do
+         if implicit_cast_type /= Void then
+            integer_type_mark ::= implicit_cast_type.canonical_type_mark
+            size := integer_type_mark.bit_count
+         else
+            size := visited.size
+         end
          inspect
-            visited.result_type.bit_count
+            size
          when 8 then
             return := processor.new_integer_8(visited.value_memory.to_integer_8)
          when 16 then
@@ -299,14 +357,13 @@ feature {INTEGER_CONSTANT}
 feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {E_VOID}
    visit_e_void (visited: E_VOID) is
       do
-         check
-            return = Void
-         end
+         return := Void
       end
 
 feature {MANIFEST_STRING}
@@ -341,26 +398,31 @@ feature {}
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {PRECURSOR_EXPRESSION}
    visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {RESULT}
@@ -372,51 +434,79 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NO_DISPATCH}
    visit_no_dispatch (visited: NO_DISPATCH) is
       do
+         visited.side_effect_free_expression.accept(Current)
       end
 
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
    visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1) is
       do
+         visited.target.accept(Current)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
    visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+      local
+         id: INTEGER_64
       do
+         visited.dynamic_dispatch_temporary1.accept(Current)
+         id := return.type.id
+         return := processor.new_integer(id)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
    visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
       do
+         visited.dynamic_dispatch_temporary1.accept(Current)
       end
 
 feature {VOID_CALL}
    visit_void_call (visited: VOID_CALL) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do
+         sedb_breakpoint --| **** TODO
       end
 
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+      local
+         i: INTEGER; watermark: RUNNER_FRAME_WATERMARK; inst: INSTRUCTION; exp: EXPRESSION
       do
+         watermark := processor.current_frame.watermark
+         from
+            i := visited.lower
+         until
+            i = visited.upper
+         loop
+            inst ::= visited.item(i)
+            processor.current_frame.add_instruction(inst)
+            i := i + 1
+         end
+         processor.current_frame.execute_until(watermark)
+         exp ::= visited.last
+         exp.accept(Current)
       end
 
 feature {}
@@ -430,6 +520,8 @@ feature {}
 
    processor: RUNNER_PROCESSOR
    return: RUNNER_OBJECT
+
+   implicit_cast_type: TYPE
 
 invariant
    processor /= Void

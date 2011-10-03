@@ -1,58 +1,19 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_NATIVE_EXPANDED[E_]
+deferred class RUNNER_LOOP_VISITOR
 
 inherit
-   RUNNER_OBJECT
+   VISITOR
 
-create {RUNNER_MEMORY}
-   make
-
-feature {ANY}
-   builtins: RUNNER_TYPED_BUILTINS[E_]
-
-   processor: RUNNER_PROCESSOR
-   type: TYPE
-   item: E_
-
-   out_in_tagged_out_memory is
-      do
-         item.out_in_tagged_out_memory
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := item = other.item
-      end
-
-feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
-      do
-         Result := Current -- because native expanded values are flyweights
-      end
-
-feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
+feature {RUNNER_LOOP}
+   visit_runner_loop (visited: RUNNER_LOOP) is
       require
-         a_processor /= Void
-         a_type.is_kernel_expanded
-      do
-         processor := a_processor
-         type := a_type
-         item := a_item
-         builtins := a_builtins
-      ensure
-         processor = a_processor
-         type = a_type
-         item = a_item
-         builtins = a_builtins
+         visited /= Void
+      deferred
       end
 
-invariant
-   item_is_expanded: item /= Void
-
-end -- class RUNNER_NATIVE_EXPANDED
+end -- class RUNNER_LOOP_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -65,7 +26,7 @@ end -- class RUNNER_NATIVE_EXPANDED
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --

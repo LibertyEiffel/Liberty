@@ -1,58 +1,29 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_NATIVE_EXPANDED[E_]
+class RUNNER_BUILTINS_VALUE[E_]
 
 inherit
-   RUNNER_OBJECT
+   RUNNER_BUILTINS_ANY_VALUE
 
-create {RUNNER_MEMORY}
-   make
+create {RUNNER_EXPANDED_FACTORY}
+   set
 
 feature {ANY}
-   builtins: RUNNER_TYPED_BUILTINS[E_]
-
    processor: RUNNER_PROCESSOR
-   type: TYPE
    item: E_
 
-   out_in_tagged_out_memory is
-      do
-         item.out_in_tagged_out_memory
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := item = other.item
-      end
-
-feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
-      do
-         Result := Current -- because native expanded values are flyweights
-      end
-
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
-      require
-         a_processor /= Void
-         a_type.is_kernel_expanded
+   set (a_processor: like processor; a_item: like item) is
       do
          processor := a_processor
-         type := a_type
          item := a_item
-         builtins := a_builtins
       ensure
          processor = a_processor
-         type = a_type
          item = a_item
-         builtins = a_builtins
       end
 
-invariant
-   item_is_expanded: item /= Void
-
-end -- class RUNNER_NATIVE_EXPANDED
+end -- class RUNNER_BUILTINS_VALUE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

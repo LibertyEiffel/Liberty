@@ -6,6 +6,12 @@ class RUNNER_STRUCTURED_OBJECT
 inherit
    RUNNER_OBJECT
 
+insert
+   TYPE_VISITOR
+      undefine
+         is_equal, out_in_tagged_out_memory
+      end
+
 create {RUNNER_MEMORY}
    make
 
@@ -13,24 +19,56 @@ create {RUNNER_STRUCTURED_OBJECT}
    copy_expanded
 
 feature {ANY}
+   builtins: RUNNER_ANY_BUILTINS is
+      do
+      end
+
    processor: RUNNER_PROCESSOR
    type: TYPE
 
    set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
-      local
-         value: RUNNER_OBJECT
       do
-         if a_value /= Void then
-            value := a_value.copy_if_expanded
-         end
-         fields.fast_put(value, a_name.intern)
+         fields.fast_put(expand(a_value), a_name.intern)
       end
 
    field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
       do
-         Result := fields.fast_at(a_name.intern)
-         if Result /= Void then
-            Result := Result.copy_if_expanded
+         Result := expand(fields.fast_at(a_name.intern))
+      end
+
+   out_in_tagged_out_memory is
+      do
+         type.long_name.out_in_tagged_out_memory
+         tagged_out_memory.extend('[')
+         fields.do_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING) is
+                       do
+                          f.out_in_tagged_out_memory
+                          tagged_out_memory.extend('=')
+                          if o = Void then
+                             tagged_out_memory.append(once "Void")
+                          else
+                             o.out_in_tagged_out_memory
+                          end
+                          tagged_out_memory.extend(',')
+                       end)
+         tagged_out_memory.put(']', tagged_out_memory.upper)
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         if type.is_reference then
+            Result := Current = other
+         else
+            Result := other.fields.count = fields.count
+               and then other.fields.for_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING): BOOLEAN is
+                                             local
+                                                o0: RUNNER_OBJECT
+                                             do
+                                                if fields.fast_has(f) then
+                                                   o0 := fields.fast_reference_at(f)
+                                                   Result := o0 = o or else (o0 /= Void and then o /= Void and then o0.eq(o))
+                                                end
+                                             end)
          end
       end
 
@@ -52,7 +90,7 @@ feature {}
          make(model.processor, model.type)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
-                                fields.add(field_value.copy_if_expanded, field_name)
+                                fields.add(expand(field_value), field_name)
                              end)
       end
 
@@ -64,14 +102,44 @@ feature {}
       do
          processor := a_processor
          type := a_type
-         create fields.make
+         initialize_fields
       ensure
          processor = a_processor
          type = a_type
       end
 
+   initialize_fields is
+      do
+         create fields.make
+         type.writable_attributes.do_all(agent (stamp: FEATURE_STAMP) is
+                                         local
+                                            rf: RUN_FEATURE; t: TYPE; o: RUNNER_OBJECT
+                                         do
+                                            if stamp.has_run_feature_for(type) then
+                                               rf := stamp.run_feature_for(type)
+                                               t := rf.result_type.resolve_in(type)
+                                               if t.is_expanded then
+                                                  o := processor.default_expanded(t)
+                                               else
+                                                  check
+                                                     o = Void
+                                                  end
+                                               end
+                                               fields.add(o, rf.name.to_string.intern)
+                                            else
+                                               -- that field is not used, forget it
+                                            end
+                                         end)
+      end
+
 feature {RUNNER_STRUCTURED_OBJECT}
    fields: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
+
+feature {TYPE}
+   visit_type (visited: TYPE) is
+      do
+         check False end -- I only need to insert TYPE_VISITOR to access some TYPE features
+      end
 
 invariant
    type.live_type /= Void
