@@ -32,6 +32,11 @@ feature {RUNNER_FACET}
          Result := Current -- because native expanded values are flyweights
       end
 
+   as_foreign_object: FOREIGN_OBJECT is
+      do
+         create {FOREIGN_TYPED_OBJECT[E_]} Result.with(item)
+      end
+
 feature {}
    make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
       require
