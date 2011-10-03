@@ -106,6 +106,8 @@ find $SE_SYS/runtime -name basic_\*.[ch] | sed 's/\.[ch]$//' | uniq | while read
 
     do_generate "$plugin_name" "$plugin_h" "$plugin_c" "$plugin_so" "$plugin_dir" "runtime" "$basic_plugin" "$SE_SYS/runtime/c"
 
+    cp -a $plugin_so ${basic_plugin}.so
+
     i=$((i+1))
 done
 
@@ -119,6 +121,9 @@ find $SE_SYS/plugins -name c -type d | while read plugin; do
     plugin_dir=${plugin_dir%/*}
 
     do_generate "$plugin_name" "$plugin_h" "$plugin_c" "$plugin_so" "$plugin_dir" "plugins" "$plugin/" "$plugin"
+
+    mkdir -p ${plugin%/c}/run
+    cp -a $plugin_so ${plugin%/c}/run/${plugin_name}.so
 
     i=$((i+1))
 done
