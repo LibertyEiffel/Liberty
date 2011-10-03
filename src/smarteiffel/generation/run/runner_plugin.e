@@ -21,6 +21,7 @@ feature {RUNNER_FACET}
          function: FOREIGN_AGENT
          parameters: FOREIGN_PARAMETERS
          return: FOREIGN_OBJECT
+         extractor: FUNCTION[TUPLE[RUNNER_PROCESSOR, FOREIGN_OBJECT], RUNNER_OBJECT]
       do
          function := foreign_agent(processor)
          parameters.set(eval_parameters(processor))
@@ -28,7 +29,8 @@ feature {RUNNER_FACET}
             function.call(parameters)
          else
             return := function.item(parameters)
-            sedb_breakpoint --| **** TODO: create the return object -> processor.return
+            extractor := foreign_types_map.fast_at(processor.current_frame.type_of_result).second
+            processor.current_frame.set_return(extractor.item([processor, return]))
          end
       end
 
@@ -95,7 +97,7 @@ feature {RUNNER_FACET}
       do
          if a_type /= Void then
             if foreign_types_map.fast_has(a_type) then
-               Result := foreign_types_map.fast_at(a_type)
+               Result := foreign_types_map.fast_at(a_type).first
             else
                check
                   False --| **** TODO: error message
@@ -171,28 +173,151 @@ feature {}
          path = a_path
       end
 
-   foreign_types_map: HASHED_DICTIONARY[FOREIGN_TYPE, TYPE] is
+   foreign_types_map: HASHED_DICTIONARY[TUPLE[FOREIGN_TYPE,
+                                              FUNCTION[TUPLE[RUNNER_PROCESSOR, FOREIGN_OBJECT], RUNNER_OBJECT]
+                                              ], TYPE] is
       local
          types: FOREIGN_TYPES
       once
-         Result := {HASHED_DICTIONARY[FOREIGN_TYPE, TYPE]
+         Result := {HASHED_DICTIONARY[TUPLE[FOREIGN_TYPE,
+                                            FUNCTION[TUPLE[RUNNER_PROCESSOR, FOREIGN_OBJECT], RUNNER_OBJECT]
+                                            ], TYPE]
          <<
-            types.sint32,   smart_eiffel.type_boolean;
-            types.schar,    smart_eiffel.type_character;
-            types.pointer,  smart_eiffel.type_pointer;
-            types.sint8,    smart_eiffel.type_integer_8;
-            types.sint16,   smart_eiffel.type_integer_16;
-            types.sint32,   smart_eiffel.type_integer_32;
-            types.sint64,   smart_eiffel.type_integer_64;
-            types.uint8,    smart_eiffel.type_natural_8;
-            types.uint16,   smart_eiffel.type_natural_16;
-            types.uint32,   smart_eiffel.type_natural_32;
-            types.uint64,   smart_eiffel.type_natural_64;
-            types.float,    smart_eiffel.type_real_32;
-            types.double,   smart_eiffel.type_real_64;
+            [types.sint32  , agent from_foreign_boolean               ], smart_eiffel.type_boolean;
+            [types.schar   , agent from_foreign_character             ], smart_eiffel.type_character;
+            [types.pointer , agent from_foreign_pointer               ], smart_eiffel.type_pointer;
+            [types.c_string, agent from_foreign_native_array_character], smart_eiffel.type_native_array_character;
+            [types.sint8   , agent from_foreign_integer_8             ], smart_eiffel.type_integer_8;
+            [types.sint16  , agent from_foreign_integer_16            ], smart_eiffel.type_integer_16;
+            [types.sint32  , agent from_foreign_integer_32            ], smart_eiffel.type_integer_32;
+            [types.sint64  , agent from_foreign_integer_64            ], smart_eiffel.type_integer_64;
+            [types.uint8   , agent from_foreign_natural_8             ], smart_eiffel.type_natural_8;
+            [types.uint16  , agent from_foreign_natural_16            ], smart_eiffel.type_natural_16;
+            [types.uint32  , agent from_foreign_natural_32            ], smart_eiffel.type_natural_32;
+            [types.uint64  , agent from_foreign_natural_64            ], smart_eiffel.type_natural_64;
+            [types.float   , agent from_foreign_real_32               ], smart_eiffel.type_real_32;
+            [types.double  , agent from_foreign_real_64               ], smart_eiffel.type_real_64;
             --types., smart_eiffel.type_real_extended;
-            types.c_string, smart_eiffel.type_native_array_character;
          >>}
+      end
+
+   from_foreign_boolean (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_boolean: FOREIGN_TYPED_OBJECT[BOOLEAN]
+      do
+         foreign_boolean ::= foreign
+         Result := processor.new_boolean(foreign_boolean.item)
+      end
+
+   from_foreign_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_character: FOREIGN_TYPED_OBJECT[CHARACTER]
+      do
+         foreign_character ::= foreign
+         Result := processor.new_character(foreign_character.item)
+      end
+
+   from_foreign_pointer (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_pointer: FOREIGN_TYPED_OBJECT[POINTER]
+      do
+         foreign_pointer ::= foreign
+         Result := processor.new_pointer(foreign_pointer.item)
+      end
+
+   from_foreign_native_array_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_native_array_character: FOREIGN_TYPED_OBJECT[NATIVE_ARRAY[CHARACTER]]
+         count: INTEGER
+      do
+         foreign_native_array_character ::= foreign
+         from
+         until
+            foreign_native_array_character.item.item(count) = '%U'
+         loop
+            count := count + 1
+         end
+         Result := processor.new_native_array_character(count + 1, foreign_native_array_character.item)
+      end
+
+   from_foreign_integer_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_integer_8: FOREIGN_TYPED_OBJECT[INTEGER_8]
+      do
+         foreign_integer_8 ::= foreign
+         Result := processor.new_integer_8(foreign_integer_8.item)
+      end
+
+   from_foreign_integer_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_integer_16: FOREIGN_TYPED_OBJECT[INTEGER_16]
+      do
+         foreign_integer_16 ::= foreign
+         Result := processor.new_integer_16(foreign_integer_16.item)
+      end
+
+   from_foreign_integer_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_integer_32: FOREIGN_TYPED_OBJECT[INTEGER_32]
+      do
+         foreign_integer_32 ::= foreign
+         Result := processor.new_integer_32(foreign_integer_32.item)
+      end
+
+   from_foreign_integer_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_integer_64: FOREIGN_TYPED_OBJECT[INTEGER_64]
+      do
+         foreign_integer_64 ::= foreign
+         Result := processor.new_integer_64(foreign_integer_64.item)
+      end
+
+   from_foreign_natural_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_natural_8: FOREIGN_TYPED_OBJECT[NATURAL_8]
+      do
+         foreign_natural_8 ::= foreign
+         Result := processor.new_natural_8(foreign_natural_8.item.to_natural_64)
+      end
+
+   from_foreign_natural_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_natural_16: FOREIGN_TYPED_OBJECT[NATURAL_16]
+      do
+         foreign_natural_16 ::= foreign
+         Result := processor.new_natural_16(foreign_natural_16.item.to_natural_64)
+      end
+
+   from_foreign_natural_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_natural_32: FOREIGN_TYPED_OBJECT[NATURAL_32]
+      do
+         foreign_natural_32 ::= foreign
+         Result := processor.new_natural_32(foreign_natural_32.item.to_natural_64)
+      end
+
+   from_foreign_natural_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_natural_64: FOREIGN_TYPED_OBJECT[NATURAL_64]
+      do
+         foreign_natural_64 ::= foreign
+         Result := processor.new_natural_64(foreign_natural_64.item)
+      end
+
+   from_foreign_real_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_real_32: FOREIGN_TYPED_OBJECT[REAL_32]
+      do
+         foreign_real_32 ::= foreign
+         Result := processor.new_real_32(foreign_real_32.item.to_real_64)
+      end
+
+   from_foreign_real_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+      local
+         foreign_real_64: FOREIGN_TYPED_OBJECT[REAL_64]
+      do
+         foreign_real_64 ::= foreign
+         Result := processor.new_real_64(foreign_real_64.item)
       end
 
 end -- class RUNNER_PLUGIN
