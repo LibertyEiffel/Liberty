@@ -36,7 +36,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
 feature {}
    builtin_se_argc (processor: RUNNER_PROCESSOR) is
       do
-         processor.current_frame.set_return(processor.new_integer(se_argc))
+         processor.current_frame.set_return(processor.new_integer_32(se_argc))
       end
 
    builtin_se_argv (processor: RUNNER_PROCESSOR) is
