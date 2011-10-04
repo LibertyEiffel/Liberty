@@ -6,7 +6,7 @@ expanded class RUNNER_EXPANDED_FACTORY[E_]
 insert
    RUNNER_FACET
 
-feature {RUNNER_ANY_BUILTINS}
+feature {RUNNER_TYPED_BUILTINS}
    new (processor: RUNNER_PROCESSOR; value: E_; type: TYPE): RUNNER_NATIVE_EXPANDED[E_] is
       local
          the_value: RUNNER_BUILTINS_VALUE[E_]

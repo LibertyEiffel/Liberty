@@ -14,8 +14,11 @@ feature {RUNNER_PROCESSOR}
       require
          alive: type.live_type /= Void
          processing: processor /= Void
+      local
+         builtins: RUNNER_UNTYPED_BUILTINS
       do
-         create Result.make(processor, type)
+         builtins := find_builtins_for(type)
+         create Result.make(processor, type, builtins)
       ensure
          exists: Result /= Void
          good_type: Result.type = type
@@ -111,49 +114,128 @@ feature {}
       do
       end
 
+   builtins_map: HASHED_DICTIONARY[RUNNER_UNTYPED_BUILTINS, TYPE] is
+      once
+         Result := {HASHED_DICTIONARY[RUNNER_UNTYPED_BUILTINS, TYPE]
+         <<
+            boolean_builtins, smart_eiffel.type_boolean;
+            integer_8_builtins, smart_eiffel.type_integer_8;
+            integer_16_builtins, smart_eiffel.type_integer_16;
+            integer_32_builtins, smart_eiffel.type_integer_32;
+            integer_64_builtins, smart_eiffel.type_integer_64;
+            real_32_builtins, smart_eiffel.type_real_32;
+            real_64_builtins, smart_eiffel.type_real_64;
+            real_extended_builtins, smart_eiffel.type_real_extended;
+            native_array_character_builtins, smart_eiffel.type_native_array_character;
+            any_builtins, smart_eiffel.type_any;
+         >>}
+      end
+
+   find_builtins_for (type: TYPE): RUNNER_UNTYPED_BUILTINS is
+      local
+         i: INTEGER
+      do
+         Result := builtins_map.fast_reference_at(type)
+         if Result = Void then
+            if type.parents = Void then
+               Result := any_builtins
+            else
+               inspect
+                  type.name.to_string
+               when "ARGUMENTS" then
+                  create {RUNNER_ARGUMENTS_BUILTINS} Result.make
+               else
+                  create {RUNNER_NO_BUILTINS} Result.make
+               end
+
+               if type.parents_count = 0 then
+                  Result.add_parent(any_builtins)
+               else
+                  from
+                     i := type.parents.lower
+                  until
+                     i > type.parents.upper
+                  loop
+                     Result.add_parent(find_builtins_for(type.parents.item(i)))
+                     i := i + 1
+                  end
+               end
+            end
+            builtins_map.add(Result, type)
+         end
+      ensure
+         Result /= Void
+      end
+
+         any_builtins: RUNNER_ANY_BUILTINS is
+      once
+         create Result.make
+      end
+
    boolean_builtins: RUNNER_BOOLEAN_BUILTINS is
       once
          create Result.make
+         Result.add_parent(any_builtins)
+      end
+
+   integer_builtins: RUNNER_NUMERIC_BUILTINS[INTEGER_64] is
+      once
+         create Result.make
+         Result.add_parent(any_builtins)
       end
 
    integer_8_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
       once
          create Result.make
+         Result.add_parent(integer_builtins)
       end
 
    integer_16_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
       once
          create Result.make
+         Result.add_parent(integer_builtins)
       end
 
    integer_32_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
       once
          create Result.make
+         Result.add_parent(integer_builtins)
       end
 
    integer_64_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
       once
          create Result.make
+         Result.add_parent(integer_builtins)
+      end
+
+   real_builtins: RUNNER_NUMERIC_BUILTINS[REAL_EXTENDED] is
+      once
+         create Result.make
+         Result.add_parent(any_builtins)
       end
 
    real_32_builtins: RUNNER_FLOAT_BUILTINS[REAL_EXTENDED] is
       once
          create Result.make
+         Result.add_parent(real_builtins)
       end
 
    real_64_builtins: RUNNER_FLOAT_BUILTINS[REAL_EXTENDED] is
       once
          create Result.make
+         Result.add_parent(real_builtins)
       end
 
    real_extended_builtins: RUNNER_FLOAT_BUILTINS[REAL_EXTENDED] is
       once
          create Result.make
+         Result.add_parent(real_builtins)
       end
 
    native_array_character_builtins: RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
       once
          create Result.make
+         Result.add_parent(any_builtins)
       end
 
 end -- class RUNNER_MEMORY

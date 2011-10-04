@@ -14,14 +14,8 @@ feature {RUNNER_FEATURES}
       local
          empty_watermark: RUNNER_FRAME_WATERMARK
       do
-         debug
-            std_output.put_line(" -> " + rf.name.to_string)
-         end
          empty_watermark.set(0)
          execute_until(empty_watermark)
-         debug
-            std_output.put_line(" <- " + rf.name.to_string)
-         end
       end
 
 feature {RUNNER_FACET}
@@ -77,6 +71,16 @@ feature {RUNNER_FACET}
          end
       end
 
+   print_stack (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      do
+         if caller /= Void then
+            caller.print_stack(stream)
+         end
+         stream.put_line(rf.name.to_string) --| **** TODO: make it better
+      end
+
 feature {RUNNER_FACET}
    force_eval_arguments is
       local
@@ -99,9 +103,6 @@ feature {RUNNER_FACET}
       require
          has_local(a_name)
       do
-         debug
-            std_output.put_line(a_name + " := " + a_value.out)
-         end
          locals.fast_put(expand(a_value), a_name.intern)
       ensure
          local_object(a_name) = a_value

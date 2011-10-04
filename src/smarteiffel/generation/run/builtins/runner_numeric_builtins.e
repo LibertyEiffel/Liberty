@@ -1,7 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class RUNNER_NUMERIC_BUILTINS[E_ -> NUMERIC]
+class RUNNER_NUMERIC_BUILTINS[E_ -> NUMERIC]
    --
    -- a collection of builtins for NUMERIC
    --
@@ -9,33 +9,46 @@ deferred class RUNNER_NUMERIC_BUILTINS[E_ -> NUMERIC]
 inherit
    RUNNER_TYPED_BUILTINS[E_]
 
-feature {RUNNER_FACET}
-   call (processor: RUNNER_PROCESSOR) is
+create {RUNNER_MEMORY}
+   make
+
+feature {RUNNER_UNTYPED_BUILTINS}
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
             processor.current_frame.rf.name.to_string
          when "+" then
             if processor.current_frame.rf.name.is_infix_name then
                builtin_infix_plus(processor)
+               Result := True
             else
                check
                   processor.current_frame.rf.name.is_prefix_name
                end
                builtin_prefix_plus(processor)
+               Result := True
             end
          when "-" then
             if processor.current_frame.rf.name.is_infix_name then
                builtin_infix_minus(processor)
+               Result := True
             else
                check
                   processor.current_frame.rf.name.is_prefix_name
                end
                builtin_prefix_minus(processor)
+               Result := True
             end
          when "*" then
             builtin_infix_times(processor)
+            Result := True
          when "/" then
             builtin_infix_divide(processor)
+            Result := True
+         else
+            check
+               not Result
+            end
          end
       end
 
@@ -56,7 +69,8 @@ feature {}
       end
 
    builtin_infix_divide (processor: RUNNER_PROCESSOR) is
-      deferred
+      do
+         sedb_breakpoint --| **** TODO
       end
 
    builtin_prefix_plus (processor: RUNNER_PROCESSOR) is
@@ -67,6 +81,11 @@ feature {}
    builtin_prefix_minus (processor: RUNNER_PROCESSOR) is
       do
          set_return(processor, -left(processor).item)
+      end
+
+feature {}
+   make is
+      do
       end
 
 end -- class RUNNER_NUMERIC_BUILTINS

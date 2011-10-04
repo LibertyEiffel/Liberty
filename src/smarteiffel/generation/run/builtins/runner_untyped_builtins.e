@@ -1,60 +1,59 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_BOOLEAN_BUILTINS
+deferred class RUNNER_UNTYPED_BUILTINS
    --
-   -- a collection of builtins for BOOLEAN
+   -- a collection of builtins tools
    --
 
-inherit
-   RUNNER_TYPED_BUILTINS[BOOLEAN]
+insert
+   RUNNER_FACET
 
-create {RUNNER_MEMORY}
-   make
-
-feature {RUNNER_UNTYPED_BUILTINS}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+feature {RUNNER_FACET}
+   call (processor: RUNNER_PROCESSOR) is
+      local
+         called: BOOLEAN; i: INTEGER
       do
-         inspect
-            processor.current_frame.rf.name.to_string
-         when "and then" then
-            builtin_infix_and_then(processor)
-            Result := True
-         when "implies" then
-            builtin_infix_implies(processor)
-            Result := True
-         when "or else" then
-            builtin_infix_or_else(processor)
-            Result := True
-         else
-            check
-               not Result
+         called := call_(processor)
+         if parents /= Void then
+            from
+               i := parents.lower
+            until
+               called or else i > parents.upper
+            loop
+               called := parents.item(i).call_(processor)
+               i := i + 1
             end
+         end
+         check
+            called --| **** TODO: error otherwise
          end
       end
 
+feature {RUNNER_UNTYPED_BUILTINS}
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+      deferred
+      end
+
+feature {RUNNER_MEMORY}
+   add_parent (a_parent: RUNNER_UNTYPED_BUILTINS) is
+      require
+         a_parent /= Void
+      do
+         if parents = Void then
+            create parents.with_capacity(1)
+         end
+         if not parents.fast_has(a_parent) then
+            parents.add_last(a_parent)
+         end
+      ensure
+         parents.fast_occurrences(a_parent) = 1
+      end
+
 feature {}
-   builtin_infix_and_then (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item and then right(processor).item))
-      end
+   parents: FAST_ARRAY[RUNNER_UNTYPED_BUILTINS]
 
-   builtin_infix_implies (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item implies right(processor).item))
-      end
-
-   builtin_infix_or_else (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item or else right(processor).item))
-      end
-
-feature {}
-   make is
-      do
-      end
-
-end -- class RUNNER_BOOLEAN_BUILTINS
+end -- class RUNNER_UNTYPED_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

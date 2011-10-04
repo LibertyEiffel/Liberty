@@ -8,6 +8,10 @@ insert
       rename
          default_pointer as default_pointer_
       end
+   STRING_HANDLER
+      rename
+         default_pointer as default_pointer_
+      end
 
 create {RUNNER}
    make
@@ -359,6 +363,34 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
+   new_manifest_string (content: ABSTRACT_STRING; is_once: BOOLEAN): RUNNER_OBJECT is
+      local
+         manifest_string: FIXED_STRING
+      do
+         manifest_string := content.intern
+         if is_once then
+            Result := once_manifest_strings.fast_reference_at(manifest_string)
+            if Result = Void then
+               Result := new_manifest_string_(manifest_string)
+               once_manifest_strings.add(Result, manifest_string)
+            end
+         else
+            Result := new_manifest_string_(manifest_string)
+         end
+      end
+
+feature {}
+   once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
+
+   new_manifest_string_ (manifest_string: FIXED_STRING): RUNNER_STRUCTURED_OBJECT is
+      do
+         Result := new_object(smart_eiffel.type_string)
+         Result.set_field(once "count",         new_integer_32(manifest_string.count))
+         Result.set_field(once "capacity",      new_integer_32(manifest_string.capacity))
+         Result.set_field(once "storage_lower", new_integer_32(0))
+         Result.set_field(once "storage",       new_native_array_character(manifest_string.capacity, manifest_string.storage)) -- should be OK to share the storage
+      end
+
 feature {RUNNER}
    run (rf: RUN_FEATURE) is
       do
@@ -425,6 +457,7 @@ feature {}
          >>}
 
          create plugin_agents.make
+         create once_manifest_strings.make
 
          memory := a_memory
       ensure

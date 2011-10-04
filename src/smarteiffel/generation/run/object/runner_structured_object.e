@@ -19,9 +19,7 @@ create {RUNNER_STRUCTURED_OBJECT}
    copy_expanded
 
 feature {ANY}
-   builtins: RUNNER_ANY_BUILTINS is
-      do
-      end
+   builtins: RUNNER_UNTYPED_BUILTINS
 
    processor: RUNNER_PROCESSOR
    type: TYPE
@@ -92,7 +90,7 @@ feature {}
       require
          model.type.is_expanded
       do
-         make(model.processor, model.type)
+         make(model.processor, model.type, model.builtins)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
                                 fields.add(expand(field_value), field_name)
@@ -100,17 +98,19 @@ feature {}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type) is
+   make (a_processor: like processor; a_type: like type; a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type.live_type /= Void
       do
          processor := a_processor
          type := a_type
+         builtins := a_builtins
          initialize_fields
       ensure
          processor = a_processor
          type = a_type
+         builtins = a_builtins
       end
 
    initialize_fields is

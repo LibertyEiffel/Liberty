@@ -1,10 +1,10 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class RUNNER_ANY_NATIVE_ARRAY_BUILTINS
+deferred class RUNNER_ANY_NATIVE_ARRAY_BUILTINS[E_]
 
 inherit
-   RUNNER_ANY_BUILTINS
+   RUNNER_UNTYPED_NATIVE_ARRAY_BUILTINS
 
 end -- class RUNNER_ANY_NATIVE_ARRAY_BUILTINS
 --

@@ -10,7 +10,7 @@ insert
       end
 
 feature {ANY}
-   builtins: RUNNER_ANY_BUILTINS is
+   builtins: RUNNER_UNTYPED_BUILTINS is
       deferred
       end
 

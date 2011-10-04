@@ -7,29 +7,32 @@ class RUNNER_FLOAT_BUILTINS[E_ -> FLOAT]
    --
 
 inherit
-   RUNNER_NUMERIC_BUILTINS[E_]
-      redefine
-         call
-      end
+   RUNNER_TYPED_BUILTINS[E_]
 
 create {RUNNER_MEMORY}
    make
 
-feature {RUNNER_FACET}
-   call (processor: RUNNER_PROCESSOR) is
+feature {RUNNER_UNTYPED_BUILTINS}
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
             processor.current_frame.rf.name.to_string
          when "<" then
             builtin_infix_lt(processor)
+            Result := True
          when "<=" then
             builtin_infix_le(processor)
+            Result := True
          when ">" then
             builtin_infix_gt(processor)
+            Result := True
          when ">=" then
             builtin_infix_ge(processor)
+            Result := True
          else
-            Precursor(processor)
+            check
+               not Result
+            end
          end
       end
 

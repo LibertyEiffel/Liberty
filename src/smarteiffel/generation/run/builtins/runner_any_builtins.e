@@ -1,17 +1,177 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class RUNNER_ANY_BUILTINS
+class RUNNER_ANY_BUILTINS
    --
-   -- a collection of builtins tools
+   -- builtins for ANY
    --
 
-insert
-   RUNNER_FACET
+inherit
+   RUNNER_UNTYPED_BUILTINS
 
-feature {RUNNER_FACET}
-   call (processor: RUNNER_PROCESSOR) is
-      deferred
+create {RUNNER_MEMORY}
+   make
+
+feature {RUNNER_UNTYPED_BUILTINS}
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+      do
+         inspect
+            processor.current_frame.rf.name.to_string
+         when "generating_type" then
+            builtin_generating_type(processor)
+            Result := True
+         when "generator" then
+            builtin_generator(processor)
+            Result := True
+         when "same_dynamic_type" then
+            builtin_same_dynamic_type(processor)
+            Result := True
+         when "is_equal", "standard_is_equal" then
+            builtin_is_equal(processor)
+            Result := True
+         when "is_deep_equal" then
+            builtin_is_deep_equal(processor)
+            Result := True
+         when "twin", "standard_twin" then
+            builtin_twin(processor)
+            Result := True
+         when "copy", "standard_copy" then
+            builtin_copy(processor)
+            Result := True
+         when "deep_twin" then
+            builtin_deep_twin(processor)
+            Result := True
+         when "trace_switch" then
+            builtin_trace_switch(processor)
+            Result := True
+         when "sedb_breakpoint" then
+            builtin_sedb_breakpoint(processor)
+            Result := True
+         when "die_with_code" then
+            builtin_die_with_code(processor)
+            Result := True
+         when "to_pointer" then
+            builtin_to_pointer(processor)
+            Result := True
+         when "is_basic_expanded_type" then
+            builtin_is_basic_expanded_type(processor)
+            Result := True
+         when "object_size" then
+            builtin_object_size(processor)
+            Result := True
+         when "c_inline_h" then
+            builtin_c_inline_h(processor)
+            Result := True
+         when "c_inline_c" then
+            builtin_c_inline_c(processor)
+            Result := True
+         when "print_run_time_stack" then
+            builtin_print_run_time_stack(processor)
+            Result := True
+         when "to_internals" then
+            builtin_to_internals(processor)
+            Result := True
+         else
+            check
+               not Result
+            end
+         end
+      end
+
+feature {}
+   builtin_generating_type (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_manifest_string(processor.current_frame.target.type.name.to_string, True))
+      end
+
+   builtin_generator (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_manifest_string(processor.current_frame.target.type.class_text.name.to_string, True))
+      end
+
+   builtin_same_dynamic_type (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_boolean(processor.current_frame.target.type = processor.current_frame.arguments.first.type))
+      end
+
+   builtin_is_equal (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_is_deep_equal (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_twin (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_copy (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_deep_twin (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_trace_switch (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_sedb_breakpoint (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_die_with_code (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_to_pointer (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_object_size (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_c_inline_h (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_c_inline_c (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+   builtin_print_run_time_stack (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.print_stack(std_output)
+      end
+
+   builtin_to_internals (processor: RUNNER_PROCESSOR) is
+      do
+         sedb_breakpoint --| **** TODO
+      end
+
+feature {}
+   make is
+      do
       end
 
 end -- class RUNNER_ANY_BUILTINS

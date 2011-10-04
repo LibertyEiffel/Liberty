@@ -7,7 +7,7 @@ deferred class RUNNER_TYPED_BUILTINS[E_]
    --
 
 inherit
-   RUNNER_ANY_BUILTINS
+   RUNNER_UNTYPED_BUILTINS
 
 feature {}
    left (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is

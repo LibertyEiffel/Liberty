@@ -1,13 +1,13 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_BOOLEAN_BUILTINS
+class RUNNER_NO_BUILTINS
    --
-   -- a collection of builtins for BOOLEAN
+   -- a collection of builtins tools
    --
 
 inherit
-   RUNNER_TYPED_BUILTINS[BOOLEAN]
+   RUNNER_UNTYPED_BUILTINS
 
 create {RUNNER_MEMORY}
    make
@@ -15,38 +15,6 @@ create {RUNNER_MEMORY}
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
-         inspect
-            processor.current_frame.rf.name.to_string
-         when "and then" then
-            builtin_infix_and_then(processor)
-            Result := True
-         when "implies" then
-            builtin_infix_implies(processor)
-            Result := True
-         when "or else" then
-            builtin_infix_or_else(processor)
-            Result := True
-         else
-            check
-               not Result
-            end
-         end
-      end
-
-feature {}
-   builtin_infix_and_then (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item and then right(processor).item))
-      end
-
-   builtin_infix_implies (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item implies right(processor).item))
-      end
-
-   builtin_infix_or_else (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item or else right(processor).item))
       end
 
 feature {}
@@ -54,7 +22,7 @@ feature {}
       do
       end
 
-end -- class RUNNER_BOOLEAN_BUILTINS
+end -- class RUNNER_NO_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

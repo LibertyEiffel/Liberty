@@ -7,28 +7,38 @@ class RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_, O_ -> RUNNER_OBJECT]
    --
 
 inherit
-   RUNNER_ANY_NATIVE_ARRAY_BUILTINS
+   RUNNER_UNTYPED_NATIVE_ARRAY_BUILTINS
 
 create {RUNNER_MEMORY}
    make
 
-feature {RUNNER_FACET}
-   call (processor: RUNNER_PROCESSOR) is
+feature {RUNNER_UNTYPED_BUILTINS}
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
             processor.current_frame.rf.name.to_string
          when "element_sizeof" then
             builtin_element_sizeof(processor)
+            Result := True
          when "calloc" then
             builtin_calloc(processor)
+            Result := True
          when "item" then
             builtin_item(processor)
+            Result := True
          when "put" then
             builtin_put(processor)
+            Result := True
          when "slice_copy" then
             builtin_slice_copy(processor)
+            Result := True
          when "from_pointer" then
             builtin_from_pointer(processor)
+            Result := True
+         else
+            check
+               not Result
+            end
          end
       end
 

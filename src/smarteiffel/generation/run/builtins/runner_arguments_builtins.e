@@ -1,13 +1,16 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_INTEGRAL_BUILTINS[E_ -> INTEGRAL]
+class RUNNER_ARGUMENTS_BUILTINS
    --
-   -- a collection of builtins for INTEGRAL
+   -- builtins for ARGUMENTS
    --
 
 inherit
-   RUNNER_TYPED_BUILTINS[E_]
+   RUNNER_UNTYPED_BUILTINS
+
+insert
+   ARGUMENTS
 
 create {RUNNER_MEMORY}
    make
@@ -17,23 +20,11 @@ feature {RUNNER_UNTYPED_BUILTINS}
       do
          inspect
             processor.current_frame.rf.name.to_string
-         when "//" then
-            builtin_infix_int_divide(processor)
+         when "se_argc" then
+            builtin_se_argc(processor)
             Result := True
-         when "\\" then
-            builtin_infix_int_modulo(processor)
-            Result := True
-         when "<" then
-            builtin_infix_lt(processor)
-            Result := True
-         when "<=" then
-            builtin_infix_le(processor)
-            Result := True
-         when ">" then
-            builtin_infix_gt(processor)
-            Result := True
-         when ">=" then
-            builtin_infix_ge(processor)
+         when "se_argv" then
+            builtin_se_argv(processor)
             Result := True
          else
             check
@@ -43,39 +34,17 @@ feature {RUNNER_UNTYPED_BUILTINS}
       end
 
 feature {}
-   builtin_infix_divide (processor: RUNNER_PROCESSOR) is
+   builtin_se_argc (processor: RUNNER_PROCESSOR) is
       do
-         processor.current_frame.set_return(processor.new_real_64(left(processor).item / right(processor).item))
+         processor.current_frame.set_return(processor.new_integer(se_argc))
       end
 
-   builtin_infix_int_divide (processor: RUNNER_PROCESSOR) is
+   builtin_se_argv (processor: RUNNER_PROCESSOR) is
+      local
+         index: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
-         set_return(processor, left(processor).item // right(processor).item)
-      end
-
-   builtin_infix_int_modulo (processor: RUNNER_PROCESSOR) is
-      do
-         set_return(processor, left(processor).item \\ right(processor).item)
-      end
-
-   builtin_infix_lt (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item < right(processor).item))
-      end
-
-   builtin_infix_le (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item <= right(processor).item))
-      end
-
-   builtin_infix_gt (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item > right(processor).item))
-      end
-
-   builtin_infix_ge (processor: RUNNER_PROCESSOR) is
-      do
-         processor.current_frame.set_return(processor.new_boolean(left(processor).item >= right(processor).item))
+         index ::= processor.current_frame.arguments.first
+         processor.current_frame.set_return(processor.new_manifest_string(se_argv(index.item.to_integer_32), True))
       end
 
 feature {}
@@ -83,7 +52,7 @@ feature {}
       do
       end
 
-end -- class RUNNER_INTEGRAL_BUILTINS
+end -- class RUNNER_ARGUMENTS_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
