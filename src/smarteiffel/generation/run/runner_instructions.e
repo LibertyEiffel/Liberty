@@ -112,9 +112,33 @@ feature {DEBUG_COMPOUND}
 
 feature {IFTHENELSE}
    visit_ifthenelse (visited: IFTHENELSE) is
+      local
+         old_flag: like ifthen_flag
+         i: INTEGER
       do
-         sedb_breakpoint
+         old_flag := ifthen_flag
+         ifthen_flag := False
+
+         if visited.elseif_list /= Void then
+            from
+               i := visited.elseif_list.lower
+            until
+               ifthen_flag or else i > visited.elseif_list.upper
+            loop
+               visited.elseif_list.item(i).accept(Current)
+               i := i + 1
+            end
+         end
+         if not ifthen_flag and then visited.else_compound /= Void then
+            visited.else_compound.accept(Current)
+         end
+
+         ifthen_flag := old_flag
       end
+
+feature {}
+   ifthen_flag: BOOLEAN
+         -- turns true as soon as some ifelse branch was called
 
 feature {IFTHEN}
    visit_ifthen (visited: IFTHEN) is
@@ -124,6 +148,7 @@ feature {IFTHEN}
          condition ::= processor.expressions.eval(visited.expression)
          if condition.item then
             processor.current_frame.add_instruction(visited.then_compound)
+            ifthen_flag := True
          end
       end
 
