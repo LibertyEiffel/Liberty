@@ -17,6 +17,19 @@ feature {ANY} -- Maths constants:
 		Result.set(0.0, 1.0) -- set({REAL_32 0.0},{REAL_32 -1.0}) 
 	end 
 
+   zero: COMPLEX_64 is
+	   -- zero
+   do
+	   check
+		   Result.real = 0.0
+		   Result.imaginary = 0.0
+	   end
+	end
+
+   one: COMPLEX_64 is
+      do
+		  Result.set(1.0,0.0)
+	  end
 
 end -- class COMPLEX_CONSTANTS
 --

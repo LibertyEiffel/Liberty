@@ -1,12 +1,22 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class COMPLEX_GENERAL[A_SIZE->NUMERIC]
+deferred class COMPLEX_GENERAL[A_SIZE->FLOAT]
    --
-   -- (This class is here to prepare the new support for COMPLEX: COMPLEX_32, COMPLEX_64, etc.)
+   -- Common ancestor of all complex types: COMPLEX_32, COMPLEX_64, ...
    --
 
-inherit NUMERIC redefine fill_tagged_out_memory end
+inherit 
+	NUMERIC 
+		rename sign as real_sign 
+		redefine out, fill_tagged_out_memory 
+		end
+
+insert 
+	MATH_CONSTANTS -- to get Phi
+		undefine is_equal, out, fill_tagged_out_memory end 
+	EXCEPTIONS
+		undefine is_equal, out, fill_tagged_out_memory end 
 
 feature {ANY}
 	set_i is
@@ -24,6 +34,8 @@ feature {ANY}
 
 	set_polar (a_modulus, a_phase: A_SIZE) is
 		do
+			real := a_modulus * a_phase.cos
+			imaginary := a_modulus * a_phase.sin
 			not_yet_implemented
 		end
 feature 
@@ -54,13 +66,17 @@ feature
 		end
 
 	infix "^" (e: INTEGER): like Current is
-		local idx: INTEGER
+		local ci, ni: INTEGER -- current index and index of the next iteration
 		do
-			from Result:=one; idx:=e
-			until idx=0
+			from Result:=Current; ci:=1; ni:=2 until ni>e
 			loop
-				Result := Result*Current
-				idx:=idx-1
+				Result:=Result*Result
+				ci:=ni; ni:=ni*2
+			end
+			from until ci=e
+			loop
+			 	Result := Result*Current
+			 	ci:=ci+1
 			end
 		end
 
@@ -84,10 +100,24 @@ feature
 			not_yet_implemented
 		end
 
-	sign: INTEGER_8 is
+	real_sign: INTEGER_8 is
 		do
-			not_yet_implemented
+			Result:=real.sign
+		end
+
+	sign: like Current is
+		require not is_zero
+		local coeff: A_SIZE
+		do
 			-- See http://en.wikipedia.org/wiki/Sign_function sign is NOT an INTEGER_8 for a complex but like Current!
+			-- It could be naively implemented with 
+			Result.set_polar(coeff.one,phase)
+			-- but it may be implemented in a better way.
+		end
+
+	is_zero: BOOLEAN is
+		do
+			Result := (real ~= real.zero) and (imaginary ~= real.zero)
 		end
 
 	zero: like Current is
@@ -111,6 +141,11 @@ feature
 			Result := real=other.real and then imaginary=other.imaginary
 		end
 
+	is_near_equal, infix "~=" (other: like Current): BOOLEAN is
+		do
+			Result := (real ~= other.real) and (imaginary ~= other.imaginary)
+		end
+
 	conjugate: like Current is
 		do
 			Result.set(real,-imaginary)
@@ -122,13 +157,27 @@ feature {ANY} -- Cartesian representation
 feature {ANY} -- Polar representation
 	modulus: A_SIZE is
 		do
-			not_yet_implemented -- Result := squared_modulus.sqrt 
+			Result := squared_modulus.sqrt 
 		ensure non_negative: Result.sign /= -1
 		end 
 
 	phase: A_SIZE is
+		require not is_zero
 		do
-			not_yet_implemented
+			not_yet_implemented -- Phi is not converted automaticaaly to A_SIZE
+			-- inspect real.sign
+			-- when  1 then Result := imaginary.atan2(real) -- same as (imaginary/real).atan
+			-- when -1 then
+			-- 	if imaginary.sign = -1 then Result := imaginary.atan2(real) + Phi 
+			-- 	else Result := imaginary.atan2(real) - Phi
+			-- 	end
+			-- else
+			-- 	inspect imaginary.sign
+			-- 	when  1 then Result :=  Phi/2.0
+			-- 	when -1 then Result := -Phi/2.0
+			-- 	when  0 then raise_exception(Precondition)
+			-- 	end
+			-- end
 		end
 
 	squared_modulus: A_SIZE is
@@ -138,17 +187,26 @@ feature {ANY} -- Polar representation
 		ensure non_negative: Result.sign /= -1
 		end
 feature {ANY} -- Object Printing:
+	out: STRING is
+		do
+			Result := "("
+			real.append_in(Result)
+			Result.append(once ", ")
+			imaginary.append_in(Result)
+			Result.append_character(')')
+		end
+
    fill_tagged_out_memory is
       do
-		  tagged_out_memory.append("real:")
+		  tagged_out_memory.append("real, ")
 		  real.fill_tagged_out_memory
-		  tagged_out_memory.append(" imaginary:")
+		  tagged_out_memory.append(" imaginary, ")
 		  imaginary.fill_tagged_out_memory
       end 
 
 end -- class COMPLEX_GENERAL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2011 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
