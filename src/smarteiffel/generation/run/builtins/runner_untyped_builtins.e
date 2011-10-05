@@ -50,8 +50,25 @@ feature {RUNNER_MEMORY}
          parents.fast_occurrences(a_parent) = 1
       end
 
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+      require
+         processor /= Void
+      deferred
+      ensure
+         Result.processor = processor
+         Result.type = type
+         Result.builtins = Current
+      end
+
 feature {}
    parents: FAST_ARRAY[RUNNER_UNTYPED_BUILTINS]
+
+   type: TYPE is
+      deferred
+      end
+
+invariant
+   type /= Void
 
 end -- class RUNNER_UNTYPED_BUILTINS
 --

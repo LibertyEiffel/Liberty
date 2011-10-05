@@ -12,15 +12,28 @@ inherit
 create {RUNNER_MEMORY}
    make
 
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT is
+      do
+         create Result.make(processor, type, Current)
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
       end
 
 feature {}
-   make is
+   make (a_type: like type) is
+      require
+         a_type /= Void
       do
+         type := a_type
+      ensure
+         type = a_type
       end
+
+   type: TYPE
 
 end -- class RUNNER_NO_BUILTINS
 --

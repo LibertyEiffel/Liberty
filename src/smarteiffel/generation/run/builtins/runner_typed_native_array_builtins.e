@@ -12,6 +12,19 @@ inherit
 create {RUNNER_MEMORY}
    make
 
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_ARRAY[E_, O_] is
+      local
+         empty_storage: NATIVE_ARRAY[E_]
+      do
+         Result := with_storage(processor, 0, empty_storage)
+      end
+
+   with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_] is
+      do
+         create Result.make(processor, type, capacity, storage, retriever, setter, Current)
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
@@ -78,7 +91,7 @@ feature {}
       do
          caller ::= processor.current_frame.target
          item ::= processor.current_frame.arguments.first
-         index ::= processor.current_frame.arguments.item(processor.current_frame.arguments.lower + 1)
+         index ::= processor.current_frame.arguments.last
          caller.put(item, index.item)
       end
 
@@ -93,9 +106,26 @@ feature {}
       end
 
 feature {}
-   make is
+   make (a_type: like type; a_retriever: like retriever; a_setter: like setter) is
+      require
+         a_type /= Void
       do
+         type := a_type
+         retriever := a_retriever
+         setter := a_setter
+      ensure
+         type = a_type
+         retriever = a_retriever
+         setter = a_setter
       end
+
+   type: TYPE
+   retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
+   setter: FUNCTION[TUPLE[O_], E_]
+
+invariant
+   retriever /= Void
+   setter /= Void
 
 end -- class RUNNER_TYPED_NATIVE_ARRAY_BUILTINS
 --

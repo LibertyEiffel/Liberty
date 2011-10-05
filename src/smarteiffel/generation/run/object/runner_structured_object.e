@@ -12,7 +12,7 @@ insert
          is_equal, out_in_tagged_out_memory
       end
 
-create {RUNNER_MEMORY}
+create {RUNNER_UNTYPED_BUILTINS}
    make
 
 create {RUNNER_STRUCTURED_OBJECT}

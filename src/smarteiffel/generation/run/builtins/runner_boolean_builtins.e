@@ -12,6 +12,14 @@ inherit
 create {RUNNER_MEMORY}
    make
 
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+      do
+         check
+            False
+         end
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
@@ -52,6 +60,11 @@ feature {}
 feature {}
    make is
       do
+      end
+
+   type: TYPE is
+      do
+         Result := smart_eiffel.type_boolean
       end
 
 end -- class RUNNER_BOOLEAN_BUILTINS

@@ -12,6 +12,14 @@ inherit
 create {RUNNER_MEMORY}
    make
 
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+      do
+         check
+            False
+         end
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
@@ -63,9 +71,16 @@ feature {}
       end
 
 feature {}
-   make is
+   make (a_type: like type) is
+      require
+         a_type /= Void
       do
+         type := a_type
+      ensure
+         type = a_type
       end
+
+   type: TYPE
 
 end -- class RUNNER_FLOAT_BUILTINS
 --

@@ -45,7 +45,7 @@ feature {} -- fly-weights
    reals_extended: HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
 
 feature {RUNNER_FACET}
-   new_object (type: TYPE): RUNNER_STRUCTURED_OBJECT is
+   new_object (type: TYPE): RUNNER_OBJECT is
       require
          alive: type.live_type /= Void
       do
@@ -384,7 +384,7 @@ feature {}
 
    new_manifest_string_ (manifest_string: FIXED_STRING): RUNNER_STRUCTURED_OBJECT is
       do
-         Result := new_object(smart_eiffel.type_string)
+         Result ::= new_object(smart_eiffel.type_string)
          Result.set_field(once "count",         new_integer_32(manifest_string.count))
          Result.set_field(once "capacity",      new_integer_32(manifest_string.capacity))
          Result.set_field(once "storage_lower", new_integer_32(0))
