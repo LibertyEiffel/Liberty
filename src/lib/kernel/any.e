@@ -273,6 +273,10 @@ feature {ANY} -- Object Printing:
       end
 
    lazy_out, prefix "&": ABSTRACT_STRING is
+	   -- A newly allocate "lazy" representation of current object. Lazy means
+	   -- that actual representation is made only on demand when the string is
+	   -- actually used; the actual content of the representation is made using
+	   -- running `out' query as an agent.
       do
          create {LAZY_STRING} Result.make(agent out)
       end
