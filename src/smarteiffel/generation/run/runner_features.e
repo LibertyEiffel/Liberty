@@ -232,8 +232,11 @@ feature {NATIVE_JAVA}
 
 feature {NATIVE_PLUG_IN}
    visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+      local
+         plugin: RUNNER_PLUGIN
       do
-         sedb_breakpoint
+         plugin ::= visited.plugin
+         plugin.call(processor)
       end
 
 feature {}

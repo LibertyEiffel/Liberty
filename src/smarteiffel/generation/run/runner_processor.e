@@ -365,6 +365,23 @@ feature {RUNNER}
          features.run(rf)
       end
 
+feature {RUNNER_PLUGIN}
+   plugin_agent (a_name: FIXED_STRING): FOREIGN_AGENT is
+      do
+         Result := plugin_agents.fast_reference_at(a_name)
+      end
+
+   set_plugin_agent (a_agent: FOREIGN_AGENT; a_name: FIXED_STRING) is
+      require
+         a_agent /= Void
+         a_name /= Void
+         plugin_agent(a_name) = Void
+      do
+         plugin_agents.add(a_agent, a_name)
+      ensure
+         plugin_agent(a_name) = a_agent
+      end
+
 feature {}
    make (a_memory: like memory) is
       require
@@ -407,12 +424,15 @@ feature {}
             agent default_real_extended,          smart_eiffel.type_real_extended;
          >>}
 
+         create plugin_agents.make
+
          memory := a_memory
       ensure
          memory = a_memory
       end
 
    defaults: HASHED_DICTIONARY[FUNCTION[TUPLE, RUNNER_OBJECT], TYPE]
+   plugin_agents: HASHED_DICTIONARY[FOREIGN_AGENT, FIXED_STRING]
 
 invariant
    features /= Void
@@ -436,6 +456,7 @@ invariant
    memory /= Void
 
    defaults /= Void
+   plugin_agents /= Void
 
 end -- class RUNNER_PROCESSOR
 --

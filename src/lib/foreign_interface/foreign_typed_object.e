@@ -95,7 +95,7 @@ feature {ANY} -- Type querying
             Result := types.schar
          when "POINTER" then
             Result := types.pointer
-         when "FIXED_STRING", "STRING", "ROPE" then
+         when "FIXED_STRING", "STRING", "NATIVE_ARRAY[CHARACTER]" then
             Result := types.c_string
          else
             not_yet_implemented

@@ -40,6 +40,10 @@ feature {RUNNER_FACET}
          end
       end
 
+   as_foreign_object: FOREIGN_OBJECT is
+      deferred
+      end
+
 invariant
    processor /= Void
    type /= Void

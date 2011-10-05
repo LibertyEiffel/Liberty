@@ -274,6 +274,7 @@ function generate_wrappers()
     i=1
     for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
         cd ${f%/Makefile}
+        rm -f *.xml *.e plugin/c/plugin.[ch]
         t=${f%/library/externals/Makefile}
         t=${t#$LIBERTY_HOME/src/wrappers/}
         progress 30 $i $n $t

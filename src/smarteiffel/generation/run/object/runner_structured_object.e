@@ -82,6 +82,11 @@ feature {RUNNER_FACET}
          end
       end
 
+   as_foreign_object: FOREIGN_OBJECT is
+      do
+         not_yet_implemented
+      end
+
 feature {}
    copy_expanded (model: like Current) is
       require

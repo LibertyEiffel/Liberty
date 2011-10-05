@@ -65,6 +65,11 @@ feature {RUNNER_FACET}
          Result := Current
       end
 
+   as_foreign_object: FOREIGN_OBJECT is
+      do
+         create {FOREIGN_TYPED_OBJECT[NATIVE_ARRAY[E_]]} Result.with(storage)
+      end
+
 feature {}
    make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
          a_retriever: like retriever; a_setter: like setter;
