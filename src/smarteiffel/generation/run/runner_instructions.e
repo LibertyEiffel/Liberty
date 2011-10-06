@@ -115,25 +115,33 @@ feature {IFTHENELSE}
       local
          old_flag: like ifthen_flag
          i: INTEGER
+         condition: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
-         old_flag := ifthen_flag
-         ifthen_flag := False
-
-         if visited.elseif_list /= Void then
-            from
-               i := visited.elseif_list.lower
-            until
-               ifthen_flag or else i > visited.elseif_list.upper
-            loop
-               visited.elseif_list.item(i).accept(Current)
-               i := i + 1
+         condition ::= processor.expressions.eval(visited.expression)
+         if condition.item then
+            if visited.then_compound /= Void then
+               visited.then_compound.accept(Current)
             end
-         end
-         if not ifthen_flag and then visited.else_compound /= Void then
-            visited.else_compound.accept(Current)
-         end
+         else
+            old_flag := ifthen_flag
+            ifthen_flag := False
 
-         ifthen_flag := old_flag
+            if visited.elseif_list /= Void then
+               from
+                  i := visited.elseif_list.lower
+               until
+                  ifthen_flag or else i > visited.elseif_list.upper
+               loop
+                  visited.elseif_list.item(i).accept(Current)
+                  i := i + 1
+               end
+            end
+            if not ifthen_flag and then visited.else_compound /= Void then
+               visited.else_compound.accept(Current)
+            end
+
+            ifthen_flag := old_flag
+         end
       end
 
 feature {}
