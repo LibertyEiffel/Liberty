@@ -9,6 +9,9 @@ class RUN
 inherit
    COMMAND_LINE_TOOLS
 
+insert
+   RUNNER_GLOBALS
+
 creation {}
    make
 
