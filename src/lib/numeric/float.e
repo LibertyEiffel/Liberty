@@ -11,27 +11,23 @@ inherit
    COMPARABLE
 
 feature {ANY}
-   infix "+" (e: like Current): like Current is
-         -- Raise Current to `e'-th power (see also `pow').
+   infix "+" (another: like Current): like Current is
       deferred
       end
 
-   infix "-" (e: like Current): like Current is
-         -- Raise Current to `e'-th power (see also `pow').
+   infix "-" (another: like Current): like Current is
       deferred
       end
 
-   infix "*" (e: like Current): like Current is
-         -- Raise Current to `e'-th power (see also `pow').
+   infix "*" (another: like Current): like Current is
       deferred
       end
 
-   infix "/" (e: like Current): like Current is
-         -- Raise Current to `e'-th power (see also `pow').
-      deferred
+   infix "/" (another: like Current): like Current is
+	  deferred
       end
 
-   infix "^" (e: INTEGER): like Current is
+   infix "^" (another: INTEGER): like Current is
          -- Raise Current to `e'-th power (see also `pow').
       deferred
       end
