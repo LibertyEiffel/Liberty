@@ -12,7 +12,7 @@ inherit
       -- not really a "printer", but it consumes code semantics all the same; and that's what
       -- SMART_EIFFEL.`compile' expects
 
-create {ANY}
+create {RUNNER_GLOBALS}
    make
 
 feature {SMART_EIFFEL}

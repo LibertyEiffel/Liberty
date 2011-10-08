@@ -1,23 +1,18 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class RUNNER_FACET
---
--- role to access parts of the RUNNER framework
---
+expanded class RUNNER_GLOBALS
 
 insert
-   RUNNER_GLOBALS
+   GLOBALS
 
-feature {} -- some utils
-   expand (object: RUNNER_OBJECT): RUNNER_OBJECT is
-      do
-         if object /= Void then
-            Result := object.copy_if_expanded
-         end
+feature {}
+   frozen runner: RUNNER is
+      once
+         create Result.make
       end
 
-end -- class RUNNER_FACET
+end -- class RUNNER_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
