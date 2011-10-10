@@ -421,8 +421,16 @@ feature {NO_DISPATCH}
 
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+      local
+         type: TYPE
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.current_frame.internal_local_object(visited.tag)
+         if return = Void then
+            type := visited.resolve_in(processor.current_frame.type_of_current)
+            if type.is_expanded then
+               return := processor.default_expanded(type)
+            end
+         end
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
@@ -437,8 +445,13 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
          id: INTEGER_64
       do
          visited.dynamic_dispatch_temporary1.accept(Current)
-         id := return.type.id
-         return := processor.new_integer(id)
+         if return /= Void then
+            id := return.type.id
+            return := processor.new_integer_32(id)
+         else
+            sedb_breakpoint
+            return := processor.new_integer_32(0)
+         end
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}

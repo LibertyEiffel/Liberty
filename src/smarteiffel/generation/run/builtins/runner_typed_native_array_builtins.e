@@ -20,6 +20,7 @@ feature {RUNNER_MEMORY}
          Result := with_storage(processor, 0, empty_storage)
       end
 
+feature {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
    with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_] is
       do
          create Result.make(processor, type, capacity, storage, retriever, setter, Current)
@@ -119,9 +120,11 @@ feature {}
          setter = a_setter
       end
 
-   type: TYPE
    retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
    setter: FUNCTION[TUPLE[O_], E_]
+
+feature {RUNNER_FACET}
+   type: TYPE
 
 invariant
    retriever /= Void

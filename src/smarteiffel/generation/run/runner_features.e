@@ -108,7 +108,6 @@ feature {}
          create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result
          a_rf.accept(Current)
-         Result.execute
          current_frame := Result.caller
 
          check
@@ -142,6 +141,7 @@ feature {RUN_FEATURE_3}
          if visited.routine_body /= Void then
             processor.instructions.execute(visited.routine_body)
          end
+         current_frame.execute
          check
             current_frame.return = Void
          end
@@ -154,6 +154,7 @@ feature {RUN_FEATURE_4}
          if visited.routine_body /= Void then
             processor.instructions.execute(visited.routine_body)
          end
+         current_frame.execute
       end
 
 feature {RUN_FEATURE_5}
@@ -164,6 +165,7 @@ feature {RUN_FEATURE_5}
             if visited.routine_body /= Void then
                processor.instructions.execute(visited.routine_body)
             end
+            current_frame.execute
             check
                current_frame.return = Void
             end
@@ -181,6 +183,7 @@ feature {RUN_FEATURE_6}
             if visited.routine_body /= Void then
                processor.instructions.execute(visited.routine_body)
             end
+            current_frame.execute
             once_run_features.add(expand(current_frame.return), visited)
          end
       end
@@ -192,12 +195,14 @@ feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       do
          visited.base_feature.native.accept(Current)
+         current_frame.execute
       end
 
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       do
          visited.base_feature.native.accept(Current)
+         current_frame.execute
       end
 
 feature {RUN_FEATURE_9}

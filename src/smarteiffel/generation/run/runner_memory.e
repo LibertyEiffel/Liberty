@@ -164,7 +164,9 @@ feature {}
                                                                                                                           agent set_integer_64)
                else
                   if type.name.to_string.has_prefix(once "NATIVE_ARRAY[") then
-                     create {RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[RUNNER_STRUCTURED_OBJECT, RUNNER_STRUCTURED_OBJECT]} Result.make(type, agent trivial_retrieve, agent trivial_set)
+                     create {RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[RUNNER_STRUCTURED_OBJECT, RUNNER_STRUCTURED_OBJECT]} Result.make(type,
+                                                                                                                                 agent trivial_retrieve,
+                                                                                                                                 agent trivial_set)
                   else
                      create {RUNNER_NO_BUILTINS} Result.make(type)
                   end
@@ -267,6 +269,7 @@ feature {}
 
    trivial_set (o: RUNNER_STRUCTURED_OBJECT): RUNNER_STRUCTURED_OBJECT is
       do
+         c_inline_c("/* KEEP ME */") --| **** TODO: SmartEiffel bug -- otherwise the agent mysteriously disappears
          Result := o
       end
 

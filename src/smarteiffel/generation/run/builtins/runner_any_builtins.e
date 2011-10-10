@@ -187,6 +187,7 @@ feature {}
          type = a_type
       end
 
+feature {RUNNER_FACET}
    type: TYPE
 
 end -- class RUNNER_ANY_BUILTINS

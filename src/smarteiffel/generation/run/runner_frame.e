@@ -45,12 +45,23 @@ feature {RUNNER_FACET}
 
    target: RUNNER_OBJECT
 
+   depth: INTEGER is
+      do
+         if caller /= Void then
+            Result := caller.depth + 1
+         else
+            Result := 1
+         end
+      end
+
    arguments: TRAVERSABLE[RUNNER_OBJECT] is
       do
-         Result := arguments_memory
-         if Result = Void then
+         if arguments_set then
+            Result := arguments_memory
+         else
             Result := arguments_factory.item([])
             arguments_memory := Result
+            arguments_set := True
          end
       end
 
@@ -92,11 +103,21 @@ feature {RUNNER_FACET}
    set_return (a_return: like return) is
       require
          type_of_result /= Void
-         a_return.type.can_be_assigned_to(type_of_result)
+         a_return /= Void implies a_return.type.can_be_assigned_to(type_of_result)
+         type_of_result.is_expanded implies a_return /= Void
       do
+         debug
+            std_output.put_string("(" + depth.out + ") " + rf.name.to_string + ": Result := ")
+            if a_return = Void then
+               std_output.put_line("Void")
+               sedb_breakpoint
+            else
+               std_output.put_line(a_return.out)
+            end
+         end
          return := expand(a_return)
       ensure
-         return.is_equal(a_return)
+         return = a_return or else (type_of_result.is_expanded and then return.is_equal(a_return))
       end
 
    set_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
@@ -118,6 +139,28 @@ feature {RUNNER_FACET}
    has_local (a_name: ABSTRACT_STRING): BOOLEAN is
       do
          Result := locals /= Void and then locals.fast_has(a_name.intern)
+      end
+
+   set_internal_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+      do
+         if internal_locals = Void then
+            create internal_locals.make
+         end
+         internal_locals.fast_put(expand(a_value), a_name.intern)
+      ensure
+         internal_local_object(a_name) = a_value
+      end
+
+   internal_local_object (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
+      do
+         if internal_locals /= Void then
+            Result := expand(internal_locals.fast_reference_at(a_name.intern))
+         end
+      end
+
+   has_internal_local (a_name: ABSTRACT_STRING): BOOLEAN is
+      do
+         Result := internal_locals /= Void and then internal_locals.fast_has(a_name.intern)
       end
 
 feature {RUNNER_FACET}
@@ -169,7 +212,7 @@ feature {}
          initialize_locals
          create instructions_list.make(1, 0)
          if type_of_result /= Void and then type_of_result.is_expanded then
-            set_return(processor.default_expanded(type_of_result))
+            return := processor.default_expanded(type_of_result)
          end
       ensure
          processor = a_processor
@@ -205,11 +248,12 @@ feature {}
          end
       end
 
-   locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
+   locals, internal_locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
    return_ref: REFERENCE[RUNNER_OBJECT]
 
    arguments_factory: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]
    arguments_memory: TRAVERSABLE[RUNNER_OBJECT]
+   arguments_set: BOOLEAN
 
    instructions_list: RING_ARRAY[INSTRUCTION]
 

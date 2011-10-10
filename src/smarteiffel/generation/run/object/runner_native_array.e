@@ -6,7 +6,7 @@ class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
 inherit
    RUNNER_OBJECT
 
-create {RUNNER_UNTYPED_NATIVE_ARRAY_BUILTINS, RUNNER_NATIVE_ARRAY}
+create {RUNNER_UNTYPED_NATIVE_ARRAY_BUILTINS}
    make
 
 feature {ANY}
@@ -76,9 +76,11 @@ feature {}
          a_builtins: like builtins) is
       require
          a_processor /= Void
+         a_type /= Void
          a_capacity >= 0
          a_retriever /= Void
          a_setter /= Void
+         a_builtins.type = a_type
       do
          processor := a_processor
          type := a_type
@@ -113,13 +115,15 @@ feature {RUNNER_FACET}
          if nb_elements > 0 then
             storage_ := storage_.calloc(nb_elements.to_integer_32)
          end
-         create Result.make(processor, type, nb_elements.to_integer_32, storage_, retriever, setter, builtins)
+         Result := builtins.with_storage(processor, nb_elements.to_integer_32, storage_)
       end
 
 invariant
    capacity >= 0
+   type /= Void
    retriever /= Void
    setter /= Void
+   builtins.type = type
 
 end -- class RUNNER_NATIVE_ARRAY
 --

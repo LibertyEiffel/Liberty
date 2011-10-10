@@ -62,6 +62,7 @@ feature {}
       do
       end
 
+feature {RUNNER_FACET}
    type: TYPE is
       do
          Result := smart_eiffel.type_boolean

@@ -7,6 +7,7 @@ inherit
    LOCAL_NAME2_VISITOR
    WRITABLE_ATTRIBUTE_NAME_VISITOR
    RESULT_VISITOR
+   INTERNAL_LOCAL2_VISITOR
 
 insert
    RUNNER_FACET
@@ -59,6 +60,12 @@ feature {RESULT}
       do
          processor.current_frame.set_return(value)
          entity_type := processor.current_frame.type_of_result
+      end
+
+feature {INTERNAL_LOCAL2}
+   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+      do
+         processor.current_frame.set_internal_local_object(visited.tag, value)
       end
 
 feature {}

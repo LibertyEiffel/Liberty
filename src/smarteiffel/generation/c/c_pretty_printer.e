@@ -1383,7 +1383,9 @@ feature {}
             check
                need_switch
             end
-            pending_c_function_body.append(once "default:%Nerror0(%"Internal error in agent launcher.%",NULL);%N")
+            pending_c_function_body.append(once "default:%Nerror0(%"Internal error in agent launcher (")
+            pending_c_function_body.append(agent_args.agent_type.name.to_string)
+            pending_c_function_body.append(once ").%",NULL);%N")
          end
          if need_switch then
             pending_c_function_body.append(once "}%N")

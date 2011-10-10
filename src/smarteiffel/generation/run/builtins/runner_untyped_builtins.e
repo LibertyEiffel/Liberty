@@ -30,6 +30,10 @@ feature {RUNNER_FACET}
          end
       end
 
+   type: TYPE is
+      deferred
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       deferred
@@ -62,10 +66,6 @@ feature {RUNNER_MEMORY}
 
 feature {}
    parents: FAST_ARRAY[RUNNER_UNTYPED_BUILTINS]
-
-   type: TYPE is
-      deferred
-      end
 
 invariant
    type /= Void
