@@ -65,7 +65,8 @@ feature {RESULT}
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
-         processor.current_frame.set_internal_local_object(visited.tag, value)
+         processor.current_frame.set_internal_local_object(visited, value)
+         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
       end
 
 feature {}

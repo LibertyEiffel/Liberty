@@ -424,7 +424,10 @@ feature {INTERNAL_LOCAL2}
       local
          type: TYPE
       do
-         return := processor.current_frame.internal_local_object(visited.tag)
+         if not processor.current_frame.has_internal_local(visited) then
+            sedb_breakpoint
+         end
+         return := processor.current_frame.internal_local_object(visited)
          if return = Void then
             type := visited.resolve_in(processor.current_frame.type_of_current)
             if type.is_expanded then

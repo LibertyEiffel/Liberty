@@ -133,6 +133,22 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 feature {INTERNAL_LOCAL2_VISITOR}
    tag: STRING
 
+feature {ANY}
+   hash_tag: FIXED_STRING is
+      local
+         buffer: STRING
+      do
+         Result := hash_tag_memory
+         if Result = Void then
+            buffer := once ""
+            buffer.copy(tag)
+            buffer.extend('@')
+            to_pointer.append_in(buffer)
+            Result := buffer.intern
+            hash_tag_memory := Result
+         end
+      end
+
 feature {}
    make (sp: like start_position; oe: like original_expression; t: like tag; cf: like collect_flag) is
       require
@@ -149,6 +165,8 @@ feature {}
          tag = t
          collect_flag = cf
       end
+
+   hash_tag_memory: FIXED_STRING
 
 invariant
    not start_position.is_unknown

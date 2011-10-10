@@ -141,26 +141,29 @@ feature {RUNNER_FACET}
          Result := locals /= Void and then locals.fast_has(a_name.intern)
       end
 
-   set_internal_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+   set_internal_local_object (a_internal: INTERNAL_LOCAL2; a_value: RUNNER_OBJECT) is
       do
          if internal_locals = Void then
             create internal_locals.make
          end
-         internal_locals.fast_put(expand(a_value), a_name.intern)
+         debug
+            std_output.put_line("internal: " + a_internal.hash_tag + " := " + a_value.out)
+         end
+         internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
-         internal_local_object(a_name) = a_value
+         internal_local_object(a_internal) = a_value
       end
 
-   internal_local_object (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
+   internal_local_object (a_internal: INTERNAL_LOCAL2): RUNNER_OBJECT is
       do
          if internal_locals /= Void then
-            Result := expand(internal_locals.fast_reference_at(a_name.intern))
+            Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
          end
       end
 
-   has_internal_local (a_name: ABSTRACT_STRING): BOOLEAN is
+   has_internal_local (a_internal: INTERNAL_LOCAL2): BOOLEAN is
       do
-         Result := internal_locals /= Void and then internal_locals.fast_has(a_name.intern)
+         Result := internal_locals /= Void and then internal_locals.fast_has(a_internal.hash_tag)
       end
 
 feature {RUNNER_FACET}
