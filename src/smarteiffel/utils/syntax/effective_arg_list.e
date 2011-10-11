@@ -20,7 +20,7 @@ insert
 creation {ANY}
    make_1, make_2, make_n
 
-feature {EFFECTIVE_ARG_LIST}
+feature {EFFECTIVE_ARG_LIST, EFFECTIVE_ARG_LIST_VISITOR}
    first_one: EXPRESSION
 
    remainder: FAST_ARRAY[EXPRESSION]

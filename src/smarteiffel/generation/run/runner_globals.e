@@ -12,6 +12,11 @@ feature {}
          create Result.make
       end
 
+   frozen displayer: RUNNER_DISPLAYER is
+      once
+         create Result.make(std_output)
+      end
+
 end -- class RUNNER_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

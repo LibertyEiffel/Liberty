@@ -103,7 +103,7 @@ feature {}
 
    execute (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): like current_frame is
       require
-         a_target.type = a_rf.type_of_current
+         --| **** TODO a_target.type = a_rf.type_of_current
       do
          create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result

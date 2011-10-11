@@ -3,13 +3,13 @@
 --
 deferred class INSPECT_STATEMENT
    --
-   -- The parent of MANIFEST_STRING_INSPECT_STATEMENT and OTHER_STRING_INSPECT_STATEMENT.
+   -- The parent of MANIFEST_STRING_INSPECT_STATEMENT and OTHER_INSPECT_STATEMENT.
    -- Thanks to the syntactical information, the `eiffel_parser' is able to create
    -- MANIFEST_STRING_INSPECT_STATEMENT objects as soon as some manifest STRING is used
    -- inside "when" clauses. Actually, as soon as there is one manifest STRING somewhere,
    -- all "when" clauses must use only manifest STRINGs!
    -- Thus, except for the weird case of an "inspect" statement without "when" clause at all,
-   -- all other created object, OTHER_STRING_INSPECT_STATEMENT objects, inspects INTEGER
+   -- all other created object, OTHER_INSPECT_STATEMENT objects, inspects INTEGER
    -- or CHARACTER expressions.
    --
    -- Note: all values used inside when clauses are always static.

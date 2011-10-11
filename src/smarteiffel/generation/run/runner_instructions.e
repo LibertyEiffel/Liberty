@@ -163,13 +163,13 @@ feature {IFTHEN}
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
    visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
       do
-         sedb_breakpoint
+         inspector.call(visited)
       end
 
 feature {OTHER_INSPECT_STATEMENT}
    visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
       do
-         sedb_breakpoint
+         inspector.call(visited)
       end
 
 feature {LOOP_INSTRUCTION}
@@ -272,17 +272,21 @@ feature {}
       do
          processor := a_processor
          create assignment.make(a_processor)
+         create inspector.make(a_processor)
       ensure
          processor = a_processor
       end
 
    processor: RUNNER_PROCESSOR
    assignment: RUNNER_ASSIGNMENT
+   inspector: RUNNER_INSPECTOR
 
 invariant
    processor /= Void
    assignment /= Void
    assignment.processor = processor
+   inspector /= Void
+   inspector.processor = processor
 
 end -- class RUNNER_INSTRUCTIONS
 --

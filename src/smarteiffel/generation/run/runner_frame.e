@@ -34,6 +34,19 @@ feature {RUNNER_FACET}
          loop
             inst := instructions_list.last
             instructions_list.remove_last
+            debug
+               std_output.put_new_line
+               std_output.put_line("(" + depth.out + ") " + rf.name.to_string + ":")
+               instructions_list.do_all(agent (i: INSTRUCTION) is
+                                        do
+                                           std_output.put_string(once "     + ")
+                                           i.accept(displayer)
+                                           std_output.put_new_line
+                                        end)
+               std_output.put_string(once "  **** ")
+               inst.accept(displayer)
+               std_output.put_new_line
+            end
             processor.instructions.execute(inst)
          end
       end
@@ -275,7 +288,7 @@ invariant
 
    instructions_list.for_all(instruction_is_not_void)
 
-   rf.type_of_current = target.type
+   --| **** TODO rf.type_of_current = target.type
    processor = target.processor
 
 end -- class RUNNER_FRAME

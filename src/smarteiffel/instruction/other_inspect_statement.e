@@ -5,7 +5,7 @@ class OTHER_INSPECT_STATEMENT
    --
    -- See INSPECT_STATEMENT for explanations.
    --
-   
+
 inherit
    INSPECT_STATEMENT
 
@@ -23,7 +23,7 @@ feature {ANY}
       do
          Result := dynamic_dispatch_temporary1 /= Void
       end
-   
+
 feature {PROCEDURE_CALL, FUNCTION_CALL}
    set_dynamic_dispatch_flag (ddt1: like dynamic_dispatch_temporary1) is
       require
