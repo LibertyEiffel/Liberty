@@ -65,13 +65,18 @@ feature {ASSIGNMENT_TEST}
 feature {BUILT_IN_EQ_NEQ}
    visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
       local
-         left, right: RUNNER_OBJECT
+         left, right: RUNNER_OBJECT; eq: BOOLEAN
       do
          visited.left_side.accept(Current)
          left := return
          visited.right_side.accept(Current)
          right := return
-         return := processor.new_boolean(left.eq(right) = visited.eq_flag)
+         if left = Void then
+            eq := right = Void
+         elseif right /= Void then
+            eq := left.eq(right)
+         end
+         return := processor.new_boolean(eq = visited.eq_flag)
       end
 
 feature {CLOSED_OPERAND}
