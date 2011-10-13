@@ -269,7 +269,7 @@ feature {REQUIRE_ASSERTION}
 feature {RETRY_INSTRUCTION}
    visit_retry_instruction (visited: RETRY_INSTRUCTION) is
       do
-         sedb_breakpoint
+         processor.current_frame.set_retry
       end
 
 feature {WHEN_CLAUSE}

@@ -29,6 +29,20 @@ feature {RUNNER_FACET}
          Result := features.current_frame
       end
 
+   exception: RUNNER_EXCEPTION
+
+   set_exception (a_message: ABSTRACT_STRING) is
+      do
+         create exception.make(a_message.intern, Current)
+      ensure
+         exception.message = a_message.intern
+      end
+
+   clear_exception is
+      do
+         exception := Void
+      end
+
 feature {} -- fly-weights
    booleans:       FAST_ARRAY[RUNNER_NATIVE_EXPANDED[BOOLEAN]]
    characters:     HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[CHARACTER],     CHARACTER]
@@ -395,6 +409,17 @@ feature {RUNNER}
    run (rf: RUN_FEATURE) is
       do
          features.run(rf)
+         if exception /= Void then
+            std_error.put_string(once "**** Exception: ")
+            std_error.put_line(exception.message)
+
+            exception.print_stack
+
+            std_error.put_string(once "**** Exception: ")
+            std_error.put_line(exception.message)
+
+            die_with_code(1)
+         end
       end
 
 feature {RUNNER_PLUGIN}

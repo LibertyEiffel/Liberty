@@ -18,6 +18,8 @@ feature {RUNNER_FEATURES}
          execute_until(empty_watermark)
       end
 
+   finished: BOOLEAN
+
 feature {RUNNER_FACET}
    watermark: RUNNER_FRAME_WATERMARK is
       do
@@ -29,8 +31,9 @@ feature {RUNNER_FACET}
          inst: INSTRUCTION
       do
          from
+            finished := True
          until
-            instructions_list.count <= a_watermark.item
+            instructions_list.count <= a_watermark.item or else processor.exception /= Void
          loop
             inst := instructions_list.last
             instructions_list.remove_last
@@ -49,6 +52,13 @@ feature {RUNNER_FACET}
             --|end
             processor.instructions.execute(inst)
          end
+      end
+
+   set_retry is
+      do
+         processor.clear_exception
+         finished := False
+         instructions_list.clear_count
       end
 
 feature {RUNNER_FACET}

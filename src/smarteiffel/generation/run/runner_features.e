@@ -134,14 +134,29 @@ feature {RUN_FEATURE_2}
          current_frame.set_return(target.field(visited.name.to_string))
       end
 
+feature {}
+   execute_routine (a_routine: RUN_FEATURE) is
+      do
+         if a_routine.routine_body /= Void then
+            from
+            until
+               current_frame.finished
+            loop
+               processor.instructions.execute(a_routine.routine_body)
+               current_frame.execute
+               if processor.exception /= Void and then a_routine.rescue_compound /= Void then
+                  processor.instructions.execute(a_routine.rescue_compound)
+                  current_frame.execute
+               end
+            end
+         end
+      end
+
 feature {RUN_FEATURE_3}
    visit_run_feature_3 (visited: RUN_FEATURE_3) is
       do
          current_frame.force_eval_arguments
-         if visited.routine_body /= Void then
-            processor.instructions.execute(visited.routine_body)
-         end
-         current_frame.execute
+         execute_routine(visited)
          check
             current_frame.return = Void
          end
@@ -151,10 +166,7 @@ feature {RUN_FEATURE_4}
    visit_run_feature_4 (visited: RUN_FEATURE_4) is
       do
          current_frame.force_eval_arguments
-         if visited.routine_body /= Void then
-            processor.instructions.execute(visited.routine_body)
-         end
-         current_frame.execute
+         execute_routine(visited)
       end
 
 feature {RUN_FEATURE_5}
@@ -162,10 +174,7 @@ feature {RUN_FEATURE_5}
       do
          current_frame.force_eval_arguments
          if not once_run_features.fast_has(visited) then
-            if visited.routine_body /= Void then
-               processor.instructions.execute(visited.routine_body)
-            end
-            current_frame.execute
+            execute_routine(visited)
             check
                current_frame.return = Void
             end
@@ -180,10 +189,7 @@ feature {RUN_FEATURE_6}
          if once_run_features.fast_has(visited) then
             current_frame.set_return(once_run_features.fast_at(visited))
          else
-            if visited.routine_body /= Void then
-               processor.instructions.execute(visited.routine_body)
-            end
-            current_frame.execute
+            execute_routine(visited)
             once_run_features.add(expand(current_frame.return), visited)
          end
       end
