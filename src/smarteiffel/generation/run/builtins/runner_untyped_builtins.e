@@ -25,8 +25,8 @@ feature {RUNNER_FACET}
                i := i + 1
             end
          end
-         check
-            called --| **** TODO: error otherwise
+         if not called then
+            processor.set_exception(once "Unknown builtin")
          end
       end
 
