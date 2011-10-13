@@ -25,10 +25,10 @@ feature {RUNNER_UNTYPED_BUILTINS}
       do
          inspect
             processor.current_frame.rf.name.to_string
-         when "//" then
+         when "//", "#//" then
             builtin_infix_int_divide(processor)
             Result := True
-         when "\\" then
+         when "\\", "#\\" then
             builtin_infix_int_modulo(processor)
             Result := True
          when "<" then

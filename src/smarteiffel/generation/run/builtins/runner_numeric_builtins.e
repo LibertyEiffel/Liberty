@@ -25,7 +25,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
       do
          inspect
             processor.current_frame.rf.name.to_string
-         when "+" then
+         when "+", "#+" then
             if processor.current_frame.rf.name.is_infix_name then
                builtin_infix_plus(processor)
                Result := True
@@ -36,7 +36,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
                builtin_prefix_plus(processor)
                Result := True
             end
-         when "-" then
+         when "-", "#-" then
             if processor.current_frame.rf.name.is_infix_name then
                builtin_infix_minus(processor)
                Result := True
@@ -47,10 +47,10 @@ feature {RUNNER_UNTYPED_BUILTINS}
                builtin_prefix_minus(processor)
                Result := True
             end
-         when "*" then
+         when "*", "#*" then
             builtin_infix_times(processor)
             Result := True
-         when "/" then
+         when "/", "#/" then
             builtin_infix_divide(processor)
             Result := True
          else
