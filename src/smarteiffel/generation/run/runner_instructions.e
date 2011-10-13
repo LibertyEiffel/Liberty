@@ -84,6 +84,9 @@ feature {COMMENT}
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
       do
+         check
+            visited.list /= Void
+         end
          processor.current_frame.add_instructions(visited.list)
       end
 
@@ -106,7 +109,9 @@ feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
          if visited.must_be_generated(processor.current_frame.type_of_current) then
-            processor.current_frame.add_instruction(visited.compound)
+            if visited.compound /= Void then
+               processor.current_frame.add_instruction(visited.compound)
+            end
          end
       end
 
@@ -155,7 +160,9 @@ feature {IFTHEN}
       do
          condition ::= processor.expressions.eval(visited.expression)
          if condition.item then
-            processor.current_frame.add_instruction(visited.then_compound)
+            if visited.then_compound /= Void then
+               processor.current_frame.add_instruction(visited.then_compound)
+            end
             ifthen_flag := True
          end
       end
@@ -176,7 +183,9 @@ feature {LOOP_INSTRUCTION}
    visit_loop_instruction (visited: LOOP_INSTRUCTION) is
       do
          processor.current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
-         processor.current_frame.add_instruction(visited.initialize)
+         if visited.initialize /= Void then
+            processor.current_frame.add_instruction(visited.initialize)
+         end
       end
 
 feature {RUNNER_LOOP}
@@ -187,7 +196,9 @@ feature {RUNNER_LOOP}
          stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
          if not stop.item then
             processor.current_frame.add_instruction(visited)
-            processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
+            if visited.loop_instruction.loop_body /= Void then
+               processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
+            end
          end
       end
 
