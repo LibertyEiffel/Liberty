@@ -33,7 +33,7 @@ feature {RUNNER_PROCESSOR}
 
    new_character (processor: RUNNER_PROCESSOR; character: CHARACTER): RUNNER_NATIVE_EXPANDED[CHARACTER] is
       do
-         create Result.make(processor, smart_eiffel.type_character, character, Void) --| **** TODO
+         create Result.make(processor, smart_eiffel.type_character, character, character_builtins)
       end
 
    new_native_array_character (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]): RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
@@ -117,6 +117,7 @@ feature {}
          Result := {HASHED_DICTIONARY[RUNNER_UNTYPED_BUILTINS, TYPE]
          <<
             boolean_builtins, smart_eiffel.type_boolean;
+            character_builtins, smart_eiffel.type_character;
             integer_8_builtins, smart_eiffel.type_integer_8;
             integer_16_builtins, smart_eiffel.type_integer_16;
             integer_32_builtins, smart_eiffel.type_integer_32;
@@ -200,6 +201,12 @@ feature {}
       once
          create Result.make
          Result.add_parent(any_builtins(smart_eiffel.type_boolean))
+      end
+
+   character_builtins: RUNNER_CHARACTER_BUILTINS is
+      once
+         create Result.make
+         Result.add_parent(any_builtins(smart_eiffel.type_character))
       end
 
    integer_builtins (type: TYPE): RUNNER_NUMERIC_BUILTINS[INTEGER_64] is
