@@ -24,13 +24,15 @@ feature {RUNNER_FACET}
          extractor: FUNCTION[TUPLE[RUNNER_PROCESSOR, FOREIGN_OBJECT], RUNNER_OBJECT]
       do
          function := foreign_agent(processor)
-         parameters.set(eval_parameters(processor))
-         if processor.current_frame.type_of_result = Void then
-            function.call(parameters)
-         else
-            return := function.item(parameters)
-            extractor := foreign_types_map.fast_at(processor.current_frame.type_of_result).second
-            processor.current_frame.set_return(extractor.item([processor, return]))
+         if function /= Void then
+            parameters.set(eval_parameters(processor))
+            if processor.current_frame.type_of_result = Void then
+               function.call(parameters)
+            else
+               return := function.item(parameters)
+               extractor := foreign_types_map.fast_at(processor.current_frame.type_of_result).second
+               processor.current_frame.set_return(extractor.item([processor, return]))
+            end
          end
       end
 
@@ -73,25 +75,25 @@ feature {RUNNER_FACET}
                dll_name := dll_name_.intern
                dll := loader.library(dll_name_)
             end
-            check
-               dll /= Void --| **** TODO: error message
+            if dll = Void then
+               processor.set_exception(once "Unknown plugin")
+            else
+               arg_types := foreign_types(processor, processor.current_frame.type_of_current, processor.current_frame.rf.arguments)
+               res_type := foreign_type(processor, processor.current_frame.type_of_result)
+
+               Result := dll.function(agent_name, arg_types, res_type)
+               if Result = Void then
+                  processor.set_exception(once "Unknown plugin function")
+               else
+                  processor.set_plugin_agent(Result, agent_name)
+               end
             end
-
-            arg_types := foreign_types(processor.current_frame.type_of_current, processor.current_frame.rf.arguments)
-            res_type := foreign_type(processor.current_frame.type_of_result)
-
-            Result := dll.function(agent_name, arg_types, res_type)
-            check
-               Result /= Void --| **** TODO: error message
-            end
-
-            processor.set_plugin_agent(Result, agent_name)
          end
       ensure
-         Result /= Void
+         Result = Void implies processor.exception /= Void
       end
 
-   foreign_type (a_type: TYPE): FOREIGN_TYPE is
+   foreign_type (processor: RUNNER_PROCESSOR; a_type: TYPE): FOREIGN_TYPE is
       local
          types: FOREIGN_TYPES
       do
@@ -99,16 +101,14 @@ feature {RUNNER_FACET}
             if foreign_types_map.fast_has(a_type) then
                Result := foreign_types_map.fast_at(a_type).first
             else
-               check
-                  False --| **** TODO: error message
-               end
+               processor.set_exception(once "Cannot map {" | a_type.name.to_string | once "}to foreign type")
             end
          else
             Result := types.nothing
          end
       end
 
-   foreign_types (current_type: TYPE; types: FORMAL_ARG_LIST): COLLECTION[FOREIGN_TYPE] is
+   foreign_types (processor: RUNNER_PROCESSOR; current_type: TYPE; types: FORMAL_ARG_LIST): COLLECTION[FOREIGN_TYPE] is
       local
          i: INTEGER
       do
@@ -121,7 +121,7 @@ feature {RUNNER_FACET}
             until
                i > types.count
             loop
-               Result.add_last(foreign_type(types.name(i).resolve_in(current_type)))
+               Result.add_last(foreign_type(processor, types.name(i).resolve_in(current_type)))
                i := i + 1
             end
          end
