@@ -215,25 +215,25 @@ feature {}
          Result.add_parent(any_builtins(type))
       end
 
-   integer_8_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
+   integer_8_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
          create Result.make(smart_eiffel.type_integer_8)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_8))
       end
 
-   integer_16_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
+   integer_16_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
          create Result.make(smart_eiffel.type_integer_16)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_16))
       end
 
-   integer_32_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
+   integer_32_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
          create Result.make(smart_eiffel.type_integer_32)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_32))
       end
 
-   integer_64_builtins: RUNNER_INTEGRAL_BUILTINS[INTEGER_64] is
+   integer_64_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
          create Result.make(smart_eiffel.type_integer_64)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_64))

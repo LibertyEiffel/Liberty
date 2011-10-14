@@ -1,13 +1,13 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_INTEGRAL_BUILTINS[E_ -> INTEGRAL]
+class RUNNER_INTEGRAL_BUILTINS
    --
    -- a collection of builtins for INTEGRAL
    --
 
 inherit
-   RUNNER_TYPED_BUILTINS[E_]
+   RUNNER_TYPED_BUILTINS[INTEGER_64]
 
 create {RUNNER_MEMORY}
    make
@@ -42,6 +42,30 @@ feature {RUNNER_UNTYPED_BUILTINS}
             Result := True
          when ">=" then
             builtin_infix_ge(processor)
+            Result := True
+         when "to_integer_8" then
+            builtin_to_integer_8(processor)
+            Result := True
+         when "to_integer_16" then
+            builtin_to_integer_16(processor)
+            Result := True
+         when "to_integer_32" then
+            builtin_to_integer_32(processor)
+            Result := True
+         when "to_integer_64" then
+            builtin_to_integer_64(processor)
+            Result := True
+         when "to_natural_8" then
+            builtin_to_natural_8(processor)
+            Result := True
+         when "to_natural_16" then
+            builtin_to_natural_16(processor)
+            Result := True
+         when "to_natural_32" then
+            builtin_to_natural_32(processor)
+            Result := True
+         when "to_natural_64" then
+            builtin_to_natural_64(processor)
             Result := True
          else
             check
@@ -84,6 +108,95 @@ feature {}
    builtin_infix_ge (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item >= right(processor).item))
+      end
+
+   builtin_to_integer_8 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_integer_8 then
+            processor.current_frame.set_return(processor.new_integer_8(i))
+         else
+            processor.set_exception(i.out + " does not fit into INTEGER_8")
+         end
+      end
+
+   builtin_to_integer_16 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_integer_16 then
+            processor.current_frame.set_return(processor.new_integer_16(i))
+         else
+            processor.set_exception(i.out + " does not fit into INTEGER_16")
+         end
+      end
+
+   builtin_to_integer_32 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_integer_32 then
+            processor.current_frame.set_return(processor.new_integer_32(i))
+         else
+            processor.set_exception(i.out + " does not fit into INTEGER_32")
+         end
+      end
+
+   builtin_to_integer_64 (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_integer_64(left(processor).item))
+      end
+
+   builtin_to_natural_8 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_natural_8 then
+            processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
+         else
+            processor.set_exception(i.out + " does not fit into NATURAL_8")
+         end
+      end
+
+   builtin_to_natural_16 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_natural_16 then
+            processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
+         else
+            processor.set_exception(i.out + " does not fit into NATURAL_16")
+         end
+      end
+
+   builtin_to_natural_32 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i.fit_natural_32 then
+            processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
+         else
+            processor.set_exception(i.out + " does not fit into NATURAL_16")
+         end
+      end
+
+   builtin_to_natural_64 (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         if i >= 0 then
+            processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
+         else
+            processor.set_exception(i.out + " does not fit into NATURAL_64")
+         end
       end
 
 feature {}
