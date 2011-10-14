@@ -15,12 +15,15 @@ feature {RUNNER_FEATURES}
          empty_watermark: RUNNER_FRAME_WATERMARK
       do
          empty_watermark.set(0)
+         position := processor.current_frame.rf.start_position
          execute_until(empty_watermark)
       end
 
    finished: BOOLEAN
 
 feature {RUNNER_FACET}
+   position: POSITION
+
    watermark: RUNNER_FRAME_WATERMARK is
       do
          Result.set(instructions_list.count)
@@ -50,6 +53,7 @@ feature {RUNNER_FACET}
             --|   inst.accept(displayer)
             --|   std_output.put_new_line
             --|end
+            position := inst.start_position
             processor.instructions.execute(inst)
          end
       end
@@ -108,11 +112,25 @@ feature {RUNNER_FACET}
    print_stack (stream: OUTPUT_STREAM) is
       require
          stream.is_connected
+      local
+         buffer: STRING
       do
          if caller /= Void then
             caller.print_stack(stream)
          end
-         stream.put_line(rf.name.to_string) --| **** TODO: make it better
+         buffer := once ""
+         buffer.copy(rf.name.to_string)
+         from
+            buffer.add_last(' ')
+         until
+            buffer.count > 40
+         loop
+            buffer.add_last(' ')
+         end
+         buffer.add_last('-')
+         buffer.add_last(' ')
+         position.append_in(buffer)
+         stream.put_line(buffer)
       end
 
 feature {RUNNER_FACET}
