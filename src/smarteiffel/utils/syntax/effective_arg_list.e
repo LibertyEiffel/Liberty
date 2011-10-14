@@ -10,12 +10,12 @@ inherit
    VISITABLE
       undefine out_in_tagged_out_memory
       end
+   TRAVERSABLE[EXPRESSION]
 
 insert
    GLOBALS
       undefine out_in_tagged_out_memory
       end
-   TRAVERSABLE[EXPRESSION]
 
 creation {ANY}
    make_1, make_2, make_n
@@ -495,7 +495,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-feature {}
+feature {ANY}
    new_iterator: ITERATOR[EXPRESSION] is
       do
          check
