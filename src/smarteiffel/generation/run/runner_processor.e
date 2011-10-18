@@ -33,7 +33,7 @@ feature {RUNNER_FACET}
 
    set_exception (a_message: ABSTRACT_STRING) is
       do
-         create exception.make(a_message.intern, Current)
+         create exception.make(a_message.intern, Current, exception)
       ensure
          exception.message = a_message.intern
       end
@@ -409,17 +409,36 @@ feature {RUNNER}
    run (rf: RUN_FEATURE) is
       do
          features.run(rf)
+         check_exception
+      end
+
+feature {}
+   check_exception is
+      do
          if exception /= Void then
-            std_error.put_string(once "**** Exception: ")
-            std_error.put_line(exception.message)
-
-            exception.print_stack
-
-            std_error.put_string(once "**** Exception: ")
-            std_error.put_line(exception.message)
-
+            print_exception(exception)
             die_with_code(1)
          end
+      ensure
+         no_exception_or_dead: old exception = Void
+      end
+
+   print_exception (a_exception: RUNNER_EXCEPTION) is
+      require
+         a_exception /= Void
+      do
+         if a_exception.parent /= Void then
+            print_exception(a_exception.parent)
+            std_error.put_string(once "%N----------------------------------------%N%N")
+         end
+
+         std_error.put_string(once "**** Exception: ")
+         std_error.put_line(a_exception.message)
+
+         a_exception.print_stack
+
+         std_error.put_string(once "**** Exception: ")
+         std_error.put_line(a_exception.message)
       end
 
 feature {RUNNER_PLUGIN}

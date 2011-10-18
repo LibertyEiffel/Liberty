@@ -12,6 +12,7 @@ create {RUNNER_PROCESSOR}
 feature {RUNNER_FACET}
    message: FIXED_STRING
    frame: RUNNER_FRAME
+   parent: RUNNER_EXCEPTION
 
    processor: RUNNER_PROCESSOR is
       do
@@ -24,17 +25,19 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_message: like message; a_processor: RUNNER_PROCESSOR) is
+   make (a_message: like message; a_processor: RUNNER_PROCESSOR; a_parent: like parent) is
       require
          a_message /= Void
          a_processor /= Void
       do
          message := a_message
          frame := a_processor.current_frame
+         parent := a_parent
       ensure
          message = a_message
          frame = a_processor.current_frame
          processor = a_processor
+         parent = a_parent
       end
 
 invariant
