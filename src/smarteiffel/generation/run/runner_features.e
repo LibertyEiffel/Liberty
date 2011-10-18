@@ -58,6 +58,47 @@ feature {RUNNER_FACET}
          end
       end
 
+   manifest_new (a_manifest: MANIFEST_GENERIC): RUNNER_OBJECT is
+      require
+         a_manifest /= Void
+      local
+         return: RUNNER_OBJECT; feature_make, feature_put: RUN_FEATURE; i, step: INTEGER
+      do
+         Result := processor.new_object(a_manifest.created_type)
+         if a_manifest.manifest_make_feature_stamp /= Void then
+            feature_make := a_manifest.manifest_make_feature_stamp.run_feature_for(a_manifest.created_type)
+            if feature_make = Void then
+               processor.set_exception(once "Unknown manifest_make feature")
+            else
+               return := execute(Result, agent indexable_arguments(a_manifest.optional_arguments, current_frame), feature_make).return
+            end
+         end
+         check
+            return = Void
+         end
+         if a_manifest.manifest_put_feature_stamp /= Void then
+            feature_put := a_manifest.manifest_put_feature_stamp.run_feature_for(a_manifest.created_type)
+            if feature_put = Void then
+               processor.set_exception(once "Unknown manifest_put feature")
+            else
+               step := feature_put.arguments.count
+               if a_manifest.item_list /= Void then
+                  from
+                     i := a_manifest.item_list.lower
+                  until
+                     i > a_manifest.item_list.upper
+                  loop
+                     return := execute(Result, agent indexable_arguments_slice(a_manifest.item_list, i, step, current_frame), feature_put).return
+                     check
+                        return = Void
+                     end
+                     i := i + step
+                  end
+               end
+            end
+         end
+      end
+
 feature {RUNNER_PROCESSOR}
    run (rf: RUN_FEATURE) is
       local
@@ -74,26 +115,49 @@ feature {RUNNER_PROCESSOR}
 feature {}
    arguments (a_call: FEATURE_CALL; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
          -- evaluates the arguments of the call in the given frame
+      do
+         Result := indexable_arguments(a_call.arguments, a_frame)
+      end
+
+   indexable_arguments (a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+         -- evaluates the arguments in the given frame
+      do
+         if a_arguments /= Void then
+            Result := indexable_arguments_slice(a_arguments, a_arguments.lower, a_arguments.count, a_frame)
+         end
+      end
+
+   indexable_arguments_slice (a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+         -- evaluates one slice of arguments in the given frame
+      require
+         a_arguments /= Void
+         start.in_range(a_arguments.lower, a_arguments.upper - count + 1)
+         count.in_range(1, a_arguments.count)
+         ;(start - a_arguments.lower) \\ count = 0
       local
          i: INTEGER
          old_frame: like current_frame
       do
-         if a_call.arg_count > 0 then
-            old_frame := current_frame
-            current_frame := a_frame
-
-            create Result.with_capacity(a_call.arg_count)
-            from
-               i := 1
-            until
-               i > a_call.arg_count
-            loop
-               Result.add_last(expand(processor.expressions.eval(a_call.arguments.expression(i))))
-               i := i + 1
-            end
-
-            current_frame := old_frame
+         check
+            integrity: a_frame = current_frame.caller
          end
+
+         old_frame := current_frame
+         current_frame := a_frame
+
+         create Result.make(count)
+         from
+            i := 0
+         until
+            i = count
+         loop
+            Result.put(expand(processor.expressions.eval(a_arguments.item(i + start))), i)
+            i := i + 1
+         end
+
+         current_frame := old_frame
+      ensure
+         Result.count = count
       end
 
    idem_arguments (a_arguments: like arguments): like arguments is

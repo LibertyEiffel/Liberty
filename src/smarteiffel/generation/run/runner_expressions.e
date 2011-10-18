@@ -379,7 +379,7 @@ feature {MANIFEST_STRING}
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.features.manifest_new(visited)
       end
 
 feature {MANIFEST_TUPLE}
