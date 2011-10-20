@@ -116,26 +116,26 @@ static int sedb_ensure_directory(char* path) {
     if (errno == ENOENT) {
       n = mkdir(path, 0700);
       if (n == -1) {
-	if (errno == ENOENT) {
-	  p = c = path;
-	  while (*c != '\0') {
-	    if (*c == '/') {
-	      p = c;
-	    }
-	    c++;
-	  }
-	  if (p == path) {
-	    return 0;
-	  }
-	  *p = '\0';
-	  if (sedb_ensure_directory(path)) {
-	    *p = '/';
-	    if (sedb_ensure_directory(path)) {
-	      return 1;
-	    }
-	  }
-	}
-	return 0;
+        if (errno == ENOENT) {
+          p = c = path;
+          while (*c != '\0') {
+            if (*c == '/') {
+              p = c;
+            }
+            c++;
+          }
+          if (p == path) {
+            return 0;
+          }
+          *p = '\0';
+          if (sedb_ensure_directory(path)) {
+            *p = '/';
+            if (sedb_ensure_directory(path)) {
+              return 1;
+            }
+          }
+        }
+        return 0;
       }
       return 1;
     }
@@ -286,8 +286,8 @@ static int sedb_vprintf(FILE*f, char* format, va_list args) {
       r = write(fd, s+i, 1);
       if (r != -1) break;
       if (errno != EAGAIN) {
-	perror("write");
-	exit(1);
+        perror("write");
+        exit(1);
       }
       FD_SET(fd, &wait);
       select(fd+1, NULL, &wait, NULL, NULL);
@@ -572,7 +572,7 @@ static void sedb_on_line_help(char* line) {
     sedb_printf(out,
             "MISCELLANEOUS\n"
             " G        : run the garbage collector now\n"
-	    " g        : show garbage collector information\n"
+            " g        : show garbage collector information\n"
             " T        : switch to the \"trace.se\" file mode\n"
             " Enter    : repeat the previous debugger command\n"
             "\n");
@@ -735,6 +735,9 @@ static void sedb_on_line_more_help(void) {
               "The default option is the compact display; in that case, the current stack\n"
               "frame is marked by a star. The expanded stack display shows the stack as\n"
               "displayed when an exception is raised.\n"
+              "\n"
+              "Note that if there is a rescue stack, those frames *cannot* be reached\n"
+              "by 'u' and 'd'.\n"
               "\n");
     }
   }
@@ -787,7 +790,7 @@ static void sedb_show_point(se_dump_stack*ds, int l, int c, int f) {
 
   sedb_printf(out,"---- Stack-frame: %d ---- inside ",se_stack_size(ds));
   fflush(out);
-  if (!se_print_one_frame_in(out,ds)) {
+  if (!se_print_one_frame_in(out,ds,NULL,0)) {
     fflush(out);
     return ;
   }
@@ -821,9 +824,9 @@ static void sedb_show_point(se_dump_stack*ds, int l, int c, int f) {
     }
     else {
       if (cc == '\t')
-	sedb_printf(out,"   ");
+        sedb_printf(out,"   ");
       else
-	sedb_printf(out,"%c",cc);
+        sedb_printf(out,"%c",cc);
     }
   }
   sedb_printf(out,"\n>%d++\t",line);
@@ -835,9 +838,9 @@ static void sedb_show_point(se_dump_stack*ds, int l, int c, int f) {
     }
     else {
       if (cc == '\t')
-	sedb_printf(out,"   ");
+        sedb_printf(out,"   ");
       else
-	sedb_printf(out,"%c",cc);
+        sedb_printf(out,"%c",cc);
     }
   }
   after = l + 3;
@@ -854,9 +857,9 @@ static void sedb_show_point(se_dump_stack*ds, int l, int c, int f) {
     }
     else {
       if (cc == '\t')
-	sedb_printf(out,"   ");
+        sedb_printf(out,"   ");
       else
-	sedb_printf(out,"%c",cc);
+        sedb_printf(out,"%c",cc);
     }
   }
   sedb_printf(out,"\n");
@@ -1061,7 +1064,7 @@ static int sedb_string_match(char* indication, char* frame) {
 }
 
 static int sedb_breakpoint_match(se_dump_stack*ds, int l, int f,
-				 int breakpointNumber, se_breakpoint* bp) {
+                                 int breakpointNumber, se_breakpoint* bp) {
   /* Does this `bp' match the current point. */
   int StackSize;
   int stack_automatic = 0;
@@ -1131,84 +1134,6 @@ static void sedb_force_exit(int exit_arg) {
   exit(exit_arg);
 }
 
-static char* sedb_basename(char* path) {
-  char* result = path;
-  int again = 1;
-  while (*result) result++;
-  while (again) {
-    result--;
-    if (result == path) {
-      again = 0;
-    }
-    else {
-      switch(*result) {
-      case '\\':
-      case '/':
-      case ':':
-      case ']':
-        result++;
-        again = 0;
-        break;
-      default:
-        break;
-      }
-    }
-  }
-  while (*result==' ') result++;
-  return result;
-}
-
-static void sedb_compact_view_of_the_stack(se_dump_stack* top, se_dump_stack* cur) {
-  se_dump_stack* ds = NULL;
-  int frame_count = 1;
-  FILE* out = sedb_output();
-
-  ds = top;
-  if (ds == NULL) {
-    sedb_printf(out,"Empty stack.\n");
-    return ;
-  }
-  else {
-    while (ds->caller != NULL) {
-      ds = ds->caller;
-      frame_count++;
-    }
-  }
-  sedb_printf(out,"===== %d frames in current stack:\n",frame_count);
-  while (ds != NULL) {
-    se_position position = ds->p;
-    se_frame_descriptor* fd = ds->fd;
-
-    int li = se_position2line(position);
-    int fi = se_position2path_id(position);
-
-    if (p[fi] == NULL) {
-      sedb_printf(out,"%c ", (cur==ds?'*':' '));
-    } else {
-      sedb_printf(out,"%c [%s:%d]\t", (cur==ds?'*':' '), sedb_basename(p[fi]), li);
-    }
-
-    if (fd == NULL) {
-      sedb_printf(out,"External call (may be a -cecil call).\n");
-    }
-    else {
-      sedb_printf(out,"%s\n",fd->name);
-    }
-    /* Next frame : */
-    if (ds == top) {
-      ds = NULL;
-    }
-    else {
-      se_dump_stack* ds2;
-      ds2 = top;
-      while (ds2->caller != ds) {
-        ds2 = ds2->caller;
-      }
-      ds = ds2;
-    }
-  }
-}
-
 /* ---------------------------------------------------------------------- */
 /* sedb interface */
 
@@ -1219,7 +1144,7 @@ void sedb(se_dump_stack*ds, se_position position, char info_code) {
        'N' at Instruction level (the n command)
        'S' at expression level (the s command)
        'X' just before the eXit of the enclosing function
-       'K' from the sedb_break C function 
+       'K' from the sedb_break C function
   */
   ds->p = position; /* Update the stack information. */
   if (se_general_trace_switch) { /* The GENERAL.trace_switch is set: */
@@ -1237,19 +1162,19 @@ void sedb(se_dump_stack*ds, se_position position, char info_code) {
     case SEDB_FINISH_CMD:
       _sedb_running_status(ds,position);
       if ((ds == sedb_previous_ds) && (info_code == 'X')) {
-	sedb_show_point(ds, se_position2line(position), se_position2column(position), se_position2path_id(position));
-	strcpy(sedb_last_command,"f");
-	sedb_status = SEDB_WAITING_KBD;
-	_sedb_waiting_kbd(ds, position);
+        sedb_show_point(ds, se_position2line(position), se_position2column(position), se_position2path_id(position));
+        strcpy(sedb_last_command,"f");
+        sedb_status = SEDB_WAITING_KBD;
+        _sedb_waiting_kbd(ds, position);
       }
       break;
     case SEDB_NEXT_CMD:
       _sedb_running_status(ds,position);
       if ((ds == sedb_previous_ds) && ((info_code == 'N') || (info_code == 'X'))) {
-	sedb_show_point(ds,se_position2line(position) ,se_position2column(position), se_position2path_id(position));
-	strcpy(sedb_last_command,"n");
-	sedb_status = SEDB_WAITING_KBD;
-	_sedb_waiting_kbd(ds, position);
+        sedb_show_point(ds,se_position2line(position) ,se_position2column(position), se_position2path_id(position));
+        strcpy(sedb_last_command,"n");
+        sedb_status = SEDB_WAITING_KBD;
+        _sedb_waiting_kbd(ds, position);
       }
       break;
     case SEDB_START_STATUS:
@@ -1449,12 +1374,9 @@ static void _sedb_waiting_kbd(se_dump_stack*ds, se_position position) {
         /* -------------------- View the stack trace */
       case 'S':
         strcpy(sedb_last_command,line);
-        if (sedb_yes_or_no("Compact view of the stack",1)) {
-          sedb_compact_view_of_the_stack(ds, plus_minus);
-        }
-        else {
-          se_print_run_time_stack_in(out);
-        }
+        se_print_run_time_stack_in(out, ds, plus_minus,
+                                   sedb_yes_or_no("Compact view of the stack", 1));
+        fflush(out);
         read_again = 1;
         break;
 
@@ -1549,10 +1471,10 @@ static void _sedb_waiting_kbd(se_dump_stack*ds, se_position position) {
 
         /* -------------------- Show GC info */
       case 'g':
-	strcpy(sedb_last_command,line);
-	sedb_show_gc_info();
-	read_again = 1;
-	break;
+        strcpy(sedb_last_command,line);
+        sedb_show_gc_info();
+        read_again = 1;
+        break;
 
         /* -------------------- Continue to the next breakpoint */
       case 'c':
@@ -1766,7 +1688,7 @@ static void* sedb_find_name(se_dump_stack* ds, char* name, int* type, int* expan
           i++;
         }
         i++;
-	/* se_introspecT[id] cannot be NULL because Current's type is always known */
+        /* se_introspecT[id] cannot be NULL because Current's type is always known */
         result = se_introspecT[id](ds->current, name, type, expanded);
         if (*type == -1) {
           result = NULL;
@@ -1806,7 +1728,7 @@ static void* sedb_find_name(se_dump_stack* ds, char* name, int* type, int* expan
         if (result == NULL) {
           sedb_message("There is a bug in SmartEiffel (sorry): no result available in that frame\n");
           found = 0;
-	  *type = -1;
+          *type = -1;
         }
         else if (*(T0**)result != NULL) {
           *type = (*(T0**)result)->id;
@@ -1847,25 +1769,25 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again) {
         sedb_message("Adding missing leading dot.\n");
       }
       else {
-	while ((expr[0] == '.')&&(expr[1] == '.')) { /* go "up" */
-	  if (len == 0) {
-	    sedb_message("Too many 'up'. Extra ones ignored.\n");
-	    while (expr[0] == '.') expr++;
-	    break;
-	  } 
-	  while ((len>0) && (sedb_eval_expression[--len] != '.'));
+        while ((expr[0] == '.')&&(expr[1] == '.')) { /* go "up" */
+          if (len == 0) {
+            sedb_message("Too many 'up'. Extra ones ignored.\n");
+            while (expr[0] == '.') expr++;
+            break;
+          }
+          while ((len>0) && (sedb_eval_expression[--len] != '.'));
           sedb_eval_expression[len] = '\0';
-	  expr += 2;
-	}
-	if (expr[0] == '.') expr++;
+          expr += 2;
+        }
+        if (expr[0] == '.') expr++;
       }
       if ((expr[0] != '\0') && (len > 0)){
-	sedb_eval_expression[len++] = '.';
-	sedb_eval_expression[len] = '\0';
+        sedb_eval_expression[len++] = '.';
+        sedb_eval_expression[len] = '\0';
       }
       if (len + strlen(expr) + 1 > SEDB_BUFMAX) {
-	sedb_message("The line is too long; it will be truncated.\n");
-	expr[SEDB_BUFMAX - len - 1] = '\0';
+        sedb_message("The line is too long; it will be truncated.\n");
+        expr[SEDB_BUFMAX - len - 1] = '\0';
       }
       sprintf(evalexp, "%s%s", sedb_eval_expression, expr);
     }
@@ -1915,26 +1837,26 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again) {
       }
 
       if (*(T0**)obj == NULL) {
-	sedb_message("%s.%s is Void.\n", keep, attrib);
-	obj = NULL;
+        sedb_message("%s.%s is Void.\n", keep, attrib);
+        obj = NULL;
       } else if (se_introspecT[id] == NULL) {
-	sedb_message("No known introspection function for id %d (%s.%s)\n", id, keep, attrib);
-	obj = NULL;
-	id = -1;
+        sedb_message("No known introspection function for id %d (%s.%s)\n", id, keep, attrib);
+        obj = NULL;
+        id = -1;
       } else {
-	obj = se_introspecT[id](obj, attrib, &id, &exp);
-	if (!exp && se_introspecT[id] == NULL) {
-	  /* find the correct id (the found id is a class not at run time; find the correct heir id) */
-	  if (obj == NULL) {
-	    sedb_message("There is a bug in SmartEiffel (sorry): no object available in %s.%s\n", keep, attrib);
-	    id = -1;
-	  }
-	  else if (*(T0**)obj != NULL) {
-	    id = (*(T0**)obj)->id;
-	  } else {
-	    id = -1;
-	  }
-	}
+        obj = se_introspecT[id](obj, attrib, &id, &exp);
+        if (!exp && se_introspecT[id] == NULL) {
+          /* find the correct id (the found id is a class not at run time; find the correct heir id) */
+          if (obj == NULL) {
+            sedb_message("There is a bug in SmartEiffel (sorry): no object available in %s.%s\n", keep, attrib);
+            id = -1;
+          }
+          else if (*(T0**)obj != NULL) {
+            id = (*(T0**)obj)->id;
+          } else {
+            id = -1;
+          }
+        }
       }
     }
   }

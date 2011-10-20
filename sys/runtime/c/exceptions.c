@@ -312,16 +312,14 @@ static void _free_exception_frames(se_dump_stack** p_ds) {
   se_dump_stack* ds = *p_ds;
   se_dump_stack* next;
   se_dump_stack* exc;
-  if (ds != NULL) {
-    while (ds != se_dst) {
-      next = ds->caller;
-      exc = ds->exception_origin;
-      if (exc != NULL) {
-        _free_exception_frames(&exc);
-      }
-      se_delete_dump_stack(ds);
-      ds=next;
+  while (ds != NULL) {
+    next = ds->caller;
+    exc = ds->exception_origin;
+    if (exc != NULL) {
+      _free_exception_frames(&exc);
     }
+    se_delete_dump_stack(ds);
+    ds=next;
   }
   *p_ds=NULL;
 }
@@ -332,6 +330,22 @@ void free_exception_frames(void) {
   }
 }
 
+static se_dump_stack* clone_se_dst(int *can_allocate, se_dump_stack* ds) {
+  se_dump_stack* result = NULL;
+
+  if (*can_allocate) {
+    result = se_new_dump_stack(se_dst);
+    if (result == NULL) {
+      *can_allocate = 0;
+    }
+    else if (ds != NULL) {
+      ds->caller = result;
+    }
+  }
+
+  return result;
+}
+
 static void reset_assertion_checking(struct rescue_context * current_context) {
   /* Unwind the dump stack, resetting assertion checking when a rescue
      clause is invoked.
@@ -339,7 +353,7 @@ static void reset_assertion_checking(struct rescue_context * current_context) {
      enclosing rescue context.
   */
   se_dump_stack* ds     = se_dst->exception_origin;
-  se_dump_stack* caller = NULL;
+  se_dump_stack* x_ds   = NULL;
   se_dump_stack* dst    = current_context->top_of_ds;
   int can_allocate = 1;
 
@@ -353,24 +367,19 @@ static void reset_assertion_checking(struct rescue_context * current_context) {
     fprintf(SE_ERR, "No more memory: the stack trace may be truncated.\n");
   }
 
+  x_ds = ds = clone_se_dst(&can_allocate, ds);
   while (se_dst != dst) {
-    if (can_allocate) {
-      caller = se_new_dump_stack(se_dst);
-      if (caller == NULL) {
-	can_allocate = 0;
-      }
-      else {
-	if (ds != NULL) {
-	  ds->caller = caller;
-	}
-	ds = caller;
-      }
-    }
     if (se_dst->fd != NULL) se_dst->fd->assertion_flag=1;
     se_dst = se_dst->caller;
     _free_exception_frames(&(se_dst->exception_origin));
+
+    /* Done last, to be sure to also keep a clone of the current
+       se_dst because the rescue clause may change the position and
+       locals of se_dst: */
+    ds = clone_se_dst(&can_allocate, ds);
   }
-  se_dst->exception_origin = ds;
+
+  se_dst->exception_origin = x_ds;
 }
 #endif
 
@@ -518,7 +527,7 @@ static void print_exception_case( int ex_num ) {
     break;
   case Os_signal:
     fprintf(SE_ERR, "OS Signal (%d) received.\n",
-	    signal_exception_number );
+            signal_exception_number );
     break;
   case Void_attached_to_expanded:
     fprintf(SE_ERR, "A Void became attached to an expanded object.\n");
