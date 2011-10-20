@@ -56,6 +56,10 @@ feature {RUNNER_FACET}
             position := inst.start_position
             processor.instructions.execute(inst)
          end
+      rescue
+         raised_exception
+         instructions_list.clear_count
+         retry
       end
 
    set_retry is
@@ -63,6 +67,21 @@ feature {RUNNER_FACET}
          processor.clear_exception
          finished := False
          instructions_list.clear_count
+      end
+
+feature {}
+   raised_exception is
+      local
+         x: EXCEPTIONS
+      do
+         if x.is_signal then
+            processor.set_exception(once "Internal error: OS signal #" + x.signal_number.out)
+         elseif x.is_developer_named_exception then
+            processor.set_exception(once "Internal error: " + x.developer_exception_name)
+         else
+            processor.set_exception(once "Internal error: " + x.exception_name)
+         end
+         sedb_breakpoint
       end
 
 feature {RUNNER_FACET}
