@@ -55,6 +55,41 @@ feature {ANY} -- Various exceptions codes:
          -- Exception code for the system-level type error (this kind of error mostly arise whith covariant
          -- redefinition).
 
+   exception_name: STRING is
+      do
+         inspect
+            exception
+         when Check_instruction then
+            Result := "Check_instruction"
+         when Class_invariant then
+            Result := "Class_invariant"
+         when Developer_exception then
+            Result := "Developer_exception"
+         when Incorrect_inspect_value then
+            Result := "Incorrect_inspect_value"
+         when Loop_invariant then
+            Result := "Loop_invariant"
+         when Loop_variant then
+            Result := "Loop_variant"
+         when No_more_memory then
+            Result := "No_more_memory"
+         when Postcondition then
+            Result := "Postcondition"
+         when Precondition then
+            Result := "Precondition"
+         when Routine_failure then
+            Result := "Routine_failure"
+         when Os_signal then
+            Result := "Os_signal"
+         when Void_attached_to_expanded then
+            Result := "Void_attached_to_expanded"
+         when Void_call_target then
+            Result := "Void_call_target"
+         when System_level_type_error then
+            Result := "System_level_type_error"
+         end
+      end
+
 feature {ANY}
    developer_exception: EXCEPTION is
          -- The last developer-thrown exception.
