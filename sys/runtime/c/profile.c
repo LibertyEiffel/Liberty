@@ -189,9 +189,9 @@ static int current_time(se_time_t* result) {
     } else {
       r = QueryPerformanceCounter(&ticks);
       if (r) {
-	result->date.sec = ticks / freq;
-	result->date.usec = (int32_t)((MICRO_SEC*(ticks % freq)) / freq);
-	current_time_counter++;
+        result->date.sec = ticks / freq;
+        result->date.usec = (int32_t)((MICRO_SEC*(ticks % freq)) / freq);
+        current_time_counter++;
       }
     }
   }
@@ -365,9 +365,9 @@ static se_profile_access_t* _profile_access(se_profile_access_t* access, se_prof
     else {
       do {
         point = point->next;
-	if (point->access == profile) {
-	  result = point;
-	}
+        if (point->access == profile) {
+          result = point;
+        }
       } while (result == NULL && point != access);
     }
   }
@@ -387,9 +387,9 @@ static se_profile_source_access_t* profile_source_access(se_profile_source_acces
   if (result != NULL) {
     prev = (se_profile_source_access_t*)result->prev;
     if ((result != access) && (result != prev) &&
-	((result->count > (INT32_C(1) + prev->count)))) {
+        ((result->count > (INT32_C(1) + prev->count)))) {
       /* kinda sorting using the number of calls (heuristics to find
-	 most quickly the most used features */
+         most quickly the most used features */
       result->prev = prev->prev;
       prev->next = result->next;
       result->next = prev;
@@ -429,9 +429,9 @@ static se_profile_target_access_t* profile_target_access(se_profile_target_acces
   if (result != NULL) {
     prev = (se_profile_target_access_t*)result->prev;
     if ((result != access) && (result != prev) &&
-	((result->count > (INT32_C(1) + prev->count)))) {
+        ((result->count > (INT32_C(1) + prev->count)))) {
       /* kinda sorting using the number of calls (heuristics to find
-	 most quickly the most used features */
+         most quickly the most used features */
       result->prev = prev->prev;
       prev->next = result->next;
       result->next = prev;
@@ -504,7 +504,7 @@ static void profile_exception_set(void) {
       profile_exceptions = (int*)malloc(profile_exceptions_capacity * sizeof(int));
     }
     else {
-      profile_exceptions_capacity += 2;
+      profile_exceptions_capacity *= 2;
       profile_exceptions = (int*)realloc(profile_exceptions, profile_exceptions_capacity * sizeof(int));
     }
   }
@@ -617,8 +617,8 @@ static void profile_handler(se_handler_action_t action, void*data) {
 static void open_profile(se_local_profile_t* source, se_local_profile_t* target) {
 #if SE_DEBUG_PROFILE
   fprintf(SE_ERR, "open %s to %s\n",
-	  source==NULL ? "no source" : source->profile->name,
-	  target->profile->name);
+          source==NULL ? "no source" : source->profile->name,
+          target->profile->name);
 #endif
   if (open_profiles_capacity == 0) {
     open_profiles_capacity = 4;
@@ -630,7 +630,7 @@ static void open_profile(se_local_profile_t* source, se_local_profile_t* target)
   }
   if (source != NULL && (open_profiles_count > 1) && (open_profiles[open_profiles_count-1] != source)) {
     fprintf(SE_ERR, "*** WARNING open: open_profiles_count = %d, target %s does not follow source %s\n",
-	    open_profiles_count, target->profile->name, source->profile->name);
+            open_profiles_count, target->profile->name, source->profile->name);
     show_profile_stack();
   }
   open_profiles[open_profiles_count++] = target;
@@ -639,8 +639,8 @@ static void open_profile(se_local_profile_t* source, se_local_profile_t* target)
 static void close_profile(se_local_profile_t* source, se_local_profile_t* target) {
 #if SE_DEBUG_PROFILE
   fprintf(SE_ERR, "back to %s from %s\n",
-	  source==NULL ? "no source" : source->profile->name,
-	  target->profile->name);
+          source==NULL ? "no source" : source->profile->name,
+          target->profile->name);
 #endif
   if (open_profiles_count == 0) {
     fprintf(SE_ERR, "*** WARNING close: open_profiles_count = 0 while closing yet another profile\n");
@@ -649,13 +649,13 @@ static void close_profile(se_local_profile_t* source, se_local_profile_t* target
   else {
     if (open_profiles[open_profiles_count-1] != target) {
       fprintf(SE_ERR, "*** WARNING close: open_profiles_count = %d, expecting target %s but got %s\n",
-	      open_profiles_count, target->profile->name, open_profiles[open_profiles_count]->profile->name);
+              open_profiles_count, target->profile->name, open_profiles[open_profiles_count]->profile->name);
       show_profile_stack();
     }
     open_profiles[--open_profiles_count] = NULL;
     if (source != NULL && (open_profiles_count > 1) && (open_profiles[open_profiles_count-1] != source)) {
       fprintf(SE_ERR, "*** WARNING close: open_profiles_count = %d, expecting source %s but got %s\n",
-	      open_profiles_count, source->profile->name, open_profiles[open_profiles_count-1]->profile->name);
+              open_profiles_count, source->profile->name, open_profiles[open_profiles_count-1]->profile->name);
       show_profile_stack();
     }
   }
@@ -876,7 +876,7 @@ void stop_profile(se_local_profile_t* source, se_local_profile_t* target) {
      */
     r = subtract_time(&(target->cumul), &cumul, &own);
     if (!r) fprintf(SE_ERR, "(cumul less than time accumulated by children) %s <<< %s\n",
-		    source->profile->name, target->profile->name);
+                    source->profile->name, target->profile->name);
     r = add_time(&(target_profile->own), &own, &(target_profile->own));
     if (!r) fprintf(SE_ERR, "(cannot add own time to target) %s <<< %s\n", source->profile->name, target->profile->name);
 
@@ -978,7 +978,7 @@ void print_profile(FILE* file, se_profile_t* profile) {
             (profile->call_count > INT32_C(1)) ? "s" : "",
             own, avg_own,
             cumul, avg_cumul,
-	    profile->exceptions);
+            profile->exceptions);
     if (source != NULL) {
       do {
         fprintf(file,
@@ -993,15 +993,15 @@ void print_profile(FILE* file, se_profile_t* profile) {
     if (target != NULL) {
       do {
 #ifdef _ACCEL_PROFILE
-	cycles2date(&(target->time));
+        cycles2date(&(target->time));
 #endif
-	time_in_string(target->time, target_time, INT32_C(1));
+        time_in_string(target->time, target_time, INT32_C(1));
         fprintf(file,
                 "\tTo %s: %" PRId32 " call%s, %s\n",
                 target->access->name,
                 target->count,
                 (target->count > INT32_C(1)) ? "s" : "",
-		target_time);
+                target_time);
         target=target->next;
       } while (target != target_head);
     }
