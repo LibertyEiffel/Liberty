@@ -60,33 +60,33 @@ feature {ANY} -- Various exceptions codes:
          inspect
             exception
          when Check_instruction then
-            Result := "Check_instruction"
+            Result := once "Check_instruction"
          when Class_invariant then
-            Result := "Class_invariant"
+            Result := once "Class_invariant"
          when Developer_exception then
-            Result := "Developer_exception"
+            Result := once "Developer_exception"
          when Incorrect_inspect_value then
-            Result := "Incorrect_inspect_value"
+            Result := once "Incorrect_inspect_value"
          when Loop_invariant then
-            Result := "Loop_invariant"
+            Result := once "Loop_invariant"
          when Loop_variant then
-            Result := "Loop_variant"
+            Result := once "Loop_variant"
          when No_more_memory then
-            Result := "No_more_memory"
+            Result := once "No_more_memory"
          when Postcondition then
-            Result := "Postcondition"
+            Result := once "Postcondition"
          when Precondition then
-            Result := "Precondition"
+            Result := once "Precondition"
          when Routine_failure then
-            Result := "Routine_failure"
+            Result := once "Routine_failure"
          when Os_signal then
-            Result := "Os_signal"
+            Result := once "Os_signal"
          when Void_attached_to_expanded then
-            Result := "Void_attached_to_expanded"
+            Result := once "Void_attached_to_expanded"
          when Void_call_target then
-            Result := "Void_call_target"
+            Result := once "Void_call_target"
          when System_level_type_error then
-            Result := "System_level_type_error"
+            Result := once "System_level_type_error"
          end
       end
 
