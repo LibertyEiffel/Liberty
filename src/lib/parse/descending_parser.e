@@ -14,6 +14,8 @@ insert
 creation {ANY}
    make
 
+creation {ANY} default_create
+
 feature {ANY}
    parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
