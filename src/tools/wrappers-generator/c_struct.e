@@ -126,8 +126,9 @@ feature
 		%		}%"%N%
 		%		end%N%N",
 		<<c_string_name>>)
-		buffer.print_on(output)
-		("#define sizeof_"+c_string_name+" (sizeof("+c_type+" "+c_string_name+"))%N").print_on(include)
+		buffer.print_on(output);
+		sedb_breakpoint;
+		("#define sizeof_"|c_string_name|" (sizeof("|c_type|" "|c_string_name|"))%N").print_on(include)
 		end
 
 	emit_footer is
