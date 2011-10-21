@@ -9,9 +9,6 @@ class RUNNER_ARGUMENTS_BUILTINS
 inherit
    RUNNER_UNTYPED_BUILTINS
 
-insert
-   ARGUMENTS
-
 create {RUNNER_MEMORY}
    make
 
@@ -42,7 +39,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
 feature {}
    builtin_se_argc (processor: RUNNER_PROCESSOR) is
       do
-         processor.current_frame.set_return(processor.new_integer_32(se_argc))
+         processor.current_frame.set_return(processor.new_integer_32(user_args.count))
       end
 
    builtin_se_argv (processor: RUNNER_PROCESSOR) is
@@ -50,7 +47,7 @@ feature {}
          index: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          index ::= processor.current_frame.arguments.first
-         processor.current_frame.set_return(processor.new_manifest_string(se_argv(index.item.to_integer_32), True))
+         processor.current_frame.set_return(processor.new_manifest_string(user_args.item(index.item.to_integer_32), True))
       end
 
 feature {}

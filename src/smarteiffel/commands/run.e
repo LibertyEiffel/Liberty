@@ -8,6 +8,9 @@ class RUN
 
 inherit
    COMMAND_LINE_TOOLS
+      redefine
+         valid_arg_index
+      end
 
 insert
    RUNNER_GLOBALS
@@ -73,6 +76,7 @@ feature {}
       local
          string_command_line: STRING_COMMAND_LINE; echo_redirect: STRING
       do
+         user_args.add_first(Void)
          system_tools.set_plugin_factory(create {RUNNER_PLUGIN_FACTORY}.make)
          eiffel_parser.set_drop_comments
          string_command_line.set_command_line_name(command_line_name)
@@ -93,13 +97,14 @@ feature {}
             -- Now finish the work.
             ace.command_line_parsed(command_line_name)
          end
+         user_args.put(ace.root_class_name.to_string, 0)
          smart_eiffel.compile(runner)
          echo.before_exit_close
       end
 
    parse_command_line (pass: INTEGER) is
       local
-         argi: INTEGER; arg: STRING
+         argi: INTEGER; arg: STRING; in_user_args: BOOLEAN
       do
          from
             argi := 1
@@ -107,7 +112,17 @@ feature {}
             argi > argument_count
          loop
             arg := argument(argi)
-            if is_help_flag(arg) then
+            if in_user_args then
+               if pass = 1 then
+                  user_args.add_last(arg)
+                  argi := argi + 1
+               else
+                  argi := argument_count + 1
+               end
+            elseif arg.is_equal(once "--") then
+               in_user_args := True
+               argi := argi + 1
+            elseif is_help_flag(arg) then
                argi := argi + 1
             elseif is_relax_flag(arg) then
                argi := argi + 1
@@ -174,6 +189,11 @@ feature {}
       end
 
    valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version, -help and -relax are allowed in ACE%Nfile mode.%N"
+
+   valid_arg_index (i: INTEGER): BOOLEAN is
+      do
+         Result := Precursor(i) and then not argument(i).is_equal(once "--")
+      end
 
 end -- class RUN
 --
