@@ -3,8 +3,7 @@
 --
 deferred class REAL_GENERAL
    --
-   -- (This class is here to prepare the new support for REAL: REAL_32, REAL_64, etc.)
-   -- Work in progress. Please, do not use it now. July 7th 2004
+   -- Common anchestor of floating-point arithmetic classes, also known as REAL numbers: REAL_32, REAL_64, REAL_128, REAL_EXTENDED.
    --
 
 inherit
