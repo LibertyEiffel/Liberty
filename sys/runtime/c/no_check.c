@@ -680,7 +680,6 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
   void** var;
   int local_size;
   int expanded;
-  int with_current = 0;
   void*** _i;
   void** _ref;
   char*  _exp;
@@ -700,14 +699,22 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
         local_format = fd->local_format;
         i = 0;
         if (fd->use_current) {
-          result->current = copy->current;
           /* Place i after the Current definition: */
           i = 2;
           id = 0;
           while (local_format[i] != '%') {
             id = (id * 10) + (local_format[i++] - '0');
           }
+          if (local_format[1] == 'R') {
+            o = sizeof(void*);
+          }
+          else {
+            o = se_strucT[id];
+          }
           i++;
+
+          result->current = se_malloc(o);
+          memcpy(result->current, copy->current, o);
         }
 
         /*
@@ -755,23 +762,9 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
          * (as in the live stack; but in the live stack, only the first indirection is in the struct; the
          * remaining data is on the native stack).
          *
-         * LAST IMPORTANT NOTE: the "current" slot of the dump stack is also defined as (void*)&C -- i.e. a
-         * pointer to the "current" argument in the stack. It needs to be twinned too.
-         *
-         * TODO: check problems if Current is expanded!!
-         *
          */
 
-        if (copy->current != NULL) {
-          with_current = 1;
-        }
-
-        if (copy->locals == NULL) {
-          if (with_current) {
-            result->current = se_malloc(sizeof(void*));
-          }
-        }
-        else {
+        if (copy->locals != NULL) {
           j = i;
 
           local_count = local_size = p = o = 0;
@@ -796,11 +789,8 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
             local_count++;
           }
 
-          o = (p + with_current) * sizeof(void*) + local_size;
+          o = p * sizeof(void*) + local_size;
           result->locals = (void***)se_malloc(o);
-          if (with_current) {
-            result->current = result->locals++;
-          }
           _i   = result->locals;
           _exp = (char*)_i + o;
           _ref = (void**)_i + local_count;
@@ -833,10 +823,6 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
             _i++;
           }
         }
-
-        if (with_current) {
-          *(void**)(result->current) = *(void**)(copy->current); /* WRONG!! what if Current is expanded?? */
-        }
       }
     }
   }
@@ -845,6 +831,7 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
 
 void se_delete_dump_stack(se_dump_stack* ds) {
   if (ds != NULL) {
+    if (ds->current != NULL) free(ds->current);
     if (ds->locals != NULL) free(ds->locals);
     free(ds);
   }
