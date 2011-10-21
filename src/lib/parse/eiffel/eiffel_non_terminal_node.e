@@ -4,12 +4,7 @@
 deferred class EIFFEL_NON_TERMINAL_NODE
 
 inherit
-	EIFFEL_NODE
-	TRAVERSABLE[EIFFEL_NODE]
-		undefine 
-			valid_index, -- as it is redefined in effective heirs
-			out_in_tagged_out_memory-- let's use the default implementation
-		end
+   EIFFEL_NODE
 
 feature {ANY}
    name_at (index: INTEGER): FIXED_STRING is
@@ -18,12 +13,6 @@ feature {ANY}
       deferred
       end
 
-   item (an_index: INTEGER): EIFFEL_NODE is
-	   -- Synonim for node_at
-   do
-	   Result:=node_at(an_index)
-   end
-		
    node_at (index: INTEGER): EIFFEL_NODE is
       require
          valid_index(index)
@@ -53,21 +42,6 @@ feature {ANY}
       ensure
          definition: Result = upper - lower + 1
       end
-
-   first: EIFFEL_NODE is
-	   do
-		   Result := item(lower)
-	   end
-
-	last: EIFFEL_NODE is
-		do
-			Result := item(upper)
-		end
-
-    new_iterator: ITERATOR[EIFFEL_NODE] is
-		do
-			create {ITERATOR_ON_TRAVERSABLE[EIFFEL_NODE]} Result.make(Current)
-		end
 
    is_empty: BOOLEAN is
       deferred

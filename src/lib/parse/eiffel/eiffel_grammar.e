@@ -9,12 +9,12 @@ class EIFFEL_GRAMMAR
    --
 
 insert
-   EIFFEL_NODE_HANDLER redefine default_create end
-   PLATFORM redefine default_create end
-   LOGGING redefine default_create end
+   EIFFEL_NODE_HANDLER
+   PLATFORM
+   LOGGING
 
 create {ANY}
-   make, make_default, default_create
+   make, make_default
 
 feature {ANY}
    end_reached: BOOLEAN
@@ -2065,7 +2065,7 @@ feature {}
          left_assoc_stack.is_empty
       end
 
-   make_default, default_create is
+   make_default is
       do
          make(create {EIFFEL_DEFAULT_NODE_FACTORY}.make)
       end
