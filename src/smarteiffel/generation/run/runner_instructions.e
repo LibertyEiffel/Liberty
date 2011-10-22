@@ -161,7 +161,7 @@ feature {IFTHEN}
          condition ::= processor.expressions.eval(visited.expression)
          if condition.item then
             if visited.then_compound /= Void then
-               processor.current_frame.add_instruction(visited.then_compound)
+               visited.then_compound.accept(Current)
             end
             ifthen_flag := True
          end
