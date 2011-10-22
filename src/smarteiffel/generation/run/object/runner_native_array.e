@@ -15,6 +15,8 @@ feature {ANY}
    processor: RUNNER_PROCESSOR
    type: TYPE
 
+   capacity: INTEGER
+
    item (index: INTEGER_64): O_ is
       require
          index.in_range(0, capacity - 1)
@@ -33,7 +35,7 @@ feature {ANY}
       local
          i: INTEGER; o: like item
       do
-         type.out_in_tagged_out_memory
+         type.name.to_string.out_in_tagged_out_memory
          tagged_out_memory.extend('<')
          tagged_out_memory.extend('<')
          from
@@ -101,7 +103,6 @@ feature {}
 
 feature {RUNNER_NATIVE_ARRAY}
    storage: NATIVE_ARRAY[E_]
-   capacity: INTEGER
    retriever: FUNCTION[TUPLE[RUNNER_PROCESSOR, E_], O_]
    setter: FUNCTION[TUPLE[O_], E_]
 
