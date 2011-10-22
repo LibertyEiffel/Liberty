@@ -207,7 +207,11 @@ feature {RUNNER_FACET}
             create internal_locals.make
          end
          --|debug
-         --|   std_output.put_line("internal: " + a_internal.hash_tag + " := " + a_value.out)
+         --|   if a_value /= Void then
+         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
+         --|   else
+         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
+         --|   end
          --|end
          internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
@@ -218,6 +222,13 @@ feature {RUNNER_FACET}
       do
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
+            --|debug
+            --|   if Result /= Void then
+            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = " + Result.out)
+            --|   else
+            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = Void")
+            --|   end
+            --|end
          end
       end
 
