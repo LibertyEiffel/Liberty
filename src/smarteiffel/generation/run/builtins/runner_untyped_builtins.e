@@ -11,21 +11,8 @@ insert
 
 feature {RUNNER_FACET}
    call (processor: RUNNER_PROCESSOR) is
-      local
-         called: BOOLEAN; i: INTEGER
       do
-         called := call_(processor)
-         if parents /= Void then
-            from
-               i := parents.lower
-            until
-               called or else i > parents.upper
-            loop
-               called := parents.item(i).call_(processor)
-               i := i + 1
-            end
-         end
-         if not called then
+         if not do_call(processor) then
             processor.set_exception(exceptions.System_level_type_error, once "Unknown builtin")
          end
       end
@@ -35,6 +22,24 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
+   do_call (processor: RUNNER_PROCESSOR): BOOLEAN is
+      local
+         i: INTEGER
+      do
+         Result := call_(processor)
+         if parents /= Void then
+            from
+               i := parents.lower
+            until
+               Result or else i > parents.upper
+            loop
+               Result := parents.item(i).do_call(processor)
+               i := i + 1
+            end
+         end
+      end
+
+feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       deferred
       end

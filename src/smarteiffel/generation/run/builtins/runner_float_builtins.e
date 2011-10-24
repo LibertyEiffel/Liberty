@@ -20,7 +20,7 @@ feature {RUNNER_MEMORY}
          end
       end
 
-feature {RUNNER_UNTYPED_BUILTINS}
+feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect

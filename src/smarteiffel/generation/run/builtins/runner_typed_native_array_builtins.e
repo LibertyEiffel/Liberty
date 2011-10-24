@@ -26,7 +26,7 @@ feature {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
          create Result.make(processor, type, capacity, storage, retriever, setter, Current)
       end
 
-feature {RUNNER_UNTYPED_BUILTINS}
+feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
