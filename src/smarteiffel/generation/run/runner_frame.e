@@ -71,15 +71,13 @@ feature {RUNNER_FACET}
 
 feature {}
    raised_exception is
-      local
-         x: EXCEPTIONS
       do
-         if x.is_signal then
-            processor.set_exception(once "Internal error: OS signal #" + x.signal_number.out)
-         elseif x.is_developer_named_exception then
-            processor.set_exception(once "Internal error: " + x.developer_exception_name)
+         if exceptions.is_signal then
+            processor.set_exception(exceptions.Os_signal, once "Internal error: OS signal #" + exceptions.signal_number.out)
+         elseif exceptions.is_developer_named_exception then
+            processor.set_exception(exceptions.System_level_type_error, once "Internal error: " + exceptions.developer_exception_name)
          else
-            processor.set_exception(once "Internal error: " + x.exception_name)
+            processor.set_exception(exceptions.System_level_type_error, once "Internal error: " + exceptions.exception_name)
          end
          sedb_breakpoint
       end

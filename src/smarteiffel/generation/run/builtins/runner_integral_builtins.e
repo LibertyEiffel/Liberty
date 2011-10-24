@@ -118,7 +118,7 @@ feature {}
          if i.fit_integer_8 then
             processor.current_frame.set_return(processor.new_integer_8(i))
          else
-            processor.set_exception(i.out + " does not fit into INTEGER_8")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into INTEGER_8")
          end
       end
 
@@ -130,7 +130,7 @@ feature {}
          if i.fit_integer_16 then
             processor.current_frame.set_return(processor.new_integer_16(i))
          else
-            processor.set_exception(i.out + " does not fit into INTEGER_16")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into INTEGER_16")
          end
       end
 
@@ -142,7 +142,7 @@ feature {}
          if i.fit_integer_32 then
             processor.current_frame.set_return(processor.new_integer_32(i))
          else
-            processor.set_exception(i.out + " does not fit into INTEGER_32")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into INTEGER_32")
          end
       end
 
@@ -159,7 +159,7 @@ feature {}
          if i.fit_natural_8 then
             processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
          else
-            processor.set_exception(i.out + " does not fit into NATURAL_8")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into NATURAL_8")
          end
       end
 
@@ -171,7 +171,7 @@ feature {}
          if i.fit_natural_16 then
             processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
          else
-            processor.set_exception(i.out + " does not fit into NATURAL_16")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into NATURAL_16")
          end
       end
 
@@ -183,7 +183,7 @@ feature {}
          if i.fit_natural_32 then
             processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
          else
-            processor.set_exception(i.out + " does not fit into NATURAL_16")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into NATURAL_16")
          end
       end
 
@@ -195,7 +195,7 @@ feature {}
          if i >= 0 then
             processor.current_frame.set_return(processor.new_natural_8(i.to_natural_64))
          else
-            processor.set_exception(i.out + " does not fit into NATURAL_64")
+            processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into NATURAL_64")
          end
       end
 

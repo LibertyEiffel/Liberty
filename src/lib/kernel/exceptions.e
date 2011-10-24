@@ -57,8 +57,13 @@ feature {ANY} -- Various exceptions codes:
 
    exception_name: STRING is
       do
+         Result := name_of_exception(exception)
+      end
+
+   name_of_exception (a_exception: INTEGER): STRING is
+      do
          inspect
-            exception
+            a_exception
          when Check_instruction then
             Result := once "Check_instruction"
          when Class_invariant then

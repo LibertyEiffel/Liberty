@@ -13,6 +13,7 @@ feature {RUNNER_FACET}
    message: FIXED_STRING
    frame: RUNNER_FRAME
    parent: RUNNER_EXCEPTION
+   exception: INTEGER
 
    processor: RUNNER_PROCESSOR is
       do
@@ -24,17 +25,30 @@ feature {RUNNER_FACET}
          frame.print_stack(std_error)
       end
 
-feature {}
-   make (a_message: like message; a_processor: RUNNER_PROCESSOR; a_parent: like parent) is
+   set_parent (a_parent: like parent) is
       require
+         parent = Void
+         a_parent /= Void
+      do
+         parent := a_parent
+      ensure
+         parent = a_parent
+      end
+
+feature {}
+   make (a_exception: like exception; a_message: like message; a_processor: RUNNER_PROCESSOR; a_parent: like parent) is
+      require
+         a_exception.in_range(exceptions.Check_instruction, exceptions.System_level_type_error)
          a_message /= Void
          a_processor /= Void
       do
          message := a_message
+         exception := a_exception
          frame := a_processor.current_frame
          parent := a_parent
       ensure
          message = a_message
+         exception = a_exception
          frame = a_processor.current_frame
          processor = a_processor
          parent = a_parent
@@ -43,6 +57,7 @@ feature {}
 invariant
    message /= Void
    frame /= Void
+   exception.in_range(exceptions.Check_instruction, exceptions.System_level_type_error)
 
 end -- class RUNNER_EXCEPTION
 --

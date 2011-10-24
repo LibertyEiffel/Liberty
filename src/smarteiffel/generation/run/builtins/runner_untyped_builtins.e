@@ -26,7 +26,7 @@ feature {RUNNER_FACET}
             end
          end
          if not called then
-            processor.set_exception(once "Unknown builtin")
+            processor.set_exception(exceptions.System_level_type_error, once "Unknown builtin")
          end
       end
 

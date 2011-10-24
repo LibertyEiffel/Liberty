@@ -68,7 +68,7 @@ feature {RUNNER_FACET}
          if a_manifest.manifest_make_feature_stamp /= Void then
             feature_make := a_manifest.manifest_make_feature_stamp.run_feature_for(a_manifest.created_type)
             if feature_make = Void then
-               processor.set_exception(once "Unknown manifest_make feature")
+               processor.set_exception(exceptions.System_level_type_error, once "Unknown manifest_make feature")
             else
                return := execute(Result, agent indexable_arguments(a_manifest.optional_arguments, current_frame), feature_make).return
             end
@@ -79,7 +79,7 @@ feature {RUNNER_FACET}
          if a_manifest.manifest_put_feature_stamp /= Void then
             feature_put := a_manifest.manifest_put_feature_stamp.run_feature_for(a_manifest.created_type)
             if feature_put = Void then
-               processor.set_exception(once "Unknown manifest_put feature")
+               processor.set_exception(exceptions.System_level_type_error, once "Unknown manifest_put feature")
             else
                step := feature_put.arguments.count
                if a_manifest.item_list /= Void then
@@ -171,7 +171,15 @@ feature {}
       do
          create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result
-         a_rf.accept(Current)
+
+         processor.check_invariant
+         processor.check_require
+         if processor.exception = Void then
+            a_rf.accept(Current)
+         end
+         processor.check_ensure
+         processor.check_invariant
+
          current_frame := Result.caller
 
          check

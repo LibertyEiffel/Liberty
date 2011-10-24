@@ -66,7 +66,9 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         sedb_breakpoint
+         if visited.must_be_generated(processor.current_frame.type_of_current) then
+            processor.check_assertions(exceptions.Check_instruction, visited.assertion_list)
+         end
       end
 
 feature {C_INLINE}
