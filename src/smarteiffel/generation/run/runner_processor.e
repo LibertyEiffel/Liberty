@@ -35,6 +35,7 @@ feature {RUNNER_FACET} -- Exceptions
    set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
       do
          create exception.make(a_exception, a_message.intern, Current, exception)
+         sedb_breakpoint
       ensure
          exception.message = a_message.intern
       end
@@ -121,9 +122,6 @@ feature {RUNNER_FACET} -- Contract checking
          if current_frame.target.check_and_set_position(assertions.start_position)
             and then not assertions.is_always_true(current_frame.target.type)
          then
-            debug
-               std_output.put_line(once ">>>> CHECK " + exceptions.name_of_exception(exception_type))
-            end
             from
                i := assertions.lower
             until
@@ -133,7 +131,7 @@ feature {RUNNER_FACET} -- Contract checking
                if assertion.expression /= Void then
                   value ::= expressions.eval(assertion.expression)
                   if not value.item then
-                     set_exception(exception_type, assertion_string(assertion))
+                     set_exception(exception_type, assertion_string(exception_type, assertion))
                   end
                end
                i := i + 1
@@ -143,10 +141,15 @@ feature {RUNNER_FACET} -- Contract checking
       end
 
 feature {}
-   assertion_string (assertion: ASSERTION): STRING is
+   assertion_string (exception_type: INTEGER; assertion: ASSERTION): STRING is
       do
+         Result := once ""
+         Result.copy(exceptions.name_of_exception(exception_type))
+         Result.append(once " failed: ")
          if assertion.tag /= Void then
-            Result := assertion.tag.to_string
+            Result.append(assertion.tag.to_string)
+         elseif assertion.source_view /= Void then
+            Result.append(assertion.source_view)
          elseif assertion.comment /= Void then
             not_yet_implemented
          else
@@ -155,7 +158,7 @@ feature {}
             end
             assertion_displayer_stream.clear
             assertion.expression.accept(assertion_displayer)
-            Result := assertion_displayer_stream.to_string
+            Result.append(assertion_displayer_stream.to_string)
          end
       end
 
