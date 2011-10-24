@@ -486,10 +486,15 @@ void internal_exception_handler(int exception_number) {
 
   /* No current rescue clause, exit with a dump : */
   handle(SE_HANDLE_EXCEPTION_THROWN, current_context);
+#ifdef SE_SEDB
+  print_exception();
+  error0("Exception not handled",0);
+#else
   print_exception();
   se_print_run_time_stack();
   print_exception();
   exit(EXIT_FAILURE);
+#endif
 }
 
 #ifndef SE_BOOST
