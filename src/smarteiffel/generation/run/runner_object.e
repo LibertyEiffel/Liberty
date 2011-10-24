@@ -44,6 +44,34 @@ feature {RUNNER_FACET}
       deferred
       end
 
+feature {RUNNER_PROCESSOR} -- Contract checking anti-infinite recursion
+   check_and_set_position (position: POSITION): BOOLEAN is
+         -- True if the position was added
+      do
+         if checking_positions = Void then
+            create checking_positions.make
+         end
+         if not checking_positions.fast_has(position) then
+            Result := True
+            checking_positions.fast_add(position)
+         end
+      ensure
+         checking_positions.fast_has(position)
+         Result implies old (checking_positions = Void or else not checking_positions.fast_has(position))
+      end
+
+   clear_position (position: POSITION) is
+      require
+         checking_positions.fast_has(position)
+      do
+         checking_positions.fast_remove(position)
+      ensure
+         not checking_positions.fast_has(position)
+      end
+
+feature {}
+   checking_positions: HASHED_SET[POSITION]
+
 invariant
    processor /= Void
    type /= Void

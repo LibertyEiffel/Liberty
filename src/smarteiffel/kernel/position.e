@@ -23,8 +23,14 @@ insert
    PLATFORM
       redefine is_equal
       end
+   HASHABLE
 
 feature {ANY}
+   hash_code: INTEGER is
+      do
+         Result := mangling
+      end
+
    class_text: CLASS_TEXT is
          -- The corresponding one which may be Void for example when `is_unknown' or when parsing
          -- a -cecil file or the ACE file.

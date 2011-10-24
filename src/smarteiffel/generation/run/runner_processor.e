@@ -49,9 +49,9 @@ feature {RUNNER_FACET} -- Contract checking
       local
          class_invariant: CLASS_INVARIANT
       do
-         if exception = Void then
+         if exception = Void and then current_frame.target.type.class_text.invariant_check then
             class_invariant := current_frame.target.type.class_invariant
-            if class_invariant /= Void and then current_frame.target.type.class_text.invariant_check then
+            if class_invariant /= Void then
                check_assertions(exceptions.Class_invariant, class_invariant)
             end
          end
@@ -65,7 +65,9 @@ feature {RUNNER_FACET} -- Contract checking
       do
          if exception = Void then
             require_assertion := current_frame.rf.require_assertion
-            if require_assertion /= Void and then not require_assertion.is_always_true(current_frame.target.type) then
+            if require_assertion /= Void and then not require_assertion.is_always_true(current_frame.target.type)
+               and then current_frame.target.check_and_set_position(require_assertion.start_position)
+            then
                from
                   i := require_assertion.lower
                invariant
@@ -92,6 +94,7 @@ feature {RUNNER_FACET} -- Contract checking
                   end
                   exception := original_exception
                end
+               current_frame.target.clear_position(require_assertion.start_position)
             end
          end
       end
@@ -115,7 +118,9 @@ feature {RUNNER_FACET} -- Contract checking
       local
          i: INTEGER; assertion: ASSERTION; value: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
-         if not assertions.is_always_true(current_frame.target.type) then
+         if current_frame.target.check_and_set_position(assertions.start_position)
+            and then not assertions.is_always_true(current_frame.target.type)
+         then
             debug
                std_output.put_line(once ">>>> CHECK " + exceptions.name_of_exception(exception_type))
             end
@@ -133,9 +138,11 @@ feature {RUNNER_FACET} -- Contract checking
                end
                i := i + 1
             end
+            current_frame.target.clear_position(assertions.start_position)
          end
       end
 
+feature {}
    assertion_string (assertion: ASSERTION): STRING is
       do
          if assertion.tag /= Void then
