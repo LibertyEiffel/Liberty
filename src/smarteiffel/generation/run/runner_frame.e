@@ -40,19 +40,19 @@ feature {RUNNER_FACET}
          loop
             inst := instructions_list.last
             instructions_list.remove_last
-            --|debug
-            --|   std_output.put_new_line
-            --|   std_output.put_line("(" + depth.out + ") " + rf.name.to_string + ":")
-            --|   instructions_list.do_all(agent (i: INSTRUCTION) is
-            --|                            do
-            --|                               std_output.put_string(once "     + ")
-            --|                               i.accept(displayer)
-            --|                               std_output.put_new_line
-            --|                            end)
-            --|   std_output.put_string(once "  **** ")
-            --|   inst.accept(displayer)
-            --|   std_output.put_new_line
-            --|end
+            debug ("run.callstack")
+               std_output.put_new_line
+               std_output.put_line("(" + depth.out + ") " + rf.name.to_string + ":")
+               instructions_list.do_all(agent (i: INSTRUCTION) is
+                                        do
+                                           std_output.put_string(once "     + ")
+                                           i.accept(displayer)
+                                           std_output.put_new_line
+                                        end)
+               std_output.put_string(once "  **** ")
+               inst.accept(displayer)
+               std_output.put_new_line
+            end
             position := inst.start_position
             processor.instructions.execute(inst)
          end
@@ -164,15 +164,15 @@ feature {RUNNER_FACET}
          a_return /= Void implies a_return.type.can_be_assigned_to(type_of_result)
          type_of_result.is_expanded implies a_return /= Void
       do
-         --|debug
-         --|   std_output.put_string("(" + depth.out + ") " + rf.name.to_string + ": Result := ")
-         --|   if a_return = Void then
-         --|      std_output.put_line("Void")
-         --|      sedb_breakpoint
-         --|   else
-         --|      std_output.put_line(a_return.out)
-         --|   end
-         --|end
+         debug ("run.data")
+            std_output.put_string("(" + depth.out + ") " + rf.name.to_string + ": Result := ")
+            if a_return = Void then
+               std_output.put_line("Void")
+               sedb_breakpoint
+            else
+               std_output.put_line(a_return.out)
+            end
+         end
          return := expand(a_return)
       ensure
          return = a_return or else (type_of_result.is_expanded and then return.is_equal(a_return))
@@ -182,6 +182,13 @@ feature {RUNNER_FACET}
       require
          has_local(a_name)
       do
+         debug ("run.data")
+            if a_value /= Void then
+               std_output.put_line("**** set local: " + a_name + " := " + a_value.out)
+            else
+               std_output.put_line("**** set local: " + a_name + " := Void")
+            end
+         end
          locals.fast_put(expand(a_value), a_name.intern)
       ensure
          local_object(a_name) = a_value
@@ -192,6 +199,13 @@ feature {RUNNER_FACET}
          has_local(a_name)
       do
          Result := expand(locals.fast_reference_at(a_name.intern))
+         debug ("run.data")
+            if Result /= Void then
+               std_output.put_line("**** get internal: " + a_name + " = " + Result.out)
+            else
+               std_output.put_line("**** get internal: " + a_name + " = Void")
+            end
+         end
       end
 
    has_local (a_name: ABSTRACT_STRING): BOOLEAN is
@@ -204,13 +218,13 @@ feature {RUNNER_FACET}
          if internal_locals = Void then
             create internal_locals.make
          end
-         --|debug
-         --|   if a_value /= Void then
-         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
-         --|   else
-         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
-         --|   end
-         --|end
+         debug ("run.data")
+            if a_value /= Void then
+               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
+            else
+               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
+            end
+         end
          internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
          internal_local_object(a_internal) = a_value
@@ -220,13 +234,13 @@ feature {RUNNER_FACET}
       do
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
-            --|debug
-            --|   if Result /= Void then
-            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = " + Result.out)
-            --|   else
-            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = Void")
-            --|   end
-            --|end
+            debug ("run.data")
+               if Result /= Void then
+                  std_output.put_line("**** get internal: " + a_internal.hash_tag + " = " + Result.out)
+               else
+                  std_output.put_line("**** get internal: " + a_internal.hash_tag + " = Void")
+               end
+            end
          end
       end
 
