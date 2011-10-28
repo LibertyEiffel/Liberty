@@ -305,7 +305,6 @@ feature {ANY} -- Size query
    bit_count: INTEGER_8 is
          -- The number of bits used to store the value of Current
 		 -- (it is 8 for NATURAL_8, 16 for NATURAL_16 and so on)
-         -- Note that this feature is not exported because this information is part of the type.
          -- This is actually used only for assertion here, in NATURAL_GENERAL.
       deferred
       ensure

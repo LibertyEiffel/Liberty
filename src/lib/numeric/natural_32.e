@@ -198,7 +198,6 @@ feature {ANY}
          Result := to_integer_64.to_number
       end
 
-feature {}
    bit_count: INTEGER_8 is 32
 
 end -- NATURAL_32

@@ -205,6 +205,7 @@ feature {ANY}
          Result := to_real_64.log10
       end
 
+   bit_count: INTEGER_8 is 32
 feature {}
    integer_32_fit_real_32 (integer_32: INTEGER_32): BOOLEAN is
       external "plug_in"
@@ -215,7 +216,7 @@ feature {}
          }"
       end
 
-   bit_count: INTEGER_8 is 32
+   
 
 end -- class INTEGER_32
 --

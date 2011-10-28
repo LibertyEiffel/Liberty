@@ -167,7 +167,6 @@ feature {ANY}
          Result := to_real_64.log10
       end
 
-feature {}
    bit_count: INTEGER_8 is 16
 
 end -- class INTEGER_16
