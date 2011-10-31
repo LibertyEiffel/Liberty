@@ -1,4 +1,5 @@
 system "RUN"
+   -- debug only.
 
 root
    RUN: make
@@ -20,7 +21,8 @@ cluster
    runner: "${path_se_tools}generation/run/loadpath.se"
       default
          assertion(all)
-         debug(yes)
+         debug("run.callstack")
+         debug("run.data")
       end
 
    smarteiffel: "${path_se_tools}loadpath.se"
