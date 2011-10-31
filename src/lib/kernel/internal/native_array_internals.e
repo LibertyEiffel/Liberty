@@ -3,9 +3,6 @@
 --
 class NATIVE_ARRAY_INTERNALS[E_]
    --
-   -- '''Warning:''' This interface is tentative and may change to a large extent from SmartEiffel 2.2 to
-   -- SmartEiffel 2.3.
-   --
    -- NATIVE_ARRAY_INTERNALS plays the same role as TYPED_INTERNALS, except they describe NATIVE_ARRAY's.
    --
 
