@@ -1,19 +1,16 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class GLOBALS
+expanded class GLOBALS
    --
    -- Global Tools for the SmartEiffel system.
    --
-
-inherit
-   ANY
 
 insert
    ALIASED_STRING_LIST
    FROZEN_STRING_LIST
 
-feature {}
+feature {ANY}
    frozen smart_eiffel: SMART_EIFFEL is
       once
          create Result
@@ -150,7 +147,7 @@ feature {NATIVE_JAVA}
          create Result
       end
 
-feature {}
+feature {ANY}
    frozen id_provider: ID_PROVIDER is
       once
          create Result.make
