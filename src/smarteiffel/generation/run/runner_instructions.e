@@ -66,7 +66,9 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         sedb_breakpoint
+         if visited.must_be_generated(processor.current_frame.type_of_current) then
+            processor.check_assertions(exceptions.Check_instruction, visited.assertion_list)
+         end
       end
 
 feature {C_INLINE}
@@ -161,7 +163,7 @@ feature {IFTHEN}
          condition ::= processor.expressions.eval(visited.expression)
          if condition.item then
             if visited.then_compound /= Void then
-               processor.current_frame.add_instruction(visited.then_compound)
+               visited.then_compound.accept(Current)
             end
             ifthen_flag := True
          end

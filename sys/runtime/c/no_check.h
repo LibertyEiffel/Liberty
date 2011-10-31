@@ -96,9 +96,9 @@ extern int se_dst_depth;
 
 int se_stack_size(se_dump_stack* ds);
 void se_print_run_time_stack(void);
-void se_print_run_time_stack_in(FILE* file);
+void se_print_run_time_stack_in(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact);
 int se_print_one_frame(se_dump_stack*ds);
-int se_print_one_frame_in(FILE* file, se_dump_stack*ds);
+int se_print_one_frame_in(FILE* file, se_dump_stack*ds, se_dump_stack* cur, int is_compact);
 
 int se_rci(se_dump_stack*caller,void*C);
 void error0(char*m,char*vv);

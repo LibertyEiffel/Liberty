@@ -18,7 +18,7 @@ feature {RUNNER_MEMORY}
          create Result.make(processor, type, Current)
       end
 
-feature {RUNNER_UNTYPED_BUILTINS}
+feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
       end

@@ -29,11 +29,13 @@ feature {RUNNER_FACET}
          Result := features.current_frame
       end
 
+feature {RUNNER_FACET} -- Exceptions
    exception: RUNNER_EXCEPTION
 
-   set_exception (a_message: ABSTRACT_STRING) is
+   set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
       do
-         create exception.make(a_message.intern, Current)
+         create exception.make(a_exception, a_message.intern, Current, exception)
+         sedb_breakpoint
       ensure
          exception.message = a_message.intern
       end
@@ -41,6 +43,133 @@ feature {RUNNER_FACET}
    clear_exception is
       do
          exception := Void
+      end
+
+feature {RUNNER_FACET} -- Contract checking
+   check_invariant is
+      local
+         class_invariant: CLASS_INVARIANT
+      do
+         if exception = Void and then current_frame.target.type.class_text.invariant_check then
+            class_invariant := current_frame.target.type.class_invariant
+            if class_invariant /= Void then
+               check_assertions(exceptions.Class_invariant, class_invariant)
+            end
+         end
+      end
+
+   check_require is
+      local
+         require_assertion: REQUIRE_ASSERTION
+         original_exception, last_exception: RUNNER_EXCEPTION
+         i: INTEGER; ok: BOOLEAN
+      do
+         if exception = Void then
+            require_assertion := current_frame.rf.require_assertion
+            if require_assertion /= Void and then not require_assertion.is_always_true(current_frame.target.type)
+               and then current_frame.target.check_and_set_position(require_assertion.start_position)
+            then
+               from
+                  i := require_assertion.lower
+               invariant
+                  exception = Void
+               until
+                  ok or else i > require_assertion.upper
+               loop
+                  check_assertions(exceptions.Precondition, require_assertion.item(i))
+                  if exception = Void then
+                     ok := True
+                  elseif original_exception = Void then
+                     original_exception := exception
+                     last_exception := exception
+                  else
+                     exception.set_parent(last_exception)
+                     last_exception := exception
+                     clear_exception
+                  end
+                  i := i + 1
+               end
+               if not ok then
+                  check
+                     original_exception /= Void
+                  end
+                  exception := original_exception
+               end
+               current_frame.target.clear_position(require_assertion.start_position)
+            end
+         end
+      end
+
+   check_ensure is
+      local
+         ensure_assertion: ENSURE_ASSERTION
+      do
+         if exception = Void then
+            ensure_assertion := current_frame.rf.ensure_assertion
+            if ensure_assertion /= Void then
+               check_assertions(exceptions.Postcondition, ensure_assertion)
+            end
+         end
+      end
+
+   check_assertions (exception_type: INTEGER; assertions: ASSERTION_LIST) is
+      require
+         exception = Void
+         assertions /= Void
+      local
+         i: INTEGER; assertion: ASSERTION; value: RUNNER_NATIVE_EXPANDED[BOOLEAN]
+      do
+         if current_frame.target.check_and_set_position(assertions.start_position)
+            and then not assertions.is_always_true(current_frame.target.type)
+         then
+            from
+               i := assertions.lower
+            until
+               exception /= Void or else i > assertions.upper
+            loop
+               assertion := assertions.item(i)
+               if assertion.expression /= Void then
+                  value ::= expressions.eval(assertion.expression)
+                  if not value.item then
+                     set_exception(exception_type, assertion_string(exception_type, assertion))
+                  end
+               end
+               i := i + 1
+            end
+            current_frame.target.clear_position(assertions.start_position)
+         end
+      end
+
+feature {}
+   assertion_string (exception_type: INTEGER; assertion: ASSERTION): STRING is
+      do
+         Result := once ""
+         Result.copy(exceptions.name_of_exception(exception_type))
+         Result.append(once " failed: ")
+         if assertion.tag /= Void then
+            Result.append(assertion.tag.to_string)
+         elseif assertion.source_view /= Void then
+            Result.append(assertion.source_view)
+         elseif assertion.comment /= Void then
+            not_yet_implemented
+         else
+            check
+               assertion.expression /= Void
+            end
+            assertion_displayer_stream.clear
+            assertion.expression.accept(assertion_displayer)
+            Result.append(assertion_displayer_stream.to_string)
+         end
+      end
+
+   assertion_displayer: RUNNER_DISPLAYER is
+      once
+         create Result.make(assertion_displayer_stream)
+      end
+
+   assertion_displayer_stream: STRING_OUTPUT_STREAM is
+      once
+         create Result.make
       end
 
 feature {} -- fly-weights
@@ -409,17 +538,36 @@ feature {RUNNER}
    run (rf: RUN_FEATURE) is
       do
          features.run(rf)
+         check_exception
+      end
+
+feature {}
+   check_exception is
+      do
          if exception /= Void then
-            std_error.put_string(once "**** Exception: ")
-            std_error.put_line(exception.message)
-
-            exception.print_stack
-
-            std_error.put_string(once "**** Exception: ")
-            std_error.put_line(exception.message)
-
+            print_exception(exception)
             die_with_code(1)
          end
+      ensure
+         no_exception_or_dead: old exception = Void
+      end
+
+   print_exception (a_exception: RUNNER_EXCEPTION) is
+      require
+         a_exception /= Void
+      do
+         if a_exception.parent /= Void then
+            print_exception(a_exception.parent)
+            std_error.put_string(once "%N----------------------------------------%N%N")
+         end
+
+         std_error.put_string(once "**** Exception: ")
+         std_error.put_line(a_exception.message)
+
+         a_exception.print_stack
+
+         std_error.put_string(once "**** Exception: ")
+         std_error.put_line(a_exception.message)
       end
 
 feature {RUNNER_PLUGIN}

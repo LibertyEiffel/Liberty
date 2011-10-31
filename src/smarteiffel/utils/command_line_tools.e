@@ -121,7 +121,7 @@ feature {}
          from
             argi := 1
          until
-            argi > argument_count
+            not valid_arg_index(argi)
          loop
             arg := argument(argi)
             if is_output_error_warning_on_flag(arg, argi) then
@@ -131,9 +131,9 @@ feature {}
                   if file_tools.file_exists(Result) then
                      file_tools.delete(Result)
                      if file_tools.file_exists(Result) then
-                        echo.w_put_string("Unable to remove existing file %"")
+                        echo.w_put_string("Unable to remove existing the file %"")
                         echo.w_put_string(Result)
-                        echo.w_put_string("%". (File of -is_output_error_warning_on flag.)%N")
+                        echo.w_put_string("%" specified for the -is_output_error_warning_on flag.%N")
                         die_with_code(exit_failure_code)
                      end
                   end
@@ -143,7 +143,7 @@ feature {}
                      echo.w_put_string(argument(0))
                      argi := 1
                   until
-                     argi > argument_count
+                     not valid_arg_index(argi)
                   loop
                      echo.w_put_character(' ')
                      echo.w_put_string(argument(argi))
@@ -162,21 +162,26 @@ feature {}
          -- Seach the -verbose flag amongs arguments in order to become verbose as soon as possible (should be
          -- called after `search_for_echo_redirect_flag' when the command accept this flag).
       local
-         argi: INTEGER; arg: STRING
+         argi: INTEGER; arg: STRING; found: BOOLEAN
       do
          from
-            argi := argument_count
+            argi := 1
          until
-            argi = 0
+            found or else not valid_arg_index(argi)
          loop
             arg := argument(argi)
             if is_verbose_flag(arg) then
-               argi := 0
+               found := True
             else
-               argi := argi - 1
+               argi := argi + 1
             end
          end
          echo.put_string(smart_eiffel.copyright)
+      end
+
+   valid_arg_index (i: INTEGER): BOOLEAN is
+      do
+         Result := i.in_range(1, argument_count)
       end
 
    search_for_cc_flag is

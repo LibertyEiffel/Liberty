@@ -56,6 +56,10 @@ feature {RUNNER_FACET}
             position := inst.start_position
             processor.instructions.execute(inst)
          end
+      rescue
+         raised_exception
+         instructions_list.clear_count
+         retry
       end
 
    set_retry is
@@ -63,6 +67,19 @@ feature {RUNNER_FACET}
          processor.clear_exception
          finished := False
          instructions_list.clear_count
+      end
+
+feature {}
+   raised_exception is
+      do
+         if exceptions.is_signal then
+            processor.set_exception(exceptions.Os_signal, once "Internal error: OS signal #" + exceptions.signal_number.out)
+         elseif exceptions.is_developer_named_exception then
+            processor.set_exception(exceptions.System_level_type_error, once "Internal error: " + exceptions.developer_exception_name)
+         else
+            processor.set_exception(exceptions.System_level_type_error, once "Internal error: " + exceptions.exception_name)
+         end
+         sedb_breakpoint
       end
 
 feature {RUNNER_FACET}
@@ -188,7 +205,11 @@ feature {RUNNER_FACET}
             create internal_locals.make
          end
          --|debug
-         --|   std_output.put_line("internal: " + a_internal.hash_tag + " := " + a_value.out)
+         --|   if a_value /= Void then
+         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
+         --|   else
+         --|      std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
+         --|   end
          --|end
          internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
@@ -199,6 +220,13 @@ feature {RUNNER_FACET}
       do
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
+            --|debug
+            --|   if Result /= Void then
+            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = " + Result.out)
+            --|   else
+            --|      std_output.put_line("**** get internal: " + a_internal.hash_tag + " = Void")
+            --|   end
+            --|end
          end
       end
 

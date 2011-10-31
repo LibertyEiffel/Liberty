@@ -11,9 +11,9 @@ inherit
    INSTRUCTION
       undefine out_in_tagged_out_memory
       end
+   TRAVERSABLE[ASSERTION]
 
 insert
-   TRAVERSABLE[ASSERTION]
    ASSERTION_PRINT_TOOLS
       undefine out_in_tagged_out_memory
       end
@@ -345,17 +345,15 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          Result := list.last
       end
 
+   new_iterator: ITERATOR[ASSERTION] is
+      do
+         Result := list.new_iterator
+      end
+
 feature {ASSERTION_LIST_VISITOR}
    list: FAST_ARRAY[ASSERTION]
 
 feature {}
-   new_iterator: ITERATOR[ASSERTION] is
-      do
-         check
-            False -- Just use the usual pattern instead please.
-         end
-      end
-
    make (sp: like start_position; hc: like header_comment; l: like list) is
       require
          not sp.is_unknown

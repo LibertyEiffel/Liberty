@@ -37,10 +37,10 @@ int assertion_depth=1;
 */
 void se_prinT0(FILE* file, T0** o) {
     if (*o == NULL) {
-	fprintf(file,"Void");
+        fprintf(file,"Void");
     }
     else {
-	fprintf(file,"#%p",(void*)*o);
+        fprintf(file,"#%p",(void*)*o);
     }
 }
 
@@ -64,22 +64,22 @@ static void se_print_character(FILE* file, char c) {
     /* Produce a visible output of `c' using an Eiffelish notation.
      */
     if ((' ' <= c)&&(c <= '~')&&(c != '\'')&&(c != '\"')&&(c != '%')) {
-	putc(c,file);
+        putc(c,file);
     }
     else {
-	switch (c) {
-	    case '\b': fprintf(file,"%%B"); break;
-	    case '\f': fprintf(file,"%%F"); break;
-	    case '\n': fprintf(file,"%%N"); break;
-	    case '\r': fprintf(file,"%%R"); break;
-	    case '\t': fprintf(file,"%%T"); break;
-	    case '\0': fprintf(file,"%%U"); break;
-	    case '\'': fprintf(file,"%%\'"); break;
-	    case '\"': fprintf(file,"%%\""); break;
-	    case '%':  fprintf(file,"%%%%"); break;
-	    default:
-		fprintf(file,"%%/%d/", (int) ((unsigned char) c));
-	}
+        switch (c) {
+            case '\b': fprintf(file,"%%B"); break;
+            case '\f': fprintf(file,"%%F"); break;
+            case '\n': fprintf(file,"%%N"); break;
+            case '\r': fprintf(file,"%%R"); break;
+            case '\t': fprintf(file,"%%T"); break;
+            case '\0': fprintf(file,"%%U"); break;
+            case '\'': fprintf(file,"%%\'"); break;
+            case '\"': fprintf(file,"%%\""); break;
+            case '%':  fprintf(file,"%%%%"); break;
+            default:
+                fprintf(file,"%%/%d/", (int) ((unsigned char) c));
+        }
     }
 }
 
@@ -103,35 +103,35 @@ void se_prinT12(FILE* file, EIF_REAL_EXTENDED* o) {
 
 void se_prinT6(FILE* file, EIF_BOOLEAN* o) {
     if (*o) {
-	fprintf(file,"True");
+        fprintf(file,"True");
     }
     else {
-	fprintf(file,"False");
+        fprintf(file,"False");
     }
 }
 
 void se_prinT7(FILE* file, EIF_STRING* o) {
     if (*o == NULL) {
-	fprintf(file,"Void");
+        fprintf(file,"Void");
     }
     else {
-	T3* storage = (*o)->_storage;
-	int count = (*o)->_count;
-	int i = 0;
-	putc('\"',file);
-	while (i < count) {
-	    se_print_character(file, storage[i++]);
-	}
-	putc('\"',file);
+        T3* storage = (*o)->_storage;
+        int count = (*o)->_count;
+        int i = 0;
+        putc('\"',file);
+        while (i < count) {
+            se_print_character(file, storage[i++]);
+        }
+        putc('\"',file);
     }
 }
 
 void se_prinT8(FILE* file, EIF_POINTER* o) {
     if (*o == NULL) {
-	fprintf(file,"NULL");
+        fprintf(file,"NULL");
     }
     else {
-	fprintf(file,"POINTER#%p",(void*)*o);
+        fprintf(file,"POINTER#%p",(void*)*o);
     }
 }
 
@@ -147,72 +147,130 @@ int se_stack_size(se_dump_stack* ds) {
 }
 
 void se_print_run_time_stack(void) {
-  se_print_run_time_stack_in(SE_ERR);
+  /* ANY.print_run_time_stack */
+  se_print_run_time_stack_in(SE_ERR, se_dst, NULL, 0);
 }
 
-void se_print_run_time_stack_in(FILE* file) {
-  /* ANY.print_run_time_stack */
-  se_dump_stack* origin;
+static se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact, int exception_depth) {
   se_dump_stack* ds;
   se_dump_stack* ds2;
   int frame_count = 1;
-  int rescue = 0;
+  char tag[24];
 
-  handle(SE_HANDLE_ENTER_PRINT_STACK, NULL);
-  origin = se_dst;
-  if (origin == NULL) {
-    fprintf(file,"Empty stack.\n");
-    return ;
+  if (exception_depth == 0) {
+    sprintf(tag, "run-time");
   }
   else {
-    while (origin->exception_origin != NULL) {
-      origin = origin->exception_origin;
-    }
-
-    ds = origin;
-    while (ds->caller != NULL) {
-      ds = ds->caller;
-      frame_count++;
-    }
+    sprintf(tag, "exception#%d", exception_depth);
   }
-  fprintf(file,"%d frames in current stack.\n",frame_count);
-  fprintf(file,"=====  Bottom of run-time stack  =====\n");
+
+  if (top == NULL) {
+    if (is_compact) {
+      fprintf(file,"Empty %s stack.\n", tag);
+    } else {
+      fprintf(file,"====  Empty %s stack.\n", tag);
+    }
+    return;
+  }
+
+  ds = top;
+  while (ds->caller != NULL) {
+    ds = ds->caller;
+    frame_count++;
+  }
+
+  if (is_compact) {
+    fprintf(file,"==== %d frames in %s stack:\n",frame_count, tag);
+  }
+  else {
+    fprintf(file,"%d frames in %s stack.\n",frame_count, tag);
+    fprintf(file,"====  Bottom of %s stack  ====\n", tag);
+  }
   while (ds != NULL) {
-    se_print_one_frame_in(file,ds);
-    /* Next frame : */
-    if (ds == origin) {
-      ds = NULL;
-    }
-    else if (ds->exception_origin != NULL) {
-      rescue = 1;
-      ds = ds->exception_origin;
-    }
-    else {
-      ds2 = se_dst;
-      while (ds2->caller != ds) {
-	ds2 = ds2->caller;
-      }
-      ds = ds2;
-    }
-    if (--frame_count) {
-      if (!rescue) {
-        fprintf(file,"======================================\n");
+    /* Note: this loop would have been simpler if recursive. We don't
+       do that because that could potentially trigger some weird stack
+       overflow exception.
+
+       Anyway performance is not critical here.
+    */
+    frame_count--;
+
+    if (ds->exception_origin != NULL) {
+      se_print_run_time_stack_(file, ds->exception_origin, cur, is_compact, exception_depth + 1);
+
+      /* the rescue stack is part of the run-time stack */
+      if (is_compact) {
+        fprintf(file,"==== Rescue:\n");
       }
       else {
-        fprintf(file,"====   Rescue stack  =================\n");
+        fprintf(file,"====  Rescue stack  ====\n", tag);
+      }
+    }
+
+    se_print_one_frame_in(file,ds,cur,is_compact);
+
+    /* Next frame : */
+    if (ds == top) {
+      ds = NULL;
+    }
+    else {
+      ds2 = top;
+      while (ds2->caller != ds) {
+        ds2 = ds2->caller;
+      }
+      ds = ds2;
+
+      if (!is_compact) {
+        fprintf(file,"======================================\n");
       }
     }
   }
-  fprintf(file,"=====   Top of run-time stack    =====\n");
+  if (!is_compact) {
+    fprintf(file,"====  Top of %s stack   ====\n", tag);
+  }
+}
 
+void se_print_run_time_stack_in(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact) {
+  handle(SE_HANDLE_ENTER_PRINT_STACK, NULL);
+  se_print_run_time_stack_(file, top, cur, is_compact, 0);
   handle(SE_HANDLE_EXIT_PRINT_STACK, NULL);
 }
 
 int se_print_one_frame(se_dump_stack* ds) {
-  return se_print_one_frame_in(SE_ERR, ds);
+  return se_print_one_frame_in(SE_ERR, ds, NULL, 0);
 }
 
-int se_print_one_frame_in(FILE* file, se_dump_stack* ds) {
+static char* se_basename(char* path) {
+  char* result = path;
+  int again = 1;
+
+  while (*result) result++;
+
+  while (again) {
+    result--;
+    if (result == path) {
+      again = 0;
+    }
+    else {
+      switch(*result) {
+      case '\\':
+      case '/':
+      case ':':
+      case ']':
+        result++;
+        again = 0;
+        break;
+      default:
+        break;
+      }
+    }
+  }
+  while (*result==' ') result++;
+
+  return result;
+}
+
+int se_print_one_frame_in(FILE* file, se_dump_stack* ds, se_dump_stack* cur, int is_compact) {
   /* Return 1 for an ordinary frame (not a cecil frame or some dynamic
      dispatch extra frame). */
   se_frame_descriptor* fd = ds->fd;
@@ -223,12 +281,31 @@ int se_print_one_frame_in(FILE* file, se_dump_stack* ds) {
   int id;
   void** var;
 
+  int li = ds->p == 0 ? 0 : se_position2line(ds->p);
+  int fi = ds->p == 0 ? 0 : se_position2path_id(ds->p);
+
+  if (is_compact) {
+    if (li == 0) {
+      fprintf(file,"                                         %c", (cur==ds?'*':' '));
+    } else if (p[fi] == NULL) {
+      fprintf(file, "                                   :%-4d %c", li, (cur==ds?'*':' '));
+    } else {
+      fprintf(file, "%35.35s:%-4d %c", se_basename(p[fi]), li, (cur==ds?'*':' '));
+    }
+  }
+
   if (fd == NULL) {
-    fprintf(file,"External CECIL call.\n");
+    fprintf(file,"External call (may be a -cecil call).\n");
     return 0;
   }
+  if (is_compact) {
+    fprintf(file,"%s\n",fd->name);
+    if (li == 0) return 0;
+    return 1;
+  }
+
   fprintf(file,"%s\n",fd->name);
-  if (ds->p == 0) return 0;
+  if (li == 0) return 0;
   local_format = fd->local_format;
   if (fd->use_current) {
     fprintf(file,"Current = ");
@@ -274,11 +351,11 @@ int se_print_one_frame_in(FILE* file, se_dump_stack* ds) {
     fprintf(file,"\n");
     local_count++;
   }
-  fprintf(file,"line %d ",se_position2line(ds->p));
+  fprintf(file,"line %d ",li);
   fflush(file);
   fprintf(file,"column %d ",se_position2column(ds->p));
   fflush(file);
-  fprintf(file,"file %s \n",p[se_position2path_id(ds->p)]);
+  fprintf(file,"file %s \n",p[fi]);
   fflush(file);
   return 1;
 }
@@ -296,11 +373,11 @@ int se_rci(se_dump_stack*caller,void*C) {
     }
     else {
       if (fd->use_current) {
-	if (fd->local_format[1] == 'R') {
-	  if ((*((void**)caller->current)) == C) {
-	    return 0;
-	  }
-	}
+        if (fd->local_format[1] == 'R') {
+          if ((*((void**)caller->current)) == C) {
+            return 0;
+          }
+        }
       }
     }
   }
@@ -509,9 +586,9 @@ int ac_lvc(int lc,int lv1,int lv2) {
       internal_exception_handler(Loop_variant);
 #else
       {
-	char msg [64];
-	sprintf(msg,"Bad First Variant Value = %d\n",lv2);
-	error0(msg,NULL);
+        char msg [64];
+        sprintf(msg,"Bad First Variant Value = %d\n",lv2);
+        error0(msg,NULL);
       }
 #endif
     }
@@ -526,9 +603,9 @@ int ac_lvc(int lc,int lv1,int lv2) {
     {
       char msg [512];
       sprintf(msg,
-	      "Bad loop variant.\nLoop body counter = %d (done)\n"
-	      "Previous Variant = %d\nNew Variant = %d\n",
-	      lc,lv1,lv2);
+              "Bad loop variant.\nLoop body counter = %d (done)\n"
+              "Previous Variant = %d\nNew Variant = %d\n",
+              lc,lv1,lv2);
       error0(msg,NULL);
     }
 #endif
@@ -552,16 +629,16 @@ T0* se_evobt(T0* o, se_position position) {
     */
     if (!o) {
 #ifdef SE_EXCEPTIONS
-	internal_exception_handler(Void_call_target);
+        internal_exception_handler(Void_call_target);
 #else
-	error1("Target is Void.",position);
+        error1("Target is Void.",position);
 #endif
     }
     else {
 #ifdef SE_EXCEPTIONS
-	internal_exception_handler(System_level_type_error);
+        internal_exception_handler(System_level_type_error);
 #else
-	error2(o,position);
+        error2(o,position);
 #endif
     }
     return o; /* Dummy return to avoid C warnings. */
@@ -603,7 +680,6 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
   void** var;
   int local_size;
   int expanded;
-
   void*** _i;
   void** _ref;
   char*  _exp;
@@ -614,134 +690,139 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
     if (result != NULL) {
       result->fd               = fd;
       result->p                = copy->p;
-      result->caller           = copy->caller;
+      result->caller           = NULL;
       result->current          = NULL;
       result->locals           = NULL;
       result->exception_origin = NULL;
 
       if (fd != NULL) {
-	local_format = fd->local_format;
-	i = 0;
-	if (fd->use_current) {
-	  result->current = copy->current;
-	  /* Place i after the Current definition: */
-	  i = 2;
-	  id = 0;
-	  while (local_format[i] != '%') {
-	    id = (id * 10) + (local_format[i++] - '0');
-	  }
-	  i++;
-	}
+        local_format = fd->local_format;
+        i = 0;
+        if (fd->use_current) {
+          /* Place i after the Current definition: */
+          i = 2;
+          id = 0;
+          while (local_format[i] != '%') {
+            id = (id * 10) + (local_format[i++] - '0');
+          }
+          if (local_format[1] == 'R') {
+            o = sizeof(void*);
+          }
+          else {
+            o = se_strucT[id];
+          }
+          i++;
 
-	/*
-	 *
-	 * p: sum of the number of pointers ("indirections") per local
-	 *    -> 1 for an expanded
-	 *    -> 2 for a reference
-	 *
-	 * o: total malloc'ed size
-	 *
-	 * _i: access to the first indirection pointer
-	 *
-	 * _ref: access to the second indirection pointer of a reference object
-	 *       _ref == (T0*)(*_i)
-	 *
-	 * _exp: access to a copy of the expanded object
-	 *       _exp == *((char*)_i)
-	 *
-	 *
-	 *
-	 * For instance, if "0" is the first local, a reference and "4" is the
-	 * second local, an expanded type (say, a 6-byte structure noted
-	 * "XXXXXXXXXXX", with 64-bit padding "/"):
-	 *
-	 *
-	 *
-	 * result->locals
-	 *       |                ------------
-	 *       |               |            |
-	 *       |    -----------|------------v--------------
-	 *        -->| | | | |===+===|===+===|XXXXXXXXXXX|/|/|
-	 *           |0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F|0|1|2|3|
-	 *           |===+===| | | | |===+===| | | | | | | | |
-	 *            ---|------------^--|-------------------
-	 *               |            |  |
-	 *                ------------    --------------------------> object
-	 *
-	 *           |-> _i          |-> _ref         _exp <-|
-	 *
-	 *
-	 *
-	 * Note: Those "|->" denote the start value and way of
-	 *       progression of the pointers
-	 *
-	 *
-	 * result->locals is defined as a (void***) but its real "type" depends on
-	 * which element is accessed (as in the live stack; but in the live stack,
-	 * only the first indirection is in the struct; the remaining data is on
-	 * the native stack).
-	 *
-	 */
+          result->current = se_malloc(o);
+          memcpy(result->current, copy->current, o);
+        }
 
-	if (copy->locals != NULL) {
-	  j = i;
+        /*
+         *
+         * p: sum of the number of pointers ("indirections") per local
+         *    -> 1 for an expanded
+         *    -> 2 for a reference
+         *
+         * o: total malloc'ed size
+         *
+         * _i: access to the first indirection pointer
+         *
+         * _ref: access to the second indirection pointer of a reference object
+         *       _ref == (T0*)(*_i)
+         *
+         * _exp: access to a copy of the expanded object
+         *       _exp == *((char*)_i)
+         *
+         *
+         *
+         * For instance, if "0" is the first local, a reference and "4" is the second local, an expanded type
+         * (say, a 6-byte structure noted "XXXXXXXXXXX", with 64-bit padding "/"):
+         *
+         *
+         *
+         * result->locals
+         *       |                ------------
+         *       |               |            |
+         *       |    -----------|------------v--------------
+         *        -->| | | | |===+===|===+===|XXXXXXXXXXX|/|/|
+         *           |0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F|0|1|2|3|
+         *           |===+===| | | | |===+===| | | | | | | | |
+         *            ---|------------^--|-------------------
+         *               |            |  |
+         *                ------------    --------------------------> object
+         *
+         *           |-> _i          |-> _ref         _exp <-|
+         *
+         *
+         *
+         * Note: Those "|->" denote the start value and way of progression of the pointers
+         *
+         *
+         * result->locals is defined as a (void***) but its real "type" depends on which element is accessed
+         * (as in the live stack; but in the live stack, only the first indirection is in the struct; the
+         * remaining data is on the native stack).
+         *
+         */
 
-	  local_count = local_size = p = o = 0;
+        if (copy->locals != NULL) {
+          j = i;
 
-	  while (local_count < fd->local_count) {
-	    while (local_format[i++] != '%');
-	    expanded = ((local_format[i++] == 'E')?1:0);
-	    id = 0;
-	    while (local_format[i] != '%') {
-	      id = (id * 10) + (local_format[i++] - '0');
-	    }
-	    i++;
-	    if (expanded) {
-	      p++;
-	      o = se_strucT[id];
-	      o = (o + 7) & ~7; /* 64-bit align: should be fine for most systems */
-	      local_size += o;
-	    }
-	    else {
-	      p+=2;
-	    }
-	    local_count++;
-	  }
+          local_count = local_size = p = o = 0;
 
-	  o = p * sizeof(void*) + local_size;
-	  result->locals = (void***)se_malloc(o);
-	  _i   = result->locals;
-	  _exp = (char*)_i + o;
-	  _ref = (void**)_i + local_count;
+          while (local_count < fd->local_count) {
+            while (local_format[i++] != '%');
+            expanded = ((local_format[i++] == 'E')?1:0);
+            id = 0;
+            while (local_format[i] != '%') {
+              id = (id * 10) + (local_format[i++] - '0');
+            }
+            i++;
+            if (expanded) {
+              p++;
+              o = se_strucT[id];
+              o = (o + 7) & ~7; /* 64-bit align: should be fine for most systems */
+              local_size += o;
+            }
+            else {
+              p+=2;
+            }
+            local_count++;
+          }
 
-	  i = j;
-	  local_count = 0;
-	  while (local_count < fd->local_count) {
-	    while (local_format[i++] != '%');
-	    expanded = ((local_format[i++] == 'E')?1:0);
-	    id = 0;
-	    while (local_format[i] != '%') {
-	      id = (id * 10) + (local_format[i++] - '0');
-	    }
-	    i++;
-	    var = (copy->locals)[local_count];
-	    if (expanded) {
-	      o = n = se_strucT[id];
-	      o = (o + 7) & ~7; /* 64-bit align: should be fine for most systems */
-	      _exp -= o;
-	      *(char**)_i = _exp;
-	      memset(_exp, 0, o);
-	      memcpy(_exp, var, n);
-	    }
-	    else {
-	      *_i = _ref;
-	      *_ref = *var;
-	      _ref++;
-	    }
-	    local_count++;
-	    _i++;
-	  }
-	}
+          o = p * sizeof(void*) + local_size;
+          result->locals = (void***)se_malloc(o);
+          _i   = result->locals;
+          _exp = (char*)_i + o;
+          _ref = (void**)_i + local_count;
+
+          i = j;
+          local_count = 0;
+          while (local_count < fd->local_count) {
+            while (local_format[i++] != '%');
+            expanded = ((local_format[i++] == 'E')?1:0);
+            id = 0;
+            while (local_format[i] != '%') {
+              id = (id * 10) + (local_format[i++] - '0');
+            }
+            i++;
+            var = (copy->locals)[local_count];
+            if (expanded) {
+              o = n = se_strucT[id];
+              o = (o + 7) & ~7; /* 64-bit align: should be fine for most systems */
+              _exp -= o;
+              *(char**)_i = _exp;
+              memset(_exp, 0, o);
+              memcpy(_exp, var, n);
+            }
+            else {
+              *_i = _ref;
+              *_ref = *var;
+              _ref++;
+            }
+            local_count++;
+            _i++;
+          }
+        }
       }
     }
   }
@@ -750,6 +831,7 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
 
 void se_delete_dump_stack(se_dump_stack* ds) {
   if (ds != NULL) {
+    if (ds->current != NULL) free(ds->current);
     if (ds->locals != NULL) free(ds->locals);
     free(ds);
   }
@@ -781,12 +863,12 @@ void se_print_locals_in(FILE* file, se_dump_stack* ds, int enter) {
     display = (strncmp(local_format+i, "Result%", 7)==0) != enter;
     if (display) {
       if (printed)
-	fprintf(file,", ");
+        fprintf(file,", ");
       else
-	fprintf(file,"(");
+        fprintf(file,"(");
       printed++;
     }
-    
+
     while (local_format[i] != '%') {
       if (display) fprintf(file,"%c",local_format[i]);
       i++;
@@ -802,19 +884,19 @@ void se_print_locals_in(FILE* file, se_dump_stack* ds, int enter) {
     i++;
     if (display) {
       if (ds->locals == NULL) {
-	fprintf(file,"<unavailable>");
+        fprintf(file,"<unavailable>");
       }
       else {
-	var = (ds->locals)[local_count];
-	if (expanded) {
-	  (se_prinT[id])(file, (void**)(var));
-	}
-	else if (*var == NULL) {
-	  fprintf(file,"Void");
-	}
-	else {
-	  (se_prinT[((T0*)(*var))->id])(file, (void**)(var));
-	}
+        var = (ds->locals)[local_count];
+        if (expanded) {
+          (se_prinT[id])(file, (void**)(var));
+        }
+        else if (*var == NULL) {
+          fprintf(file,"Void");
+        }
+        else {
+          (se_prinT[((T0*)(*var))->id])(file, (void**)(var));
+        }
       }
     }
     local_count++;
@@ -833,7 +915,7 @@ void se_print_call_trace(se_dump_stack *ds) {
   int i;
   if (ds) {
     int enter = ds->caller == se_dst;
-    
+
     if (enter)
       se_call_depth++;
 
@@ -849,10 +931,10 @@ void se_print_call_trace(se_dump_stack *ds) {
       se_print_locals_in(stdout, ds, 1);
     } else {
       if (se_dst) {
-	printf("leave ");
-	printf("%s", se_dst->fd->name);
-	se_print_locals_in(stdout, se_dst, 0);
-	se_call_depth--;
+        printf("leave ");
+        printf("%s", se_dst->fd->name);
+        se_print_locals_in(stdout, se_dst, 0);
+        se_call_depth--;
       }
     }
   } else {

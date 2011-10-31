@@ -76,14 +76,14 @@ feature {RUNNER_FACET}
                dll := loader.library(dll_name_)
             end
             if dll = Void then
-               processor.set_exception(once "Unknown plugin")
+               processor.set_exception(exceptions.System_level_type_error, once "Unknown plugin")
             else
                arg_types := foreign_types(processor, processor.current_frame.type_of_current, processor.current_frame.rf.arguments)
                res_type := foreign_type(processor, processor.current_frame.type_of_result)
 
                Result := dll.function(agent_name, arg_types, res_type)
                if Result = Void then
-                  processor.set_exception(once "Unknown plugin function")
+                  processor.set_exception(exceptions.System_level_type_error, once "Unknown plugin function")
                else
                   processor.set_plugin_agent(Result, agent_name)
                end
@@ -101,7 +101,7 @@ feature {RUNNER_FACET}
             if foreign_types_map.fast_has(a_type) then
                Result := foreign_types_map.fast_at(a_type).first
             else
-               processor.set_exception(once "Cannot map {" | a_type.name.to_string | once "}to foreign type")
+               processor.set_exception(exceptions.System_level_type_error, once "Cannot map {" | a_type.name.to_string | once "} to foreign type")
             end
          else
             Result := types.nothing

@@ -17,6 +17,11 @@ feature {}
          create Result.make(std_output)
       end
 
+   frozen user_args: FAST_ARRAY[STRING] is
+      once
+         create Result.make(0)
+      end
+
 end -- class RUNNER_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

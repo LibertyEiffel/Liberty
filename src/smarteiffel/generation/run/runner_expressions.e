@@ -379,7 +379,7 @@ feature {MANIFEST_STRING}
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.features.manifest_new(visited)
       end
 
 feature {MANIFEST_TUPLE}
@@ -490,13 +490,13 @@ feature {COMPOUND_EXPRESSION}
       do
          watermark := processor.current_frame.watermark
          from
-            i := visited.lower
+            i := visited.upper - 1
          until
-            i = visited.upper
+            i < visited.lower
          loop
             inst ::= visited.item(i)
             processor.current_frame.add_instruction(inst)
-            i := i + 1
+            i := i - 1
          end
          processor.current_frame.execute_until(watermark)
          exp ::= visited.last
