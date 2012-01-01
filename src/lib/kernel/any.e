@@ -230,53 +230,42 @@ feature {ANY} -- Object Printing:
          --
       require
          file.is_connected
-         not_locked: not tagged_out_locked
       do
          lock_tagged_out
          tagged_out_memory.clear_count
          out_in_tagged_out_memory
          tagged_out_memory.print_on(file)
          unlock_tagged_out
-      ensure
-         not_locked: not tagged_out_locked
       end
 
    frozen tagged_out: STRING is
          -- New string containing printable representation of current
          -- object, each field preceded by its attribute name, a
          -- colon and a space.
-      require
-         not_locked: not tagged_out_locked
       do
          lock_tagged_out
          tagged_out_memory.clear_count
          fill_tagged_out_memory
          Result := tagged_out_memory.twin
          unlock_tagged_out
-      ensure
-         not_locked: not tagged_out_locked
       end
 
    out: STRING is
          -- Create a new string containing terse printable
          -- representation of current object.
-      require
-         not_locked: not tagged_out_locked
       do
          lock_tagged_out
          tagged_out_memory.clear_count
          out_in_tagged_out_memory
          Result := tagged_out_memory.twin
          unlock_tagged_out
-      ensure
-         not_locked: not tagged_out_locked
       end
 
    lazy_out, prefix "&": ABSTRACT_STRING is
-	   -- A newly allocate "lazy" representation of current object. Lazy means
-	   -- that actual representation is made only on demand when the string is
-	   -- actually used; the actual content of the representation is made using
-	   -- running `out' query as an agent.
+           -- A newly allocate "lazy" representation of current object. Lazy means
+           -- that actual representation is made only on demand when the string is
+           -- actually used; the actual content of the representation is made using
+           -- running `out' query as an agent.
       do
          create {LAZY_STRING} Result.make(agent out)
       end
@@ -315,40 +304,50 @@ feature {ANY} -- Object Printing:
          still_locked: tagged_out_locked
       end
 
-   tagged_out_locked: BOOLEAN is
-      do
-         Result := tagged_out_lock.item
+feature {} -- tagged_out management:
+   frozen tagged_out_memory_pool: STRING_RECYCLING_POOL is
+      once
+         create Result.make
       end
 
-feature {} -- Various useful tools:
-   tagged_out_lock: REFERENCE[BOOLEAN] is
+   frozen tagged_out_memories: STACK[STRING] is
+      once
+         create Result.make
+      end
+
+   frozen lock_tagged_out is
+      do
+         tagged_out_memories.push(tagged_out_memory)
+         tagged_out_memory_ref.set_item(tagged_out_memory_pool.new)
+      ensure
+         tagged_out_locked
+      end
+
+   frozen unlock_tagged_out is
+      require
+         tagged_out_locked
+      do
+         tagged_out_memory_pool.recycle(tagged_out_memory)
+         tagged_out_memory_ref.set_item(tagged_out_memories.top)
+         tagged_out_memories.pop
+      end
+
+   frozen tagged_out_locked: BOOLEAN is
+      do
+         Result := not tagged_out_memories.is_empty
+      end
+
+   frozen tagged_out_memory: STRING is
+      do
+         Result := tagged_out_memory_ref.item
+      end
+
+   frozen tagged_out_memory_ref: REFERENCE[STRING] is
       once
          create Result
       end
 
-   lock_tagged_out is
-      require
-         not tagged_out_locked
-      do
-         tagged_out_lock.set_item(True)
-      ensure
-         tagged_out_locked
-      end
-
-   unlock_tagged_out is
-      require
-         tagged_out_locked
-      do
-         tagged_out_lock.set_item(False)
-      ensure
-         not tagged_out_locked
-      end
-
-   frozen tagged_out_memory: STRING is
-      once
-         create Result.make(1024)
-      end
-
+feature {} -- Various useful tools:
    frozen crash is
          -- Print Run Time Stack and then exit with `exit_failure_code'.
       do

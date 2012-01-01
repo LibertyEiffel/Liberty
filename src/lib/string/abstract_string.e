@@ -97,7 +97,7 @@ feature {ANY} -- Testing:
         -- Substring of items in `a_range' .
     require valid_range: valid_index(a_range.lower) and valid_index(a_range.upper)
     do
-        Result := substring (a_range.lower, a_range.upper)
+        Result := substring(a_range.lower, a_range.upper)
     ensure
         Result.count = a_range.count
         has_substring(Result) -- This is the same of writing "substring_index(Result,lower)=a_range.lower"
@@ -1062,19 +1062,14 @@ feature {ANY} -- Concatenation
     end
 
     infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING is
-        -- TODO: Currently unimplemented.
-        -- A copy of Current with a placeholder "#(n)" is replaced with the content of `a_value'. A chain of # queries will progressively replace placeholder 1, 2 ...
-
-        -- For example a_string#"foo"#"bar"#"maman" is equivalent to a_string.arg(1,"foo").arg(2,"bar").arg(3,"maman")
-
-        -- See also `arg'.
-    do
-        -- not_yet_implemented
-        create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current,a_value,1)
-         debug
-            print("%""+Current+"%"#("+a_value+"%")=%""+Result+"%"%N")
-        end
-    end
+         -- A copy of Current with a placeholder "#(n)" is replaced with the content of `a_value'. A chain of # queries will progressively replace placeholder 1, 2 ...
+         --
+         -- For example a_string#"foo"#"bar"#"maman" is equivalent to a_string.arg(1,"foo").arg(2,"bar").arg(3,"maman")
+         --
+         -- See also `arg'.
+      do
+         create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current, a_value)
+      end
 
 feature -- Case convertion
    as_lower: STRING is
@@ -1321,16 +1316,16 @@ feature {STRING_HANDLER}
          end
       end
 feature {} -- The states of the finite state automaton used in `arg' feature
-    always_print_state: INTEGER is -1
-    normal_state: INTEGER is 0
-    after_delimiter_state: INTEGER is 1
-    after_brace_state: INTEGER is 2
-    -- Please note that we picked the same values used in MESSAGE_FORMATTER. It may also be written like
+   always_print_state: INTEGER is -1
+   normal_state: INTEGER is 0
+   after_delimiter_state: INTEGER is 1
+   after_brace_state: INTEGER is 2
+         -- Please note that we picked the same values used in MESSAGE_FORMATTER. It may also be written like
 
-    -- "always_print_state, normal_state, after_delimiter_state, after_brace_state: INTEGER is unique"
+         -- "always_print_state, normal_state, after_delimiter_state, after_brace_state: INTEGER is unique"
 
-    -- but I'm not sure that the compiler will actually choose sequential
-    -- values necessary in the last if tense in the arg query
+         -- but I'm not sure that the compiler will actually choose sequential
+         -- values necessary in the last if tense in the arg query
 
 
 
