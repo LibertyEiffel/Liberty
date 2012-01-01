@@ -70,6 +70,11 @@ feature {ANY}
          end
       end
 
+   to_builtin_pointer: POINTER is
+      do
+         Result := to_pointer
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

@@ -44,7 +44,7 @@ feature {RUNNER_PROCESSOR}
 
    new_pointer (processor: RUNNER_PROCESSOR; pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER] is
       do
-         create Result.make(processor, smart_eiffel.type_pointer, pointer, Void) --| **** TODO
+         create Result.make(processor, smart_eiffel.type_pointer, pointer, pointer_builtins)
       end
 
    new_integer_8 (processor: RUNNER_PROCESSOR; integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
@@ -207,6 +207,12 @@ feature {}
       once
          create Result.make
          Result.add_parent(any_builtins(smart_eiffel.type_character))
+      end
+
+   pointer_builtins: RUNNER_POINTER_BUILTINS is
+      once
+         create Result.make
+         Result.add_parent(any_builtins(smart_eiffel.type_pointer))
       end
 
    integer_builtins (type: TYPE): RUNNER_NUMERIC_BUILTINS[INTEGER_64] is

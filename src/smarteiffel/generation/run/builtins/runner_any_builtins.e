@@ -144,7 +144,7 @@ feature {}
 
    builtin_to_pointer (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.to_builtin_pointer))
       end
 
    builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR) is

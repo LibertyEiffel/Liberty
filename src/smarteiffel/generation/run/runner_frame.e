@@ -42,14 +42,14 @@ feature {RUNNER_FACET}
             instructions_list.remove_last
             debug ("run.callstack")
                std_output.put_new_line
-               std_output.put_line("(" + depth.out + ") " + rf.name.to_string + ":")
+               std_output.put_line(once "(#(1)) #(2):" # &depth # rf.name.to_string)
                instructions_list.do_all(agent (i: INSTRUCTION) is
                                         do
-                                           std_output.put_string(once "     + ")
+                                           std_output.put_string(once "     - ")
                                            i.accept(displayer)
                                            std_output.put_new_line
                                         end)
-               std_output.put_string(once "  **** ")
+               std_output.put_string(once "     > ")
                inst.accept(displayer)
                std_output.put_new_line
             end

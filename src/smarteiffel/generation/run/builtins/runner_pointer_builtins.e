@@ -1,68 +1,58 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_NATIVE_EXPANDED[E_]
+class RUNNER_POINTER_BUILTINS
+   --
+   -- a collection of builtins for POINTER
+   --
 
 inherit
-   RUNNER_OBJECT
+   RUNNER_TYPED_BUILTINS[POINTER]
 
 create {RUNNER_MEMORY}
    make
 
-feature {ANY}
-   builtins: RUNNER_TYPED_BUILTINS[E_]
-
-   processor: RUNNER_PROCESSOR
-   type: TYPE
-   item: E_
-
-   out_in_tagged_out_memory is
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
       do
-         item.out_in_tagged_out_memory
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := item = other.item
-      end
-
-   to_builtin_pointer: POINTER is
-      do
-         processor.set_exception(exceptions.Routine_failure, "to_pointer on expanded type")
-      end
-
-feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
-      do
-         Result := Current -- because native expanded values are flyweights
-      end
-
-   as_foreign_object: FOREIGN_OBJECT is
-      do
-         create {FOREIGN_TYPED_OBJECT[E_]} Result.with(item)
+         check
+            False
+         end
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
-      require
-         a_processor /= Void
-         a_type.is_kernel_expanded
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
-         processor := a_processor
-         type := a_type
-         item := a_item
-         builtins := a_builtins
-      ensure
-         processor = a_processor
-         type = a_type
-         item = a_item
-         builtins = a_builtins
+         inspect
+            processor.current_frame.rf.name.to_string
+         when "is_not_null" then
+            builtin_is_not_null(processor)
+            Result := True
+         else
+            check
+               not Result
+            end
+         end
       end
 
-invariant
-   item_is_expanded: item /= Void
+feature {}
+   builtin_is_not_null (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_boolean(left(processor).item.is_not_null))
+      end
 
-end -- class RUNNER_NATIVE_EXPANDED
+feature {}
+   make is
+      do
+      end
+
+feature {RUNNER_FACET}
+   type: TYPE is
+      do
+         Result := smart_eiffel.type_pointer
+      end
+
+end -- class RUNNER_BOOLEAN_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
