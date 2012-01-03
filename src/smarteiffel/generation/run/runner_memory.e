@@ -4,7 +4,7 @@
 class RUNNER_MEMORY
 
 insert
-   GLOBALS
+   RUNNER_FACET
 
 create {RUNNER}
    make
@@ -223,25 +223,34 @@ feature {}
 
    integer_8_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_8)
+         create Result.make(smart_eiffel.type_integer_8, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                            do
+                                                               Result := processor.new_integer_8(integer & 0xff)
+                                                            end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_8))
       end
 
    integer_16_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_16)
+         create Result.make(smart_eiffel.type_integer_16, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                             do
+                                                                Result := processor.new_integer_16(integer & 0xffff)
+                                                             end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_16))
       end
 
    integer_32_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_32)
+         create Result.make(smart_eiffel.type_integer_32, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                             do
+                                                                Result := processor.new_integer_32(integer & 0xffffffff)
+                                                             end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_32))
       end
 
    integer_64_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_64)
+         create Result.make(smart_eiffel.type_integer_64, agent {RUNNER_PROCESSOR}.new_integer_64)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_64))
       end
 

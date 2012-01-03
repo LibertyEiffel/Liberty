@@ -43,6 +43,36 @@ feature {}
          when ">=" then
             builtin_infix_ge(processor)
             Result := True
+         when "|<<", "bit_shift_left" then
+            builtin_infix_bit_shift_left(processor)
+            Result := True
+         when "|>>", "bit_shift_right" then
+            builtin_infix_bit_shift_right(processor)
+            Result := True
+         when "|>>>", "bit_shift_right_unsigned" then
+            builtin_infix_bit_shift_right_unsigned(processor)
+            Result := True
+         when "#<<", "bit_rotate_left" then
+            builtin_infix_bit_rotate_left(processor)
+            Result := True
+         when "#>>", "bit_rotate_right" then
+            builtin_infix_bit_rotate_right(processor)
+            Result := True
+         when "bit_rotate" then
+            builtin_infix_bit_rotate(processor)
+            Result := True
+         when "&", "bit_and" then
+            builtin_infix_bit_and(processor)
+            Result := True
+         when "|", "bit_or" then
+            builtin_infix_bit_or(processor)
+            Result := True
+         when "~", "bit_not" then
+            builtin_infix_bit_not(processor)
+            Result := True
+         when "bit_xor" then
+            builtin_infix_bit_xor(processor)
+            Result := True
          when "to_integer_8" then
             builtin_to_integer_8(processor)
             Result := True
@@ -108,6 +138,56 @@ feature {}
    builtin_infix_ge (processor: RUNNER_PROCESSOR) is
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item >= right(processor).item))
+      end
+
+   builtin_infix_bit_shift_left (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item |<< right(processor).item.to_integer_8))
+      end
+
+   builtin_infix_bit_shift_right (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item |>> right(processor).item.to_integer_8))
+      end
+
+   builtin_infix_bit_shift_right_unsigned (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item |>>> right(processor).item.to_integer_8))
+      end
+
+   builtin_infix_bit_rotate_left (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item #<< right(processor).item.to_integer_8))
+      end
+
+   builtin_infix_bit_rotate_right (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item #>> right(processor).item.to_integer_8))
+      end
+
+   builtin_infix_bit_rotate (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item.bit_rotate(right(processor).item.to_integer_8)))
+      end
+
+   builtin_infix_bit_and (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item & right(processor).item))
+      end
+
+   builtin_infix_bit_or (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item | right(processor).item))
+      end
+
+   builtin_infix_bit_not (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, ~(left(processor).item)))
+      end
+
+   builtin_infix_bit_xor (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(new_integer(processor, left(processor).item.bit_xor(right(processor).item)))
       end
 
    builtin_to_integer_8 (processor: RUNNER_PROCESSOR) is
@@ -200,13 +280,23 @@ feature {}
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type; a_integer_factory: like integer_factory) is
       require
          a_type /= Void
+         a_integer_factory /= Void
       do
          type := a_type
+         integer_factory := a_integer_factory
       ensure
          type = a_type
+         integer_factory = a_integer_factory
+      end
+
+   integer_factory: FUNCTION[TUPLE[RUNNER_PROCESSOR, INTEGER_64], RUNNER_NATIVE_EXPANDED[INTEGER_64]]
+
+   new_integer (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+      do
+         Result := integer_factory.item([processor, integer])
       end
 
 feature {RUNNER_FACET}
