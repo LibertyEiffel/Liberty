@@ -4,12 +4,16 @@ cd $(dirname $0)/..
 
 . ./work/tools.sh
 
+list_remotes() {
+    git remote | grep -v 'key|master'
+}
+
 branch=$(git branch | awk '/^\*/ {print $2}')
 n=$(git remote | wc -l)
 
 title "Fetching branches"
 i=0
-for remote in $(git remote); do
+for remote in $(list_remotes); do
     progress 30 $i $n $remote
     git fetch $remote
     i=$((i+1))
@@ -22,7 +26,7 @@ git checkout -q upstream/master
 
 title "Merging branches"
 i=0
-for remote in $(git remote); do
+for remote in $(list_remotes); do
     progress 30 $i $n $remote
     git merge -q remotes/$remote/master
     while [ $(git ls-files -u | wc -l) -gt 0 ]; do
