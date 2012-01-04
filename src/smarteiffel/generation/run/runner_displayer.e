@@ -656,8 +656,9 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
-         stream.put_string(once "<writable>")
+         stream.put_string(once "<writable:")
          stream.put_string(visited.to_string)
+         stream.put_character('>')
       end
 
 feature {NO_DISPATCH}
@@ -683,17 +684,17 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1}
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
    visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
       do
-         stream.put_string(once "<id>(")
+         stream.put_string(once "<id:")
          visited.dynamic_dispatch_temporary1.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
    visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
       do
-         stream.put_string(once "<dispatch>(")
+         stream.put_string(once "<dispatch:")
          visited.dynamic_dispatch_temporary1.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {VOID_CALL}
@@ -705,7 +706,7 @@ feature {VOID_CALL}
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do
-         stream.put_string(once "<nil>")
+         stream.put_string(once "<null>")
       end
 
 feature {NON_VOID_NO_DISPATCH}
@@ -717,9 +718,9 @@ feature {NON_VOID_NO_DISPATCH}
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
       do
-         stream.put_string("<compound>(")
+         stream.put_string("<compound:")
          visited.list.last.to_expression.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {EFFECTIVE_ARG_LIST}

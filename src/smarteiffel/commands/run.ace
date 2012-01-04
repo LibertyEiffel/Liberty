@@ -21,8 +21,8 @@ cluster
    runner: "${path_se_tools}generation/run/loadpath.se"
       default
          assertion(all)
-         --debug("run.callstack")
-         --debug("run.data")
+         debug("run.callstack")
+         debug("run.data")
       end
 
    smarteiffel: "${path_se_tools}loadpath.se"

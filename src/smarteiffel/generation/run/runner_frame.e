@@ -106,6 +106,14 @@ feature {RUNNER_FACET}
             Result := arguments_factory.item([])
             arguments_memory := Result
             arguments_set := True
+            debug ("run.data")
+               std_output.put_string("(" + depth.out + ") " + rf.name.to_string + ": arguments: ")
+               if Result /= Void then
+                  std_output.put_line(Result.out)
+               else
+                  std_output.put_line("Void")
+               end
+            end
          end
       end
 
