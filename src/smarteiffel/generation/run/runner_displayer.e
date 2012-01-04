@@ -305,7 +305,15 @@ feature {ASSERTION}
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
-         sedb_breakpoint --| **** TODO
+         if visited.left_type_mark /= Void then
+            stream.put_character('{')
+            stream.put_string(visited.left_type_mark.written_name.to_string)
+            stream.put_character('}')
+         else
+            visited.left_writable.accept(Current)
+         end
+         stream.put_string(once " ?:= ")
+         visited.right_side.accept(Current)
       end
 
 feature {BUILT_IN_EQ_NEQ}

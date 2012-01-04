@@ -62,9 +62,16 @@ feature {ASSERTION}
 
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
+      local
+         left_type: TYPE
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         if visited.left_type_mark /= Void then
+            left_type := smart_eiffel.get_type(visited.left_type_mark)
+         else
+            left_type := smart_eiffel.get_type(visited.left_writable.written_declaration_type_mark.to_static(processor.current_frame.target.type))
+         end
+         visited.right_side.accept(Current)
+         return := processor.new_boolean(return.type = left_type or else return.type.inherits_from(left_type))
       end
 
 feature {BUILT_IN_EQ_NEQ}
