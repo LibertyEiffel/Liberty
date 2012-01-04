@@ -7,10 +7,11 @@ feature {ANY}
    ffi_type: POINTER
 
 feature {FOREIGN_TYPES}
-   set_ffi_type (a_ffi_type: like ffi_type; a_factory: like factory) is
+   set_ffi_type (a_ffi_type: like ffi_type; a_factory: like factory; a_name: like name) is
       do
          ffi_type := a_ffi_type
          factory := a_factory
+         name := a_name
       end
 
 feature {FOREIGN_AGENT}
@@ -21,6 +22,7 @@ feature {FOREIGN_AGENT}
 
 feature {}
    factory: FUNCTION[TUPLE, FOREIGN_OBJECT]
+   name: STRING
 
 end -- class FOREIGN_TYPE
 --
