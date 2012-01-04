@@ -56,9 +56,16 @@ feature {ANY}
             end
             tagged_out_memory.extend(',')
             i := i + 1
+            if i = 32 then
+               i := capacity
+            end
          end
-         tagged_out_memory.put('>', tagged_out_memory.upper)
-         tagged_out_memory.extend('>')
+         if capacity > 32 then
+            tagged_out_memory.append(once " ... >>")
+         else
+            tagged_out_memory.put('>', tagged_out_memory.upper) -- overwrite the coma
+            tagged_out_memory.extend('>')
+         end
       end
 
    is_equal (other: like Current): BOOLEAN is
