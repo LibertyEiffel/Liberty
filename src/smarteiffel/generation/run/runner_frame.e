@@ -21,6 +21,30 @@ feature {RUNNER_FEATURES}
 
    finished: BOOLEAN
 
+feature {RUNNER_FRAME}
+   show_callstack is
+      local
+         name_of_rf: STRING
+      do
+         if caller /= Void then
+            caller.show_callstack
+         end
+         name_of_rf := once ""
+         name_of_rf.clear_count
+         rf.name.complete_name_in(name_of_rf)
+         std_output.put_line(once "(#(1)) {#(2)}.#(3):" # depth.out # target.type.name.to_string # name_of_rf)
+         instructions_list.do_all(agent (i: INSTRUCTION) is
+                                  do
+                                     if i = instructions_list.last then
+                                        std_output.put_string(once "     * ")
+                                     else
+                                        std_output.put_string(once "     - ")
+                                     end
+                                     i.accept(displayer)
+                                     std_output.put_new_line
+                                  end)
+      end
+
 feature {RUNNER_FACET}
    position: POSITION
 
@@ -38,21 +62,13 @@ feature {RUNNER_FACET}
          until
             instructions_list.count <= a_watermark.item or else processor.exception /= Void
          loop
+            debug ("run.callstack")
+               std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
+               show_callstack
+               std_output.put_line(once "~~>8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>8~~")
+            end
             inst := instructions_list.last
             instructions_list.remove_last
-            debug ("run.callstack")
-               std_output.put_new_line
-               std_output.put_line(once "(#(1)) #(2):" # &depth # rf.name.to_string)
-               instructions_list.do_all(agent (i: INSTRUCTION) is
-                                        do
-                                           std_output.put_string(once "     - ")
-                                           i.accept(displayer)
-                                           std_output.put_new_line
-                                        end)
-               std_output.put_string(once "     > ")
-               inst.accept(displayer)
-               std_output.put_new_line
-            end
             position := inst.start_position
             processor.instructions.execute(inst)
          end

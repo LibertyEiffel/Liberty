@@ -27,8 +27,13 @@ feature {ANY}
    put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
+      local
+         actual_item: E_
+         actual_index: INTEGER
       do
-         storage.put(setter.item([a_item]), index.to_integer_32)
+         actual_item := setter.item([a_item])
+         actual_index := index.to_integer_32
+         storage.put(actual_item, actual_index)
       end
 
    out_in_tagged_out_memory is

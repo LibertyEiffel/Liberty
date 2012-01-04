@@ -169,6 +169,9 @@ feature {}
       require
          --| **** TODO a_target.type = a_rf.type_of_current
       do
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N%N" # a_rf.name.to_string)
+         end
          create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
          current_frame := Result
 
@@ -184,6 +187,9 @@ feature {}
 
          check
             Result.return /= Void implies Result.return.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current))
+         end
+         debug ("run.callstack")
+            std_output.put_line(once "> return from #(1)%N" # a_rf.name.to_string)
          end
       ensure
          Result /= Void
@@ -245,12 +251,16 @@ feature {RUN_FEATURE_5}
    visit_run_feature_5 (visited: RUN_FEATURE_5) is
       do
          current_frame.force_eval_arguments
-         if not once_run_features.fast_has(visited) then
-            execute_routine(visited)
+         if once_run_features.fast_has(visited.base_feature) then
             check
-               current_frame.return = Void
+               once_run_features.fast_at(visited.base_feature) = Void
             end
-            once_run_features.add(Void, visited)
+         else
+            execute_routine(visited)
+            once_run_features.add(Void, visited.base_feature)
+         end
+         check
+            current_frame.return = Void
          end
       end
 
@@ -258,16 +268,16 @@ feature {RUN_FEATURE_6}
    visit_run_feature_6 (visited: RUN_FEATURE_6) is
       do
          current_frame.force_eval_arguments
-         if once_run_features.fast_has(visited) then
-            current_frame.set_return(once_run_features.fast_at(visited))
+         if once_run_features.fast_has(visited.base_feature) then
+            current_frame.set_return(once_run_features.fast_at(visited.base_feature))
          else
             execute_routine(visited)
-            once_run_features.add(expand(current_frame.return), visited)
+            once_run_features.add(expand(current_frame.return), visited.base_feature)
          end
       end
 
 feature {}
-   once_run_features: HASHED_DICTIONARY[RUNNER_OBJECT, RUN_FEATURE]
+   once_run_features: HASHED_DICTIONARY[RUNNER_OBJECT, ONCE_ROUTINE]
 
 feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is

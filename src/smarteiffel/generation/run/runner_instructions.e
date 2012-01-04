@@ -24,30 +24,35 @@ feature {RUNNER_FACET}
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
@@ -74,6 +79,7 @@ feature {CHECK_COMPOUND}
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
@@ -207,6 +213,7 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
@@ -229,18 +236,21 @@ feature {SEDB}
 feature {UNUSED_EXPRESSION}
    visit_unused_expression (visited: UNUSED_EXPRESSION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
@@ -265,6 +275,7 @@ feature {PROCEDURE_CALL_N}
 feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
@@ -277,6 +288,7 @@ feature {RETRY_INSTRUCTION}
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint
       end
 
