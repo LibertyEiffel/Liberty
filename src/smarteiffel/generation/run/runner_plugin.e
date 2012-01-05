@@ -132,7 +132,6 @@ feature {RUNNER_FACET}
          args: TRAVERSABLE[RUNNER_OBJECT]; i: INTEGER
       do
          args := processor.current_frame.arguments
-                  sedb_breakpoint
          if args = Void then
             create Result.make(0)
          else

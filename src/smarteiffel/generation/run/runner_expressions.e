@@ -62,16 +62,8 @@ feature {ASSERTION}
 
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
-      local
-         left_type: TYPE
       do
-         if visited.left_type_mark /= Void then
-            left_type := smart_eiffel.get_type(visited.left_type_mark)
-         else
-            left_type := smart_eiffel.get_type(visited.left_writable.written_declaration_type_mark.to_static(processor.current_frame.target.type))
-         end
-         visited.right_side.accept(Current)
-         return := processor.new_boolean(return.type = left_type or else return.type.inherits_from(left_type))
+         return := processor.new_boolean(processor.assignment.test_assign(visited))
       end
 
 feature {BUILT_IN_EQ_NEQ}
@@ -481,7 +473,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
             id := return.type.id
             return := processor.new_integer_32(id)
          else
-            sedb_breakpoint
+            sedb_breakpoint --| **** ????
             return := processor.new_integer_32(0)
          end
       end
@@ -541,10 +533,11 @@ feature {}
          processor = a_processor
       end
 
-   processor: RUNNER_PROCESSOR
    return: RUNNER_OBJECT
-
    implicit_cast_type: TYPE
+
+feature {RUNNER_PROCESSOR}
+   processor: RUNNER_PROCESSOR
 
 invariant
    processor /= Void

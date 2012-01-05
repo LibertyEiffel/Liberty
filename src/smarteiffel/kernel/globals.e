@@ -205,6 +205,8 @@ feature {ANY}
          create Result
       end
 
+   frozen exceptions: EXCEPTIONS
+
    frozen exceptions_handler: EXCEPTIONS_HANDLER is
       once
          create Result.make

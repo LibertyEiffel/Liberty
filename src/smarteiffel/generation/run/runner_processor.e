@@ -20,6 +20,7 @@ feature {RUNNER_FACET}
    features: RUNNER_FEATURES
    instructions: RUNNER_INSTRUCTIONS
    expressions: RUNNER_EXPRESSIONS
+   assignment: RUNNER_ASSIGNMENT
 
    memory: RUNNER_MEMORY
          -- shared by all processors
@@ -35,7 +36,7 @@ feature {RUNNER_FACET} -- Exceptions
    set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
       do
          create exception.make(a_exception, a_message.intern, Current, exception)
-         sedb_breakpoint
+         sedb_breakpoint --| **** useful breakpoint for debug.
       ensure
          exception.message = a_message.intern
       end
@@ -595,6 +596,7 @@ feature {}
          create features.make(Current)
          create instructions.make(Current)
          create expressions.make(Current)
+         create assignment.make(Current)
 
          create booleans.make(2)
          create characters.make
@@ -641,28 +643,29 @@ feature {}
    plugin_agents: HASHED_DICTIONARY[FOREIGN_AGENT, FIXED_STRING]
 
 invariant
-   features /= Void
-   instructions /= Void
-   expressions /= Void
-
-   booleans /= Void
-   characters /= Void
-   integers_8 /= Void
-   integers_16 /= Void
-   integers_32 /= Void
-   integers_64 /= Void
-   naturals_8 /= Void
-   naturals_16 /= Void
-   naturals_32 /= Void
-   naturals_64 /= Void
-   reals_32 /= Void
-   reals_64 /= Void
-   reals_extended /= Void
-
    memory /= Void
 
-   defaults /= Void
-   plugin_agents /= Void
+   features     /= Void and features.processor     = Current
+   instructions /= Void and instructions.processor = Current
+   expressions  /= Void and expressions.processor  = Current
+   assignment   /= Void and assignment.processor   = Current
+
+   booleans       /= Void
+   characters     /= Void
+   integers_8     /= Void
+   integers_16    /= Void
+   integers_32    /= Void
+   integers_64    /= Void
+   naturals_8     /= Void
+   naturals_16    /= Void
+   naturals_32    /= Void
+   naturals_64    /= Void
+   reals_32       /= Void
+   reals_64       /= Void
+   reals_extended /= Void
+
+   defaults       /= Void
+   plugin_agents  /= Void
 
 end -- class RUNNER_PROCESSOR
 --

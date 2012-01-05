@@ -25,47 +25,47 @@ feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
       do
-         assignment.try_assign(visited)
+         processor.assignment.try_assign(visited)
       end
 
 feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT) is
       do
-         assignment.assign(visited)
+         processor.assignment.assign(visited)
       end
 
 feature {CHECK_COMPOUND}
@@ -80,7 +80,7 @@ feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {COMMENT}
@@ -104,7 +104,7 @@ feature {CREATE_INSTRUCTION}
          new: RUNNER_OBJECT
       do
          new := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
-         assignment.assign_to(new, visited.writable)
+         processor.assignment.assign_to(new, visited.writable)
       end
 
 feature {RAW_CREATE_INSTRUCTION}
@@ -214,44 +214,45 @@ feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
    visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
       do
-         std_error.put_line("**** " + visited.start_position.path +
-                            ":"     + visited.start_position.line.out +
-                            ","     + visited.start_position.column.out +
-                            ": "    + visited.error_message)
-         sedb_breakpoint
+         processor.set_exception(visited.error_code,
+                                 once "#(1):#(2):#(3): #(4)"
+                                    # visited.start_position.path
+                                    # visited.start_position.line.out
+                                    # visited.start_position.column.out
+                                    # visited.error_message)
       end
 
 feature {SEDB}
    visit_sedb (visited: SEDB) is
       do
-         --sedb_breakpoint
+         -- nothing
       end
 
 feature {UNUSED_EXPRESSION}
    visit_unused_expression (visited: UNUSED_EXPRESSION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {PROCEDURE_CALL_0}
@@ -276,7 +277,7 @@ feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {RETRY_INSTRUCTION}
@@ -289,27 +290,25 @@ feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {}
    make (a_processor: like processor) is
       do
          processor := a_processor
-         create assignment.make(a_processor)
          create inspector.make(a_processor)
       ensure
          processor = a_processor
       end
 
-   processor: RUNNER_PROCESSOR
-   assignment: RUNNER_ASSIGNMENT
    inspector: RUNNER_INSPECTOR
+
+feature {RUNNER_PROCESSOR}
+   processor: RUNNER_PROCESSOR
 
 invariant
    processor /= Void
-   assignment /= Void
-   assignment.processor = processor
    inspector /= Void
    inspector.processor = processor
 

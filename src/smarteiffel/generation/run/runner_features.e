@@ -308,19 +308,19 @@ feature {NATIVE_BUILT_IN}
 feature {NATIVE_C_PLUS_PLUS}
    visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NATIVE_C}
    visit_native_c (visited: NATIVE_C) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NATIVE_JAVA}
    visit_native_java (visited: NATIVE_JAVA) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {NATIVE_PLUG_IN}
@@ -341,6 +341,7 @@ feature {}
          processor = a_processor
       end
 
+feature {RUNNER_PROCESSOR}
    processor: RUNNER_PROCESSOR
 
 invariant

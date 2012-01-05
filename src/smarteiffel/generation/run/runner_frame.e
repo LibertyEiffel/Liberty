@@ -95,7 +95,6 @@ feature {}
          else
             processor.set_exception(exceptions.System_level_type_error, once "Internal error: " + exceptions.exception_name)
          end
-         sedb_breakpoint
       end
 
 feature {RUNNER_FACET}
@@ -192,7 +191,6 @@ feature {RUNNER_FACET}
             std_output.put_string("(" + depth.out + ") " + rf.name.to_string + ": Result := ")
             if a_return = Void then
                std_output.put_line("Void")
-               sedb_breakpoint
             else
                std_output.put_line(a_return.out)
             end

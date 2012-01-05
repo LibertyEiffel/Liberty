@@ -19,7 +19,6 @@ feature {RUNNER_PROCESSOR}
       do
          builtins := find_builtins_for(type)
          Result := builtins.new(processor)
-         --create Result.make(processor, type, builtins)
       ensure
          exists: Result /= Void
          good_type: Result.type = type
