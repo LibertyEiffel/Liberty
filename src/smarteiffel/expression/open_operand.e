@@ -288,9 +288,9 @@ feature {}
          not sp.is_unknown
       do
          start_position := sp
-         create notify_memory.make
       ensure
          start_position = sp
+         curly_type = Void
       end
 
    type_holder (sp: like start_position; ct: like curly_type) is
@@ -306,15 +306,9 @@ feature {}
          curly_type = ct
       end
 
-   notify_memory: HASHED_DICTIONARY[TYPE, TYPE]
-         -- *** VIRER ??? *** Used to memorize the actual type for ? open operands only.
-
 invariant
    rank >= -1
-
-   curly_type_or_question_mark: (curly_type = Void) xor (notify_memory = Void)
-
-   (curly_type /= Void) implies rank.in_range(-1, 0)
+   curly_type = Void implies rank >= 0
 
 end -- class OPEN_OPERAND
 --

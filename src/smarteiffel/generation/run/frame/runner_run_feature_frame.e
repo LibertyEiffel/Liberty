@@ -73,7 +73,6 @@ feature {}
       require
          a_processor /= Void
          a_target /= Void
-         a_arguments_factory /= Void
          a_rf /= Void
       do
          if a_arguments_factory = Void then

@@ -531,6 +531,11 @@ feature {RUNNER_FACET}
          end
       end
 
+   new_agent (agent_creation: AGENT_CREATION): RUNNER_AGENT_OBJECT is
+      do
+         Result := memory.new_agent(Current, agent_creation)
+      end
+
 feature {}
    once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
 

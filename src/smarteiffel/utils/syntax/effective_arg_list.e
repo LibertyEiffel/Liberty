@@ -916,7 +916,7 @@ feature {}
             end
          elseif {OPEN_OPERAND} ?:= e then
             -- Well, this special case because the open operand needs the FEATURE_STAMP of its corresponding FEATURE_CALL to
-            -- compute its type and that this information is beeing computed. But, do not forget, it is an OPEN_OPERAND and
+            -- compute its type and that this information is being computed. But, do not forget, it is an OPEN_OPERAND and
             -- that type checking will be made during agent launching. So we just have to do nothing:
             open_operand ::= e
             open_operand.update_resolved_memory(t, formal_type)

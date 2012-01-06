@@ -42,8 +42,7 @@ feature {ADDRESS_OF}
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         return := processor.new_agent(visited)
       end
 
 feature {AGENT_EXPRESSION}

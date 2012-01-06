@@ -3898,8 +3898,10 @@ feature {}
                delayed_call ::= last_expression
                create {AGENT_CREATION} last_expression.make(sp, delayed_call, ft)
             elseif a_expression then
-               delayed_call ?= last_expression
-               if delayed_call = Void then
+               if delayed_call ?:= last_expression then
+                  delayed_call ::= last_expression
+                  create {AGENT_CREATION} last_expression.make(sp, delayed_call, Void)
+               else
                   error_handler.add_position(last_expression.start_position)
                   if {OPEN_OPERAND} ?:= last_expression then
                      error_handler.append("Expression ")
@@ -3913,7 +3915,6 @@ feature {}
                   end
                   error_handler.print_as_fatal_error
                end
-               create {AGENT_CREATION} last_expression.make(sp, delayed_call, Void)
             else
                error_handler.add_position(sp)
                error_handler.append("Inline agent or expression expected after agent keyword.")
