@@ -97,6 +97,9 @@ feature {}
          when "to_natural_64" then
             builtin_to_natural_64(processor)
             Result := True
+         when "to_character" then
+            builtin_to_character(processor)
+            Result := True
          else
             check
                not Result
@@ -277,6 +280,14 @@ feature {}
          else
             processor.set_exception(exceptions.Routine_failure, i.out + " does not fit into NATURAL_64")
          end
+      end
+
+   builtin_to_character (processor: RUNNER_PROCESSOR) is
+      local
+         i: INTEGER_64
+      do
+         i := left(processor).item
+         processor.current_frame.set_return(processor.new_character(i.to_character))
       end
 
 feature {}
