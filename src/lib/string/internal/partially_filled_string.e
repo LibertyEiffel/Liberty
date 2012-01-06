@@ -47,7 +47,7 @@ feature {ANY}
                   accu := 0
                else
                   tagged_out_memory.extend('#')
-                  tagged_out_memory.extend(c)
+                  i := i - 1
                   state := 0
                end
             when 2 then
