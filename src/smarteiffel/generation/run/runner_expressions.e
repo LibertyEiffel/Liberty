@@ -7,7 +7,7 @@ inherit
    EXPRESSION_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
 
 create {RUNNER_PROCESSOR}
    make
@@ -23,13 +23,13 @@ feature {RUNNER_FACET}
 feature {IMPLICIT_CURRENT}
    visit_implicit_current (visited: IMPLICIT_CURRENT) is
       do
-         return := processor.current_frame.target
+         return := current_frame.target
       end
 
 feature {WRITTEN_CURRENT}
    visit_written_current (visited: WRITTEN_CURRENT) is
       do
-         return := processor.current_frame.target
+         return := current_frame.target
       end
 
 feature {ADDRESS_OF}
@@ -93,7 +93,7 @@ feature {CLOSED_OPERAND}
 feature {CREATE_EXPRESSION}
    visit_create_expression (visited: CREATE_EXPRESSION) is
       do
-         return := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
+         return := processor.features.new(visited.created_type(current_frame.type_of_current), visited.call)
       end
 
 feature {CREATE_WRITABLE}
@@ -313,13 +313,13 @@ feature {IMPLICIT_CAST}
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
-         return := processor.current_frame.arguments.item(visited.rank - 1)
+         return := current_frame.arguments.item(visited.rank - 1)
       end
 
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         return := processor.current_frame.local_object(visited.to_string)
+         return := current_frame.local_object(visited.to_string)
       end
 
 feature {LOOP_VARIANT}
@@ -427,7 +427,7 @@ feature {PRECURSOR_EXPRESSION}
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
-         return := processor.current_frame.return
+         return := current_frame.return
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
@@ -448,9 +448,9 @@ feature {INTERNAL_LOCAL2}
       local
          type: TYPE
       do
-         return := processor.current_frame.internal_local_object(visited)
+         return := current_frame.internal_local_object(visited)
          if return = Void then
-            type := visited.resolve_in(processor.current_frame.type_of_current)
+            type := visited.resolve_in(current_frame.type_of_current)
             if type.is_expanded then
                return := processor.default_expanded(type)
             end
@@ -487,22 +487,19 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
 feature {VOID_CALL}
    visit_void_call (visited: VOID_CALL) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         return := processor.default_pointer
       end
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         return := processor.features.non_void(visited)
       end
 
 feature {COMPOUND_EXPRESSION}
@@ -510,23 +507,25 @@ feature {COMPOUND_EXPRESSION}
       local
          i: INTEGER; watermark: RUNNER_FRAME_WATERMARK; inst: INSTRUCTION; exp: EXPRESSION
       do
-         watermark := processor.current_frame.watermark
+         watermark := current_frame.watermark
          from
             i := visited.upper - 1
          until
             i < visited.lower
          loop
             inst ::= visited.item(i)
-            processor.current_frame.add_instruction(inst)
+            current_frame.add_instruction(inst)
             i := i - 1
          end
-         processor.current_frame.execute_until(watermark)
+         current_frame.execute_until(watermark)
          exp ::= visited.last
          exp.accept(Current)
       end
 
 feature {}
    make (a_processor: like processor) is
+      require
+         a_processor /= Void
       do
          processor := a_processor
       ensure
@@ -535,12 +534,6 @@ feature {}
 
    return: RUNNER_OBJECT
    implicit_cast_type: TYPE
-
-feature {RUNNER_PROCESSOR}
-   processor: RUNNER_PROCESSOR
-
-invariant
-   processor /= Void
 
 end -- class RUNNER_EXPRESSIONS
 --

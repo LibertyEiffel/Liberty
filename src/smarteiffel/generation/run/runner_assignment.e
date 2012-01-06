@@ -10,7 +10,7 @@ inherit
    INTERNAL_LOCAL2_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
 
 create {RUNNER_PROCESSOR}
    make
@@ -67,8 +67,8 @@ feature {RUNNER_INSTRUCTIONS}
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         processor.current_frame.set_local_object(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         current_frame.set_local_object(visited.to_string, value)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
@@ -76,29 +76,29 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       local
          target: RUNNER_STRUCTURED_OBJECT
       do
-         target ::= processor.current_frame.target
+         target ::= current_frame.target
          target.set_field(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
-         processor.current_frame.set_return(value)
-         entity_type := processor.current_frame.type_of_result
+         current_frame.set_return(value)
+         entity_type := current_frame.type_of_result
       end
 
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
-         processor.current_frame.set_internal_local_object(visited, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         current_frame.set_internal_local_object(visited, value)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {}
    type_mark (writable: EXPRESSION): TYPE_MARK is
       do
-         Result := writable.written_declaration_type_mark.to_static(processor.current_frame.target.type)
+         Result := writable.written_declaration_type_mark.to_static(current_frame.target.type)
       ensure
          Result.is_static
       end
@@ -115,12 +115,6 @@ feature {}
 
    value: RUNNER_OBJECT
    entity_type: TYPE
-
-feature {RUNNER_PROCESSOR}
-   processor: RUNNER_PROCESSOR
-
-invariant
-   processor /= Void
 
 end -- class RUNNER_ASSIGNMENT
 --

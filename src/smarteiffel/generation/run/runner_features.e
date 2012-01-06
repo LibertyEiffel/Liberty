@@ -8,7 +8,10 @@ inherit
    NATIVE_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
+      redefine
+         current_frame
+      end
 
 create {RUNNER_PROCESSOR}
    make
@@ -24,8 +27,8 @@ feature {RUNNER_FACET}
          target, return: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         return := execute(target, agent arguments(a_call, current_frame),
-                           a_call.run_feature_for(processor.current_frame.type_of_current)).return
+         return := execute_rf(target, agent arguments(a_call, current_frame),
+                              a_call.run_feature_for(current_frame.type_of_current))
          check
             return = Void
          end
@@ -38,8 +41,30 @@ feature {RUNNER_FACET}
          target: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         Result := execute(target, agent arguments(a_call, current_frame),
-                           a_call.run_feature_for(processor.current_frame.type_of_current)).return
+         Result := execute_rf(target, agent arguments(a_call, current_frame),
+                              a_call.run_feature_for(current_frame.type_of_current))
+      end
+
+   non_void (a_call: NON_VOID_NO_DISPATCH): RUNNER_OBJECT is
+      require
+         a_call /= Void
+      local
+         target: RUNNER_OBJECT
+      do
+         target := current_frame.target
+         if a_call.once_function /= Void then
+            check
+               a_call.context_type = current_frame.type_of_current
+               a_call.run_feature = a_call.feature_stamp.run_feature_for(current_frame.type_of_current)
+            end
+            Result := execute_rf(target, Void, a_call.run_feature)
+         else
+            check
+               a_call.external_function /= Void
+               -- no run_feature here
+            end
+            Result := execute_non_void(target, a_call)
+         end
       end
 
    new (a_type: TYPE; a_call: PROCEDURE_CALL): RUNNER_OBJECT is
@@ -50,8 +75,8 @@ feature {RUNNER_FACET}
       do
          Result := processor.new_object(a_type)
          if a_call /= Void then
-            return := execute(Result, agent arguments(a_call, current_frame),
-                              a_call.run_feature_for(processor.current_frame.type_of_current)).return
+            return := execute_rf(Result, agent arguments(a_call, current_frame),
+                                 a_call.run_feature_for(current_frame.type_of_current))
             check
                return = Void
             end
@@ -70,7 +95,8 @@ feature {RUNNER_FACET}
             if feature_make = Void then
                processor.set_exception(exceptions.System_level_type_error, once "Unknown manifest_make feature")
             else
-               return := execute(Result, agent indexable_arguments(a_manifest.optional_arguments, current_frame), feature_make).return
+               return := execute_rf(Result, agent indexable_arguments(a_manifest.optional_arguments, current_frame),
+                                    feature_make)
             end
          end
          check
@@ -88,7 +114,8 @@ feature {RUNNER_FACET}
                   until
                      i > a_manifest.item_list.upper
                   loop
-                     return := execute(Result, agent indexable_arguments_slice(a_manifest.item_list, i, step, current_frame), feature_put).return
+                     return := execute_rf(Result, agent indexable_arguments_slice(a_manifest.item_list, i, step, current_frame),
+                                          feature_put)
                      check
                         return = Void
                      end
@@ -106,7 +133,7 @@ feature {RUNNER_PROCESSOR}
          return: RUNNER_OBJECT
       do
          root_object := processor.new_object(rf.type_of_current)
-         return := execute(root_object, agent idem_arguments(Void), rf).return
+         return := execute_rf(root_object, agent idem_arguments(Void), rf)
          check
             return = Void
          end
@@ -165,34 +192,84 @@ feature {}
          Result := a_arguments
       end
 
-   execute (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): like current_frame is
+   execute_rf (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
       require
+         a_target /= Void
          --| **** TODO a_target.type = a_rf.type_of_current
+         a_rf /= Void
+      local
+         frame: RUNNER_RUN_FEATURE_FRAME
       do
          debug ("run.callstack")
             std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N%N" # a_rf.name.to_string)
          end
-         create Result.make(processor, current_frame, a_target, a_arguments, a_rf)
-         current_frame := Result
 
-         processor.check_invariant
-         processor.check_require
-         if processor.exception = Void then
-            a_rf.accept(Current)
-         end
-         processor.check_ensure
-         processor.check_invariant
-
-         current_frame := Result.caller
-
+         create frame.make(processor, current_frame, a_target, a_arguments, a_rf)
+         execute_frame(frame, a_rf, a_rf)
+         Result := frame.return
          check
-            Result.return /= Void implies Result.return.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current))
+            Result /= Void implies (a_rf.result_type /= Void and then
+                                    Result.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current)))
          end
+
          debug ("run.callstack")
             std_output.put_line(once "> return from #(1)%N" # a_rf.name.to_string)
          end
+      end
+
+   execute_non_void (a_target: RUNNER_OBJECT; a_non_void: NON_VOID_NO_DISPATCH): RUNNER_OBJECT is
+      require
+         a_target /= Void
+         a_non_void /= Void
+         a_non_void.external_function /= Void
+      local
+         frame: RUNNER_NON_VOID_FRAME
+      do
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N%N" # a_non_void.feature_stamp.name.to_string)
+         end
+
+         create frame.make(processor, current_frame, a_target, a_non_void)
+         execute_frame(frame, a_non_void.external_function.native, Void)
+         Result := frame.return
+
+         debug ("run.callstack")
+            std_output.put_line(once "> return from #(1)%N" # a_non_void.feature_stamp.name.to_string)
+         end
       ensure
          Result /= Void
+      end
+
+   execute_frame (a_frame: like current_frame; a_executor: VISITABLE; a_rf: RUN_FEATURE) is
+      require
+         a_frame /= Void
+         a_rf /= Void implies a_executor = a_rf
+      local
+         old_frame: like current_frame
+      do
+         old_frame := current_frame
+         current_frame := a_frame
+
+         processor.check_invariant(a_frame.target.type)
+         if a_rf /= Void then
+            processor.check_require(a_frame.target, a_rf)
+         end
+
+         if processor.exception = Void then
+            a_executor.accept(Current)
+         end
+
+         if a_rf /= Void then
+            processor.check_ensure(a_rf)
+         end
+         processor.check_invariant(a_frame.target.type)
+
+         check
+            old_frame = a_frame.caller
+         end
+         current_frame := old_frame
+      ensure
+         a_frame.target = old a_frame.target
       end
 
 feature {RUN_FEATURE_1}
@@ -302,7 +379,7 @@ feature {RUN_FEATURE_9}
 feature {NATIVE_BUILT_IN}
    visit_native_built_in (visited: NATIVE_BUILT_IN) is
       do
-         processor.current_frame.target.builtins.call(processor)
+         current_frame.target.builtins.call(processor)
       end
 
 feature {NATIVE_C_PLUS_PLUS}
@@ -334,18 +411,14 @@ feature {NATIVE_PLUG_IN}
 
 feature {}
    make (a_processor: like processor) is
+      require
+         a_processor /= Void
       do
          processor := a_processor
          create once_run_features.make
       ensure
          processor = a_processor
       end
-
-feature {RUNNER_PROCESSOR}
-   processor: RUNNER_PROCESSOR
-
-invariant
-   processor /= Void
 
 end -- class RUNNER_FEATURES
 --

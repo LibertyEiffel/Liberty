@@ -150,9 +150,9 @@ feature {}
          check
             std_output = Current
          end
-         -- Nothing to dispode for `std_output'.
-      end   
-   
+         -- Nothing to dispose for `std_output'.
+      end
+
 end -- class STD_OUTPUT
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

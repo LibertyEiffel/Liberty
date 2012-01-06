@@ -725,8 +725,17 @@ feature {NULL_POINTER}
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+      local
+         name: STRING
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_string("<non_void_no_dispatch:{")
+         stream.put_string(visited.context_type.name.to_string)
+         stream.put_string(once "}.")
+         name := once ""
+         name.clear_count
+         visited.feature_stamp.name.complete_name_in(name)
+         stream.put_string(name)
+         stream.put_character('>')
       end
 
 feature {COMPOUND_EXPRESSION}

@@ -24,25 +24,25 @@ feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
-            processor.current_frame.rf.name.to_string
+            processor.current_frame.name.to_string
          when "+", "#+" then
-            if processor.current_frame.rf.name.is_infix_name then
+            if processor.current_frame.name.is_infix_name then
                builtin_infix_plus(processor)
                Result := True
             else
                check
-                  processor.current_frame.rf.name.is_prefix_name
+                  processor.current_frame.name.is_prefix_name
                end
                builtin_prefix_plus(processor)
                Result := True
             end
          when "-", "#-" then
-            if processor.current_frame.rf.name.is_infix_name then
+            if processor.current_frame.name.is_infix_name then
                builtin_infix_minus(processor)
                Result := True
             else
                check
-                  processor.current_frame.rf.name.is_prefix_name
+                  processor.current_frame.name.is_prefix_name
                end
                builtin_prefix_minus(processor)
                Result := True

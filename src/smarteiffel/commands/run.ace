@@ -30,6 +30,7 @@ cluster
          assertion(no)
       option
          debug(yes): POSITION
+         debug("run_feature_for"): FEATURE_STAMP
       end
 
 generate

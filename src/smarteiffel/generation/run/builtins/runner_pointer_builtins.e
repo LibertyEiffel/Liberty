@@ -24,7 +24,7 @@ feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
-            processor.current_frame.rf.name.to_string
+            processor.current_frame.name.to_string
          when "is_not_null" then
             builtin_is_not_null(processor)
             Result := True

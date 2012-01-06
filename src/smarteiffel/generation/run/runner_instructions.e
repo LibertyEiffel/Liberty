@@ -8,7 +8,7 @@ inherit
    RUNNER_LOOP_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
 
 create {RUNNER_PROCESSOR}
    make
@@ -71,7 +71,7 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         if visited.must_be_generated(processor.current_frame.type_of_current) then
+         if visited.must_be_generated(current_frame.type_of_current) then
             processor.check_assertions(exceptions.Check_instruction, visited.assertion_list)
          end
       end
@@ -95,7 +95,7 @@ feature {COMPOUND}
          check
             visited.list /= Void
          end
-         processor.current_frame.add_instructions(visited.list)
+         current_frame.add_instructions(visited.list)
       end
 
 feature {CREATE_INSTRUCTION}
@@ -103,7 +103,7 @@ feature {CREATE_INSTRUCTION}
       local
          new: RUNNER_OBJECT
       do
-         new := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
+         new := processor.features.new(visited.created_type(current_frame.type_of_current), visited.call)
          processor.assignment.assign_to(new, visited.writable)
       end
 
@@ -116,9 +116,9 @@ feature {RAW_CREATE_INSTRUCTION}
 feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
-         if visited.must_be_generated(processor.current_frame.type_of_current) then
+         if visited.must_be_generated(current_frame.type_of_current) then
             if visited.compound /= Void then
-               processor.current_frame.add_instruction(visited.compound)
+               current_frame.add_instruction(visited.compound)
             end
          end
       end
@@ -190,9 +190,9 @@ feature {OTHER_INSPECT_STATEMENT}
 feature {LOOP_INSTRUCTION}
    visit_loop_instruction (visited: LOOP_INSTRUCTION) is
       do
-         processor.current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
+         current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
          if visited.initialize /= Void then
-            processor.current_frame.add_instruction(visited.initialize)
+            current_frame.add_instruction(visited.initialize)
          end
       end
 
@@ -203,9 +203,9 @@ feature {RUNNER_LOOP}
       do
          stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
          if not stop.item then
-            processor.current_frame.add_instruction(visited)
+            current_frame.add_instruction(visited)
             if visited.loop_instruction.loop_body /= Void then
-               processor.current_frame.add_instruction(visited.loop_instruction.loop_body)
+               current_frame.add_instruction(visited.loop_instruction.loop_body)
             end
          end
       end
@@ -283,7 +283,7 @@ feature {REQUIRE_ASSERTION}
 feature {RETRY_INSTRUCTION}
    visit_retry_instruction (visited: RETRY_INSTRUCTION) is
       do
-         processor.current_frame.set_retry
+         current_frame.set_retry
       end
 
 feature {WHEN_CLAUSE}
@@ -295,6 +295,8 @@ feature {WHEN_CLAUSE}
 
 feature {}
    make (a_processor: like processor) is
+      require
+         a_processor /= Void
       do
          processor := a_processor
          create inspector.make(a_processor)
@@ -304,11 +306,7 @@ feature {}
 
    inspector: RUNNER_INSPECTOR
 
-feature {RUNNER_PROCESSOR}
-   processor: RUNNER_PROCESSOR
-
 invariant
-   processor /= Void
    inspector /= Void
    inspector.processor = processor
 

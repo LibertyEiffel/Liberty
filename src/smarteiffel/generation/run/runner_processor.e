@@ -46,29 +46,34 @@ feature {RUNNER_FACET} -- Exceptions
          exception := Void
       end
 
-feature {RUNNER_FACET} -- Contract checking
-   check_invariant is
+feature {RUNNER_FEATURES} -- Contract checking
+   check_invariant (type: TYPE) is
+      require
+         type /= Void
       local
          class_invariant: CLASS_INVARIANT
       do
-         if exception = Void and then current_frame.target.type.class_text.invariant_check then
-            class_invariant := current_frame.target.type.class_invariant
+         if exception = Void and then type.class_text.invariant_check then
+            class_invariant := type.class_invariant
             if class_invariant /= Void then
                check_assertions(exceptions.Class_invariant, class_invariant)
             end
          end
       end
 
-   check_require is
+   check_require (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+      require
+         target /= Void
+         rf /= Void
       local
          require_assertion: REQUIRE_ASSERTION
          original_exception, last_exception: RUNNER_EXCEPTION
          i: INTEGER; ok: BOOLEAN
       do
          if exception = Void then
-            require_assertion := current_frame.rf.require_assertion
-            if require_assertion /= Void and then not require_assertion.is_always_true(current_frame.target.type)
-               and then current_frame.target.check_and_set_position(require_assertion.start_position)
+            require_assertion := rf.require_assertion
+            if require_assertion /= Void and then not require_assertion.is_always_true(target.type)
+               and then target.check_and_set_position(require_assertion.start_position)
             then
                from
                   i := require_assertion.lower
@@ -96,23 +101,26 @@ feature {RUNNER_FACET} -- Contract checking
                   end
                   exception := original_exception
                end
-               current_frame.target.clear_position(require_assertion.start_position)
+               target.clear_position(require_assertion.start_position)
             end
          end
       end
 
-   check_ensure is
+   check_ensure (rf: RUN_FEATURE) is
+      require
+         rf /= Void
       local
          ensure_assertion: ENSURE_ASSERTION
       do
          if exception = Void then
-            ensure_assertion := current_frame.rf.ensure_assertion
+            ensure_assertion := rf.ensure_assertion
             if ensure_assertion /= Void then
                check_assertions(exceptions.Postcondition, ensure_assertion)
             end
          end
       end
 
+feature {RUNNER_FACET}
    check_assertions (exception_type: INTEGER; assertions: ASSERTION_LIST) is
       require
          exception = Void
@@ -645,10 +653,10 @@ feature {}
 invariant
    memory /= Void
 
-   features     /= Void and features.processor     = Current
-   instructions /= Void and instructions.processor = Current
-   expressions  /= Void and expressions.processor  = Current
-   assignment   /= Void and assignment.processor   = Current
+   features     /= Void and then features.processor     = Current
+   instructions /= Void and then instructions.processor = Current
+   expressions  /= Void and then expressions.processor  = Current
+   assignment   /= Void and then assignment.processor   = Current
 
    booleans       /= Void
    characters     /= Void

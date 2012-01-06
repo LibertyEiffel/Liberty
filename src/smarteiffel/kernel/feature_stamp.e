@@ -51,20 +51,21 @@ feature {ANY}
       require
          has_run_feature_for(t) --|*** fn = t.get_feature_name(Current)
       do
-         --|*** Utile pour le debug ...
---            if not has_run_feature_for(t) then
---               error_handler.append("Feature ")
---               if anonymous_features.is_empty then
---                  error_handler.append(" ??? ")
---               else
---                  error_handler.append(anonymous_features.item(1).first_name.to_string)
---               end
---               error_handler.append(" non collectee dans ")
---               error_handler.append(t.name.to_string)
---               error_handler.append("... ca va planter.")
---               error_handler.print_as_warning
---            end
-         --|***
+         debug ("run_feature_for")
+            if not has_run_feature_for(t) then
+               error_handler.append("Feature ")
+               if anonymous_features.is_empty then
+                  error_handler.append(" ??? ")
+               else
+                  error_handler.append(anonymous_features.item(1).first_name.to_string)
+               end
+               error_handler.append(" non collectee dans ")
+               error_handler.append(t.name.to_string)
+               error_handler.append("... ca va planter.")
+               error_handler.print_as_warning
+               sedb_breakpoint
+            end
+         end
          Result := run_features.fast_reference_at(t)
       ensure
          Result /= Void
