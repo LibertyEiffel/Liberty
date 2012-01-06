@@ -301,17 +301,18 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
-feature {}
+feature {ANY} -- Size query
    bit_count: INTEGER_8 is
-         -- Well, it is 8 for NATURAL_8, 16 for NATURAL_16 and so on.
-         -- Note that this feature is not exported because this information is part of the type.
+         -- The number of bits used to store the value of Current
+		 -- (it is 8 for NATURAL_8, 16 for NATURAL_16 and so on)
          -- This is actually used only for assertion here, in NATURAL_GENERAL.
       deferred
       ensure
          Result = (object_size * 8)
       end
 
-   string_buffer: STRING is
+feature {}
+	string_buffer: STRING is
       once
          create Result.make(128)
       end

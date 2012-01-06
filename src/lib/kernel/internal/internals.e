@@ -3,9 +3,6 @@
 --
 deferred class INTERNALS
    --
-   -- '''Warning:''' This interface is tentative and may change to a large extent from SmartEiffel 2.2 to
-   -- SmartEiffel 2.3.
-   --
    -- INTERNALS serves as a gateway between the typed ideal world of Eiffel objects and the untyped physical
    -- world of raw memory, files on disks, streams on networks...
    --

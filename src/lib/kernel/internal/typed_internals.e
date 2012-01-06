@@ -2,9 +2,6 @@
 -- See the full copyright at the end.
 --
 class TYPED_INTERNALS[E_]
-   -- WARNING: This interface is tentative and may change to a large
-   -- extent from SmartEiffel 2.2 to SmartEiffel 2.3.
-   --
    --
    -- TYPED_INTERNALS serves as a gateway between the typed ideal world of Eiffel objects and the untyped
    -- physical world of raw memory, files on disks, streams on networks...

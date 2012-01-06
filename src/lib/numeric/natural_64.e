@@ -285,6 +285,8 @@ feature {ANY}
          end
       end
 
+   bit_count: INTEGER_8 is 64
+
 feature {}
    natural_64_fit_real_64 (natural_64: NATURAL_64): BOOLEAN is
       external "plug_in"
@@ -294,8 +296,6 @@ feature {}
          feature_name: "natural_64_fit_real_64"
          }"
       end
-
-   bit_count: INTEGER_8 is 64
 
 end -- NATURAL_64
 --

@@ -3,9 +3,6 @@
 --
 class INTERNALS_HANDLER
    --
-   -- '''Warning:''' This interface is tentative and may change to a large extent from SmartEiffel 2.2 to
-   -- SmartEiffel 2.3.
-   --
    -- All classes that use INTERNALS must be descendants of INTERNALS_HANDLER.
    --
 
