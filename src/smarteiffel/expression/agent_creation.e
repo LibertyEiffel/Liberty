@@ -69,6 +69,9 @@ feature {ANY}
          Result := resolve_in(start_position.class_text.declaration_type_of_like_current)
       end
 
+   feature_stamp: FEATURE_STAMP
+         -- useful for the interpreter
+
    specialize_in (type: TYPE): like Current is
       local
          function_call: FUNCTION_CALL
@@ -405,6 +408,7 @@ feature {}
             Result := twin
             Result.set_code(function_call)
          end
+         Result.set_feature_stamp(fs)
       end
 
    specialize_2_procedure (type: TYPE): like Current is
@@ -468,6 +472,7 @@ feature {}
             Result := twin
             Result.set_code(procedure_call)
          end
+         Result.set_feature_stamp(fs)
       end
 
 feature {ANY}
@@ -497,6 +502,15 @@ feature {AGENT_CREATION}
          code := c
       ensure
          code = c
+      end
+
+   set_feature_stamp (fs: like feature_stamp) is
+      require
+         fs /= Void
+      do
+         feature_stamp := fs
+      ensure
+         feature_stamp = fs
       end
 
 feature {}

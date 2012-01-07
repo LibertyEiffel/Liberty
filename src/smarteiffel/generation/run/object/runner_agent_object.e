@@ -40,9 +40,15 @@ feature {ANY}
 
    operand (a_rank: INTEGER): RUNNER_OBJECT is
       require
-         a_rank.in_range(1, upper)
+         a_rank = -1 or else a_rank.in_range(1, upper)
       do
-         Result := operands.item(a_rank - 1)
+         if a_rank = -1 then
+            Result := target
+         else
+            Result := operands.item(a_rank - 1)
+         end
+      ensure
+         a_rank = -1 implies Result = target
       end
 
 feature {RUNNER_MEMORY}

@@ -12,9 +12,9 @@ inherit
 insert
    GLOBALS
 
-feature {AGENT_EXPRESSION_VISITOR, AGENT_INSTRUCTION_VISITOR}
+feature {ANY}
    agent_type: TYPE
-         -- It's `canonical_type_mark' is the AGENT_TYPE_MARK associated with agent launcher (`item' or
+         -- Its `canonical_type_mark' is the AGENT_TYPE_MARK associated with agent launcher (`item' or
          -- `call').
 
    target: EXPRESSION

@@ -15,9 +15,11 @@ create {RUNNER_PROCESSOR}
 feature {RUNNER_FACET}
    eval (a_expression: EXPRESSION): RUNNER_OBJECT is
       do
-         a_expression.accept(Current)
-         Result := return
-         return := Void
+         if a_expression /= Void then
+            a_expression.accept(Current)
+            Result := return
+            return := Void
+         end
       end
 
 feature {IMPLICIT_CURRENT}
@@ -48,8 +50,7 @@ feature {AGENT_CREATION}
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         processor.features.call_agent(visited, Current)
       end
 
 feature {ASSERTION}

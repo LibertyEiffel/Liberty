@@ -129,6 +129,15 @@ feature {RUNNER_FACET}
          end
       end
 
+   call_agent (launcher: AGENT_LAUNCHER; a_executor: VISITOR) is
+         -- calling `call' or `item' on an agent
+      local
+         agent_launcher: RUNNER_AGENT_LAUNCHER
+      do
+         create agent_launcher.make(processor, launcher)
+         execute_agent(agent_launcher, a_executor)
+      end
+
 feature {RUNNER_PROCESSOR}
    run (rf: RUN_FEATURE) is
       local
@@ -245,7 +254,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_arguments, a_rf)
-         execute_frame(frame, a_rf, a_rf)
+         execute_frame(frame, a_rf, Current, a_rf)
          Result := frame.return
          check
             Result /= Void implies (a_rf.result_type /= Void and then
@@ -270,7 +279,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_non_void)
-         execute_frame(frame, a_non_void.external_function.native, Void)
+         execute_frame(frame, a_non_void.external_function.native, Current, Void)
          Result := frame.return
 
          debug ("run.callstack")
@@ -280,10 +289,31 @@ feature {}
          Result /= Void
       end
 
-   execute_frame (a_frame: like current_frame; a_executor: VISITABLE; a_rf: RUN_FEATURE) is
+   execute_agent (a_launcher: RUNNER_AGENT_LAUNCHER; a_executor: VISITOR) is
+      require
+         a_launcher /= Void
+      local
+         frame: RUNNER_AGENT_FRAME
+      do
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~~~ CALLING agent ~~~~%N%N")
+         end
+
+         create frame.make(processor, current_frame, a_launcher)
+         execute_frame(frame, a_launcher.code, a_executor, Void)
+         check
+            frame.return = Void -- if `item': the result is already set in the calling RUNNER_EXPRESSIONS
+         end
+
+         debug ("run.callstack")
+            std_output.put_line(once "> return from agent%N")
+         end
+      end
+
+   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: VISITOR; a_rf: RUN_FEATURE) is
       require
          a_frame /= Void
-         a_rf /= Void implies a_executor = a_rf
+         a_rf /= Void implies a_executable = a_rf
       local
          old_frame: like current_frame
       do
@@ -296,7 +326,7 @@ feature {}
          end
 
          if processor.exception = Void then
-            a_executor.accept(Current)
+            a_executable.accept(a_executor)
          end
 
          if a_rf /= Void then

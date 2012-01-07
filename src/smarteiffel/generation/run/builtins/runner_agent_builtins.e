@@ -40,33 +40,13 @@ feature {}
 
 feature {}
    builtin_call (processor: RUNNER_PROCESSOR) is
-      local
-         agent_object: RUNNER_AGENT_OBJECT
-         inst: INSTRUCTION
       do
-         sedb_breakpoint
-         agent_object ::= processor.current_frame.target
-         if inst ?:= agent_object.code then
-            inst ::= agent_object.code
-            processor.instructions.execute(inst)
-         else
-            processor.set_exception(exceptions.Routine_failure, "Cannot execute: the code is not an instruction")
-         end
+         processor.set_exception(exceptions.Routine_failure, "Unexpected call (agent call is normally optimized away)")
       end
 
    builtin_item (processor: RUNNER_PROCESSOR) is
-      local
-         agent_object: RUNNER_AGENT_OBJECT
-         expr: EXPRESSION
       do
-         sedb_breakpoint
-         agent_object ::= processor.current_frame.target
-         if expr ?:= agent_object.code then
-            expr ::= agent_object.code
-            processor.current_frame.set_return(processor.expressions.eval(expr))
-         else
-            processor.set_exception(exceptions.Routine_failure, "Cannot execute: the code is not an expression")
-         end
+         processor.set_exception(exceptions.Routine_failure, "Unexpected call (agent call is normally optimized away)")
       end
 
 feature {}

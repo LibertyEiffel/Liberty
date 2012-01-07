@@ -24,8 +24,7 @@ feature {RUNNER_FACET}
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         processor.features.call_agent(visited, Current)
       end
 
 feature {ASSERTION_LIST}

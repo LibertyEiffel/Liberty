@@ -379,7 +379,7 @@ feature {ANY}
          end
       end
 
-   accept(visitor: FAKE_TUPLE_VISITOR) is
+   accept (visitor: FAKE_TUPLE_VISITOR) is
       do
          visitor.visit_fake_tuple(Current)
       end
