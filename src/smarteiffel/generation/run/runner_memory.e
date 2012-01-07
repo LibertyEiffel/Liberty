@@ -65,7 +65,9 @@ feature {RUNNER_PROCESSOR}
 
          type := agent_creation.resolve_in(processor.current_frame.target.type)
          create Result.make(processor, type,
-                            agent_creation.code, arg_count, agent_builtins(type))
+                            agent_creation.code, arg_count,
+                            agent_creation.feature_stamp,
+                            agent_builtins(type))
 
          if agent_creation.open_operand_list /= Void then
             agent_creation.open_operand_list.do_all(agent add_new_open_operand(processor, Result, ?))

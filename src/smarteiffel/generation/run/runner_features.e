@@ -296,7 +296,7 @@ feature {}
          frame: RUNNER_AGENT_FRAME
       do
          debug ("run.callstack")
-            std_output.put_line(once "%N~~~~ CALLING agent ~~~~%N%N")
+            std_output.put_line(once "%N~~~~ CALLING agent #(1) ~~~~%N%N" # a_launcher.feature_stamp.name.to_string)
          end
 
          create frame.make(processor, current_frame, a_launcher)
@@ -306,7 +306,7 @@ feature {}
          end
 
          debug ("run.callstack")
-            std_output.put_line(once "> return from agent%N")
+            std_output.put_line(once "> return from agent #(1)%N" # a_launcher.feature_stamp.name.to_string)
          end
       end
 

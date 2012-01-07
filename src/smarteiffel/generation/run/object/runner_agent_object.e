@@ -18,6 +18,8 @@ feature {ANY}
    code: CODE
    target: RUNNER_OBJECT
 
+   feature_stamp: FEATURE_STAMP
+
    out_in_tagged_out_memory is
       do
          tagged_out_memory.append(once "<agent>")
@@ -78,22 +80,25 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_code: like code; a_arg_count: INTEGER; a_builtins: like builtins) is
+   make (a_processor: like processor; a_type: like type; a_code: like code; a_arg_count: INTEGER; a_feature_stamp: like feature_stamp; a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type.live_type /= Void
          a_arg_count >= 0
+         a_feature_stamp /= Void
          a_builtins /= Void
       do
          processor := a_processor
          type := a_type
          code := a_code
+         feature_stamp := a_feature_stamp
          builtins := a_builtins
          create operands.make(a_arg_count)
       ensure
          processor = a_processor
          type = a_type
          code = a_code
+         feature_stamp = a_feature_stamp
          builtins = a_builtins
       end
 

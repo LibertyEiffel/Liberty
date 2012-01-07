@@ -29,11 +29,8 @@ feature {RUNNER_FACET}
       end
 
    feature_stamp: FEATURE_STAMP is
-      local
-         agent_creation: AGENT_CREATION
       do
-         agent_creation ::= agent_launcher.target
-         Result := agent_creation.feature_stamp
+         Result := agent_object.feature_stamp
       end
 
 feature {}
@@ -73,6 +70,8 @@ feature {}
       end
 
    put_agent_argument (rank: INTEGER) is
+      require
+         rank.in_range(1, agent_object.upper)
       do
          arguments.put(agent_operand(rank), rank - 1)
       end

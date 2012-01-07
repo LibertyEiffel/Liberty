@@ -90,11 +90,15 @@ feature {COMMENT}
 
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
+      local
+         watermark: RUNNER_FRAME_WATERMARK
       do
          check
             visited.list /= Void
          end
+         watermark := current_frame.watermark
          current_frame.add_instructions(visited.list)
+         current_frame.execute_until(watermark)
       end
 
 feature {CREATE_INSTRUCTION}

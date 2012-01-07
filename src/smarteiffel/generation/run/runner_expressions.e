@@ -86,8 +86,7 @@ feature {BUILT_IN_EQ_NEQ}
 feature {CLOSED_OPERAND}
    visit_closed_operand (visited: CLOSED_OPERAND) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         visited.capture_memory.at(current_frame.type_of_current).accept(Current)
       end
 
 feature {CREATE_EXPRESSION}
@@ -412,9 +411,15 @@ feature {OLD_MANIFEST_ARRAY}
 
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
+      local
+         frame: RUNNER_AGENT_FRAME
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         frame ::= current_frame
+         if visited.rank = -1 then
+            return := expand(frame.target)
+         else
+            return := expand(frame.arguments.item(visited.rank - 1 + frame.arguments.lower))
+         end
       end
 
 feature {PRECURSOR_EXPRESSION}
@@ -427,7 +432,7 @@ feature {PRECURSOR_EXPRESSION}
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
-         return := current_frame.return
+         return := expand(current_frame.return)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
