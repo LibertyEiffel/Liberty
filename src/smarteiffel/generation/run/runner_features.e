@@ -87,7 +87,7 @@ feature {RUNNER_FACET}
       require
          a_manifest /= Void
       local
-         return: RUNNER_OBJECT; feature_make, feature_put: RUN_FEATURE; i, step: INTEGER
+         return: RUNNER_OBJECT; feature_make, feature_put: RUN_FEATURE; i, step, capacity: INTEGER
       do
          Result := processor.new_object(a_manifest.created_type)
          if a_manifest.manifest_make_feature_stamp /= Void then
@@ -95,7 +95,10 @@ feature {RUNNER_FACET}
             if feature_make = Void then
                processor.set_exception(exceptions.System_level_type_error, once "Unknown manifest_make feature")
             else
-               return := execute_rf(Result, agent indexable_arguments(a_manifest.optional_arguments, current_frame),
+               if a_manifest.item_list /= Void then
+                  capacity := a_manifest.item_list.count
+               end
+               return := execute_rf(Result, agent manifest_arguments(capacity, a_manifest.optional_arguments, current_frame),
                                     feature_make)
             end
          end
@@ -107,14 +110,14 @@ feature {RUNNER_FACET}
             if feature_put = Void then
                processor.set_exception(exceptions.System_level_type_error, once "Unknown manifest_put feature")
             else
-               step := feature_put.arguments.count
+               step := feature_put.arguments.count - 1
                if a_manifest.item_list /= Void then
                   from
                      i := a_manifest.item_list.lower
                   until
                      i > a_manifest.item_list.upper
                   loop
-                     return := execute_rf(Result, agent indexable_arguments_slice(a_manifest.item_list, i, step, current_frame),
+                     return := execute_rf(Result, agent manifest_arguments_slice(i - a_manifest.item_list.lower, a_manifest.item_list, i, step, current_frame),
                                           feature_put)
                      check
                         return = Void
@@ -146,23 +149,46 @@ feature {}
          Result := indexable_arguments(a_call.arguments, a_frame)
       end
 
+   manifest_arguments (a_capacity: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+         -- evaluates the arguments in the given frame
+      local
+         extra: FAST_ARRAY[RUNNER_OBJECT]
+      do
+         extra := {FAST_ARRAY[RUNNER_OBJECT] << processor.new_integer_32(a_capacity) >>}
+         if a_arguments = Void then
+            Result := indexable_arguments_slice(extra, Void, 0, 0, a_frame)
+         else
+            Result := indexable_arguments_slice(extra, a_arguments, a_arguments.lower, a_arguments.count, a_frame)
+         end
+      end
+
+   manifest_arguments_slice (a_index: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+         -- evaluates the arguments in the given frame
+      local
+         extra: FAST_ARRAY[RUNNER_OBJECT]
+      do
+         extra := {FAST_ARRAY[RUNNER_OBJECT] << processor.new_integer_32(a_index) >>}
+         Result := indexable_arguments_slice(extra, a_arguments, start, count, a_frame)
+      end
+
    indexable_arguments (a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
          -- evaluates the arguments in the given frame
       do
          if a_arguments /= Void then
-            Result := indexable_arguments_slice(a_arguments, a_arguments.lower, a_arguments.count, a_frame)
+            Result := indexable_arguments_slice(Void, a_arguments, a_arguments.lower, a_arguments.count, a_frame)
          end
       end
 
-   indexable_arguments_slice (a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   indexable_arguments_slice (a_extra_arguments: INDEXABLE[RUNNER_OBJECT]; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
          -- evaluates one slice of arguments in the given frame
       require
-         a_arguments /= Void
-         start.in_range(a_arguments.lower, a_arguments.upper - count + 1)
-         count.in_range(1, a_arguments.count)
-         ;(start - a_arguments.lower) \\ count = 0
+         at_least_some_arguments: a_arguments /= Void or else a_extra_arguments /= Void
+         valid_start: a_arguments /= Void implies start.in_range(a_arguments.lower, a_arguments.upper - count + 1)
+         valid_count: a_arguments /= Void implies count.in_range(1, a_arguments.count)
+                      a_arguments = Void implies count = 0
+         full_slice: a_arguments /= Void implies (start - a_arguments.lower) \\ count = 0
       local
-         i: INTEGER
+         i, extra_count: INTEGER
          old_frame: like current_frame
       do
          check
@@ -171,20 +197,34 @@ feature {}
 
          old_frame := current_frame
          current_frame := a_frame
+         if a_extra_arguments /= Void then
+            extra_count := a_extra_arguments.count
+         end
 
-         create Result.make(count)
+         create Result.make(extra_count + count)
+
+         from
+            i := 0
+         until
+            i = extra_count
+         loop
+            Result.put(a_extra_arguments.item(i + a_extra_arguments.lower), i)
+            i := i + 1
+         end
+
          from
             i := 0
          until
             i = count
          loop
-            Result.put(expand(processor.expressions.eval(a_arguments.item(i + start))), i)
+            Result.put(expand(processor.expressions.eval(a_arguments.item(i + start))), extra_count + i)
             i := i + 1
          end
 
          current_frame := old_frame
       ensure
-         Result.count = count
+         a_extra_arguments = Void implies Result.count = count
+         a_extra_arguments /= Void implies Result.count = a_extra_arguments.count + count
       end
 
    idem_arguments (a_arguments: like arguments): like arguments is

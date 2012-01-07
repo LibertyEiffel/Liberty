@@ -18,7 +18,7 @@ create {RUNNER_GLOBALS}
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.written_link.accept(Current)
       end
 
 feature {ASSERTION_LIST}
@@ -213,7 +213,9 @@ feature {}
             stream.put_character('.')
             stream.put_string(visited.feature_name.to_string)
             if visited.arguments /= Void then
+               stream.put_character('(')
                visited.arguments.accept(Current)
+               stream.put_character(')')
             end
          elseif visited.feature_name.is_infix_name then
             stream.put_character('(')
@@ -222,7 +224,9 @@ feature {}
             stream.put_character(' ')
             stream.put_string(visited.feature_name.to_string)
             stream.put_character(' ')
+            stream.put_character('(')
             visited.arguments.accept(Current)
+            stream.put_character(')')
          elseif visited.feature_name.is_prefix_name then
             stream.put_string(visited.feature_name.to_string)
             stream.put_character('(')
@@ -293,13 +297,14 @@ feature {ADDRESS_OF}
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_string(once "agent ")
+         visited.original_function_call.accept(Current)
       end
 
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.written_link.accept(Current)
       end
 
 feature {ASSERTION}
@@ -342,7 +347,7 @@ feature {BUILT_IN_EQ_NEQ}
 feature {CLOSED_OPERAND}
    visit_closed_operand (visited: CLOSED_OPERAND) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.original_capture.accept(Current)
       end
 
 feature {CREATE_EXPRESSION}
@@ -633,14 +638,49 @@ feature {MANIFEST_STRING}
 
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
+      local
+         i, sc_count: INTEGER
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_character('{')
+         stream.put_string(visited.type_mark.written_mark)
+         stream.put_character(' ')
+         if visited.optional_arguments /= Void then
+            visited.optional_arguments.do_all(agent (arg: EXPRESSION) is
+                                              do
+                                                 arg.accept(Current)
+                                                 stream.put_string(once ", ")
+                                              end)
+         end
+         stream.put_string(once "<< ")
+         from
+            i := visited.item_list.lower
+         until
+            i > visited.item_list.upper
+         loop
+            if i > visited.item_list.lower then
+               if visited.semicolon_count > 0 and then sc_count = visited.semicolon_count then
+                  sc_count := 0
+                  stream.put_string(once "; ")
+               else
+                  stream.put_string(once ", ")
+                  sc_count := sc_count + 1
+               end
+            end
+            visited.item_list.item(i).accept(Current)
+            i := i + 1
+         end
+         stream.put_string(once " >>")
+         stream.put_character('}')
       end
 
 feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_character('[')
+         if visited.effective_arg_list /= Void then
+            visited.effective_arg_list.accept(Current)
+         end
+         stream.put_character(']')
       end
 
 feature {OLD_MANIFEST_ARRAY}
@@ -652,7 +692,13 @@ feature {OLD_MANIFEST_ARRAY}
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
       do
-         sedb_breakpoint --| **** TODO
+         if visited.curly_type /= Void then
+            stream.put_character('{')
+            stream.put_string(visited.curly_type.written_mark)
+            stream.put_character('}')
+         else
+            stream.put_character('?')
+         end
       end
 
 feature {PRECURSOR_EXPRESSION}
@@ -749,17 +795,14 @@ feature {COMPOUND_EXPRESSION}
 feature {EFFECTIVE_ARG_LIST}
    visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
       do
-         stream.put_character('(')
          visited.first_one.accept(Current)
          if visited.remainder /= Void then
             visited.remainder.do_all(agent (e: EXPRESSION) is
                                      do
-                                        stream.put_character(',')
-                                        stream.put_character(' ')
+                                        stream.put_string(once ", ")
                                         e.accept(Current)
                                      end)
          end
-         stream.put_character(')')
       end
 
 feature {}

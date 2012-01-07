@@ -54,7 +54,7 @@ feature {RUNNER_PROCESSOR}
 
    new_agent (processor: RUNNER_PROCESSOR; agent_creation: AGENT_CREATION): RUNNER_AGENT_OBJECT is
       local
-         arg_count: INTEGER
+         arg_count: INTEGER; type: TYPE
       do
          if agent_creation.open_operand_list /= Void then
             arg_count := agent_creation.open_operand_list.count
@@ -63,8 +63,9 @@ feature {RUNNER_PROCESSOR}
             arg_count := arg_count + agent_creation.closed_operand_list.count
          end
 
-         create Result.make(processor, agent_creation.resolve_in(processor.current_frame.target.type),
-                            agent_creation.code, arg_count)
+         type := agent_creation.resolve_in(processor.current_frame.target.type)
+         create Result.make(processor, type,
+                            agent_creation.code, arg_count, agent_builtins(type))
 
          if agent_creation.open_operand_list /= Void then
             agent_creation.open_operand_list.do_all(agent add_new_open_operand(processor, Result, ?))
@@ -72,7 +73,7 @@ feature {RUNNER_PROCESSOR}
          if agent_creation.closed_operand_list /= Void then
             agent_creation.closed_operand_list.do_all(agent add_new_closed_operand(processor, Result, ?))
          end
-         if Result.operand(-1) = Void then
+         if Result.target = Void then
             Result.set_operand(-1, processor.current_frame.target)
          end
       end
@@ -246,6 +247,16 @@ feature {}
    any_builtins (type: TYPE): RUNNER_ANY_BUILTINS is
       do
          create Result.make(type)
+      end
+
+   agent_builtins (type: TYPE): RUNNER_AGENT_BUILTINS is
+      do
+         Result ::= builtins_map.fast_reference_at(type)
+         if Result = Void then
+            create Result.make(type)
+            Result.add_parent(any_builtins(type))
+            builtins_map.add(Result, type)
+         end
       end
 
    boolean_builtins: RUNNER_BOOLEAN_BUILTINS is

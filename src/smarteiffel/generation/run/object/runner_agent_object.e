@@ -15,6 +15,9 @@ feature {ANY}
    processor: RUNNER_PROCESSOR
    type: TYPE
 
+   code: CODE
+   target: RUNNER_OBJECT
+
    out_in_tagged_out_memory is
       do
          tagged_out_memory.append(once "<agent>")
@@ -30,12 +33,19 @@ feature {ANY}
          Result := to_pointer
       end
 
-feature {RUNNER_MEMORY}
    upper: INTEGER is
       do
          Result := operands.count
       end
 
+   operand (a_rank: INTEGER): RUNNER_OBJECT is
+      require
+         a_rank.in_range(1, upper)
+      do
+         Result := operands.item(a_rank - 1)
+      end
+
+feature {RUNNER_MEMORY}
    set_operand (a_rank: INTEGER; a_operand: RUNNER_OBJECT) is
       require
          a_rank = -1 or else a_rank.in_range(1, upper)
@@ -46,18 +56,8 @@ feature {RUNNER_MEMORY}
             operands.put(a_operand, a_rank - 1)
          end
       ensure
-         operand(a_rank) = a_operand
-      end
-
-   operand (a_rank: INTEGER): RUNNER_OBJECT is
-      require
-         a_rank = -1 or else a_rank.in_range(1, upper)
-      do
-         if a_rank = -1 then
-            Result := target
-         else
-            Result := operands.item(a_rank - 1)
-         end
+         a_rank /= -1 implies operand(a_rank) = a_operand
+         a_rank = -1 implies target = a_operand
       end
 
 feature {RUNNER_FACET}
@@ -72,24 +72,25 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_code: like code; a_arg_count: INTEGER) is
+   make (a_processor: like processor; a_type: like type; a_code: like code; a_arg_count: INTEGER; a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type.live_type /= Void
          a_arg_count >= 0
+         a_builtins /= Void
       do
          processor := a_processor
          type := a_type
          code := a_code
+         builtins := a_builtins
          create operands.make(a_arg_count)
       ensure
          processor = a_processor
          type = a_type
          code = a_code
+         builtins = a_builtins
       end
 
-   code: CODE
-   target: RUNNER_OBJECT
    operands: FAST_ARRAY[RUNNER_OBJECT]
 
 invariant
