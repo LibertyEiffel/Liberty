@@ -73,9 +73,15 @@ feature {ANY}
          Result := storage.is_equal(other.storage)
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          Result := storage.to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      do
+         not_yet_implemented
       end
 
 feature {RUNNER_FACET}

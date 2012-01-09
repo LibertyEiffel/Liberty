@@ -201,7 +201,11 @@ feature {RUNNER_FACET}
       require
          alive: type.live_type /= Void
       do
-         Result := memory.new_object(Current, type)
+         if type.is_expanded then
+            Result := default_expanded(type)
+         else
+            Result := memory.new_object(Current, type)
+         end
       ensure
          exists: Result /= Void
          good_type: Result.type = type
@@ -218,7 +222,7 @@ feature {RUNNER_FACET}
          if default_value /= Void then
             Result := default_value.item([])
          else
-            Result := new_object(type)
+            Result := memory.new_object(Current, type)
          end
       ensure
          Result /= Void

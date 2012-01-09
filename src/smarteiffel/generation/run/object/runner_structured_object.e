@@ -70,9 +70,21 @@ feature {ANY}
          end
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          Result := to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      local
+         o: like Current
+      do
+         o ::= expand(other)
+         o.fields.do_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
+                         do
+                            fields.put(expand(object), name)
+                         end)
       end
 
 feature {RUNNER_FACET}
@@ -82,6 +94,9 @@ feature {RUNNER_FACET}
             Result := Current
          else
             create Result.copy_expanded(Current)
+         end
+         if not Result.is_equal(Current) then
+            sedb_breakpoint
          end
       end
 
@@ -98,7 +113,7 @@ feature {}
          make(model.processor, model.type, model.builtins)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
-                                fields.add(expand(field_value), field_name)
+                                fields.put(expand(field_value), field_name)
                              end)
       end
 

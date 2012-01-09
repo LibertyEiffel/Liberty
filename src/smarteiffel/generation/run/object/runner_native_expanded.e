@@ -26,9 +26,18 @@ feature {ANY}
          Result := item = other.item
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          processor.set_exception(exceptions.Routine_failure, "to_pointer on expanded type")
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      local
+         o: like Current
+      do
+         o ::= other
+         item := o.item
       end
 
 feature {RUNNER_FACET}

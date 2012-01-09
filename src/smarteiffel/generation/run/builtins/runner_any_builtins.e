@@ -113,13 +113,17 @@ feature {}
       end
 
    builtin_twin (processor: RUNNER_PROCESSOR) is
+      local
+         object: RUNNER_OBJECT
       do
-         sedb_breakpoint --| **** TODO
+         object := processor.new_object(processor.current_frame.type_of_current)
+         object.builtin_copy(processor.current_frame.target)
+         processor.current_frame.set_return(object)
       end
 
    builtin_copy (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.current_frame.target.builtin_copy(processor.current_frame.arguments.first)
       end
 
    builtin_deep_twin (processor: RUNNER_PROCESSOR) is
@@ -144,7 +148,7 @@ feature {}
 
    builtin_to_pointer (processor: RUNNER_PROCESSOR) is
       do
-         processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.to_builtin_pointer))
+         processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.builtin_to_pointer))
       end
 
    builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR) is

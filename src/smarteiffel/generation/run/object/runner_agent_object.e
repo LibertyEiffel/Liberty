@@ -30,11 +30,6 @@ feature {ANY}
          Result := other = Current
       end
 
-   to_builtin_pointer: POINTER is
-      do
-         Result := to_pointer
-      end
-
    upper: INTEGER is
       do
          Result := operands.count
@@ -51,6 +46,17 @@ feature {ANY}
          end
       ensure
          a_rank = -1 implies Result = target
+      end
+
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
+      do
+         Result := to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      do
+         not_yet_implemented
       end
 
 feature {RUNNER_MEMORY}

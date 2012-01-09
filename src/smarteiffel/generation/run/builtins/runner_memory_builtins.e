@@ -1,75 +1,90 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class RUNNER_OPEN_OPERAND
+class RUNNER_MEMORY_BUILTINS
+   --
+   -- builtins for MEMORY
+   --
 
 inherit
-   RUNNER_OBJECT
+   RUNNER_UNTYPED_BUILTINS
 
 create {RUNNER_MEMORY}
    make
 
-feature {ANY}
-   builtins: RUNNER_UNTYPED_BUILTINS
-
-   processor: RUNNER_PROCESSOR is
+feature {RUNNER_MEMORY}
+   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT is
       do
-         Result := agent_object.processor
-      end
-
-   type: TYPE
-
-   out_in_tagged_out_memory is
-      do
-         not_yet_implemented
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         not_yet_implemented
-      end
-
-feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
-      do
-         Result := to_pointer
-      end
-
-   builtin_copy (other: RUNNER_OBJECT) is
-      do
-         not_yet_implemented
-      end
-
-feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
-      do
-         Result := Current
-      end
-
-   as_foreign_object: FOREIGN_OBJECT is
-      do
-         not_yet_implemented
+         create Result.make(processor, type, Current)
       end
 
 feature {}
-   make (a_agent_object: like agent_object; a_type: like type) is
-      require
-         a_agent_object /= Void
-         a_type.live_type /= Void
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
-         agent_object := a_agent_object
+         inspect
+            processor.current_frame.name.to_string
+         when "collecting" then
+            builtin_collecting(processor)
+            Result := True
+         when "collection_off" then
+            builtin_collection_off(processor)
+            Result := True
+         when "collection_on" then
+            builtin_collection_on(processor)
+            Result := True
+         when "full_collect" then
+            builtin_full_collect(processor)
+            Result := True
+         when "collector_counter" then
+            builtin_collector_counter(processor)
+            Result := True
+         else
+            check
+               not Result
+            end
+         end
+      end
+
+feature {}
+   builtin_collecting (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_boolean(processor.memory.is_gc_started))
+      end
+
+   builtin_collection_off (processor: RUNNER_PROCESSOR) is
+      do
+         processor.memory.stop_gc
+      end
+
+   builtin_collection_on (processor: RUNNER_PROCESSOR) is
+      do
+         processor.memory.start_gc
+      end
+
+   builtin_full_collect (processor: RUNNER_PROCESSOR) is
+      do
+         processor.memory.run_gc
+      end
+
+   builtin_collector_counter (processor: RUNNER_PROCESSOR) is
+      do
+         processor.current_frame.set_return(processor.new_integer_32(processor.memory.gc_count))
+      end
+
+feature {}
+   make (a_type: like type) is
+      require
+         a_type /= Void
+      do
          type := a_type
       ensure
-         agent_object = a_agent_object
          type = a_type
       end
 
-   agent_object: RUNNER_AGENT_OBJECT
+feature {RUNNER_FACET}
+   type: TYPE
 
-invariant
-   type.live_type /= Void
-
-end -- class RUNNER_OPEN_OPERAND
+end -- class RUNNER_MEMORY_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
