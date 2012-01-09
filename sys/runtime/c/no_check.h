@@ -88,11 +88,11 @@ struct _se_dump_stack {
   se_dump_stack* caller; /* Back to the caller. */
   se_dump_stack* exception_origin; /* The exception origin if we are handling an exception. That object was malloc'ed */
   void*** locals;
+  int depth;
 };
 
 extern se_dump_stack* se_dst;
-extern int se_dst_depth;
-#define set_se_dst(ds) do { if ((# ds)[0] == '&') se_dst_depth++; else se_dst_depth--; se_dst=(ds); } while (0)
+#define set_se_dst(ds) do { if (!se_dst) (ds)->depth = 1; else if (se_dst->caller != (ds)) (ds)->depth = se_dst->depth+1; se_dst=(ds); } while (0)
 
 int se_stack_size(se_dump_stack* ds);
 void se_print_run_time_stack(void);
@@ -124,11 +124,15 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy);
 void se_delete_dump_stack(se_dump_stack* ds);
 
 #ifndef SE_TRACE
-#    define set_dump_stack_top(ds) set_se_dst(ds)
+#    define set_dump_stack_top(ds) do {                   \
+          se_dump_stack *ds0 = (ds);                      \
+          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
+     } while(0)
 #else
-#    define set_dump_stack_top(ds) \
-       do { \
-         se_print_call_trace(ds); \
-         set_se_dst(ds); \
-       } while(0)
+#    define set_dump_stack_top(ds)                        \
+     do {                                                 \
+          se_dump_stack *ds0 = (ds);                      \
+          se_print_call_trace(ds0);                       \
+          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
+     } while(0)
 #endif
