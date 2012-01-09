@@ -14,6 +14,7 @@ feature {ANY}
 
    processor: RUNNER_PROCESSOR
    type: TYPE
+   element_type: TYPE
 
    capacity: INTEGER
 
@@ -27,13 +28,30 @@ feature {ANY}
    put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
-      local
-         actual_item: E_
-         actual_index: INTEGER
       do
-         actual_item := setter.item([a_item])
-         actual_index := index.to_integer_32
-         storage.put(actual_item, actual_index)
+         storage.put(setter.item([a_item]), index.to_integer_32)
+      end
+
+   slice_copy (at: INTEGER_64; src: like Current; src_min, src_max: INTEGER_64) is
+      local
+         index: INTEGER_64
+      do
+         if element_type.is_user_expanded then
+            -- don't optimize slice_copy because we need to expand each expanded object
+            from
+               index := src_min
+            until
+               index > src_max
+            loop
+               put(src.item(index), index - src_min + at)
+               index := index + 1
+            end
+         else
+            check
+               element_type.is_reference or else element_type.is_kernel_expanded
+            end
+            storage.slice_copy(at.to_integer_32, src.storage, src_min.to_integer_32, src_max.to_integer_32)
+         end
       end
 
    out_in_tagged_out_memory is
@@ -96,12 +114,14 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
+   make (a_processor: like processor; a_type: like type; a_element_type: like element_type;
+         a_capacity: like capacity; a_storage: like storage;
          a_retriever: like retriever; a_setter: like setter;
          a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type /= Void
+         a_element_type /= Void
          a_capacity >= 0
          a_retriever /= Void
          a_setter /= Void
@@ -109,6 +129,7 @@ feature {}
       do
          processor := a_processor
          type := a_type
+         element_type := a_element_type
          capacity := a_capacity
          storage := a_storage
          retriever := a_retriever
@@ -117,6 +138,7 @@ feature {}
       ensure
          processor = a_processor
          type = a_type
+         element_type = a_element_type
          capacity = a_capacity
          storage = a_storage
          retriever = a_retriever
@@ -145,6 +167,7 @@ feature {RUNNER_FACET}
 invariant
    capacity >= 0
    type /= Void
+   element_type /= Void
    retriever /= Void
    setter /= Void
    builtins.type = type
