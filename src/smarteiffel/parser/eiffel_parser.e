@@ -2861,9 +2861,7 @@ feature {}
                   error_handler.add_position(base_type_mark.start_position)
                   error_handler.append("The base type is no longer used. Class PROCEDURE now has only one %
                   %formal argument. Just remove this unused type mark.")
-                  error_handler.cancel
---|*** error_handler.print_as_warning
---|*** Will be a True warning in release 2.3 *** (Dom Oct 27th 2005) ***
+                  error_handler.print_as_warning
                end
                if not skip1(']') then
                   error_handler.add_position(current_position)
