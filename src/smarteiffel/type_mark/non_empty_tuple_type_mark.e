@@ -8,7 +8,9 @@ class NON_EMPTY_TUPLE_TYPE_MARK
 
 inherit
    TUPLE_TYPE_MARK
-   GENERIC_TYPE_MARK
+      redefine pretty_in
+      end
+  GENERIC_TYPE_MARK
       undefine is_tuple, canonical_long_name
       redefine pretty_in
       end

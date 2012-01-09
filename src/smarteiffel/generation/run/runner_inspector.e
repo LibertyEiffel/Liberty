@@ -95,7 +95,7 @@ feature {}
 invariant
    processor /= Void
 
-end -- class RUNNER_ASSIGNMENT
+end -- class RUNNER_INSPECTOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
