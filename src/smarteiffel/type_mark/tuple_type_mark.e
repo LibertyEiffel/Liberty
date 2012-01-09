@@ -3,11 +3,13 @@
 --
 deferred class TUPLE_TYPE_MARK
    --
-   -- For the TUPLE type. The common ancestor of EMPTY_TUPLE_MARK and NON_EMPTY_TUPLE_MARK.
+   -- For the TUPLE type. The common ancestor of EMPTY_TUPLE_TYPE_MARK and NON_EMPTY_TUPLE_TYPE_MARK.
    --
 
-insert
-   GLOBALS
+inherit
+   TYPE_MARK
+      redefine is_tuple, canonical_long_name
+      end
 
 feature {ANY}
    is_tuple: BOOLEAN is True
@@ -123,10 +125,6 @@ feature {ANY}
       end
 
 feature {}
-   standard_jvm_check_class_invariant is
-      deferred
-      end
-
    canonical_long_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_tuple)
