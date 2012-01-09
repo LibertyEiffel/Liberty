@@ -52,7 +52,7 @@ feature {RUNNER_FACET}
          Result := smart_eiffel.type_pointer
       end
 
-end -- class RUNNER_BOOLEAN_BUILTINS
+end -- class RUNNER_POINTER_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
