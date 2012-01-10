@@ -8,6 +8,7 @@ inherit
    WRITABLE_ATTRIBUTE_NAME_VISITOR
    RESULT_VISITOR
    INTERNAL_LOCAL2_VISITOR
+   CREATE_WRITABLE_VISITOR
 
 insert
    RUNNER_PROCESSOR_FACET
@@ -93,6 +94,12 @@ feature {INTERNAL_LOCAL2}
       do
          current_frame.set_internal_local_object(visited, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)
+      end
+
+feature {CREATE_WRITABLE}
+   visit_create_writable (visited: CREATE_WRITABLE) is
+      do
+         visited.writable.accept(Current)
       end
 
 feature {}
