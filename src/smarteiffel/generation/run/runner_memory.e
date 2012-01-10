@@ -51,6 +51,8 @@ feature {RUNNER_PROCESSOR}
          if Result.target = Void then
             Result.set_operand(-1, processor.current_frame.target)
          end
+      ensure
+         Result.target /= Void
       end
 
    new_boolean (processor: RUNNER_PROCESSOR; boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
@@ -182,7 +184,7 @@ feature {}
             std_output.put_line(once "AGENT: closed ##(1) = #(2)" # a_closed_operand.rank.out # arg.out)
          end
          if arg = Void then
-            sedb_breakpoint
+            break
          end
          a_new_agent.set_operand(a_closed_operand.rank, arg)
       end

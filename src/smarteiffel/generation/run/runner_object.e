@@ -35,6 +35,12 @@ feature {RUNNER_UNTYPED_BUILTINS}
       deferred
       end
 
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      require
+         other /= Void
+      deferred
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       deferred

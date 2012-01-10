@@ -87,6 +87,26 @@ feature {RUNNER_UNTYPED_BUILTINS}
                          end)
       end
 
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      local
+         o: like Current
+      do
+         if other.type = type then
+            o ::= other
+            if o.fields.count = fields.count then
+               Result := o.fields.for_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING): BOOLEAN is
+                                          local
+                                             my_object: RUNNER_OBJECT
+                                          do
+                                             if fields.has(name) then
+                                                my_object := fields.at(name)
+                                                Result := my_object = object or else (my_object /= Void and then my_object.eq(object))
+                                             end
+                                          end)
+            end
+         end
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do
@@ -96,7 +116,7 @@ feature {RUNNER_FACET}
             create Result.copy_expanded(Current)
          end
          if not Result.is_equal(Current) then
-            sedb_breakpoint
+            break
          end
       end
 

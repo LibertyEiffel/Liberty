@@ -102,6 +102,11 @@ feature {RUNNER_UNTYPED_BUILTINS}
          not_yet_implemented
       end
 
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      do
+         not_yet_implemented
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

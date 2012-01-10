@@ -230,6 +230,21 @@ feature {}
             i := i + 1
          end
 
+         debug ("run.data")
+            from
+               i := Result.lower
+            until
+               i > Result.upper
+            loop
+               if Result.item(i) = Void then
+                  std_output.put_line(once "ARG##(1) = Void" # i.out)
+               else
+                  std_output.put_line(once "ARG##(1) = #(2)" # i.out # Result.item(i).out)
+               end
+               i := i + 1
+            end
+         end
+
          current_frame := old_frame
       ensure
          a_extra_arguments = Void implies Result.count = count
@@ -320,6 +335,10 @@ feature {}
          old_frame := current_frame
          current_frame := a_frame
 
+         debug ("run.data")
+            std_output.put_line(once "Current is #(1)" # a_frame.target.out)
+         end
+
          processor.check_invariant(a_frame.target.type)
          if a_rf /= Void then
             processor.check_require(a_frame.target, a_rf)
@@ -338,6 +357,16 @@ feature {}
             old_frame = a_frame.caller
          end
          current_frame := old_frame
+
+         debug ("run.data")
+            if a_frame.type_of_result /= Void then
+               if a_frame.return = Void then
+                  std_output.put_line(once "Result is Void")
+               else
+                  std_output.put_line(once "Result is #(1)" # a_frame.return.out)
+               end
+            end
+         end
       ensure
          a_frame.target = old a_frame.target
       end
@@ -455,19 +484,19 @@ feature {NATIVE_BUILT_IN}
 feature {NATIVE_C_PLUS_PLUS}
    visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {NATIVE_C}
    visit_native_c (visited: NATIVE_C) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {NATIVE_JAVA}
    visit_native_java (visited: NATIVE_JAVA) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {NATIVE_PLUG_IN}

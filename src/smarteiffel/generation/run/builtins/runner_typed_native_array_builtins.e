@@ -116,7 +116,7 @@ feature {}
 
    builtin_from_pointer (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}

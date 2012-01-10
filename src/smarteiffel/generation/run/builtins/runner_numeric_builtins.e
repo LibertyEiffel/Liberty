@@ -78,7 +78,7 @@ feature {}
 
    builtin_infix_divide (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_prefix_plus (processor: RUNNER_PROCESSOR) is

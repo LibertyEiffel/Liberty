@@ -36,7 +36,7 @@ feature {RUNNER_FACET} -- Exceptions
    set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
       do
          create exception.make(a_exception, a_message.intern, Current, exception)
-         sedb_breakpoint --| **** useful breakpoint for debug.
+         break --| **** useful breakpoint for debug.
       ensure
          exception.message = a_message.intern
       end

@@ -165,9 +165,9 @@ feature {RUNNER_FACET}
          Result := expand(locals.fast_reference_at(a_name.intern))
          debug ("run.data")
             if Result /= Void then
-               std_output.put_line(once "**** get internal: #(1) = #(2)" # a_name # Result.out)
+               std_output.put_line(once "**** get local: #(1) = #(2)" # a_name # Result.out)
             else
-               std_output.put_line(once "**** get internal: #(1) = Void" # a_name)
+               std_output.put_line(once "**** get local: #(1) = Void" # a_name)
             end
          end
       end

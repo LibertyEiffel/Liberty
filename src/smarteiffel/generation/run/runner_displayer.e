@@ -8,6 +8,7 @@ inherit
    RUNNER_LOOP_VISITOR
    EXPRESSION_VISITOR
    EFFECTIVE_ARG_LIST_VISITOR
+   WHEN_ITEM_VISITOR
 
 insert
    RUNNER_FACET
@@ -24,25 +25,25 @@ feature {AGENT_INSTRUCTION}
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {ASSIGNMENT_ATTEMPT}
@@ -68,13 +69,13 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {COMMENT}
@@ -115,7 +116,7 @@ feature {RAW_CREATE_INSTRUCTION}
 feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {IFTHENELSE}
@@ -134,18 +135,27 @@ feature {IFTHEN}
          stream.put_string(once " then ...")
       end
 
-feature {MANIFEST_STRING_INSPECT_STATEMENT}
-   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+feature {}
+   visit_inspect_statement (visited: INSPECT_STATEMENT) is
       do
          stream.put_string(once "inspect ")
          visited.expression.accept(Current)
+         visited.when_list.do_all(agent {WHEN_CLAUSE}.accept(Current))
+         if visited.else_compound /= Void then
+            stream.put_string(once " else ...")
+         end
+      end
+
+feature {MANIFEST_STRING_INSPECT_STATEMENT}
+   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+      do
+         visit_inspect_statement(visited)
       end
 
 feature {OTHER_INSPECT_STATEMENT}
    visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
       do
-         stream.put_string(once "inspect ")
-         visited.expression.accept(Current)
+         visit_inspect_statement(visited)
       end
 
 feature {LOOP_INSTRUCTION}
@@ -167,13 +177,13 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
    visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {SEDB}
@@ -197,7 +207,7 @@ feature {VOID_PROC_CALL}
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}
@@ -258,19 +268,38 @@ feature {PROCEDURE_CALL_N}
 feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {RETRY_INSTRUCTION}
    visit_retry_instruction (visited: RETRY_INSTRUCTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_string(once " when ")
+         visited.list.do_all(agent {WHEN_ITEM}.accept(Current))
+         stream.put_string(once " then ...")
+      end
+
+feature {WHEN_ITEM_1}
+   visit_when_item_1 (visited: WHEN_ITEM_1) is
+      do
+         visited.expression.accept(Current)
+         stream.put_character(',')
+      end
+
+feature {WHEN_ITEM_2}
+   visit_when_item_2 (visited: WHEN_ITEM_2) is
+      do
+         visited.lower.accept(Current)
+         stream.put_character('.')
+         stream.put_character('.')
+         visited.upper.accept(Current)
+         stream.put_character(',')
       end
 
 feature {IMPLICIT_CURRENT}
@@ -288,7 +317,7 @@ feature {WRITTEN_CURRENT}
 feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {AGENT_CREATION}
@@ -307,7 +336,7 @@ feature {AGENT_EXPRESSION}
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {ASSIGNMENT_TEST}
@@ -369,7 +398,7 @@ feature {CREATE_WRITABLE}
 feature {E_OLD}
    visit_e_old (visited: E_OLD) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {EXPRESSION_WITH_COMMENT}
@@ -381,19 +410,19 @@ feature {EXPRESSION_WITH_COMMENT}
 feature {FAKE_ARGUMENT}
    visit_fake_argument (visited: FAKE_ARGUMENT) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {CALL_PREFIX_MINUS}
@@ -555,7 +584,7 @@ feature {FUNCTION_CALL_N}
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {IMPLICIT_CAST}
@@ -587,7 +616,7 @@ feature {LOCAL_NAME2}
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {E_FALSE}
@@ -690,7 +719,7 @@ feature {MANIFEST_TUPLE}
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {OPEN_OPERAND}
@@ -708,7 +737,7 @@ feature {OPEN_OPERAND}
 feature {PRECURSOR_EXPRESSION}
    visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {RESULT}

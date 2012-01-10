@@ -40,6 +40,16 @@ feature {RUNNER_UNTYPED_BUILTINS}
          item := o.item
       end
 
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      local
+         o: like Current
+      do
+         if other.type = type then
+            o ::= other
+            Result := item = o.item
+         end
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

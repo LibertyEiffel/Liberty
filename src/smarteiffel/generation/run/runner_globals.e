@@ -22,6 +22,15 @@ feature {}
          create Result.make(0)
       end
 
+feature {}
+   frozen break is
+      do
+         debug ("run.callstack", "run.data")
+            std_output.flush
+         end
+         sedb_breakpoint
+      end
+
 end -- class RUNNER_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
