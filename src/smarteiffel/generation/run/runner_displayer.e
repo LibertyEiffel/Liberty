@@ -99,13 +99,10 @@ feature {CREATE_INSTRUCTION}
             stream.put_character('}')
             stream.put_character(' ')
          end
-         visited.writable.accept(Current)
          if visited.call /= Void then
-            stream.put_character('.')
-            stream.put_string(visited.call.feature_name.to_string)
-            if visited.call.arguments /= Void then
-               visited.call.arguments.accept(Current)
-            end
+            visited.call.accept(Current)
+         else
+            visited.writable.accept(Current)
          end
       end
 
@@ -353,13 +350,20 @@ feature {CLOSED_OPERAND}
 feature {CREATE_EXPRESSION}
    visit_create_expression (visited: CREATE_EXPRESSION) is
       do
-         sedb_breakpoint
+         stream.put_string(once "create ")
+         stream.put_character('{')
+         stream.put_string(visited.explicit_type.written_mark)
+         stream.put_character('}')
+         if visited.call /= Void then
+            stream.put_character('.')
+            visited.call.accept(Current)
+         end
       end
 
 feature {CREATE_WRITABLE}
    visit_create_writable (visited: CREATE_WRITABLE) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.writable.accept(Current)
       end
 
 feature {E_OLD}

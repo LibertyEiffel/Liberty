@@ -37,7 +37,7 @@ feature {ANY}
          index: INTEGER_64
       do
          if element_type.is_user_expanded then
-            -- don't optimize slice_copy because we need to expand each expanded object
+            -- don't optimize slice_copy because we need to expand each user-expanded object
             from
                index := src_min
             until
