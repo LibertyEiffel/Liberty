@@ -12,7 +12,7 @@ feature {RUNNER_FEATURES}
          empty_watermark: RUNNER_FRAME_WATERMARK
       do
          empty_watermark.set(0)
-         position := start_position
+         current_instruction := Void
          execute_until(empty_watermark)
       end
 
@@ -20,6 +20,16 @@ feature {RUNNER_FEATURES}
 
    start_position: POSITION is
       deferred
+      end
+
+feature {RUNNER_FACET}
+   debug_stack is
+      do
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
+            show_callstack
+            std_output.put_line(once "~~>8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>8~~")
+         end
       end
 
 feature {RUNNER_FRAME}
@@ -76,7 +86,14 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FACET}
-   position: POSITION
+   position: POSITION is
+      do
+         if current_instruction = Void then
+            Result := start_position
+         else
+            Result := current_instruction.start_position
+         end
+      end
 
    watermark: RUNNER_FRAME_WATERMARK is
       do
@@ -85,26 +102,26 @@ feature {RUNNER_FACET}
 
    execute_until (a_watermark: like watermark) is
       local
-         inst: INSTRUCTION
+         old_instruction: like current_instruction
       do
+         old_instruction := current_instruction
          from
             finished := True
          until
             instructions_list.count <= a_watermark.item or else processor.exception /= Void
          loop
-            debug ("run.callstack")
-               std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
-               show_callstack
-               std_output.put_line(once "~~>8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>8~~")
-            end
-            inst := instructions_list.last
+            debug_stack
+            current_instruction := instructions_list.last
             instructions_list.remove_last
-            position := inst.start_position
-            processor.instructions.execute(inst)
+            processor.instructions.execute(current_instruction)
          end
+         current_instruction := old_instruction
       rescue
+         current_instruction := old_instruction
          raised_exception
-         instructions_list.clear_count
+         if instructions_list.count > a_watermark.item then
+            instructions_list.remove_tail(instructions_list.count - a_watermark.item)
+         end
          retry
       end
 
@@ -247,6 +264,8 @@ feature {RUNNER_FACET}
       end
 
 feature {}
+   current_instruction: INSTRUCTION
+
    show_frame is
       local
          frame_name: STRING
@@ -257,14 +276,15 @@ feature {}
          std_output.put_line(once "(#(1)) {#(2)}.#(3):" # depth.out # target.type.name.to_string # frame_name)
          instructions_list.do_all(agent (i: INSTRUCTION) is
                                   do
-                                     if i = instructions_list.last then
-                                        std_output.put_string(once "     * ")
-                                     else
-                                        std_output.put_string(once "     - ")
-                                     end
+                                     std_output.put_string(once "     - ")
                                      i.accept(displayer)
                                      std_output.put_new_line
                                   end)
+         if current_instruction /= Void then
+            std_output.put_string(once "     * ")
+            current_instruction.accept(displayer)
+            std_output.put_new_line
+         end
       end
 
    print_frame (stream: OUTPUT_STREAM) is

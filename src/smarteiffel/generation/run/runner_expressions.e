@@ -98,8 +98,7 @@ feature {CREATE_EXPRESSION}
 feature {CREATE_WRITABLE}
    visit_create_writable (visited: CREATE_WRITABLE) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         visited.writable.accept(Current)
       end
 
 feature {E_OLD}
@@ -112,8 +111,7 @@ feature {E_OLD}
 feature {EXPRESSION_WITH_COMMENT}
    visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         visited.expression.accept(Current)
       end
 
 feature {FAKE_ARGUMENT}
@@ -296,8 +294,7 @@ feature {FUNCTION_CALL_N}
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         return := processor.new_manifest_string(visited.target_type.name.to_string, True)
       end
 
 feature {IMPLICIT_CAST}
@@ -476,6 +473,9 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
          visited.dynamic_dispatch_temporary1.accept(Current)
          if return /= Void then
             id := return.type.id
+            debug ("run.data")
+               std_output.put_line(once "ID=#(1)" # id.out)
+            end
             return := processor.new_integer_32(id)
          else
             break --| **** ????

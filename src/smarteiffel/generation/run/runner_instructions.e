@@ -216,8 +216,7 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         visited.compound.accept(Current)
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
@@ -234,21 +233,23 @@ feature {RUN_TIME_ERROR_INSTRUCTION}
 feature {SEDB}
    visit_sedb (visited: SEDB) is
       do
-         -- nothing
+         debug ("run.data")
+            std_output.put_line(once "SEDB: #(1)" # visited.info_code.out)
+         end
       end
 
 feature {UNUSED_EXPRESSION}
    visit_unused_expression (visited: UNUSED_EXPRESSION) is
+      local
+         dropped: RUNNER_OBJECT
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         dropped := processor.expressions.eval(visited.expression)
       end
 
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {PRECURSOR_INSTRUCTION}
@@ -292,8 +293,9 @@ feature {RETRY_INSTRUCTION}
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         check
+            never_called: False -- because RUNNER_INSPECTOR handles inspect
+         end
       end
 
 feature {}

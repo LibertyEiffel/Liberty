@@ -26,6 +26,7 @@ feature {}
    frozen break is
       do
          debug ("run.callstack", "run.data")
+            std_output.put_line(once "**************** BREAK ****************")
             std_output.flush
          end
          sedb_breakpoint

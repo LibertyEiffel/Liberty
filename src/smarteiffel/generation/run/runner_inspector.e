@@ -24,9 +24,6 @@ feature {RUNNER_INSTRUCTIONS}
          old_value := value
          old_found := found
          value := processor.expressions.eval(a_inspect.expression)
-         debug ("run.data")
-            std_output.put_line(once "INSPECT: value=#(1)" # value.out)
-         end
          from
             i := a_inspect.when_list.lower
          until
@@ -38,10 +35,13 @@ feature {RUNNER_INSTRUCTIONS}
          if not found then
             if a_inspect.else_compound /= Void then
                debug ("run.data")
-                  std_output.put_line(once "INSPECT: else")
+                  std_output.put_line(once "INSPECT: selected else")
                end
                processor.instructions.execute(a_inspect.else_compound)
             elseif a_inspect.else_position.is_unknown then
+               debug ("run.data")
+                  std_output.put_line(once "INSPECT: nothing selected")
+               end
                not_yet_implemented --| **** TODO: error, nothing selected
             end
          end
@@ -67,7 +67,7 @@ feature {WHEN_CLAUSE}
          end
          if found then
             debug ("run.data")
-               std_output.put_line(once "INSPECT: found!")
+               std_output.put_line(once "INSPECT: selected value=#(1)" # value.out)
             end
             processor.instructions.execute(visited.compound)
          end
@@ -79,9 +79,6 @@ feature {WHEN_ITEM_1}
          item: RUNNER_OBJECT
       do
          item := processor.expressions.eval(visited.expression)
-         debug ("run.data")
-            std_output.put_line(once "INSPECT: when #(1)" # item.out)
-         end
          if item.type.is_expanded then
             found := item.eq(value)
          else
