@@ -52,7 +52,7 @@ feature {}
          when "trace_switch" then
             builtin_trace_switch(processor)
             Result := True
-         when "break" then
+         when "sedb_breakpoint" then
             builtin_break(processor)
             Result := True
          when "die_with_code" then
@@ -142,8 +142,11 @@ feature {}
       end
 
    builtin_die_with_code (processor: RUNNER_PROCESSOR) is
+      local
+         exit_code: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
-         break --| **** TODO
+         exit_code ::= processor.current_frame.arguments.first
+         die_with_code(exit_code.item.to_integer_32)
       end
 
    builtin_to_pointer (processor: RUNNER_PROCESSOR) is

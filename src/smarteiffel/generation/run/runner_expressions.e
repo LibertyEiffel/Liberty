@@ -478,8 +478,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
             end
             return := processor.new_integer_32(id)
          else
-            break --| **** ????
-            return := processor.new_integer_32(0)
+            return := processor.new_integer_32(0) -- not a valid id
          end
       end
 
