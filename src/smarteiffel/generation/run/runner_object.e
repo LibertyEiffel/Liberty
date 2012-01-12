@@ -22,6 +22,10 @@ feature {ANY}
       deferred
       end
 
+   is_initialized: BOOLEAN is
+      deferred
+      end
+
 feature {RUNNER_UNTYPED_BUILTINS}
    builtin_to_pointer: POINTER is
       deferred

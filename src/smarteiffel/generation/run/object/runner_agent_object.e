@@ -20,6 +20,8 @@ feature {ANY}
 
    feature_stamp: FEATURE_STAMP
 
+   is_initialized: BOOLEAN is True
+
    out_in_tagged_out_memory is
       do
          tagged_out_memory.append(once "<agent>")

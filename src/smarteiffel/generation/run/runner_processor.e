@@ -50,13 +50,21 @@ feature {RUNNER_FEATURES} -- Contract checking
    check_invariant (type: TYPE) is
       require
          type /= Void
+         current_frame.target.type = type
+         current_frame.target.is_initialized
       local
          class_invariant: CLASS_INVARIANT
       do
          if exception = Void and then type.class_text.invariant_check then
             class_invariant := type.class_invariant
             if class_invariant /= Void then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ INVARIANT OF #(1) ~~8<~~" # type.name.to_string)
+               end
                check_assertions(exceptions.Class_invariant, class_invariant)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ invariant of #(1) ~~>8~~" # type.name.to_string)
+               end
             end
          end
       end
@@ -75,6 +83,9 @@ feature {RUNNER_FEATURES} -- Contract checking
             if require_assertion /= Void and then not require_assertion.is_always_true(target.type)
                and then target.check_and_set_position(require_assertion.start_position)
             then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ PRECONDITION OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
                from
                   i := require_assertion.lower
                invariant
@@ -102,11 +113,14 @@ feature {RUNNER_FEATURES} -- Contract checking
                   exception := original_exception
                end
                target.clear_position(require_assertion.start_position)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ precondition of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
             end
          end
       end
 
-   check_ensure (rf: RUN_FEATURE) is
+   check_ensure (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
       require
          rf /= Void
       local
@@ -115,7 +129,13 @@ feature {RUNNER_FEATURES} -- Contract checking
          if exception = Void then
             ensure_assertion := rf.ensure_assertion
             if ensure_assertion /= Void then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ POSTCONDITION OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
                check_assertions(exceptions.Postcondition, ensure_assertion)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ postcondition of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
             end
          end
       end

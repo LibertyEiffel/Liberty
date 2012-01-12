@@ -12,6 +12,8 @@ create {RUNNER_MEMORY}
 feature {ANY}
    builtins: RUNNER_UNTYPED_BUILTINS
 
+   is_initialized: BOOLEAN is False
+
    processor: RUNNER_PROCESSOR is
       do
          Result := agent_object.processor

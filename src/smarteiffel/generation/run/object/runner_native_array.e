@@ -18,6 +18,8 @@ feature {ANY}
 
    capacity: INTEGER
 
+   is_initialized: BOOLEAN is True
+
    item (index: INTEGER_64): O_ is
       require
          index.in_range(0, capacity - 1)

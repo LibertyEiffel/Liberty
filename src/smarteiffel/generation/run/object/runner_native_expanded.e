@@ -16,6 +16,8 @@ feature {ANY}
    type: TYPE
    item: E_
 
+   is_initialized: BOOLEAN is True
+
    out_in_tagged_out_memory is
       do
          item.out_in_tagged_out_memory

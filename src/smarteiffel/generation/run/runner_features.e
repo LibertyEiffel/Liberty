@@ -27,7 +27,7 @@ feature {RUNNER_FACET}
          target, return: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         return := execute_rf(target, agent arguments(a_call, current_frame),
+         return := execute_rf(target, False, agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
          check
             return = Void
@@ -41,7 +41,7 @@ feature {RUNNER_FACET}
          target: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         Result := execute_rf(target, agent arguments(a_call, current_frame),
+         Result := execute_rf(target, False, agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
       end
 
@@ -57,7 +57,7 @@ feature {RUNNER_FACET}
                a_call.context_type = current_frame.type_of_current
                a_call.run_feature = a_call.feature_stamp.run_feature_for(current_frame.type_of_current)
             end
-            Result := execute_rf(target, Void, a_call.run_feature)
+            Result := execute_rf(target, False, Void, a_call.run_feature)
          else
             check
                a_call.external_function /= Void
@@ -75,7 +75,7 @@ feature {RUNNER_FACET}
       do
          Result := processor.new_object(a_type)
          if a_call /= Void then
-            return := execute_rf(Result, agent arguments(a_call, current_frame),
+            return := execute_rf(Result, True, agent arguments(a_call, current_frame),
                                  a_call.run_feature_for(current_frame.type_of_current))
             check
                return = Void
@@ -98,7 +98,7 @@ feature {RUNNER_FACET}
                if a_manifest.item_list /= Void then
                   capacity := a_manifest.item_list.count
                end
-               return := execute_rf(Result, agent manifest_arguments(capacity, a_manifest.optional_arguments, current_frame),
+               return := execute_rf(Result, True, agent manifest_arguments(capacity, a_manifest.optional_arguments, current_frame),
                                     feature_make)
             end
          end
@@ -117,7 +117,7 @@ feature {RUNNER_FACET}
                   until
                      i > a_manifest.item_list.upper
                   loop
-                     return := execute_rf(Result, agent manifest_arguments_slice(i - a_manifest.item_list.lower, a_manifest.item_list, i, step, current_frame),
+                     return := execute_rf(Result, False, agent manifest_arguments_slice(i - a_manifest.item_list.lower, a_manifest.item_list, i, step, current_frame),
                                           feature_put)
                      check
                         return = Void
@@ -145,7 +145,7 @@ feature {RUNNER_PROCESSOR}
          return: RUNNER_OBJECT
       do
          root_object := processor.new_object(rf.type_of_current)
-         return := execute_rf(root_object, agent idem_arguments(Void), rf)
+         return := execute_rf(root_object, True, agent idem_arguments(Void), rf)
          check
             return = Void
          end
@@ -256,7 +256,7 @@ feature {}
          Result := a_arguments
       end
 
-   execute_rf (a_target: RUNNER_OBJECT; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
+   execute_rf (a_target: RUNNER_OBJECT; is_new: BOOLEAN; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
       require
          a_target /= Void
          --| **** TODO a_target.type = a_rf.type_of_current
@@ -269,7 +269,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_arguments, a_rf)
-         execute_frame(frame, a_rf, Current, a_rf)
+         execute_frame(frame, a_rf, Current, a_rf, is_new)
          Result := frame.return
          check
             Result /= Void implies (a_rf.result_type /= Void and then
@@ -294,7 +294,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_non_void)
-         execute_frame(frame, a_non_void.external_function.native, Current, Void)
+         execute_frame(frame, a_non_void.external_function.native, Current, Void, False)
          Result := frame.return
 
          debug ("run.callstack")
@@ -315,7 +315,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_launcher)
-         execute_frame(frame, a_launcher.code, a_executor, Void)
+         execute_frame(frame, a_launcher.code, a_executor, Void, False)
          check
             frame.return = Void -- if `item': the result is already set in the calling RUNNER_EXPRESSIONS
          end
@@ -325,33 +325,48 @@ feature {}
          end
       end
 
-   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: VISITOR; a_rf: RUN_FEATURE) is
+   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: VISITOR; a_rf: RUN_FEATURE; is_new: BOOLEAN) is
       require
          a_frame /= Void
          a_rf /= Void implies a_executable = a_rf
+         is_new implies not a_frame.target.is_initialized
       local
          old_frame: like current_frame
+         target: RUNNER_OBJECT; init_target: RUNNER_STRUCTURED_OBJECT
       do
          old_frame := current_frame
          current_frame := a_frame
+
+         target := a_frame.target
+         check
+            target /= Void
+         end
 
          debug ("run.data")
             std_output.put_line(once "Current is #(1)" # a_frame.target.out)
          end
 
-         processor.check_invariant(a_frame.target.type)
-         if a_rf /= Void then
-            processor.check_require(a_frame.target, a_rf)
+         if a_frame.target.is_initialized then
+            processor.check_invariant(target.type)
+         end
+         if a_rf /= Void and then processor.exception = Void then
+            processor.check_require(target, a_rf)
          end
 
          if processor.exception = Void then
             a_executable.accept(a_executor)
          end
 
-         if a_rf /= Void then
-            processor.check_ensure(a_rf)
+         if a_rf /= Void and then processor.exception = Void then
+            processor.check_ensure(target, a_rf)
          end
-         processor.check_invariant(a_frame.target.type)
+         if (a_frame.target.is_initialized or else is_new) and then processor.exception = Void then
+            if is_new then
+               init_target ::= target
+               init_target.set_initialized
+            end
+            processor.check_invariant(target.type)
+         end
 
          check
             old_frame = a_frame.caller
@@ -369,6 +384,7 @@ feature {}
          end
       ensure
          a_frame.target = old a_frame.target
+         is_new implies a_frame.target.is_initialized
       end
 
 feature {RUN_FEATURE_1}
@@ -459,14 +475,12 @@ feature {RUN_FEATURE_7}
    visit_run_feature_7 (visited: RUN_FEATURE_7) is
       do
          visited.base_feature.native.accept(Current)
-         current_frame.execute
       end
 
 feature {RUN_FEATURE_8}
    visit_run_feature_8 (visited: RUN_FEATURE_8) is
       do
          visited.base_feature.native.accept(Current)
-         current_frame.execute
       end
 
 feature {RUN_FEATURE_9}
@@ -479,6 +493,7 @@ feature {NATIVE_BUILT_IN}
    visit_native_built_in (visited: NATIVE_BUILT_IN) is
       do
          current_frame.target.builtins.call(processor)
+         current_frame.execute
       end
 
 feature {NATIVE_C_PLUS_PLUS}
@@ -506,6 +521,7 @@ feature {NATIVE_PLUG_IN}
       do
          plugin ::= visited.plugin
          plugin.call(processor)
+         current_frame.execute
       end
 
 feature {}

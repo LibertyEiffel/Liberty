@@ -24,6 +24,8 @@ feature {ANY}
    processor: RUNNER_PROCESSOR
    type: TYPE
 
+   is_initialized: BOOLEAN
+
    set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
       do
          fields.fast_put(expand(a_value), a_name.intern)
@@ -83,7 +85,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
          o ::= expand(other)
          o.fields.do_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
                          do
-                            fields.put(expand(object), name)
+                            fields.fast_put(expand(object), name)
                          end)
       end
 
@@ -98,8 +100,8 @@ feature {RUNNER_UNTYPED_BUILTINS}
                                           local
                                              my_object: RUNNER_OBJECT
                                           do
-                                             if fields.has(name) then
-                                                my_object := fields.at(name)
+                                             if fields.fast_has(name) then
+                                                my_object := fields.fast_at(name)
                                                 Result := my_object = object or else (my_object /= Void and then my_object.eq(object))
                                              end
                                           end)
@@ -125,6 +127,15 @@ feature {RUNNER_FACET}
          not_yet_implemented
       end
 
+   set_initialized is
+      require
+         not is_initialized
+      do
+         is_initialized := True
+      ensure
+         is_initialized
+      end
+
 feature {}
    copy_expanded (model: like Current) is
       require
@@ -133,7 +144,7 @@ feature {}
          make(model.processor, model.type, model.builtins)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
-                                fields.put(expand(field_value), field_name)
+                                fields.fast_put(expand(field_value), field_name)
                              end)
       end
 
@@ -147,10 +158,14 @@ feature {}
          type := a_type
          builtins := a_builtins
          initialize_fields
+         if a_type.is_expanded then
+            is_initialized := True
+         end
       ensure
          processor = a_processor
          type = a_type
          builtins = a_builtins
+         is_initialized = a_type.is_expanded
       end
 
    initialize_fields is
