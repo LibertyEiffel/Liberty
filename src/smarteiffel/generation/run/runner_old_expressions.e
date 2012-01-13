@@ -33,10 +33,6 @@ inherit
       end
    EFFECTIVE_ARG_LIST_VISITOR
 
-   --| **** TODO: some of INSTRUCTION_VISITOR -- because of COMPOUND_EXPRESSION
-   SEDB_VISITOR
-   ASSIGNMENT_VISITOR
-
 insert
    RUNNER_PROCESSOR_FACET
 
@@ -335,23 +331,19 @@ feature {COMPOUND_EXPRESSION}
          if old_mode then
             Precursor(visited)
          else
-            visited.do_all(agent {CODE}.accept(Current))
+            visited.do_all(agent visit_compound_expression_code)
          end
       end
 
-feature {SEDB}
-   visit_sedb (visited: SEDB) is
+feature {}
+   visit_compound_expression_code (code: CODE) is
       do
-         if old_mode then
-            processor.instructions.execute(visited)
-         end
-      end
-
-feature {ASSIGNMENT}
-   visit_assignment (visited: ASSIGNMENT) is
-      do
-         if old_mode then
-            processor.instructions.execute(visited)
+         if {INSTRUCTION} ?:= code then -- OK, dirty, but the alternative is a bunch of trivial visitors
+            if old_mode then
+               processor.instructions.execute(code)
+            end
+         else
+            code.accept(Current)
          end
       end
 
