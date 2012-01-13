@@ -1,72 +1,32 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class RUNNER_GLOBALS
+class TAGGED_COUNTER
 
-insert
-   GLOBALS
-
-feature {}
-   frozen runner: RUNNER is
-      once
-         create Result.make
+inherit
+   TYPED_TAGGED_DATA[COUNTER]
+      redefine
+         is_equal
       end
 
-   frozen displayer: RUNNER_DISPLAYER is
-      once
-         create Result.make(std_output)
-      end
+create {ANY}
+   make
 
-   frozen user_args: FAST_ARRAY[STRING] is
-      once
-         create Result.make(0)
+feature {ANY}
+   item: COUNTER
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other = Current
       end
 
 feature {}
-   frozen break is
+   make is
       do
-         debug ("run.callstack", "run.data")
-            std_output.put_line(once "**************** BREAK ****************")
-            std_output.flush
-         end
-         sedb_breakpoint
+         create item
       end
 
-   frozen repr (arg: RUNNER_OBJECT): STRING is
-      do
-         if arg = Void then
-            Result := once "Void"
-         else
-            Result := arg.out
-         end
-      ensure
-         Result /= Void
-      end
-
-   frozen listrepr (list: TRAVERSABLE[RUNNER_OBJECT]): STRING is
-      local
-         i: INTEGER
-      do
-         Result := "("
-         if list /= Void then
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               if i > list.lower then
-                  Result.append(once ", ")
-               end
-               Result.append(repr(list.item(i)))
-               i := i + 1
-            end
-         end
-         Result.extend(')')
-      ensure
-         Result /= Void
-      end
-
-end -- class RUNNER_GLOBALS
+end -- class TAGGED_COUNTER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

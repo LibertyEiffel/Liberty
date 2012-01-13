@@ -28,12 +28,18 @@ feature {ANY}
 
    set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
       do
+         debug ("run.data")
+            std_output.put_line(once "    >>>> field #(1) := #(2)" # a_name # repr(a_value))
+         end
          fields.fast_put(expand(a_value), a_name.intern)
       end
 
    field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
       do
          Result := expand(fields.fast_at(a_name.intern))
+         debug ("run.data")
+            std_output.put_line(once "    >>>> field #(1) = #(2)" # a_name # repr(Result))
+         end
       end
 
    out_in_tagged_out_memory is

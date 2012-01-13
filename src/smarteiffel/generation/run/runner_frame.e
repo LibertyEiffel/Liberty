@@ -132,6 +132,14 @@ feature {RUNNER_FACET}
          instructions_list.clear_count
       end
 
+feature {RUNNER_FEATURES} -- Contract checking
+   unset_finished is
+      do
+         finished := False
+      ensure
+         not finished
+      end
+
 feature {RUNNER_FACET}
    force_eval_arguments is
       local
@@ -147,12 +155,7 @@ feature {RUNNER_FACET}
          type_of_result.is_expanded implies a_return /= Void
       do
          debug ("run.data")
-            std_output.put_string(once "(#(1)) #(2): Result := " # depth.out # name.to_string)
-            if a_return = Void then
-               std_output.put_line(once "Void")
-            else
-               std_output.put_line(a_return.out)
-            end
+            std_output.put_line(once "(#(1)) #(2): Result := #(3)" # depth.out # name.to_string # repr(a_return))
          end
          return := expand(a_return)
       ensure
@@ -164,11 +167,7 @@ feature {RUNNER_FACET}
          has_local(a_name)
       do
          debug ("run.data")
-            if a_value /= Void then
-               std_output.put_line(once "**** set local: #(1) := #(2)" # a_name # a_value.out)
-            else
-               std_output.put_line(once "**** set local: #(1) := Void" # a_name)
-            end
+            std_output.put_line(once "**** set local: #(1) := #(2)" # a_name # repr(a_value))
          end
          locals.fast_put(expand(a_value), a_name.intern)
       ensure
@@ -181,11 +180,7 @@ feature {RUNNER_FACET}
       do
          Result := expand(locals.fast_reference_at(a_name.intern))
          debug ("run.data")
-            if Result /= Void then
-               std_output.put_line(once "**** get local: #(1) = #(2)" # a_name # Result.out)
-            else
-               std_output.put_line(once "**** get local: #(1) = Void" # a_name)
-            end
+            std_output.put_line(once "**** get local: #(1) = #(2)" # a_name # repr(Result))
          end
       end
 
@@ -200,11 +195,7 @@ feature {RUNNER_FACET}
             create internal_locals.make
          end
          debug ("run.data")
-            if a_value /= Void then
-               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
-            else
-               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
-            end
+            std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + repr(a_value))
          end
          internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
@@ -216,11 +207,7 @@ feature {RUNNER_FACET}
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
             debug ("run.data")
-               if Result /= Void then
-                  std_output.put_line(once "**** get internal: #(1) = #(2)" # a_internal.hash_tag # Result.out)
-               else
-                  std_output.put_line(once "**** get internal: #(1) = Void" # a_internal.hash_tag)
-               end
+               std_output.put_line(once "**** get internal: #(1) = #(2)" # a_internal.hash_tag # repr(Result))
             end
          end
       end
@@ -245,7 +232,7 @@ feature {RUNNER_FACET}
       local
          i: INTEGER
       do
-         from -- backward loop by design
+         from -- backward loop by design (it's a stack!)
             i := a_instructions.upper
          until
             i < a_instructions.lower
@@ -261,6 +248,22 @@ feature {RUNNER_FACET}
                                                  do
                                                     Result := inst = instructions_list.item(instructions_list.upper - i + 1)
                                                  end)
+      end
+
+feature {RUNNER_FACET}
+   old_value (id: INTEGER): RUNNER_OBJECT is
+      do
+         if old_values /= Void then
+            Result := old_values.fast_reference_at(id)
+         end
+      end
+
+   set_old_value (id: INTEGER; a_value: RUNNER_OBJECT) is
+      do
+         if old_values = Void then
+            create old_values.make
+         end
+         old_values.fast_put(expand(a_value), id)
       end
 
 feature {}
@@ -361,6 +364,8 @@ feature {}
 
    locals, internal_locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
    return_ref: REFERENCE[RUNNER_OBJECT]
+
+   old_values: AVL_DICTIONARY[RUNNER_OBJECT, INTEGER]
 
    instructions_list: RING_ARRAY[INSTRUCTION]
 

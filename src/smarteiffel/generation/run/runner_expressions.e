@@ -5,20 +5,41 @@ class RUNNER_EXPRESSIONS
 
 inherit
    EXPRESSION_VISITOR
+   RUNNER_EXECUTOR
+      redefine
+         execute
+      end
 
 insert
-   RUNNER_PROCESSOR_FACET
+   TAGGER
 
 create {RUNNER_PROCESSOR}
    make
 
 feature {RUNNER_FACET}
+   execute (a_executable: VISITABLE) is
+      local
+         watermark: RUNNER_FRAME_WATERMARK
+         old_return: like return
+      do
+         watermark := current_frame.watermark
+         old_return := return
+         a_executable.accept(Current)
+         return := old_return
+         current_frame.execute_until(watermark)
+      end
+
    eval (a_expression: EXPRESSION): RUNNER_OBJECT is
+      require
+         a_expression /= Void
+      local
+         old_return: like return
       do
          if a_expression /= Void then
+            old_return := return
             a_expression.accept(Current)
             Result := return
-            return := Void
+            return := old_return
          end
       end
 
@@ -103,9 +124,14 @@ feature {CREATE_WRITABLE}
 
 feature {E_OLD}
    visit_e_old (visited: E_OLD) is
+      local
+         id: TAGGED_INTEGER
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         break --| **** TODO
+         id ::= visited.tag(tag_id)
+         check
+            id /= Void
+         end
+         return := processor.current_frame.old_value(id.item)
       end
 
 feature {EXPRESSION_WITH_COMMENT}
@@ -135,160 +161,166 @@ feature {FAKE_TUPLE}
          break --| **** TODO
       end
 
+feature {}
+   visit_function_call (visited: FUNCTION_CALL) is
+      do
+         return := processor.features.item(visited)
+      end
+
 feature {CALL_PREFIX_MINUS}
    visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_FREEOP}
    visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_NOT}
    visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_PLUS}
    visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {STATIC_CALL_0_C}
    visit_static_call_0_c (visited: STATIC_CALL_0_C) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_0}
    visit_function_call_0 (visited: FUNCTION_CALL_0) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_AND_THEN}
    visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_AND}
    visit_call_infix_and (visited: CALL_INFIX_AND) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_DIV}
    visit_call_infix_div (visited: CALL_INFIX_DIV) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_FREEOP}
    visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_GE}
    visit_call_infix_ge (visited: CALL_INFIX_GE) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_GT}
    visit_call_infix_gt (visited: CALL_INFIX_GT) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_IMPLIES}
    visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_INT_DIV}
    visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_INT_REM}
    visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_LE}
    visit_call_infix_le (visited: CALL_INFIX_LE) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_LT}
    visit_call_infix_lt (visited: CALL_INFIX_LT) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_MINUS}
    visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_OR_ELSE}
    visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_OR}
    visit_call_infix_or (visited: CALL_INFIX_OR) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_PLUS}
    visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_POWER}
    visit_call_infix_power (visited: CALL_INFIX_POWER) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_TIMES}
    visit_call_infix_times (visited: CALL_INFIX_TIMES) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {CALL_INFIX_XOR}
    visit_call_infix_xor (visited: CALL_INFIX_XOR) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_1}
    visit_function_call_1 (visited: FUNCTION_CALL_1) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_N}
    visit_function_call_n (visited: FUNCTION_CALL_N) is
       do
-         return := processor.features.item(visited)
+         visit_function_call(visited)
       end
 
 feature {GENERATOR_GENERATING_TYPE}
@@ -538,6 +570,11 @@ feature {}
 
    return: RUNNER_OBJECT
    implicit_cast_type: TYPE
+
+   tag_id: FIXED_STRING is
+      once
+         Result := "run.id".intern
+      end
 
 end -- class RUNNER_EXPRESSIONS
 --

@@ -20,6 +20,7 @@ feature {RUNNER_FACET}
    features: RUNNER_FEATURES
    instructions: RUNNER_INSTRUCTIONS
    expressions: RUNNER_EXPRESSIONS
+   old_expressions: RUNNER_OLD_EXPRESSIONS
    assignment: RUNNER_ASSIGNMENT
 
    memory: RUNNER_MEMORY
@@ -115,6 +116,37 @@ feature {RUNNER_FEATURES} -- Contract checking
                target.clear_position(require_assertion.start_position)
                debug ("run.callstack")
                   std_output.put_line(once "~~>8~~ precondition of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
+            end
+         end
+      end
+
+   prepare_old (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+      require
+         rf /= Void
+      local
+         ensure_assertion: ENSURE_ASSERTION
+         i: INTEGER; assertion: ASSERTION
+      do
+         if exception = Void then
+            ensure_assertion := rf.ensure_assertion
+            if ensure_assertion /= Void and then not ensure_assertion.is_always_true(current_frame.target.type) then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ PREPARE OLD OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
+               from
+                  i := ensure_assertion.lower
+               until
+                  exception /= Void or else i > ensure_assertion.upper
+               loop
+                  assertion := ensure_assertion.item(i)
+                  if assertion.expression /= Void then
+                     old_expressions.execute(assertion.expression, rf)
+                  end
+                  i := i + 1
+               end
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ prepare old of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
                end
             end
          end
@@ -633,6 +665,7 @@ feature {}
          create features.make(Current)
          create instructions.make(Current)
          create expressions.make(Current)
+         create old_expressions.make(Current)
          create assignment.make(Current)
 
          create booleans.make(2)
@@ -682,10 +715,11 @@ feature {}
 invariant
    memory /= Void
 
-   features     /= Void and then features.processor     = Current
-   instructions /= Void and then instructions.processor = Current
-   expressions  /= Void and then expressions.processor  = Current
-   assignment   /= Void and then assignment.processor   = Current
+   features        /= Void and then features.processor        = Current
+   instructions    /= Void and then instructions.processor    = Current
+   expressions     /= Void and then expressions.processor     = Current
+   old_expressions /= Void and then old_expressions.processor = Current
+   assignment      /= Void and then assignment.processor      = Current
 
    booleans       /= Void
    characters     /= Void

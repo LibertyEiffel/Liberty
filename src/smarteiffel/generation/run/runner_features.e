@@ -6,9 +6,7 @@ class RUNNER_FEATURES
 inherit
    RUN_FEATURE_VISITOR
    NATIVE_VISITOR
-
-insert
-   RUNNER_PROCESSOR_FACET
+   RUNNER_EXECUTOR
       redefine
          current_frame
       end
@@ -129,7 +127,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   call_agent (launcher: AGENT_LAUNCHER; a_executor: VISITOR) is
+   call_agent (launcher: AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR) is
          -- calling `call' or `item' on an agent
       local
          agent_launcher: RUNNER_AGENT_LAUNCHER
@@ -236,11 +234,7 @@ feature {}
             until
                i > Result.upper
             loop
-               if Result.item(i) = Void then
-                  std_output.put_line(once "ARG##(1) = Void" # i.out)
-               else
-                  std_output.put_line(once "ARG##(1) = #(2)" # i.out # Result.item(i).out)
-               end
+               std_output.put_line(once "ARG##(1) = #(2)" # i.out # repr(Result.item(i)))
                i := i + 1
             end
          end
@@ -262,22 +256,18 @@ feature {}
          --| **** TODO a_target.type = a_rf.type_of_current
          a_rf /= Void
       local
-         frame: RUNNER_RUN_FEATURE_FRAME
+         frame: RUNNER_RUN_FEATURE_FRAME; tag: ABSTRACT_STRING
       do
          debug ("run.callstack")
-            std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N%N" # a_rf.name.to_string)
+            tag := a_rf.name.to_string
          end
 
          create frame.make(processor, current_frame, a_target, a_arguments, a_rf)
-         execute_frame(frame, a_rf, Current, a_rf, is_new)
+         execute_frame(frame, a_rf, Current, a_rf, is_new, tag)
          Result := frame.return
          check
             Result /= Void implies (a_rf.result_type /= Void and then
                                     Result.type.can_be_assigned_to(a_rf.result_type.resolve_in(a_rf.type_of_current)))
-         end
-
-         debug ("run.callstack")
-            std_output.put_line(once "> return from #(1)%N" # a_rf.name.to_string)
          end
       end
 
@@ -287,45 +277,37 @@ feature {}
          a_non_void /= Void
          a_non_void.external_function /= Void
       local
-         frame: RUNNER_NON_VOID_FRAME
+         frame: RUNNER_NON_VOID_FRAME; tag: ABSTRACT_STRING
       do
          debug ("run.callstack")
-            std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N%N" # a_non_void.feature_stamp.name.to_string)
+            tag := a_non_void.feature_stamp.name.to_string
          end
 
          create frame.make(processor, current_frame, a_target, a_non_void)
-         execute_frame(frame, a_non_void.external_function.native, Current, Void, False)
+         execute_frame(frame, a_non_void.external_function.native, Current, Void, False, tag)
          Result := frame.return
-
-         debug ("run.callstack")
-            std_output.put_line(once "> return from #(1)%N" # a_non_void.feature_stamp.name.to_string)
-         end
       ensure
          Result /= Void
       end
 
-   execute_agent (a_launcher: RUNNER_AGENT_LAUNCHER; a_executor: VISITOR) is
+   execute_agent (a_launcher: RUNNER_AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR) is
       require
          a_launcher /= Void
       local
-         frame: RUNNER_AGENT_FRAME
+         frame: RUNNER_AGENT_FRAME; tag: ABSTRACT_STRING
       do
          debug ("run.callstack")
-            std_output.put_line(once "%N~~~~ CALLING agent #(1) ~~~~%N%N" # a_launcher.feature_stamp.name.to_string)
+            tag := once "agent #(1)" # a_launcher.feature_stamp.name.to_string
          end
 
          create frame.make(processor, current_frame, a_launcher)
-         execute_frame(frame, a_launcher.code, a_executor, Void, False)
+         execute_frame(frame, a_launcher.code, a_executor, Void, False, tag)
          check
             frame.return = Void -- if `item': the result is already set in the calling RUNNER_EXPRESSIONS
          end
-
-         debug ("run.callstack")
-            std_output.put_line(once "> return from agent #(1)%N" # a_launcher.feature_stamp.name.to_string)
-         end
       end
 
-   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: VISITOR; a_rf: RUN_FEATURE; is_new: BOOLEAN) is
+   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: RUNNER_EXECUTOR; a_rf: RUN_FEATURE; is_new: BOOLEAN; a_tag: ABSTRACT_STRING) is
       require
          a_frame /= Void
          a_rf /= Void implies a_executable = a_rf
@@ -342,22 +324,31 @@ feature {}
             target /= Void
          end
 
-         debug ("run.data")
-            std_output.put_line(once "Current is #(1)" # a_frame.target.out)
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N> Current is #(2)%N" # a_tag # a_frame.target.out)
          end
 
          if a_frame.target.is_initialized then
+            a_frame.unset_finished
             processor.check_invariant(target.type)
          end
          if a_rf /= Void and then processor.exception = Void then
+            a_frame.unset_finished
             processor.check_require(target, a_rf)
+            a_frame.unset_finished
+            processor.prepare_old(target, a_rf)
          end
 
          if processor.exception = Void then
-            a_executable.accept(a_executor)
+            debug ("run.callstack")
+               std_output.put_line(once "%N> Now really executing #(1)%N" # a_tag)
+            end
+            a_frame.unset_finished
+            a_executor.execute(a_executable)
          end
 
          if a_rf /= Void and then processor.exception = Void then
+            a_frame.unset_finished
             processor.check_ensure(target, a_rf)
          end
          if (a_frame.target.is_initialized or else is_new) and then processor.exception = Void then
@@ -365,6 +356,7 @@ feature {}
                init_target ::= target
                init_target.set_initialized
             end
+            a_frame.unset_finished
             processor.check_invariant(target.type)
          end
 
@@ -375,12 +367,12 @@ feature {}
 
          debug ("run.data")
             if a_frame.type_of_result /= Void then
-               if a_frame.return = Void then
-                  std_output.put_line(once "Result is Void")
-               else
-                  std_output.put_line(once "Result is #(1)" # a_frame.return.out)
-               end
+               std_output.put_line(once "Result is #(1)" # repr(a_frame.return))
             end
+         end
+
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~~~ Returning from #(1) ~~~~%N" # a_tag)
          end
       ensure
          a_frame.target = old a_frame.target
@@ -413,10 +405,8 @@ feature {}
                current_frame.finished
             loop
                processor.instructions.execute(a_routine.routine_body)
-               current_frame.execute
                if processor.exception /= Void and then a_routine.rescue_compound /= Void then
                   processor.instructions.execute(a_routine.rescue_compound)
-                  current_frame.execute
                end
             end
          end

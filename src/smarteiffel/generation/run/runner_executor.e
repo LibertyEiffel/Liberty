@@ -1,72 +1,27 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class RUNNER_GLOBALS
+deferred class RUNNER_EXECUTOR
+
+inherit
+   VISITOR
 
 insert
-   GLOBALS
+   RUNNER_PROCESSOR_FACET
 
-feature {}
-   frozen runner: RUNNER is
-      once
-         create Result.make
-      end
-
-   frozen displayer: RUNNER_DISPLAYER is
-      once
-         create Result.make(std_output)
-      end
-
-   frozen user_args: FAST_ARRAY[STRING] is
-      once
-         create Result.make(0)
-      end
-
-feature {}
-   frozen break is
-      do
-         debug ("run.callstack", "run.data")
-            std_output.put_line(once "**************** BREAK ****************")
-            std_output.flush
-         end
-         sedb_breakpoint
-      end
-
-   frozen repr (arg: RUNNER_OBJECT): STRING is
-      do
-         if arg = Void then
-            Result := once "Void"
-         else
-            Result := arg.out
-         end
-      ensure
-         Result /= Void
-      end
-
-   frozen listrepr (list: TRAVERSABLE[RUNNER_OBJECT]): STRING is
+feature {RUNNER_FACET}
+   execute (a_executable: VISITABLE) is
+      require
+         a_executable /= Void
       local
-         i: INTEGER
+         watermark: RUNNER_FRAME_WATERMARK
       do
-         Result := "("
-         if list /= Void then
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               if i > list.lower then
-                  Result.append(once ", ")
-               end
-               Result.append(repr(list.item(i)))
-               i := i + 1
-            end
-         end
-         Result.extend(')')
-      ensure
-         Result /= Void
+         watermark := current_frame.watermark
+         a_executable.accept(Current)
+         current_frame.execute_until(watermark)
       end
 
-end -- class RUNNER_GLOBALS
+end -- class RUNNER_EXECUTOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

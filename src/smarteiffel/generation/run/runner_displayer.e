@@ -87,7 +87,7 @@ feature {COMMENT}
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
       do
-         visited.list.do_all(agent (i: INSTRUCTION) is do i.accept(Current) end)
+         visited.list.do_all(agent (i: INSTRUCTION) is do i.accept(Current); stream.put_string(once "; ") end)
       end
 
 feature {CREATE_INSTRUCTION}

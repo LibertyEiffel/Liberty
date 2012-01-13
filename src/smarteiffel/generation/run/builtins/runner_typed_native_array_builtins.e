@@ -81,7 +81,12 @@ feature {}
       do
          caller ::= processor.current_frame.target
          index ::= processor.current_frame.arguments.first
-         processor.current_frame.set_return(caller.item(index.item))
+         if index.item.in_range(0, caller.capacity - 1) then
+            processor.current_frame.set_return(caller.item(index.item))
+         else
+            processor.current_frame.debug_stack
+            break --| **** BUG
+         end
       end
 
    builtin_put (processor: RUNNER_PROCESSOR) is

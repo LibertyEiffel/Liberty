@@ -6,20 +6,10 @@ class RUNNER_INSTRUCTIONS
 inherit
    INSTRUCTION_VISITOR
    RUNNER_LOOP_VISITOR
-
-insert
-   RUNNER_PROCESSOR_FACET
+   RUNNER_EXECUTOR
 
 create {RUNNER_PROCESSOR}
    make
-
-feature {RUNNER_FACET}
-   execute (a_inst: INSTRUCTION) is
-      require
-         a_inst /= Void
-      do
-         a_inst.accept(Current)
-      end
 
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
@@ -90,15 +80,11 @@ feature {COMMENT}
 
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
-      local
-         watermark: RUNNER_FRAME_WATERMARK
       do
          check
             visited.list /= Void
          end
-         watermark := current_frame.watermark
          current_frame.add_instructions(visited.list)
-         current_frame.execute_until(watermark)
       end
 
 feature {CREATE_INSTRUCTION}
@@ -205,6 +191,9 @@ feature {RUNNER_LOOP}
          stop: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
          stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
+         debug ("run.callstack")
+            std_output.put_line(once "Stop loop: #(1)" # stop.out)
+         end
          if not stop.item then
             current_frame.add_instruction(visited)
             if visited.loop_instruction.loop_body /= Void then
