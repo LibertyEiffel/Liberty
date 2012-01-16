@@ -17,6 +17,7 @@ feature {RUNNER_FEATURES}
       end
 
    finished: BOOLEAN
+   state: STRING
 
    start_position: POSITION is
       deferred
@@ -116,12 +117,15 @@ feature {RUNNER_FACET}
             processor.instructions.execute(current_instruction)
          end
          current_instruction := old_instruction
+      ensure
+         state = old state
       rescue
          current_instruction := old_instruction
          raised_exception
-         if instructions_list.count > a_watermark.item then
-            instructions_list.remove_tail(instructions_list.count - a_watermark.item)
+         check
+            instructions_list.count >= a_watermark.item
          end
+         instructions_list.remove_tail(instructions_list.count - a_watermark.item)
          retry
       end
 
@@ -133,11 +137,17 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FEATURES} -- Contract checking
-   unset_finished is
+   set_state (a_state: like state) is
       do
-         finished := False
+         if a_state = Void then
+            state := once "done"
+         else
+            finished := False
+            state := a_state
+         end
       ensure
-         not finished
+         a_state /= Void implies not finished
+         a_state /= Void implies state = a_state
       end
 
 feature {RUNNER_FACET}
@@ -256,10 +266,16 @@ feature {RUNNER_FACET}
          if old_values /= Void then
             Result := old_values.fast_reference_at(id)
          end
+         debug ("run.data")
+            std_output.put_line(once "**** get old: #(1) := #(2)" # id.out # repr(Result))
+         end
       end
 
    set_old_value (id: INTEGER; a_value: RUNNER_OBJECT) is
       do
+         debug ("run.data")
+            std_output.put_line(once "**** set old: #(1) := #(2)" # id.out # repr(a_value))
+         end
          if old_values = Void then
             create old_values.make
          end
@@ -276,7 +292,7 @@ feature {}
          frame_name := once ""
          frame_name.clear_count
          name.complete_name_in(frame_name)
-         std_output.put_line(once "(#(1)) {#(2)}.#(3):" # depth.out # target.type.name.to_string # frame_name)
+         std_output.put_line(once "(#(1)) {#(2)}.#(3) -- #(4)" # depth.out # target.type.name.to_string # frame_name # state)
          instructions_list.do_all(agent (i: INSTRUCTION) is
                                   do
                                      std_output.put_string(once "     - ")
@@ -328,6 +344,7 @@ feature {}
          if type_of_result /= Void and then type_of_result.is_expanded then
             return := processor.default_expanded(type_of_result)
          end
+         state := once "not started"
       ensure
          processor = a_processor
          caller = a_caller
@@ -396,5 +413,7 @@ invariant
 
    caller /= Void implies depth = caller.depth + 1
    caller = Void implies depth = 0
+
+   state /= Void
 
 end -- class RUNNER_FRAME

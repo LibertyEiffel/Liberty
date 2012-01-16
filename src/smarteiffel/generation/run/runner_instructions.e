@@ -248,22 +248,28 @@ feature {PRECURSOR_INSTRUCTION}
          break --| **** TODO
       end
 
+feature {}
+   visit_procedure_call (visited: PROCEDURE_CALL) is
+      do
+         processor.features.call(visited)
+      end
+
 feature {PROCEDURE_CALL_0}
    visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
    visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
    visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {REQUIRE_ASSERTION}

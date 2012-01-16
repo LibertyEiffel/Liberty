@@ -25,7 +25,8 @@ feature {RUNNER_FACET}
          target, return: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         return := execute_rf(target, False, agent arguments(a_call, current_frame),
+         return := execute_rf(target, False, not ({IMPLICIT_CURRENT} ?:= a_call.target),
+                              agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
          check
             return = Void
@@ -39,7 +40,8 @@ feature {RUNNER_FACET}
          target: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         Result := execute_rf(target, False, agent arguments(a_call, current_frame),
+         Result := execute_rf(target, False, not ({IMPLICIT_CURRENT} ?:= a_call.target),
+                              agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
       end
 
@@ -55,7 +57,7 @@ feature {RUNNER_FACET}
                a_call.context_type = current_frame.type_of_current
                a_call.run_feature = a_call.feature_stamp.run_feature_for(current_frame.type_of_current)
             end
-            Result := execute_rf(target, False, Void, a_call.run_feature)
+            Result := execute_rf(target, False, False, Void, a_call.run_feature)
          else
             check
                a_call.external_function /= Void
@@ -73,7 +75,8 @@ feature {RUNNER_FACET}
       do
          Result := processor.new_object(a_type)
          if a_call /= Void then
-            return := execute_rf(Result, True, agent arguments(a_call, current_frame),
+            return := execute_rf(Result, True, True,
+                                 agent arguments(a_call, current_frame),
                                  a_call.run_feature_for(current_frame.type_of_current))
             check
                return = Void
@@ -96,7 +99,8 @@ feature {RUNNER_FACET}
                if a_manifest.item_list /= Void then
                   capacity := a_manifest.item_list.count
                end
-               return := execute_rf(Result, True, agent manifest_arguments(capacity, a_manifest.optional_arguments, current_frame),
+               return := execute_rf(Result, True, True,
+                                    agent manifest_arguments(capacity, a_manifest.optional_arguments, current_frame),
                                     feature_make)
             end
          end
@@ -115,7 +119,8 @@ feature {RUNNER_FACET}
                   until
                      i > a_manifest.item_list.upper
                   loop
-                     return := execute_rf(Result, False, agent manifest_arguments_slice(i - a_manifest.item_list.lower, a_manifest.item_list, i, step, current_frame),
+                     return := execute_rf(Result, False, True,
+                                          agent manifest_arguments_slice(i - a_manifest.item_list.lower, a_manifest.item_list, i, step, current_frame),
                                           feature_put)
                      check
                         return = Void
@@ -143,7 +148,8 @@ feature {RUNNER_PROCESSOR}
          return: RUNNER_OBJECT
       do
          root_object := processor.new_object(rf.type_of_current)
-         return := execute_rf(root_object, True, agent idem_arguments(Void), rf)
+         return := execute_rf(root_object, True, True,
+                              agent idem_arguments(Void), rf)
          check
             return = Void
          end
@@ -250,7 +256,7 @@ feature {}
          Result := a_arguments
       end
 
-   execute_rf (a_target: RUNNER_OBJECT; is_new: BOOLEAN; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
+   execute_rf (a_target: RUNNER_OBJECT; is_new, check_invariant: BOOLEAN; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
       require
          a_target /= Void
          --| **** TODO a_target.type = a_rf.type_of_current
@@ -263,7 +269,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_arguments, a_rf)
-         execute_frame(frame, a_rf, Current, a_rf, is_new, tag)
+         execute_frame(frame, a_rf, Current, a_rf, is_new, check_invariant, tag)
          Result := frame.return
          check
             Result /= Void implies (a_rf.result_type /= Void and then
@@ -284,7 +290,7 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_target, a_non_void)
-         execute_frame(frame, a_non_void.external_function.native, Current, Void, False, tag)
+         execute_frame(frame, a_non_void.external_function.native, Current, Void, False, False, tag)
          Result := frame.return
       ensure
          Result /= Void
@@ -301,13 +307,13 @@ feature {}
          end
 
          create frame.make(processor, current_frame, a_launcher)
-         execute_frame(frame, a_launcher.code, a_executor, Void, False, tag)
+         execute_frame(frame, a_launcher.code, a_executor, Void, False, True, tag)
          check
             frame.return = Void -- if `item': the result is already set in the calling RUNNER_EXPRESSIONS
          end
       end
 
-   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: RUNNER_EXECUTOR; a_rf: RUN_FEATURE; is_new: BOOLEAN; a_tag: ABSTRACT_STRING) is
+   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: RUNNER_EXECUTOR; a_rf: RUN_FEATURE; is_new, check_invariant: BOOLEAN; a_tag: ABSTRACT_STRING) is
       require
          a_frame /= Void
          a_rf /= Void implies a_executable = a_rf
@@ -328,14 +334,14 @@ feature {}
             std_output.put_line(once "%N~~~~ CALLING #(1) ~~~~%N> Current is #(2)%N" # a_tag # a_frame.target.out)
          end
 
-         if a_frame.target.is_initialized then
-            a_frame.unset_finished
+         if check_invariant and then a_frame.target.is_initialized then
+            a_frame.set_state(once "invariant before call")
             processor.check_invariant(target.type)
          end
          if a_rf /= Void and then processor.exception = Void then
-            a_frame.unset_finished
+            a_frame.set_state(once "precondition")
             processor.check_require(target, a_rf)
-            a_frame.unset_finished
+            a_frame.set_state(once "old values computation")
             processor.prepare_old(target, a_rf)
          end
 
@@ -343,20 +349,20 @@ feature {}
             debug ("run.callstack")
                std_output.put_line(once "%N> Now really executing #(1)%N" # a_tag)
             end
-            a_frame.unset_finished
+            a_frame.set_state(once "executing")
             a_executor.execute(a_executable)
          end
 
          if a_rf /= Void and then processor.exception = Void then
-            a_frame.unset_finished
+            a_frame.set_state(once "postcondition")
             processor.check_ensure(target, a_rf)
          end
-         if (a_frame.target.is_initialized or else is_new) and then processor.exception = Void then
+         if check_invariant and then (a_frame.target.is_initialized or else is_new) and then processor.exception = Void then
             if is_new then
                init_target ::= target
                init_target.set_initialized
             end
-            a_frame.unset_finished
+            a_frame.set_state(once "invariant after call")
             processor.check_invariant(target.type)
          end
 
@@ -374,9 +380,11 @@ feature {}
          debug ("run.callstack")
             std_output.put_line(once "%N~~~~ Returning from #(1) ~~~~%N" # a_tag)
          end
+
+         a_frame.set_state(Void)
       ensure
          a_frame.target = old a_frame.target
-         is_new implies a_frame.target.is_initialized
+         is_new implies (a_frame.target.is_initialized or else processor.exception /= Void)
       end
 
 feature {RUN_FEATURE_1}

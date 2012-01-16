@@ -69,7 +69,7 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         break --| **** TODO
+         stream.put_string(once "<check>")
       end
 
 feature {C_INLINE}
