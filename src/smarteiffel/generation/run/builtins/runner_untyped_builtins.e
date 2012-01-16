@@ -48,6 +48,7 @@ feature {RUNNER_MEMORY}
    add_parent (a_parent: RUNNER_UNTYPED_BUILTINS) is
       require
          a_parent /= Void
+         a_parent.type = type
       do
          if parents = Void then
             create parents.with_capacity(1)

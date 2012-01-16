@@ -229,6 +229,8 @@ feature {}
                   create {RUNNER_ARGUMENTS_BUILTINS} Result.make(type)
                when "MEMORY" then
                   create {RUNNER_MEMORY_BUILTINS} Result.make(type)
+               when "PLATFORM" then
+                  Result := platform_builtins(type)
                when "NATIVE_ARRAY[BOOLEAN]" then
                   create {RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[BOOLEAN, RUNNER_NATIVE_EXPANDED[BOOLEAN]]} Result.make(type, smart_eiffel.type_boolean,
                                                                                                                     agent new_boolean,
@@ -283,6 +285,11 @@ feature {}
          create Result.make(type)
       end
 
+   platform_builtins (type: TYPE): RUNNER_PLATFORM_BUILTINS is
+      do
+         create Result.make(type)
+      end
+
    agent_builtins (type: TYPE): RUNNER_AGENT_BUILTINS is
       do
          Result ::= builtins_map.fast_reference_at(type)
@@ -303,6 +310,7 @@ feature {}
       once
          create Result.make
          Result.add_parent(any_builtins(smart_eiffel.type_character))
+         Result.add_parent(platform_builtins(smart_eiffel.type_character))
       end
 
    pointer_builtins: RUNNER_POINTER_BUILTINS is
@@ -315,6 +323,7 @@ feature {}
       do
          create Result.make(type)
          Result.add_parent(any_builtins(type))
+         Result.add_parent(platform_builtins(type))
       end
 
    integer_8_builtins: RUNNER_INTEGRAL_BUILTINS is
