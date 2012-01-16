@@ -25,7 +25,7 @@ feature {RUNNER_FACET}
          target, return: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         return := execute_rf(target, False, not ({IMPLICIT_CURRENT} ?:= a_call.target),
+         return := execute_rf(target, False, not a_call.target.is_implicit_current,
                               agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
          check
@@ -40,7 +40,7 @@ feature {RUNNER_FACET}
          target: RUNNER_OBJECT
       do
          target := processor.expressions.eval(a_call.target)
-         Result := execute_rf(target, False, not ({IMPLICIT_CURRENT} ?:= a_call.target),
+         Result := execute_rf(target, False, not a_call.target.is_implicit_current,
                               agent arguments(a_call, current_frame),
                               a_call.run_feature_for(current_frame.type_of_current))
       end
