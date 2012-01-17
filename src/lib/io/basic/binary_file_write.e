@@ -26,7 +26,7 @@ feature {ANY}
          p := new_path.to_external
          output_stream := binary_file_write_open(p)
          if output_stream.is_not_null then
-            path := new_path.out
+            set_path(new_path)
             if capacity = 0 then
                buffer := buffer.calloc(4096)
                capacity := 4096
