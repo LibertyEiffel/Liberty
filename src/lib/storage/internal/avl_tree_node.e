@@ -31,6 +31,8 @@ feature {ANY}
          tagged_out_memory.extend(')')
       end
 
+   safe_equal: SAFE_EQUAL[E_]
+
 feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
    left: like Current
 
@@ -82,8 +84,6 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
 
    has (e: like item): BOOLEAN is
          -- Is element `e' in the tree?
-      local
-         safe_equal: SAFE_EQUAL[E_]
       do
          Result := safe_equal.test(item, e)
          if not Result then
@@ -97,8 +97,6 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
 
    fast_has (e: like item): BOOLEAN is
          -- Is element `e' in the tree?
-      local
-         safe_equal: SAFE_EQUAL[E_]
       do
          Result := item = e
          if not Result and then not safe_equal.test(item, e) then
@@ -114,8 +112,6 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
 
    at (e: like item): like Current is
          -- Is element `e' in the tree?
-      local
-         safe_equal: SAFE_EQUAL[E_]
       do
          if safe_equal.test(item, e) then
             Result := Current
@@ -133,7 +129,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
    set_item (i: like item) is
       require
       -- Equality admitted for the free list
-         left /= Void implies left.item.is_equal(i) or else ordered(left.item, i)
+         left /= Void implies safe_equal.test(left.item, i) or else ordered(left.item, i)
          right /= Void implies ordered(i, right.item)
       do
          item := i
@@ -144,7 +140,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
    set_left (l: like left) is
       require
       -- Equality admitted for the free list
-         l /= Void implies l.item.is_equal(item) or else ordered(l.item, item)
+         l /= Void implies safe_equal.test(l.item, item) or else ordered(l.item, item)
       do
          left := l
       ensure

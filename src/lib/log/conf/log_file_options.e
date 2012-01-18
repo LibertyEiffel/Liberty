@@ -80,12 +80,15 @@ feature {}
       local
          s: STREAM
       do
-         -- because FILE_STREAM and OUTPUT_STREAM are in parallel hierarchies
-         -- (they don't inherit from each other)
-         -- ... but we know the stream is always an output one, don't we :-)
-         s := option.retrieve(stream)
-         stream ::= s
-         Result ::= s
+         -- the stream may not be connected at shutdown (last GC collect)
+         if stream.is_connected then
+            -- because FILE_STREAM and OUTPUT_STREAM are in parallel hierarchies
+            -- (they don't inherit from each other)
+            -- ... but we know the stream is always an output one, don't we :-)
+            s := option.retrieve(stream)
+            stream ::= s
+            Result ::= s
+         end
       end
 
    option_rotated: BOOLEAN
