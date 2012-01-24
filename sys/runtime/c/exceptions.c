@@ -247,13 +247,17 @@ void setup_signal_handler() {
    signal( SIGFPE, signal_exception_handler );
 #endif
 
-/* SIGUSR1 is ignored */
+#ifdef SIGUSR1
+   signal( SIGUSR1, signal_exception_handler );
+#endif
 
 #ifdef SIGSEGV
    signal( SIGSEGV, signal_exception_handler );
 #endif
 
-/* SIGUSR2 is ignored */
+#ifdef SIGUSR2
+   signal( SIGUSR2, signal_exception_handler );
+#endif
 
 /* SIGPIPE is ignored */
 
@@ -261,10 +265,8 @@ void setup_signal_handler() {
    signal( SIGALRM, signal_exception_handler );
 #endif
 
-#ifndef SE_BOOST
 #ifdef SIGTERM
    signal( SIGTERM, signal_exception_handler );
-#endif
 #endif
 
 /* SIGCHLD is ignored */
