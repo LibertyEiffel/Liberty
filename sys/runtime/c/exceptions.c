@@ -90,24 +90,25 @@ void setup_signal_handler() {
    in the #else part, for non-Posix systems.
 */
 
-/* SIGHUP is ignored */
+#ifdef SIGHUP
+   if ( SIG_ERR == signal( SIGHUP, signal_exception_handler ) ) {
+      fprintf(SE_ERR, "Error setting up signal handler for SIGHUP.\n");
+      critical_error_exit();
+      }
+#endif
 
-#ifndef SE_BOOST
 #ifdef SIGINT
    if ( SIG_ERR == signal( SIGINT, signal_exception_handler ) ) {
       fprintf(SE_ERR, "Error setting up signal handler for SIGINT.\n");
       critical_error_exit();
       }
 #endif
-#endif
 
-#ifndef SE_BOOST
 #ifdef SIGQUIT
    if ( SIG_ERR == signal( SIGQUIT, signal_exception_handler ) ) {
       fprintf(SE_ERR, "Error setting up signal handler for SIGQUIT.\n");
       critical_error_exit();
       }
-#endif
 #endif
 
 #ifdef SIGILL
@@ -124,7 +125,12 @@ void setup_signal_handler() {
       }
 #endif
 
-/* SIGIOT is ignored */
+#ifdef SIGIOT
+   if ( SIG_ERR == signal( SIGIOT, signal_exception_handler ) ) {
+      fprintf(SE_ERR, "Error setting up signal handler for SIGIOT.\n");
+      critical_error_exit();
+      }
+#endif
 
 #ifdef SIGBUS
    if ( SIG_ERR == signal( SIGBUS, signal_exception_handler ) ) {
@@ -140,7 +146,12 @@ void setup_signal_handler() {
       }
 #endif
 
-/* SIGUSR1 is ignored */
+#ifdef SIGUSR1
+   if ( SIG_ERR == signal( SIGUSR1, signal_exception_handler ) ) {
+      fprintf(SE_ERR, "Error setting up signal handler for SIGUSR1.\n");
+      critical_error_exit();
+      }
+#endif
 
 #ifdef SIGSEGV
    if ( SIG_ERR == signal( SIGSEGV, signal_exception_handler ) ) {
@@ -149,7 +160,12 @@ void setup_signal_handler() {
       }
 #endif
 
-/* SIGUSR2 is ignored */
+#ifdef SIGUSR2
+   if ( SIG_ERR == signal( SIGUSR2, signal_exception_handler ) ) {
+      fprintf(SE_ERR, "Error setting up signal handler for SIGUSR2.\n");
+      critical_error_exit();
+      }
+#endif
 
 #ifdef SIGALRM
    if ( SIG_ERR == signal( SIGALRM, signal_exception_handler ) ) {
@@ -158,13 +174,11 @@ void setup_signal_handler() {
       }
 #endif
 
-#ifndef SE_BOOST
 #ifdef SIGTERM
    if ( SIG_ERR == signal( SIGTERM, signal_exception_handler ) ) {
       fprintf(SE_ERR, "Error setting up signal handler for SIGTERM.\n");
       critical_error_exit();
       }
-#endif
 #endif
 
 /* SIGCHLD is ignored */
@@ -215,18 +229,16 @@ void setup_signal_handler() {
    signal( SIGBREAK, signal_exception_handler );
 #endif
 
-/* SIGHUP is ignored */
+#ifdef SIGHUP
+   signal( SIGHUP, signal_exception_handler );
+#endif
 
-#ifndef SE_BOOST
 #ifdef SIGINT
    signal( SIGINT, signal_exception_handler );
 #endif
-#endif
 
-#ifndef SE_BOOST
 #ifdef SIGQUIT
    signal( SIGQUIT, signal_exception_handler );
-#endif
 #endif
 
 #ifdef SIGILL
@@ -237,7 +249,9 @@ void setup_signal_handler() {
    signal( SIGTRAP, signal_exception_handler );
 #endif
 
-/* SIGIOT is ignored */
+#ifdef SIGIOT
+   signal( SIGIOT, signal_exception_handler );
+#endif
 
 #ifdef SIGBUS
    signal( SIGBUS, signal_exception_handler );
