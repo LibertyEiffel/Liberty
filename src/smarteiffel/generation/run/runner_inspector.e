@@ -76,7 +76,7 @@ feature {WHEN_ITEM_1}
 feature {WHEN_ITEM_2}
    visit_when_item_2 (visited: WHEN_ITEM_2) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {}
@@ -95,7 +95,7 @@ feature {}
 invariant
    processor /= Void
 
-end -- class RUNNER_ASSIGNMENT
+end -- class RUNNER_INSPECTOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

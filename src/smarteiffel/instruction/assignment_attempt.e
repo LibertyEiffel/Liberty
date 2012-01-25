@@ -208,7 +208,7 @@ feature {ANY}
          r_dt := r.declaration_type
          if r.is_void then
             error_handler.add_position(right_side.start_position)
-            error_handler.append("Void must not be the right-hand side of ")
+            error_handler.append("Void cannot be the right-hand side of a ")
             if forced_flag then
                error_handler.append("::= assignment (a forced assignment).")
             else
@@ -222,7 +222,7 @@ feature {ANY}
             else
                error_handler.append("?=")
             end
-            error_handler.append(" must not be expanded. (Actually, ")
+            error_handler.append(" must not be expanded. (")
             error_handler.add_expression(left_side)
             error_handler.append(" is of type ")
             error_handler.add_type(l_dt)
@@ -238,12 +238,11 @@ feature {ANY}
             else
                error_handler.append("assignment attempt (%"?=%").")
             end
-            error_handler.append(" The left-hand side expression must conforms with the right-hand %
-                                 %side. Expression ")
+            error_handler.append(" The left-hand side expression must conform to the right-hand side. The expression ")
             error_handler.add_expression(left_side)
             error_handler.append(" is of type ")
             error_handler.append(l_dt.name.to_string)
-            error_handler.append(" while expression ")
+            error_handler.append(" while the expression ")
             error_handler.add_expression(right_side)
             error_handler.append(" is of type ")
             error_handler.append(r_dt.name.to_string)
@@ -252,7 +251,7 @@ feature {ANY}
          elseif r_dt.can_be_assigned_to(l_dt) and then left_side.written_declaration_type_mark.is_static then
             error_handler.add_position(left_side.start_position)
             error_handler.add_position(right_side.start_position)
-            error_handler.append("Expression ")
+            error_handler.append("The expression ")
             error_handler.add_expression(right_side)
             error_handler.append(" which is of type ")
             error_handler.append(r_dt.name.to_string)

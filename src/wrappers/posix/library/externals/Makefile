@@ -6,7 +6,8 @@ XML=posix.gcc-xml
 HEADER=plugin/c/liberty-posix.h
 HEADERS=/usr/include/fcntl.h \
 	/usr/include/sys/mman.h \
-	/usr/include/unistd.h
+	/usr/include/unistd.h \
+    /usr/include/*/*
 
 wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)

@@ -22,7 +22,7 @@ feature {}
    call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
       do
          inspect
-            processor.current_frame.rf.name.to_string
+            processor.current_frame.name.to_string
          when "se_argc" then
             builtin_se_argc(processor)
             Result := True

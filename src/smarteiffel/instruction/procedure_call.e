@@ -290,7 +290,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             if not ace.boost then
                create run_time_error_instruction.make(feature_name.start_position,
                       once "Invalid type for the target of this procedure call.",
-                      once "System_level_type_error")
+                      exceptions.System_level_type_error)
                inspect_statement.set_else_compound(feature_name.start_position, run_time_error_instruction)
             end
          end

@@ -42,14 +42,14 @@ feature {RUNNER_FACET}
          dll_name, agent_name: FIXED_STRING
          loader: FOREIGN_DLL_LOADER
          dll: FOREIGN_DLL
-         arg_types: like foreign_types
+         arg_types: like foreign_arguments_types
          res_type: like foreign_type
       do
          agent_name_ := once ""
          agent_name_.copy(once "liberty_plugin__")
-         agent_name_.append(processor.current_frame.rf.feature_stamp.anonymous_feature(processor.current_frame.type_of_current).class_text.name.to_string)
+         agent_name_.append(processor.current_frame.feature_stamp.anonymous_feature(processor.current_frame.type_of_current).class_text.name.to_string)
          agent_name_.append(once "__")
-         agent_name_.append(processor.current_frame.rf.name.to_string)
+         agent_name_.append(processor.current_frame.name.to_string)
          agent_name := agent_name_.intern
 
          Result := processor.plugin_agent(agent_name)
@@ -78,7 +78,7 @@ feature {RUNNER_FACET}
             if dll = Void then
                processor.set_exception(exceptions.System_level_type_error, once "Unknown plugin")
             else
-               arg_types := foreign_types(processor, processor.current_frame.type_of_current, processor.current_frame.rf.arguments)
+               arg_types := foreign_arguments_types(processor)
                res_type := foreign_type(processor, processor.current_frame.type_of_result)
 
                Result := dll.function(agent_name, arg_types, res_type)
@@ -101,17 +101,18 @@ feature {RUNNER_FACET}
             if foreign_types_map.fast_has(a_type) then
                Result := foreign_types_map.fast_at(a_type).first
             else
-               processor.set_exception(exceptions.System_level_type_error, once "Cannot map {" | a_type.name.to_string | once "} to foreign type")
+               processor.set_exception(exceptions.System_level_type_error, once "Cannot map {#(1)} to a foreign type" # a_type.name.to_string)
             end
          else
             Result := types.nothing
          end
       end
 
-   foreign_types (processor: RUNNER_PROCESSOR; current_type: TYPE; types: FORMAL_ARG_LIST): COLLECTION[FOREIGN_TYPE] is
+   foreign_arguments_types (processor: RUNNER_PROCESSOR): COLLECTION[FOREIGN_TYPE] is
       local
-         i: INTEGER
+         i: INTEGER; types: FORMAL_ARG_LIST
       do
+         types := processor.current_frame.formal_arguments
          if types = Void then
             create {FAST_ARRAY[FOREIGN_TYPE]} Result.make(0)
          else
@@ -121,7 +122,7 @@ feature {RUNNER_FACET}
             until
                i > types.count
             loop
-               Result.add_last(foreign_type(processor, types.name(i).resolve_in(current_type)))
+               Result.add_last(foreign_type(processor, types.name(i).resolve_in(processor.current_frame.type_of_current)))
                i := i + 1
             end
          end

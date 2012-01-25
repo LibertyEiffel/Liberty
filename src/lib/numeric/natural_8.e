@@ -145,7 +145,6 @@ feature {ANY}
          Result := to_integer_16.to_number
       end
 
-feature {}
    bit_count: INTEGER_8 is 8
 
 end -- NATURAL_8

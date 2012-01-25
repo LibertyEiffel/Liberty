@@ -797,16 +797,55 @@ feature {PRECURSOR_CALL}
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
    to_fake_tuple: FAKE_TUPLE is
       local
-         tuple_expression: MANIFEST_TUPLE
+         tuple_expression: MANIFEST_TUPLE; tuple_type: TYPE; tuple_type_mark: TUPLE_TYPE_MARK
+         eal: EFFECTIVE_ARG_LIST; r: like remainder; fc0_1, fc0_2: FUNCTION_CALL_0
+         i: INTEGER; feature_name: STRING
       do
-         tuple_expression ?= first_one
-         if tuple_expression = Void then
-            error_handler.add_position(first_one.start_position)
-            error_handler.append("To pass arguments of agents, only the explicit manifest TUPLE notation is allowed (i.e. the %
-          %square bracketed tuple notation must be used here). Actually, this is to force you to show %
-          %clearly what arguments you are passing to this agent. (Note: this explicit manifest TUPLE %
-          %notation will not incurs extra memory allocation. Keep cool.)")
-            error_handler.print_as_fatal_error
+         if tuple_expression ?:= first_one then
+            tuple_expression ::= first_one
+         else
+            -- generate the fake tuple using calls to item_1, item_2...
+            tuple_type := first_one.declaration_type
+            if tuple_type.is_tuple then
+               tuple_type_mark ::= tuple_type.canonical_type_mark
+               inspect
+                  tuple_type_mark.count
+               when 0 then
+                  check
+                     eal = Void
+                  end
+               when 1 then
+                  create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
+                  create eal.make_1(fc0_1)
+               when 2 then
+                  create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
+                  create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_2", first_one.start_position))
+                  create eal.make_2(fc0_1, fc0_2)
+               else
+                  create fc0_1.make(first_one, create {FEATURE_NAME}.simple_feature_name(once "item_1", first_one.start_position))
+                  create r.with_capacity(tuple_type_mark.count - 1)
+                  from
+                     i := 2
+                  until
+                     i > tuple_type_mark.count
+                  loop
+                     feature_name := once "item_xxx"
+                     feature_name.copy(once "item_")
+                     i.append_in(feature_name)
+                     create fc0_2.make(first_one, create {FEATURE_NAME}.simple_feature_name(feature_name, first_one.start_position))
+                     r.add_last(fc0_2)
+                     i := i + 1
+                  end
+                  create eal.make_n(fc0_1, r)
+               end
+               if eal /= Void then
+                  create tuple_expression.make(first_one.start_position, eal)
+               end
+            else
+               error_handler.add_position(first_one.start_position)
+               error_handler.append("Agent calls need a tuple!")
+               error_handler.print_as_fatal_error
+            end
          end
          create Result.make(tuple_expression)
          check
@@ -916,7 +955,7 @@ feature {}
             end
          elseif {OPEN_OPERAND} ?:= e then
             -- Well, this special case because the open operand needs the FEATURE_STAMP of its corresponding FEATURE_CALL to
-            -- compute its type and that this information is beeing computed. But, do not forget, it is an OPEN_OPERAND and
+            -- compute its type and that this information is being computed. But, do not forget, it is an OPEN_OPERAND and
             -- that type checking will be made during agent launching. So we just have to do nothing:
             open_operand ::= e
             open_operand.update_resolved_memory(t, formal_type)

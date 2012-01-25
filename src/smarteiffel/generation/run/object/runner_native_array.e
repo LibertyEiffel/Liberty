@@ -27,8 +27,13 @@ feature {ANY}
    put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
+      local
+         actual_item: E_
+         actual_index: INTEGER
       do
-         storage.put(setter.item([a_item]), index.to_integer_32)
+         actual_item := setter.item([a_item])
+         actual_index := index.to_integer_32
+         storage.put(actual_item, actual_index)
       end
 
    out_in_tagged_out_memory is
@@ -51,14 +56,26 @@ feature {ANY}
             end
             tagged_out_memory.extend(',')
             i := i + 1
+            if i = 32 then
+               i := capacity
+            end
          end
-         tagged_out_memory.put('>', tagged_out_memory.upper)
-         tagged_out_memory.extend('>')
+         if capacity > 32 then
+            tagged_out_memory.append(once " ... >>")
+         else
+            tagged_out_memory.put('>', tagged_out_memory.upper) -- overwrite the coma
+            tagged_out_memory.extend('>')
+         end
       end
 
    is_equal (other: like Current): BOOLEAN is
       do
          Result := storage.is_equal(other.storage)
+      end
+
+   to_builtin_pointer: POINTER is
+      do
+         Result := storage.to_pointer
       end
 
 feature {RUNNER_FACET}

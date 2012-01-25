@@ -26,6 +26,11 @@ feature {ANY}
          Result := item = other.item
       end
 
+   to_builtin_pointer: POINTER is
+      do
+         processor.set_exception(exceptions.Routine_failure, "to_pointer on expanded type")
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       do

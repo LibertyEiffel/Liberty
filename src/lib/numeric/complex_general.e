@@ -1,18 +1,17 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class COMPLEX_GENERAL[A_SIZE->FLOAT]
+expanded class COMPLEX_GENERAL[A_SIZE->FLOAT]
    --
    -- Common ancestor of all complex types: COMPLEX_32, COMPLEX_64, ...
    --
 
-inherit 
+insert 
 	NUMERIC 
 		rename sign as real_sign 
 		redefine out, fill_tagged_out_memory 
 		end
 
-insert 
 	MATH_CONSTANTS -- to get Phi
 		undefine is_equal, out, fill_tagged_out_memory end 
 	EXCEPTIONS

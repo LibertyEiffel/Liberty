@@ -4,10 +4,37 @@
 class RUNNER_MEMORY
 
 insert
-   GLOBALS
+   RUNNER_FACET
 
 create {RUNNER}
    make
+
+feature {}
+   add_new_open_operand (processor: RUNNER_PROCESSOR; a_new_agent: RUNNER_AGENT_OBJECT; a_open_operand: OPEN_OPERAND) is
+      local
+         arg: RUNNER_OPEN_OPERAND
+      do
+         debug ("run.data")
+            std_output.put_line(once "AGENT: open ##(1)" # a_open_operand.rank.out)
+         end
+         create arg.make(a_new_agent, a_open_operand.resolve_in(processor.current_frame.target.type))
+         a_new_agent.set_operand(a_open_operand.rank, arg)
+      end
+
+   add_new_closed_operand (processor: RUNNER_PROCESSOR; a_new_agent: RUNNER_AGENT_OBJECT; a_closed_operand: CLOSED_OPERAND) is
+      local
+         exp: EXPRESSION; arg: RUNNER_OBJECT
+      do
+         exp := a_closed_operand.capture_memory.at(processor.current_frame.target.type)
+         arg := processor.expressions.eval(exp)
+         debug ("run.data")
+            std_output.put_line(once "AGENT: closed ##(1) = #(2)" # a_closed_operand.rank.out # arg.out)
+         end
+         if arg = Void then
+            sedb_breakpoint
+         end
+         a_new_agent.set_operand(a_closed_operand.rank, arg)
+      end
 
 feature {RUNNER_PROCESSOR}
    new_object (processor: RUNNER_PROCESSOR; type: TYPE): RUNNER_OBJECT is
@@ -19,11 +46,38 @@ feature {RUNNER_PROCESSOR}
       do
          builtins := find_builtins_for(type)
          Result := builtins.new(processor)
-         --create Result.make(processor, type, builtins)
       ensure
          exists: Result /= Void
          good_type: Result.type = type
          good_processor: Result.processor = processor
+      end
+
+   new_agent (processor: RUNNER_PROCESSOR; agent_creation: AGENT_CREATION): RUNNER_AGENT_OBJECT is
+      local
+         arg_count: INTEGER; type: TYPE
+      do
+         if agent_creation.open_operand_list /= Void then
+            arg_count := agent_creation.open_operand_list.count
+         end
+         if agent_creation.closed_operand_list /= Void then
+            arg_count := arg_count + agent_creation.closed_operand_list.count
+         end
+
+         type := agent_creation.resolve_in(processor.current_frame.target.type)
+         create Result.make(processor, type,
+                            agent_creation.code, arg_count,
+                            agent_creation.feature_stamp,
+                            agent_builtins(type))
+
+         if agent_creation.open_operand_list /= Void then
+            agent_creation.open_operand_list.do_all(agent add_new_open_operand(processor, Result, ?))
+         end
+         if agent_creation.closed_operand_list /= Void then
+            agent_creation.closed_operand_list.do_all(agent add_new_closed_operand(processor, Result, ?))
+         end
+         if Result.target = Void then
+            Result.set_operand(-1, processor.current_frame.target)
+         end
       end
 
    new_boolean (processor: RUNNER_PROCESSOR; boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
@@ -44,7 +98,7 @@ feature {RUNNER_PROCESSOR}
 
    new_pointer (processor: RUNNER_PROCESSOR; pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER] is
       do
-         create Result.make(processor, smart_eiffel.type_pointer, pointer, Void) --| **** TODO
+         create Result.make(processor, smart_eiffel.type_pointer, pointer, pointer_builtins)
       end
 
    new_integer_8 (processor: RUNNER_PROCESSOR; integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
@@ -197,6 +251,16 @@ feature {}
          create Result.make(type)
       end
 
+   agent_builtins (type: TYPE): RUNNER_AGENT_BUILTINS is
+      do
+         Result ::= builtins_map.fast_reference_at(type)
+         if Result = Void then
+            create Result.make(type)
+            Result.add_parent(any_builtins(type))
+            builtins_map.add(Result, type)
+         end
+      end
+
    boolean_builtins: RUNNER_BOOLEAN_BUILTINS is
       once
          create Result.make
@@ -209,6 +273,12 @@ feature {}
          Result.add_parent(any_builtins(smart_eiffel.type_character))
       end
 
+   pointer_builtins: RUNNER_POINTER_BUILTINS is
+      once
+         create Result.make
+         Result.add_parent(any_builtins(smart_eiffel.type_pointer))
+      end
+
    integer_builtins (type: TYPE): RUNNER_NUMERIC_BUILTINS[INTEGER_64] is
       do
          create Result.make(type)
@@ -217,25 +287,34 @@ feature {}
 
    integer_8_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_8)
+         create Result.make(smart_eiffel.type_integer_8, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                            do
+                                                               Result := processor.new_integer_8(integer & 0xff)
+                                                            end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_8))
       end
 
    integer_16_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_16)
+         create Result.make(smart_eiffel.type_integer_16, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                             do
+                                                                Result := processor.new_integer_16(integer & 0xffff)
+                                                             end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_16))
       end
 
    integer_32_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_32)
+         create Result.make(smart_eiffel.type_integer_32, agent (processor: RUNNER_PROCESSOR; integer: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+                                                             do
+                                                                Result := processor.new_integer_32(integer & 0xffffffff)
+                                                             end)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_32))
       end
 
    integer_64_builtins: RUNNER_INTEGRAL_BUILTINS is
       once
-         create Result.make(smart_eiffel.type_integer_64)
+         create Result.make(smart_eiffel.type_integer_64, agent {RUNNER_PROCESSOR}.new_integer_64)
          Result.add_parent(integer_builtins(smart_eiffel.type_integer_64))
       end
 

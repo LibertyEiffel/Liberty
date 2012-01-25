@@ -18,37 +18,43 @@ create {RUNNER_GLOBALS}
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
       do
-         sedb_breakpoint
+         visited.written_link.accept(Current)
       end
 
 feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
       do
-         sedb_breakpoint
+         visited.left_side.accept(Current)
+         if visited.forced_flag then
+            stream.put_string(once " ::= ")
+         else
+            stream.put_string(once " ?= ")
+         end
+         visited.right_side.accept(Current)
       end
 
 feature {ASSIGNMENT}
@@ -62,13 +68,13 @@ feature {ASSIGNMENT}
 feature {CHECK_COMPOUND}
    visit_check_compound (visited: CHECK_COMPOUND) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {COMMENT}
@@ -112,7 +118,7 @@ feature {RAW_CREATE_INSTRUCTION}
 feature {DEBUG_COMPOUND}
    visit_debug_compound (visited: DEBUG_COMPOUND) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {IFTHENELSE}
@@ -164,13 +170,13 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
    visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {SEDB}
@@ -194,7 +200,7 @@ feature {VOID_PROC_CALL}
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {}
@@ -207,7 +213,9 @@ feature {}
             stream.put_character('.')
             stream.put_string(visited.feature_name.to_string)
             if visited.arguments /= Void then
+               stream.put_character('(')
                visited.arguments.accept(Current)
+               stream.put_character(')')
             end
          elseif visited.feature_name.is_infix_name then
             stream.put_character('(')
@@ -216,7 +224,9 @@ feature {}
             stream.put_character(' ')
             stream.put_string(visited.feature_name.to_string)
             stream.put_character(' ')
+            stream.put_character('(')
             visited.arguments.accept(Current)
+            stream.put_character(')')
          elseif visited.feature_name.is_prefix_name then
             stream.put_string(visited.feature_name.to_string)
             stream.put_character('(')
@@ -251,19 +261,19 @@ feature {PROCEDURE_CALL_N}
 feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {RETRY_INSTRUCTION}
    visit_retry_instruction (visited: RETRY_INSTRUCTION) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
-         sedb_breakpoint
+         sedb_breakpoint --| **** TODO
       end
 
 feature {IMPLICIT_CURRENT}
@@ -287,13 +297,14 @@ feature {ADDRESS_OF}
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_string(once "agent ")
+         visited.original_function_call.accept(Current)
       end
 
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.written_link.accept(Current)
       end
 
 feature {ASSERTION}
@@ -305,7 +316,15 @@ feature {ASSERTION}
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
-         sedb_breakpoint --| **** TODO
+         if visited.left_type_mark /= Void then
+            stream.put_character('{')
+            stream.put_string(visited.left_type_mark.written_name.to_string)
+            stream.put_character('}')
+         else
+            visited.left_writable.accept(Current)
+         end
+         stream.put_string(once " ?:= ")
+         visited.right_side.accept(Current)
       end
 
 feature {BUILT_IN_EQ_NEQ}
@@ -328,7 +347,7 @@ feature {BUILT_IN_EQ_NEQ}
 feature {CLOSED_OPERAND}
    visit_closed_operand (visited: CLOSED_OPERAND) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.original_capture.accept(Current)
       end
 
 feature {CREATE_EXPRESSION}
@@ -619,14 +638,49 @@ feature {MANIFEST_STRING}
 
 feature {MANIFEST_GENERIC}
    visit_manifest_generic (visited: MANIFEST_GENERIC) is
+      local
+         i, sc_count: INTEGER
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_character('{')
+         stream.put_string(visited.type_mark.written_mark)
+         stream.put_character(' ')
+         if visited.optional_arguments /= Void then
+            visited.optional_arguments.do_all(agent (arg: EXPRESSION) is
+                                              do
+                                                 arg.accept(Current)
+                                                 stream.put_string(once ", ")
+                                              end)
+         end
+         stream.put_string(once "<< ")
+         from
+            i := visited.item_list.lower
+         until
+            i > visited.item_list.upper
+         loop
+            if i > visited.item_list.lower then
+               if visited.semicolon_count > 0 and then sc_count = visited.semicolon_count then
+                  sc_count := 0
+                  stream.put_string(once "; ")
+               else
+                  stream.put_string(once ", ")
+                  sc_count := sc_count + 1
+               end
+            end
+            visited.item_list.item(i).accept(Current)
+            i := i + 1
+         end
+         stream.put_string(once " >>")
+         stream.put_character('}')
       end
 
 feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_character('[')
+         if visited.effective_arg_list /= Void then
+            visited.effective_arg_list.accept(Current)
+         end
+         stream.put_character(']')
       end
 
 feature {OLD_MANIFEST_ARRAY}
@@ -638,7 +692,13 @@ feature {OLD_MANIFEST_ARRAY}
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
       do
-         sedb_breakpoint --| **** TODO
+         if visited.curly_type /= Void then
+            stream.put_character('{')
+            stream.put_string(visited.curly_type.written_mark)
+            stream.put_character('}')
+         else
+            stream.put_character('?')
+         end
       end
 
 feature {PRECURSOR_EXPRESSION}
@@ -656,8 +716,9 @@ feature {RESULT}
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
-         stream.put_string(once "<writable>")
+         stream.put_string(once "<writable:")
          stream.put_string(visited.to_string)
+         stream.put_character('>')
       end
 
 feature {NO_DISPATCH}
@@ -683,17 +744,17 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1}
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
    visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
       do
-         stream.put_string(once "<id>(")
+         stream.put_string(once "<id:")
          visited.dynamic_dispatch_temporary1.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
    visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
       do
-         stream.put_string(once "<dispatch>(")
+         stream.put_string(once "<dispatch:")
          visited.dynamic_dispatch_temporary1.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {VOID_CALL}
@@ -705,37 +766,43 @@ feature {VOID_CALL}
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do
-         stream.put_string(once "<nil>")
+         stream.put_string(once "<null>")
       end
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+      local
+         name: STRING
       do
-         sedb_breakpoint --| **** TODO
+         stream.put_string("<non_void_no_dispatch:{")
+         stream.put_string(visited.context_type.name.to_string)
+         stream.put_string(once "}.")
+         name := once ""
+         name.clear_count
+         visited.feature_stamp.name.complete_name_in(name)
+         stream.put_string(name)
+         stream.put_character('>')
       end
 
 feature {COMPOUND_EXPRESSION}
    visit_compound_expression (visited: COMPOUND_EXPRESSION) is
       do
-         stream.put_string("<compound>(")
+         stream.put_string("<compound:")
          visited.list.last.to_expression.accept(Current)
-         stream.put_character(')')
+         stream.put_character('>')
       end
 
 feature {EFFECTIVE_ARG_LIST}
    visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
       do
-         stream.put_character('(')
          visited.first_one.accept(Current)
          if visited.remainder /= Void then
             visited.remainder.do_all(agent (e: EXPRESSION) is
                                      do
-                                        stream.put_character(',')
-                                        stream.put_character(' ')
+                                        stream.put_string(once ", ")
                                         e.accept(Current)
                                      end)
          end
-         stream.put_character(')')
       end
 
 feature {}

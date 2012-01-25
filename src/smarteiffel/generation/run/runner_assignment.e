@@ -10,25 +10,51 @@ inherit
    INTERNAL_LOCAL2_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
 
-create {RUNNER_INSTRUCTIONS}
+create {RUNNER_PROCESSOR}
    make
 
-feature {RUNNER_INSTRUCTIONS}
-   processor: RUNNER_PROCESSOR
-
-   assign (assignment: ASSIGNMENT) is
+feature {RUNNER_EXPRESSIONS}
+   test_assign (assignment: ASSIGNMENT_TEST): BOOLEAN is
+      local
+         right: RUNNER_OBJECT; left_type: TYPE
       do
-         assign_to(processor.expressions.eval(assignment.right_side),
-                   assignment.left_side)
+         if assignment.left_type_mark /= Void then
+            left_type := smart_eiffel.get_type(assignment.left_type_mark)
+         else
+            left_type := smart_eiffel.get_type(type_mark(assignment.left_writable))
+         end
+         right := processor.expressions.eval(assignment.right_side)
+         Result := right.type = left_type or else right.type.inherits_from(left_type)
+      end
+
+feature {RUNNER_INSTRUCTIONS}
+   assign (assignment: ASSIGNMENT) is
+      local
+         right: RUNNER_OBJECT
+      do
+         right := processor.expressions.eval(assignment.right_side)
+         assign_to(right, assignment.left_side)
       end
 
    try_assign (assignment: ASSIGNMENT_ATTEMPT) is
+      local
+         right: RUNNER_OBJECT; left_type: TYPE
       do
-         assign_to(processor.expressions.eval(assignment.right_side),
-                   assignment.left_side)
-         --|*** TODO check the entity type and act accordingly
+         right := processor.expressions.eval(assignment.right_side)
+         left_type := smart_eiffel.get_type(type_mark(assignment.left_side))
+         if right.type = left_type or else right.type.inherits_from(left_type) then
+            assign_to(right, assignment.left_side)
+         elseif assignment.forced_flag then
+            processor.set_exception(exceptions.System_level_type_error,
+                                    once "Forced assignment failed, #(1) does not conform to #(2)" # right.type.name.to_string # left_type.name.to_string)
+         else
+            check
+               not left_type.is_expanded
+            end
+            assign_to(Void, assignment.left_side)
+         end
       end
 
    assign_to (a_value: RUNNER_OBJECT; a_writable: EXPRESSION) is
@@ -41,8 +67,8 @@ feature {RUNNER_INSTRUCTIONS}
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         processor.current_frame.set_local_object(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         current_frame.set_local_object(visited.to_string, value)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
@@ -50,23 +76,31 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       local
          target: RUNNER_STRUCTURED_OBJECT
       do
-         target ::= processor.current_frame.target
+         target ::= current_frame.target
          target.set_field(visited.to_string, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
-         processor.current_frame.set_return(value)
-         entity_type := processor.current_frame.type_of_result
+         current_frame.set_return(value)
+         entity_type := current_frame.type_of_result
       end
 
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
       do
-         processor.current_frame.set_internal_local_object(visited, value)
-         entity_type := visited.resolve_in(processor.current_frame.type_of_current)
+         current_frame.set_internal_local_object(visited, value)
+         entity_type := visited.resolve_in(current_frame.type_of_current)
+      end
+
+feature {}
+   type_mark (writable: EXPRESSION): TYPE_MARK is
+      do
+         Result := writable.written_declaration_type_mark.to_static(current_frame.target.type)
+      ensure
+         Result.is_static
       end
 
 feature {}
@@ -81,9 +115,6 @@ feature {}
 
    value: RUNNER_OBJECT
    entity_type: TYPE
-
-invariant
-   processor /= Void
 
 end -- class RUNNER_ASSIGNMENT
 --

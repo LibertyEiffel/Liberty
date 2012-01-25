@@ -2861,9 +2861,7 @@ feature {}
                   error_handler.add_position(base_type_mark.start_position)
                   error_handler.append("The base type is no longer used. Class PROCEDURE now has only one %
                   %formal argument. Just remove this unused type mark.")
-                  error_handler.cancel
---|*** error_handler.print_as_warning
---|*** Will be a True warning in release 2.3 *** (Dom Oct 27th 2005) ***
+                  error_handler.print_as_warning
                end
                if not skip1(']') then
                   error_handler.add_position(current_position)
@@ -2892,9 +2890,7 @@ feature {}
                   error_handler.add_position(base_type_mark.start_position)
                   error_handler.append("The base type is no longer used. Class ROUTINE now has only one %
                   %formal argument. Just remove this unused type mark.")
-                  error_handler.cancel
---|*** error_handler.print_as_warning
---|*** Will be a True warning in release 2.3 *** (Dom Oct 27th 2005) ***
+                  error_handler.print_as_warning
                end
                if not skip1(']') then
                   error_handler.add_position(current_position)
@@ -2935,9 +2931,7 @@ feature {}
                   error_handler.add_position(base_type_mark.start_position)
                   error_handler.append("The base type is no longer used. Class FUNCTION now has only two %
                   %formal generic arguments. Just remove this unused type mark.")
-                  error_handler.cancel
---|*** error_handler.print_as_warning
---|*** Will be a True warning in release 2.3 *** (Dom Oct 27th 2005) ***
+                  error_handler.print_as_warning
                end
                if not skip1(']') then
                   error_handler.add_position(current_position)
@@ -3898,8 +3892,10 @@ feature {}
                delayed_call ::= last_expression
                create {AGENT_CREATION} last_expression.make(sp, delayed_call, ft)
             elseif a_expression then
-               delayed_call ?= last_expression
-               if delayed_call = Void then
+               if delayed_call ?:= last_expression then
+                  delayed_call ::= last_expression
+                  create {AGENT_CREATION} last_expression.make(sp, delayed_call, Void)
+               else
                   error_handler.add_position(last_expression.start_position)
                   if {OPEN_OPERAND} ?:= last_expression then
                      error_handler.append("Expression ")
@@ -3913,7 +3909,6 @@ feature {}
                   end
                   error_handler.print_as_fatal_error
                end
-               create {AGENT_CREATION} last_expression.make(sp, delayed_call, Void)
             else
                error_handler.add_position(sp)
                error_handler.append("Inline agent or expression expected after agent keyword.")

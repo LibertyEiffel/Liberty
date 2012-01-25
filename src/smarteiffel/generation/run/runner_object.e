@@ -22,6 +22,10 @@ feature {ANY}
       deferred
       end
 
+   to_builtin_pointer: POINTER is
+      deferred
+      end
+
 feature {RUNNER_FACET}
    copy_if_expanded: like Current is
       deferred

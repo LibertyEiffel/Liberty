@@ -19,9 +19,15 @@ feature {ANY}
    error_message: STRING
          -- Error message printed when exceptions are turned off.
 
-   error_name: STRING
+   error_code: INTEGER
+         -- An EXCEPTIONS error code.
+
+   error_name: STRING is
          -- Symbolic name for the error code to be raised when
          -- exceptions are turned on.
+      do
+         Result := exceptions.name_of_exception(error_code)
+      end
 
    simplify (type: TYPE): INSTRUCTION is
       do
@@ -62,20 +68,23 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (sp: like start_position; em: like error_message; en: like error_name) is
+   make (sp: like start_position; em: like error_message; ec: like error_code) is
       require
          not sp.is_unknown
          em /= Void
-         en.is_equal(once "Void_call_target") or else en.is_equal(once "System_level_type_error")
+         ec = exceptions.Void_call_target or else ec = exceptions.System_level_type_error
       do
          start_position := sp
          error_message := em
-         error_name := en
+         error_code := ec
       ensure
          start_position = sp
          error_message = em
-         error_name = en
+         error_code = ec
       end
+
+invariant
+   error_code = exceptions.Void_call_target or else error_code = exceptions.System_level_type_error
 
 end -- class RUN_TIME_ERROR_INSTRUCTION
 --

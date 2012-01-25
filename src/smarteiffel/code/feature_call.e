@@ -331,7 +331,7 @@ feature {}
             sp := t.start_position
             create ifthen.make(sp,
                                create {BUILT_IN_EQ_NEQ}.make_eq(t, sp, create {E_VOID}.make(sp)),
-                               create {RUN_TIME_ERROR_INSTRUCTION}.make(sp, once "Call on a Void target.", once "Void_call_target"))
+                               create {RUN_TIME_ERROR_INSTRUCTION}.make(sp, once "Call on a Void target.", exceptions.Void_call_target))
             code_accumulator.current_context.add_last(ifthen)
          end
       end
@@ -364,7 +364,7 @@ feature {}
             create ifthen.make(sp,
                create {BUILT_IN_EQ_NEQ}.make_neq(create {DYNAMIC_DISPATCH_TEMPORARY1_ID}.make(t), sp,
                                                  create {INTEGER_CONSTANT}.make(target_live_type.id, sp)),
-               create {RUN_TIME_ERROR_INSTRUCTION}.make(sp, msg, once "System_level_type_error"))
+               create {RUN_TIME_ERROR_INSTRUCTION}.make(sp, msg, exceptions.System_level_type_error))
             code_accumulator.current_context.add_last(ifthen)
          end
       end

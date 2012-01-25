@@ -19,67 +19,67 @@ feature {ANY}
 feature {ANY} -- Types
    nothing: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_void, Void)
+         Result.set_ffi_type(address_of_ffi_type_void, Void, "nothing")
       end
 
    uint8: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_uint8, agent new_uint8)
+         Result.set_ffi_type(address_of_ffi_type_uint8, agent new_uint8, "uint8")
       end
 
    sint8: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_sint8, agent new_sint8)
+         Result.set_ffi_type(address_of_ffi_type_sint8, agent new_sint8, "sint8")
       end
 
    uint16: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_uint16, agent new_uint16)
+         Result.set_ffi_type(address_of_ffi_type_uint16, agent new_uint16, "uint16")
       end
 
    sint16: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_sint16, agent new_sint16)
+         Result.set_ffi_type(address_of_ffi_type_sint16, agent new_sint16, "sint16")
       end
 
    uint32: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_uint32, agent new_uint32)
+         Result.set_ffi_type(address_of_ffi_type_uint32, agent new_uint32, "uint32")
       end
 
    sint32: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_sint32, agent new_sint32)
+         Result.set_ffi_type(address_of_ffi_type_sint32, agent new_sint32, "sint32")
       end
 
    uint64: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_uint64, agent new_uint64)
+         Result.set_ffi_type(address_of_ffi_type_uint64, agent new_uint64, "uint64")
       end
 
    sint64: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_sint64, agent new_sint64)
+         Result.set_ffi_type(address_of_ffi_type_sint64, agent new_sint64, "sint64")
       end
 
    float: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_float, agent new_float)
+         Result.set_ffi_type(address_of_ffi_type_float, agent new_float, "float")
       end
 
    double: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_double, agent new_double)
+         Result.set_ffi_type(address_of_ffi_type_double, agent new_double, "double")
       end
 
    schar: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_sint8, agent new_schar)
+         Result.set_ffi_type(address_of_ffi_type_sint8, agent new_schar, "schar")
       end
 
    c_string, pointer: FOREIGN_TYPE is
       once
-         Result.set_ffi_type(address_of_ffi_type_pointer, agent new_pointer)
+         Result.set_ffi_type(address_of_ffi_type_pointer, agent new_pointer, "pointer")
       end
 
 feature {ANY} -- Objects factory
@@ -139,7 +139,7 @@ feature {ANY} -- Objects factory
       end
 
    create_string (a_string: ABSTRACT_STRING): FOREIGN_OBJECT is
-      -- A newly allocated FOREIGN_OBJECT referring to the interned buffer of `a_string'
+         -- A newly allocated FOREIGN_OBJECT referring to the interned buffer of `a_string'
       do
          create {FOREIGN_TYPED_OBJECT[POINTER]} Result.make(pointer, a_string.intern.to_external)
       end

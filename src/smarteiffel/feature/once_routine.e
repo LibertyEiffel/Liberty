@@ -8,6 +8,13 @@ deferred class ONCE_ROUTINE
 
 inherit
    EFFECTIVE_ROUTINE
+   HASHABLE
+
+feature {ANY}
+   hash_code: INTEGER is
+      do
+         Result := to_pointer.hash_code
+      end
 
 feature {}
    pretty_print_once_or_do (indent_level: INTEGER) is

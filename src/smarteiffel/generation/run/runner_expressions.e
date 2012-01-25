@@ -7,7 +7,7 @@ inherit
    EXPRESSION_VISITOR
 
 insert
-   RUNNER_FACET
+   RUNNER_PROCESSOR_FACET
 
 create {RUNNER_PROCESSOR}
    make
@@ -15,51 +15,55 @@ create {RUNNER_PROCESSOR}
 feature {RUNNER_FACET}
    eval (a_expression: EXPRESSION): RUNNER_OBJECT is
       do
-         a_expression.accept(Current)
-         Result := return
-         return := Void
+         if a_expression /= Void then
+            a_expression.accept(Current)
+            Result := return
+            return := Void
+         end
       end
 
 feature {IMPLICIT_CURRENT}
    visit_implicit_current (visited: IMPLICIT_CURRENT) is
       do
-         return := processor.current_frame.target
+         return := current_frame.target
       end
 
 feature {WRITTEN_CURRENT}
    visit_written_current (visited: WRITTEN_CURRENT) is
       do
-         return := processor.current_frame.target
+         return := current_frame.target
       end
 
 feature {ADDRESS_OF}
    visit_address_of (visited: ADDRESS_OF) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {AGENT_CREATION}
    visit_agent_creation (visited: AGENT_CREATION) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.new_agent(visited)
       end
 
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.features.call_agent(visited, Current)
       end
 
 feature {ASSERTION}
    visit_assertion (visited: ASSERTION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {ASSIGNMENT_TEST}
    visit_assignment_test (visited: ASSIGNMENT_TEST) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.new_boolean(processor.assignment.test_assign(visited))
       end
 
 feature {BUILT_IN_EQ_NEQ}
@@ -82,48 +86,54 @@ feature {BUILT_IN_EQ_NEQ}
 feature {CLOSED_OPERAND}
    visit_closed_operand (visited: CLOSED_OPERAND) is
       do
-         sedb_breakpoint --| **** TODO
+         visited.capture_memory.at(current_frame.type_of_current).accept(Current)
       end
 
 feature {CREATE_EXPRESSION}
    visit_create_expression (visited: CREATE_EXPRESSION) is
       do
-         return := processor.features.new(visited.created_type(processor.current_frame.type_of_current), visited.call)
+         return := processor.features.new(visited.created_type(current_frame.type_of_current), visited.call)
       end
 
 feature {CREATE_WRITABLE}
    visit_create_writable (visited: CREATE_WRITABLE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {E_OLD}
    visit_e_old (visited: E_OLD) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {EXPRESSION_WITH_COMMENT}
    visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_ARGUMENT}
    visit_fake_argument (visited: FAKE_ARGUMENT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {FAKE_TUPLE}
    visit_fake_tuple (visited: FAKE_TUPLE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
@@ -286,6 +296,7 @@ feature {FUNCTION_CALL_N}
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
@@ -301,18 +312,19 @@ feature {IMPLICIT_CAST}
 feature {ARGUMENT_NAME2}
    visit_argument_name2 (visited: ARGUMENT_NAME2) is
       do
-         return := processor.current_frame.arguments.item(visited.rank - 1)
+         return := current_frame.arguments.item(visited.rank - 1)
       end
 
 feature {LOCAL_NAME2}
    visit_local_name2 (visited: LOCAL_NAME2) is
       do
-         return := processor.current_frame.local_object(visited.to_string)
+         return := current_frame.local_object(visited.to_string)
       end
 
 feature {LOOP_VARIANT}
    visit_loop_variant (visited: LOOP_VARIANT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
@@ -361,6 +373,7 @@ feature {INTEGER_CONSTANT}
 feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
@@ -385,36 +398,47 @@ feature {MANIFEST_GENERIC}
 feature {MANIFEST_TUPLE}
    visit_manifest_tuple (visited: MANIFEST_TUPLE) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {OLD_MANIFEST_ARRAY}
    visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND) is
+      local
+         frame: RUNNER_AGENT_FRAME
       do
-         sedb_breakpoint --| **** TODO
+         frame ::= current_frame
+         if visited.rank = -1 then
+            return := expand(frame.target)
+         else
+            return := expand(frame.arguments.item(visited.rank - 1 + frame.arguments.lower))
+         end
       end
 
 feature {PRECURSOR_EXPRESSION}
    visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
 feature {RESULT}
    visit_result (visited: RESULT) is
       do
-         return := processor.current_frame.return
+         return := expand(current_frame.return)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
    visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
       do
+         std_output.put_line(once "%N%N**** TODO ****%N%N")
          sedb_breakpoint --| **** TODO
       end
 
@@ -429,9 +453,9 @@ feature {INTERNAL_LOCAL2}
       local
          type: TYPE
       do
-         return := processor.current_frame.internal_local_object(visited)
+         return := current_frame.internal_local_object(visited)
          if return = Void then
-            type := visited.resolve_in(processor.current_frame.type_of_current)
+            type := visited.resolve_in(current_frame.type_of_current)
             if type.is_expanded then
                return := processor.default_expanded(type)
             end
@@ -454,7 +478,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
             id := return.type.id
             return := processor.new_integer_32(id)
          else
-            sedb_breakpoint
+            sedb_breakpoint --| **** ????
             return := processor.new_integer_32(0)
          end
       end
@@ -468,19 +492,19 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
 feature {VOID_CALL}
    visit_void_call (visited: VOID_CALL) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.default_pointer
       end
 
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do
-         sedb_breakpoint --| **** TODO
+         return := processor.features.non_void(visited)
       end
 
 feature {COMPOUND_EXPRESSION}
@@ -488,36 +512,33 @@ feature {COMPOUND_EXPRESSION}
       local
          i: INTEGER; watermark: RUNNER_FRAME_WATERMARK; inst: INSTRUCTION; exp: EXPRESSION
       do
-         watermark := processor.current_frame.watermark
+         watermark := current_frame.watermark
          from
             i := visited.upper - 1
          until
             i < visited.lower
          loop
             inst ::= visited.item(i)
-            processor.current_frame.add_instruction(inst)
+            current_frame.add_instruction(inst)
             i := i - 1
          end
-         processor.current_frame.execute_until(watermark)
+         current_frame.execute_until(watermark)
          exp ::= visited.last
          exp.accept(Current)
       end
 
 feature {}
    make (a_processor: like processor) is
+      require
+         a_processor /= Void
       do
          processor := a_processor
       ensure
          processor = a_processor
       end
 
-   processor: RUNNER_PROCESSOR
    return: RUNNER_OBJECT
-
    implicit_cast_type: TYPE
-
-invariant
-   processor /= Void
 
 end -- class RUNNER_EXPRESSIONS
 --
