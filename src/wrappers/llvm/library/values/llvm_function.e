@@ -45,7 +45,7 @@ inherit
 			do_all as do_all_parameters
 			for_all as for_all_parameters
 			exists as exists_parameter
-		undefine is_equal, copy, fill_tagged_out_memory
+		undefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
 		end
 
 insert LLVM_VALUE_WRAPPER_FACTORY 
@@ -67,12 +67,12 @@ feature {} -- Creation
 	end
 
 feature {ANY} -- Calling convention
-	calling_convention: LLVMCALL_CONV_ENUM is
+	calling_convention: LLVMCALLCONV_ENUM is
 		do
 			Result.change_value(llvmget_function_call_conv(handle).to_integer_32)
 		end
 			
-	set_calling_convention (a_calling_convention: LLVMCALL_CONV_ENUM) is
+	set_calling_convention (a_calling_convention: LLVMCALLCONV_ENUM) is
 		-- Set calling convention
 	do
 		llvmset_function_call_conv(handle, a_calling_convention.value.to_natural_32)	

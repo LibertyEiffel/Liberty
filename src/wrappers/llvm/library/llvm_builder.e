@@ -908,7 +908,7 @@ feature -- Casts
 --                              LLVMTypeRef DestTy, const char *Name);
 -- 
 feature -- Comparisons
-	icmp (a_predicate: LLVMINT_PREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST is
+	icmp (a_predicate: LLVMINTPREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST is
 		-- An 'icmp' instruction that will return a boolean value or a vector of boolean values based on comparison of its two integer, integer vector, or pointer operands. `a_predicate' is the condition code indicating the kind of comparison to perform. In LLVM assembler it is not a value, but a keyword. The possible condition code are:
 
 		--   1. eq: equal
@@ -956,7 +956,7 @@ feature -- Comparisons
 			-- TODO: a_left.is_constant_vector implies the-result-of-the-instruction.is_constant_vector and then a_left.as_constant_vector.type.size = Result.as
 		end
 
-	fcmp (a_predicate: LLVMREAL_PREDICATE_ENUM; a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_FCMP_INST is
+	fcmp (a_predicate: LLVMREALPREDICATE_ENUM; a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_FCMP_INST is
 		-- Floating point comparison. 
 
 		-- TODO: adapt main LLVM documentation

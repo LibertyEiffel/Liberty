@@ -4,9 +4,9 @@
 deferred class BIDIRECTIONAL_ITERATOR[E_]
    -- An iterator that allows to traverse a COLLETION forward and backward.
 
-   -- Such a collection shall be ordered, even if its items are not
-   -- COMPARABLE. FOr example a two-way list of three-dimensional points may
-   -- be iterated back and forth while the points are not naturally ordered.
+   -- Those COLLECTIONs can be iterated back and forth even if its items are
+   -- not COMPARABLE. For example a two-way list of three-dimensional points
+   -- may while the points are not naturally ordered.
 
 inherit ITERATOR[E_]
 
@@ -24,7 +24,17 @@ feature {ANY}
          not is_off
       deferred
       end
+feature {}
+   iterable_generation:  INTEGER is
+      do
+		  emit_notice
+		  Result := generation
+      end
 
+	emit_notice is
+		once
+			print("Warning: BIDIRECTIONAL_ITERATORs feature iterable_generation is an hack! Please provide a sound implementation or check it is good. 2012-02-12 Paolo%N")
+		end
 end -- class BIDIRECTIONAL_ITERATOR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
