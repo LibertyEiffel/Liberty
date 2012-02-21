@@ -1,6 +1,6 @@
 XML=llvm.gcc-xml
 HEADER=plugin/c/llvm-liberty.h
-HEADERS=/usr/include/llvm-c/*
+HEADERS=`llvm-config --includedir`/llvm-c/*
 
 wrappers: $(XML)
 	wrappers-generator --verbose $(XML) $(HEADERS)

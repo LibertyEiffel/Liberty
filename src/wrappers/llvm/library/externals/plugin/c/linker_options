@@ -1,2 +1,2 @@
 [UNIX]
-llvm: "$(llvm-config --cflags --libs --ldflags core bitwriter)"
+llvm: "$(llvm-config --cflags --libs --ldflags core bitwriter) -ld"
