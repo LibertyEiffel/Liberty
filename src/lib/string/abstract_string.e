@@ -1248,13 +1248,16 @@ feature {ANY} -- Other features:
 
 feature {ANY} -- Interfacing with C string:
    to_external: POINTER is
-         -- Gives C access to the internal `storage' (may be dangerous).
+	     -- The address of a memory region containing the text of Current, useful to interact with the C language.
+
+		 -- A NATIVELY_STORED_STRING implementation usually gives direct access
+		 -- to its internal `storage' (may be dangerous).
+		 -- Other non-natively stored heirs provide access to an Eiffel-owned
+		 -- buffer containing a  copy of its content.
 
          -- To be compatible with C, a null character is added at the end
          -- of the internal `storage'. This extra null character is not
          -- part of the Eiffel STRING.
-
-         -- TODO: clarify the meaning of this feature for non-natively stored heirs of ABSTRACT_STRING.
       deferred
       ensure
          -- TODO: generalize this postcondition
