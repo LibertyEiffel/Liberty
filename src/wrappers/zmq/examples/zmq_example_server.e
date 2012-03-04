@@ -3,32 +3,35 @@ class ZMQ_EXAMPLE_SERVER
 insert MEMORY -- To check for memory leaks
 creation {} make
 feature
+	context: ZMQ_CONTEXT
+	socket: ZMQ_REP_SOCKET
+	request, answer: ZMQ_STRING_MESSAGE
+
 	make is
-		local ctx: ZMQ_CONTEXT; s: ZMQ_SOCKET; query, answer: ZMQ_STRING_MESSAGE
 		do
-			foo
-			create ctx
-			s := ctx.new_rep_socket
+			--use_zmq
+			create context
+			socket := context.new_rep_socket
 			-- Bind to the TCP transport and port 5555 on the 'lo' interface
-			s.bind("tcp://lo:5555")
+			socket.bind("tcp://*:5555")
 
 			from until False loop -- i.e. "forever do"
-				create query
-				s.receive(query) -- Receive a message, blocks until one is available
-				("Received query: '"+query.to_string+"' (Note: DbC says that concatenating into ropes with '|' triggers some bugs; Paolo solve them!).%N").print_on(std_output)
-				query.close -- message closing may be automatically done by the garbage collector.
-
-				create answer.with_string(answer_body.intern)
-				s.send(answer) -- Send back our canned response
-				answer.close
-				full_collect -- To clean up Eiffel side and see if memory is leaked on C side
+				create request
+				socket.receive(request)
+				if socket.is_successful then
+					("Received request: '"+request+"'.%N").print_on(std_output)
+					create answer.from_string(answer_body)
+					socket.send(answer) -- Send back our canned answer
+					full_collect -- To clean up Eiffel side and see if memory is leaked on C side
+				else 
+				end
 			end
-
 		end
-		answer_body: STRING is "OK" -- shall be FIXED_STRING is once Result:="OK".intern end
 
-	foo is
-		-- Dummy plugin feature to work around SE bug
+		answer_body: STRING is "OK"
+
+	use_zmq is
+		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers
 		external "plug_in"
 		alias "{
 			location: "../library/externals/"
@@ -36,4 +39,5 @@ feature
 			feature_name: "/*bug-workaround*/"
 		}"
 		end
+
 end -- class ZMQ_EXAMPLE_SERVER

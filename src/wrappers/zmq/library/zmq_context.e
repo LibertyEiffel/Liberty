@@ -1,7 +1,7 @@
 class ZMQ_CONTEXT
 	-- An ØMQ Context where ØMQ sockets live within.
 	
-	-- Each 0MQ socket  lives  within  a  specific  context.  Creating  and
+	-- Each ØMQ socket  lives  within  a  specific  context.  Creating  and
 	-- destroying context is a counterpart of library
 	-- initialisation/deinitialisation as used elsewhere. Ability to create
 	-- multiple  contexts saves  the  day  when an application happens to
@@ -13,11 +13,11 @@ class ZMQ_CONTEXT
 	-- TODO: add support for pollability (ZMQ_POLL)
 
 inherit 
-	C_STRUCT redefine default_create end
+	WRAPPER redefine default_create end
 	EIFFEL_OWNED redefine default_create, dispose end 
 
 insert 
-		ZMQ_EXTERNALS undefine default_create end
+	ZMQ_EXTERNALS undefine default_create end
 	ZMQ_SOCKET_TYPES undefine default_create end
 
 creation {ANY} default_create
@@ -25,7 +25,7 @@ feature {} -- Creation
 	default_create is
 		-- Context creation; currently only non-threaded programs are handled.
 	do
-		from_external_pointer(zmq_init(1,1,0))
+		from_external_pointer(zmq_init(1))
 	end
 feature {} -- Disposing
 	dispose is
@@ -34,105 +34,303 @@ feature {} -- Disposing
 			res := zmq_term(handle)
 			-- TODO: handle return value
 		end
-feature {ANY} -- Socket creations
-	new_p2p_socket: ZMQ_SOCKET is
- 		-- A new P2P socket  to  communicate with a single peer. Allows for only a single connect or a single bind. There's no  message  routing or message filtering involved.
+feature -- Comparison and copying
 
-		-- Compatible peer sockets: ZMQ_P2P.
+	-- Since a ZMQ_CONTEXT is entirely opaque object they are not
+	-- distinguishable so is_equal is always True. Copying just create another
+	-- context.
+
+	is_equal (another: like Current): BOOLEAN is
+		do
+			Result:=True
+		end
+
+	copy (another: like Current) is
+		do
+			default_create	
+		end
+
+feature -- Request-reply pattern
+
+--        The request-reply pattern is used for sending requests from a client to one or more
+--        instances of a service, and receiving subsequent replies to each request sent.
+-- 
+
+	new_req_socket: ZMQ_REQ_SOCKET is
+-- 	   A socket of type ZMQ_REQ is used by a client to send requests to and receive replies
+-- 	   from a service. This socket type allows only an alternating sequence of
+-- 	   zmq_send(request) and subsequent zmq_recv(reply) calls. Each request sent is
+-- 	   load-balanced among all services, and each reply received is matched with the last
+-- 	   issued request.
+-- 
+-- 	   When a ZMQ_REQ socket enters an exceptional state due to having reached the high water
+-- 	   mark for all services, or if there are no services at all, then any zmq_send(3)
+-- 	   operations on the socket shall block until the exceptional state ends or at least one
+-- 	   service becomes available for sending; messages are not discarded.
+-- 
+-- 	   Table 1. Summary of ZMQ_REQ characteristics
+-- 	   Compatible peer sockets     ZMQ_REP
+-- 
+-- 	   Direction		       Bidirectional
+-- 
+-- 
+-- 	   Send/receive pattern        Send, Receive, Send, Receive,
+-- 				       ...
+-- 
+-- 	   Outgoing routing strategy   Load-balanced
+-- 
+-- 	   Incoming routing strategy   Last peer
+-- 
+-- 	   ZMQ_HWM option action       Block
+-- 
+-- 
 	do
-		create Result.from_external_pointer(zmq_socket(handle,zmq_p2p))
+		create Result.from_external_pointer (zmq_socket(handle,zmq_req))
 	ensure Result/=Void
 	end
 
-    --   ZMQ_PUB
-    --          Socket  to  distribute  data. Recv fuction is not implemented
-    --          for this socket type.  Messages  are  distributed  in  fanout
-    --          fashion to all the peers.
+	new_rep_socket: ZMQ_REP_SOCKET is
+		-- A new ZMQ_REP socket to receive requests from and send replies to a client. 
 
-    --          Compatible peer sockets: ZMQ_SUB.
-
-
-    --   ZMQ_SUB
-    --          Socket  to  subscribe  for  data. Send function is not imple‐
-    --          mented for this socket type. Initially, socket is  subscribed
-    --          for  no  messages.  Use ZMQ_SUBSCRIBE option to specify which
-    --          messages to subscribe for.
-
-    --          Compatible peer sockets: ZMQ_PUB.
-
-
-	new_req_socket: ZMQ_SOCKET is
-		-- A new socket to send requests and receive replies. Requests are
-		-- load-balanced  among  all  the peers. This socket type allows
-		-- only an alternated sequence of send's and recv's.
-
-		--          Compatible peer sockets: ZMQ_REP, ZMQ_XREP.
-	do
-		create Result.from_external_pointer(zmq_socket(handle,zmq_req))
-	ensure Result/=Void
-	end
-
-
-	new_rep_socket: ZMQ_SOCKET is
-		-- A new socket to receive requests and send replies. This socket type
-		-- allows only an alternated sequence of recv's and send's. Each send
-		-- is routed to the peer  that  issued  the  last  received request.
-
-		-- Compatible peer sockets: ZMQ_REQ, ZMQ_XREQ.
+		-- It allows only an alternating sequence of request (receive) and and
+		-- subsequent reply (send) commands. Each request received is
+		-- fair-queued from among all clients, and each reply sent is routed to
+		-- the client that issued the last request. If the original requester
+		-- doesn’t exist any more the reply is silently discarded.
+		
+		-- When a ZMQ_REP socket enters an exceptional state due to having
+		-- reached the high water mark for a client, then any replies sent to
+		-- the client in question shall be dropped until the exceptional state
+		-- ends.
+		
+		-- Summary of ZMQ_REP characteristics
+		-- - Compatible peer sockets     ZMQ_REQ
+		-- 
+		-- - Direction		       Bidirectional
+		-- 
+		-- - Send/receive pattern        Receive, Send, Receive, Send,
+		-- 				       ...
+		-- 
+		-- - Incoming routing strategy   Fair-queued
+		-- 
+		-- - Outgoing routing strategy   Last peer
+		-- 
+		-- 	- ZMQ_HWM option action       Drop
 	do
 		create Result.from_external_pointer(zmq_socket(handle,zmq_rep))
 	ensure Result/=Void
 	end
+-- 
+--        ZMQ_DEALER
+-- 	   A socket of type ZMQ_DEALER is an advanced pattern used for extending request/reply
+-- 	   sockets. Each message sent is load-balanced among all connected peers, and each
+-- 	   message received is fair-queued from all connected peers.
+-- 
+-- 	   Previously this socket was called ZMQ_XREQ and that name remains available for
+-- 	   backwards compatibility.
+-- 
+-- 	   When a ZMQ_DEALER socket enters an exceptional state due to having reached the high
+-- 	   water mark for all peers, or if there are no peers at all, then any zmq_send(3)
+-- 	   operations on the socket shall block until the exceptional state ends or at least one
+-- 	   peer becomes available for sending; messages are not discarded.
+-- 
+-- 	   When a ZMQ_DEALER socket is connected to a ZMQ_REP socket each message sent must
+-- 	   consist of an empty message part, the delimiter, followed by one or more body parts.
+-- 
+-- 	   Table 3. Summary of ZMQ_DEALER characteristics
+-- 	   Compatible peer sockets     ZMQ_ROUTER, ZMQ_REQ, ZMQ_REP
+-- 
+-- 	   Direction		       Bidirectional
+-- 
+-- 	   Send/receive pattern        Unrestricted
+-- 
+-- 	   Outgoing routing strategy   Load-balanced
+-- 
+-- 	   Incoming routing strategy   Fair-queued
+-- 
+-- 
+-- 
+-- 	   ZMQ_HWM option action       Block
+-- 
+-- 
+--        ZMQ_ROUTER
+	-- 	   A socket of type ZMQ_ROUTER is an advanced pattern used for extending request/reply
+-- 	   sockets. When receiving messages a ZMQ_ROUTER socket shall prepend a message part
+-- 	   containing the identity of the originating peer to the message before passing it to
+-- 	   the application. Messages received are fair-queued from among all connected peers.
+-- 	   When sending messages a ZMQ_ROUTER socket shall remove the first part of the message
+-- 	   and use it to determine the identity of the peer the message shall be routed to. If
+-- 	   the peer does not exist anymore the message shall be silently discarded.
+-- 
+-- 	   Previously this socket was called ZMQ_XREP and that name remains available for
+-- 	   backwards compatibility.
+-- 
+-- 	   When a ZMQ_ROUTER socket enters an exceptional state due to having reached the high
+-- 	   water mark for all peers, or if there are no peers at all, then any messages sent to
+-- 	   the socket shall be dropped until the exceptional state ends. Likewise, any messages
+-- 	   routed to a non-existent peer or a peer for which the individual high water mark has
+-- 	   been reached shall also be dropped.
+-- 
+-- 	   When a ZMQ_REQ socket is connected to a ZMQ_ROUTER socket, in addition to the identity
+-- 	   of the originating peer each message received shall contain an empty delimiter message
+-- 	   part. Hence, the entire structure of each received message as seen by the application
+-- 	   becomes: one or more identity parts, delimiter part, one or more body parts. When
+-- 	   sending replies to a ZMQ_REQ socket the application must include the delimiter part.
+-- 
+-- 	   Table 4. Summary of ZMQ_ROUTER characteristics
+-- 	   Compatible peer sockets     ZMQ_DEALER, ZMQ_REQ, ZMQ_REP
+-- 
+-- 	   Direction		       Bidirectional
+-- 
+-- 	   Send/receive pattern        Unrestricted
+-- 
+-- 	   Outgoing routing strategy   See text
+-- 
+-- 	   Incoming routing strategy   Fair-queued
+-- 
+-- 	   ZMQ_HWM option action       Drop
+-- 
+-- 
+feature -- Publish-subscribe pattern
+
+--        The publish-subscribe pattern is used for one-to-many distribution of data from a single
+--        publisher to multiple subscribers in a fan out fashion.
+-- 
+--        ZMQ_PUB
+-- 	   A socket of type ZMQ_PUB is used by a publisher to distribute data. Messages sent are
+-- 	   distributed in a fan out fashion to all connected peers. The zmq_recv(3) function is
+-- 	   not implemented for this socket type.
+-- 
+-- 	   When a ZMQ_PUB socket enters an exceptional state due to having reached the high water
+-- 	   mark for a subscriber, then any messages that would be sent to the subscriber in
+-- 	   question shall instead be dropped until the exceptional state ends. The zmq_send()
+-- 	   function shall never block for this socket type.
+-- 
+-- 	   Table 5. Summary of ZMQ_PUB characteristics
+-- 	   Compatible peer sockets     ZMQ_SUB
+-- 
+-- 	   Direction		       Unidirectional
+-- 
+-- 	   Send/receive pattern        Send only
+-- 
+-- 	   Incoming routing strategy   N/A
+-- 
+-- 
+-- 
+-- 	   Outgoing routing strategy   Fan out
+-- 
+-- 	   ZMQ_HWM option action       Drop
+-- 
+-- 
+--        ZMQ_SUB
+-- 	   A socket of type ZMQ_SUB is used by a subscriber to subscribe to data distributed by a
+-- 	   publisher. Initially a ZMQ_SUB socket is not subscribed to any messages, use the
+-- 	   ZMQ_SUBSCRIBE option of zmq_setsockopt(3) to specify which messages to subscribe to.
+-- 	   The zmq_send() function is not implemented for this socket type.
+-- 
+-- 	   Table 6. Summary of ZMQ_SUB characteristics
+-- 	   Compatible peer sockets     ZMQ_PUB
+-- 
+-- 	   Direction		       Unidirectional
+-- 
+-- 	   Send/receive pattern        Receive only
+-- 
+-- 	   Incoming routing strategy   Fair-queued
+-- 
+-- 	   Outgoing routing strategy   N/A
+-- 
+-- 	   ZMQ_HWM option action       Drop
 
 
-    --   ZMQ_XREQ
-    --          Special  socket  type to be used in request/reply middleboxes
-    --          such as zmq_queue(7).  Requests forwarded using  this  socket
-    --          type  should  be  tagged  by  a proper postix identifying the
-    --          original requester.  Replies  received  by  this  socket  are
-    --          tagged  with  a  proper  postfix that can be use to route the
-    --          reply back to the original requester.
+feature --    Pipeline pattern
 
-    --          Compatible peer sockets: ZMQ_REP, ZMQ_XREP.
+	-- The pipeline pattern is used for distributing data to nodes arranged in
+	-- a pipeline. Data always flows down the pipeline, and each stage of the
+	-- pipeline is connected to at least one node. When a pipeline stage is
+	-- connected to multiple nodes data is load-balanced among all connected
+	-- nodes.
 
+	--        ZMQ_PUSH
+-- 	   A socket of type ZMQ_PUSH is used by a pipeline node to send messages to downstream
+-- 	   pipeline nodes. Messages are load-balanced to all connected downstream nodes. The
+-- 	   zmq_recv() function is not implemented for this socket type.
+-- 
+-- 	   When a ZMQ_PUSH socket enters an exceptional state due to having reached the high
+-- 	   water mark for all downstream nodes, or if there are no downstream nodes at all, then
+-- 	   any zmq_send(3) operations on the socket shall block until the exceptional state ends
+-- 	   or at least one downstream node becomes available for sending; messages are not
+-- 	   discarded.
+-- 
+-- 	   Deprecated alias: ZMQ_DOWNSTREAM.
+-- 
+-- 	   Table 7. Summary of ZMQ_PUSH characteristics
+-- 	   Compatible peer sockets     ZMQ_PULL
+-- 
+-- 	   Direction		       Unidirectional
+-- 
+-- 	   Send/receive pattern        Send only
+-- 
+-- 	   Incoming routing strategy   N/A
+-- 
+-- 	   Outgoing routing strategy   Load-balanced
+-- 
+-- 	   ZMQ_HWM option action       Block
+-- 
+-- 
+--        ZMQ_PULL
+-- 	   A socket of type ZMQ_PULL is used by a pipeline node to receive messages from upstream
+-- 	   pipeline nodes. Messages are fair-queued from among all connected upstream nodes. The
+-- 	   zmq_send() function is not implemented for this socket type.
+-- 
+-- 	   Deprecated alias: ZMQ_UPSTREAM.
+-- 
+-- 	   Table 8. Summary of ZMQ_PULL characteristics
+-- 	   Compatible peer sockets     ZMQ_PUSH
+-- 
+-- 	   Direction		       Unidirectional
+-- 
+-- 	   Send/receive pattern        Receive only
+-- 
+-- 	   Incoming routing strategy   Fair-queued
+-- 
+-- 	   Outgoing routing strategy   N/A
+-- 
+-- 	   ZMQ_HWM option action       N/A
+-- 
+-- 
+feature -- Exclusive pair pattern
 
-    --   ZMQ_XREP
-    --          Special socket type to be used in  request/reply  middleboxes
-    --          such  as  zmq_queue(7).   Requests received using this socket
-    --          are already properly  tagged  with  postfix  identifying  the
-    --          original  requester. When sending a reply via XREP socket the
-    --          message should be tagged with a postfix from a  corresponding
-    --          request.
+--        The exclusive pair pattern is used to connect a peer to precisely one other peer. This
+--        pattern is used for inter-thread communication across the inproc transport.
+-- 
+--        ZMQ_PAIR
+-- 	   A socket of type ZMQ_PAIR can only be connected to a single peer at any one time. No
+-- 	   message routing or filtering is performed on messages sent over a ZMQ_PAIR socket.
+-- 
+-- 	   When a ZMQ_PAIR socket enters an exceptional state due to having reached the high
+-- 	   water mark for the connected peer, or if no peer is connected, then any zmq_send(3)
+-- 	   operations on the socket shall block until the peer becomes available for sending;
+-- 	   messages are not discarded.
+-- 
+-- 	       Note
+-- 	       ZMQ_PAIR sockets are designed for inter-thread communication across the
+-- 	       zmq_inproc(7) transport and do not implement functionality such as
+-- 	       auto-reconnection. ZMQ_PAIR sockets are considered experimental and may have other
+-- 	       missing or broken aspects.
+-- 
+-- 	   Table 9. Summary of ZMQ_PAIR characteristics
+-- 	   Compatible peer sockets     ZMQ_PAIR
+-- 
+-- 	   Direction		       Bidirectional
+-- 
+-- 	   Send/receive pattern        Unrestricted
+-- 
+-- 	   Incoming routing strategy   N/A
+-- 
+-- 	   Outgoing routing strategy   N/A
+-- 
+-- 	   ZMQ_HWM option action       Block
 
-    --          Compatible peer sockets: ZMQ_REQ, ZMQ_XREQ.
-
-
-    --   ZMQ_UPSTREAM
-    --          Socket  to  receive messages from up the stream. Messages are
-    --          fair-queued from among all the connected peers. Send function
-    --          is not implemented for this socket type.
-
-    --          Compatible peer sockets: ZMQ_DOWNSTREAM.
-
-
-    --   ZMQ_DOWNSTREAM
-    --          Socket  to  send messages down stream. Messages are load-bal‐
-    --          anced among all the connected peers.  Send  function  is  not
-    --          implemented for this socket type.
-
-    --          Compatible peer sockets: ZMQ_UPSTREAM.
-
-
--- zmq_socket RETURN VALUE
---       Function  returns  socket handle is successful. Otherwise it returns
---       NULL and sets errno to one of the values below.
---
---ERRORS
---       EINVAL invalid socket type.
---
---       EMTHREAD
---              the number of application threads allowed to own 0MQ  sockets
---              was exceeded. See app_threads parameter to zmq_init function.
 
 end -- class ZMQ_CONTEXT
 

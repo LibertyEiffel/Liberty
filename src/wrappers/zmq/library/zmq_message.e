@@ -5,14 +5,15 @@ class ZMQ_MESSAGE
 inherit 
 	C_STRUCT redefine default_create end 
 	EIFFEL_OWNED redefine default_create, dispose end 
+	ZMQ_EXCEPTION_HANDLER
 insert
 	ZMQ_EXTERNALS redefine default_create end
-	ZMQ_MSG_T_STRUCT
+	ZMQ_MSG_T_STRUCT redefine default_create end
 	STDLIB_EXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
 
-creation {ANY} default_create, with_size
+creation {ANY} copy,default_create, with_size
 
 feature {} -- Creation
 	default_create is
@@ -23,7 +24,7 @@ feature {} -- Creation
 			res:=zmq_msg_init(handle)
 		end
 
-	with_size (a_size: NATURAL_32) is
+	with_size (a_size: like size) is
 		-- Initialize a ØMQ message `a_size' bytes long. The implementation
 		-- chooses whether it is more efficient to store message content on the
 		-- stack (small  messages) or  on  the  heap  (large  messages).
@@ -61,22 +62,30 @@ feature {} -- Creation
 	--	implementation: data=some_data.to_pointer and size=some_data.object_size.to_natural_32
 	--end
 
+feature {ANY} -- Queries
+	size: like zmq_msg_size is
+		-- the size of message content
+	
+		-- TODO: shall be like size_t
+	do
+		Result := zmq_msg_size(handle)
+	end
+
+feature -- Convertions.
+	as_string_message: ZMQ_STRING_MESSAGE is
+		-- A string message with the same content of
+	do
+		create Result.from_message(Current)
+	end
+
 feature {ANY} -- Disposing
 	dispose is
-		local rc: INTEGER_32
 		do
-			rc:=zmq_msg_close(handle)
-			check rc=0 end
+			close
 			free(handle)
 		end
 	
-	close is
-		local rc: INTEGER_32
-		do
-			rc:=zmq_msg_close(handle)
-			check rc=0 end
-		end
-	
+
 feature {ANY} -- Command
 	initialize is
 		-- Initialize message
@@ -91,14 +100,11 @@ feature {ANY} -- Command
 	end
 
 feature {} -- Implementation
-	size: NATURAL_32 is
-		-- the size of message content
+	close is
+		do
+			handle_return_value(zmq_msg_close(handle))
+		end
 	
-		-- TODO: shall be like size_t
-	do
-		Result := zmq_msg_size(handle)
-	end
-
 	data: POINTER is
 		do
 			Result:=zmq_msg_data(handle)

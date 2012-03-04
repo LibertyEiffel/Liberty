@@ -1,48 +1,94 @@
 class ZMQ_STRING_MESSAGE
-	-- A ØMQ message made by a string.
+	-- A ØMQ message containing some human-readable text.
 
 inherit 
 	ZMQ_MESSAGE
+		rename
+			is_equal as is_equal_message
+		undefine
+			fill_tagged_out_memory,
+			out_in_tagged_out_memory,
+			print_on
+		end
+	NATIVELY_STORED_STRING
+		undefine
+			default_create
+		redefine
+			ensure_capacity,
+			set_count,
+			set_storage,
+			storage
+		end
 
-creation
-	default_create, with_string
+creation default_create, from_string
+
+creation {ZMQ_MESSAGE} from_message
+
+creation {ZMQ_SOCKET} from_external_pointer
 
 feature {} -- Creation
-	with_string (a_string: FIXED_STRING) is
-		-- Initialize a ØMQ message with the content of `a_string'; the data is NOT
-		-- copied only referred by with a pointer. Current minimalist design of the
-		-- wrapper requires `a_string' at least not to change size during Current
-		-- message lifetime; FIXED_STRING ensures this.
+	from_message (a_message: ZMQ_MESSAGE) is
+		-- Initialize a text message with the same memory area of `a_message'
+	do
+		allocate
+		if zmq_msg_copy(handle, a_message.handle)/=0 then
+			
+		end
+	end
+
+	from_string (a_string: ABSTRACT_STRING) is
+		-- Initialize a ØMQ message with the content of `a_string'.
+	
+		-- Actually the message will be built using the intern of `a_string'.
+		-- This allows proper and optimal memory handling minimizing data copy. 
 	require a_string/=Void
 	local res: INTEGER_32; 
 	do
 		allocate
-		-- Keep a reference to `a_string'
-		string:=a_string
-		res:=zmq_msg_init_data(handle,a_string.to_external,a_string.count.to_natural_32,default_pointer, default_pointer)
-		-- The two default-pointers means that ØMQ will not free the data buffer, so we may use FIXED_STRING.from_external and avoid a copy
-	ensure
-		implementation: string=a_string --.to_external --and size = a_string.count.to_natural_32
-	end
+		-- Intern `a_string' to get a plain memory area containing the actual
+		-- content and store the interned string to avoid it being collected.
 
-feature -- 
-	to_string: ABSTRACT_STRING is
-		-- The actual content of the message
-	local s: STRING
-	do
-		if string=Void then
-			create string.from_external(data)
-			--string := s.intern
+		res:=zmq_msg_init_size(handle, a_string.count.to_natural_32)
+		if res/=0 then --handle error
+			not_yet_implemented
 		end
-		Result:=string
+		storage.copy_from(a_string.intern.storage, a_string.count)
+		
 	end
 
-feature {} -- Implementation
-	string: FIXED_STRING is
-		-- The actual content of the message
-		attribute
+feature -- Specializing natively stored string
+	set_count (new_count: like count) is do not_yet_implemented end
+	ensure_capacity (needed_capacity: like capacity) is do not_yet_implemented end
+	set_storage (new_storage: like storage; new_capacity: like capacity) is do not_yet_implemented end
+	storage: NATIVE_ARRAY[CHARACTER] is
+	do
+		Result := Result.from_pointer(zmq_msg_data(handle))
 	end
+
+	hash_code: INTEGER_32 is
+		do
+		end
 	
+	recycle is
+		do
+			-- nothing
+		end 
+		
+	to_external: POINTER is
+		do
+			Result := zmq_msg_data(handle)
+		end
+
+	intern: FIXED_STRING is
+		do
+			create Result.from_external_sized_copy(zmq_msg_data(handle),zmq_msg_size(handle).to_integer_32)
+		end
+	
+   	substring (start_index, end_index: INTEGER): like Current is
+		do
+			not_yet_implemented 
+		end
+
 end -- class ZMQ_STRING_MESSAGE
 
 -- Zero MQ Liberty Wrappers

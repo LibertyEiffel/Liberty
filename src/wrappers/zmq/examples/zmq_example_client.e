@@ -1,36 +1,39 @@
 class ZMQ_EXAMPLE_CLIENT
 creation make
 feature 
+	context: ZMQ_CONTEXT
+	socket: ZMQ_REQ_SOCKET
+	message, answer: ZMQ_STRING_MESSAGE
+
 	make is
-		local context: ZMQ_CONTEXT; socket: ZMQ_SOCKET; message, answer: ZMQ_STRING_MESSAGE; query: FIXED_STRING
+		local 
 		do
-			foo
-			create context -- Initialise 0MQ context with one application and one I/O thread
+			use_zmq
+			create context -- Initialise 0MQ context 
 			socket := context.new_req_socket -- to send requests and receive replies
 			-- Connect it to port 5555 on localhost using the TCP transport
 			socket.connect ("tcp://localhost:5555") 
 			-- Construct an example message with our query
-			create message.with_string("SELECT * FROM mytable".intern)
+			create message.from_string("SELECT * FROM mytable")
 			socket.send(message)
 
-			-- Receive and display the result
-			create answer
-			socket.receive(answer)
-			("Received answer: '"+answer.to_string+"'. (Note: DbC says that concatenating into ropes with '|' triggers some bugs; Paolo solve them!) %N").print_on(std_output)
-
-			-- Forever loop
-			from query:="SELECT * FROM mytable".intern until False loop
-				create message.with_string(query)
+			from until False loop -- forever
+				create message.from_string("SELECT * FROM mytable")
 				socket.send(message)
 
 				-- Receive and display the result
 				create answer
 				socket.receive(answer)
-				-- ("Received answer: '"+answer.to_string+"'.%N").print_on(std_output)
+				if socket.is_successful then
+					("Received answer: '"|answer|"'.%N").print_on(std_output)
+				else 
+					("Got an error%N").print_on(std_output)
+				end
 			end
 		end
-	foo is
-		-- Dummy plugin feature to work around SE bug
+
+	use_zmq is
+		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers
 		external "plug_in"
 		alias "{
 			location: "../library/externals/"

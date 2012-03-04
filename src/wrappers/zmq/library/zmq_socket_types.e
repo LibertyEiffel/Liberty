@@ -11,7 +11,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_P2P"
 		}"
 		end
@@ -25,7 +25,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_PUB"
 		}"
 		end
@@ -40,7 +40,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_SUB"
 		}"
 		end
@@ -54,7 +54,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_REQ"
 		}"
 		end
@@ -69,7 +69,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_REP"
 		}"
 		end
@@ -86,7 +86,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_XREQ"
 		}"
 		end
@@ -98,7 +98,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_XREP"
 		}"
 		end
@@ -112,7 +112,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externalsplugin"
 			feature_name: "ZMQ_UPSTREAM"
 		}"
 		end
@@ -126,7 +126,7 @@ feature {} -- Socket types
 		external "plug_in"
 		alias "{
 			location: "."
-			module_name: "plugin"
+			module_name: "externals/plugin"
 			feature_name: "ZMQ_DOWNSTREAM"
 		}"
 		end
