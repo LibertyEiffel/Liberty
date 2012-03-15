@@ -52,38 +52,16 @@ feature -- Comparison and copying
 
 feature -- Request-reply pattern
 
---        The request-reply pattern is used for sending requests from a client to one or more
---        instances of a service, and receiving subsequent replies to each request sent.
--- 
+	-- The request-reply pattern is used for sending requests from a client to
+	-- one or more instances of a service, and receiving subsequent replies to
+	-- each request sent.
 
 	new_req_socket: ZMQ_REQ_SOCKET is
--- 	   A socket of type ZMQ_REQ is used by a client to send requests to and receive replies
--- 	   from a service. This socket type allows only an alternating sequence of
--- 	   zmq_send(request) and subsequent zmq_recv(reply) calls. Each request sent is
--- 	   load-balanced among all services, and each reply received is matched with the last
--- 	   issued request.
--- 
--- 	   When a ZMQ_REQ socket enters an exceptional state due to having reached the high water
--- 	   mark for all services, or if there are no services at all, then any zmq_send(3)
--- 	   operations on the socket shall block until the exceptional state ends or at least one
--- 	   service becomes available for sending; messages are not discarded.
--- 
--- 	   Table 1. Summary of ZMQ_REQ characteristics
--- 	   Compatible peer sockets     ZMQ_REP
--- 
--- 	   Direction		       Bidirectional
--- 
--- 
--- 	   Send/receive pattern        Send, Receive, Send, Receive,
--- 				       ...
--- 
--- 	   Outgoing routing strategy   Load-balanced
--- 
--- 	   Incoming routing strategy   Last peer
--- 
--- 	   ZMQ_HWM option action       Block
--- 
--- 
+		-- A new ZMQ_REQ_SOCKET, that sends requests to and receives replies from a service.
+		-- This socket type allows only an alternating sequence of request -
+		-- sending a message - and subsequent reply - receiving an answer. Each
+		-- request sent is load-balanced among all services, and each reply
+		-- received is matched with the last issued request.
 	do
 		create Result.from_external_pointer (zmq_socket(handle,zmq_req))
 	ensure Result/=Void
@@ -92,35 +70,17 @@ feature -- Request-reply pattern
 	new_rep_socket: ZMQ_REP_SOCKET is
 		-- A new ZMQ_REP socket to receive requests from and send replies to a client. 
 
-		-- It allows only an alternating sequence of request (receive) and and
+		-- It allows only an alternating sequence of request (receive) and 
 		-- subsequent reply (send) commands. Each request received is
 		-- fair-queued from among all clients, and each reply sent is routed to
 		-- the client that issued the last request. If the original requester
 		-- doesn’t exist any more the reply is silently discarded.
 		
-		-- When a ZMQ_REP socket enters an exceptional state due to having
-		-- reached the high water mark for a client, then any replies sent to
-		-- the client in question shall be dropped until the exceptional state
-		-- ends.
-		
-		-- Summary of ZMQ_REP characteristics
-		-- - Compatible peer sockets     ZMQ_REQ
-		-- 
-		-- - Direction		       Bidirectional
-		-- 
-		-- - Send/receive pattern        Receive, Send, Receive, Send,
-		-- 				       ...
-		-- 
-		-- - Incoming routing strategy   Fair-queued
-		-- 
-		-- - Outgoing routing strategy   Last peer
-		-- 
-		-- 	- ZMQ_HWM option action       Drop
-	do
+			do
 		create Result.from_external_pointer(zmq_socket(handle,zmq_rep))
 	ensure Result/=Void
 	end
--- 
+
 --        ZMQ_DEALER
 -- 	   A socket of type ZMQ_DEALER is an advanced pattern used for extending request/reply
 -- 	   sockets. Each message sent is load-balanced among all connected peers, and each
@@ -193,53 +153,35 @@ feature -- Request-reply pattern
 -- 
 feature -- Publish-subscribe pattern
 
---        The publish-subscribe pattern is used for one-to-many distribution of data from a single
---        publisher to multiple subscribers in a fan out fashion.
--- 
---        ZMQ_PUB
--- 	   A socket of type ZMQ_PUB is used by a publisher to distribute data. Messages sent are
--- 	   distributed in a fan out fashion to all connected peers. The zmq_recv(3) function is
--- 	   not implemented for this socket type.
--- 
--- 	   When a ZMQ_PUB socket enters an exceptional state due to having reached the high water
--- 	   mark for a subscriber, then any messages that would be sent to the subscriber in
--- 	   question shall instead be dropped until the exceptional state ends. The zmq_send()
--- 	   function shall never block for this socket type.
--- 
--- 	   Table 5. Summary of ZMQ_PUB characteristics
--- 	   Compatible peer sockets     ZMQ_SUB
--- 
--- 	   Direction		       Unidirectional
--- 
--- 	   Send/receive pattern        Send only
--- 
--- 	   Incoming routing strategy   N/A
--- 
--- 
--- 
--- 	   Outgoing routing strategy   Fan out
--- 
--- 	   ZMQ_HWM option action       Drop
--- 
--- 
---        ZMQ_SUB
--- 	   A socket of type ZMQ_SUB is used by a subscriber to subscribe to data distributed by a
--- 	   publisher. Initially a ZMQ_SUB socket is not subscribed to any messages, use the
--- 	   ZMQ_SUBSCRIBE option of zmq_setsockopt(3) to specify which messages to subscribe to.
--- 	   The zmq_send() function is not implemented for this socket type.
--- 
--- 	   Table 6. Summary of ZMQ_SUB characteristics
--- 	   Compatible peer sockets     ZMQ_PUB
--- 
--- 	   Direction		       Unidirectional
--- 
--- 	   Send/receive pattern        Receive only
--- 
--- 	   Incoming routing strategy   Fair-queued
--- 
--- 	   Outgoing routing strategy   N/A
--- 
--- 	   ZMQ_HWM option action       Drop
+	-- The publish-subscribe pattern is used for one-to-many distribution of
+	-- data from a single publisher to multiple subscribers in a fan out
+	-- fashion.
+
+	new_pub_socket: ZMQ_PUB_SOCKET is
+		-- A new ZMQ_PUB_SOCKET, used by a publisher to distribute data.
+		-- Messages sent are distributed in a fan out fashion to all connected
+		-- peers. 
+
+		-- When a ZMQ_PUB_SOCKET enters an exceptional state due to having
+		-- reached the high water mark for a subscriber, then any messages that
+		-- would be sent to the subscriber in question shall instead be dropped
+		-- until the exceptional state ends. The `send' command shall never
+		-- block for this socket type.
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_pub))
+	ensure Result/=Void
+	end
+
+
+	new_sub_socket: ZMQ_SUB_SOCKET is
+		-- A new ZMQ_SUB_SOCKET used by a subscriber to subscribe to data
+		-- distributed by a publisher.  Initially this socket is not subscribed
+		-- to any messages, use `subscribe_to' or `subscribe_to_all' to specify
+		-- which messages to subscribe to. This is a receiving only socket.
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_sub))
+	ensure Result/=Void
+	end
 
 
 feature --    Pipeline pattern

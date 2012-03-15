@@ -13,8 +13,7 @@ inherit
 
 insert
 	ZMQ_EXTERNALS
-	ERRNO
-	EXCEPTIONS undefine copy, is_equal end
+	ZMQ_STATUS
 
 feature 
 	from_external_pointer (a_pointer: POINTER) is
@@ -34,52 +33,83 @@ feature
 
 feature {} -- Disposing
 	dispose is
-		local res: INTEGER
 		do
-			res := zmq_close(handle)	
-			-- TODO: handle return value
+			handle_return_value (zmq_close (handle))
 		end
 
 feature {ANY} -- Binding
 	bind (an_address: ABSTRACT_STRING) is 
 		-- Bind Current socket to a particular transport.
+
+--		      The zmq_bind() function shall create an endpoint for accepting connections and bind it to the socket referenced by the socket
+--       argument.
+--
+--       The endpoint argument is a string consisting of two parts as follows: transport://address. The transport part specifies the
+--       underlying transport protocol to use. The meaning of the address part is specific to the underlying transport protocol
+--       selected.
+--
+--       The following transports are defined:
+--
+--       inproc
+--           local in-process (inter-thread) communication transport, see zmq_inproc(7)
+--
+--       ipc
+--           local inter-process communication transport, see zmq_ipc(7)
+--
+--       tcp
+--           unicast transport using TCP, see zmq_tcp(7)
+--
+--       pgm, epgm
+--           reliable multicast transport using PGM, see zmq_pgm(7)
+--
+--       With the exception of ZMQ_PAIR sockets, a single socket may be connected to multiple endpoints using zmq_connect(), while
+--       simultaneously accepting incoming connections from multiple endpoints bound to the socket using zmq_bind(). Refer to
+--       zmq_socket(3) for a description of the exact semantics involved when connecting or binding a socket to multiple endpoints.
+--
 	require an_address/=Void
-	local res: INTEGER_32
 	do
-		res := zmq_bind(handle,an_address.to_external)
-		if res/=0 then 
-			raise(create {STRING}.from_external_copy(zmq_strerror(errno)))
-		end
+		is_successful := zmq_bind(handle,an_address.to_external)=0
+		if is_unsuccessful then throw(zmq_exception) end
 	end
 
 	connect (an_address: ABSTRACT_STRING) is
-		-- Connect Current socket to the peer identified by `an_address'.  Actual
-		-- semantics of the  command depend on the underlying transport mechanism,
-		-- however, in cases where peers connect in an asymetric manner, `bind'
-		-- should be called first, `connect' afterwards. Formats of `an_address' is
-		-- defined by individual transports. For a list of supported transports
-		-- have a look at zmq(7) manual page.
+		-- Connect Current socket to the endpoint specified by `an_address'.
 
-		-- Note that single socket can be connected (and bound) to arbitrary number of peers using different transport mechanisms.
+		-- `an_address' consists of two parts as follows: transport://address.
+		-- The transport part specifies the underlying transport protocol to
+		-- use. The meaning of the address part is specific to the underlying
+		-- transport protocolselected.
+		
+		-- The following transports are defined:
+		--
+		-- * inproc: local in-process (inter-thread) communication transport, see zmq_inproc(7) manpage
+		--
+		-- * ipc:    local inter-process communication transport, see zmq_ipc(7) manpage
+		--
+		-- * tcp:    unicast transport using TCP, see zmq_tcp(7) manpage.
+		--
+		-- * pgm, epgm: reliable multicast transport using PGM, see zmq_pgm(7)
+		
+		-- With the exception of ZMQ_PAIR sockets, a single socket may be
+		-- connected to multiple endpoints using `connect', while
+		-- simultaneously accepting incoming connections from multiple
+		-- endpoints bound to the socket using `bind'. See each effective heirs
+		-- of ZMQ_SOCKET and creation procedures in ZMQ_CONTEXT for a
+		-- description of the exact semantics involved when connecting or
+		-- binding a socket to multiple endpoints.
+		
+		-- Note: The connection will not be performed immediately but as needed
+		-- by 0MQ. Thus a successful invocation of `connect' does not indicate
+		-- that a physical connection was or can actually be established.
 	require an_address/=Void
-	local rc: INTEGER_32
 	do
-		rc:=zmq_connect(handle,an_address.to_external)
-		check
-			-- TODO: proper error handling
-			rc=0
-		end
+		is_successful := zmq_connect(handle,an_address.to_external)=0
+		if is_unsuccessful then throw(zmq_exception) end
 	end
-
-feature -- Status
-	is_successful: BOOLEAN 
-	-- Was last command successful?
 
 feature -- Options
 	type: INTEGER_32 is
-		--   ZMQ_TYPE: Retrieve socket type
-		--       The ZMQ_TYPE option shall retrieve the socket type for the specified socket. The socket type is specified at socket creation
-		--       time and cannot be modified afterwards.
+		-- The type of Current socket. It is specified at creation time and cannot be modified afterwards.
 		
 		--       Option value type	 int
 		--       Option value unit	 N/A
@@ -89,10 +119,8 @@ feature -- Options
 		local res, result_size: INTEGER 
 		do
 			result_size := Result.object_size
-			res := zmq_getsockopt(handle, zmq_type, $Result, $result_size)
-			check 
-				res=0 -- TODO proper error handling
-			end
+			is_successful := zmq_getsockopt(handle, zmq_type, $Result, $result_size)=0
+			if is_unsuccessful then throw(zmq_exception) end
 		end
 		
 	--   ZMQ_RCVMORE: More message parts to follow
@@ -437,7 +465,6 @@ feature {} -- Constants
 			feature_name: "ZMQ_TYPE"
 		}"
 		end
-		--   ZMQ_TYPE: Retrieve socket type
 		--   ZMQ_RCVMORE: More message parts to follow
 		--   ZMQ_HWM: Retrieve high water mark
 		--   ZMQ_SWAP: Retrieve disk offload size

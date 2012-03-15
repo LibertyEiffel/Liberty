@@ -5,8 +5,8 @@ class ZMQ_MESSAGE
 inherit 
 	C_STRUCT redefine default_create end 
 	EIFFEL_OWNED redefine default_create, dispose end 
-	ZMQ_EXCEPTION_HANDLER
 insert
+	ZMQ_STATUS
 	ZMQ_EXTERNALS redefine default_create end
 	ZMQ_MSG_T_STRUCT redefine default_create end
 	STDLIB_EXTERNALS redefine default_create end
@@ -18,10 +18,10 @@ creation {ANY} copy,default_create, with_size
 feature {} -- Creation
 	default_create is
 		-- Initialize an empty ØMQ message
-		local res: INTEGER_32
 		do
 			handle := malloc(struct_size)
-			res:=zmq_msg_init(handle)
+			is_successful:=zmq_msg_init(handle)=0
+			if is_unsuccessful then throw(zmq_exception) end
 		end
 
 	with_size (a_size: like size) is
@@ -33,7 +33,8 @@ feature {} -- Creation
 	local res: INTEGER_32
 	do
 		handle := malloc(struct_size)
-		res:=zmq_msg_init_size(handle,a_size)
+		is_successful:=zmq_msg_init_size(handle,a_size)=0
+		if is_unsuccessful then throw(zmq_exception) end
 	end
 
 	--with (some_data: ANY) is
@@ -89,14 +90,15 @@ feature {ANY} -- Disposing
 feature {ANY} -- Command
 	initialize is
 		-- Initialize message
-	local rc: INTEGER_32
 	do
-		rc := zmq_msg_init(handle)
-		check rc/=0 end
-		-- Note: It is debatable whenever the following style is reccomendedable:
-		-- if rc /= 0 then
-		-- 	raise(create {STRING}.from_external_copy(zmq_strerror(errno)))
-		-- end
+		is_successful := zmq_msg_init(handle)=0
+		if is_unsuccessful then throw(zmq_exception) end
+	end
+
+feature {ZMQ_RECEIVING_SOCKET}
+	update is
+		-- Do wantever is needed to update the status of Current. Used by receive commands of a ZMQ_RECEIVING_SOCKET
+	do
 	end
 
 feature {} -- Implementation

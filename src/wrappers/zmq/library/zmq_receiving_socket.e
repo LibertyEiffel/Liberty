@@ -17,13 +17,14 @@ feature {ANY} -- Receiving messages
 	require a_message/=Void
 	do
 		is_successful:= zmq_recv(handle,a_message.handle,zmq_noblock)=0
+		a_message.update
 	--ensure 
 	--	not is_successful implies a_message.is_equal(old a_message) and errno=eagain
 	--	is_successful or errno=eagain
 	end
 
 	wait_for (a_message: ZMQ_MESSAGE) is
-		-- Receive an eventual incoming message from Current socket, putting it
+		-- Wait until an incoming message in received by Current socket, putting it
 		-- into `a_message'; this command blocks until `a_message' is received. 
 		-- `is_successful' and `errno' are updated.	
 
@@ -54,7 +55,8 @@ feature {ANY} -- Receiving messages
 
 	require a_message/=Void
 	do
-		is_successful:=zmq_recv(handle,a_message.handle,zmq_noblock).to_boolean
+		is_successful:=zmq_recv(handle,a_message.handle,0)=0
+		a_message.update
 		-- Possible postconditions 
 		-- not is_successful implies a_message.is_equal(old a_message) and errno=eagain
 		-- is_successful or errno=eagain

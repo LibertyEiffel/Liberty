@@ -1,6 +1,7 @@
 class ZMQ_EXAMPLE_SERVER
 	-- Port of the server of the simple example at http://www.zeromq.org/area:docs-v20
-insert MEMORY -- To check for memory leaks
+insert 
+	UNISTD_EXTERNALS -- Some low-level Posix calls
 creation {} make
 feature
 	context: ZMQ_CONTEXT
@@ -8,27 +9,38 @@ feature
 	request, answer: ZMQ_STRING_MESSAGE
 
 	make is
+		local now: TIME; exc: ZMQ_EXCEPTION
 		do
 			--use_zmq
 			create context
 			socket := context.new_rep_socket
 			-- Bind to the TCP transport and port 5555 on the 'lo' interface
 			socket.bind("tcp://*:5555")
-
-			from until False loop -- i.e. "forever do"
-				create request
-				socket.receive(request)
-				if socket.is_successful then
-					("Received request: '"+request+"'.%N").print_on(std_output)
-					create answer.from_string(answer_body)
-					socket.send(answer) -- Send back our canned answer
-					full_collect -- To clean up Eiffel side and see if memory is leaked on C side
-				else 
+			
+			if socket.is_successful then
+				now.update;
+				("#(1): server online%N" # &now).print_on(std_output)
+				from until socket.is_unsuccessful loop -- i.e. "forever do"
+					("#(1): server listening%N" # &now).print_on(std_output)
+					create request
+					socket.wait_for(request)
+					now.update
+					if socket.is_successful then
+						("#(1): server #(2) received request '#(3)'.%N" # &now # &getpid # request).print_on(std_output)
+						create answer.from_string(answer_template # &getpid)
+						now.update;
+						("#(1): server #(2) answering '#(3)'.%N" # &now # &getpid # answer).print_on(std_output)
+						socket.send(answer) -- Send back our canned answer
+					else 
+						exc := socket.zmq_exception;
+						("#(1): unsuccessful receive '#(2)' (code #(3))%N" # &now # exc.description # & exc.error_code).print_on(std_output)
+					end
 				end
+			else ("#(1): unsuccessful bind '#(2)'%N" # &now # socket.zmq_exception.description).print_on(std_output)
 			end
 		end
 
-		answer_body: STRING is "OK"
+		answer_template: STRING is "Greetings by server ##(1)."
 
 	use_zmq is
 		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers

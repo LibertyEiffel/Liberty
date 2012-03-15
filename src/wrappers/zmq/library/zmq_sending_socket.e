@@ -5,12 +5,14 @@ inherit
 	ZMQ_SOCKET
 
 feature {ANY} -- Sending
-	send (a_message: ZMQ_MESSAGE) is
+	
+	post (a_message: ZMQ_MESSAGE) is
 		-- Enqueue `a_message' to be sent by Current socket. This command is
 		-- non-blocking as all Eiffel commands are in a concurrent enviroment.
 		-- Processing will flow to the next commands and queris without waiting for
 		-- the command to finish. If you need a syncronous, blocking behaviour
 		-- please use the `has_sent' query.
+
 
 		-- Note: `a_message' is destroyed (nullified) by this command. If you
 		-- want to send the same message to multiple sockets you have to copy
@@ -50,6 +52,43 @@ feature {ANY} -- Sending
 		-- coupled with the zero-copy architecture requirement that
 		-- significately concour to the efficiency of ZMQ means that an Eiffel
 		-- wrapper shall not offer such a query.
+	require a_message/=Void
+	do
+		is_successful := zmq_send(handle,a_message.handle,zmq_noblock)=0
+	end
+
+	send (a_message: ZMQ_MESSAGE) is
+		-- Enqueue `a_message' to be sent by Current socket. This command
+		-- blocks the control flow until finished. If you need a asyncronous,
+		-- non-blocking behaviour please use the `post' command.
+
+		-- Note: `a_message' is destroyed (nullified) by this command. If you
+		-- want to send the same message to multiple sockets you have to copy
+		-- it (with twin or copy).
+
+		-- Note: A successful invocation does not indicate that the message has
+		-- been transmitted to the network, only that it has been queued on the
+		-- socket and 0MQ has assumed responsibility for the message.
+
+		-- `is_successful' and `errno' are updated. Possible errno values:
+		
+		-- * eagain: Non-blocking mode was requested and the message cannot be sent at the moment.
+
+		-- * enotsup: the send operation is not supported by this socket type.
+
+		-- * efsm: send operation cannot be performed on this socket at the
+		-- moment due to the socket not being in the appropriate state. This
+		-- error may occur with socket types that switch between several
+		-- states, such as ZMQ_REP. See the messaging patterns section of
+		-- ZMQ_SOCKET for more information.
+		
+		-- * eterm: The 0MQ context associated with the specified socket was terminated.
+
+		-- * enotsock: The provided socket was invalid.
+
+		-- * eintr: The operation was interrupted by delivery of a signal before the message was sent.
+
+		-- * efault: Invalid message.
 	require a_message/=Void
 	do
 		is_successful := zmq_send(handle,a_message.handle,0)=0
