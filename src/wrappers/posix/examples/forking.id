@@ -1,0 +1,1315 @@
+|liberty:lib/loadpath.se:time/loadpath.se:
+188 "TIME_FORMATTER" l
+class-path: "/home/paolo/current-liberty/src/lib/time/time_formatter.e"
+class-name: TIME_FORMATTER
+assertion-level: boost
+parent-count: 1 insert: 167 
+#
+166 "TIME" l
+class-path: "/home/paolo/current-liberty/src/lib/time/time.e"
+class-name: TIME
+assertion-level: boost
+parent-count: 3 insert: 41 40 167 
+#
+146 "MICROSECOND_TIME" l
+class-path: "/home/paolo/current-liberty/src/lib/time/microsecond_time.e"
+class-name: MICROSECOND_TIME
+assertion-level: boost
+parent-count: 2 insert: 41 40 
+#
+|liberty:lib/loadpath.se:net/loadpath.se:low_level/
+168 "SOCKET" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/socket.e"
+class-name: SOCKET
+assertion-level: boost
+parent-count: 5 insert: 42 149 148 43 47 
+#
+147 "SOCKET_SERVER" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/socket_server.e"
+class-name: SOCKET_SERVER
+assertion-level: boost
+parent-count: 2 insert: 149 148 
+#
+149 "SOCKET_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/socket_handler.e"
+class-name: SOCKET_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+148 "SOCKET_PLUG_IN" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/socket_plug_in.e"
+class-name: SOCKET_PLUG_IN
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+175 "CLIENT_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/client_socket_input_output_stream.e"
+class-name: CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 158
+#
+169 "SERVER_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/net/low_level/server_socket_input_output_stream.e"
+class-name: SERVER_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 158
+#
+|liberty:lib/loadpath.se:io/loadpath.se:filesystem/path_name/
+173 "POSIX_PATH_NAME" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/posix_path_name.e"
+class-name: POSIX_PATH_NAME
+assertion-level: boost
+parent-count: 1 inherit: 174
+#
+185 "WINDOWS_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/windows_directory_notation.e"
+class-name: WINDOWS_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 154
+#
+153 "UNIX_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/unix_directory_notation.e"
+class-name: UNIX_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 154
+#
+187 "CYGWIN_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/cygwin_directory_notation.e"
+class-name: CYGWIN_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 156
+#
+183 "OPENVMS_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/openvms_directory_notation.e"
+class-name: OPENVMS_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 156
+#
+154 "PATH_NAME_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/path_name_notation.e"
+class-name: PATH_NAME_NOTATION
+assertion-level: boost
+parent-count: 2 inherit: 156 155
+#
+182 "MACINTOSH_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/macintosh_directory_notation.e"
+class-name: MACINTOSH_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 156
+#
+186 "MICROSOFT_PATH_NAME" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/microsoft_path_name.e"
+class-name: MICROSOFT_PATH_NAME
+assertion-level: boost
+parent-count: 1 inherit: 174
+#
+184 "AMIGA_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name/amiga_directory_notation.e"
+class-name: AMIGA_DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 inherit: 156
+#
+|liberty:lib/loadpath.se:net/loadpath.se:access/
+159 "TCP_ACCESS" l
+class-path: "/home/paolo/current-liberty/src/lib/net/access/tcp_access.e"
+class-name: TCP_ACCESS
+assertion-level: boost
+parent-count: 2 inherit: 160 insert: 148 
+#
+|liberty:lib/loadpath.se:numeric/loadpath.se:
+88 "NUMBER_TOOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/number_tools.e"
+class-name: NUMBER_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+71 "INTEGRAL" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integral.e"
+class-name: INTEGRAL
+assertion-level: boost
+parent-count: 3 inherit: 40 insert: 72 44 
+#
+4 "REAL_32" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/real_32.e"
+class-name: REAL_32
+assertion-level: boost
+parent-count: 1 insert: 73 
+#
+101 "NATURAL_64" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/natural_64.e"
+class-name: NATURAL_64
+assertion-level: boost
+parent-count: 1 insert: 98 
+#
+99 "NATURAL_8" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/natural_8.e"
+class-name: NATURAL_8
+assertion-level: boost
+parent-count: 1 insert: 98 
+#
+11 "INTEGER_64" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_64.e"
+class-name: INTEGER_64
+assertion-level: boost
+parent-count: 1 insert: 70 
+#
+91 "NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/number.e"
+class-name: NUMBER
+assertion-level: boost
+parent-count: 4 inherit: 41 40 72 insert: 44 
+#
+5 "REAL_64" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/real_64.e"
+class-name: REAL_64
+assertion-level: boost
+parent-count: 1 insert: 73 
+#
+98 "NATURAL_GENERAL" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/natural_general.e"
+class-name: NATURAL_GENERAL
+assertion-level: boost
+parent-count: 3 inherit: 40 41 insert: 44 
+#
+70 "INTEGER_GENERAL" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_general.e"
+class-name: INTEGER_GENERAL
+assertion-level: boost
+parent-count: 1 inherit: 71
+#
+90 "INTEGER_RANGE" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_range.e"
+class-name: INTEGER_RANGE
+assertion-level: boost
+parent-count: 1 inherit: 34
+#
+72 "NUMERIC" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/numeric.e"
+class-name: NUMERIC
+assertion-level: boost
+parent-count: 1 inherit: 41
+#
+74 "FLOAT" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/float.e"
+class-name: FLOAT
+assertion-level: boost
+parent-count: 2 inherit: 72 40
+#
+1 "INTEGER_8" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_8.e"
+class-name: INTEGER_8
+assertion-level: boost
+parent-count: 1 insert: 70 
+#
+5 "REAL" l
+#
+2 "INTEGER" l
+#
+97 "NATURAL_16" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/natural_16.e"
+class-name: NATURAL_16
+assertion-level: boost
+parent-count: 1 insert: 98 
+#
+12 "REAL_EXTENDED" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/real_extended.e"
+class-name: REAL_EXTENDED
+assertion-level: boost
+parent-count: 1 insert: 73 
+#
+73 "REAL_GENERAL" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/real_general.e"
+class-name: REAL_GENERAL
+assertion-level: boost
+parent-count: 1 inherit: 74
+#
+100 "NATURAL_32" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/natural_32.e"
+class-name: NATURAL_32
+assertion-level: boost
+parent-count: 1 insert: 98 
+#
+10 "INTEGER_16" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_16.e"
+class-name: INTEGER_16
+assertion-level: boost
+parent-count: 1 insert: 70 
+#
+126 "MUTABLE_BIG_INTEGER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/mutable_big_integer.e"
+class-name: MUTABLE_BIG_INTEGER
+assertion-level: boost
+parent-count: 3 inherit: 41 40 insert: 44 
+#
+2 "INTEGER_32" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/integer_32.e"
+class-name: INTEGER_32
+assertion-level: boost
+parent-count: 1 insert: 70 
+#
+|liberty:lib/loadpath.se:io/loadpath.se:basic/
+103 "TEXT_FILE_READ" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/text_file_read.e"
+class-name: TEXT_FILE_READ
+assertion-level: boost
+parent-count: 3 inherit: 104 56 insert: 42 
+#
+150 "TEXT_FILE_WRITE" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/text_file_write.e"
+class-name: TEXT_FILE_WRITE
+assertion-level: boost
+parent-count: 2 inherit: 104 52
+#
+152 "TEXT_FILE_READ_WRITE" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/text_file_read_write.e"
+class-name: TEXT_FILE_READ_WRITE
+assertion-level: boost
+parent-count: 3 inherit: 104 55 insert: 42 
+#
+51 "STD_ERROR" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/std_error.e"
+class-name: STD_ERROR
+assertion-level: boost
+parent-count: 2 inherit: 52 insert: 53 
+c-type: T51 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->OUTPUT_STREAM
+run-time-set-count: 1
+run-time-set:
+	STD_ERROR (51)
+#
+63 "STD_OUTPUT" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/std_output.e"
+class-name: STD_OUTPUT
+assertion-level: boost
+parent-count: 2 inherit: 52 insert: 53 
+c-type: T63 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->OUTPUT_STREAM
+run-time-set-count: 1
+run-time-set:
+	STD_OUTPUT (63)
+#
+64 "STD_INPUT" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/std_input.e"
+class-name: STD_INPUT
+assertion-level: boost
+parent-count: 3 inherit: 56 insert: 42 53 
+#
+54 "STD_INPUT_OUTPUT" l
+class-path: "/home/paolo/current-liberty/src/lib/io/basic/std_input_output.e"
+class-name: STD_INPUT_OUTPUT
+assertion-level: boost
+parent-count: 1 inherit: 55
+#
+|liberty:lib/loadpath.se:net/loadpath.se:
+133 "PROTOCOL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocol.e"
+class-name: PROTOCOL
+assertion-level: boost
+parent-count: 2 insert: 43 47 
+#
+160 "ACCESS" l
+class-path: "/home/paolo/current-liberty/src/lib/net/access.e"
+class-name: ACCESS
+assertion-level: boost
+parent-count: 1 insert: 149 
+#
+158 "SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/net/socket_input_output_stream.e"
+class-name: SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 55 insert: 149 42 
+#
+106 "URL_VALIDITY" l
+class-path: "/home/paolo/current-liberty/src/lib/net/url_validity.e"
+class-name: URL_VALIDITY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+135 "RESOURCE_LOCATOR" l
+class-path: "/home/paolo/current-liberty/src/lib/net/resource_locator.e"
+class-name: RESOURCE_LOCATOR
+assertion-level: boost
+parent-count: 1 insert: 43 
+#
+162 "ADDRESS" l
+class-path: "/home/paolo/current-liberty/src/lib/net/address.e"
+class-name: ADDRESS
+assertion-level: boost
+parent-count: 2 inherit: 41 insert: 13 
+#
+105 "URL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/url.e"
+class-name: URL
+assertion-level: boost
+parent-count: 3 insert: 41 43 106 
+#
+132 "PROTOCOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols.e"
+class-name: PROTOCOLS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:string/loadpath.se:low_level/
+181 "UNICODE_STRING_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/string/low_level/unicode_string_handler.e"
+class-name: UNICODE_STRING_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+42 "STRING_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/string/low_level/string_handler.e"
+class-name: STRING_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:wrappers/common/library/loadpath.se:
+69 "ERRNO" l
+class-path: "/home/paolo/current-liberty/src/wrappers/common/library/errno.e"
+class-name: ERRNO
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:iterator/loadpath.se:
+78 "ITERATOR" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/iterator.e"
+class-name: ITERATOR
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:numeric/loadpath.se:internal/
+123 "INTEGER_GENERAL_NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/integer_general_number.e"
+class-name: INTEGER_GENERAL_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 91
+#
+122 "INTEGER_64_NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/integer_64_number.e"
+class-name: INTEGER_64_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 123
+#
+127 "FRACTION_WITH_BIG_INTEGER_NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/fraction_with_big_integer_number.e"
+class-name: FRACTION_WITH_BIG_INTEGER_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 128
+#
+128 "FRACTION_GENERAL_NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/fraction_general_number.e"
+class-name: FRACTION_GENERAL_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 91
+#
+129 "BIG_INTEGER_NUMBER" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/big_integer_number.e"
+class-name: BIG_INTEGER_NUMBER
+assertion-level: boost
+parent-count: 1 inherit: 123
+#
+125 "INTEGER_RANGE_ITERATOR" l
+class-path: "/home/paolo/current-liberty/src/lib/numeric/internal/integer_range_iterator.e"
+class-name: INTEGER_RANGE_ITERATOR
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+|liberty:lib/loadpath.se:storage/loadpath.se:low_level/
+221 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
+#
+214 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
+#
+212 "NATIVE_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
+#
+115 "STRING_RECYCLING_ITEM" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/string_recycling_item.e"
+class-name: STRING_RECYCLING_ITEM
+assertion-level: boost
+parent-count: 1 insert: 13 
+c-type: T115 reference: no
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	STRING_RECYCLING_ITEM (115)
+#
+180 "ARRAYED_COLLECTION_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/arrayed_collection_handler.e"
+class-name: ARRAYED_COLLECTION_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+79 "NATIVE_ARRAY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/native_array.e"
+class-name: NATIVE_ARRAY
+assertion-level: boost
+parent-count: 1 insert: 77 
+#
+94 "RECYCLING_POOL" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/recycling_pool.e"
+class-name: RECYCLING_POOL
+assertion-level: boost
+parent-count: 2 insert: 27 13 
+#
+9 "NATIVE_ARRAY[CHARACTER]" l
+#
+65 "STRING_RECYCLING_POOL" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/string_recycling_pool.e"
+class-name: STRING_RECYCLING_POOL
+assertion-level: boost
+parent-count: 3 insert: 44 66 42 
+c-type: T65 reference: yes
+ref-status: live id-field: no 
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	STRING_RECYCLING_POOL (65)
+#
+193 "NATIVE_ARRAY[POSIX_PROCESS]" l
+#
+137 "STRING_RECYCLING_ITEM_SORTER" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/low_level/string_recycling_item_sorter.e"
+class-name: STRING_RECYCLING_ITEM_SORTER
+assertion-level: boost
+parent-count: 2 insert: 138 42 
+c-type: T137 reference: no
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	STRING_RECYCLING_ITEM_SORTER (137)
+#
+203 "NATIVE_ARRAY[STRING_RECYCLING_ITEM]" l
+#
+200 "NATIVE_ARRAY[STRING]" l
+#
+211 "NATIVE_ARRAY[FIXED_STRING]" l
+#
+|liberty:lib/loadpath.se:storage/loadpath.se:collection/
+206 "FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
+#
+205 "FAST_ARRAY[FIXED_STRING]" l
+#
+28 "FAST_ARRAY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/collection/fast_array.e"
+class-name: FAST_ARRAY
+assertion-level: boost
+parent-count: 3 inherit: 30 29 insert: 37 
+#
+192 "FAST_ARRAY[POSIX_PROCESS]" l
+#
+201 "FAST_ARRAY[STRING_RECYCLING_ITEM]" l
+#
+80 "ARRAY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/collection/array.e"
+class-name: ARRAY
+assertion-level: boost
+parent-count: 3 inherit: 30 29 insert: 37 
+#
+|liberty:lib/loadpath.se:net/loadpath.se:protocols/
+163 "HTTP_PROXY" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/http_proxy.e"
+class-name: HTTP_PROXY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+144 "TCP_PROTOCOL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/tcp_protocol.e"
+class-name: TCP_PROTOCOL
+assertion-level: boost
+parent-count: 2 inherit: 133 insert: 145 
+#
+142 "FILE_PROTOCOL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/file_protocol.e"
+class-name: FILE_PROTOCOL
+assertion-level: boost
+parent-count: 1 inherit: 133
+#
+164 "HTTP_CLIENT_INPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/http_client_input_stream.e"
+class-name: HTTP_CLIENT_INPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 112
+#
+143 "HTTP_PROTOCOL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/http_protocol.e"
+class-name: HTTP_PROTOCOL
+assertion-level: boost
+parent-count: 1 inherit: 144
+#
+165 "HTTP_CLIENT_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/http_client_output_stream.e"
+class-name: HTTP_CLIENT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 109
+#
+134 "STREAM_PROTOCOL" l
+class-path: "/home/paolo/current-liberty/src/lib/net/protocols/stream_protocol.e"
+class-name: STREAM_PROTOCOL
+assertion-level: boost
+parent-count: 1 inherit: 133
+#
+|liberty:lib/loadpath.se:abilities/loadpath.se:
+36 "STORABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/storable.e"
+class-name: STORABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+43 "RECYCLABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/recyclable.e"
+class-name: RECYCLABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+31 "SEARCHABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/searchable.e"
+class-name: SEARCHABLE
+assertion-level: boost
+parent-count: 1 inherit: 32
+#
+41 "HASHABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/hashable.e"
+class-name: HASHABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+34 "TRAVERSABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/traversable.e"
+class-name: TRAVERSABLE
+assertion-level: boost
+parent-count: 2 inherit: 35 32
+#
+32 "INDEXABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/indexable.e"
+class-name: INDEXABLE
+assertion-level: boost
+parent-count: 1 inherit: 33
+#
+47 "DISPOSABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/disposable.e"
+class-name: DISPOSABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+35 "ITERABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/iterable.e"
+class-name: ITERABLE
+assertion-level: boost
+parent-count: 1 inherit: 33
+#
+40 "COMPARABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/comparable.e"
+class-name: COMPARABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:sequencer/loadpath.se:
+107 "EVENT_DESCRIPTOR" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/event_descriptor.e"
+class-name: EVENT_DESCRIPTOR
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+136 "EVENTS_SET" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/events_set.e"
+class-name: EVENTS_SET
+assertion-level: boost
+parent-count: 2 insert: 13 44 
+#
+|liberty:lib/loadpath.se:io/loadpath.se:internal/
+174 "UNIXISH_PATH_NAME" l
+class-path: "/home/paolo/current-liberty/src/lib/io/internal/unixish_path_name.e"
+class-name: UNIXISH_PATH_NAME
+assertion-level: boost
+parent-count: 1 inherit: 172
+#
+48 "FILTERABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/io/internal/filterable.e"
+class-name: FILTERABLE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+155 "PATH_JOINER" l
+class-path: "/home/paolo/current-liberty/src/lib/io/internal/path_joiner.e"
+class-name: PATH_JOINER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:io/loadpath.se:core/
+56 "TERMINAL_INPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/terminal_input_stream.e"
+class-name: TERMINAL_INPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 57
+#
+55 "TERMINAL_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/terminal_input_output_stream.e"
+class-name: TERMINAL_INPUT_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 56 52 48
+#
+109 "FILTER_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/filter_output_stream.e"
+class-name: FILTER_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 2 inherit: 45 insert: 96 
+c-type: T109 reference: yes
+ref-status: dead 
+destination-graph-nodes: none
+run-time-set-count: 0
+#
+52 "TERMINAL_OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/terminal_output_stream.e"
+class-name: TERMINAL_OUTPUT_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 45
+#
+96 "FILTER" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/filter.e"
+class-name: FILTER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+112 "FILTER_INPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/filter_input_stream.e"
+class-name: FILTER_INPUT_STREAM
+assertion-level: boost
+parent-count: 2 inherit: 57 insert: 96 
+#
+104 "FILE_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/file_stream.e"
+class-name: FILE_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 46
+#
+45 "OUTPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/output_stream.e"
+class-name: OUTPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 46 insert: 49 48 
+c-type: T45 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 2
+run-time-set:
+	STD_ERROR (51)
+	STD_OUTPUT (63)
+#
+46 "STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/stream.e"
+class-name: STREAM
+assertion-level: boost
+parent-count: 2 insert: 43 47 
+#
+57 "INPUT_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/io/core/input_stream.e"
+class-name: INPUT_STREAM
+assertion-level: boost
+parent-count: 3 inherit: 46 insert: 58 48 
+#
+|liberty:lib/loadpath.se:sequencer/loadpath.se:events/
+170 "NETWORK_CONNECTION_OCCURRED" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/events/network_connection_occurred.e"
+class-name: NETWORK_CONNECTION_OCCURRED
+assertion-level: boost
+parent-count: 1 inherit: 107
+#
+108 "STREAM_EXCEPTION" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/events/stream_exception.e"
+class-name: STREAM_EXCEPTION
+assertion-level: boost
+parent-count: 1 inherit: 107
+#
+113 "CAN_READ_DATA_FROM_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/events/can_read_data_from_stream.e"
+class-name: CAN_READ_DATA_FROM_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 107
+#
+110 "CAN_WRITE_DATA_TO_STREAM" l
+class-path: "/home/paolo/current-liberty/src/lib/sequencer/events/can_write_data_to_stream.e"
+class-name: CAN_WRITE_DATA_TO_STREAM
+assertion-level: boost
+parent-count: 1 inherit: 107
+#
+|Local Loadpath:../loadpath.se:library/loadpath.se:externals/
+68 "UNISTD_EXTERNALS" l
+class-path: "/media/Liberty/tybor-liberty/src/wrappers/posix/library/externals/unistd_externals.e"
+class-name: UNISTD_EXTERNALS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:time/loadpath.se:low_level/
+167 "TIME_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/time/low_level/time_handler.e"
+class-name: TIME_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:exec/loadpath.se:
+178 "SYSTEM" l
+class-path: "/home/paolo/current-liberty/src/lib/exec/system.e"
+class-name: SYSTEM
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:net/loadpath.se:address/
+161 "HOST" l
+class-path: "/home/paolo/current-liberty/src/lib/net/address/host.e"
+class-name: HOST
+assertion-level: boost
+parent-count: 2 inherit: 162 insert: 148 
+#
+176 "IP_ADDRESS" l
+class-path: "/home/paolo/current-liberty/src/lib/net/address/ip_address.e"
+class-name: IP_ADDRESS
+assertion-level: boost
+parent-count: 1 inherit: 162
+#
+|liberty:lib/loadpath.se:design_patterns/
+60 "SINGLETON" l
+class-path: "/home/paolo/current-liberty/src/lib/design_patterns/singleton.e"
+class-name: SINGLETON
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:iterator/loadpath.se:internal/
+131 "ITERATOR_ON_UNICODE_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/internal/iterator_on_unicode_string.e"
+class-name: ITERATOR_ON_UNICODE_STRING
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+93 "ITERATOR_ON_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/internal/iterator_on_string.e"
+class-name: ITERATOR_ON_STRING
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+117 "ITERATOR_ON_DICTIONARY_ITEMS" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/internal/iterator_on_dictionary_items.e"
+class-name: ITERATOR_ON_DICTIONARY_ITEMS
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+95 "ITERATOR_ON_TRAVERSABLE" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/internal/iterator_on_traversable.e"
+class-name: ITERATOR_ON_TRAVERSABLE
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+120 "ITERATOR_ON_DICTIONARY_KEYS" l
+class-path: "/home/paolo/current-liberty/src/lib/iterator/internal/iterator_on_dictionary_keys.e"
+class-name: ITERATOR_ON_DICTIONARY_KEYS
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+|liberty:lib/loadpath.se:kernel/loadpath.se:
+14 "TUPLE" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE
+assertion-level: boost
+parent-count: 1 inherit: 13
+#
+44 "PLATFORM" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/platform.e"
+class-name: PLATFORM
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+217 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
+#
+199 "WEAK_REFERENCE[ABSTRACT_STRING]" l
+#
+209 "FUNCTION[TUPLE[FIXED_STRING],BOOLEAN]" l
+#
+191 "TUPLE[INTEGER_8]" l
+#
+76 "ROUTINE" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/routine.e"
+class-name: ROUTINE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+204 "WEAK_REFERENCE[STRING]" l
+#
+195 "REFERENCE[STRING]" l
+#
+75 "FUNCTION" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/function.e"
+class-name: FUNCTION
+assertion-level: boost
+parent-count: 1 inherit: 76
+#
+216 "WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE]" l
+#
+6 "BOOLEAN" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/boolean.e"
+class-name: BOOLEAN
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+189 "PROCEDURE[TUPLE]" l
+#
+197 "FUNCTION[TUPLE,STRING]" l
+#
+219 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
+#
+111 "WEAK_REFERENCE" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/weak_reference.e"
+class-name: WEAK_REFERENCE
+assertion-level: boost
+parent-count: 1 inherit: 13
+#
+8 "POINTER" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/pointer.e"
+class-name: POINTER
+assertion-level: boost
+parent-count: 2 insert: 41 42 
+#
+15 "TUPLE 1" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 1
+assertion-level: boost
+parent-count: 1 inherit: 14
+#
+16 "TUPLE 2" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 2
+assertion-level: boost
+parent-count: 1 inherit: 15
+#
+13 "ANY" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/any.e"
+class-name: ANY
+assertion-level: boost
+parent-count: 0
+#
+17 "TUPLE 3" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 3
+assertion-level: boost
+parent-count: 1 inherit: 16
+#
+18 "TUPLE 4" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 4
+assertion-level: boost
+parent-count: 1 inherit: 17
+#
+19 "TUPLE 5" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 5
+assertion-level: boost
+parent-count: 1 inherit: 18
+#
+20 "TUPLE 6" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 6
+assertion-level: boost
+parent-count: 1 inherit: 19
+#
+21 "TUPLE 7" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 7
+assertion-level: boost
+parent-count: 1 inherit: 20
+#
+22 "TUPLE 8" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 8
+assertion-level: boost
+parent-count: 1 inherit: 21
+#
+23 "TUPLE 9" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 9
+assertion-level: boost
+parent-count: 1 inherit: 22
+#
+26 "REFERENCE" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/reference.e"
+class-name: REFERENCE
+assertion-level: boost
+parent-count: 1 inherit: 13
+#
+210 "TUPLE[FIXED_STRING]" l
+#
+190 "PROCEDURE[TUPLE[INTEGER_8]]" l
+#
+77 "SAFE_EQUAL" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/safe_equal.e"
+class-name: SAFE_EQUAL
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+198 "FUNCTION[TUPLE,ABSTRACT_STRING]" l
+#
+196 "SAFE_EQUAL[CHARACTER]" l
+#
+24 "TUPLE 10" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/tuple.e"
+class-name: TUPLE 10
+assertion-level: boost
+parent-count: 1 inherit: 23
+#
+116 "PROCEDURE" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/procedure.e"
+class-name: PROCEDURE
+assertion-level: boost
+parent-count: 1 inherit: 76
+#
+207 "WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]" l
+#
+66 "MEMORY" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/memory.e"
+class-name: MEMORY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:storage/loadpath.se:dictionary/
+83 "ABSTRACT_HASHED_DICTIONARY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/dictionary/abstract_hashed_dictionary.e"
+class-name: ABSTRACT_HASHED_DICTIONARY
+assertion-level: boost
+parent-count: 2 inherit: 84 insert: 87 
+#
+82 "HASHED_DICTIONARY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/dictionary/hashed_dictionary.e"
+class-name: HASHED_DICTIONARY
+assertion-level: boost
+parent-count: 1 inherit: 83
+#
+208 "HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
+#
+218 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+#
+|liberty:lib/loadpath.se:sorting/
+138 "ABSTRACT_SORTER" l
+class-path: "/home/paolo/current-liberty/src/lib/sorting/abstract_sorter.e"
+class-name: ABSTRACT_SORTER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:string/loadpath.se:internal/
+124 "ITERATOR_ON_ROPE" l
+class-path: "/home/paolo/current-liberty/src/lib/string/internal/iterator_on_rope.e"
+class-name: ITERATOR_ON_ROPE
+assertion-level: boost
+parent-count: 1 inherit: 78
+#
+92 "PARTIALLY_FILLED_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/internal/partially_filled_string.e"
+class-name: PARTIALLY_FILLED_STRING
+assertion-level: boost
+parent-count: 1 inherit: 39
+#
+|liberty:lib/loadpath.se:io/loadpath.se:filesystem/
+172 "PATH_NAME" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/path_name.e"
+class-name: PATH_NAME
+assertion-level: boost
+parent-count: 1 inherit: 155
+#
+156 "DIRECTORY_NOTATION" l
+class-path: "/home/paolo/current-liberty/src/lib/io/filesystem/directory_notation.e"
+class-name: DIRECTORY_NOTATION
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:io/loadpath.se:tools/
+59 "STANDARD_STREAMS" l
+class-path: "/home/paolo/current-liberty/src/lib/io/tools/standard_streams.e"
+class-name: STANDARD_STREAMS
+assertion-level: boost
+parent-count: 1 insert: 60 
+#
+177 "FILE_TOOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/io/tools/file_tools.e"
+class-name: FILE_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:net/loadpath.se:resource_locators/
+157 "NETWORK_RESOURCE_LOCATOR" l
+class-path: "/home/paolo/current-liberty/src/lib/net/resource_locators/network_resource_locator.e"
+class-name: NETWORK_RESOURCE_LOCATOR
+assertion-level: boost
+parent-count: 2 inherit: 135 insert: 145 
+#
+151 "FILE_RESOURCE_LOCATOR" l
+class-path: "/home/paolo/current-liberty/src/lib/net/resource_locators/file_resource_locator.e"
+class-name: FILE_RESOURCE_LOCATOR
+assertion-level: boost
+parent-count: 1 inherit: 135
+#
+145 "NETWORK_RESOURCE_VALIDITY" l
+class-path: "/home/paolo/current-liberty/src/lib/net/resource_locators/network_resource_validity.e"
+class-name: NETWORK_RESOURCE_VALIDITY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|Local Loadpath:.
+25 "FORKING" l
+class-path: "/media/Liberty/tybor-liberty/src/wrappers/posix/examples/forking.e"
+class-name: FORKING
+assertion-level: boost
+parent-count: 1 insert: 13 
+c-type: T25 reference: yes
+ref-status: live id-field: no 
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	FORKING (25)
+#
+179 "MY_CHILD" l
+class-path: "/media/Liberty/tybor-liberty/src/wrappers/posix/examples/my_child.e"
+class-name: MY_CHILD
+assertion-level: boost
+parent-count: 1 inherit: 67
+c-type: T179 reference: yes
+ref-status: live id-field: no 
+destination-graph-nodes: ->POSIX_PROCESS
+run-time-set-count: 1
+run-time-set:
+	MY_CHILD (179)
+#
+|liberty:lib/loadpath.se:parse/loadpath.se:
+141 "MINI_PARSER_MEMORY" l
+class-path: "/home/paolo/current-liberty/src/lib/parse/mini_parser_memory.e"
+class-name: MINI_PARSER_MEMORY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+121 "MINI_PARSER_BUFFER" l
+class-path: "/home/paolo/current-liberty/src/lib/parse/mini_parser_buffer.e"
+class-name: MINI_PARSER_BUFFER
+assertion-level: boost
+parent-count: 1 insert: 42 
+#
+139 "PARSE_ERROR" l
+class-path: "/home/paolo/current-liberty/src/lib/parse/parse_error.e"
+class-name: PARSE_ERROR
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+140 "DEFAULT_MINI_PARSER_MEMORY" l
+class-path: "/home/paolo/current-liberty/src/lib/parse/default_mini_parser_memory.e"
+class-name: DEFAULT_MINI_PARSER_MEMORY
+assertion-level: boost
+parent-count: 1 inherit: 141
+#
+|liberty:lib/loadpath.se:abilities/loadpath.se:internal/
+33 "HOARD" l
+class-path: "/home/paolo/current-liberty/src/lib/abilities/internal/hoard.e"
+class-name: HOARD
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:storage/loadpath.se:internal/
+118 "HASHED_DICTIONARY_NODE" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/internal/hashed_dictionary_node.e"
+class-name: HASHED_DICTIONARY_NODE
+assertion-level: boost
+parent-count: 1 inherit: 119
+#
+29 "ARRAYED_COLLECTION" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/internal/arrayed_collection.e"
+class-name: ARRAYED_COLLECTION
+assertion-level: boost
+parent-count: 1 inherit: 30
+#
+119 "ANY_HASHED_DICTIONARY_NODE" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/internal/any_hashed_dictionary_node.e"
+class-name: ANY_HASHED_DICTIONARY_NODE
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+220 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+#
+213 "HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
+#
+87 "HASH_TABLE_SIZE" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/internal/hash_table_size.e"
+class-name: HASH_TABLE_SIZE
+assertion-level: boost
+parent-count: 1 insert: 44 
+#
+|Local Loadpath:../loadpath.se:library/loadpath.se:.
+67 "POSIX_PROCESS" l
+class-path: "/media/Liberty/tybor-liberty/src/wrappers/posix/library/posix_process.e"
+class-name: POSIX_PROCESS
+assertion-level: boost
+parent-count: 2 insert: 69 68 
+c-type: T67 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 1
+run-time-set:
+	MY_CHILD (179)
+#
+|liberty:lib/loadpath.se:kernel/loadpath.se:internal/
+37 "NATIVE_ARRAY_COLLECTOR" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/internal/native_array_collector.e"
+class-name: NATIVE_ARRAY_COLLECTOR
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+130 "NATIVE_ARRAY_INTERNALS" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/internal/native_array_internals.e"
+class-name: NATIVE_ARRAY_INTERNALS
+assertion-level: boost
+parent-count: 1 inherit: 61
+#
+114 "INTERNALS_HANDLER" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/internal/internals_handler.e"
+class-name: INTERNALS_HANDLER
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+61 "TYPED_INTERNALS" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/internal/typed_internals.e"
+class-name: TYPED_INTERNALS
+assertion-level: boost
+parent-count: 1 inherit: 62
+#
+62 "INTERNALS" l
+class-path: "/home/paolo/current-liberty/src/lib/kernel/internal/internals.e"
+class-name: INTERNALS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+|liberty:lib/loadpath.se:storage/loadpath.se:
+27 "STACK" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/stack.e"
+class-name: STACK
+assertion-level: boost
+parent-count: 2 insert: 28 13 
+#
+86 "MAP" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/map.e"
+class-name: MAP
+assertion-level: boost
+parent-count: 1 inherit: 34
+#
+194 "STACK[STRING]" l
+#
+85 "DICTIONARY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/dictionary.e"
+class-name: DICTIONARY
+assertion-level: boost
+parent-count: 1 inherit: 86
+#
+84 "SIMPLE_DICTIONARY" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/simple_dictionary.e"
+class-name: SIMPLE_DICTIONARY
+assertion-level: boost
+parent-count: 1 inherit: 85
+#
+215 "DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+#
+202 "COLLECTION[STRING_RECYCLING_ITEM]" l
+#
+30 "COLLECTION" l
+class-path: "/home/paolo/current-liberty/src/lib/storage/collection.e"
+class-name: COLLECTION
+assertion-level: boost
+parent-count: 3 inherit: 36 34 31
+#
+|liberty:lib/loadpath.se:string/loadpath.se:
+3 "CHARACTER" l
+class-path: "/home/paolo/current-liberty/src/lib/string/character.e"
+class-name: CHARACTER
+assertion-level: boost
+parent-count: 3 insert: 41 40 44 
+#
+50 "LAZY_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/lazy_string.e"
+class-name: LAZY_STRING
+assertion-level: boost
+parent-count: 1 inherit: 39
+#
+7 "STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/string.e"
+class-name: STRING
+assertion-level: boost
+parent-count: 1 inherit: 38
+#
+102 "UNICODE_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/unicode_string.e"
+class-name: UNICODE_STRING
+assertion-level: boost
+parent-count: 5 inherit: 41 40 34 31 43
+#
+81 "FIXED_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/fixed_string.e"
+class-name: FIXED_STRING
+assertion-level: boost
+parent-count: 1 inherit: 38
+c-type: T81 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 0
+#
+38 "NATIVELY_STORED_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/natively_stored_string.e"
+class-name: NATIVELY_STORED_STRING
+assertion-level: boost
+parent-count: 1 inherit: 39
+c-type: T38 reference: yes
+ref-status: dead 
+destination-graph-nodes: ->FIXED_STRING
+run-time-set-count: 1
+run-time-set:
+	STRING (7)
+#
+89 "ROPE" l
+class-path: "/home/paolo/current-liberty/src/lib/string/rope.e"
+class-name: ROPE
+assertion-level: boost
+parent-count: 1 inherit: 39
+c-type: T89 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->ABSTRACT_STRING
+run-time-set-count: 1
+run-time-set:
+	ROPE (89)
+#
+39 "ABSTRACT_STRING" l
+class-path: "/home/paolo/current-liberty/src/lib/string/abstract_string.e"
+class-name: ABSTRACT_STRING
+assertion-level: boost
+parent-count: 8 inherit: 41 40 36 34 31 insert: 44 43 42 
+c-type: T39 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 2
+run-time-set:
+	STRING (7)
+	ROPE (89)
+#
+|liberty:lib/loadpath.se:io/loadpath.se:low_level/
+171 "BASIC_DIRECTORY" l
+class-path: "/home/paolo/current-liberty/src/lib/io/low_level/basic_directory.e"
+class-name: BASIC_DIRECTORY
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+53 "REDIRECTION_TOOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/io/low_level/redirection_tools.e"
+class-name: REDIRECTION_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+49 "OUTPUT_STREAM_TOOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/io/low_level/output_stream_tools.e"
+class-name: OUTPUT_STREAM_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 42 
+#
+58 "INPUT_STREAM_TOOLS" l
+class-path: "/home/paolo/current-liberty/src/lib/io/low_level/input_stream_tools.e"
+class-name: INPUT_STREAM_TOOLS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
