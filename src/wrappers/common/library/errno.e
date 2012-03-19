@@ -11,5 +11,26 @@ feature {}
 			feature_name: "errno"
 		}"
 		end
+
+
+	enomem: INTEGER_32 is
+		external "plug_in"
+		alias "{
+			location: "externals"
+			module_name: "plugin"
+			feature_name: "ENOMEM"
+		}"
+		end
+
+	eagain: INTEGER_32 is
+		external "plug_in"
+		alias "{
+			location: "externals"
+			module_name: "plugin"
+			feature_name: "EAGAIN"
+		}"
+		end
+
+
 end -- class ERRNO
 
