@@ -185,61 +185,65 @@ feature -- Publish-subscribe pattern
 
 
 feature --    Pipeline pattern
-
+	
 	-- The pipeline pattern is used for distributing data to nodes arranged in
 	-- a pipeline. Data always flows down the pipeline, and each stage of the
 	-- pipeline is connected to at least one node. When a pipeline stage is
 	-- connected to multiple nodes data is load-balanced among all connected
 	-- nodes.
 
-	--        ZMQ_PUSH
--- 	   A socket of type ZMQ_PUSH is used by a pipeline node to send messages to downstream
--- 	   pipeline nodes. Messages are load-balanced to all connected downstream nodes. The
--- 	   zmq_recv() function is not implemented for this socket type.
--- 
--- 	   When a ZMQ_PUSH socket enters an exceptional state due to having reached the high
--- 	   water mark for all downstream nodes, or if there are no downstream nodes at all, then
--- 	   any zmq_send(3) operations on the socket shall block until the exceptional state ends
--- 	   or at least one downstream node becomes available for sending; messages are not
--- 	   discarded.
--- 
--- 	   Deprecated alias: ZMQ_DOWNSTREAM.
--- 
--- 	   Table 7. Summary of ZMQ_PUSH characteristics
--- 	   Compatible peer sockets     ZMQ_PULL
--- 
--- 	   Direction		       Unidirectional
--- 
--- 	   Send/receive pattern        Send only
--- 
--- 	   Incoming routing strategy   N/A
--- 
--- 	   Outgoing routing strategy   Load-balanced
--- 
--- 	   ZMQ_HWM option action       Block
--- 
--- 
---        ZMQ_PULL
--- 	   A socket of type ZMQ_PULL is used by a pipeline node to receive messages from upstream
--- 	   pipeline nodes. Messages are fair-queued from among all connected upstream nodes. The
--- 	   zmq_send() function is not implemented for this socket type.
--- 
--- 	   Deprecated alias: ZMQ_UPSTREAM.
--- 
--- 	   Table 8. Summary of ZMQ_PULL characteristics
--- 	   Compatible peer sockets     ZMQ_PUSH
--- 
--- 	   Direction		       Unidirectional
--- 
--- 	   Send/receive pattern        Receive only
--- 
--- 	   Incoming routing strategy   Fair-queued
--- 
--- 	   Outgoing routing strategy   N/A
--- 
--- 	   ZMQ_HWM option action       N/A
--- 
--- 
+	new_push_socket: ZMQ_PUSH_SOCKET is
+		-- A new socket used in a pipeline node to send messages to downstream
+		-- pipeline nodes. Messages are load-balanced to all connected
+		-- downstream nodes. 
+		
+		-- When a ZMQ_PUSH_SOCKET enters an exceptional state due to having
+		-- reached the high water mark for all downstream nodes, or if there
+		-- are no downstream nodes at all, then any send operations on the
+		-- socket shall block until the exceptional state ends or at least one
+		-- downstream node becomes available for sending; messages are not
+		-- discarded.
+		 
+		--   Summary of ZMQ_PUSH characteristics
+		--   Compatible peer sockets     ZMQ_PULL
+		--
+		--   Direction		       Unidirectional
+		--
+		--   Send/receive pattern        Send only
+		--
+		--   Incoming routing strategy   N/A
+		--
+		--   Outgoing routing strategy   Load-balanced
+		--
+		--   ZMQ_HWM option action       Block
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_push))
+	ensure Result/=Void
+	end
+
+	new_pull_socket: ZMQ_PULL_SOCKET is
+		--
+		--        ZMQ_PULL
+		-- 	   A socket of type ZMQ_PULL is used by a pipeline node to receive messages from upstream
+		-- 	   pipeline nodes. Messages are fair-queued from among all connected upstream nodes. The
+		-- 	   zmq_send() function is not implemented for this socket type.
+		-- 
+		-- 	   Deprecated alias: ZMQ_UPSTREAM.
+		-- 
+		-- 	   Table 8. Summary of ZMQ_PULL characteristics
+		-- 	   Compatible peer sockets     ZMQ_PUSH
+		-- 
+		-- 	   Direction		       Unidirectional
+		-- 
+		-- 	   Send/receive pattern        Receive only
+		-- 
+		-- 	   Incoming routing strategy   Fair-queued
+		-- 
+		-- 	   Outgoing routing strategy   N/A
+		-- 
+		-- 	   ZMQ_HWM option action       N/A
+		-- 
+		-- 
 feature -- Exclusive pair pattern
 
 --        The exclusive pair pattern is used to connect a peer to precisely one other peer. This
