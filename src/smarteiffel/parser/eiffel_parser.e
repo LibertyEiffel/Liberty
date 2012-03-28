@@ -26,6 +26,8 @@ feature {ANY}
          -- True when the parser is running (i.e. parsing of the current class
          -- is not finished).
 
+   total_time: INTEGER_64
+
 feature {SMART_EIFFEL}
    analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT is
       require
@@ -37,7 +39,9 @@ feature {SMART_EIFFEL}
          parser_buffer.is_ready
       local
          old_nbe, old_nbw: INTEGER; path: STRING; cn: HASHED_STRING
+         start_time, end_time: MICROSECOND_TIME
       do
+         start_time.update
          check
             as_predicate = class_name.to_string
                implies smart_eiffel.short_or_class_check_flag or smart_eiffel.pretty_flag
@@ -113,6 +117,9 @@ feature {SMART_EIFFEL}
             is_running := False
             Result.initialize_and_check_level_1
          end
+         end_time.update
+
+         total_time := total_time + (end_time.timestamp - start_time.timestamp)
       ensure
          not parser_buffer.is_ready
       end
@@ -286,6 +293,55 @@ feature {CECIL_FILE}
       end
 
 feature {SMART_EIFFEL}
+   echo_information is
+      do
+         show_total_time
+         show_nb_warnings
+         show_nb_errors
+      end
+
+feature {}
+   show_total_time is
+      local
+         ts, h, m, s, u: INTEGER_64
+      do
+         echo.put_string("Total time spent in parser: ")
+         ts := total_time
+         h := ts // (24 * 60 * 60 * 1000000)
+         ts := ts - h * (24 * 60 * 60 * 1000000)
+         m := ts // (60 * 60 * 1000000)
+         ts := ts - m * (60 * 60 * 1000000)
+         s := ts // (60 * 1000000)
+         ts := ts - s * (60 * 1000000)
+         u := ts
+         echo_num(h, 2)
+         echo.put_character(':')
+         echo_num(m, 2)
+         echo.put_character(':')
+         echo_num(s, 2)
+         echo.put_character('.')
+         echo_num(u, 6)
+         echo.put_new_line
+      end
+
+   echo_num (num: INTEGER_64; precision: INTEGER) is
+      local
+         s: STRING
+      do
+         s := once "      "
+         s.clear_count
+
+         from
+            num.append_in(s)
+         until
+            s.count >= precision
+         loop
+            s.add_first('0')
+         end
+
+         echo.put_string(s)
+      end
+
    show_nb_warnings is
       local
          do_it: BOOLEAN
