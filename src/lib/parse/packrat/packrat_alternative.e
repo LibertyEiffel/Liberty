@@ -3,7 +3,7 @@
 --
 deferred class PACKRAT_ALTERNATIVE
 
-feature {PACKRAT_NON_TERMINAL}
+feature {PACKRAT_PATTERN}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       deferred
       end

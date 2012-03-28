@@ -1,44 +1,28 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_SEQUENCE
+class PACKRAT_REFERENCE
 
 inherit
-   PACKRAT_ALTERNATIVE
+   PACKRAT_PRIMARY
+
+create {ANY}
+   make
 
 feature {ANY}
-   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_AND} Result.make(Current)
-      end
-
-   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_NOT} Result.make(Current)
-      end
-
-feature {PACKRAT_PATTERN}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      local
-         i: INTEGER
-      do
-         from
-            i := primaries.lower
-         until
-            i > primaries.upper
-         loop
-            primaries.item(i).set_default_tree_builders(non_terminal_builder, terminal_builder)
-            i := i + 1
-         end
-      end
+   name: FIXED_STRING
 
 feature {}
-   primaries: FAST_ARRAY[PACKRAT_PRIMARY]
+   make (a_name: ABSTRACT_STRING) is
+      require
+         a_name /= Void
+      do
+         name := a_name.intern
+      ensure
+         name = a_name.intern
+      end
 
-invariant
-   primaries /= Void
-
-end -- class PACKRAT_SEQUENCE
+end -- class PACKRAT_REFERENCE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
