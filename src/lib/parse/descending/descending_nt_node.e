@@ -15,6 +15,10 @@ insert
       redefine
          copy, is_equal, out_in_tagged_out_memory
       end
+   PARSER_FACET
+      redefine
+         copy, is_equal, out_in_tagged_out_memory
+      end
 
 creation {DESCENDING_NON_TERMINAL}
    root

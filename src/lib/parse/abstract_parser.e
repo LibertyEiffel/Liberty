@@ -6,6 +6,7 @@ deferred class ABSTRACT_PARSER[NT_ -> PARSE_NON_TERMINAL]
 insert
    TRISTATE_VALUES
    LOGGING
+   PARSER_FACET
 
 feature {ANY}
    parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is

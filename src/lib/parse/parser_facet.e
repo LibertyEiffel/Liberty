@@ -1,44 +1,12 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_ACTION
+deferred class PARSER_FACET
+   --
+   -- An empty class to access the `parse` feature
+   --
 
-creation {PARSE_TERMINAL, DESCENDING_NT_NODE}
-   make
-
-feature {ANY}
-   name: STRING
-         -- useful for debug
-
-   call is
-      do
-         action.call([])
-      end
-
-feature {PARSE_TERMINAL, DESCENDING_NT_NODE}
-   set_name (a_name: like name) is
-      do
-         name := a_name
-      ensure
-         name = a_name
-      end
-
-feature {}
-   make (a_action: like action) is
-      require
-         a_action /= Void
-      do
-         action := a_action
-      ensure
-         action = a_action
-      end
-
-   action: PROCEDURE[TUPLE]
-
-invariant
-   action /= Void
-
-end -- PARSE_ACTION
+end -- class PARSER_FACET
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

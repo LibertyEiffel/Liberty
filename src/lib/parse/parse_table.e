@@ -18,6 +18,9 @@ class PARSE_TABLE[NT_ -> PARSE_NON_TERMINAL]
    -- where each name is a STRING and each atom may be either a PARSE_NON_TERMINAL or a PARSE_TERMINAL.
    --
 
+inherit
+   ANY_PARSE_TABLE
+
 insert
    LOGGING
 
@@ -43,20 +46,14 @@ feature {ANY}
             end
             i := i + 1
          end
-      ensure
-         must_be_coherent: Result
       end
 
    has (atom_name: ABSTRACT_STRING): BOOLEAN is
-      require
-         not atom_name.is_empty
       do
          Result := atoms.fast_has(atom_name.intern)
       end
 
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      require
-         is_coherent
       local
          i: INTEGER
       do
@@ -73,9 +70,6 @@ feature {ANY}
    extend (a_table: like Current) is
          -- Extends Current with a *copy* of the atoms of `a_table'. Any atom with a name already existing in
          -- Current is ignored.
-      require
-         a_table /= Void
-         a_table /= Current
       local
          i: INTEGER; atom: PARSE_ATOM
       do
@@ -94,19 +88,11 @@ feature {ANY}
       end
 
    add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM) is
-      require
-         atom_name /= Void
-         atom /= Void
       do
          atoms.put(atom, atom_name.intern)
-      ensure
-         item(atom_name.intern) = atom
       end
 
    item (atom_name: ABSTRACT_STRING): PARSE_ATOM is
-      require
-         not atom_name.is_empty
-         has(atom_name)
       do
          Result := atoms.fast_reference_at(atom_name.intern)
          debug

@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    name: FIXED_STRING
-   table: PARSE_TABLE
+   table: ANY_PARSE_TABLE
 
    is_coherent: BOOLEAN is
       deferred
@@ -49,7 +49,7 @@ feature {PARSE_TABLE}
       deferred
       end
 
-feature {ABSTRACT_PARSER, PARSE_NT_NODE}
+feature {PARSER_FACET}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
          -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
          -- parse could complete with some more text.
