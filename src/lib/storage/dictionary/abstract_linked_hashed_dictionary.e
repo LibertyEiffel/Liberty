@@ -16,7 +16,8 @@ inherit
          new_iterator_on_keys, new_iterator_on_items,
          do_all_items, for_all_items, exists_item, aggregate_items,
          key_map_in, item_map_in,
-         buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node
+         buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node,
+         set_cache_user
       end
 
 feature {ITERATOR}
@@ -93,6 +94,29 @@ feature {ANY} -- Agent-based features:
       do
          Result := new_iterator_on_items.aggregate(action, initial)
       end
+
+feature {}
+   set_cache_user (index: INTEGER) is
+      do
+         if cache_user /= index then
+            if cache_iterator = Void then
+               create cache_iterator.make(Current)
+            end
+            from
+               if not cache_iterator.is_valid or else index > cache_iterator.index then
+                  cache_iterator.start
+               end
+            until
+               index = cache_iterator.index
+            loop
+               cache_iterator.next
+            end
+            cache_user := index
+            cache_node := cache_iterator.node
+         end
+      end
+
+   cache_iterator: ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]
 
 feature {}
    buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
