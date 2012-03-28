@@ -1,24 +1,22 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PARSE_NON_TERMINAL
+class PACKRAT_PARSER
    --
-   -- A non-terminal meant to be put in a PARSE_TABLE.
+   -- The entry point to Packrat parsing (for PEGs: Parsing Expression Grammars)
+   --
+   -- See http://bford.info/packrat/
    --
 
 inherit
-   PARSE_ATOM
-      undefine
-         copy, is_equal, out_in_tagged_out_memory
+   ABSTRACT_PARSER[PACKRAT_NON_TERMINAL]
+
+feature {ANY}
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[PACKRAT_NON_TERMINAL]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+      do
       end
 
-insert
-   LOGGING
-      undefine
-         copy, is_equal, out_in_tagged_out_memory
-      end
-
-end -- class PARSE_NON_TERMINAL
+end -- class PACKRAT_PARSER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

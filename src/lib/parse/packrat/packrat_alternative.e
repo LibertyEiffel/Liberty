@@ -1,24 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PARSE_NON_TERMINAL
-   --
-   -- A non-terminal meant to be put in a PARSE_TABLE.
-   --
+deferred class PACKRAT_ALTERNATIVE
 
-inherit
-   PARSE_ATOM
-      undefine
-         copy, is_equal, out_in_tagged_out_memory
+feature {PACKRAT_NON_TERMINAL}
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+      deferred
       end
 
-insert
-   LOGGING
-      undefine
-         copy, is_equal, out_in_tagged_out_memory
-      end
-
-end -- class PARSE_NON_TERMINAL
+end -- class PACKRAT_ALTERNATIVE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
