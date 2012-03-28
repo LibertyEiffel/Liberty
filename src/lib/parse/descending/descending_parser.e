@@ -7,9 +7,8 @@ class DESCENDING_PARSER
    -- PARSE_ATOM classes.
    --
 
-insert
-   TRISTATE_VALUES
-   LOGGING
+inherit
+   ABSTRACT_PARSER
 
 creation {ANY}
    make
@@ -46,107 +45,9 @@ feature {ANY}
          a_actions.count >= old a_actions.count
       end
 
-   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
-         -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
-         -- could make it succeed.
-      local
-         i: INTEGER
-      do
-         save_actions
-         Result := parse(buffer, grammar, start, actions)
-         if Result and then error = Void then
-            debug ("parse")
-               log.trace.put_line(once "Actions:")
-               log.trace.put_line(once "--8<-------- <start actions>")
-               from
-                  i := actions.lower
-               until
-                  i > actions.upper
-               loop
-                  log.trace.put_integer(i)
-                  log.trace.put_character('%T')
-                  log.trace.put_line(actions.item(i).name)
-                  i := i + 1
-               end
-               log.trace.put_line(once "-------->8-- <end actions>")
-            end
-            from
-               i := actions.lower
-            until
-               i > actions.upper
-            loop
-               debug ("parse")
-                  log.trace.put_string(once "Calling action #")
-                  log.trace.put_integer(i)
-                  log.trace.put_string(once ": ")
-                  log.trace.put_line(actions.item(i).name)
-               end
-               actions.item(i).call
-               i := i + 1
-            end
-         end
-         actions.clear_count
-         restore_actions
-      end
-
-   error: PARSE_ERROR
-
 feature {}
    make is
       do
-      end
-
-   used_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]] is
-      once
-         create Result.make(0)
-      end
-
-   free_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]] is
-      once
-         create Result.make(0)
-      end
-
-   actions: FAST_ARRAY[PARSE_ACTION]
-
-   save_actions is
-      do
-         if actions = Void then
-            actions := new_free_actions
-         elseif not actions.is_empty then
-            used_actions.add_last(actions)
-            actions := new_free_actions
-         end
-      ensure
-         actions.is_empty
-         ;(old (actions /= Void and then not actions.is_empty)) implies (used_actions.last = old actions)
-         ;(old (actions /= Void and then not actions.is_empty)) implies (used_actions.count = old used_actions.count + 1)
-      end
-
-   restore_actions is
-      require
-         actions.is_empty
-      do
-         if not used_actions.is_empty then
-            free_actions.add_last(actions)
-            actions := used_actions.last
-            used_actions.remove_last
-         end
-      ensure
-         actions /= Void
-         ;(not old used_actions.is_empty) implies (actions = (old used_actions.twin).last)
-         ;(not old used_actions.is_empty) implies (used_actions.count = old used_actions.count - 1)
-      end
-
-   new_free_actions: like actions is
-      do
-         if free_actions.is_empty then
-            create Result.make(0)
-         else
-            Result := free_actions.last
-            free_actions.remove_last
-         end
-      ensure
-         Result.is_empty
       end
 
 end -- class DESCENDING_PARSER
