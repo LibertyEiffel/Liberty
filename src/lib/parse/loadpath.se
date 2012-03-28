@@ -1,2 +1,6 @@
 ./
+atoms/
+descending/
+packrat/
 eiffel/
+internal/

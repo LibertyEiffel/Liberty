@@ -3,10 +3,14 @@ cluster PARSE
 version "1.0"
 
 locations
-	"."
-	"eiffel"
+   "."
+   "atoms"
+   "descending"
+   "packrat"
+   "eiffel"
+   "internal"
 
 needs
-	KERNEL
+   KERNEL
 
 end
