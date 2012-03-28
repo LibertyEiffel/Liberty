@@ -37,7 +37,7 @@ feature {PARSE_TABLE}
          end
       end
 
-feature {DESCENDING_PARSER, PARSE_NT_NODE}
+feature {ABSTRACT_PARSER, PARSE_NT_NODE}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
       local
          memo: INTEGER; image: PARSER_IMAGE

@@ -1,20 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class ABSTRACT_PARSER
+deferred class ABSTRACT_PARSER[NT_ -> PARSE_NON_TERMINAL]
 
 insert
    TRISTATE_VALUES
    LOGGING
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       deferred
       end
 
-   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
+   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       local

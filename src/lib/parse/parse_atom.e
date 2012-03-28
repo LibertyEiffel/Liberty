@@ -11,8 +11,13 @@ insert
 
 feature {ANY}
    name: FIXED_STRING
-
    table: PARSE_TABLE
+
+   is_coherent: BOOLEAN is
+      deferred
+      ensure
+         must_be_coherent: Result
+      end
 
 feature {PARSE_TABLE}
    set (a_name: ABSTRACT_STRING; a_table: like table) is
@@ -38,19 +43,13 @@ feature {PARSE_TABLE}
          table = a_table
       end
 
-   is_coherent: BOOLEAN is
-      deferred
-      ensure
-         must_be_coherent: Result
-      end
-
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       require
          is_coherent
       deferred
       end
 
-feature {DESCENDING_PARSER, PARSE_NT_NODE}
+feature {ABSTRACT_PARSER, PARSE_NT_NODE}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
          -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
          -- parse could complete with some more text.

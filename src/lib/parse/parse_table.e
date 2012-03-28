@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_TABLE
+class PARSE_TABLE[NT_ -> PARSE_NON_TERMINAL]
    --
    -- A parsing table (aka Grammar).
    --
@@ -9,11 +9,11 @@ class PARSE_TABLE
    --
    -- The structure of this notation is:
    --
-   --    {PARSE_TABLE << name, atom;
-   --                    name, atom;
-   --                      . . .
-   --                    name, atom
-   --                 >>}
+   --    {PARSE_TABLE[...] << name, atom;
+   --                         name, atom;
+   --                           . . .
+   --                         name, atom
+   --                      >>}
    --
    -- where each name is a STRING and each atom may be either a PARSE_NON_TERMINAL or a PARSE_TERMINAL.
    --
@@ -70,7 +70,7 @@ feature {ANY}
          end
       end
 
-   extend (a_table: PARSE_TABLE) is
+   extend (a_table: like Current) is
          -- Extends Current with a *copy* of the atoms of `a_table'. Any atom with a name already existing in
          -- Current is ignored.
       require

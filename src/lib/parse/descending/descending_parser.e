@@ -8,13 +8,13 @@ class DESCENDING_PARSER
    --
 
 inherit
-   ABSTRACT_PARSER
+   ABSTRACT_PARSER[DESCENDING_NON_TERMINAL]
 
 creation {ANY}
    make
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[DESCENDING_NON_TERMINAL]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       require

@@ -1,9 +1,9 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_NT_NODE
+class DESCENDING_NT_NODE
    --
-   -- An internal class used by PARSE_NON_TERMINAL that implements the LL(n) parsing algorithm.
+   -- An internal class used by DESCENDING_NON_TERMINAL that implements the LL(n) parsing algorithm.
    --
 
 insert
@@ -16,10 +16,10 @@ insert
          copy, is_equal, out_in_tagged_out_memory
       end
 
-creation {PARSE_NON_TERMINAL}
+creation {DESCENDING_NON_TERMINAL}
    root
 
-creation {PARSE_NT_NODE}
+creation {DESCENDING_NT_NODE}
    make
 
 feature {ANY}
@@ -52,10 +52,10 @@ feature {ANY}
          end
       end
 
-feature {PARSE_NON_TERMINAL}
+feature {DESCENDING_NON_TERMINAL}
    add (rule: TRAVERSABLE[FIXED_STRING]; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
       local
-         node: PARSE_NT_NODE; name: FIXED_STRING
+         node: DESCENDING_NT_NODE; name: FIXED_STRING
       do
          check
             is_root: prefix_name = Void
@@ -99,7 +99,7 @@ feature {PARSE_NON_TERMINAL}
          ;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
       end
 
-feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
+feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
    is_coherent: BOOLEAN is
       local
          i: INTEGER
@@ -220,13 +220,13 @@ feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
          nt = a_non_terminal
       end
 
-feature {PARSE_NT_NODE}
+feature {DESCENDING_NT_NODE}
    do_add (a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; rule: TRAVERSABLE[FIXED_STRING]; i: INTEGER) is
       require
          rule.valid_index(i)
          rule.item(i) = prefix_name
       local
-         name: FIXED_STRING; node: PARSE_NT_NODE
+         name: FIXED_STRING; node: DESCENDING_NT_NODE
       do
          if i < rule.upper then
             name := rule.item(i + 1).intern
@@ -302,7 +302,7 @@ feature {}
       require
          suffices /= Void
       local
-         memo, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
+         memo, old_count, i: INTEGER; node: DESCENDING_NT_NODE; parsenode: TRISTATE; perhaps: BOOLEAN
       do
          debug ("parse")
             log.trace.put_string(once "Scanning non-terminal %"")
@@ -431,12 +431,12 @@ feature {ANY}
          end
       end
 
-feature {PARSE_NT_NODE}
+feature {DESCENDING_NT_NODE}
    prefix_name: FIXED_STRING
 
-   suffices: HASHED_DICTIONARY[PARSE_NT_NODE, FIXED_STRING]
+   suffices: HASHED_DICTIONARY[DESCENDING_NT_NODE, FIXED_STRING]
 
-   nt: PARSE_NON_TERMINAL
+   nt: DESCENDING_NON_TERMINAL
 
    action: PROCEDURE[TUPLE]
 
@@ -445,7 +445,7 @@ feature {PARSE_NT_NODE}
 invariant
    backlinked: nt /= Void
 
-end -- class PARSE_NT_NODE
+end -- class DESCENDING_NT_NODE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
