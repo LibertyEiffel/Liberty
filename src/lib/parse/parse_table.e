@@ -133,7 +133,7 @@ feature {}
       end
 
 feature {PARSE_TABLE}
-   atoms: HASHED_DICTIONARY[PARSE_ATOM, FIXED_STRING]
+   atoms: LINKED_HASHED_DICTIONARY[PARSE_ATOM, FIXED_STRING]
 
 feature {}
    manifest_make (needed_capacity: INTEGER) is
