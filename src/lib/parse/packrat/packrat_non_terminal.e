@@ -9,6 +9,9 @@ class PACKRAT_NON_TERMINAL
 inherit
    PARSE_NON_TERMINAL
 
+insert
+   PACKRAT_INTERNAL
+
 creation {ANY}
    make
 

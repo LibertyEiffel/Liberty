@@ -1,38 +1,50 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_REFERENCE
+deferred class PACKRAT_LOOKAHEAD
 
 inherit
-   PACKRAT_PRIMARY
-
-create {ANY}
-   make
+   PACKRAT_ALTERNATIVE
 
 feature {ANY}
-   name: FIXED_STRING
-
    is_coherent: BOOLEAN is
       do
-         not_yet_implemented
+         Result := sequence.is_coherent
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := sequence.is_equal(other.sequence)
+      end
+
+   copy (other: like Current) is
+      do
+         sequence:= other.sequence.twin
       end
 
 feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
+         sequence.set_default_tree_builders(non_terminal_builder, terminal_builder)
       end
 
 feature {}
-   make (a_name: ABSTRACT_STRING) is
+   make (a_sequence: like sequence) is
       require
-         a_name /= Void
+         a_sequence /= Void
       do
-         name := a_name.intern
+         sequence := a_sequence
       ensure
-         name = a_name.intern
+         sequence = a_sequence
       end
 
-end -- class PACKRAT_REFERENCE
+feature {PACKRAT_LOOKAHEAD}
+   sequence: PACKRAT_SEQUENCE
+
+invariant
+   sequence /= Void
+
+end -- class PACKRAT_LOOKAHEAD
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

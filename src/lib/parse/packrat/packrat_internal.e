@@ -1,38 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_REFERENCE
+expanded class PACKRAT_INTERNAL
 
-inherit
-   PACKRAT_PRIMARY
+--
+-- Type marker for access to internal features. Please don't use.
+--
 
-create {ANY}
-   make
-
-feature {ANY}
-   name: FIXED_STRING
-
-   is_coherent: BOOLEAN is
-      do
-         not_yet_implemented
-      end
-
-feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      do
-      end
-
-feature {}
-   make (a_name: ABSTRACT_STRING) is
-      require
-         a_name /= Void
-      do
-         name := a_name.intern
-      ensure
-         name = a_name.intern
-      end
-
-end -- class PACKRAT_REFERENCE
+end -- class PACKRAT_INTERNAL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

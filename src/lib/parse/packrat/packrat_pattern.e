@@ -1,119 +1,38 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_PATTERN
+deferred class PACKRAT_PATTERN
    --
    -- An ordered series of alternatives
-   --
-   -- The only way to create a pattern is to use SmartEiffel's manifest notation.
-   --
-   -- The structure of this notation is:
-   --
-   --    {PACKRAT_PATTERN << rule, agent;
-   --                        rule, agent;
-   --                          . . .
-   --                        rule, agent
-   --                     >>}
    --
 
 inherit
    PACKRAT_PRIMARY
-      redefine
+      undefine
          is_equal, copy, out_in_tagged_out_memory
       end
 
-creation {ANY}
-   manifest_creation
-
-feature {ANY}
-   out_in_tagged_out_memory is
-      do
-         tagged_out_memory.extend('{')
-         not_yet_implemented
-         tagged_out_memory.extend('}')
+insert
+   PACKRAT_INTERNAL
+      undefine
+         is_equal, copy, out_in_tagged_out_memory
       end
 
+feature {ANY}
    is_coherent: BOOLEAN is
-      do
-         not_yet_implemented
+      deferred
       end
 
-feature {PACKRAT_ALTERNATIVE, PARSE_NON_TERMINAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      local
-         i, j: INTEGER
-      do
-         from
-            i := rules.lower
-         until
-            i > rules.upper
-         loop
-            if actions.item(i) = Void then
-               actions.put(non_terminal_builder, i)
-            end
-            from
-               j := rules.item(i).lower
-            until
-               j > rules.item(i).upper
-            loop
-               rules.item(i).item(j).set_default_tree_builders(non_terminal_builder, terminal_builder)
-               j := j + 1
-            end
-            i := i + 1
-         end
-      end
-
-   add (rule: TRAVERSABLE[PACKRAT_ALTERNATIVE]; action: PROCEDURE[TUPLE]) is
-      do
-         rules.add_last(rule)
-         actions.add_last(action)
-      end
-
-feature {ANY}
-   copy (other: like Current) is
-      do
-         -- shallow copy should be enough
-         rules := other.rules.twin
-         actions := other.actions.twin
-      end
-
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := rules.is_equal(other.rules) and then actions.is_equal(other.actions)
-      end
-
-feature {}
-   manifest_make (needed_capacity: INTEGER) is
-      do
-         create rules.with_capacity(needed_capacity)
-         create actions.with_capacity(needed_capacity)
-      ensure
-         rules.is_empty
-         actions.is_empty
-      end
-
-   manifest_put (index: INTEGER; rule: TRAVERSABLE[PACKRAT_ALTERNATIVE]; action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
+   infix "/" (other: PACKRAT_ALTERNATIVE): PACKRAT_PATTERN is
       require
-         rule /= Void
-      do
-         rules.add_last(rule)
-         actions.add_last(action)
-      ensure
-         rules.count = 1 + old rules.count
-         actions.count = 1 + old actions.count
-         rules.last = rule
-         actions.last = action
+         other /= Void
+      deferred
       end
 
-   manifest_semicolon_check: INTEGER is 2
-
-feature {PACKRAT_PATTERN}
-   rules: FAST_ARRAY[TRAVERSABLE[PACKRAT_ALTERNATIVE]]
-   actions: FAST_ARRAY[PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]]
-
-invariant
-   rules.count = actions.count
-   rules.lower = actions.lower
+feature {PACKRAT_INTERNAL}
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+      deferred
+      end
 
 end -- class PACKRAT_PATTERN
 --

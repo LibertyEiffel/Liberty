@@ -3,7 +3,15 @@
 --
 deferred class PACKRAT_PRIMARY
 
-feature {PACKRAT_ALTERNATIVE}
+insert
+   PACKRAT_INTERNAL
+
+feature {ANY}
+   is_coherent: BOOLEAN is
+      deferred
+      end
+
+feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       deferred
       end

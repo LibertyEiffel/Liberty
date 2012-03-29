@@ -1,42 +1,61 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_SEQUENCE
+class PACKRAT_CHOICE
 
 inherit
-   PACKRAT_ALTERNATIVE
+   PACKRAT_PATTERN
 
-insert
-   PACKRAT
-
-create {PACKRAT}
+create {PACKRAT_ALTERNATIVE}
    make
 
 feature {ANY}
-   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_AND} Result.make(Current)
-      end
-
-   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_NOT} Result.make(Current)
-      end
-
    is_coherent: BOOLEAN is
       local
          i: INTEGER
       do
          from
             Result := True
-            i := primaries.lower
+            i := alternatives.lower
          until
-            not Result or else i > primaries.upper
+            not Result or else i > alternatives.upper
          loop
-            Result := primaries.item(i).is_coherent
+            Result := alternatives.item(i).is_coherent
             i := i + 1
          end
+      end
 
+   infix "/" (other: PACKRAT_ALTERNATIVE): PACKRAT_PATTERN is
+      do
+         alternatives.add_last(other)
+         Result := Current
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := alternatives.is_equal(other.alternatives)
+      end
+
+   copy (other: like Current) is
+      do
+         alternatives := other.alternatives.twin
+      end
+
+   out_in_tagged_out_memory is
+      local
+         i: INTEGER
+      do
+         from
+            i := alternatives.lower
+         until
+            i > alternatives.upper
+         loop
+            if i > alternatives.lower then
+               tagged_out_memory.append(once " / ")
+            end
+            alternatives.item(i).out_in_tagged_out_memory
+            i := i + 1
+         end
       end
 
 feature {PACKRAT_INTERNAL}
@@ -44,44 +63,31 @@ feature {PACKRAT_INTERNAL}
       local
          i: INTEGER
       do
-         if action = Void then
-            action := non_terminal_builder
-         end
          from
-            i := primaries.lower
+            i := alternatives.lower
          until
-            i > primaries.upper
+            i > alternatives.upper
          loop
-            primaries.item(i).set_default_tree_builders(non_terminal_builder, terminal_builder)
+            alternatives.item(i).set_default_tree_builders(non_terminal_builder, terminal_builder)
             i := i + 1
          end
       end
 
 feature {}
-   primaries: TRAVERSABLE[PACKRAT_PRIMARY]
-   how_many: INTEGER_8
-   action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]
-
-feature {}
-   make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_action: like action) is
-      require
-         a_primaries /= Void
-         a_how_many.in_range(one, one_or_more)
+   make (first, second: PACKRAT_ALTERNATIVE) is
       do
-         primaries := a_primaries
-         how_many := a_how_many
-         action := a_action
-      ensure
-         primaries = a_primaries
-         how_many = a_how_many
-         action = a_action
+         create alternatives.with_capacity(2)
+         alternatives.add_last(first)
+         alternatives.add_last(second)
       end
 
-invariant
-   primaries /= Void
-   how_many.in_range(one, one_or_more)
+feature {PACKRAT_CHOICE}
+   alternatives: FAST_ARRAY[PACKRAT_ALTERNATIVE]
 
-end -- class PACKRAT_SEQUENCE
+invariant
+   useful: alternatives.count > 1
+
+end -- class PACKRAT_CHOICE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

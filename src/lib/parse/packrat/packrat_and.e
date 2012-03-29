@@ -4,31 +4,17 @@
 class PACKRAT_AND
 
 inherit
-   PACKRAT_ALTERNATIVE
+   PACKRAT_LOOKAHEAD
 
 create {ANY}
    make
 
-feature {PACKRAT_PATTERN}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+feature {ANY}
+   out_in_tagged_out_memory is
       do
-         sequence.set_default_tree_builders(non_terminal_builder, terminal_builder)
+         tagged_out_memory.extend('&')
+         sequence.out_in_tagged_out_memory
       end
-
-feature {}
-   make (a_sequence: like sequence) is
-      require
-         a_sequence /= Void
-      do
-         sequence := a_sequence
-      ensure
-         sequence = a_sequence
-      end
-
-   sequence: PACKRAT_SEQUENCE
-
-invariant
-   sequence /= Void
 
 end -- class PACKRAT_AND
 --

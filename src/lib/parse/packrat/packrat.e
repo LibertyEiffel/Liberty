@@ -1,38 +1,30 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_REFERENCE
-
-inherit
-   PACKRAT_PRIMARY
-
-create {ANY}
-   make
+expanded class PACKRAT
 
 feature {ANY}
-   name: FIXED_STRING
+   one: INTEGER_8 is 0
+   zero_or_one: INTEGER_8 is 1
+   zero_or_more: INTEGER_8 is 2
+   one_or_more: INTEGER_8 is 3
 
-   is_coherent: BOOLEAN is
-      do
-         not_yet_implemented
-      end
-
-feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      do
-      end
-
-feature {}
-   make (a_name: ABSTRACT_STRING) is
+   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]): PACKRAT_ALTERNATIVE is
       require
-         a_name /= Void
+         a_primaries /= Void
+         a_how_many.in_range(one, one_or_more)
       do
-         name := a_name.intern
-      ensure
-         name = a_name.intern
+         create {PACKRAT_SEQUENCE} Result.make(a_primaries, a_how_many, a_action)
       end
 
-end -- class PACKRAT_REFERENCE
+   ref (a_atom_name: ABSTRACT_STRING): PACKRAT_PRIMARY is
+      require
+         a_atom_name /= Void
+      do
+         create {PACKRAT_REFERENCE} Result.make(a_atom_name)
+      end
+
+end -- class PACKRAT
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
