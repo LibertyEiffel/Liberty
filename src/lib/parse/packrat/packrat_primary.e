@@ -16,6 +16,17 @@ feature {PACKRAT_INTERNAL}
       deferred
       end
 
+   set_nt (a_nt: like nt) is
+      require
+         a_nt /= Void
+      do
+         nt := a_nt
+      ensure
+         nt = a_nt
+      end
+
+   nt: PACKRAT_NON_TERMINAL
+
 end -- class PACKRAT_PRIMARY
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

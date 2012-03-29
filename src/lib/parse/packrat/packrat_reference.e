@@ -14,7 +14,7 @@ feature {ANY}
 
    is_coherent: BOOLEAN is
       do
-         not_yet_implemented
+         Result := nt.table.has(name)
       end
 
 feature {PACKRAT_INTERNAL}

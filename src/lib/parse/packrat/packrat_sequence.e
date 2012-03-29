@@ -5,6 +5,9 @@ class PACKRAT_SEQUENCE
 
 inherit
    PACKRAT_ALTERNATIVE
+      redefine
+         set_nt
+      end
 
 insert
    PACKRAT
@@ -53,6 +56,21 @@ feature {PACKRAT_INTERNAL}
             i > primaries.upper
          loop
             primaries.item(i).set_default_tree_builders(non_terminal_builder, terminal_builder)
+            i := i + 1
+         end
+      end
+
+   set_nt (a_nt: like nt) is
+      local
+         i: INTEGER
+      do
+         Precursor(a_nt)
+         from
+            i := primaries.lower
+         until
+            i > primaries.upper
+         loop
+            primaries.item(i).set_nt(a_nt)
             i := i + 1
          end
       end

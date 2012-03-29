@@ -14,6 +14,8 @@ feature {ANY}
    table: ANY_PARSE_TABLE
 
    is_coherent: BOOLEAN is
+      require
+         table /= Void
       deferred
       ensure
          must_be_coherent: Result

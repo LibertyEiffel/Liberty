@@ -11,6 +11,9 @@ inherit
 
 insert
    PACKRAT_INTERNAL
+      redefine
+         copy, is_equal, out_in_tagged_out_memory
+      end
 
 creation {ANY}
    make
@@ -45,6 +48,7 @@ feature {ANY}
       do
          name := other.name
          pattern := other.pattern.twin
+         pattern.set_nt(Current)
       end
 
    is_equal (other: like Current): BOOLEAN is
@@ -52,16 +56,13 @@ feature {ANY}
          Result := name.is_equal(other.name) and then pattern.is_equal(other.pattern)
       end
 
-   add (rule: TRAVERSABLE[PACKRAT_ALTERNATIVE]; action: PROCEDURE[TUPLE]) is
-      do
-         pattern.add(rule, action)
-      end
-
 feature {}
    make (a_pattern: like pattern) is
       require
          a_pattern /= Void
+         a_pattern.nt = Void
       do
+         a_pattern.set_nt(Current)
          pattern := a_pattern
       ensure
          pattern = a_pattern
@@ -71,7 +72,7 @@ feature {PACKRAT_NON_TERMINAL}
    pattern: PACKRAT_PATTERN
 
 invariant
-   pattern /= Void
+   pattern.nt = Current
 
 end -- class PACKRAT_NON_TERMINAL
 --
