@@ -8,32 +8,28 @@ class DESCENDING_PARSER
    --
 
 inherit
-   ABSTRACT_PARSER[DESCENDING_NON_TERMINAL]
+   ABSTRACT_PARSER[DESCENDING_PARSE_CONTEXT]
 
 creation {ANY}
    make
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[DESCENDING_NON_TERMINAL]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
-         -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
-         -- could make it succeed.
-      require
-         a_actions /= Void
-         grammar.is_coherent
-         grammar.has(start)
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[DESCENDING_PARSE_CONTEXT]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
       local
-         atom: PARSE_ATOM
+         context: DESCENDING_PARSE_CONTEXT
+         atom: PARSE_ATOM[DESCENDING_PARSE_CONTEXT]
          parsed: TRISTATE
       do
+         create context.make(buffer, a_actions)
          error := Void
          atom := grammar.item(start)
-         parsed := atom.parse(buffer, a_actions)
+         parsed := atom.parse(context)
          if parsed = yes then
             Result := True
          elseif parsed = no then
             error := buffer.last_error
             if error = Void then
-               create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
+               create error.make(1, once "This does not look like a valid text, not even remotely.", Void)
             end
             Result := True
          else
@@ -41,8 +37,6 @@ feature {ANY}
                should_add_more: not Result
             end
          end
-      ensure
-         a_actions.count >= old a_actions.count
       end
 
 feature {}

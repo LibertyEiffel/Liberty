@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PARSE_ATOM
+deferred class PARSE_ATOM[C_ -> PARSE_CONTEXT]
    --
    -- A part of the PARSE_TABLE.
    --
@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    name: FIXED_STRING
-   table: ANY_PARSE_TABLE
+   table: PARSE_TABLE[C_]
 
    is_coherent: BOOLEAN is
       require
@@ -52,15 +52,15 @@ feature {PARSE_TABLE}
       end
 
 feature {PARSER_FACET}
-   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse (context: C_): TRISTATE is
          -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
          -- parse could complete with some more text.
       require
-         actions /= Void
+         context /= Void
       deferred
       ensure
-         actions.count >= old actions.count
-         ;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+         context.actions.count >= old context.actions.count
+         ;(Result /= yes) implies context.buffer.current_index = old context.buffer.current_index and then context.actions.count = old context.actions.count
       end
 
 feature {}

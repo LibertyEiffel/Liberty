@@ -1,56 +1,15 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class ANY_PARSE_TABLE
-   --
-   -- A parsing table (aka Grammar), not typed.
-   --
+class PACKRAT_TERMINAL
 
-feature {ANY}
-   is_coherent: BOOLEAN is
-      deferred
-      ensure
-         must_be_coherent: Result
-      end
+inherit
+   PARSE_TERMINAL[PACKRAT_PARSE_CONTEXT]
 
-   has (atom_name: ABSTRACT_STRING): BOOLEAN is
-      require
-         not atom_name.is_empty
-      deferred
-      end
+creation {ANY}
+   make
 
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      require
-         is_coherent
-      deferred
-      end
-
-   extend (a_table: like Current) is
-         -- Extends Current with a *copy* of the atoms of `a_table'. Any atom with a name already existing in
-         -- Current is ignored.
-      require
-         a_table /= Void
-         a_table /= Current
-      deferred
-      end
-
-   add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM) is
-      require
-         atom_name /= Void
-         atom /= Void
-      deferred
-      ensure
-         item(atom_name.intern) = atom
-      end
-
-   item (atom_name: ABSTRACT_STRING): PARSE_ATOM is
-      require
-         not atom_name.is_empty
-         has(atom_name)
-      deferred
-      end
-
-end -- class ANY_PARSE_TABLE
+end -- class PACKRAT_TERMINAL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

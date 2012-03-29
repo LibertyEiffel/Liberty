@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_TERMINAL
+deferred class PARSE_TERMINAL[C_ -> PARSE_CONTEXT]
    --
    -- A terminal meant to be put in a PARSE_TABLE.
    --
 
 inherit
-   PARSE_ATOM
+   PARSE_ATOM[C_]
       redefine
          out_in_tagged_out_memory
       end
@@ -17,9 +17,6 @@ insert
       redefine
          out_in_tagged_out_memory
       end
-
-creation {ANY}
-   make
 
 feature {ANY}
    out_in_tagged_out_memory is
@@ -38,18 +35,18 @@ feature {PARSE_TABLE}
       end
 
 feature {PARSER_FACET}
-   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse (context: C_): TRISTATE is
       local
          memo: INTEGER; image: PARSER_IMAGE
          parse_action: PARSE_ACTION; error_message: STRING
       do
-         memo := buffer.memo
-         image := parser.item([buffer]) -- should clear the mark when necessary
+         memo := context.buffer.memo
+         image := parser.item([context.buffer]) -- should clear the mark when necessary
          if image /= Void then
             create parse_action.make(agent call_action(image))
             debug ("parse")
                log.trace.put_string(once "%T==>%Tterminal ")
-               print_error_position(log.trace, buffer)
+               print_error_position(log.trace, context.buffer)
                log.trace.put_character(' ')
                log.trace.put_character('"')
                log.trace.put_string(name)
@@ -57,10 +54,10 @@ feature {PARSER_FACET}
                log.trace.put_line(image.out)
                parse_action.set_name(once "Shift %"" + name + once "%": " + image.out)
             end
-            actions.add_last(parse_action)
+            context.actions.add_last(parse_action)
             Result := yes
          else
-            if buffer.marked then
+            if context.buffer.marked then
                -- The buffer end was reached while reading the image, a good sign that maybe the text could
                -- have continued (note that the mark is cleared by the keyword `parser' when judicious)
                Result := maybe
@@ -70,15 +67,15 @@ feature {PARSER_FACET}
             error_message := "*** %""
             error_message.append(name)
             error_message.append(once "%" expected")
-            buffer.set_last_error_message(error_message)
+            context.buffer.set_last_error_message(error_message)
             debug ("parse")
                log.trace.put_string(once "** Expected terminal %"")
                log.trace.put_string(name)
                log.trace.put_string(once "%" ")
-               print_error_position(log.trace, buffer)
+               print_error_position(log.trace, context.buffer)
                log.trace.put_new_line
             end
-            buffer.restore(memo)
+            context.buffer.restore(memo)
          end
       end
 

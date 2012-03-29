@@ -21,7 +21,7 @@ class DESCENDING_NON_TERMINAL
    --
 
 inherit
-   PARSE_NON_TERMINAL
+   PARSE_NON_TERMINAL[DESCENDING_PARSE_CONTEXT]
 
 creation {ANY}
    manifest_creation
@@ -50,14 +50,14 @@ feature {PARSE_TABLE}
       end
 
 feature {PARSER_FACET}
-   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
       do
-         Result := parser_tree.parse(buffer, actions)
+         Result := parser_tree.parse(context)
          if Result = yes then
-            buffer.set_last_error(Void)
+            context.buffer.set_last_error(Void)
             debug ("parse")
                log.trace.put_string(once "%T-->%Tnon-terminal ")
-               print_error_position(log.trace, buffer)
+               print_error_position(log.trace, context.buffer)
                log.trace.put_character(' ')
                log.trace.put_character('"')
                log.trace.put_string(name)
@@ -69,7 +69,7 @@ feature {PARSER_FACET}
                log.trace.put_string(once "** Expected non-terminal %"")
                log.trace.put_string(name)
                log.trace.put_string(once "%" ")
-               print_error_position(log.trace, buffer)
+               print_error_position(log.trace, context.buffer)
                log.trace.put_new_line
             end
          end

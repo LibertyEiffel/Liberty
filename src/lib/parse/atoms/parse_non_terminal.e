@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PARSE_NON_TERMINAL
+deferred class PARSE_NON_TERMINAL[C_ -> PARSE_CONTEXT]
    --
    -- A non-terminal meant to be put in a PARSE_TABLE.
    --
 
 inherit
-   PARSE_ATOM
+   PARSE_ATOM[C_]
       undefine
          copy, is_equal, out_in_tagged_out_memory
       end

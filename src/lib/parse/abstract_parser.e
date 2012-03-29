@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class ABSTRACT_PARSER[NT_ -> PARSE_NON_TERMINAL]
+deferred class ABSTRACT_PARSER[C_ -> PARSE_CONTEXT]
 
 insert
    TRISTATE_VALUES
@@ -9,13 +9,20 @@ insert
    PARSER_FACET
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
+      require
+         a_actions /= Void
+         grammar.is_coherent
+         grammar.has(start)
       deferred
+      ensure
+         a_actions.count >= old a_actions.count
+         ;(not Result) implies a_actions.count = old a_actions.count
       end
 
-   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING): BOOLEAN is
+   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       local

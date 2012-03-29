@@ -7,7 +7,7 @@ class PACKRAT_NON_TERMINAL
    --
 
 inherit
-   PARSE_NON_TERMINAL
+   PARSE_NON_TERMINAL[PACKRAT_PARSE_CONTEXT]
 
 insert
    PACKRAT_INTERNAL
@@ -32,7 +32,7 @@ feature {ANY}
       end
 
 feature {PARSER_FACET}
-   parse (buffer: MINI_PARSER_BUFFER; actions_list: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       do
          not_yet_implemented
       end

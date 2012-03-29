@@ -1,43 +1,25 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_PARSER
+deferred class PARSE_CONTEXT
    --
-   -- The entry point to Packrat parsing (for PEGs: Parsing Expression Grammars)
+   -- Some context for the parser (at least the buffer being parsed and the reduce actions to perform)
    --
-   -- See http://bford.info/packrat/
-   --
-
-inherit
-   ABSTRACT_PARSER[PACKRAT_PARSE_CONTEXT]
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
-      local
-         context: PACKRAT_PARSE_CONTEXT
-         atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
-         parsed: TRISTATE
-      do
-         create context.make(buffer, a_actions)
-         error := Void
-         atom := grammar.item(start)
-         parsed := atom.parse(context)
-         if parsed = yes then
-            Result := True
-         elseif parsed = no then
-            error := buffer.last_error
-            if error = Void then
-               create error.make(1, once "This does not look like a valid text, not even remotely.", Void)
-            end
-            Result := True
-         else
-            check
-               should_add_more: not Result
-            end
-         end
+   buffer: MINI_PARSER_BUFFER is
+      deferred
       end
 
-end -- class PACKRAT_PARSER
+   actions: COLLECTION[PARSE_ACTION] is
+      deferred
+      end
+
+invariant
+   buffer /= Void
+   actions /= Void
+
+end -- class PARSE_CONTEXT
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

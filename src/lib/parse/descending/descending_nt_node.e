@@ -81,14 +81,14 @@ feature {DESCENDING_NON_TERMINAL}
          end
       end
 
-   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
       local
          parse_action: PARSE_ACTION
       do
          check
             is_root: prefix_name = Void
          end
-         Result := parse_suffices(buffer, actions)
+         Result := parse_suffices(context)
          if Result /= yes and then end_of_rule then
             -- Epsilon
             Result := yes
@@ -96,11 +96,11 @@ feature {DESCENDING_NON_TERMINAL}
             debug ("parse")
                parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
             end
-            actions.add_last(parse_action)
+            context.actions.add_last(parse_action)
          end
       ensure
-         actions.count >= old actions.count
-         ;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+         context.actions.count >= old context.actions.count
+         ;(Result /= yes) implies context.buffer.current_index = old context.buffer.current_index and then context.actions.count = old context.actions.count
       end
 
 feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
@@ -254,20 +254,20 @@ feature {DESCENDING_NT_NODE}
          end
       end
 
-   do_parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   do_parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
       require
          not_root: prefix_name /= Void
       local
-         memo, old_count: INTEGER; atom: PARSE_ATOM
+         memo, old_count: INTEGER; atom: PARSE_ATOM[DESCENDING_PARSE_CONTEXT]
          parse_action: PARSE_ACTION
       do
-         memo := buffer.memo
-         old_count := actions.count
+         memo := context.buffer.memo
+         old_count := context.actions.count
          atom := nt.table.item(prefix_name)
          check
             atom /= Void
          end
-         Result := atom.parse(buffer, actions)
+         Result := atom.parse(context)
          check
             suffices = Void implies end_of_rule
          end
@@ -277,9 +277,9 @@ feature {DESCENDING_NT_NODE}
                debug ("parse")
                   parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
                end
-               actions.add_last(parse_action)
+               context.actions.add_last(parse_action)
             else
-               Result := parse_suffices(buffer, actions)
+               Result := parse_suffices(context)
                if Result /= yes and then end_of_rule then
                   -- that's fine: we can end here
                   Result := yes
@@ -287,22 +287,22 @@ feature {DESCENDING_NT_NODE}
                   debug ("parse")
                      parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
                   end
-                  actions.add_last(parse_action)
+                  context.actions.add_last(parse_action)
                end
             end
          end
          if Result /= yes then
-            buffer.restore(memo)
-            if actions.count > old_count then
-               actions.remove_tail(actions.count - old_count)
+            context.buffer.restore(memo)
+            if context.actions.count > old_count then
+               context.actions.remove_tail(context.actions.count - old_count)
             end
          end
       ensure
-         (Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+         (Result /= yes) implies context.buffer.current_index = old context.buffer.current_index and then context.actions.count = old context.actions.count
       end
 
 feature {}
-   parse_suffices (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+   parse_suffices (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
       require
          suffices /= Void
       local
@@ -319,8 +319,8 @@ feature {}
             end
             log.trace.put_new_line
          end
-         memo := buffer.memo
-         old_count := actions.count
+         memo := context.buffer.memo
+         old_count := context.actions.count
          from
             i := suffices.lower
             Result := no
@@ -328,16 +328,16 @@ feature {}
             Result = yes or else i > suffices.upper
          loop
             node := suffices.item(i)
-            parsenode := node.do_parse(buffer, actions)
+            parsenode := node.do_parse(context)
             if parsenode = yes then
                Result := yes
             else
                if parsenode = maybe then
                   perhaps := True
                end
-               buffer.restore(memo)
-               if actions.count > old_count then
-                  actions.remove_tail(actions.count - old_count)
+               context.buffer.restore(memo)
+               if context.actions.count > old_count then
+                  context.actions.remove_tail(context.actions.count - old_count)
                end
                debug ("parse")
                   log.trace.put_string(once "Still scanning non-terminal %"")
@@ -359,7 +359,7 @@ feature {}
             Result := maybe
          end
       ensure
-         (Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+         (Result /= yes) implies context.buffer.current_index = old context.buffer.current_index and then context.actions.count = old context.actions.count
       end
 
 feature {}
