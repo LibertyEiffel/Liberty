@@ -13,7 +13,6 @@ feature {ANY} -- Sending
 		-- the command to finish. If you need a syncronous, blocking behaviour
 		-- please use the `has_sent' query.
 
-
 		-- Note: `a_message' is destroyed (nullified) by this command. If you
 		-- want to send the same message to multiple sockets you have to copy
 		-- it (with twin or copy).

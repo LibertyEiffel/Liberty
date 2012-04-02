@@ -244,6 +244,12 @@ feature --    Pipeline pattern
 		-- 	   ZMQ_HWM option action       N/A
 		-- 
 		-- 
+	do
+		create Result.from_external_pointer(zmq_socket(handle,zmq_pull))
+	ensure Result/=Void
+	end
+
+
 feature -- Exclusive pair pattern
 
 --        The exclusive pair pattern is used to connect a peer to precisely one other peer. This

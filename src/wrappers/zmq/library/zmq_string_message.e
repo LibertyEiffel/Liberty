@@ -73,7 +73,7 @@ feature -- Specializing natively stored string
 		end
 
 	ensure_capacity (needed_capacity: like capacity) is 
-		local new: like handle; rc: INTEGER_32
+		-- local new: like handle; rc: INTEGER_32
 		do 
 			if needed_capacity>count then
 				not_yet_implemented
