@@ -1,3 +1,6 @@
+#ifndef LIBERTY_EIFFEL_PROCESSORS_COUNT
+#   define LIBERTY_EIFFEL_PROCESSORS_COUNT 1
+
 // Obtain the number of processers in the system.
 int processors_count() {
 
@@ -42,8 +45,10 @@ int processors_count() {
 //#   elif defined something to recognize IRIX
 //        // IRIX:
 //        return sysconf( _SC_NPROC_ONLN );
+#   endif
 }
 // on Mac OS X using Objective-C (10.5 and higher) this code will also work:
 
 //    NSUInteger a = [[NSProcessInfo processInfo] processorCount];
 //    NSUInteger b = [[NSProcessInfo processInfo] activeProcessorCount];
+#endif

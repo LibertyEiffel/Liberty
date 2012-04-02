@@ -6,14 +6,8 @@ deferred class POSIX_PROCESS
 	-- (http://docs.python.org/library/multiprocessing.html).
 insert 
 	ERRNO
-	UNISTD_EXTERNALS
-	
+	MULTIPROCESSING
 feature 
-	process_id: INTEGER_32 is
-		do
-			Result:=getpid
-		end
-
 	child_process_id: like process_id
 		-- The process ID of the child process
 
