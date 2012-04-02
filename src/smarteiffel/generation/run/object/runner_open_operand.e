@@ -12,6 +12,8 @@ create {RUNNER_MEMORY}
 feature {ANY}
    builtins: RUNNER_UNTYPED_BUILTINS
 
+   is_initialized: BOOLEAN is False
+
    processor: RUNNER_PROCESSOR is
       do
          Result := agent_object.processor
@@ -29,9 +31,20 @@ feature {ANY}
          not_yet_implemented
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          Result := to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      do
+         not_yet_implemented
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      do
+         not_yet_implemented
       end
 
 feature {RUNNER_FACET}

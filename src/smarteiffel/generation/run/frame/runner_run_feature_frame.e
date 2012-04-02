@@ -33,12 +33,7 @@ feature {RUNNER_FACET}
             arguments_memory := Result
             arguments_set := True
             debug ("run.data")
-               std_output.put_string(once "(#(1)) #(2): arguments: " # depth.out # rf.name.to_string)
-               if Result /= Void then
-                  std_output.put_line(Result.out)
-               else
-                  std_output.put_line(once "Void")
-               end
+               std_output.put_line(once "(#(1)) #(2): arguments: #(3)" # depth.out # rf.name.to_string # listrepr(Result))
             end
          end
       end

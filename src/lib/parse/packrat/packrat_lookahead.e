@@ -1,44 +1,50 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_ACTION
+deferred class PACKRAT_LOOKAHEAD
 
-creation {PARSE_TERMINAL, PARSE_NT_NODE}
-   make
+inherit
+   PACKRAT_ALTERNATIVE
 
 feature {ANY}
-   name: STRING
-         -- useful for debug
-
-   call is
+   is_coherent: BOOLEAN is
       do
-         action.call([])
+         Result := sequence.is_coherent
       end
 
-feature {PARSE_TERMINAL, PARSE_NT_NODE}
-   set_name (a_name: like name) is
+   is_equal (other: like Current): BOOLEAN is
       do
-         name := a_name
-      ensure
-         name = a_name
+         Result := sequence.is_equal(other.sequence)
+      end
+
+   copy (other: like Current) is
+      do
+         sequence:= other.sequence.twin
+      end
+
+feature {PACKRAT_INTERNAL}
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+      do
+         sequence.set_default_tree_builders(non_terminal_builder, terminal_builder)
       end
 
 feature {}
-   make (a_action: like action) is
+   make (a_sequence: like sequence) is
       require
-         a_action /= Void
+         a_sequence /= Void
       do
-         action := a_action
+         sequence := a_sequence
       ensure
-         action = a_action
+         sequence = a_sequence
       end
 
-   action: PROCEDURE[TUPLE]
+feature {PACKRAT_LOOKAHEAD}
+   sequence: PACKRAT_SEQUENCE
 
 invariant
-   action /= Void
+   sequence /= Void
 
-end -- PARSE_ACTION
+end -- class PACKRAT_LOOKAHEAD
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

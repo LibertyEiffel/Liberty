@@ -12,14 +12,25 @@ feature {RUNNER_FEATURES}
          empty_watermark: RUNNER_FRAME_WATERMARK
       do
          empty_watermark.set(0)
-         position := start_position
+         current_instruction := Void
          execute_until(empty_watermark)
       end
 
    finished: BOOLEAN
+   state: STRING
 
    start_position: POSITION is
       deferred
+      end
+
+feature {RUNNER_FACET}
+   debug_stack is
+      do
+         debug ("run.callstack")
+            std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
+            show_callstack
+            std_output.put_line(once "~~>8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>8~~")
+         end
       end
 
 feature {RUNNER_FRAME}
@@ -76,7 +87,14 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FACET}
-   position: POSITION
+   position: POSITION is
+      do
+         if current_instruction = Void then
+            Result := start_position
+         else
+            Result := current_instruction.start_position
+         end
+      end
 
    watermark: RUNNER_FRAME_WATERMARK is
       do
@@ -85,26 +103,29 @@ feature {RUNNER_FACET}
 
    execute_until (a_watermark: like watermark) is
       local
-         inst: INSTRUCTION
+         old_instruction: like current_instruction
       do
+         old_instruction := current_instruction
          from
             finished := True
          until
             instructions_list.count <= a_watermark.item or else processor.exception /= Void
          loop
-            debug ("run.callstack")
-               std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
-               show_callstack
-               std_output.put_line(once "~~>8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>8~~")
-            end
-            inst := instructions_list.last
+            debug_stack
+            current_instruction := instructions_list.last
             instructions_list.remove_last
-            position := inst.start_position
-            processor.instructions.execute(inst)
+            processor.instructions.execute(current_instruction)
          end
+         current_instruction := old_instruction
+      ensure
+         state = old state
       rescue
+         current_instruction := old_instruction
          raised_exception
-         instructions_list.clear_count
+         check
+            instructions_list.count >= a_watermark.item
+         end
+         instructions_list.remove_tail(instructions_list.count - a_watermark.item)
          retry
       end
 
@@ -113,6 +134,20 @@ feature {RUNNER_FACET}
          processor.clear_exception
          finished := False
          instructions_list.clear_count
+      end
+
+feature {RUNNER_FEATURES} -- Contract checking
+   set_state (a_state: like state) is
+      do
+         if a_state = Void then
+            state := once "done"
+         else
+            finished := False
+            state := a_state
+         end
+      ensure
+         a_state /= Void implies not finished
+         a_state /= Void implies state = a_state
       end
 
 feature {RUNNER_FACET}
@@ -130,12 +165,7 @@ feature {RUNNER_FACET}
          type_of_result.is_expanded implies a_return /= Void
       do
          debug ("run.data")
-            std_output.put_string(once "(#(1)) #(2): Result := " # depth.out # name.to_string)
-            if a_return = Void then
-               std_output.put_line(once "Void")
-            else
-               std_output.put_line(a_return.out)
-            end
+            std_output.put_line(once "(#(1)) #(2): Result := #(3)" # depth.out # name.to_string # repr(a_return))
          end
          return := expand(a_return)
       ensure
@@ -147,11 +177,7 @@ feature {RUNNER_FACET}
          has_local(a_name)
       do
          debug ("run.data")
-            if a_value /= Void then
-               std_output.put_line(once "**** set local: #(1) := #(2)" # a_name # a_value.out)
-            else
-               std_output.put_line(once "**** set local: #(1) := Void" # a_name)
-            end
+            std_output.put_line(once "**** set local: #(1) := #(2)" # a_name # repr(a_value))
          end
          locals.fast_put(expand(a_value), a_name.intern)
       ensure
@@ -164,11 +190,7 @@ feature {RUNNER_FACET}
       do
          Result := expand(locals.fast_reference_at(a_name.intern))
          debug ("run.data")
-            if Result /= Void then
-               std_output.put_line(once "**** get internal: #(1) = #(2)" # a_name # Result.out)
-            else
-               std_output.put_line(once "**** get internal: #(1) = Void" # a_name)
-            end
+            std_output.put_line(once "**** get local: #(1) = #(2)" # a_name # repr(Result))
          end
       end
 
@@ -183,11 +205,7 @@ feature {RUNNER_FACET}
             create internal_locals.make
          end
          debug ("run.data")
-            if a_value /= Void then
-               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + a_value.out)
-            else
-               std_output.put_line("**** set internal: " + a_internal.hash_tag + " := Void")
-            end
+            std_output.put_line("**** set internal: " + a_internal.hash_tag + " := " + repr(a_value))
          end
          internal_locals.fast_put(expand(a_value), a_internal.hash_tag)
       ensure
@@ -199,11 +217,7 @@ feature {RUNNER_FACET}
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
             debug ("run.data")
-               if Result /= Void then
-                  std_output.put_line(once "**** get internal: #(1) = #(2)" # a_internal.hash_tag # Result.out)
-               else
-                  std_output.put_line(once "**** get internal: #(1) = Void" # a_internal.hash_tag)
-               end
+               std_output.put_line(once "**** get internal: #(1) = #(2)" # a_internal.hash_tag # repr(Result))
             end
          end
       end
@@ -228,7 +242,7 @@ feature {RUNNER_FACET}
       local
          i: INTEGER
       do
-         from -- backward loop by design
+         from -- backward loop by design (it's a stack!)
             i := a_instructions.upper
          until
             i < a_instructions.lower
@@ -246,7 +260,31 @@ feature {RUNNER_FACET}
                                                  end)
       end
 
+feature {RUNNER_FACET}
+   old_value (id: INTEGER): RUNNER_OBJECT is
+      do
+         if old_values /= Void then
+            Result := old_values.fast_reference_at(id)
+         end
+         debug ("run.data")
+            std_output.put_line(once "**** get old: #(1) := #(2)" # id.out # repr(Result))
+         end
+      end
+
+   set_old_value (id: INTEGER; a_value: RUNNER_OBJECT) is
+      do
+         debug ("run.data")
+            std_output.put_line(once "**** set old: #(1) := #(2)" # id.out # repr(a_value))
+         end
+         if old_values = Void then
+            create old_values.make
+         end
+         old_values.fast_put(expand(a_value), id)
+      end
+
 feature {}
+   current_instruction: INSTRUCTION
+
    show_frame is
       local
          frame_name: STRING
@@ -254,17 +292,18 @@ feature {}
          frame_name := once ""
          frame_name.clear_count
          name.complete_name_in(frame_name)
-         std_output.put_line(once "(#(1)) {#(2)}.#(3):" # depth.out # target.type.name.to_string # frame_name)
+         std_output.put_line(once "(#(1)) {#(2)}.#(3) -- #(4)" # depth.out # target.type.name.to_string # frame_name # state)
          instructions_list.do_all(agent (i: INSTRUCTION) is
                                   do
-                                     if i = instructions_list.last then
-                                        std_output.put_string(once "     * ")
-                                     else
-                                        std_output.put_string(once "     - ")
-                                     end
+                                     std_output.put_string(once "     - ")
                                      i.accept(displayer)
                                      std_output.put_new_line
                                   end)
+         if current_instruction /= Void then
+            std_output.put_string(once "     * ")
+            current_instruction.accept(displayer)
+            std_output.put_new_line
+         end
       end
 
    print_frame (stream: OUTPUT_STREAM) is
@@ -305,6 +344,7 @@ feature {}
          if type_of_result /= Void and then type_of_result.is_expanded then
             return := processor.default_expanded(type_of_result)
          end
+         state := once "not started"
       ensure
          processor = a_processor
          caller = a_caller
@@ -342,6 +382,8 @@ feature {}
    locals, internal_locals: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
    return_ref: REFERENCE[RUNNER_OBJECT]
 
+   old_values: AVL_DICTIONARY[RUNNER_OBJECT, INTEGER]
+
    instructions_list: RING_ARRAY[INSTRUCTION]
 
    instruction_is_not_void: PREDICATE[TUPLE[INSTRUCTION]] is
@@ -371,5 +413,7 @@ invariant
 
    caller /= Void implies depth = caller.depth + 1
    caller = Void implies depth = 0
+
+   state /= Void
 
 end -- class RUNNER_FRAME

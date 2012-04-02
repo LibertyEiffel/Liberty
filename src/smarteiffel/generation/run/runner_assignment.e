@@ -8,6 +8,8 @@ inherit
    WRITABLE_ATTRIBUTE_NAME_VISITOR
    RESULT_VISITOR
    INTERNAL_LOCAL2_VISITOR
+   CREATE_WRITABLE_VISITOR
+   FUNCTION_CALL_0_VISITOR
 
 insert
    RUNNER_PROCESSOR_FACET
@@ -93,6 +95,28 @@ feature {INTERNAL_LOCAL2}
       do
          current_frame.set_internal_local_object(visited, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)
+      end
+
+feature {CREATE_WRITABLE}
+   visit_create_writable (visited: CREATE_WRITABLE) is
+      do
+         visited.writable.accept(Current)
+      end
+
+feature {FUNCTION_CALL_0}
+   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+      local
+         target: RUNNER_STRUCTURED_OBJECT
+         field_name: STRING; af: ANONYMOUS_FEATURE
+      do
+         target ::= processor.expressions.eval(visited.target)
+         field_name := visited.feature_name.to_string
+         af := visited.feature_stamp.anonymous_feature(target.type)
+         check
+            inlined_assignment: {WRITABLE_ATTRIBUTE} ?:= af
+         end
+         target.set_field(field_name, value)
+         entity_type := af.result_type.resolve_in(target.type)
       end
 
 feature {}

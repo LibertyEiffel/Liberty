@@ -1357,8 +1357,7 @@ feature {CLASS_CHECK}
          assignment_handler.echo_information
          feature_accumulator.echo_information
          status.info
-         eiffel_parser.show_nb_warnings
-         eiffel_parser.show_nb_errors
+         eiffel_parser.echo_information
          echo.put_string(once "Done.%N")
       end
 

@@ -16,6 +16,8 @@ feature {ANY}
    type: TYPE
    item: E_
 
+   is_initialized: BOOLEAN is True
+
    out_in_tagged_out_memory is
       do
          item.out_in_tagged_out_memory
@@ -26,9 +28,28 @@ feature {ANY}
          Result := item = other.item
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          processor.set_exception(exceptions.Routine_failure, "to_pointer on expanded type")
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      local
+         o: like Current
+      do
+         o ::= other
+         item := o.item
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      local
+         o: like Current
+      do
+         if other.type = type then
+            o ::= other
+            Result := item = o.item
+         end
       end
 
 feature {RUNNER_FACET}

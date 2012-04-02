@@ -113,6 +113,8 @@ feature {}
       end
 
    levels: LOG_LEVELS
+
+feature {LOG_INTERNAL_CONF}
    generation_id: INTEGER
 
 invariant

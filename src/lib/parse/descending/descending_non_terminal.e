@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_NON_TERMINAL
+class DESCENDING_NON_TERMINAL
    --
    -- A non-terminal meant to be put in a PARSE_TABLE.
    --
@@ -9,11 +9,11 @@ class PARSE_NON_TERMINAL
    --
    -- The structure of this notation is:
    --
-   --    {PARSE_NON_TERMINAL << rule, agent;
-   --                           rule, agent;
-   --                             . . .
-   --                           rule, agent
-   --                        >>}
+   --    {DESCENDING_NON_TERMINAL << rule, agent;
+   --                                rule, agent;
+   --                                  . . .
+   --                                rule, agent
+   --                             >>}
    --
    -- where each rule is a TRAVERSABLE[STRING] (with each String being the name of an atom of the
    -- PARSE_TABLE), and each agent may either be Void or a PROCEDURE[TUPLE] called when reducing the
@@ -21,16 +21,7 @@ class PARSE_NON_TERMINAL
    --
 
 inherit
-   PARSE_ATOM
-      redefine
-         copy, is_equal, out_in_tagged_out_memory
-      end
-
-insert
-   LOGGING
-      redefine
-         copy, is_equal, out_in_tagged_out_memory
-      end
+   PARSE_NON_TERMINAL
 
 creation {ANY}
    manifest_creation
@@ -43,12 +34,12 @@ feature {ANY}
          tagged_out_memory.extend('}')
       end
 
-feature {PARSE_TABLE}
    is_coherent: BOOLEAN is
       do
          Result := parser_tree.is_coherent
       end
 
+feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
          if non_terminal_builder /= Void then
@@ -58,7 +49,7 @@ feature {PARSE_TABLE}
          end
       end
 
-feature {DESCENDING_PARSER, PARSE_NT_NODE}
+feature {PARSER_FACET}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
       do
          Result := parser_tree.parse(buffer, actions)
@@ -98,14 +89,12 @@ feature {ANY}
       end
 
    add (rule: TRAVERSABLE[FIXED_STRING]; action: PROCEDURE[TUPLE]) is
-      require
-         rule /= Void
       do
          parser_tree.add(rule, action)
       end
 
-feature {PARSE_NON_TERMINAL}
-   parser_tree: PARSE_NT_NODE
+feature {DESCENDING_NON_TERMINAL}
+   parser_tree: DESCENDING_NT_NODE
 
 feature {}
    tree_builder_path_used: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]] is
@@ -188,7 +177,7 @@ feature {}
 
    manifest_semicolon_check: INTEGER is 2
 
-end -- class PARSE_NON_TERMINAL
+end -- class DESCENDING_NON_TERMINAL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

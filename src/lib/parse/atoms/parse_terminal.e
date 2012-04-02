@@ -27,9 +27,9 @@ feature {ANY}
          tagged_out_memory.append(once "TERMINAL")
       end
 
-feature {PARSE_TABLE}
    is_coherent: BOOLEAN is True
 
+feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
          if action = Void and then terminal_builder /= Void then
@@ -37,7 +37,7 @@ feature {PARSE_TABLE}
          end
       end
 
-feature {DESCENDING_PARSER, PARSE_NT_NODE}
+feature {PARSER_FACET}
    parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
       local
          memo: INTEGER; image: PARSER_IMAGE

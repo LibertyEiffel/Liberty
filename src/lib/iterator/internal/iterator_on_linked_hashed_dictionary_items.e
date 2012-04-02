@@ -30,11 +30,13 @@ feature {ANY}
       do
          node := dico.first_node
          generation := iterable_generation
+         index := dico.lower
       end
 
    is_off: BOOLEAN is
       do
          Result := node = Void
+         check Result = (index > dico.upper) end
       end
 
    item: V_ is
@@ -45,7 +47,10 @@ feature {ANY}
    next is
       do
          node := node.next_link
+         index := index + 1
       end
+
+   index: INTEGER
 
 feature {}
    iterable_generation: INTEGER is

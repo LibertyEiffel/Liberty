@@ -151,17 +151,17 @@ feature {}
       end
 
    default_test_failed (id: INTEGER; lbl, gen, ass_flag: STRING) is
+      require
+         lbl /= Void
+         gen /= Void
+         ass_flag /= Void
       do
-         std_output.put_string(once "ERROR: (label_)assert call ")
-         std_output.put_string(lbl)
-         std_output.put_string(once " in class ")
-         std_output.put_string(gen)
-         std_output.put_string(once " failed.%NRerun this test under the -sedb debugger to find out what is going wrong.%N")
-         std_output.put_string(once "Assertion level was ")
-         std_output.put_string(ass_flag)
-         std_output.put_character('.')
-         std_output.put_new_line
-         breakpoint
+         std_output.put_line(once "[
+                                   ERROR: (label_)assert call #(1) in class #(2) failed.
+                                   Rerun this test under the -sedb debugger to find out what is going wrong.
+                                   Assertion level was #(3).
+                                   ]" # lbl # gen # ass_flag)
+         sedb_breakpoint
          die_with_code(1)
       end
 

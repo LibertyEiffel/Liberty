@@ -20,6 +20,7 @@ feature {RUNNER_FACET}
    features: RUNNER_FEATURES
    instructions: RUNNER_INSTRUCTIONS
    expressions: RUNNER_EXPRESSIONS
+   old_expressions: RUNNER_OLD_EXPRESSIONS
    assignment: RUNNER_ASSIGNMENT
 
    memory: RUNNER_MEMORY
@@ -36,7 +37,7 @@ feature {RUNNER_FACET} -- Exceptions
    set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
       do
          create exception.make(a_exception, a_message.intern, Current, exception)
-         sedb_breakpoint --| **** useful breakpoint for debug.
+         break --| **** useful breakpoint for debug.
       ensure
          exception.message = a_message.intern
       end
@@ -50,13 +51,21 @@ feature {RUNNER_FEATURES} -- Contract checking
    check_invariant (type: TYPE) is
       require
          type /= Void
+         current_frame.target.type = type
+         current_frame.target.is_initialized
       local
          class_invariant: CLASS_INVARIANT
       do
          if exception = Void and then type.class_text.invariant_check then
             class_invariant := type.class_invariant
             if class_invariant /= Void then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ INVARIANT OF #(1) ~~8<~~" # type.name.to_string)
+               end
                check_assertions(exceptions.Class_invariant, class_invariant)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ invariant of #(1) ~~>8~~" # type.name.to_string)
+               end
             end
          end
       end
@@ -75,6 +84,9 @@ feature {RUNNER_FEATURES} -- Contract checking
             if require_assertion /= Void and then not require_assertion.is_always_true(target.type)
                and then target.check_and_set_position(require_assertion.start_position)
             then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ PRECONDITION OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
                from
                   i := require_assertion.lower
                invariant
@@ -102,11 +114,45 @@ feature {RUNNER_FEATURES} -- Contract checking
                   exception := original_exception
                end
                target.clear_position(require_assertion.start_position)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ precondition of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
             end
          end
       end
 
-   check_ensure (rf: RUN_FEATURE) is
+   prepare_old (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+      require
+         rf /= Void
+      local
+         ensure_assertion: ENSURE_ASSERTION
+         i: INTEGER; assertion: ASSERTION
+      do
+         if exception = Void then
+            ensure_assertion := rf.ensure_assertion
+            if ensure_assertion /= Void and then not ensure_assertion.is_always_true(current_frame.target.type) then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ PREPARE OLD OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
+               from
+                  i := ensure_assertion.lower
+               until
+                  exception /= Void or else i > ensure_assertion.upper
+               loop
+                  assertion := ensure_assertion.item(i)
+                  if assertion.expression /= Void then
+                     old_expressions.execute(assertion.expression, rf)
+                  end
+                  i := i + 1
+               end
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ prepare old of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
+            end
+         end
+      end
+
+   check_ensure (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
       require
          rf /= Void
       local
@@ -115,7 +161,13 @@ feature {RUNNER_FEATURES} -- Contract checking
          if exception = Void then
             ensure_assertion := rf.ensure_assertion
             if ensure_assertion /= Void then
+               debug ("run.callstack")
+                  std_output.put_line(once "~~8<~~ POSTCONDITION OF {#(1)}.#(2) ~~8<~~" # target.type.name.to_string # rf.name.to_string)
+               end
                check_assertions(exceptions.Postcondition, ensure_assertion)
+               debug ("run.callstack")
+                  std_output.put_line(once "~~>8~~ postcondition of {#(1)}.#(2) ~~>8~~" # target.type.name.to_string # rf.name.to_string)
+               end
             end
          end
       end
@@ -201,7 +253,11 @@ feature {RUNNER_FACET}
       require
          alive: type.live_type /= Void
       do
-         Result := memory.new_object(Current, type)
+         if type.is_expanded then
+            Result := default_expanded(type)
+         else
+            Result := memory.new_object(Current, type)
+         end
       ensure
          exists: Result /= Void
          good_type: Result.type = type
@@ -218,7 +274,7 @@ feature {RUNNER_FACET}
          if default_value /= Void then
             Result := default_value.item([])
          else
-            Result := new_object(type)
+            Result := memory.new_object(Current, type)
          end
       ensure
          Result /= Void
@@ -609,6 +665,7 @@ feature {}
          create features.make(Current)
          create instructions.make(Current)
          create expressions.make(Current)
+         create old_expressions.make(Current)
          create assignment.make(Current)
 
          create booleans.make(2)
@@ -658,10 +715,11 @@ feature {}
 invariant
    memory /= Void
 
-   features     /= Void and then features.processor     = Current
-   instructions /= Void and then instructions.processor = Current
-   expressions  /= Void and then expressions.processor  = Current
-   assignment   /= Void and then assignment.processor   = Current
+   features        /= Void and then features.processor        = Current
+   instructions    /= Void and then instructions.processor    = Current
+   expressions     /= Void and then expressions.processor     = Current
+   old_expressions /= Void and then old_expressions.processor = Current
+   assignment      /= Void and then assignment.processor      = Current
 
    booleans       /= Void
    characters     /= Void

@@ -6,20 +6,10 @@ class RUNNER_INSTRUCTIONS
 inherit
    INSTRUCTION_VISITOR
    RUNNER_LOOP_VISITOR
-
-insert
-   RUNNER_PROCESSOR_FACET
+   RUNNER_EXECUTOR
 
 create {RUNNER_PROCESSOR}
    make
-
-feature {RUNNER_FACET}
-   execute (a_inst: INSTRUCTION) is
-      require
-         a_inst /= Void
-      do
-         a_inst.accept(Current)
-      end
 
 feature {AGENT_INSTRUCTION}
    visit_agent_instruction (visited: AGENT_INSTRUCTION) is
@@ -31,28 +21,28 @@ feature {ASSERTION_LIST}
    visit_assertion_list (visited: ASSERTION_LIST) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {CLASS_INVARIANT}
    visit_class_invariant (visited: CLASS_INVARIANT) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {ENSURE_ASSERTION}
    visit_ensure_assertion (visited: ENSURE_ASSERTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {LOOP_INVARIANT}
    visit_loop_invariant (visited: LOOP_INVARIANT) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {ASSIGNMENT_ATTEMPT}
@@ -79,7 +69,7 @@ feature {C_INLINE}
    visit_c_inline (visited: C_INLINE) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {COMMENT}
@@ -90,15 +80,11 @@ feature {COMMENT}
 
 feature {COMPOUND}
    visit_compound (visited: COMPOUND) is
-      local
-         watermark: RUNNER_FRAME_WATERMARK
       do
          check
             visited.list /= Void
          end
-         watermark := current_frame.watermark
          current_frame.add_instructions(visited.list)
-         current_frame.execute_until(watermark)
       end
 
 feature {CREATE_INSTRUCTION}
@@ -205,6 +191,9 @@ feature {RUNNER_LOOP}
          stop: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
          stop ::= processor.expressions.eval(visited.loop_instruction.until_expression)
+         debug ("run.callstack")
+            std_output.put_line(once "Stop loop: #(1)" # stop.out)
+         end
          if not stop.item then
             current_frame.add_instruction(visited)
             if visited.loop_instruction.loop_body /= Void then
@@ -216,8 +205,7 @@ feature {RUNNER_LOOP}
 feature {NO_INVARIANT_WRAPPER}
    visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         visited.compound.accept(Current)
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
@@ -234,53 +222,61 @@ feature {RUN_TIME_ERROR_INSTRUCTION}
 feature {SEDB}
    visit_sedb (visited: SEDB) is
       do
-         -- nothing
+         debug ("run.data")
+            std_output.put_line(once "SEDB: #(1)" # visited.info_code.out)
+         end
       end
 
 feature {UNUSED_EXPRESSION}
    visit_unused_expression (visited: UNUSED_EXPRESSION) is
+      local
+         dropped: RUNNER_OBJECT
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         dropped := processor.expressions.eval(visited.expression)
       end
 
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {PRECURSOR_INSTRUCTION}
    visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
+      end
+
+feature {}
+   visit_procedure_call (visited: PROCEDURE_CALL) is
+      do
+         processor.features.call(visited)
       end
 
 feature {PROCEDURE_CALL_0}
    visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
    visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
    visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
       do
-         processor.features.call(visited)
+         visit_procedure_call(visited)
       end
 
 feature {REQUIRE_ASSERTION}
    visit_require_assertion (visited: REQUIRE_ASSERTION) is
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {RETRY_INSTRUCTION}
@@ -292,8 +288,9 @@ feature {RETRY_INSTRUCTION}
 feature {WHEN_CLAUSE}
    visit_when_clause (visited: WHEN_CLAUSE) is
       do
-         std_output.put_line(once "%N%N**** TODO ****%N%N")
-         sedb_breakpoint --| **** TODO
+         check
+            never_called: False -- because RUNNER_INSPECTOR handles inspect
+         end
       end
 
 feature {}

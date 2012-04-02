@@ -23,7 +23,7 @@ feature {RUNNER_MEMORY}
 feature {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
    with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_] is
       do
-         create Result.make(processor, type, capacity, storage, retriever, setter, Current)
+         create Result.make(processor, type, element_type, capacity, storage, retriever, setter, Current)
       end
 
 feature {}
@@ -81,7 +81,12 @@ feature {}
       do
          caller ::= processor.current_frame.target
          index ::= processor.current_frame.arguments.first
-         processor.current_frame.set_return(caller.item(index.item))
+         if index.item.in_range(0, caller.capacity - 1) then
+            processor.current_frame.set_return(caller.item(index.item))
+         else
+            processor.current_frame.debug_stack
+            break --| **** BUG
+         end
       end
 
    builtin_put (processor: RUNNER_PROCESSOR) is
@@ -97,25 +102,41 @@ feature {}
       end
 
    builtin_slice_copy (processor: RUNNER_PROCESSOR) is
+      local
+         at, src_min, src_max: RUNNER_NATIVE_EXPANDED[INTEGER_64]
+         caller, src: RUNNER_NATIVE_ARRAY[E_, O_]
+         arguments: ITERATOR[RUNNER_OBJECT]
       do
-         sedb_breakpoint --| **** TODO
+         caller ::= processor.current_frame.target
+         arguments := processor.current_frame.arguments.new_iterator
+         at ::= arguments.item
+         arguments.next
+         src ::= arguments.item
+         arguments.next
+         src_min ::= arguments.item
+         arguments.next
+         src_max ::= arguments.item
+         caller.slice_copy(at.item, src, src_min.item, src_max.item)
       end
 
    builtin_from_pointer (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}
-   make (a_type: like type; a_retriever: like retriever; a_setter: like setter) is
+   make (a_type: like type; a_element_type: like element_type; a_retriever: like retriever; a_setter: like setter) is
       require
          a_type /= Void
+         a_element_type /= Void
       do
          type := a_type
+         element_type := a_element_type
          retriever := a_retriever
          setter := a_setter
       ensure
          type = a_type
+         element_type = a_element_type
          retriever = a_retriever
          setter = a_setter
       end
@@ -125,10 +146,12 @@ feature {}
 
 feature {RUNNER_FACET}
    type: TYPE
+   element_type: TYPE
 
 invariant
    retriever /= Void
    setter /= Void
+   element_type /= Void
 
 end -- class RUNNER_TYPED_NATIVE_ARRAY_BUILTINS
 --

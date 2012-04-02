@@ -1,52 +1,21 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class DESCENDING_PARSER
-   --
-   -- The entry point to LL(n) parsing. Currently that top-down parsing is directly implemented in the
-   -- PARSE_ATOM classes.
-   --
+deferred class ABSTRACT_PARSER[NT_ -> PARSE_NON_TERMINAL]
 
 insert
    TRISTATE_VALUES
    LOGGING
-
-creation {ANY}
-   make
+   PARSER_FACET
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
-      require
-         a_actions /= Void
-         grammar.is_coherent
-         grammar.has(start)
-      local
-         atom: PARSE_ATOM
-         parsed: TRISTATE
-      do
-         error := Void
-         atom := grammar.item(start)
-         parsed := atom.parse(buffer, a_actions)
-         if parsed = yes then
-            Result := True
-         elseif parsed = no then
-            error := buffer.last_error
-            if error = Void then
-               create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
-            end
-            Result := True
-         else
-            check
-               should_add_more: not Result
-            end
-         end
-      ensure
-         a_actions.count >= old a_actions.count
+      deferred
       end
 
-   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING): BOOLEAN is
+   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[NT_]; start: STRING): BOOLEAN is
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       local
@@ -92,10 +61,6 @@ feature {ANY}
    error: PARSE_ERROR
 
 feature {}
-   make is
-      do
-      end
-
    used_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]] is
       once
          create Result.make(0)
@@ -149,7 +114,7 @@ feature {}
          Result.is_empty
       end
 
-end -- class DESCENDING_PARSER
+end -- class ABSTRACT_PARSER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

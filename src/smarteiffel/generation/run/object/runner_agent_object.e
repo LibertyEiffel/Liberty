@@ -20,6 +20,8 @@ feature {ANY}
 
    feature_stamp: FEATURE_STAMP
 
+   is_initialized: BOOLEAN is True
+
    out_in_tagged_out_memory is
       do
          tagged_out_memory.append(once "<agent>")
@@ -28,11 +30,6 @@ feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
          Result := other = Current
-      end
-
-   to_builtin_pointer: POINTER is
-      do
-         Result := to_pointer
       end
 
    upper: INTEGER is
@@ -51,6 +48,22 @@ feature {ANY}
          end
       ensure
          a_rank = -1 implies Result = target
+      end
+
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
+      do
+         Result := to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      do
+         not_yet_implemented
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      do
+         not_yet_implemented
       end
 
 feature {RUNNER_MEMORY}

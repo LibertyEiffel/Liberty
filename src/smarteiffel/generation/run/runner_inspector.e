@@ -34,8 +34,14 @@ feature {RUNNER_INSTRUCTIONS}
          end
          if not found then
             if a_inspect.else_compound /= Void then
+               debug ("run.data")
+                  std_output.put_line(once "INSPECT: selected else")
+               end
                processor.instructions.execute(a_inspect.else_compound)
             elseif a_inspect.else_position.is_unknown then
+               debug ("run.data")
+                  std_output.put_line(once "INSPECT: nothing selected")
+               end
                not_yet_implemented --| **** TODO: error, nothing selected
             end
          end
@@ -60,6 +66,9 @@ feature {WHEN_CLAUSE}
             i := i + 1
          end
          if found then
+            debug ("run.data")
+               std_output.put_line(once "INSPECT: selected value=#(1)" # value.out)
+            end
             processor.instructions.execute(visited.compound)
          end
       end
@@ -70,13 +79,19 @@ feature {WHEN_ITEM_1}
          item: RUNNER_OBJECT
       do
          item := processor.expressions.eval(visited.expression)
-         found := item.is_equal(value)
+         if item.type.is_expanded then
+            found := item.eq(value)
+         else
+            -- surely a STRING.
+            --found := item.builtin_is_equal(value)
+            not_yet_implemented
+         end
       end
 
 feature {WHEN_ITEM_2}
    visit_when_item_2 (visited: WHEN_ITEM_2) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}

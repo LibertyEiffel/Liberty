@@ -9,11 +9,14 @@ deferred class ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
 inherit
    AVL_TREE_NODE[K_]
       rename item as key,
-         set_item as set_key
+         set_item as set_key,
+         safe_equal as safe_equal_key
       end
    ANY_AVL_DICTIONARY_NODE
 
 feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_DICTIONARY_ITEMS}
+   safe_equal_value: SAFE_EQUAL[V_]
+
    value: V_
 
    set_value (v: like value) is
@@ -25,12 +28,10 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
 
    fast_at (k: like key): like Current is
          -- Is element `e' in the tree?
-      local
-         safe_equal: SAFE_EQUAL[K_]
       do
          if key = k then
             Result := Current
-         elseif safe_equal.test(key, k) then
+         elseif safe_equal_key.test(key, k) then
             -- because otherwise there would be an infinite recursion
             --Result := Void
          elseif ordered(k, key) then
@@ -55,10 +56,8 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
       end
 
    key_at (v: V_): K_ is
-      local
-         safe_equal: SAFE_EQUAL[V_]
       do
-         if safe_equal.test(v, value) then
+         if safe_equal_value.test(v, value) then
             Result := key
          elseif left /= Void then
             Result := left.key_at(v)
@@ -80,11 +79,9 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
 
 feature {ABSTRACT_AVL_DICTIONARY_NODE}
    occurrences_ (v: V_; cnt: INTEGER): INTEGER is
-      local
-         safe_equal: SAFE_EQUAL[V_]
       do
          Result := cnt
-         if safe_equal.test(v, value) then
+         if safe_equal_value.test(v, value) then
             Result := Result + 1
          end
          if left /= Void then

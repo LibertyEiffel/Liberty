@@ -15,10 +15,10 @@ inherit
 insert
    TRAVERSABLE[CODE]
 
-creation   {CODE_ACCUMULATOR}
+creation {CODE_ACCUMULATOR}
    from_list
 
-creation   {COMPOUND_EXPRESSION}
+creation {COMPOUND_EXPRESSION}
    set_list
 
 feature {ANY}

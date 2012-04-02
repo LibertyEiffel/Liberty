@@ -59,13 +59,12 @@ feature {}
          open: RUNNER_OPEN_OPERAND
       do
          arg := agent_object.operand(rank)
-         if open ?:= arg then
+         if arg = Void or else not open ?:= arg then
+            Result := arg
+         else
             open ::= arg
-
             launcher_argument_index := launcher_argument_index + 1
             Result := processor.expressions.eval(agent_launcher.fake_tuple.expression(launcher_argument_index))
-         else
-            Result := arg
          end
       end
 

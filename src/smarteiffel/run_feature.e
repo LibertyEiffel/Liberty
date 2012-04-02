@@ -25,6 +25,7 @@ inherit
 
 insert
    GLOBALS
+   TAGGED
 
 feature {ANY}
    type_of_current: TYPE

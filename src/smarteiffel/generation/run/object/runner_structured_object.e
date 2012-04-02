@@ -24,14 +24,22 @@ feature {ANY}
    processor: RUNNER_PROCESSOR
    type: TYPE
 
+   is_initialized: BOOLEAN
+
    set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
       do
+         debug ("run.data")
+            std_output.put_line(once "    >>>> field #(1) := #(2)" # a_name # repr(a_value))
+         end
          fields.fast_put(expand(a_value), a_name.intern)
       end
 
    field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
       do
          Result := expand(fields.fast_at(a_name.intern))
+         debug ("run.data")
+            std_output.put_line(once "    >>>> field #(1) = #(2)" # a_name # repr(Result))
+         end
       end
 
    out_in_tagged_out_memory is
@@ -70,9 +78,41 @@ feature {ANY}
          end
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          Result := to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      local
+         o: like Current
+      do
+         o ::= expand(other)
+         o.fields.do_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
+                         do
+                            fields.fast_put(expand(object), name)
+                         end)
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      local
+         o: like Current
+      do
+         if other.type = type then
+            o ::= other
+            if o.fields.count = fields.count then
+               Result := o.fields.for_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING): BOOLEAN is
+                                          local
+                                             my_object: RUNNER_OBJECT
+                                          do
+                                             if fields.fast_has(name) then
+                                                my_object := fields.fast_at(name)
+                                                Result := my_object = object or else (my_object /= Void and then my_object.eq(object))
+                                             end
+                                          end)
+            end
+         end
       end
 
 feature {RUNNER_FACET}
@@ -83,11 +123,23 @@ feature {RUNNER_FACET}
          else
             create Result.copy_expanded(Current)
          end
+         if not Result.is_equal(Current) then
+            break
+         end
       end
 
    as_foreign_object: FOREIGN_OBJECT is
       do
          not_yet_implemented
+      end
+
+   set_initialized is
+      require
+         not is_initialized
+      do
+         is_initialized := True
+      ensure
+         is_initialized
       end
 
 feature {}
@@ -98,7 +150,7 @@ feature {}
          make(model.processor, model.type, model.builtins)
          model.fields.do_all(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
                              do
-                                fields.add(expand(field_value), field_name)
+                                fields.fast_put(expand(field_value), field_name)
                              end)
       end
 
@@ -112,10 +164,14 @@ feature {}
          type := a_type
          builtins := a_builtins
          initialize_fields
+         if a_type.is_expanded then
+            is_initialized := True
+         end
       ensure
          processor = a_processor
          type = a_type
          builtins = a_builtins
+         is_initialized = a_type.is_expanded
       end
 
    initialize_fields is

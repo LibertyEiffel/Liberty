@@ -140,10 +140,9 @@ void se_prinT8(FILE* file, EIF_POINTER* o) {
   The upper most context (SmartEiffel Dump stack Top) :
 */
 se_dump_stack* se_dst=NULL;
-int se_dst_depth=0;
 
 int se_stack_size(se_dump_stack* ds) {
-  return se_dst_depth;
+  return ds->depth;
 }
 
 void se_print_run_time_stack(void) {
@@ -689,6 +688,7 @@ se_dump_stack* se_new_dump_stack(se_dump_stack* copy) {
     result = (se_dump_stack*)se_malloc(sizeof(se_dump_stack));
     if (result != NULL) {
       result->fd               = fd;
+      result->depth            = copy->depth;
       result->p                = copy->p;
       result->caller           = NULL;
       result->current          = NULL;

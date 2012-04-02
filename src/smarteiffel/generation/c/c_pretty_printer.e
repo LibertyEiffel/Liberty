@@ -2437,6 +2437,7 @@ feature {}
                                                                                                      ds.caller=NULL;
                                                                                                      ds.exception_origin=NULL;
                                                                                                      ds.locals=NULL;
+                                                                                                     ds.depth=0;
 
                                                                                                      ]")
             end
@@ -2493,7 +2494,7 @@ feature {}
             if no_check then
                pending_c_function_body.append(once "[
                                                     se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
-                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
+                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
                                                                                                      ds.fd=&irfd;
 
                                                                                                      ]")
@@ -3108,6 +3109,7 @@ feature {}
                                                               ds.caller=NULL;
                                                               ds.exception_origin=NULL;
                                                               ds.locals=NULL;
+                                                              ds.depth=0;
 
                                                               ]")
                      end
@@ -4069,7 +4071,7 @@ feature {} -- CECIL_POOL
                                                 %#endif%N")
          end
          if ace.no_check then
-            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL,0};%N%
                                                 %ds.caller=se_dst;%N%
                                                 %ds.exception_origin=NULL;%N%
                                                 %ds.locals=NULL;%N")

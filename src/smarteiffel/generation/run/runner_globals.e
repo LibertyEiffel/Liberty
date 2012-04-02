@@ -22,6 +22,50 @@ feature {}
          create Result.make(0)
       end
 
+feature {}
+   frozen break is
+      do
+         debug ("run.callstack", "run.data")
+            std_output.put_line(once "**************** BREAK ****************")
+            std_output.flush
+         end
+         sedb_breakpoint
+      end
+
+   frozen repr (arg: RUNNER_OBJECT): STRING is
+      do
+         if arg = Void then
+            Result := once "Void"
+         else
+            Result := arg.out
+         end
+      ensure
+         Result /= Void
+      end
+
+   frozen listrepr (list: TRAVERSABLE[RUNNER_OBJECT]): STRING is
+      local
+         i: INTEGER
+      do
+         Result := "("
+         if list /= Void then
+            from
+               i := list.lower
+            until
+               i > list.upper
+            loop
+               if i > list.lower then
+                  Result.append(once ", ")
+               end
+               Result.append(repr(list.item(i)))
+               i := i + 1
+            end
+         end
+         Result.extend(')')
+      ensure
+         Result /= Void
+      end
+
 end -- class RUNNER_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
