@@ -7,14 +7,24 @@ export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
 export plain=FALSE
 export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
-
+export PREREQUISITES="gcc gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
+function check_prerequisites() 
+{
+    for PROGRAM in $PREREQUISITES; do
+        if which $PROGRAM >/dev/null; 
+        then echo $PROGRAM found; 
+        else echo "$PROGRAM not found"; exit 5
+        fi; 
+    done
+}
 
 function bootstrap()
 {
     cd $LIBERTY_HOME
+    check_prerequisites
     test -d target || mkdir target
     cd target
     test -d log || mkdir log
@@ -257,6 +267,7 @@ EOF
 function compile_plugins()
 {
     title "Compiling plugins"
+    check_prerequisites
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
 }
