@@ -59,6 +59,21 @@ feature {ANY}
       end
 
 feature {PACKRAT_INTERNAL}
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         i: INTEGER
+      do
+         from
+            Result := no
+            i := alternatives.lower
+         until
+            Result /= no or else i > alternatives.upper
+         loop
+            Result := alternatives.item(i).parse(context)
+            i := i + 1
+         end
+      end
+
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       local
          i: INTEGER
@@ -75,10 +90,17 @@ feature {PACKRAT_INTERNAL}
 
 feature {}
    make (first, second: PACKRAT_ALTERNATIVE) is
+      require
+         first /= Void
+         second /= Void
       do
          create alternatives.with_capacity(2)
          alternatives.add_last(first)
          alternatives.add_last(second)
+      ensure
+         alternatives.count = 2
+         alternatives.first = first
+         alternatives.last = second
       end
 
 feature {PACKRAT_CHOICE}
@@ -86,6 +108,7 @@ feature {PACKRAT_CHOICE}
 
 invariant
    useful: alternatives.count > 1
+   correct: alternatives.for_all(agent (alt: PACKRAT_ALTERNATIVE): BOOLEAN is do Result := alt /= Void end)
 
 end -- class PACKRAT_CHOICE
 --

@@ -43,6 +43,25 @@ feature {ANY}
       end
 
 feature {PACKRAT_INTERNAL}
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
+      do
+         from
+            Result := yes
+            memo := context.memo
+            i := primaries.lower
+         until
+            Result /= yes or else i > primaries.upper
+         loop
+            Result := primaries.item(i).parse(context)
+            i := i + 1
+         end
+         if Result /= yes then
+            context.restore(memo)
+         end
+      end
+
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       local
          i: INTEGER

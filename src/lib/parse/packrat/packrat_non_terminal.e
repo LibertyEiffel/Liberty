@@ -33,8 +33,23 @@ feature {ANY}
 
 feature {PARSER_FACET}
    parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         actions: COLLECTION[PARSE_ACTION]
+         pack: PACKRAT_PACK
+         parsed: TRISTATE
       do
-         not_yet_implemented
+         pack := context.pack(name)
+         if not pack.is_set then
+            actions := context.save_actions
+            parsed := pattern.parse(context)
+            pack := context.set_pack(name, parsed)
+            context.restore_old_actions(actions)
+         end
+
+         Result := pack.parsed
+         if Result /= no then
+            context.actions.append_traversable(pack.actions)
+         end
       end
 
 feature {PARSE_TABLE}

@@ -5,6 +5,7 @@ deferred class PACKRAT_PRIMARY
 
 insert
    PACKRAT_INTERNAL
+   TRISTATE_VALUES
 
 feature {ANY}
    is_coherent: BOOLEAN is
@@ -12,6 +13,14 @@ feature {ANY}
       end
 
 feature {PACKRAT_INTERNAL}
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      require
+         context /= Void
+      deferred
+      ensure
+         Result /= yes implies context.buffer.current_index = old context.buffer.current_index
+      end
+
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       deferred
       end

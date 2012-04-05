@@ -6,12 +6,86 @@ class PACKRAT_PARSE_CONTEXT
 inherit
    PARSE_CONTEXT
 
+insert
+   PACKRAT_INTERNAL
+   TRISTATE_VALUES
+
 create {PACKRAT_PARSER}
    make
 
 feature {ANY}
    buffer: MINI_PARSER_BUFFER
    actions: COLLECTION[PARSE_ACTION]
+
+feature {PACKRAT_INTERNAL}
+   memo: PACKRAT_CONTEXT_MEMO is
+      do
+         Result.set(buffer.memo, actions.count)
+      ensure
+         Result.is_set
+      end
+
+   restore (a_memo: like memo) is
+      require
+         a_memo.is_set
+      do
+         buffer.restore(a_memo.memo)
+         if actions.count > memo.action_count then
+            actions.remove_tail(actions.count - memo.action_count)
+         end
+      end
+
+   pack (atom_name: FIXED_STRING): PACKRAT_PACK is
+      local
+         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
+      do
+         atom_data := data.reference_at(atom_name)
+         if atom_data /= Void then
+            Result := atom_data.reference_at(buffer.memo)
+         end
+      end
+
+   set_pack (atom_name: FIXED_STRING; parsed: TRISTATE): PACKRAT_PACK is
+      require
+         not pack(atom_name).is_set
+      local
+         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
+      do
+         atom_data := data.reference_at(atom_name)
+         if atom_data = Void then
+            create atom_data.make
+            data.put(atom_data, atom_name)
+         end
+         if parsed = no then
+            Result.set(parsed, Void)
+         else
+            Result.set(parsed, actions)
+         end
+         atom_data.put(Result, buffer.memo)
+      ensure
+         Result = pack(atom_name)
+         Result.is_set
+         parsed = no implies Result.actions = Void
+         parsed /= no implies Result.actions = actions
+      end
+
+   save_actions: like actions is
+      do
+         Result := actions
+         create {FAST_ARRAY[PARSE_ACTION]} actions.make(0)
+      ensure
+         actions /= old actions
+         Result = old actions
+      end
+
+   restore_old_actions (old_actions: like actions) is
+      require
+         old_actions /= Void
+      do
+         actions := old_actions
+      ensure
+         actions = old_actions
+      end
 
 feature {}
    make (a_buffer: like buffer; a_actions: like actions) is
@@ -21,10 +95,18 @@ feature {}
       do
          buffer := a_buffer
          actions := a_actions
+         create data.make
       ensure
          buffer = a_buffer
          actions = a_actions
       end
+
+   data: HASHED_DICTIONARY[AVL_DICTIONARY[PACKRAT_PACK, INTEGER], FIXED_STRING]
+         -- atom name -> column -> (parsed, actions)
+
+invariant
+   data /= Void
+   actions /= Void
 
 end -- class PACKRAT_PARSE_CONTEXT
 --

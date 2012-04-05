@@ -1,32 +1,43 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_AND
-
-inherit
-   PACKRAT_LOOKAHEAD
-
-create {ANY}
-   make
-
-feature {ANY}
-   out_in_tagged_out_memory is
-      do
-         tagged_out_memory.extend('&')
-         sequence.out_in_tagged_out_memory
-      end
+expanded class PACKRAT_CONTEXT_MEMO
 
 feature {PACKRAT_INTERNAL}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
-      local
-         memo: PACKRAT_CONTEXT_MEMO
+   is_set: BOOLEAN
+
+   memo: INTEGER is
+      require
+         is_set
       do
-         memo := context.memo
-         Result := sequence.parse(context)
-         context.restore(memo)
+         Result := my_memo
       end
 
-end -- class PACKRAT_AND
+   action_count: INTEGER is
+      require
+         is_set
+      do
+         Result := my_action_count
+      end
+
+feature {PACKRAT_PARSE_CONTEXT}
+   set (a_memo: like memo; a_action_count: like action_count) is
+      require
+         not is_set
+      do
+         my_memo := a_memo
+         my_action_count := a_action_count
+         is_set := True
+      ensure
+         is_set
+         memo = a_memo
+         action_count = a_action_count
+      end
+
+   my_memo: INTEGER
+   my_action_count: INTEGER
+
+end -- class PACKRAT_CONTEXT_MEMO
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

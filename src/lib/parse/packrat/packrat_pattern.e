@@ -13,6 +13,10 @@ inherit
       end
 
 insert
+   TRISTATE_VALUES
+      undefine
+         is_equal, copy, out_in_tagged_out_memory
+      end
    PACKRAT_INTERNAL
       undefine
          is_equal, copy, out_in_tagged_out_memory

@@ -16,6 +16,16 @@ feature {ANY}
          sequence.out_in_tagged_out_memory
       end
 
+feature {PACKRAT_INTERNAL}
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         memo: PACKRAT_CONTEXT_MEMO
+      do
+         memo := context.memo
+         Result := not sequence.parse(context)
+         context.restore(memo)
+      end
+
 end -- class PACKRAT_NOT
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

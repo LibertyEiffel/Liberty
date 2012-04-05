@@ -3,6 +3,9 @@
 --
 expanded class PACKRAT_INTERNAL
 
+insert
+   PARSER_FACET
+
 --
 -- Type marker for access to internal features. Please don't use.
 --
