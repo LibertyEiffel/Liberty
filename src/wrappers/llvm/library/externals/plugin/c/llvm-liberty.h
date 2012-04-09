@@ -1,4 +1,6 @@
-#warning "LLVM-liberty starting include"
+#ifdef DEBUG // Let's be verbose during compile
+#   warning "LLVM-liberty starting include" 
+#endif
 
 /* #ifdef __llvm__ */
 extern unsigned int __builtin_bswap32(unsigned int _data);
@@ -15,5 +17,6 @@ extern unsigned long __builtin_bswap64(unsigned long _data);
 // #include <llvm-c/lto.h>
 // #include <llvm-c/Transforms/IPO.h>
 // #include <llvm-c/Transforms/Scalar.h>
-#warning "LLVM-liberty ending include"
-
+#ifdef DEBUG // Let's be verbose during compile
+#   warning "LLVM-liberty ending include"
+#endif
