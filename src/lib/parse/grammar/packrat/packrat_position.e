@@ -1,50 +1,57 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PACKRAT_LOOKAHEAD
+expanded class PACKRAT_POSITION
 
-inherit
-   PACKRAT_ALTERNATIVE
-
-feature {ANY}
-   is_coherent: BOOLEAN is
-      do
-         Result := primary.is_coherent
+insert
+   PACKRAT_INTERNAL
+      redefine
+         default_create, is_equal
       end
 
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := primary.is_equal(other.primary)
-      end
+creation {PACKRAT_GRAMMAR}
+   default_create
 
-   copy (other: like Current) is
+feature {PACKRAT_GRAMMAR}
+   next (buffer: MINI_PARSER_BUFFER): like Current is
       do
-         primary:= other.primary.twin
+         buffer.next
+         index := buffer.current_index
+         if not buffer.end_reached then
+            inspect
+               buffer.current_character
+            when '%N' then
+               line := line + 1
+               column := 1
+            when '%R' then
+               -- ignored
+            else
+               column := column + 1
+            end
+         end
+         Result := Current
       end
 
 feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   line: INTEGER
+   column: INTEGER
+   index: INTEGER
+
+feature {ANY}
+   is_equal (other: like Current): BOOLEAN is
       do
-         primary.set_default_tree_builders(non_terminal_builder, terminal_builder)
+         Result := index = other.index
       end
 
 feature {}
-   make (a_primary: like primary) is
-      require
-         a_primary /= Void
+   default_create is
       do
-         primary := a_primary
-      ensure
-         primary = a_primary
+         index := 1
+         line := 1
+         column := 1
       end
 
-feature {PACKRAT_LOOKAHEAD}
-   primary: PACKRAT_PRIMARY
-
-invariant
-   primary /= Void
-
-end -- class PACKRAT_LOOKAHEAD
+end -- class PACKRAT_POSITION
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

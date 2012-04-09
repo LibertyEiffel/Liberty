@@ -13,7 +13,7 @@ feature {ANY}
    out_in_tagged_out_memory is
       do
          tagged_out_memory.extend('&')
-         sequence.out_in_tagged_out_memory
+         primary.out_in_tagged_out_memory
       end
 
 feature {PACKRAT_INTERNAL}
@@ -22,7 +22,7 @@ feature {PACKRAT_INTERNAL}
          memo: PACKRAT_CONTEXT_MEMO
       do
          memo := context.memo
-         Result := sequence.parse(context)
+         Result := primary.parse(context)
          context.restore(memo)
       end
 

@@ -1,50 +1,66 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PACKRAT_LOOKAHEAD
+class PACKRAT_IMAGE
 
 inherit
-   PACKRAT_ALTERNATIVE
+   PARSER_IMAGE
+      redefine
+         out_in_tagged_out_memory
+      end
+
+insert
+   PACKRAT_INTERNAL
+      redefine
+         out_in_tagged_out_memory
+      end
+
+creation {PACKRAT_GRAMMAR}
+   make
 
 feature {ANY}
-   is_coherent: BOOLEAN is
+   image: STRING
+         -- the real image of the token
+
+   line: INTEGER is
       do
-         Result := primary.is_coherent
+         Result := position.line
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   column: INTEGER is
       do
-         Result := primary.is_equal(other.primary)
+         Result := position.column
       end
 
-   copy (other: like Current) is
+   index: INTEGER is
       do
-         primary:= other.primary.twin
+         Result := position.index
       end
 
-feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   out_in_tagged_out_memory is
       do
-         primary.set_default_tree_builders(non_terminal_builder, terminal_builder)
+         tagged_out_memory.append(image)
       end
 
 feature {}
-   make (a_primary: like primary) is
+   position: PACKRAT_POSITION
+         -- the position of the `image' (discarding the leading `blanks')
+
+   make (a_image: like image; a_position: like position) is
       require
-         a_primary /= Void
+         a_image /= Void
       do
-         primary := a_primary
+         image := a_image
+         position := a_position
       ensure
-         primary = a_primary
+         image = a_image
+         position = a_position
       end
 
-feature {PACKRAT_LOOKAHEAD}
-   primary: PACKRAT_PRIMARY
-
 invariant
-   primary /= Void
+   image /= Void
 
-end -- class PACKRAT_LOOKAHEAD
+end -- class PACKRAT_IMAGE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

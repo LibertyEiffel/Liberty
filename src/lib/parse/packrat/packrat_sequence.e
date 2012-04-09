@@ -16,16 +16,6 @@ create {PACKRAT}
    make
 
 feature {ANY}
-   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_AND} Result.make(Current)
-      end
-
-   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
-      do
-         create {PACKRAT_NOT} Result.make(Current)
-      end
-
    is_coherent: BOOLEAN is
       local
          i: INTEGER
@@ -39,26 +29,41 @@ feature {ANY}
             Result := primaries.item(i).is_coherent
             i := i + 1
          end
-
       end
 
 feature {PACKRAT_INTERNAL}
    parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local
-         i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
+         parsed: TRISTATE
       do
-         from
+         inspect
+            how_many
+         when one then
+            Result := do_parse(context)
+         when zero_or_one then
+            parsed := do_parse(context)
             Result := yes
-            memo := context.memo
-            i := primaries.lower
-         until
-            Result /= yes or else i > primaries.upper
-         loop
-            Result := primaries.item(i).parse(context)
-            i := i + 1
-         end
-         if Result /= yes then
-            context.restore(memo)
+         when zero_or_more then
+            from
+               Result := yes
+               parsed := yes
+            until
+               parsed /= yes
+            loop
+               parsed := do_parse(context)
+            end
+         when one_or_more then
+            from
+               Result := no
+               parsed := yes
+            until
+               parsed /= yes
+            loop
+               parsed := do_parse(context)
+               if parsed = yes then
+                  Result := yes
+               end
+            end
          end
       end
 
@@ -67,7 +72,7 @@ feature {PACKRAT_INTERNAL}
          i: INTEGER
       do
          if action = Void then
-            action := non_terminal_builder
+            action := agent call_non_terminal_builder(non_terminal_builder)
          end
          from
             i := primaries.lower
@@ -97,7 +102,35 @@ feature {PACKRAT_INTERNAL}
 feature {}
    primaries: TRAVERSABLE[PACKRAT_PRIMARY]
    how_many: INTEGER_8
-   action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]
+   action: PROCEDURE[TUPLE]
+
+   do_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
+         parse_action: PARSE_ACTION
+      do
+         from
+            Result := yes
+            memo := context.memo
+            i := primaries.lower
+         until
+            Result /= yes or else i > primaries.upper
+         loop
+            Result := primaries.item(i).parse(context)
+            i := i + 1
+         end
+         if Result = yes then
+            create parse_action.make(action)
+            context.actions.add_last(parse_action)
+         else
+            context.restore(memo)
+         end
+      end
+
+   call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
+      do
+         non_terminal_builder.call([nt.name, Void])
+      end
 
 feature {}
    make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_action: like action) is

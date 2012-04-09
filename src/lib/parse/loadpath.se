@@ -2,5 +2,5 @@
 atoms/
 descending/
 packrat/
-eiffel/
 internal/
+grammar/loadpath.se

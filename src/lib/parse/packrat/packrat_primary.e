@@ -8,6 +8,16 @@ insert
    TRISTATE_VALUES
 
 feature {ANY}
+   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
+      do
+         create {PACKRAT_AND} Result.make(Current)
+      end
+
+   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
+      do
+         create {PACKRAT_NOT} Result.make(Current)
+      end
+
    is_coherent: BOOLEAN is
       deferred
       end

@@ -3,13 +3,13 @@
 --
 expanded class PACKRAT
 
-feature {ANY}
+feature {} -- Tune exports to your liking if need be
    one: INTEGER_8 is 0
    zero_or_one: INTEGER_8 is 1
    zero_or_more: INTEGER_8 is 2
    one_or_more: INTEGER_8 is 3
 
-   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]): PACKRAT_ALTERNATIVE is
+   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_action: PROCEDURE[TUPLE]): PACKRAT_ALTERNATIVE is
       require
          a_primaries /= Void
          a_how_many.in_range(one, one_or_more)

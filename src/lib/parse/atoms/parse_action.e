@@ -3,7 +3,7 @@
 --
 class PARSE_ACTION
 
-creation {PARSE_TERMINAL, DESCENDING_NT_NODE}
+creation {PARSER_FACET}
    make
 
 feature {ANY}
@@ -15,7 +15,7 @@ feature {ANY}
          action.call([])
       end
 
-feature {PARSE_TERMINAL, DESCENDING_NT_NODE}
+feature {PARSER_FACET}
    set_name (a_name: like name) is
       do
          name := a_name

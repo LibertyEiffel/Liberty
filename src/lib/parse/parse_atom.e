@@ -8,6 +8,7 @@ deferred class PARSE_ATOM[C_ -> PARSE_CONTEXT]
 
 insert
    TRISTATE_VALUES
+   PARSER_FACET
 
 feature {ANY}
    name: FIXED_STRING
