@@ -18,8 +18,7 @@ CC = gcc
 
 $(EXECUTABLE): $(OBJECTS)
 	@echo "Building LLVM Liberty Eiffel compiler (the warning suppression flag '-w' is used because bootstrapping SmartEiffel or my low level code does not interact well with const)"
-	#g++ -Xlinker --no-as-needed -o $(EXECUTABLE) $(OBJECTS) `llvm-config --libs --cflags --ldflags core bitwriter` 
-	g++ $(LDFLAGS) -o $(EXECUTABLE) %.o  
+	g++ -Xlinker --no-as-needed -o $(EXECUTABLE) $(OBJECTS) $(LDFLAGS)
 
 #à %.o: %.c 
 #à 	## $(OBJECTS): $(C_SOURCES)
