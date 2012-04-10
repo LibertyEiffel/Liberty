@@ -34,12 +34,12 @@ feature {PARSER_FACET}
       do
          debug ("parse")
             log.trace.put_line(once "----> %"#(1)%" at #(2)" # name # context.buffer.current_index.out)
-            context.buffer.print_position_on(io)
+            context.buffer.print_position_on(log.trace)
          end
          Result := pattern.parse(context)
          debug ("parse")
             log.trace.put_line(once "<---- %"#(1)%" => #(2) at #(3)" # name # Result.out # context.buffer.current_index.out)
-            context.buffer.print_position_on(io)
+            context.buffer.print_position_on(log.trace)
          end
       end
 
