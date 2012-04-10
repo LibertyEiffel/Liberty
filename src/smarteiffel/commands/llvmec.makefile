@@ -1,19 +1,33 @@
 ## A crude Makefile to compile LLVM-Liberty-Eiffel compiler: it requires C++
 ## linkage even if Eiffel is usually lowered/compiled to C.
 
-## compiling chain will be
+## compiling chain will be: Eiffel source code -> bytecode (.bc) -> assembler (.s) -> executable:
 
-## Eiffel source code -> bytecode (.bc) -> assembler (.s) -> executable
+## * from assembler to executable with "gcc -o a_file a_file.s" (perhaps now llvm-as will do)
+## * from bytecode to assembly with "llc example.bc"
 
-## from assembler to executable with "gcc -o a_file a_file.s" (perhaps now llvm-as will do)
-## from bytecode to assembly "llc example.bc"
+CFLAGS = $(shell llvm-config --cflags all) 
+CFLAGS += $(shell pkg-config --cflags libzmq)
+LDFLAGS = $(shell llvm-config --libs --ldflags core bitwriter)
+LDFLAGS += $(shell pkg-config --libs libzmq)
+ACE = llvmec.ace
+EXECUTABLE = llvmec
+C_SOURCES = llvmec_*.c
+OBJECTS  = $(patsubst %.c,%.o,$(wildcard $(C_SOURCES)))
+CC = gcc
 
-llvmec: 
+$(EXECUTABLE): $(OBJECTS)
 	@echo "Building LLVM Liberty Eiffel compiler (the warning suppression flag '-w' is used because bootstrapping SmartEiffel or my low level code does not interact well with const)"
-	compile_to_c llvmec.ace
-	gcc -w `llvm-config --cflags all` -c llvec*.c
-	g++ -Xlinker --no-as-needed llvmec*.o -o llvmec `llvm-config --libs --cflags --ldflags core bitwriter` 
+	#g++ -Xlinker --no-as-needed -o $(EXECUTABLE) $(OBJECTS) `llvm-config --libs --cflags --ldflags core bitwriter` 
+	g++ $(LDFLAGS) -o $(EXECUTABLE) %.o  
 
+#à %.o: %.c 
+#à 	## $(OBJECTS): $(C_SOURCES)
+#à 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	
+$(C_SOURCES):
+	compile_to_c $(ACE)  
+    
 clean:
-	clean llvm_example
+	clean $(EXECUTABLE)
 
