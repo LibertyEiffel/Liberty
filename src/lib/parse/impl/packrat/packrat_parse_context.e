@@ -64,7 +64,7 @@ feature {PACKRAT_PRIMARY}
          end
       end
 
-   set_pack (atom: PACKRAT_PRIMARY; index: INTEGER; parsed: TRISTATE): PACKRAT_PACK is
+   set_pack (atom: PACKRAT_PRIMARY; index: INTEGER; parsed: TRISTATE; position: PACKRAT_CONTEXT_MEMO): PACKRAT_PACK is
       require
          not pack(atom, index).is_set
       local
@@ -76,9 +76,9 @@ feature {PACKRAT_PRIMARY}
             data.put(atom_data, atom)
          end
          if parsed = no then
-            Result.set(parsed, Void)
+            Result.set(parsed, position, Void)
          else
-            Result.set(parsed, actions)
+            Result.set(parsed, position, actions)
          end
          atom_data.put(Result, index)
       ensure

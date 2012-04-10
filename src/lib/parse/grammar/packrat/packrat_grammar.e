@@ -97,7 +97,7 @@ feature {}
                                                          "'('",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "("),  agent reduce_image_open_paren);
                                                          "')'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, ")"),  agent reduce_image_close_paren);
                                                          ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar);
-                                                         "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "'"),  agent reduce_image_quote);
+                                                         "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote);
                                                          "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen);
                                                          "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_hyphen);
                                                          "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
@@ -136,9 +136,12 @@ feature {} -- low-level parsers
          until
             not valid or else i > string.upper
          loop
-            valid := not buffer.end_reached and then buffer.current_character = string.item(i)
-            next_character(buffer)
-            i := i + 1
+            if buffer.end_reached or else buffer.current_character /= string.item(i) then
+               valid := False
+            else
+               next_character(buffer)
+               i := i + 1
+            end
          end
          if valid then
             create Result.make(string, old_position)

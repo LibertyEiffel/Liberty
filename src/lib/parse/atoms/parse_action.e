@@ -7,7 +7,7 @@ creation {PARSER_FACET}
    make
 
 feature {ANY}
-   name: STRING
+   name: ABSTRACT_STRING
          -- useful for debug
 
    call is

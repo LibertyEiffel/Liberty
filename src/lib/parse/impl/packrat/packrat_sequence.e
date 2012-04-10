@@ -82,12 +82,14 @@ feature {PACKRAT_INTERNAL}
             primaries.item(i).set_nt(a_nt)
             i := i + 1
          end
+         id := a_nt.new_sequence_number
       end
 
 feature {}
    primaries: TRAVERSABLE[PACKRAT_PRIMARY]
    how_many: INTEGER_8
    action: PROCEDURE[TUPLE]
+   id: INTEGER
 
    pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local
@@ -148,6 +150,9 @@ io.put_line(once "parsing sequence (+) of #(1) at #(2)" # nt.name # context.buff
          end
          if Result = yes then
             create parse_action.make(action)
+            debug ("parse")
+               parse_action.set_name(once "Sequence #(1) of %"#(2)%"" # id.out # nt.name)
+            end
             context.actions.add_last(parse_action)
          else
             context.restore(memo)

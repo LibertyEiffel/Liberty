@@ -62,13 +62,17 @@ feature {PACKRAT_INTERNAL}
             debug
                io.put_line(once " (cached: parsed=#(1))" # pack.parsed.out)
             end
+            context.restore(pack.memo)
+            if pack.actions /= Void then
+               context.actions.append_traversable(pack.actions)
+            end
          else
             debug
                io.put_line(once " (NOT cached)")
             end
             actions := context.save_actions
             parsed := pack_parse(context)
-            pack := context.set_pack(Current, index, parsed)
+            pack := context.set_pack(Current, index, parsed, context.memo)
             context.restore_old_actions(actions)
          end
 

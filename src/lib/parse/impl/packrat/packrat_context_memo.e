@@ -3,6 +3,20 @@
 --
 expanded class PACKRAT_CONTEXT_MEMO
 
+insert
+   PACKRAT_INTERNAL
+      redefine
+         is_equal
+      end
+
+feature {ANY}
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := is_set = other.is_set
+            and then memo = other.memo
+            and then action_count = other.action_count
+      end
+
 feature {PACKRAT_INTERNAL}
    is_set: BOOLEAN
 

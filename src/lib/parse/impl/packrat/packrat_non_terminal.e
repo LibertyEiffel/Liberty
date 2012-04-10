@@ -32,9 +32,14 @@ feature {ANY}
 feature {PARSER_FACET}
    parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       do
+         debug
+            io.put_line(once "----> %"#(1)%" at #(2)" # name # context.buffer.current_index.out)
+            context.buffer.print_position_on(io)
+         end
          Result := pattern.parse(context)
          debug
-            io.put_line(once "**** %"#(1)%" => #(2)" # name # Result.out)
+            io.put_line(once "<---- %"#(1)%" => #(2) at #(3)" # name # Result.out # context.buffer.current_index.out)
+            context.buffer.print_position_on(io)
          end
       end
 
@@ -69,8 +74,17 @@ feature {}
          pattern = a_pattern
       end
 
+   sequence_count: INTEGER
+
 feature {PACKRAT_NON_TERMINAL}
    pattern: PACKRAT_PATTERN
+
+feature {PACKRAT_SEQUENCE}
+   new_sequence_number: INTEGER is
+      do
+         Result := sequence_count + 1
+         sequence_count := Result
+      end
 
 invariant
    pattern.nt = Current

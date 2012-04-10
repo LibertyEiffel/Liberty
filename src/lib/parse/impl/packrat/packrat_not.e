@@ -22,7 +22,11 @@ feature {}
          memo: PACKRAT_CONTEXT_MEMO
       do
          memo := context.memo
-         Result := not primary.parse(context)
+         if primary.parse(context) = no then
+            Result := yes
+         else
+            Result := no
+         end
          context.restore(memo)
       end
 

@@ -6,15 +6,33 @@ expanded class PACKRAT_PACK
 insert
    TRISTATE_VALUES
       redefine
-         default_create
+         default_create, is_equal
       end
 
 feature {ANY}
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := is_set = other.is_set
+            and then parsed = other.parsed
+            and then memo = other.memo
+            and then (actions = other.actions
+                      or else (actions /= Void
+                               and then other.actions /= Void
+                               and then actions.is_equal(other.actions)))
+      end
+
    parsed: TRISTATE is
       require
          is_set
       do
          Result := my_parsed
+      end
+
+   memo: PACKRAT_CONTEXT_MEMO is
+      require
+         is_set
+      do
+         Result := my_memo
       end
 
    actions: COLLECTION[PARSE_ACTION] is
@@ -32,21 +50,24 @@ feature {ANY}
       end
 
 feature {PACKRAT_INTERNAL}
-   set (a_parsed: like parsed; a_actions: like actions) is
+   set (a_parsed: like parsed; a_memo: like memo; a_actions: like actions) is
       require
          not is_set
          ;(a_parsed = no) = (a_actions = Void)
       do
          my_parsed := a_parsed
+         my_memo := a_memo
          my_actions := a_actions
          is_set := True
       ensure
          is_set
          parsed = a_parsed
+         memo = a_memo
          actions = a_actions
       end
 
    my_parsed: TRISTATE
+   my_memo: PACKRAT_CONTEXT_MEMO
    my_actions: COLLECTION[PARSE_ACTION]
 
 invariant

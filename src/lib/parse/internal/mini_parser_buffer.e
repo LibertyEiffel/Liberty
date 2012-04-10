@@ -91,6 +91,47 @@ feature {ANY}
          current_index = new_index
       end
 
+   print_position_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      local
+         i, nl_index: INTEGER; c: CHARACTER
+         space: STRING
+      do
+         from
+            i := storage.lower
+         until
+            i = current_index
+         loop
+            if storage.item(i) = '%N' then
+               nl_index := i
+            end
+            i := i + 1
+         end
+         from
+            space := once ""
+            space.clear_count
+            i := nl_index + 1
+         until
+            i > storage.upper or else storage.item(i) = '%N'
+         loop
+            c := storage.item(i)
+            if i < current_index then
+               if c = '%T' then
+                  space.extend('%T')
+               else
+                  space.extend(' ')
+               end
+            end
+            stream.put_character(c)
+            i := i + 1
+         end
+         stream.put_new_line
+         stream.put_string(space)
+         stream.put_character('^')
+         stream.put_new_line
+      end
+
 feature {ANY} -- Memo
    set_memory (a_memory: like memory) is
       require

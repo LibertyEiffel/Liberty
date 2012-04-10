@@ -14,14 +14,14 @@ feature {}
       do
          create parser
          create buffer.initialize_with("[
-grammar     <- (nonterminal ’<-’ sp pattern)+
-pattern     <- alternative (’/’ sp alternative)*
+grammar     <- (nonterminal '<-' sp pattern)+
+pattern     <- alternative ('/' sp alternative)*
 alternative <- ([!&]? sp suffix)+
 suffix      <- primary ([*+?] sp)*
-primary     <- ’(’ sp pattern ’)’ sp / ’.’ sp / literal /
-               charclass / nonterminal !’<-’
-literal     <- [’] (![’] .)* [’] sp
-charclass   <- ’[’ (!’]’ (. ’-’ . / .))* ’]’ sp
+primary     <- '(' sp pattern ')' sp / '.' sp / literal /
+               charclass / nonterminal !'<-'
+literal     <- ['] (!['] .)* ['] sp
+charclass   <- '[' (!']' (. '-' . / .))* ']' sp
 nonterminal <- [a-zA-Z]+ sp
 sp          <- [ \t\n]*
 
