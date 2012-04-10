@@ -66,8 +66,8 @@ feature {}
       local
          i: INTEGER
       do
-         debug
-            io.put_line(once "parsing choice of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+         debug ("parse")
+            log.trace.put_line(once "parsing choice of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
          end
          from
             Result := no
@@ -75,8 +75,8 @@ feature {}
          until
             Result /= no or else i > alternatives.upper
          loop
-            debug
-               io.put_line(once "  parse choice ##(1) of #(2) at #(3): #(4)" # i.out # nt.name # context.buffer.current_index.out # alternatives.item(i).out)
+            debug ("parse")
+               log.trace.put_line(once "  parse choice ##(1) of #(2) at #(3): #(4)" # i.out # nt.name # context.buffer.current_index.out # alternatives.item(i).out)
             end
             Result := alternatives.item(i).parse(context)
             i := i + 1

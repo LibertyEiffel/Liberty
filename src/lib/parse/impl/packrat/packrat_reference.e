@@ -32,13 +32,13 @@ feature {}
          index: STRING
       do
          atom := nt.table.item(name)
-         debug
+         debug ("parse")
             index := context.buffer.current_index.out
-            io.put_line(once "parsing reference %"#(1)%" from #(2) at #(3): atom is #(4)" # name # nt.name # index # atom.out)
+            log.trace.put_line(once "parsing reference %"#(1)%" from #(2) at #(3): atom is #(4)" # name # nt.name # index # atom.out)
          end
          Result := atom.parse(context)
-         debug
-            io.put_line(once " parsed reference %"#(1)%" from #(2) at #(3): returned #(4)" # name # nt.name # index # Result.out)
+         debug ("parse")
+            log.trace.put_line(once " parsed reference %"#(1)%" from #(2) at #(3): returned #(4)" # name # nt.name # index # Result.out)
          end
       end
 

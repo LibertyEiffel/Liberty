@@ -98,14 +98,20 @@ feature {}
          inspect
             how_many
          when one then
-io.put_line(once "parsing sequence (1) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            debug ("parse")
+               log.trace.put_line(once "parsing sequence (1) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            end
             Result := do_parse(context)
          when zero_or_one then
-io.put_line(once "parsing sequence (?) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            debug ("parse")
+               log.trace.put_line(once "parsing sequence (?) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            end
             parsed := do_parse(context)
             Result := yes
          when zero_or_more then
-io.put_line(once "parsing sequence (*) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            debug ("parse")
+               log.trace.put_line(once "parsing sequence (*) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            end
             from
                Result := yes
                parsed := yes
@@ -115,7 +121,9 @@ io.put_line(once "parsing sequence (*) of #(1) at #(2)" # nt.name # context.buff
                parsed := do_parse(context)
             end
          when one_or_more then
-io.put_line(once "parsing sequence (+) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            debug ("parse")
+               log.trace.put_line(once "parsing sequence (+) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            end
             from
                Result := no
                parsed := yes
@@ -135,8 +143,8 @@ io.put_line(once "parsing sequence (+) of #(1) at #(2)" # nt.name # context.buff
          i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
          parse_action: PARSE_ACTION
       do
-         debug
-            io.put_line(once "doing parse of sequence of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+         debug ("parse")
+            log.trace.put_line(once "doing parse of sequence of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
          end
          from
             Result := yes

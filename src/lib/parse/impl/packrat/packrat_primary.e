@@ -54,21 +54,21 @@ feature {PACKRAT_INTERNAL}
          index: INTEGER
       do
          index := context.buffer.current_index
-         debug
-            io.put_string(once "**** parsing #(1) at #(2)" # out # index.out)
+         debug ("parse")
+            log.trace.put_string(once "**** parsing #(1) at #(2)" # out # index.out)
          end
          pack := context.pack(Current, index)
          if pack.is_set then
-            debug
-               io.put_line(once " (cached: parsed=#(1))" # pack.parsed.out)
+            debug ("parse")
+               log.trace.put_line(once " (cached: parsed=#(1))" # pack.parsed.out)
             end
             context.restore(pack.memo)
             if pack.actions /= Void then
                context.actions.append_traversable(pack.actions)
             end
          else
-            debug
-               io.put_line(once " (NOT cached)")
+            debug ("parse")
+               log.trace.put_line(once " (NOT cached)")
             end
             actions := context.save_actions
             parsed := pack_parse(context)
