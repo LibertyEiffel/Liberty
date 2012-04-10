@@ -294,107 +294,107 @@ feature {} -- buffer moves
 feature {} -- build the grammar
    reduce_grammar is
       do
-         io.put_line(once "reduce_grammar")
+         log.trace.put_line(once "reduce_grammar")
       end
 
    reduce_pattern_alternative is
       do
-         io.put_line(once "reduce_pattern_alternative")
+         log.trace.put_line(once "reduce_pattern_alternative")
       end
 
    reduce_pattern is
       do
-         io.put_line(once "reduce_pattern")
+         log.trace.put_line(once "reduce_pattern")
       end
 
    reduce_lookahead_symbol is
       do
-         io.put_line(once "reduce_lookahead_symbol")
+         log.trace.put_line(once "reduce_lookahead_symbol")
       end
 
    reduce_alternative is
       do
-         io.put_line(once "reduce_alternative")
+         log.trace.put_line(once "reduce_alternative")
       end
 
    reduce_quantifier is
       do
-         io.put_line(once "reduce_quantifier")
+         log.trace.put_line(once "reduce_quantifier")
       end
 
    reduce_suffix is
       do
-         io.put_line(once "reduce_suffix")
+         log.trace.put_line(once "reduce_suffix")
       end
 
    reduce_primary_as_nested_pattern is
       do
-         io.put_line(once "reduce_primary_as_nested_pattern")
+         log.trace.put_line(once "reduce_primary_as_nested_pattern")
       end
 
    reduce_primary_as_any is
       do
-         io.put_line(once "reduce_primary_as_any")
+         log.trace.put_line(once "reduce_primary_as_any")
       end
 
    reduce_primary_as_literal is
       do
-         io.put_line(once "reduce_primary_as_literal")
+         log.trace.put_line(once "reduce_primary_as_literal")
       end
 
    reduce_primay_as_charclass is
       do
-         io.put_line(once "reduce_primay_as_charclass")
+         log.trace.put_line(once "reduce_primay_as_charclass")
       end
 
    reduce_primary_as_nonterminal is
       do
-         io.put_line(once "reduce_primary_as_nonterminal")
+         log.trace.put_line(once "reduce_primary_as_nonterminal")
       end
 
    reduce_literal_string is
       do
-         io.put_line(once "reduce_literal_string")
+         log.trace.put_line(once "reduce_literal_string")
       end
 
    reduce_literal is
       do
-         io.put_line(once "reduce_literal")
+         log.trace.put_line(once "reduce_literal")
       end
 
    reduce_charclass_range is
       do
-         io.put_line(once "reduce_charclass_range")
+         log.trace.put_line(once "reduce_charclass_range")
       end
 
    reduce_charclass_char is
       do
-         io.put_line(once "reduce_charclass_char")
+         log.trace.put_line(once "reduce_charclass_char")
       end
 
    reduce_charclass_class is
       do
-         io.put_line(once "reduce_charclass_class")
+         log.trace.put_line(once "reduce_charclass_class")
       end
 
    reduce_charclass is
       do
-         io.put_line(once "reduce_charclass")
+         log.trace.put_line(once "reduce_charclass")
       end
 
    reduce_nonterminal_name is
       do
-         io.put_line(once "reduce_nonterminal_name")
+         log.trace.put_line(once "reduce_nonterminal_name")
       end
 
    reduce_nonterminal is
       do
-         io.put_line(once "reduce_nonterminal")
+         log.trace.put_line(once "reduce_nonterminal")
       end
 
    reduce_space is
       do
-         io.put_line(once "reduce_space")
+         log.trace.put_line(once "reduce_space")
       end
 
    reduce_image_left_arrow (image: PARSER_IMAGE) is
