@@ -35,40 +35,6 @@ feature {PACKRAT_INTERNAL}
          end
       end
 
-   pack (atom_name: FIXED_STRING): PACKRAT_PACK is
-      local
-         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
-      do
-         atom_data := data.reference_at(atom_name)
-         if atom_data /= Void then
-            Result := atom_data.reference_at(buffer.memo)
-         end
-      end
-
-   set_pack (atom_name: FIXED_STRING; parsed: TRISTATE): PACKRAT_PACK is
-      require
-         not pack(atom_name).is_set
-      local
-         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
-      do
-         atom_data := data.reference_at(atom_name)
-         if atom_data = Void then
-            create atom_data.make
-            data.put(atom_data, atom_name)
-         end
-         if parsed = no then
-            Result.set(parsed, Void)
-         else
-            Result.set(parsed, actions)
-         end
-         atom_data.put(Result, buffer.memo)
-      ensure
-         Result = pack(atom_name)
-         Result.is_set
-         parsed = no implies Result.actions = Void
-         parsed /= no implies Result.actions = actions
-      end
-
    save_actions: like actions is
       do
          Result := actions
@@ -87,6 +53,41 @@ feature {PACKRAT_INTERNAL}
          actions = old_actions
       end
 
+feature {PACKRAT_PRIMARY}
+   pack (atom: PACKRAT_PRIMARY; index: INTEGER): PACKRAT_PACK is
+      local
+         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
+      do
+         atom_data := data.reference_at(atom)
+         if atom_data /= Void and then atom_data.has(index) then
+            Result := atom_data.at(index)
+         end
+      end
+
+   set_pack (atom: PACKRAT_PRIMARY; index: INTEGER; parsed: TRISTATE): PACKRAT_PACK is
+      require
+         not pack(atom, index).is_set
+      local
+         atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
+      do
+         atom_data := data.reference_at(atom)
+         if atom_data = Void then
+            create atom_data.make
+            data.put(atom_data, atom)
+         end
+         if parsed = no then
+            Result.set(parsed, Void)
+         else
+            Result.set(parsed, actions)
+         end
+         atom_data.put(Result, index)
+      ensure
+         Result = pack(atom, index)
+         Result.is_set
+         parsed = no implies Result.actions = Void
+         parsed /= no implies Result.actions = actions
+      end
+
 feature {}
    make (a_buffer: like buffer; a_actions: like actions) is
       require
@@ -101,7 +102,7 @@ feature {}
          actions = a_actions
       end
 
-   data: HASHED_DICTIONARY[AVL_DICTIONARY[PACKRAT_PACK, INTEGER], FIXED_STRING]
+   data: HASHED_DICTIONARY[AVL_DICTIONARY[PACKRAT_PACK, INTEGER], PACKRAT_PRIMARY]
          -- atom name -> column -> (parsed, actions)
 
 invariant

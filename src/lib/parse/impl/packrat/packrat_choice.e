@@ -5,6 +5,9 @@ class PACKRAT_CHOICE
 
 inherit
    PACKRAT_PATTERN
+      redefine
+         set_nt
+      end
 
 create {PACKRAT_ALTERNATIVE}
    make
@@ -58,22 +61,29 @@ feature {ANY}
          end
       end
 
-feature {PACKRAT_INTERNAL}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+feature {}
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local
          i: INTEGER
       do
+         debug
+            io.put_line(once "parsing choice of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+         end
          from
             Result := no
             i := alternatives.lower
          until
             Result /= no or else i > alternatives.upper
          loop
+            debug
+               io.put_line(once "  parse choice ##(1) of #(2) at #(3): #(4)" # i.out # nt.name # context.buffer.current_index.out # alternatives.item(i).out)
+            end
             Result := alternatives.item(i).parse(context)
             i := i + 1
          end
       end
 
+feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       local
          i: INTEGER
@@ -84,6 +94,21 @@ feature {PACKRAT_INTERNAL}
             i > alternatives.upper
          loop
             alternatives.item(i).set_default_tree_builders(non_terminal_builder, terminal_builder)
+            i := i + 1
+         end
+      end
+
+   set_nt (a_nt: like nt) is
+      local
+         i: INTEGER
+      do
+         Precursor(a_nt)
+         from
+            i := alternatives.lower
+         until
+            i > alternatives.upper
+         loop
+            alternatives.item(i).set_nt(a_nt)
             i := i + 1
          end
       end

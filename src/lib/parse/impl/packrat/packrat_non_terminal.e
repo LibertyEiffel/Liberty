@@ -1,46 +1,81 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_REFERENCE
+class PACKRAT_NON_TERMINAL
+   --
+   -- A non-terminal meant to be put in a PARSE_TABLE.
+   --
 
 inherit
-   PACKRAT_PRIMARY
+   PARSE_NON_TERMINAL[PACKRAT_PARSE_CONTEXT]
 
-create {ANY}
+insert
+   PACKRAT_INTERNAL
+      redefine
+         copy, is_equal, out_in_tagged_out_memory
+      end
+
+creation {ANY}
    make
 
 feature {ANY}
-   name: FIXED_STRING
+   out_in_tagged_out_memory is
+      do
+         pattern.out_in_tagged_out_memory
+      end
 
    is_coherent: BOOLEAN is
       do
-         Result := nt.table.has(name)
+         Result := pattern.is_coherent
       end
 
-feature {PACKRAT_INTERNAL}
+feature {PARSER_FACET}
    parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
-      local
-         atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
       do
-         atom := nt.table.item(name)
-         Result := atom.parse(context)
+         Result := pattern.parse(context)
+         debug
+            io.put_line(once "**** %"#(1)%" => #(2)" # name # Result.out)
+         end
       end
 
+feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
+         pattern.set_default_tree_builders(non_terminal_builder, terminal_builder)
+      end
+
+feature {ANY}
+   copy (other: like Current) is
+      do
+         name := other.name
+         pattern := other.pattern.twin
+         pattern.set_nt(Current)
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := name.is_equal(other.name) and then pattern.is_equal(other.pattern)
       end
 
 feature {}
-   make (a_name: ABSTRACT_STRING) is
+   make (a_pattern: like pattern) is
       require
-         a_name /= Void
+         a_pattern /= Void
+         a_pattern.nt = Void
       do
-         name := a_name.intern
+         a_pattern.set_nt(Current)
+         pattern := a_pattern
       ensure
-         name = a_name.intern
+         pattern = a_pattern
       end
 
-end -- class PACKRAT_REFERENCE
+feature {PACKRAT_NON_TERMINAL}
+   pattern: PACKRAT_PATTERN
+
+invariant
+   pattern.nt = Current
+
+end -- class PACKRAT_NON_TERMINAL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

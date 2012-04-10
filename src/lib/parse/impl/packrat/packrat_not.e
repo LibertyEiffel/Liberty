@@ -1,15 +1,32 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_TERMINAL
+class PACKRAT_NOT
 
 inherit
-   PARSE_TERMINAL[PACKRAT_PARSE_CONTEXT]
+   PACKRAT_LOOKAHEAD
 
-creation {ANY}
+create {ANY}
    make
 
-end -- class PACKRAT_TERMINAL
+feature {ANY}
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.extend('!')
+         primary.out_in_tagged_out_memory
+      end
+
+feature {}
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         memo: PACKRAT_CONTEXT_MEMO
+      do
+         memo := context.memo
+         Result := not primary.parse(context)
+         context.restore(memo)
+      end
+
+end -- class PACKRAT_NOT
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

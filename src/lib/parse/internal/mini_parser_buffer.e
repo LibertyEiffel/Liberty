@@ -16,7 +16,7 @@ insert
       end
 
 create {ANY}
-   default_create
+   default_create, initialize_with
 
 feature {ANY}
    initialize_with (string: ABSTRACT_STRING) is
@@ -24,6 +24,9 @@ feature {ANY}
       require
          string /= Void
       do
+         if memory = Void then
+            memory := default_memory
+         end
          storage := string.intern
          current_index := storage.lower
          last_error := Void

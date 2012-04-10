@@ -1,50 +1,59 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class PACKRAT_PACK
+deferred class PACKRAT_LOOKAHEAD
 
-insert
-   TRISTATE_VALUES
+inherit
+   PACKRAT_ALTERNATIVE
+      redefine
+         set_nt
+      end
 
 feature {ANY}
-   parsed: TRISTATE is
-      require
-         is_set
+   is_coherent: BOOLEAN is
       do
-         Result := my_parsed
+         Result := primary.is_coherent
       end
 
-   actions: COLLECTION[PARSE_ACTION] is
-      require
-         is_set
+   is_equal (other: like Current): BOOLEAN is
       do
-         Result := my_actions
+         Result := primary.is_equal(other.primary)
       end
 
-   is_set: BOOLEAN
+   copy (other: like Current) is
+      do
+         primary:= other.primary.twin
+      end
 
 feature {PACKRAT_INTERNAL}
-   set (a_parsed: like parsed; a_actions: like actions) is
-      require
-         not is_set
-         ;(a_parsed = no) = (a_actions = Void)
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
-         my_parsed := a_parsed
-         my_actions := a_actions
-         is_set := True
-      ensure
-         is_set
-         parsed = a_parsed
-         actions = a_actions
+         primary.set_default_tree_builders(non_terminal_builder, terminal_builder)
       end
 
-   my_parsed: TRISTATE
-   my_actions: COLLECTION[PARSE_ACTION]
+   set_nt (a_nt: like nt) is
+      do
+         Precursor(a_nt)
+         primary.set_nt(a_nt)
+      end
+
+feature {}
+   make (a_primary: like primary) is
+      require
+         a_primary /= Void
+      do
+         primary := a_primary
+      ensure
+         primary = a_primary
+      end
+
+feature {PACKRAT_LOOKAHEAD}
+   primary: PACKRAT_PRIMARY
 
 invariant
-   is_set implies ((parsed = no) = (actions = Void))
+   primary /= Void
 
-end -- class PACKRAT_PACK
+end -- class PACKRAT_LOOKAHEAD
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

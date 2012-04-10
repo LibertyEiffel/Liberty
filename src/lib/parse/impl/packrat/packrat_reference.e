@@ -1,50 +1,63 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PACKRAT_LOOKAHEAD
+class PACKRAT_REFERENCE
 
 inherit
-   PACKRAT_ALTERNATIVE
+   PACKRAT_PRIMARY
+      redefine
+         out_in_tagged_out_memory
+      end
+
+create {ANY}
+   make
 
 feature {ANY}
+   name: FIXED_STRING
+
    is_coherent: BOOLEAN is
       do
-         Result := primary.is_coherent
+         Result := nt.table.has(name)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   out_in_tagged_out_memory is
       do
-         Result := primary.is_equal(other.primary)
+         tagged_out_memory.append(name)
       end
 
-   copy (other: like Current) is
+feature {}
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
+         index: STRING
       do
-         primary:= other.primary.twin
+         atom := nt.table.item(name)
+         debug
+            index := context.buffer.current_index.out
+            io.put_line(once "parsing reference %"#(1)%" from #(2) at #(3): atom is #(4)" # name # nt.name # index # atom.out)
+         end
+         Result := atom.parse(context)
+         debug
+            io.put_line(once " parsed reference %"#(1)%" from #(2) at #(3): returned #(4)" # name # nt.name # index # Result.out)
+         end
       end
 
 feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do
-         primary.set_default_tree_builders(non_terminal_builder, terminal_builder)
       end
 
 feature {}
-   make (a_primary: like primary) is
+   make (a_name: ABSTRACT_STRING) is
       require
-         a_primary /= Void
+         a_name /= Void
       do
-         primary := a_primary
+         name := a_name.intern
       ensure
-         primary = a_primary
+         name = a_name.intern
       end
 
-feature {PACKRAT_LOOKAHEAD}
-   primary: PACKRAT_PRIMARY
-
-invariant
-   primary /= Void
-
-end -- class PACKRAT_LOOKAHEAD
+end -- class PACKRAT_REFERENCE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

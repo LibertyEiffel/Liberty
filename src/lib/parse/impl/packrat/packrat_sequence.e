@@ -11,6 +11,9 @@ inherit
 
 insert
    PACKRAT
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {PACKRAT}
    make
@@ -31,42 +34,24 @@ feature {ANY}
          end
       end
 
-feature {PACKRAT_INTERNAL}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   out_in_tagged_out_memory is
       local
-         parsed: TRISTATE
+         i: INTEGER
       do
-         inspect
-            how_many
-         when one then
-            Result := do_parse(context)
-         when zero_or_one then
-            parsed := do_parse(context)
-            Result := yes
-         when zero_or_more then
-            from
-               Result := yes
-               parsed := yes
-            until
-               parsed /= yes
-            loop
-               parsed := do_parse(context)
+         from
+            i := primaries.lower
+         until
+            i > primaries.upper
+         loop
+            if i > primaries.lower then
+               tagged_out_memory.extend(' ')
             end
-         when one_or_more then
-            from
-               Result := no
-               parsed := yes
-            until
-               parsed /= yes
-            loop
-               parsed := do_parse(context)
-               if parsed = yes then
-                  Result := yes
-               end
-            end
+            primaries.item(i).out_in_tagged_out_memory
+            i := i + 1
          end
       end
 
+feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       local
          i: INTEGER
@@ -104,11 +89,53 @@ feature {}
    how_many: INTEGER_8
    action: PROCEDURE[TUPLE]
 
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         parsed: TRISTATE
+      do
+         inspect
+            how_many
+         when one then
+io.put_line(once "parsing sequence (1) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            Result := do_parse(context)
+         when zero_or_one then
+io.put_line(once "parsing sequence (?) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            parsed := do_parse(context)
+            Result := yes
+         when zero_or_more then
+io.put_line(once "parsing sequence (*) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            from
+               Result := yes
+               parsed := yes
+            until
+               parsed /= yes
+            loop
+               parsed := do_parse(context)
+            end
+         when one_or_more then
+io.put_line(once "parsing sequence (+) of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+            from
+               Result := no
+               parsed := yes
+            until
+               parsed /= yes
+            loop
+               parsed := do_parse(context)
+               if parsed = yes then
+                  Result := yes
+               end
+            end
+         end
+      end
+
    do_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local
          i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
          parse_action: PARSE_ACTION
       do
+         debug
+            io.put_line(once "doing parse of sequence of #(1) at #(2)" # nt.name # context.buffer.current_index.out)
+         end
          from
             Result := yes
             memo := context.memo

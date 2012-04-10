@@ -1,32 +1,58 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_AND
+expanded class PACKRAT_PACK
 
-inherit
-   PACKRAT_LOOKAHEAD
-
-create {ANY}
-   make
+insert
+   TRISTATE_VALUES
+      redefine
+         default_create
+      end
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   parsed: TRISTATE is
+      require
+         is_set
       do
-         tagged_out_memory.extend('&')
-         primary.out_in_tagged_out_memory
+         Result := my_parsed
+      end
+
+   actions: COLLECTION[PARSE_ACTION] is
+      require
+         is_set
+      do
+         Result := my_actions
+      end
+
+   is_set: BOOLEAN
+
+   default_create is
+      do
+         is_set := False
       end
 
 feature {PACKRAT_INTERNAL}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
-      local
-         memo: PACKRAT_CONTEXT_MEMO
+   set (a_parsed: like parsed; a_actions: like actions) is
+      require
+         not is_set
+         ;(a_parsed = no) = (a_actions = Void)
       do
-         memo := context.memo
-         Result := primary.parse(context)
-         context.restore(memo)
+         my_parsed := a_parsed
+         my_actions := a_actions
+         is_set := True
+      ensure
+         is_set
+         parsed = a_parsed
+         actions = a_actions
       end
 
-end -- class PACKRAT_AND
+   my_parsed: TRISTATE
+   my_actions: COLLECTION[PARSE_ACTION]
+
+invariant
+   is_set implies ((parsed = no) = (actions = Void))
+
+end -- class PACKRAT_PACK
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

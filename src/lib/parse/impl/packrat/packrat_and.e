@@ -1,52 +1,32 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PACKRAT_PRIMARY
+class PACKRAT_AND
 
-insert
-   PACKRAT_INTERNAL
-   TRISTATE_VALUES
+inherit
+   PACKRAT_LOOKAHEAD
+
+create {ANY}
+   make
 
 feature {ANY}
-   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
+   out_in_tagged_out_memory is
       do
-         create {PACKRAT_AND} Result.make(Current)
+         tagged_out_memory.extend('&')
+         primary.out_in_tagged_out_memory
       end
 
-   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
+feature {}
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      local
+         memo: PACKRAT_CONTEXT_MEMO
       do
-         create {PACKRAT_NOT} Result.make(Current)
+         memo := context.memo
+         Result := primary.parse(context)
+         context.restore(memo)
       end
 
-   is_coherent: BOOLEAN is
-      deferred
-      end
-
-feature {PACKRAT_INTERNAL}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
-      require
-         context /= Void
-      deferred
-      ensure
-         Result /= yes implies context.buffer.current_index = old context.buffer.current_index
-      end
-
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      deferred
-      end
-
-   set_nt (a_nt: like nt) is
-      require
-         a_nt /= Void
-      do
-         nt := a_nt
-      ensure
-         nt = a_nt
-      end
-
-   nt: PACKRAT_NON_TERMINAL
-
-end -- class PACKRAT_PRIMARY
+end -- class PACKRAT_AND
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

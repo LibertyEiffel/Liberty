@@ -1,48 +1,74 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PACKRAT_NON_TERMINAL
-   --
-   -- A non-terminal meant to be put in a PARSE_TABLE.
-   --
+deferred class PACKRAT_PRIMARY
 
 inherit
-   PARSE_NON_TERMINAL[PACKRAT_PARSE_CONTEXT]
+   HASHABLE
 
 insert
    PACKRAT_INTERNAL
       redefine
-         copy, is_equal, out_in_tagged_out_memory
+         is_equal
+      end
+   TRISTATE_VALUES
+      redefine
+         is_equal
       end
 
-creation {ANY}
-   make
-
 feature {ANY}
-   out_in_tagged_out_memory is
+   hash_code: INTEGER is
       do
-         tagged_out_memory.extend('{')
-         pattern.out_in_tagged_out_memory
-         tagged_out_memory.extend('}')
+         Result := to_pointer.hash_code
+      end
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other = Current
+      end
+
+   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
+      do
+         create {PACKRAT_AND} Result.make(Current)
+      end
+
+   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
+      do
+         create {PACKRAT_NOT} Result.make(Current)
       end
 
    is_coherent: BOOLEAN is
-      do
-         Result := pattern.is_coherent
+      deferred
+      ensure
+         must_be_coherent: Result
       end
 
-feature {PARSER_FACET}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+feature {PACKRAT_INTERNAL}
+   frozen parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+      require
+         context /= Void
       local
          actions: COLLECTION[PARSE_ACTION]
          pack: PACKRAT_PACK
          parsed: TRISTATE
+         index: INTEGER
       do
-         pack := context.pack(name)
-         if not pack.is_set then
+         index := context.buffer.current_index
+         debug
+            io.put_string(once "**** parsing #(1) at #(2)" # out # index.out)
+         end
+         pack := context.pack(Current, index)
+         if pack.is_set then
+            debug
+               io.put_line(once " (cached: parsed=#(1))" # pack.parsed.out)
+            end
+         else
+            debug
+               io.put_line(once " (NOT cached)")
+            end
             actions := context.save_actions
-            parsed := pattern.parse(context)
-            pack := context.set_pack(name, parsed)
+            parsed := pack_parse(context)
+            pack := context.set_pack(Current, index, parsed)
             context.restore_old_actions(actions)
          end
 
@@ -50,46 +76,35 @@ feature {PARSER_FACET}
          if Result /= no then
             context.actions.append_traversable(pack.actions)
          end
+      ensure
+         Result /= yes implies context.buffer.current_index = old context.buffer.current_index
       end
 
-feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
-      do
-         pattern.set_default_tree_builders(non_terminal_builder, terminal_builder)
+      deferred
       end
 
-feature {ANY}
-   copy (other: like Current) is
+   set_nt (a_nt: like nt) is
+      require
+         a_nt /= Void
       do
-         name := other.name
-         pattern := other.pattern.twin
-         pattern.set_nt(Current)
+         nt := a_nt
+      ensure
+         nt = a_nt
       end
 
-   is_equal (other: like Current): BOOLEAN is
-      do
-         Result := name.is_equal(other.name) and then pattern.is_equal(other.pattern)
-      end
+   nt: PACKRAT_NON_TERMINAL
 
 feature {}
-   make (a_pattern: like pattern) is
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       require
-         a_pattern /= Void
-         a_pattern.nt = Void
-      do
-         a_pattern.set_nt(Current)
-         pattern := a_pattern
+         context /= Void
+      deferred
       ensure
-         pattern = a_pattern
+         Result /= yes implies context.buffer.current_index = old context.buffer.current_index
       end
 
-feature {PACKRAT_NON_TERMINAL}
-   pattern: PACKRAT_PATTERN
-
-invariant
-   pattern.nt = Current
-
-end -- class PACKRAT_NON_TERMINAL
+end -- class PACKRAT_PRIMARY
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
