@@ -21,6 +21,9 @@ feature {}
          reducer := a_reducer
          last_image := ""
          last_nonterminal_def := ""
+         last_nonterminal_name := ""
+         last_charclass := ""
+         last_literal := ""
          reset
       ensure
          reducer = a_reducer
@@ -37,8 +40,10 @@ feature {}
                          one_or_more, agent reduce_grammar));
 
             "pattern",     create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< ref("alternative"), seq(<< ref("'/'"), ref("sp"), ref("alternative") >>,
-                                                    zero_or_more, agent reduce_pattern_alternative) >>,
+            .make(seq(<< seq(<< ref("alternative") >>,
+                                one, agent reduce_pattern_first_alternative),
+                         seq(<< ref("'/'"), ref("sp"), ref("alternative") >>,
+                                zero_or_more, agent reduce_pattern_alternative) >>,
                          one, agent reduce_pattern));
 
             "alternative", create {PACKRAT_NON_TERMINAL}
@@ -68,17 +73,22 @@ feature {}
                          one, agent reduce_primary_as_nonterminal));
 
             "literal",     create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< ref("[']"), seq(<< ~ref("[']"), ref(".") >>,
-                                            zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
+            .make(seq(<< seq(<< ref("[']"), >>,
+                                one, agent reduce_literal_start),
+                         seq(<< ~ref("[']"), ref(".") >>,
+                                zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
                          one, agent reduce_literal));
 
             "charclass",   create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< ref("'['"), seq(<< ~ref("']'"), seq(<< ref("."), ref("'-'"), ref(".") >>,
-                                                            one, agent reduce_charclass_range)
-                                                     /
-                                                     seq(<< ref(".") >>,
-                                                            one, agent reduce_charclass_char) >>,
-                                          zero_or_more, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
+            .make(seq(<< seq(<< ref("'['") >>,
+                                one, agent reduce_charclass_start),
+                         seq(<< ~ref("']'"),
+                                seq(<< ref("."), ref("'-'"), ref(".") >>,
+                                       one, agent reduce_charclass_range)
+                                /
+                                seq(<< ref(".") >>,
+                                       one, agent reduce_charclass_char) >>,
+                                zero_or_more, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
                           one, agent reduce_charclass));
 
             "nonterminal", create {PACKRAT_NON_TERMINAL}
@@ -102,7 +112,7 @@ feature {}
             ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar);
             "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote);
             "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen);
-            "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_hyphen);
+            "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_dot);
             "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
             "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket);
             "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter);
@@ -318,6 +328,7 @@ feature {ANY}
          parser: PACKRAT_PARSER
          buffer: MINI_PARSER_BUFFER
          i: INTEGER
+         key: FIXED_STRING; item: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
       do
          create parser
          create buffer.initialize_with(a_source)
@@ -329,7 +340,9 @@ feature {ANY}
             until
                i > last_atoms.upper
             loop
-               Result.add(last_atoms.key(i), last_atoms.item(i))
+               key := last_atoms.key(i)
+               item := last_atoms.item(i)
+               Result.add(key, item)
                i := i + 1
             end
          end
@@ -346,6 +359,9 @@ feature {} -- build the grammar
    last_image: STRING
    last_quantifier: INTEGER_8
    last_lookahead: INTEGER_8
+
+   last_nonterminal_name, last_charclass, last_literal: STRING
+   first_alternative: like last_alternative
 
    lookahead_none: INTEGER_8 is 0
    lookahead_and: INTEGER_8 is 1
@@ -411,11 +427,10 @@ feature {} -- build the grammar
 
    reset_build_data is
       do
-         reset_nonterminal_def
-         reset_image
          if last_atoms /= Void then
             last_atoms.clear_count
          end
+         reset_nonterminal_def
          reset_image
          reset_quantifier
          reset_lookahead
@@ -426,14 +441,21 @@ feature {} -- build the grammar
 
    reduce_nonterminal_def is
       do
-         last_nonterminal_def.copy(last_image)
+         last_nonterminal_def.copy(last_nonterminal_name)
+         reset_image
       end
 
    reduce_grammar is
       do
-         last_atoms.add(create {PACKRAT_NON_TERMINAL}.make(last_pattern), last_nonterminal_def.intern)
+         add_atom(last_nonterminal_def.intern, create {PACKRAT_NON_TERMINAL}.make(last_pattern))
          reset_pattern
          reset_nonterminal_def
+      end
+
+   reduce_pattern_first_alternative is
+      do
+         first_alternative := last_alternative
+         reset_alternative
       end
 
    reduce_pattern_alternative is
@@ -444,8 +466,7 @@ feature {} -- build the grammar
 
    reduce_pattern is
       do
-         last_pattern := seq(last_alternative, one, agent reducer.reduce_pattern(last_nonterminal_def.intern))
-         reset_alternative
+         last_pattern := seq(first_alternative, one, agent reducer.reduce_pattern(last_nonterminal_def.intern))
          last_choice.do_all(agent reduce_pattern_map)
          reset_choice
       end
@@ -466,10 +487,11 @@ feature {} -- build the grammar
          when lookahead_none then
             last_alternative.add_last(last_primary)
          when lookahead_and then
-            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead >> }
+            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead)
          when lookahead_not then
-            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead >> }
+            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead)
          end
+         reset_lookahead
       end
 
    reduce_quantifier is
@@ -486,13 +508,15 @@ feature {} -- build the grammar
 
    reduce_primary_as_nested_pattern is
       do
+         last_primary := last_pattern
+         last_primary.set_nested
       end
 
    reduce_primary_as_any is
       local
          terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
-         terminal_name := (once "'.'").intern
+         terminal_name := (once ".").intern
          terminal ::= atom(terminal_name)
          if terminal = Void then
             create terminal.make(agent parse_any, agent reduce_image_anychar)
@@ -502,15 +526,42 @@ feature {} -- build the grammar
       end
 
    reduce_primary_as_literal is
+      local
+         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
+         terminal_name := ("'#(1)'" # last_literal).intern
+         terminal ::= atom(terminal_name)
+         if terminal = Void then
+            create terminal.make(agent parse_string(?, last_literal.twin), agent reduce_image_string)
+            add_atom(terminal_name, terminal)
+         end
+         last_primary := ref(terminal_name)
       end
 
    reduce_primay_as_charclass is
+      local
+         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
+         regex: REGULAR_EXPRESSION; regex_factory: REGULAR_EXPRESSION_BUILDER
       do
+         terminal_name := ("[#(1)]" # last_charclass).intern
+         terminal ::= atom(terminal_name)
+         if terminal = Void then
+            regex := regex_factory.convert_posix_pattern(last_charclass)
+            create terminal.make(agent parse_regex(?, regex), agent reduce_image_regex)
+            add_atom(terminal_name, terminal)
+         end
+         last_primary := ref(terminal_name)
       end
 
    reduce_primary_as_nonterminal is
       do
+         last_primary := ref(last_nonterminal_name)
+         reset_image
+      end
+
+   reduce_literal_start is
+      do
+         reset_image
       end
 
    reduce_literal_string is
@@ -518,16 +569,14 @@ feature {} -- build the grammar
       end
 
    reduce_literal is
-      local
-         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
-         terminal_name := ("'#(1)'" # last_image).intern
-         terminal ::= atom(terminal_name)
-         if terminal = Void then
-            create terminal.make(agent parse_string(?, last_image.twin), agent reduce_image_string)
-            add_atom(terminal_name, terminal)
-         end
-         last_primary := ref(terminal_name)
+         last_literal.copy(last_image)
+         reset_image
+      end
+
+   reduce_charclass_start is
+      do
+         reset_image
       end
 
    reduce_charclass_range is
@@ -543,18 +592,9 @@ feature {} -- build the grammar
       end
 
    reduce_charclass is
-      local
-         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
-         regex: REGULAR_EXPRESSION; regex_factory: REGULAR_EXPRESSION_BUILDER
       do
-         terminal_name := last_image.intern
-         terminal ::= atom(terminal_name)
-         if terminal = Void then
-            regex := regex_factory.convert_posix_pattern(last_image)
-            create terminal.make(agent parse_regex(?, regex), agent reduce_image_regex)
-            add_atom(terminal_name, terminal)
-         end
-         last_primary := ref(terminal_name)
+         last_charclass.copy(last_image)
+         reset_image
       end
 
    reduce_nonterminal_name is
@@ -563,7 +603,7 @@ feature {} -- build the grammar
 
    reduce_nonterminal is
       do
-         last_primary := ref(last_image)
+         last_nonterminal_name.copy(last_image)
          reset_image
       end
 
@@ -609,12 +649,34 @@ feature {} -- build the grammar
          end
       end
 
+   last_patterns_stack: STACK[TUPLE[FAST_ARRAY[PACKRAT_ALTERNATIVE], FAST_ARRAY[PACKRAT_PRIMARY], FAST_ARRAY[PACKRAT_PRIMARY]]]
+
+   save_pattern is
+      do
+         if last_patterns_stack = Void then
+            create last_patterns_stack.with_capacity(4)
+         end
+         last_patterns_stack.push([last_choice, last_alternative, first_alternative])
+         reset_choice
+         reset_alternative
+      end
+
+   restore_pattern is
+      do
+         last_choice := last_patterns_stack.top.first
+         last_alternative := last_patterns_stack.top.second
+         first_alternative := last_patterns_stack.top.third
+         last_patterns_stack.pop
+      end
+
    reduce_image_open_paren (image: PARSER_IMAGE) is
       do
+         save_pattern
       end
 
    reduce_image_close_paren (image: PARSER_IMAGE) is
       do
+         restore_pattern
       end
 
    reduce_image_anychar, reduce_image_letter, reduce_image_regex, reduce_image_string (image: PARSER_IMAGE) is
@@ -634,14 +696,17 @@ feature {} -- build the grammar
          last_image.extend('-')
       end
 
+   reduce_image_dot (image: PARSER_IMAGE) is
+      do
+         last_image.extend('.')
+      end
+
    reduce_image_open_bracket (image: PARSER_IMAGE) is
       do
-         last_image.extend('[')
       end
 
    reduce_image_close_bracket (image: PARSER_IMAGE) is
       do
-         last_image.extend(']')
       end
 
    reduce_image_space (image: PARSER_IMAGE) is

@@ -54,9 +54,26 @@ feature {ANY}
             i > alternatives.upper
          loop
             if i > alternatives.lower then
-               tagged_out_memory.append(once " / ")
+               (once " / ").out_in_tagged_out_memory
             end
             alternatives.item(i).out_in_tagged_out_memory
+            i := i + 1
+         end
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      local
+         i: INTEGER
+      do
+         from
+            i := alternatives.lower
+         until
+            i > alternatives.upper
+         loop
+            if i > alternatives.lower then
+               stream.put_string(once " / ")
+            end
+            alternatives.item(i).pretty_print_on(stream)
             i := i + 1
          end
       end

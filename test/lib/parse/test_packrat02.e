@@ -34,6 +34,8 @@ sp          <- [ \t\n]*
 
          table := grammar.parse_table(source)
          assert(table /= Void)
+
+         table.pretty_print_on(std_output)
       end
 
 feature {PACKRAT_GRAMMAR}

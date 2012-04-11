@@ -22,6 +22,12 @@ feature {ANY}
          must_be_coherent: Result
       end
 
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      deferred
+      end
+
 feature {PARSE_TABLE}
    set (a_name: ABSTRACT_STRING; a_table: like table) is
       require

@@ -20,6 +20,9 @@ class PARSE_TABLE[C_ -> PARSE_CONTEXT]
 
 insert
    LOGGING
+      redefine
+         out_in_tagged_out_memory
+      end
 
 creation {ANY}
    manifest_creation
@@ -123,6 +126,18 @@ feature {ANY}
                breakpoint
             end
          end
+      end
+
+   out_in_tagged_out_memory is
+      do
+         atoms.do_all(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      do
+         atoms.do_all(agent {PARSE_ATOM[C_]}.pretty_print_on(stream))
       end
 
 feature {}

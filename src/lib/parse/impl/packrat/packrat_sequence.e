@@ -51,6 +51,40 @@ feature {ANY}
          end
       end
 
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      local
+         i: INTEGER; paren: BOOLEAN
+      do
+         paren := (how_many /= one or else is_nested) and then primaries.count > 1
+         if paren then
+            stream.put_character('(')
+         end
+         from
+            i := primaries.lower
+         until
+            i > primaries.upper
+         loop
+            if i > primaries.lower then
+               stream.put_character(' ')
+            end
+            primaries.item(i).pretty_print_on(stream)
+            i := i + 1
+         end
+         if paren then
+            stream.put_character(')')
+         end
+         inspect
+            how_many
+         when one then
+         when zero_or_more then
+            stream.put_character('*')
+         when one_or_more then
+            stream.put_character('+')
+         when zero_or_one then
+            stream.put_character('?')
+         end
+      end
+
 feature {PACKRAT_INTERNAL}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       local

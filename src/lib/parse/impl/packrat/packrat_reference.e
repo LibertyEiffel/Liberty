@@ -22,7 +22,12 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         tagged_out_memory.append(name)
+         name.out_in_tagged_out_memory
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         stream.put_string(name)
       end
 
 feature {}

@@ -16,6 +16,12 @@ feature {ANY}
          primary.out_in_tagged_out_memory
       end
 
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         stream.put_character('!')
+         primary.pretty_print_on(stream)
+      end
+
 feature {}
    pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local

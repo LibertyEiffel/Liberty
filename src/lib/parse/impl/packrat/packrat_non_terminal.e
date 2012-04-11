@@ -24,6 +24,14 @@ feature {ANY}
          pattern.out_in_tagged_out_memory
       end
 
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         stream.put_string(name)
+         stream.put_string(once " <- ")
+         pattern.pretty_print_on(stream)
+         stream.put_new_line
+      end
+
    is_coherent: BOOLEAN is
       do
          Result := pattern.is_coherent

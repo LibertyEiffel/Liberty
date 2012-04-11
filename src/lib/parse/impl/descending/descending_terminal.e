@@ -9,6 +9,12 @@ inherit
 creation {ANY}
    make
 
+feature {ANY}
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         not_yet_implemented
+      end
+
 end -- class DESCENDING_TERMINAL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

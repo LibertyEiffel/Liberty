@@ -15,7 +15,16 @@ creation {ANY}
 feature {ANY}
    out_in_tagged_out_memory is
       do
-         tagged_out_memory.append(name)
+         if name = Void then
+            tagged_out_memory.append(once "<terminal>")
+         else
+            name.out_in_tagged_out_memory
+         end
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         -- nothing
       end
 
 end -- class PACKRAT_TERMINAL

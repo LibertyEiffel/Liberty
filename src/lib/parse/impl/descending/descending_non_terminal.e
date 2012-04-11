@@ -39,6 +39,11 @@ feature {ANY}
          Result := parser_tree.is_coherent
       end
 
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      do
+         not_yet_implemented
+      end
+
 feature {PARSE_TABLE}
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       do

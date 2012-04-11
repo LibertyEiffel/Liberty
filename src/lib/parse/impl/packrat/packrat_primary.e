@@ -30,17 +30,25 @@ feature {ANY}
    frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
       do
          create {PACKRAT_AND} Result.make(Current)
+         Result.set_nested
       end
 
    frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
       do
          create {PACKRAT_NOT} Result.make(Current)
+         Result.set_nested
       end
 
    is_coherent: BOOLEAN is
       deferred
       ensure
          must_be_coherent: Result
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      deferred
       end
 
 feature {PACKRAT_INTERNAL}
@@ -98,6 +106,15 @@ feature {PACKRAT_INTERNAL}
       end
 
    nt: PACKRAT_NON_TERMINAL
+
+   set_nested is
+      do
+         is_nested := True
+      ensure
+         is_nested
+      end
+
+   is_nested: BOOLEAN
 
 feature {}
    pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
