@@ -103,7 +103,7 @@ feature {}
                create cache_iterator.make(Current)
             end
             from
-               if not cache_iterator.is_valid or else index > cache_iterator.index then
+               if not cache_iterator.is_valid or else index < cache_iterator.index then
                   cache_iterator.start
                end
             until
