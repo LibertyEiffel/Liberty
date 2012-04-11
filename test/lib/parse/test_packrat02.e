@@ -1,4 +1,4 @@
-class TEST_PACKRAT01
+class TEST_PACKRAT02
 
 inherit
    PACKRAT_REDUCER
@@ -13,12 +13,12 @@ feature {}
    make is
       local
          grammar: PACKRAT_GRAMMAR
-         parser: PACKRAT_PARSER
-         buffer: MINI_PARSER_BUFFER
+         table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
+         source: STRING
       do
          create grammar.make(Current)
-         create parser
-         create buffer.initialize_with("[
+
+         source := "[
 grammar     <- (nonterminal '<-' sp pattern)+
 pattern     <- alternative ('/' sp alternative)*
 alternative <- ([!&]? sp suffix)+
@@ -30,9 +30,10 @@ charclass   <- '[' (!']' (. '-' . / .))* ']' sp
 nonterminal <- [a-zA-Z]+ sp
 sp          <- [ \t\n]*
 
-]")
+]"
 
-         assert(parser.eval(buffer, grammar.table, "grammar"))
+         table := grammar.parse_table(source)
+         assert(table /= Void)
       end
 
 feature {PACKRAT_GRAMMAR}

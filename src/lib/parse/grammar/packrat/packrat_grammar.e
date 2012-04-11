@@ -1,30 +1,29 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class PACKRAT_GRAMMAR
+class PACKRAT_GRAMMAR
    --
    -- The packrat grammar written using the packrat parser :-)
    --
 
 insert
    PACKRAT
-      redefine
-         default_create
-      end
    PACKRAT_INTERNAL
-      redefine
-         default_create
-      end
 
 create {ANY}
-   default_create
+   make
 
 feature {}
-   default_create is
+   make (a_reducer: like reducer) is
+      require
+         a_reducer /= Void
       do
+         reducer := a_reducer
          last_image := ""
          last_nonterminal_def := ""
          reset
+      ensure
+         reducer = a_reducer
       end
 
    the_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
@@ -312,22 +311,32 @@ feature {} -- buffer moves
       end
 
 feature {ANY}
-   parsed_table: like the_table is
+   parse_table (a_source: ABSTRACT_STRING): like the_table is
+      require
+         a_source /= Void
       local
+         parser: PACKRAT_PARSER
+         buffer: MINI_PARSER_BUFFER
          i: INTEGER
       do
-         create Result.with_capacity(last_atoms.count)
-         from
-            i := last_atoms.lower
-         until
-            i > last_atoms.upper
-         loop
-            Result.add(last_atoms.key(i), last_atoms.item(i))
-            i := i + 1
+         create parser
+         create buffer.initialize_with(a_source)
+
+         if parser.eval(buffer, table, once "grammar") then
+            create Result.with_capacity(last_atoms.count)
+            from
+               i := last_atoms.lower
+            until
+               i > last_atoms.upper
+            loop
+               Result.add(last_atoms.key(i), last_atoms.item(i))
+               i := i + 1
+            end
          end
       end
 
 feature {} -- build the grammar
+   reducer: PACKRAT_REDUCER
    last_atoms: HASHED_DICTIONARY[PARSE_ATOM[PACKRAT_PARSE_CONTEXT], FIXED_STRING]
    last_nonterminal_def: STRING
    last_pattern: PACKRAT_PATTERN
@@ -429,16 +438,21 @@ feature {} -- build the grammar
 
    reduce_pattern_alternative is
       do
-         last_choice.add_last(seq(last_alternative, one, Void))
+         last_choice.add_last(seq(last_alternative, one, agent reducer.reduce_alternative(last_nonterminal_def.intern)))
          reset_alternative
       end
 
    reduce_pattern is
       do
-         last_pattern := seq(last_alternative, one, Void)
+         last_pattern := seq(last_alternative, one, agent reducer.reduce_pattern(last_nonterminal_def.intern))
          reset_alternative
-         last_choice.do_all(agent (alt: PACKRAT_ALTERNATIVE) is do last_pattern := last_pattern / alt end)
+         last_choice.do_all(agent reduce_pattern_map)
          reset_choice
+      end
+
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
+      do
+         last_pattern := last_pattern / alt
       end
 
    reduce_lookahead_symbol is
@@ -452,9 +466,9 @@ feature {} -- build the grammar
          when lookahead_none then
             last_alternative.add_last(last_primary)
          when lookahead_and then
-            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, Void).positive_lookahead >> }
+            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead >> }
          when lookahead_not then
-            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, Void).negative_lookahead >> }
+            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead >> }
          end
       end
 
@@ -465,7 +479,7 @@ feature {} -- build the grammar
    reduce_suffix is
       do
          if last_quantifier /= one then
-            last_primary := seq(<< last_primary >>, last_quantifier, Void)
+            last_primary := seq(<< last_primary >>, last_quantifier, agent reducer.reduce_loop(last_nonterminal_def.intern, last_quantifier))
          end
          reset_quantifier
       end
@@ -637,6 +651,7 @@ feature {} -- build the grammar
 invariant
    last_nonterminal_def /= Void
    last_image /= Void
+   reducer /= Void
 
 end -- class PACKRAT_GRAMMAR
 --
