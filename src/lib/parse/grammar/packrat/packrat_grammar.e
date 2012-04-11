@@ -22,89 +22,93 @@ create {ANY}
 feature {}
    default_create is
       do
+         last_image := ""
+         last_nonterminal_def := ""
          reset
       end
 
    the_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
       once
          Result := {PARSE_TABLE[PACKRAT_PARSE_CONTEXT] <<
-                                                         -- ----------------------------------------------------------------------
-                                                         -- THE GRAMMAR
-                                                         "grammar", create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("nonterminal"), ref("'<-'"), ref("sp"), ref("pattern") >>,
-                                                                      one_or_more, agent reduce_grammar));
+            -- ----------------------------------------------------------------------
+            -- THE GRAMMAR
 
-                                                         "pattern",     create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("alternative"), seq(<< ref("'/'"), ref("sp"), ref("alternative") >>,
-                                                                                                 zero_or_more, agent reduce_pattern_alternative) >>,
-                                                                      one, agent reduce_pattern));
+            "grammar", create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< seq(<< ref("nonterminal") >>, one, agent reduce_nonterminal_def), ref("'<-'"), ref("sp"), ref("pattern") >>,
+                         one_or_more, agent reduce_grammar));
 
-                                                         "alternative", create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< seq(<< ref("[!&]") >>,
-                                                                             zero_or_one, agent reduce_lookahead_symbol), ref("sp"), ref("suffix") >>,
-                                                                      one_or_more, agent reduce_alternative));
+            "pattern",     create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("alternative"), seq(<< ref("'/'"), ref("sp"), ref("alternative") >>,
+                                                    zero_or_more, agent reduce_pattern_alternative) >>,
+                         one, agent reduce_pattern));
 
-                                                         "suffix",      create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("primary"), seq(<< ref("[*+?]"), ref("sp") >>,
-                                                                                             zero_or_one, agent reduce_quantifier) >>,
-                                                                      one, agent reduce_suffix));
+            "alternative", create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< seq(<< ref("[!&]") >>,
+                                zero_or_one, agent reduce_lookahead_symbol), ref("sp"), ref("suffix") >>,
+                         one_or_more, agent reduce_alternative));
 
-                                                         "primary",     create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("'('"), ref("sp"), ref("pattern"), ref("')'"), ref("sp") >>,
-                                                                      one, agent reduce_primary_as_nested_pattern)
-                                                               /
-                                                               seq(<< ref("'.'"), ref("sp") >>,
-                                                                      one, agent reduce_primary_as_any)
-                                                               /
-                                                               seq(<< ref("literal") >>,
-                                                                      one, agent reduce_primary_as_literal)
-                                                               /
-                                                               seq(<< ref("charclass") >>,
-                                                                      one, agent reduce_primay_as_charclass)
-                                                               /
-                                                               seq(<< ref("nonterminal"), ~ref("'<-'") >>,
-                                                                      one, agent reduce_primary_as_nonterminal));
+            "suffix",      create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("primary"), seq(<< ref("[*+?]"), ref("sp") >>,
+                                                zero_or_one, agent reduce_quantifier) >>,
+                         one, agent reduce_suffix));
 
-                                                         "literal",     create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("[']"), seq(<< ~ref("[']"), ref(".") >>,
-                                                                                         zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
-                                                                      one, agent reduce_literal));
+            "primary",     create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("'('"), ref("sp"), ref("pattern"), ref("')'"), ref("sp") >>,
+                         one, agent reduce_primary_as_nested_pattern)
+                  /
+                  seq(<< ref("'.'"), ref("sp") >>,
+                         one, agent reduce_primary_as_any)
+                  /
+                  seq(<< ref("literal") >>,
+                         one, agent reduce_primary_as_literal)
+                  /
+                  seq(<< ref("charclass") >>,
+                         one, agent reduce_primay_as_charclass)
+                  /
+                  seq(<< ref("nonterminal"), ~ref("'<-'") >>,
+                         one, agent reduce_primary_as_nonterminal));
 
-                                                         "charclass",   create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("'['"), seq(<< ~ref("']'"), seq(<< ref("."), ref("'-'"), ref(".") >>,
-                                                                                                         one, agent reduce_charclass_range)
-                                                                                                  /
-                                                                                                  seq(<< ref(".") >>,
-                                                                                                         one, agent reduce_charclass_char) >>,
-                                                                                       zero_or_more, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
-                                                                       one, agent reduce_charclass));
+            "literal",     create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("[']"), seq(<< ~ref("[']"), ref(".") >>,
+                                            zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
+                         one, agent reduce_literal));
 
-                                                         "nonterminal", create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< seq(<< ref("[a-zA-Z]") >>,
-                                                                             one_or_more, agent reduce_nonterminal_name), ref("sp") >>,
-                                                                      one, agent reduce_nonterminal));
+            "charclass",   create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("'['"), seq(<< ~ref("']'"), seq(<< ref("."), ref("'-'"), ref(".") >>,
+                                                            one, agent reduce_charclass_range)
+                                                     /
+                                                     seq(<< ref(".") >>,
+                                                            one, agent reduce_charclass_char) >>,
+                                          zero_or_more, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
+                          one, agent reduce_charclass));
 
-                                                         "sp",          create {PACKRAT_NON_TERMINAL}
-                                                         .make(seq(<< ref("[ \t\n]") >>,
-                                                                      zero_or_more, agent reduce_space));
+            "nonterminal", create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< seq(<< ref("[a-zA-Z]") >>,
+                                one_or_more, agent reduce_nonterminal_name), ref("sp") >>,
+                         one, agent reduce_nonterminal));
 
-                                                         -- ----------------------------------------------------------------------
-                                                         -- THE LOW-LEVEL PATTERNS
-                                                         "'<-'",        create {PACKRAT_TERMINAL}.make(agent parse_string(?, "<-"), agent reduce_image_left_arrow);
-                                                         "'/'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "/"),  agent reduce_image_slash);
-                                                         "[!&]",        create {PACKRAT_TERMINAL}.make(agent parse_lookahead,       agent reduce_image_not_and);
-                                                         "[*+?]",       create {PACKRAT_TERMINAL}.make(agent parse_quantifier,      agent reduce_image_star_plus_why);
-                                                         "'('",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "("),  agent reduce_image_open_paren);
-                                                         "')'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, ")"),  agent reduce_image_close_paren);
-                                                         ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar);
-                                                         "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote);
-                                                         "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen);
-                                                         "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_hyphen);
-                                                         "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
-                                                         "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket);
-                                                         "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter);
-                                                         "[ \t\n]",     create {PACKRAT_TERMINAL}.make(agent parse_space,           agent reduce_image_space);
-                                                         >> }
+            "sp",          create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< ref("[ \t\n]") >>,
+                         zero_or_more, agent reduce_space));
+
+            -- ----------------------------------------------------------------------
+            -- THE LOW-LEVEL PATTERNS (hardcoded)
+
+            "'<-'",        create {PACKRAT_TERMINAL}.make(agent parse_string(?, "<-"), agent reduce_image_left_arrow);
+            "'/'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "/"),  agent reduce_image_slash);
+            "[!&]",        create {PACKRAT_TERMINAL}.make(agent parse_lookahead,       agent reduce_image_not_and);
+            "[*+?]",       create {PACKRAT_TERMINAL}.make(agent parse_quantifier,      agent reduce_image_star_plus_why);
+            "'('",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "("),  agent reduce_image_open_paren);
+            "')'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, ")"),  agent reduce_image_close_paren);
+            ".",           create {PACKRAT_TERMINAL}.make(agent parse_any,             agent reduce_image_anychar);
+            "[']",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "%'"), agent reduce_image_quote);
+            "'-'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "-"),  agent reduce_image_hyphen);
+            "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_hyphen);
+            "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
+            "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket);
+            "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter);
+            "[ \t\n]",     create {PACKRAT_TERMINAL}.make(agent parse_space,           agent reduce_image_space);
+         >> }
       end
 
    table_memory: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
@@ -122,6 +126,7 @@ feature {ANY}
    reset is
       do
          create position
+         reset_build_data
       end
 
 feature {} -- low-level parsers
@@ -216,6 +221,21 @@ feature {} -- low-level parsers
          end
       end
 
+   parse_regex (buffer: MINI_PARSER_BUFFER; regex: REGULAR_EXPRESSION): PACKRAT_IMAGE is
+         -- the regex must parse exactly one character
+      local
+         string: STRING
+      do
+         if not buffer.end_reached then
+            string.clear_count
+            string.extend(buffer.current_character)
+            if regex.match(string) then
+               Result := new_image(buffer.current_character)
+               next_character(buffer)
+            end
+         end
+      end
+
 feature {} -- low-level image memory
    flyweight: AVL_DICTIONARY[STRING, CHARACTER] is
       once
@@ -291,110 +311,250 @@ feature {} -- buffer moves
          create Result.make(image, position)
       end
 
+feature {ANY}
+   parsed_table: like the_table is
+      local
+         i: INTEGER
+      do
+         create Result.with_capacity(last_atoms.count)
+         from
+            i := last_atoms.lower
+         until
+            i > last_atoms.upper
+         loop
+            Result.add(last_atoms.key(i), last_atoms.item(i))
+            i := i + 1
+         end
+      end
+
 feature {} -- build the grammar
+   last_atoms: HASHED_DICTIONARY[PARSE_ATOM[PACKRAT_PARSE_CONTEXT], FIXED_STRING]
+   last_nonterminal_def: STRING
+   last_pattern: PACKRAT_PATTERN
+   last_choice: FAST_ARRAY[PACKRAT_ALTERNATIVE]
+   last_alternative: FAST_ARRAY[PACKRAT_PRIMARY]
+   last_primary: PACKRAT_PRIMARY
+   last_image: STRING
+   last_quantifier: INTEGER_8
+   last_lookahead: INTEGER_8
+
+   lookahead_none: INTEGER_8 is 0
+   lookahead_and: INTEGER_8 is 1
+   lookahead_not: INTEGER_8 is 2
+
+   add_atom (a_name: FIXED_STRING; a_atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]) is
+      require
+         a_name /= Void
+         a_atom /= Void
+         atom(a_name) = Void
+      do
+         if last_atoms = Void then
+            create last_atoms.make
+         end
+         last_atoms.add(a_atom, a_name)
+      ensure
+         atom(a_name) = a_atom
+      end
+
+   atom (a_name: FIXED_STRING): PARSE_ATOM[PACKRAT_PARSE_CONTEXT] is
+      require
+         a_name /= Void
+      do
+         if last_atoms /= Void then
+            Result := last_atoms.fast_reference_at(a_name)
+         end
+      end
+
+   reset_nonterminal_def is
+      do
+         last_nonterminal_def.clear_count
+      end
+
+   reset_image is
+      do
+         last_image.clear_count
+      end
+
+   reset_quantifier is
+      do
+         last_quantifier := one
+      end
+
+   reset_lookahead is
+      do
+         last_lookahead := lookahead_none
+      end
+
+   reset_alternative is
+      do
+         create last_alternative.make(0)
+      end
+
+   reset_choice is
+      do
+         create last_choice.make(0)
+      end
+
+   reset_pattern is
+      do
+         last_pattern := Void
+      end
+
+   reset_build_data is
+      do
+         reset_nonterminal_def
+         reset_image
+         if last_atoms /= Void then
+            last_atoms.clear_count
+         end
+         reset_image
+         reset_quantifier
+         reset_lookahead
+         reset_alternative
+         reset_choice
+         reset_pattern
+      end
+
+   reduce_nonterminal_def is
+      do
+         last_nonterminal_def.copy(last_image)
+      end
+
    reduce_grammar is
       do
-         log.trace.put_line(once "reduce_grammar")
+         last_atoms.add(create {PACKRAT_NON_TERMINAL}.make(last_pattern), last_nonterminal_def.intern)
+         reset_pattern
+         reset_nonterminal_def
       end
 
    reduce_pattern_alternative is
       do
-         log.trace.put_line(once "reduce_pattern_alternative")
+         last_choice.add_last(seq(last_alternative, one, Void))
+         reset_alternative
       end
 
    reduce_pattern is
       do
-         log.trace.put_line(once "reduce_pattern")
+         last_pattern := seq(last_alternative, one, Void)
+         reset_alternative
+         last_choice.do_all(agent (alt: PACKRAT_ALTERNATIVE) is do last_pattern := last_pattern / alt end)
+         reset_choice
       end
 
    reduce_lookahead_symbol is
       do
-         log.trace.put_line(once "reduce_lookahead_symbol")
       end
 
    reduce_alternative is
       do
-         log.trace.put_line(once "reduce_alternative")
+         inspect
+            last_lookahead
+         when lookahead_none then
+            last_alternative.add_last(last_primary)
+         when lookahead_and then
+            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, Void).positive_lookahead >> }
+         when lookahead_not then
+            last_alternative := {FAST_ARRAY[PACKRAT_PRIMARY] << seq(last_alternative, one, Void).negative_lookahead >> }
+         end
       end
 
    reduce_quantifier is
       do
-         log.trace.put_line(once "reduce_quantifier")
       end
 
    reduce_suffix is
       do
-         log.trace.put_line(once "reduce_suffix")
+         if last_quantifier /= one then
+            last_primary := seq(<< last_primary >>, last_quantifier, Void)
+         end
+         reset_quantifier
       end
 
    reduce_primary_as_nested_pattern is
       do
-         log.trace.put_line(once "reduce_primary_as_nested_pattern")
       end
 
    reduce_primary_as_any is
+      local
+         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
-         log.trace.put_line(once "reduce_primary_as_any")
+         terminal_name := (once "'.'").intern
+         terminal ::= atom(terminal_name)
+         if terminal = Void then
+            create terminal.make(agent parse_any, agent reduce_image_anychar)
+            add_atom(terminal_name, terminal)
+         end
+         last_primary := ref(terminal_name)
       end
 
    reduce_primary_as_literal is
       do
-         log.trace.put_line(once "reduce_primary_as_literal")
       end
 
    reduce_primay_as_charclass is
       do
-         log.trace.put_line(once "reduce_primay_as_charclass")
       end
 
    reduce_primary_as_nonterminal is
       do
-         log.trace.put_line(once "reduce_primary_as_nonterminal")
       end
 
    reduce_literal_string is
       do
-         log.trace.put_line(once "reduce_literal_string")
       end
 
    reduce_literal is
+      local
+         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
-         log.trace.put_line(once "reduce_literal")
+         terminal_name := ("'#(1)'" # last_image).intern
+         terminal ::= atom(terminal_name)
+         if terminal = Void then
+            create terminal.make(agent parse_string(?, last_image.twin), agent reduce_image_string)
+            add_atom(terminal_name, terminal)
+         end
+         last_primary := ref(terminal_name)
       end
 
    reduce_charclass_range is
       do
-         log.trace.put_line(once "reduce_charclass_range")
       end
 
    reduce_charclass_char is
       do
-         log.trace.put_line(once "reduce_charclass_char")
       end
 
    reduce_charclass_class is
       do
-         log.trace.put_line(once "reduce_charclass_class")
       end
 
    reduce_charclass is
+      local
+         terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
+         regex: REGULAR_EXPRESSION; regex_factory: REGULAR_EXPRESSION_BUILDER
       do
-         log.trace.put_line(once "reduce_charclass")
+         terminal_name := last_image.intern
+         terminal ::= atom(terminal_name)
+         if terminal = Void then
+            regex := regex_factory.convert_posix_pattern(last_image)
+            create terminal.make(agent parse_regex(?, regex), agent reduce_image_regex)
+            add_atom(terminal_name, terminal)
+         end
+         last_primary := ref(terminal_name)
       end
 
    reduce_nonterminal_name is
       do
-         log.trace.put_line(once "reduce_nonterminal_name")
       end
 
    reduce_nonterminal is
       do
-         log.trace.put_line(once "reduce_nonterminal")
+         last_primary := ref(last_image)
+         reset_image
       end
 
    reduce_space is
       do
-         log.trace.put_line(once "reduce_space")
       end
 
    reduce_image_left_arrow (image: PARSER_IMAGE) is
@@ -406,11 +566,33 @@ feature {} -- build the grammar
       end
 
    reduce_image_not_and (image: PARSER_IMAGE) is
+      local
+         pi: PACKRAT_IMAGE
       do
+         pi ::= image
+         inspect
+            pi.image.first
+         when '&' then
+            last_lookahead := lookahead_and
+         when '!' then
+            last_lookahead := lookahead_not
+         end
       end
 
    reduce_image_star_plus_why (image: PARSER_IMAGE) is
+      local
+         pi: PACKRAT_IMAGE
       do
+         pi ::= image
+         inspect
+            pi.image.first
+         when '*' then
+            last_quantifier := zero_or_more
+         when '+' then
+            last_quantifier := one_or_more
+         when '?' then
+            last_quantifier := zero_or_one
+         end
       end
 
    reduce_image_open_paren (image: PARSER_IMAGE) is
@@ -421,8 +603,12 @@ feature {} -- build the grammar
       do
       end
 
-   reduce_image_anychar (image: PARSER_IMAGE) is
+   reduce_image_anychar, reduce_image_letter, reduce_image_regex, reduce_image_string (image: PARSER_IMAGE) is
+      local
+         pi: PACKRAT_IMAGE
       do
+         pi ::= image
+         last_image.append(pi.image)
       end
 
    reduce_image_quote (image: PARSER_IMAGE) is
@@ -431,23 +617,26 @@ feature {} -- build the grammar
 
    reduce_image_hyphen (image: PARSER_IMAGE) is
       do
+         last_image.extend('-')
       end
 
    reduce_image_open_bracket (image: PARSER_IMAGE) is
       do
+         last_image.extend('[')
       end
 
    reduce_image_close_bracket (image: PARSER_IMAGE) is
       do
-      end
-
-   reduce_image_letter (image: PARSER_IMAGE) is
-      do
+         last_image.extend(']')
       end
 
    reduce_image_space (image: PARSER_IMAGE) is
       do
       end
+
+invariant
+   last_nonterminal_def /= Void
+   last_image /= Void
 
 end -- class PACKRAT_GRAMMAR
 --

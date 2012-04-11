@@ -24,6 +24,9 @@ insert
 creation {ANY}
    manifest_creation
 
+creation {PARSER_FACET}
+   with_capacity
+
 feature {ANY}
    is_coherent: BOOLEAN is
          -- True if all the used atoms are defined
@@ -135,8 +138,21 @@ feature {}
 feature {PARSE_TABLE}
    atoms: LINKED_HASHED_DICTIONARY[PARSE_ATOM[C_], FIXED_STRING]
 
+feature {PARSER_FACET}
+   add (name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
+      require
+         not has(name)
+         atom.name = Void
+      do
+         atoms.add(atom, name.intern)
+         atom.set(name, Current)
+      ensure
+         atoms.count = old atoms.count + 1
+         atoms.last = atom
+      end
+
 feature {}
-   manifest_make (needed_capacity: INTEGER) is
+   with_capacity, manifest_make (needed_capacity: INTEGER) is
       do
          create atoms.with_capacity(needed_capacity)
       end
@@ -145,11 +161,13 @@ feature {}
       require
          not has(name)
          atom.name = Void
+         atoms.count = index
       do
-         atoms.add(atom, name.intern)
-         atom.set(name, Current)
+         add(name, atom)
       ensure
          atom.name = name.intern
+         atoms.count = old atoms.count + 1
+         atoms.last = atom
       end
 
    manifest_semicolon_check: INTEGER is 2
