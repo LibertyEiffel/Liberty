@@ -82,6 +82,12 @@ feature {ANY}
          when zero_or_one then
             stream.put_character('?')
          end
+         if tag /= Void then
+            stream.put_character(' ')
+            stream.put_character('{')
+            stream.put_string(tag)
+            stream.put_character('}')
+         end
       end
 
 feature {PACKRAT_INTERNAL}
@@ -123,6 +129,20 @@ feature {PACKRAT_INTERNAL}
    set_how_many (a_how_many: like how_many) is
       do
          how_many := a_how_many
+      end
+
+   tag: FIXED_STRING
+
+   set_tag (a_tag: ABSTRACT_STRING) is
+      do
+         if a_tag = Void then
+            tag := Void
+         else
+            tag := a_tag.intern
+         end
+      ensure
+         a_tag = Void implies tag = Void
+         a_tag /= Void implies tag = a_tag.intern
       end
 
 feature {}
@@ -212,17 +232,20 @@ feature {}
       end
 
 feature {}
-   make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_action: like action) is
+   make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_tag: ABSTRACT_STRING; a_action: like action) is
       require
          a_primaries /= Void
          a_how_many.in_range(one, one_or_more)
       do
          primaries := a_primaries
-         how_many := a_how_many
+         set_how_many(a_how_many)
+         set_tag(a_tag)
          action := a_action
       ensure
          primaries = a_primaries
          how_many = a_how_many
+         a_tag = Void implies tag = Void
+         a_tag /= Void implies tag = a_tag.intern
          action = a_action
       end
 

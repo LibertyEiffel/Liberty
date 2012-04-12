@@ -55,81 +55,81 @@ feature {}
             -- THE GRAMMAR
 
             "grammar", create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< seq(<< ref("nonterminal") >>, one, agent reduce_nonterminal_def), ref("'<-'"), ref("sp"), ref("pattern") >>,
-                         one_or_more, agent reduce_grammar));
+            .make(seq(<< seq(<< ref("nonterminal") >>, one, Void, agent reduce_nonterminal_def), ref("'<-'"), ref("sp"), ref("pattern") >>,
+                         one_or_more, Void, agent reduce_grammar));
 
             "pattern",     create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("alternative") >>,
-                                one, agent reduce_pattern_first_alternative),
+                                one, Void, agent reduce_pattern_first_alternative),
                          seq(<< ref("'/'"), ref("sp"), ref("alternative") >>,
-                                zero_or_more, agent reduce_pattern_alternative) >>,
-                         one, agent reduce_pattern));
+                                zero_or_more, Void, agent reduce_pattern_alternative) >>,
+                         one, Void, agent reduce_pattern));
 
             "alternative", create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("[!&]"), ref("sp"), ref("suffix") >>,
-                                one, agent reduce_alternative_lookahead)
+                                one, Void, agent reduce_alternative_lookahead)
                          /
                          seq(<< ref("suffix"),
                                 seq(<< ref("tag") >>,
-                                       zero_or_one, agent reduce_alternative_suffix_tag) >>,
-                                one, agent reduce_alternative_tag) >>,
-                         one_or_more, agent reduce_alternative));
+                                       zero_or_one, Void, agent reduce_alternative_suffix_tag) >>,
+                                one, Void, agent reduce_alternative_tag) >>,
+                         one_or_more, Void, agent reduce_alternative));
 
             "suffix",      create {PACKRAT_NON_TERMINAL}
             .make(seq(<< ref("primary"), seq(<< ref("[*+?]"), ref("sp") >>,
-                                                zero_or_one, agent reduce_quantifier) >>,
-                         one, agent reduce_suffix));
+                                                zero_or_one, Void, agent reduce_quantifier) >>,
+                         one, Void, agent reduce_suffix));
 
             "primary",     create {PACKRAT_NON_TERMINAL}
             .make(seq(<< ref("'('"), ref("sp"), ref("pattern"), ref("')'"), ref("sp") >>,
-                         one, agent reduce_primary_as_nested_pattern)
+                         one, Void, agent reduce_primary_as_nested_pattern)
                   /
                   seq(<< ref("'.'"), ref("sp") >>,
-                         one, agent reduce_primary_as_any)
+                         one, Void, agent reduce_primary_as_any)
                   /
                   seq(<< ref("literal") >>,
-                         one, agent reduce_primary_as_literal)
+                         one, Void, agent reduce_primary_as_literal)
                   /
                   seq(<< ref("charclass") >>,
-                         one, agent reduce_primay_as_charclass)
+                         one, Void, agent reduce_primay_as_charclass)
                   /
                   seq(<< ref("nonterminal"), ~ref("'<-'") >>,
-                         one, agent reduce_primary_as_nonterminal));
+                         one, Void, agent reduce_primary_as_nonterminal));
 
             "literal",     create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("[']") >>,
-                                one, agent reduce_literal_start),
+                                one, Void, agent reduce_literal_start),
                          seq(<< ~ref("[']"), ref(".") >>,
-                                zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
-                         one, agent reduce_literal));
+                                zero_or_more, Void, agent reduce_literal_string), ref("[']"), ref("sp") >>,
+                         one, Void, agent reduce_literal));
 
             "charclass",   create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("'['") >>,
-                                one, agent reduce_charclass_start),
+                                one, Void, agent reduce_charclass_start),
                          seq(<< ~ref("']'"),
                                 seq(<< ref("."), ref("'-'"), ref(".") >>,
-                                       one, agent reduce_charclass_range)
+                                       one, Void, agent reduce_charclass_range)
                                 /
                                 seq(<< ref(".") >>,
-                                       one, agent reduce_charclass_char) >>,
-                                zero_or_more, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
-                          one, agent reduce_charclass));
+                                       one, Void, agent reduce_charclass_char) >>,
+                                zero_or_more, Void, agent reduce_charclass_class), ref("']'"), ref("sp") >>,
+                          one, Void, agent reduce_charclass));
 
             "nonterminal", create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("[a-zA-Z]") >>,
-                                one_or_more, agent reduce_nonterminal_name), ref("sp") >>,
-                         one, agent reduce_nonterminal));
+                                one_or_more, Void, agent reduce_nonterminal_name), ref("sp") >>,
+                         one, Void, agent reduce_nonterminal));
 
             "sp",          create {PACKRAT_NON_TERMINAL}
             .make(seq(<< ref("[ \t\n]") >>,
-                         zero_or_more, agent reduce_space));
+                         zero_or_more, Void, agent reduce_space));
 
             "tag",         create {PACKRAT_NON_TERMINAL}
             .make(seq(<< seq(<< ref("'{'"), >>,
-                                one, agent reduce_tag_start),
+                                one, Void, agent reduce_tag_start),
                          seq(<< ~ref("'}'"), ref(".") >>,
-                                zero_or_more, agent reduce_tag_string), ref("'}'"), ref("sp") >>,
-                         one, agent reduce_tag));
+                                zero_or_more, Void, agent reduce_tag_string), ref("'}'"), ref("sp") >>,
+                         one, Void, agent reduce_tag));
 
             -- ----------------------------------------------------------------------
             -- THE LOW-LEVEL PATTERNS (hardcoded)
@@ -497,13 +497,13 @@ feature {} -- build the grammar
 
    reduce_pattern_alternative is
       do
-         last_choice.add_last(seq(last_alternative, one, agent reducer.reduce_alternative(last_nonterminal_def.intern)))
+         last_choice.add_last(seq(last_alternative, one, Void, agent reducer.reduce_alternative(last_nonterminal_def.intern)))
          reset_alternative
       end
 
    reduce_pattern is
       do
-         last_pattern := seq(first_alternative, one, agent reducer.reduce_pattern(last_nonterminal_def.intern))
+         last_pattern := seq(first_alternative, one, Void, agent reducer.reduce_pattern(last_nonterminal_def.intern))
          last_choice.do_all(agent reduce_pattern_map)
          reset_choice
       end
@@ -521,9 +521,9 @@ feature {} -- build the grammar
          inspect
             last_lookahead
          when lookahead_and then
-            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead)
+            last_alternative.add_last(seq(<< last_primary >>, one, Void, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead)
          when lookahead_not then
-            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead)
+            last_alternative.add_last(seq(<< last_primary >>, one, Void, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead)
          end
          reset_lookahead
       end
@@ -533,15 +533,22 @@ feature {} -- build the grammar
       end
 
    reduce_alternative_tag is
+      local
+         sequence: PACKRAT_SEQUENCE
       do
          check
             last_lookahead = lookahead_none
          end
-         last_alternative.add_last(last_primary)
          if not last_tag.is_empty then
-            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_with_tag(last_nonterminal_def.intern, last_tag.intern)))
+            if sequence ?:= last_primary then
+               sequence ::= last_primary
+               sequence.set_tag(last_tag)
+            else
+               last_primary := seq(<< last_primary >>, one, last_tag, agent reducer.reduce_with_tag(last_nonterminal_def.intern, last_tag.intern))
+            end
             reset_tag
          end
+         last_alternative.add_last(last_primary)
       end
 
    reduce_alternative is
@@ -566,7 +573,7 @@ feature {} -- build the grammar
             end
          end
          if not done then
-            last_primary := seq(<< last_primary >>, last_quantifier, agent reducer.reduce_loop(last_nonterminal_def.intern, last_quantifier))
+            last_primary := seq(<< last_primary >>, last_quantifier, Void, agent reducer.reduce_loop(last_nonterminal_def.intern, last_quantifier))
          end
          reset_quantifier
       end

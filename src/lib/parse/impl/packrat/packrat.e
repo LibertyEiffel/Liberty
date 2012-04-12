@@ -9,12 +9,12 @@ feature {} -- Tune exports to your liking if need be
    zero_or_more: INTEGER_8 is 2
    one_or_more: INTEGER_8 is 3
 
-   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_action: PROCEDURE[TUPLE]): PACKRAT_ALTERNATIVE is
+   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_tag: ABSTRACT_STRING; a_action: PROCEDURE[TUPLE]): PACKRAT_ALTERNATIVE is
       require
          a_primaries /= Void
          a_how_many.in_range(one, one_or_more)
       do
-         create {PACKRAT_SEQUENCE} Result.make(a_primaries, a_how_many, a_action)
+         create {PACKRAT_SEQUENCE} Result.make(a_primaries, a_how_many, a_tag, a_action)
       end
 
    ref (a_atom_name: ABSTRACT_STRING): PACKRAT_PRIMARY is
