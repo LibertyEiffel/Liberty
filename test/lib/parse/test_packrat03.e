@@ -66,7 +66,6 @@ feature {PACKRAT_GRAMMAR}
 
    reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
       do
-         io.put_line("#### #(1) {#(2)}" # nonterminal_name # tag)
       end
 
 end
