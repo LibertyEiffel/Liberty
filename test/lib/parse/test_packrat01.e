@@ -18,6 +18,9 @@ feature {}
       do
          create grammar.make(Current)
          create parser
+
+         -- this one is the original one (to keep it somewhere)
+
          create buffer.initialize_with("[
 grammar     <- (nonterminal '<-' sp pattern)+
 pattern     <- alternative ('/' sp alternative)*
@@ -53,6 +56,10 @@ feature {PACKRAT_GRAMMAR}
       end
 
    reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
+      do
+      end
+
+   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
       do
       end
 

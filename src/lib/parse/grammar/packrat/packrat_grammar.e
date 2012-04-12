@@ -6,6 +6,24 @@ class PACKRAT_GRAMMAR
    -- The packrat grammar written using the packrat parser :-)
    --
 
+   -- Note that the original grammar is extended with "tags" which
+   -- will allow the implementation of semantic actions.
+
+   -- The grammar is:
+   --
+   -- grammar     <- (nonterminal '<-' sp pattern)+
+   -- pattern     <- alternative ('/' sp alternative)*
+   -- alternative <- ([!&] sp suffix / suffix tag?)+
+   -- suffix      <- primary ([*+?] sp)*
+   -- primary     <- '(' sp pattern ')' sp / '.' sp / literal /
+   --                charclass / nonterminal !'<-'
+   -- literal     <- ['] (!['] .)* ['] sp
+   -- charclass   <- '[' (!']' (. '-' . / .))* ']' sp
+   -- nonterminal <- [a-zA-Z]+ sp
+   -- sp          <- [ \t\n]*
+   -- tag         <- '{' (!'}' .)+ '}' sp
+   --
+
 insert
    PACKRAT
    PACKRAT_INTERNAL
@@ -24,6 +42,7 @@ feature {}
          last_nonterminal_name := ""
          last_charclass := ""
          last_literal := ""
+         last_tag := ""
          reset
       ensure
          reducer = a_reducer
@@ -47,8 +66,13 @@ feature {}
                          one, agent reduce_pattern));
 
             "alternative", create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< seq(<< ref("[!&]") >>,
-                                zero_or_one, agent reduce_lookahead_symbol), ref("sp"), ref("suffix") >>,
+            .make(seq(<< seq(<< ref("[!&]"), ref("sp"), ref("suffix") >>,
+                                one, agent reduce_alternative_lookahead)
+                         /
+                         seq(<< ref("suffix"),
+                                seq(<< ref("tag") >>,
+                                       zero_or_one, agent reduce_alternative_suffix_tag) >>,
+                                one, agent reduce_alternative_tag) >>,
                          one_or_more, agent reduce_alternative));
 
             "suffix",      create {PACKRAT_NON_TERMINAL}
@@ -73,7 +97,7 @@ feature {}
                          one, agent reduce_primary_as_nonterminal));
 
             "literal",     create {PACKRAT_NON_TERMINAL}
-            .make(seq(<< seq(<< ref("[']"), >>,
+            .make(seq(<< seq(<< ref("[']") >>,
                                 one, agent reduce_literal_start),
                          seq(<< ~ref("[']"), ref(".") >>,
                                 zero_or_more, agent reduce_literal_string), ref("[']"), ref("sp") >>,
@@ -100,6 +124,13 @@ feature {}
             .make(seq(<< ref("[ \t\n]") >>,
                          zero_or_more, agent reduce_space));
 
+            "tag",         create {PACKRAT_NON_TERMINAL}
+            .make(seq(<< seq(<< ref("'{'"), >>,
+                                one, agent reduce_tag_start),
+                         seq(<< ~ref("'}'"), ref(".") >>,
+                                zero_or_more, agent reduce_tag_string), ref("'}'"), ref("sp") >>,
+                         one, agent reduce_tag));
+
             -- ----------------------------------------------------------------------
             -- THE LOW-LEVEL PATTERNS (hardcoded)
 
@@ -115,6 +146,8 @@ feature {}
             "'.'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "."),  agent reduce_image_dot);
             "'['",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "["),  agent reduce_image_open_bracket);
             "']'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "]"),  agent reduce_image_close_bracket);
+            "'{'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "{"),  agent reduce_image_open_curly);
+            "'}'",         create {PACKRAT_TERMINAL}.make(agent parse_string(?, "}"),  agent reduce_image_close_curly);
             "[a-zA-Z]",    create {PACKRAT_TERMINAL}.make(agent parse_character,       agent reduce_image_letter);
             "[ \t\n]",     create {PACKRAT_TERMINAL}.make(agent parse_space,           agent reduce_image_space);
          >> }
@@ -350,18 +383,16 @@ feature {ANY}
 
 feature {} -- build the grammar
    reducer: PACKRAT_REDUCER
+
    last_atoms: HASHED_DICTIONARY[PARSE_ATOM[PACKRAT_PARSE_CONTEXT], FIXED_STRING]
-   last_nonterminal_def: STRING
    last_pattern: PACKRAT_PATTERN
    last_choice: FAST_ARRAY[PACKRAT_ALTERNATIVE]
-   last_alternative: FAST_ARRAY[PACKRAT_PRIMARY]
+   last_alternative, first_alternative: FAST_ARRAY[PACKRAT_PRIMARY]
    last_primary: PACKRAT_PRIMARY
-   last_image: STRING
    last_quantifier: INTEGER_8
    last_lookahead: INTEGER_8
 
-   last_nonterminal_name, last_charclass, last_literal: STRING
-   first_alternative: like last_alternative
+   last_image, last_nonterminal_def, last_nonterminal_name, last_charclass, last_literal, last_tag: STRING
 
    lookahead_none: INTEGER_8 is 0
    lookahead_and: INTEGER_8 is 1
@@ -425,6 +456,11 @@ feature {} -- build the grammar
          last_pattern := Void
       end
 
+   reset_tag is
+      do
+         last_tag.clear_count
+      end
+
    reset_build_data is
       do
          if last_atoms /= Void then
@@ -437,6 +473,7 @@ feature {} -- build the grammar
          reset_alternative
          reset_choice
          reset_pattern
+         reset_tag
       end
 
    reduce_nonterminal_def is
@@ -476,22 +513,39 @@ feature {} -- build the grammar
          last_pattern := last_pattern / alt
       end
 
-   reduce_lookahead_symbol is
+   reduce_alternative_lookahead is
       do
-      end
-
-   reduce_alternative is
-      do
+         check
+            last_lookahead /= lookahead_none
+         end
          inspect
             last_lookahead
-         when lookahead_none then
-            last_alternative.add_last(last_primary)
          when lookahead_and then
             last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_positive_lookahead(last_nonterminal_def.intern)).positive_lookahead)
          when lookahead_not then
             last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_negative_lookahead(last_nonterminal_def.intern)).negative_lookahead)
          end
          reset_lookahead
+      end
+
+   reduce_alternative_suffix_tag is
+      do
+      end
+
+   reduce_alternative_tag is
+      do
+         check
+            last_lookahead = lookahead_none
+         end
+         last_alternative.add_last(last_primary)
+         if not last_tag.is_empty then
+            last_alternative.add_last(seq(<< last_primary >>, one, agent reducer.reduce_with_tag(last_nonterminal_def.intern, last_tag.intern)))
+            reset_tag
+         end
+      end
+
+   reduce_alternative is
+      do
       end
 
    reduce_quantifier is
@@ -571,6 +625,21 @@ feature {} -- build the grammar
    reduce_literal is
       do
          last_literal.copy(last_image)
+         reset_image
+      end
+
+   reduce_tag_start is
+      do
+         reset_image
+      end
+
+   reduce_tag_string is
+      do
+      end
+
+   reduce_tag is
+      do
+         last_tag.copy(last_image)
          reset_image
       end
 
@@ -706,6 +775,14 @@ feature {} -- build the grammar
       end
 
    reduce_image_close_bracket (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_open_curly (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_close_curly (image: PARSER_IMAGE) is
       do
       end
 

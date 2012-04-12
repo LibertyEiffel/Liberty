@@ -18,10 +18,12 @@ feature {}
       do
          create grammar.make(Current)
 
+         -- this one is the extended grammar (with tags)
+
          source := "[
 grammar     <- (nonterminal '<-' sp pattern)+
 pattern     <- alternative ('/' sp alternative)*
-alternative <- ([!&]? sp suffix)+
+alternative <- ([!&] sp suffix / suffix tag?)+
 suffix      <- primary ([*+?] sp)*
 primary     <- '(' sp pattern ')' sp / '.' sp / literal /
                charclass / nonterminal !'<-'
@@ -29,6 +31,7 @@ literal     <- ['] (!['] .)* ['] sp
 charclass   <- '[' (!']' (. '-' . / .))* ']' sp
 nonterminal <- [a-zA-Z]+ sp
 sp          <- [ \t\n]*
+tag         <- '{' (!'}' .)+ '}' sp
 
 ]"
 
@@ -56,6 +59,10 @@ feature {PACKRAT_GRAMMAR}
       end
 
    reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
+      do
+      end
+
+   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
       do
       end
 
