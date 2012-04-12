@@ -577,22 +577,11 @@ feature {} -- build the grammar
       end
 
    reduce_suffix is
-      local
-         sequence: PACKRAT_SEQUENCE; done: BOOLEAN
       do
-         if last_quantifier = one then
-            done := True
-         elseif sequence ?:= last_primary then
-            sequence ::= last_primary
-            if sequence.how_many = one then
-               sequence.set_how_many(last_quantifier)
-               done := True
-            end
-         end
-         if not done then
+         if last_quantifier /= one then
             last_primary := seq(<< last_primary >>, last_quantifier, Void, agent reducer.reduce_loop(last_nonterminal_def.intern, last_quantifier))
+            reset_quantifier
          end
-         reset_quantifier
       end
 
    reduce_primary_as_nested_pattern is
