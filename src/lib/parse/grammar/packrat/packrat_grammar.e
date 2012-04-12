@@ -384,7 +384,7 @@ feature {ANY}
 feature {} -- build the grammar
    reducer: PACKRAT_REDUCER
 
-   last_atoms: HASHED_DICTIONARY[PARSE_ATOM[PACKRAT_PARSE_CONTEXT], FIXED_STRING]
+   last_atoms: LINKED_HASHED_DICTIONARY[PARSE_ATOM[PACKRAT_PARSE_CONTEXT], FIXED_STRING]
    last_pattern: PACKRAT_PATTERN
    last_choice: FAST_ARRAY[PACKRAT_ALTERNATIVE]
    last_alternative, first_alternative: FAST_ARRAY[PACKRAT_PRIMARY]
