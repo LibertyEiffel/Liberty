@@ -48,7 +48,7 @@ feature {}
          reducer = a_reducer
       end
 
-   the_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+   default_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
       once
          Result := {PARSE_TABLE[PACKRAT_PARSE_CONTEXT] <<
             -- ----------------------------------------------------------------------
@@ -158,17 +158,32 @@ feature {}
 feature {ANY}
    table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
       do
-         Result := table_memory
-         if Result = Void then
-            Result := the_table
-            table_memory := Result
+         if table_memory = Void then
+            reset_table
          end
+         Result := table_memory
       end
 
    reset is
       do
          create position
          reset_build_data
+      end
+
+feature {EIFFELTEST_TOOLS} -- test only
+   set_table (a_table: like table; a_root: like root) is
+      do
+         table_memory := a_table
+         root := a_root
+      ensure
+         table = a_table
+      end
+
+   root: STRING
+
+   reset_table is
+      do
+         set_table(default_table, once "grammar")
       end
 
 feature {} -- low-level parsers
@@ -269,6 +284,7 @@ feature {} -- low-level parsers
          string: STRING
       do
          if not buffer.end_reached then
+            string := once ""
             string.clear_count
             string.extend(buffer.current_character)
             if regex.match(string) then
@@ -354,7 +370,7 @@ feature {} -- buffer moves
       end
 
 feature {ANY}
-   parse_table (a_source: ABSTRACT_STRING): like the_table is
+   parse_table (a_source: ABSTRACT_STRING): like default_table is
       require
          a_source /= Void
       local
@@ -363,10 +379,14 @@ feature {ANY}
          i: INTEGER
          key: FIXED_STRING; item: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
       do
+         if table_memory = Void then
+            reset_table
+         end
+
          create parser
          create buffer.initialize_with(a_source)
 
-         if parser.eval(buffer, table, once "grammar") then
+         if parser.eval(buffer, table, root) and then parser.error = Void then
             create Result.with_capacity(last_atoms.count)
             from
                i := last_atoms.lower
@@ -378,8 +398,12 @@ feature {ANY}
                Result.add(key, item)
                i := i + 1
             end
+         else
+            error := parser.error
          end
       end
+
+   error: PARSE_ERROR
 
 feature {} -- build the grammar
    reducer: PACKRAT_REDUCER
@@ -533,19 +557,12 @@ feature {} -- build the grammar
       end
 
    reduce_alternative_tag is
-      local
-         sequence: PACKRAT_SEQUENCE
       do
          check
             last_lookahead = lookahead_none
          end
          if not last_tag.is_empty then
-            if sequence ?:= last_primary then
-               sequence ::= last_primary
-               sequence.set_tag(last_tag)
-            else
-               last_primary := seq(<< last_primary >>, one, last_tag, agent reducer.reduce_with_tag(last_nonterminal_def.intern, last_tag.intern))
-            end
+            last_primary := seq(<< last_primary >>, one, last_tag, agent reducer.reduce_with_tag(last_nonterminal_def.intern, last_tag.intern))
             reset_tag
          end
          last_alternative.add_last(last_primary)
@@ -617,7 +634,7 @@ feature {} -- build the grammar
          terminal_name := ("[#(1)]" # last_charclass).intern
          terminal ::= atom(terminal_name)
          if terminal = Void then
-            regex := regex_factory.convert_posix_pattern(last_charclass)
+            regex := regex_factory.convert_posix_pattern(terminal_name.out)
             create terminal.make(agent parse_regex(?, regex), agent reduce_image_regex)
             add_atom(terminal_name, terminal)
          end
