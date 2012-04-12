@@ -30,13 +30,11 @@ feature {ANY}
    frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
       do
          create {PACKRAT_AND} Result.make(Current)
-         Result.set_nested
       end
 
    frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
       do
          create {PACKRAT_NOT} Result.make(Current)
-         Result.set_nested
       end
 
    is_coherent: BOOLEAN is
@@ -107,14 +105,14 @@ feature {PACKRAT_INTERNAL}
 
    nt: PACKRAT_NON_TERMINAL
 
-   set_nested is
+   set_paren (a_paren: like need_paren) is
       do
-         is_nested := True
+         need_paren := a_paren
       ensure
-         is_nested
+         need_paren = a_paren
       end
 
-   is_nested: BOOLEAN
+   need_paren: BOOLEAN
 
 feature {}
    pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is

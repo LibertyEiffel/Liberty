@@ -53,10 +53,9 @@ feature {ANY}
 
    pretty_print_on (stream: OUTPUT_STREAM) is
       local
-         i: INTEGER; paren: BOOLEAN
+         i: INTEGER
       do
-         paren := (how_many /= one or else is_nested) and then primaries.count > 1
-         if paren then
+         if need_paren then
             stream.put_character('(')
          end
          from
@@ -70,7 +69,7 @@ feature {ANY}
             primaries.item(i).pretty_print_on(stream)
             i := i + 1
          end
-         if paren then
+         if need_paren then
             stream.put_character(')')
          end
          inspect
@@ -119,9 +118,15 @@ feature {PACKRAT_INTERNAL}
          id := a_nt.new_sequence_number
       end
 
+   how_many: INTEGER_8
+
+   set_how_many (a_how_many: like how_many) is
+      do
+         how_many := a_how_many
+      end
+
 feature {}
    primaries: TRAVERSABLE[PACKRAT_PRIMARY]
-   how_many: INTEGER_8
    action: PROCEDURE[TUPLE]
    id: INTEGER
 

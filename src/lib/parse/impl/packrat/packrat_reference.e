@@ -27,7 +27,13 @@ feature {ANY}
 
    pretty_print_on (stream: OUTPUT_STREAM) is
       do
+         if need_paren then
+            stream.put_character('(')
+         end
          stream.put_string(name)
+         if need_paren then
+            stream.put_character(')')
+         end
       end
 
 feature {}

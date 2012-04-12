@@ -553,8 +553,19 @@ feature {} -- build the grammar
       end
 
    reduce_suffix is
+      local
+         sequence: PACKRAT_SEQUENCE; done: BOOLEAN
       do
-         if last_quantifier /= one then
+         if last_quantifier = one then
+            done := True
+         elseif sequence ?:= last_primary then
+            sequence ::= last_primary
+            if sequence.how_many = one then
+               sequence.set_how_many(last_quantifier)
+               done := True
+            end
+         end
+         if not done then
             last_primary := seq(<< last_primary >>, last_quantifier, agent reducer.reduce_loop(last_nonterminal_def.intern, last_quantifier))
          end
          reset_quantifier
@@ -563,7 +574,6 @@ feature {} -- build the grammar
    reduce_primary_as_nested_pattern is
       do
          last_primary := last_pattern
-         last_primary.set_nested
       end
 
    reduce_primary_as_any is
@@ -745,6 +755,7 @@ feature {} -- build the grammar
 
    reduce_image_close_paren (image: PARSER_IMAGE) is
       do
+         last_pattern.set_paren(True)
          restore_pattern
       end
 

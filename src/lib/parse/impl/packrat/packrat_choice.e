@@ -65,6 +65,9 @@ feature {ANY}
       local
          i: INTEGER
       do
+         if need_paren then
+            stream.put_character('(')
+         end
          from
             i := alternatives.lower
          until
@@ -75,6 +78,9 @@ feature {ANY}
             end
             alternatives.item(i).pretty_print_on(stream)
             i := i + 1
+         end
+         if need_paren then
+            stream.put_character(')')
          end
       end
 
