@@ -61,7 +61,7 @@ feature {SMART_EIFFEL}
 				print("Posting message `"+message+"'%N") 
 				socket.post(message)
 			end)
-			-- Granularity at cluster level; perhaps it's better to do it at class level
+			-- Granularity at cluster level may be too coarse, perhaps it may be  better to do it at class level
          end
       end
 	
@@ -70,7 +70,7 @@ feature {SMART_EIFFEL}
 	socket: ZMQ_PUSH_SOCKET
 	workers: FAST_ARRAY[LLVM_WORKER]
 
-feature {}
+feature 
    get_started is
       require
          smart_eiffel.status.is_safety_checking
@@ -78,11 +78,14 @@ feature {}
          smart_eiffel.status.set_generating
       end
 
-feature {}
    make is
       do
       end
 
+	is_equal (another: like Current): BOOLEAN is
+		do
+			Result := to_pointer = another.to_pointer
+		end
 end -- class LLVM_BYTECODE_EMITTER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
