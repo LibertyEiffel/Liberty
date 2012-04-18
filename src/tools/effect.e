@@ -6,13 +6,38 @@ class EFFECT
    -- A parser builder.
    --
 
+inherit
+   PACKRAT_REDUCER
+
+insert
+   LOGGING
+
 create {}
    make
 
 feature {}
    generate (name: FIXED_STRING; input: INPUT_STREAM) is
+      local
+         grammar: PACKRAT_GRAMMAR
+         table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
+         source: STRING
       do
-         io.put_line("generate #(1)" # name)
+         from
+            source := ""
+            input.read_line
+         until
+            input.end_of_input
+         loop
+            source.append(input.last_string)
+            source.extend('%N')
+            input.read_line
+         end
+         source.append(input.last_string)
+
+         create grammar.make(Current)
+         table := grammar.parse_table(source)
+
+         table.pretty_print_on(std_output)
       end
 
 feature {}
@@ -63,6 +88,37 @@ feature {}
       end
 
    cli_factory: COMMAND_LINE_ARGUMENT_FACTORY
+
+feature {PACKRAT_GRAMMAR}
+   reduce_alternative (nonterminal_name: FIXED_STRING) is
+      do
+         log.trace.put_line("#### reduce alternative: nonterminal %"#(1)%"" # nonterminal_name)
+      end
+
+   reduce_pattern (nonterminal_name: FIXED_STRING) is
+      do
+         log.trace.put_line("#### reduce pattern: nonterminal %"#(1)%"" # nonterminal_name)
+      end
+
+   reduce_positive_lookahead (nonterminal_name: FIXED_STRING) is
+      do
+         log.trace.put_line("#### reduce positive lookahead: nonterminal %"#(1)%"" # nonterminal_name)
+      end
+
+   reduce_negative_lookahead (nonterminal_name: FIXED_STRING) is
+      do
+         log.trace.put_line("#### reduce negative lookahead: nonterminal %"#(1)%"" # nonterminal_name)
+      end
+
+   reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
+      do
+         log.trace.put_line("#### reduce loop: nonterminal %"#(1)%", #(2)" # nonterminal_name # quantifier.out)
+      end
+
+   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
+      do
+         log.trace.put_line("#### reduce tag: nonterminal %"#(1)%", tag {#(2)}" # nonterminal_name # tag)
+      end
 
 end -- class EFFECT
 --
