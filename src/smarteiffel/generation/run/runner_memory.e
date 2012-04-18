@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class RUNNER_MEMORY
@@ -397,7 +397,7 @@ feature {}
 
    trivial_set (o: RUNNER_STRUCTURED_OBJECT): RUNNER_STRUCTURED_OBJECT is
       do
-         c_inline_c("/* KEEP ME */") --| **** TODO: SmartEiffel bug -- otherwise the agent mysteriously disappears
+         c_inline_c("/* KEEP ME */") --| **** TODO: Liberty Eiffel bug -- otherwise the agent mysteriously disappears
          Result := o
       end
 

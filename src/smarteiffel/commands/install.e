@@ -1,9 +1,9 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class INSTALL
    --
-   -- The SmartEiffel installer (the `install' command).
+   -- The Liberty Eiffel installer (the `install' command).
    --
    -- The first goal of this installer is to be simple: a no-brainer
    -- installation can be summed up as "keep your finger on the <Enter> key".
@@ -52,24 +52,24 @@ feature {} -- Creation:
 
 Hello!
 
-Thank you for choosing SmartEiffel.
+Thank you for choosing Liberty Eiffel.
 
 I'm here to help you install your software. Many default options have been set
-for you; the simplest way to install SmartEiffel is to keep pressing the
+for you; the simplest way to install Liberty Eiffel is to keep pressing the
 <Enter> key as long as I ask anything.
 
 Of course you can change the options I set; it's just a matter of chosing items
-in the menus, and you'll see you can greatly customize your SmartEiffel
+in the menus, and you'll see you can greatly customize your Liberty Eiffel
 installation. A golden rule is, just pressing <Enter> always works, and
-inexorably leads towards the actual SmartEiffel installation. When no default
+inexorably leads towards the actual Liberty Eiffel installation. When no default
 is provided (between brackets), the <Enter> key will just leave everything
 unchanged and get you back to the previous menu.
 
 As training, you'll be asked to press the <Enter> key to gain access to the
 main menu ;-)
 
-If you have problems, please contact the SmartEiffel team:
-  - either by mail:  SmartEiffel@loria.fr
+If you have problems, please contact the Liberty Eiffel team:
+  - either by mail:  liberty-eiffel.blogspot.com
   - either by using the bugs database: http://SmartZilla.loria.fr
 
 
@@ -79,7 +79,7 @@ If you have problems, please contact the SmartEiffel team:
          read_line
          io.put_string(once "{
 
-Don't forget that rule: the <Enter> key ensures that SmartEiffel will eventually
+Don't forget that rule: the <Enter> key ensures that Liberty Eiffel will eventually
 get installed.
 
          }")
@@ -554,7 +554,7 @@ feature {} -- Variables:
          -- choosing the default C compiler)
 
    main_action_configure_java: INTEGER is 3
-         -- The menu proposes to manage the Java sections (options 
+         -- The menu proposes to manage the Java sections (options
          -- and used binaries)
 
    main_action_display_config: INTEGER is 4
@@ -565,7 +565,7 @@ feature {} -- Variables:
          -- The menu proposes to write the configuration file
 
    main_action_install: INTEGER is 6
-         -- The menu proposes to install SmartEiffel
+         -- The menu proposes to install Liberty Eiffel
 
    main_action_redisplay: INTEGER is -1
          -- The menu is asked to redisplay itself (without any action
@@ -725,7 +725,7 @@ feature {} -- Internally handled menu:
          loop
             put_dashed_line
             io.put_string(once "{
-   Operating system:        
+   Operating system:
 }")
             if system_name = Void then
                io.put_string(fz_conf_undefined)
@@ -734,7 +734,7 @@ feature {} -- Internally handled menu:
             end
             io.put_string(once "{
 
-   Operating system flavor: 
+   Operating system flavor:
 }")
             if system_flavor = Void then
                io.put_string(once "generic")
@@ -743,7 +743,7 @@ feature {} -- Internally handled menu:
             end
             io.put_string(once "{
 
-   Configuration file name: 
+   Configuration file name:
 }")
             if seconf = Void then
                io.put_string(fz_conf_undefined)
@@ -758,7 +758,7 @@ feature {} -- Internally handled menu:
 3. Configure Java compilation (currently broken)
 4. Display the configuration information
 5. Write the configuration file to disk
-6. Install SmartEiffel
+6. Install Liberty Eiffel
 
 0. Exit
 h. Help
@@ -803,10 +803,10 @@ feature {} -- Some help
          page_string(smart_eiffel.copyright)
          page_string(once "{
 
-This is the SmartEiffel installer.
+This is the Liberty Eiffel installer.
 
 This installer is here to help you. The options of the main menu are the six
-steps that can be performed to install SmartEiffel. Once an action was perform-
+steps that can be performed to install Liberty Eiffel. Once an action was perform-
 ed, the menu proposes the next one.
 
 You may have seen that, even starting the program, the menu already proposes
@@ -816,8 +816,8 @@ change them, by not choosing the default menu action.
 
 The six steps are:
 
-- First, tell the installer which system SmartEiffel is to be installed upon;
-  also choose the directories SmartEiffel will be installed in, and the path
+- First, tell the installer which system Liberty Eiffel is to be installed upon;
+  also choose the directories Liberty Eiffel will be installed in, and the path
   to the configuration file to be created. You may also add default
   "loadpath" entries, meaning the files which describe where to find classes,
   by default (this facility is here to help you insert third-party libraries).
@@ -827,45 +827,45 @@ The six steps are:
   Note that this step may be automatically performed. In that case, the OS was
   automatically performed, the configuration file is given a default location,
   the directories too, the default loadpath files and tools are those provided
-  by SmartEiffel.
+  by Liberty Eiffel.
 
 
-- Second, you may want to tell SmartEiffel which "C modes" are to be recognized.
-  SmartEiffel uses a C compiler as back-end; it means that you need a C compiler
+- Second, you may want to tell Liberty Eiffel which "C modes" are to be recognized.
+  Liberty Eiffel uses a C compiler as back-end; it means that you need a C compiler
   installed on your machine.
 
   The C modes are ways to tailor how the C compiler must behave; each C modes is
-  a C compiler, its path, and its options, and extra options for SmartEiffel to
+  a C compiler, its path, and its options, and extra options for Liberty Eiffel to
   use.
 
   Let me explain in more details:
 
-  SmartEiffel disposes of many options to tailor how instrumented your execut-
-  able will be; wich assertions to check, should SmartEiffel add a debugger,
-  should SmartEiffel generate the "debug" statements, and so on.
+  Liberty Eiffel disposes of many options to tailor how instrumented your execut-
+  able will be; wich assertions to check, should Liberty Eiffel add a debugger,
+  should Liberty Eiffel generate the "debug" statements, and so on.
 
   Each "assertion level": boost, require_check, and so on, is associated with
   a default C mode, named after the level. A typical configuration would associ-
   ate the "boost" level with a highly optimizing C compiler (such as "gcc -O3");
-  it would, on the other hand, tell SmartEiffel to no strip the executable in
-  debug mode (and why not adding the SmartEiffel Debugger) while asking the C
+  it would, on the other hand, tell Liberty Eiffel to no strip the executable in
+  debug mode (and why not adding the Liberty Eiffel Debugger) while asking the C
   compiler to generate the symbol tables.
 
 
 - Third, you can verify what you entered in the two previous sections. If all is
-  ok, then you are ready to install SmartEiffel.
+  ok, then you are ready to install Liberty Eiffel.
 
 
 - Fourth, the configuration file is to be written at its chosen location.
 
 
-- Fifth, the SmartEiffel tools are installed! They use the configuration file to
+- Fifth, the Liberty Eiffel tools are installed! They use the configuration file to
   generate themselves; just before compiling the tools, you will be asked which
   C mode should be used for that very task; the default mode is "boost".
 
 
 - Sixth, last but not least: you can now leave the installer; you are now ready
-  to enjoy SmartEiffel!
+  to enjoy Liberty Eiffel!
 
 
         Happy SmartEiffelling :o)
@@ -1810,7 +1810,7 @@ Your choice [
                show_default_valued_menu(once "8.  Change the C++ compiler options", c_mode.cpp_compiler_options, Void)
                show_default_valued_menu(once "9.  Change the C++ linker executable name", c_mode.cpp_linker_path, default_cpp_linker)
                show_default_valued_menu(once "10. Change the C++ linker options", c_mode.cpp_linker_options, Void)
-               show_default_valued_menu(once "11. Change the SmartEiffel extra options", c_mode.smarteiffel_options, Void)
+               show_default_valued_menu(once "11. Change the Liberty Eiffel extra options", c_mode.smarteiffel_options, Void)
                io.put_string(once "{
 
 0.  Return to the previous menu
@@ -1818,7 +1818,7 @@ Your choice [
 Your choice [
             }")
             else
-               show_default_valued_menu(once "7. Change the SmartEiffel extra options", c_mode.smarteiffel_options, Void)
+               show_default_valued_menu(once "7. Change the Liberty Eiffel extra options", c_mode.smarteiffel_options, Void)
                io.put_string(once "{
 
 0.  Return to the previous menu
@@ -1925,7 +1925,7 @@ Your choice [
                            end
                         end
                      else
-                        ask(once "SmartEiffel options")
+                        ask(once "Liberty Eiffel options")
                         c_mode.set_smarteiffel_options(entry_buffer)
                      end
                   when 8 then
@@ -1944,7 +1944,7 @@ Your choice [
                      ask(once "C++ linker options")
                      c_mode.set_cpp_linker_options(entry_buffer)
                   when 11 then
-                     ask(once "SmartEiffel options")
+                     ask(once "Liberty Eiffel options")
                      c_mode.set_smarteiffel_options(entry_buffer)
                   end
                   first := False
@@ -2003,7 +2003,7 @@ feature {} -- Define the Java parameters:
 
 0. Return to the main menu
 
-Your choice [0]: 
+Your choice [0]:
 }")
             read_line
             if entry_buffer.is_empty then
@@ -2046,8 +2046,8 @@ feature {} -- The installation itself:
       do
          must_install := not installed
          if installed then
-            io.put_string(once "%NSmartEiffel is already installed with the current options. Do you want to%N%
-                               %install SmartEiffel again? [no] ")
+            io.put_string(once "%NLiberty Eiffel is already installed with the current options. Do you want to%N%
+                               %install Liberty Eiffel again? [no] ")
             read_line
             if not entry_buffer.is_empty then
                entry_buffer.to_lower
@@ -2124,7 +2124,7 @@ feature {} -- The installation itself:
                end
             end
             if c_mode.smarteiffel_options /= Void then
-               page_parameter(2, once "SmartEiffel options", c_mode.smarteiffel_options)
+               page_parameter(2, once "Liberty Eiffel options", c_mode.smarteiffel_options)
             end
             i := i + 1
          end
@@ -2272,11 +2272,11 @@ feature {} -- The installation itself:
             default_main_action := main_action_define_variables
          else
             tfw.put_string(once "{
--- This is the configuration file of SmartEiffel, generated by the
--- SmartEiffel installer.
+-- This is the configuration file of Liberty Eiffel, generated by the
+-- Liberty Eiffel installer.
 -- If you have any problems or questions, please:
---   - either look at the SmartEiffel site (http://SmartEiffel.loria.fr)
---   - or contact the SmartEiffel team (SmartEiffel@loria.fr)
+--   - either look at the Liberty Eiffel site (http://liberty-eiffel.blogspot.com)
+--   - or contact the Liberty Eiffel team (liberty-eiffel.blogspot.com)
 -- ======================================================================= --
 
             }")
@@ -2286,10 +2286,10 @@ feature {} -- The installation itself:
             tfw.put_string(once "{
 
 -- This section contains some general-purpose keys. They describe how is the
--- SmartEiffel distribution arranged, and on which operating system it was
+-- Liberty Eiffel distribution arranged, and on which operating system it was
 -- installed.
 
--- The 'bin' key is the path to the directory that contains the SmartEiffel
+-- The 'bin' key is the path to the directory that contains the Liberty Eiffel
 -- directory. It is used by 'compile' to find 'compile_to_c'.
 
 -- The 'sys' directory is used to find the C and Java files used by the
@@ -2297,9 +2297,9 @@ feature {} -- The installation itself:
 
 -- The 'short' directory is used by the 'short' utility to format the output.
 
--- The 'os' key tells on which system SmartEiffel is installed on.
+-- The 'os' key tells on which system Liberty Eiffel is installed on.
 
--- The 'flavor' key gives additional hints on the system SmartEiffel runs on.
+-- The 'flavor' key gives additional hints on the system Liberty Eiffel runs on.
 
 -- At last, 'tag' gives the version of install configuration (used only by the
 -- installer)
@@ -2358,10 +2358,10 @@ feature {} -- The installation itself:
                tfw.put_string(once "]%N")
                tfw.put_string(once "{
 
--- This section contains the default loadpaths used by this SmartEiffel
+-- This section contains the default loadpaths used by this Liberty Eiffel
 -- installation.
 
--- The key is used when naming clusters (SmartEiffel output when a
+-- The key is used when naming clusters (Liberty Eiffel output when a
 -- class is not found, or external tools like eiffeldoc)
 
 -- The value of the key is the path to a loadpath file.
@@ -2420,7 +2420,7 @@ feature {} -- The installation itself:
 -- described below.
 
 -- The first sections (boost, ..., debug_check) are by default used in
--- conjunction with the corresponding SmartEiffel check level. This behavior
+-- conjunction with the corresponding Liberty Eiffel check level. This behavior
 -- may be changed by using the -c_mode flag.
 
 -- The recognized keys in each section are:
@@ -2437,7 +2437,7 @@ feature {} -- The installation itself:
 -- 'c_linker_options', which gives some options for the linker (not used in
 --  -no_split mode)
 
--- 'smarteiffel_options', which gives some extra SmartEiffel options to take
+-- 'smarteiffel_options', which gives some extra Liberty Eiffel options to take
 --  into account
 
 
@@ -2581,8 +2581,8 @@ feature {} -- The installation itself:
          if not has_germ_dir then
             fatal_problem_description_start
             std_error.put_string(once "The install/germ directory does not exist!%N%
-                                      %Did you use a SmartEiffel archive from Loria?%N%
-                                      %If not, you can download it at http://SmartEiffel.loria.fr%N%
+                                      %Did you use a Liberty Eiffel archive from Loria?%N%
+                                      %If not, you can download it at http://liberty-eiffel.blogspot.com%N%
                                       %and start the installation again.")
             fatal_problem_description_end
          end
@@ -2592,7 +2592,7 @@ feature {} -- The installation itself:
             basic_directory.disconnect
          end
          put_dashed_line
-         io.put_string(once "You are about to start the SmartEiffel installation.%N%
+         io.put_string(once "You are about to start the Liberty Eiffel installation.%N%
                             %Just one last thing, though...%N")
          from
          until
@@ -2670,11 +2670,11 @@ feature {} -- The installation itself:
             io.put_string(once "%N                (linker)   ")
             io.put_string(linker_options)
             io.put_string(once "%N%NHere we go!%N%N")
-            -- Prepare system_tools to install SmartEiffel
+            -- Prepare system_tools to install Liberty Eiffel
             system_tools.set_install_compiler(install_compiler, c_modes.item(i).c_compiler_path, c_modes.item(i).c_linker_path)
             system_tools.c_compiler_options.copy(compiler_options)
             system_tools.c_linker_options.copy(linker_options)
-            -- Now we will install SmartEiffel. The process has been
+            -- Now we will install Liberty Eiffel. The process has been
             -- rightfully described by Philippe on SmartZilla, BUG106
             -- (http://smartzilla.loria.fr/show_bug.cgi?id=106)
 
@@ -2721,7 +2721,7 @@ feature {} -- The installation itself:
                      second_pass_compile
                   end
                   if not installed then
-                     io.put_string(once "%N*** There have been errors during the install of SmartEiffel. Sorry :-(%N%N")
+                     io.put_string(once "%N*** There have been errors during the install of Liberty Eiffel. Sorry :-(%N%N")
                      io.put_string(once "Press a <Enter> to return to the menu. ")
                      read_line
                   else
@@ -2860,7 +2860,7 @@ feature {} -- The installation itself:
 
    fatal_problem_description_start is
       do
-         std_error.put_string("%N*** Fatal problem during installation of SmartEiffel.%N%
+         std_error.put_string("%N*** Fatal problem during installation of Liberty Eiffel.%N%
            %    Read carefully the following information before starting%N%
            %    again the installation.%N%
            %***************************************************************%N")
@@ -2870,8 +2870,8 @@ feature {} -- The installation itself:
       do
          std_error.put_string("***************************************************************%N%
          %Fix the previously described problem and launch again the,%N%
-         %installation, or contact the SmartEiffel team:%N%
-         %SmartEiffel@loria.fr%N")
+         %installation, or contact the Liberty Eiffel team:%N%
+         %liberty-eiffel.blogspot.com%N")
          restore_current_working_directory
          install_exit(exit_failure_code)
       end
@@ -2895,7 +2895,7 @@ feature {} -- Exit:
             stop := True
          else
             put_dashed_line
-            io.put_string("You did not install SmartEiffel. Are you sure you want to exit? [y|N] ")
+            io.put_string("You did not install Liberty Eiffel. Are you sure you want to exit? [y|N] ")
             read_line
             entry_buffer.to_lower
             stop := entry_buffer.count > 0 and then entry_buffer.first = 'y'
@@ -2906,9 +2906,9 @@ feature {} -- Exit:
       do
          put_dashed_line
          if installed then
-            io.put_string("Thank you for installing SmartEiffel. Enjoy!%N%N")
+            io.put_string("Thank you for installing Liberty Eiffel. Enjoy!%N%N")
          else
-            io.put_string("SmartEiffel was not properly installed.%N%
+            io.put_string("Liberty Eiffel was not properly installed.%N%
                                %Please run the installer again to fix the installation.%N%N")
          end
       end
@@ -2987,7 +2987,7 @@ feature {} -- Buffers:
       end
 
    execute_command (command: STRING): BOOLEAN is
-         -- Call {SYSTEM}.execute_command with `io' echoing. Also treat correctly multi-lines 
+         -- Call {SYSTEM}.execute_command with `io' echoing. Also treat correctly multi-lines
          -- commands. A False Result indicates some problem during system call.
       local
          idx: INTEGER
@@ -3001,7 +3001,7 @@ feature {} -- Buffers:
                io.put_string("System call %"" + command + "%" failed.%N")
             end
          else
-            -- It may be a multiple line command and we have to split lines because Windows 
+            -- It may be a multiple line command and we have to split lines because Windows
             -- ignore all but the first one:
             idx := command.index_of('%N', 1)
             Result := execute_command(command.substring(1, idx - 1))
@@ -3017,11 +3017,11 @@ end -- class INSTALL
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
@@ -3029,5 +3029,5 @@ end -- class INSTALL
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------

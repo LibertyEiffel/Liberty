@@ -1,10 +1,10 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class SMART_EIFFEL
    --
    -- Singleton object to handle general purpose information about the
-   -- SmartEiffel global compilation process. (This singleton is shared via
+   -- Liberty Eiffel global compilation process. (This singleton is shared via
    -- the GLOBALS.`smart_eiffel' once function.)
    --
 
@@ -17,13 +17,13 @@ insert
 feature {ANY}
    copyright: STRING is
       once
-         Result := "SmartEiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
+         Result := "Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
          Result.append(release_number)
          Result.append("[
                         Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
                         Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - SmartEiffel@loria.fr
-                        http://SmartEiffel.loria.fr
+                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - liberty-eiffel.blogspot.com
+                        http://liberty-eiffel.blogspot.com
 
                         Copyright (C), 2011 - C.ADRIAN - cyril.adrian@gmail.com
                         https://github.com/LibertyEiffel/Liberty
@@ -1344,7 +1344,7 @@ feature {TYPE}
             error_handler.append(t.canonical_type_mark.class_text_name.to_string)
             error_handler.append(". Yours is in the cluster %"")
             error_handler.append(t.class_text.cluster.directory_path)
-            error_handler.append("%". This is not possible as this class is basically used by SmartEiffel internals. Please pick another name.")
+            error_handler.append("%". This is not possible as this class is basically used by Liberty Eiffel internals. Please pick another name.")
             error_handler.print_as_fatal_error
          else
             type_dictionary.add(t, ln)
@@ -2366,11 +2366,11 @@ end -- class SMART_EIFFEL
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
@@ -2378,5 +2378,5 @@ end -- class SMART_EIFFEL
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------

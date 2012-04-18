@@ -1,9 +1,9 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 expanded class GLOBALS
    --
-   -- Global Tools for the SmartEiffel system.
+   -- Global Tools for the Liberty Eiffel system.
    --
 
 insert
@@ -273,7 +273,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(default_create_name)
          if Result = Void then
             error_handler.append("Feature `default_create' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -283,7 +283,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(default_rescue_name)
          if Result = Void then
             error_handler.append("Feature `default_rescue' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -293,7 +293,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(copy_name)
          if Result = Void then
             error_handler.append("Feature `copy' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -303,7 +303,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(is_equal_name)
          if Result = Void then
             error_handler.append("Feature `is_equal' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -313,7 +313,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(deep_twin_name)
          if Result = Void then
             error_handler.append("Feature `deep_twin' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -323,7 +323,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(is_deep_equal_name)
          if Result = Void then
             error_handler.append("Feature `is_deep_equal' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with SmartEiffel.")
+            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -576,7 +576,7 @@ feature {ANY}
          -- Used for atomic elements.
 
    jvm_root_class: STRING is
-         -- Fully qualified name for the jvm SmartEiffel object's
+         -- Fully qualified name for the jvm Liberty Eiffel object's
          -- added root : "<Package>/_any".
       once
          create Result.make(12)
@@ -643,17 +643,23 @@ end -- class GLOBALS
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

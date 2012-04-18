@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class SYSTEM_TOOLS
@@ -150,11 +150,11 @@ feature {INSTALL_GLOBALS, C_MODE, SERC_FACTORY}
                   echo.w_put_string(fz_seconf)
                   echo.w_put_string(once "%" does not contain name of a valid file.%N")
                end
-               echo.w_put_string(once "No default configuration file for SmartEiffel was found.%N%
-                                      %Please just re-run the SmartEiffel installation program.%N%
-                                      %On Unix-like system, just %"cd%" to the SmartEiffel directory and%N%
+               echo.w_put_string(once "No default configuration file for Liberty Eiffel was found.%N%
+                                      %Please just re-run the Liberty Eiffel installation program.%N%
+                                      %On Unix-like system, just %"cd%" to the Liberty Eiffel directory and%N%
                                       %then, type %"make%".%N%
-                                      %On Windows-like system, re-run the %"install.exe%" of SmartEiffel.%N%
+                                      %On Windows-like system, re-run the %"install.exe%" of Liberty Eiffel.%N%
                                       %Note: if you prefer, you can still rely on the %"")
                echo.w_put_string(fz_seconf)
                echo.w_put_string(once "%" environment%N%
@@ -814,12 +814,12 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
             subdirectory(tmp_path, "man")
             tmp_path.append(command_name)
             tmp_path.append(".txt")
-            echo.w_put_string("If SmartEiffel is correctly installed, you should find%N%
+            echo.w_put_string("If Liberty Eiffel is correctly installed, you should find%N%
                               %more information in the file %"")
             echo.w_put_string(tmp_path)
             echo.w_put_string("%".%N")
          end
-         echo.w_put_string("You can also have a look at http://SmartEiffel.loria.fr/wiki/index.php/")
+         echo.w_put_string("You can also have a look at http://liberty-eiffel.blogspot.com/wiki/index.php/")
          echo.w_put_string(command_name)
          echo.w_put_character('%N')
          die_with_code(exit_failure_code)
@@ -964,7 +964,7 @@ feature {C_PRETTY_PRINTER}
 
    sys_runtime (name: STRING; suffix: CHARACTER) is
          -- Prepare `tmp_file_read' to access the corresponding file of the
-         -- SmartEiffel sys/runtime directory. The complete path is
+         -- Liberty Eiffel sys/runtime directory. The complete path is
          -- always available in `tmp_path' to the caller in order to emit an
          -- error message when the corresponding file is not found. (This
          -- routine does not emit errors message itself just because this
@@ -1608,7 +1608,7 @@ feature {ACE}
             msg.append(once "%".%N")
          else
             msg.append(once "No information available about the system used %
-                       %(check your%NSmartEiffel installation).%N")
+                       %(check your%NLiberty Eiffel installation).%N")
          end
       end
 
@@ -1914,7 +1914,7 @@ feature {COMMAND_LINE_TOOLS}
       end
 
    add_smarteiffel_c_mode_options is
-         -- Adds the SmartEiffel options for the chosen C mode; then add the
+         -- Adds the Liberty Eiffel options for the chosen C mode; then add the
          -- libraries for the C compiler
       local
          string_command_line: STRING_COMMAND_LINE
@@ -1937,7 +1937,7 @@ feature {COMMAND_LINE_TOOLS}
 
 feature {ACE, COMMAND_LINE_TOOLS}
    is_alternate_c_mode: BOOLEAN
-         -- If False, then the C mode associated with the SmartEiffel level
+         -- If False, then the C mode associated with the Liberty Eiffel level
          -- will be selected; otherwise, the user has explicitely used the
          -- -c_mode option; this one will be used.
 
@@ -2218,7 +2218,7 @@ feature {}
          -- The options ACE can set
 
    smarteiffel_options: STRING
-         -- The SmartEiffel options set by the chosen C mode
+         -- The Liberty Eiffel options set by the chosen C mode
 
    c_mode_has_explicit_linker_path_or_option: BOOLEAN
          -- True if either c_linker_path or c_linker_options are set for the
@@ -2609,11 +2609,11 @@ end -- class SYSTEM_TOOLS
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
@@ -2621,5 +2621,5 @@ end -- class SYSTEM_TOOLS
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------

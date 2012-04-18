@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class EIFFEL_PARSER
@@ -2805,7 +2805,7 @@ feature {}
                create {NATURAL_TYPE_MARK} last_type_mark.natural_64(token_buffer.start_position)
             when "NONE" then
                error_handler.add_position(token_buffer.start_position)
-               error_handler.append("Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is %
+               error_handler.append("Since february 2006, for Liberty Eiffel release 2.3, the old legacy NONE type mark is %
                                     %obsolete. Keep in mind that an empty class name list like {} do indicate no %
                                     %exportation at all, hence making NONE unuseful and probably misleading for %
                                     %newcomers. So, just remove this NONE class name right now. Please update your code now.")
@@ -3076,7 +3076,7 @@ feature {}
             if last_class_name.to_string.is_equal(once "NONE") then
                if smart_eiffel.short_or_class_check_flag then
                   error_handler.add_position(token_buffer.start_position)
-                  error_handler.append("Since february 2006, for SmartEiffel release 2.3, the old legacy %
+                  error_handler.append("Since february 2006, for Liberty Eiffel release 2.3, the old legacy %
                                     %NONE type mark is obsolete. Keep in mind that an empty class name list %
                                     %like {} do indicate no exportation at all, hence making NONE unuseful %
                                     %and probably misleading for newcomers. So, just remove this NONE class %
@@ -3613,7 +3613,7 @@ feature {}
                if a_type_mark then
                   error_handler.add_position(last_type_mark.start_position)
                   error_handler.append("A type mark is not a valid item for a manifest array. %
-                                       %Keep in mind that SmartEiffel is case-sensitive and that ")
+                                       %Keep in mind that Liberty Eiffel is case-sensitive and that ")
                   error_handler.add_type_mark(last_type_mark)
                   error_handler.append(" cannot be an expression. ")
                else
@@ -5066,7 +5066,7 @@ feature {}
                error_handler.print_as_warning
             else
                error_handler.append(once "You are probably trying to use the new inherit/insert mechanism. %
-                                         %With SmartEiffel, this can be achieve thanks to the new %"insert%" clause. %
+                                         %With Liberty Eiffel, this can be achieve thanks to the new %"insert%" clause. %
                                          %The new %"insert%" clause comes just after the traditional %"inherit%" clause with %
                                          %a similar syntax.")
                error_handler.print_as_fatal_error
@@ -5111,7 +5111,7 @@ feature {}
             if a_keyword(once "select") then
                error_handler.append("The old %"select%" option of the %"inherit%" clause is now obsolete. %
                                     %You have to update your code with the new %"insert%" mechanism. %
-                                    %With SmartEiffel, this can be achieve thanks to the new %"insert%" clause. %
+                                    %With Liberty Eiffel, this can be achieve thanks to the new %"insert%" clause. %
                                     %The new %"insert%" clause comes just after the traditional %"inherit%" clause with %
                                     %a similar syntax.")
                error_handler.add_position(pos(start_line, start_column))
@@ -6111,7 +6111,7 @@ feature {}
                error_handler.add_position(current_position)
                error_handler.append("%"")
                error_handler.append(token_buffer.buffer)
-               error_handler.append("%" is not valid identifier. For a better readability SmartEiffel _is_ case %
+               error_handler.append("%" is not valid identifier. For a better readability Liberty Eiffel _is_ case %
                %sensitive. Hence %"")
                error_handler.append(token_buffer.buffer)
                error_handler.append("%" cannot be a valid class name (only upper case letters are allowed in class names). %"")
@@ -6210,7 +6210,7 @@ feature {}
       do
          if type.is_anchored then
             if type.is_like_current then
-               -- SmartEiffel relaxed rule because there is no risk at all
+               -- Liberty Eiffel relaxed rule because there is no risk at all
                -- to allow create {like Current}.
             else
                error_handler.add_position(type.start_position)
@@ -6396,11 +6396,11 @@ end -- class EIFFEL_PARSER
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
@@ -6408,5 +6408,5 @@ end -- class EIFFEL_PARSER
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------
