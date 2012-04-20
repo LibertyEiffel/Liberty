@@ -32,8 +32,9 @@ feature {}
    generate (name: FIXED_STRING; input: INPUT_STREAM) is
       local
          grammar: PACKRAT_GRAMMAR
-         table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
          source: STRING
+         parser: PACKRAT_PARSER; buffer: MINI_PARSER_BUFFER
+         error: PARSE_ERROR
       do
          from
             source := ""
@@ -47,15 +48,30 @@ feature {}
          end
          source.append(input.last_string)
 
-         create grammar.make(Current)
+         create grammar.with_reducer(Current)
 
          output_effect   := connect_or_die(once "#(1)_effect_grammar.e"  # name)
          output_reduce   := connect_or_die(once "#(1)_effect_reduce.e"   # name)
          output_position := connect_or_die(once "#(1)_effect_position.e" # name)
          output_image    := connect_or_die(once "#(1)_effect_image.e"    # name)
 
-         table := grammar.parse_table(source)
-         table.pretty_print_on(std_output)
+         create parser
+         create buffer.initialize_with(source)
+         if not parser.eval(buffer, grammar.table, "grammar") then
+            if parser.error = Void then
+               std_error.put_line("**** error")
+            else
+               from
+                  error := parser.error
+               until
+                  error = Void
+               loop
+                  std_error.put_line(error.message)
+                  error := error.next
+               end
+            end
+            die_with_code(1)
+         end
 
          -- ----------------------------------------------------------------------
 
@@ -210,34 +226,196 @@ feature {}
    cli_factory: COMMAND_LINE_ARGUMENT_FACTORY
 
 feature {PACKRAT_GRAMMAR}
-   reduce_alternative (nonterminal_name: FIXED_STRING) is
+   reduce_nonterminal_def is
       do
-         log.trace.put_line("#### reduce alternative: nonterminal %"#(1)%"" # nonterminal_name)
       end
 
-   reduce_pattern (nonterminal_name: FIXED_STRING) is
+   reduce_grammar is
       do
-         log.trace.put_line("#### reduce pattern: nonterminal %"#(1)%"" # nonterminal_name)
       end
 
-   reduce_positive_lookahead (nonterminal_name: FIXED_STRING) is
+   reduce_pattern_first_alternative is
       do
-         log.trace.put_line("#### reduce positive lookahead: nonterminal %"#(1)%"" # nonterminal_name)
       end
 
-   reduce_negative_lookahead (nonterminal_name: FIXED_STRING) is
+   reduce_pattern_alternative is
       do
-         log.trace.put_line("#### reduce negative lookahead: nonterminal %"#(1)%"" # nonterminal_name)
       end
 
-   reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
+   reduce_pattern is
       do
-         log.trace.put_line("#### reduce loop: nonterminal %"#(1)%", #(2)" # nonterminal_name # quantifier.out)
       end
 
-   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
       do
-         log.trace.put_line("#### reduce tag: nonterminal %"#(1)%", tag {#(2)}" # nonterminal_name # tag)
+      end
+
+   reduce_alternative_lookahead is
+      do
+      end
+
+   reduce_alternative_suffix_tag is
+      do
+      end
+
+   reduce_alternative_tag is
+      do
+      end
+
+   reduce_alternative is
+      do
+      end
+
+   reduce_quantifier is
+      do
+      end
+
+   reduce_suffix is
+      do
+      end
+
+   reduce_primary_as_nested_pattern is
+      do
+      end
+
+   reduce_primary_as_any is
+      do
+      end
+
+   reduce_primary_as_literal is
+      do
+      end
+
+   reduce_primay_as_charclass is
+      do
+      end
+
+   reduce_primary_as_nonterminal is
+      do
+      end
+
+   reduce_literal_start is
+      do
+      end
+
+   reduce_literal_string is
+      do
+      end
+
+   reduce_literal is
+      do
+      end
+
+   reduce_tag_start is
+      do
+      end
+
+   reduce_tag_string is
+      do
+      end
+
+   reduce_tag is
+      do
+      end
+
+   reduce_charclass_start is
+      do
+      end
+
+   reduce_charclass_range is
+      do
+      end
+
+   reduce_charclass_char is
+      do
+      end
+
+   reduce_charclass_class is
+      do
+      end
+
+   reduce_charclass is
+      do
+      end
+
+   reduce_nonterminal_name is
+      do
+      end
+
+   reduce_nonterminal is
+      do
+      end
+
+   reduce_space is
+      do
+      end
+
+   reduce_image_left_arrow (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_slash (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_not_and (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_star_plus_why (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_open_paren (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_close_paren (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_anychar (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_letter (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_string (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_quote (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_hyphen (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_dot (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_open_bracket (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_close_bracket (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_open_curly (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_close_curly (image: PARSER_IMAGE) is
+      do
+      end
+
+   reduce_image_space (image: PARSER_IMAGE) is
+      do
       end
 
 end -- class EFFECT
