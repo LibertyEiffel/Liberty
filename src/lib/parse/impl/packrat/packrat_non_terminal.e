@@ -63,6 +63,7 @@ feature {ANY}
          name := other.name
          pattern := other.pattern.twin
          pattern.set_nt(Current)
+         is_initialized := True
       end
 
    is_equal (other: like Current): BOOLEAN is
@@ -78,11 +79,13 @@ feature {}
       do
          a_pattern.set_nt(Current)
          pattern := a_pattern
+         is_initialized := True
       ensure
          pattern = a_pattern
       end
 
    sequence_count: INTEGER
+   is_initialized: BOOLEAN
 
 feature {PACKRAT_NON_TERMINAL}
    pattern: PACKRAT_PATTERN
@@ -95,7 +98,8 @@ feature {PACKRAT_SEQUENCE}
       end
 
 invariant
-   pattern.nt = Current
+   is_initialized implies pattern /= Void
+   pattern /= Void implies pattern.nt = Current
 
 end -- class PACKRAT_NON_TERMINAL
 --
