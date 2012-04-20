@@ -8,9 +8,7 @@ class PACKRAT_NON_TERMINAL
 
 inherit
    PARSE_NON_TERMINAL[PACKRAT_PARSE_CONTEXT]
-
-insert
-   PACKRAT_INTERNAL
+   PACKRAT_ATOM
       redefine
          copy, is_equal, out_in_tagged_out_memory
       end
@@ -24,12 +22,17 @@ feature {ANY}
          pattern.out_in_tagged_out_memory
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   accept (visitor: PACKRAT_VISITOR) is
       do
-         stream.put_string(name)
-         stream.put_string(once " <- ")
-         pattern.pretty_print_on(stream)
-         stream.put_new_line
+         visitor.visit_non_terminal(Current)
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      local
+         pp: PACKRAT_PRETTY_PRINTER
+      do
+         create pp.make(stream)
+         accept(pp)
       end
 
    is_coherent: BOOLEAN is
@@ -87,7 +90,7 @@ feature {}
    sequence_count: INTEGER
    is_initialized: BOOLEAN
 
-feature {PACKRAT_NON_TERMINAL}
+feature {PACKRAT_NON_TERMINAL, PACKRAT_VISITOR}
    pattern: PACKRAT_PATTERN
 
 feature {PACKRAT_SEQUENCE}

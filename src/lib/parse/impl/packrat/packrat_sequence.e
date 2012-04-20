@@ -51,43 +51,9 @@ feature {ANY}
          end
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
-      local
-         i: INTEGER
+   accept (visitor: PACKRAT_VISITOR) is
       do
-         if need_paren then
-            stream.put_character('(')
-         end
-         from
-            i := primaries.lower
-         until
-            i > primaries.upper
-         loop
-            if i > primaries.lower then
-               stream.put_character(' ')
-            end
-            primaries.item(i).pretty_print_on(stream)
-            i := i + 1
-         end
-         if need_paren then
-            stream.put_character(')')
-         end
-         inspect
-            how_many
-         when one then
-         when zero_or_more then
-            stream.put_character('*')
-         when one_or_more then
-            stream.put_character('+')
-         when zero_or_one then
-            stream.put_character('?')
-         end
-         if tag /= Void then
-            stream.put_character(' ')
-            stream.put_character('{')
-            stream.put_string(tag)
-            stream.put_character('}')
-         end
+         visitor.visit_sequence(Current)
       end
 
 feature {PACKRAT_INTERNAL}
@@ -124,14 +90,10 @@ feature {PACKRAT_INTERNAL}
          id := a_nt.new_sequence_number
       end
 
-   how_many: INTEGER_8
-
    set_how_many (a_how_many: like how_many) is
       do
          how_many := a_how_many
       end
-
-   tag: FIXED_STRING
 
    set_tag (a_tag: ABSTRACT_STRING) is
       do
@@ -145,11 +107,15 @@ feature {PACKRAT_INTERNAL}
          a_tag /= Void implies tag = a_tag.intern
       end
 
-feature {}
+feature {PACKRAT_VISITOR, PACKRAT_INTERNAL}
    primaries: TRAVERSABLE[PACKRAT_PRIMARY]
    action: PROCEDURE[TUPLE]
    id: INTEGER
 
+   how_many: INTEGER_8
+   tag: FIXED_STRING
+
+feature {}
    pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
       local
          parsed: TRISTATE

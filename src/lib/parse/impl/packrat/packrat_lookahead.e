@@ -47,7 +47,7 @@ feature {}
          primary = a_primary
       end
 
-feature {PACKRAT_LOOKAHEAD}
+feature {PACKRAT_LOOKAHEAD, PACKRAT_VISITOR}
    primary: PACKRAT_PRIMARY
 
 invariant

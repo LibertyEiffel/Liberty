@@ -25,15 +25,9 @@ feature {ANY}
          name.out_in_tagged_out_memory
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   accept (visitor: PACKRAT_VISITOR) is
       do
-         if need_paren then
-            stream.put_character('(')
-         end
-         stream.put_string(name)
-         if need_paren then
-            stream.put_character(')')
-         end
+         visitor.visit_reference(Current)
       end
 
 feature {}

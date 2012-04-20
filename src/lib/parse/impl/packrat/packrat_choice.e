@@ -61,27 +61,9 @@ feature {ANY}
          end
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
-      local
-         i: INTEGER
+   accept (visitor: PACKRAT_VISITOR) is
       do
-         if need_paren then
-            stream.put_character('(')
-         end
-         from
-            i := alternatives.lower
-         until
-            i > alternatives.upper
-         loop
-            if i > alternatives.lower then
-               stream.put_string(once " / ")
-            end
-            alternatives.item(i).pretty_print_on(stream)
-            i := i + 1
-         end
-         if need_paren then
-            stream.put_character(')')
-         end
+         visitor.visit_choice(Current)
       end
 
 feature {}
@@ -151,7 +133,7 @@ feature {}
          alternatives.last = second
       end
 
-feature {PACKRAT_CHOICE}
+feature {PACKRAT_CHOICE, PACKRAT_VISITOR}
    alternatives: FAST_ARRAY[PACKRAT_ALTERNATIVE]
 
 invariant

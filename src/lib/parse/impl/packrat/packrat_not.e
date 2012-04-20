@@ -16,10 +16,9 @@ feature {ANY}
          primary.out_in_tagged_out_memory
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   accept (visitor: PACKRAT_VISITOR) is
       do
-         stream.put_character('!')
-         primary.pretty_print_on(stream)
+         visitor.visit_not(Current)
       end
 
 feature {}

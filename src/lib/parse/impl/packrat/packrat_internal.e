@@ -3,13 +3,13 @@
 --
 expanded class PACKRAT_INTERNAL
 
-insert
-   PARSER_FACET
-   LOGGING
-
 --
 -- Type marker for access to internal features. Please don't use.
 --
+
+insert
+   PARSER_FACET
+   LOGGING
 
 end -- class PACKRAT_INTERNAL
 --

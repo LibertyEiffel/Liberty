@@ -15,6 +15,10 @@ insert
       redefine
          is_equal
       end
+   VISITABLE
+      redefine
+         is_equal
+      end
 
 feature {ANY}
    hash_code: INTEGER is
@@ -43,9 +47,8 @@ feature {ANY}
          must_be_coherent: Result
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
-      require
-         stream.is_connected
+feature {ANY}
+   accept (visitor: PACKRAT_VISITOR) is
       deferred
       end
 
@@ -112,6 +115,7 @@ feature {PACKRAT_INTERNAL}
          need_paren = a_paren
       end
 
+feature {PACKRAT_INTERNAL, PACKRAT_VISITOR}
    need_paren: BOOLEAN
 
 feature {}

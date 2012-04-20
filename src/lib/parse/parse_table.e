@@ -130,14 +130,21 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         atoms.do_all(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
+         for_all_atoms(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
       end
 
    pretty_print_on (stream: OUTPUT_STREAM) is
       require
          stream.is_connected
       do
-         atoms.do_all(agent {PARSE_ATOM[C_]}.pretty_print_on(stream))
+         for_all_atoms(agent {PARSE_ATOM[C_]}.pretty_print_on(stream))
+      end
+
+   for_all_atoms (action: PROCEDURE[TUPLE[PARSE_ATOM[C_]]]) is
+      require
+         action /= Void
+      do
+         atoms.do_all(action)
       end
 
 feature {}

@@ -8,6 +8,10 @@ inherit
       redefine
          out_in_tagged_out_memory
       end
+   PACKRAT_ATOM
+      redefine
+         out_in_tagged_out_memory
+      end
 
 creation {ANY}
    make
@@ -20,6 +24,11 @@ feature {ANY}
          else
             name.out_in_tagged_out_memory
          end
+      end
+
+   accept (visitor: PACKRAT_VISITOR) is
+      do
+         visitor.visit_terminal(Current)
       end
 
    pretty_print_on (stream: OUTPUT_STREAM) is
