@@ -15,7 +15,7 @@ insert
          out_in_tagged_out_memory
       end
 
-creation {PACKRAT_GRAMMAR}
+creation {PACKRAT_INTERNAL}
    make
 
 feature {ANY}

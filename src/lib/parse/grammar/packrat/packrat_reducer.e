@@ -3,28 +3,233 @@
 --
 deferred class PACKRAT_REDUCER
 
+insert
+   PACKRAT
+
 feature {PACKRAT_GRAMMAR}
-   reduce_alternative (nonterminal_name: FIXED_STRING) is
+   reduce_nonterminal_def is
       deferred
       end
 
-   reduce_pattern (nonterminal_name: FIXED_STRING) is
+   reduce_grammar is
       deferred
       end
 
-   reduce_positive_lookahead (nonterminal_name: FIXED_STRING) is
+   reduce_pattern_first_alternative is
       deferred
       end
 
-   reduce_negative_lookahead (nonterminal_name: FIXED_STRING) is
+   reduce_pattern_alternative is
       deferred
       end
 
-   reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
+   reduce_pattern is
       deferred
       end
 
-   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
+      deferred
+      end
+
+   reduce_alternative_lookahead is
+      deferred
+      end
+
+   reduce_alternative_suffix_tag is
+      deferred
+      end
+
+   reduce_alternative_tag is
+      deferred
+      end
+
+   reduce_alternative is
+      deferred
+      end
+
+   reduce_quantifier is
+      deferred
+      end
+
+   reduce_suffix is
+      deferred
+      end
+
+   reduce_primary_as_nested_pattern is
+      deferred
+      end
+
+   reduce_primary_as_any is
+      deferred
+      end
+
+   reduce_primary_as_literal is
+      deferred
+      end
+
+   reduce_primay_as_charclass is
+      deferred
+      end
+
+   reduce_primary_as_nonterminal is
+      deferred
+      end
+
+   reduce_literal_start is
+      deferred
+      end
+
+   reduce_literal_string is
+      deferred
+      end
+
+   reduce_literal is
+      deferred
+      end
+
+   reduce_tag_start is
+      deferred
+      end
+
+   reduce_tag_string is
+      deferred
+      end
+
+   reduce_tag is
+      deferred
+      end
+
+   reduce_charclass_start is
+      deferred
+      end
+
+   reduce_charclass_range is
+      deferred
+      end
+
+   reduce_charclass_char is
+      deferred
+      end
+
+   reduce_charclass_class is
+      deferred
+      end
+
+   reduce_charclass is
+      deferred
+      end
+
+   reduce_nonterminal_name is
+      deferred
+      end
+
+   reduce_nonterminal is
+      deferred
+      end
+
+   reduce_space is
+      deferred
+      end
+
+   reduce_image_left_arrow (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_slash (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_not_and (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_star_plus_why (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_open_paren (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_close_paren (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_anychar (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_letter (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_string (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_quote (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_hyphen (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_dot (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_open_bracket (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_close_bracket (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_open_curly (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_close_curly (image: PARSER_IMAGE) is
+      require
+         image /= Void
+      deferred
+      end
+
+   reduce_image_space (image: PARSER_IMAGE) is
+      require
+         image /= Void
       deferred
       end
 

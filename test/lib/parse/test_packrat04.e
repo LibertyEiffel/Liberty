@@ -1,8 +1,5 @@
 class TEST_PACKRAT04
 
-inherit
-   PACKRAT_REDUCER
-
 insert
    EIFFELTEST_TOOLS
    LOGGING
@@ -18,7 +15,7 @@ feature {}
          source: STRING; dump: STRING_OUTPUT_STREAM
          parser: PACKRAT_PARSER; buffer: MINI_PARSER_BUFFER
       do
-         create grammar.make(Current)
+         create grammar.make
 
          -- this one is the extended grammar (with tags),
          -- decorated with tags
@@ -44,40 +41,20 @@ tag <- '{' (!'}' .)+ '}' sp
          table.pretty_print_on(dump)
          assert(source.is_equal(dump.to_string))
 
+         table.set_default_tree_builders(agent reduce_non_terminal, agent reduce_terminal)
+
          create parser
          create buffer.initialize_with(source)
          assert(parser.eval(buffer, table, "grammar") and then parser.error = Void)
       end
 
-feature {PACKRAT_GRAMMAR}
-   reduce_alternative (nonterminal_name: FIXED_STRING) is
+feature {}
+   reduce_non_terminal is
       do
-         log.trace.put_line("#### reduce alternative: nonterminal %"#(1)%"" # nonterminal_name)
       end
 
-   reduce_pattern (nonterminal_name: FIXED_STRING) is
+   reduce_terminal is
       do
-         log.trace.put_line("#### reduce pattern: nonterminal %"#(1)%"" # nonterminal_name)
-      end
-
-   reduce_positive_lookahead (nonterminal_name: FIXED_STRING) is
-      do
-         log.trace.put_line("#### reduce positive lookahead: nonterminal %"#(1)%"" # nonterminal_name)
-      end
-
-   reduce_negative_lookahead (nonterminal_name: FIXED_STRING) is
-      do
-         log.trace.put_line("#### reduce negative lookahead: nonterminal %"#(1)%"" # nonterminal_name)
-      end
-
-   reduce_loop (nonterminal_name: FIXED_STRING; quantifier: INTEGER_8) is
-      do
-         log.trace.put_line("#### reduce loop: nonterminal %"#(1)%", #(2)" # nonterminal_name # quantifier.out)
-      end
-
-   reduce_with_tag (nonterminal_name, tag: FIXED_STRING) is
-      do
-         log.trace.put_line("#### reduce tag: nonterminal %"#(1)%", tag {#(2)}" # nonterminal_name # tag)
       end
 
 end

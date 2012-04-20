@@ -9,10 +9,10 @@ insert
          default_create, is_equal
       end
 
-creation {PACKRAT_GRAMMAR}
+creation {PACKRAT_INTERNAL}
    default_create
 
-feature {PACKRAT_GRAMMAR}
+feature {PACKRAT_INTERNAL}
    next (buffer: MINI_PARSER_BUFFER): like Current is
       do
          buffer.next
