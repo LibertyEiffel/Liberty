@@ -25,4 +25,4 @@ class ZMQ_PUSH_SOCKET
 inherit ZMQ_SENDING_SOCKET 
 creation {ZMQ_CONTEXT} from_external_pointer
 	-- invariant type=zmq_pub
-end 
+end -- class ZMQ_PUSH_SOCKET

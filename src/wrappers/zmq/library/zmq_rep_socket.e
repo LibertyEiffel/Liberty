@@ -30,5 +30,5 @@ inherit
 	ZMQ_SENDING_SOCKET
 creation {ZMQ_CONTEXT} from_external_pointer
 -- invariant type=zmq_req
-end
+end -- class ZMQ_REP_SOCKET
 

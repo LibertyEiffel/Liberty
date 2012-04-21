@@ -23,5 +23,5 @@ inherit
 	ZMQ_RECEIVING_SOCKET
 creation {ZMQ_CONTEXT} from_external_pointer
 -- invariant type=zmq_req
-end
+end -- class ZMQ_PULL_SOCKET
 
