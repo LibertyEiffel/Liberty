@@ -1152,8 +1152,8 @@ feature {ANY} -- To get a TYPE:
          long_name := static_type.long_name
          Result := type_dictionary.fast_reference_at(long_name)
          if Result = Void then
-            -- Before creating the TYPE of `static_type', we must be sure that it's generic
-            -- argument, if any, are created first:
+            -- Before creating the TYPE of `static_type', we must be sure that its generic
+            -- arguments, if any, are created first:
             if static_type.is_generic then
                from
                   gl := static_type.generic_list
@@ -1164,7 +1164,7 @@ feature {ANY} -- To get a TYPE:
                   tm := gl.item(i)
                   if type_dictionary.fast_reference_at(tm.long_name) = Void then
                      -- We must create the corresponding generic argument:
-                     Result := get_type(tm)
+                     Result := get_type_for_generic(tm)
                   end
                   i := i + 1
                end
@@ -1181,23 +1181,11 @@ feature {ANY} -- To get a TYPE:
          has_type(static_type)
       end
 
-   get_array_type (gen_type: TYPE; pos: POSITION): TYPE is
-         -- Returns the ARRAY[gen_type] type
-      local
-         name: STRING; hs: HASHED_STRING; atm: ARRAY_TYPE_MARK
+   get_type_for_generic (static_type: TYPE_MARK): TYPE is
+      require
+         static_type.is_static
       do
-         name := once ""
-         name.copy(once "ARRAY[")
-         name.append(gen_type.name.to_string)
-         name.extend(']')
-         hs := string_aliaser.hashed_string(name)
-         Result := type_dictionary.fast_reference_at(hs)
-         if Result = Void then
-            create atm.make(pos, gen_type.canonical_type_mark)
-            Result := atm.type
-         end
-      ensure
-         Result /= Void
+         Result := get_type(static_type)
       end
 
    tuple_class_not_found_fatal_error (class_name: CLASS_NAME) is
