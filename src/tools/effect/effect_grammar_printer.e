@@ -114,9 +114,9 @@ feature {PACKRAT_SEQUENCE}
          end
          buffer.append(once ", ")
          if visited.tag = Void then
-            buffer.append(once "Void")
+            buffer.append(once "Void, Void")
          else
-            buffer.append(once "agent #(1)" # visited.tag)
+            buffer.append(once "%"#(1)%", agent reducer.#(1)" # visited.tag)
          end
          buffer.append(once ")")
       end
