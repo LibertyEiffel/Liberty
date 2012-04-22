@@ -5,7 +5,7 @@ cd $(dirname $0)/..
 . ./work/tools.sh
 
 list_remotes() {
-    git remote | grep -v 'key|master'
+    git remote | grep -v 'key|origin|master'
 }
 
 branch=$(git branch | awk '/^\*/ {print $2}')
