@@ -11,7 +11,8 @@ creation
 	from_external_pointer,
 	as_float, as_float_in_context,
 	as_double, as_double_in_context,
-	as_x86, as_x86_in_context
+	as_x86, as_x86_in_context,
+	with_128bits, with_128bits_in_context
 	-- TODO: allow creation of fp128 and ppc_fp128
 
 feature {} -- Creation
@@ -30,6 +31,17 @@ feature {} -- Creation
 	do
 		handle := llvmdouble_type
 	end
+
+	with_128bits is
+		do
+			handle := llvmfp128type
+		end
+	
+	with_128bits_in_context (a_context: LLVM_CONTEXT) is
+		require a_context/=Void
+		do
+			handle:=llvmfp128type_in_context(a_context.handle)
+		end
 	
 	as_double_in_context (a_context: LLVM_CONTEXT) is
 		require a_context/=Void

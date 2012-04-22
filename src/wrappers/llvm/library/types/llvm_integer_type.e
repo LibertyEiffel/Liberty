@@ -106,6 +106,8 @@ invariant
 	type_kind.is_integer_type_kind
 
 end -- class LLVM_INTEGER_TYPE
+
+
 -- Copyright 2009 Paolo Redaelli
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
