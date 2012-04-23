@@ -2965,11 +2965,6 @@ feature {} -- Buffers:
          create Result.make
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
    compile_feedback (name: STRING; slice, max: INTEGER) is
       do
          if max = 0 then

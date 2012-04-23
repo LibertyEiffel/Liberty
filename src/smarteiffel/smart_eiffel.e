@@ -1147,7 +1147,8 @@ feature {ANY} -- To get a TYPE:
       require
          static_type.is_static
       local
-         long_name: HASHED_STRING; tm: TYPE_MARK; gl: ARRAY[TYPE_MARK]; i: INTEGER
+         generic_long_name: STRING
+         long_name: HASHED_STRING; gl: ARRAY[TYPE_MARK]; i: INTEGER
       do
          long_name := static_type.long_name
          Result := type_dictionary.fast_reference_at(long_name)
@@ -1155,18 +1156,27 @@ feature {ANY} -- To get a TYPE:
             -- Before creating the TYPE of `static_type', we must be sure that its generic
             -- arguments, if any, are created first:
             if static_type.is_generic then
+               generic_long_name := strings.new_twin(static_type.long_name.to_string)
+               i := generic_long_name.first_index_of('[')
+               generic_long_name.keep_head(i)
                from
                   gl := static_type.generic_list
                   i := gl.lower
                until
                   i > gl.upper
                loop
-                  tm := gl.item(i)
-                  if type_dictionary.fast_reference_at(tm.long_name) = Void then
-                     -- We must create the corresponding generic argument:
-                     Result := get_type_for_generic(tm)
+                  Result := get_type_for_generic(static_type, i)
+                  if i > gl.lower then
+                     generic_long_name.extend(',')
                   end
+                  generic_long_name.append(Result.long_name.to_string)
                   i := i + 1
+               end
+               generic_long_name.extend(']')
+               long_name := string_aliaser.hashed_string(generic_long_name)
+               strings.recycle(generic_long_name)
+               check
+                  shrink_generic_types xor long_name = static_type.long_name
                end
             end
             -- Because it is possible that the previous computation actually resulted in
@@ -1179,13 +1189,6 @@ feature {ANY} -- To get a TYPE:
       ensure
          Result /= Void
          has_type(static_type)
-      end
-
-   get_type_for_generic (static_type: TYPE_MARK): TYPE is
-      require
-         static_type.is_static
-      do
-         Result := get_type(static_type)
       end
 
    tuple_class_not_found_fatal_error (class_name: CLASS_NAME) is
@@ -1228,6 +1231,47 @@ feature {ANY} -- To get a TYPE:
             error_handler.append(").%N")
          end
          error_handler.print_as_fatal_error
+      end
+
+feature {}
+   get_type_for_generic (generic_type: TYPE_MARK; rank: INTEGER): TYPE is
+      require
+         generic_type.is_static
+         generic_type.is_generic
+         generic_type.generic_list.valid_index(rank)
+      local
+         static_type, constraint_type: TYPE_MARK; code: INTEGER_8; constraint: TYPE
+      do
+         static_type := generic_type.generic_list.item(rank)
+
+         if shrink_generic_types then
+            constraint_type := generic_type.class_text.formal_generic_list.item(rank).constraint
+            if constraint_type = Void then
+               -- constraint is ANY
+               Result := get_type(static_type).closest_to_constraint(type_any)
+            else
+               check
+                  constraint_type.is_static
+               end
+               Result := get_type(static_type)
+               constraint := get_type(constraint_type)
+               code := Result.insert_inherit_test(constraint)
+               inspect
+                  code
+               when inherits_code then
+                  check
+                     Result = get_type(static_type)
+                  end
+               when inserts_code then
+                  Result := Result.closest_to_constraint(constraint)
+               else
+                  -- error: type not related to constraint (should have been caught earlier)
+                  not_yet_implemented
+               end
+            end
+         else
+            Result := get_type(static_type)
+         end
       end
 
 feature {CLASS_TYPE_MARK}

@@ -573,11 +573,6 @@ feature {}
          Result.set_in_ini_file(l, c, id)
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
 feature {} -- Sections:
    default_section: ORDERED_DICTIONARY[STRING, STRING]
 

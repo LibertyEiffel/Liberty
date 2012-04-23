@@ -284,11 +284,6 @@ feature {}
          string_aliaser.registered_one(Result)
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
 invariant
    distance > 0
 

@@ -1454,11 +1454,6 @@ feature {}
          text_file_write.disconnect
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
    final_die_with_code_result: INTEGER
          -- For those who are using "se test" with scripts.
 

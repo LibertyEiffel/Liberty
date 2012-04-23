@@ -638,6 +638,23 @@ feature {ANY}
    inserts_code: INTEGER_8 is 1
    inherits_code: INTEGER_8 is 2
 
+   strings: STRING_RECYCLING_POOL is
+      once
+         create Result.make
+      end
+
+feature {} -- an option to minimize generic types
+   shrink_generic_types: BOOLEAN is
+      do
+         Result := shrink_generic_types_memory.item
+      end
+
+   shrink_generic_types_memory: REFERENCE[BOOLEAN] is
+         -- Set the item to True if you want less generic type duplication
+      once
+         create Result
+      end
+
 end -- class GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

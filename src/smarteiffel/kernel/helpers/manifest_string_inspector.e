@@ -261,11 +261,6 @@ feature {}
          a_prefix.is_equal(old (a_prefix.twin))
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
 end -- class MANIFEST_STRING_INSPECTOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -287,6 +287,22 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
+feature {SMART_EIFFEL}
+   closest_to_constraint (constraint: TYPE): TYPE is
+         -- Find some type this one conforms to, on the inheritance link up to the constraint. If there is
+         -- more than one possibility, the choice should not matter.
+         --
+         -- Used to implement type lookup when shrinking the generic types space.
+      require
+         not_obvious: constraint /= Current and then not Current.inherits_from(constraint)
+      do
+         not_yet_implemented
+      ensure
+         Result /= Void
+         Result = Current xor Current.inherits_from(Result)
+         Result.inserts(constraint)
+      end
+
 feature {OLD_MANIFEST_ARRAY}
    has_only_one_conformant_parent: like Current is
          -- The `Result' is non Void if and only if `Current' has only one conforming parent.

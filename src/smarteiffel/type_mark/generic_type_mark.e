@@ -465,11 +465,6 @@ feature {}
    signature_resolved_memory: HASHED_DICTIONARY[TYPE, TYPE]
          -- Where the key is the context and where the value is the corresponding resolved TYPE.
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
 invariant
    class_text_name /= Void
 
