@@ -364,6 +364,12 @@ feature {CODE_PRINTER}
          create {HASHED_DICTIONARY[TYPE, HASHED_STRING]} Result.with_capacity(1024)
       end
 
+   generic_type_dictionary: DICTIONARY[HASHED_STRING, HASHED_STRING] is
+         -- Helper dictionary for generic types shrinking
+      once
+         create {HASHED_DICTIONARY[HASHED_STRING, HASHED_STRING]} Result.with_capacity(1024)
+      end
+
 feature {ANY}
    magic_count: INTEGER
          -- Grow each time a new run class is added, each time a new class is
@@ -618,9 +624,9 @@ feature {TYPE_MARK}
          ln: STRING
       do
          ln := once ""
-         ln.copy(type_name.to_string)
-         ln.extend('@')
-         ln.append(type_cluster.name)
+         ln.copy(type_cluster.name)
+         ln.extend_unless(':')
+         ln.append(type_name.to_string)
          Result := string_aliaser.hashed_string(ln)
       ensure
          Result /= Void
@@ -746,6 +752,8 @@ feature {}
          lock_type_creation(static_type.long_name)
          not has_type(static_type)
       do
+         echo.put_string(once "Creating type: ")
+         echo.put_line(static_type.long_name.to_string)
          create Result.make(static_type)
       ensure
          Result /= Void
@@ -1147,7 +1155,6 @@ feature {ANY} -- To get a TYPE:
       require
          static_type.is_static
       local
-         generic_long_name: STRING
          long_name: HASHED_STRING; gl: ARRAY[TYPE_MARK]; i: INTEGER
       do
          long_name := static_type.long_name
@@ -1156,29 +1163,17 @@ feature {ANY} -- To get a TYPE:
             -- Before creating the TYPE of `static_type', we must be sure that its generic
             -- arguments, if any, are created first:
             if static_type.is_generic then
-               generic_long_name := strings.new_twin(static_type.long_name.to_string)
-               i := generic_long_name.first_index_of('[')
-               generic_long_name.keep_head(i)
                from
                   gl := static_type.generic_list
                   i := gl.lower
                until
                   i > gl.upper
                loop
-                  Result := get_type_for_generic(static_type, i)
-                  if i > gl.lower then
-                     generic_long_name.extend(',')
-                  end
-                  generic_long_name.append(Result.long_name.to_string)
+                  Result := get_type(gl.item(i))
                   i := i + 1
                end
-               generic_long_name.extend(']')
-               long_name := string_aliaser.hashed_string(generic_long_name)
-               strings.recycle(generic_long_name)
-               check
-                  shrink_generic_types xor long_name = static_type.long_name
-               end
             end
+
             -- Because it is possible that the previous computation actually resulted in
             -- creating the type of `static_type' itself:
             Result := type_dictionary.fast_reference_at(long_name)
@@ -1231,47 +1226,6 @@ feature {ANY} -- To get a TYPE:
             error_handler.append(").%N")
          end
          error_handler.print_as_fatal_error
-      end
-
-feature {}
-   get_type_for_generic (generic_type: TYPE_MARK; rank: INTEGER): TYPE is
-      require
-         generic_type.is_static
-         generic_type.is_generic
-         generic_type.generic_list.valid_index(rank)
-      local
-         static_type, constraint_type: TYPE_MARK; code: INTEGER_8; constraint: TYPE
-      do
-         static_type := generic_type.generic_list.item(rank)
-
-         if shrink_generic_types then
-            constraint_type := generic_type.class_text.formal_generic_list.item(rank).constraint
-            if constraint_type = Void then
-               -- constraint is ANY
-               Result := get_type(static_type).closest_to_constraint(type_any)
-            else
-               check
-                  constraint_type.is_static
-               end
-               Result := get_type(static_type)
-               constraint := get_type(constraint_type)
-               code := Result.insert_inherit_test(constraint)
-               inspect
-                  code
-               when inherits_code then
-                  check
-                     Result = get_type(static_type)
-                  end
-               when inserts_code then
-                  Result := Result.closest_to_constraint(constraint)
-               else
-                  -- error: type not related to constraint (should have been caught earlier)
-                  not_yet_implemented
-               end
-            end
-         else
-            Result := get_type(static_type)
-         end
       end
 
 feature {CLASS_TYPE_MARK}
@@ -1368,18 +1322,85 @@ feature {TYPE}
          t /= Void
          unlock_type_creation(t.long_name)
       local
-         ln: HASHED_STRING
+         buffer: STRING; i: INTEGER; gl: ARRAY[TYPE]
+         long_name, generic_long_name: HASHED_STRING; generic_type: TYPE
       do
-         ln := t.long_name
-         if type_dictionary.fast_has(ln) then
+         long_name := t.long_name
+         if type_dictionary.fast_has(long_name) then
             error_handler.append("You seem to have too classes named ")
             error_handler.append(t.canonical_type_mark.class_text_name.to_string)
             error_handler.append(". Yours is in the cluster %"")
             error_handler.append(t.class_text.cluster.directory_path)
             error_handler.append("%". This is not possible as this class is basically used by Liberty Eiffel internals. Please pick another name.")
             error_handler.print_as_fatal_error
+         end
+
+         type_dictionary.add(t, long_name)
+
+         if False and then shrink_generic_types and then t.is_generic then
+            buffer := strings.new_twin(long_name.to_string)
+            i := buffer.first_index_of('[')
+            buffer.keep_head(i)
+            from
+               gl := t.generic_list
+               i := gl.lower
+            until
+               i > gl.upper
+            loop
+               generic_type := get_constraint_ancestor(t, i)
+               if i > gl.lower then
+                  buffer.extend(',')
+               end
+               buffer.append(generic_type.long_name.to_string)
+               i := i + 1
+            end
+            buffer.extend(']')
+            generic_long_name := string_aliaser.hashed_string(buffer)
+            strings.recycle(buffer)
+
+            if not generic_type_dictionary.fast_has(generic_long_name) then
+               echo.put_string(once "Generic type: ")
+               echo.put_line(long_name.to_string)
+               echo.put_string(once "           => ")
+               echo.put_line(generic_long_name.to_string)
+               generic_type_dictionary.add(long_name, generic_long_name)
+            end
+         end
+      end
+
+feature {}
+   get_constraint_ancestor (generic_type: TYPE; rank: INTEGER): TYPE is
+      require
+         shrink_generic_types
+         generic_type.is_generic
+         generic_type.generic_list.valid_index(rank)
+      local
+         constraint_type: TYPE_MARK; code: INTEGER_8; constraint: TYPE
+      do
+         Result := generic_type.generic_list.item(rank)
+
+         constraint_type := generic_type.class_text.formal_generic_list.item(rank).constraint
+         if constraint_type = Void then
+            -- constraint is ANY
+            Result := Result.closest_to_constraint(type_any)
          else
-            type_dictionary.add(t, ln)
+            check
+               constraint_type.is_static
+            end
+            constraint := get_type(constraint_type)
+            if Result /= constraint then
+               code := Result.insert_inherit_test(constraint)
+               inspect
+                  code
+               when inherits_code then
+                  Result := constraint
+               when inserts_code then
+                  Result := Result.closest_to_constraint(constraint)
+               when unrelated_code then
+                  -- error: type not related to constraint (should have been caught earlier)
+                  -- **** ???? **** not_yet_implemented
+               end
+            end
          end
       end
 
@@ -2405,10 +2426,16 @@ end -- class SMART_EIFFEL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------

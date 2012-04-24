@@ -287,7 +287,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-feature {SMART_EIFFEL}
+feature {SMART_EIFFEL, TYPE}
    closest_to_constraint (constraint: TYPE): TYPE is
          -- Find some type this one conforms to, on the inheritance link up to the constraint. If there is
          -- more than one possibility, the choice should not matter.
@@ -295,8 +295,37 @@ feature {SMART_EIFFEL}
          -- Used to implement type lookup when shrinking the generic types space.
       require
          not_obvious: constraint /= Current and then not Current.inherits_from(constraint)
+      local
+         i: INTEGER; type, insert_type: TYPE
+         a_parent_edge: PARENT_EDGE
       do
-         not_yet_implemented
+         from
+            Result := Current
+            i := 1
+         until
+            Result /= Current or else i > parents_count
+         loop
+            a_parent_edge := parent_edge_load(i)
+            if a_parent_edge.is_inherit_member then
+               type := a_parent_edge.type_mark.resolve_in(Current)
+               if type = constraint then
+                  Result := type
+               else
+                  inspect
+                     type.insert_inherit_test(constraint)
+                  when inherits_code then
+                     Result := type.closest_to_constraint(constraint)
+                  when inserts_code then
+                     insert_type := type
+                  else
+                  end
+               end
+            end
+            i := i + 1
+         end
+         if Result = Current and then insert_type /= Void then
+            Result := insert_type
+         end
       ensure
          Result /= Void
          Result = Current xor Current.inherits_from(Result)
@@ -1481,7 +1510,7 @@ end -- class TYPE
 -- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
 --
 --
--- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
 -- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
