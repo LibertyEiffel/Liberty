@@ -62,6 +62,14 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
+   put_line (msg: STRING) is
+      do
+         if is_verbose then
+            output_stream.put_line(msg)
+            output_stream.flush
+         end
+      end
+
    put_character (c: CHARACTER) is
       do
          if is_verbose then
@@ -553,7 +561,7 @@ end -- class ECHO
 -- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
 --
 --
--- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
 -- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
