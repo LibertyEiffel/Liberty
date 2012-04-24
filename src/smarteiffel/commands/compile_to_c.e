@@ -10,7 +10,7 @@ inherit
    COMMAND_LINE_TOOLS
 
 creation {}
-   make
+   make, make_shrink
 
 feature {ANY}
    command_line_name: STRING is "compile_to_c"
@@ -87,6 +87,12 @@ feature {ANY}
       ]"
 
 feature {}
+   make_shrink is
+      do
+         shrink_generic_types_memory.set_item(True)
+         make
+      end
+
    make is
          -- Command line parsing has two passes: first, options are parsed and then, the extra options are added.
       local
@@ -286,7 +292,7 @@ end -- class COMPILE_TO_C
 -- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
 --
 --
--- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
 -- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
