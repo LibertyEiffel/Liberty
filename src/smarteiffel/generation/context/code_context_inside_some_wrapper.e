@@ -39,7 +39,7 @@ end -- class CODE_CONTEXT_INSIDE_SOME_WRAPPER
 -- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
 --
 --
--- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
 -- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
