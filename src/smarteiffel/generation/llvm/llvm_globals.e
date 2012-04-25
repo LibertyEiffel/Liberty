@@ -18,7 +18,7 @@ feature {}
       end
 
 	
-end -- class RUNNER_GLOBALS
+end -- class LLVM_GLOBALS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

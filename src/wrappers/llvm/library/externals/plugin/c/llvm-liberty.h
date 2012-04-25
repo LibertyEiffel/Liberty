@@ -2,10 +2,13 @@
 #   warning "LLVM-liberty starting include" 
 #endif
 
-/* #ifdef __llvm__ */
+#ifndef __builtin_bswap32 // previously __llvm__ 
 extern unsigned int __builtin_bswap32(unsigned int _data);
+#endif
+
+#ifndef __builtin_bswap64
 extern unsigned long __builtin_bswap64(unsigned long _data);
-/* #endif / * __llvm__ */ 
+#endif 
 
 #include <llvm-c/Analysis.h>
 #include <llvm-c/BitReader.h>

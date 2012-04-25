@@ -74,10 +74,15 @@ feature -- Implementation
 		end
 
 	compile_class, visit_class_text (a_class: CLASS_TEXT) is
-		local name: STRING
+		local name: STRING; bc_fn: STRING -- bytecode filename
 		do
+			-- Avoid recompiling if possible. If text of the class itself or
+			-- the text of one of its heirs are younger than the class bytecode
+			-- then it needs to be recompiled
+
 			name := a_class.name.to_string;
-			("Worker #(1) compiling class '#(2)'%N" # & pid # name).print_on(std_output);
+			bc_fn := name + " in " + a_class.cluster.directory_path ;
+			("Worker #(1) compiling class '#(2)' into file '#(3)'%N" # & pid # name # bc_fn).print_on(std_output);
 			if a_class.is_generic then
 				-- I do know that a class is not a type, and expecially a live
 				-- type. I dream to provide one binary implementation of
@@ -101,13 +106,13 @@ feature -- Implementation
 		local name: ABSTRACT_STRING;
 
 		do
-				name := its_name.to_string;
+			name := its_name.to_string;
 			("Worker #(1) compiling feature '#(2)'%N" # & pid # name).print_on(std_output);
 
 			if a_feature.is_attribute then 
 
 			else
-				
+
 			end
 		end
 
@@ -165,7 +170,6 @@ feature -- Instructions compiling
 	visit_retry_instruction (visited: RETRY_INSTRUCTION) is do not_yet_implemented end
 	visit_static_call_0_c (visited: STATIC_CALL_0_C) is do not_yet_implemented end
 	visit_when_clause (visited: WHEN_CLAUSE) is do not_yet_implemented end
-
 
 
 	-- strange features, please cast me some light on them....
@@ -250,9 +254,20 @@ feature -- Manifest expressions
 	visit_manifest_tuple (visited: MANIFEST_TUPLE) is do not_yet_implemented end
 	visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is do not_yet_implemented end
 feature -- Constant expression
-  visit_character_constant (visited: CHARACTER_CONSTANT) is do not_yet_implemented end
-   visit_integer_constant (visited: INTEGER_CONSTANT) is do not_yet_implemented end
-   visit_real_constant (visited: REAL_CONSTANT) is do not_yet_implemented end 
+	visit_character_constant (visited: CHARACTER_CONSTANT) is do not_yet_implemented end
+	visit_integer_constant (visited: INTEGER_CONSTANT) is do not_yet_implemented end
+	visit_real_constant (a_real_constant: REAL_CONSTANT) is 
+		local llvm_constant: LLVM_CONSTANT_FP 
+		do
+			-- We could rely on 
+			inspect a_real_constant.result_type.bit_count
+			when 32 then create llvm_constant.from_string( real_32, a_real_constant.pretty_view)
+			when 64 then create llvm_constant.from_string( real_64, a_real_constant.pretty_view)
+			when 80 then create llvm_constant.from_string( real_80, a_real_constant.pretty_view)
+			when 128 then create llvm_constant.from_string( real_128, a_real_constant.pretty_view)
+			else not_yet_implemented
+			end
+		end 
 
 feature -- InterProcess Communication
 	endpoint: ABSTRACT_STRING

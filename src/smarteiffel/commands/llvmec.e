@@ -77,20 +77,20 @@ feature {}
    make is
          -- Command line parsing has two passes: first, options are parsed and then, the extra options are added.
       local
-         string_command_line: STRING_COMMAND_LINE; -- echo_redirect: STRING
+         string_command_line: STRING_COMMAND_LINE; echo_redirect: STRING
       do
          user_args.add_first(Void)
          system_tools.set_plugin_factory(create {LLVM_PLUGIN_FACTORY}.make)
-		-- eiffel_parser.set_drop_comments -- require exporting to LLVMEC
+		 eiffel_parser.set_drop_comments 
          string_command_line.set_command_line_name(command_line_name)
          if argument_count < 1 then
             system_tools.bad_use_exit(command_line_name, command_line_help_summary)
          end
 		 -- require exporting to LLVMEC
-         -- echo_redirect := search_for_echo_redirect_flag
-         -- if echo_redirect /= Void then
-         --    echo.redirect_output_on(echo_redirect)
-         -- end
+         echo_redirect := search_for_echo_redirect_flag
+         if echo_redirect /= Void then
+             echo.redirect_output_on(echo_redirect)
+         end
          search_for_verbose_flag
          if not ace_file_mode then
             -- First pass:
@@ -199,7 +199,7 @@ feature {}
          Result := Precursor(i) and then not argument(i).is_equal(once "--")
       end
 
-end -- class RUN
+end -- class LLVMEC
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
