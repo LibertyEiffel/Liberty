@@ -5,7 +5,7 @@ inherit LLVM_CONSTANT
 
 insert CORE_EXTERNALS
 
-creation {ANY} from_real
+creation {ANY} from_real, from_string
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature -- Creation 

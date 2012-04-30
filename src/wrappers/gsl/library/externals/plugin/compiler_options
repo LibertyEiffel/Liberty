@@ -1,0 +1,4 @@
+[UNIX]
+gsl: "$(gsl-config --cflags)"
+
+
