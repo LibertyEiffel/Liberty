@@ -348,7 +348,7 @@ feature {ANY} -- Modification:
          -- Inserts `c' at index `i', shifting characters from
          -- position 'i' to `count' rightwards.
       require
-         valid_insertion_index: 1 <= i and i <= upper + 1
+         valid_insertion_index: lower <= i and i <= upper + 1
       do
          if storage_lower > 0 and then i <= upper then
             if i > lower then
@@ -616,10 +616,10 @@ feature {ANY} -- Modification:
          -- See also `remove_tail', `last'.
       do
          from
-		 until count = 0 or else not item(count).is_separator
+                 until count = 0 or else not item(count).is_separator
          loop count := count - 1
          end
-	  ensure stripped: is_empty or else not last.is_separator
+          ensure stripped: is_empty or else not last.is_separator
       end
 
 feature {ANY} -- Other features:
@@ -655,25 +655,25 @@ feature {ANY} -- Other features:
       end
 
   precede_multiple (c: CHARACTER; n: INTEGER) is
-	  -- Prepend `n' times character `c' to Current.
+          -- Prepend `n' times character `c' to Current.
 
  local
-	  old_upper, new_storage_lower: INTEGER
+          old_upper, new_storage_lower: INTEGER
   do
-	  -- Note: This command once had this precondition: "require n >= 0" As you
-	  -- can see this implementation does not actually need it.  In fact this
-	  -- command will not fail if n is negative. Perhaps it is a vestigial
-	  -- precondition when there were no NATURAL type. When n is not positive
-	  -- this command does not make any change. Paolo
-	  -- 2011-09-04
-	  if n > 0 then
-		  old_upper := upper
-		  if old_upper < lower then
-			  check count = 0 end
-				  storage_lower := 0
-				  extend_multiple(c, n)
-			  else
-				  if n > storage_lower then
+          -- Note: This command once had this precondition: "require n >= 0" As you
+          -- can see this implementation does not actually need it.  In fact this
+          -- command will not fail if n is negative. Perhaps it is a vestigial
+          -- precondition when there were no NATURAL type. When n is not positive
+          -- this command does not make any change. Paolo
+          -- 2011-09-04
+          if n > 0 then
+                  old_upper := upper
+                  if old_upper < lower then
+                          check count = 0 end
+                                  storage_lower := 0
+                                  extend_multiple(c, n)
+                          else
+                                  if n > storage_lower then
                   new_storage_lower := 0
                   count := count + storage_lower
                   extend_multiple('%U', n - storage_lower)
@@ -689,7 +689,7 @@ feature {ANY} -- Other features:
          end
       ensure
          count = n.max(0) + old count
-		 not_changed_when_n_is_not_positive: n<1 implies Current ~ old twin
+                 not_changed_when_n_is_not_positive: n<1 implies Current ~ old twin
       end
 
    extend_to_count (c: CHARACTER; needed_count: INTEGER) is
