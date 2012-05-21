@@ -105,7 +105,7 @@ feature {} -- Constants
 
 	externals_header: STRING is "feature {} -- External calls%N%N"
 
-	typedefs_features_header: STRING is "feature -- C type definitions (typedefs)%N"
+	typedefs_features_header: STRING is "feature {ANY} -- C type definitions (typedefs)%N"
 
 	footer: STRING is "end%N"
 

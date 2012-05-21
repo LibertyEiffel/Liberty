@@ -66,7 +66,7 @@ feature {ANY}
 		-- long") for C types that can have different sizes on different
 		-- architectures.
 	do
-		file.put_string("feature -- variable-size types%N%
+		file.put_string("feature {ANY} -- variable-size types%N%
 		%	long: INTEGER_#(1) is%N%
 		%		-- a query with the same type of c 'long int'. useful when dealing with%N%
 		%		-- code that uses long int variable: just insert this class and mark%N%

@@ -71,7 +71,7 @@ feature
             buffer.append(eiffel_name)
             buffer.append_new_line
             emit_description_on(class_descriptions.reference_at(c_string_name),buffer)
-            buffer.append(once "%Ninsert ENUM%N%Ncreation default_create%N")
+            buffer.append(once "%Ninsert ENUM%N%Ncreation {ANY} default_create%N")
             buffer.print_on(output)
         end
             
@@ -90,11 +90,11 @@ feature
                 end
             else log_string(once "... fieldless.%N")
             end
-            output.put_line(once "feature -- Validity")
+            output.put_line(once "feature {ANY} -- Validity")
             validity_query.print_on(output)
-            output.put_line(once "feature -- Setters")
+            output.put_line(once "feature {ANY} -- Setters")
             setters.print_on(output)
-            output.put_line(once "feature -- Queries")
+            output.put_line(once "feature {ANY} -- Queries")
             queries.print_on(output)
             output.put_line(once "feature {WRAPPER, WRAPPER_HANDLER} -- Low level values")
             low_level_values.print_on(output)
@@ -197,7 +197,7 @@ feature -- Emitting "flag" enumeration
 
             values.first.append_as_flag_to_buffers
             if values.count>1 then
-                from i := 2
+                from i := values.lower+1
                 until i > values.upper
                 loop
                     append_flag_separators 

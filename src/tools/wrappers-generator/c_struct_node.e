@@ -116,7 +116,7 @@ feature
 	do 
 		-- buffer.reset
 		buffer.put_message(once 
-		"feature -- Structure size%N%
+		"feature {WRAPPER, WRAPPER_HANDLER} -- Structure size%N%
 		%	struct_size: like size_t is%N%
 		%		external %"plug_in%"%N%
 		%		alias %"{%N%
