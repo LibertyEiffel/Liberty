@@ -40,11 +40,9 @@ feature {} -- The CECIL completion functions
          completions_list: COLLECTION[ABSTRACT_STRING]
       do
          create rl_text.from_external(text)
-         rl_start_index := start_index
-         rl_end_index := end_index
 
          if completion_agent /= Void then
-            completions_list := completion_agent.item([rl_text, rl_start_index, rl_end_index])
+            completions_list := completion_agent.item([rl_text, start_index, end_index])
             if completions_list /= Void then
                completions := completions_list.new_iterator
             end
@@ -83,11 +81,9 @@ feature {}
          set_rl_attempted_completion_function(Current)
       end
 
-   completion_agent: FUNCTION[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER], COLLECTION[ABSTRACT_STRING]]
+   completion_agent: FUNCTION[TUPLE[FIXED_STRING, INTEGER, INTEGER], COLLECTION[ABSTRACT_STRING]]
 
    rl_text: FIXED_STRING
-   rl_start_index: INTEGER
-   rl_end_index: INTEGER
 
    completions: ITERATOR[ABSTRACT_STRING]
 
