@@ -174,12 +174,12 @@ feature {ANY} -- Interfacing with C string:
          Result := storage.to_pointer
       end
 
-feature {} -- Creation from C string:
+feature {STRING_HANDLER} -- Creation from C string:
    from_external (p: POINTER) is
          -- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
          -- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
          -- FIXED_STRING.
-         -- Also consider `from_external' to choose the most appropriate.
+         -- Also consider `from_external_copy' to choose the most appropriate.
       require
          p.is_not_null
       local

@@ -7,7 +7,7 @@ insert
    WRAPPER_HANDLER
    READLINE_EXTERNALS
 
-feature -- Read line
+feature {ANY} -- Read line
    prompt: ABSTRACT_STRING
          -- The prompt presented to the user
 
@@ -27,6 +27,11 @@ feature -- Read line
          last_line /= Void
       end
 
+   buffer: FIXED_STRING is
+      do
+         Result.from_external(rl_line_buffer)
+      end
+
    completion: READ_LINE_COMPLETION is
       once
          create Result.make
@@ -35,6 +40,12 @@ feature -- Read line
    history: READ_LINE_HISTORY is
       once
          create Result.using_history
+      end
+
+feature {}
+   buffer_: FIXED_STRING is
+      once
+         create Result.make
       end
 
 end -- class READ_LINE
