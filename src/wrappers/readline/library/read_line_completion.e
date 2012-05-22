@@ -1,0 +1,94 @@
+class READ_LINE_COMPLETION
+--
+-- For line completion.
+--
+
+inherit
+   READLINE_CECIL
+
+insert
+   SINGLETON
+   READLINE_EXTRA_EXTERNALS
+   STRING_HANDLER
+      undefine
+         is_equal, copy
+      end
+
+create {READ_LINE}
+   make
+
+feature {ANY}
+   set_completion_agent (a_completion_agent: like completion_agent) is
+      require
+         not is_busy
+      do
+         completion_agent := a_completion_agent
+      ensure
+         completion_agent = a_completion_agent
+      end
+
+   is_busy: BOOLEAN is
+      do
+         Result := rl_text /= Void
+      ensure
+         completions /= Void implies Result
+      end
+
+feature {} -- The CECIL completion functions
+   completion_start (text: POINTER; start_index, end_index: INTEGER) is
+      local
+         completions_list: COLLECTION[ABSTRACT_STRING]
+      do
+         create rl_text.from_external(text)
+         rl_start_index := start_index
+         rl_end_index := end_index
+
+         if completion_agent /= Void then
+            completions_list := completion_agent.item([rl_text, rl_start_index, rl_end_index])
+            if completions_list /= Void then
+               completions := completions_list.new_iterator
+            end
+         end
+      end
+
+   completion_more (text: POINTER; state: INTEGER): POINTER is
+      do
+         if completions /= Void then
+            if state = 0 then
+               completions.start
+            end
+            if not completions.is_off then
+               Result := completions.item.to_external
+               completions.next
+            end
+         end
+      end
+
+   completion_done (text: POINTER) is
+      do
+         completions := Void
+         rl_text := Void
+      end
+
+   same_text (text: POINTER): BOOLEAN is
+      do
+         Result := text = rl_text.storage.to_pointer
+      ensure
+         definition: Result = (text = rl_text.storage.to_pointer)
+      end
+
+feature {}
+   make is
+      do
+         set_rl_attempted_completion_function(Current)
+      end
+
+   completion_agent: FUNCTION[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER], COLLECTION[ABSTRACT_STRING]]
+
+   rl_text: FIXED_STRING
+   rl_start_index: INTEGER
+   rl_end_index: INTEGER
+
+   completions: ITERATOR[ABSTRACT_STRING]
+
+end

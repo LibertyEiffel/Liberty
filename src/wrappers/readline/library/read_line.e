@@ -1,31 +1,42 @@
 deferred class READ_LINE
-	-- Interface to the GNU readline library
+-- Interface to the GNU readline library
 
-	-- Insert this class to get access to library interface.
+-- Insert this class to get access to library interface.
 
 insert
-	WRAPPER_HANDLER
-	READLINE_EXTERNALS
+   WRAPPER_HANDLER
+   READLINE_EXTERNALS
 
 feature -- Read line
-	prompt: ABSTRACT_STRING 
-		-- The prompt presented to the user
+   prompt: ABSTRACT_STRING
+         -- The prompt presented to the user
 
-	last_line: STRING -- The last line read by `read_line' 
+   last_line: STRING -- The last line read by `read_line'
 
-	read_line is
-		-- Print `prompt' and read a line, put into `last_line'
-	local p: POINTER
-	do
-		p:=readline(null_or_string(prompt))
-		check p.is_not_null end
-		create last_line.from_external(p)
-	ensure last_line/=Void
-	end
+   read_line is
+         -- Print `prompt' and read a line, put into `last_line'
+      local
+         p: POINTER
+      do
+         p := readline(null_or_string(prompt))
+         check
+            p.is_not_null
+         end
+         create last_line.from_external(p)
+      ensure
+         last_line /= Void
+      end
 
-	history: READ_LINE_HISTORY is once create Result.using_history end
+   completion: READ_LINE_COMPLETION is
+      once
+         create Result.make
+      end
 
-feature -- TODO: History
+   history: READ_LINE_HISTORY is
+      once
+         create Result.using_history
+      end
+
 end -- class READ_LINE
 
 -- Copyright (C) 2010, Paolo Redaelli
@@ -34,7 +45,7 @@ end -- class READ_LINE
 -- it under the terms of the GNU General Public License as published by
 -- the Free Software Foundation, either version 3 of the License, or
 -- (at your option) any later version.
--- 
+--
 -- This package is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -42,5 +53,3 @@ end -- class READ_LINE
 --
 -- You should have received a copy of the GNU General Public License
 -- along with Readline.  If not, see <http://www.gnu.org/licenses/>.
-
-
