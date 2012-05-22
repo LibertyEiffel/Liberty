@@ -2,10 +2,19 @@
  * Extra externals (not generated)
  */
 
+char *dupstr(char *s) {
+     char *result = NULL;
+     if (s) {
+          result = se_malloc(strlen(s) + 1);
+          strcpy(result, s);
+     }
+     return result;
+}
+
 static EIF_OBJECT liberty_rl_completer = NULL;
 
 static char *liberty_rl_complete(char *text, int state) {
-     return (char*)readline_extra_completion_more(liberty_rl_completer, text, state);
+     return dupstr((char*)readline_extra_completion_more(liberty_rl_completer, text, state));
 }
 
 static char** liberty_rl_completion(char *text, int start, int end) {
