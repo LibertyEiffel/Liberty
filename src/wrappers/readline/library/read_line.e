@@ -6,6 +6,10 @@ deferred class READ_LINE
 insert
    WRAPPER_HANDLER
    READLINE_EXTERNALS
+   STRING_HANDLER
+      undefine
+         is_equal, copy
+      end
 
 feature {ANY} -- Read line
    prompt: ABSTRACT_STRING
@@ -29,6 +33,7 @@ feature {ANY} -- Read line
 
    buffer: FIXED_STRING is
       do
+         Result := buffer_
          Result.from_external(rl_line_buffer)
       end
 
@@ -45,7 +50,7 @@ feature {ANY} -- Read line
 feature {}
    buffer_: FIXED_STRING is
       once
-         create Result.make
+         create Result.make_from_string("deadstring")
       end
 
 end -- class READ_LINE

@@ -37,7 +37,7 @@ feature {ANY}
 feature {} -- The CECIL completion functions
    completion_start (text: POINTER; start_index, end_index: INTEGER) is
       local
-         completions_list: COLLECTION[ABSTRACT_STRING]
+         completions_list: ITERABLE[ABSTRACT_STRING]
       do
          create rl_text.from_external(text)
 
@@ -81,7 +81,7 @@ feature {}
          set_rl_attempted_completion_function(Current)
       end
 
-   completion_agent: FUNCTION[TUPLE[FIXED_STRING, INTEGER, INTEGER], COLLECTION[ABSTRACT_STRING]]
+   completion_agent: FUNCTION[TUPLE[FIXED_STRING, INTEGER, INTEGER], ITERABLE[ABSTRACT_STRING]]
 
    rl_text: FIXED_STRING
 
