@@ -13,6 +13,12 @@ feature {ANY}
 	int_32: LLVM_INTEGER_TYPE is once create Result.with_32_bits end
 	int_64: LLVM_INTEGER_TYPE is once create Result.with_64_bits end 
 
+feature {ANY} -- Common real types
+	real_32: LLVM_REAL_TYPE is once create Result.as_float end 
+	real_64: LLVM_REAL_TYPE is once create Result.as_double end 
+	real_80: LLVM_REAL_TYPE is once create Result.as_x86 end 
+	real_128: LLVM_REAL_TYPE is once create Result.with_128bits end
+
 feature {ANY} -- 8-bit character
 	-- TODO: use a portable way to discover whenever "char" is signed or not. If it will be useful.
 	char: LLVM_INTEGER_TYPE is once create Result.with_8_bits end 

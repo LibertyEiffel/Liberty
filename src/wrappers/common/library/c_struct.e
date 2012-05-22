@@ -45,8 +45,9 @@ feature {} -- Initialization
 		end
 
 	allocate is
-			-- Allocate an initialized structure
-		obsolete "Structure is allocated but memory is not set to zero. This may not be what you want. See implementation"
+			-- Allocate an uninitialized structure.
+
+			-- Memory is allocated but NOT set to zero. This may not be what you want. See implementation
 		do
 			handle := malloc(struct_size) 
 			-- This feature used to invoke calloc to set the allocated memory to zero.

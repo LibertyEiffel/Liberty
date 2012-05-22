@@ -12,6 +12,7 @@
 ./generation/eiffeldoc
 ./generation/fake_generator
 ./generation/java
+./generation/llvm/loadpath.se
 ./generation/pretty
 ./generation/run/loadpath.se
 ./generation/sedb

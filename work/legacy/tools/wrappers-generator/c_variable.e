@@ -70,10 +70,21 @@ feature
 				%			module_name: %"plugin%"%N%
 				%			feature_name: %"&@(4)%"%N%
 				%		}%"%N%
+				%		end%N%
+				%%N%
+				%	set_@(1) (a_value: @(2)) is%N%
+				%		-- Set variable @(1) value%N%
+				%		external %"plug_in%"%N%
+				%		alias %"{%N%
+				%			location: %".%"%N%
+				%			module_name: %"plugin%"%N%
+				%			feature_name: %"set_@(4)%"%N%
+				%		}%"%N%
 				%		end%N%N",
 				<<eiffel_feature(c_string_name), wrapper_type, 
-				line_row.to_utf8, c_string_name>>)
-				-- TODO append description 
+				line_row.to_utf8, c_string_name>>);
+
+				("#define set_#(1)(a_value) #(1) = (a_value);%N" # c_string_name).print_on(include)
 			end
 			buffer.print_on(a_stream)
 		end

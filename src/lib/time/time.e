@@ -7,13 +7,29 @@ expanded class TIME
    --
 
 insert
-   HASHABLE
+   HASHABLE 
+		redefine
+		 	out
+		end
    COMPARABLE
-      redefine is_equal
+      redefine
+		  is_equal, out
       end
    TIME_HANDLER
-      redefine is_equal
+      redefine 
+		  is_equal, out
       end
+feature 
+	out: STRING is
+	 	do
+			create Result.with_capacity(21)
+			year.append_in(Result); Result.extend('/')
+			month.append_in(Result); Result.extend('/')
+			day.append_in(Result); Result.extend(' ')
+			hour.append_in(Result); Result.extend(':')
+			minute.append_in(Result); Result.extend(':')
+			second.append_in(Result)
+		end
 
 feature {ANY}
    is_local_time: BOOLEAN is

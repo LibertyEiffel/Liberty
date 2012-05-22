@@ -427,7 +427,8 @@ feature {NEW_ECHO}
 
    output_path: STRING
 
-feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN}
+feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN, COMMAND_LINE_TOOLS}
+	
    redirect_output_on (new_output_path: like output_path) is
          -- -output_error_warning_on
       require
