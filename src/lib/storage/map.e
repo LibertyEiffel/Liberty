@@ -245,12 +245,12 @@ feature {ANY} -- To provide iterating facilities:
          i: INTEGER
       do
          from
-            i := count
+            i := lower
          until
-            i < lower
+            i > upper
          loop
             buffer.add_last(key(i))
-            i := i - 1
+            i := i + 1
          end
       ensure
          buffer.count = count + old buffer.count
@@ -267,12 +267,12 @@ feature {ANY} -- To provide iterating facilities:
          i: INTEGER
       do
          from
-            i := count
+            i := lower
          until
-            i < lower
+            i > upper
          loop
             buffer.add_last(item(i))
-            i := i - 1
+            i := i + 1
          end
       ensure
          buffer.count = count + old buffer.count
