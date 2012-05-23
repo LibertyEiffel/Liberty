@@ -370,40 +370,15 @@ feature {ANY} -- Looking and comparison:
 			-- The basic `=' is used for comparison of items.
 
 			-- Complexity: O(count)
-
-			-- See also `is_equal_map', `same_items'.
 		local i: INTEGER
 		do
-			from i:=lower 
-			until Result=True or else i>upper 
-			loop
-				Result := (Current.storage.item(i) = other.storage.item(i))
-				i:=i+1
-			end
-		end
-
-	is_equal_map (other: like Current): BOOLEAN is
-		local i: INTEGER; c_ith, o_ith: ITEM
-		do
-			-- Do both collections have the same `lower', `upper', and
-			-- items?  feature `is_equal' is used for comparison of
-			-- items.
 			if other=Void then Result:=False
-			elseif count/=other.count then Result:=False
+			elseif lower/=other.lower or upper/=other.upper then Result:=False
 			else 
-				from i:=lower; Result:=True until Result=False or else i>upper 
+				from i:=lower 
+				until Result=True or else i>upper 
 				loop
-					c_ith:=Current.item(i)
-					o_ith:=other.item(i)
-					if c_ith/=Void then
-						if o_ith/=Void then Result := c_ith.is_equal(o_ith)
-						else                Result := False
-						end
-					else
-						if o_ith/=Void then Result := False
-						else -- nothing, result should already be true
-						end
-					end
+					Result := (Current.storage.item(i) = other.storage.item(i))
 					i:=i+1
 				end
 			end

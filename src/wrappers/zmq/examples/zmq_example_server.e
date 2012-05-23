@@ -1,34 +1,49 @@
 class ZMQ_EXAMPLE_SERVER
 	-- Port of the server of the simple example at http://www.zeromq.org/area:docs-v20
-insert MEMORY -- To check for memory leaks
+insert 
+	UNISTD_EXTERNALS -- Some low-level Posix calls
 creation {} make
 feature
+	context: ZMQ_CONTEXT
+	socket: ZMQ_REP_SOCKET
+	request, answer: ZMQ_STRING_MESSAGE
+
 	make is
-		local ctx: ZMQ_CONTEXT; s: ZMQ_SOCKET; query, answer: ZMQ_STRING_MESSAGE
+		local now: TIME; exc: ZMQ_EXCEPTION
 		do
-			foo
-			create ctx
-			s := ctx.new_rep_socket
+			--use_zmq
+			create context
+			socket := context.new_rep_socket
 			-- Bind to the TCP transport and port 5555 on the 'lo' interface
-			s.bind("tcp://lo:5555")
-
-			from until False loop -- i.e. "forever do"
-				create query
-				s.receive(query) -- Receive a message, blocks until one is available
-				("Received query: '"+query.to_string+"' (Note: DbC says that concatenating into ropes with '|' triggers some bugs; Paolo solve them!).%N").print_on(std_output)
-				query.close -- message closing may be automatically done by the garbage collector.
-
-				create answer.with_string(answer_body.intern)
-				s.send(answer) -- Send back our canned response
-				answer.close
-				full_collect -- To clean up Eiffel side and see if memory is leaked on C side
+			socket.bind("tcp://*:5555")
+			
+			if socket.is_successful then
+				now.update;
+				("#(1): server online%N" # &now).print_on(std_output)
+				from until socket.is_unsuccessful loop -- i.e. "forever do"
+					("#(1): server listening%N" # &now).print_on(std_output)
+					create request
+					socket.wait_for(request)
+					now.update
+					if socket.is_successful then
+						("#(1): server #(2) received request '#(3)'.%N" # &now # &getpid # request).print_on(std_output)
+						create answer.from_string(answer_template # &getpid)
+						now.update;
+						("#(1): server #(2) answering '#(3)'.%N" # &now # &getpid # answer).print_on(std_output)
+						socket.send(answer) -- Send back our canned answer
+					else 
+						exc := socket.zmq_exception;
+						("#(1): unsuccessful receive '#(2)' (code #(3))%N" # &now # exc.description # & exc.error_code).print_on(std_output)
+					end
+				end
+			else ("#(1): unsuccessful bind '#(2)'%N" # &now # socket.zmq_exception.description).print_on(std_output)
 			end
-
 		end
-		answer_body: STRING is "OK" -- shall be FIXED_STRING is once Result:="OK".intern end
 
-	foo is
-		-- Dummy plugin feature to work around SE bug
+		answer_template: STRING is "Greetings by server ##(1)."
+
+	use_zmq is
+		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers
 		external "plug_in"
 		alias "{
 			location: "../library/externals/"
@@ -36,4 +51,5 @@ feature
 			feature_name: "/*bug-workaround*/"
 		}"
 		end
+
 end -- class ZMQ_EXAMPLE_SERVER
