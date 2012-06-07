@@ -3,12 +3,12 @@
 --
 class MUTABLE_BIG_INTEGER
    --
-   -- A class used to represent multiprecision integers that makes efficient use of allocated space 
-   -- by allowing a number to occupy only part of an array so that the arrays do not have to be 
-   -- reallocated as often. When performing an operation with many iterations the array used to 
-   -- hold a number is only reallocated when necessary and does not have to be the same size as 
-   -- the number it represents. A mutable number allows calculations to occur on the same number 
-   -- without having to create a new number for every step of the calculation as it occurs with 
+   -- A class used to represent multiprecision integers that makes efficient use of allocated space
+   -- by allowing a number to occupy only part of an array so that the arrays do not have to be
+   -- reallocated as often. When performing an operation with many iterations the array used to
+   -- hold a number is only reallocated when necessary and does not have to be the same size as
+   -- the number it represents. A mutable number allows calculations to occur on the same number
+   -- without having to create a new number for every step of the calculation as it occurs with
    -- NUMBERs.
    --
 
@@ -84,7 +84,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
             end
          end
       end
-   
+
    from_integer_64 (value: INTEGER_64) is
          -- Create or set `Current' using `value' as an initializer.
       local
@@ -403,7 +403,7 @@ feature {ANY} -- Addition:
                end
             end
          end
-      end   
+      end
 
    add_integer_64 (other: INTEGER_64) is
          -- Add `other' into `Current'.
@@ -1234,7 +1234,7 @@ feature {ANY} -- To multiply:
          elseif other.is_one_negative then
             set_negative(not negative)
          else
-            --|*** Must be replace by an algorithm switch. (Vincent Croizier, 09/07/04)
+            --|*** Must be replaced by an algorithm switch. (Vincent Croizier, 09/07/04)
             multiply_like_human(other)
          end
       end
@@ -1855,7 +1855,7 @@ feature {ANY} -- Printing:
       end
 
    append_in_format (str: STRING; s: INTEGER) is
-         -- Append the equivalent of `to_string_format' at the end of `str'. Thus you can save 
+         -- Append the equivalent of `to_string_format' at the end of `str'. Thus you can save
          -- memory because no other STRING is allocated for the job.
       require
          to_string.count <= s
@@ -2085,8 +2085,8 @@ feature {ANY} -- Miscellaneous:
 
 feature {MUTABLE_BIG_INTEGER}
    storage: NATIVE_ARRAY[INTEGER_32]
-         -- Holds the magnitude of `Current' in natural order (the most significant INTEGER_32 word 
-         -- has the highest address). To avoid many reallocation of this `storage' area, only some 
+         -- Holds the magnitude of `Current' in natural order (the most significant INTEGER_32 word
+         -- has the highest address). To avoid many reallocation of this `storage' area, only some
          -- words are significant. The magnitude is stored in the following significant
          -- range [`offset' .. `offset + integer_length - 1'].
 
