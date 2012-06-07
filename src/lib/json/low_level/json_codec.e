@@ -6,8 +6,8 @@ deferred class JSON_CODEC[DATA_]
    -- A json codec, to be subclassed for actual functionality
    --
 
-insert
-   JSON_HANDLER
+inherit
+   JSON_ANY_CODEC
 
 feature {JSON_HANDLER}
    build (data: DATA_): JSON_TEXT is

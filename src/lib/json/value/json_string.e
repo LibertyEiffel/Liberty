@@ -80,7 +80,7 @@ feature {ANY}
          append_in(tagged_out_memory, False)
       end
 
-feature {JSON_VISITOR, JSON_STRING}
+feature {JSON_HANDLER}
    string: UNICODE_STRING
 
 feature {}

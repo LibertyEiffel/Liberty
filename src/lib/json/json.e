@@ -41,7 +41,7 @@ feature {ANY}
          parse_error := Void
          value := codec.parse(data)
          if value /= Void then
-            d ::= decoder.decode(value)
+            d ::= decoder.decode(codec, value)
             Result := d.item
          else
             parse_error := codec.parse_error

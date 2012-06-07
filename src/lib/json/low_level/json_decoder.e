@@ -10,52 +10,95 @@ create {JSON_HANDLER}
    make
 
 feature {JSON_HANDLER}
-   decode (value: JSON_VALUE): JSON_DATA is
+   decode (a_codec: like codec; value: JSON_VALUE): JSON_DATA is
       require
          value /= Void
+         a_codec /= Void
       do
+         codec := a_codec
          value.accept(Current)
          Result := data
          data := Void
+         codec := Void
       end
 
 feature {JSON_ARRAY}
    visit_array (json: JSON_ARRAY) is
+      local
+         array, value: JSON_DATA
+         i: INTEGER
       do
+         array := codec.create_array
+         from
+            i := json.array.lower
+         until
+            i > json.array.upper
+         loop
+            json.array.item(i).accept(Current)
+            value := data
+
+            codec.add_to_array(array, value)
+            i := i + 1
+         end
+         data := array
       end
 
 feature {JSON_FALSE}
    visit_false (json: JSON_FALSE) is
       do
+         data := codec.false_value
       end
 
 feature {JSON_NULL}
    visit_null (json: JSON_NULL) is
       do
+         data := codec.null_value
       end
 
 feature {JSON_NUMBER}
    visit_number (json: JSON_NUMBER) is
       do
+         data := codec.create_number(json)
       end
 
 feature {JSON_OBJECT}
    visit_object (json: JSON_OBJECT) is
+      local
+         object, key, value: JSON_DATA
+         i: INTEGER
       do
+         object := codec.create_object
+         from
+            i := json.members.lower
+         until
+            i > json.members.upper
+         loop
+            json.members.key(i).accept(Current)
+            key := data
+            json.members.item(i).accept(Current)
+            value := data
+
+            codec.add_to_object(object, key, value)
+            i := i + 1
+         end
+         data := object
       end
 
 feature {JSON_STRING}
    visit_string (json: JSON_STRING) is
       do
+         data := codec.create_string(json)
       end
 
 feature {JSON_TRUE}
    visit_true (json: JSON_TRUE) is
       do
+         data := codec.true_value
       end
 
 feature {}
    data: JSON_DATA
+   codec: JSON_ANY_CODEC
 
    make is
       do

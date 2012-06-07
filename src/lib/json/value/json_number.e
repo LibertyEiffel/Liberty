@@ -88,7 +88,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-feature {JSON_VISITOR, JSON_NUMBER}
+feature {JSON_HANDLER}
    int, frac, frac_exp, exp: INTEGER_64
 
 feature {}

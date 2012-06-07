@@ -9,7 +9,7 @@ deferred class JSON_TYPED_DATA[DATA_]
 inherit
    JSON_DATA
 
-feature {JSON}
+feature {JSON_HANDLER}
    item: DATA_ is
       deferred
       end

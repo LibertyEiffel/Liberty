@@ -1,15 +1,70 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class JSON_VALUE
-
-inherit
-   VISITABLE
+deferred class JSON_ANY_CODEC
 
 insert
    JSON_HANDLER
 
-end -- class JSON_VALUE
+feature {JSON_DECODER}
+   create_array: JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   add_to_array (array, value: JSON_DATA) is
+      require
+         array /= Void
+         value /= Void
+      deferred
+      end
+
+   create_object: JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   add_to_object (object, key, value: JSON_DATA) is
+      require
+         object /= Void
+         key /= Void
+         value /= Void
+      deferred
+      end
+
+   create_string (string: JSON_STRING): JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   create_number (number: JSON_NUMBER): JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   true_value: JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   false_value: JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+   null_value: JSON_DATA is
+      deferred
+      ensure
+         Result /= Void
+      end
+
+end -- class JSON_ANY_CODEC
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -26,7 +26,7 @@ feature {ANY}
          Result := members.is_equal(other.members)
       end
 
-feature {JSON_VISITOR, JSON_OBJECT}
+feature {JSON_HANDLER}
    members: MAP[JSON_VALUE, JSON_STRING]
 
 feature {}

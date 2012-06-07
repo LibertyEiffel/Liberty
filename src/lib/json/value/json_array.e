@@ -26,7 +26,7 @@ feature {ANY}
          Result := array.is_equal(other.array)
       end
 
-feature {JSON_VISITOR, JSON_ARRAY}
+feature {JSON_HANDLER}
    array: TRAVERSABLE[JSON_VALUE]
 
 feature {}

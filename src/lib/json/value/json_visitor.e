@@ -6,6 +6,9 @@ deferred class JSON_VISITOR
 inherit
    VISITOR
 
+insert
+   JSON_HANDLER
+
 feature {JSON_ARRAY}
    visit_array (json: JSON_ARRAY) is
       require
