@@ -7,13 +7,15 @@ insert
    JSON_HANDLER
 
 feature {JSON_HANDLER}
-   parse_json_text (text: ABSTRACT_STRING): JSON_TEXT is
+   parse_json_text (text: INPUT_STREAM): JSON_TEXT is
+      require
+         text.is_connected
       local
          context: JSON_PARSE_CONTEXT
          value: JSON_VALUE
       do
          error := Void
-         create context.make(text.out)
+         create context.make(text)
 
          debug ("json/parser")
             debug_parse_in(once "parse_json_text", context)

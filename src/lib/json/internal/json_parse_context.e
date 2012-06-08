@@ -13,20 +13,21 @@ feature {JSON_PARSER}
       require
          is_valid
       do
-         Result := data.item(index)
+         Result := data.last_character
       end
 
    is_valid: BOOLEAN is
       do
-         Result := data.valid_index(index)
+         Result := not data.end_of_input
       end
 
    next is
       require
          is_valid
       do
-         index := index + 1
+         data.read_character
          if is_valid then
+            index := index + 1
             if item = '%N' then
                line := line + 1
                column := 1
@@ -44,7 +45,7 @@ feature {JSON_PARSER}
          from
          until
             not is_valid
-               or else not data.item(index).is_separator
+               or else not item.is_separator
          loop
             next
          end
@@ -64,14 +65,9 @@ feature {JSON_PARSER}
          until
             not Result or else i = word.count
          loop
-            Result := data.valid_index(i + index) and then word.item(i + word.lower) = data.item(i + index)
+            Result := not data.end_of_input and then word.item(i + word.lower) = item
+            next
             i := i + 1
-         end
-         if Result then
-            check
-               i = word.count
-            end
-            index := index + i
          end
       end
 
@@ -92,22 +88,21 @@ feature {JSON_PARSER}
       end
 
 feature {}
-   data: STRING
+   data: INPUT_STREAM
    index: INTEGER
 
    make (a_data: like data) is
       require
-         a_data /= Void
+         a_data.is_connected
       do
          data := a_data
-         index := a_data.lower
          line := 1
-         debug ("json/parser")
-            io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
-         end
+         index := 0
+         next
       ensure
          data = a_data
-         index = a_data.lower
+         index = 1
+         line = 1
       end
 
    item_or_invalid: ABSTRACT_STRING is
@@ -123,7 +118,7 @@ feature {}
       end
 
 invariant
-   data /= Void
+   data.is_connected
 
 end -- class JSON_PARSE_CONTEXT
 --

@@ -15,7 +15,7 @@ feature {}
          encoder: JSON_ENCODER
          json: STRING
       do
-         text := parser.parse_json_text(once "[%"24%", -27.013e4]")
+         text := parser.parse_json_text(create {STRING_INPUT_STREAM}.from_string("[%"24%", -27.013e4]"))
          assert(parser.error = Void)
 
          create encoder.make

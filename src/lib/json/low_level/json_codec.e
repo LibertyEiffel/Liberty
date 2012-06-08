@@ -21,8 +21,10 @@ feature {JSON_HANDLER}
          data /= Void
       local
          parser: JSON_PARSER
+         input: STRING_INPUT_STREAM
       do
-         Result := parser.parse_json_text(data)
+         create input.from_string(data.out)
+         Result := parser.parse_json_text(input)
          parse_error := parser.error
       ensure
          Result = Void implies parse_error /= Void
