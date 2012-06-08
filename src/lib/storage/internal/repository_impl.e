@@ -357,7 +357,7 @@ feature {} -- Implementation of commit
          create {HASHED_SET[POINTER]} Result.make
       end
 
-   write_to_stream (out_stream: OUTPUT_STREAM) is
+   write_to_stream (out_stream: REPOSITORY_OUTPUT) is
       require
          out_stream.is_connected
       local
@@ -365,7 +365,7 @@ feature {} -- Implementation of commit
       do
          register_transient_objects
          commit_map.clear_count
-         start_write(out_stream)
+         out_stream.start_write
          from
             i := lower
          until
@@ -374,69 +374,51 @@ feature {} -- Implementation of commit
             write_object(key(i), item(i), out_stream)
             i := i + 1
          end
-         end_write(out_stream)
+         out_stream.end_write
          unregister_transient_objects
       end
 
-   start_write (out_stream: OUTPUT_STREAM) is
-      require
-         out_stream.is_connected
-      deferred
-      end
-
-   end_write (out_stream: OUTPUT_STREAM) is
-      require
-         out_stream.is_connected
-      deferred
-      end
-
-   write_object (name: like key; object: like item; out_stream: OUTPUT_STREAM) is
+   write_object (name: like key; object: like item; out_stream: REPOSITORY_OUTPUT) is
       local
          int: INTERNALS
       do
-         if object = Void then
-            write_reference_layout(Void, name, out_stream)
-         else
+         if object /= Void then
             int := object.to_internals
-            if int.type_is_expanded then
-               write_expanded(int, name, out_stream)
-            else
-               if not commit_map.has(int.object_as_pointer) then
-                  write_layout(int, out_stream)
-               end
-               write_reference_layout(int, name, out_stream)
-            end
+         end
+         write_internals(int, name, out_stream)
+      end
+
+   write_internals (int: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+      do
+         if int /= Void and then int.type_is_expanded then
+            write_expanded(int, name, out_stream)
+         else
+            write_reference_layout(int, name, out_stream)
          end
       end
 
-   write_reference_layout (reference: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
+   write_reference_layout (reference: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
       require
          reference /= Void implies not reference.type_is_expanded
       local
          ref: STRING
       do
          if reference = Void then
-            write_reference(once "Void", name, out_stream)
+            out_stream.write_reference(once "Void", name)
          else
             ref := transient.reference(reference)
             if ref /= Void then
-               write_reference(ref, name, out_stream)
+               out_stream.write_reference(ref, name)
             else
                ref := once ""
                ref.clear_count
                reference.object_as_pointer.append_in(ref)
-               write_reference(ref, name, out_stream)
+               out_stream.write_reference(ref, name)
             end
          end
       end
 
-   write_reference (reference: STRING; name: STRING; out_stream: OUTPUT_STREAM) is
-      require
-         not reference.is_empty
-      deferred
-      end
-
-   write_layout (layout: INTERNALS; out_stream: OUTPUT_STREAM) is
+   write_layout (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
       require
          not commit_map.has(layout.object_as_pointer)
          not layout.type_is_expanded
@@ -468,54 +450,31 @@ feature {} -- Implementation of commit
             ref := once ""
             ref.clear_count
             layout.object_as_pointer.append_in(ref)
-            start_layout(ref, layout.type_generating_type, out_stream)
+            out_stream.start_layout(ref, layout.type_generating_type)
             write_contents(layout, out_stream)
-            end_layout(out_stream)
+            out_stream.end_layout
          end
       ensure
          commit_map.has(layout.object_as_pointer)
       end
 
-   start_layout (ref, type: STRING; out_stream: OUTPUT_STREAM) is
+   write_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
       require
-         not ref.is_empty
-         not type.is_empty
-         out_stream.is_connected
-      deferred
-      end
-
-   end_layout (out_stream: OUTPUT_STREAM) is
-      require
-         out_stream.is_connected
-      deferred
-      end
-
-   write_contents (layout: INTERNALS; out_stream: OUTPUT_STREAM) is
-      require
-         layout.type_is_expanded or else transient.reference(layout) = Void
+         layout.type_is_expanded or else layout.type_is_native_array or else transient.reference(layout) = Void
       local
-         i: INTEGER; int: INTERNALS
+         i: INTEGER
       do
          from
             i := 1
          until
             i > layout.type_attribute_count
          loop
-            int := layout.object_attribute(i)
-            if int = Void then
-               write_reference_layout(Void, layout.type_attribute_name(i), out_stream)
-            else
-               if int.type_is_expanded then
-                  write_expanded(int, layout.type_attribute_name(i), out_stream)
-               else
-                  write_reference_layout(int, layout.type_attribute_name(i), out_stream)
-               end
-            end
+            write_internals(layout.object_attribute(i), layout.type_attribute_name(i), out_stream)
             i := i + 1
          end
       end
 
-   write_array_fields_layouts (array: INTERNALS; out_stream: OUTPUT_STREAM) is
+   write_array_fields_layouts (array: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
       require
          array.type_is_expanded and then array.type_is_native_array
       local
@@ -534,7 +493,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_expanded (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
+   write_expanded (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
       require
          internals.type_is_expanded
       local
@@ -544,31 +503,31 @@ feature {} -- Implementation of commit
          inspect
             type
          when "CHARACTER" then
-            write_character_layout_object(internals, name, out_stream)
+            out_stream.write_character_layout_object(internals, name)
          when "BOOLEAN" then
-            write_boolean_layout_object(internals, name, out_stream)
+            out_stream.write_boolean_layout_object(internals, name)
          when "INTEGER_8" then
-            write_integer_8_layout_object(internals, name, out_stream)
+            out_stream.write_integer_8_layout_object(internals, name)
          when "INTEGER_16" then
-            write_integer_16_layout_object(internals, name, out_stream)
+            out_stream.write_integer_16_layout_object(internals, name)
          when "INTEGER" then
-            write_integer_layout_object(internals, name, out_stream)
+            out_stream.write_integer_layout_object(internals, name)
          when "INTEGER_32" then
-            write_integer_32_layout_object(internals, name, out_stream)
+            out_stream.write_integer_32_layout_object(internals, name)
          when "INTEGER_64" then
-            write_integer_64_layout_object(internals, name, out_stream)
+            out_stream.write_integer_64_layout_object(internals, name)
          when "REAL" then
-            write_real_layout_object(internals, name, out_stream)
+            out_stream.write_real_layout_object(internals, name)
          when "REAL_32" then
-            write_real_32_layout_object(internals, name, out_stream)
+            out_stream.write_real_32_layout_object(internals, name)
          when "REAL_64" then
-            write_real_64_layout_object(internals, name, out_stream)
+            out_stream.write_real_64_layout_object(internals, name)
          when "REAL_80" then
-            write_real_80_layout_object(internals, name, out_stream)
+            out_stream.write_real_80_layout_object(internals, name)
          when "REAL_128" then
-            write_real_128_layout_object(internals, name, out_stream)
+            out_stream.write_real_128_layout_object(internals, name)
          when "REAL_EXTENDED" then
-            write_real_expanded_layout_object(internals, name, out_stream)
+            out_stream.write_real_expanded_layout_object(internals, name)
          else
             if internals.type_is_native_array then
                write_array_layout_object(internals, name, out_stream)
@@ -578,79 +537,20 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_character_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_boolean_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_integer_8_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_integer_16_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_integer_32_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_integer_64_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_integer_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_32_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_64_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_80_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_128_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_real_expanded_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_array_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      deferred
-      end
-
-   write_embedded_layout_object (internals: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
+   write_array_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
       do
-         start_embedded_layout(internals, name, out_stream)
+         if internals.type_attribute_count > 0 then
+            out_stream.start_array_layout(internals, name)
+            write_contents(internals, out_stream)
+            out_stream.end_array_layout(internals, name)
+         end
+      end
+
+   write_embedded_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+      do
+         out_stream.start_embedded_layout(internals, name)
          write_contents(internals, out_stream)
-         end_embedded_layout(internals, name, out_stream)
-      end
-
-   start_embedded_layout (layout: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      require
-         out_stream.is_connected
-      deferred
-      end
-
-   end_embedded_layout (layout: INTERNALS; name: STRING; out_stream: OUTPUT_STREAM) is
-      require
-         out_stream.is_connected
-      deferred
+         out_stream.end_embedded_layout(internals, name)
       end
 
 feature {} -- Internals

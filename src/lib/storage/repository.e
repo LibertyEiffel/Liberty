@@ -9,7 +9,7 @@ deferred class REPOSITORY[O_ -> STORABLE]
    --
    -- A repository is meant to be stored on a physical store (say, a stream, a file, a database and so on).
    --
-   -- The only one subclass of REPOSITORY is at time being the class XML_REPOSITORY.
+   -- See also XML_FILE_REPOSITORY, XML_STREAM_REPOSITORY.
    --
 
 feature {ANY} -- Getting and setting objects in the repository:
