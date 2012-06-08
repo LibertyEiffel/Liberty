@@ -9,6 +9,20 @@ inherit
 insert
    JSON_HANDLER
 
+feature {ANY}
+   line, column: INTEGER
+         -- optional line and column; 0 if not set
+
+feature {JSON_HANDLER}
+   set_position (a_line, a_column: INTEGER) is
+      do
+         line := a_line
+         column := a_column
+      ensure
+         line = a_line
+         column = a_column
+      end
+
 end -- class JSON_VALUE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

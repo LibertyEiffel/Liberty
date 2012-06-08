@@ -7,6 +7,8 @@ create {JSON_PARSER}
    make
 
 feature {JSON_PARSER}
+   line, column: INTEGER
+
    item: CHARACTER is
       require
          is_valid
@@ -24,6 +26,14 @@ feature {JSON_PARSER}
          is_valid
       do
          index := index + 1
+         if is_valid then
+            if item = '%N' then
+               line := line + 1
+               column := 1
+            else
+               column := column + 1
+            end
+         end
          debug
             io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
          end
@@ -76,7 +86,7 @@ feature {JSON_PARSER}
 
    debug_position: ABSTRACT_STRING is
       do
-         Result := &index
+         Result := once "#(1):#(2)" # &line # &column
       ensure
          Result /= Void
       end
@@ -91,6 +101,7 @@ feature {}
       do
          data := a_data
          index := a_data.lower
+         line := 1
          debug ("json/parser")
             io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
          end
@@ -104,7 +115,7 @@ feature {}
          create {LAZY_STRING} Result.make(agent: ABSTRACT_STRING is
                                           do
                                              if is_valid then
-                                                Result := once "'#(1)'" # item.out
+                                                Result := once "'#(1)' (#(3), #(4))" # item.out # line.out # column.out
                                              else
                                                 Result := once "(invalid)"
                                              end

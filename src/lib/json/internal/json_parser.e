@@ -135,6 +135,7 @@ feature {}
 
          if done then
             create Result.make(dict)
+            Result.set_position(context.line, context.column)
          end
          debug ("json/parser")
             debug_parse_out(once "parse_object", context, Result)
@@ -189,6 +190,7 @@ feature {}
 
          if done then
             create Result.make(array)
+            Result.set_position(context.line, context.column)
          end
          debug ("json/parser")
             debug_parse_out(once "parse_array", context, Result)
@@ -284,6 +286,7 @@ feature {}
 
          if done then
             create Result.make(str)
+            Result.set_position(context.line, context.column)
          end
          debug ("json/parser")
             debug_parse_out(once "parse_string", context, Result)
@@ -428,6 +431,7 @@ feature {}
                exp := -exp
             end
             create Result.make(int, frac, frac_exp, exp)
+            Result.set_position(context.line, context.column)
          end
          debug ("json/parser")
             debug_parse_out(once "parse_number", context, Result)
@@ -445,7 +449,8 @@ feature {}
             debug_parse_in(once "parse_true", context)
          end
          if context.skip("true") then
-            Result := true_
+            create Result.make
+            Result.set_position(context.line, context.column)
          else
             error := context.error(once "Expected 'true'")
          end
@@ -465,7 +470,8 @@ feature {}
             debug_parse_in(once "parse_false", context)
          end
          if context.skip("false") then
-            Result := false_
+            create Result.make
+            Result.set_position(context.line, context.column)
          else
             error := context.error(once "Expected 'false'")
          end
@@ -485,7 +491,8 @@ feature {}
             debug_parse_in(once "parse_null", context)
          end
          if context.skip("null") then
-            Result := null_
+            create Result.make
+            Result.set_position(context.line, context.column)
          else
             error := context.error(once "Expected 'null'")
          end
@@ -497,21 +504,6 @@ feature {}
       end
 
 feature {}
-   true_: JSON_TRUE is
-      once
-         create Result.make
-      end
-
-   false_: JSON_FALSE is
-      once
-         create Result.make
-      end
-
-   null_: JSON_NULL is
-      once
-         create Result.make
-      end
-
    debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT) is
       do
          io.put_line(once "->#(1) at #(2)" # tag #context.debug_position)
