@@ -6,7 +6,7 @@ class JSON_ARRAY
 inherit
    JSON_TEXT
       redefine
-         is_equal
+         is_equal, out_in_tagged_out_memory
       end
 
 create {JSON_HANDLER}
@@ -24,6 +24,13 @@ feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
          Result := array.is_equal(other.array)
+      end
+
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "JSON_ARRAY[")
+         array.out_in_tagged_out_memory
+         tagged_out_memory.extend(']')
       end
 
 feature {JSON_HANDLER}

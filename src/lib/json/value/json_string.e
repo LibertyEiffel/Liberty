@@ -77,7 +77,9 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
+         tagged_out_memory.append(once "JSON_STRING[")
          append_in(tagged_out_memory, False)
+         tagged_out_memory.extend(']')
       end
 
 feature {JSON_HANDLER}

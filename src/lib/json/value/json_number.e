@@ -75,15 +75,7 @@ feature {ANY}
 
    out_in_tagged_out_memory is
       do
-         tagged_out_memory.append(once "[NUMBER int=")
-         int.append_in(tagged_out_memory)
-         tagged_out_memory.append(once ", frac=")
-         frac.append_in(tagged_out_memory)
-         tagged_out_memory.append(once ", frac_exp=")
-         frac_exp.append_in(tagged_out_memory)
-         tagged_out_memory.append(once ", exp=")
-         exp.append_in(tagged_out_memory)
-         tagged_out_memory.append(once " => ")
+         tagged_out_memory.append(once "JSON_NUMBER[")
          append_in(tagged_out_memory)
          tagged_out_memory.extend(']')
       end

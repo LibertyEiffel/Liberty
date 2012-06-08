@@ -6,7 +6,7 @@ class JSON_FALSE
 inherit
    JSON_VALUE
       redefine
-         is_equal
+         is_equal, out_in_tagged_out_memory
       end
 
 create {JSON_HANDLER}
@@ -24,6 +24,11 @@ feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
          Result := True
+      end
+
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "JSON_FALSE")
       end
 
 feature {}
