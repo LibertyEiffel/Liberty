@@ -246,7 +246,7 @@ feature {REPOSITORY_IMPL}
          out_stream.put_string(once "<embedded name='")
          out_stream.put_string(name)
          out_stream.put_string(once "' type='")
-         out_stream.put_string(internals.type_generating_type)
+         out_stream.put_string(layout.type_generating_type)
          out_stream.put_string(once "'>%N")
       end
 
@@ -257,18 +257,23 @@ feature {REPOSITORY_IMPL}
 
 feature {}
    out_stream: OUTPUT_STREAM
+   version: STRING
 
-   make (a_out_stream: like out_stream) is
+   make (a_out_stream: like out_stream; a_version: like version) is
       require
          a_out_stream /= Void
+         a_version /= Void
       do
          out_stream := a_out_stream
+         version := a_version
       ensure
          out_stream = a_out_stream
+         version = a_version
       end
 
 invariant
    out_stream /= Void
+   version /= Void
 
 end -- class XML_REPOSITORY_OUTPUT
 --

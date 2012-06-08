@@ -15,7 +15,7 @@ feature {ANY} -- Updating and committing
    commit is
       do
          commit_stream.connect_to(filename)
-         write_to_stream(commit_stream)
+         write_to_stream(out_stream)
          commit_stream.disconnect
       end
 
@@ -68,12 +68,17 @@ feature {ANY} -- Creation
                create update_stream.make
             end
          end
+
+         if commit_stream /= Void then
+            create out_stream.make(commit_stream, version)
+         end
       end
 
 feature {}
    filename: STRING
    update_stream: TEXT_FILE_READ
    commit_stream: TEXT_FILE_WRITE
+   out_stream: XML_REPOSITORY_OUTPUT
 
    commitable_tester: TEXT_FILE_WRITE is
       once
