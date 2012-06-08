@@ -40,6 +40,11 @@ inherit
       redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
       end
 
+insert
+   UNICODE_STRING_HELPER
+      redefine is_equal, copy, out_in_tagged_out_memory, fill_tagged_out_memory
+      end
+
 creation {ANY}
    make, copy, make_empty, make_filled, from_utf8
 
@@ -245,7 +250,7 @@ feature {ANY} -- Testing:
          -- 0 if none.
          --
          -- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
-	 require 
+         require
          valid_unicode_value: valid_unicode(unicode)
       local
          code: INTEGER_16; remainder: INTEGER_16; i: INTEGER
@@ -458,28 +463,7 @@ feature {ANY} -- Testing and Conversion:
          until
             i > count
          loop
-            v := item(i)
-            if v < 128 then
-               s.extend(v.to_character)
-            elseif v < 2048 then
-               s.extend((v #// 64 + 192).to_character)
-               s.extend((v #\\ 64 + 128).to_character)
-            elseif v < 65536 then
-               s.extend((v #// 4096 + 224).to_character)
-               v := v #\\ 4096
-               s.extend((v #// 64 + 128).to_character)
-               s.extend((v #\\ 64 + 128).to_character)
-            else
-               check
-                  v < 0x00110000
-               end
-               s.extend((v #// 0x00040000 + 240).to_character)
-               v := v #\\ 0x00040000
-               s.extend((v #// 0x00001000 + 128).to_character)
-               v := v #\\ 0x00001000
-               s.extend((v #// 64 + 128).to_character)
-               s.extend((v #\\ 64 + 128).to_character)
-            end
+            utf8_character_in(item(i), s)
             i := i + 1
          end
       end
