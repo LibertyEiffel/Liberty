@@ -31,18 +31,21 @@ feature {ANY}
       end
 
 feature {JSON_HANDLER}
-   encode_in (value: JSON_VALUE; a_str: like str) is
+   encode_in (value: JSON_VALUE; a_stream: like out_stream) is
       require
          value /= Void
-         a_str /= Void
+         a_stream.is_connected
       do
-         str := a_str
+         out_stream := a_stream
          depth := 0
          value.accept(Current)
-         if pretty then
-            str.extend('%N')
+         check
+            out_stream = a_stream
          end
-         str := Void
+         if pretty then
+            a_stream.put_new_line
+         end
+         out_stream := Void
       end
 
 feature {JSON_ARRAY}
@@ -50,7 +53,7 @@ feature {JSON_ARRAY}
       local
          i: INTEGER
       do
-         str.extend('[')
+         out_stream.put_character('[')
          depth := depth + 1
          from
             i := json.array.lower
@@ -58,7 +61,7 @@ feature {JSON_ARRAY}
             i > json.array.upper
          loop
             if i > json.array.lower then
-               str.extend(',')
+               out_stream.put_character(',')
             end
             pretty_indent
             json.array.item(i).accept(Current)
@@ -66,25 +69,25 @@ feature {JSON_ARRAY}
          end
          depth := depth - 1
          pretty_indent
-         str.extend(']')
+         out_stream.put_character(']')
       end
 
 feature {JSON_FALSE}
    visit_false (json: JSON_FALSE) is
       do
-         str.append(once "false")
+         out_stream.put_string(once "false")
       end
 
 feature {JSON_NULL}
    visit_null (json: JSON_NULL) is
       do
-         str.append(once "null")
+         out_stream.put_string(once "null")
       end
 
 feature {JSON_NUMBER}
    visit_number (json: JSON_NUMBER) is
       do
-         json.append_in(str)
+         json.write_to(out_stream)
       end
 
 feature {JSON_OBJECT}
@@ -92,7 +95,7 @@ feature {JSON_OBJECT}
       local
          i, sep: INTEGER
       do
-         str.extend('{')
+         out_stream.put_character('{')
          depth := depth + 1
 
          if pretty then
@@ -114,11 +117,11 @@ feature {JSON_OBJECT}
             i > json.members.upper
          loop
             if i > json.members.lower then
-               str.extend(',')
+               out_stream.put_character(',')
             end
             pretty_indent
             json.members.key(i).accept(Current)
-            str.extend(':')
+            out_stream.put_character(':')
             if pretty then
                pretty_extend(sep - json.members.key(i).string.count + 1)
             end
@@ -127,23 +130,23 @@ feature {JSON_OBJECT}
          end
          depth := depth - 1
          pretty_indent
-         str.extend('}')
+         out_stream.put_character('}')
       end
 
 feature {JSON_STRING}
    visit_string (json: JSON_STRING) is
       do
-         json.append_in(str, raw)
+         json.write_to(out_stream, raw)
       end
 
 feature {JSON_TRUE}
    visit_true (json: JSON_TRUE) is
       do
-         str.append(once "true")
+         out_stream.put_string(once "true")
       end
 
 feature {}
-   str: STRING
+   out_stream: OUTPUT_STREAM
    depth: INTEGER
 
    make is
@@ -153,7 +156,7 @@ feature {}
    pretty_indent is
       do
          if pretty then
-            str.extend('%N')
+            out_stream.put_new_line
             pretty_extend(depth * 4)
          end
       end
@@ -169,7 +172,7 @@ feature {}
          until
             i > count
          loop
-            str.extend(' ')
+            out_stream.put_character(' ')
             i := i + 1
          end
       end

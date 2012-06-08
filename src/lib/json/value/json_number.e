@@ -49,27 +49,36 @@ feature {ANY}
       end
 
    append_in (str: STRING) is
+      local
+         strout: STRING_OUTPUT_STREAM
+      do
+         create strout.connect_to(str)
+         write_to(strout)
+         strout.disconnect
+      end
+
+   write_to (str: OUTPUT_STREAM) is
       require
-         str /= Void
+         str.is_connected
       local
          frac10: INTEGER_64
       do
-         int.append_in(str)
+         str.put_integer(int)
          if frac_exp > 0 then
-            str.extend('.')
+            str.put_character('.')
             from
                frac10 := {INTEGER_64 10} ^ (frac_exp - 1)
             until
                frac10 <= frac
             loop
-               str.extend('0')
+               str.put_character('0')
                frac10 := frac10 // 10
             end
-            frac.append_in(str)
+            str.put_integer(frac)
          end
          if exp /= 0 then
-            str.extend('e')
-            exp.append_in(str)
+            str.put_character('e')
+            str.put_integer(exp)
          end
       end
 

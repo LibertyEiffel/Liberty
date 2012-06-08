@@ -22,7 +22,7 @@ feature {}
 
          encoder.set_pretty(False)
          json := ""
-         encoder.encode_in(text, json)
+         encoder.encode_in(text, create {STRING_OUTPUT_STREAM}.connect_to(json))
          assert(json.is_equal(once "{%"foo%":[%"24%",-27.013e4],%"barfop%":{%"test%":false}}"))
 
          encoder.set_pretty(True)

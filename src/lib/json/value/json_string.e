@@ -48,9 +48,22 @@ feature {ANY}
       require
          str /= Void
       local
-         i, u: INTEGER
+         strout: STRING_OUTPUT_STREAM
       do
-         str.extend('"')
+         create strout.connect_to(str)
+         write_to(strout, raw)
+         strout.disconnect
+      end
+
+   write_to (str: OUTPUT_STREAM; raw: BOOLEAN) is
+         -- Write the JSON string to `str'
+         -- If `raw' is True, write raw utf8 codes; otherwise, use '\u' sequences
+      require
+         str.is_connected
+      local
+         i, u: INTEGER; utf8: STRING
+      do
+         str.put_character('"')
          from
             i := string.lower
          until
@@ -62,17 +75,20 @@ feature {ANY}
             when 0..31, 127 then
                append_unicode_in(str, u)
             when 32..126 then
-               str.extend(u.to_character)
+               str.put_character(u.to_character)
             else
                if raw then
-                  utf8_character_in(u, str)
+                  utf8 := once ""
+                  utf8.clear_count
+                  utf8_character_in(u, utf8)
+                  str.put_string(utf8)
                else
                   append_unicode_in(str, u)
                end
             end
             i := i + 1
          end
-         str.extend('"')
+         str.put_character('"')
       end
 
    out_in_tagged_out_memory is
@@ -96,12 +112,12 @@ feature {}
          string = a_string
       end
 
-   append_unicode_in (str: STRING; u: INTEGER) is
+   append_unicode_in (str: OUTPUT_STREAM; u: INTEGER) is
       local
          h: INTEGER; hex: STRING
       do
-         str.extend('\')
-         str.extend('u')
+         str.put_character('\')
+         str.put_character('u')
          hex := once ""
          hex.copy(once "0000")
          u.to_hexadecimal_in(hex)
@@ -110,7 +126,7 @@ feature {}
          until
             h > hex.upper
          loop
-            str.extend(hex.item(h))
+            str.put_character(hex.item(h))
             h := h + 1
          end
       end

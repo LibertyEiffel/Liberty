@@ -22,9 +22,12 @@ feature {ANY}
          str /= Void
       local
          value: JSON_VALUE
+         strout: STRING_OUTPUT_STREAM
       do
          value := codec.build(data)
-         encoder.encode_in(value, str)
+         create strout.connect_to(str)
+         encoder.encode_in(value, strout)
+         strout.disconnect
       end
 
    encode (data: DATA_): STRING is
