@@ -115,7 +115,7 @@ feature {}
          create {LAZY_STRING} Result.make(agent: ABSTRACT_STRING is
                                           do
                                              if is_valid then
-                                                Result := once "'#(1)' (#(3), #(4))" # item.out # line.out # column.out
+                                                Result := once "'#(1)' (#(2), #(3))" # item.out # line.out # column.out
                                              else
                                                 Result := once "(invalid)"
                                              end
