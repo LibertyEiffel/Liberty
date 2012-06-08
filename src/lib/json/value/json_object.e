@@ -27,9 +27,23 @@ feature {ANY}
       end
 
    out_in_tagged_out_memory is
+      local
+         i: INTEGER
       do
          tagged_out_memory.append(once "JSON_OBJECT[")
-         members.out_in_tagged_out_memory
+         from
+            i := members.lower
+         until
+            i > members.upper
+         loop
+            if i > members.lower then
+               tagged_out_memory.append(once ", ")
+            end
+            members.key(i).out_in_tagged_out_memory
+            tagged_out_memory.append(once ": ")
+            members.item(i).out_in_tagged_out_memory
+            i := i + 1
+         end
          tagged_out_memory.extend(']')
       end
 

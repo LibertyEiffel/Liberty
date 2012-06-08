@@ -77,7 +77,7 @@ feature {}
          context.is_valid
          context.item = '{'
       local
-         dict: HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
+         dict: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
          done: BOOLEAN
          value: JSON_VALUE; key: JSON_STRING
       do

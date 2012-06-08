@@ -27,9 +27,21 @@ feature {ANY}
       end
 
    out_in_tagged_out_memory is
+      local
+         i: INTEGER
       do
          tagged_out_memory.append(once "JSON_ARRAY[")
-         array.out_in_tagged_out_memory
+         from
+            i := array.lower
+         until
+            i > array.upper
+         loop
+            if i > array.lower then
+               tagged_out_memory.append(once ", ")
+            end
+            array.item(i).out_in_tagged_out_memory
+            i := i + 1
+         end
          tagged_out_memory.extend(']')
       end
 
