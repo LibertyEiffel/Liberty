@@ -23,14 +23,15 @@ feature {JSON_HANDLER}
          parser: JSON_PARSER
          input: STRING_INPUT_STREAM
       do
+         create parser.make(agent on_error)
          create input.from_string(data.out)
          Result := parser.parse_json_text(input)
-         parse_error := parser.error
-      ensure
-         Result = Void implies parse_error /= Void
       end
 
-   parse_error: ABSTRACT_STRING
+feature {}
+   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+      deferred
+      end
 
 end -- class JSON_CODEC
 --

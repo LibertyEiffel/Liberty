@@ -71,13 +71,14 @@ feature {JSON_PARSER}
          end
       end
 
-   error (str: ABSTRACT_STRING): ABSTRACT_STRING is
+   error (str: ABSTRACT_STRING) is
       require
          str /= Void
       do
-         Result := once "**** Syntax error: #(1) at #(2)" # str # debug_position
-      ensure
-         Result /= Void
+         debug ("json/parser")
+            io.put_line(once "**** Parse error: #(1) at #(2)" # str # debug_position)
+         end
+         on_error.call([str, line, column])
       end
 
    debug_position: ABSTRACT_STRING is
@@ -91,16 +92,20 @@ feature {}
    data: INPUT_STREAM
    index: INTEGER
 
-   make (a_data: like data) is
+   on_error: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]
+
+   make (a_data: like data; a_on_error: like on_error) is
       require
          a_data.is_connected
       do
          data := a_data
+         on_error := a_on_error
          line := 1
          index := 0
          next
       ensure
          data = a_data
+         on_error = a_on_error
          index = 1
          line = 1
       end

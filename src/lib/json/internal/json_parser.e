@@ -1,10 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class JSON_PARSER
+class JSON_PARSER
 
 insert
    JSON_HANDLER
+
+create {JSON_HANDLER}
+   make
 
 feature {JSON_HANDLER}
    parse_json_text (text: INPUT_STREAM): JSON_TEXT is
@@ -14,26 +17,23 @@ feature {JSON_HANDLER}
          context: JSON_PARSE_CONTEXT
          value: JSON_VALUE
       do
-         error := Void
-         create context.make(text)
+         create context.make(text, on_error)
 
          debug ("json/parser")
             debug_parse_in(once "parse_json_text", context)
          end
          value := parse_value(context)
-         if error = Void then
+         if value /= Void then
             if Result ?:= value then
                Result ::= value
             else
-               error := context.error(once "Invalid JSON text")
+               context.error(once "Invalid JSON text")
             end
          end
          debug ("json/parser")
             debug_parse_out(once "parse_json_text", context, Result)
          end
      end
-
-   error: ABSTRACT_STRING
 
 feature {}
    parse_value (context: JSON_PARSE_CONTEXT): JSON_VALUE is
@@ -62,16 +62,14 @@ feature {}
             when 'n' then
                Result := parse_null(context)
             else
-               error := context.error(once "Unexpected character '#(1)'" # &context.item)
+               context.error(once "Unexpected character '#(1)'" # &context.item)
             end
          else
-            error := context.error(once "Index out of range")
+            context.error(once "Index out of range")
          end
          debug ("json/parser")
             debug_parse_out(once "parse_value", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_object (context: JSON_PARSE_CONTEXT): JSON_OBJECT is
@@ -80,7 +78,7 @@ feature {}
          context.item = '{'
       local
          dict: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
-         done: BOOLEAN
+         done, error: BOOLEAN
          value: JSON_VALUE; key: JSON_STRING
       do
          debug ("json/parser")
@@ -90,32 +88,37 @@ feature {}
             create dict.make
             context.next -- skip '{'
          until
-            done or else error /= Void
+            done or else error
          loop
             context.skip_blanks
             if not context.is_valid then
-               error := context.error(once "Unfinished object")
+               context.error(once "Unfinished object")
+               error := True
             elseif context.item /= '"' then
-               error := context.error(once "Expected string")
+               context.error(once "Expected string")
+               error := True
             else
                key := parse_string(context)
-               if error = Void then
+               if key /= Void then
                   context.skip_blanks
                   if not context.is_valid or else context.item /= ':' then
-                     error := context.error(once "Expected ':'")
+                     context.error(once "Expected ':'")
+                     error := True
                   else
                      context.next
                      context.skip_blanks
                      value := parse_value(context)
-                     if error = Void then
+                     if value /= Void then
                         if dict.has(key) then
-                           error := context.error(once "Duplicate key: #(1)" # &key)
+                           context.error(once "Duplicate key: #(1)" # &key)
+                           error := True
                         else
                            dict.add(value, key)
 
                            context.skip_blanks
                            if not context.is_valid then
-                              error := context.error(once "Unfinished object")
+                              context.error(once "Unfinished object")
+                              error := True
                            else
                               inspect
                                  context.item
@@ -125,7 +128,8 @@ feature {}
                               when ',' then
                                  context.next
                               else
-                                 error := context.error(once "Expected ','")
+                                 context.error(once "Expected ','")
+                                 error := True
                               end
                            end
                         end
@@ -142,8 +146,6 @@ feature {}
          debug ("json/parser")
             debug_parse_out(once "parse_object", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_array (context: JSON_PARSE_CONTEXT): JSON_ARRAY is
@@ -152,7 +154,7 @@ feature {}
          context.item = '['
       local
          array: FAST_ARRAY[JSON_VALUE]
-         done: BOOLEAN
+         done, error: BOOLEAN
          value: JSON_VALUE
       do
          debug ("json/parser")
@@ -162,18 +164,20 @@ feature {}
             create array.make(0)
             context.next -- skip '['
          until
-            done or else error /= Void
+            done or else error
          loop
             context.skip_blanks
             if not context.is_valid then
-               error := context.error(once "Unfinished array")
+               context.error(once "Unfinished array")
+               error := True
             else
                value := parse_value(context)
-               if error = Void then
+               if value /= Void then
                   array.add_last(value)
                   context.skip_blanks
                   if not context.is_valid then
-                     error := context.error(once "Unfinished array")
+                     context.error(once "Unfinished array")
+                     error := True
                   else
                      inspect
                         context.item
@@ -183,7 +187,8 @@ feature {}
                      when ',' then
                         context.next
                      else
-                        error := context.error(once "Expected ','")
+                        context.error(once "Expected ','")
+                        error := True
                      end
                   end
                end
@@ -197,8 +202,6 @@ feature {}
          debug ("json/parser")
             debug_parse_out(once "parse_array", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_string (context: JSON_PARSE_CONTEXT): JSON_STRING is
@@ -207,7 +210,7 @@ feature {}
          context.item = '"'
       local
          state, unicode: INTEGER
-         done: BOOLEAN
+         done, error: BOOLEAN
          str: UNICODE_STRING
       do
          debug ("json/parser")
@@ -217,10 +220,11 @@ feature {}
             context.next -- skip '"'
             create str.make_empty
          until
-            done or else error /= Void
+            done or else error
          loop
             if not context.is_valid then
-               error := context.error(once "Unfinished string")
+               context.error(once "Unfinished string")
+               error := True
             else
                inspect
                   state
@@ -234,7 +238,8 @@ feature {}
                      done := True
                   else
                      if context.item.code < 32 then
-                        error := context.error(once "Invalid raw character")
+                        context.error(once "Invalid raw character")
+                        error := True
                      else
                         str.extend(context.item.code)
                      end
@@ -265,12 +270,14 @@ feature {}
                      state := 2
                      unicode := 0
                   else
-                     error := context.error(once "Invalid escape sequence")
+                     context.error(once "Invalid escape sequence")
+                     error := True
                   end
 
                when 2..5 then -- after '\u'
                   if not context.item.is_hexadecimal_digit then
-                     error := context.error(once "Expected 4 hexadecimal digits, got only #(2)" # &(state - 2))
+                     context.error(once "Expected 4 hexadecimal digits, got only #(2)" # &(state - 2))
+                     error := True
                   else
                      unicode := unicode * 16 + context.item.hexadecimal_value
                      if state = 5 then
@@ -293,8 +300,6 @@ feature {}
          debug ("json/parser")
             debug_parse_out(once "parse_string", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_number (context: JSON_PARSE_CONTEXT): JSON_NUMBER is
@@ -313,7 +318,8 @@ feature {}
             context.next
          end
          if not context.is_valid then
-            error := context.error(once "Unfinished number")
+            context.error(once "Unfinished number")
+            state := -2
          else
             inspect
                context.item
@@ -327,16 +333,18 @@ feature {}
                int := context.item.decimal_value
                context.next
             else
-               error := context.error(once "Invalid number")
+               context.error(once "Invalid number")
+               state := -2
             end
          end
 
          from
          until
-            state < 0 or else error /= Void
+            state < 0
          loop
             if not context.is_valid then
-               error := context.error(once "Unfinished number")
+               context.error(once "Unfinished number")
+               state := -2
             else
                inspect
                   state
@@ -366,7 +374,8 @@ feature {}
                      state := 11
                      context.next
                   else
-                     error := context.error(once "Invalid number")
+                     context.error(once "Invalid number")
+                     state := -2
                   end
 
                when 11 then -- fractional part, next digits
@@ -398,7 +407,8 @@ feature {}
                      state := 22
                      context.next
                   else
-                     error := context.error(once "Invalid number")
+                     context.error(once "Invalid number")
+                     state := -2
                   end
 
                when 21 then -- exponential part, after sign, waiting first digit
@@ -409,7 +419,8 @@ feature {}
                      state := 22
                      context.next
                   else
-                     error := context.error(once "Invalid number")
+                     context.error(once "Invalid number")
+                     state := -2
                   end
 
                when 22 then -- exponential part, after sign and first digit
@@ -425,7 +436,7 @@ feature {}
             end
          end
 
-         if state < 0 then
+         if state = -1 then
             if neg then
                int := -int
             end
@@ -438,8 +449,6 @@ feature {}
          debug ("json/parser")
             debug_parse_out(once "parse_number", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_true (context: JSON_PARSE_CONTEXT): JSON_TRUE is
@@ -454,13 +463,11 @@ feature {}
             create Result.make
             Result.set_position(context.line, context.column)
          else
-            error := context.error(once "Expected 'true'")
+            context.error(once "Expected 'true'")
          end
          debug ("json/parser")
             debug_parse_out(once "parse_true", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_false (context: JSON_PARSE_CONTEXT): JSON_FALSE is
@@ -475,13 +482,11 @@ feature {}
             create Result.make
             Result.set_position(context.line, context.column)
          else
-            error := context.error(once "Expected 'false'")
+            context.error(once "Expected 'false'")
          end
          debug ("json/parser")
             debug_parse_out(once "parse_false", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
    parse_null (context: JSON_PARSE_CONTEXT): JSON_NULL is
@@ -496,31 +501,42 @@ feature {}
             create Result.make
             Result.set_position(context.line, context.column)
          else
-            error := context.error(once "Expected 'null'")
+            context.error(once "Expected 'null'")
          end
          debug ("json/parser")
             debug_parse_out(once "parse_null", context, Result)
          end
-      ensure
-         error = Void implies Result /= Void
       end
 
 feature {}
+   make (a_on_error: like on_error) is
+      require
+         a_on_error /= Void
+      do
+         on_error := a_on_error
+      ensure
+         on_error = a_on_error
+      end
+
+   on_error: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]
+
+feature {} -- debug
    debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT) is
       do
          io.put_line(once "->#(1) at #(2)" # tag #context.debug_position)
       end
 
    debug_parse_out (tag: STRING; context: JSON_PARSE_CONTEXT; res: JSON_VALUE) is
-      require
-         error = Void implies res /= Void
       do
-         if error /= Void then
-            io.put_line(once "<-#(1) at #(2) -- error: #(3)" # tag #context.debug_position # error)
+         if res = Void then
+            io.put_line(once "<-#(1) at #(2) -- result: Void" # tag #context.debug_position)
          else
             io.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag #context.debug_position # &res)
          end
       end
+
+invariant
+   on_error /= Void
 
 end -- class JSON_PARSER
 --

@@ -106,7 +106,7 @@ feature {XML_PARSER}
             error := once ""
             error.copy(once "Unknown attribute: ")
             attribute_name.utf8_encode_in(error)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          end
       end
 
@@ -128,7 +128,7 @@ feature {XML_PARSER}
                error.append(version)
                error.append(once " but got ")
                error.append(update_version)
-               fire_update_error(line, column, error)
+               fire_update_error(error, line, column)
             end
             open_repository(layout, line, column)
          when "layout" then
@@ -145,7 +145,7 @@ feature {XML_PARSER}
             error := once ""
             error.copy(once "Unknown node: ")
             node_name.utf8_encode_in(error)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          end
          clear_attributes
       end
@@ -174,7 +174,7 @@ feature {XML_PARSER}
             error := once ""
             error.copy(once "Unknown node: ")
             node_name.utf8_encode_in(error)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          end
       end
 
@@ -200,12 +200,12 @@ feature {XML_PARSER}
 
    processing_instruction (a_target, a_data: UNICODE_STRING) is
       do
-         fire_update_error(last_line, last_column, once "Unexpected processing instruction")
+         fire_update_error(once "Unexpected processing instruction", last_line, last_column)
       end
 
    entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
       do
-         fire_update_error(line, column, once "Unexpected entity")
+         fire_update_error(once "Unexpected entity", line, column)
       end
 
    data (a_data: UNICODE_STRING; line, column: INTEGER) is
@@ -218,7 +218,7 @@ feature {XML_PARSER}
             i > a_data.upper or else break
          loop
             if not is_separator(a_data.item(i)) then
-               fire_update_error(line, column, once "Separator expected")
+               fire_update_error(once "Separator expected", line, column)
             end
             i := i + 1
          end
@@ -227,7 +227,7 @@ feature {XML_PARSER}
    parse_error (line, column: INTEGER; message: STRING) is
       do
          at_error := True
-         fire_update_error(line, column, message)
+         fire_update_error(message, line, column)
       end
 
    at_error: BOOLEAN

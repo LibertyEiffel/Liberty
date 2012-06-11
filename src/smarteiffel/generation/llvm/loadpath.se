@@ -1,6 +1,5 @@
 .
-../../../wrappers/common/loadpath.se
-../../../wrappers/posix/loadpath.se
-../../../wrappers/zmq/loadpath.se
-../../../wrappers/llvm/loadpath.se
-
+../../../wrappers/common/library/loadpath.se
+../../../wrappers/posix/library/loadpath.se
+../../../wrappers/zmq/library/loadpath.se
+../../../wrappers/llvm/library/loadpath.se

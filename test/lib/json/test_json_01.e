@@ -15,8 +15,10 @@ feature {}
          encoder: JSON_ENCODER
          json: STRING
       do
+         create parser.make(agent on_error)
          text := parser.parse_json_text(create {STRING_INPUT_STREAM}.from_string("[%"24%", -27.013e4]"))
-         assert(parser.error = Void)
+         assert(error = Void)
+         assert(text /= Void)
 
          create encoder.make
 
@@ -35,6 +37,13 @@ feature {}
                                     ]
 
                                     ]"))
+      end
+
+   error: ABSTRACT_STRING
+   on_error (message: ABSTRACT_STRING) is
+      do
+         sedb_breakpoint
+         error := message
       end
 
 end

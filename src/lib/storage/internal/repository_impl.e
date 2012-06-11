@@ -35,15 +35,15 @@ insert
    INTERNALS_HANDLER
 
 feature {ANY} -- Error handling on repository update
-   register_update_error_handler (a_error_handler: PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]) is
+   register_update_error_handler (a_error_handler: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]) is
       do
          update_error_handlers.add_last(a_error_handler)
       end
 
 feature {}
-   update_error_handlers: FAST_ARRAY[PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]]
+   update_error_handlers: FAST_ARRAY[PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]]
 
-   fire_update_error (line, column: INTEGER; message: STRING) is
+   fire_update_error (message: ABSTRACT_STRING; line, column: INTEGER) is
       local
          i: INTEGER
       do
@@ -53,7 +53,7 @@ feature {}
          until
             i > update_error_handlers.upper
          loop
-            update_error_handlers.item(i).call([line, column, message])
+            update_error_handlers.item(i).call([message, line, column])
             i := i + 1
          end
       end
@@ -122,7 +122,7 @@ feature {} -- Implementation of update
          do_update(in_stream)
          unregister_transient_objects
          if not update_layouts.is_empty then
-            fire_update_error(last_line, last_column, once "Some layouts are still to be consumed")
+            fire_update_error(once "Some layouts are still to be consumed", last_line, last_column)
          end
       end
 
@@ -147,7 +147,7 @@ feature {} -- Implementation of update
             error := once ""
             error.copy(once "Unknown reference: ")
             error.append(ref)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          else
             typed ::= solve(ref)
             put(typed.object, name)
@@ -164,7 +164,7 @@ feature {} -- Implementation of update
             error.append(data_type)
             error.append(once ": ")
             error.append(a_data)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          end
       end
 
@@ -230,7 +230,7 @@ feature {} -- Implementation of update
             error := once ""
             error.copy(once "Invalid negative capacity: ")
             a_capacity.append_in(error)
-            fire_update_error(line, column, error)
+            fire_update_error(error, line, column)
          end
          a_array.set_name(a_name)
          a_array.set_type(a_type)

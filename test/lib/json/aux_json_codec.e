@@ -3,6 +3,9 @@ class AUX_JSON_CODEC
 inherit
    JSON_CODEC[JSON_VALUE]
 
+feature {ANY}
+   parse_error: ABSTRACT_STRING
+
 feature {JSON_HANDLER}
    build (data: JSON_VALUE): JSON_TEXT is
       do
@@ -26,12 +29,12 @@ feature {JSON_DECODER}
 
    create_object: JSON_DATA is
       do
-         create {AUX_JSON_DATA} Result.make(create {JSON_OBJECT}.make(create {HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]}.make))
+         create {AUX_JSON_DATA} Result.make(create {JSON_OBJECT}.make(create {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]}.make))
       end
 
    add_to_object (object, key, value: AUX_JSON_DATA) is
       local
-         json_object: JSON_OBJECT; json_members: HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
+         json_object: JSON_OBJECT; json_members: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
          json_key: JSON_STRING
       do
          json_object ::= object.item
@@ -63,6 +66,12 @@ feature {JSON_DECODER}
    null_value: JSON_DATA is
       once
          create {AUX_JSON_DATA} Result.make(create {JSON_NULL}.make)
+      end
+
+feature {}
+   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+      do
+         parse_error := message
       end
 
 end -- class AUX_JSON_CODEC
