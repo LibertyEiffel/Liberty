@@ -20,12 +20,6 @@ feature {}
          repo.put("foobar", "test")
          repo.put("hello world", "greatings")
 
-         --| TODO
-         --| ~~~~
-         --|  * refs seulement au niveau 0 (repository)
-         --|  * references par identifiant indépendant du pointeur (car intestable) : INTEGER, 0 = Void
-         --|  * data du NATIVE_ARRAY = tableau
-
          assert(repo.is_commitable)
          repo.commit
          assert(str.is_equal(once "[
