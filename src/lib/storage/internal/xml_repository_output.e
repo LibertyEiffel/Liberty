@@ -27,19 +27,32 @@ feature {REPOSITORY_IMPL}
          out_stream.put_string(once "</repository>%N")
       end
 
-   write_reference (reference: STRING; name: STRING) is
+   write_reference (ref: INTEGER; name: STRING) is
       do
-         out_stream.put_string(once "<reference name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' ref='")
-         out_stream.put_string(reference)
-         out_stream.put_string(once "'/>%N")
+         out_stream.put_string(once "<reference ref='")
+         out_stream.put_string(ref)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_integer(name)
+         end
+         out_stream.put_string(once "' transient='false'/>%N")
       end
 
-   start_layout (ref, type: STRING) is
+   write_transient_reference (ref, name: STRING) is
+      do
+         out_stream.put_string(once "<reference ref='")
+         out_stream.put_string(ref)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
+         out_stream.put_string(once "' transient='true'/>%N")
+      end
+
+   start_layout (ref: INTEGER; type: STRING) is
       do
          out_stream.put_string(once "<layout ref='")
-         out_stream.put_string(ref)
+         out_stream.put_integer(ref)
          out_stream.put_string(once "' type='")
          out_stream.put_string(type)
          out_stream.put_string(once "'>%N")
@@ -56,10 +69,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='CHARACTER' value='")
+         out_stream.put_string(once "<basic type='CHARACTER' value='")
          out_stream.put_integer(c.code)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -69,10 +84,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='BOOLEAN' value='")
+         out_stream.put_string(once "<basic type='BOOLEAN' value='")
          out_stream.put_boolean(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -82,10 +99,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='INTEGER_8' value='")
+         out_stream.put_string(once "<basic type='INTEGER_8' value='")
          out_stream.put_integer(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -95,10 +114,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='INTEGER_16' value='")
+         out_stream.put_string(once "<basic type='INTEGER_16' value='")
          out_stream.put_integer(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -108,10 +129,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='INTEGER_32' value='")
+         out_stream.put_string(once "<basic type='INTEGER_32' value='")
          out_stream.put_integer(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -121,10 +144,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='INTEGER_64' value='")
+         out_stream.put_string(once "<basic type='INTEGER_64' value='")
          out_stream.put_integer(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -134,10 +159,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='INTEGER' value='")
+         out_stream.put_string(once "<basic type='INTEGER' value='")
          out_stream.put_integer(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -147,10 +174,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL_32' value='")
+         out_stream.put_string(once "<basic type='REAL_32' value='")
          out_stream.put_real(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -160,10 +189,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL_64' value='")
+         out_stream.put_string(once "<basic type='REAL_64' value='")
          out_stream.put_real(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -173,10 +204,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL_80' value='")
+         out_stream.put_string(once "<basic type='REAL_80' value='")
          out_stream.put_real(c.force_to_real_64)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -186,10 +219,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL_128' value='")
+         out_stream.put_string(once "<basic type='REAL_128' value='")
          out_stream.put_real(c.force_to_real_64)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -199,10 +234,12 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL' value='")
+         out_stream.put_string(once "<basic type='REAL' value='")
          out_stream.put_real(c)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
@@ -212,27 +249,31 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         out_stream.put_string(once "<basic name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='REAL_EXTENDED' value='")
+         out_stream.put_string(once "<basic type='REAL_EXTENDED' value='")
          out_stream.put_real(c.force_to_real_64)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'/>%N")
       end
 
    start_array_layout (array: INTERNALS; name: STRING) is
       local
-         type: STRING; int: INTERNALS
+         type: STRING
       do
          type := once ""
          type.copy(array.type_generating_type)
          type.remove_prefix(once "NATIVE_ARRAY[")
          type.remove_suffix(once "]")
-         out_stream.put_string(once "<array name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='")
+         out_stream.put_string(once "<array type='")
          out_stream.put_string(type)
          out_stream.put_string(once "' capacity='")
          out_stream.put_integer(array.type_attribute_count)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'>%N")
       end
 
@@ -243,10 +284,12 @@ feature {REPOSITORY_IMPL}
 
    start_embedded_layout (layout: INTERNALS; name: STRING) is
       do
-         out_stream.put_string(once "<embedded name='")
-         out_stream.put_string(name)
-         out_stream.put_string(once "' type='")
+         out_stream.put_string(once "<embedded type='")
          out_stream.put_string(layout.type_generating_type)
+         if name /= Void then
+            out_stream.put_string(once "' name='")
+            out_stream.put_string(name)
+         end
          out_stream.put_string(once "'>%N")
       end
 

@@ -66,7 +66,12 @@ feature {} -- Implementation of update
          create Result.make
       end
 
-   updated_internals: AVL_DICTIONARY[INTERNALS, STRING] is
+   updated_internals: AVL_DICTIONARY[INTERNALS, INTEGER] is
+      once
+         create Result.make
+      end
+
+   internals_references: HASHED_DICTIONARY[INTEGER, POINTER] is
       once
          create Result.make
       end
@@ -76,30 +81,44 @@ feature {} -- Implementation of update
          create Result.make(0)
       end
 
-   objects: AVL_DICTIONARY[STRING, STRING] is
+   objects: AVL_DICTIONARY[INTEGER, STRING] is
       once
          create Result.make
       end
 
-   solve (ref: STRING): INTERNALS is
+   solve (ref: INTEGER): INTERNALS is
       require
-         not ref.is_equal(once "Void")
-         not transient.has_object(ref)
+         ref > 0
       do
-         Result := updated_internals.reference_at(ref)
+         Result := updated_internals.fast_reference_at(ref)
          if Result = Void then
             solve_again := True
          end
       end
 
-   solver: FUNCTION[TUPLE[STRING], INTERNALS] is
+   internals_reference (internals: INTERNALS): INTEGER is
+      require
+         not internals.type_is_expanded
+      local
+         p: POINTER
+      do
+         p := internals.object_as_pointer
+         if internals_references.fast_has(p) then
+            Result := internals_references.fast_at(p)
+         else
+            Result := internals_references.count + 1 -- never 0 (is Void)
+            internals_references.add(Result, p)
+         end
+      end
+
+   solver: FUNCTION[TUPLE[INTEGER], INTERNALS] is
       once
          Result := agent solve
       end
 
    read_from_stream (in_stream: INPUT_STREAM) is
       local
-         string: STRING
+         ref: INTEGER
       do
          repository.clear_count
          check
@@ -109,9 +128,8 @@ feature {} -- Implementation of update
          until
             updated_internals.is_empty
          loop
-            string := updated_internals.key(updated_internals.lower)
-            updated_internals.remove(string)
-            strings.recycle(string)
+            ref := updated_internals.key(updated_internals.lower)
+            updated_internals.remove(ref)
          end
          update_from_stream(in_stream)
       end
@@ -138,7 +156,7 @@ feature {} -- Implementation of update
       deferred
       end
 
-   record_object (ref, name: STRING; line, column: INTEGER) is
+   record_object (ref: INTEGER; name: STRING; line, column: INTEGER) is
          -- Register the object as a high-level one, i.e. put it in the repository.
       local
          typed: TYPED_INTERNALS[O_]; error: STRING
@@ -146,7 +164,7 @@ feature {} -- Implementation of update
          if not updated_internals.has(ref) then
             error := once ""
             error.copy(once "Unknown reference: ")
-            error.append(ref)
+            ref.append_in(error)
             fire_update_error(error, line, column)
          else
             typed ::= solve(ref)
@@ -176,22 +194,24 @@ feature {} -- Implementation of update
          layouts.clear_count
       end
 
-   open_layout (a_type, a_ref: STRING; a_layout: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_layout (a_type: STRING; a_ref: INTEGER; a_layout: REPOSITORY_LAYOUT; line, column: INTEGER) is
       require
          a_layout.kind.is_equal(once "layout")
+         a_ref > 0
       do
          check_non_empty_data(a_type, once "type", line, column)
-         check_non_empty_data(a_ref, once "ref", line, column)
+         --check_non_empty_data(a_ref, once "ref", line, column)
          a_layout.set_type(a_type)
          a_layout.set_ref(a_ref)
       end
 
-   open_reference (a_name, a_ref: STRING; a_reference: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_reference (a_name: STRING; a_ref: INTEGER; a_reference: REPOSITORY_LAYOUT; line, column: INTEGER) is
       require
          a_reference.kind.is_equal(once "reference")
+         a_ref >= 0 -- 0 is Void
       do
          check_non_empty_data(a_name, once "name", line, column)
-         check_non_empty_data(a_ref, once "ref", line, column)
+         --check_non_empty_data(a_ref, once "ref", line, column)
          a_reference.set_name(a_name)
          a_reference.set_ref(a_ref)
       end
@@ -274,7 +294,7 @@ feature {} -- Implementation of update
                      internals = updated_internals.at(layout.ref)
                   end
                else
-                  updated_internals.add(internals, strings.new_twin(layout.ref))
+                  updated_internals.add(internals, layout.ref)
                   c := c - 1
                end
                i := i + 1
@@ -361,10 +381,11 @@ feature {} -- Implementation of commit
       require
          out_stream.is_connected
       local
-         i: INTEGER
+         i: INTEGER; o: O_
       do
          register_transient_objects
          commit_map.clear_count
+         internals_references.clear_count
          out_stream.start_write
          from
             i := lower
@@ -373,6 +394,18 @@ feature {} -- Implementation of commit
          loop
             write_object(key(i), item(i), out_stream)
             i := i + 1
+         end
+         if o = Void then -- O_ is a reference type
+            from
+               i := lower
+            until
+               i > upper
+            loop
+               if item(i) /= Void then
+                  write_layout(item(i).to_internals, out_stream)
+               end
+               i := i + 1
+            end
          end
          out_stream.end_write
          unregister_transient_objects
@@ -401,18 +434,16 @@ feature {} -- Implementation of commit
       require
          reference /= Void implies not reference.type_is_expanded
       local
-         ref: STRING
+         ref: INTEGER; t_ref: STRING
       do
          if reference = Void then
-            out_stream.write_reference(once "Void", name)
+            out_stream.write_reference(0, name)
          else
-            ref := transient.reference(reference)
-            if ref /= Void then
-               out_stream.write_reference(ref, name)
+            t_ref := transient.reference(reference)
+            if t_ref /= Void then
+               out_stream.write_transient_reference(t_ref, name)
             else
-               ref := once ""
-               ref.clear_count
-               reference.object_as_pointer.append_in(ref)
+               ref := internals_reference(reference)
                out_stream.write_reference(ref, name)
             end
          end
@@ -423,7 +454,7 @@ feature {} -- Implementation of commit
          not commit_map.has(layout.object_as_pointer)
          not layout.type_is_expanded
       local
-         i: INTEGER; int: INTERNALS; ref: STRING
+         i: INTEGER; int: INTERNALS; ref: INTEGER
       do
          -- Add the pointer to the map of "known objects" (those already written). It must be done first
          -- because of possible recursion
@@ -447,9 +478,7 @@ feature {} -- Implementation of commit
                end
                i := i + 1
             end
-            ref := once ""
-            ref.clear_count
-            layout.object_as_pointer.append_in(ref)
+            ref := internals_reference(layout)
             out_stream.start_layout(ref, layout.type_generating_type)
             write_contents(layout, out_stream)
             out_stream.end_layout
@@ -460,7 +489,8 @@ feature {} -- Implementation of commit
 
    write_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
       require
-         layout.type_is_expanded or else layout.type_is_native_array or else transient.reference(layout) = Void
+         layout.type_is_expanded or else transient.reference(layout) = Void
+         not layout.type_is_native_array
       local
          i: INTEGER
       do
@@ -470,6 +500,22 @@ feature {} -- Implementation of commit
             i > layout.type_attribute_count
          loop
             write_internals(layout.object_attribute(i), layout.type_attribute_name(i), out_stream)
+            i := i + 1
+         end
+      end
+
+   write_array_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
+      require
+         layout.type_is_native_array
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+         until
+            i > layout.type_attribute_count
+         loop
+            write_internals(layout.object_attribute(i), Void, out_stream)
             i := i + 1
          end
       end
@@ -538,10 +584,12 @@ feature {} -- Implementation of commit
       end
 
    write_array_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+      require
+         internals.type_is_native_array
       do
          if internals.type_attribute_count > 0 then
             out_stream.start_array_layout(internals, name)
-            write_contents(internals, out_stream)
+            write_array_contents(internals, out_stream)
             out_stream.end_array_layout(internals, name)
          end
       end
@@ -579,11 +627,6 @@ feature {} -- Internals
          layouts_pool.recycle(a_layout)
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
    transient: REPOSITORY_TRANSIENT
 
 feature {} -- Creation
@@ -591,7 +634,7 @@ feature {} -- Creation
          -- Create a not-connected empty repository.
       do
          if repository = Void then
-            create {AVL_DICTIONARY[O_, STRING]} repository.make
+            create {LINKED_HASHED_DICTIONARY[O_, STRING]} repository.make
             create update_error_handlers.with_capacity(2)
          else
             repository.clear_count

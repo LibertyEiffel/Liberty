@@ -20,8 +20,11 @@ feature {REPOSITORY_IMPL, REPOSITORY_LAYOUT}
    capacity: INTEGER
          -- for native arrays only
 
-   ref: STRING
+   ref: INTEGER
          -- object reference, for reference objects only
+
+   trans_ref: STRING
+         -- object transient reference, for reference objects only
 
    name: STRING
          -- object name
@@ -37,7 +40,7 @@ feature {REPOSITORY_IMPL, REPOSITORY_LAYOUT}
 
    solved: BOOLEAN
 
-   solve (a_solver: FUNCTION[TUPLE[STRING], INTERNALS]): INTERNALS is
+   solve (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS is
       local
          i: INTEGER; layout: REPOSITORY_LAYOUT; attribute_name: STRING; an_attribute: INTERNALS
          s: like solved
@@ -92,7 +95,7 @@ feature {REPOSITORY_LAYOUT}
 feature {}
    internals_memory: INTERNALS
 
-   internals (a_solver: FUNCTION[TUPLE[STRING], INTERNALS]): INTERNALS is
+   internals (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS is
       require
          not solved
       local
@@ -107,14 +110,14 @@ feature {}
          when "layout" then
             Result := internals_from_generating_type(type)
          when "reference" then
-            if not ref.is_equal(once "Void") then
-               if transient.has_object(ref) then
-                  Result := transient.object(ref)
-               else
-                  Result := a_solver.item([ref])
-                  if Result = Void then
-                     internals_set := False
-                  end
+            if trans_ref /= Void then
+               if transient.has_object(trans_ref) then
+                  Result := transient.object(trans_ref)
+               end
+            elseif ref > 0 then
+               Result := a_solver.item([ref])
+               if Result = Void then
+                  internals_set := False
                end
             end
             -- by definition, a reference is resolved as soon as the internals is recovered (i.e. the layout
@@ -219,13 +222,26 @@ feature {REPOSITORY_IMPL}
    set_ref (a_ref: like ref) is
       require
          not is_clear
-         ref = Void
-         a_ref /= Void
+         ref = 0
+         a_ref > 0
+         trans_ref = Void
       do
-         ref := ref_memory
-         ref.copy(a_ref)
+         ref := a_ref
       ensure
-         ref.is_equal(a_ref)
+         ref = a_ref
+      end
+
+   set_trans_ref (a_trans_ref: like trans_ref) is
+      require
+         not is_clear
+         trans_ref = Void
+         a_trans_ref /= Void
+         ref = 0
+      do
+         trans_ref := trans_ref_memory
+         trans_ref.copy(a_trans_ref)
+      ensure
+         trans_ref.is_equal(a_trans_ref)
       end
 
    set_name (a_name: like name) is
@@ -268,11 +284,12 @@ feature {RECYCLING_POOL}
       do
          kind.clear_count
          type_memory.clear_count
-         ref_memory.clear_count
+         trans_ref_memory.clear_count
          name_memory.clear_count
          value_memory.clear_count
          type := Void
-         ref := Void
+         ref := 0
+         trans_ref := Void
          name := Void
          value := Void
          layouts.clear_count
@@ -291,7 +308,7 @@ feature {}
          create assigned.make
          kind := ""
          type_memory := ""
-         ref_memory := ""
+         trans_ref_memory := ""
          name_memory := ""
          value_memory := ""
       ensure
@@ -300,7 +317,7 @@ feature {}
 
    type_memory: STRING
 
-   ref_memory: STRING
+   trans_ref_memory: STRING
 
    name_memory: STRING
 
@@ -309,9 +326,10 @@ feature {}
 invariant
    has_kind: kind /= Void
    solved_internals_coherence: (not solved and internals_memory /= Void) implies internals_memory.object_can_be_modified
-   reference_has_ref: kind.is_equal("reference") implies ref /= Void
+   reference_has_ref: kind.is_equal("reference") implies ref > 0
    reference_is_solved: (kind.is_equal("reference") and internals_set) implies solved
    reference_dont_have_layouts: kind.is_equal("reference") implies layouts.is_empty
+   transient_or_ref: trans_ref /= Void implies ref = 0
    assigned_are_layouts: assigned.for_all(agent layouts.has(?))
    coherence: solved implies internals_set
 

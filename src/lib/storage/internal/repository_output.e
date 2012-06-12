@@ -23,17 +23,24 @@ feature {REPOSITORY_IMPL}
       deferred
       end
 
-   write_reference (reference: STRING; name: STRING) is
+   write_reference (ref: INTEGER; name: STRING) is
       require
          is_connected
-         not reference.is_empty
+         ref > 0
       deferred
       end
 
-   start_layout (ref, type: STRING) is
+   write_transient_reference (ref: STRING; name: STRING) is
       require
          is_connected
          not ref.is_empty
+      deferred
+      end
+
+   start_layout (ref: INTEGER; type: STRING) is
+      require
+         is_connected
+         ref >= 0
          not type.is_empty
       deferred
       end

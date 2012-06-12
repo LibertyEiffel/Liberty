@@ -24,7 +24,7 @@ insert
       end
 
 create {JSON_HANDLER}
-   make
+   make, from_string
 
 feature {ANY}
    accept (visitor: VISITOR) is
@@ -110,6 +110,11 @@ feature {}
          hash_code := a_string.hash_code
       ensure
          string = a_string
+      end
+
+   from_string (a_string: ABSTRACT_STRING) is
+      do
+         make(create {UNICODE_STRING}.from_utf8(a_string.out))
       end
 
    append_unicode_in (str: OUTPUT_STREAM; u: INTEGER) is

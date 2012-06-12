@@ -17,20 +17,21 @@ deferred class XML_REPOSITORY_IMPL[O_ -> STORABLE]
    --   <!ATTLIST layout ref ID #REQUIRED >
    --
    --   <!ELEMENT reference (EMPTY) >
-   --   <!ATTLIST reference name CDARA #REQUIRED >
+   --   <!ATTLIST reference name CDATA >
    --   <!ATTLIST reference ref IDREF #REQUIRED >
+   --   <!ATTLIST reference transient (true|false) #REQUIRED >
    --
    --   <!ELEMENT embedded (reference | embedded | basic | array)* >
-   --   <!ATTLIST embedded name CDATA #REQUIRED >
+   --   <!ATTLIST embedded name CDATA >
    --   <!ATTLIST embedded type CDATA #REQUIRED >
    --
    --   <!ELEMENT basic (EMPTY) >
-   --   <!ATTLIST basic name #REQUIRED >
-   --   <!ATTLIST basic type #REQUIRED >
-   --   <!ATTLIST basic value #REQUIRED >
+   --   <!ATTLIST basic name CDATA >
+   --   <!ATTLIST basic type CDATA #REQUIRED >
+   --   <!ATTLIST basic value CDATA #REQUIRED >
    --
    --   <!ELEMENT array (reference | embedded | basic)* >
-   --   <!ATTLIST array name CDATA #REQUIRED >
+   --   <!ATTLIST array name CDATA >
    --   <!ATTLIST array type CDATA #REQUIRED >
    --   <!ATTLIST array capacity CDATA #REQUIRED >
    --
