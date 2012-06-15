@@ -237,6 +237,10 @@ feature {USER_GENERIC_TYPE_MARK}
             if cpp.need_struct.for(visited) then
                standard_c_struct(visited)
                standard_c_object_model(visited)
+            else
+               out_h.append(once "typedef void*T")
+               visited.id.append_in(out_h)
+               out_h.append(once ";%N")
             end
          end
          standard_c_print_function(visited)

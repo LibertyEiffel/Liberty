@@ -13,11 +13,14 @@ inherit
 creation {EIFFEL_PARSER}
    parser_make
 
-creation
+creation {ANY}
    make
 
 creation {INTROSPECTION_HANDLER}
    make_strippable
+
+create {PROCEDURE_CALL, FUNCTION_CALL}
+   make_dynamic_dispatch
 
 feature {ANY}
    start_position: POSITION
@@ -351,6 +354,19 @@ feature {}
          strip_condition = condition
       end
 
+   make_dynamic_dispatch (inspect_statement: INSPECT_STATEMENT; sp: like start_position; lt: like dispatch_live_type) is
+      require
+         inspect_statement /= Void
+         lt /= Void
+      local
+         integer_constant: INTEGER_CONSTANT
+      do
+         make(inspect_statement, sp, Void)
+         create integer_constant.make(lt.id, sp)
+         add_value(integer_constant)
+         dispatch_live_type := lt
+      end
+
 feature {INSPECT_STATEMENT}
    validity_check (type, expression_type: TYPE; container: INSPECT_STATEMENT) is
       require
@@ -640,7 +656,9 @@ feature {INSPECT_STATEMENT}
          l: like list; ic: INTEGER_CONSTANT
       do
          if condition_type = Void then
-            Result := Current
+            if dispatch_live_type = Void or else dispatch_live_type.at_run_time then
+               Result := Current
+            end
          elseif is_live(condition_type) then
             create ic.make(v, start_position)
             if list.is_empty then
@@ -658,8 +676,17 @@ feature {INSPECT_STATEMENT}
 
 feature {}
    is_live (condition_type: TYPE): BOOLEAN is
+      local
+         af: ANONYMOUS_FEATURE; tm: TYPE_MARK
       do
-         Result := strip_condition = Void or else condition_type.live_type.collected(strip_condition)
+         if strip_condition = Void then
+            Result := True
+         elseif condition_type.live_type.collected(strip_condition) then
+            af := strip_condition.anonymous_feature(condition_type)
+            tm := af.result_type.to_static(condition_type)
+            Result := tm.type.live_type /= Void
+               and then tm.type.live_type.at_run_time -- and then tm.type.live_type.run_time_set.has(tm.type.live_type)
+         end
       end
 
 feature {WHEN_CLAUSE, INTROSPECTION_HANDLER, MANIFEST_STRING_INSPECTOR, FEATURE_CALL}
@@ -792,6 +819,7 @@ feature {EIFFEL_PARSER}
 
 feature {}
    strip_condition: FEATURE_STAMP
+   dispatch_live_type: LIVE_TYPE
 
    no_manifest_string_slice_check (expression: EXPRESSION) is
       do

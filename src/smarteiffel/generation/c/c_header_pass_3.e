@@ -142,6 +142,10 @@ feature {USER_GENERIC_TYPE_MARK}
          if visited.is_expanded then
             if cpp.need_struct.for(visited) then
                standard_c_struct(visited)
+            else
+               out_h.append(once "typedef int T")
+               visited.id.append_in(out_h)
+               out_h.append(once ";%N")
             end
             standard_c_object_model(visited)
          end

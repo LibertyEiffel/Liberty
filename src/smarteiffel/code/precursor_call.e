@@ -162,14 +162,14 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          args: like arguments; saf: like specialized_anonymous_feature
          new_precursor: like Current
       do
-          saf := specialized_anonymous_feature.twin
+         saf := specialized_anonymous_feature.twin
          saf.inline_dynamic_dispatch(code_accumulator, type)
-          if arguments /= Void then
-             args := arguments.inline_dynamic_dispatch(code_accumulator, type)
-          end
+         if arguments /= Void then
+            args := arguments.inline_dynamic_dispatch(code_accumulator, type)
+         end
          new_precursor := twin
          new_precursor.init(saf, args)
-          code_accumulator.current_context.add_last(new_precursor)
+         code_accumulator.current_context.add_last(new_precursor)
       end
 
 feature {}

@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   is_introspected(tm: TYPE_MARK): BOOLEAN is
+   is_introspected (tm: TYPE_MARK): BOOLEAN is
       local
          typed_internals: TYPE_MARK; lt: LIVE_TYPE;   unknown_position: POSITION
       do
@@ -1627,7 +1627,6 @@ feature {}
          end
          if count > 0 then
             if compound ?:= external_routine.routine_body then
-               sedb_breakpoint
                compound ::= external_routine.routine_body
                if assignment ?:= compound.first then
                   assignment ::= compound.first

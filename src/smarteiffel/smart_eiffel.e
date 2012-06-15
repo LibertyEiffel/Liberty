@@ -1859,7 +1859,10 @@ feature {}
             until
                i > live_type_map.upper
             loop
-               live_type_map.item(i).make_run_features
+               lt := live_type_map.item(i)
+               --if lt.at_run_time then
+                  lt.make_run_features
+               --end
                i := i + 1
             end
             if nb_errors = 0 then
@@ -1869,7 +1872,9 @@ feature {}
                   i > live_type_map.upper
                loop
                   lt := live_type_map.item(i)
-                  lt.adapt_run_features_and_class_invariant
+                  if lt.at_run_time then
+                     lt.adapt_run_features_and_class_invariant
+                  end
                   i := i + 1
                end
                if nb_errors = 0 then
@@ -2408,6 +2413,25 @@ feature {C_PRETTY_PRINTER}
          live_type_sorter.sort(live_type_map_)
       ensure
          is_sorted: live_type_sorter.is_sorted(live_type_map_)
+      end
+
+   show_live_types is
+      local
+         i: INTEGER
+      do
+         if echo.is_verbose then
+            from
+               i := live_type_map_.lower
+            until
+               i > live_type_map_.upper
+            loop
+               if live_type_map_.item(i).at_run_time then
+                  echo.put_string(once "Will generate live type: ")
+                  echo.put_line(live_type_map_.item(i).name.to_string)
+               end
+               i := i + 1
+            end
+         end
       end
 
 feature {}

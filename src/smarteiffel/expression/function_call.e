@@ -132,7 +132,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          target_type, non_void_no_dispatch, tt: TYPE; target_live_type, live_type: LIVE_TYPE
          run_time_set: RUN_TIME_SET; when_clause: WHEN_CLAUSE; function_call: like Current
          i: INTEGER; ddt1: DYNAMIC_DISPATCH_TEMPORARY1; ddt2: DYNAMIC_DISPATCH_TEMPORARY2
-         args: like arguments; integer_constant: INTEGER_CONSTANT; ddt1_id: DYNAMIC_DISPATCH_TEMPORARY1_ID
+         args: like arguments; ddt1_id: DYNAMIC_DISPATCH_TEMPORARY1_ID
          internal_local2: INTERNAL_LOCAL2; run_time_error_instruction: RUN_TIME_ERROR_INSTRUCTION
          monomorphic_flag, void_call_flag, no_dispatch_flag: BOOLEAN
          af: ANONYMOUS_FEATURE; default_expression: EXPRESSION
@@ -256,36 +256,36 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                i > run_time_set.count
             loop
                live_type := run_time_set.item(i)
-               code_accumulator.open_new_context
-               create when_clause.make(inspect_statement, feature_name.start_position, Void)
-               create integer_constant.make(live_type.id, feature_name.start_position)
-               when_clause.add_value(integer_constant)
-               tt := live_type.type
-               fs := feature_stamp.resolve_static_binding_for(target_type, tt)
-               af := fs.anonymous_feature(tt)
-               if af.empty_body_side_effect_free_effective_routine(tt) then
-                  if not t.side_effect_free(type) then
-                     code_accumulator.current_context.add_last(create {UNUSED_EXPRESSION}.make(t))
+               if live_type.at_run_time then
+                  code_accumulator.open_new_context
+                  create when_clause.make_dynamic_dispatch(inspect_statement, feature_name.start_position, live_type)
+                  tt := live_type.type
+                  fs := feature_stamp.resolve_static_binding_for(target_type, tt)
+                  af := fs.anonymous_feature(tt)
+                  if af.empty_body_side_effect_free_effective_routine(tt) then
+                     if not t.side_effect_free(type) then
+                        code_accumulator.current_context.add_last(create {UNUSED_EXPRESSION}.make(t))
+                     end
+                     if arguments /= Void then
+                        args := arguments.inline_dynamic_dispatch(code_accumulator, type)
+                        args.unused_expression_inline(code_accumulator, type)
+                     end
+                     default_expression := af.result_type.to_static(tt).default_expression(start_position)
+                     code_accumulator.current_context.add_last(create {ASSIGNMENT}.inline_make(internal_local2, default_expression))
+                  else
+                     function_call := Current.twin
+                     create ddt2.make(ddt1, live_type)
+                     function_call.set_target(ddt2)
+                     function_call.set_feature_stamp(fs)
+                     if arguments /= Void then
+                        args := arguments.inline_dynamic_dispatch(code_accumulator, type)
+                        function_call.set_arguments(args)
+                     end
+                     code_accumulator.current_context.add_last(create {ASSIGNMENT}.inline_make(internal_local2, function_call))
                   end
-                  if arguments /= Void then
-                     args := arguments.inline_dynamic_dispatch(code_accumulator, type)
-                     args.unused_expression_inline(code_accumulator, type)
-                  end
-                  default_expression := af.result_type.to_static(tt).default_expression(start_position)
-                  code_accumulator.current_context.add_last(create {ASSIGNMENT}.inline_make(internal_local2, default_expression))
-               else
-                  function_call := Current.twin
-                  create ddt2.make(ddt1, live_type)
-                  function_call.set_target(ddt2)
-                  function_call.set_feature_stamp(fs)
-                  if arguments /= Void then
-                     args := arguments.inline_dynamic_dispatch(code_accumulator, type)
-                     function_call.set_arguments(args)
-                  end
-                  code_accumulator.current_context.add_last(create {ASSIGNMENT}.inline_make(internal_local2, function_call))
+                  when_clause.set_compound(code_accumulator.current_context_to_instruction)
+                  code_accumulator.close_current_context
                end
-               when_clause.set_compound(code_accumulator.current_context_to_instruction)
-               code_accumulator.close_current_context
                i := i + 1
             end
             if not ace.boost then

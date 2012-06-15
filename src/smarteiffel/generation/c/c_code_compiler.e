@@ -765,7 +765,9 @@ feature {}
             function_body.append(once "/*inspect]*/%N")
             if visited.dynamic_dispatch_temporary1 /= Void then
                unlock_internal_c_local_tag(visited.dynamic_dispatch_temporary1)
-               smart_eiffel.update_polymorphic_distribution(visited.when_list.count)
+               if visited.when_list /= Void then
+                  smart_eiffel.update_polymorphic_distribution(visited.when_list.count)
+               end
             end
          end
          cpp.inspect_local_pop

@@ -128,6 +128,8 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.customize_runtime
             -- ---------------------------------------------------------
+            smart_eiffel.show_live_types
+            -- ---------------------------------------------------------
             header_pass_1.compile
             header_pass_2.compile
             header_pass_3.compile
@@ -241,11 +243,13 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               cn := lt.class_text_name
-               if cn /= current_class_name then
-                  current_class_name := cn
+               if lt.at_run_time then
+                  cn := lt.class_text_name
+                  if cn /= current_class_name then
+                     current_class_name := cn
+                  end
+                  live_type_compiler.compile(lt, 0)
                end
-               live_type_compiler.compile(lt, 0)
                i := i + 1
             end
          else
@@ -258,11 +262,13 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ct := lt.canonical_type_mark
-               if ct.is_kernel_expanded then
-                  live_type_compiler.compile(lt, 0)
-               elseif ct.is_string then
-                  lt_string := lt
+               if lt.at_run_time then
+                  ct := lt.canonical_type_mark
+                  if ct.is_kernel_expanded then
+                     live_type_compiler.compile(lt, 0)
+                  elseif ct.is_string then
+                     lt_string := lt
+                  end
                end
                i := i + 1
             end
@@ -280,9 +286,11 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ctn := lt.class_text_name.to_string
-               if as_native_array = ctn then
-                  live_type_compiler.compile(lt, 0)
+               if lt.at_run_time then
+                  ctn := lt.class_text_name.to_string
+                  if as_native_array = ctn then
+                     live_type_compiler.compile(lt, 0)
+                  end
                end
                i := i + 1
             end
@@ -297,10 +305,12 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ct := lt.canonical_type_mark
-               ctn := ct.class_text_name.to_string
-               if as_array = ctn or else as_fixed_array = ctn then
-                  live_type_compiler.compile(lt, 0)
+               if lt.at_run_time then
+                  ct := lt.canonical_type_mark
+                  ctn := ct.class_text_name.to_string
+                  if as_array = ctn or else as_fixed_array = ctn then
+                     live_type_compiler.compile(lt, 0)
+                  end
                end
                i := i + 1
             end
@@ -310,7 +320,7 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               if lt.is_generic then
+               if lt.at_run_time and then lt.is_generic then
                   live_type_compiler.compile(lt, 0)
                end
                i := i + 1
