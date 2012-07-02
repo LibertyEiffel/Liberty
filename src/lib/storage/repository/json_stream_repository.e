@@ -34,7 +34,7 @@ feature {ANY} -- Updating and committing
 
    is_connected: BOOLEAN is
       do
-         Result := commit_stream /= Void and then commit_stream.is_connected
+         Result := is_updateable or else is_commitable
       end
 
 feature {ANY} -- Creation

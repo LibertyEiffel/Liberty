@@ -8,6 +8,7 @@ inherit
 
 insert
    JSON_HANDLER
+   JSON_STRINGS
 
 create {JSON_REPOSITORY_IMPL}
    make
@@ -26,13 +27,13 @@ feature {REPOSITORY_IMPL}
             no_crumbs_in_stack: object_stack.is_empty
          end
 
-         shell_object := new_shell_object({LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-                            once U"repository",                         once U"type";
-                            create {UNICODE_STRING}.from_utf8(version), once U"version";
+         shell_object := new_shell_object({LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+                            json_repository,      json_star;
+                            json_string(version), json_version;
                          >>})
          create_current_object(shell_object, False)
          create references.make(0)
-         shell_object.add(create {JSON_ARRAY}.make(references), create {JSON_STRING}.make(once U"refs"))
+         shell_object.add(create {JSON_ARRAY}.make(references), json_refs)
          create text.make(shell_object)
       end
 
@@ -53,19 +54,19 @@ feature {REPOSITORY_IMPL}
    write_reference (ref: INTEGER; name: STRING) is
       do
          current_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0),
-                            create {JSON_STRING}.make(create {UNICODE_STRING}.from_utf8(name)))
+                            json_string(name))
       end
 
    write_transient_reference (ref, name: STRING) is
       do
-         current_object.add(create {JSON_STRING}.make(create {UNICODE_STRING}.from_utf8(ref)),
-                            create {JSON_STRING}.make(create {UNICODE_STRING}.from_utf8(name)))
+         current_object.add(json_ref, json_string(name))
       end
 
    start_layout (ref: INTEGER; type: STRING) is
       do
-         push_object(Void, ref, False, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            create {UNICODE_STRING}.from_utf8(type), once U"layout";
+         push_object(Void, ref, False, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_layout,       json_star;
+            json_string(type), json_type;
          >>})
       end
 
@@ -80,9 +81,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"CHARACTER",                             once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.code.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,              json_star;
+            json_type_character,     json_type;
+            json_string(c.code.out), json_value;
          >>})
       end
 
@@ -92,9 +94,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"BOOLEAN",                          once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_boolean,  json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -104,9 +107,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"INTEGER_8",                        once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,          json_star;
+            json_type_integer_8, json_type;
+            json_string(c.out),  json_value;
          >>})
       end
 
@@ -116,9 +120,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"INTEGER_16",                       once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,           json_star;
+            json_type_integer_16, json_type;
+            json_string(c.out),   json_value;
          >>})
       end
 
@@ -128,9 +133,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"INTEGER_32",                       once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,           json_star;
+            json_type_integer_32, json_type;
+            json_string(c.out),   json_value;
          >>})
       end
 
@@ -140,9 +146,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"INTEGER_64",                       once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,           json_star;
+            json_type_integer_64, json_type;
+            json_string(c.out),   json_value;
          >>})
       end
 
@@ -152,9 +159,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"INTEGER",                          once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_integer,  json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -164,9 +172,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL_32",                          once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_real_32,  json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -176,9 +185,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL_64",                          once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_real_64,  json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -188,9 +198,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL_80",                          once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_real_80,  json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -200,9 +211,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL_128",                         once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,          json_star;
+            json_type_real_128,  json_type;
+            json_string(c.out),  json_value;
          >>})
       end
 
@@ -212,9 +224,10 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL",                             once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,         json_star;
+            json_type_real,     json_type;
+            json_string(c.out), json_value;
          >>})
       end
 
@@ -224,24 +237,19 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            once U"REAL_EXPANDED",                    once U"basic";
-            create {UNICODE_STRING}.from_utf8(c.out), once U"value";
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_basic,              json_star;
+            json_type_real_expanded, json_type;
+            json_string(c.out),      json_value;
          >>})
       end
 
    start_array_layout (array: INTERNALS; name: STRING) is
-      local
-         type: STRING
       do
-         type := once ""
-         type.copy(array.type_generating_type)
-         type.remove_prefix(once "NATIVE_ARRAY[")
-         type.remove_suffix(once "]")
-
-         push_object(name, 0, True, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            create {UNICODE_STRING}.from_utf8(type),                           once U"array";
-            create {UNICODE_STRING}.from_utf8(array.type_attribute_count.out), once U"capacity";
+         push_object(name, 0, True, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_array,                                          json_star;
+            json_array_element_type(array.type_generating_type), json_type;
+            json_string(array.type_attribute_count.out),         json_capacity;
          >>})
       end
 
@@ -252,8 +260,9 @@ feature {REPOSITORY_IMPL}
 
    start_embedded_layout (layout: INTERNALS; name: STRING) is
       do
-         push_object(name, 0, False, {LINKED_HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] <<
-            create {UNICODE_STRING}.from_utf8(layout.type_generating_type), once U"embedded";
+         push_object(name, 0, False, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+            json_embedded,                            json_star;
+            json_string(layout.type_generating_type), json_type;
          >>})
       end
 
@@ -287,18 +296,17 @@ feature {}
             check
                to_object /= Void
             end
-            to_object.add(create {JSON_OBJECT}.make(shell_object),
-                          create {JSON_STRING}.make(create {UNICODE_STRING}.from_utf8(name)))
+            to_object.add(create {JSON_OBJECT}.make(shell_object), json_string(name))
          end
       end
 
-   add_object (name: STRING; ref: INTEGER; shell_data: MAP[UNICODE_STRING, UNICODE_STRING]) is
+   add_object (name: STRING; ref: INTEGER; shell_data: MAP[JSON_STRING, JSON_STRING]) is
       require
          ref >= 0
          name /= Void implies (current_object /= Void xor current_array /= Void)
          shell_data /= Void
-         not shell_data.has(once U"data")
-         not shell_data.has(once U"refs")
+         not shell_data.has(json_data)
+         not shell_data.has(json_refs)
       do
          add_shell_object(name, ref, new_shell_object(shell_data), current_object, current_array)
       ensure
@@ -307,12 +315,12 @@ feature {}
          --object_stack.is_empty or else object_stack.top = old object_stack.top
       end
 
-   push_object (name: STRING; ref: INTEGER; is_array: BOOLEAN; shell_data: MAP[UNICODE_STRING, UNICODE_STRING]) is
+   push_object (name: STRING; ref: INTEGER; is_array: BOOLEAN; shell_data: MAP[JSON_STRING, JSON_STRING]) is
       require
          name /= Void implies (current_object /= Void xor current_array /= Void)
          shell_data /= Void
-         not shell_data.has(once U"data")
-         not shell_data.has(once U"refs")
+         not shell_data.has(json_data)
+         not shell_data.has(json_refs)
       local
          shell_object: like new_shell_object
          old_object: like current_object
@@ -321,6 +329,9 @@ feature {}
          old_object := current_object
          old_array := current_array
          shell_object := new_shell_object(shell_data)
+         if ref > 0 then
+            shell_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_ref)
+         end
          create_current_object(shell_object, is_array)
          add_shell_object(name, ref, shell_object, old_object, old_array)
          object_stack.push([old_object, old_array])
@@ -332,11 +343,11 @@ feature {}
          is_array implies current_array /= Void and current_array /= old current_array
       end
 
-   new_shell_object (shell_data: MAP[UNICODE_STRING, UNICODE_STRING]): LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] is
+   new_shell_object (shell_data: MAP[JSON_STRING, JSON_STRING]): LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] is
       require
          shell_data /= Void
-         not shell_data.has(once U"data")
-         not shell_data.has(once U"refs")
+         not shell_data.has(json_data)
+         not shell_data.has(json_refs)
       local
          i: INTEGER
       do
@@ -346,7 +357,7 @@ feature {}
          until
             i > shell_data.upper
          loop
-            Result.add(create {JSON_STRING}.make(shell_data.item(i)), create {JSON_STRING}.make(shell_data.key(i)))
+            Result.add(shell_data.item(i), shell_data.key(i))
             i := i + 1
          end
       end
@@ -369,11 +380,11 @@ feature {}
          if is_array then
             create current_array.make(0)
             current_object := Void
-            shell_object.add(create {JSON_ARRAY}.make(current_array), create {JSON_STRING}.make(once U"data"))
+            shell_object.add(create {JSON_ARRAY}.make(current_array), json_data)
          else
             create current_object.make
             current_array := Void
-            shell_object.add(create {JSON_OBJECT}.make(current_object), create {JSON_STRING}.make(once U"data"))
+            shell_object.add(create {JSON_OBJECT}.make(current_object), json_data)
          end
       end
 

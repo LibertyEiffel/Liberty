@@ -133,7 +133,7 @@ feature {XML_PARSER}
             end
             open_repository(layout, line, column)
          when "layout" then
-            open_layout(update_type, update_ref, layout, line, column)
+            open_layout(update_type, update_ref.to_integer, layout, line, column)
          when "reference" then
             open_reference(update_name, update_ref, layout, line, column)
          when "embedded" then
