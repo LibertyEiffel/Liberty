@@ -456,7 +456,7 @@ feature {ANY} -- Testing and Conversion:
       require
          s /= Void
       local
-         i: INTEGER; v: INTEGER
+         i: INTEGER
       do
          from
             i := 1
