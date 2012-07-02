@@ -3,33 +3,81 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+deferred class SOCKET_IMPL
 
 inherit
-   SOCKET_INPUT_OUTPUT_STREAM
+   SOCKET
 
-creation {ACCESS}
-   connect_to
+insert
+   STRING_HANDLER
+   SOCKET_HANDLER
+   SOCKET_PLUG_IN
+   RECYCLABLE
+   DISPOSABLE
 
-feature {ANY}
+feature {SOCKET_HANDLER}
+   is_connected: BOOLEAN
+
+   error: STRING
+
+   read (sync: BOOLEAN) is
+      local
+         count: INTEGER
+      do
+         last_read.resize(default_buffer_size)
+         count := net_read(fd, default_buffer_size, last_read.storage.to_external, sync)
+         if count < 0 then
+            count := 0
+         end
+         last_read.resize(count)
+         error := last_error
+         if error /= Void then
+            disconnect
+         end
+      end
+
+   last_read: STRING
+
+   write (data: STRING) is
+      local
+         dummy: INTEGER
+      do
+         dummy := net_write(fd, data.count, data.storage)
+         error := last_error
+         if error /= Void then
+            disconnect
+         end
+      end
+
    disconnect is
       do
-         detach
-         socket.disconnect
+         net_shutdown(fd)
+         net_disconnect(fd)
+         is_connected := False
+         fire_disconnected
       end
+
+   clear is
+      do
+         if disconnected_listeners /= Void then
+            disconnected_listeners.clear_count
+         end
+      end
+
+   fd: INTEGER
 
 feature {}
-   connect_to (a_socket: SOCKET; a_read_sync: BOOLEAN) is
-      require
-         a_socket /= Void
+   connect (a_fd: like fd) is
       do
-         socket := a_socket
-         make(a_read_sync)
+         if a_fd >= 0 then
+            is_connected := True
+            fd := a_fd
+         else
+            error := last_error
+         end
       end
 
-   socket: SOCKET
-
-end -- class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+end -- class SOCKET_IMPL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -81,31 +81,39 @@ feature {SOCKET_INPUT_OUTPUT_STREAM}
       end
 
    has_socket (socket: SOCKET): BOOLEAN is
+      local
+         isk: IPV4_SOCKET
       do
-         Result := connected_sockets.fast_has(socket)
+         if isk ?:= socket then
+            isk ::= socket
+            Result := connected_sockets.fast_has(isk)
+         end
       end
 
    socket_disconnected (socket: SOCKET) is
       require
          not socket.is_connected
          has_socket(socket)
+      local
+         isk: IPV4_SOCKET
       do
-         unbind_socket(socket)
+         isk ::= socket
+         unbind_socket(isk)
       ensure
          not has_socket(socket)
       end
 
 feature {}
-   connected_sockets: FAST_ARRAY[SOCKET]
+   connected_sockets: FAST_ARRAY[IPV4_SOCKET]
          -- The currently connected sockets
 
-   sockets_pool: RECYCLING_POOL[SOCKET] is
+   sockets_pool: RECYCLING_POOL[IPV4_SOCKET] is
          -- Common array containing all the currently disconnected sockets.
       once
          create Result.make
       end
 
-   bind_socket: SOCKET is
+   bind_socket: IPV4_SOCKET is
       do
          if sockets_pool.is_empty then
             create Result.bind(Current)
@@ -123,7 +131,7 @@ feature {}
          Result.is_connected implies connected_sockets.fast_has(Result) and then connected_sockets.count = old connected_sockets.count + 1
       end
 
-   unbind_socket (socket: SOCKET) is
+   unbind_socket (socket: IPV4_SOCKET) is
       require
          connected_sockets.fast_has(socket)
       local
@@ -178,33 +186,6 @@ feature {}
    connection_occurred: NETWORK_CONNECTION_OCCURRED
 
 end -- class SOCKET_SERVER
---
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

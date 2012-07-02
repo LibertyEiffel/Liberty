@@ -3,33 +3,22 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+deferred class IPV4_ACCESS
 
 inherit
-   SOCKET_INPUT_OUTPUT_STREAM
-
-creation {ACCESS}
-   connect_to
+   ACCESS
 
 feature {ANY}
-   disconnect is
-      do
-         detach
-         socket.disconnect
+   port: INTEGER
+
+feature {IPV4_ADDRESS}
+   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
+      deferred
+      ensure
+         Result /= Void
       end
 
-feature {}
-   connect_to (a_socket: SOCKET; a_read_sync: BOOLEAN) is
-      require
-         a_socket /= Void
-      do
-         socket := a_socket
-         make(a_read_sync)
-      end
-
-   socket: SOCKET
-
-end -- class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+end -- class IPV4_ACCESS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

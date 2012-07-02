@@ -3,33 +3,41 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+class LOCAL_SOCKET
+   --
+   -- A local SOCKET.
+   --
 
 inherit
-   SOCKET_INPUT_OUTPUT_STREAM
+   SOCKET_IMPL
 
-creation {ACCESS}
-   connect_to
+creation {SOCKET_HANDLER}
+   make
 
-feature {ANY}
-   disconnect is
-      do
-         detach
-         socket.disconnect
-      end
+feature {SOCKET_HANDLER}
+   port: INTEGER
 
 feature {}
-   connect_to (a_socket: SOCKET; a_read_sync: BOOLEAN) is
-      require
-         a_socket /= Void
+   make (a_port: INTEGER) is
       do
-         socket := a_socket
-         make(a_read_sync)
+         if last_read = Void then
+            create last_read.make(default_buffer_size)
+         end
+         port := a_port
+         connect(net_local(a_port))
       end
 
-   socket: SOCKET
+   connect (a_fd: like fd) is
+      do
+         if a_fd >= 0 then
+            is_connected := True
+            fd := a_fd
+         else
+            error := last_error
+         end
+      end
 
-end -- class CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+end -- class LOCAL_SOCKET
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

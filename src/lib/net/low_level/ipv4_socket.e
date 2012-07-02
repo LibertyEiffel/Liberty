@@ -3,47 +3,72 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class UDP_ACCESS
-   -- Access to a UDP server.
+class IPV4_SOCKET
+   --
+   -- An IPv4 SOCKET.
+   --
 
 inherit
-   IPV4_ACCESS
+   SOCKET_IMPL
 
-insert
-   SOCKET_PLUG_IN
+creation {SOCKET_HANDLER}
+   make_tcp, make_udp
 
-creation {ANY}
-   make
+creation {SOCKET_SERVER, SOCKET_HANDLER}
+   bind
 
-feature {ANY}
-   server: SOCKET_SERVER is
-      local
-         fd: INTEGER
+feature {SOCKET_HANDLER}
+   a, b, c, d: INTEGER
+   port: INTEGER
+
+feature {SOCKET_SERVER, SOCKET_HANDLER}
+   bind (server: SOCKET_SERVER) is
+         -- Binds the socket to the server.
       do
-         fd := net_udp_server(port)
+         if bind_values.is_null then
+            bind_values := bind_values.calloc(6)
+         end
+         net_accept(server.fd, bind_values)
+         fd := bind_values.item(5)
          if fd >= 0 then
-            create Result.make(Current, fd)
+            check
+               last_error = Void
+            end
+            common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4))
+            is_connected := True
+         else
+            error := last_error
          end
       end
 
 feature {}
-   make (a_address: ADDRESS; a_port: INTEGER) is
-         -- Access to a server on the given host address listening at the given port
-      require
-         a_address /= Void
-         a_port.in_range(1, 65535)
+   common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
       do
-         address := a_address
+         a := ip_a
+         b := ip_b
+         c := ip_c
+         d := ip_d
+         if last_read = Void then
+            create last_read.make(default_buffer_size)
+         end
          port := a_port
       end
 
-feature {IPV4_ADDRESS}
-   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
+   make_tcp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
       do
-         create {IPV4_SOCKET} Result.make_udp(a, b, c, d, port)
+         common_make(ip_a, ip_b, ip_c, ip_d, a_port)
+         connect(net_tcp(a, b, c, d, a_port))
       end
 
-end -- class UDP_ACCESS
+   make_udp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
+      do
+         common_make(ip_a, ip_b, ip_c, ip_d, a_port)
+         connect(net_udp(a, b, c, d, a_port))
+      end
+
+   bind_values: NATIVE_ARRAY[INTEGER]
+
+end -- class IPV4_SOCKET
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

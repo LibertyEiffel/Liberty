@@ -7,7 +7,7 @@ class TCP_ACCESS
    -- Access to a TCP server.
 
 inherit
-   ACCESS
+   IPV4_ACCESS
 
 insert
    SOCKET_PLUG_IN
@@ -28,8 +28,6 @@ feature {ANY}
                create Result.make(Current, fd)
             end
          end
-
-
       end
 
    set_address_reuse (value: BOOLEAN) is
@@ -55,21 +53,6 @@ feature {}
          port := a_port
       end
 
-   socket: SOCKET is
-      local
-         ip: IP_ADDRESS
-      do
-         ip := address.ip
-         if address.error /= Void then
-            error := address.error
-         else
-            create Result.make_tcp(ip.a, ip.b, ip.c, ip.d, port)
-            if not Result.is_connected then
-               error := Result.error
-            end
-         end
-      end
-
 feature {} -- Option handling
    set_preopen_options(fd: INTEGER) is
          -- Set the socket options that should be set after creating the
@@ -92,35 +75,13 @@ feature {} -- Option handling
          net_last_error_number = 0
       end
 
-end -- class TCP_ACCESS
---
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
+feature {IPV4_ADDRESS}
+   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
+      do
+         create {IPV4_SOCKET} Result.make_tcp(a, b, c, d, port)
+      end
 
+end -- class TCP_ACCESS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
