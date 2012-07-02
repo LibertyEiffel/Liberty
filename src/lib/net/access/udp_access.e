@@ -22,7 +22,7 @@ feature {ANY}
       do
          fd := net_udp_server(port)
          if fd >= 0 then
-            create Result.make(Current, fd)
+            create {IPV4_SOCKET_SERVER} Result.make(Current, fd)
          end
       end
 

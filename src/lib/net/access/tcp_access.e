@@ -25,7 +25,7 @@ feature {ANY}
             set_preopen_options(fd)
             fd := net_bind_server(fd, port, af_inet)
             if fd >= 0 then
-               create Result.make(Current, fd)
+               create {IPV4_SOCKET_SERVER} Result.make(Current, fd)
             end
          end
       end
