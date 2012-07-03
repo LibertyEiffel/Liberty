@@ -39,6 +39,7 @@ feature {} -- Implementation of update
 feature {JSON_ARRAY}
    visit_array (json: JSON_ARRAY) is
       do
+         check False end
       end
 
 feature {JSON_FALSE}
@@ -56,17 +57,28 @@ feature {JSON_NULL}
 feature {JSON_NUMBER}
    visit_number (json: JSON_NUMBER) is
       do
+         check False end
       end
 
 feature {JSON_OBJECT}
    visit_object (json: JSON_OBJECT) is
+         -- everything happens here because the repository structure is well defined
       local
          error: STRING; layout: REPOSITORY_LAYOUT
          jobj: JSON_OBJECT; jarr: JSON_ARRAY; jstr: JSON_STRING; jnum: JSON_NUMBER
-         type, vers: STRING
-         ref: INTEGER
+         star, type, vers, val: STRING
+         ref, cap, i: INTEGER
       do
-         if json.members.has(json_type) and json.members.at(json_type).is_equal(json_repository) then
+         jstr ::= json.members.at(json_star)
+         star := once "                "
+         star.copy(jstr.string.as_utf8)
+
+         io.put_line("    >>>> #(1)" # star)
+
+         inspect
+            star
+
+         when "repository" then
             jstr ::= json.members.at(json_version)
             vers := jstr.string.as_utf8
             if not vers.is_equal(version) then
@@ -81,13 +93,23 @@ feature {JSON_OBJECT}
             update_layouts.push(layout)
             open_repository(layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
+            jarr ::= json.members.at(json_refs)
+            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING; refs: JSON_ARRAY) is
+                                local
+                                   jn: JSON_NUMBER; r: INTEGER; lo: REPOSITORY_LAYOUT
                                 do
+                                   lo := new_layout(once "reference")
+                                   update_layouts.push(lo)
                                    last_name := string.string.to_utf8
-                                   value.accept(Current)
-                                end)
+                                   jn ::= value
+                                   r := jn.int.to_integer_32
+                                   open_reference(last_name, r, lo, value.line, value.column)
+                                   refs.array.item(r - 1 + refs.array.lower).accept(Current)
+                                   close_reference(value.line, value.column)
+                                end (?, ?, jarr))
             close_repository(json.line, json.column)
-         elseif json.members.has(json_layout) then
+
+         when "layout" then
             layout := new_layout(once "layout")
             update_layouts.push(layout)
             jstr ::= json.members.at(json_type)
@@ -103,9 +125,61 @@ feature {JSON_OBJECT}
                                    value.accept(Current)
                                 end)
             close_layout(json.line, json.column)
-         elseif json.members.has(json_array) then
-         elseif json.members.has(json_basic) then
-         elseif json.members.has(json_embedded) then
+
+         when "array" then
+            layout := new_layout(once "array")
+            update_layouts.push(layout)
+            jstr ::= json.members.at(json_type)
+            type := once ""
+            type.copy(jstr.string.as_utf8)
+            jnum ::= json.members.at(json_capacity)
+            cap := jnum.int.to_integer_32
+            open_array(last_name, type, cap, layout, json.line, json.column)
+            jarr ::= json.members.at(json_data)
+            jarr.array.enumerate.do_all(agent (value: JSON_VALUE; index: INTEGER) is
+                                        do
+                                           last_name := once ""
+                                           last_name.copy(once "item#")
+                                           index.append_in(last_name)
+                                           value.accept(Current)
+                                        end)
+            close_array(json.line, json.column)
+
+         when "basic" then
+            layout := new_layout(once "basic")
+            update_layouts.push(layout)
+            jstr ::= json.members.at(json_type)
+            type := once ""
+            type.copy(jstr.string.as_utf8)
+            jstr ::= json.members.at(json_value)
+            val := once ""
+            val.copy(jstr.string.as_utf8)
+            open_basic(last_name, type, val, layout, json.line, json.column)
+            close_basic(json.line, json.column)
+
+         when "embedded" then
+            layout := new_layout(once "embedded")
+            update_layouts.push(layout)
+            jstr ::= json.members.at(json_type)
+            type := once ""
+            type.copy(jstr.string.as_utf8)
+            open_embedded(last_name, type, layout, json.line, json.column)
+            jobj ::= json.members.at(json_data)
+            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
+                                do
+                                   last_name := string.string.to_utf8
+                                   value.accept(Current)
+                                end)
+            close_embedded(json.line, json.column)
+
+         when "reference" then
+            layout := new_layout(once "reference")
+            update_layouts.push(layout)
+            jnum ::= json.members.at(json_ref)
+            ref := jnum.int.to_integer_32
+            open_reference(last_name, ref, layout, json.line, json.column)
+            close_reference(json.line, json.column)
+
          else
             check False end
          end

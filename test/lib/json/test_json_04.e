@@ -51,7 +51,7 @@ feature {}
                                     "storage":                 {
                                         "*":        "array",
                                         "type":     "CHARACTER",
-                                        "capacity": "7",
+                                        "capacity": 7,
                                         "data":     [
                                             {
                                                 "*":     "basic",
@@ -130,7 +130,7 @@ feature {}
                                     "storage":                 {
                                         "*":        "array",
                                         "type":     "CHARACTER",
-                                        "capacity": "12",
+                                        "capacity": 12,
                                         "data":     [
                                             {
                                                 "*":     "basic",

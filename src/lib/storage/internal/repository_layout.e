@@ -326,7 +326,7 @@ feature {}
 invariant
    has_kind: kind /= Void
    solved_internals_coherence: (not solved and internals_memory /= Void) implies internals_memory.object_can_be_modified
-   reference_has_ref: kind.is_equal("reference") implies ref > 0
+   --reference_has_ref: kind.is_equal("reference") implies (ref > 0 or trans_ref /= Void)
    reference_is_solved: (kind.is_equal("reference") and internals_set) implies solved
    reference_dont_have_layouts: kind.is_equal("reference") implies layouts.is_empty
    transient_or_ref: trans_ref /= Void implies ref = 0

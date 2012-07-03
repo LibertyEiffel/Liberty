@@ -21,17 +21,17 @@ feature {REPOSITORY_IMPL}
 
    start_write is
       local
-         shell_object: like new_shell_object
+         shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
       do
          check
             no_crumbs_in_stack: object_stack.is_empty
          end
 
-         shell_object := new_shell_object({LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
-                            json_repository,      json_star;
-                            json_string(version), json_version;
-                         >>})
-         create_current_object(shell_object, False)
+         shell_object := {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
+            json_repository,      json_star;
+            json_string(version), json_version;
+         >>}
+         create_object(shell_object)
          create references.make(0)
          shell_object.add(create {JSON_ARRAY}.make(references), json_refs)
          create text.make(shell_object)
@@ -53,8 +53,7 @@ feature {REPOSITORY_IMPL}
 
    write_reference (ref: INTEGER; name: STRING) is
       do
-         current_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0),
-                            json_string(name))
+         current_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_string(name))
       end
 
    write_transient_reference (ref, name: STRING) is
@@ -63,11 +62,15 @@ feature {REPOSITORY_IMPL}
       end
 
    start_layout (ref: INTEGER; type: STRING) is
+      local
+         shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
       do
-         push_object(Void, ref, False, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         shell_object := {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_layout,       json_star;
             json_string(type), json_type;
-         >>})
+         >>}
+         shell_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_ref)
+         push_object(Void, ref, agent create_object, shell_object)
       end
 
    end_layout is
@@ -81,7 +84,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,              json_star;
             json_type_character,     json_type;
             json_string(c.code.out), json_value;
@@ -94,7 +97,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_boolean,  json_type;
             json_string(c.out), json_value;
@@ -107,7 +110,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,          json_star;
             json_type_integer_8, json_type;
             json_string(c.out),  json_value;
@@ -120,7 +123,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,           json_star;
             json_type_integer_16, json_type;
             json_string(c.out),   json_value;
@@ -133,7 +136,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,           json_star;
             json_type_integer_32, json_type;
             json_string(c.out),   json_value;
@@ -146,7 +149,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,           json_star;
             json_type_integer_64, json_type;
             json_string(c.out),   json_value;
@@ -159,7 +162,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_integer,  json_type;
             json_string(c.out), json_value;
@@ -172,7 +175,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_real_32,  json_type;
             json_string(c.out), json_value;
@@ -185,7 +188,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_real_64,  json_type;
             json_string(c.out), json_value;
@@ -198,7 +201,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_real_80,  json_type;
             json_string(c.out), json_value;
@@ -211,7 +214,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,          json_star;
             json_type_real_128,  json_type;
             json_string(c.out),  json_value;
@@ -224,7 +227,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,         json_star;
             json_type_real,     json_type;
             json_string(c.out), json_value;
@@ -237,7 +240,7 @@ feature {REPOSITORY_IMPL}
       do
          t ::= internals
          c := t.object
-         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         add_object(name, 0, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_basic,              json_star;
             json_type_real_expanded, json_type;
             json_string(c.out),      json_value;
@@ -245,12 +248,15 @@ feature {REPOSITORY_IMPL}
       end
 
    start_array_layout (array: INTERNALS; name: STRING) is
+      local
+         shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]
       do
-         push_object(name, 0, True, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         shell_object := {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_array,                                          json_star;
             json_array_element_type(array.type_generating_type), json_type;
-            json_string(array.type_attribute_count.out),         json_capacity;
-         >>})
+         >>}
+         shell_object.add(create {JSON_NUMBER}.make(array.type_attribute_count, 0, 0, 0), json_capacity);
+         push_object(name, 0, agent create_array, shell_object)
       end
 
    end_array_layout (array: INTERNALS; name: STRING) is
@@ -260,7 +266,7 @@ feature {REPOSITORY_IMPL}
 
    start_embedded_layout (layout: INTERNALS; name: STRING) is
       do
-         push_object(name, 0, False, {LINKED_HASHED_DICTIONARY[JSON_STRING, JSON_STRING] <<
+         push_object(name, 0, agent create_object, {LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] <<
             json_embedded,                            json_star;
             json_string(layout.type_generating_type), json_type;
          >>})
@@ -280,7 +286,7 @@ feature {}
    references: FAST_ARRAY[JSON_VALUE]
    object_stack: STACK[TUPLE[LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING], FAST_ARRAY[JSON_VALUE]]]
 
-   add_shell_object (name: STRING; ref: INTEGER; shell_object: like new_shell_object; to_object: like current_object; to_array: like current_array) is
+   add_shell_object (name: STRING; ref: INTEGER; shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]; to_object: like current_object; to_array: like current_array) is
       require
          ref >= 0
          shell_object /= Void
@@ -300,66 +306,42 @@ feature {}
          end
       end
 
-   add_object (name: STRING; ref: INTEGER; shell_data: MAP[JSON_STRING, JSON_STRING]) is
+   add_object (name: STRING; ref: INTEGER; shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]) is
       require
          ref >= 0
          name /= Void implies (current_object /= Void xor current_array /= Void)
-         shell_data /= Void
-         not shell_data.has(json_data)
-         not shell_data.has(json_refs)
+         shell_object /= Void
+         not shell_object.has(json_data)
+         not shell_object.has(json_refs)
       do
-         add_shell_object(name, ref, new_shell_object(shell_data), current_object, current_array)
+         add_shell_object(name, ref, shell_object, current_object, current_array)
       ensure
          object_stack.count = old object_stack.count
          current_object = old current_object
          --object_stack.is_empty or else object_stack.top = old object_stack.top
       end
 
-   push_object (name: STRING; ref: INTEGER; is_array: BOOLEAN; shell_data: MAP[JSON_STRING, JSON_STRING]) is
+   push_object (name: STRING; ref: INTEGER; agent_create: PROCEDURE[TUPLE[LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]]]; shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]) is
       require
          name /= Void implies (current_object /= Void xor current_array /= Void)
-         shell_data /= Void
-         not shell_data.has(json_data)
-         not shell_data.has(json_refs)
+         shell_object /= Void
+         not shell_object.has(json_data)
+         not shell_object.has(json_refs)
+         ref >= 0
+         (ref /= 0) = shell_object.has(json_ref)
       local
-         shell_object: like new_shell_object
          old_object: like current_object
          old_array: like current_array
       do
          old_object := current_object
          old_array := current_array
-         shell_object := new_shell_object(shell_data)
-         if ref > 0 then
-            shell_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_ref)
-         end
-         create_current_object(shell_object, is_array)
+         agent_create.call([shell_object])
          add_shell_object(name, ref, shell_object, old_object, old_array)
          object_stack.push([old_object, old_array])
       ensure
          object_stack.count = old object_stack.count + 1
          object_stack.top.first = old current_object
          object_stack.top.second = old current_array
-         not is_array implies current_object /= Void and current_object /= old current_object
-         is_array implies current_array /= Void and current_array /= old current_array
-      end
-
-   new_shell_object (shell_data: MAP[JSON_STRING, JSON_STRING]): LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING] is
-      require
-         shell_data /= Void
-         not shell_data.has(json_data)
-         not shell_data.has(json_refs)
-      local
-         i: INTEGER
-      do
-         create Result.make
-         from
-            i := shell_data.lower
-         until
-            i > shell_data.upper
-         loop
-            Result.add(shell_data.item(i), shell_data.key(i))
-            i := i + 1
-         end
       end
 
    pop_object is
@@ -375,17 +357,22 @@ feature {}
          current_array = old object_stack.top.second
       end
 
-   create_current_object (shell_object: like new_shell_object; is_array: BOOLEAN) is
+   create_object (shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]) is
       do
-         if is_array then
-            create current_array.make(0)
-            current_object := Void
-            shell_object.add(create {JSON_ARRAY}.make(current_array), json_data)
-         else
-            create current_object.make
-            current_array := Void
-            shell_object.add(create {JSON_OBJECT}.make(current_object), json_data)
-         end
+         create current_object.make
+         current_array := Void
+         shell_object.add(create {JSON_OBJECT}.make(current_object), json_data)
+      ensure
+         current_object /= Void and current_object /= old current_object
+      end
+
+   create_array (shell_object: LINKED_HASHED_DICTIONARY[JSON_VALUE, JSON_STRING]) is
+      do
+         create current_array.make(0)
+         current_object := Void
+         shell_object.add(create {JSON_ARRAY}.make(current_array), json_data)
+      ensure
+         current_array /= Void and current_array /= old current_array
       end
 
    make (a_out_stream: like out_stream; a_version: like version) is
