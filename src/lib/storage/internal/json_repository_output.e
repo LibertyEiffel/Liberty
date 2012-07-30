@@ -53,7 +53,7 @@ feature {REPOSITORY_IMPL}
 
    write_reference (ref: INTEGER; name: STRING) is
       do
-         current_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_string(name))
+         current_object.add(create {JSON_NUMBER}.make(1, ref.to_natural_64, 0.to_natural_64, 0, 0), json_string(name))
       end
 
    write_transient_reference (ref, name: STRING) is
@@ -69,7 +69,7 @@ feature {REPOSITORY_IMPL}
             json_layout,       json_star;
             json_string(type), json_type;
          >>}
-         shell_object.add(create {JSON_NUMBER}.make(ref, 0, 0, 0), json_ref)
+         shell_object.add(create {JSON_NUMBER}.make(1, ref.to_natural_64, 0.to_natural_64, 0, 0), json_ref)
          push_object(Void, ref, agent create_object, shell_object)
       end
 
@@ -255,7 +255,7 @@ feature {REPOSITORY_IMPL}
             json_array,                                          json_star;
             json_array_element_type(array.type_generating_type), json_type;
          >>}
-         shell_object.add(create {JSON_NUMBER}.make(array.type_attribute_count, 0, 0, 0), json_capacity);
+         shell_object.add(create {JSON_NUMBER}.make(1, array.type_attribute_count.to_natural_64, 0.to_natural_64, 0, 0), json_capacity);
          push_object(name, 0, agent create_array, shell_object)
       end
 

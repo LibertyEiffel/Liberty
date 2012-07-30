@@ -1413,7 +1413,9 @@ feature {}
          if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
-            if original_when_clause.compound = Void then
+            if original_when_clause.compound /= Void then
+               --echo.put_line(once ">>>> valid_generating_type_for_internals: original clause already exists, skipping code customization")
+            else
                smart_eiffel.magic_count_increment
                when_list.clear_count
                original_when_item ::= original_when_clause.list.first
@@ -1431,16 +1433,24 @@ feature {}
                   i > live_types.upper
                loop
                   live_type := live_types.item(i)
-                  if live_type.create_blank_internals_instruction /= Void and then not live_type.is_native_array then
+                  if not live_type.create_blank_internals_used then
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) does NOT create blank_internals" # live_type.name.to_string)
+                  elseif live_type.is_native_array then
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) is a native array" # live_type.name.to_string)
+                  else
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) does create blank_internals" # live_type.name.to_string)
                      check
                         live_type.at_run_time
+                        live_type.create_blank_internals_instruction /= Void
 --                        is_introspectable_attribute_type(live_type.canonical_type_mark)
                      end
                      type_name := live_type.name
                      if original_type_name = type_name.to_string then
+                        --echo.put_line(once "     => name is original, setting original when clause")
                         original_when_clause.set_compound(assignment)
                         when_list.add_last(original_when_clause)
                      else
+                        --echo.put_line(once "     => new name, adding new when clause")
                         when_clause := original_when_clause.twin
                         create when_item_list.with_capacity(1)
                         when_clause.init(assignment, when_item_list)
@@ -1455,8 +1465,11 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: specializing -- count=#(1)" # when_list.count.out)
                   Result := Result.specialize_2(new_type)
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: done")
                else
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: failed")
                   Result := Void
                end
             end

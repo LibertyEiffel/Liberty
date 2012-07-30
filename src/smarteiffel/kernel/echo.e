@@ -54,7 +54,7 @@ feature {}
       end
 
 feature {ANY} -- To echo some additional information (echo is only done when `is_verbose' is True).
-   put_string (msg: STRING) is
+   put_string (msg: ABSTRACT_STRING) is
       do
          if is_verbose then
             output_stream.put_string(msg)
@@ -62,7 +62,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_line (msg: STRING) is
+   put_line (msg: ABSTRACT_STRING) is
       do
          if is_verbose then
             output_stream.put_line(msg)
@@ -428,7 +428,7 @@ feature {NEW_ECHO}
    output_path: STRING
 
 feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN, COMMAND_LINE_TOOLS}
-	
+
    redirect_output_on (new_output_path: like output_path) is
          -- -output_error_warning_on
       require

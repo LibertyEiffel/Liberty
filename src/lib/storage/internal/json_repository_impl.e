@@ -67,13 +67,11 @@ feature {JSON_OBJECT}
          error: STRING; layout: REPOSITORY_LAYOUT
          jobj: JSON_OBJECT; jarr: JSON_ARRAY; jstr: JSON_STRING; jnum: JSON_NUMBER
          star, type, vers, val: STRING
-         ref, cap, i: INTEGER
+         ref, cap: INTEGER
       do
          jstr ::= json.members.at(json_star)
          star := once "                "
          star.copy(jstr.string.as_utf8)
-
-         io.put_line("    >>>> #(1)" # star)
 
          inspect
             star

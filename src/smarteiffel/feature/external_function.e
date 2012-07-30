@@ -14,7 +14,7 @@ inherit
 
 insert
    PLATFORM
-   
+
 creation {FEATURE_TEXT}
    make
 
@@ -980,8 +980,7 @@ feature {}
                if as_internals_from_generating_type = n then
                   introspection_handler.collect_internals_from_generating_type(insp, start_position, t)
                elseif as_native_array_internals_from_generating_type = n then
-                  introspection_handler.collect_native_array_internals_from_generating_type(insp, start_position,
-                                                                                            arguments, t)
+                  introspection_handler.collect_native_array_internals_from_generating_type(insp, start_position, arguments, t)
                end
             end
          elseif as_exception = n then
@@ -1063,7 +1062,7 @@ feature {}
             end
          end
       end
-   
+
 end -- class EXTERNAL_FUNCTION
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
