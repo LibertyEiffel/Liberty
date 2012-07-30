@@ -307,15 +307,17 @@ feature {}
          context.is_valid
          ;(once "0123456789-").has(context.item)
       local
-         state: INTEGER; int, frac, exp, frac_exp: INTEGER_64
-         neg, expneg: BOOLEAN
+         state: INTEGER; int, frac: NATURAL_64; exp, frac_exp: INTEGER_64
+         neg, expneg: INTEGER_8
       do
          debug ("json/parser")
             debug_parse_in(once "parse_number", context)
          end
          if context.item = '-' then
-            neg := True
+            neg := -1
             context.next
+         else
+            neg := 1
          end
          if not context.is_valid then
             context.error(once "Unfinished number")
@@ -325,12 +327,25 @@ feature {}
                context.item
             when '0' then
                check
-                  int = 0
+                  int = 0.to_natural_64
                end
-               state := -1
                context.next
+               inspect
+                  context.item
+               when '.' then
+                  state := 10
+                  context.next
+               when 'e', 'E' then
+                  state := 20
+                  context.next
+               when '0'..'9' then
+                  context.error(once "Invalid number")
+                  state := -2
+               else
+                  state := -1
+               end
             when '1'..'9' then
-               int := context.item.decimal_value
+               int := context.item.decimal_value.to_natural_64
                context.next
             else
                context.error(once "Invalid number")
@@ -359,7 +374,7 @@ feature {}
                      state := 20
                      context.next
                   when '0'..'9' then
-                     int := int * 10 + context.item.decimal_value
+                     int := int * 10.to_natural_64 + context.item.decimal_value.to_natural_64
                      context.next
                   else
                      state := -1
@@ -369,7 +384,7 @@ feature {}
                   inspect
                      context.item
                   when '0'..'9' then
-                     frac := context.item.decimal_value
+                     frac := context.item.decimal_value.to_natural_64
                      frac_exp := 1
                      state := 11
                      context.next
@@ -382,7 +397,7 @@ feature {}
                   inspect
                      context.item
                   when '0'..'9' then
-                     frac := frac * 10 + context.item.decimal_value
+                     frac := frac * 10.to_natural_64 + context.item.decimal_value.to_natural_64
                      frac_exp := frac_exp + 1
                      context.next
                   when 'e', 'E' then
@@ -397,14 +412,16 @@ feature {}
                      context.item
                   when '+' then
                      state := 21
+                     expneg := 1
                      context.next
                   when '-' then
                      state := 21
-                     expneg := True
+                     expneg := -1
                      context.next
                   when '0'..'9' then
                      exp := context.item.decimal_value
                      state := 22
+                     expneg := 1
                      context.next
                   else
                      context.error(once "Invalid number")
@@ -437,13 +454,7 @@ feature {}
          end
 
          if state = -1 then
-            if neg then
-               int := -int
-            end
-            if expneg then
-               exp := -exp
-            end
-            create Result.make(int, frac, frac_exp, exp)
+            create Result.make(neg, int, frac, frac_exp, expneg * exp)
             Result.set_position(context.line, context.column)
          end
          debug ("json/parser")

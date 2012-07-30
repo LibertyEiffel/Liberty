@@ -50,7 +50,7 @@ feature {JSON_DECODER}
 
    create_number (number: JSON_NUMBER): JSON_DATA is
       do
-         create {AUX_JSON_DATA} Result.make(create {JSON_NUMBER}.make(number.int, number.frac, number.frac_exp, number.exp))
+         create {AUX_JSON_DATA} Result.make(create {JSON_NUMBER}.make(number.sign, number.int, number.frac, number.frac_exp, number.exp))
       end
 
    true_value: JSON_DATA is

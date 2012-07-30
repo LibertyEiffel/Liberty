@@ -23,7 +23,8 @@ feature {ANY}
 
    is_equal (other: like Current): BOOLEAN is
       do
-         Result :=   int      = other.int
+         Result :=   sign     = other.sign
+            and then int      = other.int
             and then frac     = other.frac
             and then frac_exp = other.frac_exp
             and then exp      = other.exp
@@ -38,14 +39,14 @@ feature {ANY}
       require
          is_integer
       do
-         Result := int * {INTEGER_64 10} ^ exp
-            + int.sign * frac * {INTEGER_64 10} ^ (exp - frac_exp)
+         Result := sign * int.to_integer_64 * {INTEGER_64 10} ^ exp
+            + sign * frac.to_integer_64 * {INTEGER_64 10} ^ (exp - frac_exp)
       end
 
    to_real: REAL_64 is
       do
-         Result := int.to_real_64 * ({INTEGER_64 10} ^ exp).to_real_64
-            + int.sign * frac.to_real_64 / ({INTEGER_64 10} ^ (frac_exp - exp)).to_real_64
+         Result := sign * int.to_real_64 * ({INTEGER_64 10} ^ exp).to_real_64
+            + sign * frac.to_real_64 / ({INTEGER_64 10} ^ (frac_exp - exp)).to_real_64
       end
 
    append_in (str: STRING) is
@@ -61,20 +62,23 @@ feature {ANY}
       require
          str.is_connected
       local
-         frac10: INTEGER_64
+         frac10: NATURAL_64
       do
-         str.put_integer(int)
+         if sign < 0 then
+            str.put_character('-')
+         end
+         str.put_natural_64(int)
          if frac_exp > 0 then
             str.put_character('.')
             from
-               frac10 := {INTEGER_64 10} ^ (frac_exp - 1)
+               frac10 := ({INTEGER_64 10} ^ (frac_exp - 1)).to_natural_64
             until
                frac10 <= frac
             loop
                str.put_character('0')
-               frac10 := frac10 // 10
+               frac10 := frac10 // 10.to_natural_64
             end
-            str.put_integer(frac)
+            str.put_natural_64(frac)
          end
          if exp /= 0 then
             str.put_character('e')
@@ -90,21 +94,32 @@ feature {ANY}
       end
 
 feature {JSON_HANDLER}
-   int, frac, frac_exp, exp: INTEGER_64
+   sign: INTEGER_8
+   int, frac: NATURAL_64
+   frac_exp, exp: INTEGER_64
 
 feature {}
-   make (a_int, a_frac, a_frac_exp, a_exp: INTEGER_64) is
+   make (a_sign: like sign; a_int: like int; a_frac: like frac; a_frac_exp: like frac_exp; a_exp: like exp) is
+      require
+         a_sign = 1 or else a_sign = -1
+         a_frac_exp >= 0
       do
+         sign := a_sign
          int := a_int
          frac := a_frac
          frac_exp := a_frac_exp
          exp := a_exp
       ensure
+         sign = a_sign
          int = a_int
          frac = a_frac
          frac_exp = a_frac_exp
          exp = a_exp
       end
+
+invariant
+   sign = 1 or else sign = -1
+   frac_exp >= 0
 
 end -- class JSON_NUMBER
 --

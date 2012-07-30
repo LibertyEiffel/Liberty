@@ -8,9 +8,54 @@ inherit
       redefine
          is_equal, out_in_tagged_out_memory
       end
+   TRAVERSABLE[JSON_VALUE]
+      redefine
+         is_equal, out_in_tagged_out_memory
+      end
 
 create {JSON_HANDLER}
    make
+
+feature {ANY}
+   lower: INTEGER is
+      do
+         Result := array.lower
+      end
+
+   upper: INTEGER is
+      do
+         Result := array.upper
+      end
+
+   count: INTEGER is
+      do
+         Result := array.count
+      end
+
+   is_empty: BOOLEAN is
+      do
+         Result := array.is_empty
+      end
+
+   first: JSON_VALUE is
+      do
+         Result := array.first
+      end
+
+   last: JSON_VALUE is
+      do
+         Result := array.last
+      end
+
+   item (index: INTEGER): JSON_VALUE is
+      do
+         Result := array.item(index)
+      end
+
+   new_iterator: ITERATOR[JSON_VALUE] is
+      do
+         Result := array.new_iterator
+      end
 
 feature {ANY}
    accept (visitor: VISITOR) is
