@@ -39,19 +39,31 @@ feature {ANY}
    decode (data: STRING): DATA_ is
       local
          value: JSON_VALUE
+         strin: STRING_INPUT_STREAM
          d: JSON_TYPED_DATA[DATA_]
       do
-         parse_error := Void
-         value := codec.parse(data)
+         create strin.from_string(data)
+         value := codec.parse(strin)
          if value /= Void then
             d ::= decoder.decode(codec, value)
             Result := d.item
-         else
-            parse_error := codec.parse_error
          end
       end
 
-   parse_error: ABSTRACT_STRING
+   error_message: ABSTRACT_STRING is
+      do
+         Result := codec.error_message
+      end
+
+   error_line: INTEGER is
+      do
+         Result := codec.error_line
+      end
+
+   error_column: INTEGER is
+      do
+         Result := codec.error_column
+      end
 
    encoder: JSON_ENCODER is
       once
@@ -68,12 +80,15 @@ feature {}
       require
          a_codec /= Void
       do
-         codec := a_codec
+         create codec.make(a_codec)
       ensure
-         codec = a_codec
+         codec.nested = a_codec
       end
 
-   codec: JSON_CODEC[DATA_]
+   codec: JSON_CODEC_IMPL[DATA_]
+
+invariant
+   codec /= Void
 
 end -- class JSON
 --

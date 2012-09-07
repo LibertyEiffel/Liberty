@@ -1,70 +1,109 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class JSON_ANY_CODEC
+class JSON_CODEC_IMPL[DATA_]
+
+inherit
+   JSON_CODEC[DATA_]
+      redefine
+         parse
+      end
 
 insert
    JSON_HANDLER
 
+create {ANY}
+   make
+
+feature {ANY}
+   error_message: ABSTRACT_STRING
+   error_line, error_column: INTEGER
+
+   nested: JSON_CODEC[DATA_]
+
 feature {JSON_HANDLER}
+   build (data: DATA_): JSON_TEXT is
+      do
+         Result := nested.build(data)
+      end
+
+   parse (data: INPUT_STREAM): JSON_TEXT is
+      do
+         error_message := Void
+         error_line := -1
+         error_column := -1
+         Result := Precursor(data)
+      end
+
+   on_error (a_message: ABSTRACT_STRING; a_line, a_column: INTEGER) is
+      do
+         error_message := a_message
+         error_line := a_line
+         error_column := a_column
+         if nested /= Void then
+            nested.on_error(a_message, a_line, a_column)
+         end
+      end
+
    create_array: JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.create_array
       end
 
    add_to_array (array, value: JSON_DATA) is
-      require
-         array /= Void
-         value /= Void
-      deferred
+      do
+         nested.add_to_array(array, value)
       end
 
    create_object: JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.create_object
       end
 
    add_to_object (object, key, value: JSON_DATA) is
-      require
-         object /= Void
-         key /= Void
-         value /= Void
-      deferred
+      do
+         nested.add_to_object(object, key, value)
       end
 
    create_string (string: JSON_STRING): JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.create_string(string)
       end
 
    create_number (number: JSON_NUMBER): JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.create_number(number)
       end
 
    true_value: JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.true_value
       end
 
    false_value: JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.false_value
       end
 
    null_value: JSON_DATA is
-      deferred
-      ensure
-         Result /= Void
+      do
+         Result := nested.null_value
       end
 
-end -- class JSON_ANY_CODEC
+feature {}
+   make (a_nested: like nested) is
+      require
+         a_nested /= Void
+      do
+         nested := a_nested
+      ensure
+         nested = a_nested
+      end
+
+invariant
+   nested /= Void
+
+end -- class JSON_CODEC_IMPL
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

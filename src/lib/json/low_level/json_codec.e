@@ -16,21 +16,27 @@ feature {JSON_HANDLER}
          Result /= Void
       end
 
-   parse (data: ABSTRACT_STRING): JSON_TEXT is
+   parse (data: INPUT_STREAM): JSON_TEXT is
       require
-         data /= Void
-      local
-         parser: JSON_PARSER
-         input: STRING_INPUT_STREAM
+         data.is_connected
       do
-         create parser.make(agent on_error)
-         create input.from_string(data.out)
-         Result := parser.parse_json_text(input)
+         Result := parser.parse_json_text(data)
+      end
+
+   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+      deferred
       end
 
 feature {}
-   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
-      deferred
+   parser_: WEAK_REFERENCE[JSON_PARSER]
+
+   parser: JSON_PARSER is
+      do
+         Result := parser_.item
+         if Result = Void then
+            create Result.make(agent on_error)
+            parser_.set_item(Result)
+         end
       end
 
 end -- class JSON_CODEC

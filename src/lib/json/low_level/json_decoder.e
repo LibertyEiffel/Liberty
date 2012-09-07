@@ -6,6 +6,9 @@ class JSON_DECODER
 inherit
    JSON_VISITOR
 
+insert
+   JSON_HANDLER
+
 create {JSON_HANDLER}
    make
 
