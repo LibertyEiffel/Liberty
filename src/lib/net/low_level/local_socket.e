@@ -12,10 +12,34 @@ inherit
    SOCKET_IMPL
 
 creation {SOCKET_HANDLER}
-   make
+   make, bind
 
 feature {SOCKET_HANDLER}
    port: INTEGER
+
+feature {SOCKET_SERVER, SOCKET_HANDLER}
+   bind (server: SOCKET_SERVER) is
+         -- Binds the socket to the server.
+      do
+         if bind_values.is_null then
+            bind_values := bind_values.calloc(6)
+         end
+         net_accept(server.fd, bind_values)
+         fd := bind_values.item(5)
+         if fd >= 0 then
+            check
+               last_error = Void
+               local_ip_a: bind_values.item(0) = 127
+               local_ip_b: bind_values.item(1) = 0
+               local_ip_c: bind_values.item(2) = 0
+               local_ip_d: bind_values.item(3) = 1
+            end
+            make(bind_values.item(4))
+            is_connected := True
+         else
+            error := last_error
+         end
+      end
 
 feature {}
    make (a_port: INTEGER) is
@@ -27,15 +51,7 @@ feature {}
          connect(net_local(a_port))
       end
 
-   connect (a_fd: like fd) is
-      do
-         if a_fd >= 0 then
-            is_connected := True
-            fd := a_fd
-         else
-            error := last_error
-         end
-      end
+   bind_values: NATIVE_ARRAY[INTEGER]
 
 end -- class LOCAL_SOCKET
 --
