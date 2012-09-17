@@ -18,13 +18,13 @@ feature {SOCKET_HANDLER}
    port: INTEGER
 
 feature {SOCKET_SERVER, SOCKET_HANDLER}
-   bind (server: SOCKET_SERVER) is
+   bind (server: SOCKET_SERVER; a_sync: BOOLEAN) is
          -- Binds the socket to the server.
       do
          if bind_values.is_null then
             bind_values := bind_values.calloc(6)
          end
-         net_accept(server.fd, bind_values)
+         net_accept(server.fd, bind_values, a_sync)
          fd := bind_values.item(5)
          if fd >= 0 then
             check
@@ -34,7 +34,7 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
                local_ip_c: bind_values.item(2) = 0
                local_ip_d: bind_values.item(3) = 1
             end
-            make(bind_values.item(4))
+            make(bind_values.item(4), a_sync)
             is_connected := True
          else
             error := last_error
@@ -42,13 +42,14 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
       end
 
 feature {}
-   make (a_port: INTEGER) is
+   make (a_port: INTEGER; a_sync: BOOLEAN) is
       do
          if last_read = Void then
             create last_read.make(default_buffer_size)
          end
          port := a_port
-         connect(net_local(a_port))
+         sync := a_sync
+         connect(net_local(a_port, a_sync))
       end
 
    bind_values: NATIVE_ARRAY[INTEGER]

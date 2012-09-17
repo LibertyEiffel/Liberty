@@ -53,7 +53,7 @@ feature {EVENTS_SET, SOCKET}
          -- The file descriptor of the socket; it is used to wait for some connection.
 
 feature {SOCKET_INPUT_OUTPUT_STREAM}
-   bind: SOCKET is
+   bind (a_sync: BOOLEAN): SOCKET is
          -- Create a socket for the stream to connect upon (used by the stream at creation)
       deferred
       ensure

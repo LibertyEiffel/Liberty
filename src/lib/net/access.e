@@ -16,9 +16,6 @@ feature {ANY}
    error: STRING
          -- If an error occurred
 
-   read_sync: BOOLEAN
-         -- True if read access should be synchronous (blocking when there is no data)
-
    server: SOCKET_SERVER is
          -- Start a server on the given access on localhost, listening to connections bound to the given
          -- address.
@@ -33,13 +30,6 @@ feature {ANY}
          error = Void implies Result.is_connected
       end
 
-   set_read_sync (a_read_sync: like read_sync) is
-      do
-         read_sync := a_read_sync
-      ensure
-         read_sync = a_read_sync
-      end
-
 feature {}
    a_stream: CLIENT_SOCKET_INPUT_OUTPUT_STREAM is
       local
@@ -47,7 +37,7 @@ feature {}
       do
          s := socket
          if error = Void then
-            create Result.connect_to(s, read_sync)
+            create Result.connect_to(s)
          end
       end
 

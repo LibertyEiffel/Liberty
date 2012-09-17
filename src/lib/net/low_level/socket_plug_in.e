@@ -25,7 +25,7 @@ feature {}
       end
 
 feature {} -- Plugin
-   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -34,7 +34,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -43,7 +43,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local (a_port: INTEGER): INTEGER is
+   net_local (a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -79,7 +79,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]) is
+   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]; a_sync: BOOLEAN) is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -133,7 +133,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_server (port: INTEGER): INTEGER is
+   net_tcp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -142,7 +142,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp_server (port: INTEGER): INTEGER is
+   net_udp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -151,7 +151,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local_server (port: INTEGER): INTEGER is
+   net_local_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

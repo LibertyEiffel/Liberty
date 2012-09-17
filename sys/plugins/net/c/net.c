@@ -126,8 +126,8 @@ static int init(void) {
       net_last_error = net_error;
       net_last_error_number = -1;
       sprintf((char*)net_last_error, "%s", "Could not find a suitable version (found %d.%d)",
-	      HIBYTE(winsock_data->wVersion),
-	      LOBYTE(winsock_data->wVersion));
+              HIBYTE(winsock_data->wVersion),
+              LOBYTE(winsock_data->wVersion));
       WSACleanup();
     }
     else {
@@ -161,7 +161,7 @@ int net_hostname(void* a_hostname) {
 }
 
 #ifdef O_ASYNC
-static SOCKET control_socket(SOCKET socket) {
+static SOCKET control_socket_async(SOCKET socket) {
   SOCKET result = socket;
   int flags;
 
@@ -178,7 +178,7 @@ static SOCKET control_socket(SOCKET socket) {
   return result;
 }
 #else
-#define control_socket(socket) (socket)
+#define control_socket_async(socket) (socket)
 #endif
 
 #ifndef MSG_DONTWAIT
@@ -232,10 +232,10 @@ static SOCKET address_socket(SOCKET socket, int a, int b, int c, int d, int port
   return result;
 }
 
-SOCKET net_tcp(int a, int b, int c, int d, int port) {
+SOCKET net_tcp(int a, int b, int c, int d, int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
-    result = net_tcp_socket();
+    result = net_tcp_socket(sync);
     if (result != INVALID_SOCKET) {
       result = address_socket(result, a, b, c, d, port);
     }
@@ -243,10 +243,10 @@ SOCKET net_tcp(int a, int b, int c, int d, int port) {
   return result;
 }
 
-SOCKET net_udp(int a, int b, int c, int d, int port) {
+SOCKET net_udp(int a, int b, int c, int d, int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
-    result = net_udp_socket();
+    result = net_udp_socket(sync);
     if (result != INVALID_SOCKET) {
       result = address_socket(result, a, b, c, d, port);
     }
@@ -256,12 +256,12 @@ SOCKET net_udp(int a, int b, int c, int d, int port) {
 
 #if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
-SOCKET net_local(int port) {
+SOCKET net_local(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   static struct sockaddr_in tmp_addr;
   if (init()) {
     clear_error();
-    result = net_local_socket();
+    result = net_local_socket(sync);
     tmp_addr.sin_family = AF_LOCAL;
     tmp_addr.sin_port = htons(port);
     if (connect(result, (struct sockaddr *)&tmp_addr, sizeof(struct sockaddr_in)) == SOCKET_ERROR && net_errno != EINPROGRESS) {
@@ -301,7 +301,7 @@ void net_shutdown(SOCKET fd) {
   }
 }
 
-SOCKET net_tcp_socket() {
+SOCKET net_tcp_socket(EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
     clear_error();
@@ -309,14 +309,14 @@ SOCKET net_tcp_socket() {
     if (result == INVALID_SOCKET) {
       set_error();
     }
-    else {
-      result = control_socket(result);
+    else if (!sync) {
+      result = control_socket_async(result);
     }
   }
   return result;
 }
 
-SOCKET net_udp_socket() {
+SOCKET net_udp_socket(EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
     clear_error();
@@ -324,8 +324,8 @@ SOCKET net_udp_socket() {
     if (result == INVALID_SOCKET) {
       set_error();
     }
-    else {
-      result = control_socket(result);
+    else if (!sync) {
+      result = control_socket_async(result);
     }
   }
   return result;
@@ -333,7 +333,7 @@ SOCKET net_udp_socket() {
 
 #if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
-SOCKET net_local_socket() {
+SOCKET net_local_socket(EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
     clear_error();
@@ -341,15 +341,15 @@ SOCKET net_local_socket() {
     if (result == INVALID_SOCKET) {
       set_error();
     }
-    else {
-      result = control_socket(result);
+    else if (!sync) {
+      result = control_socket_async(result);
     }
   }
   return result;
 }
 #elif defined WIN32
 
-SOCKET net_local_socket() {
+SOCKET net_local_socket(EIF_BOOLEAN sync) {
   return INVALID_SOCKET;
 }
 #endif
@@ -377,27 +377,27 @@ SOCKET net_bind_server(SOCKET socket, int port, int sockfamily) {
   return result;
 }
 
-SOCKET net_tcp_server(int port) {
+SOCKET net_tcp_server(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
-    result = net_bind_server(net_tcp_socket(), port, AF_INET);
+    result = net_bind_server(net_tcp_socket(sync), port, AF_INET);
   }
   return result;
 }
 
-SOCKET net_udp_server(int port) {
+SOCKET net_udp_server(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
-    result = net_bind_server(net_udp_socket(), port, AF_INET);
+    result = net_bind_server(net_udp_socket(sync), port, AF_INET);
   }
   return result;
 }
 
 #if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
-SOCKET net_local_server(int port) {
+SOCKET net_local_server(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
-    result = net_bind_server(net_local_socket(), port, AF_LOCAL);
+    result = net_bind_server(net_local_socket(sync), port, AF_LOCAL);
   }
   return result;
 }
@@ -424,7 +424,7 @@ void net_select(int count, SOCKET* afd, float timeout) {
       fd = afd[i];
       FD_SET(fd, &tmp_set);
       if (fd > maxfd) {
-	maxfd = fd;
+        maxfd = fd;
       }
     }
 
@@ -438,10 +438,10 @@ void net_select(int count, SOCKET* afd, float timeout) {
 
     if (r > 0) {
       for (i = 0; i < count; i++) {
-	fd = afd[i];
-	if (!FD_ISSET(fd, &tmp_set)) {
-	  afd[i] = INVALID_SOCKET;
-	}
+        fd = afd[i];
+        if (!FD_ISSET(fd, &tmp_set)) {
+          afd[i] = INVALID_SOCKET;
+        }
       }
     }
     else {
@@ -474,14 +474,14 @@ int net_read(SOCKET fd, int count, unsigned char* buffer, EIF_BOOLEAN sync) {
 #else
       result = init_recv(fd);
       if (result != SOCKET_ERROR) {
-	int r;
-	r = recv(result, (char*)buffer, count, 0);
-	result = clear_recv(result);
-	if (r == SOCKET_ERROR) {
-	  result = r;
-	} else if (result != SOCKET_ERROR) {
-	  result = r;
-	}
+        int r;
+        r = recv(result, (char*)buffer, count, 0);
+        result = clear_recv(result);
+        if (r == SOCKET_ERROR) {
+          result = r;
+        } else if (result != SOCKET_ERROR) {
+          result = r;
+        }
       }
 #endif
     }
@@ -508,12 +508,12 @@ int net_write(SOCKET fd, int count, unsigned char* buffer) {
       charcount = send(fd, (char*)buffer + result, count, 0);
 #endif
       if (charcount == SOCKET_ERROR) {
-	result = SOCKET_ERROR;
-	set_error();
+        result = SOCKET_ERROR;
+        set_error();
       }
       else {
-	count -= charcount;
-	result += charcount;
+        count -= charcount;
+        result += charcount;
       }
     }
   }
@@ -521,18 +521,18 @@ int net_write(SOCKET fd, int count, unsigned char* buffer) {
 }
 
 int net_set_int_option(SOCKET fd, int level, int optname, int opt_val){
-	int result = SOCKET_ERROR;
+        int result = SOCKET_ERROR;
 
-	if (init()) {
-		clear_error();
-		result = setsockopt(fd, level, optname, &opt_val, sizeof(opt_val)) ;
-		if ( result == SOCKET_ERROR )
-			set_error();
-	}
-	return result ;
+        if (init()) {
+                clear_error();
+                result = setsockopt(fd, level, optname, &opt_val, sizeof(opt_val)) ;
+                if ( result == SOCKET_ERROR )
+                        set_error();
+        }
+        return result ;
 }
 
-void net_accept(SOCKET server_fd, int* out_values) {
+void net_accept(SOCKET server_fd, int* out_values, EIF_BOOLEAN sync) {
   static struct sockaddr_in tmp_addr;
   int ip, a = 0, b = 0, c = 0, d = 0, port = 0;
   SOCKET fd;
@@ -544,6 +544,9 @@ void net_accept(SOCKET server_fd, int* out_values) {
       set_error();
     }
     else {
+      if (sync) {
+         fd = control_socket_async(fd);
+      }
       port = ntohs(tmp_addr.sin_port) ;
       ip = ntohl(tmp_addr.sin_addr.s_addr);
       a = (ip >> 24) & 0xff;

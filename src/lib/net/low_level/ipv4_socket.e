@@ -22,19 +22,19 @@ feature {SOCKET_HANDLER}
    port: INTEGER
 
 feature {SOCKET_SERVER, SOCKET_HANDLER}
-   bind (server: SOCKET_SERVER) is
+   bind (server: SOCKET_SERVER; a_sync: BOOLEAN) is
          -- Binds the socket to the server.
       do
          if bind_values.is_null then
             bind_values := bind_values.calloc(6)
          end
-         net_accept(server.fd, bind_values)
+         net_accept(server.fd, bind_values, a_sync)
          fd := bind_values.item(5)
          if fd >= 0 then
             check
                last_error = Void
             end
-            common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4))
+            common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4), a_sync)
             is_connected := True
          else
             error := last_error
@@ -42,7 +42,7 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
       end
 
 feature {}
-   common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
+   common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
       do
          a := ip_a
          b := ip_b
@@ -52,18 +52,19 @@ feature {}
             create last_read.make(default_buffer_size)
          end
          port := a_port
+         sync := a_sync
       end
 
-   make_tcp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
+   make_tcp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
       do
-         common_make(ip_a, ip_b, ip_c, ip_d, a_port)
-         connect(net_tcp(a, b, c, d, a_port))
+         common_make(ip_a, ip_b, ip_c, ip_d, a_port, a_sync)
+         connect(net_tcp(a, b, c, d, a_port, a_sync))
       end
 
-   make_udp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER) is
+   make_udp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
       do
-         common_make(ip_a, ip_b, ip_c, ip_d, a_port)
-         connect(net_udp(a, b, c, d, a_port))
+         common_make(ip_a, ip_b, ip_c, ip_d, a_port, a_sync)
+         connect(net_udp(a, b, c, d, a_port, a_sync))
       end
 
    bind_values: NATIVE_ARRAY[INTEGER]

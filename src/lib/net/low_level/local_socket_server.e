@@ -15,9 +15,9 @@ feature {}
    access: LOCAL_ACCESS
 
 feature {SOCKET_INPUT_OUTPUT_STREAM}
-   bind: SOCKET is
+   bind (a_sync: BOOLEAN): SOCKET is
       do
-         Result := bind_socket
+         Result := bind_socket(a_sync)
       end
 
    has_socket (socket: SOCKET): BOOLEAN is
@@ -48,16 +48,16 @@ feature {}
          create Result.make
       end
 
-   bind_socket: LOCAL_SOCKET is
+   bind_socket (a_sync: BOOLEAN): LOCAL_SOCKET is
       do
          if sockets_pool.is_empty then
-            create Result.bind(Current)
+            create Result.bind(Current, a_sync)
          else
             Result := sockets_pool.item
             check
                not Result.is_connected
             end
-            Result.bind(Current)
+            Result.bind(Current, a_sync)
          end
          if Result.is_connected then
             connected_sockets.add_last(Result)

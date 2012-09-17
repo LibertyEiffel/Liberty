@@ -34,11 +34,11 @@ feature {ANY}
 feature {ADDRESS}
    new_local_socket: SOCKET is
       do
-         create {LOCAL_SOCKET} Result.make(port)
+         create {LOCAL_SOCKET} Result.make(port, sync)
       end
 
 feature {}
-   make (a_address: LOCALHOST; a_port: INTEGER) is
+   make (a_address: LOCALHOST; a_port: INTEGER; a_sync: BOOLEAN) is
          -- Access to a server on the given host address listening at the given port
       require
          a_address /= Void
@@ -46,7 +46,10 @@ feature {}
       do
          address := a_address
          port := a_port
+         sync := a_sync
       end
+
+   sync: BOOLEAN
 
 end -- class LOCAL_ACCESS
 --

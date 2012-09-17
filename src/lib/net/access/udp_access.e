@@ -27,7 +27,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_address: ADDRESS; a_port: INTEGER) is
+   make (a_address: ADDRESS; a_port: INTEGER; a_sync: BOOLEAN) is
          -- Access to a server on the given host address listening at the given port
       require
          a_address /= Void
@@ -35,12 +35,15 @@ feature {}
       do
          address := a_address
          port := a_port
+         sync := a_sync
       end
+
+   sync: BOOLEAN
 
 feature {IPV4_ADDRESS}
    new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
       do
-         create {IPV4_SOCKET} Result.make_udp(a, b, c, d, port)
+         create {IPV4_SOCKET} Result.make_udp(a, b, c, d, port, sync)
       end
 
 end -- class UDP_ACCESS

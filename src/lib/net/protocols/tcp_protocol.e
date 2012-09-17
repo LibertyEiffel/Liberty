@@ -22,6 +22,15 @@ feature {ANY}
          Result := is_absolute_uri(a_uri)
       end
 
+   sync: BOOLEAN
+
+   set_sync (a_sync: BOOLEAN) is
+      do
+         sync := a_sync
+      ensure
+         sync = a_sync
+      end
+
 feature {URL}
    connect_to (url: URL; read, write: BOOLEAN) is
       local
@@ -33,11 +42,10 @@ feature {URL}
          nrl ::= url.uri
          create h.make(nrl.host)
          if nrl.port = 0 then
-            create a.make(h, standard_port)
+            create a.make(h, standard_port, sync)
          else
-            create a.make(h, nrl.port)
+            create a.make(h, nrl.port, sync)
          end
-         a.set_read_sync(True) --*** hard-coded??
          ios := a.stream
          if a.error /= Void then
             error := h.error

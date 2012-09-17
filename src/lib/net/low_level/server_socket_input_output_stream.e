@@ -21,17 +21,16 @@ feature {ANY}
       end
 
 feature {}
-   connect_to (a_server: SOCKET_SERVER; a_read_sync: BOOLEAN) is
+   connect_to (a_server: SOCKET_SERVER; a_sync: BOOLEAN) is
       require
          a_server /= Void
       do
          server := a_server
-         socket := a_server.bind
-         make(a_read_sync)
+         socket := a_server.bind(a_sync)
+         make
       end
 
    socket: SOCKET
-
    server: SOCKET_SERVER
 
    socket_disconnected (a_socket: SOCKET) is

@@ -23,7 +23,7 @@ feature {SOCKET_HANDLER}
       deferred
       end
 
-   read (sync: BOOLEAN) is
+   read is
       require
          is_connected
       deferred

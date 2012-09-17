@@ -19,12 +19,12 @@ feature {ANY}
       end
 
 feature {}
-   connect_to (a_socket: SOCKET; a_read_sync: BOOLEAN) is
+   connect_to (a_socket: SOCKET) is
       require
          a_socket /= Void
       do
          socket := a_socket
-         make(a_read_sync)
+         make
       end
 
    socket: SOCKET

@@ -71,9 +71,9 @@
 
 int net_hostname(void* a_hostname);
 
-SOCKET net_tcp(int a, int b, int c, int d, int port);
-SOCKET net_udp(int a, int b, int c, int d, int port);
-SOCKET net_local(int port);
+SOCKET net_tcp(int a, int b, int c, int d, int port, EIF_BOOLEAN sync);
+SOCKET net_udp(int a, int b, int c, int d, int port, EIF_BOOLEAN sync);
+SOCKET net_local(int port, EIF_BOOLEAN sync);
 
 void net_disconnect(SOCKET fd);
 void net_shutdown(SOCKET fd);
@@ -82,9 +82,9 @@ SOCKET net_tcp_socket();
 SOCKET net_udp_socket();
 SOCKET net_local_socket();
 
-SOCKET net_tcp_server(int port);
-SOCKET net_udp_server(int port);
-SOCKET net_local_server(int port);
+SOCKET net_tcp_server(int port, EIF_BOOLEAN sync);
+SOCKET net_udp_server(int port, EIF_BOOLEAN sync);
+SOCKET net_local_server(int port, EIF_BOOLEAN sync);
 SOCKET net_bind_server(SOCKET socket, int port, int sockfamily);
 
 void net_select(int count, SOCKET* afd, float timeout);
@@ -95,7 +95,7 @@ int net_write(SOCKET fd, int count, unsigned char* buffer);
 
 int net_set_int_option(SOCKET fd, int level, int optname, int opt_val);
 
-void net_accept(SOCKET server_fd, int* out_values);
+void net_accept(SOCKET server_fd, int* out_values, EIF_BOOLEAN sync);
 
 extern unsigned char* net_last_error;
 extern int net_last_error_number;

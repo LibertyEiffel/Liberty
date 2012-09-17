@@ -84,7 +84,7 @@ feature {FILTER_INPUT_STREAM}
 
    filtered_read_line_in (buffer: STRING) is
       do
-         -- Redefine not to take can_read_character into account since it is temporary
+         -- Redefined not to take can_read_character into account since it is temporary
          from
             filtered_read_character
          until
@@ -176,7 +176,7 @@ feature {}
                end
                next_index := index + 1
             elseif socket.is_connected then
-               socket.read(read_sync)
+               socket.read
                if socket.last_read.is_empty then
                   end_of_stream := True
                   --next_index := index + 1
@@ -245,7 +245,7 @@ feature {}
       deferred
       end
 
-   make (a_read_sync: like read_sync) is
+   make is
          -- Should be called by the creation procedures after the `socket' is set (the assertions ensure just
          -- that)
       require
@@ -255,7 +255,6 @@ feature {}
          in_buffer := ""
          out_buffer := ""
          socket.when_disconnected(agent socket_disconnected(?))
-         read_sync := a_read_sync
          beginning_of_stream := True
       ensure
          at_beginning: beginning_of_stream and then index = in_buffer.lower - 1
@@ -288,9 +287,6 @@ feature {}
    out_buffer: STRING
 
    disconnect_handlers: FAST_ARRAY[PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]]]
-
-   read_sync: BOOLEAN
-         -- True if read should be blocking until data is available
 
 invariant
    socket /= Void
