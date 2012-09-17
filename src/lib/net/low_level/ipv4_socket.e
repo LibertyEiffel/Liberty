@@ -36,6 +36,7 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
             end
             common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4), a_sync)
             is_connected := True
+            delay_read := False
          else
             error := last_error
          end
@@ -44,12 +45,13 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
 feature {}
    common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
       do
+         set_sync(a_sync)
          a := ip_a
          b := ip_b
          c := ip_c
          d := ip_d
-         if last_read = Void then
-            create last_read.make(default_buffer_size)
+         if last_delayed_read = Void then
+            create last_delayed_read.make(buffer_size)
          end
          port := a_port
          sync := a_sync

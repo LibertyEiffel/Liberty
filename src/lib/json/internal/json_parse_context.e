@@ -13,31 +13,26 @@ feature {JSON_PARSER}
       require
          is_valid
       do
+         if delay_fix_position then
+            fix_position
+         end
          Result := data.last_character
       end
 
    is_valid: BOOLEAN is
       do
-         Result := not data.end_of_input
+         Result := data.is_connected and then not data.end_of_input
       end
 
    next is
       require
          is_valid
       do
+         if delay_fix_position then
+            fix_position
+         end
          data.read_character
-         if is_valid then
-            index := index + 1
-            if item = '%N' then
-               line := line + 1
-               column := 1
-            else
-               column := column + 1
-            end
-         end
-         debug
-            io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
-         end
+         delay_fix_position := True
       end
 
    skip_blanks is
@@ -113,13 +108,44 @@ feature {}
    item_or_invalid: ABSTRACT_STRING is
       do
          create {LAZY_STRING} Result.make(agent: ABSTRACT_STRING is
+                                          local
+                                             c: CHARACTER
                                           do
                                              if is_valid then
-                                                Result := once "'#(1)' (#(2), #(3))" # item.out # line.out # column.out
+                                                c := data.last_character
+                                                if c.code >= 32 then
+                                                   Result := once "'#(1)' (#(2), #(3))" # c.out # line.out # column.out
+                                                else
+                                                   Result := once "##(1) (#(2), #(3))" # c.code.out # line.out # column.out
+                                                end
                                              else
                                                 Result := once "(invalid)"
                                              end
                                           end)
+      end
+
+   delay_fix_position: BOOLEAN
+
+   fix_position is
+      require
+         is_valid
+         delay_fix_position
+      do
+         if is_valid then
+            index := index + 1
+            if data.last_character = '%N' then
+               line := line + 1
+               column := 1
+            else
+               column := column + 1
+            end
+         end
+         debug
+            io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
+         end
+         delay_fix_position := False
+      ensure
+         not delay_fix_position
       end
 
 invariant

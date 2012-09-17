@@ -124,9 +124,13 @@ feature {}
                                  context.item
                               when '}' then
                                  done := True
-                                 context.next
+                                 if context.is_valid then
+                                    context.next
+                                 end
                               when ',' then
-                                 context.next
+                                 if context.is_valid then
+                                    context.next
+                                 end
                               else
                                  context.error(once "Expected ','")
                                  error := True

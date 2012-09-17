@@ -78,9 +78,9 @@ SOCKET net_local(int port, EIF_BOOLEAN sync);
 void net_disconnect(SOCKET fd);
 void net_shutdown(SOCKET fd);
 
-SOCKET net_tcp_socket();
-SOCKET net_udp_socket();
-SOCKET net_local_socket();
+SOCKET net_tcp_socket(EIF_BOOLEAN sync);
+SOCKET net_udp_socket(EIF_BOOLEAN sync);
+SOCKET net_local_socket(EIF_BOOLEAN sync);
 
 SOCKET net_tcp_server(int port, EIF_BOOLEAN sync);
 SOCKET net_udp_server(int port, EIF_BOOLEAN sync);

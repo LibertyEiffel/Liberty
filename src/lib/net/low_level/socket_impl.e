@@ -17,26 +17,23 @@ insert
 
 feature {SOCKET_HANDLER}
    is_connected: BOOLEAN
-
    error: STRING
 
    read is
-      local
-         count: INTEGER
       do
-         last_read.resize(default_buffer_size)
-         count := net_read(fd, default_buffer_size, last_read.storage.to_external, sync)
-         if count < 0 then
-            count := 0
+         if delay_read and then is_connected then
+            delayed_read
          end
-         last_read.resize(count)
-         error := last_error
-         if error /= Void then
-            disconnect
-         end
+         delay_read := True
       end
 
-   last_read: STRING
+   last_read: STRING is
+      do
+         if delay_read and then is_connected then
+            delayed_read
+         end
+         Result := last_delayed_read
+      end
 
    write (data: STRING) is
       local
@@ -75,9 +72,52 @@ feature {}
          else
             error := last_error
          end
+         delay_read := False
       end
 
    sync: BOOLEAN
+   buffer_size: like default_buffer_size
+   delay_read: BOOLEAN
+
+   set_sync (a_sync: like sync) is
+      do
+         sync := a_sync
+         if a_sync then
+            buffer_size := 1
+         else
+            buffer_size := default_buffer_size
+         end
+      ensure
+         sync = a_sync
+      end
+
+   delayed_read is
+      require
+         is_connected
+         delay_read
+      local
+         count: INTEGER
+      do
+         last_delayed_read.resize(buffer_size)
+         count := net_read(fd, buffer_size, last_delayed_read.storage.to_external, sync)
+         if count < 0 then
+            count := 0
+         end
+         last_delayed_read.resize(count)
+         error := last_error
+         if error /= Void then
+            disconnect
+         end
+         delay_read := False
+      ensure
+         not delay_read
+      end
+
+   last_delayed_read: STRING
+
+invariant
+   sync implies buffer_size = 1
+   last_delayed_read /= Void
 
 end -- class SOCKET_IMPL
 --

@@ -29,7 +29,11 @@ feature {ANY}
    can_read_character: BOOLEAN is
          -- Can be ''temporarily'' False because the socket does not yet have available data
       do
-         ensure_read
+         if delay_read then
+            delayed_read
+         else
+            ensure_read
+         end
          Result := not end_of_stream or else in_buffer.valid_index(next_index)
       end
 
@@ -65,11 +69,27 @@ feature {ANY}
          Result := socket.error
       end
 
+feature {}
+   delay_read: BOOLEAN
+
+   delayed_read is
+      require
+         delay_read
+      do
+         delay_read := False
+         ensure_read
+         index := next_index
+      ensure
+         not delay_read
+      end
+
 feature {FILTER_INPUT_STREAM}
    filtered_read_character is
       do
-         ensure_read
-         index := next_index
+         if delay_read then
+            delayed_read
+         end
+         delay_read := True
       end
 
    filtered_unread_character is
@@ -79,6 +99,9 @@ feature {FILTER_INPUT_STREAM}
 
    filtered_last_character: CHARACTER is
       do
+         if delay_read then
+            delayed_read
+         end
          Result := in_buffer.item(index)
       end
 
@@ -111,7 +134,11 @@ feature {FILTER_INPUT_STREAM}
       local
          i, n: INTEGER
       do
-         ensure_read
+         if delay_read then
+            delayed_read
+         else
+            ensure_read
+         end
          index := next_index
          n := in_buffer.count - index + 1
          if limit < n then
@@ -166,6 +193,8 @@ feature {}
    ensure_read is
          -- Read some new data from the socket if it is available. Does not read anything if all the already
          -- read data is not yet consumed. Set `next_index' to the index of the next character to be read.
+      require
+         not delay_read
       do
          if next_index = index then
             -- It means that a real read operation was performed, or the stream is newly connected.
