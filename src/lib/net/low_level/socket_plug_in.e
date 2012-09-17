@@ -178,12 +178,30 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_socket: INTEGER is
+   net_tcp_socket (sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
          module_name: "net"
-         feature_name: "net_tcp_socket()"
+         feature_name: "net_tcp_socket"
+         }"
+      end
+
+   net_udp_socket (sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_udp_socket"
+         }"
+      end
+
+   net_local_socket (sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_local_socket"
          }"
       end
 

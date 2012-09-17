@@ -20,7 +20,7 @@ feature {ANY}
       local
          fd: INTEGER
       do
-         fd := net_udp_server(port)
+         fd := net_udp_server(port, sync)
          if fd >= 0 then
             create {IPV4_SOCKET_SERVER} Result.make(Current, fd)
          end

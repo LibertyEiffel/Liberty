@@ -25,7 +25,7 @@ feature {ANY}
       local
          fd: INTEGER
       do
-         fd := net_local_server(port)
+         fd := net_local_server(port, sync)
          if fd >= 0 then
             create {LOCAL_SOCKET_SERVER} Result.make(Current, fd)
          end

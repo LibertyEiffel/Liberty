@@ -20,7 +20,7 @@ feature {ANY}
       local
          fd: INTEGER
       do
-         fd := net_tcp_socket
+         fd := net_tcp_socket(sync)
          if fd >= 0 then
             set_preopen_options(fd)
             fd := net_bind_server(fd, port, af_inet)
