@@ -124,6 +124,15 @@ feature {} -- Plugin
          }"
       end
 
+   net_last_error_try_again: BOOLEAN is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_last_error_try_again()"
+         }"
+      end
+
    net_hostname (a_hostname: POINTER): INTEGER is
       external "plug_in"
       alias "{

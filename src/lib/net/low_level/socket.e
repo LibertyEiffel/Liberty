@@ -30,6 +30,8 @@ feature {SOCKET_HANDLER}
       end
 
    last_read: STRING is
+      require
+         is_connected
       deferred
       end
 

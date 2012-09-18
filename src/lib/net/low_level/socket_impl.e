@@ -22,7 +22,7 @@ feature {SOCKET_HANDLER}
 
    read is
       do
-         if delay_read and then is_connected then
+         if delay_read then
             delayed_read
          end
          delay_read := True
@@ -30,7 +30,7 @@ feature {SOCKET_HANDLER}
 
    last_read: STRING is
       do
-         if delay_read and then is_connected then
+         if delay_read then
             delayed_read
          end
          Result := last_delayed_read
@@ -102,18 +102,37 @@ feature {}
          last_delayed_read.resize(buffer_size)
          count := net_read(fd, buffer_size, last_delayed_read.storage.to_external, sync)
          if count < 0 then
-            count := 0
-         end
-         last_delayed_read.resize(count)
-         error := last_error
-         if error /= Void then
-            disconnect
-            debug ("socket")
-               log.trace.put_line(once "error while reading from socket: #(1)" # error)
+            if net_last_error_try_again then
+               count := 0
+               debug ("socket")
+                  log.trace.put_line(once "error while reading from socket: #(1) (will retry)" # last_error)
+               end
+            else
+               error := once ""
+               error.make_from_string(once "Error #(1): #(2)" # net_last_error_number.out # last_error)
+               debug ("socket")
+                  log.trace.put_line(once "error while reading from socket: #(1)" # error)
+               end
+               disconnect
             end
-         else
+         elseif count = 0 and then sync then
             debug ("socket")
-               log.trace.put_line(once "read socket: %"#(1)%"" # last_delayed_read)
+               log.trace.put_line(once "error while reading from socket: socket was disconnected")
+            end
+            disconnect
+         end
+         if count > 0 then
+            last_delayed_read.resize(count)
+            error := last_error
+            if error /= Void then
+               disconnect
+               debug ("socket")
+                  log.trace.put_line(once "error while reading from socket: #(1)" # error)
+               end
+            else
+               debug ("socket")
+                  log.trace.put_line(once "read socket: %"#(1)%"" # last_delayed_read)
+               end
             end
          end
          delay_read := False

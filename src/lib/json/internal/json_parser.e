@@ -85,8 +85,9 @@ feature {}
             else
                context.error(once "Unexpected character '#(1)'" # &context.item)
             end
-         else
-            context.error(once "Index out of range")
+         elseif nested then
+            context.error(once "No value")
+            print_run_time_stack
          end
          debug ("json/parser")
             debug_parse_out(once "parse_value", context, Result)
