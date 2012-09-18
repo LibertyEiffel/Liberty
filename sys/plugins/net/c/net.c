@@ -95,6 +95,22 @@ static void set_host_error(char* host) {
 
 #define init() (1)
 
+
+EIF_BOOLEAN net_last_error_try_again(void) {
+     switch (net_last_error_number) {
+#ifdef EAGAIN
+     case EAGAIN:
+#elif defined(EWOULDBLOCK)
+     case EWOULDBLOCK:
+#endif
+#ifdef EINTR
+     case EINTR:
+#endif
+          return (EIF_BOOLEAN)1;
+     }
+     return 0;
+}
+
 #elif defined WIN32
 
 #define EINPROGRESS WSAEINPROGRESS
@@ -135,6 +151,10 @@ static int init(void) {
     }
   }
   return result;
+}
+
+EIF_BOOLEAN net_last_error_try_again(void) {
+     return 0;
 }
 
 #endif

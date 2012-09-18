@@ -99,6 +99,7 @@ void net_accept(SOCKET server_fd, int* out_values, EIF_BOOLEAN sync);
 
 extern unsigned char* net_last_error;
 extern int net_last_error_number;
+extern EIF_BOOLEAN net_last_error_try_again(void);
 
 char *net_gethostname(void);
 char *net_getdomainname(void);
