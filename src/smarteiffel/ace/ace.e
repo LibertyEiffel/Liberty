@@ -131,6 +131,8 @@ feature {ANY}
 
    manifest_string_trace: BOOLEAN
 
+   no_rescue: BOOLEAN
+
    high_memory_compiler: BOOLEAN
          --|*** Is it still used ?? *** Dom feb 7th 2005 ***
 
@@ -542,6 +544,11 @@ feature {ACE_HANDLER}
          manifest_string_trace := True
       end
 
+   set_no_rescue is
+      do
+         no_rescue := True
+      end
+
    set_high_memory_compiler is
       do
          high_memory_compiler := True
@@ -909,6 +916,11 @@ feature {ACE_CHECK}
             txt.append("   manifest_string_trace (yes)%N")
          else
             txt.append("   manifest_string_trace (no)%N")
+         end
+         if no_rescue then
+            txt.append("   rescue (no)%N")
+         else
+            txt.append("   rescue (yes)%N")
          end
          if high_memory_compiler then
             txt.append("   high_memory_compiler (yes)%N")
@@ -1355,6 +1367,8 @@ feature {}
                Result := a_yes_no_all
             elseif a_keyword(fz_manifest_string_trace) then
                manifest_string_trace := a_yes_no_all
+            elseif a_keyword(once "rescue") then
+               no_rescue := not a_yes_no_all
             elseif a_keyword(fz_high_memory_compiler) then
                high_memory_compiler := a_yes_no_all
             elseif a_keyword(fz_profile) then

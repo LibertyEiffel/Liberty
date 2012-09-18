@@ -5234,7 +5234,7 @@ feature {}
          --  ++            "end"
          --  ++
       local
-         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag: BOOLEAN
+         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag: BOOLEAN; resc: INSTRUCTION
       do
          if a_keyword(fz_obsolete) then
             if a_manifest_string(True) then
@@ -5270,7 +5270,10 @@ feature {}
          end
          if a_keyword(fz_rescue) then
             inside_rescue_flag := True
-            Result.set_rescue_compound(a_compound2(fz_rescue, fz_end))
+            resc := a_compound2(fz_rescue, fz_end)
+            if not ace.no_rescue then
+               Result.set_rescue_compound(resc)
+            end
             inside_rescue_flag := False
          elseif a_keyword(fz_end) then
             if ace.sedb then

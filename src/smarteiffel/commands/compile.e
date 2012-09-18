@@ -71,6 +71,7 @@ feature {ANY}
                             manifest string creation
         -clean              Run the 'clean' command at the end
         -loadpath <file>    Specify an extra loadpath file to read
+        -no_rescue          Don't compile rescue sections
 
       Miscellaneous:
         -high_memory_compiler

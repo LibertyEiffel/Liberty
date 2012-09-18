@@ -948,6 +948,8 @@ feature {FEATURE_TEXT}
       end
 
    set_rescue_compound (instruction: like rescue_compound) is
+      require
+         not ace.no_rescue
       deferred
       ensure
          rescue_compound = instruction

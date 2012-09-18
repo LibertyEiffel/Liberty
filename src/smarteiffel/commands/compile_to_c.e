@@ -77,6 +77,7 @@ feature {ANY}
         -manifest_string_trace
                             Enable the trace support to track non-once
                             manifest string creation
+        -no_rescue          Don't compile rescue sections
 
       Miscellaneous:
         -high_memory_compiler
@@ -180,6 +181,8 @@ feature {}
             elseif is_safety_check_flag(arg) then
                argi := argi + 1
             elseif is_manifest_string_trace_flag(arg) then
+               argi := argi + 1
+            elseif is_no_rescue_flag(arg) then
                argi := argi + 1
             elseif flag_match(fz_no_strip, arg) then
                system_tools.set_no_strip

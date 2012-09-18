@@ -490,6 +490,14 @@ feature {}
          end
       end
 
+   is_no_rescue_flag (flag: STRING): BOOLEAN is
+      do
+         if flag_match(once "no_rescue", flag) then
+            ace.set_no_rescue
+            Result := True
+         end
+      end
+
    is_high_memory_compiler (flag: STRING): BOOLEAN is
       do
          if flag_match(fz_high_memory_compiler, flag) then
