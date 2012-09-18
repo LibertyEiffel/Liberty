@@ -14,6 +14,7 @@ insert
    SOCKET_PLUG_IN
    RECYCLABLE
    DISPOSABLE
+   LOGGING
 
 feature {SOCKET_HANDLER}
    is_connected: BOOLEAN
@@ -107,6 +108,13 @@ feature {}
          error := last_error
          if error /= Void then
             disconnect
+            debug ("socket")
+               log.trace.put_line(once "error while reading from socket: #(1)" # error)
+            end
+         else
+            debug ("socket")
+               log.trace.put_line(once "read socket: %"#(1)%"" # last_delayed_read)
+            end
          end
          delay_read := False
       ensure

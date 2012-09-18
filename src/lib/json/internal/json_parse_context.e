@@ -3,6 +3,9 @@
 --
 class JSON_PARSE_CONTEXT
 
+insert
+   LOGGING
+
 create {JSON_PARSER}
    make
 
@@ -71,7 +74,7 @@ feature {JSON_PARSER}
          str /= Void
       do
          debug ("json/parser")
-            io.put_line(once "**** Parse error: #(1) at #(2)" # str # debug_position)
+            log.trace.put_line(once "**** Parse error: #(1) at #(2)" # str # debug_position)
          end
          on_error.call([str, line, column])
       end
@@ -140,8 +143,8 @@ feature {}
                column := column + 1
             end
          end
-         debug
-            io.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
+         debug ("json/parser")
+            log.trace.put_line(once "**** #(1) => #(2)" # index.out # item_or_invalid)
          end
          delay_fix_position := False
       ensure

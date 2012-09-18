@@ -5,6 +5,7 @@ class JSON_PARSER
 
 insert
    JSON_HANDLER
+   LOGGING
 
 create {JSON_HANDLER}
    make
@@ -22,7 +23,7 @@ feature {JSON_HANDLER}
          debug ("json/parser")
             debug_parse_in(once "parse_json_text", context)
          end
-         value := parse_value(context)
+         value := parse_value(context, False)
          if value /= Void then
             if Result ?:= value then
                Result ::= value
@@ -36,7 +37,7 @@ feature {JSON_HANDLER}
      end
 
 feature {}
-   parse_value (context: JSON_PARSE_CONTEXT): JSON_VALUE is
+   parse_value (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_VALUE is
       require
          context.is_valid
       do
@@ -48,19 +49,39 @@ feature {}
             inspect
                context.item
             when '{' then
-               Result := parse_object(context)
+               Result := parse_object(context, nested)
             when '[' then
-               Result := parse_array(context)
+               Result := parse_array(context, nested)
             when '"' then
-               Result := parse_string(context)
+               if nested then
+                  Result := parse_string(context)
+               else
+                  context.error(once "Unexpected string at top level")
+               end
             when '0'..'9', '-' then
-               Result := parse_number(context)
+               if nested then
+                  Result := parse_number(context)
+               else
+                  context.error(once "Unexpected number at top level")
+               end
             when 't' then
-               Result := parse_true(context)
+               if nested then
+                  Result := parse_true(context)
+               else
+                  context.error(once "Unexpected true at top level")
+               end
             when 'f' then
-               Result := parse_false(context)
+               if nested then
+                  Result := parse_false(context)
+               else
+                  context.error(once "Unexpected false at top level")
+               end
             when 'n' then
-               Result := parse_null(context)
+               if nested then
+                  Result := parse_null(context)
+               else
+                  context.error(once "Unexpected null at top level")
+               end
             else
                context.error(once "Unexpected character '#(1)'" # &context.item)
             end
@@ -72,7 +93,7 @@ feature {}
          end
       end
 
-   parse_object (context: JSON_PARSE_CONTEXT): JSON_OBJECT is
+   parse_object (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_OBJECT is
       require
          context.is_valid
          context.item = '{'
@@ -107,7 +128,7 @@ feature {}
                   else
                      context.next
                      context.skip_blanks
-                     value := parse_value(context)
+                     value := parse_value(context, True)
                      if value /= Void then
                         if dict.has(key) then
                            context.error(once "Duplicate key: #(1)" # &key)
@@ -124,13 +145,11 @@ feature {}
                                  context.item
                               when '}' then
                                  done := True
-                                 if context.is_valid then
+                                 if nested then
                                     context.next
                                  end
                               when ',' then
-                                 if context.is_valid then
-                                    context.next
-                                 end
+                                 context.next
                               else
                                  context.error(once "Expected ','")
                                  error := True
@@ -152,7 +171,7 @@ feature {}
          end
       end
 
-   parse_array (context: JSON_PARSE_CONTEXT): JSON_ARRAY is
+   parse_array (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_ARRAY is
       require
          context.is_valid
          context.item = '['
@@ -175,7 +194,7 @@ feature {}
                context.error(once "Unfinished array")
                error := True
             else
-               value := parse_value(context)
+               value := parse_value(context, True)
                if value /= Void then
                   array.add_last(value)
                   context.skip_blanks
@@ -187,7 +206,9 @@ feature {}
                         context.item
                      when ']' then
                         done := True
-                        context.next
+                        if nested then
+                           context.next
+                        end
                      when ',' then
                         context.next
                      else
@@ -538,15 +559,15 @@ feature {}
 feature {} -- debug
    debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT) is
       do
-         io.put_line(once "->#(1) at #(2)" # tag #context.debug_position)
+         log.trace.put_line(once "->#(1) at #(2)" # tag # context.debug_position)
       end
 
    debug_parse_out (tag: STRING; context: JSON_PARSE_CONTEXT; res: JSON_VALUE) is
       do
          if res = Void then
-            io.put_line(once "<-#(1) at #(2) -- result: Void" # tag #context.debug_position)
+            log.trace.put_line(once "<-#(1) at #(2) -- result: Void" # tag # context.debug_position)
          else
-            io.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag #context.debug_position # &res)
+            log.trace.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag # context.debug_position # &res)
          end
       end
 
