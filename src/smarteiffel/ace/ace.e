@@ -1367,7 +1367,7 @@ feature {}
                Result := a_yes_no_all
             elseif a_keyword(fz_manifest_string_trace) then
                manifest_string_trace := a_yes_no_all
-            elseif a_keyword(once "rescue") then
+            elseif a_keyword(fz_rescue) then
                no_rescue := not a_yes_no_all
             elseif a_keyword(fz_high_memory_compiler) then
                high_memory_compiler := a_yes_no_all
