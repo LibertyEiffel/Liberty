@@ -493,7 +493,7 @@ feature {}
    is_no_rescue_flag (flag: STRING): BOOLEAN is
       do
          if flag_match(once "no_rescue", flag) then
-            ace.set_no_rescue
+            eiffel_parser.set_no_rescue
             Result := True
          end
       end

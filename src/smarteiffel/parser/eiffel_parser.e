@@ -19,6 +19,8 @@ creation {ANY}
    make
 
 feature {ANY}
+   no_rescue: BOOLEAN
+
    no_style_warning: BOOLEAN
          -- When flag "-no_style_warning" is on.
 
@@ -186,6 +188,11 @@ feature {ACE, COMMAND_LINE_TOOLS}
    set_no_style_warning is
       do
          no_style_warning := True
+      end
+
+   set_no_rescue is
+      do
+         no_rescue := True
       end
 
 feature {CECIL_FILE}
@@ -5271,7 +5278,7 @@ feature {}
          if a_keyword(fz_rescue) then
             inside_rescue_flag := True
             resc := a_compound2(fz_rescue, fz_end)
-            if not ace.no_rescue then
+            if not no_rescue then
                Result.set_rescue_compound(resc)
             end
             inside_rescue_flag := False

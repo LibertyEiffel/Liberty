@@ -159,6 +159,7 @@ feature {EIFFEL_PARSER}
 
    set_rescue_compound (c: INSTRUCTION) is
       require
+         not eiffel_parser.no_rescue
          c /= Void
       do
          anonymous_feature.set_rescue_compound(c)

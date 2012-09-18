@@ -949,7 +949,7 @@ feature {FEATURE_TEXT}
 
    set_rescue_compound (instruction: like rescue_compound) is
       require
-         not ace.no_rescue
+         not eiffel_parser.no_rescue
       deferred
       ensure
          rescue_compound = instruction
