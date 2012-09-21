@@ -101,8 +101,6 @@ feature {EIFFEL_PARSER}
 
 feature {FEATURE_TEXT, EIFFEL_PARSER}
    set_rescue_compound (rc: like rescue_compound) is
-      require
-         not eiffel_parser.no_rescue
       deferred
       end
 
