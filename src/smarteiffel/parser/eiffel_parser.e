@@ -4065,6 +4065,13 @@ feature {}
          a := arguments
          lv := local_vars
 
+         tmp_feature := Void
+         inside_function_flag := False
+         inside_ensure_flag := False
+         inside_rescue_flag := False
+         arguments := Void
+         local_vars := Void
+
          c := column
          l := line
          spos := current_position
