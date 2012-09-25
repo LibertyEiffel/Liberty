@@ -80,13 +80,7 @@ feature {ANY}
          Result := Current
          if curly_type /= Void then
             ct := curly_type.specialize_thru(parent_type, parent_edge, new_type)
-            if ct = curly_type then
-               Result := Current
-            else
-               -- *** ON FAIT COMMENT ?? on est passe avant
-               sedb_breakpoint
-               not_yet_implemented
-            end
+            Result := current_or_twin_init(ct)
          end
       end
 
