@@ -37,11 +37,54 @@ feature {ANY}
 
    new_iterator: ITERATOR[UI_] is
       do
-         Result := children.new_iterator
+         Result := children.new_iterator_on_items
+      end
+
+   item (a_id: ABSTRACT_STRING): UI_ is
+      require
+         a_id /= Void
+         has_id(a_id)
+      do
+      end
+
+   add (a_ui: UI_) is
+      require
+         a_ui /= Void
+         not has(a_ui)
+         not has_id(a_ui.id)
+      do
+         children.add(a_ui, a_ui.id)
+      ensure
+         has(a_ui)
+      end
+
+   has (a_ui: UI_): BOOLEAN is
+      require
+         a_ui /= Void
+      do
+         Result := children.fast_reference_at(a_ui.id) = a_ui
+      ensure
+         Result implies item(a_ui.id) = a_ui
+      end
+
+   has_id (a_id: ABSTRACT_STRING): BOOLEAN is
+      require
+         a_id /= Void
+      do
+         Result := children.fast_has(a_id.intern)
+      end
+
+   remove (a_ui: UI_) is
+      require
+         a_ui /= Void
+      do
+         children.fast_remove(a_ui.id)
+      ensure
+         not has(a_ui)
       end
 
 feature {UI_COLLECTION}
-   children: ITERABLE[UI_]
+   children: DICTIONARY[UI_, FIXED_STRING]
 
 invariant
    children /= Void

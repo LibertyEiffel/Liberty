@@ -18,12 +18,12 @@ feature {}
          a_id /= Void
       do
          id := a_id.intern
-         create children.make(0)
+         create children.make
       ensure
          id = a_id.intern
       end
 
-   children: FAST_ARRAY[UI_MENU_ITEM]
+   children: HASHED_DICTIONARY[UI_MENU_ITEM, FIXED_STRING]
 
 feature {}
    bridge: UI_BRIDGE_MENU
