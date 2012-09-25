@@ -43,7 +43,7 @@ feature {}
          stream := a_stream
       end
 
-   application: UI_APPLICATION
+   application: WEB_APPLICATION
    conf: WEB_CONFIGURATION
    stream: SOCKET_INPUT_OUTPUT_STREAM
 

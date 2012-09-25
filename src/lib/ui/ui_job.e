@@ -10,22 +10,19 @@ insert
    LOGGING
 
 feature {}
-   connect (a_application: like application; a_on_new_job: like on_new_job) is
+   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
       require
          a_application /= Void
       do
-         application := a_application
          if a_on_new_job /= Void then
             on_new_job := a_on_new_job
          else
             on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
          end
          a_application.connect_to(Current)
-      ensure
-         application = a_application
       end
 
-   application: UI_APPLICATION
+   application: UI_TYPED_BRIDGE_APPLICATION[like Current]
    on_new_job: PROCEDURE[TUPLE[JOB]]
 
 feature {UI_ITEM}
@@ -33,7 +30,8 @@ feature {UI_ITEM}
       require
          ui /= Void
       do
-         new_bridge_application(ui).connect_to(Current)
+         application := new_bridge_application(ui)
+         application.connect_to(Current)
       end
 
    connect_bridge_window (ui: UI_WINDOW) is

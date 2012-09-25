@@ -6,7 +6,7 @@ class WEB_JOB
 inherit
    UI_JOB
       redefine
-         connect
+         connect, application
       end
 
 create {USER_INTERFACE}
@@ -79,7 +79,7 @@ feature {UI_ITEM}
       end
 
 feature {}
-   connect (a_application: like application; a_on_new_job: like on_new_job) is
+   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
       do
          Precursor(a_application, a_on_new_job)
          create conf.make(a_application.id)
@@ -88,6 +88,7 @@ feature {}
 
    server: SOCKET_SERVER
    conf: WEB_CONFIGURATION
+   application: WEB_APPLICATION
 
 end -- class WEB_JOB
 --
