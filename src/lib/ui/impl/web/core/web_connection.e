@@ -6,6 +6,9 @@ class WEB_CONNECTION
 inherit
    JOB
 
+insert
+   LOGGING
+
 create {WEB_JOB}
    make
 
@@ -22,6 +25,17 @@ feature {LOOP_ITEM}
 
    continue is
       do
+         if abort then
+            done := True
+         else
+            stream.read_character
+            if not stream.end_of_input then
+               log.info.put_character(stream.last_character)
+            end
+         end
+      rescue
+         abort := True
+         retry
       end
 
    done: BOOLEAN
@@ -41,11 +55,19 @@ feature {}
          application := a_application
          conf := a_conf
          stream := a_stream
+         a_stream.when_disconnect(agent on_disconnect)
       end
 
    application: WEB_APPLICATION
    conf: WEB_CONFIGURATION
    stream: SOCKET_INPUT_OUTPUT_STREAM
+
+   on_disconnect is
+      do
+         abort := True
+      end
+
+   abort: BOOLEAN
 
 invariant
    application /= Void

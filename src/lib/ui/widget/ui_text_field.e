@@ -9,12 +9,23 @@ inherit
 create {ANY}
    make
 
+feature {ANY}
+   value: STRING
+
+   set_value (a_value: like value) is
+      require
+         a_value /= Void
+      do
+         value.copy(a_value)
+      end
+
 feature {}
    make (a_id: ABSTRACT_STRING) is
       require
          a_id /= Void
       do
          id := a_id.intern
+         value := ""
       ensure
          id = a_id.intern
       end
@@ -24,6 +35,9 @@ feature {}
       do
          a_job.connect_bridge_text_field(Current)
       end
+
+invariant
+   value /= Void
 
 end -- class UI_TEXT_FIELD
 --

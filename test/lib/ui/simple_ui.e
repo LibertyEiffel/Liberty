@@ -1,10 +1,13 @@
 class SIMPLE_UI
 
+insert
+   LOGGING
+
 create {}
-   make
+   web
 
 feature {}
-   make is
+   web is
       local
          stack: LOOP_STACK
       do
@@ -15,15 +18,25 @@ feature {}
 
    app: UI_APPLICATION is
       local
-         index: UI_WINDOW
+         index: UI_WINDOW; ok, cancel: UI_BUTTON; text: UI_TEXT_FIELD
       once
-         create Result.make("app")
+         create Result.make("hello")
          create index.make("index")
-         Result.add(index)
-         index.panel.add(create {UI_BUTTON}.make("ok"))
-         index.panel.add(create {UI_BUTTON}.make("cancel"))
-         index.panel.add(create {UI_TEXT_FIELD}.make("name"))
+         create ok.make("ok")
+         ok.on_click(agent click("ok", text))
+         create cancel.make("cancel")
+         cancel.on_click(agent click("cancel", text))
+         create text.make("text")
+         index.panel.add(ok)
+         index.panel.add(cancel)
+         index.panel.add(text)
          index.set_title(U"index")
+         Result.add(index)
+      end
+
+   click (action: STRING; text: UI_TEXT_FIELD) is
+      do
+         log.info.put_line("Received action '#(1)' on text %"#(2)%"" # action # text.value)
       end
 
    ui: USER_INTERFACE

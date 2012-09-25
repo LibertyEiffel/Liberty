@@ -9,15 +9,31 @@ inherit
 create {ANY}
    make
 
+feature {ANY}
+   on_click (action: PROCEDURE[TUPLE[UI_BUTTON]]) is
+      require
+         action /= Void
+      do
+         actions.add_last(action)
+      end
+
+   click is
+      do
+         actions.do_all(agent (action: PROCEDURE[TUPLE[UI_BUTTON]]) is do action.call([Current]) end)
+      end
+
 feature {}
    make (a_id: ABSTRACT_STRING) is
       require
          a_id /= Void
       do
          id := a_id.intern
+         create actions.with_capacity(1)
       ensure
          id = a_id.intern
       end
+
+   actions: FAST_ARRAY[PROCEDURE[TUPLE[UI_BUTTON]]]
 
 feature {}
    connect_bridge (a_job: UI_JOB) is
