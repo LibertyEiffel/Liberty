@@ -45,6 +45,7 @@ feature {ANY}
          a_id /= Void
          has_id(a_id)
       do
+         Result := children.fast_reference_at(a_id.intern)
       end
 
    add (a_ui: UI_) is

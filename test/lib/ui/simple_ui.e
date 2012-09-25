@@ -9,17 +9,21 @@ feature {}
          stack: LOOP_STACK
       do
          create stack.make
-         stack.add_job(ui.web(window, agent stack.add_job))
+         stack.add_job(ui.web(app, agent stack.add_job))
          stack.run
       end
 
-   window: UI_WINDOW is
+   app: UI_APPLICATION is
+      local
+         index: UI_WINDOW
       once
-         create Result.make("index")
-         window.panel.add(create {UI_BUTTON}.make("ok"))
-         window.panel.add(create {UI_BUTTON}.make("cancel"))
-         window.panel.add(create {UI_TEXT_FIELD}.make("name"))
-         window.set_title(U"hello")
+         create Result.make("app")
+         create index.make("index")
+         Result.add(index)
+         index.panel.add(create {UI_BUTTON}.make("ok"))
+         index.panel.add(create {UI_BUTTON}.make("cancel"))
+         index.panel.add(create {UI_TEXT_FIELD}.make("name"))
+         index.set_title(U"index")
       end
 
    ui: USER_INTERFACE

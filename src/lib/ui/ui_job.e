@@ -10,25 +10,33 @@ insert
    LOGGING
 
 feature {}
-   connect (a_window: like window; a_on_new_job: like on_new_job) is
+   connect (a_application: like application; a_on_new_job: like on_new_job) is
       require
-         not a_window.is_connected
+         not a_application.is_connected
       do
-         a_window.connect_to(Current)
-         window := a_window
+         a_application.connect_to(Current)
+         application := a_application
          if a_on_new_job /= Void then
             on_new_job := a_on_new_job
          else
             on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
          end
       ensure
-         window = a_window
+         application = a_application
       end
 
-   window: UI_WINDOW
+   application: UI_APPLICATION
    on_new_job: PROCEDURE[TUPLE[JOB]]
 
 feature {UI_ITEM}
+   new_bridge_application (id: FIXED_STRING): UI_TYPED_BRIDGE_APPLICATION[like Current] is
+      require
+         id /= Void
+      deferred
+      ensure
+         Result /= Void
+      end
+
    new_bridge_window (id: FIXED_STRING): UI_TYPED_BRIDGE_WINDOW[like Current] is
       require
          id /= Void
@@ -70,7 +78,7 @@ feature {UI_ITEM}
       end
 
 invariant
-   window /= Void
+   application /= Void
    on_new_job /= Void
 
 end -- class UI_JOB

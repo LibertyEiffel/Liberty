@@ -30,7 +30,7 @@ feature {LOOP_ITEM}
       do
          stream := server.new_stream(True)
          if stream /= Void and then stream.is_connected then
-            create cnx.make(window, conf, stream)
+            create cnx.make(application, conf, stream)
             on_new_job.call([cnx])
          else
             log.error.put_line(once "Could not connect to client!")
@@ -48,6 +48,10 @@ feature {LOOP_ITEM}
       end
 
 feature {UI_ITEM}
+   new_bridge_application (id: FIXED_STRING): WEB_APPLICATION is
+      do
+      end
+
    new_bridge_window (id: FIXED_STRING): WEB_WINDOW is
       do
       end
@@ -69,10 +73,10 @@ feature {UI_ITEM}
       end
 
 feature {}
-   connect (a_window: like window; a_on_new_job: like on_new_job) is
+   connect (a_application: like application; a_on_new_job: like on_new_job) is
       do
-         Precursor(a_window, a_on_new_job)
-         create conf.make(a_window.id)
+         Precursor(a_application, a_on_new_job)
+         create conf.make(a_application.id)
       end
 
    server: SOCKET_SERVER

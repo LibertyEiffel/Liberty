@@ -1,58 +1,12 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_CONNECTION
+deferred class UI_TYPED_BRIDGE_APPLICATION[J_ -> UI_JOB]
 
 inherit
-   JOB
+   UI_BRIDGE_APPLICATION
 
-create {WEB_JOB}
-   make
-
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
-      do
-         events.expect(stream.event_can_read)
-      end
-
-   is_ready (events: EVENTS_SET): BOOLEAN is
-      do
-         Result := done or else events.event_occurred(stream.event_can_read)
-      end
-
-   continue is
-      do
-      end
-
-   done: BOOLEAN
-
-   restart is
-      do
-         check False end
-      end
-
-feature {}
-   make (a_application: like application; a_conf: like conf; a_stream: like stream) is
-      require
-         a_application /= Void
-         a_conf /= Void
-         a_stream.is_connected
-      do
-         application := a_application
-         conf := a_conf
-         stream := a_stream
-      end
-
-   application: UI_APPLICATION
-   conf: WEB_CONFIGURATION
-   stream: SOCKET_INPUT_OUTPUT_STREAM
-
-invariant
-   application /= Void
-   conf /= Void
-   stream /= Void
-
-end -- class WEB_CONNECTION
+end -- class UI_TYPED_BRIDGE_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

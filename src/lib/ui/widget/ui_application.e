@@ -1,58 +1,39 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_CONNECTION
+class UI_APPLICATION
 
-inherit
-   JOB
+insert
+   UI_COLLECTION[UI_WINDOW]
+      redefine
+         children
+      end
 
-create {WEB_JOB}
+create {ANY}
    make
 
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+feature {}
+   make (a_id: ABSTRACT_STRING) is
+      require
+         a_id /= Void
       do
-         events.expect(stream.event_can_read)
+         id := a_id.intern
+         create children.make
+      ensure
+         id = a_id.intern
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
-      do
-         Result := done or else events.event_occurred(stream.event_can_read)
-      end
-
-   continue is
-      do
-      end
-
-   done: BOOLEAN
-
-   restart is
-      do
-         check False end
-      end
+   children: HASHED_DICTIONARY[UI_WINDOW, FIXED_STRING]
 
 feature {}
-   make (a_application: like application; a_conf: like conf; a_stream: like stream) is
-      require
-         a_application /= Void
-         a_conf /= Void
-         a_stream.is_connected
+   bridge: UI_BRIDGE_APPLICATION
+
+   set_bridge is
       do
-         application := a_application
-         conf := a_conf
-         stream := a_stream
+         bridge := job.new_bridge_application(id)
       end
 
-   application: UI_APPLICATION
-   conf: WEB_CONFIGURATION
-   stream: SOCKET_INPUT_OUTPUT_STREAM
-
-invariant
-   application /= Void
-   conf /= Void
-   stream /= Void
-
-end -- class WEB_CONNECTION
+end -- class UI_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
