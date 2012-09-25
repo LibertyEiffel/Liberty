@@ -5,9 +5,6 @@ deferred class UI_TYPED_BRIDGE_ITEM[J_ -> UI_JOB]
 
 insert
    UI_BRIDGE_ITEM
-      redefine
-         connect_to
-      end
 
 feature {UI_JOB}
    connect_to (a_job: J_) is

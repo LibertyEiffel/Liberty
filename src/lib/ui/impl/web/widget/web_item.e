@@ -3,8 +3,17 @@
 --
 deferred class WEB_ITEM[UI_ -> UI_ITEM]
 
+insert
+   UI_TYPED_BRIDGE_ITEM[WEB_JOB]
+
 feature {ANY}
    ui: UI_
+
+feature {UI_JOB}
+   connect_to (a_job: like job) is
+      do
+         job := a_job
+      end
 
 feature {}
    make (a_ui: like ui) is
@@ -15,6 +24,8 @@ feature {}
       ensure
          ui = a_ui
       end
+
+   job: WEB_JOB
 
 invariant
    ui /= Void

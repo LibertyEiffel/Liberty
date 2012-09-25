@@ -5,9 +5,6 @@ deferred class UI_TYPED_BRIDGE_PANEL[J_ -> UI_JOB]
 
 inherit
    UI_BRIDGE_PANEL
-      undefine
-         connect_to
-      end
    UI_TYPED_BRIDGE_ITEM[J_]
 
 end -- class UI_TYPED_BRIDGE_PANEL

@@ -5,9 +5,6 @@ deferred class UI_TYPED_BRIDGE_TEXT_FIELD[J_ -> UI_JOB]
 
 inherit
    UI_BRIDGE_TEXT_FIELD
-      undefine
-         connect_to
-      end
    UI_TYPED_BRIDGE_ITEM[J_]
 
 end -- class UI_TYPED_BRIDGE_TEXT_FIELD
