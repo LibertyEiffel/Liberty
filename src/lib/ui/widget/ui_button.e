@@ -20,11 +20,9 @@ feature {}
       end
 
 feature {}
-   bridge: UI_BRIDGE_BUTTON
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_button(id)
+         a_job.connect_bridge_button(Current)
       end
 
 end -- class UI_BUTTON

@@ -26,11 +26,9 @@ feature {}
    children: HASHED_DICTIONARY[UI_MENU_ITEM, FIXED_STRING]
 
 feature {}
-   bridge: UI_BRIDGE_MENU
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_menu(id)
+         a_job.connect_bridge_menu(Current)
       end
 
 end -- class UI_MENU

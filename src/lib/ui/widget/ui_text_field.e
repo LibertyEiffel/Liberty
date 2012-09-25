@@ -20,11 +20,9 @@ feature {}
       end
 
 feature {}
-   bridge: UI_BRIDGE_TEXT_FIELD
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_text_field(id)
+         a_job.connect_bridge_text_field(Current)
       end
 
 end -- class UI_TEXT_FIELD

@@ -6,6 +6,12 @@ class WEB_BUTTON
 inherit
    UI_TYPED_BRIDGE_BUTTON[WEB_JOB]
 
+insert
+   WEB_ITEM[UI_BUTTON]
+
+create {WEB_JOB}
+   make
+
 end -- class WEB_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

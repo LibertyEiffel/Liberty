@@ -12,15 +12,15 @@ insert
 feature {}
    connect (a_application: like application; a_on_new_job: like on_new_job) is
       require
-         not a_application.is_connected
+         a_application /= Void
       do
-         a_application.connect_to(Current)
          application := a_application
          if a_on_new_job /= Void then
             on_new_job := a_on_new_job
          else
             on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
          end
+         a_application.connect_to(Current)
       ensure
          application = a_application
       end
@@ -29,49 +29,92 @@ feature {}
    on_new_job: PROCEDURE[TUPLE[JOB]]
 
 feature {UI_ITEM}
-   new_bridge_application (id: FIXED_STRING): UI_TYPED_BRIDGE_APPLICATION[like Current] is
+   connect_bridge_application (ui: UI_APPLICATION) is
       require
-         id /= Void
+         ui /= Void
+      do
+         new_bridge_application(ui).connect_to(Current)
+      end
+
+   connect_bridge_window (ui: UI_WINDOW) is
+      require
+         ui /= Void
+      do
+         new_bridge_window(ui).connect_to(Current)
+      end
+
+   connect_bridge_panel (ui: UI_PANEL) is
+      require
+         ui /= Void
+      do
+         new_bridge_panel(ui).connect_to(Current)
+      end
+
+   connect_bridge_menu (ui: UI_MENU) is
+      require
+         ui /= Void
+      do
+         new_bridge_menu(ui).connect_to(Current)
+      end
+
+   connect_bridge_text_field (ui: UI_TEXT_FIELD) is
+      require
+         ui /= Void
+      do
+         new_bridge_text_field(ui).connect_to(Current)
+      end
+
+   connect_bridge_button (ui: UI_BUTTON) is
+      require
+         ui /= Void
+      do
+         new_bridge_button(ui).connect_to(Current)
+      end
+
+feature {}
+   new_bridge_application (ui: UI_APPLICATION): UI_TYPED_BRIDGE_APPLICATION[like Current] is
+      require
+         ui /= Void
       deferred
       ensure
          Result /= Void
       end
 
-   new_bridge_window (id: FIXED_STRING): UI_TYPED_BRIDGE_WINDOW[like Current] is
+   new_bridge_window (ui: UI_WINDOW): UI_TYPED_BRIDGE_WINDOW[like Current] is
       require
-         id /= Void
+         ui /= Void
       deferred
       ensure
          Result /= Void
       end
 
-   new_bridge_panel (id: FIXED_STRING): UI_TYPED_BRIDGE_PANEL[like Current] is
+   new_bridge_panel (ui: UI_PANEL): UI_TYPED_BRIDGE_PANEL[like Current] is
       require
-         id /= Void
+         ui /= Void
       deferred
       ensure
          Result /= Void
       end
 
-   new_bridge_menu (id: FIXED_STRING): UI_TYPED_BRIDGE_MENU[like Current] is
+   new_bridge_menu (ui: UI_MENU): UI_TYPED_BRIDGE_MENU[like Current] is
       require
-         id /= Void
+         ui /= Void
       deferred
       ensure
          Result /= Void
       end
 
-   new_bridge_text_field (id: FIXED_STRING): UI_TYPED_BRIDGE_TEXT_FIELD[like Current] is
+   new_bridge_text_field (ui: UI_TEXT_FIELD): UI_TYPED_BRIDGE_TEXT_FIELD[like Current] is
       require
-         id /= Void
+         ui /= Void
       deferred
       ensure
          Result /= Void
       end
 
-   new_bridge_button (id: FIXED_STRING): UI_TYPED_BRIDGE_BUTTON[like Current] is
+   new_bridge_button (ui: UI_BUTTON): UI_TYPED_BRIDGE_BUTTON[like Current] is
       require
-         id /= Void
+         ui /= Void
       deferred
       ensure
          Result /= Void

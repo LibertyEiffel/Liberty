@@ -25,12 +25,9 @@ feature {}
 
    children: HASHED_DICTIONARY[UI_WINDOW, FIXED_STRING]
 
-feature {}
-   bridge: UI_BRIDGE_APPLICATION
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_application(id)
+         a_job.connect_bridge_application(Current)
       end
 
 end -- class UI_APPLICATION

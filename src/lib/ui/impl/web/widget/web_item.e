@@ -1,18 +1,25 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_WINDOW
+deferred class WEB_ITEM[UI_ -> UI_ITEM]
 
-inherit
-   UI_TYPED_BRIDGE_WINDOW[WEB_JOB]
+feature {ANY}
+   ui: UI_
 
-insert
-   WEB_ITEM[UI_WINDOW]
+feature {}
+   make (a_ui: like ui) is
+      require
+         a_ui /= Void
+      do
+         ui := a_ui
+      ensure
+         ui = a_ui
+      end
 
-create {WEB_JOB}
-   make
+invariant
+   ui /= Void
 
-end -- class WEB_WINDOW
+end -- class WEB_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

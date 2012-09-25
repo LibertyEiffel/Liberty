@@ -6,6 +6,12 @@ class WEB_MENU
 inherit
    UI_TYPED_BRIDGE_MENU[WEB_JOB]
 
+insert
+   WEB_ITEM[UI_MENU]
+
+create {WEB_JOB}
+   make
+
 end -- class WEB_MENU
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

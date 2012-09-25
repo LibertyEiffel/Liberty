@@ -3,6 +3,9 @@
 --
 deferred class UI_BRIDGE_BUTTON
 
+insert
+   UI_BRIDGE_ITEM
+
 end -- class UI_BRIDGE_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

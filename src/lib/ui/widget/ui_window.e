@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   connect_to (a_job: like job) is
+   connect_to (a_job: UI_JOB) is
       do
          Precursor(a_job)
          panel.connect_to(a_job)
@@ -44,11 +44,9 @@ feature {}
       end
 
 feature {}
-   bridge: UI_BRIDGE_WINDOW
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_window(id)
+         a_job.connect_bridge_window(Current)
       end
 
 end -- class UI_WINDOW

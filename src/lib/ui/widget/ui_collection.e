@@ -15,10 +15,10 @@ insert
       end
 
 feature {ANY}
-   connect_to (a_job: like job) is
+   connect_to (a_job: UI_JOB) is
       do
          Precursor(a_job)
-         children.do_all(agent (a_child: UI_; a_job: like job) is
+         children.do_all(agent (a_child: UI_; a_job: UI_JOB) is
                          do
                             a_child.connect_to(a_job)
                          end (?, a_job))

@@ -1,18 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_WINDOW
+deferred class UI_BRIDGE_ITEM
 
-inherit
-   UI_TYPED_BRIDGE_WINDOW[WEB_JOB]
+feature {UI_JOB}
+   connect_to (a_job: UI_JOB) is
+      deferred
+      end
 
-insert
-   WEB_ITEM[UI_WINDOW]
-
-create {WEB_JOB}
-   make
-
-end -- class WEB_WINDOW
+end -- class UI_BRIDGE_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

@@ -3,6 +3,9 @@
 --
 deferred class UI_BRIDGE_MENU
 
+insert
+   UI_BRIDGE_ITEM
+
 end -- class UI_BRIDGE_MENU
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

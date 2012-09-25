@@ -6,6 +6,12 @@ class WEB_PANEL
 inherit
    UI_TYPED_BRIDGE_PANEL[WEB_JOB]
 
+insert
+   WEB_ITEM[UI_PANEL]
+
+create {WEB_JOB}
+   make
+
 end -- class WEB_PANEL
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

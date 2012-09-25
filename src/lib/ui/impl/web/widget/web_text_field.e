@@ -6,6 +6,12 @@ class WEB_TEXT_FIELD
 inherit
    UI_TYPED_BRIDGE_TEXT_FIELD[WEB_JOB]
 
+insert
+   WEB_ITEM[UI_TEXT_FIELD]
+
+create {WEB_JOB}
+   make
+
 end -- class WEB_TEXT_FIELD
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

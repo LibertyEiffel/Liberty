@@ -32,11 +32,9 @@ feature {}
    children: HASHED_DICTIONARY[UI_WIDGET, FIXED_STRING]
 
 feature {}
-   bridge: UI_BRIDGE_PANEL
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
       do
-         bridge := job.new_bridge_panel(id)
+         a_job.connect_bridge_panel(Current)
       end
 
 end -- class UI_PANEL

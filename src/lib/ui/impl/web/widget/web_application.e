@@ -6,6 +6,12 @@ class WEB_APPLICATION
 inherit
    UI_TYPED_BRIDGE_APPLICATION[WEB_JOB]
 
+insert
+   WEB_ITEM[UI_APPLICATION]
+
+create {WEB_JOB}
+   make
+
 end -- class WEB_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

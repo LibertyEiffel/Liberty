@@ -6,32 +6,26 @@ expanded class USER_INTERFACE
 feature {ANY}
    curses (app: UI_APPLICATION; register: PROCEDURE[TUPLE[JOB]]): UI_JOB is
          -- Create a new Curses user interface
-      require
-         not app.is_connected
       do
          create {CURSES_JOB} Result.connect(app, register)
       ensure
-         app.is_connected_to(Result)
+         Result /= Void
       end
 
    web (app: UI_APPLICATION; register: PROCEDURE[TUPLE[JOB]]): UI_JOB is
          -- Create a new Web user interface (actually a web server)
-      require
-         not app.is_connected
       do
          create {WEB_JOB} Result.connect(app, register)
       ensure
-         app.is_connected_to(Result)
+         Result /= Void
       end
 
    readline (app: UI_APPLICATION; register: PROCEDURE[TUPLE[JOB]]): UI_JOB is
          -- Create a new GNU Readline user interface
-      require
-         not app.is_connected
       do
          create {READLINE_JOB} Result.connect(app, register)
       ensure
-         app.is_connected_to(Result)
+         Result /= Void
       end
 
 end -- class USER_INTERFACE

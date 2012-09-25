@@ -33,7 +33,7 @@ feature {LOOP_ITEM}
             create cnx.make(application, conf, stream)
             on_new_job.call([cnx])
          else
-            log.error.put_line(once "Could not connect to client!")
+            log.warning.put_line(once "Could not connect to client!")
          end
       end
 
@@ -48,28 +48,34 @@ feature {LOOP_ITEM}
       end
 
 feature {UI_ITEM}
-   new_bridge_application (id: FIXED_STRING): WEB_APPLICATION is
+   new_bridge_application (ui: UI_APPLICATION): WEB_APPLICATION is
       do
+         create Result.make(ui)
       end
 
-   new_bridge_window (id: FIXED_STRING): WEB_WINDOW is
+   new_bridge_window (ui: UI_WINDOW): WEB_WINDOW is
       do
+         create Result.make(ui)
       end
 
-   new_bridge_panel (id: FIXED_STRING): WEB_PANEL is
+   new_bridge_panel (ui: UI_PANEL): WEB_PANEL is
       do
+         create Result.make(ui)
       end
 
-   new_bridge_menu (id: FIXED_STRING): WEB_MENU is
+   new_bridge_menu (ui: UI_MENU): WEB_MENU is
       do
+         create Result.make(ui)
       end
 
-   new_bridge_text_field (id: FIXED_STRING): WEB_TEXT_FIELD is
+   new_bridge_text_field (ui: UI_TEXT_FIELD): WEB_TEXT_FIELD is
       do
+         create Result.make(ui)
       end
 
-   new_bridge_button (id: FIXED_STRING): WEB_BUTTON is
+   new_bridge_button (ui: UI_BUTTON): WEB_BUTTON is
       do
+         create Result.make(ui)
       end
 
 feature {}
@@ -77,6 +83,7 @@ feature {}
       do
          Precursor(a_application, a_on_new_job)
          create conf.make(a_application.id)
+         restart
       end
 
    server: SOCKET_SERVER

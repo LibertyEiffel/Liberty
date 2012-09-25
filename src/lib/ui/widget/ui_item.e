@@ -6,37 +6,17 @@ deferred class UI_ITEM
 feature {ANY}
    id: FIXED_STRING
 
-   connect_to (a_job: like job) is
+   connect_to (a_job: UI_JOB) is
       require
-         not is_connected
+         a_job /= Void
       do
-         job := a_job
-         set_bridge
-      ensure
-         is_connected_to(a_job)
-      end
-
-   disconnect is
-      do
-         job := Void
-      ensure
-         not is_connected
-      end
-
-   is_connected: BOOLEAN is
-      do
-         Result := job /= Void
-      end
-
-   is_connected_to (a_job: like job): BOOLEAN is
-      do
-         Result := job = a_job
+         connect_bridge(a_job)
       end
 
 feature {}
-   job: UI_JOB
-
-   set_bridge is
+   connect_bridge (a_job: UI_JOB) is
+      require
+         a_job /= Void
       deferred
       end
 
@@ -52,7 +32,6 @@ feature {}
    id_memory_: FIXED_STRING
 
 invariant
-   coherent_connection: job /= Void implies is_connected_to(job)
    has_id: id /= Void
    constant_id: id = id_memory
 
