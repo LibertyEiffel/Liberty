@@ -20,6 +20,7 @@ feature {}
             on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
          end
          a_application.connect_to(Current)
+         restart
       end
 
    application: UI_TYPED_BRIDGE_APPLICATION[like Current]

@@ -47,6 +47,13 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
+   item (key: ABSTRACT_STRING): JSON_VALUE is
+      require
+         key /= Void
+      do
+         Result := members.reference_at(create {JSON_STRING}.from_string(key))
+      end
+
 feature {JSON_HANDLER}
    members: MAP[JSON_VALUE, JSON_STRING]
 

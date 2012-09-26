@@ -6,7 +6,7 @@ class WEB_JOB
 inherit
    UI_JOB
       redefine
-         connect, application
+         application
       end
 
 create {USER_INTERFACE}
@@ -30,7 +30,7 @@ feature {LOOP_ITEM}
       do
          stream := server.new_stream(True)
          if stream /= Void and then stream.is_connected then
-            create cnx.make(application, conf, stream)
+            create cnx.make(application, stream)
             on_new_job.call([cnx])
          else
             log.warning.put_line(once "Could not connect to client!")
@@ -44,7 +44,7 @@ feature {LOOP_ITEM}
 
    restart is
       do
-         server := conf.new_server
+         server := application.new_server
       end
 
 feature {UI_ITEM}
@@ -79,15 +79,7 @@ feature {UI_ITEM}
       end
 
 feature {}
-   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
-      do
-         Precursor(a_application, a_on_new_job)
-         create conf.make(a_application.id)
-         restart
-      end
-
    server: SOCKET_SERVER
-   conf: WEB_CONFIGURATION
    application: WEB_APPLICATION
 
 end -- class WEB_JOB

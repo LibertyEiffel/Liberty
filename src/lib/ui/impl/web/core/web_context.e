@@ -1,79 +1,75 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_CONNECTION
+class WEB_CONTEXT
 
-inherit
-   JOB
-
-insert
-   LOGGING
-
-create {WEB_JOB}
+create {WEB_CONNECTION}
    make
 
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+feature {ANY}
+   http_verb: STRING
+   http_path: STRING
+   http_version: STRING
+
+   header (key: ABSTRACT_STRING): STRING is
       do
-         events.expect(stream.event_can_read)
+         Result := headers.fast_reference_at(key.intern)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
-      do
-         Result := done or else events.event_occurred(stream.event_can_read)
-      end
+   stream: SOCKET_INPUT_OUTPUT_STREAM
 
-   continue is
+feature {}
+   decode_http_request is
       local
-         context: WEB_CONTEXT
+         request: FAST_ARRAY[STRING]
       do
-         if not abort then
-            create context.make(stream)
-            application.reply(context)
-            stream.flush
-         end
-         if stream.is_connected then
-            stream.disconnect
-         end
-         done := True
-      rescue
-         abort := True
-         retry
+         create request.with_capacity(3)
+         stream.read_line
+         stream.last_string.split_in(request)
+         http_verb := request.item(0)
+         http_path := request.item(1)
+         http_version := request.item(2)
       end
 
-   done: BOOLEAN
-
-   restart is
+   decode_headers is
+      local
+         i: INTEGER; key: FIXED_STRING; value: STRING
       do
-         check False end
+         from
+            stream.read_line
+         until
+            stream.last_string.is_empty
+         loop
+            i := stream.last_string.first_index_of(':')
+            key := stream.last_string.substring(1, i - 1).intern
+            value := stream.last_string.substring(i + 1, stream.last_string.upper)
+            headers.add(value, key)
+
+            stream.read_line
+         end
       end
 
 feature {}
-   make (a_application: like application; a_stream: like stream) is
+   make (a_stream: like stream) is
       require
-         a_application /= Void
          a_stream.is_connected
       do
-         application := a_application
          stream := a_stream
-         a_stream.when_disconnect(agent on_disconnect)
+         create headers.make
+         decode_http_request
+         decode_headers
       end
 
-   application: WEB_APPLICATION
-   stream: SOCKET_INPUT_OUTPUT_STREAM
-
-   on_disconnect is
-      do
-         abort := True
-      end
-
-   abort: BOOLEAN
+   headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
 
 invariant
-   application /= Void
    stream /= Void
+   headers /= Void
+   http_verb /= Void
+   http_path /= Void
+   http_version /= Void
 
-end -- class WEB_CONNECTION
+end -- class WEB_CONTEXT
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
