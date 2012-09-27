@@ -5,7 +5,7 @@ deferred class UI_TYPED_BRIDGE_BUTTON[J_ -> UI_JOB]
 
 inherit
    UI_BRIDGE_BUTTON
-   UI_TYPED_BRIDGE_ITEM[J_]
+   UI_TYPED_BRIDGE_WIDGET[J_]
 
 end -- class UI_TYPED_BRIDGE_BUTTON
 --

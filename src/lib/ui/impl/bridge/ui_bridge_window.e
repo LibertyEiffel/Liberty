@@ -6,6 +6,15 @@ deferred class UI_BRIDGE_WINDOW
 insert
    UI_BRIDGE_ITEM
 
+feature {UI_WINDOW}
+   set_panel (a_panel: UI_BRIDGE_PANEL) is
+      deferred
+      end
+
+   set_menu (a_menu: UI_BRIDGE_MENU) is
+      deferred
+      end
+
 end -- class UI_BRIDGE_WINDOW
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

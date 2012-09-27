@@ -9,6 +9,11 @@ insert
 feature {ANY}
    ui: UI_
 
+   id: FIXED_STRING is
+      do
+         Result := ui.id
+      end
+
 feature {UI_JOB}
    connect_to (a_job: like job) is
       do

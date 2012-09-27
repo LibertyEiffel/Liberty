@@ -1,17 +1,17 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_TYPED_BRIDGE_ITEM[J_ -> UI_JOB]
+deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
 
 insert
    UI_BRIDGE_ITEM
 
-feature {UI_JOB}
-   connect_to (a_job: J_) is
+feature {}
+   add (a_child: E_) is
       deferred
       end
 
-end -- class UI_TYPED_BRIDGE_ITEM
+end -- class UI_BRIDGE_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

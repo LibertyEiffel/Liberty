@@ -4,13 +4,45 @@
 class WEB_WINDOW
 
 inherit
-   UI_TYPED_BRIDGE_WINDOW[WEB_JOB]
+   UI_TYPED_BRIDGE_WINDOW[WEB_JOB, WEB_PANEL, WEB_MENU]
 
 insert
    WEB_ITEM[UI_WINDOW]
 
 create {WEB_JOB}
    make
+
+feature {ANY}
+   panel: WEB_PANEL
+   menu: WEB_MENU
+
+feature {UI_WINDOW}
+   set_panel (a_panel: WEB_PANEL) is
+      do
+         panel := a_panel
+      end
+
+   set_menu (a_menu: WEB_MENU) is
+      do
+         menu := a_menu
+      end
+
+feature {WEB_APPLICATION}
+   reply (context: WEB_CONTEXT) is
+      require
+         context /= Void
+      do
+         context.reply_stream.put_line(once "[
+                                             <html>
+                                               <head>
+                                                 <title>hello</title>
+                                               </head>
+                                               <body>
+                                                 Hello World!
+                                               </body>
+                                             </html>
+                                             ]")
+      end
 
 end -- class WEB_WINDOW
 --

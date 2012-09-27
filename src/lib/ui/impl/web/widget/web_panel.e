@@ -4,13 +4,19 @@
 class WEB_PANEL
 
 inherit
-   UI_TYPED_BRIDGE_PANEL[WEB_JOB]
+   UI_TYPED_BRIDGE_PANEL[WEB_JOB, WEB_WIDGET]
 
 insert
    WEB_ITEM[UI_PANEL]
 
 create {WEB_JOB}
    make
+
+feature {UI_PANEL}
+   add (a_child: WEB_WIDGET) is
+      do
+         not_yet_implemented
+      end
 
 end -- class WEB_PANEL
 --

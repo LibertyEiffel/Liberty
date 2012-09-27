@@ -15,13 +15,17 @@ insert
       end
 
 feature {ANY}
-   connect_to (a_job: UI_JOB) is
+   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
+      local
+         children_: FAST_ARRAY[UI_CONNECT_ITEM]
       do
-         Precursor(a_job)
-         children.do_all(agent (a_child: UI_; a_job: UI_JOB) is
+         create children_.with_capacity(children.count)
+         children.do_all(agent (a_child: UI_; a_job: UI_JOB; a_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
                          do
-                            a_child.connect_to(a_job)
-                         end (?, a_job))
+                            a_children.add_last(a_child.connect_to(a_job))
+                         end (?, a_job, children_))
+         Result := Precursor(a_job)
+         connect_children(Result, children_)
       end
 
 feature {ANY}
@@ -86,6 +90,11 @@ feature {ANY}
 
 feature {UI_COLLECTION}
    children: DICTIONARY[UI_, FIXED_STRING]
+
+feature {}
+   connect_children (a_connect: UI_CONNECT_ITEM; a_connect_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
+      deferred
+      end
 
 invariant
    children /= Void

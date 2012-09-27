@@ -25,10 +25,23 @@ feature {}
 
    children: HASHED_DICTIONARY[UI_MENU_ITEM, FIXED_STRING]
 
-feature {}
-   connect_bridge (a_job: UI_JOB) is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
       do
-         a_job.connect_bridge_menu(Current)
+         Result := a_job.connect_bridge_menu(Current)
+      end
+
+   connect_children (a_connect: UI_CONNECT_ITEM; a_connect_children: FAST_ARRAY[UI_CONNECT_ITEM]) is
+      local
+         connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_MENU]
+      do
+         connect ::= a_connect
+         a_connect_children.do_all(agent (connect: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_MENU]; child: UI_CONNECT_ITEM) is
+                                   local
+                                      connect_child: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_MENU_ITEM]
+                                   do
+                                      connect_child ::= child
+                                      connect.item.add(connect_child.item)
+                                   end (connect, ?))
       end
 
 end -- class UI_MENU

@@ -31,9 +31,9 @@ feature {}
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB) is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
       do
-         a_job.connect_bridge_text_field(Current)
+         Result := a_job.connect_bridge_text_field(Current)
       end
 
 invariant

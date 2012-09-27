@@ -1,11 +1,12 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_TYPED_BRIDGE_MENU[J_ -> UI_JOB]
+deferred class UI_TYPED_BRIDGE_MENU[J_ -> UI_JOB,
+                                    M_ -> UI_TYPED_BRIDGE_MENU_ITEM[J_]]
 
 inherit
    UI_BRIDGE_MENU
-   UI_TYPED_BRIDGE_ITEM[J_]
+   UI_TYPED_BRIDGE_COLLECTION[J_, M_]
 
 end -- class UI_TYPED_BRIDGE_MENU
 --

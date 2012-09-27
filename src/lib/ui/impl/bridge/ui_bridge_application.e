@@ -4,7 +4,10 @@
 deferred class UI_BRIDGE_APPLICATION
 
 insert
-   UI_BRIDGE_ITEM
+   UI_BRIDGE_COLLECTION[UI_BRIDGE_WINDOW]
+      export {UI_APPLICATION}
+         add
+      end
 
 end -- class UI_BRIDGE_APPLICATION
 --

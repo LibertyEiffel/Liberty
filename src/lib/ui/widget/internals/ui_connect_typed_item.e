@@ -1,17 +1,25 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_TYPED_BRIDGE_ITEM[J_ -> UI_JOB]
+class UI_CONNECT_TYPED_ITEM[E_]
 
-insert
-   UI_BRIDGE_ITEM
+inherit
+   UI_CONNECT_ITEM
 
-feature {UI_JOB}
-   connect_to (a_job: J_) is
-      deferred
+create {ANY}
+   set_item
+
+feature {ANY}
+   item: E_
+
+   set_item (a_item: like item) is
+      do
+         item := a_item
+      ensure
+         item = a_item
       end
 
-end -- class UI_TYPED_BRIDGE_ITEM
+end -- class UI_CONNECT_TYPED_ITEM[E_]
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

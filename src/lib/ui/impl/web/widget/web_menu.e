@@ -4,13 +4,19 @@
 class WEB_MENU
 
 inherit
-   UI_TYPED_BRIDGE_MENU[WEB_JOB]
+   UI_TYPED_BRIDGE_MENU[WEB_JOB, WEB_MENU_ITEM]
 
 insert
    WEB_ITEM[UI_MENU]
 
 create {WEB_JOB}
    make
+
+feature {UI_MENU}
+   add (a_child: WEB_MENU_ITEM) is
+      do
+         not_yet_implemented
+      end
 
 end -- class WEB_MENU
 --

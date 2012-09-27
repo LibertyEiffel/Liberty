@@ -4,7 +4,10 @@
 deferred class UI_BRIDGE_MENU
 
 insert
-   UI_BRIDGE_ITEM
+   UI_BRIDGE_COLLECTION[UI_BRIDGE_MENU_ITEM]
+      export {UI_MENU}
+         add
+      end
 
 end -- class UI_BRIDGE_MENU
 --

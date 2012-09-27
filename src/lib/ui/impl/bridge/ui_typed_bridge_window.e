@@ -1,11 +1,22 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_TYPED_BRIDGE_WINDOW[J_ -> UI_JOB]
+deferred class UI_TYPED_BRIDGE_WINDOW[J_ -> UI_JOB,
+                                      P_ -> UI_TYPED_BRIDGE_PANEL[J_, UI_TYPED_BRIDGE_WIDGET[J_]],
+                                      M_ -> UI_TYPED_BRIDGE_MENU[J_, UI_TYPED_BRIDGE_MENU_ITEM[J_]]]
 
 inherit
    UI_BRIDGE_WINDOW
    UI_TYPED_BRIDGE_ITEM[J_]
+
+feature {UI_WINDOW}
+   set_panel (a_panel: P_) is
+      deferred
+      end
+
+   set_menu (a_menu: M_) is
+      deferred
+      end
 
 end -- class UI_TYPED_BRIDGE_WINDOW
 --

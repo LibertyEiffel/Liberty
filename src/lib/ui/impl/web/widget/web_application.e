@@ -4,10 +4,13 @@
 class WEB_APPLICATION
 
 inherit
-   UI_TYPED_BRIDGE_APPLICATION[WEB_JOB]
+   UI_TYPED_BRIDGE_APPLICATION[WEB_JOB, WEB_WINDOW]
 
 insert
    WEB_ITEM[UI_APPLICATION]
+      redefine
+         make
+      end
    LOGGING
    JSON_HANDLER
 
@@ -22,17 +25,56 @@ feature {ANY}
 
    reply (context: WEB_CONTEXT) is
       require
-         context.stream.is_connected
+         context /= Void
+      local
+         win: like window
       do
-         context.stream.put_string(once "[
-                                         <html>
-                                         <head><title>test</title></head>
-                                         <body>Hello!</body>
-                                         </html>
-                                         ]")
+         inspect
+            context.http_method
+         when "GET", "POST" then
+            win := window(context.http_path)
+            if win = Void then
+               context.set_status(404)
+            else
+               win.reply(context)
+            end
+         else
+            context.set_status(405)
+         end
+      end
+
+feature {UI_APPLICATION}
+   add (a_window: WEB_WINDOW) is
+      do
+         windows.add(a_window, a_window.id)
       end
 
 feature {}
+   window (path: STRING): WEB_WINDOW is
+      local
+         map: JSON_OBJECT
+         str: JSON_STRING
+         window_path: FIXED_STRING
+      do
+         map ?= conf.item(once "map")
+         if map /= Void then
+            str ?= map.item(path)
+            if str /= Void then
+               Result := windows.fast_reference_at(str.string.as_utf8.intern)
+            end
+         end
+         if Result = Void then
+            if path.has_suffix(once ".html") then
+               window_path := path.substring(path.lower, path.upper - 5).intern
+            elseif path.has_suffix(once ".do") then
+               window_path := path.substring(path.lower, path.upper - 3).intern
+            else
+               window_path := path.intern
+            end
+            Result := windows.fast_reference_at(window_path)
+         end
+      end
+
    address: IPV4_ADDRESS is
       local
          ip: JSON_ARRAY
@@ -111,6 +153,17 @@ feature {}
             log.error.put_line("Application descriptor #(1) not found" # filename)
          end
       end
+
+   windows: HASHED_DICTIONARY[WEB_WINDOW, FIXED_STRING]
+
+   make (a_ui: like ui) is
+      do
+         Precursor(a_ui)
+         create windows.make
+      end
+
+invariant
+   windows /= Void
 
 end -- class WEB_APPLICATION
 --

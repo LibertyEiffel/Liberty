@@ -36,9 +36,9 @@ feature {}
    actions: FAST_ARRAY[PROCEDURE[TUPLE[UI_BUTTON]]]
 
 feature {}
-   connect_bridge (a_job: UI_JOB) is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
       do
-         a_job.connect_bridge_button(Current)
+         Result := a_job.connect_bridge_button(Current)
       end
 
 end -- class UI_BUTTON

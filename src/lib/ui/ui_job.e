@@ -13,65 +13,94 @@ feature {}
    connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
       require
          a_application /= Void
+      local
+         dummy: UI_CONNECT_ITEM
       do
          if a_on_new_job /= Void then
             on_new_job := a_on_new_job
          else
             on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
          end
-         a_application.connect_to(Current)
+         dummy := a_application.connect_to(Current)
          restart
       end
 
-   application: UI_TYPED_BRIDGE_APPLICATION[like Current]
+   application: UI_TYPED_BRIDGE_APPLICATION[like Current,
+                                            UI_TYPED_BRIDGE_WINDOW[like Current,
+                                                                   UI_TYPED_BRIDGE_PANEL[like Current,
+                                                                                         UI_TYPED_BRIDGE_WIDGET[like Current]],
+                                                                   UI_TYPED_BRIDGE_MENU[like Current,
+                                                                                        UI_TYPED_BRIDGE_MENU_ITEM[like Current]]]]
+
    on_new_job: PROCEDURE[TUPLE[JOB]]
 
 feature {UI_ITEM}
-   connect_bridge_application (ui: UI_APPLICATION) is
+   connect_bridge_application (ui: UI_APPLICATION): UI_CONNECT_TYPED_ITEM[like new_bridge_application] is
       require
          ui /= Void
       do
          application := new_bridge_application(ui)
          application.connect_to(Current)
+         create Result.set_item(application)
       end
 
-   connect_bridge_window (ui: UI_WINDOW) is
+   connect_bridge_window (ui: UI_WINDOW): UI_CONNECT_TYPED_ITEM[like new_bridge_window] is
       require
          ui /= Void
+      local
+         window: like new_bridge_window
       do
-         new_bridge_window(ui).connect_to(Current)
+         window := new_bridge_window(ui)
+         window.connect_to(Current)
+         create Result.set_item(window)
       end
 
-   connect_bridge_panel (ui: UI_PANEL) is
+   connect_bridge_panel (ui: UI_PANEL): UI_CONNECT_TYPED_ITEM[like new_bridge_panel] is
       require
          ui /= Void
+      local
+         panel: like new_bridge_panel
       do
-         new_bridge_panel(ui).connect_to(Current)
+         panel := new_bridge_panel(ui)
+         panel.connect_to(Current)
+         create Result.set_item(panel)
       end
 
-   connect_bridge_menu (ui: UI_MENU) is
+   connect_bridge_menu (ui: UI_MENU): UI_CONNECT_TYPED_ITEM[like new_bridge_menu] is
       require
          ui /= Void
+      local
+         menu: like new_bridge_menu
       do
-         new_bridge_menu(ui).connect_to(Current)
+         menu := new_bridge_menu(ui)
+         menu.connect_to(Current)
+         create Result.set_item(menu)
       end
 
-   connect_bridge_text_field (ui: UI_TEXT_FIELD) is
+   connect_bridge_text_field (ui: UI_TEXT_FIELD): UI_CONNECT_TYPED_ITEM[like new_bridge_text_field] is
       require
          ui /= Void
+      local
+         text_field: like new_bridge_text_field
       do
-         new_bridge_text_field(ui).connect_to(Current)
+         text_field := new_bridge_text_field(ui)
+         text_field.connect_to(Current)
+         create Result.set_item(text_field)
       end
 
-   connect_bridge_button (ui: UI_BUTTON) is
+   connect_bridge_button (ui: UI_BUTTON): UI_CONNECT_TYPED_ITEM[like new_bridge_button] is
       require
          ui /= Void
+      local
+         button: like new_bridge_button
       do
-         new_bridge_button(ui).connect_to(Current)
+         button := new_bridge_button(ui)
+         button.connect_to(Current)
+         create Result.set_item(button)
       end
 
 feature {}
-   new_bridge_application (ui: UI_APPLICATION): UI_TYPED_BRIDGE_APPLICATION[like Current] is
+   new_bridge_application (ui: UI_APPLICATION): like application is
       require
          ui /= Void
       deferred
@@ -79,7 +108,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_window (ui: UI_WINDOW): UI_TYPED_BRIDGE_WINDOW[like Current] is
+   new_bridge_window (ui: UI_WINDOW): UI_TYPED_BRIDGE_WINDOW[like Current, UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]], UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]]] is
       require
          ui /= Void
       deferred
@@ -87,7 +116,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_panel (ui: UI_PANEL): UI_TYPED_BRIDGE_PANEL[like Current] is
+   new_bridge_panel (ui: UI_PANEL): UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]] is
       require
          ui /= Void
       deferred
@@ -95,7 +124,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_menu (ui: UI_MENU): UI_TYPED_BRIDGE_MENU[like Current] is
+   new_bridge_menu (ui: UI_MENU): UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]] is
       require
          ui /= Void
       deferred

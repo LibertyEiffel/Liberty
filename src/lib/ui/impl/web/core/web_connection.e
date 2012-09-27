@@ -30,13 +30,11 @@ feature {LOOP_ITEM}
          if not abort then
             create context.make(stream)
             application.reply(context)
-            stream.flush
          end
-         if stream.is_connected then
-            stream.disconnect
-         end
+         context.disconnect
          done := True
       rescue
+         context.set_status(500)
          abort := True
          retry
       end

@@ -6,17 +6,155 @@ class WEB_CONTEXT
 create {WEB_CONNECTION}
    make
 
-feature {ANY}
-   http_verb: STRING
+feature {ANY} -- request
+   http_method: STRING
    http_path: STRING
    http_version: STRING
 
-   header (key: ABSTRACT_STRING): STRING is
+   request_header (key: ABSTRACT_STRING): STRING is
+      require
+         key /= Void
       do
-         Result := headers.fast_reference_at(key.intern)
+         Result := request_headers.fast_reference_at(key.intern)
       end
 
-   stream: SOCKET_INPUT_OUTPUT_STREAM
+feature {ANY} -- reply
+   status: INTEGER
+
+   status_reason: STRING is
+      do
+         inspect
+            status
+         when 100 then
+            Result := once "Continue"
+         when 101 then
+            Result := once "Switching Protocols"
+         when 200 then
+            Result := once "OK"
+         when 201 then
+            Result := once "Created"
+         when 202 then
+            Result := once "Accepted"
+         when 203 then
+            Result := once "Non-Authoritative Information"
+         when 204 then
+            Result := once "No Content"
+         when 205 then
+            Result := once "Reset Content"
+         when 206 then
+            Result := once "Partial Content"
+         when 300 then
+            Result := once "Multiple Choices"
+         when 301 then
+            Result := once "Moved Permanently"
+         when 302 then
+            Result := once "Found"
+         when 303 then
+            Result := once "See Other"
+         when 304 then
+            Result := once "Not Modified"
+         when 305 then
+            Result := once "Use Proxy"
+         when 307 then
+            Result := once "Temporary Redirect"
+         when 400 then
+            Result := once "Bad Request"
+         when 401 then
+            Result := once "Unauthorized"
+         when 402 then
+            Result := once "Payment Required"
+         when 403 then
+            Result := once "Forbidden"
+         when 404 then
+            Result := once "Not Found"
+         when 405 then
+            Result := once "Method Not Allowed"
+         when 406 then
+            Result := once "Not Acceptable"
+         when 407 then
+            Result := once "Proxy Authentication Required"
+         when 408 then
+            Result := once "Request Time-out"
+         when 409 then
+            Result := once "Conflict"
+         when 410 then
+            Result := once "Gone"
+         when 411 then
+            Result := once "Length Required"
+         when 412 then
+            Result := once "Precondition Failed"
+         when 413 then
+            Result := once "Request Entity Too Large"
+         when 414 then
+            Result := once "Request-URI Too Large"
+         when 415 then
+            Result := once "Unsupported Media Type"
+         when 416 then
+            Result := once "Requested range not satisfiable"
+         when 417 then
+            Result := once "Expectation Failed"
+         when 500 then
+            Result := once "Internal Server Error"
+         when 501 then
+            Result := once "Not Implemented"
+         when 502 then
+            Result := once "Bad Gateway"
+         when 503 then
+            Result := once "Service Unavailable"
+         when 504 then
+            Result := once "Gateway Time-out"
+         when 505 then
+            Result := once "HTTP Version not supported"
+         end
+      end
+
+   is_known_status (a_status: INTEGER): BOOLEAN is
+      do
+         inspect
+            a_status
+         when 100, 101, 200..206, 300..305, 307, 400..417, 500..505 then
+            Result := True
+         else
+            check not Result end
+         end
+      end
+
+   set_reply_header (key, value: ABSTRACT_STRING) is
+      require
+         key /= Void
+         value /= Void
+      do
+         reply_headers.fast_put(value.out, key.intern)
+      end
+
+   set_status (a_status: like status) is
+      require
+         is_known_status(a_status)
+      do
+         status := a_status
+      ensure
+         status = a_status
+      end
+
+   reply_stream: OUTPUT_STREAM
+
+feature {WEB_CONNECTION}
+   disconnect is
+      do
+         if stream.is_connected then
+            stream.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
+
+            if status < 400 then
+               set_reply_header(once "Content-Length", reply_stream_.count.out)
+               reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is do stream.put_string("#(1): #(2)%R%N" # k # v) end)
+               stream.put_string(once "%R%N")
+               reply_stream_.write_to(stream)
+            end
+
+            stream.flush
+            stream.disconnect
+         end
+      end
 
 feature {}
    decode_http_request is
@@ -26,12 +164,12 @@ feature {}
          create request.with_capacity(3)
          stream.read_line
          stream.last_string.split_in(request)
-         http_verb := request.item(0)
+         http_method := request.item(0)
          http_path := request.item(1)
          http_version := request.item(2)
       end
 
-   decode_headers is
+   decode_request_headers is
       local
          i: INTEGER; key: FIXED_STRING; value: STRING
       do
@@ -43,7 +181,7 @@ feature {}
             i := stream.last_string.first_index_of(':')
             key := stream.last_string.substring(1, i - 1).intern
             value := stream.last_string.substring(i + 1, stream.last_string.upper)
-            headers.add(value, key)
+            request_headers.add(value, key)
 
             stream.read_line
          end
@@ -55,19 +193,33 @@ feature {}
          a_stream.is_connected
       do
          stream := a_stream
-         create headers.make
+         create request_headers.make
          decode_http_request
-         decode_headers
+         decode_request_headers
+         create reply_headers.make
+         create reply_stream_.make
+         create {WEB_OUTPUT_STREAM} reply_stream.connect_to(reply_stream_)
+         status := 200
       end
 
-   headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
+   request_headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
+
+   reply_headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
+   reply_stream_: STRING_OUTPUT_STREAM
+
+   stream: SOCKET_INPUT_OUTPUT_STREAM
 
 invariant
    stream /= Void
-   headers /= Void
-   http_verb /= Void
+   request_headers /= Void
+   http_method /= Void
    http_path /= Void
    http_version /= Void
+
+   reply_headers /= Void
+   reply_stream_.is_connected
+
+   is_known_status(status)
 
 end -- class WEB_CONTEXT
 --

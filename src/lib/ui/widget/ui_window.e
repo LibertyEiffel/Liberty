@@ -23,11 +23,18 @@ feature {ANY}
       end
 
 feature {ANY}
-   connect_to (a_job: UI_JOB) is
+   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
+      local
+         connect_result: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WINDOW]
+         connect_panel: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_PANEL]
+         connect_menu: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_MENU]
       do
-         Precursor(a_job)
-         panel.connect_to(a_job)
-         menu.connect_to(a_job)
+         connect_panel ::= panel.connect_to(a_job)
+         connect_menu ::= menu.connect_to(a_job)
+         Result := Precursor(a_job)
+         connect_result ::= Result
+         connect_result.item.set_panel(connect_panel.item)
+         connect_result.item.set_menu(connect_menu.item)
       end
 
 feature {}
@@ -44,9 +51,9 @@ feature {}
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB) is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
       do
-         a_job.connect_bridge_window(Current)
+         Result := a_job.connect_bridge_window(Current)
       end
 
 end -- class UI_WINDOW

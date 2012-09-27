@@ -3,8 +3,12 @@
 --
 deferred class UI_BRIDGE_PANEL
 
-insert
-   UI_BRIDGE_ITEM
+inherit
+   UI_BRIDGE_WIDGET
+   UI_BRIDGE_COLLECTION[UI_BRIDGE_WIDGET]
+      export {UI_PANEL}
+         add
+      end
 
 end -- class UI_BRIDGE_PANEL
 --

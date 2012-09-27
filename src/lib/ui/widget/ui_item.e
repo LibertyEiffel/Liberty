@@ -6,15 +6,15 @@ deferred class UI_ITEM
 feature {ANY}
    id: FIXED_STRING
 
-   connect_to (a_job: UI_JOB) is
+   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
       require
          a_job /= Void
       do
-         connect_bridge(a_job)
+         Result := connect_bridge(a_job)
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB) is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
       require
          a_job /= Void
       deferred

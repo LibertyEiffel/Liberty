@@ -1,17 +1,34 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_TYPED_BRIDGE_ITEM[J_ -> UI_JOB]
+class WEB_OUTPUT_STREAM
 
-insert
-   UI_BRIDGE_ITEM
+   -- HTTP forces EOL to be CRLF
 
-feature {UI_JOB}
-   connect_to (a_job: J_) is
-      deferred
+inherit
+   FILTER_OUTPUT_STREAM
+
+create {WEB_CONTEXT}
+   connect_to
+
+feature {}
+   local_can_disconnect: BOOLEAN is True
+
+feature {FILTER_OUTPUT_STREAM}
+   filtered_put_character (c: CHARACTER) is
+      do
+         if c = '%N' then
+            stream.filtered_put_character('%R')
+         end
+         stream.filtered_put_character(c)
       end
 
-end -- class UI_TYPED_BRIDGE_ITEM
+   filtered_flush is
+      do
+         stream.filtered_flush
+      end
+
+end -- class WEB_OUTPUT_STREAM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
