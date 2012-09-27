@@ -4,19 +4,34 @@
 class WEB_PANEL
 
 inherit
-   UI_TYPED_BRIDGE_PANEL[WEB_JOB, WEB_WIDGET]
+   UI_TYPED_BRIDGE_PANEL[WEB_JOB, WEB_WIDGET[UI_WIDGET]]
 
 insert
-   WEB_ITEM[UI_PANEL]
+   WEB_WIDGET[UI_PANEL]
+      redefine
+         make
+      end
 
 create {WEB_JOB}
    make
 
 feature {UI_PANEL}
-   add (a_child: WEB_WIDGET) is
+   add (a_child: WEB_WIDGET[UI_WIDGET]) is
       do
-         not_yet_implemented
+         children.add_last(a_child)
       end
+
+feature {}
+   children: FAST_ARRAY[WEB_WIDGET[UI_WIDGET]]
+
+   make (a_ui: like ui) is
+      do
+         Precursor(a_ui)
+         create children.make(0)
+      end
+
+invariant
+   children /= Void
 
 end -- class WEB_PANEL
 --

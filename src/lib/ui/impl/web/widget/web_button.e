@@ -5,9 +5,7 @@ class WEB_BUTTON
 
 inherit
    UI_TYPED_BRIDGE_BUTTON[WEB_JOB]
-
-insert
-   WEB_ITEM[UI_BUTTON]
+   WEB_WIDGET[UI_BUTTON]
 
 create {WEB_JOB}
    make

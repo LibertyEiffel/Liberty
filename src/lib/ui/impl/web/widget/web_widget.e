@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class WEB_WIDGET
+deferred class WEB_WIDGET[I_ -> UI_WIDGET]
 
 inherit
    UI_TYPED_BRIDGE_WIDGET[WEB_JOB]
 
---insert
---   WEB_ITEM[UI_WIDGET]
+insert
+   WEB_ITEM[I_]
 
 end -- class WEB_WIDGET
 --

@@ -5,9 +5,7 @@ class WEB_TEXT_FIELD
 
 inherit
    UI_TYPED_BRIDGE_TEXT_FIELD[WEB_JOB]
-
-insert
-   WEB_ITEM[UI_TEXT_FIELD]
+   WEB_WIDGET[UI_TEXT_FIELD]
 
 create {WEB_JOB}
    make

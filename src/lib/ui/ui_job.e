@@ -149,7 +149,6 @@ feature {}
       end
 
 invariant
-   application /= Void
    on_new_job /= Void
 
 end -- class UI_JOB

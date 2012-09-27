@@ -234,7 +234,7 @@ as number of `eif-indent-increments'."
   :type 'integer
   :group 'eiffel-indent)
 
-(defcustom eif-extra-then-indent 1
+(defcustom eif-extra-then-indent 0
   "*Number of spaces to add to `eif-then-indent'.
 This results in the actual indentation of a `then' appearing on a line
 by itself.  Can be negative."
