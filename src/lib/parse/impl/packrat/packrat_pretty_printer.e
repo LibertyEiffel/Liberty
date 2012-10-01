@@ -124,6 +124,7 @@ feature {}
       require
          a_stream.is_connected
       do
+         stream := a_stream
       ensure
          stream = a_stream
       end
