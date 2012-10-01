@@ -141,7 +141,7 @@ feature {PACKRAT_GRAMMAR}
          terminal_name := (once ".").intern
          terminal ::= atom(terminal_name)
          if terminal = Void then
-            create terminal.make(agent parse_any, agent reduce_image_anychar)
+            create terminal.make(agent parse_any, Void)
             add_atom(terminal_name, terminal)
          end
          last_primary := ref(terminal_name)
@@ -154,7 +154,7 @@ feature {PACKRAT_GRAMMAR}
          terminal_name := ("'#(1)'" # last_literal).intern
          terminal ::= atom(terminal_name)
          if terminal = Void then
-            create terminal.make(agent parse_string(?, last_literal.twin), agent reduce_image_string)
+            create terminal.make(agent parse_string(?, last_literal.twin), Void)
             add_atom(terminal_name, terminal)
          end
          last_primary := ref(terminal_name)
@@ -169,7 +169,7 @@ feature {PACKRAT_GRAMMAR}
          terminal ::= atom(terminal_name)
          if terminal = Void then
             regex := regex_factory.convert_posix_pattern(terminal_name.out)
-            create terminal.make(agent parse_regex(?, regex), agent reduce_image_regex)
+            create terminal.make(agent parse_regex(?, regex), Void)
             add_atom(terminal_name, terminal)
          end
          last_primary := ref(terminal_name)
