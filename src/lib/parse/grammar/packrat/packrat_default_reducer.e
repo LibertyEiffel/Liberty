@@ -8,6 +8,7 @@ inherit
 
 insert
    PACKRAT_FEATURES
+   LOGGING
 
 create {PACKRAT_GRAMMAR}
    make
@@ -39,9 +40,14 @@ feature {PACKRAT_GRAMMAR}
          loop
             key := last_atoms.key(i)
             item := last_atoms.item(i)
+            debug
+               log.info.put_line("Adding atom #(1)" # key)
+            end
             Result.add(key, item)
             i := i + 1
          end
+      ensure
+         useful: Result.is_coherent
       end
 
 feature {PACKRAT_GRAMMAR}
@@ -362,6 +368,9 @@ feature {} -- build the grammar
       do
          if last_atoms = Void then
             create last_atoms.make
+         end
+         debug
+            log.info.put_line("Registering atom #(1)" # a_name)
          end
          last_atoms.add(a_atom, a_name)
       ensure
