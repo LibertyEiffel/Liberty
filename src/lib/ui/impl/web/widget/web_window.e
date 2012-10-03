@@ -8,6 +8,7 @@ inherit
 
 insert
    WEB_ITEM[UI_WINDOW]
+   LOGGING
 
 create {WEB_JOB}
    make
@@ -31,17 +32,52 @@ feature {WEB_APPLICATION}
    reply (context: WEB_CONTEXT) is
       require
          context /= Void
+      local
+         template_parser: WEB_TEMPLATE_PARSER
+         tfr: TEXT_FILE_READ; s: STRING_OUTPUT_STREAM
+         parsed: ABSTRACT_STRING
       do
-         context.reply_stream.put_line(once "[
-                                             <html>
-                                               <head>
-                                                 <title>hello</title>
-                                               </head>
-                                               <body>
-                                                 Hello World!
-                                               </body>
-                                             </html>
-                                             ]")
+         create template_parser.make(agent retrieve_name)
+         create tfr.connect_to(once "#(1).html" # id)
+         if tfr.is_connected then
+            log.info.put_line(once "Reading file #(1).html" # id)
+            from
+               create s.make
+               tfr.read_line
+            until
+               tfr.end_of_input
+            loop
+               s.put_line(tfr.last_string)
+               tfr.read_line
+            end
+            s.put_line(tfr.last_string)
+            tfr.disconnect
+
+            parsed := template_parser.parse(s.to_string)
+            if parsed = Void then
+               context.set_status(500)
+            else
+               context.reply_stream.put_string(parsed)
+            end
+         else
+            context.set_status(404)
+         end
+      end
+
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      do
+         log.info.put_line("**** retrieve_name(%"#(1)%")" # a_name)
+         inspect
+            a_name
+         when "action" then
+            Result := once "#(1).do" # id
+--         when "title" then
+--            Result := title
+         else
+            if a_name.is_equal(once "hello") then
+               Result := "Hello page"
+            end
+         end
       end
 
 end -- class WEB_WINDOW
