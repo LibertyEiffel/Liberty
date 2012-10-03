@@ -16,12 +16,20 @@ feature {ANY} -- request
    http_method: STRING
    http_path: STRING
    http_version: STRING
+   head: BOOLEAN
 
    request_header (key: ABSTRACT_STRING): STRING is
       require
          key /= Void
       do
          Result := request_headers.fast_reference_at(key.intern)
+      end
+
+   set_head (a_head: like head) is
+      do
+         head := a_head
+      ensure
+         head = a_head
       end
 
 feature {ANY} -- reply
@@ -168,28 +176,32 @@ feature {WEB_CONNECTION}
             end
             stream.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
 
-            if status < 400 then
-               should_disconnect := check_connection
+            should_disconnect := check_connection
 
-               set_reply_header(once "Content-Length", reply_stream_.count.out)
-               reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
-                                    do
-                                       debug
-                                          log.trace.put_string("#(1): #(2)%R%N" # k # v)
-                                       end
-                                       stream.put_string("#(1): #(2)%R%N" # k # v)
-                                    end)
-               debug
-                  log.trace.put_string(once "%R%N")
-               end
-               stream.put_string(once "%R%N")
-               reply_stream_.write_to(stream)
-               debug
-                  reply_stream_.write_to(log.trace)
-               end
-            else
-               should_disconnect := True
-            end
+            set_reply_header(once "Content-Length", reply_stream_.count.out)
+            reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
+      do
+         debug
+         log.trace.put_string("#(1): #(2)%R%N" # k # v)
+         end
+         stream.put_string("#(1): #(2)%R%N" # k # v)
+      end)
+
+      debug
+         log.trace.put_string(once "%R%N")
+      end
+   stream.put_string(once "%R%N")
+
+      if head then
+         debug
+            log.trace.put_line(once ">>>> head only")
+         end
+      else
+         reply_stream_.write_to(stream)
+         debug
+            reply_stream_.write_to(log.trace)
+         end
+      end
 
             stream.flush
             debug
@@ -204,13 +216,21 @@ feature {}
          connection: STRING
       do
          if http_version.is_equal(once "HTTP/1.1") then
-            connection := request_header(once "Connection")
-            if connection /= Void and then connection.is_equal(once "close") then
-               Result := True
+            if head then
+               Result := True -- because of the Content-Length
+            elseif status >= 400 then
+               Result := True -- is it pertinent?
+            else
+               connection := request_header(once "Connection")
+               if connection /= Void and then connection.is_equal(once "close") then
+                  Result := True -- asked by the client
+               end
+            end
+            if Result then
                set_reply_header(once "Connection", once "close")
             end
          else
-            Result := True
+            Result := True -- HTTP/1.0 does not keep connections alive
          end
       end
 

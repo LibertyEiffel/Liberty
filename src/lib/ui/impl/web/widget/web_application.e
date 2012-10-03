@@ -26,20 +26,31 @@ feature {ANY}
    reply (context: WEB_CONTEXT) is
       require
          context /= Void
-      local
-         win: like window
       do
          inspect
             context.http_method
          when "GET", "POST" then
-            win := window(context)
-            if win = Void then
-               context.set_status(404)
-            else
-               win.reply(context)
-            end
+            reply_get(context)
+         when "HEAD" then
+            context.set_head(True)
+            reply_get(context)
          else
             context.set_status(405)
+         end
+      end
+
+feature {}
+   reply_get (context: WEB_CONTEXT) is
+      require
+         context /= Void
+      local
+         win: like window
+      do
+         win := window(context)
+         if win = Void then
+            context.set_status(404)
+         else
+            win.reply(context)
          end
       end
 
