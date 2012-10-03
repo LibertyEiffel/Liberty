@@ -3,8 +3,14 @@
 --
 class WEB_CONTEXT
 
+insert
+   LOGGING
+
 create {WEB_CONNECTION}
    make
+
+feature {ANY}
+   should_disconnect: BOOLEAN
 
 feature {ANY} -- request
    http_method: STRING
@@ -123,6 +129,7 @@ feature {ANY} -- reply
       require
          key /= Void
          value /= Void
+         not should_disconnect
       do
          reply_headers.fast_put(value.out, key.intern)
       end
@@ -130,6 +137,7 @@ feature {ANY} -- reply
    set_status (a_status: like status) is
       require
          is_known_status(a_status)
+         not should_disconnect
       do
          status := a_status
       ensure
@@ -140,33 +148,89 @@ feature {ANY} -- reply
 
 feature {WEB_CONNECTION}
    disconnect is
+      require
+         should_disconnect
+      do
+         stream.disconnect
+         debug
+            log.trace.put_line(once ">>>> disconnected.")
+         end
+      end
+
+   flush is
+      require
+         not should_disconnect
       do
          if stream.is_connected then
+            debug
+               log.trace.put_line(once "--8<----------------------------------------------------------------")
+               log.trace.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
+            end
             stream.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
 
             if status < 400 then
+               should_disconnect := check_connection
+
                set_reply_header(once "Content-Length", reply_stream_.count.out)
-               reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is do stream.put_string("#(1): #(2)%R%N" # k # v) end)
+               reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
+                                    do
+                                       debug
+                                          log.trace.put_string("#(1): #(2)%R%N" # k # v)
+                                       end
+                                       stream.put_string("#(1): #(2)%R%N" # k # v)
+                                    end)
+               debug
+                  log.trace.put_string(once "%R%N")
+               end
                stream.put_string(once "%R%N")
                reply_stream_.write_to(stream)
+               debug
+                  reply_stream_.write_to(log.trace)
+               end
+            else
+               should_disconnect := True
             end
 
             stream.flush
-            stream.disconnect
+            debug
+               log.trace.put_line(once "---------------------------------------------------------------->8--")
+            end
          end
       end
 
 feature {}
-   decode_http_request is
+   check_connection: BOOLEAN is
+      local
+         connection: STRING
+      do
+         if http_version.is_equal(once "HTTP/1.1") then
+            connection := request_header(once "Connection")
+            if connection /= Void and then connection.is_equal(once "close") then
+               Result := True
+               set_reply_header(once "Connection", once "close")
+            end
+         else
+            Result := True
+         end
+      end
+
+feature {}
+   decode_http_request: BOOLEAN is
       local
          request: FAST_ARRAY[STRING]
       do
          create request.with_capacity(3)
          stream.read_line
-         stream.last_string.split_in(request)
-         http_method := request.item(0)
-         http_path := request.item(1)
-         http_version := request.item(2)
+         debug
+            log.trace.put_line(stream.last_string)
+         end
+         if not stream.last_string.is_empty then
+            stream.last_string.split_in(request)
+            http_method := request.item(0)
+            http_path := request.item(1)
+            http_version := request.item(2)
+            Result := True
+         end
       end
 
    decode_request_headers is
@@ -178,6 +242,10 @@ feature {}
          until
             stream.last_string.is_empty
          loop
+            debug
+               log.trace.put_line(stream.last_string)
+            end
+
             i := stream.last_string.first_index_of(':')
             key := stream.last_string.substring(1, i - 1).intern
             value := stream.last_string.substring(i + 1, stream.last_string.upper)
@@ -194,12 +262,21 @@ feature {}
       do
          stream := a_stream
          create request_headers.make
-         decode_http_request
-         decode_request_headers
-         create reply_headers.make
-         create reply_stream_.make
-         create {WEB_OUTPUT_STREAM} reply_stream.connect_to(reply_stream_)
-         status := 200
+         debug
+            log.trace.put_line(once "==8<================================================================")
+         end
+         if decode_http_request then
+            decode_request_headers
+            create reply_headers.make
+            create reply_stream_.make
+            create {WEB_OUTPUT_STREAM} reply_stream.connect_to(reply_stream_)
+            status := 200
+         else
+            should_disconnect := True
+         end
+         debug
+            log.trace.put_line(once "================================================================>8==")
+         end
       end
 
    request_headers: HASHED_DICTIONARY[STRING, FIXED_STRING]

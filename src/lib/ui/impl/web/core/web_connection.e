@@ -20,7 +20,7 @@ feature {LOOP_ITEM}
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := done or else events.event_occurred(stream.event_can_read)
+         Result := abort or else events.event_occurred(stream.event_can_read)
       end
 
    continue is
@@ -29,10 +29,18 @@ feature {LOOP_ITEM}
       do
          if not abort then
             create context.make(stream)
-            application.reply(context)
+            if not context.should_disconnect then
+               application.reply(context)
+               context.flush
+            end
          end
-         context.disconnect
-         done := True
+         if context.should_disconnect then
+            abort := True
+            context.disconnect
+         end
+         if abort then
+            done := True
+         end
       rescue
          context.set_status(500)
          abort := True
@@ -70,6 +78,7 @@ feature {}
 invariant
    application /= Void
    stream /= Void
+   done implies abort
 
 end -- class WEB_CONNECTION
 --
