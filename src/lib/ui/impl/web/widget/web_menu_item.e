@@ -12,6 +12,11 @@ insert
 create {WEB_JOB}
    make
 
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      deferred
+      end
+
 end -- class WEB_MENU_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

@@ -35,6 +35,7 @@ feature {ANY}
          connect_result ::= Result
          connect_result.item.set_panel(connect_panel.item)
          connect_result.item.set_menu(connect_menu.item)
+         connect_result.item.set_title(title)
       end
 
 feature {}

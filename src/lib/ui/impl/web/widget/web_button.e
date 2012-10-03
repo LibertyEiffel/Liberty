@@ -10,6 +10,11 @@ inherit
 create {WEB_JOB}
    make
 
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      do
+      end
+
 end -- class WEB_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

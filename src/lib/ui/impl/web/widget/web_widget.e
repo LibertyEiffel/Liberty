@@ -9,6 +9,11 @@ inherit
 insert
    WEB_ITEM[I_]
 
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      deferred
+      end
+
 end -- class WEB_WIDGET
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

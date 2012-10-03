@@ -16,6 +16,7 @@ create {WEB_JOB}
 feature {ANY}
    panel: WEB_PANEL
    menu: WEB_MENU
+   title: UNICODE_STRING
 
 feature {UI_WINDOW}
    set_panel (a_panel: WEB_PANEL) is
@@ -26,6 +27,11 @@ feature {UI_WINDOW}
    set_menu (a_menu: WEB_MENU) is
       do
          menu := a_menu
+      end
+
+   set_title (a_title: like title) is
+      do
+         title := a_title
       end
 
 feature {WEB_APPLICATION}
@@ -64,6 +70,7 @@ feature {WEB_APPLICATION}
          end
       end
 
+feature {WEB_ITEM}
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
          log.info.put_line("**** retrieve_name(%"#(1)%")" # a_name)
@@ -71,11 +78,12 @@ feature {WEB_APPLICATION}
             a_name
          when "action" then
             Result := once "#(1).do" # id
---         when "title" then
---            Result := title
+         when "title" then
+            Result := title.to_utf8
          else
-            if a_name.is_equal(once "hello") then
-               Result := "Hello page"
+            Result := menu.retrieve_name(a_name, a_extension)
+            if Result = Void then
+               Result := panel.retrieve_name(a_name, a_extension)
             end
          end
       end

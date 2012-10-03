@@ -10,6 +10,14 @@ inherit
 create {WEB_JOB}
    make
 
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      do
+         if a_name.is_equal(once "value") then
+            Result := "test"
+         end
+      end
+
 end -- class WEB_TEXT_FIELD
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

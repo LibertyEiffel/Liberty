@@ -15,6 +15,10 @@ feature {UI_WINDOW}
       deferred
       end
 
+   set_title (a_title: UNICODE_STRING) is
+      deferred
+      end
+
 end -- class UI_BRIDGE_WINDOW
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

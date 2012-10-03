@@ -18,6 +18,11 @@ feature {UI_MENU}
          not_yet_implemented
       end
 
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      do
+      end
+
 end -- class WEB_MENU
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

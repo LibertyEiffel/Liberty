@@ -34,6 +34,7 @@ feature {}
 invariant
    has_id: id /= Void
    constant_id: id = id_memory
+   interned_id: id.intern = id
 
 end -- class UI_ITEM
 --

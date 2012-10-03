@@ -18,16 +18,30 @@ create {WEB_JOB}
 feature {UI_PANEL}
    add (a_child: WEB_WIDGET[UI_WIDGET]) is
       do
-         children.add_last(a_child)
+         children.add(a_child, a_child.id)
+      end
+
+feature {WEB_ITEM}
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+      local
+         dot_index: INTEGER; child: WEB_WIDGET[UI_WIDGET]
+      do
+         dot_index := a_name.first_index_of('.')
+         if a_name.valid_index(dot_index) then
+            child := children.fast_reference_at(a_name.substring(a_name.lower, dot_index - 1).intern)
+            if child /= Void then
+               Result := child.retrieve_name(a_name.substring(dot_index + 1, a_name.upper), a_extension)
+            end
+         end
       end
 
 feature {}
-   children: FAST_ARRAY[WEB_WIDGET[UI_WIDGET]]
+   children: HASHED_DICTIONARY[WEB_WIDGET[UI_WIDGET], FIXED_STRING]
 
    make (a_ui: like ui) is
       do
          Precursor(a_ui)
-         create children.make(0)
+         create children.make
       end
 
 invariant

@@ -12,6 +12,8 @@ feature {ANY}
    id: FIXED_STRING is
       do
          Result := ui.id
+      ensure
+         Result.intern = Result
       end
 
 feature {UI_JOB}

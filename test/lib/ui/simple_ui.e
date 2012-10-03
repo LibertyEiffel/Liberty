@@ -30,7 +30,7 @@ feature {}
          index.panel.add(ok)
          index.panel.add(cancel)
          index.panel.add(text)
-         index.set_title(U"index")
+         index.set_title(U"Home")
          Result.add(index)
       end
 
