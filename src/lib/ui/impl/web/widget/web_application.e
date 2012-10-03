@@ -32,7 +32,7 @@ feature {ANY}
          inspect
             context.http_method
          when "GET", "POST" then
-            win := window(context.http_path)
+            win := window(context)
             if win = Void then
                context.set_status(404)
             else
@@ -50,12 +50,15 @@ feature {UI_APPLICATION}
       end
 
 feature {}
-   window (path: STRING): WEB_WINDOW is
+   window (context: WEB_CONTEXT): WEB_WINDOW is
       local
          map: JSON_OBJECT
          str: JSON_STRING
+         path: STRING
          window_path: FIXED_STRING
+         do_action: BOOLEAN
       do
+         path := context.http_path
          map ?= conf.item(once "map")
          if map /= Void then
             str ?= map.item(path)
@@ -68,10 +71,14 @@ feature {}
                window_path := path.substring(path.lower, path.upper - 5).intern
             elseif path.has_suffix(once ".do") then
                window_path := path.substring(path.lower, path.upper - 3).intern
+               do_action := True
             else
                window_path := path.intern
             end
             Result := windows.fast_reference_at(window_path)
+            if do_action then
+               --Result.decode(context)
+            end
          end
       end
 
