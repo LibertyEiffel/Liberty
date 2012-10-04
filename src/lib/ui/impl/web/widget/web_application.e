@@ -65,11 +65,11 @@ feature {}
       local
          map: JSON_OBJECT
          str: JSON_STRING
-         path: STRING
+         path, sel: STRING
          window_path: FIXED_STRING
          do_action: BOOLEAN
       do
-         path := context.http_path
+         path := context.http_path.twin
          map ?= conf.item(once "map")
          if map /= Void then
             str ?= map.item(path)
@@ -78,16 +78,25 @@ feature {}
             end
          end
          if Result = Void then
-            if path.has_suffix(once ".html") then
-               window_path := path.substring(path.lower, path.upper - 5).intern
-            elseif path.has_suffix(once ".do") then
-               window_path := path.substring(path.lower, path.upper - 3).intern
-               do_action := True
-            else
-               window_path := path.intern
+            if path.has_prefix(once "/") then
+               path.remove_head(1)
             end
+            if path.has_suffix(once ".html") then
+               path.remove_tail(5)
+            elseif path.has_suffix(once ".do") then
+               path.remove_tail(3)
+               do_action := True
+            end
+            window_path := path.intern
+
+            log.trace.put_line(once ">>>> window path: #(1)" # window_path)
+
             Result := windows.fast_reference_at(window_path)
             if do_action then
+               sel := context.argument(once "Select")
+               if sel /= Void then
+                  log.trace.put_line(once ">>>> Select: #(1)" # sel)
+               end
                --Result.decode(context)
             end
          end

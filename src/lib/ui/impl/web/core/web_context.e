@@ -15,8 +15,10 @@ feature {ANY}
 feature {ANY} -- request
    http_method: STRING
    http_path: STRING
+   http_path_arguments: STRING
    http_version: STRING
    head: BOOLEAN
+   body: STRING
 
    request_header (key: ABSTRACT_STRING): STRING is
       require
@@ -30,6 +32,16 @@ feature {ANY} -- request
          head := a_head
       ensure
          head = a_head
+      end
+
+   argument (key: ABSTRACT_STRING): STRING is
+      require
+         key /= Void
+      do
+         if arguments = Void then
+            decode_arguments
+         end
+         Result := arguments.fast_reference_at(key.intern)
       end
 
 feature {ANY} -- reply
@@ -171,8 +183,8 @@ feature {WEB_CONNECTION}
       do
          if stream.is_connected then
             debug
-               log.trace.put_line(once "--8<----------------------------------------------------------------")
-               log.trace.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
+               log.info.put_line(once "--8<----------------------------------------------------------------")
+               log.info.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
             end
             stream.put_string(once "#(1) #(2) #(3)%R%N" # http_version # status.out # status_reason)
 
@@ -180,32 +192,32 @@ feature {WEB_CONNECTION}
 
             set_reply_header(once "Content-Length", reply_stream_.count.out)
             reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
-      do
-         debug
-         log.trace.put_string("#(1): #(2)%R%N" # k # v)
-         end
-         stream.put_string("#(1): #(2)%R%N" # k # v)
-      end)
+                                 do
+                                    debug
+                                       log.info.put_string("#(1): #(2)%R%N" # k # v)
+                                    end
+                                    stream.put_string("#(1): #(2)%R%N" # k # v)
+                                 end)
 
-      debug
-         log.trace.put_string(once "%R%N")
-      end
-   stream.put_string(once "%R%N")
+            debug
+               log.info.put_string(once "%R%N")
+            end
+            stream.put_string(once "%R%N")
 
-      if head then
-         debug
-            log.trace.put_line(once ">>>> head only")
-         end
-      else
-         reply_stream_.write_to(stream)
-         debug
-            reply_stream_.write_to(log.trace)
-         end
-      end
+            if head then
+               debug
+                  log.trace.put_line(once ">>>> head only")
+               end
+            else
+               reply_stream_.write_to(stream)
+               debug
+                  reply_stream_.write_to(log.info)
+               end
+            end
 
             stream.flush
             debug
-               log.trace.put_line(once "---------------------------------------------------------------->8--")
+               log.info.put_line(once "---------------------------------------------------------------->8--")
             end
          end
       end
@@ -238,17 +250,41 @@ feature {}
    decode_http_request: BOOLEAN is
       local
          request: FAST_ARRAY[STRING]
+         i: INTEGER; url: STRING
       do
          create request.with_capacity(3)
          stream.read_line
          debug
-            log.trace.put_line(stream.last_string)
+            log.info.put_line(stream.last_string)
          end
          if not stream.last_string.is_empty then
             stream.last_string.split_in(request)
+
             http_method := request.item(0)
-            http_path := request.item(1)
+            debug
+               log.trace.put_line(once ">>>> method: #(1)" # http_method)
+            end
+
+            url := request.item(1)
+            i := url.first_index_of('?')
+            if url.valid_index(i) then
+               http_path := url.substring(url.lower, i - 1)
+               http_path_arguments := url.substring(i + 1, url.upper)
+               debug
+                  log.trace.put_line(once ">>>> path: #(1)" # http_path)
+                  log.trace.put_line(once ">>>> args: #(1)" # http_path_arguments)
+               end
+            else
+               http_path := url
+               debug
+                  log.trace.put_line(once ">>>> path: #(1)" # http_path)
+               end
+            end
+
             http_version := request.item(2)
+            debug
+               log.trace.put_line(once ">>>> version: #(1)" # http_version)
+            end
             Result := True
          end
       end
@@ -263,15 +299,80 @@ feature {}
             stream.last_string.is_empty
          loop
             debug
-               log.trace.put_line(stream.last_string)
+               log.info.put_line(stream.last_string)
             end
 
             i := stream.last_string.first_index_of(':')
             key := stream.last_string.substring(1, i - 1).intern
-            value := stream.last_string.substring(i + 1, stream.last_string.upper)
+            value := stream.last_string.substring(i + 2, stream.last_string.upper) -- skip ':' and ' '
             request_headers.add(value, key)
 
             stream.read_line
+         end
+      end
+
+   decode_body is
+      local
+         content_length: STRING; length: INTEGER
+      do
+         content_length := request_header(once "Content-Length")
+         if content_length /= Void then
+            from
+               length := content_length.to_integer
+               body := ""
+            until
+               length = 0
+            loop
+               stream.read_character
+               body.extend(stream.last_character)
+               length := length - 1
+            end
+            debug
+               log.info.put_new_line
+               log.info.put_line(body)
+            end
+         end
+      end
+
+   decode_arguments is
+      require
+         arguments = Void
+      do
+         create arguments.make
+         if http_path_arguments /= Void then
+            decode_arguments_for(http_path_arguments)
+         end
+         if body /= Void then
+            decode_arguments_for(body)
+         end
+      ensure
+         arguments /= Void
+      end
+
+   decode_arguments_for (a_string: STRING) is
+      require
+         a_string /= Void
+         arguments /= Void
+      local
+         start_index, ampersand_index, equal_index: INTEGER
+      do
+         from
+            start_index := a_string.lower
+            equal_index := a_string.first_index_of('=')
+            if a_string.valid_index(equal_index) then
+               ampersand_index := a_string.index_of('&', equal_index)
+            end
+         until
+            not a_string.valid_index(equal_index)
+               or else not a_string.valid_index(ampersand_index)
+         loop
+            arguments.add(a_string.substring(equal_index + 1, ampersand_index - 1),
+                          a_string.substring(start_index, equal_index - 1).intern)
+            start_index := ampersand_index + 1
+            equal_index := a_string.index_of('=', start_index)
+            if a_string.valid_index(equal_index) then
+               ampersand_index := a_string.index_of('&', equal_index)
+            end
          end
       end
 
@@ -283,10 +384,11 @@ feature {}
          stream := a_stream
          create request_headers.make
          debug
-            log.trace.put_line(once "==8<================================================================")
+            log.info.put_line(once "==8<================================================================")
          end
          if decode_http_request then
             decode_request_headers
+            decode_body
             create reply_headers.make
             create reply_stream_.make
             create {WEB_OUTPUT_STREAM} reply_stream.connect_to(reply_stream_)
@@ -295,11 +397,12 @@ feature {}
             should_disconnect := True
          end
          debug
-            log.trace.put_line(once "================================================================>8==")
+            log.info.put_line(once "================================================================>8==")
          end
       end
 
    request_headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
+   arguments: HASHED_DICTIONARY[STRING, FIXED_STRING]
 
    reply_headers: HASHED_DICTIONARY[STRING, FIXED_STRING]
    reply_stream_: STRING_OUTPUT_STREAM
