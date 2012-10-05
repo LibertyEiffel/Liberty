@@ -259,33 +259,34 @@ feature {}
          end
          if not stream.last_string.is_empty then
             stream.last_string.split_in(request)
-
-            http_method := request.item(0)
-            debug
-               log.trace.put_line(once ">>>> method: #(1)" # http_method)
-            end
-
-            url := request.item(1)
-            i := url.first_index_of('?')
-            if url.valid_index(i) then
-               http_path := url.substring(url.lower, i - 1)
-               http_path_arguments := url.substring(i + 1, url.upper)
+            if not request.is_empty then
+               http_method := request.item(0)
                debug
-                  log.trace.put_line(once ">>>> path: #(1)" # http_path)
-                  log.trace.put_line(once ">>>> args: #(1)" # http_path_arguments)
+                  log.trace.put_line(once ">>>> method: #(1)" # http_method)
                end
-            else
-               http_path := url
-               debug
-                  log.trace.put_line(once ">>>> path: #(1)" # http_path)
-               end
-            end
 
-            http_version := request.item(2)
-            debug
-               log.trace.put_line(once ">>>> version: #(1)" # http_version)
+               url := request.item(1)
+               i := url.first_index_of('?')
+               if url.valid_index(i) then
+                  http_path := url.substring(url.lower, i - 1)
+                  http_path_arguments := url.substring(i + 1, url.upper)
+                  debug
+                     log.trace.put_line(once ">>>> path: #(1)" # http_path)
+                     log.trace.put_line(once ">>>> args: #(1)" # http_path_arguments)
+                  end
+               else
+                  http_path := url
+                  debug
+                     log.trace.put_line(once ">>>> path: #(1)" # http_path)
+                  end
+               end
+
+               http_version := request.item(2)
+               debug
+                  log.trace.put_line(once ">>>> version: #(1)" # http_version)
+               end
+               Result := True
             end
-            Result := True
          end
       end
 
@@ -337,13 +338,29 @@ feature {}
    decode_arguments is
       require
          arguments = Void
+      local
+         content_type: STRING
       do
          create arguments.make
          if http_path_arguments /= Void then
             decode_arguments_for(http_path_arguments)
          end
          if body /= Void then
-            decode_arguments_for(body)
+            content_type := request_header(once "Content-Type")
+            if content_type = Void then
+               decode_arguments_for(body)
+            else
+               inspect
+                  content_type
+               when "application/x-www-form-urlencoded", "application/x-url-encoded" then
+                  decode_arguments_for(body)
+               when "multipart/form-data" then
+                  -- RFC 2388
+                  not_yet_implemented
+               else
+                  log.warning.put_line(once "Unknown Content-Type: #(1), ignoring body content" # content_type)
+               end
+            end
          end
       ensure
          arguments /= Void
@@ -367,12 +384,59 @@ feature {}
                or else not a_string.valid_index(ampersand_index)
          loop
             arguments.add(a_string.substring(equal_index + 1, ampersand_index - 1),
-                          a_string.substring(start_index, equal_index - 1).intern)
+                          decode_url_argument(a_string, start_index, equal_index - 1))
             start_index := ampersand_index + 1
             equal_index := a_string.index_of('=', start_index)
             if a_string.valid_index(equal_index) then
                ampersand_index := a_string.index_of('&', equal_index)
             end
+         end
+      end
+
+   decode_url_argument (a_string: STRING; a_start_index, a_end_index: INTEGER): FIXED_STRING is
+      require
+         a_string.valid_index(a_start_index)
+         a_string.valid_index(a_end_index)
+         a_start_index < a_end_index
+      local
+         i, byte: INTEGER; buffer: STRING
+      do
+         buffer := ""
+         from
+            i := a_string.lower
+         until
+            i > a_string.upper
+         loop
+            inspect
+               a_string.item(i)
+            when '+' then
+               buffer.extend(' ')
+            when '%%' then
+               byte := url_encoded_character(a_string.item(i+1)) * 16
+                  + url_encoded_character(a_string.item(i+2))
+               buffer.extend(byte.to_character)
+               i := i + 2
+            else
+               buffer.extend(a_string.item(i))
+            end
+            i := i + 1
+         end
+
+         Result := buffer.intern
+      ensure
+         Result.intern = Result
+      end
+
+   url_encoded_character (a_character: CHARACTER): INTEGER is
+      do
+         inspect
+            a_character
+         when '0'..'9' then
+            Result := a_character.code - 48
+         when 'A'..'F' then
+            Result := a_character.code + 10 - 64
+         when 'a'..'f' then
+            Result := a_character.code + 10 - 96
          end
       end
 
