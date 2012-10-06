@@ -489,7 +489,7 @@ feature {LOG_CONFIGURATION}
             loggers.put(Result, a_tag)
          end
       ensure
-         Result /= Void
+         Result.tag = a_tag
       end
 
    generation_id: INTEGER is
