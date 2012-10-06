@@ -7,6 +7,9 @@ inherit
    UI_TYPED_BRIDGE_BUTTON[WEB_JOB]
    WEB_WIDGET[UI_BUTTON]
 
+insert
+   LOGGING
+
 create {WEB_JOB}
    make
 
@@ -21,6 +24,13 @@ feature {ANY}
 feature {WEB_ITEM}
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
+         inspect
+            a_name
+         when "label" then
+            Result := label.to_utf8
+         else
+            check Result = Void end
+         end
       end
 
 end -- class WEB_BUTTON

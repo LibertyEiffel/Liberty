@@ -22,11 +22,17 @@ feature {}
       once
          create Result.make("hello")
          create index.make("index")
+
          create ok.make("ok")
+         ok.set_label(U"OK")
          ok.on_click(agent click("ok", text))
+
          create cancel.make("cancel")
+         cancel.set_label(U"Cancel")
          cancel.on_click(agent click("cancel", text))
+
          create text.make("text")
+
          index.panel.add(ok)
          index.panel.add(cancel)
          index.panel.add(text)

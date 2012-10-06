@@ -82,6 +82,9 @@ feature {WEB_ITEM}
             Result := menu.retrieve_name(a_name, a_extension)
             if Result = Void then
                Result := panel.retrieve_name(a_name, a_extension)
+               if Result = Void then
+                  log.warning.put_line(once "Could not resolve %"#(1)%"" # a_name)
+               end
             end
          end
       end
