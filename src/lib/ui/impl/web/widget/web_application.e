@@ -65,7 +65,7 @@ feature {}
       local
          map: JSON_OBJECT
          str: JSON_STRING
-         path, sel: STRING
+         path: STRING
          window_path: FIXED_STRING
          do_action: BOOLEAN
       do
@@ -93,10 +93,6 @@ feature {}
 
             Result := windows.fast_reference_at(window_path)
             if do_action then
-               sel := context.argument(once "Select")
-               if sel /= Void then
-                  log.trace.put_line(once ">>>> Select: #(1)" # sel)
-               end
                --Result.decode(context)
             end
          end

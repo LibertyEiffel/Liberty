@@ -11,6 +11,19 @@ feature {ANY}
          a_job /= Void
       do
          Result := connect_bridge(a_job)
+         if registered = Void then
+            create registered.make(0)
+            registered.add_last(create {WEAK_REFERENCE[UI_CONNECT_ITEM]}.set_item(Result))
+         elseif not registered.exists(agent (item: WEAK_REFERENCE[UI_CONNECT_ITEM]; new: UI_CONNECT_ITEM): BOOLEAN is
+                                      do
+                                         if item.item = Void then
+                                            item.set_item(new)
+                                            Result := True
+                                         end
+                                      end (?, Result))
+         then
+            registered.add_last(create {WEAK_REFERENCE[UI_CONNECT_ITEM]}.set_item(Result))
+         end
       end
 
 feature {}
@@ -18,6 +31,18 @@ feature {}
       require
          a_job /= Void
       deferred
+      end
+
+   fire (action: PROCEDURE[TUPLE[UI_CONNECT_ITEM]]) is
+      do
+         if registered /= Void then
+            registered.do_all(agent (action: PROCEDURE[TUPLE[UI_CONNECT_ITEM]]; item: WEAK_REFERENCE[UI_CONNECT_ITEM]) is
+                              do
+                                 if item.item /= Void then
+                                    action.call([item.item])
+                                 end
+                              end (action, ?))
+         end
       end
 
    id_memory: like id_memory_ is
@@ -30,6 +55,7 @@ feature {}
       end
 
    id_memory_: FIXED_STRING
+   registered: FAST_ARRAY[WEAK_REFERENCE[UI_CONNECT_ITEM]]
 
 invariant
    has_id: id /= Void

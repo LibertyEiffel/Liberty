@@ -10,6 +10,24 @@ create {ANY}
    make
 
 feature {ANY}
+   label: UNICODE_STRING
+
+   set_label (a_label: UNICODE_STRING) is
+      do
+         label := a_label
+         fire(agent set_bridge_label(?, a_label))
+      end
+
+feature {}
+   set_bridge_label (a_bridge: UI_CONNECT_ITEM; a_label: UNICODE_STRING) is
+      local
+         bridge: UI_CONNECT_TYPED_ITEM[UI_TYPED_BRIDGE_BUTTON[UI_JOB]]
+      do
+         bridge ::= a_bridge
+         bridge.item.set_label(a_label)
+      end
+
+feature {ANY}
    on_click (action: PROCEDURE[TUPLE[UI_BUTTON]]) is
       require
          action /= Void

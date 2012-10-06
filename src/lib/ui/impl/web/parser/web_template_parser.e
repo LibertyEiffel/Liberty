@@ -4,18 +4,27 @@
 class WEB_TEMPLATE_PARSER
 
 insert
+   SINGLETON
    LOGGING
+      undefine
+         is_equal
+      end
 
 create {ANY}
    make
 
 feature {ANY}
-   parse (source: ABSTRACT_STRING): ABSTRACT_STRING is
+   parse (source: ABSTRACT_STRING; a_replace: like replace): ABSTRACT_STRING is
+      require
+         a_replace /= Void
       local
          buffer: MINI_PARSER_BUFFER
       do
+         replace := a_replace
+
          check
             data.is_empty
+            replaced.is_empty
          end
          data.add_last("")
          create buffer.initialize_with(source)
@@ -31,6 +40,7 @@ feature {ANY}
             parse_error := parser.error
          end
          data.clear_count
+         replace := Void
       ensure
          data.is_empty
       end
@@ -39,6 +49,8 @@ feature {ANY}
 
 feature {}
    reduce_non_terminal (a_name: FIXED_STRING) is
+      require
+         replace /= Void
       local
          data_last, data_prefix, data_postfix: ABSTRACT_STRING
       do
@@ -116,15 +128,10 @@ feature {}
    data, replaced: FAST_ARRAY[ABSTRACT_STRING]
 
 feature {}
-   make (a_replace: like replace) is
-      require
-         a_replace /= Void
+   make is
       do
-         replace := a_replace
          create data.make(0)
          create replaced.make(0)
-      ensure
-         replace = a_replace
       end
 
    replace: FUNCTION[TUPLE[STRING, COLLECTION[STRING]], ABSTRACT_STRING]
@@ -151,7 +158,7 @@ feature {}
          log.info.put_line("parsing grammar...")
 
          Result := grammar.parse_table(source)
-         Result.set_default_tree_builders(agent reduce_non_terminal, agent reduce_terminal)
+         Result.set_default_tree_builders(agent reduce_non_terminal, agent reduce_terminal) -- ouch: that's why this class is a singleton
          Result.pretty_print_on(log.trace)
 
          log.info.put_line("grammar parsed.")
@@ -161,9 +168,6 @@ feature {}
       once
          create Result
       end
-
-invariant
-   replace /= Void
 
 end -- class WEB_TEMPLATE_PARSER
 --

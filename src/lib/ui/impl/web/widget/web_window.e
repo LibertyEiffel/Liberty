@@ -39,11 +39,9 @@ feature {WEB_APPLICATION}
       require
          context /= Void
       local
-         template_parser: WEB_TEMPLATE_PARSER
          tfr: TEXT_FILE_READ; s: STRING_OUTPUT_STREAM
          parsed: ABSTRACT_STRING
       do
-         create template_parser.make(agent retrieve_name)
          create tfr.connect_to(once "#(1).html" # id)
          if tfr.is_connected then
             log.info.put_line(once "Reading file #(1).html" # id)
@@ -59,7 +57,7 @@ feature {WEB_APPLICATION}
             s.put_line(tfr.last_string)
             tfr.disconnect
 
-            parsed := template_parser.parse(s.to_string)
+            parsed := template_parser.parse(s.to_string, agent retrieve_name)
             if parsed = Void then
                context.set_status(500)
             else
@@ -86,6 +84,12 @@ feature {WEB_ITEM}
                Result := panel.retrieve_name(a_name, a_extension)
             end
          end
+      end
+
+feature {}
+   template_parser: WEB_TEMPLATE_PARSER is
+      once
+         create Result.make
       end
 
 end -- class WEB_WINDOW

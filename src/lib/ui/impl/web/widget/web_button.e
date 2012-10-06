@@ -10,6 +10,14 @@ inherit
 create {WEB_JOB}
    make
 
+feature {ANY}
+   label: UNICODE_STRING
+
+   set_label (a_label: UNICODE_STRING) is
+      do
+         label := a_label
+      end
+
 feature {WEB_ITEM}
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do

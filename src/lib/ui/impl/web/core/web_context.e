@@ -347,6 +347,7 @@ feature {}
          end
          if body /= Void then
             content_type := request_header(once "Content-Type")
+            log.trace.put_line(once ">>>> Content-Type: #(1)" # content_type)
             if content_type = Void then
                decode_arguments_for(body)
             else
@@ -372,59 +373,59 @@ feature {}
          arguments /= Void
       local
          start_index, ampersand_index, equal_index: INTEGER
+         key, value: STRING
       do
          from
             start_index := a_string.lower
             equal_index := a_string.first_index_of('=')
-            if a_string.valid_index(equal_index) then
-               ampersand_index := a_string.index_of('&', equal_index)
-            end
          until
             not a_string.valid_index(equal_index)
-               or else not a_string.valid_index(ampersand_index)
          loop
-            arguments.add(a_string.substring(equal_index + 1, ampersand_index - 1),
-                          decode_url_argument(a_string, start_index, equal_index - 1))
+            ampersand_index := a_string.index_of('&', equal_index)
+            if not a_string.valid_index(ampersand_index) then
+               ampersand_index := a_string.upper + 1
+            end
+
+            key := decode_url_argument(a_string, start_index, equal_index - 1)
+            value := decode_url_argument(a_string, equal_index + 1, ampersand_index - 1)
+            debug
+               log.trace.put_line(once ">>>> #(1): #(2)" # key # value)
+            end
+            arguments.add(value, key.intern)
+
             start_index := ampersand_index + 1
             equal_index := a_string.index_of('=', start_index)
-            if a_string.valid_index(equal_index) then
-               ampersand_index := a_string.index_of('&', equal_index)
-            end
          end
       end
 
-   decode_url_argument (a_string: STRING; a_start_index, a_end_index: INTEGER): FIXED_STRING is
+   decode_url_argument (a_string: STRING; a_start_index, a_end_index: INTEGER): STRING is
       require
          a_string.valid_index(a_start_index)
          a_string.valid_index(a_end_index)
          a_start_index < a_end_index
       local
-         i, byte: INTEGER; buffer: STRING
+         i, byte: INTEGER
       do
-         buffer := ""
+         Result := ""
          from
-            i := a_string.lower
+            i := a_start_index
          until
-            i > a_string.upper
+            i > a_end_index
          loop
             inspect
                a_string.item(i)
             when '+' then
-               buffer.extend(' ')
+               Result.extend(' ')
             when '%%' then
                byte := url_encoded_character(a_string.item(i+1)) * 16
                   + url_encoded_character(a_string.item(i+2))
-               buffer.extend(byte.to_character)
+               Result.extend(byte.to_character)
                i := i + 2
             else
-               buffer.extend(a_string.item(i))
+               Result.extend(a_string.item(i))
             end
             i := i + 1
          end
-
-         Result := buffer.intern
-      ensure
-         Result.intern = Result
       end
 
    url_encoded_character (a_character: CHARACTER): INTEGER is

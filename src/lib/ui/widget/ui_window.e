@@ -20,6 +20,18 @@ feature {ANY}
    set_title (a_title: UNICODE_STRING) is
       do
          title := a_title
+         fire(agent set_bridge_title(?, a_title))
+      end
+
+feature {}
+   set_bridge_title (a_bridge: UI_CONNECT_ITEM; a_title: UNICODE_STRING) is
+      local
+         bridge: UI_CONNECT_TYPED_ITEM[UI_TYPED_BRIDGE_WINDOW[UI_JOB,
+                                                              UI_TYPED_BRIDGE_PANEL[UI_JOB, UI_TYPED_BRIDGE_WIDGET[UI_JOB]],
+                                                              UI_TYPED_BRIDGE_MENU[UI_JOB, UI_TYPED_BRIDGE_MENU_ITEM[UI_JOB]]]]
+      do
+         bridge ::= a_bridge
+         bridge.item.set_title(a_title)
       end
 
 feature {ANY}
