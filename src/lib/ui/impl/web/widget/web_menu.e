@@ -19,6 +19,14 @@ feature {UI_MENU}
       end
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+      do
+      end
+
+   run (context: WEB_CONTEXT) is
+      do
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
       end

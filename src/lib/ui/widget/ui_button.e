@@ -5,9 +5,6 @@ class UI_BUTTON
 
 inherit
    UI_WIDGET
-      redefine
-         connect_to
-      end
 
 create {ANY}
    make
@@ -18,25 +15,6 @@ feature {ANY}
    set_label (a_label: UNICODE_STRING) is
       do
          label := a_label
-         fire(agent set_bridge_label(?, a_label))
-      end
-
-   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
-      local
-         connect_result: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_BUTTON]
-      do
-         Result := Precursor(a_job)
-         connect_result ::= Result
-         connect_result.item.set_label(label)
-      end
-
-feature {}
-   set_bridge_label (a_bridge: UI_CONNECT_ITEM; a_label: UNICODE_STRING) is
-      local
-         bridge: UI_CONNECT_TYPED_ITEM[UI_TYPED_BRIDGE_BUTTON[UI_JOB]]
-      do
-         bridge ::= a_bridge
-         bridge.item.set_label(a_label)
       end
 
 feature {ANY}

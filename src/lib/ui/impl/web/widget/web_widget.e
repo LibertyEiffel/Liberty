@@ -10,6 +10,14 @@ insert
    WEB_ITEM[I_]
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+      deferred
+      end
+
+   run (context: WEB_CONTEXT) is
+      deferred
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       deferred
       end

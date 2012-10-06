@@ -11,10 +11,24 @@ create {WEB_JOB}
    make
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+      local
+         value: STRING
+      do
+         value := context.argument(id)
+         if value /= Void then
+            ui.set_value(value)
+         end
+      end
+
+   run (context: WEB_CONTEXT) is
+      do
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
          if a_name.is_equal(once "value") then
-            Result := "test"
+            Result := ui.value
          end
       end
 

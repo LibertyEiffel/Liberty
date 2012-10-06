@@ -22,6 +22,16 @@ feature {UI_PANEL}
       end
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+      do
+         children.do_all(agent {WEB_WIDGET[UI_WIDGET]}.save(context))
+      end
+
+   run (context: WEB_CONTEXT) is
+      do
+         children.do_all(agent {WEB_WIDGET[UI_WIDGET]}.run(context))
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       local
          dot_index: INTEGER; child: WEB_WIDGET[UI_WIDGET]

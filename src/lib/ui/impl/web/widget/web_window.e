@@ -16,7 +16,11 @@ create {WEB_JOB}
 feature {ANY}
    panel: WEB_PANEL
    menu: WEB_MENU
-   title: UNICODE_STRING
+
+   title: UNICODE_STRING is
+      do
+         Result := ui.title
+      end
 
 feature {UI_WINDOW}
    set_panel (a_panel: WEB_PANEL) is
@@ -27,11 +31,6 @@ feature {UI_WINDOW}
    set_menu (a_menu: WEB_MENU) is
       do
          menu := a_menu
-      end
-
-   set_title (a_title: like title) is
-      do
-         title := a_title
       end
 
 feature {WEB_APPLICATION}
@@ -69,6 +68,20 @@ feature {WEB_APPLICATION}
       end
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+         -- gather static data (field contents and so on)
+      do
+         menu.save(context)
+         panel.save(context)
+      end
+
+   run (context: WEB_CONTEXT) is
+         -- execute actions (button clicks etc.)
+      do
+         menu.run(context)
+         panel.run(context)
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
          log.info.put_line("**** retrieve_name(%"#(1)%")" # a_name)

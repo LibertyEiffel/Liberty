@@ -93,7 +93,8 @@ feature {}
 
             Result := windows.fast_reference_at(window_path)
             if do_action then
-               --Result.decode(context)
+               Result.save(context)
+               Result.run(context)
             end
          end
       end

@@ -33,18 +33,6 @@ feature {}
       deferred
       end
 
-   fire (action: PROCEDURE[TUPLE[UI_CONNECT_ITEM]]) is
-      do
-         if registered /= Void then
-            registered.do_all(agent (action: PROCEDURE[TUPLE[UI_CONNECT_ITEM]]; item: WEAK_REFERENCE[UI_CONNECT_ITEM]) is
-                              do
-                                 if item.item /= Void then
-                                    action.call([item.item])
-                                 end
-                              end (action, ?))
-         end
-      end
-
    id_memory: like id_memory_ is
       do
          Result := id_memory_

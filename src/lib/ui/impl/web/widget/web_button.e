@@ -14,14 +14,26 @@ create {WEB_JOB}
    make
 
 feature {ANY}
-   label: UNICODE_STRING
-
-   set_label (a_label: UNICODE_STRING) is
+   label: UNICODE_STRING is
       do
-         label := a_label
+         Result := ui.label
       end
 
 feature {WEB_ITEM}
+   save (context: WEB_CONTEXT) is
+      do
+      end
+
+   run (context: WEB_CONTEXT) is
+      local
+         value: STRING
+      do
+         value := context.argument(id)
+         if value /= Void then
+            ui.click
+         end
+      end
+
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
          inspect
