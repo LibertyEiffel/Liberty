@@ -1,15 +1,45 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class READLINE_JOB
+class READLINE_APPLICATION
 
 inherit
-   UI_JOB
+   UI_TYPED_BRIDGE_APPLICATION[READLINE_JOB, READLINE_WINDOW]
 
-create {USER_INTERFACE}
-   connect
+insert
+   READLINE_ITEM[UI_APPLICATION]
+      redefine
+         make
+      end
 
-end -- class READLINE_JOB
+create {READLINE_JOB}
+   make
+
+feature {READLINE_JOB}
+   run (input: READLINE_INPUT_STREAM) is
+      do
+         input.read_line
+      end
+
+feature {UI_APPLICATION}
+   add (a_window: READLINE_WINDOW) is
+      do
+         windows.add(a_window, a_window.id)
+      end
+
+feature {}
+   make (a_ui: like ui) is
+      do
+         Precursor(a_ui)
+         create windows.make
+      end
+
+   windows: HASHED_DICTIONARY[READLINE_WINDOW, FIXED_STRING]
+
+invariant
+   windows /= Void
+
+end -- class READLINE_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
