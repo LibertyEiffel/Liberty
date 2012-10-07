@@ -33,6 +33,12 @@ feature {UI_WINDOW}
          menu := a_menu
       end
 
+feature {READLINE_APPLICATION}
+   run (input: READLINE_INPUT_STREAM) is
+      do
+         std_output.put_line("win")
+      end
+
 end -- class READLINE_WINDOW
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

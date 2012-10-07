@@ -19,6 +19,7 @@ feature {READLINE_JOB}
    run (input: READLINE_INPUT_STREAM) is
       do
          input.read_line
+         windows.fast_reference_at(current_window).run(input)
       end
 
 feature {UI_APPLICATION}
@@ -31,15 +32,22 @@ feature {}
    conf_section: STRING is "readline"
 
    make (a_ui: like ui) is
+      local
+         str: JSON_STRING
       do
          Precursor(a_ui)
          create windows.make
+         str ::= conf.item(once "start")
+         current_window := str.string.as_utf8.intern
       end
 
    windows: HASHED_DICTIONARY[READLINE_WINDOW, FIXED_STRING]
 
+   current_window: FIXED_STRING
+
 invariant
    windows /= Void
+   current_window.intern = current_window
 
 end -- class READLINE_APPLICATION
 --

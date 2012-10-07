@@ -8,6 +8,7 @@
     },
 
     "readline": {
+        "start": "index",
     },
 
     "curses": {
