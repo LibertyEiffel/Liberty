@@ -35,7 +35,7 @@ feature {ANY}
 
    end_of_input: BOOLEAN is
       do
-         Result := gnu_lastline/= Void and then offset > gnu_lastline.upper
+         Result := gnu_lastline = Void or else offset > gnu_lastline.upper
       end
 
    is_connected: BOOLEAN
@@ -64,11 +64,13 @@ feature {FILTER_INPUT_STREAM}
          offset := offset + 1
          if gnu_lastline = Void or else offset > gnu_lastline.upper then
             gnu_readline
-            if not gnu_lastline.is_empty then
-               history.add(gnu_lastline)
+            if gnu_lastline /= Void then
+               if not gnu_lastline.is_empty then
+                  history.add(gnu_lastline)
+               end
+               gnu_lastline.extend('%N')
+               offset := gnu_lastline.lower
             end
-            gnu_lastline.extend('%N')
-            offset := gnu_lastline.lower
          end
       end
 
