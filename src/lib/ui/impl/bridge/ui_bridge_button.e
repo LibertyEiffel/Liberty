@@ -6,11 +6,6 @@ deferred class UI_BRIDGE_BUTTON
 insert
    UI_BRIDGE_ITEM
 
-feature {ANY}
-   set_label (a_label: UNICODE_STRING) is
-      deferred
-      end
-
 end -- class UI_BRIDGE_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

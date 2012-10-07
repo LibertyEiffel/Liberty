@@ -1,16 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class WEB_MENU_ITEM
+deferred class WEB_MENU_ITEM
 
 inherit
    UI_TYPED_BRIDGE_MENU_ITEM[WEB_JOB]
 
 insert
    WEB_ITEM[UI_MENU_ITEM]
-
-create {WEB_JOB}
-   make
 
 feature {WEB_ITEM}
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is

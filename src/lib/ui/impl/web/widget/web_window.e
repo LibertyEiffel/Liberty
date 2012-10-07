@@ -84,7 +84,9 @@ feature {WEB_ITEM}
 
    retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
       do
-         log.info.put_line("**** retrieve_name(%"#(1)%")" # a_name)
+         debug
+            log.trace.put_line("**** retrieve_name(%"#(1)%")" # a_name)
+         end
          inspect
             a_name
          when "action" then
