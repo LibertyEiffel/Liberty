@@ -15,23 +15,38 @@ create {WEB_JOB}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         events.expect(stream.event_can_read)
+         if context = Void then
+            events.expect(stream.event_can_read)
+         else
+            events.expect(stream.event_can_write)
+         end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := abort or else events.event_occurred(stream.event_can_read)
+         Result := abort
+         if not Result then
+            if context = Void then
+               Result := events.event_occurred(stream.event_can_read)
+            else
+               Result := events.event_occurred(stream.event_can_write)
+            end
+         end
       end
 
    continue is
       local
-         context: WEB_CONTEXT
+         end_of_context: BOOLEAN
       do
          if not abort then
-            create context.make(stream)
-            if not context.should_disconnect then
-               application.reply(context)
+            if context = Void then
+               create context.make(stream)
+               if not context.should_disconnect then
+                  application.reply(context)
+               end
+            else
                context.flush
+               end_of_context := True
             end
          end
          if context.should_disconnect then
@@ -40,6 +55,9 @@ feature {LOOP_ITEM}
          end
          if abort then
             done := True
+         end
+         if end_of_context then
+            context := Void
          end
       rescue
          context.set_status(500)
@@ -67,6 +85,7 @@ feature {}
 
    application: WEB_APPLICATION
    stream: SOCKET_INPUT_OUTPUT_STREAM
+   context: WEB_CONTEXT
 
    on_disconnect is
       do
