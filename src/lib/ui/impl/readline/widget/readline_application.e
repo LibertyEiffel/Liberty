@@ -28,6 +28,8 @@ feature {UI_APPLICATION}
       end
 
 feature {}
+   conf_section: STRING is "readline"
+
    make (a_ui: like ui) is
       do
          Precursor(a_ui)

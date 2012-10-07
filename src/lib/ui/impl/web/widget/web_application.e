@@ -12,7 +12,6 @@ insert
          make
       end
    LOGGING
-   JSON_HANDLER
 
 create {WEB_JOB}
    make
@@ -142,41 +141,7 @@ feature {}
       end
 
 feature {}
-   conf: JSON_OBJECT is
-      do
-         Result := conf_
-         if Result = Void then
-            Result := read_conf
-            conf_ := Result
-         end
-      end
-
-   conf_: JSON_OBJECT
-
-   read_conf: JSON_OBJECT is
-      local
-         filename: STRING
-         tfr: TEXT_FILE_READ
-         text: JSON_TEXT
-         parser: JSON_PARSER
-      do
-         filename := once ""
-         filename.make_from_string(ui.id)
-         filename.append(once ".web")
-         create tfr.connect_to(filename)
-         if tfr.is_connected then
-            create parser.make(agent log.error.put_line)
-            text := parser.parse_json_text(tfr)
-            if text /= Void and Result ?:= text then
-               Result ::= text
-            else
-               log.error.put_line("Invalid application descriptor #(1)" # filename)
-            end
-            tfr.disconnect
-         else
-            log.error.put_line("Application descriptor #(1) not found" # filename)
-         end
-      end
+   conf_section: STRING is "web"
 
    windows: HASHED_DICTIONARY[WEB_WINDOW, FIXED_STRING]
 
