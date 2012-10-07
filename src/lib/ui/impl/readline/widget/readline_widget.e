@@ -9,6 +9,11 @@ inherit
 insert
    READLINE_ITEM[I_]
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      deferred
+      end
+
 end -- class READLINE_WIDGET
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

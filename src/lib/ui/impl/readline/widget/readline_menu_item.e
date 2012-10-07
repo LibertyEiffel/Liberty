@@ -9,6 +9,11 @@ inherit
 insert
    READLINE_ITEM[UI_MENU_ITEM]
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      deferred
+      end
+
 end -- class READLINE_MENU_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

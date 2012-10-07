@@ -16,10 +16,9 @@ create {READLINE_JOB}
    make
 
 feature {READLINE_JOB}
-   run (input: READLINE_INPUT_STREAM) is
+   run (context: READLINE_CONTEXT): BOOLEAN is
       do
-         input.read_line
-         windows.fast_reference_at(current_window).run(input)
+         Result := windows.fast_reference_at(current_window).run(context)
       end
 
 feature {UI_APPLICATION}

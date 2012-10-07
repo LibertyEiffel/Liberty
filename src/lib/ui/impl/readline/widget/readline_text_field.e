@@ -10,6 +10,13 @@ inherit
 create {READLINE_JOB}
    make
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      do
+         ui.set_value(context.read(once "  | "))
+         Result := True
+      end
+
 end -- class READLINE_TEXT_FIELD
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

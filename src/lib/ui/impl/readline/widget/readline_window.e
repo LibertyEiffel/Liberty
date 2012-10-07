@@ -34,9 +34,9 @@ feature {UI_WINDOW}
       end
 
 feature {READLINE_APPLICATION}
-   run (input: READLINE_INPUT_STREAM) is
+   run (context: READLINE_CONTEXT): BOOLEAN is
       do
-         std_output.put_line("win")
+         Result := menu.run(context) or else panel.run(context)
       end
 
 end -- class READLINE_WINDOW

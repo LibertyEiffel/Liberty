@@ -18,6 +18,11 @@ feature {UI_MENU}
          not_yet_implemented
       end
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      do
+      end
+
 end -- class READLINE_MENU
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

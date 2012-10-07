@@ -21,6 +21,33 @@ feature {UI_PANEL}
          children.add(a_child, a_child.id)
       end
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      local
+         name: STRING
+         dot_index: INTEGER; child: READLINE_WIDGET[UI_WIDGET]
+      do
+         if not context.line.is_empty then
+            name := context.line.first
+            if name /= Void then
+               dot_index := name.first_index_of('.')
+               if name.valid_index(dot_index) then
+                  child := children.fast_reference_at(name.substring(name.lower, dot_index - 1).intern)
+                  if child /= Void then
+                     name.shrink(dot_index + 1, name.upper)
+                     Result := child.run(context)
+                  end
+               else
+                  child := children.fast_reference_at(name.intern)
+                  if child /= Void then
+                     name.clear_count
+                     Result := child.run(context)
+                  end
+               end
+            end
+         end
+      end
+
 feature {}
    children: HASHED_DICTIONARY[READLINE_WIDGET[UI_WIDGET], FIXED_STRING]
 

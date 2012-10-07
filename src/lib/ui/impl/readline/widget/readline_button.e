@@ -19,6 +19,13 @@ feature {ANY}
          Result := ui.label
       end
 
+feature {READLINE_ITEM}
+   run (context: READLINE_CONTEXT): BOOLEAN is
+      do
+         ui.click
+         Result := True
+      end
+
 end -- class READLINE_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

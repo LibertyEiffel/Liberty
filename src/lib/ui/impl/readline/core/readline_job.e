@@ -17,7 +17,6 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         stream.set_prompt(once "> ")
          events.expect(t.timeout(0)) -- because readline cannot be select(2)'ed
       end
 
@@ -27,8 +26,21 @@ feature {LOOP_ITEM}
       end
 
    continue is
+      local
+         context: READLINE_CONTEXT
       do
-         application.run(stream)
+         stream.set_prompt(once "> ")
+         stream.read_line
+         if stream.end_of_input then
+            stream.disconnect
+            stream := Void
+            std_output.put_new_line
+         else
+            create context.make(stream.last_string)
+            if not application.run(context) then
+               std_error.put_line(once "?")
+            end
+         end
       end
 
    done: BOOLEAN is
