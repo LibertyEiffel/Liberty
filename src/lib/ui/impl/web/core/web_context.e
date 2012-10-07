@@ -435,9 +435,9 @@ feature {}
          when '0'..'9' then
             Result := a_character.code - 48
          when 'A'..'F' then
-            Result := a_character.code + 10 - 64
+            Result := a_character.code + 9 - 64
          when 'a'..'f' then
-            Result := a_character.code + 10 - 96
+            Result := a_character.code + 9 - 96
          end
       end
 
