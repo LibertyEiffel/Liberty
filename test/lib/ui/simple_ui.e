@@ -1,12 +1,53 @@
 class SIMPLE_UI
 
 insert
+   ARGUMENTS
    LOGGING
 
 create {}
-   web
+   make, web, readline
 
 feature {}
+   make is
+      do
+         if argument_count < 1 then
+            std_error.put_line(once "Not enough arguments")
+            die_with_code(1)
+         elseif argument_count > 1 then
+            std_error.put_line(once "Ignoring extra arguments")
+         end
+         inspect
+            argument(1)
+         when "web" then
+            web
+         when "readline" then
+            readline
+         when "curses" then
+            curses
+         else
+            std_error.put_line(once "Unknown argument #(1)" # argument(1))
+            die_with_code(1)
+         end
+      end
+
+   curses is
+      local
+         stack: LOOP_STACK
+      do
+         create stack.make
+         stack.add_job(ui.curses(app, agent stack.add_job))
+         stack.run
+      end
+
+   readline is
+      local
+         stack: LOOP_STACK
+      do
+         create stack.make
+         stack.add_job(ui.readline(app, agent stack.add_job))
+         stack.run
+      end
+
    web is
       local
          stack: LOOP_STACK
