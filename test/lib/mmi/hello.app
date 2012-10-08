@@ -12,6 +12,7 @@
     },
 
     "curses": {
+        "start": "index",
     },
 
 }

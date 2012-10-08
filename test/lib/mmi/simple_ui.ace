@@ -6,7 +6,7 @@ root
 default
    assertion(no)
    rescue(no)
-   trace(yes)
+   --trace(yes)
 
 cluster
    test: "."

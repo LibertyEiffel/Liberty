@@ -31,30 +31,18 @@ feature {}
       end
 
    curses is
-      local
-         stack: LOOP_STACK
       do
-         create stack.make
-         stack.add_job(ui.curses(app, agent stack.add_job))
-         stack.run
+         ui.run_curses(app)
       end
 
    readline is
-      local
-         stack: LOOP_STACK
       do
-         create stack.make
-         stack.add_job(ui.readline(app, agent stack.add_job))
-         stack.run
+         ui.run_readline(app)
       end
 
    web is
-      local
-         stack: LOOP_STACK
       do
-         create stack.make
-         stack.add_job(ui.web(app, agent stack.add_job))
-         stack.run
+         ui.run_web(app)
       end
 
    app: UI_APPLICATION is

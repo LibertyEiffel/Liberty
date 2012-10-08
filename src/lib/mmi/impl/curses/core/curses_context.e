@@ -7,6 +7,15 @@ create {CURSES_JOB}
    make
 
 feature {ANY}
+   line: FAST_ARRAY[STRING] is
+      once
+         Result := {FAST_ARRAY[STRING] << "" >>}
+      end
+
+   read (prompt: STRING): STRING is
+      once
+         Result := ""
+      end
 
 feature {}
    make is
