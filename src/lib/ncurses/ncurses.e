@@ -34,6 +34,7 @@ feature {}
    make is
       do
          cursor_visibility := default_visible_cursor_mode
+         poll_timeout := 2500
       end
 
    key_pressed_signal: SIGNAL_1[INTEGER]
@@ -89,8 +90,8 @@ feature {ANY} -- To switch the `is_enabled' flag:
             end
             if loop_stack = Void then
                create loop_stack.make
-               loop_stack.add_job(event_catcher)
             end
+            loop_stack.add_job(event_catcher)
             initscr
             start_color
             set_automatic_kill_policy(True)
@@ -161,6 +162,17 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    event_catcher: JOB
 
+   set_poll_timeout (a_timeout: like poll_timeout) is
+      require
+         a_timeout > 0
+      do
+         poll_timeout := a_timeout
+      ensure
+         poll_timeout = a_timeout
+      end
+
+   poll_timeout: INTEGER
+
    handle_events: BOOLEAN is
          -- The core method that handles ncurses events
       require
@@ -169,7 +181,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
          keypressed: BOOLEAN
          key: INTEGER
       do
-         keypressed := get_root_window.poll_keypress_for(2500)
+         keypressed := get_root_window.poll_keypress_for(poll_timeout)
          if not keypressed then
             if idle_signal /= Void then
                idle_signal.emit
