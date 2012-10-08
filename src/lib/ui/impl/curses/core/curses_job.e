@@ -5,6 +5,9 @@ class CURSES_JOB
 
 inherit
    UI_JOB
+      redefine
+         application
+      end
 
 insert
    NCURSES_HANDLER
@@ -18,12 +21,21 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         events.expect(t.timeout(0)) -- because readline cannot be select(2)'ed
+         if tty.is_connected then
+            events.expect(tty.event_can_read)
+            events.expect(t.timeout(ncurses.poll_timeout))
+         else
+            events.expect(t.timeout(0)) -- because curses cannot be select(2)'ed
+         end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := True
+         if tty.is_connected then
+            Result := events.event_occurred(tty.event_can_read)
+         else
+            Result := True
+         end
       end
 
    continue is
@@ -36,6 +48,45 @@ feature {LOOP_ITEM}
    restart is
       do
          done := False
+      end
+
+feature {UI_ITEM}
+   new_bridge_application (ui: UI_APPLICATION): CURSES_APPLICATION is
+      do
+         create Result.make(ui)
+      end
+
+   new_bridge_window (ui: UI_WINDOW): CURSES_WINDOW is
+      do
+         create Result.make(ui)
+      end
+
+   new_bridge_panel (ui: UI_PANEL): CURSES_PANEL is
+      do
+         create Result.make(ui)
+      end
+
+   new_bridge_menu (ui: UI_MENU): CURSES_MENU is
+      do
+         create Result.make(ui)
+      end
+
+   new_bridge_text_field (ui: UI_TEXT_FIELD): CURSES_TEXT_FIELD is
+      do
+         create Result.make(ui)
+      end
+
+   new_bridge_button (ui: UI_BUTTON): CURSES_BUTTON is
+      do
+         create Result.make(ui)
+      end
+
+feature {}
+   application: CURSES_APPLICATION
+
+   tty: BINARY_FILE_READ is
+      once
+         create Result.connect_to(once "/dev/tty")
       end
 
 end -- class CURSES_JOB
