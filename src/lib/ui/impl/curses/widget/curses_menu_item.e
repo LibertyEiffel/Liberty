@@ -1,15 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURSES_JOB
+deferred class CURSES_MENU_ITEM
 
 inherit
-   UI_JOB
+   UI_TYPED_BRIDGE_MENU_ITEM[CURSES_JOB]
 
-create {USER_INTERFACE}
-   connect
+insert
+   CURSES_ITEM[UI_MENU_ITEM]
 
-end -- class CURSES_JOB
+feature {CURSES_ITEM}
+   run (context: CURSES_CONTEXT): BOOLEAN is
+      deferred
+      end
+
+end -- class CURSES_MENU_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

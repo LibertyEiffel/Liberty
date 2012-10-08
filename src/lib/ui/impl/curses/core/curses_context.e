@@ -1,47 +1,19 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class USER_INTERFACE
+class CURSES_CONTEXT
 
-insert
-   NCURSES_HANDLER
-   NCURSES_TOOLS
+create {CURSES_JOB}
+   make
 
 feature {ANY}
-   run_curses (app: UI_APPLICATION) is
-         -- Create a new Curses user interface
-      local
-         job: CURSES_JOB
+
+feature {}
+   make is
       do
-         -- the loop stack is controlled by the ncurses framework
-         create job.connect(app, agent ncurses.add_job)
-         ncurses.set_event_catcher(job)
-         ncurses.enable
       end
 
-   run_readline (app: UI_APPLICATION) is
-         -- Create a new GNU Readline user interface
-      local
-         stack: LOOP_STACK; job: READLINE_JOB
-      do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
-      end
-
-   run_web (app: UI_APPLICATION) is
-         -- Create a new Web user interface (actually a web server)
-      local
-         stack: LOOP_STACK; job: WEB_JOB
-      do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
-      end
-
-end -- class USER_INTERFACE
+end -- class CURSES_CONTEXT
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

@@ -1,47 +1,45 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class USER_INTERFACE
+class CURSES_WINDOW
+
+inherit
+   UI_TYPED_BRIDGE_WINDOW[CURSES_JOB, CURSES_PANEL, CURSES_MENU]
 
 insert
-   NCURSES_HANDLER
-   NCURSES_TOOLS
+   CURSES_ITEM[UI_WINDOW]
+   LOGGING
+
+create {CURSES_JOB}
+   make
 
 feature {ANY}
-   run_curses (app: UI_APPLICATION) is
-         -- Create a new Curses user interface
-      local
-         job: CURSES_JOB
+   panel: CURSES_PANEL
+   menu: CURSES_MENU
+
+   title: UNICODE_STRING is
       do
-         -- the loop stack is controlled by the ncurses framework
-         create job.connect(app, agent ncurses.add_job)
-         ncurses.set_event_catcher(job)
-         ncurses.enable
+         Result := ui.title
       end
 
-   run_readline (app: UI_APPLICATION) is
-         -- Create a new GNU Readline user interface
-      local
-         stack: LOOP_STACK; job: READLINE_JOB
+feature {UI_WINDOW}
+   set_panel (a_panel: CURSES_PANEL) is
       do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
+         panel := a_panel
       end
 
-   run_web (app: UI_APPLICATION) is
-         -- Create a new Web user interface (actually a web server)
-      local
-         stack: LOOP_STACK; job: WEB_JOB
+   set_menu (a_menu: CURSES_MENU) is
       do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
+         menu := a_menu
       end
 
-end -- class USER_INTERFACE
+feature {CURSES_APPLICATION}
+   run (context: CURSES_CONTEXT): BOOLEAN is
+      do
+         Result := menu.run(context) or else panel.run(context)
+      end
+
+end -- class CURSES_WINDOW
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

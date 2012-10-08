@@ -1,47 +1,42 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class USER_INTERFACE
+class CURSES_APPLICATION
+
+inherit
+   UI_TYPED_BRIDGE_APPLICATION[CURSES_JOB, CURSES_WINDOW]
 
 insert
-   NCURSES_HANDLER
-   NCURSES_TOOLS
-
-feature {ANY}
-   run_curses (app: UI_APPLICATION) is
-         -- Create a new Curses user interface
-      local
-         job: CURSES_JOB
-      do
-         -- the loop stack is controlled by the ncurses framework
-         create job.connect(app, agent ncurses.add_job)
-         ncurses.set_event_catcher(job)
-         ncurses.enable
+   CURSES_ITEM[UI_APPLICATION]
+      redefine
+         make
       end
 
-   run_readline (app: UI_APPLICATION) is
-         -- Create a new GNU Readline user interface
+create {CURSES_JOB}
+   make
+
+feature {}
+   conf_section: STRING is "curses"
+
+   make (a_ui: like ui) is
       local
-         stack: LOOP_STACK; job: READLINE_JOB
+         str: JSON_STRING
       do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
+         Precursor(a_ui)
+         create windows.make
+         str ::= conf.item(once "start")
+         current_window := str.string.as_utf8.intern
       end
 
-   run_web (app: UI_APPLICATION) is
-         -- Create a new Web user interface (actually a web server)
-      local
-         stack: LOOP_STACK; job: WEB_JOB
-      do
-         create stack.make
-         create job.connect(app, agent stack.add_job)
-         stack.add_job(job)
-         stack.run
-      end
+   windows: HASHED_DICTIONARY[CURSES_WINDOW, FIXED_STRING]
 
-end -- class USER_INTERFACE
+   current_window: FIXED_STRING
+
+invariant
+   windows /= Void
+   current_window.intern = current_window
+
+end -- class CURSES_APPLICATION
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

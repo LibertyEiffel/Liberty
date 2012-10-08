@@ -163,6 +163,8 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    handle_events: BOOLEAN is
          -- The core method that handles ncurses events
+      require
+         is_enabled
       local
          keypressed: BOOLEAN
          key: INTEGER
