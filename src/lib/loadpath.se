@@ -15,6 +15,7 @@ kernel/loadpath.se
 log/loadpath.se
 message_formatter/
 misc/loadpath.se
+mmi/loadpath.se
 ncurses/loadpath.se
 net/loadpath.se
 numeric/loadpath.se
@@ -27,6 +28,5 @@ sorting/
 storage/loadpath.se
 string/loadpath.se
 time/loadpath.se
-ui/loadpath.se
 unicode/
 xml/loadpath.se
