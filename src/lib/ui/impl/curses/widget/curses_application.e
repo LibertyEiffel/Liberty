@@ -15,6 +15,12 @@ insert
 create {CURSES_JOB}
    make
 
+feature {UI_APPLICATION}
+   add (a_window: CURSES_WINDOW) is
+      do
+         windows.add(a_window, a_window.id)
+      end
+
 feature {}
    conf_section: STRING is "curses"
 
