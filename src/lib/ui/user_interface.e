@@ -17,6 +17,7 @@ feature {ANY}
          create job.connect(app, agent ncurses.add_job)
          ncurses.set_event_catcher(job)
          ncurses.enable
+         ncurses.start
       end
 
    run_readline (app: UI_APPLICATION) is
