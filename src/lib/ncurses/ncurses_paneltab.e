@@ -42,7 +42,7 @@ feature{ANY}
             from
                i := 3
             variant
-               height - i 
+               height - i
             until
                i > height - 1
             loop

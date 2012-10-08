@@ -12,8 +12,7 @@ insert
    NCURSES_COLORS
    NCURSES_CHARACTERS
 
-   
-feature{ANY}
+feature {ANY}
    left: INTEGER is
       require
          ncurses.is_enabled
@@ -113,7 +112,7 @@ feature{ANY}
          Result := get_window.get_bg_color
       end
 
-feature{NCURSES_WIDGET}
+feature {NCURSES_WIDGET}
    set_parent (p: like parent) is
       do
          parent := p
@@ -168,7 +167,7 @@ feature{NCURSES_WIDGET}
 
    children: FAST_ARRAY[NCURSES_WIDGET]
 
-feature{}
+feature {}
    dispose is
       do
          delete
