@@ -49,6 +49,9 @@ feature {UI_ITEM}
       do
          create Result.make(ui)
          set_idle_timeout(Result.idle_timeout)
+         ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
+         ncurses.set_echoing_policy(False)
+         ncurses.when_key_pressed(Result.key_pressed)
       end
 
    new_bridge_window (ui: UI_WINDOW): CURSES_WINDOW is

@@ -8,6 +8,9 @@ class NCURSES_LIST[E_]
 
 inherit
    NCURSES_WIDGET
+      undefine
+         out_in_tagged_out_memory
+      end
    TRAVERSABLE[E_]
 
 creation{ANY}
