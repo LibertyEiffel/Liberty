@@ -44,6 +44,12 @@ feature {ANY}
          Result > 0
       end
 
+feature {CURSES_JOB}
+   key_pressed (code: INTEGER) is
+      do
+         log.info.put_line(once "key pressed: #(1)" # &code)
+      end
+
 feature {UI_APPLICATION}
    add (a_window: CURSES_WINDOW) is
       do
