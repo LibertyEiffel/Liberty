@@ -11,9 +11,38 @@ insert
       redefine
          make
       end
+   LOGGING
 
 create {CURSES_JOB}
    make
+
+feature {ANY}
+   idle_timeout: INTEGER is
+      local
+         val: JSON_VALUE
+         num: JSON_NUMBER
+      do
+         val := conf.item(once "idle_timeout")
+         if val /= Void then
+            if num ?:= val then
+               num ::= val
+               Result := num.to_integer.to_integer_32
+               if Result <= 0 then
+                  log.warning.put_line(once "invalid (null or negative) idle timeout, using default")
+                  Result := 1000
+               end
+            else
+               log.warning.put_line(once "invalid (not an integer) idle timeout, using default")
+               Result := 1000
+            end
+         else
+            log.warning.put_line(once "invalid (not set) idle timeout, using default")
+            Result := 1000
+         end
+         log.info.put_line(once "idle timeout: #(1)" # &Result)
+      ensure
+         Result > 0
+      end
 
 feature {UI_APPLICATION}
    add (a_window: CURSES_WINDOW) is

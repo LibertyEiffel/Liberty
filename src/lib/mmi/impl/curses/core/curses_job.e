@@ -6,7 +6,7 @@ class CURSES_JOB
 inherit
    UI_JOB
       redefine
-         application
+         application, connect
       end
 
 insert
@@ -21,18 +21,16 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         if tty.is_connected then
-            events.expect(tty.event_can_read)
-            events.expect(t.timeout(ncurses.poll_timeout))
-         else
-            events.expect(t.timeout(0)) -- because curses cannot be select(2)'ed
+         if std_input.is_connected then
+            events.expect(std_input.event_can_read)
          end
+         events.expect(t.timeout(idle_timeout))
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         if tty.is_connected then
-            Result := events.event_occurred(tty.event_can_read)
+         if std_input.is_connected then
+            Result := events.event_occurred(std_input.event_can_read)
          else
             Result := True
          end
@@ -54,6 +52,7 @@ feature {UI_ITEM}
    new_bridge_application (ui: UI_APPLICATION): CURSES_APPLICATION is
       do
          create Result.make(ui)
+         set_idle_timeout(Result.idle_timeout)
       end
 
    new_bridge_window (ui: UI_WINDOW): CURSES_WINDOW is
@@ -83,10 +82,24 @@ feature {UI_ITEM}
 
 feature {}
    application: CURSES_APPLICATION
+   idle_timeout: INTEGER
 
-   tty: BINARY_FILE_READ is
-      once
-         create Result.connect_to(once "/dev/tty")
+   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
+      do
+         Precursor(a_application, a_on_new_job)
+         set_idle_timeout(1000)
+      end
+
+   set_idle_timeout (a_timeout: INTEGER) is
+      require
+         a_timeout > 0
+      do
+         idle_timeout := a_timeout
+         if std_input.is_connected then
+            ncurses.set_poll_timeout(0)
+         else
+            ncurses.set_poll_timeout(idle_timeout)
+         end
       end
 
 end -- class CURSES_JOB
