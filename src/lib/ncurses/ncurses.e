@@ -164,7 +164,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    set_poll_timeout (a_timeout: like poll_timeout) is
       require
-         a_timeout > 0
+         a_timeout >= 0
       do
          poll_timeout := a_timeout
       ensure

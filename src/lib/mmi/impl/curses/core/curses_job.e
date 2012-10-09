@@ -6,7 +6,7 @@ class CURSES_JOB
 inherit
    UI_JOB
       redefine
-         application, connect
+         application
       end
 
 insert
@@ -29,11 +29,7 @@ feature {LOOP_ITEM}
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         if std_input.is_connected then
-            Result := events.event_occurred(std_input.event_can_read)
-         else
-            Result := True
-         end
+         Result := True -- because at least the time out expired
       end
 
    continue is
@@ -84,21 +80,17 @@ feature {}
    application: CURSES_APPLICATION
    idle_timeout: INTEGER
 
-   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
-      do
-         Precursor(a_application, a_on_new_job)
-         set_idle_timeout(1000)
-      end
-
    set_idle_timeout (a_timeout: INTEGER) is
       require
          a_timeout > 0
       do
          idle_timeout := a_timeout
          if std_input.is_connected then
+            log.trace.put_line(once "setting ncurses poll timeout to 0")
             ncurses.set_poll_timeout(0)
          else
-            ncurses.set_poll_timeout(idle_timeout)
+            log.trace.put_line(once "setting ncurses poll timeout to #(1)" # &a_timeout)
+            ncurses.set_poll_timeout(a_timeout)
          end
       end
 

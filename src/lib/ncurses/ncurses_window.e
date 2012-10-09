@@ -13,6 +13,9 @@ inherit
       redefine delete
       end
 
+insert
+   LOGGING
+
 creation {ANY}
    make
 
@@ -388,6 +391,9 @@ feature {ANY}
          else
             last_keypress := ch
             Result := True
+         end
+         debug
+            log.trace.put_line(once "poll_keypress_for_and_echo_at(#(1), #(2), #(3)) >> #(4) (#(5))" # &delay # &x # &y # &last_keypress # &Result)
          end
       end
 
