@@ -79,7 +79,7 @@ feature {NCURSES_WIDGET}
          end
       end
 
-feature{}
+feature {}
    make (p: like parent; x, y, w, min, max: INTEGER) is
       require
          ncurses.is_enabled

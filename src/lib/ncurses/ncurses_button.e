@@ -1,63 +1,37 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class NCURSES_LABEL
-   -- This class adds a label widget.
+class NCURSES_BUTTON
+   -- This class adds a button widget. It is just a label with a "focused" attribute.
 
 inherit
-   NCURSES_WINDOW
-      rename make as make_window
-      redefine left, top, width, height, refresh_later
+   NCURSES_LABEL
+      redefine refresh_later
       end
 
-creation{ANY}
+creation {ANY}
    make
 
 feature {ANY}
-   left: INTEGER
-
-   top: INTEGER
-
-   width: INTEGER
-
-   height: INTEGER
-
-   text: STRING
-
    refresh_later is
       do
-         put_string_at(text, (width - text.count) // 2, (height - 1) // 2)
+         if is_focused
+            window.set_attribute(ncurses.a_reverse)
+         end
          Precursor
-      end
-
-   set_text (t: like text) is
-      do
-         if t.count + 1 > width then
-            text := t.substring(1, width - 1)
-         else
-            text := t
+         if is_focused then
+            window.unset_attribute(ncurses.a_reverse)
          end
       end
 
-feature {}
-   make (p: like parent; t: like text; x, y, w, h: INTEGER) is
-      require
-         p /= Void
-         t /= Void
+   is_focused: BOOLEAN
+
+   set_focused (enable: BOOLEAN) is
       do
-         left := x
-         top := y
-         width := w
-         height := h
-         set_text(t)
-         set_parent(p)
-         make_sub_window(p.get_window, left, top, width, height)
+         is_focused := enable
       end
 
-invariant
-   parent /= Void
-
-end -- class NCURSES_LABEL
+end -- class NCURSES_BUTTON
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -673,7 +673,7 @@ feature {ANY}
    get_fg_color: INTEGER
    get_bg_color: INTEGER
 
-feature{NCURSES_WINDOW}
+feature {NCURSES_WINDOW}
    set_widget (w: like widget) is
       require
          w.is_not_null
@@ -683,7 +683,7 @@ feature{NCURSES_WINDOW}
          widget = w
       end
 
-feature{NCURSES_WINDOW, NCURSES_PAD}
+feature {NCURSES_WINDOW, NCURSES_PAD}
    widget: POINTER
 
 feature {}

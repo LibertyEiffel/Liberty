@@ -13,7 +13,7 @@ inherit
 creation{NCURSES_PANEL}
    make
 
-feature{ANY}
+feature {ANY}
    left: INTEGER is
       do
          Result := panel.left
@@ -79,13 +79,13 @@ feature{ANY}
          panel.raise(Current)
       end
 
-feature{NCURSES_PANEL}
+feature {NCURSES_PANEL}
    set_raise (raised: like is_raised) is
       do
          is_raised := raised
       end
 
-feature{}
+feature {}
    make (p: like panel; text: STRING; label_position: INTEGER) is
       require
          p /= Void

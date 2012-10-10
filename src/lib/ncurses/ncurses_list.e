@@ -209,7 +209,7 @@ feature {ANY} -- The TRAVERSABLE ability:
          not_yet_implemented
       end
 
-feature{NCURSES_WIDGET}
+feature {NCURSES_WIDGET}
    get_window: NCURSES_WINDOW is
       do
          Result := window
@@ -219,7 +219,7 @@ feature{NCURSES_WIDGET}
       do
       end
 
-feature{}
+feature {}
    make (p: like parent; x, y, w, h: INTEGER) is
       require
          ncurses.is_enabled

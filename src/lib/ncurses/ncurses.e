@@ -121,8 +121,16 @@ feature {ANY} -- To switch the `is_enabled' flag:
       require
          is_enabled
       do
-         set_cursor_visibility(default_visible_cursor_mode)
          loop_stack.break
+         do_disable
+      end
+
+feature {}
+   do_disable is
+      require
+         is_enabled
+      do
+         set_cursor_visibility(default_visible_cursor_mode)
          if depth = 1 then
             endwin
          end
@@ -189,7 +197,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
          else
             key := get_root_window.last_keypress
             if key = key_resize then
-               disable
+               do_disable
                check_for_error(refresh = ok)
                enable
                get_root_window.resize(terminal_width, terminal_height)
@@ -551,7 +559,7 @@ feature {NCURSES_WIDGET}
          end
       end
 
-feature{}
+feature {}
    color_pairs: HASHED_DICTIONARY[HASHED_DICTIONARY[INTEGER, INTEGER], INTEGER]
 
    color_pair_counter: INTEGER

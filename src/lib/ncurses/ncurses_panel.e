@@ -10,7 +10,7 @@ inherit
 creation{ANY}
    make
 
-feature{ANY}
+feature {ANY}
    left: INTEGER
 
    top: INTEGER
@@ -40,7 +40,7 @@ feature{ANY}
          end
       end
 
-feature{NCURSES_WIDGET}
+feature {NCURSES_WIDGET}
    get_window: NCURSES_WINDOW is
       do
          Result := window
@@ -50,7 +50,7 @@ feature{NCURSES_WIDGET}
       do
       end
 
-feature{NCURSES_PANELTAB}
+feature {NCURSES_PANELTAB}
    raise (pt: NCURSES_PANELTAB) is
       local
          i: INTEGER
@@ -72,7 +72,7 @@ feature{NCURSES_PANELTAB}
          end
       end
 
-feature{}
+feature {}
    make (nw: like window; x, y, w, h: INTEGER) is
       require
          ncurses.is_enabled

@@ -15,7 +15,7 @@ feature {}
          create Result.make
       end
 
-feature{ANY}
+feature {ANY}
    invisible_cursor_mode: INTEGER is 0
          -- In this mode the cursor is invisible.
 
