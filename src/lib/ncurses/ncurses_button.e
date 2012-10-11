@@ -15,12 +15,12 @@ creation {ANY}
 feature {ANY}
    refresh_later is
       do
-         if is_focused
-            window.set_attribute(ncurses.a_reverse)
+         if is_focused then
+            set_attribute(ncurses.a_reverse)
          end
          Precursor
          if is_focused then
-            window.unset_attribute(ncurses.a_reverse)
+            unset_attribute(ncurses.a_reverse)
          end
       end
 
@@ -29,6 +29,8 @@ feature {ANY}
    set_focused (enable: BOOLEAN) is
       do
          is_focused := enable
+      ensure
+         is_focused = enable
       end
 
 end -- class NCURSES_BUTTON

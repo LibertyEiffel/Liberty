@@ -8,6 +8,7 @@ inherit
 
 insert
    CURSES_ITEM[UI_WINDOW]
+   JSON_HANDLER
    LOGGING
 
 create {CURSES_JOB}
@@ -36,7 +37,40 @@ feature {UI_WINDOW}
 feature {CURSES_APPLICATION}
    run (context: CURSES_CONTEXT): BOOLEAN is
       do
+         if window = Void then
+            attach_window
+         end
          Result := menu.run(context) or else panel.run(context)
+      end
+
+feature {}
+   window: CURSES_DESC_WINDOW
+
+   attach_window is
+      local
+         path: STRING
+         tfr: TEXT_FILE_READ
+         parser: JSON_PARSER
+         text: JSON_TEXT
+         desc: JSON_OBJECT
+      do
+         path := once ""
+         path.create_from_string(id)
+         path.append(once ".curses")
+         create tfr.connect_to(path)
+         if tfr.is_connected then
+            create parser.make(agent log.error.put_line)
+            text := parser.parse_json_text(tfr)
+            if text /= Void and desc ?:= text then
+               desc ::= text
+               create window.make(desc)
+            else
+               log.error.put_line(once "Invalid curses descriptor file: #(1)" # path)
+            end
+            tfr.disconnect
+         else
+            log.error.put_line(once "Curses descriptor file not found: #(1)" # path)
+         end
       end
 
 end -- class CURSES_WINDOW

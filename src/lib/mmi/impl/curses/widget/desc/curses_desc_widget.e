@@ -1,17 +1,12 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+deferred class CURSES_DESC_WIDGET
 
 insert
-   UI_BRIDGE_ITEM
+   CURSES_DESC_ITEM
 
-feature {}
-   add (a_child: E_) is
-      deferred
-      end
-
-end -- class UI_BRIDGE_COLLECTION
+end -- class CURSES_DESC_WIDGET
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

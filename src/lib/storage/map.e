@@ -452,6 +452,28 @@ feature {ANY} -- Agents based features:
          end
       end
 
+   aggregate (action: FUNCTION[TUPLE[V_, V_, K_], V_]; initial: V_): V_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      require
+         action /= Void
+      local
+         i: INTEGER; v: V_; k: K_
+      do
+         from
+            Result := initial
+            i := lower
+         until
+            i > upper
+         loop
+            v := item(i)
+            k := key(i)
+            Result := action.item([Result, v, k])
+            i := i + 1
+         end
+      end
+
 feature {ANY} -- Other features:
    internal_key (k: K_): K_ is
          -- Retrieve the internal key object which correspond to the existing

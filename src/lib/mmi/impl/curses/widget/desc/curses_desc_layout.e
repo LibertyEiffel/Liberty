@@ -1,17 +1,24 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+deferred class CURSES_DESC_LAYOUT
 
 insert
-   UI_BRIDGE_ITEM
+   CURSES_DESC_ITEM
+      export {CURSES_DESC_PANEL}
+         ncurses_widget
+      end
 
 feature {}
-   add (a_child: E_) is
+   make (ui: UI_WINDOW; options: JSON_ARRAY; desc_widgets: JSON_VALUE) is
+      require
+         ui /= Void
+         options = Void or else options.count > 1
+         desc_widgets /= Void
       deferred
       end
 
-end -- class UI_BRIDGE_COLLECTION
+end -- class CURSES_DESC_LAYOUT
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

@@ -1,17 +1,72 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+deferred class CURSES_DESC_ITEM
 
 insert
-   UI_BRIDGE_ITEM
+   CURSES_DESCRIPTOR
 
-feature {}
-   add (a_child: E_) is
+feature {CURSES_DESCRIPTOR}
+   build (parent: NCURSES_WINDOW) is
+      require
+         parent /= Void
+         ncurses_widget = Void
+      deferred
+      ensure
+         ncurses_widget /= Void
+      end
+
+   layout (a_x, a_y, a_width, a_height: INTEGER) is
+      require
+         ncurses_widget /= Void
+         a_width > 0
+         a_height > 0
+         a_x.in_range(0, a_width - 1)
+         a_y.in_range(0, a_height - 1)
+      deferred
+      ensure
+         x = a_x
+         y = a_y
+         width = a_width
+         height = a_height
+      end
+
+   x: INTEGER is
       deferred
       end
 
-end -- class UI_BRIDGE_COLLECTION
+   y: INTEGER is
+      deferred
+      end
+
+   width: INTEGER is
+      deferred
+      end
+
+   height: INTEGER is
+      deferred
+      end
+
+   min_width: INTEGER is
+      deferred
+      end
+
+   min_height: INTEGER is
+      deferred
+      end
+
+   max_width: INTEGER is
+      deferred
+      end
+
+   max_height: INTEGER is
+      deferred
+      end
+
+feature {}
+   ncurses_widget: NCURSES_WINDOW
+
+end -- class CURSES_DESC_ITEM
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

@@ -57,7 +57,9 @@ feature{ANY}
          elseif key_code.to_character.to_upper = 'Q' then
             ncurses.disable
          end
-         ncurses.get_root_window.redraw_now
+         if ncurses.is_enabled then
+            ncurses.get_root_window.redraw_now
+         end
       end
 
 end -- class LIST

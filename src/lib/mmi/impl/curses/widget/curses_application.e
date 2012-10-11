@@ -50,6 +50,11 @@ feature {CURSES_JOB}
          log.info.put_line(once "key pressed: #(1)" # &code)
       end
 
+   resized is
+      do
+         log.info.put_line(once "resized")
+      end
+
 feature {UI_APPLICATION}
    add (a_window: CURSES_WINDOW) is
       do

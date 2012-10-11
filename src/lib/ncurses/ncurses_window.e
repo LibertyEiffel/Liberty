@@ -199,6 +199,19 @@ feature {ANY} -- Size and position:
          Result := wgettop(widget)
       end
 
+   move_to_and_resize (x, y, w, h: INTEGER) is
+      require
+         ncurses.is_enabled
+      do
+         move_to(x, y)
+         resize(w, h)
+      ensure
+         left = x
+         top = y
+         width = w
+         height = h
+      end
+
    resize (w, h: INTEGER) is
       require
          ncurses.is_enabled

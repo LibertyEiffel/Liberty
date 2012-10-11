@@ -1,6 +1,7 @@
 class SIMPLE_UI
 
 insert
+   NCURSES_TOOLS
    ARGUMENTS
    LOGGING
 
@@ -32,7 +33,15 @@ feature {}
 
    curses is
       do
+         ncurses.when_idle(agent curses_idle)
          ui.run_curses(app)
+      end
+
+   curses_idle is
+      do
+         -- don't put the agent directly in the when_idle call
+         -- because the log target (@L) would not be calculated at the right time
+         log.info.put_line(once "idle")
       end
 
    readline is

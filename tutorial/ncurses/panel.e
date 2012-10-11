@@ -33,6 +33,7 @@ feature {ANY}
 
          -- We create a NCURSES_PANEL that fits inside the `sub_window' (beware of the border):
          create ncurses_panel.make(sub_window, 1, 1, sub_window.width - 2, sub_window.height - 2)
+         --create ncurses_panel.no_tabs(sub_window, 1, 1, sub_window.width - 2, sub_window.height - 2)
 
          -- We create three tabs in this ncurses_panel:
          create tabs.with_capacity(3)

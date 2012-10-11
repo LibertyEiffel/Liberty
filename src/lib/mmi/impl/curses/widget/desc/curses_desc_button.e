@@ -1,17 +1,46 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+class CURSES_DESC_BUTTON
 
-insert
-   UI_BRIDGE_ITEM
+inherit
+   CURSES_DESC_WIDGET
 
-feature {}
-   add (a_child: E_) is
-      deferred
+create {CURSES_DESCRIPTOR}
+   make
+
+feature {CURSES_DESCRIPTOR}
+   build (parent: NCURSES_WINDOW) is
+      do
+         create {NCURSES_BUTTON} ncurses_widget.make(parent, button.label.to_utf8, 0, 0, 0, 0)
       end
 
-end -- class UI_BRIDGE_COLLECTION
+   layout (a_x, a_y, a_width, a_height: INTEGER) is
+      do
+         ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
+      end
+
+   x, y, width, height: INTEGER
+
+   min_width, max_width: INTEGER is
+      do
+         Result := button.label.count
+      end
+
+   min_height, max_height: INTEGER is 1
+
+feature {}
+   make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+      local
+         str: JSON_STRING
+      do
+         str ::= desc.item(once "button")
+         button ::= ui.panel.find(str.string.as_utf8)
+      end
+
+   button: UI_BUTTON
+
+end -- class CURSES_DESC_BUTTON
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

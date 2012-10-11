@@ -6,6 +6,18 @@ deferred class UI_WIDGET
 insert
    UI_ITEM
 
+feature {ANY}
+   find (a_id: ABSTRACT_STRING): UI_WIDGET is
+      require
+         a_id /= Void
+      do
+         if a_id.intern = id then
+            Result := Current
+         end
+      ensure
+         Result /= Void implies Result.id = a_id.intern
+      end
+
 end -- class UI_WIDGET
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.

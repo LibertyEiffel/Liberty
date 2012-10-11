@@ -52,6 +52,7 @@ feature {UI_ITEM}
          ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
          ncurses.set_echoing_policy(False)
          ncurses.when_key_pressed(agent Result.key_pressed)
+         ncurses.when_resized(agent Result.resized)
       end
 
    new_bridge_window (ui: UI_WINDOW): CURSES_WINDOW is

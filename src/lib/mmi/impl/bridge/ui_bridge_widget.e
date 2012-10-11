@@ -6,7 +6,7 @@ deferred class UI_BRIDGE_WIDGET
 insert
    UI_BRIDGE_ITEM
 
-end -- class UI_BRIDGE_MENU
+end -- class UI_BRIDGE_WIDGET
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

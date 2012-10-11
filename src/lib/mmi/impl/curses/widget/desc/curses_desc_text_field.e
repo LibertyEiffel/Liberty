@@ -1,17 +1,33 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+class CURSES_DESC_TEXT_FIELD
 
-insert
-   UI_BRIDGE_ITEM
+inherit
+   CURSES_DESC_WIDGET
 
-feature {}
-   add (a_child: E_) is
-      deferred
+create {CURSES_DESCRIPTOR}
+   make
+
+feature {CURSES_DESCRIPTOR}
+   build (parent: NCURSES_WINDOW) is
+      do
+         -- TODO
       end
 
-end -- class UI_BRIDGE_COLLECTION
+   layout (a_x, a_y, a_width, a_height: INTEGER) is
+      do
+         ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
+      end
+
+   x, y, width, height, min_width, min_height, max_width, max_height: INTEGER
+
+feature {}
+   make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+      do
+      end
+
+end -- class CURSES_DESC_TEXT_FIELD
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

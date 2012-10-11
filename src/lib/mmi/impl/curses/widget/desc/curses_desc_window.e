@@ -1,17 +1,43 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class UI_BRIDGE_COLLECTION[E_ -> UI_BRIDGE_ITEM]
+class CURSES_DESC_WINDOW
 
 insert
-   UI_BRIDGE_ITEM
+   CURSES_DESCRIPTOR
+
+create {CURSES_WINDOW}
+   make
+
+feature {ANY}
+   panel: CURSES_DESC_PANEL
+   menu: CURSES_DESC_MENU
 
 feature {}
-   add (a_child: E_) is
-      deferred
+   window: NCURSES_PAD
+
+   make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+      require
+         desc /= Void
+      do
+         create panel.make(ui, desc.item(once "panel"))
+         create menu.make(ui, desc.item(once "menu"))
+         build
       end
 
-end -- class UI_BRIDGE_COLLECTION
+   build is
+      local
+         root: NCURSES_WINDOW
+      do
+         root := ncurses.get_root_window
+         create window.make_pad(root.width, root.height)
+         menu.build(window)
+         panel.build(window)
+         menu.layout(0, 0, root.width, 1)
+         panel.layout(0, menu.height, root.width, root.height - menu.height)
+      end
+
+end -- class CURSES_DESC_WINDOW
 --
 -- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --

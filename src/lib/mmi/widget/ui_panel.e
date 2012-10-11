@@ -7,6 +7,8 @@ inherit
    UI_WIDGET
       undefine
          connect_to, out_in_tagged_out_memory
+      redefine
+         find
       end
 
 insert
@@ -17,6 +19,28 @@ insert
 
 create {ANY}
    make
+
+feature {ANY}
+   find (a_id: ABSTRACT_STRING): UI_WIDGET is
+      local
+         id_: FIXED_STRING
+      do
+         id_ := a_id.intern
+         if id = id_ then
+            Result := Current
+         else
+            Result := children.aggregate(agent (res, val: UI_WIDGET; key, a_id: FIXED_STRING): UI_WIDGET is
+                                         do
+                                            if res /= Void then
+                                               Result := res
+                                            elseif key = a_id then
+                                               Result := val
+                                            else
+                                               Result := val.find(a_id)
+                                            end
+                                         end (?, ?, ?, id_), Void)
+         end
+      end
 
 feature {}
    make (a_id: ABSTRACT_STRING) is

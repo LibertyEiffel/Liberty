@@ -8,7 +8,7 @@ inherit
    NCURSES_WIDGET
 
 creation{ANY}
-   make
+   make, no_tabs
 
 feature {ANY}
    left: INTEGER
@@ -19,13 +19,19 @@ feature {ANY}
 
    height: INTEGER
 
+   tabs_hidden: BOOLEAN
+
    add_tab (text: STRING): NCURSES_PANELTAB is
       require
          ncurses.is_enabled
          text /= Void
       do
-         create Result.make(Current, text, last_left)
-         last_left := last_left + text.count + 2
+         if tabs_hidden then
+            create Result.no_label(Current)
+         else
+            create Result.make(Current, text, last_left)
+            last_left := last_left + text.count + 2
+         end
          if tabs = Void then
             create tabs.with_capacity(2)
          end
@@ -35,7 +41,7 @@ feature {ANY}
 
    refresh_later is
       do
-         if last_left + 1 < width then
+         if not tabs_hidden and then last_left + 1 < width then
             window.draw_horizontal_line(last_left, top + 2, horizontal_line, width - last_left + 1)
          end
       end
@@ -93,6 +99,26 @@ feature {}
          top = y
          width = w
          height = h
+         not tabs_hidden
+      end
+
+   no_tabs (nw: like window; x, y, w, h: INTEGER) is
+      require
+         ncurses.is_enabled
+         nw /= Void
+         x >= 0
+         y >= 0
+         x + w <= nw.width
+         y + h <= nw.height
+      do
+         make(nw, x, y, w, h)
+         tabs_hidden := True
+      ensure
+         left = x
+         top = y
+         width = w
+         height = h
+         tabs_hidden
       end
 
    last_left: INTEGER
@@ -100,6 +126,9 @@ feature {}
    tabs: FAST_ARRAY[NCURSES_PANELTAB]
 
    window: NCURSES_WINDOW
+
+invariant
+   tabs_hidden implies last_left = 0
 
 end -- class NCURSES_PANEL
 --
