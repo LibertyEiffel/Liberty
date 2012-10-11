@@ -25,7 +25,7 @@ feature {CURSES_DESCRIPTOR}
 feature {}
    make (ui: UI_WINDOW; desc: JSON_VALUE) is
       do
-         if desc = Void or else desc ?:= {JSON_NULL} then
+         if desc = Void or else {JSON_NULL} ?:= desc then
             -- nothing to do
          else
             not_yet_implemented

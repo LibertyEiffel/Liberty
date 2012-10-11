@@ -13,8 +13,6 @@ create {CURSES_JOB}
 feature {CURSES_ITEM}
    run (context: CURSES_CONTEXT): BOOLEAN is
       do
-         ui.set_value(context.read(once "  | "))
-         Result := True
       end
 
 end -- class CURSES_TEXT_FIELD

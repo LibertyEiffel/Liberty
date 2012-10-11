@@ -290,18 +290,20 @@ feature {}
             log.error.put_line(once "Invalid widgets object")
          end
 
-         from
-            i := options.lower + 1 -- ignore the first argument which is the name of the layout
-         until
-            i > options.upper
-         loop
-            if str ?:= options.item(i) then
-               str ::= options.item(i)
-               log.warning.put_line(once "Ignored layout option: %"#(1)%"" # str.string.as_utf8)
-            else
-               log.error.put_line(once "Invalid layout option")
+         if options /= Void then
+            from
+               i := options.lower + 1 -- ignore the first argument which is the name of the layout
+            until
+               i > options.upper
+            loop
+               if str ?:= options.item(i) then
+                  str ::= options.item(i)
+                  log.warning.put_line(once "Ignored layout option: %"#(1)%"" # str.string.as_utf8)
+               else
+                  log.error.put_line(once "Invalid layout option")
+               end
+               i := i + 1
             end
-            i := i + 1
          end
       end
 

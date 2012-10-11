@@ -137,66 +137,68 @@ feature {}
             log.error.put_line(once "Invalid widgets array")
          end
 
-         from
-            i := options.lower + 1 -- ignore the first argument which is the name of the layout
-         until
-            i > options.upper
-         loop
-            if str ?:= options.item(i) then
-               str ::= options.item(i)
-               inspect
-                  str.string.to_utf8
-               when "head", "left", "top" then
-                  if justify = 0 then
-                     justify := justify_head
+         if options /= Void then
+            from
+               i := options.lower + 1 -- ignore the first argument which is the name of the layout
+            until
+               i > options.upper
+            loop
+               if str ?:= options.item(i) then
+                  str ::= options.item(i)
+                  inspect
+                     str.string.to_utf8
+                  when "head", "left", "top" then
+                     if justify = 0 then
+                        justify := justify_head
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
+                     end
+                  when "tail", "right", "bottom" then
+                     if justify = 0 then
+                        justify := justify_tail
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
+                     end
+                  when "center", "middle" then
+                     if justify = 0 then
+                        justify := justify_center
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
+                     end
+                  when "spread_out" then
+                     if justify = 0 then
+                        justify := justify_spread_out
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
+                     end
+                  when "horizontal" then
+                     if orientation = 0 then
+                        orientation := orientation_horizontal
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'orientation' option: %"#(1)%"" # str.string.as_utf8)
+                     end
+                  when "vertical" then
+                     if orientation = 0 then
+                        orientation := orientation_vertical
+                     else
+                        log.warning.put_line(once "Ignored extra layout 'orientation' option: %"#(1)%"" # str.string.as_utf8)
+                     end
                   else
-                     log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
-                  end
-               when "tail", "right", "bottom" then
-                  if justify = 0 then
-                     justify := justify_tail
-                  else
-                     log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
-                  end
-               when "center", "middle" then
-                  if justify = 0 then
-                     justify := justify_center
-                  else
-                     log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
-                  end
-               when "spread_out" then
-                  if justify = 0 then
-                     justify := justify_spread_out
-                  else
-                     log.warning.put_line(once "Ignored extra layout 'justify' option: %"#(1)%"" # str.string.as_utf8)
-                  end
-               when "horizontal" then
-                  if orientation = 0 then
-                     orientation := orientation_horizontal
-                  else
-                     log.warning.put_line(once "Ignored extra layout 'orientation' option: %"#(1)%"" # str.string.as_utf8)
-                  end
-               when "vertical" then
-                  if orientation = 0 then
-                     orientation := orientation_vertical
-                  else
-                     log.warning.put_line(once "Ignored extra layout 'orientation' option: %"#(1)%"" # str.string.as_utf8)
+                     log.warning.put_line(once "Ignored layout option: %"#(1)%"" # str.string.as_utf8)
                   end
                else
-                  log.warning.put_line(once "Ignored layout option: %"#(1)%"" # str.string.as_utf8)
+                  log.error.put_line(once "Invalid layout option")
                end
-            else
-               log.error.put_line(once "Invalid layout option")
+               i := i + 1
             end
-            i := i + 1
-         end
-         if orientation = 0 then
-            orientation := orientation_horizontal
-            log.info.put_line(once "Using default orientation: %"horizontal%"")
-         end
-         if justify = 0 then
-            justify := justify_head
-            log.info.put_line(once "Using default justify: %"left%"")
+            if orientation = 0 then
+               orientation := orientation_horizontal
+               log.info.put_line(once "Using default orientation: %"horizontal%"")
+            end
+            if justify = 0 then
+               justify := justify_head
+               log.info.put_line(once "Using default justify: %"left%"")
+            end
          end
       end
 

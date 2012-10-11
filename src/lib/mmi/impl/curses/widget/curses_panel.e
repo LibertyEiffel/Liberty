@@ -23,29 +23,7 @@ feature {UI_PANEL}
 
 feature {CURSES_ITEM}
    run (context: CURSES_CONTEXT): BOOLEAN is
-      local
-         name: STRING
-         dot_index: INTEGER; child: CURSES_WIDGET[UI_WIDGET]
       do
-         if not context.line.is_empty then
-            name := context.line.first
-            if name /= Void then
-               dot_index := name.first_index_of('.')
-               if name.valid_index(dot_index) then
-                  child := children.fast_reference_at(name.substring(name.lower, dot_index - 1).intern)
-                  if child /= Void then
-                     name.shrink(dot_index + 1, name.upper)
-                     Result := child.run(context)
-                  end
-               else
-                  child := children.fast_reference_at(name.intern)
-                  if child /= Void then
-                     name.clear_count
-                     Result := child.run(context)
-                  end
-               end
-            end
-         end
       end
 
 feature {}

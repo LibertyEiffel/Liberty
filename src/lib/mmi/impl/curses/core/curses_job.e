@@ -5,6 +5,8 @@ class CURSES_JOB
 
 inherit
    UI_JOB
+      rename
+         connect as job_connect
       redefine
          application
       end
@@ -15,6 +17,15 @@ insert
 
 create {USER_INTERFACE}
    connect
+
+feature {USER_INTERFACE}
+   start is
+      do
+         ncurses.set_event_catcher(Current)
+         ncurses.enable
+         application.start
+         ncurses.start
+      end
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
@@ -83,6 +94,11 @@ feature {UI_ITEM}
 feature {}
    application: CURSES_APPLICATION
    idle_timeout: INTEGER
+
+   connect (a_application: UI_APPLICATION) is
+      do
+         job_connect(a_application, agent ncurses.add_job)
+      end
 
    set_idle_timeout (a_timeout: INTEGER) is
       require

@@ -22,8 +22,6 @@ feature {ANY}
 feature {CURSES_ITEM}
    run (context: CURSES_CONTEXT): BOOLEAN is
       do
-         ui.click
-         Result := True
       end
 
 end -- class CURSES_BUTTON

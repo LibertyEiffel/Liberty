@@ -1,26 +1,9 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURSES_CONTEXT
+deferred class CURSES_CONTEXT
 
-create {CURSES_JOB}
-   make
-
-feature {ANY}
-   line: FAST_ARRAY[STRING] is
-      once
-         Result := {FAST_ARRAY[STRING] << "" >>}
-      end
-
-   read (prompt: STRING): STRING is
-      once
-         Result := ""
-      end
-
-feature {}
-   make is
-      do
-      end
+   -- I guess I will implement some visitor pattern
 
 end -- class CURSES_CONTEXT
 --

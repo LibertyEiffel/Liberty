@@ -3,10 +3,6 @@
 --
 expanded class USER_INTERFACE
 
-insert
-   NCURSES_HANDLER
-   NCURSES_TOOLS
-
 feature {ANY}
    run_curses (app: UI_APPLICATION) is
          -- Create a new Curses user interface
@@ -14,10 +10,8 @@ feature {ANY}
          job: CURSES_JOB
       do
          -- the loop stack is controlled by the ncurses framework
-         create job.connect(app, agent ncurses.add_job)
-         ncurses.set_event_catcher(job)
-         ncurses.enable
-         ncurses.start
+         create job.connect(app)
+         job.start
       end
 
    run_readline (app: UI_APPLICATION) is

@@ -45,14 +45,38 @@ feature {ANY}
       end
 
 feature {CURSES_JOB}
+   start is
+      do
+         if not windows.for_all(agent (a_window: CURSES_WINDOW): BOOLEAN is
+                                do
+                                   Result := a_window.run(Void)
+                                end)
+         then
+            log.error.put_line(once "Could not start windows")
+         end
+      end
+
    key_pressed (code: INTEGER) is
+      local
+         win: CURSES_WINDOW
       do
          log.info.put_line(once "key pressed: #(1)" # &code)
+         win := windows.fast_reference_at(current_window)
+         if not win.run(Void) then
+            log.error.put_line(once "Could not run window: #(1) (key pressed: #(2))" # win.id # &code)
+         end
       end
 
    resized is
       do
          log.info.put_line(once "resized")
+         if not windows.for_all(agent (a_window: CURSES_WINDOW): BOOLEAN is
+                                do
+                                   Result := a_window.run(Void)
+                                end)
+         then
+            log.error.put_line(once "Could not resize windows")
+         end
       end
 
 feature {UI_APPLICATION}

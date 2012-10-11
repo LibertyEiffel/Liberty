@@ -55,15 +55,18 @@ feature {}
          desc: JSON_OBJECT
       do
          path := once ""
-         path.create_from_string(id)
+         path.make_from_string(id)
          path.append(once ".curses")
+         log.info.put_line(once "Looking for window descriptor #(1)" # path)
          create tfr.connect_to(path)
          if tfr.is_connected then
+         log.info.put_line(once "Parsing window descriptor #(1)" # path)
             create parser.make(agent log.error.put_line)
             text := parser.parse_json_text(tfr)
             if text /= Void and desc ?:= text then
                desc ::= text
-               create window.make(desc)
+               log.info.put_line(once "Building window #(1)" # id)
+               create window.make(ui, desc)
             else
                log.error.put_line(once "Invalid curses descriptor file: #(1)" # path)
             end

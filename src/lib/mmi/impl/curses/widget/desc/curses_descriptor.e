@@ -10,22 +10,22 @@ insert
 
 feature {}
    widget (ui: UI_WINDOW; desc: JSON_VALUE): CURSES_DESC_WIDGET is
-      require
-         desc /= Void
       local
          desc_widget: JSON_OBJECT
          factory: FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET]
       do
-         if desc_widget ?:= desc then
-            desc_widget ::= desc
-            factory := widgets_factory.aggregate(agent new_widget(desc_widget, ?, ?, ?), Void)
-            if factory /= Void then
-               Result := factory.item([ui, desc_widget])
+         if desc /= Void then
+            if desc_widget ?:= desc then
+               desc_widget ::= desc
+               factory := widgets_factory.aggregate(agent new_widget(desc_widget, ?, ?, ?), Void)
+               if factory /= Void then
+                  Result := factory.item([ui, desc_widget])
+               else
+                  log.error.put_line(once "Invalid widget: unknown type")
+               end
             else
-               log.error.put_line(once "Invalid widget: unknown type")
+               log.error.put_line(once "Invalid widget: not an object")
             end
-         else
-            log.error.put_line(once "Invalid widget: not an object")
          end
       end
 
@@ -46,10 +46,35 @@ feature {}
       once
          Result := {HASHED_DICTIONARY[FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET], STRING]
          <<
-            agent (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_PANEL      is do create Result.make(ui, value) end, "panel"     ;
-            agent (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_BUTTON     is do create Result.make(ui, value) end, "button"    ;
-            agent (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_TEXT_FIELD is do create Result.make(ui, value) end, "text_field";
+            agent new_panel     , "panel"     ;
+            agent new_button    , "button"    ;
+            agent new_text_field, "text_field";
          >>}
+      end
+
+   new_panel (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_PANEL is
+      local
+         val: JSON_VALUE
+         obj: JSON_OBJECT
+      do
+         val := value.item(once "panel")
+         if obj ?:= val then
+            log.trace.put_line(once "using panel description")
+            obj ::= val
+            create Result.make(ui, obj)
+         else
+            log.error.put_line(once "Invalid panel description")
+         end
+      end
+
+   new_button (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_BUTTON is
+      do
+         create Result.make(ui, value)
+      end
+
+   new_text_field (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_TEXT_FIELD is
+      do
+         create Result.make(ui, value)
       end
 
 end -- class CURSES_DESCRIPTOR

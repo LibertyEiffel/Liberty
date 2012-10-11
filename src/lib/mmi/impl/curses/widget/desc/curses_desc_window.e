@@ -5,6 +5,7 @@ class CURSES_DESC_WINDOW
 
 insert
    CURSES_DESCRIPTOR
+   LOGGING
 
 create {CURSES_WINDOW}
    make
@@ -20,20 +21,27 @@ feature {}
       require
          desc /= Void
       do
+         log.trace.put_line(once "describing panel for window #(1)" # ui.id)
          create panel.make(ui, desc.item(once "panel"))
+         log.trace.put_line(once "describing menu for window #(1)" # ui.id)
          create menu.make(ui, desc.item(once "menu"))
-         build
+         build(ui)
+         log.trace.put_line(once "window #(1) is ready" # ui.id)
       end
 
-   build is
+   build (ui: UI_WINDOW) is
       local
          root: NCURSES_WINDOW
       do
          root := ncurses.get_root_window
          create window.make_pad(root.width, root.height)
+         log.trace.put_line(once "building panel for window #(1)" # ui.id)
          menu.build(window)
+         log.trace.put_line(once "building menu for window #(1)" # ui.id)
          panel.build(window)
+         log.trace.put_line(once "laying out menu for window #(1)" # ui.id)
          menu.layout(0, 0, root.width, 1)
+         log.trace.put_line(once "laying out panel for window #(1)" # ui.id)
          panel.layout(0, menu.height, root.width, root.height - menu.height)
       end
 
