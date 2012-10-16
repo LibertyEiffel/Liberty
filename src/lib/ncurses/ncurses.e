@@ -559,6 +559,18 @@ feature {NCURSES_WIDGET}
          end
       end
 
+feature {ANY}
+   disable_and_exit is
+      do
+         from
+         until
+            not is_enabled
+         loop
+            do_disable
+         end
+         crash
+      end
+
 feature {}
    color_pairs: HASHED_DICTIONARY[HASHED_DICTIONARY[INTEGER, INTEGER], INTEGER]
 
@@ -568,12 +580,6 @@ feature {}
          -- We can safely use `once' here because `NCURSES_WRAPPER' is a singleton
       once
          create Result.with_capacity(1)
-      end
-
-   disable_and_exit is
-      do
-         disable
-         crash
       end
 
    dispose is

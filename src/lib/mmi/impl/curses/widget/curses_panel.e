@@ -22,7 +22,16 @@ feature {UI_PANEL}
       end
 
 feature {CURSES_ITEM}
-   run (context: CURSES_CONTEXT): BOOLEAN is
+   start: BOOLEAN is
+      do
+         Result := children.for_all(agent {CURSES_WIDGET[UI_WIDGET]}.start)
+      end
+
+   key_pressed (code: INTEGER): BOOLEAN is
+      do
+      end
+
+   resized: BOOLEAN is
       do
       end
 

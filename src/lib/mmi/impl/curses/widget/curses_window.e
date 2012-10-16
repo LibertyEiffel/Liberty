@@ -35,12 +35,20 @@ feature {UI_WINDOW}
       end
 
 feature {CURSES_APPLICATION}
-   run (context: CURSES_CONTEXT): BOOLEAN is
+   start: BOOLEAN is
       do
          if window = Void then
             attach_window
          end
-         Result := menu.run(context) or else panel.run(context)
+         Result := menu.start or else panel.start
+      end
+
+   key_pressed (code: INTEGER): BOOLEAN is
+      do
+      end
+
+   resized: BOOLEAN is
+      do
       end
 
 feature {}

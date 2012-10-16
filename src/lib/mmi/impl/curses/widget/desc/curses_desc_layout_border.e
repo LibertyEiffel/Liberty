@@ -33,7 +33,7 @@ create {CURSES_DESC_PANEL}
 feature {CURSES_DESCRIPTOR}
    build (parent: NCURSES_WINDOW) is
       do
-         ncurses_widget := parent.create_sub_window(0, 0, 1, 1)
+         ncurses_widget := parent.create_sub_window(0, 0, parent.width, parent.height)
          center_win := make_sub(center)
          north_win := make_sub(north)
          south_win := make_sub(south)
@@ -78,27 +78,49 @@ feature {CURSES_DESCRIPTOR}
             wh := 0; ww := 0; whm := -1; wwm := -1
          end
 
+         debug
+            log.trace.put_new_line
+            log.trace.put_line(once "AT INIT (height=#(1) width=#(2)):" # &a_height # &a_width)
+            log.trace.put_line(once "center | height - min=#(1)%Tmax=#(2)%T| width - min=#(3)%Tmax=#(4)" # &ch # &chm # &cw # &cwm)
+            log.trace.put_line(once " north | height - min=#(1)%Tmax=#(2)%T| width - min=#(3)%Tmax=#(4)" # &nh # &nhm # &nw # &nwm)
+            log.trace.put_line(once " south | height - min=#(1)%Tmax=#(2)%T| width - min=#(3)%Tmax=#(4)" # &sh # &shm # &sw # &swm)
+            log.trace.put_line(once "  east | height - min=#(1)%Tmax=#(2)%T| width - min=#(3)%Tmax=#(4)" # &eh # &ehm # &ew # &ewm)
+            log.trace.put_line(once "  west | height - min=#(1)%Tmax=#(2)%T| width - min=#(3)%Tmax=#(4)" # &wh # &whm # &ww # &wwm)
+            log.trace.put_new_line
+         end
+
          -- calculate widths
          nw := a_width
          sw := a_width
          if cwm = -1 then
-            cw := 0
-            ww := (a_width - cw) // 2
-            ew := a_width - cw - ww
+            if wwm /= -1 then
+               if ewm /= -1 then
+                  ww := a_width // 2
+               else
+                  ww := a_width
+               end
+            end
+            ew := a_width - ww
          elseif ww + cwm + ew < a_width then
             cw := a_width - ww - ew
             -- ew and ww stay the same
          else
             cw := cwm
-            ww := (a_width - cw) // 2
+            if wwm /= -1 then
+               if ewm /= -1 then
+                  ww := (a_width - cw) // 2
+               else
+                  ww := a_width - cw
+               end
+            end
             ew := a_width - cw - ww
          end
 
          -- calculate heights
-         hh := wh
-         hhm := whm
-         if ch /= -1 then
-            if hh = -1 then
+         hh := eh
+         hhm := ehm
+         if chm /= -1 then
+            if hhm = -1 then
                hh := ch
                hhm := chm
             else
@@ -106,8 +128,8 @@ feature {CURSES_DESCRIPTOR}
                hhm := chm.min(hhm)
             end
          end
-         if wh /= -1 then
-            if hh = -1 then
+         if whm /= -1 then
+            if hhm = -1 then
                hh := wh
                hhm := whm
             else
@@ -115,16 +137,33 @@ feature {CURSES_DESCRIPTOR}
                hhm := whm.min(hhm)
             end
          end
+
+         debug
+            log.trace.put_line(once "hh=#(1) hhm=#(2)" # &hh # &hhm)
+            log.trace.put_new_line
+         end
+
          if hhm = -1 then
-            hh := 0
-            nh := (a_height - ch) // 2
-            sh := a_height - ch - nh
+            if nhm /= -1 then
+               if shm /= -1 then
+                  nh := a_height // 2
+               else
+                  nh := a_height
+               end
+            end
+            sh := a_height - nh
          elseif wh + hhm + eh < a_height then
-            hh := a_width - nh - sh
+            hh := a_height - nh - sh
             -- nh and sh stay the same
          else
             hh := hhm
-            nh := (a_height - hh) // 2
+            if nhm /= -1 then
+               if shm /= -1 then
+                  nh := (a_height - hh) // 2
+               else
+                  nh := a_height - hh
+               end
+            end
             sh := a_height - hh - nh
          end
          if hhm > wh then
@@ -144,18 +183,50 @@ feature {CURSES_DESCRIPTOR}
          wy := nh
          cx := ww
          cy := nh
-         ex := ww + cw
+         ex := a_width - ew
          ey := nh
          sx := 0
-         sy := nh + hh
+         sy := a_height - sh
+
+         debug
+            log.trace.put_line(once "AT APPLY (before max fix):")
+            if chm /= -1 then log.trace.put_line(once "center | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &cx # &cy # &ch # &cw) end
+            if nhm /= -1 then log.trace.put_line(once " north | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &nx # &ny # &nh # &nw) end
+            if shm /= -1 then log.trace.put_line(once " south | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &sx # &sy # &sh # &sw) end
+            if ehm /= -1 then log.trace.put_line(once "  east | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &ex # &ey # &eh # &ew) end
+            if whm /= -1 then log.trace.put_line(once "  west | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &wx # &wy # &wh # &ww) end
+            log.trace.put_new_line
+         end
+
+         -- fix max
+         if chm /= -1 then ch := ch.min(chm) end
+         if nhm /= -1 then nh := nh.min(nhm) end
+         if shm /= -1 then sh := sh.min(shm) end
+         if ehm /= -1 then eh := eh.min(ehm) end
+         if whm /= -1 then wh := wh.min(whm) end
+         if cwm /= -1 then cw := cw.min(cwm) end
+         if nwm /= -1 then nw := nw.min(nwm) end
+         if swm /= -1 then sw := sw.min(swm) end
+         if ewm /= -1 then ew := ew.min(ewm) end
+         if wwm /= -1 then ww := ww.min(wwm) end
+
+         debug
+            log.trace.put_line(once "AT APPLY (after max fix):")
+            if chm /= -1 then log.trace.put_line(once "center | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &cx # &cy # &ch # &cw) end
+            if nhm /= -1 then log.trace.put_line(once " north | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &nx # &ny # &nh # &nw) end
+            if shm /= -1 then log.trace.put_line(once " south | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &sx # &sy # &sh # &sw) end
+            if ehm /= -1 then log.trace.put_line(once "  east | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &ex # &ey # &eh # &ew) end
+            if whm /= -1 then log.trace.put_line(once "  west | x=#(1)%Ty=#(2)%Theight=#(3)%Twidth=#(4)" # &wx # &wy # &wh # &ww) end
+            log.trace.put_new_line
+         end
 
          -- apply
-         ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
-         if center /= Void then center.layout(cx, cy, ch, cw) end
-         if north /= Void  then  north.layout(nx, ny, nh, nw) end
-         if south /= Void  then  south.layout(sx, sy, sh, sw) end
-         if east /= Void   then   east.layout(ex, ey, eh, ew) end
-         if west /= Void   then   west.layout(wx, wy, wh, ww) end
+         ncurses_widget.resize(a_width, a_height)
+         if chm /= -1 then center.layout(cx, cy, cw, ch) end
+         if nhm /= -1 then  north.layout(nx, ny, nw, nh) end
+         if shm /= -1 then  south.layout(sx, sy, sw, sh) end
+         if ehm /= -1 then   east.layout(ex, ey, ew, eh) end
+         if whm /= -1 then   west.layout(wx, wy, ww, wh) end
       end
 
    x, y, width, height: INTEGER

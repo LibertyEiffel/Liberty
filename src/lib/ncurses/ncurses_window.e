@@ -203,8 +203,16 @@ feature {ANY} -- Size and position:
       require
          ncurses.is_enabled
       do
-         move_to(x, y)
-         resize(w, h)
+         if x /= left or else y /= top then
+            move_to(0, 0)
+            if width /= 1 or else height /= 1 then
+               ncurses.check_for_error(wresize(widget, 1, 1) = ncurses.ok)
+            end
+            move_to(x, y)
+         end
+         if w /= width or else h /= height then
+            resize(w, h)
+         end
       ensure
          left = x
          top = y
@@ -716,6 +724,7 @@ feature {}
          ncurses.is_enabled
       do
          set_widget(derwin(w.widget, lines, columns, y, x))
+         touchwin(w.widget)
          set_parent(w)
          init
       end
@@ -787,6 +796,15 @@ feature {} -- Below are plug_in connections to the curses library.
          location: "${sys}/plugins"
          module_name: "ncurses"
          feature_name: "derwin"
+         }"
+      end
+
+   touchwin (win: POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "touchwin_"
          }"
       end
 

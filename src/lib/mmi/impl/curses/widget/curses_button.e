@@ -20,7 +20,15 @@ feature {ANY}
       end
 
 feature {CURSES_ITEM}
-   run (context: CURSES_CONTEXT): BOOLEAN is
+   start: BOOLEAN is
+      do
+      end
+
+   key_pressed (code: INTEGER): BOOLEAN is
+      do
+      end
+
+   resized: BOOLEAN is
       do
       end
 

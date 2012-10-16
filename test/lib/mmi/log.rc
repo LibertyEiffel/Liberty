@@ -1,0 +1,17 @@
+log configuration
+
+root TEST
+
+output
+        default is file "test.log"
+                rotated each day keeping 3
+                format "@C [@t] - @L - @m%N"
+                end
+
+logger
+        TEST is
+                output default
+                level trace
+                end
+
+end

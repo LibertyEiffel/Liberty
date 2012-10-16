@@ -13,6 +13,7 @@ feature {CURSES_DESCRIPTOR}
    build (parent: NCURSES_WINDOW) is
       do
          -- TODO
+         create {NCURSES_LABEL} ncurses_widget.make(parent, once "-", 0, 0, 1, 1)
       end
 
    layout (a_x, a_y, a_width, a_height: INTEGER) is
@@ -20,12 +21,28 @@ feature {CURSES_DESCRIPTOR}
          ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
       end
 
-   x, y, width, height, min_width, min_height, max_width, max_height: INTEGER
+   x, y, width, height: INTEGER
+
+   min_width, max_width: INTEGER is
+      do
+         Result := text.value.count.max(1)
+      end
+
+   min_height, max_height: INTEGER is
+      do
+         Result := 1
+      end
 
 feature {}
    make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+      local
+         str: JSON_STRING
       do
+         str ::= desc.item(once "text_field")
+         text ::= ui.panel.find(str.string.as_utf8)
       end
+
+   text: UI_TEXT_FIELD
 
 end -- class CURSES_DESC_TEXT_FIELD
 --

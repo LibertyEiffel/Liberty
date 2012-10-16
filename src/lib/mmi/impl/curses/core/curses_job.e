@@ -23,8 +23,19 @@ feature {USER_INTERFACE}
       do
          ncurses.set_event_catcher(Current)
          ncurses.enable
-         application.start
-         ncurses.start
+
+         set_idle_timeout(application.idle_timeout)
+         ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
+         ncurses.set_echoing_policy(False)
+         ncurses.when_key_pressed(agent application.key_pressed)
+         ncurses.when_resized(agent application.resized)
+
+         if application.start then
+            ncurses.start
+         else
+            log.error.put_line(once "Could not start application.")
+            die_with_code(1)
+         end
       end
 
 feature {LOOP_ITEM}
@@ -59,11 +70,6 @@ feature {UI_ITEM}
    new_bridge_application (ui: UI_APPLICATION): CURSES_APPLICATION is
       do
          create Result.make(ui)
-         set_idle_timeout(Result.idle_timeout)
-         ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
-         ncurses.set_echoing_policy(False)
-         ncurses.when_key_pressed(agent Result.key_pressed)
-         ncurses.when_resized(agent Result.resized)
       end
 
    new_bridge_window (ui: UI_WINDOW): CURSES_WINDOW is

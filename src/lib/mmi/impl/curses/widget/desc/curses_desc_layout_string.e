@@ -15,7 +15,7 @@ create {CURSES_DESC_PANEL}
 feature {CURSES_DESCRIPTOR}
    build (parent: NCURSES_WINDOW) is
       do
-         ncurses_widget := parent.create_sub_window(0, 0, 1, 1)
+         ncurses_widget := parent.create_sub_window(0, 0, parent.width, parent.height)
          widgets.do_all(agent {CURSES_DESC_WIDGET}.build(ncurses_widget))
       end
 
@@ -23,11 +23,11 @@ feature {CURSES_DESCRIPTOR}
       local
          wx, wy: REFERENCE[INTEGER]
       do
-         ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
          x := a_x
          y := a_y
          width := a_width
          height := a_height
+         ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
 
          create wx
          create wy
@@ -59,36 +59,36 @@ feature {CURSES_DESCRIPTOR}
    min_width: INTEGER is
       do
          if orientation = orientation_horizontal then
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_width, agent {INTEGER} + ?)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_width, agent {INTEGER} + ?).max(1)
          else
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_width, agent {INTEGER}.max)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_width, agent {INTEGER}.max).max(1)
          end
       end
 
    min_height: INTEGER is
       do
          if orientation = orientation_horizontal then
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_height, agent {INTEGER}.max)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_height, agent {INTEGER}.max).max(1)
          else
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_height, agent {INTEGER} + ?)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.min_height, agent {INTEGER} + ?).max(1)
          end
       end
 
    max_width: INTEGER is
       do
          if orientation = orientation_horizontal then
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_width, agent {INTEGER} + ?)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_width, agent {INTEGER} + ?).max(1)
          else
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_width, agent {INTEGER}.min)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_width, agent {INTEGER}.min).max(min_width)
          end
       end
 
    max_height: INTEGER is
       do
          if orientation = orientation_horizontal then
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_height, agent {INTEGER}.min)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_height, agent {INTEGER}.min).max(min_height)
          else
-            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_height, agent {INTEGER} + ?)
+            Result := aggregate(agent {CURSES_DESC_WIDGET}.max_height, agent {INTEGER} + ?).max(1)
          end
       end
 

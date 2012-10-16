@@ -12,7 +12,7 @@ create {CURSES_DESCRIPTOR}
 feature {CURSES_DESCRIPTOR}
    build (parent: NCURSES_WINDOW) is
       do
-         create {NCURSES_BUTTON} ncurses_widget.make(parent, button.label.to_utf8, 0, 0, 0, 0)
+         create {NCURSES_BUTTON} ncurses_widget.make(parent, button.label.to_utf8, 0, 0, 1, 1)
       end
 
    layout (a_x, a_y, a_width, a_height: INTEGER) is
@@ -24,7 +24,7 @@ feature {CURSES_DESCRIPTOR}
 
    min_width, max_width: INTEGER is
       do
-         Result := button.label.count
+         Result := button.label.count.max(1)
       end
 
    min_height, max_height: INTEGER is 1

@@ -15,7 +15,7 @@ feature {ANY}
    menu: CURSES_DESC_MENU
 
 feature {}
-   window: NCURSES_PAD
+   window: NCURSES_WINDOW
 
    make (ui: UI_WINDOW; desc: JSON_OBJECT) is
       require
@@ -34,7 +34,7 @@ feature {}
          root: NCURSES_WINDOW
       do
          root := ncurses.get_root_window
-         create window.make_pad(root.width, root.height)
+         create window.make(0, 0, root.width, root.height)
          log.trace.put_line(once "building panel for window #(1)" # ui.id)
          menu.build(window)
          log.trace.put_line(once "building menu for window #(1)" # ui.id)

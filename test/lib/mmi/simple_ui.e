@@ -35,6 +35,8 @@ feature {}
       do
          ncurses.when_idle(agent curses_idle)
          ui.run_curses(app)
+      rescue
+         ncurses.disable_and_exit
       end
 
    curses_idle is

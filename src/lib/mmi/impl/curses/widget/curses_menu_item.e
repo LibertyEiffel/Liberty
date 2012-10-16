@@ -10,7 +10,15 @@ insert
    CURSES_ITEM[UI_MENU_ITEM]
 
 feature {CURSES_ITEM}
-   run (context: CURSES_CONTEXT): BOOLEAN is
+   start: BOOLEAN is
+      deferred
+      end
+
+   key_pressed (code: INTEGER): BOOLEAN is
+      deferred
+      end
+
+   resized: BOOLEAN is
       deferred
       end
 
