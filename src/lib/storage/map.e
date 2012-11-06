@@ -234,6 +234,12 @@ feature {ANY} -- To provide iterating facilities:
          Result /= Void
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      deferred
+      ensure
+         Result /= Void
+      end
+
    key_map_in (buffer: COLLECTION[K_]) is
          -- Append in `buffer', all available keys (this may be useful to
          -- speed up the traversal).

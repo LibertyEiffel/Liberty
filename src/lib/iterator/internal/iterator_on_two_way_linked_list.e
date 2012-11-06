@@ -49,11 +49,13 @@ feature {ANY}
          item_link := item_link.next
       end
 
-feature {}
+feature {ANY}
    iterable_generation:  INTEGER is
       do
          Result := linked_list.generation
       end
+
+   generation: INTEGER
 
 end -- class ITERATOR_ON_TWO_WAY_LINKED_LIST
 --

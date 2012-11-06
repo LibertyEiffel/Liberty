@@ -1,66 +1,62 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
+class ITERATOR_ON_BIJECTIVE_DICTIONARY[V_, K_]
    -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-   ITERATOR[V_]
+   ITERATOR[TUPLE[V_, K_]]
 
 creation {ANY}
    make
 
 feature {}
-   node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
+   bijective_dictionary: BIJECTIVE_DICTIONARY[V_, K_]
+         -- The one to be traversed.
 
-   dico: ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
+   item_index: INTEGER
 
 feature {ANY}
-   make (a_dico: like dico) is
+   make (d: like bijective_dictionary) is
       require
-         a_dico /= Void
+         d /= Void
       do
-         dico := a_dico
+         bijective_dictionary := d
          start
       ensure
-         dico = a_dico
+         bijective_dictionary = d
       end
 
    start is
       do
-         node := dico.first_node
+         item_index := 1
          generation := iterable_generation
-         index := dico.lower
       end
 
    is_off: BOOLEAN is
       do
-         Result := node = Void
-         check Result = (index > dico.upper) end
+         Result := item_index > bijective_dictionary.count
       end
 
-   item: V_ is
+   item: TUPLE[V_, K_] is
       do
-         Result := node.item
+         Result := [bijective_dictionary.item(item_index), bijective_dictionary.key(item_index)]
       end
 
    next is
       do
-         node := node.next_link
-         index := index + 1
+         item_index := item_index + 1
       end
-
-   index: INTEGER
 
 feature {ANY}
    iterable_generation: INTEGER is
       do
-         Result := dico.generation
+         Result := bijective_dictionary.generation
       end
 
    generation: INTEGER
 
-end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS
+end -- class ITERATOR_ON_BIJECTIVE_DICTIONARY
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

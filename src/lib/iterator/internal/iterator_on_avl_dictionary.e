@@ -1,7 +1,7 @@
-class ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]
+class ITERATOR_ON_AVL_DICTIONARY[V_, K_]
 
 inherit
-   ITERATOR[V_]
+   ITERATOR[TUPLE[V, K_]]
 
 insert
    AVL_TREE_ITERATOR[K_]
@@ -24,12 +24,12 @@ feature {ANY}
          Result := cur = Void
       end
 
-   item: V_ is
+   item: TUPLE[V_, K_] is
       local
          node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
          node ::= cur
-         Result := node.value
+         Result := [node.key, node.value]
       end
 
    next is
@@ -55,4 +55,4 @@ feature {ANY}
          Result := dico.generation
       end
 
-end -- class ITERATOR_ON_AVL_DICTIONARY_ITEMS
+end -- class ITERATOR_ON_AVL_DICTIONARY

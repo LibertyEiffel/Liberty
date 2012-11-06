@@ -63,13 +63,14 @@ feature {ANY}
          is_valid
       end
 
-feature {}
+feature {ANY} -- Check that the underlying traversable has not changed
    iterable_generation: INTEGER is
       deferred
       end
 
-feature {ITERABLE}
-   generation: INTEGER
+   generation: INTEGER is
+      deferred
+      end
 
 feature {ANY} -- Agent-based features:
    do_all (action: ROUTINE[TUPLE[E_]]) is
@@ -141,6 +142,18 @@ feature {ANY} -- Agent-based features:
             next
          end
       end
+
+feature {} -- Invariant on `generation` dynamics
+   generation_for_invariant: INTEGER
+
+   generation_only_grows: BOOLEAN is
+      do
+         Result := generation >= generation_for_invariant
+         generation_for_invariant := generation
+      end
+
+invariant
+   generation_only_grows
 
 end -- class ITERATOR
 --

@@ -147,6 +147,11 @@ feature {ANY}
          create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_AVL_DICTIONARY[V_, K_]} Result.make(Current)
+      end
+
    internal_key (k: K_): K_ is
       do
          Result := root.at(k).key

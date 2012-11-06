@@ -1,66 +1,67 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
+class ITERATOR_ON_ZIP[V_, K_]
    -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-   ITERATOR[V_]
+   ITERATOR[TUPLE[V_, K_]]
 
 creation {ANY}
    make
 
 feature {}
-   node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
-
-   dico: ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
+   values: ITERATOR[V_]
+   keys: ITERATOR[K_]
 
 feature {ANY}
-   make (a_dico: like dico) is
+   make (v: like values; k: like keys) is
       require
-         a_dico /= Void
+         v /= Void
+         k /= Void
       do
-         dico := a_dico
+         values := v
+         keys := k
          start
       ensure
-         dico = a_dico
+         values = v
+         keys = k
       end
 
    start is
       do
-         node := dico.first_node
-         generation := iterable_generation
-         index := dico.lower
+         values.start
+         keys.start
       end
 
    is_off: BOOLEAN is
       do
-         Result := node = Void
-         check Result = (index > dico.upper) end
+         Result := values.is_off or else keys.is_off
       end
 
-   item: V_ is
+   item: TUPLE[V_, K_] is
       do
-         Result := node.item
+         Result := [values.item, keys.item]
       end
 
    next is
       do
-         node := node.next_link
-         index := index + 1
+         values.next
+         keys.next
       end
-
-   index: INTEGER
 
 feature {ANY}
    iterable_generation: INTEGER is
       do
-         Result := dico.generation
+         Result := values.iterable_generation + keys.iterable_generation
       end
 
-   generation: INTEGER
+   generation: INTEGER is
+      do
+         Result := values.generation + keys.generation
+      end
 
-end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS
+end -- class ITERATOR_ON_ZIP
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

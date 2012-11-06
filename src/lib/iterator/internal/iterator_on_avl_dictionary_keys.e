@@ -49,6 +49,7 @@ feature {}
 
    dico: ABSTRACT_AVL_DICTIONARY[V_, K_]
 
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := dico.generation

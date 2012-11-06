@@ -1,11 +1,11 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]
+class ITERATOR_ON_LINKED_HASHED_DICTIONARY[V_, K_]
    -- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
-   ITERATOR[V_]
+   ITERATOR[TUPLE[V_, K_]]
 
 creation {ANY}
    make
@@ -39,9 +39,9 @@ feature {ANY}
          check Result = (index > dico.upper) end
       end
 
-   item: V_ is
+   item: TUPLE[V_, K_] is
       do
-         Result := node.item
+         Result := [node.item, node.key]
       end
 
    next is
@@ -60,7 +60,7 @@ feature {ANY}
 
    generation: INTEGER
 
-end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS
+end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
