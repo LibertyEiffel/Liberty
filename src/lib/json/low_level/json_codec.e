@@ -32,10 +32,15 @@ feature {}
 
    parser: JSON_PARSER is
       do
-         Result := parser_.item
-         if Result = Void then
+         if parser_ = Void then
             create Result.make(agent on_error)
-            parser_.set_item(Result)
+            create parser_.set_item(Result)
+         else
+            Result := parser_.item
+            if Result = Void then
+               create Result.make(agent on_error)
+               parser_.set_item(Result)
+            end
          end
       end
 
