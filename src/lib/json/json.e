@@ -76,7 +76,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_codec: like codec) is
+   make (a_codec: JSON_CODEC[DATA_]) is
       require
          a_codec /= Void
       do
