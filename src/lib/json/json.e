@@ -44,9 +44,8 @@ feature {ANY}
          encode_in(data, Result)
       end
 
-   decode_from (data: STRING; strin: INPUT_STREAM): DATA_ is
+   decode_from (strin: INPUT_STREAM): DATA_ is
       require
-         data /= Void
          strin.is_connected
       local
          value: JSON_VALUE
@@ -66,7 +65,7 @@ feature {ANY}
          strin: STRING_INPUT_STREAM
       do
          create strin.from_string(data)
-         Result := decode_from(data, strin)
+         Result := decode_from(strin)
          strin.disconnect
       end
 
