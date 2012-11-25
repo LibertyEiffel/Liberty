@@ -95,6 +95,9 @@ feature {ANY} -- To switch the `is_enabled' flag:
             initscr
             start_color
             set_automatic_kill_policy(True)
+            debug
+               trace_actions
+            end
             create color_pairs.make
             color_pair_counter := 1
          else
@@ -736,6 +739,15 @@ feature {}
          location: "${sys}/plugins"
          module_name: "ncurses"
          feature_name: "LINES"
+         }"
+      end
+
+   trace_actions is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "trace(TRACE_ORDINARY|TRACE_CALLS)"
          }"
       end
 

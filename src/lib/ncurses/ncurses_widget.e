@@ -163,6 +163,22 @@ feature {NCURSES_WIDGET}
          end
       end
 
+   screen_left: INTEGER is
+      do
+         Result := left
+         if parent /= Void then
+            Result := Result + parent.screen_left
+         end
+      end
+
+   screen_top: INTEGER is
+      do
+         Result := top
+         if parent /= Void then
+            Result := Result + parent.screen_top
+         end
+      end
+
    parent: NCURSES_WIDGET
 
    children: FAST_ARRAY[NCURSES_WIDGET]

@@ -1,7 +1,7 @@
 class ITERATOR_ON_AVL_DICTIONARY[V_, K_]
 
 inherit
-   ITERATOR[TUPLE[V, K_]]
+   ITERATOR[TUPLE[V_, K_]]
 
 insert
    AVL_TREE_ITERATOR[K_]
@@ -29,7 +29,7 @@ feature {ANY}
          node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
          node ::= cur
-         Result := [node.key, node.value]
+         Result := [node.value, node.key]
       end
 
    next is

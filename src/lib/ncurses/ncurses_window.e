@@ -243,11 +243,13 @@ feature {ANY} -- Size and position:
          if parent = Void then
             ncurses.check_for_error(mvwin(widget, y, x) = ncurses.ok)
          else
-            ncurses.check_for_error(mvderwin(widget, y, x) = ncurses.ok)
+            ncurses.check_for_error(mvwin(widget, parent.screen_top + y, parent.screen_left + x) = ncurses.ok)
          end
       ensure
          left = x
          top = y
+         screen_left = old (screen_left - left) + x
+         screen_top = old (screen_top - top) + y
       end
 
 feature {ANY}
@@ -743,6 +745,7 @@ feature {}
          set_keypad
          set_cursor(0, 0)
          set_default_colors
+         ncurses.check_for_error(leaveok(widget, cursor_can_move) = ncurses.ok)
       end
 
    set_keypad is
@@ -752,6 +755,8 @@ feature {}
       do
          ncurses.check_for_error(keypad(widget, 1) = ncurses.ok)
       end
+
+   cursor_can_move: BOOLEAN is False -- will be True for text entry widgets
 
 feature {} -- Below are plug_in connections to the curses library.
    newwin (lines, columns, y, x: INTEGER): POINTER is
@@ -1070,6 +1075,15 @@ feature {} -- Below are plug_in connections to the curses library.
       end
 
    scrollok (win: POINTER; bf: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "scrollok"
+         }"
+      end
+
+   leaveok (win: POINTER; bf: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

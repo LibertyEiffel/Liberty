@@ -21,7 +21,7 @@ insert
       rename
          item_memory as key_memory
       export
-         {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS} root
+         {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS, ITERATOR_ON_AVL_DICTIONARY} root
       end
 
 feature {ANY}

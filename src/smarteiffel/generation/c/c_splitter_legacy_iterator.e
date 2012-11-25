@@ -4,51 +4,53 @@
 class C_SPLITTER_LEGACY_ITERATOR
 
 inherit
-        ITERATOR[STRING]
+   ITERATOR[STRING]
 
 creation {C_SPLITTER_LEGACY}
-        make
+   make
 
 feature {ANY}
-        start is
-                do
-                        index := count
-                end
+   start is
+      do
+         index := count
+      end
 
-        is_off: BOOLEAN is
-                do
-                        Result := index = 0
-                end
+   is_off: BOOLEAN is
+      do
+         Result := index = 0
+      end
 
-        item: STRING is
-                do
-                        Result := once ""
-                        Result.clear_count
-                        index.append_in(Result)
-                end
+   item: STRING is
+      do
+         Result := once ""
+         Result.clear_count
+         index.append_in(Result)
+      end
 
-        next is
-                do
-                        index := index - 1
-                end
+   next is
+      do
+         index := index - 1
+      end
 
 feature {}
-        make (a_count: like count) is
-                require
-                        a_count > 0
-                do
-                        count := a_count
-                        start
-                end
+   make (a_count: like count) is
+      require
+         a_count > 0
+      do
+         count := a_count
+         start
+      end
 
-        index: INTEGER
-        count: INTEGER
+   index: INTEGER
+   count: INTEGER
 
+feature {ANY}
+   generation: INTEGER is 0
    iterable_generation: INTEGER is 0 -- not managed
 
 invariant
-        index.in_range(0, count)
-        index /= 0 implies not is_off
+   index.in_range(0, count)
+   index /= 0 implies not is_off
 
 end -- class C_SPLITTER_LEGACY_ITERATOR
 --

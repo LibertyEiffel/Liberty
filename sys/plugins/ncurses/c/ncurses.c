@@ -60,14 +60,14 @@ void init_screen(void) {
 int wgetwidth(void* win) {
      int x, y;
      getmaxyx((WINDOW*)win, y, x);
-     return x - wgetleft(win); /* *************************************************************** A TESTER */
+     return x - wgetleft(win);
 }
 
 
 int wgetheight(void* win) {
      int x, y;
      getmaxyx((WINDOW*)win, y, x);
-     return y - wgettop(win); /* **************************************************************** A TESTER */
+     return y - wgettop(win);
 }
 
 
@@ -75,7 +75,7 @@ int wgetleft(void* win) {
      int x, y;
      getparyx((WINDOW*)win, y, x);
      if (x == -1) {
-          getparyx((WINDOW*)win, y, x);
+          getbegyx((WINDOW*)win, y, x);
      }
      return x;
 }
@@ -85,7 +85,7 @@ int wgettop(void* win) {
      int x, y;
      getparyx((WINDOW*)win, y, x);
      if (y == -1) {
-          getparyx((WINDOW*)win, y, x);
+          getbegyx((WINDOW*)win, y, x);
      }
      return y;
 }
