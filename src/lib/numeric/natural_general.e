@@ -231,6 +231,35 @@ feature {ANY} -- Object printing
          Current.append_in(tagged_out_memory)
       end
 
+   to_hexadecimal: STRING is
+      do
+         string_buffer.clear_count
+         to_hexadecimal_in(string_buffer)
+         Result := string_buffer.twin
+      end
+
+   to_hexadecimal_in (buffer: STRING) is
+      local
+         index, timez: INTEGER; value: NATURAL_64
+      do
+         from
+            value := Current.to_natural_64
+            timez := object_size * 2
+            index := buffer.count + timez
+            buffer.extend_multiple(' ', timez)
+         until
+            timez = 0
+         loop
+            buffer.put((value & 0x000000000000000F.to_natural_64).hexadecimal_digit, index)
+            index := index - 1
+            value := value |>> 4
+            timez := timez - 1
+         end
+      end
+	
+	to_natural_64: NATURAL_64 is
+		deferred
+		end
    append_in (buffer: STRING) is
          -- Append in the `buffer' the equivalent of `to_string'.
          -- If you look for performances, you should always prefer `append_in' which allow you to recycle
@@ -301,6 +330,18 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
+   infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
+         -- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
+      do
+				 Result := Current #>> s
+      end
+
+	infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
+         -- Shift by `s' positions left bits falling off the end are lost.
+      do
+				 Result := Current #<< s
+      end
+				 
 feature {ANY} -- Size query
    bit_count: INTEGER_8 is
          -- The number of bits used to store the value of Current
