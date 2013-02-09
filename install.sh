@@ -305,7 +305,7 @@ function compile_all()
         progress 30 $i $n $ace
         cd $LIBERTY_HOME/target/bin/${ace}.d
         run ../se c -verbose ${ace}.ace
-        cd .. && test -e $ace || ln -s ${ace}.d/$ace .
+        cd .. && test -e "$ace" || ln -s ${ace}.d/$ace .
         i=$((i+1))
     done
     progress 30 $n $n "done."

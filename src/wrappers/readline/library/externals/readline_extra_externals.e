@@ -16,7 +16,7 @@ feature {} -- External calls
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "extra_set_rl_attempted_completion_function"
+         feature_name: "set_rl_attempted_completion_function"
          }"
       end
 
