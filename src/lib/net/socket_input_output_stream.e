@@ -29,7 +29,11 @@ feature {ANY}
    can_read_character: BOOLEAN is
          -- Can be ''temporarily'' False because the socket does not yet have available data
       do
-         ensure_read
+         if delay_read then
+            delayed_read
+         else
+            ensure_read
+         end
          Result := not end_of_stream or else in_buffer.valid_index(next_index)
       end
 
@@ -65,11 +69,27 @@ feature {ANY}
          Result := socket.error
       end
 
+feature {}
+   delay_read: BOOLEAN
+
+   delayed_read is
+      require
+         delay_read
+      do
+         delay_read := False
+         ensure_read
+         index := next_index
+      ensure
+         not delay_read
+      end
+
 feature {FILTER_INPUT_STREAM}
    filtered_read_character is
       do
-         ensure_read
-         index := next_index
+         if delay_read then
+            delayed_read
+         end
+         delay_read := True
       end
 
    filtered_unread_character is
@@ -79,12 +99,15 @@ feature {FILTER_INPUT_STREAM}
 
    filtered_last_character: CHARACTER is
       do
+         if delay_read then
+            delayed_read
+         end
          Result := in_buffer.item(index)
       end
 
    filtered_read_line_in (buffer: STRING) is
       do
-         -- Redefine not to take can_read_character into account since it is temporary
+         -- Redefined not to take can_read_character into account since it is temporary
          from
             filtered_read_character
          until
@@ -111,7 +134,11 @@ feature {FILTER_INPUT_STREAM}
       local
          i, n: INTEGER
       do
-         ensure_read
+         if delay_read then
+            delayed_read
+         else
+            ensure_read
+         end
          index := next_index
          n := in_buffer.count - index + 1
          if limit < n then
@@ -166,6 +193,8 @@ feature {}
    ensure_read is
          -- Read some new data from the socket if it is available. Does not read anything if all the already
          -- read data is not yet consumed. Set `next_index' to the index of the next character to be read.
+      require
+         not delay_read
       do
          if next_index = index then
             -- It means that a real read operation was performed, or the stream is newly connected.
@@ -176,7 +205,7 @@ feature {}
                end
                next_index := index + 1
             elseif socket.is_connected then
-               socket.read(read_sync)
+               socket.read
                if socket.last_read.is_empty then
                   end_of_stream := True
                   --next_index := index + 1
@@ -245,7 +274,7 @@ feature {}
       deferred
       end
 
-   make (a_read_sync: like read_sync) is
+   make is
          -- Should be called by the creation procedures after the `socket' is set (the assertions ensure just
          -- that)
       require
@@ -255,7 +284,6 @@ feature {}
          in_buffer := ""
          out_buffer := ""
          socket.when_disconnected(agent socket_disconnected(?))
-         read_sync := a_read_sync
          beginning_of_stream := True
       ensure
          at_beginning: beginning_of_stream and then index = in_buffer.lower - 1
@@ -289,42 +317,12 @@ feature {}
 
    disconnect_handlers: FAST_ARRAY[PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]]]
 
-   read_sync: BOOLEAN
-         -- True if read should be blocking until data is available
-
 invariant
    socket /= Void
    index >= in_buffer.lower or else (beginning_of_stream and then index = in_buffer.lower - 1)
    init_by_heirs: is_made
 
 end -- class SOCKET_INPUT_OUTPUT_STREAM
---
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

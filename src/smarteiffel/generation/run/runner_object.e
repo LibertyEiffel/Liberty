@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 deferred class RUNNER_OBJECT
@@ -22,7 +22,26 @@ feature {ANY}
       deferred
       end
 
-   to_builtin_pointer: POINTER is
+   is_initialized: BOOLEAN is
+      deferred
+      end
+
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
+      deferred
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      require
+         other /= Void
+         other.type = type
+         other.processor = processor
+      deferred
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      require
+         other /= Void
       deferred
       end
 

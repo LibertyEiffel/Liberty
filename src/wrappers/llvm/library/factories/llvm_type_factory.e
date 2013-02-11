@@ -16,7 +16,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 
 	type_wrapper (a_pointer: POINTER): LLVM_TYPE is
 		-- The LLVM_TYPE for `a_pointer' of the fittest type.
-	local a_type: LLVMTYPE_KIND_ENUM
+	local a_type: LLVMTYPEKIND_ENUM
 	do
 		a_type.change_value(llvmget_type_kind(a_pointer))
 		-- The following long conditional instruction ideally should be an

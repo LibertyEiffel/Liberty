@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELTEST
@@ -25,7 +25,7 @@ feature {ANY}
 
       Information:
         -help               Display this help information (no test run)
-        -version            Display SmartEiffel version information (no test run)
+        -version            Display Liberty Eiffel version information (no test run)
         -verbose            Display detailed information about what eiffeltest is doing
 
       ]"
@@ -607,8 +607,8 @@ feature {}
             die_with_code(exit_failure_code)
          end
          text_file_write.put_string(once "{
-READ_ME.txt file automatically created by the "eiffeltest" command of SmartEiffel.
-(SmartEiffel is The GNU Eiffel Compiler, Eiffel tools and libraries.)
+READ_ME.txt file automatically created by the "eiffeltest" command of Liberty Eiffel.
+(Liberty Eiffel is The GNU Eiffel Compiler, Eiffel tools and libraries.)
 
 This "eiffeltest" directory is used by the "eiffeltest" command to store data or
 informations about your Eiffel test directory.
@@ -1454,11 +1454,6 @@ feature {}
          text_file_write.disconnect
       end
 
-   strings: STRING_RECYCLING_POOL is
-      once
-         create Result.make
-      end
-
    final_die_with_code_result: INTEGER
          -- For those who are using "se test" with scripts.
 
@@ -1467,17 +1462,23 @@ end -- class EIFFELTEST
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

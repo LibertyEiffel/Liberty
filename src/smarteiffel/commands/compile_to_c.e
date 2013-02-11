@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class COMPILE_TO_C
@@ -10,7 +10,7 @@ inherit
    COMMAND_LINE_TOOLS
 
 creation {}
-   make
+   make, make_shrink
 
 feature {ANY}
    command_line_name: STRING is "compile_to_c"
@@ -29,7 +29,7 @@ feature {ANY}
 
       Information:
         -help               Display this help information
-        -version            Display SmartEiffel version information
+        -version            Display Liberty Eiffel version information
         -verbose            Display detailed information about what the compiler is
                              doing
 
@@ -72,11 +72,12 @@ feature {ANY}
         -no_split           Generate only one C file
         -split <split mode> Selects the split mode
                              Either 'no', 'legacy', or 'by_type'
-        -sedb               Enable sedb, the SmartEiffel debugger
+        -sedb               Enable sedb, the Liberty Eiffel debugger
         -profile            Generates profile on Eiffel calls at program exit
         -manifest_string_trace
                             Enable the trace support to track non-once
                             manifest string creation
+        -no_rescue          Don't compile rescue sections
 
       Miscellaneous:
         -high_memory_compiler
@@ -87,6 +88,12 @@ feature {ANY}
       ]"
 
 feature {}
+   make_shrink is
+      do
+         shrink_generic_types_memory.set_item(True)
+         make
+      end
+
    make is
          -- Command line parsing has two passes: first, options are parsed and then, the extra options are added.
       local
@@ -175,6 +182,8 @@ feature {}
                argi := argi + 1
             elseif is_manifest_string_trace_flag(arg) then
                argi := argi + 1
+            elseif is_no_rescue_flag(arg) then
+               argi := argi + 1
             elseif flag_match(fz_no_strip, arg) then
                system_tools.set_no_strip
                argi := argi + 1
@@ -206,8 +215,8 @@ feature {}
                      ace.set_precompile_header
                   else
                      echo.w_put_string(once "[
-                                             SmartEiffel does not (yet) support precompiled headers for
-                                             this C compiler. Please drop an e-mail SmartEiffel@loria.fr%N
+                                             Liberty Eiffel does not (yet) support precompiled headers for
+                                             this C compiler. Please drop an e-mail liberty-eiffel.blogspot.com%N
                                              ]")
                   end
                end
@@ -274,17 +283,23 @@ end -- class COMPILE_TO_C
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

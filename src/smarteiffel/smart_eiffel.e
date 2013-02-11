@@ -1,10 +1,10 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class SMART_EIFFEL
    --
    -- Singleton object to handle general purpose information about the
-   -- SmartEiffel global compilation process. (This singleton is shared via
+   -- Liberty Eiffel global compilation process. (This singleton is shared via
    -- the GLOBALS.`smart_eiffel' once function.)
    --
 
@@ -17,13 +17,13 @@ insert
 feature {ANY}
    copyright: STRING is
       once
-         Result := "SmartEiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
+         Result := "Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
          Result.append(release_number)
          Result.append("[
                         Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
                         Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - SmartEiffel@loria.fr
-                        http://SmartEiffel.loria.fr
+                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - liberty-eiffel.blogspot.com
+                        http://liberty-eiffel.blogspot.com
 
                         Copyright (C), 2011 - C.ADRIAN - cyril.adrian@gmail.com
                         https://github.com/LibertyEiffel/Liberty
@@ -364,6 +364,12 @@ feature {CODE_PRINTER}
          create {HASHED_DICTIONARY[TYPE, HASHED_STRING]} Result.with_capacity(1024)
       end
 
+   generic_type_dictionary: DICTIONARY[HASHED_STRING, HASHED_STRING] is
+         -- Helper dictionary for generic types shrinking
+      once
+         create {HASHED_DICTIONARY[HASHED_STRING, HASHED_STRING]} Result.with_capacity(1024)
+      end
+
 feature {ANY}
    magic_count: INTEGER
          -- Grow each time a new run class is added, each time a new class is
@@ -618,9 +624,9 @@ feature {TYPE_MARK}
          ln: STRING
       do
          ln := once ""
-         ln.copy(type_name.to_string)
-         ln.extend('@')
-         ln.append(type_cluster.name)
+         ln.copy(type_cluster.name)
+         ln.extend_unless(':')
+         ln.append(type_name.to_string)
          Result := string_aliaser.hashed_string(ln)
       ensure
          Result /= Void
@@ -746,6 +752,8 @@ feature {}
          lock_type_creation(static_type.long_name)
          not has_type(static_type)
       do
+         echo.put_string(once "Creating type: ")
+         echo.put_line(static_type.long_name.to_string)
          create Result.make(static_type)
       ensure
          Result /= Void
@@ -1147,13 +1155,13 @@ feature {ANY} -- To get a TYPE:
       require
          static_type.is_static
       local
-         long_name: HASHED_STRING; tm: TYPE_MARK; gl: ARRAY[TYPE_MARK]; i: INTEGER
+         long_name: HASHED_STRING; gl: ARRAY[TYPE_MARK]; i: INTEGER
       do
          long_name := static_type.long_name
          Result := type_dictionary.fast_reference_at(long_name)
          if Result = Void then
-            -- Before creating the TYPE of `static_type', we must be sure that it's generic
-            -- argument, if any, are created first:
+            -- Before creating the TYPE of `static_type', we must be sure that its generic
+            -- arguments, if any, are created first:
             if static_type.is_generic then
                from
                   gl := static_type.generic_list
@@ -1161,14 +1169,11 @@ feature {ANY} -- To get a TYPE:
                until
                   i > gl.upper
                loop
-                  tm := gl.item(i)
-                  if type_dictionary.fast_reference_at(tm.long_name) = Void then
-                     -- We must create the corresponding generic argument:
-                     Result := get_type(tm)
-                  end
+                  Result := get_type(gl.item(i))
                   i := i + 1
                end
             end
+
             -- Because it is possible that the previous computation actually resulted in
             -- creating the type of `static_type' itself:
             Result := type_dictionary.fast_reference_at(long_name)
@@ -1179,25 +1184,6 @@ feature {ANY} -- To get a TYPE:
       ensure
          Result /= Void
          has_type(static_type)
-      end
-
-   get_array_type (gen_type: TYPE; pos: POSITION): TYPE is
-         -- Returns the ARRAY[gen_type] type
-      local
-         name: STRING; hs: HASHED_STRING; atm: ARRAY_TYPE_MARK
-      do
-         name := once ""
-         name.copy(once "ARRAY[")
-         name.append(gen_type.name.to_string)
-         name.extend(']')
-         hs := string_aliaser.hashed_string(name)
-         Result := type_dictionary.fast_reference_at(hs)
-         if Result = Void then
-            create atm.make(pos, gen_type.canonical_type_mark)
-            Result := atm.type
-         end
-      ensure
-         Result /= Void
       end
 
    tuple_class_not_found_fatal_error (class_name: CLASS_NAME) is
@@ -1336,18 +1322,85 @@ feature {TYPE}
          t /= Void
          unlock_type_creation(t.long_name)
       local
-         ln: HASHED_STRING
+         buffer: STRING; i: INTEGER; gl: ARRAY[TYPE]
+         long_name, generic_long_name: HASHED_STRING; generic_type: TYPE
       do
-         ln := t.long_name
-         if type_dictionary.fast_has(ln) then
+         long_name := t.long_name
+         if type_dictionary.fast_has(long_name) then
             error_handler.append("You seem to have too classes named ")
             error_handler.append(t.canonical_type_mark.class_text_name.to_string)
             error_handler.append(". Yours is in the cluster %"")
             error_handler.append(t.class_text.cluster.directory_path)
-            error_handler.append("%". This is not possible as this class is basically used by SmartEiffel internals. Please pick another name.")
+            error_handler.append("%". This is not possible as this class is basically used by Liberty Eiffel internals. Please pick another name.")
             error_handler.print_as_fatal_error
+         end
+
+         type_dictionary.add(t, long_name)
+
+         if False and then shrink_generic_types and then t.is_generic then
+            buffer := strings.new_twin(long_name.to_string)
+            i := buffer.first_index_of('[')
+            buffer.keep_head(i)
+            from
+               gl := t.generic_list
+               i := gl.lower
+            until
+               i > gl.upper
+            loop
+               generic_type := get_constraint_ancestor(t, i)
+               if i > gl.lower then
+                  buffer.extend(',')
+               end
+               buffer.append(generic_type.long_name.to_string)
+               i := i + 1
+            end
+            buffer.extend(']')
+            generic_long_name := string_aliaser.hashed_string(buffer)
+            strings.recycle(buffer)
+
+            if not generic_type_dictionary.fast_has(generic_long_name) then
+               echo.put_string(once "Generic type: ")
+               echo.put_line(long_name.to_string)
+               echo.put_string(once "           => ")
+               echo.put_line(generic_long_name.to_string)
+               generic_type_dictionary.add(long_name, generic_long_name)
+            end
+         end
+      end
+
+feature {}
+   get_constraint_ancestor (generic_type: TYPE; rank: INTEGER): TYPE is
+      require
+         shrink_generic_types
+         generic_type.is_generic
+         generic_type.generic_list.valid_index(rank)
+      local
+         constraint_type: TYPE_MARK; code: INTEGER_8; constraint: TYPE
+      do
+         Result := generic_type.generic_list.item(rank)
+
+         constraint_type := generic_type.class_text.formal_generic_list.item(rank).constraint
+         if constraint_type = Void then
+            -- constraint is ANY
+            Result := Result.closest_to_constraint(type_any)
          else
-            type_dictionary.add(t, ln)
+            check
+               constraint_type.is_static
+            end
+            constraint := get_type(constraint_type)
+            if Result /= constraint then
+               code := Result.insert_inherit_test(constraint)
+               inspect
+                  code
+               when inherits_code then
+                  Result := constraint
+               when inserts_code then
+                  Result := Result.closest_to_constraint(constraint)
+               when unrelated_code then
+                  -- error: type not related to constraint (should have been caught earlier)
+                  -- **** ???? **** not_yet_implemented
+               end
+            end
          end
       end
 
@@ -1357,8 +1410,7 @@ feature {CLASS_CHECK}
          assignment_handler.echo_information
          feature_accumulator.echo_information
          status.info
-         eiffel_parser.show_nb_warnings
-         eiffel_parser.show_nb_errors
+         eiffel_parser.echo_information
          echo.put_string(once "Done.%N")
       end
 
@@ -1807,7 +1859,10 @@ feature {}
             until
                i > live_type_map.upper
             loop
-               live_type_map.item(i).make_run_features
+               lt := live_type_map.item(i)
+               --if lt.at_run_time then
+                  lt.make_run_features
+               --end
                i := i + 1
             end
             if nb_errors = 0 then
@@ -1817,7 +1872,9 @@ feature {}
                   i > live_type_map.upper
                loop
                   lt := live_type_map.item(i)
-                  lt.adapt_run_features_and_class_invariant
+                  if lt.at_run_time then
+                     lt.adapt_run_features_and_class_invariant
+                  end
                   i := i + 1
                end
                if nb_errors = 0 then
@@ -2358,6 +2415,25 @@ feature {C_PRETTY_PRINTER}
          is_sorted: live_type_sorter.is_sorted(live_type_map_)
       end
 
+   show_live_types is
+      local
+         i: INTEGER
+      do
+         if echo.is_verbose then
+            from
+               i := live_type_map_.lower
+            until
+               i > live_type_map_.upper
+            loop
+               if live_type_map_.item(i).at_run_time then
+                  echo.put_string(once "Will generate live type: ")
+                  echo.put_line(live_type_map_.item(i).name.to_string)
+               end
+               i := i + 1
+            end
+         end
+      end
+
 feature {}
    live_type_map_: FAST_ARRAY[LIVE_TYPE]
    live_type_sorter: COLLECTION_SORTER[LIVE_TYPE]
@@ -2367,17 +2443,23 @@ end -- class SMART_EIFFEL
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

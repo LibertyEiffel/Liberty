@@ -1,0 +1,83 @@
+-- This file is part of a Liberty Eiffel library.
+-- See the full copyright at the end.
+--
+class PACKRAT_IMAGE
+
+inherit
+   PARSER_IMAGE
+      redefine
+         out_in_tagged_out_memory
+      end
+
+insert
+   PACKRAT_INTERNAL
+      redefine
+         out_in_tagged_out_memory
+      end
+
+creation {PACKRAT_INTERNAL}
+   make
+
+feature {ANY}
+   image: STRING
+         -- the real image of the token
+
+   line: INTEGER is
+      do
+         Result := position.line
+      end
+
+   column: INTEGER is
+      do
+         Result := position.column
+      end
+
+   index: INTEGER is
+      do
+         Result := position.index
+      end
+
+   out_in_tagged_out_memory is
+      do
+         tagged_out_memory.append(image)
+      end
+
+feature {}
+   position: PACKRAT_POSITION
+         -- the position of the `image' (discarding the leading `blanks')
+
+   make (a_image: like image; a_position: like position) is
+      require
+         a_image /= Void
+      do
+         image := a_image
+         position := a_position
+      ensure
+         image = a_image
+         position = a_position
+      end
+
+invariant
+   image /= Void
+
+end -- class PACKRAT_IMAGE
+--
+-- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class RUNNER_ANY_BUILTINS
@@ -53,7 +53,7 @@ feature {}
             builtin_trace_switch(processor)
             Result := True
          when "sedb_breakpoint" then
-            builtin_sedb_breakpoint(processor)
+            builtin_break(processor)
             Result := True
          when "die_with_code" then
             builtin_die_with_code(processor)
@@ -104,67 +104,74 @@ feature {}
 
    builtin_is_equal (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.current_frame.set_return(processor.new_boolean(processor.current_frame.target.builtin_is_equal(processor.current_frame.arguments.first)))
       end
 
    builtin_is_deep_equal (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_twin (processor: RUNNER_PROCESSOR) is
+      local
+         object: RUNNER_OBJECT
       do
-         sedb_breakpoint --| **** TODO
+         object := processor.new_object(processor.current_frame.type_of_current)
+         object.builtin_copy(processor.current_frame.target)
+         processor.current_frame.set_return(object)
       end
 
    builtin_copy (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         processor.current_frame.target.builtin_copy(processor.current_frame.arguments.first)
       end
 
    builtin_deep_twin (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_trace_switch (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
-   builtin_sedb_breakpoint (processor: RUNNER_PROCESSOR) is
+   builtin_break (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_die_with_code (processor: RUNNER_PROCESSOR) is
+      local
+         exit_code: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
-         sedb_breakpoint --| **** TODO
+         exit_code ::= processor.current_frame.arguments.first
+         die_with_code(exit_code.item.to_integer_32)
       end
 
    builtin_to_pointer (processor: RUNNER_PROCESSOR) is
       do
-         processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.to_builtin_pointer))
+         processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.builtin_to_pointer))
       end
 
    builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_object_size (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_c_inline_h (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_c_inline_c (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
    builtin_print_run_time_stack (processor: RUNNER_PROCESSOR) is
@@ -174,7 +181,7 @@ feature {}
 
    builtin_to_internals (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}
@@ -195,17 +202,23 @@ end -- class RUNNER_ANY_BUILTINS
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

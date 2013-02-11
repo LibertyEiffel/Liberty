@@ -1,0 +1,5 @@
+liberty_readline_extra.h
+----------------------------------------------------------------------
+readline_extra_completion_start READLINE_CECIL completion_start
+readline_extra_completion_more  READLINE_CECIL completion_more
+readline_extra_completion_done  READLINE_CECIL completion_done

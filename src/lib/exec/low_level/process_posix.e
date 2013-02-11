@@ -119,9 +119,11 @@ feature {PROCESS_GROUP}
 feature {}
    dispose is
       do
-         -- Call is_finished to get a last opportunity to clean up
-         if not (is_connected implies is_finished) then
-            breakpoint
+         -- last opportunity to clean up
+         if not is_child then
+            if is_connected and then not is_finished then
+               breakpoint
+            end
          end
          basic_exec_free_data(data)
       end

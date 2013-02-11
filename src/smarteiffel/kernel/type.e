@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class TYPE
@@ -285,6 +285,51 @@ feature {ANY}
       ensure
          (Result = unrelated_code) xor (Result = inserts_code) xor (Result = inherits_code)
          not_done_to_report_errors: error_handler.is_empty
+      end
+
+feature {SMART_EIFFEL, TYPE}
+   closest_to_constraint (constraint: TYPE): TYPE is
+         -- Find some type this one conforms to, on the inheritance link up to the constraint. If there is
+         -- more than one possibility, the choice should not matter.
+         --
+         -- Used to implement type lookup when shrinking the generic types space.
+      require
+         not_obvious: constraint /= Current and then not Current.inherits_from(constraint)
+      local
+         i: INTEGER; type, insert_type: TYPE
+         a_parent_edge: PARENT_EDGE
+      do
+         from
+            Result := Current
+            i := 1
+         until
+            Result /= Current or else i > parents_count
+         loop
+            a_parent_edge := parent_edge_load(i)
+            if a_parent_edge.is_inherit_member then
+               type := a_parent_edge.type_mark.resolve_in(Current)
+               if type = constraint then
+                  Result := type
+               else
+                  inspect
+                     type.insert_inherit_test(constraint)
+                  when inherits_code then
+                     Result := type.closest_to_constraint(constraint)
+                  when inserts_code then
+                     insert_type := type
+                  else
+                  end
+               end
+            end
+            i := i + 1
+         end
+         if Result = Current and then insert_type /= Void then
+            Result := insert_type
+         end
+      ensure
+         Result /= Void
+         Result = Current xor Current.inherits_from(Result)
+         Result.inserts(constraint)
       end
 
 feature {OLD_MANIFEST_ARRAY}
@@ -1453,17 +1498,23 @@ end -- class TYPE
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

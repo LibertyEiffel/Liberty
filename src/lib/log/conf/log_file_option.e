@@ -10,7 +10,7 @@ feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
       deferred
       ensure
          Result /= stream implies not stream.is_connected
-         Result.is_connected
+         Result /= Void implies Result.is_connected
          --Result.path = old stream.path
       end
 

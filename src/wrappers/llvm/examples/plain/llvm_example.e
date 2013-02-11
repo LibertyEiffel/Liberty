@@ -114,7 +114,7 @@ feature {} -- Creation
 		-- dummy feature to trigger plugin usage
 	local p: POINTER
 	do
-		p:=llvmint_32type
+		p:=llvmint32type
 	end
 feature {} -- tests agents
 	name_not_void (a_value: LLVM_VALUE): BOOLEAN is
@@ -131,7 +131,7 @@ feature {} -- tests agents
 			Result := a_value.name.is_equal(a_name)
 		end
 feature {ANY} -- data
-	calling_convention: LLVMCALL_CONV_ENUM
+	calling_convention: LLVMCALLCONV_ENUM
 	module: LLVM_MODULE 
 	builder: LLVM_BUILDER  
 	block: LLVM_BASIC_BLOCK 

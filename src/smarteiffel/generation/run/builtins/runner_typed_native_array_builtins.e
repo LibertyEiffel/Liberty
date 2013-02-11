@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class RUNNER_TYPED_NATIVE_ARRAY_BUILTINS[E_, O_ -> RUNNER_OBJECT]
@@ -23,7 +23,7 @@ feature {RUNNER_MEMORY}
 feature {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
    with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_] is
       do
-         create Result.make(processor, type, capacity, storage, retriever, setter, Current)
+         create Result.make(processor, type, element_type, capacity, storage, retriever, setter, Current)
       end
 
 feature {}
@@ -81,7 +81,12 @@ feature {}
       do
          caller ::= processor.current_frame.target
          index ::= processor.current_frame.arguments.first
-         processor.current_frame.set_return(caller.item(index.item))
+         if index.item.in_range(0, caller.capacity - 1) then
+            processor.current_frame.set_return(caller.item(index.item))
+         else
+            processor.current_frame.debug_stack
+            break --| **** BUG
+         end
       end
 
    builtin_put (processor: RUNNER_PROCESSOR) is
@@ -97,25 +102,41 @@ feature {}
       end
 
    builtin_slice_copy (processor: RUNNER_PROCESSOR) is
+      local
+         at, src_min, src_max: RUNNER_NATIVE_EXPANDED[INTEGER_64]
+         caller, src: RUNNER_NATIVE_ARRAY[E_, O_]
+         arguments: ITERATOR[RUNNER_OBJECT]
       do
-         sedb_breakpoint --| **** TODO
+         caller ::= processor.current_frame.target
+         arguments := processor.current_frame.arguments.new_iterator
+         at ::= arguments.item
+         arguments.next
+         src ::= arguments.item
+         arguments.next
+         src_min ::= arguments.item
+         arguments.next
+         src_max ::= arguments.item
+         caller.slice_copy(at.item, src, src_min.item, src_max.item)
       end
 
    builtin_from_pointer (processor: RUNNER_PROCESSOR) is
       do
-         sedb_breakpoint --| **** TODO
+         break --| **** TODO
       end
 
 feature {}
-   make (a_type: like type; a_retriever: like retriever; a_setter: like setter) is
+   make (a_type: like type; a_element_type: like element_type; a_retriever: like retriever; a_setter: like setter) is
       require
          a_type /= Void
+         a_element_type /= Void
       do
          type := a_type
+         element_type := a_element_type
          retriever := a_retriever
          setter := a_setter
       ensure
          type = a_type
+         element_type = a_element_type
          retriever = a_retriever
          setter = a_setter
       end
@@ -125,27 +146,35 @@ feature {}
 
 feature {RUNNER_FACET}
    type: TYPE
+   element_type: TYPE
 
 invariant
    retriever /= Void
    setter /= Void
+   element_type /= Void
 
 end -- class RUNNER_TYPED_NATIVE_ARRAY_BUILTINS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

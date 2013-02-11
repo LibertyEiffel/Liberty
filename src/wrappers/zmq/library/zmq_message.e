@@ -6,24 +6,25 @@ inherit
 	C_STRUCT redefine default_create end 
 	EIFFEL_OWNED redefine default_create, dispose end 
 insert
+	ZMQ_STATUS
 	ZMQ_EXTERNALS redefine default_create end
-	ZMQ_MSG_T_STRUCT
+	ZMQ_MSG_T_STRUCT redefine default_create end
 	STDLIB_EXTERNALS redefine default_create end
 	EXCEPTIONS undefine copy, default_create, is_equal end
 	ERRNO redefine default_create end
 
-creation {ANY} default_create, with_size
+creation {ANY} copy,default_create, with_size
 
 feature {} -- Creation
 	default_create is
 		-- Initialize an empty ØMQ message
-		local res: INTEGER_32
 		do
 			handle := malloc(struct_size)
-			res:=zmq_msg_init(handle)
+			is_successful:=zmq_msg_init(handle)=0
+			if is_unsuccessful then throw(zmq_exception) end
 		end
 
-	with_size (a_size: NATURAL_32) is
+	with_size (a_size: like size) is
 		-- Initialize a ØMQ message `a_size' bytes long. The implementation
 		-- chooses whether it is more efficient to store message content on the
 		-- stack (small  messages) or  on  the  heap  (large  messages).
@@ -32,7 +33,8 @@ feature {} -- Creation
 	local res: INTEGER_32
 	do
 		handle := malloc(struct_size)
-		res:=zmq_msg_init_size(handle,a_size)
+		is_successful:=zmq_msg_init_size(handle,a_size)=0
+		if is_unsuccessful then throw(zmq_exception) end
 	end
 
 	--with (some_data: ANY) is
@@ -61,37 +63,8 @@ feature {} -- Creation
 	--	implementation: data=some_data.to_pointer and size=some_data.object_size.to_natural_32
 	--end
 
-feature {ANY} -- Disposing
-	dispose is
-		local rc: INTEGER_32
-		do
-			rc:=zmq_msg_close(handle)
-			check rc=0 end
-			free(handle)
-		end
-	
-	close is
-		local rc: INTEGER_32
-		do
-			rc:=zmq_msg_close(handle)
-			check rc=0 end
-		end
-	
-feature {ANY} -- Command
-	initialize is
-		-- Initialize message
-	local rc: INTEGER_32
-	do
-		rc := zmq_msg_init(handle)
-		check rc/=0 end
-		-- Note: It is debatable whenever the following style is reccomendedable:
-		-- if rc /= 0 then
-		-- 	raise(create {STRING}.from_external_copy(zmq_strerror(errno)))
-		-- end
-	end
-
-feature {} -- Implementation
-	size: NATURAL_32 is
+feature {ANY} -- Queries
+	size: like zmq_msg_size is
 		-- the size of message content
 	
 		-- TODO: shall be like size_t
@@ -99,6 +72,42 @@ feature {} -- Implementation
 		Result := zmq_msg_size(handle)
 	end
 
+feature -- Convertions.
+	as_string_message: ZMQ_STRING_MESSAGE is
+		-- A string message with the same content of
+	do
+		create Result.from_message(Current)
+	end
+
+feature {ANY} -- Disposing
+	dispose is
+		do
+			close
+			free(handle)
+		end
+	
+
+feature {ANY} -- Command
+	initialize is
+		-- Initialize message
+	do
+		is_successful := zmq_msg_init(handle)=0
+		if is_unsuccessful then throw(zmq_exception) end
+	end
+
+feature {ZMQ_RECEIVING_SOCKET} update is
+		-- Do whatever is needed to update the status of Current. Used by
+		-- receive commands of a ZMQ_RECEIVING_SOCKET.  For example a
+		-- ZMQ_STRING_MESSAGE will look for its actual lenght after being
+		-- received.
+	do end
+
+feature {} -- Implementation
+	close is
+		do
+			handle_return_value(zmq_msg_close(handle))
+		end
+	
 	data: POINTER is
 		do
 			Result:=zmq_msg_data(handle)

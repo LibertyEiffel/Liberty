@@ -26,7 +26,7 @@ feature {ANY}
       do
          filtered_stream_pointer := binary_file_read_open(new_path.to_external)
          if filtered_stream_pointer.is_not_null then
-            path := new_path
+            set_path(new_path)
             end_of_input := False
             if capacity = 0 then
                buffer := buffer.calloc(4096)
@@ -175,7 +175,7 @@ feature {ANY}
    end_of_input: BOOLEAN
 
    seek (new_offset: INTEGER_64) is
-         -- Next read will start at position `new_offset', counted from 
+         -- Next read will start at position `new_offset', counted from
          -- the begining of the file.
          --
          -- See also `offset'.
@@ -195,7 +195,7 @@ feature {ANY}
    offset: INTEGER_64 is
          -- The `offset' that will be used for the next read.
          --
-         -- See also `seek'.      
+         -- See also `seek'.
       require
          not is_filtered
       do
@@ -207,7 +207,7 @@ feature {FILTER}
       do
          Result := sequencer_descriptor(filtered_stream_pointer)
       end
-   
+
    filtered_has_descriptor: BOOLEAN is True
 
    filtered_stream_pointer: POINTER
@@ -263,7 +263,7 @@ feature {}
          buffer := buffer.calloc(buffer_capacity)
          capacity := buffer_capacity
       end
-         
+
    binary_file_read_open (path_pointer: POINTER): POINTER is
       external "plug_in"
       alias "{

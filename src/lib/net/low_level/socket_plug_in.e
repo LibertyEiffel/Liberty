@@ -25,7 +25,7 @@ feature {}
       end
 
 feature {} -- Plugin
-   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -34,7 +34,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER): INTEGER is
+   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -43,7 +43,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local (a_port: INTEGER): INTEGER is
+   net_local (a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -79,7 +79,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]) is
+   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]; a_sync: BOOLEAN) is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -124,6 +124,15 @@ feature {} -- Plugin
          }"
       end
 
+   net_last_error_try_again: BOOLEAN is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_last_error_try_again()"
+         }"
+      end
+
    net_hostname (a_hostname: POINTER): INTEGER is
       external "plug_in"
       alias "{
@@ -133,7 +142,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_server (port: INTEGER): INTEGER is
+   net_tcp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -142,7 +151,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp_server (port: INTEGER): INTEGER is
+   net_udp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -151,7 +160,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local_server (port: INTEGER): INTEGER is
+   net_local_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -178,12 +187,30 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_socket: INTEGER is
+   net_tcp_socket (sync: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
          module_name: "net"
-         feature_name: "net_tcp_socket()"
+         feature_name: "net_tcp_socket"
+         }"
+      end
+
+   net_udp_socket (sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_udp_socket"
+         }"
+      end
+
+   net_local_socket (sync: BOOLEAN): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net"
+         feature_name: "net_local_socket"
          }"
       end
 
@@ -251,34 +278,8 @@ feature {} -- Macros for setting options
          feature_name: "AF_INET"
          }"
       end
+
 end -- class SOCKET_PLUG_IN
---
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

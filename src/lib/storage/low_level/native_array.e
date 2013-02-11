@@ -766,21 +766,8 @@ feature {ANY} -- Other:
          -- Note: for non Void items, the test is performed with the `is_default' predicate.
       require
          upper >= -1
-      local
-         i: INTEGER; v: like item
       do
-         from
-            Result := True
-            i := upper
-         until
-            i < 0 or else not Result
-         loop
-            v := item(i)
-            if v /= Void then
-               Result := v.is_default
-            end
-            i := i - 1
-         end
+         Result := slice_default(0, upper)
       end
 
    slice_default (lower, upper: INTEGER): BOOLEAN is

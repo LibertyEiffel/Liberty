@@ -1,15 +1,12 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ARGUMENTS
+expanded class ARGUMENTS
    --
    -- Insert this class when you need access to command-line arguments.
    --
 
-insert
-   ANY
-
-feature {}
+feature {ANY}
    argument_count: INTEGER is
          -- Number of arguments given to command that started system execution (command name does not count).
       do
@@ -35,6 +32,7 @@ feature {}
          Result := command_arguments.item(0)
       end
 
+feature {}
    frozen command_arguments: FAST_ARRAY[STRING] is
          -- Give acces to arguments command line including the command name at index 0.
          -- This is a once function, so you can modify command-line arguments!

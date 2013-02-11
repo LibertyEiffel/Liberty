@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class RUNNER_NATIVE_ARRAY[E_, O_ -> RUNNER_OBJECT]
@@ -14,8 +14,11 @@ feature {ANY}
 
    processor: RUNNER_PROCESSOR
    type: TYPE
+   element_type: TYPE
 
    capacity: INTEGER
+
+   is_initialized: BOOLEAN is True
 
    item (index: INTEGER_64): O_ is
       require
@@ -27,13 +30,30 @@ feature {ANY}
    put (a_item: O_; index: INTEGER_64) is
       require
          index.in_range(0, capacity - 1)
-      local
-         actual_item: E_
-         actual_index: INTEGER
       do
-         actual_item := setter.item([a_item])
-         actual_index := index.to_integer_32
-         storage.put(actual_item, actual_index)
+         storage.put(setter.item([a_item]), index.to_integer_32)
+      end
+
+   slice_copy (at: INTEGER_64; src: like Current; src_min, src_max: INTEGER_64) is
+      local
+         index: INTEGER_64
+      do
+         if element_type.is_user_expanded then
+            -- don't optimize slice_copy because we need to expand each user-expanded object
+            from
+               index := src_min
+            until
+               index > src_max
+            loop
+               put(src.item(index), index - src_min + at)
+               index := index + 1
+            end
+         else
+            check
+               element_type.is_reference or else element_type.is_kernel_expanded
+            end
+            storage.slice_copy(at.to_integer_32, src.storage, src_min.to_integer_32, src_max.to_integer_32)
+         end
       end
 
    out_in_tagged_out_memory is
@@ -73,9 +93,20 @@ feature {ANY}
          Result := storage.is_equal(other.storage)
       end
 
-   to_builtin_pointer: POINTER is
+feature {RUNNER_UNTYPED_BUILTINS}
+   builtin_to_pointer: POINTER is
       do
          Result := storage.to_pointer
+      end
+
+   builtin_copy (other: RUNNER_OBJECT) is
+      do
+         not_yet_implemented
+      end
+
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+      do
+         not_yet_implemented
       end
 
 feature {RUNNER_FACET}
@@ -90,12 +121,14 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_capacity: like capacity; a_storage: like storage;
+   make (a_processor: like processor; a_type: like type; a_element_type: like element_type;
+         a_capacity: like capacity; a_storage: like storage;
          a_retriever: like retriever; a_setter: like setter;
          a_builtins: like builtins) is
       require
          a_processor /= Void
          a_type /= Void
+         a_element_type /= Void
          a_capacity >= 0
          a_retriever /= Void
          a_setter /= Void
@@ -103,6 +136,7 @@ feature {}
       do
          processor := a_processor
          type := a_type
+         element_type := a_element_type
          capacity := a_capacity
          storage := a_storage
          retriever := a_retriever
@@ -111,6 +145,7 @@ feature {}
       ensure
          processor = a_processor
          type = a_type
+         element_type = a_element_type
          capacity = a_capacity
          storage = a_storage
          retriever = a_retriever
@@ -139,6 +174,7 @@ feature {RUNNER_FACET}
 invariant
    capacity >= 0
    type /= Void
+   element_type /= Void
    retriever /= Void
    setter /= Void
    builtins.type = type
@@ -148,17 +184,23 @@ end -- class RUNNER_NATIVE_ARRAY
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

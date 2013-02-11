@@ -26,7 +26,12 @@ feature {ANY}
          Result := Current
       end
 
-   exists: BOOLEAN
+   exists: BOOLEAN is
+      local
+         ft: FILE_TOOLS
+      do
+         Result := ft.file_exists(path)
+      end
 
 feature {ANY} -- Text stream access
    read: INPUT_STREAM is

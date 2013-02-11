@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class ECHO
@@ -54,10 +54,18 @@ feature {}
       end
 
 feature {ANY} -- To echo some additional information (echo is only done when `is_verbose' is True).
-   put_string (msg: STRING) is
+   put_string (msg: ABSTRACT_STRING) is
       do
          if is_verbose then
             output_stream.put_string(msg)
+            output_stream.flush
+         end
+      end
+
+   put_line (msg: ABSTRACT_STRING) is
+      do
+         if is_verbose then
+            output_stream.put_line(msg)
             output_stream.flush
          end
       end
@@ -280,7 +288,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
 
    getenv (variable, file: STRING): STRING is
          -- To echo every `{SYSTEM}.get_environment_variable' for all tools of
-         -- SmartEiffel (because of magic variables and for SmallEiffel
+         -- Liberty Eiffel (because of magic variables and for SmallEiffel
          -- backward compatibility). When the `file' is not Void, it means
          -- that the `variable' has been found in this `file'. So, this function
          -- compute automatically the `SmartEiffelDirectory' magic variable using
@@ -328,7 +336,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
                Result := s.get_environment_variable(fz_smalleiffel)
                if Result /= Void then
                   w_put_string("The old %"SmallEiffel%" variable %
-                %is not valid anymore. Please use SmartEiffel.%N")
+                %is not valid anymore. Please use Liberty Eiffel.%N")
                end
             elseif fz_smalleiffeldirectory.same_as(variable) then
                Result := getenv(fz_smalleiffel, file)
@@ -419,7 +427,8 @@ feature {NEW_ECHO}
 
    output_path: STRING
 
-feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN}
+feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN, COMMAND_LINE_TOOLS}
+
    redirect_output_on (new_output_path: like output_path) is
          -- -output_error_warning_on
       require
@@ -541,17 +550,23 @@ end -- class ECHO
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

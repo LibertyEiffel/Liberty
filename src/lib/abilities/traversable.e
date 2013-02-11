@@ -28,6 +28,17 @@ inherit
       end
    INDEXABLE[E_]
 
+feature {ANY}
+   enumerate: ENUMERATE[E_] is
+      local
+         items: TRAVERSABLE[E_]
+      do
+         if items ?:= Current then
+            items ::= Current
+            create Result.make(items)
+         end
+      end
+
 end -- class TRAVERSABLE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

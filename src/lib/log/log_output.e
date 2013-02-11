@@ -82,6 +82,10 @@ feature {LOGGER}
    output: OUTPUT_STREAM is
       do
          Result := output_retriever.item([])
+         if Result = Void then
+            -- fallback when the system is going down to hell
+            Result := std_error
+         end
       ensure
          Result /= Void
       end
@@ -139,7 +143,7 @@ feature {}
 
    default_format: FIXED_STRING is
       once
-         Result := ("@C [@t] - @m%N").intern
+         Result := "@C [@t] - @m%N".intern
       end
 
    format_and_print_message is

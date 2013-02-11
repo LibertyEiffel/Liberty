@@ -16,6 +16,7 @@ cluster
          assertion(no)
       option
          debug(yes): FIXED_STRING, HASHED_DICTIONARY
+         assertion(require): HASHED_DICTIONARY
       end
 
    runner: "${path_se_tools}generation/run/loadpath.se"

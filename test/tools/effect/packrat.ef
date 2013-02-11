@@ -1,0 +1,10 @@
+grammar <- sp (nonterminal '<-' sp pattern {rule})+ {grammar}
+pattern <- alternative {first_alternative} ('/' sp alternative {next_alternative})* {alternative}
+alternative <- ([!&] sp suffix / suffix tag?)+
+suffix <- primary ([*+?] sp)*
+primary <- '(' sp pattern {nested} ')' sp / '.' sp / literal / charclass / nonterminal !'<-'
+literal <- ['] (!['] .)* ['] sp
+charclass <- '[' (!']' (. '-' . / .))* ']' sp
+nonterminal <- [a-zA-Z]+ sp
+sp <- [ \t\n]*
+tag <- '{' (!'}' .)+ '}' sp

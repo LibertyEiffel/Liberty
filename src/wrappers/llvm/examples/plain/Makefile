@@ -2,7 +2,7 @@
 
 
 example: example.s
-	@echo "Assembling to executable; 'as example.s -o example' produces a relocatable; currently llvm tools - even experimantal - do not provide an assembler that produces executables."
+	@echo "Assembling to executable; 'as example.s -o example' produces a relocatable; when this example were written llvm tools - even experimantal - do not provide an assembler that produces executables."
 	gcc -o example example.s
 	@echo Running the generated executable.
 	./example
@@ -19,7 +19,7 @@ llvm_example: llvm_example.e
 	@echo "Building the Liberty application (the warning suppression flag '-w' is used because SmartEiffel or my low level code does not interact well with const)"
 	compile_to_c -no-split -all-check llvm_example 
 	gcc -w `llvm-config --cflags all` -c llvm_example.c
-	g++ llvm_example.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
+	g++ -Xlinker --no-as-needed llvm_example.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
 
 clean:
 	rm *.c *.o llvm_example example example.bc example.s

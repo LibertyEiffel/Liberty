@@ -10,6 +10,7 @@
 ./i18n/
 ./io/loadpath.se
 ./iterator/loadpath.se
+./json/loadpath.se
 ./kernel/loadpath.se
 ./log/loadpath.se
 ./message_formatter/

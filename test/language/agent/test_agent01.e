@@ -25,7 +25,8 @@ feature {}
          inspect
             number
          when 1 then
-            assert(item.is_equal("Benedicte"))
+            assert(False)
+            --assert(item.is_equal("Benedicte"))
          when 2 then
             assert(item.is_equal("Lucien"))
          when 3 then

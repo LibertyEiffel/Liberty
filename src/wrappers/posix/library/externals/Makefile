@@ -1,6 +1,6 @@
 ## To avoid an Ubuntu Intrepid Ibex bug.
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
-export GCCXML_COMPILER = gcc-4.5
+## export GCCXML_COMPILER = gcc-4.5
 
 XML=posix.gcc-xml
 HEADER=plugin/c/liberty-posix.h

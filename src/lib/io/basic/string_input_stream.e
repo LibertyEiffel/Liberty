@@ -80,11 +80,11 @@ feature {}
          -- No need to force people to disconnect such a STREAM.
       end
 
-   from_string (a_string: like string) is
+   from_string (a_string: ABSTRACT_STRING) is
       require
          a_string /= Void
       do
-         string := a_string.twin
+         string := a_string.out
          offset := string.lower - 1
          is_connected := True
       end

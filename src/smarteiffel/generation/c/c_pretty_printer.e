@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class C_PRETTY_PRINTER
@@ -128,6 +128,8 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.customize_runtime
             -- ---------------------------------------------------------
+            smart_eiffel.show_live_types
+            -- ---------------------------------------------------------
             header_pass_1.compile
             header_pass_2.compile
             header_pass_3.compile
@@ -241,11 +243,13 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               cn := lt.class_text_name
-               if cn /= current_class_name then
-                  current_class_name := cn
+               if lt.at_run_time then
+                  cn := lt.class_text_name
+                  if cn /= current_class_name then
+                     current_class_name := cn
+                  end
+                  live_type_compiler.compile(lt, 0)
                end
-               live_type_compiler.compile(lt, 0)
                i := i + 1
             end
          else
@@ -258,11 +262,13 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ct := lt.canonical_type_mark
-               if ct.is_kernel_expanded then
-                  live_type_compiler.compile(lt, 0)
-               elseif ct.is_string then
-                  lt_string := lt
+               if lt.at_run_time then
+                  ct := lt.canonical_type_mark
+                  if ct.is_kernel_expanded then
+                     live_type_compiler.compile(lt, 0)
+                  elseif ct.is_string then
+                     lt_string := lt
+                  end
                end
                i := i + 1
             end
@@ -280,9 +286,11 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ctn := lt.class_text_name.to_string
-               if as_native_array = ctn then
-                  live_type_compiler.compile(lt, 0)
+               if lt.at_run_time then
+                  ctn := lt.class_text_name.to_string
+                  if as_native_array = ctn then
+                     live_type_compiler.compile(lt, 0)
+                  end
                end
                i := i + 1
             end
@@ -297,10 +305,12 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               ct := lt.canonical_type_mark
-               ctn := ct.class_text_name.to_string
-               if as_array = ctn or else as_fixed_array = ctn then
-                  live_type_compiler.compile(lt, 0)
+               if lt.at_run_time then
+                  ct := lt.canonical_type_mark
+                  ctn := ct.class_text_name.to_string
+                  if as_array = ctn or else as_fixed_array = ctn then
+                     live_type_compiler.compile(lt, 0)
+                  end
                end
                i := i + 1
             end
@@ -310,7 +320,7 @@ feature {}
                i > live_type_map.upper
             loop
                lt := live_type_map.item(i)
-               if lt.is_generic then
+               if lt.at_run_time and then lt.is_generic then
                   live_type_compiler.compile(lt, 0)
                end
                i := i + 1
@@ -2437,6 +2447,7 @@ feature {}
                                                                                                      ds.caller=NULL;
                                                                                                      ds.exception_origin=NULL;
                                                                                                      ds.locals=NULL;
+                                                                                                     ds.depth=0;
 
                                                                                                      ]")
             end
@@ -2493,7 +2504,7 @@ feature {}
             if no_check then
                pending_c_function_body.append(once "[
                                                     se_frame_descriptor irfd={"<runtime init>",0,0,"",1};
-                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL};
+                                                                                                     se_dump_stack ds = {NULL,NULL,0,NULL,NULL,0};
                                                                                                      ds.fd=&irfd;
 
                                                                                                      ]")
@@ -3108,6 +3119,7 @@ feature {}
                                                               ds.caller=NULL;
                                                               ds.exception_origin=NULL;
                                                               ds.locals=NULL;
+                                                              ds.depth=0;
 
                                                               ]")
                      end
@@ -4069,7 +4081,7 @@ feature {} -- CECIL_POOL
                                                 %#endif%N")
          end
          if ace.no_check then
-            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL};%N%
+            pending_c_function_body.append(once "se_dump_stack ds={NULL,NULL,0,NULL,NULL,NULL,0};%N%
                                                 %ds.caller=se_dst;%N%
                                                 %ds.exception_origin=NULL;%N%
                                                 %ds.locals=NULL;%N")
@@ -4130,11 +4142,11 @@ end -- class C_PRETTY_PRINTER
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
@@ -4142,5 +4154,5 @@ end -- class C_PRETTY_PRINTER
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
 -- ------------------------------------------------------------------------------------------------------------------------------

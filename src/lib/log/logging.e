@@ -22,7 +22,7 @@ feature {}
       end
 
    log_memory__0_: LOGGER
-         -- The cached logger. Don't use directly.
+         -- The cached logger. The ugly name is intentional. Don't use directly.
 
 end -- class LOGGING
 --

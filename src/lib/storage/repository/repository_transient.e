@@ -24,8 +24,6 @@ feature {ANY}
          not transient_object.type_is_expanded
          transient_object.object_as_pointer /= default_pointer
          not transient_reference.is_empty
-         not transient_reference.is_equal("Void") -- reserved keyword
-         not transient_reference.has_prefix("0x") -- reserved prefix
          not has_object(transient_reference)
       local
          ref: STRING; t: REPOSITORY_TRANSIENT_OBJECT

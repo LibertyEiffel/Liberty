@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class RUNNER_ASSIGNMENT
@@ -8,6 +8,8 @@ inherit
    WRITABLE_ATTRIBUTE_NAME_VISITOR
    RESULT_VISITOR
    INTERNAL_LOCAL2_VISITOR
+   CREATE_WRITABLE_VISITOR
+   FUNCTION_CALL_0_VISITOR
 
 insert
    RUNNER_PROCESSOR_FACET
@@ -95,6 +97,28 @@ feature {INTERNAL_LOCAL2}
          entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
+feature {CREATE_WRITABLE}
+   visit_create_writable (visited: CREATE_WRITABLE) is
+      do
+         visited.writable.accept(Current)
+      end
+
+feature {FUNCTION_CALL_0}
+   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+      local
+         target: RUNNER_STRUCTURED_OBJECT
+         field_name: STRING; af: ANONYMOUS_FEATURE
+      do
+         target ::= processor.expressions.eval(visited.target)
+         field_name := visited.feature_name.to_string
+         af := visited.feature_stamp.anonymous_feature(target.type)
+         check
+            inlined_assignment: {WRITABLE_ATTRIBUTE} ?:= af
+         end
+         target.set_field(field_name, value)
+         entity_type := af.result_type.resolve_in(target.type)
+      end
+
 feature {}
    type_mark (writable: EXPRESSION): TYPE_MARK is
       do
@@ -121,17 +145,23 @@ end -- class RUNNER_ASSIGNMENT
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

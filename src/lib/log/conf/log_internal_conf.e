@@ -440,6 +440,9 @@ feature {LOG_CONFIGURATION}
          if loading then
             load_queue.add_last([a_stream, when_error, a_path_resolver, a_load_completion])
          else
+            if not default_loaded then
+               load_default
+            end
             loading := True
             from
                load_(a_stream, when_error, a_path_resolver, a_load_completion)
@@ -577,6 +580,8 @@ feature {}
          o: LOG_OUTPUT
          root0: like root
       do
+         default_loaded := True
+
          -- This very basic initialization ensures that a root always exists, which is useful while parsing
          -- the log file (the parsing engine itself uses the logging framework...)
          create o.make(agent pass_through(std_output), "root".intern)
@@ -594,8 +599,6 @@ feature {}
                die_with_code(1)
             end
          end
-
-         default_loaded := True
       ensure
          default_loaded
       end

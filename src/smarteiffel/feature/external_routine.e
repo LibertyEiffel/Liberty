@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 deferred class EXTERNAL_ROUTINE
@@ -64,8 +64,8 @@ feature {ANY}
    specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
       local
          type_name: STRING
+         lv: like local_vars; rb: like routine_body
       do
-         --|*** body have to be specialized
          type_name := new_type.class_text.name.to_string
          if type_name = as_typed_internals then
             Result ::= introspection_handler.specialize_body_for_typed_internals(Current, new_type, can_twin)
@@ -76,7 +76,23 @@ feature {ANY}
          elseif first_name.to_string = as_to_internals then
             Result ::= introspection_handler.specialize_body_for_any_to_internals(Current, new_type, can_twin)
          else
-            Result := Current
+            if local_vars /= Void then
+               lv := local_vars.specialize_in(new_type)
+               check
+                  smart_eiffel.specializing_feature_local_var_list = Void
+               end
+               smart_eiffel.set_specializing_feature_variables(lv)
+            end
+            if routine_body /= Void then
+               rb := routine_body.specialize_in(new_type)
+            end
+            if lv /= Void then
+               check
+                  smart_eiffel.specializing_feature_local_var_list = lv
+               end
+               smart_eiffel.set_specializing_feature_variables(Void)
+            end
+            Result := current_or_twin_init(lv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          end
       end
 
@@ -84,7 +100,6 @@ feature {ANY}
       local
          lv, lv_memory: like local_vars; rb: like routine_body
       do
-         --|*** body have to be specialized
          if local_vars /= Void then
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
             lv_memory := smart_eiffel.specializing_feature_local_var_list
@@ -326,17 +341,23 @@ end -- class EXTERNAL_ROUTINE
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

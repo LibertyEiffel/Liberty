@@ -1,10 +1,2 @@
-./
-configuration/
-configuration/etc/
-errors/
-interpreter/loadpath.se
-compiler/loadpath.se
-main/
-statue/
-syntax/loadpath.se
-semantics/loadpath.se
+effactor/
+effect/

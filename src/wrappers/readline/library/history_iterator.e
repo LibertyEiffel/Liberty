@@ -1,34 +1,46 @@
 class HISTORY_ITERATOR
 
-inherit ITERATOR[HISTORY_ENTRY]
-insert HISTORY_EXTERNALS
-creation make 
+inherit
+   ITERATOR[HISTORY_ENTRY]
 
-feature 
-	make (hist: READ_LINE_HISTORY) is
-	do
-		history:=hist
-	end
-	start is
-		do
-			index:=history.lower
-		end
+insert
+   HISTORY_EXTERNALS
 
-	item: HISTORY_ENTRY is
-		do
-			Result:=history.item(index)
-		end
+creation {READ_LINE_HISTORY}
+   make
 
-	next is
-		do
-			index:=index+1
-		end
+feature {ANY}
+   start is
+      do
+         index := history.lower
+      end
 
-	is_off: BOOLEAN is
-		do
-			Result := index > history.upper
-		end
-feature {} 
-	history: READ_LINE_HISTORY
-	index: INTEGER
+   item: HISTORY_ENTRY is
+      do
+         Result := history.item(index)
+      end
+
+   next is
+      do
+         index := index + 1
+      end
+
+   is_off: BOOLEAN is
+      do
+         Result := index > history.upper
+      end
+
+feature {}
+   history: READ_LINE_HISTORY
+   index: INTEGER
+
+   iterable_generation: INTEGER
+
+   make (hist: READ_LINE_HISTORY) is
+      do
+         history := hist
+         iterable_generation := hist.generation
+         start
+      end
+
 end

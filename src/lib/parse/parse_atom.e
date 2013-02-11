@@ -1,18 +1,32 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class PARSE_ATOM
+deferred class PARSE_ATOM[C_ -> PARSE_CONTEXT]
    --
    -- A part of the PARSE_TABLE.
    --
 
 insert
    TRISTATE_VALUES
+   PARSER_FACET
 
 feature {ANY}
    name: FIXED_STRING
+   table: PARSE_TABLE[C_]
 
-   table: PARSE_TABLE
+   is_coherent: BOOLEAN is
+      require
+         table /= Void
+      deferred
+      ensure
+         must_be_coherent: Result
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      deferred
+      end
 
 feature {PARSE_TABLE}
    set (a_name: ABSTRACT_STRING; a_table: like table) is
@@ -38,28 +52,22 @@ feature {PARSE_TABLE}
          table = a_table
       end
 
-   is_coherent: BOOLEAN is
-      deferred
-      ensure
-         must_be_coherent: Result
-      end
-
    set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
       require
          is_coherent
       deferred
       end
 
-feature {DESCENDING_PARSER, PARSE_NT_NODE}
-   parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): TRISTATE is
+feature {PARSER_FACET}
+   parse (context: C_): TRISTATE is
          -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
          -- parse could complete with some more text.
       require
-         actions /= Void
+         context /= Void
       deferred
       ensure
-         actions.count >= old actions.count
-         ;(Result /= yes) implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+         context.actions.count >= old context.actions.count
+         ;(Result /= yes) implies context.buffer.current_index = old context.buffer.current_index and then context.actions.count = old context.actions.count
       end
 
 feature {}

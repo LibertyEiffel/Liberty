@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class PARSE_TABLE
+class PARSE_TABLE[C_ -> PARSE_CONTEXT]
    --
    -- A parsing table (aka Grammar).
    --
@@ -9,26 +9,32 @@ class PARSE_TABLE
    --
    -- The structure of this notation is:
    --
-   --    {PARSE_TABLE << name, atom;
-   --                    name, atom;
-   --                      . . .
-   --                    name, atom
-   --                 >>}
+   --    {PARSE_TABLE[...] << name, atom;
+   --                         name, atom;
+   --                           . . .
+   --                         name, atom
+   --                      >>}
    --
    -- where each name is a STRING and each atom may be either a PARSE_NON_TERMINAL or a PARSE_TERMINAL.
    --
 
 insert
    LOGGING
+      redefine
+         out_in_tagged_out_memory
+      end
 
 creation {ANY}
    manifest_creation
+
+creation {PARSER_FACET}
+   with_capacity
 
 feature {ANY}
    is_coherent: BOOLEAN is
          -- True if all the used atoms are defined
       local
-         i: INTEGER; atom: PARSE_ATOM
+         i: INTEGER; atom: PARSE_ATOM[C_]
       do
          from
             Result := True
@@ -70,14 +76,14 @@ feature {ANY}
          end
       end
 
-   extend (a_table: PARSE_TABLE) is
+   extend (a_table: like Current) is
          -- Extends Current with a *copy* of the atoms of `a_table'. Any atom with a name already existing in
          -- Current is ignored.
       require
          a_table /= Void
          a_table /= Current
       local
-         i: INTEGER; atom: PARSE_ATOM
+         i: INTEGER; atom: PARSE_ATOM[C_]
       do
          from
             i := a_table.atoms.lower
@@ -93,7 +99,7 @@ feature {ANY}
          end
       end
 
-   add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM) is
+   add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
       require
          atom_name /= Void
          atom /= Void
@@ -103,7 +109,7 @@ feature {ANY}
          item(atom_name.intern) = atom
       end
 
-   item (atom_name: ABSTRACT_STRING): PARSE_ATOM is
+   item (atom_name: ABSTRACT_STRING): PARSE_ATOM[C_] is
       require
          not atom_name.is_empty
          has(atom_name)
@@ -122,8 +128,27 @@ feature {ANY}
          end
       end
 
+   out_in_tagged_out_memory is
+      do
+         for_all_atoms(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
+      end
+
+   pretty_print_on (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
+      do
+         for_all_atoms(agent {PARSE_ATOM[C_]}.pretty_print_on(stream))
+      end
+
+   for_all_atoms (action: PROCEDURE[TUPLE[PARSE_ATOM[C_]]]) is
+      require
+         action /= Void
+      do
+         atoms.do_all(action)
+      end
+
 feature {}
-   print_atom (v: PARSE_ATOM; k: FIXED_STRING) is
+   print_atom (v: PARSE_ATOM[C_]; k: FIXED_STRING) is
       do
          log.trace.put_character('"')
          log.trace.put_string(k)
@@ -133,15 +158,10 @@ feature {}
       end
 
 feature {PARSE_TABLE}
-   atoms: HASHED_DICTIONARY[PARSE_ATOM, FIXED_STRING]
+   atoms: LINKED_HASHED_DICTIONARY[PARSE_ATOM[C_], FIXED_STRING]
 
-feature {}
-   manifest_make (needed_capacity: INTEGER) is
-      do
-         create atoms.with_capacity(needed_capacity)
-      end
-
-   manifest_put (index: INTEGER; name: ABSTRACT_STRING; atom: PARSE_ATOM) is
+feature {PARSER_FACET}
+   add (name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
       require
          not has(name)
          atom.name = Void
@@ -149,7 +169,27 @@ feature {}
          atoms.add(atom, name.intern)
          atom.set(name, Current)
       ensure
+         atoms.count = old atoms.count + 1
+         atoms.last = atom
+      end
+
+feature {}
+   with_capacity, manifest_make (needed_capacity: INTEGER) is
+      do
+         create atoms.with_capacity(needed_capacity)
+      end
+
+   manifest_put (index: INTEGER; name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
+      require
+         not has(name)
+         atom.name = Void
+         atoms.count = index
+      do
+         add(name, atom)
+      ensure
          atom.name = name.intern
+         atoms.count = old atoms.count + 1
+         atoms.last = atom
       end
 
    manifest_semicolon_check: INTEGER is 2

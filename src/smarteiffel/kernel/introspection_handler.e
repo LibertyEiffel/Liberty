@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class INTROSPECTION_HANDLER
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   is_introspected(tm: TYPE_MARK): BOOLEAN is
+   is_introspected (tm: TYPE_MARK): BOOLEAN is
       local
          typed_internals: TYPE_MARK; lt: LIVE_TYPE;   unknown_position: POSITION
       do
@@ -1413,7 +1413,9 @@ feature {}
          if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
-            if original_when_clause.compound = Void then
+            if original_when_clause.compound /= Void then
+               --echo.put_line(once ">>>> valid_generating_type_for_internals: original clause already exists, skipping code customization")
+            else
                smart_eiffel.magic_count_increment
                when_list.clear_count
                original_when_item ::= original_when_clause.list.first
@@ -1431,16 +1433,24 @@ feature {}
                   i > live_types.upper
                loop
                   live_type := live_types.item(i)
-                  if live_type.create_blank_internals_instruction /= Void and then not live_type.is_native_array then
+                  if not live_type.create_blank_internals_used then
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) does NOT create blank_internals" # live_type.name.to_string)
+                  elseif live_type.is_native_array then
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) is a native array" # live_type.name.to_string)
+                  else
+                     --echo.put_line(once ">>>> valid_generating_type_for_internals: #(1) does create blank_internals" # live_type.name.to_string)
                      check
                         live_type.at_run_time
+                        live_type.create_blank_internals_instruction /= Void
 --                        is_introspectable_attribute_type(live_type.canonical_type_mark)
                      end
                      type_name := live_type.name
                      if original_type_name = type_name.to_string then
+                        --echo.put_line(once "     => name is original, setting original when clause")
                         original_when_clause.set_compound(assignment)
                         when_list.add_last(original_when_clause)
                      else
+                        --echo.put_line(once "     => new name, adding new when clause")
                         when_clause := original_when_clause.twin
                         create when_item_list.with_capacity(1)
                         when_clause.init(assignment, when_item_list)
@@ -1455,8 +1465,11 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: specializing -- count=#(1)" # when_list.count.out)
                   Result := Result.specialize_2(new_type)
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: done")
                else
+                  --echo.put_line(once ">>>> valid_generating_type_for_internals: failed")
                   Result := Void
                end
             end
@@ -1627,7 +1640,6 @@ feature {}
          end
          if count > 0 then
             if compound ?:= external_routine.routine_body then
-               sedb_breakpoint
                compound ::= external_routine.routine_body
                if assignment ?:= compound.first then
                   assignment ::= compound.first
@@ -1686,17 +1698,23 @@ end -- class INTROSPECTION_HANDLER
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --
--- SmartEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
--- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
--- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
+-- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+--
+-- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------

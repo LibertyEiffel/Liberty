@@ -11,7 +11,10 @@ insert
    COMPARABLE
       redefine is_equal
       end
-   
+   TIME_HANDLER
+      redefine is_equal
+      end
+
 feature {ANY}
    time: TIME
          -- The normal TIME with second accuracy.
@@ -118,6 +121,12 @@ feature {ANY}
    hash_code: INTEGER is
       do
          Result := time.hash_code
+      end
+
+feature {ANY}
+   timestamp: INTEGER_64 is
+      do
+         Result := time.time_memory * 1000000 + microsecond
       end
 
 feature {}

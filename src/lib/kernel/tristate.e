@@ -11,7 +11,7 @@ expanded class TRISTATE
 insert
    TRISTATE_VALUES
       redefine
-         is_equal
+         is_equal, out_in_tagged_out_memory
       end
 
 feature {ANY} -- Expressions:
@@ -88,6 +88,19 @@ feature {ANY} -- Expressions:
             Result := maybe
          else
             Result := from_boolean(to_boolean xor other.to_boolean)
+         end
+      end
+
+   out_in_tagged_out_memory is
+      do
+         inspect
+            value
+         when yes_value then
+            tagged_out_memory.append(once "yes")
+         when no_value then
+            tagged_out_memory.append(once "no")
+         when maybe_value then
+            tagged_out_memory.append(once "maybe")
          end
       end
 
