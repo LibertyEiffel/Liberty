@@ -179,13 +179,6 @@ feature {NATIVE_PLUG_IN}
          precomputable := False
       end
 
-feature {NATIVE_JAVA}
-   visit_native_java (visited: NATIVE_JAVA) is
-      do
-         -- (We do not trust Java at all :-)
-         precomputable := False
-      end
-
 feature {NATIVE_C_PLUS_PLUS}
    visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
       do

@@ -138,8 +138,6 @@ feature {} -- Initialization:
          system_tools.set_sys_directory(noenv_sys_directory)
          system_tools.set_short_directory(noenv_short_directory)
          install_c_mode := fz_boost.twin
-
-         init_defaults_for_java
       end
 
    use_existing_config: BOOLEAN is
@@ -553,18 +551,14 @@ feature {} -- Variables:
          -- The menu proposes to manage the C mode sections (including
          -- choosing the default C compiler)
 
-   main_action_configure_java: INTEGER is 3
-         -- The menu proposes to manage the Java sections (options
-         -- and used binaries)
-
-   main_action_display_config: INTEGER is 4
+   main_action_display_config: INTEGER is 3
          -- The menu proposes to display the configuration items (in order to
          -- verify them before writing the configuration file)
 
-   main_action_create_config: INTEGER is 5
+   main_action_create_config: INTEGER is 4
          -- The menu proposes to write the configuration file
 
-   main_action_install: INTEGER is 6
+   main_action_install: INTEGER is 5
          -- The menu proposes to install Liberty Eiffel
 
    main_action_redisplay: INTEGER is -1
@@ -643,33 +637,6 @@ feature {} -- Variables:
          create {HASHED_DICTIONARY[STRING, STRING]} Result.make
       end
 
-   default_java_jar_binary: STRING is
-         -- Default options for the archiver to use to produce Java ARchives
-      once
-         Result := jvm_tools.jar
-      end
-
-   default_java_jvm_binary: STRING is
-         -- Default options for the name of the program providing the Java Virtual Machine
-      once
-         Result := jvm_tools.java
-      end
-
-   default_java_java_compiler: STRING is
-         -- Default options forthe extern compiler used to compile Java plugins
-      once
-         Result := jvm_tools.javac
-      end
-
-   java_jar_binary: STRING
-         -- The archiver to use to produce Java ARchives
-
-   java_jvm_binary: STRING
-         -- The name of the program providing the Java Virtual Machine
-
-   java_java_compiler: STRING
-         -- The extern compiler used to compile Java plugins
-
 
 -- ==================================================================================================== --
 
@@ -693,9 +660,6 @@ feature {} -- Internally handled menu:
                default_main_action := main_action_choose_c_compiler
             when main_action_choose_c_compiler then
                choose_c_compiler
-               default_main_action := main_action_configure_java
-            when main_action_configure_java then
-               configure_java
                default_main_action := main_action_display_config
             when main_action_display_config then
                display_config
@@ -755,10 +719,9 @@ feature {} -- Internally handled menu:
 
 1. Define the OS, the configuration file, the default directories and loadpaths
 2. Choose the C compilers and options for each C mode
-3. Configure Java compilation (currently broken)
-4. Display the configuration information
-5. Write the configuration file to disk
-6. Install Liberty Eiffel
+3. Display the configuration information
+4. Write the configuration file to disk
+5. Install Liberty Eiffel
 
 0. Exit
 h. Help
@@ -1978,60 +1941,6 @@ Your choice [
          io.put_string(once ")%N")
       end
 
-feature {} -- Define the Java parameters:
-   init_defaults_for_java is
-      do
-         java_jar_binary := default_java_jar_binary
-         java_jvm_binary := default_java_jvm_binary
-         java_java_compiler := default_java_java_compiler
-      end
-
-   configure_java is
-      local
-         done: BOOLEAN
-         entry : INTEGER
-      do
-         from
-         until
-            done
-         loop
-            put_dashed_line
-            show_default_valued_menu(once "1.  Change the Java ARchiver executable name", java_jar_binary, default_java_jar_binary)
-            show_default_valued_menu(once "2.  Change the Java Virtual Machine", java_jvm_binary, default_java_jvm_binary)
-            show_default_valued_menu(once "3.  Change the extern Java compiler", java_java_compiler, default_java_java_compiler)
-            io.put_string(once "{
-
-0. Return to the main menu
-
-Your choice [0]:
-}")
-            read_line
-            if entry_buffer.is_empty then
-               0.append_in(entry_buffer)
-            end
-            if entry_buffer.is_number then
-               entry := entry_buffer.to_integer
-               if entry < 0 or else entry > 9 then
-                  io.put_string(once "Please enter a number between 0 and 3.%N")
-               else
-                  inspect
-                     entry
-                  when 1 then
-                     java_jar_binary := choice_in(once "%NPlease enter the name of the new Java Archiver program", jvm_tools.jar_list, default_java_jar_binary)
-                  when 2 then
-                     java_jvm_binary := choice_in(once "%NPlease enter the name of the new Java Archiver program", jvm_tools.jvm_list, default_java_jvm_binary)
-                  when 3 then
-                     java_java_compiler := choice_in(once "%NPlease enter the name of the new Java Archiver program", jvm_tools.compiler_list, default_java_java_compiler)
-                  when 0 then
-                     done := True
-                  end
-               end
-            else
-               io.put_string(once "Please enter a number between 0 and 3.%N")
-            end
-         end
-      end
-
 
 -- ==================================================================================================== --
 
@@ -2166,10 +2075,6 @@ feature {} -- The installation itself:
          else
             page_string(once "%N   The default C compiler could not be determined.%N")
          end
-         page_section_title(fz_conf_java)
-         page_parameter(1, once "Java ARchiver", java_jar_binary)
-         page_parameter(1, once "Java Virtual Machine", java_jvm_binary)
-         page_parameter(1, once "Extern Java compiler", java_java_compiler)
          page_char('%N')
          io.put_string(once "Type <Enter> to go back to the menu: ")
          read_line
@@ -2292,7 +2197,7 @@ feature {} -- The installation itself:
 -- The 'bin' key is the path to the directory that contains the Liberty Eiffel
 -- directory. It is used by 'compile' to find 'compile_to_c'.
 
--- The 'sys' directory is used to find the C and Java files used by the
+-- The 'sys' directory is used to find the C files used by the
 -- compilers.
 
 -- The 'short' directory is used by the 'short' utility to format the output.
@@ -2465,31 +2370,6 @@ feature {} -- The installation itself:
                write_optional_key(fz_conf_smarteiffel_options, c_mode.smarteiffel_options)
                i := i + 1
             end
-            tfw.put_string(once "{
-
-
--- ======================================================================= --
-
--- Below is the "Java" section which describes which program must
--- be called by default, with which options, and so on. The keys are
--- described below.
-
--- The recognized keys in this section are:
-
--- 'jar', which tells which is the archiver to use to produce Java ARchives.
-
--- 'jvm', which gives the name of the program providing the Java Virtual Machine.
-
--- 'javac', which gives the extern compiler used to compile Java plugins.
-
-
-            }")
-            tfw.put_character('[')
-            tfw.put_string(fz_conf_java)
-            tfw.put_string(once "]%N")
-            write_optional_key(fz_conf_java_jar_binary, java_jar_binary)
-            write_optional_key(fz_conf_java_jvm_binary, java_jvm_binary)
-            write_optional_key(fz_conf_java_java_compiler, java_java_compiler)
             tfw.disconnect
          end
       end

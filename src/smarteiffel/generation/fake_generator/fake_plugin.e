@@ -47,18 +47,9 @@ feature {}
             bd.disconnect
          end
 
-         bd.compute_subdirectory_with(b, once "java")
-         p.copy(bd.last_entry)
-         bd.connect_to(p)
-         if bd.is_connected then
-            create jvm_plugin.make(position, a_name, a_path)
-            bd.disconnect
-         end
-
          sedb_breakpoint
       end
 
    c_plugin: C_PLUGIN
-   jvm_plugin: JVM_PLUGIN
 
 end -- class FAKE_PLUGIN

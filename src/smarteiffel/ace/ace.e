@@ -38,10 +38,7 @@ feature {ANY}
          -- The name of the executable to build (after the "system" keyword
          -- in the ACE file or after the -o flag in the command line).
          -- In command line mode, a Void value means that "a.out" is to be
-         -- used for C mode while using gcc for example. For the Java
-         -- byte-code this name is used as the name of the main output class
-         -- file and as the name of the directory used to store auxilliary
-         -- class files.
+         -- used for C mode while using gcc for example.
 
    root_class_name: HASHED_STRING is
          -- The name of the root class using only upper case letters. This
@@ -152,23 +149,7 @@ feature {ANY}
          Result := no_check and then sedb_flag
       end
 
-   jar: BOOLEAN
-
    run: BOOLEAN
-
-   use_jar: STRING
-
-   use_jvm: STRING
-
-   java_compiler: STRING
-
-   ss: STRING
-
-   mx: STRING
-
-   ms: STRING
-
-   classpath: STRING
 
    clean_classes: BOOLEAN
 
@@ -552,69 +533,9 @@ feature {ACE_HANDLER}
          profile := True
       end
 
-   set_jar is
-      do
-         jar := True
-      end
-
    set_run is
       do
          run := True
-      end
-
-   set_use_jar (new_jar: like use_jar) is
-      require
-         new_jar /= Void
-      do
-         use_jar := new_jar
-         set_jar
-      end
-
-   set_use_jvm (new_jvm: like use_jvm) is
-      require
-         new_jvm /= Void
-      do
-         use_jvm := new_jvm
-         set_run
-      end
-
-   set_java_compiler (jc: like java_compiler) is
-      require
-         jc /= Void
-      do
-         java_compiler := jc
-      end
-
-   set_ss (new_ss: like ss) is
-      require
-         new_ss /= Void
-      do
-         ss := new_ss
-         set_run
-      end
-
-   set_mx (new_mx: like mx) is
-      require
-         new_mx /= Void
-      do
-         mx := new_mx
-         set_run
-      end
-
-   set_ms (new_ms: like ms) is
-      require
-         new_ms /= Void
-      do
-         ms := new_ms
-         set_run
-      end
-
-   set_classpath (cp: like classpath) is
-      require
-         cp /= Void
-      do
-         classpath := cp
-         set_run
       end
 
    set_clean_classes is

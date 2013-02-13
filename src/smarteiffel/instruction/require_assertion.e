@@ -537,11 +537,6 @@ feature {ANY}
          visitor.visit_require_assertion(Current)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {ANY} -- Implementation of TRAVERSABLE:
    lower: INTEGER is
       do

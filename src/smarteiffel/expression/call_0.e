@@ -8,43 +8,9 @@ deferred class CALL_0
 
 inherit
    FUNCTION_CALL
-      redefine jvm_assign
-      end
 
 feature {ANY}
    arg_count: INTEGER is 0
-
-   jvm_assign(type : TYPE) is
-      require else
-         ace.boost
-      local
-         ca : like code_attribute
-         rt: TYPE
-         space : INTEGER
-         c : INTEGER
-         field : STRING
-         desc : STRING
-         idx : INTEGER
-      do
-         ca := code_attribute
-         rt := target.resolve_in(type)
-         target.compile_to_jvm(type)
-         rt.live_type.opcode_checkcast
-         space := rt.jvm_stack_space
-         if space = 1 then
-            ca.opcode_swap
-         else
-            ca.opcode_dup_x2
-            ca.opcode_pop
-         end
-         c := rt.live_type.jvm_constant_pool_index
-         field := feature_stamp.anonymous_feature(rt).first_name.to_string
-         desc := once ""
-         desc.clear_count
-         resolve_in(type).canonical_type_mark.jvm_descriptor_in(desc)
-         idx := constant_pool.idx_fieldref4(c, field, desc)
-         ca.opcode_putfield(idx, -(space + 1))
-      end
 
    frozen arguments: EFFECTIVE_ARG_LIST is
       do

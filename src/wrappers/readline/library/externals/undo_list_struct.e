@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	undo_list_struct_set_end_external (a_structure: POINTER; a_value: INTEGER_32) is
+	undo_list_struct_set_end_field (a_structure: POINTER; a_value: INTEGER_32) is
 			-- Setter for end field of UNDO_LIST_STRUCT structure.
 			-- TODO: setter description
 
@@ -40,7 +40,7 @@ feature {} -- Low-level setters
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "undo_list_struct_set_end_external"
+			feature_name: "undo_list_struct_set_end_field"
 		}"
 		end
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	undo_list_struct_get_end_external (a_structure: POINTER): INTEGER_32 is
+	undo_list_struct_get_end_field (a_structure: POINTER): INTEGER_32 is
 			-- Query for end field of UNDO_LIST_STRUCT structure.
 			-- TODO: getter description
 
@@ -102,7 +102,7 @@ feature {} -- Low-level queries
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "undo_list_struct_get_end_external"
+			feature_name: "undo_list_struct_get_end_field"
 		}"
 		end
 

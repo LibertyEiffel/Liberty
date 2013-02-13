@@ -13,7 +13,7 @@ inherit
 
 insert
    PLATFORM
-   
+
 creation {ANY}
    make, with
 
@@ -45,21 +45,6 @@ feature {ANY}
                create {INTEGER_CONSTANT} Result.make(-v, feature_name.start_position)
             end
          end
-      end
-
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
       end
 
 feature {ANY}

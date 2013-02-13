@@ -20,8 +20,6 @@ feature {ANY}
 
    is_reference, is_empty_expanded, is_user_expanded: BOOLEAN is False
 
-   jvm_method_flags: INTEGER is 9
-
    elements_type: TYPE_MARK is
       do
          Result := generic_list.first
@@ -35,81 +33,6 @@ feature {ANY}
    id: INTEGER is
       do
          Result := type.live_type.id
-      end
-
-   jvm_target_descriptor_in, jvm_descriptor_in (str: STRING) is
-      do
-         str.extend('[')
-         elements_type.jvm_descriptor_in(str)
-      end
-
-   jvm_return_code is
-      do
-         code_attribute.opcode_areturn
-      end
-
-   jvm_push_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_aload(offset)
-      end
-
-   jvm_check_class_invariant is
-      do
-      end
-
-   jvm_push_default: INTEGER is
-      do
-         code_attribute.opcode_aconst_null
-         Result := 1
-      end
-
-   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_astore(offset)
-      end
-
-   jvm_xnewarray is
-      local
-         idx: INTEGER; buffer: STRING
-      do
-         buffer := once "......................."
-         buffer.clear_count
-         jvm_target_descriptor_in(buffer)
-         idx := constant_pool.idx_class2(buffer)
-         code_attribute.opcode_anewarray(idx)
-      end
-
-   jvm_xastore is
-      do
-         code_attribute.opcode_aastore
-      end
-
-   jvm_xaload is
-      do
-         code_attribute.opcode_aaload
-      end
-
-   jvm_if_x_eq: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpeq
-      end
-
-   jvm_if_x_ne: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpne
-      end
-
-   jvm_standard_is_equal is
-      local
-         ca: like code_attribute; point1, point2: INTEGER
-      do
-         ca := code_attribute
-         point1 := jvm_if_x_eq
-         ca.opcode_iconst_0
-         point2 := ca.opcode_goto
-         ca.resolve_u2_branch(point1)
-         ca.opcode_iconst_1
-         ca.resolve_u2_branch(point2)
       end
 
    accept (visitor: NATIVE_ARRAY_TYPE_MARK_VISITOR) is

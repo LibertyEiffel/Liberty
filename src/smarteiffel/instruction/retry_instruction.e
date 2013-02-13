@@ -60,11 +60,6 @@ feature {ANY}
          Result := Current --|*** To be done *** (Dom. april 29th 2004) ***
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_goto_backward(jvm.current_frame.jvm_try_begin)
-      end
-
    pretty (indent_level: INTEGER) is
       do
          pretty_printer.set_indent_level(indent_level)

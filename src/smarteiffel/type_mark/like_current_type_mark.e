@@ -7,7 +7,7 @@ inherit
    ANCHORED_TYPE_MARK
       redefine resolve_in
       end
-   
+
 creation {EIFFEL_PARSER, CREATE_INSTRUCTION}
    make
 

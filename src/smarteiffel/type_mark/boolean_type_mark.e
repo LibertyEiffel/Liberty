@@ -44,57 +44,6 @@ feature {ANY}
          visitor.visit_boolean_type_mark(Current)
       end
 
-   jvm_descriptor_in (str: STRING) is
-      do
-         str.extend('Z')
-      end
-
-   jvm_return_code is
-      do
-         code_attribute.opcode_ireturn
-      end
-
-   jvm_push_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_iload(offset)
-      end
-
-   jvm_push_default: INTEGER is
-      do
-         code_attribute.opcode_iconst_0
-         Result := 1
-      end
-
-   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_istore(offset)
-      end
-
-   jvm_xnewarray is
-      do
-         code_attribute.opcode_newarray(4)
-      end
-
-   jvm_xastore is
-      do
-         code_attribute.opcode_bastore
-      end
-
-   jvm_xaload is
-      do
-         code_attribute.opcode_baload
-      end
-
-   jvm_if_x_eq: INTEGER is
-      do
-         Result := code_attribute.opcode_if_icmpeq
-      end
-
-   jvm_if_x_ne: INTEGER is
-      do
-         Result := code_attribute.opcode_if_icmpne
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       once

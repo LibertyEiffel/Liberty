@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	signgam: INTEGER_32 is
- 		-- signgam (node at line 162)
+ 		-- signgam (node at line 161)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	address_of_signgam: POINTER is
- 		-- Address of signgam (node at line 162)
+ 		-- Address of signgam (node at line 161)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,9 +29,19 @@ feature {} -- External calls
 		}"
 		end
 
+	set_signgam (a_value: INTEGER_32) is
+		-- Set variable signgam value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_signgam"
+		}"
+		end
+
 	-- `hidden' variable _LIB_VERSION skipped.
 	matherr (an_exc: POINTER): INTEGER_32 is
- 		-- matherr (node at line 2571)
+ 		-- matherr (node at line 2892)
 		external "plug_in"
 		alias "{
 			location: "."

@@ -74,18 +74,6 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   frozen compile_target_to_jvm (type: TYPE) is
-      do
-         standard_compile_target_to_jvm(type)
-      end
-
-   frozen jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    has_been_specialized: BOOLEAN is
       do
          Result := target.has_been_specialized

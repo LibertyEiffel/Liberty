@@ -9,26 +9,6 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	rl_mark: INTEGER_32 is
- 		-- rl_mark (node at line 515)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_mark"
-		}"
-		end
-
-	address_of_rl_mark: POINTER is
- 		-- Address of rl_mark (node at line 515)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_mark"
-		}"
-		end
-
 	rl_completer_word_break_characters: POINTER is
  		-- rl_completer_word_break_characters (node at line 642)
 		external "plug_in"
@@ -46,6 +26,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_completer_word_break_characters"
+		}"
+		end
+
+	set_rl_completer_word_break_characters (a_value: POINTER) is
+		-- Set variable rl_completer_word_break_characters value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completer_word_break_characters"
 		}"
 		end
 
@@ -69,6 +59,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_completion_mark_symlink_dirs (a_value: INTEGER_32) is
+		-- Set variable rl_completion_mark_symlink_dirs value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_mark_symlink_dirs"
+		}"
+		end
+
 	rl_event_hook: POINTER is
  		-- rl_event_hook (node at line 562)
 		external "plug_in"
@@ -86,6 +86,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_event_hook"
+		}"
+		end
+
+	set_rl_event_hook (a_value: POINTER) is
+		-- Set variable rl_event_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_event_hook"
 		}"
 		end
 
@@ -109,6 +119,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_completion_invoking_key (a_value: INTEGER_32) is
+		-- Set variable rl_completion_invoking_key value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_invoking_key"
+		}"
+		end
+
 	rl_filename_quoting_function: POINTER is
  		-- rl_filename_quoting_function (node at line 721)
 		external "plug_in"
@@ -126,6 +146,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_filename_quoting_function"
+		}"
+		end
+
+	set_rl_filename_quoting_function (a_value: POINTER) is
+		-- Set variable rl_filename_quoting_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_quoting_function"
 		}"
 		end
 
@@ -149,6 +179,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_completion_query_items (a_value: INTEGER_32) is
+		-- Set variable rl_completion_query_items value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_query_items"
+		}"
+		end
+
 	rl_done: INTEGER_32 is
  		-- rl_done (node at line 519)
 		external "plug_in"
@@ -166,6 +206,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_done"
+		}"
+		end
+
+	set_rl_done (a_value: INTEGER_32) is
+		-- Set variable rl_done value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_done"
 		}"
 		end
 
@@ -189,6 +239,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_completion_entry_function (a_value: POINTER) is
+		-- Set variable rl_completion_entry_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_entry_function"
+		}"
+		end
+
 	rl_numeric_arg: INTEGER_32 is
  		-- rl_numeric_arg (node at line 534)
 		external "plug_in"
@@ -206,6 +266,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_numeric_arg"
+		}"
+		end
+
+	set_rl_numeric_arg (a_value: INTEGER_32) is
+		-- Set variable rl_numeric_arg value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_numeric_arg"
 		}"
 		end
 
@@ -229,6 +299,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_directory_rewrite_hook (a_value: POINTER) is
+		-- Set variable rl_directory_rewrite_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_directory_rewrite_hook"
+		}"
+		end
+
 	rl_basic_quote_characters: POINTER is
  		-- rl_basic_quote_characters (node at line 656)
 		external "plug_in"
@@ -246,6 +326,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_basic_quote_characters"
+		}"
+		end
+
+	set_rl_basic_quote_characters (a_value: POINTER) is
+		-- Set variable rl_basic_quote_characters value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_basic_quote_characters"
 		}"
 		end
 
@@ -269,6 +359,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_dispatching (a_value: INTEGER_32) is
+		-- Set variable rl_dispatching value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_dispatching"
+		}"
+		end
+
 	rl_ignore_some_completions_function: POINTER is
  		-- rl_ignore_some_completions_function (node at line 623)
 		external "plug_in"
@@ -286,6 +386,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_ignore_some_completions_function"
+		}"
+		end
+
+	set_rl_ignore_some_completions_function (a_value: POINTER) is
+		-- Set variable rl_ignore_some_completions_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_ignore_some_completions_function"
 		}"
 		end
 
@@ -309,23 +419,13 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_prep_term_function: POINTER is
- 		-- rl_prep_term_function (node at line 570)
+	set_rl_erase_empty_line (a_value: INTEGER_32) is
+		-- Set variable rl_erase_empty_line value
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_prep_term_function"
-		}"
-		end
-
-	address_of_rl_prep_term_function: POINTER is
- 		-- Address of rl_prep_term_function (node at line 570)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_prep_term_function"
+			feature_name: "set_rl_erase_empty_line"
 		}"
 		end
 
@@ -349,923 +449,43 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_filename_dequoting_function: POINTER is
- 		-- rl_filename_dequoting_function (node at line 726)
+	set_rl_binding_keymap (a_value: POINTER) is
+		-- Set variable rl_binding_keymap value
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_filename_dequoting_function"
+			feature_name: "set_rl_binding_keymap"
 		}"
 		end
 
-	address_of_rl_filename_dequoting_function: POINTER is
- 		-- Address of rl_filename_dequoting_function (node at line 726)
+	rl_prep_term_function: POINTER is
+ 		-- rl_prep_term_function (node at line 570)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "&rl_filename_dequoting_function"
+			feature_name: "rl_prep_term_function"
 		}"
 		end
 
-	rl_completer_quote_characters: POINTER is
- 		-- rl_completer_quote_characters (node at line 653)
+	address_of_rl_prep_term_function: POINTER is
+ 		-- Address of rl_prep_term_function (node at line 570)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_completer_quote_characters"
+			feature_name: "&rl_prep_term_function"
 		}"
 		end
 
-	address_of_rl_completer_quote_characters: POINTER is
- 		-- Address of rl_completer_quote_characters (node at line 653)
+	set_rl_prep_term_function (a_value: POINTER) is
+		-- Set variable rl_prep_term_function value
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "&rl_completer_quote_characters"
-		}"
-		end
-
-	rl_readline_state: INTEGER_32 is
- 		-- rl_readline_state (node at line 485)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_readline_state"
-		}"
-		end
-
-	address_of_rl_readline_state: POINTER is
- 		-- Address of rl_readline_state (node at line 485)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_readline_state"
-		}"
-		end
-
-	rl_terminal_name: POINTER is
- 		-- rl_terminal_name (node at line 540)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_terminal_name"
-		}"
-		end
-
-	address_of_rl_terminal_name: POINTER is
- 		-- Address of rl_terminal_name (node at line 540)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_terminal_name"
-		}"
-		end
-
-	rl_completion_type: INTEGER_32 is
- 		-- rl_completion_type (node at line 740)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_type"
-		}"
-		end
-
-	address_of_rl_completion_type: POINTER is
- 		-- Address of rl_completion_type (node at line 740)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_type"
-		}"
-		end
-
-	rl_inhibit_completion: INTEGER_32 is
- 		-- rl_inhibit_completion (node at line 790)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_inhibit_completion"
-		}"
-		end
-
-	address_of_rl_inhibit_completion: POINTER is
- 		-- Address of rl_inhibit_completion (node at line 790)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_inhibit_completion"
-		}"
-		end
-
-	rl_filename_quote_characters: POINTER is
- 		-- rl_filename_quote_characters (node at line 659)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_filename_quote_characters"
-		}"
-		end
-
-	address_of_rl_filename_quote_characters: POINTER is
- 		-- Address of rl_filename_quote_characters (node at line 659)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_filename_quote_characters"
-		}"
-		end
-
-	rl_catch_sigwinch: INTEGER_32 is
- 		-- rl_catch_sigwinch (node at line 605)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_catch_sigwinch"
-		}"
-		end
-
-	address_of_rl_catch_sigwinch: POINTER is
- 		-- Address of rl_catch_sigwinch (node at line 605)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_catch_sigwinch"
-		}"
-		end
-
-	rl_completion_quote_character: INTEGER_32 is
- 		-- rl_completion_quote_character (node at line 760)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_quote_character"
-		}"
-		end
-
-	address_of_rl_completion_quote_character: POINTER is
- 		-- Address of rl_completion_quote_character (node at line 760)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_quote_character"
-		}"
-		end
-
-	rl_special_prefixes: POINTER is
- 		-- rl_special_prefixes (node at line 664)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_special_prefixes"
-		}"
-		end
-
-	address_of_rl_special_prefixes: POINTER is
- 		-- Address of rl_special_prefixes (node at line 664)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_special_prefixes"
-		}"
-		end
-
-	funmap: POINTER is
- 		-- funmap (node at line 74)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "funmap"
-		}"
-		end
-
-	address_of_funmap: POINTER is
- 		-- Address of funmap (node at line 74)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&funmap"
-		}"
-		end
-
-	rl_completion_display_matches_hook: POINTER is
- 		-- rl_completion_display_matches_hook (node at line 703)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_display_matches_hook"
-		}"
-		end
-
-	address_of_rl_completion_display_matches_hook: POINTER is
- 		-- Address of rl_completion_display_matches_hook (node at line 703)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_display_matches_hook"
-		}"
-		end
-
-	rl_outstream: POINTER is
- 		-- rl_outstream (node at line 544)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_outstream"
-		}"
-		end
-
-	address_of_rl_outstream: POINTER is
- 		-- Address of rl_outstream (node at line 544)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_outstream"
-		}"
-		end
-
-	rl_filename_quoting_desired: INTEGER_32 is
- 		-- rl_filename_quoting_desired (node at line 715)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_filename_quoting_desired"
-		}"
-		end
-
-	address_of_rl_filename_quoting_desired: POINTER is
- 		-- Address of rl_filename_quoting_desired (node at line 715)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_filename_quoting_desired"
-		}"
-		end
-
-	rl_library_version: POINTER is
- 		-- rl_library_version (node at line 478)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_library_version"
-		}"
-		end
-
-	address_of_rl_library_version: POINTER is
- 		-- Address of rl_library_version (node at line 478)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_library_version"
-		}"
-		end
-
-	rl_filename_completion_desired: INTEGER_32 is
- 		-- rl_filename_completion_desired (node at line 708)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_filename_completion_desired"
-		}"
-		end
-
-	address_of_rl_filename_completion_desired: POINTER is
- 		-- Address of rl_filename_completion_desired (node at line 708)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_filename_completion_desired"
-		}"
-		end
-
-	rl_executing_keymap: POINTER is
- 		-- rl_executing_keymap (node at line 574)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_executing_keymap"
-		}"
-		end
-
-	address_of_rl_executing_keymap: POINTER is
- 		-- Address of rl_executing_keymap (node at line 574)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_executing_keymap"
-		}"
-		end
-
-	rl_menu_completion_entry_function: POINTER is
- 		-- rl_menu_completion_entry_function (node at line 615)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_menu_completion_entry_function"
-		}"
-		end
-
-	address_of_rl_menu_completion_entry_function: POINTER is
- 		-- Address of rl_menu_completion_entry_function (node at line 615)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_menu_completion_entry_function"
-		}"
-		end
-
-	rl_readline_version: INTEGER_32 is
- 		-- rl_readline_version (node at line 479)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_readline_version"
-		}"
-		end
-
-	address_of_rl_readline_version: POINTER is
- 		-- Address of rl_readline_version (node at line 479)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_readline_version"
-		}"
-		end
-
-	rl_undo_list: POINTER is
- 		-- rl_undo_list (node at line 66)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_undo_list"
-		}"
-		end
-
-	address_of_rl_undo_list: POINTER is
- 		-- Address of rl_undo_list (node at line 66)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_undo_list"
-		}"
-		end
-
-	rl_filename_rewrite_hook: POINTER is
- 		-- rl_filename_rewrite_hook (node at line 691)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_filename_rewrite_hook"
-		}"
-		end
-
-	address_of_rl_filename_rewrite_hook: POINTER is
- 		-- Address of rl_filename_rewrite_hook (node at line 691)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_filename_rewrite_hook"
-		}"
-		end
-
-	rl_pending_input: INTEGER_32 is
- 		-- rl_pending_input (node at line 522)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_pending_input"
-		}"
-		end
-
-	address_of_rl_pending_input: POINTER is
- 		-- Address of rl_pending_input (node at line 522)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_pending_input"
-		}"
-		end
-
-	rl_completion_word_break_hook: POINTER is
- 		-- rl_completion_word_break_hook (node at line 647)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_word_break_hook"
-		}"
-		end
-
-	address_of_rl_completion_word_break_hook: POINTER is
- 		-- Address of rl_completion_word_break_hook (node at line 647)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_word_break_hook"
-		}"
-		end
-
-	rl_deprep_term_function: POINTER is
- 		-- rl_deprep_term_function (node at line 571)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_deprep_term_function"
-		}"
-		end
-
-	address_of_rl_deprep_term_function: POINTER is
- 		-- Address of rl_deprep_term_function (node at line 571)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_deprep_term_function"
-		}"
-		end
-
-	rl_num_chars_to_read: INTEGER_32 is
- 		-- rl_num_chars_to_read (node at line 590)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_num_chars_to_read"
-		}"
-		end
-
-	address_of_rl_num_chars_to_read: POINTER is
- 		-- Address of rl_num_chars_to_read (node at line 590)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_num_chars_to_read"
-		}"
-		end
-
-	rl_attempted_completion_over: INTEGER_32 is
- 		-- rl_attempted_completion_over (node at line 735)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_attempted_completion_over"
-		}"
-		end
-
-	address_of_rl_attempted_completion_over: POINTER is
- 		-- Address of rl_attempted_completion_over (node at line 735)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_attempted_completion_over"
-		}"
-		end
-
-	rl_completion_suppress_quote: INTEGER_32 is
- 		-- rl_completion_suppress_quote (node at line 769)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_suppress_quote"
-		}"
-		end
-
-	address_of_rl_completion_suppress_quote: POINTER is
- 		-- Address of rl_completion_suppress_quote (node at line 769)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_suppress_quote"
-		}"
-		end
-
-	rl_line_buffer: POINTER is
- 		-- rl_line_buffer (node at line 508)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_line_buffer"
-		}"
-		end
-
-	address_of_rl_line_buffer: POINTER is
- 		-- Address of rl_line_buffer (node at line 508)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_line_buffer"
-		}"
-		end
-
-	rl_pre_input_hook: POINTER is
- 		-- rl_pre_input_hook (node at line 558)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_pre_input_hook"
-		}"
-		end
-
-	address_of_rl_pre_input_hook: POINTER is
- 		-- Address of rl_pre_input_hook (node at line 558)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_pre_input_hook"
-		}"
-		end
-
-	rl_insert_mode: INTEGER_32 is
- 		-- rl_insert_mode (node at line 493)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_insert_mode"
-		}"
-		end
-
-	address_of_rl_insert_mode: POINTER is
- 		-- Address of rl_insert_mode (node at line 493)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_insert_mode"
-		}"
-		end
-
-	rl_completion_suppress_append: INTEGER_32 is
- 		-- rl_completion_suppress_append (node at line 756)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_completion_suppress_append"
-		}"
-		end
-
-	address_of_rl_completion_suppress_append: POINTER is
- 		-- Address of rl_completion_suppress_append (node at line 756)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_completion_suppress_append"
-		}"
-		end
-
-	rl_redisplay_function: POINTER is
- 		-- rl_redisplay_function (node at line 568)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_redisplay_function"
-		}"
-		end
-
-	address_of_rl_redisplay_function: POINTER is
- 		-- Address of rl_redisplay_function (node at line 568)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_redisplay_function"
-		}"
-		end
-
-	rl_readline_name: POINTER is
- 		-- rl_readline_name (node at line 497)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_readline_name"
-		}"
-		end
-
-	address_of_rl_readline_name: POINTER is
- 		-- Address of rl_readline_name (node at line 497)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_readline_name"
-		}"
-		end
-
-	rl_explicit_arg: INTEGER_32 is
- 		-- rl_explicit_arg (node at line 531)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_explicit_arg"
-		}"
-		end
-
-	address_of_rl_explicit_arg: POINTER is
- 		-- Address of rl_explicit_arg (node at line 531)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_explicit_arg"
-		}"
-		end
-
-	rl_editing_mode: INTEGER_32 is
- 		-- rl_editing_mode (node at line 489)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_editing_mode"
-		}"
-		end
-
-	address_of_rl_editing_mode: POINTER is
- 		-- Address of rl_editing_mode (node at line 489)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_editing_mode"
-		}"
-		end
-
-	rl_end: INTEGER_32 is
- 		-- rl_end (node at line 512)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_end"
-		}"
-		end
-
-	address_of_rl_end: POINTER is
- 		-- Address of rl_end (node at line 512)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_end"
-		}"
-		end
-
-	rl_directory_completion_hook: POINTER is
- 		-- rl_directory_completion_hook (node at line 671)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_directory_completion_hook"
-		}"
-		end
-
-	address_of_rl_directory_completion_hook: POINTER is
- 		-- Address of rl_directory_completion_hook (node at line 671)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_directory_completion_hook"
-		}"
-		end
-
-	rl_point: INTEGER_32 is
- 		-- rl_point (node at line 511)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_point"
-		}"
-		end
-
-	address_of_rl_point: POINTER is
- 		-- Address of rl_point (node at line 511)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_point"
-		}"
-		end
-
-	rl_executing_macro: POINTER is
- 		-- rl_executing_macro (node at line 593)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_executing_macro"
-		}"
-		end
-
-	address_of_rl_executing_macro: POINTER is
- 		-- Address of rl_executing_macro (node at line 593)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_executing_macro"
-		}"
-		end
-
-	rl_catch_signals: INTEGER_32 is
- 		-- rl_catch_signals (node at line 598)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_catch_signals"
-		}"
-		end
-
-	address_of_rl_catch_signals: POINTER is
- 		-- Address of rl_catch_signals (node at line 598)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_catch_signals"
-		}"
-		end
-
-	rl_char_is_quoted_p: POINTER is
- 		-- rl_char_is_quoted_p (node at line 731)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_char_is_quoted_p"
-		}"
-		end
-
-	address_of_rl_char_is_quoted_p: POINTER is
- 		-- Address of rl_char_is_quoted_p (node at line 731)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_char_is_quoted_p"
-		}"
-		end
-
-	rl_getc_function: POINTER is
- 		-- rl_getc_function (node at line 566)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_getc_function"
-		}"
-		end
-
-	address_of_rl_getc_function: POINTER is
- 		-- Address of rl_getc_function (node at line 566)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_getc_function"
-		}"
-		end
-
-	rl_sort_completion_matches: INTEGER_32 is
- 		-- rl_sort_completion_matches (node at line 772)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_sort_completion_matches"
-		}"
-		end
-
-	address_of_rl_sort_completion_matches: POINTER is
- 		-- Address of rl_sort_completion_matches (node at line 772)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_sort_completion_matches"
-		}"
-		end
-
-	rl_display_prompt: POINTER is
- 		-- rl_display_prompt (node at line 505)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_display_prompt"
-		}"
-		end
-
-	address_of_rl_display_prompt: POINTER is
- 		-- Address of rl_display_prompt (node at line 505)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_display_prompt"
-		}"
-		end
-
-	rl_prompt: POINTER is
- 		-- rl_prompt (node at line 501)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_prompt"
-		}"
-		end
-
-	address_of_rl_prompt: POINTER is
- 		-- Address of rl_prompt (node at line 501)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_prompt"
-		}"
-		end
-
-	rl_last_func: POINTER is
- 		-- rl_last_func (node at line 537)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_last_func"
-		}"
-		end
-
-	address_of_rl_last_func: POINTER is
- 		-- Address of rl_last_func (node at line 537)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&rl_last_func"
+			feature_name: "set_rl_prep_term_function"
 		}"
 		end
 
@@ -1289,6 +509,1426 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_prefer_env_winsize (a_value: INTEGER_32) is
+		-- Set variable rl_prefer_env_winsize value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_prefer_env_winsize"
+		}"
+		end
+
+	rl_filename_dequoting_function: POINTER is
+ 		-- rl_filename_dequoting_function (node at line 726)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_dequoting_function"
+		}"
+		end
+
+	address_of_rl_filename_dequoting_function: POINTER is
+ 		-- Address of rl_filename_dequoting_function (node at line 726)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_filename_dequoting_function"
+		}"
+		end
+
+	set_rl_filename_dequoting_function (a_value: POINTER) is
+		-- Set variable rl_filename_dequoting_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_dequoting_function"
+		}"
+		end
+
+	rl_completer_quote_characters: POINTER is
+ 		-- rl_completer_quote_characters (node at line 653)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completer_quote_characters"
+		}"
+		end
+
+	address_of_rl_completer_quote_characters: POINTER is
+ 		-- Address of rl_completer_quote_characters (node at line 653)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completer_quote_characters"
+		}"
+		end
+
+	set_rl_completer_quote_characters (a_value: POINTER) is
+		-- Set variable rl_completer_quote_characters value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completer_quote_characters"
+		}"
+		end
+
+	rl_mark: INTEGER_32 is
+ 		-- rl_mark (node at line 515)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_mark"
+		}"
+		end
+
+	address_of_rl_mark: POINTER is
+ 		-- Address of rl_mark (node at line 515)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_mark"
+		}"
+		end
+
+	set_rl_mark (a_value: INTEGER_32) is
+		-- Set variable rl_mark value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_mark"
+		}"
+		end
+
+	rl_readline_state: INTEGER_32 is
+ 		-- rl_readline_state (node at line 485)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_state"
+		}"
+		end
+
+	address_of_rl_readline_state: POINTER is
+ 		-- Address of rl_readline_state (node at line 485)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_readline_state"
+		}"
+		end
+
+	set_rl_readline_state (a_value: INTEGER_32) is
+		-- Set variable rl_readline_state value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_readline_state"
+		}"
+		end
+
+	rl_terminal_name: POINTER is
+ 		-- rl_terminal_name (node at line 540)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_terminal_name"
+		}"
+		end
+
+	address_of_rl_terminal_name: POINTER is
+ 		-- Address of rl_terminal_name (node at line 540)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_terminal_name"
+		}"
+		end
+
+	set_rl_terminal_name (a_value: POINTER) is
+		-- Set variable rl_terminal_name value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_terminal_name"
+		}"
+		end
+
+	rl_completion_type: INTEGER_32 is
+ 		-- rl_completion_type (node at line 740)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_type"
+		}"
+		end
+
+	address_of_rl_completion_type: POINTER is
+ 		-- Address of rl_completion_type (node at line 740)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_type"
+		}"
+		end
+
+	set_rl_completion_type (a_value: INTEGER_32) is
+		-- Set variable rl_completion_type value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_type"
+		}"
+		end
+
+	rl_inhibit_completion: INTEGER_32 is
+ 		-- rl_inhibit_completion (node at line 790)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_inhibit_completion"
+		}"
+		end
+
+	address_of_rl_inhibit_completion: POINTER is
+ 		-- Address of rl_inhibit_completion (node at line 790)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_inhibit_completion"
+		}"
+		end
+
+	set_rl_inhibit_completion (a_value: INTEGER_32) is
+		-- Set variable rl_inhibit_completion value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_inhibit_completion"
+		}"
+		end
+
+	rl_filename_quote_characters: POINTER is
+ 		-- rl_filename_quote_characters (node at line 659)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_quote_characters"
+		}"
+		end
+
+	address_of_rl_filename_quote_characters: POINTER is
+ 		-- Address of rl_filename_quote_characters (node at line 659)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_filename_quote_characters"
+		}"
+		end
+
+	set_rl_filename_quote_characters (a_value: POINTER) is
+		-- Set variable rl_filename_quote_characters value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_quote_characters"
+		}"
+		end
+
+	rl_catch_sigwinch: INTEGER_32 is
+ 		-- rl_catch_sigwinch (node at line 605)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_catch_sigwinch"
+		}"
+		end
+
+	address_of_rl_catch_sigwinch: POINTER is
+ 		-- Address of rl_catch_sigwinch (node at line 605)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_catch_sigwinch"
+		}"
+		end
+
+	set_rl_catch_sigwinch (a_value: INTEGER_32) is
+		-- Set variable rl_catch_sigwinch value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_catch_sigwinch"
+		}"
+		end
+
+	rl_completion_word_break_hook: POINTER is
+ 		-- rl_completion_word_break_hook (node at line 647)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_word_break_hook"
+		}"
+		end
+
+	address_of_rl_completion_word_break_hook: POINTER is
+ 		-- Address of rl_completion_word_break_hook (node at line 647)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_word_break_hook"
+		}"
+		end
+
+	set_rl_completion_word_break_hook (a_value: POINTER) is
+		-- Set variable rl_completion_word_break_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_word_break_hook"
+		}"
+		end
+
+	rl_completion_quote_character: INTEGER_32 is
+ 		-- rl_completion_quote_character (node at line 760)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_quote_character"
+		}"
+		end
+
+	address_of_rl_completion_quote_character: POINTER is
+ 		-- Address of rl_completion_quote_character (node at line 760)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_quote_character"
+		}"
+		end
+
+	set_rl_completion_quote_character (a_value: INTEGER_32) is
+		-- Set variable rl_completion_quote_character value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_quote_character"
+		}"
+		end
+
+	rl_special_prefixes: POINTER is
+ 		-- rl_special_prefixes (node at line 664)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_special_prefixes"
+		}"
+		end
+
+	address_of_rl_special_prefixes: POINTER is
+ 		-- Address of rl_special_prefixes (node at line 664)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_special_prefixes"
+		}"
+		end
+
+	set_rl_special_prefixes (a_value: POINTER) is
+		-- Set variable rl_special_prefixes value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_special_prefixes"
+		}"
+		end
+
+	funmap: POINTER is
+ 		-- funmap (node at line 74)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "funmap"
+		}"
+		end
+
+	address_of_funmap: POINTER is
+ 		-- Address of funmap (node at line 74)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&funmap"
+		}"
+		end
+
+	set_funmap (a_value: POINTER) is
+		-- Set variable funmap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_funmap"
+		}"
+		end
+
+	rl_completion_display_matches_hook: POINTER is
+ 		-- rl_completion_display_matches_hook (node at line 703)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_display_matches_hook"
+		}"
+		end
+
+	address_of_rl_completion_display_matches_hook: POINTER is
+ 		-- Address of rl_completion_display_matches_hook (node at line 703)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_display_matches_hook"
+		}"
+		end
+
+	set_rl_completion_display_matches_hook (a_value: POINTER) is
+		-- Set variable rl_completion_display_matches_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_display_matches_hook"
+		}"
+		end
+
+	rl_outstream: POINTER is
+ 		-- rl_outstream (node at line 544)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_outstream"
+		}"
+		end
+
+	address_of_rl_outstream: POINTER is
+ 		-- Address of rl_outstream (node at line 544)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_outstream"
+		}"
+		end
+
+	set_rl_outstream (a_value: POINTER) is
+		-- Set variable rl_outstream value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_outstream"
+		}"
+		end
+
+	rl_filename_quoting_desired: INTEGER_32 is
+ 		-- rl_filename_quoting_desired (node at line 715)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_quoting_desired"
+		}"
+		end
+
+	address_of_rl_filename_quoting_desired: POINTER is
+ 		-- Address of rl_filename_quoting_desired (node at line 715)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_filename_quoting_desired"
+		}"
+		end
+
+	set_rl_filename_quoting_desired (a_value: INTEGER_32) is
+		-- Set variable rl_filename_quoting_desired value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_quoting_desired"
+		}"
+		end
+
+	rl_library_version: POINTER is
+ 		-- rl_library_version (node at line 478)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_library_version"
+		}"
+		end
+
+	address_of_rl_library_version: POINTER is
+ 		-- Address of rl_library_version (node at line 478)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_library_version"
+		}"
+		end
+
+	set_rl_library_version (a_value: POINTER) is
+		-- Set variable rl_library_version value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_library_version"
+		}"
+		end
+
+	rl_filename_completion_desired: INTEGER_32 is
+ 		-- rl_filename_completion_desired (node at line 708)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_completion_desired"
+		}"
+		end
+
+	address_of_rl_filename_completion_desired: POINTER is
+ 		-- Address of rl_filename_completion_desired (node at line 708)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_filename_completion_desired"
+		}"
+		end
+
+	set_rl_filename_completion_desired (a_value: INTEGER_32) is
+		-- Set variable rl_filename_completion_desired value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_completion_desired"
+		}"
+		end
+
+	rl_executing_keymap: POINTER is
+ 		-- rl_executing_keymap (node at line 574)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_executing_keymap"
+		}"
+		end
+
+	address_of_rl_executing_keymap: POINTER is
+ 		-- Address of rl_executing_keymap (node at line 574)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_executing_keymap"
+		}"
+		end
+
+	set_rl_executing_keymap (a_value: POINTER) is
+		-- Set variable rl_executing_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_executing_keymap"
+		}"
+		end
+
+	rl_menu_completion_entry_function: POINTER is
+ 		-- rl_menu_completion_entry_function (node at line 615)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_menu_completion_entry_function"
+		}"
+		end
+
+	address_of_rl_menu_completion_entry_function: POINTER is
+ 		-- Address of rl_menu_completion_entry_function (node at line 615)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_menu_completion_entry_function"
+		}"
+		end
+
+	set_rl_menu_completion_entry_function (a_value: POINTER) is
+		-- Set variable rl_menu_completion_entry_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_menu_completion_entry_function"
+		}"
+		end
+
+	rl_readline_version: INTEGER_32 is
+ 		-- rl_readline_version (node at line 479)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_version"
+		}"
+		end
+
+	address_of_rl_readline_version: POINTER is
+ 		-- Address of rl_readline_version (node at line 479)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_readline_version"
+		}"
+		end
+
+	set_rl_readline_version (a_value: INTEGER_32) is
+		-- Set variable rl_readline_version value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_readline_version"
+		}"
+		end
+
+	rl_undo_list: POINTER is
+ 		-- rl_undo_list (node at line 66)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_undo_list"
+		}"
+		end
+
+	address_of_rl_undo_list: POINTER is
+ 		-- Address of rl_undo_list (node at line 66)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_undo_list"
+		}"
+		end
+
+	set_rl_undo_list (a_value: POINTER) is
+		-- Set variable rl_undo_list value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_undo_list"
+		}"
+		end
+
+	rl_filename_rewrite_hook: POINTER is
+ 		-- rl_filename_rewrite_hook (node at line 691)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_filename_rewrite_hook"
+		}"
+		end
+
+	address_of_rl_filename_rewrite_hook: POINTER is
+ 		-- Address of rl_filename_rewrite_hook (node at line 691)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_filename_rewrite_hook"
+		}"
+		end
+
+	set_rl_filename_rewrite_hook (a_value: POINTER) is
+		-- Set variable rl_filename_rewrite_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_filename_rewrite_hook"
+		}"
+		end
+
+	rl_pending_input: INTEGER_32 is
+ 		-- rl_pending_input (node at line 522)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_pending_input"
+		}"
+		end
+
+	address_of_rl_pending_input: POINTER is
+ 		-- Address of rl_pending_input (node at line 522)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_pending_input"
+		}"
+		end
+
+	set_rl_pending_input (a_value: INTEGER_32) is
+		-- Set variable rl_pending_input value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_pending_input"
+		}"
+		end
+
+	rl_deprep_term_function: POINTER is
+ 		-- rl_deprep_term_function (node at line 571)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_deprep_term_function"
+		}"
+		end
+
+	address_of_rl_deprep_term_function: POINTER is
+ 		-- Address of rl_deprep_term_function (node at line 571)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_deprep_term_function"
+		}"
+		end
+
+	set_rl_deprep_term_function (a_value: POINTER) is
+		-- Set variable rl_deprep_term_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_deprep_term_function"
+		}"
+		end
+
+	rl_num_chars_to_read: INTEGER_32 is
+ 		-- rl_num_chars_to_read (node at line 590)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_num_chars_to_read"
+		}"
+		end
+
+	address_of_rl_num_chars_to_read: POINTER is
+ 		-- Address of rl_num_chars_to_read (node at line 590)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_num_chars_to_read"
+		}"
+		end
+
+	set_rl_num_chars_to_read (a_value: INTEGER_32) is
+		-- Set variable rl_num_chars_to_read value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_num_chars_to_read"
+		}"
+		end
+
+	rl_attempted_completion_over: INTEGER_32 is
+ 		-- rl_attempted_completion_over (node at line 735)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_attempted_completion_over"
+		}"
+		end
+
+	address_of_rl_attempted_completion_over: POINTER is
+ 		-- Address of rl_attempted_completion_over (node at line 735)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_attempted_completion_over"
+		}"
+		end
+
+	set_rl_attempted_completion_over (a_value: INTEGER_32) is
+		-- Set variable rl_attempted_completion_over value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_attempted_completion_over"
+		}"
+		end
+
+	rl_completion_suppress_quote: INTEGER_32 is
+ 		-- rl_completion_suppress_quote (node at line 769)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_suppress_quote"
+		}"
+		end
+
+	address_of_rl_completion_suppress_quote: POINTER is
+ 		-- Address of rl_completion_suppress_quote (node at line 769)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_suppress_quote"
+		}"
+		end
+
+	set_rl_completion_suppress_quote (a_value: INTEGER_32) is
+		-- Set variable rl_completion_suppress_quote value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_suppress_quote"
+		}"
+		end
+
+	rl_line_buffer: POINTER is
+ 		-- rl_line_buffer (node at line 508)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_line_buffer"
+		}"
+		end
+
+	address_of_rl_line_buffer: POINTER is
+ 		-- Address of rl_line_buffer (node at line 508)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_line_buffer"
+		}"
+		end
+
+	set_rl_line_buffer (a_value: POINTER) is
+		-- Set variable rl_line_buffer value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_line_buffer"
+		}"
+		end
+
+	rl_pre_input_hook: POINTER is
+ 		-- rl_pre_input_hook (node at line 558)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_pre_input_hook"
+		}"
+		end
+
+	address_of_rl_pre_input_hook: POINTER is
+ 		-- Address of rl_pre_input_hook (node at line 558)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_pre_input_hook"
+		}"
+		end
+
+	set_rl_pre_input_hook (a_value: POINTER) is
+		-- Set variable rl_pre_input_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_pre_input_hook"
+		}"
+		end
+
+	rl_insert_mode: INTEGER_32 is
+ 		-- rl_insert_mode (node at line 493)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_insert_mode"
+		}"
+		end
+
+	address_of_rl_insert_mode: POINTER is
+ 		-- Address of rl_insert_mode (node at line 493)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_insert_mode"
+		}"
+		end
+
+	set_rl_insert_mode (a_value: INTEGER_32) is
+		-- Set variable rl_insert_mode value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_insert_mode"
+		}"
+		end
+
+	rl_completion_suppress_append: INTEGER_32 is
+ 		-- rl_completion_suppress_append (node at line 756)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_completion_suppress_append"
+		}"
+		end
+
+	address_of_rl_completion_suppress_append: POINTER is
+ 		-- Address of rl_completion_suppress_append (node at line 756)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_completion_suppress_append"
+		}"
+		end
+
+	set_rl_completion_suppress_append (a_value: INTEGER_32) is
+		-- Set variable rl_completion_suppress_append value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_suppress_append"
+		}"
+		end
+
+	rl_redisplay_function: POINTER is
+ 		-- rl_redisplay_function (node at line 568)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_redisplay_function"
+		}"
+		end
+
+	address_of_rl_redisplay_function: POINTER is
+ 		-- Address of rl_redisplay_function (node at line 568)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_redisplay_function"
+		}"
+		end
+
+	set_rl_redisplay_function (a_value: POINTER) is
+		-- Set variable rl_redisplay_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_redisplay_function"
+		}"
+		end
+
+	rl_readline_name: POINTER is
+ 		-- rl_readline_name (node at line 497)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_readline_name"
+		}"
+		end
+
+	address_of_rl_readline_name: POINTER is
+ 		-- Address of rl_readline_name (node at line 497)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_readline_name"
+		}"
+		end
+
+	set_rl_readline_name (a_value: POINTER) is
+		-- Set variable rl_readline_name value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_readline_name"
+		}"
+		end
+
+	rl_explicit_arg: INTEGER_32 is
+ 		-- rl_explicit_arg (node at line 531)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_explicit_arg"
+		}"
+		end
+
+	address_of_rl_explicit_arg: POINTER is
+ 		-- Address of rl_explicit_arg (node at line 531)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_explicit_arg"
+		}"
+		end
+
+	set_rl_explicit_arg (a_value: INTEGER_32) is
+		-- Set variable rl_explicit_arg value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_explicit_arg"
+		}"
+		end
+
+	rl_editing_mode: INTEGER_32 is
+ 		-- rl_editing_mode (node at line 489)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_editing_mode"
+		}"
+		end
+
+	address_of_rl_editing_mode: POINTER is
+ 		-- Address of rl_editing_mode (node at line 489)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_editing_mode"
+		}"
+		end
+
+	set_rl_editing_mode (a_value: INTEGER_32) is
+		-- Set variable rl_editing_mode value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_editing_mode"
+		}"
+		end
+
+	rl_end: INTEGER_32 is
+ 		-- rl_end (node at line 512)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_end"
+		}"
+		end
+
+	address_of_rl_end: POINTER is
+ 		-- Address of rl_end (node at line 512)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_end"
+		}"
+		end
+
+	set_rl_end (a_value: INTEGER_32) is
+		-- Set variable rl_end value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_end"
+		}"
+		end
+
+	rl_directory_completion_hook: POINTER is
+ 		-- rl_directory_completion_hook (node at line 671)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_directory_completion_hook"
+		}"
+		end
+
+	address_of_rl_directory_completion_hook: POINTER is
+ 		-- Address of rl_directory_completion_hook (node at line 671)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_directory_completion_hook"
+		}"
+		end
+
+	set_rl_directory_completion_hook (a_value: POINTER) is
+		-- Set variable rl_directory_completion_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_directory_completion_hook"
+		}"
+		end
+
+	rl_point: INTEGER_32 is
+ 		-- rl_point (node at line 511)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_point"
+		}"
+		end
+
+	address_of_rl_point: POINTER is
+ 		-- Address of rl_point (node at line 511)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_point"
+		}"
+		end
+
+	set_rl_point (a_value: INTEGER_32) is
+		-- Set variable rl_point value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_point"
+		}"
+		end
+
+	rl_executing_macro: POINTER is
+ 		-- rl_executing_macro (node at line 593)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_executing_macro"
+		}"
+		end
+
+	address_of_rl_executing_macro: POINTER is
+ 		-- Address of rl_executing_macro (node at line 593)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_executing_macro"
+		}"
+		end
+
+	set_rl_executing_macro (a_value: POINTER) is
+		-- Set variable rl_executing_macro value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_executing_macro"
+		}"
+		end
+
+	rl_catch_signals: INTEGER_32 is
+ 		-- rl_catch_signals (node at line 598)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_catch_signals"
+		}"
+		end
+
+	address_of_rl_catch_signals: POINTER is
+ 		-- Address of rl_catch_signals (node at line 598)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_catch_signals"
+		}"
+		end
+
+	set_rl_catch_signals (a_value: INTEGER_32) is
+		-- Set variable rl_catch_signals value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_catch_signals"
+		}"
+		end
+
+	rl_char_is_quoted_p: POINTER is
+ 		-- rl_char_is_quoted_p (node at line 731)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_char_is_quoted_p"
+		}"
+		end
+
+	address_of_rl_char_is_quoted_p: POINTER is
+ 		-- Address of rl_char_is_quoted_p (node at line 731)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_char_is_quoted_p"
+		}"
+		end
+
+	set_rl_char_is_quoted_p (a_value: POINTER) is
+		-- Set variable rl_char_is_quoted_p value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_char_is_quoted_p"
+		}"
+		end
+
+	rl_getc_function: POINTER is
+ 		-- rl_getc_function (node at line 566)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_getc_function"
+		}"
+		end
+
+	address_of_rl_getc_function: POINTER is
+ 		-- Address of rl_getc_function (node at line 566)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_getc_function"
+		}"
+		end
+
+	set_rl_getc_function (a_value: POINTER) is
+		-- Set variable rl_getc_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_getc_function"
+		}"
+		end
+
+	rl_sort_completion_matches: INTEGER_32 is
+ 		-- rl_sort_completion_matches (node at line 772)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_sort_completion_matches"
+		}"
+		end
+
+	address_of_rl_sort_completion_matches: POINTER is
+ 		-- Address of rl_sort_completion_matches (node at line 772)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_sort_completion_matches"
+		}"
+		end
+
+	set_rl_sort_completion_matches (a_value: INTEGER_32) is
+		-- Set variable rl_sort_completion_matches value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_sort_completion_matches"
+		}"
+		end
+
+	rl_display_prompt: POINTER is
+ 		-- rl_display_prompt (node at line 505)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_display_prompt"
+		}"
+		end
+
+	address_of_rl_display_prompt: POINTER is
+ 		-- Address of rl_display_prompt (node at line 505)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_display_prompt"
+		}"
+		end
+
+	set_rl_display_prompt (a_value: POINTER) is
+		-- Set variable rl_display_prompt value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_display_prompt"
+		}"
+		end
+
+	rl_prompt: POINTER is
+ 		-- rl_prompt (node at line 501)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_prompt"
+		}"
+		end
+
+	address_of_rl_prompt: POINTER is
+ 		-- Address of rl_prompt (node at line 501)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_prompt"
+		}"
+		end
+
+	set_rl_prompt (a_value: POINTER) is
+		-- Set variable rl_prompt value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_prompt"
+		}"
+		end
+
+	rl_last_func: POINTER is
+ 		-- rl_last_func (node at line 537)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_last_func"
+		}"
+		end
+
+	address_of_rl_last_func: POINTER is
+ 		-- Address of rl_last_func (node at line 537)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&rl_last_func"
+		}"
+		end
+
+	set_rl_last_func (a_value: POINTER) is
+		-- Set variable rl_last_func value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_last_func"
+		}"
+		end
+
 	rl_gnu_readline_p: INTEGER_32 is
  		-- rl_gnu_readline_p (node at line 482)
 		external "plug_in"
@@ -1306,6 +1946,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_gnu_readline_p"
+		}"
+		end
+
+	set_rl_gnu_readline_p (a_value: INTEGER_32) is
+		-- Set variable rl_gnu_readline_p value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_gnu_readline_p"
 		}"
 		end
 
@@ -1329,6 +1979,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_already_prompted (a_value: INTEGER_32) is
+		-- Set variable rl_already_prompted value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_already_prompted"
+		}"
+		end
+
 	rl_completion_found_quote: INTEGER_32 is
  		-- rl_completion_found_quote (node at line 764)
 		external "plug_in"
@@ -1346,6 +2006,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_completion_found_quote"
+		}"
+		end
+
+	set_rl_completion_found_quote (a_value: INTEGER_32) is
+		-- Set variable rl_completion_found_quote value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_found_quote"
 		}"
 		end
 
@@ -1369,6 +2039,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_attempted_completion_function (a_value: POINTER) is
+		-- Set variable rl_attempted_completion_function value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_attempted_completion_function"
+		}"
+		end
+
 	rl_ignore_completion_duplicates: INTEGER_32 is
  		-- rl_ignore_completion_duplicates (node at line 786)
 		external "plug_in"
@@ -1386,6 +2066,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_ignore_completion_duplicates"
+		}"
+		end
+
+	set_rl_ignore_completion_duplicates (a_value: INTEGER_32) is
+		-- Set variable rl_ignore_completion_duplicates value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_ignore_completion_duplicates"
 		}"
 		end
 
@@ -1409,6 +2099,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_basic_word_break_characters (a_value: POINTER) is
+		-- Set variable rl_basic_word_break_characters value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_basic_word_break_characters"
+		}"
+		end
+
 	rl_startup_hook: POINTER is
  		-- rl_startup_hook (node at line 553)
 		external "plug_in"
@@ -1426,6 +2126,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&rl_startup_hook"
+		}"
+		end
+
+	set_rl_startup_hook (a_value: POINTER) is
+		-- Set variable rl_startup_hook value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_startup_hook"
 		}"
 		end
 
@@ -1449,6 +2159,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_completion_append_character (a_value: INTEGER_32) is
+		-- Set variable rl_completion_append_character value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_completion_append_character"
+		}"
+		end
+
 	rl_instream: POINTER is
  		-- rl_instream (node at line 543)
 		external "plug_in"
@@ -1469,6 +2189,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_rl_instream (a_value: POINTER) is
+		-- Set variable rl_instream value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_rl_instream"
+		}"
+		end
+
 	rl_reset_terminal (an_argument_l25_c7: POINTER): INTEGER_32 is
  		-- rl_reset_terminal (node at line 24)
 		external "plug_in"
@@ -1479,8 +2209,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_completion_matches (an_argument_l35_c7: POINTER; an_argument_l36_c7: POINTER): POINTER is
- 		-- rl_completion_matches (node at line 34)
+	rl_completion_matches (an_argument_l37_c7: POINTER; an_argument_l38_c7: POINTER): POINTER is
+ 		-- rl_completion_matches (node at line 36)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1490,7 +2220,7 @@ feature {} -- External calls
 		end
 
 	rl_discard_argument: INTEGER_32 is
- 		-- rl_discard_argument (node at line 39)
+ 		-- rl_discard_argument (node at line 41)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1499,8 +2229,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_goto_mark (an_argument_l41_c7: INTEGER_32; an_argument_l42_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_goto_mark (node at line 40)
+	rl_vi_goto_mark (an_argument_l43_c7: INTEGER_32; an_argument_l44_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_goto_mark (node at line 42)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1509,8 +2239,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_next_history (an_argument_l52_c7: INTEGER_32; an_argument_l53_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_get_next_history (node at line 51)
+	rl_get_next_history (an_argument_l54_c7: INTEGER_32; an_argument_l55_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_get_next_history (node at line 53)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1519,18 +2249,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_insert_mode (an_argument_l88_c7: INTEGER_32; an_argument_l89_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_insert_mode (node at line 87)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_vi_insert_mode"
-		}"
-		end
-
-	rl_translate_keyseq (an_argument_l92_c7: POINTER; an_argument_l93_c7: POINTER; an_argument_l94_c7: POINTER): INTEGER_32 is
- 		-- rl_translate_keyseq (node at line 91)
+	rl_translate_keyseq (an_argument_l90_c7: POINTER; an_argument_l91_c7: POINTER; an_argument_l92_c7: POINTER): INTEGER_32 is
+ 		-- rl_translate_keyseq (node at line 89)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1540,7 +2260,7 @@ feature {} -- External calls
 		end
 
 	rl_clear_pending_input: INTEGER_32 is
- 		-- rl_clear_pending_input (node at line 123)
+ 		-- rl_clear_pending_input (node at line 121)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1549,8 +2269,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_extend_line_buffer (an_argument_l125_c7: INTEGER_32) is
- 		-- rl_extend_line_buffer (node at line 124)
+	rl_extend_line_buffer (an_argument_l123_c7: INTEGER_32) is
+ 		-- rl_extend_line_buffer (node at line 122)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1560,7 +2280,7 @@ feature {} -- External calls
 		end
 
 	rl_clear_signals: INTEGER_32 is
- 		-- rl_clear_signals (node at line 138)
+ 		-- rl_clear_signals (node at line 136)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1569,8 +2289,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_copy_region_to_kill (an_argument_l177_c7: INTEGER_32; an_argument_l178_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_copy_region_to_kill (node at line 176)
+	rl_copy_region_to_kill (an_argument_l165_c7: INTEGER_32; an_argument_l166_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_copy_region_to_kill (node at line 164)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1579,8 +2299,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_yank_arg (an_argument_l194_c7: INTEGER_32; an_argument_l195_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_yank_arg (node at line 193)
+	rl_vi_yank_arg (an_argument_l182_c7: INTEGER_32; an_argument_l183_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_yank_arg (node at line 181)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1589,8 +2309,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unix_filename_rubout (an_argument_l211_c7: INTEGER_32; an_argument_l212_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_unix_filename_rubout (node at line 210)
+	rl_unix_filename_rubout (an_argument_l195_c7: INTEGER_32; an_argument_l196_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_unix_filename_rubout (node at line 194)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1599,8 +2319,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_menu_complete (an_argument_l215_c7: INTEGER_32; an_argument_l216_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_menu_complete (node at line 214)
+	rl_menu_complete (an_argument_l199_c7: INTEGER_32; an_argument_l200_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_menu_complete (node at line 198)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1609,8 +2329,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_kill_region (an_argument_l219_c7: INTEGER_32; an_argument_l220_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_kill_region (node at line 218)
+	rl_kill_region (an_argument_l203_c7: INTEGER_32; an_argument_l204_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_kill_region (node at line 202)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1619,8 +2339,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_put (an_argument_l270_c7: INTEGER_32; an_argument_l271_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_put (node at line 269)
+	rl_vi_put (an_argument_l269_c7: INTEGER_32; an_argument_l270_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_put (node at line 268)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1629,8 +2349,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_tilde_expand (an_argument_l281_c7: INTEGER_32; an_argument_l282_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_tilde_expand (node at line 280)
+	rl_vi_tilde_expand (an_argument_l280_c7: INTEGER_32; an_argument_l281_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_tilde_expand (node at line 279)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1659,18 +2379,28 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_word (an_argument_l317_c7: INTEGER_32; an_argument_l318_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_word (node at line 316)
+	rl_vi_insert_mode (an_argument_l312_c7: INTEGER_32; an_argument_l313_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_insert_mode (node at line 311)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_backward_word"
+			feature_name: "rl_vi_insert_mode"
+		}"
+		end
+
+	rl_add_funmap_entry (an_argument_l321_c7: POINTER; an_argument_l322_c7: POINTER): INTEGER_32 is
+ 		-- rl_add_funmap_entry (node at line 320)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_add_funmap_entry"
 		}"
 		end
 
 	rl_maybe_save_line: INTEGER_32 is
- 		-- rl_maybe_save_line (node at line 334)
+ 		-- rl_maybe_save_line (node at line 343)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1679,8 +2409,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_revert_line (an_argument_l336_c7: INTEGER_32; an_argument_l337_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_revert_line (node at line 335)
+	rl_revert_line (an_argument_l345_c7: INTEGER_32; an_argument_l346_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_revert_line (node at line 344)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1689,8 +2419,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_tty_unset_default_bindings (an_argument_l340_c7: POINTER) is
- 		-- rl_tty_unset_default_bindings (node at line 339)
+	rl_tty_unset_default_bindings (an_argument_l349_c7: POINTER) is
+ 		-- rl_tty_unset_default_bindings (node at line 348)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1699,8 +2429,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_insert_text (an_argument_l355_c7: POINTER): INTEGER_32 is
- 		-- rl_insert_text (node at line 354)
+	rl_insert_text (an_argument_l364_c7: POINTER): INTEGER_32 is
+ 		-- rl_insert_text (node at line 363)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1710,7 +2440,7 @@ feature {} -- External calls
 		end
 
 	rl_callback_read_char is
- 		-- rl_callback_read_char (node at line 385)
+ 		-- rl_callback_read_char (node at line 392)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1719,8 +2449,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_insert (an_argument_l391_c7: INTEGER_32; an_argument_l392_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_insert (node at line 390)
+	rl_insert (an_argument_l398_c7: INTEGER_32; an_argument_l399_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_insert (node at line 397)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1729,8 +2459,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_delete (an_argument_l395_c7: INTEGER_32; an_argument_l396_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_delete (node at line 394)
+	rl_vi_delete (an_argument_l402_c7: INTEGER_32; an_argument_l403_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_delete (node at line 401)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1739,8 +2469,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_possible_completions (an_argument_l399_c7: INTEGER_32; an_argument_l400_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_possible_completions (node at line 398)
+	rl_possible_completions (an_argument_l412_c7: INTEGER_32; an_argument_l413_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_possible_completions (node at line 411)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1749,8 +2479,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_bword (an_argument_l403_c7: INTEGER_32; an_argument_l404_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_bword (node at line 402)
+	rl_vi_bword (an_argument_l416_c7: INTEGER_32; an_argument_l417_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_bword (node at line 415)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1759,8 +2489,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_forward (an_argument_l414_c7: INTEGER_32; an_argument_l415_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_forward (node at line 413)
+	rl_forward (an_argument_l427_c7: INTEGER_32; an_argument_l428_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_forward (node at line 426)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1769,18 +2499,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_free (an_argument_l427_c7: POINTER) is
- 		-- rl_free (node at line 426)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_free"
-		}"
-		end
-
-	rl_vi_subst (an_argument_l454_c7: INTEGER_32; an_argument_l455_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_subst (node at line 453)
+	rl_vi_subst (an_argument_l464_c7: INTEGER_32; an_argument_l465_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_subst (node at line 463)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1789,8 +2509,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_echo_signal_char (an_argument_l471_c7: INTEGER_32) is
- 		-- rl_echo_signal_char (node at line 470)
+	rl_echo_signal_char (an_argument_l481_c7: INTEGER_32) is
+ 		-- rl_echo_signal_char (node at line 480)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1799,8 +2519,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_keyseq_if_unbound_in_map (an_argument_l474_c7: POINTER; an_argument_l475_c7: POINTER; an_argument_l476_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_keyseq_if_unbound_in_map (node at line 473)
+	rl_bind_keyseq_if_unbound_in_map (an_argument_l484_c7: POINTER; an_argument_l485_c7: POINTER; an_argument_l486_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_keyseq_if_unbound_in_map (node at line 483)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1809,8 +2529,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_search (an_argument_l483_c7: INTEGER_32; an_argument_l484_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_search (node at line 482)
+	rl_vi_search (an_argument_l493_c7: INTEGER_32; an_argument_l494_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_search (node at line 492)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1820,7 +2540,7 @@ feature {} -- External calls
 		end
 
 	rl_funmap_names: POINTER is
- 		-- rl_funmap_names (node at line 492)
+ 		-- rl_funmap_names (node at line 502)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1829,8 +2549,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_yank_pop (an_argument_l494_c7: INTEGER_32; an_argument_l495_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_yank_pop (node at line 493)
+	rl_yank_pop (an_argument_l504_c7: INTEGER_32; an_argument_l505_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_yank_pop (node at line 503)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1839,8 +2559,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_emacs_editing_mode (an_argument_l501_c7: INTEGER_32; an_argument_l502_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_emacs_editing_mode (node at line 500)
+	rl_emacs_editing_mode (an_argument_l511_c7: INTEGER_32; an_argument_l512_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_emacs_editing_mode (node at line 510)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1850,7 +2570,7 @@ feature {} -- External calls
 		end
 
 	rl_reset_after_signal is
- 		-- rl_reset_after_signal (node at line 504)
+ 		-- rl_reset_after_signal (node at line 514)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1859,8 +2579,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_key_if_unbound (an_argument_l516_c7: INTEGER_32; an_argument_l517_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_key_if_unbound (node at line 515)
+	rl_bind_key_if_unbound (an_argument_l526_c7: INTEGER_32; an_argument_l527_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_key_if_unbound (node at line 525)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1869,8 +2589,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_delete_to (an_argument_l521_c7: INTEGER_32; an_argument_l522_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_delete_to (node at line 520)
+	rl_vi_delete_to (an_argument_l537_c7: INTEGER_32; an_argument_l538_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_delete_to (node at line 536)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1879,8 +2599,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_char_search (an_argument_l531_c7: INTEGER_32; an_argument_l532_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_char_search (node at line 530)
+	rl_backward_char_search (an_argument_l547_c7: INTEGER_32; an_argument_l548_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_char_search (node at line 546)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1890,7 +2610,7 @@ feature {} -- External calls
 		end
 
 	rl_reset_line_state: INTEGER_32 is
- 		-- rl_reset_line_state (node at line 535)
+ 		-- rl_reset_line_state (node at line 551)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1899,18 +2619,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_username_completion_function (an_argument_l537_c7: POINTER; an_argument_l538_c7: INTEGER_32): POINTER is
- 		-- rl_username_completion_function (node at line 536)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_username_completion_function"
-		}"
-		end
-
-	rl_variable_dumper (an_argument_l555_c7: INTEGER_32) is
- 		-- rl_variable_dumper (node at line 554)
+	rl_variable_dumper (an_argument_l575_c7: INTEGER_32) is
+ 		-- rl_variable_dumper (node at line 574)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1919,8 +2629,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_noninc_forward_search_again (an_argument_l558_c7: INTEGER_32; an_argument_l559_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_noninc_forward_search_again (node at line 557)
+	rl_noninc_forward_search_again (an_argument_l578_c7: INTEGER_32; an_argument_l579_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_noninc_forward_search_again (node at line 577)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1930,7 +2640,7 @@ feature {} -- External calls
 		end
 
 	rl_get_keymap: POINTER is
- 		-- rl_get_keymap (node at line 566)
+ 		-- rl_get_keymap (node at line 586)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1939,18 +2649,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_message: INTEGER_32 is
- 		-- rl_message (node at line 567)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_message()"
-		}"
-		end
-
-	rl_insert_completions (an_argument_l570_c7: INTEGER_32; an_argument_l571_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_insert_completions (node at line 569)
+	rl_insert_completions (an_argument_l589_c7: INTEGER_32; an_argument_l590_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_insert_completions (node at line 588)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1959,8 +2659,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_add_undo (an_argument_l587_c7: INTEGER; an_argument_l588_c7: INTEGER_32; an_argument_l589_c7: INTEGER_32; an_argument_l590_c7: POINTER) is
- 		-- rl_add_undo (node at line 586)
+	rl_add_undo (an_argument_l606_c7: INTEGER; an_argument_l607_c7: INTEGER_32; an_argument_l608_c7: INTEGER_32; an_argument_l609_c7: POINTER) is
+ 		-- rl_add_undo (node at line 605)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1969,8 +2669,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_clear_screen (an_argument_l612_c7: INTEGER_32; an_argument_l613_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_clear_screen (node at line 611)
+	rl_clear_screen (an_argument_l631_c7: INTEGER_32; an_argument_l632_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_clear_screen (node at line 630)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1980,7 +2680,7 @@ feature {} -- External calls
 		end
 
 	rl_get_keymap_name_from_edit_mode: POINTER is
- 		-- rl_get_keymap_name_from_edit_mode (node at line 615)
+ 		-- rl_get_keymap_name_from_edit_mode (node at line 634)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1989,8 +2689,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_keyseq_if_unbound (an_argument_l634_c7: POINTER; an_argument_l635_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_keyseq_if_unbound (node at line 633)
+	rl_bind_keyseq_if_unbound (an_argument_l653_c7: POINTER; an_argument_l654_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_keyseq_if_unbound (node at line 652)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -1999,8 +2699,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_overwrite_mode (an_argument_l645_c7: INTEGER_32; an_argument_l646_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_overwrite_mode (node at line 644)
+	rl_overwrite_mode (an_argument_l664_c7: INTEGER_32; an_argument_l665_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_overwrite_mode (node at line 663)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2009,8 +2709,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_dump_macros (an_argument_l668_c7: INTEGER_32; an_argument_l669_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_dump_macros (node at line 667)
+	rl_dump_macros (an_argument_l688_c7: INTEGER_32; an_argument_l689_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_dump_macros (node at line 687)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2019,8 +2719,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_function_dumper (an_argument_l676_c7: INTEGER_32) is
- 		-- rl_function_dumper (node at line 675)
+	rl_function_dumper (an_argument_l696_c7: INTEGER_32) is
+ 		-- rl_function_dumper (node at line 695)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2029,8 +2729,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_noninc_reverse_search (an_argument_l684_c7: INTEGER_32; an_argument_l685_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_noninc_reverse_search (node at line 683)
+	rl_noninc_reverse_search (an_argument_l704_c7: INTEGER_32; an_argument_l705_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_noninc_reverse_search (node at line 703)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2039,8 +2739,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_overstrike_delete (an_argument_l694_c7: INTEGER_32; an_argument_l695_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_overstrike_delete (node at line 693)
+	rl_set_keyboard_input_timeout (an_argument_l708_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_set_keyboard_input_timeout (node at line 707)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_set_keyboard_input_timeout"
+		}"
+		end
+
+	rl_vi_overstrike_delete (an_argument_l717_c7: INTEGER_32; an_argument_l718_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_overstrike_delete (node at line 716)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2049,8 +2759,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_history_search_backward (an_argument_l703_c7: INTEGER_32; an_argument_l704_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_history_search_backward (node at line 702)
+	rl_history_search_backward (an_argument_l726_c7: INTEGER_32; an_argument_l727_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_history_search_backward (node at line 725)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2059,8 +2769,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_generic_bind (an_argument_l724_c7: INTEGER_32; an_argument_l725_c7: POINTER; an_argument_l726_c7: POINTER; an_argument_l727_c7: POINTER): INTEGER_32 is
- 		-- rl_generic_bind (node at line 723)
+	rl_backward_word (an_argument_l742_c7: INTEGER_32; an_argument_l743_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_word (node at line 741)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_backward_word"
+		}"
+		end
+
+	rl_generic_bind (an_argument_l751_c7: INTEGER_32; an_argument_l752_c7: POINTER; an_argument_l753_c7: POINTER; an_argument_l754_c7: POINTER): INTEGER_32 is
+ 		-- rl_generic_bind (node at line 750)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2069,8 +2789,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_complete (an_argument_l736_c7: INTEGER_32; an_argument_l737_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_complete (node at line 735)
+	rl_vi_complete (an_argument_l770_c7: INTEGER_32; an_argument_l771_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_complete (node at line 769)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2080,7 +2800,7 @@ feature {} -- External calls
 		end
 
 	rl_on_new_line: INTEGER_32 is
- 		-- rl_on_new_line (node at line 744)
+ 		-- rl_on_new_line (node at line 778)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2090,7 +2810,7 @@ feature {} -- External calls
 		end
 
 	rl_read_key: INTEGER_32 is
- 		-- rl_read_key (node at line 745)
+ 		-- rl_read_key (node at line 779)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2099,8 +2819,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_add_defun (an_argument_l748_c7: POINTER; an_argument_l749_c7: POINTER; an_argument_l750_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_add_defun (node at line 747)
+	rl_add_defun (an_argument_l782_c7: POINTER; an_argument_l783_c7: POINTER; an_argument_l784_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_add_defun (node at line 781)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2109,8 +2829,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_undo (an_argument_l753_c7: INTEGER_32; an_argument_l754_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_undo (node at line 752)
+	rl_vi_undo (an_argument_l787_c7: INTEGER_32; an_argument_l788_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_undo (node at line 786)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2120,7 +2840,7 @@ feature {} -- External calls
 		end
 
 	rl_make_bare_keymap: POINTER is
- 		-- rl_make_bare_keymap (node at line 766)
+ 		-- rl_make_bare_keymap (node at line 802)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2129,8 +2849,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_kill_line (an_argument_l774_c7: INTEGER_32; an_argument_l775_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_kill_line (node at line 773)
+	rl_backward_kill_line (an_argument_l810_c7: INTEGER_32; an_argument_l811_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_kill_line (node at line 809)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2139,8 +2859,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_forward_search_history (an_argument_l782_c7: INTEGER_32; an_argument_l783_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_forward_search_history (node at line 781)
+	rl_forward_search_history (an_argument_l818_c7: INTEGER_32; an_argument_l819_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_forward_search_history (node at line 817)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2150,7 +2870,7 @@ feature {} -- External calls
 		end
 
 	rl_redisplay is
- 		-- rl_redisplay (node at line 785)
+ 		-- rl_redisplay (node at line 821)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2159,8 +2879,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_noninc_reverse_search_again (an_argument_l787_c7: INTEGER_32; an_argument_l788_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_noninc_reverse_search_again (node at line 786)
+	rl_noninc_reverse_search_again (an_argument_l823_c7: INTEGER_32; an_argument_l824_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_noninc_reverse_search_again (node at line 822)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2169,8 +2889,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_kill_word (an_argument_l791_c7: INTEGER_32; an_argument_l792_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_kill_word (node at line 790)
+	rl_backward_kill_word (an_argument_l827_c7: INTEGER_32; an_argument_l828_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_kill_word (node at line 826)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2179,8 +2899,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_change_char (an_argument_l799_c7: INTEGER_32; an_argument_l800_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_change_char (node at line 798)
+	rl_vi_change_char (an_argument_l835_c7: INTEGER_32; an_argument_l836_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_change_char (node at line 834)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2189,8 +2909,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_dump_functions (an_argument_l805_c7: INTEGER_32; an_argument_l806_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_dump_functions (node at line 804)
+	rl_dump_functions (an_argument_l840_c7: INTEGER_32; an_argument_l841_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_dump_functions (node at line 839)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2199,8 +2919,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_invoking_keyseqs (an_argument_l816_c7: POINTER): POINTER is
- 		-- rl_invoking_keyseqs (node at line 815)
+	rl_invoking_keyseqs (an_argument_l851_c7: POINTER): POINTER is
+ 		-- rl_invoking_keyseqs (node at line 850)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2210,7 +2930,7 @@ feature {} -- External calls
 		end
 
 	rl_forced_update_display: INTEGER_32 is
- 		-- rl_forced_update_display (node at line 818)
+ 		-- rl_forced_update_display (node at line 859)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2219,18 +2939,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_back_to_indent (an_argument_l823_c7: INTEGER_32; an_argument_l824_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_back_to_indent (node at line 822)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_vi_back_to_indent"
-		}"
-		end
-
-	rl_digit_argument (an_argument_l827_c7: INTEGER_32; an_argument_l828_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_digit_argument (node at line 826)
+	rl_digit_argument (an_argument_l864_c7: INTEGER_32; an_argument_l865_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_digit_argument (node at line 863)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2239,8 +2949,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_arg_digit (an_argument_l831_c7: INTEGER_32; an_argument_l832_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_arg_digit (node at line 830)
+	rl_vi_arg_digit (an_argument_l868_c7: INTEGER_32; an_argument_l869_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_arg_digit (node at line 867)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2249,8 +2959,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_yank_to (an_argument_l835_c7: INTEGER_32; an_argument_l836_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_yank_to (node at line 834)
+	rl_vi_yank_to (an_argument_l872_c7: INTEGER_32; an_argument_l873_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_yank_to (node at line 871)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2259,8 +2969,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_prev_word (an_argument_l844_c7: INTEGER_32; an_argument_l845_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_prev_word (node at line 843)
+	rl_vi_prev_word (an_argument_l881_c7: INTEGER_32; an_argument_l882_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_prev_word (node at line 880)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2269,8 +2979,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_next_word (an_argument_l857_c7: INTEGER_32; an_argument_l858_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_next_word (node at line 856)
+	rl_vi_next_word (an_argument_l894_c7: INTEGER_32; an_argument_l895_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_next_word (node at line 893)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2279,8 +2989,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_first_print (an_argument_l861_c7: INTEGER_32; an_argument_l862_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_first_print (node at line 860)
+	rl_vi_first_print (an_argument_l898_c7: INTEGER_32; an_argument_l899_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_first_print (node at line 897)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2290,7 +3000,7 @@ feature {} -- External calls
 		end
 
 	rl_on_new_line_with_prompt: INTEGER_32 is
- 		-- rl_on_new_line_with_prompt (node at line 869)
+ 		-- rl_on_new_line_with_prompt (node at line 912)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2300,7 +3010,7 @@ feature {} -- External calls
 		end
 
 	rl_resize_terminal is
- 		-- rl_resize_terminal (node at line 888)
+ 		-- rl_resize_terminal (node at line 931)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2309,8 +3019,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_character_len (an_argument_l890_c7: INTEGER_32; an_argument_l891_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_character_len (node at line 889)
+	rl_character_len (an_argument_l933_c7: INTEGER_32; an_argument_l934_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_character_len (node at line 932)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2319,8 +3029,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_append_eol (an_argument_l904_c7: INTEGER_32; an_argument_l905_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_append_eol (node at line 903)
+	rl_vi_append_eol (an_argument_l947_c7: INTEGER_32; an_argument_l948_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_append_eol (node at line 946)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2329,8 +3039,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_re_read_init_file (an_argument_l908_c7: INTEGER_32; an_argument_l909_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_re_read_init_file (node at line 907)
+	rl_re_read_init_file (an_argument_l951_c7: INTEGER_32; an_argument_l952_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_re_read_init_file (node at line 950)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2339,8 +3049,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_refresh_line (an_argument_l912_c7: INTEGER_32; an_argument_l913_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_refresh_line (node at line 911)
+	rl_refresh_line (an_argument_l955_c7: INTEGER_32; an_argument_l956_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_refresh_line (node at line 954)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2349,8 +3059,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_kill_text (an_argument_l916_c7: INTEGER_32; an_argument_l917_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_kill_text (node at line 915)
+	rl_kill_text (an_argument_l959_c7: INTEGER_32; an_argument_l960_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_kill_text (node at line 958)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2360,7 +3070,7 @@ feature {} -- External calls
 		end
 
 	rl_initialize_funmap is
- 		-- rl_initialize_funmap (node at line 929)
+ 		-- rl_initialize_funmap (node at line 972)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2369,8 +3079,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_keymap_name (an_argument_l934_c7: POINTER): POINTER is
- 		-- rl_get_keymap_name (node at line 933)
+	rl_get_keymap_name (an_argument_l977_c7: POINTER): POINTER is
+ 		-- rl_get_keymap_name (node at line 976)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2379,8 +3089,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_yank_nth_arg (an_argument_l937_c7: INTEGER_32; an_argument_l938_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_yank_nth_arg (node at line 936)
+	rl_yank_nth_arg (an_argument_l980_c7: INTEGER_32; an_argument_l981_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_yank_nth_arg (node at line 979)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2389,8 +3099,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_end_kbd_macro (an_argument_l941_c7: INTEGER_32; an_argument_l942_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_end_kbd_macro (node at line 940)
+	rl_end_kbd_macro (an_argument_l984_c7: INTEGER_32; an_argument_l985_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_end_kbd_macro (node at line 983)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2399,8 +3109,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_execute_next (an_argument_l945_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_execute_next (node at line 944)
+	rl_execute_next (an_argument_l988_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_execute_next (node at line 987)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2409,8 +3119,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_editing_mode (an_argument_l952_c7: INTEGER_32; an_argument_l953_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_editing_mode (node at line 951)
+	rl_vi_editing_mode (an_argument_l995_c7: INTEGER_32; an_argument_l996_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_editing_mode (node at line 994)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2419,18 +3129,8 @@ feature {} -- External calls
 		}"
 		end
 
-	readline (an_argument_l965_c7: POINTER): POINTER is
- 		-- readline (node at line 964)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "readline"
-		}"
-		end
-
-	rl_tty_set_default_bindings (an_argument_l972_c7: POINTER) is
- 		-- rl_tty_set_default_bindings (node at line 971)
+	rl_tty_set_default_bindings (an_argument_l1007_c7: POINTER) is
+ 		-- rl_tty_set_default_bindings (node at line 1006)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2439,8 +3139,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unbind_command_in_map (an_argument_l1004_c7: POINTER; an_argument_l1005_c7: POINTER): INTEGER_32 is
- 		-- rl_unbind_command_in_map (node at line 1003)
+	rl_unbind_command_in_map (an_argument_l1039_c7: POINTER; an_argument_l1040_c7: POINTER): INTEGER_32 is
+ 		-- rl_unbind_command_in_map (node at line 1038)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2449,18 +3149,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_start_inserting (an_argument_l1015_c7: INTEGER_32; an_argument_l1016_c7: INTEGER_32; an_argument_l1017_c7: INTEGER_32) is
- 		-- rl_vi_start_inserting (node at line 1014)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_vi_start_inserting"
-		}"
-		end
-
-	rl_vi_end_word (an_argument_l1025_c7: INTEGER_32; an_argument_l1026_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_end_word (node at line 1024)
+	rl_vi_end_word (an_argument_l1056_c7: INTEGER_32; an_argument_l1057_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_end_word (node at line 1055)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2469,8 +3159,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_completion_mode (an_argument_l1035_c7: POINTER): INTEGER_32 is
- 		-- rl_completion_mode (node at line 1034)
+	rl_completion_mode (an_argument_l1066_c7: POINTER): INTEGER_32 is
+ 		-- rl_completion_mode (node at line 1065)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2479,8 +3169,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_restart_output (an_argument_l1038_c7: INTEGER_32; an_argument_l1039_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_restart_output (node at line 1037)
+	rl_restart_output (an_argument_l1069_c7: INTEGER_32; an_argument_l1070_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_restart_output (node at line 1068)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2489,8 +3179,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_function_of_keyseq (an_argument_l1077_c7: POINTER; an_argument_l1078_c7: POINTER; an_argument_l1079_c7: POINTER): POINTER is
- 		-- rl_function_of_keyseq (node at line 1076)
+	readline (an_argument_l1113_c7: POINTER): POINTER is
+ 		-- readline (node at line 1112)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "readline"
+		}"
+		end
+
+	rl_function_of_keyseq (an_argument_l1116_c7: POINTER; an_argument_l1117_c7: POINTER; an_argument_l1118_c7: POINTER): POINTER is
+ 		-- rl_function_of_keyseq (node at line 1115)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2499,8 +3199,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_expand_prompt (an_argument_l1082_c7: POINTER): INTEGER_32 is
- 		-- rl_expand_prompt (node at line 1081)
+	rl_vi_start_inserting (an_argument_l1121_c7: INTEGER_32; an_argument_l1122_c7: INTEGER_32; an_argument_l1123_c7: INTEGER_32) is
+ 		-- rl_vi_start_inserting (node at line 1120)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_vi_start_inserting"
+		}"
+		end
+
+	rl_expand_prompt (an_argument_l1126_c7: POINTER): INTEGER_32 is
+ 		-- rl_expand_prompt (node at line 1125)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2509,8 +3219,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_macro_bind (an_argument_l1090_c7: POINTER; an_argument_l1091_c7: POINTER; an_argument_l1092_c7: POINTER): INTEGER_32 is
- 		-- rl_macro_bind (node at line 1089)
+	rl_macro_bind (an_argument_l1134_c7: POINTER; an_argument_l1135_c7: POINTER; an_argument_l1136_c7: POINTER): INTEGER_32 is
+ 		-- rl_macro_bind (node at line 1133)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2520,7 +3230,7 @@ feature {} -- External calls
 		end
 
 	rl_initialize: INTEGER_32 is
- 		-- rl_initialize (node at line 1100)
+ 		-- rl_initialize (node at line 1144)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2529,8 +3239,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_end_of_line (an_argument_l1110_c7: INTEGER_32; an_argument_l1111_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_end_of_line (node at line 1109)
+	rl_end_of_line (an_argument_l1162_c7: INTEGER_32; an_argument_l1163_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_end_of_line (node at line 1161)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2539,8 +3249,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_screen_size (an_argument_l1114_c7: INTEGER_32; an_argument_l1115_c7: INTEGER_32) is
- 		-- rl_set_screen_size (node at line 1113)
+	rl_set_screen_size (an_argument_l1166_c7: INTEGER_32; an_argument_l1167_c7: INTEGER_32) is
+ 		-- rl_set_screen_size (node at line 1165)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2549,8 +3259,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_capitalize_word (an_argument_l1128_c7: INTEGER_32; an_argument_l1129_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_capitalize_word (node at line 1127)
+	rl_capitalize_word (an_argument_l1180_c7: INTEGER_32; an_argument_l1181_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_capitalize_word (node at line 1179)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2559,8 +3269,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_keymap (an_argument_l1132_c7: POINTER) is
- 		-- rl_set_keymap (node at line 1131)
+	rl_set_keymap (an_argument_l1184_c7: POINTER) is
+ 		-- rl_set_keymap (node at line 1183)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2569,8 +3279,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_key_in_map (an_argument_l1135_c7: INTEGER_32; an_argument_l1136_c7: POINTER; an_argument_l1137_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_key_in_map (node at line 1134)
+	rl_bind_key_in_map (an_argument_l1187_c7: INTEGER_32; an_argument_l1188_c7: POINTER; an_argument_l1189_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_key_in_map (node at line 1186)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2579,8 +3289,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_start_kbd_macro (an_argument_l1145_c7: INTEGER_32; an_argument_l1146_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_start_kbd_macro (node at line 1144)
+	rl_start_kbd_macro (an_argument_l1197_c7: INTEGER_32; an_argument_l1198_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_start_kbd_macro (node at line 1196)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2589,8 +3299,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_append_mode (an_argument_l1151_c7: INTEGER_32; an_argument_l1152_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_append_mode (node at line 1150)
+	rl_vi_append_mode (an_argument_l1203_c7: INTEGER_32; an_argument_l1204_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_append_mode (node at line 1202)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2599,8 +3309,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_key (an_argument_l1155_c7: INTEGER_32; an_argument_l1156_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_key (node at line 1154)
+	rl_bind_key (an_argument_l1207_c7: INTEGER_32; an_argument_l1208_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_key (node at line 1206)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2609,8 +3319,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_insert_comment (an_argument_l1164_c7: INTEGER_32; an_argument_l1165_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_insert_comment (node at line 1163)
+	rl_insert_comment (an_argument_l1216_c7: INTEGER_32; an_argument_l1217_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_insert_comment (node at line 1215)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2619,8 +3329,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_keymap_by_name (an_argument_l1168_c7: POINTER): POINTER is
- 		-- rl_get_keymap_by_name (node at line 1167)
+	rl_get_keymap_by_name (an_argument_l1220_c7: POINTER): POINTER is
+ 		-- rl_get_keymap_by_name (node at line 1219)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2629,8 +3339,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_insertion_mode (an_argument_l1171_c7: INTEGER_32; an_argument_l1172_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_insertion_mode (node at line 1170)
+	rl_vi_insertion_mode (an_argument_l1223_c7: INTEGER_32; an_argument_l1224_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_insertion_mode (node at line 1222)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2639,8 +3349,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_key (an_argument_l1183_c7: POINTER; an_argument_l1184_c7: POINTER; an_argument_l1185_c7: POINTER): INTEGER_32 is
- 		-- rl_set_key (node at line 1182)
+	rl_set_key (an_argument_l1232_c7: POINTER; an_argument_l1233_c7: POINTER; an_argument_l1234_c7: POINTER): INTEGER_32 is
+ 		-- rl_set_key (node at line 1231)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2649,8 +3359,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_arrow_keys (an_argument_l1193_c7: INTEGER_32; an_argument_l1194_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_arrow_keys (node at line 1192)
+	rl_arrow_keys (an_argument_l1239_c7: INTEGER_32; an_argument_l1240_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_arrow_keys (node at line 1238)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2659,8 +3369,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_delete (an_argument_l1197_c7: INTEGER_32; an_argument_l1198_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_delete (node at line 1196)
+	rl_delete (an_argument_l1243_c7: INTEGER_32; an_argument_l1244_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_delete (node at line 1242)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2669,8 +3379,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_screen_size (an_argument_l1203_c7: POINTER; an_argument_l1204_c7: POINTER) is
- 		-- rl_get_screen_size (node at line 1202)
+	rl_get_screen_size (an_argument_l1249_c7: POINTER; an_argument_l1250_c7: POINTER) is
+ 		-- rl_get_screen_size (node at line 1248)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2679,8 +3389,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_dump_variables (an_argument_l1208_c7: INTEGER_32; an_argument_l1209_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_dump_variables (node at line 1207)
+	rl_dump_variables (an_argument_l1254_c7: INTEGER_32; an_argument_l1255_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_dump_variables (node at line 1253)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2689,8 +3399,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_overstrike (an_argument_l1229_c7: INTEGER_32; an_argument_l1230_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_overstrike (node at line 1228)
+	rl_vi_overstrike (an_argument_l1275_c7: INTEGER_32; an_argument_l1276_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_overstrike (node at line 1274)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2699,8 +3409,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_exchange_point_and_mark (an_argument_l1240_c7: INTEGER_32; an_argument_l1241_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_exchange_point_and_mark (node at line 1239)
+	rl_exchange_point_and_mark (an_argument_l1292_c7: INTEGER_32; an_argument_l1293_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_exchange_point_and_mark (node at line 1291)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2709,8 +3419,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_f_word (an_argument_l1245_c7: INTEGER_32; an_argument_l1246_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_fWord (node at line 1244)
+	rl_vi_f_word (an_argument_l1297_c7: INTEGER_32; an_argument_l1298_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_fWord (node at line 1296)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2720,7 +3430,7 @@ feature {} -- External calls
 		end
 
 	rl_set_keymap_from_edit_mode is
- 		-- rl_set_keymap_from_edit_mode (node at line 1249)
+ 		-- rl_set_keymap_from_edit_mode (node at line 1301)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2730,7 +3440,7 @@ feature {} -- External calls
 		end
 
 	rl_free_undo_list is
- 		-- rl_free_undo_list (node at line 1250)
+ 		-- rl_free_undo_list (node at line 1302)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2739,8 +3449,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_alphabetic (an_argument_l1252_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_alphabetic (node at line 1251)
+	rl_alphabetic (an_argument_l1304_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_alphabetic (node at line 1303)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2750,7 +3460,7 @@ feature {} -- External calls
 		end
 
 	rl_free_line_state is
- 		-- rl_free_line_state (node at line 1262)
+ 		-- rl_free_line_state (node at line 1314)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2759,8 +3469,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_macro_dumper (an_argument_l1273_c7: INTEGER_32) is
- 		-- rl_macro_dumper (node at line 1272)
+	rl_macro_dumper (an_argument_l1331_c7: INTEGER_32) is
+ 		-- rl_macro_dumper (node at line 1330)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2769,8 +3479,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_reverse_search_history (an_argument_l1288_c7: INTEGER_32; an_argument_l1289_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_reverse_search_history (node at line 1287)
+	rl_reverse_search_history (an_argument_l1346_c7: INTEGER_32; an_argument_l1347_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_reverse_search_history (node at line 1345)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2779,8 +3489,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_redo (an_argument_l1299_c7: INTEGER_32; an_argument_l1300_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_redo (node at line 1298)
+	rl_vi_redo (an_argument_l1354_c7: INTEGER_32; an_argument_l1355_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_redo (node at line 1353)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2789,8 +3499,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_change_case (an_argument_l1311_c7: INTEGER_32; an_argument_l1312_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_change_case (node at line 1310)
+	rl_vi_change_case (an_argument_l1366_c7: INTEGER_32; an_argument_l1367_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_change_case (node at line 1365)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2799,8 +3509,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_filename_completion_function (an_argument_l1319_c7: POINTER; an_argument_l1320_c7: INTEGER_32): POINTER is
- 		-- rl_filename_completion_function (node at line 1318)
+	rl_filename_completion_function (an_argument_l1374_c7: POINTER; an_argument_l1375_c7: INTEGER_32): POINTER is
+ 		-- rl_filename_completion_function (node at line 1373)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2809,8 +3519,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_transpose_words (an_argument_l1323_c7: INTEGER_32; an_argument_l1324_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_transpose_words (node at line 1322)
+	rl_transpose_words (an_argument_l1378_c7: INTEGER_32; an_argument_l1379_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_transpose_words (node at line 1377)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2819,8 +3529,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_variable_value (an_argument_l1327_c7: POINTER): POINTER is
- 		-- rl_variable_value (node at line 1326)
+	rl_message: INTEGER_32 is
+ 		-- rl_message (node at line 1381)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_message()"
+		}"
+		end
+
+	rl_variable_value (an_argument_l1383_c7: POINTER): POINTER is
+ 		-- rl_variable_value (node at line 1382)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2830,7 +3550,7 @@ feature {} -- External calls
 		end
 
 	rl_callback_handler_remove is
- 		-- rl_callback_handler_remove (node at line 1342)
+ 		-- rl_callback_handler_remove (node at line 1398)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2839,18 +3559,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_reset_screen_size is
- 		-- rl_reset_screen_size (node at line 1353)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_reset_screen_size()"
-		}"
-		end
-
-	rl_old_menu_complete (an_argument_l1355_c7: INTEGER_32; an_argument_l1356_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_old_menu_complete (node at line 1354)
+	rl_old_menu_complete (an_argument_l1415_c7: INTEGER_32; an_argument_l1416_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_old_menu_complete (node at line 1414)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2859,8 +3569,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_search_again (an_argument_l1374_c7: INTEGER_32; an_argument_l1375_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_search_again (node at line 1373)
+	rl_vi_search_again (an_argument_l1437_c7: INTEGER_32; an_argument_l1438_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_search_again (node at line 1436)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2870,7 +3580,7 @@ feature {} -- External calls
 		end
 
 	rl_ding: INTEGER_32 is
- 		-- rl_ding (node at line 1398)
+ 		-- rl_ding (node at line 1464)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2879,8 +3589,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_byte (an_argument_l1400_c7: INTEGER_32; an_argument_l1401_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_byte (node at line 1399)
+	rl_backward_byte (an_argument_l1466_c7: INTEGER_32; an_argument_l1467_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_byte (node at line 1465)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2890,7 +3600,7 @@ feature {} -- External calls
 		end
 
 	rl_save_prompt is
- 		-- rl_save_prompt (node at line 1413)
+ 		-- rl_save_prompt (node at line 1485)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2900,7 +3610,7 @@ feature {} -- External calls
 		end
 
 	rl_list_funmap_names is
- 		-- rl_list_funmap_names (node at line 1414)
+ 		-- rl_list_funmap_names (node at line 1487)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2909,8 +3619,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_e_word (an_argument_l1417_c7: INTEGER_32; an_argument_l1418_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_eWord (node at line 1416)
+	rl_vi_e_word (an_argument_l1490_c7: INTEGER_32; an_argument_l1491_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_eWord (node at line 1489)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2919,8 +3629,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_undo_command (an_argument_l1421_c7: INTEGER_32; an_argument_l1422_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_undo_command (node at line 1420)
+	rl_undo_command (an_argument_l1494_c7: INTEGER_32; an_argument_l1495_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_undo_command (node at line 1493)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2929,8 +3639,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_rubout (an_argument_l1449_c7: INTEGER_32; an_argument_l1450_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_rubout (node at line 1448)
+	rl_vi_rubout (an_argument_l1522_c7: INTEGER_32; an_argument_l1523_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_rubout (node at line 1521)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2939,8 +3649,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_tilde_expand (an_argument_l1493_c7: INTEGER_32; an_argument_l1494_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_tilde_expand (node at line 1492)
+	rl_tilde_expand (an_argument_l1566_c7: INTEGER_32; an_argument_l1567_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_tilde_expand (node at line 1565)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2949,8 +3659,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_domove (an_argument_l1498_c7: INTEGER_32; an_argument_l1499_c7: POINTER): INTEGER_32 is
- 		-- rl_vi_domove (node at line 1497)
+	rl_vi_domove (an_argument_l1571_c7: INTEGER_32; an_argument_l1572_c7: POINTER): INTEGER_32 is
+ 		-- rl_vi_domove (node at line 1570)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2959,8 +3669,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_delete_or_show_completions (an_argument_l1513_c7: INTEGER_32; an_argument_l1514_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_delete_or_show_completions (node at line 1512)
+	rl_delete_or_show_completions (an_argument_l1586_c7: INTEGER_32; an_argument_l1587_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_delete_or_show_completions (node at line 1585)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2969,8 +3679,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_previous_history (an_argument_l1549_c7: INTEGER_32; an_argument_l1550_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_get_previous_history (node at line 1548)
+	rl_get_previous_history (an_argument_l1628_c7: INTEGER_32; an_argument_l1629_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_get_previous_history (node at line 1627)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2979,8 +3689,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_char_search (an_argument_l1564_c7: INTEGER_32; an_argument_l1565_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_char_search (node at line 1563)
+	rl_char_search (an_argument_l1643_c7: INTEGER_32; an_argument_l1644_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_char_search (node at line 1642)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2989,8 +3699,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_do_lowercase_version (an_argument_l1568_c7: INTEGER_32; an_argument_l1569_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_do_lowercase_version (node at line 1567)
+	rl_do_lowercase_version (an_argument_l1647_c7: INTEGER_32; an_argument_l1648_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_do_lowercase_version (node at line 1646)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -2999,8 +3709,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_insert_beg (an_argument_l1573_c7: INTEGER_32; an_argument_l1574_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_insert_beg (node at line 1572)
+	rl_vi_insert_beg (an_argument_l1652_c7: INTEGER_32; an_argument_l1653_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_insert_beg (node at line 1651)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3009,8 +3719,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_prompt (an_argument_l1600_c7: POINTER): INTEGER_32 is
- 		-- rl_set_prompt (node at line 1599)
+	rl_set_prompt (an_argument_l1679_c7: POINTER): INTEGER_32 is
+ 		-- rl_set_prompt (node at line 1678)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3019,8 +3729,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward_menu_complete (an_argument_l1611_c7: INTEGER_32; an_argument_l1612_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward_menu_complete (node at line 1610)
+	rl_backward_menu_complete (an_argument_l1690_c7: INTEGER_32; an_argument_l1691_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward_menu_complete (node at line 1689)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3029,8 +3739,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_change_to (an_argument_l1630_c7: INTEGER_32; an_argument_l1631_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_change_to (node at line 1629)
+	rl_vi_change_to (an_argument_l1709_c7: INTEGER_32; an_argument_l1710_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_change_to (node at line 1708)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3039,8 +3749,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_getc (an_argument_l1644_c7: POINTER): INTEGER_32 is
- 		-- rl_getc (node at line 1643)
+	rl_getc (an_argument_l1726_c7: POINTER): INTEGER_32 is
+ 		-- rl_getc (node at line 1725)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3049,8 +3759,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_call_last_kbd_macro (an_argument_l1657_c7: INTEGER_32; an_argument_l1658_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_call_last_kbd_macro (node at line 1656)
+	rl_call_last_kbd_macro (an_argument_l1739_c7: INTEGER_32; an_argument_l1740_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_call_last_kbd_macro (node at line 1738)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3060,7 +3770,7 @@ feature {} -- External calls
 		end
 
 	rl_cleanup_after_signal is
- 		-- rl_cleanup_after_signal (node at line 1675)
+ 		-- rl_cleanup_after_signal (node at line 1757)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3069,8 +3779,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unbind_function_in_map (an_argument_l1691_c7: POINTER; an_argument_l1692_c7: POINTER): INTEGER_32 is
- 		-- rl_unbind_function_in_map (node at line 1690)
+	rl_unbind_function_in_map (an_argument_l1773_c7: POINTER; an_argument_l1774_c7: POINTER): INTEGER_32 is
+ 		-- rl_unbind_function_in_map (node at line 1772)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3079,8 +3789,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_copy_text (an_argument_l1695_c7: INTEGER_32; an_argument_l1696_c7: INTEGER_32): POINTER is
- 		-- rl_copy_text (node at line 1694)
+	rl_copy_text (an_argument_l1777_c7: INTEGER_32; an_argument_l1778_c7: INTEGER_32): POINTER is
+ 		-- rl_copy_text (node at line 1776)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3089,8 +3799,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_mark (an_argument_l1699_c7: INTEGER_32; an_argument_l1700_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_set_mark (node at line 1698)
+	rl_set_mark (an_argument_l1781_c7: INTEGER_32; an_argument_l1782_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_set_mark (node at line 1780)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3100,7 +3810,7 @@ feature {} -- External calls
 		end
 
 	rl_crlf: INTEGER_32 is
- 		-- rl_crlf (node at line 1703)
+ 		-- rl_crlf (node at line 1785)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3109,8 +3819,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_tab_insert (an_argument_l1712_c7: INTEGER_32; an_argument_l1713_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_tab_insert (node at line 1711)
+	rl_tab_insert (an_argument_l1801_c7: INTEGER_32; an_argument_l1802_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_tab_insert (node at line 1800)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3119,8 +3829,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_set_mark (an_argument_l1721_c7: INTEGER_32; an_argument_l1722_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_set_mark (node at line 1720)
+	rl_vi_set_mark (an_argument_l1810_c7: INTEGER_32; an_argument_l1811_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_set_mark (node at line 1809)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3129,8 +3839,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_get_termcap (an_argument_l1734_c7: POINTER): POINTER is
- 		-- rl_get_termcap (node at line 1733)
+	rl_get_termcap (an_argument_l1823_c7: POINTER): POINTER is
+ 		-- rl_get_termcap (node at line 1822)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3139,8 +3849,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_noninc_forward_search (an_argument_l1737_c7: INTEGER_32; an_argument_l1738_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_noninc_forward_search (node at line 1736)
+	rl_noninc_forward_search (an_argument_l1826_c7: INTEGER_32; an_argument_l1827_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_noninc_forward_search (node at line 1825)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3149,8 +3859,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_char_search (an_argument_l1755_c7: INTEGER_32; an_argument_l1756_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_char_search (node at line 1754)
+	rl_vi_char_search (an_argument_l1844_c7: INTEGER_32; an_argument_l1845_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_char_search (node at line 1843)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3160,7 +3870,7 @@ feature {} -- External calls
 		end
 
 	rl_end_undo_group: INTEGER_32 is
- 		-- rl_end_undo_group (node at line 1758)
+ 		-- rl_end_undo_group (node at line 1847)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3169,8 +3879,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_kill_line (an_argument_l1772_c7: INTEGER_32; an_argument_l1773_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_kill_line (node at line 1771)
+	rl_kill_line (an_argument_l1861_c7: INTEGER_32; an_argument_l1862_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_kill_line (node at line 1860)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3179,8 +3889,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_forward_char (an_argument_l1784_c7: INTEGER_32; an_argument_l1785_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_forward_char (node at line 1783)
+	rl_forward_char (an_argument_l1867_c7: INTEGER_32; an_argument_l1868_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_forward_char (node at line 1866)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3189,8 +3899,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_keyseq (an_argument_l1789_c7: POINTER; an_argument_l1790_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_keyseq (node at line 1788)
+	rl_bind_keyseq (an_argument_l1872_c7: POINTER; an_argument_l1873_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_keyseq (node at line 1871)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3199,8 +3909,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_quoted_insert (an_argument_l1796_c7: INTEGER_32; an_argument_l1797_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_quoted_insert (node at line 1795)
+	rl_quoted_insert (an_argument_l1879_c7: INTEGER_32; an_argument_l1880_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_quoted_insert (node at line 1878)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3209,8 +3919,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_insert_close (an_argument_l1802_c7: INTEGER_32; an_argument_l1803_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_insert_close (node at line 1801)
+	rl_insert_close (an_argument_l1885_c7: INTEGER_32; an_argument_l1886_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_insert_close (node at line 1884)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3219,18 +3929,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_invoking_keyseqs_in_map (an_argument_l1806_c7: POINTER; an_argument_l1807_c7: POINTER): POINTER is
- 		-- rl_invoking_keyseqs_in_map (node at line 1805)
+	rl_free (an_argument_l1889_c7: POINTER) is
+ 		-- rl_free (node at line 1888)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_invoking_keyseqs_in_map"
+			feature_name: "rl_free"
 		}"
 		end
 
-	rl_yank_last_arg (an_argument_l1810_c7: INTEGER_32; an_argument_l1811_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_yank_last_arg (node at line 1809)
+	rl_yank_last_arg (an_argument_l1892_c7: INTEGER_32; an_argument_l1893_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_yank_last_arg (node at line 1891)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3240,7 +3950,7 @@ feature {} -- External calls
 		end
 
 	rl_begin_undo_group: INTEGER_32 is
- 		-- rl_begin_undo_group (node at line 1814)
+ 		-- rl_begin_undo_group (node at line 1896)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3249,8 +3959,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_delete_horizontal_space (an_argument_l1843_c7: INTEGER_32; an_argument_l1844_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_delete_horizontal_space (node at line 1842)
+	rl_delete_horizontal_space (an_argument_l1925_c7: INTEGER_32; an_argument_l1926_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_delete_horizontal_space (node at line 1924)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3259,8 +3969,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_named_function (an_argument_l1851_c7: POINTER): POINTER is
- 		-- rl_named_function (node at line 1850)
+	rl_named_function (an_argument_l1933_c7: POINTER): POINTER is
+ 		-- rl_named_function (node at line 1932)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3269,8 +3979,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_complete (an_argument_l1857_c7: INTEGER_32; an_argument_l1858_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_complete (node at line 1856)
+	rl_complete (an_argument_l1939_c7: INTEGER_32; an_argument_l1940_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_complete (node at line 1938)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3279,18 +3989,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_keyboard_input_timeout (an_argument_l1861_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_set_keyboard_input_timeout (node at line 1860)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_set_keyboard_input_timeout"
-		}"
-		end
-
-	rl_stuff_char (an_argument_l1897_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_stuff_char (node at line 1896)
+	rl_stuff_char (an_argument_l1991_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_stuff_char (node at line 1990)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3299,8 +3999,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_replace_line (an_argument_l1900_c7: POINTER; an_argument_l1901_c7: INTEGER_32) is
- 		-- rl_replace_line (node at line 1899)
+	rl_replace_line (an_argument_l1999_c7: POINTER; an_argument_l2000_c7: INTEGER_32) is
+ 		-- rl_replace_line (node at line 1998)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3309,8 +4009,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_column (an_argument_l1905_c7: INTEGER_32; an_argument_l1906_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_column (node at line 1904)
+	rl_vi_column (an_argument_l2004_c7: INTEGER_32; an_argument_l2005_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_column (node at line 2003)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3319,8 +4019,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unix_word_rubout (an_argument_l1916_c7: INTEGER_32; an_argument_l1917_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_unix_word_rubout (node at line 1915)
+	rl_unix_word_rubout (an_argument_l2015_c7: INTEGER_32; an_argument_l2016_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_unix_word_rubout (node at line 2014)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3329,8 +4029,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unbind_key (an_argument_l1940_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_unbind_key (node at line 1939)
+	rl_unbind_key (an_argument_l2045_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_unbind_key (node at line 2044)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3339,8 +4039,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_rubout_or_delete (an_argument_l1959_c7: INTEGER_32; an_argument_l1960_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_rubout_or_delete (node at line 1958)
+	rl_rubout_or_delete (an_argument_l2064_c7: INTEGER_32; an_argument_l2065_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_rubout_or_delete (node at line 2063)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3349,8 +4049,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_read_init_file (an_argument_l1963_c7: POINTER): INTEGER_32 is
- 		-- rl_read_init_file (node at line 1962)
+	rl_read_init_file (an_argument_l2068_c7: POINTER): INTEGER_32 is
+ 		-- rl_read_init_file (node at line 2067)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3359,8 +4059,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_beg_of_line (an_argument_l1966_c7: INTEGER_32; an_argument_l1967_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_beg_of_line (node at line 1965)
+	rl_beg_of_line (an_argument_l2071_c7: INTEGER_32; an_argument_l2072_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_beg_of_line (node at line 2070)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3369,8 +4069,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_parse_and_bind (an_argument_l1974_c7: POINTER): INTEGER_32 is
- 		-- rl_parse_and_bind (node at line 1973)
+	rl_parse_and_bind (an_argument_l2079_c7: POINTER): INTEGER_32 is
+ 		-- rl_parse_and_bind (node at line 2078)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3379,8 +4079,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_display_match_list (an_argument_l1982_c7: POINTER; an_argument_l1983_c7: INTEGER_32; an_argument_l1984_c7: INTEGER_32) is
- 		-- rl_display_match_list (node at line 1981)
+	rl_display_match_list (an_argument_l2087_c7: POINTER; an_argument_l2088_c7: INTEGER_32; an_argument_l2089_c7: INTEGER_32) is
+ 		-- rl_display_match_list (node at line 2086)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3389,8 +4089,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_end_of_history (an_argument_l1987_c7: INTEGER_32; an_argument_l1988_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_end_of_history (node at line 1986)
+	rl_end_of_history (an_argument_l2092_c7: INTEGER_32; an_argument_l2093_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_end_of_history (node at line 2091)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3399,8 +4099,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_eof_maybe (an_argument_l1998_c7: INTEGER_32; an_argument_l1999_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_eof_maybe (node at line 1997)
+	rl_reset_screen_size is
+ 		-- rl_reset_screen_size (node at line 2096)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_reset_screen_size()"
+		}"
+		end
+
+	rl_vi_eof_maybe (an_argument_l2104_c7: INTEGER_32; an_argument_l2105_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_eof_maybe (node at line 2103)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3409,8 +4119,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_callback_handler_install (an_argument_l2011_c7: POINTER; an_argument_l2012_c7: POINTER) is
- 		-- rl_callback_handler_install (node at line 2010)
+	rl_callback_handler_install (an_argument_l2117_c7: POINTER; an_argument_l2118_c7: POINTER) is
+ 		-- rl_callback_handler_install (node at line 2116)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3419,8 +4129,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_newline (an_argument_l2022_c7: INTEGER_32; an_argument_l2023_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_newline (node at line 2021)
+	rl_newline (an_argument_l2128_c7: INTEGER_32; an_argument_l2129_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_newline (node at line 2127)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3429,8 +4139,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_b_word (an_argument_l2038_c7: INTEGER_32; an_argument_l2039_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_bWord (node at line 2037)
+	rl_vi_b_word (an_argument_l2144_c7: INTEGER_32; an_argument_l2145_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_bWord (node at line 2143)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3439,8 +4149,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_untranslate_keyseq (an_argument_l2043_c7: INTEGER_32): POINTER is
- 		-- rl_untranslate_keyseq (node at line 2042)
+	rl_untranslate_keyseq (an_argument_l2149_c7: INTEGER_32): POINTER is
+ 		-- rl_untranslate_keyseq (node at line 2148)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3449,8 +4159,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_forward_word (an_argument_l2083_c7: INTEGER_32; an_argument_l2084_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_forward_word (node at line 2082)
+	rl_forward_word (an_argument_l2199_c7: INTEGER_32; an_argument_l2200_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_forward_word (node at line 2198)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3459,8 +4169,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_show_char (an_argument_l2087_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_show_char (node at line 2086)
+	rl_show_char (an_argument_l2203_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_show_char (node at line 2202)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3469,8 +4179,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_tty_status (an_argument_l2104_c7: INTEGER_32; an_argument_l2105_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_tty_status (node at line 2103)
+	rl_tty_status (an_argument_l2220_c7: INTEGER_32; an_argument_l2221_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_tty_status (node at line 2219)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3479,8 +4189,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_push_macro_input (an_argument_l2108_c7: POINTER) is
- 		-- rl_push_macro_input (node at line 2107)
+	rl_push_macro_input (an_argument_l2224_c7: POINTER) is
+ 		-- rl_push_macro_input (node at line 2223)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3490,7 +4200,7 @@ feature {} -- External calls
 		end
 
 	rl_do_undo: INTEGER_32 is
- 		-- rl_do_undo (node at line 2119)
+ 		-- rl_do_undo (node at line 2240)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3499,8 +4209,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_rubout (an_argument_l2150_c7: INTEGER_32; an_argument_l2151_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_rubout (node at line 2149)
+	rl_rubout (an_argument_l2270_c7: INTEGER_32; an_argument_l2271_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_rubout (node at line 2269)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3509,8 +4219,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_beginning_of_history (an_argument_l2170_c7: INTEGER_32; an_argument_l2171_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_beginning_of_history (node at line 2169)
+	rl_beginning_of_history (an_argument_l2291_c7: INTEGER_32; an_argument_l2292_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_beginning_of_history (node at line 2290)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3519,8 +4229,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_restore_state (an_argument_l2182_c7: POINTER): INTEGER_32 is
- 		-- rl_restore_state (node at line 2181)
+	rl_backward (an_argument_l2295_c7: INTEGER_32; an_argument_l2296_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_backward (node at line 2294)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_backward"
+		}"
+		end
+
+	rl_restore_state (an_argument_l2307_c7: POINTER): INTEGER_32 is
+ 		-- rl_restore_state (node at line 2306)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3529,8 +4249,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_yank (an_argument_l2210_c7: INTEGER_32; an_argument_l2211_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_yank (node at line 2209)
+	rl_yank (an_argument_l2335_c7: INTEGER_32; an_argument_l2336_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_yank (node at line 2334)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3539,8 +4259,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_complete_internal (an_argument_l2214_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_complete_internal (node at line 2213)
+	rl_complete_internal (an_argument_l2339_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_complete_internal (node at line 2338)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3549,8 +4269,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_match (an_argument_l2217_c7: INTEGER_32; an_argument_l2218_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_match (node at line 2216)
+	rl_vi_match (an_argument_l2342_c7: INTEGER_32; an_argument_l2343_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_match (node at line 2341)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3560,7 +4280,7 @@ feature {} -- External calls
 		end
 
 	rl_set_signals: INTEGER_32 is
- 		-- rl_set_signals (node at line 2255)
+ 		-- rl_set_signals (node at line 2380)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3569,8 +4289,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_discard_keymap (an_argument_l2279_c7: POINTER) is
- 		-- rl_discard_keymap (node at line 2278)
+	rl_discard_keymap (an_argument_l2404_c7: POINTER) is
+ 		-- rl_discard_keymap (node at line 2403)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3579,8 +4299,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_prep_terminal (an_argument_l2282_c7: INTEGER_32) is
- 		-- rl_prep_terminal (node at line 2281)
+	rl_prep_terminal (an_argument_l2407_c7: INTEGER_32) is
+ 		-- rl_prep_terminal (node at line 2406)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3589,8 +4309,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_key_if_unbound_in_map (an_argument_l2291_c7: INTEGER_32; an_argument_l2292_c7: POINTER; an_argument_l2293_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_key_if_unbound_in_map (node at line 2290)
+	rl_bind_key_if_unbound_in_map (an_argument_l2421_c7: INTEGER_32; an_argument_l2422_c7: POINTER; an_argument_l2423_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_key_if_unbound_in_map (node at line 2420)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3599,8 +4319,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_variable_bind (an_argument_l2302_c7: POINTER; an_argument_l2303_c7: POINTER): INTEGER_32 is
- 		-- rl_variable_bind (node at line 2301)
+	rl_variable_bind (an_argument_l2432_c7: POINTER; an_argument_l2433_c7: POINTER): INTEGER_32 is
+ 		-- rl_variable_bind (node at line 2431)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3609,8 +4329,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_kill_full_line (an_argument_l2326_c7: INTEGER_32; an_argument_l2327_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_kill_full_line (node at line 2325)
+	rl_invoking_keyseqs_in_map (an_argument_l2442_c7: POINTER; an_argument_l2443_c7: POINTER): POINTER is
+ 		-- rl_invoking_keyseqs_in_map (node at line 2441)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_invoking_keyseqs_in_map"
+		}"
+		end
+
+	rl_kill_full_line (an_argument_l2466_c7: INTEGER_32; an_argument_l2467_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_kill_full_line (node at line 2465)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3619,8 +4349,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_set_paren_blink_timeout (an_argument_l2336_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_set_paren_blink_timeout (node at line 2335)
+	rl_set_paren_blink_timeout (an_argument_l2482_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_set_paren_blink_timeout (node at line 2481)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3629,8 +4359,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_downcase_word (an_argument_l2339_c7: INTEGER_32; an_argument_l2340_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_downcase_word (node at line 2338)
+	rl_downcase_word (an_argument_l2485_c7: INTEGER_32; an_argument_l2486_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_downcase_word (node at line 2484)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3639,8 +4369,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_skip_csi_sequence (an_argument_l2343_c7: INTEGER_32; an_argument_l2344_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_skip_csi_sequence (node at line 2342)
+	rl_skip_csi_sequence (an_argument_l2489_c7: INTEGER_32; an_argument_l2490_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_skip_csi_sequence (node at line 2488)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3650,7 +4380,7 @@ feature {} -- External calls
 		end
 
 	rl_restore_prompt is
- 		-- rl_restore_prompt (node at line 2347)
+ 		-- rl_restore_prompt (node at line 2496)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3659,8 +4389,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_bracktype (an_argument_l2366_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_bracktype (node at line 2365)
+	rl_vi_bracktype (an_argument_l2515_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_bracktype (node at line 2514)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3670,7 +4400,7 @@ feature {} -- External calls
 		end
 
 	rl_clear_message: INTEGER_32 is
- 		-- rl_clear_message (node at line 2368)
+ 		-- rl_clear_message (node at line 2517)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3679,8 +4409,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_fword (an_argument_l2381_c7: INTEGER_32; an_argument_l2382_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_fword (node at line 2380)
+	rl_vi_fword (an_argument_l2531_c7: INTEGER_32; an_argument_l2532_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_fword (node at line 2530)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3689,8 +4419,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unbind_key_in_map (an_argument_l2385_c7: INTEGER_32; an_argument_l2386_c7: POINTER): INTEGER_32 is
- 		-- rl_unbind_key_in_map (node at line 2384)
+	rl_unbind_key_in_map (an_argument_l2535_c7: INTEGER_32; an_argument_l2536_c7: POINTER): INTEGER_32 is
+ 		-- rl_unbind_key_in_map (node at line 2534)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3699,8 +4429,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_copy_backward_word (an_argument_l2399_c7: INTEGER_32; an_argument_l2400_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_copy_backward_word (node at line 2398)
+	rl_copy_backward_word (an_argument_l2549_c7: INTEGER_32; an_argument_l2550_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_copy_backward_word (node at line 2548)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3709,8 +4439,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_copy_keymap (an_argument_l2406_c7: POINTER): POINTER is
- 		-- rl_copy_keymap (node at line 2405)
+	rl_copy_keymap (an_argument_l2562_c7: POINTER): POINTER is
+ 		-- rl_copy_keymap (node at line 2561)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3720,7 +4450,7 @@ feature {} -- External calls
 		end
 
 	rl_maybe_unsave_line: INTEGER_32 is
- 		-- rl_maybe_unsave_line (node at line 2436)
+ 		-- rl_maybe_unsave_line (node at line 2589)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3729,18 +4459,18 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_backward (an_argument_l2463_c7: INTEGER_32; an_argument_l2464_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_backward (node at line 2462)
+	rl_vi_back_to_indent (an_argument_l2616_c7: INTEGER_32; an_argument_l2617_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_back_to_indent (node at line 2615)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "rl_backward"
+			feature_name: "rl_vi_back_to_indent"
 		}"
 		end
 
-	rl_transpose_chars (an_argument_l2488_c7: INTEGER_32; an_argument_l2489_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_transpose_chars (node at line 2487)
+	rl_transpose_chars (an_argument_l2653_c7: INTEGER_32; an_argument_l2654_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_transpose_chars (node at line 2652)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3749,8 +4479,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_abort (an_argument_l2511_c7: INTEGER_32; an_argument_l2512_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_abort (node at line 2510)
+	rl_abort (an_argument_l2676_c7: INTEGER_32; an_argument_l2677_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_abort (node at line 2675)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3760,7 +4490,7 @@ feature {} -- External calls
 		end
 
 	rl_maybe_replace_line: INTEGER_32 is
- 		-- rl_maybe_replace_line (node at line 2527)
+ 		-- rl_maybe_replace_line (node at line 2692)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3769,8 +4499,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_delete_text (an_argument_l2529_c7: INTEGER_32; an_argument_l2530_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_delete_text (node at line 2528)
+	rl_delete_text (an_argument_l2694_c7: INTEGER_32; an_argument_l2695_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_delete_text (node at line 2693)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3779,8 +4509,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_bind_keyseq_in_map (an_argument_l2541_c7: POINTER; an_argument_l2542_c7: POINTER; an_argument_l2543_c7: POINTER): INTEGER_32 is
- 		-- rl_bind_keyseq_in_map (node at line 2540)
+	rl_bind_keyseq_in_map (an_argument_l2706_c7: POINTER; an_argument_l2707_c7: POINTER; an_argument_l2708_c7: POINTER): INTEGER_32 is
+ 		-- rl_bind_keyseq_in_map (node at line 2705)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3789,8 +4519,18 @@ feature {} -- External calls
 		}"
 		end
 
+	rl_username_completion_function (an_argument_l2717_c7: POINTER; an_argument_l2718_c7: INTEGER_32): POINTER is
+ 		-- rl_username_completion_function (node at line 2716)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "rl_username_completion_function"
+		}"
+		end
+
 	rl_vi_check: INTEGER_32 is
- 		-- rl_vi_check (node at line 2551)
+ 		-- rl_vi_check (node at line 2720)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3799,8 +4539,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_modifying (an_argument_l2582_c7: INTEGER_32; an_argument_l2583_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_modifying (node at line 2581)
+	rl_modifying (an_argument_l2754_c7: INTEGER_32; an_argument_l2755_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_modifying (node at line 2753)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3809,8 +4549,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_eword (an_argument_l2605_c7: INTEGER_32; an_argument_l2606_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_eword (node at line 2604)
+	rl_vi_eword (an_argument_l2777_c7: INTEGER_32; an_argument_l2778_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_eword (node at line 2776)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3819,8 +4559,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_replace (an_argument_l2619_c7: INTEGER_32; an_argument_l2620_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_replace (node at line 2618)
+	rl_vi_replace (an_argument_l2790_c7: INTEGER_32; an_argument_l2791_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_replace (node at line 2789)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3830,7 +4570,7 @@ feature {} -- External calls
 		end
 
 	rl_deprep_terminal is
- 		-- rl_deprep_terminal (node at line 2661)
+ 		-- rl_deprep_terminal (node at line 2832)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3839,8 +4579,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_save_state (an_argument_l2663_c7: POINTER): INTEGER_32 is
- 		-- rl_save_state (node at line 2662)
+	rl_save_state (an_argument_l2834_c7: POINTER): INTEGER_32 is
+ 		-- rl_save_state (node at line 2833)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3849,8 +4589,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_stop_output (an_argument_l2673_c7: INTEGER_32; an_argument_l2674_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_stop_output (node at line 2672)
+	rl_stop_output (an_argument_l2844_c7: INTEGER_32; an_argument_l2845_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_stop_output (node at line 2843)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3860,7 +4600,7 @@ feature {} -- External calls
 		end
 
 	rl_make_keymap: POINTER is
- 		-- rl_make_keymap (node at line 2687)
+ 		-- rl_make_keymap (node at line 2858)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3869,8 +4609,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_kill_word (an_argument_l2690_c7: INTEGER_32; an_argument_l2691_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_kill_word (node at line 2689)
+	rl_kill_word (an_argument_l2861_c7: INTEGER_32; an_argument_l2862_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_kill_word (node at line 2860)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3879,8 +4619,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_vi_movement_mode (an_argument_l2697_c7: INTEGER_32; an_argument_l2698_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_vi_movement_mode (node at line 2696)
+	rl_vi_movement_mode (an_argument_l2868_c7: INTEGER_32; an_argument_l2869_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_vi_movement_mode (node at line 2867)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3889,8 +4629,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_history_search_forward (an_argument_l2702_c7: INTEGER_32; an_argument_l2703_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_history_search_forward (node at line 2701)
+	rl_history_search_forward (an_argument_l2873_c7: INTEGER_32; an_argument_l2874_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_history_search_forward (node at line 2872)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3899,8 +4639,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_copy_forward_word (an_argument_l2727_c7: INTEGER_32; an_argument_l2728_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_copy_forward_word (node at line 2726)
+	rl_copy_forward_word (an_argument_l2898_c7: INTEGER_32; an_argument_l2899_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_copy_forward_word (node at line 2897)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3909,8 +4649,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_upcase_word (an_argument_l2732_c7: INTEGER_32; an_argument_l2733_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_upcase_word (node at line 2731)
+	rl_upcase_word (an_argument_l2903_c7: INTEGER_32; an_argument_l2904_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_upcase_word (node at line 2902)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3919,18 +4659,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_add_funmap_entry (an_argument_l2736_c7: POINTER; an_argument_l2737_c7: POINTER): INTEGER_32 is
- 		-- rl_add_funmap_entry (node at line 2735)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "rl_add_funmap_entry"
-		}"
-		end
-
-	rl_forward_byte (an_argument_l2760_c7: INTEGER_32; an_argument_l2761_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_forward_byte (node at line 2759)
+	rl_forward_byte (an_argument_l2934_c7: INTEGER_32; an_argument_l2935_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_forward_byte (node at line 2933)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3939,8 +4669,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_universal_argument (an_argument_l2787_c7: INTEGER_32; an_argument_l2788_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_universal_argument (node at line 2786)
+	rl_universal_argument (an_argument_l2961_c7: INTEGER_32; an_argument_l2962_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_universal_argument (node at line 2960)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -3949,8 +4679,8 @@ feature {} -- External calls
 		}"
 		end
 
-	rl_unix_line_discard (an_argument_l2793_c7: INTEGER_32; an_argument_l2794_c7: INTEGER_32): INTEGER_32 is
- 		-- rl_unix_line_discard (node at line 2792)
+	rl_unix_line_discard (an_argument_l2967_c7: INTEGER_32; an_argument_l2968_c7: INTEGER_32): INTEGER_32 is
+ 		-- rl_unix_line_discard (node at line 2966)
 		external "plug_in"
 		alias "{
 			location: "."

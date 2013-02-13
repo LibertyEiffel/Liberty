@@ -89,11 +89,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    adapt_for (type: TYPE): like Current is
       local
          t: like target; args: like fake_tuple

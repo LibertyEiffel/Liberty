@@ -11,7 +11,7 @@ inherit
       redefine
          inline_dynamic_dispatch_
       end
-   
+
 creation {EIFFEL_PARSER}
    make
 
@@ -26,29 +26,6 @@ feature {ANY}
    operator: STRING is
       do
          Result := as_or_else
-      end
-
-   compile_to_jvm (type: TYPE) is
-      local
-         point1, point2: INTEGER
-      do
-         target.compile_to_jvm(type)
-         point1 := code_attribute.opcode_ifne
-         arg1.compile_to_jvm(type)
-         point2 := code_attribute.opcode_goto
-         code_attribute.resolve_u2_branch(point1)
-         code_attribute.opcode_iconst_1
-         code_attribute.resolve_u2_branch(point2)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
       end
 
    accept (visitor: CALL_INFIX_OR_ELSE_VISITOR) is
@@ -88,7 +65,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          -- Adding the final result:
          code_accumulator.current_context.add_last(internal_local2)
       end
-   
+
 feature {}
    make (left: like target; operator_position: POSITION; right: like arg1) is
       require

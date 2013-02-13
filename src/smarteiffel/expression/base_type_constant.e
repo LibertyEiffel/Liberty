@@ -80,13 +80,6 @@ feature {ANY}
          Result := atomic_precedence
       end
 
-   frozen jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    frozen non_void_no_dispatch_type (type: TYPE): TYPE is
       do
          Result := resolve_in(type)

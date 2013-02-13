@@ -103,20 +103,6 @@ feature {ANY}
          end
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         error_handler.add_position(start_position)
-         error_handler.append(fz_jvm_error)
-         error_handler.print_as_fatal_error
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    specialize_in (type: TYPE): like Current is
       local
          ln: like local_name; fs: like feature_stamp; cc: like calling_code
@@ -306,13 +292,6 @@ feature {ANY}
       do
          bracketed_short(type)
          short_printer.put_dot
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
       end
 
    collect (type: TYPE): TYPE is

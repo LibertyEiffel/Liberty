@@ -878,27 +878,6 @@ feature {}
       deferred
       end
 
-feature {RESULT, RUN_FEATURE}
-   frozen jvm_result_offset (type: TYPE): INTEGER is
-         -- Offset of the Result local variable.
-      require
-         result_type /= Void
-      local
-         effective_routine: EFFECTIVE_ROUTINE; local_vars: LOCAL_VAR_LIST
-      do
-         Result := type.canonical_type_mark.jvm_stack_space
-         if arguments /= Void then
-            Result := Result + arguments.jvm_stack_space(type)
-         end
-         if effective_routine ?:= Current then
-            effective_routine ::= Current --|*** CAD: berk - remplacer par une liaison dynamique
-            local_vars := effective_routine.local_vars
-            if local_vars /= Void then
-               Result := Result + local_vars.jvm_stack_space(type)
-            end
-         end
-      end
-
 feature {ANONYMOUS_FEATURE, FEATURE_TEXT}
    set_require_assertion (ra: REQUIRE_ASSERTION) is
       do

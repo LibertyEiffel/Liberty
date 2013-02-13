@@ -212,48 +212,6 @@ feature {ANY}
          Result := expression.simplify(type)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         check
-            False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
-         end
-      end
-
 feature {LOOP_VARIANT}
    init (exp: like expression) is
       require

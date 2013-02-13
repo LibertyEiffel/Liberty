@@ -106,34 +106,6 @@ feature {ANY}
          visitor.visit_local_name2(Current)
       end
 
-   frozen compile_to_jvm (type: TYPE) is
-      local
-         jvm_offset: INTEGER
-      do
-         jvm_offset := jvm.local_offset_of(local_var_list.name(rank))
-         resolve_in(type).canonical_type_mark.jvm_push_local(jvm_offset)
-      end
-
-   frozen jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   frozen jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
-      end
-
-   frozen jvm_assign, jvm_assign_creation (type: TYPE) is
-      local
-         jvm_offset: INTEGER
-      do
-         jvm_offset := jvm.local_offset_of(local_var_list.name(rank))
-         resolve_in(type).canonical_type_mark.jvm_write_local(jvm_offset)
-      end
-
 feature {LOCAL_NAME2}
    set_local_var_list (lvl: like local_var_list) is
       require

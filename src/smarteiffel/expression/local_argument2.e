@@ -34,11 +34,6 @@ feature {ANY}
       do
       end
 
-   frozen compile_target_to_jvm (type: TYPE) is
-      do
-         standard_compile_target_to_jvm(type)
-      end
-
 invariant
    not start_position.is_unknown
 

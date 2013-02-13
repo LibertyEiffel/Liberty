@@ -3,10 +3,10 @@
 --
 class STRING_ALIASER
    --
-   -- Singleton object used to share constant immutable strings (simple STRING as well as 
-   -- HASHED_STRING). The goal is to optimize immutable strings comparisons as well as 
-   -- hashed dictionary access (see HASHED_STRING). Thus, any immutable name must be 
-   -- registered here to get the corresponding unique reference. This singleton is shared 
+   -- Singleton object used to share constant immutable strings (simple STRING as well as
+   -- HASHED_STRING). The goal is to optimize immutable strings comparisons as well as
+   -- hashed dictionary access (see HASHED_STRING). Thus, any immutable name must be
+   -- registered here to get the corresponding unique reference. This singleton is shared
    -- via the `string_aliaser' once function from GLOBALS.
    --
 
@@ -62,7 +62,7 @@ feature {ANY}
       end
 
    string (model: STRING): STRING is
-         -- Assuming that `model' is not the registered string, 
+         -- Assuming that `model' is not the registered string,
          -- retrieve or create the aliased string.
          -- Note: the constraining require assertion is here to try to avoid
          -- multiple aliasing of the very same STRING.
@@ -82,7 +82,7 @@ feature {ANY} -- Some common HASHED_STRING to be shared:
          Result := string_aliaser.hashed_string(as_tuple)
       end
 
-feature {COMPILE_TO_C, COMPILE_TO_JVM}
+feature {COMPILE_TO_C}
    echo_information is
       do
          echo.put_string(once "Aliased STRINGs: ")
@@ -104,7 +104,7 @@ feature {}
       do
          create Result.make(aliased_string, aliased_string.hash_code)
       end
-   
+
    memory: HASHED_SET[HASHED_STRING] is
       once
          Result := {HASHED_SET[HASHED_STRING]

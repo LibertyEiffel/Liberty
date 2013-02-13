@@ -247,7 +247,6 @@ feature {} -- Operating system detection
                                          "clean",
                                          "finder",
                                          "eiffeltest",
---|***                                         "print_jvm_class",
                                          "ace_check"
                                          >> }
       end
@@ -261,7 +260,6 @@ feature {} -- Operating system detection
                                          "class_check",
                                          "pretty",
                                          "eiffeldoc",
---|***                                         "compile_to_jvm",
                                          "extract_internals"
                                          >> }
       end
@@ -615,13 +613,11 @@ feature {} -- Operating system detection
          Result := {FAST_ARRAY[STRING] << "c",
                                           "c2c",
                                           "clean",
---|***                                          "java",
                                           "pretty",
                                           "short",
                                           "find",
                                           "ace_check",
                                           "class_check",
---|***                                          "javap",
                                           "doc",
                                           "test",
                                           "x_int"
@@ -633,13 +629,11 @@ feature {} -- Operating system detection
          Result := {FAST_ARRAY[STRING] << "compile",
                                           "compile_to_c",
                                           "clean",
---|***                                          "compile_to_jvm",
                                           "pretty",
                                           "short",
                                           "finder",
                                           "ace_check",
                                           "class_check",
---|***                                          "print_jvm_class",
                                           "eiffeldoc",
                                           "eiffeltest",
                                           "extract_internals"

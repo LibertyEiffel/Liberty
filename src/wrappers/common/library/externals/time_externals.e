@@ -30,6 +30,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_tzname (a_value: POINTER) is
+		-- Set variable tzname value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_tzname"
+		}"
+		end
+
 	-- `hidden' variable __tzname skipped.
 	timezone: INTEGER_64 is
  		-- timezone (node at line 292)
@@ -48,6 +58,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&timezone"
+		}"
+		end
+
+	set_timezone (a_value: INTEGER_64) is
+		-- Set variable timezone value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_timezone"
 		}"
 		end
 
@@ -71,6 +91,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_getdate_err (a_value: INTEGER_32) is
+		-- Set variable getdate_err value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_getdate_err"
+		}"
+		end
+
 	daylight: INTEGER_32 is
  		-- daylight (node at line 291)
 		external "plug_in"
@@ -91,9 +121,19 @@ feature {} -- External calls
 		}"
 		end
 
+	set_daylight (a_value: INTEGER_32) is
+		-- Set variable daylight value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_daylight"
+		}"
+		end
+
 	-- `hidden' variable __timezone skipped.
 	difftime (a_time1: INTEGER_64; a_time0: INTEGER_64): REAL_64 is
- 		-- difftime (node at line 191)
+ 		-- difftime (node at line 232)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -103,7 +143,7 @@ feature {} -- External calls
 		end
 
 	timegm (a_tp: POINTER): INTEGER_64 is
- 		-- timegm (node at line 394)
+ 		-- timegm (node at line 483)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -113,7 +153,7 @@ feature {} -- External calls
 		end
 
 	ctime_r (a_timer: POINTER; a_buf: POINTER): POINTER is
- 		-- ctime_r (node at line 432)
+ 		-- ctime_r (node at line 535)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -123,7 +163,7 @@ feature {} -- External calls
 		end
 
 	gmtime (a_timer: POINTER): POINTER is
- 		-- gmtime (node at line 649)
+ 		-- gmtime (node at line 774)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -133,7 +173,7 @@ feature {} -- External calls
 		end
 
 	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER_32 is
- 		-- getdate_r (node at line 707)
+ 		-- getdate_r (node at line 845)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -143,7 +183,7 @@ feature {} -- External calls
 		end
 
 	clock_getres (a_clock_id: INTEGER_32; a_res: POINTER): INTEGER_32 is
- 		-- clock_getres (node at line 711)
+ 		-- clock_getres (node at line 849)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -153,7 +193,7 @@ feature {} -- External calls
 		end
 
 	timelocal (a_tp: POINTER): INTEGER_64 is
- 		-- timelocal (node at line 1063)
+ 		-- timelocal (node at line 1244)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -163,7 +203,7 @@ feature {} -- External calls
 		end
 
 	clock_settime (a_clock_id: INTEGER_32; a_tp: POINTER): INTEGER_32 is
- 		-- clock_settime (node at line 1095)
+ 		-- clock_settime (node at line 1279)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -173,7 +213,7 @@ feature {} -- External calls
 		end
 
 	strptime_l (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER; a_loc: POINTER): POINTER is
- 		-- strptime_l (node at line 1161)
+ 		-- strptime_l (node at line 1377)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -183,7 +223,7 @@ feature {} -- External calls
 		end
 
 	timer_delete (a_timerid: POINTER): INTEGER_32 is
- 		-- timer_delete (node at line 1197)
+ 		-- timer_delete (node at line 1413)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -193,7 +233,7 @@ feature {} -- External calls
 		end
 
 	asctime (a_tp: POINTER): POINTER is
- 		-- asctime (node at line 1244)
+ 		-- asctime (node at line 1460)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -203,7 +243,7 @@ feature {} -- External calls
 		end
 
 	localtime (a_timer: POINTER): POINTER is
- 		-- localtime (node at line 1267)
+ 		-- localtime (node at line 1483)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -213,7 +253,7 @@ feature {} -- External calls
 		end
 
 	clock_gettime (a_clock_id: INTEGER_32; a_tp: POINTER): INTEGER_32 is
- 		-- clock_gettime (node at line 1433)
+ 		-- clock_gettime (node at line 1656)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -223,7 +263,7 @@ feature {} -- External calls
 		end
 
 	strptime (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER): POINTER is
- 		-- strptime (node at line 1437)
+ 		-- strptime (node at line 1660)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -233,7 +273,7 @@ feature {} -- External calls
 		end
 
 	strftime_l (a_s: POINTER; a_maxsize: NATURAL_64; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): NATURAL_64 is
- 		-- strftime_l (node at line 1489)
+ 		-- strftime_l (node at line 1723)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -243,7 +283,7 @@ feature {} -- External calls
 		end
 
 	tzset is
- 		-- tzset (node at line 1591)
+ 		-- tzset (node at line 1834)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -253,7 +293,7 @@ feature {} -- External calls
 		end
 
 	clock_getcpuclockid (a_pid: INTEGER_32; a_clock_id: POINTER): INTEGER_32 is
- 		-- clock_getcpuclockid (node at line 1688)
+ 		-- clock_getcpuclockid (node at line 1950)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -263,7 +303,7 @@ feature {} -- External calls
 		end
 
 	localtime_r (a_timer: POINTER; a_tp: POINTER): POINTER is
- 		-- localtime_r (node at line 1915)
+ 		-- localtime_r (node at line 2189)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -273,7 +313,7 @@ feature {} -- External calls
 		end
 
 	clock: INTEGER_64 is
- 		-- clock (node at line 2123)
+ 		-- clock (node at line 2425)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -283,7 +323,7 @@ feature {} -- External calls
 		end
 
 	clock_nanosleep (a_clock_id: INTEGER_32; a_flags: INTEGER_32; a_req: POINTER; a_rem: POINTER): INTEGER_32 is
- 		-- clock_nanosleep (node at line 2313)
+ 		-- clock_nanosleep (node at line 2623)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -293,7 +333,7 @@ feature {} -- External calls
 		end
 
 	getdate (a_string: POINTER): POINTER is
- 		-- getdate (node at line 2360)
+ 		-- getdate (node at line 2670)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -303,7 +343,7 @@ feature {} -- External calls
 		end
 
 	dysize (a_year: INTEGER_32): INTEGER_32 is
- 		-- dysize (node at line 2396)
+ 		-- dysize (node at line 2706)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -313,7 +353,7 @@ feature {} -- External calls
 		end
 
 	stime (a_when_external: POINTER): INTEGER_32 is
- 		-- stime (node at line 2403)
+ 		-- stime (node at line 2713)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -323,7 +363,7 @@ feature {} -- External calls
 		end
 
 	timer_create (a_clock_id: INTEGER_32; an_evp: POINTER; a_timerid: POINTER): INTEGER_32 is
- 		-- timer_create (node at line 2480)
+ 		-- timer_create (node at line 2794)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -333,7 +373,7 @@ feature {} -- External calls
 		end
 
 	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER_32 is
- 		-- nanosleep (node at line 2531)
+ 		-- nanosleep (node at line 2854)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -343,7 +383,7 @@ feature {} -- External calls
 		end
 
 	timer_settime (a_timerid: POINTER; a_flags: INTEGER_32; a_value: POINTER; an_ovalue: POINTER): INTEGER_32 is
- 		-- timer_settime (node at line 2630)
+ 		-- timer_settime (node at line 2962)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -353,7 +393,7 @@ feature {} -- External calls
 		end
 
 	timer_getoverrun (a_timerid: POINTER): INTEGER_32 is
- 		-- timer_getoverrun (node at line 2646)
+ 		-- timer_getoverrun (node at line 2978)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -363,7 +403,7 @@ feature {} -- External calls
 		end
 
 	time (a_timer: POINTER): INTEGER_64 is
- 		-- time (node at line 2878)
+ 		-- time (node at line 3244)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -373,7 +413,7 @@ feature {} -- External calls
 		end
 
 	strftime (a_s: POINTER; a_maxsize: NATURAL_64; a_format: POINTER; a_tp: POINTER): NATURAL_64 is
- 		-- strftime (node at line 2896)
+ 		-- strftime (node at line 3262)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -383,7 +423,7 @@ feature {} -- External calls
 		end
 
 	ctime (a_timer: POINTER): POINTER is
- 		-- ctime (node at line 2968)
+ 		-- ctime (node at line 3338)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -393,7 +433,7 @@ feature {} -- External calls
 		end
 
 	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER_32 is
- 		-- timer_gettime (node at line 3064)
+ 		-- timer_gettime (node at line 3452)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -403,7 +443,7 @@ feature {} -- External calls
 		end
 
 	mktime (a_tp: POINTER): INTEGER_64 is
- 		-- mktime (node at line 3080)
+ 		-- mktime (node at line 3468)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -413,7 +453,7 @@ feature {} -- External calls
 		end
 
 	asctime_r (a_tp: POINTER; a_buf: POINTER): POINTER is
- 		-- asctime_r (node at line 3189)
+ 		-- asctime_r (node at line 3598)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -423,7 +463,7 @@ feature {} -- External calls
 		end
 
 	gmtime_r (a_timer: POINTER; a_tp: POINTER): POINTER is
- 		-- gmtime_r (node at line 3193)
+ 		-- gmtime_r (node at line 3602)
 		external "plug_in"
 		alias "{
 			location: "."

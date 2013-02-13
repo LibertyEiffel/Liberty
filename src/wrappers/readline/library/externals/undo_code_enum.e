@@ -9,9 +9,9 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = delete_low_level)  or else
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = delete_low_level)  or else
 				(a_value = insert_external_low_level)  or else
 				(a_value = begin_low_level)  or else
 				(a_value = end_external_low_level) )
