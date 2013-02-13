@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=18
+MAXTOOLCOUNT=17
 
 test ${0%/*} != $0 && cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
@@ -11,13 +11,13 @@ export PREREQUISITES="gcc gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
-function check_prerequisites() 
+function check_prerequisites()
 {
     for PROGRAM in $PREREQUISITES; do
-        if which $PROGRAM >/dev/null; 
-        then echo $PROGRAM found; 
+        if which $PROGRAM >/dev/null;
+        then echo $PROGRAM found;
         else echo "$PROGRAM not found"; exit 5
-        fi; 
+        fi;
     done
 }
 
@@ -110,7 +110,7 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest
-wrap: wrappers_generator
+wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
@@ -228,38 +228,44 @@ EOF
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    {
-        echo 5 se
-        echo 6 clean
-        echo 7 ace_check
-        echo 8 eiffeltest
-    } | while read i tool; do
+    while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done
-    {
-        echo  9 pretty
-        echo 10 short
-        echo 11 class_check
-        echo 12 finder
-        echo 13 eiffeldoc
-        echo 14 extract_internals
-        echo 15 wrappers_generator
-        echo 16 run
-    } | while read i tool; do
+    done <<EOF
+5 se
+6 clean
+7 ace_check
+8 eiffeltest
+EOF
+    while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done
+    done <<EOF
+9 pretty
+10 short
+11 class_check
+12 finder
+13 eiffeldoc
+14 extract_internals
+EOF
 
+    # 15
+    progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "wrappers-generator"
+    cd wrappers-generator.d
+    run ../se c -verbose wrappers-generator.ace
+    cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
+
+    # 16
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
     cp $LIBERTY_HOME/work/se_make.sh .
 
+    # 17
     progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."
     echo
 }
@@ -378,7 +384,7 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest
-wrap: wrappers_generator
+wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
@@ -509,10 +515,10 @@ function do_all()
 {
     test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
-    compile_plugins
-    generate_wrappers
+    #compile_plugins
+    #generate_wrappers
     #compile_all
-    make_doc
+    #make_doc
 }
 
 if [ $# = 0 ]; then
