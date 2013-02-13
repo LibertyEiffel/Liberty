@@ -63,11 +63,13 @@ feature {ANY}
          end
       end
 
-feature {}
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := root.generation
       end
+
+   generation: INTEGER
 
 end -- class ITERATOR_ON_ROPE
 --

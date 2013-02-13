@@ -45,11 +45,13 @@ feature {ANY}
          index := index + 1
       end
 
-feature {}
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := bit_string.generation
       end
+
+   generation: INTEGER
 
 invariant
    bit_string /= Void

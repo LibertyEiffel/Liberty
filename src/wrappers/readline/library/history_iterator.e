@@ -30,11 +30,17 @@ feature {ANY}
          Result := index > history.upper
       end
 
+feature {ANY}
+   generation: INTEGER is
+      do
+         Result := history.generation
+      end
+
+   iterable_generation: INTEGER
+
 feature {}
    history: READ_LINE_HISTORY
    index: INTEGER
-
-   iterable_generation: INTEGER
 
    make (hist: READ_LINE_HISTORY) is
       do

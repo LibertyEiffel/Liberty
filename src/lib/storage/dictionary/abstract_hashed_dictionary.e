@@ -350,6 +350,11 @@ feature {ANY}
          create {ITERATOR_ON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_DICTIONARY[V_, K_]} Result.make(Current)
+      end
+
    key_map_in (buffer: COLLECTION[K_]) is
       local
          node: like cache_node; i, idx: INTEGER

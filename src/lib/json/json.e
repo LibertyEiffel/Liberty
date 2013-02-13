@@ -17,16 +17,24 @@ create {ANY}
    make
 
 feature {ANY}
+   encode_to (data: DATA_; strout: OUTPUT_STREAM) is
+      require
+         strout.is_connected
+      local
+         value: JSON_VALUE
+      do
+         value := codec.build(data)
+         encoder.encode_in(value, strout)
+      end
+
    encode_in (data: DATA_; str: STRING) is
       require
          str /= Void
       local
-         value: JSON_VALUE
          strout: STRING_OUTPUT_STREAM
       do
-         value := codec.build(data)
          create strout.connect_to(str)
-         encoder.encode_in(value, strout)
+         encode_to(data, strout)
          strout.disconnect
       end
 
@@ -36,18 +44,29 @@ feature {ANY}
          encode_in(data, Result)
       end
 
-   decode (data: STRING): DATA_ is
+   decode_from (strin: INPUT_STREAM): DATA_ is
+      require
+         strin.is_connected
       local
          value: JSON_VALUE
-         strin: STRING_INPUT_STREAM
          d: JSON_TYPED_DATA[DATA_]
       do
-         create strin.from_string(data)
          value := codec.parse(strin)
          if value /= Void then
             d ::= decoder.decode(codec, value)
             Result := d.item
          end
+      end
+
+   decode (data: STRING): DATA_ is
+      require
+         data /= Void
+      local
+         strin: STRING_INPUT_STREAM
+      do
+         create strin.from_string(data)
+         Result := decode_from(strin)
+         strin.disconnect
       end
 
    error_message: ABSTRACT_STRING is
@@ -76,7 +95,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_codec: like codec) is
+   make (a_codec: JSON_CODEC[DATA_]) is
       require
          a_codec /= Void
       do

@@ -5,10 +5,8 @@ class JSON_STRING
 
 inherit
    JSON_VALUE
-      undefine
-         is_equal
       redefine
-         out_in_tagged_out_memory
+         out_in_tagged_out_memory, is_equal
       end
 
 insert
@@ -17,10 +15,8 @@ insert
          out_in_tagged_out_memory
       end
    UNICODE_STRING_HELPER
-      undefine
-         is_equal
       redefine
-         out_in_tagged_out_memory
+         out_in_tagged_out_memory, is_equal
       end
 
 create {JSON_HANDLER}
@@ -110,6 +106,7 @@ feature {}
          hash_code := a_string.hash_code
       ensure
          string = a_string
+         set_string_invariant(a_string)
       end
 
    from_string (a_string: ABSTRACT_STRING) is
@@ -136,9 +133,20 @@ feature {}
          end
       end
 
+   set_string_invariant (a_string: like string): BOOLEAN is
+      require
+         a_string /= Void
+      do
+         string_invariant := a_string.twin
+         Result := True
+      end
+
+   string_invariant: like string
+
 invariant
-   string /= Void
-   hash_code = string.hash_code
+   string_exists: string /= Void
+   invariant_string: string_invariant.is_equal(string)
+   invariant_hash_code: hash_code = string.hash_code -- of course, but better said...
 
 end -- class JSON_STRING
 --

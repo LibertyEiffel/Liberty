@@ -5,9 +5,9 @@ class NCURSES_PAD
    --
    -- One window in the NCURSES world.
    --
-   -- The current position of the cursor is given by `cursor_x' and `cursor_y'. 
+   -- The current position of the cursor is given by `cursor_x' and `cursor_y'.
    --
-   
+
 inherit
    NCURSES_WINDOW
       redefine refresh_later
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
    set_visible (vl, vt: INTEGER) is
-      -- Convenience only
+         -- Convenience only
       do
          set_visible_left(vl)
          set_visible_top(vt)

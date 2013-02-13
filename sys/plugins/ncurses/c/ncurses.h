@@ -42,5 +42,6 @@ extern int wgetcursorx(void*);
 extern int wgetcursory(void*);
 extern char* mvwgetstring(void*, int, int, int);
 
+extern void touchwin_(void*);
 
 #endif

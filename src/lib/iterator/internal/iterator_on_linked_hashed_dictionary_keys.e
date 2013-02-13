@@ -52,11 +52,13 @@ feature {ANY}
 
    index: INTEGER
 
-feature {}
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := dico.generation
       end
+
+   generation: INTEGER
 
 end -- class ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS
 --

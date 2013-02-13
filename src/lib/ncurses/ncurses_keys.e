@@ -983,7 +983,7 @@ feature {}
       end
 
 end -- class NCURSES_KEYS
-   
+
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
