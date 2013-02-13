@@ -1,17 +1,16 @@
-Source: libertyeiffel
+Source: liberty-eiffel
 Section: devel
 Priority: extra
 Maintainer: Cyril Adrian <cyril.adrian@gmail.com>
-Build-Depends: debhelper (>= 7)
-Standards-Version: 3.8.3
+Build-Depends: debhelper (>= 8.0.0), docbook-to-man
+Standards-Version: 3.9.2
 Homepage: http://liberty-eiffel.blogspot.com/
+Vcs-Git: git://github.com/LibertyEiffel/Liberty.git
 
-
-Package: libertyeiffel-tools
+Package: liberty-eiffel-tools
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libertyeiffel-core-libs, gcc
-Recommends: libertyeiffel-extra-libs
-Suggests: libertyeiffel-tools-src, emacs
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs, gcc
+Suggests: liberty-eiffel-tools-src, emacs
 Description: The Liberty Eiffel tools
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
@@ -23,10 +22,9 @@ Description: The Liberty Eiffel tools
  This package provides the core tools: compiler, pretty printer,
  documenter, tester, and so on.
 
-
-Package: libertyeiffel-tools-src
+Package: liberty-eiffel-tools-src
 Architecture: all
-Recommends: libertyeiffel-tools
+Recommends: liberty-eiffel-tools
 Description: The Liberty Eiffel tools source
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
@@ -37,10 +35,9 @@ Description: The Liberty Eiffel tools source
  French engineer.
  This package provides the Eiffel source of the Liberty Eiffel tools.
 
-
-Package: libertyeiffel-tools-doc
+Package: liberty-eiffel-tools-doc
 Architecture: all
-Recommends: libertyeiffel-tools
+Recommends: liberty-eiffel-tools
 Description: The Liberty Eiffel tools source
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
@@ -52,11 +49,10 @@ Description: The Liberty Eiffel tools source
  This package provides the documentation for the Liberty Eiffel tools
  classes.
 
-
-Package: libertyeiffel-core-libs
+Package: liberty-eiffel-core-libs
 Architecture: all
-Recommends: libertyeiffel-tools
-Description: documentation for libertyeiffel
+Recommends: liberty-eiffel-tools
+Description: documentation for liberty-eiffel
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
  Since the original maintainer lost interest, and the community has to
@@ -67,11 +63,10 @@ Description: documentation for libertyeiffel
  This package provides the core libraries needed to compile event the
  most simple program.
 
-
-Package: libertyeiffel-core-doc
+Package: liberty-eiffel-core-doc
 Architecture: all
-Recommends: libertyeiffel-tools, libertyeiffel-core-libs
-Description: documentation for libertyeiffel
+Recommends: liberty-eiffel-tools, liberty-eiffel-core-libs
+Description: documentation for liberty-eiffel
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
  Since the original maintainer lost interest, and the community has to

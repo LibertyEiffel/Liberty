@@ -18,4 +18,8 @@ export DH_OPTIONS
 
 
 %:
-	dh  $@
+	dh $@
+
+override_dh_auto_build:
+	docbook-to-man debian/se.sgml > debian/se.1
+	dh_auto_build
