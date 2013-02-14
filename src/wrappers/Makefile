@@ -5,14 +5,14 @@ LIBRARIES=cairo \
 	  ffi \
 	  glib \
 	  gobject \
-	  gtk \
+	  gtk2 \
 	  llvm \
 	  posix \
 	  posix/dynamic-linking \
 	  readline \
 	  xml \
 	  zmq
-## Unfinished wrappers: gconf gda gdk gio gtk-math-view gtk-source-view gtk-unix-print json-glib qt4 xml zlib
+## Unfinished wrappers: gconf gda gdk2 gio gtk-math-view gtk-source-view gtk-unix-print json-glib qt4 xml zlib
 
 .PHONY: subdirs $(LIBRARIES)
 
