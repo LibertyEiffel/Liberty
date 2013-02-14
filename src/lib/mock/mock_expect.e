@@ -58,9 +58,10 @@ feature {}
             label_assert("expect call to #(1)" # feature_name, False)
          elseif not call.second.is_equal(arguments) then
             label_assert("bad arguments to call to #(1)" # feature_name, False)
+         else
+            Result := call.third
+            calls.remove_first
          end
-         Result := call.third
-         calls.remove_first
       end
 
 end -- class MOCK_EXPECT
