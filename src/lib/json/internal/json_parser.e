@@ -116,6 +116,12 @@ feature {}
             if not context.is_valid then
                context.error(once "Unfinished object")
                error := True
+            elseif context.item = '}' then
+               -- extension: allow a comma just before a closing brace
+               done := True
+               if nested then
+                  context.next
+               end
             elseif context.item /= '"' then
                context.error(once "Expected string")
                error := True
@@ -194,6 +200,12 @@ feature {}
             if not context.is_valid then
                context.error(once "Unfinished array")
                error := True
+            elseif context.item = ']' then
+               -- extension: allow a comma just before a closing bracket
+               done := True
+               if nested then
+                  context.next
+               end
             else
                value := parse_value(context, True)
                if value /= Void then

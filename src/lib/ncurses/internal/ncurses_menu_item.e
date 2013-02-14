@@ -38,7 +38,7 @@ feature {}
          tag = t
          value = v
       end
-   
+
 end -- class NCURSES_MENU_ITEM
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

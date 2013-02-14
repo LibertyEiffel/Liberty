@@ -1,0 +1,24 @@
+{
+    "menu": null,
+    "panel": {
+        "layout": "border",
+        "widgets": {
+            "center": {
+                "text_field": "text",
+            },
+            "south": {
+                "panel": {
+                    "layout": ["string", "horizontal", "center"],
+                    "widgets": [
+                        {
+                            "button": "ok",
+                        },
+                        {
+                            "button": "cancel",
+                        },
+                    ],
+                },
+            },
+        },
+    },
+}

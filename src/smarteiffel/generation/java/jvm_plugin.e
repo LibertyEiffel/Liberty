@@ -27,7 +27,7 @@ feature {NATIVE_PLUG_IN}
          if not is_included then
             if jvm_classes /= Void then
                cd := once ""
-               cd.copy(bd.current_working_directory)
+               cd.make_from_string(bd.current_working_directory)
                bd.change_current_working_directory(plugin_path)
                from
                   i := jvm_classes.lower

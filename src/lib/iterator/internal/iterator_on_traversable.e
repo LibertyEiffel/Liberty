@@ -49,11 +49,13 @@ feature {ANY}
          item_index := item_index + 1
       end
 
-feature {}
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := traversable.generation
       end
+
+   generation: INTEGER
 
 end -- class ITERATOR_ON_TRAVERSABLE
 --

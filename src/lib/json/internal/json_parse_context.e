@@ -104,7 +104,7 @@ feature {}
       ensure
          data = a_data
          on_error = a_on_error
-         index = 1
+         --index = 1
          line = 1
       end
 

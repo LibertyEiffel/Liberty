@@ -13,7 +13,7 @@ inherit
 creation{ANY}
    make
 
-feature{ANY}
+feature {ANY}
    left: INTEGER
 
    top: INTEGER
@@ -39,7 +39,7 @@ feature{ANY}
          end
       end
 
-feature{}
+feature {}
    make (p: like parent; t: like text; x, y, w, h: INTEGER) is
       require
          p /= Void

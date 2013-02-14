@@ -8,7 +8,7 @@ HEADERS=`dpkg -L libffi-dev | grep "\.h$$"`
 
 wrappers: $(XML)
 	@echo "Using dpkg to locate include files; please provide a portable way to locate them." $(HEADERS)
-	wrappers-generator --local $(XML) $(HEADERS)
+	wrappers-generator --verbose --local $(XML) $(HEADERS)
 .PHONY: wrappers
 
 ## Sorry for the Debianism

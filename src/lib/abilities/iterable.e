@@ -88,7 +88,7 @@ feature {ANY} -- Printing:
          tagged_out_memory.append(once "]}")
       end
 
-feature {ITERATOR}
+feature {ANY}
    generation: INTEGER
 
 feature {}

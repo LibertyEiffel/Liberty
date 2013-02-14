@@ -21,7 +21,7 @@ insert
       rename
          item_memory as key_memory
       export
-         {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS} root
+         {ITERATOR_ON_AVL_DICTIONARY_ITEMS, ITERATOR_ON_AVL_DICTIONARY_KEYS, ITERATOR_ON_AVL_DICTIONARY} root
       end
 
 feature {ANY}
@@ -145,6 +145,11 @@ feature {ANY}
    new_iterator_on_items: ITERATOR[V_] is
       do
          create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
+      end
+
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_AVL_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
    internal_key (k: K_): K_ is

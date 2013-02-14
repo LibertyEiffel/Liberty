@@ -30,107 +30,98 @@
 extern void* se_malloc(size_t);
 
 static void ncurses_handler(se_handler_action_t action, void*data) {
-  switch(action) {
-  case SE_HANDLE_RUNTIME_ERROR:
-  case SE_HANDLE_NO_MORE_MEMORY:
-    endwin();
-    break;
-  case SE_HANDLE_SEDB_BREAK:
-  case SE_HANDLE_ENTER_PRINT_STACK:
-    endwin();
-    break;
-  case SE_HANDLE_SEDB_CONTINUE:
-  case SE_HANDLE_EXIT_PRINT_STACK:
-    refresh();
-    break;
-  default:
-    /* nothing */
-    break;
-  }
+     switch(action) {
+     case SE_HANDLE_RUNTIME_ERROR:
+     case SE_HANDLE_NO_MORE_MEMORY:
+          endwin();
+          break;
+     case SE_HANDLE_SEDB_BREAK:
+     case SE_HANDLE_ENTER_PRINT_STACK:
+          endwin();
+          break;
+     case SE_HANDLE_SEDB_CONTINUE:
+     case SE_HANDLE_EXIT_PRINT_STACK:
+          refresh();
+          break;
+     default:
+          /* nothing */
+          break;
+     }
 }
 
-void init_screen(void)
-{
-  initscr();
-  register_handler(ncurses_handler);
+void init_screen(void) {
+     initscr();
+     register_handler(ncurses_handler);
 }
 
 /* The functions below are mostly used as wrapper for handling ncurses *getyx macros and char* reading */
 
 
-int wgetwidth(void* win)
-{
-	int x, y;
-
-	getmaxyx((WINDOW*)win, y, x);
-	return x;
+int wgetwidth(void* win) {
+     int x, y;
+     getmaxyx((WINDOW*)win, y, x);
+     return x - wgetleft(win);
 }
 
 
-int wgetheight(void* win)
-{
-	int x, y;
-
-	getmaxyx((WINDOW*)win, y, x);
-	return y;
+int wgetheight(void* win) {
+     int x, y;
+     getmaxyx((WINDOW*)win, y, x);
+     return y - wgettop(win);
 }
 
 
-int wgetleft(void* win)
-{
-	int x, y;
-
-	getparyx((WINDOW*)win, y, x);
-	if(x == -1)
-		getbegyx((WINDOW*)win, y, x);
-	return x;
+int wgetleft(void* win) {
+     int x, y;
+     getparyx((WINDOW*)win, y, x);
+     if (x == -1) {
+          getbegyx((WINDOW*)win, y, x);
+     }
+     return x;
 }
 
 
-int wgettop(void* win)
-{
-	int x, y;
-
-	getparyx((WINDOW*)win, y, x);
-	if(y == -1)
-		getbegyx((WINDOW*)win, y, x);
-	return y;
+int wgettop(void* win) {
+     int x, y;
+     getparyx((WINDOW*)win, y, x);
+     if (y == -1) {
+          getbegyx((WINDOW*)win, y, x);
+     }
+     return y;
 }
 
 
-char* mvwreadstring(void* win, int size, int x, int y)
-{
-	char* line = (char*)se_malloc(size * sizeof(char));
-
-	if(mvwgetnstr((WINDOW*)win, y, x, line, size) == ERR)
-		return NULL;
-	return line;
+char* mvwreadstring(void* win, int size, int x, int y) {
+     char* line = (char*)se_malloc(size * sizeof(char));
+     if (mvwgetnstr((WINDOW*)win, y, x, line, size) == ERR) {
+          return NULL;
+     }
+     return line;
 }
 
 
-int wgetcursorx(void* win)
-{
-	int x, y;
-
-	getyx((WINDOW*)win, y, x);
-	return x;
+int wgetcursorx(void* win) {
+     int x, y;
+     getyx((WINDOW*)win, y, x);
+     return x;
 }
 
 
-int wgetcursory(void* win)
-{
-	int x, y;
-
-	getyx((WINDOW*)win, y, x);
-	return y;
+int wgetcursory(void* win) {
+     int x, y;
+     getyx((WINDOW*)win, y, x);
+     return y;
 }
 
 
-char* mvwgetstring(void* win, int size, int x, int y)
-{
-	char* line = (char*)se_malloc(size * sizeof(char));
+char* mvwgetstring(void* win, int size, int x, int y) {
+     char* line = (char*)se_malloc(size * sizeof(char));
+     if (mvwinnstr((WINDOW*)win, y, x, line, size) == ERR) {
+          return NULL;
+     }
+     return line;
+}
 
-	if(mvwinnstr((WINDOW*)win, y, x, line, size) == ERR)
-		return NULL;
-	return line;
+void touchwin_(void* win) {
+     touchwin((WINDOW*)win);
 }

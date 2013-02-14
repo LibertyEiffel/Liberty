@@ -23,7 +23,7 @@ insert
       end
 
 creation {ANY}
-   make
+   make, make_no_history
 
 feature {ANY}
    set_prompt (a_prompt: like prompt) is
@@ -35,7 +35,7 @@ feature {ANY}
 
    end_of_input: BOOLEAN is
       do
-         Result := gnu_lastline/= Void and then offset > gnu_lastline.upper
+         Result := gnu_lastline = Void or else offset > gnu_lastline.upper
       end
 
    is_connected: BOOLEAN
@@ -64,11 +64,13 @@ feature {FILTER_INPUT_STREAM}
          offset := offset + 1
          if gnu_lastline = Void or else offset > gnu_lastline.upper then
             gnu_readline
-            if not gnu_lastline.is_empty then
-               history.add(gnu_lastline)
+            if gnu_lastline /= Void then
+               if keep_history and then not gnu_lastline.is_empty then
+                  history.add(gnu_lastline)
+               end
+               gnu_lastline.extend('%N')
+               offset := gnu_lastline.lower
             end
-            gnu_lastline.extend('%N')
-            offset := gnu_lastline.lower
          end
       end
 
@@ -108,9 +110,16 @@ feature {}
    make is
       do
          is_connected := True
+         keep_history := True
+      end
+
+   make_no_history is
+      do
+         is_connected := True
       end
 
    offset: INTEGER
+   keep_history: BOOLEAN
 
 end -- class READLINE_INPUT_STREAM
 --

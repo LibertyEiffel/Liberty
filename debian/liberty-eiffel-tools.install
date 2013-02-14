@@ -1,0 +1,6 @@
+etc/serc/liberty.se
+usr/bin/se
+usr/share/emacs/site-lisp/liberty-eiffel/*.el
+usr/share/liberty-eiffel/bin
+usr/share/liberty-eiffel/short
+usr/share/liberty-eiffel/sys

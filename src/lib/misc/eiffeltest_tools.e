@@ -8,7 +8,7 @@ deferred class EIFFELTEST_TOOLS
    --
 
 feature {ANY}
-   when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, STRING, STRING, STRING]]) is
+   when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]) is
       require
          what_to_do /= Void
       do
@@ -29,7 +29,7 @@ feature {}
          message_assert(counter_to_message, test)
       end
 
-   label_assert (label: STRING; test: BOOLEAN) is
+   label_assert (label: ABSTRACT_STRING; test: BOOLEAN) is
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, the label is printed
          -- on `std_output'; a `breakpoint' allow you to find out what is going wrong
@@ -42,7 +42,7 @@ feature {}
          message_assert(agent label_to_message(label), test)
       end
 
-   message_assert (message_generator: FUNCTION[TUPLE, STRING]; test: BOOLEAN) is
+   message_assert (message_generator: FUNCTION[TUPLE, ABSTRACT_STRING]; test: BOOLEAN) is
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, the generated message is printed
          -- on `std_output'; a `breakpoint' allow you to find out what is going wrong
@@ -52,7 +52,7 @@ feature {}
       require
          message_generator /= Void
       local
-         actual_label: STRING
+         actual_label: ABSTRACT_STRING
       do
          assert_counter.next
          if not test then
@@ -145,12 +145,12 @@ feature {EIFFELTEST_TOOLS}
       end
 
 feature {}
-   test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, STRING, STRING, STRING]]] is
+   test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]] is
       once
          create Result.set_item(agent default_test_failed)
       end
 
-   default_test_failed (id: INTEGER; lbl, gen, ass_flag: STRING) is
+   default_test_failed (id: INTEGER; lbl, gen, ass_flag: ABSTRACT_STRING) is
       require
          lbl /= Void
          gen /= Void
@@ -165,17 +165,17 @@ feature {}
          die_with_code(1)
       end
 
-   counter_to_message: FUNCTION[TUPLE, STRING] is
+   counter_to_message: FUNCTION[TUPLE, ABSTRACT_STRING] is
       once
          Result := agent count_to_message
       end
 
-   count_to_message: STRING is
+   count_to_message: ABSTRACT_STRING is
       do
-         Result := "number " + assert_counter.item.out
+         Result := "number #(1)" # &assert_counter.item
       end
 
-   label_to_message (label: STRING): STRING is
+   label_to_message (label: ABSTRACT_STRING): ABSTRACT_STRING is
       require
          label /= Void
       do

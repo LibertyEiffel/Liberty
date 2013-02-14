@@ -134,6 +134,11 @@ feature {ANY} -- To provide iterating facilities:
          create {ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_BIJECTIVE_DICTIONARY[V_, K_]} Result.make(Current)
+      end
+
 feature {ANY} -- Other features:
    internal_key (k: K_): K_ is
          -- Retrieve the internal key object which correspond to the existing

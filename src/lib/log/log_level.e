@@ -18,7 +18,6 @@ feature {LOGGER}
          parent_stream: OUTPUT_STREAM
       do
          if does_log(a_logger.level) then
-            a_logger.output.set(tag, a_logger.tag)
             a_logger.output.set_forward(bottomless_pit)
             if a_logger.parent /= Void then
                parent_stream := stream(a_logger.parent)
@@ -26,6 +25,7 @@ feature {LOGGER}
                   a_logger.output.set_forward(parent_stream)
                end
             end
+            a_logger.output.set(tag, a_logger.tag)
             Result := a_logger.output
          else
             Result := bottomless_pit

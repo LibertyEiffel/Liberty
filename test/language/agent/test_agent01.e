@@ -20,17 +20,16 @@ feature {}
 
    print_item (c: CHARACTER; item: STRING) is
       do
-         assert(c = '#')
+         label_assert("check hash / #(1)" # item, c = '#')
          number := number + 1
          inspect
             number
          when 1 then
-            assert(False)
-            --assert(item.is_equal("Benedicte"))
+            label_assert("check Benedicte", item.is_equal("Benedicte"))
          when 2 then
-            assert(item.is_equal("Lucien"))
+            label_assert("check Lucien", item.is_equal("Lucien"))
          when 3 then
-            assert(item.is_equal("Marie"))
+            label_assert("check Marie", item.is_equal("Marie"))
          end
       end
 
