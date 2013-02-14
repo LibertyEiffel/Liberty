@@ -5,11 +5,14 @@ class NCURSES_LIST[E_]
    --
    -- This class adds a list selection widget.
    --
-   
+
 inherit
    NCURSES_WIDGET
+      undefine
+         out_in_tagged_out_memory
+      end
    TRAVERSABLE[E_]
-   
+
 creation{ANY}
    make
 
@@ -160,7 +163,7 @@ feature {ANY}
       do
          focused := index
       ensure
-         focused = index         
+         focused = index
       end
 
    focused: INTEGER
@@ -185,7 +188,7 @@ feature {ANY} -- The TRAVERSABLE ability:
       do
          Result := items.is_empty
       end
-   
+
    item (i: INTEGER): E_ is
       do
          Result := items.item(i).value
@@ -200,13 +203,13 @@ feature {ANY} -- The TRAVERSABLE ability:
       do
          Result := item(upper)
       end
-   
+
    new_iterator: ITERATOR[E_] is
       do
          not_yet_implemented
       end
-   
-feature{NCURSES_WIDGET}
+
+feature {NCURSES_WIDGET}
    get_window: NCURSES_WINDOW is
       do
          Result := window
@@ -216,7 +219,7 @@ feature{NCURSES_WIDGET}
       do
       end
 
-feature{}
+feature {}
    make (p: like parent; x, y, w, h: INTEGER) is
       require
          ncurses.is_enabled

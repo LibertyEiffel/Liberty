@@ -3,21 +3,28 @@
 --
 class NCURSES
    --
-   -- The NCURSES library gives the user a terminal-independent method of updating character screens with  
+   -- The NCURSES library gives the user a terminal-independent method of updating character screens with
    -- reasonable optimization.
    --
-   -- NCURSES supports: overall screen, window and pad manipulation; output to windows and pads; reading terminal 
-   -- input; control over terminal and curses input and output options; environment query routines; color 
-   -- manipulation; use of soft label keys; terminfo capabilities; and access to low-level terminal-manipulation 
+   -- NCURSES supports: overall screen, window and pad manipulation; output to windows and pads; reading terminal
+   -- input; control over terminal and curses input and output options; environment query routines; color
+   -- manipulation; use of soft label keys; terminfo capabilities; and access to low-level terminal-manipulation
    -- routines.
-   --
-   -- The NCURSES class just provide access to the NCURSES_WRAPPER singleton.
    --
 
 insert
    DISPOSABLE
+      undefine
+         is_equal
+      end
    NCURSES_TOOLS
+      undefine
+         is_equal
+      end
    NCURSES_KEYS
+      undefine
+         is_equal
+      end
    SINGLETON
 
 creation {ANY}
@@ -27,38 +34,7 @@ feature {}
    make is
       do
          cursor_visibility := default_visible_cursor_mode
-      end
-
-   event_catcher: JOB is
-      once
-         create {SIMPLE_BACKGROUND_JOB}Result.set_work(agent proceed_events, Void, 1)
-      end
-
-   proceed_events: BOOLEAN is
-      local
-         keypressed: BOOLEAN
-         key: INTEGER
-      do
-         keypressed := get_root_window.poll_keypress_for(2500)
-         if not keypressed then
-            if idle_signal /= Void then
-               idle_signal.emit
-            end
-         else
-            key := get_root_window.last_keypress
-            if key = key_resize then
-               disable
-               check_for_error(refresh = ok)
-               enable
-               get_root_window.resize(terminal_width, terminal_height)
-               if resized_signal /= Void then
-                  resized_signal.emit
-               end
-            elseif key_pressed_signal /= Void then
-               key_pressed_signal.emit(key)
-            end
-         end
-         Result := is_enabled
+         poll_timeout := 2500
       end
 
    key_pressed_signal: SIGNAL_1[INTEGER]
@@ -66,8 +42,6 @@ feature {}
    resized_signal, idle_signal: SIGNAL_0
 
    depth: INTEGER
-
-   loop_stack: LOOP_STACK
 
 feature {ANY} -- Events related routines
    when_key_pressed (p: PROCEDURE[TUPLE[INTEGER]]) is
@@ -111,13 +85,19 @@ feature {ANY} -- To switch the `is_enabled' flag:
       do
          depth := depth + 1
          if depth = 1 then
+            if event_catcher = Void then
+               create {SIMPLE_BACKGROUND_JOB} event_catcher.set_work(agent handle_events, Void, 1)
+            end
             if loop_stack = Void then
                create loop_stack.make
-               loop_stack.add_job(event_catcher)
             end
+            loop_stack.add_job(event_catcher)
             initscr
             start_color
             set_automatic_kill_policy(True)
+            debug
+               trace_actions
+            end
             create color_pairs.make
             color_pair_counter := 1
          else
@@ -144,6 +124,16 @@ feature {ANY} -- To switch the `is_enabled' flag:
       require
          is_enabled
       do
+         loop_stack.break
+         do_disable
+      end
+
+feature {}
+   do_disable is
+      require
+         is_enabled
+      do
+         set_cursor_visibility(default_visible_cursor_mode)
          if depth = 1 then
             endwin
          end
@@ -158,6 +148,72 @@ feature {ANY} -- Adding jobs to the loop stack:
          loop_stack.add_job(a_job)
       end
 
+feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated in another framework such as `ui`
+   set_loop_stack (a_stack: like loop_stack) is
+      require
+         not is_enabled
+         a_stack /= Void
+      do
+         loop_stack := a_stack
+      ensure
+         loop_stack = a_stack
+      end
+
+   loop_stack: LOOP_STACK
+
+   set_event_catcher (a_catcher: like event_catcher) is
+      require
+         not is_enabled
+         a_catcher /= Void
+      do
+         event_catcher := a_catcher
+      ensure
+         event_catcher = a_catcher
+      end
+
+   event_catcher: JOB
+
+   set_poll_timeout (a_timeout: like poll_timeout) is
+      require
+         a_timeout >= 0
+      do
+         poll_timeout := a_timeout
+      ensure
+         poll_timeout = a_timeout
+      end
+
+   poll_timeout: INTEGER
+
+   handle_events: BOOLEAN is
+         -- The core method that handles ncurses events
+      require
+         is_enabled
+      local
+         keypressed: BOOLEAN
+         key: INTEGER
+      do
+         keypressed := get_root_window.poll_keypress_for(poll_timeout)
+         if not keypressed then
+            if idle_signal /= Void then
+               idle_signal.emit
+            end
+         else
+            key := get_root_window.last_keypress
+            if key = key_resize then
+               do_disable
+               check_for_error(refresh = ok)
+               enable
+               get_root_window.resize(terminal_width, terminal_height)
+               if resized_signal /= Void then
+                  resized_signal.emit
+               end
+            elseif key_pressed_signal /= Void then
+               key_pressed_signal.emit(key)
+            end
+         end
+         Result := is_enabled
+      end
+
 feature {ANY}
    get_root_window: NCURSES_WINDOW is
          -- Returns the root NCURSES_WINDOW.
@@ -166,12 +222,12 @@ feature {ANY}
       once
          create Result.make_root_window(stdscr)
       end
-   
+
    register_recovery_agent (register: PROCEDURE[TUPLE]) is
       do
          recovery_agents.add_last(register)
       end
-   
+
    unregister_recovery_agent (unregister: PROCEDURE[TUPLE]) is
       local
          i: INTEGER
@@ -179,7 +235,7 @@ feature {ANY}
          i := recovery_agents.last_index_of(unregister)
          recovery_agents.remove(i)
       end
-   
+
    get_color_pair (foreground, background: INTEGER): INTEGER is
          -- Defines new color-pair.
       require
@@ -202,12 +258,12 @@ feature {ANY}
          end
          Result := color_pair(dict.at(background))
       end
-   
+
    buffering_policy: BOOLEAN
          -- Is line buffering enabled?
          --
          -- See also `set_buffering_policy'.
-      
+
    set_buffering_policy (enable_buffering: BOOLEAN) is
          -- Enables/disables line `buffering_policy'.
       require
@@ -227,7 +283,7 @@ feature {ANY}
          -- Is there some echo on the screen when fetching keystrokes.
          --
          -- See also `set_echoing_policy'.
-   
+
    set_echoing_policy (enable_echoing: BOOLEAN) is
          -- Enables/disables `echoing_policy'.
       require
@@ -242,12 +298,12 @@ feature {ANY}
       ensure
          echoing_policy = enable_echoing
       end
-   
+
    automatic_kill_policy: BOOLEAN
          -- ?????
          --
-         -- See also `set_automatic_kill_policy'.   
-   
+         -- See also `set_automatic_kill_policy'.
+
    set_automatic_kill_policy (enable_kill_policy: like automatic_kill_policy) is
          -- Enables/disables `automatic_kill_policy'.
       require
@@ -262,9 +318,9 @@ feature {ANY}
          end
          automatic_kill_policy := enable_kill_policy
       ensure
-         automatic_kill_policy = enable_kill_policy         
+         automatic_kill_policy = enable_kill_policy
       end
-   
+
    push_back_keypress (ch: INTEGER) is
          -- Pushes back the next (fake) keypress.
       require
@@ -272,7 +328,7 @@ feature {ANY}
       do
          check_for_error(ungetch(ch) = ok)
       end
-   
+
    refresh_pending is
          -- Refreshes all windows which have called `refresh_later'.
       require
@@ -280,7 +336,7 @@ feature {ANY}
       do
          check_for_error(doupdate = ok)
       end
-   
+
    ok: INTEGER is
       external "plug_in"
       alias "{
@@ -289,7 +345,7 @@ feature {ANY}
          feature_name: "OK"
          }"
       end
-   
+
    err: INTEGER is
       external "plug_in"
       alias "{
@@ -298,7 +354,7 @@ feature {ANY}
          feature_name: "ERR"
          }"
       end
-   
+
    a_attributes: INTEGER is
       external "plug_in"
       alias "{
@@ -307,7 +363,7 @@ feature {ANY}
          feature_name: "A_ATTRIBUTES"
          }"
       end
-   
+
    a_chartext: INTEGER is
       external "plug_in"
       alias "{
@@ -316,7 +372,7 @@ feature {ANY}
          feature_name: "A_CHARTEXT"
          }"
       end
-   
+
    a_color: INTEGER is
       external "plug_in"
       alias "{
@@ -325,7 +381,7 @@ feature {ANY}
          feature_name: "A_COLOR"
          }"
       end
-   
+
    a_normal: INTEGER is
       external "plug_in"
       alias "{
@@ -334,7 +390,7 @@ feature {ANY}
          feature_name: "A_NORMAL"
          }"
       end
-   
+
    a_standout: INTEGER is
       external "plug_in"
       alias "{
@@ -343,7 +399,7 @@ feature {ANY}
          feature_name: "A_STANDOUT"
          }"
       end
-   
+
    a_underline: INTEGER is
       external "plug_in"
       alias "{
@@ -352,7 +408,7 @@ feature {ANY}
          feature_name: "A_UNDERLINE"
          }"
       end
-   
+
    a_reverse: INTEGER is
       external "plug_in"
       alias "{
@@ -361,7 +417,7 @@ feature {ANY}
          feature_name: "A_REVERSE"
          }"
       end
-   
+
    a_blink: INTEGER is
       external "plug_in"
       alias "{
@@ -379,7 +435,7 @@ feature {ANY}
          feature_name: "A_DIM"
          }"
       end
-   
+
    a_bold: INTEGER is
       external "plug_in"
       alias "{
@@ -397,7 +453,7 @@ feature {ANY}
          feature_name: "A_ALTCHARSET"
          }"
       end
-   
+
    a_invis: INTEGER is
       external "plug_in"
       alias "{
@@ -485,7 +541,7 @@ feature {ANY}
       ensure
          cursor_visibility = visibility
       end
-   
+
 feature {NCURSES_WIDGET}
    check_for_error (noerror: BOOLEAN) is
          -- Used to check correct ncurses return codes.
@@ -505,24 +561,30 @@ feature {NCURSES_WIDGET}
             end
          end
       end
-   
-feature{}
+
+feature {ANY}
+   disable_and_exit is
+      do
+         from
+         until
+            not is_enabled
+         loop
+            do_disable
+         end
+         crash
+      end
+
+feature {}
    color_pairs: HASHED_DICTIONARY[HASHED_DICTIONARY[INTEGER, INTEGER], INTEGER]
-   
+
    color_pair_counter: INTEGER
-   
+
    recovery_agents: FAST_ARRAY[PROCEDURE[TUPLE]] is
          -- We can safely use `once' here because `NCURSES_WRAPPER' is a singleton
       once
          create Result.with_capacity(1)
       end
-   
-   disable_and_exit is
-      do
-         disable
-         crash
-      end
-   
+
    dispose is
       do
          if is_enabled then
@@ -531,7 +593,7 @@ feature{}
             -- Probably done manually by the user.
          end
       end
-   
+
    -- Below are plug_in connections to the curses library
    initscr is
       external "plug_in"
@@ -541,7 +603,7 @@ feature{}
          feature_name: "init_screen()"
          }"
       end
-   
+
    stdscr: POINTER is
       external "plug_in"
       alias "{
@@ -550,7 +612,7 @@ feature{}
          feature_name: "stdscr"
          }"
       end
-   
+
    endwin is
       external "plug_in"
       alias "{
@@ -559,7 +621,7 @@ feature{}
          feature_name: "endwin()"
          }"
       end
-   
+
    start_color is
       external "plug_in"
       alias "{
@@ -568,7 +630,7 @@ feature{}
          feature_name: "start_color()"
          }"
       end
-   
+
    init_pair (pair, f, b: INTEGER): INTEGER is
       external "plug_in"
       alias "{
@@ -577,7 +639,7 @@ feature{}
          feature_name: "init_pair"
          }"
       end
-   
+
    color_pair (index: INTEGER): INTEGER is
          -- Returns defined color-pair.
       require
@@ -598,7 +660,7 @@ feature{}
          feature_name: "cbreak()"
          }"
       end
-   
+
    nocbreak: INTEGER is
       external "plug_in"
       alias "{
@@ -607,7 +669,7 @@ feature{}
          feature_name: "nocbreak()"
          }"
       end
-   
+
    echo: INTEGER is
       external "plug_in"
       alias "{
@@ -625,7 +687,7 @@ feature{}
          feature_name: "noecho()"
          }"
       end
-   
+
    ungetch (ch: INTEGER): INTEGER is
       external "plug_in"
       alias "{
@@ -677,6 +739,15 @@ feature{}
          location: "${sys}/plugins"
          module_name: "ncurses"
          feature_name: "LINES"
+         }"
+      end
+
+   trace_actions is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "trace(TRACE_ORDINARY|TRACE_CALLS)"
          }"
       end
 

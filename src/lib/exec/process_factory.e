@@ -7,7 +7,7 @@ expanded class PROCESS_FACTORY
    --
    -- The standard streams of the process are available: `input', `output' and `error'.
    --
-   -- '''Note:''' This class is in a beta stage. POSIX and Windows versions are available but there may be 
+   -- '''Note:''' This class is in a beta stage. POSIX and Windows versions are available but there may be
    -- resource leaks or other bugs left.
    --
 
@@ -88,6 +88,15 @@ feature {ANY}
    default_group: PROCESS_GROUP is
       once
          Result := create_group
+      end
+
+   set_group (a_group: like group) is
+      require
+         a_group /= Void
+      do
+         group := a_group
+      ensure
+         group = a_group
       end
 
 feature {ANY}

@@ -10,7 +10,7 @@ inherit
 creation{ANY}
    make
 
-feature{ANY}
+feature {ANY}
    left: INTEGER
 
    top: INTEGER
@@ -106,7 +106,7 @@ feature{ANY}
 feature {}
    last_choice_memory: E_
 
-feature{NCURSES_WIDGET}
+feature {NCURSES_WIDGET}
    get_window: NCURSES_WINDOW is
       do
          Result := window
@@ -116,7 +116,7 @@ feature{NCURSES_WIDGET}
       do
       end
 
-feature{}
+feature {}
    make (p: like parent; x, y: INTEGER; t: like tag; its: like items; with_border: BOOLEAN) is
       require
          ncurses.is_enabled

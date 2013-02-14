@@ -15,7 +15,7 @@ feature {ANY}
       ensure
          is_selected = s
       end
-   
+
    tag: STRING
 
    set_tag (s: like tag) is
@@ -35,6 +35,7 @@ feature {ANY}
       ensure
          value = s
       end
+
 feature {}
    make (s: like is_selected; t: like tag; v: like value) is
       require
@@ -48,7 +49,7 @@ feature {}
          tag = t
          value = v
       end
-   
+
 end -- class NCURSES_LIST_ITEM
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

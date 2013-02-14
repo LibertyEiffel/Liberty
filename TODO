@@ -8,3 +8,9 @@
  * Plugins: some escape from the closed world
 
  * Keep precompiled types (using STORABLE)
+
+ * ECHO => LOGGING
+
+ * Debianize
+
+ * rename "se" as "liberty"

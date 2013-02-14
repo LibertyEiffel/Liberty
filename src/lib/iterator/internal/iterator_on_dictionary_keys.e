@@ -48,11 +48,13 @@ feature {ANY}
          item_index := item_index + 1
       end
 
-feature {}
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := dictionary.generation
       end
+
+   generation: INTEGER
 
 end -- class ITERATOR_ON_DICTIONARY_KEYS
 --

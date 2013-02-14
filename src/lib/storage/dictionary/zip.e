@@ -87,6 +87,11 @@ feature {ANY}
          Result := keys.new_iterator
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_ZIP[V_, K_]} Result.make(new_iterator_on_items, new_iterator_on_keys)
+      end
+
 feature {ANY} -- Other features:
    internal_key (k: K_): K_ is
       local

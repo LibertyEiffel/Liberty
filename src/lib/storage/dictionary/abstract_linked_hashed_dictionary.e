@@ -13,7 +13,7 @@ deferred class ABSTRACT_LINKED_HASHED_DICTIONARY[V_, K_]
 inherit
    ABSTRACT_HASHED_DICTIONARY[V_, K_]
       redefine
-         new_iterator_on_keys, new_iterator_on_items,
+         new_iterator_on_keys, new_iterator_on_items, new_iterator,
          do_all_items, for_all_items, exists_item, aggregate_items,
          key_map_in, item_map_in,
          buckets_item, cache_node, free_nodes, nodes_list, dispose_node, new_node,
@@ -32,6 +32,11 @@ feature {ANY}
    new_iterator_on_items: ITERATOR[V_] is
       do
          create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
+      end
+
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      do
+         create {ITERATOR_ON_LINKED_HASHED_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
    key_map_in (buffer: COLLECTION[K_]) is

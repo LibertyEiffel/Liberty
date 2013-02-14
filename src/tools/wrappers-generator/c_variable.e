@@ -32,16 +32,30 @@ feature
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
 				buffer.put_message(once 
 				"	address_of_@(1): POINTER is%N%
-				% 		-- Address of @(1) (node at line @(2))%N%
+				% 		-- Address of @(1)%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %".%"%N%
 				%			module_name: %"plugin%"%N%
-				%			feature_name: %"&@(3)%"%N%
+				%			feature_name: %"&@(2)%"%N%
 				%		}%"%N%
 				%		end%N%N",
-				<<eiffel_feature(c_string_name), line_row.to_utf8, c_string_name>>)
+				<<eiffel_feature(c_string_name), c_string_name>>)
+				-- For debugging purpose the line where the node occurred were once printed in the comment, like this:
+				-- buffer.put_message(once 
+				-- "	address_of_@(1): POINTER is%N%
+				-- % 		-- Address of @(1) (node at line @(2))%N%
+				-- %		external %"plug_in%"%N%
+				-- %		alias %"{%N%
+				-- %			location: %".%"%N%
+				-- %			module_name: %"plugin%"%N%
+				-- %			feature_name: %"&@(3)%"%N%
+				-- %		}%"%N%
+				-- %		end%N%N",
+				-- <<eiffel_feature(c_string_name), line_row.to_utf8, c_string_name>>)
 
+				-- this feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
+				
 			elseif not is_public then
 				log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)

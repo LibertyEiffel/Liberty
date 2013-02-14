@@ -39,7 +39,9 @@ feature {}
          upper := up
       end
 
+feature {ANY} -- Read-only, hence always valid
    iterable_generation: INTEGER is 0
+   generation: INTEGER is 0
 
 end -- class INTEGER_RANGE_ITERATOR
 --

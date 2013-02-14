@@ -13,7 +13,7 @@ deferred class SOCKET_INPUT_OUTPUT_STREAM
 inherit
    TERMINAL_INPUT_OUTPUT_STREAM
       redefine
-         can_read_character, can_read_line, filtered_read_available_in, filtered_read_line_in
+         can_read_character, can_read_line, filtered_read_available_in, filtered_read_line_in, valid_last_character
       end
 
 insert
@@ -31,8 +31,6 @@ feature {ANY}
       do
          if delay_read then
             delayed_read
-         else
-            ensure_read
          end
          Result := not end_of_stream or else in_buffer.valid_index(next_index)
       end
@@ -44,7 +42,18 @@ feature {ANY}
 
    can_unread_character: BOOLEAN is
       do
+         if delay_read then
+            delayed_read
+         end
          Result := index > in_buffer.lower or else beginning_of_stream
+      end
+
+   valid_last_character: BOOLEAN is
+      do
+         if delay_read then
+            delayed_read
+         end
+         Result := in_buffer.valid_index(index) or else beginning_of_stream
       end
 
    end_of_input: BOOLEAN is
@@ -136,8 +145,6 @@ feature {FILTER_INPUT_STREAM}
       do
          if delay_read then
             delayed_read
-         else
-            ensure_read
          end
          index := next_index
          n := in_buffer.count - index + 1
@@ -206,11 +213,11 @@ feature {}
                next_index := index + 1
             elseif socket.is_connected then
                socket.read
-               if socket.last_read.is_empty then
+               if not socket.is_connected or else socket.last_read.is_empty then
                   end_of_stream := True
                   --next_index := index + 1
                else
-                  end_of_stream := not socket.is_connected
+                  end_of_stream := False
                   -- Remove all previously read characters but the last one (to be able to unread once).
                   -- Do it in the most efficient way.
                   if in_buffer.count > 0 then

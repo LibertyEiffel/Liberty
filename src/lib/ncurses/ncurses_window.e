@@ -13,6 +13,9 @@ inherit
       redefine delete
       end
 
+insert
+   LOGGING
+
 creation {ANY}
    make
 
@@ -196,6 +199,27 @@ feature {ANY} -- Size and position:
          Result := wgettop(widget)
       end
 
+   move_to_and_resize (x, y, w, h: INTEGER) is
+      require
+         ncurses.is_enabled
+      do
+         if x /= left or else y /= top then
+            move_to(0, 0)
+            if width /= 1 or else height /= 1 then
+               ncurses.check_for_error(wresize(widget, 1, 1) = ncurses.ok)
+            end
+            move_to(x, y)
+         end
+         if w /= width or else h /= height then
+            resize(w, h)
+         end
+      ensure
+         left = x
+         top = y
+         width = w
+         height = h
+      end
+
    resize (w, h: INTEGER) is
       require
          ncurses.is_enabled
@@ -219,11 +243,13 @@ feature {ANY} -- Size and position:
          if parent = Void then
             ncurses.check_for_error(mvwin(widget, y, x) = ncurses.ok)
          else
-            ncurses.check_for_error(mvderwin(widget, y, x) = ncurses.ok)
+            ncurses.check_for_error(mvwin(widget, parent.screen_top + y, parent.screen_left + x) = ncurses.ok)
          end
       ensure
          left = x
          top = y
+         screen_left = old (screen_left - left) + x
+         screen_top = old (screen_top - top) + y
       end
 
 feature {ANY}
@@ -388,6 +414,9 @@ feature {ANY}
          else
             last_keypress := ch
             Result := True
+         end
+         debug
+            log.trace.put_line(once "poll_keypress_for_and_echo_at(#(1), #(2), #(3)) >> #(4) (#(5))" # &delay # &x # &y # &last_keypress # &Result)
          end
       end
 
@@ -667,7 +696,7 @@ feature {ANY}
    get_fg_color: INTEGER
    get_bg_color: INTEGER
 
-feature{NCURSES_WINDOW}
+feature {NCURSES_WINDOW}
    set_widget (w: like widget) is
       require
          w.is_not_null
@@ -677,7 +706,7 @@ feature{NCURSES_WINDOW}
          widget = w
       end
 
-feature{NCURSES_WINDOW, NCURSES_PAD}
+feature {NCURSES_WINDOW, NCURSES_PAD}
    widget: POINTER
 
 feature {}
@@ -697,6 +726,7 @@ feature {}
          ncurses.is_enabled
       do
          set_widget(derwin(w.widget, lines, columns, y, x))
+         touchwin(w.widget)
          set_parent(w)
          init
       end
@@ -715,6 +745,7 @@ feature {}
          set_keypad
          set_cursor(0, 0)
          set_default_colors
+         ncurses.check_for_error(leaveok(widget, cursor_can_move) = ncurses.ok)
       end
 
    set_keypad is
@@ -724,6 +755,8 @@ feature {}
       do
          ncurses.check_for_error(keypad(widget, 1) = ncurses.ok)
       end
+
+   cursor_can_move: BOOLEAN is False -- will be True for text entry widgets
 
 feature {} -- Below are plug_in connections to the curses library.
    newwin (lines, columns, y, x: INTEGER): POINTER is
@@ -768,6 +801,15 @@ feature {} -- Below are plug_in connections to the curses library.
          location: "${sys}/plugins"
          module_name: "ncurses"
          feature_name: "derwin"
+         }"
+      end
+
+   touchwin (win: POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "touchwin_"
          }"
       end
 
@@ -1033,6 +1075,15 @@ feature {} -- Below are plug_in connections to the curses library.
       end
 
    scrollok (win: POINTER; bf: INTEGER): INTEGER is
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "ncurses"
+         feature_name: "scrollok"
+         }"
+      end
+
+   leaveok (win: POINTER; bf: BOOLEAN): INTEGER is
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
