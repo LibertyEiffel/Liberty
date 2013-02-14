@@ -40,22 +40,22 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_delete: BOOLEAN is
+	delete: BOOLEAN is
 		do
 			Result := (value=delete_low_level)
 		end
 
-	is_insert_external: BOOLEAN is
+	insert_external: BOOLEAN is
 		do
 			Result := (value=insert_external_low_level)
 		end
 
-	is_begin: BOOLEAN is
+	begin: BOOLEAN is
 		do
 			Result := (value=begin_low_level)
 		end
 
-	is_end_external: BOOLEAN is
+	end_external: BOOLEAN is
 		do
 			Result := (value=end_external_low_level)
 		end

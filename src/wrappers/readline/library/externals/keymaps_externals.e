@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	emacs_meta_keymap: POINTER is
- 		-- emacs_meta_keymap (node at line 68)
+ 		-- emacs_meta_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_meta_keymap: POINTER is
- 		-- Address of emacs_meta_keymap (node at line 68)
+ 		-- Address of emacs_meta_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	emacs_standard_keymap: POINTER is
- 		-- emacs_standard_keymap (node at line 68)
+ 		-- emacs_standard_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_standard_keymap: POINTER is
- 		-- Address of emacs_standard_keymap (node at line 68)
+ 		-- Address of emacs_standard_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -50,7 +50,7 @@ feature {} -- External calls
 		end
 
 	vi_movement_keymap: POINTER is
- 		-- vi_movement_keymap (node at line 69)
+ 		-- vi_movement_keymap (node at line 64)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +60,7 @@ feature {} -- External calls
 		end
 
 	address_of_vi_movement_keymap: POINTER is
- 		-- Address of vi_movement_keymap (node at line 69)
+ 		-- Address of vi_movement_keymap (node at line 64)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	vi_insertion_keymap: POINTER is
- 		-- vi_insertion_keymap (node at line 69)
+ 		-- vi_insertion_keymap (node at line 64)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	address_of_vi_insertion_keymap: POINTER is
- 		-- Address of vi_insertion_keymap (node at line 69)
+ 		-- Address of vi_insertion_keymap (node at line 64)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +90,7 @@ feature {} -- External calls
 		end
 
 	emacs_ctlx_keymap: POINTER is
- 		-- emacs_ctlx_keymap (node at line 68)
+ 		-- emacs_ctlx_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_ctlx_keymap: POINTER is
- 		-- Address of emacs_ctlx_keymap (node at line 68)
+ 		-- Address of emacs_ctlx_keymap (node at line 63)
 		external "plug_in"
 		alias "{
 			location: "."

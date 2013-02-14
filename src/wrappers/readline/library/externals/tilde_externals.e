@@ -99,8 +99,8 @@ feature {} -- External calls
 		}"
 		end
 
-	tilde_find_word (an_argument_l2394_c7: POINTER; an_argument_l2395_c7: INTEGER_32; an_argument_l2396_c7: POINTER): POINTER is
- 		-- tilde_find_word (node at line 2393)
+	tilde_find_word (an_argument_l2554_c7: POINTER; an_argument_l2555_c7: INTEGER_32; an_argument_l2556_c7: POINTER): POINTER is
+ 		-- tilde_find_word (node at line 2553)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,8 +109,8 @@ feature {} -- External calls
 		}"
 		end
 
-	tilde_expand_word (an_argument_l2546_c7: POINTER): POINTER is
- 		-- tilde_expand_word (node at line 2545)
+	tilde_expand_word (an_argument_l2728_c7: POINTER): POINTER is
+ 		-- tilde_expand_word (node at line 2727)
 		external "plug_in"
 		alias "{
 			location: "."

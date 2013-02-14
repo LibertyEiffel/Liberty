@@ -269,8 +269,8 @@ feature {} -- External calls
 		}"
 		end
 
-	read_history_range (an_argument_l62_c7: POINTER; an_argument_l63_c7: INTEGER_32; an_argument_l64_c7: INTEGER_32): INTEGER_32 is
- 		-- read_history_range (node at line 61)
+	read_history_range (an_argument_l66_c7: POINTER; an_argument_l67_c7: INTEGER_32; an_argument_l68_c7: INTEGER_32): INTEGER_32 is
+ 		-- read_history_range (node at line 65)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -289,8 +289,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_search (an_argument_l250_c7: POINTER; an_argument_l251_c7: INTEGER_32): INTEGER_32 is
- 		-- history_search (node at line 249)
+	history_search (an_argument_l263_c7: POINTER; an_argument_l264_c7: INTEGER_32): INTEGER_32 is
+ 		-- history_search (node at line 262)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -300,7 +300,7 @@ feature {} -- External calls
 		end
 
 	next_history: POINTER is
- 		-- next_history (node at line 380)
+ 		-- next_history (node at line 399)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -310,7 +310,7 @@ feature {} -- External calls
 		end
 
 	using_history is
- 		-- using_history (node at line 469)
+ 		-- using_history (node at line 489)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -320,7 +320,7 @@ feature {} -- External calls
 		end
 
 	history_is_stifled: INTEGER_32 is
- 		-- history_is_stifled (node at line 757)
+ 		-- history_is_stifled (node at line 800)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -329,8 +329,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_set_history_state (an_argument_l795_c7: POINTER) is
- 		-- history_set_history_state (node at line 794)
+	history_set_history_state (an_argument_l838_c7: POINTER) is
+ 		-- history_set_history_state (node at line 837)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -340,7 +340,7 @@ feature {} -- External calls
 		end
 
 	clear_history is
- 		-- clear_history (node at line 1068)
+ 		-- clear_history (node at line 1124)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -350,7 +350,7 @@ feature {} -- External calls
 		end
 
 	history_total_bytes: INTEGER_32 is
- 		-- history_total_bytes (node at line 1201)
+ 		-- history_total_bytes (node at line 1265)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -360,7 +360,7 @@ feature {} -- External calls
 		end
 
 	history_list: POINTER is
- 		-- history_list (node at line 1453)
+ 		-- history_list (node at line 1546)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -369,8 +369,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_set_pos (an_argument_l1709_c7: INTEGER_32): INTEGER_32 is
- 		-- history_set_pos (node at line 1708)
+	history_set_pos (an_argument_l1819_c7: INTEGER_32): INTEGER_32 is
+ 		-- history_set_pos (node at line 1818)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -379,8 +379,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_truncate_file (an_argument_l1820_c7: POINTER; an_argument_l1821_c7: INTEGER_32): INTEGER_32 is
- 		-- history_truncate_file (node at line 1819)
+	history_truncate_file (an_argument_l1925_c7: POINTER; an_argument_l1926_c7: INTEGER_32): INTEGER_32 is
+ 		-- history_truncate_file (node at line 1924)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -389,8 +389,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_expand (an_argument_l1837_c7: POINTER; an_argument_l1838_c7: POINTER): INTEGER_32 is
- 		-- history_expand (node at line 1836)
+	history_expand (an_argument_l1942_c7: POINTER; an_argument_l1943_c7: POINTER): INTEGER_32 is
+ 		-- history_expand (node at line 1941)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -400,7 +400,7 @@ feature {} -- External calls
 		end
 
 	current_history: POINTER is
- 		-- current_history (node at line 1853)
+ 		-- current_history (node at line 1958)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -410,7 +410,7 @@ feature {} -- External calls
 		end
 
 	history_get_history_state: POINTER is
- 		-- history_get_history_state (node at line 1868)
+ 		-- history_get_history_state (node at line 1980)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -419,8 +419,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_search_prefix (an_argument_l1881_c7: POINTER; an_argument_l1882_c7: INTEGER_32): INTEGER_32 is
- 		-- history_search_prefix (node at line 1880)
+	history_search_prefix (an_argument_l2001_c7: POINTER; an_argument_l2002_c7: INTEGER_32): INTEGER_32 is
+ 		-- history_search_prefix (node at line 2000)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -429,8 +429,8 @@ feature {} -- External calls
 		}"
 		end
 
-	read_history (an_argument_l2016_c7: POINTER): INTEGER_32 is
- 		-- read_history (node at line 2015)
+	read_history (an_argument_l2147_c7: POINTER): INTEGER_32 is
+ 		-- read_history (node at line 2146)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -439,8 +439,8 @@ feature {} -- External calls
 		}"
 		end
 
-	add_history (an_argument_l2034_c7: POINTER) is
- 		-- add_history (node at line 2033)
+	add_history (an_argument_l2165_c7: POINTER) is
+ 		-- add_history (node at line 2164)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -449,8 +449,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_arg_extract (an_argument_l2058_c7: INTEGER_32; an_argument_l2059_c7: INTEGER_32; an_argument_l2060_c7: POINTER): POINTER is
- 		-- history_arg_extract (node at line 2057)
+	history_arg_extract (an_argument_l2195_c7: INTEGER_32; an_argument_l2196_c7: INTEGER_32; an_argument_l2197_c7: POINTER): POINTER is
+ 		-- history_arg_extract (node at line 2194)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -459,8 +459,8 @@ feature {} -- External calls
 		}"
 		end
 
-	get_history_event (an_argument_l2099_c7: POINTER; an_argument_l2100_c7: POINTER; an_argument_l2101_c7: INTEGER_32): POINTER is
- 		-- get_history_event (node at line 2098)
+	get_history_event (an_argument_l2240_c7: POINTER; an_argument_l2241_c7: POINTER; an_argument_l2242_c7: INTEGER_32): POINTER is
+ 		-- get_history_event (node at line 2239)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -469,8 +469,8 @@ feature {} -- External calls
 		}"
 		end
 
-	replace_history_entry (an_argument_l2111_c7: INTEGER_32; an_argument_l2112_c7: POINTER; an_argument_l2113_c7: POINTER): POINTER is
- 		-- replace_history_entry (node at line 2110)
+	replace_history_entry (an_argument_l2252_c7: INTEGER_32; an_argument_l2253_c7: POINTER; an_argument_l2254_c7: POINTER): POINTER is
+ 		-- replace_history_entry (node at line 2251)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -479,8 +479,8 @@ feature {} -- External calls
 		}"
 		end
 
-	remove_history (an_argument_l2141_c7: INTEGER_32): POINTER is
- 		-- remove_history (node at line 2140)
+	remove_history (an_argument_l2282_c7: INTEGER_32): POINTER is
+ 		-- remove_history (node at line 2281)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -489,8 +489,8 @@ feature {} -- External calls
 		}"
 		end
 
-	append_history (an_argument_l2206_c7: INTEGER_32; an_argument_l2207_c7: POINTER): INTEGER_32 is
- 		-- append_history (node at line 2205)
+	append_history (an_argument_l2348_c7: INTEGER_32; an_argument_l2349_c7: POINTER): INTEGER_32 is
+ 		-- append_history (node at line 2347)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -500,7 +500,7 @@ feature {} -- External calls
 		end
 
 	unstifle_history: INTEGER_32 is
- 		-- unstifle_history (node at line 2231)
+ 		-- unstifle_history (node at line 2373)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -509,8 +509,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_get_time (an_argument_l2267_c7: POINTER): INTEGER_64 is
- 		-- history_get_time (node at line 2266)
+	history_get_time (an_argument_l2409_c7: POINTER): INTEGER_64 is
+ 		-- history_get_time (node at line 2408)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -519,8 +519,8 @@ feature {} -- External calls
 		}"
 		end
 
-	free_history_entry (an_argument_l2317_c7: POINTER): POINTER is
- 		-- free_history_entry (node at line 2316)
+	free_history_entry (an_argument_l2464_c7: POINTER): POINTER is
+ 		-- free_history_entry (node at line 2463)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -529,8 +529,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_search_pos (an_argument_l2441_c7: POINTER; an_argument_l2442_c7: INTEGER_32; an_argument_l2443_c7: INTEGER_32): INTEGER_32 is
- 		-- history_search_pos (node at line 2440)
+	history_search_pos (an_argument_l2607_c7: POINTER; an_argument_l2608_c7: INTEGER_32; an_argument_l2609_c7: INTEGER_32): INTEGER_32 is
+ 		-- history_search_pos (node at line 2606)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -539,8 +539,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_get (an_argument_l2456_c7: INTEGER_32): POINTER is
- 		-- history_get (node at line 2455)
+	history_get (an_argument_l2626_c7: INTEGER_32): POINTER is
+ 		-- history_get (node at line 2625)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -549,8 +549,8 @@ feature {} -- External calls
 		}"
 		end
 
-	write_history (an_argument_l2576_c7: POINTER): INTEGER_32 is
- 		-- write_history (node at line 2575)
+	write_history (an_argument_l2758_c7: POINTER): INTEGER_32 is
+ 		-- write_history (node at line 2757)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -560,7 +560,7 @@ feature {} -- External calls
 		end
 
 	previous_history: POINTER is
- 		-- previous_history (node at line 2603)
+ 		-- previous_history (node at line 2785)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -569,8 +569,8 @@ feature {} -- External calls
 		}"
 		end
 
-	history_tokenize (an_argument_l2610_c7: POINTER): POINTER is
- 		-- history_tokenize (node at line 2609)
+	history_tokenize (an_argument_l2792_c7: POINTER): POINTER is
+ 		-- history_tokenize (node at line 2791)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -579,8 +579,8 @@ feature {} -- External calls
 		}"
 		end
 
-	stifle_history (an_argument_l2654_c7: INTEGER_32) is
- 		-- stifle_history (node at line 2653)
+	stifle_history (an_argument_l2836_c7: INTEGER_32) is
+ 		-- stifle_history (node at line 2835)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -589,8 +589,8 @@ feature {} -- External calls
 		}"
 		end
 
-	add_history_time (an_argument_l2670_c7: POINTER) is
- 		-- add_history_time (node at line 2669)
+	add_history_time (an_argument_l2852_c7: POINTER) is
+ 		-- add_history_time (node at line 2851)
 		external "plug_in"
 		alias "{
 			location: "."
