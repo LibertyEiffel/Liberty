@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=17
+MAXTOOLCOUNT=18
 
 test ${0%/*} != $0 && cd ${0%/*}
 export LIBERTY_HOME=$(pwd)
@@ -33,13 +33,13 @@ function bootstrap()
         title "Preparing target"
         mkdir bin
         cd bin
-        for f in $LIBERTY_HOME/src/tools/main/*.ace; do
-            ace=${f##*/} && ace=${ace%.ace}
-            mkdir $LIBERTY_HOME/target/bin/${ace}.d
-            ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
+        for ace in $LIBERTY_HOME/src/tools/*/*.ace; do
+            tool=$(basename $(dirname $ace))
+            if [[ $tool.ace == $(basename $ace) ]]; then
+                mkdir $LIBERTY_HOME/target/bin/$tool.d
+                ln -s $ace $LIBERTY_HOME/target/bin/$tool.d
+            fi
         done
-        mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
-        ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
         cd ..
     fi
 
@@ -106,6 +106,7 @@ clean: clean
 doc: eiffeldoc
 find: finder
 make: se_make.sh
+mock: mocker
 pretty: pretty
 run: run
 short: short
@@ -255,17 +256,24 @@ EOF
 14 extract_internals
 EOF
 
-    # 15
-    progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "wrappers-generator"
-    cd wrappers-generator.d
-    run ../se c -verbose wrappers-generator.ace
-    cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
+    while read i tool; do
+        progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "$tool"
+        test -d ${tool}.d || mkdir ${tool}.d
+        cd ${tool}.d
+        if [ -e $tool.ace ]; then
+            run ../se c -verbose $tool.ace
+        else
+            run ../se c -verbose -boost $tool -o $tool || exit 1
+        fi
+        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+    done <<EOF
+15 wrappers-generator
+16 mocker
+EOF
 
-    # 16
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
     cp $LIBERTY_HOME/work/se_make.sh .
 
-    # 17
     progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."
     echo
 }
@@ -380,6 +388,7 @@ class_check: class_check
 clean: clean
 doc: eiffeldoc
 find: finder
+mock: mocker
 pretty: pretty
 run: run
 short: short
