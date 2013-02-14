@@ -3,13 +3,64 @@
 --
 deferred class MOCK_EXPECT
 
+insert
+   EIFFELTEST_TOOLS
+
 feature {ANY}
    all_done: BOOLEAN is
-      deferred
+      do
+         Result := calls = Void or else calls.is_empty
       end
 
-   all_done_message: ABSTRACT_STRING is
-      deferred
+   all_done_message: STRING is
+      local
+         i: INTEGER
+      do
+         if calls /= Void then
+            Result := "Missing calls: "
+            from
+               i := calls.lower
+            until
+               i > calls.upper
+            loop
+               if i > calls.lower then
+                  Result.append(once ", ")
+               end
+               Result.append("#(1)#(2)" # calls.item(i).first # calls.item(i).second.out)
+               i := i + 1
+            end
+         end
+      end
+
+feature {}
+   calls: RING_ARRAY[TUPLE[ABSTRACT_STRING, TUPLE, MOCK_EXPECTATION]]
+
+   add_call (feature_name: STRING; arguments: TUPLE; return: MOCK_EXPECTATION) is
+      require
+         feature_name /= Void
+      do
+         if calls = Void then
+            create calls.make(1, 0)
+         end
+         calls.add_last([feature_name.intern, arguments, return])
+      end
+
+   check_call (feature_name: STRING; arguments: TUPLE): MOCK_EXPECTATION is
+      require
+         feature_name /= Void
+      local
+         call: TUPLE[ABSTRACT_STRING, TUPLE, MOCK_EXPECTATION]
+      do
+         if calls /= Void then
+            call := calls.first
+         end
+         if call = Void or else call.first /= feature_name.intern then
+            label_assert("expect call to #(1)" # feature_name, False)
+         elseif not call.second.is_equal(arguments) then
+            label_assert("bad arguments to call to #(1)" # feature_name, False)
+         end
+         Result := call.third
+         calls.remove_first
       end
 
 end -- class MOCK_EXPECT

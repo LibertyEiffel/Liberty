@@ -1,7 +1,7 @@
 -- This file is part of Liberty The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class MOCKER_MOCK
+class MOCKER_EXPECT
 
 inherit
    EIFFEL_NODE_VISITOR
@@ -43,33 +43,18 @@ feature {}
 -- Generated file, don't edit
 class #(1)
 
-inherit
-   #(2)
-
 insert
-   MOCK_OBJECT
+   MOCK_EXPECT
 
-feature {ANY}
-   expect: like expect_memory is
-      do
-         Result := expect_memory
-         if Result = Void then
-            create Result
-            expect_memory := Result
-         end
-      end
 
-feature {}
-   expect_memory: #(3)
-                                 ]" # mock_name # source_name # expect_name)
+                                 ]" # expect_name)
 
          node.node_at(node.lower+5).accept(Current)
 
          output.put_string(once "[
-
 end -- class #(1)
 
-                                 ]" # mock_name)
+                                 ]" # expect_name)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
@@ -83,7 +68,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
          when "Feature" then
             create deferred_lookup.make(node)
             if deferred_lookup.has_deferred_features then
-               Precursor(node)
+               node.node_at(node.lower + 2).accept(Current)
             end
             deferred_lookup := Void
          when "Feature_Definition" then
@@ -95,30 +80,48 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             end
          when "Signature" then
             create signature.make(node)
-            output.put_new_line
+
             if signature.result_type = Void then
-               output.put_string(once "[
-   #(1)#(2) is
+               output.put_line(once "[
+feature {ANY}
+   #(2)#(3) is
       do
-         expect.assert_#(1)#(3)
+         add_call("#(2)", #(4), Void)
       end
 
-                                       ]"
-                                 # signature.feature_name
-                                 # signature.arguments
-                                 # signature.arguments_list)
+feature {#(1)}
+   assert_#(2)#(3) is
+      local
+         dummy: MOCK_EXPECTATION
+      do
+         dummy := check_call("#(2)", #(4))
+         assert(dummy = Void)
+      end
+
+                                ]"
+                                # mock_name
+                                # signature.feature_name # signature.arguments
+                                # signature.arguments_tuple)
             else
-               output.put_string(once "[
-   #(1)#(2): #(3) is
+               output.put_line(once "[
+feature {ANY}
+   #(2)#(3): MOCK_TYPED_EXPECTATION[#(5)] is
       do
-         Result := expect.assert_#(1)#(4).item
+         create Result
+         add_call("#(2)", #(4), Result)
       end
 
-                                       ]"
-                                 # signature.feature_name
-                                 # signature.arguments
-                                 # signature.result_type
-                                 # signature.arguments_list)
+feature {#(1)}
+   assert_#(2)#(3): MOCK_TYPED_EXPECTATION[#(5)] is
+      do
+         Result ::= check_call("#(2)", #(4))
+      end
+
+                                ]"
+                                # mock_name
+                                # signature.feature_name # signature.arguments
+                                # signature.arguments_tuple
+                                # signature.result_type)
             end
          else
             Precursor(node)
@@ -164,7 +167,7 @@ invariant
    mock_name /= Void
    expect_name /= Void
 
-end -- class MOCKER_MOCK
+end -- class MOCKER_EXPECT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

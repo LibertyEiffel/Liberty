@@ -19,6 +19,8 @@ create {ANY}
 feature {ANY}
    result_type: STRING
    feature_name: STRING
+   arguments_list: LAZY_STRING
+   arguments_tuple: LAZY_STRING
    arguments: LAZY_STRING
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
@@ -33,24 +35,39 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             feature_name := last_image
          when "Signature" then
             Precursor(node)
-            inspect
-               node.count
-            when 3, 6 then
-               -- there is a result type
-            when 1, 4 then
-               -- there is no result type
-               result_type := Void
-            end
+            --inspect
+            --   node.count
+            --when 3, 6 then
+            --   -- there is a result type
+            --when 1, 4 then
+            --   -- there is no result type
+            --   result_type := Void
+            --end
          when "Type_Definition" then
             result_type := ""
             create buf.connect_to(result_type)
             node.generate(buf)
+         when "Declaration" then
+            from
+               Precursor(node)
+               check
+                  argument_names /= Void
+                  argument_types.count < argument_names.count
+               end
+            until
+               argument_types.count = argument_names.count - 1
+            loop
+               argument_types.add_last(Void)
+            end
+            argument_types.add_last(result_type)
+            result_type := Void
          when "Variable" then
             Precursor(node)
-            if arguments_list = Void then
-               create arguments_list.make(0)
+            if argument_names = Void then
+               create argument_names.make(0)
+               create argument_types.make(0)
             end
-            arguments_list.add_last(last_image)
+            argument_names.add_last(last_image)
          else
             Precursor(node)
          end
@@ -68,35 +85,71 @@ feature {}
          a_node.name.same_as(once "Signature")
       do
          a_node.accept(Current)
-         create arguments.make(agent list_arguments)
+         create arguments_list.make(agent build_arguments(once "(#(1))", once ""))
+         create arguments_tuple.make(agent build_arguments(once "[#(1)]", once "[]"))
+         create arguments.make(agent build_arguments_signature)
       end
 
-   list_arguments: ABSTRACT_STRING is
+   build_arguments (format, empty_list: STRING): ABSTRACT_STRING is
       local
          i: INTEGER
          args: STRING
       do
-         if arguments_list = Void then
-            Result := once ""
+         if argument_names = Void then
+            Result := empty_list
          else
             args := ""
             from
-               i := arguments_list.lower
+               i := argument_names.lower
             until
-               i > arguments_list.upper
+               i > argument_names.upper
             loop
                if not args.is_empty then
                   args.append(once ", ")
                end
-               args.append(arguments_list.item(i))
+               args.append(argument_names.item(i))
                i := i + 1
             end
-            Result := once "(#(1))" # args
+            Result := format # args
+         end
+      end
+
+   build_arguments_signature: STRING is
+      require
+         argument_names /= Void implies argument_names.count = argument_types.count
+      local
+         i: INTEGER
+      do
+         Result := ""
+         if argument_names /= Void then
+            Result.extend(' ')
+            Result.extend('(')
+            from
+               i := argument_names.lower
+            until
+               i > argument_names.upper
+            loop
+               if i > argument_types.lower then
+                  if argument_types.item(i - 1) = Void then
+                     Result.append(once ", ")
+                  else
+                     Result.append(once "; ")
+                  end
+               end
+               Result.append(argument_names.item(i))
+               if argument_types.item(i) /= Void then
+                  Result.extend(':')
+                  Result.append(argument_types.item(i))
+               end
+               i := i + 1
+            end
+            Result.extend(')')
          end
       end
 
    last_image: STRING
-   arguments_list: FAST_ARRAY[STRING]
+   argument_names: FAST_ARRAY[STRING]
+   argument_types: FAST_ARRAY[STRING]
 
 end -- class MOCKER_SIGNATURE
 --

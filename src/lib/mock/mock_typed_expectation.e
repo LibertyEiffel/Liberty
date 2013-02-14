@@ -1,13 +1,18 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_TYPED_EXPECTATION[E_]
+class MOCK_TYPED_EXPECTATION[E_]
 
 inherit
    MOCK_EXPECTATION
 
 feature {ANY}
    item: E_
+
+   set_item, set_result, then_return (a_item: like item) is
+      do
+         item := a_item
+      end
 
 end -- class MOCK_TYPED_EXPECTATION[E_]
 --

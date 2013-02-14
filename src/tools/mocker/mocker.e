@@ -53,10 +53,15 @@ feature {}
             die_with_code(1)
          end
 
-         --std_output.put_line("parsed")
-         --grammar.root_node.generate(std_output)
-         --grammar.root_node.display(std_output, 0, "")
+         std_output.put_line(once "Writing mock class: #(1)" # out_mock.path)
          grammar.root_node.accept(create {MOCKER_MOCK}.make(out_mock.write, classname(out_mock), classname(out_expect)))
+         out_mock.write.disconnect
+
+         std_output.put_line(once "Writing expect class: #(1)" # out_expect.path)
+         grammar.root_node.accept(create {MOCKER_EXPECT}.make(out_expect.write, classname(out_mock), classname(out_expect)))
+         out_expect.write.disconnect
+
+         std_output.put_line(once "Done.")
       ensure
          out_mock.exists
          out_expect.exists
@@ -78,7 +83,7 @@ feature {}
          name: ABSTRACT_STRING
       do
          if option.is_set then
-            Result := option_out_mock.item
+            Result := option.item
 
             if not Result.name.has_suffix(".e") then
                std_error.put_line("#(1) file does not have the right suffix (expect *.e): #(2)" # type # Result.path)
