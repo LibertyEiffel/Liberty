@@ -122,6 +122,7 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
          expected: MOCK_TYPED_EXPECTATION[#(1)]
       do
          expected ::= expect.assert_#(2)#(3)
+         Result := expected.item
       end
 
                                        ]" # signature.result_type # signature.feature_name # signature.arguments)
