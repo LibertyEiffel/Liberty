@@ -196,7 +196,7 @@ feature {ANY}
 			-- end
 			-- end of temporary. TODO: remove when the tool is robust enought.
 			buffer.put_message(once "%
-			% 		-- @(1) (node at line @(3))%N%
+			% 		-- @(1)%N%
 			%		external %"plug_in%"%N%
 			%		alias %"{%N%
 			%			location: %".%"%N%
@@ -204,7 +204,21 @@ feature {ANY}
 			%			feature_name: %"@(2)%"%N%
 			%		}%"%N%
 			%		end%N%N",
-			<<description, actual_c_symbol, line.out>>)
+			<<description, actual_c_symbol>>)
+			-- For debugging purpose the line where the node occurred were once printed in the comment, like this:
+
+			-- buffer.put_message(once "%
+			-- % 		-- @(1) (node at line @(3))%N%
+			-- %		external %"plug_in%"%N%
+			-- %		alias %"{%N%
+			-- %			location: %".%"%N%
+			-- %			module_name: %"plugin%"%N%
+			-- %			feature_name: %"@(2)%"%N%
+			-- %		}%"%N%
+			-- %		end%N%N",
+			-- <<description, actual_c_symbol, line.out>>)
+
+			-- this feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
 		end
 		
 feature {} -- Implementation
