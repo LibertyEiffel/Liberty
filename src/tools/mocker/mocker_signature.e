@@ -31,6 +31,16 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
          when "Feature_Name" then
             Precursor(node)
             feature_name := last_image
+         when "Signature" then
+            Precursor(node)
+            inspect
+               node.count
+            when 3, 6 then
+               -- there is a result type
+            when 1, 4 then
+               -- there is no result type
+               result_type := Void
+            end
          when "Type_Definition" then
             result_type := ""
             create buf.connect_to(result_type)
