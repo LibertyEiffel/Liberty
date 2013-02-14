@@ -13,28 +13,96 @@ create {}
    make
 
 feature {}
-   canonical_output (input: REGULAR_FILE): REGULAR_FILE is
+   input, out_mock, out_expect: REGULAR_FILE
+
+   generate_mocks is
+      require
+         input.exists
+         not out_mock.exists
+         not out_expect.exists
+      local
+         grammar: EIFFEL_GRAMMAR
+         parser: DESCENDING_PARSER
+         file_content: STRING
+         buffer: MINI_PARSER_BUFFER
+      do
+         create grammar.make_default
+         create parser.make
+
+         file_content := ""
+         from
+            input.read.read_line
+         until
+            input.read.end_of_input
+         loop
+            file_content.append(input.read.last_string)
+            file_content.extend('%N')
+            input.read.read_line
+         end
+         file_content.append(input.read.last_string)
+         create buffer.initialize_with(file_content)
+
+         if not parser.eval(buffer, grammar.table, "Class") then
+            std_error.put_line("Incomplete input")
+            die_with_code(1)
+         elseif parser.error /= Void then
+            std_error.put_line(parser.error.message)
+            die_with_code(1)
+         elseif grammar.root_node = Void then
+            std_error.put_line("Invalid input")
+            die_with_code(1)
+         end
+
+         --std_output.put_line("parsed")
+         --grammar.root_node.generate(std_output)
+         --grammar.root_node.display(std_output, 0, "")
+         grammar.root_node.accept(create {MOCKER_MOCK}.make(out_mock.write, classname(out_mock), classname(out_expect)))
+      ensure
+         out_mock.exists
+         out_expect.exists
+      end
+
+   classname (file: REGULAR_FILE): STRING is
+      require
+         file.name.has_suffix(once ".e")
+      do
+         Result := file.name.substring(file.name.lower, file.name.upper - 2).as_upper
+      end
+
+   check_output (type: STRING; option: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]): REGULAR_FILE is
       require
          input /= Void
+         type /= Void
       local
          bd: BASIC_DIRECTORY
          name: ABSTRACT_STRING
       do
-         name := "#(1)_mock.e" # input.name.substring(input.name.lower, input.name.upper - 2)
-         if input.parent = Void then
-            bd.compute_absolute_file_path_with(name)
+         if option.is_set then
+            Result := option_out_mock.item
+
+            if not Result.name.has_suffix(".e") then
+               std_error.put_line("#(1) file does not have the right suffix (expect *.e): #(2)" # type # Result.path)
+               die_with_code(1)
+            end
+
+            if Result.exists then
+               std_error.put_line("#(1) file does exist: #(2)" # type # Result.path)
+               die_with_code(1)
+            end
          else
-            bd.compute_file_path_with(input.parent.path, name)
+            name := (once "#(1)_#(2).e" # input.name.substring(input.name.lower, input.name.upper - 2) # type).as_lower
+            if input.parent = Void then
+               bd.compute_absolute_file_path_with(name)
+            else
+               bd.compute_file_path_with(input.parent.path, name)
+            end
+            create Result.make(bd.last_entry)
          end
-         create Result.make(bd.last_entry)
       ensure
          Result /= Void
       end
 
    make is
-      local
-         input: REGULAR_FILE
-         output: REGULAR_FILE
       do
          if not arguments.parse_command_line then
             arguments.usage(std_error)
@@ -62,28 +130,15 @@ feature {}
             die_with_code(1)
          end
 
-         if option_out.is_set then
-            output := option_out.item
+         out_mock := check_output("Mock", option_out_mock)
+         out_expect := check_output("Expect", option_out_expect)
 
-            if not output.name.has_suffix(".e") then
-               std_error.put_line("Output file does not have the right suffix (expect *.e): #(1)" # output.path)
-               die_with_code(1)
-            end
-
-            if output.exists then
-               std_error.put_line("Output file does exist: #(1)" # output.path)
-               die_with_code(1)
-            end
-         else
-            output := canonical_output(input)
-         end
-
-         std_output.put_line("output is #(1)" # output.path)
+         generate_mocks
       end
 
    arguments: COMMAND_LINE_ARGUMENTS is
       once
-         create Result.make(option_help or option_version or (option_out and argument_file))
+         create Result.make(option_help or option_version or (option_out_mock and option_out_expect and argument_file))
       end
 
    option_help: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
@@ -96,9 +151,14 @@ feature {}
          Result := cli_factory.option_boolean("v", "version", "Command version")
       end
 
-   option_out: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   option_out_mock: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
       once
-         Result := cli_factory.option_file("o", "out", "out_file", "Output file (also implies the mock class name)")
+         Result := cli_factory.option_file("m", "mock", "out_mock", "Mock file to generate (also implies the mock class name)")
+      end
+
+   option_out_expect: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+      once
+         Result := cli_factory.option_file("e", "expect", "out_expect", "Expect file to generate (also implies the expect class name)")
       end
 
    argument_file: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
