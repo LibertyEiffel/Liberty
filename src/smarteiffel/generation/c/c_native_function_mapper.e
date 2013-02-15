@@ -1110,6 +1110,26 @@ feature {} -- built-ins
             function_body.append(once "<<")
             cpp.put_ith_argument(1)
             function_body.append(once "))")
+         elseif as_bit_shift_right = name then
+            function_body.append(once "(uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)((uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)")
+            cpp.put_target_as_value
+            function_body.append(once ">>(")
+            cpp.put_ith_argument(1)
+            function_body.append(once "))")
+         elseif as_bit_shift_left = name then
+            function_body.append(once "(uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)((uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)")
+            cpp.put_target_as_value
+            function_body.append(once "<<(")
+            cpp.put_ith_argument(1)
+            function_body.append(once "))")
          elseif as_bit_rotate = name then
             function_body.append(once "((uint")
             bit_count.append_in(function_body)
