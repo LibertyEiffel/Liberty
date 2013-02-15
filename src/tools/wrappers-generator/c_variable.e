@@ -67,22 +67,22 @@ feature
 			else
 				log(once "Variable @(1)%N",<<c_string_name>>)
 				buffer.put_message(once "%T@(1): @(2) is%N%
-				% 		-- @(1) (node at line @(3))%N%
+				% 		-- @(1)%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %".%"%N%
 				%			module_name: %"plugin%"%N%
-				%			feature_name: %"@(4)%"%N%
+				%			feature_name: %"@(3)%"%N%
 				%		}%"%N%
 				%		end%N%
 				%%N%
 				%	address_of_@(1): POINTER is%N%
-				% 		-- Address of @(1) (node at line @(3))%N%
+				% 		-- Address of @(1)%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %".%"%N%
 				%			module_name: %"plugin%"%N%
-				%			feature_name: %"&@(4)%"%N%
+				%			feature_name: %"&@(3)%"%N%
 				%		}%"%N%
 				%		end%N%
 				%%N%
@@ -92,11 +92,11 @@ feature
 				%		alias %"{%N%
 				%			location: %".%"%N%
 				%			module_name: %"plugin%"%N%
-				%			feature_name: %"set_@(4)%"%N%
+				%			feature_name: %"set_@(3)%"%N%
 				%		}%"%N%
 				%		end%N%N",
 				<<eiffel_feature(c_string_name), wrapper_type, 
-				line_row.to_utf8, c_string_name>>);
+				 c_string_name>>);
 
 				("#define set_#(1)(a_value) #(1) = (a_value);%N" # c_string_name).print_on(include)
 			end
