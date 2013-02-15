@@ -3,11 +3,13 @@
 MAXTOOLCOUNT=18
 
 test ${0%/*} != $0 && cd ${0%/*}
+export CC=${CC:-gcc}
+export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
 export plain=FALSE
 export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
-export PREREQUISITES="gcc gccxml"
+export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
@@ -118,57 +120,75 @@ x_int: extract_internals
 -- c_compiler_type: tcc
 -- smarteiffel_options: -no_strip
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -Os
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -Os
 
 [no_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -O1
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
 
 [require_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [ensure_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [invariant_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [loop_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [all_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [debug_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -g
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
 smarteiffel_options: -no_strip
 
 [release]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -O3 -fomit-frame-pointer
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
 smarteiffel_options: -no_split
 
@@ -189,29 +209,29 @@ EOF
     if [ ! -d $LIBERTY_HOME/target/bin/compile_to_c.d ]; then
         progress 30 0 $MAXTOOLCOUNT "germ"
         test -d $LIBERTY_HOME/target/bin/compile_to_c.d || mkdir $LIBERTY_HOME/target/bin/compile_to_c.d
-        run gcc -c compile_to_c.c && run gcc compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
+        run $CC -c compile_to_c.c && run $CC compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
     progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-    if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
-        grep ^gcc compile_to_c.make | while read cmd; do
+    if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+        grep ^$CC compile_to_c.make | while read cmd; do
             progress 30 1 $MAXTOOLCOUNT "$cmd"
             run $cmd || exit 1
         done
 
         progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-        if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
-            grep ^gcc compile_to_c.make | while read cmd; do
+        if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+            grep ^$CC compile_to_c.make | while read cmd; do
                 progress 30 2 $MAXTOOLCOUNT "$cmd"
                 run $cmd || exit 1
             done
 
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
+            if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
@@ -224,7 +244,7 @@ EOF
     test -d compile.d || mkdir compile.d
     cd compile.d
     run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
-    grep ^gcc compile.make | while read cmd; do
+    grep ^$CC compile.make | while read cmd; do
         run $cmd || exit 1
     done
     cd .. && test -e compile || ln -s compile.d/compile .
