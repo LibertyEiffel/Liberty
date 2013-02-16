@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	tilde_additional_prefixes: POINTER is
- 		-- tilde_additional_prefixes (node at line 59)
+ 		-- tilde_additional_prefixes
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	address_of_tilde_additional_prefixes: POINTER is
- 		-- Address of tilde_additional_prefixes (node at line 59)
+ 		-- Address of tilde_additional_prefixes
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	tilde_additional_suffixes: POINTER is
- 		-- tilde_additional_suffixes (node at line 64)
+ 		-- tilde_additional_suffixes
 		external "plug_in"
 		alias "{
 			location: "."
@@ -50,7 +50,7 @@ feature {} -- External calls
 		end
 
 	address_of_tilde_additional_suffixes: POINTER is
- 		-- Address of tilde_additional_suffixes (node at line 64)
+ 		-- Address of tilde_additional_suffixes
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	tilde_expansion_preexpansion_hook: POINTER is
- 		-- tilde_expansion_preexpansion_hook (node at line 48)
+ 		-- tilde_expansion_preexpansion_hook
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	address_of_tilde_expansion_preexpansion_hook: POINTER is
- 		-- Address of tilde_expansion_preexpansion_hook (node at line 48)
+ 		-- Address of tilde_expansion_preexpansion_hook
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	tilde_expansion_failure_hook: POINTER is
- 		-- tilde_expansion_failure_hook (node at line 54)
+ 		-- tilde_expansion_failure_hook
 		external "plug_in"
 		alias "{
 			location: "."
@@ -110,7 +110,7 @@ feature {} -- External calls
 		end
 
 	address_of_tilde_expansion_failure_hook: POINTER is
- 		-- Address of tilde_expansion_failure_hook (node at line 54)
+ 		-- Address of tilde_expansion_failure_hook
 		external "plug_in"
 		alias "{
 			location: "."
@@ -129,8 +129,8 @@ feature {} -- External calls
 		}"
 		end
 
-	tilde_expand (an_argument_l173_c7: POINTER): POINTER is
- 		-- tilde_expand (node at line 172)
+	tilde_expand (an_argument_l185_c7: POINTER): POINTER is
+ 		-- tilde_expand
 		external "plug_in"
 		alias "{
 			location: "."
@@ -139,13 +139,8 @@ feature {} -- External calls
 		}"
 		end
 
-<<<<<<< HEAD
-	tilde_find_word (an_argument_l2544_c7: POINTER; an_argument_l2545_c7: INTEGER_32; an_argument_l2546_c7: POINTER): POINTER is
- 		-- tilde_find_word (node at line 2543)
-=======
 	tilde_find_word (an_argument_l2554_c7: POINTER; an_argument_l2555_c7: INTEGER_32; an_argument_l2556_c7: POINTER): POINTER is
- 		-- tilde_find_word (node at line 2553)
->>>>>>> 7dfc6f1443b037e466b58ada036d17d0ad8e19c4
+ 		-- tilde_find_word
 		external "plug_in"
 		alias "{
 			location: "."
@@ -154,13 +149,8 @@ feature {} -- External calls
 		}"
 		end
 
-<<<<<<< HEAD
-	tilde_expand_word (an_argument_l2711_c7: POINTER): POINTER is
- 		-- tilde_expand_word (node at line 2710)
-=======
 	tilde_expand_word (an_argument_l2728_c7: POINTER): POINTER is
- 		-- tilde_expand_word (node at line 2727)
->>>>>>> 7dfc6f1443b037e466b58ada036d17d0ad8e19c4
+ 		-- tilde_expand_word
 		external "plug_in"
 		alias "{
 			location: "."
