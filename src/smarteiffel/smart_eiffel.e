@@ -752,8 +752,10 @@ feature {}
          lock_type_creation(static_type.long_name)
          not has_type(static_type)
       do
-         echo.put_string(once "Creating type: ")
-         echo.put_line(static_type.long_name.to_string)
+         debug
+            echo.put_string(once "Creating type: ")
+            echo.put_line(static_type.long_name.to_string)
+         end
          create Result.make(static_type)
       ensure
          Result /= Void
