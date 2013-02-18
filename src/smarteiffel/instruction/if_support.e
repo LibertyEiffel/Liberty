@@ -8,7 +8,7 @@ deferred class IF_SUPPORT
 
 insert
    GLOBALS
-   
+
 feature {ANY}
    start_position: POSITION
          -- Of the "if" keyword or `start_position' of the "elseif" keyword.
@@ -68,22 +68,6 @@ feature {IF_SUPPORT}
          end
          pretty_printer.set_indent_level(indent_level)
       end
-
-feature {IFTHENELSE}
-   frozen compile_to_jvm_ (type: TYPE) is
-      local
-         point: INTEGER
-      do
-         point := expression.jvm_branch_if_false(type)
-         if then_compound /= Void then
-            then_compound.compile_to_jvm(type)
-         end
-         jvm_after_point := code_attribute.opcode_goto
-         code_attribute.resolve_u2_branch(point)
-      end
-
-   jvm_after_point: INTEGER
-         -- To reach the end of IFTHENELSE.
 
 invariant
    expression /= Void

@@ -22,31 +22,6 @@ feature {ANY}
          Result := as_not
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         if resolve_in(type).is_boolean then
-            target.compile_to_jvm(type)
-            Result := code_attribute.opcode_ifne
-         else
-            Result := jvm_standard_branch_if_false(type)
-         end
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         if resolve_in(type).is_boolean then
-            target.compile_to_jvm(type)
-            Result := code_attribute.opcode_ifeq
-         else
-            Result := jvm_standard_branch_if_true(type)
-         end
-      end
-
 feature {ANY}
    accept (visitor: CALL_PREFIX_NOT_VISITOR) is
       do

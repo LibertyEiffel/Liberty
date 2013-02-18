@@ -11,7 +11,7 @@ inherit
       redefine
          resolve_in
       end
-   
+
 creation {EIFFEL_PARSER, FORMAL_GENERIC_ARG}
    make
 

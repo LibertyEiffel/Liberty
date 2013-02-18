@@ -143,7 +143,7 @@ feature {}
 
    default_format: FIXED_STRING is
       once
-         Result := "@C [@t] - @m%N".intern
+         Result := "@C [@t] - @L - @m%N".intern
       end
 
    format_and_print_message is

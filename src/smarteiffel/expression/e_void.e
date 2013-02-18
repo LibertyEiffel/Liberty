@@ -60,18 +60,6 @@ feature {ANY}
          short_printer.put_dot
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_aconst_null
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    declaration_type: TYPE is
       do
          check
@@ -133,13 +121,6 @@ feature {ANY}
    precedence: INTEGER is
       do
          Result := atomic_precedence
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
       end
 
    adapt_for (t: TYPE): like Current is

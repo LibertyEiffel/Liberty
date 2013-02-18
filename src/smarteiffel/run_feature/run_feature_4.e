@@ -127,40 +127,7 @@ feature {}
          end
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-         jvm.add_method(Current)
-      end
-
-feature {ANY}
-   mapping_jvm is
-      do
-         routine_mapping_jvm
-      end
-
-feature {JVM}
-   jvm_define is
-      do
-         method_info_start
-         jvm_define_opening
-         jvm_increment_invariant_flag
-         if routine_body /= Void then
-            routine_body.compile_to_jvm(type_of_current)
-         end
-         jvm_decrement_invariant_flag
-         jvm_define_closing
-         result_type.jvm_push_local(base_feature.jvm_result_offset(type_of_current))
-         result_type.jvm_return_code
-         method_info.finish
-      end
-
 feature {}
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
-      end
-
    side_effect_free_flag: BOOLEAN
 
 end -- class RUN_FEATURE_4

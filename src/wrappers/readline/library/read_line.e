@@ -23,12 +23,12 @@ feature {ANY} -- Read line
          p: POINTER
       do
          p := readline(null_or_string(prompt))
-         check
-            p.is_not_null
+         if p.is_not_null then
+            create last_line.from_external(p)
+         else
+            -- if ^D is pressed
+            last_line := Void
          end
-         create last_line.from_external(p)
-      ensure
-         last_line /= Void
       end
 
    buffer: FIXED_STRING is

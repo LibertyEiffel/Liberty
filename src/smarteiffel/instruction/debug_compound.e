@@ -109,15 +109,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         if must_be_generated(type) then
-            if compound /= Void then
-               compound.compile_to_jvm(type)
-            end
-         end
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          if compound /= Void then

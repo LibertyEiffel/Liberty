@@ -276,36 +276,6 @@ feature {ANY}
          Result.specialize_2_check(type)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       local

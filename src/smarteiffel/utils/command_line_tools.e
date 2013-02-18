@@ -4,7 +4,7 @@
 deferred class COMMAND_LINE_TOOLS
    --
    -- Some useful tools to handle command line flags. Actually, this class is inherited by all command line
-   -- tools of Liberty Eiffel (eg. "compile", "compile_to_c", "compile_to_jvm", "finder", "clean", "short",
+   -- tools of Liberty Eiffel (eg. "compile", "compile_to_c", "finder", "clean", "short",
    -- "pretty", "class_check", etc. and "install" as well).
    --
 
@@ -514,137 +514,11 @@ feature {}
          end
       end
 
-   is_jar (flag: STRING): BOOLEAN is
-      do
-         if flag_match(fz_flag_jar, flag) then
-            ace.set_jar
-            Result := True
-         end
-      end
-
    is_run (flag: STRING): BOOLEAN is
       do
          if flag_match(fz_flag_run, flag) then
             ace.set_run
             Result := True
-         end
-      end
-
-   is_use_jar (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_use_jar, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_jar
-               ace.set_use_jar(argument(argi + 1))
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing program after -")
-               echo.w_put_string(fz_flag_use_jar)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_use_jvm (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_use_jvm, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_use_jvm(argument(argi + 1))
-               ace.set_run
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing jvm after -")
-               echo.w_put_string(fz_flag_use_jvm)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_java_compiler (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_java_compiler, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_java_compiler(argument(argi + 1))
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing compiler after -")
-               echo.w_put_string(fz_flag_java_compiler)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_ss (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_ss, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_ss(argument(argi + 1))
-               ace.set_run
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing size after -")
-               echo.w_put_string(fz_flag_ss)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_mx (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_mx, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_mx(argument(argi + 1))
-               ace.set_run
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing size after -")
-               echo.w_put_string(fz_flag_mx)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_ms (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_ms, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_ms(argument(argi + 1))
-               ace.set_run
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing size after -")
-               echo.w_put_string(fz_flag_ms)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
-         end
-      end
-
-   is_classpath (flag: STRING; argi: INTEGER): BOOLEAN is
-      do
-         if flag_match(fz_flag_classpath, flag) then
-            Result := True
-            if argi < argument_count then
-               ace.set_classpath(argument(argi + 1))
-               ace.set_run
-            else
-               echo.w_put_string(command_line_name)
-               echo.w_put_string(": missing size after -")
-               echo.w_put_string(fz_flag_classpath)
-               echo.w_put_string(" flag.%N")
-               die_with_code(exit_failure_code)
-            end
          end
       end
 

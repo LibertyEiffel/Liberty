@@ -499,7 +499,7 @@ feature {ANY}
          end
       end
 
-feature {CLUSTER, JVM, ACE}
+feature {CLUSTER, ACE}
    file_path (parent_path, file_name: STRING) is
          -- Use the `system_name' knowledge to call feature `compute_file_path_with'
          -- of BASIC_DIRECTORY. The `parent_path' is modified accordingly.

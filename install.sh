@@ -3,21 +3,23 @@
 MAXTOOLCOUNT=18
 
 test ${0%/*} != $0 && cd ${0%/*}
+export CC=${CC:-gcc}
+export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
 export plain=FALSE
 export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
-export PREREQUISITES="gcc gccxml"
+export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
-function check_prerequisites() 
+function check_prerequisites()
 {
     for PROGRAM in $PREREQUISITES; do
-        if which $PROGRAM >/dev/null; 
-        then echo $PROGRAM found; 
+        if which $PROGRAM >/dev/null;
+        then echo $PROGRAM found;
         else echo "$PROGRAM not found"; exit 5
-        fi; 
+        fi;
     done
 }
 
@@ -33,13 +35,13 @@ function bootstrap()
         title "Preparing target"
         mkdir bin
         cd bin
-        for f in $LIBERTY_HOME/src/tools/main/*.ace; do
-            ace=${f##*/} && ace=${ace%.ace}
-            mkdir $LIBERTY_HOME/target/bin/${ace}.d
-            ln -s $f $LIBERTY_HOME/target/bin/${ace}.d/
+        for ace in $LIBERTY_HOME/src/tools/*/*.ace; do
+            tool=$(basename $(dirname $ace))
+            if [[ $tool.ace == $(basename $ace) ]]; then
+                mkdir $LIBERTY_HOME/target/bin/$tool.d
+                ln -s $ace $LIBERTY_HOME/target/bin/$tool.d
+            fi
         done
-        mkdir $LIBERTY_HOME/target/bin/wrappers-generator.d
-        ln -s $LIBERTY_HOME/src/tools/wrappers-generator/wrappers-generator.ace $LIBERTY_HOME/target/bin/wrappers-generator.d
         cd ..
     fi
 
@@ -106,68 +108,87 @@ clean: clean
 doc: eiffeldoc
 find: finder
 make: se_make.sh
+mock: mocker
 pretty: pretty
 run: run
 short: short
 test: eiffeltest
-wrap: wrappers_generator
+wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
 -- c_compiler_type: tcc
 -- smarteiffel_options: -no_strip
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -Os
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -Os
 
 [no_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -O1
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
 
 [require_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [ensure_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [invariant_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [loop_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [all_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
 
 [debug_check]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -g
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
 smarteiffel_options: -no_strip
 
 [release]
 c_compiler_type: gcc
+c_compiler_path: $CC
 c_compiler_options: -pipe -O3 -fomit-frame-pointer
 cpp_compiler_type: g++
+cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
 smarteiffel_options: -no_split
 
@@ -188,29 +209,29 @@ EOF
     if [ ! -d $LIBERTY_HOME/target/bin/compile_to_c.d ]; then
         progress 30 0 $MAXTOOLCOUNT "germ"
         test -d $LIBERTY_HOME/target/bin/compile_to_c.d || mkdir $LIBERTY_HOME/target/bin/compile_to_c.d
-        run gcc -c compile_to_c.c && run gcc compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
+        run $CC -c compile_to_c.c && run $CC compile_to_c.o -o $LIBERTY_HOME/target/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
     progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-    if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
-        grep ^gcc compile_to_c.make | while read cmd; do
+    if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+        grep ^$CC compile_to_c.make | while read cmd; do
             progress 30 1 $MAXTOOLCOUNT "$cmd"
             run $cmd || exit 1
         done
 
         progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-        if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
-            grep ^gcc compile_to_c.make | while read cmd; do
+        if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+            grep ^$CC compile_to_c.make | while read cmd; do
                 progress 30 2 $MAXTOOLCOUNT "$cmd"
                 run $cmd || exit 1
             done
 
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if [ $(grep -c ^gcc compile_to_c.make) != 0 ]; then
+            if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
@@ -223,39 +244,52 @@ EOF
     test -d compile.d || mkdir compile.d
     cd compile.d
     run ../compile_to_c -verbose -boost -no_split compile -o compile || exit 1
-    grep ^gcc compile.make | while read cmd; do
+    grep ^$CC compile.make | while read cmd; do
         run $cmd || exit 1
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    {
-        echo 5 se
-        echo 6 clean
-        echo 7 ace_check
-        echo 8 eiffeltest
-    } | while read i tool; do
+    while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost -no_split $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done
-    {
-        echo  9 pretty
-        echo 10 short
-        echo 11 class_check
-        echo 12 finder
-        echo 13 eiffeldoc
-        echo 14 extract_internals
-        echo 15 wrappers_generator
-        echo 16 run
-    } | while read i tool; do
+    done <<EOF
+5 se
+6 clean
+7 ace_check
+8 eiffeltest
+EOF
+    while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
         test -d ${tool}.d || mkdir ${tool}.d
         cd ${tool}.d
         run ../compile -verbose -boost $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done
+    done <<EOF
+9 pretty
+10 short
+11 class_check
+12 finder
+13 eiffeldoc
+14 extract_internals
+EOF
+
+    while read i tool; do
+        progress 30 $(($MAXTOOLCOUNT - 2)) $MAXTOOLCOUNT "$tool"
+        test -d ${tool}.d || mkdir ${tool}.d
+        cd ${tool}.d
+        if [ -e $tool.ace ]; then
+            run ../se c -verbose $tool.ace
+        else
+            run ../se c -verbose -boost $tool -o $tool || exit 1
+        fi
+        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+    done <<EOF
+15 wrappers-generator
+16 mocker
+EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
     cp $LIBERTY_HOME/work/se_make.sh .
@@ -305,7 +339,7 @@ function compile_all()
         progress 30 $i $n $ace
         cd $LIBERTY_HOME/target/bin/${ace}.d
         run ../se c -verbose ${ace}.ace
-        cd .. && test -e $ace || ln -s ${ace}.d/$ace .
+        cd .. && test -e "$ace" || ln -s ${ace}.d/$ace .
         i=$((i+1))
     done
     progress 30 $n $n "done."
@@ -374,11 +408,12 @@ class_check: class_check
 clean: clean
 doc: eiffeldoc
 find: finder
+mock: mocker
 pretty: pretty
 run: run
 short: short
 test: eiffeltest
-wrap: wrappers_generator
+wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
@@ -509,10 +544,10 @@ function do_all()
 {
     test -d $LIBERTY_HOME/target && rm -rf $LIBERTY_HOME/target
     bootstrap
-    compile_plugins
-    generate_wrappers
+    #compile_plugins
+    #generate_wrappers
     #compile_all
-    make_doc
+    #make_doc
 }
 
 if [ $# = 0 ]; then

@@ -282,71 +282,6 @@ feature {ANY}
          Result :=  resolve_in(type)
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         point1, point2: INTEGER; left_type, right_type: TYPE; lt: LIVE_TYPE
-      do
-         if left_side.is_void then
-            jvm_void_cmp(type, right_side)
-         elseif right_side.is_void then
-            jvm_void_cmp(type, left_side)
-         else
-            left_type := left_side.resolve_in(type)
-            left_side.compile_to_jvm(type)
-            right_side.compile_to_jvm(type)
-            if left_type.is_user_expanded then
-               lt := left_type.live_type
-               jvm.std_is_equal(lt, lt.writable_attributes)
-            else
-               right_type := right_side.resolve_in(type)
-               if left_type.jvm_stack_space /= right_type.jvm_stack_space then
-                  if left_type.jvm_stack_space < right_type.jvm_stack_space then
-                     jvm.kernel_expanded_convert(left_type, right_type)
-                     left_type := right_type
-                  else
-                     jvm.kernel_expanded_convert(right_type, left_type)
-                  end
-               end
-               point1 := left_type.canonical_type_mark.jvm_if_x_eq
-               if eq_flag then
-                  code_attribute.opcode_bipush(0)
-               else
-                  code_attribute.opcode_bipush(1)
-               end
-               point2 := code_attribute.opcode_goto
-               code_attribute.resolve_u2_branch(point1)
-               if eq_flag then
-                  code_attribute.opcode_bipush(1)
-               else
-                  code_attribute.opcode_bipush(0)
-               end
-               code_attribute.resolve_u2_branch(point2)
-            end
-         end
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         standard_compile_target_to_jvm(type)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    accept (visitor: BUILT_IN_EQ_NEQ_VISITOR) is
       do
          visitor.visit_built_in_eq_neq(Current)
@@ -675,31 +610,6 @@ feature {}
             create {E_TRUE} Result.make(operator_position)
          else
             create {E_FALSE} Result.make(operator_position)
-         end
-      end
-
-   jvm_void_cmp (type: TYPE; e: EXPRESSION) is
-      local
-         point1, point2: INTEGER
-      do
-         if e.resolve_in(type).is_expanded then
-            if eq_flag then
-               code_attribute.opcode_iconst_0
-            else
-               code_attribute.opcode_iconst_1
-            end
-         else
-            e.compile_to_jvm(type)
-            if eq_flag then
-               point1 := code_attribute.opcode_ifnull
-            else
-               point1 := code_attribute.opcode_ifnonnull
-            end
-            code_attribute.opcode_iconst_0
-            point2 := code_attribute.opcode_goto
-            code_attribute.resolve_u2_branch(point1)
-            code_attribute.opcode_iconst_1
-            code_attribute.resolve_u2_branch(point2)
          end
       end
 

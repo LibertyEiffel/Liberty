@@ -29,6 +29,20 @@ feature {ANY}
          a_string.append(string)
       end
 
+   write_to (output: OUTPUT_STREAM) is
+         -- Write the contents of the internal buffer to the given output stream.
+      require
+         output.is_connected
+      do
+         output.put_string(string)
+      end
+
+   count: INTEGER is
+         -- The size of the internal buffer
+      do
+         Result := string.count
+      end
+
    is_connected: BOOLEAN
 
    disconnect is

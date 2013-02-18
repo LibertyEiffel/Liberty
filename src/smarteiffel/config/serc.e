@@ -25,12 +25,6 @@ feature {ANY}
 
    jobs: INTEGER
 
-   jar: STRING
-
-   java_virtual_machine: STRING
-
-   java_compiler: STRING
-
    environment (var: STRING): STRING is
       do
          Result := my_environment.reference_at(var)
@@ -150,15 +144,6 @@ feature {}
                die_with_code(1)
             end
             jobs := tmp.to_integer
-         end
-         if ini_parser.section_has(fz_section_java, fz_section_java_jar) then
-            jar := ini_parser.section_item(fz_section_java, fz_section_java_jar)
-         end
-         if ini_parser.section_has(fz_section_java, fz_section_java_jvm) then
-            java_virtual_machine := ini_parser.section_item(fz_section_java, fz_section_java_jvm)
-         end
-         if ini_parser.section_has(fz_section_java, fz_section_java_java_compiler) then
-            java_compiler := ini_parser.section_item(fz_section_java, fz_section_java_java_compiler)
          end
          i := ini_parser.section_key_iterator(fz_conf_environment)
          if i /= Void then

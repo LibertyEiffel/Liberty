@@ -19,34 +19,6 @@ feature {ANY}
       do
       end
 
-   jvm_add_method_for_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-      end
-
-   jvm_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         fe_c2jvm(rf8)
-      end
-
-   jvm_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         fe_c2jvm(rf8)
-      end
-
-   jvm_add_method_for_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-      end
-
-   jvm_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         fe_c2jvm(rf7)
-      end
-
-   jvm_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         fe_c2jvm(rf7)
-      end
-
 feature {EXTERNAL_ROUTINE}
    collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
       do

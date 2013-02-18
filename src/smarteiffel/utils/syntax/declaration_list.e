@@ -251,39 +251,6 @@ feature {DECLARATION_LIST}
          list := l
       end
 
-feature {ANONYMOUS_FEATURE, RUN_FEATURE, MANIFEST_GENERIC}
-   frozen jvm_stack_space (type: TYPE): INTEGER is
-         -- Number of needed words in the JVM stack.
-      local
-         i: INTEGER
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            Result := Result + type_mark(i).to_static(type).jvm_stack_space
-            i := i + 1
-         end
-      end
-
-   frozen jvm_offset_of (type: TYPE; la: like name): INTEGER is
-      local
-         i, rank: INTEGER
-      do
-         from
-            rank := la.rank
-            i := 1
-         variant
-            count - i
-         until
-            i = rank
-         loop
-            Result := Result + type_mark(i).to_static(type).jvm_stack_space
-            i := i + 1
-         end
-      end
-
 feature {RUN_FEATURE}
    adapt_for (t: TYPE): like Current is
       local

@@ -44,11 +44,6 @@ feature {ANY}
          end
       end
 
-   frozen compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 end -- class NON_WRITTEN_INSTRUCTION
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -424,12 +424,6 @@ feature {NATIVE_C}
          mapping_c(visited, rf8.base_feature, cpp.native_need_wrapper.for_rf8(rf8), True, rf8.arg_count)
       end
 
-feature {NATIVE_JAVA}
-   visit_native_java (visited: NATIVE_JAVA) is
-      do
-         fe_c2c(rf8)
-      end
-
 feature {NATIVE_PLUG_IN}
    visit_native_plug_in (visited: NATIVE_PLUG_IN) is
       do

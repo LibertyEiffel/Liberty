@@ -254,60 +254,6 @@ feature {ANY}
          Result /= Void
       end
 
-feature {ANY} -- For `compile_to_jvm':
-   compile_to_jvm (type: TYPE) is
-         -- Produce Java byte code in order to push expression value on the jvm stack.
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
-      deferred
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-         -- Same as `compile_to_jvm', but add class invariant check when needed.
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
-      deferred
-      end
-
-   frozen standard_compile_target_to_jvm (type: TYPE) is
-      local
-         rt: TYPE
-      do
-         compile_to_jvm(type)
-         rt := resolve_in(type)
-         rt.canonical_type_mark.jvm_check_class_invariant
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-         -- Gives the `program_counter' to be resolved later.
-      require
-         resolve_in(type).is_boolean
-      deferred
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-         -- Gives the `program_counter' to be resolved later.
-      require
-         resolve_in(type).is_boolean
-      deferred
-      end
-
-   jvm_assign_creation (type: TYPE) is
-         -- Basic assignment using value on top of stack. (Always writes reference.)
-      require
-         is_writable
-      deferred
-      end
-
-   jvm_assign (type: TYPE) is
-         -- Basic assignment using value on top of stack. (Copies to expanded type, else writes reference.)
-      require
-         is_writable
-      deferred
-      end
-
 feature {ANY} -- For `pretty' and `short':
    extra_bracket_flag: BOOLEAN is
          -- True when we do have to add an extra pair of brackets if the `Current' expression is the target
@@ -351,25 +297,6 @@ feature {ANY} -- For `pretty' and `short':
          short_printer.hook_or("open_b", "(")
          short(type)
          short_printer.hook_or("close_b", ")")
-      end
-
-feature {}
-   frozen jvm_standard_branch_if_false (type: TYPE): INTEGER is
-         -- Gives the `program_counter' to be resolved.
-      require
-         resolve_in(type).is_boolean
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   frozen jvm_standard_branch_if_true (type: TYPE): INTEGER is
-         -- Gives the `program_counter' to be resolved.
-      require
-         resolve_in(type).is_boolean
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
       end
 
 invariant

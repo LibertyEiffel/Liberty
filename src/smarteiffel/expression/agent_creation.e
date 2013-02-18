@@ -90,16 +90,46 @@ feature {ANY}
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
       local
+         i: INTEGER; o1, o2: OPEN_OPERAND; l: like open_operand_list
          function_call: FUNCTION_CALL
       do
+         Result := Current
+         if open_operand_list /= Void then
+            from
+               i := open_operand_list.lower
+            until
+               o1 /= o2 or else i > open_operand_list.upper
+            loop
+               o1 := open_operand_list.item(i)
+               o2 := o1.specialize_thru(parent_type, parent_edge, new_type)
+               i := i + 1
+            end
+            if o1 = o2 then
+               check Result = Current end
+            else
+               from
+                  Result := twin
+                  l := open_operand_list
+                  Result.set_open_operand_list(l)
+                  l.put(o2, i - 1)
+               until
+                  i > l.upper
+               loop
+                  l.put(l.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+                  i := i + 1
+               end
+            end
+         end
+
          -- At this step, syntactically, the following forced assignment is correct:
          function_call ::= code
          function_call := function_call.specialize_thru(parent_type, parent_edge, new_type)
          if function_call = code then
             -- No need to notify OPEN_OPERAND objects.
-            Result := Current
          else
-            Result := twin
+            if Result = Current then
+               Result := twin
+            end
             Result.set_code(function_call)
          end
       end
@@ -288,23 +318,6 @@ feature {ANY}
    precedence: INTEGER is
       do
          Result := atomic_precedence
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
       end
 
 feature {}
@@ -511,6 +524,13 @@ feature {AGENT_CREATION}
          feature_stamp := fs
       ensure
          feature_stamp = fs
+      end
+
+   set_open_operand_list (l: like open_operand_list) is
+      require
+         l.count = open_operand_list.count
+      do
+         open_operand_list := l
       end
 
 feature {}

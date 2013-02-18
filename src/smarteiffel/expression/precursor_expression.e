@@ -50,30 +50,6 @@ feature {ANY}
          Result := dot_precedence
       end
 
-   compile_target_to_jvm (type: TYPE) is
-      do
-         standard_compile_target_to_jvm(type)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    pretty (indent_level: INTEGER) is
       do
          pretty_(indent_level)

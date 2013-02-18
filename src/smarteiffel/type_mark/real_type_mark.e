@@ -68,59 +68,6 @@ feature {ANY}
          create {REAL_CONSTANT} Result.make(sp, once "0.0", Current)
       end
 
-   jvm_descriptor_in (buffer: STRING) is
-      do
-         buffer.extend('F')
-      end
-
-   jvm_return_code is
-      do
-         code_attribute.opcode_freturn
-      end
-
-   jvm_push_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_fload(offset)
-      end
-
-   jvm_push_default: INTEGER is
-      do
-         code_attribute.opcode_fconst_0
-         Result := 1
-      end
-
-   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_fstore(offset)
-      end
-
-   jvm_xnewarray is
-      do
-         code_attribute.opcode_newarray(6)
-      end
-
-   jvm_xastore is
-      do
-         code_attribute.opcode_fastore
-      end
-
-   jvm_xaload is
-      do
-         code_attribute.opcode_faload
-      end
-
-   jvm_if_x_eq: INTEGER is
-      do
-         code_attribute.opcode_fcmpg
-         Result := code_attribute.opcode_ifeq
-      end
-
-   jvm_if_x_ne: INTEGER is
-      do
-         code_attribute.opcode_fcmpg
-         Result := code_attribute.opcode_ifne
-      end
-
    accept (visitor: REAL_TYPE_MARK_VISITOR) is
       do
          visitor.visit_real_type_mark(Current)

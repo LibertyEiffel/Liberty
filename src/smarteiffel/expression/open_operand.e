@@ -80,13 +80,7 @@ feature {ANY}
          Result := Current
          if curly_type /= Void then
             ct := curly_type.specialize_thru(parent_type, parent_edge, new_type)
-            if ct = curly_type then
-               Result := Current
-            else
-               -- *** ON FAIT COMMENT ?? on est passe avant
-               sedb_breakpoint
-               not_yet_implemented
-            end
+            Result := current_or_twin_init(ct)
          end
       end
 
@@ -201,28 +195,6 @@ feature {ANY}
          check
             not Result
          end
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
       end
 
    accept (visitor: OPEN_OPERAND_VISITOR) is

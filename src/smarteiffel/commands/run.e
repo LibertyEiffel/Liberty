@@ -58,6 +58,7 @@ feature {ANY}
         -debug              Enable 'debug' blocks
         -flat_check         Each assertion will be executed in no_check mode
                             Use with any mode from require_check to all_check
+        -no_rescue          Don't compile rescue sections
 
       Class lookup:
         -loadpath <file>    Specify an extra loadpath file to read
@@ -65,8 +66,8 @@ feature {ANY}
       Miscellaneous:
         -high_memory_compiler
                             Allow the compile_to_c to use more memory; if you
-                            have enough physical memory, compilation should
-                            be faster (note: generated C code is not affected)
+                             have enough physical memory, compilation should
+                             be faster (note: generated C code is not affected)
 
       ]"
 
@@ -151,6 +152,8 @@ feature {}
             elseif is_high_memory_compiler(arg) then
                argi := argi + 1
             elseif is_profile(arg) then
+               argi := argi + 1
+            elseif is_no_rescue_flag(arg) then
                argi := argi + 1
             elseif is_output_error_warning_on_flag(arg, argi) then
                argi := argi + 2

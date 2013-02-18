@@ -44,60 +44,6 @@ feature {ANY}
          visitor.visit_pointer_type_mark(Current)
       end
 
-   jvm_descriptor_in (str: STRING) is
-      do
-         str.append(once "Ljava/lang/Object;")
-      end
-
-   jvm_return_code is
-      do
-         code_attribute.opcode_areturn
-      end
-
-   jvm_push_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_aload(offset)
-      end
-
-   jvm_push_default: INTEGER is
-      do
-         code_attribute.opcode_aconst_null
-         Result := 1
-      end
-
-   jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_astore(offset)
-      end
-
-   jvm_xnewarray is
-      local
-         idx: INTEGER
-      do
-         idx := constant_pool.idx_java_lang_object
-         code_attribute.opcode_anewarray(idx)
-      end
-
-   jvm_xastore is
-      do
-         code_attribute.opcode_aastore
-      end
-
-   jvm_xaload is
-      do
-         code_attribute.opcode_aaload
-      end
-
-   jvm_if_x_eq: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpeq
-      end
-
-   jvm_if_x_ne: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpne
-      end
-
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING is
       once

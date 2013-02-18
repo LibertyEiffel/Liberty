@@ -51,6 +51,7 @@ feature {}
 
    set: ABSTRACT_AVL_SET[E_]
 
+feature {ANY}
    iterable_generation: INTEGER is
       do
          Result := set.generation

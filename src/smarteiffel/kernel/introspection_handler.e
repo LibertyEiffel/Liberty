@@ -858,7 +858,7 @@ feature {}
                if is_introspectable_attribute_type(attribute_type_mark) then
                   create when_clause.make_strippable(inspect_statement, fs)
                   if attribute_type_mark.is_expanded then
-                     if assignment /= Void then
+                     if assignment = Void then
                         create result_variable.make(start_position)
                         create bool.make(start_position)
                         create assignment.make(result_variable, bool)

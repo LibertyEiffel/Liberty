@@ -44,6 +44,9 @@ feature {}
          end
       end
 
+feature {ANY}
+   generation: INTEGER
+
 invariant
    nodes /= Void
 

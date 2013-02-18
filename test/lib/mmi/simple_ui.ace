@@ -1,0 +1,37 @@
+system "simple_ui"
+
+root
+   SIMPLE_UI: make
+
+default
+   assertion(no)
+   --rescue(no)
+   trace(yes)
+
+cluster
+   test: "."
+      default
+         assertion(all)
+         debug(yes)
+      end
+
+   liberty: "${path_liberty}src/lib/loadpath.se"
+      default
+         --debug("parse")
+      option
+         assertion(ensure): PACKRAT_ALTERNATIVE, PACKRAT_AND, PACKRAT_ATOM, PACKRAT_CHOICE, PACKRAT_LOOKAHEAD,
+                            PACKRAT_NON_TERMINAL, PACKRAT_NOT, PACKRAT_PATTERN, PACKRAT_PRIMARY,
+                            PACKRAT_REFERENCE, PACKRAT_SEQUENCE, PACKRAT_TERMINAL,
+                            --LOG_INTERNAL_CONF,
+                            NCURSES, NCURSES_BUTTON, NCURSES_LABEL, NCURSES_MENUBAR, NCURSES_MENU,
+                            NCURSES_PANEL, NCURSES_PANELTAB, NCURSES_WIDGET, NCURSES_WINDOW
+         debug(yes): FIXED_STRING, WEB_CONTEXT, WEB_BUTTON, WEB_WINDOW, CURSES_DESC_LAYOUT_BORDER, NCURSES --, PACKRAT_DEFAULT_REDUCER
+      end
+
+   wrappers: "${path_liberty}src/wrappers/loadpath.se"
+
+generate
+   split("by_type")
+   no_strip(yes)
+
+end

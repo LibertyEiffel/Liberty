@@ -11,12 +11,12 @@ inherit
 
 feature {ANY}
    eiffel_parser_stamp: INTEGER
-         -- Value greater than 0 strictly given by the `eiffel_parser'. Internally generated pseudo 
-         -- code (i.e. non-written or inlined code) is supposed to have a 0 value. When comparing 
-         -- two instructions (created by the `eiffel_parser'), a greater value indicates that the 
-         -- instruction was parsed after the other. The `eiffel_parser_stamp' is used to `unlock' 
+         -- Value greater than 0 strictly given by the `eiffel_parser'. Internally generated pseudo
+         -- code (i.e. non-written or inlined code) is supposed to have a 0 value. When comparing
+         -- two instructions (created by the `eiffel_parser'), a greater value indicates that the
+         -- instruction was parsed after the other. The `eiffel_parser_stamp' is used to `unlock'
          -- temporary INTERNAL_C_LOCAL.
-   
+
    specialize_2 (type: TYPE): INSTRUCTION is
       deferred
       end
@@ -31,13 +31,6 @@ feature {ANY}
          -- True for instructions which may have a possible "end" mark comment.
          -- As an example, it is True for a "loop", or an "inspect" statement.
          -- It is False for an assignment or for a simple procedure call.
-      deferred
-      end
-
-   compile_to_jvm (type: TYPE) is
-      require
-         smart_eiffel.is_ready
-         type.live_type /= Void
       deferred
       end
 
@@ -68,7 +61,7 @@ feature {EIFFEL_PARSER, COMPOUND, ASSIGNMENT, PROCEDURE_CALL}
       do
          eiffel_parser_stamp := eps
       end
-      
+
 end -- class INSTRUCTION
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

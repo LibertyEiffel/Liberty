@@ -63,7 +63,7 @@ feature {EIFFEL_NODE_HANDLER} -- Basic operations
       deferred
       end
 
-feature {}
+feature {EIFFEL_NODE_HANDLER}
    generate_forgotten (o: OUTPUT_STREAM) is
       local
          i: INTEGER

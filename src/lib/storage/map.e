@@ -234,6 +234,12 @@ feature {ANY} -- To provide iterating facilities:
          Result /= Void
       end
 
+   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+      deferred
+      ensure
+         Result /= Void
+      end
+
    key_map_in (buffer: COLLECTION[K_]) is
          -- Append in `buffer', all available keys (this may be useful to
          -- speed up the traversal).
@@ -448,6 +454,28 @@ feature {ANY} -- Agents based features:
             v := item(i)
             k := key(i)
             Result := test.item([v, k])
+            i := i + 1
+         end
+      end
+
+   aggregate (action: FUNCTION[TUPLE[V_, V_, K_], V_]; initial: V_): V_ is
+         -- Aggregate all the elements starting from the initial value.
+         --
+         -- See also `do_all', `for_all', `exists'.
+      require
+         action /= Void
+      local
+         i: INTEGER; v: V_; k: K_
+      do
+         from
+            Result := initial
+            i := lower
+         until
+            i > upper
+         loop
+            v := item(i)
+            k := key(i)
+            Result := action.item([Result, v, k])
             i := i + 1
          end
       end

@@ -92,33 +92,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         standard_compile_target_to_jvm(type)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
-      end
-
-   jvm_assign, jvm_assign_creation (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {ASSIGNMENT}
    unlock is
       do
