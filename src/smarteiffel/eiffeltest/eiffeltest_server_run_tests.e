@@ -22,9 +22,14 @@ feature {LOOP_ITEM}
 
    continue is
       do
+         -- TODO: at the end of tests:
+         stream.disconnect
       end
 
-   done: BOOLEAN
+   done: BOOLEAN is
+      do
+         Result := stream.is_connected
+      end
 
    restart is
       do
