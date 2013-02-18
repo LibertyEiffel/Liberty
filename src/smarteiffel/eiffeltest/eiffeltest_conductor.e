@@ -29,7 +29,25 @@ feature {ANY}
 
 feature {}
    distribute_work is
+      local
+         i: INTEGER
       do
+         from
+            i := work.lower
+         until
+            i > work.upper
+         loop
+            servers_list.item(i \\ servers_list.count).call(work.item(i))
+            i := i + 1
+         end
+         from
+            i := servers_list.lower
+         until
+            i > servers_list.upper
+         loop
+            servers_list.item(i).call(once "disconnect")
+            i := i + 1
+         end
       end
 
 feature {}
@@ -40,6 +58,7 @@ feature {}
          i, port: INTEGER; server: EIFFELTEST_CLIENT_SOCKET
       do
          create servers.make
+         create servers_list.with_capacity(servers_count)
          from
             i := 1
          until
@@ -48,6 +67,7 @@ feature {}
             port := 4096 + i
             create server.make(port, agent on_reply)
             servers.add(server, port)
+            servers_list.add_last(server)
             server.server_start
             stack.add_job(server)
             i := i + 1
@@ -58,9 +78,7 @@ feature {}
 
    on_reply (port: INTEGER; command, reply: STRING) is
       do
-         -- check if work remains
-         -- if so: give work
-         -- otherwise: disconnect
+         -- TODO: reply will help decide if we exit with status 0 or not
       end
 
 feature {}
@@ -169,6 +187,7 @@ feature {}
 
    servers_count: INTEGER
    servers: AVL_DICTIONARY[EIFFELTEST_CLIENT_SOCKET, INTEGER]
+   servers_list: FAST_ARRAY[EIFFELTEST_CLIENT_SOCKET]
 
    work: FAST_ARRAY[FIXED_STRING] is
       once
