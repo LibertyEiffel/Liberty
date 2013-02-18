@@ -25,7 +25,7 @@ feature {LOOP_ITEM}
          stream: SOCKET_INPUT_OUTPUT_STREAM
       do
          stream := server.new_stream(True)
-         on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(stream, server, on_connect)])
+         on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(stream, Current, on_connect)])
       end
 
    done: BOOLEAN is
