@@ -83,12 +83,12 @@ feature {ANY}
          end
       end
 
-   call (a_command: like command) is
+   add_work (a_command: ABSTRACT_STRING) is
       require
          server_running
          not a_command.is_empty
       do
-         commands.add_last(command)
+         commands.add_last(a_command.intern)
       end
 
 feature {}
@@ -107,11 +107,12 @@ feature {}
 
    port: INTEGER
    access: TCP_ACCESS
-   command, reply: STRING
+   command: FIXED_STRING
+   reply: STRING
 
-   commands: RING_ARRAY[STRING]
+   commands: RING_ARRAY[FIXED_STRING]
 
-   callback: PROCEDURE[TUPLE[INTEGER, STRING, STRING]]
+   callback: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
 
    channel: like channel_memory is
       do

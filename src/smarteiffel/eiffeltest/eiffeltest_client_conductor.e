@@ -1,7 +1,7 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class EIFFELTEST_CONDUCTOR
+class EIFFELTEST_CLIENT_CONDUCTOR
    --
    -- As in any good orchester, there must be a conductor
    --
@@ -37,7 +37,7 @@ feature {}
          until
             i > work.upper
          loop
-            servers_list.item(i \\ servers_list.count).call(work.item(i))
+            servers_list.item(i \\ servers_list.count).add_work(work.item(i))
             i := i + 1
          end
          from
@@ -45,7 +45,7 @@ feature {}
          until
             i > servers_list.upper
          loop
-            servers_list.item(i).call(once "disconnect")
+            servers_list.item(i).add_work(once "disconnect")
             i := i + 1
          end
       end
@@ -76,22 +76,25 @@ feature {}
          servers.count = servers_count
       end
 
-   on_reply (port: INTEGER; command, reply: STRING) is
+   on_reply (port: INTEGER; command: FIXED_STRING; reply: STRING) is
       do
          -- TODO: reply will help decide if we exit with status 0 or not
       end
 
 feature {}
+   collection_sorter: COLLECTION_SORTER[FIXED_STRING]
+
    scan_tree_ (force: BOOLEAN; root: FIXED_STRING; eiffeltest_path: STRING; logger: OUTPUT_STREAM) is
       require
          root /= Void
          logger.is_connected
       local
-         name: STRING
-         dir_path: FIXED_STRING
+         name, dir_path: FIXED_STRING
          bd: BASIC_DIRECTORY
          ft: FILE_TOOLS
          tfw: TEXT_FILE_WRITE
+         subdirectories: FAST_ARRAY[FIXED_STRING]
+         i: INTEGER
       do
          bd.connect_to(root)
          if not bd.is_connected then
@@ -107,22 +110,32 @@ feature {}
                   create tfw.connect_to(bd.last_entry.intern)
                   if tfw.is_connected then
                      from
-                        name := once "................"
+                        create subdirectories.make(0)
                         bd.read_entry
                      until
                         bd.end_of_input
                      loop
                         if not is_ignored(bd.last_entry) then
-                           name.copy(bd.last_entry)
+                           name := bd.last_entry.intern
                            bd.compute_subdirectory_with(root, name)
                            if ft.is_directory(bd.last_entry) then
                               dir_path := bd.last_entry.intern
-                              tfw.put_line(once "Found subdirectory: #(1)" # name)
+                              collection_sorter.add(subdirectories, name)
                               scan_tree(force, dir_path, tfw)
                            end
                         end
                         bd.read_entry
                      end
+
+                     from
+                        i := subdirectories.lower
+                     until
+                        i > subdirectories.upper
+                     loop
+                        tfw.put_line(once "Found subdirectory: #(1)" # subdirectories.item(i))
+                        i := i + 1
+                     end
+
                      tfw.disconnect
                   end
                end
@@ -194,7 +207,7 @@ feature {}
          create Result.make(0)
       end
 
-end -- class EIFFELTEST_CONDUCTOR
+end -- class EIFFELTEST_CLIENT_CONDUCTOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

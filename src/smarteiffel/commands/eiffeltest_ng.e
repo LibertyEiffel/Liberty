@@ -38,7 +38,7 @@ feature {}
 
    main is
       local
-         conductor: EIFFELTEST_CONDUCTOR
+         conductor: EIFFELTEST_CLIENT_CONDUCTOR
       do
          parse_arguments
          echo.put_string(once "Starting eiffeltest for directory %"")
