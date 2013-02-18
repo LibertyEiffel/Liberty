@@ -1,7 +1,7 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class EIFFELTEST_SERVER_CONNECTION
+class EIFFELTEST_SERVER_RUN_TESTS
 
 inherit
    JOB
@@ -62,7 +62,7 @@ invariant
    stream /= Void
    server /= Void
 
-end -- class EIFFELTEST_SERVER_CONNECTION
+end -- class EIFFELTEST_SERVER_RUN_TESTS
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

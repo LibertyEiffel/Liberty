@@ -2,6 +2,9 @@
 -- See the Copyright notice at the end of this file.
 --
 class EIFFELTEST_CLIENT_SOCKET
+   --
+   -- Pools and sends commands to an eiffeltest server
+   --
 
 inherit
    JOB
@@ -12,36 +15,49 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         events.expect(channel.event_can_read)
+         if busy then
+            events.expect(channel.event_can_read)
+         else
+            events.expect(channel.event_can_write)
+         end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := events.event_occurred(channel.event_can_read)
+         if busy then
+            Result := events.event_occurred(channel.event_can_read)
+         else
+            Result := events.event_occurred(channel.event_can_write)
+         end
       end
 
    continue is
       do
-         channel.read_line_in(reply)
-         if channel.is_connected then
-            reply.extend('%N')
+         if busy then
+            channel.read_line_in(reply)
+            if channel.is_connected then
+               reply.extend('%N')
+            else
+               callback.call([port, command, reply])
+               reply := Void
+               command := Void
+            end
+         elseif commands.is_empty then
+            done := True
          else
-            callback.call([port, command, reply])
-            reply := Void
-            command := Void
+            command := commands.first
+            commands.remove_first
+            reply := ""
+            channel.put_line(command)
+            channel.flush
          end
       end
 
-   done: BOOLEAN is
-      do
-         Result := not busy
-      end
+   done: BOOLEAN
 
    restart is
       do
-         reply := ""
-         channel.put_line(command)
-         channel.flush
+         done := False
       end
 
 feature {ANY}
@@ -54,7 +70,7 @@ feature {ANY}
       local
          factory: PROCESS_FACTORY
          args: FAST_ARRAY[STRING]
-         proc: PROCESS; arg: ABSTRACT_STRING
+         arg: ABSTRACT_STRING
       do
          factory.set_direct_input(False)
          factory.set_direct_output(False)
@@ -69,30 +85,10 @@ feature {ANY}
 
    call (a_command: like command) is
       require
-         server_is_ready
-         can_call
-         done
+         server_running
          not a_command.is_empty
       do
-         command := a_command
-      ensure
-         server_is_ready
-         not can_call
-         done
-      end
-
-   can_call: BOOLEAN is
-      do
-         Result := not busy and then command = Void
-      ensure
-         Result implies done
-      end
-
-   server_is_ready: BOOLEAN is
-      do
-         Result := server_running and then not busy
-      ensure
-         Result implies done
+         commands.add_last(command)
       end
 
 feature {}
@@ -103,6 +99,7 @@ feature {}
          port := a_port
          callback := a_callback
          create access.make(create {IPV4_ADDRESS}.make(127,1,42,13), port, True)
+         create commands.make(1, 0)
       ensure
          port = a_port
          callback = a_callback
@@ -112,14 +109,18 @@ feature {}
    access: TCP_ACCESS
    command, reply: STRING
 
+   commands: RING_ARRAY[STRING]
+
    callback: PROCEDURE[TUPLE[INTEGER, STRING, STRING]]
 
    channel: like channel_memory is
       do
-         Result := channel_memory
-         if Result = Void or else not Result.is_connected then
-            Result := access.stream
-            channel_memory := Result
+         if proc /= Void and then not proc.is_finished then
+            Result := channel_memory
+            if Result = Void or else not Result.is_connected then
+               Result := access.stream
+               channel_memory := Result
+            end
          end
       end
 
@@ -130,9 +131,12 @@ feature {}
          Result := reply /= Void
       end
 
+   proc: PROCESS
+
 invariant
    access /= Void
    callback /= Void
+   commands /= Void
 
 end -- class EIFFELTEST_CLIENT_SOCKET
 --
