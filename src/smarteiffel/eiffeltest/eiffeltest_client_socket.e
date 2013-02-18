@@ -12,12 +12,12 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         events.expect(channel.can_read)
+         events.expect(channel.event_can_read)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := events.event_occurred(channel.can_read)
+         Result := events.event_occurred(channel.event_can_read)
       end
 
    continue is
@@ -70,16 +70,18 @@ feature {ANY}
    call (a_command: like command) is
       require
          server_is_ready
-         is_ready
+         can_call
+         done
          not a_command.is_empty
       do
          command := a_command
       ensure
+         server_is_ready
+         not can_call
          done
-         not is_ready
       end
 
-   is_ready: BOOLEAN is
+   can_call: BOOLEAN is
       do
          Result := not busy and then command = Void
       ensure
@@ -101,7 +103,6 @@ feature {}
          port := a_port
          callback := a_callback
          create access.make(create {IPV4_ADDRESS}.make(127,1,42,13), port, True)
-         channel := access.stream
       ensure
          port = a_port
          callback = a_callback

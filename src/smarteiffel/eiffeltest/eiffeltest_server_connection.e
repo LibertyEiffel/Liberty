@@ -13,28 +13,24 @@ feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
          if wait_command then
-            events.expect(stream.can_read)
+            events.expect(stream.event_can_read)
          else
-            events.expect(stream.can_write)
+            events.expect(stream.event_can_write)
          end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         inspect
-            state
-         when state_wait_command then
-            Result := events.event_occurred(stream.can_read)
+         if wait_command then
+            Result := events.event_occurred(stream.event_can_read)
          else
-            Result := events.event_occurred(stream.can_write)
+            Result := events.event_occurred(stream.event_can_write)
          end
       end
 
    continue is
       do
-         inspect
-            state
-         when state_wait_command then
+         if wait_command then
             stream.read_line
             inspect
                stream.last_string
@@ -45,18 +41,14 @@ feature {LOOP_ITEM}
                path := stream.last_string
             end
             wait_command := False
-         when state_working then
-            stream.put_line(once "ack #(1)" # path)
-            test_status := test_files_in_directory(path) -- TODO: split that and continue the job for each unit test
          else
-            stream.put_string(once "done #(1) #(2)" # test_status.out # path)
+            stream.put_line(once "ack #(1)" # path)
+            on_connect.call([create {EIFFELTEST_SERVER_RUN_TESTS}.make(path, stream, server)])
+            done := True
          end
       end
 
-   done: BOOLEAN is
-      do
-         Result := not stream.is_connected
-      end
+   done: BOOLEAN
 
    restart is
       do
@@ -64,33 +56,33 @@ feature {LOOP_ITEM}
       end
 
 feature {}
-   make (a_stream: like stream; a_server: like server) is
+   make (a_stream: like stream; a_server: like server; a_on_connect: like on_connect) is
       require
          a_stream.is_connected
          a_server /= Void
       do
          stream := a_stream
          server := a_server
-         state := state_wait_command
+         on_connect := a_on_connect
+         wait_command := True
       ensure
          stream = a_stream
          server = a_server
+         on_connect = a_on_connect
       end
 
    stream: SOCKET_INPUT_OUTPUT_STREAM
    server: EIFFELTEST_SERVER_SOCKET
    path: STRING
 
-   state: INTEGER
-   test_status: INTEGER
+   on_connect: PROCEDURE[TUPLE[JOB]]
 
-   state_wait_command: INTEGER is 1
-   state_working: INTEGER is 2
-   state_done: INTEGER is 3
+   wait_command: BOOLEAN
 
 invariant
    stream /= Void
    server /= Void
+   on_connect /= Void
 
 end -- class EIFFELTEST_SERVER_CONNECTION
 --

@@ -1,7 +1,7 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class EIFFELTEST_SERVER_SOCKET
+class EIFFELTEST_SERVER_CONNECTION
 
 inherit
    JOB
@@ -12,75 +12,57 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         events.expect(server.event_connection)
+         events.expect(stream.event_can_write)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         Result := events.event_occurred(server.event_connection)
+         Result := events.event_occurred(stream.event_can_write)
       end
 
    continue is
-      local
-         stream: SOCKET_INPUT_OUTPUT_STREAM
       do
-         stream := server.new_stream(True)
-         on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(stream, server, on_connect)])
       end
 
-   done: BOOLEAN is
-      do
-         Result := server = Void or else not server.can_connect
-      end
+   done: BOOLEAN
 
    restart is
-      local
-         address: IPV4_ADDRESS
       do
-         create address.make(127,1,42,13)
-         create access.make(address, port, False)
-         server := access.server
-         if server = Void then
-            std_error.put_line(once "Server *not* started on port #(1)" # port.out)
-            die_with_code(1)
-         end
-      end
-
-feature {ANY}
-   disconnect is
-      do
-         server.shutdown
-         on_disconnect.call([])
+         check False end
       end
 
 feature {}
-   make (a_port: INTEGER; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect) is
-      require
-         a_on_disconnect /= Void
+   load_tests is
       do
-         port := a_port
-         on_connect := a_on_connect
-         on_disconnect := a_on_disconnect
-         restart
-      ensure
-         port = a_port
-         on_connect = a_on_connect
-         on_disconnect = a_on_disconnect
       end
 
-   port: INTEGER
-   access: TCP_ACCESS
-   server: SOCKET_SERVER
+feature {}
+   make (a_path: like path; a_stream: like stream; a_server: like server) is
+      require
+         a_path /= Void
+         a_stream.is_connected
+         a_server /= Void
+      do
+         path := a_path
+         stream := a_stream
+         server := a_server
+         load_tests
+      ensure
+         path = a_path
+         stream = a_stream
+         server = a_server
+      end
 
-   on_connect: PROCEDURE[TUPLE[JOB]]
-   on_disconnect: PROCEDURE[TUPLE]
+   stream: SOCKET_INPUT_OUTPUT_STREAM
+   server: EIFFELTEST_SERVER_SOCKET
+   path: STRING
 
 invariant
-   done or else server /= Void
-   on_connect /= Void
-   on_disconnect /= Void
+   path /= Void
+   stream /= Void
+   server /= Void
 
-end -- class EIFFELTEST_SERVER_SOCKET
+end -- class EIFFELTEST_SERVER_CONNECTION
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
