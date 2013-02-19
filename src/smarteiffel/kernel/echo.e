@@ -372,9 +372,15 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       end
 
 feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbose' status).
-   w_put_string (msg: STRING) is
+   w_put_string (msg: ABSTRACT_STRING) is
       do
          error_stream.put_string(msg)
+         error_stream.flush
+      end
+
+   w_put_line (msg: ABSTRACT_STRING) is
+      do
+         error_stream.put_line(msg)
          error_stream.flush
       end
 
@@ -397,12 +403,12 @@ feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbos
          i: INTEGER
       do
          from
-            i := n
+            i := 1
          until
-            i = 0
+            i > n
          loop
             error_stream.put_character(' ')
-            i := i - 1
+            i := i + 1
          end
          error_stream.flush
       end
