@@ -64,11 +64,10 @@ feature {}
          until
             i > servers_count
          loop
-            port := 4096 + i
+            port := 17380 + i
             create server.make(port, agent on_reply)
             servers.add(server, port)
             servers_list.add_last(server)
-            server.server_start
             stack.add_job(server)
             i := i + 1
          end
@@ -105,7 +104,12 @@ feature {}
             if ft.is_directory(eiffeltest_path) then
                bd.compute_file_path_with(eiffeltest_path, "log.new")
                if ft.file_exists(bd.last_entry) then
-                  logger.put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref)" # bd.last_entry)
+                  if force then
+                     logger.put_line(once "**** Warning: #(1) exists, removing it" # bd.last_entry)
+                     ft.delete(bd.last_entry)
+                  else
+                     logger.put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
+                  end
                else
                   create tfw.connect_to(bd.last_entry.intern)
                   if tfw.is_connected then

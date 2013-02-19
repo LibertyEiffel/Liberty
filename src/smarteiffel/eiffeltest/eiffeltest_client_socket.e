@@ -9,13 +9,21 @@ class EIFFELTEST_CLIENT_SOCKET
 inherit
    JOB
 
+insert
+   EIFFELTEST_NETWORK
+
 create {ANY}
    make
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
+      local
+         t: TIME_EVENTS
       do
-         if busy then
+         if starting then
+            starting_timeout := t.timeout(200)
+            events.expect(starting_timeout)
+         elseif busy then
             events.expect(channel.event_can_read)
          else
             events.expect(channel.event_can_write)
@@ -24,7 +32,9 @@ feature {LOOP_ITEM}
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         if busy then
+         if starting then
+            Result := events.event_occurred(starting_timeout)
+         elseif busy then
             Result := events.event_occurred(channel.event_can_read)
          else
             Result := events.event_occurred(channel.event_can_write)
@@ -33,7 +43,12 @@ feature {LOOP_ITEM}
 
    continue is
       do
-         if busy then
+         if starting then
+            if server_running then
+               starting := False
+               std_output.put_line(once "Server #(1) running" # port.out)
+            end
+         elseif busy then
             channel.read_line_in(reply)
             if channel.is_connected then
                reply.extend('%N')
@@ -66,22 +81,8 @@ feature {ANY}
          Result := channel /= Void and then channel.is_connected
       end
 
-   server_start is
-      local
-         factory: PROCESS_FACTORY
-      do
-         factory.set_direct_input(False)
-         factory.set_direct_output(False)
-         factory.set_direct_error(False)
-
-         proc := factory.execute("se", {FAST_ARRAY[STRING] << "test_server", port.out >> })
-
-         done := not proc.is_connected
-      end
-
    add_work (a_command: ABSTRACT_STRING) is
       require
-         server_running
          not a_command.is_empty
       do
          commands.add_last(a_command.intern)
@@ -94,15 +95,32 @@ feature {}
       do
          port := a_port
          callback := a_callback
-         create access.make(create {IPV4_ADDRESS}.make(127,1,42,13), port, True)
          create commands.make(1, 0)
+
+         server_start
       ensure
          port = a_port
          callback = a_callback
       end
 
-   port: INTEGER
-   access: TCP_ACCESS
+   server_start is
+      local
+         factory: PROCESS_FACTORY
+      do
+         factory.set_direct_input(True)
+         factory.set_direct_output(True)
+         factory.set_direct_error(True)
+
+         proc := factory.execute(once "se", {FAST_ARRAY[STRING] << once "test_server", port.out >> })
+
+         starting := proc.is_connected
+         done := not starting
+         if done then
+            sedb_breakpoint
+         end
+      end
+
+   starting_timeout: EVENT_DESCRIPTOR
    command: FIXED_STRING
    reply: STRING
 
@@ -112,7 +130,13 @@ feature {}
 
    channel: like channel_memory is
       do
-         if proc /= Void and then not proc.is_finished then
+         if proc = Void then
+            channel_memory := Void
+            std_error.put_line(once "**** Server process #(1) not started" # port.out)
+         elseif proc.is_finished then
+            channel_memory := Void
+            std_error.put_line(once "**** Server process #(1) exited with status #(2)" # port.out # proc.status.out)
+         else
             Result := channel_memory
             if Result = Void or else not Result.is_connected then
                Result := access.stream
@@ -122,6 +146,8 @@ feature {}
       end
 
    channel_memory: SOCKET_INPUT_OUTPUT_STREAM
+
+   starting: BOOLEAN
 
    busy: BOOLEAN is
       do

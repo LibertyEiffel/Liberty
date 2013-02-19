@@ -332,7 +332,7 @@ feature {} -- Bad tests: tests that must fail
          bad_file.has_prefix(once "bad_")
          bad_file.has_suffix(once ".e")
       local
-         cmd, exe_name, msg, new, h_file, log_line: STRING; dummy: BOOLEAN
+         cmd, exe_name, msg, new, h_file: STRING; dummy: BOOLEAN
       do
          exe_name := change_exe_name(bad_file)
 
@@ -608,6 +608,7 @@ feature {}
       local
          system: SYSTEM; exit_status: INTEGER
       do
+         std_output.put_line(once ">>>> #(1)" # cmd)
          exit_status := system.execute_command(cmd) --|**** TODO: time box
          if exit_status /= exit_success_code then
             if bad_file_flag then

@@ -6,6 +6,9 @@ class EIFFELTEST_SERVER_SOCKET
 inherit
    JOB
 
+insert
+   EIFFELTEST_NETWORK
+
 create {ANY}
    make
 
@@ -34,11 +37,7 @@ feature {LOOP_ITEM}
       end
 
    restart is
-      local
-         address: IPV4_ADDRESS
       do
-         create address.make(127,1,42,13)
-         create access.make(address, port, False)
          server := access.server
          if server = Void then
             std_error.put_line(once "Server *not* started on port #(1)" # port.out)
@@ -68,8 +67,6 @@ feature {}
          on_disconnect = a_on_disconnect
       end
 
-   port: INTEGER
-   access: TCP_ACCESS
    server: SOCKET_SERVER
 
    on_connect: PROCEDURE[TUPLE[JOB]]
