@@ -1,86 +1,70 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class EIFFELTEST_SERVER_SOCKET
-
-inherit
-   JOB
+class EIFFELTEST_CLIENT_RESULT
 
 insert
-   EIFFELTEST_NETWORK
    GLOBALS
 
 create {ANY}
    make
 
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
-      do
-         events.expect(server.event_connection)
+feature {ANY}
+   done: BOOLEAN
+
+   status: INTEGER is
+      require
+         done
+      attribute
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   reply: STRING
+
+   set_done (a_status: like status) is
+      require
+         not done
       do
-         Result := events.event_occurred(server.event_connection)
+         done := True
+         status := a_status
+      ensure
+         done
+         status = a_status
       end
 
-   continue is
+   set_reply (a_reply: like reply) is
+      require
+         reply = Void
+         a_reply /= Void
+      do
+         reply := a_reply
+      ensure
+         reply = a_reply
+      end
+
+   success: BOOLEAN is
       local
-         stream: SOCKET_INPUT_OUTPUT_STREAM
+         split: ARRAY[STRING]
+         nb_failed: INTEGER
       do
-         echo.put_line(once "Server #(1): new connection" # port.out)
-         stream := server.new_stream(True)
-         on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(port, stream, Current, on_connect)])
-      end
-
-   done: BOOLEAN is
-      do
-         Result := server = Void or else not server.can_connect
-      end
-
-   restart is
-      do
-         server := access.server
-         if server = Void then
-            echo.w_put_line(once "**** Error: server *not* started on port #(1) (could not create server socket)" # port.out)
-            die_with_code(exit_failure_code)
+         if done and then status = 0 and then reply /= Void then
+            split := reply.split
+            if split.first.same_as(once "status") and then split.item(split.lower + 1).is_integer then
+               nb_failed := split.item(split.lower + 1).to_integer
+               if nb_failed > 0 then
+                  echo.w_put_line("**** #(1)" # reply)
+               else
+                  Result := True
+               end
+            end
          end
       end
 
-feature {ANY}
-   disconnect is
-      do
-         echo.put_line(once "Server #(1): disconnected, shutting down" # port.out)
-         server.shutdown
-         on_disconnect.call([])
-      end
-
 feature {}
-   make (a_port: INTEGER; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect) is
-      require
-         a_on_disconnect /= Void
+   make is
       do
-         port := a_port
-         on_connect := a_on_connect
-         on_disconnect := a_on_disconnect
-         restart
-      ensure
-         port = a_port
-         on_connect = a_on_connect
-         on_disconnect = a_on_disconnect
       end
 
-   server: SOCKET_SERVER
-
-   on_connect: PROCEDURE[TUPLE[JOB]]
-   on_disconnect: PROCEDURE[TUPLE]
-
-invariant
-   done or else server /= Void
-   on_connect /= Void
-   on_disconnect /= Void
-
-end -- class EIFFELTEST_SERVER_SOCKET
+end -- class EIFFELTEST_CLIENT_RESULT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

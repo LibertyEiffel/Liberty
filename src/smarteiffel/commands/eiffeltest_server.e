@@ -38,9 +38,11 @@ feature {}
          socket: EIFFELTEST_SERVER_SOCKET
       do
          parse_arguments
+         echo.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
          create socket.make(port, agent stack.add_job, agent stack.break)
          stack.add_job(socket)
+         echo.put_line(once "Server #(1) started." # port.out)
          stack.run
       end
 

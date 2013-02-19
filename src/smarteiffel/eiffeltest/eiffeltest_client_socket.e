@@ -3,7 +3,8 @@
 --
 class EIFFELTEST_CLIENT_SOCKET
    --
-   -- Pools and sends commands to an eiffeltest server
+   -- Sends commands to an eiffeltest server
+   -- (client-side server facade)
    --
 
 inherit
@@ -11,6 +12,7 @@ inherit
 
 insert
    EIFFELTEST_NETWORK
+   GLOBALS
 
 create {ANY}
    make
@@ -21,7 +23,7 @@ feature {LOOP_ITEM}
          t: TIME_EVENTS
       do
          if starting then
-            starting_timeout := t.timeout(200)
+            starting_timeout := t.timeout(500)
             events.expect(starting_timeout)
          elseif busy then
             events.expect(channel.event_can_read)
@@ -46,19 +48,19 @@ feature {LOOP_ITEM}
          if starting then
             if server_running then
                starting := False
-               std_output.put_line(once "Server #(1) running" # port.out)
+               echo.put_line(once "Server #(1) running" # port.out)
             end
          elseif busy then
             channel.read_line_in(reply)
             if channel.is_connected then
                reply.extend('%N')
             else
-               callback.call([port, command, reply])
+               on_reply.call([port, command, reply])
                reply := Void
                command := Void
             end
          elseif commands.is_empty then
-            done := True
+            set_done(0)
          else
             command := commands.first
             commands.remove_first
@@ -72,7 +74,7 @@ feature {LOOP_ITEM}
 
    restart is
       do
-         done := False
+         check False end
       end
 
 feature {ANY}
@@ -89,34 +91,43 @@ feature {ANY}
       end
 
 feature {}
-   make (a_port: like port; a_callback: like callback) is
+   make (a_port: like port; a_on_reply: like on_reply; a_on_done: like on_done) is
       require
-         a_callback /= Void
+         a_on_reply /= Void
+         a_on_done /= Void
       do
          port := a_port
-         callback := a_callback
+         on_reply := a_on_reply
+         on_done := a_on_done
          create commands.make(1, 0)
 
          server_start
       ensure
          port = a_port
-         callback = a_callback
+         on_reply = a_on_reply
+         on_done = a_on_done
+      end
+
+   process_factory: PROCESS_FACTORY is
+      once
+         Result.set_direct_input(True)
+         Result.set_direct_output(True)
+         Result.set_direct_error(True)
       end
 
    server_start is
       local
-         factory: PROCESS_FACTORY
+         args: FAST_ARRAY[STRING]
       do
-         factory.set_direct_input(True)
-         factory.set_direct_output(True)
-         factory.set_direct_error(True)
-
-         proc := factory.execute(once "se", {FAST_ARRAY[STRING] << once "test_server", port.out >> })
+         args := {FAST_ARRAY[STRING] << once "test_server", port.out >> }
+         if echo.is_verbose then
+            args.add_last(once "-verbose")
+         end
+         proc := process_factory.execute(once "se", args)
 
          starting := proc.is_connected
-         done := not starting
-         if done then
-            sedb_breakpoint
+         if not starting then
+            set_done(-1)
          end
       end
 
@@ -126,16 +137,19 @@ feature {}
 
    commands: RING_ARRAY[FIXED_STRING]
 
-   callback: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
+   on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
+   on_done: PROCEDURE[TUPLE[INTEGER, INTEGER]]
 
    channel: like channel_memory is
       do
          if proc = Void then
             channel_memory := Void
-            std_error.put_line(once "**** Server process #(1) not started" # port.out)
+            echo.w_put_line(once "**** Server process #(1) not started" # port.out)
+            set_done(-1)
          elseif proc.is_finished then
             channel_memory := Void
-            std_error.put_line(once "**** Server process #(1) exited with status #(2)" # port.out # proc.status.out)
+            echo.w_put_line(once "**** Server process #(1) exited with status #(2)" # port.out # proc.status.out)
+            set_done(proc.status)
          else
             Result := channel_memory
             if Result = Void or else not Result.is_connected then
@@ -156,9 +170,15 @@ feature {}
 
    proc: PROCESS
 
+   set_done (status: INTEGER) is
+      do
+         on_done.call([port, status])
+      end
+
 invariant
    access /= Void
-   callback /= Void
+   on_reply /= Void
+   on_done /= Void
    commands /= Void
 
 end -- class EIFFELTEST_CLIENT_SOCKET

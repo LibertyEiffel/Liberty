@@ -6,6 +6,9 @@ class EIFFELTEST_SERVER_RUN_TESTS
 inherit
    JOB
 
+insert
+   GLOBALS
+
 create {ANY}
    make
 
@@ -25,15 +28,22 @@ feature {LOOP_ITEM}
          test_file: FIXED_STRING
          bd: BASIC_DIRECTORY
       do
+         echo.put_line(once "Server #(1): testing #(2)" # port.out # path)
          if not good_tests.is_empty then
             bd.change_current_working_directory(path)
             test_file := good_tests.first
             good_tests.remove_first
             check_good_test(test_file)
+            if good_tests.is_empty then
+               log.put_line(once "----------------------------------------------------------------")
+            end
          elseif not bad_tests.is_empty then
             test_file := bad_tests.first
             bad_tests.remove_first
             check_bad_test(test_file)
+            if bad_tests.is_empty then
+               log.put_line(once "----------------------------------------------------------------")
+            end
          else
             disconnect
          end
@@ -41,7 +51,7 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN is
       do
-         Result := stream.is_connected
+         Result := not stream.is_connected
       end
 
    restart is
@@ -430,6 +440,7 @@ feature {}
       local
          bd: BASIC_DIRECTORY
       do
+         echo.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # path)
          bd.connect_to(path)
          if bd.is_connected then
             from
@@ -441,8 +452,10 @@ feature {}
             loop
                if bd.last_entry.first /= '.' and then not file_tools.is_directory(bd.last_entry) and then bd.last_entry.has_suffix(once ".e") then
                   if bd.last_entry.has_prefix(once "test_") then
+                     echo.put_line(once "Server #(1): adding 'good' tests #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(good_tests, bd.last_entry.intern)
                   elseif bd.last_entry.has_prefix(once "bad_") then
+                     echo.put_line(once "Server #(1): adding 'bad' tests #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(bad_tests, bd.last_entry.intern)
                   end
                end
@@ -510,6 +523,7 @@ se c -ensure_check
       local
          tfr: TEXT_FILE_READ
       do
+         log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
          create tfr.connect_to(filepath)
          if tfr.is_connected then
                create excluded_patterns.make(0)
@@ -567,9 +581,10 @@ se c -ensure_check
          bd.compute_subdirectory_with(path, once "eiffeltest")
          p := bd.last_entry.twin
          bd.compute_file_path_with(p, once "log.new")
+         echo.put_line(once "Server #(1): opening log file: #(2)" # port.out # bd.last_entry)
          create log.connect_for_appending_to(bd.last_entry)
          if not log.is_connected then
-            std_error.put_line("**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # bd.last_entry)
+            echo.w_put_line("**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # bd.last_entry)
             status := status + 1
             disconnect
          end
@@ -608,7 +623,7 @@ feature {}
       local
          system: SYSTEM; exit_status: INTEGER
       do
-         std_output.put_line(once ">>>> #(1)" # cmd)
+         echo.put_line(once "Server #(1): executing command: #(2)" # port.out # cmd)
          exit_status := system.execute_command(cmd) --|**** TODO: time box
          if exit_status /= exit_success_code then
             if bad_file_flag then
@@ -624,22 +639,26 @@ feature {}
       end
 
 feature {}
-   make (a_path: like path; a_stream: like stream; a_server: like server) is
+   make (a_port: like port; a_path: like path; a_stream: like stream; a_server: like server) is
       require
          a_path /= Void
          a_stream.is_connected
          a_server /= Void
       do
+         port := a_port
          path := a_path
          stream := a_stream
          server := a_server
+         echo.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
          load_tests
       ensure
+         port = a_port
          path = a_path
          stream = a_stream
          server = a_server
       end
 
+   port: INTEGER
    stream: SOCKET_INPUT_OUTPUT_STREAM
    server: EIFFELTEST_SERVER_SOCKET
    path: STRING

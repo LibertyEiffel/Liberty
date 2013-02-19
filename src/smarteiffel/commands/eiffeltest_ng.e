@@ -41,16 +41,16 @@ feature {}
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
       do
          parse_arguments
-         echo.put_string(once "Starting eiffeltest for directory %"")
-         echo.put_string(directory_path)
-         echo.put_string(once "%".%N")
+         echo.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
             -- We just finish here.
          else
             create conductor.make(system_tools.config.jobs, force_flag, directory_path.intern)
             conductor.run
-            die_with_code(conductor.status)
+            if not conductor.success then
+               die_with_code(exit_failure_code)
+            end
          end
       end
 

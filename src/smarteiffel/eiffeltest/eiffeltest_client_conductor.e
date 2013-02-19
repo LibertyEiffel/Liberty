@@ -9,6 +9,9 @@ class EIFFELTEST_CLIENT_CONDUCTOR
    -- work among them by scanning subdirectories
    --
 
+insert
+   GLOBALS
+
 create {ANY}
    make
 
@@ -19,13 +22,19 @@ feature {ANY}
             if work.count < servers_count then
                servers_count := work.count
             end
+
+            servers_count := 1 --| **** TODO: remove
+
             start_servers
             distribute_work
             stack.run
          end
       end
 
-   status: INTEGER
+   success: BOOLEAN is
+      do
+         Result := test_results.for_all(agent {EIFFELTEST_CLIENT_RESULT}.success)
+      end
 
 feature {}
    distribute_work is
@@ -53,11 +62,13 @@ feature {}
 feature {}
    start_servers is
       require
-         servers = Void
+         test_results = Void
       local
          i, port: INTEGER; server: EIFFELTEST_CLIENT_SOCKET
       do
-         create servers.make
+         echo.put_line(once "Number of servers to start: #(1)" # servers_count.out)
+
+         create test_results.make
          create servers_list.with_capacity(servers_count)
          from
             i := 1
@@ -65,19 +76,36 @@ feature {}
             i > servers_count
          loop
             port := 17380 + i
-            create server.make(port, agent on_reply)
-            servers.add(server, port)
+            echo.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
+            create server.make(port, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
+            test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
             servers_list.add_last(server)
             stack.add_job(server)
             i := i + 1
          end
       ensure
-         servers.count = servers_count
+         test_results.count = servers_count
+         servers_list.count = servers_count
       end
 
-   on_reply (port: INTEGER; command: FIXED_STRING; reply: STRING) is
+   on_reply (expected_port, actual_port: INTEGER; command: FIXED_STRING; reply: STRING) is
       do
-         -- TODO: reply will help decide if we exit with status 0 or not
+         if expected_port = actual_port then
+            echo.put_line(once "Server #(1) [#(2)]: #(3)" # actual_port.out # command # reply)
+            test_results.at(actual_port).set_reply(reply)
+         else
+            echo.w_put_line(once "**** Error: unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
+         end
+      end
+
+   on_done (expected_port, actual_port, status: INTEGER) is
+      do
+         if expected_port = actual_port then
+            echo.put_line(once "Server #(1): exit #(2)" # actual_port.out # status.out)
+            test_results.at(actual_port).set_done(status)
+         else
+            echo.w_put_line(once "**** Error: unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
+         end
       end
 
 feature {}
@@ -110,7 +138,8 @@ feature {}
                   else
                      logger.put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
                   end
-               else
+               end
+               if not ft.file_exists(bd.last_entry) then
                   create tfw.connect_to(bd.last_entry.intern)
                   if tfw.is_connected then
                      from
@@ -140,6 +169,7 @@ feature {}
                         i := i + 1
                      end
 
+                     tfw.put_line(once "----------------------------------------------------------------")
                      tfw.disconnect
                   end
                end
@@ -203,7 +233,7 @@ feature {}
       end
 
    servers_count: INTEGER
-   servers: AVL_DICTIONARY[EIFFELTEST_CLIENT_SOCKET, INTEGER]
+   test_results: AVL_DICTIONARY[EIFFELTEST_CLIENT_RESULT, INTEGER]
    servers_list: FAST_ARRAY[EIFFELTEST_CLIENT_SOCKET]
 
    work: FAST_ARRAY[FIXED_STRING] is

@@ -3,9 +3,10 @@
 --
 expanded class EIFFELTEST_NETWORK
 
-feature {}
+feature {ANY}
    port: INTEGER
 
+feature {}
    access: like access_ is
       local
          address: IPV4_ADDRESS

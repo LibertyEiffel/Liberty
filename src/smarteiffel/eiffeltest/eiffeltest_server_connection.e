@@ -6,45 +6,36 @@ class EIFFELTEST_SERVER_CONNECTION
 inherit
    JOB
 
+insert
+   GLOBALS
+
 create {ANY}
    make
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         if wait_command then
-            events.expect(stream.event_can_read)
-         else
-            events.expect(stream.event_can_write)
-         end
+         events.expect(stream.event_can_read)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
-         if wait_command then
-            Result := events.event_occurred(stream.event_can_read)
-         else
-            Result := events.event_occurred(stream.event_can_write)
-         end
+         Result := events.event_occurred(stream.event_can_read)
       end
 
    continue is
       do
-         if wait_command then
-            stream.read_line
-            inspect
-               stream.last_string
-            when "disconnect" then
-               stream.disconnect
-               server.disconnect
-            else
-               path := stream.last_string
-            end
-            wait_command := False
+         echo.put_line(once "Server #(1): reading new command" # port.out)
+         stream.read_line
+         echo.put_line(once "Server #(1): received command: #(2)" # port.out # stream.last_string)
+         inspect
+            stream.last_string
+         when "disconnect" then
+            stream.disconnect
+            server.disconnect
          else
-            stream.put_line(once "ack #(1)" # path)
-            on_connect.call([create {EIFFELTEST_SERVER_RUN_TESTS}.make(path, stream, server)])
-            done := True
+            path := stream.last_string.twin
+            on_connect.call([create {EIFFELTEST_SERVER_RUN_TESTS}.make(port, path, stream, server)])
          end
       end
 
@@ -56,28 +47,28 @@ feature {LOOP_ITEM}
       end
 
 feature {}
-   make (a_stream: like stream; a_server: like server; a_on_connect: like on_connect) is
+   make (a_port: like port; a_stream: like stream; a_server: like server; a_on_connect: like on_connect) is
       require
          a_stream.is_connected
          a_server /= Void
       do
+         port := a_port
          stream := a_stream
          server := a_server
          on_connect := a_on_connect
-         wait_command := True
       ensure
+         port = a_port
          stream = a_stream
          server = a_server
          on_connect = a_on_connect
       end
 
+   port: INTEGER
    stream: SOCKET_INPUT_OUTPUT_STREAM
    server: EIFFELTEST_SERVER_SOCKET
    path: STRING
 
    on_connect: PROCEDURE[TUPLE[JOB]]
-
-   wait_command: BOOLEAN
 
 invariant
    stream /= Void
