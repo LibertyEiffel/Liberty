@@ -526,7 +526,8 @@ se c -ensure_check
          log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
          create tfr.connect_to(filepath)
          if tfr.is_connected then
-               create excluded_patterns.make(0)
+            create excluded_patterns.make(0)
+            create excluded_patterns_usage.make(0)
             from
                tfr.read_line
             until
