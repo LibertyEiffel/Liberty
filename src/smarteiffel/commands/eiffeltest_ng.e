@@ -106,6 +106,13 @@ feature {}
 
    file_tools: FILE_TOOLS
 
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+      do
+         check not Result end
+      end
+
+   valid_argument_for_ace_mode: STRING is ""
+
 end -- class EIFFELTEST_NG
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

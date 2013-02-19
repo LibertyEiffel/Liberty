@@ -69,8 +69,6 @@ feature {ANY}
    server_start is
       local
          factory: PROCESS_FACTORY
-         args: FAST_ARRAY[STRING]
-         arg: ABSTRACT_STRING
       do
          factory.set_direct_input(False)
          factory.set_direct_output(False)
@@ -78,9 +76,7 @@ feature {ANY}
 
          proc := factory.execute("se", {FAST_ARRAY[STRING] << "test_server", port.out >> })
 
-         if proc.is_connected then
-            proc.wait
-         end
+         done := not proc.is_connected
       end
 
    add_work (a_command: ABSTRACT_STRING) is
