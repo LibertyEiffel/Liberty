@@ -19,7 +19,7 @@ feature {ANY}
       once
          Result := "Liberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries%N"
          Result.append(release_number)
-         Result.append("[
+         Result.append(once "[
                         Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
                         Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
                         D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN
@@ -29,7 +29,7 @@ feature {ANY}
                         https://github.com/LibertyEiffel/Liberty
 
                         ]")
-         Result.append("                        ")
+         --Result.append("                        ")
       end
 
    release_number: STRING is "Release 2013.02 (LibertyEiffel revival)%N"
