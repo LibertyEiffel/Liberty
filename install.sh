@@ -113,7 +113,7 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest_ng
-test_server: eiffeltets_server
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
