@@ -44,7 +44,9 @@ feature {} -- Open loadpath files
             files.remove_last
          end
          echo.tfr_connect(Result, sp)
-         if not Result.is_connected then
+         if Result.is_connected then
+            connected.put(Result, path)
+         else
             error_handler.append("Unknown loadpath")
             if loadpath /= Void then
                error_handler.append(" in ")
@@ -57,14 +59,14 @@ feature {} -- Open loadpath files
             error_handler.append("%" (resolved as %"")
             error_handler.append(sp)
             error_handler.append("%").")
-            error_handler.print_as_fatal_error
+            error_handler.print_as_warning
+            Result := Void
          end
-         connected.put(Result, path)
       ensure
-         not files.fast_has(Result)
-         Result.is_connected
-         Result.path.same_as(a_system_path)
-         connected.at(path) = Result
+         Result = Void or else not files.fast_has(Result)
+         Result = Void or else Result.is_connected
+         Result = Void or else Result.path.same_as(a_system_path)
+         Result = Void or else connected.at(path) = Result
       end
 
    disconnect (in: TEXT_FILE_READ) is
@@ -164,82 +166,85 @@ feature {}
          classes: CLASSES; sp, cp: STRING; ft: FILE_TOOLS
       do
          tfr := connect(loadpath_file, loadpath)
-         from
-            i := 1
-         until
-            tfr.end_of_input
-         loop
-            tfr.read_line
-            if not tfr.last_string.is_empty then
-               entry := once ""
-               entry.copy(tfr.last_string)
-               system_tools.environment_variable_substitution(path, entry)
-               if system_notation.is_absolute_path(entry) and then ft.file_exists(entry) then
-                  sp := string_aliaser.string(entry)
-                  cp := string_aliaser.string(system_path_to_classes_path(entry))
-               end
-               if sp = Void and then classes_notation.is_absolute_path(entry) then
-                  sp := classes_path_to_system_path(entry)
-                  if ft.file_exists(sp) then
-                     sp := string_aliaser.string(sp)
-                     cp := string_aliaser.string(entry)
-                  else
-                     sp := Void
-                  end
-               end
-               if sp = Void then
-                  system_entry := strings.new_twin(entry)
-                  system_notation.from_notation(classes_notation, system_entry)
-                  if a_system_path = Void then
-                     a_system_path := strings.new_twin(loadpath_file)
-                     system_notation.to_parent_directory(a_system_path)
-                  end
-                  sp := new_path(system_notation, a_system_path, system_entry)
-                  if ft.file_exists(sp) then
-                     cp := new_path(classes_notation, a_path, entry)
-                  else
-                     sp := Void
-                  end
-                  strings.recycle(system_entry)
-               end
-               if sp = Void then
+         if tfr /= Void then
+            from
+               i := 1
+            until
+               tfr.end_of_input
+            loop
+               tfr.read_line
+               if not tfr.last_string.is_empty then
+                  entry := once ""
                   entry.copy(tfr.last_string)
-                  sp := classes_path_to_system_path(entry)
-                  system_tools.environment_variable_substitution(path, sp)
-                  if system_notation.is_absolute_path(sp) and then ft.file_exists(sp) then
-                     sp := string_aliaser.string(sp)
-                     cp := string_aliaser.string(system_path_to_classes_path(sp))
+                  system_tools.environment_variable_substitution(path, entry)
+                  if system_notation.is_absolute_path(entry) and then ft.file_exists(entry) then
+                     sp := string_aliaser.string(entry)
+                     cp := string_aliaser.string(system_path_to_classes_path(entry))
+                  end
+                  if sp = Void and then classes_notation.is_absolute_path(entry) then
+                     sp := classes_path_to_system_path(entry)
+                     if ft.file_exists(sp) then
+                        sp := string_aliaser.string(sp)
+                        cp := string_aliaser.string(entry)
+                     else
+                        sp := Void
+                     end
+                  end
+                  if sp = Void then
+                     system_entry := strings.new_twin(entry)
+                     system_notation.from_notation(classes_notation, system_entry)
+                     if a_system_path = Void then
+                        a_system_path := strings.new_twin(loadpath_file)
+                        system_notation.to_parent_directory(a_system_path)
+                     end
+                     sp := new_path(system_notation, a_system_path, system_entry)
+                     if ft.file_exists(sp) then
+                        cp := new_path(classes_notation, a_path, entry)
+                     else
+                        sp := Void
+                     end
+                     strings.recycle(system_entry)
+                  end
+                  if sp = Void then
+                     entry.copy(tfr.last_string)
+                     sp := classes_path_to_system_path(entry)
+                     system_tools.environment_variable_substitution(path, sp)
+                     if system_notation.is_absolute_path(sp) and then ft.file_exists(sp) then
+                        sp := string_aliaser.string(sp)
+                        cp := string_aliaser.string(system_path_to_classes_path(sp))
+                     else
+                        sp := Void
+                     end
+                  end
+                  if sp = Void then
+                     error_handler.append("Unknown loadpath in ")
+                     error_handler.append(path)
+                     error_handler.append(": %"")
+                     error_handler.append(tfr.last_string)
+                     error_handler.append("%".")
+                     error_handler.print_as_warning
                   else
-                     sp := Void
+                     check
+                        cp /= Void
+                        sp /= Void
+                     end
+                     classes := factory.classes(1, sp, cp, new_name(entry, i), Current, discard_silently)
+                     if classes /= Void and then classes.parent = Void then
+                        add_classes(classes)
+                     end
                   end
                end
-               if sp = Void then
-                  error_handler.append("Unknown loadpath in ")
-                  error_handler.append(path)
-                  error_handler.append(": %"")
-                  error_handler.append(tfr.last_string)
-                  error_handler.append("%".")
-                  error_handler.print_as_fatal_error
-               end
-               check
-                  cp /= Void
-                  sp /= Void
-               end
-               classes := factory.classes(1, sp, cp, new_name(entry, i), Current, discard_silently)
-               if classes /= Void and then classes.parent = Void then
-                  add_classes(classes)
-               end
+               sp := Void
+               cp := Void
+               i := i + 1
             end
-            sp := Void
-            cp := Void
-            i := i + 1
-         end
-         tfr.disconnect
-         if classeses.is_empty and then not discard_silently then
-            error_handler.append(once "Empty loadpath: %"")
-            error_handler.append(path)
-            error_handler.append("%".")
-            error_handler.print_as_warning
+            tfr.disconnect
+            if classeses.is_empty and then not discard_silently then
+               error_handler.append(once "Empty loadpath: %"")
+               error_handler.append(path)
+               error_handler.append("%".")
+               error_handler.print_as_warning
+            end
          end
          if a_system_path /= Void then
             strings.recycle(a_system_path)
