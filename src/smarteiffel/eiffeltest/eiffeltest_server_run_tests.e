@@ -33,6 +33,7 @@ feature {LOOP_ITEM}
             bd.change_current_working_directory(path)
             test_file := good_tests.first
             good_tests.remove_first
+            echo.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
             check_good_test(test_file)
             if good_tests.is_empty then
                log.put_line(once "----------------------------------------------------------------")
@@ -40,11 +41,13 @@ feature {LOOP_ITEM}
          elseif not bad_tests.is_empty then
             test_file := bad_tests.first
             bad_tests.remove_first
+            echo.put_line(once "Server #(1): testing 'bad test' #(2)" # port.out # test_file)
             check_bad_test(test_file)
             if bad_tests.is_empty then
                log.put_line(once "----------------------------------------------------------------")
             end
          else
+            echo.put_line(once "Server #(1): disconnecting" # port.out)
             disconnect
          end
       end
@@ -411,6 +414,7 @@ feature {}
             log.disconnect
          end
          stream.put_line(once "status #(1) #(2)" # status.out # path)
+         stream.flush
          stream.disconnect
       ensure
          done
