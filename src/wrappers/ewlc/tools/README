@@ -1,0 +1,8 @@
+Requirements
+SmartEiffel release 2.4 or a snapshot more recent than 9297
+
+TODO:
+Wrap typedefs of standard types, like "typedef gsize".
+
+Add "--skipfile a_file" containing the declarations - functions, structures,
+typedefs, enumerations - that will not be wrapped.
