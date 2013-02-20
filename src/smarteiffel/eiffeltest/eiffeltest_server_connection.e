@@ -15,12 +15,14 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
+         echo.put_line(once "Server #(1): prepare connection" # port.out)
          events.expect(stream.event_can_read)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
          Result := events.event_occurred(stream.event_can_read)
+         echo.put_line(once "Server #(1): is_ready connection: #(2)" # port.out # Result.out)
       end
 
    continue is
@@ -39,7 +41,11 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN
+   done: BOOLEAN is
+      do
+         Result := path /= Void
+         echo.put_line(once "Server #(1): connection done: #(2)" # port.out # Result.out)
+      end
 
    restart is
       do

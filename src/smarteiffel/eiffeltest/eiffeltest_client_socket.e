@@ -22,48 +22,75 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
+         echo.put_line(once "Facade #(1): prepare (starting: #(2) -- busy: #(3))" # port.out # starting.out # busy.out)
          if starting then
-            starting_timeout := t.timeout(500)
-            events.expect(starting_timeout)
-         elseif busy then
-            events.expect(channel.event_can_read)
+            timeout := t.timeout(500)
+            events.expect(timeout)
          else
-            events.expect(channel.event_can_write)
+            timeout := t.timeout(5000)
+            events.expect(timeout)
+            if busy then
+               events.expect(channel.event_can_read)
+            else
+               events.expect(channel.event_can_write)
+            end
          end
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
          if starting then
-            Result := events.event_occurred(starting_timeout)
+            Result := events.event_occurred(timeout)
+            echo.put_line(once "Facade #(1): starting (timeout: #(2))" # port.out # Result.out)
+         elseif events.event_occurred(timeout) then
+            Result := True
+            echo.put_line(once "Facade #(1): timeout (connected: #(2))" # port.out # channel.is_connected.out)
          elseif busy then
             Result := events.event_occurred(channel.event_can_read)
+            echo.put_line(once "Facade #(1): can read: #(2)" # port.out # Result.out)
          else
             Result := events.event_occurred(channel.event_can_write)
+            echo.put_line(once "Facade #(1): can write: #(2)" # port.out # Result.out)
          end
+         echo.put_line(once " => Facade #(1): is_ready: #(2)" # port.out # Result.out)
       end
 
    continue is
       do
          if starting then
-            if server_running then
+            if channel = Void then
+               open_channel
+            elseif server_running then
                starting := False
-               echo.put_line(once "Server #(1) running" # port.out)
+               echo.put_line(once "Facade #(1): server is running" # port.out)
+            else
+               echo.put_line(once "Facade #(1): server still starting" # port.out)
             end
          elseif busy then
-            channel.read_line_in(reply)
+            echo.put_line(once "Facade #(1): busy" # port.out)
             if channel.is_connected then
+               channel.read_line_in(reply)
+            end
+            if channel.is_connected then
+               echo.put_line(once "Facade #(1): busy -- read full line" # port.out)
                reply.extend('%N')
             else
+               echo.put_line(once "Facade #(1): full reply [#(2)] received:%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%N#(2)%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" # port.out # command # reply)
                on_reply.call([port, command, reply])
                reply := Void
                command := Void
+               channel.disconnect
+               if not commands.is_empty then
+                  open_channel
+               end
             end
          elseif commands.is_empty then
+            echo.put_line(once "Facade #(1): no more commands" # port.out)
             set_done(0)
          else
             command := commands.first
             commands.remove_first
+            echo.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
             reply := ""
             channel.put_line(command)
             channel.flush
@@ -87,6 +114,7 @@ feature {ANY}
       require
          not a_command.is_empty
       do
+         echo.put_line(once "Facade #(1): queueing command: #(2)" # port.out # a_command)
          commands.add_last(a_command.intern)
       end
 
@@ -129,9 +157,10 @@ feature {}
          if not starting then
             set_done(-1)
          end
+         echo.put_line(once "Facade #(1): server starting" # port.out)
       end
 
-   starting_timeout: EVENT_DESCRIPTOR
+   timeout: EVENT_DESCRIPTOR
    command: FIXED_STRING
    reply: STRING
 
@@ -140,26 +169,24 @@ feature {}
    on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
    on_done: PROCEDURE[TUPLE[INTEGER, INTEGER]]
 
-   channel: like channel_memory is
+   open_channel is
+      require
+         channel = Void or else not channel.is_connected
       do
+         echo.put_line(once "Facade #(1): opening channel" # port.out)
          if proc = Void then
-            channel_memory := Void
-            echo.w_put_line(once "**** Server process #(1) not started" # port.out)
+            echo.w_put_line(once "**** Facade #(1): server not started" # port.out)
             set_done(-1)
          elseif proc.is_finished then
-            channel_memory := Void
-            echo.w_put_line(once "**** Server process #(1) exited with status #(2)" # port.out # proc.status.out)
+            echo.w_put_line(once "**** Facade #(1): server exited with status #(2)" # port.out # proc.status.out)
             set_done(proc.status)
          else
-            Result := channel_memory
-            if Result = Void or else not Result.is_connected then
-               Result := access.stream
-               channel_memory := Result
-            end
+            channel := access.stream
+            echo.put_line(once "Facade #(1): channel open: #(2)" # port.out # channel.is_connected.out)
          end
       end
 
-   channel_memory: SOCKET_INPUT_OUTPUT_STREAM
+   channel: SOCKET_INPUT_OUTPUT_STREAM
 
    starting: BOOLEAN
 
@@ -172,7 +199,9 @@ feature {}
 
    set_done (status: INTEGER) is
       do
+         echo.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
          on_done.call([port, status])
+         echo.put_line(once "Facade #(1): finished" # port.out)
       end
 
 invariant

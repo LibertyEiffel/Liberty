@@ -16,6 +16,7 @@ feature {}
             create address.make(127,0,0,1)
             create Result.make(address, port, True)
             access_ := Result
+            access_.set_address_reuse(True)
          end
       end
 

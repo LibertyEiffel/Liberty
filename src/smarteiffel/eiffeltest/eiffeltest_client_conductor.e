@@ -23,8 +23,6 @@ feature {ANY}
                servers_count := work.count
             end
 
-            servers_count := 1 --| **** TODO: remove
-
             start_servers
             distribute_work
             stack.run
