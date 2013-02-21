@@ -41,7 +41,7 @@ feature {}
 			-- database and recycling the wrapper. Paolo 2008-08-96
 		end
 
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"

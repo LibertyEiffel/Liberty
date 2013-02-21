@@ -1,2 +1,0 @@
-[UNIX]
-sqlite: "$(pkg-config --libs sqlite3)"

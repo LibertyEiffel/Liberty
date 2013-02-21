@@ -14,8 +14,8 @@ feature -- Result codes
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_OK"
 			}"
 		end
@@ -24,8 +24,8 @@ feature -- Result codes
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_ERROR"
 			}"
 		end
@@ -34,8 +34,8 @@ feature -- Result codes
 			-- An internal logic error in SQLite 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_INTERNAL"
 			}"
 		end
@@ -44,8 +44,8 @@ feature -- Result codes
 			-- Access permission denied 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_PERM"
 			}"
 		end
@@ -54,8 +54,8 @@ feature -- Result codes
 			-- Callback routine requested an abort 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_ABORT"
 			}"
 		end
@@ -64,8 +64,8 @@ feature -- Result codes
 			-- The database file is locked 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_BUSY"
 			}"
 		end
@@ -74,8 +74,8 @@ feature -- Result codes
 			-- A table in the database is locked 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_LOCKED"
 			}"
 		end
@@ -84,8 +84,8 @@ feature -- Result codes
 			-- A malloc() failed 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_NOMEM"
 			}"
 		end
@@ -94,8 +94,8 @@ feature -- Result codes
 			-- Attempt to write a readonly database 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_READONLY"
 			}"
 		end
@@ -104,8 +104,8 @@ feature -- Result codes
 			-- Operation terminated by sqlite_interrupt() 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_INTERRUPT"
 			}"
 		end
@@ -114,8 +114,8 @@ feature -- Result codes
 			-- Some kind of disk I/O error occurred 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_IOERR"
 			}"
 		end
@@ -124,8 +124,8 @@ feature -- Result codes
 			-- The database disk image is malformed 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CORRUPT"
 			}"
 		end
@@ -134,8 +134,8 @@ feature -- Result codes
 			-- (Internal Only) Table or record not found 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_NOTFOUND"
 			}"
 		end
@@ -144,8 +144,8 @@ feature -- Result codes
 			-- Insertion failed because database is full 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_FULL"
 			}"
 		end
@@ -154,8 +154,8 @@ feature -- Result codes
 			-- Unable to open the database file 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CANTOPEN"
 			}"
 		end
@@ -164,8 +164,8 @@ feature -- Result codes
 			-- Database lock protocol error 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_PROTOCOL"
 			}"
 		end
@@ -174,8 +174,8 @@ feature -- Result codes
 			-- (Internal Only) Database table is empty 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_EMPTY"
 			}"
 		end
@@ -184,8 +184,8 @@ feature -- Result codes
 			-- The database schema changed 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_SCHEMA"
 			}"
 		end
@@ -194,8 +194,8 @@ feature -- Result codes
 			-- Too much data for one row of a table 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_TOOBIG"
 			}"
 		end
@@ -204,8 +204,8 @@ feature -- Result codes
 			-- Abort due to constraint violation 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CONSTRAINT"
 			}"
 		end
@@ -214,8 +214,8 @@ feature -- Result codes
 			-- Data type mismatch 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_MISMATCH"
 			}"
 		end
@@ -224,8 +224,8 @@ feature -- Result codes
 			-- Library used incorrectly 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_MISUSE"
 			}"
 		end
@@ -234,8 +234,8 @@ feature -- Result codes
 			-- Uses OS features not supported on host 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_NOLFS"
 			}"
 		end
@@ -244,8 +244,8 @@ feature -- Result codes
 			-- Authorization denied 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_AUTH"
 			}"
 		end
@@ -254,8 +254,8 @@ feature -- Result codes
 			-- sqlite_step() has another row ready 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_ROW"
 			}"
 		end
@@ -264,8 +264,8 @@ feature -- Result codes
 			-- sqlite_step() has finished executing 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DONE"
 			}"
 		end

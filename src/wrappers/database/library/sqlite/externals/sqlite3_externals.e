@@ -24,8 +24,8 @@ feature {} -- External calls
 			-- The buffer allocated is freed automatically by SQLite.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_aggregate_context"
 			}"
 		end
@@ -37,8 +37,8 @@ feature {} -- External calls
 			-- to xStep counts so this routine always returns at least 1.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_aggregate_count"
 			}"
 		end
@@ -53,8 +53,8 @@ feature {} -- External calls
 							  a_value: REAL): INTEGER is 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_double"
 			}"
 		end
@@ -64,8 +64,8 @@ feature {} -- External calls
 							a_value: INTEGER): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_int"
 			}"
 		end
@@ -75,8 +75,8 @@ feature {} -- External calls
 							 a_value: INTEGER_64): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_int64"
 			}"
 		end
@@ -84,8 +84,8 @@ feature {} -- External calls
 	sqlite3_bind_null(a_statement: POINTER; an_index: INTEGER): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite_bind_null"
 			}"
 		end
@@ -98,8 +98,8 @@ feature {} -- External calls
 							): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_text"
 			}"
 		end
@@ -112,8 +112,8 @@ feature {} -- External calls
 								): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_text16"
 			}"
 		end
@@ -122,8 +122,8 @@ feature {} -- External calls
 			-- #define SQLITE_STATIC ((void(*)(void *))0)
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_STATIC"
 			}"
 		end
@@ -132,8 +132,8 @@ feature {} -- External calls
 			-- #define SQLITE_TRANSIENT ((void(*)(void *))-1)
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_TRANSIENT"
 			}"
 		end
@@ -180,8 +180,8 @@ feature {} -- External calls
 			-- statement given as the argument.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_parameter_count"
 			}"
 		end
@@ -195,8 +195,8 @@ feature {} -- External calls
 			-- UTF-8 encoding.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_parameter_index"
 			}"
 		end
@@ -213,8 +213,8 @@ feature {} -- External calls
 			-- always in the UTF-8 encoding.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_bind_parameter_name"
 			}"
 		end
@@ -257,7 +257,7 @@ feature {} -- External calls
 	-- 		external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -275,7 +275,7 @@ feature {} -- External calls
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
+			module_name: "plugin"
 			feature_name: "sqlite3_busy_timeout"
 			}"
 		end
@@ -305,8 +305,8 @@ feature {} -- External calls
 			-- rows deleted, use "DELETE FROM table WHERE 1" instead.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_changes"
 			}"
 		end
@@ -316,8 +316,8 @@ feature {} -- External calls
 			-- to NULL.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_clear_bindings"
 			}"
 		end
@@ -336,8 +336,8 @@ feature {} -- External calls
 			-- closed previously.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_close"
 			}"
 		end
@@ -380,7 +380,7 @@ feature {} -- External calls
 	-- 		external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -390,8 +390,8 @@ feature {} -- External calls
 	sqlite3_column_blob (a_statement: POINTER; a_column: INTEGER): POINTER is -- const void*
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_blob"
 			}"
 		end
@@ -399,8 +399,8 @@ feature {} -- External calls
 	sqlite3_column_bytes (a_statement: POINTER; a_column: INTEGER): INTEGER is 
 		external "plug_in" 
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_bytes"
 			}"
 		end
@@ -408,8 +408,8 @@ feature {} -- External calls
 	sqlite3_column_bytes16 (a_statement: POINTER; a_column: INTEGER): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_bytes16"
 			}"
 		end
@@ -417,8 +417,8 @@ feature {} -- External calls
 	sqlite3_column_double (a_statement: POINTER; a_column: INTEGER): REAL is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_double"
 			}"
 		end
@@ -426,8 +426,8 @@ feature {} -- External calls
 	sqlite3_column_int (a_statement: POINTER; a_column: INTEGER): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_int"
 			}"
 		end
@@ -435,8 +435,8 @@ feature {} -- External calls
 	sqlite3_column_int64 (a_statement: POINTER; a_column: INTEGER): INTEGER_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_int64"
 			}"
 		end
@@ -444,8 +444,8 @@ feature {} -- External calls
 	sqlite3_column_text (a_statement: POINTER; a_column: INTEGER): POINTER is -- const unsigned char*
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_text"
 			}"
 		end
@@ -453,8 +453,8 @@ feature {} -- External calls
 	sqlite3_column_text16 (a_statement: POINTER; a_column: INTEGER): POINTER is -- const void*
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_text16"
 			}"
 		end
@@ -462,8 +462,8 @@ feature {} -- External calls
 	sqlite3_column_type (a_statement: POINTER; a_column: INTEGER): INTEGER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_type"
 			}"
 		end
@@ -546,8 +546,8 @@ feature {} -- external calls
 			-- See also sqlite3_data_count().
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_count"
 			}"
 		end
@@ -573,8 +573,8 @@ feature {} -- external calls
 			-- the first result column (i==0).
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_decltype"
 			}"
 		end
@@ -600,8 +600,8 @@ feature {} -- external calls
 			-- the first result column (i==0).
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_decltype16"
 			}"
 		end
@@ -614,8 +614,8 @@ feature {} -- external calls
 			-- argument. The string returned is UTF-8.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_column_name"
 			}"
 		end
@@ -627,8 +627,8 @@ feature {} -- external calls
 			-- argument. The string returned is UTF-16.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: ""
 			}"
 		end
@@ -658,8 +658,8 @@ feature {} -- external calls
 			-- argument must be a nul-terminated UTF-8.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_complete"
 			}"
 		end
@@ -671,8 +671,8 @@ feature {} -- external calls
 			-- argument must be a nul-terminated UTF-16.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_complete16"
 			}"
 		end
@@ -689,7 +689,7 @@ feature {} -- external calls
 	-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -703,7 +703,7 @@ feature {} -- external calls
 	-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -711,7 +711,7 @@ feature {} -- external calls
 	-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -719,7 +719,7 @@ feature {} -- external calls
 	-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -727,7 +727,7 @@ feature {} -- external calls
 		-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -735,7 +735,7 @@ feature {} -- external calls
 	-- external "plug_in"
 	-- 		alias "{
 	-- 			location: "${eiffel_libraries}plugins"
-	-- 			module_name: "sqlite3"
+	-- 			module_name: "plugin"
 	-- 			feature_name: ""
 	-- 			}"
 	-- 		end
@@ -853,8 +853,8 @@ feature {} -- external calls
 			-- statement, this routine returns zero.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_data_count"
 			}"
 		end
@@ -871,7 +871,7 @@ feature {} -- external calls
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
+			module_name: "plugin"
 			feature_name: "sqlite3_db_handle"
 			}"
 		end
@@ -898,8 +898,8 @@ feature {} -- external calls
 			-- sqlite3_errmsg() and sqlite3_errmsg16().
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_errcode"
 			}"
 		end
@@ -914,8 +914,8 @@ feature {} -- external calls
 			-- API call was successful.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_errmsg"
 			}"
 		end
@@ -930,8 +930,8 @@ feature {} -- external calls
 			-- API call was successful.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_errmsg16"
 			}"
 		end
@@ -985,8 +985,8 @@ feature {} -- external calls
 			-- functions.)
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_exec"
 			}"
 		end
@@ -1001,8 +1001,8 @@ feature {} -- external calls
 			-- added or changed.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_expired"
 			}"
 		end
@@ -1029,8 +1029,8 @@ feature {} -- external calls
 			-- SQLITE_ABORT.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_finalize"
 			}"
 		end
@@ -1040,8 +1040,8 @@ feature {} -- external calls
 			-- sqlite3_mprintf() or sqlite3_vmprintf().
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_free"
 			}"
 		end
@@ -1097,8 +1097,8 @@ feature {} -- external calls
 			-- sqlite3_exec().
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_get_table"
 			}"
 		end
@@ -1108,8 +1108,8 @@ feature {} -- external calls
 							 ) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_free_table"
 			}"
 		end
@@ -1123,8 +1123,8 @@ feature {} -- external calls
 			-- COMMIT or ROLLBACK.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_get_autocommit"
 			}"
 		end
@@ -1152,8 +1152,8 @@ feature {} -- external calls
 			-- the SQLITE_OMIT_GLOBALRECOVER at compile time.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_global_recovery"
 			}"
 		end
@@ -1166,8 +1166,8 @@ feature {} -- external calls
 			-- query operation to halt immediately.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_interrupt"
 			}"
 		end
@@ -1184,8 +1184,8 @@ feature {} -- external calls
 			-- from MySQL.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: ""
 			}"
 		end
@@ -1201,8 +1201,8 @@ feature {} -- external calls
 			-- "sqlite3_version".
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_version"
 			}"
 		end
@@ -1283,8 +1283,8 @@ feature {} -- external calls
 			-- locks.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_open"
 			}"
 		end
@@ -1316,8 +1316,8 @@ feature {} -- external calls
 		-- implementations interact with file locks.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_open16"
 			}"
 		end
@@ -1359,8 +1359,8 @@ feature {} -- external calls
 			-- is returned.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "se_sqlite3_prepare"
 			}"
 		end
@@ -1402,8 +1402,8 @@ feature {} -- external calls
 			-- is returned.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_prepare16"
 			}"
 		end
@@ -1448,8 +1448,8 @@ feature {} -- external calls
 			-- sqlite3_bind_*() API retain their values.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_reset"
 			}"
 		end
@@ -1458,8 +1458,8 @@ feature {} -- external calls
 			-- a_callback is a void(*)(void*) 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_result_blob"
 			}"
 		end
@@ -1467,8 +1467,8 @@ feature {} -- external calls
 	sqlite3_result_double(a_context: POINTER; a_result: REAL) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_result_double"
 			}"
 		end
@@ -1504,8 +1504,8 @@ feature {} -- external calls
 			-- Index Name Table Name 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_INDEX"
 			}"
 		end
@@ -1514,8 +1514,8 @@ feature {} -- external calls
 			-- 2  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TABLE"
 			}"
 		end
@@ -1524,8 +1524,8 @@ feature {} -- external calls
 			-- 3  Index Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TEMP_INDEX"
 			}"
 		end
@@ -1534,8 +1534,8 @@ feature {} -- external calls
 			-- 4  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TEMP_TABLE"
 			}"
 		end
@@ -1544,8 +1544,8 @@ feature {} -- external calls
 			-- 5  Trigger Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TEMP_TRIGGER"
 			}"
 		end
@@ -1554,8 +1554,8 @@ feature {} -- external calls
 			-- 6  View Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TEMP_VIEW"
 			}"
 		end
@@ -1564,8 +1564,8 @@ feature {} -- external calls
 			-- 7  Trigger Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_TRIGGER"
 			}"
 		end
@@ -1574,8 +1574,8 @@ feature {} -- external calls
 			-- 8  View Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_CREATE_VIEW"
 			}"
 		end
@@ -1584,8 +1584,8 @@ feature {} -- external calls
 			-- 9  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DELETE"
 			}"
 		end
@@ -1594,8 +1594,8 @@ feature {} -- external calls
 			-- 10  Index Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_INDEX"
 			}"
 		end
@@ -1604,8 +1604,8 @@ feature {} -- external calls
 			-- 11  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TABLE"
 			}"
 		end
@@ -1614,8 +1614,8 @@ feature {} -- external calls
 			-- 12  Index Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TEMP_INDEX"
 			}"
 		end
@@ -1624,8 +1624,8 @@ feature {} -- external calls
 			-- 13  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TEMP_TABLE"
 			}"
 		end
@@ -1634,8 +1634,8 @@ feature {} -- external calls
 			-- 14  Trigger Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TEMP_TRIGGER"
 			}"
 		end
@@ -1644,8 +1644,8 @@ feature {} -- external calls
 			-- 15  View Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TEMP_VIEW"
 			}"
 		end
@@ -1654,8 +1654,8 @@ feature {} -- external calls
 			-- 16  Trigger Name Table Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_TRIGGER"
 			}"
 		end
@@ -1664,8 +1664,8 @@ feature {} -- external calls
 			-- 17  View Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DROP_VIEW"
 			}"
 		end
@@ -1674,8 +1674,8 @@ feature {} -- external calls
 			-- 18  Table Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_INSERT"
 			}"
 		end
@@ -1684,8 +1684,8 @@ feature {} -- external calls
 			-- 19  Pragma Name 1st arg or NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_PRAGMA"
 			}"
 		end
@@ -1694,8 +1694,8 @@ feature {} -- external calls
 			-- 20  Table Name Column Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_READ"
 			}"
 		end
@@ -1704,8 +1704,8 @@ feature {} -- external calls
 			-- 21  NULL NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_SELECT"
 			}"
 		end
@@ -1714,8 +1714,8 @@ feature {} -- external calls
 			-- 22  NULL NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_TRANSACTION"
 			}"
 		end
@@ -1724,8 +1724,8 @@ feature {} -- external calls
 			-- 23  Table Name Column Name  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_UPDATE"
 			}"
 		end
@@ -1734,8 +1734,8 @@ feature {} -- external calls
 			-- 24  Filename NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_ATTACH"
 			}"
 		end
@@ -1744,8 +1744,8 @@ feature {} -- external calls
 			-- 25  Database Name NULL  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DETACH"
 			}"
 		end
@@ -1754,8 +1754,8 @@ feature {} -- external calls
 			-- 1  Abort the SQL statement with an error  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_DENY"
 			}"
 		end
@@ -1764,8 +1764,8 @@ feature {} -- external calls
 			-- 2  Don't allow access, but don't generate an error  
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_IGNORE"
 			}"
 		end
@@ -1808,8 +1808,8 @@ feature {} -- external calls
 			-- system is returned.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_sleep"
 			}"
 		end
@@ -1855,8 +1855,8 @@ feature {} -- external calls
 			-- by a different thread than the one it was created it.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_step"
 			}"
 		end
@@ -1885,8 +1885,8 @@ feature {} -- external calls
 			-- rows deleted, use "DELETE FROM table WHERE 1" instead.
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "sqlite3_total_changes"
 			}"
 		end

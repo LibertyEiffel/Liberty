@@ -31,7 +31,7 @@ insert
 		end
 	
 feature -- size
-	struct_size: INTEGER is
+	struct_size: like size_t is
 		external "C inline "
 		alias "sizeof(sqlite3_stmt)"
 		end

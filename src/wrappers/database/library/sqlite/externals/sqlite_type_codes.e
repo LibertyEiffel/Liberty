@@ -12,8 +12,8 @@ feature -- Type codes
 			-- #define SQLITE_INTEGER 1
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_INTEGER"
 			}"
 		end
@@ -22,8 +22,8 @@ feature -- Type codes
 			-- #define SQLITE_FLOAT 2
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_FLOAT"
 			}"
 		end
@@ -32,8 +32,8 @@ feature -- Type codes
 			-- #define SQLITE_TEXT 3
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_TEXT"
 			}"
 		end
@@ -42,8 +42,8 @@ feature -- Type codes
 			-- #define SQLITE_BLOB 4
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_BLOB"
 			}"
 		end
@@ -52,8 +52,8 @@ feature -- Type codes
 			-- #define SQLITE_NULL 5
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "sqlite3"
+			location: "."
+			module_name: "plugin"
 			feature_name: "SQLITE_NULL"
 			}"
 		end
