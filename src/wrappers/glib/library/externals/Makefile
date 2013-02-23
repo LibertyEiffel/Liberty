@@ -6,5 +6,5 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER) $(HEADERS)
-	gccxml `pkg-config --cflags glib-2.0` $(HEADER) -fxml=$(XML)
+	gccxml -DGLIB_DISABLE_DEPRECATION_WARNINGS `pkg-config --cflags glib-2.0` $(HEADER) -fxml=$(XML)
 
