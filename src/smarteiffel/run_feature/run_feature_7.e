@@ -55,53 +55,6 @@ feature {ANY}
       do
       end
 
-feature {NATIVE}
-   jvm_opening is
-      do
-         method_info_start
-         jvm_define_opening
-      end
-
-   jvm_closing is
-      do
-         jvm_define_closing
-         code_attribute.opcode_return
-         method_info.finish
-      end
-
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_add_method_for_procedure(Current, bcn, bf.first_name.to_string)
-      end
-
-feature {ANY}
-   mapping_jvm is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_mapping_procedure(Current, bcn, bf.first_name.to_string)
-      end
-
-feature {JVM}
-   jvm_define is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_define_procedure(Current, bcn, bf.first_name.to_string)
-      end
-
 feature {}
    do_adapt is
       local
@@ -142,11 +95,6 @@ feature {}
          else
             std_compute_use_current
          end
-      end
-
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
       end
 
 end -- class RUN_FEATURE_7

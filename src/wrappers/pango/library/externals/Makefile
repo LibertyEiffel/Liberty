@@ -6,5 +6,5 @@ wrappers: $(XML)
 	wrappers-generator  --local --directory . $(XML) $(HEADERS)
 
 $(XML): $(HEADERS)
-	gccxml `pkg-config --cflags-only-I pango` $(HEADER) -fxml=$(XML)
+	gccxml -DGLIB_DISABLE_DEPRECATION_WARNINGS `pkg-config --cflags-only-I pango` $(HEADER) -fxml=$(XML)
 

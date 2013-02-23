@@ -111,11 +111,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {ANONYMOUS_FEATURE, CODE, INTROSPECTION_HANDLER}
    simplify (type: TYPE): INSTRUCTION is
       local

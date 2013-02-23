@@ -22,17 +22,17 @@ feature {ANY}
          Result.append("[
                         Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
                         Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
-                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN - liberty-eiffel.blogspot.com
-                        http://liberty-eiffel.blogspot.com
+                        D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER F.MERIZEN
 
-                        Copyright (C), 2011 - C.ADRIAN - cyril.adrian@gmail.com
+                        Copyright (C), 2011-2013 - C.ADRIAN
+                        http://liberty-eiffel.blogspot.com
                         https://github.com/LibertyEiffel/Liberty
 
                         ]")
          Result.append("                        ")
       end
 
-   release_number: STRING is "Release 2011.07 (LibertyEiffel revival)%N"
+   release_number: STRING is "Release 2013.02 (LibertyEiffel revival)%N"
 
    status: STATUS is
       once
@@ -752,8 +752,10 @@ feature {}
          lock_type_creation(static_type.long_name)
          not has_type(static_type)
       do
-         echo.put_string(once "Creating type: ")
-         echo.put_line(static_type.long_name.to_string)
+         debug
+            echo.put_string(once "Creating type: ")
+            echo.put_line(static_type.long_name.to_string)
+         end
          create Result.make(static_type)
       ensure
          Result /= Void

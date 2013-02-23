@@ -53,11 +53,6 @@ feature {ANY}
          end
       end
 
-   mapping_jvm is
-      do
-         routine_mapping_jvm
-      end
-
 feature {C_PRETTY_PRINTER}
    set_is_root: BOOLEAN is
          -- This function is called via a require. This way, no extra memory is used for a production
@@ -134,11 +129,6 @@ feature {RUN_FEATURE_3}
          Result := rb = Void or else rb.side_effect_free(type_of_current)
       end
 
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
-      end
-
 feature {LIVE_TYPE}
    memory_dispose: like Current is
          -- Non Void when there is actually a non-empty `dispose' feature to call.
@@ -146,26 +136,6 @@ feature {LIVE_TYPE}
          if not smart_eiffel.is_ready or else not is_empty_or_null_body then
             Result := Current
          end
-      end
-
-   jvm_field_or_method is
-      do
-         jvm.add_method(Current)
-      end
-
-feature {JVM}
-   jvm_define is
-      do
-         method_info_start
-         jvm_define_opening
-         jvm_increment_invariant_flag
-         if routine_body /= Void then
-            routine_body.compile_to_jvm(type_of_current)
-         end
-         jvm_decrement_invariant_flag
-         jvm_define_closing
-         code_attribute.opcode_return
-         method_info.finish
       end
 
 feature {RUN_FEATURE_3_VISITOR}

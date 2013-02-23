@@ -50,11 +50,6 @@ feature {ANY}
          Result := is_precomputable_once
       end
 
-   mapping_jvm is
-      do
-         routine_mapping_jvm
-      end
-
 feature {}
    do_adapt is
       local
@@ -102,43 +97,6 @@ feature {}
          result_type /= Void
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-         jvm.add_method(Current)
-      end
-
-feature {JVM}
-   jvm_define is
-      local
-         branch, idx_flag: INTEGER; ca: like code_attribute
-         pco : BOOLEAN
-      do
-         pco := is_precomputable_once
-         if not pco then
-            ca := code_attribute
-            idx_flag := once_routine_pool.idx_fieldref_for_flag(Current)
-         end
-         method_info_start
-         if not pco then
-            ca.opcode_getstatic(idx_flag, 1)
-            branch := ca.opcode_ifne
-            ca.opcode_iconst_1
-            ca.opcode_putstatic(idx_flag, -1)
-            jvm_define_opening
-            jvm_increment_invariant_flag
-            if routine_body /= Void then
-               routine_body.compile_to_jvm(type_of_current)
-            end
-            jvm_decrement_invariant_flag
-            jvm_define_closing
-            ca.resolve_u2_branch(branch)
-         end
-         once_routine_pool.jvm_result_load(type_of_current, base_feature)
-         result_type.jvm_return_code
-         method_info.finish
-      end
-
 feature {}
    compute_use_current is
       do
@@ -151,11 +109,6 @@ feature {}
          else
             std_compute_use_current
          end
-      end
-
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
       end
 
 end -- class RUN_FEATURE_6

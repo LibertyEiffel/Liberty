@@ -29,6 +29,16 @@ feature {} -- External calls
 		}"
 		end
 
+	set_program_invocation_short_name (a_value: POINTER) is
+		-- Set variable program_invocation_short_name value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_program_invocation_short_name"
+		}"
+		end
+
 	program_invocation_name: POINTER is
  		-- program_invocation_name (node at line 55)
 		external "plug_in"
@@ -46,6 +56,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "&program_invocation_name"
+		}"
+		end
+
+	set_program_invocation_name (a_value: POINTER) is
+		-- Set variable program_invocation_name value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_program_invocation_name"
 		}"
 		end
 

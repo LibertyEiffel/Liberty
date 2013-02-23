@@ -122,51 +122,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         left_type, right_type: TYPE; run_time_set: RUN_TIME_SET; rc: LIVE_TYPE; point1, i: INTEGER
-         ca: like code_attribute; branch_index: INTEGER
-      do
-         --|*** forced_flag not implemented
-         left_type := left_side.resolve_in(type)
-         right_type := right_side.resolve_in(type)
-         ca := code_attribute
-         if right_type.is_expanded then
-            error_handler.add_position(start_position)
-            error_handler.append("Right-hand side expanded Not Yet Implemented.")
-            error_handler.print_as_fatal_error
-         end
-         run_time_set := left_type.live_type.run_time_set
-         if run_time_set.count = 0 then
-            right_side.compile_to_jvm(type)
-            ca.opcode_pop
-            ca.opcode_aconst_null
-            left_side.jvm_assign(type)
-         else
-            right_side.compile_to_jvm(type)
-            ca.opcode_dup
-            point1 := ca.opcode_ifnull
-            from
-               branch_index := ca.get_branch_array_index
-               i := 1
-            until
-               i > run_time_set.count
-            loop
-               ca.opcode_dup
-               rc := run_time_set.item(i)
-               rc.opcode_instanceof
-               ca.add_branch(ca.opcode_ifne, branch_index)
-               i := i + 1
-            end
-            ca.opcode_pop
-            ca.opcode_aconst_null
-            ca.resolve_u2_branch(point1)
-            ca.resolve_branches(branch_index)
-            ca.release_branch_array_index
-            left_side.jvm_assign(type)
-         end
-      end
-
    start_position: POSITION is
       do
          Result := left_side.start_position

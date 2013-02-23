@@ -67,30 +67,6 @@ feature {ANY}
          Result := Current
       end
 
-   jvm_branch_if_true, jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    accept (visitor: NULL_POINTER_VISITOR) is
       do
          visitor.visit_null_pointer(Current)

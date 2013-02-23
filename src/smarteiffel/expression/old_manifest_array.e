@@ -276,27 +276,6 @@ feature
          end
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False -- (Because we have already switched to the canonical form.)
-         end
-      end
-
    bracketed_pretty (indent_level: INTEGER) is
       do
          pretty_printer.put_character('(')

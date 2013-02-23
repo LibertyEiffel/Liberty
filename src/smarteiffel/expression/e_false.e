@@ -20,22 +20,6 @@ feature {ANY}
          Result := fz_false
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_bipush(0)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := code_attribute.opcode_goto
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         code_attribute.opcode_iconst_0
-         Result := code_attribute.opcode_ifeq
-      end
-
 feature {ANY}
    accept (visitor: E_FALSE_VISITOR) is
       do

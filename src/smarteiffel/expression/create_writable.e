@@ -155,36 +155,6 @@ feature {ANY}
          Result := writable.side_effect_free(type)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         writable.compile_to_jvm(type)
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         writable.compile_target_to_jvm(type)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := writable.jvm_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := writable.jvm_branch_if_true(type)
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         writable.jvm_assign_creation(type)
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         writable.jvm_assign(type)
-      end
-
 feature {ANY} -- For `pretty' and `short':
    extra_bracket_flag: BOOLEAN is
       do

@@ -181,11 +181,6 @@ feature {ANY}
       --|*** end
       --|*** end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    accept (visitor: PROCEDURE_CALL_0_VISITOR) is
       do
          visitor.visit_procedure_call_0(Current)

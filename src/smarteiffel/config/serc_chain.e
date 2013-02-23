@@ -97,48 +97,6 @@ feature {ANY}
          end
       end
 
-   jar: STRING is
-      local
-         i: INTEGER
-      do
-         from
-            i := config.lower
-         until
-            Result /= Void or else i > config.upper
-         loop
-            Result := config.item(i).jar
-            i := i + 1
-         end
-      end
-
-   java_virtual_machine: STRING is
-      local
-         i: INTEGER
-      do
-         from
-            i := config.lower
-         until
-            Result /= Void or else i > config.upper
-         loop
-            Result := config.item(i).java_virtual_machine
-            i := i + 1
-         end
-      end
-
-   java_compiler: STRING is
-      local
-         i: INTEGER
-      do
-         from
-            i := config.lower
-         until
-            Result /= Void or else i > config.upper
-         loop
-            Result := config.item(i).java_compiler
-            i := i + 1
-         end
-      end
-
    environment (var: STRING): STRING is
       local
          i: INTEGER

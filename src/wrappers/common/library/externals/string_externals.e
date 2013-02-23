@@ -12,7 +12,7 @@ feature {} -- External calls
 	-- function rindex @(2) skipped as requested.
 	-- function rindex @(2) skipped as requested.
 	bzero (a_s: POINTER; a_n: NATURAL_64) is
- 		-- bzero (node at line 88)
+ 		-- bzero (node at line 118)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -22,7 +22,7 @@ feature {} -- External calls
 		end
 
 	ffsl (a_l: INTEGER_64): INTEGER_32 is
- 		-- ffsl (node at line 210)
+ 		-- ffsl (node at line 254)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -32,7 +32,7 @@ feature {} -- External calls
 		end
 
 	strsep (a_stringp: POINTER; a_delim: POINTER): POINTER is
- 		-- strsep (node at line 213)
+ 		-- strsep (node at line 260)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -42,7 +42,7 @@ feature {} -- External calls
 		end
 
 	strcasecmp (a_s1: POINTER; a_s2: POINTER): INTEGER_32 is
- 		-- strcasecmp (node at line 294)
+ 		-- strcasecmp (node at line 356)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -52,7 +52,7 @@ feature {} -- External calls
 		end
 
 	bcopy (a_src: POINTER; a_dest: POINTER; a_n: NATURAL_64) is
- 		-- bcopy (node at line 468)
+ 		-- bcopy (node at line 574)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -64,7 +64,7 @@ feature {} -- External calls
 	-- function memchr @(2) skipped as requested.
 	-- function memchr @(2) skipped as requested.
 	memmove (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): POINTER is
- 		-- memmove (node at line 735)
+ 		-- memmove (node at line 876)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -74,7 +74,7 @@ feature {} -- External calls
 		end
 
 	strncat (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): POINTER is
- 		-- strncat (node at line 772)
+ 		-- strncat (node at line 928)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -84,7 +84,7 @@ feature {} -- External calls
 		end
 
 	strcasecmp_l (a_s1: POINTER; a_s2: POINTER; a_loc: POINTER): INTEGER_32 is
- 		-- strcasecmp_l (node at line 844)
+ 		-- strcasecmp_l (node at line 1006)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -94,7 +94,7 @@ feature {} -- External calls
 		end
 
 	strncmp (a_s1: POINTER; a_s2: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- strncmp (node at line 933)
+ 		-- strncmp (node at line 1101)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -106,7 +106,7 @@ feature {} -- External calls
 	-- function strchrnul @(2) skipped as requested.
 	-- function strchrnul @(2) skipped as requested.
 	strncpy (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): POINTER is
- 		-- strncpy (node at line 980)
+ 		-- strncpy (node at line 1155)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -116,7 +116,7 @@ feature {} -- External calls
 		end
 
 	strfry (a_string: POINTER): POINTER is
- 		-- strfry (node at line 1059)
+ 		-- strfry (node at line 1240)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -126,7 +126,7 @@ feature {} -- External calls
 		end
 
 	memccpy (a_dest: POINTER; a_src: POINTER; a_c: INTEGER_32; a_n: NATURAL_64): POINTER is
- 		-- memccpy (node at line 1084)
+ 		-- memccpy (node at line 1268)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -136,7 +136,7 @@ feature {} -- External calls
 		end
 
 	ffsll (a_ll: INTEGER_64): INTEGER_32 is
- 		-- ffsll (node at line 1277)
+ 		-- ffsll (node at line 1494)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -146,7 +146,7 @@ feature {} -- External calls
 		end
 
 	strerror_l (an_errnum: INTEGER_32; a_l: POINTER): POINTER is
- 		-- strerror_l (node at line 1286)
+ 		-- strerror_l (node at line 1503)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -156,7 +156,7 @@ feature {} -- External calls
 		end
 
 	strerror_r (an_errnum: INTEGER_32; a_buf: POINTER; a_buflen: NATURAL_64): POINTER is
- 		-- strerror_r (node at line 1290)
+ 		-- strerror_r (node at line 1507)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -166,7 +166,7 @@ feature {} -- External calls
 		end
 
 	strcat (a_dest: POINTER; a_src: POINTER): POINTER is
- 		-- strcat (node at line 1344)
+ 		-- strcat (node at line 1564)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -176,7 +176,7 @@ feature {} -- External calls
 		end
 
 	stpncpy (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): POINTER is
- 		-- stpncpy (node at line 1361)
+ 		-- stpncpy (node at line 1581)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -189,7 +189,7 @@ feature {} -- External calls
 	-- function strchr @(2) skipped as requested.
 	-- `hidden' function __bzero skipped.
 	strcmp (a_s1: POINTER; a_s2: POINTER): INTEGER_32 is
- 		-- strcmp (node at line 1528)
+ 		-- strcmp (node at line 1765)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -199,7 +199,7 @@ feature {} -- External calls
 		end
 
 	strcpy (a_dest: POINTER; a_src: POINTER): POINTER is
- 		-- strcpy (node at line 1566)
+ 		-- strcpy (node at line 1803)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -213,7 +213,7 @@ feature {} -- External calls
 	-- function basename @(2) skipped as requested.
 	-- function basename @(2) skipped as requested.
 	memfrob (a_s: POINTER; a_n: NATURAL_64): POINTER is
- 		-- memfrob (node at line 1651)
+ 		-- memfrob (node at line 1894)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -223,7 +223,7 @@ feature {} -- External calls
 		end
 
 	strtok (a_s: POINTER; a_delim: POINTER): POINTER is
- 		-- strtok (node at line 1785)
+ 		-- strtok (node at line 2059)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -233,7 +233,7 @@ feature {} -- External calls
 		end
 
 	strtok_r (a_s: POINTER; a_delim: POINTER; a_save_ptr: POINTER): POINTER is
- 		-- strtok_r (node at line 1805)
+ 		-- strtok_r (node at line 2079)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -244,7 +244,7 @@ feature {} -- External calls
 
 	-- `hidden' function __stpncpy skipped.
 	memset (a_s: POINTER; a_c: INTEGER_32; a_n: NATURAL_64): POINTER is
- 		-- memset (node at line 1859)
+ 		-- memset (node at line 2133)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -254,7 +254,7 @@ feature {} -- External calls
 		end
 
 	strncasecmp_l (a_s1: POINTER; a_s2: POINTER; a_n: NATURAL_64; a_loc: POINTER): INTEGER_32 is
- 		-- strncasecmp_l (node at line 1895)
+ 		-- strncasecmp_l (node at line 2169)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -264,7 +264,7 @@ feature {} -- External calls
 		end
 
 	strndup (a_string: POINTER; a_n: NATURAL_64): POINTER is
- 		-- strndup (node at line 1931)
+ 		-- strndup (node at line 2205)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -274,7 +274,7 @@ feature {} -- External calls
 		end
 
 	strcoll (a_s1: POINTER; a_s2: POINTER): INTEGER_32 is
- 		-- strcoll (node at line 2092)
+ 		-- strcoll (node at line 2394)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -284,7 +284,7 @@ feature {} -- External calls
 		end
 
 	strncasecmp (a_s1: POINTER; a_s2: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- strncasecmp (node at line 2096)
+ 		-- strncasecmp (node at line 2398)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -297,7 +297,7 @@ feature {} -- External calls
 	-- function strrchr @(2) skipped as requested.
 	-- function strrchr @(2) skipped as requested.
 	strxfrm (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): NATURAL_64 is
- 		-- strxfrm (node at line 2308)
+ 		-- strxfrm (node at line 2618)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -308,7 +308,7 @@ feature {} -- External calls
 
 	-- `hidden' function __mempcpy skipped.
 	strerror (an_errnum: INTEGER_32): POINTER is
- 		-- strerror (node at line 2351)
+ 		-- strerror (node at line 2661)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -318,7 +318,7 @@ feature {} -- External calls
 		end
 
 	strnlen (a_string: POINTER; a_maxlen: NATURAL_64): NATURAL_64 is
- 		-- strnlen (node at line 2363)
+ 		-- strnlen (node at line 2673)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -330,7 +330,7 @@ feature {} -- External calls
 	-- function strpbrk @(2) skipped as requested.
 	-- function strpbrk @(2) skipped as requested.
 	strcspn (a_s: POINTER; a_reject: POINTER): NATURAL_64 is
- 		-- strcspn (node at line 2488)
+ 		-- strcspn (node at line 2802)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -340,7 +340,7 @@ feature {} -- External calls
 		end
 
 	strsignal (a_sig: INTEGER_32): POINTER is
- 		-- strsignal (node at line 2503)
+ 		-- strsignal (node at line 2819)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -350,7 +350,7 @@ feature {} -- External calls
 		end
 
 	stpcpy (a_dest: POINTER; a_src: POINTER): POINTER is
- 		-- stpcpy (node at line 2602)
+ 		-- stpcpy (node at line 2925)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -360,7 +360,7 @@ feature {} -- External calls
 		end
 
 	strdup (a_s: POINTER): POINTER is
- 		-- strdup (node at line 2622)
+ 		-- strdup (node at line 2951)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -370,7 +370,7 @@ feature {} -- External calls
 		end
 
 	memcmp (a_s1: POINTER; a_s2: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- memcmp (node at line 2625)
+ 		-- memcmp (node at line 2957)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -380,7 +380,7 @@ feature {} -- External calls
 		end
 
 	bcmp (a_s1: POINTER; a_s2: POINTER; a_n: NATURAL_64): INTEGER_32 is
- 		-- bcmp (node at line 2636)
+ 		-- bcmp (node at line 2968)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -392,7 +392,7 @@ feature {} -- External calls
 	-- function rawmemchr @(2) skipped as requested.
 	-- function rawmemchr @(2) skipped as requested.
 	strxfrm_l (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64; a_l: POINTER): NATURAL_64 is
- 		-- strxfrm_l (node at line 2692)
+ 		-- strxfrm_l (node at line 3024)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -402,7 +402,7 @@ feature {} -- External calls
 		end
 
 	strverscmp (a_s1: POINTER; a_s2: POINTER): INTEGER_32 is
- 		-- strverscmp (node at line 2830)
+ 		-- strverscmp (node at line 3181)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -412,7 +412,7 @@ feature {} -- External calls
 		end
 
 	strspn (a_s: POINTER; an_accept: POINTER): NATURAL_64 is
- 		-- strspn (node at line 2915)
+ 		-- strspn (node at line 3281)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -427,7 +427,7 @@ feature {} -- External calls
 	-- function index @(2) skipped as requested.
 	-- function index @(2) skipped as requested.
 	strlen (a_s: POINTER): NATURAL_64 is
- 		-- strlen (node at line 3068)
+ 		-- strlen (node at line 3456)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -437,7 +437,7 @@ feature {} -- External calls
 		end
 
 	memmem (a_haystack: POINTER; a_haystacklen: NATURAL_64; a_needle: POINTER; a_needlelen: NATURAL_64): POINTER is
- 		-- memmem (node at line 3086)
+ 		-- memmem (node at line 3477)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -447,7 +447,7 @@ feature {} -- External calls
 		end
 
 	ffs (an_i: INTEGER_32): INTEGER_32 is
- 		-- ffs (node at line 3133)
+ 		-- ffs (node at line 3539)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -459,7 +459,7 @@ feature {} -- External calls
 	-- function memrchr @(2) skipped as requested.
 	-- function memrchr @(2) skipped as requested.
 	mempcpy (a_dest: POINTER; a_src: POINTER; a_n: NATURAL_64): POINTER is
- 		-- mempcpy (node at line 3288)
+ 		-- mempcpy (node at line 3697)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -469,7 +469,7 @@ feature {} -- External calls
 		end
 
 	strcoll_l (a_s1: POINTER; a_s2: POINTER; a_l: POINTER): INTEGER_32 is
- 		-- strcoll_l (node at line 3340)
+ 		-- strcoll_l (node at line 3756)
 		external "plug_in"
 		alias "{
 			location: "."

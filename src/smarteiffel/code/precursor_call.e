@@ -54,11 +54,6 @@ feature {ANY}
          Result := current_or_twin_init(saf, args)
       end
 
-   frozen compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    frozen specialize_in (new_type: TYPE): like Current is
       local
          saf: like specialized_anonymous_feature; arg: like arguments

@@ -178,11 +178,6 @@ feature {ANY}
          Result := arguments.count
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {ANY}
    accept (visitor: PROCEDURE_CALL_N_VISITOR) is
       do

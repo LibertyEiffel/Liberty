@@ -20,12 +20,12 @@ feature {ANY}
       once
          Result := smart_eiffel.type_boolean
       end
-   
+
    frozen resolve_in (type: TYPE): TYPE is
       do
          Result := declaration_type
       end
-   
+
    frozen simplify_1_, frozen simplify_2: like Current is
       do
          Result := Current

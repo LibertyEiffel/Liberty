@@ -45,52 +45,6 @@ feature {ANY}
       deferred
       end
 
-   jvm_add_method_for_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      require
-         rf8.base_feature.first_name.to_string = name
-         rf8.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
-   jvm_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-         -- Produce Java byte code to define `rf8'.
-      require
-         rf8.base_feature.first_name.to_string = name
-         rf8.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
-   jvm_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-         -- Produce Java byte code to use `rf8'.
-      require
-         rf8.base_feature.first_name.to_string = name
-         rf8.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
-   jvm_add_method_for_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      require
-         rf7.base_feature.first_name.to_string = name
-         rf7.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
-   jvm_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-         -- Produce Java byte code to define `rf7'.
-      require
-         rf7.base_feature.first_name.to_string = name
-         rf7.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
-   jvm_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-         -- Produce Java byte code to use `rf7'.
-      require
-         rf7.base_feature.first_name.to_string = name
-         rf7.base_feature.class_text.name.to_string = bcn
-      deferred
-      end
-
 feature {EXTERNAL_FUNCTION}
    side_effect_free (target_type: TYPE; feature_text: FEATURE_TEXT): BOOLEAN is
       do
@@ -118,14 +72,6 @@ feature {}
          -- Must be call during `collect' by native which are not trusted.
       do
          assignment_handler.from_external(type, external_routine.arguments, external_routine.result_type)
-      end
-
-   fe_c2jvm (rf: RUN_FEATURE) is
-      do
-         error_handler.add_position(jvm.target_position)
-         error_handler.add_position(rf.start_position)
-         error_handler.append("Command 'compile_to_jvm' cannot compile this code.")
-         error_handler.print_as_fatal_error
       end
 
    make (et: like external_tag) is

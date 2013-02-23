@@ -100,10 +100,6 @@ feature {ANY}
       do
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
       end

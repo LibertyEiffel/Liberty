@@ -424,12 +424,6 @@ feature {NATIVE_C}
          mapping_c(visited, rf8.base_feature, cpp.native_need_wrapper.for_rf8(rf8), True, rf8.arg_count)
       end
 
-feature {NATIVE_JAVA}
-   visit_native_java (visited: NATIVE_JAVA) is
-      do
-         fe_c2c(rf8)
-      end
-
 feature {NATIVE_PLUG_IN}
    visit_native_plug_in (visited: NATIVE_PLUG_IN) is
       do
@@ -1108,6 +1102,26 @@ feature {} -- built-ins
             function_body.append(once ")))|(")
             cpp.put_target_as_value
             function_body.append(once "<<")
+            cpp.put_ith_argument(1)
+            function_body.append(once "))")
+         elseif as_bit_shift_right = name then
+            function_body.append(once "(uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)((uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)")
+            cpp.put_target_as_value
+            function_body.append(once ">>(")
+            cpp.put_ith_argument(1)
+            function_body.append(once "))")
+         elseif as_bit_shift_left = name then
+            function_body.append(once "(uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)((uint")
+            bit_count.append_in(function_body)
+            function_body.append(once "_t)")
+            cpp.put_target_as_value
+            function_body.append(once "<<(")
             cpp.put_ith_argument(1)
             function_body.append(once "))")
          elseif as_bit_rotate = name then

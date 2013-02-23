@@ -11,7 +11,7 @@ inherit
       redefine
          static_simplify
       end
-   
+
 creation {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    make
 
@@ -63,21 +63,6 @@ feature {ANY}
                end
             end
          end
-      end
-   
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
       end
 
 feature {ANY}

@@ -79,30 +79,6 @@ feature {ANY}
          error_handler.print_as_warning
       end
 
-   jvm_branch_if_true, jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    accept (visitor: VOID_CALL_VISITOR) is
       do
          visitor.visit_void_call(Current)

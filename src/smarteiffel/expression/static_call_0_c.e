@@ -4,26 +4,17 @@ class STATIC_CALL_0_C
 --
 inherit
    CALL_0
-      undefine
-         jvm_assign
-      end
 
 insert
    FUNCTION_CALL_0
       rename
          accept as c0c_accept
       redefine
-         compile_to_jvm, c0c_accept
+         c0c_accept
       end
 
 creation {INTROSPECTION_HANDLER}
    make
-
-feature {ANY}
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
 
 feature {ANY}
    accept (visitor: STATIC_CALL_0_C_VISITOR) is

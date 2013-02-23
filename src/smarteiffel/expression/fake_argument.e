@@ -95,38 +95,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         -- jvm_offset: INTEGER
-         not_yet_implemented
-         -- jvm_offset := jvm.argument_offset_of(Current)
-         -- result_type.run_type.jvm_push_local(jvm_offset)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         compile_to_jvm(type)
-      end
-
    pretty, pretty_target, bracketed_pretty (indent_level: INTEGER) is
       do
          check

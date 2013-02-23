@@ -16,8 +16,6 @@ feature {ANY}
 
    is_generic: BOOLEAN is False
 
-   jvm_method_flags: INTEGER is 17
-
    written_name: HASHED_STRING is
       do
          Result := class_text_name.hashed_name
@@ -68,112 +66,6 @@ feature {ANY}
    id: INTEGER is
       do
          Result := class_text.id
-      end
-
-   jvm_descriptor_in (str: STRING) is
-      do
-         if is_reference then
-            str.append(jvm_root_descriptor)
-         else
-            type.live_type.jvm_type_descriptor_in(str)
-         end
-      end
-
-   jvm_target_descriptor_in (str: STRING) is
-      do
-      end
-
-   jvm_return_code is
-      do
-         code_attribute.opcode_areturn
-      end
-
-   jvm_check_class_invariant is
-      do
-         standard_jvm_check_class_invariant
-      end
-
-   jvm_push_local (offset: INTEGER) is
-      do
-         code_attribute.opcode_aload(offset)
-      end
-
-   jvm_push_default: INTEGER is
-      do
-         Result := 1
-         if is_reference then
-            code_attribute.opcode_aconst_null
-         else
-            type.live_type.jvm_expanded_push_default
-         end
-      end
-
-   jvm_write_local_creation (offset: INTEGER) is
-      do
-         code_attribute.opcode_astore(offset)
-      end
-
-   jvm_write_local (offset: INTEGER) is
-      do
-         if not is_expanded then
-            code_attribute.opcode_astore(offset)
-         else
-            jvm_write_local_expanded(offset)
-         end
-      end
-
-   jvm_write_local_expanded (offset: INTEGER) is
-      local
-         wa: ARRAY[RUN_FEATURE_2]
-      do
-         wa := type.live_type.writable_attributes
-         code_attribute.opcode_aload(offset)
-         code_attribute.opcode_swap
-         jvm.fields_by_fields_expanded_copy(wa)
-         code_attribute.opcode_pop2
-      end
-
-   jvm_xnewarray is
-      local
-         idx: INTEGER
-      do
-         if is_reference then
-            idx := constant_pool.idx_jvm_root_class
-         else
-            check
-               is_user_expanded
-            end
-            idx := type.live_type.jvm_constant_pool_index
-         end
-         code_attribute.opcode_anewarray(idx)
-      end
-
-   jvm_xastore is
-      do
-         code_attribute.opcode_aastore
-      end
-
-   jvm_xaload is
-      do
-         code_attribute.opcode_aaload
-      end
-
-   jvm_if_x_eq: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpeq
-      end
-
-   jvm_if_x_ne: INTEGER is
-      do
-         Result := code_attribute.opcode_if_acmpne
-      end
-
-   jvm_standard_is_equal is
-      local
-         wa: ARRAY[RUN_FEATURE_2]
-      do
-         wa := type.live_type.writable_attributes
-         jvm.std_is_equal(type.live_type, wa)
       end
 
    accept (visitor: CLASS_TYPE_MARK_VISITOR) is

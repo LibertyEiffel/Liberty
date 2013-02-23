@@ -50,38 +50,6 @@ feature {ANY}
          -- This is obviously defined outside.
       end
 
-   jvm_mapping_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         --jvm.drop_target
-         --|*** jvm.runtime_invokestatic(location, module_name, feature_name, rf8)
-         jvm.plugin_invokestatic(plugin.name, feature_name, rf8)
-      end
-
-   jvm_mapping_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         --jvm.drop_target
-         --|*** jvm.runtime_invokestatic(location, module_name, feature_name, rf7)
-         jvm.plugin_invokestatic(plugin.name, feature_name, rf7)
-      end
-
-   jvm_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-         -- This is obviously defined outside.
-      end
-
-   jvm_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-         -- This is obviously defined outside.
-      end
-
-   jvm_add_method_for_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
-      do
-      end
-
-   jvm_add_method_for_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
-      do
-      end
-
    accept (visitor: NATIVE_PLUG_IN_VISITOR) is
       do
          visitor.visit_native_plug_in(Current)

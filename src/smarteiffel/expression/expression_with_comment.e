@@ -110,26 +110,6 @@ feature {ANY}
          expression.safety_check(type)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         expression.compile_to_jvm(type)
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         expression.compile_target_to_jvm(type)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := expression.jvm_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := expression.jvm_branch_if_true(type)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          Result := expression.use_current(type)
@@ -192,16 +172,6 @@ feature {ANY}
    precedence: INTEGER is
       do
          Result := expression.precedence
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         expression.jvm_assign_creation(type)
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         expression.jvm_assign(type)
       end
 
    accept (visitor: EXPRESSION_WITH_COMMENT_VISITOR) is

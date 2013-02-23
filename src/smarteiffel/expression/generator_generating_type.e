@@ -111,40 +111,6 @@ feature {ANY}
          Result := smart_eiffel.type_string
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    accept (visitor: GENERATOR_GENERATING_TYPE_VISITOR) is
       do
          visitor.visit_generator_generating_type(Current)

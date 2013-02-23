@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class HIERARCHIC_GRAPH_NODE[E -> HASHABLE]
+class HIERARCHIC_GRAPH_NODE[E_ -> HASHABLE]
 
 inherit
    HASHABLE
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   item: E
+   item: E_
 
    max_rank: INTEGER
 
@@ -357,7 +357,7 @@ feature {ANY}
          deep_unmark_connected
       end
 
-   add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E]]) is
+   add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]]) is
          -- Add in `list' all nodes belonging to the same graph as `Current'
       require
          list /= Void
@@ -800,7 +800,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E]]) is
+   internal_add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]]) is
       local
          i: INTEGER
       do

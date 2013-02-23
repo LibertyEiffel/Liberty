@@ -27,30 +27,6 @@ feature {ANY}
          Result := as_and_then
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         failure, point2: INTEGER; ca: like code_attribute
-      do
-         ca := code_attribute
-         target.compile_to_jvm(type)
-         failure := ca.opcode_ifeq
-         arg1.compile_to_jvm(type)
-         point2 := ca.opcode_goto
-         ca.resolve_u2_branch(failure)
-         ca.opcode_iconst_0
-         ca.resolve_u2_branch(point2)
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
-      end
-
    accept (visitor: CALL_INFIX_AND_THEN_VISITOR) is
       do
          visitor.visit_call_infix_and_then(Current)
@@ -88,7 +64,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          -- Adding the final result:
          code_accumulator.current_context.add_last(internal_local2)
       end
-         
+
 feature {}
    make (left: like target; operator_position: POSITION; right: like arg1) is
       require

@@ -47,21 +47,6 @@ feature {ANY}
       --|*** end
       --|*** end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
-      end
-
 feature {ANY}
    accept (visitor: CALL_INFIX_XOR_VISITOR) is
       do

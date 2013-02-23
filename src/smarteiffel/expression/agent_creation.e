@@ -320,23 +320,6 @@ feature {ANY}
          Result := atomic_precedence
       end
 
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
 feature {}
    specialize_2_function (type: TYPE): like Current is
       require

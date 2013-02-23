@@ -103,41 +103,6 @@ feature {}
          use_current_state := True_state
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-         jvm.add_field(Current)
-      end
-
-feature {ANY}
-   mapping_jvm is
-      local
-         idx: INTEGER; stack_level: INTEGER
-      do
-         jvm.push_target_as_target
-         if type_of_current.is_kernel_expanded then
-            check
-               as_item = name.to_string
-            end
-         else
-            stack_level := result_type.jvm_stack_space - 1
-            idx := constant_pool.idx_fieldref(Current)
-            code_attribute.opcode_getfield(idx, stack_level)
-         end
-      end
-
-feature {JVM}
-   jvm_define is
-      local
-         name_idx, descriptor: INTEGER; cp: like constant_pool; access_flags: INTEGER
-      do
-         cp := constant_pool
-         name_idx := cp.idx_utf8(name.to_string)
-         descriptor := cp.idx_utf8(jvm_descriptor)
-         access_flags := field_info.field_modifier(name_idx)
-         field_info.add(access_flags, name_idx, descriptor)
-      end
-
 feature {RUN_FEATURE_2_VISITOR}
    need_c_function: BOOLEAN is
       do
@@ -145,19 +110,6 @@ feature {RUN_FEATURE_2_VISITOR}
             Result := (require_assertion /= Void) or else (ensure_assertion /= Void)
          elseif ace.require_check then
             Result := require_assertion /= Void
-         end
-      end
-
-feature {}
-   update_tmp_jvm_descriptor is
-      local
-         rt: TYPE_MARK
-      do
-         rt := result_type
-         if rt.is_reference then
-            tmp_jvm_descriptor.append(jvm_root_descriptor)
-         else
-            rt.jvm_descriptor_in(tmp_jvm_descriptor)
          end
       end
 

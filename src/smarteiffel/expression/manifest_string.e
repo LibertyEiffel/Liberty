@@ -95,32 +95,6 @@ feature {ANY}
          Result := to_string.count
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      local
-         idx: INTEGER
-      do
-         if once_flag then
-            idx := fieldref_idx
-            code_attribute.opcode_getstatic(idx, 1)
-         else
-            code_attribute.opcode_push_manifest_string(to_string)
-         end
-      end
-
-   jvm_branch_if_true, jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    specialize_in (type: TYPE): like Current is
       do
          Result := Current
@@ -336,11 +310,6 @@ feature {MANIFEST_STRING_POOL}
          alias_link = other
          other.alias_link = Current
          initial_storage_id = other.initial_storage_id
-      end
-
-   fieldref_idx: INTEGER is
-      do
-         Result := constant_pool.idx_fieldref_for_manifest_string(once_variable)
       end
 
 feature {MINI_BUFFER, MANIFEST_STRING_VISITOR}

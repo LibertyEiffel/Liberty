@@ -52,23 +52,7 @@ feature {} -- Most of them are command flag names:
 
    fz_version: STRING is "version"
 
-   fz_flag_jar: STRING is "jar"
-
    fz_flag_run: STRING is "run"
-
-   fz_flag_use_jar: STRING is "use_jar"
-
-   fz_flag_use_jvm: STRING is "use_jvm"
-
-   fz_flag_java_compiler: STRING is "java_compiler"
-
-   fz_flag_ss: STRING is "ss" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
-
-   fz_flag_mx: STRING is "mx" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
-
-   fz_flag_ms: STRING is "ms" -- *** NOT A GOOD FLAG NAME. *** Dom. Nov 29th 2006 ***
-
-   fz_flag_classpath: STRING is "classpath"
 
    fz_flag_clean_classes: STRING is "clean_classes"
 
