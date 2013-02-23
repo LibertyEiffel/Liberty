@@ -32,6 +32,30 @@ feature {} -- Low-level setters
 		}"
 		end
 
+	ffi_java_raw_closure_struct_set_translate_args (a_structure: POINTER; a_value: POINTER) is
+			-- Setter for translate_args field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
+			-- TODO: setter description
+
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_java_raw_closure_struct_set_translate_args"
+		}"
+		end
+
+	ffi_java_raw_closure_struct_set_this_closure (a_structure: POINTER; a_value: POINTER) is
+			-- Setter for this_closure field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
+			-- TODO: setter description
+
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_java_raw_closure_struct_set_this_closure"
+		}"
+		end
+
 	ffi_java_raw_closure_struct_set_fun (a_structure: POINTER; a_value: POINTER) is
 			-- Setter for fun field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: setter description
@@ -79,6 +103,30 @@ feature {} -- Low-level queries
 			location: "."
 			module_name: "plugin"
 			feature_name: "ffi_java_raw_closure_struct_get_cif"
+		}"
+		end
+
+	ffi_java_raw_closure_struct_get_translate_args (a_structure: POINTER): POINTER is
+			-- Query for translate_args field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
+			-- TODO: getter description
+
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_java_raw_closure_struct_get_translate_args"
+		}"
+		end
+
+	ffi_java_raw_closure_struct_get_this_closure (a_structure: POINTER): POINTER is
+			-- Query for this_closure field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
+			-- TODO: getter description
+
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_java_raw_closure_struct_get_this_closure"
 		}"
 		end
 

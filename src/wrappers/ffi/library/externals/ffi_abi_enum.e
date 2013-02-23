@@ -14,8 +14,8 @@ feature -- Validity
             Result := ((a_value = first_abi_low_level)  or else
 				(a_value = sysv_low_level)  or else
 				(a_value = unix64_low_level)  or else
-				(a_value = default_abi_low_level)  or else
-				(a_value = last_abi_low_level) )
+				(a_value = last_abi_low_level)  or else
+				(a_value = default_abi_low_level) )
 		end
 
 feature -- Setters
@@ -35,14 +35,14 @@ feature -- Setters
 			value := unix64_low_level
 		end
 
-	set_default_abi is
-		do
-			value := default_abi_low_level
-		end
-
 	set_last_abi is
 		do
 			value := last_abi_low_level
+		end
+
+	set_default_abi is
+		do
+			value := default_abi_low_level
 		end
 
 feature -- Queries
@@ -61,14 +61,14 @@ feature -- Queries
 			Result := (value=unix64_low_level)
 		end
 
-	is_default_abi: BOOLEAN is
-		do
-			Result := (value=default_abi_low_level)
-		end
-
 	is_last_abi: BOOLEAN is
 		do
 			Result := (value=last_abi_low_level)
+		end
+
+	is_default_abi: BOOLEAN is
+		do
+			Result := (value=default_abi_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -99,21 +99,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	default_abi_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "FFI_DEFAULT_ABI"
- 			}"
- 		end
-
 	last_abi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "FFI_LAST_ABI"
+ 			}"
+ 		end
+
+	default_abi_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "FFI_DEFAULT_ABI"
  			}"
  		end
 
