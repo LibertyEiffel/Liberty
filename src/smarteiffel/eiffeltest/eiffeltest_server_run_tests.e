@@ -37,17 +37,13 @@ feature {LOOP_ITEM}
             good_tests.remove_first
             echo.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
             check_good_test(test_file)
-            if good_tests.is_empty then
-               log.put_line(once "----------------------------------------------------------------")
-            end
+            log.put_line(once "----------------------------------------------------------------")
          elseif not bad_tests.is_empty then
             test_file := bad_tests.first
             bad_tests.remove_first
             echo.put_line(once "Server #(1): testing 'bad test' #(2)" # port.out # test_file)
             check_bad_test(test_file)
-            if bad_tests.is_empty then
-               log.put_line(once "----------------------------------------------------------------")
-            end
+            log.put_line(once "----------------------------------------------------------------")
          else
             echo.put_line(once "Server #(1): disconnecting" # port.out)
             disconnect
@@ -68,7 +64,7 @@ feature {LOOP_ITEM}
 feature {} -- Good tests: tests that must pass
    check_good_test (test_file: FIXED_STRING) is
       require
-         test_file.has_prefix(once "test_")
+         test_file.has_prefix(once "test")
          test_file.has_suffix(once ".e")
       do
          if ace_test(test_file) then
@@ -138,7 +134,7 @@ feature {} -- Good tests: tests that must pass
 
    check_mocks_with (test_file: FIXED_STRING) is
       require
-         test_file.has_prefix(once "test_")
+         test_file.has_prefix(once "test")
          test_file.has_suffix(once ".e")
       local
          cmd, mock: STRING
@@ -345,7 +341,7 @@ feature {} -- Good tests: tests that must pass
 feature {} -- Bad tests: tests that must fail
    check_bad_test (bad_file: FIXED_STRING) is
       require
-         bad_file.has_prefix(once "bad_")
+         bad_file.has_prefix(once "bad")
          bad_file.has_suffix(once ".e")
       local
          cmd, exe_name, msg, new, h_file: STRING; dummy: BOOLEAN
@@ -458,10 +454,10 @@ feature {}
                bd.end_of_input
             loop
                if bd.last_entry.first /= '.' and then not file_tools.is_directory(bd.last_entry) and then bd.last_entry.has_suffix(once ".e") then
-                  if bd.last_entry.has_prefix(once "test_") then
+                  if bd.last_entry.has_prefix(once "test") then
                      echo.put_line(once "Server #(1): adding 'good' tests #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(good_tests, bd.last_entry.intern)
-                  elseif bd.last_entry.has_prefix(once "bad_") then
+                  elseif bd.last_entry.has_prefix(once "bad") then
                      echo.put_line(once "Server #(1): adding 'bad' tests #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(bad_tests, bd.last_entry.intern)
                   end
