@@ -123,74 +123,92 @@ x_int: extract_internals
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe -Os
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -Os
+cpp_linker_path: $CC
 
 [no_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe -O1
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
+cpp_linker_path: $CC
 
 [require_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [ensure_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [invariant_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [loop_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [all_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [debug_check]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe -g
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
+cpp_linker_path: $CC
 smarteiffel_options: -no_strip
 
 [release]
 c_compiler_type: gcc
 c_compiler_path: $CC
 c_compiler_options: -pipe -O3 -fomit-frame-pointer
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
+cpp_linker_path: $CC
 smarteiffel_options: -no_split
 
 EOF
