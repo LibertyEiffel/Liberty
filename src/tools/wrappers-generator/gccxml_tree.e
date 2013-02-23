@@ -47,7 +47,7 @@ feature
 			when "OperatorMethod" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
 			when "PointerType" then create {C_POINTER_TYPE} Result.make(node_name, line, column)
 			when "ReferenceType" then create {C_REFERENCE_TYPE} Result.make(node_name, line, column)
-			when "Struct" then create {C_STRUCT} Result.make(node_name, line, column)
+			when "Struct" then create {C_STRUCT_NODE} Result.make(node_name, line, column)
 			when "Typedef" then create {C_TYPEDEF} Result.make(node_name, line, column)
 			when "Union" then create {C_UNION} Result.make(node_name, line, column)
 			when "Unimplemented" then create {UNIMPLEMENTED_NODE} Result.make(node_name,line,column)

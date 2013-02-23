@@ -1,0 +1,3 @@
+Execution of "se test" started: Saturday November 29 22:44:19 2008
+                    terminated: Saturday November 29 22:45:19 2008
+60 (Elapsed seconds in "/home/r/eiffel/eiffel-libraries/trunk/eiffel-glib/test/".)

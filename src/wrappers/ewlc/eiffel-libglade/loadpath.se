@@ -1,0 +1,7 @@
+../common/loadpath.se
+../eiffel-gobject/library/loadpath.se
+../eiffel-glib/library/loadpath.se
+../eiffel-gtk/library/loadpath.se
+../eiffel-gdk/library/loadpath.se
+../eiffel-pango/library/loadpath.se
+./library/loadpath.se
