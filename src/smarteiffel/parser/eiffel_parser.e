@@ -369,7 +369,7 @@ feature {}
          show_nb(nb_errors, once " error")
       end
 
-feature {COMPILE_TO_C, COMPILE_TO_JVM, RUN}
+feature {COMPILE_TO_C, RUN}
    set_drop_comments is
       do
          drop_comments := True
@@ -4178,8 +4178,6 @@ feature {}
             create {NATIVE_C_PLUS_PLUS} Result.make(external_tag)
          elseif mini_buffer.a_keyword(once "C") then
             create {NATIVE_C} Result.make(external_tag)
-         elseif mini_buffer.a_keyword(once "Java") then
-            create {NATIVE_JAVA} Result.make(external_tag)
          elseif mini_buffer.a_word(fz_smarteiffel) then
             create {NATIVE_BUILT_IN} Result.make(external_tag)
             error_handler.add_position(external_tag.start_position)

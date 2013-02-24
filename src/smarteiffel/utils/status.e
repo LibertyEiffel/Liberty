@@ -25,7 +25,7 @@ feature {} -- Visitable attributes:
    specializing_type_memory: like specializing_type
 
    phase_stack: like internal_phase_stack is
-         -- Stacked phases. Changing this array will not change the internal saved phases (hence, don't do 
+         -- Stacked phases. Changing this array will not change the internal saved phases (hence, don't do
          -- it, it's useless).
          -- The top of the stack is the last element. RETURNS A ONCE OBJECT.
       do
@@ -59,7 +59,7 @@ feature {}
    -- `specialize_thru' but not `specialize_2'.
    --
    -- `specializing_2'
-   -- Particular phase when `specialize_2' is being performed on one type. After this phase, `resolve_in' 
+   -- Particular phase when `specialize_2' is being performed on one type. After this phase, `resolve_in'
    -- can be used on the `type'.
    --
    -- `collecting_features'
@@ -80,8 +80,8 @@ feature {}
    -- start the next phase: adaptation and code generation.
    --
    -- `inlining_dynamic_dispatch'
-   -- All feature calls are replaced by monomorphic calls and dynamic 
-   -- dispatch is implemented with ordinary inspect instructon. 
+   -- All feature calls are replaced by monomorphic calls and dynamic
+   -- dispatch is implemented with ordinary inspect instructon.
    --
    -- `adapting_features'
    -- The adapt process has just started. The goal of this step is to create the RUN_FEATUREs with
@@ -107,7 +107,7 @@ feature {}
    -- The system is _not_ type safe (i.e. some dangerous covariant redefinitions are used and the user
    -- has got warnings).
    --
-   
+
 
 feature {} -- State change support
    visitable_phase_stack: FAST_ARRAY[INTEGER] is
@@ -276,14 +276,6 @@ feature {SMART_EIFFEL}
          safety_check_state := safety_check_failed
       end
 
-feature {COMPILE_TO_JVM}
-   set_done is
-      require
-         is_generating
-      do
-         set_phase(done)
-      end
-
 feature {SMART_EIFFEL}
    info is
       do
@@ -355,11 +347,11 @@ feature {ANY} -- State checking
       end
 
    collecting_done: BOOLEAN
-         -- Indicates that we have performed all `collect' cycles (i.e. we have gathered a super-set 
+         -- Indicates that we have performed all `collect' cycles (i.e. we have gathered a super-set
          -- of the live code).
 
    inlining_dynamic_dispatch_done: BOOLEAN
-         -- Indicates that all calls are now monomorphic (i.e. dynamic dispatch is implemented with 
+         -- Indicates that all calls are now monomorphic (i.e. dynamic dispatch is implemented with
          -- inspect instructions).
 
    safety_check_done: BOOLEAN is

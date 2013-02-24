@@ -9,9 +9,9 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = delete_low_level)  or else
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = delete_low_level)  or else
 				(a_value = insert_external_low_level)  or else
 				(a_value = begin_low_level)  or else
 				(a_value = end_external_low_level) )
@@ -40,22 +40,22 @@ feature -- Setters
 		end
 
 feature -- Queries
-	delete: BOOLEAN is
+	is_delete: BOOLEAN is
 		do
 			Result := (value=delete_low_level)
 		end
 
-	insert_external: BOOLEAN is
+	is_insert_external: BOOLEAN is
 		do
 			Result := (value=insert_external_low_level)
 		end
 
-	begin: BOOLEAN is
+	is_begin: BOOLEAN is
 		do
 			Result := (value=begin_low_level)
 		end
 
-	end_external: BOOLEAN is
+	is_end_external: BOOLEAN is
 		do
 			Result := (value=end_external_low_level)
 		end

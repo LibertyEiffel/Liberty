@@ -55,11 +55,6 @@ feature {ANY}
 
    end_mark_comment: BOOLEAN is False
 
-   compile_to_jvm (type: TYPE) is
-      do
-         check False end
-      end
-
    adapt_for (type: TYPE): like Current is
       do
          check False end

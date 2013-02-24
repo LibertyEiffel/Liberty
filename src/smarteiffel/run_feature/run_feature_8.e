@@ -51,62 +51,6 @@ feature {ANY}
       do
       end
 
-   mapping_jvm is
-      local
-         bf: like base_feature; native: NATIVE; bcn: STRING
-      do
-         bf := base_feature
-         native := bf.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_mapping_function(Current, bcn, bf.first_name.to_string)
-      end
-
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      local
-         bf: like base_feature; native: NATIVE; n, bcn: STRING
-      do
-         bf := base_feature
-         n := bf.first_name.to_string
-         native := base_feature.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_add_method_for_function(Current, bcn, n)
-      end
-
-feature {JVM}
-   jvm_define is
-      local
-         bf: like base_feature; native: NATIVE; n, bcn: STRING
-      do
-         bf := base_feature
-         n := bf.first_name.to_string
-         native := bf.native
-         bcn := bf.class_text.name.to_string
-         native.jvm_define_function(Current, bcn, n)
-      end
-
-feature {NATIVE}
-   jvm_opening is
-      do
-         method_info_start
-         jvm_define_opening
-      end
-
-   jvm_closing is
-      do
-         jvm_define_closing
-         result_type.jvm_push_local(base_feature.jvm_result_offset(type_of_current))
-         result_type.jvm_return_code
-         method_info.finish
-      end
-
-   jvm_closing_fast is
-         -- Skip ensure and assume the result is already pushed.
-      do
-         result_type.jvm_return_code
-         method_info.finish
-      end
-
 feature {}
    do_adapt is
       local
@@ -153,11 +97,6 @@ feature {}
             std_compute_use_current
          end
          smart_eiffel.pop_context(base_feature)
-      end
-
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
       end
 
 end -- class RUN_FEATURE_8

@@ -20,30 +20,6 @@ feature {ANY}
 
    class_text_name: CLASS_NAME
 
-   jvm_method_flags: INTEGER is 9
-
-   frozen jvm_target_descriptor_in (str: STRING) is
-      do
-         jvm_descriptor_in(str)
-      end
-
-   frozen jvm_check_class_invariant is
-      do
-      end
-
-   frozen jvm_standard_is_equal is
-      local
-         ca: like code_attribute; point1, point2: INTEGER
-      do
-         ca := code_attribute
-         point1 := jvm_if_x_eq
-         ca.opcode_iconst_0
-         point2 := ca.opcode_goto
-         ca.resolve_u2_branch(point1)
-         ca.opcode_iconst_1
-         ca.resolve_u2_branch(point2)
-      end
-
    frozen start_position: POSITION is
       do
          Result := class_text_name.start_position

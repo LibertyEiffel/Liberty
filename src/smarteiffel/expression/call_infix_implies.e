@@ -10,7 +10,7 @@ inherit
    CALL_INFIX
       redefine inline_dynamic_dispatch_
       end
-   
+
 creation {EIFFEL_PARSER}
    make
 
@@ -25,21 +25,6 @@ feature {ANY}
    operator: STRING is
       do
          Result := as_implies
-      end
-
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
       end
 
 feature {ANY}
@@ -76,7 +61,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             end
             code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, rp))
             then_compound := code_accumulator.current_context_to_instruction
-            code_accumulator.close_current_context  
+            code_accumulator.close_current_context
             create {ASSIGNMENT} else_compound.make(internal_local2, create {E_TRUE}.make(sp))
             -- Non inlining the "or else" with an IFTHENELSE:
             create ifthenelse.with_else(sp, internal_local2, then_compound, else_compound)
@@ -85,7 +70,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.current_context.add_last(internal_local2)
          end
       end
-         
+
 feature {}
    make (lp: like target; operator_position: POSITION; rp: like arg1) is
       require

@@ -124,28 +124,6 @@ feature {ANY}
          visitor.visit_agent_expression(Current)
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_false(type)
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         Result := jvm_standard_branch_if_true(type)
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    precedence: INTEGER is
       do
          Result := atomic_precedence

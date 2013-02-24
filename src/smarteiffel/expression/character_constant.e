@@ -33,18 +33,6 @@ feature {ANY}
          Result := declaration_type
       end
 
-   compile_to_jvm, compile_target_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_push_integer(value.code)
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    to_string: STRING is
       do
          if pretty_view /= Void then

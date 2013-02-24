@@ -80,26 +80,6 @@ feature {LIVE_TYPE}
       end
 
 feature {ANY}
-   jvm_xaload, jvm_xastore, jvm_xnewarray, jvm_return_code is
-      do
-         not_yet_implemented
-      end
-
-   jvm_if_x_eq, jvm_if_x_ne, jvm_push_default: INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_descriptor_in (str: STRING) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_push_local, jvm_write_local_creation, jvm_write_local (offset: INTEGER) is
-      do
-         not_yet_implemented
-      end
-
    natural_8 (sp: like start_position) is
       do
          bit_count := 8

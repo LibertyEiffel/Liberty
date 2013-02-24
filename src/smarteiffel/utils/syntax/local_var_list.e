@@ -172,25 +172,6 @@ feature {DECLARATION}
          n1.set_rank(i)
       end
 
-feature {ONCE_ROUTINE_POOL, RUN_FEATURE}
-   jvm_initialize (type: TYPE) is
-         -- Produce code in order to initialize variables.
-      local
-         jvm_offset, i, dummy: INTEGER; t: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            jvm_offset := jvm.local_offset_of(name(i))
-            t := type_mark(i).to_static(type)
-            dummy := t.jvm_push_default
-            t.jvm_write_local_creation(jvm_offset)
-            i := i + 1
-         end
-      end
-
 feature {}
    make (l: like list) is
       require

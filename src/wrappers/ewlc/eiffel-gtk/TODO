@@ -1,0 +1,267 @@
+* A dummy GtkWindow is created during the Eiffel library
+   initialization and it is used to create the GTK_WINDOW
+   archetype. Sometimes the underlying GtkWindow is not freed and gets
+   listed in gtk.toplevels.
+
+* (Done for G_OBJECTs see G_OBJECT_RETRIEVER; not a totally generic
+   solution, but covers most of our needs) Generic data structure now
+   re-create an object every time it delivers an object to the eiffel
+   world, of the most generic type possible, without checking if
+   there's already an eiffel wrapper and if the wrapper can be of a
+   more specific type. i.e.: having a widgets: G_LIST[GTK_WIDGET]
+   calling widgets.first will always create a new GTK_WIDGET object -
+   which is actually wrong - even the first widget is actually a
+   GTK_BUTTON and there's already a wrapper.
+
+* Eiffelize the examples found in GTK+ documentation
+
+* add precondition to external classes. The most obvious is i.e.:
+   gtk_entry_set_text (an_entry, a_text: POINTER) is require
+   valid_entry: an_entry.is_not_null
+
+* wrapping properties.
+
+* GTK_EDITABLE.insert_text implementation missing!
+
+* GTK_ENTRY_COMPLETION.set_model 
+
+* wrap Dynamic Loading of Modules
+   (/usr/share/doc/libgtk2.0-doc/glib/glib-Dynamic-Loading-of-Modules.html), 
+
+
+Object hierarchy:
+
+Fairly complete usually means that some properties, signals and some
+minor features are missing, while basic to intermediate usage is
+implemented.
+
+    Main loop and Events - 
+    Accelerator Groups - 
+    Accelerator Maps - 
+    Clipboards - 
+    Drag and Drop - 
+    GtkIconTheme - 
+    Stock Items - 
+    Themeable Stock Images - 
+    Resource Files - 
+    Settings - 
+    Bindings - 
+    Standard Enumerations - 
+    Graphics Contexts - 
+    Styles - 
+    Selections - 
+    Version Information - 
+    Signals - 
+    Types - 
+
+    Windows
+
+        GtkDialog - Fairly complete. Some properties, signals and features missing.
+        GtkInvisible - Not wrapped since it's not useful for end-user programmers.
+        GtkMessageDialog - Fairly complete. 4 properties missing.
+        GtkWindow - Fairly complete for common usage. Most properties, signals and many other features missing.
+        GtkWindowGroup - Complete.
+        GtkAboutDialog - Unfinished. Needs wrappers for array of const strings and const array of const string
+        GtkAssistant - Fairly complemete. Some properties and "cancel", "close", "prepare" signals missing.
+
+    Display Widgets
+
+        GtkAccelLabel - Mostly complete. "accel-closure" and "accel-widget" missing.
+        GtkImage - Basic features implemented. 
+        GtkLabel - Mostly implemented. Many properties non wrapped.
+        GtkProgressBar - Complete
+        GtkStatusbar - Mostly complete. Only "text-popped" and "text-popped" signals missing
+        GtkStatusIcon - Fairly complete.
+
+    Buttons and Toggles
+
+        GtkButton - Fairly complete.
+        GtkCheckButton - Fairly complete.
+        GtkRadioButton - Fairly complete.
+        GtkToggleButton - Fairly complete.
+        GtkLinkButton -  Fairly complete; callback missing
+
+    Numeric/Text Data Entry
+
+        GtkEntry - Fairly complete
+        GtkEntryCompletion - Fairdly complete. 
+        GtkHScale - Complete
+        GtkVScale - Complete
+        GtkSpinButton - Fairly complete
+        GtkEditable - Almost complete. Only delete-text signal is missing
+
+    Multiline Text Editor
+
+        GtkTextIter - Almost complete 
+        GtkTextMark - Complete
+        GtkTextBuffer - Fairly complete; some unwrapper properties should not be wrapped because strongly-typed access functions exist.
+        GtkTextTag - Basic usage; there are no access features for all the properties, meanwhile they are accessible using G_OBJECT.get_property/set_property
+        GtkTextTagTable - Basic usage. 
+        GtkTextView - Fairly complete; justification and margins not directly wrapped but accesible throught get/set_property
+
+    Tree, List and Icon Grid Widgets
+
+        GtkTreeModel - Basic functionality
+        GtkTreeSelection - Almost complete
+	GtkTreeRowReference - Basic functionality
+        GtkTreeViewColumn - Fairly complete
+        GtkTreeView - Basic functionalities
+        GtkTreeView drag-and-drop - Basic functionalities
+        GtkCellView - Mostly complete; just a couple properties missing
+        GtkIconView - Mostly UNimplemented
+        GtkTreeSortable - Basic functionalities
+        GtkTreeModelSort - Unimplemented
+        GtkTreeModelFilter - Basic functionalities
+        GtkCellLayout - Mostly implemented
+        GtkCellRenderer - Sketchy 
+        GtkCellEditable - Almost complete (only "editing-done" signal is missing)
+        GtkCellRendererAccel - Sketchy
+        GtkCellRendererCombo - Sketchy
+        GtkCellRendererPixbuf - Sketchy
+        GtkCellRendererProgress - Complete
+        GtkCellRendererSpin - Complete
+        GtkCellRendererText - Basic functionality
+        GtkCellRendererToggle - Basic functionality
+        GtkListStore - Basic functionality
+        GtkTreeStore - Mostly complete
+
+    Menus, Combo Box, Toolbar
+
+        GtkComboBox - Basic functionality
+        GtkComboBoxEntry - Complete
+        GtkMenu - Basic functionality
+        GtkMenuBar - Basic functionality
+        GtkMenuItem - Basic functionality
+        GtkMenuShell - Fairly complete
+        GtkImageMenuItem - Mostly complete
+        GtkRadioMenuItem - Mostly complete
+        GtkCheckMenuItem - Fairly complete
+        GtkSeparatorMenuItem - Complete
+        GtkTearoffMenuItem - Complete
+        GtkToolbar - Basic functionality
+        GtkToolItem - All function calls and properties wrapped. No signals handled
+        GtkSeparatorToolItem - Complete
+        GtkToolButton - Complete
+        GtkMenuToolButton - Almost complete
+        GtkToggleToolButton - (Almost?) Complete 
+        GtkRadioToolButton - Almost complete 
+
+    Action-based menus and toolbars
+
+        GtkUIManager - 
+        GtkActionGroup - 
+        GtkAction - 
+        GtkToggleAction - 
+        GtkRadioAction - 
+
+    Selectors (File/Font/Color/Input Devices)
+
+        GtkColorButton - Mostly complete. Only "color-set" signal and "color" feature missing
+        GtkColorSelection - Fairly complete.
+        GtkColorSelectionDialog - Fairly complete.
+        GtkFileSelection - Complete
+        GtkFileChooser - Fairly complete.
+        GtkFileChooserButton - Basic functionalities.
+        GtkFileChooserDialog - Fairly complete.
+        GtkFileChooserWidget - Fairly complete.
+        GtkFileFilter - Almost complete; only 3 features are missing and those must be provided by implementations of GtkFileChooser.
+        GtkFontButton - Complete
+        GtkFontSelection - Complete 
+        GtkFontSelectionDialog - Complete
+        GtkInputDialog - 
+
+    Layout Containers
+
+        GtkAlignment - Mostly complete. 4 properties not-strongly wrapped
+        GtkAspectFrame - Basic functionality.
+        GtkHBox - Complete
+        GtkVBox - Complete
+        GtkHButtonBox - Complete
+        GtkVButtonBox - Complete
+        GtkFixed - Missing, but almost no one will ever need it.
+        GtkHPaned - Complete
+        GtkVPaned - Complete
+        GtkLayout - Basic functionality
+        GtkNotebook - Basic functionality
+        GtkTable - Mostly complete
+        GtkExpander - Mostly complete
+
+    Ornaments
+
+        GtkFrame - Mostly complete
+        GtkHSeparator - Complete
+        GtkVSeparator - Complete
+
+    Scrolling
+
+        GtkHScrollbar - Mostly complete
+        GtkVScrollbar - Mostly complete
+        GtkScrolledWindow - Fairly complete
+
+    Printing
+
+        GtkPrintOperation - Basic functionality. All properties missing.
+        GtkPrintContext - Fairly complete
+        GtkPrintSettings - Partially implemented.
+        GtkPageSetup - Complete
+        GtkPaperSize - Complete
+        GtkPrinter - Fairly complete
+        GtkPrintJob - Basic functionality
+        GtkPrintUnixDialog - Fairly complete
+        GtkPageSetupUnixDialog - Complete
+	GtkPrintBackend - Skeleton
+
+    Miscellaneous
+
+        GtkAdjustment - Fairly complete. 2 properties left.
+        GtkArrow - Basic functionalty
+        GtkCalendar - Basic functionality
+        GtkDrawingArea - 
+        GtkEventBox - 
+        GtkHandleBox - 
+        GtkIMContextSimple - 
+        GtkIMMulticontext - 
+        GtkSizeGroup - 
+        GtkTooltips - Almost complete
+        GtkViewport - 
+        GtkAccessible - 
+
+    Abstract Base Classes
+
+        GtkBin - Basic functionality
+        GtkBox - Fairly complete
+        GtkButtonBox - Fairly complete. All child properties setters/getters missing
+        GtkContainer - Fairly complete
+        GtkItem - Fairly complete
+        GtkMisc - Complete (needs cleanup)
+        GtkObject - Basic functionality
+        GtkPaned - Fairly complete. Some properties are not strongly-wrapped
+        GtkRange - Basic functionalty
+        GtkScale - Fairly complete
+        GtkScrollbar - Mostly complete
+        GtkSeparator - Complete
+        GtkWidget - Basic functionality
+        GtkIMContext - 
+
+    Cross-process Embedding
+
+        GtkPlug - 
+        GtkSocket - 
+
+    Special-purpose features
+
+        GtkCurve - 
+        GtkGammaCurve - 
+        GtkRuler - 
+        GtkHRuler - 
+        GtkVRuler - 
+
+    Recently Used Documents
+
+        GtkRecentManager - 
+        GtkRecentChooser - 
+        GtkRecentChooserDialog - 
+        GtkRecentChooserMenu - 
+        GtkRecentChooserWidget - 
+        GtkRecentFilter - 
+

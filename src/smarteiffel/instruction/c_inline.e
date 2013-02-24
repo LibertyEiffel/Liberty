@@ -86,14 +86,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         error_handler.add_position(start_position)
-         error_handler.append("Cannot use %"c_inline_c%" or %"c_inline_h%" to produce Java byte code.")
-         error_handler.print_as_fatal_error
-      end
-
-
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
       do

@@ -191,7 +191,7 @@ feature {}
          elseif option_help.is_set then
             arguments.usage(std_output)
             die_with_code(0)
-         elseif not arguments.parse_command_line or else not argument_file.is_set then
+         elseif not argument_file.is_set then
             arguments.usage(std_error)
             die_with_code(1)
          end
@@ -241,16 +241,8 @@ end -- class EFFECT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2013: Cyril ADRIAN
 --
 -- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
---
---
--- Liberty Eiffel is based on SmartEiffel (Copyrights blow)
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

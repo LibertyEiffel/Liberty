@@ -1141,16 +1141,16 @@ feature {ANY} -- Other features:
          from
             s := start_index
          until
-            Result /= 0 or else s + other.count - 1 > count
+            Result /= 0 or else s - lower + other.upper > upper
          loop
             from
                i := other.lower
             until
-               i > other.count or else item(s + i - 1) /= other.item(i)
+               i > other.upper or else item(s + i - other.lower) /= other.item(i)
             loop
                i := i + 1
             end
-            if i > other.count then
+            if i > other.upper then
                Result := s
             else
                s := s + 1
@@ -1248,12 +1248,12 @@ feature {ANY} -- Other features:
 
 feature {ANY} -- Interfacing with C string:
    to_external: POINTER is
-	     -- The address of a memory region containing the text of Current, useful to interact with the C language.
+             -- The address of a memory region containing the text of Current, useful to interact with the C language.
 
-		 -- A NATIVELY_STORED_STRING implementation usually gives direct access
-		 -- to its internal `storage' (may be dangerous).
-		 -- Other non-natively stored heirs provide access to an Eiffel-owned
-		 -- buffer containing a  copy of its content.
+                 -- A NATIVELY_STORED_STRING implementation usually gives direct access
+                 -- to its internal `storage' (may be dangerous).
+                 -- Other non-natively stored heirs provide access to an Eiffel-owned
+                 -- buffer containing a  copy of its content.
 
          -- To be compatible with C, a null character is added at the end
          -- of the internal `storage'. This extra null character is not

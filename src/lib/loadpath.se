@@ -16,6 +16,7 @@ log/loadpath.se
 message_formatter/
 misc/loadpath.se
 mmi/loadpath.se
+mock/
 ncurses/loadpath.se
 net/loadpath.se
 numeric/loadpath.se

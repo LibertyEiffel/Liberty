@@ -506,12 +506,6 @@ feature {NATIVE_C}
          break --| **** TODO
       end
 
-feature {NATIVE_JAVA}
-   visit_native_java (visited: NATIVE_JAVA) is
-      do
-         break --| **** TODO
-      end
-
 feature {NATIVE_PLUG_IN}
    visit_native_plug_in (visited: NATIVE_PLUG_IN) is
       local

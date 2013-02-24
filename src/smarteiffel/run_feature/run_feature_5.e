@@ -101,47 +101,6 @@ feature {}
          end
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-         jvm.add_method(Current)
-      end
-
-feature {ANY}
-   mapping_jvm is
-      do
-         routine_mapping_jvm
-      end
-
-feature {JVM}
-   jvm_define is
-      local
-         branch, idx_flag: INTEGER
-      do
-         idx_flag := once_routine_pool.idx_fieldref_for_flag(Current)
-         method_info_start
-         code_attribute.opcode_getstatic(idx_flag, 1)
-         branch := code_attribute.opcode_ifne
-         code_attribute.opcode_iconst_1
-         code_attribute.opcode_putstatic(idx_flag, -1)
-         jvm_define_opening
-         jvm_increment_invariant_flag
-         if routine_body /= Void then
-            routine_body.compile_to_jvm(type_of_current)
-         end
-         jvm_decrement_invariant_flag
-         jvm_define_closing
-         code_attribute.resolve_u2_branch(branch)
-         code_attribute.opcode_return
-         method_info.finish
-      end
-
-feature {}
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
-      end
-
 end -- class RUN_FEATURE_5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

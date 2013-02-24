@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	zmq_init (an_io_threads: INTEGER_32): POINTER is
- 		-- zmq_init (node at line 5)
+ 		-- zmq_init
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	zmq_setsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: NATURAL_64): INTEGER_32 is
- 		-- zmq_setsockopt (node at line 8)
+ 		-- zmq_setsockopt
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_init_size (a_msg: POINTER; a_size: NATURAL_64): INTEGER_32 is
- 		-- zmq_msg_init_size (node at line 47)
+ 		-- zmq_msg_init_size
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +40,7 @@ feature {} -- External calls
 		end
 
 	zmq_device (a_device: INTEGER_32; an_insocket: POINTER; an_outsocket: POINTER): INTEGER_32 is
- 		-- zmq_device (node at line 108)
+ 		-- zmq_device
 		external "plug_in"
 		alias "{
 			location: "."
@@ -50,7 +50,7 @@ feature {} -- External calls
 		end
 
 	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- zmq_send (node at line 130)
+ 		-- zmq_send
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +60,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
- 		-- zmq_msg_copy (node at line 144)
+ 		-- zmq_msg_copy
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	zmq_errno: INTEGER_32 is
- 		-- zmq_errno (node at line 166)
+ 		-- zmq_errno
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_close (a_msg: POINTER): INTEGER_32 is
- 		-- zmq_msg_close (node at line 209)
+ 		-- zmq_msg_close
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +90,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_size (a_msg: POINTER): NATURAL_64 is
- 		-- zmq_msg_size (node at line 212)
+ 		-- zmq_msg_size
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +100,7 @@ feature {} -- External calls
 		end
 
 	zmq_socket (a_context: POINTER; a_type: INTEGER_32): POINTER is
- 		-- zmq_socket (node at line 228)
+ 		-- zmq_socket
 		external "plug_in"
 		alias "{
 			location: "."
@@ -110,7 +110,7 @@ feature {} -- External calls
 		end
 
 	zmq_version (a_major: POINTER; a_minor: POINTER; a_patch: POINTER) is
- 		-- zmq_version (node at line 234)
+ 		-- zmq_version
 		external "plug_in"
 		alias "{
 			location: "."
@@ -120,7 +120,7 @@ feature {} -- External calls
 		end
 
 	zmq_strerror (an_errnum: INTEGER_32): POINTER is
- 		-- zmq_strerror (node at line 248)
+ 		-- zmq_strerror
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,7 +130,7 @@ feature {} -- External calls
 		end
 
 	zmq_close (a_s: POINTER): INTEGER_32 is
- 		-- zmq_close (node at line 283)
+ 		-- zmq_close
 		external "plug_in"
 		alias "{
 			location: "."
@@ -140,7 +140,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: NATURAL_64; a_ffn: POINTER; a_hint: POINTER): INTEGER_32 is
- 		-- zmq_msg_init_data (node at line 305)
+ 		-- zmq_msg_init_data
 		external "plug_in"
 		alias "{
 			location: "."
@@ -150,7 +150,7 @@ feature {} -- External calls
 		end
 
 	zmq_getsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: POINTER): INTEGER_32 is
- 		-- zmq_getsockopt (node at line 321)
+ 		-- zmq_getsockopt
 		external "plug_in"
 		alias "{
 			location: "."
@@ -160,7 +160,7 @@ feature {} -- External calls
 		end
 
 	zmq_term (a_context: POINTER): INTEGER_32 is
- 		-- zmq_term (node at line 327)
+ 		-- zmq_term
 		external "plug_in"
 		alias "{
 			location: "."
@@ -170,7 +170,7 @@ feature {} -- External calls
 		end
 
 	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
- 		-- zmq_connect (node at line 396)
+ 		-- zmq_connect
 		external "plug_in"
 		alias "{
 			location: "."
@@ -180,7 +180,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_data (a_msg: POINTER): POINTER is
- 		-- zmq_msg_data (node at line 407)
+ 		-- zmq_msg_data
 		external "plug_in"
 		alias "{
 			location: "."
@@ -190,7 +190,7 @@ feature {} -- External calls
 		end
 
 	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
- 		-- zmq_bind (node at line 410)
+ 		-- zmq_bind
 		external "plug_in"
 		alias "{
 			location: "."
@@ -200,7 +200,7 @@ feature {} -- External calls
 		end
 
 	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- zmq_recv (node at line 414)
+ 		-- zmq_recv
 		external "plug_in"
 		alias "{
 			location: "."
@@ -210,7 +210,7 @@ feature {} -- External calls
 		end
 
 	zmq_poll (an_items: POINTER; a_nitems: INTEGER_32; a_timeout: INTEGER_64): INTEGER_32 is
- 		-- zmq_poll (node at line 430)
+ 		-- zmq_poll
 		external "plug_in"
 		alias "{
 			location: "."
@@ -220,7 +220,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_move (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
- 		-- zmq_msg_move (node at line 457)
+ 		-- zmq_msg_move
 		external "plug_in"
 		alias "{
 			location: "."
@@ -230,7 +230,7 @@ feature {} -- External calls
 		end
 
 	zmq_msg_init (a_msg: POINTER): INTEGER_32 is
- 		-- zmq_msg_init (node at line 530)
+ 		-- zmq_msg_init
 		external "plug_in"
 		alias "{
 			location: "."

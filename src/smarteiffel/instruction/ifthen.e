@@ -69,17 +69,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         point: INTEGER
-      do
-         point := expression.jvm_branch_if_false(type)
-         if then_compound /= Void then
-            then_compound.compile_to_jvm(type)
-         end
-         code_attribute.resolve_u2_branch(point)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          Result := expression.use_current(type)

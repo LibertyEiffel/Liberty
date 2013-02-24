@@ -211,36 +211,6 @@ feature {ANY}
          visitor.visit_closed_operand(Current)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign_creation (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
 feature {AGENT_CREATION, CLOSED_OPERAND_VISITOR}
    inside_agent_launcher_flag: BOOLEAN
 

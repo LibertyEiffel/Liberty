@@ -155,8 +155,6 @@ feature {} -- Most of them are message parts:
 
    fz_error_stars: STRING is "****** "
 
-   fz_jvm_error: STRING is "Incompatible with Java bytecode."
-
    fz_vuar4: STRING is "The $ operator must be followed by the final name of a feature which is not a %
                %constant attribute or by the name of some local variable as well."
 
@@ -184,16 +182,6 @@ feature {} -- Some other names:
 
    fz_system_se: STRING is "system.se"
 
-   fz_section_java: STRING is "Java"
-
-   fz_section_java_jar: STRING is "jar"
-
-   fz_section_java_jvm: STRING is "jvm"
-
-   fz_section_java_java_compiler: STRING is "java_compiler"
-
-   fz_section_java_classpath: STRING is "classpath"
-
 feature {INSTALL} -- The known keys of the INI file:
    fz_conf_general: STRING is "General"
 
@@ -203,9 +191,6 @@ feature {INSTALL} -- The known keys of the INI file:
          -- since version 2
 
    fz_conf_se_tools: STRING is "Tools"
-         -- since version 3
-
-   fz_conf_java: STRING is "Java"
          -- since version 3
 
    fz_conf_bin: STRING is "bin"
@@ -271,12 +256,6 @@ feature {INSTALL} -- The known keys of the INI file:
    fz_conf_cpp_strip_path: STRING is "cpp_strip_path"
 
    fz_conf_cpp_linker_options: STRING is "cpp_linker_options"
-
-   fz_conf_java_jar_binary: STRING is "jar"
-
-   fz_conf_java_jvm_binary: STRING is "jvm"
-
-   fz_conf_java_java_compiler: STRING is "java_compiler"
 
 end -- class FROZEN_STRING_LIST
 --

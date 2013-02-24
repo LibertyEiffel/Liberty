@@ -9,9 +9,9 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	-- Variable ffi_type_void (at line 151 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_void (at line 170 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_void: POINTER is
- 		-- Address of ffi_type_void (node at line 151)
+ 		-- Address of ffi_type_void (node at line 170)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,53 +20,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint8 (at line 153 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
-	address_of_ffi_type_sint8: POINTER is
- 		-- Address of ffi_type_sint8 (node at line 153)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&ffi_type_sint8"
-		}"
-		end
-
-	-- Variable ffi_type_uint64 (at line 158 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
-	address_of_ffi_type_uint64: POINTER is
- 		-- Address of ffi_type_uint64 (node at line 158)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&ffi_type_uint64"
-		}"
-		end
-
-	-- Variable ffi_type_uint8 (at line 152 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
-	address_of_ffi_type_uint8: POINTER is
- 		-- Address of ffi_type_uint8 (node at line 152)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&ffi_type_uint8"
-		}"
-		end
-
-	-- Variable ffi_type_pointer (at line 162 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
-	address_of_ffi_type_pointer: POINTER is
- 		-- Address of ffi_type_pointer (node at line 162)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "&ffi_type_pointer"
-		}"
-		end
-
-	-- Variable ffi_type_sint16 (at line 155 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint16 (at line 174 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint16: POINTER is
- 		-- Address of ffi_type_sint16 (node at line 155)
+ 		-- Address of ffi_type_sint16 (node at line 174)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -75,9 +31,53 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint32 (at line 157 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint8 (at line 172 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	address_of_ffi_type_sint8: POINTER is
+ 		-- Address of ffi_type_sint8 (node at line 172)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&ffi_type_sint8"
+		}"
+		end
+
+	-- Variable ffi_type_uint64 (at line 177 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	address_of_ffi_type_uint64: POINTER is
+ 		-- Address of ffi_type_uint64 (node at line 177)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&ffi_type_uint64"
+		}"
+		end
+
+	-- Variable ffi_type_uint8 (at line 171 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	address_of_ffi_type_uint8: POINTER is
+ 		-- Address of ffi_type_uint8 (node at line 171)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&ffi_type_uint8"
+		}"
+		end
+
+	-- Variable ffi_type_pointer (at line 181 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+	address_of_ffi_type_pointer: POINTER is
+ 		-- Address of ffi_type_pointer (node at line 181)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "&ffi_type_pointer"
+		}"
+		end
+
+	-- Variable ffi_type_sint32 (at line 176 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint32: POINTER is
- 		-- Address of ffi_type_sint32 (node at line 157)
+ 		-- Address of ffi_type_sint32 (node at line 176)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -86,9 +86,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_sint64 (at line 159 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_sint64 (at line 178 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_sint64: POINTER is
- 		-- Address of ffi_type_sint64 (node at line 159)
+ 		-- Address of ffi_type_sint64 (node at line 178)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -97,9 +97,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_float (at line 160 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_float (at line 179 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_float: POINTER is
- 		-- Address of ffi_type_float (node at line 160)
+ 		-- Address of ffi_type_float (node at line 179)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -108,9 +108,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint16 (at line 154 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint16 (at line 173 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint16: POINTER is
- 		-- Address of ffi_type_uint16 (node at line 154)
+ 		-- Address of ffi_type_uint16 (node at line 173)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -119,9 +119,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_uint32 (at line 156 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_uint32 (at line 175 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_uint32: POINTER is
- 		-- Address of ffi_type_uint32 (node at line 156)
+ 		-- Address of ffi_type_uint32 (node at line 175)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,9 +130,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_longdouble (at line 165 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_longdouble (at line 184 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_longdouble: POINTER is
- 		-- Address of ffi_type_longdouble (node at line 165)
+ 		-- Address of ffi_type_longdouble (node at line 184)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -141,9 +141,9 @@ feature {} -- External calls
 		}"
 		end
 
-	-- Variable ffi_type_double (at line 161 in file /usr/include/i386-linux-gnu/ffi.h does not have a wrapper type
+	-- Variable ffi_type_double (at line 180 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
 	address_of_ffi_type_double: POINTER is
- 		-- Address of ffi_type_double (node at line 161)
+ 		-- Address of ffi_type_double (node at line 180)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -163,7 +163,7 @@ feature {} -- External calls
 		end
 
 	ffi_java_ptrarray_to_raw (a_cif: POINTER; an_args: POINTER; a_raw: POINTER) is
- 		-- ffi_java_ptrarray_to_raw (node at line 198)
+ 		-- ffi_java_ptrarray_to_raw (node at line 199)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -173,7 +173,7 @@ feature {} -- External calls
 		end
 
 	ffi_ptrarray_to_raw (a_cif: POINTER; an_args: POINTER; a_raw: POINTER) is
- 		-- ffi_ptrarray_to_raw (node at line 226)
+ 		-- ffi_ptrarray_to_raw (node at line 227)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -182,8 +182,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_java_raw_closure_loc (an_argument_l281_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
- 		-- ffi_prep_java_raw_closure_loc (node at line 280)
+	ffi_prep_java_raw_closure_loc (an_argument_l282_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
+ 		-- ffi_prep_java_raw_closure_loc (node at line 281)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -193,7 +193,7 @@ feature {} -- External calls
 		end
 
 	ffi_prep_cif (a_cif: POINTER; an_abi: INTEGER; a_nargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
- 		-- ffi_prep_cif (node at line 298)
+ 		-- ffi_prep_cif (node at line 299)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -202,8 +202,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_closure_free (an_argument_l306_c7: POINTER) is
- 		-- ffi_closure_free (node at line 305)
+	ffi_closure_free (an_argument_l307_c7: POINTER) is
+ 		-- ffi_closure_free (node at line 306)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -233,7 +233,7 @@ feature {} -- External calls
 		end
 
 	ffi_raw_to_ptrarray (a_cif: POINTER; a_raw: POINTER; an_args: POINTER) is
- 		-- ffi_raw_to_ptrarray (node at line 391)
+ 		-- ffi_raw_to_ptrarray (node at line 390)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -242,8 +242,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_raw_size (a_cif: POINTER): NATURAL_32 is
- 		-- ffi_raw_size (node at line 400)
+	ffi_raw_size (a_cif: POINTER): NATURAL_64 is
+ 		-- ffi_raw_size (node at line 399)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -253,7 +253,7 @@ feature {} -- External calls
 		end
 
 	ffi_raw_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) is
- 		-- ffi_raw_call (node at line 415)
+ 		-- ffi_raw_call (node at line 414)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -262,8 +262,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_java_raw_size (a_cif: POINTER): NATURAL_32 is
- 		-- ffi_java_raw_size (node at line 421)
+	ffi_java_raw_size (a_cif: POINTER): NATURAL_64 is
+ 		-- ffi_java_raw_size (node at line 420)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -273,7 +273,7 @@ feature {} -- External calls
 		end
 
 	ffi_java_raw_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) is
- 		-- ffi_java_raw_call (node at line 424)
+ 		-- ffi_java_raw_call (node at line 423)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -283,7 +283,7 @@ feature {} -- External calls
 		end
 
 	ffi_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) is
- 		-- ffi_call (node at line 435)
+ 		-- ffi_call (node at line 434)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -292,8 +292,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_raw_closure (an_argument_l466_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
- 		-- ffi_prep_raw_closure (node at line 465)
+	ffi_prep_raw_closure (an_argument_l465_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
+ 		-- ffi_prep_raw_closure (node at line 464)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -302,8 +302,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_closure_loc (an_argument_l500_c7: POINTER; an_argument_l501_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
- 		-- ffi_prep_closure_loc (node at line 499)
+	ffi_prep_closure_loc (an_argument_l499_c7: POINTER; an_argument_l500_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER is
+ 		-- ffi_prep_closure_loc (node at line 498)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -312,8 +312,8 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_prep_closure (an_argument_l507_c7: POINTER; an_argument_l508_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
- 		-- ffi_prep_closure (node at line 506)
+	ffi_prep_closure (an_argument_l506_c7: POINTER; an_argument_l507_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER is
+ 		-- ffi_prep_closure (node at line 505)
 		external "plug_in"
 		alias "{
 			location: "."
@@ -322,13 +322,33 @@ feature {} -- External calls
 		}"
 		end
 
-	ffi_closure_alloc (a_size: NATURAL_32; a_code: POINTER): POINTER is
- 		-- ffi_closure_alloc (node at line 548)
+	ffi_prep_cif_var (a_cif: POINTER; an_abi: INTEGER; a_nfixedargs: NATURAL_32; a_ntotalargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
+ 		-- ffi_prep_cif_var (node at line 526)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_prep_cif_var"
+		}"
+		end
+
+	ffi_closure_alloc (a_size: NATURAL_64; a_code: POINTER): POINTER is
+ 		-- ffi_closure_alloc (node at line 555)
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "ffi_closure_alloc"
+		}"
+		end
+
+	ffi_prep_cif_core (a_cif: POINTER; an_abi: INTEGER; an_isvariadic: NATURAL_32; a_nfixedargs: NATURAL_32; a_ntotalargs: NATURAL_32; a_rtype: POINTER; an_atypes: POINTER): INTEGER is
+ 		-- ffi_prep_cif_core (node at line 575)
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ffi_prep_cif_core"
 		}"
 		end
 

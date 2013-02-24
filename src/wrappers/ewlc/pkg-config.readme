@@ -1,0 +1,12 @@
+In order to enable the usage of the pkg-config configuration files
+that you can find in the directory eiffel-libraries/pkg-config you
+shall put in you shell configuration file (i.e. ~/.bashrc):
+
+export PKG_CONFIG_PATH="path/to/eiffel-libraries/pkg-config"
+
+then you can write things like:
+
+paolo@vega:~$ pkg-config --list-all |grep  eiffel
+eiffel-gtk                  Eiffel-GTK - Eiffel wrapper library for the GTK (Gimp ToolKit)
+paolo@vega:~$ pkg-config --libs eiffel-gtk
+-lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lfontconfig -lXext -lXrender -lXinerama -lXi -lXrandr -lXcursor -lXfixes -lpango-1.0 -lcairo -lX11 -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0

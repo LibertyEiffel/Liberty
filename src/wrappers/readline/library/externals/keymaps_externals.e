@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	emacs_meta_keymap: POINTER is
- 		-- emacs_meta_keymap (node at line 63)
+ 		-- emacs_meta_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_meta_keymap: POINTER is
- 		-- Address of emacs_meta_keymap (node at line 63)
+ 		-- Address of emacs_meta_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,8 +29,18 @@ feature {} -- External calls
 		}"
 		end
 
+	set_emacs_meta_keymap (a_value: POINTER) is
+		-- Set variable emacs_meta_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_emacs_meta_keymap"
+		}"
+		end
+
 	emacs_standard_keymap: POINTER is
- 		-- emacs_standard_keymap (node at line 63)
+ 		-- emacs_standard_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +50,7 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_standard_keymap: POINTER is
- 		-- Address of emacs_standard_keymap (node at line 63)
+ 		-- Address of emacs_standard_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,8 +59,18 @@ feature {} -- External calls
 		}"
 		end
 
+	set_emacs_standard_keymap (a_value: POINTER) is
+		-- Set variable emacs_standard_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_emacs_standard_keymap"
+		}"
+		end
+
 	vi_movement_keymap: POINTER is
- 		-- vi_movement_keymap (node at line 64)
+ 		-- vi_movement_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +80,7 @@ feature {} -- External calls
 		end
 
 	address_of_vi_movement_keymap: POINTER is
- 		-- Address of vi_movement_keymap (node at line 64)
+ 		-- Address of vi_movement_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,8 +89,18 @@ feature {} -- External calls
 		}"
 		end
 
+	set_vi_movement_keymap (a_value: POINTER) is
+		-- Set variable vi_movement_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_vi_movement_keymap"
+		}"
+		end
+
 	vi_insertion_keymap: POINTER is
- 		-- vi_insertion_keymap (node at line 64)
+ 		-- vi_insertion_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +110,7 @@ feature {} -- External calls
 		end
 
 	address_of_vi_insertion_keymap: POINTER is
- 		-- Address of vi_insertion_keymap (node at line 64)
+ 		-- Address of vi_insertion_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -89,8 +119,18 @@ feature {} -- External calls
 		}"
 		end
 
+	set_vi_insertion_keymap (a_value: POINTER) is
+		-- Set variable vi_insertion_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_vi_insertion_keymap"
+		}"
+		end
+
 	emacs_ctlx_keymap: POINTER is
- 		-- emacs_ctlx_keymap (node at line 63)
+ 		-- emacs_ctlx_keymap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,12 +140,22 @@ feature {} -- External calls
 		end
 
 	address_of_emacs_ctlx_keymap: POINTER is
- 		-- Address of emacs_ctlx_keymap (node at line 63)
+ 		-- Address of emacs_ctlx_keymap
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "&emacs_ctlx_keymap"
+		}"
+		end
+
+	set_emacs_ctlx_keymap (a_value: POINTER) is
+		-- Set variable emacs_ctlx_keymap value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_emacs_ctlx_keymap"
 		}"
 		end
 

@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class LOADED_HIERARCHIC_GRAPH_NODE[E -> HASHABLE, LOAD]
+class LOADED_HIERARCHIC_GRAPH_NODE[E_ -> HASHABLE, LOAD]
 
 inherit
-   HIERARCHIC_GRAPH_NODE[E]
+   HIERARCHIC_GRAPH_NODE[E_]
       redefine make, add_parent, add_child, remove_parent, remove_child
       end
 
