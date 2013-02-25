@@ -1,0 +1,4 @@
+se c -profile
+se c -flat_check
+se c -no_gc
+se c -no_split

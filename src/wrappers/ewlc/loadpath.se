@@ -1,0 +1,17 @@
+./common/library/loadpath.se
+./eiffel-cairo/library/loadpath.se
+./eiffel-polka/library/loadpath.se
+./eiffel-libcurl/library/loadpath.se
+./eiffel-gobject/library/loadpath.se
+./eiffel-gsl/library/loadpath.se
+./eiffel-database/library/loadpath.se
+./eiffel-ffmpeg/library/loadpath.se
+./eiffel-xmlrpc-client/library/loadpath.se
+./eiffel-libglade/library/loadpath.se
+./eiffel-gdk/library/loadpath.se
+./eiffel-gtk/library/loadpath.se
+./eiffel-gts/library/loadpath.se
+./eiffel-glib/library/loadpath.se
+./eiffel-xmlrpc/library/loadpath.se
+./eiffel-pango/library/loadpath.se
+./eiffel-goocanvas/library/loadpath.se

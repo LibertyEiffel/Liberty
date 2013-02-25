@@ -1,0 +1,356 @@
+This project aims to provide Eiffel wrappers of many of the major
+libraries used in the Free Software.
+
+It will support the GNU Eiffel compiler SmartEiffel (
+http://smarteiffel.loria.fr/ ).
+
+Some of the libraries that shall be wrapped are:
+* GTK+ The GIMP Toolkit
+* libGlade a dynamic interface loader for GTK+
+* GSL - GNU Scientific Library
+* GNU Triangulated Surface Library
+* BLAS (Basic Linear Algebra)
+* Gnome libraries (Gnome-vfs GConf)
+* GNU Transport Layer Security Library could be wrapped
+* All the database APIs (Postgresql, MySQL, SQLite, Firebird, GnomeDB, ODBC et cetera).
+* FFMPEG a multimedia encoding/decoding library
+* Curl: A full featured HTTP client library
+
+* This is an interesting proejct to follow http://www.clutter-project.org/
+* libsigsegv - Handling page faults in user mode http://www.gnu.org/software/libsigsegv/
+* ColdStore http://coldstore.sourceforge.net/
+* http://www.db4o.com/
+
+USAGE:
+
+To use this library you shall add in your SmartEiffel configuration
+file, in the [Environment] section an entry like:
+
+eiffel_libraries: /path/to/your/copy/of/eiffel-libraries/
+
+COMMITS POLICY:
+
+1) there is no strict rule... 
+
+2) ideally each commit should provide compilable code and working
+   examples.
+
+3) provided examples and classes *can* be unfinished and uncomplete
+   *can* contain warnings, empty features and so on. My motto is
+   "something is better than nothing"
+
+4) it is nice to tell other developers what are you working on; an
+   email on eiffel-libraries-devel@gna.org suffice.
+
+5) I promise I won't track you with a 9-tail cat to bash you if you commit uncompilable code.
+
+6) another motto I use is: "Compiling code is the king. Good design is
+   the queen. Amazing performance is their prince... but the kingdom
+   can go on for a while with a king alone"
+
+Otherwise.... happy hacking!
+	      Paolo
+
+Project statistics at http://stats.gna.org/download.gna.org/eiffel-libraries/ and http://stats.gna.org/homepage.gna.org/eiffel-libraries/
+
+VARIOUS NOTES:
+
+Some random notes I almost copied my my previous work in Eiffel
+Wrapper Generator GTK2 example.
+
+* It will not strive - at least now - for perfection.
+
+* the sole target of this branch is to provide usable wrappers of a
+fundamental - namely GTK+ v.2.x for the GNU Eiffel compiler.
+
+* Conscius compiler-specific code will be avoided as much as
+possible... I'm not a zealot. I recognize the value of
+interoperability. But I don't have enough time to check the code with
+all the possible OS (Linux, Windows)/ Eiffel compiler (GNU, ISE, VE) /
+C compiler. I work on Debian Ubuntu with the GNU compiler on x86 and
+PowerPc. I value CPU portability more than compiler portability since
+my laptop is an Ubuntu iBook G3. As far as I can say using SmartEiffel
+with a GCC will produce code that will run on almost every computing
+facility produced in the last 20 years.
+
+* Compiler specific code will be used when any other alternative is
+awkward, incovenient, inefficient or just clumsy.
+
+Some example: G_LIST and any other generic GLib data structures... ISE
+requires "class G_SLIST [ITEM -> G_OBJECT create make_shared end]" and
+rejects "class G_SLIST [ITEM -> G_OBJECT]"; GNU compiler rejects the
+former and accepts the latter. Alternatives are:
+
+  1) using gepp (Gobo Eiffer PreProcessor) or
+
+  2) using something like a factory. It factories are like the one I
+found in feature new_event of class GDK_EVENT_FACTORY (on 2005-06-20),
+then I think that the gepp solution is much better.
+
+For now I will work out only the GNU compiler version. Anyone is
+warmly welcome to add support for other compilers, expecially Visual
+Eiffel.
+
+* Feature specific of a particular compiler's kernel library (for
+example ARRAY.to_external) will be used when an attempt to write
+compiler-portable code failed. Those features are labelled by an
+obsolete clause. Please feel free to fix them.
+
+* GTK+ wrappers classes are built from original GTK+ C
+documentation. Every html page text is copied in the corrisponding
+Eiffel source code file, entirely commented out, then progressively
+Eiffelized from top to bottom. Difficoult features will be sketched
+out in comments; callbacks and signals are currently put into TODO
+comments. This behaviour is not meant to pile rubbish, but to quickly
+know how much work we still have to do. And currently (2005-06-20)
+it's quite a lot. Too much to get lost in details that I would like to
+have time to fix. Those who have time are welcome to spend it on
+letter-case of describing comments of boolean queries or on whenever
+there's a space between a function and its open parenthesis. Tell me
+I'm too much untidy and wild but I think that this kind of things are
+- at least for me - not worth the effort (see (a) below). This also
+means that it is a derivative work of GTK+ Documentation; being a
+derivative work we must abide GTK+ license which is LGPL.
+
+* All the infrastructure of GTK+, including GObject are explicitly
+designed to make the life easy for people writing wrappers for
+loosely-typed languages such as Python, Perl and other scriptiong
+languages. This (sadly) means that life for heavily/strongly-typed
+languages such as Eiffel are make annoying. Objects like closures and
+other amenities like that won't be wrapped until the rest is done and
+working. (Paolo 2006-01-06)
+
+* (optional) boolean features shall have a query, a setter and a
+unsetter; i.e. `is_stock_item', 'set_stock_item' and
+`unset_stock_item'
+
+* (optional) classes using enums shall provide high-level queries such
+as `is_relief_normal' along with direct query of the enum value. Both
+variant are useful: the first for `if button.is_relief_normal then
+...', the other for `inspect button.relief when gtk_relief_normal then
+.... '.
+
+* C enum are wrapped in classes with similar name (i.e.:
+GTK_RESIZE_MODE wraps GtkResizeMode). They are inherited by the
+"external" class that uses that enum; the high-level class shall
+provide enum-agnostic features: i.e. calls and queries that makes the
+use of enum at Eiffel level redundant. i.e.: GTK_RELIEF_STYLE is
+inherited by GTK_BUTTON_EXTERNALS and GTK_BUTTON provides high-level
+queries like is_relief_normal and calls such as set_no_relief.
+
+* Since all the classes have been worked out from GTK+ documentation
+they can be a derived work of GTK+ and hence having some copyright
+iusses. As a temporary measure I've assigned copyright to me (Paolo
+Redaelli) and the same license of GTK+ (i.e. Lesser General Public
+License v.2 or later) until things get more clear.
+
+* How to wrap C types that have different sizes on different architectures?
+Infact see the following tentative corrispondence table:
+
+C variables	PowerPc (G3)	Eiffel
+char		1		CHARACTER
+short		2		INTEGER_16
+int		4		INTEGER
+long		4		INTEGER
+long long	8		INTEGER_64
+float		4		REAL_32
+double		8		REAL_64
+long double	8		REAL_64
+
+See http://en.wikipedia.org/wiki/C_variable_types_and_declarations
+
+* How to wrap unsigned variables (unsigned short, unsigned int,
+unsigned long)?  Until now I've happily turned every uint into a
+INTEGER, relaying on the silent C conversions, but this is clearly a
+work-around and not a long-term neither sustainable soluction. In my
+humble opinion a correct solution shall be to introduce NATURAL and
+NATURAL_x classes into SmartEiffel. Some of the first usage of INTEGER
+in place of an unsigned value are not marked. The other are marked by
+a TODO. Perhaps the new plugin subsystem can help here.
+
+* Unwrapped features:
+
+** Every deprecated function, enum, macro will NEVER be wrapped
+
+** (Unsure of this; still to be defined) Any function dealing with
+basic C types (that have notoriously "undefined" lenght and precision)
+when there are versions that uses types which are guaranteed to be the
+same size across all platforms; for example g_param_spec_long won't be
+wrapped, while g_param_spec_int64 will.
+
+** From gobject:
+GTypePlugin, an interface for dynamically loadable types
+GTypeModule Type loading modules
+
+Now some quotes to set the mood of this project:
+
+(a) `In contrast, one of my favorite mantras is "perfect is the enemy
+of good" [1] and the idea is that "good enough" is actually a lot more
+flexible than some idealized perfection.'
+	Linus Torvald [3]
+
+
+"Had the first versions of other imperfect specifications such as
+TCP/IP waited ten years for those in disagreement to work out their
+differences, the Web might still be hiding somewhere in the back of
+inventor Tim Berners-Lee's mind" [2]
+	David Berlind August 7, 2003 on techupdate.zdnet.com
+
+20 June 2005, Paolo Redaelli aka Tybor
+
+
+[1] Actually the mantra is attribuited to Soviet Admiral
+S.G. Gorshkov.
+
+[2] http://techupdate.zdnet.com/techupdate/stories/main/0,14179,2914447,00.html
+
+[3] http://os.newsforge.com/article.pl?sid=05/06/09/2128249 "Linus
+compares Linux and BSDs"
+
+
+MEMORY HANDLING
+===============
+
+Having a one-to-one relationship between a C structure and an Eiffel
+object should not be a taboo.
+
+If we allow the existance of multiple wrappers per wrapped structure
+we have almost automatically solved all the memory handling
+problems. The only missing issue is containers that have proconditions
+like "first = item(lower)" that require having single wrappers. This
+can be solved giving containers a local dictionary of
+pointers-wrappers; this dictionary will not be plagued by the problems
+we found ...
+
+
+2007-08-16:
+
+Using "normal" wrapper objects as archetypes causes bugs. For example
+when registering the archetype of GTK_WINDOW, if it is created with a
+"normal" creation clause, like `make_toplevel' (one that will be used
+during plain usage of the library) creates a hidden top-level window
+that will confuse the user: he/she will always see an unwanted window
+in gtk.toplevels. Therefore we must create dummy G_OBJECT wrappers
+that actually does not really wrap any underlying C GObject. Such
+objects must be created using the `dummy' creation clause that takes
+the name of the underlying GObject as an argument; i.e. create
+{GTK_WINDOW}.dummy("GtkWindow"); create {GTK_LABEL}.dummy("GtkLabel")
+and so on. The dummy creation clause will query the GType run-time
+type system for the GType id linked to that class name and store it in
+the `type_from_name' feature. When
+SHARED_ARCHETYPES_DICTIONARY.store_archetype is invoked with each
+dummy-wrapper it will query for the object's type. The G_OBJECT.type,
+seeing that its handle is NULL will return the type_from_name value.
+
+This solution seems quite convoluted. 
+
+This solution is really convoluted. 
+
+This solution is much more convoluted and complicated that expected: I
+would have preferred something simpler and more easily understandable;
+yet this is the only solution I found that is correct and that does
+not breaks preconditions, postcondition, class invariants here and
+there, in seemingly random places. All in all an archetype should be a
+dummy wrapper and a dummy wrapper is supposed to wrap no real C
+structure, shouldn't it be?
+
+
+2007-08-17: Huston, we have a problem: GTK does not register all its
+classes during initialization, but only when the first instance of
+such an object gets created, together with all the other needed
+classes, for example, creating a GtkLabel on a freshly initializated
+GTK brings in: GtkObject, GtkWidget, GtkMisc, GtkLabel, GtkContainer,
+GtkMenuShell, GtkMenu, GtkStyle, GdkDragContext, GtkSettings,
+GtkRcStyle. So the design of the dummy creation procedure given
+yesterday will never ever work. Some ideas for a workaround:
+
+- make dummy deferred, effecting it in non-deferred heirs 
+
+- dummy creates an underlying GObject, retrieve its type, register the
+  type and immediatly destroy it. This does not work because the
+  efficient GObject type system when the last object of a given class
+  is destroyed, deletes its type from the known GTypes.
+
+- therefore dummy wrappers must actually create the real thing at C
+  level, i.e. invoke creation functions of their GObject. This has the
+  unwanted effect that gtk_window_list_toplevels will always show the
+  archetype.
+
+- perhaps there is a way to avoid creation of actual low-level
+  GObject: the dummy creation clause of the wrapper creates the
+  GObject instance and ref its GType using "g_type_class_ref". When it
+  quits the low-level GObject will be freed but the GType will be
+  "locked" in memory. (Paolo: I hope to fix it in a couple of days)>>>>>>> .merge-dx.r789
+=======
+This branch wants to test an idea for handling wrapper.
+
+Having a one-to-one relationship between a C structure and an Eiffel object should not be a taboo.
+
+If we allow the existance of multiple wrappers per wrapped structure
+we have almost automatically solved all the memory handling
+problems. The only missing issue is containers that have proconditions
+like "first = item(lower)" that require having single wrappers. This
+can be solved giving containers a local dictionary of
+pointers-wrappers; this dictionary will not be plagued by the problems we found ...
+
+
+2007-08-16:
+
+Using "normal" wrapper objects as archetypes causes bugs. For example
+when registering the archetype of GTK_WINDOW, if it is created with a
+"normal" creation clause, like `make_toplevel' (one that will be used
+during plain usage of the library) creates a hidden top-level window
+that will confuse the user: he/she will always see an unwanted window
+in gtk.toplevels. Therefore we must create dummy G_OBJECT wrappers
+that actually does not really wrap any underlying C GObject. Such
+objects must be created using the `dummy' creation clause that takes
+the name of the underlying GObject as an argument; i.e. create
+{GTK_WINDOW}.dummy("GtkWindow"); create {GTK_LABEL}.dummy("GtkLabel")
+and so on. The dummy creation clause will query the GType run-time
+type system for the GType id linked to that class name and store it in
+the `type_from_name' feature. When
+SHARED_ARCHETYPES_DICTIONARY.store_archetype is invoked with each
+dummy-wrapper it will query for the object's type. The G_OBJECT.type,
+seeing that its handle is NULL will return the type_from_name value.
+
+This solution seems quite convoluted. 
+
+This solution is really convoluted. 
+
+This solution is much more convoluted and complicated that expected: I
+would have preferred something simpler and more easily understandable;
+yet this is the only solution I found that is correct and that does
+not breaks preconditions, postcondition, class invariants here and
+there, in seemingly random places. All in all an archetype should be a
+dummy wrapper and a dummy wrapper is supposed to wrap no real C
+structure, shouldn't it be?
+
+
+2007-08-17: Huston, we have a problem: GTK does not register all its
+classes during initialization, but only when the first instance of
+such an object gets created, together with all the other needed
+classes, for example, creating a GtkLabel on a freshly initializated
+GTK brings in: GtkObject, GtkWidget, GtkMisc, GtkLabel, GtkContainer,
+GtkMenuShell, GtkMenu, GtkStyle, GdkDragContext, GtkSettings,
+GtkRcStyle. So the design of the dummy creation procedure given
+yesterday will never ever work. Some ideas for a workaround:
+
+- make dummy deferred, effecting it in non-deferred heirs 
+
+- dummy creates an underlying GObject, retrieve its type, register the
+  type and immediatly destroy it. This does not work because the
+  efficient GObject type system when the last object of a given class
+  is destroyed, deletes its type from the known GTypes.
+
+- therefore dummy wrappers must actually create the real thing at C
+  level, i.e. invoke creation functions of their GObject. This has the
+  unwanted effect that gtk_window_list_toplevels will always show the
+  archetype.
+
+- perhaps there is a way to avoid creation of actual low-level
+  GObject: the dummy creation clause of the wrapper creates the
+  GObject instance and ref its GType using "g_type_class_ref". When it
+  quits the low-level GObject will be freed but the GType will be
+  "locked" in memory. (Paolo: I hope to fix it in a couple of days)
+
+

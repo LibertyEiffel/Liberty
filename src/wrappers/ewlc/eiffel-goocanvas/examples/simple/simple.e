@@ -1,0 +1,20 @@
+class
+	SIMPLE
+insert
+	GTK 
+	ANY 
+
+creation make
+feature
+	make is
+		do
+			gtk.initialize -- instead of "initialize_gtk"
+			create window.make
+			window.show_all
+			gtk.run_main_loop -- instead of "gtk_main"
+		end
+		
+	window: MAIN_WINDOW
+end
+
+

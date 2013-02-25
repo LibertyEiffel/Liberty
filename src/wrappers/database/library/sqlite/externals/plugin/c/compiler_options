@@ -1,0 +1,2 @@
+[UNIX]
+sqlite: "$(pkg-config --cflags sqlite3)"
