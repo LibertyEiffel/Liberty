@@ -1,4 +1,4 @@
-class C_STRUCT
+class C_STRUCT_NODE
 	-- A "Struct" node of an XML file made by gccxml.
 inherit 
 	COMPOSED_NODE -- hence also STORABLE_NODE  and a NAMED_NODE
@@ -43,7 +43,7 @@ feature
 		do
 			debug 
 				print(once 
-				"C_STRUCT.wrapper_type requires creation%
+				"C_STRUCT_NODE.wrapper_type requires creation%
 				% of external/expanded types; currently returning an empty string")
 			end
 			not_yet_implemented -- Result := eiffel_name
@@ -151,7 +151,7 @@ feature
 	-- TODO: the above reference to STANDARD_C_LIBRARY_TYPES creates requires
 	-- to wrap standard C library using a file called
 	-- "standard-c-library.gcc-xml"; allow the user to specify its name,
-end -- class C_STRUCT
+end -- class C_STRUCT_NODE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
