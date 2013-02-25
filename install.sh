@@ -3,7 +3,8 @@
 MAXTOOLCOUNT=19
 
 test ${0%/*} != $0 && cd ${0%/*}
-export CC=${CC:-gcc}
+export CC_TYPE=${CC_TYPE:-gcc}
+export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
@@ -120,17 +121,17 @@ x_int: extract_internals
 [boost]
 -- c_compiler_type: tcc
 -- smarteiffel_options: -no_strip
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -Os
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -Os
+cpp_compiler_options: -pipe -O1
 cpp_linker_path: $CC
 
 [no_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O1
 c_linker_path: $CC
@@ -140,7 +141,7 @@ cpp_compiler_options: -pipe -O1
 cpp_linker_path: $CC
 
 [require_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
@@ -150,7 +151,7 @@ cpp_compiler_options: -pipe
 cpp_linker_path: $CC
 
 [ensure_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
@@ -160,7 +161,7 @@ cpp_compiler_options: -pipe
 cpp_linker_path: $CC
 
 [invariant_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
@@ -170,7 +171,7 @@ cpp_compiler_options: -pipe
 cpp_linker_path: $CC
 
 [loop_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
@@ -180,7 +181,7 @@ cpp_compiler_options: -pipe
 cpp_linker_path: $CC
 
 [all_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
 c_linker_path: $CC
@@ -190,7 +191,7 @@ cpp_compiler_options: -pipe
 cpp_linker_path: $CC
 
 [debug_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -g
 c_linker_path: $CC
@@ -199,17 +200,6 @@ cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
 cpp_linker_path: $CC
 smarteiffel_options: -no_strip
-
-[release]
-c_compiler_type: gcc
-c_compiler_path: $CC
-c_compiler_options: -pipe -O3 -fomit-frame-pointer
-c_linker_path: $CC
-cpp_compiler_type: g++
-cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
-cpp_linker_path: $CC
-smarteiffel_options: -no_split
 
 EOF
         cd ..
@@ -233,24 +223,30 @@ EOF
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
     progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
-    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-    if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
-        grep ^$CC compile_to_c.make | while read cmd; do
-            progress 30 1 $MAXTOOLCOUNT "$cmd"
+    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+    grep -v '^#' compile_to_c.make | while read cmd; do
+        progress 30 1 $MAXTOOLCOUNT "$cmd"
+        run $cmd || exit 1
+    done
+    if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
+        rm compile_to_c.new
+    else
+        mv compile_to_c.new compile_to_c
+        progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
+        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+        grep -v '^#' compile_to_c.make | while read cmd; do
+            progress 30 2 $MAXTOOLCOUNT "$cmd"
             run $cmd || exit 1
         done
-
-        progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
-        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-        if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
-            grep ^$CC compile_to_c.make | while read cmd; do
-                progress 30 2 $MAXTOOLCOUNT "$cmd"
-                run $cmd || exit 1
-            done
-
+        if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
+            rm compile_to_c.new
+        else
+            mv compile_to_c.new compile_to_c
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+            if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
+                rm compile_to_c.new
+            else
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
@@ -438,9 +434,9 @@ x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -Os
+c_compiler_options: -pipe -O2
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -Os
+cpp_compiler_options: -pipe -O2
 
 [no_check]
 c_compiler_type: gcc
@@ -484,13 +480,6 @@ c_compiler_options: -pipe -g
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -g
 smarteiffel_options: -no_strip
-
-[release]
-c_compiler_type: gcc
-c_compiler_options: -pipe -O3 -fomit-frame-pointer
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
-smarteiffel_options: -no_split
 
 EOF
 
