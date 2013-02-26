@@ -42,32 +42,6 @@ feature {ANY}
       do
       end
 
-   frozen compile_to_jvm (type: TYPE) is
-      do
-         type.canonical_type_mark.jvm_push_local(0)
-      end
-
-   frozen compile_target_to_jvm (type: TYPE) is
-      do
-         if is_written then
-            standard_compile_target_to_jvm(type)
-         else
-            compile_to_jvm(type)
-         end
-      end
-
-   frozen jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifeq
-      end
-
-   frozen jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         compile_to_jvm(type)
-         Result := code_attribute.opcode_ifne
-      end
-
    specialize_in (type: TYPE): like Current is
       do
          if declaration_type = Void then
@@ -143,13 +117,6 @@ feature {ANY}
          if is_written then
             short(type)
             short_printer.put_dot
-         end
-      end
-
-   frozen jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
          end
       end
 

@@ -122,58 +122,6 @@ feature {ANY}
          visitor.visit_formal_arg_list(Current)
       end
 
-feature {JVM}
-   jvm_switch_push (type: TYPE; dyn_fal: like Current): INTEGER is
-         -- Push inside switching method.
-      require
-         count = dyn_fal.count
-      local
-         i: INTEGER
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            Result := Result + jvm_switch_push_ith(type, dyn_fal, i)
-            i := i + 1
-         end
-      end
-
-feature {JVM}
-   jvm_switch_push_ith (type: TYPE; dyn_fal: like Current; i: INTEGER): INTEGER is
-      local
-         ft, at: TYPE; offset: INTEGER
-      do
-         offset := jvm.argument_offset_of(name(i))
-         ft := type_mark(i).resolve_in(type)
-         at := dyn_fal.type_mark(i).resolve_in(type)
-         ft.canonical_type_mark.jvm_push_local(offset)
-         --|*** Is Result really used ? *** Dom 16-09-2005 ***
-         Result := at.canonical_type_mark.jvm_stack_space
-         jvm.kernel_expanded_convert(ft, at)
-      end
-
-feature {RUN_FEATURE, JVM}
-   jvm_descriptor_in (buffer: STRING) is
-      local
-         i: INTEGER; at: TYPE_MARK
-      do
-         from
-            i := 1
-         until
-            i > count
-         loop
-            at := type_mark(i)
-            if at.is_reference then
-               buffer.append(jvm_root_descriptor)
-            else
-               at.jvm_descriptor_in(buffer)
-            end
-            i := i + 1
-         end
-      end
-
 feature {AGENT_CREATION}
    omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST is
          -- Create the corresponding ommited open arguments list.

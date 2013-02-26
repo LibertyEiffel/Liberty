@@ -203,21 +203,6 @@ feature {MANIFEST_TUPLE, CREATE_INSTRUCTION_VISITOR, CREATE_EXPRESSION_VISITOR}
          Result := call.arguments
       end
 
-feature {}
-   compile_to_jvm0 (t: TYPE_MARK) is
-         -- Push the new object with default initialization.
-      require
-         t /= Void
-      local
-         dummy: INTEGER
-      do
-         if t.is_reference then
-            t.type.live_type.jvm_basic_new
-         else
-            dummy := t.jvm_push_default
-         end
-      end
-
 invariant
    not start_position.is_unknown
 

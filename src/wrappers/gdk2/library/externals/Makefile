@@ -6,4 +6,4 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)   
 
 $(XML):$(HEADER) 
-	gccxml `pkg-config --cflags-only-I gdk-2.0` $(HEADER) -fxml=$(XML)
+	gccxml -DGLIB_DISABLE_DEPRECATION_WARNINGS  `pkg-config --cflags-only-I gdk-2.0` $(HEADER) -fxml=$(XML)

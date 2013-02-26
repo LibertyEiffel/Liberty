@@ -85,11 +85,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          if not ace.boost then

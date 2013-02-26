@@ -128,36 +128,6 @@ feature {SMART_EIFFEL}
          launcher_collected_memory.clear_count
       end
 
-feature {JVM}
-   customize_jvm_runtime is
-      do
-         --|*** ???? ***
-      end
-
-   jvm_define_deferred_methods is
-      local
-         i: INTEGER
-      do
-         method_info.add_init(once "java/lang/Object")
-         from
-            i := 1
-         until
-            i > launcher_collected_memory.count
-         loop
-            launcher_collected_memory.item(i).jvm_define(False)
-            i := i + 1
-         end
-         method_info.finish
-      end
-
-   ajout_call_full (i: INTEGER) is
-         --|*** NOM MOCHE ***
-      do
-         method_info.add_init(once "java/lang/Object")
-         launcher_collected_memory.item(i).jvm_define(True)
-         method_info.finish
-      end
-
 feature {CODE_PRINTER, C_LIVE_TYPE_COMPILER}
    creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE] is
          -- For each context TYPE, those which are collected.

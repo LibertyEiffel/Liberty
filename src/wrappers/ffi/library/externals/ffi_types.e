@@ -7,14 +7,14 @@ deferred class FFI_TYPES
 insert ANY undefine is_equal, copy end
 
 feature -- C type definitions (typedefs)
-	ffi_sarg: INTEGER_32 is
+	ffi_sarg: INTEGER_64 is
 		-- typedef ffi_sarg
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	ffi_arg: NATURAL_32 is
+	ffi_arg: NATURAL_64 is
 		-- typedef ffi_arg
 		-- Empty by design, used for anchored declarations.
 	do

@@ -121,21 +121,6 @@ feature {ANY}
          end
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_true, jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
    start_position: POSITION is
       do
          if left_type_mark /= Void then

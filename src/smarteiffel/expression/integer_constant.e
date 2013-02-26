@@ -103,18 +103,6 @@ feature {ANY}
          Result := Current
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         code_attribute.opcode_push_integer_value(value_memory, result_type.bit_count)
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    to_string: STRING is
       local
          buffer: STRING

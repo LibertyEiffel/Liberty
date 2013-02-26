@@ -56,16 +56,6 @@ feature {ANY}
          create Result.make
       end
 
-   frozen jvm: JVM is
-      once
-         create Result.make
-      end
-
-   frozen constant_pool: CONSTANT_POOL is
-      once
-         create Result
-      end
-
    frozen mini_buffer: MINI_BUFFER is
       once
          create Result
@@ -94,11 +84,6 @@ feature {ANY}
       end
 
    frozen precomputable_routine_detector: PRECOMPUTABLE_ROUTINE_DETECTOR is
-      once
-         create Result.make
-      end
-
-   frozen jvm_tools: JVM_TOOLS is
       once
          create Result.make
       end
@@ -139,12 +124,6 @@ feature {SMART_EIFFEL, SYSTEM_TOOLS, INSTALL_GLOBALS, VISITOR}
    frozen parser_buffer: PARSER_BUFFER is
       once
          create Result.make
-      end
-
-feature {NATIVE_JAVA}
-   frozen interface_info: INTERFACE_INFO is
-      once
-         create Result
       end
 
 feature {ANY}
@@ -210,31 +189,6 @@ feature {ANY}
    frozen exceptions_handler: EXCEPTIONS_HANDLER is
       once
          create Result.make
-      end
-
-   frozen classfile_attribute: CLASSFILE_ATTRIBUTE is
-      once
-         create Result.make
-      end
-
-   frozen line_number_table: LINE_NUMBER_TABLE is
-      once
-         create Result.make
-      end
-
-   frozen field_info: FIELD_INFO is
-      once
-         create Result
-      end
-
-   frozen code_attribute: CODE_ATTRIBUTE is
-      once
-         create Result
-      end
-
-   frozen method_info: METHOD_INFO is
-      once
-         create Result
       end
 
    nb_warnings: INTEGER is
@@ -574,25 +528,6 @@ feature {ANY}
 
    atomic_precedence: INTEGER is 13
          -- Used for atomic elements.
-
-   jvm_root_class: STRING is
-         -- Fully qualified name for the jvm Liberty Eiffel object's
-         -- added root : "<Package>/_any".
-      once
-         create Result.make(12)
-         Result.copy(ace.executable_name)
-         Result.extend('/')
-         Result.append(once "_any")
-      end
-
-   jvm_root_descriptor: STRING is
-         -- Descriptor for `jvm_root_class': "L<jvm_root_class>;"
-      once
-         create Result.make(12)
-         Result.extend('L')
-         Result.append(jvm_root_class)
-         Result.extend(';')
-      end
 
    append_u1 (str: STRING; u1: INTEGER) is
       require

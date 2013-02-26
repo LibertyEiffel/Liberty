@@ -178,36 +178,6 @@ feature {ANY}
          visitor.visit_create_expression(Current)
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      local
-         rf: RUN_FEATURE
-      do
-         compile_to_jvm0(explicit_type)
-         if call /= Void then
-            rf := call.run_feature_for(type)
-         elseif explicit_type.is_user_expanded then
-            rf := explicit_type.type.live_type.default_create_run_feature
-         end
-         if rf /= Void then
-            jvm.inside_create_instruction(type, rf, call)
-         end
-         explicit_type.jvm_check_class_invariant
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    bracketed_pretty, pretty (indent_level: INTEGER) is
       do
          pretty_printer.keyword(once "create")

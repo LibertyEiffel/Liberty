@@ -153,28 +153,6 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   frozen compile_to_jvm (type: TYPE) is
-      local
-         created: TYPE_MARK; rf: RUN_FEATURE
-      do
-         if explicit_type /= Void then
-            created := explicit_type
-         else
-            created := writable.resolve_in(type).canonical_type_mark
-         end
-         compile_to_jvm0(created)
-         if call /= Void then
-            rf := call.run_feature_for(type)
-         elseif created.is_user_expanded then
-            rf := created.type.live_type.default_create_run_feature
-         end
-         if rf /= Void then
-            jvm.inside_create_instruction(type, rf, call)
-         end
-         created.jvm_check_class_invariant
-         writable.jvm_assign_creation(type)
-      end
-
    end_mark_comment: BOOLEAN is False
 
    accept (visitor: CREATE_INSTRUCTION_VISITOR) is

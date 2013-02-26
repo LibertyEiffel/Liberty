@@ -60,27 +60,10 @@ feature {ANY}
       do
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-      end
-
 feature {RUN_FEATURE}
    compute_use_current is
       do
          use_current_state := False_state
-      end
-
-feature {ANY}
-   mapping_jvm is
-      do
-         jvm.drop_target
-         value.compile_to_jvm(type_of_current)
-      end
-
-feature {JVM}
-   jvm_define is
-      do
       end
 
 feature {}
@@ -95,10 +78,6 @@ feature {}
             result_type.is_static
          end
          value := base_feature.value
-      end
-
-   update_tmp_jvm_descriptor is
-      do
       end
 
 end -- class RUN_FEATURE_1

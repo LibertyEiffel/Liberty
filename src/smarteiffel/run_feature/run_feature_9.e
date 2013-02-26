@@ -88,27 +88,6 @@ feature {}
          use_current_state := True_state
       end
 
-feature {LIVE_TYPE}
-   jvm_field_or_method is
-      do
-      end
-
-feature {ANY}
-   mapping_jvm is
-      do
-      end
-
-feature {JVM}
-   jvm_define is
-      do
-      end
-
-feature {}
-   update_tmp_jvm_descriptor is
-      do
-         routine_update_tmp_jvm_descriptor
-      end
-
 end -- class RUN_FEATURE_9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

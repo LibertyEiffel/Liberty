@@ -19,7 +19,6 @@ insert
          visit_native_built_in,
          visit_native_c_plus_plus,
          visit_native_c,
-         visit_native_java,
          visit_native_plug_in
       end
 
@@ -228,12 +227,6 @@ feature {NATIVE_C}
          end
          mapping_c(visited, rf7.base_feature, cpp.native_need_wrapper.for_rf7(rf7), False, rf7.arg_count)
          function_body.append(once ";%N")
-      end
-
-feature {NATIVE_JAVA}
-   visit_native_java (visited: NATIVE_JAVA) is
-      do
-         fe_c2c(rf7)
       end
 
 feature {NATIVE_PLUG_IN}

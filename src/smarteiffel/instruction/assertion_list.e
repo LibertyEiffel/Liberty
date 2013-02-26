@@ -260,11 +260,6 @@ feature {ANY}
          visitor.visit_assertion_list(Current)
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    use_current (type: TYPE): BOOLEAN is
       local
          i: INTEGER

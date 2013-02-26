@@ -722,6 +722,8 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             if ace_test(test_file) then
                -- Well, it was actually an ace_*.ace test.
             else
+               check_mocks_with(test_file)
+
                test_file_check_with(once "-boost", test_file)
                test_file_check_with(once "-flat_check -all_check -debug", test_file)
                test_file_check_with(once "-no_check", test_file)
@@ -781,6 +783,34 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                --
             end
             i := i + 1
+         end
+      end
+
+   check_mocks_with (test_file: STRING) is
+      require
+         test_file.has_prefix(once "test_")
+         test_file.has_suffix(once ".e")
+      local
+         cmd, mock: STRING
+      do
+         mock := once "..............."
+         mock.copy(test_file)
+         mock.remove_suffix(once ".e")
+         mock.append(once ".mock")
+
+         if file_tools.file_exists(mock) then
+            sedb_breakpoint
+            from
+               text_file_read.connect_to(mock)
+               text_file_read.read_line
+            until
+               text_file_read.end_of_input
+            loop
+               cmd := once "se mock " + text_file_read.last_string
+               execute_command(cmd, cmd, False)
+               text_file_read.read_line
+            end
+            text_file_read.disconnect
          end
       end
 

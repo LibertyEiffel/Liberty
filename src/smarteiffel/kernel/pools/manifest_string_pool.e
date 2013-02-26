@@ -153,49 +153,6 @@ feature {SMART_EIFFEL}
          collected_storage_id_set.clear_count
       end
 
-feature {JVM}
-   jvm_define_fields is
-      local
-         cp: like constant_pool; ms: MANIFEST_STRING; name_idx, string_idx, i, mdc: INTEGER
-      do
-         mdc := collected_once_variables.count
-         if mdc > 0 then
-            cp := constant_pool
-            string_idx := cp.idx_eiffel_string_descriptor
-            from
-               i := 1
-            until
-               i > mdc
-            loop
-               ms := collected_once_variables.item(i)
-               name_idx := cp.idx_utf8(ms.once_variable)
-               field_info.add(9, name_idx, string_idx)
-               i := i + 1
-            end
-         end
-      end
-
-   jvm_initialize_fields is
-      local
-         cp: like constant_pool; ca: like code_attribute; ms: MANIFEST_STRING; i, mdc: INTEGER
-      do
-         mdc := collected_once_variables.count
-         if mdc > 0 then
-            cp := constant_pool
-            ca := code_attribute
-            from
-               i := 1
-            until
-               i > mdc
-            loop
-               ms := collected_once_variables.item(i)
-               ca.opcode_push_manifest_string(ms.to_string)
-               ca.opcode_putstatic(ms.fieldref_idx, -1)
-               i := i + 1
-            end
-         end
-      end
-
 feature {}
    agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]] is
       once

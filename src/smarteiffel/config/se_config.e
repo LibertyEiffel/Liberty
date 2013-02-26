@@ -31,18 +31,6 @@ feature {ANY}
       deferred
       end
 
-   jar: STRING is
-      deferred
-      end
-
-   java_virtual_machine: STRING is
-      deferred
-      end
-
-   java_compiler: STRING is
-      deferred
-      end
-
    environment (var: STRING): STRING is
       deferred
       end

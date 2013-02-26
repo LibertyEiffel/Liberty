@@ -346,39 +346,6 @@ feature {ANY}
          short_target(type)
       end
 
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         check False end
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true  (type: TYPE): INTEGER is
-      do
-         check False end
-      end
-
-   compile_to_jvm (type: TYPE) is
-      local
-         i: INTEGER
-      do
-         if list /= Void then
-            from
-               i := list.lower
-            until
-               i > list.upper
-            loop
-               list.item(i).compile_to_jvm(type)
-               i := i + 1
-            end
-         end
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         check
-            False
-         end
-      end
-
    accept (visitor: FAKE_TUPLE_VISITOR) is
       do
          visitor.visit_fake_tuple(Current)

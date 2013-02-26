@@ -150,36 +150,6 @@ feature {ANY}
          Result := 11
       end
 
-   compile_to_jvm_old (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   compile_target_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_false (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         not_yet_implemented
-      end
-
-   jvm_assign_creation, jvm_assign (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          Result := expression.use_current(type)

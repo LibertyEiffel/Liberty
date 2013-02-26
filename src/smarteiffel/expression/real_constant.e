@@ -46,23 +46,6 @@ feature {ANY}
          Result := declaration_type
       end
 
-   compile_target_to_jvm, compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-         if result_type.is_real then
-            code_attribute.opcode_push_as_double(normalized_view)
-         else
-            code_attribute.opcode_push_as_float(normalized_view)
-         end
-      end
-
-   jvm_branch_if_false, jvm_branch_if_true (type: TYPE): INTEGER is
-      do
-         check
-            False
-         end
-      end
-
    simplify_1_, simplify_2: like Current is
       do
          Result := Current

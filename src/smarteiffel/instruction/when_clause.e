@@ -235,11 +235,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         not_yet_implemented
-      end
-
    pretty (indent_level: INTEGER) is
       local
          i: INTEGER

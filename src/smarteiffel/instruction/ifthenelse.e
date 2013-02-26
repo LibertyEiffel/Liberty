@@ -77,39 +77,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         i: INTEGER; ca: like code_attribute
-      do
-         ca := code_attribute
-         compile_to_jvm_(type)
-         if elseif_list /= Void then
-            from
-               i := elseif_list.lower
-            until
-               i > elseif_list.upper
-            loop
-               elseif_list.item(i).compile_to_jvm_(type)
-               i := i + 1
-            end
-         end
-         if else_compound /= Void then
-            else_compound.compile_to_jvm(type)
-         end
-         -- Resolving all `jvm_after_point' which must go to the end:
-         ca.resolve_u2_branch(jvm_after_point)
-         if elseif_list /= Void then
-            from
-               i := elseif_list.lower
-            until
-               i > elseif_list.upper
-            loop
-               ca.resolve_u2_branch(elseif_list.item(i).jvm_after_point)
-               i := i + 1
-            end
-         end
-      end
-
    specialize_in (type: TYPE): like Current is
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER

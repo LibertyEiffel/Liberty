@@ -44,39 +44,6 @@ feature {ANY}
          visitor.visit_agent_args(Current)
       end
 
-feature {AGENT_POOL}
-   jvm_define (actual: BOOLEAN) is
-         -- Define both the deferred wrapper or the `actual' definition.
-      local
-         flags, i: INTEGER; descripteur: STRING; ca: CODE_ATTRIBUTE; cp: CONSTANT_POOL; open: ARRAY[TYPE]
-      do
-         ca := code_attribute
-         cp := constant_pool
-         flags := 9
-         descripteur := once "...................."
-         descripteur.clear_count
-         descripteur.extend('(')
-         open := agent_type.open_arguments
-         if open /= Void then
-            from
-               i := open.lower
-            until
-               i > open.upper
-            loop
-               open.item(i).canonical_type_mark.jvm_descriptor_in(descripteur)
-               i := i + 1
-            end
-         end
-         descripteur.append(once ")V")
-         method_info.start(flags, signature, descripteur)
-         if actual then
-            ca.opcode_return
-         else
-            ca.opcode_return
-         end
-         method_info.finish
-      end
-
 feature {ANY}
    agent_result: TYPE is
       do

@@ -46,13 +46,20 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
       do
          from
             Result := args.first.parse_command_line(context)
+            if Result.is_parsed then
+               is_set := args.first.is_set
+            else
+               undo_parse(Result)
+            end
             i := args.lower + 1
          until
             is_set or else i > args.upper
          loop
-            Result := args.item(i).parse_command_line(Result)
+            Result := args.item(i).parse_command_line(context)
             if Result.is_parsed then
                is_set := args.item(i).is_set
+            else
+               undo_parse(Result)
             end
             i := i + 1
          end

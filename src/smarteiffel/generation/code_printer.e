@@ -3,11 +3,8 @@
 --
 deferred class CODE_PRINTER
    --
-   -- Common root for C_PRETTY_PRINTER and JVM.
+   -- A code generator.
    --
-
-inherit
-   ANY
 
 insert
    GLOBALS

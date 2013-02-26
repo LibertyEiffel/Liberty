@@ -1,4 +1,4 @@
-## To avoid an Ubuntu Intrepid Ibex bug.
+## To avoid an Ubuntu
 ## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
 ##GCCXML_COMPILER=gcc-4.2
 

@@ -93,27 +93,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      local
-         i: INTEGER; instruction: INSTRUCTION; trace: BOOLEAN; ca: like code_attribute
-      do
-         from
-            i := list.lower
-            ca := code_attribute
-            trace := start_position.sedb_trace
-         until
-            i > list.upper
-         loop
-            instruction := list.item(i)
-            line_number_table.add(ca.program_counter, instruction.start_position)
-            if trace then
-               ca.se_trace(type.canonical_type_mark, instruction.start_position)
-            end
-            instruction.compile_to_jvm(type)
-            i := i + 1
-         end
-      end
-
    use_current (type: TYPE): BOOLEAN is
       local
          i: INTEGER

@@ -42,12 +42,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE) is
-      do
-         right_side.compile_to_jvm(type)
-         left_side.jvm_assign(type)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       do
          Result := left_side.use_current(type)

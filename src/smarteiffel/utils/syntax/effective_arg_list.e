@@ -350,39 +350,6 @@ feature {ANY}
          end
       end
 
-   compile_to_jvm (type: TYPE; fal: FORMAL_ARG_LIST): INTEGER is
-      require
-         count = fal.count
-      local
-         i, up: INTEGER
-      do
-         from
-            i := 1
-            up := count
-         until
-            i > up
-         loop
-            Result := Result + compile_to_jvm_ith(type, fal, i)
-            i := i + 1
-         end
-      end
-
-   compile_to_jvm_ith (type: TYPE; fal: FORMAL_ARG_LIST; index: INTEGER): INTEGER is
-      require
-         count = fal.count
-         1 <= index
-         index <= count
-      local
-         e: EXPRESSION; formal_type, actual_type: TYPE
-      do
-         e := expression(index)
-         actual_type := e.resolve_in(type)
-         formal_type := fal.type_mark(index).resolve_in(type)
-         e.compile_to_jvm(type)
-         Result := formal_type.jvm_stack_space
-         jvm.kernel_expanded_convert(actual_type, formal_type)
-      end
-
    use_current (type: TYPE): BOOLEAN is
       local
          i: INTEGER

@@ -959,14 +959,6 @@ feature {ANY}
          end
       end
 
-feature {BUILT_IN_EQ_NEQ, FUNCTION_CALL, EFFECTIVE_ARG_LIST, NATIVE_BUILT_IN}
-   jvm_stack_space: INTEGER is
-      do
-         Result := canonical_type_mark.jvm_stack_space
-      ensure
-         Result.in_range(1, 2)
-      end
-
 feature {LIVE_TYPE}
    forget_previous_collect is
          --|*** Do not know yet if this feature must be better called directly by `smart_eiffel'?
