@@ -8,7 +8,7 @@ deferred class COMPOSED_NODE
 	-- do not belong to a single file.
 
 	-- Note: previously COMPOSED_NODE inherited from NAMED_NODE. The heirs of
-	-- this class C_STRUCT, C_UNION and C_PLUS_PLUS_CLASS will be made direct
+	-- this class C_STRUCT_NODE_NODE, C_UNION and C_PLUS_PLUS_CLASS will be made direct
 	-- heir of NAMED_NODE.
 
 inherit 
