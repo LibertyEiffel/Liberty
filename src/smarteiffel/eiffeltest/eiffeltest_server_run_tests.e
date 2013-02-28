@@ -417,7 +417,7 @@ feature {}
          done
       end
 
-   log: TEXT_FILE_WRITE
+   log: LINES_OUTPUT_STREAM
 
    collection_sorter: COLLECTION_SORTER[FIXED_STRING]
    good_tests, bad_tests: RING_ARRAY[FIXED_STRING]
@@ -575,12 +575,14 @@ se c -ensure_check
       require
          not done
       local
-         bd: BASIC_DIRECTORY
+         bd: BASIC_DIRECTORY; tfw: TEXT_FILE_WRITE
       do
          bd.compute_file_path_with(once "eiffeltest", once "log.new")
          echo.put_line(once "Server #(1): opening log file: #(2)" # port.out # bd.last_entry)
-         create log.connect_for_appending_to(bd.last_entry)
-         if not log.is_connected then
+         create tfw.connect_for_appending_to(bd.last_entry)
+         if tfw.is_connected then
+            create log.connect_to(tfw)
+         else
             echo.w_put_line("**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # bd.last_entry)
             status := status + 1
             disconnect
