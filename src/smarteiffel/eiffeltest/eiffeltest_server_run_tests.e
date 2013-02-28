@@ -30,9 +30,7 @@ feature {LOOP_ITEM}
          test_file: FIXED_STRING
          bd: BASIC_DIRECTORY
       do
-         echo.put_line(once "Server #(1): testing #(2)" # port.out # path)
          if not good_tests.is_empty then
-            bd.change_current_working_directory(path)
             test_file := good_tests.first
             good_tests.remove_first
             echo.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
@@ -304,7 +302,7 @@ feature {} -- Good tests: tests that must pass
          log_line.append(once "%".")
 
          exe_path := once "........................................................."
-         bd.compute_file_path_with(path, exe_name)
+         bd.compute_absolute_file_path_with(exe_name)
          exe_path.copy(bd.last_entry)
 
          if excluded_execution_of(log_line, agent execute_command(log_line, exe_path, False)) then
@@ -444,7 +442,7 @@ feature {}
          bd: BASIC_DIRECTORY
       do
          echo.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # path)
-         bd.connect_to(path)
+         bd.connect_to_current_working_directory
          if bd.is_connected then
             from
                create good_tests.make(1, 0)
@@ -493,9 +491,7 @@ feature {}
          tfw: TEXT_FILE_WRITE
       do
          filepath := once "................................................................"
-         bd.compute_subdirectory_with(path, once "eiffeltest")
-         filepath.copy(bd.last_entry)
-         bd.compute_file_path_with(filepath, once "excluded.lst")
+         bd.compute_file_path_with(once "eiffeltest", once "excluded.lst")
          filepath.copy(bd.last_entry)
          if file_tools.file_exists(filepath) then
             load_excluded_lst(filepath)
@@ -580,11 +576,8 @@ se c -ensure_check
          not done
       local
          bd: BASIC_DIRECTORY
-         p: STRING
       do
-         bd.compute_subdirectory_with(path, once "eiffeltest")
-         p := bd.last_entry.twin
-         bd.compute_file_path_with(p, once "log.new")
+         bd.compute_file_path_with(once "eiffeltest", once "log.new")
          echo.put_line(once "Server #(1): opening log file: #(2)" # port.out # bd.last_entry)
          create log.connect_for_appending_to(bd.last_entry)
          if not log.is_connected then
@@ -648,12 +641,15 @@ feature {}
          a_path /= Void
          a_stream.is_connected
          a_server /= Void
+      local
+         bd: BASIC_DIRECTORY
       do
          port := a_port
          path := a_path
          stream := a_stream
          server := a_server
          echo.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
+         bd.change_current_working_directory(path)
          load_tests
       ensure
          port = a_port
