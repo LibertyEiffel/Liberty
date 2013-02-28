@@ -18,13 +18,12 @@ create {ANY}
 feature {ANY}
    run is
       do
-         if work.count > 0 then
-            if work.count < servers_count then
-               servers_count := work.count
+         if commands.count > 0 then
+            if commands.count < servers_count then
+               servers_count := commands.count
             end
 
             start_servers
-            distribute_work
             stack.run
          end
       end
@@ -32,29 +31,6 @@ feature {ANY}
    success: BOOLEAN is
       do
          Result := test_results.for_all(agent {EIFFELTEST_CLIENT_RESULT}.success)
-      end
-
-feature {}
-   distribute_work is
-      local
-         i: INTEGER
-      do
-         from
-            i := work.lower
-         until
-            i > work.upper
-         loop
-            servers_list.item(i \\ servers_list.count).add_work(work.item(i))
-            i := i + 1
-         end
-         from
-            i := servers_list.lower
-         until
-            i > servers_list.upper
-         loop
-            servers_list.item(i).add_work(once "disconnect")
-            i := i + 1
-         end
       end
 
 feature {}
@@ -75,7 +51,7 @@ feature {}
          loop
             port := 17380 + i
             echo.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
-            create server.make(port, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
+            create server.make(port, commands, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
             test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
             servers_list.add_last(server)
             stack.add_job(server)
@@ -125,7 +101,7 @@ feature {}
          if not bd.is_connected then
             logger.put_line(once "**** Error: could not connect to #(1)" # root)
          else
-            work.add_last(root)
+            commands.add(root)
 
             if ft.is_directory(eiffeltest_path) then
                bd.compute_file_path_with(eiffeltest_path, "log.new")
@@ -222,6 +198,7 @@ feature {}
    make (a_servers_count: like servers_count; force: BOOLEAN; root: FIXED_STRING) is
       do
          servers_count := a_servers_count
+         create commands.make
          scan_tree(force, root, std_error)
       end
 
@@ -234,10 +211,7 @@ feature {}
    test_results: AVL_DICTIONARY[EIFFELTEST_CLIENT_RESULT, INTEGER]
    servers_list: FAST_ARRAY[EIFFELTEST_CLIENT_SOCKET]
 
-   work: FAST_ARRAY[FIXED_STRING] is
-      once
-         create Result.make(0)
-      end
+   commands: EIFFELTEST_COMMAND_PROVIDER
 
 end -- class EIFFELTEST_CLIENT_CONDUCTOR
 --

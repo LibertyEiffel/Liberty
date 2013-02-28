@@ -13,9 +13,16 @@ inherit
 insert
    EIFFELTEST_NETWORK
    GLOBALS
+   HASHABLE
 
 create {ANY}
    make
+
+feature {ANY}
+   hash_code: INTEGER is
+      do
+         Result := port
+      end
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
@@ -80,16 +87,16 @@ feature {LOOP_ITEM}
                reply := Void
                command := Void
                channel.disconnect
-               if not commands.is_empty then
+               if not commands.is_empty(Current) then
                   open_channel
                end
             end
-         elseif commands.is_empty then
+         elseif commands.is_empty(Current) then
             echo.put_line(once "Facade #(1): no more commands" # port.out)
             set_done(0)
          else
-            command := commands.first
-            commands.remove_first
+            command := commands.item(Current)
+            commands.remove(Current)
             echo.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
             reply := ""
             channel.put_line(command)
@@ -110,28 +117,23 @@ feature {ANY}
          Result := channel /= Void and then channel.is_connected
       end
 
-   add_work (a_command: ABSTRACT_STRING) is
-      require
-         not a_command.is_empty
-      do
-         echo.put_line(once "Facade #(1): queueing command: #(2)" # port.out # a_command)
-         commands.add_last(a_command.intern)
-      end
-
 feature {}
-   make (a_port: like port; a_on_reply: like on_reply; a_on_done: like on_done) is
+   make (a_port: like port; a_commands: like commands; a_on_reply: like on_reply; a_on_done: like on_done) is
       require
+         a_commands /= Void
          a_on_reply /= Void
          a_on_done /= Void
       do
          port := a_port
+         commands := a_commands
+
          on_reply := a_on_reply
          on_done := a_on_done
-         create commands.make(1, 0)
 
          server_start
       ensure
          port = a_port
+         commands = a_commands
          on_reply = a_on_reply
          on_done = a_on_done
       end
@@ -164,7 +166,7 @@ feature {}
    command: FIXED_STRING
    reply: STRING
 
-   commands: RING_ARRAY[FIXED_STRING]
+   commands: EIFFELTEST_COMMAND_PROVIDER
 
    on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
    on_done: PROCEDURE[TUPLE[INTEGER, INTEGER]]
