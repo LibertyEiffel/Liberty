@@ -50,8 +50,8 @@ feature {LOOP_ITEM}
             Result := events.event_occurred(timeout)
             echo.put_line(once "Facade #(1): starting (timeout: #(2))" # port.out # Result.out)
          elseif events.event_occurred(timeout) then
-            Result := True
-            echo.put_line(once "Facade #(1): timeout (connected: #(2))" # port.out # channel.is_connected.out)
+            Result := channel /= Void and then channel.is_connected
+            echo.put_line(once "Facade #(1): periodic check (connected: #(2), busy: #(3))" # port.out # channel.is_connected.out # busy.out)
          elseif busy then
             Result := events.event_occurred(channel.event_can_read)
             echo.put_line(once "Facade #(1): can read: #(2)" # port.out # Result.out)

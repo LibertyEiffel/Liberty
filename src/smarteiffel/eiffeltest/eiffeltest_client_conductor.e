@@ -85,12 +85,12 @@ feature {}
 feature {}
    collection_sorter: COLLECTION_SORTER[FIXED_STRING]
 
-   scan_tree_ (force: BOOLEAN; root: FIXED_STRING; eiffeltest_path: STRING; logger: OUTPUT_STREAM) is
+   scan_tree_ (force: BOOLEAN; root, eiffeltest_path: STRING; logger: OUTPUT_STREAM) is
       require
          root /= Void
          logger.is_connected
       local
-         name, dir_path: FIXED_STRING
+         name: FIXED_STRING; dir_path: STRING
          bd: BASIC_DIRECTORY
          ft: FILE_TOOLS
          tfw: TEXT_FILE_WRITE
@@ -126,7 +126,7 @@ feature {}
                            name := bd.last_entry.intern
                            bd.compute_subdirectory_with(root, name)
                            if ft.is_directory(bd.last_entry) then
-                              dir_path := bd.last_entry.intern
+                              dir_path := bd.last_entry.twin
                               collection_sorter.add(subdirectories, name)
                               scan_tree(force, dir_path, tfw)
                            end
@@ -153,7 +153,7 @@ feature {}
          end
       end
 
-   scan_tree (force: BOOLEAN; root: FIXED_STRING; logger: OUTPUT_STREAM) is
+   scan_tree (force: BOOLEAN; root: STRING; logger: OUTPUT_STREAM) is
       require
          root /= Void
          logger.is_connected
@@ -195,7 +195,7 @@ feature {}
       end
 
 feature {}
-   make (a_servers_count: like servers_count; force: BOOLEAN; root: FIXED_STRING) is
+   make (a_servers_count: like servers_count; force: BOOLEAN; root: STRING) is
       do
          servers_count := a_servers_count
          create commands.make

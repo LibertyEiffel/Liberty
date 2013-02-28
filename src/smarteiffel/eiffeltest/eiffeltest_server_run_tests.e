@@ -440,7 +440,7 @@ feature {}
       local
          bd: BASIC_DIRECTORY
       do
-         echo.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # path)
+         echo.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # bd.current_working_directory)
          bd.connect_to_current_working_directory
          if bd.is_connected then
             from
@@ -457,7 +457,11 @@ feature {}
                   elseif bd.last_entry.has_prefix(once "bad") then
                      echo.put_line(once "Server #(1): adding 'bad' tests #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(bad_tests, bd.last_entry.intern)
+                  else
+                     echo.put_line(once "Server #(1): ignoring '#(2)': unknown file pattern" # port.out # bd.last_entry)
                   end
+               else
+                  echo.put_line(once "Server #(1): ignoring '#(2)': not an Eiffel file" # port.out # bd.last_entry)
                end
                bd.read_entry
             end

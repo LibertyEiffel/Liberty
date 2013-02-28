@@ -46,7 +46,7 @@ feature {}
          if version_flag or else help_flag then
             -- We just finish here.
          else
-            create conductor.make(system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32, force_flag, directory_path.intern)
+            create conductor.make(system_tools.config.jobs.to_real_32.sqrt.ceiling.force_to_integer_32, force_flag, directory_path)
             conductor.run
             if not conductor.success then
                die_with_code(exit_failure_code)

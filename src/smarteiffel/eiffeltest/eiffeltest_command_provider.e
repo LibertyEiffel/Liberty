@@ -7,9 +7,14 @@ create {ANY}
    make
 
 feature {ANY}
-   add (a_command: FIXED_STRING) is
+   add (a_path: STRING) is
+      require
+         a_path /= Void
+      local
+         bd: BASIC_DIRECTORY
       do
-         commands.add_last(a_command)
+         bd.compute_absolute_file_path_with(a_path)
+         commands.add_last(bd.last_entry.intern)
       ensure
          not is_empty
       end
