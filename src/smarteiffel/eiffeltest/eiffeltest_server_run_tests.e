@@ -28,7 +28,6 @@ feature {LOOP_ITEM}
    continue is
       local
          test_file: FIXED_STRING
-         bd: BASIC_DIRECTORY
       do
          if not good_tests.is_empty then
             test_file := good_tests.first
