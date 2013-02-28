@@ -107,10 +107,10 @@ feature {}
                bd.compute_file_path_with(eiffeltest_path, "log.new")
                if ft.file_exists(bd.last_entry) then
                   if force then
-                     logger.put_line(once "**** Warning: #(1) exists, removing it" # bd.last_entry)
+                     echo.w_put_line(once "**** Warning: #(1) exists, removing it" # bd.last_entry)
                      ft.delete(bd.last_entry)
                   else
-                     logger.put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
+                     echo.w_put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
                   end
                end
                if not ft.file_exists(bd.last_entry) then
