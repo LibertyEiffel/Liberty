@@ -87,7 +87,9 @@ feature {LOOP_ITEM}
                reply := Void
                command := Void
                channel.disconnect
-               if not commands.is_empty(Current) then
+               if commands.is_empty(Current) then
+                  done := True
+               else
                   open_channel
                end
             end
