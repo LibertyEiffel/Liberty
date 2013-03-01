@@ -160,12 +160,14 @@ feature {ANY} -- Access:
    count: INTEGER is
          -- Number of items (files or directories) in Current.
       do
-         Result := name_list.count
+         if name_list /= Void then
+            Result := name_list.count
+         end
       end
 
    is_empty: BOOLEAN is
       do
-         Result := count = 0
+         Result := name_list = Void or else count = 0
       end
 
    first: FIXED_STRING is
