@@ -106,7 +106,7 @@ feature {ANY} -- Wrappers emittions
 			log(once "Moving @(1) from @(2) into @(3).%N", <<a_feature.c_string_name, a_feature.c_file.c_string_name, file.c_string_name>>)	
 		end
 		check file/=Void end
-		file.features.add_first(a_feature)
+		file.features.add_last(a_feature)
 	end
 
 feature {ANY}

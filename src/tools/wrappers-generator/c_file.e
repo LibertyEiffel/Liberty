@@ -10,6 +10,7 @@ inherit
 insert 
 	NAME_CONVERTER 
 	FILE_TOOLS
+	COLLECTION_SORTER[WRAPPER_FEATURE]
 
 creation make
 
@@ -22,7 +23,7 @@ feature
 			end
 			symbols.put(Current,c_string_name)
 			files_by_name.put(Current,c_string_name)
-			create features.make
+			create features
 		end
 	
 	is_to_be_emitted: BOOLEAN is
@@ -36,6 +37,7 @@ feature
 	local path: POSIX_PATH_NAME
 	do
 		if is_to_be_emitted then
+
 			create path.make_from_string(directory)
 			path.add_last(eiffel_name.as_lower+once ".e")
 			-- if path.is_file then
@@ -47,6 +49,8 @@ feature
 			create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 			-- end
 		 	emit_header_on(output)
+			log_string (once "Sorting file features%N")
+			quick_sort (features)
 			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)
 			output.disconnect
@@ -106,8 +110,13 @@ feature
 		end
 
 feature -- Content
-	features: LINKED_LIST[WRAPPER_FEATURE]
+	features: FAST_ARRAY[WRAPPER_FEATURE] 
 	-- the functions and variables defined in Current file.
+	-- features used to be a LINKED_LIST[WRAPPER_FEATURE]; to get more stable
+	-- wrappers the feature shall be sorted before being wrapped. As we are
+	-- using quicksort we cannot use a LINKED_LIST anymore since it is not
+	-- designed for efficient random access by index which is required by quick
+	-- sort. 
 
 -- invariant name.is_equal(once U"File")
 end -- class C_FILE
