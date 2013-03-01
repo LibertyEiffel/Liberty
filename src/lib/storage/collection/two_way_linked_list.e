@@ -9,6 +9,9 @@ class TWO_WAY_LINKED_LIST[E_]
 
 inherit
    COLLECTION[E_]
+      undefine 
+	  	 default_create
+	  end
 
 insert
    LINKED_COLLECTION[E_]

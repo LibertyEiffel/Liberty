@@ -19,15 +19,17 @@ class FAST_ARRAY[E_]
 
 inherit
    COLLECTION[E_]
+      undefine default_create
+      end
    ARRAYED_COLLECTION[E_]
 
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
-      undefine out_in_tagged_out_memory
+      undefine default_create, out_in_tagged_out_memory
       end
 
 creation {ANY}
-   make, with_capacity, from_collection, from_external, manifest_creation
+   default_create, make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}
    lower: INTEGER is 0
