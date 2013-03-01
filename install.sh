@@ -418,9 +418,9 @@ x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -Os
+c_compiler_options: -pipe -O2
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -Os
+cpp_compiler_options: -pipe -O2
 
 [no_check]
 c_compiler_type: gcc

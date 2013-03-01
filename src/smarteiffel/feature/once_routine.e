@@ -13,7 +13,7 @@ inherit
 feature {ANY}
    hash_code: INTEGER is
       do
-         Result := to_pointer.hash_code
+         Result := names.first.hash_code
       end
 
 feature {}
