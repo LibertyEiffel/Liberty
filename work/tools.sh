@@ -144,7 +144,7 @@ progress() {
         awk 'BEGIN {
                 printf(" * %02d/%02d: %s\n", '$current', '$max', "'"$label"'");
                 exit;
-             }' </dev/null >/dev/tty
+             }' </dev/null
     else
         col=`expr \`tput cols\` - $size - 11`
         tput setaf 0
