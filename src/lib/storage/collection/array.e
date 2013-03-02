@@ -21,7 +21,7 @@ inherit
    ARRAYED_COLLECTION[E_]
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
-      undefine defaut_create, out_in_tagged_out_memory
+      undefine default_create, out_in_tagged_out_memory
       end
 
 creation {ANY}
