@@ -9,18 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_fixed_put (a_fixed: POINTER; a_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
- 		-- gtk_fixed_put (node at line 10502)
+	gtk_fixed_get_type: NATURAL_64 is
+ 		-- gtk_fixed_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_fixed_put"
+			feature_name: "gtk_fixed_get_type()"
 		}"
 		end
 
 	gtk_fixed_move (a_fixed: POINTER; a_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
- 		-- gtk_fixed_move (node at line 13618)
+ 		-- gtk_fixed_move
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	gtk_fixed_new: POINTER is
- 		-- gtk_fixed_new (node at line 17691)
+ 		-- gtk_fixed_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +39,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_fixed_get_type: NATURAL_64 is
- 		-- gtk_fixed_get_type (node at line 36718)
+	gtk_fixed_put (a_fixed: POINTER; a_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
+ 		-- gtk_fixed_put
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_fixed_get_type()"
+			feature_name: "gtk_fixed_put"
 		}"
 		end
 

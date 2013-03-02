@@ -9,198 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_assistant_set_page_type (an_assistant: POINTER; a_page: POINTER; a_type: INTEGER) is
- 		-- gtk_assistant_set_page_type (node at line 1284)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_page_type"
-		}"
-		end
-
-	gtk_assistant_set_page_complete (an_assistant: POINTER; a_page: POINTER; a_complete: INTEGER_32) is
- 		-- gtk_assistant_set_page_complete (node at line 4397)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_page_complete"
-		}"
-		end
-
-	gtk_assistant_remove_action_widget (an_assistant: POINTER; a_child: POINTER) is
- 		-- gtk_assistant_remove_action_widget (node at line 4624)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_remove_action_widget"
-		}"
-		end
-
-	gtk_assistant_set_page_title (an_assistant: POINTER; a_page: POINTER; a_title: POINTER) is
- 		-- gtk_assistant_set_page_title (node at line 7385)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_page_title"
-		}"
-		end
-
-	gtk_assistant_get_page_side_image (an_assistant: POINTER; a_page: POINTER): POINTER is
- 		-- gtk_assistant_get_page_side_image (node at line 7604)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_page_side_image"
-		}"
-		end
-
-	gtk_assistant_insert_page (an_assistant: POINTER; a_page: POINTER; a_position: INTEGER_32): INTEGER_32 is
- 		-- gtk_assistant_insert_page (node at line 11846)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_insert_page"
-		}"
-		end
-
-	gtk_assistant_get_type: NATURAL_64 is
- 		-- gtk_assistant_get_type (node at line 13419)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_type()"
-		}"
-		end
-
-	gtk_assistant_get_page_title (an_assistant: POINTER; a_page: POINTER): POINTER is
- 		-- gtk_assistant_get_page_title (node at line 14431)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_page_title"
-		}"
-		end
-
-	gtk_assistant_new: POINTER is
- 		-- gtk_assistant_new (node at line 16022)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_new()"
-		}"
-		end
-
-	gtk_assistant_get_page_type (an_assistant: POINTER; a_page: POINTER): INTEGER is
- 		-- gtk_assistant_get_page_type (node at line 19720)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_page_type"
-		}"
-		end
-
-	gtk_assistant_get_page_header_image (an_assistant: POINTER; a_page: POINTER): POINTER is
- 		-- gtk_assistant_get_page_header_image (node at line 22949)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_page_header_image"
-		}"
-		end
-
-	gtk_assistant_append_page (an_assistant: POINTER; a_page: POINTER): INTEGER_32 is
- 		-- gtk_assistant_append_page (node at line 24522)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_append_page"
-		}"
-		end
-
-	gtk_assistant_get_nth_page (an_assistant: POINTER; a_page_num: INTEGER_32): POINTER is
- 		-- gtk_assistant_get_nth_page (node at line 25671)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_nth_page"
-		}"
-		end
-
-	gtk_assistant_set_page_header_image (an_assistant: POINTER; a_page: POINTER; a_pixbuf: POINTER) is
- 		-- gtk_assistant_set_page_header_image (node at line 27657)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_page_header_image"
-		}"
-		end
-
-	gtk_assistant_get_n_pages (an_assistant: POINTER): INTEGER_32 is
- 		-- gtk_assistant_get_n_pages (node at line 29329)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_get_n_pages"
-		}"
-		end
-
-	gtk_assistant_set_forward_page_func (an_assistant: POINTER; a_page_func: POINTER; a_data: POINTER; a_destroy: POINTER) is
- 		-- gtk_assistant_set_forward_page_func (node at line 31285)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_forward_page_func"
-		}"
-		end
-
-	gtk_assistant_commit (an_assistant: POINTER) is
- 		-- gtk_assistant_commit (node at line 32967)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_commit"
-		}"
-		end
-
-	gtk_assistant_set_current_page (an_assistant: POINTER; a_page_num: INTEGER_32) is
- 		-- gtk_assistant_set_current_page (node at line 34170)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_current_page"
-		}"
-		end
-
-	gtk_assistant_set_page_side_image (an_assistant: POINTER; a_page: POINTER; a_pixbuf: POINTER) is
- 		-- gtk_assistant_set_page_side_image (node at line 36288)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_assistant_set_page_side_image"
-		}"
-		end
-
 	gtk_assistant_add_action_widget (an_assistant: POINTER; a_child: POINTER) is
- 		-- gtk_assistant_add_action_widget (node at line 37784)
+ 		-- gtk_assistant_add_action_widget
 		external "plug_in"
 		alias "{
 			location: "."
@@ -209,18 +19,28 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_assistant_update_buttons_state (an_assistant: POINTER) is
- 		-- gtk_assistant_update_buttons_state (node at line 38065)
+	gtk_assistant_append_page (an_assistant: POINTER; a_page: POINTER): INTEGER_32 is
+ 		-- gtk_assistant_append_page
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_assistant_update_buttons_state"
+			feature_name: "gtk_assistant_append_page"
+		}"
+		end
+
+	gtk_assistant_commit (an_assistant: POINTER) is
+ 		-- gtk_assistant_commit
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_commit"
 		}"
 		end
 
 	gtk_assistant_get_current_page (an_assistant: POINTER): INTEGER_32 is
- 		-- gtk_assistant_get_current_page (node at line 38425)
+ 		-- gtk_assistant_get_current_page
 		external "plug_in"
 		alias "{
 			location: "."
@@ -229,8 +49,108 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_assistant_get_n_pages (an_assistant: POINTER): INTEGER_32 is
+ 		-- gtk_assistant_get_n_pages
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_n_pages"
+		}"
+		end
+
+	gtk_assistant_get_nth_page (an_assistant: POINTER; a_page_num: INTEGER_32): POINTER is
+ 		-- gtk_assistant_get_nth_page
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_nth_page"
+		}"
+		end
+
+	gtk_assistant_get_page_complete (an_assistant: POINTER; a_page: POINTER): INTEGER_32 is
+ 		-- gtk_assistant_get_page_complete
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_page_complete"
+		}"
+		end
+
+	gtk_assistant_get_page_header_image (an_assistant: POINTER; a_page: POINTER): POINTER is
+ 		-- gtk_assistant_get_page_header_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_page_header_image"
+		}"
+		end
+
+	gtk_assistant_get_page_side_image (an_assistant: POINTER; a_page: POINTER): POINTER is
+ 		-- gtk_assistant_get_page_side_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_page_side_image"
+		}"
+		end
+
+	gtk_assistant_get_page_title (an_assistant: POINTER; a_page: POINTER): POINTER is
+ 		-- gtk_assistant_get_page_title
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_page_title"
+		}"
+		end
+
+	gtk_assistant_get_page_type (an_assistant: POINTER; a_page: POINTER): INTEGER is
+ 		-- gtk_assistant_get_page_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_page_type"
+		}"
+		end
+
+	gtk_assistant_get_type: NATURAL_64 is
+ 		-- gtk_assistant_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_get_type()"
+		}"
+		end
+
+	gtk_assistant_insert_page (an_assistant: POINTER; a_page: POINTER; a_position: INTEGER_32): INTEGER_32 is
+ 		-- gtk_assistant_insert_page
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_insert_page"
+		}"
+		end
+
+	gtk_assistant_new: POINTER is
+ 		-- gtk_assistant_new
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_new()"
+		}"
+		end
+
 	gtk_assistant_prepend_page (an_assistant: POINTER; a_page: POINTER): INTEGER_32 is
- 		-- gtk_assistant_prepend_page (node at line 38999)
+ 		-- gtk_assistant_prepend_page
 		external "plug_in"
 		alias "{
 			location: "."
@@ -239,13 +159,93 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_assistant_get_page_complete (an_assistant: POINTER; a_page: POINTER): INTEGER_32 is
- 		-- gtk_assistant_get_page_complete (node at line 39285)
+	gtk_assistant_remove_action_widget (an_assistant: POINTER; a_child: POINTER) is
+ 		-- gtk_assistant_remove_action_widget
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_assistant_get_page_complete"
+			feature_name: "gtk_assistant_remove_action_widget"
+		}"
+		end
+
+	gtk_assistant_set_current_page (an_assistant: POINTER; a_page_num: INTEGER_32) is
+ 		-- gtk_assistant_set_current_page
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_current_page"
+		}"
+		end
+
+	gtk_assistant_set_forward_page_func (an_assistant: POINTER; a_page_func: POINTER; a_data: POINTER; a_destroy: POINTER) is
+ 		-- gtk_assistant_set_forward_page_func
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_forward_page_func"
+		}"
+		end
+
+	gtk_assistant_set_page_complete (an_assistant: POINTER; a_page: POINTER; a_complete: INTEGER_32) is
+ 		-- gtk_assistant_set_page_complete
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_page_complete"
+		}"
+		end
+
+	gtk_assistant_set_page_header_image (an_assistant: POINTER; a_page: POINTER; a_pixbuf: POINTER) is
+ 		-- gtk_assistant_set_page_header_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_page_header_image"
+		}"
+		end
+
+	gtk_assistant_set_page_side_image (an_assistant: POINTER; a_page: POINTER; a_pixbuf: POINTER) is
+ 		-- gtk_assistant_set_page_side_image
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_page_side_image"
+		}"
+		end
+
+	gtk_assistant_set_page_title (an_assistant: POINTER; a_page: POINTER; a_title: POINTER) is
+ 		-- gtk_assistant_set_page_title
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_page_title"
+		}"
+		end
+
+	gtk_assistant_set_page_type (an_assistant: POINTER; a_page: POINTER; a_type: INTEGER) is
+ 		-- gtk_assistant_set_page_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_set_page_type"
+		}"
+		end
+
+	gtk_assistant_update_buttons_state (an_assistant: POINTER) is
+ 		-- gtk_assistant_update_buttons_state
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_assistant_update_buttons_state"
 		}"
 		end
 

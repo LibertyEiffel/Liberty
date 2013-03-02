@@ -9,38 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_entry_get_icon_window (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_window (node at line 89)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_window"
-		}"
-		end
-
-	gtk_entry_get_icon_activatable (an_entry: POINTER; an_icon_pos: INTEGER): INTEGER_32 is
- 		-- gtk_entry_get_icon_activatable (node at line 683)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_activatable"
-		}"
-		end
-
-	gtk_entry_get_icon_stock (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_stock (node at line 1099)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_stock"
-		}"
-		end
-
 	gtk_entry_get_activates_default (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_activates_default (node at line 1548)
+ 		-- gtk_entry_get_activates_default
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,48 +19,118 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_set_icon_from_stock (an_entry: POINTER; an_icon_pos: INTEGER; a_stock_id: POINTER) is
- 		-- gtk_entry_set_icon_from_stock (node at line 1712)
+	gtk_entry_get_alignment (an_entry: POINTER): REAL_32 is
+ 		-- gtk_entry_get_alignment
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_from_stock"
+			feature_name: "gtk_entry_get_alignment"
 		}"
 		end
 
-	gtk_entry_im_context_filter_keypress (an_entry: POINTER; an_event: POINTER): INTEGER_32 is
- 		-- gtk_entry_im_context_filter_keypress (node at line 2314)
+	gtk_entry_get_buffer (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_buffer
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_im_context_filter_keypress"
+			feature_name: "gtk_entry_get_buffer"
 		}"
 		end
 
-	gtk_entry_get_progress_pulse_step (an_entry: POINTER): REAL_64 is
- 		-- gtk_entry_get_progress_pulse_step (node at line 2742)
+	gtk_entry_get_completion (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_completion
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_progress_pulse_step"
+			feature_name: "gtk_entry_get_completion"
 		}"
 		end
 
-	gtk_entry_set_progress_pulse_step (an_entry: POINTER; a_fraction: REAL_64) is
- 		-- gtk_entry_set_progress_pulse_step (node at line 4126)
+	gtk_entry_get_current_icon_drag_source (an_entry: POINTER): INTEGER_32 is
+ 		-- gtk_entry_get_current_icon_drag_source
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_progress_pulse_step"
+			feature_name: "gtk_entry_get_current_icon_drag_source"
+		}"
+		end
+
+	gtk_entry_get_cursor_hadjustment (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_cursor_hadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_cursor_hadjustment"
+		}"
+		end
+
+	gtk_entry_get_has_frame (an_entry: POINTER): INTEGER_32 is
+ 		-- gtk_entry_get_has_frame
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_has_frame"
+		}"
+		end
+
+	gtk_entry_get_icon_activatable (an_entry: POINTER; an_icon_pos: INTEGER): INTEGER_32 is
+ 		-- gtk_entry_get_icon_activatable
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_icon_activatable"
+		}"
+		end
+
+	gtk_entry_get_icon_at_pos (an_entry: POINTER; a_x: INTEGER_32; a_y: INTEGER_32): INTEGER_32 is
+ 		-- gtk_entry_get_icon_at_pos
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_icon_at_pos"
+		}"
+		end
+
+	gtk_entry_get_icon_gicon (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_gicon
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_icon_gicon"
+		}"
+		end
+
+	gtk_entry_get_icon_name (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_name
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_icon_name"
+		}"
+		end
+
+	gtk_entry_get_icon_pixbuf (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_pixbuf
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_icon_pixbuf"
 		}"
 		end
 
 	gtk_entry_get_icon_sensitive (an_entry: POINTER; an_icon_pos: INTEGER): INTEGER_32 is
- 		-- gtk_entry_get_icon_sensitive (node at line 4242)
+ 		-- gtk_entry_get_icon_sensitive
 		external "plug_in"
 		alias "{
 			location: "."
@@ -99,38 +139,18 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_set_width_chars (an_entry: POINTER; a_n_chars: INTEGER_32) is
- 		-- gtk_entry_set_width_chars (node at line 4469)
+	gtk_entry_get_icon_stock (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_stock
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_width_chars"
-		}"
-		end
-
-	gtk_entry_set_overwrite_mode (an_entry: POINTER; an_overwrite: INTEGER_32) is
- 		-- gtk_entry_set_overwrite_mode (node at line 4769)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_overwrite_mode"
-		}"
-		end
-
-	gtk_entry_set_icon_drag_source (an_entry: POINTER; an_icon_pos: INTEGER; a_target_list: POINTER; an_actions: INTEGER) is
- 		-- gtk_entry_set_icon_drag_source (node at line 5590)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_drag_source"
+			feature_name: "gtk_entry_get_icon_stock"
 		}"
 		end
 
 	gtk_entry_get_icon_storage_type (an_entry: POINTER; an_icon_pos: INTEGER): INTEGER is
- 		-- gtk_entry_get_icon_storage_type (node at line 7423)
+ 		-- gtk_entry_get_icon_storage_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -139,38 +159,48 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_progress_pulse (an_entry: POINTER) is
- 		-- gtk_entry_progress_pulse (node at line 8034)
+	gtk_entry_get_icon_tooltip_markup (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_tooltip_markup
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_progress_pulse"
+			feature_name: "gtk_entry_get_icon_tooltip_markup"
 		}"
 		end
 
-	gtk_entry_get_type: NATURAL_64 is
- 		-- gtk_entry_get_type (node at line 8185)
+	gtk_entry_get_icon_tooltip_text (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_tooltip_text
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_type()"
+			feature_name: "gtk_entry_get_icon_tooltip_text"
 		}"
 		end
 
-	gtk_entry_set_icon_sensitive (an_entry: POINTER; an_icon_pos: INTEGER; a_sensitive: INTEGER_32) is
- 		-- gtk_entry_set_icon_sensitive (node at line 8507)
+	gtk_entry_get_icon_window (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
+ 		-- gtk_entry_get_icon_window
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_sensitive"
+			feature_name: "gtk_entry_get_icon_window"
+		}"
+		end
+
+	gtk_entry_get_inner_border (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_inner_border
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_inner_border"
 		}"
 		end
 
 	gtk_entry_get_invisible_char (an_entry: POINTER): NATURAL_32 is
- 		-- gtk_entry_get_invisible_char (node at line 8564)
+ 		-- gtk_entry_get_invisible_char
 		external "plug_in"
 		alias "{
 			location: "."
@@ -179,8 +209,38 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_entry_get_layout (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_layout
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_layout"
+		}"
+		end
+
+	gtk_entry_get_layout_offsets (an_entry: POINTER; a_x: POINTER; a_y: POINTER) is
+ 		-- gtk_entry_get_layout_offsets
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_layout_offsets"
+		}"
+		end
+
+	gtk_entry_get_max_length (an_entry: POINTER): INTEGER_32 is
+ 		-- gtk_entry_get_max_length
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_get_max_length"
+		}"
+		end
+
 	gtk_entry_get_overwrite_mode (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_overwrite_mode (node at line 9490)
+ 		-- gtk_entry_get_overwrite_mode
 		external "plug_in"
 		alias "{
 			location: "."
@@ -190,7 +250,7 @@ feature {} -- External calls
 		end
 
 	gtk_entry_get_progress_fraction (an_entry: POINTER): REAL_64 is
- 		-- gtk_entry_get_progress_fraction (node at line 9751)
+ 		-- gtk_entry_get_progress_fraction
 		external "plug_in"
 		alias "{
 			location: "."
@@ -199,208 +259,18 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_set_icon_activatable (an_entry: POINTER; an_icon_pos: INTEGER; an_activatable: INTEGER_32) is
- 		-- gtk_entry_set_icon_activatable (node at line 10357)
+	gtk_entry_get_progress_pulse_step (an_entry: POINTER): REAL_64 is
+ 		-- gtk_entry_get_progress_pulse_step
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_activatable"
-		}"
-		end
-
-	gtk_entry_set_text (an_entry: POINTER; a_text: POINTER) is
- 		-- gtk_entry_set_text (node at line 12076)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_text"
-		}"
-		end
-
-	gtk_entry_set_buffer (an_entry: POINTER; a_buffer: POINTER) is
- 		-- gtk_entry_set_buffer (node at line 12490)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_buffer"
-		}"
-		end
-
-	gtk_entry_reset_im_context (an_entry: POINTER) is
- 		-- gtk_entry_reset_im_context (node at line 13074)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_reset_im_context"
-		}"
-		end
-
-	gtk_entry_get_layout_offsets (an_entry: POINTER; a_x: POINTER; a_y: POINTER) is
- 		-- gtk_entry_get_layout_offsets (node at line 13164)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_layout_offsets"
-		}"
-		end
-
-	gtk_entry_set_icon_from_icon_name (an_entry: POINTER; an_icon_pos: INTEGER; an_icon_name: POINTER) is
- 		-- gtk_entry_set_icon_from_icon_name (node at line 13171)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_from_icon_name"
-		}"
-		end
-
-	gtk_entry_set_has_frame (an_entry: POINTER; a_setting: INTEGER_32) is
- 		-- gtk_entry_set_has_frame (node at line 13333)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_has_frame"
-		}"
-		end
-
-	gtk_entry_get_buffer (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_buffer (node at line 14684)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_buffer"
-		}"
-		end
-
-	gtk_entry_set_inner_border (an_entry: POINTER; a_border: POINTER) is
- 		-- gtk_entry_set_inner_border (node at line 15401)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_inner_border"
-		}"
-		end
-
-	gtk_entry_text_index_to_layout_index (an_entry: POINTER; a_text_index: INTEGER_32): INTEGER_32 is
- 		-- gtk_entry_text_index_to_layout_index (node at line 16540)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_text_index_to_layout_index"
-		}"
-		end
-
-	gtk_entry_set_activates_default (an_entry: POINTER; a_setting: INTEGER_32) is
- 		-- gtk_entry_set_activates_default (node at line 16623)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_activates_default"
-		}"
-		end
-
-	gtk_entry_set_invisible_char (an_entry: POINTER; a_ch: NATURAL_32) is
- 		-- gtk_entry_set_invisible_char (node at line 19144)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_invisible_char"
-		}"
-		end
-
-	gtk_entry_get_has_frame (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_has_frame (node at line 19203)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_has_frame"
-		}"
-		end
-
-	gtk_entry_get_inner_border (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_inner_border (node at line 20339)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_inner_border"
-		}"
-		end
-
-	gtk_entry_set_alignment (an_entry: POINTER; a_xalign: REAL_32) is
- 		-- gtk_entry_set_alignment (node at line 21121)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_alignment"
-		}"
-		end
-
-	gtk_entry_get_text_length (an_entry: POINTER): NATURAL_16 is
- 		-- gtk_entry_get_text_length (node at line 22205)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_text_length"
-		}"
-		end
-
-	gtk_entry_get_completion (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_completion (node at line 22904)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_completion"
-		}"
-		end
-
-	gtk_entry_layout_index_to_text_index (an_entry: POINTER; a_layout_index: INTEGER_32): INTEGER_32 is
- 		-- gtk_entry_layout_index_to_text_index (node at line 22978)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_layout_index_to_text_index"
-		}"
-		end
-
-	gtk_entry_get_text_window (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_text_window (node at line 25162)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_text_window"
-		}"
-		end
-
-	gtk_entry_new_with_buffer (a_buffer: POINTER): POINTER is
- 		-- gtk_entry_new_with_buffer (node at line 26356)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_new_with_buffer"
+			feature_name: "gtk_entry_get_progress_pulse_step"
 		}"
 		end
 
 	gtk_entry_get_text (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_text (node at line 30918)
+ 		-- gtk_entry_get_text
 		external "plug_in"
 		alias "{
 			location: "."
@@ -409,88 +279,38 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_get_layout (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_layout (node at line 31257)
+	gtk_entry_get_text_length (an_entry: POINTER): NATURAL_16 is
+ 		-- gtk_entry_get_text_length
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_layout"
+			feature_name: "gtk_entry_get_text_length"
 		}"
 		end
 
-	gtk_entry_unset_invisible_char (an_entry: POINTER) is
- 		-- gtk_entry_unset_invisible_char (node at line 31710)
+	gtk_entry_get_text_window (an_entry: POINTER): POINTER is
+ 		-- gtk_entry_get_text_window
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_unset_invisible_char"
+			feature_name: "gtk_entry_get_text_window"
 		}"
 		end
 
-	gtk_entry_get_icon_tooltip_text (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_tooltip_text (node at line 32310)
+	gtk_entry_get_type: NATURAL_64 is
+ 		-- gtk_entry_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_tooltip_text"
-		}"
-		end
-
-	gtk_entry_get_max_length (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_max_length (node at line 32897)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_max_length"
-		}"
-		end
-
-	gtk_entry_set_icon_tooltip_text (an_entry: POINTER; an_icon_pos: INTEGER; a_tooltip: POINTER) is
- 		-- gtk_entry_set_icon_tooltip_text (node at line 33503)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_tooltip_text"
-		}"
-		end
-
-	gtk_entry_get_alignment (an_entry: POINTER): REAL_32 is
- 		-- gtk_entry_get_alignment (node at line 33529)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_alignment"
-		}"
-		end
-
-	gtk_entry_get_icon_at_pos (an_entry: POINTER; a_x: INTEGER_32; a_y: INTEGER_32): INTEGER_32 is
- 		-- gtk_entry_get_icon_at_pos (node at line 33700)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_at_pos"
-		}"
-		end
-
-	gtk_entry_set_icon_from_pixbuf (an_entry: POINTER; an_icon_pos: INTEGER; a_pixbuf: POINTER) is
- 		-- gtk_entry_set_icon_from_pixbuf (node at line 33766)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_from_pixbuf"
+			feature_name: "gtk_entry_get_type()"
 		}"
 		end
 
 	gtk_entry_get_visibility (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_visibility (node at line 33855)
+ 		-- gtk_entry_get_visibility
 		external "plug_in"
 		alias "{
 			location: "."
@@ -499,38 +319,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_get_icon_pixbuf (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_pixbuf (node at line 35778)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_pixbuf"
-		}"
-		end
-
-	gtk_entry_new: POINTER is
- 		-- gtk_entry_new (node at line 36784)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_new()"
-		}"
-		end
-
-	gtk_entry_get_current_icon_drag_source (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_current_icon_drag_source (node at line 37192)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_current_icon_drag_source"
-		}"
-		end
-
 	gtk_entry_get_width_chars (an_entry: POINTER): INTEGER_32 is
- 		-- gtk_entry_get_width_chars (node at line 37436)
+ 		-- gtk_entry_get_width_chars
 		external "plug_in"
 		alias "{
 			location: "."
@@ -539,28 +329,98 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_get_icon_tooltip_markup (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_tooltip_markup (node at line 38020)
+	gtk_entry_im_context_filter_keypress (an_entry: POINTER; an_event: POINTER): INTEGER_32 is
+ 		-- gtk_entry_im_context_filter_keypress
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_tooltip_markup"
+			feature_name: "gtk_entry_im_context_filter_keypress"
 		}"
 		end
 
-	gtk_entry_set_max_length (an_entry: POINTER; a_max: INTEGER_32) is
- 		-- gtk_entry_set_max_length (node at line 38272)
+	gtk_entry_layout_index_to_text_index (an_entry: POINTER; a_layout_index: INTEGER_32): INTEGER_32 is
+ 		-- gtk_entry_layout_index_to_text_index
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_max_length"
+			feature_name: "gtk_entry_layout_index_to_text_index"
+		}"
+		end
+
+	gtk_entry_new: POINTER is
+ 		-- gtk_entry_new
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_new()"
+		}"
+		end
+
+	gtk_entry_new_with_buffer (a_buffer: POINTER): POINTER is
+ 		-- gtk_entry_new_with_buffer
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_new_with_buffer"
+		}"
+		end
+
+	gtk_entry_progress_pulse (an_entry: POINTER) is
+ 		-- gtk_entry_progress_pulse
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_progress_pulse"
+		}"
+		end
+
+	gtk_entry_reset_im_context (an_entry: POINTER) is
+ 		-- gtk_entry_reset_im_context
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_reset_im_context"
+		}"
+		end
+
+	gtk_entry_set_activates_default (an_entry: POINTER; a_setting: INTEGER_32) is
+ 		-- gtk_entry_set_activates_default
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_activates_default"
+		}"
+		end
+
+	gtk_entry_set_alignment (an_entry: POINTER; a_xalign: REAL_32) is
+ 		-- gtk_entry_set_alignment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_alignment"
+		}"
+		end
+
+	gtk_entry_set_buffer (an_entry: POINTER; a_buffer: POINTER) is
+ 		-- gtk_entry_set_buffer
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_buffer"
 		}"
 		end
 
 	gtk_entry_set_completion (an_entry: POINTER; a_completion: POINTER) is
- 		-- gtk_entry_set_completion (node at line 38418)
+ 		-- gtk_entry_set_completion
 		external "plug_in"
 		alias "{
 			location: "."
@@ -569,68 +429,48 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_get_cursor_hadjustment (an_entry: POINTER): POINTER is
- 		-- gtk_entry_get_cursor_hadjustment (node at line 38764)
+	gtk_entry_set_cursor_hadjustment (an_entry: POINTER; an_adjustment: POINTER) is
+ 		-- gtk_entry_set_cursor_hadjustment
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_cursor_hadjustment"
+			feature_name: "gtk_entry_set_cursor_hadjustment"
 		}"
 		end
 
-	gtk_entry_get_icon_name (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_name (node at line 38831)
+	gtk_entry_set_has_frame (an_entry: POINTER; a_setting: INTEGER_32) is
+ 		-- gtk_entry_set_has_frame
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_name"
+			feature_name: "gtk_entry_set_has_frame"
 		}"
 		end
 
-	gtk_entry_set_icon_tooltip_markup (an_entry: POINTER; an_icon_pos: INTEGER; a_tooltip: POINTER) is
- 		-- gtk_entry_set_icon_tooltip_markup (node at line 39023)
+	gtk_entry_set_icon_activatable (an_entry: POINTER; an_icon_pos: INTEGER; an_activatable: INTEGER_32) is
+ 		-- gtk_entry_set_icon_activatable
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_icon_tooltip_markup"
+			feature_name: "gtk_entry_set_icon_activatable"
 		}"
 		end
 
-	gtk_entry_set_progress_fraction (an_entry: POINTER; a_fraction: REAL_64) is
- 		-- gtk_entry_set_progress_fraction (node at line 39039)
+	gtk_entry_set_icon_drag_source (an_entry: POINTER; an_icon_pos: INTEGER; a_target_list: POINTER; an_actions: INTEGER) is
+ 		-- gtk_entry_set_icon_drag_source
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_progress_fraction"
-		}"
-		end
-
-	gtk_entry_set_visibility (an_entry: POINTER; a_visible: INTEGER_32) is
- 		-- gtk_entry_set_visibility (node at line 39145)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_set_visibility"
-		}"
-		end
-
-	gtk_entry_get_icon_gicon (an_entry: POINTER; an_icon_pos: INTEGER): POINTER is
- 		-- gtk_entry_get_icon_gicon (node at line 39703)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_entry_get_icon_gicon"
+			feature_name: "gtk_entry_set_icon_drag_source"
 		}"
 		end
 
 	gtk_entry_set_icon_from_gicon (an_entry: POINTER; an_icon_pos: INTEGER; an_icon: POINTER) is
- 		-- gtk_entry_set_icon_from_gicon (node at line 40188)
+ 		-- gtk_entry_set_icon_from_gicon
 		external "plug_in"
 		alias "{
 			location: "."
@@ -639,13 +479,173 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_entry_set_cursor_hadjustment (an_entry: POINTER; an_adjustment: POINTER) is
- 		-- gtk_entry_set_cursor_hadjustment (node at line 40965)
+	gtk_entry_set_icon_from_icon_name (an_entry: POINTER; an_icon_pos: INTEGER; an_icon_name: POINTER) is
+ 		-- gtk_entry_set_icon_from_icon_name
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_entry_set_cursor_hadjustment"
+			feature_name: "gtk_entry_set_icon_from_icon_name"
+		}"
+		end
+
+	gtk_entry_set_icon_from_pixbuf (an_entry: POINTER; an_icon_pos: INTEGER; a_pixbuf: POINTER) is
+ 		-- gtk_entry_set_icon_from_pixbuf
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_icon_from_pixbuf"
+		}"
+		end
+
+	gtk_entry_set_icon_from_stock (an_entry: POINTER; an_icon_pos: INTEGER; a_stock_id: POINTER) is
+ 		-- gtk_entry_set_icon_from_stock
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_icon_from_stock"
+		}"
+		end
+
+	gtk_entry_set_icon_sensitive (an_entry: POINTER; an_icon_pos: INTEGER; a_sensitive: INTEGER_32) is
+ 		-- gtk_entry_set_icon_sensitive
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_icon_sensitive"
+		}"
+		end
+
+	gtk_entry_set_icon_tooltip_markup (an_entry: POINTER; an_icon_pos: INTEGER; a_tooltip: POINTER) is
+ 		-- gtk_entry_set_icon_tooltip_markup
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_icon_tooltip_markup"
+		}"
+		end
+
+	gtk_entry_set_icon_tooltip_text (an_entry: POINTER; an_icon_pos: INTEGER; a_tooltip: POINTER) is
+ 		-- gtk_entry_set_icon_tooltip_text
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_icon_tooltip_text"
+		}"
+		end
+
+	gtk_entry_set_inner_border (an_entry: POINTER; a_border: POINTER) is
+ 		-- gtk_entry_set_inner_border
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_inner_border"
+		}"
+		end
+
+	gtk_entry_set_invisible_char (an_entry: POINTER; a_ch: NATURAL_32) is
+ 		-- gtk_entry_set_invisible_char
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_invisible_char"
+		}"
+		end
+
+	gtk_entry_set_max_length (an_entry: POINTER; a_max: INTEGER_32) is
+ 		-- gtk_entry_set_max_length
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_max_length"
+		}"
+		end
+
+	gtk_entry_set_overwrite_mode (an_entry: POINTER; an_overwrite: INTEGER_32) is
+ 		-- gtk_entry_set_overwrite_mode
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_overwrite_mode"
+		}"
+		end
+
+	gtk_entry_set_progress_fraction (an_entry: POINTER; a_fraction: REAL_64) is
+ 		-- gtk_entry_set_progress_fraction
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_progress_fraction"
+		}"
+		end
+
+	gtk_entry_set_progress_pulse_step (an_entry: POINTER; a_fraction: REAL_64) is
+ 		-- gtk_entry_set_progress_pulse_step
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_progress_pulse_step"
+		}"
+		end
+
+	gtk_entry_set_text (an_entry: POINTER; a_text: POINTER) is
+ 		-- gtk_entry_set_text
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_text"
+		}"
+		end
+
+	gtk_entry_set_visibility (an_entry: POINTER; a_visible: INTEGER_32) is
+ 		-- gtk_entry_set_visibility
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_visibility"
+		}"
+		end
+
+	gtk_entry_set_width_chars (an_entry: POINTER; a_n_chars: INTEGER_32) is
+ 		-- gtk_entry_set_width_chars
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_set_width_chars"
+		}"
+		end
+
+	gtk_entry_text_index_to_layout_index (an_entry: POINTER; a_text_index: INTEGER_32): INTEGER_32 is
+ 		-- gtk_entry_text_index_to_layout_index
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_text_index_to_layout_index"
+		}"
+		end
+
+	gtk_entry_unset_invisible_char (an_entry: POINTER) is
+ 		-- gtk_entry_unset_invisible_char
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_entry_unset_invisible_char"
 		}"
 		end
 

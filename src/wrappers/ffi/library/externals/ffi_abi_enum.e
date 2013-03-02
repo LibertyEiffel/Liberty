@@ -11,68 +11,77 @@ creation default_create
 feature -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = first_abi_low_level)  or else
-				(a_value = sysv_low_level)  or else
-				(a_value = unix64_low_level)  or else
-				(a_value = last_abi_low_level)  or else
-				(a_value = default_abi_low_level) )
+            Result := ((a_value = ffi_default_abi_low_level)  or else
+				(a_value = ffi_first_abi_low_level)  or else
+				(a_value = ffi_last_abi_low_level)  or else
+				(a_value = ffi_sysv_low_level)  or else
+				(a_value = ffi_unix64_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_first_abi is
+	set_ffi_default_abi is
 		do
-			value := first_abi_low_level
+			value := ffi_default_abi_low_level
 		end
 
-	set_sysv is
+	set_ffi_first_abi is
 		do
-			value := sysv_low_level
+			value := ffi_first_abi_low_level
 		end
 
-	set_unix64 is
+	set_ffi_last_abi is
 		do
-			value := unix64_low_level
+			value := ffi_last_abi_low_level
 		end
 
-	set_last_abi is
+	set_ffi_sysv is
 		do
-			value := last_abi_low_level
+			value := ffi_sysv_low_level
 		end
 
-	set_default_abi is
+	set_ffi_unix64 is
 		do
-			value := default_abi_low_level
+			value := ffi_unix64_low_level
 		end
 
 feature -- Queries
-	is_first_abi: BOOLEAN is
+	is_ffi_default_abi: BOOLEAN is
 		do
-			Result := (value=first_abi_low_level)
+			Result := (value=ffi_default_abi_low_level)
 		end
 
-	is_sysv: BOOLEAN is
+	is_ffi_first_abi: BOOLEAN is
 		do
-			Result := (value=sysv_low_level)
+			Result := (value=ffi_first_abi_low_level)
 		end
 
-	is_unix64: BOOLEAN is
+	is_ffi_last_abi: BOOLEAN is
 		do
-			Result := (value=unix64_low_level)
+			Result := (value=ffi_last_abi_low_level)
 		end
 
-	is_last_abi: BOOLEAN is
+	is_ffi_sysv: BOOLEAN is
 		do
-			Result := (value=last_abi_low_level)
+			Result := (value=ffi_sysv_low_level)
 		end
 
-	is_default_abi: BOOLEAN is
+	is_ffi_unix64: BOOLEAN is
 		do
-			Result := (value=default_abi_low_level)
+			Result := (value=ffi_unix64_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	first_abi_low_level: INTEGER is
+	ffi_default_abi_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "FFI_DEFAULT_ABI"
+ 			}"
+ 		end
+
+	ffi_first_abi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -81,25 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sysv_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "FFI_SYSV"
- 			}"
- 		end
-
-	unix64_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "FFI_UNIX64"
- 			}"
- 		end
-
-	last_abi_low_level: INTEGER is
+	ffi_last_abi_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,12 +99,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	default_abi_low_level: INTEGER is
+	ffi_sysv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "FFI_DEFAULT_ABI"
+ 			feature_name: "FFI_SYSV"
+ 			}"
+ 		end
+
+	ffi_unix64_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "FFI_UNIX64"
  			}"
  		end
 

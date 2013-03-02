@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_separator_menu_item_get_type: NATURAL_64 is
- 		-- gtk_separator_menu_item_get_type (node at line 2119)
+ 		-- gtk_separator_menu_item_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_separator_menu_item_new: POINTER is
- 		-- gtk_separator_menu_item_new (node at line 12620)
+ 		-- gtk_separator_menu_item_new
 		external "plug_in"
 		alias "{
 			location: "."

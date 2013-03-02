@@ -9,23 +9,23 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_hseparator_new: POINTER is
- 		-- gtk_hseparator_new (node at line 5615)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_hseparator_new()"
-		}"
-		end
-
 	gtk_hseparator_get_type: NATURAL_64 is
- 		-- gtk_hseparator_get_type (node at line 19157)
+ 		-- gtk_hseparator_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_hseparator_get_type()"
+		}"
+		end
+
+	gtk_hseparator_new: POINTER is
+ 		-- gtk_hseparator_new
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_hseparator_new()"
 		}"
 		end
 

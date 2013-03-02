@@ -9,8 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_type_module_get_type: NATURAL_32 is
- 		-- g_type_module_get_type (node at line 489)
+	g_type_module_add_interface (a_module: POINTER; an_instance_type: NATURAL_64; an_interface_type: NATURAL_64; an_interface_info: POINTER) is
+ 		-- g_type_module_add_interface
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_type_module_add_interface"
+		}"
+		end
+
+	g_type_module_get_type: NATURAL_64 is
+ 		-- g_type_module_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,18 +29,8 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_module_unuse (a_module: POINTER) is
- 		-- g_type_module_unuse (node at line 1604)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_type_module_unuse"
-		}"
-		end
-
-	g_type_module_register_enum (a_module: POINTER; a_name: POINTER; a_const_static_values: POINTER): NATURAL_32 is
- 		-- g_type_module_register_enum (node at line 2430)
+	g_type_module_register_enum (a_module: POINTER; a_name: POINTER; a_const_static_values: POINTER): NATURAL_64 is
+ 		-- g_type_module_register_enum
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,8 +39,8 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_module_register_flags (a_module: POINTER; a_name: POINTER; a_const_static_values: POINTER): NATURAL_32 is
- 		-- g_type_module_register_flags (node at line 3602)
+	g_type_module_register_flags (a_module: POINTER; a_name: POINTER; a_const_static_values: POINTER): NATURAL_64 is
+ 		-- g_type_module_register_flags
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,28 +49,8 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_module_use (a_module: POINTER): INTEGER_32 is
- 		-- g_type_module_use (node at line 3719)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_type_module_use"
-		}"
-		end
-
-	g_type_module_set_name (a_module: POINTER; a_name: POINTER) is
- 		-- g_type_module_set_name (node at line 5199)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_type_module_set_name"
-		}"
-		end
-
-	g_type_module_register_type (a_module: POINTER; a_parent_type: NATURAL_32; a_type_name: POINTER; a_type_info: POINTER; a_flags: INTEGER): NATURAL_32 is
- 		-- g_type_module_register_type (node at line 5523)
+	g_type_module_register_type (a_module: POINTER; a_parent_type: NATURAL_64; a_type_name: POINTER; a_type_info: POINTER; a_flags: INTEGER): NATURAL_64 is
+ 		-- g_type_module_register_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,13 +59,33 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_module_add_interface (a_module: POINTER; an_instance_type: NATURAL_32; an_interface_type: NATURAL_32; an_interface_info: POINTER) is
- 		-- g_type_module_add_interface (node at line 6189)
+	g_type_module_set_name (a_module: POINTER; a_name: POINTER) is
+ 		-- g_type_module_set_name
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_type_module_add_interface"
+			feature_name: "g_type_module_set_name"
+		}"
+		end
+
+	g_type_module_unuse (a_module: POINTER) is
+ 		-- g_type_module_unuse
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_type_module_unuse"
+		}"
+		end
+
+	g_type_module_use (a_module: POINTER): INTEGER_32 is
+ 		-- g_type_module_use
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_type_module_use"
 		}"
 		end
 

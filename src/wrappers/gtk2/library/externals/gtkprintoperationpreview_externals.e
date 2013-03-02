@@ -9,18 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_print_operation_preview_is_selected (a_preview: POINTER; a_page_nr: INTEGER_32): INTEGER_32 is
- 		-- gtk_print_operation_preview_is_selected (node at line 9678)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_print_operation_preview_is_selected"
-		}"
-		end
-
 	gtk_print_operation_preview_end_preview (a_preview: POINTER) is
- 		-- gtk_print_operation_preview_end_preview (node at line 14107)
+ 		-- gtk_print_operation_preview_end_preview
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,23 +19,33 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_print_operation_preview_render_page (a_preview: POINTER; a_page_nr: INTEGER_32) is
- 		-- gtk_print_operation_preview_render_page (node at line 27175)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_print_operation_preview_render_page"
-		}"
-		end
-
 	gtk_print_operation_preview_get_type: NATURAL_64 is
- 		-- gtk_print_operation_preview_get_type (node at line 33570)
+ 		-- gtk_print_operation_preview_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_print_operation_preview_get_type()"
+		}"
+		end
+
+	gtk_print_operation_preview_is_selected (a_preview: POINTER; a_page_nr: INTEGER_32): INTEGER_32 is
+ 		-- gtk_print_operation_preview_is_selected
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_print_operation_preview_is_selected"
+		}"
+		end
+
+	gtk_print_operation_preview_render_page (a_preview: POINTER; a_page_nr: INTEGER_32) is
+ 		-- gtk_print_operation_preview_render_page
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_print_operation_preview_render_page"
 		}"
 		end
 

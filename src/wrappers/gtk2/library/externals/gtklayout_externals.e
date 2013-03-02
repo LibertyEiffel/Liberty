@@ -9,68 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_layout_get_size (a_layout: POINTER; a_width: POINTER; a_height: POINTER) is
- 		-- gtk_layout_get_size (node at line 6936)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_get_size"
-		}"
-		end
-
-	gtk_layout_move (a_layout: POINTER; a_child_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
- 		-- gtk_layout_move (node at line 16016)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_move"
-		}"
-		end
-
-	gtk_layout_put (a_layout: POINTER; a_child_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
- 		-- gtk_layout_put (node at line 16791)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_put"
-		}"
-		end
-
-	gtk_layout_set_vadjustment (a_layout: POINTER; an_adjustment: POINTER) is
- 		-- gtk_layout_set_vadjustment (node at line 17995)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_set_vadjustment"
-		}"
-		end
-
-	gtk_layout_set_hadjustment (a_layout: POINTER; an_adjustment: POINTER) is
- 		-- gtk_layout_set_hadjustment (node at line 20535)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_set_hadjustment"
-		}"
-		end
-
-	gtk_layout_set_size (a_layout: POINTER; a_width: NATURAL_32; a_height: NATURAL_32) is
- 		-- gtk_layout_set_size (node at line 25792)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_layout_set_size"
-		}"
-		end
-
 	gtk_layout_get_bin_window (a_layout: POINTER): POINTER is
- 		-- gtk_layout_get_bin_window (node at line 33884)
+ 		-- gtk_layout_get_bin_window
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_layout_get_hadjustment (a_layout: POINTER): POINTER is
- 		-- gtk_layout_get_hadjustment (node at line 34834)
+ 		-- gtk_layout_get_hadjustment
 		external "plug_in"
 		alias "{
 			location: "."
@@ -89,18 +29,18 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_layout_get_vadjustment (a_layout: POINTER): POINTER is
- 		-- gtk_layout_get_vadjustment (node at line 35721)
+	gtk_layout_get_size (a_layout: POINTER; a_width: POINTER; a_height: POINTER) is
+ 		-- gtk_layout_get_size
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_layout_get_vadjustment"
+			feature_name: "gtk_layout_get_size"
 		}"
 		end
 
 	gtk_layout_get_type: NATURAL_64 is
- 		-- gtk_layout_get_type (node at line 37513)
+ 		-- gtk_layout_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,13 +49,73 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_layout_get_vadjustment (a_layout: POINTER): POINTER is
+ 		-- gtk_layout_get_vadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_get_vadjustment"
+		}"
+		end
+
+	gtk_layout_move (a_layout: POINTER; a_child_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
+ 		-- gtk_layout_move
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_move"
+		}"
+		end
+
 	gtk_layout_new (a_hadjustment: POINTER; a_vadjustment: POINTER): POINTER is
- 		-- gtk_layout_new (node at line 40845)
+ 		-- gtk_layout_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_layout_new"
+		}"
+		end
+
+	gtk_layout_put (a_layout: POINTER; a_child_widget: POINTER; a_x: INTEGER_32; a_y: INTEGER_32) is
+ 		-- gtk_layout_put
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_put"
+		}"
+		end
+
+	gtk_layout_set_hadjustment (a_layout: POINTER; an_adjustment: POINTER) is
+ 		-- gtk_layout_set_hadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_set_hadjustment"
+		}"
+		end
+
+	gtk_layout_set_size (a_layout: POINTER; a_width: NATURAL_32; a_height: NATURAL_32) is
+ 		-- gtk_layout_set_size
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_set_size"
+		}"
+		end
+
+	gtk_layout_set_vadjustment (a_layout: POINTER; an_adjustment: POINTER) is
+ 		-- gtk_layout_set_vadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_layout_set_vadjustment"
 		}"
 		end
 

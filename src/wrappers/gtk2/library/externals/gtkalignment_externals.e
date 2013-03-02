@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_alignment_get_padding (an_alignment: POINTER; a_padding_top: POINTER; a_padding_bottom: POINTER; a_padding_left: POINTER; a_padding_right: POINTER) is
- 		-- gtk_alignment_get_padding (node at line 13502)
+ 		-- gtk_alignment_get_padding
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,8 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_alignment_get_type: NATURAL_64 is
+ 		-- gtk_alignment_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_alignment_get_type()"
+		}"
+		end
+
 	gtk_alignment_new (a_xalign: REAL_32; a_yalign: REAL_32; a_xscale: REAL_32; a_yscale: REAL_32): POINTER is
- 		-- gtk_alignment_new (node at line 19406)
+ 		-- gtk_alignment_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,18 +39,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_alignment_set_padding (an_alignment: POINTER; a_padding_top: NATURAL_32; a_padding_bottom: NATURAL_32; a_padding_left: NATURAL_32; a_padding_right: NATURAL_32) is
- 		-- gtk_alignment_set_padding (node at line 20220)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_alignment_set_padding"
-		}"
-		end
-
 	gtk_alignment_set (an_alignment: POINTER; a_xalign: REAL_32; a_yalign: REAL_32; a_xscale: REAL_32; a_yscale: REAL_32) is
- 		-- gtk_alignment_set (node at line 33460)
+ 		-- gtk_alignment_set
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,13 +49,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_alignment_get_type: NATURAL_64 is
- 		-- gtk_alignment_get_type (node at line 34804)
+	gtk_alignment_set_padding (an_alignment: POINTER; a_padding_top: NATURAL_32; a_padding_bottom: NATURAL_32; a_padding_left: NATURAL_32; a_padding_right: NATURAL_32) is
+ 		-- gtk_alignment_set_padding
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_alignment_get_type()"
+			feature_name: "gtk_alignment_set_padding"
 		}"
 		end
 

@@ -9,18 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_separator_tool_item_set_draw (an_item: POINTER; a_draw: INTEGER_32) is
- 		-- gtk_separator_tool_item_set_draw (node at line 17385)
+	gtk_separator_tool_item_get_draw (an_item: POINTER): INTEGER_32 is
+ 		-- gtk_separator_tool_item_get_draw
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_separator_tool_item_set_draw"
+			feature_name: "gtk_separator_tool_item_get_draw"
 		}"
 		end
 
 	gtk_separator_tool_item_get_type: NATURAL_64 is
- 		-- gtk_separator_tool_item_get_type (node at line 36554)
+ 		-- gtk_separator_tool_item_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	gtk_separator_tool_item_new: POINTER is
- 		-- gtk_separator_tool_item_new (node at line 38034)
+ 		-- gtk_separator_tool_item_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +39,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_separator_tool_item_get_draw (an_item: POINTER): INTEGER_32 is
- 		-- gtk_separator_tool_item_get_draw (node at line 39348)
+	gtk_separator_tool_item_set_draw (an_item: POINTER; a_draw: INTEGER_32) is
+ 		-- gtk_separator_tool_item_set_draw
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_separator_tool_item_get_draw"
+			feature_name: "gtk_separator_tool_item_set_draw"
 		}"
 		end
 

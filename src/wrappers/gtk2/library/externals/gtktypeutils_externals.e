@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_identifier_get_type: NATURAL_64 is
- 		-- gtk_identifier_get_type (node at line 22635)
+ 		-- gtk_identifier_get_type
 		external "plug_in"
 		alias "{
 			location: "."

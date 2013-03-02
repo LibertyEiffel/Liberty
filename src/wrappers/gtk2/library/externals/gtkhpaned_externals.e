@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_hpaned_get_type: NATURAL_64 is
- 		-- gtk_hpaned_get_type (node at line 22676)
+ 		-- gtk_hpaned_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_hpaned_new: POINTER is
- 		-- gtk_hpaned_new (node at line 29077)
+ 		-- gtk_hpaned_new
 		external "plug_in"
 		alias "{
 			location: "."

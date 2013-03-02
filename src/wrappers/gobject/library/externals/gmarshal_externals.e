@@ -9,108 +9,28 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_cclosure_marshal_void_long (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__LONG (node at line 628)
+	g_cclosure_marshal_booleaniboxed_boxed (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_BOOLEAN__BOXED_BOXED
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__LONG"
+			feature_name: "g_cclosure_marshal_BOOLEAN__BOXED_BOXED"
 		}"
 		end
 
-	g_cclosure_marshal_void_uint_pointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__UINT_POINTER (node at line 965)
+	g_cclosure_marshal_booleaniboxed_boxedv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__UINT_POINTER"
+			feature_name: "g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv"
 		}"
 		end
 
-	g_cclosure_marshal_void_uchar (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__UCHAR (node at line 1748)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__UCHAR"
-		}"
-		end
-
-	g_cclosure_marshal_void_boxed (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__BOXED (node at line 2380)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__BOXED"
-		}"
-		end
-
-	g_cclosure_marshal_void_float (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__FLOAT (node at line 3764)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__FLOAT"
-		}"
-		end
-
-	g_cclosure_marshal_void_uint (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__UINT (node at line 3960)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__UINT"
-		}"
-		end
-
-	g_cclosure_marshal_void_param (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__PARAM (node at line 5261)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__PARAM"
-		}"
-		end
-
-	g_cclosure_marshal_void_flags (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__FLAGS (node at line 5485)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__FLAGS"
-		}"
-		end
-
-	g_cclosure_marshal_void_enum (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__ENUM (node at line 5827)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__ENUM"
-		}"
-		end
-
-	g_cclosure_marshal_void_boolean (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__BOOLEAN (node at line 5909)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__BOOLEAN"
-		}"
-		end
-
-	g_cclosure_marshal_boolean_flags (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_BOOLEAN__FLAGS (node at line 6025)
+	g_cclosure_marshal_booleaniflags (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_BOOLEAN__FLAGS
 		external "plug_in"
 		alias "{
 			location: "."
@@ -119,68 +39,18 @@ feature {} -- External calls
 		}"
 		end
 
-	g_cclosure_marshal_void_object (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__OBJECT (node at line 6134)
+	g_cclosure_marshal_booleaniflagsv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_BOOLEAN__FLAGSv
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__OBJECT"
+			feature_name: "g_cclosure_marshal_BOOLEAN__FLAGSv"
 		}"
 		end
 
-	g_cclosure_marshal_void_char (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__CHAR (node at line 6513)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__CHAR"
-		}"
-		end
-
-	g_cclosure_marshal_void_string (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__STRING (node at line 6889)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__STRING"
-		}"
-		end
-
-	g_cclosure_marshal_void_double (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__DOUBLE (node at line 7182)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__DOUBLE"
-		}"
-		end
-
-	g_cclosure_marshal_void_int (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__INT (node at line 8102)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__INT"
-		}"
-		end
-
-	g_cclosure_marshal_void_pointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__POINTER (node at line 8319)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_cclosure_marshal_VOID__POINTER"
-		}"
-		end
-
-	g_cclosure_marshal_string_object_pointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_STRING__OBJECT_POINTER (node at line 8434)
+	g_cclosure_marshal_stringiobject_pointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_STRING__OBJECT_POINTER
 		external "plug_in"
 		alias "{
 			location: "."
@@ -189,8 +59,338 @@ feature {} -- External calls
 		}"
 		end
 
-	g_cclosure_marshal_void_ulong (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__ULONG (node at line 8461)
+	g_cclosure_marshal_stringiobject_pointerv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_STRING__OBJECT_POINTERv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_STRING__OBJECT_POINTERv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiboolean (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__BOOLEAN
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__BOOLEAN"
+		}"
+		end
+
+	g_cclosure_marshal_voidibooleanv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__BOOLEANv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__BOOLEANv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiboxed (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__BOXED
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__BOXED"
+		}"
+		end
+
+	g_cclosure_marshal_voidiboxedv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__BOXEDv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__BOXEDv"
+		}"
+		end
+
+	g_cclosure_marshal_voidichar (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__CHAR
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__CHAR"
+		}"
+		end
+
+	g_cclosure_marshal_voidicharv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__CHARv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__CHARv"
+		}"
+		end
+
+	g_cclosure_marshal_voididouble (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__DOUBLE
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__DOUBLE"
+		}"
+		end
+
+	g_cclosure_marshal_voididoublev (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__DOUBLEv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__DOUBLEv"
+		}"
+		end
+
+	g_cclosure_marshal_voidienum (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__ENUM
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__ENUM"
+		}"
+		end
+
+	g_cclosure_marshal_voidienumv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__ENUMv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__ENUMv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiflags (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__FLAGS
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__FLAGS"
+		}"
+		end
+
+	g_cclosure_marshal_voidiflagsv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__FLAGSv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__FLAGSv"
+		}"
+		end
+
+	g_cclosure_marshal_voidifloat (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__FLOAT
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__FLOAT"
+		}"
+		end
+
+	g_cclosure_marshal_voidifloatv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__FLOATv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__FLOATv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiint (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__INT
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__INT"
+		}"
+		end
+
+	g_cclosure_marshal_voidiintv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__INTv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__INTv"
+		}"
+		end
+
+	g_cclosure_marshal_voidilong (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__LONG
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__LONG"
+		}"
+		end
+
+	g_cclosure_marshal_voidilongv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__LONGv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__LONGv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiobject (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__OBJECT
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__OBJECT"
+		}"
+		end
+
+	g_cclosure_marshal_voidiobjectv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__OBJECTv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__OBJECTv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiparam (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__PARAM
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__PARAM"
+		}"
+		end
+
+	g_cclosure_marshal_voidiparamv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__PARAMv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__PARAMv"
+		}"
+		end
+
+	g_cclosure_marshal_voidipointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__POINTER
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__POINTER"
+		}"
+		end
+
+	g_cclosure_marshal_voidipointerv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__POINTERv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__POINTERv"
+		}"
+		end
+
+	g_cclosure_marshal_voidistring (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__STRING
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__STRING"
+		}"
+		end
+
+	g_cclosure_marshal_voidistringv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__STRINGv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__STRINGv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiuchar (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UCHAR
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UCHAR"
+		}"
+		end
+
+	g_cclosure_marshal_voidiucharv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UCHARv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UCHARv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiuint (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UINT
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UINT"
+		}"
+		end
+
+	g_cclosure_marshal_voidiuint_pointer (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UINT_POINTER
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UINT_POINTER"
+		}"
+		end
+
+	g_cclosure_marshal_voidiuint_pointerv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UINT_POINTERv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UINT_POINTERv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiuintv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__UINTv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__UINTv"
+		}"
+		end
+
+	g_cclosure_marshal_voidiulong (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__ULONG
 		external "plug_in"
 		alias "{
 			location: "."
@@ -199,13 +399,53 @@ feature {} -- External calls
 		}"
 		end
 
-	g_cclosure_marshal_void_void (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
- 		-- g_cclosure_marshal_VOID__VOID (node at line 8586)
+	g_cclosure_marshal_voidiulongv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__ULONGv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__ULONGv"
+		}"
+		end
+
+	g_cclosure_marshal_voidivariant (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__VARIANT
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__VARIANT"
+		}"
+		end
+
+	g_cclosure_marshal_voidivariantv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__VARIANTv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__VARIANTv"
+		}"
+		end
+
+	g_cclosure_marshal_voidivoid (a_closure: POINTER; a_return_value: POINTER; a_n_param_values: NATURAL_32; a_param_values: POINTER; an_invocation_hint: POINTER; a_marshal_data: POINTER) is
+ 		-- g_cclosure_marshal_VOID__VOID
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_cclosure_marshal_VOID__VOID"
+		}"
+		end
+
+	g_cclosure_marshal_voidivoidv (a_closure: POINTER; a_return_value: POINTER; an_instance: POINTER; an_args: POINTER; a_marshal_data: POINTER; a_n_params: INTEGER_32; a_param_types: POINTER) is
+ 		-- g_cclosure_marshal_VOID__VOIDv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_cclosure_marshal_VOID__VOIDv"
 		}"
 		end
 

@@ -9,48 +9,28 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_tool_item_group_insert (a_group: POINTER; an_item: POINTER; a_position: INTEGER_32) is
- 		-- gtk_tool_item_group_insert (node at line 1046)
+	gtk_tool_item_group_get_collapsed (a_group: POINTER): INTEGER_32 is
+ 		-- gtk_tool_item_group_get_collapsed
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_insert"
+			feature_name: "gtk_tool_item_group_get_collapsed"
 		}"
 		end
 
-	gtk_tool_item_group_set_label_widget (a_group: POINTER; a_label_widget: POINTER) is
- 		-- gtk_tool_item_group_set_label_widget (node at line 2261)
+	gtk_tool_item_group_get_drop_item (a_group: POINTER; a_x: INTEGER_32; a_y: INTEGER_32): POINTER is
+ 		-- gtk_tool_item_group_get_drop_item
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_set_label_widget"
-		}"
-		end
-
-	gtk_tool_item_group_set_header_relief (a_group: POINTER; a_style: INTEGER) is
- 		-- gtk_tool_item_group_set_header_relief (node at line 6834)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_set_header_relief"
-		}"
-		end
-
-	gtk_tool_item_group_new (a_label: POINTER): POINTER is
- 		-- gtk_tool_item_group_new (node at line 9162)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_new"
+			feature_name: "gtk_tool_item_group_get_drop_item"
 		}"
 		end
 
 	gtk_tool_item_group_get_ellipsize (a_group: POINTER): INTEGER is
- 		-- gtk_tool_item_group_get_ellipsize (node at line 10291)
+ 		-- gtk_tool_item_group_get_ellipsize
 		external "plug_in"
 		alias "{
 			location: "."
@@ -59,18 +39,38 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_item_group_set_ellipsize (a_group: POINTER; an_ellipsize: INTEGER) is
- 		-- gtk_tool_item_group_set_ellipsize (node at line 14727)
+	gtk_tool_item_group_get_header_relief (a_group: POINTER): INTEGER is
+ 		-- gtk_tool_item_group_get_header_relief
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_set_ellipsize"
+			feature_name: "gtk_tool_item_group_get_header_relief"
+		}"
+		end
+
+	gtk_tool_item_group_get_item_position (a_group: POINTER; an_item: POINTER): INTEGER_32 is
+ 		-- gtk_tool_item_group_get_item_position
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_item_group_get_item_position"
+		}"
+		end
+
+	gtk_tool_item_group_get_label (a_group: POINTER): POINTER is
+ 		-- gtk_tool_item_group_get_label
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_item_group_get_label"
 		}"
 		end
 
 	gtk_tool_item_group_get_label_widget (a_group: POINTER): POINTER is
- 		-- gtk_tool_item_group_get_label_widget (node at line 15265)
+ 		-- gtk_tool_item_group_get_label_widget
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,18 +79,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_item_group_get_type: NATURAL_64 is
- 		-- gtk_tool_item_group_get_type (node at line 19975)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_type()"
-		}"
-		end
-
 	gtk_tool_item_group_get_n_items (a_group: POINTER): NATURAL_32 is
- 		-- gtk_tool_item_group_get_n_items (node at line 22941)
+ 		-- gtk_tool_item_group_get_n_items
 		external "plug_in"
 		alias "{
 			location: "."
@@ -100,7 +90,7 @@ feature {} -- External calls
 		end
 
 	gtk_tool_item_group_get_nth_item (a_group: POINTER; an_index: NATURAL_32): POINTER is
- 		-- gtk_tool_item_group_get_nth_item (node at line 24017)
+ 		-- gtk_tool_item_group_get_nth_item
 		external "plug_in"
 		alias "{
 			location: "."
@@ -109,48 +99,38 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_item_group_get_drop_item (a_group: POINTER; a_x: INTEGER_32; a_y: INTEGER_32): POINTER is
- 		-- gtk_tool_item_group_get_drop_item (node at line 30055)
+	gtk_tool_item_group_get_type: NATURAL_64 is
+ 		-- gtk_tool_item_group_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_drop_item"
+			feature_name: "gtk_tool_item_group_get_type()"
 		}"
 		end
 
-	gtk_tool_item_group_get_collapsed (a_group: POINTER): INTEGER_32 is
- 		-- gtk_tool_item_group_get_collapsed (node at line 30400)
+	gtk_tool_item_group_insert (a_group: POINTER; an_item: POINTER; a_position: INTEGER_32) is
+ 		-- gtk_tool_item_group_insert
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_collapsed"
+			feature_name: "gtk_tool_item_group_insert"
 		}"
 		end
 
-	gtk_tool_item_group_get_label (a_group: POINTER): POINTER is
- 		-- gtk_tool_item_group_get_label (node at line 33500)
+	gtk_tool_item_group_new (a_label: POINTER): POINTER is
+ 		-- gtk_tool_item_group_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_label"
-		}"
-		end
-
-	gtk_tool_item_group_set_item_position (a_group: POINTER; an_item: POINTER; a_position: INTEGER_32) is
- 		-- gtk_tool_item_group_set_item_position (node at line 34499)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_set_item_position"
+			feature_name: "gtk_tool_item_group_new"
 		}"
 		end
 
 	gtk_tool_item_group_set_collapsed (a_group: POINTER; a_collapsed: INTEGER_32) is
- 		-- gtk_tool_item_group_set_collapsed (node at line 34775)
+ 		-- gtk_tool_item_group_set_collapsed
 		external "plug_in"
 		alias "{
 			location: "."
@@ -159,33 +139,53 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_item_group_get_item_position (a_group: POINTER; an_item: POINTER): INTEGER_32 is
- 		-- gtk_tool_item_group_get_item_position (node at line 40418)
+	gtk_tool_item_group_set_ellipsize (a_group: POINTER; an_ellipsize: INTEGER) is
+ 		-- gtk_tool_item_group_set_ellipsize
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_item_position"
+			feature_name: "gtk_tool_item_group_set_ellipsize"
 		}"
 		end
 
-	gtk_tool_item_group_get_header_relief (a_group: POINTER): INTEGER is
- 		-- gtk_tool_item_group_get_header_relief (node at line 41274)
+	gtk_tool_item_group_set_header_relief (a_group: POINTER; a_style: INTEGER) is
+ 		-- gtk_tool_item_group_set_header_relief
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_item_group_get_header_relief"
+			feature_name: "gtk_tool_item_group_set_header_relief"
+		}"
+		end
+
+	gtk_tool_item_group_set_item_position (a_group: POINTER; an_item: POINTER; a_position: INTEGER_32) is
+ 		-- gtk_tool_item_group_set_item_position
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_item_group_set_item_position"
 		}"
 		end
 
 	gtk_tool_item_group_set_label (a_group: POINTER; a_label: POINTER) is
- 		-- gtk_tool_item_group_set_label (node at line 41324)
+ 		-- gtk_tool_item_group_set_label
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_tool_item_group_set_label"
+		}"
+		end
+
+	gtk_tool_item_group_set_label_widget (a_group: POINTER; a_label_widget: POINTER) is
+ 		-- gtk_tool_item_group_set_label_widget
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_item_group_set_label_widget"
 		}"
 		end
 

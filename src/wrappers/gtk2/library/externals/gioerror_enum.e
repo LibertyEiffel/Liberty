@@ -9,68 +9,59 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = none_low_level)  or else
-				(a_value = again_low_level)  or else
-				(a_value = inval_low_level)  or else
-				(a_value = unknown_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_io_error_again_low_level)  or else
+				(a_value = g_io_error_inval_low_level)  or else
+				(a_value = g_io_error_none_low_level)  or else
+				(a_value = g_io_error_unknown_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_none is
+	set_g_io_error_again is
 		do
-			value := none_low_level
+			value := g_io_error_again_low_level
 		end
 
-	set_again is
+	set_g_io_error_inval is
 		do
-			value := again_low_level
+			value := g_io_error_inval_low_level
 		end
 
-	set_inval is
+	set_g_io_error_none is
 		do
-			value := inval_low_level
+			value := g_io_error_none_low_level
 		end
 
-	set_unknown is
+	set_g_io_error_unknown is
 		do
-			value := unknown_low_level
+			value := g_io_error_unknown_low_level
 		end
 
 feature -- Queries
-	none: BOOLEAN is
+	is_g_io_error_again: BOOLEAN is
 		do
-			Result := (value=none_low_level)
+			Result := (value=g_io_error_again_low_level)
 		end
 
-	again: BOOLEAN is
+	is_g_io_error_inval: BOOLEAN is
 		do
-			Result := (value=again_low_level)
+			Result := (value=g_io_error_inval_low_level)
 		end
 
-	inval: BOOLEAN is
+	is_g_io_error_none: BOOLEAN is
 		do
-			Result := (value=inval_low_level)
+			Result := (value=g_io_error_none_low_level)
 		end
 
-	unknown: BOOLEAN is
+	is_g_io_error_unknown: BOOLEAN is
 		do
-			Result := (value=unknown_low_level)
+			Result := (value=g_io_error_unknown_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	none_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_ERROR_NONE"
- 			}"
- 		end
-
-	again_low_level: INTEGER is
+	g_io_error_again_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +70,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inval_low_level: INTEGER is
+	g_io_error_inval_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +79,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_low_level: INTEGER is
+	g_io_error_none_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_ERROR_NONE"
+ 			}"
+ 		end
+
+	g_io_error_unknown_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

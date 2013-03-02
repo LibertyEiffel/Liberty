@@ -9,28 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_value_array_remove (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
- 		-- g_value_array_remove (node at line 235)
+	g_value_array_append (a_value_array: POINTER; a_value: POINTER): POINTER is
+ 		-- g_value_array_append
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_value_array_remove"
-		}"
-		end
-
-	g_value_array_get_nth (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
- 		-- g_value_array_get_nth (node at line 1470)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_value_array_get_nth"
+			feature_name: "g_value_array_append"
 		}"
 		end
 
 	g_value_array_copy (a_value_array: POINTER): POINTER is
- 		-- g_value_array_copy (node at line 2142)
+ 		-- g_value_array_copy
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,28 +29,8 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_sort_with_data (a_value_array: POINTER; a_compare_func: POINTER; an_user_data: POINTER): POINTER is
- 		-- g_value_array_sort_with_data (node at line 4670)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_value_array_sort_with_data"
-		}"
-		end
-
-	g_value_array_sort (a_value_array: POINTER; a_compare_func: POINTER): POINTER is
- 		-- g_value_array_sort (node at line 5037)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_value_array_sort"
-		}"
-		end
-
 	g_value_array_free (a_value_array: POINTER) is
- 		-- g_value_array_free (node at line 6058)
+ 		-- g_value_array_free
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,8 +39,38 @@ feature {} -- External calls
 		}"
 		end
 
+	g_value_array_get_nth (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
+ 		-- g_value_array_get_nth
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_value_array_get_nth"
+		}"
+		end
+
+	g_value_array_get_type: NATURAL_64 is
+ 		-- g_value_array_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_value_array_get_type()"
+		}"
+		end
+
+	g_value_array_insert (a_value_array: POINTER; an_index: NATURAL_32; a_value: POINTER): POINTER is
+ 		-- g_value_array_insert
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_value_array_insert"
+		}"
+		end
+
 	g_value_array_new (a_n_prealloced: NATURAL_32): POINTER is
- 		-- g_value_array_new (node at line 6310)
+ 		-- g_value_array_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	g_value_array_prepend (a_value_array: POINTER; a_value: POINTER): POINTER is
- 		-- g_value_array_prepend (node at line 7002)
+ 		-- g_value_array_prepend
 		external "plug_in"
 		alias "{
 			location: "."
@@ -89,23 +89,33 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_array_append (a_value_array: POINTER; a_value: POINTER): POINTER is
- 		-- g_value_array_append (node at line 7654)
+	g_value_array_remove (a_value_array: POINTER; an_index: NATURAL_32): POINTER is
+ 		-- g_value_array_remove
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_value_array_append"
+			feature_name: "g_value_array_remove"
 		}"
 		end
 
-	g_value_array_insert (a_value_array: POINTER; an_index: NATURAL_32; a_value: POINTER): POINTER is
- 		-- g_value_array_insert (node at line 7750)
+	g_value_array_sort (a_value_array: POINTER; a_compare_func: POINTER): POINTER is
+ 		-- g_value_array_sort
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "g_value_array_insert"
+			feature_name: "g_value_array_sort"
+		}"
+		end
+
+	g_value_array_sort_with_data (a_value_array: POINTER; a_compare_func: POINTER; an_user_data: POINTER): POINTER is
+ 		-- g_value_array_sort_with_data
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_value_array_sort_with_data"
 		}"
 		end
 

@@ -9,103 +9,103 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = append_low_level)  or else
-				(a_value = nonblock_low_level)  or else
-				(a_value = is_readable_low_level)  or else
-				(a_value = is_writable_low_level)  or else
-				(a_value = is_seekable_low_level)  or else
-				(a_value = mask_low_level)  or else
-				(a_value = get_mask_low_level)  or else
-				(a_value = set_mask_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_io_flag_append_low_level)  or else
+				(a_value = g_io_flag_get_mask_low_level)  or else
+				(a_value = g_io_flag_is_readable_low_level)  or else
+				(a_value = g_io_flag_is_seekable_low_level)  or else
+				(a_value = g_io_flag_is_writable_low_level)  or else
+				(a_value = g_io_flag_mask_low_level)  or else
+				(a_value = g_io_flag_nonblock_low_level)  or else
+				(a_value = g_io_flag_set_mask_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_append is
+	set_g_io_flag_append is
 		do
-			value := append_low_level
+			value := g_io_flag_append_low_level
 		end
 
-	set_nonblock is
+	set_g_io_flag_get_mask is
 		do
-			value := nonblock_low_level
+			value := g_io_flag_get_mask_low_level
 		end
 
-	set_is_readable is
+	set_g_io_flag_is_readable is
 		do
-			value := is_readable_low_level
+			value := g_io_flag_is_readable_low_level
 		end
 
-	set_is_writable is
+	set_g_io_flag_is_seekable is
 		do
-			value := is_writable_low_level
+			value := g_io_flag_is_seekable_low_level
 		end
 
-	set_is_seekable is
+	set_g_io_flag_is_writable is
 		do
-			value := is_seekable_low_level
+			value := g_io_flag_is_writable_low_level
 		end
 
-	set_mask is
+	set_g_io_flag_mask is
 		do
-			value := mask_low_level
+			value := g_io_flag_mask_low_level
 		end
 
-	set_get_mask is
+	set_g_io_flag_nonblock is
 		do
-			value := get_mask_low_level
+			value := g_io_flag_nonblock_low_level
 		end
 
-	set_set_mask is
+	set_g_io_flag_set_mask is
 		do
-			value := set_mask_low_level
+			value := g_io_flag_set_mask_low_level
 		end
 
 feature -- Queries
-	append: BOOLEAN is
+	is_g_io_flag_append: BOOLEAN is
 		do
-			Result := (value=append_low_level)
+			Result := (value=g_io_flag_append_low_level)
 		end
 
-	nonblock: BOOLEAN is
+	is_g_io_flag_get_mask: BOOLEAN is
 		do
-			Result := (value=nonblock_low_level)
+			Result := (value=g_io_flag_get_mask_low_level)
 		end
 
-	is_readable: BOOLEAN is
+	is_g_io_flag_is_readable: BOOLEAN is
 		do
-			Result := (value=is_readable_low_level)
+			Result := (value=g_io_flag_is_readable_low_level)
 		end
 
-	is_writable: BOOLEAN is
+	is_g_io_flag_is_seekable: BOOLEAN is
 		do
-			Result := (value=is_writable_low_level)
+			Result := (value=g_io_flag_is_seekable_low_level)
 		end
 
-	is_seekable: BOOLEAN is
+	is_g_io_flag_is_writable: BOOLEAN is
 		do
-			Result := (value=is_seekable_low_level)
+			Result := (value=g_io_flag_is_writable_low_level)
 		end
 
-	mask: BOOLEAN is
+	is_g_io_flag_mask: BOOLEAN is
 		do
-			Result := (value=mask_low_level)
+			Result := (value=g_io_flag_mask_low_level)
 		end
 
-	get_mask: BOOLEAN is
+	is_g_io_flag_nonblock: BOOLEAN is
 		do
-			Result := (value=get_mask_low_level)
+			Result := (value=g_io_flag_nonblock_low_level)
 		end
 
-	set_mask: BOOLEAN is
+	is_g_io_flag_set_mask: BOOLEAN is
 		do
-			Result := (value=set_mask_low_level)
+			Result := (value=g_io_flag_set_mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	append_low_level: INTEGER is
+	g_io_flag_append_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -114,52 +114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nonblock_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_FLAG_NONBLOCK"
- 			}"
- 		end
-
-	is_readable_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_FLAG_IS_READABLE"
- 			}"
- 		end
-
-	is_writable_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_FLAG_IS_WRITABLE"
- 			}"
- 		end
-
-	is_seekable_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_FLAG_IS_SEEKABLE"
- 			}"
- 		end
-
-	mask_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_FLAG_MASK"
- 			}"
- 		end
-
-	get_mask_low_level: INTEGER is
+	g_io_flag_get_mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +123,52 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	set_mask_low_level: INTEGER is
+	g_io_flag_is_readable_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_IS_READABLE"
+ 			}"
+ 		end
+
+	g_io_flag_is_seekable_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_IS_SEEKABLE"
+ 			}"
+ 		end
+
+	g_io_flag_is_writable_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_IS_WRITABLE"
+ 			}"
+ 		end
+
+	g_io_flag_mask_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_MASK"
+ 			}"
+ 		end
+
+	g_io_flag_nonblock_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_FLAG_NONBLOCK"
+ 			}"
+ 		end
+
+	g_io_flag_set_mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

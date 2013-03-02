@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_vseparator_get_type: NATURAL_64 is
- 		-- gtk_vseparator_get_type (node at line 11064)
+ 		-- gtk_vseparator_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_vseparator_new: POINTER is
- 		-- gtk_vseparator_new (node at line 13695)
+ 		-- gtk_vseparator_new
 		external "plug_in"
 		alias "{
 			location: "."

@@ -11,7 +11,7 @@ feature {} -- External calls
 
 	-- `hidden' function _gtk_find_module skipped.
 	-- `hidden' function _gtk_get_module_path skipped.
-	-- `hidden' function _gtk_modules_settings_changed skipped.
 	-- `hidden' function _gtk_modules_init skipped.
+	-- `hidden' function _gtk_modules_settings_changed skipped.
 
 end -- class GTKMODULES_EXTERNALS

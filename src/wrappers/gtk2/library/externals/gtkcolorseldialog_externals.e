@@ -9,8 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	gtk_color_selection_dialog_get_color_selection (a_colorsel: POINTER): POINTER is
+ 		-- gtk_color_selection_dialog_get_color_selection
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_color_selection_dialog_get_color_selection"
+		}"
+		end
+
 	gtk_color_selection_dialog_get_type: NATURAL_64 is
- 		-- gtk_color_selection_dialog_get_type (node at line 16901)
+ 		-- gtk_color_selection_dialog_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,22 +30,12 @@ feature {} -- External calls
 		end
 
 	gtk_color_selection_dialog_new (a_title: POINTER): POINTER is
- 		-- gtk_color_selection_dialog_new (node at line 27558)
+ 		-- gtk_color_selection_dialog_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_color_selection_dialog_new"
-		}"
-		end
-
-	gtk_color_selection_dialog_get_color_selection (a_colorsel: POINTER): POINTER is
- 		-- gtk_color_selection_dialog_get_color_selection (node at line 28118)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_color_selection_dialog_get_color_selection"
 		}"
 		end
 

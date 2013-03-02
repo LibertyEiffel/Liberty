@@ -105,6 +105,13 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
+	llvmpass_registry_ref: POINTER is
+		-- typedef LLVMPassRegistryRef
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
 	llvmtarget_data_ref: POINTER is
 		-- typedef LLVMTargetDataRef
 		-- Empty by design, used for anchored declarations.

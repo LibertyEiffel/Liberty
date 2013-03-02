@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_volume_button_get_type: NATURAL_64 is
- 		-- gtk_volume_button_get_type (node at line 23821)
+ 		-- gtk_volume_button_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_volume_button_new: POINTER is
- 		-- gtk_volume_button_new (node at line 26238)
+ 		-- gtk_volume_button_new
 		external "plug_in"
 		alias "{
 			location: "."

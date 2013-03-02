@@ -9,18 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_mount_operation_new (a_parent: POINTER): POINTER is
- 		-- gtk_mount_operation_new (node at line 3651)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_mount_operation_new"
-		}"
-		end
-
 	gtk_mount_operation_get_parent (an_op: POINTER): POINTER is
- 		-- gtk_mount_operation_get_parent (node at line 8995)
+ 		-- gtk_mount_operation_get_parent
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,8 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_mount_operation_get_screen (an_op: POINTER): POINTER is
+ 		-- gtk_mount_operation_get_screen
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_mount_operation_get_screen"
+		}"
+		end
+
 	gtk_mount_operation_get_type: NATURAL_64 is
- 		-- gtk_mount_operation_get_type (node at line 13105)
+ 		-- gtk_mount_operation_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,28 +39,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_mount_operation_set_screen (an_op: POINTER; a_screen: POINTER) is
- 		-- gtk_mount_operation_set_screen (node at line 31154)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_mount_operation_set_screen"
-		}"
-		end
-
-	gtk_mount_operation_set_parent (an_op: POINTER; a_parent: POINTER) is
- 		-- gtk_mount_operation_set_parent (node at line 33515)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_mount_operation_set_parent"
-		}"
-		end
-
 	gtk_mount_operation_is_showing (an_op: POINTER): INTEGER_32 is
- 		-- gtk_mount_operation_is_showing (node at line 38325)
+ 		-- gtk_mount_operation_is_showing
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,13 +49,33 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_mount_operation_get_screen (an_op: POINTER): POINTER is
- 		-- gtk_mount_operation_get_screen (node at line 40664)
+	gtk_mount_operation_new (a_parent: POINTER): POINTER is
+ 		-- gtk_mount_operation_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_mount_operation_get_screen"
+			feature_name: "gtk_mount_operation_new"
+		}"
+		end
+
+	gtk_mount_operation_set_parent (an_op: POINTER; a_parent: POINTER) is
+ 		-- gtk_mount_operation_set_parent
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_mount_operation_set_parent"
+		}"
+		end
+
+	gtk_mount_operation_set_screen (an_op: POINTER; a_screen: POINTER) is
+ 		-- gtk_mount_operation_set_screen
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_mount_operation_set_screen"
 		}"
 		end
 

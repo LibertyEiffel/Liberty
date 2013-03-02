@@ -9,8 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	gtk_aspect_frame_get_type: NATURAL_64 is
+ 		-- gtk_aspect_frame_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_aspect_frame_get_type()"
+		}"
+		end
+
 	gtk_aspect_frame_new (a_label: POINTER; a_xalign: REAL_32; a_yalign: REAL_32; a_ratio: REAL_32; an_obey_child: INTEGER_32): POINTER is
- 		-- gtk_aspect_frame_new (node at line 6730)
+ 		-- gtk_aspect_frame_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,22 +30,12 @@ feature {} -- External calls
 		end
 
 	gtk_aspect_frame_set (an_aspect_frame: POINTER; a_xalign: REAL_32; a_yalign: REAL_32; a_ratio: REAL_32; an_obey_child: INTEGER_32) is
- 		-- gtk_aspect_frame_set (node at line 34126)
+ 		-- gtk_aspect_frame_set
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_aspect_frame_set"
-		}"
-		end
-
-	gtk_aspect_frame_get_type: NATURAL_64 is
- 		-- gtk_aspect_frame_get_type (node at line 36906)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_aspect_frame_get_type()"
 		}"
 		end
 

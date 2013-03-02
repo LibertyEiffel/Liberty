@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_cell_editable_editing_done (a_cell_editable: POINTER) is
- 		-- gtk_cell_editable_editing_done (node at line 1591)
+ 		-- gtk_cell_editable_editing_done
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,18 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_cell_editable_start_editing (a_cell_editable: POINTER; an_event: POINTER) is
- 		-- gtk_cell_editable_start_editing (node at line 26159)
+	gtk_cell_editable_get_type: NATURAL_64 is
+ 		-- gtk_cell_editable_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_cell_editable_start_editing"
+			feature_name: "gtk_cell_editable_get_type()"
 		}"
 		end
 
 	gtk_cell_editable_remove_widget (a_cell_editable: POINTER) is
- 		-- gtk_cell_editable_remove_widget (node at line 36469)
+ 		-- gtk_cell_editable_remove_widget
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +39,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_cell_editable_get_type: NATURAL_64 is
- 		-- gtk_cell_editable_get_type (node at line 36938)
+	gtk_cell_editable_start_editing (a_cell_editable: POINTER; an_event: POINTER) is
+ 		-- gtk_cell_editable_start_editing
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_cell_editable_get_type()"
+			feature_name: "gtk_cell_editable_start_editing"
 		}"
 		end
 

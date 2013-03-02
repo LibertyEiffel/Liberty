@@ -9,23 +9,23 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	ubuntu_menu_proxy_module_get_type: NATURAL_64 is
- 		-- ubuntu_menu_proxy_module_get_type (node at line 1115)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "ubuntu_menu_proxy_module_get_type()"
-		}"
-		end
-
 	ubuntu_menu_proxy_module_get: POINTER is
- 		-- ubuntu_menu_proxy_module_get (node at line 24747)
+ 		-- ubuntu_menu_proxy_module_get
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "ubuntu_menu_proxy_module_get()"
+		}"
+		end
+
+	ubuntu_menu_proxy_module_get_type: NATURAL_64 is
+ 		-- ubuntu_menu_proxy_module_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "ubuntu_menu_proxy_module_get_type()"
 		}"
 		end
 

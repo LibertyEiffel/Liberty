@@ -9,11 +9,11 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = any_endianness_low_level)  or else
-				(a_value = little_endian_low_level)  or else
-				(a_value = big_endian_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = any_endianness_low_level)  or else
+				(a_value = big_endian_low_level)  or else
+				(a_value = little_endian_low_level) )
 		end
 
 feature -- Setters
@@ -23,30 +23,30 @@ feature -- Setters
 			value := any_endianness_low_level
 		end
 
-	set_little_endian is
-		do
-			value := little_endian_low_level
-		end
-
 	set_big_endian is
 		do
 			value := big_endian_low_level
 		end
 
+	set_little_endian is
+		do
+			value := little_endian_low_level
+		end
+
 feature -- Queries
-	any_endianness: BOOLEAN is
+	is_any_endianness: BOOLEAN is
 		do
 			Result := (value=any_endianness_low_level)
 		end
 
-	little_endian: BOOLEAN is
-		do
-			Result := (value=little_endian_low_level)
-		end
-
-	big_endian: BOOLEAN is
+	is_big_endian: BOOLEAN is
 		do
 			Result := (value=big_endian_low_level)
+		end
+
+	is_little_endian: BOOLEAN is
+		do
+			Result := (value=little_endian_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
@@ -59,21 +59,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	little_endian_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LittleEndian"
- 			}"
- 		end
-
 	big_endian_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "BigEndian"
+ 			}"
+ 		end
+
+	little_endian_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LittleEndian"
  			}"
  		end
 

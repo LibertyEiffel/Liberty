@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_orientable_get_orientation (an_orientable: POINTER): INTEGER is
- 		-- gtk_orientable_get_orientation (node at line 20858)
+ 		-- gtk_orientable_get_orientation
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,23 +19,23 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_orientable_set_orientation (an_orientable: POINTER; an_orientation: INTEGER) is
- 		-- gtk_orientable_set_orientation (node at line 26771)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_orientable_set_orientation"
-		}"
-		end
-
 	gtk_orientable_get_type: NATURAL_64 is
- 		-- gtk_orientable_get_type (node at line 41393)
+ 		-- gtk_orientable_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_orientable_get_type()"
+		}"
+		end
+
+	gtk_orientable_set_orientation (an_orientable: POINTER; an_orientation: INTEGER) is
+ 		-- gtk_orientable_set_orientation
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_orientable_set_orientation"
 		}"
 		end
 

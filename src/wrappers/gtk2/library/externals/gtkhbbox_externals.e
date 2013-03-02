@@ -11,7 +11,7 @@ feature {} -- External calls
 
 	-- `hidden' function _gtk_hbutton_box_get_layout_default skipped.
 	gtk_hbutton_box_get_type: NATURAL_64 is
- 		-- gtk_hbutton_box_get_type (node at line 19202)
+ 		-- gtk_hbutton_box_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -21,7 +21,7 @@ feature {} -- External calls
 		end
 
 	gtk_hbutton_box_new: POINTER is
- 		-- gtk_hbutton_box_new (node at line 27224)
+ 		-- gtk_hbutton_box_new
 		external "plug_in"
 		alias "{
 			location: "."

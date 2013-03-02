@@ -9,51 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_accel_map_lock_path (an_accel_path: POINTER) is
- 		-- gtk_accel_map_lock_path (node at line 1143)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_lock_path"
-		}"
-		end
-
-	-- `hidden' function _gtk_accel_map_init skipped.
-	gtk_accel_map_save (a_file_name: POINTER) is
- 		-- gtk_accel_map_save (node at line 4184)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_save"
-		}"
-		end
-
-	gtk_accel_map_add_filter (a_filter_pattern: POINTER) is
- 		-- gtk_accel_map_add_filter (node at line 6115)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_add_filter"
-		}"
-		end
-
-	-- `hidden' function _gtk_accel_path_is_valid skipped.
-	gtk_accel_map_get: POINTER is
- 		-- gtk_accel_map_get (node at line 10365)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_get()"
-		}"
-		end
-
-	-- `hidden' function _gtk_accel_map_remove_group skipped.
 	gtk_accel_map_add_entry (an_accel_path: POINTER; an_accel_key: NATURAL_32; an_accel_mods: INTEGER) is
- 		-- gtk_accel_map_add_entry (node at line 14489)
+ 		-- gtk_accel_map_add_entry
 		external "plug_in"
 		alias "{
 			location: "."
@@ -62,28 +19,19 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_accel_map_get_type: NATURAL_64 is
- 		-- gtk_accel_map_get_type (node at line 15969)
+	gtk_accel_map_add_filter (a_filter_pattern: POINTER) is
+ 		-- gtk_accel_map_add_filter
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_accel_map_get_type()"
+			feature_name: "gtk_accel_map_add_filter"
 		}"
 		end
 
-	gtk_accel_map_unlock_path (an_accel_path: POINTER) is
- 		-- gtk_accel_map_unlock_path (node at line 16600)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_unlock_path"
-		}"
-		end
-
+	-- `hidden' function _gtk_accel_map_add_group skipped.
 	gtk_accel_map_change_entry (an_accel_path: POINTER; an_accel_key: NATURAL_32; an_accel_mods: INTEGER; a_replace: INTEGER_32): INTEGER_32 is
- 		-- gtk_accel_map_change_entry (node at line 17505)
+ 		-- gtk_accel_map_change_entry
 		external "plug_in"
 		alias "{
 			location: "."
@@ -92,28 +40,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_accel_map_save_fd (a_fd: INTEGER_32) is
- 		-- gtk_accel_map_save_fd (node at line 20555)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_save_fd"
-		}"
-		end
-
-	gtk_accel_map_lookup_entry (an_accel_path: POINTER; a_key: POINTER): INTEGER_32 is
- 		-- gtk_accel_map_lookup_entry (node at line 24060)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_accel_map_lookup_entry"
-		}"
-		end
-
 	gtk_accel_map_foreach (a_data: POINTER; a_foreach_func: POINTER) is
- 		-- gtk_accel_map_foreach (node at line 24426)
+ 		-- gtk_accel_map_foreach
 		external "plug_in"
 		alias "{
 			location: "."
@@ -123,7 +51,7 @@ feature {} -- External calls
 		end
 
 	gtk_accel_map_foreach_unfiltered (a_data: POINTER; a_foreach_func: POINTER) is
- 		-- gtk_accel_map_foreach_unfiltered (node at line 24619)
+ 		-- gtk_accel_map_foreach_unfiltered
 		external "plug_in"
 		alias "{
 			location: "."
@@ -132,28 +60,29 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_accel_map_load_scanner (a_scanner: POINTER) is
- 		-- gtk_accel_map_load_scanner (node at line 36136)
+	gtk_accel_map_get: POINTER is
+ 		-- gtk_accel_map_get
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_accel_map_load_scanner"
+			feature_name: "gtk_accel_map_get()"
 		}"
 		end
 
-	gtk_accel_map_load_fd (a_fd: INTEGER_32) is
- 		-- gtk_accel_map_load_fd (node at line 37292)
+	gtk_accel_map_get_type: NATURAL_64 is
+ 		-- gtk_accel_map_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_accel_map_load_fd"
+			feature_name: "gtk_accel_map_get_type()"
 		}"
 		end
 
+	-- `hidden' function _gtk_accel_map_init skipped.
 	gtk_accel_map_load (a_file_name: POINTER) is
- 		-- gtk_accel_map_load (node at line 37901)
+ 		-- gtk_accel_map_load
 		external "plug_in"
 		alias "{
 			location: "."
@@ -162,6 +91,77 @@ feature {} -- External calls
 		}"
 		end
 
-	-- `hidden' function _gtk_accel_map_add_group skipped.
+	gtk_accel_map_load_fd (a_fd: INTEGER_32) is
+ 		-- gtk_accel_map_load_fd
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_load_fd"
+		}"
+		end
+
+	gtk_accel_map_load_scanner (a_scanner: POINTER) is
+ 		-- gtk_accel_map_load_scanner
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_load_scanner"
+		}"
+		end
+
+	gtk_accel_map_lock_path (an_accel_path: POINTER) is
+ 		-- gtk_accel_map_lock_path
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_lock_path"
+		}"
+		end
+
+	gtk_accel_map_lookup_entry (an_accel_path: POINTER; a_key: POINTER): INTEGER_32 is
+ 		-- gtk_accel_map_lookup_entry
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_lookup_entry"
+		}"
+		end
+
+	-- `hidden' function _gtk_accel_map_remove_group skipped.
+	gtk_accel_map_save (a_file_name: POINTER) is
+ 		-- gtk_accel_map_save
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_save"
+		}"
+		end
+
+	gtk_accel_map_save_fd (a_fd: INTEGER_32) is
+ 		-- gtk_accel_map_save_fd
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_save_fd"
+		}"
+		end
+
+	gtk_accel_map_unlock_path (an_accel_path: POINTER) is
+ 		-- gtk_accel_map_unlock_path
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_accel_map_unlock_path"
+		}"
+		end
+
+	-- `hidden' function _gtk_accel_path_is_valid skipped.
 
 end -- class GTKACCELMAP_EXTERNALS

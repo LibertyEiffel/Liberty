@@ -20,15 +20,15 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_meta_marshal (a_structure: POINTER; a_value: NATURAL_32) is
-			-- Setter for meta_marshal field of GCLOSURE_STRUCT structure.
+	gclosure_struct_set_meta_marshal_nouse (a_structure: POINTER; a_value: NATURAL_32) is
+			-- Setter for meta_marshal_nouse field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gclosure_struct_set_meta_marshal"
+			feature_name: "gclosure_struct_set_meta_marshal_nouse"
 		}"
 		end
 
@@ -178,15 +178,15 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_meta_marshal (a_structure: POINTER): NATURAL_32 is
-			-- Query for meta_marshal field of GCLOSURE_STRUCT structure.
+	gclosure_struct_get_meta_marshal_nouse (a_structure: POINTER): NATURAL_32 is
+			-- Query for meta_marshal_nouse field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gclosure_struct_get_meta_marshal"
+			feature_name: "gclosure_struct_get_meta_marshal_nouse"
 		}"
 		end
 

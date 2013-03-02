@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_file_chooser_widget_get_type: NATURAL_64 is
- 		-- gtk_file_chooser_widget_get_type (node at line 19069)
+ 		-- gtk_file_chooser_widget_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_file_chooser_widget_new (an_action: INTEGER): POINTER is
- 		-- gtk_file_chooser_widget_new (node at line 29161)
+ 		-- gtk_file_chooser_widget_new
 		external "plug_in"
 		alias "{
 			location: "."
