@@ -292,7 +292,9 @@ feature {C_ENUM_VALUE} -- Implementation
 			-- than a few dozens of items the overhead of a sorted collection
 			-- couldn't be justified. This last tense hasn't actually been
 			-- tested.
-			quick_sort(Result) 
+            if hidden_values.count>1 then 
+                sort(hidden_values) 
+            end
         end
         Result := hidden_values
     end

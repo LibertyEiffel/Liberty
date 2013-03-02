@@ -50,7 +50,9 @@ feature
 			-- end
 		 	emit_header_on(output)
 			log_string (once "Sorting file features%N")
-			quick_sort (features)
+            if features.count>1 then 
+                sort (features)
+            end
 			features.do_all(agent {WRAPPER_FEATURE}.wrap_on(output))
 			emit_footer_on(output)
 			output.disconnect

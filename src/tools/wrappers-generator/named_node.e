@@ -8,7 +8,7 @@ inherit
 insert NAME_CONVERTER
 
 feature -- Comparability
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: NAMED_NODE): BOOLEAN is
 	   -- Comparison made on the name used in the wrappers
 	  do
 		  Result := Current.eiffel_name < other.eiffel_name
