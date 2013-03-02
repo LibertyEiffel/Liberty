@@ -9,123 +9,13 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	zmq_init (an_io_threads: INTEGER_32): POINTER is
- 		-- zmq_init
+	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
+ 		-- zmq_bind
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_init"
-		}"
-		end
-
-	zmq_setsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: NATURAL_64): INTEGER_32 is
- 		-- zmq_setsockopt
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_setsockopt"
-		}"
-		end
-
-	zmq_msg_init_size (a_msg: POINTER; a_size: NATURAL_64): INTEGER_32 is
- 		-- zmq_msg_init_size
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_msg_init_size"
-		}"
-		end
-
-	zmq_device (a_device: INTEGER_32; an_insocket: POINTER; an_outsocket: POINTER): INTEGER_32 is
- 		-- zmq_device
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_device"
-		}"
-		end
-
-	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- zmq_send
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_send"
-		}"
-		end
-
-	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
- 		-- zmq_msg_copy
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_msg_copy"
-		}"
-		end
-
-	zmq_errno: INTEGER_32 is
- 		-- zmq_errno
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_errno()"
-		}"
-		end
-
-	zmq_msg_close (a_msg: POINTER): INTEGER_32 is
- 		-- zmq_msg_close
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_msg_close"
-		}"
-		end
-
-	zmq_msg_size (a_msg: POINTER): NATURAL_64 is
- 		-- zmq_msg_size
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_msg_size"
-		}"
-		end
-
-	zmq_socket (a_context: POINTER; a_type: INTEGER_32): POINTER is
- 		-- zmq_socket
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_socket"
-		}"
-		end
-
-	zmq_version (a_major: POINTER; a_minor: POINTER; a_patch: POINTER) is
- 		-- zmq_version
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_version"
-		}"
-		end
-
-	zmq_strerror (an_errnum: INTEGER_32): POINTER is
- 		-- zmq_strerror
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "zmq_strerror"
+			feature_name: "zmq_bind"
 		}"
 		end
 
@@ -139,13 +29,33 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: NATURAL_64; a_ffn: POINTER; a_hint: POINTER): INTEGER_32 is
- 		-- zmq_msg_init_data
+	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
+ 		-- zmq_connect
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_msg_init_data"
+			feature_name: "zmq_connect"
+		}"
+		end
+
+	zmq_device (a_device: INTEGER_32; an_insocket: POINTER; an_outsocket: POINTER): INTEGER_32 is
+ 		-- zmq_device
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_device"
+		}"
+		end
+
+	zmq_errno: INTEGER_32 is
+ 		-- zmq_errno
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_errno()"
 		}"
 		end
 
@@ -159,23 +69,33 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_term (a_context: POINTER): INTEGER_32 is
- 		-- zmq_term
+	zmq_init (an_io_threads: INTEGER_32): POINTER is
+ 		-- zmq_init
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_term"
+			feature_name: "zmq_init"
 		}"
 		end
 
-	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
- 		-- zmq_connect
+	zmq_msg_close (a_msg: POINTER): INTEGER_32 is
+ 		-- zmq_msg_close
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_connect"
+			feature_name: "zmq_msg_close"
+		}"
+		end
+
+	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER_32 is
+ 		-- zmq_msg_copy
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_msg_copy"
 		}"
 		end
 
@@ -189,33 +109,33 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER_32 is
- 		-- zmq_bind
+	zmq_msg_init (a_msg: POINTER): INTEGER_32 is
+ 		-- zmq_msg_init
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_bind"
+			feature_name: "zmq_msg_init"
 		}"
 		end
 
-	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
- 		-- zmq_recv
+	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: NATURAL_64; a_ffn: POINTER; a_hint: POINTER): INTEGER_32 is
+ 		-- zmq_msg_init_data
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_recv"
+			feature_name: "zmq_msg_init_data"
 		}"
 		end
 
-	zmq_poll (an_items: POINTER; a_nitems: INTEGER_32; a_timeout: INTEGER_64): INTEGER_32 is
- 		-- zmq_poll
+	zmq_msg_init_size (a_msg: POINTER; a_size: NATURAL_64): INTEGER_32 is
+ 		-- zmq_msg_init_size
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_poll"
+			feature_name: "zmq_msg_init_size"
 		}"
 		end
 
@@ -229,13 +149,93 @@ feature {} -- External calls
 		}"
 		end
 
-	zmq_msg_init (a_msg: POINTER): INTEGER_32 is
- 		-- zmq_msg_init
+	zmq_msg_size (a_msg: POINTER): NATURAL_64 is
+ 		-- zmq_msg_size
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "zmq_msg_init"
+			feature_name: "zmq_msg_size"
+		}"
+		end
+
+	zmq_poll (an_items: POINTER; a_nitems: INTEGER_32; a_timeout: INTEGER_64): INTEGER_32 is
+ 		-- zmq_poll
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_poll"
+		}"
+		end
+
+	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
+ 		-- zmq_recv
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_recv"
+		}"
+		end
+
+	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER_32): INTEGER_32 is
+ 		-- zmq_send
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_send"
+		}"
+		end
+
+	zmq_setsockopt (a_s: POINTER; an_option: INTEGER_32; an_optval: POINTER; an_optvallen: NATURAL_64): INTEGER_32 is
+ 		-- zmq_setsockopt
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_setsockopt"
+		}"
+		end
+
+	zmq_socket (a_context: POINTER; a_type: INTEGER_32): POINTER is
+ 		-- zmq_socket
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_socket"
+		}"
+		end
+
+	zmq_strerror (an_errnum: INTEGER_32): POINTER is
+ 		-- zmq_strerror
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_strerror"
+		}"
+		end
+
+	zmq_term (a_context: POINTER): INTEGER_32 is
+ 		-- zmq_term
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_term"
+		}"
+		end
+
+	zmq_version (a_major: POINTER; a_minor: POINTER; a_patch: POINTER) is
+ 		-- zmq_version
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "zmq_version"
 		}"
 		end
 
