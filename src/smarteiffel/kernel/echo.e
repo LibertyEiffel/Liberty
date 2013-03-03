@@ -434,7 +434,7 @@ feature {NEW_ECHO}
    output_path: STRING
 
 feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
-   redirect_output_on (new_output_path: like output_path) is
+   redirect_output_on (new_output_path: ABSTRACT_STRING) is
          -- -output_error_warning_on
       require
          not new_output_path.is_empty
@@ -446,9 +446,10 @@ feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
          if text_file_write.is_connected then
             -- We can now safely apply the redirection:
             output_state := state_on_file
-            output_stream := text_file_write
-            error_stream := text_file_write
-            output_path := new_output_path
+            create {LINES_OUTPUT_STREAM} output_stream.connect_to(text_file_write)
+            error_stream := output_stream
+            output_path := once "................................................................"
+            output_path.make_from_string(new_output_path)
          else
             w_put_string(once "Unable to write error(s)/warning(s) redirection output file %"")
             w_put_string(new_output_path)

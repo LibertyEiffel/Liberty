@@ -627,7 +627,9 @@ feature {}
       do
          echo.put_line(once "Server #(1): executing command: #(2)" # port.out # cmd)
          exit_status := system.execute_command(cmd) --|**** TODO: time box
-         if exit_status /= exit_success_code then
+         if exit_status = exit_success_code then
+            echo.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
+         else
             if bad_file_flag then
                -- A bad `exit_status' is just normal.
             else

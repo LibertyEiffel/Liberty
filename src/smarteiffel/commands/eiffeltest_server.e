@@ -38,6 +38,8 @@ feature {}
          socket: EIFFELTEST_SERVER_SOCKET
       do
          parse_arguments
+         echo.redirect_output_on(once "eiffeltest_server:#(1).log" # port.out)
+
          echo.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
          create socket.make(port, agent stack.add_job, agent stack.break)

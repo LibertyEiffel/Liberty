@@ -41,6 +41,8 @@ feature {}
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
       do
          parse_arguments
+         echo.redirect_output_on(once "eiffeltest_ng.log")
+
          echo.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
