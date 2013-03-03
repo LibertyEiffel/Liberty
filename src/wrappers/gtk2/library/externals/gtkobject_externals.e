@@ -9,23 +9,23 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_object_get_type: NATURAL_64 is
- 		-- gtk_object_get_type (node at line 2871)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_object_get_type()"
-		}"
-		end
-
 	gtk_object_destroy (an_object: POINTER) is
- 		-- gtk_object_destroy (node at line 10916)
+ 		-- gtk_object_destroy
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_object_destroy"
+		}"
+		end
+
+	gtk_object_get_type: NATURAL_64 is
+ 		-- gtk_object_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_object_get_type()"
 		}"
 		end
 

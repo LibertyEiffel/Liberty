@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_debug_flags: NATURAL_32 is
- 		-- gtk_debug_flags (node at line 75)
+ 		-- gtk_debug_flags
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,12 +20,22 @@ feature {} -- External calls
 		end
 
 	address_of_gtk_debug_flags: POINTER is
- 		-- Address of gtk_debug_flags (node at line 75)
+ 		-- Address of gtk_debug_flags
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "&gtk_debug_flags"
+		}"
+		end
+
+	set_gtk_debug_flags (a_value: NATURAL_32) is
+		-- Set variable gtk_debug_flags value
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "set_gtk_debug_flags"
 		}"
 		end
 

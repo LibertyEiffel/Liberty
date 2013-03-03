@@ -116,13 +116,13 @@
 
 #define sizeof_ldiv_t (sizeof( ldiv_t))
 #define sizeof_drand48_data (sizeof(struct drand48_data))
-#define set_tzname(a_value) tzname = (a_value);
-#define set_timezone(a_value) timezone = (a_value);
-#define set_getdate_err(a_value) getdate_err = (a_value);
 #define set_daylight(a_value) daylight = (a_value);
+#define set_getdate_err(a_value) getdate_err = (a_value);
+#define set_timezone(a_value) timezone = (a_value);
+#define set_tzname(a_value) tzname = (a_value);
 #define set_stderr(a_value) stderr = (a_value);
 #define set_stdin(a_value) stdin = (a_value);
 #define set_stdout(a_value) stdout = (a_value);
 #define set_signgam(a_value) signgam = (a_value);
-#define set_program_invocation_short_name(a_value) program_invocation_short_name = (a_value);
 #define set_program_invocation_name(a_value) program_invocation_name = (a_value);
+#define set_program_invocation_short_name(a_value) program_invocation_short_name = (a_value);

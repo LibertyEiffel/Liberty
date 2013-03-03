@@ -9,8 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	gtk_offscreen_window_get_pixbuf (an_offscreen: POINTER): POINTER is
+ 		-- gtk_offscreen_window_get_pixbuf
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_offscreen_window_get_pixbuf"
+		}"
+		end
+
 	gtk_offscreen_window_get_pixmap (an_offscreen: POINTER): POINTER is
- 		-- gtk_offscreen_window_get_pixmap (node at line 8549)
+ 		-- gtk_offscreen_window_get_pixmap
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,18 +29,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_offscreen_window_new: POINTER is
- 		-- gtk_offscreen_window_new (node at line 11340)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_offscreen_window_new()"
-		}"
-		end
-
 	gtk_offscreen_window_get_type: NATURAL_64 is
- 		-- gtk_offscreen_window_get_type (node at line 23065)
+ 		-- gtk_offscreen_window_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +39,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_offscreen_window_get_pixbuf (an_offscreen: POINTER): POINTER is
- 		-- gtk_offscreen_window_get_pixbuf (node at line 25445)
+	gtk_offscreen_window_new: POINTER is
+ 		-- gtk_offscreen_window_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_offscreen_window_get_pixbuf"
+			feature_name: "gtk_offscreen_window_new()"
 		}"
 		end
 

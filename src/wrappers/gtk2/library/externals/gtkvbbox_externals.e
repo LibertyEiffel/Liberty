@@ -9,18 +9,9 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_vbutton_box_new: POINTER is
- 		-- gtk_vbutton_box_new (node at line 3358)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_vbutton_box_new()"
-		}"
-		end
-
+	-- `hidden' function _gtk_vbutton_box_get_layout_default skipped.
 	gtk_vbutton_box_get_type: NATURAL_64 is
- 		-- gtk_vbutton_box_get_type (node at line 26155)
+ 		-- gtk_vbutton_box_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,6 +20,15 @@ feature {} -- External calls
 		}"
 		end
 
-	-- `hidden' function _gtk_vbutton_box_get_layout_default skipped.
+	gtk_vbutton_box_new: POINTER is
+ 		-- gtk_vbutton_box_new
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_vbutton_box_new()"
+		}"
+		end
+
 
 end -- class GTKVBBOX_EXTERNALS

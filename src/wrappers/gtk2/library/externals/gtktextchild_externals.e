@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_text_child_anchor_get_deleted (an_anchor: POINTER): INTEGER_32 is
- 		-- gtk_text_child_anchor_get_deleted (node at line 481)
+ 		-- gtk_text_child_anchor_get_deleted
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,8 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_text_child_anchor_get_type: NATURAL_64 is
+ 		-- gtk_text_child_anchor_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_text_child_anchor_get_type()"
+		}"
+		end
+
 	gtk_text_child_anchor_get_widgets (an_anchor: POINTER): POINTER is
- 		-- gtk_text_child_anchor_get_widgets (node at line 1807)
+ 		-- gtk_text_child_anchor_get_widgets
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,22 +40,12 @@ feature {} -- External calls
 		end
 
 	gtk_text_child_anchor_new: POINTER is
- 		-- gtk_text_child_anchor_new (node at line 35125)
+ 		-- gtk_text_child_anchor_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_text_child_anchor_new()"
-		}"
-		end
-
-	gtk_text_child_anchor_get_type: NATURAL_64 is
- 		-- gtk_text_child_anchor_get_type (node at line 41336)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_text_child_anchor_get_type()"
 		}"
 		end
 

@@ -9,77 +9,68 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = error_low_level)  or else
-				(a_value = normal_low_level)  or else
-				(a_value = eof_low_level)  or else
-				(a_value = again_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = g_io_status_again_low_level)  or else
+				(a_value = g_io_status_eof_low_level)  or else
+				(a_value = g_io_status_error_low_level)  or else
+				(a_value = g_io_status_normal_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_error is
+	set_g_io_status_again is
 		do
-			value := error_low_level
+			value := g_io_status_again_low_level
 		end
 
-	set_normal is
+	set_g_io_status_eof is
 		do
-			value := normal_low_level
+			value := g_io_status_eof_low_level
 		end
 
-	set_eof is
+	set_g_io_status_error is
 		do
-			value := eof_low_level
+			value := g_io_status_error_low_level
 		end
 
-	set_again is
+	set_g_io_status_normal is
 		do
-			value := again_low_level
+			value := g_io_status_normal_low_level
 		end
 
 feature -- Queries
-	error: BOOLEAN is
+	is_g_io_status_again: BOOLEAN is
 		do
-			Result := (value=error_low_level)
+			Result := (value=g_io_status_again_low_level)
 		end
 
-	normal: BOOLEAN is
+	is_g_io_status_eof: BOOLEAN is
 		do
-			Result := (value=normal_low_level)
+			Result := (value=g_io_status_eof_low_level)
 		end
 
-	eof: BOOLEAN is
+	is_g_io_status_error: BOOLEAN is
 		do
-			Result := (value=eof_low_level)
+			Result := (value=g_io_status_error_low_level)
 		end
 
-	again: BOOLEAN is
+	is_g_io_status_normal: BOOLEAN is
 		do
-			Result := (value=again_low_level)
+			Result := (value=g_io_status_normal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	error_low_level: INTEGER is
+	g_io_status_again_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_IO_STATUS_ERROR"
+ 			feature_name: "G_IO_STATUS_AGAIN"
  			}"
  		end
 
-	normal_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "G_IO_STATUS_NORMAL"
- 			}"
- 		end
-
-	eof_low_level: INTEGER is
+	g_io_status_eof_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,12 +79,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	again_low_level: INTEGER is
+	g_io_status_error_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "G_IO_STATUS_AGAIN"
+ 			feature_name: "G_IO_STATUS_ERROR"
+ 			}"
+ 		end
+
+	g_io_status_normal_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "G_IO_STATUS_NORMAL"
  			}"
  		end
 

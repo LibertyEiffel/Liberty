@@ -9,28 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	llvmview_function_cfgonly (a_fn: POINTER) is
- 		-- LLVMViewFunctionCFGOnly (node at line 2091)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMViewFunctionCFGOnly"
-		}"
-		end
-
-	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER_32 is
- 		-- LLVMVerifyModule (node at line 2698)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "LLVMVerifyModule"
-		}"
-		end
-
 	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER_32 is
- 		-- LLVMVerifyFunction (node at line 4777)
+ 		-- LLVMVerifyFunction
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +19,33 @@ feature {} -- External calls
 		}"
 		end
 
+	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER_32 is
+ 		-- LLVMVerifyModule
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMVerifyModule"
+		}"
+		end
+
 	llvmview_function_cfg (a_fn: POINTER) is
- 		-- LLVMViewFunctionCFG (node at line 6392)
+ 		-- LLVMViewFunctionCFG
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "LLVMViewFunctionCFG"
+		}"
+		end
+
+	llvmview_function_cfgonly (a_fn: POINTER) is
+ 		-- LLVMViewFunctionCFGOnly
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "LLVMViewFunctionCFGOnly"
 		}"
 		end
 

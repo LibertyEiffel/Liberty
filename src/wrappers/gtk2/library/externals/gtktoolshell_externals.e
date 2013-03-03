@@ -9,58 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_tool_shell_get_type: NATURAL_64 is
- 		-- gtk_tool_shell_get_type (node at line 1087)
+	gtk_tool_shell_get_ellipsize_mode (a_shell: POINTER): INTEGER is
+ 		-- gtk_tool_shell_get_ellipsize_mode
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_type()"
-		}"
-		end
-
-	gtk_tool_shell_get_relief_style (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_relief_style (node at line 4015)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_relief_style"
-		}"
-		end
-
-	gtk_tool_shell_rebuild_menu (a_shell: POINTER) is
- 		-- gtk_tool_shell_rebuild_menu (node at line 11798)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_shell_rebuild_menu"
-		}"
-		end
-
-	gtk_tool_shell_get_text_orientation (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_text_orientation (node at line 12844)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_text_orientation"
-		}"
-		end
-
-	gtk_tool_shell_get_text_size_group (a_shell: POINTER): POINTER is
- 		-- gtk_tool_shell_get_text_size_group (node at line 14590)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_text_size_group"
+			feature_name: "gtk_tool_shell_get_ellipsize_mode"
 		}"
 		end
 
 	gtk_tool_shell_get_icon_size (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_icon_size (node at line 17070)
+ 		-- gtk_tool_shell_get_icon_size
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +30,7 @@ feature {} -- External calls
 		end
 
 	gtk_tool_shell_get_orientation (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_orientation (node at line 19542)
+ 		-- gtk_tool_shell_get_orientation
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,18 +39,28 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_shell_get_ellipsize_mode (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_ellipsize_mode (node at line 21034)
+	gtk_tool_shell_get_relief_style (a_shell: POINTER): INTEGER is
+ 		-- gtk_tool_shell_get_relief_style
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_ellipsize_mode"
+			feature_name: "gtk_tool_shell_get_relief_style"
+		}"
+		end
+
+	gtk_tool_shell_get_style (a_shell: POINTER): INTEGER is
+ 		-- gtk_tool_shell_get_style
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_shell_get_style"
 		}"
 		end
 
 	gtk_tool_shell_get_text_alignment (a_shell: POINTER): REAL_32 is
- 		-- gtk_tool_shell_get_text_alignment (node at line 22182)
+ 		-- gtk_tool_shell_get_text_alignment
 		external "plug_in"
 		alias "{
 			location: "."
@@ -99,13 +69,43 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_tool_shell_get_style (a_shell: POINTER): INTEGER is
- 		-- gtk_tool_shell_get_style (node at line 41032)
+	gtk_tool_shell_get_text_orientation (a_shell: POINTER): INTEGER is
+ 		-- gtk_tool_shell_get_text_orientation
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_tool_shell_get_style"
+			feature_name: "gtk_tool_shell_get_text_orientation"
+		}"
+		end
+
+	gtk_tool_shell_get_text_size_group (a_shell: POINTER): POINTER is
+ 		-- gtk_tool_shell_get_text_size_group
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_shell_get_text_size_group"
+		}"
+		end
+
+	gtk_tool_shell_get_type: NATURAL_64 is
+ 		-- gtk_tool_shell_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_shell_get_type()"
+		}"
+		end
+
+	gtk_tool_shell_rebuild_menu (a_shell: POINTER) is
+ 		-- gtk_tool_shell_rebuild_menu
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_tool_shell_rebuild_menu"
 		}"
 		end
 

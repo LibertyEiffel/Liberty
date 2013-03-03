@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_menu_tool_button_get_menu (a_button: POINTER): POINTER is
- 		-- gtk_menu_tool_button_get_menu (node at line 673)
+ 		-- gtk_menu_tool_button_get_menu
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,8 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_menu_tool_button_get_type: NATURAL_64 is
+ 		-- gtk_menu_tool_button_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_tool_button_get_type()"
+		}"
+		end
+
 	gtk_menu_tool_button_new (an_icon_widget: POINTER; a_label: POINTER): POINTER is
- 		-- gtk_menu_tool_button_new (node at line 2010)
+ 		-- gtk_menu_tool_button_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +40,7 @@ feature {} -- External calls
 		end
 
 	gtk_menu_tool_button_new_from_stock (a_stock_id: POINTER): POINTER is
- 		-- gtk_menu_tool_button_new_from_stock (node at line 3981)
+ 		-- gtk_menu_tool_button_new_from_stock
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,18 +49,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_menu_tool_button_set_menu (a_button: POINTER; a_menu: POINTER) is
- 		-- gtk_menu_tool_button_set_menu (node at line 14948)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_tool_button_set_menu"
-		}"
-		end
-
 	gtk_menu_tool_button_set_arrow_tooltip_markup (a_button: POINTER; a_markup: POINTER) is
- 		-- gtk_menu_tool_button_set_arrow_tooltip_markup (node at line 21261)
+ 		-- gtk_menu_tool_button_set_arrow_tooltip_markup
 		external "plug_in"
 		alias "{
 			location: "."
@@ -59,23 +59,23 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_menu_tool_button_get_type: NATURAL_64 is
- 		-- gtk_menu_tool_button_get_type (node at line 22915)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_tool_button_get_type()"
-		}"
-		end
-
 	gtk_menu_tool_button_set_arrow_tooltip_text (a_button: POINTER; a_text: POINTER) is
- 		-- gtk_menu_tool_button_set_arrow_tooltip_text (node at line 34665)
+ 		-- gtk_menu_tool_button_set_arrow_tooltip_text
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "gtk_menu_tool_button_set_arrow_tooltip_text"
+		}"
+		end
+
+	gtk_menu_tool_button_set_menu (a_button: POINTER; a_menu: POINTER) is
+ 		-- gtk_menu_tool_button_set_menu
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_tool_button_set_menu"
 		}"
 		end
 

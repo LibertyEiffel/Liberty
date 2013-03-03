@@ -9,51 +9,51 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = find_low_level)  or else
-				(a_value = enter_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = enter_low_level)  or else
+				(a_value = find_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_find is
-		do
-			value := find_low_level
-		end
-
 	set_enter is
 		do
 			value := enter_low_level
 		end
 
-feature -- Queries
-	find: BOOLEAN is
+	set_find is
 		do
-			Result := (value=find_low_level)
+			value := find_low_level
 		end
 
-	enter: BOOLEAN is
+feature -- Queries
+	is_enter: BOOLEAN is
 		do
 			Result := (value=enter_low_level)
 		end
 
-feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	find_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "FIND"
- 			}"
- 		end
+	is_find: BOOLEAN is
+		do
+			Result := (value=find_low_level)
+		end
 
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	enter_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "ENTER"
+ 			}"
+ 		end
+
+	find_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "FIND"
  			}"
  		end
 

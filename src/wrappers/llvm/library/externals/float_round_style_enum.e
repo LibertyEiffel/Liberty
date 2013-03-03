@@ -9,70 +9,70 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = indeterminate_low_level)  or else
-				(a_value = toward_zero_low_level)  or else
-				(a_value = to_nearest_low_level)  or else
-				(a_value = toward_infinity_low_level)  or else
-				(a_value = toward_neg_infinity_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = round_indeterminate_low_level)  or else
+				(a_value = round_to_nearest_low_level)  or else
+				(a_value = round_toward_infinity_low_level)  or else
+				(a_value = round_toward_neg_infinity_low_level)  or else
+				(a_value = round_toward_zero_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_indeterminate is
+	set_round_indeterminate is
 		do
-			value := indeterminate_low_level
+			value := round_indeterminate_low_level
 		end
 
-	set_toward_zero is
+	set_round_to_nearest is
 		do
-			value := toward_zero_low_level
+			value := round_to_nearest_low_level
 		end
 
-	set_to_nearest is
+	set_round_toward_infinity is
 		do
-			value := to_nearest_low_level
+			value := round_toward_infinity_low_level
 		end
 
-	set_toward_infinity is
+	set_round_toward_neg_infinity is
 		do
-			value := toward_infinity_low_level
+			value := round_toward_neg_infinity_low_level
 		end
 
-	set_toward_neg_infinity is
+	set_round_toward_zero is
 		do
-			value := toward_neg_infinity_low_level
+			value := round_toward_zero_low_level
 		end
 
 feature -- Queries
-	indeterminate: BOOLEAN is
+	is_round_indeterminate: BOOLEAN is
 		do
-			Result := (value=indeterminate_low_level)
+			Result := (value=round_indeterminate_low_level)
 		end
 
-	toward_zero: BOOLEAN is
+	is_round_to_nearest: BOOLEAN is
 		do
-			Result := (value=toward_zero_low_level)
+			Result := (value=round_to_nearest_low_level)
 		end
 
-	to_nearest: BOOLEAN is
+	is_round_toward_infinity: BOOLEAN is
 		do
-			Result := (value=to_nearest_low_level)
+			Result := (value=round_toward_infinity_low_level)
 		end
 
-	toward_infinity: BOOLEAN is
+	is_round_toward_neg_infinity: BOOLEAN is
 		do
-			Result := (value=toward_infinity_low_level)
+			Result := (value=round_toward_neg_infinity_low_level)
 		end
 
-	toward_neg_infinity: BOOLEAN is
+	is_round_toward_zero: BOOLEAN is
 		do
-			Result := (value=toward_neg_infinity_low_level)
+			Result := (value=round_toward_zero_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	indeterminate_low_level: INTEGER is
+	round_indeterminate_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -81,16 +81,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_zero_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "round_toward_zero"
- 			}"
- 		end
-
-	to_nearest_low_level: INTEGER is
+	round_to_nearest_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_infinity_low_level: INTEGER is
+	round_toward_infinity_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,12 +99,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_neg_infinity_low_level: INTEGER is
+	round_toward_neg_infinity_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "round_toward_neg_infinity"
+ 			}"
+ 		end
+
+	round_toward_zero_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "round_toward_zero"
  			}"
  		end
 

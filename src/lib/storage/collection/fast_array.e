@@ -19,21 +19,32 @@ class FAST_ARRAY[E_]
 
 inherit
    COLLECTION[E_]
+      undefine default_create
+      redefine default_create
+      end
    ARRAYED_COLLECTION[E_]
+      redefine default_create
+	  end
 
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
-      undefine out_in_tagged_out_memory
+      undefine default_create, out_in_tagged_out_memory
+      redefine default_create
       end
 
 creation {ANY}
-   make, with_capacity, from_collection, from_external, manifest_creation
+   default_create, make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}
    lower: INTEGER is 0
          -- Frozen lower bound.
 
 feature {ANY} -- Creation and modification:
+   default_create is
+	      -- Create a new with empty FAST_ARRAY with capacity 32.
+	   do
+		   with_capacity(32)
+	   end
    make (new_count: INTEGER) is
          -- Make array with range [0 .. `new_count' - 1].
          -- When `new_count' = 0 the array is empty.

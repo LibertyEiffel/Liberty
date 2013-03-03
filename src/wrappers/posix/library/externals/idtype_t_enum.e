@@ -9,48 +9,48 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = all_low_level)  or else
-				(a_value = pid_low_level)  or else
-				(a_value = pgid_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = p_all_low_level)  or else
+				(a_value = p_pgid_low_level)  or else
+				(a_value = p_pid_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_all is
+	set_p_all is
 		do
-			value := all_low_level
+			value := p_all_low_level
 		end
 
-	set_pid is
+	set_p_pgid is
 		do
-			value := pid_low_level
+			value := p_pgid_low_level
 		end
 
-	set_pgid is
+	set_p_pid is
 		do
-			value := pgid_low_level
+			value := p_pid_low_level
 		end
 
 feature -- Queries
-	all: BOOLEAN is
+	is_p_all: BOOLEAN is
 		do
-			Result := (value=all_low_level)
+			Result := (value=p_all_low_level)
 		end
 
-	pid: BOOLEAN is
+	is_p_pgid: BOOLEAN is
 		do
-			Result := (value=pid_low_level)
+			Result := (value=p_pgid_low_level)
 		end
 
-	pgid: BOOLEAN is
+	is_p_pid: BOOLEAN is
 		do
-			Result := (value=pgid_low_level)
+			Result := (value=p_pid_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	all_low_level: INTEGER is
+	p_all_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,21 +59,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pid_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "P_PID"
- 			}"
- 		end
-
-	pgid_low_level: INTEGER is
+	p_pgid_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "P_PGID"
+ 			}"
+ 		end
+
+	p_pid_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "P_PID"
  			}"
  		end
 

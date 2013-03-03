@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_separator_get_type: NATURAL_64 is
- 		-- gtk_separator_get_type (node at line 31318)
+ 		-- gtk_separator_get_type
 		external "plug_in"
 		alias "{
 			location: "."

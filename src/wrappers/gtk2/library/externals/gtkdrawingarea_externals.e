@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_drawing_area_get_type: NATURAL_64 is
- 		-- gtk_drawing_area_get_type (node at line 5721)
+ 		-- gtk_drawing_area_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_drawing_area_new: POINTER is
- 		-- gtk_drawing_area_new (node at line 15622)
+ 		-- gtk_drawing_area_new
 		external "plug_in"
 		alias "{
 			location: "."

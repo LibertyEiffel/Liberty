@@ -9,57 +9,48 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = indeterminate_low_level)  or else
-				(a_value = absent_low_level)  or else
-				(a_value = present_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = denorm_absent_low_level)  or else
+				(a_value = denorm_indeterminate_low_level)  or else
+				(a_value = denorm_present_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_indeterminate is
+	set_denorm_absent is
 		do
-			value := indeterminate_low_level
+			value := denorm_absent_low_level
 		end
 
-	set_absent is
+	set_denorm_indeterminate is
 		do
-			value := absent_low_level
+			value := denorm_indeterminate_low_level
 		end
 
-	set_present is
+	set_denorm_present is
 		do
-			value := present_low_level
+			value := denorm_present_low_level
 		end
 
 feature -- Queries
-	indeterminate: BOOLEAN is
+	is_denorm_absent: BOOLEAN is
 		do
-			Result := (value=indeterminate_low_level)
+			Result := (value=denorm_absent_low_level)
 		end
 
-	absent: BOOLEAN is
+	is_denorm_indeterminate: BOOLEAN is
 		do
-			Result := (value=absent_low_level)
+			Result := (value=denorm_indeterminate_low_level)
 		end
 
-	present: BOOLEAN is
+	is_denorm_present: BOOLEAN is
 		do
-			Result := (value=present_low_level)
+			Result := (value=denorm_present_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	indeterminate_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "denorm_indeterminate"
- 			}"
- 		end
-
-	absent_low_level: INTEGER is
+	denorm_absent_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +59,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	present_low_level: INTEGER is
+	denorm_indeterminate_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "denorm_indeterminate"
+ 			}"
+ 		end
+
+	denorm_present_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

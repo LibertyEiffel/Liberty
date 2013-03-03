@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_show_uri (a_screen: POINTER; an_uri: POINTER; a_timestamp: NATURAL_32; an_error: POINTER): INTEGER_32 is
- 		-- gtk_show_uri (node at line 37944)
+ 		-- gtk_show_uri
 		external "plug_in"
 		alias "{
 			location: "."

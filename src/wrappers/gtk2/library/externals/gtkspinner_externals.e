@@ -9,18 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_spinner_stop (a_spinner: POINTER) is
- 		-- gtk_spinner_stop (node at line 30607)
+	gtk_spinner_get_type: NATURAL_64 is
+ 		-- gtk_spinner_get_type
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_spinner_stop"
+			feature_name: "gtk_spinner_get_type()"
 		}"
 		end
 
 	gtk_spinner_new: POINTER is
- 		-- gtk_spinner_new (node at line 32931)
+ 		-- gtk_spinner_new
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- External calls
 		end
 
 	gtk_spinner_start (a_spinner: POINTER) is
- 		-- gtk_spinner_start (node at line 34713)
+ 		-- gtk_spinner_start
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +39,13 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_spinner_get_type: NATURAL_64 is
- 		-- gtk_spinner_get_type (node at line 36134)
+	gtk_spinner_stop (a_spinner: POINTER) is
+ 		-- gtk_spinner_stop
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_spinner_get_type()"
+			feature_name: "gtk_spinner_stop"
 		}"
 		end
 

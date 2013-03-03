@@ -9,28 +9,18 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	if_nametoindex (an_ifname: POINTER): NATURAL_32 is
- 		-- if_nametoindex (node at line 4763)
+	if_freenameindex (a_ptr: POINTER) is
+ 		-- if_freenameindex
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "if_nametoindex"
-		}"
-		end
-
-	if_nameindex: POINTER is
- 		-- if_nameindex (node at line 5278)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "if_nameindex()"
+			feature_name: "if_freenameindex"
 		}"
 		end
 
 	if_indextoname (an_ifindex: NATURAL_32; an_ifname: POINTER): POINTER is
- 		-- if_indextoname (node at line 5706)
+ 		-- if_indextoname
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,13 +29,23 @@ feature {} -- External calls
 		}"
 		end
 
-	if_freenameindex (a_ptr: POINTER) is
- 		-- if_freenameindex (node at line 7123)
+	if_nameindex: POINTER is
+ 		-- if_nameindex
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "if_freenameindex"
+			feature_name: "if_nameindex()"
+		}"
+		end
+
+	if_nametoindex (an_ifname: POINTER): NATURAL_32 is
+ 		-- if_nametoindex
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "if_nametoindex"
 		}"
 		end
 

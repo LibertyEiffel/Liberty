@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_cell_renderer_combo_get_type: NATURAL_64 is
- 		-- gtk_cell_renderer_combo_get_type (node at line 21309)
+ 		-- gtk_cell_renderer_combo_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_cell_renderer_combo_new: POINTER is
- 		-- gtk_cell_renderer_combo_new (node at line 40396)
+ 		-- gtk_cell_renderer_combo_new
 		external "plug_in"
 		alias "{
 			location: "."

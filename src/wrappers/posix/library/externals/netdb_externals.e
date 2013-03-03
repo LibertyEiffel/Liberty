@@ -9,28 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	setrpcent (a_stayopen: INTEGER_32) is
- 		-- setrpcent (node at line 208)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "setrpcent"
-		}"
-		end
-
-	getrpcent: POINTER is
- 		-- getrpcent (node at line 1145)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "getrpcent()"
-		}"
-		end
-
 	endrpcent is
- 		-- endrpcent (node at line 1359)
+ 		-- endrpcent
 		external "plug_in"
 		alias "{
 			location: "."
@@ -40,7 +20,7 @@ feature {} -- External calls
 		end
 
 	getrpcbyname (a_name: POINTER): POINTER is
- 		-- getrpcbyname (node at line 2684)
+ 		-- getrpcbyname
 		external "plug_in"
 		alias "{
 			location: "."
@@ -50,7 +30,7 @@ feature {} -- External calls
 		end
 
 	getrpcbyname_r (a_name: POINTER; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
- 		-- getrpcbyname_r (node at line 2748)
+ 		-- getrpcbyname_r
 		external "plug_in"
 		alias "{
 			location: "."
@@ -59,18 +39,18 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcent_r (a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
- 		-- getrpcent_r (node at line 3246)
+	getrpcbynumber (a_number: INTEGER_32): POINTER is
+ 		-- getrpcbynumber
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "getrpcent_r"
+			feature_name: "getrpcbynumber"
 		}"
 		end
 
 	getrpcbynumber_r (a_number: INTEGER_32; a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
- 		-- getrpcbynumber_r (node at line 4608)
+ 		-- getrpcbynumber_r
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,13 +59,33 @@ feature {} -- External calls
 		}"
 		end
 
-	getrpcbynumber (a_number: INTEGER_32): POINTER is
- 		-- getrpcbynumber (node at line 8622)
+	getrpcent: POINTER is
+ 		-- getrpcent
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "getrpcbynumber"
+			feature_name: "getrpcent()"
+		}"
+		end
+
+	getrpcent_r (a_result_buf: POINTER; a_buffer: POINTER; a_buflen: NATURAL_64; a_result: POINTER): INTEGER_32 is
+ 		-- getrpcent_r
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "getrpcent_r"
+		}"
+		end
+
+	setrpcent (a_stayopen: INTEGER_32) is
+ 		-- setrpcent
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "setrpcent"
 		}"
 		end
 

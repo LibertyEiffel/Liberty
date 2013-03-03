@@ -9,234 +9,202 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = external_linkage_low_level)  or else
-				(a_value = available_externally_linkage_low_level)  or else
-				(a_value = link_once_any_linkage_low_level)  or else
-				(a_value = link_once_odrlinkage_low_level)  or else
-				(a_value = weak_any_linkage_low_level)  or else
-				(a_value = weak_odrlinkage_low_level)  or else
-				(a_value = appending_linkage_low_level)  or else
-				(a_value = internal_linkage_low_level)  or else
-				(a_value = private_linkage_low_level)  or else
-				(a_value = dllimport_linkage_low_level)  or else
-				(a_value = dllexport_linkage_low_level)  or else
-				(a_value = external_weak_linkage_low_level)  or else
-				(a_value = ghost_linkage_low_level)  or else
-				(a_value = common_linkage_low_level)  or else
-				(a_value = linker_private_linkage_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = llvmappending_linkage_low_level)  or else
+				(a_value = llvmavailable_externally_linkage_low_level)  or else
+				(a_value = llvmcommon_linkage_low_level)  or else
+				(a_value = llvmdllexport_linkage_low_level)  or else
+				(a_value = llvmdllimport_linkage_low_level)  or else
+				(a_value = llvmexternal_linkage_low_level)  or else
+				(a_value = llvmexternal_weak_linkage_low_level)  or else
+				(a_value = llvmghost_linkage_low_level)  or else
+				(a_value = llvminternal_linkage_low_level)  or else
+				(a_value = llvmlink_once_any_linkage_low_level)  or else
+				(a_value = llvmlink_once_odrlinkage_low_level)  or else
+				(a_value = llvmlinker_private_linkage_low_level)  or else
+				(a_value = llvmlinker_private_weak_def_auto_linkage_low_level)  or else
+				(a_value = llvmlinker_private_weak_linkage_low_level)  or else
+				(a_value = llvmprivate_linkage_low_level)  or else
+				(a_value = llvmweak_any_linkage_low_level)  or else
+				(a_value = llvmweak_odrlinkage_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_external_linkage is
+	set_llvmappending_linkage is
 		do
-			value := external_linkage_low_level
+			value := llvmappending_linkage_low_level
 		end
 
-	set_available_externally_linkage is
+	set_llvmavailable_externally_linkage is
 		do
-			value := available_externally_linkage_low_level
+			value := llvmavailable_externally_linkage_low_level
 		end
 
-	set_link_once_any_linkage is
+	set_llvmcommon_linkage is
 		do
-			value := link_once_any_linkage_low_level
+			value := llvmcommon_linkage_low_level
 		end
 
-	set_link_once_odrlinkage is
+	set_llvmdllexport_linkage is
 		do
-			value := link_once_odrlinkage_low_level
+			value := llvmdllexport_linkage_low_level
 		end
 
-	set_weak_any_linkage is
+	set_llvmdllimport_linkage is
 		do
-			value := weak_any_linkage_low_level
+			value := llvmdllimport_linkage_low_level
 		end
 
-	set_weak_odrlinkage is
+	set_llvmexternal_linkage is
 		do
-			value := weak_odrlinkage_low_level
+			value := llvmexternal_linkage_low_level
 		end
 
-	set_appending_linkage is
+	set_llvmexternal_weak_linkage is
 		do
-			value := appending_linkage_low_level
+			value := llvmexternal_weak_linkage_low_level
 		end
 
-	set_internal_linkage is
+	set_llvmghost_linkage is
 		do
-			value := internal_linkage_low_level
+			value := llvmghost_linkage_low_level
 		end
 
-	set_private_linkage is
+	set_llvminternal_linkage is
 		do
-			value := private_linkage_low_level
+			value := llvminternal_linkage_low_level
 		end
 
-	set_dllimport_linkage is
+	set_llvmlink_once_any_linkage is
 		do
-			value := dllimport_linkage_low_level
+			value := llvmlink_once_any_linkage_low_level
 		end
 
-	set_dllexport_linkage is
+	set_llvmlink_once_odrlinkage is
 		do
-			value := dllexport_linkage_low_level
+			value := llvmlink_once_odrlinkage_low_level
 		end
 
-	set_external_weak_linkage is
+	set_llvmlinker_private_linkage is
 		do
-			value := external_weak_linkage_low_level
+			value := llvmlinker_private_linkage_low_level
 		end
 
-	set_ghost_linkage is
+	set_llvmlinker_private_weak_def_auto_linkage is
 		do
-			value := ghost_linkage_low_level
+			value := llvmlinker_private_weak_def_auto_linkage_low_level
 		end
 
-	set_common_linkage is
+	set_llvmlinker_private_weak_linkage is
 		do
-			value := common_linkage_low_level
+			value := llvmlinker_private_weak_linkage_low_level
 		end
 
-	set_linker_private_linkage is
+	set_llvmprivate_linkage is
 		do
-			value := linker_private_linkage_low_level
+			value := llvmprivate_linkage_low_level
+		end
+
+	set_llvmweak_any_linkage is
+		do
+			value := llvmweak_any_linkage_low_level
+		end
+
+	set_llvmweak_odrlinkage is
+		do
+			value := llvmweak_odrlinkage_low_level
 		end
 
 feature -- Queries
-	external_linkage: BOOLEAN is
+	is_llvmappending_linkage: BOOLEAN is
 		do
-			Result := (value=external_linkage_low_level)
+			Result := (value=llvmappending_linkage_low_level)
 		end
 
-	available_externally_linkage: BOOLEAN is
+	is_llvmavailable_externally_linkage: BOOLEAN is
 		do
-			Result := (value=available_externally_linkage_low_level)
+			Result := (value=llvmavailable_externally_linkage_low_level)
 		end
 
-	link_once_any_linkage: BOOLEAN is
+	is_llvmcommon_linkage: BOOLEAN is
 		do
-			Result := (value=link_once_any_linkage_low_level)
+			Result := (value=llvmcommon_linkage_low_level)
 		end
 
-	link_once_odrlinkage: BOOLEAN is
+	is_llvmdllexport_linkage: BOOLEAN is
 		do
-			Result := (value=link_once_odrlinkage_low_level)
+			Result := (value=llvmdllexport_linkage_low_level)
 		end
 
-	weak_any_linkage: BOOLEAN is
+	is_llvmdllimport_linkage: BOOLEAN is
 		do
-			Result := (value=weak_any_linkage_low_level)
+			Result := (value=llvmdllimport_linkage_low_level)
 		end
 
-	weak_odrlinkage: BOOLEAN is
+	is_llvmexternal_linkage: BOOLEAN is
 		do
-			Result := (value=weak_odrlinkage_low_level)
+			Result := (value=llvmexternal_linkage_low_level)
 		end
 
-	appending_linkage: BOOLEAN is
+	is_llvmexternal_weak_linkage: BOOLEAN is
 		do
-			Result := (value=appending_linkage_low_level)
+			Result := (value=llvmexternal_weak_linkage_low_level)
 		end
 
-	internal_linkage: BOOLEAN is
+	is_llvmghost_linkage: BOOLEAN is
 		do
-			Result := (value=internal_linkage_low_level)
+			Result := (value=llvmghost_linkage_low_level)
 		end
 
-	private_linkage: BOOLEAN is
+	is_llvminternal_linkage: BOOLEAN is
 		do
-			Result := (value=private_linkage_low_level)
+			Result := (value=llvminternal_linkage_low_level)
 		end
 
-	dllimport_linkage: BOOLEAN is
+	is_llvmlink_once_any_linkage: BOOLEAN is
 		do
-			Result := (value=dllimport_linkage_low_level)
+			Result := (value=llvmlink_once_any_linkage_low_level)
 		end
 
-	dllexport_linkage: BOOLEAN is
+	is_llvmlink_once_odrlinkage: BOOLEAN is
 		do
-			Result := (value=dllexport_linkage_low_level)
+			Result := (value=llvmlink_once_odrlinkage_low_level)
 		end
 
-	external_weak_linkage: BOOLEAN is
+	is_llvmlinker_private_linkage: BOOLEAN is
 		do
-			Result := (value=external_weak_linkage_low_level)
+			Result := (value=llvmlinker_private_linkage_low_level)
 		end
 
-	ghost_linkage: BOOLEAN is
+	is_llvmlinker_private_weak_def_auto_linkage: BOOLEAN is
 		do
-			Result := (value=ghost_linkage_low_level)
+			Result := (value=llvmlinker_private_weak_def_auto_linkage_low_level)
 		end
 
-	common_linkage: BOOLEAN is
+	is_llvmlinker_private_weak_linkage: BOOLEAN is
 		do
-			Result := (value=common_linkage_low_level)
+			Result := (value=llvmlinker_private_weak_linkage_low_level)
 		end
 
-	linker_private_linkage: BOOLEAN is
+	is_llvmprivate_linkage: BOOLEAN is
 		do
-			Result := (value=linker_private_linkage_low_level)
+			Result := (value=llvmprivate_linkage_low_level)
+		end
+
+	is_llvmweak_any_linkage: BOOLEAN is
+		do
+			Result := (value=llvmweak_any_linkage_low_level)
+		end
+
+	is_llvmweak_odrlinkage: BOOLEAN is
+		do
+			Result := (value=llvmweak_odrlinkage_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	external_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMExternalLinkage"
- 			}"
- 		end
-
-	available_externally_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMAvailableExternallyLinkage"
- 			}"
- 		end
-
-	link_once_any_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMLinkOnceAnyLinkage"
- 			}"
- 		end
-
-	link_once_odrlinkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMLinkOnceODRLinkage"
- 			}"
- 		end
-
-	weak_any_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMWeakAnyLinkage"
- 			}"
- 		end
-
-	weak_odrlinkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMWeakODRLinkage"
- 			}"
- 		end
-
-	appending_linkage_low_level: INTEGER is
+	llvmappending_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -245,61 +213,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	internal_linkage_low_level: INTEGER is
+	llvmavailable_externally_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "LLVMInternalLinkage"
+ 			feature_name: "LLVMAvailableExternallyLinkage"
  			}"
  		end
 
-	private_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMPrivateLinkage"
- 			}"
- 		end
-
-	dllimport_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMDLLImportLinkage"
- 			}"
- 		end
-
-	dllexport_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMDLLExportLinkage"
- 			}"
- 		end
-
-	external_weak_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMExternalWeakLinkage"
- 			}"
- 		end
-
-	ghost_linkage_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "LLVMGhostLinkage"
- 			}"
- 		end
-
-	common_linkage_low_level: INTEGER is
+	llvmcommon_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -308,12 +231,129 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	linker_private_linkage_low_level: INTEGER is
+	llvmdllexport_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMDLLExportLinkage"
+ 			}"
+ 		end
+
+	llvmdllimport_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMDLLImportLinkage"
+ 			}"
+ 		end
+
+	llvmexternal_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMExternalLinkage"
+ 			}"
+ 		end
+
+	llvmexternal_weak_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMExternalWeakLinkage"
+ 			}"
+ 		end
+
+	llvmghost_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMGhostLinkage"
+ 			}"
+ 		end
+
+	llvminternal_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMInternalLinkage"
+ 			}"
+ 		end
+
+	llvmlink_once_any_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMLinkOnceAnyLinkage"
+ 			}"
+ 		end
+
+	llvmlink_once_odrlinkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMLinkOnceODRLinkage"
+ 			}"
+ 		end
+
+	llvmlinker_private_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
  			feature_name: "LLVMLinkerPrivateLinkage"
+ 			}"
+ 		end
+
+	llvmlinker_private_weak_def_auto_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMLinkerPrivateWeakDefAutoLinkage"
+ 			}"
+ 		end
+
+	llvmlinker_private_weak_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMLinkerPrivateWeakLinkage"
+ 			}"
+ 		end
+
+	llvmprivate_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMPrivateLinkage"
+ 			}"
+ 		end
+
+	llvmweak_any_linkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMWeakAnyLinkage"
+ 			}"
+ 		end
+
+	llvmweak_odrlinkage_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "LLVMWeakODRLinkage"
  			}"
  		end
 

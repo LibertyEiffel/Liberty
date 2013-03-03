@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_cell_renderer_accel_get_type: NATURAL_64 is
- 		-- gtk_cell_renderer_accel_get_type (node at line 8700)
+ 		-- gtk_cell_renderer_accel_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_cell_renderer_accel_new: POINTER is
- 		-- gtk_cell_renderer_accel_new (node at line 13561)
+ 		-- gtk_cell_renderer_accel_new
 		external "plug_in"
 		alias "{
 			location: "."

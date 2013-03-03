@@ -17,6 +17,9 @@ inherit
     TYPED_NODE
     WRAPPER_CLASS
 
+insert 
+	COLLECTION_SORTER [C_ENUM_VALUE]
+
 creation make
 
 feature 
@@ -282,6 +285,15 @@ feature {C_ENUM_VALUE} -- Implementation
                     hidden_values.add_last(a_value)
                 end
                 i := i+1
+            end
+			-- Sort the result to get a stable order of the wrapped features.
+			-- We may also have used an inherently sorted collection, but since
+			-- the features collections we are sorting aren't usually bigger
+			-- than a few dozens of items the overhead of a sorted collection
+			-- couldn't be justified. This last tense hasn't actually been
+			-- tested.
+            if hidden_values.count>1 then 
+                sort(hidden_values) 
             end
         end
         Result := hidden_values

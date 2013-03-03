@@ -9,8 +9,19 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	-- `hidden' variable _LIB_VERSION skipped.
+	matherr (an_exc: POINTER): INTEGER_32 is
+ 		-- matherr
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "matherr"
+		}"
+		end
+
 	signgam: INTEGER_32 is
- 		-- signgam (node at line 161)
+ 		-- signgam
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +31,7 @@ feature {} -- External calls
 		end
 
 	address_of_signgam: POINTER is
- 		-- Address of signgam (node at line 161)
+ 		-- Address of signgam
 		external "plug_in"
 		alias "{
 			location: "."
@@ -36,17 +47,6 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "set_signgam"
-		}"
-		end
-
-	-- `hidden' variable _LIB_VERSION skipped.
-	matherr (an_exc: POINTER): INTEGER_32 is
- 		-- matherr (node at line 2892)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "matherr"
 		}"
 		end
 

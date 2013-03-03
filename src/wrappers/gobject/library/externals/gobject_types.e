@@ -21,7 +21,7 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	gtype: NATURAL_32 is
+	gtype: NATURAL_64 is
 		-- typedef GType
 		-- Empty by design, used for anchored declarations.
 	do
@@ -70,8 +70,15 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	gobject_finalize_func: POINTER is
-		-- typedef GObjectFinalizeFunc
+	gbinding_transform_func: POINTER is
+		-- typedef GBindingTransformFunc
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	gsignal_cva_marshaller: POINTER is
+		-- typedef GSignalCVaMarshaller
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -91,8 +98,15 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	gtype_plugin_unuse: POINTER is
-		-- typedef GTypePluginUnuse
+	gva_closure_marshal: POINTER is
+		-- typedef GVaClosureMarshal
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	ginstance_init_func: POINTER is
+		-- typedef GInstanceInitFunc
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -100,6 +114,13 @@ feature -- C type definitions (typedefs)
 
 	gtype_class_cache_func: POINTER is
 		-- typedef GTypeClassCacheFunc
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	gtype_plugin_unuse: POINTER is
+		-- typedef GTypePluginUnuse
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -133,6 +154,13 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
+	gstrv: POINTER is
+		-- typedef GStrv
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
 	gchararray: POINTER is
 		-- typedef gchararray
 		-- Empty by design, used for anchored declarations.
@@ -142,6 +170,13 @@ feature -- C type definitions (typedefs)
 
 	gtype_plugin_use: POINTER is
 		-- typedef GTypePluginUse
+		-- Empty by design, used for anchored declarations.
+	do
+	ensure Result.is_default
+	end
+
+	gobject_finalize_func: POINTER is
+		-- typedef GObjectFinalizeFunc
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
@@ -168,22 +203,8 @@ feature -- C type definitions (typedefs)
 	ensure Result.is_default
 	end
 
-	ginstance_init_func: POINTER is
-		-- typedef GInstanceInitFunc
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
 	gclosure_marshal: POINTER is
 		-- typedef GClosureMarshal
-		-- Empty by design, used for anchored declarations.
-	do
-	ensure Result.is_default
-	end
-
-	gstrv: POINTER is
-		-- typedef GStrv
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default

@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gtk_hbox_get_type: NATURAL_64 is
- 		-- gtk_hbox_get_type (node at line 12783)
+ 		-- gtk_hbox_get_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -20,7 +20,7 @@ feature {} -- External calls
 		end
 
 	gtk_hbox_new (a_homogeneous: INTEGER_32; a_spacing: INTEGER_32): POINTER is
- 		-- gtk_hbox_new (node at line 39467)
+ 		-- gtk_hbox_new
 		external "plug_in"
 		alias "{
 			location: "."

@@ -9,58 +9,8 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	gtk_viewport_get_hadjustment (a_viewport: POINTER): POINTER is
- 		-- gtk_viewport_get_hadjustment (node at line 17606)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_viewport_get_hadjustment"
-		}"
-		end
-
-	gtk_viewport_set_shadow_type (a_viewport: POINTER; a_type: INTEGER) is
- 		-- gtk_viewport_set_shadow_type (node at line 18305)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_viewport_set_shadow_type"
-		}"
-		end
-
-	gtk_viewport_set_hadjustment (a_viewport: POINTER; an_adjustment: POINTER) is
- 		-- gtk_viewport_set_hadjustment (node at line 20297)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_viewport_set_hadjustment"
-		}"
-		end
-
-	gtk_viewport_set_vadjustment (a_viewport: POINTER; an_adjustment: POINTER) is
- 		-- gtk_viewport_set_vadjustment (node at line 21377)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_viewport_set_vadjustment"
-		}"
-		end
-
-	gtk_viewport_new (a_hadjustment: POINTER; a_vadjustment: POINTER): POINTER is
- 		-- gtk_viewport_new (node at line 25255)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_viewport_new"
-		}"
-		end
-
 	gtk_viewport_get_bin_window (a_viewport: POINTER): POINTER is
- 		-- gtk_viewport_get_bin_window (node at line 25618)
+ 		-- gtk_viewport_get_bin_window
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,8 +19,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_viewport_get_hadjustment (a_viewport: POINTER): POINTER is
+ 		-- gtk_viewport_get_hadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_viewport_get_hadjustment"
+		}"
+		end
+
 	gtk_viewport_get_shadow_type (a_viewport: POINTER): INTEGER is
- 		-- gtk_viewport_get_shadow_type (node at line 26301)
+ 		-- gtk_viewport_get_shadow_type
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,8 +39,18 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_viewport_get_type: NATURAL_64 is
+ 		-- gtk_viewport_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_viewport_get_type()"
+		}"
+		end
+
 	gtk_viewport_get_vadjustment (a_viewport: POINTER): POINTER is
- 		-- gtk_viewport_get_vadjustment (node at line 35445)
+ 		-- gtk_viewport_get_vadjustment
 		external "plug_in"
 		alias "{
 			location: "."
@@ -90,7 +60,7 @@ feature {} -- External calls
 		end
 
 	gtk_viewport_get_view_window (a_viewport: POINTER): POINTER is
- 		-- gtk_viewport_get_view_window (node at line 38678)
+ 		-- gtk_viewport_get_view_window
 		external "plug_in"
 		alias "{
 			location: "."
@@ -99,13 +69,43 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_viewport_get_type: NATURAL_64 is
- 		-- gtk_viewport_get_type (node at line 40000)
+	gtk_viewport_new (a_hadjustment: POINTER; a_vadjustment: POINTER): POINTER is
+ 		-- gtk_viewport_new
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_viewport_get_type()"
+			feature_name: "gtk_viewport_new"
+		}"
+		end
+
+	gtk_viewport_set_hadjustment (a_viewport: POINTER; an_adjustment: POINTER) is
+ 		-- gtk_viewport_set_hadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_viewport_set_hadjustment"
+		}"
+		end
+
+	gtk_viewport_set_shadow_type (a_viewport: POINTER; a_type: INTEGER) is
+ 		-- gtk_viewport_set_shadow_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_viewport_set_shadow_type"
+		}"
+		end
+
+	gtk_viewport_set_vadjustment (a_viewport: POINTER; an_adjustment: POINTER) is
+ 		-- gtk_viewport_set_vadjustment
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_viewport_set_vadjustment"
 		}"
 		end
 

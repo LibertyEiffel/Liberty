@@ -9,312 +9,213 @@ insert ENUM
 
 creation default_create
 feature -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
-		do
-			Result := ((a_value = enosys_low_level)  or else
-				(a_value = noerror_low_level)  or else
-				(a_value = nomatch_low_level)  or else
-				(a_value = badpat_low_level)  or else
-				(a_value = ecollate_low_level)  or else
-				(a_value = ectype_low_level)  or else
-				(a_value = eescape_low_level)  or else
-				(a_value = esubreg_low_level)  or else
-				(a_value = ebrack_low_level)  or else
-				(a_value = eparen_low_level)  or else
-				(a_value = ebrace_low_level)  or else
-				(a_value = badbr_low_level)  or else
-				(a_value = erange_low_level)  or else
-				(a_value = espace_low_level)  or else
-				(a_value = badrpt_low_level)  or else
-				(a_value = eend_low_level)  or else
-				(a_value = esize_low_level)  or else
-				(a_value = erparen_low_level) )
+    is_valid_value (a_value: INTEGER): BOOLEAN is
+        do
+            Result := ((a_value = reg_badbr_low_level)  or else
+				(a_value = reg_badpat_low_level)  or else
+				(a_value = reg_badrpt_low_level)  or else
+				(a_value = reg_ebrace_low_level)  or else
+				(a_value = reg_ebrack_low_level)  or else
+				(a_value = reg_ecollate_low_level)  or else
+				(a_value = reg_ectype_low_level)  or else
+				(a_value = reg_eend_low_level)  or else
+				(a_value = reg_eescape_low_level)  or else
+				(a_value = reg_enosys_low_level)  or else
+				(a_value = reg_eparen_low_level)  or else
+				(a_value = reg_erange_low_level)  or else
+				(a_value = reg_erparen_low_level)  or else
+				(a_value = reg_esize_low_level)  or else
+				(a_value = reg_espace_low_level)  or else
+				(a_value = reg_esubreg_low_level)  or else
+				(a_value = reg_noerror_low_level)  or else
+				(a_value = reg_nomatch_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_enosys is
+	set_reg_badbr is
 		do
-			value := enosys_low_level
+			value := reg_badbr_low_level
 		end
 
-	set_noerror is
+	set_reg_badpat is
 		do
-			value := noerror_low_level
+			value := reg_badpat_low_level
 		end
 
-	set_nomatch is
+	set_reg_badrpt is
 		do
-			value := nomatch_low_level
+			value := reg_badrpt_low_level
 		end
 
-	set_badpat is
+	set_reg_ebrace is
 		do
-			value := badpat_low_level
+			value := reg_ebrace_low_level
 		end
 
-	set_ecollate is
+	set_reg_ebrack is
 		do
-			value := ecollate_low_level
+			value := reg_ebrack_low_level
 		end
 
-	set_ectype is
+	set_reg_ecollate is
 		do
-			value := ectype_low_level
+			value := reg_ecollate_low_level
 		end
 
-	set_eescape is
+	set_reg_ectype is
 		do
-			value := eescape_low_level
+			value := reg_ectype_low_level
 		end
 
-	set_esubreg is
+	set_reg_eend is
 		do
-			value := esubreg_low_level
+			value := reg_eend_low_level
 		end
 
-	set_ebrack is
+	set_reg_eescape is
 		do
-			value := ebrack_low_level
+			value := reg_eescape_low_level
 		end
 
-	set_eparen is
+	set_reg_enosys is
 		do
-			value := eparen_low_level
+			value := reg_enosys_low_level
 		end
 
-	set_ebrace is
+	set_reg_eparen is
 		do
-			value := ebrace_low_level
+			value := reg_eparen_low_level
 		end
 
-	set_badbr is
+	set_reg_erange is
 		do
-			value := badbr_low_level
+			value := reg_erange_low_level
 		end
 
-	set_erange is
+	set_reg_erparen is
 		do
-			value := erange_low_level
+			value := reg_erparen_low_level
 		end
 
-	set_espace is
+	set_reg_esize is
 		do
-			value := espace_low_level
+			value := reg_esize_low_level
 		end
 
-	set_badrpt is
+	set_reg_espace is
 		do
-			value := badrpt_low_level
+			value := reg_espace_low_level
 		end
 
-	set_eend is
+	set_reg_esubreg is
 		do
-			value := eend_low_level
+			value := reg_esubreg_low_level
 		end
 
-	set_esize is
+	set_reg_noerror is
 		do
-			value := esize_low_level
+			value := reg_noerror_low_level
 		end
 
-	set_erparen is
+	set_reg_nomatch is
 		do
-			value := erparen_low_level
+			value := reg_nomatch_low_level
 		end
 
 feature -- Queries
-	enosys: BOOLEAN is
+	is_reg_badbr: BOOLEAN is
 		do
-			Result := (value=enosys_low_level)
+			Result := (value=reg_badbr_low_level)
 		end
 
-	noerror: BOOLEAN is
+	is_reg_badpat: BOOLEAN is
 		do
-			Result := (value=noerror_low_level)
+			Result := (value=reg_badpat_low_level)
 		end
 
-	nomatch: BOOLEAN is
+	is_reg_badrpt: BOOLEAN is
 		do
-			Result := (value=nomatch_low_level)
+			Result := (value=reg_badrpt_low_level)
 		end
 
-	badpat: BOOLEAN is
+	is_reg_ebrace: BOOLEAN is
 		do
-			Result := (value=badpat_low_level)
+			Result := (value=reg_ebrace_low_level)
 		end
 
-	ecollate: BOOLEAN is
+	is_reg_ebrack: BOOLEAN is
 		do
-			Result := (value=ecollate_low_level)
+			Result := (value=reg_ebrack_low_level)
 		end
 
-	ectype: BOOLEAN is
+	is_reg_ecollate: BOOLEAN is
 		do
-			Result := (value=ectype_low_level)
+			Result := (value=reg_ecollate_low_level)
 		end
 
-	eescape: BOOLEAN is
+	is_reg_ectype: BOOLEAN is
 		do
-			Result := (value=eescape_low_level)
+			Result := (value=reg_ectype_low_level)
 		end
 
-	esubreg: BOOLEAN is
+	is_reg_eend: BOOLEAN is
 		do
-			Result := (value=esubreg_low_level)
+			Result := (value=reg_eend_low_level)
 		end
 
-	ebrack: BOOLEAN is
+	is_reg_eescape: BOOLEAN is
 		do
-			Result := (value=ebrack_low_level)
+			Result := (value=reg_eescape_low_level)
 		end
 
-	eparen: BOOLEAN is
+	is_reg_enosys: BOOLEAN is
 		do
-			Result := (value=eparen_low_level)
+			Result := (value=reg_enosys_low_level)
 		end
 
-	ebrace: BOOLEAN is
+	is_reg_eparen: BOOLEAN is
 		do
-			Result := (value=ebrace_low_level)
+			Result := (value=reg_eparen_low_level)
 		end
 
-	badbr: BOOLEAN is
+	is_reg_erange: BOOLEAN is
 		do
-			Result := (value=badbr_low_level)
+			Result := (value=reg_erange_low_level)
 		end
 
-	erange: BOOLEAN is
+	is_reg_erparen: BOOLEAN is
 		do
-			Result := (value=erange_low_level)
+			Result := (value=reg_erparen_low_level)
 		end
 
-	espace: BOOLEAN is
+	is_reg_esize: BOOLEAN is
 		do
-			Result := (value=espace_low_level)
+			Result := (value=reg_esize_low_level)
 		end
 
-	badrpt: BOOLEAN is
+	is_reg_espace: BOOLEAN is
 		do
-			Result := (value=badrpt_low_level)
+			Result := (value=reg_espace_low_level)
 		end
 
-	eend: BOOLEAN is
+	is_reg_esubreg: BOOLEAN is
 		do
-			Result := (value=eend_low_level)
+			Result := (value=reg_esubreg_low_level)
 		end
 
-	esize: BOOLEAN is
+	is_reg_noerror: BOOLEAN is
 		do
-			Result := (value=esize_low_level)
+			Result := (value=reg_noerror_low_level)
 		end
 
-	erparen: BOOLEAN is
+	is_reg_nomatch: BOOLEAN is
 		do
-			Result := (value=erparen_low_level)
+			Result := (value=reg_nomatch_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	enosys_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_ENOSYS"
- 			}"
- 		end
-
-	noerror_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_NOERROR"
- 			}"
- 		end
-
-	nomatch_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_NOMATCH"
- 			}"
- 		end
-
-	badpat_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_BADPAT"
- 			}"
- 		end
-
-	ecollate_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_ECOLLATE"
- 			}"
- 		end
-
-	ectype_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_ECTYPE"
- 			}"
- 		end
-
-	eescape_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_EESCAPE"
- 			}"
- 		end
-
-	esubreg_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_ESUBREG"
- 			}"
- 		end
-
-	ebrack_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_EBRACK"
- 			}"
- 		end
-
-	eparen_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_EPAREN"
- 			}"
- 		end
-
-	ebrace_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_EBRACE"
- 			}"
- 		end
-
-	badbr_low_level: INTEGER is
+	reg_badbr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -323,25 +224,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	erange_low_level: INTEGER is
+	reg_badpat_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "REG_ERANGE"
+ 			feature_name: "REG_BADPAT"
  			}"
  		end
 
-	espace_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "REG_ESPACE"
- 			}"
- 		end
-
-	badrpt_low_level: INTEGER is
+	reg_badrpt_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -350,7 +242,43 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	eend_low_level: INTEGER is
+	reg_ebrace_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_EBRACE"
+ 			}"
+ 		end
+
+	reg_ebrack_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_EBRACK"
+ 			}"
+ 		end
+
+	reg_ecollate_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ECOLLATE"
+ 			}"
+ 		end
+
+	reg_ectype_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ECTYPE"
+ 			}"
+ 		end
+
+	reg_eend_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -359,7 +287,52 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	esize_low_level: INTEGER is
+	reg_eescape_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_EESCAPE"
+ 			}"
+ 		end
+
+	reg_enosys_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ENOSYS"
+ 			}"
+ 		end
+
+	reg_eparen_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_EPAREN"
+ 			}"
+ 		end
+
+	reg_erange_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ERANGE"
+ 			}"
+ 		end
+
+	reg_erparen_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ERPAREN"
+ 			}"
+ 		end
+
+	reg_esize_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -368,12 +341,39 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	erparen_low_level: INTEGER is
+	reg_espace_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
  			module_name: "plugin"
- 			feature_name: "REG_ERPAREN"
+ 			feature_name: "REG_ESPACE"
+ 			}"
+ 		end
+
+	reg_esubreg_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_ESUBREG"
+ 			}"
+ 		end
+
+	reg_noerror_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_NOERROR"
+ 			}"
+ 		end
+
+	reg_nomatch_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module_name: "plugin"
+ 			feature_name: "REG_NOMATCH"
  			}"
  		end
 

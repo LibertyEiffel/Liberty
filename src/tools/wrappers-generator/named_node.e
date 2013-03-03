@@ -1,7 +1,19 @@
 deferred class NAMED_NODE
 	-- A GCC_XML node that may have a "name" attribute.
-inherit GCCXML_NODE
+
+	-- It is made comparable using the `eiffel_name' feature as sorting value to get a more stable output.
+inherit 
+	GCCXML_NODE
+	COMPARABLE undefine is_equal end
 insert NAME_CONVERTER
+
+feature -- Comparability
+   infix "<" (other: NAMED_NODE): BOOLEAN is
+	   -- Comparison made on the name used in the wrappers
+	  do
+		  Result := Current.eiffel_name < other.eiffel_name
+      end
+
 feature
 	is_anonymous: BOOLEAN is
 		-- Is Current node anonynmous?

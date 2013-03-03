@@ -9,33 +9,23 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	g_io_condition_get_type: NATURAL_32 is
- 		-- g_io_condition_get_type (node at line 1126)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_io_condition_get_type()"
-		}"
-		end
-
-	g_io_channel_get_type: NATURAL_32 is
- 		-- g_io_channel_get_type (node at line 2379)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "g_io_channel_get_type()"
-		}"
-		end
-
 	g_source_set_closure (a_source: POINTER; a_closure: POINTER) is
- 		-- g_source_set_closure (node at line 6474)
+ 		-- g_source_set_closure
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_source_set_closure"
+		}"
+		end
+
+	g_source_set_dummy_callback (a_source: POINTER) is
+ 		-- g_source_set_dummy_callback
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_source_set_dummy_callback"
 		}"
 		end
 

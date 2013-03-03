@@ -9,8 +9,28 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
+	gtk_menu_attach (a_menu: POINTER; a_child: POINTER; a_left_attach: NATURAL_32; a_right_attach: NATURAL_32; a_top_attach: NATURAL_32; a_bottom_attach: NATURAL_32) is
+ 		-- gtk_menu_attach
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_attach"
+		}"
+		end
+
+	gtk_menu_attach_to_widget (a_menu: POINTER; an_attach_widget: POINTER; a_detacher: POINTER) is
+ 		-- gtk_menu_attach_to_widget
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_attach_to_widget"
+		}"
+		end
+
 	gtk_menu_detach (a_menu: POINTER) is
- 		-- gtk_menu_detach (node at line 1717)
+ 		-- gtk_menu_detach
 		external "plug_in"
 		alias "{
 			location: "."
@@ -19,28 +39,18 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_menu_popup (a_menu: POINTER; a_parent_menu_shell: POINTER; a_parent_menu_item: POINTER; a_func: POINTER; a_data: POINTER; a_button: NATURAL_32; an_activate_time: NATURAL_32) is
- 		-- gtk_menu_popup (node at line 2039)
+	gtk_menu_get_accel_group (a_menu: POINTER): POINTER is
+ 		-- gtk_menu_get_accel_group
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_menu_popup"
-		}"
-		end
-
-	gtk_menu_get_monitor (a_menu: POINTER): INTEGER_32 is
- 		-- gtk_menu_get_monitor (node at line 2904)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_monitor"
+			feature_name: "gtk_menu_get_accel_group"
 		}"
 		end
 
 	gtk_menu_get_accel_path (a_menu: POINTER): POINTER is
- 		-- gtk_menu_get_accel_path (node at line 4655)
+ 		-- gtk_menu_get_accel_path
 		external "plug_in"
 		alias "{
 			location: "."
@@ -49,8 +59,48 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_menu_get_active (a_menu: POINTER): POINTER is
+ 		-- gtk_menu_get_active
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_active"
+		}"
+		end
+
+	gtk_menu_get_attach_widget (a_menu: POINTER): POINTER is
+ 		-- gtk_menu_get_attach_widget
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_attach_widget"
+		}"
+		end
+
+	gtk_menu_get_for_attach_widget (a_widget: POINTER): POINTER is
+ 		-- gtk_menu_get_for_attach_widget
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_for_attach_widget"
+		}"
+		end
+
+	gtk_menu_get_monitor (a_menu: POINTER): INTEGER_32 is
+ 		-- gtk_menu_get_monitor
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_monitor"
+		}"
+		end
+
 	gtk_menu_get_reserve_toggle_size (a_menu: POINTER): INTEGER_32 is
- 		-- gtk_menu_get_reserve_toggle_size (node at line 8618)
+ 		-- gtk_menu_get_reserve_toggle_size
 		external "plug_in"
 		alias "{
 			location: "."
@@ -59,8 +109,108 @@ feature {} -- External calls
 		}"
 		end
 
+	gtk_menu_get_tearoff_state (a_menu: POINTER): INTEGER_32 is
+ 		-- gtk_menu_get_tearoff_state
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_tearoff_state"
+		}"
+		end
+
+	gtk_menu_get_title (a_menu: POINTER): POINTER is
+ 		-- gtk_menu_get_title
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_title"
+		}"
+		end
+
+	gtk_menu_get_type: NATURAL_64 is
+ 		-- gtk_menu_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_get_type()"
+		}"
+		end
+
+	gtk_menu_new: POINTER is
+ 		-- gtk_menu_new
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_new()"
+		}"
+		end
+
+	gtk_menu_popdown (a_menu: POINTER) is
+ 		-- gtk_menu_popdown
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_popdown"
+		}"
+		end
+
+	gtk_menu_popup (a_menu: POINTER; a_parent_menu_shell: POINTER; a_parent_menu_item: POINTER; a_func: POINTER; a_data: POINTER; a_button: NATURAL_32; an_activate_time: NATURAL_32) is
+ 		-- gtk_menu_popup
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_popup"
+		}"
+		end
+
+	gtk_menu_reorder_child (a_menu: POINTER; a_child: POINTER; a_position: INTEGER_32) is
+ 		-- gtk_menu_reorder_child
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_reorder_child"
+		}"
+		end
+
+	gtk_menu_reposition (a_menu: POINTER) is
+ 		-- gtk_menu_reposition
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_reposition"
+		}"
+		end
+
+	gtk_menu_set_accel_group (a_menu: POINTER; an_accel_group: POINTER) is
+ 		-- gtk_menu_set_accel_group
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_set_accel_group"
+		}"
+		end
+
+	gtk_menu_set_accel_path (a_menu: POINTER; an_accel_path: POINTER) is
+ 		-- gtk_menu_set_accel_path
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_set_accel_path"
+		}"
+		end
+
 	gtk_menu_set_active (a_menu: POINTER; an_index: NATURAL_32) is
- 		-- gtk_menu_set_active (node at line 9548)
+ 		-- gtk_menu_set_active
 		external "plug_in"
 		alias "{
 			location: "."
@@ -70,7 +220,7 @@ feature {} -- External calls
 		end
 
 	gtk_menu_set_monitor (a_menu: POINTER; a_monitor_num: INTEGER_32) is
- 		-- gtk_menu_set_monitor (node at line 10391)
+ 		-- gtk_menu_set_monitor
 		external "plug_in"
 		alias "{
 			location: "."
@@ -79,168 +229,8 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_menu_get_accel_group (a_menu: POINTER): POINTER is
- 		-- gtk_menu_get_accel_group (node at line 11136)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_accel_group"
-		}"
-		end
-
-	gtk_menu_set_accel_path (a_menu: POINTER; an_accel_path: POINTER) is
- 		-- gtk_menu_set_accel_path (node at line 11142)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_set_accel_path"
-		}"
-		end
-
-	gtk_menu_new: POINTER is
- 		-- gtk_menu_new (node at line 14720)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_new()"
-		}"
-		end
-
-	gtk_menu_set_tearoff_state (a_menu: POINTER; a_torn_off: INTEGER_32) is
- 		-- gtk_menu_set_tearoff_state (node at line 16610)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_set_tearoff_state"
-		}"
-		end
-
-	gtk_menu_get_for_attach_widget (a_widget: POINTER): POINTER is
- 		-- gtk_menu_get_for_attach_widget (node at line 17112)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_for_attach_widget"
-		}"
-		end
-
-	gtk_menu_attach (a_menu: POINTER; a_child: POINTER; a_left_attach: NATURAL_32; a_right_attach: NATURAL_32; a_top_attach: NATURAL_32; a_bottom_attach: NATURAL_32) is
- 		-- gtk_menu_attach (node at line 19420)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_attach"
-		}"
-		end
-
-	gtk_menu_reposition (a_menu: POINTER) is
- 		-- gtk_menu_reposition (node at line 20110)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_reposition"
-		}"
-		end
-
-	gtk_menu_get_title (a_menu: POINTER): POINTER is
- 		-- gtk_menu_get_title (node at line 25497)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_title"
-		}"
-		end
-
-	gtk_menu_get_attach_widget (a_menu: POINTER): POINTER is
- 		-- gtk_menu_get_attach_widget (node at line 25739)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_attach_widget"
-		}"
-		end
-
-	gtk_menu_popdown (a_menu: POINTER) is
- 		-- gtk_menu_popdown (node at line 25744)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_popdown"
-		}"
-		end
-
-	gtk_menu_get_active (a_menu: POINTER): POINTER is
- 		-- gtk_menu_get_active (node at line 27017)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_active"
-		}"
-		end
-
-	gtk_menu_get_tearoff_state (a_menu: POINTER): INTEGER_32 is
- 		-- gtk_menu_get_tearoff_state (node at line 28056)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_tearoff_state"
-		}"
-		end
-
-	gtk_menu_set_screen (a_menu: POINTER; a_screen: POINTER) is
- 		-- gtk_menu_set_screen (node at line 29214)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_set_screen"
-		}"
-		end
-
-	gtk_menu_attach_to_widget (a_menu: POINTER; an_attach_widget: POINTER; a_detacher: POINTER) is
- 		-- gtk_menu_attach_to_widget (node at line 30839)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_attach_to_widget"
-		}"
-		end
-
-	gtk_menu_get_type: NATURAL_64 is
- 		-- gtk_menu_get_type (node at line 34164)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_get_type()"
-		}"
-		end
-
-	gtk_menu_set_title (a_menu: POINTER; a_title: POINTER) is
- 		-- gtk_menu_set_title (node at line 35179)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "gtk_menu_set_title"
-		}"
-		end
-
 	gtk_menu_set_reserve_toggle_size (a_menu: POINTER; a_reserve_toggle_size: INTEGER_32) is
- 		-- gtk_menu_set_reserve_toggle_size (node at line 37431)
+ 		-- gtk_menu_set_reserve_toggle_size
 		external "plug_in"
 		alias "{
 			location: "."
@@ -249,23 +239,33 @@ feature {} -- External calls
 		}"
 		end
 
-	gtk_menu_set_accel_group (a_menu: POINTER; an_accel_group: POINTER) is
- 		-- gtk_menu_set_accel_group (node at line 37851)
+	gtk_menu_set_screen (a_menu: POINTER; a_screen: POINTER) is
+ 		-- gtk_menu_set_screen
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_menu_set_accel_group"
+			feature_name: "gtk_menu_set_screen"
 		}"
 		end
 
-	gtk_menu_reorder_child (a_menu: POINTER; a_child: POINTER; a_position: INTEGER_32) is
- 		-- gtk_menu_reorder_child (node at line 40210)
+	gtk_menu_set_tearoff_state (a_menu: POINTER; a_torn_off: INTEGER_32) is
+ 		-- gtk_menu_set_tearoff_state
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "gtk_menu_reorder_child"
+			feature_name: "gtk_menu_set_tearoff_state"
+		}"
+		end
+
+	gtk_menu_set_title (a_menu: POINTER; a_title: POINTER) is
+ 		-- gtk_menu_set_title
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "gtk_menu_set_title"
 		}"
 		end
 
