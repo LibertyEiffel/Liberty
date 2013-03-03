@@ -3,6 +3,9 @@
 --
 class EIFFELTEST_COMMAND_PROVIDER
 
+insert
+   GLOBALS
+
 create {ANY}
    make
 
@@ -17,6 +20,22 @@ feature {ANY}
          commands.add_last(bd.last_entry.intern)
       ensure
          not is_empty
+      end
+
+   display is
+      local
+         i: INTEGER
+      do
+         echo.put_line(once "================================================================")
+         from
+            i := commands.lower
+         until
+            i > commands.upper
+         loop
+            echo.put_line(once "#(1): #(2)" # i.out # commands.item(i))
+            i := i + 1
+         end
+         echo.put_line(once "================================================================")
       end
 
    count: INTEGER is

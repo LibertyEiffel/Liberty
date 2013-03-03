@@ -200,6 +200,8 @@ feature {}
          servers_count := a_servers_count
          create commands.make
          scan_tree(force, root, std_error)
+         echo.put_line(once "All commands added.")
+         commands.display
       end
 
    stack: LOOP_STACK is

@@ -52,7 +52,7 @@ feature {LOOP_ITEM}
          elseif busy and then events.event_occurred(channel.event_can_read) then
             Result := True
             echo.put_line(once "Facade #(1): can read: #(2)" # port.out # Result.out)
-         elseif events.event_occurred(channel.event_can_write) then
+         elseif not busy and then events.event_occurred(channel.event_can_write) then
             Result := True
             echo.put_line(once "Facade #(1): can write: #(2)" # port.out # Result.out)
          elseif events.event_occurred(timeout) then
@@ -88,7 +88,7 @@ feature {LOOP_ITEM}
                on_reply.call([port, command, reply])
                reply := Void
                command := Void
-               channel.disconnect
+               channel.disconnect -- ???
                if commands.is_empty(Current) then
                   done := True
                else
@@ -102,6 +102,7 @@ feature {LOOP_ITEM}
             command := commands.item(Current)
             commands.remove(Current)
             echo.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
+            commands.display
             reply := ""
             channel.put_line(command)
             channel.flush
