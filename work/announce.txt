@@ -26,7 +26,7 @@ SmartEiffel, but with different goals:
   an absolute need;
 
 - "stand on the shoulder of giants", using the Low Level Virtual
-  Machine compier infrastructure (http://www.llvm.org) for the
+  Machine compiler infrastructure (http://www.llvm.org) for the
   backend;
 
 - "provide the batteries", without "reinveinting the wheel"; the best

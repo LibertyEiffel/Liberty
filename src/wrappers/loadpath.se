@@ -1,5 +1,6 @@
-./common/library/loadpath.se
+./common/loadpath.se
 ./llvm/library/loadpath.se
 ./ffi/library/loadpath.se
-./posix/dynamic-linking/library/loadpath.se
+./posix/loadpath.se
 ./readline/library/loadpath.se
+./zmq/loadpath.se

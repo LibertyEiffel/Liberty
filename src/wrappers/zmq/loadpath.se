@@ -1,4 +1,2 @@
-../common/loadpath.se
-../posix/loadpath.se
 library/loadpath.se
 

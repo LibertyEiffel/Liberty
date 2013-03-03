@@ -110,7 +110,7 @@ feature {} -- Open loadpath files
             error_handler.append("%T%"")
             error_handler.append(path)
             error_handler.append("%"%N")
-         else
+         elseif (p /= Void) then
             show_cycle(p)
          end
          if l ?:= tree then
