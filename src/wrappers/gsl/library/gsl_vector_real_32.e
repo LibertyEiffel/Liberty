@@ -37,8 +37,8 @@ feature {} -- External calls
 	gsl_blas_sdot(x, y, res: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_blas_sdot"
 			}"
 		end
@@ -46,8 +46,8 @@ feature {} -- External calls
 	gsl_blas_dsdot(x, y, res: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_blas_dsdot"
 			}"
 		end
@@ -56,8 +56,8 @@ feature {} -- External calls (from general)
 	gsl_vector_alloc(a_count: INTEGER_32): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_alloc"
 			}"
 		end
@@ -65,8 +65,8 @@ feature {} -- External calls (from general)
 	gsl_vector_calloc(a_count: INTEGER_32): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_calloc"
 			}"
 		end
@@ -74,8 +74,8 @@ feature {} -- External calls (from general)
 	gsl_vector_alloc_from_block(a_block: POINTER; a_offset, a_count, a_stride: INTEGER_32): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_alloc_from_block"
 			}"
 		end
@@ -83,8 +83,8 @@ feature {} -- External calls (from general)
 	gsl_vector_alloc_from_vector (a_vector: POINTER; a_offset, a_count, a_stride: INTEGER_32): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_alloc_from_vector"
 			}"
 		end
@@ -92,8 +92,8 @@ feature {} -- External calls (from general)
 	gsl_vector_free(ptr: POINTER) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_free"
 			}"
 		end
@@ -101,8 +101,8 @@ feature {} -- External calls (from general)
 	gsl_vector_get (ptr: POINTER; i: INTEGER_32): REAL_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_get"
 			}"
 		end
@@ -110,8 +110,8 @@ feature {} -- External calls (from general)
 	gsl_vector_set (ptr: POINTER; i: INTEGER_32; x: REAL_32) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_set"
 			}"
 		end
@@ -119,8 +119,8 @@ feature {} -- External calls (from general)
 	gsl_vector_set_all (ptr: POINTER; x: REAL_32) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_set_all"
 			}"
 		end
@@ -128,8 +128,8 @@ feature {} -- External calls (from general)
 	gsl_vector_set_zero (ptr: POINTER) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_set_zero"
 			}"
 		end
@@ -137,8 +137,8 @@ feature {} -- External calls (from general)
 	gsl_vector_set_basis (ptr: POINTER; i: INTEGER_32): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_set_basis"
 			}"
 		end
@@ -146,8 +146,8 @@ feature {} -- External calls (from general)
 	gsl_vector_memcpy (dest: POINTER; src: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_memcpy"
 			}"
 		end
@@ -155,8 +155,8 @@ feature {} -- External calls (from general)
 	gsl_vector_swap (ptr: POINTER; w: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_swap"
 			}"
 		end
@@ -164,8 +164,8 @@ feature {} -- External calls (from general)
 	gsl_vector_swap_elements (ptr: POINTER; i: INTEGER_32; j: INTEGER_32): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_swap_elements"
 			}"
 		end
@@ -173,8 +173,8 @@ feature {} -- External calls (from general)
 	gsl_vector_reverse (ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_reverse"
 			}"
 		end
@@ -182,8 +182,8 @@ feature {} -- External calls (from general)
 	gsl_vector_add (a: POINTER; b: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_add"
 			}"
 		end
@@ -191,8 +191,8 @@ feature {} -- External calls (from general)
 	gsl_vector_sub (a: POINTER; b: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_sub"
 			}"
 		end
@@ -200,8 +200,8 @@ feature {} -- External calls (from general)
 	gsl_vector_mul (a: POINTER; b: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_mul"
 			}"
 		end
@@ -209,8 +209,8 @@ feature {} -- External calls (from general)
 	gsl_vector_div (a: POINTER; b: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_div"
 			}"
 		end
@@ -218,8 +218,8 @@ feature {} -- External calls (from general)
 	gsl_vector_scale (a: POINTER; x: REAL_32): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_scale"
 			}"
 		end
@@ -227,8 +227,8 @@ feature {} -- External calls (from general)
 	gsl_vector_add_constant (a: POINTER; x: REAL_32): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_add_constant"
 			}"
 		end
@@ -236,8 +236,8 @@ feature {} -- External calls (from general)
 	gsl_vector_max (ptr: POINTER): REAL_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_max"
 			}"
 		end
@@ -245,8 +245,8 @@ feature {} -- External calls (from general)
 	gsl_vector_min (ptr: POINTER): REAL_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_min"
 			}"
 		end
@@ -254,8 +254,8 @@ feature {} -- External calls (from general)
 	gsl_vector_minmax (ptr: POINTER; min_out,max_out: POINTER) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_minmax"
 			}"
 		end
@@ -263,8 +263,8 @@ feature {} -- External calls (from general)
 	gsl_vector_max_index (ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_max_index"
 			}"
 		end
@@ -272,8 +272,8 @@ feature {} -- External calls (from general)
 	gsl_vector_min_index (ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_min_index"
 			}"
 		end
@@ -281,8 +281,8 @@ feature {} -- External calls (from general)
 	gsl_vector_minmax_index (ptr: POINTER; imin, imax: POINTER) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_minmax_index"
 			}"
 		end
@@ -290,8 +290,8 @@ feature {} -- External calls (from general)
 	gsl_vector_isnull (ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_vector_float_isnull"
 			}"
 		end
@@ -300,8 +300,8 @@ feature {} -- External structure
 	c_structure_size: INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_float_c_struct_size"
 			}"
 		end
@@ -309,8 +309,8 @@ feature {} -- External structure
 	gsl_vector_size(ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_double_size"
 			}"
 		end
@@ -318,8 +318,8 @@ feature {} -- External structure
 	gsl_vector_stride(ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_float_stride"
 			}"
 		end
@@ -327,8 +327,8 @@ feature {} -- External structure
 	gsl_vector_data(ptr: POINTER): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_float_data"
 			}"
 		end
@@ -336,8 +336,8 @@ feature {} -- External structure
 	gsl_vector_block(ptr: POINTER): POINTER is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_float_block"
 			}"
 		end
@@ -345,8 +345,8 @@ feature {} -- External structure
 	gsl_vector_owner(ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "vector_float_owner"
 			}"
 		end
@@ -354,8 +354,8 @@ feature {} -- External structure
 	gsl_blas_nrm2 (ptr: POINTER): REAL_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_blas_snrm2"
 			}"
 		end
@@ -363,8 +363,8 @@ feature {} -- External structure
 	gsl_blas_asum (ptr: POINTER): REAL_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_blas_sasum"
 			}"
 		end
@@ -372,8 +372,8 @@ feature {} -- External structure
 	gsl_blas_axpy (alpha: REAL_32; other_p, ptr: POINTER): INTEGER_32 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_blas_saxpy"
 			}"
 		end

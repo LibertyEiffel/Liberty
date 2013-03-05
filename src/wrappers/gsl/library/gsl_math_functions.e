@@ -14,8 +14,8 @@ feature {}
 			-- Result := ln(1 + x), apropriate for small x
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_log1p"
       }"	
       end
@@ -23,8 +23,8 @@ feature {}
 	gsl_expm1(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_expm1"
       }"	
       end
@@ -32,8 +32,8 @@ feature {}
 	gsl_hypot(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_hypot"
       }"	
       end
@@ -41,8 +41,8 @@ feature {}
 	gsl_acosh(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_acosh"
       }"	
       end
@@ -50,8 +50,8 @@ feature {}
 	gsl_asinh(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_asinh"
       }"	
       end
@@ -59,8 +59,8 @@ feature {}
 	gsl_atanh(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_atanh"
       }"	
       end
@@ -68,8 +68,8 @@ feature {}
 	gsl_ldexp(x: REAL_64; e: INTEGER_32): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_ldexp"
       }"	
       end
@@ -93,8 +93,8 @@ feature -- fast integer powers
 	gsl_pow_int(x: REAL_64; n: INTEGER_32): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_int"
       }"	
       end
@@ -102,8 +102,8 @@ feature -- fast integer powers
 	gsl_pow_2(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_2"
       }"	
       end
@@ -111,8 +111,8 @@ feature -- fast integer powers
 	gsl_pow_3(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_3"
       }"	
       end
@@ -120,8 +120,8 @@ feature -- fast integer powers
 	gsl_pow_4(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_4"
       }"	
       end
@@ -129,8 +129,8 @@ feature -- fast integer powers
 	gsl_pow_5(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_5"
       }"	
       end
@@ -138,8 +138,8 @@ feature -- fast integer powers
 	gsl_pow_6(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_6"
       }"	
       end
@@ -147,8 +147,8 @@ feature -- fast integer powers
 	gsl_pow_7(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_7"
       }"	
       end
@@ -156,8 +156,8 @@ feature -- fast integer powers
 	gsl_pow_8(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_8"
       }"	
       end
@@ -165,8 +165,8 @@ feature -- fast integer powers
 	gsl_pow_9(x: REAL_64): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_pow_9"
       }"	
       end
@@ -175,8 +175,8 @@ feature -- comparation
 	gsl_fcmp(x, y, epsilon: REAL_64): INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_fcmp"
       }"	
       end
@@ -187,8 +187,8 @@ feature -- externals
 	gsl_frexp_external(x: REAL_64; e: POINTER): REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_frexp"
       }"	
       end

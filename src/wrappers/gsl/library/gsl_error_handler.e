@@ -63,8 +63,8 @@ feature -- directly usable externals
    has_ieee_exception: BOOLEAN is
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "has_ieee_exception()"
          }"
 		end
@@ -72,8 +72,8 @@ feature -- directly usable externals
    has_ieee_overflow: BOOLEAN is
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "has_ieee_overflow()"
          }"
       ensure
@@ -83,8 +83,8 @@ feature -- directly usable externals
    has_ieee_underflow: BOOLEAN is
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "has_ieee_underflow()"
          }"
       ensure
@@ -94,8 +94,8 @@ feature -- directly usable externals
    has_ieee_div_by_zero: BOOLEAN is
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "has_ieee_div_by_zero()"
          }"
       ensure
@@ -105,8 +105,8 @@ feature -- directly usable externals
    reset_ieee_exceptions is
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "reset_ieee_exceptions()"
          }"
       ensure
@@ -126,8 +126,8 @@ feature {} -- externals
       obsolete "Do not use this..."
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_init()"
          }"
       end
@@ -136,8 +136,8 @@ feature {} -- externals
 			-- disable the GSL default error handler.
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_set_error_handler_off()"
          }"
 		end
@@ -146,8 +146,8 @@ feature {} -- externals
 			-- enable the GSL default error handler.
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "gsl_set_default_err_handler()"
          }"
 		end

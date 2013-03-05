@@ -79,8 +79,8 @@ feature {}
 			-- 'errno'
 		external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "(char*)gsl_strerror"
          }"         
 		end

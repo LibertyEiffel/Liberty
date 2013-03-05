@@ -11,8 +11,8 @@ expanded class GSL_COMPLEX_REAL_64
 
 external "plug_in"
 alias "{
-   location: "${eiffel_libraries}/plugins"
-	module_name: "eiffel-gsl"
+   location: "externals"
+	module_name: "plugin"
 	type_name: "gsl_complex"
 	default_value: "gsl_complex_zero"
 	}"
@@ -154,8 +154,8 @@ feature {} -- externals
 	gsl_complex_rect(c: like Current; a, b: REAL_64) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_rect_wrapper"
 		}"
 		end
@@ -163,8 +163,8 @@ feature {} -- externals
 	gsl_complex_polar(c: like Current; r, theta: REAL_64) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_polar_wrapper"
 		}"
 		end
@@ -172,8 +172,8 @@ feature {} -- externals
 	gsl_set_real(c: like Current; a: REAL_64) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "GSL_SET_REAL_W"
 		}"
 		end
@@ -181,8 +181,8 @@ feature {} -- externals
 	gsl_set_imag(c: like Current; b: REAL_64) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "GSL_SET_IMAG_W"
 		}"
 		end
@@ -190,8 +190,8 @@ feature {} -- externals
 	gsl_imag(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "GSL_IMAG"
 		}"
 		end
@@ -199,8 +199,8 @@ feature {} -- externals
 	gsl_real(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "GSL_REAL"
 		}"
 		end
@@ -208,8 +208,8 @@ feature {} -- externals
  	gsl_complex_arg(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_arg_wrapper"
 		}"
 		end
@@ -217,8 +217,8 @@ feature {} -- externals
  	gsl_complex_abs(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_abs_wrapper"
 		}"
 		end
@@ -226,8 +226,8 @@ feature {} -- externals
  	gsl_complex_abs2(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_abs2_wrapper"
 		}"
 		end
@@ -235,8 +235,8 @@ feature {} -- externals
  	gsl_complex_logabs(c: like Current): REAL_64 is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_logabs_wrapper"
 		}"
 		end
@@ -245,8 +245,8 @@ feature {} -- externals
  	gsl_complex_add(a, b, c: like Current) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_add_wrapper"
 		}"
 		end
@@ -254,8 +254,8 @@ feature {} -- externals
  	gsl_complex_sub(a, b, c: like Current) is
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}/plugins"
-			module_name: "eiffel-gsl"
+			location: "externals"
+			module_name: "plugin"
 			feature_name: "gsl_complex_sub_wrapper"
 		}"
 		end

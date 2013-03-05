@@ -12,8 +12,8 @@ feature {}
 	const_e: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_E"
       }"	
       end
@@ -21,8 +21,8 @@ feature {}
 	const_log2e: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_LOG2E"
       }"	
       end
@@ -30,8 +30,8 @@ feature {}
 	const_log10e: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_LOG10E"
       }"	
       end
@@ -39,8 +39,8 @@ feature {}
 	const_sqrt2: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_SQRT2"
       }"	
       end
@@ -49,8 +49,8 @@ feature {}
 			-- sqrt(1/2)
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_SQRT1_2"
       }"	
       end
@@ -59,8 +59,8 @@ feature {}
 			-- sqrt(3)
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_SQRT3"
       }"	
       end
@@ -68,8 +68,8 @@ feature {}
 	const_pi: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_PI"
       }"	
       end
@@ -77,8 +77,8 @@ feature {}
 	const_pi_2: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_PI_2"
       }"	
       end
@@ -86,8 +86,8 @@ feature {}
 	const_pi_4: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_PI_4"
       }"	
       end
@@ -95,8 +95,8 @@ feature {}
 	const_sqrtpi: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_SQRTPI"
       }"	
       end
@@ -105,8 +105,8 @@ feature {}
 			-- 2/sqrt(pi)
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_2_SQRTPI"
       }"	
       end
@@ -114,8 +114,8 @@ feature {}
 	const_1_pi: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_1_PI"
       }"	
       end
@@ -123,8 +123,8 @@ feature {}
 	const_2_pi: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_2_PI"
       }"	
       end
@@ -132,8 +132,8 @@ feature {}
 	const_ln10: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_LN10"
       }"	
       end
@@ -141,8 +141,8 @@ feature {}
 	const_ln2: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_LN2"
       }"	
       end
@@ -150,8 +150,8 @@ feature {}
 	const_lnpi: REAL_64 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_LNPI"
       }"	
       end
@@ -160,8 +160,8 @@ feature {}
 			-- euler constant
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "M_EULER"
       }"	
       end

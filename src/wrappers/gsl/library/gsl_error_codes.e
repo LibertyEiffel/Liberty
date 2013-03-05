@@ -14,7 +14,7 @@ expanded class GSL_ERROR_CODES
 	-- [2] tr -d '=,/*' < toto | sed 's/ *GSL_\([^ ]*\)  *\([^ ]*\)  *\(.*\)/\1\t\2\t\3/' > tata
 	-- [3] tr '[[:upper:]]' '[[:lower:]]' < tata | awk -F '\t' '{printf "\t%s: INTEGER is %s\n\t\t-- %s\n\n",$1,$2,$3}'
 	-- [4] tr '[[:upper:]]' '[[:lower:]]' < tata | awk -F '\t' '{printf "\t\t\t\t%s = gsl_%s\n",$1,$1}'
-	-- [5] cut -f 1 tata | tr '[[:upper:]]' '[[:lower:]]' | paste - tata | awk '{printf "\tgsl_%s: INTEGER is\n\t\t\t-- code of GSL_%s\n\t\texternal \"plug_in\"\n\t\talias \"{\n\t\t\tlocation: \"${xxx}plugins\"\n\t\t\tmodule_name: \"gsl\"\n\t\t\tfeature_name: \"GSL_%s\"\n\t\t\t}\"\n\t\tend\n\n",$1,$2,$2}'
+	-- [5] cut -f 1 tata | tr '[[:upper:]]' '[[:lower:]]' | paste - tata | awk '{printf "\tgsl_%s: INTEGER is\n\t\t\t-- code of GSL_%s\n\t\texternal \"plug_in\"\n\t\talias \"{\n\t\t\tlocation: "externals"
 
    -- changed constants to begin with a capital letter
    -- also changed to match plugin scheme
@@ -176,8 +176,8 @@ feature {}
 			-- code of GSL_SUCCESS
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_SUCCESS"
          }"
 		end
@@ -186,8 +186,8 @@ feature {}
 			-- code of GSL_FAILURE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_FAILURE"
          }"
 		end
@@ -196,8 +196,8 @@ feature {}
 			-- code of GSL_CONTINUE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_CONTINUE"
          }"
 		end
@@ -206,8 +206,8 @@ feature {}
 			-- code of GSL_EDOM
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EDOM"
          }"
 		end
@@ -216,8 +216,8 @@ feature {}
 			-- code of GSL_ERANGE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ERANGE"
          }"
 		end
@@ -226,8 +226,8 @@ feature {}
 			-- code of GSL_EFAULT
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EFAULT"
          }"
 		end
@@ -236,8 +236,8 @@ feature {}
 			-- code of GSL_EINVAL
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EINVAL"
          }"
 		end
@@ -246,8 +246,8 @@ feature {}
 			-- code of GSL_EFAILED
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EFAILED"
          }"
 		end
@@ -256,8 +256,8 @@ feature {}
 			-- code of GSL_EFACTOR
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EFACTOR"
          }"
 		end
@@ -266,8 +266,8 @@ feature {}
 			-- code of GSL_ESANITY
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ESANITY"
          }"
 		end
@@ -276,8 +276,8 @@ feature {}
 			-- code of GSL_ENOMEM
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ENOMEM"
          }"
 		end
@@ -286,8 +286,8 @@ feature {}
 			-- code of GSL_EBADFUNC
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EBADFUNC"
          }"
 		end
@@ -296,8 +296,8 @@ feature {}
 			-- code of GSL_ERUNAWAY
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ERUNAWAY"
          }"
 		end
@@ -306,8 +306,8 @@ feature {}
 			-- code of GSL_EMAXITER
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EMAXITER"
          }"
 		end
@@ -316,8 +316,8 @@ feature {}
 			-- code of GSL_EZERODIV
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EZERODIV"
          }"
 		end
@@ -326,8 +326,8 @@ feature {}
 			-- code of GSL_EBADTOL
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EBADTOL"
          }"
 		end
@@ -336,8 +336,8 @@ feature {}
 			-- code of GSL_ETOL
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ETOL"
          }"
 		end
@@ -346,8 +346,8 @@ feature {}
 			-- code of GSL_EUNDRFLW
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EUNDRFLW"
          }"
 		end
@@ -356,8 +356,8 @@ feature {}
 			-- code of GSL_EOVRFLW
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EOVRFLW"
          }"
 		end
@@ -366,8 +366,8 @@ feature {}
 			-- code of GSL_ELOSS
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ELOSS"
          }"
 		end
@@ -376,8 +376,8 @@ feature {}
 			-- code of GSL_EROUND
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EROUND"
          }"
 		end
@@ -386,8 +386,8 @@ feature {}
 			-- code of GSL_EBADLEN
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EBADLEN"
          }"
 		end
@@ -396,8 +396,8 @@ feature {}
 			-- code of GSL_ENOTSQR
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ENOTSQR"
          }"
 		end
@@ -406,8 +406,8 @@ feature {}
 			-- code of GSL_ESING
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ESING"
          }"
 		end
@@ -416,8 +416,8 @@ feature {}
 			-- code of GSL_EDIVERGE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EDIVERGE"
          }"
 		end
@@ -426,8 +426,8 @@ feature {}
 			-- code of GSL_EUNSUP
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EUNSUP"
          }"
 		end
@@ -436,8 +436,8 @@ feature {}
 			-- code of GSL_EUNIMPL
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EUNIMPL"
          }"
 		end
@@ -446,8 +446,8 @@ feature {}
 			-- code of GSL_ECACHE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ECACHE"
          }"
 		end
@@ -456,8 +456,8 @@ feature {}
 			-- code of GSL_ETABLE
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ETABLE"
          }"
 		end
@@ -466,8 +466,8 @@ feature {}
 			-- code of GSL_ENOPROG
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ENOPROG"
          }"
 		end
@@ -476,8 +476,8 @@ feature {}
 			-- code of GSL_ENOPROGJ
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ENOPROGJ"
          }"
 		end
@@ -486,8 +486,8 @@ feature {}
 			-- code of GSL_ETOLF
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ETOLF"
          }"
 		end
@@ -496,8 +496,8 @@ feature {}
 			-- code of GSL_ETOLX
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ETOLX"
          }"
 		end
@@ -506,8 +506,8 @@ feature {}
 			-- code of GSL_ETOLG
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_ETOLG"
          }"
 		end
@@ -516,8 +516,8 @@ feature {}
 			-- code of GSL_EOF
 		external "plug_in"
 		alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "GSL_EOF"
          }"
 		end

@@ -12,8 +12,8 @@ feature {}
 	cblas_no_trans: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasNoTrans"
          }"
 		end
@@ -21,8 +21,8 @@ feature {}
 	cblas_trans: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasTrans"
          }"
 		end
@@ -30,8 +30,8 @@ feature {}
 	cblas_conj_trans: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasConjTrans"
          }"
 		end
@@ -39,8 +39,8 @@ feature {}
 	cblas_row_major: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasRowMajor"
          }"
 		end
@@ -48,8 +48,8 @@ feature {}
 	cblas_col_major: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasColMajor"
          }"
 		end
@@ -57,8 +57,8 @@ feature {}
 	cblas_upper: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasUpper"
          }"
 		end
@@ -66,8 +66,8 @@ feature {}
 	cblas_lower: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasLower"
          }"
 		end
@@ -75,8 +75,8 @@ feature {}
 	cblas_non_unit: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasNonUnit"
          }"
 		end
@@ -84,8 +84,8 @@ feature {}
 	cblas_unit: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasUnit"
          }"
 		end
@@ -93,8 +93,8 @@ feature {}
 	cblas_left: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasLeft"
          }"
 		end
@@ -102,8 +102,8 @@ feature {}
 	cblas_right: INTEGER_32 is
       external "plug_in"
       alias "{
-         location: "${eiffel_libraries}/plugins"
-         module_name: "eiffel-gsl"
+         location: "externals"
+         module_name: "plugin"
          feature_name: "CblasRight"
          }"
 		end
