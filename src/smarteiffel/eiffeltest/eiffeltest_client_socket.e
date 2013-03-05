@@ -102,7 +102,9 @@ feature {LOOP_ITEM}
             command := commands.item(Current)
             commands.remove(Current)
             log.info.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
-            commands.display
+            if log.is_trace then
+               commands.display(log.trace)
+            end
             reply := ""
             channel.put_line(command)
             channel.flush
