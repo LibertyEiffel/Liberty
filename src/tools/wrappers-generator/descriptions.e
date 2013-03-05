@@ -56,6 +56,7 @@ feature -- Descriptions reading
 	end
 
 	read_description (a_described: STRING; a_description: COLLECTION[STRING]) is
+	line.le
 		-- Looks if `a_described' could be a class name (i.e. "CLASS_NAME_01") or a
 		-- class with a feature name ("ANOTHER_CLASS.my_feature_12_foo"); adds
 		-- `a_description' into `class_descriptions' in the former case and into
