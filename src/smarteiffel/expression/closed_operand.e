@@ -109,6 +109,7 @@ feature {ANY}
             code_accumulator.current_context.add_last(Current)
          else
             capture_memory.reference_at(type).inline_dynamic_dispatch_(code_accumulator, type)
+            capture_memory.put(code_accumulator.current_context.last.to_expression, type)
             code_accumulator.current_context.remove_last
          end
       end
