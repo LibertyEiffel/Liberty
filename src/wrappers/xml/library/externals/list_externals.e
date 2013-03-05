@@ -9,18 +9,28 @@ insert ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	xml_list_walk (a_l: POINTER; a_walker: POINTER; an_user: POINTER) is
- 		-- xmlListWalk (node at line 71)
+	xml_link_get_data (a_lk: POINTER): POINTER is
+ 		-- xmlLinkGetData
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListWalk"
+			feature_name: "xmlLinkGetData"
+		}"
+		end
+
+	xml_list_append (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListAppend
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListAppend"
 		}"
 		end
 
 	xml_list_clear (a_l: POINTER) is
- 		-- xmlListClear (node at line 110)
+ 		-- xmlListClear
 		external "plug_in"
 		alias "{
 			location: "."
@@ -29,28 +39,8 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_insert (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListInsert (node at line 321)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListInsert"
-		}"
-		end
-
-	xml_list_remove_last (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListRemoveLast (node at line 440)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListRemoveLast"
-		}"
-		end
-
 	xml_list_copy (a_cur: POINTER; an_old: POINTER): INTEGER_32 is
- 		-- xmlListCopy (node at line 527)
+ 		-- xmlListCopy
 		external "plug_in"
 		alias "{
 			location: "."
@@ -60,7 +50,7 @@ feature {} -- External calls
 		end
 
 	xml_list_create (a_deallocator: POINTER; a_compare: POINTER): POINTER is
- 		-- xmlListCreate (node at line 606)
+ 		-- xmlListCreate
 		external "plug_in"
 		alias "{
 			location: "."
@@ -69,18 +59,48 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_size (a_l: POINTER): INTEGER_32 is
- 		-- xmlListSize (node at line 2453)
+	xml_list_delete (a_l: POINTER) is
+ 		-- xmlListDelete
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListSize"
+			feature_name: "xmlListDelete"
+		}"
+		end
+
+	xml_list_dup (an_old: POINTER): POINTER is
+ 		-- xmlListDup
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListDup"
+		}"
+		end
+
+	xml_list_empty (a_l: POINTER): INTEGER_32 is
+ 		-- xmlListEmpty
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListEmpty"
+		}"
+		end
+
+	xml_list_end (a_l: POINTER): POINTER is
+ 		-- xmlListEnd
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListEnd"
 		}"
 		end
 
 	xml_list_front (a_l: POINTER): POINTER is
- 		-- xmlListFront (node at line 2556)
+ 		-- xmlListFront
 		external "plug_in"
 		alias "{
 			location: "."
@@ -89,28 +109,18 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_sort (a_l: POINTER) is
- 		-- xmlListSort (node at line 3283)
+	xml_list_insert (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListInsert
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListSort"
-		}"
-		end
-
-	xml_list_push_front (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListPushFront (node at line 3532)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListPushFront"
+			feature_name: "xmlListInsert"
 		}"
 		end
 
 	xml_list_merge (a_l1: POINTER; a_l2: POINTER) is
- 		-- xmlListMerge (node at line 3820)
+ 		-- xmlListMerge
 		external "plug_in"
 		alias "{
 			location: "."
@@ -119,8 +129,78 @@ feature {} -- External calls
 		}"
 		end
 
+	xml_list_pop_back (a_l: POINTER) is
+ 		-- xmlListPopBack
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListPopBack"
+		}"
+		end
+
+	xml_list_pop_front (a_l: POINTER) is
+ 		-- xmlListPopFront
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListPopFront"
+		}"
+		end
+
+	xml_list_push_back (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListPushBack
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListPushBack"
+		}"
+		end
+
+	xml_list_push_front (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListPushFront
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListPushFront"
+		}"
+		end
+
+	xml_list_remove_all (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListRemoveAll
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListRemoveAll"
+		}"
+		end
+
+	xml_list_remove_first (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListRemoveFirst
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListRemoveFirst"
+		}"
+		end
+
+	xml_list_remove_last (a_l: POINTER; a_data: POINTER): INTEGER_32 is
+ 		-- xmlListRemoveLast
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "xmlListRemoveLast"
+		}"
+		end
+
 	xml_list_reverse (a_l: POINTER) is
- 		-- xmlListReverse (node at line 3861)
+ 		-- xmlListReverse
 		external "plug_in"
 		alias "{
 			location: "."
@@ -130,7 +210,7 @@ feature {} -- External calls
 		end
 
 	xml_list_reverse_search (a_l: POINTER; a_data: POINTER): POINTER is
- 		-- xmlListReverseSearch (node at line 4395)
+ 		-- xmlListReverseSearch
 		external "plug_in"
 		alias "{
 			location: "."
@@ -139,78 +219,8 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_dup (an_old: POINTER): POINTER is
- 		-- xmlListDup (node at line 4519)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListDup"
-		}"
-		end
-
-	xml_list_search (a_l: POINTER; a_data: POINTER): POINTER is
- 		-- xmlListSearch (node at line 4597)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListSearch"
-		}"
-		end
-
-	xml_list_push_back (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListPushBack (node at line 4763)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListPushBack"
-		}"
-		end
-
-	xml_list_delete (a_l: POINTER) is
- 		-- xmlListDelete (node at line 4774)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListDelete"
-		}"
-		end
-
-	xml_list_pop_back (a_l: POINTER) is
- 		-- xmlListPopBack (node at line 4853)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListPopBack"
-		}"
-		end
-
-	xml_link_get_data (a_lk: POINTER): POINTER is
- 		-- xmlLinkGetData (node at line 4993)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlLinkGetData"
-		}"
-		end
-
-	xml_list_empty (a_l: POINTER): INTEGER_32 is
- 		-- xmlListEmpty (node at line 5020)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListEmpty"
-		}"
-		end
-
 	xml_list_reverse_walk (a_l: POINTER; a_walker: POINTER; an_user: POINTER) is
- 		-- xmlListReverseWalk (node at line 5254)
+ 		-- xmlListReverseWalk
 		external "plug_in"
 		alias "{
 			location: "."
@@ -219,53 +229,43 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_list_remove_all (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListRemoveAll (node at line 5574)
+	xml_list_search (a_l: POINTER; a_data: POINTER): POINTER is
+ 		-- xmlListSearch
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListRemoveAll"
+			feature_name: "xmlListSearch"
 		}"
 		end
 
-	xml_list_end (a_l: POINTER): POINTER is
- 		-- xmlListEnd (node at line 5731)
+	xml_list_size (a_l: POINTER): INTEGER_32 is
+ 		-- xmlListSize
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListEnd"
+			feature_name: "xmlListSize"
 		}"
 		end
 
-	xml_list_pop_front (a_l: POINTER) is
- 		-- xmlListPopFront (node at line 5752)
+	xml_list_sort (a_l: POINTER) is
+ 		-- xmlListSort
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListPopFront"
+			feature_name: "xmlListSort"
 		}"
 		end
 
-	xml_list_remove_first (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListRemoveFirst (node at line 5931)
+	xml_list_walk (a_l: POINTER; a_walker: POINTER; an_user: POINTER) is
+ 		-- xmlListWalk
 		external "plug_in"
 		alias "{
 			location: "."
 			module_name: "plugin"
-			feature_name: "xmlListRemoveFirst"
-		}"
-		end
-
-	xml_list_append (a_l: POINTER; a_data: POINTER): INTEGER_32 is
- 		-- xmlListAppend (node at line 5953)
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "plugin"
-			feature_name: "xmlListAppend"
+			feature_name: "xmlListWalk"
 		}"
 		end
 
