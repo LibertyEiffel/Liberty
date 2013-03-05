@@ -63,7 +63,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_CELL_RENDERER_TEXT; a_procedure: PROCEDURE [ANY, TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
+	connect (an_object: GTK_CELL_RENDERER_TEXT; a_procedure: PROCEDURE [TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
 		do
 			debug
 				print ("EDITED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -83,6 +83,6 @@ feature
 
 	signal_name: STRING is "edited"
 
-	procedure: PROCEDURE [ANY, TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]]
+	procedure: PROCEDURE [TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]]
 
 end

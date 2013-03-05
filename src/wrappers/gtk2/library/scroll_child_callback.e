@@ -48,7 +48,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANYTUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN]) is
 		do
 			debug
 				print ("SCROLL_CHILD_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -68,6 +68,6 @@ feature
 
 	signal_name: STRING is "scroll-child"
 
-	function: FUNCTION [ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN]
+	function: FUNCTION [ANYTUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN]
 
 end

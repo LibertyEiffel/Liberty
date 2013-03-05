@@ -26,15 +26,9 @@ deferred class GTK_WIDGET
 
 inherit GTK_OBJECT
 
-insert
-	GTK_WIDGET_EXTERNALS
-	GDK_DRAG_ACTION
-	GTK_DEST_DEFAULTS
-	GDK_MODIFIER_TYPE
-	GDK_EVENT_MASK
+insert GTKWIDGET_EXTERNALS
 
 feature -- Access
-
 	hide is
 			-- Reverses the effects of `show' causing the widget to be hidden
 			-- (invisible to the user).
@@ -89,26 +83,20 @@ feature -- Operation
 			gtk_widget_show_all (handle)
 		end
 
-	set_drag_destination, drag_dest_set (a_flags, an_actions: INTEGER) is
+	set_drag_destination, drag_dest_set (some_flags: GTKDRAGRESULT_ENUM; some_actions: GDKDRAGPROTOCOL_ENUM) is
 			-- Sets a widget as a potential drop destination.
 			-- TODO: GtkTargetEntry isn't wrapped yet, use add_text_targets() and such..
-		require
-			is_valid_gtk_dest_defaults (a_flags)
-			is_valid_gdk_drag_action (an_actions)
 		do
-			gtk_drag_dest_set (handle, a_flags, default_pointer, 0, an_actions)
+			gtk_drag_dest_set (handle, some_flags.value, default_pointer, 0, some_actions.value)
 		end
 
-	set_drag_source, drag_source_set (a_modifier, an_actions: INTEGER) is
+	set_drag_source, drag_source_set (a_modifier: GDKMODIFIERTYPE_ENUM; some_actions: GDKDRAGPROTOCOL_ENUM) is
 			-- Sets up a widget so that GTK+ will start a drag operation when
 			-- the user clicks and drags on the widget. The widget must have a
 			-- window.
 			-- TODO: GtkTargetEntry isn't wrapped yet, use add_text_targets() and such...
-		require
-			is_valid_gdk_modifier_type (a_modifier)
-			is_valid_gdk_drag_action (an_actions)
 		do
-			gtk_drag_source_set (handle, a_modifier, default_pointer, 0, an_actions)
+			gtk_drag_source_set (handle, a_modifier.value, default_pointer, 0, some_actions.value)
 		end
 
 	drag_dest_add_text_targets is
@@ -186,7 +174,7 @@ feature -- Operation
 			gtk_drag_source_set_icon_name (handle, an_icon_name.to_external)
 		end
 
-	set_events (some_events: INTEGER) is
+	set_events (some_events: GDKEVENTMASK_ENUM) is
 			-- Sets the event mask (see GDK_EVENT_MASK) for this widget.
 			-- The event mask determines which events the widget will receive.
 			-- Keep in mind that different widgets have different default event
@@ -197,8 +185,6 @@ feature -- Operation
 			-- event mask. This function can't be used with GTK_NO_WINDOW
 			-- widgets; to get events on those widgets, place them inside a
 			-- GTK_EVENT_BOX and receive events on the event box.
-		require
-			is_valid_gdk_event_mask (some_events)
 		do
 			gtk_widget_set_events (handle, some_events)
 		end
@@ -701,7 +687,7 @@ feature -- delete-event signal
 		do
 		end
 
-	connect_agent_to_delete_event_signal (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+	connect_agent_to_delete_event_signal (a_function: FUNCTION[TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
 		require
 			valid_function: a_function /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored
@@ -741,7 +727,7 @@ feature -- drag-begin signal
 		do
 		end
 
-	connect_agent_to_drag_begin_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_agent_to_drag_begin_signal (a_procedure: PROCEDURE[TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -779,7 +765,7 @@ feature -- drag-data-delete signal
 		do
 		end
 
-	connect_agent_to_drag_data_delete_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_agent_to_drag_data_delete_signal (a_procedure: PROCEDURE[TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -820,7 +806,7 @@ feature -- drag-data-get signal
 		do
 		end
 
-	connect_agent_to_drag_data_get_signal (a_procedure: PROCEDURE[ANY,
+	connect_agent_to_drag_data_get_signal (a_procedure: PROCEDURE[
 																					  TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
 																								INTEGER, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
@@ -878,7 +864,7 @@ feature -- drag-data-received signal
 		do
 		end
 
-	connect_agent_to_drag_data_received_signal (a_procedure: PROCEDURE[ANY,
+	connect_agent_to_drag_data_received_signal (a_procedure: PROCEDURE[
 																							 TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 																									  GTK_SELECTION_DATA, INTEGER, INTEGER,
 																									  GTK_WIDGET]]) is
@@ -932,7 +918,7 @@ feature -- drag-drop signal
 		do
 		end
 
-	connect_agent_to_drag_drop_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect_agent_to_drag_drop_signal (a_function: FUNCTION[TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 																							  INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
@@ -972,7 +958,7 @@ feature -- drag-end signal
 		do
 		end
 
-	connect_agent_to_drag_end_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_agent_to_drag_end_signal (a_procedure: PROCEDURE[TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -1010,7 +996,7 @@ feature -- drag-leave signal
 		do
 		end
 
-	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
+	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[TUPLE [GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- time : 	the timestamp of the motion event
@@ -1069,7 +1055,7 @@ feature -- drag-motion signal
 		do
 		end
 
-	connect_agent_to_drag_motion_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect_agent_to_drag_motion_signal (a_function: FUNCTION[TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 																								 INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
@@ -1106,7 +1092,7 @@ feature -- enter-notify-event signal
 		do
 		end
 
-	connect_agent_to_enter_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_enter_notify_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1135,7 +1121,7 @@ feature -- enter-notify-event signal
 --                                             gpointer        user_data)      : Run last
 
 feature -- "expose-event"
-	connect_agent_to_expose_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_EXPOSE, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_expose_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_EXPOSE, GTK_WIDGET], BOOLEAN]) is
 			-- The ::expose-event signal is emitted when an area of a previously
 			-- obscured GdkWindow is made visible and needs to be redrawn.
 			-- GTK_NO_WINDOW widgets will get a synthesized event from their
@@ -1179,7 +1165,7 @@ feature -- focus-out-event signal
 		do
 		end
 
-	connect_agent_to_focus_out_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_FOCUS, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_focus_out_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_FOCUS, GTK_WIDGET], BOOLEAN]) is
 			-- The `focus-out-event' signal will be emitted when the keyboard focus
 			-- leaves the widget's window.
 
@@ -1236,7 +1222,7 @@ feature -- key-press-event signal
 		do
 		end
 
-	connect_agent_to_key_press_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_key_press_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1275,7 +1261,7 @@ feature -- leave-notify-event signal
 		do
 		end
 
-	connect_agent_to_leave_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_leave_notify_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1320,7 +1306,7 @@ feature -- motion-notify-event signal
 		do
 		end
 
-	connect_agent_to_motion_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_motion_notify_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1354,7 +1340,7 @@ feature -- button-release-event signal
 		do
 		end
 
-	connect_agent_to_button_release_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_button_release_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1388,7 +1374,7 @@ feature -- button-press-event signal
 		do
 		end
 
-	connect_agent_to_button_press_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_button_press_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1444,7 +1430,7 @@ feature -- realize signal
 		do
 		end
 
-	connect_agent_to_realize_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_WIDGET]]) is
+	connect_agent_to_realize_signal (a_procedure: PROCEDURE[TUPLE [GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1480,7 +1466,7 @@ feature -- scroll-event signal
 		do
 		end
 
-	connect_agent_to_scroll_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_SCROLL, GTK_WIDGET], BOOLEAN]) is
+	connect_agent_to_scroll_event_signal (a_function: FUNCTION[TUPLE [GDK_EVENT_SCROLL, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1548,7 +1534,7 @@ feature -- size-allocate signal
 		do
 		end
 
-	connect_agent_to_size_allocate_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_ALLOCATION, GTK_WIDGET]]) is
+	connect_agent_to_size_allocate_signal (a_procedure: PROCEDURE[TUPLE [GTK_ALLOCATION, GTK_WIDGET]]) is
 		require
 			valid_procedure: a_procedure /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored
@@ -1583,7 +1569,7 @@ feature -- size-request signal
 		do
 		end
 
-	connect_agent_to_size_request_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_REQUISITION, GTK_WIDGET]]) is
+	connect_agent_to_size_request_signal (a_procedure: PROCEDURE[TUPLE [GTK_REQUISITION, GTK_WIDGET]]) is
 		require
 			valid_procedure: a_procedure /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored

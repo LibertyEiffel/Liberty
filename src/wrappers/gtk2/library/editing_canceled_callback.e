@@ -51,7 +51,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_RENDERER]]) is
+	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [TUPLE[GTK_CELL_RENDERER]]) is
 		do
 			debug
 				print ("EDITING_CANCELED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -71,6 +71,6 @@ feature
 
 	signal_name: STRING is "editing-canceled"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_RENDERER]]
+	procedure: PROCEDURE [TUPLE[GTK_CELL_RENDERER]]
 
 end

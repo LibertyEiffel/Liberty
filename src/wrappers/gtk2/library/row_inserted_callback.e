@@ -61,7 +61,7 @@ feature
 		end
 
 	connect (an_object: GTK_TREE_MODEL;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
+				a_procedure: PROCEDURE [TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
 		do
 			debug
 				print ("ROW_INSERTED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -80,6 +80,6 @@ feature
 
 	signal_name: STRING is "row-inserted"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]
 
 end

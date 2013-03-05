@@ -66,6 +66,6 @@ feature
 
 	signal_name: STRING is "color-set"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_COLOR_BUTTON]]
+	procedure: PROCEDURE [TUPLE[GTK_COLOR_BUTTON]]
 
 end

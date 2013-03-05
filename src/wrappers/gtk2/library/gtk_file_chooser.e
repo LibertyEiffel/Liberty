@@ -1151,7 +1151,7 @@ feature -- The "file-activated" signal
 		do
 		end
 
-	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_FILE_CHOOSER]]) is
 			-- chooser : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1191,7 +1191,7 @@ feature -- The "selection-changed" signal
 		do
 		end
 
-	connect_agent_to_selection_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_selection_changed_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_FILE_CHOOSER]]) is
 			-- chooser : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1238,7 +1238,7 @@ feature -- The "update-preview" signal
 		do
 		end
 
-	connect_agent_to_update_preview_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_update_preview_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_FILE_CHOOSER]]) is
 			-- chooser: the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

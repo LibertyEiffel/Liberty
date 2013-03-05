@@ -50,7 +50,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_CELL_EDITABLE; a_procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE]]) is
+	connect (an_object: GTK_CELL_EDITABLE; a_procedure: PROCEDURE [TUPLE[GTK_CELL_EDITABLE]]) is
 		do
 			debug
 				print ("EDITING_DONE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -70,6 +70,6 @@ feature
 
 	signal_name: STRING is "editing-done"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE]]
+	procedure: PROCEDURE [TUPLE[GTK_CELL_EDITABLE]]
 
 end

@@ -11,10 +11,12 @@ indexing
 				 ]"
 
 deferred class GTK
--- Note: TODO: is this a good name? or SHARED_GTK is better?
+	-- Note: the class-name GTK has been picked because it is brief and somehow
+	-- follow the conventions of other languages; A more proper name following
+	-- name schemes usually used in Eiffel would be SHARED_GTK.
 insert
 	ANY undefine copy,is_equal,fill_tagged_out_memory end
-	GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
+	-- Unnecessary in LibertyEiffel: GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
 
 feature -- Gtk 
 

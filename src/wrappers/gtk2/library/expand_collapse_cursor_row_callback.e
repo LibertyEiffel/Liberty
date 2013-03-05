@@ -55,7 +55,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN,
+	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION [ANYTUPLE [BOOLEAN, BOOLEAN,
 																							  BOOLEAN, GTK_TREE_VIEW], BOOLEAN]) is
 		do
 			debug
@@ -76,6 +76,6 @@ feature
 
 		signal_name: STRING is "expand-collapse-cursor-row"
 
-	function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN, GTK_TREE_VIEW], BOOLEAN]
+	function: FUNCTION [ANYTUPLE [BOOLEAN, BOOLEAN, BOOLEAN, GTK_TREE_VIEW], BOOLEAN]
 
 end -- class EXPAND_COLLAPSE_CURSOR_ROW_CALLBACK

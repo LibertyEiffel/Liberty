@@ -54,7 +54,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[STRING, GTK_TEXT_VIEW]]) is
+	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [TUPLE[STRING, GTK_TEXT_VIEW]]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,
@@ -66,6 +66,6 @@ feature
 
 		signal_name: STRING is "insert-at-cursor"
 
-	procedure: PROCEDURE [ANY, TUPLE[STRING, GTK_TEXT_VIEW]]
+	procedure: PROCEDURE [TUPLE[STRING, GTK_TEXT_VIEW]]
 
 end -- class INSERT_AT_CURSOR_CALLBACK

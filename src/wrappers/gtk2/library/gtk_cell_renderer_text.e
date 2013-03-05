@@ -440,7 +440,7 @@ feature -- "edited"
 		do
 		end
 
-	connect_agent_to_edited_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
+	connect_agent_to_edited_signal (a_procedure: PROCEDURE [ANYTUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
 			-- cellrenderertext : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

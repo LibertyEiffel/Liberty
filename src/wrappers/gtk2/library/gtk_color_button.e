@@ -149,7 +149,7 @@ feature
 	
 feature -- The "color-set" signal
 
-	connect_agent_to_color_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COLOR_BUTTON]]) is
+	connect_agent_to_color_set_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_COLOR_BUTTON]]) is
 			-- The ::color-set signal is emitted when the user selects a color.
 			-- When handling this signal, use `get_color()' and `get_alpha()'
 			-- to find out which color was just selected.

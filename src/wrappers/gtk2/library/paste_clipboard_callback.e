@@ -66,6 +66,6 @@ feature
 
 	signal_name: STRING is "paste-clipboard"
 
-	procedure: PROCEDURE [ANY, TUPLE [like object]]
+	procedure: PROCEDURE [TUPLE [like object]]
 
 end -- class PASTE_CLIPBOARD_CALLBACK

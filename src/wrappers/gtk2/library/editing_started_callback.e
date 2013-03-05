@@ -59,7 +59,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE,
+	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [TUPLE[GTK_CELL_EDITABLE,
 																									  STRING, GTK_CELL_RENDERER]]) is
 		do
 			debug
@@ -80,5 +80,5 @@ feature
 
 	signal_name: STRING is "editing-started"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE, STRING, GTK_CELL_RENDERER]]
+	procedure: PROCEDURE [TUPLE[GTK_CELL_EDITABLE, STRING, GTK_CELL_RENDERER]]
 end

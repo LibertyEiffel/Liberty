@@ -50,7 +50,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
+	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,
@@ -62,6 +62,6 @@ feature
 
 		signal_name: STRING is "move-cursor"
 
-	procedure: PROCEDURE [ANY, TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]
+	procedure: PROCEDURE [TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]
 
 end -- class MOVE_CURSOR_CALLBACK

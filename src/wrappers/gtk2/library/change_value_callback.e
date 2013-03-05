@@ -54,7 +54,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_RANGE; a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+	connect (an_object: GTK_RANGE; a_function: FUNCTION [TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
 		do
 			debug
 				print ("CHANGE_VALUE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,5 +74,5 @@ feature
 
 	signal_name: STRING is "change-value"
 
-	function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]
+	function: FUNCTION [TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]
 end

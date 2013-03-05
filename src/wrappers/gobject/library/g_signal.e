@@ -63,8 +63,8 @@ deferred class G_SIGNAL
 	-- wildcard and matches any detail argument passed in to emission.
 
 insert
-	G_SIGNAL_EXTERNALS 
-	G_SIGNAL_FLAGS
+	GSIGNAL_EXTERNALS 
+	GSIGNAL_FLAGS
 	G_SIGNAL_INVOCATION_HINT
 	G_SIGNAL_MATCH_TYPE
 
@@ -141,7 +141,7 @@ feature -- Unwrapped C
 	-- wrapped and provides the same functionality
 feature {} -- Creation
 	
-	make (a_gobject: G_OBJECT; some_flags: INTEGER;
+	make (a_gobject: G_OBJECT; some_flags: GSIGNAL_FLAGS;
 			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER]) is
 			-- Creates a new signal. This is usually done in the
 			-- GObject's class initializer at C level.
@@ -158,8 +158,6 @@ feature {} -- Creation
 			-- Note: Class-level closure and accumulator are currently not implemented;
 		require
 			valid_gobject: a_gobject /= Void
-			valid_flags: are_valid_signal_flags (some_flags)
-			valid_return_type: 
 		do
 			-- guint g_signal_newv (const gchar *signal_name, Type itype,
 			-- GSignalFlags signal_flags, GClosure *class_closure,

@@ -56,7 +56,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TREE_SELECTION; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]]) is
+	connect (an_object: GTK_TREE_SELECTION; a_procedure: PROCEDURE [TUPLE[GTK_TREE_SELECTION]]) is
 		do
 			debug
 				print ("CHANGED_TREE_SELECTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -76,6 +76,6 @@ feature
 
 	signal_name: STRING is "changed"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_SELECTION]]
 
 end

@@ -64,6 +64,6 @@ feature
 
 	signal_name: STRING is "font-set"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]]
+	procedure: PROCEDURE [TUPLE[GTK_FONT_BUTTON]]
 
 end

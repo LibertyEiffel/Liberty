@@ -35,7 +35,7 @@ insert
 creation make
 	
 feature
-	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION [ANYTUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
 		require gtk_initialized: gtk.is_initialized
 		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
 		do
@@ -89,5 +89,5 @@ feature
 												path_currently_selected.to_boolean]).to_integer)
 		end
 	
-	function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]
+	function: FUNCTION [ANYTUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]
 end

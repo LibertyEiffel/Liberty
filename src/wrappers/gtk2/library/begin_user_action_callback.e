@@ -54,7 +54,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_BUFFER]]) is
+	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [TUPLE[GTK_TEXT_BUFFER]]) is
 		do
 			debug
 				print ("BEGIN_USER_ACTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,5 +74,5 @@ feature
 
 	signal_name: STRING is "begin-user-action"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_BUFFER]]
+	procedure: PROCEDURE [TUPLE[GTK_TEXT_BUFFER]]
 end

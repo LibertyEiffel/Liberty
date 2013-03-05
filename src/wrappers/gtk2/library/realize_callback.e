@@ -53,7 +53,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [TUPLE[GTK_WIDGET]]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,
@@ -63,7 +63,7 @@ feature
 			procedure := a_procedure
 		end
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_WIDGET]]
+	procedure: PROCEDURE [TUPLE[GTK_WIDGET]]
 
 	signal_name: STRING is "realize"
 

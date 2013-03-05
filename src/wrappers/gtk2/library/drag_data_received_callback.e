@@ -69,7 +69,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 																							  GTK_SELECTION_DATA, INTEGER, INTEGER,
 																							  GTK_WIDGET]]) is
 		do
@@ -91,7 +91,7 @@ feature
 
 		signal_name: STRING is "drag-data-received"
 
-	procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	procedure: PROCEDURE [TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 												 GTK_SELECTION_DATA, INTEGER, INTEGER, GTK_WIDGET]]
 
 end

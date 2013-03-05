@@ -55,7 +55,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
+	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION [ANYTUPLE [GTK_TREE_VIEW], BOOLEAN]) is
 		do
 			debug
 				print ("UNSELECT_ALL_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -75,5 +75,5 @@ feature
 
 		signal_name: STRING is "unselect-all"
 
-	function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]
+	function: FUNCTION [ANYTUPLE [GTK_TREE_VIEW], BOOLEAN]
 end

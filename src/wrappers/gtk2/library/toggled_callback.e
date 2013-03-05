@@ -57,7 +57,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
+	connect (an_object: W; a_procedure: PROCEDURE [TUPLE[W]]) is
 		do
 			debug
 				print ("TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -77,5 +77,5 @@ feature
 
 		signal_name: STRING is "toggled"
 
-	procedure: PROCEDURE [ANY, TUPLE[W]]
+	procedure: PROCEDURE [TUPLE[W]]
 end

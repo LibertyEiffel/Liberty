@@ -1090,7 +1090,7 @@ feature {} -- TODO: Signals
 -- 	-----------------------------------------------------------------------
 
 feature --   The "insert-at-cursor" signal
-	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, GTK_TEXT_VIEW]]) is
+	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE [ANYTUPLE [STRING, GTK_TEXT_VIEW]]) is
 			-- 	textview :  the object which received the signal.
 			-- 	arg1 :
 		require
@@ -1107,7 +1107,7 @@ feature --   The "insert-at-cursor" signal
 
 feature -- The "move-cursor" signal
 
-	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
+	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE [ANYTUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
 			-- 	The ::move-cursor signal is a keybinding signal which gets emitted when
 			-- 	the user initiates a cursor movement.
 
@@ -1173,7 +1173,7 @@ feature -- The "move-cursor" signal
 
 feature -- The "paste-clipboard" signal
 
-	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_TEXT_VIEW]]) is
+	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE [ANYTUPLE [GTK_TEXT_VIEW]]) is
 			-- The ::paste-clipboard signal is a keybinding signal which gets
 			-- emitted to paste the contents of the clipboard into the text view.
 			--

@@ -50,7 +50,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_RANGE; a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
+	connect (an_object: GTK_RANGE; a_procedure: PROCEDURE [TUPLE[GTK_RANGE]]) is
 		do
 			debug
 				print ("VALUE_CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -70,5 +70,5 @@ feature
 
 		signal_name: STRING is "value-changed"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]
+	procedure: PROCEDURE [TUPLE[GTK_RANGE]]
 end

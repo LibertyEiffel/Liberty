@@ -1,5 +1,6 @@
 
 class STATUS_BAR_DEMO
+inherit ANY -- Ideally GTK_APPLICATION
 insert GTK
 creation make
 

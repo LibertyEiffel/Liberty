@@ -50,7 +50,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TREE_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
+	connect (an_object: GTK_TREE_VIEW; a_procedure: PROCEDURE [TUPLE[GTK_TREE_VIEW]]) is
 		do
 			debug
 				print ("CURSOR_CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -70,5 +70,5 @@ feature
 
 	signal_name: STRING is "cursor-changed"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_VIEW]]
 end

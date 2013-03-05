@@ -57,7 +57,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANYTUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
 		do
 			debug
 				print ("MOTION_NOTIFY_EVENT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -77,6 +77,6 @@ feature
 
 		signal_name: STRING is "motion-notify-event"
 
-	function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]
+	function: FUNCTION [ANYTUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]
 
 end

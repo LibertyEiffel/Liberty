@@ -382,7 +382,7 @@ feature -- The "row-changed" signal
 		do
 		end
 
-	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
+	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
 		require valid_procedure: a_procedure /= Void
 		local
 			row_changed_callback: ROW_CHANGED_CALLBACK
@@ -408,7 +408,7 @@ feature -- The "row-deleted" signal
 			connect (Current, row_deleted_signal_name, $on_row_deleted)
 		end
 
-	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY,
+	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY
 		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
@@ -435,7 +435,7 @@ feature -- TODO:  "row-has-child-toggled" signal
 		do
 			connect (Current, row_has_child_toggled_signal_name, $on_row_has_child_toggled)
 		end
-	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -466,7 +466,7 @@ feature -- The "row-inserted" signal
 			connect (Current, row_inserted_signal_name, $on_row_inserted)
 		end
 
-	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY,
+	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY
 		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	

@@ -58,7 +58,7 @@ feature
 		end
 
 	connect (an_object: GTK_TREE_MODEL;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+				a_procedure: PROCEDURE [TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
 		do
 			debug
 				print ("ROW_HAS_CHILD_TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,5 +74,5 @@ feature
 		end
 
 	signal_name: STRING is "row-has-child-toggled"
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]
 end

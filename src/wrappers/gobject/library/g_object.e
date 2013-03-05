@@ -93,8 +93,8 @@ insert
 	G_SIGNALS
 
 	-- Features inserted to implement smart_get_property and smart_set_property
-	G_PARAM_SPEC_EXTERNALS export {} all end
-	G_TYPE_EXTERNALS
+	GPARAMSPEC_STRUCT export {} all end
+	GTYPE_EXTERNALS
 
 	POINTER_HANDLING -- to get `address_of' and `content_of'
 

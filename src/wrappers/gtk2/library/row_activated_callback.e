@@ -60,7 +60,7 @@ feature
 		end
 
 	connect (an_object: GTK_TREE_VIEW;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+				a_procedure: PROCEDURE [TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		do
 			debug
 				print ("ROW_ACTIVATED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -80,6 +80,6 @@ feature
 
 	signal_name: STRING is "row-activated"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]
+	procedure: PROCEDURE [TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]
 
 end

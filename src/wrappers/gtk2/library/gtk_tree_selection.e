@@ -110,7 +110,7 @@ feature -- selection mode
 		end
 
 		
-	set_select_function (a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+	set_select_function (a_function: FUNCTION [ANYTUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
 			-- Sets the selection function. If set, this function is
 			-- called before any node is selected or unselected, giving
 			-- some control over which nodes are selected. The select
@@ -299,7 +299,7 @@ feature  -- The "changed" signal
 			connect (Current, changed_signal_name, $on_changed)
 		end
 
-	connect_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]]) is
+	connect_to_changed_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_TREE_SELECTION]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local

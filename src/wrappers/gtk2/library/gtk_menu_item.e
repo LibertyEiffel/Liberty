@@ -259,7 +259,7 @@ feature -- Signals
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_MENU_ITEM]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANYTUPLE[GTK_MENU_ITEM]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local

@@ -7,7 +7,7 @@ inherit
 	WRAPPER_HANDLER
 		undefine null_or end
 
-insert G_SIGNAL_EXTERNALS
+insert GSIGNAL_EXTERNALS
 feature
 
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
