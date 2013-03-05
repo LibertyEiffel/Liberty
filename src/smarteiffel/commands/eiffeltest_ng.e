@@ -41,7 +41,7 @@ feature {}
       local
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
       do
-         log.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
+         log.info.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
             -- We just finish here.
