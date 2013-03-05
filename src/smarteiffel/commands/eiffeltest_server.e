@@ -12,6 +12,7 @@ class EIFFELTEST_SERVER
 
 insert
    COMMAND_LINE_TOOLS
+   LOGGING
 
 create {}
    make
@@ -32,27 +33,50 @@ feature {ANY}
 feature {}
    port: INTEGER
 
-   make is
+   main is
       local
          stack: LOOP_STACK
          socket: EIFFELTEST_SERVER_SOCKET
       do
-         parse_arguments
-         echo.redirect_output_on(once "eiffeltest_server:#(1).log" # port.out)
-
-         echo.put_line(once "Server #(1) starting..." # port.out)
+         log.info.put_line(once "Server #(1) starting..." # port.out)
          create stack.make
          create socket.make(port, agent stack.add_job, agent stack.break)
          stack.add_job(socket)
-         echo.put_line(once "Server #(1) started." # port.out)
+         log.info.put_line(once "Server #(1) started." # port.out)
          stack.run
       end
+
+   make is
+      local
+         log_conf: LOG_CONFIGURATION
+         conf: STRING_INPUT_STREAM
+      do
+         parse_arguments
+         create conf.from_string(once "[
+         log configuration
+         root #(1)
+         output
+            default is
+               file "eiffeltest_server:#(3).log"
+               rotated each day keeping 5
+            end
+         logger
+            #(1) is
+               output default
+               level #(2)
+            end
+         end
+         ]" # generating_type # level # port.out)
+         log_conf.load(conf, Void, Void, agent main)
+      end
+
+   level: STRING
 
    parse_arguments is
       local
          i: INTEGER; arg: STRING
       do
-         search_for_verbose_flag
+         level := once "warning"
          from
             i := 1
          until
@@ -60,9 +84,9 @@ feature {}
          loop
             arg := argument(i)
             if is_verbose_flag(arg) then
-               check
-                  already_done: echo.is_verbose
-               end
+               level := once "info"
+            elseif flag_match(once "debug", arg) then
+               level := once "trace"
             elseif is_version_flag(arg) then
                check
                   version_flag

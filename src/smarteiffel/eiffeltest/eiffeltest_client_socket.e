@@ -12,8 +12,8 @@ inherit
 
 insert
    EIFFELTEST_NETWORK
-   GLOBALS
    HASHABLE
+   LOGGING
 
 create {ANY}
    make
@@ -29,7 +29,7 @@ feature {LOOP_ITEM}
       local
          t: TIME_EVENTS
       do
-         echo.put_line(once "Facade #(1): prepare (starting: #(2) -- busy: #(3))" # port.out # starting.out # busy.out)
+         log.trace.put_line(once "Facade #(1): prepare (starting: #(2) -- busy: #(3))" # port.out # starting.out # busy.out)
          if starting then
             timeout := t.timeout(500)
             events.expect(timeout)
@@ -48,20 +48,20 @@ feature {LOOP_ITEM}
       do
          if starting then
             Result := events.event_occurred(timeout)
-            echo.put_line(once "Facade #(1): starting (timeout: #(2))" # port.out # Result.out)
+            log.trace.put_line(once "Facade #(1): starting (timeout: #(2))" # port.out # Result.out)
          elseif busy and then events.event_occurred(channel.event_can_read) then
             Result := True
-            echo.put_line(once "Facade #(1): can read: #(2)" # port.out # Result.out)
+            log.trace.put_line(once "Facade #(1): can read: #(2)" # port.out # Result.out)
          elseif not busy and then events.event_occurred(channel.event_can_write) then
             Result := True
-            echo.put_line(once "Facade #(1): can write: #(2)" # port.out # Result.out)
+            log.trace.put_line(once "Facade #(1): can write: #(2)" # port.out # Result.out)
          elseif events.event_occurred(timeout) then
             Result := not busy or else (channel = Void or else not channel.is_connected)
-            echo.put_line(once "Facade #(1): periodic check (connected: #(2), busy: #(3), channel disconnected: #(4))" # port.out # channel.is_connected.out # busy.out # Result.out)
+            log.trace.put_line(once "Facade #(1): periodic check (connected: #(2), busy: #(3), channel disconnected: #(4))" # port.out # channel.is_connected.out # busy.out # Result.out)
          else
             check False end
          end
-         echo.put_line(once " => Facade #(1): is_ready: #(2)" # port.out # Result.out)
+         log.trace.put_line(once " => Facade #(1): is_ready: #(2)" # port.out # Result.out)
       end
 
    continue is
@@ -71,20 +71,20 @@ feature {LOOP_ITEM}
                open_channel
             elseif server_running then
                starting := False
-               echo.put_line(once "Facade #(1): server is running" # port.out)
+               log.info.put_line(once "Facade #(1): server is running" # port.out)
             else
-               echo.put_line(once "Facade #(1): server still starting" # port.out)
+               log.trace.put_line(once "Facade #(1): server still starting" # port.out)
             end
          elseif busy then
-            echo.put_line(once "Facade #(1): busy" # port.out)
+            log.trace.put_line(once "Facade #(1): busy" # port.out)
             if channel.is_connected then
                channel.read_line_in(reply)
             end
             if channel.is_connected then
-               echo.put_line(once "Facade #(1): busy -- read full line" # port.out)
+               log.trace.put_line(once "Facade #(1): busy -- read full line" # port.out)
                reply.extend('%N')
             else
-               echo.put_line(once "Facade #(1): full reply [#(2)] received:%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%N#(2)%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" # port.out # command # reply)
+               log.info.put_line(once "Facade #(1): full reply [#(2)] received:%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%N#(2)%N~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" # port.out # command # reply)
                on_reply.call([port, command, reply])
                reply := Void
                command := Void
@@ -96,12 +96,12 @@ feature {LOOP_ITEM}
                end
             end
          elseif commands.is_empty(Current) then
-            echo.put_line(once "Facade #(1): no more commands" # port.out)
+            log.info.put_line(once "Facade #(1): no more commands" # port.out)
             set_done(0)
          else
             command := commands.item(Current)
             commands.remove(Current)
-            echo.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
+            log.info.put_line(once "Facade #(1): now executing command: #(2)" # port.out # command)
             commands.display
             reply := ""
             channel.put_line(command)
@@ -155,7 +155,9 @@ feature {}
          args: FAST_ARRAY[STRING]
       do
          args := {FAST_ARRAY[STRING] << once "test_server", port.out >> }
-         if echo.is_verbose then
+         if log.is_trace then
+            args.add_last(once "-debug")
+         elseif log.is_info then
             args.add_last(once "-verbose")
          end
          proc := process_factory.execute(once "se", args)
@@ -164,7 +166,7 @@ feature {}
          if not starting then
             set_done(-1)
          end
-         echo.put_line(once "Facade #(1): server starting" # port.out)
+         log.info.put_line(once "Facade #(1): server starting" # port.out)
       end
 
    timeout: EVENT_DESCRIPTOR
@@ -180,16 +182,16 @@ feature {}
       require
          channel = Void or else not channel.is_connected
       do
-         echo.put_line(once "Facade #(1): opening channel" # port.out)
+         log.trace.put_line(once "Facade #(1): opening channel" # port.out)
          if proc = Void then
-            echo.w_put_line(once "**** Facade #(1): server not started" # port.out)
+            log.error.put_line(once "Facade #(1): server not started" # port.out)
             set_done(-1)
          elseif proc.is_finished then
-            echo.w_put_line(once "**** Facade #(1): server exited with status #(2)" # port.out # proc.status.out)
+            log.error.put_line(once "Facade #(1): server exited with status #(2)" # port.out # proc.status.out)
             set_done(proc.status)
          else
             channel := access.stream
-            echo.put_line(once "Facade #(1): channel open: #(2)" # port.out # channel.is_connected.out)
+            log.info.put_line(once "Facade #(1): openned channel, is_connected: #(2)" # port.out # channel.is_connected.out)
          end
       end
 
@@ -206,9 +208,9 @@ feature {}
 
    set_done (status: INTEGER) is
       do
-         echo.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
+         log.info.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
          on_done.call([port, status])
-         echo.put_line(once "Facade #(1): finished" # port.out)
+         log.trace.put_line(once "Facade #(1): finished" # port.out)
       end
 
 invariant

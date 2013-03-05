@@ -4,7 +4,7 @@
 class EIFFELTEST_CLIENT_RESULT
 
 insert
-   GLOBALS
+   LOGGING
 
 create {ANY}
    make
@@ -51,8 +51,9 @@ feature {ANY}
             if split.first.same_as(once "status") and then split.item(split.lower + 1).is_integer then
                nb_failed := split.item(split.lower + 1).to_integer
                if nb_failed > 0 then
-                  echo.w_put_line("**** #(1)" # reply)
+                  log.error.put_line(reply)
                else
+                  log.trace.put_line(reply)
                   Result := True
                end
             end

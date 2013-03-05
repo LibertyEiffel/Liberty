@@ -7,7 +7,7 @@ inherit
    JOB
 
 insert
-   GLOBALS
+   LOGGING
 
 create {ANY}
    make
@@ -15,14 +15,14 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         echo.put_line(once "Server #(1): prepare tests runner" # port.out)
+         log.trace.put_line(once "Server #(1): prepare tests runner" # port.out)
          events.expect(stream.event_can_write)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
          Result := events.event_occurred(stream.event_can_write)
-         echo.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
+         log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
       end
 
    continue is
@@ -32,17 +32,17 @@ feature {LOOP_ITEM}
          if not good_tests.is_empty then
             test_file := good_tests.first
             good_tests.remove_first
-            echo.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
+            log.info.put_line(once "Server #(1): testing 'good test' #(2)" # port.out # test_file)
             check_good_test(test_file)
-            log.put_line(once "----------------------------------------------------------------")
+            test_log.put_line(once "----------------------------------------------------------------")
          elseif not bad_tests.is_empty then
             test_file := bad_tests.first
             bad_tests.remove_first
-            echo.put_line(once "Server #(1): testing 'bad test' #(2)" # port.out # test_file)
+            log.info.put_line(once "Server #(1): testing 'bad test' #(2)" # port.out # test_file)
             check_bad_test(test_file)
-            log.put_line(once "----------------------------------------------------------------")
+            test_log.put_line(once "----------------------------------------------------------------")
          else
-            echo.put_line(once "Server #(1): disconnecting" # port.out)
+            log.trace.put_line(once "Server #(1): disconnecting" # port.out)
             disconnect
          end
       end
@@ -50,7 +50,7 @@ feature {LOOP_ITEM}
    done: BOOLEAN is
       do
          Result := not stream.is_connected
-         echo.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
+         log.info.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
       end
 
    restart is
@@ -151,7 +151,7 @@ feature {} -- Good tests: tests that must pass
             loop
                cmd := once "se mock " + tfr.last_string
                if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
-                  log.put_line(once "**** Warning: mock generation skipped (by excluded.lst). Expect problems.")
+                  test_log.put_line(once "**** Warning: mock generation skipped (by excluded.lst). Expect problems.")
                end
                tfr.read_line
             end
@@ -228,7 +228,7 @@ feature {} -- Good tests: tests that must pass
          if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
             -- Command skipped.
          elseif not file_tools.file_exists(exe_name) then
-            log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
+            test_log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
             status := status + 1
          else
             running_of(test_file, exe_name, options)
@@ -264,7 +264,7 @@ feature {} -- Good tests: tests that must pass
             if excluded_execution_of(cmd, agent execute_command(cmd, cmd, False)) then
                -- Command skipped.
             elseif not file_tools.file_exists(exe_name) then
-               log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
+               test_log.put_line(once "**** Error: could not compile %"#(1)%" using command:%N#(2)" # test_file # cmd)
                status := status + 1
             else
                running_of(test_file, exe_name, Void)
@@ -365,16 +365,16 @@ feature {} -- Bad tests: tests that must fail
          if excluded_execution_of(cmd, agent execute_command(cmd, cmd, True)) then
             -- Command skipped.
          elseif not file_tools.file_exists(new) then
-            log.put_line(once "**** Error: Unable to locate the new error/warning file #(1) for test #(2)" # new # bad_file)
+            test_log.put_line(once "**** Error: Unable to locate the new error/warning file #(1) for test #(2)" # new # bad_file)
             status := status + 1
          elseif not file_tools.file_exists(msg) then
-            log.put_line(once "**** Error: No original error/warning file #(1) for test #(2)" # msg # bad_file)
-            log.put_line(once "     Please check #(1) and rename it to #(2)" # new # msg)
+            test_log.put_line(once "**** Error: No original error/warning file #(1) for test #(2)" # msg # bad_file)
+            test_log.put_line(once "     Please check #(1) and rename it to #(2)" # new # msg)
             status := status + 1
          else
             error_message_comparator.do_compare(msg, new)
             if error_message_comparator.error_flag then
-               log.put_line(once "**** Error: The new error/warning file #(1) differs from #(2) for test #(3)" # new # msg # bad_file)
+               test_log.put_line(once "**** Error: The new error/warning file #(1) differs from #(2) for test #(3)" # new # msg # bad_file)
                status := status + 1
             else
                dummy := excluded_execution_of(once "Removing %"#(1)%"." # new, agent file_tools.delete(new))
@@ -405,9 +405,9 @@ feature {}
       require
          not done
       do
-         if log /= Void and then log.is_connected then
+         if test_log /= Void and then test_log.is_connected then
             check_unused_excluded_patterns
-            log.disconnect
+            test_log.disconnect
          end
          stream.put_line(once "status #(1) #(2)" # status.out # path)
          stream.flush
@@ -416,7 +416,7 @@ feature {}
          done
       end
 
-   log: LINES_OUTPUT_STREAM
+   test_log: LINES_OUTPUT_STREAM
 
    collection_sorter: COLLECTION_SORTER[FIXED_STRING]
    good_tests, bad_tests: RING_ARRAY[FIXED_STRING]
@@ -440,7 +440,7 @@ feature {}
       local
          bd: BASIC_DIRECTORY
       do
-         echo.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # bd.current_working_directory)
+         log.info.put_line(once "Server #(1): loading unit tests from #(2)" # port.out # bd.current_working_directory)
          bd.connect_to_current_working_directory
          if bd.is_connected then
             from
@@ -452,28 +452,33 @@ feature {}
             loop
                if bd.last_entry.first /= '.' and then not file_tools.is_directory(bd.last_entry) and then bd.last_entry.has_suffix(once ".e") then
                   if bd.last_entry.has_prefix(once "test") then
-                     echo.put_line(once "Server #(1): adding 'good' tests #(2)" # port.out # bd.last_entry)
+                     log.trace.put_line(once "Server #(1): adding 'good' test #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(good_tests, bd.last_entry.intern)
                   elseif bd.last_entry.has_prefix(once "bad") then
-                     echo.put_line(once "Server #(1): adding 'bad' tests #(2)" # port.out # bd.last_entry)
+                     log.trace.put_line(once "Server #(1): adding 'bad' test #(2)" # port.out # bd.last_entry)
                      collection_sorter.add(bad_tests, bd.last_entry.intern)
                   else
-                     echo.put_line(once "Server #(1): ignoring '#(2)': unknown file pattern" # port.out # bd.last_entry)
+                     log.trace.put_line(once "Server #(1): ignoring '#(2)': unknown file pattern" # port.out # bd.last_entry)
                   end
                else
-                  echo.put_line(once "Server #(1): ignoring '#(2)': not an Eiffel file" # port.out # bd.last_entry)
+                  log.trace.put_line(once "Server #(1): ignoring '#(2)': not an Eiffel file" # port.out # bd.last_entry)
                end
                bd.read_entry
             end
             bd.disconnect
          else
-            log.put_line(once "**** Error: Unable to scan directory %"#(1)%"" # path)
+            test_log.put_line(once "**** Error: Unable to scan directory %"#(1)%"" # path)
             status := status + 1
             disconnect
          end
 
-         log.put_line(once "Found #(1) good test#(2)" # good_tests.count.out # plural(good_tests.count))
-         log.put_line(once "Found #(1) bad test#(2)" # bad_tests.count.out # plural(bad_tests.count))
+         test_log.put_line(once "Found #(1) good test#(2)" # good_tests.count.out # plural(good_tests.count))
+         test_log.put_line(once "Found #(1) bad test#(2)" # bad_tests.count.out # plural(bad_tests.count))
+
+         if log.is_info then
+            log.info.put_line(once "Server #(1): #(2) 'good' test#(3)#(4)" # port.out # good_tests.count.out # plural(good_tests.count) # list(good_tests))
+            log.info.put_line(once "Server #(1): #(2) 'bad' test#(3)#(4)" # port.out # bad_tests.count.out # plural(bad_tests.count) # list(bad_tests))
+         end
       end
 
    plural (count: INTEGER): STRING is
@@ -482,6 +487,23 @@ feature {}
             Result := once ""
          else
             Result := once "s"
+         end
+      end
+
+   list (tests: TRAVERSABLE[FIXED_STRING]): STRING is
+      local
+         i: INTEGER
+      do
+         from
+            Result := once ""
+            Result.clear_count
+            i := tests.lower
+         until
+            i > tests.upper
+         loop
+            Result.extend('%N')
+            Result.append(tests.item(i))
+            i := i + 1
          end
       end
 
@@ -514,7 +536,7 @@ se c -ensure_check
                tfw.disconnect
                load_excluded_lst(filepath)
             else
-               log.put_line(once "**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # filepath)
+               test_log.put_line(once "**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # filepath)
                status := status + 1
                disconnect
             end
@@ -525,7 +547,7 @@ se c -ensure_check
       local
          tfr: TEXT_FILE_READ
       do
-         log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
+         test_log.put_line(once "Server #(1): loading excluded patterns from #(2)" # port.out # filepath)
          create tfr.connect_to(filepath)
          if tfr.is_connected then
             create excluded_patterns.make(0)
@@ -541,7 +563,7 @@ se c -ensure_check
             end
             tfr.disconnect
          else
-            log.put_line(once "**** Error: Unable to read file %"#(1)%". Check for read/write permissions or disk space." # filepath)
+            test_log.put_line(once "**** Error: Unable to read file %"#(1)%". Check for read/write permissions or disk space." # filepath)
             status := status + 1
             disconnect
          end
@@ -552,22 +574,22 @@ se c -ensure_check
 
    check_unused_excluded_patterns is
       require
-         log.is_connected
+         test_log.is_connected
       local
          i, total_unused: INTEGER
       do
          total_unused := excluded_patterns_usage.fast_occurrences(False)
          if total_unused = 0 then
-            log.put_line(once "All entries of the %"excluded.lst%" file were matched.")
+            test_log.put_line(once "All entries of the %"excluded.lst%" file were matched.")
          else
-            log.put_line(once "**** Warning: #(1) entries of %"excluded.lst%" not matched:" # total_unused.out)
+            test_log.put_line(once "**** Warning: #(1) entries of %"excluded.lst%" not matched:" # total_unused.out)
             from
                i := excluded_patterns_usage.lower
             until
                i > excluded_patterns_usage.upper
             loop
                if not excluded_patterns_usage.item(i) then
-                  log.put_line(once "     Entry %"#(1)%" not used." # excluded_patterns.item(i))
+                  test_log.put_line(once "     Entry %"#(1)%" not used." # excluded_patterns.item(i))
                end
                i := i + 1
             end
@@ -581,17 +603,17 @@ se c -ensure_check
          bd: BASIC_DIRECTORY; tfw: TEXT_FILE_WRITE
       do
          bd.compute_file_path_with(once "eiffeltest", once "log.new")
-         echo.put_line(once "Server #(1): opening log file: #(2)" # port.out # bd.last_entry)
+         log.trace.put_line(once "Server #(1): opening log file: #(2)" # port.out # bd.last_entry)
          create tfw.connect_for_appending_to(bd.last_entry)
          if tfw.is_connected then
-            create log.connect_to(tfw)
+            create test_log.connect_to(tfw)
          else
-            echo.w_put_line("**** Error: Unable to create file %"#(1)%". Check for read/write permissions or disk space." # bd.last_entry)
+            log.error.put_line("Unable to create file %"#(1)%". Check for read/write permissions or disk space." # bd.last_entry)
             status := status + 1
             disconnect
          end
       ensure
-         not done implies log /= Void
+         not done implies test_log /= Void
       end
 
 feature {}
@@ -608,15 +630,15 @@ feature {}
             Result or else i > excluded_patterns.upper
          loop
             if log_line.has_substring(excluded_patterns.item(i)) then
-               log.put_line(once "Excluded command: %"#(1)%"." # log_line)
-               log.put_line(once "By excluded.lst:  %"#(1)%"." # excluded_patterns.item(i))
+               test_log.put_line(once "Excluded command: %"#(1)%"." # log_line)
+               test_log.put_line(once "By excluded.lst:  %"#(1)%"." # excluded_patterns.item(i))
                excluded_patterns_usage.put(True, i)
                Result := True
             end
             i := i + 1
          end
          if not Result then
-            log.put_line(log_line)
+            test_log.put_line(log_line)
             action.call([])
          end
       end
@@ -625,17 +647,18 @@ feature {}
       local
          system: SYSTEM; exit_status: INTEGER
       do
-         echo.put_line(once "Server #(1): executing command: #(2)" # port.out # cmd)
+         log.info.put_line(once "Server #(1): executing command: #(2)" # port.out # cmd)
          exit_status := system.execute_command(cmd) --|**** TODO: time box
          if exit_status = exit_success_code then
-            echo.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
+            log.trace.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
          else
             if bad_file_flag then
                -- A bad `exit_status' is just normal.
             else
-               log.put_line(once "**** Error: status #(1) while running: #(2)" # exit_status.out # log_line)
+               log.error.put_line(once "Status #(1) while running: #(2)" # exit_status.out # log_line)
+               test_log.put_line(once "**** Error: status #(1) while running: #(2)" # exit_status.out # log_line)
                if not log_line.is_equal(cmd) then
-                  log.put_line("     Command was: #(1)" # cmd)
+                  test_log.put_line("     Command was: #(1)" # cmd)
                end
                status := status + 1
             end
@@ -655,7 +678,7 @@ feature {}
          path := a_path
          stream := a_stream
          server := a_server
-         echo.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
+         log.trace.put_line(once "Server #(1): loading tests for #(2)" # port.out # path)
          bd.change_current_working_directory(path)
          load_tests
       ensure

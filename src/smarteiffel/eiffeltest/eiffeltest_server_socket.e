@@ -8,7 +8,7 @@ inherit
 
 insert
    EIFFELTEST_NETWORK
-   GLOBALS
+   LOGGING
 
 create {ANY}
    make
@@ -16,21 +16,21 @@ create {ANY}
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET) is
       do
-         echo.put_line(once "Server #(1): prepare server socket" # port.out)
+         log.trace.put_line(once "Server #(1): prepare server socket" # port.out)
          events.expect(server.event_connection)
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN is
       do
          Result := events.event_occurred(server.event_connection)
-         echo.put_line(once "Server #(1): is_ready server socket: #(2)" # port.out # Result.out)
+         log.trace.put_line(once "Server #(1): is_ready server socket: #(2)" # port.out # Result.out)
       end
 
    continue is
       local
          stream: SOCKET_INPUT_OUTPUT_STREAM
       do
-         echo.put_line(once "Server #(1): new connection" # port.out)
+         log.info.put_line(once "Server #(1): new connection" # port.out)
          stream := server.new_stream(True)
          on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(port, stream, Current, on_connect)])
       end
@@ -38,14 +38,14 @@ feature {LOOP_ITEM}
    done: BOOLEAN is
       do
          Result := server = Void or else not server.can_connect
-         echo.put_line(once "Server #(1): server socket done: #(2)" # port.out # Result.out)
+         log.info.put_line(once "Server #(1): server socket done: #(2)" # port.out # Result.out)
       end
 
    restart is
       do
          server := access.server
          if server = Void then
-            echo.w_put_line(once "**** Error: server *not* started on port #(1) (could not create server socket)" # port.out)
+            log.error.put_line(once "Server *not* started on port #(1) (could not create server socket)" # port.out)
             die_with_code(exit_failure_code)
          end
       end
@@ -53,7 +53,7 @@ feature {LOOP_ITEM}
 feature {ANY}
    disconnect is
       do
-         echo.put_line(once "Server #(1): disconnected, shutting down" # port.out)
+         log.info.put_line(once "Server #(1): disconnected, shutting down" # port.out)
          server.shutdown
          on_disconnect.call([])
       end

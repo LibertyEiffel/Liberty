@@ -8,9 +8,10 @@ class EIFFELTEST_NG
 
 insert
    COMMAND_LINE_TOOLS
+   LOGGING
 
 creation {}
-   main
+   make
 
 feature {ANY}
    command_line_name: STRING is "eiffeltest"
@@ -40,10 +41,7 @@ feature {}
       local
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
       do
-         parse_arguments
-         echo.redirect_output_on(once "eiffeltest_ng.log")
-
-         echo.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
+         log.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
 
          if version_flag or else help_flag then
             -- We just finish here.
@@ -56,11 +54,37 @@ feature {}
          end
       end
 
+   make is
+      local
+         log_conf: LOG_CONFIGURATION
+         conf: STRING_INPUT_STREAM
+      do
+         parse_arguments
+         create conf.from_string(once "[
+         log configuration
+         root #(1)
+         output
+            default is
+               file "eiffeltest_ng.log"
+               rotated each day keeping 5
+            end
+         logger
+            #(1) is
+               output default
+               level #(2)
+            end
+         end
+         ]" # generating_type # level)
+         log_conf.load(conf, Void, Void, agent main)
+      end
+
+   level: STRING
+
    parse_arguments is
       local
          i: INTEGER; arg: STRING
       do
-         search_for_verbose_flag
+         level := once "warning"
          from
             i := 1
          until
@@ -68,9 +92,9 @@ feature {}
          loop
             arg := argument(i)
             if is_verbose_flag(arg) then
-               check
-                  already_done: echo.is_verbose
-               end
+               level := once "info"
+            elseif flag_match(once "debug", arg) then
+               level := once "trace"
             elseif is_version_flag(arg) then
                check
                   version_flag

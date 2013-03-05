@@ -3,9 +3,6 @@
 --
 class EIFFELTEST_COMMAND_PROVIDER
 
-insert
-   GLOBALS
-
 create {ANY}
    make
 
@@ -22,20 +19,22 @@ feature {ANY}
          not is_empty
       end
 
-   display is
+   display (stream: OUTPUT_STREAM) is
+      require
+         stream.is_connected
       local
          i: INTEGER
       do
-         echo.put_line(once "================================================================")
+         stream.put_line(once "================================================================")
          from
             i := commands.lower
          until
             i > commands.upper
          loop
-            echo.put_line(once "#(1): #(2)" # i.out # commands.item(i))
+            stream.put_line(once "#(1): #(2)" # i.out # commands.item(i))
             i := i + 1
          end
-         echo.put_line(once "================================================================")
+         stream.put_line(once "================================================================")
       end
 
    count: INTEGER is

@@ -10,7 +10,7 @@ class EIFFELTEST_CLIENT_CONDUCTOR
    --
 
 insert
-   GLOBALS
+   LOGGING
 
 create {ANY}
    make
@@ -40,7 +40,7 @@ feature {}
       local
          i, port: INTEGER; server: EIFFELTEST_CLIENT_SOCKET
       do
-         echo.put_line(once "Number of servers to start: #(1)" # servers_count.out)
+         log.info.put_line(once "Number of servers to start: #(1)" # servers_count.out)
 
          create test_results.make
          create servers_list.with_capacity(servers_count)
@@ -50,7 +50,7 @@ feature {}
             i > servers_count
          loop
             port := 17380 + i
-            echo.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
+            log.info.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
             create server.make(port, commands, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
             test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
             servers_list.add_last(server)
@@ -65,20 +65,20 @@ feature {}
    on_reply (expected_port, actual_port: INTEGER; command: FIXED_STRING; reply: STRING) is
       do
          if expected_port = actual_port then
-            echo.put_line(once "Server #(1) [#(2)]: #(3)" # actual_port.out # command # reply)
+            log.info.put_line(once "Server #(1) [#(2)]: #(3)" # actual_port.out # command # reply)
             test_results.at(actual_port).set_reply(reply)
          else
-            echo.w_put_line(once "**** Error: unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
+            log.error.put_line(once "Unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
          end
       end
 
    on_done (expected_port, actual_port, status: INTEGER) is
       do
          if expected_port = actual_port then
-            echo.put_line(once "Server #(1): exit #(2)" # actual_port.out # status.out)
+            log.info.put_line(once "Server #(1): exit #(2)" # actual_port.out # status.out)
             test_results.at(actual_port).set_done(status)
          else
-            echo.w_put_line(once "**** Error: unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
+            log.error.put_line(once "Unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
          end
       end
 
@@ -107,10 +107,10 @@ feature {}
                bd.compute_file_path_with(eiffeltest_path, "log.new")
                if ft.file_exists(bd.last_entry) then
                   if force then
-                     echo.w_put_line(once "**** Warning: #(1) exists, removing it" # bd.last_entry)
+                     log.warning.put_line(once "#(1) exists, removing it" # bd.last_entry)
                      ft.delete(bd.last_entry)
                   else
-                     echo.w_put_line(once "**** Error: #(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
+                     log.error.put_line(once "#(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
                   end
                end
                if not ft.file_exists(bd.last_entry) then
@@ -200,8 +200,10 @@ feature {}
          servers_count := a_servers_count
          create commands.make
          scan_tree(force, root, std_error)
-         echo.put_line(once "All commands added.")
-         commands.display
+         if log.is_trace then
+            log.trace.put_line(once "All commands added.")
+            commands.display(log.trace)
+         end
       end
 
    stack: LOOP_STACK is
