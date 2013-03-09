@@ -112,9 +112,9 @@ feature {ANY} -- Looking and searching some value:
          i: INTEGER; safe_equal: SAFE_EQUAL[V_]
       do
          from
-            i := 1
+            i := lower
          until
-            i > count
+            i > upper
          loop
             if safe_equal.test(v, item(i)) then
                Result := Result + 1
@@ -133,9 +133,9 @@ feature {ANY} -- Looking and searching some value:
          i: INTEGER
       do
          from
-            i := 1
+            i := lower
          until
-            i > count
+            i > upper
          loop
             if v = item(i) then
                Result := Result + 1
@@ -156,7 +156,7 @@ feature {ANY} -- Looking and searching some value:
          i: INTEGER; safe_equal: SAFE_EQUAL[V_]
       do
          from
-            i := 1
+            i := lower
          until
             safe_equal.test(v, item(i))
          loop
@@ -177,7 +177,7 @@ feature {ANY} -- Looking and searching some value:
          i: INTEGER
       do
          from
-            i := 1
+            i := lower
          until
             v = item(i)
          loop
