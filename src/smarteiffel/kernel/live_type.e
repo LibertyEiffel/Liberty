@@ -1086,18 +1086,25 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
          if structure_signature_memory = Void then
             create Result.make_empty
             structure_signature_memory := Result
+            Result.extend('{')
+            id.append_in(Result)
+            Result.extend(':')
+            debug
+               Result.append(canonical_type_mark.written_mark)
+               Result.extend(':')
+            end
             if canonical_type_mark.is_kernel_expanded then
                ketm ::= canonical_type_mark
                Result.extend(ketm.structure_mark)
             elseif is_native_array then
-               Result.extend('p')
+               Result.extend('n')
             elseif canonical_type_mark.is_agent then
                Result.extend('a')
             elseif writable_attributes = Void then
-               Result.extend('i')
+               Result.extend('0')
             else
                if is_tagged then
-                  Result.extend('i')
+                  Result.extend('T')
                end
                from
                   wa := writable_attributes
@@ -1105,8 +1112,14 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                until
                   i > wa.upper
                loop
-                  lt := wa.item(i).type_of_current.live_type
-                  if lt.is_reference then
+                  lt := smart_eiffel.get_type(wa.item(i).result_type).live_type
+                  if lt = Void then
+                     -- ignored: not a live type
+                  elseif lt.is_reference then
+                     debug
+                        Result.append(lt.canonical_type_mark.written_mark)
+                        Result.extend('|')
+                     end
                      ref_count := ref_count + 1
                   else
                      if ref_count = 1 then
@@ -1116,6 +1129,10 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                         Result.extend('p')
                      end
                      ref_count := 0
+                     debug
+                        Result.append(lt.canonical_type_mark.written_mark)
+                        Result.extend('|')
+                     end
                      Result.append(lt.structure_signature)
                   end
                   i := i + 1
@@ -1127,6 +1144,7 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                   Result.extend('p')
                end
             end
+            Result.extend('}')
          else
             Result := structure_signature_memory
          end

@@ -384,6 +384,7 @@ feature {}
       local
          rf2: RUN_FEATURE_2; t: TYPE; lvtp: LIVE_TYPE; i: INTEGER
       do
+         cpp.recompilation_comment(lt)
          if as_weak_reference = lt.class_text_name.to_string then
             gc_set_fsoh_marked(lt)
          else
@@ -492,7 +493,6 @@ feature {}
             field_name := once "............ unique local buffer ..................."
             field_name.copy(once "o->_")
             field_name.append(rf2.name.to_string)
-            cpp.recompilation_comment(lt)
             if  attribute_type.is_native_array and then insert_native_array_collector_flag(lt) then
                function_body.append(once "{%NT")
                attribute_type.id.append_in(function_body)
