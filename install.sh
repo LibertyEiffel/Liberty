@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=19
+MAXTOOLCOUNT=20
 
 test ${0%/*} != $0 && cd ${0%/*}
 export CC_TYPE=${CC_TYPE:-gcc}
@@ -113,7 +113,8 @@ mock: mocker
 pretty: pretty
 run: run
 short: short
-test: eiffeltest_ng
+test: eiffeltest
+test_ng: eiffeltest_ng
 test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
@@ -274,8 +275,9 @@ EOF
 5 se
 6 clean
 7 ace_check
-8 eiffeltest_ng
-9 eiffeltest_server
+8 eiffeltest
+9 eiffeltest_ng
+10 eiffeltest_server
 EOF
     while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
@@ -284,12 +286,12 @@ EOF
         run ../compile -verbose -boost $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-10 pretty
-11 short
-12 class_check
-13 finder
-14 eiffeldoc
-15 extract_internals
+11 pretty
+12 short
+13 class_check
+14 finder
+15 eiffeldoc
+16 extract_internals
 EOF
 
     while read i tool; do
@@ -303,8 +305,8 @@ EOF
         fi
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-16 wrappers-generator
-17 mocker
+17 wrappers-generator
+18 mocker
 EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
@@ -429,6 +431,8 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
