@@ -743,7 +743,8 @@ feature {ANY}
       local
          rf: RUN_FEATURE; rf2: RUN_FEATURE_2; i: INTEGER
       do
-         if writable_attributes_mem = Void then
+         Result := writable_attributes_mem
+         if Result = Void then
             from
                i := live_features.lower
             until
@@ -752,18 +753,18 @@ feature {ANY}
                rf := live_features.key(i).run_feature_for(type)
                if rf2 ?:= rf then
                   rf2 ::= rf
-                  if writable_attributes_mem = Void then
-                     create writable_attributes_mem.with_capacity(4, 1)
+                  if Result = Void then
+                     create Result.with_capacity(4, 1)
+                     writable_attributes_mem := Result
                   end
-                  writable_attributes_mem.add_last(rf2)
+                  Result.add_last(rf2)
                end
                i := i + 1
             end
-            if writable_attributes_mem /= Void then
-               sort_wam(writable_attributes_mem)
+            if Result /= Void then
+               sort_wam(Result)
             end
          end
-         Result := writable_attributes_mem
       ensure
          Result /= Void implies not Result.is_empty
       end
@@ -794,10 +795,7 @@ feature {ANY}
       do
          if default_create_stamp /= Void then
             if default_create_run_feature_memory = Void then
-               default_create_run_feature_memory ?= default_create_stamp.run_feature_for(type)
-               check
-                  default_create_run_feature_memory /= Void
-               end
+               default_create_run_feature_memory ::= default_create_stamp.run_feature_for(type)
             end
             if not default_create_run_feature_memory.side_effect_free then
                -- The `default_create_run_feature_memory' is actually doing something.
@@ -1083,7 +1081,8 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
       local
          wa: like writable_attributes; i, ref_count: INTEGER; lt: LIVE_TYPE; ketm: KERNEL_EXPANDED_TYPE_MARK
       do
-         if structure_signature_memory = Void then
+         Result := structure_signature_memory
+         if Result = Void then
             create Result.make_empty
             structure_signature_memory := Result
             Result.extend('{')
@@ -1145,8 +1144,6 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                end
             end
             Result.extend('}')
-         else
-            Result := structure_signature_memory
          end
       end
 
