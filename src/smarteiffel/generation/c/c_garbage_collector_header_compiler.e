@@ -54,7 +54,7 @@ feature {}
          ltid.append_in(out_h)
          out_h.append(once "{T")
          ltid.append_in(out_h)
-         out_h.append(once " object;union {void*flag;gc")
+         out_h.append(once " object;struct {void*flag;gc") --| **** TODO: why was it union???
          ltid.append_in(out_h)
          out_h.append(once "*next;} header;};%N")
          cpp.write_out_h_buffer
