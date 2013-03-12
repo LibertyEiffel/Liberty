@@ -226,33 +226,46 @@ EOF
     progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
     grep -v '^#' compile_to_c.make | while read cmd; do
-        progress 30 1 $MAXTOOLCOUNT "$cmd"
+        progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
         run $cmd || exit 1
     done
-    if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-        rm compile_to_c.new
-    else
+    progress 30 1 $MAXTOOLCOUNT "T1: save"
+    mkdir T1
+    cp -a compile_to_c* T1/
+    progress 30 1 $MAXTOOLCOUNT "T1: check"
+    if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
+        rm compile_to_c.make
         mv compile_to_c.new compile_to_c
         progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
         grep -v '^#' compile_to_c.make | while read cmd; do
-            progress 30 2 $MAXTOOLCOUNT "$cmd"
+            progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
             run $cmd || exit 1
         done
-        if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-            rm compile_to_c.new
-        else
+        progress 30 1 $MAXTOOLCOUNT "T2: save"
+        mkdir T2
+        cp -a compile_to_c* T2/
+        progress 30 1 $MAXTOOLCOUNT "T2: check"
+        if grep "$CC" compile_to_c.make >/dev/null 2>&1; then
+            rm compile_to_c.make
             mv compile_to_c.new compile_to_c
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-                rm compile_to_c.new
-            else
+            progress 30 1 $MAXTOOLCOUNT "T3: save"
+            mkdir T3
+            cp -a compile_to_c* T3/
+            progress 30 1 $MAXTOOLCOUNT "T3: check"
+            if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
+                echo
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
             fi
+        else
+            rm compile_to_c.new
         fi
+    else
+        rm compile_to_c.new
     fi
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 

@@ -1085,10 +1085,10 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
          if Result = Void then
             create Result.make_empty
             structure_signature_memory := Result
-            Result.extend('{')
-            id.append_in(Result)
-            Result.extend(':')
             debug
+               Result.extend('{')
+               id.append_in(Result)
+               Result.extend(':')
                Result.append(canonical_type_mark.written_mark)
                Result.extend(':')
             end
@@ -1143,7 +1143,9 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                   Result.extend('p')
                end
             end
-            Result.extend('}')
+            debug
+               Result.extend('}')
+            end
          end
       end
 
