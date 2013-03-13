@@ -1025,6 +1025,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             echo.w_put_string("%".%NThen, rename this file as %"")
             echo.w_put_string(log_ref_path)
             echo.w_put_string("%".%N")
+            final_die_with_code_result := exit_failure_code
          elseif file_tools.same_files(log_ref_path, log_new_path) then
             echo.put_string("Identical %"log.ref%" / %"log.new%" files in%N directory %"")
             echo.put_string(eiffeltest_directory_path)
@@ -1037,6 +1038,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             echo.w_put_string("%".%Nwith %"")
             echo.w_put_string(log_ref_path)
             echo.w_put_string("%".%NOverwrite %"log.ref%" with %"log.new%" if you agree.%N")
+            final_die_with_code_result := exit_failure_code
          end
       end
 
