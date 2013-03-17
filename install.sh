@@ -271,12 +271,11 @@ EOF
                 exit 1
             fi
         else
-            rm compile_to_c.new
+            rm -f compile_to_c.new
         fi
     else
-        rm compile_to_c.new
+        rm -f compile_to_c.new
     fi
-    rm compile_to_c.new
 
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
