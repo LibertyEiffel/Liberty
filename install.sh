@@ -8,7 +8,7 @@ export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
-export plain=FALSE
+export plain=${plain:-FALSE}
 export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
@@ -16,21 +16,30 @@ unset CDPATH
 
 function check_prerequisites()
 {
+    title "Checking required programs."
+    i=0
     for PROGRAM in $PREREQUISITES; do
-        if which $PROGRAM >/dev/null;
-        then echo $PROGRAM found;
-        else echo "$PROGRAM not found"; exit 5
-        fi;
+        progress 30 $i 3 "Checking $PROGRAM..."
+        if which $PROGRAM >/dev/null; then
+            : # all right
+        else
+            error_message "$PROGRAM not found, cannot proceed"
+            exit 5
+        fi
+        i=$(($i + 1))
     done
+    progress 30 3 3 "All programs present, proceeding."
+    echo
 }
 
 function bootstrap()
 {
     cd $LIBERTY_HOME
-    check_prerequisites
     test -d target || mkdir target
     cd target
     test -d log || mkdir log
+
+    check_prerequisites
 
     if [ ! -d bin ]; then
         title "Preparing target"
@@ -229,9 +238,8 @@ EOF
         progress 30 1 $MAXTOOLCOUNT "$cmd"
         run $cmd || exit 1
     done
-    if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-        rm compile_to_c.new
-    else
+    progress 30 1 $MAXTOOLCOUNT "diff T1"
+    if grep -q "^$CC" compile_to_c.make >/dev/null 2>&1; then
         mv compile_to_c.new compile_to_c
         progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
@@ -239,21 +247,21 @@ EOF
             progress 30 2 $MAXTOOLCOUNT "$cmd"
             run $cmd || exit 1
         done
-        if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-            rm compile_to_c.new
-        else
+        progress 30 2 $MAXTOOLCOUNT "diff T2"
+        if grep -q "^$CC" compile_to_c.make >/dev/null 2>&1; then
             mv compile_to_c.new compile_to_c
             progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
             run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if diff -q compile_to_c compile_to_c.new >/dev/null 2>&1; then
-                rm compile_to_c.new
-            else
+            progress 30 2 $MAXTOOLCOUNT "diff T3"
+            if grep -q "^$CC" compile_to_c.make >/dev/null 2>&1; then
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
             fi
         fi
     fi
+    rm compile_to_c.new
+
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
     progress 30 4 $MAXTOOLCOUNT "compile"
@@ -438,9 +446,9 @@ x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -O2
+c_compiler_options: -pipe -O1
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O2
+cpp_compiler_options: -pipe -O1
 
 [no_check]
 c_compiler_type: gcc
