@@ -103,11 +103,11 @@ static int chunk_rounded(int size) {
   return rounded_size;
 }
 
-/* Return the index where chunk `c' is (or is to be) in the `gcmt', 
+/* Return the index where chunk `c' is (or is to be) in the `gcmt',
    between `min' and `max' indexes. */
-static unsigned int binary_search_in_gcmt(register unsigned int min, 
-					  register unsigned int max, 
-					  register mch* c){
+static unsigned int binary_search_in_gcmt(register unsigned int min,
+                                          register unsigned int max,
+                                          register mch* c){
   register unsigned int mid;
   while (min<max){
     mid=(min+max)>>1;
@@ -137,15 +137,15 @@ static void may_free_rsocfl(void) {
     while (NULL != current) {
       next=current->next;
       if (current->isize == current->header.size) {
-	where = binary_search_in_gcmt(0, where-1, (mch*)current);
-	how_many = gcmt_used - 1 - where;
-	if (how_many > 0)
-	  memmove(gcmt+where, gcmt+where+1, how_many*sizeof(mch*));
-	free(current); gcmt_used--; rsoc_count--;
+        where = binary_search_in_gcmt(0, where-1, (mch*)current);
+        how_many = gcmt_used - 1 - where;
+        if (how_many > 0)
+          memmove(gcmt+where, gcmt+where+1, how_many*sizeof(mch*));
+        free(current); gcmt_used--; rsoc_count--;
       }
       else {
-	current->next=rsocfl;
-	rsocfl=current;
+        current->next=rsocfl;
+        rsocfl=current;
       }
       current = next;
     }
@@ -197,49 +197,49 @@ void gc_sweep(void) {
   while (p1 < eogcmt) {
     if (FREE_CHUNK((*p1)->state_type)) {
       if (RSO_FREE_CHUNK == ((*p1)->state_type)) {
-	if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
-	  if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
-	    ((*p2)->size)+=((*p1)->size);
-	    p1++;
-	  }
-	  else {
-	    ((rsoc*)(*p1))->next=rsocfl;
-	    rsocfl=((rsoc*)(*p1));
-	    *(p2+1)=*p1; p2++; p1++;
-	  }
-	}
-	else {
-	  ((rsoc*)(*p1))->next=rsocfl;
-	  rsocfl=((rsoc*)(*p1));
-	  *(p2+1)=*p1; p2++; p1++;
-	}
+        if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
+          if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
+            ((*p2)->size)+=((*p1)->size);
+            p1++;
+          }
+          else {
+            ((rsoc*)(*p1))->next=rsocfl;
+            rsocfl=((rsoc*)(*p1));
+            *(p2+1)=*p1; p2++; p1++;
+          }
+        }
+        else {
+          ((rsoc*)(*p1))->next=rsocfl;
+          rsocfl=((rsoc*)(*p1));
+          *(p2+1)=*p1; p2++; p1++;
+        }
       }
       else {
-	*(p2+1)=*p1; p2++; p1++;
+        *(p2+1)=*p1; p2++; p1++;
       }
     }
     else {
       ((*p1)->swfp)(*p1);
       if (RSO_FREE_CHUNK == ((*p1)->state_type)) {
-	if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
-	  if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
-	    ((*p2)->size)+=((*p1)->size);
-	    p1++;
-	  }
-	  else {
-	    ((rsoc*)(*p1))->next=rsocfl;
-	    rsocfl=((rsoc*)(*p1));
-	    *(p2+1)=*p1; p2++; p1++;
-	  }
-	}
-	else {
-	  ((rsoc*)(*p1))->next=rsocfl;
-	  rsocfl=((rsoc*)(*p1));
-	  *(p2+1)=*p1; p2++; p1++;
-	}
+        if (RSO_FREE_CHUNK == ((*p2)->state_type)) {
+          if ( (((rsoc*)*p1)->isize==0) && ((char*)(*p2))+(*p2)->size == ((char*)(*p1))) {
+            ((*p2)->size)+=((*p1)->size);
+            p1++;
+          }
+          else {
+            ((rsoc*)(*p1))->next=rsocfl;
+            rsocfl=((rsoc*)(*p1));
+            *(p2+1)=*p1; p2++; p1++;
+          }
+        }
+        else {
+          ((rsoc*)(*p1))->next=rsocfl;
+          rsocfl=((rsoc*)(*p1));
+          *(p2+1)=*p1; p2++; p1++;
+        }
       }
       else {
-	*(p2+1)=*p1; p2++; p1++;
+        *(p2+1)=*p1; p2++; p1++;
       }
     }
   }
@@ -247,8 +247,8 @@ void gc_sweep(void) {
   may_free_rsocfl();
 }
 
-/* return the mch containing p or NULL if p is not 
- * a valid address or was externally allocated 
+/* return the mch containing p or NULL if p is not
+ * a valid address or was externally allocated
  */
 mch * gc_find_chunk(void * p){
   if ((p>((void*)*gcmt))&&(p<=gcmt_tail_addr)) {
@@ -258,16 +258,16 @@ mch * gc_find_chunk(void * p){
     mch*c;
     for (;i2>i1;m=((i1+i2)>>1)) {
       if (p<=((void*)gcmt[m+1])) {
-	i2=m;
+        i2=m;
       }
       else {
-	i1=m+1;
+        i1=m+1;
       }
     }
     c=gcmt[i2];
     if((char*)p<(char*)c+c->size)   /* check for upper bound */
       if (!(FREE_CHUNK(c->state_type))){
-	return c;
+        return c;
       }
   }
   return NULL;
@@ -310,28 +310,28 @@ int garbage_delayed(void) {
   if (gc_stack_size() > GCLARGESTACK) {
     if (fsoc_count_ceil <= fsoc_count) {
       if (rsoc_count_ceil <= rsoc_count) {
-	if ((fsoc_count<FSOC_LIMIT)&&(rsoc_count<RSOC_LIMIT)) {
-	  fsoc_count_ceil++;
-	  rsoc_count_ceil++;
-	  return 1;
-	}
-	else return 0;
+        if ((fsoc_count<FSOC_LIMIT)&&(rsoc_count<RSOC_LIMIT)) {
+          fsoc_count_ceil++;
+          rsoc_count_ceil++;
+          return 1;
+        }
+        else return 0;
       }
       else {
-	if (fsoc_count<FSOC_LIMIT) {
-	  fsoc_count_ceil++;
-	  return 1;
-	}
-	else return 0;
+        if (fsoc_count<FSOC_LIMIT) {
+          fsoc_count_ceil++;
+          return 1;
+        }
+        else return 0;
       }
     }
     else {
       if (rsoc_count_ceil <= rsoc_count) {
-	if (rsoc_count<RSOC_LIMIT) {
-	  rsoc_count_ceil++;
-	  return 1;
-	}
-	else return 0;
+        if (rsoc_count<RSOC_LIMIT) {
+          rsoc_count_ceil++;
+          return 1;
+        }
+        else return 0;
       }
       else return 0;
     }
@@ -370,7 +370,7 @@ void gc_update_ceils(void) {
     else {
       unsigned int c = fsoc_count + (fsoc_count/3);
       if (fsoc_count_ceil < c)
-	fsoc_count_ceil = c;
+        fsoc_count_ceil = c;
     }
   }
   /* --perf-- }
@@ -389,7 +389,7 @@ void gc_update_ceils(void) {
     else {
       unsigned int c = rsoc_count + (rsoc_count / 3);
       if (rsoc_count_ceil < c) {
-	rsoc_count_ceil = c;
+        rsoc_count_ceil = c;
       }
     }
   }
@@ -412,10 +412,10 @@ static void gc_add_into_gcmt(mch*c) {
     where=binary_search_in_gcmt(0, gcmt_used-1, c);
     if (gcmt_used == gcmt_max) {
       gcmt_max <<= 1;
-      gcmt = ((mch**)(se_realloc(gcmt,(gcmt_max+1)*sizeof(void*))));
+      gcmt = ((mch**)(se_realloc(gcmt,(gcmt_max+1)*sizeof(mch*))));
     }
     how_many = gcmt_used - where;
-    if (how_many > 0)    
+    if (how_many > 0)
       memmove(gcmt+where+1, gcmt+where, how_many*sizeof(mch*));
   }
   gcmt[where]=c;
@@ -462,11 +462,11 @@ static void rsoc_sweep(rsoc*c) {
       gp->header.magic_flag=RSOH_UNMARKED;
       gp=((rsoh*)(((char*)gp)+gp->header.size));
       if(gp>=eoc) {
-	/* No need to register chunks with no free_list_of_large
-	c->next=nae->chunk_list;
-	nae->chunk_list=c;
-	*/
-	return;
+        /* No need to register chunks with no free_list_of_large
+        c->next=nae->chunk_list;
+        nae->chunk_list=c;
+        */
+        return;
       }
     }
     gp->header.magic_flag=RSOH_FREE;
@@ -477,20 +477,20 @@ static void rsoc_sweep(rsoc*c) {
     }
     if (gp->header.size >= RSOC_MIN_STORE) {
       if (nae->store_left==0) {
-	nae->store_left=gp->header.size;
-	nae->store=gp;
-	nae->store_chunk=c;
+        nae->store_left=gp->header.size;
+        nae->store=gp;
+        nae->store_chunk=c;
       }
       else if (nae->store->header.size < gp->header.size) {
-	((fll_rsoh*)nae->store)->nextflol=nae->store_chunk->free_list_of_large;
-	nae->store_chunk->free_list_of_large=((fll_rsoh*)nae->store);
-	nae->store_left=gp->header.size;
-	nae->store=gp;
-	nae->store_chunk=c;
+        ((fll_rsoh*)nae->store)->nextflol=nae->store_chunk->free_list_of_large;
+        nae->store_chunk->free_list_of_large=((fll_rsoh*)nae->store);
+        nae->store_left=gp->header.size;
+        nae->store=gp;
+        nae->store_chunk=c;
       }
       else {
-	((fll_rsoh*)gp)->nextflol=c->free_list_of_large;
-	c->free_list_of_large=((fll_rsoh*)gp);
+        ((fll_rsoh*)gp)->nextflol=c->free_list_of_large;
+        c->free_list_of_large=((fll_rsoh*)gp);
       }
     }
     gp=pp;
@@ -508,16 +508,12 @@ static void rsoc_sweep(rsoc*c) {
 }
 
 /* *** To be removed */
-#ifdef __TINYC__
-static rsoc MRSOC = {
-#else
 static const rsoc MRSOC = {
-#endif
     {
-	RSOC_SIZE,
-	RSO_USED_CHUNK,
-	((void(*)(mch*,void*))gcna_align_mark),
-	((void(*)(mch*))rsoc_sweep)
+        RSOC_SIZE,
+        RSO_USED_CHUNK,
+        ((void(*)(mch*,void*))gcna_align_mark),
+        ((void(*)(mch*))rsoc_sweep)
     },
     0,
     NULL,
@@ -525,8 +521,8 @@ static const rsoc MRSOC = {
     NULL,
     {
       {
-	0,
-	RSOH_MARKED
+        0,
+        RSOH_MARKED
       }
     }
 };
@@ -581,10 +577,10 @@ static rsoc* rsocfl_best_fit(unsigned int size) {
   if ((best_size - size) > acceptable_loss){
     do {
       if ((c->header.size >= size) && (c->header.size < best_size)) {
-	best_c = c;
-	best_pc = pc;
-	best_size = c->header.size;
-	if ((best_size - size) <= acceptable_loss) break;
+        best_c = c;
+        best_pc = pc;
+        best_size = c->header.size;
+        if ((best_size - size) <= acceptable_loss) break;
       }
       pc=c;
       c=c->next;
@@ -610,10 +606,10 @@ static int get_store_in(rsoc*c,unsigned int size) {
       nae->store=(rsoh*)f;
       nae->store_chunk=c;
       if (pf == NULL) {
-	c->free_list_of_large=f->nextflol;
+        c->free_list_of_large=f->nextflol;
       }
       else {
-	pf->nextflol=f->nextflol;
+        pf->nextflol=f->nextflol;
       }
       return 1;
     }
@@ -637,23 +633,23 @@ char*new_na_from_chunk_list(na_env*nae,unsigned int size) {
   if (c != NULL){
     if (c->header.size > RSOC_SIZE) {
       if (c->header.size-csize > RSOC_MIN_STORE*4) {
-	int csize_left=c->header.size-csize;
-	if ((csize_left%sizeof(double))!=0) {
-	  csize_left-=(csize_left%sizeof(double));
-	  csize=c->header.size-csize_left;
-	}
-	c->header.size=csize_left;
-	c->next=rsocfl;
-	rsocfl=c;
-	c=(rsoc*)(((char*)c)+csize_left);
-	c->isize=0; /* c split from a larger chunk */
-	gc_add_into_gcmt((mch*)c);      
-	c->header.amfp=(void(*)(mch*,void*))gcna_align_mark;
-	c->header.swfp=(void(*)(mch*))rsoc_sweep;
+        int csize_left=c->header.size-csize;
+        if ((csize_left%sizeof(void*))!=0) {
+          csize_left-=(csize_left%sizeof(void*));
+          csize=c->header.size-csize_left;
+        }
+        c->header.size=csize_left;
+        c->next=rsocfl;
+        rsocfl=c;
+        c=(rsoc*)(((char*)c)+csize_left);
+        c->isize=0; /* c split from a larger chunk */
+        gc_add_into_gcmt((mch*)c);
+        c->header.amfp=(void(*)(mch*,void*))gcna_align_mark;
+        c->header.swfp=(void(*)(mch*))rsoc_sweep;
       }
       /* since objects bigger than RSOC_SIZE must be the only object in their chunk, we do not want to have
-	 some store left after them. Therefore, we do not set csize to c->header.size in an else block
-	 here. */
+         some store left after them. Therefore, we do not set csize to c->header.size in an else block
+         here. */
       c->header.size=csize;
     }
     else {
@@ -777,7 +773,7 @@ static void gcna_align_mark(rsoc*c,void*o) {
   char* b = (char*)&(c->first_header);
 
   /* properly aligned ? */
-  if (((((char*)o)-((char*)c))%sizeof(int)) != 0) {
+  if (((((char*)o)-((char*)c))%sizeof(void*)) != 0) {
       return;
   }
   /* already marked ? */
@@ -790,7 +786,7 @@ static void gcna_align_mark(rsoc*c,void*o) {
   /* a large chunck ? */
   if (c->header.size > RSOC_SIZE) {
       if (o == (c+1)) {
-	nae->gc_mark((T0*)o);
+        nae->gc_mark((T0*)o);
       }
       return;
   }
@@ -839,7 +835,7 @@ void gc_dispose_before_exit(void) {
 
   while (p < eogcmt) {
     if (((*p)->state_type == FSO_STORE_CHUNK) ||
-	((*p)->state_type == FSO_USED_CHUNK)) {
+        ((*p)->state_type == FSO_USED_CHUNK)) {
       ((*p)->swfp)(*p);
     }
     p++;
@@ -997,7 +993,7 @@ __inline__ void mark_stack_and_registers(void)
 
    : /* no output */
    : "p" (pointer_to_gc_mark)
-   : "p0", "p1", "p2", "i0" 
+   : "p0", "p1", "p2", "i0"
    );
 }
 
@@ -1014,12 +1010,12 @@ void mark_stack_and_registers(void){
   void** max = stack_bottom;
   JMP_BUF registers;   /* The jmp_buf buffer is in the C stack. */
   void**stack_pointer; /* Used to traverse the stack and registers assuming
-			  that `setjmp' will save registers in the C stack.
-		       */
+                          that `setjmp' will save registers in the C stack.
+                       */
 
   (void)SETJMP(registers);  /* To fill the C stack with registers. */
   stack_pointer = (void**)(void*)(&registers) + ((sizeof(JMP_BUF)/sizeof(void*))-1);
-  /* stack_pointer will traverse the JMP_BUF as well (jmp_buf size is added, 
+  /* stack_pointer will traverse the JMP_BUF as well (jmp_buf size is added,
      otherwise stack_pointer would be below the registers structure). */
 
 #  if !defined(SE_BOOST)
@@ -1042,8 +1038,8 @@ void mark_stack_and_registers(void){
   void** max = stack_bottom;
   JMP_BUF registers;   /* The jmp_buf buffer is in the C stack. */
   void**stack_pointer; /* Used to traverse the stack and registers assuming
-			  that `setjmp' will save registers in the C stack.
-		       */
+                          that `setjmp' will save registers in the C stack.
+                       */
 
   (void)SETJMP(registers);  /* To fill the C stack with registers. */
   stack_pointer = (void**)(void*)(&registers);
@@ -1059,4 +1055,3 @@ void mark_stack_and_registers(void){
   }
 }
 #endif
-
