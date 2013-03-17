@@ -2,24 +2,23 @@
 -- See the full copyright at the end.
 --
 deferred class COMPLEX_MATH[A_PRECISION->NUMERIC]
-	-- Complex constants and utility features
 
 feature {ANY} -- 
-	complex (a_real, an_imaginary: A_PRECISION): COMPLEX[A_PRECISION] is
-		do
+   complex (a_real, an_imaginary: A_PRECISION): COMPLEX[A_PRECISION] is
+      do
 			Result.set(a_real,an_imaginary)
 		end
 
 feature {ANY} -- Complex constants:
-   i: COMPLEX_GENERAL[A_PRECISION] is 
-		-- complex i
-	local a_number: A_PRECISION
-	do 
-		Result.set(a_number.zero, a_number.one)
-	end 
+   i: COMPLEX_GENERAL[A_PRECISION] is
+         -- complex i
+      local
+         a_number: A_PRECISION
+      do 
+         Result.set(a_number.zero, a_number.one)
+      end
 
-
-end -- class COMPLEX_CONSTANTS
+end -- class COMPLEX_MATH
 --
 -- Copyright (c) 2011 Paolo Redaelli
 --

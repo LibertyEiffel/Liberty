@@ -690,7 +690,7 @@ feature {ANY} -- Interfacing with other languages:
 invariant
    capacity >= 0
 
-end
+end -- class FIXED_ARRAY
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
