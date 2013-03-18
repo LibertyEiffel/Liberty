@@ -14,6 +14,9 @@ export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
+#BOOST_OPT="-fgcse"
+#BOOST_OPT="-fgcse-lm -finline-small-functions -fdevirtualize -fexpensive-optimizations -fcaller-saves -fcrossjumping -fcse-follow-jumps -fcse-skip-blocks -fdelete-null-pointer-checks -fthread-jumps -falign-functions -falign-jumps -falign-loops -falign-labels -findirect-inlining -fipa-sra -foptimize-sibling-calls -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp"
+
 function check_prerequisites()
 {
     title "Checking required programs."
@@ -133,11 +136,11 @@ x_int: extract_internals
 -- smarteiffel_options: -no_strip
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -pipe -O2 -fno-gcse
 c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O1
+cpp_compiler_options: -pipe -O2 -fno-gcse
 cpp_linker_path: $CC
 
 [no_check]
@@ -232,7 +235,7 @@ EOF
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
-    progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
+    progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
     grep -v '^#' compile_to_c.make | while read cmd; do
         progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
@@ -244,8 +247,8 @@ EOF
     progress 30 1 $MAXTOOLCOUNT "T1: check"
     if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
         rm compile_to_c.make
-        mv compile_to_c.new compile_to_c
-        progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
+        cp -a compile_to_c.new compile_to_c
+        progress 30 2 $MAXTOOLCOUNT "T2: compile_to_c"
         run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
         grep -v '^#' compile_to_c.make | while read cmd; do
             progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
@@ -257,9 +260,9 @@ EOF
         progress 30 1 $MAXTOOLCOUNT "T2: check"
         if grep "$CC" compile_to_c.make >/dev/null 2>&1; then
             rm compile_to_c.make
-            mv compile_to_c.new compile_to_c
-            progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
-            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
+            cp -a compile_to_c.new compile_to_c
+            progress 30 3 $MAXTOOLCOUNT "T3: compile_to_c"
+            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
             progress 30 1 $MAXTOOLCOUNT "T3: save"
             mkdir T3
             cp -a compile_to_c* T3/
