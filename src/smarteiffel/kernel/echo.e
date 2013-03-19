@@ -372,9 +372,15 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       end
 
 feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbose' status).
-   w_put_string (msg: STRING) is
+   w_put_string (msg: ABSTRACT_STRING) is
       do
          error_stream.put_string(msg)
+         error_stream.flush
+      end
+
+   w_put_line (msg: ABSTRACT_STRING) is
+      do
+         error_stream.put_line(msg)
          error_stream.flush
       end
 
@@ -397,12 +403,12 @@ feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbos
          i: INTEGER
       do
          from
-            i := n
+            i := 1
          until
-            i = 0
+            i > n
          loop
             error_stream.put_character(' ')
-            i := i - 1
+            i := i + 1
          end
          error_stream.flush
       end
@@ -428,7 +434,7 @@ feature {NEW_ECHO}
    output_path: STRING
 
 feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
-   redirect_output_on (new_output_path: like output_path) is
+   redirect_output_on (new_output_path: ABSTRACT_STRING) is
          -- -output_error_warning_on
       require
          not new_output_path.is_empty
@@ -440,9 +446,10 @@ feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
          if text_file_write.is_connected then
             -- We can now safely apply the redirection:
             output_state := state_on_file
-            output_stream := text_file_write
-            error_stream := text_file_write
-            output_path := new_output_path
+            create {LINES_OUTPUT_STREAM} output_stream.connect_to(text_file_write)
+            error_stream := output_stream
+            output_path := once "................................................................"
+            output_path.make_from_string(new_output_path)
          else
             w_put_string(once "Unable to write error(s)/warning(s) redirection output file %"")
             w_put_string(new_output_path)

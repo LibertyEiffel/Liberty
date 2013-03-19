@@ -140,6 +140,7 @@ progress() {
     current=$2
     max=$3
     label="$4"
+    echo '~~~~ '$label' ~~~~' >> $LOG
     if test $plain = TRUE; then
         awk 'BEGIN {
                 printf(" * %02d/%02d: %s\n", '$current', '$max', "'"$label"'");
@@ -167,8 +168,8 @@ error_message() {
         tput setaf 1
         tput bold
     fi
-    echo "$1"
-    echo "$2"
+    echo "$1" | tee -a $LOG
+    echo "$2" | tee -a $LOG
     if test $plain = FALSE; then
         tput setaf 0
         tput sgr0

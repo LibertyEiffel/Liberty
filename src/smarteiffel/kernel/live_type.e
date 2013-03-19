@@ -743,7 +743,8 @@ feature {ANY}
       local
          rf: RUN_FEATURE; rf2: RUN_FEATURE_2; i: INTEGER
       do
-         if writable_attributes_mem = Void then
+         Result := writable_attributes_mem
+         if Result = Void then
             from
                i := live_features.lower
             until
@@ -752,18 +753,18 @@ feature {ANY}
                rf := live_features.key(i).run_feature_for(type)
                if rf2 ?:= rf then
                   rf2 ::= rf
-                  if writable_attributes_mem = Void then
-                     create writable_attributes_mem.with_capacity(4, 1)
+                  if Result = Void then
+                     create Result.with_capacity(4, 1)
+                     writable_attributes_mem := Result
                   end
-                  writable_attributes_mem.add_last(rf2)
+                  Result.add_last(rf2)
                end
                i := i + 1
             end
-            if writable_attributes_mem /= Void then
-               sort_wam(writable_attributes_mem)
+            if Result /= Void then
+               sort_wam(Result)
             end
          end
-         Result := writable_attributes_mem
       ensure
          Result /= Void implies not Result.is_empty
       end
@@ -794,10 +795,7 @@ feature {ANY}
       do
          if default_create_stamp /= Void then
             if default_create_run_feature_memory = Void then
-               default_create_run_feature_memory ?= default_create_stamp.run_feature_for(type)
-               check
-                  default_create_run_feature_memory /= Void
-               end
+               default_create_run_feature_memory ::= default_create_stamp.run_feature_for(type)
             end
             if not default_create_run_feature_memory.side_effect_free then
                -- The `default_create_run_feature_memory' is actually doing something.
@@ -1083,21 +1081,29 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
       local
          wa: like writable_attributes; i, ref_count: INTEGER; lt: LIVE_TYPE; ketm: KERNEL_EXPANDED_TYPE_MARK
       do
-         if structure_signature_memory = Void then
+         Result := structure_signature_memory
+         if Result = Void then
             create Result.make_empty
             structure_signature_memory := Result
+            debug
+               Result.extend('{')
+               id.append_in(Result)
+               Result.extend(':')
+               Result.append(canonical_type_mark.written_mark)
+               Result.extend(':')
+            end
             if canonical_type_mark.is_kernel_expanded then
                ketm ::= canonical_type_mark
                Result.extend(ketm.structure_mark)
             elseif is_native_array then
-               Result.extend('p')
+               Result.extend('n')
             elseif canonical_type_mark.is_agent then
                Result.extend('a')
             elseif writable_attributes = Void then
-               Result.extend('i')
+               Result.extend('0')
             else
                if is_tagged then
-                  Result.extend('i')
+                  Result.extend('T')
                end
                from
                   wa := writable_attributes
@@ -1105,8 +1111,14 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                until
                   i > wa.upper
                loop
-                  lt := wa.item(i).type_of_current.live_type
-                  if lt.is_reference then
+                  lt := smart_eiffel.get_type(wa.item(i).result_type).live_type
+                  if lt = Void then
+                     -- ignored: not a live type
+                  elseif lt.is_reference then
+                     debug
+                        Result.append(lt.canonical_type_mark.written_mark)
+                        Result.extend('|')
+                     end
                      ref_count := ref_count + 1
                   else
                      if ref_count = 1 then
@@ -1116,6 +1128,10 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                         Result.extend('p')
                      end
                      ref_count := 0
+                     debug
+                        Result.append(lt.canonical_type_mark.written_mark)
+                        Result.extend('|')
+                     end
                      Result.append(lt.structure_signature)
                   end
                   i := i + 1
@@ -1127,8 +1143,9 @@ feature {C_PRETTY_PRINTER, LIVE_TYPE}
                   Result.extend('p')
                end
             end
-         else
-            Result := structure_signature_memory
+            debug
+               Result.extend('}')
+            end
          end
       end
 

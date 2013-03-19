@@ -4054,10 +4054,6 @@ feature {}
          iff, ief, irf: BOOLEAN
          a: like arguments; lv: like local_vars
       do
-         check
-            tmp_feature.busy
-         end
-
          outer_feature := tmp_feature
          iff := inside_function_flag
          ief := inside_ensure_flag

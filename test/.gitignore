@@ -1,3 +1,7 @@
-eiffeltest
-*.[ch]
+*.[cho]
+*.[ch]pp
 *.id
+*.make
+*.new
+*_mock.e
+*_expect.e

@@ -4,6 +4,7 @@
 ./code
 ./commands
 ./config
+./eiffeltest
 ./expression
 ./feature
 ./generation

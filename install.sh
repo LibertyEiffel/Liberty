@@ -1,35 +1,48 @@
 #!/usr/bin/env bash
 
-MAXTOOLCOUNT=18
+MAXTOOLCOUNT=20
 
 test ${0%/*} != $0 && cd ${0%/*}
-export CC=${CC:-gcc}
+export CC_TYPE=${CC_TYPE:-gcc}
+export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export PATH=$LIBERTY_HOME/target/bin:$PATH
-export plain=FALSE
+export plain=${plain:-FALSE}
 export LOG=$LIBERTY_HOME/target/log/install$(date +'-%Y%m%d-%H%M%S').log
 export PREREQUISITES="$CC $CXX gccxml"
 unset CDPATH
 . $LIBERTY_HOME/work/tools.sh
 
+#BOOST_OPT="-fgcse"
+#BOOST_OPT="-fgcse-lm -finline-small-functions -fdevirtualize -fexpensive-optimizations -fcaller-saves -fcrossjumping -fcse-follow-jumps -fcse-skip-blocks -fdelete-null-pointer-checks -fthread-jumps -falign-functions -falign-jumps -falign-loops -falign-labels -findirect-inlining -fipa-sra -foptimize-sibling-calls -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp -fpartial-inlining -fpeephole2 -fregmove -freorder-blocks -freorder-functions -frerun-cse-after-loop -fsched-interblock -fsched-spec -fschedule-insns -fschedule-insns2 -fstrict-aliasing -fstrict-overflow -ftree-switch-conversion -ftree-tail-merge -ftree-pre -ftree-vrp"
+
 function check_prerequisites()
 {
+    title "Checking required programs."
+    i=0
     for PROGRAM in $PREREQUISITES; do
-        if which $PROGRAM >/dev/null;
-        then echo $PROGRAM found;
-        else echo "$PROGRAM not found"; exit 5
-        fi;
+        progress 30 $i 3 "Checking $PROGRAM..."
+        if which $PROGRAM >/dev/null; then
+            : # all right
+        else
+            error_message "$PROGRAM not found, cannot proceed"
+            exit 5
+        fi
+        i=$(($i + 1))
     done
+    progress 30 3 3 "All programs present, proceeding."
+    echo
 }
 
 function bootstrap()
 {
     cd $LIBERTY_HOME
-    check_prerequisites
     test -d target || mkdir target
     cd target
     test -d log || mkdir log
+
+    check_prerequisites
 
     if [ ! -d bin ]; then
         title "Preparing target"
@@ -113,84 +126,93 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
 -- c_compiler_type: tcc
 -- smarteiffel_options: -no_strip
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O2
+c_compiler_options: -pipe -O2 -fno-gcse
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O2
+cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_linker_path: $CC
 
 [no_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O1
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -O1
+cpp_linker_path: $CC
 
 [require_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [ensure_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [invariant_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [loop_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [all_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe
+cpp_linker_path: $CC
 
 [debug_check]
-c_compiler_type: gcc
+c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -g
+c_linker_path: $CC
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
 cpp_compiler_options: -pipe -g
+cpp_linker_path: $CC
 smarteiffel_options: -no_strip
-
-[release]
-c_compiler_type: gcc
-c_compiler_path: $CC
-c_compiler_options: -pipe -O3 -fomit-frame-pointer
-cpp_compiler_type: g++
-cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
-smarteiffel_options: -no_split
 
 EOF
         cd ..
@@ -213,31 +235,51 @@ EOF
     fi
     cd $LIBERTY_HOME/target/bin/compile_to_c.d
 
-    progress 30 1 $MAXTOOLCOUNT "compile_to_c T1"
-    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-    if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
-        grep ^$CC compile_to_c.make | while read cmd; do
-            progress 30 1 $MAXTOOLCOUNT "$cmd"
+    progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
+    run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+    grep -v '^#' compile_to_c.make | while read cmd; do
+        progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
+        run $cmd || exit 1
+    done
+    progress 30 1 $MAXTOOLCOUNT "T1: save"
+    mkdir T1
+    cp -a compile_to_c* T1/
+    progress 30 1 $MAXTOOLCOUNT "T1: check"
+    if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
+        rm compile_to_c.make
+        cp -a compile_to_c.new compile_to_c
+        progress 30 2 $MAXTOOLCOUNT "T2: compile_to_c"
+        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+        grep -v '^#' compile_to_c.make | while read cmd; do
+            progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
             run $cmd || exit 1
         done
-
-        progress 30 2 $MAXTOOLCOUNT "compile_to_c T2"
-        run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-        if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
-            grep ^$CC compile_to_c.make | while read cmd; do
-                progress 30 2 $MAXTOOLCOUNT "$cmd"
-                run $cmd || exit 1
-            done
-
-            progress 30 3 $MAXTOOLCOUNT "compile_to_c T3"
-            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c || exit 1
-            if [ $(grep -c ^$CC compile_to_c.make) != 0 ]; then
+        progress 30 1 $MAXTOOLCOUNT "T2: save"
+        mkdir T2
+        cp -a compile_to_c* T2/
+        progress 30 1 $MAXTOOLCOUNT "T2: check"
+        if grep "$CC" compile_to_c.make >/dev/null 2>&1; then
+            rm compile_to_c.make
+            cp -a compile_to_c.new compile_to_c
+            progress 30 3 $MAXTOOLCOUNT "T3: compile_to_c"
+            run ./compile_to_c -verbose -boost compile_to_c -o compile_to_c.new || exit 1
+            progress 30 1 $MAXTOOLCOUNT "T3: save"
+            mkdir T3
+            cp -a compile_to_c* T3/
+            progress 30 1 $MAXTOOLCOUNT "T3: check"
+            if grep "^$CC" compile_to_c.make >/dev/null 2>&1; then
+                echo
                 cat compile_to_c.make >> $LOG
                 error "The compiler is not stable."
                 exit 1
             fi
+        else
+            rm -f compile_to_c.new
         fi
+    else
+        rm -f compile_to_c.new
     fi
+
     cd .. && test -e compile_to_c || ln -s compile_to_c.d/compile_to_c .
 
     progress 30 4 $MAXTOOLCOUNT "compile"
@@ -260,6 +302,8 @@ EOF
 6 clean
 7 ace_check
 8 eiffeltest
+9 eiffeltest_ng
+10 eiffeltest_server
 EOF
     while read i tool; do
         progress 30 $i $MAXTOOLCOUNT "$tool"
@@ -268,12 +312,12 @@ EOF
         run ../compile -verbose -boost $tool -o $tool || exit 1
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-9 pretty
-10 short
-11 class_check
-12 finder
-13 eiffeldoc
-14 extract_internals
+11 pretty
+12 short
+13 class_check
+14 finder
+15 eiffeldoc
+16 extract_internals
 EOF
 
     while read i tool; do
@@ -287,8 +331,8 @@ EOF
         fi
         cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
     done <<EOF
-15 wrappers-generator
-16 mocker
+17 wrappers-generator
+18 mocker
 EOF
 
     progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
@@ -413,14 +457,16 @@ pretty: pretty
 run: run
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -O2
+c_compiler_options: -pipe -O1
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O2
+cpp_compiler_options: -pipe -O1
 
 [no_check]
 c_compiler_type: gcc
@@ -464,13 +510,6 @@ c_compiler_options: -pipe -g
 cpp_compiler_type: g++
 cpp_compiler_options: -pipe -g
 smarteiffel_options: -no_strip
-
-[release]
-c_compiler_type: gcc
-c_compiler_options: -pipe -O3 -fomit-frame-pointer
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O3 -fomit-frame-pointer
-smarteiffel_options: -no_split
 
 EOF
 
