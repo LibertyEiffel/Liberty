@@ -4,26 +4,23 @@
 class TEST_FAST_ARRAY_ADD_LAST
 
 insert EIFFELTEST_TOOLS
-    
+
 creation {ANY} make
 
 feature {ANY}
-	fai: FAST_ARRAY[INTEGER]
+   fai: FAST_ARRAY[INTEGER]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create fai
-			assert(fai.count = 0);
-            fai.add_last(42)
-            assert(fai.count = 1);
-            -- 3.times(agent is do
-            --         fai.add_last(42)
-            --     end)
-            -- assert (fai.count = 4)
-
-		end
+   make is
+      do
+         create fai
+         assert(fai.count = 0);
+         fai.add_last(42)
+         assert(fai.count = 1);
+         3.times(agent is do
+                 fai.add_last(42)
+             end)
+         assert (fai.count = 4)
+      end
 
 end -- class TEST_FAST_ARRAY_ADD_LAST
 
