@@ -106,12 +106,14 @@ feature {ANY} -- Operations
       do
          Result := once ""
          Result.copy(path)
-         if Result.last = directory_separator then
-            Result.remove_last
-         end
-         i := Result.last_index_of(directory_separator)
-         if i >= 0 then
-            Result.shrink(i + 1, Result.count)
+         if path.count > 1 or path.first /= directory_separator then
+            if Result.last = directory_separator then
+               Result.remove_last
+            end
+            i := Result.last_index_of(directory_separator)
+            if i >= 0 then
+               Result.shrink(i + 1, Result.count)
+            end
          end
       end
 
