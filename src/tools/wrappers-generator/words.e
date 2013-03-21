@@ -19,7 +19,6 @@ feature
 			until file.end_of_input
 			loop
 				line := file.last_string
-				line.le
 				if line/=Void then 
 					words := line.split
 					if words/=Void then
