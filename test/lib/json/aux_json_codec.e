@@ -12,7 +12,11 @@ feature {JSON_HANDLER}
          Result ::= data
       end
 
-feature {JSON_DECODER}
+   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+      do
+         parse_error := message
+      end
+
    create_array: JSON_DATA is
       do
          create {AUX_JSON_DATA} Result.make(create {JSON_ARRAY}.make(create {FAST_ARRAY[JSON_VALUE]}.make(0)))
@@ -66,12 +70,6 @@ feature {JSON_DECODER}
    null_value: JSON_DATA is
       once
          create {AUX_JSON_DATA} Result.make(create {JSON_NULL}.make)
-      end
-
-feature {}
-   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
-      do
-         parse_error := message
       end
 
 end -- class AUX_JSON_CODEC

@@ -10,11 +10,12 @@ creation
 feature {}
 	make is
 		local
-			a: ANY
+			a: ABSTRACT_STRING
 			s: STRING
+         col: COLLECTION[INTEGER]
 			array: ARRAY[INTEGER]
 		do
-			s := once "Hello%N"
+			s := "Hello%N"
 			a := s -- standard valid assignment
 
 			s ?= a -- Try to put `a' in `s' if it is a STRING or subtype. `s' is Void if assignment fails.
@@ -38,19 +39,19 @@ feature {}
 				std_output.put_string(once "`a' is not a STRING.%N")
 			end
 
-			a := {ARRAY[INTEGER] 1, << 1, 2, 3 >> } -- see tutorial/manifest_expression.e
+			col := {ARRAY[INTEGER] 1, << 1, 2, 3 >> } -- see tutorial/manifest_expression.e
 
 			-- Sometimes, thanks to the way the system is built, the type is 
 			-- known so we are sure the assignment is always valid.
 			-- In this case, we don't need to do an assignment attempt 
 			-- with `?=', the test is a waste of time. `::=' is the solution.
 
-			array ?= a -- Standard common pattern
+			array ?= col -- Standard common pattern
 			check
 				array /= Void
 			end
 			
-			array ::= a -- New way.
+			array ::= col -- New way.
 
 		end
 end
