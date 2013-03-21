@@ -25,16 +25,13 @@ feature {}
 			elseif argument_count = 1 then
 				some_path := argument(1)
 				create directory.scan(some_path)
-				if directory.last_scan_status then
+
+				if directory.exists then
 					list_directory(directory)
 				else
 					io.put_string("Unable to open directory %"")
 					io.put_string(some_path)
 					io.put_string("%".%N")
-					directory.scan_with(some_path)
-					if directory.last_scan_status then
-						list_directory(directory)
-					end
 				end
 			else
 				io.put_string("Scanning current working directory.%N")
@@ -58,7 +55,12 @@ feature {}
 				i > directory.count
 			loop
 				io.put_character('%T')
-				io.put_string(directory.name(i))
+            if directory.file_at(i).is_directory then
+               io.put_string(once "directory ")
+            else
+               io.put_string(once "file      ")
+            end
+				io.put_string(directory.item(i))
 				io.put_character('%N')
 				i := i + 1
 			end
