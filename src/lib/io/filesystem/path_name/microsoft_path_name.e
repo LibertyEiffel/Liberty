@@ -162,7 +162,7 @@ feature {ANY} -- Access
          Result := once ""
          p := path.reverse_index_of(extension_separator, path.count)
          if p /= 0 then
-            if path.index_of('/', p) = 0 and then path.index_of(directory_separator, p) = 0 then
+            if not path.valid_index(path.reverse_index_of('/', p)) and then not path.valid_index(path.index_of(directory_separator, p)) then
                Result := path.substring(p, path.count)
             end
          end
