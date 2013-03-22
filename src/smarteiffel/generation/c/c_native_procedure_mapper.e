@@ -282,7 +282,11 @@ feature {} -- built-ins
             function_body.append(once ")+a3tmp,((")
             cpp.put_ith_argument(4)
             function_body.append(once ")-a3tmp+1)*sizeof(T")
-            elt_type.id.append_in(function_body)
+            if elt_type.is_reference then
+               function_body.append(once "0*")
+            else
+               elt_type.id.append_in(function_body) --|**** TODO: that is wrong; should use the type's copy feature
+            end
             function_body.append(once "));}%N")
          else
             error_handler.append(once "Class NATIVE_ARRAY has been tampered with. Unknown procedure: ")
