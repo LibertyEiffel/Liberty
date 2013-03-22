@@ -3,73 +3,64 @@
 --
 class TEST_ARRAY_RESIZE
 
+insert
+   EIFFELTEST_TOOLS
+
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	ti1, ti2: ARRAY[INTEGER]
+   ti1, ti2: ARRAY[INTEGER]
 
-	tc1, tc2: ARRAY[CAT]
+   tc1, tc2: ARRAY[CAT]
 
-	c1, c2, c3, c4, c5, c6: CAT
+   c1, c2, c3, c4, c5, c6: CAT
 
-	make is
-		do
-			ti1 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }
-			ti2 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }
-			ti1.resize(2, 9)
-			assert(ti1.is_equal(ti2.subarray(2, 9)))
-			ti1.resize(2, 8)
-			assert(ti1.is_equal(ti2.subarray(2, 8)))
-			ti1.resize(3, 7)
-			assert(ti1.is_equal(ti2.subarray(3, 7)))
-			ti1.resize(1, 9)
-			assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 3, 4, 5, 6, 7, 0, 0 >> }))
-			ti1.resize(1, 10)
-			assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 3, 4, 5, 6, 7, 0, 0, 0 >> }))
-			ti1.make(1, 9)
-			assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }))
-			create c1
-			create c2
-			create c3
-			create c4
-			create c5
-			create c6
-			tc1 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
-			tc2 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
-			tc1.resize(2, 6)
-			assert(tc1.is_equal(tc2.subarray(2, 6)))
-			tc1.resize(2, 5)
-			assert(tc1.is_equal(tc2.subarray(2, 5)))
-			tc1.resize(3, 4)
-			assert(tc1.is_equal(tc2.subarray(3, 4)))
-			tc1.resize(1, 6)
-			assert(tc1.is_equal({ARRAY[CAT] 1, << Void, Void, c3, c4, Void, Void >> }))
-			tc1.resize(1, 7)
-			assert(tc1.is_equal({ARRAY[CAT] 1, << Void, Void, c3, c4, Void, Void, Void >> }))
-			tc1.make(1, 6)
-			tc2.clear_all
-			assert(tc1.is_equal(tc2))
-			tc1 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
-			tc2 := tc1.subarray(1, 0)
-			assert(tc2.is_empty)
-			tc2 := tc1.subarray(3, 2)
-			assert(tc2.is_empty)
-		end
-
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ARRAY_RESIZE: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
-
-	cpt: INTEGER
+   make is
+      do
+         ti1 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }
+         ti2 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }
+         ti1.resize(2, 9)
+         assert(ti1.is_equal(ti2.subarray(2, 9)))
+         ti1.resize(2, 8)
+         assert(ti1.is_equal(ti2.subarray(2, 8)))
+         ti1.resize(3, 7)
+         assert(ti1.is_equal(ti2.subarray(3, 7)))
+         ti1.resize(1, 9)
+         assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 3, 4, 5, 6, 7, 0, 0 >> }))
+         ti1.resize(1, 10)
+         assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 3, 4, 5, 6, 7, 0, 0, 0 >> }))
+         ti1.make(1, 9)
+         assert(ti1.is_equal({ARRAY[INTEGER] 1, << 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }))
+         create c1
+         create c2
+         create c3
+         create c4
+         create c5
+         create c6
+         tc1 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
+         tc2 := {ARRAY[CAT] 2, << c2, c3, c4, c5, c6 >> }
+         tc1.resize(2, 6)
+         assert(tc1.is_equal(tc2))
+         tc2 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
+         assert(tc1.is_equal(tc2.subarray(2, 6)))
+         tc1.resize(2, 5)
+         assert(tc1.is_equal(tc2.subarray(2, 5)))
+         tc1.resize(3, 4)
+         assert(tc1.is_equal(tc2.subarray(3, 4)))
+         tc1.resize(1, 6)
+         assert(tc1.is_equal({ARRAY[CAT] 1, << Void, Void, c3, c4, Void, Void >> }))
+         tc1.resize(1, 7)
+         assert(tc1.is_equal({ARRAY[CAT] 1, << Void, Void, c3, c4, Void, Void, Void >> }))
+         tc1.make(1, 6)
+         tc2.clear_all
+         assert(tc1.is_equal(tc2))
+         tc1 := {ARRAY[CAT] 1, << c1, c2, c3, c4, c5, c6 >> }
+         tc2 := tc1.subarray(1, 0)
+         assert(tc2.is_empty)
+         tc2 := tc1.subarray(3, 2)
+         assert(tc2.is_empty)
+      end
 
 end -- class TEST_ARRAY_RESIZE
 --
