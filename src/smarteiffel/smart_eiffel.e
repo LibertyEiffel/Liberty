@@ -32,7 +32,7 @@ feature {ANY}
          --Result.append("                        ")
       end
 
-   release_number: STRING is "Release 2013.02 (LibertyEiffel revival)%N"
+   release_number: STRING is "Release 2013.03 (Charles Adler, Jr.)%N"
 
    status: STATUS is
       once
