@@ -1,56 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="description" content="Liberty Eiffel project is a free eiffel compiler started from SmartEiffel code base. Its goal is to retain from SmartEiffel its rigour; but not its rigidity. Think of Liberty as SmartEiffel down from its ivory tower." />
+    <meta name="keywords" content="Eiffel, Programming Langauge, Object-orientation" />
+    <meta name="robots" content="INDEX,FOLLOW" />
+
     <title>Liberty Eiffel Compiler</title>
-    <style type="text/css">
-      body {
-         background-image: url('images/liberty.png');
-         background-repeat: no-repeat;
-         background-attachment: fixed;
-         background-position: right 2em;
-         background-color: #fafbeb;
-         font-size: 12pt;
-         font-family: "Linux Biolinum",Verdana,Helvetica;
-      }
-      h1 {
-         margin: 25px 0px 10px;
-         color: #0d0d6a;
-         font-size: 18pt;
-         font-family: "Linux Biolinum",Verdana,Helvetica;
-         font-variant: small-caps;
-      }
-      .dropcap {
-         color: #b51c39;
-         display: inline;
-         position: relative;
-         top: 3px;
-         font-size: 140%;
-      }
-      a {
-         color: #0d0d6a;
-         text-decoration: none;
-      }
-      a:visited {
-         color: #0d0d6a;
-      }
-      a:hover {
-         text-decoration: underline;
-      }
-      a:active {
-         color: #b51c39;
-         text-decoration: underline;
-      }
-      .header {
-         background-color: #5ab0a1;
-         padding: 4px 4px 4px 4px;
-      }
-      .current {
-         color: #0d0d6a;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
+    <div id="all">
     <div class="header"><b class="current">Liberty Eiffel</b> | <a href="http://et.liberty-eiffel.org">Liberty Eiffel automated tests</a> | <a href="http://wiki.liberty-eiffel.org/index.php/Main_Page">Wiki</a> | <a href="https://github.com/LibertyEiffel/Liberty">GitHub repo</a></div>
+    <div id="content">
+    <img src="images/liberty.png" alt="Liberty Logo" align="right">
 
     <h1><span class="dropcap">W</span>elcome</h1>
     <p>
@@ -58,7 +22,15 @@
       Please read first <a href="https://github.com/LibertyEiffel/Liberty/wiki">the Liberty Eiffel introduction</a>
     </p>
     <p>
-      The Liberty Eiffel project is hosted on <a href="https://github.com/LibertyEiffel/Liberty">Github</a>.
+      The code and issue tracking of the Liberty Eiffel project is hosted on <a href="https://github.com/LibertyEiffel/Liberty">Github</a>. To clone the latest content of out development repository use
+      <p>
+      <code>
+          git clone git@github.com:LibertyEiffel/Liberty
+      </code>
+      </p>
+      <p>
+        At the time of writing, no official releases of Liberty Eiffel are out.
+      </p>
     </p>
 
     <h1><span class="dropcap">O</span>ur communication channels</h1>
@@ -66,13 +38,32 @@
       <ul>
         <li>A BLOG on <a href="http://liberty-eiffel.blogspot.com/">Blogspot</a></li>
         <li>IRC channel on <a href="http://webchat.freenode.net/">Freenode</a>: <a href="irc://irc.freenode.org">#liberty-eiffel</a></li>
-        <li>A mailing list can be found at <a href="mailto:libertyeiffel@librelist.com">libertyeiffel@librelist.com</a> (your first message will <a href="mailto:libertyeiffel@librelist.com?subject=subscribe">subscribe</a> you), the archive is found <a href="http://librelist.com/browser/libertyeiffel/">here</a></li>
+        <li>A mailing list can be found at <a href="mailto:libertyeiffel@librelist.com">libertyeiffel@librelist.com</a> (your first message will <a href="mailto:libertyeiffel@librelist.com?subject=subscribe">subscribe</a> your email address), the archives are found <a href="http://librelist.com/browser/libertyeiffel/">here</a></li>
       </ul>
+    </p>
+
+    <h1><span class="dropcap">D</span>ocumentation</h1>
+    <p>
+      Currently the only form of documentation is the <a href="http://wiki.liberty-eiffel.org/index.php/Main_Page">Wiki</a> but we're working on a browsable class reference for the libraries included in Liberty.
     </p>
 
     <h1><span class="dropcap">T</span>est suite</h1>
     <p>
       Our test suite is executed automatically after each commit by <em>ET</em>, see the reports on <a href="http://et.liberty-eiffel.org">http://et.liberty-eiffel.org</a>
     </p>
+
+
+    <h1><a name="imprint"><span class="dropcap">W</span>ho we are</a></h1>
+    <p>
+      The LibertyEiffel project is driven by an open team of developers interested in a free Eiffel implementation. There is no formal association for the project but in case you need to contact via letter, write to Raphael Mack, Joh.-Seb.-Bach-Str. 3, 74321 Bietigheim-Bissingen, Germany. To reach the project via email write to <a href="mailto:mail@liberty-eiffel.org">mail@liberty-eiffel.org</a>.
+    </p>
+
+
+    </div>
+    <div id="footer" class="header">
+      <!--#config timefmt="%F" -->
+      last updated on <!--#echo var="LAST_MODIFIED" --> - <a href="#imprint">Imprint</a>
+    </div>
+    </div>
   </body>
 </html>
