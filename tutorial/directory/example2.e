@@ -19,24 +19,25 @@ feature {ANY}
 		end
 
 feature {}
-	recursive_list (wd: DIRECTORY) is
+	recursive_list (a_dir: DIRECTORY) is
 			-- Lists the contents of the directory, and tries to list the
 			-- subdirectories
 		local
-			i: INTEGER; a: FAST_ARRAY[STRING]; filename: STRING; path: STRING
+			i: INTEGER; a: FAST_ARRAY[FILE]; filename: ABSTRACT_STRING
+         inner_dir: DIRECTORY
 		do
-			io.put_string(wd.path)
+			io.put_string(a_dir.path)
 			io.put_new_line
-			create a.with_capacity(wd.count)
-			-- keep the names
+			create a.with_capacity(a_dir.count)
+			-- keep the FILE objects
 			from
-				i := wd.lower
+				i := a_dir.lower
 			until
-				i > wd.upper
+				i > a_dir.upper
 			loop
-				filename := wd.item(i)
-				if filename /= Void and then filename.count > 0 then
-					a.add_last(filename)
+				filename := a_dir.item(i)
+				if filename /= Void and then filename.count > 0 and then filename.item(1) /= '.' then
+					a.add_last(a_dir.file_at(i))
 				end
 				i := i + 1
 			end
@@ -45,20 +46,15 @@ feature {}
 			until
 				i > a.upper
 			loop
-				-- save the current directory path
-				path := wd.path.twin
-				wd.scan_subdirectory(a.item(i))
-				if wd.last_scan_status then
-					recursive_list(wd)
-					wd.scan_parent_directory
-				else
-					-- restore the current directory
-					wd.scan(path)
+				if a.item(i).is_directory then
+               check
+                  inner_dir ?:= a.item(i)
+               end
+               inner_dir ::= a.item(i)
+					recursive_list(inner_dir)
 				end
 				i := i + 1
 			end
-			-- restore the current directory
-			wd.scan(path)
 		end
 
 end -- class EXAMPLE2
