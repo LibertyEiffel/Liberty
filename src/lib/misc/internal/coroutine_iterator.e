@@ -29,8 +29,9 @@ feature {ANY}
          end
       end
 
+   generation, iterable_generation: INTEGER is 0
+
 feature {}
-   iterable_generation: INTEGER is 0
    context: POINTER
 
 feature {COROUTINE}
