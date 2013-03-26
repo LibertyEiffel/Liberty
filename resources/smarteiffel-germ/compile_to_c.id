@@ -738,15 +738,15 @@ run-time-set-count: 1
 run-time-set:
 	FAST_ARRAY[INTEGER_16] (1047)
 #
-1476 "FAST_ARRAY[RUN_FEATURE_6]" l
-#
 1069 "ARRAY[EXPORT_ITEM]" l
+#
+1476 "FAST_ARRAY[RUN_FEATURE_6]" l
 #
 1065 "FAST_ARRAY[ASSERTION]" l
 #
-1489 "FAST_ARRAY[RUN_FEATURE_5]" l
-#
 1003 "FAST_ARRAY[CLUSTER]" l
+#
+1489 "FAST_ARRAY[RUN_FEATURE_5]" l
 #
 1080 "FAST_ARRAY[RUN_FEATURE]" l
 #
@@ -790,9 +790,9 @@ parent-count: 3 inherit: 49 50 insert: 51
 #
 1234 "FAST_ARRAY[FEATURE_CLAUSE]" l
 #
-1413 "FAST_ARRAY[E_OLD]" l
-#
 1209 "FAST_ARRAY[IFTHEN]" l
+#
+1413 "FAST_ARRAY[E_OLD]" l
 #
 1215 "FAST_ARRAY[CLASS_NAME]" l
 #
@@ -2310,11 +2310,11 @@ class-name: ANY
 assertion-level: boost
 parent-count: 0
 #
-1514 "ROUTINE[TUPLE[ASSERTION]]" l
-#
 1085 "TUPLE[LIVE_TYPE]" l
 #
 1091 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]" l
+#
+1514 "ROUTINE[TUPLE[ASSERTION]]" l
 #
 1513 "TUPLE[ASSERTION]" l
 #
@@ -2428,15 +2428,15 @@ parent-count: 1 insert: 13
 #
 1072 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]" l
 #
-1510 "PROCEDURE[TUPLE[ADDRESS_OF]]" l
-#
 1440 "WEAK_REFERENCE[ANY_AVL_SET_NODE]" l
+#
+1510 "PROCEDURE[TUPLE[ADDRESS_OF]]" l
 #
 1478 "ROUTINE[TUPLE[CECIL_FILE,STRING]]" l
 #
-1479 "TUPLE[CECIL_FILE,STRING]" l
-#
 1221 "WEAK_REFERENCE[HASHED_SET_NODE[LIVE_TYPE]]" l
+#
+1479 "TUPLE[CECIL_FILE,STRING]" l
 #
 1190 "WEAK_REFERENCE[HASHED_SET_NODE[CLASS_NAME]]" l
 #
@@ -2509,9 +2509,9 @@ parent-count: 1 insert: 13
 #
 1357 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]]" l
 #
-1506 "ROUTINE[TUPLE[FEATURE_STAMP]]" l
-#
 1349 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]]" l
+#
+1506 "ROUTINE[TUPLE[FEATURE_STAMP]]" l
 #
 997 "REFERENCE[CECIL_POOL]" l
 #
@@ -3780,55 +3780,6 @@ class-name: REGULAR_EXPRESSION_ITEM_END_OF_TEXT
 assertion-level: boost
 parent-count: 1 inherit: 921
 #
-|liberty:lib/loadpath.se:log/loadpath.se:conf/
-891 "LOG_FILE_ROTATED" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_rotated.e"
-class-name: LOG_FILE_ROTATED
-assertion-level: boost
-parent-count: 1 inherit: 890
-#
-890 "LOG_FILE_OPTION" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_option.e"
-class-name: LOG_FILE_OPTION
-assertion-level: boost
-parent-count: 1 insert: 13 
-#
-881 "LOG_GRAMMAR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_grammar.e"
-class-name: LOG_GRAMMAR
-assertion-level: boost
-parent-count: 1 insert: 882 
-#
-880 "LOG_FILE_OPTIONS" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_options.e"
-class-name: LOG_FILE_OPTIONS
-assertion-level: boost
-parent-count: 1 insert: 13 
-#
-892 "LOG_FILE_PASS_THROUGH" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_pass_through.e"
-class-name: LOG_FILE_PASS_THROUGH
-assertion-level: boost
-parent-count: 1 inherit: 890
-#
-857 "LOG_INTERNAL_CONF" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_internal_conf.e"
-class-name: LOG_INTERNAL_CONF
-assertion-level: boost
-parent-count: 4 inherit: 858 859 860 insert: 70 
-#
-889 "LOG_FILE_ZIPPED" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_zipped.e"
-class-name: LOG_FILE_ZIPPED
-assertion-level: boost
-parent-count: 1 inherit: 890
-#
-973 "LOG_NODE_FACTORY" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_node_factory.e"
-class-name: LOG_NODE_FACTORY
-assertion-level: boost
-parent-count: 1 inherit: 895
-#
 |liberty:lib/loadpath.se:storage/loadpath.se:internal/
 846 "ANY_AVL_DICTIONARY_NODE" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/storage/internal/any_avl_dictionary_node.e"
@@ -3886,9 +3837,9 @@ run-time-set:
 #
 1189 "HASHED_SET_NODE[CLASS_NAME]" l
 #
-1395 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_AVL_DICTIONARY_NODE],STRING]" l
-#
 1372 "HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]" l
+#
+1395 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_AVL_DICTIONARY_NODE],STRING]" l
 #
 1365 "HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]" l
 #
@@ -4004,8 +3955,6 @@ parent-count: 1 insert: 13
 #
 1252 "HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]" l
 #
-1521 "HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]" l
-#
 1385 "AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/storage/internal/avl_dictionary_node.e"
 class-name: AVL_DICTIONARY_NODE
@@ -4018,13 +3967,13 @@ run-time-set-count: 1
 run-time-set:
 	AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32] (1385)
 #
+1521 "HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]" l
+#
 1391 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
 #
 1323 "HASHED_DICTIONARY_NODE[CLUSTER,STRING]" l
 #
 1089 "HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]" l
-#
-1356 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
 #
 807 "ANY_AVL_SET_NODE" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/storage/internal/any_avl_set_node.e"
@@ -4037,6 +3986,8 @@ destination-graph-nodes: none
 run-time-set-count: 0
 #
 1237 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]" l
+#
+1356 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
 #
 1338 "HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]" l
 #
@@ -4149,6 +4100,55 @@ run-time-set-count: 0
 1447 "HASHED_SET_NODE[FEATURE_STAMP]" l
 #
 1435 "HASHED_DICTIONARY_NODE[PLUGIN,STRING]" l
+#
+|liberty:lib/loadpath.se:log/loadpath.se:conf/
+891 "LOG_FILE_ROTATED" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_rotated.e"
+class-name: LOG_FILE_ROTATED
+assertion-level: boost
+parent-count: 1 inherit: 890
+#
+890 "LOG_FILE_OPTION" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_option.e"
+class-name: LOG_FILE_OPTION
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+881 "LOG_GRAMMAR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_grammar.e"
+class-name: LOG_GRAMMAR
+assertion-level: boost
+parent-count: 1 insert: 882 
+#
+880 "LOG_FILE_OPTIONS" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_options.e"
+class-name: LOG_FILE_OPTIONS
+assertion-level: boost
+parent-count: 1 insert: 13 
+#
+892 "LOG_FILE_PASS_THROUGH" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_pass_through.e"
+class-name: LOG_FILE_PASS_THROUGH
+assertion-level: boost
+parent-count: 1 inherit: 890
+#
+857 "LOG_INTERNAL_CONF" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_internal_conf.e"
+class-name: LOG_INTERNAL_CONF
+assertion-level: boost
+parent-count: 4 inherit: 858 859 860 insert: 70 
+#
+889 "LOG_FILE_ZIPPED" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_file_zipped.e"
+class-name: LOG_FILE_ZIPPED
+assertion-level: boost
+parent-count: 1 inherit: 890
+#
+973 "LOG_NODE_FACTORY" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/log/conf/log_node_factory.e"
+class-name: LOG_NODE_FACTORY
+assertion-level: boost
+parent-count: 1 inherit: 895
 #
 |se_tools:kernel/tagged
 785 "TAGGED_FLAG" l
@@ -5032,37 +5032,6 @@ class-name: BACKTRACKING
 assertion-level: boost
 parent-count: 2 inherit: 910 insert: 912 
 #
-|liberty:lib/loadpath.se:parse/loadpath.se:impl/loadpath.se:descending/
-878 "DESCENDING_PARSE_CONTEXT" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_parse_context.e"
-class-name: DESCENDING_PARSE_CONTEXT
-assertion-level: boost
-parent-count: 1 inherit: 879
-#
-974 "DESCENDING_NON_TERMINAL" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_non_terminal.e"
-class-name: DESCENDING_NON_TERMINAL
-assertion-level: boost
-parent-count: 1 inherit: 975
-#
-874 "DESCENDING_PARSER" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_parser.e"
-class-name: DESCENDING_PARSER
-assertion-level: boost
-parent-count: 1 inherit: 875
-#
-977 "DESCENDING_TERMINAL" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_terminal.e"
-class-name: DESCENDING_TERMINAL
-assertion-level: boost
-parent-count: 1 inherit: 978
-#
-976 "DESCENDING_NT_NODE" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_nt_node.e"
-class-name: DESCENDING_NT_NODE
-assertion-level: boost
-parent-count: 3 insert: 876 843 877 
-#
 |liberty:lib/loadpath.se:io/loadpath.se:basic/
 91 "TEXT_FILE_READ" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/io/basic/text_file_read.e"
@@ -5165,6 +5134,37 @@ destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
 	FILE_TOOLS (274)
+#
+|liberty:lib/loadpath.se:parse/loadpath.se:impl/loadpath.se:descending/
+878 "DESCENDING_PARSE_CONTEXT" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_parse_context.e"
+class-name: DESCENDING_PARSE_CONTEXT
+assertion-level: boost
+parent-count: 1 inherit: 879
+#
+974 "DESCENDING_NON_TERMINAL" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_non_terminal.e"
+class-name: DESCENDING_NON_TERMINAL
+assertion-level: boost
+parent-count: 1 inherit: 975
+#
+874 "DESCENDING_PARSER" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_parser.e"
+class-name: DESCENDING_PARSER
+assertion-level: boost
+parent-count: 1 inherit: 875
+#
+977 "DESCENDING_TERMINAL" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_terminal.e"
+class-name: DESCENDING_TERMINAL
+assertion-level: boost
+parent-count: 1 inherit: 978
+#
+976 "DESCENDING_NT_NODE" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/lib/parse/impl/descending/descending_nt_node.e"
+class-name: DESCENDING_NT_NODE
+assertion-level: boost
+parent-count: 3 insert: 876 843 877 
 #
 |se_tools:parser
 262 "MINI_BUFFER" l
@@ -5404,6 +5404,24 @@ assertion-level: boost
 parent-count: 1 inherit: 824
 #
 |se_tools:visitor
+203 "LOOP_INVARIANT_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/loop_invariant_visitor.e"
+class-name: LOOP_INVARIANT_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+#
+235 "DEFERRED_FUNCTION_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/deferred_function_visitor.e"
+class-name: DEFERRED_FUNCTION_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+c-type: T235 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 1
+run-time-set:
+	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
+#
 564 "USER_GENERIC_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/user_generic_type_mark_visitor.e"
 class-name: USER_GENERIC_TYPE_MARK_VISITOR
@@ -5430,24 +5448,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
 #
-203 "LOOP_INVARIANT_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/loop_invariant_visitor.e"
-class-name: LOOP_INVARIANT_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-#
-235 "DEFERRED_FUNCTION_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/deferred_function_visitor.e"
-class-name: DEFERRED_FUNCTION_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-c-type: T235 reference: yes
-ref-status: dead 
-destination-graph-nodes: empty
-run-time-set-count: 1
-run-time-set:
-	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
-#
 607 "CODE_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/code_visitor.e"
 class-name: CODE_VISITOR
@@ -5470,12 +5470,6 @@ class-name: FEATURE_NAME_VISITOR
 assertion-level: boost
 parent-count: 1 inherit: 83
 #
-245 "ATTRIBUTE_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/attribute_visitor.e"
-class-name: ATTRIBUTE_VISITOR
-assertion-level: boost
-parent-count: 2 inherit: 246 253
-#
 200 "ASSERTION_LIST_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/assertion_list_visitor.e"
 class-name: ASSERTION_LIST_VISITOR
@@ -5489,6 +5483,12 @@ run-time-set:
 	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
 	C_CODE_COMPILER (606)
 	CODE_COMPARATOR (724)
+#
+245 "ATTRIBUTE_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/attribute_visitor.e"
+class-name: ATTRIBUTE_VISITOR
+assertion-level: boost
+parent-count: 2 inherit: 246 253
 #
 129 "E_OLD_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/e_old_visitor.e"
@@ -5684,6 +5684,12 @@ run-time-set:
 	C_INTROSPECTION_FUNCTION (615)
 	C_INTROSPECTION_DISPLAY (616)
 #
+136 "CALL_PREFIX_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_prefix_visitor.e"
+class-name: CALL_PREFIX_VISITOR
+assertion-level: boost
+parent-count: 4 inherit: 137 138 139 140
+#
 575 "CLASS_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/class_type_mark_visitor.e"
 class-name: CLASS_TYPE_MARK_VISITOR
@@ -5709,12 +5715,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
-#
-136 "CALL_PREFIX_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_prefix_visitor.e"
-class-name: CALL_PREFIX_VISITOR
-assertion-level: boost
-parent-count: 4 inherit: 137 138 139 140
 #
 171 "MANIFEST_EXPRESSION_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/manifest_expression_visitor.e"
@@ -5788,12 +5788,6 @@ run-time-set:
 	C_COMPOUND_EXPRESSION_COMPILER (610)
 	CODE_COMPARATOR (724)
 #
-736 "FEATURE_CLAUSE_LIST_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/feature_clause_list_visitor.e"
-class-name: FEATURE_CLAUSE_LIST_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-#
 149 "CALL_INFIX_GE_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_infix_ge_visitor.e"
 class-name: CALL_INFIX_GE_VISITOR
@@ -5810,6 +5804,12 @@ run-time-set:
 	C_CODE_COMPILER (606)
 	C_COMPOUND_EXPRESSION_COMPILER (610)
 	CODE_COMPARATOR (724)
+#
+736 "FEATURE_CLAUSE_LIST_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/feature_clause_list_visitor.e"
+class-name: FEATURE_CLAUSE_LIST_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
 #
 789 "RENAME_LIST_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/rename_list_visitor.e"
@@ -5829,6 +5829,16 @@ run-time-set-count: 2
 run-time-set:
 	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
 	CODE_COMPARATOR (724)
+#
+248 "CST_ATT_CHARACTER_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/cst_att_character_visitor.e"
+class-name: CST_ATT_CHARACTER_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+c-type: T248 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 0
 #
 581 "POINTER_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/pointer_type_mark_visitor.e"
@@ -5855,16 +5865,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
-#
-248 "CST_ATT_CHARACTER_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/cst_att_character_visitor.e"
-class-name: CST_ATT_CHARACTER_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-c-type: T248 reference: yes
-ref-status: dead 
-destination-graph-nodes: empty
-run-time-set-count: 0
 #
 753 "RENAME_PAIR_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/rename_pair_visitor.e"
@@ -6196,6 +6196,23 @@ ref-status: dead
 destination-graph-nodes: empty
 run-time-set-count: 0
 #
+146 "CALL_INFIX_AND_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_infix_and_visitor.e"
+class-name: CALL_INFIX_AND_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+c-type: T146 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 6
+run-time-set:
+	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
+	C_TARGET_MAPPER (603)
+	C_ARG_MAPPER (605)
+	C_CODE_COMPILER (606)
+	C_COMPOUND_EXPRESSION_COMPILER (610)
+	CODE_COMPARATOR (724)
+#
 577 "BOOLEAN_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/boolean_type_mark_visitor.e"
 class-name: BOOLEAN_TYPE_MARK_VISITOR
@@ -6248,29 +6265,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
 #
-146 "CALL_INFIX_AND_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_infix_and_visitor.e"
-class-name: CALL_INFIX_AND_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-c-type: T146 reference: yes
-ref-status: dead 
-destination-graph-nodes: empty
-run-time-set-count: 6
-run-time-set:
-	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
-	C_TARGET_MAPPER (603)
-	C_ARG_MAPPER (605)
-	C_CODE_COMPILER (606)
-	C_COMPOUND_EXPRESSION_COMPILER (610)
-	CODE_COMPARATOR (724)
-#
-678 "PARENT_EDGE_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/parent_edge_visitor.e"
-class-name: PARENT_EDGE_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-#
 599 "RUN_FEATURE_8_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/run_feature_8_visitor.e"
 class-name: RUN_FEATURE_8_VISITOR
@@ -6286,6 +6280,12 @@ run-time-set:
 	C_NATIVE_C_DEFINITION (614)
 	C_INTROSPECTION_FUNCTION (615)
 	C_INTROSPECTION_DISPLAY (616)
+#
+678 "PARENT_EDGE_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/parent_edge_visitor.e"
+class-name: PARENT_EDGE_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
 #
 148 "CALL_INFIX_FREEOP_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_infix_freeop_visitor.e"
@@ -6535,6 +6535,18 @@ run-time-set:
 	C_CODE_COMPILER (606)
 	CODE_COMPARATOR (724)
 #
+568 "ANCHORED_TYPE_MARK_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/anchored_type_mark_visitor.e"
+class-name: ANCHORED_TYPE_MARK_VISITOR
+assertion-level: boost
+parent-count: 3 inherit: 569 570 571
+#
+167 "LOCAL_ARGUMENT2_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/local_argument2_visitor.e"
+class-name: LOCAL_ARGUMENT2_VISITOR
+assertion-level: boost
+parent-count: 2 inherit: 168 169
+#
 578 "CHARACTER_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/character_type_mark_visitor.e"
 class-name: CHARACTER_TYPE_MARK_VISITOR
@@ -6560,18 +6572,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
-#
-568 "ANCHORED_TYPE_MARK_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/anchored_type_mark_visitor.e"
-class-name: ANCHORED_TYPE_MARK_VISITOR
-assertion-level: boost
-parent-count: 3 inherit: 569 570 571
-#
-167 "LOCAL_ARGUMENT2_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/local_argument2_visitor.e"
-class-name: LOCAL_ARGUMENT2_VISITOR
-assertion-level: boost
-parent-count: 2 inherit: 168 169
 #
 236 "EXTERNAL_ROUTINE_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/external_routine_visitor.e"
@@ -6673,21 +6673,6 @@ run-time-set:
 	C_CODE_COMPILER (606)
 	CODE_COMPARATOR (724)
 #
-594 "RUN_FEATURE_3_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/run_feature_3_visitor.e"
-class-name: RUN_FEATURE_3_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-c-type: T594 reference: yes
-ref-status: dead 
-destination-graph-nodes: empty
-run-time-set-count: 4
-run-time-set:
-	C_LIVE_TYPE_COMPILER (589)
-	C_MAPPER (601)
-	C_INTROSPECTION_FUNCTION (615)
-	C_INTROSPECTION_DISPLAY (616)
-#
 572 "FORMAL_GENERIC_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/formal_generic_type_mark_visitor.e"
 class-name: FORMAL_GENERIC_TYPE_MARK_VISITOR
@@ -6713,6 +6698,21 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
+#
+594 "RUN_FEATURE_3_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/run_feature_3_visitor.e"
+class-name: RUN_FEATURE_3_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+c-type: T594 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 4
+run-time-set:
+	C_LIVE_TYPE_COMPILER (589)
+	C_MAPPER (601)
+	C_INTROSPECTION_FUNCTION (615)
+	C_INTROSPECTION_DISPLAY (616)
 #
 560 "AGENT_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/agent_type_mark_visitor.e"
@@ -6873,6 +6873,12 @@ class-name: PRECURSOR_CALL_VISITOR
 assertion-level: boost
 parent-count: 2 inherit: 195 224
 #
+576 "KERNEL_EXPANDED_TYPE_MARK_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/kernel_expanded_type_mark_visitor.e"
+class-name: KERNEL_EXPANDED_TYPE_MARK_VISITOR
+assertion-level: boost
+parent-count: 6 inherit: 577 578 579 580 581 582
+#
 600 "RUN_FEATURE_9_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/run_feature_9_visitor.e"
 class-name: RUN_FEATURE_9_VISITOR
@@ -6887,12 +6893,6 @@ run-time-set:
 	C_MAPPER (601)
 	C_INTROSPECTION_FUNCTION (615)
 	C_INTROSPECTION_DISPLAY (616)
-#
-576 "KERNEL_EXPANDED_TYPE_MARK_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/kernel_expanded_type_mark_visitor.e"
-class-name: KERNEL_EXPANDED_TYPE_MARK_VISITOR
-assertion-level: boost
-parent-count: 6 inherit: 577 578 579 580 581 582
 #
 140 "CALL_PREFIX_PLUS_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/call_prefix_plus_visitor.e"
@@ -6910,12 +6910,6 @@ run-time-set:
 	C_CODE_COMPILER (606)
 	C_COMPOUND_EXPRESSION_COMPILER (610)
 	CODE_COMPARATOR (724)
-#
-721 "FORMAL_ARG_LIST_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/formal_arg_list_visitor.e"
-class-name: FORMAL_ARG_LIST_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
 #
 574 "ANY_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/any_type_mark_visitor.e"
@@ -6943,6 +6937,12 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
 #
+721 "FORMAL_ARG_LIST_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/formal_arg_list_visitor.e"
+class-name: FORMAL_ARG_LIST_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+#
 133 "FAKE_TUPLE_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/fake_tuple_visitor.e"
 class-name: FAKE_TUPLE_VISITOR
@@ -6959,6 +6959,12 @@ run-time-set:
 	C_CODE_COMPILER (606)
 	C_COMPOUND_EXPRESSION_COMPILER (610)
 	CODE_COMPARATOR (724)
+#
+242 "ONCE_ROUTINE_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/once_routine_visitor.e"
+class-name: ONCE_ROUTINE_VISITOR
+assertion-level: boost
+parent-count: 2 inherit: 243 244
 #
 569 "LIKE_ARGUMENT_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/like_argument_type_mark_visitor.e"
@@ -6985,28 +6991,6 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
-#
-242 "ONCE_ROUTINE_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/once_routine_visitor.e"
-class-name: ONCE_ROUTINE_VISITOR
-assertion-level: boost
-parent-count: 2 inherit: 243 244
-#
-257 "NATIVE_C_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/native_c_visitor.e"
-class-name: NATIVE_C_VISITOR
-assertion-level: boost
-parent-count: 1 inherit: 83
-c-type: T257 reference: yes
-ref-status: dead 
-destination-graph-nodes: empty
-run-time-set-count: 5
-run-time-set:
-	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
-	C_NATIVE_FUNCTION_MAPPER (612)
-	C_NATIVE_PROCEDURE_MAPPER (613)
-	C_NATIVE_C_DEFINITION (614)
-	C_NATIVE_NEED_WRAPPER (622)
 #
 210 "CREATE_INSTRUCTION_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/create_instruction_visitor.e"
@@ -7039,6 +7023,22 @@ run-time-set:
 	C_COMPOUND_EXPRESSION_COMPILER (610)
 	CODE_COMPARATOR (724)
 #
+257 "NATIVE_C_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/native_c_visitor.e"
+class-name: NATIVE_C_VISITOR
+assertion-level: boost
+parent-count: 1 inherit: 83
+c-type: T257 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 5
+run-time-set:
+	PRECOMPUTABLE_ROUTINE_DETECTOR (115)
+	C_NATIVE_FUNCTION_MAPPER (612)
+	C_NATIVE_PROCEDURE_MAPPER (613)
+	C_NATIVE_C_DEFINITION (614)
+	C_NATIVE_NEED_WRAPPER (622)
+#
 84 "DECLARATION_LIST_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/declaration_list_visitor.e"
 class-name: DECLARATION_LIST_VISITOR
@@ -7069,12 +7069,6 @@ class-name: CREATION_CLAUSE_VISITOR
 assertion-level: boost
 parent-count: 1 inherit: 83
 #
-573 "STATIC_TYPE_MARK_VISITOR" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/static_type_mark_visitor.e"
-class-name: STATIC_TYPE_MARK_VISITOR
-assertion-level: boost
-parent-count: 4 inherit: 574 575 576 583
-#
 570 "LIKE_FEATURE_TYPE_MARK_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/like_feature_type_mark_visitor.e"
 class-name: LIKE_FEATURE_TYPE_MARK_VISITOR
@@ -7100,6 +7094,12 @@ run-time-set:
 	C_GARBAGE_COLLECTOR_INFO_COMPILER (782)
 	C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER (783)
 	C_GARBAGE_COLLECTOR_NEED_MARK (784)
+#
+573 "STATIC_TYPE_MARK_VISITOR" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/static_type_mark_visitor.e"
+class-name: STATIC_TYPE_MARK_VISITOR
+assertion-level: boost
+parent-count: 4 inherit: 574 575 576 583
 #
 685 "CLIENT_LIST_VISITOR" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/visitor/client_list_visitor.e"
@@ -8641,18 +8641,6 @@ class-name: LOCAL_NAME
 assertion-level: boost
 parent-count: 1 insert: 355 
 #
-507 "CALL_INFIX_FREEOP" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/call_infix_freeop.e"
-class-name: CALL_INFIX_FREEOP
-assertion-level: boost
-parent-count: 1 inherit: 369
-c-type: T507 reference: yes
-ref-status: live id-field: yes 
-destination-graph-nodes: ->CODE, ->INSTRUCTION, ->FEATURE_CALL, ->FUNCTION_CALL, ->EXPRESSION, ->CALL_INFIX, ->CALL_1
-run-time-set-count: 1
-run-time-set:
-	CALL_INFIX_FREEOP (507)
-#
 492 "CALL_INFIX_IMPLIES" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/call_infix_implies.e"
 class-name: CALL_INFIX_IMPLIES
@@ -8664,6 +8652,18 @@ destination-graph-nodes: ->CODE, ->INSTRUCTION, ->FEATURE_CALL, ->FUNCTION_CALL,
 run-time-set-count: 1
 run-time-set:
 	CALL_INFIX_IMPLIES (492)
+#
+507 "CALL_INFIX_FREEOP" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/call_infix_freeop.e"
+class-name: CALL_INFIX_FREEOP
+assertion-level: boost
+parent-count: 1 inherit: 369
+c-type: T507 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->CODE, ->INSTRUCTION, ->FEATURE_CALL, ->FUNCTION_CALL, ->EXPRESSION, ->CALL_INFIX, ->CALL_1
+run-time-set-count: 1
+run-time-set:
+	CALL_INFIX_FREEOP (507)
 #
 468 "REAL_CONSTANT" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/real_constant.e"
@@ -8701,18 +8701,6 @@ run-time-set-count: 1
 run-time-set:
 	CALL_INFIX_LE (497)
 #
-509 "CREATE_EXPRESSION" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/create_expression.e"
-class-name: CREATE_EXPRESSION
-assertion-level: boost
-parent-count: 2 inherit: 334 insert: 399 
-c-type: T509 reference: yes
-ref-status: live id-field: yes 
-destination-graph-nodes: ->CODE, ->INSTRUCTION, ->EXPRESSION
-run-time-set-count: 1
-run-time-set:
-	CREATE_EXPRESSION (509)
-#
 501 "CALL_INFIX_PLUS" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/call_infix_plus.e"
 class-name: CALL_INFIX_PLUS
@@ -8724,6 +8712,18 @@ destination-graph-nodes: ->CODE, ->INSTRUCTION, ->FEATURE_CALL, ->FUNCTION_CALL,
 run-time-set-count: 1
 run-time-set:
 	CALL_INFIX_PLUS (501)
+#
+509 "CREATE_EXPRESSION" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/create_expression.e"
+class-name: CREATE_EXPRESSION
+assertion-level: boost
+parent-count: 2 inherit: 334 insert: 399 
+c-type: T509 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->CODE, ->INSTRUCTION, ->EXPRESSION
+run-time-set-count: 1
+run-time-set:
+	CREATE_EXPRESSION (509)
 #
 664 "VOID_CALL" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/void_call.e"
@@ -8834,18 +8834,6 @@ run-time-set:
 	E_TRUE (379)
 	E_FALSE (450)
 #
-659 "INTERNAL_LOCAL2" l
-class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/internal_local2.e"
-class-name: INTERNAL_LOCAL2
-assertion-level: boost
-parent-count: 2 inherit: 519 89
-c-type: T659 reference: yes
-ref-status: live id-field: yes 
-destination-graph-nodes: ->CODE, ->INSTRUCTION, ->TAGGED, ->EXPRESSION
-run-time-set-count: 1
-run-time-set:
-	INTERNAL_LOCAL2 (659)
-#
 511 "OLD_MANIFEST_ARRAY" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/old_manifest_array.e"
 class-name: OLD_MANIFEST_ARRAY
@@ -8857,6 +8845,18 @@ destination-graph-nodes: ->CODE, ->INSTRUCTION, ->EXPRESSION
 run-time-set-count: 1
 run-time-set:
 	OLD_MANIFEST_ARRAY (511)
+#
+659 "INTERNAL_LOCAL2" l
+class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/internal_local2.e"
+class-name: INTERNAL_LOCAL2
+assertion-level: boost
+parent-count: 2 inherit: 519 89
+c-type: T659 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->CODE, ->INSTRUCTION, ->TAGGED, ->EXPRESSION
+run-time-set-count: 1
+run-time-set:
+	INTERNAL_LOCAL2 (659)
 #
 660 "DYNAMIC_DISPATCH_TEMPORARY1" l
 class-path: "/home/persocad/Workspace/Dev/Liberty/src/smarteiffel/expression/dynamic_dispatch_temporary1.e"
