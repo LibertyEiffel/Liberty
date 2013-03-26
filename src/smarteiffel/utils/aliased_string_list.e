@@ -45,6 +45,8 @@ feature {} -- Hard-coded class names:
 
    as_native_array_internals: STRING is "NATIVE_ARRAY_INTERNALS"
 
+   as_natural: STRING is "NATURAL"
+
    as_natural_8: STRING is "NATURAL_8"
 
    as_natural_16: STRING is "NATURAL_16"

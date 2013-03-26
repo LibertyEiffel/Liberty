@@ -461,6 +461,12 @@ feature {INTEGER_CONSTANT}
          -- Nothing to do
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+         -- Nothing to do
+      end
+
 feature {CHARACTER_CONSTANT}
    visit_character_constant (visited: CHARACTER_CONSTANT) is
       do

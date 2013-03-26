@@ -167,7 +167,7 @@ feature {CLASS_NAME_VISITOR, CLASS_TEXT}
          set_hashed_name(string_aliaser.hashed_string(s))
       end
 
-feature {INTEGER_TYPE_MARK}
+feature {INTEGER_TYPE_MARK, NATURAL_TYPE_MARK}
    set_hashed_name (hn: HASHED_STRING) is
       require
          hn /= Void

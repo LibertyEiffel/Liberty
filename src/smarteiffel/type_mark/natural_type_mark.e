@@ -8,11 +8,33 @@ class NATURAL_TYPE_MARK
 
 inherit
    KERNEL_EXPANDED_TYPE_MARK
+      redefine pretty_in, default_expression, resolve_in, class_text
+      end
 
 creation {ANY}
    natural_8, natural_16, natural_32, natural_64
 
 feature {ANY}
+   pretty_name: HASHED_STRING
+         -- The one actually written in the source code (`as_natural_8', `as_natural_16', `as_natural'
+         -- or `as_natural_64').
+
+   class_text: CLASS_TEXT is
+      local
+         ta: TYPE_ALIASING
+      do
+         Result := class_text_memory
+         if Result = Void then
+            if class_text_name.hashed_name = natural_name then
+               class_text_name.set_hashed_name(ta.natural_alias)
+               Result := Precursor
+               class_text_name.set_hashed_name(natural_name)
+            else
+               Result := Precursor
+            end
+         end
+      end
+
    bit_count: INTEGER
          -- Can be 8, 16, 32 or 64.
 
@@ -30,6 +52,11 @@ feature {ANY}
          when 64 then
             Result := natural_64_name
          end
+      end
+
+   pretty_in (buffer: STRING) is
+      do
+         buffer.append(pretty_name.to_string)
       end
 
    id: INTEGER is
@@ -50,6 +77,16 @@ feature {ANY}
          when 64 then
             Result := smart_eiffel.type_natural_64
          end
+      end
+
+   resolve_in (new_type: TYPE): TYPE is
+      do
+         Result := type
+      end
+
+   default_expression (sp: POSITION): EXPRESSION is
+      do
+         create {NATURAL_CONSTANT} Result.with(0, sp, Current)
       end
 
    accept (visitor: NATURAL_TYPE_MARK_VISITOR) is
@@ -83,24 +120,37 @@ feature {ANY}
    natural_8 (sp: like start_position) is
       do
          bit_count := 8
+         pretty_name := natural_8_name
          create class_text_name.make(natural_8_name, sp)
       end
 
    natural_16 (sp: like start_position) is
       do
          bit_count := 16
+         pretty_name := natural_16_name
          create class_text_name.make(natural_16_name, sp)
       end
 
    natural_32 (sp: like start_position) is
       do
          bit_count := 32
+         pretty_name := natural_32_name
          create class_text_name.make(natural_32_name, sp)
+      end
+
+   natural (sp: like start_position) is
+      local
+         ta: TYPE_ALIASING
+      do
+         bit_count := ta.natural_bit_count
+         pretty_name := natural_name
+         create class_text_name.make(ta.natural_alias, sp)
       end
 
    natural_64 (sp: like start_position) is
       do
          bit_count := 64
+         pretty_name := natural_64_name
          create class_text_name.make(natural_64_name, sp)
       end
 
@@ -117,6 +167,11 @@ feature {ANY}
    natural_32_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_natural_32)
+      end
+
+   natural_name: HASHED_STRING is
+      once
+         Result := string_aliaser.hashed_string(as_natural)
       end
 
    natural_64_name: HASHED_STRING is

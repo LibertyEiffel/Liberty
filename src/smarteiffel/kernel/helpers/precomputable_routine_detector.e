@@ -696,6 +696,11 @@ feature {INTEGER_CONSTANT}
       do
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+      end
+
 feature {CHARACTER_CONSTANT}
    visit_character_constant (visited: CHARACTER_CONSTANT) is
       do

@@ -67,6 +67,7 @@ insert
          visit_e_true,
          visit_character_constant,
          visit_integer_constant,
+         visit_natural_constant,
          visit_real_constant,
          visit_e_void,
          visit_manifest_string,
@@ -504,6 +505,14 @@ feature {CHARACTER_CONSTANT}
 
 feature {INTEGER_CONSTANT}
    visit_integer_constant (visited: INTEGER_CONSTANT) is
+      do
+         function_body.append(continue)
+         Precursor(visited)
+         function_body.append(finish)
+      end
+
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
       do
          function_body.append(continue)
          Precursor(visited)

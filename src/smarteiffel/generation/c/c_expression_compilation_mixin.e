@@ -755,6 +755,42 @@ feature {INTEGER_CONSTANT}
          end
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      local
+         actual_size: INTEGER
+      do
+         if visited.pretty_view /= Void then
+            function_body.append(once "/*")
+            function_body.append(visited.pretty_view)
+            function_body.append(once "*/")
+         end
+         if visited.result_type_memory /= Void then
+            actual_size := visited.result_type_memory.bit_count
+         else
+            actual_size := visited.size
+         end
+         inspect
+            actual_size
+         when 8 then
+            function_body.append(once "UINT8_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 16 then
+            function_body.append(once "UINT16_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 32 then
+            function_body.append(once "UINT32_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         when 64 then
+            function_body.append(once "UINT64_C(")
+            visited.value_memory.append_in(function_body)
+            function_body.extend(')')
+         end
+      end
+
 feature {REAL_CONSTANT}
    visit_real_constant (visited: REAL_CONSTANT) is
       local

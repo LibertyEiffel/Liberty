@@ -269,6 +269,12 @@ feature {INTEGER_CONSTANT}
          visited.value_memory.append_in(trace)
       end
 
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      do
+         visited.value_memory.append_in(trace)
+      end
+
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET) is
       do

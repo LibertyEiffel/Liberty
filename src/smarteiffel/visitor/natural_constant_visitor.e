@@ -1,42 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-expanded class TYPE_ALIASING
---
--- Try to prepare for type aliasing variation (when we want to shift to 64-bit integers, or if we want to
--- give this possibility to the programmer via some command-line or ACE option)
---
--- By "type aliasing", we mean INTEGER and REAL implicit sizes being made explicit. Currently INTEGER is
--- INTEGER_32 and REAL is REAL_64.
---
-insert
-   GLOBALS
+deferred class NATURAL_CONSTANT_VISITOR
 
-feature {ANY} -- INTEGER aliasing
-   integer_alias: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_integer_32)
+inherit
+   VISITOR
+
+feature {NATURAL_CONSTANT}
+   visit_natural_constant (visited: NATURAL_CONSTANT) is
+      require
+         visited /= Void
+      deferred
       end
 
-   integer_bit_count: INTEGER is 32
-
-feature {ANY} -- NATURAL aliasing
-   natural_alias: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_natural_32)
-      end
-
-   natural_bit_count: INTEGER is 32
-
-feature {ANY} -- REAL aliasing
-   real_alias: HASHED_STRING is
-      once
-         Result := string_aliaser.hashed_string(as_real_64)
-      end
-
-   real_bit_count: INTEGER is 64
-
-end -- class TYPE_ALIASING
+end -- class NATURAL_CONSTANT_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
