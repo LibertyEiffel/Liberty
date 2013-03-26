@@ -86,7 +86,7 @@ feature {ANY}
 
    default_expression (sp: POSITION): EXPRESSION is
       do
-         create {NATURAL_CONSTANT} Result.with(0, sp, Current)
+         create {NATURAL_CONSTANT} Result.with(0.to_natural_64, sp, Current)
       end
 
    accept (visitor: NATURAL_TYPE_MARK_VISITOR) is

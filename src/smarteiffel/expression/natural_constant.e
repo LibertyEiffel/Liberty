@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   value_memory: INTEGER_64 --| **** TODO: only for bootstrap -- should be NATURAL_64
+   value_memory: NATURAL_64
          -- We use here a 64 bit NATURAL to be able to store large values.
 
    size: INTEGER
@@ -222,7 +222,7 @@ feature {}
       do
          start_position := sp
          pretty_view := pv
-         value_memory := a_value.to_integer_64 --| **** TODO: remove convert
+         value_memory := a_value
          inspect
             digit_count
          when 2 then
