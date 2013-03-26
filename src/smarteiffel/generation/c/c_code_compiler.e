@@ -430,6 +430,11 @@ feature {RAW_CREATE_INSTRUCTION}
             internal_c_local.append_in(cpp.pending_c_function_body)
             function_body.append(once ");%N")
             internal_c_local.unlock
+         elseif created_type_memory.is_kernel_expanded then
+            compile_expression(visited.writable)
+            function_body.extend('=')
+            compile_expression(created_type_memory.canonical_type_mark.default_expression(visited.start_position)) -- ouch object creation
+            function_body.append(once ";%N")
          else
             compile_expression(visited.writable)
             function_body.append(once "=M")
