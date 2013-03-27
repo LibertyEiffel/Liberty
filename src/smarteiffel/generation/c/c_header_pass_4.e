@@ -163,7 +163,7 @@ feature {NATURAL_TYPE_MARK}
             function_signature.append(once "(FILE* file,T")
             visited.id.append_in(function_signature)
             function_signature.append(once "*o)")
-            function_body.append(once "fprintf(file,%"%%llu%",((uint64_t) *o));")
+            function_body.append(once "fprintf(file,%"%%llu%",(long long unsigned int)((uint64_t) *o));")
             cpp.dump_pending_c_function(True)
          end
       end
