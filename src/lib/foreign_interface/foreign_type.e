@@ -3,8 +3,19 @@
 --
 expanded class FOREIGN_TYPE
 
+insert
+   ANY
+      redefine
+         is_equal
+      end
+
 feature {ANY}
    ffi_type: POINTER
+
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := ffi_type = other.ffi_type
+      end
 
 feature {FOREIGN_TYPES}
    set_ffi_type (a_ffi_type: like ffi_type; a_factory: like factory; a_name: like name) is
