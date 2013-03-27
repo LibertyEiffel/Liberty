@@ -40,6 +40,7 @@ feature {ANY}
          check
             non_written_code: False
          end
+         sedb_breakpoint
       end
 
    frozen precedence: INTEGER is
