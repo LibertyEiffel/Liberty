@@ -28,6 +28,10 @@ feature {WHEN_CLAUSE}
          container.validity_check_continued(type, expression_type, Current)
       end
 
+   side_effect_free (type: TYPE): BOOLEAN is
+      deferred
+      end
+
 feature {WHEN_CLAUSE}
    validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN is
       require
@@ -168,7 +172,7 @@ feature {}
          (Result < values.upper) implies (v < values.item(Result))
          (Result > values.upper) implies (v > values.item(Result - 1))
       end
-   
+
    frozen manifest_expression_check (expression: EXPRESSION; type: TYPE): MANIFEST_EXPRESSION is
          -- Check that the `expression' is a valid bound for a when item (i.e. this is a statically
          -- computable expression).
@@ -252,7 +256,7 @@ feature {}
             Result := character_constant.value.code
          end
       end
-   
+
 feature {WHEN_ITEM_1}
    validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1) is
       require
