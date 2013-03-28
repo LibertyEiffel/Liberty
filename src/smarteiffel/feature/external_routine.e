@@ -172,12 +172,6 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
          if routine_body /= Void then
             rb := routine_body.simplify(type)
          end
-         if rb = Void and routine_body /= Void then
-            --******************************
-            --sedb_breakpoint
-            --*** HACK IN ORDER TO FIX INTERNALS
-            rb := routine_body
-         end
          Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
       end
 

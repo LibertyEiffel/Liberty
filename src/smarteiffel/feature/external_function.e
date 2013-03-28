@@ -912,9 +912,9 @@ feature {ANY}
       end
 
 feature {INTROSPECTION_HANDLER}
-   collect_internals_handler (t: TYPE) is
+   collect_internals_handler (t: TYPE; fn: STRING) is
       do
-         routine_body := introspection_handler.finalized_body_for_internals_handler(Current, t)
+         routine_body := introspection_handler.finalized_body_for_internals_handler(Current, t, fn)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}

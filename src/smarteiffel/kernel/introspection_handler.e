@@ -112,12 +112,9 @@ feature {EXTERNAL_FUNCTION}
          is_native_array_internals_from_generating_type_used
       end
 
-   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type): INSTRUCTION is
-      local
-         fn: STRING
+   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type; fn: STRING): INSTRUCTION is
       do
          start_new_body_for(er, nt, True)
-         fn := er.first_name.to_string
          if fn = as_internals_from_generating_type then
             Result := simplify_and_wrap(finalized_body_for_internals_from_generating_type)
          elseif fn = as_valid_generating_type_for_internals then
@@ -130,6 +127,9 @@ feature {EXTERNAL_FUNCTION}
             check
                False
             end
+         end
+         if Result = Void then
+            Result := er.routine_body
          end
       end
 
@@ -390,10 +390,12 @@ feature {SMART_EIFFEL}
                i > smart_eiffel.live_type_map.upper
             loop
                t := smart_eiffel.live_type_map.item(i).type
-               collect_internals_handler_for(t, as_internals_from_generating_type)
-               collect_internals_handler_for(t, as_valid_generating_type_for_internals)
-               collect_internals_handler_for(t, as_native_array_internals_from_generating_type)
-               collect_internals_handler_for(t, as_valid_generating_type_for_native_array_internals)
+               if t.insert_inherit_test(type_internals_handler) /= unrelated_code then
+                  collect_internals_handler_for(t, as_internals_from_generating_type)
+                  collect_internals_handler_for(t, as_valid_generating_type_for_internals)
+                  collect_internals_handler_for(t, as_native_array_internals_from_generating_type)
+                  collect_internals_handler_for(t, as_valid_generating_type_for_native_array_internals)
+               end
                i := i + 1
             end
          end
@@ -405,15 +407,14 @@ feature {}
    collect_internals_handler_for (type: TYPE; feature_name: STRING) is
       require
          smart_eiffel.status.is_collecting
+         type.insert_inherit_test(type_internals_handler) /= unrelated_code
       local
          fs: FEATURE_STAMP; ef: EXTERNAL_FUNCTION
       do
-         if type.insert_inherit_test(type_internals_handler) /= unrelated_code then
-            fs := smart_eiffel.feature_stamp(type_internals_handler, feature_name)
-            fs := fs.resolve_static_binding_for(type_internals_handler, type)
-            ef ::= fs.anonymous_feature(type)
-            ef.collect_internals_handler(type)
-         end
+         fs := smart_eiffel.feature_stamp(type_internals_handler, feature_name)
+         fs := fs.resolve_static_binding_for(type_internals_handler, type)
+         ef ::= fs.anonymous_feature(type)
+         ef.collect_internals_handler(type, feature_name)
       end
 
    wrap (wrapped: CODE): NO_INVARIANT_WRAPPER is
@@ -429,8 +430,8 @@ feature {}
       do
          if wrapped /= Void then
             create Result.make(wrapped)
-         else
-            Result ?= external_routine.routine_body
+         elseif Result ?:= external_routine.routine_body then
+            Result ::= external_routine.routine_body
          end
       end
 
@@ -1343,8 +1344,8 @@ feature {}
          create_instruction: INSTRUCTION
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         Result ?= external_routine.routine_body
-         if Result /= Void then
+         if Result ?:= external_routine.routine_body then
+            Result ::= external_routine.routine_body
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then
@@ -1409,8 +1410,9 @@ feature {}
          assignment: ASSIGNMENT
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         Result ?= external_routine.routine_body
-         if Result /= Void then
+         sedb_breakpoint
+         if Result ?:= external_routine.routine_body then
+            Result ::= external_routine.routine_body
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound /= Void then
@@ -1490,8 +1492,8 @@ feature {}
          create_instruction: INSTRUCTION
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         Result ?= external_routine.routine_body
-         if Result /= Void then
+         if Result ?:= external_routine.routine_body then
+            Result ::= external_routine.routine_body
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then
@@ -1556,8 +1558,8 @@ feature {}
          assignment: ASSIGNMENT
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         Result ?= external_routine.routine_body
-         if Result /= Void then
+         if Result ?:= external_routine.routine_body then
+            Result ::= external_routine.routine_body
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then
