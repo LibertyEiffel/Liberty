@@ -136,9 +136,9 @@ feature {JSON_OBJECT}
             jarr ::= json.members.at(json_data)
             jarr.array.enumerate.do_all(agent (value: JSON_VALUE; index: INTEGER) is
                                         do
-                                           last_name := once ""
-                                           last_name.copy(once "item#")
-                                           index.append_in(last_name)
+                                           last_name := "item("
+                                           (index+1).append_in(last_name)
+                                           last_name.extend(')')
                                            value.accept(Current)
                                         end)
             close_array(json.line, json.column)
