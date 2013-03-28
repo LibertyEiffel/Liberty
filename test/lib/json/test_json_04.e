@@ -235,6 +235,7 @@ feature {}
       local
          strin: STRING_INPUT_STREAM
          repo: JSON_STREAM_REPOSITORY[STRING]
+         value: STRING
       do
          create strin.from_string(pickle)
          create repo.connect_to(strin, Void)
@@ -243,14 +244,23 @@ feature {}
          assert(repo.count = 2)
 
          assert(repo.has("test"))
-         assert(repo.at("test").is_equal("foobar"))
+         value := repo.at("test")
+         assert(value.is_equal("foobar"))
          assert(repo.has("greetings"))
-         assert(repo.at("greetings").is_equal("hello world"))
+         value := repo.at("greetings")
+         assert(value.is_equal("hello world"))
 
-         assert(repo.key(1).is_equal("test"))
-         assert(repo.item(1).is_equal("foobar"))
-         assert(repo.key(2).is_equal("greetings"))
-         assert(repo.item(2).is_equal("hello world"))
+         if repo.item(1).is_equal("hello world") then
+            assert(repo.key(2).is_equal("test"))
+            assert(repo.item(2).is_equal("foobar"))
+            assert(repo.key(1).is_equal("greetings"))
+            assert(repo.item(1).is_equal("hello world"))
+         else
+            assert(repo.key(1).is_equal("test"))
+            assert(repo.item(1).is_equal("foobar"))
+            assert(repo.key(2).is_equal("greetings"))
+            assert(repo.item(2).is_equal("hello world"))
+         end
       end
 
 end
