@@ -430,8 +430,8 @@ feature {}
       do
          if wrapped /= Void then
             create Result.make(wrapped)
-         elseif Result ?:= external_routine.routine_body then
-            Result ::= external_routine.routine_body
+         else
+            Result ?= external_routine.routine_body
          end
       end
 
@@ -1344,8 +1344,8 @@ feature {}
          create_instruction: INSTRUCTION
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         if Result ?:= external_routine.routine_body then
-            Result ::= external_routine.routine_body
+         Result ?= external_routine.routine_body
+         if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then
@@ -1410,9 +1410,8 @@ feature {}
          assignment: ASSIGNMENT
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         sedb_breakpoint
-         if Result ?:= external_routine.routine_body then
-            Result ::= external_routine.routine_body
+         Result ?= external_routine.routine_body
+         if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound /= Void then
@@ -1492,8 +1491,8 @@ feature {}
          create_instruction: INSTRUCTION
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         if Result ?:= external_routine.routine_body then
-            Result ::= external_routine.routine_body
+         Result ?= external_routine.routine_body
+         if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then
@@ -1558,8 +1557,8 @@ feature {}
          assignment: ASSIGNMENT
          when_item_list: FAST_ARRAY[WHEN_ITEM]
       do
-         if Result ?:= external_routine.routine_body then
-            Result ::= external_routine.routine_body
+         Result ?= external_routine.routine_body
+         if Result /= Void then
             when_list := Result.when_list
             original_when_clause := when_list.first
             if original_when_clause.compound = Void then

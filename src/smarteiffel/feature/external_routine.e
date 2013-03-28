@@ -171,6 +171,11 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
       do
          if routine_body /= Void then
             rb := routine_body.simplify(type)
+            if rb = Void and is_generated_eiffel then
+               echo.w_put_string(once "Could not simplify generated code for ")
+               echo.w_put_line(first_name.to_string)
+               rb := routine_body
+            end
          end
          Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
       end
