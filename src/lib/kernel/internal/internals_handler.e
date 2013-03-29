@@ -1,13 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class INTERNALS_HANDLER
+deferred class INTERNALS_HANDLER
    --
    -- All classes that use INTERNALS must be descendants of INTERNALS_HANDLER.
    --
 
 feature {}
-   valid_generating_type_for_internals (type: STRING): BOOLEAN is
+   frozen valid_generating_type_for_internals (type: STRING): BOOLEAN is
       require
          type /= Void
       external "built_in"
@@ -15,7 +15,7 @@ feature {}
          Result implies not type.has_prefix(once "NATIVE_ARRAY")
       end
 
-   internals_from_generating_type (type: STRING): INTERNALS is
+   frozen internals_from_generating_type (type: STRING): INTERNALS is
       require
          valid_generating_type_for_internals(type)
       external "built_in"
@@ -24,7 +24,7 @@ feature {}
          Result.object_can_be_modified
       end
 
-   valid_generating_type_for_native_array_internals (type: STRING): BOOLEAN is
+   frozen valid_generating_type_for_native_array_internals (type: STRING): BOOLEAN is
       require
          type /= Void
       external "built_in"
@@ -32,7 +32,7 @@ feature {}
          Result implies type.has_prefix(once "NATIVE_ARRAY")
       end
 
-   native_array_internals_from_generating_type (type: STRING; capacity: INTEGER): INTERNALS is
+   frozen native_array_internals_from_generating_type (type: STRING; capacity: INTEGER): INTERNALS is
       require
          valid_generating_type_for_native_array_internals(type)
       external "built_in"
