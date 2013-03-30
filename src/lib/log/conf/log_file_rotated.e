@@ -116,7 +116,7 @@ feature {}
          end
 
          create {TEXT_FILE_WRITE} Result.connect_to(file_path)
-         do_at_exit(agent (file: FILE_STREAM) is do if stream.is_connected then stream.disconnect end end (Result))
+         do_at_exit(agent (file: FILE_STREAM) is do if file.is_connected then file.disconnect end end (Result))
       ensure
          Result /= file
          Result.is_connected
