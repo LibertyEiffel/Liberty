@@ -2421,7 +2421,7 @@ feature {}
       require
          rf3.is_root
       local
-         no_check: BOOLEAN; lt: LIVE_TYPE; do_atexit: BOOLEAN; se_atexit_stamp: FEATURE_STAMP
+         no_check: BOOLEAN; lt: LIVE_TYPE; se_atexit_stamp: FEATURE_STAMP
          internal_c_local: INTERNAL_C_LOCAL
       do
          no_check := ace.no_check
@@ -2431,67 +2431,67 @@ feature {}
          c_variables_for_precomputable_routines
          -- Define atexit() function, if useful (i.e. std_output is used):
          se_atexit_stamp := smart_eiffel.se_atexit_stamp
-         do_atexit := se_atexit_stamp /= Void or else ace.profile
-         if do_atexit then
-            prepare_c_function
-            pending_c_function_signature.append(once "void se_atexit(void)")
-            if ace.profile then
-               pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
-            end
-            if no_check then
-               pending_c_function_body.append(once "[
-                                                    se_frame_descriptor fd={"<atexit wrapper>",0,0,"",1};
-                                                                                                     se_dump_stack ds;
-                                                                                                     ds.fd=&fd;
-                                                                                                     ds.p=0;
-                                                                                                     ds.caller=NULL;
-                                                                                                     ds.exception_origin=NULL;
-                                                                                                     ds.locals=NULL;
-                                                                                                     ds.depth=0;
 
-                                                                                                     ]")
+         prepare_c_function
+         pending_c_function_signature.append(once "void se_atexit(void)")
+         if ace.profile then
+            pending_c_function_body.append(once "se_local_profile_t local_profile, *parent_profile;%N")
+         end
+         if no_check then
+            pending_c_function_body.append(once "[
+                                                 se_frame_descriptor fd={"<atexit wrapper>",0,0,"",1};
+                                                 se_dump_stack ds;
+                                                 ds.fd=&fd;
+                                                 ds.p=0;
+                                                 ds.caller=NULL;
+                                                 ds.exception_origin=NULL;
+                                                 ds.locals=NULL;
+                                                 ds.depth=0;
+
+                                                 ]")
+         end
+         if ace.profile then
+            pending_c_function_body.append(once "parent_profile=&global_profile;%N")
+            pending_c_function_body.append(once "local_profile.profile=&atexit_profile;%N")
+            pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+         end
+         if se_atexit_stamp /= Void then
+            -- Add the C code to call it knowing that the corresponding feature is a procedure which does not
+            -- use  `Current' (See {ANY}.se_atexit definition).
+            if ace.sedb then
+               -- (Calling Eiffel function flush would result in running sedb again whereas the user said s/he
+               -- wanted to exit.)
+               pending_c_function_body.append("if (sedb_status != SEDB_EXIT_MODE) ")
+               end
+               pending_c_function_body.extend('r')
+               smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "se_atexit(")
+               if not ace.boost then
+                  pending_c_function_body.append(once "&ds")
+               end
+               if ace.profile then
+                  if pending_c_function_body.last /= '(' then
+                     pending_c_function_body.extend(',')
+                  end
+                  pending_c_function_body.append(once "&local_profile")
+               end
+               if not ace.boost then
+                  if pending_c_function_body.last /= '(' then
+                     pending_c_function_body.extend(',')
+                  end
+                  pending_c_function_body.append(once "NULL/*Unused Target*/")
+               end
+               pending_c_function_body.append(once ");%N")
+            end
+            gc_handler.gc_info_before_exit
+            if ace.profile then
+               pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
             end
             if ace.profile then
-               pending_c_function_body.append(once "parent_profile=&global_profile;%N")
-               pending_c_function_body.append(once "local_profile.profile=&atexit_profile;%N")
-               pending_c_function_body.append(once "start_profile(parent_profile, &local_profile);%N")
+               show_profile
             end
-            if se_atexit_stamp /= Void then
-               -- Add the C code to call it knowing that the corresponding feature is a procedure which does not
-               -- use  `Current' (See {ANY}.se_atexit definition).
-               if ace.sedb then
-                  -- (Calling Eiffel function flush would result in running sedb again whereas the user said s/he
-                  -- wanted to exit.)
-                  pending_c_function_body.append("if (sedb_status != SEDB_EXIT_MODE) ")
-                  end
-                  pending_c_function_body.extend('r')
-                  smart_eiffel.se_atexit_id.append_in(pending_c_function_body)
-                  pending_c_function_body.append(once "se_atexit(")
-                  if not ace.boost then
-                     pending_c_function_body.append(once "&ds")
-                  end
-                  if ace.profile then
-                     if pending_c_function_body.last /= '(' then
-                        pending_c_function_body.extend(',')
-                     end
-                     pending_c_function_body.append(once "&local_profile")
-                  end
-                  if not ace.boost then
-                     if pending_c_function_body.last /= '(' then
-                        pending_c_function_body.extend(',')
-                     end
-                     pending_c_function_body.append(once "NULL/*Unused Target*/")
-                  end
-                  pending_c_function_body.append(once ");%N")
-               end
-               if ace.profile then
-                  pending_c_function_body.append(once "stop_profile(parent_profile, &local_profile);%N")
-               end
-               if ace.profile then
-                  show_profile
-               end
-               dump_pending_c_function(True)
-            end
+            dump_pending_c_function(True)
+
             --|*** if (not ace.no_split) and then split_count > 10 then
             --|***    -- We are producing a quite large system, so just use a brand new file right-now:
             --|***    ace.splitter.split_now
@@ -2511,9 +2511,7 @@ feature {}
                set_dump_stack_top_for(rf3.type_of_current, once "&ds", once "link")
             end
             pending_c_function_body.append(once "se_argc=argc;%Nse_argv=argv;%N")
-            if do_atexit then
-               pending_c_function_body.append(once "atexit(se_atexit);%N")
-            end
+            pending_c_function_body.append(once "atexit(se_atexit);%N")
             if ace.profile then
                pending_c_function_body.append(once "parent_profile=&global_profile;%N")
                pending_c_function_body.append(once "local_profile.profile=&runinit_profile;%N")
@@ -2824,7 +2822,6 @@ feature {}
             internal_c_local.append_in(pending_c_function_body)
             class_invariant_call_closing(class_invariant_flag, True)
          end
-         gc_handler.gc_info_before_exit
          pending_c_function_body.append(once "handle(SE_HANDLE_NORMAL_EXIT, NULL);%N");
          if ace.no_check then
             set_dump_stack_top_for(rf3.type_of_current, once "NULL", once "unlink")

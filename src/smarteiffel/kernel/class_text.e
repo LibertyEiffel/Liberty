@@ -996,6 +996,17 @@ feature {TYPE, CLASS_TEXT_VISITOR}
          Result.names.first.to_string = as_is_equal
       end
 
+   do_at_exit_feature: ANONYMOUS_FEATURE is
+         -- To get the original definition of feature `do_at_exit' from class ANY.
+      require
+         name.to_string = as_any
+      do
+         fn_buffer.unknown_position(as_do_at_exit)
+         Result := feature_dictionary.at(fn_buffer)
+      ensure
+         Result.names.first.to_string = as_do_at_exit
+      end
+
    creation_list_check (type: TYPE) is
       require
          type.class_text = Current

@@ -454,6 +454,15 @@ feature {} -- The C Guru section:
       external "built_in"
       end
 
+feature {}
+   frozen do_at_exit (action: PROCEDURE[TUPLE]) is
+         -- An `action` to execute at exit.
+      local
+         at_exit_actions: AT_EXIT
+      do
+         at_exit_actions.add(action)
+      end
+
 feature {} -- Implementation of ANY (do not use directly):
    print_run_time_stack is
          -- Prints the run time stack.
@@ -463,10 +472,13 @@ feature {} -- Implementation of ANY (do not use directly):
       end
 
    se_atexit is
-         -- Called automatically at exit when `std_output' is used.
-         -- (Do not call explicitely. Implementation purpose.)
+         -- Called automatically at exit when either `std_output' is used or `do_at_exit' is called.
+         -- (Do not call explicitly. Implementation purpose.)
+      local
+         at_exit_actions: AT_EXIT
       do
          std_output.flush
+         at_exit_actions.run
       end
 
 feature {INTERNALS_HANDLER}

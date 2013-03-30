@@ -500,6 +500,7 @@ feature {LIVE_TYPE}
          type.live_type /= Void
       end
 
+feature {LIVE_TYPE, PROCEDURE_CALL_0}
    collect_se_atexit (type: TYPE) is
       require
          type /= Void
@@ -514,7 +515,7 @@ feature {LIVE_TYPE}
          se_atexit_stamp /= Void
       end
 
-feature {CODE_PRINTER}
+feature {LIVE_TYPE, PROCEDURE_CALL_0, C_PRETTY_PRINTER}
    se_atexit_stamp: FEATURE_STAMP
 
    se_atexit_id: INTEGER
