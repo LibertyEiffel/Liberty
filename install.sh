@@ -103,14 +103,15 @@ jobs: $((2 * $(grep '^processor' /proc/cpuinfo|wc -l)))
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
-path_se_tools: $LIBERTY_HOME/src/smarteiffel/
-path_se_tutorial: $LIBERTY_HOME/tutorial/
+path_lib: $LIBERTY_HOME/src/lib/
+path_tools: $LIBERTY_HOME/src/smarteiffel/
+path_tutorial: $LIBERTY_HOME/tutorial/
 
 [Loadpath]
 liberty: \${path_liberty}src/loadpath.se
 test: \${path_liberty}test/loadpath.se
-se_tools: \${path_se_tools}loadpath.se
-se_tutorial: \${path_se_tutorial}loadpath.se
+tools: \${path_tools}loadpath.se
+tutorial: \${path_tutorial}loadpath.se
 
 [Tools]
 ace_check: ace_check
