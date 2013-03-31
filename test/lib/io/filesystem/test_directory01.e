@@ -20,7 +20,7 @@ feature {ANY}
          s := d.path.twin
          assert(s.is_equal(d.path))
          create f.make
-         d.connect_to_file_stream(f, "README")
+         d.connect_to_file_stream(f, "test_basic_directory.e")
          assert(f.is_connected)
          f.disconnect
       end
