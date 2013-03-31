@@ -1,34 +1,33 @@
 class FIBONACCI
 
 insert
-	ARGUMENTS
-	
+   ARGUMENTS
+
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if argument_count /= 1 or else not argument(1).is_integer then
-				io.put_string("Usage: ")
-				io.put_string(argument(0))
-				io.put_string(" <Integer_value>%N")
-				die_with_code(exit_failure_code)
-			end
-			io.put_integer(fibonacci(argument(1).to_integer))
-			io.put_new_line
-		end
+   make is
+      do
+         if argument_count /= 1 or else not argument(1).is_integer then
+            io.put_string("Usage: ")
+            io.put_string(argument(0))
+            io.put_string(" <Integer_value>%N")
+            die_with_code(exit_failure_code)
+         end
+         io.put_integer(fibonacci(argument(1).to_integer))
+         io.put_new_line
+      end
 
-	fibonacci (i: INTEGER): INTEGER is
-		require
-			i >= 0
-		do
-			if i < 2 then
-				Result := i
-			else
-				Result := fibonacci(i - 2) + fibonacci(i - 1)
-			end
-		end
+   fibonacci (i: INTEGER): INTEGER is
+      require
+         i >= 0
+      do
+         if i < 2 then
+            Result := i
+         else
+            Result := fibonacci(i - 2) + fibonacci(i - 1)
+         end
+      end
 
 end
-
