@@ -909,6 +909,7 @@ feature {}
             if buffer_pool.is_empty then
                create b.connect_to(u, Void)
             else
+               b := buffer_pool.item
                b.connect_to(u, Void)
             end
          until
