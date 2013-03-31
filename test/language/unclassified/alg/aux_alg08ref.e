@@ -4,7 +4,7 @@
 class AUX_ALG08REF
 
 insert
-	AUX_ALG08EXP
+   AUX_ALG08EXP
 
 end -- class AUX_ALG08REF
 --

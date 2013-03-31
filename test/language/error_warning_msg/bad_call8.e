@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_CALL8
-	-- From sz:518
+   -- From sz:518
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			multiplier(42)
-		end
+   make is
+      do
+         multiplier(42)
+      end
 
-	toto: INTEGER
+   toto: INTEGER
 
-	multiplier (p_scalaire: REAL) is
-		do
-			toto := (toto * p_scalaire).rounded.to_integer_32
-		end
+   multiplier (p_scalaire: REAL) is
+      do
+         toto := (toto * p_scalaire).rounded.to_integer_32
+      end
 
 end -- class BAD_CALL8
 --

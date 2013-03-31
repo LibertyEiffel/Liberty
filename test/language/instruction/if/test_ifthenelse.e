@@ -4,20 +4,20 @@
 class TEST_IFTHENELSE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	tab: ARRAY[BOOLEAN]
+   tab: ARRAY[BOOLEAN]
 
-	make is
-		do
-			create tab.make(0, 0)
-			tab.put(1 = 1, 0)
-			if tab.item(0) then
-			else
-				std_output.put_string("TEST_IFTHENELSE: ERROR Test # 1.%N")
-			end
-		end
+   make is
+      do
+         create tab.make(0, 0)
+         tab.put(1 = 1, 0)
+         if tab.item(0) then
+         else
+            std_output.put_string("TEST_IFTHENELSE: ERROR Test # 1.%N")
+         end
+      end
 
 end -- class TEST_IFTHENELSE
 --

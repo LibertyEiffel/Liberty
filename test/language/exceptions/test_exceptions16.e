@@ -4,30 +4,30 @@
 class TEST_EXCEPTIONS16
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		do
-			foo
-			foo
-		rescue
-			i := 1
-			retry
-		end
+   make is
+      do
+         foo
+         foo
+      rescue
+         i := 1
+         retry
+      end
 
-	foo is
-		require
-			i /= 0
-		do
-		rescue
-			std_output.put_string("TEST_EXCEPTION16: ERROR #1%N")
-		end
+   foo is
+      require
+         i /= 0
+      do
+      rescue
+         std_output.put_string("TEST_EXCEPTION16: ERROR #1%N")
+      end
 
 end -- class TEST_EXCEPTIONS16
 --

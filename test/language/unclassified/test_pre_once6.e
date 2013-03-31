@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRE_ONCE6
-	--SZ:300: Problem with precomputed once order.
+   --SZ:300: Problem with precomputed once order.
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	global_aux: AUX_PRE_ONCE6 is
-		once
-			create Result
-		end
+   global_aux: AUX_PRE_ONCE6 is
+      once
+         create Result
+      end
 
-	make is
-		local
-			aux: AUX_PRE_ONCE6
-		do
-			aux := global_aux
-			assert(aux.aux.item(0) = 0)
-		end
+   make is
+      local
+         aux: AUX_PRE_ONCE6
+      do
+         aux := global_aux
+         assert(aux.aux.item(0) = 0)
+      end
 
 end -- class TEST_PRE_ONCE6
 --

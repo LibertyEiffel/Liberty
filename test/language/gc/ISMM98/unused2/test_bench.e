@@ -4,34 +4,34 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} --   tuning : INTEGER is 4_000_000; BDW BOUCLE !!!
-	tuning: INTEGER is 1000000
+   tuning: INTEGER is 1000000
 
-	make is
-		local
-			i, j: INTEGER; link1, link2: LINK[REAL]
-		do
-			from
-				j := 0
-			until
-				j > 50
-			loop
-				link1 := Void
-				link2 := Void
-				from
-					i := 1
-				until
-					i > tuning
-				loop
-					link2 := link1
-					create link1.make(i, link2)
-					i := i + 1
-				end
-				j := j + 1
-			end
-		end
+   make is
+      local
+         i, j: INTEGER; link1, link2: LINK[REAL]
+      do
+         from
+            j := 0
+         until
+            j > 50
+         loop
+            link1 := Void
+            link2 := Void
+            from
+               i := 1
+            until
+               i > tuning
+            loop
+               link2 := link1
+               create link1.make(i, link2)
+               i := i + 1
+            end
+            j := j + 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

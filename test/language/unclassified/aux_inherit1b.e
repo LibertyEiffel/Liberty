@@ -4,21 +4,21 @@
 class AUX_INHERIT1B
 
 inherit
-	AUX_INHERIT1A
-		redefine fonc
-		end
+   AUX_INHERIT1A
+      redefine fonc
+      end
 
 insert
-	AUX_INHERIT1A
-		rename fonc as fonc_a
-		end
+   AUX_INHERIT1A
+      rename fonc as fonc_a
+      end
 
 feature {ANY}
-	fonc is
-		do
-			fonc_a
-			b_count := b_count + 1
-		end
+   fonc is
+      do
+         fonc_a
+         b_count := b_count + 1
+      end
 
 end -- class AUX_INHERIT1B
 --

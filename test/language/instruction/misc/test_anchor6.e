@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ANCHOR6
-	-- From a bug report of Jean-Lin PACHERIE
+   -- From a bug report of Jean-Lin PACHERIE
 
 inherit
-	AUX_ANCHOR6
+   AUX_ANCHOR6
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(1)
-			bar(c)
-		end
+   make is
+      do
+         foo(1)
+         bar(c)
+      end
 
-	bar (param: like b) is
-		do
-		end
+   bar (param: like b) is
+      do
+      end
 
 end -- class TEST_ANCHOR6
 --

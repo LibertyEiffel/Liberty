@@ -4,22 +4,22 @@
 class TEST_EXPANDED19
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1: AUX_EXPANDED16A; elt: AUX_EXPANDED16B; i: INTEGER
-		do
-			create a1.make(3)
-			elt.set_all_with(1.5)
-			i := a1.upper
-		end
+   make is
+      local
+         a1: AUX_EXPANDED16A; elt: AUX_EXPANDED16B; i: INTEGER
+      do
+         create a1.make(3)
+         elt.set_all_with(1.5)
+         i := a1.upper
+      end
 
-	error is
-		do
-			std_output.put_string("TEST_EXPANDED19: ERROR%N")
-		end
+   error is
+      do
+         std_output.put_string("TEST_EXPANDED19: ERROR%N")
+      end
 
 end -- class TEST_EXPANDED19
 --

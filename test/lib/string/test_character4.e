@@ -4,51 +4,51 @@
 class TEST_CHARACTER4
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert('0'.is_decimal_digit)
-			assert('0'.decimal_value = 0)
-			assert('9'.is_decimal_digit)
-			assert('9'.decimal_value = 9)
-			assert('0'.is_binary_digit)
-			assert('0'.binary_value = 0)
-			assert('1'.is_binary_digit)
-			assert('1'.binary_value = 1)
-			assert('0'.is_octal_digit)
-			assert('0'.octal_value = 0)
-			assert('7'.is_octal_digit)
-			assert('7'.octal_value = 7)
-			assert('0'.is_hexadecimal_digit)
-			assert('0'.hexadecimal_value = 0)
-			assert('9'.is_hexadecimal_digit)
-			assert('9'.hexadecimal_value = 9)
-			assert('a'.is_hexadecimal_digit)
-			assert('a'.hexadecimal_value = 10)
-			assert('f'.is_hexadecimal_digit)
-			assert('f'.hexadecimal_value = 15)
-			assert('A'.is_hexadecimal_digit)
-			assert('A'.hexadecimal_value = 10)
-			assert('F'.is_hexadecimal_digit)
-			assert('F'.hexadecimal_value = 15)
-			assert(not 'Z'.is_decimal_digit)
-			assert(not 'A'.is_binary_digit)
-			assert(not '2'.is_binary_digit)
-			assert(not '8'.is_octal_digit)
-			assert(not 'a'.is_octal_digit)
-			assert(not 'G'.is_hexadecimal_digit)
-			assert(not '1'.is_alpha)
-			assert(not ','.is_alpha)
-			assert('a'.is_alpha)
-			assert('z'.is_alpha)
-			assert('A'.is_alpha)
-			assert('Z'.is_alpha)
-		end
+   make is
+      do
+         assert('0'.is_decimal_digit)
+         assert('0'.decimal_value = 0)
+         assert('9'.is_decimal_digit)
+         assert('9'.decimal_value = 9)
+         assert('0'.is_binary_digit)
+         assert('0'.binary_value = 0)
+         assert('1'.is_binary_digit)
+         assert('1'.binary_value = 1)
+         assert('0'.is_octal_digit)
+         assert('0'.octal_value = 0)
+         assert('7'.is_octal_digit)
+         assert('7'.octal_value = 7)
+         assert('0'.is_hexadecimal_digit)
+         assert('0'.hexadecimal_value = 0)
+         assert('9'.is_hexadecimal_digit)
+         assert('9'.hexadecimal_value = 9)
+         assert('a'.is_hexadecimal_digit)
+         assert('a'.hexadecimal_value = 10)
+         assert('f'.is_hexadecimal_digit)
+         assert('f'.hexadecimal_value = 15)
+         assert('A'.is_hexadecimal_digit)
+         assert('A'.hexadecimal_value = 10)
+         assert('F'.is_hexadecimal_digit)
+         assert('F'.hexadecimal_value = 15)
+         assert(not 'Z'.is_decimal_digit)
+         assert(not 'A'.is_binary_digit)
+         assert(not '2'.is_binary_digit)
+         assert(not '8'.is_octal_digit)
+         assert(not 'a'.is_octal_digit)
+         assert(not 'G'.is_hexadecimal_digit)
+         assert(not '1'.is_alpha)
+         assert(not ','.is_alpha)
+         assert('a'.is_alpha)
+         assert('z'.is_alpha)
+         assert('A'.is_alpha)
+         assert('Z'.is_alpha)
+      end
 
 end -- class TEST_CHARACTER4
 --

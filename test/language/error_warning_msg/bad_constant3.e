@@ -11,7 +11,7 @@ feature
    
    make is
       do
-	 if Long_mask = 0 then end
+    if Long_mask = 0 then end
       end
 
 end -- class BAD_CONSTANT3

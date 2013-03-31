@@ -3,26 +3,26 @@
 --
 class BAD_AGENT23
 -- From sz:562
-	
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			f(agent g(?))
-		end
+   make is
+      do
+         f(agent g(?))
+      end
 
-	f (p: ROUTINE[TUPLE[INTEGER]]) is
-		do
-			p.call([{INTEGER 3 }, Void])
-		end
+   f (p: ROUTINE[TUPLE[INTEGER]]) is
+      do
+         p.call([{INTEGER 3 }, Void])
+      end
 
-	g (i: INTEGER) is
-		do
-			if i.out = Void then
-			end
-		end
+   g (i: INTEGER) is
+      do
+         if i.out = Void then
+         end
+      end
 
 end -- class BAD_AGENT23
 --

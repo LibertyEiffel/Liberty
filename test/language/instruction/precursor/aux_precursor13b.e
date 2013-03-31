@@ -4,10 +4,10 @@
 deferred class AUX_PRECURSOR13B
 
 feature {ANY}
-	init (i: INTEGER): INTEGER is
-		do
-			Result := i * i
-		end
+   init (i: INTEGER): INTEGER is
+      do
+         Result := i * i
+      end
 
 end -- class AUX_PRECURSOR13B
 --

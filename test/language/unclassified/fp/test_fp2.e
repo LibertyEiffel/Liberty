@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FP2
-	-- From a bug report of  Francois PENNANEACH
+   -- From a bug report of  Francois PENNANEACH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: AUX_FP1D
-		do
-			create d.make
-			assert(d.b_count = 1)
-			assert(d.c_count = 1)
-			assert(d.d_count = 1)
-		end
+   make is
+      local
+         d: AUX_FP1D
+      do
+         create d.make
+         assert(d.b_count = 1)
+         assert(d.c_count = 1)
+         assert(d.d_count = 1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_FP2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_FP2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FP2
 --

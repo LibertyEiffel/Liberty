@@ -4,16 +4,16 @@
 class AUX_INHERIT_ARRAY2
 
 inherit
-	ARRAY[INTEGER]
+   ARRAY[INTEGER]
 
 creation {ANY}
-	test, make
+   test, make
 
 feature {ANY}
-	test is
-		do
-			make(1, 1)
-		end
+   test is
+      do
+         make(1, 1)
+      end
 
 end -- class AUX_INHERIT_ARRAY2
 --

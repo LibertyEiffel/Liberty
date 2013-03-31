@@ -4,23 +4,23 @@
 class TEST_STRING10
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			assert(("%/207/").first = '%/207/')
-			assert(("%/255/").first = '%/255/')
-			assert(("%/206/").first = '%/206/')
-			s := "studip?"
-			s.append(s)
-			assert(s.is_equal("studip?studip?"))
-		end
+   make is
+      local
+         s: STRING
+      do
+         assert(("%/207/").first = '%/207/')
+         assert(("%/255/").first = '%/255/')
+         assert(("%/206/").first = '%/206/')
+         s := "studip?"
+         s.append(s)
+         assert(s.is_equal("studip?studip?"))
+      end
 
 end -- class TEST_STRING10
 --

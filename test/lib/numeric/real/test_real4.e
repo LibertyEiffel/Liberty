@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REAL4
-	-- To test the new REAL_* classes.
+   -- To test the new REAL_* classes.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			view: STRING; real_32: REAL_32; real: REAL
-		do
-			real := 1.0
-			view := real.to_string
-			assert(view.is_equal("1.000000"))
-			real_32 := 1.0.force_to_real_32
-			view := real_32.to_string
-			assert(view.is_equal("1.000000"))
-		end
+   make is
+      local
+         view: STRING; real_32: REAL_32; real: REAL
+      do
+         real := 1.0
+         view := real.to_string
+         assert(view.is_equal("1.000000"))
+         real_32 := 1.0.force_to_real_32
+         view := real_32.to_string
+         assert(view.is_equal("1.000000"))
+      end
 
 end -- class TEST_REAL4
 --

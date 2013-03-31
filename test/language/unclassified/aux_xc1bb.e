@@ -4,19 +4,19 @@
 class AUX_XC1BB
 
 inherit
-	AUX_XC1A2[STRING, INTEGER]
+   AUX_XC1A2[STRING, INTEGER]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (v: STRING) is
-		local
-			i: INTEGER
-		do
-			item := v
-			i := item2
-		end
+   make (v: STRING) is
+      local
+         i: INTEGER
+      do
+         item := v
+         i := item2
+      end
 
 end -- class AUX_XC1BB
 --

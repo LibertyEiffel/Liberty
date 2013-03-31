@@ -4,16 +4,16 @@
 class BAD_CREATE9
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			string: STRING
-		do
-			string := create {STRING}.does_not_exist
-		end
-	
+   main is
+      local
+         string: STRING
+      do
+         string := create {STRING}.does_not_exist
+      end
+   
 end -- class BAD_CREATE9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

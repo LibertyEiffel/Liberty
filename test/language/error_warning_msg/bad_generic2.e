@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 dctn: AUX_GENERIC2[INTEGER]
+    dctn: AUX_GENERIC2[INTEGER]
       do
-	 if dctn = Void then
-	 end
+    if dctn = Void then
+    end
       end
    
 end -- class BAD_GENERIC2

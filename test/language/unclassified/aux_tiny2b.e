@@ -4,7 +4,7 @@
 class AUX_TINY2B
 
 inherit
-	AUX_TINY1A
+   AUX_TINY1A
 
 end -- class AUX_TINY2B
 --

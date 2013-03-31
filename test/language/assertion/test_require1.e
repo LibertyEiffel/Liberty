@@ -3,25 +3,25 @@
 --
 class TEST_REQUIRE1
 
-	-- A    B1   B2
-	--  \    \   /
-	--   \    \ /
-	--    \    C
-	--     \   /
-	--      \ /
-	--       D
+   -- A    B1   B2
+   --  \    \   /
+   --   \    \ /
+   --    \    C
+   --     \   /
+   --      \ /
+   --       D
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			d: AUX_REQUIRE1_D
-		do
-			create d
-			d.foo
-		end
+   main is
+      local
+         d: AUX_REQUIRE1_D
+      do
+         create d
+         d.foo
+      end
 
 end -- class TEST_ASSERTION1
 --

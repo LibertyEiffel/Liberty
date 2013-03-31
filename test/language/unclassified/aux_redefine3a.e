@@ -4,15 +4,15 @@
 class AUX_REDEFINE3A
 
 feature {ANY}
-	display: CHARACTER is
-		local
-			my_current: like Current
-		do
-			my_current := Current
-			if my_current /= Void then
-				Result := 'A'
-			end
-		end
+   display: CHARACTER is
+      local
+         my_current: like Current
+      do
+         my_current := Current
+         if my_current /= Void then
+            Result := 'A'
+         end
+      end
 
 end -- class AUX_REDEFINE3A
 --

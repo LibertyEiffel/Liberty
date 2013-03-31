@@ -4,41 +4,41 @@
 class TEST_IN_RANGE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(2.in_range(1, 3))
-			assert(1.in_range(1, 3))
-			assert(3.in_range(1, 3))
-			assert(not 4.in_range(1, 3))
-			assert(1.5 < 2.0)
-			assert(1.5 <= 2.0)
-			assert(1.5.force_to_real_32 < 2.0)
-			assert(1.5.force_to_real_32 <= 2.0)
-			assert(2.5 > 2.0)
-			assert(2.5 >= 2.0)
-			assert(2.5.force_to_real_32 > 2.0)
-			assert(2.5.force_to_real_32 >= 2.0)
-			assert(1.5.in_range(1.0, 2.0))
-			assert(1.0.in_range(1.0, 2.0))
-			assert(("aac").in_range("aaa", "ccc"))
-		end
+   make is
+      do
+         assert(2.in_range(1, 3))
+         assert(1.in_range(1, 3))
+         assert(3.in_range(1, 3))
+         assert(not 4.in_range(1, 3))
+         assert(1.5 < 2.0)
+         assert(1.5 <= 2.0)
+         assert(1.5.force_to_real_32 < 2.0)
+         assert(1.5.force_to_real_32 <= 2.0)
+         assert(2.5 > 2.0)
+         assert(2.5 >= 2.0)
+         assert(2.5.force_to_real_32 > 2.0)
+         assert(2.5.force_to_real_32 >= 2.0)
+         assert(1.5.in_range(1.0, 2.0))
+         assert(1.0.in_range(1.0, 2.0))
+         assert(("aac").in_range("aaa", "ccc"))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_IN_RANGE: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_IN_RANGE: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IN_RANGE
 --

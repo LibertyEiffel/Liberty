@@ -9,7 +9,7 @@ creation
 feature
    make is
       local
-	 aux: AUX_REDEFINE13B
+    aux: AUX_REDEFINE13B
       do
       end
    

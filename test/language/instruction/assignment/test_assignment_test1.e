@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSIGNMENT_TEST1
-	--
-	-- To test the ?:= operator.
-	--
+   --
+   -- To test the ?:= operator.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert({like Current} ?:= Current)
-		end
+   make is
+      do
+         assert({like Current} ?:= Current)
+      end
 
 end -- class TEST_ASSIGNMENT_TEST1
 --

@@ -4,29 +4,29 @@
 class AUX_SCR2B
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create clients.make(0, 2)
-		end
+   make is
+      do
+         create clients.make(0, 2)
+      end
 
 feature {AUX_SCR2A}
-	manage (d: AUX_SCR2A) is
-		do
-		end
+   manage (d: AUX_SCR2A) is
+      do
+      end
 
-	is_managed (d: AUX_SCR2A): BOOLEAN is
-		do
-			Result := d /= Void
-		end
+   is_managed (d: AUX_SCR2A): BOOLEAN is
+      do
+         Result := d /= Void
+      end
 
 feature {} -- Implementation
-	clients: ARRAY[AUX_SCR2A]
+   clients: ARRAY[AUX_SCR2A]
 
 invariant
-	clients /= Void
+   clients /= Void
 
 end -- class AUX_SCR2B
 --

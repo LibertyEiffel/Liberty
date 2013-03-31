@@ -2,11 +2,11 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_INHERIT12_C
-	-- In this class, the feature `foo' produces a merged feature stamp
+   -- In this class, the feature `foo' produces a merged feature stamp
 
 inherit
-	AUX_INHERIT12_A
-	AUX_INHERIT12_B
+   AUX_INHERIT12_A
+   AUX_INHERIT12_B
 
 end -- class AUX_INHERIT12_C
 --

@@ -4,28 +4,28 @@
 class TEST_DICTIONARY3
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	v1: STRING is "FOO"
+   v1: STRING is "FOO"
 
-	v2: STRING is "BAR"
+   v2: STRING is "BAR"
 
-	make is
-		local
-			d: DICTIONARY[STRING, INTEGER]
-		do
-			create {HASHED_DICTIONARY[STRING, INTEGER]} d.make
-			assert(d.count = 0)
-			assert(d.is_empty)
-			d.put(v1, 567)
-			assert(v1 = d.at(567))
-			d.put(v2, 567)
-			assert(v2 = d.at(567))
-		end
+   make is
+      local
+         d: DICTIONARY[STRING, INTEGER]
+      do
+         create {HASHED_DICTIONARY[STRING, INTEGER]} d.make
+         assert(d.count = 0)
+         assert(d.is_empty)
+         d.put(v1, 567)
+         assert(v1 = d.at(567))
+         d.put(v2, 567)
+         assert(v2 = d.at(567))
+      end
 
 end -- class TEST_DICTIONARY3
 --

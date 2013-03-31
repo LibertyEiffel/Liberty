@@ -9,11 +9,11 @@ feature
 
    make is
       local 
-	 un_pointer: POINTER;
+    un_pointer: POINTER;
       do
-	 -- On ne devrait pas ecrire ca mais 
-	 -- ce n'est pas une raison ;-)
-	 un_pointer := Void.to_external;
+    -- On ne devrait pas ecrire ca mais 
+    -- ce n'est pas une raison ;-)
+    un_pointer := Void.to_external;
       end;
 
 end -- class BAD_CALL2

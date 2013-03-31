@@ -4,42 +4,42 @@
 class TEST_PRE_ONCE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			o3, o4: AUX_PRE_ONCE3
-		do
-			assert(o1 /= o2)
-			create o3.make
-			create o4.make
-			assert(o3 /= o4)
-		end
+   make is
+      local
+         o3, o4: AUX_PRE_ONCE3
+      do
+         assert(o1 /= o2)
+         create o3.make
+         create o4.make
+         assert(o3 /= o4)
+      end
 
-	o1: AUX_PRE_ONCE3 is
-		once
-			create Result.make
-		end
+   o1: AUX_PRE_ONCE3 is
+      once
+         create Result.make
+      end
 
-	o2: AUX_PRE_ONCE3 is
-		once
-			create Result.make
-		end
+   o2: AUX_PRE_ONCE3 is
+      once
+         create Result.make
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PRE_ONCE3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PRE_ONCE3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PRE_ONCE3
 --

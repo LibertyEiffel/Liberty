@@ -4,51 +4,51 @@
 class TEST_IS_EQUAL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
-		do
-			assert(("foo").is_equal("foo"))
-			assert(not ("bar").is_equal("foo"))
-			assert(not ("foo").is_equal(""))
-			create {DOG} animal1
-			create {CAT} animal1
-			create {CAT} animal2
-			assert(animal1.is_equal(animal2))
-			create p1.make(1.5, 2.5)
-			create p2.make(1.5, 2.5)
-			assert(p1.is_equal(p2))
-			assert(p2.is_equal(p1))
-			any1 := p1
-			any2 := p2
-			assert(any1.is_equal(any2))
-			assert(any2.is_equal(any1))
-			create cp1.make(1.5, 2.5, "red")
-			create cp2.make(1.5, 2.5, "red")
-			assert(not cp1.is_equal(cp2))
-			any1 := cp1
-			any2 := cp1
-			assert(any1.is_equal(any2))
-			any2 := cp2
-			assert(not any1.is_equal(any2))
-		end
+   make is
+      local
+         animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
+      do
+         assert(("foo").is_equal("foo"))
+         assert(not ("bar").is_equal("foo"))
+         assert(not ("foo").is_equal(""))
+         create {DOG} animal1
+         create {CAT} animal1
+         create {CAT} animal2
+         assert(animal1.is_equal(animal2))
+         create p1.make(1.5, 2.5)
+         create p2.make(1.5, 2.5)
+         assert(p1.is_equal(p2))
+         assert(p2.is_equal(p1))
+         any1 := p1
+         any2 := p2
+         assert(any1.is_equal(any2))
+         assert(any2.is_equal(any1))
+         create cp1.make(1.5, 2.5, "red")
+         create cp2.make(1.5, 2.5, "red")
+         assert(not cp1.is_equal(cp2))
+         any1 := cp1
+         any2 := cp1
+         assert(any1.is_equal(any2))
+         any2 := cp2
+         assert(not any1.is_equal(any2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_IS_EQUAL: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_IS_EQUAL: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes %N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_EQUAL
 --

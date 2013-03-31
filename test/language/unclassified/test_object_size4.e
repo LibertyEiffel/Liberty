@@ -4,41 +4,41 @@
 class TEST_OBJECT_SIZE4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s, s2: INTEGER; str: STRING; a: ARRAY[STRING]
-		do
-			s := 1.object_size
-			s := s * 3 -- Object ID + count + capacity
-			str := "bar"
-			s := s + str.to_pointer.object_size
-			s2 := str.object_size
-			assert(("foo").object_size >= s - 1.object_size)
-			--                          *
-			-- Because alignment for 64 bit machines.
-			s := s + 1.object_size
-			a := {ARRAY[STRING] 1, << "foo" >> }
-			s2 := a.object_size
-			assert({ARRAY[STRING] 1, << "foo" >> }.object_size > 0)
-		end
+   make is
+      local
+         s, s2: INTEGER; str: STRING; a: ARRAY[STRING]
+      do
+         s := 1.object_size
+         s := s * 3 -- Object ID + count + capacity
+         str := "bar"
+         s := s + str.to_pointer.object_size
+         s2 := str.object_size
+         assert(("foo").object_size >= s - 1.object_size)
+         --                          *
+         -- Because alignment for 64 bit machines.
+         s := s + 1.object_size
+         a := {ARRAY[STRING] 1, << "foo" >> }
+         s2 := a.object_size
+         assert({ARRAY[STRING] 1, << "foo" >> }.object_size > 0)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_OBJECT_SIZE4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_OBJECT_SIZE4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_OBJECT_SIZE4
 --

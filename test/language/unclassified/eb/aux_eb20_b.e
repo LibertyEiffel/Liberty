@@ -4,15 +4,15 @@
 class AUX_EB20_B
 
 inherit
-	AUX_EB20_A
-		redefine f
-		end
+   AUX_EB20_A
+      redefine f
+      end
 
 feature {ANY}
-	f (a_string: STRING; i, j: INTEGER): INTEGER is
-		do
-			Result := Precursor(a_string, i, j)
-		end
+   f (a_string: STRING; i, j: INTEGER): INTEGER is
+      do
+         Result := Precursor(a_string, i, j)
+      end
 
 end -- class AUX_EB20_B
 --

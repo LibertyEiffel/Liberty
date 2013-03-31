@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ARRAY2A
-	-- From a bug report of Marc SCALZOLARO
+   -- From a bug report of Marc SCALZOLARO
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tab2: ARRAY2[INTEGER_8]
-		do
-			tab2 := {ARRAY2[INTEGER_8] 1, 2, 1, 3, << 1, 2;
-			                                          3, 4;
-			                                          5, 6 >> }
-			tab2.transpose
-		end
+   make is
+      local
+         tab2: ARRAY2[INTEGER_8]
+      do
+         tab2 := {ARRAY2[INTEGER_8] 1, 2, 1, 3, << 1, 2;
+                                                   3, 4;
+                                                   5, 6 >> }
+         tab2.transpose
+      end
 
 end -- class TEST_ARRAY2A
 --

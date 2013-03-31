@@ -4,43 +4,43 @@
 expanded class COLOR
 
 insert
-	ANY
-		redefine out
-		end
+   ANY
+      redefine out
+      end
 
 creation {ANY}
-	default_create, make_rgb
+   default_create, make_rgb
 
 feature {ANY}
-	make_rgb (r, g, b: INTEGER_8) is
-		do
-			red := r
-			green := g
-			blue := b
-			alpha := 0
-		end
+   make_rgb (r, g, b: INTEGER_8) is
+      do
+         red := r
+         green := g
+         blue := b
+         alpha := 0
+      end
 
-	to_integer_32: INTEGER_32 is
-		do
-			Result := alpha.to_integer_32
-			Result := red.to_integer_32
-			Result := green.to_integer_32
-			Result := blue.to_integer_32
-		end
+   to_integer_32: INTEGER_32 is
+      do
+         Result := alpha.to_integer_32
+         Result := red.to_integer_32
+         Result := green.to_integer_32
+         Result := blue.to_integer_32
+      end
 
-	out: STRING is
-		do
-			Result := alpha.out + red.out + green.out + blue.out + to_integer_32.to_hexadecimal
-		end
+   out: STRING is
+      do
+         Result := alpha.out + red.out + green.out + blue.out + to_integer_32.to_hexadecimal
+      end
 
 feature {ANY}
-	red: INTEGER_8
+   red: INTEGER_8
 
-	green: INTEGER_8
+   green: INTEGER_8
 
-	blue: INTEGER_8
+   blue: INTEGER_8
 
-	alpha: INTEGER_8
+   alpha: INTEGER_8
 
 end -- class COLOR
 --

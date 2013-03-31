@@ -4,23 +4,23 @@
 class TEST_REDEFINE1
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_REDEFINE1A; b: AUX_REDEFINE1B
-		do
-			create a
-			create b
-			a.foo(Void)
-			b.foo(Void)
-			a.bar({ARRAY[TEST_REDEFINE1] 1, << Current >> })
-			b.bar({ARRAY[STRING] 1, << "titi" >> })
-		end
+   make is
+      local
+         a: AUX_REDEFINE1A; b: AUX_REDEFINE1B
+      do
+         create a
+         create b
+         a.foo(Void)
+         b.foo(Void)
+         a.bar({ARRAY[TEST_REDEFINE1] 1, << Current >> })
+         b.bar({ARRAY[STRING] 1, << "titi" >> })
+      end
 
 end -- class TEST_REDEFINE1
 --

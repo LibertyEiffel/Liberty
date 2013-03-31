@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER06
-	-- simple tests of comparaisons between fraction and fraction
+   -- simple tests of comparaisons between fraction and fraction
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4, n5, n6, n7, n8: NUMBER
-		do
-			-- integer / small_integer <=> SMALL_FRACTION
-			n1 := from_string("-1/3")
-			n2 := from_string("1/3")
-			n3 := from_string("1/3")
-			n4 := from_string("9/27")
-			n5 := from_string("1/1000000")
-			n6 := from_string("10/10000000")
-			n7 := from_string("-1/2")
-			n8 := from_string("-2/4")
-			assert(not n1.is_equal(n2))
-			assert(n4.is_equal(n3))
-			assert(n5.is_equal(n6))
-			assert((n4 + n5).is_equal(n3 + n6))
-			assert(n7.is_equal(n8))
-		end
+   make is
+      local
+         n1, n2, n3, n4, n5, n6, n7, n8: NUMBER
+      do
+         -- integer / small_integer <=> SMALL_FRACTION
+         n1 := from_string("-1/3")
+         n2 := from_string("1/3")
+         n3 := from_string("1/3")
+         n4 := from_string("9/27")
+         n5 := from_string("1/1000000")
+         n6 := from_string("10/10000000")
+         n7 := from_string("-1/2")
+         n8 := from_string("-2/4")
+         assert(not n1.is_equal(n2))
+         assert(n4.is_equal(n3))
+         assert(n5.is_equal(n6))
+         assert((n4 + n5).is_equal(n3 + n6))
+         assert(n7.is_equal(n8))
+      end
 
 
 

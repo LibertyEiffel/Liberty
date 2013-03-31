@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DOUBLE8
-	--SZ:258:
+   --SZ:258:
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; d: REAL_64; rd: REFERENCE[REAL_64]
-		do
-			d := 0.0
-			i := d.rounded.force_to_integer_32
-			assert(i = 0)
-			create rd.set_item(0.0)
-			assert(rd.item.rounded = 0)
-		end
+   make is
+      local
+         i: INTEGER; d: REAL_64; rd: REFERENCE[REAL_64]
+      do
+         d := 0.0
+         i := d.rounded.force_to_integer_32
+         assert(i = 0)
+         create rd.set_item(0.0)
+         assert(rd.item.rounded = 0)
+      end
 
 end -- class TEST_DOUBLE8
 --

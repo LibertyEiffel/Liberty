@@ -4,33 +4,33 @@
 class TEST_MEMORY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			mem: MEMORY
-		do
-			assert(mem.collecting)
-			mem.collection_off
-			assert(not mem.collecting)
-			mem.collection_on
-			mem.full_collect
-		end
+   make is
+      local
+         mem: MEMORY
+      do
+         assert(mem.collecting)
+         mem.collection_off
+         assert(not mem.collecting)
+         mem.collection_on
+         mem.full_collect
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_MEMORY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_MEMORY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_MEMORY1
 --

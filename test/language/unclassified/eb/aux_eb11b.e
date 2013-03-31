@@ -4,17 +4,17 @@
 class AUX_EB11B
 
 inherit
-	AUX_EB11A
-		rename gobo as loulou
-		end
+   AUX_EB11A
+      rename gobo as loulou
+      end
 
 feature {ANY}
-	f (yo: STRING) is
-		local
-			gobo: STRING
-		do
-			gobo := "yo man"
-		end
+   f (yo: STRING) is
+      local
+         gobo: STRING
+      do
+         gobo := "yo man"
+      end
 
 end -- class AUX_EB11B
 --

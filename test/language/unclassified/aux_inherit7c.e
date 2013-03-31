@@ -4,21 +4,21 @@
 class AUX_INHERIT7C
 
 inherit
-	AUX_INHERIT7A
+   AUX_INHERIT7A
 
 feature {ANY}
-	x: AUX_INHERIT7B is
-		do
-		end
+   x: AUX_INHERIT7B is
+      do
+      end
 
-	run (b: AUX_INHERIT7B) is
-		do
-			if not b.is_foo and b.is_bar then
-			else
-				--ERROR
-				crash
-			end
-		end
+   run (b: AUX_INHERIT7B) is
+      do
+         if not b.is_foo and b.is_bar then
+         else
+            --ERROR
+            crash
+         end
+      end
 
 end -- class AUX_INHERIT7C
 --

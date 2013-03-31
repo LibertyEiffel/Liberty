@@ -4,17 +4,17 @@
 class AUX_ONCE6D
 
 inherit
-	AUX_ONCE6C
-		redefine default_value
-		end
+   AUX_ONCE6C
+      redefine default_value
+      end
 
 feature {ANY}
-	default_value: INTEGER is
-		once
-			Result := 500
-		ensure then
-			positive_default_value: Result > 0
-		end
+   default_value: INTEGER is
+      once
+         Result := 500
+      ensure then
+         positive_default_value: Result > 0
+      end
 
 end -- class AUX_ONCE6D
 --

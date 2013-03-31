@@ -4,38 +4,38 @@
 class TEST_RENAME4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux_rename4a: AUX_RENAME4A; aux_rename4b: AUX_RENAME4B; aux_rename4c: AUX_RENAME4C
-		do
-			create aux_rename4c.make
-			aux_rename4a := aux_rename4c
-			aux_rename4b := aux_rename4c
-			assert(aux_rename4a.mema = aux_rename4b.memb)
-			assert(aux_rename4a.mema = aux_rename4c.memc)
-			assert(aux_rename4b.memb = aux_rename4a.mema)
-			assert(aux_rename4b.memb = aux_rename4c.memc)
-			assert(aux_rename4c.memc = aux_rename4a.mema)
-			assert(aux_rename4c.memc = aux_rename4b.memb)
-		end
+   make is
+      local
+         aux_rename4a: AUX_RENAME4A; aux_rename4b: AUX_RENAME4B; aux_rename4c: AUX_RENAME4C
+      do
+         create aux_rename4c.make
+         aux_rename4a := aux_rename4c
+         aux_rename4b := aux_rename4c
+         assert(aux_rename4a.mema = aux_rename4b.memb)
+         assert(aux_rename4a.mema = aux_rename4c.memc)
+         assert(aux_rename4b.memb = aux_rename4a.mema)
+         assert(aux_rename4b.memb = aux_rename4c.memc)
+         assert(aux_rename4c.memc = aux_rename4a.mema)
+         assert(aux_rename4c.memc = aux_rename4b.memb)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RENAME4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RENAME4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RENAME4
 --

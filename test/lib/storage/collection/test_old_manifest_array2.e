@@ -4,11 +4,11 @@
 class TEST_OLD_MANIFEST_ARRAY2
 
 inherit
-	TEST_OLD_MANIFEST_ARRAY
-		-- To trigger specialize_thru.
+   TEST_OLD_MANIFEST_ARRAY
+      -- To trigger specialize_thru.
 
 creation {ANY}
-	make
+   make
 
 end -- class TEST_OLD_MANIFEST_ARRAY2
 --

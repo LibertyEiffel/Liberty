@@ -4,26 +4,26 @@
 class TEST_SINGLETON3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		local
-			aux: AUX_SINGLETON3
-		do
-			if aux = Void then
-				create aux.make
-				create aux.make
-			end
-		rescue
-			i := i + 1
-			retry
-		end
+   make is
+      local
+         aux: AUX_SINGLETON3
+      do
+         if aux = Void then
+            create aux.make
+            create aux.make
+         end
+      rescue
+         i := i + 1
+         retry
+      end
 
 invariant
-	i = 1
+   i = 1
 
 end -- class TEST_SINGLETON3
 --

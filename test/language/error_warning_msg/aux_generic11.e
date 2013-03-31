@@ -4,12 +4,12 @@
 class AUX_GENERIC11[E_]
 
 feature
-	do_it is
-		local
-			e: E_
-		do
-			e := Void
-		end
+   do_it is
+      local
+         e: E_
+      do
+         e := Void
+      end
 
 end -- class AUX_GENERIC11
 --

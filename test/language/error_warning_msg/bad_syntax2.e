@@ -9,13 +9,13 @@ feature
 
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 foo ()
-	 inspect
-	    i
-	 when then
-	 end
+    foo ()
+    inspect
+       i
+    when then
+    end
       end
 
    foo is

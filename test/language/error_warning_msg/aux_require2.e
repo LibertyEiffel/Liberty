@@ -7,15 +7,15 @@ feature
    attr: INTEGER
 
    make is
-		require
-			attr = 0
+      require
+         attr = 0
       do
-			attr := attr + 2
+         attr := attr + 2
       end
 
    make2 is
       do
-			attr := attr + 2
+         attr := attr + 2
       end
 
 end -- class AUX_REQUIRE2

@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_BEFORE_EXIT2
-	-- Test that dispose is actually called just before exit.
+   -- Test that dispose is actually called just before exit.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
-	make is
-		local
-			aux: AUX_BEFORE_EXIT2
-		do
-			-- Check first if the previous run was correct:
-			assert(file_tools.file_exists(once "before_exit.new"))
-			assert(file_tools.file_exists(once "before_exit.ref"))
-			assert(file_tools.same_files(once "before_exit.new", "before_exit.ref"))
-			-- Now removing:
-			file_tools.delete(once "before_exit.new")
-			assert(not file_tools.file_exists(once "before_exit.new"))
-			create aux.make
-		end
+   make is
+      local
+         aux: AUX_BEFORE_EXIT2
+      do
+         -- Check first if the previous run was correct:
+         assert(file_tools.file_exists(once "before_exit.new"))
+         assert(file_tools.file_exists(once "before_exit.ref"))
+         assert(file_tools.same_files(once "before_exit.new", "before_exit.ref"))
+         -- Now removing:
+         file_tools.delete(once "before_exit.new")
+         assert(not file_tools.file_exists(once "before_exit.new"))
+         create aux.make
+      end
 
 end -- class TEST_BEFORE_EXIT2
 --

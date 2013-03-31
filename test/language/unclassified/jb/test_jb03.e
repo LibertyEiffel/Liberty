@@ -2,50 +2,50 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JB03
-	-- From: Jacques Bouchard <bouchard@mageos.com>
+   -- From: Jacques Bouchard <bouchard@mageos.com>
 
 inherit
-	AUX_JB03
-		rename p as a_p
-		redefine x
-		end
+   AUX_JB03
+      rename p as a_p
+      redefine x
+      end
 
 creation {ANY}
-	make, default_create
+   make, default_create
 
 feature {ANY}
-	x: TEST_JB03
+   x: TEST_JB03
 
-	p: STRING is
-		do
-			Result := "TEST.p"
-		end
+   p: STRING is
+      do
+         Result := "TEST.p"
+      end
 
-	make is
-		do
-			create y
-			assert(y.generating_type = generating_type)
-			y := Current
-			assert(p.is_equal("TEST.p"))
-			assert(a_p.is_equal("AUX.p"))
-			assert(y.p.is_equal("TEST.p"))
-			assert(y.a_p.is_equal("AUX.p"))
-		end
+   make is
+      do
+         create y
+         assert(y.generating_type = generating_type)
+         y := Current
+         assert(p.is_equal("TEST.p"))
+         assert(a_p.is_equal("AUX.p"))
+         assert(y.p.is_equal("TEST.p"))
+         assert(y.a_p.is_equal("AUX.p"))
+      end
 
-	assert (boolean: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not boolean then
-				sedb_breakpoint
-				std_output.put_string("TEST_JB03: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N")
-			end
-		end
+   assert (boolean: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not boolean then
+            sedb_breakpoint
+            std_output.put_string("TEST_JB03: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JB03
 --

@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DEFERRED5
-	--
-	-- From a bug report of : Mostefa KASSAB
-	--
+   --
+   -- From a bug report of : Mostefa KASSAB
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			cltn: COLLECTION[INTEGER]
-		do
-			create {ARRAY[INTEGER]} cltn.make(1, 2)
-			if cltn.upper = 5 then
-			end
-		end
+   make is
+      local
+         cltn: COLLECTION[INTEGER]
+      do
+         create {ARRAY[INTEGER]} cltn.make(1, 2)
+         if cltn.upper = 5 then
+         end
+      end
 
 end -- class TEST_DEFERRED5
 --

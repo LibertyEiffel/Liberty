@@ -4,33 +4,33 @@
 class TEST_VON_NEUMAN3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tab: ARRAY[STRING]; s: COLLECTION_SORTER[STRING]
-		do
-			tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal_map({ARRAY[STRING] 1, << "abc", "hello world", "test1", "test3", "try" >> }))
-			tab.add_last("+fr")
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal_map({ARRAY[STRING] 1, << "+fr", "abc", "hello world", "test1", "test3", "try" >> }))
-		end
+   make is
+      local
+         tab: ARRAY[STRING]; s: COLLECTION_SORTER[STRING]
+      do
+         tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal_map({ARRAY[STRING] 1, << "abc", "hello world", "test1", "test3", "try" >> }))
+         tab.add_last("+fr")
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal_map({ARRAY[STRING] 1, << "+fr", "abc", "hello world", "test1", "test3", "try" >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_VON_NEUMAN_SORT3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_VON_NEUMAN_SORT3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_VON_NEUMAN3
 --

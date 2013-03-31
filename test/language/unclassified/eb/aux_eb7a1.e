@@ -4,20 +4,20 @@
 class AUX_EB7A1[G]
 
 feature {ANY}
-	is_valid: BOOLEAN is
-		local
-			a: like b
-		do
-			if a = b then
-				Result := True
-			end
-		end
+   is_valid: BOOLEAN is
+      local
+         a: like b
+      do
+         if a = b then
+            Result := True
+         end
+      end
 
 feature {ANY}
-	b: STRING
+   b: STRING
 
 invariant
-	is_valid
+   is_valid
 
 end -- class AUX_EB7A1
 --

@@ -4,9 +4,9 @@
 class AUX_EB6C
 
 inherit
-	AUX_EB6A
-	AUX_EB6B
-		-- export {NONE} all
+   AUX_EB6A
+   AUX_EB6B
+      -- export {NONE} all
 
 end -- class AUX_EB6C
 --

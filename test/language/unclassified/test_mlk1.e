@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MLK1
-	--
-	-- Test for Memory Leaks
-	--
+   --
+   -- Test for Memory Leaks
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	tab: ARRAY[ARRAY[INTEGER]]
+   tab: ARRAY[ARRAY[INTEGER]]
 
-	tab2: ARRAY[INTEGER]
+   tab2: ARRAY[INTEGER]
 
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		do
-			create tab.make(1, 1)
-			create tab2.make(1, 1)
-			tab.put(tab2, 1)
-			create tab2.make(1, 1)
-			from
-				i := 1
-			until
-				i > 10
-			loop
-				tab2.put(i, 1)
-				(tab @ 1).copy(tab2)
-				i := i + 1
-			end
-		end
+   make is
+      do
+         create tab.make(1, 1)
+         create tab2.make(1, 1)
+         tab.put(tab2, 1)
+         create tab2.make(1, 1)
+         from
+            i := 1
+         until
+            i > 10
+         loop
+            tab2.put(i, 1)
+            (tab @ 1).copy(tab2)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_MLK1
 --

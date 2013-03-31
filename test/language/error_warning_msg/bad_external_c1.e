@@ -11,7 +11,7 @@ feature
 
    make is
       do
-	 set_x(point_pointer);
+    set_x(point_pointer);
       end;
 
 feature {NONE}

@@ -4,64 +4,64 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	tuning: INTEGER is 40000
+   tuning: INTEGER is 40000
 
-	make is
-		local
-			a: ARRAY[ANIMAL]; i: INTEGER
-		do
-			create a.make(1, 1024)
-			from
-				i := tuning
-			until
-				i = 0
-			loop
-				fill(a)
-				clear(a)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         a: ARRAY[ANIMAL]; i: INTEGER
+      do
+         create a.make(1, 1024)
+         from
+            i := tuning
+         until
+            i = 0
+         loop
+            fill(a)
+            clear(a)
+            i := i - 1
+         end
+      end
 
-	fill (array: ARRAY[ANIMAL]) is
-		local
-			i: INTEGER; animal: ANIMAL
-		do
-			from
-				i := array.upper
-			until
-				i < array.lower
-			loop
-				if i \\ 2 = 0 then
-					create {CAT} animal.make
-				else
-					create {DOG} animal.make
-				end
-				array.put(animal, i)
-				i := i - 1
-			end
-		end
+   fill (array: ARRAY[ANIMAL]) is
+      local
+         i: INTEGER; animal: ANIMAL
+      do
+         from
+            i := array.upper
+         until
+            i < array.lower
+         loop
+            if i \\ 2 = 0 then
+               create {CAT} animal.make
+            else
+               create {DOG} animal.make
+            end
+            array.put(animal, i)
+            i := i - 1
+         end
+      end
 
-	clear (array: ARRAY[ANIMAL]) is
-		local
-			i: INTEGER; animal: ANIMAL
-		do
-			from
-				i := array.upper
-			until
-				i < array.lower
-			loop
-				animal := array.item(i)
-				array.put(Void, i)
-				if animal.is_cat then
-					create {CAT} animal.make
-					array.put(animal, i)
-				end
-				i := i - 1
-			end
-		end
+   clear (array: ARRAY[ANIMAL]) is
+      local
+         i: INTEGER; animal: ANIMAL
+      do
+         from
+            i := array.upper
+         until
+            i < array.lower
+         loop
+            animal := array.item(i)
+            array.put(Void, i)
+            if animal.is_cat then
+               create {CAT} animal.make
+               array.put(animal, i)
+            end
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

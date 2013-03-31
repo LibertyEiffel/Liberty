@@ -4,40 +4,40 @@
 class TEST_PLATFORM2
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(Character_bits >= 8)
-			assert(Minimum_character_code = 0)
-			assert(Minimum_character_code = '%U'.code)
-			assert(Maximum_character_code = 255)
-			assert(Boolean_bits >= 8)
-			assert(Integer_bits >= 32)
-			assert(Real_bits >= 64)
-			--	 assert(Double_bits >= Real_bits);
-			assert(Pointer_bits >= 24)
-			assert(Maximum_integer >= 32768)
-		end
+   make is
+      do
+         assert(Character_bits >= 8)
+         assert(Minimum_character_code = 0)
+         assert(Minimum_character_code = '%U'.code)
+         assert(Maximum_character_code = 255)
+         assert(Boolean_bits >= 8)
+         assert(Integer_bits >= 32)
+         assert(Real_bits >= 64)
+         --    assert(Double_bits >= Real_bits);
+         assert(Pointer_bits >= 24)
+         assert(Maximum_integer >= 32768)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PLATFORM2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PLATFORM2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PLATFORM2
 --

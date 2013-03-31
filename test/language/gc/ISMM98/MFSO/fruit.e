@@ -4,12 +4,12 @@
 deferred class FRUIT
 
 feature {ANY}
-	seed: INTEGER
+   seed: INTEGER
 
-	make (new_seed: INTEGER) is
-		do
-			seed := new_seed
-		end
+   make (new_seed: INTEGER) is
+      do
+         seed := new_seed
+      end
 
 end -- class FRUIT
 --

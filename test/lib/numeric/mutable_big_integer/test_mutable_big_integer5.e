@@ -2,164 +2,164 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER5
-	--
-	-- Testing comparison.
-	--
+   --
+   -- Testing comparison.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			check_compare(1, 2)
-			--
-			check_compare(0, 0)
-			check_compare(1, 0)
-			check_compare(1, 1)
-			check_compare(2, 0)
-			check_compare(2, 1)
-			check_compare(3, 0)
-			check_compare(3, 1)
-			check_compare(3, 2)
-			check_compare(3, 3)
-			check_compare(Maximum_integer - 3, 0)
-			check_compare(Maximum_integer - 3, 1)
-			check_compare(Maximum_integer - 3, 2)
-			check_compare(Maximum_integer - 3, 3)
-			check_compare(Maximum_integer, 0)
-			check_compare(Maximum_integer, 1)
-			check_compare(Maximum_integer, 2)
-			check_compare(Maximum_integer, 3)
-			check_compare(Maximum_integer, Maximum_integer.to_integer_64)
-			check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 1)
-			check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 2)
-			check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 3)
-			check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 4)
-			check_compare(Maximum_integer_64 - 3, 0)
-			check_compare(Maximum_integer_64 - 3, 1)
-			check_compare(Maximum_integer_64 - 3, 2)
-			check_compare(Maximum_integer_64 - 3, 3)
-			check_compare(Maximum_integer_64, 1)
-			check_compare(Maximum_integer_64, Maximum_integer_64)
-		end
+   make is
+      do
+         check_compare(1, 2)
+         --
+         check_compare(0, 0)
+         check_compare(1, 0)
+         check_compare(1, 1)
+         check_compare(2, 0)
+         check_compare(2, 1)
+         check_compare(3, 0)
+         check_compare(3, 1)
+         check_compare(3, 2)
+         check_compare(3, 3)
+         check_compare(Maximum_integer - 3, 0)
+         check_compare(Maximum_integer - 3, 1)
+         check_compare(Maximum_integer - 3, 2)
+         check_compare(Maximum_integer - 3, 3)
+         check_compare(Maximum_integer, 0)
+         check_compare(Maximum_integer, 1)
+         check_compare(Maximum_integer, 2)
+         check_compare(Maximum_integer, 3)
+         check_compare(Maximum_integer, Maximum_integer.to_integer_64)
+         check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 1)
+         check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 2)
+         check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 3)
+         check_compare(Maximum_integer, Maximum_integer.to_integer_64 + 4)
+         check_compare(Maximum_integer_64 - 3, 0)
+         check_compare(Maximum_integer_64 - 3, 1)
+         check_compare(Maximum_integer_64 - 3, 2)
+         check_compare(Maximum_integer_64 - 3, 3)
+         check_compare(Maximum_integer_64, 1)
+         check_compare(Maximum_integer_64, Maximum_integer_64)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER5 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER5 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
-	check_compare (a, b: INTEGER_64) is
-		local
-			c, d: INTEGER_64; mbia, mbib: MUTABLE_BIG_INTEGER
-		do
-			--
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			if a < b then
-				assert(mbia < mbib)
-				assert(mbia <= mbib)
-				assert(mbib > mbia)
-				assert(mbib >= mbia)
-				assert(not mbia.is_equal(mbib))
-			elseif b < a then
-				assert(mbib < mbia)
-				assert(mbib <= mbia)
-				assert(mbia > mbib)
-				assert(mbia >= mbib)
-				assert(not mbia.is_equal(mbib))
-			else
-				assert(not (mbib < mbia))
-				assert(mbib >= mbia)
-				assert(not (mbia > mbib))
-				assert(mbia <= mbib)
-				assert(mbia.is_equal(mbib))
-			end
-			--
-			c := -a
-			d := b
-			create mbia.from_integer_64(c)
-			create mbib.from_integer_64(d)
-			if c < d then
-				assert(mbia < mbib)
-				assert(mbia <= mbib)
-				assert(mbib > mbia)
-				assert(mbib >= mbia)
-				assert(not mbia.is_equal(mbib))
-			elseif d < c then
-				assert(mbib < mbia)
-				assert(mbib <= mbia)
-				assert(mbia > mbib)
-				assert(mbia >= mbib)
-				assert(not mbia.is_equal(mbib))
-			else
-				assert(not (mbib < mbia))
-				assert(mbib >= mbia)
-				assert(not (mbia > mbib))
-				assert(mbia <= mbib)
-				assert(mbia.is_equal(mbib))
-			end
-			--
-			c := a
-			d := -b
-			create mbia.from_integer_64(c)
-			create mbib.from_integer_64(d)
-			if c < d then
-				assert(mbia < mbib)
-				assert(mbia <= mbib)
-				assert(mbib > mbia)
-				assert(mbib >= mbia)
-				assert(not mbia.is_equal(mbib))
-			elseif d < c then
-				assert(mbib < mbia)
-				assert(mbib <= mbia)
-				assert(mbia > mbib)
-				assert(mbia >= mbib)
-				assert(not mbia.is_equal(mbib))
-			else
-				assert(not (mbib < mbia))
-				assert(mbib >= mbia)
-				assert(not (mbia > mbib))
-				assert(mbia <= mbib)
-				assert(mbia.is_equal(mbib))
-			end
-			--
-			c := -a
-			d := -b
-			create mbia.from_integer_64(c)
-			create mbib.from_integer_64(d)
-			if c < d then
-				assert(mbia < mbib)
-				assert(mbia <= mbib)
-				assert(mbib > mbia)
-				assert(mbib >= mbia)
-				assert(not mbia.is_equal(mbib))
-			elseif d < c then
-				assert(mbib < mbia)
-				assert(mbib <= mbia)
-				assert(mbia > mbib)
-				assert(mbia >= mbib)
-				assert(not mbia.is_equal(mbib))
-			else
-				assert(not (mbib < mbia))
-				assert(mbib >= mbia)
-				assert(not (mbia > mbib))
-				assert(mbia <= mbib)
-				assert(mbia.is_equal(mbib))
-			end
-		end
+   check_compare (a, b: INTEGER_64) is
+      local
+         c, d: INTEGER_64; mbia, mbib: MUTABLE_BIG_INTEGER
+      do
+         --
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         if a < b then
+            assert(mbia < mbib)
+            assert(mbia <= mbib)
+            assert(mbib > mbia)
+            assert(mbib >= mbia)
+            assert(not mbia.is_equal(mbib))
+         elseif b < a then
+            assert(mbib < mbia)
+            assert(mbib <= mbia)
+            assert(mbia > mbib)
+            assert(mbia >= mbib)
+            assert(not mbia.is_equal(mbib))
+         else
+            assert(not (mbib < mbia))
+            assert(mbib >= mbia)
+            assert(not (mbia > mbib))
+            assert(mbia <= mbib)
+            assert(mbia.is_equal(mbib))
+         end
+         --
+         c := -a
+         d := b
+         create mbia.from_integer_64(c)
+         create mbib.from_integer_64(d)
+         if c < d then
+            assert(mbia < mbib)
+            assert(mbia <= mbib)
+            assert(mbib > mbia)
+            assert(mbib >= mbia)
+            assert(not mbia.is_equal(mbib))
+         elseif d < c then
+            assert(mbib < mbia)
+            assert(mbib <= mbia)
+            assert(mbia > mbib)
+            assert(mbia >= mbib)
+            assert(not mbia.is_equal(mbib))
+         else
+            assert(not (mbib < mbia))
+            assert(mbib >= mbia)
+            assert(not (mbia > mbib))
+            assert(mbia <= mbib)
+            assert(mbia.is_equal(mbib))
+         end
+         --
+         c := a
+         d := -b
+         create mbia.from_integer_64(c)
+         create mbib.from_integer_64(d)
+         if c < d then
+            assert(mbia < mbib)
+            assert(mbia <= mbib)
+            assert(mbib > mbia)
+            assert(mbib >= mbia)
+            assert(not mbia.is_equal(mbib))
+         elseif d < c then
+            assert(mbib < mbia)
+            assert(mbib <= mbia)
+            assert(mbia > mbib)
+            assert(mbia >= mbib)
+            assert(not mbia.is_equal(mbib))
+         else
+            assert(not (mbib < mbia))
+            assert(mbib >= mbia)
+            assert(not (mbia > mbib))
+            assert(mbia <= mbib)
+            assert(mbia.is_equal(mbib))
+         end
+         --
+         c := -a
+         d := -b
+         create mbia.from_integer_64(c)
+         create mbib.from_integer_64(d)
+         if c < d then
+            assert(mbia < mbib)
+            assert(mbia <= mbib)
+            assert(mbib > mbia)
+            assert(mbib >= mbia)
+            assert(not mbia.is_equal(mbib))
+         elseif d < c then
+            assert(mbib < mbia)
+            assert(mbib <= mbia)
+            assert(mbia > mbib)
+            assert(mbia >= mbib)
+            assert(not mbia.is_equal(mbib))
+         else
+            assert(not (mbib < mbia))
+            assert(mbib >= mbia)
+            assert(not (mbia > mbib))
+            assert(mbia <= mbib)
+            assert(mbia.is_equal(mbib))
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER5
 --

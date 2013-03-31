@@ -4,14 +4,14 @@
 class AUX_EB13B
 
 inherit
-	AUX_EB13A
-		export {ANY} f, g, default, is_deep_equal, twin, generator, standard_is_equal, tagged_out,
-				same_dynamic_type, fill_tagged_out_memory, to_pointer, out_in_tagged_out_memory, object_size, generating_type,
-				print_on, is_basic_expanded_type, standard_copy, tagged_out_memory, deep_twin, is_equal, standard_twin, copy,
-				out, is_default, to_internals, internals_can_be_retrieved;
+   AUX_EB13A
+      export {ANY} f, g, default, is_deep_equal, twin, generator, standard_is_equal, tagged_out,
+            same_dynamic_type, fill_tagged_out_memory, to_pointer, out_in_tagged_out_memory, object_size, generating_type,
+            print_on, is_basic_expanded_type, standard_copy, tagged_out_memory, deep_twin, is_equal, standard_twin, copy,
+            out, is_default, to_internals, internals_can_be_retrieved;
 
-			{} all
-		end
+         {} all
+      end
 
 end -- class AUX_EB13B
 --

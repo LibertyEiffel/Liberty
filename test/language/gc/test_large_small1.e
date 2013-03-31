@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LARGE_SMALL1
-	-- This tests for the same bug as TEST_STRING3, but it also works with assertions turned off. The bug happens
-	-- when creations and destructions of resizable objets that are slightly smaller than n*RSOC_SIZE (with n
-	-- strictly greater than 1) are intermixed with creations of small resizable objects of the same type.
-	--
-	-- This test uses arrays of integeres rather than strings, to avoid interaction with the runtime.
+   -- This tests for the same bug as TEST_STRING3, but it also works with assertions turned off. The bug happens
+   -- when creations and destructions of resizable objets that are slightly smaller than n*RSOC_SIZE (with n
+   -- strictly greater than 1) are intermixed with creations of small resizable objects of the same type.
+   --
+   -- This test uses arrays of integeres rather than strings, to avoid interaction with the runtime.
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	range: INTEGER is 10
+   range: INTEGER is 10
 
-	make is
-		local
-			a1, a2: FAST_ARRAY[INTEGER]; m: MEMORY
-		do
-			m.set_low_memory_strategy
-			create a1.make(16000)
-			a1 := Void
-			create a1.make(16000)
-			create a2.make(100)
-			a2.set_all_with(2)
-			a1 := Void
-			create a1.make(16000)
-			a1.set_all_with(1)
-			a1 := Void
-			create a1.make(16000)
-			a1.set_all_with(1)
-			assert(a2.occurrences(2) = a2.count)
-		end
+   make is
+      local
+         a1, a2: FAST_ARRAY[INTEGER]; m: MEMORY
+      do
+         m.set_low_memory_strategy
+         create a1.make(16000)
+         a1 := Void
+         create a1.make(16000)
+         create a2.make(100)
+         a2.set_all_with(2)
+         a1 := Void
+         create a1.make(16000)
+         a1.set_all_with(1)
+         a1 := Void
+         create a1.make(16000)
+         a1.set_all_with(1)
+         assert(a2.occurrences(2) = a2.count)
+      end
 
 end -- class TEST_LARGE_SMALL1
 --

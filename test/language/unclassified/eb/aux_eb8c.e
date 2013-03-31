@@ -4,20 +4,20 @@
 class AUX_EB8C[G]
 
 inherit
-	AUX_EB8B[G]
-		redefine f
-		end
+   AUX_EB8B[G]
+      redefine f
+      end
 
 insert
-	AUX_EB8A[G]
-		redefine f
-		end
+   AUX_EB8A[G]
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f: AUX_EB8B[G]
+   f: AUX_EB8B[G]
 
 end -- class AUX_EB8C
 --

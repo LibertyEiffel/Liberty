@@ -4,17 +4,17 @@
 class TEST_DIABLE4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a, b: AUX_DIABLE4[INTEGER]
+   a, b: AUX_DIABLE4[INTEGER]
 
-	c: ARRAY[ARRAY[INTEGER]]
+   c: ARRAY[ARRAY[INTEGER]]
 
-	make is
-		do
-			create a.from_model({ARRAY[ARRAY[INTEGER]] 1, << {ARRAY[INTEGER] 1, << 1, 2, 2 >> }, {ARRAY[INTEGER] 1, << 4, 5, 6 >> }, {ARRAY[INTEGER] 1, << 7, 8, 9 >> } >> })
-		end
+   make is
+      do
+         create a.from_model({ARRAY[ARRAY[INTEGER]] 1, << {ARRAY[INTEGER] 1, << 1, 2, 2 >> }, {ARRAY[INTEGER] 1, << 4, 5, 6 >> }, {ARRAY[INTEGER] 1, << 7, 8, 9 >> } >> })
+      end
 
 end -- class TEST_DIABLE4
 --

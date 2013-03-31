@@ -4,33 +4,33 @@
 class TEST_EB22
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			v: INTEGER; r: REFERENCE[INTEGER]
-		do
-			v := 5
-			assert(v.is_equal(5))
-			create r.set_item(v)
-			assert(v.is_equal(5))
-			r.set_item(5)
-			assert(v.is_equal(5))
-		end
+   make is
+      local
+         v: INTEGER; r: REFERENCE[INTEGER]
+      do
+         v := 5
+         assert(v.is_equal(5))
+         create r.set_item(v)
+         assert(v.is_equal(5))
+         r.set_item(5)
+         assert(v.is_equal(5))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_EB22: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_EB22: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EB22
 --

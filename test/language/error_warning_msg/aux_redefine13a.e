@@ -7,7 +7,7 @@ feature
 
    foo: like Current is
       do
-	 Result := Current
+    Result := Current
       end
    
 end -- class AUX_REDEFINE13A

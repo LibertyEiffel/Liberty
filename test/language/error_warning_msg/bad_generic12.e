@@ -4,40 +4,40 @@
 class BAD_GENERIC12
 
 insert
-	ANY
-		rename
-			print_on as foo
-		redefine
-			foo
-		end
-	ANY
-		rename
-			print_on as bar
-		redefine
-			bar
-		end
+   ANY
+      rename
+         print_on as foo
+      redefine
+         foo
+      end
+   ANY
+      rename
+         print_on as bar
+      redefine
+         bar
+      end
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			aux: AUX_GENERIC12[BAD_GENERIC12]
-		do
-			create aux
-			aux.do_print(Current)
-		end
+   make is
+      local
+         aux: AUX_GENERIC12[BAD_GENERIC12]
+      do
+         create aux
+         aux.do_print(Current)
+      end
 
-	foo (file: OUTPUT_STREAM) is
-		do
-			-- file.put_string("foo")
-		end
+   foo (file: OUTPUT_STREAM) is
+      do
+         -- file.put_string("foo")
+      end
 
-	bar (file: OUTPUT_STREAM) is
-		do
-			-- file.put_string("bar")
-		end
+   bar (file: OUTPUT_STREAM) is
+      do
+         -- file.put_string("bar")
+      end
 
 end -- class BAD_GENERIC12
 --

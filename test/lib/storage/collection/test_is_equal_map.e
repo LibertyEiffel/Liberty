@@ -4,46 +4,46 @@
 class TEST_IS_EQUAL_MAP
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c1, c2: COLLECTION[STRING]; d1, d2: HASHED_DICTIONARY[STRING, INTEGER]
-		do
-			create d1.make
-			create d2.make
-			d1.put("foo", 1)
-			assert(not d1.is_equal(d2)) -- may also be written like "not d1~d2"
-			d2.put("foo", 1)
-			assert(d1~d2)
-			c1 := {FAST_ARRAY[STRING] << "foo", "bar" >> }
-			c2 := {FAST_ARRAY[STRING] << "foo", "bar" >> }
-			assert(c1~c2)
-			create {FAST_ARRAY[STRING]} c1.from_collection(c1)
-			create {FAST_ARRAY[STRING]} c2.from_collection(c2)
-			assert(c1~c2)
-			create {LINKED_LIST[STRING]} c1.from_collection(c1)
-			create {LINKED_LIST[STRING]} c2.from_collection(c2)
-			assert(c1~c2)
-			create {TWO_WAY_LINKED_LIST[STRING]} c1.from_collection(c1)
-			create {TWO_WAY_LINKED_LIST[STRING]} c2.from_collection(c2)
-			assert(c1~c2)
-		end
+   make is
+      local
+         c1, c2: COLLECTION[STRING]; d1, d2: HASHED_DICTIONARY[STRING, INTEGER]
+      do
+         create d1.make
+         create d2.make
+         d1.put("foo", 1)
+         assert(not d1.is_equal(d2)) -- may also be written like "not d1~d2"
+         d2.put("foo", 1)
+         assert(d1~d2)
+         c1 := {FAST_ARRAY[STRING] << "foo", "bar" >> }
+         c2 := {FAST_ARRAY[STRING] << "foo", "bar" >> }
+         assert(c1~c2)
+         create {FAST_ARRAY[STRING]} c1.from_collection(c1)
+         create {FAST_ARRAY[STRING]} c2.from_collection(c2)
+         assert(c1~c2)
+         create {LINKED_LIST[STRING]} c1.from_collection(c1)
+         create {LINKED_LIST[STRING]} c2.from_collection(c2)
+         assert(c1~c2)
+         create {TWO_WAY_LINKED_LIST[STRING]} c1.from_collection(c1)
+         create {TWO_WAY_LINKED_LIST[STRING]} c2.from_collection(c2)
+         assert(c1~c2)
+      end
 
 feature {}
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_IS_EQUAL_MAP: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_IS_EQUAL_MAP: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_EQUAL_MAP
 --

@@ -4,15 +4,15 @@
 expanded class AUX_ALG16
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	item: INTEGER
+   item: INTEGER
 
-	make is
-		do
-			item := 1
-		end
+   make is
+      do
+         item := 1
+      end
 
 end -- class AUX_ALG16
 --

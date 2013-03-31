@@ -4,32 +4,32 @@
 class TEST_EXCEPTIONS20
 
 inherit
-	ANY
-		redefine default_rescue
-		end
+   ANY
+      redefine default_rescue
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	string: STRING
+   string: STRING
 
-	make is
-		do
-			foo
-		rescue
-			retry
-		end
+   make is
+      do
+         foo
+      rescue
+         retry
+      end
 
-	foo is
-		do
-			string.extend(' ')
-		end
+   foo is
+      do
+         string.extend(' ')
+      end
 
-	default_rescue is
-		do
-			create string.make(3)
-		end
+   default_rescue is
+      do
+         create string.make(3)
+      end
 
 end -- class TEST_EXCEPTIONS20
 --

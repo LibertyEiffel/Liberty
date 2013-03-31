@@ -3,16 +3,16 @@
 --
 class BAD_INSPECT15
 creation
-	main
+   main
 feature {}
    main is
       local
-			pointer: POINTER
+         pointer: POINTER
       do
-			inspect
-				pointer -- Wrong!
-			when "bar", "foo" then
-			end
+         inspect
+            pointer -- Wrong!
+         when "bar", "foo" then
+         end
       end
 end -- class BAD_INSPECT15
 --

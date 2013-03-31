@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JP1
-	-- From a bug report privat@lirmm.fr (Jean Privat)
-	-- SZ:31:
+   -- From a bug report privat@lirmm.fr (Jean Privat)
+   -- SZ:31:
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_JP1[INTEGER]; aux_aux: AUX_JP1[AUX_JP1[INTEGER]]
-		do
-			create aux
-			assert(aux_aux = Void)
-		end
+   make is
+      local
+         aux: AUX_JP1[INTEGER]; aux_aux: AUX_JP1[AUX_JP1[INTEGER]]
+      do
+         create aux
+         assert(aux_aux = Void)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_JP1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_JP1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JP1
 --

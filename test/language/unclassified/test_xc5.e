@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC5
-	--
-	-- From a bug report of Xavier CREGUT
-	--
+   --
+   -- From a bug report of Xavier CREGUT
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	p (l: ARRAY[ANY]) is
-		do
-			assert(l.item(1) /= Void)
-			assert(l.item(2) = Void)
-		end
+   p (l: ARRAY[ANY]) is
+      do
+         assert(l.item(1) /= Void)
+         assert(l.item(2) = Void)
+      end
 
-	make is
-		local
-			c: AUX_XC5_A[INTEGER]
-		do
-			create c
-			p({ARRAY[AUX_XC5_A[INTEGER]] 1, << c, g >> })
-		end
+   make is
+      local
+         c: AUX_XC5_A[INTEGER]
+      do
+         create c
+         p({ARRAY[AUX_XC5_A[INTEGER]] 1, << c, g >> })
+      end
 
-	g: AUX_XC5_A[INTEGER] is
-		local
-			c: AUX_XC5_A[INTEGER]
-		do
-			create c
-			p({ARRAY[ANY] 1, << "toto", Result >> })
-		end
+   g: AUX_XC5_A[INTEGER] is
+      local
+         c: AUX_XC5_A[INTEGER]
+      do
+         create c
+         p({ARRAY[ANY] 1, << "toto", Result >> })
+      end
 
 end -- class TEST_XC5
 --

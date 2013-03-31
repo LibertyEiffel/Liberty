@@ -4,57 +4,57 @@
 class TEST_RECURSIVE_ONCE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	proc1val: INTEGER
+   proc1val: INTEGER
 
-	proc1 is
-		once
-			proc1
-			proc1val := proc1val + 1
-		end
+   proc1 is
+      once
+         proc1
+         proc1val := proc1val + 1
+      end
 
-	fonc1: INTEGER is
-		once
-			-- *** Result := fonc1 -- No more recursive once ! ***
-			Result := Result + 1
-		end
+   fonc1: INTEGER is
+      once
+         -- *** Result := fonc1 -- No more recursive once ! ***
+         Result := Result + 1
+      end
 
-	crossf1: INTEGER is
-		once
-			Result := 3 -- *** crossf2;
-		end
+   crossf1: INTEGER is
+      once
+         Result := 3 -- *** crossf2;
+      end
 
-	crossf2: INTEGER is
-		once
-			Result := 2 + crossf1
-		end
+   crossf2: INTEGER is
+      once
+         Result := 2 + crossf1
+      end
 
-	make is
-		do
-			proc1
-			assert(proc1val = 1)
-			assert(fonc1 = fonc1)
-			assert(fonc1 = 1)
-			assert(crossf1 = 3 or crossf1 = 5)
-			-- What to think of this crazy call :-)
-			-- It is not really clear in E.T.L. :-(
-		end
+   make is
+      do
+         proc1
+         assert(proc1val = 1)
+         assert(fonc1 = fonc1)
+         assert(fonc1 = 1)
+         assert(crossf1 = 3 or crossf1 = 5)
+         -- What to think of this crazy call :-)
+         -- It is not really clear in E.T.L. :-(
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RECURSIVE_ONCE: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RECURSIVE_ONCE: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_RECURSIVE_ONCE
 --

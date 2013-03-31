@@ -4,15 +4,15 @@
 class BAD_ASSIGNMENT10
 
 creation
-	make
-	
+   make
+   
 feature
    make is
       local
-			integer_8: INTEGER_8
-			integer_32: INTEGER_32
+         integer_8: INTEGER_8
+         integer_32: INTEGER_32
       do
-			integer_8 := integer_32
+         integer_8 := integer_32
       end
 end -- class BAD_ASSIGNMENT10
 --

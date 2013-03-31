@@ -9,19 +9,19 @@ feature
    
    make is
       local
-	 s: STRING;
+    s: STRING;
       do
-	 s := "[   
-	       hi
-	       ]" ;
+    s := "[   
+          hi
+          ]" ;
       
-	 s := "[   
-	       hi
-	       
+    s := "[   
+          hi
+          
       end;
    
 end -- class BAD_VERBATIM_STRING1
-			 --
+          --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
 --

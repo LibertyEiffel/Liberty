@@ -4,16 +4,16 @@
 class AUX_EB12A
 
 feature {ANY}
-	f is
-		do
-			if a1 = Void then
-			else
-				create a1
-				a1.g
-			end
-		end
+   f is
+      do
+         if a1 = Void then
+         else
+            create a1
+            a1.g
+         end
+      end
 
-	a1: AUX_EB12A1
+   a1: AUX_EB12A1
 
 end -- class AUX_EB12A
 --

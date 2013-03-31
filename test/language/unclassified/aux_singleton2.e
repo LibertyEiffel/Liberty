@@ -4,13 +4,13 @@
 class AUX_SINGLETON2
 
 feature {}
-	singleton_memory: AUX_SINGLETON2 is
-		once
-			Result := Current
-		end
+   singleton_memory: AUX_SINGLETON2 is
+      once
+         Result := Current
+      end
 
 invariant
-	Current = singleton_memory
+   Current = singleton_memory
 
 end -- class AUX_SINGLETON2
 --

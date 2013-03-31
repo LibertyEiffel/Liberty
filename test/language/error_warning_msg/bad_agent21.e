@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_AGENT21
-	
+   
 -- A create expression cannot hold open arguments.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
-	
+   make
+   
 feature {}
-	
-	make is
-		do
-			if (agent foo(create {STRING}.make(?))).item([2]) then
-			end
-		end
+   
+   make is
+      do
+         if (agent foo(create {STRING}.make(?))).item([2]) then
+         end
+      end
 
-	foo (repeat: STRING): BOOLEAN is
-		do
-			Result := repeat.count = 2
-		end
-	
+   foo (repeat: STRING): BOOLEAN is
+      do
+         Result := repeat.count = 2
+      end
+   
 end -- class BAD_AGENT21
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

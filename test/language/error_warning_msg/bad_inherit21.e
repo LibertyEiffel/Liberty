@@ -4,15 +4,15 @@
 class BAD_INHERIT21
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			aux: AUX_INHERIT21[STRING]
-		do
-			create aux
-		end
+   main is
+      local
+         aux: AUX_INHERIT21[STRING]
+      do
+         create aux
+      end
 end -- class BAD_INHERIT21
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

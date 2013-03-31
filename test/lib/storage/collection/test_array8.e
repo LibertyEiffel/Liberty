@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ARRAY8
-	-- SZ:361 from Wolfgang Jansen
+   -- SZ:361 from Wolfgang Jansen
 
 inherit
-	ARRAY[INTEGER]
-		rename make as make_array
-		end
+   ARRAY[INTEGER]
+      rename make as make_array
+      end
 
 creation {ANY}
-	make
+   make
 
 creation {ARRAY}
-	make_array
+   make_array
 
 feature {}
-	make is
-		local
-			x, y: like item; b: BOOLEAN
-		do
-			make_array(1, 3)
-			b := x < y
-		end
+   make is
+      local
+         x, y: like item; b: BOOLEAN
+      do
+         make_array(1, 3)
+         b := x < y
+      end
 
 end -- class TEST_ARRAY8
 --

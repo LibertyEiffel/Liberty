@@ -4,7 +4,7 @@
 expanded class AUX_EG3_B
 
 insert
-	AUX_EG3_A
+   AUX_EG3_A
 
 end -- class AUX_EG3_B
 --

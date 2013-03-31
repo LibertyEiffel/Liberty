@@ -1,12 +1,12 @@
 class BAD_CLIENT_LIST2
 
 creation
-	main
+   main
 
 feature {2}
-	main is
-		do
-		end
+   main is
+      do
+      end
 
 end
-	
+   

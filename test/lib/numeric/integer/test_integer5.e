@@ -4,58 +4,58 @@
 class TEST_INTEGER5
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a32, b32: INTEGER_32; a64, b64: INTEGER_64
-		do
-			a32 := 0xFFFFF000
-			b32 := a32.bit_shift_left(4)
-			assert(b32 = 0xFFFF0000)
-			a32 := 0xFFFFF000
-			b32 := a32.bit_shift_left(8)
-			assert(b32 = 0xFFF00000)
-			a32 := 0xFFFFF000
-			b32 := a32.bit_shift_left(12)
-			assert(b32 = 0xFF000000)
-			a32 := 0xFFFFF000
-			b32 := a32.bit_shift_left(16)
-			assert(b32 = 0xF0000000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(4)
-			assert(b64 = 0xFFFF000FFFFF0000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(8)
-			assert(b64 = 0xFFF000FFFFF00000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(12)
-			assert(b64 = 0xFF000FFFFF000000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(16)
-			assert(b64 = 0xF000FFFFF0000000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(24)
-			assert(b64 = 0x00FFFFF000000000)
-			a64 := 0xFFFFF000FFFFF000
-			b64 := a64.bit_shift_left(32)
-			assert(b64 = 0xFFFFF00000000000)
-			-- -----------------------------------------------------
-		end
+   make is
+      local
+         a32, b32: INTEGER_32; a64, b64: INTEGER_64
+      do
+         a32 := 0xFFFFF000
+         b32 := a32.bit_shift_left(4)
+         assert(b32 = 0xFFFF0000)
+         a32 := 0xFFFFF000
+         b32 := a32.bit_shift_left(8)
+         assert(b32 = 0xFFF00000)
+         a32 := 0xFFFFF000
+         b32 := a32.bit_shift_left(12)
+         assert(b32 = 0xFF000000)
+         a32 := 0xFFFFF000
+         b32 := a32.bit_shift_left(16)
+         assert(b32 = 0xF0000000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(4)
+         assert(b64 = 0xFFFF000FFFFF0000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(8)
+         assert(b64 = 0xFFF000FFFFF00000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(12)
+         assert(b64 = 0xFF000FFFFF000000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(16)
+         assert(b64 = 0xF000FFFFF0000000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(24)
+         assert(b64 = 0x00FFFFF000000000)
+         a64 := 0xFFFFF000FFFFF000
+         b64 := a64.bit_shift_left(32)
+         assert(b64 = 0xFFFFF00000000000)
+         -- -----------------------------------------------------
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER5
 --

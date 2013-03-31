@@ -4,14 +4,14 @@
 expanded class AUX_EXPANDED16B
 
 feature {ANY}
-	x, y, z: REAL
+   x, y, z: REAL
 
-	set_all_with (v: REAL) is
-		do
-			x := v
-			y := v
-			z := v
-		end
+   set_all_with (v: REAL) is
+      do
+         x := v
+         y := v
+         z := v
+      end
 
 end -- class AUX_EXPANDED16B
 --

@@ -2,126 +2,126 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER9
-	--
-	-- Test of `add' and `add_to', `subtract' and `subtract_to'.
-	--
+   --
+   -- Test of `add' and `add_to', `subtract' and `subtract_to'.
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
+   EIFFELTEST_TOOLS
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			check_sign(0, 0, "+")
-			check_sign(0, 1, "+")
-			check_sign(0, -1, "+")
-			check_sign(1, 0, "+")
-			check_sign(-1, 0, "+")
-			check_sign(3, 2, "+")
-			check_sign(3, -2, "+")
-			check_sign(2, -3, "+")
-			check_sign(-3, 2, "+")
-			check_sign(-2, 3, "+")
-			check_sign(2, -2, "+")
-			check_sign(-2, 2, "+")
-			check_sign(-3, -2, "+")
-			check_sign(0, 0, "-")
-			check_sign(0, 1, "-")
-			check_sign(0, -1, "-")
-			check_sign(1, 0, "-")
-			check_sign(-1, 0, "-")
-			check_sign(3, 2, "-")
-			check_sign(2, 3, "-")
-			check_sign(3, -2, "-")
-			check_sign(-3, 2, "-")
-			check_sign(-2, 3, "-")
-			check_sign(-3, -2, "-")
-			check_sign(-2, -3, "-")
-			check_sign(Minimum_integer_64, Minimum_integer_64, "-")
-			check_sign(Minimum_integer, Minimum_integer, "-")
-		end
+   make is
+      do
+         check_sign(0, 0, "+")
+         check_sign(0, 1, "+")
+         check_sign(0, -1, "+")
+         check_sign(1, 0, "+")
+         check_sign(-1, 0, "+")
+         check_sign(3, 2, "+")
+         check_sign(3, -2, "+")
+         check_sign(2, -3, "+")
+         check_sign(-3, 2, "+")
+         check_sign(-2, 3, "+")
+         check_sign(2, -2, "+")
+         check_sign(-2, 2, "+")
+         check_sign(-3, -2, "+")
+         check_sign(0, 0, "-")
+         check_sign(0, 1, "-")
+         check_sign(0, -1, "-")
+         check_sign(1, 0, "-")
+         check_sign(-1, 0, "-")
+         check_sign(3, 2, "-")
+         check_sign(2, 3, "-")
+         check_sign(3, -2, "-")
+         check_sign(-3, 2, "-")
+         check_sign(-2, 3, "-")
+         check_sign(-3, -2, "-")
+         check_sign(-2, -3, "-")
+         check_sign(Minimum_integer_64, Minimum_integer_64, "-")
+         check_sign(Minimum_integer, Minimum_integer, "-")
+      end
 
-	check_sign (a, b: INTEGER_64; sign: STRING) is
-		local
-			c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
-		do
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			create mbic.from_integer(0)
-			if sign.is_equal(once "+") then
-				c := a + b
-				check
-					c = a + b
-				end
-				mbia.add_to(mbib, mbic)
-				assert(mbia.to_integer_64 = a)
-				assert(mbib.to_integer_64 = b)
-				assert(mbic.to_integer_64 = c)
-				mbia.add(mbib)
-				assert(mbia.is_equal(mbic))
-				assert(mbia.to_integer_64 = c)
-				assert(mbib.to_integer_64 = b)
-				if a > 0 and b > 0 then
-					assert(not mbia.is_negative)
-					assert(not mbib.is_negative)
-				elseif a > 0 and b < 0 then
-					if a >= -b then
-						assert(not mbia.is_negative)
-					else
-						assert(mbia.is_negative)
-					end
-					assert(mbib.is_negative)
-				elseif a < 0 and b > 0 then
-					if -a > b then
-						assert(mbia.is_negative)
-					else
-						assert(not mbia.is_negative)
-					end
-					assert(not mbib.is_negative)
-				elseif a < 0 and b < 0 then
-					assert(mbia.is_negative)
-					assert(mbib.is_negative)
-				end
-			else
-				c := a - b
-				check
-					c = a - b
-				end
-				mbia.subtract_to(mbib, mbic)
-				assert(mbia.to_integer_64 = a)
-				assert(mbib.to_integer_64 = b)
-				assert(mbic.to_integer_64 = c)
-				mbia.subtract(mbib)
-				assert(mbia.is_equal(mbic))
-				assert(mbia.to_integer_64 = c)
-				assert(mbib.to_integer_64 = b)
-				if a > 0 and b > 0 then
-					if a >= b then
-						assert(not mbia.is_negative)
-					else
-						assert(mbia.is_negative)
-					end
-					assert(not mbib.is_negative)
-				elseif a > 0 and b < 0 then
-					assert(not mbia.is_negative)
-					assert(mbib.is_negative)
-				elseif a < 0 and b > 0 then
-					assert(mbia.is_negative)
-					assert(not mbib.is_negative)
-				elseif a < 0 and b < 0 then
-					if a < b then
-						assert(mbia.is_negative)
-					else
-						assert(not mbia.is_negative)
-					end
-					assert(mbib.is_negative)
-				end
-			end
-		end
+   check_sign (a, b: INTEGER_64; sign: STRING) is
+      local
+         c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
+      do
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         create mbic.from_integer(0)
+         if sign.is_equal(once "+") then
+            c := a + b
+            check
+               c = a + b
+            end
+            mbia.add_to(mbib, mbic)
+            assert(mbia.to_integer_64 = a)
+            assert(mbib.to_integer_64 = b)
+            assert(mbic.to_integer_64 = c)
+            mbia.add(mbib)
+            assert(mbia.is_equal(mbic))
+            assert(mbia.to_integer_64 = c)
+            assert(mbib.to_integer_64 = b)
+            if a > 0 and b > 0 then
+               assert(not mbia.is_negative)
+               assert(not mbib.is_negative)
+            elseif a > 0 and b < 0 then
+               if a >= -b then
+                  assert(not mbia.is_negative)
+               else
+                  assert(mbia.is_negative)
+               end
+               assert(mbib.is_negative)
+            elseif a < 0 and b > 0 then
+               if -a > b then
+                  assert(mbia.is_negative)
+               else
+                  assert(not mbia.is_negative)
+               end
+               assert(not mbib.is_negative)
+            elseif a < 0 and b < 0 then
+               assert(mbia.is_negative)
+               assert(mbib.is_negative)
+            end
+         else
+            c := a - b
+            check
+               c = a - b
+            end
+            mbia.subtract_to(mbib, mbic)
+            assert(mbia.to_integer_64 = a)
+            assert(mbib.to_integer_64 = b)
+            assert(mbic.to_integer_64 = c)
+            mbia.subtract(mbib)
+            assert(mbia.is_equal(mbic))
+            assert(mbia.to_integer_64 = c)
+            assert(mbib.to_integer_64 = b)
+            if a > 0 and b > 0 then
+               if a >= b then
+                  assert(not mbia.is_negative)
+               else
+                  assert(mbia.is_negative)
+               end
+               assert(not mbib.is_negative)
+            elseif a > 0 and b < 0 then
+               assert(not mbia.is_negative)
+               assert(mbib.is_negative)
+            elseif a < 0 and b > 0 then
+               assert(mbia.is_negative)
+               assert(not mbib.is_negative)
+            elseif a < 0 and b < 0 then
+               if a < b then
+                  assert(mbia.is_negative)
+               else
+                  assert(not mbia.is_negative)
+               end
+               assert(mbib.is_negative)
+            end
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER9
 --

@@ -17,7 +17,7 @@ feature {ANY}
 
    make is
       do
-	 test
+    test
       end
 
    test is

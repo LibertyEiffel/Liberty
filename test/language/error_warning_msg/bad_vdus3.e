@@ -3,38 +3,38 @@
 --
 class BAD_VDUS3
 --SZ:179: Testing VDUS.3 rule
-	
+   
 inherit
-	AUX_VDUS3
-		undefine
-			a -- VDUS.3
-		end
-	
-	--
-	-- a,b are deferred in TS6
-	--
-	-- ETL says inheriting a deferred routine is a (re)declaration 
-	-- but not a (re)definition. Thus a deferred feature should not 
-	-- appear in a redefine clause (VDRS.4 p 152/153 in french 
-	-- version of ETL)(fix in BASE_CLASS.look_up_for). Same problem
-	-- when trying to undefine a deferred feature (VDUS.3, fix in 
-	-- PARENT.apply_undefine)
-	--
-	
+   AUX_VDUS3
+      undefine
+         a -- VDUS.3
+      end
+   
+   --
+   -- a,b are deferred in TS6
+   --
+   -- ETL says inheriting a deferred routine is a (re)declaration 
+   -- but not a (re)definition. Thus a deferred feature should not 
+   -- appear in a redefine clause (VDRS.4 p 152/153 in french 
+   -- version of ETL)(fix in BASE_CLASS.look_up_for). Same problem
+   -- when trying to undefine a deferred feature (VDUS.3, fix in 
+   -- PARENT.apply_undefine)
+   --
+   
 creation
-	make
-	
+   make
+   
 feature
 
-	a is do end
-	b is do end
-	
-	make is
-		do
-			a
-			b
-		end
-	
+   a is do end
+   b is do end
+   
+   make is
+      do
+         a
+         b
+      end
+   
 end -- class BAD_VDUS3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

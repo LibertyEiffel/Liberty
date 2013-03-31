@@ -4,16 +4,16 @@
 class TEST_EXPANDED21
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[AUX_EXPANDED20]
-		do
-			create a.make(1, 2)
-			a.swap(1, 2)
-		end
+   make is
+      local
+         a: ARRAY[AUX_EXPANDED20]
+      do
+         create a.make(1, 2)
+         a.swap(1, 2)
+      end
 
 end -- class TEST_EXPANDED21
 --

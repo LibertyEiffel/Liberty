@@ -4,25 +4,25 @@
 class TEST_EXPANDED10
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			e1, e2: SUB_EXPANDED3
-		do
-			---- Original:
-			-- e1, e2: expanded SUB_EXPANDED3;
-			assert(e1.pt.x = 2)
-			assert(e1 /= e2)
-			e1.set_pt(e2.pt)
-			assert(e1 = e2)
-			e2.pt.make(1, 1)
-			e1.set_pt(e2.pt)
-		end
+   make is
+      local
+         e1, e2: SUB_EXPANDED3
+      do
+         ---- Original:
+         -- e1, e2: expanded SUB_EXPANDED3;
+         assert(e1.pt.x = 2)
+         assert(e1 /= e2)
+         e1.set_pt(e2.pt)
+         assert(e1 = e2)
+         e2.pt.make(1, 1)
+         e1.set_pt(e2.pt)
+      end
 
 end -- class TEST_EXPANDED10
 --

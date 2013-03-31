@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JMJ5
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux_jmj5: AUX_JMJ5
-		do
-			aux_jmj5.test
-		end
+   make is
+      local
+         aux_jmj5: AUX_JMJ5
+      do
+         aux_jmj5.test
+      end
 
 end -- class TEST_JMJ5
 --

@@ -14,14 +14,14 @@ feature
 
    make is
       local
-	 x: INTEGER
+    x: INTEGER
       do
-	 x := function
+    x := function
       end
 
    function: INTEGER is
       do
-	 Precursor
+    Precursor
       end
 
 end -- class BAD_PRECURSOR02

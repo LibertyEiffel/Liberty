@@ -4,51 +4,51 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	fruit_array: ARRAY[FRUIT]
+   fruit_array: ARRAY[FRUIT]
 
-	apple: APPLE
+   apple: APPLE
 
-	peach: PEACH
+   peach: PEACH
 
-	make is
-		local
-			i, limit: INTEGER
-		do
-			limit := 300000
-			create fruit_array.make(1, limit)
-			-- Filling `fruit_array' with apples :
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				create apple.make(i)
-				fruit_array.put(apple, i)
-				i := i + 1
-			end
-			-- To clear `fruit_array' contents :
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				fruit_array.put(Void, i)
-				i := i + 1
-			end
-			-- Filling `fruit_array' with peaches :
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				create peach.make(i)
-				fruit_array.put(peach, i)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i, limit: INTEGER
+      do
+         limit := 300000
+         create fruit_array.make(1, limit)
+         -- Filling `fruit_array' with apples :
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            create apple.make(i)
+            fruit_array.put(apple, i)
+            i := i + 1
+         end
+         -- To clear `fruit_array' contents :
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            fruit_array.put(Void, i)
+            i := i + 1
+         end
+         -- Filling `fruit_array' with peaches :
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            create peach.make(i)
+            fruit_array.put(peach, i)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

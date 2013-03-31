@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY14
-	-- To test simplify of the ?:= operator
+   -- To test simplify of the ?:= operator
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	animal: ANIMAL
+   animal: ANIMAL
 
-	dog: DOG
+   dog: DOG
 
-	cat: CAT
+   cat: CAT
 
-	make is
-		do
-			create {DOG} animal
-			if dog ?:= animal then
-				-- Because no ANIMAL can only hold Void or a DOG.
-			else
-				c_inline_c("simplify error #1 in boost_simplify14")
-			end
-		end
+   make is
+      do
+         create {DOG} animal
+         if dog ?:= animal then
+            -- Because no ANIMAL can only hold Void or a DOG.
+         else
+            c_inline_c("simplify error #1 in boost_simplify14")
+         end
+      end
 
 end -- class TEST_SIMPLIFY14
 --

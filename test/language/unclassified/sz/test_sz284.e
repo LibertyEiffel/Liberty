@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SZ284
-	-- From: ermolaev@kodotel.ru (Vladislav Ermolaev)
+   -- From: ermolaev@kodotel.ru (Vladislav Ermolaev)
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			lo_tuple: TUPLE
-		do
-			lo_tuple := []
-		end
+   make is
+      local
+         lo_tuple: TUPLE
+      do
+         lo_tuple := []
+      end
 
 end -- class TEST_SZ284
 --

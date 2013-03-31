@@ -4,27 +4,27 @@
 class AUX_JLP8_GEMV[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_MAP[AUX_JLP8_PROVIDER[E], E]
-		rename make as map_make
-		end
+   AUX_JLP8_MAP[AUX_JLP8_PROVIDER[E], E]
+      rename make as map_make
+      end
 
 feature {ANY}
-	make (m_rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]]; v: AUX_JLP8_PROVIDER[E]) is
-		do
-			attach(m_rows)
-			vector_items := v
-		end
+   make (m_rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]]; v: AUX_JLP8_PROVIDER[E]) is
+      do
+         attach(m_rows)
+         vector_items := v
+      end
 
-	map_operation (m_elem: AUX_JLP8_PROVIDER[E]): E is
-		do
-			dot.make(m_elem, vector_items)
-			dot.run
-			Result := dot.dot
-		end
+   map_operation (m_elem: AUX_JLP8_PROVIDER[E]): E is
+      do
+         dot.make(m_elem, vector_items)
+         dot.run
+         Result := dot.dot
+      end
 
-	vector_items: AUX_JLP8_PROVIDER[E]
+   vector_items: AUX_JLP8_PROVIDER[E]
 
-	dot: AUX_JLP8_DOT[E]
+   dot: AUX_JLP8_DOT[E]
 
 end -- class AUX_JLP8_GEMV
 --

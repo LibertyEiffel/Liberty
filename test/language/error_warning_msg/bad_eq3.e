@@ -8,10 +8,10 @@ create make
 feature
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 if i = Void then
-	 end
+    if i = Void then
+    end
       end
 end -- class BAD_EQ3
 --

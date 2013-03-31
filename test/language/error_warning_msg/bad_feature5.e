@@ -4,18 +4,18 @@
 class BAD_FEATURE5
 
 creation
-	main
+   main
 
 feature
-	my_function INTEGER is
-		do
-		end
-	
+   my_function INTEGER is
+      do
+      end
+   
 
-	main is
-		do
-		end
-	
+   main is
+      do
+      end
+   
 end -- class BAD_FEATURE5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

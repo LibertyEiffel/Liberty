@@ -4,34 +4,34 @@
 class TEST_VON_NEUMAN1
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	s: COLLECTION_SORTER[INTEGER_64]
+   s: COLLECTION_SORTER[INTEGER_64]
 
-	make is
-		local
-			tab: ARRAY[INTEGER_64]
-		do
-			tab := {ARRAY[INTEGER_64] 1, << 9, 5, 3, 2, 1, 3 >> }
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER_64] 1, << 1, 2, 3, 3, 5, 9 >> }), tab)
-			tab.add_last(4)
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER_64] 1, << 1, 2, 3, 3, 4, 5, 9 >> }), tab)
-		end
+   make is
+      local
+         tab: ARRAY[INTEGER_64]
+      do
+         tab := {ARRAY[INTEGER_64] 1, << 9, 5, 3, 2, 1, 3 >> }
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER_64] 1, << 1, 2, 3, 3, 5, 9 >> }), tab)
+         tab.add_last(4)
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER_64] 1, << 1, 2, 3, 3, 4, 5, 9 >> }), tab)
+      end
 
-	assert (b: BOOLEAN; tab: ARRAY[INTEGER_64]) is
-		do
-			cpt := cpt + 1
-			if not b or else not s.is_sorted(tab) then
-				std_output.put_string("TEST_VON_NEUMAN_SORT1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN; tab: ARRAY[INTEGER_64]) is
+      do
+         cpt := cpt + 1
+         if not b or else not s.is_sorted(tab) then
+            std_output.put_string("TEST_VON_NEUMAN_SORT1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_VON_NEUMAN1
 --

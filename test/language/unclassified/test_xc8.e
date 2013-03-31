@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC8
-	--
-	-- From a bug report of Xavier CREGUT
-	--
+   --
+   -- From a bug report of Xavier CREGUT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bb: AUX_XC8BB; bbprime: AUX_XC8BB
-		do
-			create bb
-			bbprime := bb.twin
-			if bbprime.is_equal(bb) then
-			end
-		end
+   make is
+      local
+         bb: AUX_XC8BB; bbprime: AUX_XC8BB
+      do
+         create bb
+         bbprime := bb.twin
+         if bbprime.is_equal(bb) then
+         end
+      end
 
 end -- class TEST_XC8
 --

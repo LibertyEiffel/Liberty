@@ -4,39 +4,39 @@
 class TEST_STRING_COPY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s1, s2: STRING
-		do
-			s2 := str.twin
-			s1 := "CDE"
-			str.copy(s1)
-			assert(str.count = 3)
-			assert(s1 /= str)
-			assert('C' = s1.item(1))
-			assert('D' = s1.item(2))
-			assert('E' = s1.item(3))
-			assert(("ABCDE").is_equal(s2))
-		end
+   make is
+      local
+         s1, s2: STRING
+      do
+         s2 := str.twin
+         s1 := "CDE"
+         str.copy(s1)
+         assert(str.count = 3)
+         assert(s1 /= str)
+         assert('C' = s1.item(1))
+         assert('D' = s1.item(2))
+         assert('E' = s1.item(3))
+         assert(("ABCDE").is_equal(s2))
+      end
 
-	str: STRING is "ABCDE"
+   str: STRING is "ABCDE"
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_STRING_COPY: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_STRING_COPY: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes %N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_STRING_COPY
 --

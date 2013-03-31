@@ -4,10 +4,10 @@
 class AUX_INSPECT19
 
 feature {}
-	tmp : STRING is
-		once
-			create Result.make(0)
-		end
+   tmp : STRING is
+      once
+         create Result.make(0)
+      end
 
 end -- class AUX_INSPECT19
 --

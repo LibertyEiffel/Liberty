@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG07
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 inherit
-	ANY
+   ANY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			t: ARRAY[ANY]
-		do
-			t := {ARRAY[TEST_ALG07] 1, << Current >> }
-			assert(t.count = 1)
-		end
+   make is
+      local
+         t: ARRAY[ANY]
+      do
+         t := {ARRAY[TEST_ALG07] 1, << Current >> }
+         assert(t.count = 1)
+      end
 
 end -- class TEST_ALG07
 --

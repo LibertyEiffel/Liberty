@@ -4,30 +4,30 @@
 class AUX_ALG12
 
 inherit
-	DISPOSABLE
+   DISPOSABLE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	name: STRING
+   name: STRING
 
-	sweep_count: INTEGER
+   sweep_count: INTEGER
 
-	make (s: STRING) is
-		do
-			name := s
-		end
+   make (s: STRING) is
+      do
+         name := s
+      end
 
-	dispose is
-		do
-			sweep_count := sweep_count + 1
-			if sweep_count > 1 then
-				std_error.put_string("GC dispose bug in TEST_ALG12%N")
-				std_error.put_string(name)
-				std_error.put_new_line
-			end
-		end
+   dispose is
+      do
+         sweep_count := sweep_count + 1
+         if sweep_count > 1 then
+            std_error.put_string("GC dispose bug in TEST_ALG12%N")
+            std_error.put_string(name)
+            std_error.put_new_line
+         end
+      end
 
 end -- class AUX_ALG12
 --

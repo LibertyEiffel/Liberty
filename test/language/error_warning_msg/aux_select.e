@@ -9,12 +9,12 @@ feature
 
    foo is
       do
-	 foo_count := foo_count + 1;
+    foo_count := foo_count + 1;
       end;
 
    bar is
       do
-	 foo_count := foo_count + 1;
+    foo_count := foo_count + 1;
       end;
 
 end -- class AUX_SELECT

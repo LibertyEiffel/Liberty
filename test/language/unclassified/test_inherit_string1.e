@@ -4,15 +4,15 @@
 class TEST_INHERIT_STRING1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a_string: AUX_INHERIT_STRING1
+   a_string: AUX_INHERIT_STRING1
 
-	make is
-		do
-			create a_string.make("foo")
-		end
+   make is
+      do
+         create a_string.make("foo")
+      end
 
 end -- class TEST_INHERIT_STRING1
 --

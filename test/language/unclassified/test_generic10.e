@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERIC10
-	-- From: Patrick Cloarec <cloarec@in2p3.fr>
-	-- Joli bug !!!
+   -- From: Patrick Cloarec <cloarec@in2p3.fr>
+   -- Joli bug !!!
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	dict_a: AUX_GENERIC10_DICTIONARY[INTEGER, INTEGER]
+   dict_a: AUX_GENERIC10_DICTIONARY[INTEGER, INTEGER]
 
-	dict_b: AUX_GENERIC10_DICTIONARY[STRING, INTEGER]
+   dict_b: AUX_GENERIC10_DICTIONARY[STRING, INTEGER]
 
-	make is
-		local
-			itere_a: AUX_GENERIC10_ITERATOR[INTEGER]; itere_b: AUX_GENERIC10_ITERATOR[STRING]
-		do
-			create dict_a.make
-			create dict_b.make
-			itere_a := dict_a.get_new_iterator_on_items
-			itere_b := dict_b.get_new_iterator_on_items
-		end
+   make is
+      local
+         itere_a: AUX_GENERIC10_ITERATOR[INTEGER]; itere_b: AUX_GENERIC10_ITERATOR[STRING]
+      do
+         create dict_a.make
+         create dict_b.make
+         itere_a := dict_a.get_new_iterator_on_items
+         itere_b := dict_b.get_new_iterator_on_items
+      end
 
 end -- class TEST_GENERIC10
 --

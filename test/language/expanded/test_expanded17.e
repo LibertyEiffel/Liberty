@@ -4,67 +4,67 @@
 class TEST_EXPANDED17
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a2: AUX_EXPANDED16A
+   a2: AUX_EXPANDED16A
 
-	make is
-		local
-			a1: AUX_EXPANDED16A; elt: AUX_EXPANDED16B; i: INTEGER
-		do
-			create a1.make(3)
-			elt.set_all_with(1.5)
-			from
-				i := a1.upper
-			until
-				i < a1.lower
-			loop
-				if elt = a1.item(0) then
-					error
-				end
-				i := i - 1
-			end
-			a1.set_all_with(elt)
-			from
-				i := a1.upper
-			until
-				i < a1.lower
-			loop
-				if elt /= a1.item(0) then
-					error
-				end
-				i := i - 1
-			end
-			create a2.make(3)
-			elt.set_all_with(1.5)
-			from
-				i := a2.upper
-			until
-				i < a2.lower
-			loop
-				if elt = a2.item(0) then
-					error
-				end
-				i := i - 1
-			end
-			a2.set_all_with(elt)
-			from
-				i := a2.upper
-			until
-				i < a2.lower
-			loop
-				if elt /= a2.item(0) then
-					error
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         a1: AUX_EXPANDED16A; elt: AUX_EXPANDED16B; i: INTEGER
+      do
+         create a1.make(3)
+         elt.set_all_with(1.5)
+         from
+            i := a1.upper
+         until
+            i < a1.lower
+         loop
+            if elt = a1.item(0) then
+               error
+            end
+            i := i - 1
+         end
+         a1.set_all_with(elt)
+         from
+            i := a1.upper
+         until
+            i < a1.lower
+         loop
+            if elt /= a1.item(0) then
+               error
+            end
+            i := i - 1
+         end
+         create a2.make(3)
+         elt.set_all_with(1.5)
+         from
+            i := a2.upper
+         until
+            i < a2.lower
+         loop
+            if elt = a2.item(0) then
+               error
+            end
+            i := i - 1
+         end
+         a2.set_all_with(elt)
+         from
+            i := a2.upper
+         until
+            i < a2.lower
+         loop
+            if elt /= a2.item(0) then
+               error
+            end
+            i := i - 1
+         end
+      end
 
-	error is
-		do
-			std_output.put_string("TEST_EXPANDED17: ERROR%N")
-		end
+   error is
+      do
+         std_output.put_string("TEST_EXPANDED17: ERROR%N")
+      end
 
 end -- class TEST_EXPANDED17
 --

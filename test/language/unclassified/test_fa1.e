@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FA1
-	--
-	-- From a bug report of Franck ARNAUD
-	--
+   --
+   -- From a bug report of Franck ARNAUD
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert('A' < 'B')
-			assert('B' > 'A')
-			assert('%/0/' < '%/254/')
-			assert('%/254/' > '%/0/')
-			assert('%/0/' <= '%/254/')
-			assert('%/254/' >= '%/0/')
-		end
+   make is
+      do
+         assert('A' < 'B')
+         assert('B' > 'A')
+         assert('%/0/' < '%/254/')
+         assert('%/254/' > '%/0/')
+         assert('%/0/' <= '%/254/')
+         assert('%/254/' >= '%/0/')
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FA1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FA1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FA1
 --

@@ -4,7 +4,7 @@
 class AUX_ASSIGNMENT25
 
 feature
-	an_attribute: INTEGER
+   an_attribute: INTEGER
 
 end -- class AUX_ASSIGNMENT25
 --

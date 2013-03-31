@@ -4,10 +4,10 @@
 class AUX_INLINING4A
 
 inherit
-	AUX_INLINING4
+   AUX_INLINING4
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_INLINING4A
 --

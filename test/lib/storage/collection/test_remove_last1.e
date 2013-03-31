@@ -4,53 +4,53 @@
 class TEST_REMOVE_LAST1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
-		do
-			a := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
-			test(a)
-			fa := {FAST_ARRAY[INTEGER] << 1, 2, 3 >> }
-			test(fa)
-			ll := {LINKED_LIST[INTEGER] << 1, 2, 3 >> }
-			test(ll)
-			l2l := {TWO_WAY_LINKED_LIST[INTEGER] << 1, 2, 3 >> }
-			test(l2l)
-		end
+   make is
+      local
+         a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
+      do
+         a := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
+         test(a)
+         fa := {FAST_ARRAY[INTEGER] << 1, 2, 3 >> }
+         test(fa)
+         ll := {LINKED_LIST[INTEGER] << 1, 2, 3 >> }
+         test(ll)
+         l2l := {TWO_WAY_LINKED_LIST[INTEGER] << 1, 2, 3 >> }
+         test(l2l)
+      end
 
 feature {}
-	test (c: COLLECTION[INTEGER]) is
-		do
-			assert(c.count = 3)
-			assert(c.last = 3)
-			c.remove_last
-			assert(c.count = 2)
-			assert(c.last = 2)
-			c.remove_last
-			assert(c.count = 1)
-			assert(c.last = 1)
-			c.remove_last
-			assert(c.count = 0)
-			assert(c.is_empty)
-		end
+   test (c: COLLECTION[INTEGER]) is
+      do
+         assert(c.count = 3)
+         assert(c.last = 3)
+         c.remove_last
+         assert(c.count = 2)
+         assert(c.last = 2)
+         c.remove_last
+         assert(c.count = 1)
+         assert(c.last = 1)
+         c.remove_last
+         assert(c.count = 0)
+         assert(c.is_empty)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REMOVE_LAST1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REMOVE_LAST1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REMOVE_LAST1
 --

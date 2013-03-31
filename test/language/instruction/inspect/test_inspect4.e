@@ -4,30 +4,30 @@
 class TEST_INSPECT4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			inspect
-				i
-			else
-			end
-			inspect
-				i
-			when 0 then
-			end
-			inspect
-				i
-			else
-				i := i + 1
-			end
-			if i /= 1 then
-				std_output.put_string("TEST_INSPECT4: ERROR Test #1%N")
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         inspect
+            i
+         else
+         end
+         inspect
+            i
+         when 0 then
+         end
+         inspect
+            i
+         else
+            i := i + 1
+         end
+         if i /= 1 then
+            std_output.put_string("TEST_INSPECT4: ERROR Test #1%N")
+         end
+      end
 
 end -- class TEST_INSPECT4
 --

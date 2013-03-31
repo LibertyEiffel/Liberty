@@ -4,23 +4,23 @@
 class AUX_RENAME9A
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	make is
-		do
-			assert(ga.foo.is_equal("bar"))
-		end
+   make is
+      do
+         assert(ga.foo.is_equal("bar"))
+      end
 
-	ga: like Current is
-		do
-			create Result
-		end
+   ga: like Current is
+      do
+         create Result
+      end
 
-	foo: STRING is
-		do
-			Result := "bar"
-		end
+   foo: STRING is
+      do
+         Result := "bar"
+      end
 
 end -- class AUX_RENAME9A
 --

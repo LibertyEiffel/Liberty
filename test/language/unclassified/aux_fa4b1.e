@@ -4,20 +4,20 @@
 class AUX_FA4B1
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	ref: AUX_FA4TRUC1
+   ref: AUX_FA4TRUC1
 
-	get_ref: STRING is
-		do
-			Result := ref.value1
-		end
+   get_ref: STRING is
+      do
+         Result := ref.value1
+      end
 
-	init_ref is
-		do
-			create ref.make("ref")
-		end
+   init_ref is
+      do
+         create ref.make("ref")
+      end
 
 end -- class AUX_FA4B1
 --

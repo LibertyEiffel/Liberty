@@ -4,19 +4,19 @@
 class TEST_GENERIC8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ta_i: AUX_GENERIC8A[INTEGER]; ta_c: AUX_GENERIC8A[CHARACTER]; tb: AUX_GENERIC8B
-		do
-			create ta_i
-			create ta_c
-			create tb
-			ta_i := tb
-			-- ta_c := tb;
-		end
+   make is
+      local
+         ta_i: AUX_GENERIC8A[INTEGER]; ta_c: AUX_GENERIC8A[CHARACTER]; tb: AUX_GENERIC8B
+      do
+         create ta_i
+         create ta_c
+         create tb
+         ta_i := tb
+         -- ta_c := tb;
+      end
 
 end -- class TEST_GENERIC8
 --

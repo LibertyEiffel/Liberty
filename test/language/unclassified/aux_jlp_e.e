@@ -4,10 +4,10 @@
 class AUX_JLP_E[F, E]
 
 inherit
-	AUX_JLP_A[F]
+   AUX_JLP_A[F]
 
 feature {ANY}
-	a: AUX_JLP_A[E]
+   a: AUX_JLP_A[E]
 
 end -- class AUX_JLP_E
 --

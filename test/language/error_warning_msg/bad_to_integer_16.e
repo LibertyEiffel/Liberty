@@ -7,16 +7,16 @@ class BAD_TO_INTEGER_16
 --
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			i16: INTEGER_16
-		do
-			i16 := i16.to_integer_16
-		end
-	
+   make is
+      local
+         i16: INTEGER_16
+      do
+         i16 := i16.to_integer_16
+      end
+   
 end -- class BAD_TO_INTEGER_16
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

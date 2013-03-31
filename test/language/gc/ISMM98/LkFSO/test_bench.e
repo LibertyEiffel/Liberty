@@ -4,29 +4,29 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t: TRIANGLE
+   t: TRIANGLE
 
-	p1, p2, p3: POINT
+   p1, p2, p3: POINT
 
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 23000000
-			until
-				i = 0
-			loop
-				create p1.make(i, i)
-				create p2.make(i + 1, i + 1)
-				create p3.make(i + 2, i + 2)
-				create t.make(p1, p2, p3)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 23000000
+         until
+            i = 0
+         loop
+            create p1.make(i, i)
+            create p2.make(i + 1, i + 1)
+            create p3.make(i + 2, i + 2)
+            create t.make(p1, p2, p3)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

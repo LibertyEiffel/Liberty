@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JMJ4
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_JMJ4B[INTEGER]
-		do
-			create b
-			b.met(Void)
-		end
+   make is
+      local
+         b: AUX_JMJ4B[INTEGER]
+      do
+         create b
+         b.met(Void)
+      end
 
 end -- class TEST_JMJ4
 --

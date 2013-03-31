@@ -4,32 +4,32 @@
 class TEST_BUBBLE_SORT4
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: ARRAY[REAL]; s: COLLECTION_SORTER[REAL]
-		do
-			tab := {ARRAY[REAL] 1, << 3.4, 1.0, 0.0, -3.0, -1.5, -0.3 >> }
-			s.bubble_sort(tab)
-			assert(tab.is_equal({ARRAY[REAL] 1, << -3.0, -1.5, -0.3, 0.0, 1.0, 3.4 >> }))
-			tab.add_last(0.1)
-			s.bubble_sort(tab)
-			assert(tab.is_equal({ARRAY[REAL] 1, << -3.0, -1.5, -0.3, 0.0, 0.1, 1.0, 3.4 >> }))
-		end
+   make is
+      local
+         tab: ARRAY[REAL]; s: COLLECTION_SORTER[REAL]
+      do
+         tab := {ARRAY[REAL] 1, << 3.4, 1.0, 0.0, -3.0, -1.5, -0.3 >> }
+         s.bubble_sort(tab)
+         assert(tab.is_equal({ARRAY[REAL] 1, << -3.0, -1.5, -0.3, 0.0, 1.0, 3.4 >> }))
+         tab.add_last(0.1)
+         s.bubble_sort(tab)
+         assert(tab.is_equal({ARRAY[REAL] 1, << -3.0, -1.5, -0.3, 0.0, 0.1, 1.0, 3.4 >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_BUBBLE_SORT4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_BUBBLE_SORT4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_BUBBLE_SORT4
 --

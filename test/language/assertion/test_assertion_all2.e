@@ -4,30 +4,30 @@
 class TEST_ASSERTION_ALL2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			x: AUX_ALL_CHECK_TEST1
-		do
-			create x.make
-			assert(x.invariant_count >= 2)
-			assert(x.require_count = 0)
-			assert(x.ensure_count = 0)
-			assert(x.invariant_count >= 5)
-			x.foo
-			assert(x.require_count = 1)
-			assert(x.ensure_count = 1)
-			assert(x.invariant_count >= 9)
-			x.bar
-			assert(x.require_count = 2)
-			assert(x.ensure_count = 2)
-			assert(x.invariant_count >= 13)
-		end
+   main is
+      local
+         x: AUX_ALL_CHECK_TEST1
+      do
+         create x.make
+         assert(x.invariant_count >= 2)
+         assert(x.require_count = 0)
+         assert(x.ensure_count = 0)
+         assert(x.invariant_count >= 5)
+         x.foo
+         assert(x.require_count = 1)
+         assert(x.ensure_count = 1)
+         assert(x.invariant_count >= 9)
+         x.bar
+         assert(x.require_count = 2)
+         assert(x.ensure_count = 2)
+         assert(x.invariant_count >= 13)
+      end
 
 end -- class TEST_ASSERTION_ALL2
 --

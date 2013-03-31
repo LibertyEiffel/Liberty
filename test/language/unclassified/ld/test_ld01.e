@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LD01
-	-- From: "Le Dressay" <ledressay@eugensystems.com>
-	-- Qui font des jeux.
+   -- From: "Le Dressay" <ledressay@eugensystems.com>
+   -- Qui font des jeux.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			loctoto: AUX_LD01_TOTO[INTEGER, AUX_LD01_KIKI[INTEGER]]; lockiki: AUX_LD01_KIKI[INTEGER]
-		do
-			create loctoto
-			create lockiki
-			loctoto.setdatas(12, lockiki)
-		end
+   make is
+      local
+         loctoto: AUX_LD01_TOTO[INTEGER, AUX_LD01_KIKI[INTEGER]]; lockiki: AUX_LD01_KIKI[INTEGER]
+      do
+         create loctoto
+         create lockiki
+         loctoto.setdatas(12, lockiki)
+      end
 
 end -- class TEST_LD01
 --

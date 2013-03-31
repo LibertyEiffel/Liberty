@@ -4,32 +4,32 @@
 class TEST_DOUBLE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: REAL_64; i: INTEGER
-		do
-			i := 2
-			d := 3.0
-			d := 2.51.to_string.to_real
-			assert(i.to_real_64 <= d)
-		end
+   make is
+      local
+         d: REAL_64; i: INTEGER
+      do
+         i := 2
+         d := 3.0
+         d := 2.51.to_string.to_real
+         assert(i.to_real_64 <= d)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_DOUBLE3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_DOUBLE3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE3
 --

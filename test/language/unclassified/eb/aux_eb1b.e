@@ -4,17 +4,17 @@
 class AUX_EB1B
 
 inherit
-	AUX_EB1A
-		redefine a
-		end
+   AUX_EB1A
+      redefine a
+      end
 
 feature {ANY}
-	a: BOOLEAN
+   a: BOOLEAN
 
-	set_a (b: BOOLEAN) is
-		do
-			a := b
-		end
+   set_a (b: BOOLEAN) is
+      do
+         a := b
+      end
 
 end -- class AUX_EB1B
 --

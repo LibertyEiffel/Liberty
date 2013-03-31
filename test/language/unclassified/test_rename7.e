@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RENAME7
-	-- From a bug report of Grant CHESTON
+   -- From a bug report of Grant CHESTON
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b, bl, br: AUX_RENAME7B[INTEGER]
-		do
-			create b.make(4)
-			create bl.make(2)
-			create br.make(7)
-			b.set_left_node(bl)
-			b.set_right_node(br)
-			b.make_node(bl, 5, br)
-		end
+   make is
+      local
+         b, bl, br: AUX_RENAME7B[INTEGER]
+      do
+         create b.make(4)
+         create bl.make(2)
+         create br.make(7)
+         b.set_left_node(bl)
+         b.set_right_node(br)
+         b.make_node(bl, 5, br)
+      end
 
 end -- class TEST_RENAME7
 --

@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JK01
-	-- From: Jeroen Kolner <mpt96jko@student.hk-r.se>
+   -- From: Jeroen Kolner <mpt96jko@student.hk-r.se>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
 feature {ANY}
-	make is
-		local
-			mem: STRING
-		do
-			mem := "foo"
-			i := mem.to_pointer.object_size
-		end
+   make is
+      local
+         mem: STRING
+      do
+         mem := "foo"
+         i := mem.to_pointer.object_size
+      end
 
 end -- class TEST_JK01
 --

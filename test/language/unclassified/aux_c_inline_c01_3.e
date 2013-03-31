@@ -4,7 +4,7 @@
 class AUX_C_INLINE_C01_3
 
 inherit
-	AUX_C_INLINE_C01_1
+   AUX_C_INLINE_C01_1
 
 end -- class AUX_C_INLINE_C01_3
 --

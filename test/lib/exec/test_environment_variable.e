@@ -4,32 +4,32 @@
 class TEST_ENVIRONMENT_VARIABLE
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			sys: SYSTEM; value: STRING
-		do
-			-- Is it possible to read some existing variable:
-			value := sys.get_environment_variable("PATH")
-			if value = Void then
-				value := sys.get_environment_variable("Path")
-			end
-			assert(value /= Void)
-			sys.set_environment_variable("foo", "bar")
-			value := sys.get_environment_variable("foo")
-			assert(("bar").is_equal(value))
-			sys.set_environment_variable("foo", "zoo")
-			value := sys.get_environment_variable("foo")
-			assert(("zoo").is_equal(value))
-			sys.set_environment_variable("foo", "")
-			value := sys.get_environment_variable("foo")
-			assert(("").is_equal(value))
-		end
+   main is
+      local
+         sys: SYSTEM; value: STRING
+      do
+         -- Is it possible to read some existing variable:
+         value := sys.get_environment_variable("PATH")
+         if value = Void then
+            value := sys.get_environment_variable("Path")
+         end
+         assert(value /= Void)
+         sys.set_environment_variable("foo", "bar")
+         value := sys.get_environment_variable("foo")
+         assert(("bar").is_equal(value))
+         sys.set_environment_variable("foo", "zoo")
+         value := sys.get_environment_variable("foo")
+         assert(("zoo").is_equal(value))
+         sys.set_environment_variable("foo", "")
+         value := sys.get_environment_variable("foo")
+         assert(("").is_equal(value))
+      end
 
 end -- class TEST_ENVIRONMENT_VARIABLE
 --

@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REDEFINE3
-	-- From a bug report of Oscar N. Bria
+   -- From a bug report of Oscar N. Bria
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_REDEFINE3A
+   a: AUX_REDEFINE3A
 
-	b: AUX_REDEFINE3B
+   b: AUX_REDEFINE3B
 
-	make is
-		do
-			create a
-			create b
-			if a.display /= 'A' then
-				std_output.put_string("TEST_REDEFINE3: ERROR Test #1%N")
-			end
-			if b.message /= 'B' then
-				std_output.put_string("TEST_REDEFINE3: ERROR Test #2%N")
-			end
-		end
+   make is
+      do
+         create a
+         create b
+         if a.display /= 'A' then
+            std_output.put_string("TEST_REDEFINE3: ERROR Test #1%N")
+         end
+         if b.message /= 'B' then
+            std_output.put_string("TEST_REDEFINE3: ERROR Test #2%N")
+         end
+      end
 
 end -- class TEST_REDEFINE3
 --

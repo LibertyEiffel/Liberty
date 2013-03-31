@@ -4,33 +4,33 @@
 class TEST_OBJECT_SIZE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1, a2: ANIMAL
-		do
-			assert(1.object_size = {ARRAY[INTEGER_8] 1, << 1 >> }.item(1).object_size)
-			assert(1.object_size = (1 + 1).object_size)
-			create {CAT} a1
-			create {DOG} a2
-			assert(a1.object_size = a2.object_size)
-		end
+   make is
+      local
+         a1, a2: ANIMAL
+      do
+         assert(1.object_size = {ARRAY[INTEGER_8] 1, << 1 >> }.item(1).object_size)
+         assert(1.object_size = (1 + 1).object_size)
+         create {CAT} a1
+         create {DOG} a2
+         assert(a1.object_size = a2.object_size)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_OBJECT_SIZE3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_OBJECT_SIZE3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_OBJECT_SIZE3
 --

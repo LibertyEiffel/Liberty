@@ -4,23 +4,23 @@
 class BAD_PLUG_IN3
 
 creation
-	make
+   make
 
 feature {}
-	make is
-		do
-			if foo = 0 then
-			end
-		end
+   make is
+      do
+         if foo = 0 then
+         end
+      end
 
-	foo: INTEGER is
-		external "plug_in"
-		alias "{
-			location: "."
-			module_name: "bad_plug_in3"
-			feature_name: "foo"
-			}"
-		end
+   foo: INTEGER is
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "bad_plug_in3"
+         feature_name: "foo"
+         }"
+      end
 
 end -- class BAD_PLUG_IN3
 --

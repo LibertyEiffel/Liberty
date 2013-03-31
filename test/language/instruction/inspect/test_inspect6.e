@@ -2,13 +2,13 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INSPECT6
-	-- From a bug report of franck@nenie.org
+   -- From a bug report of franck@nenie.org
 
 inherit
-	AUX_INSPECT6
+   AUX_INSPECT6
 
 creation {ANY}
-	make
+   make
 
 end -- class TEST_INSPECT6
 --

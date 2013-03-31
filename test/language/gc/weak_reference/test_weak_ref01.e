@@ -2,105 +2,105 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_WEAK_REF01
-	-- Test GC of WEAK_REFERENCE[X] and X.
-	-- X is a non-tagged reference type.
+   -- Test GC of WEAK_REFERENCE[X] and X.
+   -- X is a non-tagged reference type.
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	wr_count: INTEGER is 1000
+   wr_count: INTEGER is 1000
 
-	make is
-		local
-			mem: MEMORY; aux_wr: AUX_WEAK_REF01; wr: WEAK_REFERENCE[AUX_WEAK_REF01]; i, void_count: INTEGER
-		do
-			assert(mem.collecting)
-			-- Test # 1
-			create list.make
-			create weak_list.make
-			from
-				i := 1
-			until
-				i > wr_count
-			loop
-				create aux_wr.make(Current)
-				create wr.set_item(aux_wr)
-				list.add_last(aux_wr)
-				weak_list.add_last(wr)
-				i := i + 1
-			end
-			aux_wr := Void
-			wr := Void
-			generate_garbage
-			mem.collection_on
-			mem.full_collect
-			assert(aux_wr_disposed = 0) -- Test # 2
-			from
-				i := 1
-			until
-				i > wr_count
-			loop
-				assert(weak_list.item(i).item = list.item(i))
-				-- Tests # 3..2+wr_count
-				i := i + 1
-			end
-			from
-				i := 1
-			until
-				i > wr_count
-			loop
-				list.put(Void, i)
-				i := i + 1
-			end
-			generate_garbage
-			mem.collection_on
-			mem.full_collect
-			-- Actually, the next test is quite pessimistic
-			assert(aux_wr_disposed > wr_count / 2) -- Test # 3+wr_count
-			from
-				i := 1
-			until
-				i > wr_count
-			loop
-				if weak_list.item(i).item = Void then
-					void_count := void_count + 1
-				end
-				i := i + 1
-			end
-			assert(void_count = aux_wr_disposed) -- Test # 4+wr_count
-		end
+   make is
+      local
+         mem: MEMORY; aux_wr: AUX_WEAK_REF01; wr: WEAK_REFERENCE[AUX_WEAK_REF01]; i, void_count: INTEGER
+      do
+         assert(mem.collecting)
+         -- Test # 1
+         create list.make
+         create weak_list.make
+         from
+            i := 1
+         until
+            i > wr_count
+         loop
+            create aux_wr.make(Current)
+            create wr.set_item(aux_wr)
+            list.add_last(aux_wr)
+            weak_list.add_last(wr)
+            i := i + 1
+         end
+         aux_wr := Void
+         wr := Void
+         generate_garbage
+         mem.collection_on
+         mem.full_collect
+         assert(aux_wr_disposed = 0) -- Test # 2
+         from
+            i := 1
+         until
+            i > wr_count
+         loop
+            assert(weak_list.item(i).item = list.item(i))
+            -- Tests # 3..2+wr_count
+            i := i + 1
+         end
+         from
+            i := 1
+         until
+            i > wr_count
+         loop
+            list.put(Void, i)
+            i := i + 1
+         end
+         generate_garbage
+         mem.collection_on
+         mem.full_collect
+         -- Actually, the next test is quite pessimistic
+         assert(aux_wr_disposed > wr_count / 2) -- Test # 3+wr_count
+         from
+            i := 1
+         until
+            i > wr_count
+         loop
+            if weak_list.item(i).item = Void then
+               void_count := void_count + 1
+            end
+            i := i + 1
+         end
+         assert(void_count = aux_wr_disposed) -- Test # 4+wr_count
+      end
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
-		-- We're using LISTs rather than ARRAYs because we don't want to have NATIVE_ARRAY[WEAK_REFERENCE[...]] in
-		-- the first test. (Although they are actually not a special case)
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
+      -- We're using LISTs rather than ARRAYs because we don't want to have NATIVE_ARRAY[WEAK_REFERENCE[...]] in
+      -- the first test. (Although they are actually not a special case)
 
-	list: LINKED_LIST[AUX_WEAK_REF01]
+   list: LINKED_LIST[AUX_WEAK_REF01]
 
-	weak_list: LINKED_LIST[WEAK_REFERENCE[AUX_WEAK_REF01]]
+   weak_list: LINKED_LIST[WEAK_REFERENCE[AUX_WEAK_REF01]]
 
-	aux_wr_disposed: INTEGER
+   aux_wr_disposed: INTEGER
 
 feature {AUX_WEAK_REF01}
-	set_aux_wr_disposed is
-		do
-			aux_wr_disposed := aux_wr_disposed + 1
-		end
+   set_aux_wr_disposed is
+      do
+         aux_wr_disposed := aux_wr_disposed + 1
+      end
 
 end -- class TEST_WEAK_REF01
 --

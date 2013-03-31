@@ -4,34 +4,34 @@
 class TEST_EXCEPTIONS22
 
 insert
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, c: POLYMORPHIC1; b: POLYMORPHIC2; number, counter: INTEGER
-		do
-			if counter > 0 then
-				check
-					number = System_level_type_error
-				end
-			else
-				create a
-				create b
-				c := b -- Let's fool the type checker;
-				if c.is_equal(a) then
-					--	       raise("Execution never gets here anyway")
-				end
-			end
-		rescue
-			counter := counter + 1
-			number := exception
-			sedb_breakpoint
-			retry
-		end
+   make is
+      local
+         a, c: POLYMORPHIC1; b: POLYMORPHIC2; number, counter: INTEGER
+      do
+         if counter > 0 then
+            check
+               number = System_level_type_error
+            end
+         else
+            create a
+            create b
+            c := b -- Let's fool the type checker;
+            if c.is_equal(a) then
+               --          raise("Execution never gets here anyway")
+            end
+         end
+      rescue
+         counter := counter + 1
+         number := exception
+         sedb_breakpoint
+         retry
+      end
 
 end -- class TEST_EXCEPTIONS22
 --

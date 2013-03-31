@@ -4,26 +4,26 @@
 class TEST_NUMBER111
 
 insert
-	PLATFORM
-	EIFFELTEST_TOOLS
+   PLATFORM
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			number: NUMBER
-		do
-			number := Maximum_integer_64.to_number
-			assert(("9223372036854775807").is_equal(number.to_string))
-			number := number @+ 1
-			assert(("9223372036854775808").is_equal(number.to_string))
-			number := number @* 2
-			assert(("18446744073709551616").is_equal(number.to_string))
-			number := number @/ 1000
-			assert(("2305843009213693952/125").is_equal(number.to_string))
-		end
+   main is
+      local
+         number: NUMBER
+      do
+         number := Maximum_integer_64.to_number
+         assert(("9223372036854775807").is_equal(number.to_string))
+         number := number @+ 1
+         assert(("9223372036854775808").is_equal(number.to_string))
+         number := number @* 2
+         assert(("18446744073709551616").is_equal(number.to_string))
+         number := number @/ 1000
+         assert(("2305843009213693952/125").is_equal(number.to_string))
+      end
 
 end -- class TEST_NUMBER111
 --

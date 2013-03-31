@@ -6,19 +6,19 @@ class BAD_ATTRIBUTE1
 -- To check that a non existant attribute type is detected.
 --
 creation
-	main
+   main
 
 feature
-	non_existant_type: NON_EXISTANT_TYPE
-	
-	main is
-		do
-			if non_existant_type = Void then
-				-- To be sure that the attribute is used...
-				-- *** This should not be necessary ! ***
-			end
-		end
-	
+   non_existant_type: NON_EXISTANT_TYPE
+   
+   main is
+      do
+         if non_existant_type = Void then
+            -- To be sure that the attribute is used...
+            -- *** This should not be necessary ! ***
+         end
+      end
+   
 end -- class BAD_ATTRIBUTE1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,18 +4,18 @@
 class TEST_EXPANDED11
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			t7: TEST_EXPANDED7; t8: TEST_EXPANDED8; t9: TEST_EXPANDED9; t10: TEST_EXPANDED10
-		do
-			create t7.make
-			create t8.make
-			create t9.make
-			create t10.make
-		end
+   make is
+      local
+         t7: TEST_EXPANDED7; t8: TEST_EXPANDED8; t9: TEST_EXPANDED9; t10: TEST_EXPANDED10
+      do
+         create t7.make
+         create t8.make
+         create t9.make
+         create t10.make
+      end
 
 end -- class TEST_EXPANDED11
 --

@@ -4,14 +4,14 @@
 class BAD_FEATURE_NAME_LIST1
 
 creation
-	main, BAR
+   main, BAR
 
 feature
-	main is
-		do
-		end
-	
-	
+   main is
+      do
+      end
+   
+   
 end -- class BAD_FEATURE_NAME_LIST1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

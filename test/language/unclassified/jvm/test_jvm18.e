@@ -4,34 +4,34 @@
 class TEST_JVM18
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[BOOLEAN]; b: BOOLEAN
-		do
-			create a.make(1, 2)
-			a.put(True, 1)
-			a.put(False, 2)
-			b := a.item(1)
-			check
-				b
-			end
-			check
-				a.item(1)
-				a.item(2) = False
-			end
-			a := Void
-			check
-				a = Void
-			end
-			a := {ARRAY[BOOLEAN] 1, << True, False >> }
-			check
-				a.item(1)
-				a.item(2) = False
-			end
-		end
+   make is
+      local
+         a: ARRAY[BOOLEAN]; b: BOOLEAN
+      do
+         create a.make(1, 2)
+         a.put(True, 1)
+         a.put(False, 2)
+         b := a.item(1)
+         check
+            b
+         end
+         check
+            a.item(1)
+            a.item(2) = False
+         end
+         a := Void
+         check
+            a = Void
+         end
+         a := {ARRAY[BOOLEAN] 1, << True, False >> }
+         check
+            a.item(1)
+            a.item(2) = False
+         end
+      end
 
 end -- class TEST_JVM18
 --

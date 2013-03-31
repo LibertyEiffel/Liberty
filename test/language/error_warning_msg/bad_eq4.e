@@ -8,8 +8,8 @@ create make
 feature
    make is
       do
-	 if Current = Void then
-	 end
+    if Current = Void then
+    end
       end
 end -- class BAD_EQ4
 --

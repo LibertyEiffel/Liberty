@@ -4,10 +4,10 @@
 expanded class AUX_EG4_B
 
 insert
-	AUX_EG4_A
+   AUX_EG4_A
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_EG4_B
 --

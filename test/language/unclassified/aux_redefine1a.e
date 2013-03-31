@@ -4,16 +4,16 @@
 class AUX_REDEFINE1A
 
 feature {ANY}
-	foo (array: ARRAY[ANY]) is
-		require
-		-- Stupid bug :-(
-		do
-		end
+   foo (array: ARRAY[ANY]) is
+      require
+      -- Stupid bug :-(
+      do
+      end
 
-	bar (array: ARRAY[ANY]) is
-		do
-			array.put(Void, 1)
-		end
+   bar (array: ARRAY[ANY]) is
+      do
+         array.put(Void, 1)
+      end
 
 end -- class AUX_REDEFINE1A
 --

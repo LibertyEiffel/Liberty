@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_STRING8
-	-- From a bug report of Brian STRELIOFF
+   -- From a bug report of Brian STRELIOFF
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			ptr: POINTER; str: STRING
-		do
-			c_inline_c("_ptr=%"hello%";")
-			create str.from_external(ptr)
-		end
+   make is
+      local
+         ptr: POINTER; str: STRING
+      do
+         c_inline_c("_ptr=%"hello%";")
+         create str.from_external(ptr)
+      end
 
 end -- class TEST_STRING8
 --

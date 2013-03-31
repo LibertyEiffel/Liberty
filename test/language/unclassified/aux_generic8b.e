@@ -4,7 +4,7 @@
 class AUX_GENERIC8B
 
 inherit
-	AUX_GENERIC8A[INTEGER]
+   AUX_GENERIC8A[INTEGER]
 
 end -- class AUX_GENERIC8B
 --

@@ -8,8 +8,8 @@ create make
 feature
    make is
       do
-	 if 'c' = "c" then
-	 end
+    if 'c' = "c" then
+    end
       end
 end -- class BAD_EQ1
 --

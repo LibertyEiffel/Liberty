@@ -4,51 +4,51 @@
 class TEST_FAST_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	fai: FAST_ARRAY[INTEGER]
+   fai: FAST_ARRAY[INTEGER]
 
-	make is
-		local
-			i: INTEGER
-		do
-			create fai.make(3)
-			assert(fai.count = 3)
-			assert(fai.upper = 2)
-			assert(fai.lower = 0)
-			from
-				i := fai.upper
-			until
-				i < 0
-			loop
-				assert(fai.item(i) = 0)
-				fai.put(i, i)
-				i := i - 1
-			end
-			from
-				i := fai.upper
-			until
-				i < 0
-			loop
-				assert(fai.item(i) = i)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create fai.make(3)
+         assert(fai.count = 3)
+         assert(fai.upper = 2)
+         assert(fai.lower = 0)
+         from
+            i := fai.upper
+         until
+            i < 0
+         loop
+            assert(fai.item(i) = 0)
+            fai.put(i, i)
+            i := i - 1
+         end
+         from
+            i := fai.upper
+         until
+            i < 0
+         loop
+            assert(fai.item(i) = i)
+            i := i - 1
+         end
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FAST_ARRAY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FAST_ARRAY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FAST_ARRAY1
 --

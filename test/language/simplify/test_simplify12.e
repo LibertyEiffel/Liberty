@@ -2,67 +2,67 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY12
-	--
-	-- To test routine body normalization (extra initialization removal).
-	--
-	--
+   --
+   -- To test routine body normalization (extra initialization removal).
+   --
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f_0: BOOLEAN is
-		local
-			a: INTEGER; b: CHARACTER; c: STRING
-		do
-			a := 0
-			b := '%U'
-			c := Void
-			Result := True
-		end
+   f_0: BOOLEAN is
+      local
+         a: INTEGER; b: CHARACTER; c: STRING
+      do
+         a := 0
+         b := '%U'
+         c := Void
+         Result := True
+      end
 
-	f_1 (a1: INTEGER): BOOLEAN is
-		local
-			a: INTEGER; b: CHARACTER; c: STRING
-		do
-			a := 0
-			b := '%U'
-			c := Void
-			Result := True
-		end
+   f_1 (a1: INTEGER): BOOLEAN is
+      local
+         a: INTEGER; b: CHARACTER; c: STRING
+      do
+         a := 0
+         b := '%U'
+         c := Void
+         Result := True
+      end
 
-	f_2 (a1, a2: INTEGER): BOOLEAN is
-		local
-			a: INTEGER; b: CHARACTER; c: STRING
-		do
-			a := 0
-			b := '%U'
-			c := Void
-			Result := True
-		end
+   f_2 (a1, a2: INTEGER): BOOLEAN is
+      local
+         a: INTEGER; b: CHARACTER; c: STRING
+      do
+         a := 0
+         b := '%U'
+         c := Void
+         Result := True
+      end
 
-	make is
-		do
-			if f_0 then
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify12")
-			end
-			if f_1(1) then
-				assert(True)
-			else
-				c_inline_c("simplify error #2 in boost_simplify12")
-			end
-			if f_2(2, 2) then
-				assert(True)
-			else
-				c_inline_c("simplify error #3 in boost_simplify12")
-			end
-			assert(assert_counter.value = 3)
-		end
+   make is
+      do
+         if f_0 then
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify12")
+         end
+         if f_1(1) then
+            assert(True)
+         else
+            c_inline_c("simplify error #2 in boost_simplify12")
+         end
+         if f_2(2, 2) then
+            assert(True)
+         else
+            c_inline_c("simplify error #3 in boost_simplify12")
+         end
+         assert(assert_counter.value = 3)
+      end
 
 end -- class TEST_SIMPLIFY12
 --

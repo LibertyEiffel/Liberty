@@ -4,12 +4,12 @@
 class AUX_ANCHOR8B
 
 inherit
-	AUX_ANCHOR8A
-		redefine f
-		end
+   AUX_ANCHOR8A
+      redefine f
+      end
 
 feature {ANY}
-	f: ARRAY[like t]
+   f: ARRAY[like t]
 
 end -- class AUX_ANCHOR8B
 --

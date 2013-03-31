@@ -1,86 +1,86 @@
 indexing
-	description: "extended I/O";
-	status: "See notice at end of class";
-	author: "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>";
-	version: "$Revision$";
-	last_modification: "$Date$";
+   description: "extended I/O";
+   status: "See notice at end of class";
+   author: "Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>";
+   version: "$Revision$";
+   last_modification: "$Date$";
 class AUX_UW01EXTRA_IO
-	
+   
 creation
-	make
+   make
 
 feature
-	
-	make is
-			-- make new object
-		do
-			!AUX_UW01PREFERRED_LANGUAGE!language
-		end; -- make
-	
+   
+   make is
+         -- make new object
+      do
+         !AUX_UW01PREFERRED_LANGUAGE!language
+      end; -- make
+   
 feature -- Input
-	
-	read_string(prompt : STRING) is
-			-- print `prompt' and get a string
-		require
-			valid_prompt: prompt /= Void
-		do
-			io.put_string(prompt);
-			io.read_line;
-			last_string := io.last_string;
-			last_string.right_adjust;
-			last_string.left_adjust;
-		ensure
-			last_string /= Void
-		end; -- read_string
-	
-	read_yes_no(prompt : STRING) is
-			-- print `prompt' and get a string to 
-			-- `last_string' and also set `last_boolean'
-		require
-			valid_prompt: prompt /= Void
-		local
-			input : CHARACTER;
-		do
-			from
-			until
-				input = language.yes_character or else
-				input = language.no_character
-			loop
-				read_string(prompt);
-				if last_string.count > 0 then
-					input := last_string.item(1)
-				end
-			end
-			last_boolean := input = language.yes_character
-		ensure
-			last_string /= Void
-		end; -- read_string
-	
-	last_string : STRING;
-	last_boolean : BOOLEAN;
-	
+   
+   read_string(prompt : STRING) is
+         -- print `prompt' and get a string
+      require
+         valid_prompt: prompt /= Void
+      do
+         io.put_string(prompt);
+         io.read_line;
+         last_string := io.last_string;
+         last_string.right_adjust;
+         last_string.left_adjust;
+      ensure
+         last_string /= Void
+      end; -- read_string
+   
+   read_yes_no(prompt : STRING) is
+         -- print `prompt' and get a string to 
+         -- `last_string' and also set `last_boolean'
+      require
+         valid_prompt: prompt /= Void
+      local
+         input : CHARACTER;
+      do
+         from
+         until
+            input = language.yes_character or else
+            input = language.no_character
+         loop
+            read_string(prompt);
+            if last_string.count > 0 then
+               input := last_string.item(1)
+            end
+         end
+         last_boolean := input = language.yes_character
+      ensure
+         last_string /= Void
+      end; -- read_string
+   
+   last_string : STRING;
+   last_boolean : BOOLEAN;
+   
 feature -- Output
-	
-	print_multi(objects : ARRAY[ANY]) is
-			-- print all elements in `objects' as string
-		local
-			i : INTEGER
-		do
-			from
-				i := objects.lower
-			until
-				i > objects.upper
-			loop
-				io.put_string(objects.item(i).out);
-				i := i + 1
-			end
-		end; -- print_multi
+   
+   print_multi(objects : ARRAY[ANY]) is
+         -- print all elements in `objects' as string
+      local
+         i : INTEGER
+      do
+         from
+            i := objects.lower
+         until
+            i > objects.upper
+         loop
+            io.put_string(objects.item(i).out);
+            i := i + 1
+         end
+      end; -- print_multi
 
 feature {}
-	language : AUX_UW01LANGUAGE;	-- language to use
-	
+   language : AUX_UW01LANGUAGE;   -- language to use
+   
 invariant
-	good_language: language /= Void
+   good_language: language /= Void
 
 end -- AUX_UW01EXTRA_IO
 -- Copyright (c) 1998 by Ulrich Windl

@@ -4,33 +4,33 @@
 class TEST_VON_NEUMAN2
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: RING_ARRAY[CHARACTER]; s: COLLECTION_SORTER[CHARACTER]
-		do
-			tab := {RING_ARRAY[CHARACTER] 4, << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
-			s.von_neuman_sort(tab)
-			assert(tab.lower = 4)
-			assert(tab.is_equal({RING_ARRAY[CHARACTER] 4, << '$', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
-			tab.add_first('*')
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({RING_ARRAY[CHARACTER] 4, << '$', '*', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
-		end
+   make is
+      local
+         tab: RING_ARRAY[CHARACTER]; s: COLLECTION_SORTER[CHARACTER]
+      do
+         tab := {RING_ARRAY[CHARACTER] 4, << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
+         s.von_neuman_sort(tab)
+         assert(tab.lower = 4)
+         assert(tab.is_equal({RING_ARRAY[CHARACTER] 4, << '$', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
+         tab.add_first('*')
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({RING_ARRAY[CHARACTER] 4, << '$', '*', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_VON_NEUMAN_SORT2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_VON_NEUMAN_SORT2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_VON_NEUMAN2
 --

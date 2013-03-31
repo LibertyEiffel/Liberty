@@ -4,26 +4,26 @@
 class AUX_EG4_A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			x := 1
-		end
+   make is
+      do
+         x := 1
+      end
 
-	set_x (other_x: REAL) is
-		do
-			x := other_x
-		end
+   set_x (other_x: REAL) is
+      do
+         x := other_x
+      end
 
-	x: REAL
+   x: REAL
 
-	infix "+" (other: like Current): like Current is
-		do
-			create Result.make
-			Result.set_x(x + other.x)
-		end
+   infix "+" (other: like Current): like Current is
+      do
+         create Result.make
+         Result.set_x(x + other.x)
+      end
 
 end -- class AUX_EG4_A
 --

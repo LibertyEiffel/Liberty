@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TP2
-	-- From a bug report of Todd PLESSEL
+   -- From a bug report of Todd PLESSEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-			-- Print the result of integer division.
-		local
-			a, b: INTEGER; c: REAL
-		do
-			a := 1
-			b := 2
-			c := (a // b).to_real_64
-			assert(c = 0.0)
-		end
+   make is
+         -- Print the result of integer division.
+      local
+         a, b: INTEGER; c: REAL
+      do
+         a := 1
+         b := 2
+         c := (a // b).to_real_64
+         assert(c = 0.0)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_TP2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_TP2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_TP2
 --

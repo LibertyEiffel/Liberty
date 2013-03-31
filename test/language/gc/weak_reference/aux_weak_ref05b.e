@@ -4,10 +4,10 @@
 class AUX_WEAK_REF05B
 
 inherit
-	AUX_WEAK_REF05A
+   AUX_WEAK_REF05A
 
 feature {ANY}
-	y: INTEGER
+   y: INTEGER
 
 end -- class AUX_WEAK_REF05B
 --

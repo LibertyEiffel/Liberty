@@ -11,7 +11,7 @@ feature
       end
    dummy : BOOLEAN is
       do 
-	 Result := False 
+    Result := False 
       end
 end -- class BAD_REDEFINE9
 --

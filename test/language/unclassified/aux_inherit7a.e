@@ -4,9 +4,9 @@
 deferred class AUX_INHERIT7A
 
 feature {ANY} -- Access
-	x: AUX_INHERIT7B is
-		deferred
-		end
+   x: AUX_INHERIT7B is
+      deferred
+      end
 
 end -- class AUX_INHERIT7A
 --

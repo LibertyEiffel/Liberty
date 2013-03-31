@@ -6,10 +6,10 @@ creation make
 feature 
    make is 
       local
-	 cltn_cr: COLLECTION[CHARACTER];
-	 ai: ARRAY[INTEGER];
+    cltn_cr: COLLECTION[CHARACTER];
+    ai: ARRAY[INTEGER];
       do 
-	 ai := cltn_cr;
+    ai := cltn_cr;
       end; 
 end -- class BAD_TYPE4
 --

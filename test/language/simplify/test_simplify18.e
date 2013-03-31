@@ -4,17 +4,17 @@
 class TEST_SIMPLIFY18
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	n: INTEGER_8 is 10
+   n: INTEGER_8 is 10
 
-	make is
-		do
-			if 2 ^ n /= 1024 then
-				c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY18 ***")
-			end
-		end
+   make is
+      do
+         if 2 ^ n /= 1024 then
+            c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY18 ***")
+         end
+      end
 
 end -- class TEST_SIMPLIFY18
 --

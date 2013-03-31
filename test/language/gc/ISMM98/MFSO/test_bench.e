@@ -4,25 +4,25 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			apple: APPLE; apple_array: ARRAY[APPLE]; i, limit: INTEGER
-		do
-			limit := 4000000
-			create apple_array.make(1, limit)
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				create apple.make(i)
-				apple_array.put(apple, i)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         apple: APPLE; apple_array: ARRAY[APPLE]; i, limit: INTEGER
+      do
+         limit := 4000000
+         create apple_array.make(1, limit)
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            create apple.make(i)
+            apple_array.put(apple, i)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

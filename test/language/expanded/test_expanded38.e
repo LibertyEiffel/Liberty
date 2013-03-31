@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED38
-	-- From a bug report of Raphael Mack
+   -- From a bug report of Raphael Mack
 
 insert
-	COLORS
-	EIFFELTEST_TOOLS
+   COLORS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			string: STRING
-		do
-			string := red.to_integer_32.to_hexadecimal + red.out
-			assert(string.is_equal("000000000-10000000000"))
-		end
+   make is
+      local
+         string: STRING
+      do
+         string := red.to_integer_32.to_hexadecimal + red.out
+         assert(string.is_equal("000000000-10000000000"))
+      end
 
 end -- class TEST_EXPANDED38
 --

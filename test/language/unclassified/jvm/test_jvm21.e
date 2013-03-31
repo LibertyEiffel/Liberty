@@ -4,30 +4,30 @@
 class TEST_JVM21
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[ANY]
-		do
-			a := {ARRAY[STRING] 1, << "foo" >> }
-			assert(a.upper = 1)
-		end
+   make is
+      local
+         a: ARRAY[ANY]
+      do
+         a := {ARRAY[STRING] 1, << "foo" >> }
+         assert(a.upper = 1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_JVM21: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_JVM21: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JVM21
 --

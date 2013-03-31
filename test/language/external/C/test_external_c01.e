@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXTERNAL_C01
-	-- From SZ:544:.
+   -- From SZ:544:.
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			p: POINTER
-		do
-			p := get_pointer
-		end
+   main is
+      local
+         p: POINTER
+      do
+         p := get_pointer
+      end
 
-	get_pointer: POINTER is
-		require
-			no_handle: not has_valid_handle
-		external "C"
-		end
+   get_pointer: POINTER is
+      require
+         no_handle: not has_valid_handle
+      external "C"
+      end
 
-	has_valid_handle: BOOLEAN is
-		do
-			Result := False
-		end
+   has_valid_handle: BOOLEAN is
+      do
+         Result := False
+      end
 
 end -- class TEST_EXTERNAL_C01
 --

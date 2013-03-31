@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TAGGED1
-	-- Some checking fo untagged object.
+   -- Some checking fo untagged object.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: CAT
-		do
-			create c
-			if c.is_equal(c) then
-			end
-		end
+   make is
+      local
+         c: CAT
+      do
+         create c
+         if c.is_equal(c) then
+         end
+      end
 
 end -- class TEST_TAGGED1
 --

@@ -10,9 +10,9 @@ feature {}
    
    make is 
       do 
-	 check
-	    3
-	 end
+    check
+       3
+    end
       end
    
 end -- class BAD_ASSERTION2

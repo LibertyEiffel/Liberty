@@ -2,16 +2,16 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_STRING16
-	-- From SZ:435
+   -- From SZ:435
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			io.put_string(("").twin.substring(1, 0))
-		end
+   make is
+      do
+         io.put_string(("").twin.substring(1, 0))
+      end
 
 end -- class TEST_STRING16
 --

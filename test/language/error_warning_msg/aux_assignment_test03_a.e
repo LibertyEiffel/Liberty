@@ -4,8 +4,8 @@
 class AUX_ASSIGNMENT_TEST03_A
 
 feature {ANY}
-	get_x: like Current
-	
+   get_x: like Current
+   
 end -- class AUX_ASSIGNMENT_TEST03_A
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

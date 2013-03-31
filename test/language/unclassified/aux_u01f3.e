@@ -4,16 +4,16 @@
 class AUX_U01F3
 
 inherit
-	AUX_U01F1
-		undefine f
-		end
-	AUX_U01F2
-		undefine f
-		redefine f
-		end
+   AUX_U01F1
+      undefine f
+      end
+   AUX_U01F2
+      undefine f
+      redefine f
+      end
 
 feature {ANY}
-	f: AUX_U01R3
+   f: AUX_U01R3
 
 end -- class AUX_U01F3
 --

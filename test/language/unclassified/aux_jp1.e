@@ -4,10 +4,10 @@
 class AUX_JP1[E]
 
 feature {ANY}
-	foo: AUX_JP1[E] is
-		do
-			create Result
-		end
+   foo: AUX_JP1[E] is
+      do
+         create Result
+      end
 
 end -- class AUX_JP1
 --

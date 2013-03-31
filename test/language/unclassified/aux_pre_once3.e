@@ -4,12 +4,12 @@
 class AUX_PRE_ONCE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_PRE_ONCE3
 --

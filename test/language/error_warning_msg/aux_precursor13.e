@@ -4,9 +4,9 @@
 class AUX_PRECURSOR13
 
 feature
-	foo (bidule: NUMERIC) is
-		do
-		end
+   foo (bidule: NUMERIC) is
+      do
+      end
 
 end -- class AUX_PRECURSOR13
 --

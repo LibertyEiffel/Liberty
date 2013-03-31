@@ -4,31 +4,31 @@
 class TEST_ASSERTION_ALL3
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	check_counter: INTEGER
+   check_counter: INTEGER
 
-	main is
-		local
-			fa2: FAST_ARRAY2[INTEGER]
-		do
-			create fa2.make(2, 2)
-			assert(check_counter = 0)
-			check
-				check_call
-			end
-			assert(check_counter = 1)
-		end
+   main is
+      local
+         fa2: FAST_ARRAY2[INTEGER]
+      do
+         create fa2.make(2, 2)
+         assert(check_counter = 0)
+         check
+            check_call
+         end
+         assert(check_counter = 1)
+      end
 
-	check_call: BOOLEAN is
-		do
-			check_counter := check_counter + 1
-			Result := True
-		end
+   check_call: BOOLEAN is
+      do
+         check_counter := check_counter + 1
+         Result := True
+      end
 
 end -- class TEST_ASSERTION_ALL3
 --

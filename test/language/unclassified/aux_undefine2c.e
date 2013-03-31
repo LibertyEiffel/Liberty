@@ -4,9 +4,9 @@
 deferred class AUX_UNDEFINE2C
 
 inherit
-	AUX_UNDEFINE2B
-		undefine my_renamed_feature
-		end
+   AUX_UNDEFINE2B
+      undefine my_renamed_feature
+      end
 
 end -- class AUX_UNDEFINE2C
 --

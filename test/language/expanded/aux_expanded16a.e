@@ -4,10 +4,10 @@
 class AUX_EXPANDED16A
 
 inherit
-	FAST_ARRAY[AUX_EXPANDED16B]
+   FAST_ARRAY[AUX_EXPANDED16B]
 
 creation {ANY}
-	make
+   make
 
 end -- class AUX_EXPANDED16A
 --

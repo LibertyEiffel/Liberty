@@ -4,15 +4,15 @@
 class AUX_PRECURSOR11B
 
 inherit
-	AUX_PRECURSOR11A
-		redefine f
-		end
+   AUX_PRECURSOR11A
+      redefine f
+      end
 
 feature {ANY}
-	f is
-		once
-			Precursor
-		end
+   f is
+      once
+         Precursor
+      end
 
 end -- class AUX_PRECURSOR11B
 --

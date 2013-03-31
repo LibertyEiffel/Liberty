@@ -4,18 +4,18 @@
 class TEST_REAL_VARIATION
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: FAST_ARRAY[REAL]
+   a: FAST_ARRAY[REAL]
 
-	b: FAST_ARRAY[REAL_64]
+   b: FAST_ARRAY[REAL_64]
 
-	make is
-		do
-			create a.make(0)
-			create b.make(0)
-		end
+   make is
+      do
+         create a.make(0)
+         create b.make(0)
+      end
 
 end -- class TEST_REAL_VARIATION
 --

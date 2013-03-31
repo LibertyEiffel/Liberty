@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MM01
-	--
-	-- SZ:413: From mwm-keyword-se.f78c7c@mired.org (Mike Meyer)
-	--
+   --
+   -- SZ:413: From mwm-keyword-se.f78c7c@mired.org (Mike Meyer)
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			f: REAL_32
-		do
-			f := f.one
-		end
+   make is
+      local
+         f: REAL_32
+      do
+         f := f.one
+      end
 
 end -- class TEST_MM01
 --

@@ -2,62 +2,62 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER72
-	-- tests on "append_in"
+   -- tests on "append_in"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s: STRING is "hello"
+   s: STRING is "hello"
 
-	make is
-		local
-			s1, s2, s3: STRING; n: NUMBER
-		do
-			n := from_integer(1)
-			s1 := s.twin
-			n.append_in(s1)
-			assert(s1.is_equal("hello1"))
-			n := from_integer(-1)
-			s1 := s.twin
-			n.append_in(s1)
-			assert(s1.is_equal("hello-1"))
-			n := from_integer(0)
-			s1 := s.twin
-			n.append_in(s1)
-			assert(s1.is_equal("hello0"))
-			n := from_integer(Maximum_integer)
-			n := n @* 10
-			s1 := s.twin
-			n.append_in(s1)
-			s2 := s.twin
-			Maximum_integer.append_in(s2)
-			s3 := "0"
-			s2.append(s3)
-			assert(s1.is_equal(s2))
-			n := from_integer(Minimum_integer)
-			n := n @* 10
-			s1 := s.twin
-			n.append_in(s1)
-			s2 := s.twin
-			Minimum_integer.append_in(s2)
-			s3 := "0"
-			s2.append(s3)
-			assert(s1.is_equal(s2))
-			n := from_string("60/50")
-			s1 := s.twin
-			n.append_in(s1)
-			assert(s1.is_equal("hello6/5"))
-			n := from_string("-60/50")
-			s1 := s.twin
-			n.append_in(s1)
-			assert(s1.is_equal("hello-6/5"))
-		end
+   make is
+      local
+         s1, s2, s3: STRING; n: NUMBER
+      do
+         n := from_integer(1)
+         s1 := s.twin
+         n.append_in(s1)
+         assert(s1.is_equal("hello1"))
+         n := from_integer(-1)
+         s1 := s.twin
+         n.append_in(s1)
+         assert(s1.is_equal("hello-1"))
+         n := from_integer(0)
+         s1 := s.twin
+         n.append_in(s1)
+         assert(s1.is_equal("hello0"))
+         n := from_integer(Maximum_integer)
+         n := n @* 10
+         s1 := s.twin
+         n.append_in(s1)
+         s2 := s.twin
+         Maximum_integer.append_in(s2)
+         s3 := "0"
+         s2.append(s3)
+         assert(s1.is_equal(s2))
+         n := from_integer(Minimum_integer)
+         n := n @* 10
+         s1 := s.twin
+         n.append_in(s1)
+         s2 := s.twin
+         Minimum_integer.append_in(s2)
+         s3 := "0"
+         s2.append(s3)
+         assert(s1.is_equal(s2))
+         n := from_string("60/50")
+         s1 := s.twin
+         n.append_in(s1)
+         assert(s1.is_equal("hello6/5"))
+         n := from_string("-60/50")
+         s1 := s.twin
+         n.append_in(s1)
+         assert(s1.is_equal("hello-6/5"))
+      end
 
 
 

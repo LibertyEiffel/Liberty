@@ -2,54 +2,54 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER56
-	-- tests on "#>="
+   -- tests on "#>="
 
 insert
-	PLATFORM
-	NUMBER_TOOLS
-	EIFFELTEST_TOOLS
-	
+   PLATFORM
+   NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(-1)
-			assert(n #>= Minimum_integer.to_real_64)
-			assert(n #>= -1)
-			n := from_integer(0)
-			assert(n #>= -1)
-			assert(n #>= 0)
-			n := from_integer(Maximum_integer)
-			assert(n #>= Maximum_integer.to_real_64)
-			n := from_integer_64(Maximum_integer_64)
-			assert( n @>= Maximum_integer_64)
-			assert( n @<= Maximum_integer_64)
-			assert(n #<= Maximum_integer_64.force_to_real_64)
-			n := n @+ 1
-			assert(n #>= Maximum_integer_64.force_to_real_64)
-			n := from_integer_64(Minimum_integer_64)
-			assert(n #>= Minimum_integer_64.force_to_real_64)
-			n := n @- 1
-			assert(not (n #>= Minimum_integer_64.force_to_real_64))
-			n := from_string("2/5")
-			assert(n #>= 0)
-			n := from_string("3/2")
-			assert(n #>= 1)
-			n := from_string("-1/54")
-			assert(n #>= -1)
-			n := from_string("2/5")
-			assert(n #>= 0.19)
-			assert(n #>= 0.2)
-			n := from_string("-3/5")
-			-- This case does not have the same result in all compilation
-			-- modes (cause to the precision lost)
-			--       assert(n #>= -0.6)
-			assert(n #>= -0.61)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(-1)
+         assert(n #>= Minimum_integer.to_real_64)
+         assert(n #>= -1)
+         n := from_integer(0)
+         assert(n #>= -1)
+         assert(n #>= 0)
+         n := from_integer(Maximum_integer)
+         assert(n #>= Maximum_integer.to_real_64)
+         n := from_integer_64(Maximum_integer_64)
+         assert( n @>= Maximum_integer_64)
+         assert( n @<= Maximum_integer_64)
+         assert(n #<= Maximum_integer_64.force_to_real_64)
+         n := n @+ 1
+         assert(n #>= Maximum_integer_64.force_to_real_64)
+         n := from_integer_64(Minimum_integer_64)
+         assert(n #>= Minimum_integer_64.force_to_real_64)
+         n := n @- 1
+         assert(not (n #>= Minimum_integer_64.force_to_real_64))
+         n := from_string("2/5")
+         assert(n #>= 0)
+         n := from_string("3/2")
+         assert(n #>= 1)
+         n := from_string("-1/54")
+         assert(n #>= -1)
+         n := from_string("2/5")
+         assert(n #>= 0.19)
+         assert(n #>= 0.2)
+         n := from_string("-3/5")
+         -- This case does not have the same result in all compilation
+         -- modes (cause to the precision lost)
+         --       assert(n #>= -0.6)
+         assert(n #>= -0.61)
+      end
 
 end -- class TEST_NUMBER56
 --

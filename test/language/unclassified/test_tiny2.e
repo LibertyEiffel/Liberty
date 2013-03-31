@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TINY2
-	--
-	-- From a bug report of : Brian STRELIOFF
-	--
+   --
+   -- From a bug report of : Brian STRELIOFF
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux_tiny2b: AUX_TINY1B
-		do
-			create aux_tiny2b
-		end
+   make is
+      local
+         aux_tiny2b: AUX_TINY1B
+      do
+         create aux_tiny2b
+      end
 
 end -- class TEST_TINY2
 --

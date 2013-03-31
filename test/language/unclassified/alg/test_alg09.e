@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG09
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			s := ("Hello!%N").twin
-			s.prepend(s)
-			s.remove_suffix(s)
-			s.remove_prefix(s)
-			s := ("Hello!%N").twin
-			s.remove_prefix(s)
-			s.make_from_string(s)
-		end
+   make is
+      local
+         s: STRING
+      do
+         s := ("Hello!%N").twin
+         s.prepend(s)
+         s.remove_suffix(s)
+         s.remove_prefix(s)
+         s := ("Hello!%N").twin
+         s.remove_prefix(s)
+         s.make_from_string(s)
+      end
 
 end -- class TEST_ALG09
 --

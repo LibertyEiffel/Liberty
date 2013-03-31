@@ -4,26 +4,26 @@
 expanded class AUX_CREATE06
 
 insert
-	ANY
-		rename default_create as make
-		redefine make
-		end
+   ANY
+      rename default_create as make
+      redefine make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			value := 3
-		end
+   make is
+      do
+         value := 3
+      end
 
-	value: INTEGER
+   value: INTEGER
 
-	set_value (v: like value) is
-		do
-			value := v
-		end
+   set_value (v: like value) is
+      do
+         value := v
+      end
 
 end -- class AUX_CREATE06
 --

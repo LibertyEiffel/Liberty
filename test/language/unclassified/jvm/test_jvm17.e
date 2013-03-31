@@ -4,33 +4,33 @@
 class TEST_JVM17
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[CHARACTER]
-		do
-			create a.make(1, 3)
-			a.put('a', 1)
-			a.put('b', 2)
-			a.put('c', 3)
-			check
-				a.item(1) = 'a'
-				a.item(2) = 'b'
-				a.item(3) = 'c'
-			end
-			a := Void
-			check
-				a = Void
-			end
-			a := {ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }
-			check
-				a.item(1) = 'a'
-				a.item(2) = 'b'
-				a.item(3) = 'c'
-			end
-		end
+   make is
+      local
+         a: ARRAY[CHARACTER]
+      do
+         create a.make(1, 3)
+         a.put('a', 1)
+         a.put('b', 2)
+         a.put('c', 3)
+         check
+            a.item(1) = 'a'
+            a.item(2) = 'b'
+            a.item(3) = 'c'
+         end
+         a := Void
+         check
+            a = Void
+         end
+         a := {ARRAY[CHARACTER] 1, << 'a', 'b', 'c' >> }
+         check
+            a.item(1) = 'a'
+            a.item(2) = 'b'
+            a.item(3) = 'c'
+         end
+      end
 
 end -- class TEST_JVM17
 --

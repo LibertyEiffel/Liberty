@@ -4,18 +4,18 @@
 class AUX_FSA1_CLASS3
 
 inherit
-	AUX_FSA1_CLASS2
-		rename initiate as make
-		end
+   AUX_FSA1_CLASS2
+      rename initiate as make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} --  {ALL}
-	apply is
-		do
-			dummy := 3
-		end
+   apply is
+      do
+         dummy := 3
+      end
 
 end -- class AUX_FSA1_CLASS3
 --

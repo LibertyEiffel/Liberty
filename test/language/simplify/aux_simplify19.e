@@ -4,17 +4,17 @@
 class AUX_SIMPLIFY19
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 feature {ANY}
-	aux_simplify19_test is
-		do
-			if {TEST_SIMPLIFY19} ?:= Current then
-				assert(True)
-			else
-				c_inline_c("*** WrongCcode #2 in BOOST_SIMPLIFY18 ***")
-			end
-		end
+   aux_simplify19_test is
+      do
+         if {TEST_SIMPLIFY19} ?:= Current then
+            assert(True)
+         else
+            c_inline_c("*** WrongCcode #2 in BOOST_SIMPLIFY18 ***")
+         end
+      end
 
 end -- class AUX_SIMPLIFY19
 --

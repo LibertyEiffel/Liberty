@@ -4,42 +4,42 @@
 class TEST_INLINING10
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a1, a2, a3, a4: like Current
+   a1, a2, a3, a4: like Current
 
-	make is
-		do
-			a1 := Current
-			a2 := Current
-			a3 := Current
-			a4 := Current
-			foo_a4
-			if a1 /= Void then
-				std_output.put_string("TEST_INLINING10: ERROR Test #1%N")
-			end
-		end
+   make is
+      do
+         a1 := Current
+         a2 := Current
+         a3 := Current
+         a4 := Current
+         foo_a4
+         if a1 /= Void then
+            std_output.put_string("TEST_INLINING10: ERROR Test #1%N")
+         end
+      end
 
-	foo_a1 is
-		do
-			a1 := Void
-		end
+   foo_a1 is
+      do
+         a1 := Void
+      end
 
-	foo_a2 is
-		do
-			a2.foo_a1
-		end
+   foo_a2 is
+      do
+         a2.foo_a1
+      end
 
-	foo_a3 is
-		do
-			a3.foo_a2
-		end
+   foo_a3 is
+      do
+         a3.foo_a2
+      end
 
-	foo_a4 is
-		do
-			a4.foo_a3
-		end
+   foo_a4 is
+      do
+         a4.foo_a3
+      end
 
 end -- class TEST_INLINING10
 --

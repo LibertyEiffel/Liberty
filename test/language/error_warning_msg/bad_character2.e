@@ -9,16 +9,16 @@ feature
 
    make is
       local
-	 c: CHARACTER
+    c: CHARACTER
       do
-	 c := '%/0xFF/'
-	 c := '%/0xFFF/'
-	 c := '%/0xFF/'
-	 c := '%/0xF/'
-	 c := '%/1299/'
-	 c := '%/0x/'
+    c := '%/0xFF/'
+    c := '%/0xFFF/'
+    c := '%/0xFF/'
+    c := '%/0xF/'
+    c := '%/1299/'
+    c := '%/0x/'
 
-	 c := '%/-1299/'
+    c := '%/-1299/'
       end
    
 end -- class BAD_CHARACTER2

@@ -4,21 +4,21 @@
 class COLORED_POINT
 
 inherit
-	LIB_TEST_POINT
-		rename make as point_make
-		end
+   LIB_TEST_POINT
+      rename make as point_make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	color: STRING
+   color: STRING
 
-	make (vx, vy: REAL; c: STRING) is
-		do
-			point_make(vx, vy)
-			color := c
-		end
+   make (vx, vy: REAL; c: STRING) is
+      do
+         point_make(vx, vy)
+         color := c
+      end
 
 end -- class COLORED_POINT
 --

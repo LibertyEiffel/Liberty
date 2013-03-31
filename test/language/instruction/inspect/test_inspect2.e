@@ -4,21 +4,21 @@
 class TEST_INSPECT2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			inspect
-				1
-			when 2 then
-				io.put_string("Impossible%N")
-			when 3 then
-				io.put_string("Impossible aussi%N")
-			else
-			end
-			-- io.put_string("Maintenant, je souris :-)%N");
-		end
+   make is
+      do
+         inspect
+            1
+         when 2 then
+            io.put_string("Impossible%N")
+         when 3 then
+            io.put_string("Impossible aussi%N")
+         else
+         end
+         -- io.put_string("Maintenant, je souris :-)%N");
+      end
 
 end -- class TEST_INSPECT2
 --

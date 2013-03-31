@@ -4,13 +4,13 @@
 class AUX_LD02_KIKI[E]
 
 feature {ANY}
-	setdata (pardata: E) is
-		do
-			data := pardata
-		end
+   setdata (pardata: E) is
+      do
+         data := pardata
+      end
 
 feature {}
-	data: E
+   data: E
 
 end -- class AUX_LD02_KIKI
 --

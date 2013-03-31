@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR19
-	--
-	-- Written by Philippe Ribet
-	-- This bug is only visible with assertion enabled compiler
-	--
+   --
+   -- Written by Philippe Ribet
+   -- This bug is only visible with assertion enabled compiler
+   --
 
 inherit
-	AUX_PRECURSOR19B
+   AUX_PRECURSOR19B
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(5)
-		end
+   make is
+      do
+         foo(5)
+      end
 
 end -- class TEST_PRECURSOR19
 --

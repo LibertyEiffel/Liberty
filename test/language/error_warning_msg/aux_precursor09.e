@@ -13,7 +13,7 @@ feature
 
    foo: like Current is
       do
-	 Result := create {AUX_PRECURSOR09}.make_aux
+    Result := create {AUX_PRECURSOR09}.make_aux
       end
 end -- class AUX_PRECURSOR09
 --

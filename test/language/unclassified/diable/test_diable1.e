@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DIABLE1
-	-- DIABOLIC Test : DO NO TOUCH.
+   -- DIABOLIC Test : DO NO TOUCH.
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a1: ANY
+   a1: ANY
 
-	a2: ANY
+   a2: ANY
 
-	make is
-		do
-			if a1 /= Void then
-				-- ?????
-			end
-			if a2 /= Void then
-				a2 := Current
-			end
-			assert(a2 = Void)
-		end
+   make is
+      do
+         if a1 /= Void then
+            -- ?????
+         end
+         if a2 /= Void then
+            a2 := Current
+         end
+         assert(a2 = Void)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_DIABLE1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_DIABLE1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DIABLE1
 --

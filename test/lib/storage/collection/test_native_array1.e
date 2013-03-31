@@ -4,48 +4,48 @@
 class TEST_NATIVE_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b: NATIVE_ARRAY[CHARACTER]
-		do
-			a := a.calloc(2)
-			a.put('a', 0)
-			a.put('b', 1)
-			assert(a.item(0) = 'a')
-			assert(a.item(1) = 'b')
-			a := a.realloc(2, 1024)
-			assert(a.item(0) = 'a')
-			assert(a.item(1) = 'b')
-			b := b.calloc(2)
-			assert(b.item(0) = '%/0/')
-			assert(b.item(1) = '%U')
-			b.put('a', 0)
-			b.put('b', 1)
-			assert(b.item(0) = 'a')
-			assert(b.item(1) = 'b')
-			b := b.realloc(2, 1024)
-			assert(b.item(0) = 'a')
-			assert(b.item(1) = 'b')
-			assert(a.fast_memcmp(b, 2))
-			assert(a.memcmp(b, 2))
-		end
+   make is
+      local
+         a, b: NATIVE_ARRAY[CHARACTER]
+      do
+         a := a.calloc(2)
+         a.put('a', 0)
+         a.put('b', 1)
+         assert(a.item(0) = 'a')
+         assert(a.item(1) = 'b')
+         a := a.realloc(2, 1024)
+         assert(a.item(0) = 'a')
+         assert(a.item(1) = 'b')
+         b := b.calloc(2)
+         assert(b.item(0) = '%/0/')
+         assert(b.item(1) = '%U')
+         b.put('a', 0)
+         b.put('b', 1)
+         assert(b.item(0) = 'a')
+         assert(b.item(1) = 'b')
+         b := b.realloc(2, 1024)
+         assert(b.item(0) = 'a')
+         assert(b.item(1) = 'b')
+         assert(a.fast_memcmp(b, 2))
+         assert(a.memcmp(b, 2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY1
 --

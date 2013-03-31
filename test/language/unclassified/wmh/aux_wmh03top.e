@@ -3,7 +3,7 @@ feature
    done1: BOOLEAN;
    execute is
       do
-	 done1 := True;
+    done1 := True;
       end
 end
 

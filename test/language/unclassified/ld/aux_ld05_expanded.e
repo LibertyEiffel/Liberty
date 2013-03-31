@@ -4,12 +4,12 @@
 expanded class AUX_LD05_EXPANDED
 
 feature {ANY}
-	dummy_value: INTEGER
+   dummy_value: INTEGER
 
-	set_value (parint: INTEGER) is
-		do
-			dummy_value := parint
-		end
+   set_value (parint: INTEGER) is
+      do
+         dummy_value := parint
+      end
 
 end -- class AUX_LD05_EXPANDED
 --

@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG9
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: EXPANDED_MATRIX_4X4[INTERVAL[REAL]]; bool: BOOLEAN
-		do
-			if bool then
-				io.put_real(b.item.item)
-				io.put_new_line
-			end
-		end
+   make is
+      local
+         b: EXPANDED_MATRIX_4X4[INTERVAL[REAL]]; bool: BOOLEAN
+      do
+         if bool then
+            io.put_real(b.item.item)
+            io.put_new_line
+         end
+      end
 
 end -- class TEST_EG9
 --

@@ -4,24 +4,24 @@
 deferred class AUX_INHERIT6B
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	foo is
-		deferred
-		end
+   foo is
+      deferred
+      end
 
-	bar is
-		do
-			count := count + 2
-		end
+   bar is
+      do
+         count := count + 2
+      end
 
-	foo2 is
-		do
-			count := count + 7
-		end
+   foo2 is
+      do
+         count := count + 7
+      end
 
-	count: INTEGER
+   count: INTEGER
 
 end -- class AUX_INHERIT6B
 --

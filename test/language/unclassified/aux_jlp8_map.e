@@ -4,43 +4,43 @@
 deferred class AUX_JLP8_MAP[E, F]
 
 inherit
-	AUX_JLP8_OPERATOR[E]
-	AUX_JLP8_PROVIDER[F]
-		undefine is_runnable
-		end
+   AUX_JLP8_OPERATOR[E]
+   AUX_JLP8_PROVIDER[F]
+      undefine is_runnable
+      end
 
 feature {ANY}
-	start is
-		do
-			provider.start
-			if not exhausted then
-				item := map_operation(provider.item)
-			end
-		end
+   start is
+      do
+         provider.start
+         if not exhausted then
+            item := map_operation(provider.item)
+         end
+      end
 
-	item: F
+   item: F
 
-	next is
-		do
-			provider.next
-			if not exhausted then
-				item := map_operation(provider.item)
-			end
-		end
+   next is
+      do
+         provider.next
+         if not exhausted then
+            item := map_operation(provider.item)
+         end
+      end
 
-	exhausted: BOOLEAN is
-		do
-			Result := provider.exhausted
-		end
+   exhausted: BOOLEAN is
+      do
+         Result := provider.exhausted
+      end
 
-	map_operation (e: E): F is
-		deferred
-		end
+   map_operation (e: E): F is
+      deferred
+      end
 
-	item_action (e: E) is
-		do
-			item := map_operation(e)
-		end
+   item_action (e: E) is
+      do
+         item := map_operation(e)
+      end
 
 end -- class AUX_JLP8_MAP
 --

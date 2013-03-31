@@ -4,10 +4,10 @@
 class TEST_DEFERRED1_E
 
 inherit
-	AUX_DEFERRED1_D
+   AUX_DEFERRED1_D
 
 creation {ANY}
-	make
+   make
 
 end -- class TEST_DEFERRED1_E
 --

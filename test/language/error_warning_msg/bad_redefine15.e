@@ -3,22 +3,22 @@
 --
 class BAD_REDEFINE15
 inherit
-	AUX_REDEFINE15
-		redefine foo
-		end
+   AUX_REDEFINE15
+      redefine foo
+      end
 
 creation
-	make
+   make
 
 feature
-	foo (bar: ARRAY[INTEGER_16]) is
-		do
-		end
+   foo (bar: ARRAY[INTEGER_16]) is
+      do
+      end
 
-	make is
-		do
-		end
-	
+   make is
+      do
+      end
+   
 end -- class BAD_REDEFINE15
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

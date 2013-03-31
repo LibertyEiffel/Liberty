@@ -4,33 +4,33 @@
 class AUX_ASSERTION_ALL5_A
 
 feature {ANY}
-	require_counter: INTEGER
+   require_counter: INTEGER
 
-	ensure_counter: INTEGER
+   ensure_counter: INTEGER
 
-	empty_procedure1 is
-		require
-			side_effect_require
-		do
-		end
-	
-	empty_procedure2 is
-		do
-		ensure
-			side_effect_ensure
-		end
-	
-	side_effect_require: BOOLEAN is
-		do
-			require_counter := require_counter + 1
-			Result := True
-		end
+   empty_procedure1 is
+      require
+         side_effect_require
+      do
+      end
+   
+   empty_procedure2 is
+      do
+      ensure
+         side_effect_ensure
+      end
+   
+   side_effect_require: BOOLEAN is
+      do
+         require_counter := require_counter + 1
+         Result := True
+      end
 
-	side_effect_ensure: BOOLEAN is
-		do
-			ensure_counter := ensure_counter + 1
-			Result := True
-		end
+   side_effect_ensure: BOOLEAN is
+      do
+         ensure_counter := ensure_counter + 1
+         Result := True
+      end
 
 end -- class AUX_ASSERTION_ALL5_A
 --

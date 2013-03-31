@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_OZ02
-	-- From a bug report of Olivier ZENDRA
+   -- From a bug report of Olivier ZENDRA
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]
-		do
-			a := {ARRAY[INTEGER] 1, << 1, 2 >> }
-		end
+   make is
+      local
+         a: ARRAY[INTEGER]
+      do
+         a := {ARRAY[INTEGER] 1, << 1, 2 >> }
+      end
 
 end -- class TEST_OZ02
 --

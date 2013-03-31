@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER22
-	-- From a bug report of Michael Nedzelsky <MichaelNedzelsky@yandex.ru>
+   -- From a bug report of Michael Nedzelsky <MichaelNedzelsky@yandex.ru>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: MUTABLE_BIG_INTEGER
-		do
-			create n.from_integer(1)
-			n.subtract_integer(1)
-			assert(("0").is_equal(n.to_string))
-		end
+   make is
+      local
+         n: MUTABLE_BIG_INTEGER
+      do
+         create n.from_integer(1)
+         n.subtract_integer(1)
+         assert(("0").is_equal(n.to_string))
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER22
 --

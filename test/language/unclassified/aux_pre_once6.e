@@ -4,13 +4,13 @@
 class AUX_PRE_ONCE6
 
 feature {ANY}
-	aux: FAST_ARRAY[INTEGER] is
-		once
-			create Result.make(1)
-		end
+   aux: FAST_ARRAY[INTEGER] is
+      once
+         create Result.make(1)
+      end
 
 invariant
-	0 <= aux.count
+   0 <= aux.count
 
 end -- class AUX_PRE_ONCE6
 --

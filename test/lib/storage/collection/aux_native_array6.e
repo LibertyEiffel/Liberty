@@ -4,12 +4,12 @@
 class AUX_NATIVE_ARRAY6[E]
 
 feature {ANY}
-	native_array: NATIVE_ARRAY[E]
+   native_array: NATIVE_ARRAY[E]
 
-	calloc (nb: INTEGER) is
-		do
-			native_array := native_array.calloc(nb)
-		end
+   calloc (nb: INTEGER) is
+      do
+         native_array := native_array.calloc(nb)
+      end
 
 end -- class AUX_NATIVE_ARRAY6
 --

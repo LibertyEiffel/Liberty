@@ -4,7 +4,7 @@
 class AUX_XC7B
 
 feature {ANY}
-	path: STRING
+   path: STRING
 
 end -- class AUX_XC7B
 --

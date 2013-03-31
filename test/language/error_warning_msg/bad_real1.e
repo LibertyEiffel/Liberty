@@ -4,14 +4,14 @@
 class BAD_REAL1
    
 creation
-	make
+   make
    
 feature 
    make is 
       local
-			r: REAL_GENERAL
+         r: REAL_GENERAL
       do 
-			i := 1.0
+         i := 1.0
       end
    
 end -- class BAD_REAL1

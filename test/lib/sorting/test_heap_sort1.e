@@ -4,32 +4,32 @@
 class TEST_HEAP_SORT1
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: ARRAY[INTEGER]; s: COLLECTION_SORTER[INTEGER]
-		do
-			tab := {ARRAY[INTEGER] 1, << 9, 5, 3, 2, 1, 3 >> }
-			s.heap_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 3, 5, 9 >> }))
-			tab.add_last(4)
-			s.heap_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 3, 4, 5, 9 >> }))
-		end
+   make is
+      local
+         tab: ARRAY[INTEGER]; s: COLLECTION_SORTER[INTEGER]
+      do
+         tab := {ARRAY[INTEGER] 1, << 9, 5, 3, 2, 1, 3 >> }
+         s.heap_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 3, 5, 9 >> }))
+         tab.add_last(4)
+         s.heap_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 3, 4, 5, 9 >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_HEAP_SORT1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_HEAP_SORT1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_HEAP_SORT1
 --

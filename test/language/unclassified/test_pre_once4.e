@@ -4,17 +4,17 @@
 class TEST_PRE_ONCE4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			basic_directory.connect_to_current_working_directory
-		end
+   make is
+      do
+         basic_directory.connect_to_current_working_directory
+      end
 
-	basic_directory: BASIC_DIRECTORY is
-		once
-		end
+   basic_directory: BASIC_DIRECTORY is
+      once
+      end
 
 end -- class TEST_PRE_ONCE4
 --

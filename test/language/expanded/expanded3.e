@@ -4,25 +4,25 @@
 expanded class EXPANDED3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	pt: POINT
+   pt: POINT
 
-	make is
-		do
-			create pt.make(2, 2)
-		end
+   make is
+      do
+         create pt.make(2, 2)
+      end
 
-	set_pt (p: POINT) is
-		do
-			pt := p
-		ensure
-			pt = p
-		end
+   set_pt (p: POINT) is
+      do
+         pt := p
+      ensure
+         pt = p
+      end
 
 invariant
-	pt.x = pt.y
+   pt.x = pt.y
 
 end -- class EXPANDED3
 --

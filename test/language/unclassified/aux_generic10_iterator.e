@@ -4,12 +4,12 @@
 class AUX_GENERIC10_ITERATOR[E]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (d: AUX_GENERIC10_DICTIONARY[E, INTEGER]) is
-		do
-		end
+   make (d: AUX_GENERIC10_DICTIONARY[E, INTEGER]) is
+      do
+      end
 
 end -- class AUX_GENERIC10_ITERATOR
 --

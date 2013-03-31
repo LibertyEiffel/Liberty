@@ -4,33 +4,33 @@
 class TEST_IS_SORTED
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			s: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
-		do
-			create a.with_capacity(2, -1)
-			assert(s.is_sorted(a))
-			assert(s.is_sorted({ARRAY[INTEGER] 1, << 1 >> }))
-			assert(s.is_sorted({ARRAY[INTEGER] 1, << 1, 2 >> }))
-			assert(not s.is_sorted({ARRAY[INTEGER] 1, << 2, 1 >> }))
-			assert(s.is_sorted({ARRAY[INTEGER] 1, << 1, 2, 3 >> }))
-			assert(not s.is_sorted({ARRAY[INTEGER] 1, << 1, 3, 2 >> }))
-		end
+   make is
+      local
+         s: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
+      do
+         create a.with_capacity(2, -1)
+         assert(s.is_sorted(a))
+         assert(s.is_sorted({ARRAY[INTEGER] 1, << 1 >> }))
+         assert(s.is_sorted({ARRAY[INTEGER] 1, << 1, 2 >> }))
+         assert(not s.is_sorted({ARRAY[INTEGER] 1, << 2, 1 >> }))
+         assert(s.is_sorted({ARRAY[INTEGER] 1, << 1, 2, 3 >> }))
+         assert(not s.is_sorted({ARRAY[INTEGER] 1, << 1, 3, 2 >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_IS_SORTED: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_IS_SORTED: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_SORTED
 --

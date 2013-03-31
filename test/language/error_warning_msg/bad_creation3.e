@@ -7,15 +7,15 @@ class BAD_CREATION3
 inherit
    BAD_CREATION2
       rename
-	 make as bc2_make
+    make as bc2_make
       end;
 creation
    make
 feature
    make is
       do
-	 bc2_make;
-	 -- autres initialisations
+    bc2_make;
+    -- autres initialisations
       end;
 
 end -- class BAD_CREATION3

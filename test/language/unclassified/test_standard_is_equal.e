@@ -4,41 +4,41 @@
 class TEST_STANDARD_IS_EQUAL
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
-		do
-			assert(not ("foo").standard_is_equal("foo"))
-			assert(not ("bar").standard_is_equal("foo"))
-			assert(3.standard_is_equal(3))
-			assert((2 + 2).standard_is_equal(1 + 3))
-			create {DOG} animal1
-			create {CAT} animal1
-			create {CAT} animal2
-			assert(animal1.standard_is_equal(animal2))
-			create p1.make(1.5, 2.5)
-			create p2.make(1.5, 2.5)
-			assert(p1.standard_is_equal(p2))
-			assert(p2.standard_is_equal(p1))
-			any1 := p1
-			any2 := p2
-			assert(any1.standard_is_equal(any2))
-			assert(any2.standard_is_equal(any1))
-			create cp1.make(1.5, 2.5, "red")
-			create cp2.make(1.5, 2.5, "red")
-			assert(not cp1.standard_is_equal(cp2))
-			any1 := cp1
-			any2 := cp1
-			assert(any1.standard_is_equal(any2))
-			any2 := cp2
-			assert(not any1.standard_is_equal(any2))
-		end
+   make is
+      local
+         animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
+      do
+         assert(not ("foo").standard_is_equal("foo"))
+         assert(not ("bar").standard_is_equal("foo"))
+         assert(3.standard_is_equal(3))
+         assert((2 + 2).standard_is_equal(1 + 3))
+         create {DOG} animal1
+         create {CAT} animal1
+         create {CAT} animal2
+         assert(animal1.standard_is_equal(animal2))
+         create p1.make(1.5, 2.5)
+         create p2.make(1.5, 2.5)
+         assert(p1.standard_is_equal(p2))
+         assert(p2.standard_is_equal(p1))
+         any1 := p1
+         any2 := p2
+         assert(any1.standard_is_equal(any2))
+         assert(any2.standard_is_equal(any1))
+         create cp1.make(1.5, 2.5, "red")
+         create cp2.make(1.5, 2.5, "red")
+         assert(not cp1.standard_is_equal(cp2))
+         any1 := cp1
+         any2 := cp1
+         assert(any1.standard_is_equal(any2))
+         any2 := cp2
+         assert(not any1.standard_is_equal(any2))
+      end
 
 end -- class TEST_STANDARD_IS_EQUAL
 --

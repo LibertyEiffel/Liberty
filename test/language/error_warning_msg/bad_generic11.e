@@ -3,13 +3,13 @@
 --
 class BAD_GENERIC11
 creation
-	make
+   make
 feature
-	make is
-		local
-			g: AUX_GENERIC11[INTEGER]
-		do
-		end
+   make is
+      local
+         g: AUX_GENERIC11[INTEGER]
+      do
+      end
 
 end -- class BAD_GENERIC11
 --

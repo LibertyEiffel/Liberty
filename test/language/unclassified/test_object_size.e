@@ -4,34 +4,34 @@
 class TEST_OBJECT_SIZE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; b: BOOLEAN; c: CHARACTER; r: REAL; d: REAL
-		do
-			assert(c.object_size >= 1)
-			assert(i.object_size >= 1)
-			assert(r.object_size >= 1)
-			assert(c.object_size <= b.object_size)
-			assert(i.object_size >= b.object_size)
-			assert(r.object_size <= d.object_size)
-		end
+   make is
+      local
+         i: INTEGER; b: BOOLEAN; c: CHARACTER; r: REAL; d: REAL
+      do
+         assert(c.object_size >= 1)
+         assert(i.object_size >= 1)
+         assert(r.object_size >= 1)
+         assert(c.object_size <= b.object_size)
+         assert(i.object_size >= b.object_size)
+         assert(r.object_size <= d.object_size)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_OBJECT_SIZE: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_OBJECT_SIZE: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_OBJECT_SIZE
 --

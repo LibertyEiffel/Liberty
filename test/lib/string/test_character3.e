@@ -4,32 +4,32 @@
 class TEST_CHARACTER3
 
 insert
-	ANY
-	PLATFORM
-	EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	qwerty: STRING is "`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ %
+   qwerty: STRING is "`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ %
       %!@#$^&*()_+QWERTYUIOP{}|ASDFGHJKL:ZXCVBNM<>?"
 
-	make is
-		local
-			i: INTEGER; c: CHARACTER
-		do
-			from
-				i := qwerty.count
-			until
-				i = 0
-			loop
-				c := qwerty.item(i)
-				assert(Minimum_character_code <= 1 + c.code)
-				assert(c.code - 1 <= Maximum_character_code)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; c: CHARACTER
+      do
+         from
+            i := qwerty.count
+         until
+            i = 0
+         loop
+            c := qwerty.item(i)
+            assert(Minimum_character_code <= 1 + c.code)
+            assert(c.code - 1 <= Maximum_character_code)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_CHARACTER3
 --

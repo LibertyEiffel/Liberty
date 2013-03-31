@@ -4,14 +4,14 @@
 deferred class QUADRUPED
 
 inherit
-	ANIMAL
-		redefine fornicate_with
-		end
+   ANIMAL
+      redefine fornicate_with
+      end
 
 feature {ANY}
-	fornicate_with (other: ANIMAL): ANIMAL is
-		do
-		end
+   fornicate_with (other: ANIMAL): ANIMAL is
+      do
+      end
 
 end -- class QUADRUPED
 --

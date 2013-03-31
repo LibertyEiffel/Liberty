@@ -4,36 +4,36 @@
 class TEST_SELECT2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_SELECT2B; a: AUX_SELECT2A
-		do
-			create b
-			assert(("fooAnew").is_equal(b.new_foo))
-			assert(("fooA").is_equal(b.foo_a))
-			a := b
-			assert(("fooAnew").is_equal(a.foo))
-			create a
-			assert(("fooA").is_equal(a.foo))
-		end
+   make is
+      local
+         b: AUX_SELECT2B; a: AUX_SELECT2A
+      do
+         create b
+         assert(("fooAnew").is_equal(b.new_foo))
+         assert(("fooA").is_equal(b.foo_a))
+         a := b
+         assert(("fooAnew").is_equal(a.foo))
+         create a
+         assert(("fooA").is_equal(a.foo))
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_SELECT2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_SELECT2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_SELECT2
 --

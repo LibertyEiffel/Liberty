@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER28
-	-- tests on prefix "-"
+   -- tests on prefix "-"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(0)
-			assert((-n1).is_equal(n1))
-			n1 := from_integer(-1)
-			n2 := from_integer(1)
-			assert((-n1).is_equal(n2))
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @+ 1000
-			n2 := from_integer(Minimum_integer)
-			n2 := n2 @- 999
-			assert((-n1).is_equal(n2))
-			n1 := from_string("3/5")
-			n2 := from_string("-6/10")
-			assert((-n1).is_equal(n2))
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(0)
+         assert((-n1).is_equal(n1))
+         n1 := from_integer(-1)
+         n2 := from_integer(1)
+         assert((-n1).is_equal(n2))
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @+ 1000
+         n2 := from_integer(Minimum_integer)
+         n2 := n2 @- 999
+         assert((-n1).is_equal(n2))
+         n1 := from_string("3/5")
+         n2 := from_string("-6/10")
+         assert((-n1).is_equal(n2))
+      end
 
 
 

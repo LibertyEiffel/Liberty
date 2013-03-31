@@ -4,15 +4,15 @@
 class AUX_REDEFINE2B
 
 inherit
-	AUX_REDEFINE2A
-		rename f as g
-		redefine g
-		end
+   AUX_REDEFINE2A
+      rename f as g
+      redefine g
+      end
 
 feature {ANY}
-	g is
-		do
-		end
+   g is
+      do
+      end
 
 end -- class AUX_REDEFINE2B
 --

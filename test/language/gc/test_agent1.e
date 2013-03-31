@@ -4,38 +4,38 @@
 class TEST_AGENT1
 
 insert
-	MEMORY
+   MEMORY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, mem: INTEGER; a: ARRAY[INTEGER]
-		do
-			from
-				a := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
-				i := 1000000
-			until
-				i = 0
-			loop
-				a.do_all(agent increment(?))
-				i := i - 1
-			end
-			mem := allocated_bytes
-			if mem > 500000 then
-				sedb_breakpoint
-				std_output.put_string("TEST_AGENT1: ERROR (GC)%N")
-			end
-		end
+   make is
+      local
+         i, mem: INTEGER; a: ARRAY[INTEGER]
+      do
+         from
+            a := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
+            i := 1000000
+         until
+            i = 0
+         loop
+            a.do_all(agent increment(?))
+            i := i - 1
+         end
+         mem := allocated_bytes
+         if mem > 500000 then
+            sedb_breakpoint
+            std_output.put_string("TEST_AGENT1: ERROR (GC)%N")
+         end
+      end
 
-	sum: INTEGER
+   sum: INTEGER
 
-	increment (v: INTEGER) is
-		do
-			sum := sum + v
-		end
+   increment (v: INTEGER) is
+      do
+         sum := sum + v
+      end
 
 end -- class TEST_AGENT1
 --

@@ -4,20 +4,20 @@
 class TRIANGLE
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	p1, p2, p3: LIB_TEST_POINT
+   p1, p2, p3: LIB_TEST_POINT
 
-	make (vp1, vp2, vp3: LIB_TEST_POINT) is
-		do
-			p1 := vp1
-			p2 := vp2
-			p3 := vp3
-		end
+   make (vp1, vp2, vp3: LIB_TEST_POINT) is
+      do
+         p1 := vp1
+         p2 := vp2
+         p3 := vp3
+      end
 
 end -- class TRIANGLE
 --

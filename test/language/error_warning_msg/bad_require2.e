@@ -4,36 +4,36 @@
 class BAD_REQUIRE2
    
 inherit
-	AUX_REQUIRE2
-		redefine
-			make, make2
-		end
+   AUX_REQUIRE2
+      redefine
+         make, make2
+      end
 
 creation
-	main
+   main
    
 feature
    main is
       do
-			make
-			make
+         make
+         make
 
-			attr := 0
-			make2
+         attr := 0
+         make2
       end
    
    make is
-		require --'require else' needed
-			attr = 2
+      require --'require else' needed
+         attr = 2
       do
-			attr := attr + 2
+         attr := attr + 2
       end
 
    make2 is
-		require else --'require' needed
-			attr = 0
+      require else --'require' needed
+         attr = 0
       do
-			attr := attr + 1
+         attr := attr + 1
       end
 
 end -- class BAD_REQUIRE2

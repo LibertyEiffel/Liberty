@@ -4,17 +4,17 @@
 class DOG
 
 inherit
-	QUADRUPED
-		redefine is_dog
-		end
+   QUADRUPED
+      redefine is_dog
+      end
 
 feature {ANY}
-	is_dog: BOOLEAN is True
+   is_dog: BOOLEAN is True
 
-	cry is
-		do
-			std_output.put_string("OUARF")
-		end
+   cry is
+      do
+         std_output.put_string("OUARF")
+      end
 
 end -- class DOG
 --

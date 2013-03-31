@@ -4,78 +4,78 @@
 class TEST_RENAME2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	foo (x: like Current): like Current is
-		require
-			super_req_foo
-		do
-			Result := Current
-		ensure
-			super_ens_foo
-		end
+   foo (x: like Current): like Current is
+      require
+         super_req_foo
+      do
+         Result := Current
+      ensure
+         super_ens_foo
+      end
 
-	make is
-		local
-			aux: AUX_RENAME2
-		do
-			create aux
-			assert(aux.foo(aux) = aux)
-		ensure
-			req_foo_mem.count = 1
-			ens_foo_mem.count = 1
-			super_req_foo_mem.count = 1
-			super_ens_foo_mem.count = 1
-		end
-
-feature {ANY}
-	super_req_foo_mem: STRING is ""
-
-	super_ens_foo_mem: STRING is ""
-
-	req_foo_mem: STRING is ""
-
-	ens_foo_mem: STRING is ""
-
-	super_req_foo: BOOLEAN is
-		do
-			super_req_foo_mem.extend(' ')
-			Result := Current = Current
-		end
-
-	super_ens_foo: BOOLEAN is
-		do
-			super_ens_foo_mem.extend(' ')
-			Result := Current = Current
-		end
-
-	req_foo: BOOLEAN is
-		do
-			req_foo_mem.extend(' ')
-			Result := Current = Current
-		end
-
-	ens_foo: BOOLEAN is
-		do
-			ens_foo_mem.extend(' ')
-			Result := Current = Current
-		end
+   make is
+      local
+         aux: AUX_RENAME2
+      do
+         create aux
+         assert(aux.foo(aux) = aux)
+      ensure
+         req_foo_mem.count = 1
+         ens_foo_mem.count = 1
+         super_req_foo_mem.count = 1
+         super_ens_foo_mem.count = 1
+      end
 
 feature {ANY}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_RENAME2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   super_req_foo_mem: STRING is ""
 
-	cpt: INTEGER
+   super_ens_foo_mem: STRING is ""
+
+   req_foo_mem: STRING is ""
+
+   ens_foo_mem: STRING is ""
+
+   super_req_foo: BOOLEAN is
+      do
+         super_req_foo_mem.extend(' ')
+         Result := Current = Current
+      end
+
+   super_ens_foo: BOOLEAN is
+      do
+         super_ens_foo_mem.extend(' ')
+         Result := Current = Current
+      end
+
+   req_foo: BOOLEAN is
+      do
+         req_foo_mem.extend(' ')
+         Result := Current = Current
+      end
+
+   ens_foo: BOOLEAN is
+      do
+         ens_foo_mem.extend(' ')
+         Result := Current = Current
+      end
+
+feature {ANY}
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_RENAME2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
+
+   cpt: INTEGER
 
 end -- class TEST_RENAME2
 --

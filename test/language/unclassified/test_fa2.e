@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FA2
-	-- From a bug report of Franck ARNAUD
+   -- From a bug report of Franck ARNAUD
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			strings: AUX_FA2DICO[STRING, INTEGER]; streams: AUX_FA2DICO[INPUT_STREAM, INTEGER]
-			bidon1: AUX_FA2MY_SET[AUX_FA2DICO_NODE[STRING, INTEGER]]; bidon2: AUX_FA2DICO[STRING, INTEGER]
-			bidon3: AUX_FA2DICO[INPUT_STREAM, INTEGER]
-			bidon4: AUX_FA2MY_LINKED_LIST[AUX_FA2DICO_NODE[INPUT_STREAM, INTEGER]]
-			bidon5: AUX_FA2MY_LINKED_LIST[AUX_FA2DICO_NODE[STRING, INTEGER]]
-			bidon6: AUX_FA2MY_SET[AUX_FA2DICO_NODE[INPUT_STREAM, INTEGER]]; bobool: BOOLEAN
-		do
-			if bobool then
-				strings.remove
-				streams.remove
-			end
-			create bidon1
-			create bidon2
-			create bidon3
-			create bidon4
-			create bidon5
-			create bidon6
-		end
+   make is
+      local
+         strings: AUX_FA2DICO[STRING, INTEGER]; streams: AUX_FA2DICO[INPUT_STREAM, INTEGER]
+         bidon1: AUX_FA2MY_SET[AUX_FA2DICO_NODE[STRING, INTEGER]]; bidon2: AUX_FA2DICO[STRING, INTEGER]
+         bidon3: AUX_FA2DICO[INPUT_STREAM, INTEGER]
+         bidon4: AUX_FA2MY_LINKED_LIST[AUX_FA2DICO_NODE[INPUT_STREAM, INTEGER]]
+         bidon5: AUX_FA2MY_LINKED_LIST[AUX_FA2DICO_NODE[STRING, INTEGER]]
+         bidon6: AUX_FA2MY_SET[AUX_FA2DICO_NODE[INPUT_STREAM, INTEGER]]; bobool: BOOLEAN
+      do
+         if bobool then
+            strings.remove
+            streams.remove
+         end
+         create bidon1
+         create bidon2
+         create bidon3
+         create bidon4
+         create bidon5
+         create bidon6
+      end
 
 end -- class TEST_FA2
 --

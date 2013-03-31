@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PRECURSOR17A
-	-- Written by Philippe Ribet
+   -- Written by Philippe Ribet
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(True)
-		end
+   make is
+      do
+         assert(True)
+      end
 
 end -- class AUX_PRECURSOR17A
 --

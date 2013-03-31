@@ -4,10 +4,10 @@
 class AUX_PRECURSOR08A
 
 feature {ANY}
-	f: ARRAY[STRING] is
-		once
-			create Result.with_capacity(1, 1)
-		end
+   f: ARRAY[STRING] is
+      once
+         create Result.with_capacity(1, 1)
+      end
 
 end -- class AUX_PRECURSOR08A
 --

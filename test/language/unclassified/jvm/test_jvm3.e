@@ -4,20 +4,20 @@
 class TEST_JVM3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := 2
-			i := i + 1
-			check
-				i = 3
-			end
-			i := i.abs
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := 2
+         i := i + 1
+         check
+            i = 3
+         end
+         i := i.abs
+      end
 
 end -- class TEST_JVM3
 --

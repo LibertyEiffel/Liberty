@@ -14,12 +14,12 @@ feature
 
    make is
       do
-	 routine;
+    routine;
       end;
 
    routine is
       do
-	 Precursor;
+    Precursor;
       end;
 
 end -- class BAD_PRECURSOR07

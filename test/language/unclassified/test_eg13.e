@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG13
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	attr: AUX_EG13
+   attr: AUX_EG13
 
-	item (i: INTEGER): REAL is
-		do
-			Result := attr.item(i)
-		end
+   item (i: INTEGER): REAL is
+      do
+         Result := attr.item(i)
+      end
 
-	make is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				make2
-			end
-		end
+   make is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            make2
+         end
+      end
 
-	make2 is
-		do
-			--	 print(item(1))
-		end
+   make2 is
+      do
+         --    print(item(1))
+      end
 
 end -- class TEST_EG13
 --

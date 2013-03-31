@@ -5,13 +5,13 @@ class BAD_PRECURSOR08
 
 inherit
    AUX_PRECURSOR08A
-		redefine routine
-		end
+      redefine routine
+      end
 
 insert
    AUX_PRECURSOR08B
-		redefine routine
-		end
+      redefine routine
+      end
 
 creation
    make
@@ -25,7 +25,7 @@ feature
 
    routine is
       do
-			Precursor {like Current}
+         Precursor {like Current}
          Precursor {AUX_PRECURSOR08B}
       end
 

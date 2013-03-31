@@ -4,16 +4,16 @@
 class AUX_LJ01B2
 
 inherit
-	AUX_LJ01B
+   AUX_LJ01B
 
 insert
-	AUX_LJ01B
-		rename set_max_board_members as set_min_board_members,
-			max as min
-		end
+   AUX_LJ01B
+      rename set_max_board_members as set_min_board_members,
+         max as min
+      end
 
 invariant
-	max >= min
+   max >= min
 
 end -- class AUX_LJ01B2
 --

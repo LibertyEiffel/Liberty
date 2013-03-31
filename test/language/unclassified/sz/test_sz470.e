@@ -4,17 +4,17 @@
 class TEST_SZ470
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]
-		do
-			-- Create empty array.
-			create a.make(1, 0)
-			a := a.subarray(1, 0)
-		end
+   make is
+      local
+         a: ARRAY[INTEGER]
+      do
+         -- Create empty array.
+         create a.make(1, 0)
+         a := a.subarray(1, 0)
+      end
 
 end -- class TEST_SZ470
 --

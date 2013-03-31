@@ -4,26 +4,26 @@
 class AUX_CREATION1A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	run_make_a: INTEGER
+   run_make_a: INTEGER
 
-	run_display_a: INTEGER
+   run_display_a: INTEGER
 
-	run_make_b: INTEGER
+   run_make_b: INTEGER
 
-	run_display_b: INTEGER
+   run_display_b: INTEGER
 
-	make is
-		do
-			run_make_a := run_make_a + 1
-		end
+   make is
+      do
+         run_make_a := run_make_a + 1
+      end
 
-	display is
-		do
-			run_display_a := run_display_a + 1
-		end
+   display is
+      do
+         run_display_a := run_display_a + 1
+      end
 
 end -- class AUX_CREATION1A
 --

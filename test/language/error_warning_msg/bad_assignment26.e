@@ -4,18 +4,18 @@
 class BAD_ASSIGNMENT26
 
 creation
-	truc
+   truc
 
 feature
-	truc is
-		do
-			bidule(0)
-		end
+   truc is
+      do
+         bidule(0)
+      end
 
-	bidule(machin: INTEGER) is
-		do
-			machin := 0
-		end
+   bidule(machin: INTEGER) is
+      do
+         machin := 0
+      end
 
 end -- class BAD_ASSIGNMENT26
 --

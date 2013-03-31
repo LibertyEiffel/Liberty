@@ -4,26 +4,26 @@
 class TEST_INLINING7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	an_attribute: like Current
+   an_attribute: like Current
 
-	make is
-		do
-			an_attribute := Current
-			an_attribute := foo
-		end
+   make is
+      do
+         an_attribute := Current
+         an_attribute := foo
+      end
 
-	foo: like Current is
-		do
-			Result := an_attribute.bar
-		end
+   foo: like Current is
+      do
+         Result := an_attribute.bar
+      end
 
-	bar: like Current is
-		do
-			Result := Current
-		end
+   bar: like Current is
+      do
+         Result := Current
+      end
 
 end -- class TEST_INLINING7
 --

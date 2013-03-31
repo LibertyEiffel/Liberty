@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXCEPTIONS23
-	-- SZ:280:
+   -- SZ:280:
 
 creation {ANY}
-	make, make_exception
+   make, make_exception
 
 feature {ANY}
-	make is
-		do
-			exception_test
-		end
+   make is
+      do
+         exception_test
+      end
 
-	make_exception is
-		do
-			my_invariant := True
-		end
+   make_exception is
+      do
+         my_invariant := True
+      end
 
-	exception_test is
-		local
-			done: BOOLEAN; test: TEST_EXCEPTIONS23
-		do
-			if not done then
-				done := True
-				create test.make_exception
-			end
-		rescue
-			test := Void
-			retry
-		end
+   exception_test is
+      local
+         done: BOOLEAN; test: TEST_EXCEPTIONS23
+      do
+         if not done then
+            done := True
+            create test.make_exception
+         end
+      rescue
+         test := Void
+         retry
+      end
 
-	my_invariant: BOOLEAN
+   my_invariant: BOOLEAN
 
 invariant
-	my_invariant_is_false: not my_invariant
+   my_invariant_is_false: not my_invariant
 
 end -- class TEST_EXCEPTIONS23
 --

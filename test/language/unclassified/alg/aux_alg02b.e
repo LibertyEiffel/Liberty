@@ -4,7 +4,7 @@
 class AUX_ALG02B
 
 feature {ANY}
-	b: INTEGER
+   b: INTEGER
 
 end -- class AUX_ALG02B
 --

@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED26
-	-- From a bug report of Robert A. Abernathy
+   -- From a bug report of Robert A. Abernathy
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b: AUX_EXPANDED26A
-		do
-			a.set(1)
-			b.set(2)
-			if a.is_equal(b) then
-				std_output.put_string("TEST_EXPANDED26: ERROR #1%N")
-			end
-			if a.is_equal(b) then
-				std_output.put_string("TEST_EXPANDED26: ERROR #2%N")
-			end
-		end
+   make is
+      local
+         a, b: AUX_EXPANDED26A
+      do
+         a.set(1)
+         b.set(2)
+         if a.is_equal(b) then
+            std_output.put_string("TEST_EXPANDED26: ERROR #1%N")
+         end
+         if a.is_equal(b) then
+            std_output.put_string("TEST_EXPANDED26: ERROR #2%N")
+         end
+      end
 
 end -- class TEST_EXPANDED26
 --

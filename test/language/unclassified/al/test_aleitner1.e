@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALEITNER1
-	-- From: "Andreas Leitner" <andreas.leitner@teleweb.at>
+   -- From: "Andreas Leitner" <andreas.leitner@teleweb.at>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: AUX_AL1D
-		do
-			create d
-			d.foo
-		end
+   make is
+      local
+         d: AUX_AL1D
+      do
+         create d
+         d.foo
+      end
 
 end -- class TEST_ALEITNER1
 --

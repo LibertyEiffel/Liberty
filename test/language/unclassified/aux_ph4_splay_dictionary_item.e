@@ -4,38 +4,38 @@
 class AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I -> COMPARABLE]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	index: I
+   index: I
 
-	item: E
+   item: E
 
-	parent, left, right: like Current
+   parent, left, right: like Current
 
-	make (i: E; ind: I; p, l, r: like Current) is
-		do
-			index := ind
-			item := i
-			parent := p
-			left := l
-			right := r
-		end
+   make (i: E; ind: I; p, l, r: like Current) is
+      do
+         index := ind
+         item := i
+         parent := p
+         left := l
+         right := r
+      end
 
-	set_parent (p: like parent) is
-		do
-			parent := p
-		end
+   set_parent (p: like parent) is
+      do
+         parent := p
+      end
 
-	set_left (l: like left) is
-		do
-			left := l
-		end
+   set_left (l: like left) is
+      do
+         left := l
+      end
 
-	set_right (r: like right) is
-		do
-			right := r
-		end
+   set_right (r: like right) is
+      do
+         right := r
+      end
 
 end -- class AUX_PH4_SPLAY_DICTIONARY_ITEM
 --

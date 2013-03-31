@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_VB1
-	-- From: Vincent Bousquet
-	-- From: "Christel Blossier" <cblossier@netcourrier.com>
+   -- From: Vincent Bousquet
+   -- From: "Christel Blossier" <cblossier@netcourrier.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			array_a: ARRAY[AUX_VB1A]; array_b: ARRAY[AUX_VB1B]; fixed_array_a: FAST_ARRAY[AUX_VB1A]
-			fixed_array_b: FAST_ARRAY[AUX_VB1B]; item_a: AUX_VB1A; item_b: AUX_VB1B; x: INTEGER
-		do
-			create array_a.make(1, 1)
-			create array_b.make(1, 1)
-			x := item_a.a_feature
-			x := item_b.a_feature
-			item_a := array_a.item(1)
-			item_b := array_b.item(1)
-			create fixed_array_a.make(1)
-			create fixed_array_b.make(1)
-			item_a := fixed_array_a.item(0)
-			item_b := fixed_array_b.item(0)
-		end
+   make is
+      local
+         array_a: ARRAY[AUX_VB1A]; array_b: ARRAY[AUX_VB1B]; fixed_array_a: FAST_ARRAY[AUX_VB1A]
+         fixed_array_b: FAST_ARRAY[AUX_VB1B]; item_a: AUX_VB1A; item_b: AUX_VB1B; x: INTEGER
+      do
+         create array_a.make(1, 1)
+         create array_b.make(1, 1)
+         x := item_a.a_feature
+         x := item_b.a_feature
+         item_a := array_a.item(1)
+         item_b := array_b.item(1)
+         create fixed_array_a.make(1)
+         create fixed_array_b.make(1)
+         item_a := fixed_array_a.item(0)
+         item_b := fixed_array_b.item(0)
+      end
 
 end -- class TEST_VB1
 --

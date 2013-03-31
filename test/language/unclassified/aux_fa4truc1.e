@@ -4,15 +4,15 @@
 class AUX_FA4TRUC1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	value1: STRING
+   value1: STRING
 
-	make (s: STRING) is
-		do
-			value1 := s
-		end
+   make (s: STRING) is
+      do
+         value1 := s
+      end
 
 end -- class AUX_FA4TRUC1
 --

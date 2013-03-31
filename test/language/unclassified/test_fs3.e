@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FS3
-	--
-	-- From a bug report of Fridtjof SIEBERT
-	--
+   --
+   -- From a bug report of Fridtjof SIEBERT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_FS3_A[AUX_FS3_C]; c: AUX_FS3_C
-		do
-			create c
-			create a.make(c)
-			assert(c.aux_fs3_c_run)
-		end
+   make is
+      local
+         a: AUX_FS3_A[AUX_FS3_C]; c: AUX_FS3_C
+      do
+         create c
+         create a.make(c)
+         assert(c.aux_fs3_c_run)
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FS3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FS3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FS3
 --

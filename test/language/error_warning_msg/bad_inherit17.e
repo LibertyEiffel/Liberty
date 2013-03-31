@@ -8,13 +8,13 @@ class BAD_INHERIT17
 --
 
 inherit
-	ARRAY[like x]
-		rename
-			make as array_make
-		end
+   ARRAY[like x]
+      rename
+         make as array_make
+      end
 
 create
-	default_create, array_make
+   default_create, array_make
 
 feature
   x: STRING

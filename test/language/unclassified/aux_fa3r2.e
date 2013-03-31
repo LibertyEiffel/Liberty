@@ -4,9 +4,9 @@
 class AUX_FA3R2
 
 inherit
-	AUX_FA3B1
-	AUX_FA3B2
-		-- autre AVANT ref, ref plus loin.
+   AUX_FA3B1
+   AUX_FA3B2
+      -- autre AVANT ref, ref plus loin.
 
 end -- class AUX_FA3R2
 --

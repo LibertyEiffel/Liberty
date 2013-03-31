@@ -3,16 +3,16 @@
 --
 class BAD_RENAME5
 inherit
-	AUX_RENAME5
-		rename 
-			item as Current 
-		end
+   AUX_RENAME5
+      rename 
+         item as Current 
+      end
 creation
-	make
+   make
 feature
-	make is
-		do
-		end
+   make is
+      do
+      end
 end -- class BAD_RENAME5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

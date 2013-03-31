@@ -4,21 +4,21 @@
 class AUX_EVOBT3
 
 inherit
-	AUX_EVOBT2
-		redefine x_
-		end
+   AUX_EVOBT2
+      redefine x_
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x_: AUX_EVOBT5
+   x_: AUX_EVOBT5
 
 feature {}
-	make is
-		do
-			create x_.make
-		end
+   make is
+      do
+         create x_.make
+      end
 
 end -- class AUX_EVOBT3
 --

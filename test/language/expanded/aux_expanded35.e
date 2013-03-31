@@ -4,12 +4,12 @@
 expanded class AUX_EXPANDED35
 
 feature {ANY}
-	val: INTEGER
+   val: INTEGER
 
-	set (v: INTEGER) is
-		do
-			val := v
-		end
+   set (v: INTEGER) is
+      do
+         val := v
+      end
 
 end -- class AUX_EXPANDED35
 --

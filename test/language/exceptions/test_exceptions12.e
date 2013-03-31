@@ -4,17 +4,17 @@
 class TEST_EXCEPTIONS12
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if exception > 0 then
-			end
-		end
+   make is
+      do
+         if exception > 0 then
+         end
+      end
 
 end -- class TEST_EXCEPTIONS12
 --

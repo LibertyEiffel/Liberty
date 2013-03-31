@@ -4,10 +4,10 @@
 class AUX_ML01A
 
 feature {ANY}
-	out_it is
-		do
-			io.put_string("Hello parent!%N")
-		end
+   out_it is
+      do
+         io.put_string("Hello parent!%N")
+      end
 
 end -- class AUX_ML01A
 --

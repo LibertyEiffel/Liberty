@@ -4,18 +4,18 @@
 class TEST_JVM7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: BOOLEAN
-		do
-			check
-				not b
-			end
-			b := True
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         check
+            not b
+         end
+         b := True
+      end
 
 end -- class TEST_JVM7
 --

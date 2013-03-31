@@ -4,7 +4,7 @@
 class AUX_ANCHOR1B
 
 inherit
-	AUX_ANCHOR1A
+   AUX_ANCHOR1A
 
 end -- class AUX_ANCHOR1B
 --

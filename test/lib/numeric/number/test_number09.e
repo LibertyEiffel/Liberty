@@ -2,44 +2,44 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER09
-	-- some strange examples of calculations between numbers
-	-- properties of additions, multiplications...
+   -- some strange examples of calculations between numbers
+   -- properties of additions, multiplications...
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4: NUMBER
-		do
-			-- SMALL_INTEGER
-			n1 := from_integer(10)
-			n2 := from_integer(2)
-			n3 := from_integer(-1)
-			n4 := from_integer(11)
-			-- between numbers...
-			assert((n1 + n2 + n3 + n4).is_equal(n4 * n2))
-			assert((n1 - n2 - n3 - n4).is_equal(n3 * n2))
-			assert((n1 / n2 * (n3 + n4)).is_equal((n3 + n4) * n1 / n2))
-			-- between numbers and integers...
-			assert((n1 * n2 * n3 * n4) @= -220)
-			assert((n1 / n2 / n3) @= -5)
-			assert((n1 * (n3 + n4)) @= 100)
-			assert((n1 * (n3 + n4) * n2) @= 200)
-			assert((n1 / n2 * (n3 + n4)) @= 50)
-			-- if this go on, then all must go on :)
-			assert((n1 / n2 * (n1 * n2) / ((n3 + n4) * ((n1 + n3 - n3) * (n2 / n2)))) @= 1)
-			-- (5 * 20) / (10 * 10)
-			-- LARGE_POSITIVE_INTEGER
-			--...
-			-- LARGE_NEGATIVE_INTEGER
-			--...
-		end
+   make is
+      local
+         n1, n2, n3, n4: NUMBER
+      do
+         -- SMALL_INTEGER
+         n1 := from_integer(10)
+         n2 := from_integer(2)
+         n3 := from_integer(-1)
+         n4 := from_integer(11)
+         -- between numbers...
+         assert((n1 + n2 + n3 + n4).is_equal(n4 * n2))
+         assert((n1 - n2 - n3 - n4).is_equal(n3 * n2))
+         assert((n1 / n2 * (n3 + n4)).is_equal((n3 + n4) * n1 / n2))
+         -- between numbers and integers...
+         assert((n1 * n2 * n3 * n4) @= -220)
+         assert((n1 / n2 / n3) @= -5)
+         assert((n1 * (n3 + n4)) @= 100)
+         assert((n1 * (n3 + n4) * n2) @= 200)
+         assert((n1 / n2 * (n3 + n4)) @= 50)
+         -- if this go on, then all must go on :)
+         assert((n1 / n2 * (n1 * n2) / ((n3 + n4) * ((n1 + n3 - n3) * (n2 / n2)))) @= 1)
+         -- (5 * 20) / (10 * 10)
+         -- LARGE_POSITIVE_INTEGER
+         --...
+         -- LARGE_NEGATIVE_INTEGER
+         --...
+      end
 
 
 

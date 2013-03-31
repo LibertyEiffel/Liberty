@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PD04
-	-- From a bug report of Patrick Doyle
+   -- From a bug report of Patrick Doyle
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ANY; b: ARRAY[ANY]
-		do
-			a := die(b)
-		end
+   make is
+      local
+         a: ANY; b: ARRAY[ANY]
+      do
+         a := die(b)
+      end
 
-	die (arg: ARRAY[ANY]): ANY is
-		do
-			Result := {ARRAY[ANY] 1, << "", arg >> }
-		end
+   die (arg: ARRAY[ANY]): ANY is
+      do
+         Result := {ARRAY[ANY] 1, << "", arg >> }
+      end
 
 end -- class TEST_PD04
 --

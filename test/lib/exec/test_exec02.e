@@ -4,52 +4,52 @@
 class TEST_EXEC02
 
 insert
-	ARGUMENTS
-	EIFFELTEST_TOOLS
+   ARGUMENTS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	command: STRING
+   command: STRING
 
-	process: PROCESS
+   process: PROCESS
 
-	make is
-		local
-			pf: PROCESS_FACTORY
-		do
-			if argument_count = 1 then
-				io.put_character('*')
-			else
-				command := argument(0).twin
-				command.append(" arg")
-				process := pf.create_process
-				test_process
-				test_process
-				test_process
-			end
-		end
+   make is
+      local
+         pf: PROCESS_FACTORY
+      do
+         if argument_count = 1 then
+            io.put_character('*')
+         else
+            command := argument(0).twin
+            command.append(" arg")
+            process := pf.create_process
+            test_process
+            test_process
+            test_process
+         end
+      end
 
-	test_process is
-		local
-			stream: INPUT_STREAM; string: STRING
-		do
-			string := ""
-			process.execute_command_line(command, True)
-			assert(process.is_connected)
-			stream := process.output
-			from
-				stream.read_character
-			until
-				stream.end_of_input
-			loop
-				string.extend(stream.last_character)
-				stream.read_character
-			end
-			assert(string.is_equal(once "*"))
-			process.wait
-		end
+   test_process is
+      local
+         stream: INPUT_STREAM; string: STRING
+      do
+         string := ""
+         process.execute_command_line(command, True)
+         assert(process.is_connected)
+         stream := process.output
+         from
+            stream.read_character
+         until
+            stream.end_of_input
+         loop
+            string.extend(stream.last_character)
+            stream.read_character
+         end
+         assert(string.is_equal(once "*"))
+         process.wait
+      end
 
 end -- class TEST_EXEC02
 --

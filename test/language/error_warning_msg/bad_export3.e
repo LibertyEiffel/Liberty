@@ -6,10 +6,10 @@ creation make
 feature
    make is
       local
-	 aux: AUX_EXPORT3B
+    aux: AUX_EXPORT3B
       do
-	 create aux
-	 aux.foo
+    create aux
+    aux.foo
       end
 
 end -- class BAD_EXPORT3

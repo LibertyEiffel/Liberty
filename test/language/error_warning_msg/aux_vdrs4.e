@@ -5,10 +5,10 @@ deferred class AUX_VDRS4
 
 feature
 
-	a is deferred end
+   a is deferred end
 
-	b is deferred end
-	
+   b is deferred end
+   
 end -- class AUX_VDRS4
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

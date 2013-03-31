@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LD04
-	-- From: "Le Dressay" <ledressay@eugensystems.com>
-	-- Qui font des jeux.
+   -- From: "Le Dressay" <ledressay@eugensystems.com>
+   -- Qui font des jeux.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			loc1: AUX_LD04[STRING, STRING]; loc2: AUX_LD04[ARRAY[INTEGER], COLLECTION[INTEGER]]
-		do
-			create loc1
-			if loc1.item1 = "foo" then
-			end
-			if loc1.item2 = "foo" then
-			end
-			create loc2
-			if loc2.item1 = {ARRAY[INTEGER] 1, << 1, 2 >> } then
-			end
-			if loc2.item2 = loc2.item1 then
-			end
-		end
+   make is
+      local
+         loc1: AUX_LD04[STRING, STRING]; loc2: AUX_LD04[ARRAY[INTEGER], COLLECTION[INTEGER]]
+      do
+         create loc1
+         if loc1.item1 = "foo" then
+         end
+         if loc1.item2 = "foo" then
+         end
+         create loc2
+         if loc2.item1 = {ARRAY[INTEGER] 1, << 1, 2 >> } then
+         end
+         if loc2.item2 = loc2.item1 then
+         end
+      end
 
 end -- class TEST_LD04
 --

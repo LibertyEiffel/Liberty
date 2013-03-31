@@ -9,10 +9,10 @@ feature
 
    make is
       local
-	 a: AUX_CONSTRAINT_A[CHARACTER]
+    a: AUX_CONSTRAINT_A[CHARACTER]
       do
-	 create a.make('A')
-	 a.foo
+    create a.make('A')
+    a.foo
 
       end
 

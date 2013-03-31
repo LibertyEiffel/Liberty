@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR07
-	-- From: Stephane Hillion <hillion@essi.fr>
+   -- From: Stephane Hillion <hillion@essi.fr>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b: AUX_PRECURSOR07B; c: AUX_PRECURSOR07C
-		do
-			create b
-			b.make
-			assert(b.make_a_done)
-			assert(b.make_b_done)
-			assert(not b.make_c_done)
-			create c
-			c.make
-			assert(c.make_a_done)
-			assert(c.make_b_done)
-			assert(c.make_c_done)
-		end
+   make is
+      local
+         b: AUX_PRECURSOR07B; c: AUX_PRECURSOR07C
+      do
+         create b
+         b.make
+         assert(b.make_a_done)
+         assert(b.make_b_done)
+         assert(not b.make_c_done)
+         create c
+         c.make
+         assert(c.make_a_done)
+         assert(c.make_b_done)
+         assert(c.make_c_done)
+      end
 
 end -- class TEST_PRECURSOR07
 --

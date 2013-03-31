@@ -4,22 +4,22 @@
 class TEST_EXPANDED25
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := 3
-			-- *** !!i;
-			--*** Not useful, hence rejected.
-			--*** It is now a fatal error *** Dom Oct 2nd 2005 ***
-			i := 0
-			check
-				i = 0
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := 3
+         -- *** !!i;
+         --*** Not useful, hence rejected.
+         --*** It is now a fatal error *** Dom Oct 2nd 2005 ***
+         i := 0
+         check
+            i = 0
+         end
+      end
 
 end -- class TEST_EXPANDED25
 --

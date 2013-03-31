@@ -4,29 +4,29 @@
 class TEST_IS_EQUAL2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c1, c2: CHARACTER
-		do
-			assert(c1.is_equal(c2))
-		end
+   make is
+      local
+         c1, c2: CHARACTER
+      do
+         assert(c1.is_equal(c2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_IS_EQUAL2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes %N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_IS_EQUAL2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes %N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_EQUAL2
 --

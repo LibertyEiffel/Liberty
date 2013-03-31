@@ -4,32 +4,32 @@
 class TEST_QUICKSORT2
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: ARRAY[CHARACTER]; s: COLLECTION_SORTER[CHARACTER]
-		do
-			tab := {ARRAY[CHARACTER] 1, << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
-			s.quick_sort(tab)
-			assert(tab.is_equal({ARRAY[CHARACTER] 1, << '$', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
-			tab.add_first('*')
-			s.quick_sort(tab)
-			assert(tab.is_equal({ARRAY[CHARACTER] 1, << '$', '*', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
-		end
+   make is
+      local
+         tab: ARRAY[CHARACTER]; s: COLLECTION_SORTER[CHARACTER]
+      do
+         tab := {ARRAY[CHARACTER] 1, << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
+         s.quick_sort(tab)
+         assert(tab.is_equal({ARRAY[CHARACTER] 1, << '$', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
+         tab.add_first('*')
+         s.quick_sort(tab)
+         assert(tab.is_equal({ARRAY[CHARACTER] 1, << '$', '*', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_QUICKSORT2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_QUICKSORT2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_QUICKSORT2
 --

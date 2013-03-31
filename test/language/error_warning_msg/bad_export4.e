@@ -9,10 +9,10 @@ feature
    
    make is
       local
-	 aux: AUX_EXPORT4;
+    aux: AUX_EXPORT4;
       do
-	 !!aux;
-	 aux.foo;
+    !!aux;
+    aux.foo;
       end;
 
 end -- class BAD_EXPORT4

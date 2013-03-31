@@ -4,25 +4,25 @@
 class TEST_XC7
 
 inherit
-	AUX_XC7A
-		redefine path
-		end
-	AUX_XC7B
-		redefine path
-		end
+   AUX_XC7A
+      redefine path
+      end
+   AUX_XC7B
+      redefine path
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	path: STRING
+   path: STRING
 
-	make is
-		do
-			if path /= Void then
-				path := "Xavier Cregut"
-			end
-		end
+   make is
+      do
+         if path /= Void then
+            path := "Xavier Cregut"
+         end
+      end
 
 end -- class TEST_XC7
 --

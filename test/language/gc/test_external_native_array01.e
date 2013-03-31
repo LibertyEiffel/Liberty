@@ -4,34 +4,34 @@
 class TEST_EXTERNAL_NATIVE_ARRAY01
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			p: POINTER; mem: MEMORY
-		do
-			p := get_c_array
-			nac := nac.from_pointer(p)
-			assert(untouched_c_array(nac.to_external))
-			mem.collection_on
-			mem.full_collect
-			assert(untouched_c_array(nac.to_external))
-		end
+   make is
+      local
+         p: POINTER; mem: MEMORY
+      do
+         p := get_c_array
+         nac := nac.from_pointer(p)
+         assert(untouched_c_array(nac.to_external))
+         mem.collection_on
+         mem.full_collect
+         assert(untouched_c_array(nac.to_external))
+      end
 
 feature {}
-	nac: NATIVE_ARRAY[CHARACTER]
+   nac: NATIVE_ARRAY[CHARACTER]
 
-	get_c_array: POINTER is
-		external "C"
-		end
+   get_c_array: POINTER is
+      external "C"
+      end
 
-	untouched_c_array (ca: POINTER): BOOLEAN is
-		external "C"
-		end
+   untouched_c_array (ca: POINTER): BOOLEAN is
+      external "C"
+      end
 
 end -- class TEST_EXTERNAL_NATIVE_ARRAY01
 --

@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TARGET1
-	--
-	-- The new relaxed syntax for calls on constants.
-	--
+   --
+   -- The new relaxed syntax for calls on constants.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(True.to_string.is_equal("True"))
-			assert(False.to_string.is_equal("False"))
-			assert(1.5.to_string.is_equal("1.500000"))
-			assert({REAL_64 1.5}.to_string.is_equal("1.500000"))
-			assert(("12").to_integer = 12)
-			assert(1.to_string.is_equal("1"))
-			assert((-1).to_string.is_equal("-1"))
-			assert(1.to_string.is_equal("1"))
-			assert((-1).to_string.is_equal("-1"))
-			assert(1.to_string.is_equal("1"))
-			assert({INTEGER_8 -1}.to_string.is_equal("-1"))
-			assert({INTEGER_16 1}.to_string.is_equal("1"))
-			assert((-1.5).to_string.is_equal("-1.500000"))
-			assert(1.5.to_string.is_equal("1.500000"))
-			assert({ARRAY[INTEGER_8] 1, << 2 >> }.item(1) = 2)
-		end
+   make is
+      do
+         assert(True.to_string.is_equal("True"))
+         assert(False.to_string.is_equal("False"))
+         assert(1.5.to_string.is_equal("1.500000"))
+         assert({REAL_64 1.5}.to_string.is_equal("1.500000"))
+         assert(("12").to_integer = 12)
+         assert(1.to_string.is_equal("1"))
+         assert((-1).to_string.is_equal("-1"))
+         assert(1.to_string.is_equal("1"))
+         assert((-1).to_string.is_equal("-1"))
+         assert(1.to_string.is_equal("1"))
+         assert({INTEGER_8 -1}.to_string.is_equal("-1"))
+         assert({INTEGER_16 1}.to_string.is_equal("1"))
+         assert((-1.5).to_string.is_equal("-1.500000"))
+         assert(1.5.to_string.is_equal("1.500000"))
+         assert({ARRAY[INTEGER_8] 1, << 2 >> }.item(1) = 2)
+      end
 
 end -- class TEST_TARGET1
 --

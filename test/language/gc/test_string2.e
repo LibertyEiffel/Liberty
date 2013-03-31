@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_STRING2
-	-- From: Friedrich Dominicus <frido@q-software-solutions.com>
+   -- From: Friedrich Dominicus <frido@q-software-solutions.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	concat_string: STRING is "hello%N"
+   concat_string: STRING is "hello%N"
 
-	str: STRING
+   str: STRING
 
-	make is
-		local
-			i, n: INTEGER
-		do
-			n := 50000
-			from
-				i := 1
-				create str.make(100)
-			until
-				i > n
-			loop
-				str.append(concat_string)
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i, n: INTEGER
+      do
+         n := 50000
+         from
+            i := 1
+            create str.make(100)
+         until
+            i > n
+         loop
+            str.append(concat_string)
+            i := i + 1
+         end
+      end
 
 end -- class TEST_STRING2
 --

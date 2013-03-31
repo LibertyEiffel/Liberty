@@ -5,18 +5,18 @@ class BAD_IDENTIFIER2
 --
 -- Reported by Daniel F Moisset.
 --
-	
+   
 creation
-	main
+   main
 
 feature {}
-	main is
-		local
-			showcursor: STRING
-		do
-			showcursor := SDL_ShowCursor (0)
-		end
-	
+   main is
+      local
+         showcursor: STRING
+      do
+         showcursor := SDL_ShowCursor (0)
+      end
+   
 end -- class BAD_IDENTIFIER1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

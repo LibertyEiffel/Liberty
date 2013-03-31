@@ -4,48 +4,48 @@
 class TEST_TIME2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			dt: TIME; v: INTEGER
-		do
-			v := dt.year
-			assert(dt.set(1998, 1, 1, 0, 0, 0))
-			assert(dt.year = 1998)
-			assert(dt.set(2000, 1, 1, 0, 0, 0))
-			assert(dt.year = 2000)
-			assert(dt.set(1999, 1, 1, 0, 0, 0))
-			assert(dt.year = 1999)
-			assert(dt.set(2000, 7, 2, 0, 0, 0))
-			assert(dt.year = 2000)
-			assert(dt.month = 7)
-			assert(dt.day = 2)
-			assert(dt.year_day = 183)
-			assert(dt.hour = 0)
-			assert(dt.minute = 0)
-			assert(dt.second = 0)
-			assert(dt.set(2000, 12, 30, 0, 0, 0))
-			assert(dt.year = 2000)
-			assert(dt.month = 12)
-			assert(dt.day = 30)
-			assert(dt.year_day = 364)
-			assert(dt.hour = 0)
-			assert(dt.minute = 0)
-			assert(dt.second = 0)
-			assert(dt.set(2000, 12, 31, 0, 0, 0))
-			assert(dt.year = 2000)
-			assert(dt.month = 12)
-			assert(dt.day = 31)
-			assert(dt.year_day = 365)
-			assert(dt.hour = 0)
-			assert(dt.minute = 0)
-			assert(dt.second = 0)
-		end
+   main is
+      local
+         dt: TIME; v: INTEGER
+      do
+         v := dt.year
+         assert(dt.set(1998, 1, 1, 0, 0, 0))
+         assert(dt.year = 1998)
+         assert(dt.set(2000, 1, 1, 0, 0, 0))
+         assert(dt.year = 2000)
+         assert(dt.set(1999, 1, 1, 0, 0, 0))
+         assert(dt.year = 1999)
+         assert(dt.set(2000, 7, 2, 0, 0, 0))
+         assert(dt.year = 2000)
+         assert(dt.month = 7)
+         assert(dt.day = 2)
+         assert(dt.year_day = 183)
+         assert(dt.hour = 0)
+         assert(dt.minute = 0)
+         assert(dt.second = 0)
+         assert(dt.set(2000, 12, 30, 0, 0, 0))
+         assert(dt.year = 2000)
+         assert(dt.month = 12)
+         assert(dt.day = 30)
+         assert(dt.year_day = 364)
+         assert(dt.hour = 0)
+         assert(dt.minute = 0)
+         assert(dt.second = 0)
+         assert(dt.set(2000, 12, 31, 0, 0, 0))
+         assert(dt.year = 2000)
+         assert(dt.month = 12)
+         assert(dt.day = 31)
+         assert(dt.year_day = 365)
+         assert(dt.hour = 0)
+         assert(dt.minute = 0)
+         assert(dt.second = 0)
+      end
 
 end -- class TEST_TIME2
 --

@@ -2,101 +2,101 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FROM_COLLECTION1
-	-- Test feature `set_all_with' of various implementations.
+   -- Test feature `set_all_with' of various implementations.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
-		do
-			create a.from_collection(model1)
-			test(a, model1)
-			a.from_collection(model2)
-			test(a, model2)
-			a.from_collection(model3)
-			test(a, model3)
-			a.from_collection(model4)
-			test(a, model4)
-			create fa.from_collection(model1)
-			test(fa, model1)
-			fa.from_collection(model2)
-			test(fa, model2)
-			fa.from_collection(model3)
-			test(fa, model3)
-			fa.from_collection(model4)
-			test(fa, model4)
-			create ll.from_collection(model1)
-			test(ll, model1)
-			ll.from_collection(model2)
-			test(ll, model2)
-			ll.from_collection(model3)
-			test(ll, model3)
-			ll.from_collection(model4)
-			test(ll, model4)
-			create l2l.from_collection(model1)
-			test(l2l, model1)
-			l2l.from_collection(model2)
-			test(l2l, model2)
-			l2l.from_collection(model3)
-			test(l2l, model3)
-			l2l.from_collection(model4)
-			test(l2l, model4)
-		end
+   make is
+      local
+         a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
+      do
+         create a.from_collection(model1)
+         test(a, model1)
+         a.from_collection(model2)
+         test(a, model2)
+         a.from_collection(model3)
+         test(a, model3)
+         a.from_collection(model4)
+         test(a, model4)
+         create fa.from_collection(model1)
+         test(fa, model1)
+         fa.from_collection(model2)
+         test(fa, model2)
+         fa.from_collection(model3)
+         test(fa, model3)
+         fa.from_collection(model4)
+         test(fa, model4)
+         create ll.from_collection(model1)
+         test(ll, model1)
+         ll.from_collection(model2)
+         test(ll, model2)
+         ll.from_collection(model3)
+         test(ll, model3)
+         ll.from_collection(model4)
+         test(ll, model4)
+         create l2l.from_collection(model1)
+         test(l2l, model1)
+         l2l.from_collection(model2)
+         test(l2l, model2)
+         l2l.from_collection(model3)
+         test(l2l, model3)
+         l2l.from_collection(model4)
+         test(l2l, model4)
+      end
 
 feature {}
-	model1: ARRAY[INTEGER] is
-		once
-			Result := {ARRAY[INTEGER] 1, << 6, 7, 8, 9 >> }
-		end
+   model1: ARRAY[INTEGER] is
+      once
+         Result := {ARRAY[INTEGER] 1, << 6, 7, 8, 9 >> }
+      end
 
-	model2: ARRAY[INTEGER] is
-		once
-			Result := {ARRAY[INTEGER] 1, << 1, 2 >> }
-		end
+   model2: ARRAY[INTEGER] is
+      once
+         Result := {ARRAY[INTEGER] 1, << 1, 2 >> }
+      end
 
-	model3: ARRAY[INTEGER] is
-		once
-			Result := {ARRAY[INTEGER] 1, << -1, -3, 6, 7, 8, 9 >> }
-		end
+   model3: ARRAY[INTEGER] is
+      once
+         Result := {ARRAY[INTEGER] 1, << -1, -3, 6, 7, 8, 9 >> }
+      end
 
-	model4: LINKED_LIST[INTEGER] is
-		once
-			create Result.make
-		end
+   model4: LINKED_LIST[INTEGER] is
+      once
+         create Result.make
+      end
 
-	test (c, model: COLLECTION[INTEGER]) is
-		local
-			i1, i2: INTEGER
-		do
-			assert(model.count = c.count)
-			from
-				i1 := c.lower
-				i2 := model.lower
-			until
-				i2 > model.upper
-			loop
-				assert(c.item(i1) = model.item(i2))
-				i1 := i1 + 1
-				i2 := i2 + 1
-			end
-		end
+   test (c, model: COLLECTION[INTEGER]) is
+      local
+         i1, i2: INTEGER
+      do
+         assert(model.count = c.count)
+         from
+            i1 := c.lower
+            i2 := model.lower
+         until
+            i2 > model.upper
+         loop
+            assert(c.item(i1) = model.item(i2))
+            i1 := i1 + 1
+            i2 := i2 + 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_FROM_COLLECTION1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_FROM_COLLECTION1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FROM_COLLECTION1
 --

@@ -4,37 +4,37 @@
 class TEST_JVM25
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[ANY]
-		do
-			create a.make(1, 1)
-			if a.lower /= 1 then
-				io.put_string("TEST_JVM25: ERROR Test #1%N")
-			end
-			if a.upper /= 1 then
-				io.put_string("TEST_JVM25: ERROR Test #2%N")
-			end
-			if a.count /= 1 then
-				io.put_string("TEST_JVM25: ERROR Test #3%N")
-			end
-			if a.capacity < 1 then
-				io.put_string("TEST_JVM25: ERROR Test #4%N")
-			end
-			check
-				a.item(1) = Void
-			end
-			a.put(Current, 1)
-			check
-				a.item(1) = Current
-			end
-		end
+   make is
+      local
+         a: ARRAY[ANY]
+      do
+         create a.make(1, 1)
+         if a.lower /= 1 then
+            io.put_string("TEST_JVM25: ERROR Test #1%N")
+         end
+         if a.upper /= 1 then
+            io.put_string("TEST_JVM25: ERROR Test #2%N")
+         end
+         if a.count /= 1 then
+            io.put_string("TEST_JVM25: ERROR Test #3%N")
+         end
+         if a.capacity < 1 then
+            io.put_string("TEST_JVM25: ERROR Test #4%N")
+         end
+         check
+            a.item(1) = Void
+         end
+         a.put(Current, 1)
+         check
+            a.item(1) = Current
+         end
+      end
 
 end -- class TEST_JVM25
 --

@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SZ340
-	-- SZ:340:
+   -- SZ:340:
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			clock: CLOCK; secs: REAL
-		do
-			secs := clock.value.to_real_64 / clock.periods_per_second
-		end
+   make is
+      local
+         clock: CLOCK; secs: REAL
+      do
+         secs := clock.value.to_real_64 / clock.periods_per_second
+      end
 
 end -- class TEST_SZ340
 --

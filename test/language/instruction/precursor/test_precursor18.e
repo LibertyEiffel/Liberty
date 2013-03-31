@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR18
-	--
-	-- SZ:395:
-	--
+   --
+   -- SZ:395:
+   --
 
 inherit
-	ANY
-		redefine out
-		end
+   ANY
+      redefine out
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	out: STRING is
-		do
-			Result := Precursor + Precursor
-		end
+   out: STRING is
+      do
+         Result := Precursor + Precursor
+      end
 
-	make is
-		local
-			string: STRING
-		do
-			string := out
-		end
+   make is
+      local
+         string: STRING
+      do
+         string := out
+      end
 
 end -- class TEST_PRECURSOR18
 --

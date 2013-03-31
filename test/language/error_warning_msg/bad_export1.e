@@ -7,10 +7,10 @@ creation make
 feature
    make is
       local
-	 b: AUX_EXPORT1B
+    b: AUX_EXPORT1B
       do
-	 !!b
-	 b.foo
+    !!b
+    b.foo
       end
 end -- class BAD_EXPORT1
 --

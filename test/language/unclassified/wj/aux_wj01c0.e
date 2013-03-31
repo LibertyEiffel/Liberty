@@ -3,6 +3,6 @@ feature
   a: AUX_WJ01A0;
   output(arg: like a): STRING is
       do
-	 Result := arg.x0.out; -- IN C0
+    Result := arg.x0.out; -- IN C0
       end
 end

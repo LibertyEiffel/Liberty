@@ -4,29 +4,29 @@
 class TEST_PRECURSOR05
 
 inherit
-	AUX_PRECURSOR01
-		redefine make, class_number
-		end
+   AUX_PRECURSOR01
+      redefine make, class_number
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := class_number
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := class_number
+      end
 
-	class_number: INTEGER is
-		local
-			str: STRING
-		do
-			create str.make(5)
-			Precursor {AUX_PRECURSOR01} .append_in(str)
-			Result := 2
-		end
+   class_number: INTEGER is
+      local
+         str: STRING
+      do
+         create str.make(5)
+         Precursor {AUX_PRECURSOR01} .append_in(str)
+         Result := 2
+      end
 
 end -- class TEST_PRECURSOR05
 --

@@ -10,7 +10,7 @@ feature
       local
          b: AUX_LIKE12B; x: INTEGER
       do
-	 b.g(x)
+    b.g(x)
       end
 end -- class BAD_LIKE12
 --

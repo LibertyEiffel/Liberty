@@ -4,10 +4,10 @@
 class PEACH
 
 inherit
-	FRUIT
+   FRUIT
 
 creation {ANY}
-	make
+   make
 
 end -- class PEACH
 --

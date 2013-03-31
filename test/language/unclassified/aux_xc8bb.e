@@ -4,20 +4,20 @@
 class AUX_XC8BB
 
 inherit
-	AUX_XC8AA
-		redefine is_equal
-		end
+   AUX_XC8AA
+      redefine is_equal
+      end
 
 insert
-	AUX_XC8AA
-		rename is_equal as aa_is_equal
-		end
+   AUX_XC8AA
+      rename is_equal as aa_is_equal
+      end
 
 feature {ANY}
-	is_equal (other: like Current): BOOLEAN is
-		do
-			Result := other /= Current and then aa_is_equal(other)
-		end
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other /= Current and then aa_is_equal(other)
+      end
 
 end -- class AUX_XC8BB
 --

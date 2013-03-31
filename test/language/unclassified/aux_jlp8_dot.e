@@ -4,33 +4,33 @@
 class AUX_JLP8_DOT[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_SUM[E]
-		rename make as make_sum,
-			sum as dot
-		redefine is_runnable
-		end
+   AUX_JLP8_SUM[E]
+      rename make as make_sum,
+         sum as dot
+      redefine is_runnable
+      end
 
 insert
-	AUX_JLP8_SUM[E]
-		rename make as make_sum,
-			sum as dot,
-			is_runnable as sum_is_runnable
-		end
+   AUX_JLP8_SUM[E]
+      rename make as make_sum,
+         sum as dot,
+         is_runnable as sum_is_runnable
+      end
 
 feature {ANY}
-	make (u, v: AUX_JLP8_PROVIDER[E]) is
-		do
-			create cross
-			cross.attach(u, v)
-			make_sum(cross)
-		end
+   make (u, v: AUX_JLP8_PROVIDER[E]) is
+      do
+         create cross
+         cross.attach(u, v)
+         make_sum(cross)
+      end
 
-	is_runnable: BOOLEAN is
-		do
-			Result := sum_is_runnable and cross.is_runnable
-		end
+   is_runnable: BOOLEAN is
+      do
+         Result := sum_is_runnable and cross.is_runnable
+      end
 
-	cross: AUX_JLP8_CROSS_MULT[E]
+   cross: AUX_JLP8_CROSS_MULT[E]
 
 end -- class AUX_JLP8_DOT
 --

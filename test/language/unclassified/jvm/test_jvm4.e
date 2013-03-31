@@ -4,19 +4,19 @@
 class TEST_JVM4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			r: REAL
-		do
-			r := 2.5
-			r := r + r
-			check
-				r = 5.0
-			end
-		end
+   make is
+      local
+         r: REAL
+      do
+         r := 2.5
+         r := r + r
+         check
+            r = 5.0
+         end
+      end
 
 end -- class TEST_JVM4
 --

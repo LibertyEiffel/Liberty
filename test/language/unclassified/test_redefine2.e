@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REDEFINE2
-	-- Frome a bug report of Alexander KJELDAAS
+   -- Frome a bug report of Alexander KJELDAAS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_REDEFINE2B
-		do
-			create b
-			b.g
-		end
+   make is
+      local
+         b: AUX_REDEFINE2B
+      do
+         create b
+         b.g
+      end
 
 end -- class TEST_REDEFINE2
 --

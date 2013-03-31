@@ -7,16 +7,16 @@ class BAD_TO_INTEGER_32
 --
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			i32: INTEGER_32
-		do
-			i32 := i32.to_integer_32
-		end
-	
+   make is
+      local
+         i32: INTEGER_32
+      do
+         i32 := i32.to_integer_32
+      end
+   
 end -- class BAD_TO_INTEGER_32
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

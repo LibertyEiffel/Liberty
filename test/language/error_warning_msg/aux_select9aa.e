@@ -7,7 +7,7 @@ inherit
 feature
    f is
       do
-	 io.put_string ("AA.f%N");
+    io.put_string ("AA.f%N");
       end;
 end -- class AUX_SELECT9AA
 --

@@ -4,41 +4,41 @@
 class TEST_OLD
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	test_old: TEST_OLD
+   test_old: TEST_OLD
 
-	make is
-		require
-			test_old = Void
-		do
-			test_old := f
-			test2
-			test2
-		ensure
-			old test_old = Void
-			test_old = Void
-		end
+   make is
+      require
+         test_old = Void
+      do
+         test_old := f
+         test2
+         test2
+      ensure
+         old test_old = Void
+         test_old = Void
+      end
 
-	f: like Current is
-		require
-			test_old = Void
-		do
-			test_old := Void
-		ensure
-			old test_old = Void
-			test_old = Void
-		end
+   f: like Current is
+      require
+         test_old = Void
+      do
+         test_old := Void
+      ensure
+         old test_old = Void
+         test_old = Void
+      end
 
-	i: INTEGER
+   i: INTEGER
 
-	test2 is
-		do
-			i := i + 1
-		ensure
-			i - 1 = old i
-		end
+   test2 is
+      do
+         i := i + 1
+      ensure
+         i - 1 = old i
+      end
 
 end -- class TEST_OLD
 --

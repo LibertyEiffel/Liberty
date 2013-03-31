@@ -18,20 +18,20 @@ class TEST_INSPECT19
 -- Then it could not find 'item' in ANY. Not sure...
 
 inherit
-	ARGUMENTS
-	AUX_INSPECT19
+   ARGUMENTS
+   AUX_INSPECT19
 
 create make
 
 feature {}
-	make is
-		do
-			inspect argument( 0 )
-			when once "-foo" then
-			when once "-bar" then
-			else
-			end
-		end
+   make is
+      do
+         inspect argument( 0 )
+         when once "-foo" then
+         when once "-bar" then
+         else
+         end
+      end
 end -- class TEST_INSPECT19
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

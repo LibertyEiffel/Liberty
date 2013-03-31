@@ -4,18 +4,18 @@
 class TEST_JVM6
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: BOOLEAN
-		do
-			b := True
-			check
-				b
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         b := True
+         check
+            b
+         end
+      end
 
 end -- class TEST_JVM6
 --

@@ -4,41 +4,41 @@
 class TEST_STRING6
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			s := "   foo"
-			s.keep_tail(3)
-			assert(s.is_equal("foo"))
-			s := "bar   "
-			s.keep_head(3)
-			assert(s.is_equal("bar"))
-			s := "foo"
-			s.keep_tail(3)
-			assert(s.is_equal("foo"))
-			s := "bar"
-			s.keep_head(3)
-			assert(s.is_equal("bar"))
-			s := " foo"
-			s.keep_tail(3)
-			assert(s.is_equal("foo"))
-			s := "bar "
-			s.keep_head(3)
-			assert(s.is_equal("bar"))
-			s := "foo"
-			s.keep_tail(0)
-			assert(s.is_equal(""))
-			s := "bar"
-			s.keep_head(0)
-			assert(s.is_equal(""))
-		end
+   make is
+      local
+         s: STRING
+      do
+         s := "   foo"
+         s.keep_tail(3)
+         assert(s.is_equal("foo"))
+         s := "bar   "
+         s.keep_head(3)
+         assert(s.is_equal("bar"))
+         s := "foo"
+         s.keep_tail(3)
+         assert(s.is_equal("foo"))
+         s := "bar"
+         s.keep_head(3)
+         assert(s.is_equal("bar"))
+         s := " foo"
+         s.keep_tail(3)
+         assert(s.is_equal("foo"))
+         s := "bar "
+         s.keep_head(3)
+         assert(s.is_equal("bar"))
+         s := "foo"
+         s.keep_tail(0)
+         assert(s.is_equal(""))
+         s := "bar"
+         s.keep_head(0)
+         assert(s.is_equal(""))
+      end
 
 end -- class TEST_STRING6
 --

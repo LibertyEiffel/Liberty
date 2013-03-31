@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG14
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 inherit
-	ANY
+   ANY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t1: ARRAY[REFERENCE[ANY]]
+   t1: ARRAY[REFERENCE[ANY]]
 
-	t2: ARRAY[REFERENCE[ANY]]
+   t2: ARRAY[REFERENCE[ANY]]
 
-	make is
-		local
-			i1, i2: REFERENCE[STRING]
-		do
-			create i1.set_item("1")
-			create i2.set_item("2")
-			t1 := {ARRAY[REFERENCE[STRING]] 1, << i1 >> }
-			t2 := {ARRAY[REFERENCE[STRING]] 1, << i2 >> }
-			assert(not t1.is_deep_equal(t2))
-		end
+   make is
+      local
+         i1, i2: REFERENCE[STRING]
+      do
+         create i1.set_item("1")
+         create i2.set_item("2")
+         t1 := {ARRAY[REFERENCE[STRING]] 1, << i1 >> }
+         t2 := {ARRAY[REFERENCE[STRING]] 1, << i2 >> }
+         assert(not t1.is_deep_equal(t2))
+      end
 
 end -- class TEST_ALG14
 --

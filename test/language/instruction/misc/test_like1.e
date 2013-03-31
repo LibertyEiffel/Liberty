@@ -4,23 +4,23 @@
 class TEST_LIKE1
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: like Current
-		do
-			a := same_as(Current, "bobo")
-		end --***   same_as(some: ANY; other: STRING): like some is
+   make is
+      local
+         a: like Current
+      do
+         a := same_as(Current, "bobo")
+      end --***   same_as(some: ANY; other: STRING): like some is
 
-	same_as (some: ANY; other: STRING): like Current is
-			--*** Removed because like argument is obsolete *** (Dom. april 6th 2004) ***
-		do
-		end
+   same_as (some: ANY; other: STRING): like Current is
+         --*** Removed because like argument is obsolete *** (Dom. april 6th 2004) ***
+      do
+      end
 
 end -- class TEST_LIKE1
 --

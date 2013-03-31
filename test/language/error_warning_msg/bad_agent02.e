@@ -11,25 +11,25 @@ feature
       local
          my_collection: COLLECTION[STRING]
       do
-			my_collection := {ARRAY[STRING] 0, <<"Benedicte","Lucien","Marie">> }
+         my_collection := {ARRAY[STRING] 0, <<"Benedicte","Lucien","Marie">> }
 
-			my_collection.do_all(agent print_item(?))
+         my_collection.do_all(agent print_item(?))
       end
 
 feature {}
 
    print_item(c: CHARACTER; item: STRING) is
       do
-			number := number + 1
-			std_output.put_character(c)
-			std_output.put_integer(number)
-			std_output.put_character(' ')
-			std_output.put_string(item)
-			std_output.put_character('%N')
+         number := number + 1
+         std_output.put_character(c)
+         std_output.put_integer(number)
+         std_output.put_character(' ')
+         std_output.put_string(item)
+         std_output.put_character('%N')
       end
-	
+   
    number: INTEGER
-	
+   
 end -- class BAD_AGENT02
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

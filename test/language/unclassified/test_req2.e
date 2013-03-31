@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REQ2
-	--
-	-- To correct a bug find by Cyril ADRIAN.
-	--
+   --
+   -- To correct a bug find by Cyril ADRIAN.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	ab: ARRAY[BOOLEAN]
+   ab: ARRAY[BOOLEAN]
 
-	make is
-		do
-			ab := {ARRAY[BOOLEAN] 1, << True >> }
-			r
-		end
+   make is
+      do
+         ab := {ARRAY[BOOLEAN] 1, << True >> }
+         r
+      end
 
-	r is
-		require
-			ab @ 1
-		do
-			check
-				ab.item(1)
-			end
-		ensure
-			ab.item(1)
-		end
+   r is
+      require
+         ab @ 1
+      do
+         check
+            ab.item(1)
+         end
+      ensure
+         ab.item(1)
+      end
 
 invariant
-	ab.first
+   ab.first
 
 end -- class TEST_REQ2
 --

@@ -4,43 +4,43 @@
 class TEST_AGENT_GC
 
 inherit
-	ARGUMENTS
-	EIFFELTEST_TOOLS
+   ARGUMENTS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i, n: INTEGER; region: AUX_AGENT_GC1; t: AUX_AGENT_GC5
-		do
-			--if argument_count = 1 and then argument(1).is_integer then
-			--	n := argument(1).to_integer
-			--end
-			--n := n.max(10)
-			n := 1000
-			create region.make_main
-			from
-			until
-				i = n
-			loop
-				region.next_time
-				i := i + 1
-			end
-			t := region.accumulate_totals
-			--			print("Patients: " + t.patients.out + "%N")
-			--			print("Time:     " + t.time.out + "%N")
-			--			print("Visits:   " + t.visits.out + "%N")
-			--			print("%NTreatment Queue - Remaining Treatment Time%N")
-			region.hospital.treatment.do_all(agent end_print(?))
-			assert(True)
-		end
+   make is
+      local
+         i, n: INTEGER; region: AUX_AGENT_GC1; t: AUX_AGENT_GC5
+      do
+         --if argument_count = 1 and then argument(1).is_integer then
+         --   n := argument(1).to_integer
+         --end
+         --n := n.max(10)
+         n := 1000
+         create region.make_main
+         from
+         until
+            i = n
+         loop
+            region.next_time
+            i := i + 1
+         end
+         t := region.accumulate_totals
+         --         print("Patients: " + t.patients.out + "%N")
+         --         print("Time:     " + t.time.out + "%N")
+         --         print("Visits:   " + t.visits.out + "%N")
+         --         print("%NTreatment Queue - Remaining Treatment Time%N")
+         region.hospital.treatment.do_all(agent end_print(?))
+         assert(True)
+      end
 
-	end_print (p: AUX_AGENT_GC3) is
-		do
-			--			print(p.remaining_time.out + "%Tanonymous patient%N")
-		end
+   end_print (p: AUX_AGENT_GC3) is
+      do
+         --         print(p.remaining_time.out + "%Tanonymous patient%N")
+      end
 
 end -- class TEST_AGENT_GC
 --

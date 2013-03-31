@@ -4,9 +4,9 @@
 class AUX_EB1A
 
 feature {ANY}
-	a: BOOLEAN is
-		do
-		end
+   a: BOOLEAN is
+      do
+      end
 
 end -- class AUX_EB1A
 --

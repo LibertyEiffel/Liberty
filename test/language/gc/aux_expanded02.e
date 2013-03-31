@@ -4,15 +4,15 @@
 expanded class AUX_EXPANDED02
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	string: STRING
+   string: STRING
 
-	make is
-		do
-			create string.make_filled(' ', 16)
-		end
+   make is
+      do
+         create string.make_filled(' ', 16)
+      end
 
 end -- class AUX_EXPANDED02
 --

@@ -11,9 +11,9 @@ feature
    
    make is
       local
-	 bar: INTEGER;
+    bar: INTEGER;
       do
-	 bar := 3
+    bar := 3
       end;
 
 end -- class BAD_LOCAL_LIST4

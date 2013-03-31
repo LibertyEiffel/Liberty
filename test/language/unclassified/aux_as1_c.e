@@ -4,9 +4,9 @@
 class AUX_AS1_C
 
 inherit
-	AUX_AS1_B
-		rename message as b_message
-		end
+   AUX_AS1_B
+      rename message as b_message
+      end
 
 end -- class AUX_AS1_C
 --

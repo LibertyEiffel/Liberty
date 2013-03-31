@@ -4,23 +4,23 @@
 class AUX_PRECURSOR06B
 
 inherit
-	AUX_PRECURSOR06A
-		redefine make
-		end
+   AUX_PRECURSOR06A
+      redefine make
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			-- Si on enleve Precursor, ca marche
-			Precursor
-			check
-				make_a_done
-			end
-			make_b_done := True
-		end
+   make is
+      do
+         -- Si on enleve Precursor, ca marche
+         Precursor
+         check
+            make_a_done
+         end
+         make_b_done := True
+      end
 
 end -- class AUX_PRECURSOR06B
 --

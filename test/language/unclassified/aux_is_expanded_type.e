@@ -4,18 +4,18 @@
 class AUX_IS_EXPANDED_TYPE[E]
 
 feature {ANY}
-	item: E is
-		do
-			Result := item_memory
-		end
+   item: E is
+      do
+         Result := item_memory
+      end
 
-	set_item (i: like item) is
-		do
-			item_memory := i
-		end
+   set_item (i: like item) is
+      do
+         item_memory := i
+      end
 
 feature {}
-	item_memory: E
+   item_memory: E
 
 end -- class AUX_IS_EXPANDED_TYPE
 --

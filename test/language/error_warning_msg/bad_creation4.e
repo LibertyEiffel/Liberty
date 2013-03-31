@@ -4,12 +4,12 @@
 class BAD_CREATION4
 creation default_create
 feature
-	x: AUX_CREATION4
+   x: AUX_CREATION4
 
-	ga is
-		do
-			x.borg
-		end
+   ga is
+      do
+         x.borg
+      end
 
 end -- class BAD_CREATION4
 --

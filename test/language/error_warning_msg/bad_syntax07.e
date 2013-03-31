@@ -4,17 +4,17 @@
 class BAD_SYNTAX07
 
 create
-	main
-	
+   main
+   
 feature {}
-	main is
-		do
-		end
+   main is
+      do
+      end
 
-	missing_is yes
-		once
-		end
-	
+   missing_is yes
+      once
+      end
+   
 end -- class BAD_SYNTAX07
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

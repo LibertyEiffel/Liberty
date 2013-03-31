@@ -4,20 +4,20 @@
 class TEST_TYPE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			l_integer: LINKED_LIST[INTEGER]; l_string: LINKED_LIST[STRING]; c: COLLECTION[STRING]
-		do
-			create l_integer.make
-			create l_string.make
-			l_string.add_first("lulu")
-			l_integer.add_first(0)
-			c := l_string
-			c.put("boubou", 1)
-		end
+   make is
+      local
+         l_integer: LINKED_LIST[INTEGER]; l_string: LINKED_LIST[STRING]; c: COLLECTION[STRING]
+      do
+         create l_integer.make
+         create l_string.make
+         l_string.add_first("lulu")
+         l_integer.add_first(0)
+         c := l_string
+         c.put("boubou", 1)
+      end
 
 end -- class TEST_TYPE1
 --

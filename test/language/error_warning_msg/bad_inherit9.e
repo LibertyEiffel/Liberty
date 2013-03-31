@@ -15,7 +15,7 @@ feature
 
    make is
       do
-	 true_error_here_to_keep_track_of_the_previous_warning
+    true_error_here_to_keep_track_of_the_previous_warning
       end
 
    out: STRING is

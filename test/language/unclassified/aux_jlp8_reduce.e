@@ -4,20 +4,20 @@
 deferred class AUX_JLP8_REDUCE[E]
 
 inherit
-	AUX_JLP8_OPERATOR[E]
+   AUX_JLP8_OPERATOR[E]
 
 feature {ANY}
-	reduce: E
+   reduce: E
 
 feature {ANY}
-	reduce_operation (old_result: E; e: E): E is
-		deferred
-		end
+   reduce_operation (old_result: E; e: E): E is
+      deferred
+      end
 
-	item_action (e: E) is
-		do
-			reduce := reduce_operation(reduce, e)
-		end
+   item_action (e: E) is
+      do
+         reduce := reduce_operation(reduce, e)
+      end
 
 end -- class AUX_JLP8_REDUCE
 --

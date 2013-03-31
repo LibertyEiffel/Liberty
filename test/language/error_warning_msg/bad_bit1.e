@@ -9,10 +9,10 @@ feature
    
    make is
       local
-	 b8: BIT 8;
+    b8: BIT 8;
          b16: BIT 16;
       do
-	 b8 := b16;
+    b8 := b16;
       end;
    
 end -- class BAD_BIT1

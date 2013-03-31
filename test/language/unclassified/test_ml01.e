@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ML01
-	-- From a bug report of Mikko Larjava
+   -- From a bug report of Mikko Larjava
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			g: AUX_ML01C; bool: BOOLEAN
-		do
-			if bool then
-				g.out_it
-			end
-		end
+   make is
+      local
+         g: AUX_ML01C; bool: BOOLEAN
+      do
+         if bool then
+            g.out_it
+         end
+      end
 
 end -- class TEST_ML01
 --

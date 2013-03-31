@@ -4,10 +4,10 @@
 class TEST_ROUTINE_LIKE_CURRENT01
 
 inherit
-	AUX_ROUTINE_LIKE_CURRENT01
+   AUX_ROUTINE_LIKE_CURRENT01
 
 creation {ANY}
-	default_create
+   default_create
 
 end -- class TEST_ROUTINE_LIKE_CURRENT01
 --

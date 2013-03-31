@@ -4,25 +4,25 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s1, s2: STRING
+   s1, s2: STRING
 
-	make is
-		local
-			i: INTEGER
-		do
-			create s1.make(64000)
-			from
-				i := 40000
-			until
-				i = 0
-			loop
-				create s2.make(64000)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         create s1.make(64000)
+         from
+            i := 40000
+         until
+            i = 0
+         loop
+            create s2.make(64000)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

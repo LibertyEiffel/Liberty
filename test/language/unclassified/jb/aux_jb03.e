@@ -4,14 +4,14 @@
 class AUX_JB03
 
 feature {ANY}
-	x: AUX_JB03
+   x: AUX_JB03
 
-	y: like x
+   y: like x
 
-	p: STRING is
-		do
-			Result := "AUX.p"
-		end
+   p: STRING is
+      do
+         Result := "AUX.p"
+      end
 
 end -- class AUX_JB03
 --

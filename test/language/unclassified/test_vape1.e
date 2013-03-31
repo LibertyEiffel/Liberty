@@ -4,16 +4,16 @@
 class TEST_VAPE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_VAPE1
-		do
-			create aux
-			aux.do_it
-		end
+   make is
+      local
+         aux: AUX_VAPE1
+      do
+         create aux
+         aux.do_it
+      end
 
 end -- class TEST_VAPE1
 --

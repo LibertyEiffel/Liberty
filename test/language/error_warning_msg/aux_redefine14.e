@@ -4,10 +4,10 @@
 class AUX_REDEFINE14
 
 feature
-	foo (bar: INTEGER_32) is
-		do
-		end
-	
+   foo (bar: INTEGER_32) is
+      do
+      end
+   
 end -- class AUX_REDEFINE14
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ feature
    done1: BOOLEAN;
    execute_once is
       once
-	 done1 := True;
+    done1 := True;
       end
 end
 

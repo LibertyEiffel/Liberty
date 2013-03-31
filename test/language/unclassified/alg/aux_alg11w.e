@@ -4,8 +4,8 @@
 class AUX_ALG11W
 
 inherit
-	AUX_ALG11T
-	AUX_ALG11U
+   AUX_ALG11T
+   AUX_ALG11U
 
 end -- class AUX_ALG11W
 --

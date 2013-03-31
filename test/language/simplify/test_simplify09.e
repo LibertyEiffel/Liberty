@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY09
-	-- To test `same_dynamic_type'.
+   -- To test `same_dynamic_type'.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: like Current; i, j: INTEGER
-		do
-			c := Current
-			if c.same_dynamic_type(Current) then
-				assert(True)
-			else
-				c_inline_c("simplify error #1 in boost_simplify09")
-			end
-			if i.same_dynamic_type(j) then
-				assert(True)
-			else
-				c_inline_c("simplify error #2 in boost_simplify09")
-			end
-			assert(assert_counter.value = 2)
-		end
+   make is
+      local
+         c: like Current; i, j: INTEGER
+      do
+         c := Current
+         if c.same_dynamic_type(Current) then
+            assert(True)
+         else
+            c_inline_c("simplify error #1 in boost_simplify09")
+         end
+         if i.same_dynamic_type(j) then
+            assert(True)
+         else
+            c_inline_c("simplify error #2 in boost_simplify09")
+         end
+         assert(assert_counter.value = 2)
+      end
 
 end -- class TEST_SIMPLIFY09
 --

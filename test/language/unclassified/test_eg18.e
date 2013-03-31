@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG18
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1: AUX_EG18A[REAL]; bool: BOOLEAN
-		do
-			if bool then
-				if a1.f = a1 then
-				end
-			end
-		end
+   make is
+      local
+         a1: AUX_EG18A[REAL]; bool: BOOLEAN
+      do
+         if bool then
+            if a1.f = a1 then
+            end
+         end
+      end
 
 end -- class TEST_EG18
 --

@@ -4,41 +4,41 @@
 class TEST_EXCEPTIONS14
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				is_true(is_developer_exception_of_name("Hi James"))
-			else
-				raise("Hi James")
-				is_true(False)
-			end
-			is_true(cpt = 2)
-		rescue
-			is_true(is_developer_exception)
-			bool := True
-			retry
-		end
+   make is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            is_true(is_developer_exception_of_name("Hi James"))
+         else
+            raise("Hi James")
+            is_true(False)
+         end
+         is_true(cpt = 2)
+      rescue
+         is_true(is_developer_exception)
+         bool := True
+         retry
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION14: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION14: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS14
 --

@@ -9,9 +9,9 @@ feature
 
    make is 
       local
-			i32: INTEGER_32
+         i32: INTEGER_32
       do 
-			i32 := - -2147483648
+         i32 := - -2147483648
       end
    
 end -- class BAD_INTEGER_CONSTANT11

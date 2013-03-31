@@ -4,25 +4,25 @@
 class TEST_NATIVE_ARRAY2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; na: NATIVE_ARRAY[TRIANGLE]; p: POINT; t: TRIANGLE
-		do
-			from
-				i := 100000
-			until
-				i = 0
-			loop
-				create p.make(1.0, 2.0)
-				create t.make(p, p, p)
-				na := na.calloc(1024)
-				na.set_all_with(t, 512)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER; na: NATIVE_ARRAY[TRIANGLE]; p: POINT; t: TRIANGLE
+      do
+         from
+            i := 100000
+         until
+            i = 0
+         loop
+            create p.make(1.0, 2.0)
+            create t.make(p, p, p)
+            na := na.calloc(1024)
+            na.set_all_with(t, 512)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_NATIVE_ARRAY2
 --

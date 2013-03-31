@@ -4,17 +4,17 @@
 class BAD_CALL9
 
 creation
-	main
+   main
 
 feature {}
-	to_string: STRING
-	
-	main is
-		local
-			string: AUX_CALL9_STRING; i: INTEGER
-		do
-			string.append_string(to_string, i + 1, to_string.count)
-		end
+   to_string: STRING
+   
+   main is
+      local
+         string: AUX_CALL9_STRING; i: INTEGER
+      do
+         string.append_string(to_string, i + 1, to_string.count)
+      end
 
 end -- class BAD_CALL9
 --

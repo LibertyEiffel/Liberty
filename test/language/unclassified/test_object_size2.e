@@ -4,18 +4,18 @@
 class TEST_OBJECT_SIZE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; aux_a: AUX_OS2A; aux_b: AUX_OS2B
-		do
-			create aux_a
-			create aux_b
-			i := aux_a.foo
-			i := aux_b.foo
-		end
+   make is
+      local
+         i: INTEGER; aux_a: AUX_OS2A; aux_b: AUX_OS2B
+      do
+         create aux_a
+         create aux_b
+         i := aux_a.foo
+         i := aux_b.foo
+      end
 
 end -- class TEST_OBJECT_SIZE2
 --

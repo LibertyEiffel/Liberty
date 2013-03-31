@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER60
-	-- tests on infix ">"
+   -- tests on infix ">"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(-1)
-			n2 := from_integer(0)
-			assert(n2 > n1)
-			n1 := from_integer(1)
-			assert(n1 > n2)
-			n1 := from_integer(Maximum_integer)
-			n1 := n1 @+ 1
-			n2 := from_integer(Maximum_integer)
-			assert(n1 > n2)
-			n2 := n2 @+ 2
-			assert(n2 > n1)
-			n1 := from_integer(Minimum_integer)
-			n1 := n1 @- 1
-			n2 := from_integer(Minimum_integer)
-			assert(n2 > n1)
-			n1 := from_string("2/5")
-			n2 := from_string("39/100")
-			assert(n1 > n2)
-			n2 := from_string("-1/100")
-			assert(n1 > n2)
-			n1 := from_string("-3/105")
-			assert(n2 > n1)
-			n1 := from_integer(0)
-			assert(n1 > n2)
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(-1)
+         n2 := from_integer(0)
+         assert(n2 > n1)
+         n1 := from_integer(1)
+         assert(n1 > n2)
+         n1 := from_integer(Maximum_integer)
+         n1 := n1 @+ 1
+         n2 := from_integer(Maximum_integer)
+         assert(n1 > n2)
+         n2 := n2 @+ 2
+         assert(n2 > n1)
+         n1 := from_integer(Minimum_integer)
+         n1 := n1 @- 1
+         n2 := from_integer(Minimum_integer)
+         assert(n2 > n1)
+         n1 := from_string("2/5")
+         n2 := from_string("39/100")
+         assert(n1 > n2)
+         n2 := from_string("-1/100")
+         assert(n1 > n2)
+         n1 := from_string("-3/105")
+         assert(n2 > n1)
+         n1 := from_integer(0)
+         assert(n1 > n2)
+      end
 
 
 

@@ -2,56 +2,56 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_OVERLOAD01
-	-- C++ operator overloading
+   -- C++ operator overloading
 
 inherit
-	EIFFELTEST_TOOLS
-		redefine default_create
-		end
+   EIFFELTEST_TOOLS
+      redefine default_create
+      end
 
 creation {ANY}
-	default_create
+   default_create
 
 feature {ANY} -- Creation
-	default_create is
-		do
-			external_object := cpp_new
-			set_value(25)
-			assert(value = 25)
-		end
+   default_create is
+      do
+         external_object := cpp_new
+         set_value(25)
+         assert(value = 25)
+      end
 
-	set_value (v: INTEGER) is
-		do
-			cpp_set_value(external_object, v)
-		end
+   set_value (v: INTEGER) is
+      do
+         cpp_set_value(external_object, v)
+      end
 
-	value: INTEGER is
-		do
-			Result := cpp_value(external_object)
-		end
+   value: INTEGER is
+      do
+         Result := cpp_value(external_object)
+      end
 
 feature {} -- Implementation
-	external_object: POINTER
+   external_object: POINTER
 
-	cpp_value (instance: POINTER): INTEGER is
-		external "[
+   cpp_value (instance: POINTER): INTEGER is
+      external "[
                   C++ [Overload "aux_overload01.h"](): int
                 ]"
-		alias "value"
-		end
+      alias "value"
+      end
 
-	cpp_set_value (instance: POINTER; v: INTEGER) is
-		external "[
+   cpp_set_value (instance: POINTER; v: INTEGER) is
+      external "[
                   C++ [Overload "aux_overload01.h"](int)
                 ]"
-		alias "value"
-		end
+      alias "value"
+      end
 
-	cpp_new: POINTER is
-		external "[
+   cpp_new: POINTER is
+      external "[
                   C++ [new Overload "aux_overload01.h"]()
                 ]"
-		end
+      end
 
 end -- class TEST_OVERLOAD01
 --

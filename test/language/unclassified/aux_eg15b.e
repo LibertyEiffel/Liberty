@@ -4,12 +4,12 @@
 expanded class AUX_EG15B[T]
 
 feature {ANY}
-	a: AUX_EG15A[T]
+   a: AUX_EG15A[T]
 
-	put (x: T; i: INTEGER) is
-		do
-			a.put(x, i)
-		end
+   put (x: T; i: INTEGER) is
+      do
+         a.put(x, i)
+      end
 
 end -- class AUX_EG15B
 --

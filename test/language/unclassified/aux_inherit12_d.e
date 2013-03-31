@@ -2,12 +2,12 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_INHERIT12_D
-	-- in this class, the feature `foo' has two conformant paths but two
-	-- different feature stamps (because of the merge)
+   -- in this class, the feature `foo' has two conformant paths but two
+   -- different feature stamps (because of the merge)
 
 inherit
-	AUX_INHERIT12_A
-	AUX_INHERIT12_C
+   AUX_INHERIT12_A
+   AUX_INHERIT12_C
 
 end -- class AUX_INHERIT12_D
 --

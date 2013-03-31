@@ -4,30 +4,30 @@
 class TEST_INSPECT14
 
 insert
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			toto: STRING
-		do
-			inspect
-				toto -- will crash
-			when "\" then
-				print("oh!%N")
-			when "'" then
-				print("ohh!%N")
-			when "%N" then
-				print("---%N")
-			else
-			end
-		rescue
-			toto := "toto"
-			retry
-		end
+   make is
+      local
+         toto: STRING
+      do
+         inspect
+            toto -- will crash
+         when "\" then
+            print("oh!%N")
+         when "'" then
+            print("ohh!%N")
+         when "%N" then
+            print("---%N")
+         else
+         end
+      rescue
+         toto := "toto"
+         retry
+      end
 
 end -- class TEST_INSPECT14
 --

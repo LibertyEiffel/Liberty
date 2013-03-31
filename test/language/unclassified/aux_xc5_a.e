@@ -4,12 +4,12 @@
 class AUX_XC5_A[G]
 
 inherit
-	ANY
+   ANY
 
 feature {ANY}
-	f is
-		do
-		end
+   f is
+      do
+      end
 
 end -- class AUX_XC5_A
 --

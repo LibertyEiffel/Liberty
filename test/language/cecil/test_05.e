@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_05
-	-- SZ:175: This code is valid. Class AUX05_A is not alive but alive
-	-- descendant class exist.
+   -- SZ:175: This code is valid. Class AUX05_A is not alive but alive
+   -- descendant class exist.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			o: AUX_05B
-		do
-			create o
-			if o = Void then
-				c_prog(o)
-			end
-		end
+   make is
+      local
+         o: AUX_05B
+      do
+         create o
+         if o = Void then
+            c_prog(o)
+         end
+      end
 
-	c_prog (o: AUX_05B) is
-		external "C"
-		end
+   c_prog (o: AUX_05B) is
+      external "C"
+      end
 
 end -- class TEST_05
 --

@@ -2,104 +2,104 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER108
-	--
-	-- Test of depassement of INTEGER_64_NUMBER capacity
-	-- during a division between a BIG_INTEGER_NUMBER
-	-- and a INTEGER_64_NUMBER,
-	-- Result is an integer which is symbolized by a
-	-- INTEGER_64_NUMBER
-	--
+   --
+   -- Test of depassement of INTEGER_64_NUMBER capacity
+   -- during a division between a BIG_INTEGER_NUMBER
+   -- and a INTEGER_64_NUMBER,
+   -- Result is an integer which is symbolized by a
+   -- INTEGER_64_NUMBER
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	
+   EIFFELTEST_TOOLS
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a, b, q, r: NUMBER
-		do
-			a := nt.from_string("1000000000000000000000000")
-			b := nt.from_string("10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(q.is_positive)
-			assert(q @= 100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_zero)
-			a := nt.from_string("-1000000000000000000000000")
-			b := nt.from_string("10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(not q.is_positive)
-			assert(q @= -100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_zero)
-			a := nt.from_string("1000000000000000000000000")
-			b := nt.from_string("-10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(not q.is_positive)
-			assert(q @= -100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_zero)
-			a := nt.from_string("-1000000000000000000000000")
-			b := nt.from_string("-10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(q.is_positive)
-			assert(q @= 100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_zero)
-			a := nt.from_string("1000000000000000000000999")
-			b := nt.from_string("10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(q.is_positive)
-			assert(q @= 100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_positive)
-			assert(r @= 999)
-			a := nt.from_string("-999999999999999999999001")
-			b := nt.from_string("10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(not q.is_positive)
-			assert(q @= -100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_positive)
-			assert(r @= 999)
-			a := nt.from_string("1000000000000000000000999")
-			b := nt.from_string("-10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(not q.is_positive)
-			assert(q @= -100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_positive)
-			assert(r @= 999)
-			a := nt.from_string("-999999999999999999999001")
-			b := nt.from_string("-10000000000")
-			q := a // b
-			r := a \\ b
-			assert(q.is_integer_general_number)
-			assert(q.is_positive)
-			assert(q @= 100000000000000)
-			assert(r.is_integer_general_number)
-			assert(r.is_positive)
-			assert(r @= 999)
-		end
+   make is
+      local
+         a, b, q, r: NUMBER
+      do
+         a := nt.from_string("1000000000000000000000000")
+         b := nt.from_string("10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(q.is_positive)
+         assert(q @= 100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_zero)
+         a := nt.from_string("-1000000000000000000000000")
+         b := nt.from_string("10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(not q.is_positive)
+         assert(q @= -100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_zero)
+         a := nt.from_string("1000000000000000000000000")
+         b := nt.from_string("-10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(not q.is_positive)
+         assert(q @= -100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_zero)
+         a := nt.from_string("-1000000000000000000000000")
+         b := nt.from_string("-10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(q.is_positive)
+         assert(q @= 100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_zero)
+         a := nt.from_string("1000000000000000000000999")
+         b := nt.from_string("10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(q.is_positive)
+         assert(q @= 100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_positive)
+         assert(r @= 999)
+         a := nt.from_string("-999999999999999999999001")
+         b := nt.from_string("10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(not q.is_positive)
+         assert(q @= -100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_positive)
+         assert(r @= 999)
+         a := nt.from_string("1000000000000000000000999")
+         b := nt.from_string("-10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(not q.is_positive)
+         assert(q @= -100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_positive)
+         assert(r @= 999)
+         a := nt.from_string("-999999999999999999999001")
+         b := nt.from_string("-10000000000")
+         q := a // b
+         r := a \\ b
+         assert(q.is_integer_general_number)
+         assert(q.is_positive)
+         assert(q @= 100000000000000)
+         assert(r.is_integer_general_number)
+         assert(r.is_positive)
+         assert(r @= 999)
+      end
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER108
 --

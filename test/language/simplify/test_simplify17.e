@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY17
-	-- From sz:442
+   -- From sz:442
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			aux: AUX_SIMPLIFY17
-		do
-			create aux.make(Current)
-			aux.process
-		end
+   make is
+      local
+         aux: AUX_SIMPLIFY17
+      do
+         create aux.make(Current)
+         aux.process
+      end
 
 feature {ANY}
-	item: INTEGER is
-			-- The access to this feature (see process_3) crashes smarteiffel on 'call_0.e'.
-			-- If you use a parameter at this point, allso 'call_1.e' will crash.
-		do
-		end
+   item: INTEGER is
+         -- The access to this feature (see process_3) crashes smarteiffel on 'call_0.e'.
+         -- If you use a parameter at this point, allso 'call_1.e' will crash.
+      do
+      end
 
 end -- class TEST_SIMPLIFY17
 --

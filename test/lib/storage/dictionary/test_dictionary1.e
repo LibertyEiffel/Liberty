@@ -4,107 +4,107 @@
 class TEST_DICTIONARY1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	k1: STRING is "k1"
+   k1: STRING is "k1"
 
-	k2: STRING is "k2"
+   k2: STRING is "k2"
 
-	k3: STRING is "k3"
+   k3: STRING is "k3"
 
-	k4: STRING is "k4"
+   k4: STRING is "k4"
 
-	v1: STRING is "v1"
+   v1: STRING is "v1"
 
-	v2: STRING is "v2"
+   v2: STRING is "v2"
 
-	v3: STRING is "v3"
+   v3: STRING is "v3"
 
-	v4: STRING is "v4"
+   v4: STRING is "v4"
 
-	make is
-		local
-			d: DICTIONARY[STRING, STRING]; k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
-		do
-			create {HASHED_DICTIONARY[STRING, STRING]} d.make
-			assert(d.count = 0)
-			assert(d.is_empty)
-			assert(not d.has(k1))
-			d.put(v1, k1)
-			assert(d.count = 1)
-			assert(not d.is_empty)
-			assert(d.has(k1))
-			assert(not d.has(k2))
-			assert(d @ k1 = v1)
-			assert(d.at(k1) = v1)
-			assert(d.at("k1") = v1)
-			assert(d.item(1) = v1)
-			d.put(v2, k2)
-			assert(d.count = 2)
-			assert(not d.is_empty)
-			assert(d.has("k1"))
-			assert(d.has("k2"))
-			assert(not d.has("k3"))
-			assert(d @ k1 = v1)
-			assert(d.at(k2) = v2)
-			assert(d.item(1) = v1 or d.item(1) = v2)
-			assert(d.item(2) = v1 or d.item(2) = v2)
-			assert(d.key_at(v1) = k1)
-			assert(d.key_at(v2) = k2)
-			d.put(v3, k3)
-			d.put(v4, k4)
-			from
-				v_list := {ARRAY[STRING] 1, << v1, v2, v3, v4 >> }
-				k_list := {ARRAY[STRING] 1, << k1, k2, k3, k4 >> }
-				i := 1
-			invariant
-				v_list.count = k_list.count
-			variant
-				v_list.count - 1
-			until
-				i > d.count
-			loop
-				v := d.item(i)
-				k := d.key(i)
-				v_list.remove(v_list.fast_first_index_of(v))
-				k_list.remove(k_list.fast_first_index_of(k))
-				i := i + 1
-			end
-			assert(v_list.is_empty)
-			assert(k_list.is_empty)
-			from
-				v_list := {ARRAY[STRING] 1, << v1, v2, v3, v4 >> }
-				k_list := {ARRAY[STRING] 1, << k1, k2, k3, k4 >> }
-				i := 1
-			invariant
-				v_list.count = k_list.count
-			variant
-				v_list.count
-			until
-				i > d.count
-			loop
-				v := d.item(i)
-				k := d.key_at(v)
-				v_list.remove(v_list.fast_first_index_of(v))
-				k_list.remove(k_list.fast_first_index_of(k))
-				i := i + 1
-			end
-			assert(v_list.is_empty)
-			assert(k_list.is_empty)
-			assert(d.count = 4)
-			d.remove(k1)
-			assert(d.count = 3)
-			d.remove(k2)
-			assert(d.count = 2)
-			d.remove(k3)
-			assert(d.count = 1)
-			d.remove(k4)
-			assert(d.count = 0)
-		end
+   make is
+      local
+         d: DICTIONARY[STRING, STRING]; k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
+      do
+         create {HASHED_DICTIONARY[STRING, STRING]} d.make
+         assert(d.count = 0)
+         assert(d.is_empty)
+         assert(not d.has(k1))
+         d.put(v1, k1)
+         assert(d.count = 1)
+         assert(not d.is_empty)
+         assert(d.has(k1))
+         assert(not d.has(k2))
+         assert(d @ k1 = v1)
+         assert(d.at(k1) = v1)
+         assert(d.at("k1") = v1)
+         assert(d.item(1) = v1)
+         d.put(v2, k2)
+         assert(d.count = 2)
+         assert(not d.is_empty)
+         assert(d.has("k1"))
+         assert(d.has("k2"))
+         assert(not d.has("k3"))
+         assert(d @ k1 = v1)
+         assert(d.at(k2) = v2)
+         assert(d.item(1) = v1 or d.item(1) = v2)
+         assert(d.item(2) = v1 or d.item(2) = v2)
+         assert(d.key_at(v1) = k1)
+         assert(d.key_at(v2) = k2)
+         d.put(v3, k3)
+         d.put(v4, k4)
+         from
+            v_list := {ARRAY[STRING] 1, << v1, v2, v3, v4 >> }
+            k_list := {ARRAY[STRING] 1, << k1, k2, k3, k4 >> }
+            i := 1
+         invariant
+            v_list.count = k_list.count
+         variant
+            v_list.count - 1
+         until
+            i > d.count
+         loop
+            v := d.item(i)
+            k := d.key(i)
+            v_list.remove(v_list.fast_first_index_of(v))
+            k_list.remove(k_list.fast_first_index_of(k))
+            i := i + 1
+         end
+         assert(v_list.is_empty)
+         assert(k_list.is_empty)
+         from
+            v_list := {ARRAY[STRING] 1, << v1, v2, v3, v4 >> }
+            k_list := {ARRAY[STRING] 1, << k1, k2, k3, k4 >> }
+            i := 1
+         invariant
+            v_list.count = k_list.count
+         variant
+            v_list.count
+         until
+            i > d.count
+         loop
+            v := d.item(i)
+            k := d.key_at(v)
+            v_list.remove(v_list.fast_first_index_of(v))
+            k_list.remove(k_list.fast_first_index_of(k))
+            i := i + 1
+         end
+         assert(v_list.is_empty)
+         assert(k_list.is_empty)
+         assert(d.count = 4)
+         d.remove(k1)
+         assert(d.count = 3)
+         d.remove(k2)
+         assert(d.count = 2)
+         d.remove(k3)
+         assert(d.count = 1)
+         d.remove(k4)
+         assert(d.count = 0)
+      end
 
 end -- class TEST_DICTIONARY1
 --

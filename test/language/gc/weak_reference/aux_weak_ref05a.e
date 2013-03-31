@@ -4,7 +4,7 @@
 class AUX_WEAK_REF05A
 
 feature {ANY}
-	x: INTEGER
+   x: INTEGER
 
 end -- class AUX_WEAK_REF05A
 --

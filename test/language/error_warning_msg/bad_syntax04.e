@@ -3,13 +3,13 @@
 --
 class BAD_SYNTAX04
 creation
-	make
+   make
 feature
-	make is
-		local
-			x: INTEGER
+   make is
+      local
+         x: INTEGER
       do
-			x := && Void
+         x := && Void
       end
 end -- class BAD_SYNTAX04
 --

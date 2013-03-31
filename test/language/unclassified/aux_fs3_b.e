@@ -4,11 +4,11 @@
 deferred class AUX_FS3_B
 
 feature {ANY}
-	aux_fs3_c_run: BOOLEAN
+   aux_fs3_c_run: BOOLEAN
 
-	q is
-		deferred
-		end
+   q is
+      deferred
+      end
 
 end -- class AUX_FS3_B
 --

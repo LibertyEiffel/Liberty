@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG11
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EG11A[REAL]; bool: BOOLEAN
-		do
-			---- Original
-			-- a: expanded AUX_EG11A[REAL];
-			if bool then
-				-- print(a);
-				print(a.x.to_string)
-			end
-		end
+   make is
+      local
+         a: AUX_EG11A[REAL]; bool: BOOLEAN
+      do
+         ---- Original
+         -- a: expanded AUX_EG11A[REAL];
+         if bool then
+            -- print(a);
+            print(a.x.to_string)
+         end
+      end
 
 end -- class TEST_EG11
 --

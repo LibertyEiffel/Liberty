@@ -4,18 +4,18 @@
 class TEST_EXPANDED22
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			fa.fb.fc.set_value(2)
-		end
+   make is
+      do
+         fa.fb.fc.set_value(2)
+      end
 
-	fa: AUX_EXPANDED22A is
-		do
-			Result.set_value('a')
-		end
+   fa: AUX_EXPANDED22A is
+      do
+         Result.set_value('a')
+      end
 
 end -- class TEST_EXPANDED22
 --

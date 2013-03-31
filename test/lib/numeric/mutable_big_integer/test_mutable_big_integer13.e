@@ -2,108 +2,108 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER13
-	--
-	-- Testing feature `multiply' and `multiply_to'.
-	--
+   --
+   -- Testing feature `multiply' and `multiply_to'.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			check_multiply(1, 2)
-			--
-			check_multiply(0, 0)
-			check_multiply(8, 0)
-			check_multiply(0, 6)
-			check_multiply(1, 6)
-			check_multiply(2, 1)
-			check_multiply(0, -8)
-			check_multiply(-6, 0)
-			check_multiply(1, -6)
-			check_multiply(-1, 6)
-			check_multiply(3, 2)
-			check_multiply(3, 3)
-			check_multiply(Maximum_integer, -1)
-			check_multiply(-3, -2)
-			check_multiply(-5, 9)
-			check_multiply(Maximum_integer - 3, 0)
-			check_multiply(Maximum_integer - 3, 1)
-			check_multiply(Maximum_integer - 3, 2)
-			check_multiply(Maximum_integer - 3, 3)
-			check_multiply(Maximum_integer, 0)
-			check_multiply(Maximum_integer, 1)
-			check_multiply(Maximum_integer, 2)
-			check_multiply(Maximum_integer, 3)
-			check_multiply(Maximum_integer, Maximum_integer)
-			check_multiply(Maximum_integer, Maximum_integer.to_integer_64)
-			check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 1)
-			check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 2)
-			check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 3)
-			check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 4)
-			check_multiply(Maximum_integer_64 // 4, 0)
-			check_multiply(Maximum_integer_64 // 4, 1)
-			check_multiply(Maximum_integer_64 // 4, 2)
-			check_multiply(Maximum_integer_64 // 4, 3)
-		end
+   make is
+      do
+         check_multiply(1, 2)
+         --
+         check_multiply(0, 0)
+         check_multiply(8, 0)
+         check_multiply(0, 6)
+         check_multiply(1, 6)
+         check_multiply(2, 1)
+         check_multiply(0, -8)
+         check_multiply(-6, 0)
+         check_multiply(1, -6)
+         check_multiply(-1, 6)
+         check_multiply(3, 2)
+         check_multiply(3, 3)
+         check_multiply(Maximum_integer, -1)
+         check_multiply(-3, -2)
+         check_multiply(-5, 9)
+         check_multiply(Maximum_integer - 3, 0)
+         check_multiply(Maximum_integer - 3, 1)
+         check_multiply(Maximum_integer - 3, 2)
+         check_multiply(Maximum_integer - 3, 3)
+         check_multiply(Maximum_integer, 0)
+         check_multiply(Maximum_integer, 1)
+         check_multiply(Maximum_integer, 2)
+         check_multiply(Maximum_integer, 3)
+         check_multiply(Maximum_integer, Maximum_integer)
+         check_multiply(Maximum_integer, Maximum_integer.to_integer_64)
+         check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 1)
+         check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 2)
+         check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 3)
+         check_multiply(Maximum_integer, Maximum_integer.to_integer_64 + 4)
+         check_multiply(Maximum_integer_64 // 4, 0)
+         check_multiply(Maximum_integer_64 // 4, 1)
+         check_multiply(Maximum_integer_64 // 4, 2)
+         check_multiply(Maximum_integer_64 // 4, 3)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER13 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER13 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
-	check_multiply (a, b: INTEGER_64) is
-		local
-			c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
-		do
-			-- test multiply
-			c := a * b
-			--
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbia.multiply(mbib)
-			assert(mbia.to_integer_64 = c)
-			assert(mbib.to_integer_64 = b)
-			-- Commutativity:
-			c := b * a
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbib.multiply(mbia)
-			assert(mbia.to_integer_64 = a)
-			assert(mbib.to_integer_64 = c)
-			-- test multiply_to
-			c := a * b
-			--
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			create mbic.from_integer_64(0)
-			mbia.multiply_to(mbib, mbic)
-			assert(mbia.to_integer_64 = a)
-			assert(mbib.to_integer_64 = b)
-			assert(mbic.to_integer_64 = c)
-			-- Commutativity:
-			c := b * a
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			create mbic.from_integer_64(a + b)
-			mbib.multiply_to(mbia, mbic)
-			assert(mbia.to_integer_64 = a)
-			assert(mbib.to_integer_64 = b)
-			assert(mbic.to_integer_64 = c)
-		end
+   check_multiply (a, b: INTEGER_64) is
+      local
+         c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
+      do
+         -- test multiply
+         c := a * b
+         --
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbia.multiply(mbib)
+         assert(mbia.to_integer_64 = c)
+         assert(mbib.to_integer_64 = b)
+         -- Commutativity:
+         c := b * a
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbib.multiply(mbia)
+         assert(mbia.to_integer_64 = a)
+         assert(mbib.to_integer_64 = c)
+         -- test multiply_to
+         c := a * b
+         --
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         create mbic.from_integer_64(0)
+         mbia.multiply_to(mbib, mbic)
+         assert(mbia.to_integer_64 = a)
+         assert(mbib.to_integer_64 = b)
+         assert(mbic.to_integer_64 = c)
+         -- Commutativity:
+         c := b * a
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         create mbic.from_integer_64(a + b)
+         mbib.multiply_to(mbia, mbic)
+         assert(mbia.to_integer_64 = a)
+         assert(mbib.to_integer_64 = b)
+         assert(mbic.to_integer_64 = c)
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER13
 --

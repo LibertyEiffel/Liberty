@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER70
-	-- tests on "compare"
+   -- tests on "compare"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(1)
-			n2 := from_integer(0)
-			assert(n1.compare(n2) = 1)
-			n2 := from_integer(1)
-			assert(n1.compare(n2) = 0)
-			n2 := from_integer(-1)
-			assert(n1.compare(n2) = 1)
-			n2 := n2 @+ Minimum_integer
-			assert(n1.compare(n2) = 1)
-			n2 := n2 @* -1
-			assert(n1.compare(n2) = -1)
-			n1 := from_integer(Maximum_integer)
-			n2 := n2 @+ 1000
-			assert(n1.compare(n2) = -1)
-			n1 := from_string("1/5")
-			n2 := from_integer(1)
-			assert(n1.compare(n2) = -1)
-			n2 := from_string("1/13")
-			assert(n1.compare(n2) = 1)
-			n1 := from_string("-3/10")
-			assert(n1.compare(n2) = -1)
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(1)
+         n2 := from_integer(0)
+         assert(n1.compare(n2) = 1)
+         n2 := from_integer(1)
+         assert(n1.compare(n2) = 0)
+         n2 := from_integer(-1)
+         assert(n1.compare(n2) = 1)
+         n2 := n2 @+ Minimum_integer
+         assert(n1.compare(n2) = 1)
+         n2 := n2 @* -1
+         assert(n1.compare(n2) = -1)
+         n1 := from_integer(Maximum_integer)
+         n2 := n2 @+ 1000
+         assert(n1.compare(n2) = -1)
+         n1 := from_string("1/5")
+         n2 := from_integer(1)
+         assert(n1.compare(n2) = -1)
+         n2 := from_string("1/13")
+         assert(n1.compare(n2) = 1)
+         n1 := from_string("-3/10")
+         assert(n1.compare(n2) = -1)
+      end
 
 
 

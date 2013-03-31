@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXTERNAL01
-	--SZ:56: wrong generated C code
+   --SZ:56: wrong generated C code
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	local_func (func_addr: POINTER) is
-		do
-		end
+   local_func (func_addr: POINTER) is
+      do
+      end
 
-	external_func is
-		external "C"
-		alias "clock"
-		end
+   external_func is
+      external "C"
+      alias "clock"
+      end
 
-	make is
-		do
-			local_func($external_func)
-		end
+   make is
+      do
+         local_func($external_func)
+      end
 
 end -- class TEST_EXTERNAL01
 --

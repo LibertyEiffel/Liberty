@@ -4,8 +4,8 @@
 class AUX_U01R3
 
 inherit
-	AUX_U01R1
-	AUX_U01R2
+   AUX_U01R1
+   AUX_U01R2
 
 end -- class AUX_U01R3
 --

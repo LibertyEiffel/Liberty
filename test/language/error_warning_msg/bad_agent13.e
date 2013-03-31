@@ -11,9 +11,9 @@ feature
    
    make is
       local
-	 p: PROCEDURE[like bad_type]
+    p: PROCEDURE[like bad_type]
       do
-	 
+    
       end
 
 end -- class BAD_AGENT13

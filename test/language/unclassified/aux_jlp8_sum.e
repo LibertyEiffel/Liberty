@@ -4,21 +4,21 @@
 class AUX_JLP8_SUM[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_REDUCE[E]
-		rename reduce as sum
-		redefine before_run
-		end
+   AUX_JLP8_REDUCE[E]
+      rename reduce as sum
+      redefine before_run
+      end
 
 feature {ANY}
-	before_run is
-		do
-			sum := sum.zero
-		end
+   before_run is
+      do
+         sum := sum.zero
+      end
 
-	reduce_operation (o, e: E): E is
-		do
-			Result := o + e
-		end
+   reduce_operation (o, e: E): E is
+      do
+         Result := o + e
+      end
 
 end -- class AUX_JLP8_SUM
 --

@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FB1
-	--
-	-- To reply to Frank Boehme.
-	--
+   --
+   -- To reply to Frank Boehme.
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			gen: AUX_FB1_GEN[AUX_FB1_EXP]; exp: AUX_FB1_EXP
-		do
-			create gen
-			assert(gen.item = exp)
-			gen.set_item(exp)
-			assert(gen.item = exp)
-		end
+   make is
+      local
+         gen: AUX_FB1_GEN[AUX_FB1_EXP]; exp: AUX_FB1_EXP
+      do
+         create gen
+         assert(gen.item = exp)
+         gen.set_item(exp)
+         assert(gen.item = exp)
+      end
 
 end -- class TEST_FB1
 --

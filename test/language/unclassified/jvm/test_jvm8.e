@@ -4,35 +4,35 @@
 class TEST_JVM8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			i := 2
-			i := foo
-			check
-				i = 5
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := 2
+         i := foo
+         check
+            i = 5
+         end
+      end
 
-	foo: INTEGER is
-		local
-			a: STRING
-		do
-			a := "in foo"
-			Result := bar
-		end
+   foo: INTEGER is
+      local
+         a: STRING
+      do
+         a := "in foo"
+         Result := bar
+      end
 
-	bar: INTEGER is
-		local
-			s: STRING
-		do
-			s := "in bar"
-			Result := 5
-		end
+   bar: INTEGER is
+      local
+         s: STRING
+      do
+         s := "in bar"
+         Result := 5
+      end
 
 end -- class TEST_JVM8
 --

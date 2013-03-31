@@ -4,25 +4,25 @@
 class TEST_ATTRIBUTE01
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	main
+   main
 
 feature {}
-	a1, b1: INTEGER
+   a1, b1: INTEGER
 
-	a2, b2: INTEGER
+   a2, b2: INTEGER
 
-	main is
-		do
-			a1 := 1
-			a2 := 1
-			b1 := 5
-			b2 := 5
-			assert(a1 /= b1)
-			assert(a2 /= b2)
-		end
+   main is
+      do
+         a1 := 1
+         a2 := 1
+         b1 := 5
+         b2 := 5
+         assert(a1 /= b1)
+         assert(a2 /= b2)
+      end
 
 end -- class TEST_ATTRIBUTE01
 --

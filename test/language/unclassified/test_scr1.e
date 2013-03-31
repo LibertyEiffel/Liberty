@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SCR1
-	-- From a bug report of Sean C. Rhea
+   -- From a bug report of Sean C. Rhea
 
 inherit
-	AUX_SCR1A
+   AUX_SCR1A
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			manager.manage(Current)
-		end
+   make is
+      do
+         manager.manage(Current)
+      end
 
 end -- class TEST_SCR1
 --

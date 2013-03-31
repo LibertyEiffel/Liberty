@@ -4,33 +4,33 @@
 class BUG
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	tuning: INTEGER is 3
+   tuning: INTEGER is 3
 
-	make is
-		local
-			a: ARRAY[CAT]; cat: CAT; i, j: INTEGER
-		do
-			from
-				i := tuning
-			until
-				i = 0
-			loop
-				create a.make(1, 800)
-				from
-					j := a.upper
-				until
-					j < a.lower
-				loop
-					create cat.make
-					a.put(Void, j)
-					j := j - 1
-				end
-				i := i - 1
-			end
-		end
+   make is
+      local
+         a: ARRAY[CAT]; cat: CAT; i, j: INTEGER
+      do
+         from
+            i := tuning
+         until
+            i = 0
+         loop
+            create a.make(1, 800)
+            from
+               j := a.upper
+            until
+               j < a.lower
+            loop
+               create cat.make
+               a.put(Void, j)
+               j := j - 1
+            end
+            i := i - 1
+         end
+      end
 
 end -- class BUG
 --

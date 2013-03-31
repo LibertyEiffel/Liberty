@@ -4,69 +4,69 @@
 class TEST_ARRAY_ADD_LAST1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t_boolean: ARRAY[BOOLEAN]
+   t_boolean: ARRAY[BOOLEAN]
 
-	t_integer: ARRAY[INTEGER]
+   t_integer: ARRAY[INTEGER]
 
-	t_animal: ARRAY[ANIMAL]
+   t_animal: ARRAY[ANIMAL]
 
-	t_real: ARRAY[REAL]
+   t_real: ARRAY[REAL]
 
-	t_any: ARRAY[ANY]
+   t_any: ARRAY[ANY]
 
-	make is
-		local
-			i: INTEGER; cat: CAT
-		do
-			t_boolean := {ARRAY[BOOLEAN] 1, << True >> }
-			from
-				i := 1
-			until
-				i = 100
-			loop
-				i := i + 1
-				t_boolean.add_last(True)
-				assert(t_boolean.occurrences(True) = i)
-			end
-			t_integer := {ARRAY[INTEGER] 1, << {INTEGER_32 56} >> }
-			from
-				i := 1
-			until
-				i = 100
-			loop
-				i := i + 1
-				t_integer.add_last(56)
-				assert(t_integer.occurrences(56) = i)
-			end
-			create cat
-			t_animal := {ARRAY[ANIMAL] 1, << cat >> }
-			from
-				i := 1
-			until
-				i = 100
-			loop
-				i := i + 1
-				t_animal.add_last(cat)
-				assert(t_animal.occurrences(cat) = i)
-			end
-		end
+   make is
+      local
+         i: INTEGER; cat: CAT
+      do
+         t_boolean := {ARRAY[BOOLEAN] 1, << True >> }
+         from
+            i := 1
+         until
+            i = 100
+         loop
+            i := i + 1
+            t_boolean.add_last(True)
+            assert(t_boolean.occurrences(True) = i)
+         end
+         t_integer := {ARRAY[INTEGER] 1, << {INTEGER_32 56} >> }
+         from
+            i := 1
+         until
+            i = 100
+         loop
+            i := i + 1
+            t_integer.add_last(56)
+            assert(t_integer.occurrences(56) = i)
+         end
+         create cat
+         t_animal := {ARRAY[ANIMAL] 1, << cat >> }
+         from
+            i := 1
+         until
+            i = 100
+         loop
+            i := i + 1
+            t_animal.add_last(cat)
+            assert(t_animal.occurrences(cat) = i)
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ARRAY_ADD_LAST1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ARRAY_ADD_LAST1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY_ADD_LAST1
 --

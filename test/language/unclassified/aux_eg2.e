@@ -4,12 +4,12 @@
 expanded class AUX_EG2[T]
 
 feature {ANY}
-	set_x (other_x: T) is
-		do
-			x := other_x
-		end
+   set_x (other_x: T) is
+      do
+         x := other_x
+      end
 
-	x: T
+   x: T
 
 end -- class AUX_EG2
 --

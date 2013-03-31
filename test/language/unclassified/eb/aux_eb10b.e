@@ -4,14 +4,14 @@
 class AUX_EB10B
 
 inherit
-	AUX_EB10A
-		rename gobo as loulou
-		end
+   AUX_EB10A
+      rename gobo as loulou
+      end
 
 feature {ANY}
-	f (gobo: STRING) is
-		do
-		end
+   f (gobo: STRING) is
+      do
+      end
 
 end -- class AUX_EB10B
 --

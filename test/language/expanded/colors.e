@@ -4,10 +4,10 @@
 deferred class COLORS
 
 feature {ANY}
-	red: COLOR is
-		once
-			Result := create {COLOR}.make_rgb(0xff, 0x00, 0x00)
-		end
+   red: COLOR is
+      once
+         Result := create {COLOR}.make_rgb(0xff, 0x00, 0x00)
+      end
 
 end -- class COLORS
 --

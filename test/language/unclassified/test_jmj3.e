@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JMJ3
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tsd: AUX_JMJ3TS[REAL]; tpt: AUX_JMJ3TPT[REAL]
-		do
-			create tpt
-			create tsd.dimension(1, 2, 3)
-			tpt.start_i
-		end
+   make is
+      local
+         tsd: AUX_JMJ3TS[REAL]; tpt: AUX_JMJ3TPT[REAL]
+      do
+         create tpt
+         create tsd.dimension(1, 2, 3)
+         tpt.start_i
+      end
 
 end -- class TEST_JMJ3
 --

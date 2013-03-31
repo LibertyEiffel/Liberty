@@ -4,12 +4,12 @@
 expanded class AUX_EXPANDED29BAR
 
 feature {ANY}
-	x: INTEGER
+   x: INTEGER
 
-	set_x (v: INTEGER) is
-		do
-			x := v
-		end
+   set_x (v: INTEGER) is
+      do
+         x := v
+      end
 
 end -- class AUX_EXPANDED29BAR
 --

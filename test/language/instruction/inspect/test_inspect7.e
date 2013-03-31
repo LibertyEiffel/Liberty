@@ -4,61 +4,61 @@
 class TEST_INSPECT7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := words.lower
-			until
-				i > words.upper
-			loop
-				inspect
-					words @ i
-				when "foo" then
-					assert_equal(words.item(i), "foo")
-				when "bar" then
-					assert_equal(words.item(i), "bar")
-				when "first" then
-					assert_equal(words.item(i), "first")
-				when "second" then
-					assert_equal(words.item(i), "second")
-				when "am" then
-					assert_equal(words.item(i), "am")
-				when "stram" then
-					assert_equal(words.item(i), "stram")
-				when "gram" then
-					assert_equal(words.item(i), "gram")
-				end
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := words.lower
+         until
+            i > words.upper
+         loop
+            inspect
+               words @ i
+            when "foo" then
+               assert_equal(words.item(i), "foo")
+            when "bar" then
+               assert_equal(words.item(i), "bar")
+            when "first" then
+               assert_equal(words.item(i), "first")
+            when "second" then
+               assert_equal(words.item(i), "second")
+            when "am" then
+               assert_equal(words.item(i), "am")
+            when "stram" then
+               assert_equal(words.item(i), "stram")
+            when "gram" then
+               assert_equal(words.item(i), "gram")
+            end
+            i := i + 1
+         end
+      end
 
-	words: ARRAY[STRING] is
-		once
-			Result := {ARRAY[STRING] 1, << "foo", "bar", "first", "second", "am", "stram", "gram" >> }
-		end
+   words: ARRAY[STRING] is
+      once
+         Result := {ARRAY[STRING] 1, << "foo", "bar", "first", "second", "am", "stram", "gram" >> }
+      end
 
 feature {}
-	cpt: INTEGER
+   cpt: INTEGER
 
-	assert_equal (given, expected: STRING) is
-		do
-			cpt := cpt + 1
-			if not given.is_equal(expected) then
-				sedb_breakpoint
-				std_output.put_string(once "TEST_INSPECT7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string(once ": expected >")
-				std_output.put_string(expected)
-				std_output.put_string(once "<, but got >")
-				std_output.put_string(given)
-				std_output.put_string("<%N")
-			end
-		end
+   assert_equal (given, expected: STRING) is
+      do
+         cpt := cpt + 1
+         if not given.is_equal(expected) then
+            sedb_breakpoint
+            std_output.put_string(once "TEST_INSPECT7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string(once ": expected >")
+            std_output.put_string(expected)
+            std_output.put_string(once "<, but got >")
+            std_output.put_string(given)
+            std_output.put_string("<%N")
+         end
+      end
 
 end -- class TEST_INSPECT7
 --

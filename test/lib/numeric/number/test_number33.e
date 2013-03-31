@@ -2,47 +2,47 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER33
-	-- tests on infix "*"
+   -- tests on infix "*"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3: NUMBER
-		do
-			n1 := from_integer(0)
-			n2 := from_integer(0)
-			assert((n1 * n2).is_equal(n1))
-			n1 := from_integer(1)
-			assert((n1 * n2).is_equal(n2))
-			assert((n1 * n1).is_equal(n1))
-			n1 := from_integer(Maximum_integer)
-			n2 := from_integer(Maximum_integer)
-			n2 := n2 @* 1000
-			n3 := from_integer(1000)
-			assert(n2.is_equal(n1 * n3))
-			n1 := n1 @* 1000
-			n3 := from_integer(Maximum_integer)
-			n3 := n3 @* 1000000 @* Maximum_integer
-			assert(n3.is_equal(n1 * n2))
-			n1 := from_integer(0)
-			assert(n1.is_equal(n1 * n3))
-			n2 := from_string("1/5")
-			assert(n1.is_equal(n2 * n1))
-			n1 := from_string("1/5")
-			n2 := from_string("-16/20")
-			n3 := from_string("-48/300")
-			assert(n3.is_equal(n2 * n1))
-			n2 := from_string("5")
-			assert((n1 * n2) @= 1)
-		end
+   make is
+      local
+         n1, n2, n3: NUMBER
+      do
+         n1 := from_integer(0)
+         n2 := from_integer(0)
+         assert((n1 * n2).is_equal(n1))
+         n1 := from_integer(1)
+         assert((n1 * n2).is_equal(n2))
+         assert((n1 * n1).is_equal(n1))
+         n1 := from_integer(Maximum_integer)
+         n2 := from_integer(Maximum_integer)
+         n2 := n2 @* 1000
+         n3 := from_integer(1000)
+         assert(n2.is_equal(n1 * n3))
+         n1 := n1 @* 1000
+         n3 := from_integer(Maximum_integer)
+         n3 := n3 @* 1000000 @* Maximum_integer
+         assert(n3.is_equal(n1 * n2))
+         n1 := from_integer(0)
+         assert(n1.is_equal(n1 * n3))
+         n2 := from_string("1/5")
+         assert(n1.is_equal(n2 * n1))
+         n1 := from_string("1/5")
+         n2 := from_string("-16/20")
+         n3 := from_string("-48/300")
+         assert(n3.is_equal(n2 * n1))
+         n2 := from_string("5")
+         assert((n1 * n2) @= 1)
+      end
 
 
 

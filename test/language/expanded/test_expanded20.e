@@ -4,19 +4,19 @@
 class TEST_EXPANDED20
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			f1.set_a(2)
-		end
+   make is
+      do
+         f1.set_a(2)
+      end
 
-	f1: AUX_EXPANDED20 is
-		do
-			Result.set_a(1)
-			Result.set_b(2)
-		end
+   f1: AUX_EXPANDED20 is
+      do
+         Result.set_a(1)
+         Result.set_b(2)
+      end
 
 end -- class TEST_EXPANDED20
 --

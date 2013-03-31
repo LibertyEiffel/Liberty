@@ -4,48 +4,48 @@
 class TEST_EXCEPTIONS11
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	bad_require: BOOLEAN
+   bad_require: BOOLEAN
 
-	make is
-		local
-			done: BOOLEAN
-		do
-			if not done then
-				done := True
-				do_bad_require
-			end
-		rescue
-			is_true(not bad_require)
-			is_true(Precondition = exception)
-			is_true(cpt = 2)
-			retry
-		end
+   make is
+      local
+         done: BOOLEAN
+      do
+         if not done then
+            done := True
+            do_bad_require
+         end
+      rescue
+         is_true(not bad_require)
+         is_true(Precondition = exception)
+         is_true(cpt = 2)
+         retry
+      end
 
-	do_bad_require is
-		require
-			bad_require
-		do
-			bad_require := True
-		end
+   do_bad_require is
+      require
+         bad_require
+      do
+         bad_require := True
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION11: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION11: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS11
 --

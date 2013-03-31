@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR06
-	-- From: Stephane Hillion <hillion@essi.fr>
+   -- From: Stephane Hillion <hillion@essi.fr>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b: AUX_PRECURSOR06B; c: AUX_PRECURSOR06C
-		do
-			-- Si on cree uniquement b ou c, ca marche.
-			create b.make
-			assert(b.make_a_done)
-			assert(b.make_b_done)
-			assert(not b.make_c_done)
-			create c.make
-			assert(c.make_a_done)
-			assert(c.make_b_done)
-			assert(c.make_c_done)
-		end
+   make is
+      local
+         b: AUX_PRECURSOR06B; c: AUX_PRECURSOR06C
+      do
+         -- Si on cree uniquement b ou c, ca marche.
+         create b.make
+         assert(b.make_a_done)
+         assert(b.make_b_done)
+         assert(not b.make_c_done)
+         create c.make
+         assert(c.make_a_done)
+         assert(c.make_b_done)
+         assert(c.make_c_done)
+      end
 
 end -- class TEST_PRECURSOR06
 --

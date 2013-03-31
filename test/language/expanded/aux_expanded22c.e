@@ -4,12 +4,12 @@
 expanded class AUX_EXPANDED22C
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	set_value (v: INTEGER) is
-		do
-			value := v
-		end
+   set_value (v: INTEGER) is
+      do
+         value := v
+      end
 
 end -- class AUX_EXPANDED22C
 --

@@ -4,18 +4,18 @@
 class AUX_EG19A
 
 feature {ANY}
-	infix "#" (other: like Current): AUX_EG19A is
-		do
-			create Result
-			Result.set_x(x + other.x)
-		end
+   infix "#" (other: like Current): AUX_EG19A is
+      do
+         create Result
+         Result.set_x(x + other.x)
+      end
 
-	x: REAL
+   x: REAL
 
-	set_x (other: REAL) is
-		do
-			x := other
-		end
+   set_x (other: REAL) is
+      do
+         x := other
+      end
 
 end -- class AUX_EG19A
 --

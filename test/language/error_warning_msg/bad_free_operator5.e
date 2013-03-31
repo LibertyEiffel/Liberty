@@ -13,9 +13,9 @@ feature
    
    make is
       local
-	 x: like Current
+    x: like Current
       do
-	 x |= x
+    x |= x
       end
    
 end -- class BAD_FREE_OPERATOR5

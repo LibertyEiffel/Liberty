@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_01
-	-- From a bug report of Cyril ADRIAN.
+   -- From a bug report of Cyril ADRIAN.
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			x: AUX_01; b: BOOLEAN
-		do
-			c_inline_h("extern void *CSE;%N")
-			c_inline_h("void c_call(void);%N")
-			create x.make
-			c_inline_c("CSE=_x;%N")
-			c_inline_c("c_call();")
-			b := x.flag
-			assert(b)
-		end
+   make is
+      local
+         x: AUX_01; b: BOOLEAN
+      do
+         c_inline_h("extern void *CSE;%N")
+         c_inline_h("void c_call(void);%N")
+         create x.make
+         c_inline_c("CSE=_x;%N")
+         c_inline_c("c_call();")
+         b := x.flag
+         assert(b)
+      end
 
 end -- class TEST_01
 --

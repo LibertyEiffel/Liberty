@@ -4,48 +4,48 @@
 class AUX_ALL_CHECK_TEST1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	require_count, ensure_count, invariant_count: INTEGER
+   require_count, ensure_count, invariant_count: INTEGER
 
-	do_require: BOOLEAN is
-		do
-			require_count := require_count + 1
-			Result := True
-		end
+   do_require: BOOLEAN is
+      do
+         require_count := require_count + 1
+         Result := True
+      end
 
-	do_ensure: BOOLEAN is
-		do
-			ensure_count := ensure_count + 1
-			Result := True
-		end
+   do_ensure: BOOLEAN is
+      do
+         ensure_count := ensure_count + 1
+         Result := True
+      end
 
-	do_invariant: BOOLEAN is
-		do
-			invariant_count := invariant_count + 1
-			Result := True
-		end
+   do_invariant: BOOLEAN is
+      do
+         invariant_count := invariant_count + 1
+         Result := True
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	foo is
-		require
-			do_require
-		do
-		ensure
-			do_ensure
-		end
+   foo is
+      require
+         do_require
+      do
+      ensure
+         do_ensure
+      end
 
-	bar is
-		do
-			foo
-		end
+   bar is
+      do
+         foo
+      end
 
 invariant
-	do_invariant
+   do_invariant
 
 end -- class AUX_ALL_CHECK_TEST1
 --

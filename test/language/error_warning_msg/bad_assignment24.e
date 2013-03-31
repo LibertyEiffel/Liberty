@@ -4,14 +4,14 @@
 class BAD_ASSIGNMENT24
 
 create
-	make
+   make
 
 feature
-	make is
-		do
-			Current := Current
-		end
-	
+   make is
+      do
+         Current := Current
+      end
+   
 end -- class BAD_ASSIGNMENT24
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

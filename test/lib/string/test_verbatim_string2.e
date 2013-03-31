@@ -4,62 +4,62 @@
 class TEST_VERBATIM_STRING2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	run
+   run
 
 feature {}
-	run is
-		local
-			s1: STRING
-		do
-			s1 := "bar[
+   run is
+      local
+         s1: STRING
+      do
+         s1 := "bar[
              AAAA A
  ]bar"
-			assert(("AAAA A").is_equal(s1))
-			s1 := "bar{
+         assert(("AAAA A").is_equal(s1))
+         s1 := "bar{
 
 BB B
 
-		}bar"
-			assert(("%NBB B%N").is_equal(s1))
-			s1 := "bar{
+      }bar"
+         assert(("%NBB B%N").is_equal(s1))
+         s1 := "bar{
 
    EE E
 
-		}bar"
-			assert(("%N   EE E%N").is_equal(s1))
-			s1 := "bar[
+      }bar"
+         assert(("%N   EE E%N").is_equal(s1))
+         s1 := "bar[
 
-		C%C
+      C%C
 
-		           ]bar"
-			assert(("%NC%%C%N").is_equal(s1))
-			s1 := "bar[
-		11
-		  22
-		33%N
-		]bar"
-			assert(("11%N  22%N33%%N").is_equal(s1))
-			s1 := "[
+                 ]bar"
+         assert(("%NC%%C%N").is_equal(s1))
+         s1 := "bar[
+      11
+        22
+      33%N
+      ]bar"
+         assert(("11%N  22%N33%%N").is_equal(s1))
+         s1 := "[
 
 
-		11
-		  22
-		 33%N
-		]"
-			assert(("%N%N11%N  22%N 33%%N").is_equal(s1))
-			s1 := "bar{
+      11
+        22
+       33%N
+      ]"
+         assert(("%N%N11%N  22%N 33%%N").is_equal(s1))
+         s1 := "bar{
    FF F 
-		}bar"
-			assert(("   FF F ").is_equal(s1))
-			s1 := "bar{
+      }bar"
+         assert(("   FF F ").is_equal(s1))
+         s1 := "bar{
    FF F 
  FF F 
-		}bar"
-			assert(("   FF F %N FF F ").is_equal(s1))
-		end
+      }bar"
+         assert(("   FF F %N FF F ").is_equal(s1))
+      end
 
 end -- class TEST_VERBATIM_STRING2
 --

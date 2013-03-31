@@ -4,9 +4,9 @@
 class AUX_U01F2
 
 feature {ANY}
-	f: AUX_U01R2 is
-		do
-		end
+   f: AUX_U01R2 is
+      do
+      end
 
 end -- class AUX_U01F2
 --

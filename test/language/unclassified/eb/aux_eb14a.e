@@ -4,13 +4,13 @@
 class AUX_EB14A
 
 feature {ANY}
-	g is
-		do
-		end
+   g is
+      do
+      end
 
-	f is
-		do
-		end
+   f is
+      do
+      end
 
 end -- class AUX_EB14A
 --

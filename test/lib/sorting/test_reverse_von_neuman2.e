@@ -4,32 +4,32 @@
 class TEST_REVERSE_VON_NEUMAN2
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: FAST_ARRAY[CHARACTER]; s: REVERSE_COLLECTION_SORTER[CHARACTER]
-		do
-			tab := {FAST_ARRAY[CHARACTER] << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
-			s.von_neuman_sort(tab)
-			assert({FAST_ARRAY[CHARACTER] << 'z', 'r', 'l', 'a', '=', ';', '7', '5', ',', '$' >> }.is_equal(tab))
-			tab.add_first('*')
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({FAST_ARRAY[CHARACTER] << 'z', 'r', 'l', 'a', '=', ';', '7', '5', ',', '*', '$' >> }))
-		end
+   make is
+      local
+         tab: FAST_ARRAY[CHARACTER]; s: REVERSE_COLLECTION_SORTER[CHARACTER]
+      do
+         tab := {FAST_ARRAY[CHARACTER] << 'z', 'r', 'a', '7', 'l', '=', ';', '5', '$', ',' >> }
+         s.von_neuman_sort(tab)
+         assert({FAST_ARRAY[CHARACTER] << 'z', 'r', 'l', 'a', '=', ';', '7', '5', ',', '$' >> }.is_equal(tab))
+         tab.add_first('*')
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({FAST_ARRAY[CHARACTER] << 'z', 'r', 'l', 'a', '=', ';', '7', '5', ',', '*', '$' >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REVERSE_VON_NEUMAN2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REVERSE_VON_NEUMAN2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REVERSE_VON_NEUMAN2
 --

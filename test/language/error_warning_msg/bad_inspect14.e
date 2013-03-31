@@ -3,16 +3,16 @@
 --
 class BAD_INSPECT14
 creation
-	main
+   main
 feature {}
    main is
       local
-			string: STRING
+         string: STRING
       do
-			inspect
-				string
-			when 3, "foo" then -- Bad slice.
-			end
+         inspect
+            string
+         when 3, "foo" then -- Bad slice.
+         end
       end
 end -- class BAD_INSPECT14
 --

@@ -4,13 +4,13 @@ creation make
 feature
    make is
       local
-	 t : AUX_WMH03TOP
-	 b : AUX_WMH03BOTTOM
+    t : AUX_WMH03TOP
+    b : AUX_WMH03BOTTOM
       do
-	 !!t;
-	 t.execute
-	 !!b;
-	 b.execute
+    !!t;
+    t.execute
+    !!b;
+    b.execute
       end
 end
 

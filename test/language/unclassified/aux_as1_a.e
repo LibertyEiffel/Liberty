@@ -4,38 +4,38 @@
 class AUX_AS1_A[G -> AUX_AS1_E]
 
 inherit
-	AUX_AS1_ANY
+   AUX_AS1_ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	static_b: AUX_AS1_B
+   static_b: AUX_AS1_B
 
-	static_e: AUX_AS1_E
+   static_e: AUX_AS1_E
 
-	static_d: AUX_AS1_D
+   static_d: AUX_AS1_D
 
-	make (init: G) is
-		require
-			non_void_init: init /= Void
-		do
-			create {AUX_AS1_E} static_b
-			static_b.message
-			assert(stream.last = 'B')
-			create {AUX_AS1_E} static_e
-			static_e.message
-			assert(stream.last = 'E')
-			create static_d
-			static_d.message
-			assert(stream.last = 'D')
-			-- ***	 static_d := init;
-			-- ***	 static_d.message;
-			-- ***	 assert(stream.last = 'B');
-			-- ***	 !AUX_AS1_E!static_d;
-			-- ***	 static_d.message;
-			-- ***	 assert(stream.last = 'B');
-		end
+   make (init: G) is
+      require
+         non_void_init: init /= Void
+      do
+         create {AUX_AS1_E} static_b
+         static_b.message
+         assert(stream.last = 'B')
+         create {AUX_AS1_E} static_e
+         static_e.message
+         assert(stream.last = 'E')
+         create static_d
+         static_d.message
+         assert(stream.last = 'D')
+         -- ***    static_d := init;
+         -- ***    static_d.message;
+         -- ***    assert(stream.last = 'B');
+         -- ***    !AUX_AS1_E!static_d;
+         -- ***    static_d.message;
+         -- ***    assert(stream.last = 'B');
+      end
 
 end -- class AUX_AS1_A
 --

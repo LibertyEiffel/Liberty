@@ -4,18 +4,18 @@
 class TEST_RB7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	collection: COLLECTION[INTEGER] is
-		once
-			create {ARRAY[INTEGER]} Result.make(1, 1)
-		end
+   collection: COLLECTION[INTEGER] is
+      once
+         create {ARRAY[INTEGER]} Result.make(1, 1)
+      end
 
-	make is
-		do
-			collection.put(1, 1)
-		end
+   make is
+      do
+         collection.put(1, 1)
+      end
 
 end -- class TEST_RB7
 --

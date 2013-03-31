@@ -14,7 +14,7 @@ feature
    
    make is
       do
-	 test
+    test
       end
    
 end -- class BAD_UNDEFINE1

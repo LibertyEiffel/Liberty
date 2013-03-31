@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ANCHOR8
-	-- This test is the simplified problem from SZ:95: which is too much
-	-- complex with 10 classes, multiple inheritance, generic types...
+   -- This test is the simplified problem from SZ:95: which is too much
+   -- complex with 10 classes, multiple inheritance, generic types...
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_ANCHOR8B; bool: BOOLEAN
-		do
-			if bool then
-				if b.g = Void then
-				end
-			end
-		end
+   make is
+      local
+         b: AUX_ANCHOR8B; bool: BOOLEAN
+      do
+         if bool then
+            if b.g = Void then
+            end
+         end
+      end
 
 end -- class TEST_ANCHOR8
 --

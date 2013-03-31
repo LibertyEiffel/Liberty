@@ -4,16 +4,16 @@
 class BAD_CREATE8
 
 creation
-	main
+   main
 
 feature
-	main is
-		local
-			integer: INTEGER
-		do
-			integer := create {INTEGER}.make
-		end
-	
+   main is
+      local
+         integer: INTEGER
+      do
+         integer := create {INTEGER}.make
+      end
+   
 end -- class BAD_CREATE8
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -4,48 +4,48 @@
 class TEST_LOOP_VARIANT2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 0
-			invariant
-				do_loop_invariant(i)
-			variant
-				do_loop_variant(i)
-			until
-				i = 10
-			loop
-				i := i + 1
-			end
-			debug
-				check
-					invariant_counter = 11
-					variant_counter = 10
-				end
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 0
+         invariant
+            do_loop_invariant(i)
+         variant
+            do_loop_variant(i)
+         until
+            i = 10
+         loop
+            i := i + 1
+         end
+         debug
+            check
+               invariant_counter = 11
+               variant_counter = 10
+            end
+         end
+      end
 
 feature {}
-	invariant_counter: INTEGER
+   invariant_counter: INTEGER
 
-	variant_counter: INTEGER
+   variant_counter: INTEGER
 
-	do_loop_invariant (i: INTEGER): BOOLEAN is
-		do
-			invariant_counter := invariant_counter + 1
-			Result := True
-		end
+   do_loop_invariant (i: INTEGER): BOOLEAN is
+      do
+         invariant_counter := invariant_counter + 1
+         Result := True
+      end
 
-	do_loop_variant (i: INTEGER): INTEGER is
-		do
-			variant_counter := variant_counter + 1
-			Result := 50 - i
-		end
+   do_loop_variant (i: INTEGER): INTEGER is
+      do
+         variant_counter := variant_counter + 1
+         Result := 50 - i
+      end
 
 end -- class TEST_LOOP_VARIANT2
 --

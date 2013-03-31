@@ -4,34 +4,34 @@
 class TEST_IS_DEFAULT1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			foo: STRING; i: INTEGER
-		do
-			assert(0.is_default)
-			assert(not 1.is_default)
-			assert(i.is_default)
-			i := 1
-			assert(not i.is_default)
-			foo := "foo"
-			assert(not foo.is_default)
-		end
+   make is
+      local
+         foo: STRING; i: INTEGER
+      do
+         assert(0.is_default)
+         assert(not 1.is_default)
+         assert(i.is_default)
+         i := 1
+         assert(not i.is_default)
+         foo := "foo"
+         assert(not foo.is_default)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_IS_DEFAULT1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_IS_DEFAULT1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IS_DEFAULT1
 --

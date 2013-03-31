@@ -2,15 +2,15 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_ROOT6
-	-- From sz:473
+   -- From sz:473
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		once -- Root procedure must not be a once procedure.
-		end
+   main is
+      once -- Root procedure must not be a once procedure.
+      end
 
 end -- class BAD_ROOT6
 --

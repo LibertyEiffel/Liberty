@@ -4,32 +4,32 @@
 class TEST_REVERSE_QUICKSORT3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tab: ARRAY[STRING]; s: REVERSE_COLLECTION_SORTER[STRING]
-		do
-			tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
-			s.quick_sort(tab)
-			assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc" >> }))
-			tab.add_last("+fr")
-			s.quick_sort(tab)
-			assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
-		end
+   make is
+      local
+         tab: ARRAY[STRING]; s: REVERSE_COLLECTION_SORTER[STRING]
+      do
+         tab := {ARRAY[STRING] 1, << "try", "test1", "test3", "abc", "hello world" >> }
+         s.quick_sort(tab)
+         assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc" >> }))
+         tab.add_last("+fr")
+         s.quick_sort(tab)
+         assert(tab.is_equal_map({ARRAY[STRING] 1, << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REVERSE_QUICK_SORT3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REVERSE_QUICK_SORT3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REVERSE_QUICKSORT3
 --

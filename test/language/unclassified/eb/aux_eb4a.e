@@ -4,19 +4,19 @@
 class AUX_EB4A
 
 feature {ANY}
-	f_count: INTEGER
+   f_count: INTEGER
 
-	g_count: INTEGER
+   g_count: INTEGER
 
-	f is
-		do
-			f_count := f_count + 1
-		end
+   f is
+      do
+         f_count := f_count + 1
+      end
 
-	g is
-		do
-			g_count := g_count + 1
-		end
+   g is
+      do
+         g_count := g_count + 1
+      end
 
 end -- class AUX_EB4A
 --

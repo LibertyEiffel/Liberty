@@ -4,19 +4,19 @@
 class TEST_JVM28
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x: INTEGER
+   x: INTEGER
 
-	make is
-		local
-			v: INTEGER; s: STRING
-		do
-			x := 1
-			v := x
-			s := "foo"
-		end
+   make is
+      local
+         v: INTEGER; s: STRING
+      do
+         x := 1
+         v := x
+         s := "foo"
+      end
 
 end -- class TEST_JVM28
 --

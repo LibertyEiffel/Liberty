@@ -4,7 +4,7 @@
 expanded class AUX_ALG08EXP
 
 feature {ANY}
-	i: INTEGER -- So that this class is not "dummy expanded"
+   i: INTEGER -- So that this class is not "dummy expanded"
 
 end -- class AUX_ALG08EXP
 --

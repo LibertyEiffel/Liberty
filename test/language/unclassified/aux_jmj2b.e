@@ -4,12 +4,12 @@
 class AUX_JMJ2B[T]
 
 inherit
-	AUX_JMJ2A[ARRAY[T]]
-		redefine container
-		end
+   AUX_JMJ2A[ARRAY[T]]
+      redefine container
+      end
 
 feature {ANY}
-	container: ARRAY[ARRAY[T]]
+   container: ARRAY[ARRAY[T]]
 
 end -- class AUX_JMJ2B
 --

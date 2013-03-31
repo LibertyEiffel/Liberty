@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_06
-	-- SZ:175: Second attempt to reproduce the bug.
+   -- SZ:175: Second attempt to reproduce the bug.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			o: AUX_05B; bool: BOOLEAN
-		do
-			if bool then
-				c_prog(o)
-			end
-		end
+   make is
+      local
+         o: AUX_05B; bool: BOOLEAN
+      do
+         if bool then
+            c_prog(o)
+         end
+      end
 
-	c_prog (o: AUX_05B) is
-		external "C"
-		end
+   c_prog (o: AUX_05B) is
+      external "C"
+      end
 
 end -- class TEST_06
 --

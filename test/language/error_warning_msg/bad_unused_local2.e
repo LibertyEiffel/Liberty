@@ -3,17 +3,17 @@
 --
 class BAD_UNUSED_LOCAL2
 -- To check that we are warned when some local is not used.
-	
+   
 creation
-	make
-	
+   make
+   
 feature
-	make is
-		local
-			unused: AUX_UNUSED_LOCAL2
-		do
-		end
-	
+   make is
+      local
+         unused: AUX_UNUSED_LOCAL2
+      do
+      end
+   
 end -- class BAD_UNUSED_LOCAL2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

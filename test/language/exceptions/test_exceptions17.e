@@ -4,81 +4,81 @@
 class TEST_EXCEPTIONS17
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	i: INTEGER
+   i: INTEGER
 
-	make is
-		do
-			make2
-			inspect
-				require_count
-			when 0, 1 then
-				is_true(body_count = 1)
-				is_true(ensure_count = 0)
-				is_true(rescue_count = 0)
-			when 2 then
-				is_true(body_count = 2)
-				is_true(ensure_count = 2)
-				is_true(rescue_count = 1)
-			else
-				is_true(False)
-			end
-		end
+   make is
+      do
+         make2
+         inspect
+            require_count
+         when 0, 1 then
+            is_true(body_count = 1)
+            is_true(ensure_count = 0)
+            is_true(rescue_count = 0)
+         when 2 then
+            is_true(body_count = 2)
+            is_true(ensure_count = 2)
+            is_true(rescue_count = 1)
+         else
+            is_true(False)
+         end
+      end
 
-	make2 is
-		require
-			increment_require_count
-		do
-			body_count := body_count + 1
-		ensure
-			increment_ensure_count
-			i /= 0
-		rescue
-			rescue_count := rescue_count + 1
-			i := 1
-			retry
-		end
+   make2 is
+      require
+         increment_require_count
+      do
+         body_count := body_count + 1
+      ensure
+         increment_ensure_count
+         i /= 0
+      rescue
+         rescue_count := rescue_count + 1
+         i := 1
+         retry
+      end
 
-	body_count: INTEGER
+   body_count: INTEGER
 
-	rescue_count: INTEGER
+   rescue_count: INTEGER
 
-	increment_require_count: BOOLEAN is
-		do
-			require_count := require_count + 1
-			Result := True
-		end
+   increment_require_count: BOOLEAN is
+      do
+         require_count := require_count + 1
+         Result := True
+      end
 
-	require_count: INTEGER
+   require_count: INTEGER
 
-	increment_ensure_count: BOOLEAN is
-		do
-			ensure_count := ensure_count + 1
-			Result := True
-		end
+   increment_ensure_count: BOOLEAN is
+      do
+         ensure_count := ensure_count + 1
+         Result := True
+      end
 
-	ensure_count: INTEGER
+   ensure_count: INTEGER
 
 feature {ANY}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				crash
-				std_output.put_string("TEST_EXCEPTION17: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            crash
+            std_output.put_string("TEST_EXCEPTION17: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS17
 --

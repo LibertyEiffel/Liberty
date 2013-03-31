@@ -4,12 +4,12 @@
 class BAD_RENAME3
 
 inherit
-	AUX_RENAME3
-		rename do_nothing as print
-		end
+   AUX_RENAME3
+      rename do_nothing as print
+      end
 
 creation {ANY}
-	default_create
+   default_create
 
 end -- class BAD_RENAME3
 --

@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SELECT1
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: AUX_SELECT1C
-		do
-			create c
-			c.f
-		end
+   make is
+      local
+         c: AUX_SELECT1C
+      do
+         create c
+         c.f
+      end
 
 end -- class TEST_SELECT1
 --

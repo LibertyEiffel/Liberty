@@ -4,16 +4,16 @@
 class TEST_DEFERRED2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: COLLECTION[INTEGER]
-		do
-			create {ARRAY[INTEGER]} c.make(1, 1)
-			c.put(1, 1)
-		end
+   make is
+      local
+         c: COLLECTION[INTEGER]
+      do
+         create {ARRAY[INTEGER]} c.make(1, 1)
+         c.put(1, 1)
+      end
 
 end -- class TEST_DEFERRED2
 --

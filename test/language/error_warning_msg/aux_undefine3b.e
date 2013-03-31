@@ -3,7 +3,7 @@
 --
 class AUX_UNDEFINE3B
 insert
-	ANY
+   ANY
 feature {ANY}
 
    frozen test is

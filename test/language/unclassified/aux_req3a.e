@@ -4,10 +4,10 @@
 class AUX_REQ3A
 
 feature {ANY}
-	f: AUX_REQ3B is
-		once
-			create Result
-		end
+   f: AUX_REQ3B is
+      once
+         create Result
+      end
 
 end -- class AUX_REQ3A
 --

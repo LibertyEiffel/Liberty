@@ -4,28 +4,28 @@
 class TEST_SIMPLIFY19
 
 inherit
-	AUX_SIMPLIFY19
+   AUX_SIMPLIFY19
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			aux_simplify19: AUX_SIMPLIFY19; boost_simplify19: TEST_SIMPLIFY19
-		do
-			if {like Current} ?:= Current then
-				assert(True)
-			else
-				c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY18 ***")
-			end
-			-- To confuse the ASSIGNMENT_HANDLER:
-			create aux_simplify19
-			boost_simplify19 := Current
-			aux_simplify19 := boost_simplify19
-			aux_simplify19_test
-			assert(assert_counter.value = 2)
-		end
+   make is
+      local
+         aux_simplify19: AUX_SIMPLIFY19; boost_simplify19: TEST_SIMPLIFY19
+      do
+         if {like Current} ?:= Current then
+            assert(True)
+         else
+            c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY18 ***")
+         end
+         -- To confuse the ASSIGNMENT_HANDLER:
+         create aux_simplify19
+         boost_simplify19 := Current
+         aux_simplify19 := boost_simplify19
+         aux_simplify19_test
+         assert(assert_counter.value = 2)
+      end
 
 end -- class TEST_SIMPLIFY19
 --

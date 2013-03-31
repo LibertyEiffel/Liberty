@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AS1
-	--
-	-- From a bug report of Adrian SIEBER.
-	--
+   --
+   -- From a bug report of Adrian SIEBER.
+   --
 
 inherit
-	AUX_AS1_ANY
+   AUX_AS1_ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: AUX_AS1_A[AUX_AS1_E]
+   a: AUX_AS1_A[AUX_AS1_E]
 
-	e: AUX_AS1_E
+   e: AUX_AS1_E
 
-	make is
-		do
-			create e
-			create a.make(e)
-			-- This is the good result :
-			-- ***   assert(("BEDBB").is_equal(a.stream));
-			assert(("BED").is_equal(a.stream))
-			-- This is the bad current result :
-			assert(not ("EEDEE").is_equal(a.stream))
-		end
+   make is
+      do
+         create e
+         create a.make(e)
+         -- This is the good result :
+         -- ***   assert(("BEDBB").is_equal(a.stream));
+         assert(("BED").is_equal(a.stream))
+         -- This is the bad current result :
+         assert(not ("EEDEE").is_equal(a.stream))
+      end
 
 end -- class TEST_AS1
 --

@@ -4,10 +4,10 @@
 class APPLE
 
 inherit
-	FRUIT
+   FRUIT
 
 creation {ANY}
-	make
+   make
 
 end -- class APPLE
 --

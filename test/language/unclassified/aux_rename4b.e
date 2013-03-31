@@ -4,9 +4,9 @@
 class AUX_RENAME4B
 
 inherit
-	AUX_RENAME4A
-		rename mema as memb
-		end
+   AUX_RENAME4A
+      rename mema as memb
+      end
 
 end -- class AUX_RENAME4B
 --

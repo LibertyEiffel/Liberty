@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER19
-	-- tests on "to_integer"
+   -- tests on "to_integer"
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(0)
-			assert(n.to_integer_32 = 0)
-			n := from_integer(1)
-			assert(n.to_integer_32 = 1)
-			n := from_integer(-1)
-			assert(n.to_integer_32 = -1)
-			n := from_integer(Maximum_integer)
-			assert(n.to_integer_32 = Maximum_integer)
-			n := from_integer(Minimum_integer)
-			assert(n.to_integer_32 = Minimum_integer)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(0)
+         assert(n.to_integer_32 = 0)
+         n := from_integer(1)
+         assert(n.to_integer_32 = 1)
+         n := from_integer(-1)
+         assert(n.to_integer_32 = -1)
+         n := from_integer(Maximum_integer)
+         assert(n.to_integer_32 = Maximum_integer)
+         n := from_integer(Minimum_integer)
+         assert(n.to_integer_32 = Minimum_integer)
+      end
 
 
 

@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG15
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f (i: INTEGER): AUX_EG15B[INTEGER] is
-		do
-			Result.put(0, i)
-		end
+   f (i: INTEGER): AUX_EG15B[INTEGER] is
+      do
+         Result.put(0, i)
+      end
 
-	make is
-		local
-			b: BOOLEAN
-		do
-			if b then
-				--	    print(f(1))
-			end
-		end
+   make is
+      local
+         b: BOOLEAN
+      do
+         if b then
+            --       print(f(1))
+         end
+      end
 
 end -- class TEST_EG15
 --

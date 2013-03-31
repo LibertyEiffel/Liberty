@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TAG1
-	--
-	-- From a bug report of Franck ARNAUD
-	--
+   --
+   -- From a bug report of Franck ARNAUD
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		ensure
-			comment: --
-		end
+   make is
+      do
+      ensure
+         comment: --
+      end
 
 end -- class TEST_TAG1
 --

@@ -7,13 +7,13 @@ feature
 
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect
-	    i
-	 when 1, 2 then
-	 when 1 then -- Second occurrence !
-	 end
+    inspect
+       i
+    when 1, 2 then
+    when 1 then -- Second occurrence !
+    end
       end
 end -- class BAD_INSPECT7
 --

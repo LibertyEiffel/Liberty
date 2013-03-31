@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG04
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 inherit
-	AUX_ALG04
-		rename b as e
-		end
+   AUX_ALG04
+      rename b as e
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				e.print_on(std_output)
-				print("%N")
-			end
-		end
+   make is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            e.print_on(std_output)
+            print("%N")
+         end
+      end
 
 end -- class TEST_ALG04
 --

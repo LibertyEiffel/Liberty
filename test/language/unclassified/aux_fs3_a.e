@@ -4,16 +4,16 @@
 class AUX_FS3_A[X -> AUX_FS3_B]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f: X
+   f: X
 
-	make (vf: like f) is
-		do
-			f := vf
-			f.q
-		end
+   make (vf: like f) is
+      do
+         f := vf
+         f.q
+      end
 
 end -- class AUX_FS3_A
 --

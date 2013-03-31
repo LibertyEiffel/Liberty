@@ -4,18 +4,18 @@
 class BAD_EXPORT9
 
 inherit
-	ANY
-		export {ANY} some_unknown_feature
-		end
+   ANY
+      export {ANY} some_unknown_feature
+      end
 
 create
-	make
+   make
 
 feature
-	make is
-		do
-		end
-	
+   make is
+      do
+      end
+   
 end -- class BAD_EXPORT9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

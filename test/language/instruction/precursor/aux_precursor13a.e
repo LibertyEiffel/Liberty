@@ -4,13 +4,13 @@
 deferred class AUX_PRECURSOR13A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	init (i: INTEGER): INTEGER is
-		do
-			Result := 5 * i
-		end
+   init (i: INTEGER): INTEGER is
+      do
+         Result := 5 * i
+      end
 
 end -- class AUX_PRECURSOR13A
 --

@@ -2,43 +2,43 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR01
-	-- Written by Vincent CROIZIER.
+   -- Written by Vincent CROIZIER.
 
 inherit
-	AUX_PRECURSOR01
-		redefine make, class_number_in_trace, class_number, times_class_number, affine_class_number_in_trace
-		end
+   AUX_PRECURSOR01
+      redefine make, class_number_in_trace, class_number, times_class_number, affine_class_number_in_trace
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			class_number_in_trace
-		end
+   make is
+      do
+         class_number_in_trace
+      end
 
-	class_number: INTEGER is
-		do
-			Result := Precursor {AUX_PRECURSOR01}  + 1
-		end
+   class_number: INTEGER is
+      do
+         Result := Precursor {AUX_PRECURSOR01}  + 1
+      end
 
-	class_number_in_trace is
-		do
-			Precursor
-			trace := trace + 1
-		end
+   class_number_in_trace is
+      do
+         Precursor
+         trace := trace + 1
+      end
 
-	times_class_number (x: INTEGER): INTEGER is
-		do
-			Result := Precursor(x) + x
-		end
+   times_class_number (x: INTEGER): INTEGER is
+      do
+         Result := Precursor(x) + x
+      end
 
-	affine_class_number_in_trace (x, y: INTEGER) is
-		do
-			Precursor(x, y)
-			trace := trace + x
-		end
+   affine_class_number_in_trace (x, y: INTEGER) is
+      do
+         Precursor(x, y)
+         trace := trace + x
+      end
 
 end -- class TEST_PRECURSOR01
 --

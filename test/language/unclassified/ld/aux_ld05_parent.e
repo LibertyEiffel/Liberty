@@ -4,10 +4,10 @@
 class AUX_LD05_PARENT
 
 feature {ANY}
-	expanded_object_once: AUX_LD05_EXPANDED is
-		once
-			Result.set_value(12)
-		end
+   expanded_object_once: AUX_LD05_EXPANDED is
+      once
+         Result.set_value(12)
+      end
 
 end -- class AUX_LD05_PARENT
 --

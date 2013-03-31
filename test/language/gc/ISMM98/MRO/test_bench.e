@@ -4,36 +4,36 @@
 class TEST_BENCH
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	array_of_array: ARRAY[ARRAY[INTEGER]]
+   array_of_array: ARRAY[ARRAY[INTEGER]]
 
-	timing: INTEGER is 2000
+   timing: INTEGER is 2000
 
-	make is
-		local
-			i, limit: INTEGER
-		do
-			limit := 1000000
-			create array_of_array.make(1, limit)
-			from
-				i := 1
-			until
-				i > limit
-			loop
-				array_of_array.put({ARRAY[INTEGER] 1, << i, 2 * i >> }, i)
-				i := i + 1
-			end
-			from
-				i := timing
-			until
-				i = 0
-			loop
-				array_of_array.put(Void, i)
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i, limit: INTEGER
+      do
+         limit := 1000000
+         create array_of_array.make(1, limit)
+         from
+            i := 1
+         until
+            i > limit
+         loop
+            array_of_array.put({ARRAY[INTEGER] 1, << i, 2 * i >> }, i)
+            i := i + 1
+         end
+         from
+            i := timing
+         until
+            i = 0
+         loop
+            array_of_array.put(Void, i)
+            i := i - 1
+         end
+      end
 
 end -- class TEST_BENCH
 --

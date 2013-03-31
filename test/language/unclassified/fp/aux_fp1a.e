@@ -4,14 +4,14 @@
 deferred class AUX_FP1A
 
 feature {ANY}
-	make is
-		do
-			init
-		end
+   make is
+      do
+         init
+      end
 
-	init is
-		deferred
-		end
+   init is
+      deferred
+      end
 
 end -- class AUX_FP1A
 --

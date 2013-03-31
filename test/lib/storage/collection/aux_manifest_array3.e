@@ -4,22 +4,22 @@
 class AUX_MANIFEST_ARRAY3
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	list: ARRAY[STRING]
-			-- The contents of the aux_manifest_array3.
+   list: ARRAY[STRING]
+         -- The contents of the aux_manifest_array3.
 
 feature {ANY}
-	make (l: ARRAY[STRING]) is
-		require
-			l /= Void
-			not l.is_empty
-		do
-			list := l
-		ensure
-			list = l
-		end
+   make (l: ARRAY[STRING]) is
+      require
+         l /= Void
+         not l.is_empty
+      do
+         list := l
+      ensure
+         list = l
+      end
 
 end -- class AUX_MANIFEST_ARRAY3
 --

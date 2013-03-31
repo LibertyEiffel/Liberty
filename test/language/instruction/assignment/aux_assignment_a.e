@@ -4,20 +4,20 @@
 deferred class AUX_ASSIGNMENT_A
 
 feature {ANY}
-	x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
-		deferred
-		end
+   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
+      deferred
+      end
 
-	with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_B is
-		deferred
-		end
+   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_B is
+      deferred
+      end
 
-	value: INTEGER
+   value: INTEGER
 
-	set_value (v: INTEGER) is
-		do
-			value := v
-		end
+   set_value (v: INTEGER) is
+      do
+         value := v
+      end
 
 end -- class AUX_ASSIGNMENT_A
 --

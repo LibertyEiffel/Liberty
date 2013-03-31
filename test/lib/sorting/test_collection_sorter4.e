@@ -4,45 +4,45 @@
 class TEST_COLLECTION_SORTER4
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			sorter: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
-		do
-			create a.make(1, 0)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 2)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 3)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 1)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 1)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 3)
-			assert(sorter.is_sorted(a))
-			sorter.add(a, 2)
-			assert(sorter.is_sorted(a))
-			check
-				sorter.is_sorted({ARRAY[INTEGER] 1, << 1, 2, 3 >> })
-			end
-		end
+   make is
+      local
+         sorter: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
+      do
+         create a.make(1, 0)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 2)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 3)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 1)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 1)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 3)
+         assert(sorter.is_sorted(a))
+         sorter.add(a, 2)
+         assert(sorter.is_sorted(a))
+         check
+            sorter.is_sorted({ARRAY[INTEGER] 1, << 1, 2, 3 >> })
+         end
+      end
 
-	compteur: INTEGER -- Pour numeroter les tests.
+   compteur: INTEGER -- Pour numeroter les tests.
 
-	assert (bool: BOOLEAN) is
-		do
-			compteur := compteur + 1
-			if not bool then
-				std_error.put_string("*** ERREUR TEST_COLLECTION_SORTER4 test No ")
-				std_error.put_integer(compteur)
-				std_error.put_string("***%N")
-				sedb_breakpoint
-				die_with_code(exit_failure_code)
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         compteur := compteur + 1
+         if not bool then
+            std_error.put_string("*** ERREUR TEST_COLLECTION_SORTER4 test No ")
+            std_error.put_integer(compteur)
+            std_error.put_string("***%N")
+            sedb_breakpoint
+            die_with_code(exit_failure_code)
+         end
+      end
 
 end -- class TEST_COLLECTION_SORTER4
 --

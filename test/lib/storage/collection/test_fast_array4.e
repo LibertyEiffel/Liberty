@@ -4,36 +4,36 @@
 class TEST_FAST_ARRAY4
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			fa2: FAST_ARRAY2[INTEGER]
-		do
-			create fa2.from_model({ARRAY[ARRAY[INTEGER]] 1, << {ARRAY[INTEGER] 1, << 1, 2, 3 >> }, {ARRAY[INTEGER] 1, << 4, 5, 6 >> } >> })
-			assert(fa2.item(0, 0) = 1)
-			assert(fa2.item(0, 1) = 2)
-			assert(fa2.item(0, 2) = 3)
-			assert(fa2.item(1, 0) = 4)
-			assert(fa2.item(1, 1) = 5)
-			assert(fa2.item(1, 2) = 6)
-			create fa2.from_collection2(fa2)
-			assert(fa2.item(0, 0) = 1)
-			assert(fa2.item(0, 1) = 2)
-			assert(fa2.item(0, 2) = 3)
-			assert(fa2.item(1, 0) = 4)
-			assert(fa2.item(1, 1) = 5)
-			assert(fa2.item(1, 2) = 6)
-			fa2 := fa2.sub_collection2(0, 1, 0, 1)
-			assert(fa2.item(0, 0) = 1)
-			assert(fa2.item(0, 1) = 2)
-			assert(fa2.item(1, 0) = 4)
-			assert(fa2.item(1, 1) = 5)
-		end
+   make is
+      local
+         fa2: FAST_ARRAY2[INTEGER]
+      do
+         create fa2.from_model({ARRAY[ARRAY[INTEGER]] 1, << {ARRAY[INTEGER] 1, << 1, 2, 3 >> }, {ARRAY[INTEGER] 1, << 4, 5, 6 >> } >> })
+         assert(fa2.item(0, 0) = 1)
+         assert(fa2.item(0, 1) = 2)
+         assert(fa2.item(0, 2) = 3)
+         assert(fa2.item(1, 0) = 4)
+         assert(fa2.item(1, 1) = 5)
+         assert(fa2.item(1, 2) = 6)
+         create fa2.from_collection2(fa2)
+         assert(fa2.item(0, 0) = 1)
+         assert(fa2.item(0, 1) = 2)
+         assert(fa2.item(0, 2) = 3)
+         assert(fa2.item(1, 0) = 4)
+         assert(fa2.item(1, 1) = 5)
+         assert(fa2.item(1, 2) = 6)
+         fa2 := fa2.sub_collection2(0, 1, 0, 1)
+         assert(fa2.item(0, 0) = 1)
+         assert(fa2.item(0, 1) = 2)
+         assert(fa2.item(1, 0) = 4)
+         assert(fa2.item(1, 1) = 5)
+      end
 
 end -- class TEST_FAST_ARRAY4
 --

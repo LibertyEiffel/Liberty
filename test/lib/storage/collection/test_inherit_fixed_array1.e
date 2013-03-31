@@ -4,36 +4,36 @@
 class TEST_INHERIT_FIXED_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_INHERIT_FIXED_ARRAY1
-		do
-			create aux.make(3)
-			assert(aux.item(0) = 0.0)
-			assert(aux.item(1) = 0.0)
-			assert(aux.item(2) = 0.0)
-			aux.set_all_with(1.5)
-			assert(aux.item(0) = 1.5)
-			assert(aux.item(1) = 1.5)
-			assert(aux.item(2) = 1.5)
-		end
+   make is
+      local
+         aux: AUX_INHERIT_FIXED_ARRAY1
+      do
+         create aux.make(3)
+         assert(aux.item(0) = 0.0)
+         assert(aux.item(1) = 0.0)
+         assert(aux.item(2) = 0.0)
+         aux.set_all_with(1.5)
+         assert(aux.item(0) = 1.5)
+         assert(aux.item(1) = 1.5)
+         assert(aux.item(2) = 1.5)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT_FIXED_ARRAY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT_FIXED_ARRAY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INHERIT_FIXED_ARRAY1
 --

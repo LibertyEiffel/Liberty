@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER65
-	-- tests on "sqrt"
+   -- tests on "sqrt"
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1: NUMBER
-		do
-			n1 := from_integer(0)
-			assert(n1.sqrt = 0)
-			n1 := from_integer(1)
-			assert(n1.sqrt = 1)
-			n1 := from_integer(9)
-			assert(n1.sqrt = 3)
-			n1 := from_string("1/16")
-			assert(n1.sqrt = 0.25)
-			assert((n1 @^ 2).sqrt = 0.0625)
-		end
+   make is
+      local
+         n1: NUMBER
+      do
+         n1 := from_integer(0)
+         assert(n1.sqrt = 0)
+         n1 := from_integer(1)
+         assert(n1.sqrt = 1)
+         n1 := from_integer(9)
+         assert(n1.sqrt = 3)
+         n1 := from_string("1/16")
+         assert(n1.sqrt = 0.25)
+         assert((n1 @^ 2).sqrt = 0.0625)
+      end
 
 
 

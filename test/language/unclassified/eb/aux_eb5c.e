@@ -4,12 +4,12 @@
 deferred class AUX_EB5C
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	f is
-		deferred
-		end
+   f is
+      deferred
+      end
 
 end -- class AUX_EB5C
 --

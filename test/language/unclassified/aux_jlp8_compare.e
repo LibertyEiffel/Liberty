@@ -4,16 +4,16 @@
 class AUX_JLP8_COMPARE[E]
 
 inherit
-	AUX_JLP8_CROSS[E, E, BOOLEAN]
+   AUX_JLP8_CROSS[E, E, BOOLEAN]
 
 creation {ANY}
-	attach
+   attach
 
 feature {ANY}
-	cross_operation (e, f: E): BOOLEAN is
-		do
-			Result := e.is_equal(f)
-		end
+   cross_operation (e, f: E): BOOLEAN is
+      do
+         Result := e.is_equal(f)
+      end
 
 end -- class AUX_JLP8_COMPARE
 --

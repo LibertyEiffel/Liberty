@@ -4,21 +4,21 @@
 class BAD_INHERIT18
 
 inherit
-	AUX_INHERIT18A
+   AUX_INHERIT18A
 
 insert
-	AUX_INHERIT18B
+   AUX_INHERIT18B
 
 
 creation
-	make
-	
+   make
+   
 feature
-	make is
-		do
-			an_attribute := 1 -- No more attribute here !
-		end
-	
+   make is
+      do
+         an_attribute := 1 -- No more attribute here !
+      end
+   
 end -- class BAD_INHERIT18
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

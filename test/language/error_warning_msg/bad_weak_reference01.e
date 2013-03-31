@@ -9,8 +9,8 @@ feature {NONE}
 
    make is
       local
-	 bwr: WEAK_REFERENCE[INTEGER]
-      do	 
+    bwr: WEAK_REFERENCE[INTEGER]
+      do    
       end
 end -- class BAD_WEAK_REFERENCE01
 --

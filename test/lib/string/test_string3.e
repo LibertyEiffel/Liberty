@@ -4,26 +4,26 @@
 class TEST_STRING3
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING; p: POINTER
-		do
-			p := ("foo").to_external
-			create s.from_external(p)
-			assert(s.count = 3)
-			assert(("foo").is_equal(s))
-			p := ("").to_external
-			create s.from_external(p)
-			assert(s.count = 0)
-			assert(("").is_equal(s))
-			assert(("AbCdeFZ+").same_as("abcdefz+"))
-		end
+   make is
+      local
+         s: STRING; p: POINTER
+      do
+         p := ("foo").to_external
+         create s.from_external(p)
+         assert(s.count = 3)
+         assert(("foo").is_equal(s))
+         p := ("").to_external
+         create s.from_external(p)
+         assert(s.count = 0)
+         assert(("").is_equal(s))
+         assert(("AbCdeFZ+").same_as("abcdefz+"))
+      end
 
 end -- class TEST_STRING3
 --

@@ -4,37 +4,37 @@
 class TEST_EXEC05
 
 insert
-	ARGUMENTS
-	EIFFELTEST_TOOLS
+   ARGUMENTS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			pf: PROCESS_FACTORY; p: PROCESS
-		do
-			if argument_count = 1 then
-				p := pf.create_process
-				process_group := p.group
-				p := run_process(p)
-				p := run_process(p)
-				p := run_process(p)
-				assert(process_group.wait = Void)
-			end
-		end
+   make is
+      local
+         pf: PROCESS_FACTORY; p: PROCESS
+      do
+         if argument_count = 1 then
+            p := pf.create_process
+            process_group := p.group
+            p := run_process(p)
+            p := run_process(p)
+            p := run_process(p)
+            assert(process_group.wait = Void)
+         end
+      end
 
-	run_process (process: PROCESS): PROCESS is
-		do
-			process.execute(argument(0),
-			<< once "arg">>, True)
-			assert(process.is_connected)
-			Result := process_group.wait
-			assert(Result = process)
-		end
+   run_process (process: PROCESS): PROCESS is
+      do
+         process.execute(argument(0),
+         << once "arg">>, True)
+         assert(process.is_connected)
+         Result := process_group.wait
+         assert(Result = process)
+      end
 
-	process_group: PROCESS_GROUP
+   process_group: PROCESS_GROUP
 
 end -- class TEST_EXEC05
 --

@@ -4,24 +4,24 @@
 class BAD_AGENT25
 
 creation
-	main
-	
+   main
+   
 feature {ANY}
-	main is
-		do
-			f(agent ?.g(3))
-		end
+   main is
+      do
+         f(agent ?.g(3))
+      end
 
-	f (p: ROUTINE[TUPLE[INTEGER]]) is
-		do
-			p.call([{INTEGER 3 }, Void])
-		end
+   f (p: ROUTINE[TUPLE[INTEGER]]) is
+      do
+         p.call([{INTEGER 3 }, Void])
+      end
 
-	g (i: INTEGER) is
-		do
-			if i.out = Void then
-			end
-		end
+   g (i: INTEGER) is
+      do
+         if i.out = Void then
+         end
+      end
 
 end -- class BAD_AGENT25
 --

@@ -4,12 +4,12 @@
 class AUX_FA4B2
 
 feature {ANY}
-	autre: STRING
+   autre: STRING
 
-	init_autre is
-		do
-			autre := "autre"
-		end
+   init_autre is
+      do
+         autre := "autre"
+      end
 
 end -- class AUX_FA4B2
 --

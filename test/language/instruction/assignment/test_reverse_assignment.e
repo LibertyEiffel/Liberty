@@ -4,50 +4,50 @@
 class TEST_REVERSE_ASSIGNMENT
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	string: STRING
+   string: STRING
 
-	animal: ANIMAL
+   animal: ANIMAL
 
-	cat: CAT
+   cat: CAT
 
-	dog: DOG
+   dog: DOG
 
-	any: ANY
+   any: ANY
 
-	array_integer: ARRAY[INTEGER]
+   array_integer: ARRAY[INTEGER]
 
-	array_any: ARRAY[ANY]
+   array_any: ARRAY[ANY]
 
-	make is
-		do
-			any := "foo"
-			assert(any /= Void)
-			string ?= any
-			assert(string /= Void)
-			assert(any = string)
-			cat ?= any
-			assert(cat = Void)
-			create cat
-			any := cat
-			assert(cat = any)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** dog ?= any
-			assert(dog = Void)
-			cat ?= any
-			assert(cat = any)
-			animal := cat
-			cat ?= animal
-			assert(cat = animal)
-			assert(cat /= Void)
-			animal := Void
-			cat ?= animal
-			assert(cat = Void)
-		end
+   make is
+      do
+         any := "foo"
+         assert(any /= Void)
+         string ?= any
+         assert(string /= Void)
+         assert(any = string)
+         cat ?= any
+         assert(cat = Void)
+         create cat
+         any := cat
+         assert(cat = any)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** dog ?= any
+         assert(dog = Void)
+         cat ?= any
+         assert(cat = any)
+         animal := cat
+         cat ?= animal
+         assert(cat = animal)
+         assert(cat /= Void)
+         animal := Void
+         cat ?= animal
+         assert(cat = Void)
+      end
 
 end -- class TEST_REVERSE_ASSIGNMENT
 --

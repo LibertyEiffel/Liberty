@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GD1
-	-- From: Garth Dighton <gdighton@versant.com>
+   -- From: Garth Dighton <gdighton@versant.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	generic_array: ARRAY[ANY]
+   generic_array: ARRAY[ANY]
 
-	bit_array: ARRAY[INTEGER_32]
+   bit_array: ARRAY[INTEGER_32]
 
 feature {ANY} -- Creation
-	make is
-		local
-			thingy: STRING
-		do
-			create generic_array.make(1, 50)
-			create bit_array.make(1, 32)
-			create thingy.copy("TestThingy")
-			generic_array.add_last(thingy)
-		end
+   make is
+      local
+         thingy: STRING
+      do
+         create generic_array.make(1, 50)
+         create bit_array.make(1, 32)
+         create thingy.copy("TestThingy")
+         generic_array.add_last(thingy)
+      end
 
 end -- class TEST_GD1
 --

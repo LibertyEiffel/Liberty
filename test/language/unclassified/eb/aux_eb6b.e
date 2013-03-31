@@ -4,9 +4,9 @@
 deferred class AUX_EB6B
 
 feature {ANY}
-	foo is
-		deferred
-		end
+   foo is
+      deferred
+      end
 
 end -- class AUX_EB6B
 --

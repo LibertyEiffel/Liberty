@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_XC4
-	--
-	-- From a bug report of Xavier CREGUT
-	--
+   --
+   -- From a bug report of Xavier CREGUT
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: AUX_XC4_C
-		do
-			create c
-			assert(c.f = 'B')
-		end
+   make is
+      local
+         c: AUX_XC4_C
+      do
+         create c
+         assert(c.f = 'B')
+      end
 
 end -- class TEST_XC4
 --

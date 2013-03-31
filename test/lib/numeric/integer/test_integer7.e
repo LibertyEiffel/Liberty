@@ -2,113 +2,113 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INTEGER7
-	--
-	-- Test of bit_test.
-	--
+   --
+   -- Test of bit_test.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a8: INTEGER_8
-		do
-			assert((0xFF).bit_test(0))
-			assert((0xFF).bit_test(1))
-			assert((0xFF).bit_test(2))
-			assert((0xFF).bit_test(3))
-			assert((0xFF).bit_test(4))
-			assert((0xFF).bit_test(5))
-			assert((0xFF).bit_test(6))
-			assert((0xFF).bit_test(7))
-			a8 := 0xff
-			assert(a8.bit_test(0))
-			assert(a8.bit_test(1))
-			assert(a8.bit_test(2))
-			assert(a8.bit_test(3))
-			assert(a8.bit_test(4))
-			assert(a8.bit_test(5))
-			assert(a8.bit_test(6))
-			assert(a8.bit_test(7))
-			assert((0x01).bit_test(0))
-			assert((0x01).bit_test(1) = False)
-			assert((0x01).bit_test(2) = False)
-			assert((0x01).bit_test(3) = False)
-			assert((0x01).bit_test(4) = False)
-			assert((0x01).bit_test(5) = False)
-			assert((0x01).bit_test(6) = False)
-			assert((0x01).bit_test(7) = False)
-			assert((0x02).bit_test(0) = False)
-			assert((0x02).bit_test(1))
-			assert((0x02).bit_test(2) = False)
-			assert((0x02).bit_test(3) = False)
-			assert((0x02).bit_test(4) = False)
-			assert((0x02).bit_test(5) = False)
-			assert((0x02).bit_test(6) = False)
-			assert((0x02).bit_test(7) = False)
-			assert((0x0002).bit_test(0) = False)
-			assert((0x0002).bit_test(1))
-			assert((0x0002).bit_test(2) = False)
-			assert((0x0002).bit_test(3) = False)
-			assert((0x0002).bit_test(4) = False)
-			assert((0x0002).bit_test(5) = False)
-			assert((0x0002).bit_test(6) = False)
-			assert((0x0002).bit_test(7) = False)
-			assert((0x0002).bit_test(8) = False)
-			assert((0x0002).bit_test(9) = False)
-			assert((0x0002).bit_test(10) = False)
-			assert((0x0002).bit_test(11) = False)
-			assert((0x0002).bit_test(12) = False)
-			assert((0x0002).bit_test(13) = False)
-			assert((0x0002).bit_test(14) = False)
-			assert((0x0002).bit_test(15) = False)
-			assert((0x0080).bit_test(0) = False)
-			assert((0x0080).bit_test(1) = False)
-			assert((0x0080).bit_test(2) = False)
-			assert((0x0080).bit_test(3) = False)
-			assert((0x0080).bit_test(4) = False)
-			assert((0x0080).bit_test(5) = False)
-			assert((0x0080).bit_test(6) = False)
-			assert((0x0080).bit_test(7))
-			assert((0x0080).bit_test(8) = False)
-			assert((0x0080).bit_test(9) = False)
-			assert((0x0080).bit_test(10) = False)
-			assert((0x0080).bit_test(11) = False)
-			assert((0x0080).bit_test(12) = False)
-			assert((0x0080).bit_test(13) = False)
-			assert((0x0080).bit_test(14) = False)
-			assert((0x0080).bit_test(15) = False)
-			assert((0x8000).bit_test(0) = False)
-			assert((0x8000).bit_test(1) = False)
-			assert((0x8000).bit_test(2) = False)
-			assert((0x8000).bit_test(3) = False)
-			assert((0x8000).bit_test(4) = False)
-			assert((0x8000).bit_test(5) = False)
-			assert((0x8000).bit_test(6) = False)
-			assert((0x8000).bit_test(7) = False)
-			assert((0x8000).bit_test(8) = False)
-			assert((0x8000).bit_test(9) = False)
-			assert((0x8000).bit_test(10) = False)
-			assert((0x8000).bit_test(11) = False)
-			assert((0x8000).bit_test(12) = False)
-			assert((0x8000).bit_test(13) = False)
-			assert((0x8000).bit_test(14) = False)
-			assert((0x8000).bit_test(15))
-		end
+   make is
+      local
+         a8: INTEGER_8
+      do
+         assert((0xFF).bit_test(0))
+         assert((0xFF).bit_test(1))
+         assert((0xFF).bit_test(2))
+         assert((0xFF).bit_test(3))
+         assert((0xFF).bit_test(4))
+         assert((0xFF).bit_test(5))
+         assert((0xFF).bit_test(6))
+         assert((0xFF).bit_test(7))
+         a8 := 0xff
+         assert(a8.bit_test(0))
+         assert(a8.bit_test(1))
+         assert(a8.bit_test(2))
+         assert(a8.bit_test(3))
+         assert(a8.bit_test(4))
+         assert(a8.bit_test(5))
+         assert(a8.bit_test(6))
+         assert(a8.bit_test(7))
+         assert((0x01).bit_test(0))
+         assert((0x01).bit_test(1) = False)
+         assert((0x01).bit_test(2) = False)
+         assert((0x01).bit_test(3) = False)
+         assert((0x01).bit_test(4) = False)
+         assert((0x01).bit_test(5) = False)
+         assert((0x01).bit_test(6) = False)
+         assert((0x01).bit_test(7) = False)
+         assert((0x02).bit_test(0) = False)
+         assert((0x02).bit_test(1))
+         assert((0x02).bit_test(2) = False)
+         assert((0x02).bit_test(3) = False)
+         assert((0x02).bit_test(4) = False)
+         assert((0x02).bit_test(5) = False)
+         assert((0x02).bit_test(6) = False)
+         assert((0x02).bit_test(7) = False)
+         assert((0x0002).bit_test(0) = False)
+         assert((0x0002).bit_test(1))
+         assert((0x0002).bit_test(2) = False)
+         assert((0x0002).bit_test(3) = False)
+         assert((0x0002).bit_test(4) = False)
+         assert((0x0002).bit_test(5) = False)
+         assert((0x0002).bit_test(6) = False)
+         assert((0x0002).bit_test(7) = False)
+         assert((0x0002).bit_test(8) = False)
+         assert((0x0002).bit_test(9) = False)
+         assert((0x0002).bit_test(10) = False)
+         assert((0x0002).bit_test(11) = False)
+         assert((0x0002).bit_test(12) = False)
+         assert((0x0002).bit_test(13) = False)
+         assert((0x0002).bit_test(14) = False)
+         assert((0x0002).bit_test(15) = False)
+         assert((0x0080).bit_test(0) = False)
+         assert((0x0080).bit_test(1) = False)
+         assert((0x0080).bit_test(2) = False)
+         assert((0x0080).bit_test(3) = False)
+         assert((0x0080).bit_test(4) = False)
+         assert((0x0080).bit_test(5) = False)
+         assert((0x0080).bit_test(6) = False)
+         assert((0x0080).bit_test(7))
+         assert((0x0080).bit_test(8) = False)
+         assert((0x0080).bit_test(9) = False)
+         assert((0x0080).bit_test(10) = False)
+         assert((0x0080).bit_test(11) = False)
+         assert((0x0080).bit_test(12) = False)
+         assert((0x0080).bit_test(13) = False)
+         assert((0x0080).bit_test(14) = False)
+         assert((0x0080).bit_test(15) = False)
+         assert((0x8000).bit_test(0) = False)
+         assert((0x8000).bit_test(1) = False)
+         assert((0x8000).bit_test(2) = False)
+         assert((0x8000).bit_test(3) = False)
+         assert((0x8000).bit_test(4) = False)
+         assert((0x8000).bit_test(5) = False)
+         assert((0x8000).bit_test(6) = False)
+         assert((0x8000).bit_test(7) = False)
+         assert((0x8000).bit_test(8) = False)
+         assert((0x8000).bit_test(9) = False)
+         assert((0x8000).bit_test(10) = False)
+         assert((0x8000).bit_test(11) = False)
+         assert((0x8000).bit_test(12) = False)
+         assert((0x8000).bit_test(13) = False)
+         assert((0x8000).bit_test(14) = False)
+         assert((0x8000).bit_test(15))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER7
 --

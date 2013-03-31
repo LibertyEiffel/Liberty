@@ -4,9 +4,9 @@
 deferred class AUX_ANCHOR10_PARENT[G]
 
 feature {ANY}
-	anchor: AUX_ANCHOR10_ABSTRACT[G] is
-		deferred
-		end
+   anchor: AUX_ANCHOR10_ABSTRACT[G] is
+      deferred
+      end
 
 end -- class AUX_ANCHOR10_PARENT
 --

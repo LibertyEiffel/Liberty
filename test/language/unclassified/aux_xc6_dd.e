@@ -4,15 +4,15 @@
 class AUX_XC6_DD[V -> AUX_XC6_AA]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (i: like item) is
-		do
-			item := i
-		end
+   make (i: like item) is
+      do
+         item := i
+      end
 
-	item: V
+   item: V
 
 end -- class AUX_XC6_DD
 --

@@ -4,55 +4,55 @@
 class AUX_INHERIT_ARRAY1[E]
 
 inherit
-	ARRAY[E]
-		rename make as array_make
-		end
+   ARRAY[E]
+      rename make as array_make
+      end
 
 creation {ANY}
-	make, array_make
+   make, array_make
 
 feature {ANY}
-	make (init: ARRAY[E]) is
-		local
-			i: INTEGER
-		do
-			from
-				array_make(init.lower, init.upper)
-				i := lower
-			until
-				i > upper
-			loop
-				put(init.item(i), i)
-				i := i + 1
-			end
-			assert(not is_empty)
-			assert(count = 3)
-			assert(init.lower = lower)
-			assert(init.upper = upper)
-			assert(init.count = count)
-			from
-				i := lower
-			until
-				i > upper
-			loop
-				assert(init.item(i) = item(i))
-				i := i + 1
-			end
-		end
+   make (init: ARRAY[E]) is
+      local
+         i: INTEGER
+      do
+         from
+            array_make(init.lower, init.upper)
+            i := lower
+         until
+            i > upper
+         loop
+            put(init.item(i), i)
+            i := i + 1
+         end
+         assert(not is_empty)
+         assert(count = 3)
+         assert(init.lower = lower)
+         assert(init.upper = upper)
+         assert(init.count = count)
+         from
+            i := lower
+         until
+            i > upper
+         loop
+            assert(init.item(i) = item(i))
+            i := i + 1
+         end
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT_ARRAY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT_ARRAY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class AUX_INHERIT_ARRAY1
 --

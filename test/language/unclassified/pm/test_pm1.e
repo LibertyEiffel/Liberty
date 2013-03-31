@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PM1
-	-- From: "Phil Malin" <phil.malin@iP3Systems.com>
+   -- From: "Phil Malin" <phil.malin@iP3Systems.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			apple: AUX_PM1APPLE; fr: AUX_PM1FRUIT
-		do
-			create {AUX_PM1APPLE} fr.make
-			apple ?= fr
-			if apple = Void then
-				std_output.put_string("ERROR in TEST_PM1 #1%N")
-			end
-		end
+   make is
+      local
+         apple: AUX_PM1APPLE; fr: AUX_PM1FRUIT
+      do
+         create {AUX_PM1APPLE} fr.make
+         apple ?= fr
+         if apple = Void then
+            std_output.put_string("ERROR in TEST_PM1 #1%N")
+         end
+      end
 
 end -- class TEST_PM1
 --

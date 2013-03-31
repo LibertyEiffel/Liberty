@@ -2,28 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_OLD2
-	-- From a bug report of Cyril ADRIAN
+   -- From a bug report of Cyril ADRIAN
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a1: INTEGER is 10
+   a1: INTEGER is 10
 
-	a2: INTEGER is 20
+   a2: INTEGER is 20
 
-	make is
-		local
-			i1, i2: AUX_OLD2
-		do
-			create i1.make(a1)
-			create i2.make(a2)
-			i2.copy(i1)
-			i2.add(a2)
-			check
-				i2.attrib = i1.attrib + a2
-			end
-		end
+   make is
+      local
+         i1, i2: AUX_OLD2
+      do
+         create i1.make(a1)
+         create i2.make(a2)
+         i2.copy(i1)
+         i2.add(a2)
+         check
+            i2.attrib = i1.attrib + a2
+         end
+      end
 
 end -- class TEST_OLD2
 --

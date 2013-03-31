@@ -7,22 +7,22 @@ class BAD_AGENT22
 --
 
 creation {ANY}
-	make
-	
+   make
+   
 feature {ANY}
-	fct (s: STRING): FAST_ARRAY[STRING] is
-		do
-			create Result.make(0)
-		ensure
-			Result.for_all(agent {STRING}.occurrences('%N').is_odd)
-		end
-	
-	make is
-		local
-			s: like fct
-		do
-			s := fct(once "")
-		end
+   fct (s: STRING): FAST_ARRAY[STRING] is
+      do
+         create Result.make(0)
+      ensure
+         Result.for_all(agent {STRING}.occurrences('%N').is_odd)
+      end
+   
+   make is
+      local
+         s: like fct
+      do
+         s := fct(once "")
+      end
 
 end -- class BAD_AGENT22
 --

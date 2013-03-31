@@ -4,14 +4,14 @@
 class BAD_IF3
 
 creation
-	main
+   main
 
 feature {}
    main is
       do
-			if Void then
-			end
-		end
+         if Void then
+         end
+      end
 
 end -- class BAD_IF3
 --

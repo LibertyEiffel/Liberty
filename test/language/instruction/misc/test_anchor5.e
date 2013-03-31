@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ANCHOR5
-	-- From a bug report of Jean-Lin PACHERIE
+   -- From a bug report of Jean-Lin PACHERIE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(1)
-			bar(c)
-		end
+   make is
+      do
+         foo(1)
+         bar(c)
+      end
 
-	foo (param: like c) is
-		do
-		end
+   foo (param: like c) is
+      do
+      end
 
-	bar (param: like b) is
-		do
-		end
+   bar (param: like b) is
+      do
+      end
 
-	a: INTEGER
+   a: INTEGER
 
-	b: like a
+   b: like a
 
-	c: like b
+   c: like b
 
 end -- class TEST_ANCHOR5
 --

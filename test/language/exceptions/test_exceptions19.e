@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXCEPTIONS19
-	-- From: alanz@ElectroSolv.co.za (Alan Zimmerman)
+   -- From: alanz@ElectroSolv.co.za (Alan Zimmerman)
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			sub1: AUX_EXCEPTION19SUB; sub2: AUX_EXCEPTION19SUB; counter: INTEGER
-		do
-			create {AUX_EXCEPTION19SUB1} sub1.make
-			create {AUX_EXCEPTION19SUB2} sub2.make
-			inspect
-				counter
-			when 0 then
-				call_sub(sub1)
-			when 1 then
-				call_sub(sub2)
-			else
-			end
-		rescue
-			counter := counter + 1
-			check
-				counter.in_range(1, 2)
-			end
-			retry
-		end
+   make is
+      local
+         sub1: AUX_EXCEPTION19SUB; sub2: AUX_EXCEPTION19SUB; counter: INTEGER
+      do
+         create {AUX_EXCEPTION19SUB1} sub1.make
+         create {AUX_EXCEPTION19SUB2} sub2.make
+         inspect
+            counter
+         when 0 then
+            call_sub(sub1)
+         when 1 then
+            call_sub(sub2)
+         else
+         end
+      rescue
+         counter := counter + 1
+         check
+            counter.in_range(1, 2)
+         end
+         retry
+      end
 
-	call_sub (sub: AUX_EXCEPTION19SUB) is
-		do
-			sub.cause_exception
-		end
+   call_sub (sub: AUX_EXCEPTION19SUB) is
+      do
+         sub.cause_exception
+      end
 
 end -- class TEST_EXCEPTIONS19
 --

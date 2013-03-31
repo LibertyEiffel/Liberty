@@ -4,33 +4,33 @@
 class TEST_PRECURSOR13
 
 inherit
-	AUX_PRECURSOR13A
-		redefine init
-		end
-	AUX_PRECURSOR13B
-		redefine init
-		end
+   AUX_PRECURSOR13A
+      redefine init
+      end
+   AUX_PRECURSOR13B
+      redefine init
+      end
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(init(1) = 50)
-		end
+   make is
+      do
+         assert(init(1) = 50)
+      end
 
-	init (i: INTEGER): INTEGER is
-		do
-			Result := Precursor {AUX_PRECURSOR13A} (i)
-			assert(Result = 5)
-			Result := Precursor {AUX_PRECURSOR13B} (Result)
-			assert(Result = 25)
-			Result := Result * 2
-		end
+   init (i: INTEGER): INTEGER is
+      do
+         Result := Precursor {AUX_PRECURSOR13A} (i)
+         assert(Result = 5)
+         Result := Precursor {AUX_PRECURSOR13B} (Result)
+         assert(Result = 25)
+         Result := Result * 2
+      end
 
 end -- class TEST_PRECURSOR13
 --

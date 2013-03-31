@@ -4,7 +4,7 @@
 expanded class AUX_EG11A[T]
 
 feature {ANY}
-	x: T
+   x: T
 
 end -- class AUX_EG11A
 --

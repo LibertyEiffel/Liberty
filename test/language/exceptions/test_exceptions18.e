@@ -4,47 +4,47 @@
 class TEST_EXCEPTIONS18
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	val: INTEGER
+   val: INTEGER
 
-	aux: AUX_EXCEPTIONS18A
+   aux: AUX_EXCEPTIONS18A
 
-	make is
-		local
-			counter: INTEGER
-		do
-			create aux.make(val)
-		rescue
-			is_true(Class_invariant = exception)
-			counter := counter + 1
-			val := val + 1
-			retry
-		end
+   make is
+      local
+         counter: INTEGER
+      do
+         create aux.make(val)
+      rescue
+         is_true(Class_invariant = exception)
+         counter := counter + 1
+         val := val + 1
+         retry
+      end
 
 feature {ANY}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				crash
-				std_output.put_string("TEST_EXCEPTION18: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            crash
+            std_output.put_string("TEST_EXCEPTION18: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 invariant
-	val = 2
-	val = aux.i
+   val = 2
+   val = aux.i
 
 end -- class TEST_EXCEPTIONS18
 --

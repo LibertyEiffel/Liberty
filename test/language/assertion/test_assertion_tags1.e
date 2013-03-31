@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSERTION_TAGS1
-	-- From : bstefani@synergyinc.com
+   -- From : bstefani@synergyinc.com
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		require
-			not_so_good: always_true
-			very_bab_idea: True
-		do
-			check
-				hi_men: True
-			end
-		end
+   make is
+      require
+         not_so_good: always_true
+         very_bab_idea: True
+      do
+         check
+            hi_men: True
+         end
+      end
 
-	always_true: BOOLEAN is
-		local
-			dummy: INTEGER
-		do
-			if dummy = 0 then
-				Result := True
-			end
-		end
+   always_true: BOOLEAN is
+      local
+         dummy: INTEGER
+      do
+         if dummy = 0 then
+            Result := True
+         end
+      end
 
 invariant
-	stupid: True
+   stupid: True
 
 end -- class TEST_ASSERTION_TAGS1
 --

@@ -2,45 +2,45 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR20
-	--
-	-- Written by Cyril Adrian
-	-- This bug shows a bad compilation when using both inspect and 
-	-- Precursor at the same time
-	--
-	-- test_precursor201.c: In function 'r25_P_26_find_string':
-	-- test_precursor201.c:1769: error: '_2' undeclared (first use in this function)
-	-- test_precursor201.c:1769: error: (Each undeclared identifier is reported only once
-	-- test_precursor201.c:1769: error: for each function it appears in.)
-	-- test_precursor201.c:1778: error: '_3' undeclared (first use in this function)
-	--
+   --
+   -- Written by Cyril Adrian
+   -- This bug shows a bad compilation when using both inspect and 
+   -- Precursor at the same time
+   --
+   -- test_precursor201.c: In function 'r25_P_26_find_string':
+   -- test_precursor201.c:1769: error: '_2' undeclared (first use in this function)
+   -- test_precursor201.c:1769: error: (Each undeclared identifier is reported only once
+   -- test_precursor201.c:1769: error: for each function it appears in.)
+   -- test_precursor201.c:1778: error: '_3' undeclared (first use in this function)
+   --
 
 inherit
-	AUX_PRECURSOR20
-		redefine
-			find_string
-		end
+   AUX_PRECURSOR20
+      redefine
+         find_string
+      end
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	find_string (string: STRING): BOOLEAN is
-		do
-			inspect string
-			when "dummy" then
-				Result := True
-			else
-				Result := Precursor(string)
-			end
-		end
+   find_string (string: STRING): BOOLEAN is
+      do
+         inspect string
+         when "dummy" then
+            Result := True
+         else
+            Result := Precursor(string)
+         end
+      end
 
-	make is
-		do
-			assert(find_string("dummy"))
-		end
+   make is
+      do
+         assert(find_string("dummy"))
+      end
 
 end -- class TEST_PRECURSOR19
 --

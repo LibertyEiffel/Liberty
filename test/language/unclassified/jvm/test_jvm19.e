@@ -4,76 +4,76 @@
 class TEST_JVM19
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	aa: RING_ARRAY[CHARACTER]
+   aa: RING_ARRAY[CHARACTER]
 
-	make is
-		local
-			cr: REFERENCE[CHARACTER]; a: ANY
-		do
-			assert('a' = 'a')
-			assert('a' < 'b')
-			assert('a' <= 'b')
-			assert('b' <= 'b')
-			assert('a'.to_upper = 'A')
-			assert('z'.to_upper = 'Z')
-			assert('+'.to_upper = '+')
-			assert('A'.to_lower = 'a')
-			assert('Z'.to_lower = 'z')
-			assert('+'.to_lower = '+')
-			assert('0'.is_digit)
-			assert('1'.is_digit)
-			assert('2'.is_digit)
-			assert('3'.is_digit)
-			assert('4'.is_digit)
-			assert('5'.is_digit)
-			assert('6'.is_digit)
-			assert('7'.is_digit)
-			assert('8'.is_digit)
-			assert('9'.is_digit)
-			assert(not 'x'.is_digit)
-			assert('0'.value = 0)
-			assert('1'.value = 1)
-			assert('2'.value = 2)
-			assert('3'.value = 3)
-			assert('4'.value = 4)
-			assert('5'.value = 5)
-			assert('6'.value = 6)
-			assert('7'.value = 7)
-			assert('8'.value = 8)
-			assert('9'.value = 9)
-			assert('a'.code = 97)
-			assert('z'.code = 122)
-			assert('A'.code = 65)
-			assert('Z'.code = 90)
-			create cr.set_item('x')
-			assert(cr.item = 'x')
-			a := create {REFERENCE[CHARACTER]}.set_item('x')
-			create aa.make(1, 1)
-			aa.put('a', 1)
-			assert('a' = aa.item(1))
-			assert('a'.is_equal(aa.item(1)))
-			assert('a'.is_equal(aa.item(1)))
-			assert(97 = aa.first.code)
-			assert(97 = aa.item(1).code)
-		end
+   make is
+      local
+         cr: REFERENCE[CHARACTER]; a: ANY
+      do
+         assert('a' = 'a')
+         assert('a' < 'b')
+         assert('a' <= 'b')
+         assert('b' <= 'b')
+         assert('a'.to_upper = 'A')
+         assert('z'.to_upper = 'Z')
+         assert('+'.to_upper = '+')
+         assert('A'.to_lower = 'a')
+         assert('Z'.to_lower = 'z')
+         assert('+'.to_lower = '+')
+         assert('0'.is_digit)
+         assert('1'.is_digit)
+         assert('2'.is_digit)
+         assert('3'.is_digit)
+         assert('4'.is_digit)
+         assert('5'.is_digit)
+         assert('6'.is_digit)
+         assert('7'.is_digit)
+         assert('8'.is_digit)
+         assert('9'.is_digit)
+         assert(not 'x'.is_digit)
+         assert('0'.value = 0)
+         assert('1'.value = 1)
+         assert('2'.value = 2)
+         assert('3'.value = 3)
+         assert('4'.value = 4)
+         assert('5'.value = 5)
+         assert('6'.value = 6)
+         assert('7'.value = 7)
+         assert('8'.value = 8)
+         assert('9'.value = 9)
+         assert('a'.code = 97)
+         assert('z'.code = 122)
+         assert('A'.code = 65)
+         assert('Z'.code = 90)
+         create cr.set_item('x')
+         assert(cr.item = 'x')
+         a := create {REFERENCE[CHARACTER]}.set_item('x')
+         create aa.make(1, 1)
+         aa.put('a', 1)
+         assert('a' = aa.item(1))
+         assert('a'.is_equal(aa.item(1)))
+         assert('a'.is_equal(aa.item(1)))
+         assert(97 = aa.first.code)
+         assert(97 = aa.item(1).code)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_JVM19: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_JVM19: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JVM19
 --

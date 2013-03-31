@@ -6,7 +6,7 @@ creation make
 feature
    my_t: T;
    foo: like Current is
-	 -- foo is the identity in fact
+    -- foo is the identity in fact
       local
          aa : AUX_GENERIC6[AUX_GENERIC6[T]]
       do

@@ -4,23 +4,23 @@
 class BAD_LIKE9
 
 creation
-	make
+   make
 
 feature
 
    make is
       local
-			a: AUX_LIKE8A; b: AUX_LIKE8B
+         a: AUX_LIKE8A; b: AUX_LIKE8B
       do
-			create a
-			create b
-			b := same_as(a)
+         create a
+         create b
+         b := same_as(a)
       end
-	
+   
    same_as(some: AUX_LIKE8B): like some is
       do
       end
-	
+   
 end -- class BAD_LIKE9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

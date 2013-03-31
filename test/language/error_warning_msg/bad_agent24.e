@@ -4,12 +4,12 @@
 class BAD_AGENT24
 
 creation
-	main
-	
+   main
+   
 feature {ANY}
    make is
       do
-			(agent proc(?)).call([Void])
+         (agent proc(?)).call([Void])
       end
 
    proc (c: CHARACTER) is

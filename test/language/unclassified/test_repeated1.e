@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_REPEATED1
-	-- Test for repeated inheritance with attributes duplication."
+   -- Test for repeated inheritance with attributes duplication."
 
 inherit
-	AUX_REPEATED1
-		rename value as min,
-			set_value as set_min
-		end
+   AUX_REPEATED1
+      rename value as min,
+         set_value as set_min
+      end
 
 insert
-	EIFFELTEST_TOOLS
-	AUX_REPEATED1
-		rename value as max,
-			set_value as set_max
-		end
+   EIFFELTEST_TOOLS
+   AUX_REPEATED1
+      rename value as max,
+         set_value as set_max
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			set_min(2)
-			set_max(5)
-			assert(min = 2)
-			assert(max = 5)
-		end
+   make is
+      do
+         set_min(2)
+         set_max(5)
+         assert(min = 2)
+         assert(max = 5)
+      end
 
 end -- class TEST_REPEATED1
 --

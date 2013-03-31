@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PD03
-	-- From a bug report of Patrick Doyle
+   -- From a bug report of Patrick Doyle
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER_8]; bool: BOOLEAN
-		do
-			a := {ARRAY[INTEGER_8] 1, << 1 >> }
-			if bool then
-				create a.make(1, 1)
-				-- If we remove this !!!
-				print((a @ 1).out)
-			end
-		end
+   make is
+      local
+         a: ARRAY[INTEGER_8]; bool: BOOLEAN
+      do
+         a := {ARRAY[INTEGER_8] 1, << 1 >> }
+         if bool then
+            create a.make(1, 1)
+            -- If we remove this !!!
+            print((a @ 1).out)
+         end
+      end
 
 end -- class TEST_PD03
 --

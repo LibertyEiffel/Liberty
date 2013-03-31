@@ -2,64 +2,64 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JB02
-	-- From: Jacques Bouchard <bouchard@mageos.com>
+   -- From: Jacques Bouchard <bouchard@mageos.com>
 
 inherit
-	AUX_JB02
-		redefine p, x
-		end
+   AUX_JB02
+      redefine p, x
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x: TEST_JB02
+   x: TEST_JB02
 
-	p: STRING is
-		do
-			Result := "TEST.p"
-		end
+   p: STRING is
+      do
+         Result := "TEST.p"
+      end
 
-	make is
-		local
-			a: TEST_JB02; b: AUX_JB02; v1, v2: STRING
-		do
-			a := x
-			b := x
-			a := y
-			b := y
-			a := Current
-			b := Current
-			x := Current
-			y := Current
-			assert(x.p.is_equal(p))
-			v1 := y.p
-			v2 := p
-			assert(y.p.is_equal(p)) -- BUG here.
-			assert(x.p.is_equal("TEST.p"))
-			check
-				y = Current
-			end
-			v1 := y.p
-			assert(y.p.is_equal("TEST.p")) -- BUG here.
-			assert(generator.is_equal("TEST_JB02"))
-			assert(y.generator.is_equal("TEST_JB02"))
-			assert(x.generator.is_equal("TEST_JB02"))
-		end
+   make is
+      local
+         a: TEST_JB02; b: AUX_JB02; v1, v2: STRING
+      do
+         a := x
+         b := x
+         a := y
+         b := y
+         a := Current
+         b := Current
+         x := Current
+         y := Current
+         assert(x.p.is_equal(p))
+         v1 := y.p
+         v2 := p
+         assert(y.p.is_equal(p)) -- BUG here.
+         assert(x.p.is_equal("TEST.p"))
+         check
+            y = Current
+         end
+         v1 := y.p
+         assert(y.p.is_equal("TEST.p")) -- BUG here.
+         assert(generator.is_equal("TEST_JB02"))
+         assert(y.generator.is_equal("TEST_JB02"))
+         assert(x.generator.is_equal("TEST_JB02"))
+      end
 
-	assert (boolean: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not boolean then
-				std_output.put_string("TEST_JB02: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (boolean: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not boolean then
+            std_output.put_string("TEST_JB02: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JB02
 --

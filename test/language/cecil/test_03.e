@@ -4,40 +4,40 @@
 class TEST_03
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			str: STRING
-		do
-			str := "fo"
-			str.extend('o')
-			call_c1(str)
-			is_true(("fooo").is_equal(str))
-			call_c2(str)
-			is_true(("foooo").is_equal(str))
-		end
+   make is
+      local
+         str: STRING
+      do
+         str := "fo"
+         str.extend('o')
+         call_c1(str)
+         is_true(("fooo").is_equal(str))
+         call_c2(str)
+         is_true(("foooo").is_equal(str))
+      end
 
-	call_c1 (s: STRING) is
-		external "C"
-		end
+   call_c1 (s: STRING) is
+      external "C"
+      end
 
-	call_c2 (s: STRING) is
-		external "C"
-		end
+   call_c2 (s: STRING) is
+      external "C"
+      end
 
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("lib_test_cecil/test03: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("lib_test_cecil/test03: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_03
 --

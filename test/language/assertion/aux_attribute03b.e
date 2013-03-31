@@ -4,32 +4,32 @@
 class AUX_ATTRIBUTE03B
 
 inherit
-	AUX_ATTRIBUTE03A
+   AUX_ATTRIBUTE03A
 
 feature {ANY}
-	attribute_require_counter: INTEGER
+   attribute_require_counter: INTEGER
 
-	attribute_require: BOOLEAN is
-		do
-			attribute_require_counter := attribute_require_counter + 1
-			Result := True
-		end
+   attribute_require: BOOLEAN is
+      do
+         attribute_require_counter := attribute_require_counter + 1
+         Result := True
+      end
 
-	value: INTEGER is
-		require else
-			attribute_require
-		attribute
-		ensure then
-			attribute_ensure
-		end
+   value: INTEGER is
+      require else
+         attribute_require
+      attribute
+      ensure then
+         attribute_ensure
+      end
 
-	attribute_ensure_counter: INTEGER
+   attribute_ensure_counter: INTEGER
 
-	attribute_ensure: BOOLEAN is
-		do
-			attribute_ensure_counter := attribute_ensure_counter + 1
-			Result := True
-		end
+   attribute_ensure: BOOLEAN is
+      do
+         attribute_ensure_counter := attribute_ensure_counter + 1
+         Result := True
+      end
 
 end -- class AUX_ATTRIBUTE03B
 --

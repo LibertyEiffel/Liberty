@@ -5,11 +5,11 @@ class AUX_EXPORT5A
 feature
    f is
       do
-	 if a1 = Void then
-	 else 
-	    create a1
-	    a1.g
-	 end
+    if a1 = Void then
+    else 
+       create a1
+       a1.g
+    end
       end
    a1: AUX_EXPORT5A1
 end -- class AUX_EXPORT5A

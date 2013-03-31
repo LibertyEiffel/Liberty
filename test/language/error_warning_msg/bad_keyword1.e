@@ -10,7 +10,7 @@ feature
 
    make is
       local
-	 create: INTEGER;
+    create: INTEGER;
       do
       end;
 

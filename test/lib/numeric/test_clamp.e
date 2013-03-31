@@ -2,36 +2,36 @@
 -- See the Copyright notice at the end of this file.
 
 class TEST_CLAMP
-	-- Testing NUMERIC.clamp
+   -- Testing NUMERIC.clamp
 insert EIFFELTEST_TOOLS
 
 creation {ANY} make
 
 feature {ANY}
-	make is
-		local
-			a,b,c: INTEGER_8; d,e,f: INTEGER_16
-		do
-			assert((10).clamp(5,20) = 10)
-			assert(( 2).clamp(5,20) =  5)
-			assert((-2).clamp(5,20) =  5)
-			assert((22).clamp(5,20) = 20)
+   make is
+      local
+         a,b,c: INTEGER_8; d,e,f: INTEGER_16
+      do
+         assert((10).clamp(5,20) = 10)
+         assert(( 2).clamp(5,20) =  5)
+         assert((-2).clamp(5,20) =  5)
+         assert((22).clamp(5,20) = 20)
 
-			assert((3/4).clamp(2/3, 4/5) =  3/4)
-			assert((2/3).clamp(3/4, 4/5) =  3/4)
-			assert((4/5).clamp(2/3, 3/4) =  3/4)
-		
-			a := 5; b:= 10; c:= 20
-			assert( a.clamp(b,c) = b)
-			assert( b.clamp(a,c) = b)
-			assert( c.clamp(a,b) = b)
+         assert((3/4).clamp(2/3, 4/5) =  3/4)
+         assert((2/3).clamp(3/4, 4/5) =  3/4)
+         assert((4/5).clamp(2/3, 3/4) =  3/4)
+      
+         a := 5; b:= 10; c:= 20
+         assert( a.clamp(b,c) = b)
+         assert( b.clamp(a,c) = b)
+         assert( c.clamp(a,b) = b)
 
-			d:= 1005; e:= 1010; f:= 1020
-			assert( d.clamp(e,f) = e)
-			assert( e.clamp(d,f) = e)
-			assert( f.clamp(d,e) = e)
+         d:= 1005; e:= 1010; f:= 1020
+         assert( d.clamp(e,f) = e)
+         assert( e.clamp(d,f) = e)
+         assert( f.clamp(d,e) = e)
 
-		end
+      end
 end -- class TEST_CLAMP
 
 -- ------------------------------------------------------------------------------------------------------------------------------

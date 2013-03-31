@@ -4,35 +4,35 @@
 class TEST_ONCE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	test_dico: DICTIONARY[STRING, STRING] is
-		once
-			create {HASHED_DICTIONARY[STRING, STRING]} Result.make
-			Result.put("Hello", "World")
-		end
+   test_dico: DICTIONARY[STRING, STRING] is
+      once
+         create {HASHED_DICTIONARY[STRING, STRING]} Result.make
+         Result.put("Hello", "World")
+      end
 
-	make is
-		local
-			s: STRING
-		do
-			assert(test_dico.count = 1)
-			s := test_dico.item(1)
-			assert(test_dico.at("World") = s)
-		end
+   make is
+      local
+         s: STRING
+      do
+         assert(test_dico.count = 1)
+         s := test_dico.item(1)
+         assert(test_dico.at("World") = s)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ONCE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ONCE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ONCE2
 --

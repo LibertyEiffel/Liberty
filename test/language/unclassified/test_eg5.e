@@ -2,37 +2,37 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG5
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1, a2: AUX_EG5_A; r: REAL
-		do
-			---- Original:
-			-- a1, a2: expanded AUX_EG5_A;
-			a1.set_x(1.0)
-			a2.set_x(2.0)
-			r := (a1 + a2).x
-			assert(r = 3.0)
-		end
+   make is
+      local
+         a1, a2: AUX_EG5_A; r: REAL
+      do
+         ---- Original:
+         -- a1, a2: expanded AUX_EG5_A;
+         a1.set_x(1.0)
+         a2.set_x(2.0)
+         r := (a1 + a2).x
+         assert(r = 3.0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EG5: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EG5: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EG5
 --

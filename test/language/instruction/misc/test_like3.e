@@ -2,27 +2,27 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_LIKE3
-	--
-	-- To be sure that the new like <argument> behavior is tested.
-	--
+   --
+   -- To be sure that the new like <argument> behavior is tested.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo(3)
-		end
+   make is
+      do
+         foo(3)
+      end
 
-	foo (arg: like bar) is
-		local
-			loc: like arg
-		do
-			loc := 3
-		end
+   foo (arg: like bar) is
+      local
+         loc: like arg
+      do
+         loc := 3
+      end
 
-	bar: INTEGER_8
+   bar: INTEGER_8
 
 end -- class TEST_LIKE3
 --

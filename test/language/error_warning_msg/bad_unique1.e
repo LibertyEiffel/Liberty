@@ -11,9 +11,9 @@ feature
 
    make is
       local
-	 x: INTEGER;
+    x: INTEGER;
       do
-	 x := dummy;
+    x := dummy;
       end;
 
 end -- class BAD_UNIQUE1

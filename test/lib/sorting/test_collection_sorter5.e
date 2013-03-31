@@ -2,66 +2,66 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_COLLECTION_SORTER5
-	--SZ:76: lte(x, y) and gte(x, y) does not implies is_equal(x, y)
-	--This is the case when lt() is defined using non-uniq key (for
-	--database entries for example)
+   --SZ:76: lte(x, y) and gte(x, y) does not implies is_equal(x, y)
+   --This is the case when lt() is defined using non-uniq key (for
+   --database entries for example)
 
 insert
-	ABSTRACT_SORTER[STRING]
-	EIFFELTEST_TOOLS
+   ABSTRACT_SORTER[STRING]
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: COLLECTION[STRING]
-		do
-			c := {ARRAY[STRING] 1, << "dd", "bb", "aa", "cc", "azer", "arthur" >> }
-			by_first_char := True
-			sort(c)
-			add(c, "asdf")
-			assert(index_of(c, "azer") = 2)
-			by_first_char := False
-			c.swap(c.lower, c.upper)
-			sort(c)
-			add(c, "acvb")
-			assert(index_of(c, "azer") = 5)
-			by_first_char := True
-			c.swap(c.lower, c.upper)
-			sort(c)
-			add(c, "btyu")
-			assert(index_of(c, "azer") = 1)
-		end
+   make is
+      local
+         c: COLLECTION[STRING]
+      do
+         c := {ARRAY[STRING] 1, << "dd", "bb", "aa", "cc", "azer", "arthur" >> }
+         by_first_char := True
+         sort(c)
+         add(c, "asdf")
+         assert(index_of(c, "azer") = 2)
+         by_first_char := False
+         c.swap(c.lower, c.upper)
+         sort(c)
+         add(c, "acvb")
+         assert(index_of(c, "azer") = 5)
+         by_first_char := True
+         c.swap(c.lower, c.upper)
+         sort(c)
+         add(c, "btyu")
+         assert(index_of(c, "azer") = 1)
+      end
 
-	by_first_char: BOOLEAN
+   by_first_char: BOOLEAN
 
-	lt (x, y: STRING): BOOLEAN is
-		do
-			if by_first_char then
-				Result := x.item(1) < y.item(1)
-			else
-				Result := x < y
-			end
-		end
+   lt (x, y: STRING): BOOLEAN is
+      do
+         if by_first_char then
+            Result := x.item(1) < y.item(1)
+         else
+            Result := x < y
+         end
+      end
 
 feature {}
-	print_collection (c: COLLECTION[STRING]) is
-		local
-			i: INTEGER
-		do
-			from
-				i := c.lower
-			until
-				i > c.upper
-			loop
-				io.put_string(c.item(i))
-				io.put_character(' ')
-				i := i + 1
-			end
-			io.put_character('%N')
-		end
+   print_collection (c: COLLECTION[STRING]) is
+      local
+         i: INTEGER
+      do
+         from
+            i := c.lower
+         until
+            i > c.upper
+         loop
+            io.put_string(c.item(i))
+            io.put_character(' ')
+            i := i + 1
+         end
+         io.put_character('%N')
+      end
 
 end -- class TEST_COLLECTION_SORTER5
 --

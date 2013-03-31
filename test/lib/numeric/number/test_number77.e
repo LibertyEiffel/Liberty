@@ -4,34 +4,34 @@
 class TEST_NUMBER77
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4: NUMBER
-		do
-			n1 := from_string("-4782969/134217728")
-			assert(n1 #< 0)
-			assert(n1 @< 0)
-			n2 := from_string("-4782969/1073741824")
-			assert(n2 #< 0)
-			assert(n2.is_negative)
-			assert(n2 @< 0)
-			n3 := n1 + n2
-			assert(n3 #< 0)
-			assert(n3.is_negative)
-			assert(n3 @< 0)
-			n4 := from_string("-43046721/1073741824")
-			--BUG	 n5 := from_string ("-43046722/1073741824")
-			assert(n3.is_equal(n4))
-			--print (n1.to_string + " + " + n2.to_string + " = " + n3.to_string + "%N")
-			--expected : "-4782969/134217728 + -4782969/1073741824 = -43046721/1073741824"
-		end
+   make is
+      local
+         n1, n2, n3, n4: NUMBER
+      do
+         n1 := from_string("-4782969/134217728")
+         assert(n1 #< 0)
+         assert(n1 @< 0)
+         n2 := from_string("-4782969/1073741824")
+         assert(n2 #< 0)
+         assert(n2.is_negative)
+         assert(n2 @< 0)
+         n3 := n1 + n2
+         assert(n3 #< 0)
+         assert(n3.is_negative)
+         assert(n3 @< 0)
+         n4 := from_string("-43046721/1073741824")
+         --BUG    n5 := from_string ("-43046722/1073741824")
+         assert(n3.is_equal(n4))
+         --print (n1.to_string + " + " + n2.to_string + " = " + n3.to_string + "%N")
+         --expected : "-4782969/134217728 + -4782969/1073741824 = -43046721/1073741824"
+      end
 
 
 

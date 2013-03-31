@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FSA2
-	-- From: frankmsalter@blueyonder.co.uk
+   -- From: frankmsalter@blueyonder.co.uk
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			test_fsa1: TEST_FSA1
-		do
-			create test_fsa1.program
-		end
+   main is
+      local
+         test_fsa1: TEST_FSA1
+      do
+         create test_fsa1.program
+      end
 
 end -- class TEST_FSA2
 --

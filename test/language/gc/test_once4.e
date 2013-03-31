@@ -4,19 +4,19 @@
 class TEST_ONCE4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_ONCE4; b: AUX_ONCE2A
-		do
-			create a
-			a.do_test
-			if False then
-				b.do_test
-			end
-		end
+   make is
+      local
+         a: AUX_ONCE4; b: AUX_ONCE2A
+      do
+         create a
+         a.do_test
+         if False then
+            b.do_test
+         end
+      end
 
 end -- class TEST_ONCE4
 --

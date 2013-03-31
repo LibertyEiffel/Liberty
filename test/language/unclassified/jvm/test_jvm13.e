@@ -4,48 +4,48 @@
 class TEST_JVM13
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			dog: DOG
-		do
-			--	 s1, s2: STRING;
-			--	 a: ANIMAL;
-			--	 cat: CAT;
-			--	 s1 := foo;
-			--	 s2 := foo;
-			--	 check
-			--	    s1 = s2;
-			--	    not (s1 /= s2);
-			--	 end;
-			--
-			--	 !!cat;
-			--	 check
-			--	    cat /= Void;
-			--	    not cat.is_dog;
-			--	    cat.is_cat;
-			--	 end;
-			create dog
-			--	 a := dog;
-			--	 check
-			--	    not a.is_cat;
-			--	    a.is_dog;
-			--	 end;
-			--	 a := Void;
-			--	 check
-			--	    a = Void;
-			--	    not (a /= Void)
-			--	 end;
-			--	 !CAT!a;
-			--	 check
-			--	    cat.is_cat;
-			--	    not cat.is_dog;
-			--	 end;
-		end
+   make is
+      local
+         dog: DOG
+      do
+         --    s1, s2: STRING;
+         --    a: ANIMAL;
+         --    cat: CAT;
+         --    s1 := foo;
+         --    s2 := foo;
+         --    check
+         --       s1 = s2;
+         --       not (s1 /= s2);
+         --    end;
+         --
+         --    !!cat;
+         --    check
+         --       cat /= Void;
+         --       not cat.is_dog;
+         --       cat.is_cat;
+         --    end;
+         create dog
+         --    a := dog;
+         --    check
+         --       not a.is_cat;
+         --       a.is_dog;
+         --    end;
+         --    a := Void;
+         --    check
+         --       a = Void;
+         --       not (a /= Void)
+         --    end;
+         --    !CAT!a;
+         --    check
+         --       cat.is_cat;
+         --       not cat.is_dog;
+         --    end;
+      end
 
-	foo: STRING is "foo"
+   foo: STRING is "foo"
 
 end -- class TEST_JVM13
 --

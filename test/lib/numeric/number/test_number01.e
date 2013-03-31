@@ -2,62 +2,62 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER01
-	--
-	-- tests of equality and inequality between integer_64_number
-	--
+   --
+   -- tests of equality and inequality between integer_64_number
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2, n3, n4: NUMBER
-		do
-			-- equality
-			n1 := from_integer(-1)
-			n2 := from_integer(0)
-			n3 := from_integer(1)
-			n4 := from_integer(-1)
-			assert(n4.is_equal(n1))
-			assert(not n4.is_equal(n2))
-			assert(not n4.is_equal(n3))
-			n4 := from_integer(0)
-			assert(n4.is_equal(n2))
-			assert(not n4.is_equal(n1))
-			assert(not n4.is_equal(n3))
-			n4 := from_integer(1)
-			assert(n4.is_equal(n3))
-			assert(not n4.is_equal(n1))
-			assert(not n4.is_equal(n2))
-			-- equality with is_equal
-			assert(n1.is_equal(n1))
-			assert(n2.is_equal(n2))
-			assert(not n2.is_equal(n3))
-			-- inequality
-			assert(n1 < n2)
-			assert(n2 < n3)
-			assert(n1 < n3)
-			assert(n2 > n1)
-			assert(n3 > n2)
-			assert(n3 > n1)
-			assert(n1 <= n2)
-			assert(n2 <= n3)
-			assert(n1 <= n3)
-			assert(n1 <= n1)
-			assert(n2 <= n2)
-			assert(n3 <= n3)
-			assert(n2 >= n2)
-			assert(n3 >= n2)
-			assert(n3 >= n1)
-			assert(n1 >= n1)
-			assert(n2 >= n2)
-			assert(n3 >= n3)
-		end
+   make is
+      local
+         n1, n2, n3, n4: NUMBER
+      do
+         -- equality
+         n1 := from_integer(-1)
+         n2 := from_integer(0)
+         n3 := from_integer(1)
+         n4 := from_integer(-1)
+         assert(n4.is_equal(n1))
+         assert(not n4.is_equal(n2))
+         assert(not n4.is_equal(n3))
+         n4 := from_integer(0)
+         assert(n4.is_equal(n2))
+         assert(not n4.is_equal(n1))
+         assert(not n4.is_equal(n3))
+         n4 := from_integer(1)
+         assert(n4.is_equal(n3))
+         assert(not n4.is_equal(n1))
+         assert(not n4.is_equal(n2))
+         -- equality with is_equal
+         assert(n1.is_equal(n1))
+         assert(n2.is_equal(n2))
+         assert(not n2.is_equal(n3))
+         -- inequality
+         assert(n1 < n2)
+         assert(n2 < n3)
+         assert(n1 < n3)
+         assert(n2 > n1)
+         assert(n3 > n2)
+         assert(n3 > n1)
+         assert(n1 <= n2)
+         assert(n2 <= n3)
+         assert(n1 <= n3)
+         assert(n1 <= n1)
+         assert(n2 <= n2)
+         assert(n3 <= n3)
+         assert(n2 >= n2)
+         assert(n3 >= n2)
+         assert(n3 >= n1)
+         assert(n1 >= n1)
+         assert(n2 >= n2)
+         assert(n3 >= n3)
+      end
 
 
 

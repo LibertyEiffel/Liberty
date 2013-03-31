@@ -4,12 +4,12 @@
 class AUX_FB1_GEN[E -> AUX_FB1_REF]
 
 feature {ANY}
-	item: E
+   item: E
 
-	set_item (i: like item) is
-		do
-			item := i
-		end
+   set_item (i: like item) is
+      do
+         item := i
+      end
 
 end -- class AUX_FB1_GEN
 --

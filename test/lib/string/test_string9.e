@@ -4,103 +4,103 @@
 class TEST_STRING9
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			str: STRING; i: INTEGER
-		do
-			str := "a%/0/b"
-			i := str.count
-			assert(i = 3)
-			assert(str.item(2) = '%U')
-			assert(("foo").substring_index("foo", 1) = 1)
-			assert(("Afoo").substring_index("foo", 1) = 2)
-			assert(("Afofoo").substring_index("foo", 1) = 4)
-			assert(("Afofo").substring_index("foo", 1) = 0)
-			assert(("Afofo").substring_index("", 1) = 1)
-			assert(("Afofoofoo").substring_index("foo", 1) = 4)
-			assert(not ("").is_real)
-			assert(not ("").is_integer)
-			assert(not ("").is_integer_64)
-			assert(not (" ").is_real)
-			assert(not (" ").is_integer)
-			assert(not (" ").is_integer_64)
-			assert(not ("+").is_real)
-			assert(not ("+").is_integer)
-			assert(not ("+").is_integer_64)
-			assert(not ("-").is_real)
-			assert(not ("-").is_integer)
-			assert(not ("-").is_integer_64)
-			assert(not ("1a").is_integer)
-			assert(not ("1a").is_integer_64)
-			assert(("1").is_integer)
-			assert(("1").is_integer_64)
-			assert(not (" + 32 1").is_integer)
-			assert(not (" + 32 1").is_integer_64)
-			assert(("%N-657%T").to_integer = -657)
-			assert(("%N-657%T").to_integer_64 = -657)
-			("").replace_all('a', 'b')
-			str := "ooo"
-			str.replace_all('a', 'b')
-			assert(str.is_equal("ooo"))
-			str.replace_all('o', 'a')
-			assert(str.is_equal("aaa"))
-			str := "foo"
-			str.extend_to_count(' ', 4)
-			assert(("foo ").is_equal(str))
-			str := "foo"
-			str.precede_to_count(' ', 4)
-			assert((" foo").is_equal(str))
-			str := "foo"
-			str.extend_to_count(' ', 3)
-			assert(("foo").is_equal(str))
-			str := "foo"
-			str.precede_to_count(' ', 3)
-			assert(("foo").is_equal(str))
-			str := ""
-			str.extend_to_count(' ', 0)
-			assert(("").is_equal(str))
-			str.precede_to_count(' ', 0)
-			assert(("").is_equal(str))
-			str := "foo"
-			str.precede_to_count(' ', 2)
-			assert(("foo").is_equal(str))
-			str := "foo"
-			str.precede_to_count(' ', 5)
-			assert(("  foo").is_equal(str))
-			str := ""
-			str.extend_multiple('a', 0)
-			assert(("").is_equal(str))
-			str.extend_multiple('b', 1)
-			assert(("b").is_equal(str))
-			str.extend_multiple('a', 2)
-			assert(("baa").is_equal(str))
-			str := ""
-			str.precede_multiple('a',-1)
-			assert(str ~ "")
-			str.precede_multiple('a', 0)
-			assert(("").is_equal(str))
-			str.precede_multiple('b', 1)
-			assert(("b").is_equal(str))
-			str.precede_multiple('a', 2)
-			assert(("aab").is_equal(str))
-			str := "a" + "bc"
-			assert(("abc").is_equal(str))
-			str := "" + "bc"
-			assert(("bc").is_equal(str))
-			str := "ab" + ""
-			assert(("ab").is_equal(str))
-			str := "" + ""
-			assert(("").is_equal(str))
-			str := "foo"
-			str.prepend("bar")
-			assert(("barfoo").is_equal(str))
-		end
+   make is
+      local
+         str: STRING; i: INTEGER
+      do
+         str := "a%/0/b"
+         i := str.count
+         assert(i = 3)
+         assert(str.item(2) = '%U')
+         assert(("foo").substring_index("foo", 1) = 1)
+         assert(("Afoo").substring_index("foo", 1) = 2)
+         assert(("Afofoo").substring_index("foo", 1) = 4)
+         assert(("Afofo").substring_index("foo", 1) = 0)
+         assert(("Afofo").substring_index("", 1) = 1)
+         assert(("Afofoofoo").substring_index("foo", 1) = 4)
+         assert(not ("").is_real)
+         assert(not ("").is_integer)
+         assert(not ("").is_integer_64)
+         assert(not (" ").is_real)
+         assert(not (" ").is_integer)
+         assert(not (" ").is_integer_64)
+         assert(not ("+").is_real)
+         assert(not ("+").is_integer)
+         assert(not ("+").is_integer_64)
+         assert(not ("-").is_real)
+         assert(not ("-").is_integer)
+         assert(not ("-").is_integer_64)
+         assert(not ("1a").is_integer)
+         assert(not ("1a").is_integer_64)
+         assert(("1").is_integer)
+         assert(("1").is_integer_64)
+         assert(not (" + 32 1").is_integer)
+         assert(not (" + 32 1").is_integer_64)
+         assert(("%N-657%T").to_integer = -657)
+         assert(("%N-657%T").to_integer_64 = -657)
+         ("").replace_all('a', 'b')
+         str := "ooo"
+         str.replace_all('a', 'b')
+         assert(str.is_equal("ooo"))
+         str.replace_all('o', 'a')
+         assert(str.is_equal("aaa"))
+         str := "foo"
+         str.extend_to_count(' ', 4)
+         assert(("foo ").is_equal(str))
+         str := "foo"
+         str.precede_to_count(' ', 4)
+         assert((" foo").is_equal(str))
+         str := "foo"
+         str.extend_to_count(' ', 3)
+         assert(("foo").is_equal(str))
+         str := "foo"
+         str.precede_to_count(' ', 3)
+         assert(("foo").is_equal(str))
+         str := ""
+         str.extend_to_count(' ', 0)
+         assert(("").is_equal(str))
+         str.precede_to_count(' ', 0)
+         assert(("").is_equal(str))
+         str := "foo"
+         str.precede_to_count(' ', 2)
+         assert(("foo").is_equal(str))
+         str := "foo"
+         str.precede_to_count(' ', 5)
+         assert(("  foo").is_equal(str))
+         str := ""
+         str.extend_multiple('a', 0)
+         assert(("").is_equal(str))
+         str.extend_multiple('b', 1)
+         assert(("b").is_equal(str))
+         str.extend_multiple('a', 2)
+         assert(("baa").is_equal(str))
+         str := ""
+         str.precede_multiple('a',-1)
+         assert(str ~ "")
+         str.precede_multiple('a', 0)
+         assert(("").is_equal(str))
+         str.precede_multiple('b', 1)
+         assert(("b").is_equal(str))
+         str.precede_multiple('a', 2)
+         assert(("aab").is_equal(str))
+         str := "a" + "bc"
+         assert(("abc").is_equal(str))
+         str := "" + "bc"
+         assert(("bc").is_equal(str))
+         str := "ab" + ""
+         assert(("ab").is_equal(str))
+         str := "" + ""
+         assert(("").is_equal(str))
+         str := "foo"
+         str.prepend("bar")
+         assert(("barfoo").is_equal(str))
+      end
 
 end -- class TEST_STRING9
 --

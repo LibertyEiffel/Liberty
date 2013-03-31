@@ -4,39 +4,39 @@
 class TEST_ARRAY_MAKE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	t_boolean: ARRAY[BOOLEAN]
+   t_boolean: ARRAY[BOOLEAN]
 
-	t_integer: ARRAY[INTEGER]
+   t_integer: ARRAY[INTEGER]
 
-	t_animal: ARRAY[ANIMAL]
+   t_animal: ARRAY[ANIMAL]
 
-	t_real: ARRAY[REAL]
+   t_real: ARRAY[REAL]
 
-	t_any: ARRAY[ANY]
+   t_any: ARRAY[ANY]
 
-	make is
-		do
-			create t_boolean.make(1, 4)
-			assert(t_boolean.count = 4)
-			assert(t_boolean.fast_occurrences(False) = 4)
-		end
+   make is
+      do
+         create t_boolean.make(1, 4)
+         assert(t_boolean.count = 4)
+         assert(t_boolean.fast_occurrences(False) = 4)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ARRAY_MAKE1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ARRAY_MAKE1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ARRAY_MAKE1
 --

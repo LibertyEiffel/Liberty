@@ -9,10 +9,10 @@ create {ANY}
 feature {}
    make is
       do
-	 ga
-	 Current.ga		-- This one is forbidden
-	 bu
-	 Current.bu
+    ga
+    Current.ga      -- This one is forbidden
+    bu
+    Current.bu
       end
 
    ga is

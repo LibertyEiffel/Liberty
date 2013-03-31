@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EM1
-	-- From a bug report of Eugene Melekhov <mev@fangorn.ryazan.ru>
+   -- From a bug report of Eugene Melekhov <mev@fangorn.ryazan.ru>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux_em1: AUX_EM1; s: STRING
-		do
-			-- any: ANY;
-			s := aux_em1.an_attribute
-			-- No loger allowed ! any := aux_em1;
-		end
+   make is
+      local
+         aux_em1: AUX_EM1; s: STRING
+      do
+         -- any: ANY;
+         s := aux_em1.an_attribute
+         -- No loger allowed ! any := aux_em1;
+      end
 
 end -- class TEST_EM1
 --

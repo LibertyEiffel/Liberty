@@ -2,46 +2,46 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER57
-	-- tests on "is_odd"
+   -- tests on "is_odd"
 
 insert
-	EIFFELTEST_TOOLS
-	ANY
-	PLATFORM
+   EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := nt.from_integer(0)
-			assert(not n.is_odd)
-			n := nt.from_integer(1)
-			assert(n.is_odd)
-			n := nt.from_integer(2)
-			assert(not n.is_odd)
-			n := nt.from_integer(-1)
-			assert(n.is_odd)
-			n := nt.from_integer(-2)
-			assert(not n.is_odd)
-			n := nt.from_integer(Maximum_integer)
-			n := n @+ 1000
-			assert(n.is_odd)
-			n := n @+ 1
-			assert(not n.is_odd)
-			n := nt.from_integer(Minimum_integer)
-			n := n @- 1000
-			assert(not n.is_odd)
-			n := n @- 1
-			assert(n.is_odd)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := nt.from_integer(0)
+         assert(not n.is_odd)
+         n := nt.from_integer(1)
+         assert(n.is_odd)
+         n := nt.from_integer(2)
+         assert(not n.is_odd)
+         n := nt.from_integer(-1)
+         assert(n.is_odd)
+         n := nt.from_integer(-2)
+         assert(not n.is_odd)
+         n := nt.from_integer(Maximum_integer)
+         n := n @+ 1000
+         assert(n.is_odd)
+         n := n @+ 1
+         assert(not n.is_odd)
+         n := nt.from_integer(Minimum_integer)
+         n := n @- 1000
+         assert(not n.is_odd)
+         n := n @- 1
+         assert(n.is_odd)
+      end
 
 
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER57
 --

@@ -4,17 +4,17 @@
 class BAD_ASSIGNMENT23
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			comparable: COMPARABLE; integer: INTEGER
-		do
-			comparable := integer -- <-- Must be rejected.
-		end
-	
-	
+   make is
+      local
+         comparable: COMPARABLE; integer: INTEGER
+      do
+         comparable := integer -- <-- Must be rejected.
+      end
+   
+   
 end -- class BAD_ASSIGNMENT23
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

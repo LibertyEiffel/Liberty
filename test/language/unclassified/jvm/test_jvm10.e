@@ -4,34 +4,34 @@
 class TEST_JVM10
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			create s.make(3)
-			--	 check
-			--	    s.count = 0;
-			--	    s.capacity >= 3;
-			--	 end;
-			--	 s.extend('f');
-			--	 check
-			--	    s.count = 1
-			--	 end;
-			--
-			--	 s.extend('o');
-			--	 s.extend('o');
-			--	 check
-			--	    s.is_equal("foo")
-			--	 end;
-			--	 check
-			--	    foo.is_equal(s)
-			--	 end;
-		end
+   make is
+      local
+         s: STRING
+      do
+         create s.make(3)
+         --    check
+         --       s.count = 0;
+         --       s.capacity >= 3;
+         --    end;
+         --    s.extend('f');
+         --    check
+         --       s.count = 1
+         --    end;
+         --
+         --    s.extend('o');
+         --    s.extend('o');
+         --    check
+         --       s.is_equal("foo")
+         --    end;
+         --    check
+         --       foo.is_equal(s)
+         --    end;
+      end
 
-	foo: STRING is "foo"
+   foo: STRING is "foo"
 
 end -- class TEST_JVM10
 --

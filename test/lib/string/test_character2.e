@@ -4,70 +4,70 @@
 class TEST_CHARACTER2
 
 insert
-	EIFFELTEST_TOOLS
-	
+   EIFFELTEST_TOOLS
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			str: STRING; c: CHARACTER; i, j: INTEGER
-		do
-			str := 0.to_character.to_hexadecimal
-			assert(("00").is_equal(str))
-			str := 1.to_character.to_hexadecimal
-			assert(("01").is_equal(str))
-			str := 254.to_character.to_hexadecimal
-			assert(("FE").is_equal(str))
-			str := 255.to_character.to_hexadecimal
-			assert(("FF").is_equal(str))
-			i := 0
-			c := i.to_character
-			assert(c.code = 0)
-			i := 1
-			c := i.to_character
-			assert(c.code = 1)
-			i := 127
-			c := i.to_character
-			assert(c.code = 127)
-			i := 128
-			c := i.to_character
-			assert(c.code = 128)
-			i := 254
-			c := i.to_character
-			assert(c.code = 254)
-			i := 255
-			c := i.to_character
-			assert(c.code = 255)
-			from
-				c := c.default
-				assert(c = '%U')
-				i := 0
-			until
-				i >= 255
-			loop
-				assert(i = c.code)
-				c := c.next
-				i := i + 1
-			end
-			from
-				c := c.default
-				assert(c = '%U')
-				i := 0
-			until
-				i >= 255
-			loop
-				j := c.to_integer_8
-				if i <= 127 then
-					assert(i = c.to_integer_8)
-				else
-					assert(i - 256 = c.to_integer_8)
-				end
-				c := c.next
-				i := i + 1
-			end
-		end
+   make is
+      local
+         str: STRING; c: CHARACTER; i, j: INTEGER
+      do
+         str := 0.to_character.to_hexadecimal
+         assert(("00").is_equal(str))
+         str := 1.to_character.to_hexadecimal
+         assert(("01").is_equal(str))
+         str := 254.to_character.to_hexadecimal
+         assert(("FE").is_equal(str))
+         str := 255.to_character.to_hexadecimal
+         assert(("FF").is_equal(str))
+         i := 0
+         c := i.to_character
+         assert(c.code = 0)
+         i := 1
+         c := i.to_character
+         assert(c.code = 1)
+         i := 127
+         c := i.to_character
+         assert(c.code = 127)
+         i := 128
+         c := i.to_character
+         assert(c.code = 128)
+         i := 254
+         c := i.to_character
+         assert(c.code = 254)
+         i := 255
+         c := i.to_character
+         assert(c.code = 255)
+         from
+            c := c.default
+            assert(c = '%U')
+            i := 0
+         until
+            i >= 255
+         loop
+            assert(i = c.code)
+            c := c.next
+            i := i + 1
+         end
+         from
+            c := c.default
+            assert(c = '%U')
+            i := 0
+         until
+            i >= 255
+         loop
+            j := c.to_integer_8
+            if i <= 127 then
+               assert(i = c.to_integer_8)
+            else
+               assert(i - 256 = c.to_integer_8)
+            end
+            c := c.next
+            i := i + 1
+         end
+      end
 
 end -- class TEST_CHARACTER2
 --

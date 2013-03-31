@@ -4,7 +4,7 @@
 expanded class AUX_ASSIGNMENT18B
 
 insert
-	AUX_ASSIGNMENT18A
+   AUX_ASSIGNMENT18A
 
 end -- class AUX_ASSIGNMENT18B
 --

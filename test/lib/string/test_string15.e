@@ -4,51 +4,51 @@
 class TEST_STRING15
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			assert(not ("").is_integer)
-			assert(("153548").is_integer)
-			assert(("2147483647").is_integer)
-			assert(("+2147483647").is_integer)
-			assert(not ("2147483648").is_integer)
-			assert(not ("2247483647").is_integer)
-			assert(not ("21474836470").is_integer)
-			assert(not ("+21474836470").is_integer)
-			assert(not ("30000000000").is_integer)
-			assert(("-105240").is_integer)
-			assert(("-2147483648").is_integer)
-			assert(not ("-2147483649").is_integer)
-			assert(not ("-21474836480").is_integer)
-			assert(not ("-40000000000").is_integer)
-			assert(not ("").is_integer_64)
-			assert(("153548").is_integer_64)
-			assert(("2147483647").is_integer_64)
-			assert(("+2147483647").is_integer_64)
-			assert(("2147483648").is_integer_64)
-			assert(("2247483647").is_integer_64)
-			assert(("21474836470").is_integer_64)
-			assert(("+21474836470").is_integer_64)
-			assert(("30000000000").is_integer_64)
-			assert(("-105240").is_integer_64)
-			assert(("-2147483648").is_integer_64)
-			assert(("-2147483649").is_integer_64)
-			assert(("-21474836480").is_integer_64)
-			assert(("-40000000000").is_integer_64)
-			assert(("9223372036854775807").is_integer_64)
-			assert(("-9223372036854775808").is_integer_64)
-			assert(not ("9223372036854775808").is_integer_64)
-			assert(not ("-9223372036854775809").is_integer_64)
-			assert(not ("-9300000000000000000").is_integer_64)
-			assert(not ("9300000000000000000").is_integer_64)
-			assert(not ("-100000000000000000000").is_integer_64)
-			assert(not ("100000000000000000000").is_integer_64)
-		end
+   make is
+      do
+         assert(not ("").is_integer)
+         assert(("153548").is_integer)
+         assert(("2147483647").is_integer)
+         assert(("+2147483647").is_integer)
+         assert(not ("2147483648").is_integer)
+         assert(not ("2247483647").is_integer)
+         assert(not ("21474836470").is_integer)
+         assert(not ("+21474836470").is_integer)
+         assert(not ("30000000000").is_integer)
+         assert(("-105240").is_integer)
+         assert(("-2147483648").is_integer)
+         assert(not ("-2147483649").is_integer)
+         assert(not ("-21474836480").is_integer)
+         assert(not ("-40000000000").is_integer)
+         assert(not ("").is_integer_64)
+         assert(("153548").is_integer_64)
+         assert(("2147483647").is_integer_64)
+         assert(("+2147483647").is_integer_64)
+         assert(("2147483648").is_integer_64)
+         assert(("2247483647").is_integer_64)
+         assert(("21474836470").is_integer_64)
+         assert(("+21474836470").is_integer_64)
+         assert(("30000000000").is_integer_64)
+         assert(("-105240").is_integer_64)
+         assert(("-2147483648").is_integer_64)
+         assert(("-2147483649").is_integer_64)
+         assert(("-21474836480").is_integer_64)
+         assert(("-40000000000").is_integer_64)
+         assert(("9223372036854775807").is_integer_64)
+         assert(("-9223372036854775808").is_integer_64)
+         assert(not ("9223372036854775808").is_integer_64)
+         assert(not ("-9223372036854775809").is_integer_64)
+         assert(not ("-9300000000000000000").is_integer_64)
+         assert(not ("9300000000000000000").is_integer_64)
+         assert(not ("-100000000000000000000").is_integer_64)
+         assert(not ("100000000000000000000").is_integer_64)
+      end
 
 end -- class TEST_STRING15
 --

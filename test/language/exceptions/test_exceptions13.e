@@ -4,17 +4,17 @@
 class TEST_EXCEPTIONS13
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if signal_number > 0 then
-			end
-		end
+   make is
+      do
+         if signal_number > 0 then
+         end
+      end
 
 end -- class TEST_EXCEPTIONS13
 --

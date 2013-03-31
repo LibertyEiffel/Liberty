@@ -2,90 +2,90 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER8
-	--
-	-- Testing features `shift_left' and `shift_right'.
-	--
+   --
+   -- Testing features `shift_left' and `shift_right'.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			step: INTEGER
-		do
-			from
-				step := 1
-			until
-				step >= 62
-			loop
-				shift_left_then_come_back(step)
-				step := step + 1
-			end
-		end
+   make is
+      local
+         step: INTEGER
+      do
+         from
+            step := 1
+         until
+            step >= 62
+         loop
+            shift_left_then_come_back(step)
+            step := step + 1
+         end
+      end
 
-	shift_left_then_come_back (step: INTEGER) is
-		require
-			step.in_range(0, power_2_memory.upper - 1)
-		local
-			mbia: MUTABLE_BIG_INTEGER; i: INTEGER
-		do
-			create mbia.from_integer_64(1)
-			i := 0
-			-- Shifting left by `step' to reach the greatest `power_2_memory':
-			from
-			until
-				i > 59 -- *** WE SHOULD BE ABLE TO GO TO power_2_memory.upper *** BUG
-			loop
-				assert(mbia.to_string.is_equal(power_2_memory.item(i).to_string))
-				mbia.shift_left(step)
-				i := i + step
-			end
-			-- Shifting right by `step' to come back to 0:
-			from
-			until
-				i = 0
-			loop
-				i := i - step
-				mbia.shift_right(step)
-				assert(mbia.to_string.is_equal(power_2_memory.item(i).to_string))
-			end
-		end
+   shift_left_then_come_back (step: INTEGER) is
+      require
+         step.in_range(0, power_2_memory.upper - 1)
+      local
+         mbia: MUTABLE_BIG_INTEGER; i: INTEGER
+      do
+         create mbia.from_integer_64(1)
+         i := 0
+         -- Shifting left by `step' to reach the greatest `power_2_memory':
+         from
+         until
+            i > 59 -- *** WE SHOULD BE ABLE TO GO TO power_2_memory.upper *** BUG
+         loop
+            assert(mbia.to_string.is_equal(power_2_memory.item(i).to_string))
+            mbia.shift_left(step)
+            i := i + step
+         end
+         -- Shifting right by `step' to come back to 0:
+         from
+         until
+            i = 0
+         loop
+            i := i - step
+            mbia.shift_right(step)
+            assert(mbia.to_string.is_equal(power_2_memory.item(i).to_string))
+         end
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER8 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER8 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
-	power_2_memory: FAST_ARRAY[INTEGER_64] is
-			-- The associated power 2 value at the corresponding index.
-			-- (Valid for range [2^0 .. 2^62].)
-		local
-			i: INTEGER; v: INTEGER_64
-		once
-			from
-				create Result.with_capacity(64)
-				i := 0
-				v := 1
-			until
-				v < 0
-			loop
-				Result.add_last(v)
-				i := i + 1
-				v := v #* 2
-			end
-			check
-				Result.upper = 62
-			end
-		end
+   power_2_memory: FAST_ARRAY[INTEGER_64] is
+         -- The associated power 2 value at the corresponding index.
+         -- (Valid for range [2^0 .. 2^62].)
+      local
+         i: INTEGER; v: INTEGER_64
+      once
+         from
+            create Result.with_capacity(64)
+            i := 0
+            v := 1
+         until
+            v < 0
+         loop
+            Result.add_last(v)
+            i := i + 1
+            v := v #* 2
+         end
+         check
+            Result.upper = 62
+         end
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER8
 --

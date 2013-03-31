@@ -2,42 +2,42 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER13
-	-- tests on limits...
+   -- tests on limits...
 
 insert
-	EIFFELTEST_TOOLS
-	PLATFORM
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   PLATFORM
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			-- to_integer
-			n1 := from_integer(2)
-			assert(n1.to_integer_32 = 2)
-			n1 := n1 @- 2
-			assert(n1.to_integer_32 = 0)
-			n1 := n1 @- 1
-			assert(n1.to_integer_32 = -1)
-			-- maximum_integer & minimum_integer
-			n1 := from_integer(Maximum_integer)
-			assert(n1.to_integer_32 = Maximum_integer)
-			n1 := n1 @+ 1
-			assert(n1 @- 1 @= Maximum_integer)
-			n2 := n1 @- 1
-			assert(n2.to_integer_32 = Maximum_integer)
-			n1 := from_integer(Minimum_integer)
-			assert(n1.to_integer_32 = Minimum_integer)
-			n1 := n1 @- 1
-			assert(n1 @+ 1 @= Minimum_integer)
-			n2 := n1 @+ 1
-			assert(n2.to_integer_32 = Minimum_integer)
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         -- to_integer
+         n1 := from_integer(2)
+         assert(n1.to_integer_32 = 2)
+         n1 := n1 @- 2
+         assert(n1.to_integer_32 = 0)
+         n1 := n1 @- 1
+         assert(n1.to_integer_32 = -1)
+         -- maximum_integer & minimum_integer
+         n1 := from_integer(Maximum_integer)
+         assert(n1.to_integer_32 = Maximum_integer)
+         n1 := n1 @+ 1
+         assert(n1 @- 1 @= Maximum_integer)
+         n2 := n1 @- 1
+         assert(n2.to_integer_32 = Maximum_integer)
+         n1 := from_integer(Minimum_integer)
+         assert(n1.to_integer_32 = Minimum_integer)
+         n1 := n1 @- 1
+         assert(n1 @+ 1 @= Minimum_integer)
+         n2 := n1 @+ 1
+         assert(n2.to_integer_32 = Minimum_integer)
+      end
 
 
 

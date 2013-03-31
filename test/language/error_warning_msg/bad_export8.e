@@ -7,11 +7,11 @@ create
 feature {INTROUVABLE} -- To be sure that this place is in the error message.
    make is
       local
-	 aux: like Current
+    aux: like Current
       do
-	 if aux /= Void then
-	    aux.make
-	 end
+    if aux /= Void then
+       aux.make
+    end
       end
 end -- class BAD_EXPORT8
 --

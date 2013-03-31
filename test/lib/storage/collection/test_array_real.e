@@ -4,15 +4,15 @@
 class TEST_ARRAY_REAL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[REAL]
-		do
-			create a.make(1, 5)
-		end
+   make is
+      local
+         a: ARRAY[REAL]
+      do
+         create a.make(1, 5)
+      end
 
 end -- class TEST_ARRAY_REAL
 --

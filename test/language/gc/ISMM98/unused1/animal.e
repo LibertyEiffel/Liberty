@@ -4,11 +4,11 @@
 deferred class ANIMAL
 
 feature {ANY}
-	name: STRING
+   name: STRING
 
-	is_cat: BOOLEAN is
-		deferred
-		end
+   is_cat: BOOLEAN is
+      deferred
+      end
 
 end -- class ANIMAL
 --

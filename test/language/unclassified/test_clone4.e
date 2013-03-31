@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CLONE4
-	-- Stupid test for stupid users.
+   -- Stupid test for stupid users.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d1, d2, d: REAL_64
-		do
-			d1 := 1.0
-			d2 := 2.0
-			d := d2
-			d1 := d
-			assert(d = 2.0)
-		end
+   make is
+      local
+         d1, d2, d: REAL_64
+      do
+         d1 := 1.0
+         d2 := 2.0
+         d := d2
+         d1 := d
+         assert(d = 2.0)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CLONE4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_CLONE4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CLONE4
 --

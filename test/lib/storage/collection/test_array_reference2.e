@@ -2,24 +2,24 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ARRAY_REFERENCE2
-	--
-	-- Test Reference/ARRAY.
-	--
+   --
+   -- Test Reference/ARRAY.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a1, a2: ARRAY[CAT]
+   a1, a2: ARRAY[CAT]
 
-	c: CAT
+   c: CAT
 
-	make is
-		do
-			create c
-			a1 := {ARRAY[CAT] 1, << c >> }
-			a2 := a1.twin
-		end
+   make is
+      do
+         create c
+         a1 := {ARRAY[CAT] 1, << c >> }
+         a2 := a1.twin
+      end
 
 end -- class TEST_ARRAY_REFERENCE2
 --

@@ -4,31 +4,31 @@
 class TEST_JVM14
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			s := foo
-			check
-				s = foo
-				not (s /= foo)
-			end
-			check
-				one = 1
-			end
-			check
-				yes = True
-			end
-		end
+   make is
+      local
+         s: STRING
+      do
+         s := foo
+         check
+            s = foo
+            not (s /= foo)
+         end
+         check
+            one = 1
+         end
+         check
+            yes = True
+         end
+      end
 
-	foo: STRING is "foo"
+   foo: STRING is "foo"
 
-	one: INTEGER is 1
+   one: INTEGER is 1
 
-	yes: BOOLEAN is True
+   yes: BOOLEAN is True
 
 end -- class TEST_JVM14
 --

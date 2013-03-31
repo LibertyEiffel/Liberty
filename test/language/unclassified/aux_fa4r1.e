@@ -4,8 +4,8 @@
 class AUX_FA4R1
 
 inherit
-	AUX_FA4B1
-		-- OK, ref a l'offset connu
+   AUX_FA4B1
+      -- OK, ref a l'offset connu
 
 end -- class AUX_FA4R1
 --

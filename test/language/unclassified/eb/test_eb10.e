@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB10
-	--
-	-- From a bug report of Eric BEZAULT
-	--
+   --
+   -- From a bug report of Eric BEZAULT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_EB10B
-		do
-			create b
-			b.f("loulou")
-		end
+   make is
+      local
+         b: AUX_EB10B
+      do
+         create b
+         b.f("loulou")
+      end
 
 end -- class TEST_EB10
 --

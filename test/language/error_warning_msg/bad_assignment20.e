@@ -4,20 +4,20 @@
 class BAD_ASSIGNMENT20
 
 insert
-	ANY
+   ANY
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			any: ANY
-		do
-			any := Current
-		end
-	
-	
+   make is
+      local
+         any: ANY
+      do
+         any := Current
+      end
+   
+   
 end -- class BAD_ASSIGNMENT20
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

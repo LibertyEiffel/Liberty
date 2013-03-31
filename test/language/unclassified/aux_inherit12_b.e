@@ -4,7 +4,7 @@
 class AUX_INHERIT12_B
 
 insert
-	AUX_INHERIT12_A
+   AUX_INHERIT12_A
 
 end -- class AUX_INHERIT12_B
 --

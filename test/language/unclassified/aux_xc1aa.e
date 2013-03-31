@@ -4,7 +4,7 @@
 class AUX_XC1AA[G]
 
 feature {ANY}
-	item: G
+   item: G
 
 end -- class AUX_XC1AA
 --

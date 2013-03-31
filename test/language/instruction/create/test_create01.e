@@ -4,47 +4,47 @@
 class TEST_CREATE01
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			old_a, new_a: ARRAY[INTEGER]; old_aux, new_aux: AUX_CREATE01; x: INTEGER
-		do
-			create old_a.make(1, 1)
-			create new_a.make(1, 1)
-			assert(old_a.is_equal(new_a))
-			new_a := create {ARRAY[INTEGER]}.make(1, 1)
-			assert(old_a.is_equal(new_a))
-			create old_aux
-			create new_aux
-			assert(old_aux.is_equal(new_aux))
-			new_aux := create {AUX_CREATE01}
-			assert(old_aux.is_equal(new_aux))
-			x := (create {AUX_CREATE01}).x
-			assert(x = 1)
-			assert(1 = foo(create {AUX_CREATE01}))
-		end
+   make is
+      local
+         old_a, new_a: ARRAY[INTEGER]; old_aux, new_aux: AUX_CREATE01; x: INTEGER
+      do
+         create old_a.make(1, 1)
+         create new_a.make(1, 1)
+         assert(old_a.is_equal(new_a))
+         new_a := create {ARRAY[INTEGER]}.make(1, 1)
+         assert(old_a.is_equal(new_a))
+         create old_aux
+         create new_aux
+         assert(old_aux.is_equal(new_aux))
+         new_aux := create {AUX_CREATE01}
+         assert(old_aux.is_equal(new_aux))
+         x := (create {AUX_CREATE01}).x
+         assert(x = 1)
+         assert(1 = foo(create {AUX_CREATE01}))
+      end
 
-	foo (aux: AUX_CREATE01): INTEGER is
-		do
-			Result := aux.x
-		ensure
-			not aux.is_equal(create {AUX_CREATE01})
-		end
+   foo (aux: AUX_CREATE01): INTEGER is
+      do
+         Result := aux.x
+      ensure
+         not aux.is_equal(create {AUX_CREATE01})
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CREATE01: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_CREATE01: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CREATE01
 --

@@ -4,12 +4,12 @@
 class AUX_ONCE6A
 
 feature {ANY}
-	default_value: INTEGER is
-		once
-			Result := 200
-		ensure
-			positive_default_value: Result > 0
-		end
+   default_value: INTEGER is
+      once
+         Result := 200
+      ensure
+         positive_default_value: Result > 0
+      end
 
 end -- class AUX_ONCE6A
 --

@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERIC11
-	-- Bug report from Adrian Ian Skilling <a.skilling@2020speech.com>
+   -- Bug report from Adrian Ian Skilling <a.skilling@2020speech.com>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			p: AUX_GENERIC11[ARRAY[STRING]]
-		do
-			create p
-			assert(p.items = Void)
-		end
+   make is
+      local
+         p: AUX_GENERIC11[ARRAY[STRING]]
+      do
+         create p
+         assert(p.items = Void)
+      end
 
 end -- class TEST_GENERIC11
 --

@@ -4,21 +4,21 @@
 class TEST_VOID1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(like_is_equal(Void))
-		end
+   make is
+      do
+         assert(like_is_equal(Void))
+      end
 
-	like_is_equal (other: like Current): BOOLEAN is
-		do
-			Result := True
-		end
+   like_is_equal (other: like Current): BOOLEAN is
+      do
+         Result := True
+      end
 
 end -- class TEST_VOID1
 --

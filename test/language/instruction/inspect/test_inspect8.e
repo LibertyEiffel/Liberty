@@ -4,61 +4,61 @@
 class TEST_INSPECT8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := words.lower
-			until
-				i > words.upper
-			loop
-				inspect
-					words @ i
-				when 1 then
-					assert_equal(words.item(i), 1)
-				when 2 then
-					assert_equal(words.item(i), 2)
-				when 3 then
-					assert_equal(words.item(i), 3)
-				when 4 then
-					assert_equal(words.item(i), 4)
-				when 5 then
-					assert_equal(words.item(i), 5)
-				when 6 then
-					assert_equal(words.item(i), 6)
-				when 7 then
-					assert_equal(words.item(i), 7)
-				end
-				i := i + 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := words.lower
+         until
+            i > words.upper
+         loop
+            inspect
+               words @ i
+            when 1 then
+               assert_equal(words.item(i), 1)
+            when 2 then
+               assert_equal(words.item(i), 2)
+            when 3 then
+               assert_equal(words.item(i), 3)
+            when 4 then
+               assert_equal(words.item(i), 4)
+            when 5 then
+               assert_equal(words.item(i), 5)
+            when 6 then
+               assert_equal(words.item(i), 6)
+            when 7 then
+               assert_equal(words.item(i), 7)
+            end
+            i := i + 1
+         end
+      end
 
-	words: ARRAY[INTEGER] is
-		once
-			Result := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7 >> }
-		end
+   words: ARRAY[INTEGER] is
+      once
+         Result := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7 >> }
+      end
 
 feature {}
-	cpt: INTEGER
+   cpt: INTEGER
 
-	assert_equal (given, expected: INTEGER) is
-		do
-			cpt := cpt + 1
-			if not given.is_equal(expected) then
-				sedb_breakpoint
-				std_output.put_string(once "TEST_INSPECT7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string(once ": expected >")
-				std_output.put_integer(expected)
-				std_output.put_string(once "<, but got >")
-				std_output.put_integer(given)
-				std_output.put_string("<%N")
-			end
-		end
+   assert_equal (given, expected: INTEGER) is
+      do
+         cpt := cpt + 1
+         if not given.is_equal(expected) then
+            sedb_breakpoint
+            std_output.put_string(once "TEST_INSPECT7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string(once ": expected >")
+            std_output.put_integer(expected)
+            std_output.put_string(once "<, but got >")
+            std_output.put_integer(given)
+            std_output.put_string("<%N")
+         end
+      end
 
 end -- class TEST_INSPECT8
 --

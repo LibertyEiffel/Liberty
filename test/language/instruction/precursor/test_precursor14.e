@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PRECURSOR14
-	-- From a bug report from Joseph R. Kiniry (kiniry@acm.org)
+   -- From a bug report from Joseph R. Kiniry (kiniry@acm.org)
 
 inherit
-	AUX_PRECURSOR14
-		redefine foo
-		end
+   AUX_PRECURSOR14
+      redefine foo
+      end
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make, make_aux
+   make, make_aux
 
 feature {ANY}
-	make is
-		local
-			temp: like Current
-		do
-			temp := foo
-			assert(temp.generating_type.is_equal("TEST_PRECURSOR14"))
-		end
+   make is
+      local
+         temp: like Current
+      do
+         temp := foo
+         assert(temp.generating_type.is_equal("TEST_PRECURSOR14"))
+      end
 
-	foo: like Current is
-		do
-			Result := Precursor
-		end
+   foo: like Current is
+      do
+         Result := Precursor
+      end
 
 end -- class TEST_PRECURSOR14
 --

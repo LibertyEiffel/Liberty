@@ -2,29 +2,29 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED14
-	-- From a bug report of Fridtjof SIEBERT
+   -- From a bug report of Fridtjof SIEBERT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	---- Original:
-	-- arr: ARRAY[expanded AUX_EXPANDED14];
-	arr: ARRAY[AUX_EXPANDED14]
+   ---- Original:
+   -- arr: ARRAY[expanded AUX_EXPANDED14];
+   arr: ARRAY[AUX_EXPANDED14]
 
-	make is
-		local
-			i: INTEGER; v: AUX_EXPANDED14
-		do
-			---- Original:
-			-- v: expanded AUX_EXPANDED14;
-			create arr.make(1, 2)
-			v := arr.item(1)
-			i := v.i
-			check
-				i = 2
-			end
-		end
+   make is
+      local
+         i: INTEGER; v: AUX_EXPANDED14
+      do
+         ---- Original:
+         -- v: expanded AUX_EXPANDED14;
+         create arr.make(1, 2)
+         v := arr.item(1)
+         i := v.i
+         check
+            i = 2
+         end
+      end
 
 end -- class TEST_EXPANDED14
 --

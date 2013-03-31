@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ONCE9
-	-- A bug with dynamic dispatch and the inlining of precomputed once function.
-	-- From Guillaume Lemaitre (sz 367)
+   -- A bug with dynamic dispatch and the inlining of precomputed once function.
+   -- From Guillaume Lemaitre (sz 367)
 
 insert
-	ARGUMENTS
+   ARGUMENTS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			file: TEXT_FILE_READ
-		do
-			if argument_count = 1 then
-				create file.connect_to(argument(1))
-				if file.is_connected then
-					load(file)
-				end
-			end
-		end
+   make is
+      local
+         file: TEXT_FILE_READ
+      do
+         if argument_count = 1 then
+            create file.connect_to(argument(1))
+            if file.is_connected then
+               load(file)
+            end
+         end
+      end
 
-	load (p_file: INPUT_STREAM) is
-		require
-			p_file.is_connected
-		do
-			p_file.read_word
-			if p_file.last_string.is_integer then
-				std_output.put_integer(p_file.last_string.to_integer)
-			else
-				std_output.put_string("Can't read an integer!%N")
-			end
-		end
+   load (p_file: INPUT_STREAM) is
+      require
+         p_file.is_connected
+      do
+         p_file.read_word
+         if p_file.last_string.is_integer then
+            std_output.put_integer(p_file.last_string.to_integer)
+         else
+            std_output.put_string("Can't read an integer!%N")
+         end
+      end
 
 end -- class TEST_ONCE9
 --

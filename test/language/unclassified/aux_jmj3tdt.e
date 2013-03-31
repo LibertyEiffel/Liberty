@@ -4,80 +4,80 @@
 class AUX_JMJ3TDT[E]
 
 inherit
-	AUX_JMJ3EP[E]
+   AUX_JMJ3EP[E]
 
 feature {ANY}
-	make (target: like container) is
-		require
-			non_void_target: target /= Void
-		do
-			container := target
-		end
+   make (target: like container) is
+      require
+         non_void_target: target /= Void
+      do
+         container := target
+      end
 
-	start is
-		do
-			start_i
-			start_j
-		end
+   start is
+      do
+         start_i
+         start_j
+      end
 
-	next is
-		do
-			next_j
-			if off_j then
-				next_i
-				start_j
-			end
-		end
+   next is
+      do
+         next_j
+         if off_j then
+            next_i
+            start_j
+         end
+      end
 
-	item: E is
-		do
-			Result := container.item(i, j)
-		end
+   item: E is
+      do
+         Result := container.item(i, j)
+      end
 
-	put (new: E) is
-		do
-			container.put(new, i, j)
-		end
+   put (new: E) is
+      do
+         container.put(new, i, j)
+      end
 
-	exhausted: BOOLEAN is
-		do
-			Result := off_i
-		end
+   exhausted: BOOLEAN is
+      do
+         Result := off_i
+      end
 
 feature {}
-	container: AUX_JMJ3C2D[E]
+   container: AUX_JMJ3C2D[E]
 
-	i, j: INTEGER
+   i, j: INTEGER
 
-	start_i is
-		do
-			i := container.lower1
-		end
+   start_i is
+      do
+         i := container.lower1
+      end
 
-	start_j is
-		do
-			j := container.lower2
-		end
+   start_j is
+      do
+         j := container.lower2
+      end
 
-	next_i is
-		do
-			i := i + 1
-		end
+   next_i is
+      do
+         i := i + 1
+      end
 
-	next_j is
-		do
-			j := j + 1
-		end
+   next_j is
+      do
+         j := j + 1
+      end
 
-	off_i: BOOLEAN is
-		do
-			Result := i > container.upper1
-		end
+   off_i: BOOLEAN is
+      do
+         Result := i > container.upper1
+      end
 
-	off_j: BOOLEAN is
-		do
-			Result := j > container.upper2
-		end
+   off_j: BOOLEAN is
+      do
+         Result := j > container.upper2
+      end
 
 end -- class AUX_JMJ3TDT
 --

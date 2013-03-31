@@ -3,7 +3,7 @@
 --
 class AUX_INHERIT14B
 inherit
-	ANY
+   ANY
 feature
 end -- class AUX_INHERIT14B
 --

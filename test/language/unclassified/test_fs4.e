@@ -4,15 +4,15 @@
 class TEST_FS4
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: ARRAY[STRING]
-		do
-			s := {ARRAY[STRING] 1, << "hi", Void, "!" >> }
-		end
+   make is
+      local
+         s: ARRAY[STRING]
+      do
+         s := {ARRAY[STRING] 1, << "hi", Void, "!" >> }
+      end
 
 end -- class TEST_FS4
 --

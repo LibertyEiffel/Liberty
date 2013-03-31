@@ -4,26 +4,26 @@
 class TEST_EXPANDED28
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			test: AUX_EXPANDED28
-		do
-			test.set_val(7)
-			assert(test.get_val = 7)
-			change(test)
-			assert(test.get_val = 7)
-		end
+   make is
+      local
+         test: AUX_EXPANDED28
+      do
+         test.set_val(7)
+         assert(test.get_val = 7)
+         change(test)
+         assert(test.get_val = 7)
+      end
 
-	change (this: AUX_EXPANDED28) is
-		do
-			this.set_val(3)
-		end
+   change (this: AUX_EXPANDED28) is
+      do
+         this.set_val(3)
+      end
 
 end -- class TEST_EXPANDED28
 --

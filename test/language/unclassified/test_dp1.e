@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DP1
-	--
-	-- Test from Dom. Colnet and Phil. Ribet .
-	--
+   --
+   -- Test from Dom. Colnet and Phil. Ribet .
+   --
 
 inherit
-	AUX_DP1
-		rename g as h
-		redefine f
-		end
+   AUX_DP1
+      rename g as h
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	f: TEST_DP1 is
-		do
-			assert(True)
-			Result := Current
-		end
+   f: TEST_DP1 is
+      do
+         assert(True)
+         Result := Current
+      end
 
-	make is
-		do
-			run
-			assert(assert_counter.value = 2)
-		end
+   make is
+      do
+         run
+         assert(assert_counter.value = 2)
+      end
 
 end -- class TEST_DP1
 --

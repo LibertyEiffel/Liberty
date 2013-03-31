@@ -4,55 +4,55 @@
 class AUX_JLP8_MATRIX_ROWS[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_PROVIDER[AUX_JLP8_ROW_PROVIDER[E]]
-		redefine is_runnable
-		end
+   AUX_JLP8_PROVIDER[AUX_JLP8_ROW_PROVIDER[E]]
+      redefine is_runnable
+      end
 
 feature {ANY}
-	make (m: AUX_JLP8_MATRIX[E]) is
-		do
-			matrix := m
-		end
+   make (m: AUX_JLP8_MATRIX[E]) is
+      do
+         matrix := m
+      end
 
-	start is
-		do
-			row := 0
-			if not exhausted then
-				item := matrix.row(row)
-			end
-		end
+   start is
+      do
+         row := 0
+         if not exhausted then
+            item := matrix.row(row)
+         end
+      end
 
-	next is
-		do
-			row := row + matrix.incr_row
-			if not exhausted then
-				item := matrix.row(row)
-			end
-		end
+   next is
+      do
+         row := row + matrix.incr_row
+         if not exhausted then
+            item := matrix.row(row)
+         end
+      end
 
-	exhausted: BOOLEAN is
-		do
-			Result := row >= matrix.nb_row
-		end
+   exhausted: BOOLEAN is
+      do
+         Result := row >= matrix.nb_row
+      end
 
-	item: AUX_JLP8_ROW_PROVIDER[E]
+   item: AUX_JLP8_ROW_PROVIDER[E]
 
-	is_runnable: BOOLEAN is
-		do
-			Result := matrix /= Void
-		end
+   is_runnable: BOOLEAN is
+      do
+         Result := matrix /= Void
+      end
 
-	aborted: BOOLEAN
+   aborted: BOOLEAN
 
-	abort is
-		do
-			row := matrix.nb_row
-			aborted := True
-		end
+   abort is
+      do
+         row := matrix.nb_row
+         aborted := True
+      end
 
-	matrix: AUX_JLP8_MATRIX[E]
+   matrix: AUX_JLP8_MATRIX[E]
 
-	row: INTEGER
+   row: INTEGER
 
 end -- class AUX_JLP8_MATRIX_ROWS
 --

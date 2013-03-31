@@ -4,36 +4,36 @@
 class TEST_ONCE3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(once_a.value = 'a')
-		end
+   make is
+      do
+         assert(once_a.value = 'a')
+      end
 
-	once_a: AUX_ONCE3A is
-		once
-			create Result.make_a
-		end
+   once_a: AUX_ONCE3A is
+      once
+         create Result.make_a
+      end
 
-	once_b: AUX_ONCE3B is
-		once
-			create Result.make_b
-		end
+   once_b: AUX_ONCE3B is
+      once
+         create Result.make_b
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ONCE3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ONCE3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ONCE3
 --

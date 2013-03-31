@@ -4,7 +4,7 @@
 class AUX_RB5B
 
 inherit
-	AUX_RB5A
+   AUX_RB5A
 
 end -- class AUX_RB5B
 --

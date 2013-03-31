@@ -4,12 +4,12 @@
 class AUX_INHERIT12_A
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	foo is
-		do
-		end
+   foo is
+      do
+      end
 
 end -- class AUX_INHERIT12_A
 --

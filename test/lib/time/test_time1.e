@@ -2,26 +2,26 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_TIME1
-	-- From: Jacques Bouchard <bouchard@mageos.com>
+   -- From: Jacques Bouchard <bouchard@mageos.com>
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			t1, t2: TIME
-		do
-			t1.update
-			t2.update
-			assert(not (t1 < t2))
-			assert(t1.is_equal(t2))
-			assert(not (t1 > t2))
-			assert(t1.elapsed_seconds(t2) = 0)
-		end
+   main is
+      local
+         t1, t2: TIME
+      do
+         t1.update
+         t2.update
+         assert(not (t1 < t2))
+         assert(t1.is_equal(t2))
+         assert(not (t1 > t2))
+         assert(t1.elapsed_seconds(t2) = 0)
+      end
 
 end -- class TEST_TIME1
 --

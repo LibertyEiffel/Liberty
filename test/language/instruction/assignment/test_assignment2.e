@@ -4,19 +4,19 @@
 class TEST_ASSIGNMENT2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_ASSIGNMENT2_A
-		do
-			a := create {AUX_ASSIGNMENT2_C}
-			a.foo(create {AUX_ASSIGNMENT2_C})
-		end
+   make is
+      local
+         a: AUX_ASSIGNMENT2_A
+      do
+         a := create {AUX_ASSIGNMENT2_C}
+         a.foo(create {AUX_ASSIGNMENT2_C})
+      end
 
 end -- class TEST_ASSIGNMENT2
 --

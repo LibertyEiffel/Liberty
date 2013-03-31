@@ -4,19 +4,19 @@
 class TEST_ANCHOR2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: INTEGER
+   a: INTEGER
 
-	b: like a
+   b: like a
 
-	c: like b
+   c: like b
 
-	make is
-		do
-			c := 1
-		end
+   make is
+      do
+         c := 1
+      end
 
 end -- class TEST_ANCHOR2
 --

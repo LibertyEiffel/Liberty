@@ -4,7 +4,7 @@
 class AUX_RENAME4A
 
 feature {ANY}
-	mema: like Current
+   mema: like Current
 
 end -- class AUX_RENAME4A
 --

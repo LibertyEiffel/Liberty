@@ -4,25 +4,25 @@
 class TEST_STRING4
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(("foo").first_substring_index("foo") = 1)
-			assert(("foo ").first_substring_index("foo") = 1)
-			assert((" foo").first_substring_index("foo") = 2)
-			assert((" foo ").first_substring_index("foo") = 2)
-			assert(("foo").first_substring_index("bar") = 0)
-			assert(("foo").first_substring_index("boo") = 0)
-			assert(("foo").first_substring_index("boo ") = 0)
-			assert(("").first_substring_index("boo ") = 0)
-			assert((" foo ").has_substring("foo"))
-			assert(not (" f oo ").has_substring("foo"))
-		end
+   make is
+      do
+         assert(("foo").first_substring_index("foo") = 1)
+         assert(("foo ").first_substring_index("foo") = 1)
+         assert((" foo").first_substring_index("foo") = 2)
+         assert((" foo ").first_substring_index("foo") = 2)
+         assert(("foo").first_substring_index("bar") = 0)
+         assert(("foo").first_substring_index("boo") = 0)
+         assert(("foo").first_substring_index("boo ") = 0)
+         assert(("").first_substring_index("boo ") = 0)
+         assert((" foo ").has_substring("foo"))
+         assert(not (" f oo ").has_substring("foo"))
+      end
 
 end -- class TEST_STRING4
 --

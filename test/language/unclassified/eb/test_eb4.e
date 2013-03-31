@@ -2,45 +2,45 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB4
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 inherit
-	AUX_EB4A
-		rename f as g,
-			g as f
-		end
+   AUX_EB4A
+      rename f as g,
+         g as f
+      end
 
 insert
-	AUX_EB4A
-		rename f as f1,
-			g as g1
-		end
+   AUX_EB4A
+      rename f as f1,
+         g as g1
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			g
-			assert(f_count = 1)
-			assert(g_count = 0)
-		end
+   make is
+      do
+         g
+         assert(f_count = 1)
+         assert(g_count = 0)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EB4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EB4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EB4
 --

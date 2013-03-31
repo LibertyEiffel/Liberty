@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PM3
-	-- From: "Phil Malin" <phil.malin@iP3Systems.com>
+   -- From: "Phil Malin" <phil.malin@iP3Systems.com>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			peach: AUX_PM1PEACH; fr: AUX_PM1FRUIT
-		do
-			create {AUX_PM1APPLE} fr.make
-			peach ?= fr
-			if peach /= Void then
-				std_output.put_string("ERROR in TEST_PM2 #1%N")
-			end
-			create {AUX_PM1PEACH} fr.make
-		end
+   make is
+      local
+         peach: AUX_PM1PEACH; fr: AUX_PM1FRUIT
+      do
+         create {AUX_PM1APPLE} fr.make
+         peach ?= fr
+         if peach /= Void then
+            std_output.put_string("ERROR in TEST_PM2 #1%N")
+         end
+         create {AUX_PM1PEACH} fr.make
+      end
 
 end -- class TEST_PM3
 --

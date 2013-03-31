@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RENAME8
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			b: AUX_RENAME8B
-		do
-			create b
-			b.h(b)
-		end
+   make is
+      local
+         b: AUX_RENAME8B
+      do
+         create b
+         b.h(b)
+      end
 
 end -- class TEST_RENAME8
 --

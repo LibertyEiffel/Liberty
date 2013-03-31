@@ -4,7 +4,7 @@
 expanded class AUX_FB1_EXP
 
 insert
-	AUX_FB1_REF
+   AUX_FB1_REF
 
 end -- class AUX_FB1_EXP
 --

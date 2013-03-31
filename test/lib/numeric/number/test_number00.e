@@ -2,34 +2,34 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER00
-	--
-	-- Simple tests of comparisons between small integer numbers
-	-- and integer numbers.
-	--
+   --
+   -- Simple tests of comparisons between small integer numbers
+   -- and integer numbers.
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := from_integer(1)
-			assert(n @= 1)
-			assert(n @< 2)
-			assert(n @<= 1)
-			assert(n @<= 2)
-			assert(n @> -1)
-			assert(n @>= -1)
-			assert(n @>= 1)
-			assert(not (n @< -1))
-			assert(not (n @<= -1))
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := from_integer(1)
+         assert(n @= 1)
+         assert(n @< 2)
+         assert(n @<= 1)
+         assert(n @<= 2)
+         assert(n @> -1)
+         assert(n @>= -1)
+         assert(n @>= 1)
+         assert(not (n @< -1))
+         assert(not (n @<= -1))
+      end
 
 
 

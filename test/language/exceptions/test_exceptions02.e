@@ -4,42 +4,42 @@
 class TEST_EXCEPTIONS02
 
 inherit
-	EXCEPTIONS
+   EXCEPTIONS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	exception_memory: INTEGER
+   exception_memory: INTEGER
 
-	make is
-		local
-			s: STRING
-		do
-			s.extend('o')
-			is_true(("foo").is_equal(s))
-			check
-				exception_memory = Void_call_target
-				not is_developer_exception
-			end
-		rescue
-			exception_memory := exception
-			s := "fo"
-			retry
-		end
+   make is
+      local
+         s: STRING
+      do
+         s.extend('o')
+         is_true(("foo").is_equal(s))
+         check
+            exception_memory = Void_call_target
+            not is_developer_exception
+         end
+      rescue
+         exception_memory := exception
+         s := "fo"
+         retry
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION02: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION02: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS02
 --

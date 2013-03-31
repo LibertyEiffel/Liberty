@@ -2,42 +2,42 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER22
-	-- tests on "is_fraction_general_number"
+   -- tests on "is_fraction_general_number"
 
 insert
-	EIFFELTEST_TOOLS
-	ANY
-	PLATFORM
+   EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := nt.from_integer(0)
-			assert(not n.is_fraction_general_number)
-			n := nt.from_integer(1)
-			assert(not n.is_fraction_general_number)
-			n := nt.from_integer(-1)
-			assert(not n.is_fraction_general_number)
-			n := nt.from_integer(Maximum_integer)
-			n := n @+ 1000
-			assert(not n.is_fraction_general_number)
-			n := nt.from_integer(Minimum_integer)
-			n := n @- 1000
-			assert(not n.is_fraction_general_number)
-			n := nt.from_string("3/5")
-			assert(n.is_fraction_general_number)
-			n := nt.from_string("-9/10")
-			assert(n.is_fraction_general_number)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := nt.from_integer(0)
+         assert(not n.is_fraction_general_number)
+         n := nt.from_integer(1)
+         assert(not n.is_fraction_general_number)
+         n := nt.from_integer(-1)
+         assert(not n.is_fraction_general_number)
+         n := nt.from_integer(Maximum_integer)
+         n := n @+ 1000
+         assert(not n.is_fraction_general_number)
+         n := nt.from_integer(Minimum_integer)
+         n := n @- 1000
+         assert(not n.is_fraction_general_number)
+         n := nt.from_string("3/5")
+         assert(n.is_fraction_general_number)
+         n := nt.from_string("-9/10")
+         assert(n.is_fraction_general_number)
+      end
 
 
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER22
 --

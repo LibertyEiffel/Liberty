@@ -4,14 +4,14 @@
 class TEST_GENERAL3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	l: ARRAY[ANY]
+   l: ARRAY[ANY]
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_GENERAL3
 --

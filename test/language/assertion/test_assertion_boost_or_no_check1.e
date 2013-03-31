@@ -2,40 +2,40 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ASSERTION_BOOST_OR_NO_CHECK1
-	-- To be run only in "-boost" mode or in "-no_check" mode.
+   -- To be run only in "-boost" mode or in "-no_check" mode.
 
 insert
-	EIFFELTEST_TOOLS
-	ASSERTION_CONSTANTS
+   EIFFELTEST_TOOLS
+   ASSERTION_CONSTANTS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			trace: ARRAY[INTEGER]; aux: AUX_ASSERTION
-		do
-			create trace.make(require_index, debug_index)
-			assert(trace.count = 7) -- assert #  1
-			assert(trace.occurrences(0) = 7) -- assert #  2
-			create aux.make(trace)
-			assert(trace.item(require_index) = 0) -- assert #  3
-			assert(trace.item(ensure_index) = 0) -- assert #  4
-			assert(trace.item(class_invariant_index) = 0) -- assert #  5
-			assert(trace.item(loop_invariant_index) = 0) -- assert #  6
-			assert(trace.item(variant_index) = 0) -- assert #  7
-			assert(trace.item(check_index) = 0) -- assert #  8
-			assert(trace.item(debug_index) = 0) -- assert #  9
-			aux.do_call
-			assert(trace.item(require_index) = 0) -- assert # 10
-			assert(trace.item(ensure_index) = 0) -- assert # 11
-			assert(trace.item(class_invariant_index) = 0) -- assert # 12
-			assert(trace.item(loop_invariant_index) = 0) -- assert # 13
-			assert(trace.item(variant_index) = 0) -- assert # 14
-			assert(trace.item(check_index) = 0) -- assert # 15
-			assert(trace.item(debug_index) = 0) -- assert # 16
-		end
+   main is
+      local
+         trace: ARRAY[INTEGER]; aux: AUX_ASSERTION
+      do
+         create trace.make(require_index, debug_index)
+         assert(trace.count = 7) -- assert #  1
+         assert(trace.occurrences(0) = 7) -- assert #  2
+         create aux.make(trace)
+         assert(trace.item(require_index) = 0) -- assert #  3
+         assert(trace.item(ensure_index) = 0) -- assert #  4
+         assert(trace.item(class_invariant_index) = 0) -- assert #  5
+         assert(trace.item(loop_invariant_index) = 0) -- assert #  6
+         assert(trace.item(variant_index) = 0) -- assert #  7
+         assert(trace.item(check_index) = 0) -- assert #  8
+         assert(trace.item(debug_index) = 0) -- assert #  9
+         aux.do_call
+         assert(trace.item(require_index) = 0) -- assert # 10
+         assert(trace.item(ensure_index) = 0) -- assert # 11
+         assert(trace.item(class_invariant_index) = 0) -- assert # 12
+         assert(trace.item(loop_invariant_index) = 0) -- assert # 13
+         assert(trace.item(variant_index) = 0) -- assert # 14
+         assert(trace.item(check_index) = 0) -- assert # 15
+         assert(trace.item(debug_index) = 0) -- assert # 16
+      end
 
 end -- class TEST_ASSERTION_BOOST_OR_NO_CHECK1
 --

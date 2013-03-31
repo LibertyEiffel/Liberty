@@ -4,15 +4,15 @@
 class TEST_SINGLETON2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_SINGLETON2
-		do
-			create aux
-		end
+   make is
+      local
+         aux: AUX_SINGLETON2
+      do
+         create aux
+      end
 
 end -- class TEST_SINGLETON2
 --

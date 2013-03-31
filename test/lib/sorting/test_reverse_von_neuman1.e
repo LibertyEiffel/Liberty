@@ -4,32 +4,32 @@
 class TEST_REVERSE_VON_NEUMAN1
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tab: ARRAY[INTEGER]; s: REVERSE_COLLECTION_SORTER[INTEGER]
-		do
-			tab := {ARRAY[INTEGER] 1, << 3, 1, 2, 3, 5, 9 >> }
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER] 1, << 9, 5, 3, 3, 2, 1 >> }), tab)
-			tab.add_last(4)
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal({ARRAY[INTEGER] 1, << 9, 5, 4, 3, 3, 2, 1 >> }), tab)
-		end
+   make is
+      local
+         tab: ARRAY[INTEGER]; s: REVERSE_COLLECTION_SORTER[INTEGER]
+      do
+         tab := {ARRAY[INTEGER] 1, << 3, 1, 2, 3, 5, 9 >> }
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER] 1, << 9, 5, 3, 3, 2, 1 >> }), tab)
+         tab.add_last(4)
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal({ARRAY[INTEGER] 1, << 9, 5, 4, 3, 3, 2, 1 >> }), tab)
+      end
 
-	assert (b: BOOLEAN; tab: ARRAY[INTEGER]) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REVERSE_VON_NEUMAN1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN; tab: ARRAY[INTEGER]) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REVERSE_VON_NEUMAN1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REVERSE_VON_NEUMAN1
 --

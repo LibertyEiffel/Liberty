@@ -4,13 +4,13 @@
 class AUX_ANCHOR8A
 
 feature {ANY}
-	t: INTEGER is
-		do
-		end
+   t: INTEGER is
+      do
+      end
 
-	f: COLLECTION[like t]
+   f: COLLECTION[like t]
 
-	g: like f
+   g: like f
 
 end -- class AUX_ANCHOR8A
 --

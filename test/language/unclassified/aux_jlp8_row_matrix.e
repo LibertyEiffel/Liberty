@@ -4,16 +4,16 @@
 class AUX_JLP8_ROW_MATRIX[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_MATRIX[E]
+   AUX_JLP8_MATRIX[E]
 
 creation {ANY}
-	make, make_unit
+   make, make_unit
 
 feature {ANY}
-	translate_indexes (l, c: INTEGER): INTEGER is
-		do
-			Result := l * nb_column + c
-		end
+   translate_indexes (l, c: INTEGER): INTEGER is
+      do
+         Result := l * nb_column + c
+      end
 
 end -- class AUX_JLP8_ROW_MATRIX
 --

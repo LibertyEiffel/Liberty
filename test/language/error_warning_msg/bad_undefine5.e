@@ -4,18 +4,18 @@
 class BAD_UNDEFINE5
 
 insert
-	ANY
-		undefine foo
-		end
-	
+   ANY
+      undefine foo
+      end
+   
 creation
-	main
+   main
 
 feature
-	main is
-		do
-		end
-	
+   main is
+      do
+      end
+   
 end -- class BAD_UNDEFINE5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

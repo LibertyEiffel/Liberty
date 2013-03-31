@@ -4,35 +4,35 @@
 class TEST_CREATE03
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			aux: AUX_CREATE03
-		do
-			create aux
-			assert(aux.value = 1)
-			create aux
-			assert(aux.value = 1)
-			create aux.make
-			assert(aux.value = 2)
-			create aux.make
-			assert(aux.value = 2)
-		end
+   make is
+      local
+         aux: AUX_CREATE03
+      do
+         create aux
+         assert(aux.value = 1)
+         create aux
+         assert(aux.value = 1)
+         create aux.make
+         assert(aux.value = 2)
+         create aux.make
+         assert(aux.value = 2)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_CREATE03: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_CREATE03: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_CREATE03
 --

@@ -4,17 +4,17 @@
 expanded class AUX_EG18A[T]
 
 feature {ANY}
-	f: AUX_EG18A[T] is
-		do
-			create Result
-		end
+   f: AUX_EG18A[T] is
+      do
+         create Result
+      end
 
-	x: T
+   x: T
 
-	set_x (other: T) is
-		do
-			x := other
-		end
+   set_x (other: T) is
+      do
+         x := other
+      end
 
 end -- class AUX_EG18A
 --

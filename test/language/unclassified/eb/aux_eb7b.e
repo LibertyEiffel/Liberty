@@ -4,15 +4,15 @@
 class AUX_EB7B[G]
 
 inherit
-	AUX_EB7A[G]
-		redefine c
-		end
+   AUX_EB7A[G]
+      redefine c
+      end
 
 feature {ANY}
-	c: AUX_EB7B1[G] is
-		do
-			create Result
-		end
+   c: AUX_EB7B1[G] is
+      do
+         create Result
+      end
 
 end -- class AUX_EB7B
 --

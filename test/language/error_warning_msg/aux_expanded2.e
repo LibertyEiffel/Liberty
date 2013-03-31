@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class AUX_EXPANDED2
-	-- From sz:491
-	-- An expanded class must have one of the following
-	--   - no creation clause at all (i.e. default_create is its only creation procedure)
-	--   - a creation clause that contains default_create
-	--   - a creation clause that contains, along with an arbitrary (possibly null) number of procedures that take one or more
-	--     arguments, exactly one procedure that takes no arguments
+   -- From sz:491
+   -- An expanded class must have one of the following
+   --   - no creation clause at all (i.e. default_create is its only creation procedure)
+   --   - a creation clause that contains default_create
+   --   - a creation clause that contains, along with an arbitrary (possibly null) number of procedures that take one or more
+   --     arguments, exactly one procedure that takes no arguments
 
 creation {ANY}
-	make
+   make
 
 feature {ANY} -- Should be rejected
-	make (n_: like n) is
-		do
-			n := n_
-		ensure
-			n = n_
-		end
+   make (n_: like n) is
+      do
+         n := n_
+      ensure
+         n = n_
+      end
 
-	n: INTEGER
+   n: INTEGER
 
 end -- class AUX_EXPANDED2
 --

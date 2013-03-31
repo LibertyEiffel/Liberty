@@ -4,16 +4,16 @@
 class AUX_PRECURSOR10B
 
 inherit
-	AUX_PRECURSOR10A
-		redefine f
-		end
+   AUX_PRECURSOR10A
+      redefine f
+      end
 
 feature {ANY}
-	f: ARRAY[STRING] is
-		once
-			Result := Precursor
-			Result.add_last("bar")
-		end
+   f: ARRAY[STRING] is
+      once
+         Result := Precursor
+         Result.add_last("bar")
+      end
 
 end -- class AUX_PRECURSOR10B
 --

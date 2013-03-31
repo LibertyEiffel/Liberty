@@ -4,30 +4,30 @@
 class AUX_JMJ3A2D[E]
 
 inherit
-	AUX_JMJ3C2D[E]
+   AUX_JMJ3C2D[E]
 
 insert
-	ARRAY2[E]
+   ARRAY2[E]
 
 creation {ANY}
-	make, dimension
+   make, dimension
 
 feature {ANY}
-	dimension (first_dim, second_dim, tile_width: INTEGER) is
-		do
-			make(0, tile_width, 0, second_dim)
-		end
+   dimension (first_dim, second_dim, tile_width: INTEGER) is
+      do
+         make(0, tile_width, 0, second_dim)
+      end
 
 feature {ANY}
-	dim1: INTEGER is
-		do
-			Result := upper1 - lower1 + 1
-		end
+   dim1: INTEGER is
+      do
+         Result := upper1 - lower1 + 1
+      end
 
-	dim2: INTEGER is
-		do
-			Result := upper2 - lower2 + 1
-		end
+   dim2: INTEGER is
+      do
+         Result := upper2 - lower2 + 1
+      end
 
 end -- class AUX_JMJ3A2D
 --

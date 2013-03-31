@@ -4,26 +4,26 @@
 class CAT
 
 inherit
-	QUADRUPED
-		redefine fornicate_with, is_cat
-		end
-	ANY
+   QUADRUPED
+      redefine fornicate_with, is_cat
+      end
+   ANY
 
 feature {ANY}
-	is_cat: BOOLEAN is
-		do
-			Result := True
-		end
+   is_cat: BOOLEAN is
+      do
+         Result := True
+      end
 
-	fornicate_with (quadrupede: CAT): CAT is
-		do
-			Result := Current
-		end
+   fornicate_with (quadrupede: CAT): CAT is
+      do
+         Result := Current
+      end
 
-	cry is
-		do
-			std_output.put_string("MIAOU")
-		end
+   cry is
+      do
+         std_output.put_string("MIAOU")
+      end
 
 end -- class CAT
 --

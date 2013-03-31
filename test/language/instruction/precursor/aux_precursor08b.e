@@ -4,15 +4,15 @@
 class AUX_PRECURSOR08B
 
 inherit
-	AUX_PRECURSOR08A
-		redefine f
-		end
+   AUX_PRECURSOR08A
+      redefine f
+      end
 
 feature {ANY}
-	f: ARRAY[STRING] is
-		once
-			Result := Precursor
-		end
+   f: ARRAY[STRING] is
+      once
+         Result := Precursor
+      end
 
 end -- class AUX_PRECURSOR08B
 --

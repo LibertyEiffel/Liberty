@@ -2,48 +2,48 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY08
-	-- To test simplify of the ?:= operator
+   -- To test simplify of the ?:= operator
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	string: STRING
+   string: STRING
 
-	animal: ANIMAL
+   animal: ANIMAL
 
-	cat: CAT
+   cat: CAT
 
-	dog: DOG
+   dog: DOG
 
-	any: ANY
+   any: ANY
 
-	bs: EIFFELTEST_TOOLS
+   bs: EIFFELTEST_TOOLS
 
-	make is
-		local
-			c: like Current
-		do
-			any := "toto"
-			bs := Current
-			if not (c ?:= bs) then
-				c_inline_c("simplify error #1 in boost_simplify08")
-			end
-			create cat
-			animal := cat
-			if cat ?:= animal then
-				cat ::= animal
-				assert(cat = animal)
-			else
-				c_inline_c("simplify error #2 in boost_simplify08")
-			end
-			if dog ?:= animal then
-				assert(False)
-			end
-		end
+   make is
+      local
+         c: like Current
+      do
+         any := "toto"
+         bs := Current
+         if not (c ?:= bs) then
+            c_inline_c("simplify error #1 in boost_simplify08")
+         end
+         create cat
+         animal := cat
+         if cat ?:= animal then
+            cat ::= animal
+            assert(cat = animal)
+         else
+            c_inline_c("simplify error #2 in boost_simplify08")
+         end
+         if dog ?:= animal then
+            assert(False)
+         end
+      end
 
 end -- class TEST_SIMPLIFY08
 --

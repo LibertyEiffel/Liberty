@@ -4,19 +4,19 @@
 class AUX_ONCE3B
 
 inherit
-	TEST_ONCE3
+   TEST_ONCE3
 
 creation {ANY}
-	make_b
+   make_b
 
 feature {ANY}
-	value: CHARACTER
+   value: CHARACTER
 
-	make_b is
-		do
-			value := 'b'
-			-- ***			assert(once_a.value = 'a'); -- *** No more recursive once.
-		end
+   make_b is
+      do
+         value := 'b'
+         -- ***         assert(once_a.value = 'a'); -- *** No more recursive once.
+      end
 
 end -- class AUX_ONCE3B
 --

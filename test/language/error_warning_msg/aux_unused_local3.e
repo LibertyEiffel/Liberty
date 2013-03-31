@@ -4,12 +4,12 @@
 expanded class AUX_UNUSED_LOCAL3
 
 creation
-	make
+   make
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_UNUSED_LOCAL3
 --

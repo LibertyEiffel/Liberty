@@ -2,137 +2,137 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY01
-	--
-	-- To check that the simplify work is actually done (for -boost mode only).
-	--
+   --
+   -- To check that the simplify work is actually done (for -boost mode only).
+   --
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			b_true, b_false: BOOLEAN
-		do
-			b_true := True
-			b_false := False
-			if True then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #1 ***")
-			end
-			if False then
-				c_inline_c("*** WrongCcode #2 ***")
-			else
-				always_run
-			end
-			if False then
-				c_inline_c("*** WrongCcode #3 ***")
-			elseif True then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #4 ***")
-			end
-			if 3 = 3 then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #5 ***")
-			end
-			if always_false then
-				assert(False)
-			end
-			if always_true then
-				always_run
-			end
-			if True then
-				always_run
-			end
-			if False then
-			else
-				always_run
-			end
-			if False then
-				c_inline_c("*** WrongCcode #6 ***")
-			elseif False then
-				c_inline_c("*** WrongCcode #7 ***")
-			elseif True then
-				always_run
-			elseif True then
-				c_inline_c("*** WrongCcode #8 ***")
-			else
-				c_inline_c("*** WrongCcode #9 ***")
-			end
-			if False then
-				c_inline_c("*** WrongCcode #10 ***")
-			elseif False then
-				c_inline_c("*** WrongCcode #11 ***")
-			elseif True then
-				always_run
-			elseif b_true then
-				c_inline_c("*** WrongCcode #12 ***")
-			else
-				c_inline_c("*** WrongCcode #13 ***")
-			end
-			if b_false then
-				assert(False)
-			elseif False then
-				c_inline_c("*** WrongCcode #14 ***")
-			elseif True then
-				always_run
-			elseif b_true then
-				c_inline_c("*** WrongCcode #15 ***")
-			else
-				c_inline_c("*** WrongCcode #16 ***")
-			end
-			if False then
-				c_inline_c("*** WrongCcode #17 ***")
-			elseif always_false then
-				assert(False)
-			else
-				always_run
-			end
-			if b_true then
-				always_run
-			elseif always_false then
-				assert(False)
-			elseif always_false then
-				assert(False)
-			else
-				assert(False)
-			end
-			if 4 #\\ 2 = 0 then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #18 ***")
-			end
-			if 4 #// 2 = 2 then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #19 ***")
-			end
-			if 2 = 2 then
-				always_run
-			else
-				c_inline_c("*** WrongCcode #20 ***")
-			end
-		end
+   make is
+      local
+         b_true, b_false: BOOLEAN
+      do
+         b_true := True
+         b_false := False
+         if True then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #1 ***")
+         end
+         if False then
+            c_inline_c("*** WrongCcode #2 ***")
+         else
+            always_run
+         end
+         if False then
+            c_inline_c("*** WrongCcode #3 ***")
+         elseif True then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #4 ***")
+         end
+         if 3 = 3 then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #5 ***")
+         end
+         if always_false then
+            assert(False)
+         end
+         if always_true then
+            always_run
+         end
+         if True then
+            always_run
+         end
+         if False then
+         else
+            always_run
+         end
+         if False then
+            c_inline_c("*** WrongCcode #6 ***")
+         elseif False then
+            c_inline_c("*** WrongCcode #7 ***")
+         elseif True then
+            always_run
+         elseif True then
+            c_inline_c("*** WrongCcode #8 ***")
+         else
+            c_inline_c("*** WrongCcode #9 ***")
+         end
+         if False then
+            c_inline_c("*** WrongCcode #10 ***")
+         elseif False then
+            c_inline_c("*** WrongCcode #11 ***")
+         elseif True then
+            always_run
+         elseif b_true then
+            c_inline_c("*** WrongCcode #12 ***")
+         else
+            c_inline_c("*** WrongCcode #13 ***")
+         end
+         if b_false then
+            assert(False)
+         elseif False then
+            c_inline_c("*** WrongCcode #14 ***")
+         elseif True then
+            always_run
+         elseif b_true then
+            c_inline_c("*** WrongCcode #15 ***")
+         else
+            c_inline_c("*** WrongCcode #16 ***")
+         end
+         if False then
+            c_inline_c("*** WrongCcode #17 ***")
+         elseif always_false then
+            assert(False)
+         else
+            always_run
+         end
+         if b_true then
+            always_run
+         elseif always_false then
+            assert(False)
+         elseif always_false then
+            assert(False)
+         else
+            assert(False)
+         end
+         if 4 #\\ 2 = 0 then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #18 ***")
+         end
+         if 4 #// 2 = 2 then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #19 ***")
+         end
+         if 2 = 2 then
+            always_run
+         else
+            c_inline_c("*** WrongCcode #20 ***")
+         end
+      end
 
-	always_run is
-		do
-			assert(True)
-		end
+   always_run is
+      do
+         assert(True)
+      end
 
-	always_true: BOOLEAN is
-		do
-			Result := True
-		end
+   always_true: BOOLEAN is
+      do
+         Result := True
+      end
 
-	always_false: BOOLEAN is
-		do
-		end
+   always_false: BOOLEAN is
+      do
+      end
 
 end -- class TEST_SIMPLIFY01
 --

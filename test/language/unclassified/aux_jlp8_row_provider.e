@@ -4,55 +4,55 @@
 class AUX_JLP8_ROW_PROVIDER[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_PROVIDER[E]
+   AUX_JLP8_PROVIDER[E]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	abort is
-		do
-		end
+   abort is
+      do
+      end
 
-	make (m: AUX_JLP8_MATRIX[E]; r: INTEGER) is
-		do
-			matrix := m
-			row := r
-			incr := m.incr_row
-		end
+   make (m: AUX_JLP8_MATRIX[E]; r: INTEGER) is
+      do
+         matrix := m
+         row := r
+         incr := m.incr_row
+      end
 
-	start is
-		do
-			index := 0
-			if not exhausted then
-				item := matrix.item(row, index)
-			end
-		end
+   start is
+      do
+         index := 0
+         if not exhausted then
+            item := matrix.item(row, index)
+         end
+      end
 
-	next is
-		do
-			index := index + incr
-			if not exhausted then
-				item := matrix.item(row, index)
-			end
-		end
+   next is
+      do
+         index := index + incr
+         if not exhausted then
+            item := matrix.item(row, index)
+         end
+      end
 
-	item: E
+   item: E
 
-	exhausted: BOOLEAN is
-		do
-			Result := index >= matrix.nb_column
-		end
+   exhausted: BOOLEAN is
+      do
+         Result := index >= matrix.nb_column
+      end
 
-	aborted: BOOLEAN
+   aborted: BOOLEAN
 
-	row: INTEGER
+   row: INTEGER
 
-	matrix: AUX_JLP8_MATRIX[E]
+   matrix: AUX_JLP8_MATRIX[E]
 
-	incr: INTEGER
+   incr: INTEGER
 
-	index: INTEGER
+   index: INTEGER
 
 end -- class AUX_JLP8_ROW_PROVIDER
 --

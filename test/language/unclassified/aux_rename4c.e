@@ -4,18 +4,18 @@
 class AUX_RENAME4C
 
 inherit
-	AUX_RENAME4B
-		rename memb as memc
-		end
+   AUX_RENAME4B
+      rename memb as memc
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			memc := Current
-		end
+   make is
+      do
+         memc := Current
+      end
 
 end -- class AUX_RENAME4C
 --

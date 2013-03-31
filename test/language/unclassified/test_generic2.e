@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_GENERIC2
-	--
-	-- From a bug report of : Cyril ADRIAN
-	--
+   --
+   -- From a bug report of : Cyril ADRIAN
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			g: AUX_GENERIC2
-		do
-			create g.use({ARRAY[STRING] 1, << "a", "b" >> })
-		end
+   make is
+      local
+         g: AUX_GENERIC2
+      do
+         create g.use({ARRAY[STRING] 1, << "a", "b" >> })
+      end
 
 end -- class TEST_GENERIC2
 --

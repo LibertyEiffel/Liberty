@@ -4,120 +4,120 @@
 class AUX_GENERIC7LL[G]
 
 insert
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create rep.make(1, 20)
-			count := 0
-			index := 0
-		end
+   make is
+      do
+         create rep.make(1, 20)
+         count := 0
+         index := 0
+      end
 
 feature {ANY}
-	empty: BOOLEAN is
-		do
-			Result := count = 0
-		end
+   empty: BOOLEAN is
+      do
+         Result := count = 0
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	i_th (i: INTEGER): G is
-		require
-			i >= 1
-			i <= count
-		do
-			Result := rep.item(i)
-		end
+   i_th (i: INTEGER): G is
+      require
+         i >= 1
+         i <= count
+      do
+         Result := rep.item(i)
+      end
 
-	item: G is
-		do
-			Result := rep.item(index)
-		end
+   item: G is
+      do
+         Result := rep.item(index)
+      end
 
-	forth is
-		do
-			index := index + 1
-		end
+   forth is
+      do
+         index := index + 1
+      end
 
-	put (x: G) is
-		require
-			not_of: not off
-		do
-			rep.put(x, count)
-		end
+   put (x: G) is
+      require
+         not_of: not off
+      do
+         rep.put(x, count)
+      end
 
-	extend (x: G) is
-		do
-			count := count + 1
-			if count > rep.upper then
-				rep.resize(1, count + 10)
-			end
-			-- if
-			rep.put(x, count)
-		end
+   extend (x: G) is
+      do
+         count := count + 1
+         if count > rep.upper then
+            rep.resize(1, count + 10)
+         end
+         -- if
+         rep.put(x, count)
+      end
 
-	after: BOOLEAN is
-		do
-			Result := index > count
-		end
+   after: BOOLEAN is
+      do
+         Result := index > count
+      end
 
-	off: BOOLEAN is
-		do
-			Result := index < 1 or index > count
-		end
+   off: BOOLEAN is
+      do
+         Result := index < 1 or index > count
+      end
 
-	start is
-		do
-			index := 1
-		end
+   start is
+      do
+         index := 1
+      end
 
-	has (x: G): BOOLEAN is
-		do
-			Result := rep.first_index_of(x) <= count
-		end
+   has (x: G): BOOLEAN is
+      do
+         Result := rep.first_index_of(x) <= count
+      end
 
-	first: G is
-		do
-			Result := rep.item(1)
-		end
+   first: G is
+      do
+         Result := rep.item(1)
+      end
 
-	last: G is
-		do
-			Result := rep.item(count)
-		end
+   last: G is
+      do
+         Result := rep.item(count)
+      end
 
-	remove_last is
-		require
-			not empty
-		do
-			count := count - 1
-		end
+   remove_last is
+      require
+         not empty
+      do
+         count := count - 1
+      end
 
-	wipe_out is
-		do
-			count := 0
-		end
+   wipe_out is
+      do
+         count := 0
+      end
 
-	index: INTEGER
+   index: INTEGER
 
 feature {ANY}
-	-- accès au curseur
-	--    cursor : CURSOR is
-	--	do
-	--	    !!Result.make(index);
-	--	end; -- cursor
-	--    go_to (c: CURSOR) is
-	--	do
-	--	    index := c.value;
-	--	end; -- go_to
-	
+   -- accès au curseur
+   --    cursor : CURSOR is
+   --   do
+   --       !!Result.make(index);
+   --   end; -- cursor
+   --    go_to (c: CURSOR) is
+   --   do
+   --       index := c.value;
+   --   end; -- go_to
+   
 
 feature {}
-	rep: ARRAY[G]
+   rep: ARRAY[G]
 
 end -- class AUX_GENERIC7LL
 --

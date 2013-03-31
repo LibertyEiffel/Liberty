@@ -4,15 +4,15 @@
 class AUX_ALG05
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	field: INTEGER
+   field: INTEGER
 
-	make is
-		do
-			field := field + 1
-		end
+   make is
+      do
+         field := field + 1
+      end
 
 end -- class AUX_ALG05
 --

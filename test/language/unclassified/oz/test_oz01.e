@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_OZ01
-	-- From a bug report of Olivier ZENDRA
+   -- From a bug report of Olivier ZENDRA
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[AUX_OZ01]; aux: AUX_OZ01
-		do
-			create aux
-			a := a
-		end
+   make is
+      local
+         a: ARRAY[AUX_OZ01]; aux: AUX_OZ01
+      do
+         create aux
+         a := a
+      end
 
-	do_invariant: BOOLEAN is
-		local
-			a: ARRAY[AUX_OZ01]
-		do
-			create a.make(1, 1)
-			Result := True
-		end
+   do_invariant: BOOLEAN is
+      local
+         a: ARRAY[AUX_OZ01]
+      do
+         create a.make(1, 1)
+         Result := True
+      end
 
 invariant
-	do_invariant
+   do_invariant
 
 end -- class TEST_OZ01
 --

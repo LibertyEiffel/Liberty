@@ -4,32 +4,32 @@
 class TEST_INTEGER8
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: INTEGER; n8: INTEGER_8; n16: INTEGER_16
-		do
-			n := 65536
-			n8 := n.low_16.low_8
-			n16 := n.low_16
-			assert(n.low_16.low_8 = n8)
-			assert(n.low_16 = n16)
-		end
+   make is
+      local
+         n: INTEGER; n8: INTEGER_8; n16: INTEGER_16
+      do
+         n := 65536
+         n8 := n.low_16.low_8
+         n16 := n.low_16
+         assert(n.low_16.low_8 = n8)
+         assert(n.low_16 = n16)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER8: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER8: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER8
 --

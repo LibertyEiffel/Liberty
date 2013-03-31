@@ -4,18 +4,18 @@
 class TEST_EXPANDED16
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a2: AUX_EXPANDED16A
+   a2: AUX_EXPANDED16A
 
-	make is
-		local
-			a1: AUX_EXPANDED16A
-		do
-			create a1.make(3)
-			create a2.make(3)
-		end
+   make is
+      local
+         a1: AUX_EXPANDED16A
+      do
+         create a1.make(3)
+         create a2.make(3)
+      end
 
 end -- class TEST_EXPANDED16
 --

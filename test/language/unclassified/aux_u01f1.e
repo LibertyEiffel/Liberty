@@ -4,12 +4,12 @@
 class AUX_U01F1
 
 insert
-	ANY
+   ANY
 
 feature {ANY}
-	f: AUX_U01R1 is
-		do
-		end
+   f: AUX_U01R1 is
+      do
+      end
 
 end -- class AUX_U01F1
 --

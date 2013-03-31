@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JLP4
-	-- From a bug report of Jean-Lin PACHERIE
+   -- From a bug report of Jean-Lin PACHERIE
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			f: AUX_JLP_F[REAL]; str: STRING
-		do
-			-- *** BUG *** e : AUX_JLP_E[REAL,DOUBLE];
-			create f
-			str := f.bar.out
-		end
+   make is
+      local
+         f: AUX_JLP_F[REAL]; str: STRING
+      do
+         -- *** BUG *** e : AUX_JLP_E[REAL,DOUBLE];
+         create f
+         str := f.bar.out
+      end
 
 end -- class TEST_JLP4
 --

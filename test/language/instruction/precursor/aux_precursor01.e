@@ -2,39 +2,39 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_PRECURSOR01
-	-- Written by Vincent CROIZIER.
+   -- Written by Vincent CROIZIER.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	trace: INTEGER
+   trace: INTEGER
 
-	make is
-		do
-			trace := -1
-		end
+   make is
+      do
+         trace := -1
+      end
 
-	class_number_in_trace is
-		do
-			trace := 0
-		end
+   class_number_in_trace is
+      do
+         trace := 0
+      end
 
-	class_number: INTEGER is
-		do
-			Result := 0
-		end
+   class_number: INTEGER is
+      do
+         Result := 0
+      end
 
-	times_class_number (x: INTEGER): INTEGER is
-		do
-			Result := 0
-		end
+   times_class_number (x: INTEGER): INTEGER is
+      do
+         Result := 0
+      end
 
-	affine_class_number_in_trace (x, y: INTEGER) is
-		do
-			trace := y
-			-- 0 * x + y
-		end
+   affine_class_number_in_trace (x, y: INTEGER) is
+      do
+         trace := y
+         -- 0 * x + y
+      end
 
 end -- class AUX_PRECURSOR01
 --

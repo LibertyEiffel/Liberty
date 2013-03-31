@@ -4,36 +4,36 @@
 class TEST_MIN_MAX
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s1, s2: STRING
-		do
-			s1 := once "foo"
-			s2 := once "foo"
-			assert(s1.max(s2) = s1)
-			assert(s1.min(s2) = s1)
-			s1 := once "aaa"
-			s2 := once "bbb"
-			assert(s1.max(s2) = s2)
-			assert(s2.max(s1) = s2)
-			assert(s1.min(s2) = s1)
-			assert(s2.min(s1) = s1)
-		end
+   make is
+      local
+         s1, s2: STRING
+      do
+         s1 := once "foo"
+         s2 := once "foo"
+         assert(s1.max(s2) = s1)
+         assert(s1.min(s2) = s1)
+         s1 := once "aaa"
+         s2 := once "bbb"
+         assert(s1.max(s2) = s2)
+         assert(s2.max(s1) = s2)
+         assert(s1.min(s2) = s1)
+         assert(s2.min(s1) = s1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_MIN_MAX: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_MIN_MAX: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_MIN_MAX
 --

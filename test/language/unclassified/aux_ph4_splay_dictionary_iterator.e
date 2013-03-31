@@ -4,20 +4,20 @@
 class AUX_PH4_SPLAY_DICTIONARY_ITERATOR[I -> COMPARABLE]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make (sd: AUX_PH4_SPLAY_DICTIONARY[ANY, I]) is
-		do
-			--***	 node:=sd.lowest_node
-		end
+   make (sd: AUX_PH4_SPLAY_DICTIONARY[ANY, I]) is
+      do
+         --***    node:=sd.lowest_node
+      end
 
-	index: I is
-		do
-			--***	 Result:=node.index
-		end
+   index: I is
+      do
+         --***    Result:=node.index
+      end
 
-	node: AUX_PH4_SPLAY_DICTIONARY_ITEM[ANY, I]
+   node: AUX_PH4_SPLAY_DICTIONARY_ITEM[ANY, I]
 
 end -- class AUX_PH4_SPLAY_DICTIONARY_ITERATOR
 --

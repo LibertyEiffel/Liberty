@@ -2,96 +2,96 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PARAM
-	-- From a bug report of Christophe REMY
+   -- From a bug report of Christophe REMY
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	table: HASHED_DICTIONARY[INTEGER, INTEGER]
+   table: HASHED_DICTIONARY[INTEGER, INTEGER]
 
 feature {ANY}
-	make is
-		do
-			create table.make
-			ecrire01(10, 15)
-			assert(table @ 10 = 15)
-			create table.make
-			ecrire02(10, 15)
-			assert(table @ 10 = 10)
-			create table.make
-			ecrire03(10, 15)
-			assert(table @ 15 = 11)
-			create table.make
-			ecrire04(10, 15)
-			assert(table @ 15 = 12)
-			create table.make
-			ecrire05(10, 15)
-			assert(table @ -8 = 15)
-			create table.make
-			ecrire06(10, 15)
-			assert(table @ 8 = 16)
-			create table.make
-			ecrire07(10, 15)
-			assert(table @ 15 = -10)
-			create table.make
-			ecrire08(10, 15)
-			assert(table @ 12 = 12)
-		end
+   make is
+      do
+         create table.make
+         ecrire01(10, 15)
+         assert(table @ 10 = 15)
+         create table.make
+         ecrire02(10, 15)
+         assert(table @ 10 = 10)
+         create table.make
+         ecrire03(10, 15)
+         assert(table @ 15 = 11)
+         create table.make
+         ecrire04(10, 15)
+         assert(table @ 15 = 12)
+         create table.make
+         ecrire05(10, 15)
+         assert(table @ -8 = 15)
+         create table.make
+         ecrire06(10, 15)
+         assert(table @ 8 = 16)
+         create table.make
+         ecrire07(10, 15)
+         assert(table @ 15 = -10)
+         create table.make
+         ecrire08(10, 15)
+         assert(table @ 12 = 12)
+      end
 
-	ecrire01 (a, b: INTEGER) is
-		do
-			table.put(b, a)
-		end
+   ecrire01 (a, b: INTEGER) is
+      do
+         table.put(b, a)
+      end
 
-	ecrire02 (a, b: INTEGER) is
-		do
-			table.put(a, a)
-		end
+   ecrire02 (a, b: INTEGER) is
+      do
+         table.put(a, a)
+      end
 
-	ecrire03 (a, b: INTEGER) is
-		do
-			table.put(a + 1, b)
-		end
+   ecrire03 (a, b: INTEGER) is
+      do
+         table.put(a + 1, b)
+      end
 
-	ecrire04 (a, b: INTEGER) is
-		do
-			table.put(2 + a, b)
-		end
+   ecrire04 (a, b: INTEGER) is
+      do
+         table.put(2 + a, b)
+      end
 
-	ecrire05 (a, b: INTEGER) is
-		do
-			table.put(b, 2 - a)
-		end
+   ecrire05 (a, b: INTEGER) is
+      do
+         table.put(b, 2 - a)
+      end
 
-	ecrire06 (a, b: INTEGER) is
-		do
-			table.put(b + 1, a - 2)
-		end
+   ecrire06 (a, b: INTEGER) is
+      do
+         table.put(b + 1, a - 2)
+      end
 
-	ecrire07 (a, b: INTEGER) is
-		do
-			table.put(-a, +b)
-		end
+   ecrire07 (a, b: INTEGER) is
+      do
+         table.put(-a, +b)
+      end
 
-	ecrire08 (a, b: INTEGER) is
-		do
-			table.put(a + (1 + 1), b - (4 - 1))
-		end
+   ecrire08 (a, b: INTEGER) is
+      do
+         table.put(a + (1 + 1), b - (4 - 1))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_PARAM: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_PARAM: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_PARAM
 --

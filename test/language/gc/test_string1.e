@@ -4,30 +4,30 @@
 class TEST_STRING1
 
 insert
-	MEMORY
+   MEMORY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1000000
-			until
-				i = 0
-			loop
-				s := ("foo").twin
-				i := i - 1
-			end
-			i := allocated_bytes
-			sedb_breakpoint
-			if i > 550000 then
-				std_output.put_string("TEST_STRING1: ERROR ***%N")
-			end
-		end
+   make is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1000000
+         until
+            i = 0
+         loop
+            s := ("foo").twin
+            i := i - 1
+         end
+         i := allocated_bytes
+         sedb_breakpoint
+         if i > 550000 then
+            std_output.put_string("TEST_STRING1: ERROR ***%N")
+         end
+      end
 
 end -- class TEST_STRING1
 --

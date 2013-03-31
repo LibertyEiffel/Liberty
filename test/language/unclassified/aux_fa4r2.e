@@ -4,9 +4,9 @@
 class AUX_FA4R2
 
 inherit
-	AUX_FA4B1
-	AUX_FA4B2
-		-- autre AVANT ref, ref plus loin.
+   AUX_FA4B1
+   AUX_FA4B2
+      -- autre AVANT ref, ref plus loin.
 
 end -- class AUX_FA4R2
 --

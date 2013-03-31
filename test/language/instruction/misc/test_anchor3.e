@@ -4,19 +4,19 @@
 class TEST_ANCHOR3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: like Current
+   a: like Current
 
-	b: like a
+   b: like a
 
-	c: like b
+   c: like b
 
-	make is
-		do
-			c := Current
-		end
+   make is
+      do
+         c := Current
+      end
 
 end -- class TEST_ANCHOR3
 --

@@ -4,20 +4,20 @@
 class AUX_PRECURSOR07B
 
 inherit
-	AUX_PRECURSOR07A
-		redefine make
-		end
+   AUX_PRECURSOR07A
+      redefine make
+      end
 
 feature {ANY}
-	make is
-		do
-			-- Si on enleve Precursor, ca marche
-			Precursor
-			check
-				make_a_done
-			end
-			make_b_done := True
-		end
+   make is
+      do
+         -- Si on enleve Precursor, ca marche
+         Precursor
+         check
+            make_a_done
+         end
+         make_b_done := True
+      end
 
 end -- class AUX_PRECURSOR07B
 --

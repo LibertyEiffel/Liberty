@@ -4,22 +4,22 @@
 class AUX_SELECT5B
 
 inherit
-	AUX_SELECT5A
-		rename foo as foo_a
-		end
+   AUX_SELECT5A
+      rename foo as foo_a
+      end
 
 insert
-	AUX_SELECT5A
-		rename foo as new_foo
-		redefine new_foo
-		end
+   AUX_SELECT5A
+      rename foo as new_foo
+      redefine new_foo
+      end
 
 feature {ANY}
-	new_foo: STRING is
-		do
-			Result := foo_a.twin
-			Result.append("new")
-		end
+   new_foo: STRING is
+      do
+         Result := foo_a.twin
+         Result.append("new")
+      end
 
 end -- class AUX_SELECT5B
 --

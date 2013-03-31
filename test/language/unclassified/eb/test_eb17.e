@@ -2,35 +2,35 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB17
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			create b1
-			assert(not b1.test("a", "b"))
-			create b2
-			assert(not b2.test(1, 2))
-		end
+   make is
+      do
+         create b1
+         assert(not b1.test("a", "b"))
+         create b2
+         assert(not b2.test(1, 2))
+      end
 
-	b1: AUX_EB17[STRING]
+   b1: AUX_EB17[STRING]
 
-	b2: AUX_EB17[INTEGER]
+   b2: AUX_EB17[INTEGER]
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EB17: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EB17: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EB17
 --

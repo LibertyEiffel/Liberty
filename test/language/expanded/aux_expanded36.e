@@ -2,20 +2,20 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class AUX_EXPANDED36
-	-- From sz:491
+   -- From sz:491
 
 creation {ANY}
-	make, default_create
+   make, default_create
 
 feature {ANY}
-	make (n_: like n) is
-		do
-			n := n_
-		ensure
-			n = n_
-		end
+   make (n_: like n) is
+      do
+         n := n_
+      ensure
+         n = n_
+      end
 
-	n: INTEGER
+   n: INTEGER
 
 end -- class AUX_EXPANDED36
 --

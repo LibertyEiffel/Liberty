@@ -7,12 +7,12 @@ feature
 
    make is
       local
-	 i: INTEGER
+    i: INTEGER
       do
-	 inspect
-	    i
-	 when 4 .. 3 then -- Bad slice.
-	 end
+    inspect
+       i
+    when 4 .. 3 then -- Bad slice.
+    end
       end
 end -- class BAD_INSPECT10
 --

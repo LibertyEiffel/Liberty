@@ -7,8 +7,8 @@ feature
    c : AUX_C
    make is
       do
-	 create c
-	 c.foo2(c)
+    create c
+    c.foo2(c)
       end
 end -- class BAD_REDEFINE12
 --

@@ -11,8 +11,8 @@ feature {NONE}
    
    make is
       local
-	 bwr: WEAK_REFERENCE[like my_int]
-      do	 
+    bwr: WEAK_REFERENCE[like my_int]
+      do    
       end
 end -- class BAD_WEAK_REFERENCE02
 --

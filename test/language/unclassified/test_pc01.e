@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_PC01
-	-- Bug report from Philippe Coucaud ;-)
+   -- Bug report from Philippe Coucaud ;-)
 
 inherit
-	ANY
-		rename twin as mon_twin
-		end
+   ANY
+      rename twin as mon_twin
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			bug: like Current
-		do
-			bug := mon_twin
-		end
+   make is
+      local
+         bug: like Current
+      do
+         bug := mon_twin
+      end
 
 end -- class TEST_PC01
 --

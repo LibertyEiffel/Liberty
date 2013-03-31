@@ -2,30 +2,30 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALEITNER3
-	-- From: "Andreas Leitner" <nozone@sbox.tu-graz.ac.at>
+   -- From: "Andreas Leitner" <nozone@sbox.tu-graz.ac.at>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			foo := "bar"
-			bar("bar")
-		end
+   make is
+      do
+         foo := "bar"
+         bar("bar")
+      end
 
-	foo: like foo2
+   foo: like foo2
 
-	foo2: STRING
+   foo2: STRING
 
-	bar (b: like foo) is
-		local
-			bool: BOOLEAN
-		do
-			if bool then
-				print(b.out)
-			end
-		end
+   bar (b: like foo) is
+      local
+         bool: BOOLEAN
+      do
+         if bool then
+            print(b.out)
+         end
+      end
 
 end -- class TEST_ALEITNER3
 --

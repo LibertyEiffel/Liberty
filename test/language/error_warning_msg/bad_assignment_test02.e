@@ -4,11 +4,11 @@
 class BAD_ASSIGNMENT_TEST02
 create make
 feature {}
-	make is
-		do
-			if {STRING} ?:= Void then
-			end
-		end
+   make is
+      do
+         if {STRING} ?:= Void then
+         end
+      end
 end -- class BAD_ASSIGNMENT_TEST02
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

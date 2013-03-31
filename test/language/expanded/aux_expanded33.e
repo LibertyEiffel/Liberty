@@ -4,17 +4,17 @@
 expanded class AUX_EXPANDED33
 
 feature {ANY}
-	item: INTEGER
+   item: INTEGER
 
-	set (v: INTEGER) is
-		do
-			item := v
-		end
+   set (v: INTEGER) is
+      do
+         item := v
+      end
 
-	morethan (v: INTEGER): BOOLEAN is
-		do
-			Result := item > v
-		end
+   morethan (v: INTEGER): BOOLEAN is
+      do
+         Result := item > v
+      end
 
 end -- class AUX_EXPANDED33
 --

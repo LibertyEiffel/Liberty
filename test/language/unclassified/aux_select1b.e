@@ -4,25 +4,25 @@
 class AUX_SELECT1B
 
 inherit
-	AUX_SELECT1A
-		rename f as f1
-		end
+   AUX_SELECT1A
+      rename f as f1
+      end
 
 insert
-	AUX_SELECT1A
-		rename f as f2
-		end
+   AUX_SELECT1A
+      rename f as f2
+      end
 
 feature {ANY}
-	f1 is
-		do
-			print("TEST_INTEGER1: ERROR in TEST_SELECT1.%N")
-		end
+   f1 is
+      do
+         print("TEST_INTEGER1: ERROR in TEST_SELECT1.%N")
+      end
 
-	f2 is
-		do
-			-- print ("F2%N")
-		end
+   f2 is
+      do
+         -- print ("F2%N")
+      end
 
 end -- class AUX_SELECT1B
 --

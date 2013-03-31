@@ -4,26 +4,26 @@
 class LIB_TEST_POINT
 
 inherit
-	ANY
+   ANY
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	x, y: REAL
+   x, y: REAL
 
-	make (cx: REAL; cy: REAL) is
-		do
-			x := cx
-			y := cy
-		end
+   make (cx: REAL; cy: REAL) is
+      do
+         x := cx
+         y := cy
+      end
 
 feature {ANY}
-	translater (dx, dy: REAL) is
-		do
-			x := x + dx
-			y := y + dy
-		end
+   translater (dx, dy: REAL) is
+      do
+         x := x + dx
+         y := y + dy
+      end
 
 end -- class LIB_TEST_POINT
 --

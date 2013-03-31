@@ -19,18 +19,18 @@ feature
 
    foo is
       do
-	 aux_foo;
-	 foo_count := foo_count + 1;
+    aux_foo;
+    foo_count := foo_count + 1;
       end;
 
    make is
       local
-	 aux: AUX_SELECT;
+    aux: AUX_SELECT;
       do
-	 !!aux;
-	 aux := Current;
-	 aux.foo;
-	 foo;
+    !!aux;
+    aux := Current;
+    aux.foo;
+    foo;
       end;
 
 end -- class BAD_SELECT4

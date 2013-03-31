@@ -4,32 +4,32 @@
 class BAD_ASSIGNMENT_TEST03
 
 creation
-	main
+   main
 
 feature {}
-	main is
-		local
-			aux1: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_A]
-			aux2: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_B]
-			aux3: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_C]
-			a: AUX_ASSIGNMENT_TEST03_A
-			b: AUX_ASSIGNMENT_TEST03_B
-			c: AUX_ASSIGNMENT_TEST03_C
-		do
-			c ?= aux1.get_x
-			create aux1
-			create aux2
-			create aux3
-			if aux1.get_x /= Void then
-			end
-			if aux2.get_x /= Void then
-			end
-			if aux2.get_x /= Void then
-			end
-			b ?= aux2.get_x
-			c ?= aux3.get_x
-		end
-	
+   main is
+      local
+         aux1: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_A]
+         aux2: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_B]
+         aux3: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_C]
+         a: AUX_ASSIGNMENT_TEST03_A
+         b: AUX_ASSIGNMENT_TEST03_B
+         c: AUX_ASSIGNMENT_TEST03_C
+      do
+         c ?= aux1.get_x
+         create aux1
+         create aux2
+         create aux3
+         if aux1.get_x /= Void then
+         end
+         if aux2.get_x /= Void then
+         end
+         if aux2.get_x /= Void then
+         end
+         b ?= aux2.get_x
+         c ?= aux3.get_x
+      end
+   
 end -- class BAD_ASSIGNMENT_TEST03
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -2,102 +2,102 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_IRF3
-	-- Test inlining of RUN_FEATURE3.
+   -- Test inlining of RUN_FEATURE3.
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	att: INTEGER
+   att: INTEGER
 
-	make is
-		do
-			set_attribute1(1 + 1)
-			set_attribute2
-			set_attribute3
-			set_attribute4
-			set_attribute5
-			inline1
-			inline2
-			inline3
-			inline4
-		end
+   make is
+      do
+         set_attribute1(1 + 1)
+         set_attribute2
+         set_attribute3
+         set_attribute4
+         set_attribute5
+         inline1
+         inline2
+         inline3
+         inline4
+      end
 
 feature {} -- All those feature are inlined in -boost mode :
-	set_attribute1 (a: like att) is
-		do
-			att := a
-		end
+   set_attribute1 (a: like att) is
+      do
+         att := a
+      end
 
-	set_attribute2 is
-		do
-			att := 4
-		end
+   set_attribute2 is
+      do
+         att := 4
+      end
 
-	set_attribute3 is
-		local
-			i: INTEGER
-		do
-			att := i
-		end
+   set_attribute3 is
+      local
+         i: INTEGER
+      do
+         att := i
+      end
 
-	set_attribute4 is
-		local
-			i: INTEGER
-		do
-			att := i
-		end
+   set_attribute4 is
+      local
+         i: INTEGER
+      do
+         att := i
+      end
 
-	set_attribute5 is
-		local
-			i: INTEGER; j: INTEGER
-		do
-			att := i + j
-		end
+   set_attribute5 is
+      local
+         i: INTEGER; j: INTEGER
+      do
+         att := i + j
+      end
 
-	inline1 is
-		do
-		end
+   inline1 is
+      do
+      end
 
-	inline2 is
-		local
-			i: INTEGER; j: INTEGER
-		do
-			i := 1
-			j := i + 1
-		end
+   inline2 is
+      local
+         i: INTEGER; j: INTEGER
+      do
+         i := 1
+         j := i + 1
+      end
 
-	inline3 is
-		do
-			inline1
-			inline2
-		end
+   inline3 is
+      do
+         inline1
+         inline2
+      end
 
 feature {} -- Recursive call is not inlined :-)
-	inline4 is
-		local
-			i: INTEGER
-		do
-			i := i + 1
-			if i < 0 then
-				inline4
-			end
-		end
+   inline4 is
+      local
+         i: INTEGER
+      do
+         i := i + 1
+         if i < 0 then
+            inline4
+         end
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INTEGER1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INTEGER1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_IRF3
 --

@@ -4,37 +4,37 @@
 class TEST_NATIVE_ARRAY7
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a: NATIVE_ARRAY[CHARACTER]
+   a: NATIVE_ARRAY[CHARACTER]
 
-	make is
-		do
-			a := a.calloc(2)
-			a.put('a', 0)
-			a.put('b', 1)
-			assert(a.item(0) = 'a')
-			assert(a.item(1) = 'b')
-			a := a.realloc(2, 1024)
-			assert(a.item(0) = 'a')
-			assert(a.item(1) = 'b')
-		end
+   make is
+      do
+         a := a.calloc(2)
+         a.put('a', 0)
+         a.put('b', 1)
+         assert(a.item(0) = 'a')
+         assert(a.item(1) = 'b')
+         a := a.realloc(2, 1024)
+         assert(a.item(0) = 'a')
+         assert(a.item(1) = 'b')
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_NATIVE_ARRAY7: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_NATIVE_ARRAY7: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_NATIVE_ARRAY7
 --

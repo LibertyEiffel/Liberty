@@ -4,10 +4,10 @@
 class AUX_RENAME3
 
 feature
-	frozen do_nothing is
-		do
-		end
-	
+   frozen do_nothing is
+      do
+      end
+   
 end -- class AUX_RENAME3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

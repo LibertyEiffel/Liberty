@@ -4,20 +4,20 @@
 class AUX_EXCEPTIONS07
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	do_invariant_violation is
-		do
-			value := 1
-		end
+   do_invariant_violation is
+      do
+         value := 1
+      end
 
-	restore_invariant is
-		do
-			value := 0
-		end
+   restore_invariant is
+      do
+         value := 0
+      end
 
 invariant
-	value = 0
+   value = 0
 
 end -- class AUX_EXCEPTIONS07
 --

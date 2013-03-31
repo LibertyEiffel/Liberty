@@ -4,101 +4,101 @@
 class TEST_SUBARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			model2: FAST_ARRAY[INTEGER_8]; model3: ARRAY[INTEGER_8]
-		do
-			test({ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> })
-			create model2.from_collection({ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> })
-			test(model2)
-			create model3.make(-2, 1)
-			model3.put(1, -2)
-			model3.put(2, -1)
-			model3.put(3, 0)
-			model3.put(4, 1)
-			test(model3)
-		end
+   make is
+      local
+         model2: FAST_ARRAY[INTEGER_8]; model3: ARRAY[INTEGER_8]
+      do
+         test({ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> })
+         create model2.from_collection({ARRAY[INTEGER_8] 1, << 1, 2, 3, 4 >> })
+         test(model2)
+         create model3.make(-2, 1)
+         model3.put(1, -2)
+         model3.put(2, -1)
+         model3.put(3, 0)
+         model3.put(4, 1)
+         test(model3)
+      end
 
-	test (model: COLLECTION[INTEGER_8]) is
-		local
-			a: ARRAY[INTEGER_8]; fa: FAST_ARRAY[INTEGER_8]
-		do
-			create a.from_collection(model)
-			test1_array(a)
-			create fa.from_collection(model)
-			test1_fast_array(fa)
-		end
-
-feature {}
-	test1_array (model: ARRAY[INTEGER_8]) is
-		local
-			subarray: like model
-		do
-			subarray := model.subarray(model.lower, model.lower)
-			assert(subarray.last = 1)
-			assert(subarray.first = 1)
-			subarray := model.subarray(model.lower, model.lower + 1)
-			assert(subarray.first = 1)
-			assert(subarray.last = 2)
-			subarray := model.subarray(model.lower + 1, model.lower + 1)
-			assert(subarray.first = 2)
-			subarray := model.subarray(model.lower + 1, model.lower + 2)
-			assert(subarray.first = 2)
-			assert(subarray.last = 3)
-			subarray := model.subarray(model.upper, model.upper)
-			assert(subarray.last = 4)
-			subarray := model.subarray(model.upper - 1, model.upper)
-			assert(subarray.first = 3)
-			assert(subarray.last = 4)
-			subarray := model.subarray(model.lower, model.upper)
-			assert(subarray.is_equal(model))
-			subarray := model.subarray(model.upper, model.upper - 1)
-			assert(subarray.is_empty)
-		end
-
-	test1_fast_array (model: FAST_ARRAY[INTEGER_8]) is
-		local
-			subarray: like model
-		do
-			subarray := model.subarray(model.lower, model.lower)
-			assert(subarray.last = 1)
-			assert(subarray.first = 1)
-			subarray := model.subarray(model.lower, model.lower + 1)
-			assert(subarray.first = 1)
-			assert(subarray.last = 2)
-			subarray := model.subarray(model.lower + 1, model.lower + 1)
-			assert(subarray.first = 2)
-			subarray := model.subarray(model.lower + 1, model.lower + 2)
-			assert(subarray.first = 2)
-			assert(subarray.last = 3)
-			subarray := model.subarray(model.upper, model.upper)
-			assert(subarray.last = 4)
-			subarray := model.subarray(model.upper - 1, model.upper)
-			assert(subarray.first = 3)
-			assert(subarray.last = 4)
-			subarray := model.subarray(model.lower, model.upper)
-			assert(subarray.is_equal(model))
-			subarray := model.subarray(model.upper, model.upper - 1)
-			assert(subarray.is_empty)
-		end
+   test (model: COLLECTION[INTEGER_8]) is
+      local
+         a: ARRAY[INTEGER_8]; fa: FAST_ARRAY[INTEGER_8]
+      do
+         create a.from_collection(model)
+         test1_array(a)
+         create fa.from_collection(model)
+         test1_fast_array(fa)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_SUBARRAY1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   test1_array (model: ARRAY[INTEGER_8]) is
+      local
+         subarray: like model
+      do
+         subarray := model.subarray(model.lower, model.lower)
+         assert(subarray.last = 1)
+         assert(subarray.first = 1)
+         subarray := model.subarray(model.lower, model.lower + 1)
+         assert(subarray.first = 1)
+         assert(subarray.last = 2)
+         subarray := model.subarray(model.lower + 1, model.lower + 1)
+         assert(subarray.first = 2)
+         subarray := model.subarray(model.lower + 1, model.lower + 2)
+         assert(subarray.first = 2)
+         assert(subarray.last = 3)
+         subarray := model.subarray(model.upper, model.upper)
+         assert(subarray.last = 4)
+         subarray := model.subarray(model.upper - 1, model.upper)
+         assert(subarray.first = 3)
+         assert(subarray.last = 4)
+         subarray := model.subarray(model.lower, model.upper)
+         assert(subarray.is_equal(model))
+         subarray := model.subarray(model.upper, model.upper - 1)
+         assert(subarray.is_empty)
+      end
 
-	cpt: INTEGER
+   test1_fast_array (model: FAST_ARRAY[INTEGER_8]) is
+      local
+         subarray: like model
+      do
+         subarray := model.subarray(model.lower, model.lower)
+         assert(subarray.last = 1)
+         assert(subarray.first = 1)
+         subarray := model.subarray(model.lower, model.lower + 1)
+         assert(subarray.first = 1)
+         assert(subarray.last = 2)
+         subarray := model.subarray(model.lower + 1, model.lower + 1)
+         assert(subarray.first = 2)
+         subarray := model.subarray(model.lower + 1, model.lower + 2)
+         assert(subarray.first = 2)
+         assert(subarray.last = 3)
+         subarray := model.subarray(model.upper, model.upper)
+         assert(subarray.last = 4)
+         subarray := model.subarray(model.upper - 1, model.upper)
+         assert(subarray.first = 3)
+         assert(subarray.last = 4)
+         subarray := model.subarray(model.lower, model.upper)
+         assert(subarray.is_equal(model))
+         subarray := model.subarray(model.upper, model.upper - 1)
+         assert(subarray.is_empty)
+      end
+
+feature {}
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_SUBARRAY1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
+
+   cpt: INTEGER
 
 end -- class TEST_SUBARRAY1
 --

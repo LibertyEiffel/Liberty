@@ -3,19 +3,19 @@
 --
 class BAD_INTEGER_CONSTANT14
 -- SZ:512: from guillaume.lemaitre33@wanadoo.fr
-	
+   
 creation
-	main
+   main
 
 feature
 
-	main is
-		local
-			t1, t2 : TUPLE[ CHARACTER, INTEGER ]
-		do
-			t1 := [ 'c', {INTEGER}(28) ] -- <-- Bad syntax here. 
-			t2 := [ 'd', (30).to_integer_32 ]
-		end
+   main is
+      local
+         t1, t2 : TUPLE[ CHARACTER, INTEGER ]
+      do
+         t1 := [ 'c', {INTEGER}(28) ] -- <-- Bad syntax here. 
+         t2 := [ 'd', (30).to_integer_32 ]
+      end
 
 end -- class BAD_INTEGER_CONSTANT14
 --

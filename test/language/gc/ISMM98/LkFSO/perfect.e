@@ -4,31 +4,31 @@
 class PERFECT
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			t: TRIANGLE; p1, p2, p3: POINT; i: INTEGER
-		do
-			create p1.make(1.0, 1.0)
-			create p2.make(2.0, 2.0)
-			create p3.make(3.0, 3.0)
-			create t.make(p1, p2, p3)
-			from
-				i := 2000000
-			until
-				i = 0
-			loop
-				p1.make(1.0, 1.0)
-				p2.make(2.0, 2.0)
-				p3.make(3.0, 3.0)
-				t.make(p1, p2, p3)
-				i := i - 1
-				--io.put_pointer(t.to_pointer);
-				--io.put_new_line;
-			end
-		end
+   make is
+      local
+         t: TRIANGLE; p1, p2, p3: POINT; i: INTEGER
+      do
+         create p1.make(1.0, 1.0)
+         create p2.make(2.0, 2.0)
+         create p3.make(3.0, 3.0)
+         create t.make(p1, p2, p3)
+         from
+            i := 2000000
+         until
+            i = 0
+         loop
+            p1.make(1.0, 1.0)
+            p2.make(2.0, 2.0)
+            p3.make(3.0, 3.0)
+            t.make(p1, p2, p3)
+            i := i - 1
+            --io.put_pointer(t.to_pointer);
+            --io.put_new_line;
+         end
+      end
 
 end -- class PERFECT
 --

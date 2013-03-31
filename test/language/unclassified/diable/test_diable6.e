@@ -2,18 +2,18 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DIABLE6
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tsd: AUX_DIABLE6[REAL]
-		do
-			create tsd.make
-		end
+   make is
+      local
+         tsd: AUX_DIABLE6[REAL]
+      do
+         create tsd.make
+      end
 
 end -- class TEST_DIABLE6
 --

@@ -4,33 +4,33 @@
 class TEST_GENERAL2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d1, d2: DICTIONARY[STRING, STRING]
-		do
-			create {HASHED_DICTIONARY[STRING, STRING]} d1.make
-			d2 := d1.twin
-			assert(d2 /= Void)
-			assert(d2 /= d1)
-			assert(d1.same_dynamic_type(d2))
-		end
+   make is
+      local
+         d1, d2: DICTIONARY[STRING, STRING]
+      do
+         create {HASHED_DICTIONARY[STRING, STRING]} d1.make
+         d2 := d1.twin
+         assert(d2 /= Void)
+         assert(d2 /= d1)
+         assert(d1.same_dynamic_type(d2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_GENERAL2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_GENERAL2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_GENERAL2
 --

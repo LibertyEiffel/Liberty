@@ -4,19 +4,19 @@
 class TEST_STRING7
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			assert(str1 /= str2)
-			assert(str1.is_equal(str2))
-		end
+   make is
+      do
+         assert(str1 /= str2)
+         assert(str1.is_equal(str2))
+      end
 
-	str1, str2: STRING is "Ouupps ..."
+   str1, str2: STRING is "Ouupps ..."
 
 end -- class TEST_STRING7
 --

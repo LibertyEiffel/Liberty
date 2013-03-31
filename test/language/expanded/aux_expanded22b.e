@@ -4,17 +4,17 @@
 expanded class AUX_EXPANDED22B
 
 feature {ANY}
-	value: BOOLEAN
+   value: BOOLEAN
 
-	set_value (v: BOOLEAN) is
-		do
-			value := v
-		end
+   set_value (v: BOOLEAN) is
+      do
+         value := v
+      end
 
-	fc: AUX_EXPANDED22C is
-		do
-			Result.set_value(3)
-		end
+   fc: AUX_EXPANDED22C is
+      do
+         Result.set_value(3)
+      end
 
 end -- class AUX_EXPANDED22B
 --

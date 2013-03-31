@@ -4,15 +4,15 @@
 class AUX_ANCHOR6
 
 feature {ANY}
-	foo (param: like c) is
-		do
-		end
+   foo (param: like c) is
+      do
+      end
 
-	a: INTEGER
+   a: INTEGER
 
-	b: like a
+   b: like a
 
-	c: like b
+   c: like b
 
 end -- class AUX_ANCHOR6
 --

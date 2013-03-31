@@ -4,17 +4,17 @@
 class AUX_GENERIC10_DICTIONARY[V, K -> INTEGER]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	get_new_iterator_on_items: AUX_GENERIC10_ITERATOR[V] is
-		do
-			create Result.make(Current)
-		end
+   get_new_iterator_on_items: AUX_GENERIC10_ITERATOR[V] is
+      do
+         create Result.make(Current)
+      end
 
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class AUX_GENERIC10_DICTIONARY
 --

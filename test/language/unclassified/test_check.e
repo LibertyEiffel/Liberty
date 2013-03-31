@@ -4,15 +4,15 @@
 class TEST_CHECK
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			check
-				2 = 1 + 1
-			end
-		end
+   make is
+      do
+         check
+            2 = 1 + 1
+         end
+      end
 
 end -- class TEST_CHECK
 --

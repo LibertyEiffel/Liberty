@@ -9,7 +9,7 @@ create {ANY}
 feature {}
    make is
       do
-	 bar(1, 2)
+    bar(1, 2)
       end
 
    bar (x: INTEGER) is

@@ -4,18 +4,18 @@
 class BAD_EQ5
 
 creation
-	make
+   make
 
 feature
-	make is
-		local
-			integer_64: INTEGER_64
-			real_64: REAL_64
-		do
-			if integer_64 = real_64 then -- Yes, rejected because we must truncate_to_real_64 !
-				-- Also note that no assignment cannot be done too which is coherent.
-			end
-		end
+   make is
+      local
+         integer_64: INTEGER_64
+         real_64: REAL_64
+      do
+         if integer_64 = real_64 then -- Yes, rejected because we must truncate_to_real_64 !
+            -- Also note that no assignment cannot be done too which is coherent.
+         end
+      end
 end -- class BAD_EQ5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

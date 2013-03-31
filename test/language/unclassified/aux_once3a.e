@@ -4,22 +4,22 @@
 class AUX_ONCE3A
 
 inherit
-	TEST_ONCE3
+   TEST_ONCE3
 
 creation {ANY}
-	make_a
+   make_a
 
 feature {ANY}
-	value: CHARACTER
+   value: CHARACTER
 
 feature {}
-	make_a is
-		local
-			c: CHARACTER
-		do
-			value := 'a'
-			c := once_b.value
-		end
+   make_a is
+      local
+         c: CHARACTER
+      do
+         value := 'a'
+         c := once_b.value
+      end
 
 end -- class AUX_ONCE3A
 --

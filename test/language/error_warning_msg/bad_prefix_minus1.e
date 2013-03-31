@@ -3,17 +3,17 @@
 --
 class BAD_PREFIX_MINUS1
 creation
-	make
+   make
 feature
-	make is
-		local
-			i: INTEGER
-		do
-			i := -1.abs
-			-- Rejected because of the usual priority of prefix minus is low:
-			--        -foo.abs
-			--       -(foo.abs)
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         i := -1.abs
+         -- Rejected because of the usual priority of prefix minus is low:
+         --        -foo.abs
+         --       -(foo.abs)
+      end
 end -- class BAD_PREFIX_MINUS1
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

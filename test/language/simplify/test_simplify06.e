@@ -2,59 +2,59 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_SIMPLIFY06
-	--
-	-- Access to dead attribute.
-	--
+   --
+   -- Access to dead attribute.
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	dead: AUX_SIMPLIFY06
+   dead: AUX_SIMPLIFY06
 
-	make is
-		do
-			check_order(0)
-			if dead /= Void then
-				c_inline_c("#1 in boost_simplify06")
-			end
-			if dead = Void then
-				check_order(1)
-			end
-			check_order(2)
-			if foo(1) /= Void then
-				c_inline_c("#2 in boost_simplify06")
-			end
-			check_order(3)
-			if bar(1, Void) /= Void then
-				c_inline_c("#3 in boost_simplify06")
-			end
-			check_order(4)
-		end
+   make is
+      do
+         check_order(0)
+         if dead /= Void then
+            c_inline_c("#1 in boost_simplify06")
+         end
+         if dead = Void then
+            check_order(1)
+         end
+         check_order(2)
+         if foo(1) /= Void then
+            c_inline_c("#2 in boost_simplify06")
+         end
+         check_order(3)
+         if bar(1, Void) /= Void then
+            c_inline_c("#3 in boost_simplify06")
+         end
+         check_order(4)
+      end
 
-	foo (i: INTEGER): like dead is
-		do
-			Result := dead
-		end
+   foo (i: INTEGER): like dead is
+      do
+         Result := dead
+      end
 
-	bar (i: INTEGER; j: like dead): like dead is
-		do
-			Result := dead
-		end
+   bar (i: INTEGER; j: like dead): like dead is
+      do
+         Result := dead
+      end
 
-	previous_n: INTEGER
-			-- To check that `check_order' call are in the original order.
+   previous_n: INTEGER
+         -- To check that `check_order' call are in the original order.
 
-	check_order (n: INTEGER) is
-		do
-			if n /= previous_n then
-				sedb_breakpoint
-				std_output.put_string("TEST_SIMPLIFY06: ERROR Test # ")
-				std_output.put_integer(previous_n)
-				std_output.put_string("%N")
-			end
-			previous_n := previous_n + 1
-		end
+   check_order (n: INTEGER) is
+      do
+         if n /= previous_n then
+            sedb_breakpoint
+            std_output.put_string("TEST_SIMPLIFY06: ERROR Test # ")
+            std_output.put_integer(previous_n)
+            std_output.put_string("%N")
+         end
+         previous_n := previous_n + 1
+      end
 
 end -- class TEST_SIMPLIFY06
 --

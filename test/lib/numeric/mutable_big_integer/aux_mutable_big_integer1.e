@@ -2,126 +2,126 @@
 -- See the Copyright notice at the end of this file.
 --
 class AUX_MUTABLE_BIG_INTEGER1
-	-- Use `numbers*' first to make tests.
-	-- `check_and_restore(numbers*)' test if `numbers*' is corrupted or
-	-- not and restore it.
-	-- Use `restore(numbers*)' to restore `numbers*'.
+   -- Use `numbers*' first to make tests.
+   -- `check_and_restore(numbers*)' test if `numbers*' is corrupted or
+   -- not and restore it.
+   -- Use `restore(numbers*)' to restore `numbers*'.
 
 insert
-	PLATFORM
-	EIFFELTEST_TOOLS
+   PLATFORM
+   EIFFELTEST_TOOLS
 
 feature {}
-	numbers_check: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
-		once
-			Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64
-			-- -Minimum_integer_64
-			), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000"
-			-- 10^18
-			), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000000000000000" -- -10^18
-			), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000000000000000" -- 10^30
-			), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000000" -- -10^30
-			), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000000" -- 10^50
-			), create {MUTABLE_BIG_INTEGER}.from_string("99999999999999999999999999999999999999999999999999" -- -10^50
-			), create {MUTABLE_BIG_INTEGER}.from_string("-99999999999999999999999999999999999999999999999999" -- 10^50 - 1
-			), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000001" -- -(10^50 - 1)
-			), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000001" -- 10^50 + 1
-			) -- -(10^50 + 1)
-			 >> }
-		end
+   numbers_check: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+      once
+         Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64
+         -- -Minimum_integer_64
+         ), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000"
+         -- 10^18
+         ), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000000000000000" -- -10^18
+         ), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000000000000000" -- 10^30
+         ), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000000" -- -10^30
+         ), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000000" -- 10^50
+         ), create {MUTABLE_BIG_INTEGER}.from_string("99999999999999999999999999999999999999999999999999" -- -10^50
+         ), create {MUTABLE_BIG_INTEGER}.from_string("-99999999999999999999999999999999999999999999999999" -- 10^50 - 1
+         ), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000001" -- -(10^50 - 1)
+         ), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000001" -- 10^50 + 1
+         ) -- -(10^50 + 1)
+          >> }
+      end
 
 feature {ANY}
-	numbers1: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
-			-- Give an independant copy of `numbers_check'.
-		local
-			i: INTEGER
-		once
-			create Result.with_capacity(numbers_check.capacity)
-			from
-				i := numbers_check.lower
-			until
-				i > numbers_check.upper
-			loop
-				Result.add_last(numbers_check.item(i).twin)
-				i := i + 1
-			end
-		end
+   numbers1: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+         -- Give an independant copy of `numbers_check'.
+      local
+         i: INTEGER
+      once
+         create Result.with_capacity(numbers_check.capacity)
+         from
+            i := numbers_check.lower
+         until
+            i > numbers_check.upper
+         loop
+            Result.add_last(numbers_check.item(i).twin)
+            i := i + 1
+         end
+      end
 
-	numbers2: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
-			-- Give another independant copy of `numbers_check'.
-		local
-			i: INTEGER
-		once
-			create Result.with_capacity(numbers_check.capacity)
-			from
-				i := numbers_check.lower
-			until
-				i > numbers_check.upper
-			loop
-				Result.add_last(numbers_check.item(i).twin)
-			end
-		end
+   numbers2: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+         -- Give another independant copy of `numbers_check'.
+      local
+         i: INTEGER
+      once
+         create Result.with_capacity(numbers_check.capacity)
+         from
+            i := numbers_check.lower
+         until
+            i > numbers_check.upper
+         loop
+            Result.add_last(numbers_check.item(i).twin)
+         end
+      end
 
-	restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
-			-- Restore `n' (which is `number1' or `number2'.
-		require
-			n = numbers1 or n = numbers2
-		local
-			i: INTEGER
-		do
-			from
-				i := numbers_check.lower
-			until
-				i > numbers_check.upper
-			loop
-				if numbers_check.item(i).is_equal(n.item(i)) then
-					if n.item(i) = Void then
-						n.put(numbers_check.item(i).twin, i)
-					else
-						n.item(i).copy(numbers_check.item(i))
-					end
-				end
-				i := i + 1
-			end
-		end
+   restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+         -- Restore `n' (which is `number1' or `number2'.
+      require
+         n = numbers1 or n = numbers2
+      local
+         i: INTEGER
+      do
+         from
+            i := numbers_check.lower
+         until
+            i > numbers_check.upper
+         loop
+            if numbers_check.item(i).is_equal(n.item(i)) then
+               if n.item(i) = Void then
+                  n.put(numbers_check.item(i).twin, i)
+               else
+                  n.item(i).copy(numbers_check.item(i))
+               end
+            end
+            i := i + 1
+         end
+      end
 
-	verify (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
-			-- Are the numbers original ? Restore the bad number.
-		local
-			i: INTEGER
-		do
-			from
-				i := numbers_check.lower
-			until
-				i > numbers_check.upper
-			loop
-				assert(numbers_check.item(i).is_equal(n.item(i)))
-				i := i + 1
-			end
-		end
+   verify (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+         -- Are the numbers original ? Restore the bad number.
+      local
+         i: INTEGER
+      do
+         from
+            i := numbers_check.lower
+         until
+            i > numbers_check.upper
+         loop
+            assert(numbers_check.item(i).is_equal(n.item(i)))
+            i := i + 1
+         end
+      end
 
-	verify_and_restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
-			-- Are the numbers original ? Restore the bad number.
-		local
-			i: INTEGER; b: BOOLEAN
-		do
-			from
-				i := numbers_check.lower
-			until
-				i > numbers_check.upper
-			loop
-				b := numbers_check.item(i).is_equal(n.item(i))
-				assert(b)
-				if b then
-					if n.item(i) = Void then
-						n.put(numbers_check.item(i).twin, i)
-					else
-						n.item(i).copy(numbers_check.item(i))
-					end
-				end
-				i := i + 1
-			end
-		end
+   verify_and_restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+         -- Are the numbers original ? Restore the bad number.
+      local
+         i: INTEGER; b: BOOLEAN
+      do
+         from
+            i := numbers_check.lower
+         until
+            i > numbers_check.upper
+         loop
+            b := numbers_check.item(i).is_equal(n.item(i))
+            assert(b)
+            if b then
+               if n.item(i) = Void then
+                  n.put(numbers_check.item(i).twin, i)
+               else
+                  n.item(i).copy(numbers_check.item(i))
+               end
+            end
+            i := i + 1
+         end
+      end
 
 end -- class AUX_MUTABLE_BIG_INTEGER1
 --

@@ -4,27 +4,27 @@
 class AUX_RENAME7B[G]
 
 inherit
-	AUX_RENAME7A[G]
-		rename next_node as right_node,
-			set_next_node as set_right_node
-		end
+   AUX_RENAME7A[G]
+      rename next_node as right_node,
+         set_next_node as set_right_node
+      end
 
 insert
-	AUX_RENAME7A[G]
-		rename next_node as left_node,
-			set_next_node as set_left_node
-		end
+   AUX_RENAME7A[G]
+      rename next_node as left_node,
+         set_next_node as set_left_node
+      end
 
 creation {ANY}
-	make, make_node
+   make, make_node
 
 feature {ANY}
-	make_node (left: like Current; value: G; right: like Current) is
-		do
-			left_node := left
-			item := value
-			right_node := right
-		end
+   make_node (left: like Current; value: G; right: like Current) is
+      do
+         left_node := left
+         item := value
+         right_node := right
+      end
 
 end -- class AUX_RENAME7B
 --

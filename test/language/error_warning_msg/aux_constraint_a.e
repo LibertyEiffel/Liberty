@@ -11,14 +11,14 @@ feature
 
    make(vx: X) is
       do
-	 x := vx;
+    x := vx;
       end;
 
    foo is
       local
-	 y: like x;
+    y: like x;
       do
-	 y := - x;
+    y := - x;
       end;
 
 end -- class AUX_CONSTRAINT_A

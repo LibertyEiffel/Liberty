@@ -4,33 +4,33 @@
 class TEST_REVERSE_VON_NEUMAN3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			tab: LINKED_LIST[STRING]; s: REVERSE_COLLECTION_SORTER[STRING]
-		do
-			tab := {LINKED_LIST[STRING] << "try", "test1", "test3", "abc", "hello world" >> }
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal_map({LINKED_LIST[STRING] << "try", "test3", "test1", "hello world", "abc" >> }))
-			tab.add_last("+fr")
-			s.von_neuman_sort(tab)
-			assert(tab.is_equal_map({LINKED_LIST[STRING] << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
-		end
+   make is
+      local
+         tab: LINKED_LIST[STRING]; s: REVERSE_COLLECTION_SORTER[STRING]
+      do
+         tab := {LINKED_LIST[STRING] << "try", "test1", "test3", "abc", "hello world" >> }
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal_map({LINKED_LIST[STRING] << "try", "test3", "test1", "hello world", "abc" >> }))
+         tab.add_last("+fr")
+         s.von_neuman_sort(tab)
+         assert(tab.is_equal_map({LINKED_LIST[STRING] << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REVERSE_VON_NEUMAN3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REVERSE_VON_NEUMAN3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REVERSE_VON_NEUMAN3
 --

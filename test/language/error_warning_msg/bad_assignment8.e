@@ -4,14 +4,14 @@
 class BAD_ASSIGNMENT8
 
 creation
-	make
-	
+   make
+   
 feature
    make is
       local
-			any: ANY
+         any: ANY
       do
-			any := 3.5
+         any := 3.5
       end
 end -- class BAD_ASSIGNMENT8
 --

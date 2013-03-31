@@ -2,60 +2,60 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INHERIT1
-	-- From a bug report of Philippe REITZ
+   -- From a bug report of Philippe REITZ
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			oa: AUX_INHERIT1A; ob: AUX_INHERIT1B; oc: AUX_INHERIT1C; t: ARRAY[AUX_INHERIT1A]
-		do
-			create oa
-			create ob
-			create oc
-			t := {ARRAY[AUX_INHERIT1A] 1, << oa, ob, oc >> }
-			oa := t.item(1)
-			assert(oa.a_count = 0)
-			assert(oa.b_count = 0)
-			assert(oa.c_count = 0)
-			oa.fonc
-			assert(oa.a_count = 1)
-			assert(oa.b_count = 0)
-			assert(oa.c_count = 0)
-			oa := t.item(2)
-			assert(oa.a_count = 0)
-			assert(oa.b_count = 0)
-			assert(oa.c_count = 0)
-			oa.fonc
-			assert(oa.a_count = 1)
-			assert(oa.b_count = 1)
-			assert(oa.c_count = 0)
-			oa := t.item(3)
-			assert(oa.a_count = 0)
-			assert(oa.b_count = 0)
-			assert(oa.c_count = 0)
-			oa.fonc
-			assert(oa.a_count = 1)
-			assert(oa.b_count = 0)
-			assert(oa.c_count = 1)
-		end
+   make is
+      local
+         oa: AUX_INHERIT1A; ob: AUX_INHERIT1B; oc: AUX_INHERIT1C; t: ARRAY[AUX_INHERIT1A]
+      do
+         create oa
+         create ob
+         create oc
+         t := {ARRAY[AUX_INHERIT1A] 1, << oa, ob, oc >> }
+         oa := t.item(1)
+         assert(oa.a_count = 0)
+         assert(oa.b_count = 0)
+         assert(oa.c_count = 0)
+         oa.fonc
+         assert(oa.a_count = 1)
+         assert(oa.b_count = 0)
+         assert(oa.c_count = 0)
+         oa := t.item(2)
+         assert(oa.a_count = 0)
+         assert(oa.b_count = 0)
+         assert(oa.c_count = 0)
+         oa.fonc
+         assert(oa.a_count = 1)
+         assert(oa.b_count = 1)
+         assert(oa.c_count = 0)
+         oa := t.item(3)
+         assert(oa.a_count = 0)
+         assert(oa.b_count = 0)
+         assert(oa.c_count = 0)
+         oa.fonc
+         assert(oa.a_count = 1)
+         assert(oa.b_count = 0)
+         assert(oa.c_count = 1)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INHERIT1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INHERIT1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INHERIT1
 --

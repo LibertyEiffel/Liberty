@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_RING_ARRAY3
-	-- From a bug report of Jean-Marc JEZEQUEL
-	-- (test ported from FAST_ARRAY to RING_ARRAY)
+   -- From a bug report of Jean-Marc JEZEQUEL
+   -- (test ported from FAST_ARRAY to RING_ARRAY)
 
 creation {}
-	make
+   make
 
 feature {}
-	aux: AUX_RING_ARRAY3
+   aux: AUX_RING_ARRAY3
 
-	make is
-		do
-			create aux.test
-		end
+   make is
+      do
+         create aux.test
+      end
 
 end -- class TEST_RING_ARRAY3
 --

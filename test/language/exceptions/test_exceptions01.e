@@ -4,33 +4,33 @@
 class TEST_EXCEPTIONS01
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			s: STRING
-		do
-			s.extend('o')
-			is_true(("foo").is_equal(s))
-		rescue
-			sedb_breakpoint
-			s := "fo"
-			retry
-		end
+   make is
+      local
+         s: STRING
+      do
+         s.extend('o')
+         is_true(("foo").is_equal(s))
+      rescue
+         sedb_breakpoint
+         s := "fo"
+         retry
+      end
 
 feature {}
-	is_true (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_EXCEPTION01: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   is_true (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_EXCEPTION01: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS01
 --

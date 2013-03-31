@@ -12,7 +12,7 @@ feature {ANY}
    
    make is 
       local
-	 x: like item;
+    x: like item;
       do 
 
       end;

@@ -4,37 +4,37 @@
 deferred class ANIMAL
 
 feature {ANY}
-	cry is
-		deferred
-		end
+   cry is
+      deferred
+      end
 
-	reproduction (other: ANIMAL): ANIMAL is
-		require
-			other /= Void
-		do
-			Result := other
-		end
+   reproduction (other: ANIMAL): ANIMAL is
+      require
+         other /= Void
+      do
+         Result := other
+      end
 
-	fornicate_with (other: ANIMAL): ANIMAL is
-		require
-			other /= Void
-		do
-			Result := other
-		end
+   fornicate_with (other: ANIMAL): ANIMAL is
+      require
+         other /= Void
+      do
+         Result := other
+      end
 
-	congratulation (other: ANIMAL) is
-		do
-			Current.cry
-			std_output.put_string(" + ")
-			other.cry
-			std_output.put_string(" = ")
-			Current.reproduction(other).cry
-			std_output.put_new_line
-		end
+   congratulation (other: ANIMAL) is
+      do
+         Current.cry
+         std_output.put_string(" + ")
+         other.cry
+         std_output.put_string(" = ")
+         Current.reproduction(other).cry
+         std_output.put_new_line
+      end
 
-	is_cat, is_dog: BOOLEAN is
-		do
-		end
+   is_cat, is_dog: BOOLEAN is
+      do
+      end
 
 end -- class ANIMAL
 --

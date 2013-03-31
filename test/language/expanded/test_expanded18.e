@@ -4,51 +4,51 @@
 class TEST_EXPANDED18
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EXPANDED18A; b: AUX_EXPANDED18B; c: AUX_EXPANDED18C
-		do
-			---- Original:
-			-- c: expanded AUX_EXPANDED18C
-			assert(a.value1 = 0)
-			assert(a.value2 = '%/0/')
-			a.make
-			assert(a.value1 = 1)
-			assert(a.value2 = 'A')
-			create a
-			assert(a.value1 = 0)
-			assert(a.value2 = '%/0/')
-			a.make
-			create {AUX_EXPANDED18A} a
-			assert(a.value1 = 0)
-			assert(a.value2 = '%/0/')
-			assert(b.value1 = 1)
-			assert(b.value2 = 'A')
-			b.clear
-			assert(b.value1 = 0)
-			assert(b.value2 = '%/0/')
-			create b.make
-			assert(b.value1 = 1)
-			assert(b.value2 = 'A')
-			b.clear
-			create {AUX_EXPANDED18B} b.make
-			assert(b.value1 = 1)
-			assert(b.value2 = 'A')
-			assert(c.value1 = 1)
-			assert(c.value2 = 'A')
-			c.clear
-			assert(c.value1 = 0)
-			assert(c.value2 = '%/0/')
-			create c.make
-			assert(c.value1 = 1)
-			assert(c.value2 = 'A')
-		end
+   make is
+      local
+         a: AUX_EXPANDED18A; b: AUX_EXPANDED18B; c: AUX_EXPANDED18C
+      do
+         ---- Original:
+         -- c: expanded AUX_EXPANDED18C
+         assert(a.value1 = 0)
+         assert(a.value2 = '%/0/')
+         a.make
+         assert(a.value1 = 1)
+         assert(a.value2 = 'A')
+         create a
+         assert(a.value1 = 0)
+         assert(a.value2 = '%/0/')
+         a.make
+         create {AUX_EXPANDED18A} a
+         assert(a.value1 = 0)
+         assert(a.value2 = '%/0/')
+         assert(b.value1 = 1)
+         assert(b.value2 = 'A')
+         b.clear
+         assert(b.value1 = 0)
+         assert(b.value2 = '%/0/')
+         create b.make
+         assert(b.value1 = 1)
+         assert(b.value2 = 'A')
+         b.clear
+         create {AUX_EXPANDED18B} b.make
+         assert(b.value1 = 1)
+         assert(b.value2 = 'A')
+         assert(c.value1 = 1)
+         assert(c.value2 = 'A')
+         c.clear
+         assert(c.value1 = 0)
+         assert(c.value2 = '%/0/')
+         create c.make
+         assert(c.value1 = 1)
+         assert(c.value2 = 'A')
+      end
 
 end -- class TEST_EXPANDED18
 --

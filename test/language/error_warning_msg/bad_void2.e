@@ -4,22 +4,22 @@
 class BAD_VOID2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			c: TUPLE[STRING]; void_string: STRING
-		do
-			c := [Void]
-			-- To work around:
-			c := create {TUPLE[STRING]}.make_1(Void)
-			-- or:
-			check
-				void_string = Void
-			end
-			c := [void_string]
-		end
+   make is
+      local
+         c: TUPLE[STRING]; void_string: STRING
+      do
+         c := [Void]
+         -- To work around:
+         c := create {TUPLE[STRING]}.make_1(Void)
+         -- or:
+         check
+            void_string = Void
+         end
+         c := [void_string]
+      end
 
 end -- class BAD_VOID2
 --

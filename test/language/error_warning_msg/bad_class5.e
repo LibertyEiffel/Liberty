@@ -4,13 +4,13 @@
 class bad_class5 -- Wrong class name here.
 
 creation
-	main
+   main
 
 feature
-	main is
-		do
-		end
-	
+   main is
+      do
+      end
+   
 end -- class bad_class5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

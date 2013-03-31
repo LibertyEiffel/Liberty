@@ -4,9 +4,9 @@
 class AUX_EXPORT1A
 
 feature {}
-	f is
-		do
-		end
+   f is
+      do
+      end
 
 end -- class AUX_EXPORT1A
 --

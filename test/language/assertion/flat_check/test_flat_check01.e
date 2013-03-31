@@ -2,38 +2,38 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FLAT_CHECK01
-	-- Always use -flat_check option for this test.
+   -- Always use -flat_check option for this test.
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		do
-			foo
-		end
+   make is
+      do
+         foo
+      end
 
-	foo is
-		require
-			first_assertion_level
-		do
-		ensure
-			first_assertion_level
-		end
+   foo is
+      require
+         first_assertion_level
+      do
+      ensure
+         first_assertion_level
+      end
 
-	first_assertion_level: BOOLEAN is
-		require
-			second_assertion_level
-		do
-			Result := True
-		ensure
-			second_assertion_level
-		end
+   first_assertion_level: BOOLEAN is
+      require
+         second_assertion_level
+      do
+         Result := True
+      ensure
+         second_assertion_level
+      end
 
-	second_assertion_level: BOOLEAN is False
+   second_assertion_level: BOOLEAN is False
 
 invariant
-	first_assertion_level
+   first_assertion_level
 
 end -- class TEST_FLAT_CHECK01
 --

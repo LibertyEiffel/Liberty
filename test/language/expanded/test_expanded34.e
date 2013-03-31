@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED34
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-			--***      local
-			--***			h1, h2: HASHABLE
-			--*** What for Mister Bezault ;-)
-		do
-			--***			h1 := 5
-			--***			h2 := 5
-			assert(5.hash_code = 5.hash_code)
-			--***			assert(h1.hash_code = h2.hash_code)
-		end
+   make is
+         --***      local
+         --***         h1, h2: HASHABLE
+         --*** What for Mister Bezault ;-)
+      do
+         --***         h1 := 5
+         --***         h2 := 5
+         assert(5.hash_code = 5.hash_code)
+         --***         assert(h1.hash_code = h2.hash_code)
+      end
 
 end -- class TEST_EXPANDED34
 --

@@ -4,72 +4,72 @@
 class AUX_JMJ3TS[T]
 
 inherit
-	AUX_JMJ3A2D[T]
-		rename make as array2d_make
-		redefine dimension
-		end
+   AUX_JMJ3A2D[T]
+      rename make as array2d_make
+      redefine dimension
+      end
 
 creation {ANY}
-	array2d_make, dimension
+   array2d_make, dimension
 
 feature {ANY}
-	dimension (first_dim, second_dim, tile_width: INTEGER) is
-		do
-			tile := tile_width
-			array2d_make(0, first_dim - 1 + 2 * tile_width, 0, second_dim - 1 + 2 * tile_width)
-			create column_buffer.make(lower1, upper1)
-		end
+   dimension (first_dim, second_dim, tile_width: INTEGER) is
+      do
+         tile := tile_width
+         array2d_make(0, first_dim - 1 + 2 * tile_width, 0, second_dim - 1 + 2 * tile_width)
+         create column_buffer.make(lower1, upper1)
+      end
 
 feature {ANY}
-	tile: INTEGER
+   tile: INTEGER
 
 feature {ANY}
-	row (i: INTEGER): T is
-		do
-			Result := storage.item(i)
-		end
+   row (i: INTEGER): T is
+      do
+         Result := storage.item(i)
+      end
 
-	column (j: INTEGER): ARRAY[T] is
-		local
-			i: INTEGER
-		do
-			from
-				i := lower1
-			until
-				i > upper1
-			loop
-				column_buffer.put(item(i, j), i)
-				i := i + 1
-			end
-			Result := column_buffer
-		end
-
-feature {ANY}
-	--PH: this function is wrong and unused, so I commented it out.
-	--    set_row(new_row: like row; i: INTEGER) is
-	--       require
-	-- 	 same_width: new_row.count = dim2
-	--       do
-	-- 	 storage.put(new_row,i)
-	--       end
-	set_column (new_col: like column; j: INTEGER) is
-		require
-			same_width: new_col.count = dim1
-		local
-			i: INTEGER
-		do
-			from
-				i := lower1
-			until
-				i > upper1
-			loop
-				put(new_col.item(i), i, j)
-				i := i + 1
-			end
-		end
+   column (j: INTEGER): ARRAY[T] is
+      local
+         i: INTEGER
+      do
+         from
+            i := lower1
+         until
+            i > upper1
+         loop
+            column_buffer.put(item(i, j), i)
+            i := i + 1
+         end
+         Result := column_buffer
+      end
 
 feature {ANY}
-	column_buffer: like column
+   --PH: this function is wrong and unused, so I commented it out.
+   --    set_row(new_row: like row; i: INTEGER) is
+   --       require
+   --     same_width: new_row.count = dim2
+   --       do
+   --     storage.put(new_row,i)
+   --       end
+   set_column (new_col: like column; j: INTEGER) is
+      require
+         same_width: new_col.count = dim1
+      local
+         i: INTEGER
+      do
+         from
+            i := lower1
+         until
+            i > upper1
+         loop
+            put(new_col.item(i), i, j)
+            i := i + 1
+         end
+      end
+
+feature {ANY}
+   column_buffer: like column
 
 end -- class AUX_JMJ3TS
 --

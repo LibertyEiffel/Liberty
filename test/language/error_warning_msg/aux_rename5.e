@@ -3,9 +3,9 @@
 --
 deferred class AUX_RENAME5
 feature
-	item: AUX_RENAME5 is 
-		deferred
-		end
+   item: AUX_RENAME5 is 
+      deferred
+      end
 end -- class AUX_RENAME5
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

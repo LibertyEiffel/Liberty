@@ -4,13 +4,13 @@
 class AUX_ANCHOR10_EFFECTOR[G]
 
 inherit
-	AUX_ANCHOR10_PARENT[G]
+   AUX_ANCHOR10_PARENT[G]
 
 feature {ANY}
-	anchor: AUX_ANCHOR10_CONCRETE[G] is
-		do
-			create Result
-		end
+   anchor: AUX_ANCHOR10_CONCRETE[G] is
+      do
+         create Result
+      end
 
 end -- class AUX_ANCHOR10_EFFECTOR
 --

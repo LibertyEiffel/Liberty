@@ -2,44 +2,44 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JB04
-	-- From: Jacques Bouchard <bouchard@mageos.com>
+   -- From: Jacques Bouchard <bouchard@mageos.com>
 
 inherit
-	AUX_JB04
-		rename identity as aux_jbo4_identity
-		end
+   AUX_JB04
+      rename identity as aux_jbo4_identity
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	identity: STRING is
-		do
-			Result := "TEST_JB04.identity"
-		end
+   identity: STRING is
+      do
+         Result := "TEST_JB04.identity"
+      end
 
-	make is
-		do
-			link := Current
-			assert(identity.is_equal("TEST_JB04.identity"))
-			assert(Current.identity.is_equal("TEST_JB04.identity"))
-			assert(link.identity.is_equal("TEST_JB04.identity"))
-		end
+   make is
+      do
+         link := Current
+         assert(identity.is_equal("TEST_JB04.identity"))
+         assert(Current.identity.is_equal("TEST_JB04.identity"))
+         assert(link.identity.is_equal("TEST_JB04.identity"))
+      end
 
-	assert (boolean: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not boolean then
-				sedb_breakpoint
-				std_output.put_string("TEST_JB04: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N");
-			end
-		end
+   assert (boolean: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not boolean then
+            sedb_breakpoint
+            std_output.put_string("TEST_JB04: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_JB04
 --

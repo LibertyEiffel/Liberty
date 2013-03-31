@@ -4,34 +4,34 @@
 class TEST_INLINING11
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	storage: FAST_ARRAY[INTEGER]
+   storage: FAST_ARRAY[INTEGER]
 
-	make is
-		local
-			tmp: TEST_INLINING11
-		do
-			create storage.make(10)
-			tmp := do_it
-		end
+   make is
+      local
+         tmp: TEST_INLINING11
+      do
+         create storage.make(10)
+         tmp := do_it
+      end
 
-	do_it: TEST_INLINING11 is
-		local
-			i, j: INTEGER
-		do
-			j := 1
-			if Result /= Void then
-				create Result.make
-				Result.force(i, j)
-			end
-		end
+   do_it: TEST_INLINING11 is
+      local
+         i, j: INTEGER
+      do
+         j := 1
+         if Result /= Void then
+            create Result.make
+            Result.force(i, j)
+         end
+      end
 
-	force (val: INTEGER; pos: INTEGER) is
-		do
-			storage.force(val, pos)
-		end
+   force (val: INTEGER; pos: INTEGER) is
+      do
+         storage.force(val, pos)
+      end
 
 end -- class TEST_INLINING11
 --

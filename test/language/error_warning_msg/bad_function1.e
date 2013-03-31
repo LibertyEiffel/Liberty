@@ -10,7 +10,7 @@ feature
    
    make is
       do
-	 foo
+    foo
       end
 
    foo: BOOLEAN is

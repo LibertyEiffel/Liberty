@@ -2,17 +2,17 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JMJ1
-	-- From a bug report of Jean-Marc JEZEQUEL
-	-- *** inherit
-	-- *** No more empty inherit allowed. ***
+   -- From a bug report of Jean-Marc JEZEQUEL
+   -- *** inherit
+   -- *** No more empty inherit allowed. ***
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 end -- class TEST_JMJ1
 --

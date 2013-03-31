@@ -4,32 +4,32 @@
 class TEST_SAME_DYNAMIC_TYPE2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a1, a2: ANIMAL
-		do
-			create {CAT} a1
-			create {CAT} a2
-			assert(a1.same_dynamic_type(a2))
-		end
+   make is
+      local
+         a1, a2: ANIMAL
+      do
+         create {CAT} a1
+         create {CAT} a2
+         assert(a1.same_dynamic_type(a2))
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_SAME_DYNAMIC_TYPE2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				--std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_SAME_DYNAMIC_TYPE2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            --std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_SAME_DYNAMIC_TYPE2
 --

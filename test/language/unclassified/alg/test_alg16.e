@@ -2,49 +2,49 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG16
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	normal_routine1: AUX_ALG16 is
-		do
-		end
+   normal_routine1: AUX_ALG16 is
+      do
+      end
 
-	normal_routine2: AUX_ALG16 is
-		do
-			create Result.make
-		end
+   normal_routine2: AUX_ALG16 is
+      do
+         create Result.make
+      end
 
-	once_routine1: AUX_ALG16 is
-		once
-		end
+   once_routine1: AUX_ALG16 is
+      once
+      end
 
-	once_routine2: AUX_ALG16 is
-		once
-			create Result.make
-		end
+   once_routine2: AUX_ALG16 is
+      once
+         create Result.make
+      end
 
-	make is
-		do
-			assert(normal_routine1.item = 1)
-			assert(normal_routine2.item = 1)
-			assert(once_routine1.item = 1)
-			assert(once_routine2.item = 1)
-		end
+   make is
+      do
+         assert(normal_routine1.item = 1)
+         assert(normal_routine2.item = 1)
+         assert(once_routine1.item = 1)
+         assert(once_routine2.item = 1)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ALG16: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ALG16: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ALG16
 --

@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER74
-	-- test on gcd
+   -- test on gcd
 
 insert
-	EIFFELTEST_TOOLS
-	NUMBER_TOOLS
+   EIFFELTEST_TOOLS
+   NUMBER_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n1, n2: NUMBER
-		do
-			n1 := from_integer(1)
-			n2 := from_integer(1)
-			assert(n1.gcd(n2) @= 1)
-			n1 := from_integer(9)
-			n2 := from_integer(12)
-			assert(n1.gcd(n2) @= 3)
-			n1 := from_integer(36)
-			n2 := from_integer(42)
-			assert(n1.gcd(n2) @= 6)
-			n1 := from_integer(1024)
-			n2 := from_integer(3072)
-			assert(n1.gcd(n2) @= 1024)
-		end
+   make is
+      local
+         n1, n2: NUMBER
+      do
+         n1 := from_integer(1)
+         n2 := from_integer(1)
+         assert(n1.gcd(n2) @= 1)
+         n1 := from_integer(9)
+         n2 := from_integer(12)
+         assert(n1.gcd(n2) @= 3)
+         n1 := from_integer(36)
+         n2 := from_integer(42)
+         assert(n1.gcd(n2) @= 6)
+         n1 := from_integer(1024)
+         n2 := from_integer(3072)
+         assert(n1.gcd(n2) @= 1024)
+      end
 
 
 

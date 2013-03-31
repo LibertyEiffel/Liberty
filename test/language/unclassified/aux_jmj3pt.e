@@ -4,31 +4,31 @@
 class AUX_JMJ3PT[E]
 
 inherit
-	AUX_JMJ3TDT[E]
+   AUX_JMJ3TDT[E]
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	north: like item is
-		do
-			Result := container.item(i - 1, j)
-		end
+   north: like item is
+      do
+         Result := container.item(i - 1, j)
+      end
 
-	south: like item is
-		do
-			Result := container.item(i + 1, j)
-		end
+   south: like item is
+      do
+         Result := container.item(i + 1, j)
+      end
 
-	west: like item is
-		do
-			Result := container.item(i, j - 1)
-		end
+   west: like item is
+      do
+         Result := container.item(i, j - 1)
+      end
 
-	east: like item is
-		do
-			Result := container.item(i, j + 1)
-		end
+   east: like item is
+      do
+         Result := container.item(i, j + 1)
+      end
 
 end -- class AUX_JMJ3PT
 --

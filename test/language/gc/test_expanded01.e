@@ -4,32 +4,32 @@
 class TEST_EXPANDED01
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			from
-				i := 5000000
-			until
-				i = 0
-			loop
-				no_leak
-				i := i - 1
-			end
-		end
+   make is
+      local
+         i: INTEGER
+      do
+         from
+            i := 5000000
+         until
+            i = 0
+         loop
+            no_leak
+            i := i - 1
+         end
+      end
 
 feature {ANY}
-	no_leak is
-		local
-			aux: AUX_EXPANDED01
-		do
-			if aux.string.occurrences(' ') /= 16 then
-				std_output.put_string("TEST_EXPANDED01: ERROR%N")
-			end
-		end
+   no_leak is
+      local
+         aux: AUX_EXPANDED01
+      do
+         if aux.string.occurrences(' ') /= 16 then
+            std_output.put_string("TEST_EXPANDED01: ERROR%N")
+         end
+      end
 
 end -- class TEST_EXPANDED01
 --

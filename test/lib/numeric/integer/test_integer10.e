@@ -4,27 +4,27 @@
 class TEST_INTEGER10
 
 insert EIFFELTEST_TOOLS
-	
+   
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER
-		do
-			-- Generated C code is correct, but gcc emits a warning when 
-			-- compiled with boost:
-			-- test_integer101.c:1673: warning: suggest parentheses around + or - in operand of &
-			-- It is right that code is more readable with parentheses around +
-			i := 15
-			i := (i + 3) & ~3 -- smallest multiple of 4 not lower than initial value
-			assert(i = 16)
+   make is
+      local
+         i: INTEGER
+      do
+         -- Generated C code is correct, but gcc emits a warning when 
+         -- compiled with boost:
+         -- test_integer101.c:1673: warning: suggest parentheses around + or - in operand of &
+         -- It is right that code is more readable with parentheses around +
+         i := 15
+         i := (i + 3) & ~3 -- smallest multiple of 4 not lower than initial value
+         assert(i = 16)
 
-			i := 10
-			i := 1 + i & ~3
-			assert(i = 9)
-		end
+         i := 10
+         i := 1 + i & ~3
+         assert(i = 9)
+      end
 
 end -- class TEST_INTEGER10
 --

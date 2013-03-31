@@ -18,7 +18,7 @@ feature
    
    make is 
       do 
-	 clash;
+    clash;
       end;
    
 end -- class BAD_INHERIT4

@@ -2,93 +2,93 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_WEAK_REF03
-	-- Test GC of NATIVE_ARRAY[WEAK_REFERENCE[X]], WEAK_REFERENCE[X] and X.
+   -- Test GC of NATIVE_ARRAY[WEAK_REFERENCE[X]], WEAK_REFERENCE[X] and X.
 
 inherit
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			mem: MEMORY; i, wr_voided: INTEGER; na_aux: NATIVE_ARRAY[AUX_WEAK_REF03]
-			na_wr: NATIVE_ARRAY[WEAK_REFERENCE[AUX_WEAK_REF03]]; aux_wr: AUX_WEAK_REF03
-			wr: WEAK_REFERENCE[AUX_WEAK_REF03]
-		do
-			assert(mem.collecting)
-			-- Test # 1
-			from
-				na_aux := na_aux.calloc(Nb_items)
-				na_wr := na_wr.calloc(Nb_items)
-				i := Nb_items - 1
-			until
-				i < 0
-			loop
-				create aux_wr.make(Current)
-				create wr.set_item(aux_wr)
-				na_wr.put(wr, i)
-				assert(na_wr.item(i).item = aux_wr) -- Test # 2 4 6 8 10 12 14 16 18 20 22 24 26
-				na_aux.put(aux_wr, i)
-				assert(na_aux.item(i) = aux_wr) -- Test # 3 5 7 9 11 13 15 17 19 21 25 27
-				i := i - 1
-			end
-			aux_wr := Void
-			generate_garbage
-			mem.collection_on
-			mem.full_collect
-			assert(aux_wr_nb_disposed = 0) -- Test # 28
-			from
-				i := Nb_items - 1
-			until
-				i < 0
-			loop
-				assert(na_wr.item(i).item = na_aux.item(i))
-				-- Test # 29 30 31 32 33 34 35 36 37 38 39 40 41
-				na_aux.put(Void, i)
-				i := i - 1
-			end
-			generate_garbage
-			mem.collection_on
-			mem.full_collect
-			assert(aux_wr_nb_disposed > Nb_items / 2) -- Test # 42
-			from
-				i := Nb_items - 1
-			until
-				i < 0
-			loop
-				if na_wr.item(i).item = Void then
-					wr_voided := wr_voided + 1
-				end
-				i := i - 1
-			end
-			assert(aux_wr_nb_disposed = wr_voided) -- Test # 43
-		end
+   make is
+      local
+         mem: MEMORY; i, wr_voided: INTEGER; na_aux: NATIVE_ARRAY[AUX_WEAK_REF03]
+         na_wr: NATIVE_ARRAY[WEAK_REFERENCE[AUX_WEAK_REF03]]; aux_wr: AUX_WEAK_REF03
+         wr: WEAK_REFERENCE[AUX_WEAK_REF03]
+      do
+         assert(mem.collecting)
+         -- Test # 1
+         from
+            na_aux := na_aux.calloc(Nb_items)
+            na_wr := na_wr.calloc(Nb_items)
+            i := Nb_items - 1
+         until
+            i < 0
+         loop
+            create aux_wr.make(Current)
+            create wr.set_item(aux_wr)
+            na_wr.put(wr, i)
+            assert(na_wr.item(i).item = aux_wr) -- Test # 2 4 6 8 10 12 14 16 18 20 22 24 26
+            na_aux.put(aux_wr, i)
+            assert(na_aux.item(i) = aux_wr) -- Test # 3 5 7 9 11 13 15 17 19 21 25 27
+            i := i - 1
+         end
+         aux_wr := Void
+         generate_garbage
+         mem.collection_on
+         mem.full_collect
+         assert(aux_wr_nb_disposed = 0) -- Test # 28
+         from
+            i := Nb_items - 1
+         until
+            i < 0
+         loop
+            assert(na_wr.item(i).item = na_aux.item(i))
+            -- Test # 29 30 31 32 33 34 35 36 37 38 39 40 41
+            na_aux.put(Void, i)
+            i := i - 1
+         end
+         generate_garbage
+         mem.collection_on
+         mem.full_collect
+         assert(aux_wr_nb_disposed > Nb_items / 2) -- Test # 42
+         from
+            i := Nb_items - 1
+         until
+            i < 0
+         loop
+            if na_wr.item(i).item = Void then
+               wr_voided := wr_voided + 1
+            end
+            i := i - 1
+         end
+         assert(aux_wr_nb_disposed = wr_voided) -- Test # 43
+      end
 
-	Nb_items: INTEGER is 13
+   Nb_items: INTEGER is 13
 
-	generate_garbage is
-		local
-			i: INTEGER; s: STRING
-		do
-			from
-				i := 1
-			until
-				i = 10000
-			loop
-				create s.make_from_string("quark           ends here")
-				i := i + 1
-			end
-		end
+   generate_garbage is
+      local
+         i: INTEGER; s: STRING
+      do
+         from
+            i := 1
+         until
+            i = 10000
+         loop
+            create s.make_from_string("quark           ends here")
+            i := i + 1
+         end
+      end
 
-	aux_wr_nb_disposed: INTEGER
+   aux_wr_nb_disposed: INTEGER
 
 feature {AUX_WEAK_REF03}
-	increment_aux_wr_nb_disposed is
-		do
-			aux_wr_nb_disposed := aux_wr_nb_disposed + 1
-		end
+   increment_aux_wr_nb_disposed is
+      do
+         aux_wr_nb_disposed := aux_wr_nb_disposed + 1
+      end
 
 end -- class TEST_WEAK_REF03
 --

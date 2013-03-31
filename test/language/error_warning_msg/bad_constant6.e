@@ -4,15 +4,15 @@
 class BAD_CONSTANT6
 
 creation {ANY}
-	run
+   run
 
 feature {ANY}
-	run is
-		local
-			integer_64: INTEGER_64
-		do
-			integer_64 := 2 ^ -1
-		end
+   run is
+      local
+         integer_64: INTEGER_64
+      do
+         integer_64 := 2 ^ -1
+      end
 
 end -- class BAD_CONSTANT6
 --

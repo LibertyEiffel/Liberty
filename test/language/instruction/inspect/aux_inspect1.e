@@ -4,7 +4,7 @@
 class AUX_INSPECT1
 
 inherit
-	TEST_INSPECT1
+   TEST_INSPECT1
 
 end -- class AUX_INSPECT1
 --

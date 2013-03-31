@@ -6,9 +6,9 @@ class BAD_INHERIT16
 -- No empty list after inherit.
 --
 inherit
-	ANY
+   ANY
 insert
-	
+   
 end -- class BAD_INHERIT16
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

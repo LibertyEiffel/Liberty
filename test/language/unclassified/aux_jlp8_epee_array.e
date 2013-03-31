@@ -4,63 +4,63 @@
 class AUX_JLP8_EPEE_ARRAY[E]
 
 inherit
-	AUX_JLP8_COMP_ARRAY[E]
-		redefine make, put
-		end
+   AUX_JLP8_COMP_ARRAY[E]
+      redefine make, put
+      end
 
 insert
-	AUX_JLP8_EPEE_COLLECTION[E]
-	AUX_JLP8_COMP_ARRAY[E]
-		rename make as comp_make,
-			put as comp_put
-		end
+   AUX_JLP8_EPEE_COLLECTION[E]
+   AUX_JLP8_COMP_ARRAY[E]
+      rename make as comp_make,
+         put as comp_put
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	remove_item (e: E) is
-		do
-		end
+   remove_item (e: E) is
+      do
+      end
 
-	make (nb: INTEGER) is
-		do
-			comp_make(nb)
-			count := 0
-		end
+   make (nb: INTEGER) is
+      do
+         comp_make(nb)
+         count := 0
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	lower: INTEGER is 0
+   lower: INTEGER is 0
 
-	upper: INTEGER is
-		do
-			Result := count - 1
-		end
+   upper: INTEGER is
+      do
+         Result := count - 1
+      end
 
-	empty: BOOLEAN is
-		do
-			Result := count = 0
-		end
+   empty: BOOLEAN is
+      do
+         Result := count = 0
+      end
 
-	full: BOOLEAN is False
+   full: BOOLEAN is False
 
-	add_item (elem: E) is
-		do
-			if count = capacity then
-				resize(count + 10)
-			end
-			comp_put(elem, count)
-			count := count + 1
-		end
+   add_item (elem: E) is
+      do
+         if count = capacity then
+            resize(count + 10)
+         end
+         comp_put(elem, count)
+         count := count + 1
+      end
 
-	put (elem: E; i: INTEGER) is
-		do
-			if i >= count then
-				count := i + 1
-			end
-			comp_put(elem, i)
-		end
+   put (elem: E; i: INTEGER) is
+      do
+         if i >= count then
+            count := i + 1
+         end
+         comp_put(elem, i)
+      end
 
 end -- class AUX_JLP8_EPEE_ARRAY
 --

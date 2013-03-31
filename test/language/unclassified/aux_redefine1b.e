@@ -4,19 +4,19 @@
 class AUX_REDEFINE1B
 
 inherit
-	AUX_REDEFINE1A
-		redefine foo, bar
-		end
+   AUX_REDEFINE1A
+      redefine foo, bar
+      end
 
 feature {ANY}
-	foo (array: ARRAY[STRING]) is
-		do
-		end
+   foo (array: ARRAY[STRING]) is
+      do
+      end
 
-	bar (array: ARRAY[STRING]) is
-		do
-			array.put("toto", 1)
-		end
+   bar (array: ARRAY[STRING]) is
+      do
+         array.put("toto", 1)
+      end
 
 end -- class AUX_REDEFINE1B
 --

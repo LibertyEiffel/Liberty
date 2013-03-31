@@ -4,46 +4,46 @@
 class TEST_STANDARD_CLONE
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	s1, s2: STRING
+   s1, s2: STRING
 
-	a1, a2: ANIMAL
+   a1, a2: ANIMAL
 
-	ai1, ai2: ARRAY[INTEGER]
+   ai1, ai2: ARRAY[INTEGER]
 
-	p1, p2: LIB_TEST_POINT
+   p1, p2: LIB_TEST_POINT
 
-	t1, t2: TRIANGLE
+   t1, t2: TRIANGLE
 
-	make is
-		do
-			s1 := "foo"
-			s2 := s1.standard_twin
-			assert(s1 /= s2)
-			assert(s1.standard_is_equal(s2))
-			assert(s1.is_equal(s2))
-			create {CAT} a1
-			a2 := a1.standard_twin
-			assert(a1 /= a2)
-			assert(a1.is_equal(a2))
-			assert(a1.standard_is_equal(a2))
-			ai1 := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
-			ai2 := ai1.standard_twin
-			assert(ai1.is_equal(ai2))
-			assert(ai1.standard_is_equal(ai2))
-			assert(ai1 /= ai2)
-			create p1.make(1, 2)
-			p2 := p1.standard_twin
-			assert(p1 /= p2)
-			assert(p1.x = p2.x)
-			assert(p1.y = p2.y)
-			assert(p1.same_dynamic_type(p2))
-		end
+   make is
+      do
+         s1 := "foo"
+         s2 := s1.standard_twin
+         assert(s1 /= s2)
+         assert(s1.standard_is_equal(s2))
+         assert(s1.is_equal(s2))
+         create {CAT} a1
+         a2 := a1.standard_twin
+         assert(a1 /= a2)
+         assert(a1.is_equal(a2))
+         assert(a1.standard_is_equal(a2))
+         ai1 := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
+         ai2 := ai1.standard_twin
+         assert(ai1.is_equal(ai2))
+         assert(ai1.standard_is_equal(ai2))
+         assert(ai1 /= ai2)
+         create p1.make(1, 2)
+         p2 := p1.standard_twin
+         assert(p1 /= p2)
+         assert(p1.x = p2.x)
+         assert(p1.y = p2.y)
+         assert(p1.same_dynamic_type(p2))
+      end
 
 end -- class TEST_STANDARD_CLONE
 --

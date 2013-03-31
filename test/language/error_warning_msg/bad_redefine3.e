@@ -6,9 +6,9 @@ class BAD_REDEFINE3
 inherit
    FOO
       rename
-	 make as make_foo
+    make as make_foo
       redefine
-	 make
+    make
       end;
    
 creation make
@@ -17,7 +17,7 @@ feature
    
    make is
       do
-	 make_foo;
+    make_foo;
       end;
 end -- class BAD_REDEFINE3
 --

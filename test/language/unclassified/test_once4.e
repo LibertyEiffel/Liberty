@@ -4,49 +4,49 @@
 class TEST_ONCE4
 
 creation {ANY}
-	make, a_make, b_make
+   make, a_make, b_make
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	make is
-		do
-			value := 1 + once_b.value
-			assert(value = 3)
-		end
+   make is
+      do
+         value := 1 + once_b.value
+         assert(value = 3)
+      end
 
-	once_a: TEST_ONCE4 is
-		once
-			create Result.a_make
-		end
+   once_a: TEST_ONCE4 is
+      once
+         create Result.a_make
+      end
 
-	once_b: TEST_ONCE4 is
-		once
-			create Result.b_make
-		end
+   once_b: TEST_ONCE4 is
+      once
+         create Result.b_make
+      end
 
-	a_make is
-		do
-			value := 1 -- *** + once_b.value *** No more recursive once.
-		end
+   a_make is
+      do
+         value := 1 -- *** + once_b.value *** No more recursive once.
+      end
 
-	b_make is
-		do
-			value := 1 + once_a.value
-		end
+   b_make is
+      do
+         value := 1 + once_a.value
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ONCE4: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ONCE4: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ONCE4
 --

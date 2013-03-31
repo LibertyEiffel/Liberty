@@ -4,21 +4,21 @@
 class TEST_SINGLETON1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
 feature {}
-	singleton_memory: TEST_SINGLETON1 is
-		once
-			Result := Current
-		end
+   singleton_memory: TEST_SINGLETON1 is
+      once
+         Result := Current
+      end
 
 invariant
-	Current = singleton_memory
+   Current = singleton_memory
 
 end -- class TEST_SINGLETON1
 --

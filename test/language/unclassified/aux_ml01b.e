@@ -4,16 +4,16 @@
 class AUX_ML01B
 
 inherit
-	AUX_ML01A
-		redefine out_it
-		end
+   AUX_ML01A
+      redefine out_it
+      end
 
 feature {ANY}
-	out_it is
-		do
-			Precursor
-			io.put_string("Hello child!%N")
-		end
+   out_it is
+      do
+         Precursor
+         io.put_string("Hello child!%N")
+      end
 
 end -- class AUX_ML01B
 --

@@ -4,16 +4,16 @@
 class TEST_SPLIT1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			any: COLLECTION[STRING] -- ANY
-		do
-			any := ("ki ki").split
-			any := ("").split
-		end
+   make is
+      local
+         any: COLLECTION[STRING] -- ANY
+      do
+         any := ("ki ki").split
+         any := ("").split
+      end
 
 end -- class TEST_SPLIT1
 --

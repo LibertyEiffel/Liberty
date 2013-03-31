@@ -4,26 +4,26 @@
 deferred class AUX_JLP8_EPEE_COLLECTION[E]
 
 feature {ANY}
-	count: INTEGER is
-		deferred
-		end
+   count: INTEGER is
+      deferred
+      end
 
 feature {ANY}
-	add_item (item: E) is
-		deferred
-		end
+   add_item (item: E) is
+      deferred
+      end
 
-	remove_item (item: E) is
-		deferred
-		end
+   remove_item (item: E) is
+      deferred
+      end
 
-	empty: BOOLEAN is
-		deferred
-		end
+   empty: BOOLEAN is
+      deferred
+      end
 
-	full: BOOLEAN is
-		deferred
-		end
+   full: BOOLEAN is
+      deferred
+      end
 
 end -- class AUX_JLP8_EPEE_COLLECTION
 --

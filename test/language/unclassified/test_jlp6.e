@@ -2,33 +2,33 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JLP6
-	-- From a bug report of Jean-Lin PACHERIE
-	-- See also test_jlp5/bad_inherit11
+   -- From a bug report of Jean-Lin PACHERIE
+   -- See also test_jlp5/bad_inherit11
 
 inherit
-	ANY
-		rename io as foo
-		end
+   ANY
+      rename io as foo
+      end
 
 insert
-	ANY
-		rename io as bar
-		end
+   ANY
+      rename io as bar
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			if foo.is_connected then
-			end
-			if bar.is_connected then
-			end
-			check
-				foo = bar
-			end
-		end
+   make is
+      do
+         if foo.is_connected then
+         end
+         if bar.is_connected then
+         end
+         check
+            foo = bar
+         end
+      end
 
 end -- class TEST_JLP6
 --

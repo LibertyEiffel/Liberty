@@ -4,40 +4,40 @@
 class AUX_SCR1B
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			next := 0
-			create clients.make(0, max_clients - 1)
-		end
+   make is
+      do
+         next := 0
+         create clients.make(0, max_clients - 1)
+      end
 
 feature {AUX_SCR1A}
-	manage (d: AUX_SCR1A) is
-		require
-			not_full: next < max_clients
-		do
-			clients.put(d, next)
-			next := next + 1
-		ensure
-			job_done: is_managed(d)
-		end
+   manage (d: AUX_SCR1A) is
+      require
+         not_full: next < max_clients
+      do
+         clients.put(d, next)
+         next := next + 1
+      ensure
+         job_done: is_managed(d)
+      end
 
-	is_managed (d: AUX_SCR1A): BOOLEAN is
-		do
-			Result := True
-		end
+   is_managed (d: AUX_SCR1A): BOOLEAN is
+      do
+         Result := True
+      end
 
 feature {ANY}
-	max_clients: INTEGER is 99
+   max_clients: INTEGER is 99
 
-	next: INTEGER
+   next: INTEGER
 
-	clients: ARRAY[AUX_SCR1A]
+   clients: ARRAY[AUX_SCR1A]
 
 invariant
-	clients_created: clients /= Void
+   clients_created: clients /= Void
 
 end -- class AUX_SCR1B
 --

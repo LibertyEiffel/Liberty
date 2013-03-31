@@ -2,21 +2,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EG19
-	-- From a bug report of Enrico GOBBETTI
+   -- From a bug report of Enrico GOBBETTI
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: AUX_EG19B; bool: BOOLEAN
-		do
-			if bool then
-				create a
-				;(a # a).print_on(std_output)
-			end
-		end
+   make is
+      local
+         a: AUX_EG19B; bool: BOOLEAN
+      do
+         if bool then
+            create a
+            ;(a # a).print_on(std_output)
+         end
+      end
 
 end -- class TEST_EG19
 --

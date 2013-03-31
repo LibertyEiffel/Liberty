@@ -4,40 +4,40 @@
 class AUX_JLP8_COMP_ARRAY[E]
 
 inherit
-	AUX_JLP8_BASIC_ARRAY[E]
+   AUX_JLP8_BASIC_ARRAY[E]
 
 feature {ANY}
-	capacity: INTEGER
+   capacity: INTEGER
 
-	make (nb: INTEGER) is
-		do
-			storage := storage.realloc(capacity, nb)
-			-- For NATIVE_ARRAY
-			capacity := nb
-			init(0, nb - 1)
-		end
+   make (nb: INTEGER) is
+      do
+         storage := storage.realloc(capacity, nb)
+         -- For NATIVE_ARRAY
+         capacity := nb
+         init(0, nb - 1)
+      end
 
-	put (elem: E; i: INTEGER) is
-		do
-			storage.put(elem, i)
-		end
+   put (elem: E; i: INTEGER) is
+      do
+         storage.put(elem, i)
+      end
 
-	item (i: INTEGER): E is
-		do
-			Result := storage.item(i)
-		end
+   item (i: INTEGER): E is
+      do
+         Result := storage.item(i)
+      end
 
-	resize (new_size: INTEGER) is
-		do
-			if new_size > capacity then
-				storage := storage.realloc(capacity, new_size)
-				-- For NATIVE_ARRAY
-				-- storage.resize(new_size)
-				capacity := new_size
-			end
-		end
+   resize (new_size: INTEGER) is
+      do
+         if new_size > capacity then
+            storage := storage.realloc(capacity, new_size)
+            -- For NATIVE_ARRAY
+            -- storage.resize(new_size)
+            capacity := new_size
+         end
+      end
 
-	storage: NATIVE_ARRAY[E]
+   storage: NATIVE_ARRAY[E]
 
 end -- class AUX_JLP8_COMP_ARRAY
 --

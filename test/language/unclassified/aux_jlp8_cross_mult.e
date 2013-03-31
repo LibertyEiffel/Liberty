@@ -4,13 +4,13 @@
 class AUX_JLP8_CROSS_MULT[E -> NUMERIC]
 
 inherit
-	AUX_JLP8_CROSS[E, E, E]
+   AUX_JLP8_CROSS[E, E, E]
 
 feature {ANY}
-	cross_operation (a, b: E): E is
-		do
-			Result := a * b
-		end
+   cross_operation (a, b: E): E is
+      do
+         Result := a * b
+      end
 
 end -- class AUX_JLP8_CROSS_MULT
 --

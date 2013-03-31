@@ -2,41 +2,41 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_FS1
-	--
-	-- From a bug report of Fridtjof SIEBERT
-	--
+   --
+   -- From a bug report of Fridtjof SIEBERT
+   --
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	---- Original:
-	-- array: ARRAY[expanded AUX_FS1];
-	array: ARRAY[AUX_FS1]
+   ---- Original:
+   -- array: ARRAY[expanded AUX_FS1];
+   array: ARRAY[AUX_FS1]
 
-	make is
-		local
-			aux: AUX_FS1
-		do
-			---- Original:
-			-- aux: expanded AUX_FS1;
-			create array.make(1, 2)
-			assert(array.item(1) = aux)
-		end
+   make is
+      local
+         aux: AUX_FS1
+      do
+         ---- Original:
+         -- aux: expanded AUX_FS1;
+         create array.make(1, 2)
+         assert(array.item(1) = aux)
+      end
 
-	assert (bool: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not bool then
-				std_output.put_string("TEST_FS1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (bool: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not bool then
+            std_output.put_string("TEST_FS1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_FS1
 --

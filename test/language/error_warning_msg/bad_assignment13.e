@@ -4,15 +4,15 @@
 class BAD_ASSIGNMENT13
 
 creation
-	make
-	
+   make
+   
 feature
    make is
       local
-			integer_16: INTEGER_16
-			integer_64: INTEGER_64
+         integer_16: INTEGER_16
+         integer_64: INTEGER_64
       do
-			integer_16 := integer_64
+         integer_16 := integer_64
       end
 end -- class BAD_ASSIGNMENT13
 --

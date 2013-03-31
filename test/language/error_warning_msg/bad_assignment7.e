@@ -4,14 +4,14 @@
 class BAD_ASSIGNMENT7
 
 creation
-	make
-	
+   make
+   
 feature
    make is
       local
-			any: ANY; pointer: POINTER
+         any: ANY; pointer: POINTER
       do
-			any := pointer
+         any := pointer
       end
 end -- class BAD_ASSIGNMENT7
 --

@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_JW01
-	-- From a bug report of Jim Weirich <jweirich@one.net>
+   -- From a bug report of Jim Weirich <jweirich@one.net>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: AUX_JW01NAMED_THING; h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]; bool: BOOLEAN
-		do
-			create n.make("Joe")
-			create h.make(n)
-			if bool then
-				io.put_string(h.item.name)
-				io.put_string("%N")
-			end
-		end
+   make is
+      local
+         n: AUX_JW01NAMED_THING; h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]; bool: BOOLEAN
+      do
+         create n.make("Joe")
+         create h.make(n)
+         if bool then
+            io.put_string(h.item.name)
+            io.put_string("%N")
+         end
+      end
 
 end -- class TEST_JW01
 --

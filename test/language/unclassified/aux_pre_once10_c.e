@@ -4,13 +4,13 @@
 class AUX_PRE_ONCE10_C
 
 inherit
-	AUX_PRE_ONCE10_A
+   AUX_PRE_ONCE10_A
 
 feature {ANY}
-	foofoo: STRING is
-		once
-			create Result.make(1)
-		end
+   foofoo: STRING is
+      once
+         create Result.make(1)
+      end
 
 end -- class AUX_PRE_ONCE10_C
 --

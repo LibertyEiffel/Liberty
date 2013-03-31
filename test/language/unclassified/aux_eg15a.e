@@ -4,20 +4,20 @@
 expanded class AUX_EG15A[T]
 
 feature {ANY}
-	a1: T
+   a1: T
 
-	a2: T
+   a2: T
 
-	put (x: T; i: INTEGER) is
-		do
-			inspect
-				i
-			when 1 then
-				a1 := x
-			when 2 then
-				a2 := x
-			end
-		end
+   put (x: T; i: INTEGER) is
+      do
+         inspect
+            i
+         when 1 then
+            a1 := x
+         when 2 then
+            a2 := x
+         end
+      end
 
 end -- class AUX_EG15A
 --

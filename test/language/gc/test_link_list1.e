@@ -4,39 +4,39 @@
 class TEST_LINK_LIST1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			big_list: LINKED_LIST[INTEGER]; i, j: INTEGER; iteration: INTEGER
-		do
-			iteration := 1000
-			create big_list.make
-			from
-				j := 0
-			until
-				j > 3
-			loop
-				from
-					i := 1
-				until
-					i > iteration
-				loop
-					big_list.add_last(i)
-					i := i + 1
-				end
-				from
-					i := 1
-				until
-					i > iteration
-				loop
-					big_list.remove_first
-					i := i + 1
-				end
-				j := j + 1
-			end
-		end
+   make is
+      local
+         big_list: LINKED_LIST[INTEGER]; i, j: INTEGER; iteration: INTEGER
+      do
+         iteration := 1000
+         create big_list.make
+         from
+            j := 0
+         until
+            j > 3
+         loop
+            from
+               i := 1
+            until
+               i > iteration
+            loop
+               big_list.add_last(i)
+               i := i + 1
+            end
+            from
+               i := 1
+            until
+               i > iteration
+            loop
+               big_list.remove_first
+               i := i + 1
+            end
+            j := j + 1
+         end
+      end
 
 end -- class TEST_LINK_LIST1
 --

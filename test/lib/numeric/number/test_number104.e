@@ -2,71 +2,71 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_NUMBER104
-	--
-	-- Test of depassement of INTEGER_64_NUMBER capacity
-	-- during a multiplication between 2 INTEGER_64_NUMBER
-	-- Result is an integer which is symbolized by a
-	-- BIG_INTEGER_NUMBER
-	--
+   --
+   -- Test of depassement of INTEGER_64_NUMBER capacity
+   -- during a multiplication between 2 INTEGER_64_NUMBER
+   -- Result is an integer which is symbolized by a
+   -- BIG_INTEGER_NUMBER
+   --
 
 insert
-	EIFFELTEST_TOOLS
-	ANY
-	PLATFORM
+   EIFFELTEST_TOOLS
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			n: NUMBER
-		do
-			n := nt.from_integer_64(Maximum_integer_64)
-			n := n * nt.from_integer_64(2)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(n.is_positive)
-			n := nt.from_integer_64(2)
-			n := n * nt.from_integer_64(Maximum_integer_64)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(n.is_positive)
-			n := nt.from_integer_64(Maximum_integer_64)
-			n := n * nt.from_integer_64(-2)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(not n.is_positive)
-			n := nt.from_integer_64(-2)
-			n := n * nt.from_integer_64(Maximum_integer_64)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(not n.is_positive)
-			n := nt.from_integer_64(Minimum_integer_64)
-			n := n * nt.from_integer_64(2)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(not n.is_positive)
-			n := nt.from_integer_64(2)
-			n := n * nt.from_integer_64(Minimum_integer_64)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(not n.is_positive)
-			n := nt.from_integer_64(Minimum_integer_64)
-			n := n * nt.from_integer_64(-2)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(n.is_positive)
-			n := nt.from_integer_64(-2)
-			n := n * nt.from_integer_64(Minimum_integer_64)
-			assert(n.is_integer_general_number)
-			assert(not n.is_integer_64)
-			assert(n.is_positive)
-		end
+   make is
+      local
+         n: NUMBER
+      do
+         n := nt.from_integer_64(Maximum_integer_64)
+         n := n * nt.from_integer_64(2)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(n.is_positive)
+         n := nt.from_integer_64(2)
+         n := n * nt.from_integer_64(Maximum_integer_64)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(n.is_positive)
+         n := nt.from_integer_64(Maximum_integer_64)
+         n := n * nt.from_integer_64(-2)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(not n.is_positive)
+         n := nt.from_integer_64(-2)
+         n := n * nt.from_integer_64(Maximum_integer_64)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(not n.is_positive)
+         n := nt.from_integer_64(Minimum_integer_64)
+         n := n * nt.from_integer_64(2)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(not n.is_positive)
+         n := nt.from_integer_64(2)
+         n := n * nt.from_integer_64(Minimum_integer_64)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(not n.is_positive)
+         n := nt.from_integer_64(Minimum_integer_64)
+         n := n * nt.from_integer_64(-2)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(n.is_positive)
+         n := nt.from_integer_64(-2)
+         n := n * nt.from_integer_64(Minimum_integer_64)
+         assert(n.is_integer_general_number)
+         assert(not n.is_integer_64)
+         assert(n.is_positive)
+      end
 
 
 
-	nt: NUMBER_TOOLS
+   nt: NUMBER_TOOLS
 
 end -- class TEST_NUMBER104
 --

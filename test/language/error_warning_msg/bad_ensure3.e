@@ -4,36 +4,36 @@
 class BAD_ENSURE3
    
 inherit
-	AUX_ENSURE3
+   AUX_ENSURE3
       redefine make, make2
       end
-	
+   
 creation
-	main
+   main
    
 feature
    main is
       do
-			make
+         make
 
-			attr := 0
-			make2
+         attr := 0
+         make2
       end
    
    make is
       do
-			attr := attr + 2
+         attr := attr + 2
       ensure -- 'ensure then' is needed
-			attr = 2
+         attr = 2
       end
-	
+   
    make2 is
       do
-			attr := attr + 2
+         attr := attr + 2
       ensure then -- 'ensure' is needed
-			attr = 2
+         attr = 2
       end
-	
+   
 end -- class BAD_ENSURE3
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

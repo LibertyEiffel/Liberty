@@ -4,51 +4,51 @@
 class TEST_DOUBLE1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i: INTEGER; d, d2: REAL_64
-		do
-			d := 1.6
-			assert(d = d)
-			assert(d >= 1.59)
-			assert(d <= 1.61)
-			d := 2
-			assert(d = 2.0)
-			i := 2
-			d := i
-			assert(d = 2)
-			assert(d = 2.0)
-			d := 1.51.to_string.to_real
-			assert(d < 1.511)
-			assert(d > 1.509)
-			d := (-1.51).to_string.to_real
-			assert(d > -1.52)
-			assert(d < -1.50)
-			assert(d.abs < 1.52)
-			assert(d.abs > 1.50)
-			assert((-d).abs < 1.52)
-			assert((-d).abs > 1.50)
-			d := 4.0
-			d2 := 2.0
-			assert(d.sqrt = d2)
-		end
+   make is
+      local
+         i: INTEGER; d, d2: REAL_64
+      do
+         d := 1.6
+         assert(d = d)
+         assert(d >= 1.59)
+         assert(d <= 1.61)
+         d := 2
+         assert(d = 2.0)
+         i := 2
+         d := i
+         assert(d = 2)
+         assert(d = 2.0)
+         d := 1.51.to_string.to_real
+         assert(d < 1.511)
+         assert(d > 1.509)
+         d := (-1.51).to_string.to_real
+         assert(d > -1.52)
+         assert(d < -1.50)
+         assert(d.abs < 1.52)
+         assert(d.abs > 1.50)
+         assert((-d).abs < 1.52)
+         assert((-d).abs > 1.50)
+         d := 4.0
+         d2 := 2.0
+         assert(d.sqrt = d2)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_DOUBLE1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_DOUBLE1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_DOUBLE1
 --

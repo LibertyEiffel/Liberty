@@ -4,34 +4,34 @@
 class TEST_INHERIT_ARRAY1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	a_integer: AUX_INHERIT_ARRAY1[INTEGER]
+   a_integer: AUX_INHERIT_ARRAY1[INTEGER]
 
-	a_real_32: AUX_INHERIT_ARRAY1[REAL_32]
+   a_real_32: AUX_INHERIT_ARRAY1[REAL_32]
 
-	a_real: AUX_INHERIT_ARRAY1[REAL]
+   a_real: AUX_INHERIT_ARRAY1[REAL]
 
-	a_character: AUX_INHERIT_ARRAY1[CHARACTER]
+   a_character: AUX_INHERIT_ARRAY1[CHARACTER]
 
-	a_boolean: AUX_INHERIT_ARRAY1[BOOLEAN]
+   a_boolean: AUX_INHERIT_ARRAY1[BOOLEAN]
 
-	a_animal: AUX_INHERIT_ARRAY1[ANIMAL]
+   a_animal: AUX_INHERIT_ARRAY1[ANIMAL]
 
-	make is
-		local
-			cat: CAT; dog: DOG
-		do
-			create a_integer.make({ARRAY[INTEGER] 1, << 1, 2, 3 >> })
-			create a_real_32.make({ARRAY[REAL_32] 1, << {REAL_32 1.0}, {REAL_32 2.5}, {REAL_32 3.6} >> })
-			create a_real.make({ARRAY[REAL] 1, << 1.0, 2.0, 3.7 >> })
-			create a_boolean.make({ARRAY[BOOLEAN] 1, << True, False, True >> })
-			create cat
-			create dog
-			-- create a_any.make({ARRAY[ANY] 1, <<cat,2,dog>>});
-			create a_animal.make({ARRAY[ANIMAL] 1, << cat, Void, dog >> })
-		end
+   make is
+      local
+         cat: CAT; dog: DOG
+      do
+         create a_integer.make({ARRAY[INTEGER] 1, << 1, 2, 3 >> })
+         create a_real_32.make({ARRAY[REAL_32] 1, << {REAL_32 1.0}, {REAL_32 2.5}, {REAL_32 3.6} >> })
+         create a_real.make({ARRAY[REAL] 1, << 1.0, 2.0, 3.7 >> })
+         create a_boolean.make({ARRAY[BOOLEAN] 1, << True, False, True >> })
+         create cat
+         create dog
+         -- create a_any.make({ARRAY[ANY] 1, <<cat,2,dog>>});
+         create a_animal.make({ARRAY[ANIMAL] 1, << cat, Void, dog >> })
+      end
 
 end -- class TEST_INHERIT_ARRAY1
 --

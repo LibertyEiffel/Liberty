@@ -4,14 +4,14 @@
 class BAD_ATTRIBUTE3
 
 creation {}
-	default_create
+   default_create
 
 feature {}
-	bad_attribute: INTEGER is
-		attribute
-		rescue
-			do_nothing
-		end
+   bad_attribute: INTEGER is
+      attribute
+      rescue
+         do_nothing
+      end
 
 end -- class BAD_ATTRIBUTE3
 --

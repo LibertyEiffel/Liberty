@@ -4,21 +4,21 @@
 deferred class AUX_RENAME3A
 
 feature {ANY}
-	nb_element: INTEGER
+   nb_element: INTEGER
 
-	plein: BOOLEAN is
-		require
-			nb_element > 0
-		deferred
-		end
+   plein: BOOLEAN is
+      require
+         nb_element > 0
+      deferred
+      end
 
-	read_nb_element: INTEGER is
-		do
-			Result := nb_element
-		end
+   read_nb_element: INTEGER is
+      do
+         Result := nb_element
+      end
 
 invariant
-	nb_element >= 0
+   nb_element >= 0
 
 end -- class AUX_RENAME3A
 --

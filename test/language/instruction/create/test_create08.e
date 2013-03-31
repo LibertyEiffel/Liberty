@@ -2,19 +2,19 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_CREATE08
-	-- Bug report from Stefan Brantschen <sbr@acm.org>
-	-- This simple code makes the compiler to crash!
+   -- Bug report from Stefan Brantschen <sbr@acm.org>
+   -- This simple code makes the compiler to crash!
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	test: AUX_CREATE08[INTEGER]
+   test: AUX_CREATE08[INTEGER]
 
-	make is
-		do
-			create test.make
-		end
+   make is
+      do
+         create test.make
+      end
 
 end -- class TEST_CREATE08
 --

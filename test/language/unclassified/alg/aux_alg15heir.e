@@ -4,7 +4,7 @@
 class AUX_ALG15HEIR
 
 inherit
-	AUX_ALG15ANCESTOR
+   AUX_ALG15ANCESTOR
 
 end -- class AUX_ALG15HEIR
 --

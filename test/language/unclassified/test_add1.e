@@ -4,92 +4,92 @@
 class TEST_ADD1
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
-		do
-			create a.make(1, 0)
-			test(a)
-			create a.make(-1, -2)
-			test(a)
-			create fa.make(0)
-			test(fa)
-			create ll.make
-			test(ll)
-			create l2l.make
-			test(l2l)
-		end
+   make is
+      local
+         a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
+      do
+         create a.make(1, 0)
+         test(a)
+         create a.make(-1, -2)
+         test(a)
+         create fa.make(0)
+         test(fa)
+         create ll.make
+         test(ll)
+         create l2l.make
+         test(l2l)
+      end
 
 feature {}
-	test (c: COLLECTION[INTEGER]) is
-		do
-			assert(c.count = 0)
-			c.add(3, c.lower)
-			assert(c.first = 3)
-			assert(c.last = 3)
-			assert(c.count = 1)
-			c.add(2, c.lower)
-			assert(c.first = 2)
-			assert(c.last = 3)
-			assert(c.count = 2)
-			c.add(1, c.lower)
-			assert(c.first = 1)
-			assert(c.item(c.lower + 1) = 2)
-			assert(c.last = 3)
-			assert(c.count = 3)
-			c.add(5, c.upper + 1)
-			assert(c.first = 1)
-			assert(c.item(c.lower + 1) = 2)
-			assert(c.item(c.lower + 2) = 3)
-			assert(c.last = 5)
-			assert(c.count = 4)
-			c.add(4, c.upper)
-			assert(c.first = 1)
-			assert(c.item(c.lower + 1) = 2)
-			assert(c.item(c.lower + 2) = 3)
-			assert(c.item(c.lower + 3) = 4)
-			assert(c.last = 5)
-			assert(c.count = 5)
-			c.clear_count
-			assert(c.count = 0)
-			c.add(1, c.lower)
-			assert(c.first = 1)
-			assert(c.last = 1)
-			assert(c.count = 1)
-			c.add(2, c.upper + 1)
-			assert(c.first = 1)
-			assert(c.last = 2)
-			assert(c.count = 2)
-			c.add(3, c.upper + 1)
-			assert(c.first = 1)
-			assert(c.item(c.upper - 1) = 2)
-			assert(c.last = 3)
-			assert(c.count = 3)
-			c.add(4, c.lower + 1)
-			assert(c.count = 4)
-			assert(c.item(c.lower + 0) = 1)
-			assert(c.item(c.lower + 1) = 4)
-			assert(c.item(c.lower + 2) = 2)
-			assert(c.item(c.lower + 3) = 3)
-		end
+   test (c: COLLECTION[INTEGER]) is
+      do
+         assert(c.count = 0)
+         c.add(3, c.lower)
+         assert(c.first = 3)
+         assert(c.last = 3)
+         assert(c.count = 1)
+         c.add(2, c.lower)
+         assert(c.first = 2)
+         assert(c.last = 3)
+         assert(c.count = 2)
+         c.add(1, c.lower)
+         assert(c.first = 1)
+         assert(c.item(c.lower + 1) = 2)
+         assert(c.last = 3)
+         assert(c.count = 3)
+         c.add(5, c.upper + 1)
+         assert(c.first = 1)
+         assert(c.item(c.lower + 1) = 2)
+         assert(c.item(c.lower + 2) = 3)
+         assert(c.last = 5)
+         assert(c.count = 4)
+         c.add(4, c.upper)
+         assert(c.first = 1)
+         assert(c.item(c.lower + 1) = 2)
+         assert(c.item(c.lower + 2) = 3)
+         assert(c.item(c.lower + 3) = 4)
+         assert(c.last = 5)
+         assert(c.count = 5)
+         c.clear_count
+         assert(c.count = 0)
+         c.add(1, c.lower)
+         assert(c.first = 1)
+         assert(c.last = 1)
+         assert(c.count = 1)
+         c.add(2, c.upper + 1)
+         assert(c.first = 1)
+         assert(c.last = 2)
+         assert(c.count = 2)
+         c.add(3, c.upper + 1)
+         assert(c.first = 1)
+         assert(c.item(c.upper - 1) = 2)
+         assert(c.last = 3)
+         assert(c.count = 3)
+         c.add(4, c.lower + 1)
+         assert(c.count = 4)
+         assert(c.item(c.lower + 0) = 1)
+         assert(c.item(c.lower + 1) = 4)
+         assert(c.item(c.lower + 2) = 2)
+         assert(c.item(c.lower + 3) = 3)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_ADD1: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-				crash
-			else
-				--	    std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_ADD1: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+            crash
+         else
+            --       std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_ADD1
 --

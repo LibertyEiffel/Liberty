@@ -4,40 +4,40 @@
 class TEST_EB21
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			p: POINTER; a: ANY; s: STRING
-		do
-			p := malloc(1)
-			p := p + 1
-			s := "foo"
-			a := s
-			p := a.to_pointer
-			a := Void
-			a := p.to_any
-			assert(a = s)
-			a := Void
-		end
+   make is
+      local
+         p: POINTER; a: ANY; s: STRING
+      do
+         p := malloc(1)
+         p := p + 1
+         s := "foo"
+         a := s
+         p := a.to_pointer
+         a := Void
+         a := p.to_any
+         assert(a = s)
+         a := Void
+      end
 
-	malloc (x: INTEGER): POINTER is
-		external "C macro"
-		end
+   malloc (x: INTEGER): POINTER is
+      external "C macro"
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_EB21: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_EB21: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_EB21
 --

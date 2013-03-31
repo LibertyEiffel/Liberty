@@ -4,29 +4,29 @@
 class TEST_INSPECT3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		do
-			an_attribute := '1'
-			inspect
-				foo
-			when '2' then
-				io.put_string("Impossible%N")
-			when '3' then
-				io.put_string("Impossible aussi%N")
-			else
-			end
-		end
+   make is
+      do
+         an_attribute := '1'
+         inspect
+            foo
+         when '2' then
+            io.put_string("Impossible%N")
+         when '3' then
+            io.put_string("Impossible aussi%N")
+         else
+         end
+      end
 
 feature {}
-	an_attribute: CHARACTER
+   an_attribute: CHARACTER
 
-	foo: like an_attribute is
-		do
-			Result := an_attribute
-		end
+   foo: like an_attribute is
+      do
+         Result := an_attribute
+      end
 
 end -- class TEST_INSPECT3
 --

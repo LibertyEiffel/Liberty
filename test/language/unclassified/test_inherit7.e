@@ -2,22 +2,22 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INHERIT7
-	-- SZ:353: wrong dynamic dispatch
+   -- SZ:353: wrong dynamic dispatch
 
 creation {ANY}
-	make
+   make
 
 feature {} -- Initialization
-	make is
-		local
-			a2: AUX_INHERIT7A2; c: AUX_INHERIT7C; b2: REFERENCE[AUX_INHERIT7B1]
-		do
-			-- b2: reference AUX_INHERIT7B1;
-			create a2
-			create c
-			b2 := b2
-			c.run(a2.x)
-		end
+   make is
+      local
+         a2: AUX_INHERIT7A2; c: AUX_INHERIT7C; b2: REFERENCE[AUX_INHERIT7B1]
+      do
+         -- b2: reference AUX_INHERIT7B1;
+         create a2
+         create c
+         b2 := b2
+         c.run(a2.x)
+      end
 
 end -- class TEST_INHERIT7
 --

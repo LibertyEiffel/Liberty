@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 s: STRING
+    s: STRING
       do
-	 s := "foo"-+"bar"
+    s := "foo"-+"bar"
       end
    
 end -- class BAD_FREE_OPERATOR1

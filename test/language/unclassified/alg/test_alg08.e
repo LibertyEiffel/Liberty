@@ -2,23 +2,23 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_ALG08
-	-- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
+   -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	exp: AUX_ALG08EXP
+   exp: AUX_ALG08EXP
 
-	make is
-		local
-			ref: AUX_ALG08REF; bool: BOOLEAN
-		do
-			create ref
-			if bool then
-				io.put_integer(exp.i)
-			end
-		end
+   make is
+      local
+         ref: AUX_ALG08REF; bool: BOOLEAN
+      do
+         create ref
+         if bool then
+            io.put_integer(exp.i)
+         end
+      end
 
 end -- class TEST_ALG08
 --

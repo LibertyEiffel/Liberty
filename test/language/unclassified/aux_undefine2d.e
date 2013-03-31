@@ -4,12 +4,12 @@
 class AUX_UNDEFINE2D
 
 inherit
-	AUX_UNDEFINE2C
+   AUX_UNDEFINE2C
 
 feature {ANY}
-	my_renamed_feature is
-		do
-		end
+   my_renamed_feature is
+      do
+      end
 
 end -- class AUX_UNDEFINE2D
 --

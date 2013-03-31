@@ -4,19 +4,19 @@
 deferred class ASSERTION_CONSTANTS
 
 feature {}
-	require_index: INTEGER is 1
+   require_index: INTEGER is 1
 
-	ensure_index: INTEGER is 2
+   ensure_index: INTEGER is 2
 
-	class_invariant_index: INTEGER is 3
+   class_invariant_index: INTEGER is 3
 
-	loop_invariant_index: INTEGER is 4
+   loop_invariant_index: INTEGER is 4
 
-	variant_index: INTEGER is 5
+   variant_index: INTEGER is 5
 
-	check_index: INTEGER is 6
+   check_index: INTEGER is 6
 
-	debug_index: INTEGER is 7
+   debug_index: INTEGER is 7
 
 end -- class ASSERTION_CONSTANTS
 --

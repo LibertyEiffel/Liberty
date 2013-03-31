@@ -4,29 +4,29 @@
 class TEST_RESIZE1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			a: ARRAY[INTEGER]
-		do
-			create a.from_collection({ARRAY[INTEGER] 1, << 0, 0, 0 >> })
-			assert(a.all_default)
-			a.set_all_with(1)
-			a.resize(1, 0)
-			a.resize(1, 3)
-			assert(a.all_default)
-			a.put(1, 3)
-			a.resize(-1, 2)
-			assert(a.all_default)
-			a.set_all_with(2)
-			a.resize(4, 6)
-			assert(a.all_default)
-		end
+   main is
+      local
+         a: ARRAY[INTEGER]
+      do
+         create a.from_collection({ARRAY[INTEGER] 1, << 0, 0, 0 >> })
+         assert(a.all_default)
+         a.set_all_with(1)
+         a.resize(1, 0)
+         a.resize(1, 3)
+         assert(a.all_default)
+         a.put(1, 3)
+         a.resize(-1, 2)
+         assert(a.all_default)
+         a.set_all_with(2)
+         a.resize(4, 6)
+         assert(a.all_default)
+      end
 
 end -- class TEST_RESIZE1
 --

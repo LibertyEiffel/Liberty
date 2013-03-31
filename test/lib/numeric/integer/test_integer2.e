@@ -4,31 +4,31 @@
 class TEST_INTEGER2
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: REAL
-		do
-			d := 2 / 3
-			assert(0.6665.force_to_real_32 < d)
-			assert(d < 0.6667)
-		end
+   make is
+      local
+         d: REAL
+      do
+         d := 2 / 3
+         assert(0.6665.force_to_real_32 < d)
+         assert(d < 0.6667)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_INTEGER2: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_INTEGER2: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER2
 --

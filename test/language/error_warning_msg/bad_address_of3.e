@@ -13,7 +13,7 @@ feature
 
    foo (p: POINTER): POINTER is
       do
-	 Result := foo($p)
+    Result := foo($p)
       end
 
 end -- class BAD_ADDRESS_OF3

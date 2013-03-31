@@ -2,25 +2,25 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INHERIT_ARRAY3
-	-- From a bug report of Jean-Marc JEZEQUEL
+   -- From a bug report of Jean-Marc JEZEQUEL
 
 inherit
-	ARRAY[INTEGER]
-		rename make as array_make
-		end
+   ARRAY[INTEGER]
+      rename make as array_make
+      end
 
 creation {ANY}
-	make, array_make
+   make, array_make
 
 feature {ANY}
-	make is
-		do
-			array_make(1, 0)
-			force(5, 5)
-			check
-				item(5) = 5
-			end
-		end
+   make is
+      do
+         array_make(1, 0)
+         force(5, 5)
+         check
+            item(5) = 5
+         end
+      end
 
 end -- class TEST_INHERIT_ARRAY3
 --

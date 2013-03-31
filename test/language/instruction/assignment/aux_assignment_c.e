@@ -4,19 +4,19 @@
 class AUX_ASSIGNMENT_C
 
 inherit
-	AUX_ASSIGNMENT_B
+   AUX_ASSIGNMENT_B
 
 feature {ANY}
-	x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
-		do
-			Result := other.with_c(Current)
-		end
+   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
+      do
+         Result := other.with_c(Current)
+      end
 
-	with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_C is
-		do
-			create Result
-			Result.set_value(1)
-		end
+   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_C is
+      do
+         create Result
+         Result.set_value(1)
+      end
 
 end -- class AUX_ASSIGNMENT_C
 --

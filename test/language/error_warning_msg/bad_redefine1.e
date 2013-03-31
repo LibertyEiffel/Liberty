@@ -11,11 +11,11 @@ feature
    
    make is 
       local
-	 file: TEXT_FILE_WRITE;
+    file: TEXT_FILE_WRITE;
       do
-	 check
-	    foo(file) = 3
-	 end;
+    check
+       foo(file) = 3
+    end;
       end;
    
    foo(file: TEXT_FILE_WRITE): INTEGER is

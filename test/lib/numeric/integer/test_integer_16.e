@@ -2,47 +2,47 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_INTEGER_16
-	-- To test INTEGER_16
+   -- To test INTEGER_16
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			i8: INTEGER_8; i16: INTEGER_16; i32, i: INTEGER
-		do
-			i8 := 2
-			i16 := i8
-			assert(i16 = 2)
-			i := i32.max(i16)
-			assert(i = 2)
-			i16 := 32767
-			i := i16
-			assert(32767 = i)
-			i16 := i16 #+ 1
-			assert(i16 = -32768)
-			i := i16
-			assert(i = -32768)
-			i16 := 127
-			assert(i16 = 127)
-			i8 := 0
-			i8 := i16.to_integer_8
-			assert(i8 = 127)
-		end
+   make is
+      local
+         i8: INTEGER_8; i16: INTEGER_16; i32, i: INTEGER
+      do
+         i8 := 2
+         i16 := i8
+         assert(i16 = 2)
+         i := i32.max(i16)
+         assert(i = 2)
+         i16 := 32767
+         i := i16
+         assert(32767 = i)
+         i16 := i16 #+ 1
+         assert(i16 = -32768)
+         i := i16
+         assert(i = -32768)
+         i16 := 127
+         assert(i16 = 127)
+         i8 := 0
+         i8 := i16.to_integer_8
+         assert(i8 = 127)
+      end
 
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				sedb_breakpoint
-				std_output.put_string("TEST_INTEGER_16: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            sedb_breakpoint
+            std_output.put_string("TEST_INTEGER_16: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_INTEGER_16
 --

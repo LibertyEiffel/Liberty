@@ -6,7 +6,7 @@ creation make
 feature
    make (x: G) is
       do
-	 item := x
+    item := x
       end
    item: G
 end -- class AUX_JW01HOLDER

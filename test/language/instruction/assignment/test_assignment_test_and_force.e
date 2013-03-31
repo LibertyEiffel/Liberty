@@ -4,57 +4,57 @@
 class TEST_ASSIGNMENT_TEST_AND_FORCE
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	string: STRING
+   string: STRING
 
-	animal: ANIMAL
+   animal: ANIMAL
 
-	cat: CAT
+   cat: CAT
 
-	dog: DOG
+   dog: DOG
 
-	any: ANY
+   any: ANY
 
-	array_integer: ARRAY[INTEGER]
+   array_integer: ARRAY[INTEGER]
 
-	array_any: ARRAY[ANY]
+   array_any: ARRAY[ANY]
 
-	make is
-		do
-			-- Because `any' is Void:
-			assert({STRING} ?:= any)
-			any := "foo"
-			assert(any /= Void)
-			assert(string ?:= any)
-			string ::= any
-			assert(any = string)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(not cat ?:= any)
-			-- *** INTEGER doesn't conform to ANY (Vincent Croizier, 02/11/2004) ***
-			-- any := 3
-			-- assert(not string ?:= any)
-			-- string ?= any
-			-- assert(string = Void)
-			create cat
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** any := cat
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat = any)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(not dog ?:= any)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat ?:= any)
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** cat ::= any
-			-- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat = any)
-			animal := cat
-			assert(cat ?:= animal)
-			cat ::= animal
-			assert(cat = animal)
-			animal := Void
-			assert(cat ?:= animal)
-			cat ::= animal
-			assert(cat = Void)
-		end
+   make is
+      do
+         -- Because `any' is Void:
+         assert({STRING} ?:= any)
+         any := "foo"
+         assert(any /= Void)
+         assert(string ?:= any)
+         string ::= any
+         assert(any = string)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(not cat ?:= any)
+         -- *** INTEGER doesn't conform to ANY (Vincent Croizier, 02/11/2004) ***
+         -- any := 3
+         -- assert(not string ?:= any)
+         -- string ?= any
+         -- assert(string = Void)
+         create cat
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** any := cat
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat = any)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(not dog ?:= any)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat ?:= any)
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** cat ::= any
+         -- *** Correctly rejected *** (Dom. nov 10th 2004) *** assert(cat = any)
+         animal := cat
+         assert(cat ?:= animal)
+         cat ::= animal
+         assert(cat = animal)
+         animal := Void
+         assert(cat ?:= animal)
+         cat ::= animal
+         assert(cat = Void)
+      end
 
 end -- class TEST_ASSIGNMENT_TEST_AND_FORCE
 --

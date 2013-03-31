@@ -2,107 +2,107 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_MUTABLE_BIG_INTEGER4
-	--
-	-- Testing feature `subtract' and `subtract_to'.
-	--
+   --
+   -- Testing feature `subtract' and `subtract_to'.
+   --
 
 insert
-	ANY
-	PLATFORM
+   ANY
+   PLATFORM
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			mbia, mbib: MUTABLE_BIG_INTEGER
-		do
-			check_subtract(1, 2)
-			--
-			check_subtract(0, 0)
-			check_subtract(1, 0)
-			check_subtract(1, 1)
-			check_subtract(2, 0)
-			check_subtract(2, 1)
-			check_subtract(3, 0)
-			check_subtract(3, 1)
-			check_subtract(3, 2)
-			check_subtract(3, 3)
-			check_subtract(Maximum_integer - 3, 0)
-			check_subtract(Maximum_integer - 3, 1)
-			check_subtract(Maximum_integer - 3, 2)
-			check_subtract(Maximum_integer - 3, 3)
-			check_subtract(Maximum_integer, 0)
-			check_subtract(Maximum_integer, 1)
-			check_subtract(Maximum_integer, 2)
-			check_subtract(Maximum_integer, 3)
-			check_subtract(Maximum_integer, Maximum_integer.to_integer_64)
-			check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 1)
-			check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 2)
-			check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 3)
-			check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 4)
-			check_subtract(Maximum_integer_64 - 3, 0)
-			check_subtract(Maximum_integer_64 - 3, 1)
-			check_subtract(Maximum_integer_64 - 3, 2)
-			check_subtract(Maximum_integer_64 - 3, 3)
-			create mbia.from_integer_64(Maximum_integer_64)
-			create mbib.from_integer_64(1)
-			mbia.add(mbib)
-			mbia.subtract(mbib)
-			assert(mbia.is_integer_64)
-		end
+   make is
+      local
+         mbia, mbib: MUTABLE_BIG_INTEGER
+      do
+         check_subtract(1, 2)
+         --
+         check_subtract(0, 0)
+         check_subtract(1, 0)
+         check_subtract(1, 1)
+         check_subtract(2, 0)
+         check_subtract(2, 1)
+         check_subtract(3, 0)
+         check_subtract(3, 1)
+         check_subtract(3, 2)
+         check_subtract(3, 3)
+         check_subtract(Maximum_integer - 3, 0)
+         check_subtract(Maximum_integer - 3, 1)
+         check_subtract(Maximum_integer - 3, 2)
+         check_subtract(Maximum_integer - 3, 3)
+         check_subtract(Maximum_integer, 0)
+         check_subtract(Maximum_integer, 1)
+         check_subtract(Maximum_integer, 2)
+         check_subtract(Maximum_integer, 3)
+         check_subtract(Maximum_integer, Maximum_integer.to_integer_64)
+         check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 1)
+         check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 2)
+         check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 3)
+         check_subtract(Maximum_integer, Maximum_integer.to_integer_64 + 4)
+         check_subtract(Maximum_integer_64 - 3, 0)
+         check_subtract(Maximum_integer_64 - 3, 1)
+         check_subtract(Maximum_integer_64 - 3, 2)
+         check_subtract(Maximum_integer_64 - 3, 3)
+         create mbia.from_integer_64(Maximum_integer_64)
+         create mbib.from_integer_64(1)
+         mbia.add(mbib)
+         mbia.subtract(mbib)
+         assert(mbia.is_integer_64)
+      end
 
-	count: INTEGER
+   count: INTEGER
 
-	assert (b: BOOLEAN) is
-		do
-			count := count + 1
-			if not b then
-				sedb_breakpoint
-				io.put_string("TEST_MUTABLE_BIG_INTEGER4 : ERROR Test # ")
-				io.put_integer(count)
-				io.put_string("%N")
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         count := count + 1
+         if not b then
+            sedb_breakpoint
+            io.put_string("TEST_MUTABLE_BIG_INTEGER4 : ERROR Test # ")
+            io.put_integer(count)
+            io.put_string("%N")
+         end
+      end
 
-	check_subtract (a, b: INTEGER_64) is
-		local
-			c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
-		do
-			-- test `subtract'
-			c := a - b
-			--
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbia.subtract(mbib)
-			assert(mbia.to_integer_64 = c)
-			assert(mbib.to_integer_64 = b)
-			-- Commutativity:
-			c := b - a
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbib.subtract(mbia)
-			assert(mbib.to_integer_64 = c)
-			assert(mbia.to_integer_64 = a)
-			-- Test `subtract_to'
-			c := a - b
-			--
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			create mbic.from_integer(0)
-			mbia.subtract_to(mbib, mbic)
-			assert(mbia.to_integer_64 = a)
-			assert(mbib.to_integer_64 = b)
-			assert(mbic.to_integer_64 = c)
-			c := b - a
-			create mbia.from_integer_64(a)
-			create mbib.from_integer_64(b)
-			mbib.subtract_to(mbia, mbic)
-			assert(mbia.to_integer_64 = a)
-			assert(mbib.to_integer_64 = b)
-			assert(mbic.to_integer_64 = c)
-		end
+   check_subtract (a, b: INTEGER_64) is
+      local
+         c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
+      do
+         -- test `subtract'
+         c := a - b
+         --
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbia.subtract(mbib)
+         assert(mbia.to_integer_64 = c)
+         assert(mbib.to_integer_64 = b)
+         -- Commutativity:
+         c := b - a
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbib.subtract(mbia)
+         assert(mbib.to_integer_64 = c)
+         assert(mbia.to_integer_64 = a)
+         -- Test `subtract_to'
+         c := a - b
+         --
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         create mbic.from_integer(0)
+         mbia.subtract_to(mbib, mbic)
+         assert(mbia.to_integer_64 = a)
+         assert(mbib.to_integer_64 = b)
+         assert(mbic.to_integer_64 = c)
+         c := b - a
+         create mbia.from_integer_64(a)
+         create mbib.from_integer_64(b)
+         mbib.subtract_to(mbia, mbic)
+         assert(mbia.to_integer_64 = a)
+         assert(mbib.to_integer_64 = b)
+         assert(mbic.to_integer_64 = c)
+      end
 
 end -- class TEST_MUTABLE_BIG_INTEGER4
 --

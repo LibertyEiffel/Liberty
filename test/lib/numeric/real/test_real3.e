@@ -4,41 +4,41 @@
 class TEST_REAL3
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			r32_1, r32_2: REAL_32; r64_1, r64_2: REAL_64
-		do
-			r32_1 := 1.0.force_to_real_32 / 2.0.force_to_real_32 --1/2
-			r32_2 := (1.0 / 2.0).force_to_real_32 --1/2
-			assert(r32_1 > 0.45)
-			assert(r32_1 < 0.55)
-			assert(r32_2 > 0.45)
-			assert(r32_2 < 0.55)
-			r64_1 := 1.to_real_64 / 2.to_real_64 --1/2
-			r64_2 := 1.0 / 2.0 --1/2
-			assert(r64_1 > 0.45)
-			assert(r64_1 < 0.55)
-			assert(r64_2 > 0.45)
-			assert(r64_2 < 0.55)
-		end
+   make is
+      local
+         r32_1, r32_2: REAL_32; r64_1, r64_2: REAL_64
+      do
+         r32_1 := 1.0.force_to_real_32 / 2.0.force_to_real_32 --1/2
+         r32_2 := (1.0 / 2.0).force_to_real_32 --1/2
+         assert(r32_1 > 0.45)
+         assert(r32_1 < 0.55)
+         assert(r32_2 > 0.45)
+         assert(r32_2 < 0.55)
+         r64_1 := 1.to_real_64 / 2.to_real_64 --1/2
+         r64_2 := 1.0 / 2.0 --1/2
+         assert(r64_1 > 0.45)
+         assert(r64_1 < 0.55)
+         assert(r64_2 > 0.45)
+         assert(r64_2 < 0.55)
+      end
 
 feature {}
-	assert (b: BOOLEAN) is
-		do
-			cpt := cpt + 1
-			if not b then
-				std_output.put_string("TEST_REAL3: ERROR Test # ")
-				std_output.put_integer(cpt)
-				std_output.put_string("%N")
-			else
-				-- std_output.put_string("Yes%N");
-			end
-		end
+   assert (b: BOOLEAN) is
+      do
+         cpt := cpt + 1
+         if not b then
+            std_output.put_string("TEST_REAL3: ERROR Test # ")
+            std_output.put_integer(cpt)
+            std_output.put_string("%N")
+         else
+            -- std_output.put_string("Yes%N");
+         end
+      end
 
-	cpt: INTEGER
+   cpt: INTEGER
 
 end -- class TEST_REAL3
 --

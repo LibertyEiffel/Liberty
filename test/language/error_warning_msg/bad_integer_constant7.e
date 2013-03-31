@@ -9,9 +9,9 @@ feature
 
    make is 
       local
-			i64: INTEGER_64
+         i64: INTEGER_64
       do 
-			i64 := 9223372036854775807 + 1
+         i64 := 9223372036854775807 + 1
       end
    
 end -- class BAD_INTEGER_CONSTANT7

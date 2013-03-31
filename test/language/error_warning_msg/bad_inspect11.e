@@ -3,15 +3,15 @@
 --
 class BAD_INSPECT11
 creation
-	main
+   main
 feature {}
    main is
       local
-			i: INTEGER
+         i: INTEGER
       do
-			inspect Void
-			when 1 .. 3 then
-			end
+         inspect Void
+         when 1 .. 3 then
+         end
       end
 end -- class BAD_INSPECT11
 --

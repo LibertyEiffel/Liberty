@@ -9,11 +9,11 @@ feature
 
    make is
       require
-	 loc = 0
+    loc = 0
       local
-	 loc: INTEGER;
+    loc: INTEGER;
       do
-	 loc := 1;
+    loc := 1;
       end;
 
 end -- class BAD_REQUIRE1

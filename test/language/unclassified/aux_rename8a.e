@@ -4,18 +4,18 @@
 class AUX_RENAME8A
 
 feature {ANY}
-	f (i: INTEGER) is
-		do
-		end
+   f (i: INTEGER) is
+      do
+      end
 
-	g is
-		do
-		end
+   g is
+      do
+      end
 
-	h (other: like Current) is
-		do
-			other.f(1)
-		end
+   h (other: like Current) is
+      do
+         other.f(1)
+      end
 
 end -- class AUX_RENAME8A
 --

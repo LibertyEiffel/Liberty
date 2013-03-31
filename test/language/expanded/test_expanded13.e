@@ -2,31 +2,31 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXPANDED13
-	--
-	-- Written by Marc SCALZOLARO
-	--
+   --
+   -- Written by Marc SCALZOLARO
+   --
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			e1, e2: EXPANDED1
-		do
-			assert(e1.x = 0)
-			assert(e1 = e2)
-			e1 := add_two(e1)
-			assert(e1.x = 2)
-		end
+   make is
+      local
+         e1, e2: EXPANDED1
+      do
+         assert(e1.x = 0)
+         assert(e1 = e2)
+         e1 := add_two(e1)
+         assert(e1.x = 2)
+      end
 
-	add_two (e: EXPANDED1): EXPANDED1 is
-		do
-			Result.set_x(e.x + 2)
-		end
+   add_two (e: EXPANDED1): EXPANDED1 is
+      do
+         Result.set_x(e.x + 2)
+      end
 
 end -- class TEST_EXPANDED13
 --

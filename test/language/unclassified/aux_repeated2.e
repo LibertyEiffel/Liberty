@@ -4,12 +4,12 @@
 class AUX_REPEATED2
 
 feature {ANY}
-	value: INTEGER
+   value: INTEGER
 
-	set_value (v: like value) is
-		do
-			value := v
-		end
+   set_value (v: like value) is
+      do
+         value := v
+      end
 
 end -- class AUX_REPEATED2
 --

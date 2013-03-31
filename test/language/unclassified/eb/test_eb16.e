@@ -2,32 +2,32 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EB16
-	-- From a bug report of Eric BEZAULT
+   -- From a bug report of Eric BEZAULT
 
 inherit
-	AUX_EB16A
-		redefine f
-		end
-	AUX_EB16B
-		redefine f
-		end
+   AUX_EB16A
+      redefine f
+      end
+   AUX_EB16B
+      redefine f
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			boolean: BOOLEAN
-		do
-			if boolean then
-				--            print (f)
-			end
-		end
+   make is
+      local
+         boolean: BOOLEAN
+      do
+         if boolean then
+            --            print (f)
+         end
+      end
 
-	f: TEST_EB16 is
-		do
-		end
+   f: TEST_EB16 is
+      do
+      end
 
 end -- class TEST_EB16
 --

@@ -9,9 +9,9 @@ feature
 
    make is
       local
-	 ri: reference INTEGER_GENERAL
+    ri: reference INTEGER_GENERAL
       do
-	 ri := ri
+    ri := ri
       end
    
 end -- class BAD_REFERENCE1

@@ -4,46 +4,46 @@
 class TEST_INSPECT15
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		do
-			assert(test("a") = 1)
-			assert(test("ab") = 2)
-			assert(test("c") = 3)
-			assert(test("") = 0)
-			assert(test("abcd") = 0)
-			assert(test("bab") = 0)
-			assert(test("ca") = 0)
-			assert(test("d") = 0)
-			assert(test("ww") = 0)
-			assert(test(".") = 4)
-			assert(test(".a") = 0)
-			assert(test("A") = 0)
-			assert(test("ac") = 2)
-			assert(test("acd") = 0)
-		end
+   make is
+      do
+         assert(test("a") = 1)
+         assert(test("ab") = 2)
+         assert(test("c") = 3)
+         assert(test("") = 0)
+         assert(test("abcd") = 0)
+         assert(test("bab") = 0)
+         assert(test("ca") = 0)
+         assert(test("d") = 0)
+         assert(test("ww") = 0)
+         assert(test(".") = 4)
+         assert(test(".a") = 0)
+         assert(test("A") = 0)
+         assert(test("ac") = 2)
+         assert(test("acd") = 0)
+      end
 
-	test (s: STRING): INTEGER is
-		do
-			inspect
-				s
-			when "a" then
-				Result := 1
-			when "ab", "ac" then
-				Result := 2
-			when "c" then
-				Result := 3
-			when "." then
-				Result := 4
-			else
-				Result := 0
-			end
-		end
+   test (s: STRING): INTEGER is
+      do
+         inspect
+            s
+         when "a" then
+            Result := 1
+         when "ab", "ac" then
+            Result := 2
+         when "c" then
+            Result := 3
+         when "." then
+            Result := 4
+         else
+            Result := 0
+         end
+      end
 
 end -- class TEST_INSPECT15
 --

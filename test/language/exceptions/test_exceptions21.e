@@ -4,36 +4,36 @@
 class TEST_EXCEPTIONS21
 
 inherit
-	ANY
-		rename default_rescue as dummy
-		redefine dummy
-		end
+   ANY
+      rename default_rescue as dummy
+      redefine dummy
+      end
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	r: like Current
+   r: like Current
 
-	make is
-		do
-			foo
-		rescue
-			retry
-		end
+   make is
+      do
+         foo
+      rescue
+         retry
+      end
 
-	dummy is
-		do
-			r := Current
-			if r = Void then
-			end
-		end
+   dummy is
+      do
+         r := Current
+         if r = Void then
+         end
+      end
 
-	foo is
-		do
-			if r = Void then
-			end
-		end
+   foo is
+      do
+         if r = Void then
+         end
+      end
 
 end -- class TEST_EXCEPTIONS21
 --
