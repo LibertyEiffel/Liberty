@@ -974,6 +974,20 @@ feature {TYPE, CLASS_TEXT_VISITOR}
          -- the same features contained in `feature_clause_list' (this
          -- dictionary speed up feature look up).
 
+   creation_list_check (type: TYPE) is
+      require
+         type.class_text = Current
+      do
+         if not creation_list_check_done then
+            -- So that we are sure that those checks are done only once even when the class is generic.
+            creation_list_check_done := True
+            if creation_clause_list /= Void then
+               creation_clause_list.check_for(type)
+            end
+         end
+      end
+
+feature {ANY}
    any_copy_feature: ANONYMOUS_FEATURE is
          -- To get the original definition of feature `copy' from class ANY.
       require
@@ -1005,19 +1019,6 @@ feature {TYPE, CLASS_TEXT_VISITOR}
          Result := feature_dictionary.at(fn_buffer)
       ensure
          Result.names.first.to_string = as_do_at_exit
-      end
-
-   creation_list_check (type: TYPE) is
-      require
-         type.class_text = Current
-      do
-         if not creation_list_check_done then
-            -- So that we are sure that those checks are done only once even when the class is generic.
-            creation_list_check_done := True
-            if creation_clause_list /= Void then
-               creation_clause_list.check_for(type)
-            end
-         end
       end
 
 feature {}

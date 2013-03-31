@@ -349,6 +349,12 @@ feature {INTERNAL_LOCAL2}
          visited.to_pointer.append_in(trace)
       end
 
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         visited.index.accept(Current)
+      end
+
 feature {NO_DISPATCH}
    visit_no_dispatch (visited: NO_DISPATCH) is
       do

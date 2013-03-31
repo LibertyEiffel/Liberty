@@ -138,7 +138,7 @@ feature {ANY}
          visitor.visit_live_type(Current)
       end
 
-feature {SMART_EIFFEL, EXTERNAL_FUNCTION, LIVE_TYPE_EXTRA_COLLECTOR}
+feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
    collect (fs: FEATURE_STAMP) is
       require
          valid_stamp: fs /= Void

@@ -1010,6 +1010,25 @@ feature {NON_VOID_NO_DISPATCH}
       do
       end
 
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         if enter_native_array_item(visited) then
+            visited.index.accept(Current)
+            exit_native_array_item(visited)
+         end
+      end
+
+feature {}
+   enter_native_array_item (visited: NATIVE_ARRAY_ITEM): BOOLEAN is
+      do
+         Result := True
+      end
+
+   exit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+      end
+
 feature {NULL_POINTER}
    visit_null_pointer (visited: NULL_POINTER) is
       do

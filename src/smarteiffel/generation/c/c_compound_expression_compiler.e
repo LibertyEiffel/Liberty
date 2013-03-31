@@ -78,6 +78,7 @@ insert
          visit_dynamic_dispatch_temporary1,
          visit_dynamic_dispatch_temporary2,
          visit_internal_local2,
+         visit_native_array_item,
          visit_no_dispatch,
          visit_non_void_no_dispatch,
          visit_null_pointer,
@@ -604,6 +605,14 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
 
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+      do
+         function_body.append(continue)
+         Precursor(visited)
+         function_body.append(finish)
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
       do
          function_body.append(continue)
          Precursor(visited)

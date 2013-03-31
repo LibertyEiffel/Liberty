@@ -45,6 +45,7 @@ insert
          visit_dynamic_dispatch_temporary1,
          visit_dynamic_dispatch_temporary2,
          visit_internal_local2,
+         visit_native_array_item,
          visit_no_dispatch,
          visit_non_void_no_dispatch,
          visit_old_manifest_array,
@@ -333,6 +334,23 @@ feature {INTERNAL_LOCAL2}
                function_body.extend('&')
             end
             Precursor(visited)
+         else
+            Precursor(visited)
+         end
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         if target_formal_type.is_user_expanded then
+            if not target_formal_type.is_empty_expanded then
+               function_body.extend('&')
+               function_body.extend('(')
+               Precursor(visited)
+               function_body.extend(')')
+            else
+               Precursor(visited)
+            end
          else
             Precursor(visited)
          end

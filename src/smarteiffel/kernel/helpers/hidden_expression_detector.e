@@ -214,6 +214,12 @@ feature {MANIFEST_TUPLE}
          end
       end
 
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         visited.index.accept(Current)
+      end
+
 feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
       do

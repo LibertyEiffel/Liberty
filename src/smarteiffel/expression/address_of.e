@@ -324,8 +324,8 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       do
          if local_name /= Void then
             code_accumulator.current_context.add_last(Current)
-         elseif calling_code /= Void then
-            code_accumulator.current_context.add_last(Current)
+         --elseif calling_code /= Void then --| **** ??? strange code (see invariant)
+         --   code_accumulator.current_context.add_last(Current)
          else
             code_accumulator.open_new_context
             calling_code.inline_dynamic_dispatch_(code_accumulator, type)

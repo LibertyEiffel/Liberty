@@ -28,6 +28,7 @@ inherit
          visit_dynamic_dispatch_temporary1_id,
          visit_dynamic_dispatch_temporary2,
          visit_void_call,
+         visit_native_array_item,
          visit_non_void_no_dispatch,
          visit_compound_expression
       end
@@ -306,6 +307,14 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
             Precursor(visited)
          else
             visited.dynamic_dispatch_temporary1.accept(Current)
+         end
+      end
+
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         if old_mode then
+            Precursor(visited)
          end
       end
 

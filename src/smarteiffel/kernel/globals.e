@@ -2,9 +2,9 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class GLOBALS
-   --
-   -- Global Tools for the Liberty Eiffel system.
-   --
+--
+-- Global Tools for the Liberty Eiffel system.
+--
 
 insert
    ALIASED_STRING_LIST
@@ -227,7 +227,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(default_create_name)
          if Result = Void then
             error_handler.append("Feature `default_create' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -237,7 +237,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(default_rescue_name)
          if Result = Void then
             error_handler.append("Feature `default_rescue' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -247,7 +247,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(copy_name)
          if Result = Void then
             error_handler.append("Feature `copy' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -257,7 +257,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(is_equal_name)
          if Result = Void then
             error_handler.append("Feature `is_equal' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -267,7 +267,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(deep_twin_name)
          if Result = Void then
             error_handler.append("Feature `deep_twin' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -277,7 +277,7 @@ feature {ANY}
          Result := smart_eiffel.type_any.feature_stamp_of(is_deep_equal_name)
          if Result = Void then
             error_handler.append("Feature `is_deep_equal' not found in class ANY. %
-            %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
+                                 %Really, you should not try to write or modify the ANY class provided with Liberty Eiffel.")
             error_handler.print_as_fatal_error
          end
       end
@@ -371,22 +371,22 @@ feature {ANY}
          Result := string_aliaser.hashed_string(as_or_else)
       end
 
-    twin_name: HASHED_STRING is
+   twin_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_twin)
       end
 
-    copy_name: HASHED_STRING is
+   copy_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_copy)
       end
 
-    is_equal_name: HASHED_STRING is
+   is_equal_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_is_equal)
       end
 
-    deep_twin_name: HASHED_STRING is
+   deep_twin_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_deep_twin)
       end
@@ -396,7 +396,7 @@ feature {ANY}
          Result := string_aliaser.hashed_string(as_deep_twin_from)
       end
 
-    is_deep_equal_name: HASHED_STRING is
+   is_deep_equal_name: HASHED_STRING is
       once
          Result := string_aliaser.hashed_string(as_is_deep_equal)
       end

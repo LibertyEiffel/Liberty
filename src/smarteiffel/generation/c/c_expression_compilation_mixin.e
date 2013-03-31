@@ -959,6 +959,14 @@ feature {INTERNAL_LOCAL2}
          internal_c_local_tag(visited).append_in(function_body)
       end
 
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      do
+         function_body.append(once "/*NAI*/(C[")
+         compile_expression(visited.index)
+         function_body.append(once "])")
+      end
+
 feature {NO_DISPATCH}
    visit_no_dispatch (visited: NO_DISPATCH) is
       do

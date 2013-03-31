@@ -404,8 +404,8 @@ feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_C
          --|*** PH(03/03/04) To be removed
          lt := collect_one_type(type, at_run_time)
          --|*** PH(03/03/04) should be "af := fs.anonymous_feature(type)",
-         --but in order to quickly solve a hard problem I added one
-         --extra resolution.
+         --|but in order to quickly solve a hard problem I added one
+         --|extra resolution.
          --
 --         tmp_fs := fs.resolve_dynamic_binding_for(type)
 --***

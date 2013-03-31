@@ -1,21 +1,19 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class NON_WRITTEN_EXPRESSION_VISITOR
+deferred class NATIVE_ARRAY_ITEM_VISITOR
 
 inherit
-   COMPOUND_EXPRESSION_VISITOR
-   DYNAMIC_DISPATCH_TEMPORARY1_ID_VISITOR
-   DYNAMIC_DISPATCH_TEMPORARY1_VISITOR
-   DYNAMIC_DISPATCH_TEMPORARY2_VISITOR
-   INTERNAL_LOCAL2_VISITOR
-   NATIVE_ARRAY_ITEM_VISITOR
-   NO_DISPATCH_VISITOR
-   NON_VOID_NO_DISPATCH_VISITOR
-   NULL_POINTER_VISITOR
-   VOID_CALL_VISITOR
+   VISITOR
 
-end -- class NON_WRITTEN_EXPRESSION_VISITOR
+feature {NATIVE_ARRAY_ITEM}
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+      require
+         visited /= Void
+      deferred
+      end
+
+end -- class NATIVE_ARRAY_ITEM_VISITOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
