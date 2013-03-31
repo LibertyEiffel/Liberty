@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED41
 insert
    ANY
       redefine
-         default_create, is_equal
+         default_create, is_equal, copy
       end
 
 feature {ANY}
@@ -30,6 +30,11 @@ feature {ANY}
    is_equal (other: like Current): BOOLEAN is
       do
          Result := value = other.value
+      end
+
+   copy (other: like Current) is
+      do
+         value := other.value
       end
 
 feature {}
