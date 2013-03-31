@@ -10,7 +10,10 @@ insert
          next, current_character, end_of_input
       end
    XML_DTD_MEMORY
-   SINGLETON undefine is_equal end 
+   SINGLETON
+      undefine
+         is_equal
+      end
    URL_VALIDITY
 
 creation {XML_PARSER}
@@ -148,12 +151,16 @@ feature {}
 
    url: URL is
       do
-         Result := urls.last
+         if urls /= Void then
+            Result := urls.last
+         end
       end
 
    buffer: UNICODE_PARSER_BUFFER is
       do
-         Result := buffers.last
+         if buffers /= Void then
+            Result := buffers.last
+         end
       end
 
    relative_url (a_url: STRING): URL is
@@ -1084,6 +1091,6 @@ feature {}
       end
 
 invariant
-   urls /= Void implies urls.count = buffers.count
+   urls /= Void implies (buffers /= Void and then (urls.count = buffers.count))
 
 end -- class XML_DTD_PARSER
