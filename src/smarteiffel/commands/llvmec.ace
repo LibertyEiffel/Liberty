@@ -32,13 +32,13 @@ cluster
          assertion(all)
       end
 
-   llvmec: "${path_se_tools}generation/llvm/loadpath.se"
+   llvmec: "${path_tools}generation/llvm/loadpath.se"
       default
          assertion(no)
       -- option debug(yes): POSITION debug("run_feature_for"): FEATURE_STAMP
       end
 
-   smarteiffel: "${path_se_tools}loadpath.se"
+   smarteiffel: "${path_tools}loadpath.se"
       default
          assertion(no)
       -- option debug(yes): POSITION debug("run_feature_for"): FEATURE_STAMP
