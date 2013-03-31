@@ -1,0 +1,11 @@
+<!DOCTYPE doc
+[
+<!ELEMENT doc (a|b)*>
+<!ELEMENT a EMPTY>
+<!ELEMENT b EMPTY>
+<!NOTATION a SYSTEM "a">
+<!NOTATION b SYSTEM "b">
+<!ATTLIST a att NOTATION (a) #IMPLIED>
+<!ATTLIST b att NOTATION ( a | b ) #IMPLIED>
+]>
+<doc/>
