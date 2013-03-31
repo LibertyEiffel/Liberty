@@ -4,10 +4,10 @@
 class TEST_002
 
 insert
-	PYRAMID
+   PYRAMID
 
 creation {ANY}
-	make
+   make
 
 end -- class TEST_002
 --

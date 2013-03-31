@@ -1,55 +1,55 @@
-system 
+system
     "test_002.exe" -- is the name for the executable
 
 root
     TEST_002: make
-    -- To indicate that the execution will start in procedure "make" of 
+    -- To indicate that the execution will start in procedure "make" of
     -- class PYRAMID.
 
 default -- The default section:
 
-   -- To select the default assertion level to be verified: 
+   -- To select the default assertion level to be verified:
    assertion (loop) -- Try to change this "loop" keyword for example.
 
    -- To include or to exclude the Garbage Collector:
    collect (yes) -- Yes or No is a valid answer here.
 
--- The default section is finished, the next keyword starts the 
--- cluster section.    
+-- The default section is finished, the next keyword starts the
+-- cluster section.
 cluster
-        "."
-        -- The description of the first cluster starts with its name 
-        -- just folowed by the path of the directory:
-	demos_cluster: "${path_tutorial}"
-                       -- The ${path_tutorial} variable is set in the
-                       -- configuration file (.serc or system.se)
-           end 
-	
-        -- The string cluster:
-        standard : "${path_lib}/string"
-           default
-               assertion (require)
-           option
-               -- To override the previously defined level
-               -- for some classes of this cluster:
-               assertion (ensure): STRING
-           end 
+   "."
+   -- The description of the first cluster starts with its name
+   -- just folowed by the path of the directory:
+   demos_cluster: "${path_tutorial}"
+             -- The ${path_tutorial} variable is set in the
+             -- configuration file (.serc or system.se)
+      end
 
-        -- The io terminal cluster:
-        standard : "${path_lib}/io/terminal" 
-           default
-               assertion (ensure)
-           option
-               -- To override the previously defined level
-               -- for some classes of this cluster:
-               assertion (require): STD_INPUT
-           end
+   -- The string cluster:
+   standard : "${path_lib}/string"
+      default
+          assertion (require)
+      option
+          -- To override the previously defined level
+          -- for some classes of this cluster:
+          assertion (ensure): STRING
+      end
 
-        -- SmartEiffel's standard library. Always put this last so 
-        -- that you can override options for parts of the library.
-        standard: "${path_lib}/loadpath.se"
-           default
-               assertion (ensure)
-	   end
+   -- The io terminal cluster:
+   standard : "${path_lib}/io/terminal"
+      default
+          assertion (ensure)
+      option
+          -- To override the previously defined level
+          -- for some classes of this cluster:
+          assertion (require): STD_INPUT
+      end
+
+   -- SmartEiffel's standard library. Always put this last so
+   -- that you can override options for parts of the library.
+   standard: "${path_lib}/loadpath.se"
+      default
+          assertion (ensure)
+      end
 
 end

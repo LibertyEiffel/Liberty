@@ -4,14 +4,14 @@
 class TEST_003
 
 creation {}
-	make
+   make
 
 feature {}
-	make is
-		do
-		end
+   make is
+      do
+      end
 
-	se_call: INTEGER
+   se_call: INTEGER
 
 end -- class TEST_003
 --
