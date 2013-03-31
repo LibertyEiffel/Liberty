@@ -918,6 +918,7 @@ feature {}
             a_buffer.extend(b.code)
             b.next
          end
+         b.disconnect
          buffer_pool.recycle(b)
       ensure
          u.input.end_of_input
