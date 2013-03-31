@@ -4,34 +4,34 @@
 class TEST_BINARY_FILE_WRITE
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
-	make is
-		local
-			bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
-		do
-			create bfw.connect_to("test_binary_file_write.dat")
-			assert(bfw.is_connected)
-			bfw.put_byte(1)
-			bfw.disconnect
-			assert(not bfw.is_connected)
-			create bfr.connect_to("test_binary_file_write.dat")
-			assert(bfr.is_connected)
-			bfr.read_byte
-			assert(bfr.last_byte = 1)
-			assert(not bfr.end_of_input)
-			bfr.read_byte
-			assert(bfr.end_of_input)
-			bfr.disconnect
-			assert(not bfr.is_connected)
-			file_tools.delete("test_binary_file_write.dat")
-		end
+   make is
+      local
+         bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
+      do
+         create bfw.connect_to("test_binary_file_write.dat")
+         assert(bfw.is_connected)
+         bfw.put_byte(1)
+         bfw.disconnect
+         assert(not bfw.is_connected)
+         create bfr.connect_to("test_binary_file_write.dat")
+         assert(bfr.is_connected)
+         bfr.read_byte
+         assert(bfr.last_byte = 1)
+         assert(not bfr.end_of_input)
+         bfr.read_byte
+         assert(bfr.end_of_input)
+         bfr.disconnect
+         assert(not bfr.is_connected)
+         file_tools.delete("test_binary_file_write.dat")
+      end
 
 end -- class TEST_BINARY_FILE_WRITE
 --

@@ -4,37 +4,37 @@
 class TEST_READ_REAL1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			sfr: TEXT_FILE_READ; r: REAL
-		do
-			create sfr.connect_to("aux_read_real1.dat")
-			assert(sfr.is_connected)
-			sfr.read_real
-			r := sfr.last_real
-			assert(r = 1.0)
-			sfr.read_real
-			r := sfr.last_real
-			assert(r = 2.5)
-			sfr.read_character
-			assert(sfr.last_character = 'A')
-			sfr.read_real
-			r := sfr.last_real
-			assert(r = 3.0)
-			sfr.read_real
-			r := sfr.last_real
-			assert(r = 4.5)
-			assert(sfr.end_of_input)
-			sfr.read_real
-			assert(not sfr.valid_last_real)
-			sfr.disconnect
-		end
+   main is
+      local
+         sfr: TEXT_FILE_READ; r: REAL
+      do
+         create sfr.connect_to("aux_read_real1.dat")
+         assert(sfr.is_connected)
+         sfr.read_real
+         r := sfr.last_real
+         assert(r = 1.0)
+         sfr.read_real
+         r := sfr.last_real
+         assert(r = 2.5)
+         sfr.read_character
+         assert(sfr.last_character = 'A')
+         sfr.read_real
+         r := sfr.last_real
+         assert(r = 3.0)
+         sfr.read_real
+         r := sfr.last_real
+         assert(r = 4.5)
+         assert(sfr.end_of_input)
+         sfr.read_real
+         assert(not sfr.valid_last_real)
+         sfr.disconnect
+      end
 
 end -- class TEST_READ_REAL1
 --

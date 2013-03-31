@@ -4,38 +4,38 @@
 class TEST_READ_CHARACTER
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	i: INTEGER
+   i: INTEGER
 
-	path: STRING
+   path: STRING
 
-	text_file_read: TEXT_FILE_READ
+   text_file_read: TEXT_FILE_READ
 
-	main is
-		do
-			path := once "test_read_character.e"
-			from
-				i := 0
-				create text_file_read.connect_to(path)
-				assert(text_file_read.is_connected)
-				text_file_read.read_character
-			until
-				text_file_read.end_of_input
-			loop
-				i := i + 1
-				text_file_read.read_character
-			end
-			assert(i = size)
-			text_file_read.disconnect
-		end
+   main is
+      do
+         path := once "test_read_character.e"
+         from
+            i := 0
+            create text_file_read.connect_to(path)
+            assert(text_file_read.is_connected)
+            text_file_read.read_character
+         until
+            text_file_read.end_of_input
+         loop
+            i := i + 1
+            text_file_read.read_character
+         end
+         assert(i = size)
+         text_file_read.disconnect
+      end
 
-	size: INTEGER is 2103
-			-- `size' of this file.
+   size: INTEGER is 2103
+         -- `size' of this file.
 
 end -- class TEST_READ_CHARACTER
 --

@@ -4,33 +4,33 @@
 class TEST_BINARY_FILE_READ
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	main is
-		local
-			i: INTEGER; path: STRING; bfr: BINARY_FILE_READ
-		do
-			path := "test_binary_file_read.e"
-			from
-				i := 0
-				create bfr.connect_to(path)
-				assert(bfr.is_connected)
-				bfr.read_byte
-			until
-				bfr.end_of_input
-			loop
-				i := i + 1
-				bfr.read_byte
-			end
-			assert(i = size)
-			bfr.disconnect
-		end
+   main is
+      local
+         i: INTEGER; path: STRING; bfr: BINARY_FILE_READ
+      do
+         path := "test_binary_file_read.e"
+         from
+            i := 0
+            create bfr.connect_to(path)
+            assert(bfr.is_connected)
+            bfr.read_byte
+         until
+            bfr.end_of_input
+         loop
+            i := i + 1
+            bfr.read_byte
+         end
+         assert(i = size)
+         bfr.disconnect
+      end
 
-	size: INTEGER is 1999
+   size: INTEGER is 1999
 
 end -- class TEST_BINARY_FILE_READ
 --

@@ -1,0 +1,11 @@
+se c -flat_check -ensure_check
+se c -flat_check -invariant_check
+se c -flat_check -loop_check
+se c -boost
+se c -no_split -no_gc -boost
+se c -profile
+se c -no_gc
+se c -all_check
+se c -loop_check
+se c -invariant_check
+se c -ensure_check

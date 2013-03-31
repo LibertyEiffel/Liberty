@@ -4,27 +4,27 @@
 class TEST_READ_REAL2
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			in: STRING_INPUT_STREAM
-		do
-			create in.from_string("1E")
-			in.read_real
-			assert(not in.valid_last_real)
-			create in.from_string("2836E+")
-			in.read_real
-			assert(not in.valid_last_real)
-			create in.from_string("2E3")
-			in.read_real
-			assert(in.valid_last_real)
-			assert(in.last_real = 2000)
-		end
+   make is
+      local
+         in: STRING_INPUT_STREAM
+      do
+         create in.from_string("1E")
+         in.read_real
+         assert(not in.valid_last_real)
+         create in.from_string("2836E+")
+         in.read_real
+         assert(not in.valid_last_real)
+         create in.from_string("2E3")
+         in.read_real
+         assert(in.valid_last_real)
+         assert(in.last_real = 2000)
+      end
 
 end -- class TEST_READ_REAL2
 --

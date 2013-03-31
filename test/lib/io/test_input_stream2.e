@@ -4,28 +4,28 @@
 class TEST_INPUT_STREAM2
 
 insert
-	EIFFELTEST_TOOLS
-	SYSTEM
-	DIRECTORY_NOTATION_HANDLER
+   EIFFELTEST_TOOLS
+   SYSTEM
+   DIRECTORY_NOTATION_HANDLER
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			text_file_read: TEXT_FILE_READ
-		do
-			create text_file_read.connect_to("aux_input_stream2.txt")
-			assert(text_file_read.is_connected)
-			text_file_read.read_integer
-			assert(text_file_read.end_of_input)
-			assert(text_file_read.valid_last_integer)
-			assert(text_file_read.last_integer = 5)
-			text_file_read.read_character
-			assert(text_file_read.end_of_input)
-			text_file_read.disconnect
-		end
+   make is
+      local
+         text_file_read: TEXT_FILE_READ
+      do
+         create text_file_read.connect_to("aux_input_stream2.txt")
+         assert(text_file_read.is_connected)
+         text_file_read.read_integer
+         assert(text_file_read.end_of_input)
+         assert(text_file_read.valid_last_integer)
+         assert(text_file_read.last_integer = 5)
+         text_file_read.read_character
+         assert(text_file_read.end_of_input)
+         text_file_read.disconnect
+      end
 
 end -- class TEST_INPUT_STREAM2
 --

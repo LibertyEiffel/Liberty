@@ -4,27 +4,27 @@
 class TEST_FILE_COPY
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {}
-	make is
-		local
-			tfw: TEXT_FILE_WRITE; ft: FILE_TOOLS; txt, cpy, msg: STRING
-		do
-			txt := "test_file_copy.txt"
-			cpy := "test_file_copy.cpy"
-			msg := "test file copy%N"
-			create tfw.connect_to(txt)
-			tfw.put_string(msg)
-			tfw.disconnect
-			ft.copy_to(txt, cpy)
-			assert(ft.same_files(txt, cpy))
-			ft.delete(txt)
-			ft.delete(cpy)
-		end
+   make is
+      local
+         tfw: TEXT_FILE_WRITE; ft: FILE_TOOLS; txt, cpy, msg: STRING
+      do
+         txt := "test_file_copy.txt"
+         cpy := "test_file_copy.cpy"
+         msg := "test file copy%N"
+         create tfw.connect_to(txt)
+         tfw.put_string(msg)
+         tfw.disconnect
+         ft.copy_to(txt, cpy)
+         assert(ft.same_files(txt, cpy))
+         ft.delete(txt)
+         ft.delete(cpy)
+      end
 
 end -- class TEST_FILE_COPY
 --

@@ -2,26 +2,28 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_DIRECTORY01
-	-- Test for sz:527
+   -- Test for sz:527
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: DIRECTORY; s: STRING; f: TEXT_FILE_READ
-		do
-			create d.scan_current_working_directory
-			d.scan_parent_directory
-			s := d.path.twin
-			create f.make
-			d.connect_to_file(f, "foo.bar")
-			assert(s.is_equal(d.path))
-		end
+   make is
+      local
+         d: DIRECTORY; s: ABSTRACT_STRING; f: TEXT_FILE_READ
+      do
+         create d.scan_current_working_directory
+         d := d.parent
+         s := d.path.twin
+         assert(s.is_equal(d.path))
+         create f.make
+         d.connect_to_file_stream(f, "README")
+         assert(f.is_connected)
+         f.disconnect
+      end
 
 end -- class TEST_DIRECTORY01
 --

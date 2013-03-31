@@ -4,30 +4,30 @@
 class TEST_BASE64_STREAM1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			in64: BASE64_INPUT_STREAM; out64: BASE64_OUTPUT_STREAM; ins: STRING_INPUT_STREAM; outs: STRING_OUTPUT_STREAM
-			str: STRING
-		do
-			create outs.make
-			create out64.connect_to(outs)
-			out64.put_string(msg)
-			str := outs.to_string
-			outs.disconnect
-			create ins.from_string(str)
-			create in64.connect_to(ins)
-			in64.read_line
-			assert(msg.is_equal(in64.last_string))
-			ins.disconnect
-		end
+   make is
+      local
+         in64: BASE64_INPUT_STREAM; out64: BASE64_OUTPUT_STREAM; ins: STRING_INPUT_STREAM; outs: STRING_OUTPUT_STREAM
+         str: STRING
+      do
+         create outs.make
+         create out64.connect_to(outs)
+         out64.put_string(msg)
+         str := outs.to_string
+         outs.disconnect
+         create ins.from_string(str)
+         create in64.connect_to(ins)
+         in64.read_line
+         assert(msg.is_equal(in64.last_string))
+         ins.disconnect
+      end
 
-	msg: STRING is "Jell-o world"
+   msg: STRING is "Jell-o world"
 
 end -- class TEST_BASE64_STREAM1
 --

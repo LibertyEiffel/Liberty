@@ -4,52 +4,52 @@
 class TEST_INPUT_STREAM1
 
 insert
-	SYSTEM
-	EIFFELTEST_TOOLS
+   SYSTEM
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {ANY}
-	main is
-		local
-			tfr: TEXT_FILE_READ; value: INTEGER; path: STRING
-			last_character:CHARACTER
-		do
-			path := "test_input_stream1.e"
-			create tfr.connect_to(path)
-			assert(tfr.is_connected)
-			tfr.reach_and_skip("YOO" -- ICI
-			)
-			assert(tfr.last_character = 'O')
-			assert(tfr.last_string.is_equal("YOO"))
-			tfr.read_line
-			assert(tfr.last_string.is_equal("%" -- ICI"))
-			tfr.skip_separators
-			last_character := tfr.last_character
-			assert(tfr.last_character = '%T')
-			tfr.read_word
-			assert(tfr.last_string.is_equal(")"))
-			tfr.skip_separators
-			last_character := tfr.last_character
-			assert(tfr.last_character = '%T')
-			tfr.skip_separators
-			assert(tfr.last_character = '%T')
-			-- TEST01:12
-			tfr.reach_and_skip("TEST01:")
-			assert(tfr.last_character = ':')
-			tfr.read_integer
-			value := tfr.last_integer
-			assert(value = 12)
-			-- TEST02:3.5
-			tfr.reach_and_skip("TEST02:")
-			assert(tfr.last_character = ':')
-			tfr.read_real
-			assert(tfr.last_real = 3.5)
-			tfr.reach_and_skip(path)
-			assert(tfr.end_of_input)
-			tfr.disconnect
-		end
+   main is
+      local
+         tfr: TEXT_FILE_READ; value: INTEGER; path: STRING
+         last_character:CHARACTER
+      do
+         path := "test_input_stream1.e"
+         create tfr.connect_to(path)
+         assert(tfr.is_connected)
+         tfr.reach_and_skip("YOO" -- ICI
+                            )
+         assert(tfr.last_character = 'O')
+         assert(tfr.last_string.is_equal("YOO"))
+         tfr.read_line
+         assert(tfr.last_string.is_equal("%" -- ICI"))
+         tfr.skip_separators
+         last_character := tfr.last_character
+         assert(tfr.last_character = '%T')
+         tfr.read_word
+         assert(tfr.last_string.is_equal(")"))
+         tfr.skip_separators
+         last_character := tfr.last_character
+         assert(tfr.last_character = '%T')
+         tfr.skip_separators
+         assert(tfr.last_character = '%T')
+         -- TEST01:12
+         tfr.reach_and_skip("TEST01:")
+         assert(tfr.last_character = ':')
+         tfr.read_integer
+         value := tfr.last_integer
+         assert(value = 12)
+         -- TEST02:3.5
+         tfr.reach_and_skip("TEST02:")
+         assert(tfr.last_character = ':')
+         tfr.read_real
+         assert(tfr.last_real = 3.5)
+         tfr.reach_and_skip(path)
+         assert(tfr.end_of_input)
+         tfr.disconnect
+      end
 
 end -- class TEST_INPUT_STREAM1
 --

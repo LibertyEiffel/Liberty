@@ -4,23 +4,23 @@
 class TEST_SIZE_OF1
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	main
+   main
 
 feature {}
-	file_tools: FILE_TOOLS
+   file_tools: FILE_TOOLS
 
-	main is
-		local
-			i: INTEGER
-		do
-			i := file_tools.size_of("test_size_of1.e")
-			assert(i = 1825)
-			i := file_tools.size_of("does_not_exists")
-			assert(i < 0)
-		end
+   main is
+      local
+         i: INTEGER
+      do
+         i := file_tools.size_of("test_size_of1.e")
+         assert(i = 1825)
+         i := file_tools.size_of("does_not_exists")
+         assert(i < 0)
+      end
 
 end -- class TEST_SIZE_OF1
 --

@@ -4,28 +4,30 @@
 class TEST_DIRECTORY02
 
 insert
-	EIFFELTEST_TOOLS
+   EIFFELTEST_TOOLS
 
 creation {ANY}
-	make
+   make
 
 feature {ANY}
-	make is
-		local
-			d: DIRECTORY; directory_path, s: STRING; f: TEXT_FILE_READ
-		do
-			directory_path := "."
-			create d.scan(directory_path)
-			assert(directory_path.is_equal("."))
-			s := d.path
-			assert(not s.is_equal(directory_path))
-			assert(s.count > 1)
-			d.scan_parent_directory
-			s := d.path.twin
-			create f.make
-			d.connect_to_file(f, "foo.bar")
-			assert(s.is_equal(d.path))
-		end
+   make is
+      local
+         d: DIRECTORY; directory_path, s: ABSTRACT_STRING; f: TEXT_FILE_READ
+      do
+         directory_path := "."
+         create d.scan(directory_path)
+         assert(directory_path.is_equal("."))
+         s := d.path
+         assert(not s.is_equal(directory_path))
+         assert(s.count > 1)
+         d := d.parent
+         s := d.path.twin
+         assert(s.is_equal(d.path))
+         create f.make
+         d.connect_to_file_stream(f, "README")
+         assert(f.is_connected)
+         f.disconnect
+      end
 
 end -- class TEST_DIRECTORY02
 --
