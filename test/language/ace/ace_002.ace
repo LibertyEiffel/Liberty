@@ -2,7 +2,7 @@ system
     "test_002.exe" -- is the name for the executable
 
 root
-    TEST_002: make
+    TEST_002: main
     -- To indicate that the execution will start in procedure "make" of
     -- class PYRAMID.
 
@@ -35,8 +35,8 @@ cluster
           assertion (ensure): STRING
       end
 
-   -- The io terminal cluster:
-   standard : "${path_lib}/io/terminal"
+   -- The io basic cluster:
+   standard : "${path_lib}/io/basic"
       default
           assertion (ensure)
       option

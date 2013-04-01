@@ -12,8 +12,7 @@ Running "test_001.exe".
 se clean test_001.e
 Removing "test_001.exe".
 se c ace_002.ace
-Excluded command: "Running "test_002.exe".".
-By excluded.lst:  "Running "test_002.exe".".
+Running "test_002.exe".
 se clean test_002.e
 Removing "test_002.exe".
 se c ace_003.ace
@@ -21,7 +20,14 @@ Running "test_003.exe".
 se clean test_003.e
 Removing "test_003.exe".
 --------------------------------------------------------------------------------
-All entries of the "excluded.lst" file are used (good).
+Warning, 7 entries of "excluded.lst" not used.
+Entry "se c -profile" not used.
+Entry "se c -no_gc" not used.
+Entry "se c -all_check -debug" not used.
+Entry "se c -all_check" not used.
+Entry "se c -loop_check" not used.
+Entry "se c -invariant_check" not used.
+Entry "se c -ensure_check" not used.
 --------------------------------------------------------------------------------
 End of "se test" log file ("log.new" should be identical with "log.ref").
 Check that manually and overwrite "log.ref" with "log.new" if you agree.
